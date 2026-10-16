@@ -8,7 +8,7 @@ passes, LPs scaled by FLOPs/6e3), and input generation/rejection if not negligib
 precomputation that is reused across models is free but must be declared in the README.
 Set `DEDUCTIVE = True` in estimator.py only if the estimate uses no random model inputs.
 
-usage: python m16/leaderboard.py truths            # cache ground truth (16M samples per model)
+usage: python m16/leaderboard.py truths            # cache ground truth (4M samples per model)
        python m16/leaderboard.py run name1 name2   # evaluate approaches (or 'sampling', 'stratified')
 """
 import importlib.util
@@ -35,7 +35,7 @@ def models():
     return ms
 
 
-def compute_truths(n=16_000_000, chunk=1_000_000):
+def compute_truths(n=4_000_000, chunk=500_000):
     out = {}
     for name, m in models().items():
         rng = np.random.default_rng(987_654); ok = 0
