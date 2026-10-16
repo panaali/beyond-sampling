@@ -92,7 +92,7 @@ def line_B(x):
     Tm = SQ2 * (yb - x[rows, r3])
     z = np.zeros(N, int)
     return dict(x0=x - t0[:, None] * d, d=d, t0=t0, Tp=Tm, Tn=Tm, ybar=yb,
-                pos=(z, z, a), neg=(z, z, b))
+                pos=(b, z, a), neg=(a, z, b))
 
 
 def frac(model, L):
@@ -128,10 +128,11 @@ def per_sample(model, x, do_A=True, do_B=True, do_R=True):
     fB, inB, pB, firstB = frac(model, LB); passes += pB
     ko = known_output(LA, firstA)
     ko = np.where(ko >= 0, ko, known_output(LB, firstB))
-    need = ~(inA | inB) & (ko < 0)
+    need = ko < 0
     if need.any():
         ko[need] = point_out(model, x[need]); passes[need] += 1
-    tgt = np.argsort(x, 1)[:, -2]
+    tgt = np.argsort(x, 1)[:, -2]; r1 = np.argmax(x, 1)
+    inA = inA & (ko != r1); inB = inB & (ko == r1)
     R = (ko != tgt) & ~inA & ~inB
     return dict(fA=fA, fB=fB, R=R.astype(float), passes=passes, ybarA=LA["ybar"], TA=LA["Tp"],
                 ybarB=LB["ybar"], TB=LB["Tn"])
