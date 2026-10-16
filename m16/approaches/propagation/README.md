@@ -84,11 +84,17 @@ being off by about 300-1000x in RMSE.
 **3. ReLU moment formulas.** `python test_relu_moments.py` [measured]: these agree with 4M-sample MC to
 within MC error (max abs err 0.003 on covariances of order 1).
 
-**4. ARC protocol on noisy copies.** The command is `python eval_arc.py`: noisy_models(6, 0.0025) and
-(6, 0.005), with true_acc n=4M. The run was slowed by a load average of about 48 on the shared machine,
-and its results (if it finished) are in `results_arc.json`. The estimator gives 0.26-0.44 on every model
-tried. Copies' accuracies are 0.82-0.95 (FINDINGS), so RMSE is about 50-65 pp. Sampling RMSE at 22k-117k
-passes is about 0.1-0.2 pp. [inferred from the original-model results and the estimator's insensitivity]
+**4. ARC protocol on noisy copies.** The command is `python eval_arc.py` (true_acc n=4M).
+
+| sigma | setting | passes | RMSE | sampling RMSE at equal passes |
+|---|---|---|---|---|
+| 0.0025 | K=1, eps 1e-3 | 21.9k | **62.3 pp** | 0.165 pp |
+| 0.0025 | K=1, eps 1e-4 | 117k | **67.4 pp** | 0.071 pp |
+
+[measured] The truths are 0.915-0.946, and the estimates are 0.26-0.32 on all six copies. The estimator
+barely responds to the weights. The sigma=0.005 rows were still running under a load average of about 48 on
+the shared machine; see `results_arc.json` if it finished. The estimator's insensitivity on the original
+model and at sigma=0.0025 implies RMSE of roughly 55-65 pp there too [inferred].
 
 ## Compute accounting
 FLOPs are counted in code (`Counter`):

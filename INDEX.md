@@ -50,7 +50,7 @@ script, agent or seed), **S** = single run by its author, **C** = claimed in an 
 | E10 | Q4: exact rank-ordering computation | agent | running | `m16/approaches/rank_exact/` | - | - |
 | E11 | Q4: Laplace / boundary-layer integrals | agent | running | `m16/approaches/boundary/` | - | - |
 | E12 | Q4: control variate (structure + randomness) | agent | running | `m16/approaches/control_variate/` | - | - |
-| E13 | Q4: distribution propagation | agent | running | `m16/approaches/propagation/` | - | - |
+| E13 | Q4: distribution propagation (deductive) | agent | done | `m16/approaches/propagation/` | **failed**: bias -10 to -69 pp at 2k-633k evals, insensitive to weights. Ceiling test: even *exact* cumulants of the final margin in 10k cells give -1.4 pp (Gaussian) / -0.35 pp (4 cumulants) vs a ~0.1 pp bar. Possible bug in gsf2's final step (~20 pp) flagged by its author | C (ceiling numbers are the informative part) |
 | E14 | Q4: error-cone enumeration + Genz/Botev | agent | running | `m16/approaches/cone_enum/` | - | - |
 | E15 | Q4: tube formulas / spacing reductions | agent | running | `m16/approaches/tube/` | - | - |
 | E16 | Q4: Array-RQMC | agent | done | `m16/approaches/array_rqmc/` | 1.0-1.6x on original; gain mostly from exact last step; noisy runs NOT done | C |
@@ -92,6 +92,7 @@ Nothing is "confirmed" on its author's word alone.
 | H-M4 | Algorithm is correct at canonical spacing (99.96%); all errors are magnitude effects | supported | `frozen.py` | canonical inputs never include the blind region; "magnitude" is a residual category, not a mechanism |
 | H-M5 | Error anatomy: blind 0.83%, 2nd-3rd ties ~2.2%, 1st-2nd ~0.7% | confirmed (exact counting on 2-4M samples) | multiple scripts agree | category boundaries (e.g. "near-tie" cut-offs) are choices |
 | H-M7 | The network has far too many linear regions to enumerate | confirmed (direct count, 1M samples, DRI) | 535,261 distinct full gate patterns, 435,052 seen once; top 100k cover 56% of mass; 46,738 errors in 38,743 patterns | a count from a sample underestimates the true number; it does not rule out enumeration of *coarser* classes (prefixes, last-k-step gates, rank classes) |
+| H-E6 | Moment/cumulant closure at the decision-margin level cannot reach ~0.1 pp | supported (E13 ceiling test) | exact cumulants per cell: -1.4 pp (2 moments), -0.35 pp (4 cumulants) | finer cells or margins conditioned on more structure might do better; single agent, not re-run |
 | H-M6 | Group roles (clocks, comparators, ...) via mean-ablation | supported | ablation table | mean-ablation can break the network off-distribution, so damage does not prove the role; no resample-ablation or patching control |
 
 ### Estimation (Q4)

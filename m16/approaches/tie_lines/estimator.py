@@ -23,7 +23,7 @@ GEN_COST = 200 / 6e3
 def pooled_draw(n, rng, chunk=4096):
     need = n.copy(); got = [[] for _ in range(N_STRATA)]; cand = 0
     while (need > 0).any():
-        m = int(min(max(chunk, 1.3 * (need / P).max()), 2_000_000))
+        m = int(min(max(chunk, 1.05 * (need / P).max()), 2_000_000))
         x = rng.standard_normal((m, 10)); cand += m; h = stratum(x)
         for k in range(N_STRATA):
             if need[k] > 0:
