@@ -103,11 +103,12 @@ def _g_nograd(tm, u, perms, ks, positive):
     return g_fn(tm, u, perms, ks, positive)
 
 
-def ray_root(tm, d, perms, ks, positive=True, smax=8.0, nb=10, ngrid=8):
+def ray_root(tm, d, perms, ks, positive=True, smax=8.0, nb=10, ngrid=8, g0=None):
     """Smallest s in (0, smax] with g(s d) = 0 found by a coarse grid then bisection (no gradients).
     If g(0)<0, finds first s where g turns positive along -... (handled by caller via sign). Returns s (smax if none)."""
     B = d.shape[0]
-    g0 = _g_nograd(tm, torch.zeros(B, T), perms, ks, positive)
+    if g0 is None:
+        g0 = _g_nograd(tm, torch.zeros(B, T), perms, ks, positive)
     sgn = torch.sign(g0)
     grid = torch.linspace(0, smax, ngrid + 1)[1:]
     lo = torch.zeros(B); hi = torch.full((B,), float('nan'))
@@ -126,19 +127,26 @@ def ray_root(tm, d, perms, ks, positive=True, smax=8.0, nb=10, ngrid=8):
     return torch.where(found, (lo + hi) / 2, torch.full((B,), smax)), found, sgn
 
 
-def design_points(tm, perms, ks, positive=True, iters=6, smax=8.0):
+def design_points(tm, perms, ks, positive=True, iters=6, smax=8.0, nb=10, ngrid=8):
     """Direction iteration: HL-RF proposes a direction, an exact ray search puts the point on g=0;
     keep the shortest. Returns signed beta (negative if the median point u=0 already fails),
     unit normal alpha at the best point (pointing into failure), best point."""
     B = perms.shape[0]
     g, gr = g_and_grad(tm, torch.zeros(B, T), perms, ks, positive)
+    g00 = g.clone()
     d = -gr * torch.sign(g)[:, None]
     d = d / d.norm(dim=1, keepdim=True).clamp_min(1e-300)
     best_s = torch.full((B,), smax); best_u = d * smax; best_a = d.clone()
     for it in range(iters):
-        s, found, sgn = ray_root(tm, d, perms, ks, positive, smax)
+        s, found, sgn = ray_root(tm, d, perms, ks, positive, smax, nb, ngrid, g0=g00)
         u = s[:, None] * d
         better = found & (s < best_s)
+        if it == iters - 1:          # last ray search: only the gradient at the accepted point is needed
+            g, gr = g_and_grad(tm, torch.where(better[:, None], u, best_u), perms, ks, positive)
+            a = -gr / gr.norm(dim=1, keepdim=True).clamp_min(1e-300)
+            best_a = torch.where(better[:, None], a, best_a)
+            best_s = torch.where(better, s, best_s); best_u = torch.where(better[:, None], u, best_u)
+            break
         g, gr = g_and_grad(tm, u, perms, ks, positive)
         a = -gr / gr.norm(dim=1, keepdim=True).clamp_min(1e-300)
         best_s = torch.where(better, s, best_s)
