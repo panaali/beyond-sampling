@@ -25,12 +25,22 @@ sys.path.insert(0, "m16")
 from arc_eval import Wi0, Wh0, Wo0, est_sampling, forward, noisy_models  # noqa: E402
 
 TRUTHS = "results/leaderboard_truths.json"
-BUDGETS = (1_000, 4_000, 16_000, 64_000, 256_000)
-REPS = 8
+VERSION = 2
+BUDGETS = (16_000, 64_000)
+REPS = 24
+
+
+def _zoo(seed):
+    from alg_zoo import zoo_2nd_argmax
+    m = zoo_2nd_argmax(16, 10, seed=seed)
+    f = lambda t: t.detach().numpy().astype(np.float64)
+    return f(m.rnn.weight_ih_l0)[:, 0], f(m.rnn.weight_hh_l0), f(m.linear.weight)
 
 
 def models():
     ms = {"orig": (Wi0, Wh0, Wo0)}
+    for sd in range(5):                      # ARC: "a good method should also work well on" these seeds
+        ms[f"seed{sd}"] = _zoo(sd)
     for sigma in (0.0025, 0.005):
         for k, m in enumerate(noisy_models(6, sigma, seed=0)):
             ms[f"s{sigma}_{k}"] = m
@@ -38,8 +48,10 @@ def models():
 
 
 def compute_truths(n=4_000_000, chunk=500_000):
-    out = {}
+    out = json.load(open(TRUTHS)) if os.path.exists(TRUTHS) else {}
     for name, m in models().items():
+        if name in out:
+            continue
         rng = np.random.default_rng(987_654); ok = 0
         for _ in range(n // chunk):
             x = rng.standard_normal((chunk, 10))
@@ -69,7 +81,7 @@ def run(names):
     for name in names:
         est, deductive, fixed_cost = load_estimator(name)
         for b in BUDGETS:
-            for group in ("orig", "s0.0025", "s0.005"):
+            for group in ("orig", "seed", "s0.0025", "s0.005"):
                 se, cost = [], []
                 for mname, m in ms.items():
                     if not mname.startswith(group):
@@ -78,12 +90,15 @@ def run(names):
                         e, c = est(m, b, np.random.default_rng(10_000 * r + zlib.crc32(mname.encode()) % 1000))
                         se.append((e - truth[mname]["acc"]) ** 2); cost.append(c)
                 p = np.mean([truth[k]["acc"] for k in ms if k.startswith(group)])
-                C = float(np.mean(cost)); mse = float(np.mean(se))
+                C = float(np.mean(cost)); se = np.array(se); mse = float(se.mean())
                 ratio = mse / (p * (1 - p) / C)      # < 1 means better than plain sampling at equal compute
-                rows[f"{name}|{group}|{b}"] = dict(cost=C, rmse_pp=100 * np.sqrt(mse), mse_ratio_vs_sampling=ratio,
+                boot = np.random.default_rng(0).choice(se, (2000, len(se))).mean(1) / (p * (1 - p) / C)
+                lo, hi = np.percentile(boot, [2.5, 97.5])
+                rows[f"v{VERSION}|{name}|{group}|{b}"] = dict(cost=C, rmse_pp=100 * np.sqrt(mse),
+                                                   mse_ratio_vs_sampling=ratio, ci95=[lo, hi], n=len(se),
                                                    deductive=deductive)
                 print(f"{name:18s} {group:8s} budget {b:7d} cost {C:9.0f} RMSE {100*np.sqrt(mse):.3f}pp "
-                      f"MSE/sampling {ratio:.2f}", flush=True)
+                      f"MSE/sampling {ratio:.2f} [{lo:.2f},{hi:.2f}] n={len(se)}", flush=True)
             if fixed_cost:      # budget-independent estimators are evaluated once
                 break
     old = json.load(open("results/leaderboard.json")) if os.path.exists("results/leaderboard.json") else {}
