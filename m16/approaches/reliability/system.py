@@ -67,3 +67,29 @@ def hr_mvn(b, a, rng_seed=0):
         R = aa @ aa.T + 1e-9 * np.eye(len(bb))
         ps[c] = multivariate_normal(mean=np.zeros(len(bb)), cov=R, allow_singular=True).cdf(bb, rng=rng_seed)
     return ps
+
+
+from scipy.special import owens_t
+
+
+def bvn(h, k, rho):
+    """Vectorised P(Z1 < h, Z2 < k), corr rho, via Owen's T."""
+    h = np.asarray(h, float) + 1e-12; k = np.asarray(k, float) + 1.3e-12
+    rho = np.clip(rho, -0.9999999, 0.9999999); s = np.sqrt(1 - rho ** 2)
+    a1 = (k - rho * h) / (h * s); a2 = (h - rho * k) / (k * s)
+    beta = np.where(h * k < 0, 0.5, 0.0)
+    return 0.5 * norm.cdf(h) + 0.5 * norm.cdf(k) - owens_t(h, a1) - owens_t(k, a2) - beta
+
+
+def ditlevsen(b, a):
+    """Vectorised Ditlevsen bounds on P(union of {g_k<0}) per chamber; modes sorted by beta."""
+    m, Cn = b.shape
+    o = np.argsort(b, 0)
+    bs = np.take_along_axis(b, o, 0); as_ = np.take_along_axis(a, o[:, :, None], 0)
+    p = norm.cdf(-bs)
+    lo = p[0].copy(); up = p[0].copy()
+    for i in range(1, m):
+        pij = np.stack([bvn(-bs[i], -bs[j], (as_[i] * as_[j]).sum(1)) for j in range(i)])
+        pij = np.clip(pij, 0, np.minimum(p[i], p[:i]))
+        lo += np.maximum(0, p[i] - pij.sum(0)); up += p[i] - pij.max(0)
+    return lo, up
