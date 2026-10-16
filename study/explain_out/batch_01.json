@@ -1,0 +1,74 @@
+[
+ {
+  "id": "P013",
+  "explanation": "Fires inside copyright/license header comments at the top of source files, strongest on the token that begins the license or pointer text right after the copyright/author line (newline, ' https', ' You', ' THIS', ' See', ' Use', author email '<'). Activation drops to moderate or weak deeper inside the boilerplate license body (warranty disclaimers, GPL address), and it is near zero outside license headers.",
+  "category": "A",
+  "confidence": 4
+ },
+ {
+  "id": "P014",
+  "explanation": "Fires on tokens in the middle of multi-part names, codes and citation markers: the digit or hyphen inside alphanumeric identifiers (NBL1, CCK-8, NY-ESO-1, vmap0, DOI digits), the opening bracket of a [@R1]-style citation, and a later word of a multiword proper name (Village Road, Northeast Normal, the Initial Developer). There is no single semantic theme, only 'continuation inside a compound name or code'. Ordinary prose tokens do not fire it.",
+  "category": "C",
+  "confidence": 2
+ },
+ {
+  "id": "P015",
+  "explanation": "Fires on the subject pronoun or auxiliary/main verb right after a comparative or relative connective, in clauses like 'as/than [it/we/I] ...', 'what we say we [will] do', 'how [I] can', 'as I [have] mentioned'. It is strongest on the pronoun or modal in 'as ... as it is' / 'than it had' / 'as I thought' constructions. Weak or absent elsewhere.",
+  "category": "A",
+  "confidence": 3
+ },
+ {
+  "id": "P016",
+  "explanation": "A mixture of formulaic, highly predictable tokens in structured documents: hyphens and IDs inside reference keys ([@b3-sensors-15-...], [@CR1]), the '0' in copyright year ranges like 2000-2004, 'Circuit Judges.' and newlines in court-opinion headers, 'claims' in patent boilerplate, code indentation, and exception names in Java signatures. Ordinary prose fires it only weakly.",
+  "category": "C",
+  "confidence": 2
+ },
+ {
+  "id": "P017",
+  "explanation": "Fires on the key token of a phrase that points the reader to more information elsewhere: 'Learn/See/Read [more]', 'see [here]', 'See [https]://', '[MDN Documentation]([https]', 'For more information, [see]'. A weaker offshoot covers license-header metadata such as 'SPDX-License[-Identifier]', 'Copyright [(]c)' and '$URL$'. Generic text is near zero.",
+  "category": "A",
+  "confidence": 3
+ },
+ {
+  "id": "P018",
+  "explanation": "Fires on the word after a preposition or verb of contact or exposure to the outside world or environment, usually 'the' in phrases like 'communicating with the', 'contact with the', 'open to the', 'out in the', 'released into the', or on words like 'world', 'external', 'exterior', 'outside', 'community', 'public'. 'the' in other contexts gives little or nothing.",
+  "category": "A",
+  "confidence": 3
+ },
+ {
+  "id": "P019",
+  "explanation": "Its main theme is removal, departure or taking from a source. It fires on the preposition or object in phrases like 'left X [for]', 'stolen out [of]', 'took off [their]', 'rip the skin [off]', 'migrated [from]', 'took $200 [from]', 'taking candy [from]'. It also fires unrelatedly on assorted code tokens (display:flex, .split, .toString, 'from tkinter [import]', Android 'activity').",
+  "category": "C",
+  "confidence": 2
+ },
+ {
+  "id": "P020",
+  "explanation": "Fires strongly on 'only' in 'The/the only ...' (the sole X). It also fires on unrelated tokens: pieces of abbreviations or terms in parentheses (Re[com]binant, R[CS], R[CD]), and code or markup tokens after '$' or '(' such as $set, $ref, $(document), \\displaystyle and jquery-ui. These pieces do not share a single concept.",
+  "category": "C",
+  "confidence": 3
+ },
+ {
+  "id": "P021",
+  "explanation": "Fires mainly on SQL clause keywords that come after a table name, strongest on SET in 'UPDATE table SET ...' and weaker on WHERE, PRIMARY KEY, GROUP BY. A secondary job covers declarations in code, such as field or property declarations ('protected $x', 'private String', 'weak var') and column/key names like user_id. 'Copyright \u00a9' in Xcode headers is a minor unrelated offshoot.",
+  "category": "B",
+  "confidence": 3
+ },
+ {
+  "id": "P022",
+  "explanation": "Fires on the 'n' (or '=') of sample-size notation in scientific abstracts, the '(n = 20)' pattern, especially right after an opening parenthesis following a group description. A weaker offshoot covers key=value attribute syntax ('ou=', 'CommonName:') and word-initial 'n'. Generic text is near zero.",
+  "category": "A",
+  "confidence": 4
+ },
+ {
+  "id": "P023",
+  "explanation": "Fires in biomedical methods/results text on nouns naming the biological material studied, and on words that introduce its source: isolates, cell line, cells, samples, tissue, specimens, macrophages, PBMCs, 'isolated [from]', 'cells [from]'. It is strongest when that material is the object being analyzed. Non-biomedical text is weak or zero.",
+  "category": "A",
+  "confidence": 4
+ },
+ {
+  "id": "P024",
+  "explanation": "Fires on the second word of an unhyphenated compound modifier before a noun, especially number + time unit or age ('middle [aged]', '19 [year] old', '27 [month] period', 'five [point]', 'multi [stage]', 'built [in]', 'non [volatile]'). A weaker, separate pattern is a verb or conjunction right after a comma that splits subject from verb ('...scholars;[were]', 'dial tone,[is]').",
+  "category": "A",
+  "confidence": 3
+ }
+]
