@@ -109,3 +109,8 @@ def est_swap_rqmc(model, budget, rng, c=C_SW):
 def est_rqmc(model, budget, rng):
     x = ndtri(np.clip(qmc.Sobol(10, scramble=True, seed=rng).random(budget), 1e-15, 1 - 1e-15))
     return g_of(model, x).mean(), budget
+
+
+def est_joint(model, budget, rng):
+    from joint import est_joint as f
+    return f(model, budget, rng)

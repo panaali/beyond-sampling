@@ -9,34 +9,64 @@ NB = len(ED) - 1
 K = 1 + NB * NB
 
 
-def jstratum(x):
+def jcell(x):
     xs = -np.sort(-x, 1)
     g12 = (xs[:, 0] - xs[:, 1]) / np.abs(xs[:, 0]); g23 = (xs[:, 1] - xs[:, 2]) / np.maximum(np.abs(xs[:, 1]), 1e-12)
     b12 = np.searchsorted(ED, g12, side="right") - 1; b23 = np.searchsorted(ED, g23, side="right") - 1
     return np.where(xs[:, 1] <= 0, 0, 1 + b12 * NB + b23)
 
 
+P_MIN = 2e-3
+
+
+def merge_cells(Pc):
+    """Greedy: repeatedly merge the smallest group (mass < P_MIN) with its smallest grid-adjacent group."""
+    grp = np.arange(K)
+    def adj(c):
+        if c == 0: return []
+        b12, b23 = divmod(c - 1, NB); out = []
+        for d12, d23 in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            u, v = b12 + d12, b23 + d23
+            if 0 <= u < NB and 0 <= v < NB: out.append(1 + u * NB + v)
+        return out
+    while True:
+        gm = np.bincount(grp, Pc, K); live = np.unique(grp)
+        small = [g for g in live if gm[g] < P_MIN and g != 0]
+        if not small: break
+        g = min(small, key=lambda q: gm[q])
+        nb = {grp[a] for c in np.nonzero(grp == g)[0] for a in adj(c)} - {g}
+        t = min(nb, key=lambda q: gm[q]); grp[grp == g] = t
+    _, lab = np.unique(grp, return_inverse=True)
+    return lab
+
+
 def build():
     import estimators as E
     from common import Wi, Wh, Wo
-    rng = np.random.default_rng(2024); cnt = np.zeros(K)
-    for _ in range(40):
-        cnt += np.bincount(jstratum(rng.standard_normal((1_000_000, 10))), minlength=K)
-    P = cnt / cnt.sum()
-    M = (Wi, Wh, Wo); x = np.random.default_rng(99).standard_normal((1_000_000, 10)); h = jstratum(x)
+    old = os.path.join(HERE, "joint_cells_P.json")
+    if os.path.exists(old):
+        Pc = np.array(json.load(open(old)))
+    else:
+        rng = np.random.default_rng(2024); cnt = np.zeros(K)
+        for _ in range(40):
+            cnt += np.bincount(jcell(rng.standard_normal((1_000_000, 10))), minlength=K)
+        Pc = cnt / cnt.sum(); json.dump(Pc.tolist(), open(old, "w"))
+    lab = merge_cells(Pc); G = lab.max() + 1
+    P = np.bincount(lab, Pc, G)
+    M = (Wi, Wh, Wo); x = np.random.default_rng(99).standard_normal((1_000_000, 10)); h = lab[jcell(x)]
     g = E.g_of(M, x); sw = (g + E.g_of(M, E.swap_minpair(x)[0])) / 2
-    n = np.bincount(h, minlength=K).astype(float)
+    n = np.bincount(h, minlength=G).astype(float)
     def sd(v):
-        m1 = np.bincount(h, v, K) / np.maximum(n, 1); m2 = np.bincount(h, v * v, K) / np.maximum(n, 1)
+        m1 = np.bincount(h, v, G) / np.maximum(n, 1); m2 = np.bincount(h, v * v, G) / np.maximum(n, 1)
         return np.sqrt(np.maximum(m2 - m1 ** 2, 0))
     sp, ss = sd(g), sd(sw)
     use = ss * np.sqrt(2) < sp
     sig = np.where(use, ss, sp) + 0.02          # floor: strata where the pilot saw no errors still get samples
     cost = np.where(use, 2.0, 1.0)
     a = P * sig / np.sqrt(cost); a = a / (a * cost).sum()
-    json.dump(dict(P=P.tolist(), alloc=a.tolist(), use_swap=use.tolist(), cost=cost.tolist()),
+    json.dump(dict(P=P.tolist(), alloc=a.tolist(), use_swap=use.tolist(), cost=cost.tolist(), cell2grp=lab.tolist()),
               open(os.path.join(HERE, "joint_design.json"), "w"))
-    print("strata", K, "nonzero", (P > 0).sum(), "swap strata", use.sum(), "max a/P", (a / np.maximum(P, 1e-12)).max())
+    print("cells", K, "groups", G, "min P", P.min(), "swap strata", use.sum(), "max a/P", (a / np.maximum(P, 1e-12)).max())
 
 
 if __name__ == "__main__" and sys.argv[1:] == ["design"]:
@@ -44,6 +74,10 @@ if __name__ == "__main__" and sys.argv[1:] == ["design"]:
 
 
 _D = None
+
+
+def jstratum(x):
+    return _design()["cell2grp"][jcell(x)]
 GEN_COST = 200 / 6e3     # one candidate N(0,I_10) draw + sort + gap arithmetic, in forward-pass equivalents
 
 
@@ -52,6 +86,7 @@ def _design():
     if _D is None:
         d = json.load(open(os.path.join(HERE, "joint_design.json")))
         _D = {k: np.array(v) for k, v in d.items()}
+        _D["ovh"] = GEN_COST * 1.05 * (_D["alloc"] / _D["P"]).max()   # expected generation cost per unit budget
     return _D
 
 
@@ -73,7 +108,8 @@ def pooled_draw(n, rng, P, chunk=4096):
 def est_joint(model, budget, rng, count_gen=True):
     import estimators as E
     D = _design(); P = D["P"]; live = P > 0
-    n = np.where(live, np.maximum(1, np.round(D["alloc"] * budget)), 0).astype(int)
+    B = budget / (1 + (D["ovh"] if count_gen else 0))          # so that total cost ~ budget
+    n = np.where(live, np.maximum(1, np.round(D["alloc"] * B)), 0).astype(int)
     xs, cand = pooled_draw(n, rng, np.where(live, P, 1.0))
     X = np.concatenate([xs[k] for k in range(len(n)) if n[k]]); lab = np.concatenate([np.full(n[k], k) for k in range(len(n)) if n[k]])
     v = E.g_of(model, X); evals = len(X)

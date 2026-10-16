@@ -21,4 +21,4 @@ for sigma in (0.0025, 0.005):
                       evals=float(cost), sampling_rmse_pp_same_compute=100 * float(samp))
     print(sigma, json.dumps(res, indent=1), flush=True)
     out[sigma] = {"rows": rows, "summary": res}
-json.dump(out, open('eval_results.json', 'w'), indent=1)
+json.dump(out, open('m16/approaches/rank_exact/eval_results.json', 'w'), indent=1)
