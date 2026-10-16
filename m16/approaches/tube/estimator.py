@@ -7,7 +7,7 @@ from tube import faces23, faces12, blind_points, F_faces, forward_from, P_BLIND,
 
 # budget shares (Neyman: n_i proportional to sd_i / sqrt(cost_i), measured on the ORIGINAL model only)
 SHARE = dict(f23=0.66, f12=0.28, blind=0.06)
-COST = dict(f23=8.9, f12=8.2)           # mean passes per face (original model), used only to size n
+COST = dict(f23=8.0, f12=7.1)           # mean passes per face (original model, with importance), sizes n only
 import os
 _H = os.path.dirname(os.path.abspath(__file__))
 Q23 = np.load(os.path.join(_H, "q23.npy")); Q12 = np.load(os.path.join(_H, "q12.npy"))
@@ -57,3 +57,9 @@ def est_tube_newton(model, budget, rng=None, shift=SHIFT, share=SHARE_B, parts=F
     if parts:
         return acc, used, dict(out, eb=eb)
     return float(acc), used
+
+
+# leaderboard interface: budget and cost in forward-pass equivalents (cell = value+tangent recompute from the
+# flipped time step, counted as 2*(T-t)/T passes; shared prefix counted once). rng is ignored: deterministic.
+DEDUCTIVE = True
+est = est_tube
