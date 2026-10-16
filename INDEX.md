@@ -25,6 +25,7 @@ changes status. Rules for contributors are in `CLAUDE.md`.
 | `algzoo/` | E4: label scorer (`score.py`), investigator label files, scratch dirs `work*/` |
 | `m16/` | Deep analysis of M_16,10: `FINDINGS.md` (narrative), shared code `common.py`, `exact.py`, `modes.py`, ... |
 | `m16/arc_eval.py` | **Shared ARC-protocol harness**: noisy copies, ground truth, estimator interface |
+| `m16/leaderboard.py` | **DRI-run leaderboard**: 13 fixed models (original + 6 at sigma 0.0025 + 6 at 0.005), 16M-sample truths, budgets 1k-256k, cost in forward-pass equivalents. Approaches expose `estimator.py`. Results in `results/leaderboard.json`. **Only leaderboard numbers count as verified.** |
 | `m16/approaches/<name>/` | One folder per estimator approach (see registry) |
 | `lit/` | Literature scans by era and by field (unverified citations are flagged inside) |
 | `results/` | Machine-readable results (json/npy) |

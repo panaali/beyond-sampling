@@ -28,3 +28,32 @@ def est_tube(model, budget, rng=None, shift=SHIFT, share=SHARE, parts=False, imp
     if parts:
         return acc, used, dict(e23=e23, e12=e12, eb=eb, c23=c23 / n23, c12=c12 / n12)
     return float(acc), used
+
+
+from tube import F_newton
+SHARE_B = dict(n23=0.51, c23=0.21, n12=0.19, c12=0.065, blind=0.03)
+COST_B = dict(n23=4.4, c23=9.0, n12=4.25, c12=8.2)
+
+
+def est_tube_newton(model, budget, rng=None, shift=SHIFT, share=SHARE_B, parts=False, imp=True, J=3):
+    """Newton crossing search (cheap, slightly biased: assumes one error interval per side starting at the tie)
+    on n faces + exact cell walk on the first m of them as a correction (control-variate form)."""
+    out, used = {}, 0.0
+    for fam, faces, q in (("23", faces23, Q23), ("12", faces12, Q12)):
+        n = max(16, int(share["n" + fam] * budget / COST_B["n" + fam]))
+        m = max(4, min(n, int(share["c" + fam] * budget / COST_B["c" + fam])))
+        f = faces(n, shift, q if imp else None)
+        Fn, Cn = F_newton(model, f, J)
+        sub = {k: (v[:m] if isinstance(v, np.ndarray) else v) for k, v in f.items()}
+        Fe, _, Ce = F_faces(model, sub, 400, radial=True)
+        w = f["wt"]
+        out["e" + fam] = f["Z"] * ((w * Fn).mean() + (w[:m] * (Fe - Fn[:m])).mean())
+        used += Cn.sum() + Ce.sum()
+    nb = max(11, int(share["blind"] * budget))
+    xb = blind_points(nb, shift)
+    eb = P_BLIND * float((forward_from(model, xb).argmax(1) != np.argsort(xb, 1)[:, -2]).mean())
+    used += nb
+    acc = 1 - eb - out["e23"] - out["e12"]
+    if parts:
+        return acc, used, dict(out, eb=eb)
+    return float(acc), used
