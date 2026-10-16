@@ -6,16 +6,17 @@ import sys, json
 import numpy as np
 sys.path.insert(0, '/home/user/clean-neurons/m16')
 from arc_eval import _blind_probe
-from v3 import estimate
+import v3, v4
 from quad import grid
 
 
-def make(nv=1, ng=1, q=2, nq=12, noise=0.0, redges=None, rmid=None):
+def make(nv=1, ng=1, q=2, nq=12, noise=0.0, redges=None, rmid=None, ver=3, clip_top=False):
     from v3 import R_EDGES, R_MID
     re_, rm_ = (R_EDGES, R_MID) if redges is None else (redges, rmid)
 
     def est(model, budget=None, rng=None):
-        o, anchors = estimate(model, nv, ng, q, nq=nq, noise=noise, redges=re_, rmid=rm_)
+        kw = dict(clip_top=clip_top) if ver == 4 else {}
+        o, anchors = (v4 if ver == 4 else v3).estimate(model, nv, ng, q, nq=nq, noise=noise, redges=re_, rmid=rm_, **kw)
         be, nb = _blind_probe(model)
         acc = 1 - (11 / 1024) * be - o['23'].sum() - o['12'].sum()
         nodes = len(grid(nq, nq, nq)[0])
@@ -29,7 +30,10 @@ if __name__ == "__main__":
     from common import Wi, Wh, Wo
     tr = {'0.0025': json.load(open('../array_rqmc/results/truth_s0025.json')),
           '0.005': json.load(open('../array_rqmc/results/truth_s005.json'))}
-    cfg = dict(nv=int(sys.argv[1]), ng=int(sys.argv[2]), q=int(sys.argv[3]), nq=int(sys.argv[4]), noise=float(sys.argv[5]))
+    cfg = dict(nv=int(sys.argv[1]), ng=int(sys.argv[2]), q=int(sys.argv[3]), nq=int(sys.argv[4]), noise=float(sys.argv[5]),
+               ver=int(sys.argv[6]) if len(sys.argv) > 6 else 3, clip_top=len(sys.argv) > 7 and sys.argv[7] == '1')
+    if len(sys.argv) > 8: 
+        a, ev, e23, e12, be = make(**cfg)((Wi, Wh, Wo)); print('orig only', cfg, 'bias %+.3f pp e23 %.4f e12 %.4f evals %.0f' % (100 * (a - 0.95317945), e23, e12, ev)); sys.exit()
     est = make(**cfg)
     rows = []
     a, ev, e23, e12, be = est((Wi, Wh, Wo))
