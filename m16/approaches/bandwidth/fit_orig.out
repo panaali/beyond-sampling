@@ -1,0 +1,27 @@
+model orig: train 38784, test 19393
+  delta     const                                                      R2_test=-0.000  params=1
+  delta     lookup(a,b)                                                R2_test=+0.036  params=45
+  delta     lookup(a,b,p1)                                             R2_test=+0.200  params=360
+  delta     (a,b,p1)-lookup + (a,b)-linear in v,max,sorted lower       R2_test=+0.249  params=810
+  delta     per (a,b): linear in values by position                    R2_test=+0.156  params=495
+  delta     per (a,b,p1): linear in values by position                 R2_test=+0.388  params=3960
+  delta     per (a,b): quadratic in values by position                 R2_test=+0.271  params=2970
+  delta     MLP 3x256 (not compact; ceiling)                           R2_test=+0.386  params=144641
+  delta     delta_lin = -m/s at tie (1 pass/point)                     R2_test=-0.507  params=0
+  absdelta  const                                                      R2_test=-0.000  params=1
+  absdelta  lookup(a,b)                                                R2_test=+0.058  params=45
+  absdelta  lookup(a,b,p1)                                             R2_test=+0.233  params=360
+  absdelta  (a,b,p1)-lookup + (a,b)-linear in v,max,sorted lower       R2_test=+0.315  params=810
+  absdelta  per (a,b): linear in values by position                    R2_test=+0.168  params=495
+  absdelta  per (a,b,p1): linear in values by position                 R2_test=+0.391  params=3960
+  absdelta  per (a,b): quadratic in values by position                 R2_test=+0.274  params=2970
+  absdelta  MLP 3x256 (not compact; ceiling)                           R2_test=+0.407  params=144641
+  absdelta  |delta_lin| at tie (1 pass/point)                          R2_test=-0.562  params=0
+  mass      const                                                      R2_test=-0.000  params=1
+  mass      lookup(a,b)                                                R2_test=+0.045  params=45
+  mass      lookup(a,b,p1)                                             R2_test=+0.215  params=360
+  mass      (a,b,p1)-lookup + (a,b)-linear in v,max,sorted lower       R2_test=+0.283  params=810
+  mass      per (a,b): linear in values by position                    R2_test=+0.170  params=495
+  mass      per (a,b,p1): linear in values by position                 R2_test=+0.324  params=3960
+  mass      per (a,b): quadratic in values by position                 R2_test=+0.224  params=2970
+  mass      MLP 3x256 (not compact; ceiling)                           R2_test=+0.346  params=144641
