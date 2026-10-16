@@ -75,14 +75,31 @@ def _cf_cv(q, Bc, w, ridge=1e-3):
     return out
 
 
-def make(strat=False, cv=None, alloc=None, cost=COST_Q):
+def draw_all(nh, rng, batch=50_000):
+    """Pooled rejection: one iid candidate stream, each candidate goes to its own stratum; stop when every
+    stratum has its quota. Candidates needed ~ n * max_h(a_h/P_h) (~2.6 n) instead of sum_h (~10 n)."""
+    out = [[] for _ in nh]; got = np.zeros(len(nh), int); drawn = 0
+    while (got < nh).any():
+        x = rng.standard_normal((batch, 9)); h = pstratum(x); drawn += batch
+        for j in np.nonzero(got < nh)[0]:
+            xj = x[h == j][: nh[j] - got[j]]; out[j].append(xj); got[j] += len(xj)
+    return [np.concatenate(o) for o in out], drawn
+
+
+# Input-generation charge for stratified draws: ~2.6 candidates x (9 Gaussians + top-3 selection) ~ 500 FLOPs
+# = ~0.09 forward-equivalents per sample; we charge 0.1.
+COST_DRAW = 0.1
+
+
+def make(strat=False, cv=None, alloc=None, cost=None):
     """Build est(model, budget, rng). cv in {None,'A','B'}."""
     def est(model, budget, rng):
-        n = int(budget // cost)
+        c = cost if cost is not None else COST_Q + (COST_DRAW if strat else 0.0)
+        n = int(budget // c)
         P = pc()["P"]
         if strat:
             nh = np.maximum(4, np.floor(alloc * n).astype(int))
-            xs = [draw(h, nh[h], rng) for h in range(NS)]
+            xs, _ = draw_all(nh, rng)
             x = np.concatenate(xs); h = np.repeat(np.arange(NS), nh)
             w = (P / nh)[h]
         else:
@@ -92,5 +109,5 @@ def make(strat=False, cv=None, alloc=None, cost=COST_Q):
             B = basis9(x, cv)
             Bc = B - (pc()["MU_" + cv][pstratum(x)] if strat else pc()["M_" + cv][None])
             q = _cf_cv(q, Bc, w)
-        return float((w * q).sum()), int(np.ceil(len(x) * cost))
+        return float((w * q).sum()), int(np.ceil(len(x) * c))
     return est

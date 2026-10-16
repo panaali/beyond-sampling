@@ -51,3 +51,19 @@ def combine(b, a, pairwise=True):
             up_c += p[i] - pij.max()
         lo[c] = lo_c; up[c] = up_c
     return dict(sum=s, lo=lo, up=up)
+
+
+def hr_mvn(b, a, rng_seed=0):
+    """Hohenbichler-Rackwitz: P(correct | chamber) = Phi_m(beta; R) with R = alpha alpha^T (linearised modes).
+    Modes with beta >= 5.5 are dropped (P(g<0) < 2e-8)."""
+    m, Cn = b.shape; ps = np.zeros(Cn)
+    for c in range(Cn):
+        keep = b[:, c] < 5.5
+        if keep.sum() == 0:
+            ps[c] = 1.0; continue
+        bb = b[keep, c]; aa = a[keep, c]
+        if len(bb) == 1:
+            ps[c] = norm.cdf(bb[0]); continue
+        R = aa @ aa.T + 1e-9 * np.eye(len(bb))
+        ps[c] = multivariate_normal(mean=np.zeros(len(bb)), cov=R, allow_singular=True).cdf(bb, rng=rng_seed)
+    return ps

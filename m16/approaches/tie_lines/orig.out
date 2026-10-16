@@ -10,3 +10,10 @@
 /home/user/clean-neurons/m16/approaches/tie_lines/estimators.py:102: UserWarning: The balance properties of Sobol' points require n to be a power of 2.
   u = qmc.Sobol(10, scramble=True, seed=rng).random(n)
 {"sigma": "0", "est": "swap_rqmc", "budget": 4000, "evals": 3999.95, "mse": 6.8568575821673195e-06, "bias": 0.00031395175953074226, "bias_se": 0.0004110441544060343, "gain": 1.6271646094693504, "gain_se": 0.36384506773553654, "n": 40} 18s
+{"sigma": "0", "est": "swap_rqmc", "budget": 16000, "evals": 16010.175, "mse": 1.5125953703701022e-06, "bias": -0.00017725058651030245, "bias_se": 0.00019243035103329304, "gain": 1.842859967049805, "gain_se": 0.41207601593363863, "n": 40} 34s
+{"sigma": "0", "est": "swap_rqmc", "budget": 64000, "evals": 64013.125, "mse": 2.2696112370951716e-07, "bias": -0.00022009332844578623, "bias_se": 6.680569782645273e-05, "gain": 3.0717840391587607, "gain_se": 0.6868717923757864, "n": 40} 93s
+/home/user/clean-neurons/m16/approaches/tie_lines/estimators.py:110: UserWarning: The balance properties of Sobol' points require n to be a power of 2.
+  x = ndtri(np.clip(qmc.Sobol(10, scramble=True, seed=rng).random(budget), 1e-15, 1 - 1e-15))
+{"sigma": "0", "est": "rqmc", "budget": 4000, "evals": 4000.0, "mse": 1.0959427302500027e-05, "bias": -0.0004294500000000423, "bias_se": 0.0005190134873006672, "gain": 1.0180364554158088, "gain_se": 0.22763987178826822, "n": 40} 14s
+{"sigma": "0", "est": "rqmc", "budget": 16000, "evals": 16000.0, "mse": 1.6678751149999977e-06, "bias": -6.851250000004805e-05, "bias_se": 0.0002039105902315854, "gain": 1.6723519081379756, "gain_se": 0.37394925488979974, "n": 40} 24s
+{"sigma": "0", "est": "rqmc", "budget": 64000, "evals": 64000.0, "mse": 6.489286013281358e-07, "bias": -0.000250934375000042, "bias_se": 0.00012103310918623405, "gain": 1.0745689608214977, "gain_se": 0.2402809242908177, "n": 40} 65s
