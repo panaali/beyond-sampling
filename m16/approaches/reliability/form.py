@@ -127,7 +127,7 @@ def ray_root(tm, d, perms, ks, positive=True, smax=8.0, nb=10, ngrid=8, g0=None)
     return torch.where(found, (lo + hi) / 2, torch.full((B,), smax)), found, sgn
 
 
-def design_points(tm, perms, ks, positive=True, iters=6, smax=8.0, nb=10, ngrid=8):
+def design_points(tm, perms, ks, positive=True, iters=6, smax=8.0, nb=10, ngrid=8, d0=None):
     """Direction iteration: HL-RF proposes a direction, an exact ray search puts the point on g=0;
     keep the shortest. Returns signed beta (negative if the median point u=0 already fails),
     unit normal alpha at the best point (pointing into failure), best point."""
@@ -136,6 +136,8 @@ def design_points(tm, perms, ks, positive=True, iters=6, smax=8.0, nb=10, ngrid=
     g00 = g.clone()
     d = -gr * torch.sign(g)[:, None]
     d = d / d.norm(dim=1, keepdim=True).clamp_min(1e-300)
+    if d0 is not None:
+        d = d0.clone()
     best_s = torch.full((B,), smax); best_u = d * smax; best_a = d.clone()
     for it in range(iters):
         s, found, sgn = ray_root(tm, d, perms, ks, positive, smax, nb, ngrid, g0=g00)
