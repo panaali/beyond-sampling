@@ -7,7 +7,7 @@ from tielines import correct
 from rqmc_swap import swapmin
 M = (Wi, Wh, Wo)
 TRUTH = 0.95317945
-R = 64
+R = 48
 for n in [4096, 16384]:
     res = {k: [] for k in ["raw_iid", "raw_rqmc", "swap_iid", "swap_rqmc"]}
     for s in range(R):

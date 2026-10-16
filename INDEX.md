@@ -86,7 +86,7 @@ Nothing is "confirmed" on its author's word alone.
 | id | claim | status | evidence | alternatives / weaknesses |
 |---|---|---|---|---|
 | H-M1 | Fundamental-mode phase encodes time since the max (42.7 deg/step vs 42.8 predicted) | supported | phase concentration 0.86-0.98 by position | eigenbasis taken from the *most common* gate set only; not checked per gate pattern |
-| H-M2 | The gated recurrence's eigenvalues form a harmonic series (periods 8.4/4.3/2.9/2) | **unverified** | ratios 1.95, 2.91, 4.2 | could be coincidence: no null comparison (e.g. eigen-spectra of other gate sets, other seeds, or random matrices with the same statistics) |
+| H-M2 | The gated recurrence's eigenvalues form a harmonic series (periods 8.4/4.3/2.9/2) | **weakened** (DRI null test) | ratios 1.95, 2.91, 4.2 in the most common gate set; random 13-neuron subsets show this pattern only 3% of the time | that gate set covers only **16%** of states at steps 6-10; the next common gate sets give shifted periods (7.7/4.7/3.1; 6.7/4.0/3.0); 2 of 5 independently trained seeds show a similar series, 3 do not. The 'Fourier memory' is a description of one common configuration, not of the network |
 | H-M3 | n3 and n13 are "higher harmonics" | **weak** | variance shares on non-orthogonal modes (shares exceed 1) | the decomposition is not orthogonal, so the shares are not a clean attribution; no causal test |
 | H-M4 | Algorithm is correct at canonical spacing (99.96%); all errors are magnitude effects | supported | `frozen.py` | canonical inputs never include the blind region; "magnitude" is a residual category, not a mechanism |
 | H-M5 | Error anatomy: blind 0.83%, 2nd-3rd ties ~2.2%, 1st-2nd ~0.7% | confirmed (exact counting on 2-4M samples) | multiple scripts agree | category boundaries (e.g. "near-tie" cut-offs) are choices |
@@ -102,8 +102,8 @@ Nothing is "confirmed" on its author's word alone.
 | H-E5 | "Someone at ARC has cracked M_16,10" | **unverified** | private message relayed by the user | not checked by design (independence) |
 
 ## 5. Open questions / next decisions
-1. Check H-Q2's alternative: are random directions dominated by massive-activation neurons?
-2. Null test for H-M2 (harmonic series) and an orthogonal or causal test for H-M3.
+1. Check H-Q2's alternative: are random directions dominated by massive-activation neurons? (needs a Qwen re-run; deferred while CPU is saturated)
+2. Orthogonal/causal test for H-M3; check H-M1's phase clock across the other common gate sets. (The H-M2 null test is done: weakened.)
 3. Settle compute accounting (FLOPs incl. input generation) and re-run H-E3 with more repeats.
 4. Collect approach-agent results into the registry; independently re-run the best one before believing it.
 5. Reviewer report (R1): fold into the ledger.

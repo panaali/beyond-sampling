@@ -26,6 +26,12 @@ of x0..x8, plus where x9 falls (above both, between, or below both).
 With the gates that stay on after a record (13 of 16 neurons), the recurrence's eigenvalues form
 **an approximate harmonic series**: a damped discrete Fourier memory. `modes.py`
 
+> **Caveat (DRI null test, later):** this gate set is only the *most common* one, covering 16% of states at
+> steps 6-10. Other common gate sets give shifted periods (7.7/4.7/3.1; 6.7/4.0/3.0). Random 13-neuron subsets
+> of the same matrix show the 1 : 1/2 : 1/3 pattern only 3% of the time, so it is not a coincidence of the weights. But only 2 of 5
+> independently trained seeds show a similar series. Treat "Fourier memory" as a picture of one common configuration.
+> The phase-clock measurement below is direct evidence and stands on its own. See `INDEX.md`, H-M2.
+
 | mode | abs(eig) | period (steps) | neurons that carry it |
 |---|---|---|---|
 | integrator | 1.010 | - | n2 (running max), plus a share of every clock |

@@ -11,8 +11,9 @@ def swapmin(x):
     g23 = (xs[:, 1] - xs[:, 2]) / np.maximum(np.abs(xs[:, 1]), 1e-12); g12 = (xs[:, 0] - xs[:, 1]) / np.abs(xs[:, 0])
     a = np.where(g23 < g12, 1, 0); b = a + 1
     y = x.copy(); y[r, o[r, a]] = x[r, o[r, b]]; y[r, o[r, b]] = x[r, o[r, a]]
-    return (correct(M, x) + correct(M, y)) / 2
-for n in [2048, 8192]:
+    return (correct(M, x).astype(float) + correct(M, y)) / 2
+if __name__ == '__main__':
+  for n in [2048, 8192]:
     q, m = [], []
     for s in range(24):
         u = qmc.Sobol(10, scramble=True, seed=s).random(n)

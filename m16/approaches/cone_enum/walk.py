@@ -69,3 +69,10 @@ if __name__ == "__main__":
     print('cones', len(masses), 'error mass covered', tot, 'of true 0.046821', 'fwd-equiv', C.fwd_equiv,
           'LPs', C.lps, 'time', time.time() - t0)
     np.save(f'masses_{n}.npy', np.array(masses))
+
+
+def est_cone(model, budget, rng=None):
+    """arc_eval interface. Deductive (no random model inputs; rng unused). budget and the returned
+    'evals' are in forward-pass equivalents of FLOPs (cone construction + LPs + integrator + crossing checks)."""
+    C = Counter(); tot, _, _ = walk(model, 10**9, C, max_fwd=budget)
+    return 1 - tot, C.fwd_equiv

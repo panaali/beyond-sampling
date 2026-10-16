@@ -4,8 +4,8 @@ import sys, json, time
 sys.path.insert(0, '/home/user/clean-neurons/m16'); sys.path.insert(0, '/home/user/clean-neurons/m16/approaches/cone_enum')
 import numpy as np
 import arc_eval as ae
-from cones import Counter
-from walk import walk
+from cones import Counter, FWD
+from walk import walk, est_cone
 from common import Wi, Wh, Wo
 
 budget = int(sys.argv[1]) if len(sys.argv) > 1 else 64000
@@ -14,8 +14,8 @@ models = [('orig', 0, (Wi, Wh, Wo))] + [(f's{s}', s, m) for s in (0.0025, 0.005)
 for name, s, m in models:
     t0 = time.time()
     tr = 0.953179 if name == 'orig' else ae.true_acc(m, n=4_000_000)
-    C = Counter(); tot, masses, _ = walk(m, 10**9, C, max_fwd=budget)
-    est = 1 - tot
+    est, fwd = est_cone(m, budget)
+    C = Counter(); C.flops = fwd * FWD; masses = walk.keys
     sd_samp = np.sqrt(tr * (1 - tr) / C.fwd_equiv)
     res.setdefault(str(s), []).append(dict(truth=tr, est=est, cones=len(masses), fwd=C.fwd_equiv, lps=C.lps, sd_sampling=sd_samp))
     print(name, s, f'truth {tr:.5f} est {est:.5f} err {100*(est-tr):+.2f}pp cones {len(masses)} fwd-eq {C.fwd_equiv:.0f} '

@@ -58,3 +58,32 @@ def bin_moments(c, q):
 
 def bin_medians(c, q):
     return norm.ppf(ndtr(c) * (np.arange(q) + 0.5) / q)
+
+
+def map_and_cone(model, x):
+    """Exact local logit map A (N,10,10) plus, for each input coordinate t, the interval [lo_t, hi_t] of
+    x_t (others fixed) over which every ReLU gate keeps its sign, i.e. where A stays exact."""
+    Wi, Wh, Wo = model
+    N = len(x); H = Wh.shape[0]
+    h = np.zeros((N, H)); J = np.zeros((N, H, T))
+    lo = np.full((N, T), -np.inf); hi = np.full((N, T), np.inf)
+    for s in range(T):
+        z = h @ Wh.T + x[:, s:s + 1] * Wi[None]                  # pre-activations (N,H)
+        P = np.einsum("ij,njt->nit", Wh, J); P[:, :, s] += Wi[None]   # dz/dx (N,H,T)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            delta = -z[:, :, None] / P                               # step along x_t to flip gate i
+        delta = np.where(np.isfinite(delta), delta, np.nan)
+        pos = np.where(delta > 0, delta, np.inf).min(1); neg = np.where(delta < 0, delta, -np.inf).max(1)
+        hi = np.minimum(hi, x + pos); lo = np.maximum(lo, x + neg)
+        g = z > 0
+        h = np.where(g, z, 0); J = g[:, :, None] * P
+    return h @ Wo.T, np.einsum("ki,nit->nkt", Wo, J), lo, hi
+
+
+def clipped_bin_moments(c, q, r, lo, hi, n=24):
+    """E and Var of clip(x, lo, hi) for x ~ N(0,1)|<c restricted to equal-mass bin r (scalar c; lo,hi arrays)."""
+    Pc = ndtr(c)
+    u = (r + (np.arange(n) + 0.5) / n) / q                  # mid-quantile rule inside the bin
+    xs = norm.ppf(Pc * u)                                   # (n,)
+    v = np.clip(xs[None, :], lo[:, None], hi[:, None])
+    return v.mean(1), v.var(1)
