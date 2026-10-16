@@ -129,3 +129,14 @@ centres.
   is not an interval-certified integral.
 * Blowing up the bound: rho(|Wh|) = 3.76, so plain IBP widens bounds by about 5e5x over 10 steps. Only symbolic or
   CROWN bounds are usable.
+
+## Noisy-copy run (sigma=0.0025, `python eval_noisy.py 1e10`, which stops after the batch that crosses the budget, at 1.96e10 FLOPs = 3.3M RNN-equiv)
+
+| copy | truth | L | U | centre-rule error | linear-share error | midpoint error | sampling RMSE at equal FLOPs |
+|---|---|---|---|---|---|---|---|
+| 0 | 0.9348 | 0 | 1 | +5.4 pp | -46.5 pp | -43.5 pp | 0.014 pp |
+| 1 | 0.9153 | 0 | 1 | +5.3 pp | -44.5 pp | -41.5 pp | 0.015 pp |
+| 2 | 0.9408 | 0 | 1 | +4.8 pp | -46.8 pp | -44.1 pp | 0.013 pp |
+
+[measured] The bounds are sound (L <= truth <= U) but empty. The best point estimate is ~350x worse in RMSE than
+sampling at equal compute, which is more than 1e5x in MSE.
