@@ -59,3 +59,29 @@ otherwise **mixed**. H1 alone failing is reported as consistent with the essay's
 
 Descriptive (no threshold): share of each pole's total activation mass coming from tokens above 20% of
 its max, for neurons vs random directions (how much of a neuron's output lives where explainers look).
+
+## Addendum (2026-10-16, before any AlgZoo neuron was inspected): legibility vs. understanding
+
+Prompted by Jacob Hilton (ARC), x.com/JacobHHilton/status/2110915993526821357: "have you interpreted my
+432-parameter model yet?" ARC's bar for understanding is a mechanistic estimate of accuracy, not neuron
+labels. The essay's claim is that neurons are *legible*. This tests whether, on a model small enough to
+check exhaustively, legible neuron labels add up to the mechanism.
+
+Model: AlgZoo `example_2nd_argmax()` = M_16,10, a 1-layer ReLU RNN, 16 hidden neurons, no biases,
+432 parameters, input 10 i.i.d. N(0,1) numbers, output position of the 2nd largest. Measured accuracy 95.3%
+(chance 10%).
+
+- **E4a (the essay's method)**: an agent with code access investigates all 16 neurons of the final hidden state
+  h_10 the way the essay's automated scientists do, and gives each a label and a category A-D (as above).
+- **E4b (do the labels capture the mechanism?)**: for each neuron the agent also writes `f_i(x)`, a
+  function of the input sequence implementing its label. It may use interpretable features of x (values,
+  ranks, positions, running max, and so on) and at most 5 fitted scalar constants per neuron. It must not read
+  W_hh or run the recurrence (audited by hand). Scored on 200k fresh sequences:
+  (i) per-neuron R^2 of f_i vs the true h_10[i];
+  (ii) **replacement accuracy**: argmax(W_oh @ [f_1..f_16](x)) vs the true 2nd argmax.
+- Criteria: neurons count as *legible* if >= 12/16 are rated A or B and have R^2 >= 0.8. Labels
+  *capture the mechanism* if replacement accuracy recovers >= 90% of the gap from chance to the model
+  (>= 86.8%).
+- Reading: legible but not capturing the mechanism supports Hilton (legible != understood); both passing
+  supports the essay's "simple thing at scale works" at this scale. ARC's own criterion (a mechanistic
+  accuracy estimate matching sampling) is out of scope and would not be met by either outcome.
