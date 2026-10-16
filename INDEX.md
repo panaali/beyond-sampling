@@ -14,6 +14,14 @@ changes status. Rules for contributors are in `CLAUDE.md`.
 | Q3 | How does the 432-param AlgZoo RNN (M_16,10) compute the 2nd argmax? | Mostly answered. See `m16/FINDINGS.md` |
 | Q4 | ARC challenge: a *mechanistic* (deductive) estimate of M_16,10's accuracy matching sampling in MSE vs compute, on noisy-weight copies | **Open.** E10 onward |
 
+**Success criteria for Q4 (re-centred on ARC's stated intent: "a scalable, algorithmic approach to producing
+mechanistic estimates"; hand analysis is "a warm-up"):**
+1. **Deductive**: no random model inputs. Methods that sample inputs, however cleverly (stratified,
+   quadrature with model evaluations at random-shift points, control variates), are **baselines to beat**, not solutions.
+2. **General**: the same code runs unchanged, with no tables or allocations fitted per model, on the example model,
+   `zoo_2nd_argmax(16,10, seed=0..4)` and noisy copies; ideally also M_4,3 as a sanity check.
+3. **Competitive**: MSE at most that of sampling at equal compute, with CIs, on that model set.
+
 ## 2. Repo map
 
 | path | what |

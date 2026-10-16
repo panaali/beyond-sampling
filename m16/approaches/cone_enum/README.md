@@ -26,8 +26,8 @@ across facets, not by sampling model inputs. Can this match plain sampling at eq
   brute-force MC), `check_cover.py` (MC check of the walk's enumerated mass).
 
 ## Status
-**Done. Negative result.** The number of error cones explodes, and the per-cone integration is expensive and
-biased low on thin cones. At equal compute, the method is about 50-100x worse in RMSE than sampling.
+**Done. Negative result.** The number of error cones explodes (>= 4e5), and the per-cone integration is expensive (about 630
+forward-equivalents per cone) and biased low on thin cones. At 64k forward-equivalents, RMSE is 67-91x worse than sampling.
 
 ## Results
 (Run with `source .venv/bin/activate`, from `m16/approaches/cone_enum/`.)
@@ -53,7 +53,14 @@ biased low on thin cones. At equal compute, the method is about 50-100x worse in
    see table below. At this budget the walk reaches about 85 error cones, so the estimate is about 0.9997 for
    every model.
 
-RESULTS_TABLE
+| model set | truths | estimate (all) | bias on original | RMSE (6 copies) | sampling RMSE at equal compute | ratio |
+|---|---|---|---|---|---|---|
+| original | 0.95318 | 0.99983 | **+4.67 pp** | - | 0.083 pp (s.d.) | 56x |
+| sigma 0.0025 | 0.915-0.946 | 0.9993-0.9999 | - | **6.42 pp** | 0.096 pp | 67x |
+| sigma 0.005 | 0.823-0.931 | 0.9985-0.9999 | - | **10.79 pp** | 0.119 pp | 91x |
+
+Raw log: `eval_noisy_64000.log`, `eval_noisy_64000.json`. Under the leaderboard, `estimator.py` now caps seeding at
+half the budget. At budgets <= 21k it finds almost no cones, so the estimate is about 1.0.
 
 ## Compute accounting
 Everything model-dependent is counted in FLOPs and divided by one forward pass (5,760 FLOPs = 10x(16x16+16)x2+10x16x2):
