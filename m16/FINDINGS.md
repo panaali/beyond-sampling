@@ -98,6 +98,8 @@ logits an exact linear map of x, so the margin splits into per-input contributio
 - *Errors are set by (m2-m3) relative to m1*: no better a predictor than the plain gap.
 - *A linear margin in (m2-m3, m1, m2, x9) for each position triple predicts the flips*: R^2 0.95, but it
   catches only 16% of actual flips.
+- *The max's "assist" toward p2 over p3 is a positional effect*: the (p1,p2,p3) triple explains R^2 0.05 of
+  it, and it is positive in only 63% of cases (mean +8.3 per unit m1). It depends on values, through gating.
 
 ## 5. Attempt at ARC's challenge: a mechanistic accuracy estimate (`estimate.py`)
 
@@ -128,8 +130,8 @@ probes, so the gap to sampling *widens* (about 8x). Capturing that dependence wi
 
 - ARC's challenge (section 5): a deductive estimate that matches sampling.
 - The gating rules are measured (92-100% predictable from record history), not derived from the weights.
-- The "assist" (why the max's contribution normally favours p2 over p3) is measured exactly per input but
-  not explained in closed form.
+- The "assist" (why the max's contribution normally favours p2 over p3) is measured exactly per input; it
+  is value-dependent through gating (positions explain R^2 0.05), with no closed form found.
 
 ## Relation to the essay and to Hilton
 
