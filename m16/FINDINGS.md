@@ -49,13 +49,13 @@ or when x8 was a near-record (n5, n9).
   max**; the eigenvalue predicts 360/8.42 = 42.8. Concentration is 0.86-0.98. One complex coordinate of the
   hidden state is a clock that says how long ago the max arrived.
 - **The "polysemantic" neurons: explained.** n3 and n13 were rated C (mixture) by the blinded investigator
-  (R^2 0.56 and 0.69). They are the **2nd and 3rd Fourier harmonics**: irregular in position space,
+  (R^2 0.56 and 0.69). [WITHDRAWN as stated, see INDEX H-M2/H-M3: attribution used non-orthogonal modes] They load on the **2nd and 3rd Fourier harmonics**: irregular in position space,
   coherent in frequency space. They are what give the position code enough resolution.
 - **Position code: mostly PASSED.** The hidden state is close to a *sum of two position vectors*:
   h ~ m2 U[p2] + (m1 - m2) V[p1]. That is 18 parameters per neuron instead of 216 tables. Read through the
   real output weights, every U[p] row is a bump peaked at exactly position p, about +-2 positions wide.
   This separable code alone scores 90-91%, against the model's 95-96%, when x9 is below both. `separable.py`
-- **Causal roles: PASSED.** Knocking out each group (final-state mean ablation) breaks exactly the cases its
+- **Causal roles: PASSED for 13/16 neurons (in groups; n2, n5, n9 not ablated; mean-ablation can push the net off-distribution, R1).** Knocking out each group (final-state mean ablation) breaks exactly the cases its
   role predicts:
 
 | knocked out | x9 is max (answer p1) | x9 is 2nd (answer 9) | x9 below both (answer p2) |
@@ -174,6 +174,8 @@ noisy copies and ground truth.
 | 0.0025 | x1.65 / x1.93 / x1.53 / x2.80 |
 | 0.005 | x1.23 / x1.16 / x1.29 / x1.48 |
 
+**Correction (R1):** the exact variance ratios for this design are 2.07x (original), 1.78x (sigma 0.0025, 1.44-2.00 per copy) and 1.36x (sigma 0.005, two copies below 1). The higher table values are Monte Carlo noise in the MSE estimate. Candidate generation (~12.9 rejected draws plus sorts per evaluation) costs about as much as an RNN pass and may erase the gain under FLOP accounting. The original evaluation was an inline script; see `m16/stratified_eval.py` for a committed version.
+
 Caveats: (a) it is still sampling. The mechanism decides *where* to sample, but this is not a deductive
 mechanistic estimate in ARC's sense. (b) Compute counts model evaluations only. Rejection-sampling the rare
 strata draws ~13 candidate inputs per evaluation; drawing and sorting 10 Gaussians is cheap next to a 10-step
@@ -211,7 +213,7 @@ at about 100k evals, a deterministic method needs bias below about 0.05-0.1 pp *
 ## Relation to the essay and to Hilton
 
 On this model the essay's empirical claim holds up: looked at the right way, most neurons have one job,
-and the "mixed" ones turned out to be higher Fourier harmonics. Hilton's distinction also holds:
+and the "mixed" ones load on faster rotating modes (the "harmonics" reading was later weakened; INDEX H-M2/H-M3). Hilton's distinction also holds:
 one-sentence labels for all 16 neurons rebuild only 54% accuracy (pre-registered E4), and some
 descriptions with R^2 0.9 still get the error mechanism wrong (section 4).
 

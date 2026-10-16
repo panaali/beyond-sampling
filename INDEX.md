@@ -60,7 +60,7 @@ script, agent or seed), **S** = single run by its author, **C** = claimed in an 
 | E20 | Q4: Rhee-Glynn debiased series / MLMC | agent | running | `m16/approaches/debiased_series/` | - | - |
 | E21 | Q4: signal-detection observer model (deductive) | agent | done | `m16/approaches/observer/` | ~10x worse RMSE than sampling at equal compute (0.58-0.60 pp vs 0.05-0.07 at ~215k evals); original bias -0.65 pp, partly from cancelling errors. Useful: one linear map per configuration overstates errors ~5x; restricting other inputs to gate-stable intervals fixes most of it; near-tie flip rates predicted within ~15% | C (leaderboard re-run pending) |
 | E22 | Q4: great-circle integration | agent | running | `m16/approaches/great_circle/` | - | - |
-| R1 | Critical review of all outputs | reviewer agent | running | (report pending) | - | - |
+| R1 | Critical review of all outputs | reviewer agent | done | `review/R1/` (scripts) | 10 issues; corrections applied to RESULTS.md, FINDINGS.md and this ledger (H-Q2/3/4, H-A1, H-M3/4/5/6, H-E3/4) | V (scripts re-run data) |
 | L1-L8 | Literature scans (4 eras, 4 fields) | agents | done | `lit/*.md` | converge on: enumerate error cones + Genz/Botev masses; tie-aligned preintegration; control variates | C (many citations unverified) |
 
 ## 4. Hypothesis ledger
@@ -73,14 +73,14 @@ Nothing is "confirmed" on its author's word alone.
 | id | claim | status | evidence | alternatives / weaknesses not ruled out |
 |---|---|---|---|---|
 | H-Q1 | 61% of Qwen3-0.6B neuron poles have "one main job" | supported (borderline) | E1, 84 poles, CI 50-71% | one explainer per item; explainer leniency; same model family as essay's tools; "one job" is a subjective category |
-| H-Q2 | The "% one job" metric barely separates neurons from random directions (36% of random dirs rated A) | supported | E1, n=28 random dirs (wide CI 18-54%) | **random directions may be dominated by a few massive-activation neurons, so they may effectively *be* neurons** (not checked); small n; random dirs and neurons were not matched on sparsity or scale |
-| H-Q3 | Explanations predict held-out activations (AUROC 0.94 top, 0.80 mid) | supported | E1 judges, mismatched control = 0.50 | judges may use surface lexical cues; ratings pooled across items (no per-item analysis); one judge per item |
-| H-Q4 | Neurons are a privileged basis (kurtosis 100 vs 0.8) | supported | E2 | kurtosis is driven by rare massive activations / attention-sink tokens (positions 0-3 excluded, but not other sinks); fp16 storage |
+| H-Q2 | The "% one job" metric barely separates neurons from random directions (36% of random dirs rated A) | **disputed** (R1: random dirs are neuron-dominated, median top-1 share 29%, A-rated dirs most dominated; H2 underpowered, Fisher p=0.028 for a difference) | E1, n=28 random dirs (wide CI 18-54%) | **random directions may be dominated by a few massive-activation neurons, so they may effectively *be* neurons** (not checked); small n; random dirs and neurons were not matched on sparsity or scale |
+| H-Q3 | Explanations predict held-out activations (AUROC 0.94 top, 0.80 mid) | **weakened** (R1: marked token appears verbatim in the explanation for 179/336 snippets, i.e. token lookup; per-item AUROC agrees) | E1 judges, mismatched control = 0.50 | judges may use surface lexical cues; ratings pooled across items (no per-item analysis); one judge per item |
+| H-Q4 | Neurons are a privileged basis (kurtosis 100 vs 0.8) | **weakened** (R1: kurtosis shows sparsity only; the LLM-free one-job proxy shows no difference, top-token share 0.12 vs 0.11, p=0.60) | E2 | kurtosis is driven by rare massive activations / attention-sink tokens (positions 0-3 excluded, but not other sinks); fp16 storage |
 
 ### AlgZoo legibility (Q2)
 | id | claim | status | evidence | alternatives / weaknesses |
 |---|---|---|---|---|
-| H-A1 | Legible labels do not add up to the mechanism on M_16,10 (54%) | supported | E4 held-out scoring | **result depends on the 5-constant-per-neuron rule** (free lookup tables on the same features reach 98%); one investigator, limited effort. So it shows "short labels lose skill", not "no compact description exists" |
+| H-A1 | Legible labels do not add up to the mechanism on M_16,10 (54%) | **narrowed** (R1: driven by the 5-constant limit; one label alone drops acc to 0.79-0.95; ladder has one point) | E4 held-out scoring | **result depends on the 5-constant-per-neuron rule** (free lookup tables on the same features reach 98%); one investigator, limited effort. So it shows "short labels lose skill", not "no compact description exists" |
 | H-A2 | The protocol works when understanding is achievable | confirmed | E3 positive control, held-out | M_4,3 is so small that exact formulas are trivially compact |
 
 ### M_16,10 mechanism (Q3)
@@ -88,23 +88,24 @@ Nothing is "confirmed" on its author's word alone.
 |---|---|---|---|---|
 | H-M1 | Fundamental-mode phase encodes time since the max (42.7 deg/step vs 42.8 predicted) | supported | phase concentration 0.86-0.98 by position | eigenbasis taken from the *most common* gate set only; not checked per gate pattern |
 | H-M2 | The gated recurrence's eigenvalues form a harmonic series (periods 8.4/4.3/2.9/2) | **weakened** (DRI null test) | ratios 1.95, 2.91, 4.2 in the most common gate set; random 13-neuron subsets show this pattern only 3% of the time | that gate set covers only **16%** of states at steps 6-10; the next common gate sets give shifted periods (7.7/4.7/3.1; 6.7/4.0/3.0); 2 of 5 independently trained seeds show a similar series, 3 do not. The 'Fourier memory' is a description of one common configuration, not of the network |
-| H-M3 | n3 and n13 are "higher harmonics" | **weak** | variance shares on non-orthogonal modes (shares exceed 1) | the decomposition is not orthogonal, so the shares are not a clean attribution; no causal test |
-| H-M4 | Algorithm is correct at canonical spacing (99.96%); all errors are magnitude effects | supported | `frozen.py` | canonical inputs never include the blind region; "magnitude" is a residual category, not a mechanism |
-| H-M5 | Error anatomy: blind 0.83%, 2nd-3rd ties ~2.2%, 1st-2nd ~0.7% | confirmed (exact counting on 2-4M samples) | multiple scripts agree | category boundaries (e.g. "near-tie" cut-offs) are choices |
+| H-M3 | n3 and n13 are "higher harmonics" | **weak / withdrawn** (R1 + DRI null test) | variance shares on non-orthogonal modes (shares exceed 1) | the decomposition is not orthogonal, so the shares are not a clean attribution; no causal test |
+| H-M4 | Algorithm is correct at canonical spacing (99.96%); all errors are magnitude effects | **near-tautological** (R1: canonical inputs exclude the blind region and are one point per permutation) | `frozen.py` | canonical inputs never include the blind region; "magnitude" is a residual category, not a mechanism |
+| H-M5 | Error anatomy by what the model picks: blind 0.82%, picks 3rd 2.14%, picks max 0.52% (x9 below both), rank>=4 ~0.27% | confirmed (R1 recomputed), but it is grouping by the model's pick, not by measured ties | multiple scripts agree | category boundaries (e.g. "near-tie" cut-offs) are choices |
 | H-M7 | The network has far too many linear regions to enumerate | confirmed (direct count, 1M samples, DRI) | 535,261 distinct full gate patterns, 435,052 seen once; top 100k cover 56% of mass; 46,738 errors in 38,743 patterns | a count from a sample underestimates the true number; it does not rule out enumeration of *coarser* classes (prefixes, last-k-step gates, rank classes) |
 | H-E6 | Moment/cumulant closure at the decision-margin level cannot reach ~0.1 pp | supported (E13 ceiling test) | exact cumulants per cell: -1.4 pp (2 moments), -0.35 pp (4 cumulants) | finer cells or margins conditioned on more structure might do better; single agent, not re-run |
-| H-M6 | Group roles (clocks, comparators, ...) via mean-ablation | supported | ablation table | mean-ablation can break the network off-distribution, so damage does not prove the role; no resample-ablation or patching control |
+| H-M6 | Group roles (clocks, comparators, ...) via mean-ablation | supported for 13/16 neurons in groups (n2, n5, n9 not ablated); "all 16 causally confirmed" was an overclaim | ablation table | mean-ablation can break the network off-distribution, so damage does not prove the role; no resample-ablation or patching control |
 
 ### Estimation (Q4)
 | id | claim | status | evidence | alternatives / weaknesses |
 |---|---|---|---|---|
 | H-E1 | Our deductive probe estimators lose to sampling | supported | E7 under the harness | the harness's noise model is our guess (see H-E4) |
 | H-E2 | Exact line integration is unbiased but ~17x worse | supported | lineint validated against brute force on 6 lines | cost accounting = number of pieces; a cheaper walker could change the ratio |
-| H-E3 | Stratified sampling beats sampling 1.2-2.8x | **supported, fragile** | E9: 12 cells, all > 1 | compute counts model evals only (rejection sampling draws ~13 candidates per eval); MSE ratio from about 72 trials per cell, so about +-25% noise per cell; the allocation pilot ran on the original model; gain shrinks with noise |
-| H-E4 | Our harness implements ARC's protocol | **unverified** | ARC: "add noise enough to significantly alter accuracy" | the noise scale (sigma x matrix RMS) and the levels (0.0025, 0.005) are our choices; ARC may use seeds rather than noise; FLOPs vs evals accounting is not settled |
+| H-E3 | Stratified sampling beats sampling 1.2-2.8x | **corrected by R1**: exact variance ratios 2.07x (orig), 1.78x (sigma 0.0025), 1.36x (sigma 0.005, two copies < 1); the reported 2.6-2.8x values were MC noise; candidate generation (~12.9 draws + sorts per eval) may erase the gain under FLOP accounting; the evaluation script was not committed | E9: 12 cells, all > 1 | compute counts model evals only (rejection sampling draws ~13 candidates per eval); MSE ratio from about 72 trials per cell, so about +-25% noise per cell; the allocation pilot ran on the original model; gain shrinks with noise |
+| H-E4 | Our harness implements ARC's protocol | **unverified**; R1: sigma levels were our choice (code default 0.05 not reported; at 0.02-0.05 accuracy drops to 26-77%); MSE from ~48 squared errors has ~+-20% relative s.e., so ratios need CIs | ARC: "add noise enough to significantly alter accuracy" | the noise scale (sigma x matrix RMS) and the levels (0.0025, 0.005) are our choices; ARC may use seeds rather than noise; FLOPs vs evals accounting is not settled |
 | H-E5 | "Someone at ARC has cracked M_16,10" | **unverified** | private message relayed by the user | not checked by design (independence) |
 
 ## 5. Open questions / next decisions
+0. R1 follow-ups: re-run H2 with >=100 controls (neurons projected out, or dense rotation) and 2-3 explainers per item; n-gram dedupe for judges; sweep the label constant budget; finish M_32,10; count candidate-generation FLOPs for stratified; add CIs to all MSE ratios; report a higher-noise sigma too.
 1. Check H-Q2's alternative: are random directions dominated by massive-activation neurons? (needs a Qwen re-run; deferred while CPU is saturated)
 2. Orthogonal/causal test for H-M3; check H-M1's phase clock across the other common gate sets. (The H-M2 null test is done: weakened.)
 3. Settle compute accounting (FLOPs incl. input generation) and re-run H-E3 with more repeats.
