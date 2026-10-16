@@ -89,7 +89,7 @@ def line_B(x):
     yb = (x[rows, a] + x[rows, b]) / 2
     Tm = SQ2 * (yb - x[rows, r3])
     z = np.zeros(N, int)
-    return dict(x0=x - t0[:, None] * d, d=d, t0=t0, Tp=np.full(N, np.inf), Tn=Tm, ybar=yb,
+    return dict(x0=x - t0[:, None] * d, d=d, t0=t0, Tp=Tm, Tn=Tm, ybar=yb,
                 pos=(z, z, a), neg=(z, z, b))
 
 
