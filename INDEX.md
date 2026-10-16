@@ -115,6 +115,7 @@ Nothing is "confirmed" on its author's word alone.
 | H-E5 | "Someone at ARC has cracked M_16,10" | **unverified** | private message relayed by the user | not checked by design (independence) |
 
 ## 5. Open questions / next decisions
+- **Leaderboard v2 (decided):** pass 1 shows sampling-vs-itself MSE ratios of 0.55-2.72 (true value 1.0), so single-model cells with 8 reps are noise. v2: add `zoo_2nd_argmax(16,10, seed=0..4)` (generality criterion); 24 reps for randomised methods; bootstrap CIs on every ratio; compare deterministic methods only across model groups.
 - **Brute-force option (needs more compute):** exhaustive region enumeration (reverse search) plus exact cone masses would give an exact reference answer at roughly 1e9-1e10 eval-equivalents. Deciding experiment first: can exact 10-D cone masses be computed fast and accurately enough on a sample of regions? Even if it works, it is a benchmark, not an explanation in ARC's sense.
 0. R1 follow-ups: re-run H2 with >=100 controls (neurons projected out, or dense rotation) and 2-3 explainers per item; n-gram dedupe for judges; sweep the label constant budget; finish M_32,10; count candidate-generation FLOPs for stratified; add CIs to all MSE ratios; report a higher-noise sigma too.
 1. Check H-Q2's alternative: are random directions dominated by massive-activation neurons? (needs a Qwen re-run; deferred while CPU is saturated)
