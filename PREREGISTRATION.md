@@ -85,3 +85,17 @@ Model: AlgZoo `example_2nd_argmax()` = M_16,10, a 1-layer ReLU RNN, 16 hidden ne
 - Reading: legible but not capturing the mechanism supports Hilton (legible != understood); both passing
   supports the essay's "simple thing at scale works" at this scale. ARC's own criterion (a mechanistic
   accuracy estimate matching sampling) is out of scope and would not be met by either outcome.
+
+### E4c (added 2026-10-16, before launching these investigators): a size ladder with a positive control
+
+Same protocol and scorer (`algzoo/score.py --zoo h,n`), chance = 1/seq_len, criteria scaled: legible if
+>= 75% of neurons are A/B with R^2 >= 0.8; mechanism captured if replacement accuracy recovers >= 90% of
+the chance-to-model gap. Each model gets its own fresh investigator.
+
+- **M_4,3** (`zoo_2nd_argmax(4, 3)`, 32 params, 98.4%): ARC reports understanding this one, so it is the
+  **positive control**. If the protocol fails here, its failure on larger models is not informative.
+- **M_16,10** (432 params, the challenge model): running since the addendum above.
+- **M_32,10** (`zoo_2nd_argmax(32, 10)`, 1,376 params, 99.4%): the largest 2nd-argmax RNN.
+
+Reading: the essay's thesis predicts gap recovery stays high as size grows. Hilton's view predicts it falls
+off past the smallest models, even if per-neuron labels stay legible.
