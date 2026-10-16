@@ -6,7 +6,7 @@ import core as C
 from est import est_faces
 
 res = {}
-for (H, T) in [(2, 2), (4, 3), (16, 3), (16, 4), (16, 5), (16, 6), (16, 8)]:
+for (H, T) in [(H_, T_) for H_, T_ in [tuple(map(int, a.split(","))) for a in sys.argv[1:]]] or [(2, 2), (4, 3), (16, 3), (16, 4), (16, 5), (16, 6), (16, 8)]:
     M = C.zoo(H, T)
     t0 = time.time()
     p, se = C.true_acc(M, n=2_000_000)

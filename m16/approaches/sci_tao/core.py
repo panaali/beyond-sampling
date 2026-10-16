@@ -149,7 +149,10 @@ def walk_mass(model, y, a, b, tau, kind, eps=1e-10, max_cells=2000):
             with np.errstate(divide="ignore", invalid="ignore"):
                 root = -c / e
             lb = np.where(e > 0, root, -np.inf); ub = np.where(e < 0, root, np.inf)
-            bad0 = (e == 0) & (c < 0)
+            # numpy argmax returns the FIRST maximal index: exact ties (e.g. all logits 0 when every
+            # neuron is off) count as correct only if k is the first maximiser
+            jj = np.arange(L.shape[1])[None, :]
+            bad0 = (e == 0) & ((c < 0) | ((np.abs(c) <= 1e-12 * (1 + np.abs(L).max(1))[:, None]) & (jj < k[:, None])))
             lb[rr, k] = -np.inf; ub[rr, k] = np.inf
             clo = np.maximum(lb.max(1), p_lo); chi = np.minimum(ub.min(1), p_hi)
             corr = np.where((chi > clo) & ~bad0.any(1), ndtr(chi) - ndtr(clo), 0.0)
