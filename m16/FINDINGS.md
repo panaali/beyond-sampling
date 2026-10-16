@@ -126,6 +126,25 @@ tail: a flip threshold depends on all the other values, and a canonical probe fi
 Modelling that spread from first-order sensitivity probes trims the bias to +0.59 pp, but costs 2.5x the
 probes, so the gap to sampling *widens* (about 8x). Capturing that dependence without in effect sampling inputs is the open problem.
 
+### Under ARC's actual protocol (`arc_eval.py`)
+
+ARC scores estimators on noisy copies of the model (noise on all weights), by RMSE against ground truth
+(2M samples per copy) as a function of compute. Noise = Gaussian with s.d. sigma times each matrix's RMS;
+12 copies, 4 repeats for sampling.
+
+| estimator | sigma | copies' accuracy | model evals | RMSE |
+|---|---|---|---|---|
+| sampling | 0.005 | 0.818-0.931 | 1,000 / 4,000 / 16,000 / 64,000 | 0.95 / 0.49 / 0.25 / 0.12 pp |
+| probe estimator | 0.005 | same | 10,455 | **2.79 pp** |
+| sampling | 0.0025 | 0.915-0.946 | 1,000 / 4,000 / 16,000 / 64,000 | 0.75 / 0.38 / 0.19 / 0.10 pp |
+| probe estimator | 0.0025 | same | 10,607 | **1.97 pp** |
+
+At equal compute the probe estimator is about 10x worse in RMSE (about 100x in MSE) than sampling, and worse
+than sampling with only 1,000 evals. On noisy copies the error structure moves away from the original
+model's near-tie pattern, which the estimator was built around. **Not cracked.** The harness takes any
+estimator `est(model, budget, rng) -> (estimate, evals)`, so another method can be compared on identical
+noisy copies and ground truth.
+
 ## 6. What is still not done
 
 - ARC's challenge (section 5): a deductive estimate that matches sampling.
