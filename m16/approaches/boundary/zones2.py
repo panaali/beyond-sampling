@@ -4,6 +4,7 @@ Same zones and unbiased decomposition as zones.py."""
 import numpy as np
 from scipy.special import ndtr, ndtri
 import zones as Z
+import direct as D
 
 T = 10
 SQ2 = np.sqrt(2.0)
@@ -154,7 +155,7 @@ def _logits(model, x):
 
 
 def geom_A(model, n, rng, gA):
-    y, a, b, yb, os_ = Z.surface_points("A", n, rng)
+    y, a, b, yb, os_ = D.surface("A", n, rng)
     rows = np.arange(n)
     d = np.zeros_like(y); d[rows, a] = 1 / SQ2; d[rows, b] = -1 / SQ2
     tau = np.minimum(SQ2 * np.minimum(os_[:, 0] - yb, yb - os_[:, 1]), gA / SQ2)
@@ -164,7 +165,7 @@ def geom_A(model, n, rng, gA):
 
 
 def geom_B(model, n, rng, gA, gB):
-    y, a, b, yb, os_ = Z.surface_points("B", n, rng)
+    y, a, b, yb, os_ = D.surface("B", n, rng)
     rows = np.arange(n)
     d = np.zeros_like(y); d[rows, a] = 1 / SQ2; d[rows, b] = -1 / SQ2
     o3 = os_[:, 0]

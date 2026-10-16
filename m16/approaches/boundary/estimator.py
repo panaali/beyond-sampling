@@ -16,31 +16,37 @@ from scipy.stats import norm
 sys.path.insert(0, "/home/user/clean-neurons/m16/approaches/boundary")
 import zones as Z
 import zones2 as Z2
+import direct as D
+
+DEDUCTIVE = False   # surface points, remainders, R and blind terms use random inputs
 
 GA, GB = 0.15, 0.1
 P_BLIND = 11 / 1024
 P_R = quad(lambda v: 720 * norm.pdf(v) * norm.sf(v + GB) * norm.cdf(v - GA) ** 8 / 8, 0, 12, epsabs=1e-14)[0]
 DEFAULT_FRAC = dict(A=0.62, B=0.12, R=0.22, blind=0.04)     # from the pilot on the original model only
-COST0 = dict(A=2.9, B=1.9, R=1.0, blind=1.0)
+COST0 = dict(A=2.95, B=1.95, R=1.07, blind=1.04)
 
 
 def _zone_draw(n, rng, zone):
-    out = []; got = 0
+    """Returns (inputs, number of candidate vectors generated)."""
+    if zone == 0:
+        return D.blind(n, rng), n
+    out = []; got = 0; gen = 0
     while got < n:
         x = rng.standard_normal((max(4 * n, 1000) if zone == 3 else max(120 * n, 10000), 10))
-        x = x[Z.zone_of(x, GA, GB) == zone]; out.append(x); got += len(x)
-    return np.concatenate(out)[:n]
+        gen += len(x); x = x[Z.zone_of(x, GA, GB) == zone]; out.append(x); got += len(x)
+    return np.concatenate(out)[:n], gen * n / got
 
 
 def _run(model, k, n, rng):
     if n <= 0:
         return np.zeros(0), 0.0
     if k == "A":
-        v, _, f = Z2.term(model, Z2.geom_A(model, n, rng, GA), rng); return v, f.sum()
+        v, _, f = Z2.term(model, Z2.geom_A(model, n, rng, GA), rng); return v, f.sum() + D.INPUT_COST * n
     if k == "B":
-        v, _, f = Z2.term(model, Z2.geom_B(model, n, rng, GA, GB), rng); return v, f.sum()
-    x = _zone_draw(n, rng, 3 if k == "R" else 0)
-    return Z.point_wrong(model, x).astype(float), float(n)
+        v, _, f = Z2.term(model, Z2.geom_B(model, n, rng, GA, GB), rng); return v, f.sum() + D.INPUT_COST * n
+    x, gen = _zone_draw(n, rng, 3 if k == "R" else 0)
+    return Z.point_wrong(model, x).astype(float), float(n) + D.INPUT_COST * gen
 
 
 WEIGHT = dict(A=1.0, B=1.0, R=P_R, blind=P_BLIND)
@@ -71,3 +77,9 @@ def est_boundary(model, budget, rng, pilot=0.25, details=False):
     if details:
         return 1 - err, used, terms, {k: sum(len(v) for v in vals[k]) for k in WEIGHT}, cost
     return 1 - err, used
+
+
+def est(model, budget, rng):
+    """Leaderboard interface: cost in forward-pass equivalents (slope passes, partial passes and input
+    generation included)."""
+    return est_boundary(model, budget, rng)
