@@ -145,6 +145,35 @@ model's near-tie pattern, which the estimator was built around. **Not cracked.**
 estimator `est(model, budget, rng) -> (estimate, evals)`, so another method can be compared on identical
 noisy copies and ground truth.
 
+### Thinking outside the box: three more estimators under ARC's protocol
+
+1. **Exact line integration** (`lineint.py`). With no biases and ReLU, the network is exactly piecewise linear
+   along any line that varies one input. Walking the ReLU breakpoints, solving where the argmax changes and
+   integrating the Gaussian density over the correct intervals gives P(correct | other 9 inputs) **exactly**
+   (validated against 1M-sample brute force on individual lines; unbiased overall: 0.9521 +- 0.0028). But
+   each line costs ~33 forward passes and halves the variance, so at equal compute it is about **17x worse**
+   than sampling. (An earlier "62x better" figure in my notes was an arithmetic error: I divided where I
+   should have multiplied.)
+2. **Randomised quasi-Monte Carlo** (`qmc_test.py`), on the raw indicator and on the line-integrated
+   function. No faster convergence; RMSE ratio to sampling ~1 (raw) and ~3-4 (lines). The line-integrated
+   function is still discontinuous in the other coordinates (ties among them, the blind region).
+3. **Mechanism-informed stratified sampling** (`stratified.py`): **beats sampling.** The mechanism says
+   errors live at near-ties of the top order statistics and in the blind region. Those are properties of
+   the input, so stratum probabilities are model-free and exact, and the estimate is unbiased for any weights.
+   Evaluations go where errors are (Neyman allocation from a pilot on the original model only).
+
+| sigma | compute-adjusted MSE gain over sampling (budgets 1k / 4k / 16k / 64k) |
+|---|---|
+| 0 (original) | x2.62 / x1.68 / x2.21 / x1.94 |
+| 0.0025 | x1.65 / x1.93 / x1.53 / x2.80 |
+| 0.005 | x1.23 / x1.16 / x1.29 / x1.48 |
+
+Caveats: (a) it is still sampling. The mechanism decides *where* to sample, but this is not a deductive
+mechanistic estimate in ARC's sense. (b) Compute counts model evaluations only. Rejection-sampling the rare
+strata draws ~13 candidate inputs per evaluation; drawing and sorting 10 Gaussians is cheap next to a 10-step
+RNN pass, but under strict FLOP accounting it would eat part of the gain. (c) The gain shrinks with noise,
+because noisier copies make errors that are less confined to ties.
+
 ## 6. What is still not done
 
 - ARC's challenge (section 5): a deductive estimate that matches sampling.
