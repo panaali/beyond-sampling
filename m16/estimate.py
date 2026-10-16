@@ -42,14 +42,15 @@ def flip_threshold(p1, p2, p3, seed, iters=14):
     return lo, n + 1
 
 
-def threshold_general(order, seed, iters=12):
+def threshold_general(order, seed, iters=12, eos=None):
     """order: positions holding global ranks 1,2,3 (len 3). Answer = order[1], competitor = order[2].
     Remaining ranks get shuffled canonical values. Bisect relative gap (v2-v3)/v2 below which the net picks order[2]."""
+    eos = EOS if eos is None else eos
     x = np.empty(T)
     for r, p in enumerate(order):
-        x[p] = EOS[r]
+        x[p] = eos[r]
     rest = [i for i in range(T) if i not in order]
-    vals = EOS[3:].copy(); np.random.default_rng(seed).shuffle(vals); x[rest] = vals
+    ranks = np.arange(3, T); np.random.default_rng(seed).shuffle(ranks); x[rest] = eos[ranks]
     a, b = order[1], order[2]; v2 = x[a]
     def picks_b(g):
         y = x.copy(); y[b] = v2 * (1 - g)
@@ -89,13 +90,14 @@ def estimate_accuracy(seeds=(0,), rng_order=None):
 REL_GAP12 = (_ref[:, 0] - _ref[:, 1]) / np.abs(_ref[:, 0])   # model-free distribution of (v1-v2)/|v1|
 
 
-def threshold_top(order, seed, iters=12):
+def threshold_top(order, seed, iters=12, eos=None):
     """Bisect the relative gap (v1-v2)/v1 below which the net picks the max (order[0]) instead of order[1]."""
+    eos = EOS if eos is None else eos
     x = np.empty(T)
     for r, p in enumerate(order):
-        x[p] = EOS[r]
+        x[p] = eos[r]
     rest = [i for i in range(T) if i not in order]
-    vals = EOS[3:].copy(); np.random.default_rng(seed).shuffle(vals); x[rest] = vals
+    ranks = np.arange(3, T); np.random.default_rng(seed).shuffle(ranks); x[rest] = eos[ranks]
     a, b = order[1], order[0]; v2 = x[a]
     def picks_max(g):
         y = x.copy(); y[b] = v2 / (1 - g)      # (v1-v2)/v1 = g
@@ -129,3 +131,39 @@ def estimate_accuracy_v2(seeds=(0,)):
     p_top = float(np.mean(fp))
     err = parts["blind"] + (1 - 11 / 1024) * (parts["p_flip"] + p_top)
     return 1 - err, evals, dict(parts, p_top=p_top)
+
+
+_SD = _ref.std(0)    # model-free s.d. of each order statistic
+
+
+def threshold_with_spread(order, seed, kind, eps=0.05):
+    """Threshold at the canonical point plus its s.d. from first-order sensitivity to the other inputs."""
+    fn = threshold_general if kind == "23" else threshold_top
+    g0, n = fn(order, seed)
+    if g0 <= 0 or g0 >= 0.95:
+        return g0, 0.0, n
+    var = 0.0
+    for rk in range(3, T):                    # perturb each non-top-3 order statistic by eps s.d.
+        eos = EOS.copy(); eos[rk] += eps * _SD[rk]
+        gp, n1 = fn(order, seed, eos=eos); n += n1
+        var += ((gp - g0) / eps) ** 2         # (d g / d sd-unit)^2, unit variance per input
+    return g0, np.sqrt(var), n
+
+
+def estimate_accuracy_v3(seed=0, z=np.linspace(-3, 3, 13)):
+    w = np.exp(-z ** 2 / 2); w /= w.sum()
+    out, evals = {}, 0
+    for kind, gaps in (("23", REL_GAP), ("12", REL_GAP12)):
+        ps = []
+        for p1 in range(T):
+            for p2 in range(T):
+                for p3 in range(T):
+                    if len({p1, p2, p3}) < 3:
+                        continue
+                    g0, sd, n = threshold_with_spread((p1, p2, p3), seed, kind); evals += n
+                    sg = np.sort(gaps)
+                    cdf = np.searchsorted(sg, np.clip(g0 + sd * z, 0, None)) / len(sg)
+                    ps.append(float((w * cdf).sum()))
+        out[kind] = float(np.mean(ps))
+    err = (11 / 1024) * (8 / 9) + (1 - 11 / 1024) * (out["23"] + out["12"])
+    return 1 - err, evals, out

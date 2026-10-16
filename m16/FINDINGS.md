@@ -114,13 +114,15 @@ The error model built from sections 1-3: accuracy = 1 - [blind region] - [2nd-vs
 | blind + 2nd-vs-3rd ties | 0.9676 | +1.45 pp | 5,400 | 0.29 pp |
 | same, 8 arrangements | 0.9680 | +1.49 pp | 43,174 | 0.10 pp |
 | **+ 1st-vs-2nd ties** | **0.9605** | **+0.74 pp** | 32,141 | **0.12 pp** |
+| + threshold spread from sensitivity probes | 0.9590 | +0.59 pp | 80,629 | 0.07 pp |
 
 The first version's bias didn't shrink with more probes, so it was systematic. The missing errors
 turned out to be 1st-vs-2nd near-ties (gap median 0.019, the max picked 60% of the time). Adding them halved
 the bias. **The result: understanding the mechanism gets the accuracy to within 0.74 points, but at equal
 compute this is 4-6x worse than plain random sampling. ARC's bar is not met.** The remaining bias is the soft
 tail: a flip threshold depends on all the other values, and a canonical probe fixes them at their means.
-Capturing that dependence without in effect sampling inputs is the open problem.
+Modelling that spread from first-order sensitivity probes trims the bias to +0.59 pp, but costs 2.5x the
+probes, so the gap to sampling *widens* (about 8x). Capturing that dependence without in effect sampling inputs is the open problem.
 
 ## 6. What is still not done
 
@@ -135,3 +137,12 @@ On this model the essay's empirical claim holds up: looked at the right way, mos
 and the "mixed" ones turned out to be higher Fourier harmonics. Hilton's distinction also holds:
 one-sentence labels for all 16 neurons rebuild only 54% accuracy (pre-registered E4), and some
 descriptions with R^2 0.9 still get the error mechanism wrong (section 4).
+
+## 7. Correspondence to ARC's handcrafted 22-neuron model (ARC open item 2): partial
+
+- The trained state linearly encodes ARC's leave-one-out maxima L_k well (R^2 0.91-0.99 per position), but
+  not the per-position values relu(x_k) that the handcrafted delay line stores (R^2 0.56-0.80).
+- Applying the handcrafted readout (relu(x_k) + 2 L_k) to the features decoded from the trained state gives
+  71.8%; the trained model gets 95.3%. The trained network shares the handcrafted model's key features
+  but **not its decision rule**. It decodes through its own gating, which no linear map from its state
+  reproduces.
