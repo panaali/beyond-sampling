@@ -41,7 +41,25 @@ Done. The estimator is deterministic, uses no random model inputs, and beats sam
 MSE at equal FLOPs. It is not a closed-form tube formula, though: the first-order formula fails (see Results).
 
 ## Results
-RESULTS_TABLE
+ARC protocol (`python run_eval.py; python summarize.py`, full output in `summary.txt`). The estimator is
+deterministic: one fixed rule per budget, the same nodes for every model. Sampling RMSE is the exact
+expected value sqrt(mean p(1-p)/N) at the same compute. Truth s.e. 0.012-0.015 pp.
+
+| models | budget (used) | tube RMSE | sampling RMSE | MSE gain |
+|---|---|---|---|---|
+| σ=0.0025 ×6 | 1k (945) | 0.455 pp | 0.794 pp | 3.05x |
+| σ=0.0025 ×6 | 4k (3952) | 0.233 pp | 0.388 pp | 2.78x |
+| σ=0.0025 ×6 | 16k (15995) | 0.110 pp | 0.193 pp | 3.07x |
+| σ=0.0025 ×6 | 64k (63385) | 0.050 pp | 0.097 pp | 3.71x |
+| σ=0.005 ×6 | 1k (939) | 1.298 pp | 0.982 pp | **0.57x** (one copy off by -2.9 pp) |
+| σ=0.005 ×6 | 4k (3949) | 0.325 pp | 0.479 pp | 2.17x |
+| σ=0.005 ×6 | 16k (15960) | 0.189 pp | 0.238 pp | 1.58x |
+| σ=0.005 ×6 | 64k (63328) | 0.091 pp | 0.120 pp | 1.73x |
+| original, 30-40 random shifts of the rule (diagnosis) | 1k / 4k / 16k | 0.429 / 0.215 / 0.087 pp | 0.671 / 0.355 / 0.168 pp | 2.4x / 2.8x / 3.7x |
+
+Original model with the fixed rule: bias +0.012 / +0.232 / +0.104 / +0.007 pp at 1k / 4k / 16k / 64k. These are
+single draws of the quadrature error, so they say little on their own. Across 40 shifts at 4k the mean
+bias is -0.022 ± 0.034 pp, and across 30 shifts at 16k it is +0.021 ± 0.015 pp: no detectable systematic bias.
 
 Diagnostics on the original model (`diag_*.py`, all short runs):
 
@@ -105,8 +123,8 @@ Unit = one RNN forward pass on one sequence (~6k FLOPs).
 - Cost per face grows with the number of gate flips along a segment. Models with more kinks near ties
   make each face dearer.
 - Errors far from any tie (bulk errors) are still integrated exactly, but they inflate the variance of F.
-  A model with large bulk-error regions would lose the advantage. On σ=0.005 copies that is starting to
-  happen (see table).
+  A model with large bulk-error regions would lose the advantage. On σ=0.005 copies the gain drops to
+  1.6-2.2x, and one copy at 1k is off by -2.9 pp. I have not checked whether bulk errors cause this. [inferred]
 - The blind region is handled by plain deterministic quadrature: no mechanism there.
 - The estimator is deterministic, so a fixed rule has a fixed error for each model. That error behaves like
   a draw from the random-shift spread, not like a shrinking bias.

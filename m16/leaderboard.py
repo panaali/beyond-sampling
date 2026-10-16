@@ -6,7 +6,9 @@ where model = (Wi, Wh, Wo), budget and cost are in *forward-pass equivalents*: o
 on one length-10 sequence = 1. Count ALL work that depends on the model (model passes, gate/slope
 passes, LPs scaled by FLOPs/6e3), and input generation/rejection if not negligible. Model-free
 precomputation that is reused across models is free but must be declared in the README.
-Set `DEDUCTIVE = True` in estimator.py only if the estimate uses no random model inputs.
+Set `DEDUCTIVE = True` in estimator.py only if the estimate uses no random model inputs (deterministic
+estimators get one run per model; randomised ones REPS runs). Set `FIXED_COST = True` if the cost does not
+depend on the budget (evaluated at one budget only).
 
 usage: python m16/leaderboard.py truths            # cache ground truth (4M samples per model)
        python m16/leaderboard.py run name1 name2   # evaluate approaches (or 'sampling', 'stratified')
@@ -50,22 +52,22 @@ def compute_truths(n=4_000_000, chunk=500_000):
 
 def load_estimator(name):
     if name == "sampling":
-        return est_sampling, False
+        return est_sampling, False, False
     if name == "stratified":
         import stratified as S
         d = json.load(open("m16/stratified_design.json"))
         P, alloc = np.array(d["P"]), np.array(d["alloc"])
-        return (lambda m, b, rng: S.estimate(lambda x: forward(m, x), b, rng, P, alloc)), False
+        return (lambda m, b, rng: S.estimate(lambda x: forward(m, x), b, rng, P, alloc)), False, False
     path = f"m16/approaches/{name}/estimator.py"
     spec = importlib.util.spec_from_file_location(f"est_{name}", path)
     mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
-    return mod.est, bool(getattr(mod, "DEDUCTIVE", False))
+    return mod.est, bool(getattr(mod, "DEDUCTIVE", False)), bool(getattr(mod, "FIXED_COST", False))
 
 
 def run(names):
     truth = json.load(open(TRUTHS)); ms = models(); rows = {}
     for name in names:
-        est, deductive = load_estimator(name)
+        est, deductive, fixed_cost = load_estimator(name)
         for b in BUDGETS:
             for group in ("orig", "s0.0025", "s0.005"):
                 se, cost = [], []
@@ -82,7 +84,7 @@ def run(names):
                                                    deductive=deductive)
                 print(f"{name:18s} {group:8s} budget {b:7d} cost {C:9.0f} RMSE {100*np.sqrt(mse):.3f}pp "
                       f"MSE/sampling {ratio:.2f}", flush=True)
-            if deductive:
+            if fixed_cost:      # budget-independent estimators are evaluated once
                 break
     old = json.load(open("results/leaderboard.json")) if os.path.exists("results/leaderboard.json") else {}
     old.update(rows); json.dump(old, open("results/leaderboard.json", "w"), indent=1)
