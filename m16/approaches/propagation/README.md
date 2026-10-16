@@ -92,8 +92,10 @@ within MC error (max abs err 0.003 on covariances of order 1).
 | 0.0025 | K=1, eps 1e-4 | 117k | **67.4 pp** | 0.071 pp |
 
 [measured] The truths are 0.915-0.946, and the estimates are 0.26-0.32 on all six copies. The estimator
-barely responds to the weights. The sigma=0.005 rows did not finish: the run hit its 1,500 s timeout under a load average of about 48 on
-the shared machine, so no `results_arc.json` was written. The sigma=0.0025 rows above come from the run's log. The estimator's insensitivity on the original
+barely responds to the weights. **The sigma=0.005 run is incomplete.** The process was killed at about 21:30 (the DRI reports another
+agent's process cleanup; it also coincided with the 1,500 s timeout under a load average of about 48), so no
+`results_arc.json` was written. Per the DRI it was not restarted, because the sigma=0.0025 result is already
+decisive. The sigma=0.0025 rows above come from the run's log. The estimator's insensitivity on the original
 model and at sigma=0.0025 implies RMSE of roughly 55-65 pp there too [inferred].
 
 ## Compute accounting
