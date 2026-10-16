@@ -196,14 +196,7 @@ def propagate(model, eps=1e-6, merge=True, keep_cons=False, final='adf', ep_iter
         acc_b = zc
         Zb = B.w
     else:
-        from ep import ep_logz
-        acc_b = np.zeros(len(B)); Zb = np.zeros(len(B))
-        for r in range(len(B)):
-            cons = np.array(B.cons[r])
-            outc = np.array([L[r, tgt[r]] - L[r, j] for j in range(T) if j != tgt[r]])
-            lz_b = ep_logz(cons, ep_iters, C)
-            lz_c = ep_logz(np.concatenate([cons, outc]), ep_iters, C)
-            acc_b[r] = np.exp(lz_c - lz_b); Zb[r] = np.exp(lz_b)
+        raise NotImplementedError('only ADF final step')
     kept = Zb.sum()
     return dict(acc=float((Zb * acc_b).sum() / kept), acc_lower=float((Zb * acc_b).sum()),
                 kept=float(kept), dropped=float(dropped), branches=nb_hist, flops=C.flops,

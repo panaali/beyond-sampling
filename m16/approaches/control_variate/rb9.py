@@ -6,7 +6,7 @@ On each piece, 'argmax == target' is an intersection of linear inequalities in x
 Gaussian mass is exact. Q(x0..x8) = P(correct | x0..x8) exactly; E[Q] = accuracy.
 """
 import numpy as np
-from scipy.special import ndtr
+from scipy.special import ndtr, stdtr
 
 T = 10
 
@@ -19,10 +19,18 @@ def h9(model, x9):
     return h
 
 
-def Q(model, x):
-    """x: (N, >=9); only x[:, :9] used. Returns exact P(correct | x0..x8)."""
+def Q(model, x, radial=False):
+    """x: (N, >=9); only x[:, :9] used. Returns exact P(correct | x0..x8).
+    radial=True: also integrate the prefix's scale. The net has no biases, so correctness is invariant under
+    x -> c x (c>0); with x0..8 = R u (R^2 ~ chi2_9 independent of u, x9), correctness depends on (u, x9/R), and
+    3 x9/R ~ Student t_9. Returns exact P(correct | direction of x0..x8)."""
     Wi, Wh, Wo = model
     x = x[:, :9]; N = len(x)
+    if radial:
+        x = x / np.linalg.norm(x, axis=1, keepdims=True)
+        cdf = lambda z: stdtr(9, 3 * z)
+    else:
+        cdf = ndtr
     a = h9(model, x) @ Wh.T                       # (N,16) pre-activation offset at last step
     w = Wi                                        # slope
     with np.errstate(divide="ignore"):
@@ -52,7 +60,7 @@ def Q(model, x):
         lower = np.where(dB > 0, r, -np.inf); upper = np.where(dB < 0, r, np.inf)
         never = (dB == 0) & (dA <= 0)
         L = np.maximum(lo, lower.max(1)); U = np.minimum(hi, upper.min(1))
-        mass = np.where((U > L) & ok & ~never.any(1), ndtr(U) - ndtr(L), 0.0)
+        mass = np.where((U > L) & ok & ~never.any(1), cdf(U) - cdf(L), 0.0)
         total += mass
     return total
 
