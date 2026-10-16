@@ -38,3 +38,23 @@ def trunc_quantiles(c, k):
     """k representative values of N(0,1) | < c (mid-quantiles), descending."""
     u = (np.arange(k) + 0.5) / k
     return norm.ppf(ndtr(c) * u)[::-1]
+
+
+def bin_moments(c, q):
+    """Mean and variance of N(0,1)|<c restricted to each of q equal-mass bins. c: array (M,) -> (q,M),(q,M)."""
+    c = np.asarray(c, float); Pc = ndtr(c)
+    edges = [norm.ppf(np.clip(Pc * r / q, 1e-300, 1)) for r in range(q + 1)]
+    edges[0] = np.full_like(c, -np.inf); edges[-1] = c
+    M = []; V = []
+    for r in range(q):
+        lo, hi = edges[r], edges[r + 1]
+        pl = np.where(np.isinf(lo), 0, phi(np.where(np.isinf(lo), 0, lo))); ph = phi(hi)
+        zl = np.where(np.isinf(lo), 0, lo * pl); zh = hi * ph
+        dP = Pc / q
+        m = (pl - ph) / dP; e2 = 1 + (zl - zh) / dP
+        M.append(m); V.append(np.maximum(e2 - m * m, 0))
+    return np.array(M), np.array(V)
+
+
+def bin_medians(c, q):
+    return norm.ppf(ndtr(c) * (np.arange(q) + 0.5) / q)

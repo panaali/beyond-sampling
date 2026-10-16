@@ -94,3 +94,58 @@ def hlrf(tm, perms, ks, positive=True, iters=25, bmax=8.0, damp=1.0, u0=None):
     beta = (u * alpha).sum(1) + g / gr.norm(dim=1).clamp_min(1e-300)
     beta = beta.clamp(-bmax, bmax)
     return beta.numpy(), alpha.numpy(), u.numpy(), g.numpy()
+
+
+@torch.no_grad()
+def _g_nograd(tm, u, perms, ks, positive):
+    C.fwd += u.shape[0]
+    return g_fn(tm, u, perms, ks, positive)
+
+
+def ray_root(tm, d, perms, ks, positive=True, smax=8.0, nb=10, ngrid=8):
+    """Smallest s in (0, smax] with g(s d) = 0 found by a coarse grid then bisection (no gradients).
+    If g(0)<0, finds first s where g turns positive along -... (handled by caller via sign). Returns s (smax if none)."""
+    B = d.shape[0]
+    g0 = _g_nograd(tm, torch.zeros(B, T), perms, ks, positive)
+    sgn = torch.sign(g0)
+    grid = torch.linspace(0, smax, ngrid + 1)[1:]
+    lo = torch.zeros(B); hi = torch.full((B,), float('nan'))
+    for s in grid:
+        gs = _g_nograd(tm, s * d, perms, ks, positive)
+        hit = torch.isnan(hi) & (torch.sign(gs) != sgn)
+        hi = torch.where(hit, s.expand(B), hi)
+        lo = torch.where(torch.isnan(hi), s.expand(B), lo)
+    found = ~torch.isnan(hi)
+    hi = torch.where(found, hi, torch.full((B,), smax))
+    for _ in range(nb):
+        mid = (lo + hi) / 2
+        gm = _g_nograd(tm, mid * d, perms, ks, positive)
+        same = torch.sign(gm) == sgn
+        lo = torch.where(same & found, mid, lo); hi = torch.where(same | ~found, hi, mid)
+    return torch.where(found, (lo + hi) / 2, torch.full((B,), smax)), found, sgn
+
+
+def design_points(tm, perms, ks, positive=True, iters=6, smax=8.0):
+    """Direction iteration: HL-RF proposes a direction, an exact ray search puts the point on g=0;
+    keep the shortest. Returns signed beta (negative if the median point u=0 already fails),
+    unit normal alpha at the best point (pointing into failure), best point."""
+    B = perms.shape[0]
+    g, gr = g_and_grad(tm, torch.zeros(B, T), perms, ks, positive)
+    d = -gr * torch.sign(g)[:, None]
+    d = d / d.norm(dim=1, keepdim=True).clamp_min(1e-300)
+    best_s = torch.full((B,), smax); best_u = d * smax; best_a = d.clone()
+    for it in range(iters):
+        s, found, sgn = ray_root(tm, d, perms, ks, positive, smax)
+        u = s[:, None] * d
+        better = found & (s < best_s)
+        g, gr = g_and_grad(tm, u, perms, ks, positive)
+        a = -gr / gr.norm(dim=1, keepdim=True).clamp_min(1e-300)
+        best_s = torch.where(better, s, best_s)
+        best_u = torch.where(better[:, None], u, best_u)
+        best_a = torch.where(better[:, None], a, best_a)
+        # HL-RF proposal from this point; for sgn<0 (origin fails) we look for nearest safe point instead
+        unew = ((gr * u).sum(1) - g)[:, None] / (gr ** 2).sum(1, keepdim=True).clamp_min(1e-300) * gr
+        dn = unew / unew.norm(dim=1, keepdim=True).clamp_min(1e-300)
+        d = torch.where(torch.isfinite(dn).all(1, keepdim=True) & (unew.norm(dim=1, keepdim=True) > 1e-9), dn, d)
+    beta = best_s * sgn            # sgn = sign g(0)
+    return beta.numpy(), best_a.numpy(), best_u.numpy()

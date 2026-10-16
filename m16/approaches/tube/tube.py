@@ -144,8 +144,11 @@ def walk_side(model, x0, d, lo, hi, tgt, K, Wf=None, extrap=False):
     """Integrate exp(-r^2/4) 1[argmax != tgt] over r in [lo, hi] along x0 + r d, walking <= K linear cells.
     Returns (error mass found, mass not walked, cells used per point)."""
     n = len(x0)
-    err = np.zeros(n); r = lo.copy(); active = r < hi; cells = np.zeros(n, int)
+    err = np.zeros(n); r = lo.copy(); active = r < hi; cells = np.zeros(n)
     idx = np.arange(n)
+    # FLOP accounting in forward-pass units: a cell recomputes value+tangent only from the time step whose
+    # gate flipped (earlier steps are unchanged); the first cell starts at the first step where d != 0.
+    tstart = (np.abs(d) > 0).argmax(1).astype(float)
     for _ in range(K):
         ii = idx[active]
         if len(ii) == 0:
@@ -153,11 +156,13 @@ def walk_side(model, x0, d, lo, hi, tgt, K, Wf=None, extrap=False):
         rc = r[ii]; scale = 1e-9 * (1 + np.abs(x0[ii]).max(1))
         re = rc + scale
         L, dL, P, dP = fwd_jvp(model, x0[ii] + re[:, None] * d[ii], d[ii])
-        cells[ii] += 1
+        cells[ii] += 2 * (T - tstart[ii]) / T
         with np.errstate(divide="ignore", invalid="ignore"):
             root = -P / dP
         root[~(root > 0)] = np.inf
-        rn = np.minimum(re + root.reshape(len(ii), -1).min(1), hi[ii])
+        rf = root.reshape(len(ii), -1)
+        tstart[ii] = rf.argmin(1) // P.shape[2]
+        rn = np.minimum(re + rf.min(1), hi[ii])
         if extrap and _ == K - 1:
             rn = hi[ii].copy()          # last cell: extrapolate the linear map to the segment end
         t = tgt[ii]
@@ -201,4 +206,5 @@ def F_faces(model, fc, K, radial=False, extrap=False):
         x0, lo, hi, Wf = x0 / rho[:, None], lo / rho, hi / rho, Wrad
     e1, r1, c1 = walk_side(model, x0, fc["d"], lo, hi, fc["tpos"], K, Wf, extrap)
     e2, r2, c2 = walk_side(model, x0, -fc["d"], lo, hi, fc["tneg"], K, Wf, extrap)
-    return e1 + e2, r1 + r2, c1 + c2
+    prefix = (np.abs(fc["d"]) > 0).argmax(1) / T          # shared forward prefix (value only)
+    return e1 + e2, r1 + r2, c1 + c2 + prefix

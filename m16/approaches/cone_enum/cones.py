@@ -121,3 +121,57 @@ def cone_mass_is(A, c, rho, C, n=128, stages=4, seed=0):
             Dz = Z - mu
             S = 1.3 * (Dz * wn[:, None]).T @ Dz + 1e-12 * np.eye(d - 1)
     return est, Lb, Z @ Q.T, b, np.exp(lw)
+
+
+from scipy.special import ndtr, ndtri, log_ndtr
+
+
+def _trunc_std(lo, hi, u):
+    """Sample N(0,1) truncated to [lo,hi] by inverse cdf, vectorised, using the tail on the near side."""
+    flip = lo > 0                       # work in the lower tail for accuracy
+    a = np.where(flip, -hi, lo); b = np.where(flip, -lo, hi)
+    Fa, Fb = ndtr(a), ndtr(b)
+    z = ndtri(np.clip(Fa + u * (Fb - Fa), 1e-300, 1 - 1e-16))
+    z = np.clip(z, a, b)
+    return np.where(flip, -z, z)
+
+
+def cone_mass_mcmc(A, c, C, K=32, steps=12, n=256, seed=0, infl=1.5):
+    """(1) Gaussian hit-and-run inside the cone (exact 1-D truncated-normal moves; model-free) to learn
+    the cone's shape; (2) preintegrate along the samples' mean direction and importance-sample the
+    9-dim complement with a Gaussian fitted to the chain (inflated), scrambled-Sobol driven.
+    Unbiased given the proposal; returns (mass, rel. s.e., binding-row stats)."""
+    rng = np.random.default_rng(seed)
+    m, d = A.shape
+    X = np.tile(c * 2.0, (K, 1))
+    keep = []
+    for s in range(steps):
+        D = rng.standard_normal((K, d)); D /= np.linalg.norm(D, axis=1, keepdims=True)
+        ax = X @ A.T; ad = D @ A.T                          # K x m
+        with np.errstate(divide="ignore", invalid="ignore"):
+            r = -ax / ad
+        lo = np.where(ad > 0, r, -np.inf).max(1); hi = np.where(ad < 0, r, np.inf).min(1)
+        mu = -(X * D).sum(1)
+        t = mu + _trunc_std(lo - mu, hi - mu, rng.random(K))
+        X = X + t[:, None] * D
+        if s >= 3: keep.append(X.copy())
+        C.flops += 4 * K * m * d + 60 * K
+    S = np.vstack(keep)
+    cm = S.mean(0); cm /= np.linalg.norm(cm)
+    ac = A @ cm
+    if ac.min() <= 0: cm = c; ac = A @ cm
+    Q = np.linalg.svd(np.eye(d) - np.outer(cm, cm))[0][:, :d - 1]
+    Yz = (S - np.outer(S @ cm, cm)) @ Q
+    # condition on s: the y-marginal of the cone ∝ phi(y) Phi(-L(y)); fit the chain's y
+    mu = Yz.mean(0); Sig = np.cov(Yz.T) * infl + 1e-10 * np.eye(d - 1)
+    Lc = np.linalg.cholesky(Sig)
+    Z0 = sobol_normals(n, d - 1, seed)
+    Z = mu + Z0 @ Lc.T
+    AQ = A @ Q
+    R = -(Z @ AQ.T) / ac[None]
+    b = R.argmax(1); Lb = R[np.arange(n), b]
+    lw = -0.5 * (Z ** 2).sum(1) + 0.5 * (Z0 ** 2).sum(1) + np.log(np.diag(Lc)).sum() + log_ndtr(-Lb)
+    C.flops += 2 * m * d * d + 2 * n * m * (d - 1) + 4 * n * m + 4 * n * (d - 1) ** 2 + 60 * n
+    w = np.exp(lw)
+    est = w.mean(); rse = w.std() / np.sqrt(n) / max(est, 1e-300)
+    return est, rse, (Z @ Q.T, Lb, b, w, cm)

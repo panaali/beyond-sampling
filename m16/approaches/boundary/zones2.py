@@ -13,17 +13,20 @@ def _pass(model, x0, d, S):
     Wi, Wh, Wo = model
     h = np.zeros((len(x0), Wh.shape[0])); dh = np.zeros_like(h)
     up = np.full(len(x0), np.inf); dn = np.full(len(x0), -np.inf)
+    kup = np.zeros(len(x0), int); kdn = np.zeros(len(x0), int)
     for t in range(T):
         z = h @ Wh.T + (x0[:, t] + S * d[:, t])[:, None] * Wi[None]
         dz = dh @ Wh.T + d[:, t:t + 1] * Wi[None]
         with np.errstate(divide="ignore", invalid="ignore"):
             r = S[:, None] - z / dz
         ok = np.isfinite(r)
-        up = np.minimum(up, np.where(ok & (r > S[:, None] + 1e-12), r, np.inf).min(1))
-        dn = np.maximum(dn, np.where(ok & (r < S[:, None] - 1e-12), r, -np.inf).max(1))
+        u_ = np.where(ok & (r > S[:, None] + 1e-12), r, np.inf).min(1)
+        d_ = np.where(ok & (r < S[:, None] - 1e-12), r, -np.inf).max(1)
+        kup = np.where(u_ < up, t, kup); kdn = np.where(d_ > dn, t, kdn)
+        up = np.minimum(up, u_); dn = np.maximum(dn, d_)
         g = z > 0
         h = np.where(g, z, 0.0); dh = np.where(g, dz, 0.0)
-    return h @ Wo.T, dh @ Wo.T, up, dn
+    return h @ Wo.T, dh @ Wo.T, up, dn, kup, kdn
 
 
 def _env(lg, dlg, a0, end, tgt, mlo, mhi):
@@ -50,37 +53,41 @@ def _env(lg, dlg, a0, end, tgt, mlo, mhi):
     return wrong, a
 
 
-def _side(model, y, d, lg, dlg, brk, tau, tgt, mlo, mhi, sign):
+def _side(model, y, d, lg, dlg, brk, kbrk, tau, tgt, mlo, mhi, sign):
     """Returns wrong mass of the adjacent component, stop point, last piece (lg, dlg, start, end), passes."""
     N = len(y)
     end = np.minimum(brk, tau)
     start = np.zeros(N)
     wrong, stop = _env(lg, dlg, start, end, tgt, mlo, mhi)
     LG, DLG, ST, EN = lg.copy(), dlg.copy(), start.copy(), end.copy()
-    passes = np.zeros(N, int)
+    passes = np.zeros(N, int); flops = np.zeros(N); K = kbrk.copy()
     for _ in range(60):
         cont = (stop >= EN - 1e-15) & (EN < tau)       # band reached the end of the walked piece
         if not cont.any():
             break
         i = np.nonzero(cont)[0]
         S = EN[i] + 1e-9
-        l2, d2, up, _ = _pass(model, y[i], sign * d[i], S)
+        l2, d2, up, _, ku, _ = _pass(model, y[i], sign * d[i], S)
         passes[i] += 1
+        flops[i] += 2 * (T - K[i]) / T            # value + slope recomputed from the flipping step on
+        K[i] = ku
         l2 = l2 - d2 * 1e-9
         e2 = np.minimum(up, tau[i])
         w2, st2 = _env(l2, d2, EN[i], e2, tgt[i], mlo[i], mhi[i])
         wrong[i] += w2; stop[i] = st2
         LG[i], DLG[i], ST[i], EN[i] = l2, d2, EN[i], e2
-    return wrong, stop, (LG, DLG, ST, EN), passes
+    return wrong, stop, (LG, DLG, ST, EN), passes, flops
 
 
 def zone_line_mass(model, y, d, tau, tgt_neg, tgt_pos, mlo, mhi, rng):
     """Unbiased estimate of misclassified masked mass on |t| <= tau. Returns (estimate, passes, exact_part)."""
     N = len(y)
-    lg, dlg, up, dn = _pass(model, y, d, np.zeros(N))
-    wr, sr, pr, cr = _side(model, y, d, lg, dlg, up, tau, tgt_pos, mlo, mhi, +1)
-    wl, sl, pl, cl = _side(model, y, d, lg, -dlg, -dn, tau, tgt_neg, mlo, mhi, -1)
+    lg, dlg, up, dn, kup, kdn = _pass(model, y, d, np.zeros(N))
+    wr, sr, cr, pr, fr = _side(model, y, d, lg, dlg, up, kup, tau, tgt_pos, mlo, mhi, +1)
+    wl, sl, cl, pl, fl = _side(model, y, d, lg, -dlg, -dn, kdn, tau, tgt_neg, mlo, mhi, -1)
     passes = 1 + pr + pl
+    k0 = np.argmax(d != 0, 1)                    # inputs before k0 are fixed along the line
+    flops = (T + (T - k0)) / T + fr + fl         # first pass: value (full) + slope (from k0)
     # remaining regions (in |t|): right [max(sr,mlo), min(tau,mhi)], left [max(sl,mlo), min(tau,mhi)]
     hiM = np.minimum(tau, mhi)
     loR, loL = np.maximum(sr, mlo), np.maximum(sl, mlo)
@@ -108,8 +115,9 @@ def zone_line_mass(model, y, d, tau, tgt_neg, tgt_pos, mlo, mhi, rng):
             t = np.where(right[j], uu[j], -uu[j])
             out[j] = np.argmax(_logits(model, y[i][j] + t[:, None] * d[i][j]), 1)
             passes[i[j]] += 1
+            flops[i[j]] += (T - k0[i[j]]) / T     # value only, prefix before k0 cached
         est[i] += m[i] * (out != tg)
-    return est, passes, wr + wl
+    return est, passes, flops
 
 
 def _logits(model, x):
@@ -141,11 +149,11 @@ def geom_B(model, n, rng, gA, gB):
 
 
 def term(model, G, rng):
-    n = len(G["y"]); vals = np.zeros(n); pcs = np.zeros(n, int)
+    n = len(G["y"]); vals = np.zeros(n); pcs = np.zeros(n, int); fl = np.zeros(n)
     use = np.minimum(G["tau"], G["mhi"]) > G["mlo"]
     i = np.nonzero(use)[0]
     if len(i):
-        e, p, _ = zone_line_mass(model, G["y"][i], G["d"][i], G["tau"][i], G["tn"][i], G["tp"][i],
+        e, p, f = zone_line_mass(model, G["y"][i], G["d"][i], G["tau"][i], G["tn"][i], G["tp"][i],
                                  G["mlo"][i], G["mhi"][i], rng)
-        vals[i] = e; pcs[i] = p
-    return G["w"] * vals, pcs
+        vals[i] = e; pcs[i] = p; fl[i] = f
+    return G["w"] * vals, pcs, fl
