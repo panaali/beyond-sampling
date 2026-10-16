@@ -66,12 +66,22 @@ def _qmc(n, d, skip=0):
     return s.random(n)
 
 
-def faces23(n, shift=SHIFT):
+def _pick(v, q):
+    """Inverse-CDF choice of a stratum index from v in [0,1) with probabilities q; returns (index, 1/(K q))."""
+    if q is None:
+        return None, None
+    cq = np.cumsum(q); cq /= cq[-1]
+    j = np.minimum(np.searchsorted(cq, v, side="right"), len(q) - 1)
+    return j, 1.0 / (len(q) * q[j] / q.sum())
+
+
+def faces23(n, shift=SHIFT, q=None):
     """n face points (deterministic). Positions cycle through the 360 combos (exactly stratified when 360|n)."""
     U = _qmc(n, 10)
     if shift is not None:
         U = (U + shift[:10]) % 1.0
-    combo = np.array(COMBO23)[(U[:, 9] * 360).astype(int)]
+    j, wt = _pick(U[:, 9], q)
+    combo = np.array(COMBO23)[(U[:, 9] * 360).astype(int) if q is None else j]
     u = _inv(CDF23, U[:, 0])
     xc = _trunc_above(u, U[:, 1])
     rest = _trunc_below(u[:, None], U[:, 2:9])
@@ -84,14 +94,16 @@ def faces23(n, shift=SHIFT):
     v4 = rest.max(1)
     S = np.minimum(2 * (xc - u) / 3, 2 * (u - v4))
     lo = np.maximum(0, -2 * u)              # blind cut: v2 = u + |s|/2 > 0
-    return dict(x0=x0, d=d, lo=lo, hi=S, tpos=combo[:, 0], tneg=combo[:, 1], Z=Z23)
+    return dict(x0=x0, d=d, lo=lo, hi=S, tpos=combo[:, 0], tneg=combo[:, 1], Z=Z23,
+                wt=np.ones(n) if wt is None else wt, combo=(U[:, 9] * 360).astype(int) if q is None else j)
 
 
-def faces12(n, shift=SHIFT):
+def faces12(n, shift=SHIFT, q=None):
     U = _qmc(n, 10)
     if shift is not None:
         U = (U + shift[:10]) % 1.0
-    pr = np.array(PAIRS)[(U[:, 9] * 45).astype(int)]
+    j, wt = _pick(U[:, 9], q)
+    pr = np.array(PAIRS)[(U[:, 9] * 45).astype(int) if q is None else j]
     w = _inv(CDF12, U[:, 0])
     rest = _trunc_below(w[:, None], U[:, 1:9])
     x0 = np.empty((n, T)); d = np.zeros((n, T))
@@ -104,7 +116,8 @@ def faces12(n, shift=SHIFT):
     S = 2 * (w - v3) / 3
     hi = np.minimum(S, 2 * w)               # v2 = w - |t|/2 > 0
     # t>0: a is the max -> target b ; t<0: target a
-    return dict(x0=x0, d=d, lo=np.zeros(n), hi=hi, tpos=pr[:, 1], tneg=pr[:, 0], Z=Z12)
+    return dict(x0=x0, d=d, lo=np.zeros(n), hi=hi, tpos=pr[:, 1], tneg=pr[:, 0], Z=Z12,
+                wt=np.ones(n) if wt is None else wt, combo=(U[:, 9] * 45).astype(int) if q is None else j)
 
 
 def blind_points(n, shift=SHIFT):

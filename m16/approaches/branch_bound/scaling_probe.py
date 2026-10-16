@@ -34,10 +34,6 @@ json.dump(out, open("scaling_probe.json", "w"), indent=1, default=float)
 
 # ---- anisotropic "ideal adaptive" cells: half-widths from the exact local linear margin (gates fixed at x)
 from core import forward_x, Wi0, Wh0, Wo0
-def local_grad(xn, tg):
-    """gradient of all margins wrt w at the point (finite differences are exact within a linear piece)."""
-    eps = 1e-7
-    return eps
 xs = np.einsum("ntd,nd->nt", cone.MS[root], w)
 lg = forward_x(xs); tg = cone.TGT[root]
 mar = lg[np.arange(N), tg][:, None] - lg; mar[np.arange(N), tg] = np.inf
