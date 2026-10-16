@@ -267,3 +267,64 @@ def F_hybrid(model, fc, k0, v_tail):
             tot[m] += (gb - ga) * wrong
             cost[m] += (T - T * tmin[m]) / T
     return tot, cost
+
+
+# ------------------------------------------------------------------ cell-exact bracketing Newton (skips cells)
+def _margin(model, x0, d, k, tgt):
+    """margin m = L_tgt - max_other at slope k, its slope dm (active competitor), and the linear cell [kl, kr]."""
+    L, dL, P, dP = fwd_jvp(model, x0 + k[:, None] * d, d)
+    n = len(x0); ar = np.arange(n)
+    Lo = L.copy(); Lo[ar, tgt] = -np.inf; c = Lo.argmax(1)
+    m = L[ar, tgt] - L[ar, c]; dm = dL[ar, tgt] - dL[ar, c]
+    with np.errstate(divide="ignore", invalid="ignore"):
+        root = -P / dP
+    rr = root.reshape(n, -1)
+    kr = k + np.where(rr > 0, rr, np.inf).min(1)
+    kl = k + np.where(rr < 0, rr, -np.inf).max(1)
+    return m, dm, kl, kr, L, dL
+
+
+def newton_side(model, x0, d, lo, hi, tgt, J=4):
+    """Error mass on one side assuming the error set is [lo, k*) with a single crossing k* (or empty if the
+    tie point is already correct). k* is found by Newton on the piecewise-linear margin, exact once the
+    Newton step lands in the cell containing the root. Cost per evaluation 2(T - t0)/T passes."""
+    n = len(x0); t0 = (np.abs(d) > 0).argmax(1); unit = 2 * (T - t0) / T
+    k = lo + 1e-9; cost = unit.copy()
+    m, dm, kl, kr, *_ = _margin(model, x0, d, k, tgt)
+    err = np.zeros(n); act = (m < 0) & (lo < hi)
+    kstar = np.where(act, hi, lo)
+    blo = k.copy(); bhi = hi.copy()
+    for it in range(J):
+        ii = np.where(act)[0]
+        if len(ii) == 0:
+            break
+        with np.errstate(divide="ignore", invalid="ignore"):
+            kn = k[ii] - m[ii] / dm[ii]
+        # linear model of the current cell is valid on [kl, kr]
+        if it == 0:
+            pass
+        inside = (kn >= kl[ii]) & (kn <= kr[ii]) & np.isfinite(kn)
+        done = inside & (kn >= blo[ii]) & (kn <= bhi[ii])
+        kstar[ii[done]] = kn[done]; act[ii[done]] = False
+        jj = ii[~done]
+        if len(jj) == 0:
+            break
+        kn = kn[~done]
+        bad = ~np.isfinite(kn) | (kn <= blo[jj]) | (kn >= bhi[jj])
+        kn = np.where(bad, (blo[jj] + np.minimum(bhi[jj], blo[jj] + 1.0)) / 2, kn)   # fall back to bisection
+        mm, dmm, kll, krr, *_ = _margin(model, x0[jj], d[jj], kn, tgt[jj]); cost[jj] += unit[jj]
+        neg = mm < 0
+        blo[jj[neg]] = kn[neg]; bhi[jj[~neg]] = kn[~neg]
+        k[jj], m[jj], dm[jj], kl[jj], kr[jj] = kn, mm, dmm, kll, krr
+    kstar[act] = (blo[act] + bhi[act]) / 2           # unresolved after J steps: bracket midpoint
+    kstar = np.minimum(kstar, hi)
+    err = np.where(kstar > lo, Wrad(lo, kstar), 0.0)
+    return err, cost
+
+
+def F_newton(model, fc, J=4):
+    rho = np.linalg.norm(fc["x0"], axis=1)
+    x0, lo, hi = fc["x0"] / rho[:, None], fc["lo"] / rho, fc["hi"] / rho
+    e1, c1 = newton_side(model, x0, fc["d"], lo, hi, fc["tpos"], J)
+    e2, c2 = newton_side(model, x0, -fc["d"], lo, hi, fc["tneg"], J)
+    return e1 + e2, c1 + c2 + (np.abs(fc["d"]) > 0).argmax(1) / T

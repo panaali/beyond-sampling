@@ -90,6 +90,7 @@ Nothing is "confirmed" on its author's word alone.
 | H-M3 | n3 and n13 are "higher harmonics" | **weak** | variance shares on non-orthogonal modes (shares exceed 1) | the decomposition is not orthogonal, so the shares are not a clean attribution; no causal test |
 | H-M4 | Algorithm is correct at canonical spacing (99.96%); all errors are magnitude effects | supported | `frozen.py` | canonical inputs never include the blind region; "magnitude" is a residual category, not a mechanism |
 | H-M5 | Error anatomy: blind 0.83%, 2nd-3rd ties ~2.2%, 1st-2nd ~0.7% | confirmed (exact counting on 2-4M samples) | multiple scripts agree | category boundaries (e.g. "near-tie" cut-offs) are choices |
+| H-M7 | The network has far too many linear regions to enumerate | confirmed (direct count, 1M samples, DRI) | 535,261 distinct full gate patterns, 435,052 seen once; top 100k cover 56% of mass; 46,738 errors in 38,743 patterns | a count from a sample underestimates the true number; it does not rule out enumeration of *coarser* classes (prefixes, last-k-step gates, rank classes) |
 | H-M6 | Group roles (clocks, comparators, ...) via mean-ablation | supported | ablation table | mean-ablation can break the network off-distribution, so damage does not prove the role; no resample-ablation or patching control |
 
 ### Estimation (Q4)
