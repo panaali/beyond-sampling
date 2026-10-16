@@ -30,6 +30,9 @@ Start by reading `INDEX.md`: questions, who is doing what, where outputs live, a
 7. **Independence.** Do not read Alignment Research Center material about AlgZoo published after
    January 2026 (we are doing an independent attempt to compare with theirs).
 8. Keep runs CPU-light (4 shared cores). Large data goes in `data/` (git-ignored).
+9. **Never kill processes by name pattern** (`pkill -f`, `pgrep -f ... | xargs kill`): other agents run
+   scripts with the same names. Kill only PIDs you started and have checked (e.g. by their working
+   directory, `ls -l /proc/<pid>/cwd`).
 
 ## Environment
 `source .venv/bin/activate` (CPU torch, transformers, alg_zoo installed editable from

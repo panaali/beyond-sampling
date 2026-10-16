@@ -4,11 +4,15 @@ import numpy as np
 sys.path.insert(0, "/home/user/clean-neurons/m16"); sys.path.insert(0, "/home/user/clean-neurons/m16/approaches/boundary")
 from arc_eval import noisy_models, true_acc, est_sampling
 from estimator import est_boundary
+import time as _t
 sigma = float(sys.argv[1]); budgets = [4000, 16000, 64000]; reps = 4
 tf = f"truth_sigma{sigma}.json"
 models = noisy_models(6, sigma)
+LB = "/home/user/clean-neurons/results/leaderboard_truths.json"
 if os.path.exists(tf):
     truth = json.load(open(tf))
+elif os.path.exists(LB):     # DRI's cached truths: same noisy_models(6, sigma, seed=0), 4M samples
+    d = json.load(open(LB)); truth = [d[f"s{sigma}_{k}"]["acc"] for k in range(6)]; json.dump(truth, open(tf, "w"))
 else:
     truth = [true_acc(m, n=4_000_000) for m in models]; json.dump(truth, open(tf, "w"))
 print("truth", truth, flush=True)
