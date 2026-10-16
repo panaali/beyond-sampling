@@ -19,6 +19,7 @@ SQ2 = np.sqrt(2.0)
 
 
 def _env(lg, dlg, a0, end, tgt, excl, badk):
+    # tgt: correct output on this side; component walked = where output != tgt
     N = len(lg); rows = np.arange(N)
     a = a0.copy(); wrong = np.zeros(N); found = np.zeros(N, bool); live = a < end
     for _ in range(60):
@@ -32,10 +33,11 @@ def _env(lg, dlg, a0, end, tgt, excl, badk):
             c = a[:, None] + (vk[:, None] - val) / (dlg - dk[:, None])
         c = np.where((dlg > dk[:, None]) & (c > a[:, None] + 1e-13), c, np.inf).min(1)
         b = np.minimum(end, c)
-        bad = np.where(badk >= 0, k == badk, (k != tgt) & (k != excl))
-        found |= live & ~bad
-        w = live & bad
-        wrong += np.where(w, ndtr(b) - ndtr(a), 0.0)
+        wr = k != tgt                                   # still inside the wrong component
+        bad = np.where(badk >= 0, k == badk, k != excl)  # output of this band's type
+        found |= live & ~wr
+        w = live & wr
+        wrong += np.where(w & bad, ndtr(b) - ndtr(a), 0.0)
         a = np.where(w, b, a)
     return wrong, a, found
 
