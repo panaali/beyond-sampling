@@ -29,3 +29,22 @@ tie_lines          s0.005   budget   16000 cost     16012 RMSE 0.189pp MSE/sampl
 tie_lines          orig     budget   64000 cost     64005 RMSE 0.049pp MSE/sampling 0.34 [0.17,0.53] n=24
 tie_lines          seed     budget   64000 cost     64001 RMSE 0.095pp MSE/sampling 0.72 [0.48,1.01] n=120
 tie_lines          s0.0025  budget   64000 cost     64001 RMSE 0.069pp MSE/sampling 0.51 [0.40,0.64] n=144
+tie_lines          s0.005   budget   64000 cost     64000 RMSE 0.087pp MSE/sampling 0.53 [0.40,0.66] n=144
+boundary           orig     budget   16000 cost     16019 RMSE 0.094pp MSE/sampling 0.32 [0.18,0.47] n=24
+boundary           seed     budget   16000 cost     15988 RMSE 0.185pp MSE/sampling 0.68 [0.50,0.90] n=120
+boundary           s0.0025  budget   16000 cost     15988 RMSE 0.123pp MSE/sampling 0.41 [0.32,0.50] n=144
+boundary           s0.005   budget   16000 cost     16021 RMSE 0.221pp MSE/sampling 0.85 [0.61,1.11] n=144
+boundary           orig     budget   64000 cost     64042 RMSE 0.066pp MSE/sampling 0.61 [0.31,0.97] n=24
+boundary           seed     budget   64000 cost     64045 RMSE 0.092pp MSE/sampling 0.68 [0.48,0.90] n=120
+boundary           s0.0025  budget   64000 cost     64024 RMSE 0.070pp MSE/sampling 0.52 [0.42,0.65] n=144
+boundary           s0.005   budget   64000 cost     64041 RMSE 0.099pp MSE/sampling 0.68 [0.51,0.88] n=144
+/home/user/clean-neurons/m16/approaches/tube/tube.py:66: UserWarning: The balance properties of Sobol' points require n to be a power of 2.
+  return s.random(n)
+tube               orig     budget   16000 cost     16078 RMSE 0.129pp MSE/sampling 0.60 [0.60,0.60] n=1
+tube               seed     budget   16000 cost     13230 RMSE 0.362pp MSE/sampling 2.17 [0.78,3.56] n=5
+tube               s0.0025  budget   16000 cost     15995 RMSE 0.131pp MSE/sampling 0.46 [0.22,0.71] n=6
+tube               s0.005   budget   16000 cost     15960 RMSE 0.194pp MSE/sampling 0.65 [0.10,1.63] n=6
+tube               orig     budget   64000 cost     63617 RMSE 0.032pp MSE/sampling 0.14 [0.14,0.14] n=1
+tube               seed     budget   64000 cost     52472 RMSE 0.137pp MSE/sampling 1.23 [0.05,2.56] n=5
+tube               s0.0025  budget   64000 cost     63385 RMSE 0.066pp MSE/sampling 0.46 [0.23,0.73] n=6
+tube               s0.005   budget   64000 cost     63328 RMSE 0.105pp MSE/sampling 0.75 [0.23,1.38] n=6
