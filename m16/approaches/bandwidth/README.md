@@ -45,7 +45,7 @@ Done. No compact description was found, and the obstruction is characterised (se
 ## Results
 All commands run from this folder with the venv active.
 
-**1. What w is** (`python validate.py`, quick stats in the session, `python edges.py orig`)
+**1. What w is** (`python validate.py`, quick stats in the session, `python edges.py orig` -> `edges_orig.out`)
 - delta has mean 0.0006 and s.d. 0.029, and is symmetric (44% of bands on the b side). |delta| has median
   0.009, p90 0.038, p99 0.11, CV 1.45. Mass has CV 1.44. The adjacent band carries 79% of the segment's error
   mass; phi(0)|delta| explains R^2 0.90 of the adjacent mass and 0.68 of the total.
@@ -59,7 +59,7 @@ All commands run from this folder with the venv active.
 |---|---|---|
 | (a) additive clock model (~134 params) | held-out R^2 0.06 (delta), 0.13 (mass) | `python extra.py` |
 | (a) full lookup (a,b,p1), 360 params | 0.19-0.20 (delta), 0.21-0.24 (mass) | `python fit.py orig`, `python transfer.py` |
-| (b) gate-flip intervention: bits that individually move delta_lin by > max(0.5|delta|, 0.005) | 104 of 160 per line (median 106). Within an (a,b,p1) class, 32 bits both vary and matter; 0.91 distinct patterns of those bits per line | `python gates.py orig 4000` |
+| (b) gate-flip intervention: bits that individually move delta_lin by > max(0.5|delta|, 0.005) | 104 of 160 per line (median 106). Within an (a,b,p1) class, 32 bits both vary and matter; 0.91 distinct patterns of those bits per line | `python gates.py orig 4000` -> `gates_orig.out` |
 | (b) gates frozen at the canonical (expected order statistic) point of the full ordering, zero parameters | R^2 -0.79; E\|delta\| 0.0224 vs true 0.0165 (+36%). Bit agreement is 95%, but all 160 bits agree on only 7% of lines | `gates.py`, `transfer.py` |
 | (b) lookup(a,b,p1) + per-(a,b) linear in the 48 gate bits at steps a, b, 9 (2565 params) | R^2 0.28 (delta), 0.32 (mass); values instead of gates (855 params): 0.23 / 0.26 | `python extra.py` |
 | (c) Sobol total effect of one lower input, by position: before a / between / after b | 0.19 / 0.11 / 0.07 (orig); 0.22 / 0.16 / 0.08 (seed2). **The reverse of recency** | `python sens.py orig 3000` -> `sens_orig.out`, `sens_seed2.out` |
@@ -69,7 +69,7 @@ All commands run from this folder with the venv active.
 | (e) gradient spectrum per (a,b,p1) class (exact gradient -Jab/s) | one direction carries 73% of the gradient energy (participation ratio 1.8 of 9). Gradient heterogeneity H = 0.97: the mean gradient is about 0, so the gradient's sign flips within a class | `python spectrum.py orig` -> `spectrum.out` |
 | (e) scans of delta along v with the other inputs fixed | 3.4 local extrema, 1.5 sign changes and 9.3 tie-gate-pattern changes per unit v; autocorrelation 0.84 / 0.65 / 0.45 / 0.17 at lags 0.02 / 0.05 / 0.1 / 0.2 | `python vscan.py orig 120` -> `vscan.out` |
 
-**3. Best compact model and learning curve** (`python fit.py orig` -> `fit_orig.out`; `python curve.py` -> `curve.out`)
+**3. Best compact model and learning curve** (`python fit.py orig` -> `fit_orig.out`; `python curve.py` -> `curve.out`; the mass half of the curve was stopped to save CPU, so only delta has a curve)
 
 | model (trained on orig, held-out test) | params | R^2 delta | R^2 \|delta\| | R^2 mass |
 |---|---|---|---|---|
@@ -79,8 +79,8 @@ All commands run from this folder with the venv active.
 | **per-(a,b,p1) linear in the 10 values** (best compact) | 3960 | **0.39** | **0.39** | **0.32** |
 | per-(a,b) quadratic | 2970 | 0.27 | 0.27 | 0.22 |
 | MLP 3x256, 39k training lines | 145k | 0.39 | 0.41 | 0.35 |
-| MLP, 10k / 30k / 100k / 290k training lines | 145k-315k | 0.14 / 0.37 / 0.57 / CURVE290 | | |
-| per-(a,b,p1) linear, 10k / 30k / 100k / 290k lines | 3960 | 0.24 / 0.38 / 0.44 / LIN290 | | |
+| MLP, 10k / 30k / 100k / 290k training lines | 145k-315k | 0.14 / 0.37 / 0.57 / **0.67** (still rising) | | |
+| per-(a,b,p1) linear, 10k / 30k / 100k / 290k lines | 3960 | 0.24 / 0.38 / 0.44 / 0.45 (saturated) | | |
 
 **4. Transfer** (`python transfer.py` -> `transfer.out`; `python cross.py` -> `cross.out`). Held-out R^2 on
 paired 30k sets:
@@ -125,7 +125,7 @@ CPU only. Nothing here is charged to an estimator.
   0.0025, about 0 at 0.005).
 - [measured] delta is model-specific: on identical surface points it is uncorrelated across trained seeds
   (|r| < 0.03), and correlation with orig drops to 0.57-0.80 at weight noise 0.25% and 0.27-0.50 at 0.5%.
-- [measured] A flexible regressor keeps improving with data (MLP R^2 0.14 -> 0.57 from 10k to 100k lines), so
+- [measured] A flexible regressor keeps improving with data (MLP R^2 0.14 / 0.37 / 0.57 / 0.67 at 10k / 30k / 100k / 290k lines, still rising; the best compact family saturates at 0.45), so
   delta is learnable but not compact: it costs more parameters than the ~1e5 samples sampling would need.
 - [inferred] A deductive estimator built on a compact w-model is not plausible for this network. The integrand
   is a cancellation residual whose sign and size depend on many gates; coarse-class means differ by CV 0.69
