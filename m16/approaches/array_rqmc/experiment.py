@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.join(HERE, "../..")); sys.path.insert(0, HERE)
 from common import Wi, Wh, Wo                                     # noqa: E402
 from arc_eval import noisy_models, forward                        # noqa: E402
 import stratified as st                                           # noqa: E402
-from core import (est_mc, est_rqmc, est_array, sort_m1, sort_gap, ValueFn, init, step)  # noqa: E402
+from core import (est_mc, est_rqmc, est_array, sort_m1, sort_gap, sort_tie, ValueFn, init, step)  # noqa: E402
 
 ORIG = (Wi, Wh, Wo)
 _V = {}
@@ -48,6 +48,8 @@ METHODS = {
     "arr_gap": lambda m, n, r: est_array(m, n, r, sort_gap),
     "arr_V": lambda m, n, r: est_array(m, n, r, V()),
     "arr2_m1m2": lambda m, n, r: est_array(m, n, r, sort_m2, sort2=sort_m1),
+    "arr_tie": lambda m, n, r: est_array(m, n, r, sort_tie),
+    "arr2_m2tie": lambda m, n, r: est_array(m, n, r, sort_tie, sort2=sort_m2),
     "arr2_m1V": lambda m, n, r: est_array(m, n, r, V(), sort2=sort_m1),
 }
 

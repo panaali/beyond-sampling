@@ -1,13 +1,13 @@
 """DIAGNOSTIC: predicted vs sampled error by relative gap (u/b for 23 flips, g/b for 12 flips)."""
 import sys, numpy as np
 sys.path.insert(0, '/home/user/clean-neurons/m16')
-from v2 import estimate
+from v3 import estimate
 from quad import grid
 from arc_eval import forward
 from common import Wi, Wh, Wo
 q = int(sys.argv[1]) if len(sys.argv) > 1 else 2
-o, _ = estimate((Wi, Wh, Wo), 3, 3, q)
-C, U, G, W = grid(20, 20, 20); B = C + U; A = B + G
+nv, ng = int(sys.argv[2]), int(sys.argv[3]); o, _ = estimate((Wi, Wh, Wo), nv, ng, q); print("err23", o["23"].sum(), "err12", o["12"].sum())
+C, U, G, W = grid(16, 16, 16); B = C + U; A = B + G
 x = np.random.default_rng(3).standard_normal((1_000_000, 10)); o_ = np.argsort(x, 1)
 out = forward((Wi, Wh, Wo), x).argmax(1); s = np.sort(x, 1)
 b = s[:, -2]; pos = b > 0

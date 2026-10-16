@@ -17,7 +17,7 @@ T = 10
 # ------------------------------------------------------------------ chain
 def init(n, H=16):
     return dict(h=np.zeros((n, H)), m1=np.full(n, -np.inf), m2=np.full(n, -np.inf),
-                p1=np.zeros(n, int), p2=np.zeros(n, int), t=0)
+                m3=np.full(n, -np.inf), p1=np.zeros(n, int), p2=np.zeros(n, int), t=0)
 
 
 def step(model, S, x):
@@ -25,6 +25,7 @@ def step(model, S, x):
     t = S["t"]
     S["h"] = np.maximum(S["h"] @ Wh.T + x[:, None] * Wi[None], 0)
     up1 = x > S["m1"]; up2 = (~up1) & (x > S["m2"])
+    S["m3"] = np.where(up1 | up2, S["m2"], np.maximum(S["m3"], x))   # 3rd largest: only used by sort keys
     S["m2"] = np.where(up1, S["m1"], np.where(up2, x, S["m2"]))
     S["p2"] = np.where(up1, S["p1"], np.where(up2, t, S["p2"]))
     S["m1"] = np.where(up1, x, S["m1"]); S["p1"] = np.where(up1, t, S["p1"])
@@ -108,6 +109,13 @@ def sort_m1(S):
 def sort_gap(S):     # predicted difficulty: closeness of the top two (relative), then running max
     m2 = np.where(np.isfinite(S["m2"]), S["m2"], S["m1"] - 3)
     return (S["m1"] - m2) / (np.abs(S["m1"]) + 0.5)
+
+
+def sort_tie(S):    # mechanism: min relative gap among the running top-3 (the near-tie that becomes an error)
+    m1, m2, m3 = S["m1"], S["m2"], S["m3"]
+    g12 = np.where(np.isfinite(m2), (m1 - m2) / (np.abs(m1) + 0.3), 3.0)
+    g23 = np.where(np.isfinite(m3), (m2 - m3) / (np.abs(m2) + 0.3), 3.0)
+    return np.minimum(g12, g23) + 0.5 * (m2 <= 0)
 
 
 # ------------------------------------------------------------------ estimators

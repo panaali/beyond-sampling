@@ -29,14 +29,14 @@ def is_error(model, x, C):
     return forward_point(model, x) != int(np.argsort(x)[-2])
 
 
-def walk(model, max_cones, C, log_every=None, max_seeds=None):
-    seen = set(); heap = []; masses = []; cnt = 0
+def walk(model, max_cones, C, log_every=None, max_seeds=None, max_fwd=np.inf):
+    seen = set(); heap = []; masses = []; keys = []; cnt = 0
     S = seeds(model, C)
     if max_seeds: S = S[:max_seeds]
     for k, p in enumerate(S):
         heapq.heappush(heap, (-1.0, cnt, p)); cnt += 1        # seeds get top priority
     trace = []
-    while heap and len(masses) < max_cones:
+    while heap and len(masses) < max_cones and C.fwd_equiv < max_fwd:
         pr, _, x = heapq.heappop(heap)
         key, A = cone_of(model, x, C)
         if key in seen: continue
@@ -46,7 +46,7 @@ def walk(model, max_cones, C, log_every=None, max_seeds=None):
         if r is None: continue
         c, rho = r
         m, rse, (Y, Lb, b, w, cm) = cone_mass_ahr(A, c, C, seed=len(masses))
-        masses.append(m); C.cones += 1
+        masses.append(m); keys.append(key); C.cones += 1
         # facet crossings: one per binding row, at its highest-weight IS point; priority = flux share
         tot = w.sum() + 1e-300
         for row in np.unique(b):
@@ -57,6 +57,7 @@ def walk(model, max_cones, C, log_every=None, max_seeds=None):
                 heapq.heappush(heap, (-m * w[sel].sum() / tot, cnt, xo)); cnt += 1
         if log_every and len(masses) % log_every == 0:
             trace.append((len(masses), sum(masses), C.fwd_equiv)); print(trace[-1], flush=True)
+    walk.keys = keys
     return float(sum(masses)), masses, trace
 
 
