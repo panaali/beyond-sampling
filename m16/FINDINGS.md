@@ -99,12 +99,32 @@ logits an exact linear map of x, so the margin splits into per-input contributio
 - *A linear margin in (m2-m3, m1, m2, x9) for each position triple predicts the flips*: R^2 0.95, but it
   catches only 16% of actual flips.
 
-## 5. What is still not done
+## 5. Attempt at ARC's challenge: a mechanistic accuracy estimate (`estimate.py`)
 
-- **ARC's challenge is not solved**: a mechanistic (deductive) estimate of the 95.3% accuracy that matches
-  random sampling on error per unit of compute. The anatomy above (99.96% on canonical inputs, errors confined
-  to near-ties and the blind region, the exact margin decomposition) is the natural starting point, but
-  turning it into a deductive estimate that competes with sampling remains open.
+The error model built from sections 1-3: accuracy = 1 - [blind region] - [2nd-vs-3rd near-tie flips]
+- [1st-vs-2nd near-tie flips]. The probes are designed, not random:
+- Blind region: P = 11/1024, exactly (measured 0.01071). Error there is argued to be 8/9 (the network
+  cannot rank the rest). Measured: 0.889 with 0 positive inputs, 0.768 with 1.
+- For each of the 720 (rank1, rank2, rank3) position triples, build a canonical input (expected order
+  statistics, rest shuffled) and bisect the relative gap at which the network flips. The flip probability is
+  then P(gap < threshold), using the *model-free* distribution of that gap.
+
+| estimate | accuracy | error vs truth (0.9531) | model evals | sampling s.d. at same evals |
+|---|---|---|---|---|
+| blind + 2nd-vs-3rd ties | 0.9676 | +1.45 pp | 5,400 | 0.29 pp |
+| same, 8 arrangements | 0.9680 | +1.49 pp | 43,174 | 0.10 pp |
+| **+ 1st-vs-2nd ties** | **0.9605** | **+0.74 pp** | 32,141 | **0.12 pp** |
+
+The first version's bias didn't shrink with more probes, so it was systematic. The missing errors
+turned out to be 1st-vs-2nd near-ties (gap median 0.019, the max picked 60% of the time). Adding them halved
+the bias. **The result: understanding the mechanism gets the accuracy to within 0.74 points, but at equal
+compute this is 4-6x worse than plain random sampling. ARC's bar is not met.** The remaining bias is the soft
+tail: a flip threshold depends on all the other values, and a canonical probe fixes them at their means.
+Capturing that dependence without in effect sampling inputs is the open problem.
+
+## 6. What is still not done
+
+- ARC's challenge (section 5): a deductive estimate that matches sampling.
 - The gating rules are measured (92-100% predictable from record history), not derived from the weights.
 - The "assist" (why the max's contribution normally favours p2 over p3) is measured exactly per input but
   not explained in closed form.
