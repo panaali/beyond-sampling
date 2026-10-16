@@ -53,6 +53,27 @@ def _env(lg, dlg, a0, end, tgt, mlo, mhi):
     return wrong, a
 
 
+def _env_all(lg, dlg, a0, s0, end, tgt, mlo, mhi):
+    """Affine logits lg + dlg (u - a0) (piece starting at a0); exact masked wrong mass over [s0, end]."""
+    N = len(lg); rows = np.arange(N)
+    a = s0.copy(); wrong = np.zeros(N)
+    for _ in range(60):
+        live = a < end
+        if not live.any():
+            break
+        val = lg + dlg * (a - a0)[:, None]
+        k = np.argmax(val + dlg * 1e-7, 1)
+        vk, dk = val[rows, k], dlg[rows, k]
+        with np.errstate(divide="ignore", invalid="ignore"):
+            c = a[:, None] + (vk[:, None] - val) / (dlg - dk[:, None])
+        c = np.where((dlg > dk[:, None]) & (c > a[:, None] + 1e-13), c, np.inf).min(1)
+        b = np.minimum(end, c)
+        l, u = np.maximum(a, mlo), np.minimum(b, mhi)
+        wrong += np.where(live & (k != tgt) & (u > l), ndtr(u) - ndtr(np.minimum(l, u)), 0.0)
+        a = np.where(live, b, a)
+    return wrong
+
+
 def _side(model, y, d, lg, dlg, brk, kbrk, tau, tgt, mlo, mhi, sign):
     """Returns wrong mass of the adjacent component, stop point, last piece (lg, dlg, start, end), passes."""
     N = len(y)
@@ -86,6 +107,10 @@ def zone_line_mass(model, y, d, tau, tgt_neg, tgt_pos, mlo, mhi, rng):
     wr, sr, cr, pr, fr = _side(model, y, d, lg, dlg, up, kup, tau, tgt_pos, mlo, mhi, +1)
     wl, sl, cl, pl, fl = _side(model, y, d, lg, -dlg, -dn, kdn, tau, tgt_neg, mlo, mhi, -1)
     passes = 1 + pr + pl
+    # rest of the last walked piece on each side is known exactly (affine logits): integrate it, no passes
+    wr = wr + _env_all(cr[0], cr[1], cr[2], sr, cr[3], tgt_pos, mlo, mhi)
+    wl = wl + _env_all(cl[0], cl[1], cl[2], sl, cl[3], tgt_neg, mlo, mhi)
+    sr = np.maximum(sr, cr[3]); sl = np.maximum(sl, cl[3])
     k0 = np.argmax(d != 0, 1)                    # inputs before k0 are fixed along the line
     flops = (T + (T - k0)) / T + fr + fl         # first pass: value (full) + slope (from k0)
     # remaining regions (in |t|): right [max(sr,mlo), min(tau,mhi)], left [max(sl,mlo), min(tau,mhi)]

@@ -56,24 +56,25 @@ def _trunc_above(u, v):    # N(0,1) conditioned > u
     return -ndtri(np.clip(v * ndtr(-u), 1e-300, 1))
 
 
-def _qmc(n, d, skip=1):
+SHIFT = (np.arange(1, 12) * 0.6180339887498949) % 1.0   # fixed deterministic shift (Kronecker)
+
+
+def _qmc(n, d, skip=0):
     s = qmc.Sobol(d, scramble=False)
     if skip:
         s.fast_forward(skip)
     return s.random(n)
 
 
-def faces23(n, shift=None):
+def faces23(n, shift=SHIFT):
     """n face points (deterministic). Positions cycle through the 360 combos (exactly stratified when 360|n)."""
-    U = _qmc(n, 9)
+    U = _qmc(n, 10)
     if shift is not None:
-        U = (U + shift) % 1.0
-    combo = np.array([COMBO23[k % 360] for k in range(n)])
-    # interleave: point k uses Sobol point k; combos assigned by k mod 360 -> use a permutation so that each
-    # combo gets a well-spread subsequence
+        U = (U + shift[:10]) % 1.0
+    combo = np.array(COMBO23)[(U[:, 9] * 360).astype(int)]
     u = _inv(CDF23, U[:, 0])
     xc = _trunc_above(u, U[:, 1])
-    rest = _trunc_below(u[:, None], U[:, 2:])
+    rest = _trunc_below(u[:, None], U[:, 2:9])
     x0 = np.empty((n, T)); d = np.zeros((n, T))
     for k in range(n):
         a, b, c = combo[k]
@@ -86,13 +87,13 @@ def faces23(n, shift=None):
     return dict(x0=x0, d=d, lo=lo, hi=S, tpos=combo[:, 0], tneg=combo[:, 1], Z=Z23)
 
 
-def faces12(n, shift=None):
-    U = _qmc(n, 9)
+def faces12(n, shift=SHIFT):
+    U = _qmc(n, 10)
     if shift is not None:
-        U = (U + shift) % 1.0
-    pr = np.array([PAIRS[k % 45] for k in range(n)])
+        U = (U + shift[:10]) % 1.0
+    pr = np.array(PAIRS)[(U[:, 9] * 45).astype(int)]
     w = _inv(CDF12, U[:, 0])
-    rest = _trunc_below(w[:, None], U[:, 1:])
+    rest = _trunc_below(w[:, None], U[:, 1:9])
     x0 = np.empty((n, T)); d = np.zeros((n, T))
     for k in range(n):
         a, b = pr[k]
@@ -106,15 +107,15 @@ def faces12(n, shift=None):
     return dict(x0=x0, d=d, lo=np.zeros(n), hi=hi, tpos=pr[:, 1], tneg=pr[:, 0], Z=Z12)
 
 
-def blind_points(n, shift=None):
+def blind_points(n, shift=SHIFT):
     """Deterministic points of the blind region with their exact masses.
     0 positives (mass 1/1024) and exactly one positive at c (mass 1/1024 each)."""
-    U = _qmc(n, T)
+    U = _qmc(n, T + 1)
     if shift is not None:
-        U = (U + shift) % 1.0
-    z = -ndtri(np.clip(U / 2, 1e-300, 1))      # half-normal magnitude, |z|
+        U = (U + shift[:T + 1]) % 1.0
+    z = -ndtri(np.clip(U[:, :T] / 2, 1e-300, 1))      # half-normal magnitude, |z|
     x = -z
-    c = np.arange(n) % 11                         # 0..9 = position of the positive, 10 = none
+    c = (U[:, T] * 11).astype(int)                        # 0..9 = position of the positive, 10 = none
     m = c < 10
     x[np.where(m)[0], c[m]] *= -1
     return x
@@ -208,3 +209,48 @@ def F_faces(model, fc, K, radial=False, extrap=False):
     e2, r2, c2 = walk_side(model, x0, -fc["d"], lo, hi, fc["tneg"], K, Wf, extrap)
     prefix = (np.abs(fc["d"]) > 0).argmax(1) / T          # shared forward prefix (value only)
     return e1 + e2, r1 + r2, c1 + c2 + prefix
+
+
+# ------------------------------------------------------------------ hybrid: exact walk near the tie, one-point quadrature beyond
+_TH = np.linspace(0, np.pi / 2, 20001)
+_GTH = np.sqrt(2) * _cos8(_TH)
+
+
+def Grad(k):
+    return C_RAD * np.sqrt(2) * _cos8(np.arctan(k / np.sqrt(2)))
+
+
+def Ginv(g):
+    th = np.interp(g / C_RAD, _GTH, _TH)
+    return np.sqrt(2) * np.tan(th)
+
+
+def forward_from(model, x):
+    Wi, Wh, Wo = model
+    h = np.zeros((len(x), Wh.shape[0]))
+    for t in range(T):
+        h = np.maximum(h @ Wh.T + x[:, t:t + 1] * Wi[None], 0)
+    return h @ Wo.T
+
+
+def F_hybrid(model, fc, k0, v_tail):
+    """Radial-integrated F: exact walk on slopes [lo, min(hi, k0)] on each side; on [k0, hi] one evaluation at the
+    slope with weight-quantile v_tail (deterministic quadrature node), weighted by the tail's mass.
+    v_tail: (n, 2) numbers in (0,1)."""
+    rho = np.linalg.norm(fc["x0"], axis=1)
+    x0, lo, hi = fc["x0"] / rho[:, None], fc["lo"] / rho, fc["hi"] / rho
+    near_hi = np.minimum(hi, k0)
+    tot = np.zeros(len(x0)); cost = (np.abs(fc["d"]) > 0).argmax(1) / T
+    tmin = cost.copy()
+    for side, sg, tg in ((0, 1.0, fc["tpos"]), (1, -1.0, fc["tneg"])):
+        e, _, c = walk_side(model, x0, sg * fc["d"], lo, near_hi, tg, 200, Wrad)
+        tot += e; cost += c
+        a = np.maximum(lo, k0); m = hi > a
+        if m.any():
+            ga, gb = Grad(a[m]), Grad(hi[m])
+            k = Ginv(ga + v_tail[m, side] * (gb - ga))
+            x = x0[m] + (sg * k)[:, None] * fc["d"][m]
+            wrong = forward_from(model, x).argmax(1) != tg[m]
+            tot[m] += (gb - ga) * wrong
+            cost[m] += (T - T * tmin[m]) / T
+    return tot, cost

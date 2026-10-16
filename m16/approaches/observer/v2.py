@@ -46,7 +46,7 @@ def estimate(model, nv=3, ng=3, q=4, nq=20, seed=0, drel=0.02):
             jg[m] = np.clip(np.searchsorted(eg[i], gap[m]) - 1, 0, ng - 1)
         cell = iv * ng + jg
         masks = [cell == c for c in range(nv * ng)]
-        errs = np.zeros(len(TRIPLES))
+        errs = np.zeros(len(TRIPLES)); self_gap = np.zeros(len(gap)); self_lev = None
         for r in range(len(X)):
             ti, i, j, k = meta[r][:4]; bins = meta[r][4:]
             p1, p2, p3 = TRIPLES[ti]
@@ -57,8 +57,8 @@ def estimate(model, nv=3, ng=3, q=4, nq=20, seed=0, drel=0.02):
             dr = d[rest]
             mu = d[p1] * A[m] + d[p2] * B[m] + d[p3] * C[m] + (dr[:, None] * BM[bins][:, m]).sum(0)
             sd = np.sqrt((dr[:, None] ** 2 * BV[bins][:, m]).sum(0) + 1e-12)
-            errs[ti] += (W[m] * ndtr(-mu / sd)).sum() / 720 / q
-        out[kind] = errs
+            pe = W[m] * ndtr(-mu / sd) / 720 / q; errs[ti] += pe.sum(); self_gap[m] += pe
+        out[kind] = errs; out[kind + '_node'] = self_gap
     return out, evals
 
 

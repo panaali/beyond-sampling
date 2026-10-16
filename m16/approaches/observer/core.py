@@ -49,7 +49,7 @@ def bin_moments(c, q):
     for r in range(q):
         lo, hi = edges[r], edges[r + 1]
         pl = np.where(np.isinf(lo), 0, phi(np.where(np.isinf(lo), 0, lo))); ph = phi(hi)
-        zl = np.where(np.isinf(lo), 0, lo * pl); zh = hi * ph
+        zl = np.where(np.isinf(lo), 0, np.where(np.isinf(lo), 0, lo) * pl); zh = hi * ph
         dP = Pc / q
         m = (pl - ph) / dP; e2 = 1 + (zl - zh) / dP
         M.append(m); V.append(np.maximum(e2 - m * m, 0))

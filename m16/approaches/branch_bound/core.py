@@ -78,10 +78,12 @@ def _conc_lo(c, k, wc, wr):
     return k + np.einsum("nkd,nd->nk", c, wc) - np.einsum("nkd,nd->nk", np.abs(c), wr)
 
 
-def bounds(root, wl, wu, model=None, inter="fwd"):
+def bounds(root, wl, wu, model=None, inter="fwd", MS=None, TGT=None):
     """Lower and upper bounds of margins m_j = logit_target - logit_j (j != target) over each box.
     Returns lb (N,T), ub (N,T) with +inf/-inf... at j=target set to +inf, plus final lower-bound coefs."""
     Wi, Wh, Wo = model if model is not None else (Wi0, Wh0, Wo0)
+    MS = globals()["MS"] if MS is None else MS
+    TGT = globals()["TGT"] if TGT is None else TGT
     N = len(root)
     M = MS[root]                                    # (N,T,D)
     wc, wr = 0.5 * (wl + wu), 0.5 * (wu - wl)

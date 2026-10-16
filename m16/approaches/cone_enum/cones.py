@@ -175,3 +175,52 @@ def cone_mass_mcmc(A, c, C, K=32, steps=12, n=256, seed=0, infl=1.5):
     w = np.exp(lw)
     est = w.mean(); rse = w.std() / np.sqrt(n) / max(est, 1e-300)
     return est, rse, (Z @ Q.T, Lb, b, w, cm)
+
+
+def cone_mass_ahr(A, c, C, K=8, phases=(30, 30, 40), n=256, seed=0, infl=1.5):
+    """Adaptive Gaussian hit-and-run (direction law re-fitted to the chain's covariance between phases;
+    within a phase the kernel is exactly invariant) + preintegrated, Gaussian-fitted importance sampling.
+    Rows are pruned to those that ever bound a chain move (estimated facets) during sampling; the final
+    importance-sampling pass uses ALL rows, so pruning never biases the mass."""
+    rng = np.random.default_rng(seed)
+    m, d = A.shape
+    X = np.tile(c * 2.0, (K, 1)); Ld = np.eye(d)
+    act = np.zeros(m, bool); keep = []
+    Ar = A
+    for ph, steps in enumerate(phases):
+        rows = np.arange(m) if ph == 0 else np.flatnonzero(act)
+        Ar = A[rows]; ph_keep = []
+        for s in range(steps):
+            D = rng.standard_normal((K, d)) @ Ld.T
+            ax = X @ Ar.T; ad = D @ Ar.T
+            with np.errstate(divide="ignore", invalid="ignore"):
+                r = -ax / ad
+            rl = np.where(ad > 0, r, -np.inf); rh = np.where(ad < 0, r, np.inf)
+            il, ih = rl.argmax(1), rh.argmin(1)
+            lo, hi = rl[np.arange(K), il], rh[np.arange(K), ih]
+            act[rows[il]] = True; act[rows[ih]] = True
+            dd = (D * D).sum(1); sd = 1 / np.sqrt(dd)
+            mu = -(X * D).sum(1) / dd
+            t = mu + sd * _trunc_std((lo - mu) / sd, (hi - mu) / sd, rng.random(K))
+            X = X + t[:, None] * D
+            ph_keep.append(X.copy())
+            C.flops += 4 * K * len(rows) * d + 80 * K
+        P = np.vstack(ph_keep[steps // 3:]); keep.append(P)
+        Ld = np.linalg.cholesky(np.cov(P.T) + 1e-9 * np.eye(d))
+    S = keep[-1]
+    cm = S.mean(0); cm /= np.linalg.norm(cm)
+    ac = A @ cm
+    if ac.min() <= 0: cm = c; ac = A @ cm
+    Q = np.linalg.svd(np.eye(d) - np.outer(cm, cm))[0][:, :d - 1]
+    Yz = (S - np.outer(S @ cm, cm)) @ Q
+    mu = Yz.mean(0); Sig = np.cov(Yz.T) * infl + 1e-12 * np.eye(d - 1)
+    Lc = np.linalg.cholesky(Sig)
+    Z0 = sobol_normals(n, d - 1, seed)
+    Z = mu + Z0 @ Lc.T
+    R = -(Z @ (A @ Q).T) / ac[None]
+    b = R.argmax(1); Lb = R[np.arange(n), b]
+    lw = -0.5 * (Z ** 2).sum(1) + 0.5 * (Z0 ** 2).sum(1) + np.log(np.diag(Lc)).sum() + log_ndtr(-Lb)
+    C.flops += 2 * m * d * d + 2 * n * m * (d - 1) + 4 * n * m + 4 * n * (d - 1) ** 2 + 60 * n
+    w = np.exp(lw)
+    est = w.mean(); rse = w.std() / np.sqrt(n) / max(est, 1e-300)
+    return est, rse, (Z @ Q.T, Lb, b, w, cm)
