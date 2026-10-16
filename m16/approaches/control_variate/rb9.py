@@ -67,5 +67,5 @@ def Q(model, x, radial=False):
 
 # Compute accounting (multiply-adds): forward pass = 10*(16*16+16) + 10*16 = 2880.
 # Q: 9 steps (2448) + initial A,B on one piece (2*160) + <=16 rank-1 toggles of (A,B) (16*20)
-#    + <=18 pieces x 10 linear inequalities (~18*30) = ~3630  -> 1.26 forward-equivalents. We charge 1.5.
-COST_Q = 1.5
+#    + <=18 pieces x 10 linear inequalities (~18*30) = ~3630  -> 1.26 forward-equivalents. In FLOPs (forward ~5.9e3): ~9.1e3 -> 1.53; we charge 1.6.
+COST_Q = 1.6

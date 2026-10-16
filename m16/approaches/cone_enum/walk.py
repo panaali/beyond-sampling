@@ -7,14 +7,14 @@ from cones import *
 import arc_eval as ae
 
 
-def seeds(model, C):
+def seeds(model, C, max_fwd=float('inf')):
     """Canonical rank-order inputs (expected order statistics) pushed across 2nd/3rd and 1st/2nd ties by
     bisection (as in est_probe) -> points where the model is wrong.  No random inputs."""
     out = []
     for p1 in range(T):
         for p2 in range(T):
             for p3 in range(T):
-                if len({p1, p2, p3}) < 3: continue
+                if len({p1, p2, p3}) < 3 or C.fwd_equiv >= max_fwd / 2: continue
                 base = ae._canon((p1, p2, p3), 0); v2 = base[p2]
                 for mv, wrong in [(lambda b, g: ae._set(b, p3, v2 * (1 - g)), p3),
                                   (lambda b, g: ae._set(b, p1, v2 / (1 - g)), p1)]:
@@ -31,7 +31,7 @@ def is_error(model, x, C):
 
 def walk(model, max_cones, C, log_every=None, max_seeds=None, max_fwd=np.inf):
     seen = set(); heap = []; masses = []; keys = []; cnt = 0
-    S = seeds(model, C)
+    S = seeds(model, C, max_fwd)
     if max_seeds: S = S[:max_seeds]
     for k, p in enumerate(S):
         heapq.heappush(heap, (-1.0, cnt, p)); cnt += 1        # seeds get top priority

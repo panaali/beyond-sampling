@@ -10,6 +10,11 @@ import v3, v4
 from quad import grid
 
 
+# per anchor: 1 forward + forward-mode Jacobian of all pre-activations (16x10 per step, ~51k FLOPs = 8.5
+# passes; needed for the cone intervals and the local map) + interval/readout work (~1 pass)
+ANCHOR_COST = 10.5
+
+
 def make(nv=1, ng=1, q=2, nq=12, noise=0.0, redges=None, rmid=None, ver=3, clip_top=False):
     from v3 import R_EDGES, R_MID
     re_, rm_ = (R_EDGES, R_MID) if redges is None else (redges, rmid)
@@ -21,7 +26,7 @@ def make(nv=1, ng=1, q=2, nq=12, noise=0.0, redges=None, rmid=None, ver=3, clip_
         acc = 1 - (11 / 1024) * be - o['23'].sum() - o['12'].sum()
         nodes = len(grid(nq, nq, nq)[0])
         flops_quad = 2 * 720 * q * nodes * (2 * q + 36)
-        return acc, anchors * 3 + nb + flops_quad / 6000, o['23'].sum(), o['12'].sum(), be
+        return acc, anchors * ANCHOR_COST + nb + flops_quad / 6000, o['23'].sum(), o['12'].sum(), be
     return est
 
 

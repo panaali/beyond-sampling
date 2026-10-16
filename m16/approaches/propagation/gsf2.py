@@ -227,7 +227,7 @@ def gsf2(model, K=8, eps=1e-6, C=None, renorm=True):
         aug = Comp(mu=mu, S=S, w=c.w, p1=c.p1, p2=c.p2, g=c.g)
         new, fin = [], []
         for comp, sel in rank_split(aug, t, C):
-            keep = comp.w > eps; dropped[0] += comp.w[~keep].sum()
+            keep = comp.w > 1e-12; dropped[0] += comp.w[~keep].sum()
             comp = comp.take(np.where(keep)[0])
             if not len(comp):
                 continue

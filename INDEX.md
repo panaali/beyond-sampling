@@ -58,7 +58,7 @@ script, agent or seed), **S** = single run by its author, **C** = claimed in an 
 | E18 | Q4: tie-direction line sampling | agent | running | `m16/approaches/tie_lines/` | - | - |
 | E19 | Q4: certified branch-and-bound | agent | running | `m16/approaches/branch_bound/` | - | - |
 | E20 | Q4: Rhee-Glynn debiased series / MLMC | agent | running | `m16/approaches/debiased_series/` | - | - |
-| E21 | Q4: signal-detection observer model | agent | running | `m16/approaches/observer/` | - | - |
+| E21 | Q4: signal-detection observer model (deductive) | agent | done | `m16/approaches/observer/` | ~10x worse RMSE than sampling at equal compute (0.58-0.60 pp vs 0.05-0.07 at ~215k evals); original bias -0.65 pp, partly from cancelling errors. Useful: one linear map per configuration overstates errors ~5x; restricting other inputs to gate-stable intervals fixes most of it; near-tie flip rates predicted within ~15% | C (leaderboard re-run pending) |
 | E22 | Q4: great-circle integration | agent | running | `m16/approaches/great_circle/` | - | - |
 | R1 | Critical review of all outputs | reviewer agent | running | (report pending) | - | - |
 | L1-L8 | Literature scans (4 eras, 4 fields) | agents | done | `lit/*.md` | converge on: enumerate error cones + Genz/Botev masses; tie-aligned preintegration; control variates | C (many citations unverified) |

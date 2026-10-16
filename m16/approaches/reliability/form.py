@@ -119,7 +119,7 @@ def ray_root(tm, d, perms, ks, positive=True, smax=8.0, nb=10, ngrid=8):
     hi = torch.where(found, hi, torch.full((B,), smax))
     for _ in range(nb):
         mid = (lo + hi) / 2
-        gm = _g_nograd(tm, mid * d, perms, ks, positive)
+        gm = _g_nograd(tm, mid[:, None] * d, perms, ks, positive)
         same = torch.sign(gm) == sgn
         lo = torch.where(same & found, mid, lo); hi = torch.where(same | ~found, hi, mid)
     return torch.where(found, (lo + hi) / 2, torch.full((B,), smax)), found, sgn

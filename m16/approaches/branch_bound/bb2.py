@@ -35,6 +35,9 @@ def meas(root, wl, wu):
 
 def center_eval(root, wl, wu, model):
     w = 0.5 * (wl + wu)
+    base = np.maximum(wl, 0.5)
+    geo = (wu > 4 * base); geo[:, 0] = False; geo[:, 9] = False
+    w = np.where(geo, np.sqrt(base * wu), w)                           # representative point for wide eps ranges
     x = np.einsum("ntd,nd->nt", cone.MS[root], w)
     return forward_x(x, model).argmax(1) == cone.TGT[root]
 
