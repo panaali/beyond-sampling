@@ -45,8 +45,9 @@ def last_step_value(model, S):
     mid = np.where(np.isfinite(lo) & np.isfinite(hi), (lo + hi) / 2,
                    np.where(np.isfinite(lo), lo + 1, hi - 1))
     G = (a[:, None, :] + Wi[None, None, :] * mid[..., None]) > 0       # (n, K, H)
-    c = np.einsum("nkh,oh->nko", G * a[:, None, :], Wo)                # logits = c + d*s
-    d = np.einsum("nkh,oh->nko", G * Wi[None, None, :], Wo)
+    K = G.shape[1]
+    c = ((G * a[:, None, :]).reshape(-1, H) @ Wo.T).reshape(n, K, -1)  # logits = c + d*s
+    d = ((G * Wi[None, None, :]).reshape(-1, H) @ Wo.T).reshape(n, K, -1)
     m1, m2 = S["m1"][:, None], S["m2"][:, None]
     tgt = np.where(mid > m1, S["p1"][:, None], np.where(mid > m2, T - 1, S["p2"][:, None]))
     ck = np.take_along_axis(c, tgt[..., None], 2); dk = np.take_along_axis(d, tgt[..., None], 2)

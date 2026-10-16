@@ -18,7 +18,7 @@ T = 10
 SQ2 = np.sqrt(2.0)
 
 
-def _env(lg, dlg, a0, end, tgt, excl, badk):
+def _env(lg, dlg, a0, end, tgt, excl, badk, mlo, mhi):
     # tgt: correct output on this side; component walked = where output != tgt
     N = len(lg); rows = np.arange(N)
     a = a0.copy(); wrong = np.zeros(N); found = np.zeros(N, bool); live = a < end
@@ -37,14 +37,15 @@ def _env(lg, dlg, a0, end, tgt, excl, badk):
         bad = np.where(badk >= 0, k == badk, k != excl)  # output of this band's type
         found |= live & ~wr
         w = live & wr
-        wrong += np.where(w & bad, ndtr(b) - ndtr(a), 0.0)
+        l, u = np.maximum(a, mlo), np.minimum(b, mhi)          # count mass only in the non-blind part
+        wrong += np.where(w & bad & (u > l), ndtr(u) - ndtr(np.minimum(l, u)), 0.0)
         a = np.where(w, b, a)
     return wrong, a, found
 
 
-def _side(model, x0, d, lg, dlg, brk, end, tgt, excl, badk, sign, max_pieces=60):
+def _side(model, x0, d, lg, dlg, brk, end, tgt, excl, badk, mlo, mhi, sign, max_pieces=60):
     N = len(x0)
-    wrong, stop, found = _env(lg, dlg, np.zeros(N), np.minimum(brk, end), tgt, excl, badk)
+    wrong, stop, found = _env(lg, dlg, np.zeros(N), np.minimum(brk, end), tgt, excl, badk, mlo, mhi)
     passes = np.zeros(N, int)
     cont = ~found & (stop < end)
     for _ in range(max_pieces):
@@ -55,19 +56,19 @@ def _side(model, x0, d, lg, dlg, brk, end, tgt, excl, badk, sign, max_pieces=60)
         lg2, dlg2, up, _ = _pass(model, x0[i], sign * d[i], S)
         passes[i] += 1
         lg2 = lg2 - dlg2 * 1e-9
-        w2, st2, f2 = _env(lg2, dlg2, stop[i], np.minimum(up, end[i]), tgt[i], excl[i], badk[i])
+        w2, st2, f2 = _env(lg2, dlg2, stop[i], np.minimum(up, end[i]), tgt[i], excl[i], badk[i], mlo[i], mhi[i])
         wrong[i] += w2; stop[i] = st2; found[i] = f2
         cont[i] = ~f2 & (st2 < end[i])
     return wrong, stop, passes
 
 
-def band(model, x0, d, Tp, Tn, side_pos, side_neg):
+def band(model, x0, d, Tp, Tn, side_pos, side_neg, mlo, mhi):
     """side_* = (tgt, excl, badk) arrays for t>0 and t<0. Returns band mass, right stop, left stop, passes,
     and the first piece info (lg, dlg, up, dn) at the tie."""
     N = len(x0)
     lg, dlg, up, dn = _pass(model, x0, d, np.zeros(N))
-    wr, sr, pr = _side(model, x0, d, lg, dlg, up, Tp, *side_pos, +1)
-    wl, sl, pl = _side(model, x0, d, lg, -dlg, -dn, Tn, *side_neg, -1)
+    wr, sr, pr = _side(model, x0, d, lg, dlg, up, Tp, *side_pos, mlo, mhi, +1)
+    wl, sl, pl = _side(model, x0, d, lg, -dlg, -dn, Tn, *side_neg, mlo, mhi, -1)
     return wr + wl, sr, sl, 1 + pr + pl, (lg, dlg, up, dn)
 
 
@@ -80,7 +81,8 @@ def line_A(x):
     Tm = SQ2 * np.minimum(x[rows, r1] - yb, yb - x[rows, r4])
     neg1 = -np.ones(N, int)
     return dict(x0=x - t0[:, None] * d, d=d, t0=t0, Tp=Tm, Tn=Tm, ybar=yb,
-                pos=(a, r1, neg1), neg=(b, r1, neg1))
+                pos=(a, r1, neg1), neg=(b, r1, neg1),
+                mlo=np.maximum(0, -SQ2 * yb), mhi=np.full(N, np.inf))     # non-blind: max(xa,xb) > 0
 
 
 def line_B(x):
@@ -92,14 +94,26 @@ def line_B(x):
     Tm = SQ2 * (yb - x[rows, r3])
     z = np.zeros(N, int)
     return dict(x0=x - t0[:, None] * d, d=d, t0=t0, Tp=Tm, Tn=Tm, ybar=yb,
-                pos=(b, z, a), neg=(a, z, b))
+                pos=(b, z, a), neg=(a, z, b),
+                mlo=np.zeros(N), mhi=np.maximum(0, SQ2 * yb))             # non-blind: min(xa,xb) > 0
 
 
 def frac(model, L):
-    m, sr, sl, p, first = band(model, L["x0"], L["d"], L["Tp"], L["Tn"], L["pos"], L["neg"])
-    tot = ndtr(L["Tp"]) - ndtr(-L["Tn"])
-    inb = (L["t0"] <= sr) & (L["t0"] >= -sl)
-    return m / tot, inb, p, first
+    """Band fraction for each line; lines whose segment has no non-blind part are skipped (no passes)."""
+    N = len(L["t0"])
+    T_ = L["Tp"]
+    use = (np.minimum(T_, L["mhi"]) > L["mlo"])
+    f = np.zeros(N); inb = np.zeros(N, bool); p = np.zeros(N, int)
+    lg = np.zeros((N, 10)); dlg = np.zeros((N, 10)); up = np.full(N, -np.inf); dn = np.full(N, np.inf)
+    i = np.nonzero(use)[0]
+    if len(i):
+        sub = lambda v: tuple(a[i] for a in v)
+        m, sr, sl, pp, first = band(model, L["x0"][i], L["d"][i], L["Tp"][i], L["Tn"][i], sub(L["pos"]),
+                                    sub(L["neg"]), L["mlo"][i], L["mhi"][i])
+        tot = ndtr(L["Tp"][i]) - ndtr(-L["Tn"][i])
+        f[i] = m / tot; t0 = L["t0"][i]; inb[i] = (t0 <= sr) & (t0 >= -sl); p[i] = pp
+        lg[i], dlg[i], up[i], dn[i] = first
+    return f, inb, p, (lg, dlg, up, dn)
 
 
 def known_output(L, first):
@@ -128,11 +142,13 @@ def per_sample(model, x, do_A=True, do_B=True, do_R=True):
     fB, inB, pB, firstB = frac(model, LB); passes += pB
     ko = known_output(LA, firstA)
     ko = np.where(ko >= 0, ko, known_output(LB, firstB))
-    need = ko < 0
+    nb = np.sort(x, 1)[:, -2] > 0
+    need = (ko < 0) & nb
     if need.any():
         ko[need] = point_out(model, x[need]); passes[need] += 1
     tgt = np.argsort(x, 1)[:, -2]; r1 = np.argmax(x, 1)
     inA = inA & (ko != r1); inB = inB & (ko == r1)
-    R = (ko != tgt) & ~inA & ~inB
+    inA &= nb; inB &= nb
+    R = (ko != tgt) & ~inA & ~inB & nb
     return dict(fA=fA, fB=fB, R=R.astype(float), passes=passes, ybarA=LA["ybar"], TA=LA["Tp"],
                 ybarB=LB["ybar"], TB=LB["Tn"])
