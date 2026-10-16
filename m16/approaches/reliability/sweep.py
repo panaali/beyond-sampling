@@ -9,7 +9,7 @@ for s in (0.0025, 0.005):
     for k, m in enumerate(noisy_models(6, s, seed=0)):
         models[f's{s}_{k}'] = m
 which = sys.argv[1]
-cfgs = {'full': {}, 'L0': E.LADDER[0], 'L1': E.LADDER[1], 'L2': E.LADDER[2]}
+cfgs = {'full': {}, 'L0': E.LADDER[0], 'L1': E.LADDER[1], 'L2': E.LADDER[2], 'M3': dict(iters=3, ngrid=6, nb=8), 'FORMonly': dict(sorm=False)}
 names = [n for n in models if n == 'orig' or sys.argv[2] == 'all']
 out = {}
 for name in names:

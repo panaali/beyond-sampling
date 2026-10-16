@@ -12,9 +12,14 @@ Pipeline per region (2nd largest > 0, and the 'blind' region 2nd largest <= 0, p
   P(fail | c) = midpoint of Ditlevsen bounds of the union of linearised modes (SORM-equivalent betas).
   accuracy = 1 - [(1 - 11/1024) mean_c P(fail|c, pos) + 11/1024 mean_c P(fail|c, blind)].
 """
+import os
+import sys
+
 import numpy as np
 import torch
 from scipy.stats import norm
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from form import design_points, chambers, tmodel, C
 from rosen import G0
@@ -74,12 +79,16 @@ LADDER = [
 ]
 
 
+# nominal costs are model-independent (fixed batch sizes and iteration counts); measured with sweep.py
+LADDER_COST = [35154, 110880, 336960, 2483136]
+
+
 def est(model, budget, rng=None):
-    acc = cost = None
-    for cfg in LADDER:
-        a, c, _ = estimate(model, cfg)
-        if acc is None or c <= budget:
-            acc, cost = a, c
-        if c > budget:
-            break
+    """Most accurate ladder configuration whose (deterministic) cost fits the budget; the cheapest one if none fits.
+    rng is unused (deductive)."""
+    j = 0
+    for i, c in enumerate(LADDER_COST):
+        if c <= budget:
+            j = i
+    acc, cost, _ = estimate(model, LADDER[j])
     return acc, cost
