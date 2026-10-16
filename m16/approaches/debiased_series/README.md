@@ -73,10 +73,29 @@ copy).
 seed-12345 stream as arc_eval.true_acc). These MSEs come from 16 or 18 repeats, so each one is
 uncertain to about +-35%. Use the table above for ranking.
 
-RESULTS_PLACEHOLDER
+| set | budget | stratified | DS3 | DS5 |
+|---|---|---|---|---|
+| original (16 reps) | 16k | 2.77 (bias +0.005+-0.026pp) | 1.64 (bias +0.012+-0.034pp) | 1.74 (bias +0.022+-0.032pp) |
+| original (16 reps) | 64k | 4.58 (bias +0.007+-0.010pp) | 2.80 (bias -0.010+-0.013pp) | 1.57 (bias -0.016+-0.017pp) |
+| original (16 reps) | 256k | 1.29 (bias -0.013+-0.009pp) | 1.52 (bias -0.009+-0.008pp) | 3.35 (bias -0.001+-0.006pp) |
+| sigma 0.0025 (6x3) | 16k | 2.37 (bias +0.009+-0.030pp) | 1.39 (bias -0.015+-0.040pp) | 1.03 (bias +0.013+-0.046pp) |
+| sigma 0.0025 (6x3) | 64k | 3.47 (bias -0.015+-0.012pp) | 1.56 (bias -0.028+-0.017pp) | 2.25 (bias -0.016+-0.015pp) |
+| sigma 0.0025 (6x3) | 256k | 1.07 (bias -0.020+-0.010pp) | 1.17 (bias -0.022+-0.009pp) | 2.12 (bias -0.012+-0.008pp) |
+| sigma 0.005 (6x3) | 16k | 1.23 (bias +0.096+-0.047pp) | 1.11 (bias +0.082+-0.051pp) | 1.03 (bias +0.080+-0.053pp) |
+| sigma 0.005 (6x3) | 64k | 2.56 (bias -0.021+-0.017pp) | 1.83 (bias -0.032+-0.020pp) | 2.12 (bias -0.029+-0.019pp) |
+| sigma 0.005 (6x3) | 256k | 0.52 (bias -0.021+-0.019pp) | 0.82 (bias -0.035+-0.013pp) | 1.09 (bias -0.017+-0.013pp) |
+
+The direction agrees with the variance table: DS5 is worst at 16k and best at 256k. The magnitudes swing
+widely (for example, stratified at 256k on sigma 0.005 shows 0.52, against 1.42 predicted), which is the
+expected scatter of an 18-sample MSE. Do not read the 256k DS5 gains of 3.35 and 2.12 as real; the
+variance table says 1.97 and 1.83.
 
 **Unbiasedness on the original** (16 repeats per budget; bias in pp +- s.e.): all 9 method/budget cells lie
-within 2 s.e. of 0. The pooled DS cells are consistent with 0 (see results_0.json).
+within 1.6 s.e. of 0 (largest: stratified at 256k, -0.0135 +- 0.0088 pp). On the noisy copies, the 16k
+cells at sigma 0.005 sit at about +0.08-0.10 pp, about 1.5-2 s.e., for stratified and DS alike. That points
+to shared sampling and truth noise rather than to DS. One cell is at 2.7 s.e.: DS3 at 256k on sigma 0.005,
+-0.035 +- 0.013 pp. Among about 27 cells, one at 2.7 s.e. is plausible by chance (p about 0.2), but it has
+not been re-run with fresh seeds.
 
 ## Compute accounting
 - Counted: every model forward pass (probes C_K = 720 x 2 x iters, plus sampled inputs), plus 0.037 per
