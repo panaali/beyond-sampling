@@ -18,16 +18,17 @@ def jac(M, x):
     return np.einsum("oi,nik->nok", Wo, J)
 
 
-for name, M in [(f"M16_{T}", C.zoo(16, T)) for T in (3, 4, 5, 6, 8)] + [("orig", (Wi, Wh, Wo))]:
-    T = M[2].shape[0]
-    U = C.sobol(T, 4096, 9)
-    y, a, b, tau = C.face_points(T, "23", U)
-    keep = y[np.arange(len(y)), a] > 0
-    y, a, b = y[keep], a[keep], b[keep]; r = np.arange(len(y))
-    J = jac(M, y + 1e-9 * ((np.arange(T)[None] == a[:, None]) * 1.0))
-    G = J[r, a] - J[r, b]                      # (n,T) margin weights
-    terms = G * y
-    m = terms.sum(1)
-    f = np.abs(terms).sum(1) / np.abs(m)
-    print(f"{name}: median cancellation factor {np.median(f):.1f}  (IQR {np.percentile(f,25):.1f}-{np.percentile(f,75):.1f}); "
-          f"sd(margin)={m.std():.2f}, mean sum|terms|={np.abs(terms).sum(1).mean():.1f}")
+if __name__ == "__main__":
+  for name, M in [(f"M16_{T}", C.zoo(16, T)) for T in (3, 4, 5, 6, 8)] + [("orig", (Wi, Wh, Wo))]:
+      T = M[2].shape[0]
+      U = C.sobol(T, 4096, 9)
+      y, a, b, tau = C.face_points(T, "23", U)
+      keep = y[np.arange(len(y)), a] > 0
+      y, a, b = y[keep], a[keep], b[keep]; r = np.arange(len(y))
+      J = jac(M, y + 1e-9 * ((np.arange(T)[None] == a[:, None]) * 1.0))
+      G = J[r, a] - J[r, b]                      # (n,T) margin weights
+      terms = G * y
+      m = terms.sum(1)
+      f = np.abs(terms).sum(1) / np.abs(m)
+      print(f"{name}: median cancellation factor {np.median(f):.1f}  (IQR {np.percentile(f,25):.1f}-{np.percentile(f,75):.1f}); "
+            f"sd(margin)={m.std():.2f}, mean sum|terms|={np.abs(terms).sum(1).mean():.1f}")

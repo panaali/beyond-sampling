@@ -66,6 +66,52 @@ margin, sum|J_j y_j| / |m|, *falls* with T: 2550 (T=3), 930 (4), 313 (5), 224 (6
 heavy cancellation alone does not make the margin pseudorandom: at T <= 4 it is exact and structured. What
 grows with T is the s.d. of the residual (0.52 -> 2.68) and its irregularity.
 
+
+**Follow-up: is the T=4 -> 5 collapse structural or a quadrature-dimension effect?** (`python scan_HT.py 1024 8 8:3 ... 32:10`,
+results in `scan_HT.json` / `scan_HT.log`)
+- Models: best-of-5 zoo seeds, H in {8, 16, 32}, T in {3, 4, 5, 6, 8, 10}.
+- Rules: 1024 faces per kind, 8 rule seeds.
+- Gain = MSE gain over sampling at equal cost. The 95% CI is chi-square on 7 d.o.f., about x0.24 to x2.3.
+- iid = the same faces drawn at random, so the quadrature (low-discrepancy) benefit is removed.
+- Tail = share of E[F^2] carried by the top 1% of faces.
+- Cancel = median cancellation factor of the tie margin.
+
+| H \ T | 3 | 4 | 5 | 6 | 8 | 10 |
+|---|---|---|---|---|---|---|
+| 8: acc | .9995 | .9875 | .8815 | .7899 | .4656 | .4262 |
+| 8: Sobol gain [CI] | 550 [133,1259] | 13 [3,31] | 2.0 [0.5,4.5] | 0.8 [0.2,1.9] | 0.6 [0.2,1.5] | 0.5 [0.1,1.2] |
+| 8: iid gain / tail / cancel | 78 / .29 / 1700 | 6.3 / .27 / 100 | 0.9 / .34 / 21 | 0.5 / .28 / 22 | 0.1 / .15 / 7 | 0.3 / .13 / 8 |
+| 16: acc | .9995 | .9983 | .9925 | .9842 | .9762 | .9488 |
+| 16: Sobol gain [CI] | 487 [118,1113] | 57 [14,130] | 7.7 [1.9,18] | 2.1 [0.5,4.7] | 8.2 [2.0,19] | 1.3 [0.3,3.1] |
+| 16: iid gain / tail / cancel | 104 / .26 / 2454 | 17 / .33 / 930 | 5.7 / .53 / 323 | 1.2 / .68 / 217 | 1.0 / .78 / 172 | 0.5 / .60 / 86 |
+| 32: acc | .9995 | .9988 | .9973 | .9937 | .9931 | .9947 |
+| 32: Sobol gain [CI] | 1533 [370,3506] | 38 [9,88] | 48 [12,110] | 9.5 [2.3,22] | 1.0 [0.2,2.2] | 3.4 [0.8,7.8] |
+| 32: iid gain / tail / cancel | 158 / .25 / 1888 | 28 / .35 / 1024 | 28 / .32 / 761 | 2.4 / .47 / 396 | 1.0 / .79 / 1013 | 0.8 / .86 / 1732 |
+
+**Reading.**
+- **Not a pure quadrature-dimension effect.** At a fixed T (same face dimension), the gain depends strongly
+  on H.
+- The collapse point moves with H:
+  - H=8 collapses at T=4-5;
+  - H=16 at T=5-6;
+  - H=32 holds to T=5 (48x) and collapses by T=8.
+- So the collapse depends on the model, not only on dimension [measured, CIs wide].
+- **Quadrature still matters.** Sobol gives 5-10x more than iid faces at T=3, but at most about 1-4x from
+  T >= 5. Most of the large small-T gain is low-dimensional quadrature acting on a regular integrand.
+- **The cancellation factor does not track the collapse.** H=32, T=10 has cancellation 1732 and has
+  collapsed; H=8, T=4 has 100 and still gains 13x.
+- **The tail statistic tracks it among well-trained models (acc > 0.97).** Gain >= 38x always goes with
+  tail <= 0.35; gain <= 9.5x with tail >= 0.47, except H=16, T=8 (8.2x at tail 0.78, CI 2-19).
+- Undertrained models (H=8, T >= 5; acc 0.43-0.88) lose for a different reason. Their errors are bulk,
+  not thin tie bands, so tie slicing does not help even though their tails are light.
+- [inferred] The collapse marks where the network's error set stops being a regular thin band and becomes
+  a heavy-tailed scatter of wide bands (or, for weak models, bulk error). It happens at larger T when H is
+  larger, so it is structural.
+- Untested alternatives:
+  - only one training seed per (H,T);
+  - R=8 gives wide CIs;
+  - a tail-aware allocation might move the boundary.
+
 ## Compute accounting
 - Unit = 1 forward pass. A walk cell = 2(T - restart step)/T. The prefix before min(a,b) is counted once.
   Pilot faces are counted.
