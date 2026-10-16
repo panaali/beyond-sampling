@@ -167,3 +167,90 @@ def estimate_accuracy_v3(seed=0, z=np.linspace(-3, 3, 13)):
         out[kind] = float(np.mean(ps))
     err = (11 / 1024) * (8 / 9) + (1 - 11 / 1024) * (out["23"] + out["12"])
     return 1 - err, evals, out
+
+
+# ---------------------------------------------------------------- v4: second-order (Feynman-style) corrections
+_GH_Z, _GH_W = np.polynomial.hermite_e.hermegauss(9)
+_GH_W = _GH_W / _GH_W.sum()
+
+
+def threshold_second_order(order, seed, kind, h=0.5):
+    """Threshold at the canonical point plus slope and curvature w.r.t. each other order statistic
+    (central differences of +-h s.d.), combined assuming additivity:
+    g(delta) = g0 + sum_r a_r delta_r + 1/2 sum_r c_r delta_r^2, delta_r ~ N(0,1) i.i.d.
+    Returns mean and s.d. of g(delta) (exact moments of that quadratic form)."""
+    fn = {"23": threshold_general, "12": threshold_top, "34": threshold_rank4}[kind]
+    g0, n = fn(order, seed)
+    if kind != "34" and (g0 <= 0 or g0 >= 0.95):
+        return g0, 0.0, n
+    mean, var = g0, 0.0
+    for rk in range(3, T):
+        gp, n1 = fn(order, seed, eos=_shift(rk, +h)); gm, n2 = fn(order, seed, eos=_shift(rk, -h)); n += n1 + n2
+        a = (gp - gm) / (2 * h); c = (gp - 2 * g0 + gm) / h ** 2
+        mean += 0.5 * c
+        var += a ** 2 + 0.5 * c ** 2
+    return mean, np.sqrt(var), n
+
+
+def _shift(rk, d):
+    """Move order statistic rk by d s.d., kept strictly between its neighbours."""
+    eos = EOS.copy(); v = eos[rk] + d * _SD[rk]
+    hi = eos[rk - 1] - 1e-3 if rk > 0 else np.inf
+    lo = eos[rk + 1] + 1e-3 if rk + 1 < T else -np.inf
+    eos[rk] = min(max(v, lo), hi)
+    return eos
+
+
+REL_GAP34 = (_ref[:, 1] - _ref[:, 3]) / np.abs(_ref[:, 1])   # model-free (v2-v4)/|v2|
+
+
+def threshold_rank4(order, seed, iters=12, eos=None):
+    """Mode 'picks the 4th': bisect (v2 - v4)/v2 below which the net picks the rank-4 position.
+    order = positions of ranks 1,2,3; rank 4 is placed at the first remaining position in shuffled order."""
+    eos = EOS if eos is None else eos
+    x = np.empty(T)
+    for r, p in enumerate(order):
+        x[p] = eos[r]
+    rest = [i for i in range(T) if i not in order]
+    ranks = np.arange(3, T); np.random.default_rng(seed).shuffle(ranks); x[rest] = eos[ranks]
+    p4 = rest[int(np.argmin(ranks))]            # position holding rank 4
+    a = order[1]; v2 = x[a]; v3 = x[order[2]]
+    def picks4(g):
+        y = x.copy(); y[p4] = min(v2 * (1 - g), v3 - 1e-6)   # move rank 4 up toward rank 2 (stays below rank 3)
+        return (run(y[None])[:, -1] @ Wo.T).argmax(1)[0] == p4
+    n = 1
+    if not picks4(1.0):
+        lo_ok = False
+    # threshold: largest g such that it picks rank 4 when (v2-v4)/v2 = g ; search g in [g_min, 1]
+    gmin = (v2 - v3) / v2 + 1e-6
+    if not picks4(gmin):
+        return 0.0, n + 1
+    lo, hi = gmin, 1.0; n += 1
+    if picks4(hi):
+        return hi, n + 1
+    for _ in range(iters):
+        mid = (lo + hi) / 2; n += 1
+        lo, hi = (mid, hi) if picks4(mid) else (lo, mid)
+    return lo, n
+
+
+def estimate_accuracy_v4(seed=0):
+    z, w = _GH_Z, _GH_W
+    out, evals = {}, 0
+    for kind, gaps in (("23", REL_GAP), ("12", REL_GAP12), ("34", REL_GAP34)):
+        sg = np.sort(gaps); ps = []
+        for p1 in range(T):
+            for p2 in range(T):
+                for p3 in range(T):
+                    if len({p1, p2, p3}) < 3:
+                        continue
+                    m, sd, n = threshold_second_order((p1, p2, p3), seed, kind); evals += n
+                    if kind == "34":
+                        # P(gap34 < threshold) minus the part already inside the 2-3 tie region is ignored (rare overlap)
+                        cdf = np.searchsorted(sg, np.clip(m + sd * z, 0, None)) / len(sg)
+                    else:
+                        cdf = np.searchsorted(sg, np.clip(m + sd * z, 0, None)) / len(sg)
+                    ps.append(float((w * cdf).sum()))
+        out[kind] = float(np.mean(ps))
+    err = (11 / 1024) * (8 / 9) + (1 - 11 / 1024) * (out["23"] + out["12"] + out["34"])
+    return 1 - err, evals, out

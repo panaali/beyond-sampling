@@ -174,6 +174,27 @@ strata draws ~13 candidate inputs per evaluation; drawing and sorting 10 Gaussia
 RNN pass, but under strict FLOP accounting it would eat part of the gain. (c) The gain shrinks with noise,
 because noisier copies make errors that are less confined to ties.
 
+### Feynman-style second-order corrections (`estimate.py`, v4)
+
+Diagnosis first: v3's +0.59 pp bias came mostly from under-predicting 2nd-vs-3rd tie flips (about 0.5 pp)
+and an unmodelled "picks the 4th or lower" mode (about 0.27 pp). v4 adds, for every configuration, the
+curvature of the flip threshold with respect to each other input (central differences at +-0.5 s.d.),
+combined analytically (the exact mean and variance of the quadratic form), plus a rank-4 probe. Still fully
+deterministic. Prediction written before running: bias on the original model < 0.2 pp.
+
+- Original model: bias **+0.59 -> +0.25 pp** (prediction narrowly missed). The rank-4 probe finds 0: at
+  canonical spacing the net never picks rank 4; those errors come from atypical configurations.
+- Noisy copies (6 per sigma): v4 halves the bias on 10 of 12 copies, but **fails badly on one** (-7.7 and
+  -9.3 pp; the same noise direction at both sigmas). There some canonical probes are wrong outright, so the
+  estimator predicts errors across whole configurations that are really rare.
+- Cost about 167k evals. RMSE 3.2 / 3.9 pp vs sampling's 0.06 / 0.07 pp at that compute: **about 50x worse
+  under ARC's protocol.**
+
+Lesson: the perturbation series converges slowly (bias roughly halves per order) while cost roughly doubles
+per order. Probes at "typical" points are fragile when a model's typical point is atypical. To beat sampling
+at about 100k evals, a deterministic method needs bias below about 0.05-0.1 pp **on every model**, about
+5-10x better than v4's best case, and with no blow-ups.
+
 ## 6. What is still not done
 
 - ARC's challenge (section 5): a deductive estimate that matches sampling.
