@@ -18,6 +18,7 @@ from rosen import sorted_from_u, Phi, G0
 
 sys.path.insert(0, "/home/user/clean-neurons/m16")
 torch.set_default_dtype(torch.float64)
+torch.set_num_threads(1)
 T = 10
 
 

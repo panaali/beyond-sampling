@@ -1,6 +1,7 @@
 """Per-chamber sampled probabilities of each predicted rank (diagnosis only; original model)."""
 import sys
 import numpy as np, torch
+torch.set_num_threads(1)
 from form import *
 from common import Wi, Wh, Wo
 tm = tmodel((Wi, Wh, Wo))
