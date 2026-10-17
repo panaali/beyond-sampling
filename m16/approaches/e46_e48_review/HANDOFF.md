@@ -1,4 +1,4 @@
-# T193 first saved gate: independent audit pending
+# T193 first saved gate: independently reviewed
 
 All9 original E46 nominal ratios reproduce under their legacy convention,
 FPE2000/3. Source4D bodies/setup match the independently checked latest139a mass
@@ -43,3 +43,5 @@ reviewed positive mass, then measure the actualrecipe2 counter in a declared
 matched expression convention. Seed2 is selected from published sensitivity,
 not a held-out confirmation. Freeze capture/source-semantic controls and cost cap
 before new work; preserve topology/roundoff and native applicability limits.
+
+Independent saved reviewb927baa2 passes all9 scalar/CP/extrema calculations, source-only4D parity and conditional reference comparisons. No candidate calls. Next selectedseed2 phase requires a fresh source/capture scope, exact-mode-only compatibility, pinned checkpoint and tie census; T5decision remainsblocked.
