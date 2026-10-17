@@ -101,3 +101,25 @@ root-mass fixes, charging its cold setup and gate-map omissions. Actual CPU is
 reported separately from each implementation's imperfect arithmetic ledger.
 This tests tangential under-resolution as the strongest remaining cheap
 rescue; it is not an unbounded degree sweep. No new random inputs or fitting.
+
+Tangential rescue (`rescue.py`) improves N8 errors from-.02426(M1) to
+-.01149(M2), -.00220353(M4), and-.00191416(M8). Doubling cut quadrature at
+N8/M4 changes the estimate by9.4e-14, so primitive integration is not the
+source of this remaining error on this model. Corrected isotropic errors at
+D2/4/8 are-.01670,-.01611,-.00502076. N8/M4 and isotropic D8 both store81
+coefficients; measured cold CPU is.0333 versus.0520 seconds, with absolute
+error smaller by2.28x. This is a limited improvement on one model, not the
+requested>10x robust fixed-cost gain. M8 costs.0665 seconds and improves only
+slightly, so it is not automatically preferable. Arithmetic ledgers differ
+and omit some work; no matched-FLOP claim is made.
+
+Next finite controls frozen: test N4/M4 and N16/M4 to distinguish normal
+resolution from the tangential bottleneck, without expanding M further.
+Independently evaluate the fixed N8/M4 rule and corrected isotropic D8 on the
+eight already-defined T47 absolute-noise.05 copies (RNG47001, original Wi/Wh/Wo
+order), using their existing exact truths. No new input sampling or truth
+calculation. These copies were not used to design this sketch. Retain every
+copy and report squared-error times actual cold CPU, both each model and
+aggregate; this compares implementations, not a portable operation benchmark.
+Do not retune the fixed N8/M4 choice on these copies. Independent review must
+check any apparent improvement and remaining alternatives before handoff.
