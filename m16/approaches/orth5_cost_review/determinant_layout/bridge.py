@@ -28,7 +28,7 @@ assert len(counts)==3
 numeric=3840*100+665*171
 logs=3840*3+665*4;exps=3840+665
 assert numeric==497715 and logs+exps==18685 and numeric+logs+exps==516400
-out={'complete':True,'dependency_pins':pins,'review_premises':['26fd4e11','f53ea74a','e54c58e9'],
+out={'complete':True,'dependency_pins':pins,'review_premises':['26fd4e11','f53ea74a','e54c58e9','9572a0be'],
      'saved_synthetic_log_cases_checked':len(counts),'per_completed_log_branch':{'det3':3840,'det4':665,'det5_unpriced':1},
      'conditional_selected_numeric_category_upper':numeric,'conditional_log_call_upper':logs,'conditional_exp_call_upper':exps,
      'historical_combined_named_category_upper':numeric+logs+exps,
