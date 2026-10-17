@@ -1,0 +1,27 @@
+# T52 independent H2T5 geometry and segment review
+
+## Question
+Does the T48 H2T5 accuracy result survive an independent cone enumeration and independent checks of its positive inverse-fifth segment integral?
+
+## Method
+Use DRI `exact_ladder/cones.py` double-description gate enumeration and face-lattice pulling triangulation, distinct from T48's Qhull cross-section engine. A review-local outcome adapter handles identically zero affine margins by first-index argmax ownership, avoiding the known DD zero-margin issue queued as T60. Split resulting cones by coordinate orthants, normalize rays to L1=1, and integrate their positive T5 volumes using the T48 segment implementation. Check that segment formula independently against an arbitrary-precision antiderivative of a scalar quadratic; include equal/collinear special cases and homogeneity. Volume implementation is shared for the geometry comparison, so independence is qualified explicitly.
+
+## Status
+Running under root's pushed96c79ad T52 ownership note. Write only this review subfolder; no T48, DD, or shared evaluation edits. T47 owns portable cost accounting.
+
+## Results
+Cycle1 frozen before measurements: trained H2T5 seed0; capture SHA of every imported source and checkpoint. Compare DD accuracy with T48 committed0.2792373713559676; verify complete gate mass, determinant sum32, affine-map agreement at each gate centroid, same-orthant ray conditions, and first-index tie controls. Use target conditional integration bound1e-5, report actual bound rather than presuming target reached. No new Monte Carlo. Numerical work takes shared flock, one OMP/BLAS thread, memory cap2GB, CPU cap115 seconds; save each completed component promptly.
+
+## Compute accounting
+Record DD operation counter and CPU separately from volume planning/integration and diagnostic checks. Geometry-reference evaluation is validation, not a proposed new benchmark. All import/source and quadrature independence limits remain visible.
+
+## Claims
+[unverified] Independent DD geometry should reproduce T48's accuracy. [unverified] The inverse-fifth segment identity should match an independently derived quadratic antiderivative.
+
+## Alternatives not ruled out
+1. T48 quadrature refinements can agree despite missing/duplicated geometric regions. Cheapest independent test: DD plus pulling triangulation and full partition.
+2. Shared volume-code mistakes can make two geometry engines agree incorrectly. Cheapest independent test: high-precision antiderivative checks of the eliminated coordinate and known constant-prediction accuracy1/5.
+3. Geometric tolerances can hide narrow cells in both engines. Preserve numerical qualifications; compare a tighter DD tolerance in a later bounded cycle if needed.
+
+## Failure modes
+DD normalizes zero rows incorrectly without the local adapter. First-index ties can have positive Gaussian mass. Neither engine provides interval-certified geometry. The bound covers integration only. Time caps and memory restrictions must fail explicitly rather than skip material mass.
