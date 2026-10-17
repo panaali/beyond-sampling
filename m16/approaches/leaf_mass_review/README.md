@@ -40,3 +40,17 @@ Freeze the next mass discriminator now: use exactly parent pairs(0,1) and(20,21)
 Evaluate the unchanged source Plackett formula on those captured leaf simplices, preserving every value and any negative output. Independently evaluate positive Duffy GL20 on the same rays, with exact dyadic radial bounds: if all pairwise ray dots are nonnegative, use min(norm²)/4 <= q <= max(norm²); otherwise use the finite15-support KKT minimum from the already-reviewed T34 radial primitive. Use its Chebyshev probability bound, excluding floating arithmetic. If a pair's summed bound exceeds1e-9, refine that same pair to32, then48 if needed; cap55CPU per phase and preserve partial status if still unresolved. Cache only model-independent rules. No clipping changes, truth fitting, random model inputs,1e7MC or full-model accuracy rerun. Any corrected full mass/reference needs a separately frozen phase after this causal check and independent review.
 
 The first same-geometry mass launch failed at its first checkpoint because the sum of NumPy boolean negative-value flags was a non-JSON-serializable int64. Source/radial work for864 simplices ran but was not retained; the exception checkpoint repeated the same serialization failure. CPU for that failed process is unknown and additional to the rerun, not zero. `mass_failure.json` preserves the defect. Repair only casts the count to Python int; no numerical method changes.
+
+## Same-geometry analytic controls: mass bias reproduced
+The repaired run completes5.303671444CPU, evaluating1762 captured simplices without any geometry changes.119 require the reviewed exact KKT radial bound;1643 have exact nonnegative pairwise dots and use the acute bound.
+
+| Parent pair | Analytic Gaussian mass | Unchanged Plackett excess | Negative source simplices | Positive GL32 error | Conditional integration bound |
+|---|---:|---:|---:|---:|---:|
+|0,1|5/128|+1.1257156446884e-5|99|0|3.3454e-14|
+|20,21|5/384|+1.5765814580975e-5|45|−1.74e-18|1.0787e-14|
+
+Positive GL20 already agrees to1.27e-12/8.67e-18, but both summed conditional bounds exceed the frozen1e-9 target, so both pairs were refined to32. No negative mass is clamped or discarded. Values, radial certificates, source hashes and every quadrature contribution are retained in mass_results.json.
+
+[measured] The unchanged finite Plackett implementation overcounts two trained chamber partitions whose **same captured geometry** gives the analytic mass under independent positive integration. Therefore the final3 statement that random-cone MC checks exclude the mass formula as a source of trained-leaf bias is unsupported and contradicted for these two cases. This does not yet identify every contribution to the full1.000888 sum, or rule out compensating topology defects elsewhere. Full replay and independent review remain necessary before a global repaired reference or source fix.
+
+Compute is13.46649451CPU capture plus5.303671444CPU successful selected replay plus the additional unmeasured failed864-simplex source/radial pass. The partial inherited source mass counter is10,334,232 named operations; independent positive setup, exact certificates and node arithmetic are separately included in CPU, not claimed free or covered by that counter.
