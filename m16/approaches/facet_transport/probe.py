@@ -1,4 +1,4 @@
-"""Tiny exact spherical clipping and moving-decision-facet diagnostic."""
+"""Tiny numerical spherical clipping and moving-decision-facet diagnostic."""
 import os
 for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS'):os.environ[key]='1'
 import itertools,json,time
@@ -8,7 +8,15 @@ import numpy as np
 COUNTS={'clips':0,'gate_affine_products':0,'validation_forwards':0}
 EPS=1e-11
 
-def unit(x):return x/np.linalg.norm(x)
+def norm(x):
+    scale=np.max(np.abs(x))
+    return float(scale*np.linalg.norm(x/scale)) if scale else 0.
+
+def unit(x):
+    scale=np.max(np.abs(x))
+    if scale==0:raise ValueError('cannot normalize a zero vector')
+    y=x/scale
+    return y/np.linalg.norm(y)
 
 def area(p):
     if len(p)<3:return 0.
@@ -20,7 +28,7 @@ def area(p):
 def clip(p,n):
     COUNTS['clips']+=1
     if len(p)<3:return np.empty((0,3))
-    if np.linalg.norm(n)<1e-15:return p.copy()
+    if not np.any(n):return p.copy()
     n=unit(n);vals=p@n
     if vals.min()>=-EPS:return p.copy()
     if vals.max()<=EPS:return np.empty((0,3))
@@ -49,7 +57,7 @@ def gate_complex(model):
             Z=wh@B;Z[:,t]+=wi;COUNTS['gate_affine_products']+=1
             active=[(p,np.zeros((H,3)))]
             for j in range(H):
-                if np.linalg.norm(Z[j])<1e-15:continue
+                if not np.any(Z[j]):continue
                 children=[]
                 for q,A in active:
                     pos=clip(q,Z[j]);neg=clip(q,-Z[j])
@@ -75,7 +83,7 @@ def rank_complex(regions):
     return out
 
 def margin_clip(p,n,j,k):
-    if np.linalg.norm(n)<1e-14:
+    if not np.any(n):
         return np.empty((0,3)) if j<k else p
     return clip(p,n)
 
@@ -89,7 +97,7 @@ def accuracy(regions,wo):
     return total/(4*np.pi)
 
 def plane_arc(p,n):
-    if len(p)<3 or np.linalg.norm(n)<1e-14:return None
+    if len(p)<3 or not np.any(n):return None
     n=unit(n);v=p@n;points=[]
     for x,y,a,b in zip(p,np.roll(p,-1,axis=0),v,np.roll(v,-1)):
         if abs(a)<1e-9:points.append(x)
@@ -129,13 +137,14 @@ def merge_count(arcs):
     return len(groups),count
 
 def flux(regions,wo,delta):
+    # Margin-zero arcs are candidates: boundary_audit removes internal ties.
     result=0.;arcs=[];degenerate=0
     for p,B,k in regions:
         for j in range(3):
             if j==k:continue
             n=(wo[k]-wo[j])@B;dn=(delta[k]-delta[j])@B
-            if np.linalg.norm(n)<1e-14:
-                if np.linalg.norm(dn)>1e-14:degenerate+=1
+            if not np.any(n):
+                if np.any(dn):degenerate+=1
                 continue
             q=p
             for other in range(3):
@@ -143,11 +152,11 @@ def flux(regions,wo,delta):
             edge=plane_arc(q,n)
             if edge is None:continue
             u,v,angle=edge
-            result+=(dn@(u+v))*np.tan(angle/2)/np.linalg.norm(n)
+            result+=(dn@(u+v))*np.tan(angle/2)/norm(n)
             arcs.append((n,u,v))
     normals,merged=merge_count(arcs)
     return result/(4*np.pi),dict(decision_arcs=len(arcs),unique_planes=normals,merged_arcs=merged,
-        transport_patch_lower_bound=merged,transport_patch_upper_bound=len(arcs),
+        candidate_arcs_require_boundary_audit=True,
         transport_merge_performed=False,degenerate_margins=degenerate)
 
 def validate(regions,model):
