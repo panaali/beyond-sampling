@@ -386,3 +386,27 @@ This closes the previously untracked floating evaluation gap for this reference
 under those assumptions. It is not hardware/compiler formal verification, a
 proof of the exact geometry implementation's completeness, a noisy-model study,
 or a claim that the original H16T10 challenge has been solved.
+
+## T72 H4T4 enclosed mass phase, frozen before execution
+Parent authorized this phase after pushed claim update05bbd72. Apply the
+unchanged GL20 enclosed_mass.py method only to the existing original H4T4
+geometry_h4_t4.json.gz artifact. Parameterize the driver for artifact/output
+selection; do not enumerate geometry, modify the mass algorithm, or test noise.
+Use the primary compute lock, one thread,2GB memory limit and94CPU-second
+internal deadline, within the authorized95CPU cycle. Retain H2 artifacts.
+
+Two alternatives remain: (1) accumulated floating evaluation error could grow
+with5058 simplices, tested by outward reductions, arithmetic falsifiers and
+containment of the earlier independent floating GL20 value; (2) a wrong cached
+artifact could mimic an integration failure, tested by its content hash and
+exact determinant rechecks, alongside root's independent model/ray checks.
+Neither check independently proves geometry completeness. The known orthant
+control must include1/16 only after the analytic truncation allowance.
+
+Charge the complete successful historical exact-reference run10.009618928CPU
+seconds and its lossless compression0.350494723CPU seconds, plus this entire
+incremental enclosure run including artifact parsing/rechecks, rational rule
+construction, arithmetic controls and integration. This is a conservative
+composed cold CPU cost, not a fresh single-process timing or audited FPE count.
+No cached geometry or rule is free. Record historical failed/validation runs
+separately from this successful cold reference cost.
