@@ -20,7 +20,8 @@ def pair_rank(kappa,t):
             return 0.
         if b==8:stats['tail_allowance']+=float(ndtr(-8.))
         total=0.
-        cuts=sorted(set([a,b]+[v for v in (1.,3.) if a<v<b]))
+        scales=(1.,3.)+(tuple(v/k for v in (1.,3.,8.)) if k>0 and math.isfinite(k) else ())
+        cuts=sorted(set([a,b]+[v for v in scales if a<v<b]))
         def counted(x):stats['callbacks']+=1;return fn(x)
         for lo,hi in zip(cuts,cuts[1:]):
             value,error=quad(counted,lo,hi,epsabs=2e-13,epsrel=2e-13,limit=100)
