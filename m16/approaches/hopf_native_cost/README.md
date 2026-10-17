@@ -116,3 +116,21 @@ codex-review lock, <=20CPU. build_sort_shadow generates source only;
 sort_controls invokes g++17/O2 to make the ignored source-shadow library.
 No external library binary is committed. Network source metadata is pinned;
 initial renamed-file404s and wrong-interpreter metadata remain preserved.
+
+### Saved seed0 H4T4 h8 discriminator
+Both fixed arms completed df62497a. Each exactly preserves original saved
+value.4810975064800962 and legacy1,032,520. Explicit arithmetic including
+one constant setup is2,324,112. Separate source allowances are136,633 stable
+sort comparisons,42,960 right-search units and1,456,960 conservative four-key
+sort units, giving3,960,665 conditional source units. Explicit/legacy2.2509
+and conditional/legacy3.8359 apply only to this nu8 grid/model. Each numerical
+trace took.228/.232CPU with198MB peakRSS; imports/identity loading precede the
+trace timer. The tile-only arm changes no output/count here, which does not
+undo the independently demonstrated coefficient-zero defect.
+
+No new model/noise/input stream was generated. No h64 cost or whole-panel
+ratio follows. Final saved model ledger audit is pending; next useful phase is
+one direct existing h64 seed0 trace, after a new board freeze and review gate.
+The largest conservative allowance is the SIMD label sorter; any replacement
+or model-free setup exemption is a separate candidate/convention, never silently
+substituted into this original-source result.

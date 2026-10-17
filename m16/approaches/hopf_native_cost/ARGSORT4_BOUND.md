@@ -38,3 +38,13 @@ exit; compare original NumPy default argsort permutation. Preserve any failure,
 never replace outputs or choose a bound from measured ratios. Check source
 stage count and metadata hashes independently. Keep all nonfinite inputs
 outside this bound, even though other source-shadow controls test their order.
+
+## AVX2 source follow-up
+Pinned avx2-64bit-qsort.hpp defines double numlanes4 and its NaN fpclass
+as one `_mm256_cmp_pd(x,x,_CMP_UNORD_Q)` per lane. Its min/max/equality
+operations are direct lane operations. Thus the same scalar-expression
+count is4 classifications +3 sorted comparisons +36 network lane operations
++2 max_iters setup units =45, within157. This closes the source-side AVX2
+classification question; installed dispatch/compiler equivalence and omitted
+control/memory remain separately qualified. No additional estimator run or
+changed allowance was needed.
