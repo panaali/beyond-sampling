@@ -116,3 +116,36 @@ axis and interior contributions. Record mass, signed/absolute residual and
 positive-volume terminal readout ties. No new mesh, nodes, q refinement or
 accuracy tuning. If non-origin tied affine readouts can occur, report that
 limitation rather than silently classify every tie as a zero hidden state.
+
+## Same-node stratum discriminator
+The repeated prefix16/q8 pass reproduces every original aggregate within
+1e-15. Its included probability mass is.75 because possible target labels
+0,1,2 each have prior1/4; excluded dominated label3 contributes zero accuracy.
+The pooled source masses are: origin .2301294, h1=0/h0>0 axis .3339972,
+h0=0/h1>0 axis .1491537, interior .0367198. The origin is represented
+exactly (zero interpolation residual). In the JSON, axis1 means coordinate1
+is zero and axis0 means coordinate0 is zero.
+
+For h9, baseline absolute error .00703559 consists chiefly of .00627519 on
+the h1=0 axis and .000758589 in the interior. Curvature/gate reduce the same
+axis contribution to .000712435/.000665135. Thus their gain persists on
+physical low-dimensional strata, not just artificial full-box probes.
+The zero-hidden terminal event has pooled probability .18892468 under this
+rule. Every nonzero gate mask has pairwise-distinct readout scalar slopes,
+so no other positive-volume logit tie is possible for this model. This is
+an exact-equality floating structural check, not a directed arithmetic proof.
+Ties are not discarded or apportioned across labels.
+
+The h9 axis signed baseline contribution is only -1.14e-5 despite .00628
+absolute contribution, showing strong cancellation on the tested rule.
+The interior signed contribution is+.000236944. Neither supplies a stable
+full error decomposition because the prefix rule has not converged and
+earlier-stage interpolation is separate. The supplemental pass cost1.522CPU
+seconds and adds no new nodes; all event counts are in strata.json.
+
+## Reproduction
+Run controls.py, pilot.py, then strata.py in this folder with the project
+Python, one BLAS/OpenMP thread and the shared lock/caps. Each script writes
+its named JSON; original trained pilot is preserved. The optional argument
+to pilot.py encodes the preregistered q refinement but was NOT run because
+its prefix-stability prerequisite failed. No result uses that unrun rule.
