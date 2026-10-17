@@ -7,6 +7,7 @@ from exact import Arithmetic,isolate,weight_interval,moments,signs_and_variation
 HERE=Path(__file__).resolve().parent
 
 def distance(source,interval,A):
+    A.count['source_float_to_exact']+=1
     x=F.from_float(float(source));lo,hi=interval
     a=A.op('sub',x,lo);b=A.op('sub',x,hi)
     A.count['rational_abs']+=2;A.count['extremum_comparisons']+=2
@@ -50,7 +51,7 @@ def main():
                 comparison.append(dict(index=j,ideal_node=root,ideal_weight=weight,node=distance(x[j],root,A),weight=distance(w[j],weight,A)))
         row=dict(n=n,bounded=bounded,positive_certificates=details,unresolved=cert['unresolved'],visited_intervals=cert['visited'],moments=checks,source_comparison=comparison,source_nodes_hex=[float(v).hex() for v in x],source_weights_hex=[float(v).hex() for v in w],counts=dict(A.count),peak_bits=A.peak,cpu_seconds=time.process_time()-t,source_leggauss_cpu_seconds=source_cpu)
         rows.append(row);record(dict(stage='order_complete',**row))
-    result=dict(orders=rows,complete=len(rows)==3,all_bounded=all(r['bounded'] for r in rows),source_leggauss_calls=3,source_native_work='unmeasured; source-generation entry calls retained, not priced as3 scalar operations',PRECOMPUTE_FLOPS=None,precompute_status='Model-free exact setup. Named rational/integer categories and peak bits retained; hardware FLOPs unmeasured; no ranked entry.',cpu_seconds=time.process_time()-start,python=sys.version,numpy=np.__version__,model_mass_geometry_tensor_MC_calls=0,scope=R['scope'])
+    result=dict(orders=rows,complete=len(rows)==3,all_bounded=all(r['bounded'] for r in rows),source_leggauss_calls=3,source_native_work='unmeasured; source-generation entry calls retained, not priced as3 scalar operations',PRECOMPUTE_FLOPS=None,precompute_status='Model-free exact setup. Named rational/integer categories and peak bits retained; hardware FLOPs unmeasured; no ranked entry.',cpu_seconds=time.process_time()-start,python=sys.version,numpy=np.__version__,model_mass_geometry_tensor_MC_calls=0,accounting_qualifications='Named core exact operations and retained reduced operand bits; source-validation, wrapper signs, integer/GCD/control/runtime and transient Fraction intermediates not completely priced.',scope=R['scope'])
     out.write_text(json.dumps(pack(result),indent=2,allow_nan=False)+'\n')
     print(json.dumps(dict(orders=[r['n'] for r in rows],all_bounded=result['all_bounded'],cpu_seconds=result['cpu_seconds'])))
 if __name__=='__main__':
