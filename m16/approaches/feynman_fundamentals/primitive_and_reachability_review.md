@@ -179,3 +179,12 @@ Rounded poles have the proper limiting full/empty arcs. Normalization and
 near-degenerate knot arithmetic remain floating, not certified support
 geometry. Root support is exact in the mathematical construction; later
 finite-basis indicator projection is still approximate.
+
+T66 DD clip followup: compared dd_clip.cpp to exact_ladder/cones.py. The
++/-1e-11 tight rule, all-tight ownership, signed/tight/new ray ordering,
+two-word common-bit adjacency and exactly-two-containing-rays test match.
+Capacity k+floor(k²/4) covers every positive/negative candidate pair. Charges
+match inherited formulas, not a complete portable cost certificate. Scalar
+C++ summation can differ from NumPy near the tolerance, so finite corpus
+agreement is not universal bitwise topology equivalence. The original
+module's phrase 'exact tight sets' must not be promoted to a rigorous claim.
