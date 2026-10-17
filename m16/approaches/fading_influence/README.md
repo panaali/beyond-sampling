@@ -15,7 +15,7 @@ Related T49 reset events/T105 suffix forgetting/T108 cumulative bounds do not
 replace the present strict-region checks. No geometry enumeration or merging.
 
 ## Status
-Claim ba0bc420 pushed before implementation. T55 source gate passed; all12 exact controls pass in0.063825CPU, with80 rational interior perturbation checks. Independent saved controls and trained source gate6dc4d3a3 pass. Fixed768 trained witnesses now complete; saved trained audit pending.
+Claim ba0bc420 pushed before implementation. T55 source gate passed; all12 exact controls pass in0.063825CPU, with80 rational interior perturbation checks. Independent saved controls and trained source gate6dc4d3a3 pass. Fixed768 trained witnesses now complete; independent saved trained audit3bb92013 passes.
 
 ## Results
 All768 witnesses strict, no unresolved boundaries. Global absolute-weight bounds grow; observed oldest sensitivity exceeds newest in97/384(H4) and175/384(H8). These are finite witness counts, not probabilities; no safe merge established. See HANDOFF.md and exact trained.json. Commands: python controls.py, later separately frozen trained runner.
