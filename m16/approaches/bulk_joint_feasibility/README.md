@@ -147,3 +147,23 @@ small repeated work). No new selected gate, parameter, model or acceptance rule.
 Report original240 calls plus continuation calls and both CPU totals; historical
 selection/controls remain separate costs. This completes the original diagnostic
 panel without implying stronger mass or estimator claims.
+
+## Completed unchanged panel
+After T55 independently regenerated all168 first-phase systems from Fraction
+model maps (96 strict primals,72 exact duals,all96 direct network/rank checks,
+.1003CPU), the frozen continuation completed the same ten selected histories.
+It used127 additional LP calls and1.009424CPU; cumulative trained LP calls367,
+with both phase costs and original partial results retained.
+
+All120 ordered-rank pairs are now classified:66 empty,22 uniformly wrong,
+6 uniformly correct,26 mixed. No numerical unknown remains in this fixed panel.
+Every selected gate history contains both correct and wrong open input events;
+selected mass.4482031037438533 is therefore mixed whole-gate mass, not resolved
+accuracy mass. The28 nonempty uniform rank-conditioned cells may still be useful,
+but their mass has not been measured. Their counts are not coverage or a bound.
+
+This precisely distinguishes the insufficient whole-gate shortcut from the
+still-open rank-conditioned alternative. Quantifying those28 regions' masses
+without repeating neural gate enumeration is the next meaningful discriminator,
+with explicit setup/integration costs and residual mass required. No broader
+model family, approximation or conditioning method is declared dead.
