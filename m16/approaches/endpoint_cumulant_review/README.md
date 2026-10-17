@@ -562,3 +562,20 @@ no extra fitted threshold; check branch switch and s=-20,-5.01,-5,-1,0,1,20
 against independently integrated radial functions. Check narrow isotropic
 wedge1e-7 directly by angle, then all trained numerator/denominator ratios.
 No quadrature certification from positivity alone. <=20CPU review lock.
+
+### Independent-coordinate result
+[measured] polar_check.py reproduces all12 trained wedge winner vectors within
+3.50e-14 and the final aggregates within5.55e-17. Its directly integrated
+isotropic angular controls resolve every width down to1e-7 within1e-15 absolute,
+without a near-correlation singular branch. Seven independent radial quadrature
+controls validate the erfcx/Laguerre switch to relative1e-10. No negative
+Cauchy-Schwarz exponent residual occurs. The positive Laguerre branch is used
+only by controls in this panel; all trained angles use the other two stable
+branches, so no broad tail-branch accuracy claim follows.
+
+This independent coordinate implementation uses10,416 angular evaluations,
+.322787868CPU including setup, and preserves32/64-node checks and all raw
+results. Agreement validates the Gaussian wedge calculation, not the Gaussian
+closure or shared moment/geometry inputs. It also isolates the very-thin-wedge
+failure as correlation parameterization/integration sensitivity, not zero true
+mass. No endpoint-law improvement is selected from a new model sweep.
