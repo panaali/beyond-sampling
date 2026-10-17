@@ -74,6 +74,10 @@ Terminal reuse (cached_cycle.py --reuse-pieces --reuse-terminal, terminal_cached
 
 Next frozen validation: repeat the known H2T4 h17/h33 comparison with analytic transitions to expose any cancellation previously masked by input8 quadrature, and run T7h65 once with the same analytic operator/target8 rule. No h129 or new samples. Retain any resource-limit failure rather than silently weakening the check.
 
+Final phase checks (refine.py t4 --analytic; fine_mesh.py --analytic): T4 analytic h17/h33 errors are+.00045804/+.00013648 against the cone reference, at.136/.396CPU. Thus the previous GL8h33 error+.0000222 benefited from cancellation; increasing integration accuracy did not improve its total error. This validates the warning against selecting an apparently best setting by reference agreement.
+
+T7 analytic h65=.2346504539637787 in10.542CPU, peak RSS995076KB. Its h33-to-h65 change+.00049757 is similar to the GL8 sequence, demonstrating unresolved spatial error independently of conditional quadrature. All matrix row defects remain below8e-15. The1.38e-8 input-tail bound and2.43e-17 fallback-quadrature bound do not include this spatial error, outer-target error or floating rounding. The original challenge is not solved by this result.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
