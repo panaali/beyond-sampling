@@ -36,3 +36,5 @@ The conservative added numerical subset is102 units; with T150 arithmetic the in
 Reproduce controls (if needed): `flock /workspace/work/codex-review.lock bash -c 'ulimit -v 2500000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/inverse_numeric_cost/controls.py'`. Existing reviewed T150 `kernel_spy.so` must be built from its saved C source first; no installed file is changed. Recount only: `/workspace/clean-neurons/.venv/bin/python m16/approaches/inverse_numeric_cost/summarize.py`.
 
 [measured] Fixed controls and passthrough parity. [inferred, source algebra independently checked]290 numerical-lane upper envelope under the stated convention. Signaling-NaN trap semantics, integer/control, memory and IEEE side effects remain outside scope. No broad negative or full-cost/MSE claim follows.
+
+Final independent T55 review **a24db934** reproduces all4680 saved IAMAX entries with a separate scalar-register transcription, audits the eight inverse event paths and verifies290 numerical-subset composition. Bounded task complete; integer/control/memory and full-cost gate remain open.
