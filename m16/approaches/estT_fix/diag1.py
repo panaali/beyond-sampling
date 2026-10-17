@@ -1,8 +1,8 @@
 """T131 diag: exact-mode on zoo(8,4,seed); record every leaf cell and every 4-D simplex mass; compare the
-fixed Plackett quadrature against a much finer rule. -> diag1_s{seed}.json"""
+ORIGINAL understand_m43/estT.py quadrature against a much finer rule. -> diag1_s{seed}.json"""
 import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__)); U = os.path.join(HERE, "..", "understand_m43")
-sys.path[:0] = [HERE, U, os.path.join(U, "..", "arc_m43_repro")]
+sys.path[:0] = [U, HERE, os.path.join(U, "..", "arc_m43_repro")]
 import numpy as np
 import estT
 from m43 import Ops
@@ -28,6 +28,6 @@ def orth_rule(R, rule):
 d = np.array([v - orth_rule(R, fine) for R, v in SIMP])
 neg = sum(v < 0 for _, v in SIMP)
 print(f"err-simplex diff (fixed - fine400): sum {d.sum():.3e} max|.| {np.abs(d).max():.3e} neg masses {neg}")
-np.save(os.path.join(HERE, f"simp_s{sd}.npy"), np.array([R for R, _ in SIMP]))
+np.save(os.path.join(HERE, "..", "..", "..", "data", f"estT_fix_simp_s{sd}.npy"), np.array([R for R, _ in SIMP]))
 json.dump(dict(acc=acc, leafsum=LEAF[0], n=len(SIMP), dsum=d.sum(), dmax=np.abs(d).max(), neg=int(neg)),
           open(os.path.join(HERE, f"diag1_s{sd}.json"), "w"))

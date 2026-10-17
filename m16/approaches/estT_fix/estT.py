@@ -39,6 +39,17 @@ def _rule(n, p):
 
 _RULES = {"wide": _rule(12, 2), "thin": _rule(48, 3)}      # old rules (unused since the T131 fix)
 _xg, _wg = np.polynomial.legendre.leggauss(128); _vg = 35.0 * (_xg + 1)
+THIN_DET = 1e-6
+
+
+def _duffy(n):
+    x, w = np.polynomial.legendre.leggauss(n); x = (x + 1) / 2; w = w / 2
+    a, b, c = np.meshgrid(x, x, x, indexing="ij"); W = np.einsum("i,j,k->ijk", w, w, w)
+    u1 = a; u2 = (1 - a) * b; u3 = (1 - a) * (1 - b) * c
+    return np.stack([1 - u1 - u2 - u3, u1, u2, u3], -1).reshape(-1, 4), (W * (1 - a) ** 2 * (1 - b)).ravel()
+
+
+_DU, _DW = _duffy(10)
 _LOG_S = np.exp(-_vg); _LOG_T = 1 - _LOG_S; _LOG_W = 35.0 * _wg * np.exp(-_vg)          # 1 - t = e^-v, v in [0, 70]
 STATS = {"cells": 0, "cut": 0, "resolved": 0, "simplices": 0}
 
@@ -126,26 +137,46 @@ def orthant(Rays, ops):
         ops.add(3 * 2)
         return 0.125 + sum(math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu) / (4 * math.pi)
     assert d == 4
-    p = 1 / 16 + sum(math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu) / (8 * math.pi); ops.add(6 * 2)
-    if abs(np.linalg.det(Rays)) < 1e-12:
-        return 0.0
-    # T131 fix (estT_fix): the old fixed rules ((12,2) if max|rho| <= .95 else (48,3) in t = 1-(1-s)^p) mis-integrate
-    # thin simplices (feature at 1-t ~ smallest eigenvalue of C); errors up to 4e-6 per simplex, +1.1e-3 summed at
-    # (8,4) zoo0. Log substitution 1-t = exp(-v), v in [0,70], 128 Gauss-Legendre nodes resolves every scale.
+    # T131 fix (estT_fix), two defects of the old d = 4 branch, both on thin simplices:
+    # (1) the fixed rules ((12,2) if max|rho| <= .95 else (48,3) in t = 1-(1-s)^p) mis-integrate the Plackett
+    #     integral (feature at 1-t ~ smallest eigenvalue of C): up to 4e-6 per simplex, +1.1e-3 summed at (8,4) zoo0.
+    #     Now: log substitution 1-t = exp(-v), v in [0,70], 128 Gauss-Legendre nodes, Rt = C + (1-t)(I - C).
+    # (2) asin of correlations near +-1 and inv(Rays.T) lose ~sqrt(eps): facet normals now from cofactors (no
+    #     inverse), angles by atan2 of |n_i -+ n_j|, partial correlations by atan2 of cofactors (Jacobi identity).
+    # (3) |det| < 1e-6 (mass < ~1e-8): the Plackett terms cancel to noise (negative masses down to -7e-10 at
+    #     det ~ 1e-11), so use the exact ray-space form mass = |det R| / (2 pi^2) int_simplex |R^T u|^-4 du
+    #     (collapsed 10^3 Gauss rule; agrees with Plackett to 7e-7 relative at 1e-6 <= det < 1e-3).
+    dt = abs(np.linalg.det(Rays))
+    if dt < THIN_DET:
+        q = np.sum((_DU @ Rays) ** 2, 1); ops.add(len(_DU) * 30)
+        return dt / (2 * math.pi ** 2) * float(np.sum(_DW / q ** 2))
+    N = np.empty((4, 4))
+    for i in range(4):
+        O = np.delete(Rays, i, 0)
+        n = np.array([(-1) ** q * np.linalg.det(np.delete(O, q, 1)) for q in range(4)])
+        N[i] = n * (1.0 if n @ Rays[i] > 0 else -1.0) / np.linalg.norm(n)
+    C = N @ N.T; ops.add(16 * 14 + 4 * 8 + 64)
+    asn, oma = {}, {}
+    for i, j in iu:
+        dm, dp = np.linalg.norm(N[i] - N[j]), np.linalg.norm(N[i] + N[j])
+        asn[i, j] = math.pi / 2 - 2 * math.atan2(dm, dp)                 # asin(C_ij), accurate near +-1
+        oma[i, j] = min(dm, dp) ** 2 / 2                                  # 1 - |C_ij|
+    p = 1 / 16 + sum(asn.values()) / (8 * math.pi); ops.add(6 * 20)
     K = len(_LOG_T)
     Rt = C[None] + _LOG_S[:, None, None] * (np.eye(4) - C)[None]      # = I + t (C - I), exact for small 1 - t
+    dR = np.maximum(np.linalg.det(Rt), 0.0)
     acc = 0.0
     for i, j in iu:
         k, l = [q for q in range(4) if q != i and q != j]
-        # partial correlation from cofactors (scale-free, defined even when Rt is singular at t -> 1)
         ck, cl = [q for q in range(4) if q != k], [q for q in range(4) if q != l]
-        ckk = np.linalg.det(Rt[:, ck][:, :, ck]); cll = np.linalg.det(Rt[:, cl][:, :, cl])
         ckl = (-1) ** (k + l) * np.linalg.det(Rt[:, ck][:, :, cl])
-        pc = np.clip(-ckl / np.sqrt(np.maximum(ckk * cll, 1e-300)), -1, 1)
-        r = C[i, j]
-        ra = min(abs(r), 1.0); om = ((1 - ra) + ra * _LOG_S) * (1 + ra * _LOG_T)     # 1 - t^2 r^2 without cancellation
-        acc += float(np.sum(_LOG_W * r * np.arcsin(pc) / np.sqrt(np.maximum(1e-300, om))))
-        ops.add(K * (3 * 14 + 12))
+        r = C[i, j]; ra = min(abs(r), 1.0)
+        om = (oma[i, j] + ra * _LOG_S) * (1 + ra * _LOG_T)             # 1 - t^2 r^2 without cancellation
+        # asin(pc), pc = -c_kl / sqrt(c_kk c_ll) and c_kk c_ll - c_kl^2 = det(Rt) (1 - t^2 r^2)
+        apc = np.arctan2(-ckl, np.sqrt(dR * om))
+        acc += float(np.sum(_LOG_W * r * apc / np.sqrt(np.maximum(1e-300, om))))
+        ops.add(K * (14 + 20))
+    ops.add(K * 30)
     return p + acc / (4 * math.pi ** 2)
 
 

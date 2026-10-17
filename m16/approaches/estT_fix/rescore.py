@@ -1,6 +1,6 @@
 """T164: frozen recipe108 (eps .1, as final3/run.py) with the T131-fixed estT, scored against fixed exact mode, plus the
 per-step over-split diagnosis (DIAG hook; 64 Dirichlet points + rays of the minority side per resolved split, no ops).
-usage: python rescore.py name [tight]   -> rescore/<name>[_tight].json"""
+usage: python rescore.py name   -> rescore/<name>.json"""
 import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__)); U = os.path.join(HERE, "..", "understand_m43")
 sys.path[:0] = [HERE, U, os.path.join(U, "..", "arc_m43_repro"), os.path.join(HERE, "..", "..")]
@@ -9,10 +9,8 @@ import estT
 from m43 import Ops
 from zoo44 import zoo
 from leaderboard import fpe_flops, _noisy
-name = sys.argv[1]; TIGHT = len(sys.argv) > 2
+name = sys.argv[1]; TIGHT = False
 m = zoo(8, 4, int(name[3])) if "noisy" not in name else _noisy(zoo(8, 4, 0), 4, 0.005, 7)[int(name[-1])]
-if TIGHT:
-    import tight; tight.install(estT)
 rng = np.random.default_rng(1); EV = []
 
 
