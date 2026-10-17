@@ -32,3 +32,12 @@ Compiled evaluation, directed bounds, adaptive precision or more stable boundary
 
 ## Failure modes
 Near-coincident edges and cancellation need positive fallback. Raw s,c need not satisfy the unit circle identity exactly in binary64; normalized pairs follow a different floating path. Existing heuristic screen may miss small absolute errors. Conditional outer integration bounds do not certify gate geometry or floating boundary moments.
+
+### First frozen controls and timing
+Commands (single thread, review lock, `ulimit -v2500000; ulimit -t20`):
+`/workspace/clean-neurons/.venv/bin/python m16/approaches/t6_edge_algebra/check.py`
+`/workspace/clean-neurons/.venv/bin/python m16/approaches/t6_edge_algebra/benchmark.py`
+
+[measured] Both raw and normalized variants pass all frozen controls: max relative difference from original T1044.291e-13, no changed fallback counts. Thin/coincident/sensitive controls also retain positive-domain references. Entire control cycle1.393343CPU. Twenty cyclic4096-node calls including engine/frame/setup: baseline/raw/normalizedCPU.147977/.131745/.140264 and wall.146934/.132890/.136991. This is a small measured primitive gain, not a full estimator speed or accuracy claim. Both alternatives are retained, not selected by their errors. No full six-input integration launched. Source hashes and every result are stored.
+
+COST.md freezes fresh per-triangle line-group ceilings1648/1360/1456 for baseline/raw/normalized plus512 frame and2048 batch setup, pending independent source audit. These replace the10000 historical allowance only in a separately labeled proposed pilot counter; they do not assert a6x–7x physical speedup. True removed transcendental calls are stated separately.
