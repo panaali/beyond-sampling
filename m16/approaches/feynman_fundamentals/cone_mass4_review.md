@@ -1529,3 +1529,7 @@ H5 seed2 also passes the identical saved audit: all five records and 286,720 clo
 ### Fixed selected rules: ideal tail plus source constants
 
 The eleven previously selected split-parent orders remain unchanged. Independently recomputed all mapped constant distances and22 child sensitivity bounds (four n6 records reused), and verified exact addition to the prior ideal-tail bounds. All eleven sums remain below1e-10, maximum9.339101959007261e-11; largest constant contribution2.0177731136193926e-13 and minimum target margin6.608980409927389e-12. Node/weight certificates use34's independent92-node audit ed1fbdf5. Actual floating map/kernel/determinant/accumulation errors remain excluded. An initial reviewer metadata assertion expected a bare review hash rather than the hash plus prose; preserved failure record and token-based correction, no mathematical failure or source rerun.
+
+H5 seed3 passes all five saved records and286,720 conditional closure checks, subtotal1,593,689,839. Twenty of25 cases are reviewed; final five and full uncertainty comparison remain pending.
+
+T175 one-model h3 runner source gate: exact saved H16T4seed3 weights, unchanged reviewed sector/facet assembly and all per-cell MP160/200 versus angular80 diagnostics, explicit step3 references, one capped durable attempt. Requires independent six-network saved review before launch. Historical sampling/closure comparisons remain diagnostic, not rigorous truth; no covariance, downstream accuracy or full-cost claim.
