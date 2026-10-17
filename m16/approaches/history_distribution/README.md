@@ -18,7 +18,7 @@ Freeze the2x2 factorial angular subdivisions2/4 and radial nodes2/4 on exactly t
 Alternative1: state variation was the dominant lost information; positive mixtures improve the failed noisy case and remain stable under the factorial checks. Alternative2: state/rank coupling dominates, so better marginal state variation fails or converges to the wrong surrogate accuracy. Alternative3: angular/radial approximation or suffix integration dominates; exact mean, covariance/mass controls and independent rule refinement distinguish this. A failed fixed mixture does not reject all history models.
 
 ## Status
-Bounded marginal-mixture and matched-coupling phases complete. Independent T55 primitive review c6759f8 passes; final rank/CDF handoff pending.
+Bounded marginal-mixture and matched-coupling phases complete. Independent T55 reviews c6759f8/7499db5 pass; bounded handoff complete.
 
 ## Results
 Marginal mixtures improve the noisy case and worsen base; matched rank coupling improves both tested errors, with remaining finite-prefix quadrature bias. Details and all failures follow.
@@ -91,3 +91,6 @@ flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/pyth
 ```
 
 The finite alternatives checklist is complete for this diagnostic: mean versus positive marginal distributions;2x2 angular/radial rules with exact mean and covariance-loss controls; exact same-atom rank coupling; scalar-rule doubling; conditional constant masses and direct forwards; independent angular moments and positive Gaussian primitive; explicit cold costs and partial interface. Not tested are complete angular convergence, all noisy models, larger prefixes or complete portable operation accounting. The old one-angle analytic tail is already known from T47/T51/T55 and its unresolved angular features are not relabeled as a new estimator by this task. Any future primitive acceleration must cite those results and isolate its own cost/stability mechanism.
+
+## Independent final handoff
+T55 c6759f8 independently checks the polar law, Hankel normalization,50-digit angular moments and PSD covariance-loss identity. T55 7499db5 reviews fixed-prefix rank/source logic and independently integrates the adjacent-CDF fixture at160 digits. These support the finite same-atom association contrast, not convergence or complete cost. Root/DRI registration is requested. No broad history-model negative or full challenge solution is claimed.
