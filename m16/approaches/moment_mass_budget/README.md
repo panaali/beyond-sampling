@@ -25,3 +25,6 @@ Same explicit scalar Counter,95-operation determinant,39n³+1 kernel, cold18n³+
 ## Claims / failure modes
 [inferred] The moment interval is sound in exact arithmetic and potentially sharper than a radial-range interval.
 [speculative] Enough shortcuts will pass to improve cost. Accuracy bounds remain conditional on exact geometry/arithmetic, with floating variance cancellation explicitly unresolved rather than silently certified.
+
+## Results and bounded completion
+Moment shortcuts replace1576/1599 quadratures at the two frozen objectives but save only3.48%/0.544% named work, leaving86.395M/362.967M operations under the declared partial convention. Per-cone total accuracy error−8.80e-6 persists; aggregate objective still has the same32 unresolved cases and no full estimate. All returned values pass their tested bounds, but exact16-case controls expose4.38% relative error in a tiny floating variance, so no roundoff certificate is claimed. Higher-cost rule tails dominate; no broad method negative follows. [HANDOFF.md](HANDOFF.md) records comparison details and remaining alternatives.
