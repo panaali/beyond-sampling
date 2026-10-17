@@ -81,6 +81,38 @@ def terminal(model, hidden, u, q, label, limit, stats):
     return answer
 
 
+def batched_terminal(model, states, u, q, label, limit, stats, cache):
+    """Reuse u-independent correct intervals for a nonfinal target label."""
+    if label not in cache:
+        rows, lower, upper = [], [], []
+        for i, hidden in enumerate(states):
+            for lo, hi in decision_intervals(model, hidden, u, label, limit, stats):
+                rows.append(i)
+                lower.append(lo)
+                upper.append(hi)
+        cache[label] = (np.array(rows, dtype=int), np.array(lower), np.array(upper))
+        stats['terminal_interval_caches_built'] += 1
+        stats['terminal_interval_cache_bytes'] += sum(x.nbytes for x in cache[label])
+    else:
+        stats['terminal_interval_cache_hits'] += 1
+    rows, lower, upper = cache[label]
+    result = np.zeros((len(states), 2))
+    for side, lo, hi in ((0, lower, np.minimum(upper, u)), (1, np.maximum(lower, u), upper)):
+        valid = hi > lo
+        positive = valid & (lo >= 0)
+        negative = valid & ~positive
+        mass = np.zeros(len(lo))
+        mass[positive] = ndtr(-lo[positive])-ndtr(-hi[positive])
+        mass[negative] = ndtr(hi[negative])-ndtr(lo[negative])
+        np.add.at(result[:, side], rows, mass)
+        stats['terminal_batched_cdf_values'] += 2*int(np.count_nonzero(valid))
+    result /= ((1-2*ndtr(-limit))*np.array([q, 1-q]))[None, :]
+    stats['terminal_batched_hidden_queries'] += len(states)
+    if np.any(result < -1e-12) or np.any(result > 1+1e-10):
+        raise ArithmeticError('cached terminal probability outside unit interval')
+    return result
+
+
 def possible_labels(wo):
     # First-index ties and the hidden origin make label0 always possible.
     result = []
@@ -105,7 +137,8 @@ def grids(model, count, limit, stats, mesh_power=1.):
 
 
 def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
-                 transition='quantile', operator_cache=None, piece_cache=None):
+                 transition='quantile', operator_cache=None, piece_cache=None,
+                 terminal_cache=None):
     wi, wh, wo = model
     T = len(wo)
     alpha = ndtr(-limit)
@@ -121,8 +154,11 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
         from polynomial import conditional_expectations, conditional_matrices, StagePieces
         stats['conditional_inverse_normal_calls'] += 1
     stop = T-2 if label == T-1 else T-1
-    values = np.array([terminal(model, h, u, q, label, limit, stats)
-                       for h in states[stop]])
+    if terminal_cache is not None and label != T-1:
+        values = batched_terminal(model, states[stop], u, q, label, limit, stats, terminal_cache)
+    else:
+        values = np.array([terminal(model, h, u, q, label, limit, stats)
+                           for h in states[stop]])
     values = values.reshape(len(axes[stop][0]), len(axes[stop][1]), 2)
     transition_error = 0.
     for t in reversed(range(stop)):
@@ -179,7 +215,7 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
 
 
 def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.,
-             target_rule='jacobi', mesh_power=1., transition='quantile'):
+             target_rule='jacobi', mesh_power=1., transition='quantile', terminal_reuse=False):
     start = time.process_time()
     wi, wh, wo = (np.asarray(a, dtype=float) for a in model)
     T = len(wo)
@@ -210,9 +246,11 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     transition_bound = 0.
     operator_cache = {}
     piece_cache = {}
+    terminal_cache = {} if terminal_reuse else None
     for label in labels:
         values = [fixed_target(model, label, qq, axes, states, input_order,
-                               limit, stats, start+seconds, transition, operator_cache, piece_cache) for qq in q]
+                               limit, stats, start+seconds, transition, operator_cache,
+                               piece_cache, terminal_cache) for qq in q]
         contributions[label] = float(np.dot(weights, [v[0] for v in values])/T)
         transition_bound += float(np.dot(weights, [v[1] for v in values])/T)
     answer = sum(contributions.values())
@@ -225,6 +263,7 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
                         transition_quadrature_only_bound=(transition_bound if transition != 'quantile' else None),
                         within_run_operator_cache_entries=len(operator_cache),
                         within_run_piece_cache_entries=len(piece_cache),
+                        within_run_terminal_cache_entries=(len(terminal_cache) if terminal_reuse else 0),
                         limit=limit, possible_labels=labels, contributions=contributions,
                         stage_bounds=[b.tolist() for b in bounds],
                         omitted_input_mass_bound=1-box_mass,
