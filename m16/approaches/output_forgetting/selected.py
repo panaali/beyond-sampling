@@ -3,16 +3,21 @@ import math,time
 import numpy as np
 from scipy.special import ndtr
 from fractions import Fraction
-from controls import coefficient
 from direct_gaussian import LIMIT,phi
 from rank_mass import cdf_difference
+
+def exact_negative_pair_target_integral(m):
+    def integral(n): return (1-Fraction(1,2)**(n+1))/Fraction(n+1)
+    answer=(m+1)*(integral(m)-integral(m+1))
+    if m: answer-=Fraction(m,2)*(integral(m-1)-integral(m))
+    return answer
 
 def selected(T,k,signs,outer=64):
     if T<4 or k<0 or signs not in ('++','-+','+-','--'):raise ValueError('domain')
     start=time.process_time();m=T-4
     stats={'rule_generations':0,'rule_nodes':0,'outer_nodes':0,'polynomial_nodes':0,'cdf_values':0,'exp_values':0,'atan_calls':0,'fraction_polynomial_degree':0}
     if signs=='--':
-        exact=coefficient(m,1);stats['fraction_polynomial_degree']=m+1;stats['atan_calls']=1
+        exact=exact_negative_pair_target_integral(m);stats['fraction_polynomial_degree']=m+1;stats['atan_calls']=1
         answer=float(exact)*math.atan2(1.,k)/(2*math.pi);tail=0.
     else:
         x,w=np.polynomial.legendre.leggauss(outer);stats.update(rule_generations=1,rule_nodes=outer,outer_nodes=outer)
