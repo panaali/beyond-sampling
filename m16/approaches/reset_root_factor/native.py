@@ -6,7 +6,7 @@ HERE=Path(__file__).parent
 _libraries={}
 
 def walk(model,u,v,max_pieces=5000,engine='projective'):
-    if engine not in ('factored','factored_mixed'):raise ValueError('unknown engine')
+    if engine not in ('factored','factored_mixed','factored_axis','factored_mixed_axis'):raise ValueError('unknown engine')
     wi,wh,wo=(np.ascontiguousarray(a,dtype=np.float64) for a in model)
     u,v=(np.ascontiguousarray(a,dtype=np.float64) for a in (u,v))
     if u.ndim!=2 or v.shape!=u.shape or wi.ndim!=1:raise ValueError('plane/model shape')
@@ -20,11 +20,12 @@ def walk(model,u,v,max_pieces=5000,engine='projective'):
         d=np.ctypeslib.ndpointer(dtype=np.float64,flags='C_CONTIGUOUS');i=np.ctypeslib.ndpointer(dtype=np.int64,flags='C_CONTIGUOUS')
         library.projective_walk.argtypes=[ctypes.c_int]*3+[d]*5+[ctypes.c_int,d,d,i]
         library.projective_walk.restype=ctypes.c_int;_libraries[engine]=library
-    values=np.zeros(n);coverage=np.zeros(n);counts=np.zeros((n,9),dtype=np.int64)
+    values=np.zeros(n);coverage=np.zeros(n);counts=np.zeros((n,13 if engine.endswith('_axis') else 9),dtype=np.int64)
     status=_libraries[engine].projective_walk(n,h,t,wi,wh,wo,u,v,max_pieces,values,coverage,counts)
     if status==1:raise RuntimeError('max_pieces exhausted; no partial circle returned')
     if status==2:raise ArithmeticError('affine gate walker failed to advance')
     if status==3:raise FloatingPointError('nonfinite affine arithmetic/root')
     if status:raise RuntimeError(f'unknown kernel status {status}')
     names=('gate_pieces','coefficient_steps','roots_examined','interior_pair_roots','classified_intervals','sort_comparisons','atan_calls','zero_mask_tests','late_zero_steps')
+    if engine.endswith('_axis'):names+=('support_checks','constant_winner_cells','skipped_readout_pairs','fixed_winner_comparisons')
     return values,dict(coverage=coverage.tolist(),**{key:counts[:,j].tolist() for j,key in enumerate(names)})
