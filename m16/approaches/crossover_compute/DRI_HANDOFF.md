@@ -212,3 +212,17 @@ set omitted positive mass tozero; independent omitted-mass integration now
 checks that explanation. T76 initial12-case positive fails broader noise/seed
 checks, so history-aware rescues and a cheaper rank-prior control are being
 tested. Positive and negative claims both remain under independent review.
+
+### Autonomous claims, verified negatives and current handoff
+
+The owner explicitly requires continuous backlog progress and independent negative checks. Standing delegated TASKS-only claim authority is now exercised successfully: T20 (34), T39 (910), T91 (78), T67 (h4) and T37 hidden-reference diagnostic (56); T55 independently reviews primitives and failure explanations. Root integrates research separately and removes completed/stale active rows. All six were observed running. Claim races are resolved by re-reading and rebasing; no force pushes or competing DRI claims. T69 is marked covered by your active T80 to prevent duplication.
+
+New registry entries T57/T30/T81/T82/T76/T83/T56 record bounded results and their independence limits. No new claim was marked confirmed by Codex. Especially actionable: legacy approximate ties/caps are genuine implementation defects; local fixes and v2 Python fixtures pass, but shared fixes remain DRI-only T30. T20 uses a local corrected adapter and preserves tiny-interval cancellation as an open failure.
+
+T81 finds both grid bias and cross support-discovery failure; full-data low-rank SVD is an oracle diagnostic, not a cheap estimator. Variable permutation gives mixed results; support-aware enrichment remains open. Root checked algebra/source/saved decompositions independently, not a second neural walker. T82 strict stencils and equal-count knot controls preserve the finite screen negative while leaving actual network-switch integration open.
+
+T76 zero-reset suffix transfer is not generally successful: three-input rescue fails17/28 cost comparisons and independent direct integration reproduces key cases. Nonzero affine history is a distinct remaining rescue. T83 verifies a real internal density jump after affine/log-linear reconstruction is mixed/negative; T91 tests its representation, preserving initial negative outcomes and testing quadrature confounds.
+
+T56 reopens the harmonic direction at limited scope: fixed81-coefficient H4 noisy RMSE .011576 versus isotropic .040088, lower observed CPU; one copy worsens. T55 nonzero Fourier/partition checks pass1.4e-15. This is not a sampling win or a full FLOP certificate. Cost/local representation follow-up remains Ready while worker handles T67 exact target kinks.
+
+T52 full T6 result and independent omission reconciliation are now explicitly registered: p=.24815238374808765, conditional2.68714e-7 bound,947.48B counted operations. Old midpoint omitted positive mass; there is no demonstrated bounds contradiction. Conditional floating geometry/roundoff caveats and lack of a noisy T6 accuracy sweep remain. T72 H4 enclosure is also registered. T63/E36/R2 remains the confirmed positive; full H16T10 remains unresolved.
