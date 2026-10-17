@@ -8,8 +8,8 @@ _finish/_margin_split are re-written below line by line with hooks that never to
   the recipe's downstream subtree with gate k true (the normal run) minus with gate k forced to its frozen value
   (counterfactual, separate Ops, no recording). dE = net error change, absdE = sum over pieces of |change|.
   Also the sampled T164 DIAG test (64 Dirichlet points + minority rays; true network vs gate k frozen), labelled sampled.
-usage: python attr.py H T seed [cf=1] -> out/H{H}_T{T}_s{seed}.npz (+ resumable per-half checkpoints in data/)"""
-import json, os, sys, time
+usage: python attr.py H T seed [full|guard] -> out/H{H}_T{T}_s{seed}.npz (+ resumable per-half checkpoints in data/)"""
+import glob, json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__)); U = os.path.join(HERE, "..", "understand_m43")
 sys.path[:0] = [HERE, U, os.path.join(U, "..", "arc_m43_repro"), os.path.join(HERE, "..", "..")]
 import numpy as np
@@ -52,6 +52,19 @@ def _record(c, A, g, k, t, model, truth):
     return len(REC) - 1
 
 
+GUARD = []         # DRI request (T108/T170 gap): per terminal margin test with frozen gates, cumulative shift log
+
+
+def _guard_log(c, A, g, frozen, PS, w, model, t, truth):
+    """Pure log, no ops: at the union of the per-gate test points, cumulative shift of ALL frozen gates
+    sum_k w_k |a_k.p| [p on k's minority side] vs |frozen margin| (the recipe tests each gate alone)."""
+    P = np.vstack([PS[k] for k in frozen]); mm = _frozen_margin(model, t, A, g, truth, P, Ops())
+    S = P @ A[frozen].T; mino = (S > 0) != (g[frozen][None, :] > 0)
+    cum = (np.abs(S) * w[frozen][None, :] * mino).sum(1); ind = (np.abs(S) * w[frozen][None, :] * mino).max(1)
+    GUARD.append(dict(t=t, nfrozen=len(frozen), cum=float(np.max(cum / (np.abs(mm) + 1e-300))),
+                      ind=float(np.max(ind / (np.abs(mm) + 1e-300))), mmax=float(np.abs(mm).max()), perm=CUR["perm"]))
+
+
 def _margin_split(c, A, model, t, truth, n_true, eps, ops, exact, done=(), tags=()):
     """estT._margin_split verbatim, returning (cell, g, tags): tags = indices of the records whose minority side the
     piece lies on."""
@@ -77,7 +90,7 @@ def _margin_split(c, A, model, t, truth, n_true, eps, ops, exact, done=(), tags=
     else:
         w = _weights_to_margin(model, t, truth, ops)
         pairs = _adjacent_pairs(c, ops)
-        trig = []
+        trig = []; PS = {}
         for k in cut:
             sk = S[:, k]
             mino = (sk > 0) != (g[k] > 0)
@@ -86,7 +99,7 @@ def _margin_split(c, A, model, t, truth, n_true, eps, ops, exact, done=(), tags=
                 if (sk[a] > 0) != (sk[b] > 0) and sk[a] != 0 and sk[b] != 0:
                     pp = abs(sk[a]) * c.R[b] + abs(sk[b]) * c.R[a]; P.append(pp / np.linalg.norm(pp)); sh.append(0.0)
                     ops.add(3 * A.shape[1] + 3)
-            P = np.array(P); sh = np.array(sh)
+            P = np.array(P); sh = np.array(sh); PS[k] = P
             mm = _frozen_margin(model, t, A, g, truth, P, ops)
             score = np.max(sh / (np.abs(mm) + 1e-300))
             flips = mm.min() < 0 < mm.max() and sh.max() >= eps * np.abs(mm).max()
@@ -94,6 +107,8 @@ def _margin_split(c, A, model, t, truth, n_true, eps, ops, exact, done=(), tags=
             if score >= 1 - TIE or flips:
                 trig.append(k)
         if not trig:
+            if not CF[0]:
+                _guard_log(c, A, g, cut, PS, w, model, t, truth)
             return [(c, g, tags)]
     STATS["resolved"] += len(trig)
     rid = {}
@@ -159,8 +174,10 @@ def pack(recs, T):
 
 def main():
     from zoo44 import zoo
-    H, T, seed = (int(v) for v in sys.argv[1:4]); OPT["cf"] = len(sys.argv) < 5 or sys.argv[4] != "0"
-    model = zoo(H, T, seed); name = f"H{H}_T{T}_s{seed}"
+    H, T, seed = (int(v) for v in sys.argv[1:4]); mode = sys.argv[4] if len(sys.argv) > 4 else "full"
+    if mode == "guard":                     # cumulative-shift log only (no counterfactuals / masses / DIAG)
+        OPT.update(cf=False, masses=False, diag=False)
+    model = zoo(H, T, seed); name = f"H{H}_T{T}_s{seed}" + ("_guard" if mode == "guard" else "")
     ck = os.path.join(HERE, "..", "..", "..", "data", "split_attribution", name); os.makedirs(ck, exist_ok=True)
     estT.MODE[0] = "recipe108"; estT.STATS.update(cells=0, cut=0, resolved=0, simplices=0)
     halves = estT.halves(T); estT._HALVES[T] = halves
@@ -173,9 +190,10 @@ def main():
             for key in ("cells", "cut", "resolved", "simplices"):
                 estT.STATS[key] += st[key]
             allrec.append({key: z[key] for key in z.files if key != "meta"}); continue
-        REC.clear(); RNG[0] = np.random.default_rng([seed, T, i]); o = Ops(); s0 = dict(estT.STATS)
+        REC.clear(); GUARD.clear(); RNG[0] = np.random.default_rng([seed, T, i]); o = Ops(); s0 = dict(estT.STATS)
         e = run_half(h, model, 0.1, o)
         meta = dict(err=e, ops=o.n, **{key: estT.STATS[key] - s0[key] for key in s0})
+        meta["guard"] = [[q["t"], q["nfrozen"], q["cum"], q["ind"], q["mmax"]] for q in GUARD]
         p = pack(REC, T) if REC else {key: np.zeros((0, T) if key in ("perm", "a", "con", "mag") else 0) for key in KEYS + ["perm", "a", "con", "mag"]}
         np.savez(fn + ".tmp.npz", meta=json.dumps(meta), **p); os.replace(fn + ".tmp.npz", fn)
         errs.append(e); nops += o.n; allrec.append(p)
@@ -185,6 +203,9 @@ def main():
     for e in errs:
         err += e
     rec = {key: np.concatenate([p[key] for p in allrec]) for key in allrec[0]}
+    gl = [q for fn_ in sorted(glob.glob(os.path.join(ck, "half*.npz"))) for q in json.loads(str(np.load(fn_)["meta"])).get("guard", [])]
+    if gl:
+        rec["guard"] = np.array(gl, float)
     os.makedirs(os.path.join(HERE, "out"), exist_ok=True)
     summ = dict(name=name, acc=1.0 - err, ops=nops, sec=time.time() - t0, cf=OPT["cf"], **estT.STATS)
     np.savez_compressed(os.path.join(HERE, "out", name + ".npz"), meta=json.dumps(summ), **rec)
