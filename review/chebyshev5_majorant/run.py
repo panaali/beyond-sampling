@@ -7,7 +7,7 @@ from bound import protocol,Majorant,sha
 P=Path(__file__).resolve().parent
 
 def main():
-    resource.setrlimit(resource.RLIMIT_CPU,(20,22))
+    resource.setrlimit(resource.RLIMIT_CPU,(19,20))
     dest=P/'results.json';assert not dest.exists();start=time.process_time()
     out=dict(complete=False,source_sha256=sha(__file__),bound_sha256=sha(P/'bound.py'),protocol_sha256=sha(P/'protocol.json'),rows=[],groups=[])
     def save():
@@ -15,7 +15,8 @@ def main():
         dest.write_text(json.dumps(out,indent=2)+'\n')
     save()
     try:
-        p=protocol();controls=json.loads((P/'controls.json').read_text())
+        p=protocol();assert sha(P/'controls.json')=='e3832a2328f9634769dc59996bbb7ad2d0c4275282d5f79e26062a3d3dc1d16f'
+        controls=json.loads((P/'controls.json').read_text())
         assert controls['complete'] and controls['protocol_sha256']==out['protocol_sha256'] and controls['bound_sha256']==out['bound_sha256']
         assert controls['source_sha256']==sha(P/'controls.py')
         out['controls_sha256']=sha(P/'controls.json')
