@@ -42,3 +42,21 @@ def exact_by_family(model):
                             break
                 out[key] += tot - (frac(q) if q else 0.0)
     return dict(out)
+
+
+def count_regions(model):
+    """Number of linear regions (distinct nonempty gate patterns; each is a convex cone) of a T = 3 model."""
+    Wi, Wh, Wo = model
+    from m43 import PERMS, order_normals, simplicial
+    pats = set()
+    for perm in PERMS:
+        on = order_normals(perm)
+        for s in (1.0, -1.0):
+            poly = simplicial(np.array(on + [s * E[0]]))
+            g1 = ((Wi * s) > 0).astype(float)
+            A2 = Wh @ (g1[:, None] * np.outer(Wi, E[0])) + np.outer(Wi, E[1])
+            for p2, g2 in _split(poly, A2, None):
+                A3 = Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2])
+                for p3, g3 in _split(p2, A3, None):
+                    pats.add((s, tuple(g2), tuple(g3)))
+    return len(pats)

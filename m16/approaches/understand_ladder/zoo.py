@@ -50,3 +50,19 @@ def noisy_rel(model, k, sigma, seed):
     """Leaderboard protocol: N(0, (sigma * RMS(W))^2) per matrix."""
     rng = np.random.default_rng(seed)
     return [tuple(w + sigma * np.sqrt(np.mean(w ** 2)) * rng.standard_normal(w.shape) for w in model) for _ in range(k)]
+
+
+def best_seed(H, T):
+    from alg_zoo.zoo import best_of_5_seed_2nd_argmax
+    return best_of_5_seed_2nd_argmax(hidden_size=H, seq_len=T)
+
+
+def leaderboard_models(H, T):
+    """Same test models as m16/leaderboard.py models(H, T) (H, T) != (16, 10): zoo seeds 0-4 and N_NOISY = 6
+    relative-sigma copies of the best-of-5 seed per sigma in SIGMAS, rng seed 0 (checked equal in run_t3.py)."""
+    ms = {f"seed{s}": zoo_model(H, T, s) for s in range(5)}
+    base = zoo_model(H, T, best_seed(H, T))
+    for sigma in (0.0025, 0.005, 0.01, 0.02):
+        for k, m in enumerate(noisy_rel(base, 6, sigma, 0)):
+            ms[f"s{sigma}_{k}"] = m
+    return ms
