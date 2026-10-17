@@ -38,11 +38,22 @@ def fixtures(p):
     assert [r['id'] for r in rows]==p['fixture_ids']
     return rows
 
+def coordinate_rays(raw):
+    # Saved Rays use ROW generators (source U @ Rays). Return coordinates
+    # indexed by the globally permuted generator order for scalar assembly.
+    return [[raw[i][j] for i in [2,3,4,0,1]] for j in range(5)]
+
+def json_safe(x):
+    if isinstance(x,float) and not math.isfinite(x):return x.hex()
+    if isinstance(x,dict):return {k:json_safe(v) for k,v in x.items()}
+    if isinstance(x,list):return [json_safe(v) for v in x]
+    return x
+
 def one(item,n,rule):
     start=time.process_time();L=inner.Ledger();o=L.op;inner_counts=Counter();xs,ws=rule
-    # Global fixed permutation, never chosen from observed values.
+    # Global fixed ROW-generator permutation, never chosen from observed values.
     raw=[[float.fromhex(x) for x in row] for row in item['rays_hex']]
-    R=[[row[j] for j in [2,3,4,0,1]] for row in raw]
+    R=coordinate_rays(raw)
     # The real determinant magnitude is permutation invariant. Its actual
     # installed 5x5 kernel and rounding remain opaque here, not counted as1 flop.
     det=o('abs',float(np.linalg.det(np.array(R,dtype=np.float64))))

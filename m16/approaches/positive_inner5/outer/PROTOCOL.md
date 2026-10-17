@@ -3,7 +3,7 @@
 Claim9b02e406. Reuse the original11 stored-ray product fixtures and all22 exact
 split children, with their independently reviewed120-digit references. No
 geometry is recomputed, new cases selected or numerical truth regenerated.
-Every cone uses the global column permutation[2,3,4,0,1]. This puts the wedge
+Every cone uses the global row-generator permutation[2,3,4,0,1]. This puts the wedge
 pair in the final simplex coordinate; it is fixed independently of outcomes.
 
 For u,v,s,w in[0,1], y=(u,(1-u)v,(1-u)(1-v)s,Lw,L(1-w)),
@@ -43,3 +43,5 @@ functional's mass1/24. A degreeN polynomial in q has Duffy degrees at most
 integral exactly. Thus the previous det*uniform_tail/(32pi²) bound transfers to
 the ideal exact-inner rule. It does not bound actual inner floating arithmetic,
 determinants, source nodes/weights or setup. No trainedT5 or ARC result follows.
+
+Pre-run source7471b783 had a transposition error: saved generator rows were treated as columns. Independent56 source review caught it before any numerical call. The corrected mapping transposes the globally permuted ROW generators for scalar coordinate assembly. All33 exact Fraction linear maps are checked at fixed nonsymmetric barycentric weights before the identity pilot, including nonsymmetric actual stored rays. Original source is retained in git; no unrun numerical failure is invented. Nonfinite failure fields serialize as hex strings rather than destroying the preserved row.
