@@ -15,7 +15,7 @@ Coordination with T115 author78 identified two pre-existing, fixed cases: k30 se
 Alternative explanations: (1) apparent count differences arise from incorrect tuple accounting; independent analytic key comparisons distinguish. (2) instrumentation changes sorting/branches; bitwise values, counters and STATS distinguish. (3) actual source branch differs from the training artifact; hashes and frozen recipe parameters distinguish. A successful finite trace does not price every training copy.
 
 ## Status
-Source/control review ce905f1e independently checks the nine sorting controls and the rational model with 12 integrated sorting comparisons. Both frozen trained controls now pass; independent saved-result audit is pending.
+Source/control review ce905f1e independently checks the nine sorting controls and the rational model with 12 integrated sorting comparisons. Both frozen trained controls now pass; independent saved-result review 292b54cc passes.
 
 ## Results
 T172's source/control gate and 1,280 H8 margin_all traces remain dependencies. The two RECIPE85B controls below independently exercise its distinct _resolve_inv/sort path; their cost ratios are not transferred to other cases.
