@@ -56,3 +56,12 @@ and for polygons with more than three vertices check convexity as well as
 total signed orientation. A rigorous accumulated roundoff mass bound needs
 more than diagnostic floating sliver areas. Owner received this distinction
 before the separately frozen fix; no production edits here.
+
+The owner subsequently added exact Fraction shoelace evaluation for stored
+float vertices near area cancellation. It recovers the saved clockwise
+sliver even when the reversed floating area rounds to zero. The predicate
+still converts the exact area back to float before testing sign; an extreme
+unrepresentably tiny nonzero area could underflow. Therefore exact-sign/no-
+sliver-deletion language needs that domain qualification or a separate
+rational sign. Negative local turns are counted rather than rejected, so
+full-run convexity counts must be inspected before extending the claim.
