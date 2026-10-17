@@ -1,22 +1,28 @@
-"""T63: accuracy of M_4,3 from its mechanism ("pair-ratio boundary account").
+"""T63: accuracy of M_4,3 derived from its mechanism ("pair-ratio boundary account"). Deductive: no random inputs.
 
-Mechanism (algzoo/labels_4_3.py, derived here from the weights, see README "What the network does"):
-  * step 1: sign(x0) picks which mirror half carries x0 (chart sigma = sign x0).
-  * step 2: the four step-2 gates switch on the planes x1 = t_k x0 (t_k = -A2_k0 / Wi_k, closed form); they cut
-    each chart into 5 "strips" in r = x1/x0. The middle strip, which contains x1 = x0, is the soft x1-vs-x0 switch.
-  * step 3: every neuron is h_k = ReLU(A3_k . x), A3 = Wh diag(g2) A2 + Wi e2^T (closed form per strip).
-  * readout: near each true decision boundary only TWO neurons (a, b) are active (the u pair {0,1} when x2 is
-    above the two compared inputs, the v pair {2,3} when below, a crossover pair {outer, inner-mirror} on x1 = x2),
-    so the logits are l_i = Wo[i,a] h_a + Wo[i,b] h_b and the class is a function of the RATIO nu = h_b / h_a:
-    the upper envelope of three lines in nu gives thresholds nu_1 < nu_2 and the class order (closed form).
-    Both-off ("dead") gives the argmax tie -> class 0.
-Error families: for each true boundary circle x_i = x_j (i<j), side (third coordinate k max or min), chart sigma
-and strip, the error is the union of convex cones {chamber half} n {strip} n {ratio sector of a wrong class}.
-Each chamber is split between its two adjacent boundaries by the "median closer to which neighbour" plane, so the
-families are disjoint. Accuracy = 1 - sum of cone masses (solid angles, Van Oosterom-Strackee = Girard).
+Mechanism (algzoo/labels_4_3.py; every coefficient below is computed from (Wi, Wh, Wo), nothing is fitted):
+  * step 1: sign(x0) picks which mirror half of the hidden layer carries x0 (chart sigma = sign x0).
+  * step 2: the step-2 gates switch on the four planes x1 = t_k x0, t_k = -A2_k0 / Wi_k, A2 = Wh diag(g1) Wi e0^T
+    + Wi e1^T. They cut each chart into 5 strips in r = x1/x0; the middle strip, containing x1 = x0, is the soft
+    "x1 vs x0" switch of the labels.
+  * step 3: each neuron is h_k = ReLU(A3_k . x), A3 = Wh diag(g2) A2 + Wi e2^T (closed form per strip), i.e.
+    h_k = |Wi_k| (+-(x2 - tau_k(x0, x1)))_+ with a threshold tau_k that is linear in each strip.
+  * readout: near a true decision boundary only TWO neurons (a, b) are on, so l_i = Wo[i,a] h_a + Wo[i,b] h_b and the
+    class depends only on the ratio nu = h_b / h_a. The upper envelope of the three lines Wo[i,a] + Wo[i,b] nu gives
+    thresholds nu_1 < nu_2 and the class order in closed form. Both off ("dead") gives the argmax tie -> class 0.
+    The pair is the u pair {0,1} when x2 is above the two compared inputs, the v pair {2,3} when below, and a
+    crossover pair {outer of one mirror half, inner of the other} on the boundary x1 = x2; it is read off the
+    weights at one anchor point near the x0 -> 0 end of each boundary arc.
 
-No model outputs are fitted and no enumeration of step-3 gate patterns is done: the pair for each family is read
-off at one anchor point near the far (x0 -> 0) end of the boundary arc.
+Error families: for each true boundary circle x_i = x_j, side (third input k max or min), chart sigma, truth side and
+step-2 strip, the error is the mass of the "wrong-class" ratio sectors inside the half-chamber assigned to this
+boundary (each ordering chamber is split between its two boundaries by the plane on which the median is equidistant
+from its two neighbours, so families are disjoint). Accuracy = 1 - sum of these cone masses (exact solid angles of
+convex spherical polygons, Van Oosterom-Strackee = Girard).
+
+Refinement for the crossover boundary x1 = x2 ("resolve"): the step-3 gate planes that cross the true boundary arc
+inside a strip piece are resolved (the piece is split by them) and the active set is read on the arc in each
+sub-piece; gates that do not cross the arc are frozen at their value on the arc (first order in the band width).
 """
 import os
 import sys
@@ -30,11 +36,40 @@ E = np.eye(3)
 CIRCLES = [(0, 1, 2), (0, 2, 1), (1, 2, 0)]  # (i, j, third k)
 
 
-def _gates2(Wi, A2, sigma, r):
-    """Step-2 gate pattern at ratio r = x1/x0 in chart sigma (A2_k . x has the sign of sigma*(A2_k0 + Wi_k r))."""
-    return (sigma * (A2[:, 0] + Wi * r) > 0).astype(float)
+# ----------------------------------------------------------------------------------------- model-independent geometry
+def _rratio(v, sigma):
+    if abs(v[0]) > 1e-12:
+        return v[1] / v[0]
+    return np.nan if abs(v[1]) < 1e-12 else np.sign(v[1]) * sigma * np.inf
 
 
+def _family_halves():
+    """For each chart sigma, circle (i, j | k), side (+1: x_k max, -1: x_k min) and truth side (x_hi > x_lo): the
+    spherical polygon {x_hi > x_lo} n {x_k beyond both} n {median closer to its neighbour across x_i = x_j than to
+    x_k} n {sigma x0 > 0}, plus the range of r = x1/x0 over it. Fixed geometry, computed once for all models
+    (not charged, like the start cones of arc_m43_repro/exact.py)."""
+    out = []
+    for sigma in (1.0, -1.0):
+        for (i, j, k) in CIRCLES:
+            for side in (1, -1):
+                for hi, lo in ((i, j), (j, i)):
+                    med, nb = (hi, lo) if side == 1 else (lo, hi)
+                    n_true = E[hi] - E[lo]
+                    n_side = (E[k] - E[hi]) if side == 1 else (E[lo] - E[k])
+                    n_split = (E[k] + E[nb] - 2 * E[med]) if side == 1 else (2 * E[med] - E[nb] - E[k])
+                    R = np.linalg.inv(np.array([n_true, n_side, sigma * E[0]]))
+                    poly = [R[:, m] / np.linalg.norm(R[:, m]) for m in range(3)]
+                    poly, _ = clip(poly, n_split)
+                    rs = [r for r in (_rratio(v, sigma) for v in poly) if not np.isnan(r)]
+                    out.append(dict(sigma=sigma, circle=(i, j, k), side=side, truth=med, poly=poly,
+                                    n_true=n_true, rmin=min(rs), rmax=max(rs)))
+    return out
+
+
+HALVES = _family_halves()
+
+
+# ------------------------------------------------------------------------------------------------------ helpers
 def _envelope(p, q, ops):
     """Upper envelope of l_i(nu) = p_i + q_i nu on nu in [0, inf): list of (nu_lo, nu_hi, class)."""
     c = int(np.argmax(p)); lo = 0.0; out = []
@@ -50,99 +85,84 @@ def _envelope(p, q, ops):
         out.append((lo, max(best, lo), c)); lo = max(best, lo); c = nxt
 
 
-def _cone(normals, ops):
-    """Gaussian mass of {x: n.x >= 0 for all n}; first three normals must be independent (used for checks)."""
-    R = np.linalg.inv(np.array(normals[:3]))
-    poly = [R[:, i] / np.linalg.norm(R[:, i]) for i in range(3)]
-    for n in normals[3:]:
-        poly, _ = clip(poly, np.asarray(n, float), ops)
-        if not poly:
-            return 0.0
-    return frac(poly, ops)
-
-
-def _family_halves():
-    """Model-independent geometry: for each chart sigma, boundary circle (i, j | k), side (+: x_k max, -: x_k min)
-    and truth side (x_hi > x_lo), the spherical polygon of the half-chamber assigned to this boundary:
-    {x_hi > x_lo} n {x_k beyond both} n {median closer to its neighbour across x_i = x_j than to x_k} n {sigma x0 > 0}.
-    Computed once (no model dependence), like the 12 simplicial start cones of the exact enumerator."""
-    out = []
-    for sigma in (1.0, -1.0):
-        for (i, j, k) in CIRCLES:
-            for side in (1, -1):
-                for hi, lo in ((i, j), (j, i)):
-                    med, nb = (hi, lo) if side == 1 else (lo, hi)
-                    n_true = E[hi] - E[lo]
-                    n_side = (E[k] - E[hi]) if side == 1 else (E[lo] - E[k])
-                    n_split = (E[k] + E[nb] - 2 * E[med]) if side == 1 else (2 * E[med] - E[nb] - E[k])
-                    # pointed start: true plane, side plane, chart plane; then clip by the split plane
-                    R = np.linalg.inv(np.array([n_true, n_side, sigma * E[0]]))
-                    poly = [R[:, m] / np.linalg.norm(R[:, m]) for m in range(3)]
-                    poly, _ = clip(poly, n_split)
-                    truth = hi if side == 1 else lo
-                    out.append((sigma, (i, j, k), side, truth, poly, n_true))
-    return out
-
-
-HALVES = _family_halves()
-
-
-def _strip_pieces(poly, sigma, ts, ops):
-    """Split a polygon (inside chart sigma) by the step-2 planes x1 = t x0 (t ascending): returns list of
-    (strip index, piece). Strip s is t_(s) < x1/x0 < t_(s+1)."""
-    pieces = []
-    cur = poly
-    for s, tv in enumerate(ts):
-        if not cur:
-            break
-        n = sigma * np.array([tv, -1.0, 0.0])         # inside: x1/x0 < t
-        ins, out = clip(cur, n, ops)
-        if ins:
-            pieces.append((s, ins))
-        cur = out
-    if cur:
-        pieces.append((len(ts), cur))
-    return pieces
-
-
-def _sector(A3, pa, pb, nlo, nhi):
-    """Halfspaces of {nlo <= relu(A3_b x)/relu(A3_a x) <= nhi} (both-off excluded)."""
+def _sector(A3, pa, pb, nlo, nhi, ops):
+    """Halfspaces of {nlo <= relu(A3_b x)/relu(A3_a x) <= nhi} (both-off excluded); convex."""
     cn = []
     if nlo > 0:
-        cn += [A3[pb], A3[pb] - nlo * A3[pa]]
+        cn += [A3[pb], A3[pb] - nlo * A3[pa]]; ops.add(3)
     if np.isfinite(nhi):
-        cn += [A3[pa], nhi * A3[pa] - A3[pb]]
+        cn += [A3[pa], nhi * A3[pa] - A3[pb]]; ops.add(3)
     return cn
 
 
-def _mass_in(poly, normals, ops):
-    """(mass of poly n halfspaces, unchanged flag)."""
-    q = poly; same = True
-    for n in normals:
-        ins, out = clip(q, n, ops)
-        if out:
-            same = False
-        q = ins
-        if not q:
-            return 0.0, False
-    return (None, True) if same else (frac(q, ops), False)
+def _pair_parts(A3, pa, pb, sect, ops):
+    """(class, halfspaces) list partitioning space by the pair readout: ratio sectors + dead (-> class 0)."""
+    parts = [(c, _sector(A3, pa, pb, nlo, nhi, ops)) for (nlo, nhi, c) in sect]
+    parts.append((0, [-A3[pa], -A3[pb]]))
+    return parts
 
 
-def _arc_resolved_error(piece, n_true, A3, Wo, truth, ops, tol=1e-9):
-    """Error mass in a strip piece with the step-3 gates that switch ON the true boundary arc resolved exactly
-    (the piece is split by those gate planes) and the remaining gates frozen at their value on the arc.
-    In each sub-piece the active set S is read at its arc midpoint; |S| = 2 uses the ratio-sector readout
-    (relu kept for the two members), |S| = 1 a single neuron (on: argmax of its column, off: tie -> 0),
-    |S| >= 3 the frozen linear logits, S empty the dead tie (class 0)."""
-    def arc_mid(poly):
-        on = [v for v in poly if abs(n_true @ v) < tol]
-        return (np.mean(on, 0) if len(on) >= 2 else np.mean(poly, 0)), on
-    m, on = arc_mid(piece)
+def _err(piece, parts, truth, ops):
+    """Mass of piece outside the parts of class `truth`. One correct part: sum the masses of the slivers cut off
+    while clipping by its halfspaces (the clip 'outside' outputs). Otherwise: sum the wrong parts directly."""
+    corr = [cn for c, cn in parts if c == truth]
+    if not corr:
+        return frac(piece, ops)
+    if any(not cn for cn in corr):
+        return 0.0
+    if len(corr) == 1:
+        q = piece; err = 0.0
+        for n in corr[0]:
+            ins, out = clip(q, n, ops)
+            if out:
+                err += frac(out, ops)
+            q = ins
+            if not q:
+                break
+        return err
+    err = 0.0
+    for c, cn in parts:
+        if c == truth:
+            continue
+        q = piece
+        for n in cn:
+            q, _ = clip(q, n, ops)
+            if not q:
+                break
+        if q:
+            err += frac(q, ops)
+    return err
+
+
+def _strip_pieces(h, ts, ops):
+    """Split the half polygon by the step-2 planes x1 = t x0 that cross it (t ascending): [(strip index, piece)]."""
+    sigma = h["sigma"]
+    s0 = int(np.searchsorted(ts, h["rmin"])); s1 = int(np.searchsorted(ts, h["rmax"]))
+    ops.add(2 * 2)                                     # comparisons of the r-range with the thresholds
+    pieces = []; cur = h["poly"]
+    for s in range(s0, s1):
+        ins, out = clip(cur, sigma * np.array([ts[s], -1.0, 0.0]), ops)   # inside: x1/x0 < t_s
+        if ins:
+            pieces.append((s, ins))
+        cur = out
+        if not cur:
+            break
+    if cur:
+        pieces.append((s1, cur))
+    return pieces
+
+
+def _arc_resolved_err(piece, n_true, A3, Wo, truth, ops, tol=1e-9):
+    """Error in a strip piece with the step-3 gates that switch ON the true boundary arc resolved (piece split by
+    those gate planes) and the others frozen at their value on the arc. Active set S read on the sub-piece's arc:
+    |S| = 2 ratio readout (relu kept), |S| = 1 single neuron (off -> tie -> class 0), |S| >= 3 frozen linear
+    logits, S empty dead (class 0). Returns None if the piece does not touch the true plane."""
+    on = [v for v in piece if abs(n_true @ v) < tol]
     if len(on) < 2:
         return None
     P, Q = on[0], on[-1]
     cross = [kk for kk in range(4) if (A3[kk] @ P) * (A3[kk] @ Q) < 0]
-    ops.add(6 * 4)
+    ops.add(7 * 4)
     subs = [piece]
     for kk in cross:
         nxt = []
@@ -152,39 +172,27 @@ def _arc_resolved_error(piece, n_true, A3, Wo, truth, ops, tol=1e-9):
         subs = nxt
     err = 0.0
     for p in subs:
-        mid, _ = arc_mid(p)
+        onp = [v for v in p if abs(n_true @ v) < tol]
+        mid = np.mean(onp, 0) if len(onp) >= 2 else np.mean(p, 0)
         S = [kk for kk in range(4) if A3[kk] @ mid > 0]; ops.add(12)
         if len(S) == 0:
-            correct = [[]] if truth == 0 else []
+            parts = [(0, [])]
         elif len(S) == 1:
-            c = int(np.argmax(Wo[:, S[0]]))
-            correct = ([[A3[S[0]]]] if c == truth else []) + ([[-A3[S[0]]]] if truth == 0 else [])
+            parts = [(int(np.argmax(Wo[:, S[0]])), [A3[S[0]]]), (0, [-A3[S[0]]])]
         elif len(S) == 2:
-            pa, pb = S
-            sect = _envelope(Wo[:, pa], Wo[:, pb], ops)
-            correct = [_sector(A3, pa, pb, nlo, nhi) for (nlo, nhi, c) in sect if c == truth]
-            if truth == 0:
-                correct.append([-A3[pa], -A3[pb]])
+            parts = _pair_parts(A3, S[0], S[1], _envelope(Wo[:, S[0]], Wo[:, S[1]], ops), ops)
         else:
-            L = Wo[:, S] @ A3[S]; ops.add(3 * len(S) * 3)
-            correct = [[L[truth] - L[o] for o in range(3) if o != truth]]; ops.add(6)
-        got = 0.0; whole = False
-        for cn in correct:
-            if not cn:
-                whole = True; break
-            mm, same = _mass_in(p, cn, ops)
-            if same:
-                whole = True; break
-            got += mm
-        if whole:
-            continue
-        err += frac(p, ops) - got
+            L = Wo[:, S] @ A3[S]; ops.add(3 * len(S) * 3 + 6)
+            parts = [(truth, [L[truth] - L[o] for o in range(3) if o != truth])]
+        err += _err(p, parts, truth, ops)
     return err
 
 
+# ------------------------------------------------------------------------------------------------------ estimator
 def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",)):
-    """Mechanism-derived accuracy estimate (see module docstring).
-    strips='all': every step-2 strip met by a family's half-chamber; 'anchor': only the anchor's strip."""
+    """Mechanism-derived accuracy estimate.
+    strips: 'all' = every step-2 strip a family's half-chamber meets; 'anchor' = only the anchor point's strip.
+    resolve: circles whose strip pieces get the arc-resolved treatment (default: the crossover x1 = x2)."""
     Wi, Wh, Wo = model
     ops = ops if ops is not None else Ops()
     err_by = {}; n_bad = 0
@@ -192,23 +200,26 @@ def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",
         g1 = ((sigma * Wi) > 0).astype(float)
         A2 = Wh @ (g1[:, None] * np.outer(Wi, E[0])) + np.outer(Wi, E[1]); ops.add(4 * int(g1.sum()))
         t = -A2[:, 0] / Wi; ops.add(4)
-        ts = np.sort(t)
+        ts = np.sort(t); ops.add(5)
         bounds = [-np.inf] + list(ts) + [np.inf]
         A3s = []
         for s in range(5):
             lo, hi = bounds[s], bounds[s + 1]
             rmid = (lo + hi) / 2 if np.isfinite(lo) and np.isfinite(hi) else (hi - 1 if np.isfinite(hi) else lo + 1)
-            g2 = _gates2(Wi, A2, sigma, rmid); ops.add(4)
+            g2 = (sigma * (A2[:, 0] + Wi * rmid) > 0).astype(float); ops.add(4)
             A3s.append(Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2])); ops.add(4 * int(g2.sum()) * 2)
         env_cache = {}
-        for (sg, (i, j, k), side, truth, poly, n_true) in HALVES:
-            if sg != sigma:
+        if info is not None:
+            info["_last"] = ops.n
+        for h in HALVES:
+            if h["sigma"] != sigma:
                 continue
+            i, j, k = h["circle"]; side = h["side"]; truth = h["truth"]
+            key = (int(sigma), f"c{i}{j}{'+' if side == 1 else '-'}")
             a = np.array([sigma * eps, -side, -side]) if k == 0 else np.full(3, sigma * eps)
             if k != 0:
                 a[k] = side
-            ra = a[1] / a[0]
-            sa = int(np.searchsorted(ts, ra))
+            sa = int(np.searchsorted(ts, a[1] / a[0])); ops.add(1 + 2)
             za = A3s[sa] @ a; ops.add(12)
             act = [m for m in range(4) if za[m] > 0]
             if len(act) != 2:
@@ -217,31 +228,18 @@ def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",
             pa, pb = sorted(int(m) for m in act)
             if (pa, pb) not in env_cache:
                 env_cache[(pa, pb)] = _envelope(Wo[:, pa], Wo[:, pb], ops)
-            sect = env_cache[(pa, pb)]
-            key = (int(sigma), f"c{i}{j}{'+' if side == 1 else '-'}")
-            for s, piece in _strip_pieces(poly, sigma, ts, ops):
+            for s, piece in _strip_pieces(h, ts, ops):
                 if strips == "anchor" and s != sa:
                     continue
                 A3 = A3s[s]
+                e_ = None
                 if key[1][:3] in resolve:
-                    e_ = _arc_resolved_error(piece, n_true, A3, Wo, truth, ops)
-                    if e_ is not None:
-                        err_by[key] = err_by.get(key, 0.0) + e_
-                        continue
-                correct = [_sector(A3, pa, pb, nlo, nhi) for (nlo, nhi, c) in sect if c == truth]
-                if truth == 0:
-                    correct.append([-A3[pa], -A3[pb]])          # both off: argmax of zeros -> class 0
-                ops.add(6 * sum(len(c) for c in correct))
-                got = 0.0; whole = False
-                for cn in correct:
-                    m, same = _mass_in(piece, cn, ops)
-                    if same:
-                        whole = True; break
-                    got += m
-                if whole:
-                    continue
-                err = frac(piece, ops) - got
-                err_by[key] = err_by.get(key, 0.0) + err
+                    e_ = _arc_resolved_err(piece, h["n_true"], A3, Wo, truth, ops)
+                if e_ is None:
+                    e_ = _err(piece, _pair_parts(A3, pa, pb, env_cache[(pa, pb)], ops), truth, ops)
+                err_by[key] = err_by.get(key, 0.0) + e_
+            if info is not None:
+                d_ = info.setdefault("ops_by", {}); d_[key] = d_.get(key, 0) + ops.n - info.get("_last", 0); info["_last"] = ops.n
     if info is not None:
         info["err_by"] = err_by; info["bad_pairs"] = n_bad
     return 1.0 - sum(err_by.values())
