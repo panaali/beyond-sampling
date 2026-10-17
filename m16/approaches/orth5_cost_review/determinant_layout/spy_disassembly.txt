@@ -1,0 +1,349 @@
+
+/workspace/work/recover-small_h2_78/m16/approaches/orth5_cost_review/determinant_layout/spy.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000001000 <_init>:
+    1000:	48 83 ec 08          	sub    $0x8,%rsp
+    1004:	48 8b 05 bd 2f 00 00 	mov    0x2fbd(%rip),%rax        # 3fc8 <__gmon_start__@Base>
+    100b:	48 85 c0             	test   %rax,%rax
+    100e:	74 02                	je     1012 <_init+0x12>
+    1010:	ff d0                	call   *%rax
+    1012:	48 83 c4 08          	add    $0x8,%rsp
+    1016:	c3                   	ret
+
+Disassembly of section .plt:
+
+0000000000001020 <dlerror@plt-0x10>:
+    1020:	ff 35 ca 2f 00 00    	push   0x2fca(%rip)        # 3ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
+    1026:	ff 25 cc 2f 00 00    	jmp    *0x2fcc(%rip)        # 3ff8 <_GLOBAL_OFFSET_TABLE_+0x10>
+    102c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000001030 <dlerror@plt>:
+    1030:	ff 25 ca 2f 00 00    	jmp    *0x2fca(%rip)        # 4000 <dlerror@GLIBC_2.34>
+    1036:	68 00 00 00 00       	push   $0x0
+    103b:	e9 e0 ff ff ff       	jmp    1020 <_init+0x20>
+
+0000000000001040 <abort@plt>:
+    1040:	ff 25 c2 2f 00 00    	jmp    *0x2fc2(%rip)        # 4008 <abort@GLIBC_2.2.5>
+    1046:	68 01 00 00 00       	push   $0x1
+    104b:	e9 d0 ff ff ff       	jmp    1020 <_init+0x20>
+
+0000000000001050 <fputs@plt>:
+    1050:	ff 25 ba 2f 00 00    	jmp    *0x2fba(%rip)        # 4010 <fputs@GLIBC_2.2.5>
+    1056:	68 02 00 00 00       	push   $0x2
+    105b:	e9 c0 ff ff ff       	jmp    1020 <_init+0x20>
+
+0000000000001060 <memset@plt>:
+    1060:	ff 25 b2 2f 00 00    	jmp    *0x2fb2(%rip)        # 4018 <memset@GLIBC_2.2.5>
+    1066:	68 03 00 00 00       	push   $0x3
+    106b:	e9 b0 ff ff ff       	jmp    1020 <_init+0x20>
+
+0000000000001070 <dlopen@plt>:
+    1070:	ff 25 aa 2f 00 00    	jmp    *0x2faa(%rip)        # 4020 <dlopen@GLIBC_2.34>
+    1076:	68 04 00 00 00       	push   $0x4
+    107b:	e9 a0 ff ff ff       	jmp    1020 <_init+0x20>
+
+0000000000001080 <memcpy@plt>:
+    1080:	ff 25 a2 2f 00 00    	jmp    *0x2fa2(%rip)        # 4028 <memcpy@GLIBC_2.14>
+    1086:	68 05 00 00 00       	push   $0x5
+    108b:	e9 90 ff ff ff       	jmp    1020 <_init+0x20>
+
+0000000000001090 <dlsym@plt>:
+    1090:	ff 25 9a 2f 00 00    	jmp    *0x2f9a(%rip)        # 4030 <dlsym@GLIBC_2.34>
+    1096:	68 06 00 00 00       	push   $0x6
+    109b:	e9 80 ff ff ff       	jmp    1020 <_init+0x20>
+
+Disassembly of section .plt.got:
+
+00000000000010a0 <__cxa_finalize@plt>:
+    10a0:	ff 25 32 2f 00 00    	jmp    *0x2f32(%rip)        # 3fd8 <__cxa_finalize@GLIBC_2.2.5>
+    10a6:	66 90                	xchg   %ax,%ax
+
+Disassembly of section .text:
+
+00000000000010b0 <deregister_tm_clones>:
+    10b0:	48 8d 3d 89 2f 00 00 	lea    0x2f89(%rip),%rdi        # 4040 <completed.0>
+    10b7:	48 8d 05 82 2f 00 00 	lea    0x2f82(%rip),%rax        # 4040 <completed.0>
+    10be:	48 39 f8             	cmp    %rdi,%rax
+    10c1:	74 15                	je     10d8 <deregister_tm_clones+0x28>
+    10c3:	48 8b 05 f6 2e 00 00 	mov    0x2ef6(%rip),%rax        # 3fc0 <_ITM_deregisterTMCloneTable@Base>
+    10ca:	48 85 c0             	test   %rax,%rax
+    10cd:	74 09                	je     10d8 <deregister_tm_clones+0x28>
+    10cf:	ff e0                	jmp    *%rax
+    10d1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    10d8:	c3                   	ret
+    10d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000010e0 <register_tm_clones>:
+    10e0:	48 8d 3d 59 2f 00 00 	lea    0x2f59(%rip),%rdi        # 4040 <completed.0>
+    10e7:	48 8d 35 52 2f 00 00 	lea    0x2f52(%rip),%rsi        # 4040 <completed.0>
+    10ee:	48 29 fe             	sub    %rdi,%rsi
+    10f1:	48 89 f0             	mov    %rsi,%rax
+    10f4:	48 c1 ee 3f          	shr    $0x3f,%rsi
+    10f8:	48 c1 f8 03          	sar    $0x3,%rax
+    10fc:	48 01 c6             	add    %rax,%rsi
+    10ff:	48 d1 fe             	sar    $1,%rsi
+    1102:	74 14                	je     1118 <register_tm_clones+0x38>
+    1104:	48 8b 05 c5 2e 00 00 	mov    0x2ec5(%rip),%rax        # 3fd0 <_ITM_registerTMCloneTable@Base>
+    110b:	48 85 c0             	test   %rax,%rax
+    110e:	74 08                	je     1118 <register_tm_clones+0x38>
+    1110:	ff e0                	jmp    *%rax
+    1112:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    1118:	c3                   	ret
+    1119:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000001120 <__do_global_dtors_aux>:
+    1120:	f3 0f 1e fa          	endbr64
+    1124:	80 3d 15 2f 00 00 00 	cmpb   $0x0,0x2f15(%rip)        # 4040 <completed.0>
+    112b:	75 2b                	jne    1158 <__do_global_dtors_aux+0x38>
+    112d:	55                   	push   %rbp
+    112e:	48 83 3d a2 2e 00 00 	cmpq   $0x0,0x2ea2(%rip)        # 3fd8 <__cxa_finalize@GLIBC_2.2.5>
+    1135:	00 
+    1136:	48 89 e5             	mov    %rsp,%rbp
+    1139:	74 0c                	je     1147 <__do_global_dtors_aux+0x27>
+    113b:	48 8b 3d f6 2e 00 00 	mov    0x2ef6(%rip),%rdi        # 4038 <__dso_handle>
+    1142:	e8 59 ff ff ff       	call   10a0 <__cxa_finalize@plt>
+    1147:	e8 64 ff ff ff       	call   10b0 <deregister_tm_clones>
+    114c:	c6 05 ed 2e 00 00 01 	movb   $0x1,0x2eed(%rip)        # 4040 <completed.0>
+    1153:	5d                   	pop    %rbp
+    1154:	c3                   	ret
+    1155:	0f 1f 00             	nopl   (%rax)
+    1158:	c3                   	ret
+    1159:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000001160 <frame_dummy>:
+    1160:	f3 0f 1e fa          	endbr64
+    1164:	e9 77 ff ff ff       	jmp    10e0 <register_tm_clones>
+    1169:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000001170 <audit_real_address>:
+    1170:	48 8b 05 e9 2e 00 00 	mov    0x2ee9(%rip),%rax        # 4060 <real_fn>
+    1177:	48 85 c0             	test   %rax,%rax
+    117a:	74 04                	je     1180 <audit_real_address+0x10>
+    117c:	c3                   	ret
+    117d:	0f 1f 00             	nopl   (%rax)
+    1180:	48 8d 3d 79 0e 00 00 	lea    0xe79(%rip),%rdi        # 2000 <_fini+0xb50>
+    1187:	48 83 ec 18          	sub    $0x18,%rsp
+    118b:	be 02 00 00 00       	mov    $0x2,%esi
+    1190:	e8 db fe ff ff       	call   1070 <dlopen@plt>
+    1195:	48 89 c7             	mov    %rax,%rdi
+    1198:	48 85 c0             	test   %rax,%rax
+    119b:	74 1d                	je     11ba <audit_real_address+0x4a>
+    119d:	48 8d 35 c4 0e 00 00 	lea    0xec4(%rip),%rsi        # 2068 <_fini+0xbb8>
+    11a4:	e8 e7 fe ff ff       	call   1090 <dlsym@plt>
+    11a9:	48 89 05 b0 2e 00 00 	mov    %rax,0x2eb0(%rip)        # 4060 <real_fn>
+    11b0:	48 85 c0             	test   %rax,%rax
+    11b3:	74 2b                	je     11e0 <audit_real_address+0x70>
+    11b5:	48 83 c4 18          	add    $0x18,%rsp
+    11b9:	c3                   	ret
+    11ba:	48 8b 05 1f 2e 00 00 	mov    0x2e1f(%rip),%rax        # 3fe0 <stderr@GLIBC_2.2.5>
+    11c1:	48 8b 30             	mov    (%rax),%rsi
+    11c4:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+    11c9:	e8 62 fe ff ff       	call   1030 <dlerror@plt>
+    11ce:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+    11d3:	48 89 c7             	mov    %rax,%rdi
+    11d6:	e8 75 fe ff ff       	call   1050 <fputs@plt>
+    11db:	e8 60 fe ff ff       	call   1040 <abort@plt>
+    11e0:	48 8b 05 f9 2d 00 00 	mov    0x2df9(%rip),%rax        # 3fe0 <stderr@GLIBC_2.2.5>
+    11e7:	48 8b 30             	mov    (%rax),%rsi
+    11ea:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+    11ef:	e8 3c fe ff ff       	call   1030 <dlerror@plt>
+    11f4:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+    11f9:	48 89 c7             	mov    %rax,%rdi
+    11fc:	e8 4f fe ff ff       	call   1050 <fputs@plt>
+    1201:	e8 3a fe ff ff       	call   1040 <abort@plt>
+    1206:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    120d:	00 00 00 
+
+0000000000001210 <audit_start>:
+    1210:	48 83 ec 08          	sub    $0x8,%rsp
+    1214:	ba 00 c0 00 00       	mov    $0xc000,%edx
+    1219:	31 f6                	xor    %esi,%esi
+    121b:	48 8d 3d 7e 2e 00 00 	lea    0x2e7e(%rip),%rdi        # 40a0 <events>
+    1222:	e8 39 fe ff ff       	call   1060 <memset@plt>
+    1227:	48 c7 05 3e 2e 00 00 	movq   $0x0,0x2e3e(%rip)        # 4070 <unsupported>
+    122e:	00 00 00 00 
+    1232:	48 c7 05 3b 2e 00 00 	movq   $0x0,0x2e3b(%rip)        # 4078 <overflow>
+    1239:	00 00 00 00 
+    123d:	48 c7 05 38 2e 00 00 	movq   $0x0,0x2e38(%rip)        # 4080 <used>
+    1244:	00 00 00 00 
+    1248:	c7 05 16 2e 00 00 01 	movl   $0x1,0x2e16(%rip)        # 4068 <enabled>
+    124f:	00 00 00 
+    1252:	48 83 c4 08          	add    $0x8,%rsp
+    1256:	c3                   	ret
+    1257:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+    125e:	00 00 
+
+0000000000001260 <audit_stop>:
+    1260:	c7 05 fe 2d 00 00 00 	movl   $0x0,0x2dfe(%rip)        # 4068 <enabled>
+    1267:	00 00 00 
+    126a:	c3                   	ret
+    126b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000001270 <audit_copy>:
+    1270:	48 8b 05 01 2e 00 00 	mov    0x2e01(%rip),%rax        # 4078 <overflow>
+    1277:	48 0b 05 f2 2d 00 00 	or     0x2df2(%rip),%rax        # 4070 <unsupported>
+    127e:	53                   	push   %rbx
+    127f:	75 2f                	jne    12b0 <audit_copy+0x40>
+    1281:	48 8b 1d f8 2d 00 00 	mov    0x2df8(%rip),%rbx        # 4080 <used>
+    1288:	48 39 f3             	cmp    %rsi,%rbx
+    128b:	7f 23                	jg     12b0 <audit_copy+0x40>
+    128d:	48 8d 14 5b          	lea    (%rbx,%rbx,2),%rdx
+    1291:	48 8d 35 08 2e 00 00 	lea    0x2e08(%rip),%rsi        # 40a0 <events>
+    1298:	48 c1 e2 06          	shl    $0x6,%rdx
+    129c:	e8 df fd ff ff       	call   1080 <memcpy@plt>
+    12a1:	48 89 d8             	mov    %rbx,%rax
+    12a4:	5b                   	pop    %rbx
+    12a5:	c3                   	ret
+    12a6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    12ad:	00 00 00 
+    12b0:	48 c7 c3 ff ff ff ff 	mov    $0xffffffffffffffff,%rbx
+    12b7:	eb e8                	jmp    12a1 <audit_copy+0x31>
+    12b9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000012c0 <scipy_dgetrf_64_>:
+    12c0:	41 57                	push   %r15
+    12c2:	41 56                	push   %r14
+    12c4:	4d 89 ce             	mov    %r9,%r14
+    12c7:	41 55                	push   %r13
+    12c9:	49 89 fd             	mov    %rdi,%r13
+    12cc:	41 54                	push   %r12
+    12ce:	55                   	push   %rbp
+    12cf:	4c 89 c5             	mov    %r8,%rbp
+    12d2:	53                   	push   %rbx
+    12d3:	48 89 f3             	mov    %rsi,%rbx
+    12d6:	48 83 ec 18          	sub    $0x18,%rsp
+    12da:	48 8b 05 7f 2d 00 00 	mov    0x2d7f(%rip),%rax        # 4060 <real_fn>
+    12e1:	48 85 c0             	test   %rax,%rax
+    12e4:	0f 84 4e 01 00 00    	je     1438 <scipy_dgetrf_64_+0x178>
+    12ea:	8b 35 78 2d 00 00    	mov    0x2d78(%rip),%esi        # 4068 <enabled>
+    12f0:	85 f6                	test   %esi,%esi
+    12f2:	75 1c                	jne    1310 <scipy_dgetrf_64_+0x50>
+    12f4:	48 83 c4 18          	add    $0x18,%rsp
+    12f8:	4d 89 f1             	mov    %r14,%r9
+    12fb:	49 89 e8             	mov    %rbp,%r8
+    12fe:	48 89 de             	mov    %rbx,%rsi
+    1301:	4c 89 ef             	mov    %r13,%rdi
+    1304:	5b                   	pop    %rbx
+    1305:	5d                   	pop    %rbp
+    1306:	41 5c                	pop    %r12
+    1308:	41 5d                	pop    %r13
+    130a:	41 5e                	pop    %r14
+    130c:	41 5f                	pop    %r15
+    130e:	ff e0                	jmp    *%rax
+    1310:	4c 8b 3d 69 2d 00 00 	mov    0x2d69(%rip),%r15        # 4080 <used>
+    1317:	49 81 ff ff 00 00 00 	cmp    $0xff,%r15
+    131e:	7e 10                	jle    1330 <scipy_dgetrf_64_+0x70>
+    1320:	48 c7 05 4d 2d 00 00 	movq   $0x1,0x2d4d(%rip)        # 4078 <overflow>
+    1327:	01 00 00 00 
+    132b:	eb c7                	jmp    12f4 <scipy_dgetrf_64_+0x34>
+    132d:	0f 1f 00             	nopl   (%rax)
+    1330:	4b 8d 3c 3f          	lea    (%r15,%r15,1),%rdi
+    1334:	49 8d 77 01          	lea    0x1(%r15),%rsi
+    1338:	4e 8d 24 3f          	lea    (%rdi,%r15,1),%r12
+    133c:	48 89 35 3d 2d 00 00 	mov    %rsi,0x2d3d(%rip)        # 4080 <used>
+    1343:	49 8b 75 00          	mov    0x0(%r13),%rsi
+    1347:	48 89 3c 24          	mov    %rdi,(%rsp)
+    134b:	49 c1 e4 06          	shl    $0x6,%r12
+    134f:	48 8d 3d 4a 2d 00 00 	lea    0x2d4a(%rip),%rdi        # 40a0 <events>
+    1356:	49 01 fc             	add    %rdi,%r12
+    1359:	49 89 34 24          	mov    %rsi,(%r12)
+    135d:	48 8b 33             	mov    (%rbx),%rsi
+    1360:	49 89 74 24 08       	mov    %rsi,0x8(%r12)
+    1365:	48 8b 31             	mov    (%rcx),%rsi
+    1368:	49 89 74 24 10       	mov    %rsi,0x10(%r12)
+    136d:	4d 8b 5d 00          	mov    0x0(%r13),%r11
+    1371:	4c 8b 03             	mov    (%rbx),%r8
+    1374:	4d 39 c3             	cmp    %r8,%r11
+    1377:	74 17                	je     1390 <scipy_dgetrf_64_+0xd0>
+    1379:	48 c7 05 ec 2c 00 00 	movq   $0x1,0x2cec(%rip)        # 4070 <unsupported>
+    1380:	01 00 00 00 
+    1384:	e9 6b ff ff ff       	jmp    12f4 <scipy_dgetrf_64_+0x34>
+    1389:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    1390:	49 8d 7b fd          	lea    -0x3(%r11),%rdi
+    1394:	48 83 ff 01          	cmp    $0x1,%rdi
+    1398:	77 df                	ja     1379 <scipy_dgetrf_64_+0xb9>
+    139a:	4c 39 de             	cmp    %r11,%rsi
+    139d:	7c da                	jl     1379 <scipy_dgetrf_64_+0xb9>
+    139f:	4c 8d 14 f5 00 00 00 	lea    0x0(,%rsi,8),%r10
+    13a6:	00 
+    13a7:	31 f6                	xor    %esi,%esi
+    13a9:	4c 89 7c 24 08       	mov    %r15,0x8(%rsp)
+    13ae:	4d 89 e1             	mov    %r12,%r9
+    13b1:	49 89 f7             	mov    %rsi,%r15
+    13b4:	4a 8d 3c fa          	lea    (%rdx,%r15,8),%rdi
+    13b8:	31 f6                	xor    %esi,%esi
+    13ba:	f2 0f 10 07          	movsd  (%rdi),%xmm0
+    13be:	4c 01 d7             	add    %r10,%rdi
+    13c1:	f2 41 0f 11 44 f1 40 	movsd  %xmm0,0x40(%r9,%rsi,8)
+    13c8:	48 83 c6 01          	add    $0x1,%rsi
+    13cc:	49 39 f0             	cmp    %rsi,%r8
+    13cf:	7f e9                	jg     13ba <scipy_dgetrf_64_+0xfa>
+    13d1:	49 83 c7 01          	add    $0x1,%r15
+    13d5:	49 83 c1 20          	add    $0x20,%r9
+    13d9:	4d 39 fb             	cmp    %r15,%r11
+    13dc:	7f d6                	jg     13b4 <scipy_dgetrf_64_+0xf4>
+    13de:	4c 8b 7c 24 08       	mov    0x8(%rsp),%r15
+    13e3:	4d 89 f1             	mov    %r14,%r9
+    13e6:	4c 89 ef             	mov    %r13,%rdi
+    13e9:	49 89 e8             	mov    %rbp,%r8
+    13ec:	48 89 de             	mov    %rbx,%rsi
+    13ef:	ff d0                	call   *%rax
+    13f1:	49 8b 06             	mov    (%r14),%rax
+    13f4:	4c 8b 34 24          	mov    (%rsp),%r14
+    13f8:	48 8d 3d a1 2c 00 00 	lea    0x2ca1(%rip),%rdi        # 40a0 <events>
+    13ff:	4d 01 fe             	add    %r15,%r14
+    1402:	49 c1 e6 06          	shl    $0x6,%r14
+    1406:	4a 89 44 37 18       	mov    %rax,0x18(%rdi,%r14,1)
+    140b:	31 c0                	xor    %eax,%eax
+    140d:	48 83 3b 00          	cmpq   $0x0,(%rbx)
+    1411:	7e 13                	jle    1426 <scipy_dgetrf_64_+0x166>
+    1413:	48 8b 54 c5 00       	mov    0x0(%rbp,%rax,8),%rdx
+    1418:	49 89 54 c4 20       	mov    %rdx,0x20(%r12,%rax,8)
+    141d:	48 83 c0 01          	add    $0x1,%rax
+    1421:	48 39 03             	cmp    %rax,(%rbx)
+    1424:	7f ed                	jg     1413 <scipy_dgetrf_64_+0x153>
+    1426:	48 83 c4 18          	add    $0x18,%rsp
+    142a:	5b                   	pop    %rbx
+    142b:	5d                   	pop    %rbp
+    142c:	41 5c                	pop    %r12
+    142e:	41 5d                	pop    %r13
+    1430:	41 5e                	pop    %r14
+    1432:	41 5f                	pop    %r15
+    1434:	c3                   	ret
+    1435:	0f 1f 00             	nopl   (%rax)
+    1438:	48 8d 3d c1 0b 00 00 	lea    0xbc1(%rip),%rdi        # 2000 <_fini+0xb50>
+    143f:	be 02 00 00 00       	mov    $0x2,%esi
+    1444:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+    1449:	48 89 14 24          	mov    %rdx,(%rsp)
+    144d:	e8 1e fc ff ff       	call   1070 <dlopen@plt>
+    1452:	48 8b 14 24          	mov    (%rsp),%rdx
+    1456:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+    145b:	48 85 c0             	test   %rax,%rax
+    145e:	48 89 c7             	mov    %rax,%rdi
+    1461:	74 2e                	je     1491 <scipy_dgetrf_64_+0x1d1>
+    1463:	48 8d 35 fe 0b 00 00 	lea    0xbfe(%rip),%rsi        # 2068 <_fini+0xbb8>
+    146a:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+    146f:	48 89 14 24          	mov    %rdx,(%rsp)
+    1473:	e8 18 fc ff ff       	call   1090 <dlsym@plt>
+    1478:	48 8b 14 24          	mov    (%rsp),%rdx
+    147c:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+    1481:	48 85 c0             	test   %rax,%rax
+    1484:	48 89 05 d5 2b 00 00 	mov    %rax,0x2bd5(%rip)        # 4060 <real_fn>
+    148b:	0f 85 59 fe ff ff    	jne    12ea <scipy_dgetrf_64_+0x2a>
+    1491:	48 8b 05 48 2b 00 00 	mov    0x2b48(%rip),%rax        # 3fe0 <stderr@GLIBC_2.2.5>
+    1498:	48 8b 18             	mov    (%rax),%rbx
+    149b:	e8 90 fb ff ff       	call   1030 <dlerror@plt>
+    14a0:	48 89 c7             	mov    %rax,%rdi
+    14a3:	48 89 de             	mov    %rbx,%rsi
+    14a6:	e8 a5 fb ff ff       	call   1050 <fputs@plt>
+    14ab:	e8 90 fb ff ff       	call   1040 <abort@plt>
+
+Disassembly of section .fini:
+
+00000000000014b0 <_fini>:
+    14b0:	48 83 ec 08          	sub    $0x8,%rsp
+    14b4:	48 83 c4 08          	add    $0x8,%rsp
+    14b8:	c3                   	ret
