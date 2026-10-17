@@ -7,10 +7,10 @@ Can the stronger global one-step margin-equivalence test ever join genuinely dif
 PROOF.md gives sufficient exact conditions. primitive.py computes rational RREF and all hidden-unit fingerprint subset sums. Sixteen frozen synthetic controls include collisions, zero input, singular recurrence and malformed shapes.
 
 ## Status
-Claim8dc60612 pushed before implementation. Theorem checked independently by T55; source/control gate pending. Nothing executed.
+Claim8dc60612 pushed before implementation. Theorem checked independently by T55; recover_910 source/control gate passes4ab588b5, pinned6caca2f9. Controls98b661f7 completed; saved independent audit pending.
 
 ## Results
-None yet. No trained audit before completed independent controls.
+All16 frozen controls pass:7 satisfy sufficient conditions,5 fail a predicate and remain inconclusive,4 malformed/rational inputs rejected. CPU timer0 is below resolution, not free work. No trained audit before completed independent controls. The finite fixtures do not exercise row swaps; exact source logic was reviewed, not all possible branches empirically exhausted.
 
 ## Compute accounting
 Exact rational arithmetic categories/observed reduced bit widths; comparison/hash/sort/GCD/temporary integer work and runtime remain unpriced. Every model-dependent predicate computation is charged research/preprocessing, not free advice.
