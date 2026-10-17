@@ -29,7 +29,19 @@ def main():
         nm=subprocess.check_output(['nm','-n',env['binary_paths']['openblas']],text=True)
         syms={p[2]:int(p[0],16) for line in nm.splitlines() if len(p:=line.split())==3 and all(c in '0123456789abcdef' for c in p[0])}
         base=ctypes.cast(lib.scipy_dgetrf_64_,ctypes.c_void_p).value-syms['scipy_dgetrf_64_'];table=ctypes.c_void_p.from_address(base+syms['gotoblas']).value
-        kernel.kernel_install.argtypes=[ctypes.c_size_t];kernel.kernel_events.argtypes=[ctypes.POINTER(ctypes.c_int64)];kernel.kernel_events.restype=ctypes.c_int64;kernel.kernel_install(table)
+        kernel.kernel_install.argtypes=[ctypes.c_size_t];kernel.kernel_events.argtypes=[ctypes.POINTER(ctypes.c_int64)];kernel.kernel_events.restype=ctypes.c_int64
+    runtime=None
+    if kernel:
+        expected=json.loads((HERE/'frozen/runtime_dispatch.json').read_text());runtime=dict(functions=[],block_parameters={})
+        # Verify actual runtime targets before changing this process-local table.
+        for e in expected['functions']:
+            offset=int(e['table_offset'],16);actual=ctypes.c_void_p.from_address(table+offset).value-base
+            assert actual==int(e['target_relative_elf_offset'],16),(offset,actual,e)
+            runtime['functions'].append(dict(offset=offset,target=actual))
+        for offset,value in expected['block_parameter_offsets'].items():
+            actual=ctypes.c_int.from_address(table+int(offset,16)).value;assert actual==value
+            runtime['block_parameters'][offset]=actual
+        kernel.kernel_install(table)
     rows=[]
     try:
         for name,A in fixtures():
@@ -65,7 +77,7 @@ def main():
         if kernel:kernel.kernel_restore()
     if mode!='baseline':
         old=json.loads((HERE/'baseline.json').read_text())['rows'];assert [{k:v for k,v in r.items() if k not in ('spy','events')} for r in rows]==old
-    out=dict(mode=mode,rows=rows,complete=True,cpu_seconds=time.process_time()-start,binary_hashes=env['binary_hashes'],scope='Frozen18 analytic fixtures19 matrices; native numeric categories only; no mass/model replay.')
+    out=dict(mode=mode,rows=rows,complete=True,cpu_seconds=time.process_time()-start,binary_hashes=env['binary_hashes'],runtime_dispatch=runtime,scope='Frozen18 analytic fixtures19 matrices; native numeric categories only; no mass/model replay.')
     (HERE/(mode+'.json')).write_text(json.dumps(out,indent=2,allow_nan=False)+'\n')
     print(json.dumps(dict(mode=mode,complete=True,cpu_seconds=out['cpu_seconds'])))
 if __name__=='__main__':main()
