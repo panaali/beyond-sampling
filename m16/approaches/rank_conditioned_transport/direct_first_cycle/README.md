@@ -79,3 +79,28 @@ retained mass errors<=5.56e-17. Moving topology has44 panels; its union with
 1190 fixed panels has1227, below the frozen cap. Two interior probes per
 non-tiny moving panel confirm fixed pairwise line ordering. This is a
 finite floating test, not a robust-predicate proof. Full counts in controls.json.
+
+## Frozen pilot: removal exposes a larger negative bias
+`python m16/approaches/rank_conditioned_transport/direct_first_cycle/pilot.py`
+completes all four same-panel integrations in47.964CPU seconds.
+
+| Variant | GL4 estimate | Error | GL2/4 change | GL4 CPU |
+| --- | ---: | ---: | ---: | ---: |
+| baseline | .307723248833985 | -.000007494190 | 8.65e-12 | 15.459 |
+| direct label0 | .307547885880563 | -.000182857143 | 1.54e-10 | 16.835 |
+
+Both frozen precision checks pass, but the direct variant loses the accuracy
+and cost gate. Its only changed contribution is label0. This is consistent
+with cancellation between the removed interpolation and later error; it is
+not evidence that the direct transition is algebraically wrong. Constant,
+aligned-node and independent scalar quadrature controls remain satisfied.
+No ensemble, h refinement or rule search follows this fixed recipe.
+
+Before handoff, freeze one distinct diagnostic: independently partition the
+already validated H2T4 R4 cone reference by correct target label, using the
+existing floating geometry and positive order20 simplex rule. Compare all
+three baseline and direct contributions against those values and require
+their sum to reproduce the existing .307730743024 reference. This will tell
+whether label0 moves toward its own truth while worsening total error, or
+away from it. <=20CPU, no new inputs and no change to the estimator; charge
+all geometry/volume work and preserve quadrature-only/floating limitations.
