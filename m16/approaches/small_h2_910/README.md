@@ -278,3 +278,27 @@ interpolation queries. Cubic spline coefficient solves are additional work:
 from the explicit loop there are176direct sparse solves across both grids,
 including controls, with2right-hand sides each. Sparse factorization arithmetic
 has not been converted to FLOPs; query counts alone are not an efficiency metric.
+
+## Cycle5 protocol: one nested grid9 refinement
+Root authorized one additional terminal build, with110CPU-second deadline;
+no larger terminal grid is scheduled before T59 batching is assessed. The9³grid
+contains every5³node, so reuse those exact charged values and compute only4832
+new trained terminal calls (rather than5832). Save progress if the deadline is
+reached; never report a partial grid as a complete estimate.
+
+Evaluate both V/W representations, linear and cubic, with16angle nodes and64rank
+nodes, preserving negative/above-one query diagnostics. Reuse18constant-control
+terminal calls. T49 identified a useful exact normalization: this control's
+b/count slice equals the terminal rank mass q2, independent of hidden state and
+neural target position. Also report W with that analytic terminal denominator
+alongside the original quadrature denominator, without replacing prior results.
+The exact-denominator linear W variant is the probability-range-preserving
+control; no costly new interpolation engine is required. Its earlier transition
+weights still use numerical rank rules and need sensitivity checks.
+
+Falsifiers: spatial refinement may not stabilize estimates; cubic proximity may
+remain cancellation as exposed by controls; correcting tiny terminal q errors
+may leave the large neural bias unchanged. Charge all newly constructed terminal
+geometry, prior reused geometry, rank rules, interpolation/spline solves and CPU.
+No additional MC reference is taken in this cycle, avoiding outcome-driven
+reference precision changes. Existing uncertainty remains explicit.
