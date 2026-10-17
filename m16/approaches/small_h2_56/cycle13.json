@@ -2079,9 +2079,49 @@
       "first_cone": 58268,
       "last_cone": 61262,
       "nominal_triangle_calls": 1998624
+    },
+    {
+      "estimate": 0.00020678976305486832,
+      "conditional_outer_quadrature_bound": 7.592797041304531e-07,
+      "inner_positive_quadrature_bound": 1.2425119594654968e-15,
+      "inner_series_truncation_bound": 2.9687249374905412e-27,
+      "primitive_counts": {
+        "triangles": 797240,
+        "analytic_triangles": 795257,
+        "positive_quadrature_fallbacks": 1983,
+        "quadrature_nodes": 31728,
+        "tangent_basis_constructions": 797240,
+        "great_circle_edges": 2391468,
+        "great_circle_arctan2_calls": 2391468,
+        "solid_angle_arctan2_calls": 797156,
+        "elementary_tan_calls": 0,
+        "elementary_sin_calls": 7174404,
+        "elementary_cos_calls": 2391468,
+        "numerical_screen_rejections": 1899,
+        "bound_trials": 1983,
+        "bound_lgamma_calls": 5949,
+        "bound_exp_calls": 1983,
+        "bound_log_calls": 1983,
+        "legendre_rule_generations": 1,
+        "legendre_rule_generation_nodes": 4
+      },
+      "maximum_heuristic_relative_roundoff": 1.3996021151283727e-09,
+      "roundoff_certified": false,
+      "requested_total_inner_budget": 1e-06,
+      "cpu_seconds": 1.968490082,
+      "source_sha256": "ed72ccfb52ee6f43afc19384dcc7f164f5022dc7c2610ba94da52f58b8e81461",
+      "dependency_sha256": {
+        "triangle_batch.py": "ed72ccfb52ee6f43afc19384dcc7f164f5022dc7c2610ba94da52f58b8e81461",
+        "triangle.py": "b420d49de695a8d5a30ea82249e1a200b52156add3cefb9a55144c74270d120e",
+        "positive.py": "23f242afa834fee0fee021446b7c310ae3939cea556a4bb921e52de6c909f1d1",
+        "moments.py": "0c4a6cb4c8ed3f89b0a8506138b6b8cf81b523979eae6992c7117c9235081f2e"
+      },
+      "first_cone": 61262,
+      "last_cone": 62585,
+      "nominal_triangle_calls": 797240
     }
   ],
-  "completed_cones": 61262,
+  "completed_cones": 62585,
   "cycles": [
     {
       "start_cone": 0,
@@ -2092,14 +2132,29 @@
       "start_cone": 19216,
       "cpu_seconds": 102.538525154,
       "peak_rss_kb": 90164
+    },
+    {
+      "start_cone": 61262,
+      "cpu_seconds": 2.008002563,
+      "peak_rss_kb": 81576
     }
   ],
-  "complete": false,
-  "estimate": 0.24794343316283585,
-  "conditional_outer_quadrature_bound": 9.322953090150407e-05,
-  "inner_positive_quadrature_bound": 4.587108447508186e-10,
-  "inner_series_truncation_bound": 1.9851552631318428e-24,
-  "total_conditional_integration_bound": 9.322998961234883e-05,
+  "complete": true,
+  "estimate": 0.24815022292589073,
+  "conditional_outer_quadrature_bound": 9.398881060563452e-05,
+  "inner_positive_quadrature_bound": 4.5871208726277815e-10,
+  "inner_series_truncation_bound": 1.9881239880693333e-24,
+  "total_conditional_integration_bound": 9.398926931772178e-05,
   "pruned_mass_bound": 5.003269270003126e-06,
-  "total_conditional_error_bound": 9.823325888235195e-05
+  "total_conditional_error_bound": 9.89925385877249e-05,
+  "accuracy_interval": [
+    0.248056233656573,
+    0.24824921546447845
+  ],
+  "existing_validation": {
+    "inputs": 131072,
+    "accuracy": 0.25103759765625,
+    "standard_error": 0.001197690019,
+    "standard_errors_difference": 2.410786334155191
+  }
 }
