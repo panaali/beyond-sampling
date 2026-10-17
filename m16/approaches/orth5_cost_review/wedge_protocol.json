@@ -1,0 +1,75 @@
+{
+  "task": "T11583",
+  "claim": "9b187e08",
+  "source_sha256": "a88f62c41a94af636399675e92ed0ce88f109808f66eff23fdbddb9a87ef2bad",
+  "reference_theory_review": "199420a1",
+  "ks": [
+    2,
+    10,
+    22,
+    35,
+    48
+  ],
+  "controls": [
+    "identity positive5orthant",
+    "narrow wedge tan(theta/2)=2^-2",
+    "wide wedge tan(theta/2)=2^-2",
+    "narrow wedge tan(theta/2)=2^-10",
+    "wide wedge tan(theta/2)=2^-10",
+    "narrow wedge tan(theta/2)=2^-22",
+    "wide wedge tan(theta/2)=2^-22",
+    "narrow wedge tan(theta/2)=2^-35",
+    "wide wedge tan(theta/2)=2^-35",
+    "narrow wedge tan(theta/2)=2^-48",
+    "wide wedge tan(theta/2)=2^-48"
+  ],
+  "arms": [
+    {
+      "name": "source",
+      "thin": 6,
+      "log": 128,
+      "threshold": 1e-06
+    },
+    {
+      "name": "duffy6",
+      "thin": 6,
+      "log": 128,
+      "threshold": "infinity"
+    },
+    {
+      "name": "duffy10",
+      "thin": 10,
+      "log": 128,
+      "threshold": "infinity"
+    },
+    {
+      "name": "duffy16",
+      "thin": 16,
+      "log": 128,
+      "threshold": "infinity"
+    },
+    {
+      "name": "log128",
+      "thin": 6,
+      "log": 128,
+      "threshold": 0
+    },
+    {
+      "name": "log256",
+      "thin": 6,
+      "log": 256,
+      "threshold": 0
+    }
+  ],
+  "absolute_diagnostic_tolerance": 1e-10,
+  "relative_diagnostic_tolerance": 1e-06,
+  "reference_mp_digits": [
+    80,
+    120
+  ],
+  "max_cpu_seconds": 20,
+  "max_memory_kib": 2500000,
+  "no_trained_or_MC_calls": true,
+  "source_numerical_function_changes": false,
+  "shape_discriminator": "Exact Fraction sign of first-two stored-ray dot only, recorded as conditioning evidence; no general log accuracy certificate or adaptive winner selection."
+}
