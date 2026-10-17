@@ -13,12 +13,14 @@ fixed-precision MP handles transcendental values, with independent references.
 ## Status
 Running under claim2666600d. Initial35 analytic/domain controls complete
 a24b97ba, independently88f212b6; six analytic network-assembly controls now pass under claim d7c0edab,
-with independent saved review pending. See HANDOFF.md and NETWORK_HANDOFF.md.
+independently7ad8ea7a. One pinned trained H16T4seed3 phase now also passes
+geometry4142246c and aggregatefb944bce. See trained/HANDOFF.md.
 
 ## Results
 All35 initial controls pass; maximum relative independent-reference difference
-3.840e-120. See HANDOFF.md for scope, cost and reproduction. No trained-model
-application performed.
+3.840e-120. See HANDOFF.md for scope, cost and reproduction. One historical model now has all544 exact-real facet contributions checked
+against independent angular references. Mean sample-relative RMS0.00262984;
+no covariance or final-accuracy inference.
 
 ## Compute accounting
 Named exact arithmetic and reduced operand bits, MP/reference CPU separately.

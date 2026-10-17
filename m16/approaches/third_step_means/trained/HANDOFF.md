@@ -1,4 +1,4 @@
-# T175 one pinned model: raw result pending independent saved audit
+# T175 one pinned model: independently reviewed bounded handoff
 
 Scope06f3da7f; source52da5a9d plus explicit baseline-dimension guardd290e34e and wording08ead9ab; launcha63040cc pins six-network independent7ad8ea7a and T55 trained source gate. One primary110CPU attempt completed in11.542077496CPU,59,644KiB.
 
@@ -8,6 +8,6 @@ Relative hidden-mean RMS errors against the new exact-real formula's finite MP v
 
 Exact facet named work50,592mul+22,848add+8,160sub, retained result bits494/462. Network19,008mul+17,412add plus separately recorded sign/slope/activation categories; validation217,600mul+193,120add. Sorting/comparisons/GCD/transient integer/MP/native/conversion/control/memory remain incompletely priced. Candidate means target real arithmetic on the saved binary weights; historical rounded sector boundaries need not match exactly. No checkpoint loading, fresh sampled input, reference regeneration, covariance/step4 propagation or final accuracy evaluation occurred.
 
-Independent saved audit is pending. Preserve prior T69 downstream/random-width failures; no asymptotic/fullcost/challenge solution inference. The distinct pair-moment route is registered ReadyT11593, requiring its own mass/degeneracy controls and claim before implementation.
+Independent saved reviews pass:4142246c exact sectors/generator maps/normal degeneracies/alternate asin facets (max1.084e-104,0.472reviewCPU) and fb944bce all mean/baseline/reference/count aggregates. Neither repeats candidate/angular/forward calls. Reviewer serialization/timing comparison corrections are preserved in the review artifacts. Preserve prior T69 downstream/random-width failures; no asymptotic/fullcost/challenge solution inference. The distinct pair-moment route is registered ReadyT11593, requiring its own mass/degeneracy controls and claim before implementation.
 
 Reproduce the one-model attempt froma63040cc in a fresh checkout under one thread2GB and primary lock110CPU: `/workspace/clean-neurons/.venv/bin/python m16/approaches/third_step_means/trained/run.py`. All1091 progress records are retained; existing outputs are refused, and no automatic failure recovery or precision expansion occurs.
