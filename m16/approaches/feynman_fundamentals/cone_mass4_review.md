@@ -854,3 +854,25 @@ The isolated flat numeric tuple comparator preserves Python's element identity s
 ### T181 stable moment source gate
 
 Only moment.moments is rebound to the reviewed centered-square identity, using the same cached Gram summaries and mean. Diagnostic second=variance+mean² is counted, original selector guards/fallback preserved. Positive recovered nearconstant controls do not resolve the eps2^-28 case where Gram/mean computation already loses information. This clears the fixed64 plus separately charged exact35-moment validation, not a floating certificate.
+
+### T181 stable variance pilot independent exact validation
+
+`check_stable_moment_pilot_review.py` independently reconstructs exact binary-ray Gram matrices and centered-square variances for all35 moment attempts, agreeing with the author's separately enumerated256-monomial references.34 variance errors improve and one worsens near machine precision; worst relative error falls1.139710e-7 to5.087941e-13. All64 saved outputs,39 unchanged nonmoment values, count109414 and70-unit reduction are verified. No integrations rerun; Gram rounding/nearconstant loss and conditional-only mass bounds remain. Review0.024CPU.
+
+### Latest hybrid source fixed-panel qualification
+
+`check_latest_mass_panel_review.py` checks33 controls plus256 saved actual cones and their raw branch diagnostics. Actual117 thin/139 log cases pass the preset absolute gate: max difference1.396907e-15,L1 8.323875e-14;74 differences exceed reference-only bounds. Max unit-diagonal drift4.44e-16 remains. The generic nearly-antipodal unit-ray controls at epsilon2^-20,-24,-30,-40 fail, as predicted; epsilon2^-24 returns7.67e-8 versus trueapproximately1/8. These are explicitly nonblocking for the separately declared actual corpus, not a restored universal primitive guarantee. Review0.064CPU, no source quadrature replay.
+
+### T176 two trained RECIPE85B cases
+
+`check_recipe85b_trained_review.py` verifies source/checkpoint pins, model hashes linked to reviewed T115 data, saved/baseline/traced values, legacy counters, cells and every site total. Named numeric114665/92227, separate integer3838/2772 and40/32 actual sort comparisons reproduce. These two cases do not license a panel multiplier or training-rung conclusion. Review0.001CPU, no trace rerun.
+
+### T178 wider saved evidence
+
+`check_hopf_wider_review.py` verifies all75 source/model-report records and45 groups, previous rows unchanged, uniform/matched budget contractions and75 independently inverted Bonferroni binomial intervals. Three clean point ratios exceed1 (H5s1:1.4873,H6s2:1.9963,H6s4:3.0312), but their simultaneous lower bounds remain below1; do not call them certified losses. Only H4s1/s4 pooled upper bounds and H6s3 noisy upper bound lie below1 among those respective groups. Native96/140/192 costs remain unaudited and larger-grid reference is not exact truth. Review0.128CPU; no model/MC/source run.
+
+### Stable full-corpus resume and Hopf cost control gates
+
+The initial stable full runner could skip a persisted explicit failing row on resume and later mark its shard complete. The owner preserved that source and added a preloaded-row failure/comparison/bound/parity check before even the complete-shard skip; summary rejects the same fields. This harness repair was reviewed before numerical execution. Legitimate finite unresolved rows remain explicit.
+
+T183 Hopf cost adapter preserves original/tile arms, dense einsum, argmax, elementary/modulo and Boolean expression rules, while sorting/search remain opaque with full operand dimensions. Legacy n_ops is diagnostic. The fixed-input actual sampler includes aggregation additions/final division beyond per-indicator192; free-label sorting must remain separate. This clears frozen controls only, not model cost transfer or hardware units.
