@@ -49,3 +49,41 @@ values/errors raise, and final normalized values/errors are checked.
 This repairs the observed domain failure without claiming stable
 extreme-tail integration. The fixed36-control suite was retained by
 the owner; no duplicate full suite was run by this reviewer.
+
+## Rank support and full-cycle topology review
+
+The interpolation comparison uses low/high first-input transition
+operators followed by below/above terminal probabilities. Therefore
+need0=low[:,0] and need1=(low[:,1]+high[:,0])/2 are correct. Matching
+u to a chosen prefix input alone does not make both need flags
+reachable: the other observed prefix input fixes whether the one
+allowed exceeding input has already occurred. The owner retained the
+full extension table and added the four untied, rank-consistent probes;
+one still has local discrepancy about-.01637. Tied input fixtures are
+explicit diagnostics, not positive-probability population events.
+
+For a fixed polygon, moving cuts x=u,y=u change clipping topology only
+at vertex x/y coordinates or when their intersection(u,u) crosses a
+polygon edge. A diagonal-coincident edge needs its endpoint events,
+not an extra isolated crossing. The new complete union includes these,
+earlier target/interpolation switches and the common penultimate cache.
+This establishes real-arithmetic geometric branch completeness, not
+rounding or adaptive-quadrature certification.
+
+The few-ulp fallback uses separate endpoint extrema of the lower/upper
+affine bounds, not endpoint values of their CDF difference alone.
+Monotonicity then bounds the gap, while Gaussian density extrema occur
+at endpoints or zero. Its floating padding is explicitly heuristic.
+The wider-panel rescue maps x=a+(b-a)*t to[0,1], divides absolute
+tolerance by width, and multiplies the returned integral/error by width;
+these factors are correct. Both original QUADPACK failures remain
+visible and are not method-family negatives.
+
+Full h3 recursion source keeps the two-input terminal at stage2, then
+propagates steps1 and0. The remaining ordinary-input count
+T-t-int(label>=t) and target-insertion chronology are correct. A source
+branch initially routed every nonpenultimate label to the new cache
+although only labels0/1 were constructed. This is harmless on the
+frozen model where label3 is excluded, but was reported for a local
+`paired and label<2` guard before general interpretation. The full
+comparison remains bounded, with no h9 or accuracy claim implied.
