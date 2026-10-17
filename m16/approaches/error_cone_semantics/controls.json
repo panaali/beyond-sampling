@@ -1,0 +1,73 @@
+{
+  "controls": [
+    {
+      "name": "positive_recurrence",
+      "pass_control": true,
+      "logits": [
+        "0",
+        "5",
+        "-5",
+        "10"
+      ],
+      "zeros": 0
+    },
+    {
+      "name": "off_then_on",
+      "pass_control": true,
+      "logits": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "zeros": 0
+    },
+    {
+      "name": "duplicate_winning_rows",
+      "pass_control": true,
+      "logits": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "zeros": 0
+    },
+    {
+      "name": "nonzero_winning_tie",
+      "pass_control": true,
+      "logits": [
+        "1",
+        "1",
+        "0",
+        "-1"
+      ],
+      "zeros": 0
+    },
+    {
+      "name": "duplicate_hidden_rows",
+      "pass_control": true,
+      "logits": [
+        "0",
+        "2",
+        "-2",
+        "0"
+      ],
+      "zeros": 0
+    },
+    {
+      "name": "equal_input_rank_policy",
+      "pass_control": true,
+      "logits": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "zeros": 4
+    }
+  ],
+  "cpu_seconds_including_imports": 0.03179364899999999,
+  "max_rss_kib": 33856,
+  "script_sha256": "750f167c134b458f07311374bb0f6e1b5367ca9c863d223d30a9ea121d7e590b"
+}
