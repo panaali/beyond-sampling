@@ -8,8 +8,7 @@ summed** (max 3.9e-6 each, 2984 negative masses) = the whole bias. Fix: (1) log 
 (2) cofactor facet normals, atan2 angles/partial corr (no sqrt(eps) loss near |rho| = 1); (3) |det R| < 1e-6: exact form
 |det R|/(2 pi^2) int_simplex |R^T u|^-4 du (10^3 rule) — it removed seed 1's last 2.2e-9 (45 negative simplices, `diag2.py 1`).
 Seeds 0-4 (`leafsum.py s`, `mc.py`): leaf sum − 1 = 1.1e-11 / 8.6e-12 / 1.6e-11 / 1.2e-11 / 1.2e-11; exact acc .97616081 /
-.98746001 / .97185215 / .97671350 / .98539792, z vs 1e7 MC −0.30 / +0.53 / −0.06 / +0.25 / −1.20 (noisy |z| <= 0.51).
-zoo0 equals the Codex T131 target .9761608075 (not on this branch).
+.98746001 / .97185215 / .97671350 / .98539792, z vs 1e7 MC −0.30 / +0.53 / −0.06 / +0.25 / −1.20 (noisy |z| <= 0.51); zoo0 = Codex T131 target.
 ## T164: frozen recipe108 (eps .1, as final3/run.py) vs fixed exact — `rescore.py <name>`, `summary.py` -> `summary.json`
 | model | err pp (fixed estT) | ops | MSE ratio | old final3 est: err pp / ratio | cells | regions ≥ |
 |---|---|---|---|---|---|---|
