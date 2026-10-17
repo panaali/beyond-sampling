@@ -11,9 +11,20 @@ PAIRS = [(0, 1, 2, 3), (0, 2, 1, 3), (0, 3, 1, 2), (1, 2, 0, 3), (1, 3, 0, 2), (
 
 def corr_mp(N):
     """30-digit correlation matrix of the (exact float) normals N: exactly PSD, unlike a float C."""
-    U = [[mp.mpf(float(N[a][b])) for b in range(4)] for a in range(4)]
+    U = [[N[a][b] if isinstance(N[a][b], mp.mpf) else mp.mpf(float(N[a][b])) for b in range(4)] for a in range(4)]
     nr = [mp.sqrt(sum(u * u for u in row)) for row in U]
     return mp.matrix([[sum(U[a][q] * U[b][q] for q in range(4)) / (nr[a] * nr[b]) for b in range(4)] for a in range(4)])
+
+
+def normals_mp(R):
+    """30-digit facet normals (rows of inv(R^T)) of the cone spanned by the float rays R."""
+    Rm = mp.matrix([[mp.mpf(float(R[a][b])) for b in range(4)] for a in range(4)])
+    B = (Rm.T) ** -1
+    return [[B[a, b] for b in range(4)] for a in range(4)]
+
+
+def ref_rays(R):
+    return ref_plackett(N=normals_mp(R))
 
 
 def ref_plackett(N=None, C=None):

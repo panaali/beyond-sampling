@@ -42,26 +42,27 @@ STATS = {"cells": 0, "cut": 0, "resolved": 0, "simplices": 0}
 
 # ---------------------------------------------------------------------------------------------- cones
 class Cone:
-    __slots__ = ("R", "N")
+    """Pointed polyhedral cone: unit rays R (m, d), inward normals N (f, d) and the SYMBOLIC incidence T (m, f)
+    (T[r, i] = ray r lies on facet hyperplane i). The incidence is propagated combinatorially through clipping
+    (T108 fix: recomputing it numerically broke the face lattice of thin cells at (8,4))."""
+    __slots__ = ("R", "N", "T")
 
-    def __init__(self, R, N):
-        self.R = R            # (m, d) unit rays
-        self.N = N            # (f, d) inward normals (may be redundant)
+    def __init__(self, R, N, T):
+        self.R = R; self.N = N; self.T = T
 
     @staticmethod
     def from_normals(N):
         N = np.asarray(N, float)
         Rm = np.linalg.inv(N)
         R = (Rm / np.linalg.norm(Rm, axis=0)).T
-        return Cone(R, N.copy())
+        return Cone(R, N.copy(), ~np.eye(len(N), dtype=bool))
 
     def tight(self):
-        return np.abs(self.R @ self.N.T) < TOL * np.maximum(1, np.abs(self.N).max(1))[None, :]
+        return self.T
 
 
 def _adjacent_pairs(c, ops):
-    d = c.R.shape[1]; Tm = c.tight(); m = len(c.R)
-    ops.add(m * len(c.N) * (d + 1))
+    d = c.R.shape[1]; Tm = c.T; m = len(c.R)
     out = []
     for a in range(m):
         for b in range(a + 1, m):
@@ -69,16 +70,16 @@ def _adjacent_pairs(c, ops):
             if Z.sum() < d - 2:
                 continue
             others = [q for q in range(m) if q != a and q != b]
-            if any(np.all(Tm[q][Z]) for q in others):
-                ops.add(len(others) * int(Z.sum())); continue
             ops.add(len(others) * int(Z.sum()))
+            if any(np.all(Tm[q][Z]) for q in others):
+                continue
             if np.linalg.matrix_rank(c.N[Z]) >= d - 2:
                 ops.add(d ** 3); out.append((a, b))
     return out
 
 
 def clip(c, n, ops):
-    """(inside {n.x >= 0}, outside) cones; None for measure zero."""
+    """(inside {n.x >= 0}, outside) cones; None for measure zero. Incidence propagated symbolically."""
     d = c.R.shape[1]
     s = c.R @ n; ops.add((d + 1) * len(c.R))
     sc = TOL * np.linalg.norm(n)
@@ -86,21 +87,25 @@ def clip(c, n, ops):
         return c, None
     if s.max() <= sc:
         return None, c
-    new = []
+    on = np.abs(s) <= sc
+    newR, newT = [], []
     for a, b in _adjacent_pairs(c, ops):
         if (s[a] > sc and s[b] < -sc) or (s[a] < -sc and s[b] > sc):
             p = abs(s[a]) * c.R[b] + abs(s[b]) * c.R[a]; p /= np.linalg.norm(p); ops.add(3 * d + 3)
-            new.append(p)
-    ins = [c.R[q] for q in range(len(c.R)) if s[q] >= -sc] + new
-    out = [c.R[q] for q in range(len(c.R)) if s[q] <= sc] + new
-    ci = Cone(np.array(ins), np.vstack([c.N, n])) if len(ins) >= d else None
-    co = Cone(np.array(out), np.vstack([c.N, -n])) if len(out) >= d else None
-    if ci is not None and np.linalg.matrix_rank(ci.R) < d:
-        ci = None
-    if co is not None and np.linalg.matrix_rank(co.R) < d:
-        co = None
+            newR.append(p); newT.append(np.append(c.T[a] & c.T[b], True))
+    Tx = np.hstack([c.T, on[:, None]])
+    res = []
+    for keep, sign in ((s >= -sc, 1.0), (s <= sc, -1.0)):
+        R = [c.R[q] for q in range(len(c.R)) if keep[q]] + newR
+        T = [Tx[q] for q in range(len(c.R)) if keep[q]] + newT
+        if len(R) < d:
+            res.append(None); continue
+        R = np.array(R)
+        if np.linalg.matrix_rank(R, tol=1e-12) < d:
+            res.append(None); continue
+        res.append(Cone(R, np.vstack([c.N, sign * n]), np.array(T)))
     ops.add(2 * d ** 3)
-    return ci, co
+    return res[0], res[1]
 
 
 # ------------------------------------------------------------------------------------------- masses
@@ -140,19 +145,22 @@ def mass(c, ops):
     d = c.R.shape[1]
     if len(c.R) == d:
         return orthant(c.R, ops)
-    Tm = c.tight(); ops.add(len(c.R) * len(c.N) * (d + 1))
+    Tm = c.T
 
     def faces_of(S, Zset, k):
-        """facets (k-1 dim faces) of the k-dim face with ray index set S."""
+        """facets (k-1 dim faces) of the k-dim face with ray index set S (dimension from the rank of the face's
+        tight NORMALS, d - rank, which stays well conditioned for thin cells)."""
         out = set()
         for i in range(len(c.N)):
             if i in Zset:
                 continue
             S2 = tuple(q for q in S if Tm[q, i])
-            if len(S2) >= k - 1 and S2 not in out:
-                if np.linalg.matrix_rank(c.R[list(S2)]) == k - 1:
-                    out.add(S2)
             ops.add(len(S))
+            if len(S2) >= k - 1 and S2 not in out:
+                Z2 = np.all(Tm[list(S2)], axis=0)
+                if d - np.linalg.matrix_rank(c.N[Z2]) == k - 1:
+                    out.add(S2)
+                ops.add(d ** 3)
         return out
 
     def tri(S, k):

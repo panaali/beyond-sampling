@@ -60,61 +60,122 @@ def corr_from_normals(N, ops):
     return C
 
 
-def mass_from_corr(C, ops=None, n=8, return_info=False):
+def adjugate_sym(m, ops):
+    """All 10 cofactors of a symmetric 4x4 matrix via shared 2x2 minors of rows (0,1) and (2,3); returns (adj, det)."""
+    M01, M23 = {}, {}
+    for a in range(4):
+        for b in range(a + 1, 4):
+            M01[(a, b)] = m[0][a] * m[1][b] - m[0][b] * m[1][a]
+            M23[(a, b)] = m[2][a] * m[3][b] - m[2][b] * m[3][a]
+    ops.add(36)
+
+    def cof(r, c):
+        c1, c2, c3 = [q for q in range(4) if q != c]
+        if r < 2:
+            rr, Mm = 1 - r, M23
+        else:
+            rr, Mm = 5 - r, M01
+        d = m[rr][c1] * Mm[(c2, c3)] - m[rr][c2] * Mm[(c1, c3)] + m[rr][c3] * Mm[(c1, c2)]
+        return d if (r + c) % 2 == 0 else -d
+    adj = [[0.0] * 4 for _ in range(4)]
+    for r, c in ((0, 0), (0, 1), (0, 2), (0, 3), (1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)):
+        adj[r][c] = adj[c][r] = cof(r, c)
+    ops.add(50)
+    det = m[0][0] * adj[0][0] + m[0][1] * adj[0][1] + m[0][2] * adj[0][2] + m[0][3] * adj[0][3]; ops.add(7)
+    return adj, det
+
+
+KAPPA_GOOD = 1e9          # early exit threshold for the candidate search (set by calibration; inf = search all)
+TOL = 1e-9                # target quadrature error (relative to 1)
+NMAX = 40
+
+
+def nodes_for(kappa):
+    """Gauss-Legendre nodes for a nearest singularity at distance kappa from [0,1] (in s): error ~ rhoB^(-2n),
+    rhoB = Bernstein ellipse parameter; the worst case of real (beyond s=1) vs imaginary (at s=0) placement."""
+    if kappa == math.inf:
+        return 2
+    rb = 1.0 + 2.0 * kappa + 2.0 * math.sqrt(kappa * (1.0 + kappa))     # real offset kappa beyond the end (worst)
+    if rb <= 1.0 + 1e-12:
+        return NMAX
+    return int(min(NMAX, max(2, math.ceil(math.log(NODE_C / TOL) / (2 * math.log(rb))))))
+
+
+NODE_C = 1.0
+
+
+def mass_from_corr(C, ops=None, n=None, return_info=False):
+    """Orthant probability P(X > 0), X ~ N(0, C), C a 4 x 4 correlation matrix. n = Gauss nodes (None: adaptive)."""
     ops = ops if ops is not None else Ops()
-    m = C.tolist()
-    # adjugate entries for the 6 off-diagonal pairs + det (det from row-0 cofactors)
-    cof = {}
-    for (i, j, k, l) in PAIRS:
-        cof[(i, j)] = _cof(m, i, j); ops.add(15)
-    c00 = _cof(m, 0, 0); c11 = _cof(m, 1, 1); ops.add(30)
-    det = m[0][0] * c00 + m[0][1] * cof[(0, 1)] + m[0][2] * cof[(0, 2)] + m[0][3] * cof[(0, 3)]; ops.add(7)
-    if det <= 0:
+    m = C.tolist() if hasattr(C, "tolist") else C
+    adj, det = adjugate_sym(m, ops)
+    if det < 0:
         det = 0.0
-    # D(rho0 + h) = det + 2 cof_ij h - (1 - rho_kl^2) h^2 ; pick pair + root with the far root farthest
+    # Candidates: for each pair the nearer root of D(rho0 + h) = det + 2 adj_ij h - (1 - rho_kl^2) h^2 as endpoint.
+    # Singularities of the integrand (in rho): the other D root and the roots of the two 3x3 principal minors
+    # containing (i,j): rho = rho_ik rho_jk +- sqrt((1-rho_ik^2)(1-rho_jk^2)) (same for l). With tau = 1 - h_x / h_e
+    # (position on the path, endpoint 0, rho0 at 1), a singularity at tau < 0 sits at s = i sqrt(-tau) and one at
+    # tau > 1 at s = sqrt(tau); kappa = distance in s from [0, 1]. Pick the candidate with the largest min kappa.
     best = None
     for (i, j, k, l) in PAIRS:
-        q = 1.0 - m[k][l] ** 2
-        g = cof[(i, j)]
-        disc = math.sqrt(max(g * g + det * q, 0.0))
+        q = 1.0 - m[k][l] * m[k][l]
         if q <= 1e-300:
             continue
-        h1, h2 = (g - disc) / q, (g + disc) / q          # h1 <= 0 <= h2 roots of q h^2 - 2 g h - det = 0
-        near, far = (h1, h2) if -h1 <= h2 else (h2, h1)
-        score = abs(near) / max(abs(far), 1e-300)
+        g = adj[i][j]
+        disc = math.sqrt(max(g * g + det * q, 0.0))
+        h1, h2 = (g - disc) / q, (g + disc) / q          # h1 <= 0 <= h2
+        he, hf = (h1, h2) if -h1 <= h2 else (h2, h1)
         ops.add(14)
-        if best is None or score < best[0]:
-            best = (score, i, j, k, l, near)
-    _, i, j, k, l, h = best
+        rho0 = m[i][j]
+        a, c, b, d = m[i][k], m[j][k], m[i][l], m[j][l]
+        sk = math.sqrt(max((1 - a * a) * (1 - c * c), 0.0)); sl = math.sqrt(max((1 - b * b) * (1 - d * d), 0.0))
+        xs = (hf, a * c + sk - rho0, a * c - sk - rho0, b * d + sl - rho0, b * d - sl - rho0); ops.add(20)
+        if he == 0.0:
+            kap = math.inf
+        else:
+            kap = math.inf
+            for hx in xs:
+                tau = 1.0 - hx / he
+                kx = math.sqrt(-tau) if tau < 0 else (math.sqrt(tau) - 1.0 if tau > 1 else 0.0)
+                kap = min(kap, kx)
+            ops.add(5 * 6)
+        if best is None or kap > best[0]:
+            best = (kap, i, j, k, l, he)
+        if kap > KAPPA_GOOD:
+            break
+    score, i, j, k, l, h = best
     rho0 = m[i][j]
-    rs = min(1.0, max(-1.0, rho0 + h))
-    # endpoint mass: C* = C with C_ij = rs; null vector from the adjugate column with largest diagonal cofactor
-    ms = [row[:] for row in m]; ms[i][j] = ms[j][i] = rs
-    diag = [_cof(ms, q, q) for q in range(4)]; ops.add(4 * 15)
-    kk = int(np.argmax(diag)); ops.add(3)
-    lam = [_cof(ms, q, kk) for q in range(4)]; ops.add(3 * 15)
+    rs = min(1.0, max(-1.0, rho0 + h)); ops.add(3)
+    # null vector of C* = C + h (e_i e_j' + e_j e_i'):  lam ~ (h adj_ij + det) adj[:, i] - h adj_ii adj[:, j]
+    al, be = h * adj[i][j] + det, -h * adj[i][i]; ops.add(3)
+    lam = [al * adj[q][i] + be * adj[q][j] for q in range(4)]; ops.add(12)
     scale = max(abs(v) for v in lam); ops.add(4)
+    if scale <= 1e-300:                                  # C itself singular and h = 0: null vector = an adj column
+        col = i if abs(adj[i][i]) >= abs(adj[j][j]) else j
+        lam = [adj[q][col] for q in range(4)]; scale = max(abs(v) for v in lam)
     tol = 1e-12 * scale
     pos = [q for q in range(4) if lam[q] > tol]; neg = [q for q in range(4) if lam[q] < -tol]
     zer = [q for q in range(4) if abs(lam[q]) <= tol]; ops.add(8)
-    # zero components: give them the sign of the minority group (limit is continuous); tiny-measure cases
     for q in zer:
         (pos if len(pos) <= len(neg) else neg).append(q)
+
+    def rr(a, b):
+        return rs if {a, b} == {i, j} else m[a][b]
     if len(pos) == 0 or len(neg) == 0:
         P0 = 0.0
     elif len(pos) == 1 or len(neg) == 1:
-        tri = neg if len(pos) == 1 else pos
-        P0 = 0.125 + (math.asin(ms[tri[0]][tri[1]]) + math.asin(ms[tri[0]][tri[2]]) + math.asin(ms[tri[1]][tri[2]])) / (4 * math.pi)
-        ops.add(10)
+        t3 = neg if len(pos) == 1 else pos
+        P0 = 0.125 + (math.asin(rr(t3[0], t3[1])) + math.asin(rr(t3[0], t3[2])) + math.asin(rr(t3[1], t3[2]))) / (4 * math.pi)
+        ops.add(7)
     else:
-        P0 = sum(math.asin(max(-1.0, min(1.0, ms[a][b]))) for a in pos for b in neg) / (4 * math.pi); ops.add(10)
-    # 1-D integral in phi with phi = phis + (phi0 - phis) s^2
+        P0 = sum(math.asin(max(-1.0, min(1.0, rr(a, b)))) for a in pos for b in neg) / (4 * math.pi); ops.add(9)
     phi0, phis = math.asin(rho0), math.asin(rs); ops.add(2)
     dphi = phi0 - phis; ops.add(1)
     a, c, b, d, e = m[i][k], m[j][k], m[i][l], m[j][l], m[k][l]
     A0, A1, B0, B1, N0, N1 = a * a + c * c, 2 * a * c, b * b + d * d, 2 * b * d, a * b + c * d, a * d + b * c
     ops.add(14)
-    s, w = _gl(n)
+    nn = n if n is not None else nodes_for(score); ops.add(8)
+    s, w = _gl(nn)
     acc = 0.0
     for sv, wv in zip(s, w):
         ph = phis + dphi * sv * sv
@@ -124,21 +185,43 @@ def mass_from_corr(C, ops=None, n=8, return_info=False):
         pc = num / math.sqrt(den) if den > 0 else (1.0 if num > 0 else -1.0)
         pc = max(-1.0, min(1.0, pc))
         acc += wv * sv * math.asin(pc)
-        ops.add(24)
-    P = P0 + dphi / (8 * math.pi) + 2 * dphi * acc / (4 * math.pi ** 2); ops.add(8)
+        ops.add(25)
+    P = P0 + dphi / (8 * math.pi) + dphi * acc / (2 * math.pi ** 2); ops.add(6)
     if return_info:
-        return P, dict(pair=(i, j), rho0=rho0, rho_star=rs, P0=P0, case=(len(pos), len(neg)))
+        return P, dict(pair=(i, j), rho0=rho0, rho_star=rs, P0=P0, case=(len(pos), len(neg)), score=score, n=nn)
     return P
 
 
-def mass4(N, ops=None, n=8):
+def mass4(N, ops=None, n=None):
     """Gaussian mass of the cone {x in R^4 : N x >= 0}, N = 4 x 4 facet normals (rows)."""
     ops = ops if ops is not None else Ops()
     return mass_from_corr(corr_from_normals(N, ops), ops, n)
 
 
-def mass4_rays(R, ops=None, n=8):
-    """Gaussian mass of the simplicial cone spanned by the rows of R (as estT.orthant): normals = rows of inv(R^T)."""
+FLAT_TOL = 1e-6
+
+
+def mass4_rays(R, ops=None, n=None, flat_tol=FLAT_TOL, _depth=0):
+    """Gaussian mass of the simplicial cone spanned by the rows of R (as estT.orthant): normals = rows of inv(R^T).
+    Flat cones (rays nearly in a hyperplane; facet normals nearly +-parallel, correlations within flat_tol of +-1 for
+    >= 3 pairs) lose all their information in a float correlation matrix. They are split exactly by the signed
+    decomposition from an apex w = the first unit facet normal (perpendicular to the near-hyperplane):
+        1_S = sum_i eps_i 1_cone(w, F_i),  eps_i = sign(n_i . w),  F_i = facet opposite ray i,
+    whose four pieces are well conditioned (w is far from every facet plane)."""
     ops = ops if ops is not None else Ops()
-    B = np.linalg.inv(np.asarray(R, float).T); ops.add(4 ** 3)
-    return mass4(B, ops, n)
+    R = np.asarray(R, float)
+    B = np.linalg.inv(R.T); ops.add(4 ** 3)
+    C = corr_from_normals(B, ops)
+    near = int((np.abs(C[np.triu_indices(4, 1)]) > 1 - flat_tol).sum()); ops.add(12)
+    if near < 3 or _depth > 0:
+        return mass_from_corr(C, ops, n)
+    U = B / np.sqrt((B * B).sum(1))[:, None]; ops.add(48)
+    w = U[0]
+    tot = 0.0
+    for i in range(4):
+        e = float(U[i] @ w); ops.add(8)
+        if abs(e) < 1e-300:
+            continue
+        Ri = R.copy(); Ri[i] = w
+        tot += math.copysign(1.0, e) * mass4_rays(Ri, ops, n, flat_tol, _depth + 1)
+    return tot
