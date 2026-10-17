@@ -1549,3 +1549,7 @@ Independently checked stored exact weights, all544 saved cell precision/referenc
 T175 detailed reciprocal geometry/facet audit4142246c also passes: all34 sectors/544 cells/510 map records, exact normal/weight bindings and alternate asin discrepancy<=1.084e-104. Together with fb944bce this completes the bounded one-model third-step-mean review, retaining all finite-MP and downstream exclusions.
 
 K28 seed1's complete saved audit passes. Numeric85B/112 ratios .04952494424 /3.068269852e-7;85B has two individual losses (worst1.2840496), while112 has none. Historical72 has no losses for this seed, illustrating why accounting conventions must remain separate. All original errors, current hashes, full sites and exact historical mean counters agree; three seeds remain before global review.
+
+### Positive inner5 declared expression-cost comparison
+
+All66 saved child rows and33 parent groups independently reconcile category vectors, exact returned-value errors, prior pass/fail flags and separate setup. At order16, forced-thin old diagnostic total82,182,276 versus analytic-inner21,569,734; both pass the fixed absolute/relative diagnostics on11 parents. Order10 loses one absolute and one relative pass (new4/6 versus old5/7), retained. These totals count opaque powers/square-roots/etc as chosen unit invocations and leave determinant5 opaque: they are not native/runtime bounds, sampling comparisons or a speed claim. Source generation, model-free setup and repeated staged mappings remain separate. No numerical primitive or quadrature was replayed.
