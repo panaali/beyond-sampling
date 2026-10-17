@@ -40,3 +40,5 @@ These are candidates pending independent source review and frozen small ABI/
 branch controls. Controls will distinguish scalar one-FMA expectations from
 separate mul/add rounding, preserve all disagreements, and will not establish
 all-input compiled equivalence or full runtime cost.
+
+Assuming these child envelopes pass, worst-case full-dimension child cost per application is left4LC+8C+10 and right5CL+2C+2L+5 for L>1; compare separately with known scalar-path DSCAL C+3. Do not add parent scan counts or previously priced DLARFG inside these expressions. Shrunk dimensions only reduce the polynomial envelopes; finite actual data need not be rerun.
