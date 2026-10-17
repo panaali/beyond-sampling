@@ -71,13 +71,58 @@ do not mistake a finite covariance series for the full Gaussian law.
    not established as the unique source of any measured error.
 
 ## Status
-Source/theory audit complete; first bounded control cycle frozen, not run.
+First bounded control cycle completed; no trained application yet.
 At most18CPU on review lane or100CPU on primary lock, single thread,<2GB;
 no model sweep or large Monte Carlo. Next trained T3 phase requires its own
 frozen moment-integration protocol and cost after these controls.
 
 ## Results
-Pending; no source performance claims are accepted as independent validation.
+Unmodified upstream code passes iid Gaussian symmetry to2.22e-16. On the
+non-atomic correlated Gaussian, maximum winner-probability error decreases
+from.0677255 (E0) to.0149612 (E1) to.00577319 (E2 covariance and higher).
+Higher cumulants are exactly zero in this control; the residual is not caused
+by upstream propagation or atom ties. Full covariance arcsine calculation
+provides the predeclared exact-law rescue.
+
+On the reset toy, all five methods return normalized nonnegative vectors and
+zero variance clamps, yet the conditional winner vectors are inaccurate:
+E2full maximum error is.493151 on J=last and.434832 on J=other. Aggregate
+accuracy partly cancels these errors and must not be used to hide them:
+
+| Method | Accuracy estimate | Bias from exact1/3 |
+| --- | ---: | ---: |
+| E0 product Gaussian | .3293510111 | -.0039823223 |
+| E1 covariance | .3289701840 | -.0043631494 |
+| E2 covariance | .3297501852 | -.0035831481 |
+| E2 plus third cumulant | .3255805086 | -.0077528247 |
+| E2 full fourth cumulant | .3401413371 | +.0068080038 |
+
+Simplex projection changes none materially. Across128/256 nodes all winner
+differences are<=4.56e-15; this is a sensitivity check, not a rigorous error
+bound. The exact atom/ray support rescue returns1/3 algebraically. Results
+isolate a failure of these finite smooth endpoint summaries on the specified
+laws; they do not rule out gate/atom-conditioned endpoint methods. Source
+labels already ignore ties, so the atom test is an applicability limit, not a
+claim that upstream promised exact tie support.
+
+Successful run CPU1.785556451 including imports/compilation, RSS237824KiB.
+Eight endpoint calls (four laws,two node settings), proxy21,233,664 endpoint
+operations across all nested estimators; eight scalar moment integrals.
+Each128/256-node call reports3,538,944 proxy operations. Upstream proxy counts
+special functions cheaply and omits/approximates setup/backward work; no
+competitive-compute claim follows. `controls.json` preserves all raw/projected
+vectors, status, moments, quadrature sensitivity and operation metadata.
+Reproduce with PYTHONPATH=/workspace/work/t40_deps and the repository interpreter:
+`python controls.py`, one thread, shared lock and memory limit.
+T55 independently checked the conditional reset densities, half-mass atom/ray
+and Gaussian arcsine formula (e6378b2). Two initial import attempts stopped
+before numerical work for missing einops/joblib. Dependencies are pinned in
+runtime_requirements.txt and installed into /workspace/work/t40_deps only;
+the shared interpreter and upstream source files are unchanged. The virtualenv
+has no pip, so installation used uv with a workspace cache. Those failed
+imports did not have process-CPU measurements; their overhead is not silently
+included in a successful-run-only CPU figure. Upstream joblib may initialize
+its own ignored data cache in the source clone; no kprop fitting is invoked.
 
 ## Compute accounting
 Charge imports, source diagram compilation, Legendre construction, every
