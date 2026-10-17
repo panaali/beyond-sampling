@@ -11,13 +11,17 @@ def load(name,path):
     spec.loader.exec_module(m);return m
 
 def main():
+    global walk_mass
+    native='--native' in sys.argv
+    if native:
+        from .native import walk_mass
     start=time.process_time();reference=load('port_exact_reference',REVIEW/'rational_line.py')
     sys.modules['rational_line']=reference
     fixtures=load('port_independent_fixtures',REVIEW/'check.py').fixtures()
     out=dict(cases=[],cap_checks=[],thin_cases=[],random_model_inputs=0)
     def save():
         out['cpu_seconds']=time.process_time()-start
-        (HERE/'adapter_results.json').write_text(json.dumps(out,indent=2)+'\n')
+        (HERE/('native_results.json' if native else 'adapter_results.json')).write_text(json.dumps(out,indent=2)+'\n')
     for name,model,y,a,b in fixtures:
         direction=np.zeros(len(y));direction[a]=1/np.sqrt(2);direction[b]=-1/np.sqrt(2)
         for top in (False,True):
@@ -53,6 +57,9 @@ def main():
         else:raise AssertionError('Cap unexpectedly returned completed mass')
     out.update(complete=True,maximum_absolute_error=max(r.get('absolute_error',0.) for r in out['cases']+out['thin_cases']),
                failure_count=sum('failure' in r for r in out['cases']+out['thin_cases']))
+    if native:
+        out['maximum_thin_relative_error']=max(r.get('relative_error') or 0. for r in out['thin_cases'])
+        assert out['failure_count']==0 and out['maximum_thin_relative_error']<1e-12
     save();print(json.dumps({k:out[k] for k in ('complete','maximum_absolute_error','failure_count','cpu_seconds')},indent=2))
 
 if __name__=='__main__':main()
