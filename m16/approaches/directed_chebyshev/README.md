@@ -22,7 +22,7 @@ For d=2nu and a determinant enclosure D, the positive-quadrature error is D*(nu-
 Implement/prove first; <=20CPU fixed primitive controls under review lock, one thread/2GB. No model forwards or new full integration. Record every arithmetic operation and precision, coefficient/pi setup, failures and source hashes. No hidden arbitrary-precision operations counted as unit FLOPs; counts are named precision-dependent kernels. T55 independently reviews recurrence and endpoints.
 
 ## Status
-Protocol frozen; proof/implementation next.
+Bounded primitive and concrete16-cone use complete; independent implementation review pending.
 
 ## Results
 Pending.
@@ -49,3 +49,12 @@ The first fixed run stopped when its test harness unconditionally requested bina
 All240 predeclared tail cases at precisions50/80 enclose an independent160-digit derivative of the inverse-linear closed tail. Maximum relative interval width5.389e-46;10 simplex constants and directed sums also enclose independent references. Total.156CPU/38MB, excluding imports. Twelve of24 old float q^-3 values undershoot the mathematical tail on this adversarial panel, including underflow; this does not establish any changed trained-estimator conclusion. The original float formula/results stay unchanged.
 
 Freeze the concrete-use test now: first16 rays from the existing cycle14_cold_rays.npz in storage order, Jacobi orders4/8/12/16, no selection by accuracy. Preserve them as an exact binary-float fixture with source hash. Compute every Gram entry, a supporting-plane lower bound and determinant using exact Fraction arithmetic on the stored float coordinates. Let w be the ray sum; lower=max(min Gram, min(w dot v)^2/(w dot w)) when all projections are nonnegative, and upper=max squared vertex norms. These bound all convex combinations by positivity/Cauchy and convexity. Convert lower down and upper up; pass an exact determinant enclosure into the new tail. Zero/negative lower bounds explicitly fail this phase rather than being patched by the unverified L1 assumption. Compare mass-bound intervals against an independent160-digit q^-3 formula on the same rounded radial interval, plus exact-rational geometry checks. Sum all16 bounds directionally. This certifies bound arithmetic for the stored simplices, conditional on their geometry representing the original event; it is not a new accuracy integral or model enclosure. Charge rational endpoint/determinant setup separately, preserving earlier floating plans.
+
+## Concrete T6 subset result
+All64 predeclared per-cone/order bounds and all four directed16-cone sums contain independent160-digit explicit inverse-cube formulas on the exact same radial intervals/determinants. Exact Fraction geometry produces valid lower/upper radial bounds and determinant enclosures for every stored simplex; no normalized-ray assumption or ad hoc1e-12 padding is used. Independent multiprecision determinants agree with the exact rational determinants. The durable16-cone fixture records the original cache hash and storage indices.
+
+Total.112CPU/57MB, including fixture acquisition and independent validation, excluding interpreter imports. Instrumented rational setup totals.012CPU and bound calls.052CPU; short per-call timings are clock-quantized and not used for a speed claim. Named rational and directed-decimal operation counts, precision and maximum elimination integer bit lengths are preserved. These are not portable FLOPs; Fraction operations include size-dependent integer arithmetic and implementation overhead. No model accuracy integral was rerun.
+
+The new primitive corrects a real arithmetic-certification gap in the old floating bound, including underflow controls. It does not retrospectively make earlier geometry/planner outputs certified. A full accuracy certificate still needs valid geometry, integral roundoff/inner bounds, omission and outward combined sums. No estimate, tolerance, candidate order or existing result was changed.
+
+Reproduce under the review lock: `python check.py` and `python t6_subset.py`. The latter uses the tracked fixed fixture after its first acquisition. Public API: `Directed(precision).tail(a,b,nu,degree)` and `.simplex_bound(a,b,nu,degree,determinant_interval)`; endpoints remain Decimal, optional `.floats()` rounds outwards or rejects overflow.
