@@ -27,6 +27,12 @@ def controls():
  out=dict(rows=cases,gate_pass=all(all(v for k,v in r.items() if k!='label') for r in cases),cpu=time.process_time()-START)
  (A.HERE/'full_controls.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))
 
+def finite_json(x):
+ if isinstance(x,float) and not math.isfinite(x):return {'nonfinite':repr(x)}
+ if isinstance(x,dict):return {k:finite_json(v) for k,v in x.items()}
+ if isinstance(x,list):return [finite_json(v) for v in x]
+ return x
+
 def main(batch):
  assert json.loads((A.HERE/'full_controls.json').read_text())['gate_pass'];A.verify_pins()
  base=next(A.Path(f).parent for f in A.PROTOCOL['pins'] if f.endswith('error_captured.npz'))
@@ -34,7 +40,7 @@ def main(batch):
  saved={r['index']:r for r in json.loads((A.HERE/'panel.json').read_text())['rows']};runner=Run();rows=[];arrays={};out=dict(batch=batch,rows=rows,complete=False,reused=0)
  def save():
   out['cpu']=time.process_time()-START;out['rss_kib']=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-  (A.HERE/f'full_{batch}.json').write_text(json.dumps(out,indent=1,allow_nan=False)+'\n')
+  (A.HERE/f'full_{batch}.json').write_text(json.dumps(finite_json(out),indent=1,allow_nan=False)+'\n')
  for idx,p,b,old in zip(ids,z['positive'],z['bounds'],z['source']):
   try:
    if idx in saved:
