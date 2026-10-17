@@ -71,3 +71,23 @@ polygon queries, rigorous mass enclosures and different tensor bases remain.
 Unreachable grid-state extension, missed topology, first-index ties, small
 rank normalizers, nonconverged local quad, finite precision, cancellation,
 and local accuracy improvements overwhelmed by full query count.
+
+## Setup checkpoint and preserved constant-control failure
+Complete h3 union topology has178 panels and predicts19224 pair queries for
+both new-arm orders, within the frozen caps. Setup costs .0237CPU. T55
+independently accepts the vertex/diagonal event argument in real arithmetic.
+Before trained evaluation, the constant-label control finds a QUADPACK
+failure on a2-ulp x interval near-.5472948572881893, rank11,u=-3.8039629.
+Its positive returned mass is3.81e-17, but adaptive subdivision cannot resolve
+such an interval and the operator correctly raises. Exact bounds, model
+state and message are preserved in initial_controls_failure.json. No trained
+full estimator has run; this is a numerical implementation limit.
+
+Freeze a local repair: only when interval width<=8 machine eps times
+max(1,|endpoints|), use a positive midpoint integral and a real-arithmetic
+range enclosure built from extrema of Gaussian density and the affine-bound
+CDF gap on that interval. Retain its error diagnostic; it is not directed
+floating arithmetic. Check the recorded fixture at80 digits and both signs,
+repeat existing primitive and full constants before the trained pilot.
+Do not suppress QUADPACK failures on wider intervals or omit unused rank11
+just to hide this defect. All counters include the fallback.

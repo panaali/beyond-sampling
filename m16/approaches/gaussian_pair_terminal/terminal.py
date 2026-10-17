@@ -114,7 +114,7 @@ class PairTerminal:
                         else:hi=min(hi,u)
                         return math.exp(-x*x/2)/SQRT2PI*mass(lo,hi,self.stats)
                     result=quad(integrand,a,b,epsabs=max(1e-300,tolerance*denominators[first,second]/max(1,4*len(pieces))),epsrel=tolerance,limit=100,full_output=1)
-                    if len(result)!=3:raise ArithmeticError('quadrature did not converge: '+str(result[3]))
+                    if len(result)!=3:raise ArithmeticError('quadrature did not converge: '+repr(dict(message=result[3],interval=[a,b],u=u,rank=[first,second],lower=lower,upper=upper,hidden=self.hidden.tolist(),label=self.label,quad_value=result[0],quad_error=result[1])))
                     value,error,info=result
                     if not np.isfinite(value) or not np.isfinite(error) or value<0 or error<0:raise ArithmeticError('invalid positive polygon mass or error')
                     raw[first,second]+=value;errors[first,second]+=error;self.stats['quad_calls']+=1
