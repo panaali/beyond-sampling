@@ -36,10 +36,27 @@ partition area and analytic last-reset event mass.
 law and use an independent conditional-rank partition control.
 
 ## Status
-Protocol frozen; topology implementation next.
+Exact topology complete; positive-suffix-only premise failed. Integration paused at the predeclared discriminator while the old-label rank kernel is specified.
 
 ## Results
-Pending. Prior three contributions total.17257946073009367; unresolved event
+The base has only13 exact gate cells and17 winner polygons (10/3/4 across
++++, ++-, +-+), far below the frozen caps. All51 rational interior direct
+recurrence/winner checks pass and exact polygon areas partition each domain.
+Maximum vertex integer size117 bits;276 clips,915 plane evaluations and72
+intersections; full setup .057232 CPU seconds,25 MB RSS.
+
+However, predictions include label0 as well as suffix labels5,6,7. Five
+positive-area winner polygons predict label0 and have identically zero final
+hidden maps: an actual reset can occur without the sufficient uniform-state
+pair certificate. This is a successful falsification of the positive-selected
+suffix premise, not an implementation failure or a failed reset factorization.
+No positive-suffix-only integral is run. The next bounded rescue must use the
+existing generic older-target rank law or an independently derived analytic
+radial treatment, preserving these five regions and their setup cost.
+
+Reproduce `python topology.py` under the one-thread review lock. `topology.json`
+saves exact vertices, maps, histories and source/checkpoint fingerprints.
+Prior three contributions total.17257946073009367; unresolved event
 mass.14285571617911716. These are qualified numerical partial contributions,
 not full model accuracy or certified lower bounds after floating integration.
 
