@@ -241,3 +241,29 @@ remain unresolved. Relative named count reductions are3.4836% and.5441%.
 This is a finite cheap-moment rescue, not exhaustion of moment expansions,
 adaptive integration, or other positive representations. No full floating
 accuracy or portable operation certificate follows. Review CPU.1973.
+
+## T131 full unchanged-ray gate-mass replay
+
+`check_full_leaf_mass_review.py` independently verifies all eight batch
+arrays form a disjoint exhaustive43471-index partition and recomputes
+all48 analytic fixed-permutation/sign chamber unions. Stored sums,
+negative counts, quadrature bounds, reused controls and CPU totals match.
+Exact Fraction sums of the stored binary64 values give existing source
+mass1.0008880231700568 and positive mass.9999999999999994, with summed
+integration-only bound8.5571005563e-11. All chamber discrepancies fit their
+reported bounds;2368 source pieces are negative. The replay used104.109653
+recordedCPU, reusing1762 previously checked selected controls whose earlier
+cost remains separate. This reviewer did not redo all43471 integrations or
+exact certificates:1762 were independently exact-audited above, and source
+logic/raw aggregation cover the full phase. Review CPU.3846; initial NumPy
+integer JSON serialization failure is preserved and repaired only in output
+conversion.
+
+Thus the entire reported gate-total excess is reproduced and removed on
+unchanged geometry by replacing mass evaluation. This is strong numerical
+attribution, not a proof of geometric partition correctness (compensating
+overlap remains logically possible) or a corrected network-accuracy result.
+The error-region capture/replay is a separately frozen next experiment;
+complete floating geometry, integration roundoff and full operation counts
+remain qualified. Do not normalize an incorrect gate total and infer that
+this fixes the error-region calculation.
