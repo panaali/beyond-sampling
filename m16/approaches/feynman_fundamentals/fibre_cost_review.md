@@ -30,3 +30,30 @@ These are partial inventories. Remaining scalar/vector operations,
 comparisons, special functions and model-dependent setup require their
 own audit before a complete common-unit number or leaderboard claim.
 Rule4 model-free declared preprocessing stays exempt.
+
+## Native-expression phase and matched sampler
+
+The second AST wrapper retains arithmetic operands, comparison-chain
+short-circuiting, in-place updates and actual sorting comparisons. It
+omits historical counter calls themselves. Source inspection finds the
+pinned reductions/special functions covered, including _Sint. Direct
+inventory confirms nonzero _Sint20 operations versus the inherited17;
+zero case2. These counts assign one per special call and n-1 per Boolean
+or extremum reduction; they are abstract source operations, not cycles.
+
+Review found that floating-only totals exclude integer class/true-label
+comparisons although sampler112 includes correctness. The matched sampler
+now runs through the same AST and yields111 floating plus1 integer. The
+inclusive inventory is consistent under its explicitly code-dependent
+convention: count every explicit numeric expression, including explicit
+index arithmetic; implicit loop/branch machinery, memory/selection/cache
+lookups and interpreter work are free on both sides. It is not a complete
+implementation/hardware count or a compiler-independent metric.
+
+Independent saved-site aggregation and rational ratio recomputation pass
+all ten cases. Inclusive trained ratios versus old hybrid/72 are.805806
+through.858590; analytic fixtures1.977350 and1.265606. No new MSE verdict
+follows from this finite audit. The first raw checker used absolute4e-16
+agreement and rejected zero's two-stage floating division difference
+4.440892098500626e-16. This was a reviewer tolerance issue, not a count
+mismatch; exact rational count unchanged, validation now allows two ulps.

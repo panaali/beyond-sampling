@@ -73,3 +73,29 @@ coordinate orthant. The488 uncovered cones remain outside this positive
 representation; the finite rotation list failing to cover them is not an
 impossibility proof. Geometry checks and T122 raw checks together cost
 .2774CPU. Numerical corpus results remain a separate pending review.
+
+## T123 covered numerical mass and acute-ray extension
+
+Independent exact summation of stored binary floats confirms covered
+positive mass.46898661743868986 and integration-only bound2.6243548516e-8.
+The original covered mass is lower by5.8005977118e-7; even the previous
+negative/exception-only repair remains lower by2.1869397547e-7. Thus
+positive source outputs can carry accumulated numerical error too.
+Three separately implemented MP50/70 references for source-positive
+outliers agree to over45 decimal places and match positive quadrature
+within4e-20. They validate these cases, not the entire positive corpus.
+
+The488 unrepresented source values remain unverified. Combining them
+with covered references gives diagnostic accuracy.4770131239947528;
+its agreement with whole-model reference is not a full certificate.
+
+A valid next representation is unit-L2 independent rays with pairwise
+nonnegative inner products. For barycentric y, q=y^T G y obeys
+q>=sum(y_i^2)>=1/4 and q<=1 by triangle inequality. The general cone
+change x=r*R*y has Jacobian |det R|*r^3, so the positive Duffy Gaussian
+formula and the existing q-range polynomial remainder argument apply
+without common-coordinate-orthant geometry. Exact original dyadic dot
+signs suffice before normalization. A negative pair dot rules out every
+orthogonal common-orthant image but not more general positive integration,
+other radial bounds or subdivision. Floating normalization/determinant
+remain outside a real-arithmetic integration bound.
