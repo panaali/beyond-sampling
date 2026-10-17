@@ -45,3 +45,17 @@ The saved zero/identical-output failures therefore identify an inherited
 implementation defect, not evidence against the class-family partition.
 Finite recipe shifts on trained controls concern the changed approximation;
 they do not refute exact integral invariance or all grouped alternatives.
+
+## T4 constant-readout mass-rule discriminator
+
+The later T4 control keeps geometry fixed while refining the inherited
+Plackett mass rule. Its ordered-pair/sign chart probabilities are
+independent exact controls: a specified top index is positive with
+probability15/16, the second index with11/16, and either unspecified
+remaining index with average(5/16+1/16)/2=3/16. Each ordered top pair has
+probability1/12. Negative signs use complementary probabilities.
+These justify the control's chart comparisons independently of the
+network enumeration. The recorded default constant-output failure
+and higher-order convergence concern finite mass quadrature, not a
+failure of the class partition. They do not certify the default rule
+on subsequent trained cases; those comparisons remain diagnostic.
