@@ -48,7 +48,9 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
    precision limit or exhausted compute budget is not broad impossibility; unexamined plausible alternatives remain
    open/inconclusive in the backlog. A claim excluding every conceivable variant requires a proof.
    **Keep progressing:** an agent that finishes a task (positive or negative) moves on to the next eligible Ready
-   backlog row. Root reserves/pushes coordinated claims before implementation. Continue useful review or analysis
+   backlog row. Root reserves/pushes coordinated claims before implementation, or explicitly delegates claim
+   publication. Codex workers have standing delegated authority under TASKS.md to publish a TASKS-only claim
+   from a fresh isolated administrative checkout of the latest shared branch, then notify root. Continue useful review or analysis
    while that handoff is arranged. Respect existing CPU/memory limits; continuity does not authorize empty polling,
    duplicate work or unbounded runs.
 
