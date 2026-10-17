@@ -82,7 +82,7 @@ use an existing v3 table without changing the harness:
 python m16/approaches/crossover_compute/report.py --table results/leaderboard_v3_H16_T10.json
 ```
 
-Before interpreting any headline, review candidate class/cost and resolve T20.
+Before interpreting any headline, review candidate class/cost and resolve T22.
 Independent review found the shared table baseline is
 `mean(p)*(1-mean(p))/mean(cost)`, whereas averaging model-level sampling MSE requires
 `mean(p_i*(1-p_i)/cost_i)`. For equal costs the former adds between-model variance
@@ -110,7 +110,7 @@ light-task limit; no new ground-truth sweep was performed.
 - [measured] This frozen Gaussian/Jacobian candidate has no observed winning point
   on its tested ladder; the broader low-compute question remains open.
 - [inferred] The current shared group baseline can flatter heterogeneous groups;
-  T20 records the required DRI review.
+  T22 records the required DRI review.
 
 ## Alternatives not ruled out
 
