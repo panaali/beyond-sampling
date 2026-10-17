@@ -20,3 +20,10 @@ After all60 original+recovered shards complete, execute the separately source-ga
 Reciprocal T175 six-network audit7ad8ea7a and trained saved geometry/facet audit4142246c pass without candidate/angular replay; T55 separately audited mean/baseline aggregation fb944bce. Worker34 owns T11593 pair moments; our complementary geometry source gate was read-only. No competing ownership or new numerical scope there.
 
 Full integration manifest remains untracked in m16/approaches/prefix_wedge_remainder/integration_manifest.txt; root receives its path and ordered checkpoints. Do not push research branch wholesale or force-push. Parent selects ordered owned-folder cherry-picks.
+
+## Latest reviewed checkpoint
+Research59ff18c3 preserves all completed H4 and H5 zoo0..3 ledgers; H5 zoo4 is advancing, H6 follows in the same session36220. Independent reviews cover nine of15 groups: H4 all5 (e0cb033d/e99ed577/1a9f2774), H5 zoo0..3 (63f21254/8a280f4b/e0afc24d/b9dac2de). H5 zoo3 contains one individual numeric159 loss, max1.8127620863061, despite group ratio.00512844680533. Preserve this exception in the final complete summary. Global coverage/resources/cost audit still pending.
+
+Reciprocal T11593 assignment3e3c8953 completed2557c3d4 after T55 source7b76427d gate: all170 trained five-pair cones exact geometry passes,145 pointed/25zero-volume; alternate spherical-excess/half-angle matrix contraction maxdifference7.43534e-115, .591580611CPU, no candidate/reference calls. T55 owns aggregate/covariance/count review.
+
+Newest DRI sharedb38a6e2d prioritizes T187–T193;34 plansT187,56 plansT188. After T184 full bounded handoff, recheck highest unowned Ready scope; T189 mechanistic-coordinate bounds may fit prior T138/T141 evidence but remains unclaimed/unimplemented. T11595 retained-sector h3 moments closure staysBlocked pending full verified136pair tensor.
