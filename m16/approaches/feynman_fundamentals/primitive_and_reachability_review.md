@@ -96,3 +96,35 @@ algebra proxy: sorting/set/cache construction, residual arrays, argmax and
 some indexing work are not a complete portable cost certificate. Distinguish
 same-grid tensor error from quadrature-to-network-reference error; reduced
 first error can remove accidental cancellation and worsen the second.
+
+Additive followup: correction sum_k fiber_k-(d-1)*central_residual exactly
+matches central fibers without dividing by the pivot. Its simplified weighted
+integral assumes every noncategorical weight vector sums1; otherwise include
+other-axis mass factors explicitly. Independent exhaustive Fraction sums with
+nonuniform normalized weights, two categories and scales1,-3,1e-6 match the
+production integral to2.12e-22. A central spike has exact fibers but estimated
+mass-17/30 versus true+.08 and off-fiber correction-2. This is a mathematical
+limitation of the extension, not an implementation sign bug. Scalar arithmetic
+.001584CPU excluding imports, no neural inputs. See check_additive_review.py.
+
+## Exact supported lune (new T56 phase)
+In an orthonormal frame, coordinates z in[-1,1] and phi in[pi/3,pi/2] have
+area element dz*dphi, area pi/3 and whole-sphere mass1/12. Conditional measure
+is dz/2*dphi/(pi/6). Thus sqrt(2n+1)*P_n(z) times integer Fourier modes on this
+finite phi interval is orthonormal and represents the supported root constant
+exactly. Generic halfspace arcs must be intersected with the entire finite
+window, retaining all wrapped components. Zero transverse normals and
+identically zero forms require explicit ownership; pole ambiguity is null.
+This removes root support projection error, not later projection error.
+
+## Conditional rank/gate factorial diagnostic (T28)
+For10 iid continuous normal inputs, conditional on specified largest/second
+positions, q=Phi(second) has Beta(9,2) density. Given q, the largest CDF value
+is uniform(q,1), and the eight labeled lower CDF values are independent
+uniform(0,q), independently of the largest. Equal-probability strata require
+uniform sampling in Beta-CDF coordinates, then inverse Beta, not uniform q.
+For balanced180 cells, stratified variance is sum_c(s_c²/n_c)/180²; paired
+comparisons use within-row differences. A moment-matched Gaussian can leave
+the rank chamber: scoring it against the original chamber label is a closure
+diagnostic, not Gaussian second-argmax accuracy. Distribution versus frozen/
+actual gates is a factorial approximation comparison, not causal attribution.
