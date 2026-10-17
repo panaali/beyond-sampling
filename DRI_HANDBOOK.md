@@ -16,8 +16,9 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   on every trained seed and noisy copy of M_4,3 (independently confirmed, H-U1/H-U2) and of (H,T) = (5,3), (6,3),
   (8,3) (E43, review T113 unfinished). Cells visited / linear regions fell 4.8 -> 2.0 from H=4 to 8 (H-U4) — the
   only hint so far that cost can grow slower than the region count.
-- **Decisive open question:** does that hold along T? The final experiments (`m16/approaches/final3/`): (8,4),
-  (8,5), then projection/attempt at (16,10).
+- **Decisive question answered (E45, unverified): no.** Along T at H=8 the recipe's cells/regions grow 2.8 -> 5.4 -> 33
+  (T=3,4,5); (8,4) loses to sampling (MSE ratio 3-48); M_16,10 projects to >=1e15 ops. Also: estT's exact mode has a
+  leaf-mass bug at T>=4 (T131).
 - **ARC's own position (public, 2026-08-17):** "not much closer to succeeding at the challenge". Their M_4,3
   estimators were 2.4-10x *worse* than sampling in MSE and they called that "roughly match" (E32). The private claim
   that ARC cracked M_16,10 is doubtful on public evidence (H-E5).
@@ -109,10 +110,11 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 
 ## 6. How to continue
 
-1. Read `m16/approaches/final3/README.md` (the (8,4), (8,5), (16,10) experiments). If cost grows slower than the
-   region count along T, continue the main ladder per TASKS.md; if not, the boundary/cell approach needs a new idea
-   (e.g. merging cells across positions with shared structure, symbolic dynamics over records, T110 class-region
-   families).
+1. Read `m16/approaches/final3/README.md`. Cost grows faster than the region count along T, so the gate-following
+   cell approach cannot reach M_16,10 as is. It needs a new idea that does not follow every gate switch: merging cells
+   across time positions with shared structure (the RNN reuses the same weights every step), symbolic dynamics over
+   records, class-region families (T110), or a description of the error set that is not a union of linear pieces.
+   Fix the estT leaf-mass bug (T131) first and have E45 independently checked.
 2. Open reviews / checks: T113 (E43), T114 (E44), T80 (E35), T57 (E34). Finish them before claiming more.
 3. Keep the leaderboard honest: any new estimator for M_16,10 goes through `m16/leaderboard.py` v3.
 4. Ask ARC (T41, needs owner approval) for the M_16,10 protocol if a candidate solution appears.
