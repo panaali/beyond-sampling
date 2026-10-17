@@ -22,7 +22,12 @@ COMPUTE RULE (T16). `budget` and `cost` are in forward-pass equivalents (FPE).
     (`python m16/leaderboard.py dev` lists them; they are never scored).
  4. Model-free precomputation reused across all models (Gaussian tables, order statistics, fixed node sets) is
     free but must be declared in PRECOMPUTE_FLOPS (reported as a column, not charged).
- 5. Generating standard-normal inputs and the label (sort) is not charged, for any method, sampling included.
+ 5. Generating ONE standard-normal input per model evaluation and its label (sort) is not charged, for any
+    method, sampling included. Extra candidate inputs (rejection, stratum search) are charged at 0.04 FPE each.
+ 7. Cost is charged AS IMPLEMENTED, not as implementable: a saving (e.g. incremental re-use of a shared prefix)
+    counts only once the code does it. Where the DRI audit (review/estimator_audit/) measured a gap between the
+    reported and the implemented work, OVERRIDES below rescales the reported cost at report time (raw runs keep
+    the estimator's own number). Implement the saving to remove the factor.
  6. The measured CPU time is reported next to cost, as the ratio to plain sampling's time at the same cost.
     A time ratio far above 1 means cost is probably under-counted and triggers a DRI audit.
 
@@ -55,7 +60,9 @@ import sys
 import time
 import zlib
 
-import numpy as np
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")      # single-threaded: fair CPU-time column, light on the shared cores
+import numpy as np  # noqa: E402
 
 sys.path.insert(0, "m16")
 
@@ -68,12 +75,44 @@ N_NOISY = 6
 RAW = "results/leaderboard_v3_raw.jsonl"
 
 # DRI-reviewed classes (T14). Reason and audit pointer for each; see review/estimator_audit/.
+# Classes from the independent audit (review/estimator_audit/README.md, 2026-10-17); determinism verified there.
 CLASS = {
     "sampling": ("sampling", "plain Monte Carlo baseline"),
     "stratified": ("sampling", "stratified Monte Carlo"),
-    "control_variate": ("sampling", "srb: random prefixes + exact last step (DEDUCTIVE=False); cost audit pending"),
-    "tie_lines": ("sampling", "joint: random gap strata + antithetics (DEDUCTIVE=False); cost audit pending"),
-    "boundary": ("sampling", "random surface points and remainders (DEDUCTIVE=False); cost audit pending"),
+    "control_variate": ("sampling", "srb: random prefixes + exact last step"),
+    "tie_lines": ("sampling", "joint: random gap strata + antithetics"),
+    "boundary": ("sampling", "random surface points and remainders"),
+    "debiased_series": ("sampling", "stratified sampling of a residual"),
+    "great_circle": ("sampling", "random great circles"),
+    "rank_exact": ("mechanistic", "frozen gates per rank class, exact integration"),
+    "propagation": ("mechanistic", "propagated Gaussian mixtures / cumulants"),
+    "cone_enum": ("mechanistic", "error-cone enumeration + model-free cone masses"),
+    "reliability": ("mechanistic", "FORM/SORM design points per chamber"),
+    "observer": ("mechanistic", "signal-detection observer at canonical points"),
+    "tube": ("quadrature", "fixed tie-slicing node set"),
+    "sci_laplace": ("quadrature", "fixed Sobol node set on tie bands"),
+    "sci_tao": ("quadrature", "fixed scrambled-Sobol faces"),
+    "sci_feynman": ("quadrature", "fixed Sobol segment walks"),
+    "branch_bound": ("quadrature", "below ~144k FPE only evaluates 180 fixed cell centres"),
+}
+
+# DRI rulings on the audit (rules 3, 5, 7). cost_factor: implemented / reported work (measured where stated).
+# cost_add(budget): FPE added per call. advice: models the estimator's constants were fitted or selected on.
+_TUNED_NOISY = [f"s{sg}_{k}" for sg in (0.0025, 0.005) for k in range(N_NOISY)]
+OVERRIDES = {
+    "tube": dict(cost_factor=2.06, advice=["orig"]),                 # measured (fullpass_count.out)
+    "sci_laplace": dict(cost_factor=1.81, advice=["orig"]),          # measured
+    "sci_tao": dict(cost_factor=2.23),                               # measured; no advice
+    "sci_feynman": dict(cost_factor=2.0, advice=["orig"]),           # same scheme, not measured; SHARES provenance unknown
+    "boundary": dict(cost_factor=2.0, advice=["orig"]),              # same scheme, not measured; GA/GB tuned on orig
+    "control_variate": dict(cost_factor=3.3 / 1.6, advice=["orig"]),  # hand count rb9.py:158-176 vs :184
+    "great_circle": dict(cost_factor=7 / 3, advice=["orig"]),        # hand count
+    "tie_lines": dict(advice=["orig"]),
+    "stratified": dict(cost_add=lambda b: 1_400_000 * 0.04, advice=["orig"]),       # 200k candidates x 7 strata
+    "debiased_series": dict(cost_add=lambda b: 1_400_000 * 0.04 if b < 128_000 else 0, advice=["orig"]),
+    "observer": dict(fixed_cost=True, advice=["orig"] + _TUNED_NOISY),     # design chosen against these truths
+    "reliability": dict(advice=["orig"] + _TUNED_NOISY),                    # ladder swept against these truths
+    "propagation": dict(advice=["orig"]),                                   # budget->eps map only
 }
 
 
@@ -176,7 +215,7 @@ def load_estimator(name):
         import stratified as S
         d = json.load(open("m16/stratified_design.json"))
         P, alloc = np.array(d["P"]), np.array(d["alloc"])
-        a["advice"] = {"fitted_on": ["orig"], "what": "stratum design/allocation (m16/stratified_design.json)"}
+        a["advice"] = {"fitted_on": OVERRIDES["stratified"]["advice"], "what": "stratum design (stratified_design.json)"}
         return (lambda m, b, rng: S.estimate(lambda x: forward(m, x), b, rng, P, alloc)), a
     path = f"m16/approaches/{name}/estimator.py"
     spec = importlib.util.spec_from_file_location(f"est_{name}", path)
@@ -185,7 +224,16 @@ def load_estimator(name):
     a["fixed_cost"] = bool(getattr(mod, "FIXED_COST", False))
     a["advice"] = getattr(mod, "ADVICE", None)
     a["precompute_flops"] = float(getattr(mod, "PRECOMPUTE_FLOPS", 0))
+    o = OVERRIDES.get(name, {})
+    if "advice" in o:
+        a["advice"] = {"fitted_on": o["advice"], "what": "DRI audit ruling"}
+    a["fixed_cost"] = a["fixed_cost"] or o.get("fixed_cost", False)
     return mod.est, a
+
+
+def _charged(name, cost, budget):
+    o = OVERRIDES.get(name, {})
+    return cost * o.get("cost_factor", 1.0) + (o["cost_add"](budget) if "cost_add" in o else 0.0)
 
 
 def _seed(name, mname, r):
@@ -269,7 +317,7 @@ def table(H, T, names=None):
                     continue
                 se2 = np.array([(d["est"] - truth[d["model"]]["acc"]) ** 2 - truth[d["model"]]["se"] ** 2 for d in sel])
                 p = np.mean([truth[k]["acc"] for k in {d["model"] for d in sel}])
-                C = float(np.mean([d["cost"] for d in sel])); base = p * (1 - p) / C
+                C = float(np.mean([_charged(name, d["cost"], b) for d in sel])); base = p * (1 - p) / C
                 boot = np.random.default_rng(0).choice(se2, (2000, len(se2))).mean(1) / base
                 lo, hi = np.percentile(boot, [2.5, 97.5])
                 out.append(dict(name=name, cls=cls, budget=b, group=g, cost=C, n=len(sel),
