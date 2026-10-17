@@ -55,6 +55,8 @@ Use centered coefficients derived from endpoint/midpoint continuation values to 
 
 Before trained comparisons: partition/constant continuation, a bilinear polynomial with direct analytic expectation, and thin/tail intervals checked against independent high-precision integration. Failures are retained. Then compare the same T7 mesh17/33, target8 rule against saved input8/16 results; no newMC, no h129, no changes to the previous quadrature baseline. Count crossings, sorts, intervals, moments, fallback nodes and CPU. Stop explicitly if the cycle exceeds its cap or probability guards fail.
 
+Primitive controls (polynomial_checks.py, polynomial_checks_results.json) pass in.232CPU: eight intervals checked against70-digit integration have maximum relative error1.19e-15, including widths1e-12 and tails near±6. The known bilinear conditional expectation agrees within2.78e-17; T3/T7 constant-readout errors are5.55e-17. Two narrow-interval moment guards triggered and used the positive fallback. Some float discrepancies exceed tiny quadrature-only bounds, as expected from the explicitly excluded rounding error. T55 independently checked the bound in quadratic_gaussian.md with high-precision arithmetic.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 

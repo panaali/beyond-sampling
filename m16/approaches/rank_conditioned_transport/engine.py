@@ -104,26 +104,33 @@ def grids(model, count, limit, stats, mesh_power=1.):
     return axes, states, bounds
 
 
-def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline):
+def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
+                 transition='quantile'):
     wi, wh, wo = model
     T = len(wo)
     alpha = ndtr(-limit)
     z = 1-2*alpha
     u = float(ndtri(alpha+z*q))
-    x, w = leggauss(ninput)
-    v, w = (x+1)/2, w/2
-    below = ndtri(alpha+z*q*v)
-    above = ndtri(alpha+z*(q+(1-q)*v))
-    stats['conditional_inverse_normal_calls'] += 2*ninput+1
+    if transition == 'quantile':
+        x, w = leggauss(ninput)
+        v, w = (x+1)/2, w/2
+        below = ndtri(alpha+z*q*v)
+        above = ndtri(alpha+z*(q+(1-q)*v))
+        stats['conditional_inverse_normal_calls'] += 2*ninput+1
+    else:
+        from polynomial import conditional_expectations
+        stats['conditional_inverse_normal_calls'] += 1
     stop = T-2 if label == T-1 else T-1
     values = np.array([terminal(model, h, u, q, label, limit, stats)
                        for h in states[stop]])
     values = values.reshape(len(axes[stop][0]), len(axes[stop][1]), 2)
+    transition_error = 0.
     for t in reversed(range(stop)):
         if time.process_time() > deadline:
             raise TimeoutError('rank-conditioned cycle CPU limit')
-        interp = RegularGridInterpolator(axes[t+1], values, bounds_error=True, method='linear')
-        stats['interpolators_built'] += 1
+        if t == label or transition == 'quantile':
+            interp = RegularGridInterpolator(axes[t+1], values, bounds_error=True, method='linear')
+            stats['interpolators_built'] += 1
         hbase = states[t] @ wh.T
         if t == label:
             coords = np.maximum(hbase+wi*u, 0)
@@ -131,32 +138,40 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline):
             stats['interpolation_queries'] += len(coords)
         else:
             m = T-t-int(label >= t)
-            expected = []
-            for samples in (below, above):
-                coords = np.maximum(hbase[:, None, :]+samples[None, :, None]*wi, 0)
-                coords = coords.reshape(-1, 2)
-                if len(coords) > 65536:
-                    raise ArithmeticError('query batch exceeds fixed memory protocol')
-                evaluated = interp(coords).reshape(len(states[t]), ninput, 2)
-                expected.append(np.einsum('nqe,q->ne', evaluated, w))
-                stats['interpolation_queries'] += len(coords)
-                stats['scalar_transition_nodes'] += len(coords)
+            if transition == 'polynomial':
+                low, high, error = conditional_expectations(model, states[t], axes[t+1], values,
+                                                            u, q, limit, stats, deadline)
+                expected = low, high
+                transition_error = (1+error)*transition_error+error
+            else:
+                expected = []
+                for samples in (below, above):
+                    coords = np.maximum(hbase[:, None, :]+samples[None, :, None]*wi, 0)
+                    coords = coords.reshape(-1, 2)
+                    if len(coords) > 65536:
+                        raise ArithmeticError('query batch exceeds fixed memory protocol')
+                    evaluated = interp(coords).reshape(len(states[t]), ninput, 2)
+                    expected.append(np.einsum('nqe,q->ne', evaluated, w))
+                    stats['interpolation_queries'] += len(coords)
+                    stats['scalar_transition_nodes'] += len(coords)
             updated = np.stack((expected[0][:, 0],
                                 (m-1)/m*expected[0][:, 1]+expected[1][:, 0]/m), axis=1)
         if np.any(updated < -1e-12) or np.any(updated > 1+1e-10):
             raise ArithmeticError('transport probability outside unit interval')
         values = updated.reshape(len(axes[t][0]), len(axes[t][1]), 2)
-    return float(values[0, 0, 1])
+    return float(values[0, 0, 1]), transition_error
 
 
 def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.,
-             target_rule='jacobi', mesh_power=1.):
+             target_rule='jacobi', mesh_power=1., transition='quantile'):
     start = time.process_time()
     wi, wh, wo = (np.asarray(a, dtype=float) for a in model)
     T = len(wo)
     if wi.shape != (2,) or wh.shape != (2, 2) or wo.shape != (T, 2) or T < 3:
         raise ValueError('requires H2,T>=3 model')
     model = wi, wh, wo
+    if transition not in ('quantile', 'polynomial'):
+        raise ValueError('unknown transition method')
     stats = defaultdict(float)
     if mesh_power <= 0 or hidden_order < 2:
         raise ValueError('need positive mesh power and at least two grid nodes')
@@ -176,16 +191,20 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     stats['target_rule_nodes'] = len(q)
     labels = possible_labels(wo)
     contributions = {}
+    transition_bound = 0.
     for label in labels:
         values = [fixed_target(model, label, qq, axes, states, input_order,
-                               limit, stats, start+seconds) for qq in q]
-        contributions[label] = float(np.dot(weights, values)/T)
+                               limit, stats, start+seconds, transition) for qq in q]
+        contributions[label] = float(np.dot(weights, [v[0] for v in values])/T)
+        transition_bound += float(np.dot(weights, [v[1] for v in values])/T)
     answer = sum(contributions.values())
     box_mass = float(np.exp(T*np.log1p(-2*ndtr(-limit))))
     return answer, dict(cpu_seconds=time.process_time()-start, work=dict(stats),
                         hidden_order=hidden_order, mesh_power=mesh_power,
                         target_order=target_order, target_rule=target_rule,
-                        input_order=input_order,
+                        input_order=(input_order if transition == 'quantile' else None),
+                        transition=transition,
+                        transition_quadrature_only_bound=(transition_bound if transition == 'polynomial' else None),
                         limit=limit, possible_labels=labels, contributions=contributions,
                         stage_bounds=[b.tolist() for b in bounds],
                         omitted_input_mass_bound=1-box_mass,
