@@ -57,6 +57,8 @@ class QuadratureOperator(SupportOperator):
             deficit=float(np.max(np.maximum(-(H@normal),0)))
             self.work['max_source_support_deficit']=max(self.work['max_source_support_deficit'],deficit)
             if deficit>1e-12*max(1.,float(state.box.max())):raise ArithmeticError('source outside cone')
-        assert np.all(P>0)
+        assert np.all(P>=0)
         assert abs(P.sum()-(sum(state.masses().values())-state.origin))<1e-12
-        return H,P
+        self.work['constructed_source_nodes']+=len(P)
+        self.work['zero_weight_source_nodes']+=int(np.sum(P==0))
+        return H[P>0],P[P>0]
