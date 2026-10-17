@@ -13,16 +13,20 @@ Compose only existing35098 exact/28000 recipe determinant counts, pin source sum
 Alternatives: actual determinant may use a different LU dispatcher than inverse (inspect installed binary); source version may not match installed code (binary comparison plus transparent controls); nonfinite/singular paths can change counts (fixed adversarial controls). No timing substitutes for count evidence.
 
 ## Status
-Protocol/source inventory frozen; controls next.
+Bounded source/control/count phase complete; independent review pending.
 
 ## Results
-No numerical controls yet.
+All18 frozen controls (19 matrices including batch) preserve baseline outputs bitwise under transparent GETRF/log/exp interposition. All finite exact-rational comparisons pass, including preserved expected singular/overflow/underflow and subnormal behavior. Installed GETRF dimensions and small-path binary dispatch match reviewed T150 LU. Successful matrices use4logs+1exp; singular fixtures0logs+1exp.
+
+DERIVATION.md and summary.json give176 named numeric units per determinant as a category envelope (including reviewed LU56 arithmetic and T15798 pivot/guard units, whose final independent review is pending). Eleven separately named pivot/info source-integer expressions yield187 if assigned unit cost. Exact/recipe census35098/28000 gives6,177,248/4,928,000 numeric units, or6,563,326/5,236,000 including those source-integer expressions. Neither is a full implementation cost; elementary-function internals and other excluded categories remain unknown.
+
+Reproduce saved-data composition: `/workspace/clean-neurons/.venv/bin/python m16/approaches/determinant_native_cost/summarize.py`. Reproduce fixed controls under one-thread environment, review lock and2GB: compile spy.c with `gcc -shared -fPIC -O2 spy.c -ldl -o spy.so`; run `controls.py baseline`, then `LD_PRELOAD=<absolute-folder>/spy.so controls.py instrumented`. No trained replay is needed. Source/download/binary hashes are saved in environment.json; dependency and census hashes in summary.json.
 
 ## Compute accounting
-One thread2GB, review lock<=20CPU each bounded process. No geometry/mass replay. Audit wrapper instrumentation is review-only, not charged as estimator inference. Numeric expression categories and library work stay separate; no complete portable-cost or sampling claim.
+One thread2GB, review lock<=20CPU each bounded process. Fixed controls CPU baseline.029339016 plus instrumented.032629730=.061968746, excluding interpreter imports and compilation/source inventory. No geometry/mass replay. Audit wrapper instrumentation is review-only, not charged as estimator inference. Numeric expression categories and library work stay separate; no complete portable-cost or sampling claim.
 
 ## Claims
-[inferred] The determinant wrapper adds logarithmic reconstruction work beyond LU. [speculative] A checked fixed-dimension envelope can replace the opaque determinant category in the current partial cost accounting.
+[measured] Installed determinant dispatch and log/exp counts preserve all18 fixture outputs. [inferred] The stated source/numeric-category envelopes compose with the saved call census. No self-confirmed, complete portable-cost, mass accuracy or sampling-win claim.
 
 ## Alternatives not ruled out
 Other backends, replacement kernels and complete library/control accounting. No performance or estimator-quality inference from this audit alone.
