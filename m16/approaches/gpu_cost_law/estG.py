@@ -23,7 +23,7 @@ import estT_base as B  # noqa: E402
 from m43 import Ops  # noqa: E402
 
 DEV = ["cpu"]
-CHUNK = {4: 4096, 5: 1024}           # simplices per batched call (memory ~ CHUNK * K * d^2 * 8 bytes * few)
+CHUNK = {4: 4096, 5: 1024, 6: 8192}           # simplices per batched call (memory ~ CHUNK * K * d^2 * 8 bytes * few)
 FLUSH = 200_000                      # simplices buffered per dimension before integration
 
 
@@ -205,9 +205,14 @@ def _orth3(R):
     return 0.125 + a / (4 * math.pi), (27 + 27 + 9 + 6) * R.shape[0]
 
 
+def _orth6(R):
+    import orth6
+    return orth6.orth6(R)
+
+
 def masses(R, d):
-    """Summed Gaussian mass of the simplicial cones R (n, d, d) (rows = rays) and the estT op charge."""
-    f = {3: _orth3, 4: _orth4, 5: _orth5}[d]
+    """Summed Gaussian mass of the simplicial cones R (n, d, d) (rows = rays) and the estT op charge (d = 6: orth6)."""
+    f = {3: _orth3, 4: _orth4, 5: _orth5, 6: _orth6}[d]
     tot = 0.0; ops = 0
     for a in range(0, len(R), CHUNK.get(d, 8192)):
         Rt = torch.as_tensor(R[a:a + CHUNK.get(d, 8192)], dtype=torch.float64, device=DEV[0])
@@ -217,7 +222,7 @@ def masses(R, d):
 
 def masses_each(R, d):
     """Per-simplex masses (for validation against estT.orthant)."""
-    f = {3: _orth3, 4: _orth4, 5: _orth5}[d]
+    f = {3: _orth3, 4: _orth4, 5: _orth5, 6: _orth6}[d]
     return f(torch.as_tensor(R, dtype=torch.float64, device=DEV[0]))[0].cpu().numpy()
 
 
