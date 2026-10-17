@@ -31,6 +31,9 @@ def main():
             assert a['ledger']['node_sha256']==b['ledger']['node_sha256']
             assert a['ledger']['face_sha256']==b['ledger']['face_sha256']
             case['native_minus_legacy']=a['estimate']-b['estimate']
+        if name=='zero_readout512':
+            case['analytic_accuracy']=.1
+            case['native_minus_analytic']=case['native']['estimate']-.1
         out['cases'].append(case)
         print(json.dumps(dict(name=name,native=case['native'].get('estimate'),legacy=case['legacy'].get('estimate'),difference=case.get('native_minus_legacy'),cpu=time.process_time()-start)),flush=True)
     # Invalid requests fail explicitly; these small controls do not sample model inputs.
