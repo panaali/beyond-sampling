@@ -401,3 +401,22 @@ zero when lower limit>=12 with the same tail bound. Repeat the exact same
 saved law/control panel and additional9 extreme-mean product controls. Preserve
 original trained results, compare new values rather than silently overwrite
 old evidence; no new models or selected tolerances. <=18CPU review lock.
+
+### Correction outcome and independent review
+The original routine returns0 instead of.5/1 for(a,b)=(100,0)/(100,100),
+with reported quadrature error0. T55 independently reproduces the failure
+already at a=40. This is an implementation defect, not a Gaussian-law failure.
+The original code and artifact remain for audit; use
+full_covariance_bounded.py / full_covariance_bounded.json for the corrected
+reference. The fixed9 product controls pass to1e-12, malformed zero-variance
+cross covariance raises, and all original27 laws are rerun unchanged.
+
+Corrected trained pooled accuracy.49421311539078655 differs from the original
+by1.05e-15; atom-split and mixture outputs are unchanged at printed precision.
+The original trained conclusions therefore survive this particular fix.
+Corrected phase cost is.431458914CPU including imports. The added finite-domain
+omission bound is2Phi(-12)~3.55e-33 per nonsingular orthant; it does not certify
+the numerical quadrature or covariance corrections. T55 independently checks
+the formula, singular perturbation bound, and finite bulk truncation logic.
+Reproduce by replacing the filename in the preceding review-lock command
+with full_covariance_bounded.py. No external endpoint code was changed.
