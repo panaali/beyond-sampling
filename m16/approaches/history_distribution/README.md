@@ -54,3 +54,6 @@ Controls precede trained scoring: direct prefix forwards agree with atoms; all f
 
 ## Coupling control checkpoint
 Twenty independent sorted-midpoint scalar rank checks and four analytic fixed-prefix target controls pass. Direct two-step forwards reproduce every rank-aligned atom. A zero-readout network matches its finite-atom label0 probability, while all four averaged target probabilities are recorded rather than normalized to chance: [.24999427,.24990635,.25004969,.25004969] on the asymmetric control. The largest target-marginal defect is about9.37e-5. Full controlCPU .740576267. Proceed to the same-atom two-model contrast; finite prefix quadrature remains explicit.
+
+## Coupled pilot numerical failure
+The matched decorrelated base run completed at .2992260920522716, close to the old unaligned .29923523463043483. The coupled base run then raised `negative Gaussian interval`, before returning an estimate. Preserve `coupling_pilot_initial_failure.json`, including completed rows and whole-run CPU; failed-component CPU was not isolated. This is an implementation/numerical failure, not a coupled-method outcome. Add exact lower/upper/CDF diagnostic values and reproduce only the failing coupled case before selecting a repair; do not silently clip negative probabilities.
