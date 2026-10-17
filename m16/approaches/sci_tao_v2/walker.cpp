@@ -32,13 +32,16 @@ extern "C" int walk_segments(int n, int H, int T, const double* Wi,
         double z=B[s*H]*Wh[h*H];
         for (int j=1; j<H; ++j) z += B[s*H+j]*Wh[h*H+j];
         z += y[s]*Wi[h];
+        if (!std::isfinite(z)) return 3;
         B[(s+1)*H+h]=std::max(z,0.);
       }
-      w[0]++; w[6] += 2*H*H+2*H;
+      w[0]++; w[6] += 2*H*H+4*H;
     }
     while (at < taus[row]) {
       if (cell_counts[row] >= max_cells) return 1;
       double tc=std::min(at+eps*(1.+std::abs(at)), std::nextafter(taus[row],at));
+      // The probe may pass an earlier cached-prefix root: invalidate it.
+      for (int s=0; s<restart; ++s) if (roots[s]<=tc) {restart=s;break;}
       for (int s=restart; s<T; ++s) {
         double next=inf, d=s==a ? invsq2 : (s==b ? -invsq2 : 0.);
         for (int h=0; h<H; ++h) {
@@ -47,13 +50,14 @@ extern "C" int walk_segments(int n, int H, int T, const double* Wi,
             z0 += B[s*H+j]*Wh[h*H+j]; z1 += S[s*H+j]*Wh[h*H+j];
           }
           z0 += y[s]*Wi[h]; z1 += d*Wi[h];
-          bool gate=z0+tc*z1 > 0.;
+          double r=-z0/z1, value=z0+tc*z1;
+          if (!std::isfinite(z0) || !std::isfinite(z1) || !std::isfinite(value)) return 3;
+          bool gate=(r==tc || value==0.) ? z1>0. : value>0.;
           B[(s+1)*H+h]=gate ? z0 : 0.; S[(s+1)*H+h]=gate ? z1 : 0.;
-          double r=-z0/z1;
           if (r>tc && std::isfinite(r)) next=std::min(next,r);
         }
         roots[s]=next;
-        w[1]++; w[3]++; w[6] += 4*H*H+9*H; w[7] += 7*H-1;
+        w[1]++; w[3]++; w[6] += 4*H*H+20*H; w[7] += 7*H-1;
       }
       int rstep=0;
       double root=inf;
@@ -63,9 +67,10 @@ extern "C" int walk_segments(int n, int H, int T, const double* Wi,
       for (int k=0; k<T; ++k) {
         double v=B[T*H]*Wo[k*H], d=S[T*H]*Wo[k*H];
         for (int j=1; j<H; ++j) {v+=B[T*H+j]*Wo[k*H+j];d+=S[T*H+j]*Wo[k*H+j];}
+        if (!std::isfinite(v) || !std::isfinite(d)) return 3;
         L0[k]=v; L1[k]=d;
       }
-      w[2]+=2; w[8]+=2*T*(2*H-1); w[10]+=6*T+12; cell_counts[row]++;
+      w[2]+=2; w[8]+=2*T*(2*H-1)+4*T; w[10]+=9*T+12; cell_counts[row]++;
       for (int side=0; side<2; ++side) {
         double lo=side==0 ? at : std::max(at,0.);
         double hi=side==0 ? std::min(next,0.) : next;

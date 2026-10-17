@@ -51,6 +51,30 @@ frozen DEV runs do not establish competitive MSE. Independent review is pending.
 
 ## Results
 
+**Correction after independent review:** commits before the root-fix follow-up
+can retain a stale prefix if the positive probe crosses an earlier cached gate
+root. The original 2,112 ordinary-case checks did not catch this. Both backends
+now invalidate every crossed cached prefix and select right-hand slopes at
+exact roots, including eps=0. They also reject nonfinite intermediate states.
+`root_regression.json` contains 108 closed-form cases spanning near-coincident
+and simultaneous roots, three gap sizes, two window choices, and zero/default
+epsilon; maximum error is 5.56e-17. The reviewer's independent checks covered
+42 closed-form cases and 320 random lines, with 20 independently gridded lines;
+the root blockers were resolved. Run `python
+m16/approaches/sci_tao_v2/check_roots.py` after rebuilding to reproduce.
+
+The extra root checks, right-hand gates, and finite-state guards are charged.
+**The earlier `validation.json` and `dev_benchmark.json` below are retained
+historical pre-fix snapshots, not current costs or budget-allocation results.**
+Current backend parity, timings, and six frozen DEV estimates are in the
+regenerated `compiled_validation.json`; no new truth samples were taken.
+At requested 16k, current estimates/costs are .940815101/16485.037 for DEV sigma
+.0025 and .628705085/16237.861 for DEV sigma .02. Changed costs alter face counts
+under the same frozen pilot rule; no constants were tuned. The poor latter
+estimate is retained as a negative result. Current C++ CPU time is .0309/.0315
+seconds, 5.79x faster than Python; warm-batch speedup over legacy is 2.13–2.17x.
+The timing/numerical tables farther below describe the original port snapshot.
+
 Run from the repository root, using the shared environment:
 
 ```bash
@@ -171,15 +195,17 @@ counts; transcendental and branch overheads are explicitly estimated.
 
 | Operation | Charge |
 |---|---:|
-| One prefix value step | 2H² + 2H |
-| One executed affine suffix step | 4H² + 9H |
+| One prefix value step, finite guard | 2H² + 4H |
+| One executed affine suffix step, right-hand gates and finite guards | 4H² + 20H |
 | Gate roots for that step | 7H - 1 |
-| Two readout products per cell | 2T(2H - 1) |
-| Root minimum / cell bookkeeping | 6T + 12 |
+| Two readout products and finite guards per cell | 2T(2H - 1) + 4T |
+| Crossed-prefix check / root minimum / cell bookkeeping | 9T + 12 |
 | Each nonempty target half-interval | 20T + 12 + 4*CdfCost |
 | Gaussian CDF proxy, CdfCost | 50 per call |
 
-The suffix recurrence schedule is slightly conservative about selects.
+The current suffix recurrence schedule conservatively charges right-hand
+gate selection, finite-state checks, and selects. C++ stops its prefix scan
+early, but is conservatively charged the full per-cell bookkeeping schedule.
 All four CDF calls made by numpy's eager `where` expression are charged, even
 when the correct interval is empty. Scalar pilot and aggregate operations are
 charged separately in the wrapper. FLOPs/FPE follow the shared v3 rule exactly:
@@ -238,7 +264,8 @@ training-seed robustness, or new mechanistic interpretation were established.
 - Cached affine coefficients suffer floating-point cancellation on ill-conditioned
   models. This is numerical exact integration, not certified interval arithmetic.
 - The inherited right-side probe `eps=1e-10` can skip extremely thin adjacent
-  gate cells. Exact-tie correction does not eliminate that limitation.
+  gate cells; it now invalidates crossed cached prefixes, preventing errors
+  from persisting macroscopically. eps=0 uses explicit right-hand slopes. Exact-tie correction does not eliminate that limitation.
 - More than `max_cells` per batch iteration raises; callers must not interpret
   it as a successful partial estimate.
 - Heavy-tailed face integrands and adaptive pilot overshoot remain unchanged.

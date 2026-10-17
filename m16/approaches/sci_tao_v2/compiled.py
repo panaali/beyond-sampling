@@ -49,6 +49,8 @@ def walk_mass(model, y, a, b, tau, kind, eps=1e-10, max_cells=2000, details=Fals
         raise RuntimeError(f'max_cells={max_cells} exhausted; no partial integral returned')
     if status==2:
         raise ArithmeticError('Segment walker failed to advance')
+    if status==3:
+        raise FloatingPointError('Nonfinite state or readout in compiled walker')
     if status:
         raise RuntimeError(f'Unexpected compiled walker status {status}')
     unit = 6000.*(T*(2*H*H+2*H)+2*H*T)/5760.

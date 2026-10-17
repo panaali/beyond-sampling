@@ -63,15 +63,23 @@ def walk_mass(model, y, a, b, tau, kind, eps=1e-10, max_cells=2000, details=Fals
         if not len(ids):
             continue
         z = B[ids, s] @ Wh.T + y[ids, s, None] * Wi
+        if not np.isfinite(z).all():
+            raise FloatingPointError('Nonfinite prefix state')
         B[ids, s + 1] = np.maximum(z, 0.)
         work['prefix_steps'][ids] += 1
-        work['recurrence_flops'][ids] += 2 * H * H + 2 * H
+        work['recurrence_flops'][ids] += 2 * H * H + 4 * H
     for _ in range(max_cells):
         if not len(active):
             break
         tc = at[active] + eps * (1 + np.abs(at[active]))
         # Do not leap beyond a positive but tiny terminal interval.
         tc = np.minimum(tc, np.nextafter(tau[active], at[active]))
+        # A positive probe can cross a root in an otherwise reusable prefix.
+        # Invalidate that prefix before filtering roots, or its wrong gate can
+        # persist for the entire remaining segment (not just an eps-sized cell).
+        crossed = roots[active] <= tc[:, None]
+        earliest = np.where(crossed, np.arange(T)[None], T).min(axis=1)
+        restart[active] = np.minimum(restart[active], earliest)
         probe = np.zeros(n)
         probe[active] = tc
         for s in range(T):
@@ -80,15 +88,21 @@ def walk_mass(model, y, a, b, tau, kind, eps=1e-10, max_cells=2000, details=Fals
                 continue
             z0 = B[ids, s] @ Wh.T + y[ids, s, None] * Wi
             z1 = S[ids, s] @ Wh.T + d[ids, s, None] * Wi
-            gates = z0 + probe[ids, None] * z1 > 0
-            B[ids, s + 1] = np.where(gates, z0, 0.)
-            S[ids, s + 1] = np.where(gates, z1, 0.)
             with np.errstate(divide='ignore', invalid='ignore'):
                 r = -z0 / z1
+            value = z0 + probe[ids, None] * z1
+            if not (np.isfinite(z0).all() and np.isfinite(z1).all() and np.isfinite(value).all()):
+                raise FloatingPointError('Nonfinite affine state')
+            # Exact-root probes (including eps=0) select the right-hand gate.
+            # Root equality also overrides a rounded residual in z0 + t*z1.
+            at_root = (r == probe[ids, None]) | (value == 0)
+            gates = np.where(at_root, z1 > 0, value > 0)
+            B[ids, s + 1] = np.where(gates, z0, 0.)
+            S[ids, s + 1] = np.where(gates, z1, 0.)
             valid = (r > probe[ids, None]) & np.isfinite(r)
             roots[ids, s] = np.where(valid, r, np.inf).min(axis=1)
             work['suffix_steps'][ids] += 1
-            work['recurrence_flops'][ids] += 4 * H * H + 9 * H
+            work['recurrence_flops'][ids] += 4 * H * H + 20 * H
             work['root_vectors'][ids] += 1
             work['root_flops'][ids] += 7 * H - 1
         # Include future roots from cached prefix: discarding these misses cells.
@@ -100,9 +114,11 @@ def walk_mass(model, y, a, b, tau, kind, eps=1e-10, max_cells=2000, details=Fals
             raise ArithmeticError('Segment walker failed to advance')
         L0 = B[active, T] @ Wo.T
         L1 = S[active, T] @ Wo.T
+        if not (np.isfinite(L0).all() and np.isfinite(L1).all()):
+            raise FloatingPointError('Nonfinite readout')
         work['readout_vectors'][active] += 2
-        work['readout_flops'][active] += 2 * T * (2 * H - 1)
-        work['bookkeeping_flops'][active] += 6 * T + 12
+        work['readout_flops'][active] += 2 * T * (2 * H - 1) + 4 * T
+        work['bookkeeping_flops'][active] += 9 * T + 12
         cells[active] += 1
         lo, hi = at[active], nxt
         for side, target in ((0, target_neg), (1, target_pos)):
