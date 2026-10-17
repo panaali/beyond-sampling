@@ -6,6 +6,7 @@ from controls import fixtures,HERE,layout
 NAMES=('scal','gemm','beta','incopy','itcopy','oncopy','otcopy','small_permit','small_nn','small_nt','small_tn','small_tt','small_b0_nn','small_b0_nt','small_b0_tn','small_b0_tt')
 FIELDS=('kind','m','n','k','lda','ldb','ldc','alpha_bits','beta_bits','result')
 def main():
+    assert not (HERE/'kernel_controls.json').exists(), 'Preserve existing capture'
     resource.setrlimit(resource.RLIMIT_CPU,(20,20));start=time.process_time();manifest=json.loads((HERE/'manifest.json').read_text());path=manifest['binary_paths']['openblas']
     for k,p in manifest['binary_paths'].items():assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==manifest['binary_sha256'][k]
     lib=ctypes.CDLL(path);lib.scipy_openblas_get_num_threads64_.restype=ctypes.c_int;assert lib.scipy_openblas_get_num_threads64_()==1
