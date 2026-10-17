@@ -52,3 +52,35 @@ variation, not simultaneous coverage or training-seed generalization.
 Individual losses do not themselves refute the ensemble-MSE criterion.
 The reused R3/R4 cost conventions and floating reference qualifications
 remain explicit; no additional estimator runs were made for this audit.
+
+## Protocol-aligned label cost and fresh confirmation
+
+Leaderboard rule4 permits reused model-free preprocessing free of the
+charged model-dependent budget when declared as PRECOMPUTE_FLOPS.
+Cold setup sensitivity is a separate metric, not a protocol blocker.
+Rule5 also makes one input and its true label free. The R3 sample
+source explicitly performs three input-label comparisons. Removing
+these leaves56 multiplications,41 additions,12 ReLU comparisons,
+two prediction-argmax comparisons and one correctness comparison:
+112 scalar operations rather than115. Both ratios and their paired
+bootstrap quantiles multiply by115/112. Historical fields stay visible.
+
+The independent `check_label_cost_review.py` confirms the corrected
+256-copy ratio .7651127844230150256, interval[.5802543086451974,
+.9540812837088652], and51 individual losses. The separately frozen
+512-copy confirmation gives .7647193222412240735, interval
+[.6170097881466432,.9269774651104496], with86 individual losses.
+These are pointwise finite-noise-panel results under the stated scalar
+convention, not a universal robustness or full-challenge claim.
+
+The fibre counter is not reconciled by this change. Its inherited
+ops.n uses one unit per dot-product multiply-add, while ops.x adds
+elementwise arithmetic and comparisons, and the sampling denominator72
+uses the historical affine-only convention. This is a hybrid legacy
+comparison, not the same all-scalar unit as T75/112. In addition,
+`rows_at` executes dense Wh@Ag while its inherited charge scales with
+active gates and used columns. A complete as-implemented audit must
+resolve such gaps rather than assume a uniform conversion factor.
+Preserve those results as qualified diagnostics; shared-cost recounting
+is a separate task. No estimator outputs need rerunning for this
+arithmetic correction.
