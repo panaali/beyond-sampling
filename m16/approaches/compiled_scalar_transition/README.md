@@ -81,3 +81,19 @@ Primitive/control cycle1.191CPU; no end-to-end inference from this ratio.
 Full h3 constant/duplicate ties and1e-16 scaling pass, with base/scale parity
 exact to displayed double precision; full-control cycle .859CPU. Each native
 estimate constructs its own rule/library setup and baseline clears GL12.
+
+## Frozen full-estimator pilot
+`pilot.py` runs the unchanged h9 H2T4 complete q-panel GL2 estimator once per
+backend. Both return .3077232488426774 (displayed double results identical).
+Runtime ratio Python/native is1.412; including compiler child CPU in native
+first use gives1.363. Combined estimator cycle12.780CPU seconds. The measured
+5.49x primitive gain shrinks to1.41x end-to-end because geometry, sparse
+assembly, recurrence and target work remain. Exact raw times/counts and
+source/checkpoint hashes are in pilot.json; no timing extrapolation.
+
+The estimate retains all T67 caveats: its small total error on this base is
+known between-label cancellation, not component convergence; no accuracy
+improvement, noisy-model win, portable FLOP win or full-error certification
+is claimed. Compiler/setup costs and named opaque library calls are explicit.
+The finite same-rule CPU benefit is a scoped implementation result awaiting
+independent source review. No larger mesh or additional model sweep follows.
