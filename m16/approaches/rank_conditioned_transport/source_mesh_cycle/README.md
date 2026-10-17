@@ -70,3 +70,14 @@ Incorrect label mixture/sign normalization, inverse-CDF root precision,
 extra target topology, spatial error cancellation, and treating raw positive
 mass/GL refinement as a complete numerical error certificate. Floating
 geometry/roundoff and spatial error remain uncertified.
+
+## Control checkpoint
+Run `python m16/approaches/rank_conditioned_transport/source_mesh_cycle/controls.py`
+with one-thread environment and the review lock. Direct conditioning on the
+target quantile (separate above/below formulas) reproduces marginal CDFs
+within1.11e-16 for four label-set cases, including label0 excluded. Sign
+CDF endpoints/monotonicity, unchanged later grids and1e-16 positive scaling
+pass. Constant/duplicate readouts differ from retained target mass/4 by at
+most2.78e-17. Complete h9 panel counts baseline/physical/reversed are
+1190/1191/1221, below the frozen2000 cap. Control CPU .692; full event counts
+and exact axis locations are in controls.json. Ready for frozen GL2/4 pilot.
