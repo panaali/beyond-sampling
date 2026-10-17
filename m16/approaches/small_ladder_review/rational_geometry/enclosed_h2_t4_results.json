@@ -7,11 +7,22 @@
   "numpy": "2.5.4",
   "arithmetic_controls": {
     "fixed_elementary_operation_cases": 136,
+    "vectorized_cases": 136,
+    "complement_cases": 5,
+    "reduction_lengths": [
+      1,
+      3,
+      49,
+      8000
+    ],
+    "rejected_nonfinite_outward_endpoint": true,
     "counts": {
-      "add_scalar_operations": 98,
-      "nextafter_scalar_operations": 272,
-      "multiply_scalar_operations": 98,
-      "divide_scalar_operations": 76
+      "add_scalar_operations": 16710,
+      "nextafter_scalar_operations": 17068,
+      "multiply_scalar_operations": 196,
+      "divide_scalar_operations": 152,
+      "subtract_scalar_operations": 10,
+      "pairwise_reduction_padding_entries": 208
     },
     "binary64": true,
     "tested_gradual_underflow": true,
@@ -22,9 +33,9 @@
     "integer_determinants": 257,
     "bareiss_updates": 3598
   },
-  "rule_setup_cpu": 1.516835372,
-  "root_setup_cpu": 0.295413541,
-  "rational_moment_check_cpu": 1.217363218,
+  "rule_setup_cpu": 1.42250763,
+  "root_setup_cpu": 0.274667741,
+  "rational_moment_check_cpu": 1.144500744,
   "rational_moment_checks": {
     "polynomial_degrees_checked": 40,
     "maximum_rational_interval_width": 1.7620597022945157e-22
@@ -57,6 +68,14 @@
       0.06250000000000085,
       0.06250000000000214
     ],
+    "quadrature_interval_hex": [
+      "0x1.000000000003dp-4",
+      "0x1.000000000009ap-4"
+    ],
+    "probability_interval_hex": [
+      "0x1.fffffe0ec6055p-5",
+      "0x1.000000f89d0adp-4"
+    ],
     "truncation_error_upper": 3.617799643664019e-09,
     "probability_interval": [
       0.062499996382201196,
@@ -70,6 +89,14 @@
       0.30773074302392284,
       0.3077307430239303
     ],
+    "quadrature_interval_hex": [
+      "0x1.3b1dc4950bce3p-2",
+      "0x1.3b1dc4950bd69p-2"
+    ],
+    "probability_interval_hex": [
+      "0x1.3b1dc362302a7p-2",
+      "0x1.3b1dc5c7e77a5p-2"
+    ],
     "truncation_error_upper": 1.7861484466067163e-08,
     "probability_interval": [
       0.3077307251624383,
@@ -78,7 +105,7 @@
     "quadrature_interval_width": 7.438494264988549e-15,
     "total_width": 3.5722976465812906e-08
   },
-  "integration_cpu": 1.2987637950000002,
+  "integration_cpu": 1.2727586389999999,
   "integration_counts": {
     "uncertified_seed_rule_generations": 0,
     "exact_legendre_evaluations": 0,
@@ -1921,6 +1948,6 @@
   ],
   "legacy_gl20_value": 0.3077307430239267,
   "legacy_inside_quadrature_interval": true,
-  "cpu_seconds": 2.839847298,
-  "max_rss_kib": 38316
+  "cpu_seconds": 2.74226701,
+  "max_rss_kib": 38456
 }

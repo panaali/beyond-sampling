@@ -356,3 +356,33 @@ floats; decimal text in this README is a display of those binary64 endpoints.
 These checks address unresolved array/underflow/reduction assumptions, not new
 models or tighter grids. Preserve the first run in the narrative and count the
 new run separately. The enclosure logic and GL20 truncation formula are unchanged.
+
+## T72 hardened rerun and independent containment review
+The hardened rerun passed in2.742CPU seconds with exactly unchanged H2T4
+quadrature and total interval endpoints. It passed136 scalar and136 vectorized
+Fraction comparisons, five complement cases, four reduction lengths including
+8000, and rejection of a nonfinite outward endpoint. The two recorded mass runs
+therefore spent5.582CPU seconds in total; neither the earlier geometry builds nor
+independent review time is included in that total.
+
+The authoritative total binary64 endpoints are
+`0x1.3b1dc362302a7p-2` and `0x1.3b1dc5c7e77a5p-2`; hexadecimal values avoid any
+ambiguity about interpreting displayed decimal endpoints. The total interval
+remains [.3077307251624383,.3077307608854148] in round-trip decimal notation.
+
+T55 independently rederived the Chebyshev tail and checked three GL20 cubature
+values using a separate70-digit mpmath Gauss-Legendre rule and24-term integer
+determinants: the orthant and fixed artifact cones0,128. All three high-precision
+values lie inside their raw quadrature intervals with positive margins. That
+review evaluated24000 nodes in1.530CPU seconds. In particular, its orthant finite
+rule value .062500000000001489649... explains why the raw quadrature enclosure
+does not contain the true1/16 but the enclosure including truncation does. Review
+commit/path will be supplied by T55/root; this paragraph records the reviewer's
+reported checks rather than marking the project ledger confirmed ourselves.
+
+[measured] The H2T4 result is now a defensible enclosed mass calculation under the
+explicit IEEE754/NumPy/CPython assumptions, with independent finite-rule checks.
+This closes the previously untracked floating evaluation gap for this reference
+under those assumptions. It is not hardware/compiler formal verification, a
+proof of the exact geometry implementation's completeness, a noisy-model study,
+or a claim that the original H16T10 challenge has been solved.
