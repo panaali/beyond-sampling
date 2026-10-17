@@ -65,3 +65,12 @@ and fortuitous cancellation. Results on one base do not settle noisy models.
 u-only boundary ownership with positive conditional mass, first-index ties,
 missing line intersections, floating degeneracy/narrow CDF cancellation, and
 mistaking complete real-arithmetic topology for a full floating error bound.
+
+## Primitive checkpoint
+`controls.py` passes in .548CPU under the review lock. Direct scalar evaluation
+after explicit target insertion agrees with cache values at every discovered
+u breakpoint and fixed probes within9.87e-15 for trained/zero/duplicate/Wh0
+cases. Positive scale1e-16 discrepancy is5.56e-17; full constant/duplicate
+retained-mass checks pass. At h9,664 cached pieces and398 knots expand1190
+baseline panels to1532, within the frozen2000 cap. Cache setup .076CPU and
+47,008 bytes; full plane/intersection/envelope counts in controls.json.
