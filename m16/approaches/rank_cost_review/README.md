@@ -92,3 +92,21 @@ Source inspection finds DBDSDC values-only dispatches through DLASDQ.
 The actual nested bidiagonal path and retry bounds must be checked before
 composing a cost envelope. Public source alone does not prove installed
 implementation identity. No full-cost gate is unblocked by this phase.
+
+### Frozen nested-path continuation
+Reuse the same 114 matrices only to distinguish the newly identified
+DLASQ1/DLASQ2 nested path; this is a different dispatch discriminator,
+not another estimate of convergence speed. A separate pass-through spy
+records calls/orders/status and leaves all operands/results untouched.
+Require exact agreement with saved baseline values/ranks. For min(M,4)<=2,
+DLASQ2 must never be entered; its occurrence falsifies the source branch
+interpretation. For higher orders some rank-one fixtures should enter it,
+but no fixed iteration upper bound is inferred from that observation.
+
+Nested-path pass-through retained all 114 baseline results. However, the
+first diagnostic attempted to read DLASQ2's iteration-output workspace on
+every successful return; early returns do not populate that slot, producing
+invalid integer counters. Preserve `nested_instrumented.json` as the failed
+diagnostic artifact. This invalidates only its iteration fields, not numerical
+parity. The repair counts actual DLASQ3 entries and its documented integer
+ITER increment across each call instead of reading unspecified workspace.
