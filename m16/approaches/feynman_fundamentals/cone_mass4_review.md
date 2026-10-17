@@ -1240,3 +1240,14 @@ angles and category contractions match. The maximum bound is
 three ties. This controls numerator uncertainty at the stored denominator only.
 It supplies no denominator, libm, sequential-summation or quadrature certificate.
 No determinant, mass or network evaluations were added by the review.
+
+### Length-three dot dispatch controls
+
+`check_dot3_dispatch_review.py` verifies all 90 saved records, pinned libraries,
+actual runtime target, restored pointer and exact output bits. Sixty calls use
+unit-stride native dot, twenty use stride2 and ten reversed matmuls use the
+scalar fallback. The pinned n3 assembly gives selected arithmetic counts 7 for
+contiguous dot, 8 including norm sqrt, 8 for positive nonunit dot and 6 for the
+scalar fallback, counting FMA as two operations. Shape/dtype applicability to
+historical sites is a separate prerequisite; no corpus replacement or full
+native/hardware claim is made here. No kernels were rerun.
