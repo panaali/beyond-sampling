@@ -174,6 +174,32 @@ Gate/atom-conditioned mixtures, support-aware readouts, full covariance
 references, higher-order expansions, different endpoints, and a hybrid exact
 last step. Toy failures cannot retire the endpoint family or its trained use.
 
+## Frozen same-model gate/rank mixture rescue
+The preceding atom split retains a mixture of different linear maps inside
+each target law. Test one stronger distinct representation on the SAME H2T3
+seed0: retain each final gate cell and complete input-order chamber as a
+separate component. Before moment/endpoint evaluation, test whether one output
+wins throughout the component using logit differences on its extreme rays.
+For candidate j, require every difference to every k to be nonnegative on all
+rays; if k<j require at least one positive ray margin, so the full-dimensional
+relative interior has strict margin. Identically zero forms obey first-index.
+Use no outcome/error values or boundary-location fit in this support test.
+It is a real-arithmetic cone criterion evaluated on floating geometry, not an
+interval certificate. Preserve failed/near-zero tests without a tolerance
+that silently declares a winner. This automatically handles h=0 and some
+positive rays, but may also recognize higher-rank constant-winner components.
+
+For remaining components compute their own conditional logit moments via the
+same orthant triangles and GL16/32 formulas. Preserve every positive-mass
+component, with no fitted merge or mass truncation. Compare the summed moment
+tensors to the previous artifact and per-component mass/moment sensitivity.
+Then all five raw/projected upstream endpoints atQ128/256; aggregate each
+component with its analytic numerical solid-angle mass. Report constant-win
+mass, residual mass/count, complete geometry/moment/endpoint cost and all
+orders. No estimate clipping or best-order selection. This is the strongest
+tested support/conditioning rescue, not proof that all other mixtures fail.
+One<=100CPU primary cycle,<2GB, no new models or Monte Carlo.
+
 ## Frozen trained T3 phase (after control results, before trained moments)
 Use ONLY public H2T3seed0 checkpoint SHA256
 47aa8e4b38f6433242b13d89666f01add73923b34123a6d56345e2c210cec1bd.
