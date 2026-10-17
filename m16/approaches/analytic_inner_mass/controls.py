@@ -16,7 +16,11 @@ def scalar_reference(P,D):
         def F(z):q=a*z*z+2*b*z+c;return (a*z+b)/(2*delta*q)+a/(2*delta**mp.mpf('1.5'))*mp.atan((a*z+b)/mp.sqrt(delta))
         return F(1)-F(0)
 def main():
-    resource.setrlimit(resource.RLIMIT_CPU,(20,20));start=time.process_time();out=dict(scalar=[],analytic=[],trained=[],complete=False,analytic_float_certificate=False);rules=Rules();_,_,_,_,x,w=rules.get(20)
+    resource.setrlimit(resource.RLIMIT_CPU,(20,20));start=time.process_time();out=dict(scalar=[],analytic=[],trained=[],unsupported=[],complete=False,analytic_float_certificate=False);rules=Rules();_,_,_,_,x,w=rules.get(20)
+    for label,P,D in [('zero_start',[0.,0,0,0],[1.,0,0,0]),('zero_end',[1.,0,0,0],[-1.,0,0,0]),('origin_crossing',[1.,0,0,0],[-2.,0,0,0])]:
+        try:positive_inner(np.array([P]),np.array([D]),20,x,w,Ledger())
+        except ArithmeticError as exc:out['unsupported'].append(dict(fixture=label,rejected=True,reason=str(exc)))
+        else:raise AssertionError('Divergent scalar domain not rejected')
     for slope,eps in [(s,e) for s in (-2.,-.5,0.,.1,2.,1e4) for e in (1e-8,1e-3,1.)]+[(0.,0.)]:
         for scale in (2.**-20,1.,2.**20):
             P=np.array([1.,0,0,0])*scale;D=np.array([slope,eps,0,0])*scale;L=Ledger();value,error,modes=positive_inner(P[None,:],D[None,:],20,x,w,L);ref=float(scalar_reference(P,D));pts=P+x[:,None]*D;q=np.sum(pts*pts,axis=1);direct=float(np.dot(w,1/q**2));analytic='fallback' not in modes;relative=abs(value[0]/ref-1);fallback_error=abs(value[0]/direct-1)
