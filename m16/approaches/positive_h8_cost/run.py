@@ -83,12 +83,22 @@ def controls():
    row=one(R*2.**power,old,kernel,rescue,radial,rules);row.update(name=name,power=power,truth=truth)
    if row['mode']=='returned' and truth is not None:
     row['error']=row['value']-truth;row['analytic_pass']=abs(row['error'])<=row['bound']+5e-14
+   if row['mode']=='unresolved':
+    # Separate validation of a correctly rejected finite-order candidate.
+    r=row['rescue'];last=r['stages'][-1]['trials'][-1];check=kernel.integrate(R*2.**power,32,r['old_determinant'],rules)
+    row['rejected_candidate_validation']=dict(value=check['value'],bound=last['total_bound']+check['series_error_bound'],kernel_counts=check['kernel_counts'],not_returned_by_estimator=True)
+    if truth is not None:
+     row['rejected_candidate_validation']['error']=check['value']-truth
+     row['rejected_candidate_validation']['passes']=abs(check['value']-truth)<=last['total_bound']+check['series_error_bound']+5e-14
+     assert row['rejected_candidate_validation']['passes']
    rows.append(row);save('controls.json',out,rules)
-   assert row['mode']=='returned' and row.get('analytic_pass',True),row
+   assert row['mode'] in ('returned','unresolved') and row.get('analytic_pass',True),row
+   if row['mode']=='returned':assert row['bound']<=TOL
  # Scale invariance tests validate the new selector across synthetic paths.
  for name,_,_ in cases:
-  v=[r['value'] for r in rows if r['name']==name];assert max(v)-min(v)<1e-13
- out['complete']=True;save('controls.json',out,rules);print(json.dumps({k:v for k,v in out.items() if k not in ('rows','cold_rules')}))
+  group=[r for r in rows if r['name']==name];assert len({r['mode'] for r in group})==1
+  v=[r['value'] if r['mode']=='returned' else r['rejected_candidate_validation']['value'] for r in group];assert max(v)-min(v)<1e-13
+ out.update(complete=True,returned=sum(r['mode']=='returned' for r in rows),unresolved=sum(r['mode']=='unresolved' for r in rows),validation_kernel_counts=dict(sum((Counter(r.get('rejected_candidate_validation',{}).get('kernel_counts',{})) for r in rows),Counter())));save('controls.json',out,rules);print(json.dumps({k:v for k,v in out.items() if k not in ('rows','cold_rules')}))
 
 def pilot():
  assert json.loads((P/'controls.json').read_text())['complete'];old,kernel,rescue,radial=load();rules=kernel.Rules();rays=np.load(REF/'error_captured.npz')['rays'];assert len(rays)==35098
