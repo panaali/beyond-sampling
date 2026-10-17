@@ -1,0 +1,7 @@
+# T122 bounded handoff
+
+Claim7b89bb9; commits1345bf9,e3ae8a1,530da6a and this handoff. Independent T55 review868c69b verifies source, all130 exact parent cofactors/determinants/orthants, rank halfspaces/incidence and Decimal coverage arithmetic. It does not independently reclip every child or rerun the shared mass primitive. Claude decides ledger confirmation.
+
+Uniform wrong mass .12333757610644563, uniform correct .04925087793568042; covered .17258845404212608, global unresolved .8274115459578739. Conditional uniform quadrature bound9.12903705e-9 excludes floating conversion/arithmetic. Exact selected partition and old correct-artifact controls pass. Full run1.060827033CPU,3273clips; reference geometry10.009618928CPU plus prior T116/T120 selection/feasibility setup are dependencies. Partial mass cannot be presented as full accuracy or matched-cost improvement.
+
+Stop blind selected-panel expansion: current uncertainty is far too wide for a competitive estimator, while initial exact geometry already costs substantial work. A useful next discriminator is whether coarser whole rank/sign charts can be certified from weights before neural geometry. Seek exact open correct+wrong witnesses within each fixed chart first; both witnesses prove that a whole-chart uniform certificate is impossible there, whereas no witness found remains inconclusive. This is distinct from approximating mixed charts, adaptive splits or Claude's T108 gate-freezing bounds; none is ruled out.

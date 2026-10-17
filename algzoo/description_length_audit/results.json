@@ -1,0 +1,1986 @@
+{
+  "complete": true,
+  "codec_controls": {
+    "roundtrips": 15,
+    "mutation_controls": 3
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "ast_schema": {
+    "AST": [],
+    "Add": [],
+    "And": [],
+    "AnnAssign": [
+      "target",
+      "annotation",
+      "value",
+      "simple"
+    ],
+    "Assert": [
+      "test",
+      "msg"
+    ],
+    "Assign": [
+      "targets",
+      "value",
+      "type_comment"
+    ],
+    "AsyncFor": [
+      "target",
+      "iter",
+      "body",
+      "orelse",
+      "type_comment"
+    ],
+    "AsyncFunctionDef": [
+      "name",
+      "args",
+      "body",
+      "decorator_list",
+      "returns",
+      "type_comment",
+      "type_params"
+    ],
+    "AsyncWith": [
+      "items",
+      "body",
+      "type_comment"
+    ],
+    "Attribute": [
+      "value",
+      "attr",
+      "ctx"
+    ],
+    "AugAssign": [
+      "target",
+      "op",
+      "value"
+    ],
+    "AugLoad": [],
+    "AugStore": [],
+    "Await": [
+      "value"
+    ],
+    "BinOp": [
+      "left",
+      "op",
+      "right"
+    ],
+    "BitAnd": [],
+    "BitOr": [],
+    "BitXor": [],
+    "BoolOp": [
+      "op",
+      "values"
+    ],
+    "Break": [],
+    "Call": [
+      "func",
+      "args",
+      "keywords"
+    ],
+    "ClassDef": [
+      "name",
+      "bases",
+      "keywords",
+      "body",
+      "decorator_list",
+      "type_params"
+    ],
+    "Compare": [
+      "left",
+      "ops",
+      "comparators"
+    ],
+    "Constant": [
+      "value",
+      "kind"
+    ],
+    "Continue": [],
+    "Del": [],
+    "Delete": [
+      "targets"
+    ],
+    "Dict": [
+      "keys",
+      "values"
+    ],
+    "DictComp": [
+      "key",
+      "value",
+      "generators"
+    ],
+    "Div": [],
+    "Eq": [],
+    "ExceptHandler": [
+      "type",
+      "name",
+      "body"
+    ],
+    "Expr": [
+      "value"
+    ],
+    "Expression": [
+      "body"
+    ],
+    "ExtSlice": [],
+    "FloorDiv": [],
+    "For": [
+      "target",
+      "iter",
+      "body",
+      "orelse",
+      "type_comment"
+    ],
+    "FormattedValue": [
+      "value",
+      "conversion",
+      "format_spec"
+    ],
+    "FunctionDef": [
+      "name",
+      "args",
+      "body",
+      "decorator_list",
+      "returns",
+      "type_comment",
+      "type_params"
+    ],
+    "FunctionType": [
+      "argtypes",
+      "returns"
+    ],
+    "GeneratorExp": [
+      "elt",
+      "generators"
+    ],
+    "Global": [
+      "names"
+    ],
+    "Gt": [],
+    "GtE": [],
+    "If": [
+      "test",
+      "body",
+      "orelse"
+    ],
+    "IfExp": [
+      "test",
+      "body",
+      "orelse"
+    ],
+    "Import": [
+      "names"
+    ],
+    "ImportFrom": [
+      "module",
+      "names",
+      "level"
+    ],
+    "In": [],
+    "Index": [],
+    "Interactive": [
+      "body"
+    ],
+    "Invert": [],
+    "Is": [],
+    "IsNot": [],
+    "JoinedStr": [
+      "values"
+    ],
+    "LShift": [],
+    "Lambda": [
+      "args",
+      "body"
+    ],
+    "List": [
+      "elts",
+      "ctx"
+    ],
+    "ListComp": [
+      "elt",
+      "generators"
+    ],
+    "Load": [],
+    "Lt": [],
+    "LtE": [],
+    "MatMult": [],
+    "Match": [
+      "subject",
+      "cases"
+    ],
+    "MatchAs": [
+      "pattern",
+      "name"
+    ],
+    "MatchClass": [
+      "cls",
+      "patterns",
+      "kwd_attrs",
+      "kwd_patterns"
+    ],
+    "MatchMapping": [
+      "keys",
+      "patterns",
+      "rest"
+    ],
+    "MatchOr": [
+      "patterns"
+    ],
+    "MatchSequence": [
+      "patterns"
+    ],
+    "MatchSingleton": [
+      "value"
+    ],
+    "MatchStar": [
+      "name"
+    ],
+    "MatchValue": [
+      "value"
+    ],
+    "Mod": [],
+    "Module": [
+      "body",
+      "type_ignores"
+    ],
+    "Mult": [],
+    "Name": [
+      "id",
+      "ctx"
+    ],
+    "NamedExpr": [
+      "target",
+      "value"
+    ],
+    "Nonlocal": [
+      "names"
+    ],
+    "Not": [],
+    "NotEq": [],
+    "NotIn": [],
+    "Or": [],
+    "Param": [],
+    "ParamSpec": [
+      "name"
+    ],
+    "Pass": [],
+    "Pow": [],
+    "RShift": [],
+    "Raise": [
+      "exc",
+      "cause"
+    ],
+    "Return": [
+      "value"
+    ],
+    "Set": [
+      "elts"
+    ],
+    "SetComp": [
+      "elt",
+      "generators"
+    ],
+    "Slice": [
+      "lower",
+      "upper",
+      "step"
+    ],
+    "Starred": [
+      "value",
+      "ctx"
+    ],
+    "Store": [],
+    "Sub": [],
+    "Subscript": [
+      "value",
+      "slice",
+      "ctx"
+    ],
+    "Suite": [],
+    "Try": [
+      "body",
+      "handlers",
+      "orelse",
+      "finalbody"
+    ],
+    "TryStar": [
+      "body",
+      "handlers",
+      "orelse",
+      "finalbody"
+    ],
+    "Tuple": [
+      "elts",
+      "ctx"
+    ],
+    "TypeAlias": [
+      "name",
+      "type_params",
+      "value"
+    ],
+    "TypeIgnore": [
+      "lineno",
+      "tag"
+    ],
+    "TypeVar": [
+      "name",
+      "bound"
+    ],
+    "TypeVarTuple": [
+      "name"
+    ],
+    "UAdd": [],
+    "USub": [],
+    "UnaryOp": [
+      "op",
+      "operand"
+    ],
+    "While": [
+      "test",
+      "body",
+      "orelse"
+    ],
+    "With": [
+      "items",
+      "body",
+      "type_comment"
+    ],
+    "Yield": [
+      "value"
+    ],
+    "YieldFrom": [
+      "value"
+    ],
+    "_ast_Ellipsis": [],
+    "alias": [
+      "name",
+      "asname"
+    ],
+    "arg": [
+      "arg",
+      "annotation",
+      "type_comment"
+    ],
+    "arguments": [
+      "posonlyargs",
+      "args",
+      "vararg",
+      "kwonlyargs",
+      "kw_defaults",
+      "kwarg",
+      "defaults"
+    ],
+    "boolop": [],
+    "cmpop": [],
+    "comprehension": [
+      "target",
+      "iter",
+      "ifs",
+      "is_async"
+    ],
+    "excepthandler": [],
+    "expr": [],
+    "expr_context": [],
+    "keyword": [
+      "arg",
+      "value"
+    ],
+    "match_case": [
+      "pattern",
+      "guard",
+      "body"
+    ],
+    "mod": [],
+    "operator": [],
+    "pattern": [],
+    "slice": [],
+    "stmt": [],
+    "type_ignore": [],
+    "type_param": [],
+    "unaryop": [],
+    "withitem": [
+      "context_expr",
+      "optional_vars"
+    ]
+  },
+  "codebook": [
+    "AST",
+    "Add",
+    "And",
+    "AnnAssign",
+    "Assert",
+    "Assign",
+    "AsyncFor",
+    "AsyncFunctionDef",
+    "AsyncWith",
+    "Attribute",
+    "AugAssign",
+    "AugLoad",
+    "AugStore",
+    "Await",
+    "BinOp",
+    "BitAnd",
+    "BitOr",
+    "BitXor",
+    "BoolOp",
+    "Break",
+    "Call",
+    "ClassDef",
+    "Compare",
+    "Constant",
+    "Continue",
+    "Del",
+    "Delete",
+    "Dict",
+    "DictComp",
+    "Div",
+    "Eq",
+    "ExceptHandler",
+    "Expr",
+    "Expression",
+    "ExtSlice",
+    "FloorDiv",
+    "For",
+    "FormattedValue",
+    "FunctionDef",
+    "FunctionType",
+    "GeneratorExp",
+    "Global",
+    "Gt",
+    "GtE",
+    "If",
+    "IfExp",
+    "Import",
+    "ImportFrom",
+    "In",
+    "Index",
+    "Interactive",
+    "Invert",
+    "Is",
+    "IsNot",
+    "JoinedStr",
+    "LShift",
+    "Lambda",
+    "List",
+    "ListComp",
+    "Load",
+    "Lt",
+    "LtE",
+    "MatMult",
+    "Match",
+    "MatchAs",
+    "MatchClass",
+    "MatchMapping",
+    "MatchOr",
+    "MatchSequence",
+    "MatchSingleton",
+    "MatchStar",
+    "MatchValue",
+    "Mod",
+    "Module",
+    "Mult",
+    "Name",
+    "NamedExpr",
+    "Nonlocal",
+    "Not",
+    "NotEq",
+    "NotIn",
+    "Or",
+    "Param",
+    "ParamSpec",
+    "Pass",
+    "Pow",
+    "RShift",
+    "Raise",
+    "Return",
+    "Set",
+    "SetComp",
+    "Slice",
+    "Starred",
+    "Store",
+    "Sub",
+    "Subscript",
+    "Suite",
+    "Try",
+    "TryStar",
+    "Tuple",
+    "TypeAlias",
+    "TypeIgnore",
+    "TypeVar",
+    "TypeVarTuple",
+    "UAdd",
+    "USub",
+    "UnaryOp",
+    "While",
+    "With",
+    "Yield",
+    "YieldFrom",
+    "_ast_Ellipsis",
+    "alias",
+    "arg",
+    "arguments",
+    "boolop",
+    "cmpop",
+    "comprehension",
+    "excepthandler",
+    "expr",
+    "expr_context",
+    "keyword",
+    "match_case",
+    "mod",
+    "operator",
+    "pattern",
+    "slice",
+    "stmt",
+    "type_ignore",
+    "type_param",
+    "unaryop",
+    "withitem"
+  ],
+  "source_hashes": {
+    "/workspace/clean-neurons/algzoo/labels.py": "50be9f74e140ceccdaabb715598b38a30eba008c090af2dc5da6a503d768f186",
+    "/workspace/clean-neurons/algzoo/labels_32_10.py": "99e2764040785b4ae5b235a93d6a0c2ee3f3e5fbee7ea57ea62b3d3089899451",
+    "/workspace/clean-neurons/algzoo/constant_budget/sweep.py": "31ad3f1fb5af104e48c9eeea649c8509be220022b7a9fc8068378d37f8ec3be9",
+    "/workspace/clean-neurons/algzoo/constant_budget/sweep_results_coefficients.json": "dc4d06199d77424aa0589c360960df92f0b335b5ff9cf40f28670766ebeb712d",
+    "/workspace/work/recover-small_h2_56/algzoo/constant_budget_multifamily/run.py": "5b477c7e18975044ecaf0917687c7500c7813340801323f715160c8b2a99a247",
+    "/workspace/work/recover-small_h2_56/algzoo/constant_budget_multifamily/results_H16_seed0.json": "7027cd6a3515bbcc1bd34cfdb5bdbc08fd2d88504a38f281b677f6b94dc83c7c",
+    "/workspace/work/recover-small_h2_56/algzoo/constant_budget_multifamily/results_H32_seed0.json": "5b7b1b723a8a1adc3163ac79eb159314b53feb53dbadf9cc3649ac781c553a5d"
+  },
+  "original": [
+    {
+      "name": "labels.py",
+      "encoded_bits": 36182,
+      "fitted_float_count": 78,
+      "fitted_payload_bits": 4992,
+      "other_code_and_structure_bits": 31190,
+      "ast_nodes": 1509,
+      "float_literals": 79,
+      "syntax_sha256": "513513d3d52b7c0c15c794724a959437f00b477d1842035669a456873335efbf",
+      "encoded_sha256": "0b285cb024e09c3240ed059e4a5a12b28e9d241f0eb88db968adb05129cc46c3",
+      "roundtrip": true,
+      "formula_position_uses": [
+        {
+          "function": "_n3",
+          "expression": "F['x9']"
+        },
+        {
+          "function": "_n5",
+          "expression": "F['x8']"
+        },
+        {
+          "function": "_n9",
+          "expression": "F['R7']"
+        },
+        {
+          "function": "_n9",
+          "expression": "F['x8']"
+        },
+        {
+          "function": "_n9",
+          "expression": "F['x8']"
+        },
+        {
+          "function": "_n9",
+          "expression": "F['R7']"
+        }
+      ],
+      "position_inventory_is_syntax_not_parameter_count": true,
+      "neurons": 16,
+      "coefficient_budget_max": 5,
+      "prediction_scalar_checks": 560,
+      "subset_literal_occurrences": [
+        [
+          0,
+          1,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          5
+        ],
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "distinct_subsets": [
+        [
+          0,
+          1,
+          2,
+          5
+        ],
+        [
+          0,
+          1,
+          5
+        ],
+        [
+          0,
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "nine_bit_mask_occurrence_bits": 54,
+      "nine_bit_mask_distinct_bits": 36,
+      "subset_diagnostic_not_additional": true
+    },
+    {
+      "name": "labels_32_10.py",
+      "encoded_bits": 64942,
+      "fitted_float_count": 142,
+      "fitted_payload_bits": 9088,
+      "other_code_and_structure_bits": 55854,
+      "ast_nodes": 3078,
+      "float_literals": 143,
+      "syntax_sha256": "e527764358f78b60761a1dcee1d112b6a002cf554652dae33c2e3e81c4311dc5",
+      "encoded_sha256": "6cdc109cbb5d8426c61ba5521131b5c2cfc8416fbc8b042050a57e003c7288d0",
+      "roundtrip": true,
+      "formula_position_uses": [
+        {
+          "function": "_formula",
+          "expression": "am != 8"
+        },
+        {
+          "function": "_formula",
+          "expression": "am != 8"
+        },
+        {
+          "function": "_formula",
+          "expression": "am != 8"
+        },
+        {
+          "function": "_formula",
+          "expression": "rk[:, k]"
+        },
+        {
+          "function": "_formula",
+          "expression": "am != 7"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 3]"
+        },
+        {
+          "function": "_formula",
+          "expression": "am == 1"
+        },
+        {
+          "function": "_formula",
+          "expression": "a2 == 6"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 7]"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(2)"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(4)"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(8)"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 4]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T1[:, 4]"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(3)"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(1)"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(6)"
+        },
+        {
+          "function": "_formula",
+          "expression": "am == 6"
+        },
+        {
+          "function": "_formula",
+          "expression": "am == 7"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 4]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 4]"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(5)"
+        },
+        {
+          "function": "_formula",
+          "expression": "T1[:, 6]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 6]"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(0)"
+        },
+        {
+          "function": "_formula",
+          "expression": "top2(8)"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, :5]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, :8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T1[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, :9]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 1]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 1]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 7]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 7]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 2]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 2]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 8]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 0]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 0]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 5]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 5]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T1[:, 4]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 4]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T1[:, 0]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 0]"
+        },
+        {
+          "function": "_formula",
+          "expression": "x[:, 5]"
+        },
+        {
+          "function": "_formula",
+          "expression": "T2[:, 5]"
+        }
+      ],
+      "position_inventory_is_syntax_not_parameter_count": true,
+      "neurons": 32,
+      "coefficient_budget_max": 5,
+      "prediction_scalar_checks": 1120,
+      "subset_literal_occurrences": [
+        [
+          1,
+          2,
+          5,
+          6
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          2,
+          4,
+          7
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          7
+        ],
+        [
+          0,
+          3,
+          6,
+          7
+        ],
+        [
+          3
+        ],
+        [
+          0,
+          2,
+          5,
+          7
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          4,
+          6,
+          8
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6,
+          7
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          2,
+          4,
+          6,
+          8
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        [
+          0,
+          3,
+          8
+        ],
+        [
+          0,
+          4,
+          5,
+          6,
+          8
+        ],
+        [
+          0,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          0,
+          4,
+          6
+        ],
+        [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8
+        ],
+        [
+          0,
+          2,
+          4,
+          6
+        ],
+        [
+          1,
+          5,
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          5
+        ],
+        [
+          2,
+          6,
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ],
+        [
+          0,
+          1,
+          3,
+          6
+        ]
+      ],
+      "distinct_subsets": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        [
+          0,
+          1,
+          2,
+          4,
+          5
+        ],
+        [
+          0,
+          1,
+          2,
+          5
+        ],
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          6,
+          7
+        ],
+        [
+          0,
+          1,
+          3,
+          6
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          0,
+          2,
+          4,
+          6
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          7
+        ],
+        [
+          0,
+          2,
+          5,
+          7
+        ],
+        [
+          0,
+          2,
+          7
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          3,
+          4,
+          8
+        ],
+        [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          0,
+          3,
+          6,
+          7
+        ],
+        [
+          0,
+          3,
+          8
+        ],
+        [
+          0,
+          4,
+          5,
+          6,
+          8
+        ],
+        [
+          0,
+          4,
+          6
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          4,
+          6,
+          8
+        ],
+        [
+          1,
+          2,
+          4,
+          7
+        ],
+        [
+          1,
+          2,
+          5,
+          6
+        ],
+        [
+          1,
+          4,
+          6,
+          8
+        ],
+        [
+          1,
+          5,
+          7
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          6,
+          7
+        ],
+        [
+          3
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "nine_bit_mask_occurrence_bits": 369,
+      "nine_bit_mask_distinct_bits": 333,
+      "subset_diagnostic_not_additional": true
+    }
+  ],
+  "universal": [
+    {
+      "source": "T7",
+      "H": 16,
+      "K": 1,
+      "family": null,
+      "fitted_scalars": 16,
+      "fitted_payload_bits": 1024,
+      "conditional_header_payload_bits": 1128,
+      "conditional_structure_bits": 104,
+      "standalone_bits": 9587,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 16,
+      "K": 3,
+      "family": null,
+      "fitted_scalars": 48,
+      "fitted_payload_bits": 3072,
+      "conditional_header_payload_bits": 3300,
+      "conditional_structure_bits": 228,
+      "standalone_bits": 11759,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 16,
+      "K": 5,
+      "family": null,
+      "fitted_scalars": 80,
+      "fitted_payload_bits": 5120,
+      "conditional_header_payload_bits": 5470,
+      "conditional_structure_bits": 350,
+      "standalone_bits": 13929,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 16,
+      "K": 10,
+      "family": null,
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10894,
+      "conditional_structure_bits": 654,
+      "standalone_bits": 19353,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 16,
+      "K": 20,
+      "family": null,
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21738,
+      "conditional_structure_bits": 1258,
+      "standalone_bits": 30197,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 32,
+      "K": 1,
+      "family": null,
+      "fitted_scalars": 32,
+      "fitted_payload_bits": 2048,
+      "conditional_header_payload_bits": 2204,
+      "conditional_structure_bits": 156,
+      "standalone_bits": 10663,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 32,
+      "K": 3,
+      "family": null,
+      "fitted_scalars": 96,
+      "fitted_payload_bits": 6144,
+      "conditional_header_payload_bits": 6524,
+      "conditional_structure_bits": 380,
+      "standalone_bits": 14983,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 32,
+      "K": 5,
+      "family": null,
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10842,
+      "conditional_structure_bits": 602,
+      "standalone_bits": 19301,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 32,
+      "K": 10,
+      "family": null,
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21636,
+      "conditional_structure_bits": 1156,
+      "standalone_bits": 30095,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T7",
+      "H": 32,
+      "K": 20,
+      "family": null,
+      "fitted_scalars": 640,
+      "fitted_payload_bits": 40960,
+      "conditional_header_payload_bits": 43220,
+      "conditional_structure_bits": 2260,
+      "standalone_bits": 51679,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 8453,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 1,
+      "family": "fourier",
+      "fitted_scalars": 16,
+      "fitted_payload_bits": 1024,
+      "conditional_header_payload_bits": 1128,
+      "conditional_structure_bits": 104,
+      "standalone_bits": 16380,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 3,
+      "family": "fourier",
+      "fitted_scalars": 48,
+      "fitted_payload_bits": 3072,
+      "conditional_header_payload_bits": 3300,
+      "conditional_structure_bits": 228,
+      "standalone_bits": 18552,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 5,
+      "family": "fourier",
+      "fitted_scalars": 80,
+      "fitted_payload_bits": 5120,
+      "conditional_header_payload_bits": 5470,
+      "conditional_structure_bits": 350,
+      "standalone_bits": 20722,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 10,
+      "family": "fourier",
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10894,
+      "conditional_structure_bits": 654,
+      "standalone_bits": 26146,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 20,
+      "family": "fourier",
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21738,
+      "conditional_structure_bits": 1258,
+      "standalone_bits": 36990,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 1,
+      "family": "position_polynomial",
+      "fitted_scalars": 16,
+      "fitted_payload_bits": 1024,
+      "conditional_header_payload_bits": 1130,
+      "conditional_structure_bits": 106,
+      "standalone_bits": 16382,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 3,
+      "family": "position_polynomial",
+      "fitted_scalars": 48,
+      "fitted_payload_bits": 3072,
+      "conditional_header_payload_bits": 3302,
+      "conditional_structure_bits": 230,
+      "standalone_bits": 18554,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 5,
+      "family": "position_polynomial",
+      "fitted_scalars": 80,
+      "fitted_payload_bits": 5120,
+      "conditional_header_payload_bits": 5472,
+      "conditional_structure_bits": 352,
+      "standalone_bits": 20724,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 10,
+      "family": "position_polynomial",
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10896,
+      "conditional_structure_bits": 656,
+      "standalone_bits": 26148,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 20,
+      "family": "position_polynomial",
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21740,
+      "conditional_structure_bits": 1260,
+      "standalone_bits": 36992,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 1,
+      "family": "rank_values",
+      "fitted_scalars": 16,
+      "fitted_payload_bits": 1024,
+      "conditional_header_payload_bits": 1132,
+      "conditional_structure_bits": 108,
+      "standalone_bits": 16384,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 3,
+      "family": "rank_values",
+      "fitted_scalars": 48,
+      "fitted_payload_bits": 3072,
+      "conditional_header_payload_bits": 3304,
+      "conditional_structure_bits": 232,
+      "standalone_bits": 18556,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 5,
+      "family": "rank_values",
+      "fitted_scalars": 80,
+      "fitted_payload_bits": 5120,
+      "conditional_header_payload_bits": 5474,
+      "conditional_structure_bits": 354,
+      "standalone_bits": 20726,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 10,
+      "family": "rank_values",
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10898,
+      "conditional_structure_bits": 658,
+      "standalone_bits": 26150,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 16,
+      "K": 20,
+      "family": "rank_values",
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21742,
+      "conditional_structure_bits": 1262,
+      "standalone_bits": 36994,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 560,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 1,
+      "family": "fourier",
+      "fitted_scalars": 32,
+      "fitted_payload_bits": 2048,
+      "conditional_header_payload_bits": 2204,
+      "conditional_structure_bits": 156,
+      "standalone_bits": 17456,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 3,
+      "family": "fourier",
+      "fitted_scalars": 96,
+      "fitted_payload_bits": 6144,
+      "conditional_header_payload_bits": 6524,
+      "conditional_structure_bits": 380,
+      "standalone_bits": 21776,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 5,
+      "family": "fourier",
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10842,
+      "conditional_structure_bits": 602,
+      "standalone_bits": 26094,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 10,
+      "family": "fourier",
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21636,
+      "conditional_structure_bits": 1156,
+      "standalone_bits": 36888,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 20,
+      "family": "fourier",
+      "fitted_scalars": 640,
+      "fitted_payload_bits": 40960,
+      "conditional_header_payload_bits": 43220,
+      "conditional_structure_bits": 2260,
+      "standalone_bits": 58472,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 1,
+      "family": "position_polynomial",
+      "fitted_scalars": 32,
+      "fitted_payload_bits": 2048,
+      "conditional_header_payload_bits": 2206,
+      "conditional_structure_bits": 158,
+      "standalone_bits": 17458,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 3,
+      "family": "position_polynomial",
+      "fitted_scalars": 96,
+      "fitted_payload_bits": 6144,
+      "conditional_header_payload_bits": 6526,
+      "conditional_structure_bits": 382,
+      "standalone_bits": 21778,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 5,
+      "family": "position_polynomial",
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10844,
+      "conditional_structure_bits": 604,
+      "standalone_bits": 26096,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 10,
+      "family": "position_polynomial",
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21638,
+      "conditional_structure_bits": 1158,
+      "standalone_bits": 36890,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 20,
+      "family": "position_polynomial",
+      "fitted_scalars": 640,
+      "fitted_payload_bits": 40960,
+      "conditional_header_payload_bits": 43222,
+      "conditional_structure_bits": 2262,
+      "standalone_bits": 58474,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 1,
+      "family": "rank_values",
+      "fitted_scalars": 32,
+      "fitted_payload_bits": 2048,
+      "conditional_header_payload_bits": 2208,
+      "conditional_structure_bits": 160,
+      "standalone_bits": 17460,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 3,
+      "family": "rank_values",
+      "fitted_scalars": 96,
+      "fitted_payload_bits": 6144,
+      "conditional_header_payload_bits": 6528,
+      "conditional_structure_bits": 384,
+      "standalone_bits": 21780,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 5,
+      "family": "rank_values",
+      "fitted_scalars": 160,
+      "fitted_payload_bits": 10240,
+      "conditional_header_payload_bits": 10846,
+      "conditional_structure_bits": 606,
+      "standalone_bits": 26098,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 10,
+      "family": "rank_values",
+      "fitted_scalars": 320,
+      "fitted_payload_bits": 20480,
+      "conditional_header_payload_bits": 21640,
+      "conditional_structure_bits": 1160,
+      "standalone_bits": 36892,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    },
+    {
+      "source": "T23",
+      "H": 32,
+      "K": 20,
+      "family": "rank_values",
+      "fitted_scalars": 640,
+      "fitted_payload_bits": 40960,
+      "conditional_header_payload_bits": 43224,
+      "conditional_structure_bits": 2264,
+      "standalone_bits": 58476,
+      "standalone_framing_bits": 6,
+      "shared_library_bits": 15246,
+      "prediction_scalar_checks": 1120,
+      "roundtrip": true
+    }
+  ],
+  "model_forward_calls": 0,
+  "fits": 0,
+  "libraries": [
+    {
+      "name": "T7_shared_library",
+      "encoded_bits": 8453,
+      "fitted_float_count": 0,
+      "fitted_payload_bits": 0,
+      "other_code_and_structure_bits": 8453,
+      "ast_nodes": 340,
+      "float_literals": 0,
+      "syntax_sha256": "f1c21349f00354ca736945d843ca208dfdd1cf71177af1a905371d1b51ccc67c",
+      "encoded_sha256": "5974ae238f5415903f89f351a80f3970d9bd8d8f50826be5a7453910ab54946c",
+      "roundtrip": true
+    },
+    {
+      "name": "T23_shared_library",
+      "encoded_bits": 15246,
+      "fitted_float_count": 0,
+      "fitted_payload_bits": 0,
+      "other_code_and_structure_bits": 15246,
+      "ast_nodes": 587,
+      "float_literals": 0,
+      "syntax_sha256": "59a65fe85374ea97a012d3004f3e99f61df6d06034596c14b8b75c658a58a08a",
+      "encoded_sha256": "3e251661e9fcec4c4a935456188ab600a3ab1f12a543b8db3e95c1092add6471",
+      "roundtrip": true
+    }
+  ],
+  "cpu_seconds_including_imports": 0.28863138600000005,
+  "max_rss_kib": 37844,
+  "limitations": [
+    "All code lengths are upper bounds relative to the frozen Python/NumPy decoder.",
+    "Reporting names and identifier spellings are included; no shortest-code or intrinsic legibility comparison.",
+    "T23 uses seed0 coefficients for byte/dimension controls; all seeds have same frozen H*K count.",
+    "No source-model scoring, accuracy rerun, quantization or search-compute measurement."
+  ]
+}

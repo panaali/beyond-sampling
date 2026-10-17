@@ -1,0 +1,12 @@
+{
+  "failure": "First final summarize.py used builtin sum where original estimator uses sequential +=; assertion correctly refused final parity. compare.py then refused prior incomplete summary.",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "builtin_sum": 7.783343592486413,
+  "builtin_sum_hex": "0x1.f2224d29d0a8bp+2",
+  "sequential_sum": 7.783343592486414,
+  "sequential_sum_hex": "0x1.f2224d29d0a8cp+2",
+  "original_raw_sum": 7.783343592486414,
+  "original_raw_sum_hex": "0x1.f2224d29d0a8cp+2",
+  "all_components_exact": true,
+  "correction": "Use explicit original-order += loop; no component output or estimator change."
+}

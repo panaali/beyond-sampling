@@ -1,0 +1,1268 @@
+{
+  "complete": true,
+  "source_sha256": "f3ed7934fbd5be669dcbba0bef5bd7131dbe18791aaa552b38d0eb88b58495a6",
+  "code_sha256": "c6fa3b13d48e49567d96dad13df37d27cec105d9312a5efecaa533eef3030ee3",
+  "checkpoint_sha256": "83ddefeaee737c73613cdc786b01b3bb79c0007bd6c1e42a454302c4801dd146",
+  "fixtures": [
+    {
+      "name": "constant_first",
+      "chart_checks": 24,
+      "expected_prediction": 0,
+      "exact_accuracy": "1/4"
+    },
+    {
+      "name": "constant_last",
+      "chart_checks": 24,
+      "expected_prediction": 3,
+      "exact_accuracy": "1/4"
+    }
+  ],
+  "charts": [
+    {
+      "top": 0,
+      "second": 1,
+      "sign_x0": 1,
+      "analytic_mass": "5/64",
+      "outcomes": {
+        "correct": 31,
+        "wrong": 50
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "1",
+            "0",
+            "-1",
+            "-1"
+          ],
+          "history": "1100000100111111",
+          "prediction": 1,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "9008916968205/1248896673605146",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "4",
+            "3",
+            "2",
+            "2"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 0,
+      "second": 2,
+      "sign_x0": 1,
+      "analytic_mass": "5/64",
+      "outcomes": {
+        "correct": 42,
+        "wrong": 39
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "1",
+            "-1",
+            "0",
+            "-1"
+          ],
+          "history": "1100001111010001",
+          "prediction": 2,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "16449187798760193793026417763/4639991582536409428623333247174",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "4",
+            "2",
+            "3",
+            "2"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 0,
+      "second": 3,
+      "sign_x0": 1,
+      "analytic_mass": "5/64",
+      "outcomes": {
+        "correct": 35,
+        "wrong": 46
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "1",
+            "-1",
+            "-1",
+            "0"
+          ],
+          "history": "1100001111111101",
+          "prediction": 3,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "424462634155112178639247804765/1845323764478503550029347230394",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "4",
+            "2",
+            "2",
+            "3"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 1,
+      "second": 0,
+      "sign_x0": 1,
+      "analytic_mass": "11/192",
+      "outcomes": {
+        "wrong": 64,
+        "correct": 17
+      },
+      "rejections": {
+        "gate_boundary": 3
+      },
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "2",
+            "0",
+            "0"
+          ],
+          "history": "1100110000010101",
+          "prediction": 3,
+          "kind": "wrong",
+          "competitor": 2,
+          "radius_linf": "5354487946380608339051760030447/3552136269958447236220716590357026",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "4",
+            "5",
+            "3",
+            "3"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "1/4",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 1,
+      "second": 2,
+      "sign_x0": 1,
+      "analytic_mass": "1/64",
+      "outcomes": {
+        "wrong": 60,
+        "correct": 21
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "3",
+            "2",
+            "1"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "4601444473864104025149068578990436161/79321158679975161201277694510283661694",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "4",
+            "6",
+            "5",
+            "1"
+          ],
+          "history": "1100110011001100",
+          "prediction": 2,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "93839148955643072994763386670/543296883484849670652385798249",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            4,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 1,
+      "second": 3,
+      "sign_x0": 1,
+      "analytic_mass": "1/64",
+      "outcomes": {
+        "wrong": 81
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "3",
+            "1",
+            "2"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "status": "unknown"
+    },
+    {
+      "top": 2,
+      "second": 0,
+      "sign_x0": 1,
+      "analytic_mass": "11/192",
+      "outcomes": {
+        "wrong": 62,
+        "correct": 19
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "0",
+            "2",
+            "0"
+          ],
+          "history": "1100000111000001",
+          "prediction": 2,
+          "kind": "wrong",
+          "competitor": 2,
+          "radius_linf": "9008916968205/1248896673605146",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "4",
+            "3",
+            "5",
+            "3"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "1/4",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 2,
+      "second": 1,
+      "sign_x0": 1,
+      "analytic_mass": "1/64",
+      "outcomes": {
+        "wrong": 77,
+        "correct": 4
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "2",
+            "3",
+            "1"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "1",
+            "2",
+            "3",
+            "-14"
+          ],
+          "history": "1100110011000011",
+          "prediction": 1,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "1334441807234289427614642324095865845/7952193102139034179202263788508620778",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            16,
+            1
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 2,
+      "second": 3,
+      "sign_x0": 1,
+      "analytic_mass": "1/64",
+      "outcomes": {
+        "wrong": 81
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "1",
+            "3",
+            "2"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "status": "unknown"
+    },
+    {
+      "top": 3,
+      "second": 0,
+      "sign_x0": 1,
+      "analytic_mass": "11/192",
+      "outcomes": {
+        "wrong": 52,
+        "correct": 29
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "0",
+            "0",
+            "2"
+          ],
+          "history": "1100000101011100",
+          "prediction": 1,
+          "kind": "wrong",
+          "competitor": 1,
+          "radius_linf": "9008916968205/1248896673605146",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "4",
+            "3",
+            "3",
+            "5"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "1/4",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 3,
+      "second": 1,
+      "sign_x0": 1,
+      "analytic_mass": "1/64",
+      "outcomes": {
+        "wrong": 52,
+        "correct": 29
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "2",
+            "1",
+            "3"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "2371686669171383713476470844256320693/11888617337536286889597740049630034282",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "1",
+            "2",
+            "-2",
+            "3"
+          ],
+          "history": "1100110000111100",
+          "prediction": 1,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "1/4",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            4,
+            1
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 3,
+      "second": 2,
+      "sign_x0": 1,
+      "analytic_mass": "1/64",
+      "outcomes": {
+        "wrong": 67,
+        "correct": 14
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "1",
+            "1",
+            "2",
+            "3"
+          ],
+          "history": "1100110011001100",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "1",
+            "-2",
+            "2",
+            "3"
+          ],
+          "history": "1100001111001000",
+          "prediction": 2,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "30925512585162218416420312777/202525701785074928647314559598",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            4,
+            1
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 0,
+      "second": 1,
+      "sign_x0": -1,
+      "analytic_mass": "1/192",
+      "outcomes": {
+        "wrong": 80,
+        "correct": 1
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "-1",
+            "-2",
+            "-3",
+            "-3"
+          ],
+          "history": "0011111111111111",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "116923520561000458383577118571/540062334533180252649733624106",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "-1",
+            "-2",
+            "-18",
+            "-18"
+          ],
+          "history": "0011111111111111",
+          "prediction": 1,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "257051526955324492499839418881003945/6881343430259709240693570572879635282",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            16,
+            16,
+            1
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 0,
+      "second": 2,
+      "sign_x0": -1,
+      "analytic_mass": "1/192",
+      "outcomes": {
+        "correct": 37,
+        "wrong": 44
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "-3",
+            "-2",
+            "-3"
+          ],
+          "history": "0011111111111111",
+          "prediction": 2,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "10486759722428042303821662498754831/48052699588108844451888051295599010334",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-4",
+            "-6",
+            "-5",
+            "-6"
+          ],
+          "history": "0011111111111101",
+          "prediction": 3,
+          "kind": "wrong",
+          "competitor": 3,
+          "radius_linf": "2809899008571702747540263141410066598/21558180777121517807327637443732838317",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 0,
+      "second": 3,
+      "sign_x0": -1,
+      "analytic_mass": "1/192",
+      "outcomes": {
+        "correct": 41,
+        "wrong": 40
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "-3",
+            "-3",
+            "-2"
+          ],
+          "history": "0011111111111101",
+          "prediction": 3,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "72811477999298859387390724245/540062334533180252649733624106",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-1",
+            "-3",
+            "-18",
+            "-2"
+          ],
+          "history": "0011111111111111",
+          "prediction": 0,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "42336956293912623087285499755/540062334533180252649733624106",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            16,
+            1
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 1,
+      "second": 0,
+      "sign_x0": -1,
+      "analytic_mass": "5/192",
+      "outcomes": {
+        "wrong": 51,
+        "correct": 30
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "-1",
+            "0",
+            "-2",
+            "-2"
+          ],
+          "history": "0011111000111111",
+          "prediction": 1,
+          "kind": "wrong",
+          "competitor": 1,
+          "radius_linf": "157499383943/34408482717966",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "-4",
+            "-3",
+            "-5",
+            "-5"
+          ],
+          "history": "0011111111111111",
+          "prediction": 0,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "8252586491187768665614814073930579714/143296774760343535278140583440398581887",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 1,
+      "second": 2,
+      "sign_x0": -1,
+      "analytic_mass": "13/192",
+      "outcomes": {
+        "correct": 56,
+        "wrong": 25
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "1",
+            "0",
+            "-1"
+          ],
+          "history": "0011110000010011",
+          "prediction": 2,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "776535890544784935381081/316646263043242461975228238",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-16",
+            "-14",
+            "-15",
+            "-16"
+          ],
+          "history": "0011111111111101",
+          "prediction": 3,
+          "kind": "wrong",
+          "competitor": 3,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            16
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 1,
+      "second": 3,
+      "sign_x0": -1,
+      "analytic_mass": "13/192",
+      "outcomes": {
+        "correct": 50,
+        "wrong": 31
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "1",
+            "-1",
+            "0"
+          ],
+          "history": "0011110000111101",
+          "prediction": 3,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "5385672579492932407351939/221122055863294024382499578",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-4",
+            "-2",
+            "-19",
+            "-3"
+          ],
+          "history": "0011111111111111",
+          "prediction": 1,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "2451819245309764318971550138291650306/143296774760343535278140583440398581887",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            16,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 2,
+      "second": 0,
+      "sign_x0": -1,
+      "analytic_mass": "5/192",
+      "outcomes": {
+        "wrong": 76,
+        "correct": 5
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "-1",
+            "-2",
+            "0",
+            "-2"
+          ],
+          "history": "0011111111000010",
+          "prediction": 1,
+          "kind": "wrong",
+          "competitor": 1,
+          "radius_linf": "19248614750697363129249865/9690330049587808665110864018",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "correct": {
+          "x": [
+            "-4",
+            "-8",
+            "0",
+            "-5"
+          ],
+          "history": "0011111111000000",
+          "prediction": 0,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "27091579099274480006/328110227624228059965",
+          "constraint_count": 20,
+          "coefficients": [
+            4,
+            4,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 2,
+      "second": 1,
+      "sign_x0": -1,
+      "analytic_mass": "13/192",
+      "outcomes": {
+        "correct": 46,
+        "wrong": 35
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "0",
+            "1",
+            "-1"
+          ],
+          "history": "0011111010000010",
+          "prediction": 1,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "157499383943/34408482717966",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-4",
+            "-3",
+            "-2",
+            "-4"
+          ],
+          "history": "0011111111010001",
+          "prediction": 2,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "1407376673430512791155443678/275363878459190967590421038063",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 2,
+      "second": 3,
+      "sign_x0": -1,
+      "analytic_mass": "13/192",
+      "outcomes": {
+        "wrong": 81
+      },
+      "rejections": {},
+      "witnesses": {
+        "wrong": {
+          "x": [
+            "-1",
+            "-1",
+            "1",
+            "0"
+          ],
+          "history": "0011111111001000",
+          "prediction": 2,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "16923620717498275043388430977/275873679990089300132428264706",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "status": "unknown"
+    },
+    {
+      "top": 3,
+      "second": 0,
+      "sign_x0": -1,
+      "analytic_mass": "5/192",
+      "outcomes": {
+        "correct": 36,
+        "wrong": 45
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "-2",
+            "-2",
+            "0"
+          ],
+          "history": "0011111111111101",
+          "prediction": 0,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "492470523922033810854794897/17384309119273926276411600162",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-4",
+            "-5",
+            "-5",
+            "-3"
+          ],
+          "history": "0011111111111101",
+          "prediction": 3,
+          "kind": "wrong",
+          "competitor": 3,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 3,
+      "second": 1,
+      "sign_x0": -1,
+      "analytic_mass": "13/192",
+      "outcomes": {
+        "correct": 43,
+        "wrong": 38
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "0",
+            "-1",
+            "1"
+          ],
+          "history": "0011111000111101",
+          "prediction": 1,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "1462326809438403587834533358339173/4337932494573128675750854980157306678",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-4",
+            "-3",
+            "-4",
+            "-2"
+          ],
+          "history": "0011111111111101",
+          "prediction": 3,
+          "kind": "wrong",
+          "competitor": 0,
+          "radius_linf": "943284763722007015033830567001340806/11994697996423251910938296109655712317",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            4
+          ]
+        }
+      },
+      "status": "mixed_open"
+    },
+    {
+      "top": 3,
+      "second": 2,
+      "sign_x0": -1,
+      "analytic_mass": "13/192",
+      "outcomes": {
+        "correct": 52,
+        "wrong": 29
+      },
+      "rejections": {},
+      "witnesses": {
+        "correct": {
+          "x": [
+            "-1",
+            "-1",
+            "0",
+            "1"
+          ],
+          "history": "0011111111011000",
+          "prediction": 2,
+          "kind": "correct",
+          "competitor": null,
+          "radius_linf": "5007258771146963773/656220455248456119930",
+          "constraint_count": 23,
+          "coefficients": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "wrong": {
+          "x": [
+            "-16",
+            "-16",
+            "-15",
+            "-14"
+          ],
+          "history": "0011111111111101",
+          "prediction": 3,
+          "kind": "wrong",
+          "competitor": 3,
+          "radius_linf": "1/4",
+          "constraint_count": 21,
+          "coefficients": [
+            1,
+            1,
+            1,
+            16
+          ]
+        }
+      },
+      "status": "mixed_open"
+    }
+  ],
+  "random_inputs": 0,
+  "counts": {
+    "direct_network_evaluations": 1992,
+    "direct_vs_mapped_logit_checks": 1944,
+    "open_neighborhood_certificates": 1941
+  },
+  "mixed_charts": 21,
+  "mixed_chart_mass": "173/192",
+  "cpu_seconds_including_imports": 0.667074573,
+  "max_rss_kib": 56608,
+  "whole_chart_uniform_coverage_ceiling": "19/192"
+}

@@ -1,0 +1,2694 @@
+{
+  "complete": true,
+  "component": 2,
+  "mode": "cell",
+  "source_sha256": "86e992d00da89386ca9523ea8673aa675d264f8c64326255bd59d1b5b5c7adad",
+  "model_sha256": "ef22df10439aa5f65366a09e3cf1a42b3a8874bb1f7ee5eea68823bfaf52c9e9",
+  "inventory_sha256": "ad53458c946ead94aaa7382f0451d69c467884ffc5fbe404c8667565dca486e4",
+  "cell": 13,
+  "poly": 1,
+  "initial_total": 2.3063500137044342e-08,
+  "total": 1.8277645105238197e-06,
+  "total_hex": "0x1.eaa30550841e9p-20",
+  "total_type": "float",
+  "stats": {
+    "traces": 137,
+    "pieces": 129
+  },
+  "legacy_ops": 1615163,
+  "prepare_sha256": "ec27454f2ee635a208368fba6e8fb9b4db2306880511b2bc7880580a8752de74",
+  "previous_sha256": "8ad49730d51694f875edc05fe0b767119dbbea97554a8cf2ef687487b283499f",
+  "ledger": {
+    "sites": {
+      "G:L257:0.5 * (np.arctan(u) + u / (1 + u * u))": {
+        "array_Mult": 3087
+      },
+      "G:L257:1 + u * u": {
+        "array_Add": 3087
+      },
+      "G:L257:np.arctan(u)": {
+        "special_np.arctan": 3087
+      },
+      "G:L257:np.arctan(u) + u / (1 + u * u)": {
+        "array_Add": 3087
+      },
+      "G:L257:u * u": {
+        "array_Mult": 3087
+      },
+      "G:L257:u / (1 + u * u)": {
+        "array_Div": 3087
+      },
+      "__init__:L127:R @ B": {
+        "matrix_mul": 8064,
+        "matrix_add": 6048
+      },
+      "__init__:L127:R @ nn": {
+        "matrix_mul": 2688,
+        "matrix_add": 2016
+      },
+      "__init__:L128:np.abs(Rn)": {
+        "special_np.abs": 672
+      },
+      "__init__:L128:np.abs(Rn) > 1e-300": {
+        "array_compare": 672
+      },
+      "__init__:L130:-Rb": {
+        "array_USub": 2016
+      },
+      "__init__:L130:-Rb / Rn[:, None]": {
+        "array_Div": 2016
+      },
+      "__init__:L133:L @ B": {
+        "matrix_mul": 1008,
+        "matrix_add": 756
+      },
+      "__init__:L133:L @ nn": {
+        "matrix_mul": 336,
+        "matrix_add": 252
+      },
+      "_fn:L137:w @ nn": {
+        "matrix_mul": 4,
+        "matrix_add": 3
+      },
+      "_fn:L138:-(B.T @ w)": {
+        "array_USub": 3
+      },
+      "_fn:L138:-(B.T @ w) / d": {
+        "array_Div": 3
+      },
+      "_fn:L138:B.T @ w": {
+        "matrix_mul": 12,
+        "matrix_add": 9
+      },
+      "_subdivide:L291:max((float(np.arccos(np.clip(x @ y, -1, 1))) for x, y in ((a, b), (b, c), (c, a))))": {
+        "scalar_compare": 440
+      },
+      "_subdivide:L291:np.arccos(np.clip(x @ y, -1, 1))": {
+        "special_np.arccos": 660
+      },
+      "_subdivide:L291:np.clip(x @ y, -1, 1)": {
+        "array_compare": 1320
+      },
+      "_subdivide:L291:x @ y": {
+        "matrix_mul": 1980,
+        "matrix_add": 1320
+      },
+      "_subdivide:L292:e <= EMAX": {
+        "scalar_compare": 220
+      },
+      "_walk_down:L18:B @ w0": {
+        "matrix_mul": 132,
+        "matrix_add": 88
+      },
+      "_walk_down:L24:st.gal @ w0": {
+        "matrix_mul": 1056,
+        "matrix_add": 704
+      },
+      "_walk_down:L25:st.gal - f_u": {
+        "array_Sub": 1056
+      },
+      "_walk_down:L26:1 + np.abs(f_u).sum()": {
+        "scalar_Add": 11
+      },
+      "_walk_down:L26:1e-12 * (1 + np.abs(f_u).sum())": {
+        "scalar_Mult": 11
+      },
+      "_walk_down:L26:np.abs(d)": {
+        "special_np.abs": 1056
+      },
+      "_walk_down:L26:np.abs(d).sum(1)": {
+        "reduce_.sum": 704
+      },
+      "_walk_down:L26:np.abs(d).sum(1) < 1e-12 * (1 + np.abs(f_u).sum())": {
+        "array_compare": 352
+      },
+      "_walk_down:L26:np.abs(f_u)": {
+        "special_np.abs": 33
+      },
+      "_walk_down:L26:np.abs(f_u).sum()": {
+        "reduce_.sum": 22
+      },
+      "_walk_down:L26:st.ok & (np.abs(d).sum(1) < 1e-12 * (1 + np.abs(f_u).sum()))": {
+        "array_BitAnd": 352
+      },
+      "_walk_down:L27:st.ok & ~same": {
+        "array_BitAnd": 352
+      },
+      "_walk_down:L27:~same": {
+        "array_Invert": 352
+      },
+      "_walk_down:L29:m & (ug < u)": {
+        "array_BitAnd": 352
+      },
+      "_walk_down:L29:m & (ug < u) & (ug > u_bound)": {
+        "array_BitAnd": 352
+      },
+      "_walk_down:L29:ug < u": {
+        "array_compare": 352
+      },
+      "_walk_down:L29:ug > u_bound": {
+        "array_compare": 352
+      },
+      "_walk_down:L31:ahead.any()": {
+        "reduce_.any": 341
+      },
+      "_walk_down:L32:np.argmax(ug[idx])": {
+        "reduce_np.argmax": 4
+      },
+      "_walk_down:L33:st.gal[kk] - fb": {
+        "array_Sub": 18
+      },
+      "_walk_down:L34:idx != kk": {
+        "array_compare": 10
+      },
+      "_walk_down:L35:st.gal[o] - f_next": {
+        "array_Sub": 12
+      },
+      "_walk_down:L38:m & (ug < u)": {
+        "array_BitAnd": 160
+      },
+      "_walk_down:L38:ug < u": {
+        "array_compare": 160
+      },
+      "_walk_down:L39:st.gal[o] - fb": {
+        "array_Sub": 354
+      },
+      "_walk_down:L40:st.Lb @ w0": {
+        "matrix_mul": 132,
+        "matrix_add": 88
+      },
+      "_walk_down:L44:dcl == truth": {
+        "integer_control_compare": 44
+      },
+      "_walk_down:L46:b[dcl] - b[truth]": {
+        "scalar_Sub": 33
+      },
+      "_walk_down:L47:abs(den)": {
+        "special_abs": 33
+      },
+      "_walk_down:L47:abs(den) < 1e-300": {
+        "scalar_compare": 33
+      },
+      "_walk_down:L49:(st.Lb[truth] - st.Lb[dcl]) / den": {
+        "array_Div": 99
+      },
+      "_walk_down:L49:st.Lb[truth] - st.Lb[dcl]": {
+        "array_Sub": 99
+      },
+      "_walk_down:L50:fd - f_u": {
+        "array_Sub": 99
+      },
+      "_walk_down:L50:fd - fv(f_next)": {
+        "array_Sub": 99
+      },
+      "_walk_down:L51:fd @ w0": {
+        "matrix_mul": 99,
+        "matrix_add": 66
+      },
+      "_walk_down:L52:unext < v < u": {
+        "scalar_compare": 55
+      },
+      "_walk_down:L54:len(edges) > 1": {
+        "integer_control_compare": 11
+      },
+      "_walk_down:L58:-e[0]": {
+        "scalar_USub": 1
+      },
+      "_walk_down:L61:len(seq) - 1": {
+        "integer_control_Sub": 11
+      },
+      "_walk_down:L62:0.5 * (seq[q][0] + seq[q + 1][0])": {
+        "scalar_Mult": 12
+      },
+      "_walk_down:L62:q + 1": {
+        "integer_control_Add": 12
+      },
+      "_walk_down:L62:seq[q][0] + seq[q + 1][0]": {
+        "scalar_Add": 12
+      },
+      "_walk_down:L63:a + vm * b": {
+        "array_Add": 48
+      },
+      "_walk_down:L63:np.argmax(a + vm * b)": {
+        "reduce_np.argmax": 36
+      },
+      "_walk_down:L63:vm * b": {
+        "array_Mult": 48
+      },
+      "_walk_down:L64:cls == truth": {
+        "integer_control_compare": 12
+      },
+      "_walk_down:L67:stop > 0": {
+        "integer_control_compare": 11
+      },
+      "_walk_down:L69:kk >= 0": {
+        "integer_control_compare": 1
+      },
+      "clip:L41:np.linalg.norm(n)": {
+        "norm_mul": 96654,
+        "norm_add": 64436,
+        "special_sqrt": 32218
+      },
+      "clip:L42:float(n @ v) / nn_": {
+        "scalar_Div": 117533
+      },
+      "clip:L42:n @ v": {
+        "matrix_mul": 352599,
+        "matrix_add": 235066
+      },
+      "clip:L45:-EPS": {
+        "scalar_USub": 32218
+      },
+      "clip:L45:min(s)": {
+        "scalar_compare": 85315
+      },
+      "clip:L45:min(s) >= -EPS": {
+        "scalar_compare": 32218
+      },
+      "clip:L47:max(s)": {
+        "scalar_compare": 386
+      },
+      "clip:L47:max(s) <= EPS": {
+        "scalar_compare": 136
+      },
+      "clip:L52:(i + 1) % m": {
+        "integer_control_Mod": 522
+      },
+      "clip:L52:i + 1": {
+        "integer_control_Add": 522
+      },
+      "clip:L54:abs(si)": {
+        "special_abs": 522
+      },
+      "clip:L54:abs(si) < EPS": {
+        "scalar_compare": 522
+      },
+      "clip:L55:abs(sj)": {
+        "special_abs": 522
+      },
+      "clip:L55:abs(sj) < EPS": {
+        "scalar_compare": 522
+      },
+      "clip:L56:si >= 0": {
+        "scalar_compare": 522
+      },
+      "clip:L58:si <= 0": {
+        "scalar_compare": 522
+      },
+      "clip:L60:si < 0": {
+        "scalar_compare": 402
+      },
+      "clip:L60:si > 0": {
+        "scalar_compare": 522
+      },
+      "clip:L60:sj < 0": {
+        "scalar_compare": 270
+      },
+      "clip:L60:sj > 0": {
+        "scalar_compare": 216
+      },
+      "clip:L61:abs(si)": {
+        "special_abs": 236
+      },
+      "clip:L61:abs(si) * poly[j]": {
+        "array_Mult": 708
+      },
+      "clip:L61:abs(si) * poly[j] + abs(sj) * vi": {
+        "array_Add": 708
+      },
+      "clip:L61:abs(sj)": {
+        "special_abs": 236
+      },
+      "clip:L61:abs(sj) * vi": {
+        "array_Mult": 708
+      },
+      "clip:L62:np.linalg.norm(p)": {
+        "norm_mul": 708,
+        "norm_add": 472,
+        "special_sqrt": 236
+      },
+      "clip:L62:p / np.linalg.norm(p)": {
+        "array_Div": 708
+      },
+      "clip:L66:len(ins) >= 3": {
+        "integer_control_compare": 136
+      },
+      "clip:L66:len(out) >= 3": {
+        "integer_control_compare": 136
+      },
+      "face_err:L107:np.linalg.norm(w)": {
+        "norm_mul": 3,
+        "norm_add": 2,
+        "special_sqrt": 1
+      },
+      "face_err:L107:np.mean(cell, 0)": {
+        "mean_add": 9,
+        "mean_div": 3
+      },
+      "face_err:L107:w /= np.linalg.norm(w)": {
+        "array_Div": 3
+      },
+      "face_err:L109:B @ w": {
+        "matrix_mul": 12,
+        "matrix_add": 8
+      },
+      "face_err:L113:np.linalg.norm(w0)": {
+        "norm_mul": 411,
+        "norm_add": 274,
+        "special_sqrt": 137
+      },
+      "face_err:L113:np.mean(cur, 0)": {
+        "mean_add": 1065,
+        "mean_div": 411
+      },
+      "face_err:L113:w0 /= np.linalg.norm(w0)": {
+        "array_Div": 411
+      },
+      "face_err:L115:stats['traces'] += 1": {
+        "integer_control_Add": 137
+      },
+      "face_err:L117:C @ w0": {
+        "matrix_mul": 98370,
+        "matrix_add": 65580
+      },
+      "face_err:L118:np.abs(C)": {
+        "special_np.abs": 98370
+      },
+      "face_err:L118:np.abs(C).sum(1)": {
+        "reduce_.sum": 65580
+      },
+      "face_err:L118:np.abs(C).sum(1) > 1e-13": {
+        "array_compare": 32790
+      },
+      "face_err:L120:-c": {
+        "array_USub": 31854
+      },
+      "face_err:L120:s > 0": {
+        "scalar_compare": 32218
+      },
+      "face_err:L134:tot += F4.poly_int(cur, fns, sg, ops)": {
+        "scalar_Add": 129
+      },
+      "face_err:L135:stats['pieces'] += 1": {
+        "integer_control_Add": 129
+      },
+      "guarded_clip:L4:np.all(np.asarray(n) == 0)": {
+        "reduce_np.all": 64436
+      },
+      "guarded_clip:L4:np.asarray(n) == 0": {
+        "array_compare": 96654
+      },
+      "poly_int:L305:len(poly) < 3": {
+        "integer_control_compare": 129
+      },
+      "poly_int:L310:F @ VA": {
+        "matrix_mul": 609,
+        "matrix_add": 406
+      },
+      "poly_int:L310:F @ VA @ sg": {
+        "matrix_mul": 203,
+        "matrix_add": 74
+      },
+      "poly_int:L312:G(u) - u": {
+        "array_Sub": 3087
+      },
+      "poly_int:L317:len(poly) - 1": {
+        "integer_control_Sub": 129
+      },
+      "poly_int:L318:q + 1": {
+        "integer_control_Add": 220
+      },
+      "poly_int:L321:np.abs(np.array([v0, v1, v2]) @ F.T)": {
+        "special_np.abs": 1029
+      },
+      "poly_int:L321:np.array([v0, v1, v2]) @ F.T": {
+        "matrix_mul": 3087,
+        "matrix_add": 2058
+      },
+      "poly_int:L321:np.max(np.abs(np.array([v0, v1, v2]) @ F.T))": {
+        "reduce_np.max": 809
+      },
+      "poly_int:L322:um <= 0.1": {
+        "scalar_compare": 220
+      },
+      "poly_int:L324:np.cross(v1, v2)": {
+        "cross_mul": 1320,
+        "cross_sub": 660
+      },
+      "poly_int:L324:np.dot(v0, np.cross(v1, v2))": {
+        "dot_mul": 660,
+        "dot_add": 440
+      },
+      "poly_int:L325:abs(det)": {
+        "special_abs": 220
+      },
+      "poly_int:L325:abs(det) < 1e-18": {
+        "scalar_compare": 220
+      },
+      "poly_int:L327:S_[:, None] * (v1 - v0)[None]": {
+        "array_Mult": 5940
+      },
+      "poly_int:L327:T_[:, None] * (v2 - v0)[None]": {
+        "array_Mult": 5940
+      },
+      "poly_int:L327:v0[None] + S_[:, None] * (v1 - v0)[None]": {
+        "array_Add": 5940
+      },
+      "poly_int:L327:v0[None] + S_[:, None] * (v1 - v0)[None] + T_[:, None] * (v2 - v0)[None]": {
+        "array_Add": 5940
+      },
+      "poly_int:L327:v1 - v0": {
+        "array_Sub": 660
+      },
+      "poly_int:L327:v2 - v0": {
+        "array_Sub": 660
+      },
+      "poly_int:L328:(W * W).sum(1)": {
+        "reduce_.sum": 3960
+      },
+      "poly_int:L328:W * W": {
+        "array_Mult": 5940
+      },
+      "poly_int:L328:np.sqrt((W * W).sum(1))": {
+        "special_np.sqrt": 1980
+      },
+      "poly_int:L329:W @ F.T": {
+        "matrix_mul": 9261,
+        "matrix_add": 6174
+      },
+      "poly_int:L329:W @ F.T / r[:, None]": {
+        "array_Div": 3087
+      },
+      "poly_int:L330:abs(det)": {
+        "special_abs": 220
+      },
+      "poly_int:L330:abs(det) * float(g(U) @ sg / r ** 3 @ W_)": {
+        "scalar_Mult": 220
+      },
+      "poly_int:L330:g(U) @ sg": {
+        "matrix_mul": 3087,
+        "matrix_add": 1107
+      },
+      "poly_int:L330:g(U) @ sg / r ** 3": {
+        "array_Div": 1980
+      },
+      "poly_int:L330:g(U) @ sg / r ** 3 @ W_": {
+        "matrix_mul": 1980,
+        "matrix_add": 1760
+      },
+      "poly_int:L330:r ** 3": {
+        "array_Pow": 1980
+      },
+      "poly_int:L330:tot += abs(det) * float(g(U) @ sg / r ** 3 @ W_)": {
+        "scalar_Add": 220
+      },
+      "rows_at:L44:t > 0": {
+        "integer_control_compare": 84
+      },
+      "rows_at:L45:A[:, t] += Wi": {
+        "array_Add": 504
+      },
+      "rows_at:L45:Wh @ Ag": {
+        "matrix_mul": 16128,
+        "matrix_add": 14112
+      },
+      "rows_at:L47:A @ x": {
+        "matrix_mul": 2688,
+        "matrix_add": 2016
+      },
+      "rows_at:L47:A @ x > 0": {
+        "array_compare": 672
+      },
+      "rows_at:L48:A * g[:, None]": {
+        "array_Mult": 2688
+      },
+      "rows_at:L49:Wo @ Ag": {
+        "matrix_mul": 2688,
+        "matrix_add": 2352
+      },
+      "rows_at:L50:g.any()": {
+        "reduce_.any": 147
+      },
+      "trace:L144:B @ w0": {
+        "matrix_mul": 1644,
+        "matrix_add": 1096
+      },
+      "trace:L147:c @ w0": {
+        "matrix_mul": 411,
+        "matrix_add": 274
+      },
+      "trace:L147:np.argmin(cv)": {
+        "reduce_np.argmin": 0
+      },
+      "trace:L148:q != ic": {
+        "integer_control_compare": 137
+      },
+      "trace:L152:st.gal @ w0": {
+        "matrix_mul": 58368,
+        "matrix_add": 38912
+      },
+      "trace:L156:st.ok & (ug > 1e-15)": {
+        "array_BitAnd": 4384
+      },
+      "trace:L156:ug > 1e-15": {
+        "array_compare": 4384
+      },
+      "trace:L159:st.gal - f_u": {
+        "array_Sub": 45216
+      },
+      "trace:L160:1 + np.abs(f_u).sum()": {
+        "scalar_Add": 471
+      },
+      "trace:L160:1e-12 * (1 + np.abs(f_u).sum())": {
+        "scalar_Mult": 471
+      },
+      "trace:L160:np.abs(d)": {
+        "special_np.abs": 45216
+      },
+      "trace:L160:np.abs(d).sum(1)": {
+        "reduce_.sum": 30144
+      },
+      "trace:L160:np.abs(d).sum(1) < 1e-12 * (1 + np.abs(f_u).sum())": {
+        "array_compare": 15072
+      },
+      "trace:L160:np.abs(f_u)": {
+        "special_np.abs": 1413
+      },
+      "trace:L160:np.abs(f_u).sum()": {
+        "reduce_.sum": 942
+      },
+      "trace:L160:st.ok & (np.abs(d).sum(1) < 1e-12 * (1 + np.abs(f_u).sum()))": {
+        "array_BitAnd": 15072
+      },
+      "trace:L161:st.ok & ~same": {
+        "array_BitAnd": 15072
+      },
+      "trace:L161:st.ok & ~same & (ug > u)": {
+        "array_BitAnd": 15072
+      },
+      "trace:L161:ug > u": {
+        "array_compare": 15072
+      },
+      "trace:L161:~same": {
+        "array_Invert": 15072
+      },
+      "trace:L162:st.ok & ~same": {
+        "array_BitAnd": 15072
+      },
+      "trace:L162:~same": {
+        "array_Invert": 15072
+      },
+      "trace:L163:ahead.any()": {
+        "reduce_.any": 18848
+      },
+      "trace:L164:np.argmin(ug[idx])": {
+        "reduce_np.argmin": 9505
+      },
+      "trace:L165:unext >= ucl": {
+        "scalar_compare": 608
+      },
+      "trace:L167:ahead.any()": {
+        "reduce_.any": 3906
+      },
+      "trace:L168:st.gal[ahead] - fcl": {
+        "array_Sub": 4920
+      },
+      "trace:L171:fcl - f_next": {
+        "array_Sub": 1446
+      },
+      "trace:L173:o != kk": {
+        "array_compare": 8473
+      },
+      "trace:L174:st.gal[o] - f_next": {
+        "array_Sub": 23973
+      },
+      "trace:L175:st.Lb @ w0": {
+        "matrix_mul": 7296,
+        "matrix_add": 4864
+      },
+      "trace:L179:dcl == truth": {
+        "integer_control_compare": 2432
+      },
+      "trace:L181:b[dcl] - b[truth]": {
+        "scalar_Sub": 1824
+      },
+      "trace:L182:abs(den)": {
+        "special_abs": 1824
+      },
+      "trace:L182:abs(den) < 1e-300": {
+        "scalar_compare": 1824
+      },
+      "trace:L184:(st.Lb[truth] - st.Lb[dcl]) / den": {
+        "array_Div": 5472
+      },
+      "trace:L184:st.Lb[truth] - st.Lb[dcl]": {
+        "array_Sub": 5472
+      },
+      "trace:L185:fd - f_next": {
+        "array_Sub": 5472
+      },
+      "trace:L185:fd - f_u": {
+        "array_Sub": 4239
+      },
+      "trace:L186:fd @ w0": {
+        "matrix_mul": 5472,
+        "matrix_add": 3648
+      },
+      "trace:L187:u < v < unext": {
+        "scalar_compare": 2833
+      },
+      "trace:L189:len(edges) > 2": {
+        "integer_control_compare": 608
+      },
+      "trace:L191:x + 1": {
+        "integer_control_Add": 60
+      },
+      "trace:L192:edges[x][1] - edges[y][1]": {
+        "array_Sub": 90
+      },
+      "trace:L193:edges.sort(key=lambda e: e[0])": {
+        "sort_compare": 269
+      },
+      "trace:L218:len(edges) - 1": {
+        "integer_control_Sub": 608
+      },
+      "trace:L219:0.5 * (edges[q][0] + edges[q + 1][0])": {
+        "scalar_Mult": 843
+      },
+      "trace:L219:edges[q][0] + edges[q + 1][0]": {
+        "scalar_Add": 843
+      },
+      "trace:L219:q + 1": {
+        "integer_control_Add": 843
+      },
+      "trace:L220:a + vm * b": {
+        "array_Add": 3372
+      },
+      "trace:L220:np.argmax(a + vm * b)": {
+        "reduce_np.argmax": 2529
+      },
+      "trace:L220:vm * b": {
+        "array_Mult": 3372
+      },
+      "trace:L221:cls != truth": {
+        "integer_control_compare": 843
+      },
+      "trace:L222:q + 1": {
+        "integer_control_Add": 672
+      },
+      "trace:L224:0.5 * (edges[q][0] + edges[q + 1][0])": {
+        "scalar_Mult": 636
+      },
+      "trace:L224:0.5 * (edges[q][0] + edges[q + 1][0]) * b": {
+        "array_Mult": 2544
+      },
+      "trace:L224:a + 0.5 * (edges[q][0] + edges[q + 1][0]) * b": {
+        "array_Add": 2544
+      },
+      "trace:L224:all((int(np.argmax(a + 0.5 * (edges[q][0] + edges[q + 1][0]) * b)) == truth if st.live else truth == 0 for q in range(len(edges) - 1)))": {
+        "integer_control_reduce_all": 28
+      },
+      "trace:L224:edges[q][0] + edges[q + 1][0]": {
+        "scalar_Add": 636
+      },
+      "trace:L224:int(np.argmax(a + 0.5 * (edges[q][0] + edges[q + 1][0]) * b)) == truth": {
+        "integer_control_compare": 636
+      },
+      "trace:L224:np.argmax(a + 0.5 * (edges[q][0] + edges[q + 1][0]) * b)": {
+        "reduce_np.argmax": 1908
+      },
+      "trace:L224:q + 1": {
+        "integer_control_Add": 636
+      },
+      "trace:L225:len(edges) - 1": {
+        "integer_control_Sub": 608
+      },
+      "trace:L226:n_ok + 1": {
+        "integer_control_Add": 79
+      },
+      "trace:L229:cls_end == truth": {
+        "integer_control_compare": 482
+      },
+      "trace:L229:kk < 0": {
+        "integer_control_compare": 608
+      },
+      "trace:L229:look <= 1": {
+        "integer_control_compare": 104
+      },
+      "trace:L229:n_ok >= look": {
+        "integer_control_compare": 104
+      },
+      "trace:L233:(unext * (1 + 1e-09) + 1e-12) * nn_": {
+        "array_Mult": 36
+      },
+      "trace:L233:p + (unext * (1 + 1e-09) + 1e-12) * nn_": {
+        "array_Add": 36
+      },
+      "trace:L233:unext * (1 + 1e-09)": {
+        "scalar_Mult": 9
+      },
+      "trace:L233:unext * (1 + 1e-09) + 1e-12": {
+        "scalar_Add": 9
+      },
+      "trace:L236:c.ndim == 2": {
+        "integer_control_compare": 5376
+      },
+      "trace_F2L2:L89:c @ w0": {
+        "matrix_mul": 411,
+        "matrix_add": 274
+      },
+      "trace_F2L2:L89:np.argmin(cv)": {
+        "reduce_np.argmin": 0
+      },
+      "trace_F2L2:L91:ucl <= 0": {
+        "scalar_compare": 137
+      },
+      "trace_F2L2:L93:B @ w0": {
+        "matrix_mul": 132,
+        "matrix_add": 88
+      },
+      "trace_F2L2:L93:B @ w0 + ucl * (1 - 1e-09) * nn": {
+        "array_Add": 44
+      },
+      "trace_F2L2:L93:ucl * (1 - 1e-09)": {
+        "scalar_Mult": 11
+      },
+      "trace_F2L2:L93:ucl * (1 - 1e-09) * nn": {
+        "array_Mult": 44
+      },
+      "trace_F2L2:L97:c.ndim == 2": {
+        "integer_control_compare": 102
+      },
+      "vec_area:L277:(q + 1) % len(poly)": {
+        "integer_control_Mod": 478
+      },
+      "vec_area:L277:q + 1": {
+        "integer_control_Add": 478
+      },
+      "vec_area:L278:math.sqrt(x @ x)": {
+        "special_math.sqrt": 478
+      },
+      "vec_area:L278:np.cross(a, b)": {
+        "cross_mul": 2868,
+        "cross_sub": 1434
+      },
+      "vec_area:L278:x @ x": {
+        "matrix_mul": 1434,
+        "matrix_add": 956
+      },
+      "vec_area:L279:s < 1e-300": {
+        "scalar_compare": 478
+      },
+      "vec_area:L281:0.5 * math.atan2(s, a @ b)": {
+        "scalar_Mult": 478
+      },
+      "vec_area:L281:0.5 * math.atan2(s, a @ b) / s": {
+        "scalar_Div": 478
+      },
+      "vec_area:L281:0.5 * math.atan2(s, a @ b) / s * x": {
+        "array_Mult": 1434
+      },
+      "vec_area:L281:A += 0.5 * math.atan2(s, a @ b) / s * x": {
+        "array_Add": 1434
+      },
+      "vec_area:L281:a @ b": {
+        "matrix_mul": 1434,
+        "matrix_add": 956
+      },
+      "vec_area:L281:math.atan2(s, a @ b)": {
+        "special_math.atan2": 478
+      },
+      "vec_area:L283:-A": {
+        "array_USub": 387
+      },
+      "vec_area:L283:A @ poly[0]": {
+        "matrix_mul": 387,
+        "matrix_add": 258
+      },
+      "vec_area:L283:A @ poly[0] + A @ poly[1]": {
+        "scalar_Add": 129
+      },
+      "vec_area:L283:A @ poly[0] + A @ poly[1] > 0": {
+        "scalar_compare": 129
+      },
+      "vec_area:L283:A @ poly[1]": {
+        "matrix_mul": 387,
+        "matrix_add": 258
+      }
+    },
+    "totals": {
+      "array_Add": 26744,
+      "array_BitAnd": 66240,
+      "array_Div": 16866,
+      "array_Invert": 30496,
+      "array_Mult": 35576,
+      "array_Pow": 1980,
+      "array_Sub": 96972,
+      "array_USub": 34260,
+      "array_compare": 176335,
+      "cross_mul": 4188,
+      "cross_sub": 2094,
+      "dot_add": 440,
+      "dot_mul": 660,
+      "integer_control_Add": 3788,
+      "integer_control_Mod": 1000,
+      "integer_control_Sub": 1356,
+      "integer_control_compare": 11996,
+      "integer_control_reduce_all": 28,
+      "matrix_add": 393647,
+      "matrix_mul": 583599,
+      "mean_add": 1074,
+      "mean_div": 414,
+      "norm_add": 65184,
+      "norm_mul": 97776,
+      "reduce_.any": 23242,
+      "reduce_.sum": 101352,
+      "reduce_np.all": 64436,
+      "reduce_np.argmax": 4477,
+      "reduce_np.argmin": 9505,
+      "reduce_np.max": 809,
+      "scalar_Add": 2460,
+      "scalar_Div": 118011,
+      "scalar_Mult": 2691,
+      "scalar_Sub": 1857,
+      "scalar_USub": 32219,
+      "scalar_compare": 160968,
+      "sort_compare": 269,
+      "special_abs": 3813,
+      "special_math.atan2": 478,
+      "special_math.sqrt": 478,
+      "special_np.abs": 147789,
+      "special_np.arccos": 660,
+      "special_np.arctan": 3087,
+      "special_np.sqrt": 1980,
+      "special_sqrt": 32592
+    },
+    "named_numeric_total": 2347718,
+    "integer_control_total": 18168,
+    "complete_implementation_cost": false,
+    "inclusive_explicit_total": 2365886,
+    "opaque_calls": [],
+    "memory_calls": [
+      {
+        "key": [
+          "__init__:L129:np.errstate(divide='ignore', invalid='ignore')",
+          "np.errstate",
+          "context manager",
+          "context manager"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "__init__:L130:np.where(ok[:, None], -Rb / Rn[:, None], 0.0)",
+          "np.where",
+          "(32, 1)",
+          "(32, 3)"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "_walk_down:L20:np.zeros(3)",
+          "np.zeros",
+          "()",
+          "(3,)"
+        ],
+        "count": 11
+      },
+      {
+        "key": [
+          "_walk_down:L32:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(1,)"
+        ],
+        "count": 3
+      },
+      {
+        "key": [
+          "_walk_down:L32:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(2,)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "_walk_down:L32:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(3,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_walk_down:L38:np.flatnonzero(m & (ug < u))",
+          "np.flatnonzero",
+          "(32,)",
+          "(19,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_walk_down:L38:np.flatnonzero(m & (ug < u))",
+          "np.flatnonzero",
+          "(32,)",
+          "(23,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_walk_down:L38:np.flatnonzero(m & (ug < u))",
+          "np.flatnonzero",
+          "(32,)",
+          "(24,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_walk_down:L38:np.flatnonzero(m & (ug < u))",
+          "np.flatnonzero",
+          "(32,)",
+          "(26,)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "guarded_clip:L4:np.asarray(n)",
+          "np.asarray",
+          "(3,)",
+          "(3,)"
+        ],
+        "count": 32218
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(fns)",
+          "np.array",
+          "(1, 3)",
+          "(1, 3)"
+        ],
+        "count": 90
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(fns)",
+          "np.array",
+          "(2, 3)",
+          "(2, 3)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(fns)",
+          "np.array",
+          "(3, 3)",
+          "(3, 3)"
+        ],
+        "count": 32
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(fns)",
+          "np.array",
+          "(5, 3)",
+          "(5, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(signs)",
+          "np.array",
+          "(1,)",
+          "(1,)"
+        ],
+        "count": 90
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(signs)",
+          "np.array",
+          "(2,)",
+          "(2,)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(signs)",
+          "np.array",
+          "(3,)",
+          "(3,)"
+        ],
+        "count": 32
+      },
+      {
+        "key": [
+          "poly_int:L307:np.array(signs)",
+          "np.array",
+          "(5,)",
+          "(5,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "poly_int:L321:np.array([v0, v1, v2])",
+          "np.array",
+          "(3, 3)",
+          "(3, 3)"
+        ],
+        "count": 220
+      },
+      {
+        "key": [
+          "rows_at:L41:np.zeros((H, T))",
+          "np.zeros",
+          "(2,)",
+          "(8, 4)"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "rows_at:L50:np.vstack(R)",
+          "np.vstack",
+          "(4, 8, 4)",
+          "(32, 4)"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(13,)"
+        ],
+        "count": 76
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(18,)"
+        ],
+        "count": 20
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(19,)"
+        ],
+        "count": 237
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(21,)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(22,)"
+        ],
+        "count": 137
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(6,)"
+        ],
+        "count": 24
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(8,)"
+        ],
+        "count": 42
+      },
+      {
+        "key": [
+          "trace:L164:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(9,)"
+        ],
+        "count": 62
+      },
+      {
+        "key": [
+          "trace:L173:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(13,)"
+        ],
+        "count": 65
+      },
+      {
+        "key": [
+          "trace:L173:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(19,)"
+        ],
+        "count": 200
+      },
+      {
+        "key": [
+          "trace:L173:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(21,)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "trace:L173:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(22,)"
+        ],
+        "count": 137
+      },
+      {
+        "key": [
+          "trace:L173:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(8,)"
+        ],
+        "count": 26
+      },
+      {
+        "key": [
+          "trace:L173:np.flatnonzero(ahead)",
+          "np.flatnonzero",
+          "(32,)",
+          "(9,)"
+        ],
+        "count": 44
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(172, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(350, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(307, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (9, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(262, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (13, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(216, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(215, 3)"
+        ],
+        "count": 3
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(350, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(261, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(350, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(306, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(349, 3)"
+        ],
+        "count": 18
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(306, 3)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (9, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(261, 3)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (13, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(215, 3)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(171, 3)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(172, 3)"
+        ],
+        "count": 16
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (20, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "trace:L237:np.vstack(C)",
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(116, 3)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(211, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(212, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (1, 3), (2, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(213, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(229, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((215, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(254, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((215, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(255, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((215, 3), (32, 3), (23, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(276, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((261, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(300, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((261, 3), (32, 3), (24, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(323, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "trace_F2L2:L97:np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)])",
+          "np.vstack",
+          "('heterogeneous', ((306, 3), (32, 3), (26, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(370, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "vec_area:L275:np.zeros(3)",
+          "np.zeros",
+          "()",
+          "(3,)"
+        ],
+        "count": 129
+      }
+    ],
+    "native_calls": [
+      {
+        "key": [
+          ".any",
+          "(32,)",
+          "()"
+        ],
+        "count": 745
+      },
+      {
+        "key": [
+          ".any",
+          "(8,)",
+          "()"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          ".sum",
+          "(116, 3)",
+          "(116,)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          ".sum",
+          "(171, 3)",
+          "(171,)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          ".sum",
+          "(172, 3)",
+          "(172,)"
+        ],
+        "count": 16
+      },
+      {
+        "key": [
+          ".sum",
+          "(173, 3)",
+          "(173,)"
+        ],
+        "count": 24
+      },
+      {
+        "key": [
+          ".sum",
+          "(211, 3)",
+          "(211,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(212, 3)",
+          "(212,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(213, 3)",
+          "(213,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(215, 3)",
+          "(215,)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          ".sum",
+          "(216, 3)",
+          "(216,)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          ".sum",
+          "(229, 3)",
+          "(229,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(254, 3)",
+          "(254,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(255, 3)",
+          "(255,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(261, 3)",
+          "(261,)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          ".sum",
+          "(262, 3)",
+          "(262,)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          ".sum",
+          "(276, 3)",
+          "(276,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(3,)",
+          "()"
+        ],
+        "count": 482
+      },
+      {
+        "key": [
+          ".sum",
+          "(300, 3)",
+          "(300,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(306, 3)",
+          "(306,)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          ".sum",
+          "(307, 3)",
+          "(307,)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          ".sum",
+          "(32, 3)",
+          "(32,)"
+        ],
+        "count": 482
+      },
+      {
+        "key": [
+          ".sum",
+          "(323, 3)",
+          "(323,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(349, 3)",
+          "(349,)"
+        ],
+        "count": 18
+      },
+      {
+        "key": [
+          ".sum",
+          "(350, 3)",
+          "(350,)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          ".sum",
+          "(370, 3)",
+          "(370,)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          ".sum",
+          "(9, 3)",
+          "(9,)"
+        ],
+        "count": 220
+      },
+      {
+        "key": [
+          "abs",
+          "()",
+          "()"
+        ],
+        "count": 3813
+      },
+      {
+        "key": [
+          "math.atan2",
+          "()",
+          "()"
+        ],
+        "count": 478
+      },
+      {
+        "key": [
+          "math.sqrt",
+          "()",
+          "()"
+        ],
+        "count": 478
+      },
+      {
+        "key": [
+          "np.abs",
+          "(116, 3)",
+          "(116, 3)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          "np.abs",
+          "(171, 3)",
+          "(171, 3)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "np.abs",
+          "(172, 3)",
+          "(172, 3)"
+        ],
+        "count": 16
+      },
+      {
+        "key": [
+          "np.abs",
+          "(173, 3)",
+          "(173, 3)"
+        ],
+        "count": 24
+      },
+      {
+        "key": [
+          "np.abs",
+          "(211, 3)",
+          "(211, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(212, 3)",
+          "(212, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(213, 3)",
+          "(213, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(215, 3)",
+          "(215, 3)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          "np.abs",
+          "(216, 3)",
+          "(216, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.abs",
+          "(229, 3)",
+          "(229, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(254, 3)",
+          "(254, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(255, 3)",
+          "(255, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(261, 3)",
+          "(261, 3)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          "np.abs",
+          "(262, 3)",
+          "(262, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.abs",
+          "(276, 3)",
+          "(276, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(3, 1)",
+          "(3, 1)"
+        ],
+        "count": 155
+      },
+      {
+        "key": [
+          "np.abs",
+          "(3, 2)",
+          "(3, 2)"
+        ],
+        "count": 9
+      },
+      {
+        "key": [
+          "np.abs",
+          "(3, 3)",
+          "(3, 3)"
+        ],
+        "count": 55
+      },
+      {
+        "key": [
+          "np.abs",
+          "(3, 5)",
+          "(3, 5)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(3,)",
+          "(3,)"
+        ],
+        "count": 482
+      },
+      {
+        "key": [
+          "np.abs",
+          "(300, 3)",
+          "(300, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(306, 3)",
+          "(306, 3)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          "np.abs",
+          "(307, 3)",
+          "(307, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.abs",
+          "(32, 3)",
+          "(32, 3)"
+        ],
+        "count": 482
+      },
+      {
+        "key": [
+          "np.abs",
+          "(32,)",
+          "(32,)"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "np.abs",
+          "(323, 3)",
+          "(323, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.abs",
+          "(349, 3)",
+          "(349, 3)"
+        ],
+        "count": 18
+      },
+      {
+        "key": [
+          "np.abs",
+          "(350, 3)",
+          "(350, 3)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "np.abs",
+          "(370, 3)",
+          "(370, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.all",
+          "(3,)",
+          "()"
+        ],
+        "count": 32218
+      },
+      {
+        "key": [
+          "np.arccos",
+          "()",
+          "()"
+        ],
+        "count": 660
+      },
+      {
+        "key": [
+          "np.arctan",
+          "(9, 1)",
+          "(9, 1)"
+        ],
+        "count": 155
+      },
+      {
+        "key": [
+          "np.arctan",
+          "(9, 2)",
+          "(9, 2)"
+        ],
+        "count": 9
+      },
+      {
+        "key": [
+          "np.arctan",
+          "(9, 3)",
+          "(9, 3)"
+        ],
+        "count": 55
+      },
+      {
+        "key": [
+          "np.arctan",
+          "(9, 5)",
+          "(9, 5)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.argmax",
+          "(1,)",
+          "()"
+        ],
+        "count": 3
+      },
+      {
+        "key": [
+          "np.argmax",
+          "(2,)",
+          "()"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.argmax",
+          "(3,)",
+          "()"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.argmax",
+          "(4,)",
+          "()"
+        ],
+        "count": 1491
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(1,)",
+          "()"
+        ],
+        "count": 274
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(13,)",
+          "()"
+        ],
+        "count": 76
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(18,)",
+          "()"
+        ],
+        "count": 20
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(19,)",
+          "()"
+        ],
+        "count": 237
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(21,)",
+          "()"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(22,)",
+          "()"
+        ],
+        "count": 137
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(6,)",
+          "()"
+        ],
+        "count": 24
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(8,)",
+          "()"
+        ],
+        "count": 42
+      },
+      {
+        "key": [
+          "np.argmin",
+          "(9,)",
+          "()"
+        ],
+        "count": 62
+      },
+      {
+        "key": [
+          "np.array",
+          "(1, 3)",
+          "(1, 3)"
+        ],
+        "count": 90
+      },
+      {
+        "key": [
+          "np.array",
+          "(1,)",
+          "(1,)"
+        ],
+        "count": 90
+      },
+      {
+        "key": [
+          "np.array",
+          "(2, 3)",
+          "(2, 3)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "np.array",
+          "(2,)",
+          "(2,)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "np.array",
+          "(3, 3)",
+          "(3, 3)"
+        ],
+        "count": 252
+      },
+      {
+        "key": [
+          "np.array",
+          "(3,)",
+          "(3,)"
+        ],
+        "count": 32
+      },
+      {
+        "key": [
+          "np.array",
+          "(5, 3)",
+          "(5, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.array",
+          "(5,)",
+          "(5,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.asarray",
+          "(3,)",
+          "(3,)"
+        ],
+        "count": 32218
+      },
+      {
+        "key": [
+          "np.clip",
+          "()",
+          "()"
+        ],
+        "count": 660
+      },
+      {
+        "key": [
+          "np.cross",
+          "(3,)",
+          "(3,)"
+        ],
+        "count": 698
+      },
+      {
+        "key": [
+          "np.dot",
+          "(3,)",
+          "()"
+        ],
+        "count": 220
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(1,)"
+        ],
+        "count": 3
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(13,)"
+        ],
+        "count": 141
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(18,)"
+        ],
+        "count": 20
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(19,)"
+        ],
+        "count": 438
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(2,)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(21,)"
+        ],
+        "count": 20
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(22,)"
+        ],
+        "count": 274
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(23,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(24,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(26,)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(3,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(6,)"
+        ],
+        "count": 24
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(8,)"
+        ],
+        "count": 68
+      },
+      {
+        "key": [
+          "np.flatnonzero",
+          "(32,)",
+          "(9,)"
+        ],
+        "count": 106
+      },
+      {
+        "key": [
+          "np.linalg.norm",
+          "(3,)",
+          "()"
+        ],
+        "count": 32592
+      },
+      {
+        "key": [
+          "np.max",
+          "(3, 1)",
+          "()"
+        ],
+        "count": 155
+      },
+      {
+        "key": [
+          "np.max",
+          "(3, 2)",
+          "()"
+        ],
+        "count": 9
+      },
+      {
+        "key": [
+          "np.max",
+          "(3, 3)",
+          "()"
+        ],
+        "count": 55
+      },
+      {
+        "key": [
+          "np.max",
+          "(3, 5)",
+          "()"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.mean",
+          "(3, 3)",
+          "(3,)"
+        ],
+        "count": 60
+      },
+      {
+        "key": [
+          "np.mean",
+          "(4, 3)",
+          "(3,)"
+        ],
+        "count": 74
+      },
+      {
+        "key": [
+          "np.mean",
+          "(5, 3)",
+          "(3,)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.sqrt",
+          "(9,)",
+          "(9,)"
+        ],
+        "count": 220
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(211, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(212, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (1, 3), (2, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(213, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((172, 3), (32, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(229, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((215, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(254, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((215, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(255, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((215, 3), (32, 3), (23, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(276, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((261, 3), (32, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(300, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((261, 3), (32, 3), (24, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(323, 3)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((306, 3), (32, 3), (26, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(370, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(172, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(350, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(307, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (9, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(262, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (13, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(216, 3)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(215, 3)"
+        ],
+        "count": 3
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(350, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(261, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(350, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(306, 3)"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (7, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (6, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(349, 3)"
+        ],
+        "count": 18
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (8, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(306, 3)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (1, 3), (12, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (9, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(261, 3)"
+        ],
+        "count": 14
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (24, 3), (13, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(215, 3)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(171, 3)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(172, 3)"
+        ],
+        "count": 16
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 6
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (1, 3), (20, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (18, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(173, 3)"
+        ],
+        "count": 10
+      },
+      {
+        "key": [
+          "np.vstack",
+          "('heterogeneous', ((32, 3), (1, 3), (21, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (31, 3), (19, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3), (1, 3)))",
+          "(116, 3)"
+        ],
+        "count": 7
+      },
+      {
+        "key": [
+          "np.vstack",
+          "(4, 8, 4)",
+          "(32, 4)"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "np.where",
+          "(32, 1)",
+          "(32, 3)"
+        ],
+        "count": 21
+      },
+      {
+        "key": [
+          "np.zeros",
+          "()",
+          "(3,)"
+        ],
+        "count": 140
+      },
+      {
+        "key": [
+          "np.zeros",
+          "(2,)",
+          "(8, 4)"
+        ],
+        "count": 21
+      }
+    ]
+  },
+  "cpu_seconds": 1.7740105830000001,
+  "max_rss_kib": 40140
+}

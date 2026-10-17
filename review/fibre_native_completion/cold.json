@@ -1,0 +1,819 @@
+{
+  "complete": true,
+  "modules": {
+    "fiber3": {
+      "source_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+      "targets": {
+        "T3": true,
+        "_C": true,
+        "FAMS": true
+      },
+      "omitted": [
+        {
+          "line": 1,
+          "kind": "Expr",
+          "source": "'T73: \"fibre-wedge\" accuracy estimate for bias-free 2nd-argmax RNNs with T = 3 (any H). Deductive, closed form.\\n\\nGeometry (model-independent, exact partition of the sphere):\\n  * The true class chan"
+        },
+        {
+          "line": 23,
+          "kind": "Import",
+          "source": "import math"
+        },
+        {
+          "line": 25,
+          "kind": "Import",
+          "source": "import numpy as np"
+        }
+      ],
+      "ledger": {
+        "sites": {
+          "families:L44:(E[i] - E[j]) / math.sqrt(2)": {
+            "array_Div": 9
+          },
+          "families:L44:E[i] - E[j]": {
+            "array_Sub": 9
+          },
+          "families:L44:math.sqrt(2)": {
+            "special_math.sqrt": 3
+          },
+          "families:L45:0.5 * (E[i] + E[j])": {
+            "array_Mult": 9
+          },
+          "families:L45:E[i] + E[j]": {
+            "array_Add": 9
+          },
+          "families:L45:E[k] - 0.5 * (E[i] + E[j])": {
+            "array_Sub": 9
+          },
+          "families:L45:d /= np.linalg.norm(d)": {
+            "array_Div": 9
+          },
+          "families:L45:np.linalg.norm(d)": {
+            "norm_mul": 9,
+            "norm_add": 6,
+            "special_sqrt": 3
+          },
+          "families:L49:s == 1": {
+            "integer_control_compare": 12
+          },
+          "families:L50:2 * E[hi]": {
+            "array_Mult": 18
+          },
+          "families:L50:E[k] - 2 * E[hi]": {
+            "array_Sub": 18
+          },
+          "families:L50:E[k] - 2 * E[hi] + E[lo]": {
+            "array_Add": 18
+          },
+          "families:L52:2 * E[lo]": {
+            "array_Mult": 18
+          },
+          "families:L52:2 * E[lo] - E[hi]": {
+            "array_Sub": 18
+          },
+          "families:L52:2 * E[lo] - E[hi] - E[k]": {
+            "array_Sub": 18
+          },
+          "families:L53:sg * n": {
+            "array_Mult": 36
+          },
+          "families:L54:s * d": {
+            "array_Mult": 18
+          },
+          "module:L28:math.sqrt(3)": {
+            "special_math.sqrt": 1
+          },
+          "module:L28:np.ones(3) / math.sqrt(3)": {
+            "array_Div": 3
+          }
+        },
+        "totals": {
+          "array_Add": 27,
+          "array_Div": 21,
+          "array_Mult": 99,
+          "array_Sub": 72,
+          "integer_control_compare": 12,
+          "norm_add": 6,
+          "norm_mul": 9,
+          "special_math.sqrt": 4,
+          "special_sqrt": 3
+        },
+        "named_numeric_total": 241,
+        "integer_control_total": 12,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 253,
+        "opaque_calls": [],
+        "memory_calls": [
+          {
+            "key": [
+              "families:L42:np.eye(3)",
+              "np.eye",
+              "()",
+              "(3, 3)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "families:L54:_C.copy()",
+              ".copy",
+              "(3,)",
+              "(3,)"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "module:L28:np.ones(3)",
+              "np.ones",
+              "()",
+              "(3,)"
+            ],
+            "count": 1
+          }
+        ],
+        "native_calls": [
+          {
+            "key": [
+              ".copy",
+              "(3,)",
+              "(3,)"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "math.sqrt",
+              "()",
+              "()"
+            ],
+            "count": 4
+          },
+          {
+            "key": [
+              "np.eye",
+              "()",
+              "(3, 3)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.linalg.norm",
+              "(3,)",
+              "()"
+            ],
+            "count": 3
+          },
+          {
+            "key": [
+              "np.ones",
+              "()",
+              "(3,)"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    },
+    "fibre": {
+      "source_sha256": "0c52b9003169ace25a5d86fc7082c5ee14dccb5c583966d0578832599584471d",
+      "targets": {
+        "TWO_PI": true,
+        "LOOK": true
+      },
+      "omitted": [
+        {
+          "line": 1,
+          "kind": "Expr",
+          "source": "'Strict op count (adopted 2026-10-17 from the T97 reviewer\\'s fibre_strict.py, review/understand_ladder/): every\\nelementwise op and comparison the original left uncharged is charged (X adds to ops.n)"
+        },
+        {
+          "line": 24,
+          "kind": "Import",
+          "source": "import math"
+        },
+        {
+          "line": 26,
+          "kind": "Import",
+          "source": "import numpy as np"
+        },
+        {
+          "line": 28,
+          "kind": "ImportFrom",
+          "source": "from fiber3 import FAMS, Ops, _Sint"
+        }
+      ],
+      "ledger": {
+        "sites": {
+          "module:L30:2 * math.pi": {
+            "scalar_Mult": 1
+          }
+        },
+        "totals": {
+          "scalar_Mult": 1
+        },
+        "named_numeric_total": 1,
+        "integer_control_total": 0,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 1,
+        "opaque_calls": [],
+        "memory_calls": [],
+        "native_calls": []
+      }
+    },
+    "fibre4": {
+      "source_sha256": "c7daae5e21b686ed5641628568cb3dc693de68db1795bfb051e67663058d5b85",
+      "targets": {
+        "S3": true,
+        "EPS": true,
+        "NQ": true,
+        "FAMS4": true,
+        "_x": true,
+        "_w": true,
+        "_A": true,
+        "_Bq": true,
+        "_WA": true,
+        "_S": true,
+        "_T": true,
+        "_WW": true,
+        "NQ_CORR": true,
+        "_S3": true,
+        "_T3": true,
+        "_W3": true,
+        "_RULES": true,
+        "ADAPT": true,
+        "EMAX": true
+      },
+      "omitted": [
+        {
+          "line": 1,
+          "kind": "Expr",
+          "source": "\"T73: fibre-traced wedge estimator for bias-free 2nd-argmax RNNs with T = 4 inputs (any H). Deductive.\\n\\nSame recipe as fibre.py (T = 3) one dimension up:\\n  * Geometry (model-independent, exact part"
+        },
+        {
+          "line": 23,
+          "kind": "Import",
+          "source": "import math"
+        },
+        {
+          "line": 24,
+          "kind": "Import",
+          "source": "import os"
+        },
+        {
+          "line": 25,
+          "kind": "Import",
+          "source": "import sys"
+        },
+        {
+          "line": 27,
+          "kind": "Import",
+          "source": "import numpy as np"
+        },
+        {
+          "line": 29,
+          "kind": "Assign",
+          "source": "HERE = os.path.dirname(os.path.abspath(__file__))"
+        },
+        {
+          "line": 30,
+          "kind": "Expr",
+          "source": "sys.path.insert(0, os.path.join(HERE, '..', 'arc_m43_repro'))"
+        },
+        {
+          "line": 31,
+          "kind": "ImportFrom",
+          "source": "from m43 import clip as _clip_raw"
+        },
+        {
+          "line": 32,
+          "kind": "ImportFrom",
+          "source": "from fiber3 import Ops"
+        },
+        {
+          "line": 33,
+          "kind": "ImportFrom",
+          "source": "from fibre import rows_at"
+        }
+      ],
+      "ledger": {
+        "sites": {
+          "_duffy:L262:0.5 * (x + 1)": {
+            "array_Mult": 38
+          },
+          "_duffy:L262:0.5 * w": {
+            "array_Mult": 38
+          },
+          "_duffy:L262:x + 1": {
+            "array_Add": 38
+          },
+          "_duffy:L264:(1 - A) * Bq": {
+            "array_Mult": 410
+          },
+          "_duffy:L264:1 - A": {
+            "array_Sub": 820
+          },
+          "_duffy:L264:np.outer(w, w)": {
+            "array_Mult": 410
+          },
+          "_duffy:L264:np.outer(w, w) * (1 - A)": {
+            "array_Mult": 410
+          },
+          "_lune_tris:L80:sg * splitter": {
+            "array_Mult": 144
+          },
+          "_lune_tris:L82:R[:, m] / np.linalg.norm(R[:, m])": {
+            "array_Div": 432
+          },
+          "_lune_tris:L82:np.linalg.norm(R[:, m])": {
+            "norm_mul": 432,
+            "norm_add": 288,
+            "special_sqrt": 144
+          },
+          "families4:L100:E[kk] - E[ll]": {
+            "array_Sub": 48
+          },
+          "families4:L100:mid - E[kk]": {
+            "array_Sub": 48
+          },
+          "families4:L101:B.T @ (np.ones(4) / 2.0 - E[i] * 0.0)": {
+            "matrix_mul": 72,
+            "matrix_add": 54
+          },
+          "families4:L101:E[i] * 0.0": {
+            "array_Mult": 24
+          },
+          "families4:L101:np.ones(4) / 2.0": {
+            "array_Div": 24
+          },
+          "families4:L101:np.ones(4) / 2.0 - E[i] * 0.0": {
+            "array_Sub": 24
+          },
+          "families4:L103:B.T @ c": {
+            "matrix_mul": 576,
+            "matrix_add": 432
+          },
+          "families4:L104:B.T @ np.ones(4)": {
+            "matrix_mul": 288,
+            "matrix_add": 216
+          },
+          "families4:L107:sg * n": {
+            "array_Mult": 192
+          },
+          "families4:L109:2 * E[hi]": {
+            "array_Mult": 96
+          },
+          "families4:L109:E[kk] - 2 * E[hi]": {
+            "array_Sub": 96
+          },
+          "families4:L109:E[kk] - 2 * E[hi] + E[lo]": {
+            "array_Add": 96
+          },
+          "families4:L109:E[lo] - E[ll]": {
+            "array_Sub": 96
+          },
+          "families4:L111:2 * E[lo]": {
+            "array_Mult": 96
+          },
+          "families4:L111:2 * E[lo] - E[hi]": {
+            "array_Sub": 96
+          },
+          "families4:L111:2 * E[lo] - E[hi] - E[kk]": {
+            "array_Sub": 96
+          },
+          "families4:L90:i + 1": {
+            "integer_control_Add": 4
+          },
+          "families4:L92:(E[i] - E[j]) / math.sqrt(2)": {
+            "array_Div": 24
+          },
+          "families4:L92:E[i] - E[j]": {
+            "array_Sub": 24
+          },
+          "families4:L92:math.sqrt(2)": {
+            "special_math.sqrt": 6
+          },
+          "families4:L94:0.5 * (E[i] + E[j])": {
+            "array_Mult": 24
+          },
+          "families4:L94:E[i] + E[j]": {
+            "array_Add": 24
+          },
+          "families4:L98:E[kk] - mid": {
+            "array_Sub": 48
+          },
+          "families4:L98:mid - E[ll]": {
+            "array_Sub": 48
+          },
+          "module:L250:0.5 * (_x + 1)": {
+            "array_Mult": 6
+          },
+          "module:L250:0.5 * _w": {
+            "array_Mult": 6
+          },
+          "module:L250:_x + 1": {
+            "array_Add": 6
+          },
+          "module:L252:1 - _A": {
+            "array_Sub": 36
+          },
+          "module:L252:np.outer(_w, _w)": {
+            "array_Mult": 36
+          },
+          "module:L252:np.outer(_w, _w) * (1 - _A)": {
+            "array_Mult": 36
+          },
+          "module:L253:(1 - _A) * _Bq": {
+            "array_Mult": 36
+          },
+          "module:L253:1 - _A": {
+            "array_Sub": 36
+          },
+          "module:L35:2 * math.pi ** 2": {
+            "scalar_Mult": 1
+          },
+          "module:L35:math.pi ** 2": {
+            "scalar_Pow": 1
+          }
+        },
+        "totals": {
+          "array_Add": 164,
+          "array_Div": 480,
+          "array_Mult": 2002,
+          "array_Sub": 1516,
+          "integer_control_Add": 4,
+          "matrix_add": 702,
+          "matrix_mul": 936,
+          "norm_add": 288,
+          "norm_mul": 432,
+          "scalar_Mult": 1,
+          "scalar_Pow": 1,
+          "special_math.sqrt": 6,
+          "special_sqrt": 144
+        },
+        "named_numeric_total": 6672,
+        "integer_control_total": 4,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 6676,
+        "opaque_calls": [
+          {
+            "key": [
+              "_basis:L72:np.linalg.svd(n[None, :])",
+              "np.linalg.svd",
+              "(1, 4)",
+              "('heterogeneous', ((1, 1), (1,), (4, 4)))",
+              "{}"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 10)",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 16)",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 3)",
+              "{}"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 6)",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "_lune_tris:L81:np.linalg.inv(N)",
+              "np.linalg.inv",
+              "(3, 3)",
+              "(3, 3)",
+              "{}"
+            ],
+            "count": 48
+          },
+          {
+            "key": [
+              "module:L249:np.polynomial.legendre.leggauss(NQ)",
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 6)",
+              "{}"
+            ],
+            "count": 1
+          }
+        ],
+        "memory_calls": [
+          {
+            "key": [
+              "_duffy:L263:np.meshgrid(x, x, indexing='ij')",
+              "np.meshgrid",
+              "(10,)",
+              "(2, 10, 10)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "_duffy:L263:np.meshgrid(x, x, indexing='ij')",
+              "np.meshgrid",
+              "(16,)",
+              "(2, 16, 16)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "_duffy:L263:np.meshgrid(x, x, indexing='ij')",
+              "np.meshgrid",
+              "(3,)",
+              "(2, 3, 3)"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "_duffy:L263:np.meshgrid(x, x, indexing='ij')",
+              "np.meshgrid",
+              "(6,)",
+              "(2, 6, 6)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "_lune_tris:L80:np.array(list(cons) + [sg * splitter])",
+              "np.array",
+              "(3, 3)",
+              "(3, 3)"
+            ],
+            "count": 48
+          },
+          {
+            "key": [
+              "families4:L101:np.ones(4)",
+              "np.ones",
+              "()",
+              "(4,)"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "families4:L104:np.ones(4)",
+              "np.ones",
+              "()",
+              "(4,)"
+            ],
+            "count": 24
+          },
+          {
+            "key": [
+              "families4:L88:np.eye(4)",
+              "np.eye",
+              "()",
+              "(4, 4)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "module:L251:np.meshgrid(_x, _x, indexing='ij')",
+              "np.meshgrid",
+              "(6,)",
+              "(2, 6, 6)"
+            ],
+            "count": 1
+          }
+        ],
+        "native_calls": [
+          {
+            "key": [
+              "math.sqrt",
+              "()",
+              "()"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "np.array",
+              "(3, 3)",
+              "(3, 3)"
+            ],
+            "count": 48
+          },
+          {
+            "key": [
+              "np.eye",
+              "()",
+              "(4, 4)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.linalg.inv",
+              "(3, 3)",
+              "(3, 3)"
+            ],
+            "count": 48
+          },
+          {
+            "key": [
+              "np.linalg.norm",
+              "(3,)",
+              "()"
+            ],
+            "count": 144
+          },
+          {
+            "key": [
+              "np.linalg.svd",
+              "(1, 4)",
+              "('heterogeneous', ((1, 1), (1,), (4, 4)))"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "np.meshgrid",
+              "(10,)",
+              "(2, 10, 10)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.meshgrid",
+              "(16,)",
+              "(2, 16, 16)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.meshgrid",
+              "(3,)",
+              "(2, 3, 3)"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "np.meshgrid",
+              "(6,)",
+              "(2, 6, 6)"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "np.ones",
+              "()",
+              "(4,)"
+            ],
+            "count": 30
+          },
+          {
+            "key": [
+              "np.outer",
+              "(10,)",
+              "(10, 10)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.outer",
+              "(16,)",
+              "(16, 16)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.outer",
+              "(3,)",
+              "(3, 3)"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "np.outer",
+              "(6,)",
+              "(6, 6)"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 10)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 16)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 3)"
+            ],
+            "count": 2
+          },
+          {
+            "key": [
+              "np.polynomial.legendre.leggauss",
+              "()",
+              "(2, 6)"
+            ],
+            "count": 2
+          }
+        ]
+      }
+    },
+    "fibre4b": {
+      "source_sha256": "dac9527d0b73d219db8e3a4bf2c8d561363d0fab09b8ac5110465fd472a32550",
+      "targets": {
+        "LOOK": true
+      },
+      "omitted": [
+        {
+          "line": 1,
+          "kind": "Expr",
+          "source": "\"T100: the frozen F2L2 recipe at T = 4 (fibre4 geometry): forward trace from the boundary until LOOK = 2\\nconsecutive linear pieces are fully correct, plus the attached-wedge walk back from the clamp "
+        },
+        {
+          "line": 5,
+          "kind": "Import",
+          "source": "import math"
+        },
+        {
+          "line": 7,
+          "kind": "Import",
+          "source": "import numpy as np"
+        },
+        {
+          "line": 9,
+          "kind": "Import",
+          "source": "import fibre4 as F4"
+        },
+        {
+          "line": 10,
+          "kind": "ImportFrom",
+          "source": "from fiber3 import Ops"
+        }
+      ],
+      "ledger": {
+        "sites": {},
+        "totals": {},
+        "named_numeric_total": 0,
+        "integer_control_total": 0,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 0,
+        "opaque_calls": [],
+        "memory_calls": [],
+        "native_calls": []
+      }
+    }
+  },
+  "inventory_sha256": "ad53458c946ead94aaa7382f0451d69c467884ffc5fbe404c8667565dca486e4",
+  "runner_sha256": "2ee7f7ec5cb6e2b84c32e6a117075fc1b69857b365c057df3201e87b75110263",
+  "cpu_seconds": 0.08497332000000002,
+  "max_rss_kib": 40892
+}

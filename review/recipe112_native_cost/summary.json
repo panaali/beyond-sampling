@@ -1,0 +1,86 @@
+{
+  "scope": "Two fixed native-source diagnostics only; no scalar-cost multiplier transfer or full implementation ceiling.",
+  "rows": [
+    {
+      "H": 4,
+      "native_named": 165415,
+      "integer_control": 5756,
+      "scalar": 137268,
+      "legacy": 70471,
+      "native_to_scalar": 1.2050514322347525,
+      "native_to_legacy": 2.3472776035532346,
+      "by_function": {
+        "_cells_margin": 47679,
+        "clip": 32887,
+        "_est75": 27026,
+        "_resolve_margin2": 22924,
+        "margin": 11325,
+        "frac": 9214,
+        "_arc": 7525,
+        "_margin": 6834,
+        "est75": 1
+      },
+      "memory_calls": 1456,
+      "startup": {
+        "sites": {},
+        "totals": {},
+        "named_numeric_total": 0,
+        "integer_control_total": 0,
+        "complete_implementation_cost": false,
+        "calls": {
+          "np.eye": 1
+        },
+        "memory_calls": [
+          {
+            "site": "module:L30:np.eye(3)",
+            "call": "np.eye",
+            "shape": "(3, 3)",
+            "count": 1
+          }
+        ]
+      },
+      "cpu": 1.185948163
+    },
+    {
+      "H": 8,
+      "native_named": 458917,
+      "integer_control": 11593,
+      "scalar": 326667,
+      "legacy": 160564,
+      "native_to_scalar": 1.4048465256668106,
+      "native_to_legacy": 2.8581562492214942,
+      "by_function": {
+        "_cells_margin": 148349,
+        "_est75": 99204,
+        "_resolve_margin2": 75590,
+        "margin": 51038,
+        "clip": 45196,
+        "_margin": 20740,
+        "_arc": 10213,
+        "frac": 8586,
+        "est75": 1
+      },
+      "memory_calls": 3150,
+      "startup": {
+        "sites": {},
+        "totals": {},
+        "named_numeric_total": 0,
+        "integer_control_total": 0,
+        "complete_implementation_cost": false,
+        "calls": {
+          "np.eye": 1
+        },
+        "memory_calls": [
+          {
+            "site": "module:L30:np.eye(3)",
+            "call": "np.eye",
+            "shape": "(3, 3)",
+            "count": 1
+          }
+        ]
+      },
+      "cpu": 1.235728071
+    }
+  ],
+  "review_source_gate": "ea2609ef"
+}

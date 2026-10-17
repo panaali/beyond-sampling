@@ -1,0 +1,116 @@
+{
+  "claim": "25723b1d",
+  "models": [
+    {
+      "name": "zero_recurrent",
+      "Wi": [
+        "1",
+        "-1"
+      ],
+      "Wh": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "name": "identity",
+      "Wi": [
+        "1",
+        "-1"
+      ],
+      "Wh": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "name": "contractive_expansive",
+      "Wi": [
+        "1",
+        "-1"
+      ],
+      "Wh": [
+        [
+          "1/2",
+          "0"
+        ],
+        [
+          "0",
+          "2"
+        ]
+      ]
+    },
+    {
+      "name": "mixed",
+      "Wi": [
+        "1",
+        "-1"
+      ],
+      "Wh": [
+        [
+          "1",
+          "-1"
+        ],
+        [
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "name": "zero_input",
+      "Wi": [
+        "0",
+        "0"
+      ],
+      "Wh": [
+        [
+          "1",
+          "-1"
+        ],
+        [
+          "1",
+          "1"
+        ]
+      ]
+    }
+  ],
+  "word_lengths": [
+    1,
+    2,
+    3
+  ],
+  "shifts": [
+    0,
+    2
+  ],
+  "word_count": 420,
+  "vectors": "zero; positive/negative standard basis for incomingH2+local inputs; allones; alternating signed1..d",
+  "masked_recurrences": 5220,
+  "direct_relu_recurrences": 5220,
+  "shift_checks": 10440,
+  "adjacent_compositions": 720,
+  "counterexamples": [
+    "incoming1or2 with scalarW=w=1,input-3/2",
+    "scalarW0,w1,inputs(3,2,1)/(2,3,1),samehidden/output0,differenttruth"
+  ],
+  "pins": {
+    "/workspace/work/recover-small_h2_910/review/time_shift_reuse/template.py": "b443d387b07bb34fe2750e184ce4f1ddb3462d42dbd6d71f20d82dd0d2186ce6",
+    "/workspace/work/recover-small_h2_910/review/time_shift_reuse/controls.py": "75303556a88a8cfb77c2c6d15ebdc4f41d3cd4a7e5c3f297d23a042c92490ace",
+    "/workspace/work/recover-small_h2_910/review/time_shift_reuse/PROOF.md": "3d657095a7a90610e50521f0c282ef291758c34e65c64e27df7dd2db0a26a5fd"
+  },
+  "resource": "one thread2GB; review19/20CPU, signal failure durable",
+  "scope": "Exact synthetic conditional-template controls only, no trained enumeration/mass/MC. Infeasible words and algebra-only negative incoming coordinates explicit. No cache hit or speed implication. Independent source gate before execution; saved review before any trained use."
+}

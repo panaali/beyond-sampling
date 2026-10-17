@@ -1,0 +1,354 @@
+{
+  "complete": true,
+  "source_sha256": "ff619753b6706c9293386058e8ccdd90daf3b6c38adb9488e1c788f1d947be70",
+  "random_draws": 0,
+  "baseline_hex": "0x0.0p+0",
+  "traced_hex": "0x0.0p+0",
+  "fixed_inputs": [
+    [
+      0.1,
+      0.4,
+      -0.5,
+      0.3
+    ],
+    [
+      2.0,
+      -1.0,
+      0.0,
+      1.0
+    ],
+    [
+      -2.0,
+      1.0,
+      3.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  ],
+  "weights": [
+    [
+      1.0,
+      -0.5,
+      0.25,
+      0.75,
+      -1.0
+    ],
+    [
+      [
+        -0.375,
+        -0.25,
+        -0.125,
+        0.0,
+        0.125
+      ],
+      [
+        0.25,
+        0.375,
+        -0.375,
+        -0.25,
+        -0.125
+      ],
+      [
+        0.0,
+        0.125,
+        0.25,
+        0.375,
+        -0.375
+      ],
+      [
+        -0.25,
+        -0.125,
+        0.0,
+        0.125,
+        0.25
+      ],
+      [
+        0.375,
+        -0.375,
+        -0.25,
+        -0.125,
+        0.0
+      ]
+    ],
+    [
+      [
+        -0.5,
+        -0.375,
+        -0.25,
+        -0.125,
+        0.0
+      ],
+      [
+        0.125,
+        0.25,
+        0.375,
+        0.5,
+        -0.5
+      ],
+      [
+        -0.375,
+        -0.25,
+        -0.125,
+        0.0,
+        0.125
+      ],
+      [
+        0.25,
+        0.375,
+        0.5,
+        -0.5,
+        -0.375
+      ]
+    ]
+  ],
+  "ledger": {
+    "sites": {
+      "mc_acc:L14:done < n": {
+        "integer_control_compare": 3
+      },
+      "mc_acc:L15:min(chunk, n - done)": {
+        "integer_control_compare": 2
+      },
+      "mc_acc:L15:n - done": {
+        "integer_control_Sub": 2
+      },
+      "mc_acc:L17:h @ Wh.T": {
+        "matrix_mul": 500,
+        "matrix_add": 400
+      },
+      "mc_acc:L17:h @ Wh.T + x[:, t:t + 1] * Wi[None]": {
+        "array_Add": 100
+      },
+      "mc_acc:L17:np.maximum(h @ Wh.T + x[:, t:t + 1] * Wi[None], 0)": {
+        "array_compare": 100
+      },
+      "mc_acc:L17:t + 1": {
+        "integer_control_Add": 8
+      },
+      "mc_acc:L17:x[:, t:t + 1] * Wi[None]": {
+        "array_Mult": 100
+      },
+      "mc_acc:L18:((h @ Wo.T).argmax(1) == np.argsort(x, 1)[:, -2]).sum()": {
+        "reduce_.sum": 3
+      },
+      "mc_acc:L18:(h @ Wo.T).argmax(1)": {
+        "reduce_argmax": 15
+      },
+      "mc_acc:L18:(h @ Wo.T).argmax(1) == np.argsort(x, 1)[:, -2]": {
+        "array_compare": 5
+      },
+      "mc_acc:L18:done += m": {
+        "integer_control_Add": 2
+      },
+      "mc_acc:L18:h @ Wo.T": {
+        "matrix_mul": 100,
+        "matrix_add": 80
+      },
+      "mc_acc:L18:ok += int(((h @ Wo.T).argmax(1) == np.argsort(x, 1)[:, -2]).sum())": {
+        "integer_control_Add": 2
+      },
+      "mc_acc:L19:ok / n": {
+        "integer_control_Div": 1
+      }
+    },
+    "totals": {
+      "array_Add": 100,
+      "array_Mult": 100,
+      "array_compare": 105,
+      "integer_control_Add": 12,
+      "integer_control_Div": 1,
+      "integer_control_Sub": 2,
+      "integer_control_compare": 5,
+      "matrix_add": 480,
+      "matrix_mul": 600,
+      "reduce_.sum": 3,
+      "reduce_argmax": 15
+    },
+    "named_numeric_total": 1403,
+    "integer_control_total": 20,
+    "complete_implementation_cost": false,
+    "inclusive_explicit_total": 1423,
+    "opaque_calls": [
+      {
+        "key": [
+          "mc_acc:L18:np.argsort(x, 1)",
+          "np.argsort",
+          "((2, 4), ())",
+          "(2, 4)",
+          "{}"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "mc_acc:L18:np.argsort(x, 1)",
+          "np.argsort",
+          "((3, 4), ())",
+          "(3, 4)",
+          "{}"
+        ],
+        "count": 1
+      }
+    ],
+    "memory_calls": [
+      {
+        "key": [
+          "mc_acc:L15:np.zeros((m, len(Wi)))",
+          "np.zeros",
+          "(2,)",
+          "(2, 5)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "mc_acc:L15:np.zeros((m, len(Wi)))",
+          "np.zeros",
+          "(2,)",
+          "(3, 5)"
+        ],
+        "count": 1
+      }
+    ],
+    "native_calls": [
+      {
+        "key": [
+          ".argmax",
+          "(2, 4)",
+          "(2,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".argmax",
+          "(3, 4)",
+          "(3,)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(2,)",
+          "()"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          ".sum",
+          "(3,)",
+          "()"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "min",
+          "()",
+          "()"
+        ],
+        "count": 2
+      },
+      {
+        "key": [
+          "np.argsort",
+          "(2, 4)",
+          "(2, 4)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.argsort",
+          "(3, 4)",
+          "(3, 4)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.maximum",
+          "(2, 5)",
+          "(2, 5)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.maximum",
+          "(3, 5)",
+          "(3, 5)"
+        ],
+        "count": 4
+      },
+      {
+        "key": [
+          "np.zeros",
+          "(2,)",
+          "(2, 5)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.zeros",
+          "(2,)",
+          "(3, 5)"
+        ],
+        "count": 1
+      }
+    ],
+    "source_closures": [
+      {
+        "site": "mc_acc:L18:np.argsort(x, 1)",
+        "name": "np.argsort",
+        "rows": 3,
+        "n": 4,
+        "numerical_allowance": 471,
+        "kind": "conditional finite source envelope; control/memory/native equivalence excluded"
+      },
+      {
+        "site": "mc_acc:L18:np.argsort(x, 1)",
+        "name": "np.argsort",
+        "rows": 2,
+        "n": 4,
+        "numerical_allowance": 314,
+        "kind": "conditional finite source envelope; control/memory/native equivalence excluded"
+      }
+    ],
+    "source_closure_allowance": 785,
+    "explicit_plus_conditional_source_allowance": 2208
+  },
+  "startup": {
+    "sites": {},
+    "totals": {},
+    "named_numeric_total": 0,
+    "integer_control_total": 0,
+    "complete_implementation_cost": false,
+    "inclusive_explicit_total": 0,
+    "opaque_calls": [],
+    "memory_calls": [],
+    "native_calls": []
+  },
+  "draws_consumed": [
+    5,
+    5
+  ],
+  "expected_explicit": 1423,
+  "dense_indicator": 280,
+  "zero_state_optimized_indicator": 230,
+  "cpu_seconds": 0.00669821000000001
+}

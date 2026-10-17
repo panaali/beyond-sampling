@@ -1,0 +1,78 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "sampler": "dense_original",
+      "candidate_conditional_source_budget": 321406262,
+      "per_sample_with_aggregation": 281,
+      "per_batch_units": 8,
+      "samples": 1143794,
+      "spent": 321406132,
+      "estimate": 0.6406594747588912,
+      "truth_report": 0.6406241,
+      "error": {
+        "fraction": "194474793653117/5497558138880000000",
+        "float": 3.537475889117868e-05
+      },
+      "point_ratio": {
+        "fraction": "21629399243720891987535651821092033/3479059757406232185266624973366099968",
+        "float": 0.006217024354835
+      },
+      "nominal_truth_box_ratio_range": [
+        {
+          "fraction": "0",
+          "float": 0.0
+        },
+        {
+          "fraction": "2355159415540514579848406096358/1557485281547115937392675089461",
+          "float": 1.512155166693476
+        }
+      ]
+    },
+    {
+      "sampler": "analytic_initial_zero",
+      "candidate_conditional_source_budget": 321406262,
+      "per_sample_with_aggregation": 231,
+      "per_batch_units": 7,
+      "samples": 1391369,
+      "spent": 321406255,
+      "estimate": 0.6406594747588912,
+      "truth_report": 0.6406241,
+      "error": {
+        "fraction": "194474793653117/5497558138880000000",
+        "float": 3.537475889117868e-05
+      },
+      "point_ratio": {
+        "fraction": "52622195249033818613850907311388241/6958119514812464370533249946732199936",
+        "float": 0.007562703563371043
+      },
+      "nominal_truth_box_ratio_range": [
+        {
+          "fraction": "0",
+          "float": 0.0
+        },
+        {
+          "fraction": "2864935295027942295945858206883/1557485281547115937392675089461",
+          "float": 1.839462195226706
+        }
+      ]
+    }
+  ],
+  "source_sha256": "f36a910f5e900071b18e9eb5909a77780830386e18bdcb932484d86b0d7f165f",
+  "truth_box": {
+    "H": 5,
+    "T": 4,
+    "seed": 0,
+    "index": 0,
+    "hits": 6406241,
+    "n": 10000000,
+    "lower": 0.6401076043597873,
+    "upper": 0.6411403691111179,
+    "beta_tail_residual": 9.992007221626409e-16
+  },
+  "truth_box_family_size": 75,
+  "nominal_joint_coverage": 0.95,
+  "numerical_beta_not_outward_rounded": true,
+  "scope": "Single original H5 model; nominal75-family10M CP box, no new truth or h128-as-truth. Candidate source allowance is conditional, not full native/runtime ceiling. A ratio above1 for an upper-cost proxy is not an actual-cost failure.",
+  "cpu_seconds": 0.002004455000000002
+}

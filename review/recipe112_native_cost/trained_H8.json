@@ -1,0 +1,1158 @@
+{
+  "H": 8,
+  "zoo": 2,
+  "noise": 89,
+  "copy": 3,
+  "checkpoint_sha256": "e6b87e3b500c4889150a8cc877efe7609dcc90b4a9adc35f372fbedf1dde633d",
+  "model_sha256": "c758d014d86df382716b057f137f64f772f1f5e840074dae082699476f6c1081",
+  "baseline": {
+    "value": 0.9654673957873317,
+    "hex": "0x1.ee51be148591cp-1",
+    "legacy": 160564,
+    "stats": {
+      "cut": 332,
+      "resolved": 172,
+      "cells": 202
+    },
+    "info": [
+      {
+        "key": [
+          1,
+          "c01+"
+        ],
+        "value": 0.00022949605972869713
+      },
+      {
+        "key": [
+          1,
+          "c01-"
+        ],
+        "value": 0.001450332951211287
+      },
+      {
+        "key": [
+          1,
+          "c02+"
+        ],
+        "value": 0.0022778872387515504
+      },
+      {
+        "key": [
+          1,
+          "c02-"
+        ],
+        "value": 0.002821151316901939
+      },
+      {
+        "key": [
+          1,
+          "c12+"
+        ],
+        "value": 0.004425341851923744
+      },
+      {
+        "key": [
+          1,
+          "c12-"
+        ],
+        "value": 0.0007180987539164403
+      },
+      {
+        "key": [
+          -1,
+          "c01+"
+        ],
+        "value": 0.005260343779883727
+      },
+      {
+        "key": [
+          -1,
+          "c01-"
+        ],
+        "value": 0.0010891257356475605
+      },
+      {
+        "key": [
+          -1,
+          "c02+"
+        ],
+        "value": 0.005995922955243965
+      },
+      {
+        "key": [
+          -1,
+          "c02-"
+        ],
+        "value": 0.00022013417120217709
+      },
+      {
+        "key": [
+          -1,
+          "c12+"
+        ],
+        "value": 0.0006654591992089279
+      },
+      {
+        "key": [
+          -1,
+          "c12-"
+        ],
+        "value": 0.009379310199048346
+      }
+    ],
+    "ledger": {
+      "sites": {},
+      "totals": {},
+      "named_numeric_total": 0,
+      "integer_control_total": 0,
+      "complete_implementation_cost": false,
+      "calls": {},
+      "memory_calls": []
+    },
+    "startup": {
+      "sites": {},
+      "totals": {},
+      "named_numeric_total": 0,
+      "integer_control_total": 0,
+      "complete_implementation_cost": false,
+      "calls": {},
+      "memory_calls": []
+    }
+  },
+  "traced": {
+    "value": 0.9654673957873317,
+    "hex": "0x1.ee51be148591cp-1",
+    "legacy": 160564,
+    "stats": {
+      "cut": 332,
+      "resolved": 172,
+      "cells": 202
+    },
+    "info": [
+      {
+        "key": [
+          1,
+          "c01+"
+        ],
+        "value": 0.00022949605972869713
+      },
+      {
+        "key": [
+          1,
+          "c01-"
+        ],
+        "value": 0.001450332951211287
+      },
+      {
+        "key": [
+          1,
+          "c02+"
+        ],
+        "value": 0.0022778872387515504
+      },
+      {
+        "key": [
+          1,
+          "c02-"
+        ],
+        "value": 0.002821151316901939
+      },
+      {
+        "key": [
+          1,
+          "c12+"
+        ],
+        "value": 0.004425341851923744
+      },
+      {
+        "key": [
+          1,
+          "c12-"
+        ],
+        "value": 0.0007180987539164403
+      },
+      {
+        "key": [
+          -1,
+          "c01+"
+        ],
+        "value": 0.005260343779883727
+      },
+      {
+        "key": [
+          -1,
+          "c01-"
+        ],
+        "value": 0.0010891257356475605
+      },
+      {
+        "key": [
+          -1,
+          "c02+"
+        ],
+        "value": 0.005995922955243965
+      },
+      {
+        "key": [
+          -1,
+          "c02-"
+        ],
+        "value": 0.00022013417120217709
+      },
+      {
+        "key": [
+          -1,
+          "c12+"
+        ],
+        "value": 0.0006654591992089279
+      },
+      {
+        "key": [
+          -1,
+          "c12-"
+        ],
+        "value": 0.009379310199048346
+      }
+    ],
+    "ledger": {
+      "sites": {
+        "_arc:L79:abs(n_true @ v)": {
+          "special_abs": 1459
+        },
+        "_arc:L79:abs(n_true @ v) < tol": {
+          "scalar_compare": 1459
+        },
+        "_arc:L79:n_true @ v": {
+          "matrix_mul": 4377,
+          "matrix_add": 2918
+        },
+        "_cells_margin:L156:len(on) >= 2": {
+          "integer_control_compare": 265
+        },
+        "_cells_margin:L156:np.mean(on, 0)": {
+          "reduce_np.mean": 555,
+          "array_Div": 555
+        },
+        "_cells_margin:L156:np.mean(poly, 0)": {
+          "reduce_np.mean": 582,
+          "array_Div": 240
+        },
+        "_cells_margin:L158:V @ A3.T": {
+          "matrix_mul": 23544,
+          "matrix_add": 15696
+        },
+        "_cells_margin:L160:1e-12 * np.abs(S).max(0)": {
+          "array_Mult": 2120
+        },
+        "_cells_margin:L160:np.abs(S)": {
+          "special_np.abs": 7848
+        },
+        "_cells_margin:L160:np.abs(S).max(0)": {
+          "reduce_.max": 5728
+        },
+        "_cells_margin:L162:-tol[k]": {
+          "scalar_USub": 2120
+        },
+        "_cells_margin:L162:S[:, k].min()": {
+          "reduce_.min": 5728
+        },
+        "_cells_margin:L162:S[:, k].min() >= -tol[k]": {
+          "scalar_compare": 2120
+        },
+        "_cells_margin:L163:S[:, k].max()": {
+          "reduce_.max": 2096
+        },
+        "_cells_margin:L163:S[:, k].max() > tol[k]": {
+          "scalar_compare": 762
+        },
+        "_cells_margin:L164:S[:, k].max()": {
+          "reduce_.max": 3632
+        },
+        "_cells_margin:L164:S[:, k].max() <= tol[k]": {
+          "scalar_compare": 1358
+        },
+        "_cells_margin:L167:A3[k] @ ref": {
+          "matrix_mul": 1065,
+          "matrix_add": 710
+        },
+        "_cells_margin:L167:A3[k] @ ref > 0": {
+          "scalar_compare": 355
+        },
+        "_cells_margin:L174:Wo[truth][None, :] - Wo": {
+          "array_Sub": 4224
+        },
+        "_cells_margin:L174:np.abs(Wo[truth][None, :] - Wo)": {
+          "special_np.abs": 4224
+        },
+        "_cells_margin:L174:np.max(np.abs(Wo[truth][None, :] - Wo), 0)": {
+          "reduce_np.max": 2816
+        },
+        "_cells_margin:L175:Wo @ (g[:, None] * A3)": {
+          "matrix_mul": 12672,
+          "matrix_add": 11088
+        },
+        "_cells_margin:L175:g[:, None] * A3": {
+          "array_Mult": 4224
+        },
+        "_cells_margin:L179:(sk > 0) != (g[k] > 0)": {
+          "array_compare": 1230
+        },
+        "_cells_margin:L179:g[k] > 0": {
+          "scalar_compare": 355
+        },
+        "_cells_margin:L179:sk > 0": {
+          "array_compare": 1230
+        },
+        "_cells_margin:L181:abs(sk[q])": {
+          "special_abs": 510
+        },
+        "_cells_margin:L181:abs(sk[q]) * w[k]": {
+          "scalar_Mult": 510
+        },
+        "_cells_margin:L184:(q + 1) % m_": {
+          "integer_control_Mod": 1230
+        },
+        "_cells_margin:L184:q + 1": {
+          "integer_control_Add": 1230
+        },
+        "_cells_margin:L185:(sk[q] > 0) != (sk[r] > 0)": {
+          "integer_control_compare": 1230
+        },
+        "_cells_margin:L185:sk[q] != 0": {
+          "scalar_compare": 710
+        },
+        "_cells_margin:L185:sk[q] > 0": {
+          "scalar_compare": 1230
+        },
+        "_cells_margin:L185:sk[r] != 0": {
+          "scalar_compare": 710
+        },
+        "_cells_margin:L185:sk[r] > 0": {
+          "scalar_compare": 1230
+        },
+        "_cells_margin:L186:abs(sk[q])": {
+          "special_abs": 710
+        },
+        "_cells_margin:L186:abs(sk[q]) * V[r]": {
+          "array_Mult": 2130
+        },
+        "_cells_margin:L186:abs(sk[q]) * V[r] + abs(sk[r]) * V[q]": {
+          "array_Add": 2130
+        },
+        "_cells_margin:L186:abs(sk[r])": {
+          "special_abs": 710
+        },
+        "_cells_margin:L186:abs(sk[r]) * V[q]": {
+          "array_Mult": 2130
+        },
+        "_cells_margin:L186:np.linalg.norm(pp)": {
+          "norm_mul": 2130,
+          "norm_add": 1420,
+          "special_sqrt": 710
+        },
+        "_cells_margin:L186:pp / np.linalg.norm(pp)": {
+          "array_Div": 2130
+        },
+        "_cells_margin:L188:g.sum()": {
+          "reduce_.sum": 2485
+        },
+        "_cells_margin:L188:g.sum() == 0": {
+          "scalar_compare": 355
+        },
+        "_cells_margin:L192:np.abs(mm)": {
+          "special_np.abs": 1220
+        },
+        "_cells_margin:L192:np.abs(mm) + 1e-300": {
+          "array_Add": 1220
+        },
+        "_cells_margin:L192:np.max(sh / (np.abs(mm) + 1e-300))": {
+          "reduce_np.max": 865
+        },
+        "_cells_margin:L192:sh / (np.abs(mm) + 1e-300)": {
+          "array_Div": 1220
+        },
+        "_cells_margin:L193:eps * np.abs(mm).max()": {
+          "scalar_Mult": 53
+        },
+        "_cells_margin:L193:mm.max()": {
+          "reduce_.max": 344
+        },
+        "_cells_margin:L193:mm.min()": {
+          "reduce_.min": 865
+        },
+        "_cells_margin:L193:mm.min() < 0 < mm.max()": {
+          "scalar_compare": 500
+        },
+        "_cells_margin:L193:np.abs(mm)": {
+          "special_np.abs": 196
+        },
+        "_cells_margin:L193:np.abs(mm).max()": {
+          "reduce_.max": 143
+        },
+        "_cells_margin:L193:sh.max()": {
+          "reduce_.max": 143
+        },
+        "_cells_margin:L193:sh.max() >= eps * np.abs(mm).max()": {
+          "scalar_compare": 53
+        },
+        "_cells_margin:L196:1 - TIE": {
+          "scalar_Sub": 355
+        },
+        "_cells_margin:L196:score >= 1 - TIE": {
+          "scalar_compare": 355
+        },
+        "_est75:L346:h['side'] == 1": {
+          "integer_control_compare": 24
+        },
+        "_est75:L347:sigma * Wi": {
+          "array_Mult": 192
+        },
+        "_est75:L347:sigma * Wi > 0": {
+          "array_compare": 192
+        },
+        "_est75:L348:Wh @ (g1[:, None] * np.outer(Wi, E[0]))": {
+          "matrix_mul": 4608,
+          "matrix_add": 4032
+        },
+        "_est75:L348:Wh @ (g1[:, None] * np.outer(Wi, E[0])) + np.outer(Wi, E[1])": {
+          "array_Add": 576
+        },
+        "_est75:L348:g1[:, None] * np.outer(Wi, E[0])": {
+          "array_Mult": 576
+        },
+        "_est75:L348:np.outer(Wi, E[0])": {
+          "array_Mult": 576
+        },
+        "_est75:L348:np.outer(Wi, E[1])": {
+          "array_Mult": 576
+        },
+        "_est75:L350:np.abs(Wh)": {
+          "special_np.abs": 1536
+        },
+        "_est75:L350:np.abs(Wh).max(0)": {
+          "reduce_.max": 1344
+        },
+        "_est75:L351:Wo[truth][None, :] - Wo": {
+          "array_Sub": 576
+        },
+        "_est75:L351:np.abs(Wo[truth][None, :] - Wo)": {
+          "special_np.abs": 576
+        },
+        "_est75:L351:np.max(np.abs(Wo[truth][None, :] - Wo), 0)": {
+          "reduce_np.max": 384
+        },
+        "_est75:L360:Wh @ (g2[:, None] * A2)": {
+          "matrix_mul": 21504,
+          "matrix_add": 18816
+        },
+        "_est75:L360:Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2])": {
+          "array_Add": 2688
+        },
+        "_est75:L360:g2[:, None] * A2": {
+          "array_Mult": 2688
+        },
+        "_est75:L360:np.outer(Wi, E[2])": {
+          "array_Mult": 2688
+        },
+        "_est75:L366:g3.sum()": {
+          "reduce_.sum": 1414
+        },
+        "_est75:L366:g3.sum() == 0": {
+          "scalar_compare": 202
+        },
+        "_est75:L370:Wo @ (g3[:, None] * A3)": {
+          "matrix_mul": 14544,
+          "matrix_add": 12726
+        },
+        "_est75:L370:g3[:, None] * A3": {
+          "array_Mult": 4848
+        },
+        "_est75:L373:o == truth": {
+          "integer_control_compare": 588
+        },
+        "_est75:L375:L[truth] - L[o]": {
+          "array_Sub": 1170
+        },
+        "_est75:L377:err += frac(outp, ops)": {
+          "scalar_Add": 135
+        },
+        "_est75:L381:err_by.get(key, 0.0) + err": {
+          "scalar_Add": 24
+        },
+        "_est75:L384:1.0 - sum(err_by.values())": {
+          "scalar_Sub": 1
+        },
+        "_est75:L384:sum(err_by.values())": {
+          "scalar_sum": 12
+        },
+        "_margin:L143:V @ L.T": {
+          "matrix_mul": 10980,
+          "matrix_add": 7320
+        },
+        "_margin:L144:np.max(np.delete(Z, truth, axis=1), axis=1)": {
+          "reduce_np.max": 1220
+        },
+        "_margin:L145:Z[:, truth] - oth": {
+          "array_Sub": 1220
+        },
+        "_resolve_margin2:L224:len(on) >= 2": {
+          "integer_control_compare": 138
+        },
+        "_resolve_margin2:L224:np.mean(on, 0)": {
+          "reduce_np.mean": 339,
+          "array_Div": 339
+        },
+        "_resolve_margin2:L224:np.mean(poly, 0)": {
+          "reduce_np.mean": 150,
+          "array_Div": 75
+        },
+        "_resolve_margin2:L225:V @ A2.T": {
+          "matrix_mul": 11472,
+          "matrix_add": 7648
+        },
+        "_resolve_margin2:L226:1e-12 * np.abs(S).max(0)": {
+          "array_Mult": 1104
+        },
+        "_resolve_margin2:L226:np.abs(S)": {
+          "special_np.abs": 3824
+        },
+        "_resolve_margin2:L226:np.abs(S).max(0)": {
+          "reduce_.max": 2720
+        },
+        "_resolve_margin2:L229:-tol[k]": {
+          "scalar_USub": 1104
+        },
+        "_resolve_margin2:L229:S[:, k].min()": {
+          "reduce_.min": 2720
+        },
+        "_resolve_margin2:L229:S[:, k].min() >= -tol[k]": {
+          "scalar_compare": 1104
+        },
+        "_resolve_margin2:L230:S[:, k].max()": {
+          "reduce_.max": 1078
+        },
+        "_resolve_margin2:L230:S[:, k].max() > tol[k]": {
+          "scalar_compare": 429
+        },
+        "_resolve_margin2:L231:S[:, k].max()": {
+          "reduce_.max": 1642
+        },
+        "_resolve_margin2:L231:S[:, k].max() <= tol[k]": {
+          "scalar_compare": 675
+        },
+        "_resolve_margin2:L234:A2[k] @ ref": {
+          "matrix_mul": 327,
+          "matrix_add": 218
+        },
+        "_resolve_margin2:L234:A2[k] @ ref > 0": {
+          "scalar_compare": 109
+        },
+        "_resolve_margin2:L241:Wo[truth][None, :] - Wo": {
+          "array_Sub": 792
+        },
+        "_resolve_margin2:L241:np.abs(Wo[truth][None, :] - Wo)": {
+          "special_np.abs": 792
+        },
+        "_resolve_margin2:L242:D @ np.abs(Wh)": {
+          "matrix_mul": 6336,
+          "matrix_add": 5544
+        },
+        "_resolve_margin2:L242:np.abs(Wh)": {
+          "special_np.abs": 2112
+        },
+        "_resolve_margin2:L242:np.max(D @ np.abs(Wh), 0)": {
+          "reduce_np.max": 528
+        },
+        "_resolve_margin2:L243:Wh @ (g[:, None] * A2)": {
+          "matrix_mul": 6336,
+          "matrix_add": 5544
+        },
+        "_resolve_margin2:L243:Wh @ (g[:, None] * A2) + np.outer(Wi, E[2])": {
+          "array_Add": 792
+        },
+        "_resolve_margin2:L243:g[:, None] * A2": {
+          "array_Mult": 792
+        },
+        "_resolve_margin2:L243:np.outer(Wi, E[2])": {
+          "array_Mult": 792
+        },
+        "_resolve_margin2:L254:(sk > 0) != (g[k] > 0)": {
+          "array_compare": 327
+        },
+        "_resolve_margin2:L254:g[k] > 0": {
+          "scalar_compare": 109
+        },
+        "_resolve_margin2:L254:sk > 0": {
+          "array_compare": 327
+        },
+        "_resolve_margin2:L255:abs(sk[q])": {
+          "special_abs": 163
+        },
+        "_resolve_margin2:L255:abs(sk[q]) * w[k]": {
+          "scalar_Mult": 163
+        },
+        "_resolve_margin2:L258:(q + 1) % m_": {
+          "integer_control_Mod": 327
+        },
+        "_resolve_margin2:L258:q + 1": {
+          "integer_control_Add": 327
+        },
+        "_resolve_margin2:L259:(sk[q] > 0) != (sk[r] > 0)": {
+          "integer_control_compare": 327
+        },
+        "_resolve_margin2:L259:sk[q] != 0": {
+          "scalar_compare": 218
+        },
+        "_resolve_margin2:L259:sk[q] > 0": {
+          "scalar_compare": 327
+        },
+        "_resolve_margin2:L259:sk[r] != 0": {
+          "scalar_compare": 203
+        },
+        "_resolve_margin2:L259:sk[r] > 0": {
+          "scalar_compare": 327
+        },
+        "_resolve_margin2:L260:abs(sk[q])": {
+          "special_abs": 175
+        },
+        "_resolve_margin2:L260:abs(sk[q]) * V[r]": {
+          "array_Mult": 525
+        },
+        "_resolve_margin2:L260:abs(sk[q]) * V[r] + abs(sk[r]) * V[q]": {
+          "array_Add": 525
+        },
+        "_resolve_margin2:L260:abs(sk[r])": {
+          "special_abs": 175
+        },
+        "_resolve_margin2:L260:abs(sk[r]) * V[q]": {
+          "array_Mult": 525
+        },
+        "_resolve_margin2:L260:np.linalg.norm(pp)": {
+          "norm_mul": 525,
+          "norm_add": 350,
+          "special_sqrt": 175
+        },
+        "_resolve_margin2:L260:pp / np.linalg.norm(pp)": {
+          "array_Div": 525
+        },
+        "_resolve_margin2:L262:np.abs(mm)": {
+          "special_np.abs": 338
+        },
+        "_resolve_margin2:L262:np.abs(mm) + 1e-300": {
+          "array_Add": 338
+        },
+        "_resolve_margin2:L262:np.max(sh / (np.abs(mm) + 1e-300))": {
+          "reduce_np.max": 229
+        },
+        "_resolve_margin2:L262:sh / (np.abs(mm) + 1e-300)": {
+          "array_Div": 338
+        },
+        "_resolve_margin2:L263:eps * np.abs(mm).max()": {
+          "scalar_Mult": 50
+        },
+        "_resolve_margin2:L263:mm.max()": {
+          "reduce_.max": 125
+        },
+        "_resolve_margin2:L263:mm.min()": {
+          "reduce_.min": 229
+        },
+        "_resolve_margin2:L263:mm.min() < 0 < mm.max()": {
+          "scalar_compare": 161
+        },
+        "_resolve_margin2:L263:np.abs(mm)": {
+          "special_np.abs": 171
+        },
+        "_resolve_margin2:L263:np.abs(mm).max()": {
+          "reduce_.max": 121
+        },
+        "_resolve_margin2:L263:sh.max()": {
+          "reduce_.max": 121
+        },
+        "_resolve_margin2:L263:sh.max() >= eps * np.abs(mm).max()": {
+          "scalar_compare": 50
+        },
+        "_resolve_margin2:L264:1 - TIE": {
+          "scalar_Sub": 109
+        },
+        "_resolve_margin2:L264:score >= 1 - TIE": {
+          "scalar_compare": 109
+        },
+        "clip:L40:n @ v": {
+          "matrix_mul": 8094,
+          "matrix_add": 5396
+        },
+        "clip:L42:CLIP_TOL[0] > 0": {
+          "scalar_compare": 733
+        },
+        "clip:L43:CLIP_TOL[0] * max((abs(x) for x in s))": {
+          "scalar_Mult": 733
+        },
+        "clip:L43:abs(x)": {
+          "special_abs": 2698
+        },
+        "clip:L43:max((abs(x) for x in s))": {
+          "scalar_compare": 1965
+        },
+        "clip:L44:abs(x)": {
+          "special_abs": 2698
+        },
+        "clip:L44:abs(x) <= tl": {
+          "scalar_compare": 2698
+        },
+        "clip:L45:min(s)": {
+          "scalar_compare": 1965
+        },
+        "clip:L45:min(s) >= 0": {
+          "scalar_compare": 733
+        },
+        "clip:L47:max(s)": {
+          "scalar_compare": 1063
+        },
+        "clip:L47:max(s) <= 0": {
+          "scalar_compare": 401
+        },
+        "clip:L52:(i + 1) % m": {
+          "integer_control_Mod": 1064
+        },
+        "clip:L52:i + 1": {
+          "integer_control_Add": 1064
+        },
+        "clip:L54:si >= 0": {
+          "scalar_compare": 1064
+        },
+        "clip:L56:si <= 0": {
+          "scalar_compare": 1064
+        },
+        "clip:L58:si < 0": {
+          "scalar_compare": 787
+        },
+        "clip:L58:si > 0": {
+          "scalar_compare": 1064
+        },
+        "clip:L58:sj < 0": {
+          "scalar_compare": 545
+        },
+        "clip:L58:sj > 0": {
+          "scalar_compare": 495
+        },
+        "clip:L59:abs(si)": {
+          "special_abs": 550
+        },
+        "clip:L59:abs(si) * poly[j]": {
+          "array_Mult": 1650
+        },
+        "clip:L59:abs(si) * poly[j] + abs(sj) * vi": {
+          "array_Add": 1650
+        },
+        "clip:L59:abs(sj)": {
+          "special_abs": 550
+        },
+        "clip:L59:abs(sj) * vi": {
+          "array_Mult": 1650
+        },
+        "clip:L60:np.linalg.norm(p)": {
+          "norm_mul": 1650,
+          "norm_add": 1100,
+          "special_sqrt": 550
+        },
+        "clip:L60:p / np.linalg.norm(p)": {
+          "array_Div": 1650
+        },
+        "clip:L62:len(ins) >= 3": {
+          "integer_control_compare": 287
+        },
+        "clip:L62:len(out) >= 3": {
+          "integer_control_compare": 287
+        },
+        "est75:L332:cliptol > 0": {
+          "scalar_compare": 1
+        },
+        "frac:L66:len(poly) < 3": {
+          "integer_control_compare": 135
+        },
+        "frac:L69:len(poly) - 1": {
+          "integer_control_Sub": 135
+        },
+        "frac:L70:i + 1": {
+          "integer_control_Add": 231
+        },
+        "frac:L71:1.0 + a @ b": {
+          "scalar_Add": 231
+        },
+        "frac:L71:1.0 + a @ b + a @ c": {
+          "scalar_Add": 231
+        },
+        "frac:L71:1.0 + a @ b + a @ c + b @ c": {
+          "scalar_Add": 231
+        },
+        "frac:L71:2.0 * np.arctan2(abs(a @ np.cross(b, c)), 1.0 + a @ b + a @ c + b @ c)": {
+          "scalar_Mult": 231
+        },
+        "frac:L71:a @ b": {
+          "matrix_mul": 693,
+          "matrix_add": 462
+        },
+        "frac:L71:a @ c": {
+          "matrix_mul": 693,
+          "matrix_add": 462
+        },
+        "frac:L71:a @ np.cross(b, c)": {
+          "matrix_mul": 693,
+          "matrix_add": 462
+        },
+        "frac:L71:abs(a @ np.cross(b, c))": {
+          "special_abs": 231
+        },
+        "frac:L71:b @ c": {
+          "matrix_mul": 693,
+          "matrix_add": 462
+        },
+        "frac:L71:np.arctan2(abs(a @ np.cross(b, c)), 1.0 + a @ b + a @ c + b @ c)": {
+          "special_np.arctan2": 231
+        },
+        "frac:L71:np.cross(b, c)": {
+          "cross_mul": 1386,
+          "cross_sub": 693
+        },
+        "frac:L71:tot += 2.0 * np.arctan2(abs(a @ np.cross(b, c)), 1.0 + a @ b + a @ c + b @ c)": {
+          "scalar_Add": 231
+        },
+        "frac:L74:4 * np.pi": {
+          "scalar_Mult": 135
+        },
+        "frac:L74:tot / (4 * np.pi)": {
+          "scalar_Div": 135
+        },
+        "margin:L246:P @ A3f.T": {
+          "matrix_mul": 8112,
+          "matrix_add": 5408
+        },
+        "margin:L246:np.maximum(P @ A3f.T, 0)": {
+          "array_compare": 2704
+        },
+        "margin:L246:np.maximum(P @ A3f.T, 0) @ Wo.T": {
+          "matrix_mul": 8112,
+          "matrix_add": 7098
+        },
+        "margin:L247:P @ A3f.T": {
+          "matrix_mul": 8112,
+          "matrix_add": 5408
+        },
+        "margin:L247:not np.any(np.maximum(P @ A3f.T, 0))": {
+          "integer_control_Not": 109
+        },
+        "margin:L247:np.any(np.maximum(P @ A3f.T, 0))": {
+          "array_truth_compare": 2704,
+          "integer_control_reduce_np.any": 2595
+        },
+        "margin:L247:np.maximum(P @ A3f.T, 0)": {
+          "array_compare": 2704
+        },
+        "margin:L249:Z[:, truth] - np.max(np.delete(Z, truth, axis=1), axis=1)": {
+          "array_Sub": 338
+        },
+        "margin:L249:np.max(np.delete(Z, truth, axis=1), axis=1)": {
+          "reduce_np.max": 338
+        }
+      },
+      "totals": {
+        "array_Add": 9919,
+        "array_Div": 7072,
+        "array_Mult": 29786,
+        "array_Sub": 8320,
+        "array_compare": 8714,
+        "array_truth_compare": 2704,
+        "cross_mul": 1386,
+        "cross_sub": 693,
+        "integer_control_Add": 2852,
+        "integer_control_Mod": 2621,
+        "integer_control_Not": 109,
+        "integer_control_Sub": 135,
+        "integer_control_compare": 3281,
+        "integer_control_reduce_np.any": 2595,
+        "matrix_add": 117418,
+        "matrix_mul": 152967,
+        "norm_add": 2870,
+        "norm_mul": 4305,
+        "reduce_.max": 19237,
+        "reduce_.min": 9542,
+        "reduce_.sum": 3899,
+        "reduce_np.max": 6380,
+        "reduce_np.mean": 1626,
+        "scalar_Add": 1083,
+        "scalar_Div": 135,
+        "scalar_Mult": 1875,
+        "scalar_Sub": 465,
+        "scalar_USub": 3224,
+        "scalar_compare": 30153,
+        "scalar_sum": 12,
+        "special_abs": 10629,
+        "special_np.abs": 22837,
+        "special_np.arctan2": 231,
+        "special_sqrt": 1435
+      },
+      "named_numeric_total": 458917,
+      "integer_control_total": 11593,
+      "complete_implementation_cost": false,
+      "calls": {
+        ".astype": 24,
+        "np.outer": 193,
+        "np.abs": 1260,
+        ".max": 4054,
+        "np.max": 1161,
+        "abs": 10629,
+        "np.mean": 403,
+        "np.array": 1331,
+        "np.zeros": 403,
+        ".min": 3688,
+        "np.flatnonzero": 928,
+        "np.linalg.norm": 1435,
+        "np.maximum": 218,
+        "np.any": 109,
+        "np.delete": 464,
+        ".sum": 557,
+        "np.cross": 231,
+        "np.arctan2": 231
+      },
+      "memory_calls": [
+        {
+          "site": "_est75:L347:(sigma * Wi > 0).astype(float)",
+          "call": ".astype",
+          "shape": "(8,)",
+          "count": 24
+        },
+        {
+          "site": "_resolve_margin2:L225:np.array(poly)",
+          "call": "np.array",
+          "shape": "(3, 3)",
+          "count": 74
+        },
+        {
+          "site": "_resolve_margin2:L227:np.zeros(len(A2))",
+          "call": "np.zeros",
+          "shape": "(8,)",
+          "count": 138
+        },
+        {
+          "site": "_resolve_margin2:L255:np.flatnonzero(mino)",
+          "call": "np.flatnonzero",
+          "shape": "(2,)",
+          "count": 108
+        },
+        {
+          "site": "_resolve_margin2:L261:np.array(pts)",
+          "call": "np.array",
+          "shape": "(3, 3)",
+          "count": 44
+        },
+        {
+          "site": "_resolve_margin2:L261:np.array(sh)",
+          "call": "np.array",
+          "shape": "(3,)",
+          "count": 44
+        },
+        {
+          "site": "margin:L249:np.delete(Z, truth, axis=1)",
+          "call": "np.delete",
+          "shape": "(3, 2)",
+          "count": 44
+        },
+        {
+          "site": "_resolve_margin2:L255:np.flatnonzero(mino)",
+          "call": "np.flatnonzero",
+          "shape": "(1,)",
+          "count": 110
+        },
+        {
+          "site": "_resolve_margin2:L261:np.array(pts)",
+          "call": "np.array",
+          "shape": "(2, 3)",
+          "count": 27
+        },
+        {
+          "site": "_resolve_margin2:L261:np.array(sh)",
+          "call": "np.array",
+          "shape": "(2,)",
+          "count": 27
+        },
+        {
+          "site": "margin:L249:np.delete(Z, truth, axis=1)",
+          "call": "np.delete",
+          "shape": "(2, 2)",
+          "count": 27
+        },
+        {
+          "site": "_cells_margin:L157:np.array(poly)",
+          "call": "np.array",
+          "shape": "(3, 3)",
+          "count": 108
+        },
+        {
+          "site": "_cells_margin:L159:np.zeros(len(A3))",
+          "call": "np.zeros",
+          "shape": "(8,)",
+          "count": 265
+        },
+        {
+          "site": "_cells_margin:L180:np.flatnonzero(minority)",
+          "call": "np.flatnonzero",
+          "shape": "(1,)",
+          "count": 211
+        },
+        {
+          "site": "_cells_margin:L181:np.flatnonzero(minority)",
+          "call": "np.flatnonzero",
+          "shape": "(1,)",
+          "count": 211
+        },
+        {
+          "site": "_cells_margin:L187:np.array(pts)",
+          "call": "np.array",
+          "shape": "(3, 3)",
+          "count": 211
+        },
+        {
+          "site": "_cells_margin:L187:np.array(shifts)",
+          "call": "np.array",
+          "shape": "(3,)",
+          "count": 211
+        },
+        {
+          "site": "_margin:L144:np.delete(Z, truth, axis=1)",
+          "call": "np.delete",
+          "shape": "(3, 2)",
+          "count": 211
+        },
+        {
+          "site": "_cells_margin:L180:np.flatnonzero(minority)",
+          "call": "np.flatnonzero",
+          "shape": "(2,)",
+          "count": 133
+        },
+        {
+          "site": "_cells_margin:L181:np.flatnonzero(minority)",
+          "call": "np.flatnonzero",
+          "shape": "(2,)",
+          "count": 133
+        },
+        {
+          "site": "_cells_margin:L187:np.array(pts)",
+          "call": "np.array",
+          "shape": "(4, 3)",
+          "count": 133
+        },
+        {
+          "site": "_cells_margin:L187:np.array(shifts)",
+          "call": "np.array",
+          "shape": "(4,)",
+          "count": 133
+        },
+        {
+          "site": "_margin:L144:np.delete(Z, truth, axis=1)",
+          "call": "np.delete",
+          "shape": "(4, 2)",
+          "count": 133
+        },
+        {
+          "site": "_cells_margin:L157:np.array(poly)",
+          "call": "np.array",
+          "shape": "(4, 3)",
+          "count": 133
+        },
+        {
+          "site": "_cells_margin:L180:np.flatnonzero(minority)",
+          "call": "np.flatnonzero",
+          "shape": "(3,)",
+          "count": 11
+        },
+        {
+          "site": "_cells_margin:L181:np.flatnonzero(minority)",
+          "call": "np.flatnonzero",
+          "shape": "(3,)",
+          "count": 11
+        },
+        {
+          "site": "_cells_margin:L187:np.array(pts)",
+          "call": "np.array",
+          "shape": "(5, 3)",
+          "count": 11
+        },
+        {
+          "site": "_cells_margin:L187:np.array(shifts)",
+          "call": "np.array",
+          "shape": "(5,)",
+          "count": 11
+        },
+        {
+          "site": "_margin:L144:np.delete(Z, truth, axis=1)",
+          "call": "np.delete",
+          "shape": "(5, 2)",
+          "count": 11
+        },
+        {
+          "site": "_cells_margin:L157:np.array(poly)",
+          "call": "np.array",
+          "shape": "(5, 3)",
+          "count": 19
+        },
+        {
+          "site": "_cells_margin:L157:np.array(poly)",
+          "call": "np.array",
+          "shape": "(6, 3)",
+          "count": 5
+        },
+        {
+          "site": "_resolve_margin2:L261:np.array(pts)",
+          "call": "np.array",
+          "shape": "(4, 3)",
+          "count": 38
+        },
+        {
+          "site": "_resolve_margin2:L261:np.array(sh)",
+          "call": "np.array",
+          "shape": "(4,)",
+          "count": 38
+        },
+        {
+          "site": "margin:L249:np.delete(Z, truth, axis=1)",
+          "call": "np.delete",
+          "shape": "(4, 2)",
+          "count": 38
+        },
+        {
+          "site": "_resolve_margin2:L225:np.array(poly)",
+          "call": "np.array",
+          "shape": "(4, 3)",
+          "count": 64
+        }
+      ]
+    },
+    "startup": {
+      "sites": {},
+      "totals": {},
+      "named_numeric_total": 0,
+      "integer_control_total": 0,
+      "complete_implementation_cost": false,
+      "calls": {
+        "np.eye": 1
+      },
+      "memory_calls": [
+        {
+          "site": "module:L30:np.eye(3)",
+          "call": "np.eye",
+          "shape": "(3, 3)",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "scalar_repaired_counter": 326667,
+  "source_hashes": {
+    "est75.py": "426020c67a52678e5cccb20c552837fe2d233c3fe5e13557916034a3c46877d3",
+    "trace.py": "a3be9de04c6a7f2db519ddebe5efc5bbf748a6f807dbdbfdc407f57223baf5f0",
+    "base_snapshot.py": "48bf04ead5510fc301a8db9732d90e00179d0ae6524f515344f28df2a94385db",
+    "trained.py": "00876af0e3d043dc78a1a167946095ecbdf4229d05ce6ede22a9493e770e2f78"
+  },
+  "cpu": 1.235728071,
+  "rss_kib": 202308
+}

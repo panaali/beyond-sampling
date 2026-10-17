@@ -1,0 +1,96 @@
+{
+  "model_sha256": "ef22df10439aa5f65366a09e3cf1a42b3a8874bb1f7ee5eea68823bfaf52c9e9",
+  "component_visible": 1838392678,
+  "cold_visible": 6930,
+  "outer_visible": 50,
+  "total_visible": 1838399658,
+  "sampler_units": 512,
+  "integer_sample_budget": 3590624,
+  "estimate": 0.6056912072571354,
+  "reference": 0.60561725,
+  "reference_n": 100000000,
+  "reference_CP95": [
+    0.6055214550337267,
+    0.6057130388520773
+  ],
+  "point_ratio": 0.08222717572193543,
+  "CP95_ratio_bounds": [
+    0.0,
+    0.4331596046910824
+  ],
+  "remaining_opaque_cold": [
+    {
+      "key": [
+        "_basis:L72:np.linalg.svd(n[None, :])",
+        "np.linalg.svd",
+        "(1, 4)",
+        "('heterogeneous', ((1, 1), (1,), (4, 4)))",
+        "{}"
+      ],
+      "count": 6
+    },
+    {
+      "key": [
+        "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+        "np.polynomial.legendre.leggauss",
+        "()",
+        "(2, 10)",
+        "{}"
+      ],
+      "count": 1
+    },
+    {
+      "key": [
+        "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+        "np.polynomial.legendre.leggauss",
+        "()",
+        "(2, 16)",
+        "{}"
+      ],
+      "count": 1
+    },
+    {
+      "key": [
+        "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+        "np.polynomial.legendre.leggauss",
+        "()",
+        "(2, 3)",
+        "{}"
+      ],
+      "count": 2
+    },
+    {
+      "key": [
+        "_duffy:L261:np.polynomial.legendre.leggauss(nq)",
+        "np.polynomial.legendre.leggauss",
+        "()",
+        "(2, 6)",
+        "{}"
+      ],
+      "count": 1
+    },
+    {
+      "key": [
+        "_lune_tris:L81:np.linalg.inv(N)",
+        "np.linalg.inv",
+        "(3, 3)",
+        "(3, 3)",
+        "{}"
+      ],
+      "count": 48
+    },
+    {
+      "key": [
+        "module:L249:np.polynomial.legendre.leggauss(NQ)",
+        "np.polynomial.legendre.leggauss",
+        "()",
+        "(2, 6)",
+        "{}"
+      ],
+      "count": 1
+    }
+  ],
+  "model_dependent_opaque": [],
+  "remaining_cost_to_conditional_95_budget": 2405762235.422856,
+  "scope": "One fixed noisy model; binomial truth uncertainty and declared source units only. Opaque native setup, I/O, memory/control/library internals excluded. No hardware ceiling, deterministic accuracy certificate, full noisy-panel result or ladder pass."
+}

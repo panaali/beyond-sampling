@@ -1,0 +1,106 @@
+{
+  "primitives": {
+    "False": [
+      {
+        "x": 0.0,
+        "eq_zero": false,
+        "ne_zero": true
+      },
+      {
+        "x": 1.0,
+        "eq_zero": false,
+        "ne_zero": true
+      }
+    ],
+    "True": [
+      {
+        "x": 0.0,
+        "eq_zero": true,
+        "ne_zero": false
+      },
+      {
+        "x": 1.0,
+        "eq_zero": false,
+        "ne_zero": true
+      }
+    ]
+  },
+  "models": [
+    {
+      "H": 8,
+      "zoo": 2,
+      "noise_seed": 89,
+      "copy": 3,
+      "checkpoint": "/workspace/work/t45_weights/2nd_argmax_8_3_1073741824_2.pth",
+      "checkpoint_sha256": "e6b87e3b500c4889150a8cc877efe7609dcc90b4a9adc35f372fbedf1dde633d",
+      "recipe": 0.9654673957873317,
+      "float_reimplementation": 0.9654673957873317,
+      "original_wrapped": 0.9654674587938789,
+      "original_count": 330161,
+      "equality_repaired": 0.9654673957873317,
+      "equality_repaired_count": 326667,
+      "saved": {
+        "zoo": 2,
+        "charge": 160564,
+        "auto": 330161,
+        "diff": 6.300654720181598e-08
+      }
+    },
+    {
+      "H": 4,
+      "zoo": 1,
+      "noise_seed": 89,
+      "copy": 2,
+      "checkpoint": "/workspace/work/t114_checkpoints/2nd_argmax_4_3_1073741824_1.pth",
+      "checkpoint_sha256": "540ca26c0dbaa681453e3c437c2e321a4fe0c97f4a9ccdf8703bd98b9cd0ca56",
+      "recipe": 0.7560352941513306,
+      "float_reimplementation": 0.7560352941513315,
+      "original_wrapped": 0.7560352941513317,
+      "original_count": 137720,
+      "equality_repaired": 0.7560352941513317,
+      "equality_repaired_count": 137268,
+      "saved": {
+        "zoo": 1,
+        "charge": 70471,
+        "auto": 137720,
+        "diff": 1.1102230246251565e-15
+      }
+    }
+  ],
+  "analytic": [
+    {
+      "name": "alloff",
+      "analytic_truth": 0.3333333333333333,
+      "reference_ordering": 1.0000000000000002,
+      "reference_octants": 1.0000000000000002,
+      "recipe": 0.33333333333333304,
+      "reimplementation": 0.33333333333333315
+    },
+    {
+      "name": "zero-readout",
+      "analytic_truth": 0.3333333333333333,
+      "reference_ordering": 0.6666666666666667,
+      "reference_octants": 0.6666666666666667,
+      "recipe": 0.6666666666666665,
+      "reimplementation": 0.6666666666666665
+    },
+    {
+      "name": "identical-readout",
+      "analytic_truth": 0.3333333333333333,
+      "reference_ordering": 0.6666666666666667,
+      "reference_octants": 0.6666666666666667,
+      "recipe": 0.6666666666666665,
+      "reimplementation": 0.6666666666666665
+    },
+    {
+      "name": "first-dominant",
+      "analytic_truth": 0.3333333333333333,
+      "reference_ordering": 0.33333333333333337,
+      "reference_octants": 0.33333333333333326,
+      "recipe": 0.33333333333333337,
+      "reimplementation": 0.33333333333333337
+    }
+  ],
+  "scope": "Two diagnostic models and exact constant-label fixtures only; no full counter repair or trained-truth rejection.",
+  "cpu": 1.7373330059999998
+}
