@@ -42,6 +42,8 @@ def describe(model):
             g3 = (R[2 * H:] @ xm) > 0
             act.append(int(g3.sum()))
             # check: the full pattern is constant inside the segment and changes at its ends (as predicted)
+            if t1 - t0 < 1e-9:          # zero-length segment (x0 = 0 exactly): measure zero, skipped
+                continue
             for th in (t0 + 1e-6 * (t1 - t0), t1 - 1e-6 * (t1 - t0)):
                 p = math.cos(th) * f["P"] + math.sin(th) * f["U"]
                 checks += 1
