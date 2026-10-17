@@ -11,10 +11,10 @@ parity and completed native-category evidence. No author estimators imported.
 See PROTOCOL.md, manifest.json and audit.py. Reuse T185 review199420a1.
 
 ## Status
-Source frozen, independent gate pending; no audit run yet. Claim10c36c40.
+Independent source gate passed; fixed saved9case audit complete, saved independent review pending. Claim10c36c40.
 
 ## Results
-Pending: python audit.py under review20CPU cap. Output refusal preserves attempts.
+All9 nominal ratios reproduce. Pointwise MC95 leavesseed2/4 unresolved; simultaneous9case95 leaves onlyseed1 upper<1 under historicalproxy. Existing positive seed0/1 references strengthen those conditional results. See HANDOFF.md/results.json. Command: python audit.py under review20CPU cap in preserved fresh output copy; original output refusal retains attempts.
 No complete-rung or fresh-noise validation in this first phase.
 
 ## Compute accounting
