@@ -1626,3 +1626,7 @@ T187 saved12 controls independently pass exact region-mask affine reconstruction
 ### T184 H5/zoo4 closes H5 raw coverage
 
 All256 rows/four shards independently pass; numeric52604047/integer1636769, own-floor source159 group ratio.021292836652689977. Two individual losses retained, maximum1.374951461671163; no topology differences. All five H5 groups now independently checked once, with three individual losses overall despite group ratios below1. H6 and final global coverage/resource reconciliation remain open. No estimator/reference replay or complete native-cost claim.
+
+### T188 exact one-step margin signature source gate
+
+Reviewed58007be5 derivation/canonical/28controls: orientation normalization, negative-alpha linear residue v*b, equal-hyperplane combination and positive projective scale correct. Global margin-function uniqueness follows from generic hyperplane gradient jumps, with d1 slopes separately handled. Signatures are sufficient for labels/ties but not complete for label-only or restricted-prefix equivalence; grid-label checks alone remain diagnostic. Fixed24 pairs/four guards permitted once, no trained capture/merge-rate/mass savings. Source named rational counts do not close future_forms/margins/grid/control/native costs.
