@@ -91,12 +91,12 @@ def possible_labels(wo):
     return result
 
 
-def grids(model, count, limit, stats):
+def grids(model, count, limit, stats, mesh_power=1.):
     wi, wh, wo = model
     bounds = [np.zeros(2)]
     for _ in range(len(wo)):
         bounds.append(np.maximum(wh, 0) @ bounds[-1]+limit*np.abs(wi))
-    axes = [tuple(np.linspace(0., b*(1+1e-12), count) if b > 0 else np.array([0.])
+    axes = [tuple(b*(1+1e-12)*np.linspace(0., 1., count)**mesh_power if b > 0 else np.array([0.])
                   for b in bound) for bound in bounds]
     states = [np.stack(np.meshgrid(*grid, indexing='ij'), axis=-1).reshape(-1, 2)
               for grid in axes]
@@ -150,7 +150,7 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline):
 
 
 def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.,
-             target_rule='jacobi'):
+             target_rule='jacobi', mesh_power=1.):
     start = time.process_time()
     wi, wh, wo = (np.asarray(a, dtype=float) for a in model)
     T = len(wo)
@@ -158,7 +158,9 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
         raise ValueError('requires H2,T>=3 model')
     model = wi, wh, wo
     stats = defaultdict(float)
-    axes, states, bounds = grids(model, hidden_order, limit, stats)
+    if mesh_power <= 0 or hidden_order < 2:
+        raise ValueError('need positive mesh power and at least two grid nodes')
+    axes, states, bounds = grids(model, hidden_order, limit, stats, mesh_power)
     if target_rule == 'jacobi':
         nodes, weights = roots_jacobi(target_order, 1, T-2)
         q = (nodes+1)/2
@@ -181,7 +183,8 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     answer = sum(contributions.values())
     box_mass = float(np.exp(T*np.log1p(-2*ndtr(-limit))))
     return answer, dict(cpu_seconds=time.process_time()-start, work=dict(stats),
-                        hidden_order=hidden_order, target_order=target_order, target_rule=target_rule,
+                        hidden_order=hidden_order, mesh_power=mesh_power,
+                        target_order=target_order, target_rule=target_rule,
                         input_order=input_order,
                         limit=limit, possible_labels=labels, contributions=contributions,
                         stage_bounds=[b.tolist() for b in bounds],
