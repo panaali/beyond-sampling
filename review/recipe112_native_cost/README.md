@@ -15,7 +15,7 @@ Frozen analytic controls: exact3D basis dot/cross/norm; dense2x3 times3x2; scala
 Two alternatives: (1) native dense/repeated arithmetic materially exceeds the scalar count despite output parity; direct source trace distinguishes. (2) accounting wrapper itself changes branches or costs; analytic operator controls and full output/counter/STATS parity distinguish. (3) a false cost increase comes from counting bookkeeping or nonexecuted branches; site ledger and independent source audit distinguish.
 
 ## Status
-Static inventory complete; tracer/control implementation next. No native numerical cost conclusion yet.
+Static inventory,11 analytic operator checks and five synthetic model parity controls complete; independent source/control gate requested before two frozen trained traces. No native trained-cost conclusion yet.
 
 ## Results
 The actual `_resolve_margin2.margin` evaluates `P @ A3f.T` twice and uses dense matrices for both; scalar rec112 instead computes each point separately and skips inactive terms. Source `_est75` also constructs full HxH products after masks. These source differences motivate direct accounting and prevent cost transfer. The repeated expression is preserved. Original known positive-volume tie defects are not repaired in this task.
@@ -33,3 +33,7 @@ A different efficient implementation, shared setup, compensated arithmetic, sour
 
 ## Failure modes
 AST evaluation-order changes; omitted NumPy methods or reductions; integer-versus-numeric category confusion; double-counting returned arrays; generator exhaustion; scalar/array coercion; source setup conflated with per-model work; floating branch changes; treating known degenerate tie defects as new trained failures.
+
+## Control results and preserved harness failures
+
+`controls.py` checks eleven primitive cases and five synthetic estimators. Every model preserves bitwise estimate, historical counter, STATS and all24 family error values. Known zero/identical-readout accuracy defects remain2/3 against analytic1/3. Named native numeric totals for zero/zero-readout/identical/dominant-first/mixed are4526/8066/8066/11539/22872; legacy totals2736/4536/4536/6416/10771. These finite controls validate tracing, not trained cost or generic source completeness. Successful controls record.332445782CPU excluding imports. Prior harness failures are saved separately: an augmented-assignment fixture omitted its local initialization; the evaluator passed `info` positionally into K; JSON attempted tuple dictionary keys after all parity assertions passed. Repairs affect fixture plumbing/serialization only, and all controls were rerun.

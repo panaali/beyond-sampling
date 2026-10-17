@@ -1,0 +1,4 @@
+{
+  "error": "TypeError(\"est75() got multiple values for argument 'K'\")",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h2_910/review/recipe112_native_cost/controls.py\", line 35, in <module>\n    try:main()\n        ^^^^^^\n  File \"/workspace/work/recover-small_h2_910/review/recipe112_native_cost/controls.py\", line 29, in main\n    model=tuple(np.asarray(x) for x in (wi,wh,wo));baseline=T.evaluate(model,False);traced=T.evaluate(model,True)\n                                                            ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/review/recipe112_native_cost/trace.py\", line 80, in evaluate\n    value=mod.est75(model,ops,info,**mod.RECIPE112)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: est75() got multiple values for argument 'K'\n"
+}
