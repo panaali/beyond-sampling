@@ -1,0 +1,12 @@
+exact_ladder budget 16000 done
+
+=== Leaderboard v3, M_16,2. MSE / sampling-MSE at equal cost (below 1 beats sampling) ===
+    ARC's demonstrated bar (E32, M_4,3): MSE ratios ~2.4 (B) to ~10 (A) at ARC's op counts were called 'roughly match'; A is ~1.4 when ops are counted as implemented (as here).
+
+--- unreviewed ---
+method             group       budget      cost  ratio         95% CI  bias pp  time  n
+exact_ladder       s0.0025      16000        17   0.00 [-0.00, 0.00]   +0.000  56.6 144
+exact_ladder       s0.005       16000        17   0.00 [-0.00, 0.00]   +0.000  54.7 144
+exact_ladder       s0.01        16000        17   0.00 [-0.00, 0.00]   -0.000  55.4 144
+exact_ladder       s0.02        16000        17  -0.00 [-0.00,-0.00]   +0.001  57.6 144
+exact_ladder       seed         16000        17  -0.00 [-0.00,-0.00]   +0.000  57.1 120
