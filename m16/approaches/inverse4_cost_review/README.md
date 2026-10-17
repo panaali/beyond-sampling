@@ -36,3 +36,5 @@ A complete control/category upper bound, a separately evaluated replacement inve
 ## Final status and claim scope
 
 Done for this bounded floating-expression audit; independent review passed (commit to follow). [measured] Installed dispatch and transparent fixture parity. [inferred, independently checked]188 fixed-path floating-expression envelope and composed category totals. [speculative] A full category envelope may still be comfortably below sampling break-even; no complete-cost or challenge-solved claim is made. Initial progress notes above preserve the chronology and are superseded by this final status.
+
+Independent T55 review **79b6876** verifies all11 saved passthrough controls, event-based188 derivation and scope exclusions. Parent T153 raw aggregate also passes that review.
