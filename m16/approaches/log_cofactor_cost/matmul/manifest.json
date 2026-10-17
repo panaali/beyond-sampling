@@ -13,5 +13,43 @@
     "sha256": "e7d2c972c026efe1f57c39830997a2f458635f7f0e2df03d60c1b4d3da228e90",
     "complete_build_equivalence_proved": false
   },
-  "binary_evidence": "DOUBLE_matmul_matrixmatrix.isra.0 calls scipy_cblas_dsyrk64_ at0x117775/0x1178b1 or scipy_cblas_dgemm64_ at0x117843"
+  "binary_evidence": "DOUBLE_matmul_matrixmatrix.isra.0 calls scipy_cblas_dsyrk64_ at0x117775/0x1178b1 or scipy_cblas_dgemm64_ at0x117843",
+  "openblas_public_sources": [
+    {
+      "file": "upstream_dgemm_small_nn.c",
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/kernel/x86_64/dgemm_small_kernel_nn_skylakex.c",
+      "sha256": "ccdc85c653f4706cac738e846cb64ba2d403ef03b1594a0e53f1b51483067620",
+      "date": "2026-10-17",
+      "full_build_equivalence_proven": false
+    },
+    {
+      "file": "upstream_dgemm_small_nt.c",
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/kernel/x86_64/dgemm_small_kernel_nt_skylakex.c",
+      "sha256": "6ce690c1f058ff55327292236a8765addf44b91754d6ab932b5fdaee18011f42",
+      "date": "2026-10-17",
+      "full_build_equivalence_proven": false
+    },
+    {
+      "file": "upstream_dgemm_small_tn.c",
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/kernel/x86_64/dgemm_small_kernel_tn_skylakex.c",
+      "sha256": "4347ea15e947dc8c41a189a652b9bad1133de2fabcbfd07755a7b48e9607dd76",
+      "date": "2026-10-17",
+      "full_build_equivalence_proven": false
+    },
+    {
+      "file": "upstream_dgemm_small_tt.c",
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/kernel/x86_64/dgemm_small_kernel_tt_skylakex.c",
+      "sha256": "7c8687db913f1ced69c486e0693089e05f03d2164e89de7ca1607d32faecc9dc",
+      "date": "2026-10-17",
+      "full_build_equivalence_proven": false
+    },
+    {
+      "file": "upstream_syrk_kernel.c",
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/driver/level3/syrk_kernel.c",
+      "sha256": "759b7e172bca0569f6b468ccd74ff5821b6531cb6ecb96cfa5ea8073fc82e8f0",
+      "date": "2026-10-17",
+      "full_build_equivalence_proven": false
+    }
+  ],
+  "source_lookup_note": "Initial kernel/generic/syrk_kernel.c URL returned404; GitHub repository tree located driver/level3/syrk_kernel.c. No estimator result affected."
 }
