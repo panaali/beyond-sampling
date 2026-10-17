@@ -24,7 +24,7 @@ For each approximate rule report paired bias and SE relative to actual correctne
 Before trained evaluation, independently verify the gate-remainder algebra and exact first-index ties on deterministic controls. An identity alignment of a network to itself must give kappa=0 and exact first-order trajectories. A trained recurrence with W=0 must also be exact for any reference B. Check the reference final readout against its independently known closed form g_i=x_i^+ +2max(0,x_j:j!=i), including all-negative/one-positive ties; source comments contain a sign typo, so actual assignments govern. Verify the propagated kappa sum equals actual-minus-linear state/logit differences within explicit floating tolerance. No full-model success claim until these controls pass and an independent reviewer checks the result.
 
 ## Status
-Protocol frozen; controls and bounded diagnostic next. T55 theory/independent review requested. No production estimator or shared code changes.
+Bounded two-phase diagnostic complete with independent recurrence verification. First order and its final-step rescue fail on both DEV copies; support correction improves both and leaves one rejected/one inconclusive. This does not retire hidden-reference methods. No production estimator or shared code changes.
 
 ## Results
 Pending. Exact handcrafted reference accuracy is .9904405381944444; previous output-independent residual laws missed trained accuracy by22.56–48.68 percentage points. Those failures do not settle this distinct pathwise hidden-reference approximation.
@@ -65,9 +65,12 @@ The rescue has an equivalent useful interpretation: hclip_next=D*relu(W*hclip+w*
 
 ## Finite alternatives checklist
 - Tested: a fixed all-step least-squares hidden alignment; actual reference assignments/closed logits and positive-mass ties; exact gate-remainder identity; readout-weighted remainder; held-out first order; a predeclared exact final-step rescue; a separately frozen nonnegative-state rescue on a fresh pool. Every rule and both DEV noise copies retained.
-- Numerical gate-remainder mistakes are separated from approximation error by deterministic identity/W0 controls and full propagated remainder closure. Independent implementation review is pending, so no family is marked dead.
+- Numerical gate-remainder mistakes are separated from approximation error by deterministic identity/W0 controls and full propagated remainder closure. Independent implementation review passes as recorded below; no family is marked dead.
 - Support correction is a meaningful partial rescue: one copy remains clearly biased and the other becomes inconclusive. This is evidence against a blanket negative for hidden-reference methods.
 - Not tried: time-dependent B, nonlinear/positive alignment, readout-aware alignment losses, different reference networks or conditionally modeled inactive-to-active crossings. They address distinct capacity/objective/closure questions; no validation-selected fit is silently added.
 - Not tried: automatic sample expansion for the inconclusive copy, because the frozen protocol forbids it and the other copy still fails. Precision alone would not fix that clear failure. More data could classify the inconclusive copy but is not a scalable-estimator result.
 - Not tried: deriving B from weights or integrating the joint reference/remainder probability law. The present sampled calibration is deliberately optimistic; even a successful oracle ceiling would not supply either missing production component.
 - T80 owns structured cumulant/conditional Gaussian variants; no duplicate Gaussian moment engine was built. No claim excludes richer joint state laws or a different gate-reference mechanism.
+
+## Independent implementation check
+T55 implemented the residual-state form e_next=delta+D*W*e, the exact final-step rescue, and the support variant as D*relu(W*hclip+w*x). It checked the first512 inputs from each frozen validation seed370202/370203 for both DEV models using only the saved calibrationB. Maximum logit difference from this implementation is8.05e-13, all predictions agree, and independent actual forwards agree exactly. This verifies arithmetic for both the failure and partial rescue; it adds no independent statistical power and does not remove calibration/model-scope qualifications. Reviewer memo/hash supplied separately to parent.
