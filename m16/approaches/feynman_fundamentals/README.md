@@ -559,3 +559,15 @@ not a rounding certificate. Some fallback rounding discrepancies exceed their
 tiny quadrature-only bounds, as already expected and explicitly qualified.
 Reproduce `check_enclosed_review.py` and `check_tetra_adversarial.py` separately
 under the review lock; result JSON files contain source hashes and inventories.
+
+## Cycle 15: read-only mixed-measure kernel review
+Question: does T58's conserved finite-volume mass also establish its singular
+strata or prediction probabilities? Alternative1: a missing line/area Jacobian
+causes discrepancies; independently derive each source transfer. Alternative2:
+the kernel is correct but uniform cell projection leaks outside reachable
+support; test the exact toy invariant h2>=h1 against saved fourth-step output,
+without running a new numerical experiment. `mixed_measure_review.md` records
+the derivation, a null-set pointwise API convention, and the retained numerical
+counterexample. No primitive or estimator code changed; no additional model
+or quadrature evaluations. This supports the assigned T58 owner, not a new
+transport implementation or an accuracy certificate.
