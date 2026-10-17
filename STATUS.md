@@ -37,6 +37,12 @@ precisely as testing it on random examples does for the same effort.
   ~500x. Around 5-8 numbers (depending on network width) it collapses, because mistakes stop being neat thin strips
   and become rare, wide, irregular patches.
 
+**ARC's public position (found 2026-10-17, see [lit/web_arc](lit/web_arc/README.md)):** on 2026-08-17 Jacob Hilton wrote that
+their progress on AlgZoo is "fairly marginal and we are not much closer to succeeding at the challenge". ARC's only
+published estimators (for a 32-parameter model) were about 2x worse in error than sampling (4x in compute), which ARC
+called "roughly match". So the private claim that ARC has cracked M_16,10 is doubtful on public evidence (H-E5), and
+ARC's own bar is looser than ours (MSE ratio ~4 vs our 1).
+
 **4. The question to ask ARC.** If they have solved the 10-step network, they must have a compact way to handle
 those rare wide patches. That is exactly where every approach here broke.
 

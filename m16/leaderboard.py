@@ -341,6 +341,7 @@ def report(H=16, T=10, names=None):
     rows = table(H, T, names)
     json.dump(rows, open(f"results/leaderboard_v3_H{H}_T{T}.json", "w"), indent=1)
     print(f"\n=== Leaderboard v{VERSION}, M_{H},{T}. MSE / sampling-MSE at equal cost (below 1 beats sampling) ===")
+    print("    ARC's own bar: on M_4,3 ARC called an MSE ratio of ~4 (RMSE ~2x worse) 'roughly match' (lit/web_arc/).")
     for cls in ("mechanistic", "quadrature", "sampling", "unreviewed"):
         sel = [r for r in rows if r["cls"] == cls]
         if not sel:
