@@ -71,3 +71,23 @@ and mixed-state forward representations remain open independent issues.
 ## Failure modes
 Strict boundary ownership, floating parallelism, CDF cancellation, tiny
 slabs, double-counted gate boundaries and exponential cell growth.
+
+## Primitive/topology result
+All fixed-u and discovered-breakpoint queries match the original direct
+scalar terminal algorithm within3.61e-16; scaling1e-16 changes values by at
+most1.12e-16. Constants, duplicates, Wh0 and exact-u0 first-index ties pass.
+Primitive CPU.074. No tolerance-based tie repair was needed.
+For the fixed row2/3 permutation, possible labels are0,1,3. At h5/h9,
+complete target partitions have364/1543 panels; target-last caches contain
+234/724 pieces and141/388 knots, total construction .028/.088CPU.
+Numerically tiny panels occur (63/191) and must be bounded, not dropped
+silently. The cache is practical at these two fixed pilot sizes.
+
+Next bounded step, frozen before measurement: private adapter of the same
+fixed_target driver, substituting only target-last terminal lookups. Compare
+complete-panel h5 GL2/4, and compare cached versus original direct terminal
+at the SAME GL2 nodes. Tiny panels use the prior explicit width*density
+mass bound. If h5 refinement<=1e-7 and cache/direct<=1e-11, test h9 GL2/4;
+otherwise retain an inconclusive result without a mesh/q sweep. This tests
+fixed-interpolant functionality/convergence only, not full accuracy or a
+sampling win. All cache/setup and lookup costs remain charged.
