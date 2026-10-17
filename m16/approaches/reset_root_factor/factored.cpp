@@ -42,7 +42,7 @@ extern "C" int projective_walk(int n,int h,int t,const double* wi,const double* 
                 if(b!=0){Real root=-a/b;if(!std::isfinite(root))return 3;input_roots.push_back(root);}
             }
             Real current=-INF;int restart=0;
-            std::vector<Real> ha((t+1)*h,0),hb((t+1)*h,0),roots(t,INF);
+            std::vector<Real> ha((t+1)*h,0),hb((t+1)*h,0),roots(t,INF);std::vector<unsigned char> zero(t+1,1);
             while(current<INF) {
                 if(count[0]>=cap)return 1;
                 ++count[0];
