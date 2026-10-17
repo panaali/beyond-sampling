@@ -1,0 +1,113 @@
+{
+  "source_revision": "90608af64abd6da794af0b64f855572e3f4f4e99",
+  "wrapper_sha256": "59b1bab254f9da0ea63c8384567db5533985218e99e039352d00f43a7e305177",
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "identical_logits": {
+    "n": 6,
+    "exact_accuracy": 0.3333333333333333,
+    "uncond_accuracy": 0.3333333333333333,
+    "cell_accuracy": 0.0,
+    "uncond_mismatch": 4,
+    "cell_mismatch": 2,
+    "max_logit_tie_count": 6,
+    "mismatch_without_tie": 0,
+    "input_labels": [
+      1,
+      2,
+      0,
+      0,
+      2,
+      1
+    ],
+    "exact_bits": [
+      false,
+      false,
+      true,
+      true,
+      false,
+      false
+    ],
+    "uncond_bits": [
+      false,
+      true,
+      false,
+      false,
+      true,
+      false
+    ],
+    "cell_bits": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "random_synthetic": {
+    "n": 512,
+    "exact_accuracy": 0.294921875,
+    "uncond_accuracy": 0.3046875,
+    "cell_accuracy": 0.232421875,
+    "uncond_mismatch": 69,
+    "cell_mismatch": 32,
+    "max_logit_tie_count": 111,
+    "mismatch_without_tie": 0,
+    "input_labels": null,
+    "exact_bits": null,
+    "uncond_bits": null,
+    "cell_bits": null
+  },
+  "dev": [
+    {
+      "sigma": 0.0025,
+      "n": 16384,
+      "exact_accuracy": 0.93890380859375,
+      "uncond_accuracy": 0.93890380859375,
+      "cell_accuracy": 0.93890380859375,
+      "uncond_mismatch": 0,
+      "cell_mismatch": 0,
+      "max_logit_tie_count": 0,
+      "mismatch_without_tie": 0,
+      "input_labels": null,
+      "exact_bits": null,
+      "uncond_bits": null,
+      "cell_bits": null
+    },
+    {
+      "sigma": 0.02,
+      "n": 16384,
+      "exact_accuracy": 0.61468505859375,
+      "uncond_accuracy": 0.61468505859375,
+      "cell_accuracy": 0.61468505859375,
+      "uncond_mismatch": 0,
+      "cell_mismatch": 0,
+      "max_logit_tie_count": 0,
+      "mismatch_without_tie": 0,
+      "input_labels": null,
+      "exact_bits": null,
+      "uncond_bits": null,
+      "cell_bits": null
+    }
+  ],
+  "subchunk_failure": "ValueError: einstein sum subscripts string contains too many subscripts for operand 0",
+  "dihedral_symmetry_swap_error": 0.25,
+  "augmented_input_truncation": {
+    "required_max_degree": 4,
+    "actual_input_degrees": [
+      1,
+      2
+    ]
+  },
+  "zero_atom_heaviside": 0.5,
+  "zero_atom_relu_mean": 3.989422804014327e-06,
+  "primitive_raw_flops": {
+    "normal_cdf": 300,
+    "erf": 0,
+    "exp": 100,
+    "hermite4": 0
+  },
+  "model_inputs": 66572,
+  "cpu_seconds": 1.022291369,
+  "caveat": "AST extracts exact source functions; no full cumulant propagation or source modifications."
+}
