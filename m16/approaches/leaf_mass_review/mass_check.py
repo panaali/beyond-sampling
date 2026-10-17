@@ -9,6 +9,7 @@ import numpy as np
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,'/workspace/work/admin-t121-rank-mass/m16/approaches/arc_m43_repro')
 import estT_snapshot as E
+assert Path(E.__file__).resolve()==HERE/'estT_snapshot.py', 'unexpected engine import'
 RADIAL=Path('/workspace/work/recover-small_h2_34/m16/approaches/radial_t4_reference/radial.py')
 spec=importlib.util.spec_from_file_location('positive_radial',RADIAL);R=importlib.util.module_from_spec(spec);spec.loader.exec_module(R)
 class Budget(Exception):pass

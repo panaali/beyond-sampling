@@ -10,6 +10,7 @@ HERE=Path(__file__).resolve().parent
 M43=Path('/workspace/work/admin-t121-rank-mass/m16/approaches/arc_m43_repro/m43.py')
 sys.path.insert(0,str(M43.parent))
 import estT_snapshot as E
+assert Path(E.__file__).resolve()==HERE/'estT_snapshot.py', 'unexpected engine import'
 WEIGHTS=Path('/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth')
 class Budget(Exception):pass
 class Ops:
