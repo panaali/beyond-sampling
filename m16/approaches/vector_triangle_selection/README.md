@@ -95,6 +95,14 @@ must repeat all original/threshold/empty/nodecap controls and then the same
 cold pilot with fresh timing, after independent source review. It does not
 relax near-threshold safeguards or certify floating behavior universally.
 
+## Attribution result
+All recorded sums, norms, normalized centers, projections, sign-bound terms
+and upper bounds agree exactly across9309 cases. Only the scalar-versus-array
+squared center projection differs, on exactly the same7 cases. Replacing
+that one square operation by `float(projection)**2` restores every radial
+tuple exactly. The frozen attribution gate passes in .328CPU. This isolates
+the cause on the tested corpus; it is not a universal BLAS parity claim.
+
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Preserve original
 conservative allowance and explicitly add every batch/guard/scalar-rescue
