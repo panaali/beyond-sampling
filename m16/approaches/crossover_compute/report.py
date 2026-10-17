@@ -137,6 +137,8 @@ def render(result):
                 lines.append(f"    incomplete/tuned/missing-CI budgets: {[g['budget'] for g in curve['coverage_gaps']]}")
         for group, curves in m['per_group'].items():
             lines.append(f"  {group}: point={curves['point']['cstar_tested_budget']}, upper_ci={curves['upper_ci']['cstar_tested_budget']}")
+    lines.append('\nLimitations:')
+    lines.extend('  ' + item for item in result['limitations'])
     return '\n'.join(lines)
 
 
