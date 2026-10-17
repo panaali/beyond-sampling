@@ -30,3 +30,6 @@ Include normalization, clipping predicates/reductions, adjacency bitsets, new ra
 
 ## Failure modes
 DD floating tolerances and finite bitset capacity; zero or degenerate input weights outside tested base scope; extreme skinny cones; SVD runtime is not a fixed arithmetic count; CPU results depend on hardware and batching. The quadrature bound excludes geometric and roundoff error. Numerical verification alone does not certify all generic weights.
+
+### Cycle 1 implementation checks
+`check.py` completed in0.984 CPU seconds including torch import/checkpoint loading. Gaussian rules n4/8/12/16/20 integrate every monomial through degree2n-1 within2.23e-16. Twenty ordinary/nearly dependent4x4 determinant cases agree with NumPy within2.67e-15 absolute error. Counted DD plus local first-index tie handling gives0.2499999999990603 for both allzero and identical readouts, within the analytic integration bound of1/4. The DD source is unchanged. `checks.json` saves exact costs and cases.

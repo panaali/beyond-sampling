@@ -125,7 +125,7 @@ def instrument_dd(path,audit):
 
 def outcome(dd,cell,model,ops,audit):
  """DRI outcome splitting with explicit first-index ownership for zero margins."""
- R,Z,A,_=cell;Wo=model[2];T=len(Wo);L=Wo@A;audit.add('outcome_maps',2*T*A.shape[0]*T)
+ R,Z,A,_=cell;Wo=model[2];T=len(Wo);L=Wo@A;audit.add('outcome_maps',2*T*A.shape[0]*T);ops.add(2*T*A.shape[0]*T,'final')
  dead=not A.any();audit.add('outcome_predicates',2*A.size+1);good=[];bad=[]
  for j in range(T):
   audit.add('outcome_control',5)
@@ -141,7 +141,7 @@ def outcome(dd,cell,model,ops,audit):
     if not np.any(margin):
      if k<j:Q=None;break
      continue
-    Q,_=dd.clip(Q[0],Q[1],margin,60+k,ops,want=(True,False))
+    Q,_=dd.clip(Q[0],Q[1],margin,60+k,ops,want=(True,False));ops.add(T,'final')
     if Q is None:break
    if Q is None:continue
   S=[(Q,0)]
