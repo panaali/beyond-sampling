@@ -1323,3 +1323,13 @@ groups improve, while severe original bounds can worsen. Seven of33 groups in
 each panel qualify, versus six previously. All reused exact setup and directed
 categories remain explicit. This is ideal truncation evidence only; no mass
 or floating-error/native-cost claim follows, and no mass calls were repeated.
+
+### Incremental missing-k30 full-ledger coverage
+
+`check_k30_native_seed_review.py` independently audits each completed1024-copy
+seed, all saved sites and source/model/truth parity, exact per-copy budgets and
+frozen bootstrap. Seeds1/2 currently pass with named111 ratios0.06470896873 and
+0.0001409610983. Seed1 retains three individual named-budget losses, maximum
+1.70745, versus one under historical72; seed2 has none. These are partial-panel
+results. Final all4096 uniqueness, reuse and author-summary comparison remains
+pending the other two seeds. No estimator evaluations are repeated.
