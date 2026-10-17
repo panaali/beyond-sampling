@@ -14,10 +14,8 @@ pilot and independent saved gate before expansion. No estimator selection,
 parameter changes, old10M combination or H4 truth transfer.
 
 ## Status
-Controls independently34891b4c and fixed first1M pilot independently
-e0cb033d passed. Remaining2499 blocks source-gated before execution.
-Continuation scope claimbf839fb2: one model/process, shared lock released
-between models,1200CPU research envelope with110 reserved before each.
+All25 fixed references complete and independently2695e545 verified.
+All60group/50individual fresh comparisons independently282a2788 verified. No further random draws are authorized by this completed phase.
 
 ## Results
 The prior60group/50individual original75-family10M intervals all contain1;
@@ -31,23 +29,42 @@ Pilot:640411/1M hits,.240898577 forwardCPU, projected602.2464425<=900.
 Command: `python review/hopf_h5_reference/reference.py --pilot`.
 The pilot is reused once; its accuracy does not determine expansion.
 
+Fresh result:42/60 group and35/50 individual upperratios are below1;
+18/15 remain inconclusive, none has lower bound above1. Eight/five point
+ratios remain>=1, max1.774335641. Largest group upper2.895198010.
+Optimized matched pooled upperratios byseed0..4: .404154243,.901702064,
+.511686932,.637346630,1.669985866. Therefore no all-panel H5 pass or
+method rejection. These are conditional source-cost comparisons, not
+actual-runtime failure/success proofs or mechanistic classification.
+
 ## Compute accounting
 One thread2GB; primary105/110CPU perprocess, shared fair lock. Fixed pilot
 forward CPU x2500 must be<=900CPU before expansion; a scheduling projection,
 not a total runtime ceiling. Source/import/controls/IO and actual block CPU
-are separately retained. Planned2.5B diagnostic draws,318 extra deterministic
-forward evaluations. No production-estimator compute or accuracy adjustment.
+are separately retained. Completed2.5B diagnostic draws,318 extra deterministic
+forward evaluations. Forward619.695751504CPU; recorded research630.019108551,
+max continuation process26.589146916. Summary.237497972CPU and comparison
+.175528142CPU are separate. Pilot/control imports excluded from recorded
+research timer; continuation process imports included. No failed attempt,
+repeat or production-estimator evaluation. No accuracy adjustment.
 
 ## Claims
-[inferred] Fresh fixed reference data can distinguish estimator error from
-old-reference noise. [speculative] Some apparent h64 failures may persist;
-all cases and outcomes remain in the panel.
+[measured] Full fixed25-model coverage and all saved references pass independent
+review2695e545. [measured, independently282a2788 checked]42/60 and35/50
+conditional comparisons certify upper<1; the remainder are inconclusive.
+[measured] The reported maximum point ratio decreases from3.157472189
+to1.774335641 with the fresh references. Current precision still does not
+establish the whole panel.
 
 ## Alternatives not ruled out
 An apparent failure may reflect real quadrature bias or old-reference noise;
 fresh independent data separates them. A source/model drift can imitate
-accuracy change; pinned identities and original/integer forward parity are
-the cheapest check. Other resolutions and estimators remain untested.
+accuracy change; pinned identities and original/integer forward parity pass.
+Higher resolutions and corrected root-mask candidates remain distinct untested
+variants here. Tighter valid confidence contractions or separately frozen fresh
+reference data may resolve remaining uncertainty; no optional extension with
+unchanged fixed-N confidence interpretation. Remaining native-cost closure
+could improve source allowances; no existing trace multipliers may transfer.
 
 ## Failure modes
 Source/pin/shape mismatch, forward-parity failure, resource-gate failure,
