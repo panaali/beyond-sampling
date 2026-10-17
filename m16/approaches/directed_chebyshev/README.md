@@ -22,7 +22,7 @@ For d=2nu and a determinant enclosure D, the positive-quadrature error is D*(nu-
 Implement/prove first; <=20CPU fixed primitive controls under review lock, one thread/2GB. No model forwards or new full integration. Record every arithmetic operation and precision, coefficient/pi setup, failures and source hashes. No hidden arbitrary-precision operations counted as unit FLOPs; counts are named precision-dependent kernels. T55 independently reviews recurrence and endpoints.
 
 ## Status
-Bounded primitive and concrete16-cone use complete; independent implementation review pending.
+Bounded Decimal/binary primitives and concrete16-cone use complete with independent reviews6d810bb/83a8056; handed to root/DRI. No full planner or accuracy claim.
 
 ## Results
 Pending.
@@ -83,3 +83,8 @@ After the exact-zero API repair, all24+64 containment controls still pass. The r
 T55 Decimal review6d810bb independently checks source/algebra and18 closed-form edge cases. Complete the binary helper with a positive pairwise outward sum so callers need not use an ordinary NumPy reduction on individual upper bounds. Freeze empty/single/16/17-element sums, subnormals and an infinite-upper unresolved input, compared to exact Fraction sums where finite. Then apply the same sum to each existing16-cone/order batch; no new rays or integration. This adds summation accounting and leaves individual bound formulas unchanged.
 
 Pairwise outward sums pass all five finite controls and the infinite-upper control against exact Fraction arithmetic. Each16-cone bound sum encloses the exact sum of its supplied binary endpoints, with30 additions and30 nextafter calls. The empty sum is exactlyzero. The short test CPU timer returnedzero and is recorded as unresolved, not zero computation cost. `check_sum.py`/`sum_results.json` retain the evidence; this addition does not alter previously checked individual bound formulas.
+
+## Independent final handoff
+T55 review6d810bb checks the Decimal source/algebra and18 independent closed-form edge cases, including the repaired float-conversion contract. Review83a8056 checks the binary source throughc767438 and eight additional200-digit inverse-cube cases. Every finite result encloses the independent value; extreme scales explicitly return[0,+inf]. The review confirms the degree cap keeps N²+2 exactly representable, outward pairwise sums and exact-zero overrides. It preserves explicit IEEE/Decimal implementation assumptions, conditional geometry and incomplete portable setup accounting.
+
+Finite alternatives checklist: exact-rational positive recurrence and independent derivative formulas both tested; narrow/large-degree/scale controls tested at50/80 Decimal precision; vectorized binary representation tested separately with retained API failures and repairs; cost recorded with named setup kernels and repeated-corpus qualification. Not attempted: full T6 planner mutation, interval-certified model topology, full integral roundoff enclosure, noninteger powers, or an accuracy/efficiency claim for the original network. These remain open rather than excluded by this successful primitive phase.
