@@ -24,7 +24,7 @@ def rescue(phi,h,beta,threshold):
   result=minimize(fn,gamma.ravel(),jac=True,method='L-BFGS-B',options=dict(maxiter=2000,ftol=1e-15,gtol=1e-12,maxls=50));gamma=result.x.reshape(shape);beta=np.linalg.solve(r,gamma*root);loss,gradient=objective(phi,h,beta);gn=float(np.max(abs(gradient)))
   segments.append(dict(segment=i,iterations=int(result.nit),objective_evals=int(result.nfev),success=bool(result.success),message=str(result.message),train_mse=loss,original_gradient_inf=gn,transformed_gradient_inf=float(np.max(abs(result.jac)))))
   if gn<=threshold:break
- return beta,dict(initial_mse=initial_loss,train_mse=loss,original_gradient_inf=gn,threshold=threshold,converged=gn<=threshold,worse_than_initial=loss>initial_loss+1e-12,condition_R=float(np.linalg.cond(r)),rank=rank,factorization_error=factor_error,initial_transform_error=transform_error,final_transform_error=float(np.max(abs(s@gamma-phi@beta))),objective_evals=calls,segments=segments)
+ return beta,dict(initial_mse=initial_loss,train_mse=loss,original_gradient_inf=gn,threshold=threshold,converged=gn<=threshold,worse_than_initial=loss>initial_loss+1e-12,condition_R=float(np.linalg.cond(r)),rank=rank,factorization_error=factor_error,initial_transform_error=transform_error,final_transform_error=float(np.max(abs(s@gamma-phi@beta))),objective_evals=calls,original_gradient_evaluations=1+len(segments),segments=segments)
 
 def main(H,seed):
  files=sorted(HERE.glob('results_H*_seed*.json'));assert len(files)==6 and all(len(json.loads(p.read_text())['rows'])==15 for p in files),'finish all original90 fits first'

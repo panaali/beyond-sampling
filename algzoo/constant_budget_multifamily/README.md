@@ -21,10 +21,14 @@ Report held-out accuracy/Wilson interval, paired adjacent-budget differences, so
 Alternatives: (1) old cap-limited fitting explains the curve: compare frozen initial/first-segment/final training diagnostics, not just accuracy; (2) feature order matters: compare fixed prefixes and equal full-span Fourier/polynomial endpoints; (3) source seed explains apparent width effect: report all three paired seeds; (4) output sensitivity differs from activation error: report both metrics. No causal neuron-role claim follows from reconstruction.
 
 ## Status
-Protocol frozen before fitting; implementation next.
+All90 original fits complete; separately claimed QR conditioning rescue follows. Independent T55 theory/source review145d6db passes full-span and parameter-count claims.
 
 ## Results
-None yet.
+Original frozen phase:65/90 fits satisfy the declared first-order criterion;25 remain unresolved after the maximum four segments. Every solver status and failed criterion is retained. Independent scalar feature controls agree <=1.56e-15; full position-basis span residual1.33e-15, transform condition11.87.
+
+At20 coefficients/neuron, Fourier reconstruction for H16 seeds0/1/2 is73.681%,70.629%,78.181% (gap recovery78.55%,77.70%,80.36%). H32 is93.5185%,90.8945%,92.596% (gap recovery93.38%,90.56%,92.66%). These H32 feasible predictors exceed the90% reconstruction criterion even though their fits are not converged; this is a reconstruction existence result, not qualitative neuron legibility or ARC deduction. H16 failure is specific to the tested fits/families, not a capacity impossibility. Full-span polynomial endpoints differ from Fourier accuracy by at most0.029 percentage points. Rank-only20-feature reconstruction is15.26–19.48%, with every20-feature rank fit unconverged. Source models are zoo seeds0/1/2; H16 source accuracies91.071%,88.030%,94.8485% differ from the historical example model.
+
+`summary.json` preserves all per-model/family/budget values and convergence flags. Reproduce one model with `python run.py --H 16 --seed 0` (existing completed panels are preserved; use a fresh folder for refitting), controls with `python check.py`, audit with `python summarize.py`. QR follow-up is separately frozen in QR_PROTOCOL.md; original files are immutable during it.
 
 ## Compute accounting
 One thread,2GB, shared compute lock and <=110CPU per model cycle. Include input generation/sorting, forward targets, all optimization objective calls, reconstruction/readout work, setup and checkpoint time. No source-network training or LP solves. This research is not an estimator-cost benchmark; no equal-FLOP sampling claim.

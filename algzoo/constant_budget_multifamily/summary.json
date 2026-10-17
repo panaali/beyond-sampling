@@ -729,9 +729,9 @@
       "H": 32,
       "seed": 2,
       "model_accuracy": 0.99137,
-      "cells": 14,
-      "cpu": 102.222268453,
-      "resource_attempts": 2,
+      "cells": 15,
+      "cpu": 119.916331982,
+      "resource_attempts": 3,
       "fits": [
         {
           "family": "fourier",
@@ -858,6 +858,15 @@
           "converged": false,
           "first_segment_mse": 6.35719488659479,
           "final_mse": 6.357193319836526
+        },
+        {
+          "family": "rank_values",
+          "budget": 20,
+          "accuracy": 0.19177,
+          "gap": 0.10295387998249884,
+          "converged": false,
+          "first_segment_mse": 6.328372999447023,
+          "final_mse": 6.328368455105013
         }
       ]
     }
@@ -1078,12 +1087,21 @@
       "gradient": 4.06636316009242e-06,
       "threshold": 1e-07,
       "last_message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+    },
+    {
+      "H": 32,
+      "seed": 2,
+      "family": "rank_values",
+      "budget": 20,
+      "gradient": 2.333264228066086e-06,
+      "threshold": 1e-07,
+      "last_message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
     }
   ],
-  "fit_count": 89,
+  "fit_count": 90,
   "converged_count": 65,
-  "recorded_cpu": 347.365418523,
-  "actual_hidden_forward_sequences": 1696000,
-  "independent_numpy_sequences": 8192,
-  "complete_six_panels": false
+  "recorded_cpu": 365.059482052,
+  "actual_hidden_forward_sequences": 1908000,
+  "independent_numpy_sequences": 9216,
+  "complete_six_panels": true
 }
