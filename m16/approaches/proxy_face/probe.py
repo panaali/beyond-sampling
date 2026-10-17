@@ -90,7 +90,7 @@ def metrics(f, g, exact_cost, proxy_cost):
                spearman=corr(f, g),
                tail_spearman=corr(f[tail], g[tail]),
                base_top1_second_share=weighted_top_share(f, np.ones(len(f)), f*f),
-               proxy_zero_positive_f=int(((g == 0)&(f > 1e-12)).sum()))
+               proxy_zero_positive_f=int(((g == 0)&(f > 0)).sum()))
     if out['proxy_zero_positive_f'] or qnorm <= 0:
         out.update(importance_variance=None, variance_gain=0., cost_adjusted_gain=0.,
                    proposal_top1_second_share=None, expected_proposal_cost=None,
@@ -153,11 +153,21 @@ def main():
                     fail = any(family[k][name]['support_failure'] for k in ('23','12'))
                     vq = None if fail else sum(z[k]**2*family[k][name]['importance_variance'] for k in ('23','12'))
                     cq = None if fail else sum(family[k][name]['expected_proposal_cost'] for k in ('23','12'))
+                    # Report-only posthoc oracle allocation; no node/proxy setting changes.
+                    neyman0 = sum(z[k]*np.sqrt(family[k][name]['base_variance']*family[k][name]['base_cost'])
+                                  for k in ('23','12'))**2
+                    neymanq = None if fail else sum(z[k]*np.sqrt(family[k][name]['importance_variance']*
+                                                               family[k][name]['expected_proposal_cost'])
+                                                   for k in ('23','12'))**2
                     combined.append(dict(model=model_name, split=split, proxy=name, base_error=float(p),
                                          base_variance_cost=float(v0*c0),
                                          optimistic_proposal_variance_cost=None if fail else float(vq*cq),
                                          optimistic_gain=0. if fail else float(v0*c0/(vq*cq)),
-                                         optimistic_vs_bernoulli=0. if fail else float(p*(1-p)/(vq*cq))))
+                                         optimistic_vs_bernoulli=0. if fail else float(p*(1-p)/(vq*cq)),
+                                         posthoc_oracle_neyman_gain=0. if fail else float(neyman0/neymanq),
+                                         posthoc_oracle_neyman_vs_bernoulli=0. if fail else float(p*(1-p)/neymanq),
+                                         posthoc_base_neyman_variance_cost=float(neyman0),
+                                         posthoc_proposal_neyman_variance_cost=None if fail else float(neymanq)))
     out = dict(rows=rows, combined=combined, cpu_seconds=time.process_time()-begin,
                diagnostic_exact_fpe=exact_work, diagnostic_proxy_flops=proxy_flops,
                note='Variance/cost ceiling only; transport construction and normalizer unknown. No estimator.')

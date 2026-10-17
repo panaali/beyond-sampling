@@ -11,6 +11,7 @@ m = metrics(f, np.ones(4), c, 0.)
 assert abs(m['variance_gain']-1) < 1e-12
 assert abs(m['cost_adjusted_gain']-1) < 1e-12
 assert metrics(f, np.array([0.,1.,1.,1.]), c, 0.)['support_failure']
+assert metrics(np.array([1e-13,1.]), np.array([0.,1.]), np.ones(2), 0.)['support_failure']
 # Exact discrete importance variance by summing under q independently.
 g = np.array([1.,5.,2.,7.]); q = g/g.sum(); val = f*g.mean()/g
 v = np.dot(q, val*val)-np.dot(q,val)**2
