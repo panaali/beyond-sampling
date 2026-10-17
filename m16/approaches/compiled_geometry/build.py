@@ -1,6 +1,6 @@
 import argparse,hashlib,json,resource,subprocess,time
 from pathlib import Path
-parser=argparse.ArgumentParser();parser.add_argument('--engine',choices=('projective','incremental','stable'),default='projective');args=parser.parse_args();engine=args.engine
+parser=argparse.ArgumentParser();parser.add_argument('--engine',choices=('projective','incremental','stable','dd_clip'),default='projective');args=parser.parse_args();engine=args.engine
 p=Path(__file__).parent;start=time.perf_counter();before=resource.getrusage(resource.RUSAGE_CHILDREN)
 command=['g++','-std=c++17','-O3','-ffp-contract=off','-fPIC','-shared',str(p/f'{engine}.cpp'),'-o',str(p/'data'/f'{engine}.so')]
 subprocess.run(command,check=True);after=resource.getrusage(resource.RUSAGE_CHILDREN)
