@@ -25,3 +25,5 @@ Hidden native branch work can invalidate a textbook count: capture dispatch befo
 
 ## Failure modes
 Source or binary drift, unobserved calls, changed output bytes, unexpected model I/O, unsupported kernel paths or bounded CPU exhaustion stop the phase and are preserved. No target/cap relaxation or source replacement.
+
+Capture passed: same25 target names, fresh baseline/pass-through assigned values byte-identical, all6 SVD/48 inverse/6 rule inputs and outputs saved, zero model I/O or clipping. Research CPU .015986297, maximumRSS56840KiB. This reconstructs cold constants only; no trained geometry or mass runs. Next fixed phase captures the installed inverse kernel dispatch for these48 saved matrices plus six analytic controls; no new model inputs and no inverse price assumed.
