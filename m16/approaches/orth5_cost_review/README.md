@@ -7,7 +7,7 @@ Which operations does the frozen five-dimensional mass implementation execute, a
 Pin the existing T185 source and independently reviewed analytic fixtures. First inventory source expressions and transparent kernel-call shapes; verify instrumentation on fixed controls before five saved synthetic cases. PROTOCOL.md freezes scope and alternatives.
 
 ## Status
-Claim6a3dc9fc active. Eight adapter controls passed once in92f871f9, independently5878cae1. Five fixed synthetic source paths passed once in9ad24cd9 after a separate source gate; independent saved pilot review is pending. No trained corpus or model replay.
+Claim6a3dc9fc active. Eight adapter controls passed once in92f871f9, independently5878cae1. Five fixed synthetic source paths passed once in9ad24cd9 after a separate source gate; independent saved pilot review e54c58e9 passes. The bounded expression/call phase is complete; native applicability/pricing remain separate. No trained corpus or model replay.
 
 ## Results
 Source reading gives a thin proxy of125+1296*40=51,965 and log proxy125+1,175+240+128*1,340=173,060. The log branch executes one5x5 determinant,25 scalar4x4 determinants, five batches of128 4x4 determinants, and30 batches of128 3x3 determinants: totals1/665/3840 by dimension. The finite synthetic call census reproduces these source deductions, but does not establish installed kernel prices. The thin branch multiplies1296x5 by5x5, unlike prior4D audited layouts.
