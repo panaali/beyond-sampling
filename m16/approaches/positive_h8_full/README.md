@@ -26,3 +26,15 @@ One thread OMP/OPENBLAS/MKL1,2GB/process. Review lock <=20CPU; primary lock <=11
 
 ## Alternatives not ruled out / failure modes
 Finite-order/kernel failures remain scoped and need independent review before any negative retirement. Every full result remains conditional on captured floating geometry and numerical implementation, and must receive separate raw/cost audit before adoption.
+
+## Full bounded result
+
+All35,098 original indices return; all64 pilot values are reused exactly once. Modes:14,768 center intervals,20,198 center quadratures,132 exact-bound rescues (130 KKT,2 acute). No finite-order unresolved case, kernel failure, target miss or independent-reference discrepancy gate failure occurs. Error probability0.023839193582405008, hence accuracy **0.976160806417595**, versus independent0.9761608075466027 (difference−1.1290078e-9). Sum absolute mass discrepancy1.6548796e-9; maximum1.49790e-12; summed conditional integration bound **1.30741638e-8**. These remain conditional numerical statements, without full geometry/rounding certification.
+
+Known named floating/category work **142,873,286** includes every selector, failed center trial, returned kernel, six universal constants and one canonical plan per used rule. Actual staged plans cost92,232 transformations versus canonical18,050, exposed separately. The132 exact rescues record all rational operations, maximum numerator/denominator804/788bits, certificate CPU0.453652 and MP selection CPU0.139465; those internals are not silently included as unit-cost floating operations. Total staged CPU including imports and reused pilot14.936909, plus aggregation0.612981. No original geometry was rerun; parent geometry/native costs remain separate.
+
+Average known work4,070.70 per cone **does not meet the original T109<300 target** (and the count is incomplete). This is a negative for this frozen strict aggregate-target variant's300-unit goal, not a negative for positive integration in general. The full accuracy result is substantially more precise than the frozen24/96 candidate, but no estimator substitution, whole-cost/sampling win or H8T4 noisy-rung pass is claimed.
+
+Exact reproduction uses saved-data aggregation: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/positive_h8_full/summarize.py`. Original numerical phases used review-lock/memory/thread wrapper from T161 and `run.py FIRST STOP` for shard ranges[0,8),[8,40),[40,80),[80,120),[120,138). Completed shards and pilot entries are skipped; no rerun is needed for independent review.
+
+Status: bounded full phase complete, independent full raw/count audit pending. Potential future work: rational/MP finite-operation envelope, whole implementation cost with parent geometry census, or a frozen budget/error allocation policy. Such work must be separately registered and reviewed; no untested variant is declared dead.
