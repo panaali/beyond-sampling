@@ -77,3 +77,17 @@ inequality. This limits the T4 scaling inference, not the measured counts.
 Reproduce inventory with `python inventory.py`; exact stored-float contraction
 with `python contract.py`. Read-only CPU .024933/.001041 seconds.
 Independent review requested before conclusions are registered.
+
+### Frozen analytic continuation (TASKS77504a05)
+Four H2T4 Wh=0 controls: all-zero readout, unique constant class0, last-input
+sign classes(+3,-0) and(+0,-3). Their exact Gaussian accuracies are1/4,1/4,
+5/16 and3/16. For the last input being second, positive sign probability is
+int[1/2,1]3(1-u)u²du=11/64 and negative5/64. Symmetry among the other three
+indices gives7/64 positive and9/64 negative per index. This uses Gaussian
+CDF rank transformation, not numerical quadrature. Readout ties in the
+all-zero model select index0 exactly.
+Both unchanged F2L3 andFX are tested; freeze1e-7 absolute diagnostic tolerance
+before outputs, record all discrepancies/costs and preserve partial arms.
+Each case is separately bounded<=110CPU, one thread2GB. No full trained
+run or sampled input is performed. Compare tiers to distinguish lookahead
+from common geometry/cubature error, without declaring a method dead.
