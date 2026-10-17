@@ -10,6 +10,7 @@ An independent test of two claims about neural-network interpretability:
 
 | Document | What it is |
 |---|---|
+| [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | **How this project was run and what was learned** (process, technical and operational lessons; how to continue). Read first if you take over as DRI |
 | [TASKS.md](TASKS.md) | **Task board: what is in progress (and who holds it) and the prioritized backlog. Claim a task here before starting work** |
 | [STATUS.md](STATUS.md) | **Current status**, in plain words plus a technical summary |
 | [INDEX.md](INDEX.md) | Single source of truth: questions, repo map, **experiment registry** (E1-E27, LB2, R1), **hypothesis ledger** (every claim with its status and evidence), synthesis, open questions |

@@ -2,7 +2,7 @@
 
 ↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [Approaches](m16/approaches/README.md)
 
-Start by reading [TASKS.md](TASKS.md) (what is in progress, who holds it, and the backlog), then [`INDEX.md`](INDEX.md):
+Start by reading [TASKS.md](TASKS.md) (and [DRI_HANDBOOK.md](DRI_HANDBOOK.md) if you coordinate) (what is in progress, who holds it, and the backlog), then [`INDEX.md`](INDEX.md):
 questions, finished experiments, where outputs live, and the **hypothesis ledger** (the status of every claim). [`m16/FINDINGS.md`](m16/FINDINGS.md) is the detailed narrative for the AlgZoo 432-param model.
 
 ## Rules
