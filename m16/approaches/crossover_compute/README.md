@@ -33,13 +33,61 @@ available. Its classification remains unreviewed until the DRI audits it.
 
 ## Status
 
-Running. The initial checkout has no v3 report or raw runs; legacy v2 results
-cannot substitute for v3 class review, advice declarations, or compute rules.
-Integration into `m16/leaderboard.py` is DRI-only and will be proposed here.
+Done as a bounded reporter/candidate study; the broader T19 task remains open.
+The candidate has no observed winning tested point. Integration into the shared v3
+report and reviewed classification are DRI-only. Legacy v2 results cannot substitute
+for v3 class review, advice declarations, or compute rules. Later upstream snapshots
+added v3 sampling raw runs, but no reviewed mechanistic result establishes T19.
 
 ## Results
 
-Pending bounded checks and candidate evaluation.
+The report passes 11 checks covering incomplete groups, disjoint budget grids,
+nonmonotone curves, actual-cost preservation, tuned exclusions, unreviewed classes,
+missing uncertainty, malformed data, negative truth-corrected MSE and boundary cases.
+An independent agent reviewed the code and independently recomputed every candidate
+ratio, bias and bootstrap interval from raw results. This verifies arithmetic, not
+DRI classification or scientific confirmation.
+
+The frozen conditional-Gaussian candidate is negative on all 18 tested group/budget
+point estimates (30 models, 3 levels). Ratios span 3.120–4706.926; no tested point
+matches sampling. One provisional interval crosses 1, so inferiority is not
+statistically established in every cell. Actual costs are 587.544 / 1174.944 /
+2349.744 FPE at requested budgets 1000 / 2000 / 4000; 100 / 250 / 500 are unsupported.
+No continuous crossover, zero-compute threshold, or family-wide impossibility is
+inferred. Details and per-group numbers are in `candidate_notes.md`.
+
+Reproduce report checks and the saved candidate summary (no model runs):
+
+```bash
+python -m unittest discover -s m16/approaches/crossover_compute -p test_report.py -v
+python m16/approaches/crossover_compute/report.py --table m16/approaches/crossover_compute/candidate_table.json --out m16/approaches/crossover_compute/candidate_crossover.json
+```
+
+Candidate reproduction, including checkpoint loading, uses one thread:
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python m16/approaches/crossover_compute/candidate_experiment.py
+```
+
+### DRI integration proposal
+
+After constructing the existing v3 `rows`, the DRI can import `summarize` and
+`render` from `m16.approaches.crossover_compute.report`, then print
+`render(summarize(rows))`. For a nonstandard (H,T) model set, explicitly pass its
+required group names (the standard M16,T10 set includes `orig`). This helper is
+pure postprocessing: no source-model evaluations or shared-file mutations. To
+use an existing v3 table without changing the harness:
+
+```bash
+python m16/approaches/crossover_compute/report.py --table results/leaderboard_v3_H16_T10.json
+```
+
+Before interpreting any headline, review candidate class/cost and resolve T20.
+Independent review found the shared table baseline is
+`mean(p)*(1-mean(p))/mean(cost)`, whereas averaging model-level sampling MSE requires
+`mean(p_i*(1-p_i)/cost_i)`. For equal costs the former adds between-model variance
+to the denominator. The candidate uses the latter; its table is a provisional
+diagnostic, not a DRI v3 report. No shared code was changed.
 
 ## Compute accounting
 
@@ -47,15 +95,22 @@ Reporting uses existing group statistics: zero model forward passes, zero
 model-dependent FLOPs for estimation, zero LP solves, and no input generation.
 Report processing and tests are ordinary host CPU work, recorded separately.
 Candidate accounting is separate and includes model-dependent derivatives and
-linear algebra, not just forward passes. All checks run single-threaded within
-the light-task limit; no new ground-truth sweep is requested.
+linear algebra, not just forward passes. The frozen candidate evaluation took
+1.187 process CPU seconds, excluding interpreter startup; model-free precomputation
+is declared as a conservative 10M-FLOP allowance. Equal-cost CPU ratios were
+2.90–3.81 times sampling. Reporter tests take under 0.1 seconds; independent
+arithmetic checks add small CPU overhead. All runs used one thread within the
+light-task limit; no new ground-truth sweep was performed.
 
 ## Claims
 
 - [inferred] A finite-grid maximum is useful partial progress, not a proof of a
   continuous crossover or a guarantee for unseen seeds.
 - [measured] No v3 table/raw artifact was present at initial checkout a2ce777.
-- [speculative] A cheap mechanistic approximation may win at low budgets.
+- [measured] This frozen Gaussian/Jacobian candidate has no observed winning point
+  on its tested ladder; the broader low-compute question remains open.
+- [inferred] The current shared group baseline can flatter heterogeneous groups;
+  T20 records the required DRI review.
 
 ## Alternatives not ruled out
 
