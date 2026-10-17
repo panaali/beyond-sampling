@@ -1,0 +1,173 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000117670 <DOUBLE_matmul_matrixmatrix.isra.0>:
+  117670:	41 57                	push   %r15
+  117672:	48 89 f0             	mov    %rsi,%rax
+  117675:	48 89 ce             	mov    %rcx,%rsi
+  117678:	4c 89 c1             	mov    %r8,%rcx
+  11767b:	41 56                	push   %r14
+  11767d:	41 55                	push   %r13
+  11767f:	41 54                	push   %r12
+  117681:	55                   	push   %rbp
+  117682:	53                   	push   %rbx
+  117683:	48 83 ec 08          	sub    $0x8,%rsp
+  117687:	48 8b 6c 24 48       	mov    0x48(%rsp),%rbp
+  11768c:	4c 8b 5c 24 50       	mov    0x50(%rsp),%r11
+  117691:	4c 8b 44 24 58       	mov    0x58(%rsp),%r8
+  117696:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
+  11769b:	48 c1 ed 03          	shr    $0x3,%rbp
+  11769f:	48 83 fa 08          	cmp    $0x8,%rdx
+  1176a3:	75 25                	jne    1176ca <DOUBLE_matmul_matrixmatrix.isra.0+0x5a>
+  1176a5:	a8 07                	test   $0x7,%al
+  1176a7:	4c 8d 60 07          	lea    0x7(%rax),%r12
+  1176ab:	41 0f 94 c2          	sete   %r10b
+  1176af:	48 85 c0             	test   %rax,%rax
+  1176b2:	4c 0f 49 e0          	cmovns %rax,%r12
+  1176b6:	49 c1 fc 03          	sar    $0x3,%r12
+  1176ba:	4d 39 c4             	cmp    %r8,%r12
+  1176bd:	41 0f 9d c4          	setge  %r12b
+  1176c1:	45 20 e2             	and    %r12b,%r10b
+  1176c4:	0f 85 91 01 00 00    	jne    11785b <DOUBLE_matmul_matrixmatrix.isra.0+0x1eb>
+  1176ca:	49 89 d7             	mov    %rdx,%r15
+  1176cd:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+  1176d3:	45 31 d2             	xor    %r10d,%r10d
+  1176d6:	41 bc 70 00 00 00    	mov    $0x70,%r12d
+  1176dc:	49 c1 ef 03          	shr    $0x3,%r15
+  1176e0:	49 83 f9 08          	cmp    $0x8,%r9
+  1176e4:	75 1d                	jne    117703 <DOUBLE_matmul_matrixmatrix.isra.0+0x93>
+  1176e6:	48 85 c9             	test   %rcx,%rcx
+  1176e9:	4c 8d 71 07          	lea    0x7(%rcx),%r14
+  1176ed:	4c 0f 49 f1          	cmovns %rcx,%r14
+  1176f1:	49 c1 fe 03          	sar    $0x3,%r14
+  1176f5:	49 39 de             	cmp    %rbx,%r14
+  1176f8:	7c 09                	jl     117703 <DOUBLE_matmul_matrixmatrix.isra.0+0x93>
+  1176fa:	f6 c1 07             	test   $0x7,%cl
+  1176fd:	0f 84 6d 01 00 00    	je     117870 <DOUBLE_matmul_matrixmatrix.isra.0+0x200>
+  117703:	4d 89 ce             	mov    %r9,%r14
+  117706:	41 bd 70 00 00 00    	mov    $0x70,%r13d
+  11770c:	49 c1 ee 03          	shr    $0x3,%r14
+  117710:	48 39 f7             	cmp    %rsi,%rdi
+  117713:	0f 85 ff 00 00 00    	jne    117818 <DOUBLE_matmul_matrixmatrix.isra.0+0x1a8>
+  117719:	4c 39 db             	cmp    %r11,%rbx
+  11771c:	0f 85 f6 00 00 00    	jne    117818 <DOUBLE_matmul_matrixmatrix.isra.0+0x1a8>
+  117722:	4c 39 c8             	cmp    %r9,%rax
+  117725:	0f 94 c0             	sete   %al
+  117728:	48 39 ca             	cmp    %rcx,%rdx
+  11772b:	0f 94 c2             	sete   %dl
+  11772e:	84 d0                	test   %dl,%al
+  117730:	0f 84 e2 00 00 00    	je     117818 <DOUBLE_matmul_matrixmatrix.isra.0+0x1a8>
+  117736:	45 84 d2             	test   %r10b,%r10b
+  117739:	0f 84 d9 00 00 00    	je     117818 <DOUBLE_matmul_matrixmatrix.isra.0+0x1a8>
+  11773f:	41 83 fc 6f          	cmp    $0x6f,%r12d
+  117743:	0f 84 3c 01 00 00    	je     117885 <DOUBLE_matmul_matrixmatrix.isra.0+0x215>
+  117749:	48 83 ec 08          	sub    $0x8,%rsp
+  11774d:	49 89 f9             	mov    %rdi,%r9
+  117750:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  117754:	48 89 d9             	mov    %rbx,%rcx
+  117757:	55                   	push   %rbp
+  117758:	ba 70 00 00 00       	mov    $0x70,%edx
+  11775d:	be 79 00 00 00       	mov    $0x79,%esi
+  117762:	bf 65 00 00 00       	mov    $0x65,%edi
+  117767:	ff 74 24 50          	push   0x50(%rsp)
+  11776b:	f2 0f 10 05 e5 cc 71 	movsd  0x71cce5(%rip),%xmm0        # 834458 <_fini+0x549f4>
+  117772:	00 
+  117773:	41 56                	push   %r14
+  117775:	e8 a6 3a f1 ff       	call   2b220 <scipy_cblas_dsyrk64_@plt>
+  11777a:	48 83 c4 20          	add    $0x20,%rsp
+  11777e:	48 85 db             	test   %rbx,%rbx
+  117781:	0f 8e c5 00 00 00    	jle    11784c <DOUBLE_matmul_matrixmatrix.isra.0+0x1dc>
+  117787:	48 83 fb 01          	cmp    $0x1,%rbx
+  11778b:	0f 84 bb 00 00 00    	je     11784c <DOUBLE_matmul_matrixmatrix.isra.0+0x1dc>
+  117791:	4c 8b 44 24 40       	mov    0x40(%rsp),%r8
+  117796:	48 8d 34 ed 00 00 00 	lea    0x0(,%rbp,8),%rsi
+  11779d:	00 
+  11779e:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+  1177a3:	4c 8d 0c ed 08 00 00 	lea    0x8(,%rbp,8),%r9
+  1177aa:	00 
+  1177ab:	bf 01 00 00 00       	mov    $0x1,%edi
+  1177b0:	49 01 f0             	add    %rsi,%r8
+  1177b3:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  1177ba:	00 00 00 00 
+  1177be:	66 90                	xchg   %ax,%ax
+  1177c0:	4c 89 c2             	mov    %r8,%rdx
+  1177c3:	48 89 f8             	mov    %rdi,%rax
+  1177c6:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  1177cd:	00 00 00 00 
+  1177d1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  1177d8:	00 00 00 00 
+  1177dc:	0f 1f 40 00          	nopl   0x0(%rax)
+  1177e0:	f2 0f 10 04 c1       	movsd  (%rcx,%rax,8),%xmm0
+  1177e5:	48 83 c0 01          	add    $0x1,%rax
+  1177e9:	f2 0f 11 02          	movsd  %xmm0,(%rdx)
+  1177ed:	48 01 f2             	add    %rsi,%rdx
+  1177f0:	48 39 c3             	cmp    %rax,%rbx
+  1177f3:	7f eb                	jg     1177e0 <DOUBLE_matmul_matrixmatrix.isra.0+0x170>
+  1177f5:	48 83 c7 01          	add    $0x1,%rdi
+  1177f9:	4d 01 c8             	add    %r9,%r8
+  1177fc:	48 01 f1             	add    %rsi,%rcx
+  1177ff:	48 39 fb             	cmp    %rdi,%rbx
+  117802:	75 bc                	jne    1177c0 <DOUBLE_matmul_matrixmatrix.isra.0+0x150>
+  117804:	48 83 c4 08          	add    $0x8,%rsp
+  117808:	5b                   	pop    %rbx
+  117809:	5d                   	pop    %rbp
+  11780a:	41 5c                	pop    %r12
+  11780c:	41 5d                	pop    %r13
+  11780e:	41 5e                	pop    %r14
+  117810:	41 5f                	pop    %r15
+  117812:	c3                   	ret
+  117813:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  117818:	55                   	push   %rbp
+  117819:	f2 0f 10 05 37 cc 71 	movsd  0x71cc37(%rip),%xmm0        # 834458 <_fini+0x549f4>
+  117820:	00 
+  117821:	4d 89 c1             	mov    %r8,%r9
+  117824:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  117828:	ff 74 24 48          	push   0x48(%rsp)
+  11782c:	49 89 d8             	mov    %rbx,%r8
+  11782f:	4c 89 d9             	mov    %r11,%rcx
+  117832:	44 89 ea             	mov    %r13d,%edx
+  117835:	41 56                	push   %r14
+  117837:	56                   	push   %rsi
+  117838:	44 89 e6             	mov    %r12d,%esi
+  11783b:	41 57                	push   %r15
+  11783d:	57                   	push   %rdi
+  11783e:	bf 65 00 00 00       	mov    $0x65,%edi
+  117843:	e8 58 4c f1 ff       	call   2c4a0 <scipy_cblas_dgemm64_@plt>
+  117848:	48 83 c4 30          	add    $0x30,%rsp
+  11784c:	48 83 c4 08          	add    $0x8,%rsp
+  117850:	5b                   	pop    %rbx
+  117851:	5d                   	pop    %rbp
+  117852:	41 5c                	pop    %r12
+  117854:	41 5d                	pop    %r13
+  117856:	41 5e                	pop    %r14
+  117858:	41 5f                	pop    %r15
+  11785a:	c3                   	ret
+  11785b:	49 89 c7             	mov    %rax,%r15
+  11785e:	45 31 ed             	xor    %r13d,%r13d
+  117861:	41 bc 6f 00 00 00    	mov    $0x6f,%r12d
+  117867:	49 c1 ef 03          	shr    $0x3,%r15
+  11786b:	e9 70 fe ff ff       	jmp    1176e0 <DOUBLE_matmul_matrixmatrix.isra.0+0x70>
+  117870:	49 89 ce             	mov    %rcx,%r14
+  117873:	45 89 ea             	mov    %r13d,%r10d
+  117876:	41 bd 6f 00 00 00    	mov    $0x6f,%r13d
+  11787c:	49 c1 ee 03          	shr    $0x3,%r14
+  117880:	e9 8b fe ff ff       	jmp    117710 <DOUBLE_matmul_matrixmatrix.isra.0+0xa0>
+  117885:	48 83 ec 08          	sub    $0x8,%rsp
+  117889:	49 89 f9             	mov    %rdi,%r9
+  11788c:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  117890:	48 89 d9             	mov    %rbx,%rcx
+  117893:	55                   	push   %rbp
+  117894:	ba 6f 00 00 00       	mov    $0x6f,%edx
+  117899:	be 79 00 00 00       	mov    $0x79,%esi
+  11789e:	bf 65 00 00 00       	mov    $0x65,%edi
+  1178a3:	ff 74 24 50          	push   0x50(%rsp)
+  1178a7:	f2 0f 10 05 a9 cb 71 	movsd  0x71cba9(%rip),%xmm0        # 834458 <_fini+0x549f4>
+  1178ae:	00 
+  1178af:	41 57                	push   %r15
+  1178b1:	e8 6a 39 f1 ff       	call   2b220 <scipy_cblas_dsyrk64_@plt>
+  1178b6:	48 83 c4 20          	add    $0x20,%rsp
+  1178ba:	e9 bf fe ff ff       	jmp    11777e <DOUBLE_matmul_matrixmatrix.isra.0+0x10e>
+  1178bf:	90                   	nop
