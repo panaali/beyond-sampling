@@ -54,11 +54,11 @@ def cells(work):
                 yield target,a,bisector,frame
 
 
-def estimate(model,normal_degree=8,tangent_degree=4,quadrature_order=64,seconds=100.):
+def estimate(model,normal_degree=8,tangent_degree=4,quadrature_order=64,seconds=100.,optimized=False):
     start=time.process_time();work=defaultdict(float)
     wi,wh,wo=(np.asarray(a,dtype=float) for a in model);H=len(wi)
     if wi.shape!=(H,) or wh.shape!=(H,H) or wo.shape!=(3,H):raise ValueError('T3 only')
-    space=Space(normal_degree,tangent_degree,quadrature_order)
+    space=Space(normal_degree,tangent_degree,quadrature_order,optimized=optimized)
     root=space.one();root_total=12*space.mass(root)
     contribution=np.zeros(3);gate_partition=0.;leaves=0
     def deadline():
@@ -123,8 +123,9 @@ def estimate(model,normal_degree=8,tangent_degree=4,quadrature_order=64,seconds=
     scalar=sum(v for k,v in work.items() if k.endswith('_scalar_ops') or k=='geometry_scalar_upper_ops')
     scalar+=sum(v for k,v in sw.items() if k.endswith('_real_ops') or k=='mass_real_divisions')
     scalar+=8*sw.get('complex_gram_multiply_adds',0)+8*sw.get('complex_matvec_multiply_adds',0)
+    scalar+=2*sw.get('real_gram_multiply_adds',0)
     scalar+=6*sw.get('complex_gram_weight_products',0)+2*sw.get('complex_gram_block_additions',0)
-    return float(contribution.sum()),dict(N=normal_degree,M=tangent_degree,order=quadrature_order,
+    return float(contribution.sum()),dict(N=normal_degree,M=tangent_degree,order=quadrature_order,optimized=optimized,
         coefficients=space.size,root_mass=root_total,gate_partition=gate_partition,leaves=leaves,
         contributions=contribution.tolist(),driver_work=dict(work),cut_work=sw,
         accounted_scalar_arithmetic_upper=scalar,

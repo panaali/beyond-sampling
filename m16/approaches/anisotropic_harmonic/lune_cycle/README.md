@@ -125,3 +125,29 @@ use N8,M4,Q64, with Q128 validation for the new H4 case. This is implementation
 cost reduction at fixed numerical rule, not selection of lower resolution or
 truth-tuned degrees. If equivalence fails, retain the failure and do not call
 it an optimized estimator. No noisy sweep until this phase is assessed.
+
+## Fixed-rule cost comparison
+Optimized matrices agree within floating roundoff, and both full-model Q64
+estimates agree exactly with the original lune implementation. Cold estimates
+in the same process (seconds):
+
+| model | hemisphere error / CPU | lune error / CPU | optimized lune CPU |
+|---|---:|---:|---:|
+| H2T3 | -.00220353 / .0320 | -.00113044 / .1793 | .1154 |
+| H4T3 | -.00819957 / .1078 | +.00232448 / .5277 | .4313 |
+
+H4 order128 changes2.75e-8, far below its residual. H2 order128 changes1.31e-11.
+The fixed-rule optimization reduces measured CPU in this run and removes
+unnecessary complex arithmetic/transcendentals; timing noise is visible
+(order128 is slightly faster than64 here). Do not infer monotonic time or a
+portable efficiency certificate. Initial support protection improves both
+base errors, while leaving substantial projection bias and added cost.
+
+Next frozen validation: use precisely the prior nine H2 parameter cases
+(base plus8 absolute .05 noise,seed47001) and prior eight H4 .05 copies(seed0),
+with existing references. Each estimate rebuilds its own state. Compare cold
+hemisphere N8,M4 versus optimized exact-lune N8,M4,Q64; Q128 for every copy
+is a refinement diagnostic only. Record every case, model hash, CPU, all work
+and the squared-error-times-CPU proxy; do not call it same-budget/FLOP success.
+No case, order or degree selected from accuracy. No new MC. A mixed result
+remains mixed; exact initial support does not rule out internal-gate leakage.

@@ -15,10 +15,11 @@ def unit(vector):
 
 
 class Space:
-    def __init__(self,normal_degree=8,tangent_degree=4,quadrature_order=64):
+    def __init__(self,normal_degree=8,tangent_degree=4,quadrature_order=64,optimized=False):
         self.N=int(normal_degree);self.M=int(tangent_degree)
         self.nrad=self.N+1;self.nang=2*self.M+1;self.size=self.nrad*self.nang
         self.constant=self.M;self.order=quadrature_order or 64
+        self.optimized=optimized
         self.work=defaultdict(float)
         nodes,weights=leggauss(self.order)
         self.theta=nodes*np.pi/2;self.base=weights*np.pi/2
@@ -75,6 +76,9 @@ class Space:
             out[:,0]+=length/WIDTH
             self.work['arc_interval_real_ops']+=8*len(z)
             self.work['arc_interval_comparisons']+=3*len(z)
+            if self.optimized and not np.any(valid):
+                self.work['empty_arc_wraps_skipped']+=1
+                continue
             for k in range(1,2*self.M+1):
                 omega=2*np.pi*k/WIDTH
                 contribution=2*np.sin(omega*length/2)/(omega*WIDTH)*np.exp(1j*omega*middle)
@@ -116,11 +120,21 @@ class Space:
             weights=self.base*(hi-lo)/2*np.cos(self.theta)/2
             P=self.basis(z);arcs=self.arcs(z,v)
             for k in range(2*self.M+1):
-                blocks[k]+=P.T@((weights*arcs[:,k])[:,None]*P)
+                if self.optimized:
+                    real=P.T@((weights*arcs[:,k].real)[:,None]*P)
+                    imag=P.T@((weights*arcs[:,k].imag)[:,None]*P)
+                    blocks[k]+=real+1j*imag
+                else:
+                    blocks[k]+=P.T@((weights*arcs[:,k])[:,None]*P)
             self.work['mapping_trig_calls']+=2*self.order
             self.work['mapping_real_ops']+=7*self.order
-            self.work['complex_gram_multiply_adds']+=(2*self.M+1)*self.order*self.nrad**2
-            self.work['complex_gram_weight_products']+=(2*self.M+1)*self.order*(1+self.nrad)
+            if self.optimized:
+                self.work['real_gram_multiply_adds']+=2*(2*self.M+1)*self.order*self.nrad**2
+                self.work['real_gram_weight_real_ops']+=2*(2*self.M+1)*self.order*(1+self.nrad)
+                self.work['complex_assembly_real_ops']+=4*(2*self.M+1)*self.nrad**2
+            else:
+                self.work['complex_gram_multiply_adds']+=(2*self.M+1)*self.order*self.nrad**2
+                self.work['complex_gram_weight_products']+=(2*self.M+1)*self.order*(1+self.nrad)
             self.work['complex_gram_block_additions']+=(2*self.M+1)*self.nrad**2
             self.work['cut_radial_panels']+=1
             self.work['cut_quadrature_nodes']+=self.order
