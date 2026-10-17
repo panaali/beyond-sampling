@@ -1,0 +1,29 @@
+{
+  "training": {
+    "models": 256,
+    "direct_ratio": "0.745153320481545068454642485150272356452100432602951273349116",
+    "uniform_average_cost_ratio": "0.747009609599737775355020871305228131755867674846878869886465",
+    "claimed_counter_uniform_ratio": "0.730732685765223589143644198141068279169399432413559189094474",
+    "bootstrap_ci": [
+      0.5651172397240184,
+      0.9291922067425471
+    ],
+    "individual_losses": 50,
+    "max_abs_error": "0.0600192364653358",
+    "scope": "pointwise noisy-copy bootstrap; not simultaneous, training-seed-generalization, or rigorous coverage"
+  },
+  "bulk": {
+    "errors": {
+      "final_all_off": "0.0223244065579057694",
+      "earlier_all_off": "0.0003777396708759991",
+      "contrast_forgetting_without_reset": "0",
+      "remaining": "0.50028472777709983"
+    },
+    "total_error": "0.5229868740058815985",
+    "remaining_error_share": "0.956591365181133673464695199898746519801409647457530279659807",
+    "gate_total": "0.9999999999999993022",
+    "correct_total": "0.4770131259941177037",
+    "scope": "full all-off resets/exact contrast-column erasure only; no general output-forgetting exclusion"
+  },
+  "cpu_seconds": 0.02040958300000001
+}

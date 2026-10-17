@@ -31,3 +31,32 @@ recurrence may reach a smaller subset, and no input witness or reachable
 class mass follows from these LP witnesses. The source can also raise
 when normalized weak-later constraints are infeasible; the saved cases
 do not test a fully general infeasibility-classification interface.
+
+## Gate-history attribution source and arithmetic
+
+The attribution source uses one common dyadic weight denominator D.
+Its integer hidden state and affine map at step t represent D^t times
+their real counterparts; the input injection carries the matching
+power of D. Direct recurrence and mapped recurrence therefore agree
+without rounding. Exact gate signs are checked on every simplex ray,
+which establishes the fixed gate history throughout each cone. Correct
+simplices additionally check direct second-largest/prediction agreement
+at strict input-order interiors. This reviews the classification logic;
+the existing geometry and mass engine are reused, not re-enumerated.
+
+Independent60-digit sums in `check_training_bulk_review.py` recover
+final-all-off error .0223244065579057694, earlier-all-off error
+.0003777396708759991, exact contrast-column-erasure-without-reset error0,
+and remaining error .50028472777709983. Total error is
+.5229868740058815985; remaining accounts for95.6591365%. Gate mass sums
+to .9999999999999993022 and correct mass .4770131259941177037.
+
+The contrast test means that a given input column is exactly equal
+across every affine logit map in that gate cell. It is stronger than
+output-label insensitivity. A label can remain constant while nonzero
+contrast coefficients vary, so these results do not exclude broader
+output forgetting or approximate-memory explanations. The proposed
+constant-label gate-cone rescue should use all-ray nonnegative margins
+and at least one positive ray against earlier-index competitors for
+strictness in the cone interior. Requiring all boundary rays strictly
+positive would incorrectly reject valid full-measure interior labels.
