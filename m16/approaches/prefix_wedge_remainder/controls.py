@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import sys
 import time
 import mpmath as mp
 from scipy.integrate import quad
@@ -13,7 +14,8 @@ HERE=Path(__file__).resolve().parent
 OUT=HERE/'controls.json'
 assert not OUT.exists(),'Preserve earlier controls'
 t0=time.process_time()
-mp.mp.dps=80
+mp.mp.dps=150
+sys.set_int_max_str_digits(0)
 
 def m(q):return mp.mpf(q.numerator)/q.denominator
 def check(interval,reference):
@@ -56,4 +58,7 @@ out={'pi':pi,'roots':roots,'angles':angles,'addition_identity_zero_interval':ide
      'new_model_forward_MC_calls':0,'scalar_reference_integrals':4,
      'scope':'Rational bounds certified by source theorem; high-precision and adaptive numerical references are controls, not outward quadrature certificates.'}
 with OUT.open('x') as f:json.dump(serial(out),f,indent=2);f.write('\n')
-print(json.dumps(serial({'event_controls':events,'accounting':accounting(),'cpu_seconds':out['cpu_seconds']}),indent=2))
+print(json.dumps({'event_controls':[{'k':r['bounds']['k'].numerator,
+    'bracket':[float(r['bounds']['event_probability'].lo),float(r['bounds']['event_probability'].hi)],
+    'scalar_integral':r['scalar_integral']} for r in events],
+    'accounting':accounting(),'cpu_seconds':out['cpu_seconds']},indent=2))
