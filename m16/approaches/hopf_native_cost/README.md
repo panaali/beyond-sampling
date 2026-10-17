@@ -197,3 +197,30 @@ See PANEL_SCOPE.md for exclusions and failure-preserving metadata correction.
 /workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_probe.py --seed 0 --copy 1
 /workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_continue.py --seed S --copy C
 ```
+
+### Complete direct H4T4 cost coverage
+All25 original saved h64 rows complete throughf36cfc2d; summarydb770a8e checks
+25 unique model identities, exact saved outputs/counters, all source pins,
+every explicit site and all1,433,600 opaque/closure records. Explicit total
+3,524,673,740; conditional source total5,975,034,725. Per-copy conditional
+budgets range219,914,303–257,767,782. This directly measured variation replaces
+any proposal to transfer a single seed's multiplier. Full native/binary/runtime
+qualifications and the generic root-mask defect remain.
+
+The25 numerical trace CPU sum is348.245485924, including prior clean/pilot
+records once; newly executed remaining23 use321.035824367. Each trace includes
+its uninstrumented baseline parity execution, not just an estimator call.
+Imports/provenance loading and compression are outside those timers. Saved
+contraction adds3.288778888CPU. Maximum peakRSS215,464KiB. No new MC truth or
+input stream. Metadata-header setup failure remains documented; no failed
+estimator run was replaced or dropped.
+
+```
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_summary.py
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_compare.py
+```
+
+The comparison is frozen by TASKS3963b86c and source241d3fd4, independently
+source-gated. It waits complete saved-cost audit, uses original75-family
+simultaneous CP truth boxes, both dense/optimized costs and both uniform/matched
+integer draw allocations. No noise subtraction or h128-as-truth is used.
