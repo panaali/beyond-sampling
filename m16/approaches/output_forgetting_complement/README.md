@@ -77,3 +77,27 @@ negative about mechanistic estimation, the original model or the challenge.
 Measure-zero gates/ties, dropped affine offsets, wrong Gaussian measure,
 claiming arbitrary-state witnesses are actual-prefix probabilities, and
 confusing one positive-mass obstruction with a maximal complement description.
+
+## Frozen witness result
+Toy memoryless, constant and duplicate cases have no witness in the16-word
+control panel; the identity-memory toy does and passes exact vertex checks.
+These controls cost .126CPU. The trained search finds its first certificate
+on the third word, suffix(-1,-1,+1,-1), after21 exact histories and45 state-pair
+checks (.0262CPU including validation and high-precision probability).
+
+Initial hidden(0,0) produces label0; initial hidden(256,0) produces label6
+(zero-based). A common open L-infinity suffix box has exact radius
+928873407584354211505/12871199735412830144098, approximately .07216680859.
+All32 independently executed state/vertex recurrences preserve the labels;
+every retained affine margin is at least half its center slack. Exact hidden
+rescaling2^-30 preserves labels and radius and passes32 more direct checks.
+
+The Gaussian suffix-box mass is approximately1.48771758938e-6 by80-digit
+CDF evaluation. The separate exact rational lower bound exceeds6.61454e-8,
+using phi>1/9 on this box. Therefore, subject to independent review, any
+four-suffix classifier required to be correct for every nonnegative initial
+hidden state must leave at least this positive mass unclassified. It does
+not establish a large practical coverage ceiling or that either witness
+state occurs with meaningful probability under the six-input prefix law.
+The current result is a scoped obstruction to universal four-input output
+forgetting, not a negative about state-conditioned integration or full accuracy.
