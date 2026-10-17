@@ -1,0 +1,1400 @@
+{
+  "convention": "Known scalar upper bound + explicit matrix_rank black boxes; TRANS=20",
+  "models": [
+    {
+      "H": 2,
+      "T": 4,
+      "geometry": {
+        "gate_cells": 54,
+        "stage_counts": [
+          2,
+          6,
+          18,
+          54
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 180122.0,
+        "original_dd_parts": {
+          "lift": 6000.0,
+          "clip": 91674.0,
+          "adj": 14116.0,
+          "final": 5004.0,
+          "tri": 63328.0
+        }
+      },
+      "correct_simplices": 258,
+      "geometry_cpu": 0.06124739500000009,
+      "geometry_cost": {
+        "known_arithmetic_upper_bound": 1908655,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 300,
+          "gate_map_setup": 30160,
+          "lift_scalar": 7648,
+          "zero_normal_check": 7760,
+          "clip_scalar": 212562,
+          "clip_adjacency": 706600,
+          "clip_new_rays": 532232,
+          "gate_masks": 2124,
+          "outcome_maps": 3456,
+          "outcome_predicates": 5562,
+          "outcome_control": 6321,
+          "orthant_control": 5880,
+          "ray_l1_normalization": 6456,
+          "tri_incidence": 219264,
+          "tri_control": 7241,
+          "tri_face_scan": 138720,
+          "rank_result_test": 293,
+          "determinants": 15434,
+          "simplex_test": 258
+        },
+        "black_box_kernels": [
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              3,
+              4
+            ],
+            "calls": 73
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              4,
+              4
+            ],
+            "calls": 68
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              2,
+              4
+            ],
+            "calls": 148
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              5,
+              4
+            ],
+            "calls": 4
+          }
+        ],
+        "events": {
+          "lift_calls": 52,
+          "clip_calls": 975,
+          "triangulate_calls": 99
+        }
+      },
+      "curves": [
+        {
+          "order": 4,
+          "accuracy": 0.3082534746506318,
+          "integration_only_bound": 0.17600829434549253,
+          "cost": {
+            "known_arithmetic_upper_bound": 2639461,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 300,
+              "gate_map_setup": 30160,
+              "lift_scalar": 7648,
+              "zero_normal_check": 7760,
+              "clip_scalar": 212562,
+              "clip_adjacency": 706600,
+              "clip_new_rays": 532232,
+              "gate_masks": 2124,
+              "outcome_maps": 3456,
+              "outcome_predicates": 5562,
+              "outcome_control": 6321,
+              "orthant_control": 5880,
+              "ray_l1_normalization": 6456,
+              "tri_incidence": 219264,
+              "tri_control": 7241,
+              "tri_face_scan": 138720,
+              "rank_result_test": 293,
+              "determinants": 30868,
+              "simplex_test": 258,
+              "rule_newton": 574,
+              "rule_duffy": 1920,
+              "mass_scalar": 2838,
+              "mass_nodes": 710016,
+              "bound": 24
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 73
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 68
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 148
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 4
+              }
+            ],
+            "events": {
+              "lift_calls": 52,
+              "clip_calls": 975,
+              "triangulate_calls": 99
+            }
+          },
+          "mass_cpu": 0.008558061999999866,
+          "end_to_end_cpu": 0.06980545699999996,
+          "cpu_equivalent_samples": 224253.58436249947,
+          "conventional_forward_scalar_ops": 64,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 2639461,
+              "sampling_variance": 5.170347006851938e-06,
+              "integration_bound_mse_ratio": 5991.651940837841
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 15551461,
+              "sampling_variance": 8.77533582282232e-07,
+              "integration_bound_mse_ratio": 35302.26113722233
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 295639461,
+              "sampling_variance": 4.616071628223007e-08,
+              "integration_bound_mse_ratio": 671110.0297708143
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 293002639461,
+              "sampling_variance": 4.657613087089235e-11,
+              "integration_bound_mse_ratio": 665124369.4819173
+            }
+          ],
+          "quadrature_nodes": 16512,
+          "difference_from_n20": 0.0005227316267046311
+        },
+        {
+          "order": 8,
+          "accuracy": 0.3077301124097073,
+          "integration_only_bound": 0.004002787720657724,
+          "cost": {
+            "known_arithmetic_upper_bound": 7624459,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 300,
+              "gate_map_setup": 30160,
+              "lift_scalar": 7648,
+              "zero_normal_check": 7760,
+              "clip_scalar": 212562,
+              "clip_adjacency": 706600,
+              "clip_new_rays": 532232,
+              "gate_masks": 2124,
+              "outcome_maps": 3456,
+              "outcome_predicates": 5562,
+              "outcome_control": 6321,
+              "orthant_control": 5880,
+              "ray_l1_normalization": 6456,
+              "tri_incidence": 219264,
+              "tri_control": 7241,
+              "tri_face_scan": 138720,
+              "rank_result_test": 293,
+              "determinants": 30868,
+              "simplex_test": 258,
+              "rule_newton": 2016,
+              "rule_duffy": 15360,
+              "mass_scalar": 2838,
+              "mass_nodes": 5680128,
+              "bound": 28
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 73
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 68
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 148
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 4
+              }
+            ],
+            "events": {
+              "lift_calls": 52,
+              "clip_calls": 975,
+              "triangulate_calls": 99
+            }
+          },
+          "mass_cpu": 0.010982790999999992,
+          "end_to_end_cpu": 0.07223018600000009,
+          "cpu_equivalent_samples": 232043.1497163618,
+          "conventional_forward_scalar_ops": 64,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 7624459,
+              "sampling_variance": 1.7882011800266796e-06,
+              "integration_bound_mse_ratio": 8.960015078621753
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 20536459,
+              "sampling_variance": 6.638956881936189e-07,
+              "integration_bound_mse_ratio": 24.13377556381343
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 300624459,
+              "sampling_variance": 4.535248604261118e-08,
+              "integration_bound_mse_ratio": 353.28404095851346
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 293007624459,
+              "sampling_variance": 4.6531439603452455e-11,
+              "integration_bound_mse_ratio": 344332.98589497036
+            }
+          ],
+          "quadrature_nodes": 132096,
+          "difference_from_n20": -6.306142198431175e-07
+        },
+        {
+          "order": 12,
+          "accuracy": 0.30773074362465647,
+          "integration_only_bound": 7.20078214298215e-05,
+          "cost": {
+            "known_arithmetic_upper_bound": 21153695,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 300,
+              "gate_map_setup": 30160,
+              "lift_scalar": 7648,
+              "zero_normal_check": 7760,
+              "clip_scalar": 212562,
+              "clip_adjacency": 706600,
+              "clip_new_rays": 532232,
+              "gate_masks": 2124,
+              "outcome_maps": 3456,
+              "outcome_predicates": 5562,
+              "outcome_control": 6321,
+              "orthant_control": 5880,
+              "ray_l1_normalization": 6456,
+              "tri_incidence": 219264,
+              "tri_control": 7241,
+              "tri_face_scan": 138720,
+              "rank_result_test": 293,
+              "determinants": 30868,
+              "simplex_test": 258,
+              "rule_newton": 4464,
+              "rule_duffy": 51840,
+              "mass_scalar": 2838,
+              "mass_nodes": 19170432,
+              "bound": 32
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 73
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 68
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 148
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 4
+              }
+            ],
+            "events": {
+              "lift_calls": 52,
+              "clip_calls": 975,
+              "triangulate_calls": 99
+            }
+          },
+          "mass_cpu": 0.01714182200000014,
+          "end_to_end_cpu": 0.07838921700000023,
+          "cpu_equivalent_samples": 251829.35035608808,
+          "conventional_forward_scalar_ops": 64,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 21153695,
+              "sampling_variance": 6.445248508775339e-07,
+              "integration_bound_mse_ratio": 0.008044881962284936
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 34065695,
+              "sampling_variance": 4.002290901560598e-07,
+              "integration_bound_mse_ratio": 0.012955395983453489
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 314153695,
+              "sampling_variance": 4.3399400778602445e-08,
+              "integration_bound_mse_ratio": 0.11947460688502237
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 293021153695,
+              "sampling_variance": 4.65293441905402e-11,
+              "integration_bound_mse_ratio": 111.43776980469973
+            }
+          ],
+          "quadrature_nodes": 445824,
+          "difference_from_n20": 6.007292996379476e-10
+        },
+        {
+          "order": 16,
+          "accuracy": 0.30773074302315245,
+          "integration_only_bound": 1.1678828457511596e-06,
+          "cost": {
+            "known_arithmetic_upper_bound": 47498549,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 300,
+              "gate_map_setup": 30160,
+              "lift_scalar": 7648,
+              "zero_normal_check": 7760,
+              "clip_scalar": 212562,
+              "clip_adjacency": 706600,
+              "clip_new_rays": 532232,
+              "gate_masks": 2124,
+              "outcome_maps": 3456,
+              "outcome_predicates": 5562,
+              "outcome_control": 6321,
+              "orthant_control": 5880,
+              "ray_l1_normalization": 6456,
+              "tri_incidence": 219264,
+              "tri_control": 7241,
+              "tri_face_scan": 138720,
+              "rank_result_test": 293,
+              "determinants": 30868,
+              "simplex_test": 258,
+              "rule_newton": 7682,
+              "rule_duffy": 122880,
+              "mass_scalar": 2838,
+              "mass_nodes": 45441024,
+              "bound": 36
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 73
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 68
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 148
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 4
+              }
+            ],
+            "events": {
+              "lift_calls": 52,
+              "clip_calls": 975,
+              "triangulate_calls": 99
+            }
+          },
+          "mass_cpu": 0.030342514999999848,
+          "end_to_end_cpu": 0.09158990999999994,
+          "cpu_equivalent_samples": 294237.24865720357,
+          "conventional_forward_scalar_ops": 64,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 47498549,
+              "sampling_variance": 2.870420757606836e-07,
+              "integration_bound_mse_ratio": 4.751743582487875e-06
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 60410549,
+              "sampling_variance": 2.256904187475691e-07,
+              "integration_bound_mse_ratio": 6.043457001714291e-06
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 340498549,
+              "sampling_variance": 4.004152775576304e-08,
+              "integration_bound_mse_ratio": 3.40633941272013e-05
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 293047498549,
+              "sampling_variance": 4.6525161170419645e-11,
+              "integration_bound_mse_ratio": 0.029316402288295917
+            }
+          ],
+          "quadrature_nodes": 1056768,
+          "difference_from_n20": -7.747136265834342e-13
+        },
+        {
+          "order": 20,
+          "accuracy": 0.30773074302392717,
+          "integration_only_bound": 1.7861484466067117e-08,
+          "cost": {
+            "known_arithmetic_upper_bound": 90930493,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 300,
+              "gate_map_setup": 30160,
+              "lift_scalar": 7648,
+              "zero_normal_check": 7760,
+              "clip_scalar": 212562,
+              "clip_adjacency": 706600,
+              "clip_new_rays": 532232,
+              "gate_masks": 2124,
+              "outcome_maps": 3456,
+              "outcome_predicates": 5562,
+              "outcome_control": 6321,
+              "orthant_control": 5880,
+              "ray_l1_normalization": 6456,
+              "tri_incidence": 219264,
+              "tri_control": 7241,
+              "tri_face_scan": 138720,
+              "rank_result_test": 293,
+              "determinants": 30868,
+              "simplex_test": 258,
+              "rule_newton": 11526,
+              "rule_duffy": 240000,
+              "mass_scalar": 2838,
+              "mass_nodes": 88752000,
+              "bound": 40
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 73
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 68
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 148
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 4
+              }
+            ],
+            "events": {
+              "lift_calls": 52,
+              "clip_calls": 975,
+              "triangulate_calls": 99
+            }
+          },
+          "mass_cpu": 0.052732527000000085,
+          "end_to_end_cpu": 0.11397992200000018,
+          "cpu_equivalent_samples": 366166.30206801975,
+          "conventional_forward_scalar_ops": 64,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 90930493,
+              "sampling_variance": 1.4993960387523257e-07,
+              "integration_bound_mse_ratio": 2.127740897575197e-09
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 103842493,
+              "sampling_variance": 1.3129578948571282e-07,
+              "integration_bound_mse_ratio": 2.42987706293714e-09
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 383930493,
+              "sampling_variance": 3.5511850059275206e-08,
+              "integration_bound_mse_ratio": 8.983835728046785e-09
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 293090930493,
+              "sampling_variance": 4.651826679749559e-11,
+              "integration_bound_mse_ratio": 6.858222571369162e-06
+            }
+          ],
+          "quadrature_nodes": 2064000,
+          "difference_from_n20": 0.0
+        }
+      ],
+      "sampling_timing": {
+        "n": 65536,
+        "cpu": 0.02039998800000009
+      },
+      "reference_from_own_n20": 0.30773074302392717
+    },
+    {
+      "H": 4,
+      "T": 4,
+      "geometry": {
+        "gate_cells": 450,
+        "stage_counts": [
+          2,
+          10,
+          66,
+          450
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 3383142.0,
+        "original_dd_parts": {
+          "lift": 27548.0,
+          "clip": 1383986.0,
+          "adj": 435420.0,
+          "final": 73436.0,
+          "tri": 1462752.0
+        }
+      },
+      "correct_simplices": 5040,
+      "geometry_cpu": 0.704406997,
+      "geometry_cost": {
+        "known_arithmetic_upper_bound": 44362370,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 500,
+          "gate_map_setup": 253536,
+          "lift_scalar": 27884,
+          "zero_normal_check": 82956,
+          "clip_scalar": 2865074,
+          "clip_adjacency": 23045396,
+          "clip_new_rays": 12040648,
+          "gate_masks": 18592,
+          "outcome_maps": 57600,
+          "outcome_predicates": 62358,
+          "outcome_control": 70413,
+          "orthant_control": 57280,
+          "ray_l1_normalization": 85704,
+          "tri_incidence": 2865536,
+          "tri_control": 160254,
+          "tri_face_scan": 2354780,
+          "rank_result_test": 6797,
+          "determinants": 301638,
+          "simplex_test": 5040
+        },
+        "black_box_kernels": [
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              4,
+              4
+            ],
+            "calls": 1423
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              2,
+              4
+            ],
+            "calls": 4257
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              5,
+              4
+            ],
+            "calls": 383
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              3,
+              4
+            ],
+            "calls": 672
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              6,
+              4
+            ],
+            "calls": 50
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              7,
+              4
+            ],
+            "calls": 10
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              8,
+              4
+            ],
+            "calls": 2
+          }
+        ],
+        "events": {
+          "lift_calls": 156,
+          "clip_calls": 10404,
+          "triangulate_calls": 961
+        }
+      },
+      "curves": [
+        {
+          "order": 4,
+          "accuracy": 0.4774150579828195,
+          "integration_only_bound": 0.26653054998169623,
+          "cost": {
+            "known_arithmetic_upper_bound": 58592046,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 500,
+              "gate_map_setup": 253536,
+              "lift_scalar": 27884,
+              "zero_normal_check": 82956,
+              "clip_scalar": 2865074,
+              "clip_adjacency": 23045396,
+              "clip_new_rays": 12040648,
+              "gate_masks": 18592,
+              "outcome_maps": 57600,
+              "outcome_predicates": 62358,
+              "outcome_control": 70413,
+              "orthant_control": 57280,
+              "ray_l1_normalization": 85704,
+              "tri_incidence": 2865536,
+              "tri_control": 160254,
+              "tri_face_scan": 2354780,
+              "rank_result_test": 6797,
+              "determinants": 603276,
+              "simplex_test": 5040,
+              "rule_newton": 574,
+              "rule_duffy": 1920,
+              "mass_scalar": 55440,
+              "mass_nodes": 13870080,
+              "bound": 24
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 1423
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 4257
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 383
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 672
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  6,
+                  4
+                ],
+                "calls": 50
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  7,
+                  4
+                ],
+                "calls": 10
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  8,
+                  4
+                ],
+                "calls": 2
+              }
+            ],
+            "events": {
+              "lift_calls": 156,
+              "clip_calls": 10404,
+              "triangulate_calls": 961
+            }
+          },
+          "mass_cpu": 0.15776955699999995,
+          "end_to_end_cpu": 0.8621765539999999,
+          "cpu_equivalent_samples": 3729655.7867955873,
+          "conventional_forward_scalar_ops": 192,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 58592046,
+              "sampling_variance": 8.175523468776542e-07,
+              "integration_bound_mse_ratio": 86891.7254593562
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 354960046,
+              "sampling_variance": 1.3495058177805023e-07,
+              "integration_bound_mse_ratio": 526404.0594532652
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 6855592046,
+              "sampling_variance": 6.987298018062884e-09,
+              "integration_bound_mse_ratio": 10166810.387921562
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 6797058592046,
+              "sampling_variance": 7.047469735176191e-12,
+              "integration_bound_mse_ratio": 10080005554.187666
+            }
+          ],
+          "quadrature_nodes": 322560,
+          "difference_from_n20": 0.0004019319887007544
+        },
+        {
+          "order": 8,
+          "accuracy": 0.47701290143823416,
+          "integration_only_bound": 0.0060614485051068015,
+          "cost": {
+            "known_arithmetic_upper_bound": 155697492,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 500,
+              "gate_map_setup": 253536,
+              "lift_scalar": 27884,
+              "zero_normal_check": 82956,
+              "clip_scalar": 2865074,
+              "clip_adjacency": 23045396,
+              "clip_new_rays": 12040648,
+              "gate_masks": 18592,
+              "outcome_maps": 57600,
+              "outcome_predicates": 62358,
+              "outcome_control": 70413,
+              "orthant_control": 57280,
+              "ray_l1_normalization": 85704,
+              "tri_incidence": 2865536,
+              "tri_control": 160254,
+              "tri_face_scan": 2354780,
+              "rank_result_test": 6797,
+              "determinants": 603276,
+              "simplex_test": 5040,
+              "rule_newton": 2016,
+              "rule_duffy": 15360,
+              "mass_scalar": 55440,
+              "mass_nodes": 110960640,
+              "bound": 28
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 1423
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 4257
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 383
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 672
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  6,
+                  4
+                ],
+                "calls": 50
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  7,
+                  4
+                ],
+                "calls": 10
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  8,
+                  4
+                ],
+                "calls": 2
+              }
+            ],
+            "events": {
+              "lift_calls": 156,
+              "clip_calls": 10404,
+              "triangulate_calls": 961
+            }
+          },
+          "mass_cpu": 0.20792351699999978,
+          "end_to_end_cpu": 0.9123305139999998,
+          "cpu_equivalent_samples": 3946614.8380210907,
+          "conventional_forward_scalar_ops": 192,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 155697492,
+              "sampling_variance": 3.0763851940238474e-07,
+              "integration_bound_mse_ratio": 119.42964116273363
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 452065492,
+              "sampling_variance": 1.0595488211594049e-07,
+              "integration_bound_mse_ratio": 346.7622939720483
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 6952697492,
+              "sampling_variance": 6.889203214818172e-09,
+              "integration_bound_mse_ratio": 5333.150559564557
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 6797155697492,
+              "sampling_variance": 7.046851366258705e-12,
+              "integration_bound_mse_ratio": 5213840.348042986
+            }
+          ],
+          "quadrature_nodes": 2580480,
+          "difference_from_n20": -2.2455588460923437e-07
+        },
+        {
+          "order": 12,
+          "accuracy": 0.47701312612398566,
+          "integration_only_bound": 0.00010904193077969909,
+          "cost": {
+            "known_arithmetic_upper_bound": 419267944,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 500,
+              "gate_map_setup": 253536,
+              "lift_scalar": 27884,
+              "zero_normal_check": 82956,
+              "clip_scalar": 2865074,
+              "clip_adjacency": 23045396,
+              "clip_new_rays": 12040648,
+              "gate_masks": 18592,
+              "outcome_maps": 57600,
+              "outcome_predicates": 62358,
+              "outcome_control": 70413,
+              "orthant_control": 57280,
+              "ray_l1_normalization": 85704,
+              "tri_incidence": 2865536,
+              "tri_control": 160254,
+              "tri_face_scan": 2354780,
+              "rank_result_test": 6797,
+              "determinants": 603276,
+              "simplex_test": 5040,
+              "rule_newton": 4464,
+              "rule_duffy": 51840,
+              "mass_scalar": 55440,
+              "mass_nodes": 374492160,
+              "bound": 32
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 1423
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 4257
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 383
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 672
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  6,
+                  4
+                ],
+                "calls": 50
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  7,
+                  4
+                ],
+                "calls": 10
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  8,
+                  4
+                ],
+                "calls": 2
+              }
+            ],
+            "events": {
+              "lift_calls": 156,
+              "clip_calls": 10404,
+              "triangulate_calls": 961
+            }
+          },
+          "mass_cpu": 0.3405068670000002,
+          "end_to_end_cpu": 1.0449138640000002,
+          "cpu_equivalent_samples": 4520151.9590041395,
+          "conventional_forward_scalar_ops": 192,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 419267944,
+              "sampling_variance": 1.1424328661970489e-07,
+              "integration_bound_mse_ratio": 0.10407738625154236
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 715635944,
+              "sampling_variance": 6.693144509919471e-08,
+              "integration_bound_mse_ratio": 0.1776465852566471
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 7216267944,
+              "sampling_variance": 6.637578907622444e-09,
+              "integration_bound_mse_ratio": 1.7913372983800342
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 6797419267944,
+              "sampling_variance": 7.04657841583077e-12,
+              "integration_bound_mse_ratio": 1687.3639895147433
+            }
+          ],
+          "quadrature_nodes": 8709120,
+          "difference_from_n20": 1.2986689501559567e-10
+        },
+        {
+          "order": 16,
+          "accuracy": 0.4770131259940428,
+          "integration_only_bound": 1.7685328884628027e-06,
+          "cost": {
+            "known_arithmetic_upper_bound": 932535166,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 500,
+              "gate_map_setup": 253536,
+              "lift_scalar": 27884,
+              "zero_normal_check": 82956,
+              "clip_scalar": 2865074,
+              "clip_adjacency": 23045396,
+              "clip_new_rays": 12040648,
+              "gate_masks": 18592,
+              "outcome_maps": 57600,
+              "outcome_predicates": 62358,
+              "outcome_control": 70413,
+              "orthant_control": 57280,
+              "ray_l1_normalization": 85704,
+              "tri_incidence": 2865536,
+              "tri_control": 160254,
+              "tri_face_scan": 2354780,
+              "rank_result_test": 6797,
+              "determinants": 603276,
+              "simplex_test": 5040,
+              "rule_newton": 7682,
+              "rule_duffy": 122880,
+              "mass_scalar": 55440,
+              "mass_nodes": 887685120,
+              "bound": 36
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 1423
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 4257
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 383
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 672
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  6,
+                  4
+                ],
+                "calls": 50
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  7,
+                  4
+                ],
+                "calls": 10
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  8,
+                  4
+                ],
+                "calls": 2
+              }
+            ],
+            "events": {
+              "lift_calls": 156,
+              "clip_calls": 10404,
+              "triangulate_calls": 961
+            }
+          },
+          "mass_cpu": 0.568284545,
+          "end_to_end_cpu": 1.272691542,
+          "cpu_equivalent_samples": 5505486.495085205,
+          "conventional_forward_scalar_ops": 192,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 932535166,
+              "sampling_variance": 5.1363798001478666e-08,
+              "integration_bound_mse_ratio": 6.089324970642831e-05
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 1228903166,
+              "sampling_variance": 3.8976665713707964e-08,
+              "integration_bound_mse_ratio": 8.024566802476845e-05
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 7729535166,
+              "sampling_variance": 6.196821266353932e-09,
+              "integration_bound_mse_ratio": 0.0005047278988917581
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 6797932535166,
+              "sampling_variance": 7.046046374823243e-12,
+              "integration_bound_mse_ratio": 0.4438955424350362
+            }
+          ],
+          "quadrature_nodes": 20643840,
+          "difference_from_n20": -7.599476603559197e-14
+        },
+        {
+          "order": 20,
+          "accuracy": 0.47701312599411877,
+          "integration_only_bound": 2.704776667448178e-08,
+          "cost": {
+            "known_arithmetic_upper_bound": 1778731014,
+            "parts": {
+              "module_bitset_setup": 384,
+              "root_gate_setup": 500,
+              "gate_map_setup": 253536,
+              "lift_scalar": 27884,
+              "zero_normal_check": 82956,
+              "clip_scalar": 2865074,
+              "clip_adjacency": 23045396,
+              "clip_new_rays": 12040648,
+              "gate_masks": 18592,
+              "outcome_maps": 57600,
+              "outcome_predicates": 62358,
+              "outcome_control": 70413,
+              "orthant_control": 57280,
+              "ray_l1_normalization": 85704,
+              "tri_incidence": 2865536,
+              "tri_control": 160254,
+              "tri_face_scan": 2354780,
+              "rank_result_test": 6797,
+              "determinants": 603276,
+              "simplex_test": 5040,
+              "rule_newton": 11526,
+              "rule_duffy": 240000,
+              "mass_scalar": 55440,
+              "mass_nodes": 1733760000,
+              "bound": 40
+            },
+            "black_box_kernels": [
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  4,
+                  4
+                ],
+                "calls": 1423
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  2,
+                  4
+                ],
+                "calls": 4257
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  5,
+                  4
+                ],
+                "calls": 383
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  3,
+                  4
+                ],
+                "calls": 672
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  6,
+                  4
+                ],
+                "calls": 50
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  7,
+                  4
+                ],
+                "calls": 10
+              },
+              {
+                "name": "matrix_rank_SVD",
+                "shape": [
+                  8,
+                  4
+                ],
+                "calls": 2
+              }
+            ],
+            "events": {
+              "lift_calls": 156,
+              "clip_calls": 10404,
+              "triangulate_calls": 961
+            }
+          },
+          "mass_cpu": 0.9803985270000002,
+          "end_to_end_cpu": 1.6848055240000002,
+          "cpu_equivalent_samples": 7288234.228892952,
+          "conventional_forward_scalar_ops": 192,
+          "rank_kernel_sensitivity": [
+            {
+              "scenario": "rank_price_zero_LOWER_BOUND_ONLY",
+              "total_assumed_scalar_work": 1778731014,
+              "sampling_variance": 2.6928494257254818e-08,
+              "integration_bound_mse_ratio": 2.7167567376334508e-08
+            },
+            {
+              "scenario": "rank_price_1000_m_n_squared",
+              "total_assumed_scalar_work": 2075099014,
+              "sampling_variance": 2.3082536097094417e-08,
+              "integration_bound_mse_ratio": 3.169416389082555e-08
+            },
+            {
+              "scenario": "rank_price_one_million_each",
+              "total_assumed_scalar_work": 8575731014,
+              "sampling_variance": 5.5853603404193765e-09,
+              "integration_bound_mse_ratio": 1.309820025008944e-07
+            },
+            {
+              "scenario": "rank_price_one_billion_each",
+              "total_assumed_scalar_work": 6798778731014,
+              "sampling_variance": 7.045169403322564e-12,
+              "integration_bound_mse_ratio": 0.00010384160269193623
+            }
+          ],
+          "quadrature_nodes": 40320000,
+          "difference_from_n20": 0.0
+        }
+      ],
+      "sampling_timing": {
+        "n": 65536,
+        "cpu": 0.015149816999999954
+      },
+      "reference_from_own_n20": 0.47701312599411877
+    }
+  ],
+  "cpu_seconds": 3.181902257
+}
