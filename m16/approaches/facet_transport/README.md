@@ -225,3 +225,7 @@ T31 was reserved and pushed before work; Claude remains DRI. Recommend register
 the narrow negative compression result and retain the exact-flux primitive for
 future independent checks. Do not promote it to a mechanistic estimator or a
 no-compression theorem. No larger-model experiment is recommended by this probe.
+
+### Independent nominal-accuracy cross-check
+
+Root compared both DEV cases against Claude T36 `arc_m43_repro/exact.py`, which starts from rank/sign cones rather than octants. `independent_accuracy_check.json` records agreement within7e-16. The implementations share the spherical-area identity, so this is partial independence and validates nominal accuracy, not boundary counts. Additional compute: two facet-complex builds and two T36 enumerations,0.178 CPU seconds, no sampled model inputs.

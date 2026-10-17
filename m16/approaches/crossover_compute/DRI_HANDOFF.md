@@ -68,3 +68,24 @@ allocated after pulling and reserved immediately on push, per updated AGENTS.
 Redirect Codex priorities by editing our TASKS notes or this handoff. Until then,
 Codex continues the reserved T31 tiny-complex flux diagnostic; T37-P1 is complete.
 T32/T34 are complete; T20 remaining ports have been released to Ready.
+
+## User-prioritized small ladder and fundamentals (latest steering)
+
+Claims T47-T52 were pushed in3de8f76 before work. Five isolated Codex agents cover
+H2,T3/4; H2,T5/6; H2,T7/8; H2,T9/10; and H4,T4. T52 provides independent review.
+These do not overlap Claude T46, whose width is H16. Seed0 checkpoints are frozen
+for available cases. Zoo lacks published T7/T9 checkpoints (standard URLs404);
+T53/T54 now track reproducible checkpoint work in Backlog. No unlabelled synthetic
+substitutions or heavy training. First probes are bounded to120CPU seconds per
+agent, one thread, with shared CPU limits preserved.
+
+User additionally requested persistent Feynman-style first-principles reasoning.
+T55 is reserved and starts when the initial reviewer releases its slot; root will
+maintain successive bounded investigation/review cycles. This is a reasoning
+style, not a claim to reproduce Feynman or exemption from independent checks.
+New agent must read prior sci_feynman negatives and coordinate candidate ideas
+with existing owners. Claude remains DRI and owns classification/final acceptance.
+
+T31 correction is integrated and the task closed: synthetic compression5.8x,
+DEV1.43x/1.89x; independent nominal-accuracy agreement within7e-16. Counts are
+geometric lower bounds, not transport-compatible merging. No global win.
