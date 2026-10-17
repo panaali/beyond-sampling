@@ -5,10 +5,11 @@ from fractions import Fraction
 from pathlib import Path
 HERE=Path(__file__).resolve().parent;inv=json.loads((HERE/'inventory.json').read_text());native=Path(inv['native']);prior=Path(inv['prior'])
 for path,sha in inv['files'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
-rows=[json.loads((native/'component.json').read_text())];failures=[];rescued=[]
+rows=[json.loads((native/'component.json').read_text())];failures=[];rescued=[];pending=[]
 for p in sorted((HERE/'components').glob('*.json')):
  r=json.loads(p.read_text())
  if r['complete']:rows.append(r)
+ elif 'failure' not in r:pending.append(r['index'])
  else:
   failures.append({'index':r['index'],'failure':r.get('failure'),'cpu_seconds':r.get('cpu_seconds'),'path':str(p)})
   rescue=HERE/'cell_rescue'/f"{r['index']:02d}"/'summary.json'
@@ -27,7 +28,7 @@ for i,r in zip(indices,rows):
  diag=sum(sum(v.values()) for site,v in l['sites'].items() if "stats['traces'] += 1" in site or "stats['pieces'] += 1" in site)
  summary.append({'index':i,'numeric':numeric,'integer':integer,'diagnostic':diag,'visible_after_diagnostic':numeric+integer-diag,'legacy':r['legacy_ops'],'cpu':r['cpu_seconds'],'opaque_calls':l['opaque_calls']})
 raw=float(sum((Fraction(r['raw_error_component']) for r in rows),Fraction()))
-out={'complete':indices==list(range(48)),'indices':indices,'rows':summary,'numeric':sum(r['numeric'] for r in summary),'integer':sum(r['integer'] for r in summary),'diagnostic':sum(r['diagnostic'] for r in summary),'visible_after_diagnostic':sum(r['visible_after_diagnostic'] for r in summary),'legacy':sum(r['legacy'] for r in summary),'cpu':sum(r['cpu'] for r in summary),'raw_exact_saved_float_sum':raw,'resource_failures':failures,'cell_rescued_indices':rescued,'failure_recorded_cpu':sum(x['cpu_seconds'] or 0 for x in failures),'scope':'Partial component census until all48; failed12 may use separately reviewed exact-order cell adapter with repeated setup included, a conservative source-arithmetic upper count. Cold setup and opaque/runtime categories separate. No transferred ratios or full implementation-cost claim.'}
+out={'complete':indices==list(range(48)),'indices':indices,'rows':summary,'numeric':sum(r['numeric'] for r in summary),'integer':sum(r['integer'] for r in summary),'diagnostic':sum(r['diagnostic'] for r in summary),'visible_after_diagnostic':sum(r['visible_after_diagnostic'] for r in summary),'legacy':sum(r['legacy'] for r in summary),'cpu':sum(r['cpu'] for r in summary),'raw_exact_saved_float_sum':raw,'pending_indices':pending,'resource_failures':failures,'cell_rescued_indices':rescued,'failure_recorded_cpu':sum(x['cpu_seconds'] or 0 for x in failures),'scope':'Partial component census until all48; failed12 may use separately reviewed exact-order cell adapter with repeated setup included, a conservative source-arithmetic upper count. Cold setup and opaque/runtime categories separate. No transferred ratios or full implementation-cost claim.'}
 if out['complete']:
  out['estimate']=1-raw/(2*math.pi**2)
  saved=json.loads((prior/'noise_summary.json').read_text());assert out['legacy']==saved['legacy_ops']
