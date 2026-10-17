@@ -91,3 +91,30 @@ boundary representations. Existing T91/T67 transport engines are not copied.
 Near-parallel affine boundaries, numerical cancellation of tiny interval
 masses, positive-mass ties, zero input weights, and expensive arrangements.
 All failure rows remain in artifacts; never silently clip negative masses.
+
+## First controls and pilot: retained numerical limitation
+The constant-class control caught an implementation defect before trained
+runs: the below-y contribution was overwritten by the above-y contribution
+rather than summed. `initial_control_failure.json` records .3151925 instead
+of .25. After correction, independent one-dimensional mean integration
+agrees within7.11e-15; zero/identical readouts, zero inputs, Wh0 and coordinate
+scaling controls pass (`controls.json`,.036CPU).
+
+The frozen four-case GL16/32 pilot is retained in `pilot.json`. Zero-history
+reproduction errors reach2.39e-6 and order changes3.82e-5. Therefore the
+initial affine-panel quadrature does not meet the frozen numerical control;
+no ensemble or efficiency conclusion follows. T5 seed2 is already stable:
+zero .29350526534 vs prior .29350526549, plugin .28335188003, exact2
+.28222630452, all below the full reference .30477545878. The mean variants
+worsen this checked example, but other cases need numerical rescue first.
+
+Freeze a distinct numerical rescue before running it: topology changes alone
+do not resolve steep Phi(a*y+b) transitions for large active-boundary slopes.
+Split every retained vertical region additionally wherever its active lower
+or upper affine bound equals a fixed integer in[-8,8], and at integer y
+values. This targets Gaussian transition width using weights only. Use the
+same GL16/32 and report all extra intersections/nodes, preserve the original
+rule as default and its results. Require zero-history reproduction within
+1e-8 plus explicit missing-y mass; no fitted breakpoint locations. If this
+fails, the scoped pilot remains numerically inconclusive; do not begin a
+full sweep or blindly increase order. Independent code review requested.
