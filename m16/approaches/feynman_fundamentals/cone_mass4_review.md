@@ -1229,3 +1229,14 @@ fixed per-process caps, saved failures and immutable pilot-review pins. The
 676.45CPU projection is research tracing effort, not estimator runtime. Full
 saved coverage and all individual losses must be reviewed before interpretation.
 No new estimator or truth evaluations occurred in this review.
+
+### Fixed-denominator cofactor angle bounds
+
+`check_cofactor_angle_review.py` independently verifies the exact rational
+Lipschitz formula, all 21 analytic/undefined controls and all 64 archived signed
+numerators. Source/result hashes, sign flips, interval endpoints, diagnostic
+angles and category contractions match. The maximum bound is
+1.2710635397296333e-9; candidate/source point comparisons remain 34/27 with
+three ties. This controls numerator uncertainty at the stored denominator only.
+It supplies no denominator, libm, sequential-summation or quadrature certificate.
+No determinant, mass or network evaluations were added by the review.
