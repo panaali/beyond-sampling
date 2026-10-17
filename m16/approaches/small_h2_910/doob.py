@@ -76,7 +76,7 @@ def transport(model,j,grid,terminal,rules,stats,method="linear"):
     values=terminal
     npre=T-2 if j<T-2 else T-3
     for t in reversed(range(npre)):
-        interp=make_interpolator(grid,values,method)
+        interp=make_interpolator(grid,values,method,stats)
         if t==j:
             coords=np.column_stack((np.maximum(states[:,:2]@wh.T+states[:,2,None]*wi,0),states[:,2]))
             values=interp(coords).reshape(shape);stats['interpolation_queries']+=len(coords)
@@ -97,7 +97,7 @@ def transport(model,j,grid,terminal,rules,stats,method="linear"):
                 updated+=np.sum(evaluated*weight,axis=1)
             stats['interpolation_queries']+=len(coords);stats['angle_nodes']+=len(coords)
         values=updated.reshape(shape)
-    initial=make_interpolator(grid,values,method)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
+    initial=make_interpolator(grid,values,method,stats)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
     stats['interpolation_queries']+=2
     qminus=2*(T+1)/(T*2**T);qplus=2/T-qminus
     return float((initial[0]*qminus+initial[1]*qplus)/2),initial.tolist()

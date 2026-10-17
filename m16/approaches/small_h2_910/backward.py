@@ -75,7 +75,12 @@ def target_kernel_grid(model,j,grid,stats,deadline,constant=False):
     return values
 
 
-def make_interpolator(grid,values,method):
+def make_interpolator(grid,values,method,stats=None):
+    if stats is not None:
+        stats["interpolators_built"]+=1
+        if method=="cubic":
+            stats["direct_spline_solves"]+=1
+            stats["spline_coefficients"]+=int(values.size)
     extra={"solver":spsolve} if method=="cubic" else {}
     return RegularGridInterpolator(grid,values,bounds_error=True,method=method,**extra)
 
@@ -97,7 +102,7 @@ def integrate_backwards(model,j,grid,terminal,nangle,stats,method="linear"):
     nodes=(nodes+1)/2;weights=weights/2
     values=terminal
     for t in reversed(range(npre)):
-        interpolator=make_interpolator(grid,values,method)
+        interpolator=make_interpolator(grid,values,method,stats)
         if t==j:
             transformed=np.column_stack((np.maximum(states[:,:2]@wh.T+states[:,2,None]*wi,0),states[:,2]))
             values=interpolator(transformed).reshape(shape)
@@ -125,7 +130,7 @@ def integrate_backwards(model,j,grid,terminal,nangle,stats,method="linear"):
             stats['interpolation_queries']+=len(coords)
             stats['angle_nodes']+=len(coords)
         values=nextval.reshape(shape)
-    initial=make_interpolator(grid,values,method)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
+    initial=make_interpolator(grid,values,method,stats)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
     stats['interpolation_queries']+=2
     return float(initial.mean()),initial.tolist()
 

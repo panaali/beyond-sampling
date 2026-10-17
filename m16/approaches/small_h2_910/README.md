@@ -302,3 +302,38 @@ may leave the large neural bias unchanged. Charge all newly constructed terminal
 geometry, prior reused geometry, rank rules, interpolation/spline solves and CPU.
 No additional MC reference is taken in this cycle, avoiding outcome-driven
 reference precision changes. Existing uncertainty remains explicit.
+
+## Cycle5 outcome: grid9 complete, uncertainty remains
+`refine9.py` / `refine9_results.json` completed in103.957CPU seconds, including
+4832new trained terminal calls and all six transport variants. All calls passed;
+no positive quadrature fallback occurred. Grid9 results:
+
+| representation | linear | cubic |
+|---|---:|---:|
+| V | .154818950 | .158302465 |
+| W, quadrature terminal rank mass | .153411641 | .158339014 |
+| W, analytic terminal rank mass | .153411641 | .158339015 |
+
+Cubic V moved downward from grid7, while cubic W moved upward. They now agree
+within .00003655, but this is not a certified error bound. Both are approximately
+.00191 below the existing MC point estimate, whose SE is .001433; that reference
+cannot resolve the discrepancy. Cubic V queries still reach−.04692 and cubic W
+queries reach−.10540 and1.10816. Exact-rank linear W keeps queried values within
+[0,1] up to1.23e-13 and preserves constant-class accuracy .1 to roundoff, but its
+coarse neural estimate remains materially different. No solved claim follows.
+
+New trained geometry:743634clips,74536affine products,365156readout-margin
+products and97041weighted moments. Add the reused5³trained geometry for a complete
+grid9 build: total895146clips,89856affine products,439732readout products and
+116737moments. Reused construction CPU was18.986seconds, additional to this cycle;
+it is not free model advice. Constant controls add18terminal calls/1080clips/
+144affine products/246moments. Across all six diagnostic variants,4898880angular
+nodes,4916436interpolation queries and132direct cubic sparse solves were used;
+model-free rank quadrature used133632nodes plus512rule-generation nodes. No random
+inputs or full-sequence model forwards occurred in this cycle.
+
+Per root's resource decision, further terminal builds stop at grid9 until T59
+batching is assessed. Next work is independent review/reference clarification,
+method classification and arithmetic accounting, not declaring the closest
+coarse number successful. T50 remains active; T54's local checkpoint deliverable
+has separately been registered complete by root.
