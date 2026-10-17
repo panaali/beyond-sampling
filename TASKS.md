@@ -42,6 +42,11 @@ side axis: task (argmax / 2nd-argmax / argmedian). Missing sizes (H=7, 9-15; T=7
 3. If a rung fails: stop, diagnose exactly which new behaviour appeared, fix the recipe, re-run ALL earlier rungs,
    keep an exhaustion checklist (rule 5). Never skip a failed rung.
 4. Each rung is its own board row; the next rung is unblocked only when its predecessor passes.
+5. **Stay in the target regime (DRI, 2026-10-17).** M_16,10 is ~95% accurate with errors in thin near-tie bands. Zoo
+   accuracy (5 seeds): H=4: T3 0.76-0.98, T4 0.48-0.60; H=5: T3 0.94-1.00, T4 0.63-0.75; H=6: T3 1.00, T4 0.60-0.86;
+   H=8: T3 1.00, T4 0.97-0.99, T5 0.81-0.88; H=16: T3-T10 well trained. Small-H rungs at larger T are poorly trained
+   (bulk errors) and test a different regime. Main path: H up at T=3 (4->5->6->7->8), then T up at H=8 ((8,3)->(8,4)),
+   then H up toward 16 (trained 9-15 via T86) and T up at H=16. Off-regime rungs stay on record as separate results.
 
 ## In progress
 

@@ -40,6 +40,9 @@ def endpoint(mu, C, k3, k4):
     Bd = np.einsum("iikl->kl", B); B0 = np.einsum("iijj->", B)
     s = {"gauss": 0.0, "edge3": 0.0, "edge4": 0.0}
     W = gauss_draws(k)
+    if not (np.any(k3) or np.any(k4)):            # Gaussian only: no Edgeworth sums needed
+        p = sum(int(((W[c0:c0 + (1 << 18)] @ L.T + mu) > 0).all(1).sum()) for c0 in range(0, NG, 1 << 18)) / NG
+        return {"gauss": p, "edge3": p, "edge4": p}
     for c0 in range(0, NG, 1 << 18):
         w = W[c0:c0 + (1 << 18)]
         wi = w[((w @ L.T + mu) > 0).all(1)]
