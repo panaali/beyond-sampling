@@ -47,3 +47,41 @@ def sum_mass(rays,n):
  for v in rays:
   x,b,k=mass(v,n);value+=x;bound+=b;nodes+=k
  return dict(estimate=value,conditional_quadrature_error_bound=bound,nodes=nodes,order=n)
+
+def bernstein_bound(rays,n):
+ """Analytic bound optimized over a fixed grid of Bernstein ellipses."""
+ d=len(rays);p=d/2;k=(2*n-d+1)//2
+ if k<0:return float('inf')
+ det=abs(np.linalg.det(rays));g=rays.T@rays
+ # Tiny outward cushions; not a floating-point certificate for the entire geometry.
+ a=max((1-1e-12)/d,float(g.min())-1e-12);b=max(a,float(np.diag(g).max())+1e-12)
+ m=(a+b)/2;delta=(b-a)/2
+ if delta==0:return 0.
+ limit=(np.sqrt(b)+np.sqrt(a))/(np.sqrt(b)-np.sqrt(a))
+ r=1+(limit-1)*np.linspace(.1,.95,32)
+ lower=m-delta*(r+1/r)/2
+ good=lower>0
+ logterms=-p*np.log(lower[good])-k*np.log(r[good])-np.log(r[good]-1)
+ return float(gamma(p)*det/(2*pi**p)*4/factorial(d-1)*np.exp(logterms.min()))
+
+def plan(rays,tolerance=1e-4,orders=(4,6,8,10,12,16,20,24,28,32)):
+ chosen=[];bounds=[];per=tolerance/len(rays)
+ for v in rays:
+  for n in orders:
+   b=bernstein_bound(v,n)
+   if b<=per:break
+  chosen.append(n);bounds.append(b)
+ return np.array(chosen),np.array(bounds)
+
+def grouped_mass(rays,orders,bounds,deadline=None):
+ """Process one node block at a time, reusing it across same-order simplices."""
+ import time
+ d=rays.shape[1];p=d/2;const=gamma(p)/(2*pi**p);values=np.zeros(len(rays));nodes=0
+ for n in np.unique(orders):
+  idx=np.where(orders==n)[0];dets=np.abs(np.linalg.det(rays[idx]))
+  for y,w in blocks(d,int(n)):
+   for j,det in zip(idx,dets):
+    if deadline is not None and time.process_time()>deadline:raise TimeoutError('integration CPU deadline')
+    x=y@rays[j].T;q=np.sum(x*x,axis=1)
+    values[j]+=const*det*float(w@np.power(q,-p));nodes+=len(y)
+ return dict(estimate=float(values.sum()),conditional_quadrature_error_bound=float(bounds.sum()),nodes=int(nodes),order_histogram={str(n):int(np.sum(orders==n)) for n in np.unique(orders)},arithmetic_ops_excluding_power_and_setup=int(nodes*(2*d*d+2*d+1)),power_calls=int(nodes))
