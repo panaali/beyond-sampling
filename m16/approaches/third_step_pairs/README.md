@@ -11,7 +11,7 @@ PROOF.md, primitive.py and the fixed24 controls in controls.py. It does not
 assemble trained neuron pairs or run a network.
 
 ## Status
-Claim91e79d3b pushed. Source138a0e91 independently gated by78/T55; all24 controls now pass, saved audit pending.
+Claim91e79d3b pushed. Source138a0e91 independently gated by78/T55; all24 controls now pass, independent saved audit84e0040c passes.
 
 ## Results
 All24 pass in0.187677CPU; max analytic difference5.998e-118. See HANDOFF.md.

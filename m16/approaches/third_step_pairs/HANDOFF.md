@@ -1,4 +1,4 @@
-# T11593 pointed-cone primitive: raw bounded control handoff
+# T11593 pointed-cone primitive: independently reviewed bounded handoff
 
 Claim91e79d3b; source138a0e91; independent78 geometry/T55 moment and analytic-control gates pinned513c15c2 before one20CPU attempt.
 
@@ -6,6 +6,6 @@ All24 fixed controls pass in0.187676818CPU,31,888KiB:16 full-dimensional pointed
 
 Named exact setup1095div+6081mul+963sub+3017add+25neg, with retained reduced bits123/241. Exact comparison/search/sort/GCD/transient integer, MP/native, validation/reference construction/control/memory are incompletely priced. No network/model/neuron-pair panel, covariance propagation, random input or truth call occurred. Rank<3 remains unsupported rather than misclassified as zero. No generic lineality solution, broad floating robustness or challenge-accuracy claim follows.
 
-All48 attempt/result records and full exact ray/facet/triangle/tangent certificates are saved; independent saved audit pending before any separate network-pair phase. The unchanged real-arithmetic moment identity was reviewed; topology and numerical scope remain explicit. A later pair-assembly phase must freeze exact joint-positive cones, diagonal/covariance controls and a cost-first one-model pilot separately.
+All48 attempt/result records and full exact ray/facet/triangle/tangent certificates are saved; independent saved audit84e0040c passes exact normal/ray sets/ranks/facets/orientation/tangent projections, alternative analytic matrices and all48 progress records without candidate calls. Named counters are conserved, not a new instruction census. A network-pair phase still requires separately frozen scope. The unchanged real-arithmetic moment identity was reviewed; topology and numerical scope remain explicit. A later pair-assembly phase must freeze exact joint-positive cones, diagonal/covariance controls and a cost-first one-model pilot separately.
 
 Reproduce from513c15c2 in a fresh checkout using one thread2GB and secondary20CPU lock: `/workspace/clean-neurons/.venv/bin/python m16/approaches/third_step_pairs/controls.py`. Existing artifacts refused. No rerun or changed precision occurred.
