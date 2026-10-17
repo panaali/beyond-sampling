@@ -10,11 +10,11 @@ def normal_mass(lo,hi,stats):
     narrow=np.zeros_like(valid)
     narrow[finite]=(right[finite]-lo[finite])*(1+np.maximum(abs(lo[finite]),abs(right[finite])))<1e-5
     if np.any(narrow):
-        a=lo[narrow];b=right[narrow];width=b-a;middle=a+width/2
+        a=lo[narrow];b=right[narrow];width=b-a
         density=lambda x:np.exp(-x*x/2)/np.sqrt(2*np.pi)
         lower=width*np.minimum(density(a),density(b))
         upper=width*density(np.minimum(b,np.maximum(a,0.)))
-        value[narrow]=width*density(middle)
+        value[narrow]=width*np.exp(-a*a/2-a*width/2-width*width/8)/np.sqrt(2*np.pi)
         allowance=16*np.finfo(float).eps*upper
         stats['narrow_gaussian_intervals']+=len(a)
         stats['narrow_gaussian_exp_calls']+=4*len(a)
