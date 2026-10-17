@@ -3,7 +3,7 @@
 This adapter satisfies the shared signature; its returned cost is explicitly a
 partial operation proxy, not a reviewed portable cost or a budget guarantee.
 """
-from .enrich import CachedOracle, Enriched, cross
+from m16.approaches.tensor_enrichment.enrich import CachedOracle, Enriched, cross
 
 CLASS = 'unreviewed'
 DEDUCTIVE = True
