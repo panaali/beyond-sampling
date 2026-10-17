@@ -109,7 +109,22 @@ explicit160-unit allowance per triangle for the extra batch/pow work. All
 9309 complete metadata/value controls and30 boundary fixtures still pass;
 control time is .1743 versus .2235CPU for the original grouped baseline.
 Original slower-selector and radial-failure artifacts remain unchanged.
-The rescue complete pilot awaits independent review.
+The original T116 owner independently reviewed the attribution and adapter
+before the rescue complete pilot.
+
+## Scalar-pow rescue complete pilot
+All64 cone values and statistics remain exactly identical. Five fresh
+alternating timings per variant give median .357796CPU for the original
+grouped baseline and .351169CPU for the scalar-pow rescue, ratio .981478
+(1.85% lower local median). All12 complete calls cost4.425CPU. This small
+local timing change is not an established portable speed gain or a reason
+to run the full integral. The original18.2% slower result remains unchanged.
+
+The rescue preserves the same3641 fallbacks,58256 nodes and partial mass
+.003088193770479861. Original arithmetic charges are retained and extra
+vector/scalar-check/setup work is charged; no FLOP-saving claim. The finite
+exact-compatibility result and observed local timing are the bounded outcome.
+Native kernels or other positive primitives remain open, not declared dead.
 
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Preserve original
