@@ -149,7 +149,8 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline):
     return float(values[0, 0, 1])
 
 
-def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.):
+def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.,
+             target_rule='jacobi'):
     start = time.process_time()
     wi, wh, wo = (np.asarray(a, dtype=float) for a in model)
     T = len(wo)
@@ -158,10 +159,19 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     model = wi, wh, wo
     stats = defaultdict(float)
     axes, states, bounds = grids(model, hidden_order, limit, stats)
-    nodes, weights = roots_jacobi(target_order, 1, T-2)
-    q = (nodes+1)/2
-    weights = weights/weights.sum()
-    stats['target_rule_nodes'] = target_order
+    if target_rule == 'jacobi':
+        nodes, weights = roots_jacobi(target_order, 1, T-2)
+        q = (nodes+1)/2
+        weights = weights/weights.sum()
+    elif target_rule == 'split_sign':
+        nodes, base_weights = leggauss(target_order)
+        q = np.concatenate(((nodes+1)/4, .5+(nodes+1)/4))
+        weights = np.tile(base_weights/4, 2)*T*(T-1)*q**(T-2)*(1-q)
+        if abs(weights.sum()-1) > 1e-12:
+            raise ArithmeticError('target rule does not integrate Beta mass')
+    else:
+        raise ValueError('unknown target rule')
+    stats['target_rule_nodes'] = len(q)
     labels = possible_labels(wo)
     contributions = {}
     for label in labels:
@@ -171,7 +181,8 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     answer = sum(contributions.values())
     box_mass = float(np.exp(T*np.log1p(-2*ndtr(-limit))))
     return answer, dict(cpu_seconds=time.process_time()-start, work=dict(stats),
-                        hidden_order=hidden_order, target_order=target_order, input_order=input_order,
+                        hidden_order=hidden_order, target_order=target_order, target_rule=target_rule,
+                        input_order=input_order,
                         limit=limit, possible_labels=labels, contributions=contributions,
                         stage_bounds=[b.tolist() for b in bounds],
                         omitted_input_mass_bound=1-box_mass,
