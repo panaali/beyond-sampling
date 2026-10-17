@@ -204,3 +204,22 @@ state cannot cover this suffix box. This is not an accuracy obstruction
 under the actual prefix law, a practical coverage ceiling, or a negative
 about state-conditioned/longer-suffix integration. Actual reachable open
 prefix boxes are a separate proposed extension, not checked here.
+
+## Actual-prefix support extension
+
+Independent check_prefix_support_review.py verifies both six-input prefix
+centers reach the saved hidden states exactly, and recomputes the
+Lipschitz constants M=||Wh||infinity and L6=||Wi||infinity*sum(M^k,k0..5).
+Prefix perturbation epsilon changes gate step t by at mostM^(t+1)*L6*eps
+and readout margin by ||deltaWo||1*M^4*L6*eps. Together with the existing
+suffix half-slack bound all25 inequalities retain at least quarter slack.
+All8 gates per history are represented. Omitted tied readouts are checked
+identical on the whole stable final support, not merely at fixed h.
+
+The rank intervals independently certify unique second input index0 for
+both full boxes. Outputs remain0 and6, hence one box correct and one wrong.
+Exact factored Gaussian lower bounds have denominator powers3^20 and
+3^81411 respectively; positivity follows without trusting the high-precision
+probability calculation. This establishes actual open support dependence
+on the prefix. The second box is astronomically rare, so this gives no
+practical error floor or broad obstacle to probabilistic integration.
