@@ -19,13 +19,22 @@ def main():
         except np.linalg.LinAlgError:value={'failure':'LinAlgError'}
         fixtures.append((name,A,value))
     libpath=Path(next(p for p in PINS['files'] if 'libscipy_openblas' in p));lib=ctypes.CDLL(str(libpath))
+    lib.scipy_openblas_get_num_threads64_.restype=ctypes.c_int;assert lib.scipy_openblas_get_num_threads64_()==1
     nm=subprocess.check_output(['nm','-n',str(libpath)],text=True)
     symbols={p[2]:int(p[0],16) for line in nm.splitlines() if len(p:=line.split())==3 and all(c in '0123456789abcdef' for c in p[0])}
     base=ctypes.cast(lib.scipy_dgesv_64_,ctypes.c_void_p).value-symbols['scipy_dgesv_64_']
     table=ctypes.c_void_p.from_address(base+symbols['gotoblas']).value
+    runtime=json.loads((HERE/'inverse_runtime_expected.json').read_text())
+    assert table-base==int(runtime['table_relative_elf_offset'],16)
+    for row in runtime['functions']:
+        assert ctypes.c_void_p.from_address(table+int(row['table_offset'],16)).value-base==int(row['target_relative_elf_offset'],16)
+    for offset,value in runtime['block_parameter_offsets'].items():
+        assert ctypes.c_int.from_address(table+int(offset,16)).value==value
+    build=['gcc','-shared','-fPIC','-O2',str(HERE/'inverse_spy.c'),'-o',str(HERE/'inverse_spy.so')]
+    subprocess.run(build,check=True)
     spy=ctypes.CDLL(str(HERE/'inverse_spy.so'));spy.kernel_install.argtypes=[ctypes.c_size_t];spy.kernel_events.argtypes=[ctypes.POINTER(ctypes.c_int64)];spy.kernel_events.restype=ctypes.c_int64
     names=['iamax','dot','scal','swap','gemv','gemm','copy','upper','lower','upack','lpack']
-    start=time.process_time();out={'complete':False,'capture_sha256':hashlib.sha256(capture.read_bytes()).hexdigest(),'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'spy_source_sha256':hashlib.sha256((HERE/'inverse_spy.c').read_bytes()).hexdigest(),'rows':[]}
+    start=time.process_time();out={'complete':False,'capture_sha256':hashlib.sha256(capture.read_bytes()).hexdigest(),'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'spy_source_sha256':hashlib.sha256((HERE/'inverse_spy.c').read_bytes()).hexdigest(),'spy_binary_sha256':hashlib.sha256((HERE/'inverse_spy.so').read_bytes()).hexdigest(),'build_command':build,'runtime_targets_and_parameters_match':True,'runtime_expected_sha256':hashlib.sha256((HERE/'inverse_runtime_expected.json').read_bytes()).hexdigest(),'rows':[]}
     spy.kernel_install(table)
     try:
         for name,A,expected in fixtures:
