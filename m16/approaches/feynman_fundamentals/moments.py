@@ -76,11 +76,55 @@ def polygon_moments(vertices, degree):
     return result
 
 
-def tail_mass(vertices, prefix_dimension):
+def polygon_moment(vertices, degree, stats=None):
+    """One final moment, evaluating only its matching-parity recurrence chain.
+
+    polygon_moments remains the unchanged full-degree reference. Geometry,
+    edge order and arithmetic within each retained recurrence match it.
+    """
+    vertices = np.array([unit(v) for v in vertices])
+    if len(vertices) < 3 or degree < 0 or int(degree) != degree:
+        raise ValueError('need a polygon and a nonnegative integer degree')
+    degree = int(degree)
+    if np.min(vertices[:,0]) < -1e-14:
+        raise ValueError('polygon must lie in the positive coordinate hemisphere')
+    steps = list(range(1 if degree%2 else 2,degree+1,2))
+    center = vertices.sum(axis=0)
+    boundary = np.zeros(degree)
+    for u,v in zip(vertices,np.roll(vertices,-1,axis=0)):
+        cross=np.cross(u,v)
+        length=np.linalg.norm(cross)
+        if not length:
+            raise ValueError('coincident or antipodal consecutive rays')
+        inward=cross/length
+        side=inward@center
+        if not side:
+            raise ValueError('degenerate polygon')
+        inward*=np.sign(side)
+        outward0=-inward[0]
+        theta=np.arctan2(length,u@v)
+        tangent=np.cross(cross/length,u)
+        for p in steps:
+            boundary[p-1]+=outward0*arc_power(u[0],tangent[0],theta,p-1)
+    value=area(vertices) if degree%2==0 else 0.
+    for p in steps:
+        previous=(p-1)*value if p>1 else 0.
+        value=(previous-boundary[p-1])/(p+1)
+    if stats is not None:
+        additions={'moment_edge_integrals':len(vertices)*len(steps),
+                   'moment_fourier_terms':len(vertices)*sum(steps),
+                   'moment_area_calls':int(degree%2==0),
+                   'moment_recurrence_steps':len(steps)}
+        for key,increment in additions.items():
+            stats[key]=stats.get(key,0)+increment
+    return value
+
+
+def tail_mass(vertices, prefix_dimension, stats=None):
     if prefix_dimension < 1:
         raise ValueError("k=0 needs a separate circle calculation")
     degree = prefix_dimension-1
-    value = polygon_moments(vertices, degree)[-1]
+    value = polygon_moment(vertices, degree,stats)
     # Every point is normalize(sum_i y_i vertex_i), y_i>=0, sum_i y_i=1.
     # An interior separating direction gives a positive denominator bound.
     rays = np.array([unit(v) for v in vertices])
@@ -90,6 +134,8 @@ def tail_mass(vertices, prefix_dimension):
         raise ArithmeticError("no simple positive moment bound; independent evaluation required")
     coordinate_bound = min(1., np.max(rays[:, 0])/denominator)
     upper = area(rays) * coordinate_bound**degree
+    if stats is not None:
+        stats['moment_area_calls']=stats.get('moment_area_calls',0)+1
     if value < 0 or value > upper*(1+1e-12):
         raise ArithmeticError("moment violates geometric bound; higher precision required")
     return prefix_dimension / (2*pi) * value
@@ -102,7 +148,7 @@ def tail_mass_with_fallback(vertices,prefix_dimension,stats=None,absolute_tolera
     The old tail_mass remains available to expose the original failure cases.
     """
     try:
-        return tail_mass(vertices,prefix_dimension)
+        return tail_mass(vertices,prefix_dimension,stats)
     except ArithmeticError:
         from positive import polygon_tail_mass
         result,metadata=polygon_tail_mass(vertices,prefix_dimension,absolute_tolerance)
