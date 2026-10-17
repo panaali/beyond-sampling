@@ -77,3 +77,10 @@ reachable-mass-aware adaptive basis, and full forward transport remain open.
 Unsplit gate/readout kinks in prefix quadrature, q-endpoint amplification,
 floating scalar roots, tiny probability intervals, and signed-error
 cancellation. Independent review is required before method closure.
+
+## Primitive control result
+Constant, duplicate-readout and Wh0 controls pass across all three meshes:
+maximum absolute weighted interpolation residual1.74e-17, target-rule mass
+correct within1e-13, exact first-index constant accuracy1/4. CPU.272 total.
+Controls use q4 perhalf/prefix4 and h5; full arrays/event counts preserved in
+controls.json. Trained frozen comparison follows these controls.
