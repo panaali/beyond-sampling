@@ -31,3 +31,5 @@ Fixed64 pilot retains29 center intervals,25 moment intervals,9 quadratures,1 exa
 Separate exact256-monomial reference validation on35 attempted moments costs0.037536CPU and never enters estimator selection. Maximum relative variance error improves1.139710236e-7→5.087941447e-13; median1.17223e-10→2.26073e-14.34 improve; one worsens: index32868, original−9.64e-17 versus stable−2.94e-16 relative error. All raw exact fractions and both values are retained; positivity does not guarantee every individual floating value improves. Pilot CPU0.290773 includes validation/serialization, not a clean runtime benchmark.
 
 Reproduction, only if needed: one-thread2GB review-lock Python `controls.py` then `pilot.py`. Existing saved records permit independent verification without rerunning integrations.
+
+Independent T181 review292b54cc verifies all35 exact variance references,64 stored pilot outputs/counts and the corrected full-runner resume gate. Full-corpus numerical review remains separate.
