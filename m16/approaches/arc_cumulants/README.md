@@ -138,7 +138,7 @@ Cost = raw counted FLOPs / FPE (symmetric-discounted count in brackets in the lo
 | (16,4) seed3, 0.99831 | uncond | 0.311 (8 FPE) | 0.182 (91) | 0.000 (3,659) | 0.217 (79,926) |
 | | cell | 0.148 (85) | 0.232 (943) | 0.417 (59k) | 0.200 (1.05M) |
 | | uncond AUGMENT | 0.311 | 0.000 | 3.000 | NaN (747k) |
-| | cell AUGMENT | 0.148 | 0.366 | 0.583 | 0.583 (9.7M) |
+| | cell AUGMENT | 0.148 | 0.417 (0.366 before audit fix 2) | 0.583 | 0.583 (9.7M) |
 | (16,10) orig, 0.95315 | uncond | 0.000 (14) | 0.017 (402) | 0.112 (45k) | **0.9495 (3.64M)** |
 | | cell | 0.006 (888) | 0.181 (14.3k) | 0.108 (950k) | not run |
 
@@ -208,11 +208,12 @@ perfect propagation would need a better read-out than any 4-cumulant closure.
    the Gaussian input, and 1 − H(−z) and H(z) have the same Hermite coefficients, so propagated estimates do not change
    (checked: `recheck_fixes.py`, uncond K2 identical).
 2. *AUGMENT cell inputs truncated to SIMPLE degrees*: **fixed** (`cell_input(..., kind)`). Only the AUGMENT K2 cell
-   entry of table 3c is affected; the re-run value is in `out_recheck.txt`. AUGMENT K4 additionally sets input
+   entry of table 3c is affected: 0.366 → 0.417 at T = 4 (truth 0.998); at T = 10 it gives 0.112 (truth 0.953). AUGMENT K4 additionally sets input
    cumulants of order 5-6 to 0 (stated in Method).
 3. *Chunk remainder / partial symmetrisation*: n must now be a multiple of the chunk (assert); full symmetrisation
    over all (T−2)! permutations is the default for new tables (`*_fullsym.npz`). The leaderboard rows above were made
-   with the dihedral tables; `recheck_fixes.py` compares both on the base models (`out_recheck.txt`).
+   with the dihedral tables; `python m16/approaches/arc_cumulants/recheck_fixes.py T` gives identical estimates to 5 digits with both tables
+   (T = 4: trivially, 2 lower coordinates; T = 10: cell SIMPLE K2 0.18096 / AUGMENT K2 0.11249 both ways) [measured].
 4. *Zero-variance atoms*: inherited from ARC's code (variance clamp 1e-10 ⇒ Heaviside of a constant 0 gives 0.5).
    In `uncond`/`cell` the only zero-variance coordinates are h_0 (enters only linearly) and, in `diag_skeleton.py`,
    the fixed skeleton inputs (identity units, exact). Not measured: how often the clamp fires on propagated
