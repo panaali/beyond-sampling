@@ -1,0 +1,162 @@
+{
+  "zero_rows_at": {
+    "sites": {
+      "rows_at:L43:t > 0": {
+        "integer_control_compare": 3
+      },
+      "rows_at:L44:A[:, t] += Wi": {
+        "array_Add": 8
+      },
+      "rows_at:L44:Wh @ Ag": {
+        "matrix_mul": 96,
+        "matrix_add": 72
+      },
+      "rows_at:L46:A @ x": {
+        "matrix_mul": 36,
+        "matrix_add": 24
+      },
+      "rows_at:L46:A @ x > 0": {
+        "array_compare": 12
+      },
+      "rows_at:L47:A * g[:, None]": {
+        "array_Mult": 36
+      },
+      "rows_at:L48:Wo @ Ag": {
+        "matrix_mul": 36,
+        "matrix_add": 27
+      },
+      "rows_at:L49:g.any()": {
+        "reduce_.any": 3
+      }
+    },
+    "totals": {
+      "array_Add": 8,
+      "array_Mult": 36,
+      "array_compare": 12,
+      "integer_control_compare": 3,
+      "matrix_add": 123,
+      "matrix_mul": 168,
+      "reduce_.any": 3
+    },
+    "named_numeric_total": 350,
+    "integer_control_total": 3,
+    "complete_implementation_cost": false
+  },
+  "Sint_nonzero": {
+    "sites": {
+      "_Sint:L101:1 + R * R": {
+        "scalar_Add": 1
+      },
+      "_Sint:L101:R * R": {
+        "scalar_Mult": 1
+      },
+      "_Sint:L101:R / math.sqrt(1 + R * R)": {
+        "scalar_Div": 1
+      },
+      "_Sint:L101:math.atan2(be, al)": {
+        "special_math.atan2": 1
+      },
+      "_Sint:L101:math.sqrt(1 + R * R)": {
+        "special_math.sqrt": 1
+      },
+      "_Sint:L102:k * math.sin(t0 - th)": {
+        "scalar_Mult": 1
+      },
+      "_Sint:L102:k * math.sin(t1 - th)": {
+        "scalar_Mult": 1
+      },
+      "_Sint:L102:math.asin(max(-1.0, min(1.0, k * math.sin(t0 - th))))": {
+        "special_math.asin": 1
+      },
+      "_Sint:L102:math.asin(max(-1.0, min(1.0, k * math.sin(t1 - th))))": {
+        "special_math.asin": 1
+      },
+      "_Sint:L102:math.asin(max(-1.0, min(1.0, k * math.sin(t1 - th)))) - math.asin(max(-1.0, min(1.0, k * math.sin(t0 - th))))": {
+        "scalar_Sub": 1
+      },
+      "_Sint:L102:math.sin(t0 - th)": {
+        "special_math.sin": 1
+      },
+      "_Sint:L102:math.sin(t1 - th)": {
+        "special_math.sin": 1
+      },
+      "_Sint:L102:max(-1.0, min(1.0, k * math.sin(t0 - th)))": {
+        "scalar_compare": 1
+      },
+      "_Sint:L102:max(-1.0, min(1.0, k * math.sin(t1 - th)))": {
+        "scalar_compare": 1
+      },
+      "_Sint:L102:min(1.0, k * math.sin(t0 - th))": {
+        "scalar_compare": 1
+      },
+      "_Sint:L102:min(1.0, k * math.sin(t1 - th))": {
+        "scalar_compare": 1
+      },
+      "_Sint:L102:t0 - th": {
+        "scalar_Sub": 1
+      },
+      "_Sint:L102:t1 - th": {
+        "scalar_Sub": 1
+      },
+      "_Sint:L98:math.hypot(al, be)": {
+        "special_math.hypot": 1
+      },
+      "_Sint:L99:R == 0.0": {
+        "scalar_compare": 1
+      }
+    },
+    "totals": {
+      "scalar_Add": 1,
+      "scalar_Div": 1,
+      "scalar_Mult": 3,
+      "scalar_Sub": 3,
+      "scalar_compare": 5,
+      "special_math.asin": 2,
+      "special_math.atan2": 1,
+      "special_math.hypot": 1,
+      "special_math.sin": 2,
+      "special_math.sqrt": 1
+    },
+    "named_numeric_total": 20,
+    "integer_control_total": 0,
+    "complete_implementation_cost": false
+  },
+  "Sint_zero": {
+    "sites": {
+      "_Sint:L98:math.hypot(al, be)": {
+        "special_math.hypot": 1
+      },
+      "_Sint:L99:R == 0.0": {
+        "scalar_compare": 1
+      }
+    },
+    "totals": {
+      "scalar_compare": 1,
+      "special_math.hypot": 1
+    },
+    "named_numeric_total": 2,
+    "integer_control_total": 0,
+    "complete_implementation_cost": false
+  },
+  "shortcircuit_inplace_sort": {
+    "sites": {
+      "example:L3:2.0 < a < boom()": {
+        "scalar_compare": 1
+      },
+      "inplace:L5:a[:, 0] += 2.0": {
+        "array_Add": 2
+      },
+      "sorting:L8:a.sort(key=lambda e: e)": {
+        "sort_compare": 4
+      }
+    },
+    "totals": {
+      "array_Add": 2,
+      "scalar_compare": 1,
+      "sort_compare": 4
+    },
+    "named_numeric_total": 7,
+    "integer_control_total": 0,
+    "complete_implementation_cost": false
+  }
+}

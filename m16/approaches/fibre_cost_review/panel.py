@@ -4,8 +4,8 @@ import numpy as np
 from instrument import evaluate
 from sample_count import count
 
-def main():
-    start=time.process_time();zero=(np.zeros(4),np.zeros((4,4)),np.zeros((3,4)))
+def frozen_models():
+    zero=(np.zeros(4),np.zeros((4,4)),np.zeros((3,4)))
     positive=(np.ones(4),np.ones((4,4))/8,np.array([[1.,1.,1.,1.],[2.,2.,2.,2.],[3.,3.,3.,3.]]))
     models=[('zero',zero,None),('positive',positive,None)]
     import torch
@@ -13,8 +13,11 @@ def main():
         path=Path('/workspace/work/t114_checkpoints')/f'2nd_argmax_4_3_{2**k}_{seed}.pth';sd=torch.load(path,map_location='cpu',weights_only=True)
         model=(sd['rnn.weight_ih_l0'][:,0].double().numpy().copy(),sd['rnn.weight_hh_l0'].double().numpy().copy(),sd['linear.weight'].double().numpy().copy());digest=hashlib.sha256(path.read_bytes()).hexdigest();models.append((f'k{k}_s{seed}_clean',model,digest))
         rng=np.random.default_rng(124);noisy=tuple(a+.05*rng.standard_normal(a.shape) for a in model);models.append((f'k{k}_s{seed}_abs05_n124_0',noisy,digest))
-    rows=[]
-    for name,model,digest in models:
+    return models
+
+def main():
+    start=time.process_time();rows=[]
+    for name,model,digest in frozen_models():
         stamp=time.process_time();baseline=evaluate(model,False);audit=evaluate(model,True)
         parity={key:baseline[key]==audit[key] for key in ('value_hex','n','x','segments','traces')};assert all(parity.values()),(name,parity)
         if name=='zero':assert abs(audit['value']-1/3)<1e-14
