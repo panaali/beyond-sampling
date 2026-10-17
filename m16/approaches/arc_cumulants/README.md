@@ -96,7 +96,7 @@ on 200k inputs at T = 4, 5, 10):
 equal K. Cost = raw FLOPs from ARC's counter (no symmetric discount, i.e. as implemented) / FPE. Out-of-range estimates are clipped to [0, 1] and NaN → 0.5 (model-free post-processing; it can only help the method).
 
 ## Status
-**Done (negative as a whole-model estimator; negative as a skeleton-conditional proxy, see 3d).** The faithful
+**Done. Negative as a whole-model estimator (3c-3d) and as a skeleton-conditional proxy (3e).** The faithful
 implementation is 41-100 pp off on every (H, T) and every K, and 2,900x to 1.5Mx worse than sampling in MSE on the
 leaderboard. The cause is identified and tested: AlgZoo's RNN injects a **scalar** input per step, so hidden units are
 perfectly (rank-1 at step 1) correlated; ARC's diagram truncation assumes O(n^-1/2) off-diagonal cumulants. On
@@ -170,7 +170,24 @@ class unreviewed, deterministic, memoised so the time column after the first bud
 (T = 10 groups: orig, seed, s0.0025, s0.005, s0.01, s0.02. One seed model at K3 returned 1.6e37 before clipping.)
 `out_lb_T4.txt`, `out_lb_T5.txt`, `out_lb_T10*.txt` hold the logs; raw rows are in `data/leaderboard_v3_raw.jsonl`.
 
-SKEL_PLACEHOLDER
+**3e. Step 4: conditional proxy (skeleton-conditional ARC), DEV model dev_s0.0025_0 only** [measured].
+`python m16/approaches/arc_cumulants/diag_skeleton.py T k n_skel 2000 K`. Given the top-k inputs (positions, values)
+the other inputs are iid truncated normals with exact 1-D cumulants; ARC propagates them and the cell read-out gives
+q~(S); q(S) by MC (2,000 low draws per skeleton). This is the E28 skeleton conditioning, not sci_tao's face points
+(T33's integrator was not available to us); "worst" = largest 1 − q, rank-based.
+
+| T | k fixed | K | skeletons | mean q / mean q~ | corr(q, q~) all / worst 10% | Var(q−q~)/Var(q) all / worst 10% |
+|---|---|---|---|---|---|---|
+| 5 | 3 | 2 | 1000 | 0.967 / 0.551 | +0.21 / +0.19 | 10.4 / 1.95 |
+| 10 | 3 | 2 | 1000 | 0.939 / 0.289 | +0.20 / +0.22 | 13.1 / 1.82 |
+| 10 | 3 | 3 | 300 | 0.943 / 0.238 | +0.05 / −0.05 | 20.3 / 3.59 |
+| 10 | 6 | 2 | 300 | 0.933 / 0.718 | +0.48 / +0.43 | 2.4 / 0.88 |
+| 10 | 8 | 2 | 300 | 0.950 / 0.911 | +0.86 / +0.93 | 0.39 / 0.16 |
+
+The worst 1% (3-10 skeletons) are mostly deterministic failures (q ≈ 0, Var(q) ≈ 0), so that ratio is not meaningful;
+q~ there is 0.004-0.25. The proxy becomes useful only when 8 of 10 inputs are fixed (2 random scalars left), where
+any linearisation is also accurate (E28: top-5 skeleton already faithful). With 7 random inputs (top-3) it is worse
+than useless (ratio > 1) and K = 3 is worse than K = 2. **Not useful as a band-width proxy for T33.**
 
 ## 4. What ARC's method does that E13 did not (and vice versa)
 - ARC tracks **higher cumulants** (K = 3, 4) with a principled truncation and the power-cumulant / full-trace
@@ -184,6 +201,26 @@ SKEL_PLACEHOLDER
   read-out, and the scalar input makes correlations O(1) at any width (3b), so the expansion parameter is not small.
 Both fail; E13's exact-cumulant ceiling (-0.35 pp with 4 cumulants of the *final margin* per 10k cells) says that even
 perfect propagation would need a better read-out than any 4-cumulant closure.
+
+## 5. Response to the independent T42 audit ([review/arc_cumulants](../../../review/arc_cumulants/README.md))
+1. *Logit ties* (smaller index must win, as np.argmax): **fixed** in both read-outs (`readout_uncond`, `readout_cell`);
+   `selftest.py` now includes the audit's all-ties model (0/6 mismatches in both modes). Ties have probability 0 under
+   the Gaussian input, and 1 − H(−z) and H(z) have the same Hermite coefficients, so propagated estimates do not change
+   (checked: `recheck_fixes.py`, uncond K2 identical).
+2. *AUGMENT cell inputs truncated to SIMPLE degrees*: **fixed** (`cell_input(..., kind)`). Only the AUGMENT K2 cell
+   entry of table 3c is affected; the re-run value is in `out_recheck.txt`. AUGMENT K4 additionally sets input
+   cumulants of order 5-6 to 0 (stated in Method).
+3. *Chunk remainder / partial symmetrisation*: n must now be a multiple of the chunk (assert); full symmetrisation
+   over all (T−2)! permutations is the default for new tables (`*_fullsym.npz`). The leaderboard rows above were made
+   with the dihedral tables; `recheck_fixes.py` compares both on the base models (`out_recheck.txt`).
+4. *Zero-variance atoms*: inherited from ARC's code (variance clamp 1e-10 ⇒ Heaviside of a constant 0 gives 0.5).
+   In `uncond`/`cell` the only zero-variance coordinates are h_0 (enters only linearly) and, in `diag_skeleton.py`,
+   the fixed skeleton inputs (identity units, exact). Not measured: how often the clamp fires on propagated
+   (negative) variances; that is part of failure mode 2 below, and is ARC's behaviour.
+5. *Counter conventions*: raw counts follow ARC's counter, where erf, Hermite evaluations and some special functions
+   count 0 and setup of layer matrices (numpy) is outside the counter. Dense contractions dominate at K ≥ 2, and
+   the estimator is 470x-1.5Mx worse than sampling in MSE, so a missing factor of a few cannot change the verdict;
+   the leaderboard CPU-time column (10-90x sampling's time on first evaluation) is the honest cost measure.
 
 ## Compute accounting
 Counted: every tensor operation in ARC's linear and non-linear steps, Hermite coefficients, power-cumulant

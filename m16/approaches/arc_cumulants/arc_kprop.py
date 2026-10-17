@@ -16,6 +16,7 @@ Two ways to express accuracy (see README, Method):
 FLOPs: counted with ARC's own counter (vendor/mlp_kprop/flop_utils.NamedFlopCounter), raw count (no symmetric-tensor
 discount, i.e. as implemented). Nothing here draws random model inputs.
 """
+import itertools
 import logging
 import os
 import sys
@@ -89,17 +90,18 @@ def readout_uncond(model):
     H, T = Wh.shape[0], Wo.shape[0]
     pairs = [(i, j) for i in range(T) for j in range(i + 1, T)]
     P = len(pairs)
-    # R1: U_l[ij] = 1[l_i > l_j], U_x[ij] = 1[x_i > x_j]   (i < j)
+    # R1: U_l[ij] = 1[l_j > l_i], U_x[ij] = 1[x_i > x_j]   (i < j). Logit ties go to the smaller index, as np.argmax
+    #     (T42 audit finding 1); input ties have probability 0.
     W1 = np.zeros((2 * P, H + T))
     for a, (i, j) in enumerate(pairs):
-        W1[a, :H] = Wo[i] - Wo[j]
+        W1[a, :H] = Wo[j] - Wo[i]
         W1[P + a, H + i], W1[P + a, H + j] = 1.0, -1.0
     # R2: a_j = #{i: l_j > l_i}, b_j = #{i: x_i > x_j};  A_j = 1[a_j = T-1], G1_j = 1[b_j >= 1], G2_j = 1[b_j >= 2]
     W2 = np.zeros((3 * T, 2 * P)); b2 = np.zeros(3 * T)
     for a, (i, j) in enumerate(pairs):
-        # l_j > l_i  <=> 1 - U_l[ij];  l_i > l_j <=> U_l[ij]
-        W2[j, a] -= 1; b2[j] += 1          # a_j += 1 - U_l
-        W2[i, a] += 1                      # a_i += U_l
+        # j beats i  <=> U_l[ij];  i beats j (incl. ties) <=> 1 - U_l[ij]
+        W2[j, a] += 1                      # a_j += U_l
+        W2[i, a] -= 1; b2[i] += 1          # a_i += 1 - U_l
         # x_i > x_j counts for b_j: +U_x;  x_j > x_i counts for b_i: 1 - U_x
         for off in (T, 2 * T):
             W2[off + j, P + a] += 1
@@ -116,14 +118,19 @@ def readout_uncond(model):
 
 
 def readout_cell(model, p2):
-    """Layers mapping (h_T, x) to 1[l_p2 > l_i for all i != p2]."""
+    """Layers mapping (h_T, x) to 1[argmax l = p2] with np.argmax's tie rule: l_p2 > l_i for i < p2 and
+    l_p2 >= l_i for i > p2 (the latter as 1 - 1[l_i > l_p2]; T42 audit finding 1)."""
     Wi, Wh, Wo = model
     H, T = Wh.shape[0], Wo.shape[0]
     others = [i for i in range(T) if i != p2]
     W1 = np.zeros((T - 1, H + T))
-    for a, i in enumerate(others):
-        W1[a, :H] = Wo[p2] - Wo[i]
     W2 = np.ones((1, T - 1)); b2 = np.array([-(T - 1) + 0.5])
+    for a, i in enumerate(others):
+        if i < p2:
+            W1[a, :H] = Wo[p2] - Wo[i]
+        else:
+            W1[a, :H] = Wo[i] - Wo[p2]
+            W2[0, a] = -1.0; b2[0] += 1.0
     return [(W1, None, [HEAV] * (T - 1)), (W2, b2, [HEAV]), (np.ones((1, 1)), None, None)]
 
 
@@ -174,16 +181,17 @@ def uncond_input(H, T, k_max):
 _CELL_CACHE = {}
 
 
-def cell_base_cumulants(T, order=4, n=4_000_000, seed=12345):
+def cell_base_cumulants(T, order=4, n=4_000_000, seed=12345, full_sym=True):
     """Model-free cumulants (orders 1..order) of x ~ N(0, I_T) conditioned on x_0 > x_1 > max(x_2..x_{T-1}).
 
     Exact sampler (every draw used: sort, put the two largest at positions 0, 1, the rest in random order), followed by
     symmetrisation over the T-2 exchangeable coordinates. Cached on disk under data/. This is precomputation that does
     not depend on the model (leaderboard rule 4)."""
-    key = (T, order, n, seed)
+    key = (T, order, n, seed, full_sym)
     if key in _CELL_CACHE:
         return _CELL_CACHE[key]
-    path = os.path.join(ROOT, f"data/arc_cumulants_cellK_T{T}_o{order}_n{n}_s{seed}.npz")
+    assert n % 200_000 == 0, "n must be a multiple of the 200k chunk (T42 finding 3)"
+    path = os.path.join(ROOT, f"data/arc_cumulants_cellK_T{T}_o{order}_n{n}_s{seed}{'_fullsym' if full_sym else ''}.npz")
     if os.path.exists(path):
         z = np.load(path)
         out = {d: z[f"k{d}"] for d in range(1, order + 1)}
@@ -192,7 +200,6 @@ def cell_base_cumulants(T, order=4, n=4_000_000, seed=12345):
     rng = np.random.default_rng(seed)
     acc = {d: 0.0 for d in range(1, order + 1)}
     chunk = 200_000
-    import itertools
     for _ in range(n // chunk):
         x = np.sort(rng.standard_normal((chunk, T)), axis=1)[:, ::-1]
         rest = x[:, 2:].copy()
@@ -223,8 +230,11 @@ def cell_base_cumulants(T, order=4, n=4_000_000, seed=12345):
         e1111 = np.einsum("i,j,k,l->ijkl", m1, m1, m1, m1)
         out[4] = (m4 - symsum(e31) / 6 - symsum(e22) / 8 + 2 * symsum(e211) / 4 - 6 * e1111)
     # symmetrise over exchangeable coordinates 2..T-1
-    perms = [list(range(2)) + list(np.roll(np.arange(2, T), s)) for s in range(T - 2)]
-    perms += [list(range(2)) + list(np.roll(np.arange(2, T)[::-1], s)) for s in range(T - 2)]
+    if full_sym:   # all (T-2)! permutations of the exchangeable coordinates (T42 finding 3)
+        perms = [[0, 1] + [2 + i for i in p] for p in itertools.permutations(range(T - 2))]
+    else:          # dihedral subgroup only (the version used for the first leaderboard runs)
+        perms = [list(range(2)) + list(np.roll(np.arange(2, T), s)) for s in range(T - 2)]
+        perms += [list(range(2)) + list(np.roll(np.arange(2, T)[::-1], s)) for s in range(T - 2)]
     for d in out:
         A = out[d]
         out[d] = sum(A[np.ix_(*[pp] * d)] for pp in perms) / len(perms)
@@ -234,12 +244,12 @@ def cell_base_cumulants(T, order=4, n=4_000_000, seed=12345):
     return out
 
 
-def cell_input(H, T, p1, p2, k_max, base):
+def cell_input(H, T, p1, p2, k_max, base, kind="SIMPLE"):
     """Joint cumulants of the state (h_0 = 0, x) for cell (p1, p2): base cumulants with indices permuted."""
     D = H + T
     perm = [p1, p2] + [i for i in range(T) if i not in (p1, p2)]   # base coordinate a lives at position perm[a]
     inv = np.empty(T, int); inv[perm] = np.arange(T)
-    dmax = KH.get_d_max(k_max, KH.SIMPLE)
+    dmax = KH.get_d_max(k_max, getattr(KH, kind))     # T42 finding 2: was hard-coded SIMPLE
     K = {}
     for d in range(1, min(dmax, max(base)) + 1):
         A = np.zeros((D,) * d)
@@ -267,7 +277,7 @@ def estimate_cell(model, k_max, kind="SIMPLE", base=None, per_cell=False):
             if p1 == p2:
                 continue
             layers = rnn + readout_cell(model, p2)
-            out, raw, adj = counted(propagate, layers, cell_input(H, T, p1, p2, k_max, base), k_max, kind)
+            out, raw, adj = counted(propagate, layers, cell_input(H, T, p1, p2, k_max, base, kind), k_max, kind)
             cells[(p1, p2)] = float(out[0])
             tot += float(out[0]) / (T * (T - 1)); raw_t += raw; adj_t += adj
     return (tot, raw_t, adj_t, cells) if per_cell else (tot, raw_t, adj_t)
