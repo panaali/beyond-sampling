@@ -9,6 +9,7 @@ import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "arc_m43_repro"))
 import numpy as np
+import est_mech as EM
 from m43 import Ops, Wi0, Wh0, Wo0, noisy_models, OPS_PER_SAMPLE, mc_acc
 from exact import exact_acc
 from est_mech import est_mech
@@ -16,13 +17,13 @@ from diag_family import exact_by_half
 from zoo43 import zoo_model
 
 TIERS = {
-    "T1 anchor pair, anchor strip": dict(strips="anchor", resolve=(), pair_rule="anchor"),
-    "T2 anchor pair, all strips": dict(strips="all", resolve=(), pair_rule="anchor"),
-    "T2b arc-read pair, all strips": dict(strips="all", resolve=(), pair_rule="arc"),
-    "T3 T2b + resolved crossover": dict(strips="all", resolve=("c12",), pair_rule="arc"),
-    "T4 resolved everywhere": dict(strips="all", resolve=("c01", "c02", "c12"), pair_rule="arc"),
+    "A anchor pair, anchor strip": dict(strips="anchor", resolve=(), pair_rule="anchor", arc_fams=(), complete=True),
+    "A2 anchor pair, all strips": dict(strips="all", resolve=(), pair_rule="anchor", arc_fams=(), complete=True),
+    "B- default without completion": dict(strips="all", resolve=("c12",), pair_rule="anchor", arc_fams=("c12",), complete=False),
+    "B default (A2 + resolved crossover)": dict(strips="all", resolve=("c12",), pair_rule="anchor", arc_fams=("c12",), complete=True),
+    "C resolved everywhere": dict(strips="all", resolve=("c01", "c02", "c12"), pair_rule="arc", arc_fams=("c01", "c02", "c12"), complete=True),
 }
-DEFAULT = "T3 T2b + resolved crossover"
+DEFAULT = "B default (A2 + resolved crossover)"
 
 
 def main():
@@ -42,6 +43,7 @@ def main():
     print("zoo seeds: exact truth / 2e5-sample MC check:", {s: (round(v[1], 5), round(v[2], 5)) for s, v in zoo.items()})
     for name, kw in TIERS.items():
         est = []; ops = []; bad = 0
+        kw = dict(kw); EM.COMPLETE = kw.pop("complete")
         for m in noisy:
             o = Ops(); inf = {}
             est.append(est_mech(m, o, inf, **kw)); ops.append(o.n); bad += inf["bad_pairs"] > 0
@@ -65,8 +67,9 @@ def main():
               f"{ {s: round(v['err'], 4) for s, v in row['zoo'].items()} } ops {[v['ops'] for v in row['zoo'].values()]}")
     # where the residual of the default tier comes from (exact mass per family, as a diagnostic)
     fam_ex = {}; fam_es = {}
+    kw = dict(TIERS[DEFAULT]); EM.COMPLETE = kw.pop("complete")
     for m in noisy:
-        d = exact_by_half(m); inf = {}; est_mech(m, info=inf, **TIERS[DEFAULT])
+        d = exact_by_half(m); inf = {}; est_mech(m, info=inf, **kw)
         for k in d:
             fam_ex.setdefault(str(k), []).append(d[k]); fam_es.setdefault(str(k), []).append(inf["err_by"].get(k, 0.0))
     for k in sorted(fam_ex):

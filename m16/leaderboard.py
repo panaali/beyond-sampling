@@ -31,6 +31,9 @@ COMPUTE RULE (T16). `budget` and `cost` are in forward-pass equivalents (FPE).
  6. The measured CPU time is reported next to cost, as the ratio to plain sampling's time at the same cost.
     A time ratio far above 1 means cost is probably under-counted and triggers a DRI audit.
 
+Deterministic estimators must not memoise across calls (each call is charged and timed as if fresh); once classed
+mechanistic/quadrature they are run once per model, so memoisation is unnecessary (T70).
+
 CLASSES (T14). The headline question is ARC's: does a *mechanistic* estimator beat sampling?
     mechanistic  deterministic; uses the weights through analysis (regions, propagated distributions,
                  asymptotics, optimisation, LPs), not by averaging model outputs over a generic node set
@@ -95,6 +98,8 @@ CLASS = {
     "sci_laplace": ("quadrature", "fixed Sobol node set on tie bands"),
     "sci_tao": ("quadrature", "fixed scrambled-Sobol faces"),
     "sci_feynman": ("quadrature", "fixed Sobol segment walks"),
+    "arc_cumulants": ("mechanistic", "ARC Hermite-corrected cumulant propagation (E35); deterministic, run once per model"),
+    "harmonic_sphere": ("mechanistic", "ARC harmonic-polynomial deduction-projection (E34)"),
     "branch_bound": ("quadrature", "below ~144k FPE only evaluates 180 fixed cell centres"),
 }
 

@@ -171,10 +171,14 @@ def _read_point(poly, n_true, tol=1e-9):
     return (np.mean(on, 0), on) if len(on) >= 2 else (np.mean(poly, 0), on)
 
 
-def _arc_err(piece, n_true, A3, Wo, truth, ops, resolve):
+COMPLETE = True
+
+
+def _arc_err(piece, n_true, A3, Wo, truth, ops, resolve, complete=None):
     """Error in a strip piece, active set read ON the true boundary arc. resolve=True: the step-3 gate planes that
     cross the arc inside the piece are resolved (piece split by them, active set read on each sub-arc); gates that
     do not cross the arc are frozen at their value on the arc (first order in the width of the error band)."""
+    complete = COMPLETE if complete is None else complete
     m, on = _read_point(piece, n_true)
     subs = [piece]
     if resolve and len(on) >= 2:
@@ -190,13 +194,20 @@ def _arc_err(piece, n_true, A3, Wo, truth, ops, resolve):
     err = 0.0
     for p in subs:
         mid, _ = _read_point(p, n_true) if p is not piece else (m, on)
-        S = [kk for kk in range(4) if A3[kk] @ mid > 0]; ops.add(12)
+        z = A3 @ mid; ops.add(12)
+        S = [kk for kk in range(4) if z[kk] > 0]
+        if complete and len(S) < 2:
+            # a lone neuron is read together with the off neuron closest to switching on at this point (angular
+            # distance |z_k| / |A3_k|), keeping both relus: the pair readout of the mechanism
+            dist = np.abs(z) / np.linalg.norm(A3, axis=1); ops.add(4 * 4)
+            off = sorted((kk for kk in range(4) if kk not in S), key=lambda kk: dist[kk])
+            S = sorted(S + off[:2 - len(S)])
         err += _err(p, _parts_for(S, A3, Wo, truth, ops), truth, ops)
     return err
 
 
 # ------------------------------------------------------------------------------------------------------ estimator
-def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",), pair_rule="arc"):
+def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",), pair_rule="anchor", arc_fams=("c12",)):
     """Mechanism-derived accuracy estimate.
     strips: 'all' = every step-2 strip a family's half-chamber meets; 'anchor' = only the anchor point's strip.
     resolve: circles whose strip pieces get the arc-resolved treatment (default: the crossover x1 = x2).
@@ -231,7 +242,7 @@ def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",
             sa = int(np.searchsorted(ts, a[1] / a[0])); ops.add(1 + 2)
             za = A3s[sa] @ a; ops.add(12)
             act = [m for m in range(4) if za[m] > 0]
-            use_anchor = pair_rule == "anchor" and len(act) == 2
+            use_anchor = pair_rule == "anchor" and len(act) == 2 and key[1][:3] not in arc_fams
             n_bad += len(act) != 2
             if use_anchor:
                 pa, pb = act
