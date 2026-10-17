@@ -42,3 +42,6 @@ Hypothesis: known prefix-rank and ReLU transitions cause conditional probability
 
 ### Cycle 3 result
 `python m16/approaches/small_h4_4/prefix_run.py` gives original estimates0.4750663544/0.4768213989/0.4768493001 at GL2/4/8 on analytically split prefix intervals, then0.4769827522 after bisecting each interval at GL8. The subdivision changes the result by0.00013345, so prefix splitting helps isolate known transitions but does not by itself establish convergence. No guard failed in this cycle; see `prefix_results.json` for full timings and node values.
+
+### Cycle 4 protocol
+Use the T55 positive fallback (upstream86c3759) and retain all fallback counts, nodes, and the outer-weighted sum of its quadrature bounds. Those bounds do not cover outer discretization or floating geometry. Run unchanged prefix-split GL4, GL8 and subdivided GL8 on original plus the two predeclared noisy models. Full-cycle CPU cap remains115 seconds; each completed rule is saved immediately. No rule is selected using sampled accuracy.

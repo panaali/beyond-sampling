@@ -45,7 +45,7 @@ def angular_estimate(model, order=8, offset=0., max_cpu=110., boundary_mode='oct
     stats=dict(order=order,angular_nodes=nodes,deterministic_prefix_steps=2*nodes,boundary_mode=boundary_mode,subdivision=subdivision,boundaries=boundaries.tolist(),
                offset=offset,clips=0,affine_products=0,moment_calls=0,
                gate_cells=0,correct_pieces=0,high_precision_fallbacks=0,
-               maximum_partition_error=0.)
+               maximum_partition_error=0.,positive_fallbacks=0,fallback_quadrature_nodes=0,fallback_quadrature_error_bound=0.,fallback_quadrature_error_bound_weighted=0.)
     estimate=0.;values=[]
     for left,right in zip(boundaries[:-1],boundaries[1:]):
         theta=(left+right)/2+z*(right-left)/2
@@ -58,8 +58,9 @@ def angular_estimate(model, order=8, offset=0., max_cpu=110., boundary_mode='oct
             p,s=conditional_probability(model,h,top,2)
             estimate+=weight*p*(right-left)/(4*np.pi)
             values.append([float(angle),float(p)])
-            for key in ('clips','affine_products','moment_calls','gate_cells','correct_pieces','high_precision_fallbacks'):
-                stats[key]+=s[key]
+            for key in ('clips','affine_products','moment_calls','gate_cells','correct_pieces','high_precision_fallbacks','positive_fallbacks','fallback_quadrature_nodes','fallback_quadrature_error_bound'):
+                stats[key]+=s.get(key,0)
+            stats['fallback_quadrature_error_bound_weighted']+=weight*(right-left)/(4*np.pi)*s.get('fallback_quadrature_error_bound',0.)
             stats['maximum_partition_error']=max(stats['maximum_partition_error'],abs(s['partition_mass']-1))
             if time.process_time()-start>max_cpu:
                 raise TimeoutError(f'angular rule exceeded CPU cap after{len(values)}nodes')
