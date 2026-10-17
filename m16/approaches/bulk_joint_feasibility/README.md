@@ -103,3 +103,11 @@ inequalities. The dual nullspace is unchanged by invertible column scaling;
 reconstruct against the original rational row-normalized matrix and verify
 original integer balance. Rerun the same ten controls, no new threshold or
 weakened exact acceptance rule. Solver unknown remains a valid unresolved state.
+
+Exact column equilibration repairs all ten frozen generic controls with12 LP
+calls in.312634CPU, including the1e12 thin wedge and its rescaling. Separate
+constant/duplicate first-index controls and zero-gate OFF/equality removal pass.
+A strict zero row remains infeasible in the generic solver; semantic zero gate
+forms are removed by the model adapter, preserving full-dimensional equalities.
+Original failure remains saved. Trained feasibility has not been used to choose
+these repairs or acceptance thresholds.

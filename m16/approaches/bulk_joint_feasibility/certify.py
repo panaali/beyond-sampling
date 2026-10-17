@@ -31,10 +31,12 @@ def feasible(rows):
     if not rows:return dict(status='feasible',witness=['1']*d,lp_calls=0)
     for i,row in enumerate(rows):
         if not any(row):return dict(status='infeasible',dual={str(i):'1'},lp_calls=0,reason='strict zero inequality')
-    scales=[max(abs(x) for x in row) for row in rows];exact=[[F(v,s) for v in row] for row,s in zip(rows,scales)];A=np.array(exact,float)
+    scales=[max(abs(x) for x in row) for row in rows];exact=[[F(v,s) for v in row] for row,s in zip(rows,scales)]
+    columns=[max(abs(row[j]) for row in exact) or F(1) for j in range(d)]
+    A=np.array([[v/columns[j] for j,v in enumerate(row)] for row in exact],float)
     primal=lp(np.zeros(d),A_ub=-A,b_ub=-np.ones(len(rows)),bounds=[(None,None)]*d)
     if primal.success:
-        witness=[F(float(x)) for x in primal.x]
+        witness=[F(float(x))/columns[j] for j,x in enumerate(primal.x)]
         if all(dot(row,witness)>0 for row in rows):return dict(status='feasible',witness=list(map(str,witness)),lp_calls=CALLS-before)
     dual=lp(np.zeros(len(rows)),A_eq=np.vstack((A.T,np.ones(len(rows)))),b_eq=np.r_[np.zeros(d),1.],bounds=(0,None))
     if dual.success:
