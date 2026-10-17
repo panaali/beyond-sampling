@@ -379,3 +379,20 @@ Alternative2: fewer Fourier terms do not save useful time; benchmark fixed
 degree7 calls and count every boundary term, area evaluation and CPU. Keep
 failures/guard behavior unchanged, do not introduce a new clipping rule.
 This bounded check uses no sampled model inputs and the approved review lock.
+
+Cycle9 result: `polygon_moment(vertices,degree,stats=None)` evaluates only the
+needed recurrence parity, while the original `polygon_moments` stays unchanged
+as reference. Tail mass now uses the single-value path and exposes edge-integral,
+Fourier-term, area and recurrence counters through its existing optional stats.
+All90 degree/case comparisons across ordinary, octant, thin-polar and near-
+equatorial triangles were bit-identical, including numerically bad moments
+that the existing guard must still reject. No new clipping rule was added.
+
+For300 fixed degree7 calls, Fourier terms fell from25200 to14400, edge integrals
+from6300 to3600, and unused area evaluations from300 to0. Measured CPU fell only
+from.221137 to.204871 seconds in this small run (about7%); do not equate the43%
+term reduction with a43% end-to-end speedup. The guarded tail still computes its
+required geometric area. Total validation/benchmark CPU.467380 seconds, no model
+passes or sampled inputs. Source hash and exact results are in `parity_results.json`.
+Reproduce under the review lock using `check_parity.py`. T50 retains independent
+cached-terminal comparisons and full estimator cost measurement.
