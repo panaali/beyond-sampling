@@ -1,5 +1,5 @@
 """Non-mutating-output replay with explicit trace-loop exhaustion telemetry."""
-import builtins,json,time
+import builtins,json,time,sys
 from pathlib import Path
 import loaders as L
 HERE=Path(__file__).parent
@@ -12,13 +12,15 @@ def monitored_range(*args):
   COUNTS['exhaustions']+=1
  return iterate()
 L.FIB.range=monitored_range
+pattern=sys.argv[1] if len(sys.argv)>1 else '*_k*_s*.json'
+output='cap_confirmation_results.json' if pattern.startswith('confirmation') else 'cap_results.json'
 start=time.process_time();out=dict(rows=[],complete=False)
 def check(m,original,key):
  before=COUNTS.copy();v=L.fibre(m)
  row=dict(key=key,calls=COUNTS['calls']-before['calls'],exhaustions=COUNTS['exhaustions']-before['exhaustions'],value_change=v['value']-original['value'],cost_change=v['strict_ops']-original['strict_ops'],traces=v['traces'])
  out['rows'].append(row)
  assert row['value_change']==0 and row['cost_change']==0
-for path in sorted(HERE.glob('*_k*_s*.json')):
+for path in sorted(HERE.glob(pattern)):
  d=json.loads(path.read_text());assert d['complete'];base=L.load(d['k'],d['training_seed'])
  check(base,d['clean']['fibre'],path.name+':clean')
  for ns in d['noise_seeds']:
@@ -27,7 +29,7 @@ for path in sorted(HERE.glob('*_k*_s*.json')):
    original=next(r for r in d['rows'] if r['noise_seed']==ns and r['index']==i)
    check(m,original['fibre'],f'{path.name}:{ns}:{i}')
  out['cpu']=time.process_time()-start
- (HERE/'cap_results.json').write_text(json.dumps(out,indent=2)+'\n')
+ (HERE/output).write_text(json.dumps(out,indent=2)+'\n')
  print(path.name,len(out['rows']),'rows, exhaustion',COUNTS['exhaustions'],flush=True)
 out.update(complete=True,cpu=time.process_time()-start,counts=COUNTS)
-(HERE/'cap_results.json').write_text(json.dumps(out,indent=2)+'\n')
+(HERE/output).write_text(json.dumps(out,indent=2)+'\n')

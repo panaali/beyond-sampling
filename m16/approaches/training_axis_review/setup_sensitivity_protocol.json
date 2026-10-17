@@ -1,0 +1,89 @@
+{
+  "panel": "absolute_k24_s4",
+  "n": 256,
+  "cost_convention": "same scalar arithmetic convention as own T75;115/sample historically,112/sample with --protocol label exemption; c is added once to every model, independently of its outcome",
+  "grid": [
+    {
+      "extra_scalar_ops": 0,
+      "ratio": 0.7651127844230149,
+      "bootstrap_ci": [
+        0.5802543086451976,
+        0.9540812837088651
+      ]
+    },
+    {
+      "extra_scalar_ops": 512,
+      "ratio": 0.7736724799899788,
+      "bootstrap_ci": [
+        0.5867533850256119,
+        0.9647853480296618
+      ]
+    },
+    {
+      "extra_scalar_ops": 1024,
+      "ratio": 0.7822314439360034,
+      "bootstrap_ci": [
+        0.5932519104833055,
+        0.9754885642069926
+      ]
+    },
+    {
+      "extra_scalar_ops": 2048,
+      "ratio": 0.7993472732096681,
+      "bootstrap_ci": [
+        0.6062473814750571,
+        0.9968925651433811
+      ]
+    },
+    {
+      "extra_scalar_ops": 4096,
+      "ratio": 0.8335711541243487,
+      "bootstrap_ci": [
+        0.6322324704117265,
+        1.0396915648190466
+      ]
+    },
+    {
+      "extra_scalar_ops": 8192,
+      "ratio": 0.9019920204314327,
+      "bootstrap_ci": [
+        0.6841824222466557,
+        1.125258489389459
+      ]
+    },
+    {
+      "extra_scalar_ops": 16384,
+      "ratio": 1.0387513881664507,
+      "bootstrap_ci": [
+        0.7880275962166016,
+        1.2961548992589282
+      ]
+    }
+  ],
+  "point_crossing": {
+    "last_below": 14062.20462846756,
+    "first_at_or_above": 14062.204628482461,
+    "at_crossing": {
+      "extra_scalar_ops": 14062.204628482461,
+      "ratio": 1.000000000000072,
+      "bootstrap_ci": [
+        0.7586000406707969,
+        1.2477645248669968
+      ]
+    }
+  },
+  "upper_ci_crossing": {
+    "last_below": 2196.676840469241,
+    "first_at_or_above": 2196.6768404729664,
+    "at_crossing": {
+      "extra_scalar_ops": 2196.6768404729664,
+      "ratio": 0.8018321343125816,
+      "bootstrap_ci": [
+        0.6081340540446915,
+        1.0000000000000386
+      ]
+    }
+  },
+  "cpu": 0.08701651299999999,
+  "scope": "Threshold sensitivity only. No claim that actual cold setup falls below these thresholds; model-independent numpy geometry was not fully instrumented. Reusable universal constants are different from model-specific memoization; no model-dependent values are reused between estimates."
+}
