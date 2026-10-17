@@ -80,3 +80,14 @@ operations separate. Adapter imports, exact validation, MP, Legendre/native
 internals and storage remain separately charged/qualified. Pilot source gate
 pending; no probability evaluations yet. One review-lock20CPU attempt with18CPU
 soft stop; output and progress refuse overwrite.
+
+## Execution blocked by DRI evidence rule
+
+Latest shared TASKS.md lines58–62 require research folders and cited commits on
+ccr-6a61f25c-wn80ii before the next phase. Prior research export was rejected by
+automatic approval review, so no retry or alternate-agent export is attempted.
+The fixed64 source scientific gate passed T55 read-only review; this is not
+execution clearance. pilot.py now explicitly refuses execution until a separate
+export_gate_clearance is recorded. No pilot mass evaluations occurred. Local
+integration preparation and read-only review can continue; user/DRI coordination
+must resolve the authorization conflict.
