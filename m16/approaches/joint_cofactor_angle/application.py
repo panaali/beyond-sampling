@@ -2,7 +2,7 @@
 from pathlib import Path
 from fractions import Fraction as F
 from collections import Counter
-import hashlib,json,time,traceback
+import hashlib,json,time,traceback,sys
 import numpy as np
 import joint
 from frozen import rational_bounds as rb
@@ -16,7 +16,13 @@ def main():
     out=HERE/'application.json';progress=HERE/'application_progress.jsonl';assert not out.exists() and not progress.exists()
     gate=json.loads((HERE/'application_gate.json').read_text())
     for path,pin in gate['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==pin,path
-    controls=json.loads((HERE/'controls.json').read_text());assert controls['complete'] and controls['cases']==12
+    sys.set_int_max_str_digits(0)
+    controls=json.loads((HERE/'controls.json').read_text());retry=json.loads((HERE/'retry_controls.json').read_text())
+    assert controls['failures']==['positive','negative','drift'] and controls['cases']==12
+    assert retry['complete'] and retry['cases']==3 and retry['failures']==[]
+    merged=[r for r in controls['rows'] if 'exception' not in r]+retry['rows']
+    assert len(merged)==len({r['label'] for r in merged})==12
+    assert {r['label'] for r in retry['rows']}==set(controls['failures'])
     old=json.loads((HERE/'frozen/saved_minors.json').read_text());man=old['manifest']
     assert old['complete'] and len(old['rows'])==64
     for path,pin in man['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==pin,path
