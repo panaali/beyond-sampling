@@ -9,7 +9,7 @@ TASKS-only claim9b187e08 precedes this folder. Reuse independently reviewed norm
 Two alternatives: thin GL error may be a radial-conditioning problem, distinguished by matched determinant/opposite dot signs; or cofactor/log cancellation may fail too, distinguished by the independently analytic references and fixed log128/256 arms. No adaptive arm/order selection after outcomes.
 
 ## Status
-Frozen protocol and runner preparing for independent source/analytic gate. No numerical results yet.
+Frozen66 evaluations complete; independent final raw/count/proof review pending. Source/analytic gate passed before execution.
 
 ## Results
 Pending. Exact analytic formula concerns the stored binary64 rays;80/120digit reference agreement is a diagnostic, not outward FP certification. Preserve ideal rational geometry and actual binary geometry separately. Outcomes report absolute/relative error, negative/nonfinite/exception status and all source proxy counts.
@@ -25,3 +25,5 @@ Different representations, certified range/order selection, geometric splitting,
 
 ## Failure modes
 Nonfinite/negative mass, source drift, reference disagreement, exception, limit exhaustion or failed parity are retained explicitly. Do not erase partial results or raise caps/orders/targets after seeing outcomes. Shared source remains unchanged.
+
+Frozen result: the original hybrid source fails the1e-10 absolute gate on all three wide thin fixtures (k22/35/48), with errors approaching0.0625. The matched narrow determinants pass that absolute gate but retain~8.48e-5 relative error in GL6. ForcedGL10/16 do not fix the wide family; fixedlog128/256 pass all11 absolute controls, but narrow48 fails the1e-6 relative gate due to cancellation at tiny mass. No exception, negative or nonfinite value occurs. ResearchCPU0.182709463, maxRSS49868KiB; rule setup/call breakdowns and inherited proxies saved. No native-cost claim. SHAPE_PROOF.md gives a real-arithmetic obstruction to a universal fixed interior rule selected only by small determinant, preserving adaptive/other-representation alternatives.
