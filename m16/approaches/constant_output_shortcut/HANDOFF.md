@@ -7,3 +7,5 @@ Sufficient predicates: all inputweights exactlyzero, or outputrow0 coordinatewis
 All15valid controls behave as frozen (10certified,5fallback),13invalid reject. Prior alloff72-cone finitecap failure preserved; new case returns1/4 with31named numeric/category units+15metadata predicates, no geometry/mass. Both pinned H8T4 trained models declineshortcut with269named units+15metadata, exactmodel/result objectidentity and weight hashes unchanged. No geometry/truth rerun.
 
 No fullcost, floatingoverflow, exhaustiveconstantpredictor or general total-return claim. Shared/oldadapter unchanged; dispatch(model,fallback) is a reviewable local adoption proposal. Root/Claude registration/adoption requested only after independent saved check.
+
+Independent saved proof/predicate/count review **27c8545c** passes all15 valid controls,13 invalid cases and31/269 named counts. The exchangeability contract requires almost-surely distinct input coordinates.

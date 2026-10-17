@@ -29,3 +29,5 @@ The input condition explicitly excludes tied-coordinate exchangeable laws: conti
 Both H8T4 seed0/seed1 predicates returnfallback:104finite checks+133Boolean reductions+32comparisons, with15metadata predicates percall. The exactoriginal model and fallback result objects are preserved and weight hashes unchanged. No trained geometry, mass or reference replay. ValidationCPU.90528 includes imports/checkpointloading; analyticcontrols.07709CPU, not estimatorruntime benchmarks.
 
 This is an independently source-gated local dispatcher proposal; existing shared engine and old T171 adapter are unchanged. It closes the alloff structural case and identical/readout-dominance controls, not every constantpredictor or finite quadraturecap. Mathematical model semantics and almost-surely distinct inputranks remain required; no floatingoverflow/fullcost guarantee.
+
+Independent saved proof/predicate/count review **27c8545c** passes all15 valid controls,13 invalid cases and31/269 named counts. The exchangeability contract requires almost-surely distinct input coordinates.
