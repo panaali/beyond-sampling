@@ -1,5 +1,7 @@
 # Pre-registration: testing "Neural Networks Are Already Clean" at small scale
 
+↑ [Project README](README.md) · [STATUS](STATUS.md) · [INDEX](INDEX.md) · [RESULTS](RESULTS.md)
+
 Written and committed **before** any activations were collected or any neuron was inspected.
 
 ## Target claim

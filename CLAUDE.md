@@ -1,14 +1,16 @@
 # Working in this repo
 
-Start by reading `INDEX.md`: questions, who is doing what, where outputs live, and the **hypothesis ledger**
-(the status of every claim). `m16/FINDINGS.md` is the detailed narrative for the AlgZoo 432-param model.
+↑ [Project README](README.md) · [INDEX](INDEX.md) · [Approaches](m16/approaches/README.md)
+
+Start by reading [`INDEX.md`](INDEX.md): questions, who is doing what, where outputs live, and the **hypothesis ledger**
+(the status of every claim). [`m16/FINDINGS.md`](m16/FINDINGS.md) is the detailed narrative for the AlgZoo 432-param model.
 
 ## Rules
 
 1. **Stay in your lane.** Write only inside your assigned folder, e.g. `m16/approaches/<name>/`. Don't
-   edit shared code (`m16/common.py`, `m16/arc_eval.py`, ...) or other agents' folders. Propose changes in
+   edit shared code ([`m16/common.py`](m16/common.py), [`m16/arc_eval.py`](m16/arc_eval.py), ...) or other agents' folders. Propose changes in
    your README instead.
-2. **Every approach folder has a `README.md`** with these sections:
+2. **Every approach folder has a [`README.md`](README.md)** with these sections:
    - **Question**: what this tries to answer.
    - **Method**: plain-language description plus the key files.
    - **Status**: running / done / abandoned (with the reason).
@@ -21,10 +23,10 @@ Start by reading `INDEX.md`: questions, who is doing what, where outputs live, a
 3. **Be skeptical of your own hypotheses.** Before building on an idea, write down at least two
    alternative explanations and the cheapest test that would separate them. A hypothesis that "fits"
    is not confirmed. Prefer tests that could have failed.
-4. **Nobody marks their own claim "confirmed".** Only the DRI moves a claim to confirmed in `INDEX.md`,
+4. **Nobody marks their own claim "confirmed".** Only the DRI moves a claim to confirmed in [`INDEX.md`](INDEX.md),
    after an independent check (a different script, seed, data or agent).
 5. **Report negatives.** Failed ideas and null results go in the README and the ledger. Do not delete them.
-6. **Shared evaluation.** Estimators for the ARC challenge must use `m16/arc_eval.py`: the same noisy
+6. **Shared evaluation.** Estimators for the ARC challenge must use [`m16/arc_eval.py`](m16/arc_eval.py): the same noisy
    copies, ground truth and estimator interface `est(model, budget, rng) -> (estimate, evals)`. State
    whether the method is deductive (no random model inputs) or sampling-based.
 7. **Independence.** Do not read Alignment Research Center material about AlgZoo published after
@@ -36,4 +38,4 @@ Start by reading `INDEX.md`: questions, who is doing what, where outputs live, a
 
 ## Environment
 `source .venv/bin/activate` (CPU torch, transformers, alg_zoo installed editable from
-`/home/user/alignment-research-center/alg-zoo`). Ground truth for M_16,10's accuracy: `m16/truth.txt`.
+`/home/user/alignment-research-center/alg-zoo`). Ground truth for M_16,10's accuracy: [`m16/truth.txt`](m16/truth.txt).

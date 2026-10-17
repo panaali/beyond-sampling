@@ -1,5 +1,7 @@
 # bandwidth: does the misclassified band width at a 2-3 tie have a compact description?
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Every deductive estimator so far failed for one measured reason: the errors sit in thin bands next to tie
 hyperplanes, and the width of the misclassified band at a point on the tie surface varies irregularly with

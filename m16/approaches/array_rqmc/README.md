@@ -1,5 +1,7 @@
 # Array-RQMC for M_16,10 (partial: original model only)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 Files: `core.py` (chain, exact last-step integration, sort keys, estimators), `check_cmc.py` (checks the
 last step against brute force), `experiment.py` (RMSE vs n over independent randomisations), `analyze.py`
 (cost model and gains), `diag_var.py` (where the variance lives), `results/` (logs, cached truths for

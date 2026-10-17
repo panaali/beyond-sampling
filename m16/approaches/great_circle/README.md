@@ -1,5 +1,7 @@
 # Great-circle exact integration (directional simulation lifted to 2-D)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 The model is positively homogeneous, so accuracy is the correct fraction of the sphere S^9. If we
 integrate exactly around random great circles (exact piecewise-sinusoidal walk), is the estimate

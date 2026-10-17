@@ -1,6 +1,8 @@
 # Project status (2026-10-17)
 
-The registry, hypothesis ledger and every number with its source are in `INDEX.md`. This page summarises them.
+↑ [Project README](README.md) · [INDEX](INDEX.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md)
+
+The registry, hypothesis ledger and every number with its source are in [`INDEX.md`](INDEX.md). This page summarises them.
 
 ## In plain words
 
@@ -42,12 +44,12 @@ those rare wide patches. That is exactly where every approach here broke.
 
 | Question | Verdict | Where |
 |---|---|---|
-| Q1 Essay's "one main job" claim (Qwen3-0.6B) | H1 61% A (borderline); H2 underpowered: **inconclusive** (pre-registered rule mechanically says "refuted"); H3 passes but is inflated by token overlap; LLM-free one-job proxy shows no neuron/random difference | `RESULTS.md`, ledger H-Q1..Q4 |
-| Q2 Legible vs understood (AlgZoo) | M_4,3 control passes; M_16,10: 14/16 neurons legible, 5-constant labels rebuild 54% (driven by the constant limit) | `RESULTS.md`, H-A1/A2 |
-| Q3 Mechanism of M_16,10 | running max / record detector / comparators / damped rotating modes (phase = time since max); error anatomy exact; Fourier/harmonic reading weakened | `m16/FINDINGS.md`, H-M1..M8 |
-| Q4 ARC challenge | **open**; best verified estimator srb (sampling) | `INDEX.md` section 4b |
+| Q1 Essay's "one main job" claim (Qwen3-0.6B) | H1 61% A (borderline); H2 underpowered: **inconclusive** (pre-registered rule mechanically says "refuted"); H3 passes but is inflated by token overlap; LLM-free one-job proxy shows no neuron/random difference | [`RESULTS.md`](RESULTS.md), ledger H-Q1..Q4 |
+| Q2 Legible vs understood (AlgZoo) | M_4,3 control passes; M_16,10: 14/16 neurons legible, 5-constant labels rebuild 54% (driven by the constant limit) | [`RESULTS.md`](RESULTS.md), H-A1/A2 |
+| Q3 Mechanism of M_16,10 | running max / record detector / comparators / damped rotating modes (phase = time since max); error anatomy exact; Fourier/harmonic reading weakened | [`m16/FINDINGS.md`](m16/FINDINGS.md), H-M1..M8 |
+| Q4 ARC challenge | **open**; best verified estimator srb (sampling) | [`INDEX.md`](INDEX.md) section 4b |
 
-**Leaderboard v2** (`m16/leaderboard.py`; 18 models: original, 5 trained seeds, 12 noisy copies; 24 repeats; 95% CIs).
+**Leaderboard v2** ([`m16/leaderboard.py`](m16/leaderboard.py); 18 models: original, 5 trained seeds, 12 noisy copies; 24 repeats; 95% CIs).
 MSE relative to plain sampling at 64k model evaluations (below 1 is better):
 
 | Method | Original | Seeds 0-4 | sigma 0.0025 | sigma 0.005 | Type |
@@ -79,8 +81,8 @@ corrected to 13 in groups; tube's high-budget gain not confirmed (bias floor); o
 samples; a "62x" efficiency figure retracted as an arithmetic error.
 
 **Independence:** no ARC AlgZoo material published after January 2026 was read. The claim that ARC has solved
-M_16,10 (relayed privately) is unverified. `m16/arc_eval.py` and `m16/leaderboard.py` can score any estimator with the
+M_16,10 (relayed privately) is unverified. [`m16/arc_eval.py`](m16/arc_eval.py) and [`m16/leaderboard.py`](m16/leaderboard.py) can score any estimator with the
 same interface for a direct comparison.
 
-**Next steps:** `INDEX.md` section 5 (top: a stochastic reduction tracking the exact law of the tie margin; explaining
+**Next steps:** [`INDEX.md`](INDEX.md) section 5 (top: a stochastic reduction tracking the exact law of the tie margin; explaining
 the T~5 collapse; an optional brute-force exact reference with more compute).

@@ -1,5 +1,7 @@
 # debiased_series: turning the biased probe series into an unbiased estimator (MLMC / Rhee-Glynn)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 The deterministic probe estimators v2 -> v3 -> v4 (FINDINGS sec. 5) converge slowly. Their bias falls from
 0.74 to 0.59 to 0.25 pp while the cost roughly doubles per order. Can randomized truncation (Rhee & Glynn 2015,

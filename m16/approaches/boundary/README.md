@@ -1,5 +1,7 @@
 # Boundary-layer (tie-surface) integration estimator for M_16,10 accuracy
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the error volume of M_16,10 be rewritten as integrals over the tie surfaces of the top order statistics
 (x_(2)=x_(3), x_(1)=x_(2)), with the normal direction integrated **exactly** through the network's

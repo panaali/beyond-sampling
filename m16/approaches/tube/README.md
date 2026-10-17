@@ -1,5 +1,7 @@
 # tube: error mass as integrals over tie faces (thin wedges)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the accuracy of M_16,10 (and its noisy copies) be estimated deductively by integrating the misclassified
 wedges next to the tie hyperplanes x_a = x_b, instead of probing canonical points, and can that beat random

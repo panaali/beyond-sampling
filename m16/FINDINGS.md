@@ -1,5 +1,7 @@
 # How the 432-parameter AlgZoo model M_16,10 computes the 2nd argmax
 
+↑ [Project README](../README.md) · [STATUS](../STATUS.md) · [INDEX](../INDEX.md) · [m16 index](README.md) · [Approaches](approaches/README.md)
+
 Model: `alg_zoo.example_2nd_argmax()`. A 1-layer ReLU RNN with 16 hidden neurons and no biases. It reads
 10 i.i.d. N(0,1) numbers and outputs the position of the 2nd largest. Accuracy is 95.3%; chance is 10%.
 ARC's published analysis (Hilton, Jan 2026) explains neurons 1, 2, 4, 6, 7 as running-max and
@@ -16,7 +18,7 @@ of x0..x8, plus where x9 falls (above both, between, or below both).
 
 - **The algorithm is right; the errors come from magnitudes.** Replace every input by the expected Gaussian
   order statistic for its rank (same order, typical spacing) and the model scores **99.96%**. All of the
-  4.7% error comes from how the actual values are spaced. `frozen.py`
+  4.7% error comes from how the actual values are spaced. [`frozen.py`](frozen.py)
 - **The state is sufficient.** A lookup over the 216 discrete states, each a linear map on (m1, m2, x9),
   reproduces the hidden state with median R^2 0.95 and scores **98.0%**, higher than the model.
   The model's errors are its departures from this clean structure.
@@ -24,13 +26,13 @@ of x0..x8, plus where x9 falls (above both, between, or below both).
 ## 2. How it computes it (mechanism, derived from the weights)
 
 With the gates that stay on after a record (13 of 16 neurons), the recurrence's eigenvalues form
-**an approximate harmonic series**: a damped discrete Fourier memory. `modes.py`
+**an approximate harmonic series**: a damped discrete Fourier memory. [`modes.py`](modes.py)
 
 > **Caveat (DRI null test, later):** this gate set is only the *most common* one, covering 16% of states at
 > steps 6-10. Other common gate sets give shifted periods (7.7/4.7/3.1; 6.7/4.0/3.0). Random 13-neuron subsets
 > of the same matrix show the 1 : 1/2 : 1/3 pattern only 3% of the time, so it is not a coincidence of the weights. But only 2 of 5
 > independently trained seeds show a similar series. Treat "Fourier memory" as a picture of one common configuration.
-> The phase-clock measurement below is direct evidence and stands on its own. See `INDEX.md`, H-M2.
+> The phase-clock measurement below is direct evidence and stands on its own. See [`INDEX.md`](../INDEX.md), H-M2.
 
 | mode | abs(eig) | period (steps) | neurons that carry it |
 |---|---|---|---|
@@ -54,7 +56,7 @@ or when x8 was a near-record (n5, n9).
 - **Position code: mostly PASSED.** The hidden state is close to a *sum of two position vectors*:
   h ~ m2 U[p2] + (m1 - m2) V[p1]. That is 18 parameters per neuron instead of 216 tables. Read through the
   real output weights, every U[p] row is a bump peaked at exactly position p, about +-2 positions wide.
-  This separable code alone scores 90-91%, against the model's 95-96%, when x9 is below both. `separable.py`
+  This separable code alone scores 90-91%, against the model's 95-96%, when x9 is below both. [`separable.py`](separable.py)
 - **Causal roles: PASSED for 13/16 neurons (in groups; n2, n5, n9 not ablated; mean-ablation can push the net off-distribution, R1).** Knocking out each group (final-state mean ablation) breaks exactly the cases its
   role predicts:
 
@@ -83,7 +85,7 @@ or when x8 was a near-record (n5, n9).
 
 The 2nd-vs-3rd near-tie, the dominant error, decomposed **exactly**: each input's own gates make its
 logits an exact linear map of x, so the margin splits into per-input contributions with no fitting.
-`exact.py`
+[`exact.py`](exact.py)
 - The m2 vs m3 comparator is almost balanced: gain ~78 on each. The gain ratio is 0.982 on correct cases
   and 0.999 on flips. 44% of flips are this gain mismatch beating a tiny value gap.
 - The other 56%: normally the max's contribution *helps* the right answer (mean +3.5) and so does crosstalk
@@ -107,7 +109,7 @@ logits an exact linear map of x, so the margin splits into per-input contributio
 - *The max's "assist" toward p2 over p3 is a positional effect*: the (p1,p2,p3) triple explains R^2 0.05 of
   it, and it is positive in only 63% of cases (mean +8.3 per unit m1). It depends on values, through gating.
 
-## 5. Attempt at ARC's challenge: a mechanistic accuracy estimate (`estimate.py`)
+## 5. Attempt at ARC's challenge: a mechanistic accuracy estimate ([`estimate.py`](estimate.py))
 
 The error model built from sections 1-3: accuracy = 1 - [blind region] - [2nd-vs-3rd near-tie flips]
 - [1st-vs-2nd near-tie flips]. The probes are designed, not random:
@@ -132,7 +134,7 @@ tail: a flip threshold depends on all the other values, and a canonical probe fi
 Modelling that spread from first-order sensitivity probes trims the bias to +0.59 pp, but costs 2.5x the
 probes, so the gap to sampling *widens* (about 8x). Capturing that dependence without in effect sampling inputs is the open problem.
 
-### Under ARC's actual protocol (`arc_eval.py`)
+### Under ARC's actual protocol ([`arc_eval.py`](arc_eval.py))
 
 ARC scores estimators on noisy copies of the model (noise on all weights), by RMSE against ground truth
 (2M samples per copy) as a function of compute. Noise = Gaussian with s.d. sigma times each matrix's RMS;
@@ -153,17 +155,17 @@ noisy copies and ground truth.
 
 ### Thinking outside the box: three more estimators under ARC's protocol
 
-1. **Exact line integration** (`lineint.py`). With no biases and ReLU, the network is exactly piecewise linear
+1. **Exact line integration** ([`lineint.py`](lineint.py)). With no biases and ReLU, the network is exactly piecewise linear
    along any line that varies one input. Walking the ReLU breakpoints, solving where the argmax changes and
    integrating the Gaussian density over the correct intervals gives P(correct | other 9 inputs) **exactly**
    (validated against 1M-sample brute force on individual lines; unbiased overall: 0.9521 +- 0.0028). But
    each line costs ~33 forward passes and halves the variance, so at equal compute it is about **17x worse**
    than sampling. (An earlier "62x better" figure in my notes was an arithmetic error: I divided where I
    should have multiplied.)
-2. **Randomised quasi-Monte Carlo** (`qmc_test.py`), on the raw indicator and on the line-integrated
+2. **Randomised quasi-Monte Carlo** ([`qmc_test.py`](qmc_test.py)), on the raw indicator and on the line-integrated
    function. No faster convergence; RMSE ratio to sampling ~1 (raw) and ~3-4 (lines). The line-integrated
    function is still discontinuous in the other coordinates (ties among them, the blind region).
-3. **Mechanism-informed stratified sampling** (`stratified.py`): **beats sampling.** The mechanism says
+3. **Mechanism-informed stratified sampling** ([`stratified.py`](stratified.py)): **beats sampling.** The mechanism says
    errors live at near-ties of the top order statistics and in the blind region. Those are properties of
    the input, so stratum probabilities are model-free and exact, and the estimate is unbiased for any weights.
    Evaluations go where errors are (Neyman allocation from a pilot on the original model only).
@@ -174,7 +176,7 @@ noisy copies and ground truth.
 | 0.0025 | x1.65 / x1.93 / x1.53 / x2.80 |
 | 0.005 | x1.23 / x1.16 / x1.29 / x1.48 |
 
-**Correction (R1):** the exact variance ratios for this design are 2.07x (original), 1.78x (sigma 0.0025, 1.44-2.00 per copy) and 1.36x (sigma 0.005, two copies below 1). The higher table values are Monte Carlo noise in the MSE estimate. Candidate generation (~12.9 rejected draws plus sorts per evaluation) costs about as much as an RNN pass and may erase the gain under FLOP accounting. The original evaluation was an inline script; see `m16/stratified_eval.py` for a committed version.
+**Correction (R1):** the exact variance ratios for this design are 2.07x (original), 1.78x (sigma 0.0025, 1.44-2.00 per copy) and 1.36x (sigma 0.005, two copies below 1). The higher table values are Monte Carlo noise in the MSE estimate. Candidate generation (~12.9 rejected draws plus sorts per evaluation) costs about as much as an RNN pass and may erase the gain under FLOP accounting. The original evaluation was an inline script; see [`m16/stratified_eval.py`](stratified_eval.py) for a committed version.
 
 Caveats: (a) it is still sampling. The mechanism decides *where* to sample, but this is not a deductive
 mechanistic estimate in ARC's sense. (b) Compute counts model evaluations only. Rejection-sampling the rare
@@ -182,7 +184,7 @@ strata draws ~13 candidate inputs per evaluation; drawing and sorting 10 Gaussia
 RNN pass, but under strict FLOP accounting it would eat part of the gain. (c) The gain shrinks with noise,
 because noisier copies make errors that are less confined to ties.
 
-### Feynman-style second-order corrections (`estimate.py`, v4)
+### Feynman-style second-order corrections ([`estimate.py`](estimate.py), v4)
 
 Diagnosis first: v3's +0.59 pp bias came mostly from under-predicting 2nd-vs-3rd tie flips (about 0.5 pp)
 and an unmodelled "picks the 4th or lower" mode (about 0.27 pp). v4 adds, for every configuration, the
@@ -206,8 +208,8 @@ at about 100k evals, a deterministic method needs bias below about 0.05-0.1 pp *
 ## 6. What is still not done
 
 - ARC's challenge (section 5): a deductive estimate that matches sampling. **Update:** about 30 further attempts by
-  agents (`m16/approaches/*/`, registry E10-E27 in `INDEX.md`) also failed deductively. Best verified estimator:
-  sampling-based srb, ~1.6-2.4x (leaderboard v2). See `STATUS.md` and `INDEX.md` section 4b.
+  agents ([`m16/approaches/*/`](approaches), registry E10-E27 in [`INDEX.md`](../INDEX.md)) also failed deductively. Best verified estimator:
+  sampling-based srb, ~1.6-2.4x (leaderboard v2). See [`STATUS.md`](../STATUS.md) and [`INDEX.md`](../INDEX.md) section 4b.
 - The gating rules are measured (92-100% predictable from record history), not derived from the weights.
 - The "assist" (why the max's contribution normally favours p2 over p3) is measured exactly per input; it
   is value-dependent through gating (positions explain R^2 0.05), with no closed form found.

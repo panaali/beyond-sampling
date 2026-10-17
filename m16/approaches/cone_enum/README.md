@@ -1,5 +1,7 @@
 # cone_enum: enumerate error cones, integrate their Gaussian mass
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can M_16,10's accuracy be computed deductively as 1 - (sum of Gaussian masses of the "error cones")?
 Each error cone is a polyhedral cone on which the network is linear and wrong. They would be found by walking

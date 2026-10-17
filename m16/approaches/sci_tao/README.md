@@ -1,5 +1,7 @@
 # sci_tao: structure vs randomness on the tie faces, small cases first
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the accuracy of M_16,10 be estimated without random model inputs, by computing the "structured" part
 exactly and integrating the rest deterministically? And where, as the sequence length T grows, does

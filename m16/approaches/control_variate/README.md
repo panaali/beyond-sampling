@@ -1,5 +1,7 @@
 # control_variate: "structure + randomness" estimators for the accuracy of M_16,10
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can a cheap surrogate S(x) with an expectation known without random model inputs (a control variate),
 derived from the weights so that it transfers to ARC's noisy copies, estimate accuracy with lower

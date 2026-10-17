@@ -1,5 +1,7 @@
 # Distribution propagation for the accuracy of M_16,10
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can we estimate the accuracy of M_16,10 deductively, without running the model on random inputs, by
 propagating an approximate distribution of the state step by step? The state is the hidden state plus

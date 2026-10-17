@@ -1,5 +1,7 @@
 # sci_feynman: exactly solvable core (tie segments) + structure of the corrections
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Feynman-style attempt at Q4: find the exactly solvable part of the accuracy integral, expand around it, and check each
 step with a cheap calculation. Can that give a deductive estimate of M_16,10's accuracy that beats sampling at equal

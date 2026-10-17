@@ -1,5 +1,7 @@
 # rank_exact: deductive accuracy estimate over rank orderings (M_16,10)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the accuracy be computed deductively, class by class over rank orderings? The idea: fix the ReLU gates
 for each class, which makes the logits linear in x. P(correct | class) is then the Gaussian measure of a

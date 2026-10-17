@@ -1,5 +1,7 @@
 # Probabilistic branch and bound for M_16,10 accuracy (certified L <= acc <= U)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the accuracy of M_16,10 be bounded *deductively* from the weights, with certified lower and upper bounds,
 by partitioning input space into regions of exactly known Gaussian measure and proving each region

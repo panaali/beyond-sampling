@@ -1,5 +1,7 @@
 # sci_poincare: does M_16,10 reduce to a small symbolic system?
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Are there coordinates in which the 10-step dynamics become a finite automaton over record events with a
 low-dimensional continuous state? If so, P(correct) would be a computable sum over symbolic histories with

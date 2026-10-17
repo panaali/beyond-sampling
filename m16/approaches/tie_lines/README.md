@@ -1,5 +1,7 @@
 # tie_lines: line sampling along tie directions (and what actually paid off)
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can conditional Monte Carlo along the direction that crosses the error bands, d = (e_i - e_j)/sqrt2 for
 the pair holding ranks 2,3 (or 1,2), estimate M_16,10's accuracy with lower compute-adjusted MSE than plain

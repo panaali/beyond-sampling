@@ -1,6 +1,8 @@
 # Results: testing "Neural Networks Are Already Clean" with CPU-only resources
 
-All hypotheses, thresholds and the decision rule were committed in `PREREGISTRATION.md` before data
+↑ [Project README](README.md) · [STATUS](STATUS.md) · [INDEX](INDEX.md) · [PREREGISTRATION](PREREGISTRATION.md) · [FINDINGS](m16/FINDINGS.md)
+
+All hypotheses, thresholds and the decision rule were committed in [`PREREGISTRATION.md`](PREREGISTRATION.md) before data
 collection (commit a83076a), and the AlgZoo addenda before any AlgZoo neuron was inspected.
 
 ## Study 1: Qwen3-0.6B MLP neurons (pre-registered H1-H3)
@@ -8,8 +10,8 @@ collection (commit a83076a), and the AlgZoo addenda before any AlgZoo neuron was
 Setup: 1.2M tokens of pile-10k; 84 random neuron poles plus 28 random-direction controls, blinded and shuffled
 together. Ten explainer agents saw training examples only. Ten separate judge agents saw only an
 explanation and 12 held-out snippets, and never saw activations. 30 judge items paired an explanation with
-the wrong unit's snippets. Code: `collect.py`, `build_items.py`, `analyze.py`; numbers in
-`results/summary.json`.
+the wrong unit's snippets. Code: [`collect.py`](collect.py), [`build_items.py`](build_items.py), [`analyze.py`](analyze.py); numbers in
+[`results/summary.json`](results/summary.json).
 
 | hypothesis | result | pre-registered bar | verdict |
 |---|---|---|---|
@@ -46,8 +48,8 @@ Evidence in favour of a privileged neuron basis (secondary, not part of the verd
 - **Null result previously omitted:** the only LLM-free "one job" proxy, the share of a unit's top-100
   examples sharing its most common token, shows **no difference**: 0.12 for neurons vs 0.11 for random
   directions (p = 0.60).
-- Population statistics over all 896 sampled neurons vs 112 random directions (`population.py`,
-  `results/population.json`): activation kurtosis median **99.7 vs 0.8** (p ~ 1e-110). The share of activation mass
+- Population statistics over all 896 sampled neurons vs 112 random directions ([`population.py`](population.py),
+  [`results/population.json`](results/population.json)): activation kurtosis median **99.7 vs 0.8** (p ~ 1e-110). The share of activation mass
   at >= 20% of max is median **6% vs 38%**: neurons are extremely sparse. This shows **sparsity, not "one
   job"**. It is close to automatic for an elementwise nonlinearity versus a projection averaging 3072
   coordinates.
@@ -60,13 +62,13 @@ Evidence in favour of a privileged neuron basis (secondary, not part of the verd
 
 Each model got a blinded investigator agent with code access. It wrote a label and a formula f_i(x) per
 neuron (no access to the weights in the formula, at most 5 constants per neuron). Scored on held-out data
-(`algzoo/score.py`).
+([`algzoo/score.py`](algzoo/score.py)).
 
 | model | params | model acc | neurons legible (A/B, R^2 >= 0.8) | labels rebuilt -> accuracy | gap recovered | verdict |
 |---|---|---|---|---|---|---|
 | M_4,3 (positive control) | 32 | 98.4% | 4/4 | 98.5% | 100% | legible: pass, mechanism: pass |
 | **M_16,10 (Hilton's challenge)** | **432** | 95.4% | **14/16** | **54.1%** | **52%** | **legible: pass, mechanism: FAIL** |
-| M_32,10 | 1,376 | 99.4% | stopped (draft in `algzoo/labels_32_10.py`, unscored) | | | |
+| M_32,10 | 1,376 | 99.4% | stopped (draft in [`algzoo/labels_32_10.py`](algzoo/labels_32_10.py), unscored) | | | |
 
 The protocol works when understanding is achievable (positive control). On the 432-parameter model the
 neurons are individually legible, but the labels together lose about half the model's skill. **Caveat:**
@@ -75,7 +77,7 @@ the same features rebuilds 98%, and replacing even one neuron by its label drops
 despite R^2 ~0.9, because the readout amplifies small errors. It shows "short labels lose skill", not "no
 compact description exists". The size ladder has one data point beyond the control (M_32,10 was not scored).
 
-Deeper first-principles analysis of M_16,10 (`m16/FINDINGS.md`):
+Deeper first-principles analysis of M_16,10 ([`m16/FINDINGS.md`](m16/FINDINGS.md)):
 - In the most common gate pattern, the recurrence has damped rotating modes; the slowest mode's phase
   encodes how long ago the max arrived (measured -42.7 deg/position vs 42.8 predicted). **Corrected:** the
   "harmonic series / Fourier memory" reading does not survive robustness checks. That pattern covers only
@@ -88,7 +90,7 @@ Deeper first-principles analysis of M_16,10 (`m16/FINDINGS.md`):
 - ARC's open challenge (estimating accuracy mechanistically as well as sampling) is **not met**. After about 30
   attempts, every deductive method loses to sampling (8x to >300x). The best verified estimator is sampling-based
   ("srb", ~1.6-2.4x better than plain sampling on all 18 leaderboard models). Calculation does beat sampling by up
-  to ~500x on short sequences (T=3-4) and collapses around T=5-8. See `STATUS.md` and `INDEX.md` section 4b.
+  to ~500x on short sequences (T=3-4) and collapses around T=5-8. See [`STATUS.md`](STATUS.md) and [`INDEX.md`](INDEX.md) section 4b.
 
 ## What this says about the essay
 
@@ -113,7 +115,7 @@ Deeper first-principles analysis of M_16,10 (`m16/FINDINGS.md`):
 - One explainer and one judge per item (no test-retest reliability of labels); agents are the same model family
   as the essay's tools. CIs ignore clustering by explainer batch (batch A-rates range 2/8 to 7/8).
 - The judges never saw the 5-20% band, where most activation mass lies.
-- Corrections in this file come from an independent review (`INDEX.md`, R1).
+- Corrections in this file come from an independent review ([`INDEX.md`](INDEX.md), R1).
 - Agents were told not to read the answer keys but were not sandboxed from them.
 - The pre-registered rule makes H2 decisive. A reader may reasonably weigh H3 and the population statistics
   more heavily; both are reported in full.

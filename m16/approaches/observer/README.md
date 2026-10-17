@@ -1,5 +1,7 @@
 # Psychometric-observer estimator (signal detection theory) for M_16,10 accuracy
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the accuracy of M_16,10 be computed *deductively* (with no random model inputs) by treating the network as
 an observer that compares the top order statistics, where "internal noise" stands for the

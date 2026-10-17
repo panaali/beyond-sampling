@@ -1,5 +1,7 @@
 # sci_laplace: can the tie-band integral be reduced to computable "Laplace" pieces?
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 The error of M_16,10 is mostly mass in thin bands next to rank ties (tube, boundary, observer). Can the band
 integral be evaluated *deductively*, by an asymptotic or generating-function reduction (a few computable

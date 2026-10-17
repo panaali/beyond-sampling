@@ -1,5 +1,7 @@
 # Structural-reliability (FORM / SORM / system) estimator for M_16,10
 
+↑ [Approaches index](../README.md) · [INDEX (registry + ledger)](../../../INDEX.md) · [STATUS](../../../STATUS.md)
+
 ## Question
 Can the structural-reliability toolkit give a deductive estimate of M_16,10's failure probability (about 4.7%)
 that is as precise as random sampling at equal compute, on the original model and on noisy copies? The toolkit:
