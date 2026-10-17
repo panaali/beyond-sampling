@@ -37,6 +37,13 @@ class AffineOperator(QuadratureOperator):
             self.work['limited_cells']+=1
         return gradient*factor
 
+    def reconstruct_gradient(self,density,displacements,neighbors,vertices,dimension):
+        gradient=self.fit(displacements,[value-density for value in neighbors],dimension)
+        return self.limit(density,gradient,vertices)
+
+    def density_factors(self,density,offsets,gradient):
+        return 1+offsets@gradient/density
+
     def prepare(self,state):
         self.current_state=state
         self.area_centers=np.zeros((self.n,self.n,2));self.area_density_grid=np.zeros((self.n,self.n))
@@ -50,9 +57,8 @@ class AffineOperator(QuadratureOperator):
                 density=self.axis_density_grid[axis,i];x=self.axis_centers[axis,i];width=self.widths[axis,i]
                 neighbors=[j for j in (i-1,i+1) if 0<=j<self.n]
                 displacement=[[(self.axis_centers[axis,j]-x)/width] for j in neighbors]
-                difference=[self.axis_density_grid[axis,j]-density for j in neighbors]
-                gradient=self.fit(displacement,difference,1)
-                self.axis_gradients[axis,i]=self.limit(density,gradient,np.array([[-.5],[.5]]))[0]
+                values=[self.axis_density_grid[axis,j] for j in neighbors]
+                self.axis_gradients[axis,i]=self.reconstruct_gradient(density,displacement,values,np.array([[-.5],[.5]]),1)[0]
         if not np.any(state.area):return
         for i in range(self.n):
             for j in range(self.n):
@@ -66,10 +72,9 @@ class AffineOperator(QuadratureOperator):
             neighbors=[(a,b) for a in range(max(0,i-1),min(self.n,i+2))
                 for b in range(max(0,j-1),min(self.n,j+2)) if (a,b)!=(i,j) and self.volumes[a,b]>0]
             displacement=[(self.area_centers[a,b]-center)/width for a,b in neighbors]
-            difference=[self.area_density_grid[a,b]-density for a,b in neighbors]
-            gradient=self.fit(displacement,difference,2)
+            values=[self.area_density_grid[a,b] for a,b in neighbors]
             vertices=(self.area_polygon(state,i,j)-center)/width
-            self.area_gradients[i,j]=self.limit(density,gradient,vertices)
+            self.area_gradients[i,j]=self.reconstruct_gradient(density,displacement,values,vertices,2)
 
     def source_nodes(self,state):
         self.prepare(state)
@@ -81,14 +86,15 @@ class AffineOperator(QuadratureOperator):
             i,j=[np.searchsorted(state.edges[a],mean[a],side='right')-1 for a in (0,1)]
             width=np.array([self.widths[0,i],self.widths[1,j]])
             density=self.area_density_grid[i,j]
-            factors=1+((points-self.area_centers[i,j])/width)@self.area_gradients[i,j]/density
+            factors=self.density_factors(density,(points-self.area_centers[i,j])/width,self.area_gradients[i,j])
         else:
             axis=int(kind[-1]);i=np.searchsorted(state.edges[axis],mean[axis],side='right')-1
             density=self.axis_density_grid[axis,i]
-            factors=1+(points[:,axis]-self.axis_centers[axis,i])/self.widths[axis,i]*self.axis_gradients[axis,i]/density
+            factors=self.density_factors(density,((points[:,axis]-self.axis_centers[axis,i])/self.widths[axis,i])[:,None],np.array([self.axis_gradients[axis,i]]))
         if np.any(factors<0):raise ArithmeticError('negative limited affine density')
         raw=weights*factors;mass=float(weights.sum());total=float(raw.sum())
         self.work['affine_source_density_values']+=len(weights)
-        self.work['max_affine_normalization_defect']=max(self.work['max_affine_normalization_defect'],abs(total-mass))
+        key='max_loglinear_normalization_change' if getattr(self,'loglinear',False) else 'max_affine_normalization_defect'
+        self.work[key]=max(self.work[key],abs(total-mass))
         if total<=0:raise ArithmeticError('empty reconstructed cell')
         return mass*raw/total
