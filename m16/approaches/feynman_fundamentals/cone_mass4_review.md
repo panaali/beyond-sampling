@@ -522,3 +522,28 @@ inputs/logits/gates match independent integer arithmetic; margins range
 -.00244276239988 to-1.16869915524e-5, with no zero gates or input ties.
 Review.048CPU excluding imports/load. This remains a finite interior-point
 check, not whole-cone validity, completeness or a mass certificate.
+
+## T148 frozen held-out exact/recipe attribution
+
+All16 completed batches are independently checked for exhaustive disjoint
+indices, source hashes, parent assignment, exact stored-float sums and
+counter identities. The seed1 checkpoint has30726 exact error simplices and
+19746 recipe simplices. Original accuracies/counters reproduce their archive.
+Corrected exact accuracy .9874600108260589 and corrected recipe
+.9874543286232546 differ by -5.68220280441e-6, with combined integration-only
+bound1.70946893939e-10 and no per-cone bound misses.
+
+The frozen doubled rule gives exact-geometry accuracy .9874382753767020
+and recipe accuracy .9874384324269055; the latter total difference from
+corrected exact is -2.15783991534e-5. This held-out error is larger than
+seed0 and must remain visible. There are1420/562 negative doubled terms,
+with per-cone discrepancy sums7.4197562e-5/5.1463213e-5. Thus the fixed
+rule is substantially improved but still neither positive nor certified.
+
+Saved4M MC truth .98744275 has nominal binomial standard error5.56767e-5;
+corrected exact is .310SE above it. MC is a diagnostic, not the reference
+certificate. Nominal inherited full counts376677671 exact and262248590
+recipe remain partial. Replay CPU156.611/103.637 is preserved, plus captures.
+Independent audit.592CPU performs no integration or model-input search.
+No tuning, full nine-case/noisy ladder, complete-cost or global challenge
+claim follows from this held-out success.
