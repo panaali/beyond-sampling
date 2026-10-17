@@ -84,3 +84,5 @@ Before handoff, distinguish validation errors from numerical errors thrown insid
 
 ## Frozen independent constant-label diagnosis
 Independent reviewer910 confirms true accuracy1/T but notes that old/new equality alone does not localize the bias. Replace face masses diagnostically with the exact constant-label expression (1[a!=0]+1[b!=0])*(Phi(tau)-Phi(tex)) on tau>tex, evaluated by80-digit erfc. Preserve all face nodes and coarea weights, and independently compare each native face mass to this formula. Verify model-free Z23/Z12 against separate adaptive one-dimensional integration. Alternatives: a target/sign bug survives aggregate parity, or a geometry-table normalization error dominates instead of coarse face integration. One existing zero-readout control only, <=20CPU, no new trained-model sweep; diagnostic costs are separate from production accounting.
+
+The first constant-label diagnostic stopped at its face-fingerprint assertion: replacing the callback had also bypassed its fingerprint recorder. All face mass checks had passed. Restore the same recorder in the diagnostic callback; this is test instrumentation, not a geometry/estimator change.
