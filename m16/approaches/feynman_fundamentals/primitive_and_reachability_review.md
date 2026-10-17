@@ -168,3 +168,14 @@ no interior kinks. Include all window/exclusion/sign constraints and explicit
 zero-form ownership. This is exact-arithmetic topology only; floating thin
 polygons, complete enumeration, endpoint regularity and cost need controls.
 Implementation remains the owner's responsibility after a pushed claim.
+
+T56 exact-lune source review: lune_cycle/space.py uses Fourier difference j-i,
+consistent with E[conj(b_i)b_j 1cut]. Three wrapped angular intervals suffice
+for delta in[-pi,pi]; finite-window clipping preserves every component.
+Nonzero-normal complement I-M(-v) is valid up to a null boundary. After
+canonicalizing v_z>=0, projected wall knots -h/hypot(h,v_z) and full/empty
+knots +/-r are correct for normalized v. Sine-map weights include dz/2.
+Rounded poles have the proper limiting full/empty arcs. Normalization and
+near-degenerate knot arithmetic remain floating, not certified support
+geometry. Root support is exact in the mathematical construction; later
+finite-basis indicator projection is still approximate.
