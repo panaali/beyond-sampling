@@ -18,10 +18,10 @@ The first bounded diagnostic inventories these weight-derived envelopes, final-i
 Freeze each prototype's algebra and quadrature orders before executing it. Retain every model and failure. Models and transformations may be used for exact zero/constant-readout and positive-rescaling controls; no new Monte Carlo or model-output fitting. Diagnostics may inspect existing exact-reference artifacts but production imports must not access their geometry or fitted advice.
 
 ## Status
-Weight inventory and boundary-family derivation in progress. No estimator or transfer claim yet.
+Bounded T76 phase complete: three frozen weight-derived variants and all28 existing reference cases retained. Two- and three-input history failures received independent numerical checks. No general boundary-method impossibility or original-challenge solution is claimed. Weight-derived nonzero mean history remains an open affine-integration follow-up; root handles backlog classification.
 
 ## Results
-Pending. Existing H2T4 base accuracy is approximately .307730743; H2T5 base .279237371315. Their low accuracies make direct thin-error transfer uncertain.
+Detailed results below and in the retained JSON files. Existing H2T4 base accuracy is .307730743; H2T5 base .279237371315. Initial two-input cases pass at proposed operation cost, broader copies fail, the three-input rescue remains inconsistent, and a cheap last-input rank prior exposes the limits of a tiny-budget comparison.
 
 ## Compute accounting
 One thread, <=2GB RSS, ulimit -v2500000. Numerical cycles acquire /workspace/work/codex-compute.lock and use<=110CPU seconds; an authorized review lane may use /workspace/work/codex-review.lock for<=20CPU. Count weight/envelope setup, boundary evaluation, all quadrature nodes and exceptional cases. No full-region production enumeration or cached per-model advice. Checkpoint loading and validation costs reported separately.
@@ -94,3 +94,6 @@ T55 independently reproduced the two-input surrogate using different all-mask/al
 - Cost refinements, analytic angular integration or adaptive clipping may lower the three-input cost. They cannot remove its independently testable retained-history bias and are not proved insufficient at every budget. No broad boundary-family impossibility follows.
 
 Reproduction from this worktree: run each of `controls.py`, `benchmark.py`, `transfer.py`, `baseline_check.py`, `suffix3_controls.py`, and `suffix3_check.py` in this folder using the shared `.venv/bin/python`, OMP/OPENBLAS/MKL threads1 and an authorized resource lock. The complete three-input validation including both orders and checkpoint preparation uses about2CPU seconds and213MB RSS. No new Monte Carlo truth or random model-input samples were used.
+
+## Independent three-input failure verification
+T55 separately evaluated direct three-step forwards on two fixed S2 tensor rules, without author clipping or envelope code:32,768/131,072 nodes give .289395902736/.289418121709 on T4 relative .02 copy0, versus .263667911892 full reference. Our triangle result is .289458143600. The independent coarse error (~4e-5 at the larger rule) is much smaller than the retained~.02575 bias; it verifies this scoped failure, not high-precision equality. Constant-label controls are within3.64e-7/1.32e-7. T55 used .033CPU seconds and no random sampling. The plausible extra-memory rescue has therefore been tested independently; nonzero weight-derived mean history remains untested/open rather than excluded. Maximum recorded thin-midpoint mass upper across all28 cases is7.89e-17.
