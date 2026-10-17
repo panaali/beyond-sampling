@@ -1,6 +1,6 @@
 # T11589 declared expression-model comparison
 
-Claima64bb4ec, source-model0568ae00, driver182ee1e2, rawa3cfd2b4. Independent source algebra/driver gates passed; final saved audit pending. No numerical mass, model, geometry or reference calls.
+Claima64bb4ec, source-model0568ae00, driver182ee1e2, rawa3cfd2b4. Independent source algebra/driver gates passed; final saved audit221abbc6 passes. No numerical mass, model, geometry or reference calls.
 
 On fixed22 split children, analytic-inner versus forced-thin4D declared expression totals are1,137,654/1,625,316 atn6;5,266,198/12,540,132 atn10;21,569,734/82,182,276 atn16. Atn16 both11 parents meet prior abs1e-10/rel1e-6. Lower-order failures preserved: atn10 new4abs/6rel pass versusold5/7; atn6 both3abs/0rel. Both leave22det5 calls opaque, with potentially different factorization inputs due coordinate representation; equal invocation counts do not prove equal native cost.
 
