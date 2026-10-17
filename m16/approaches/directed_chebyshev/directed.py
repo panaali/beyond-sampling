@@ -22,6 +22,7 @@ class Interval:
         if not isfinite(lo) or not isfinite(hi):raise OverflowError('float output overflow')
         if Decimal.from_float(lo)>self.lo:lo=nextafter(lo,-inf)
         if Decimal.from_float(hi)<self.hi:hi=nextafter(hi,inf)
+        if not isfinite(lo) or not isfinite(hi):raise OverflowError('outward float endpoint overflow')
         return lo,hi
 
 def exact(value):
