@@ -37,6 +37,10 @@ Next bounded cycle is frozen before measurements: preserve the proved boxes but 
 
 Quadratic mesh cycle (mesh_cycle.py, mesh_results.json): h9=.22578459(.304CPU),h17=.23215131(.908CPU),h33=.23427521(3.183CPU). Uniformh33=.23162007(2.788CPU). Concentrating near zero improves this convergence sequence, but h17-to-h33 still moves.002124 and the coarse heldout reference cannot resolve small bias. No out-of-domain query occurred. Next prespecified checks: at quadratich33 separately double target and input rules; compare the same engine against the known H2T4 cone reference at h17/h33; no extra Monte Carlo.
 
+Refinement checks (refine.py t7/t4): at T7 quadratich33, target doubling gives.23430653(6.580CPU), input doubling gives.23417594(3.743CPU). Their changes+.0000313 and-.0000993 are much smaller than the preceding hidden refinement, but remain nonzero. The same unmodified engine on H2T4 gives.30822479 at h17(.556CPU) and.30775292 at h33(1.874CPU), versus the independently validated cone reference.3077307430. Errors decrease from.0004941 to.0000222. The last small error may reflect cancellation between interpolation and quadrature errors, so it is not a convergence certificate.
+
+Next frozen bounded check: T7 quadratich65, keeping target8/input8, to measure the remaining spatial change. This is the only next trained run; retain its cost and result regardless of whether it approaches heldout accuracy.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
