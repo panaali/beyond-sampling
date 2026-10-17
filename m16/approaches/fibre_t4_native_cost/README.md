@@ -20,8 +20,10 @@ only the same original noisy family0/side0 is traced. One thread, 2GB,
 and timeouts. No new model, noise, reference draws or estimator tuning.
 
 ## Status
-Source inventory in progress. T100's first noisy row is complete660786a5 and
-awaits independent final aggregate review; no full native cost exists yet.
+Bounded discriminator complete5141b944; independent raw/control review
+ba401fec passes. T100 complete noisy-row/reference review96522579 also passes.
+Full native estimator cost remains open; continuation is returned to the backlog
+while the DRI-priority Hopf cost audit proceeds.
 
 ## Results
 Read-only source finding: rows_at executes dense Wh@Ag and Wo@Ag but legacy
@@ -31,7 +33,7 @@ counter, although dense NumPy kernels execute them. This is a concrete
 counting difference, not a full-model ratio or failure verdict.
 
 ## Compute accounting
-Inventory only so far. Explicit numerical operations use the same declared
+Bounded measurements below. Explicit numerical operations use the same declared
 scalar elementary-function units as T146, with integer/control separated.
 Cold-only SVD/inverse/rule generation remains explicit and opaque until
 justified; no recursive hardware/libm pricing or cost from wall time.
@@ -114,3 +116,12 @@ all48 components nor closes cold/control/memory scope. All remaining
 component/native setup work requires a separately frozen continuation and
 independent review; seven more noisy models remain deferred. No method is
 ruled out by the discovered counter gap.
+
+### Independent handoff
+T55 review ba401fec independently contracts all controls and trained component
+site totals, confirms output/counter parity, separates4794 diagnostic increments,
+and reconstructs2595 dense rows calls. The reviewer preserved and repaired an
+empty-dict versus empty-list assertion; estimator counters did not change.
+Remaining47 native components and one cold setup require a fresh frozen scope
+and independent gate; no multiplier extrapolation. T100 noisy expansion remains
+blocked on that full cost and uncertainty assessment.
