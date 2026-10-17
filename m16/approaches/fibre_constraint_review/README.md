@@ -53,7 +53,9 @@ rungs must be re-passed before DRI adoption. No blind degree or threshold sweep.
    remaining class constraints and trace work, not just counts removed.
 
 ## Status
-Protocol frozen; implementation not yet run. No result or pass claim.
+Pilot and30-model discriminator completed; two independent source reviewers
+and independent raw-artifact arithmetic review passed. No adopted recipe or
+full benchmark pass claim. Full fixed T95 panel validation is the next phase.
 
 ## Results
 Pending bounded first cycle.
@@ -254,3 +256,31 @@ sensitivity, and DRI recipe adoption remain open. No shared code was changed.
 Impact-based freezing and a rigorously bounded omitted-region method remain
 plausible distinct alternatives; the failed angular/canonical rescues do not
 retire either family.
+
+Independent broader arithmetic review by small_h2_34 recomputes every saved
+ratio and by-H summary from raw estimates/truths/costs, all exact saved matches;
+all30 deferred controls and six changed estimates verified. This independently
+checks reporting, not neural integration or missing costs. T55 separately
+reviews deferred placement and the scale discriminator, agreeing with the
+finite-recipe interpretation while retaining inherited1e-15/1e-12 predicates
+and perturbed crossing-probe caveats.
+
+## Frozen full existing T95 panel validation
+To make the candidate reviewable for DRI, run the complete EXISTING157-model
+panel at each H=4,5,6,T3, in bounded50-model chunks (<=95CPU per chunk). Same
+five originals, six relative-RMS noisy copies for each sigma.0025/.005/.01/.02,
+and64 absolute-sigma.05 copies at RNG namespaces0 and1. The noise base follows
+the ORIGINAL benchmark's fixed zoo best-seed table: H4seed0,H5seed1,H6seed3.
+This is benchmark reproduction, not a new best-base selection. Preserve NumPy
+noise draws per matrix/per model in original zoo.noisy_rel/noisy_abs order.
+
+Run reference, omission and capped variant on every model; deferred equivalence
+and full tracing controls are already independently checked, so no redundant
+replay of those modes. Recompute exact polygon accuracy and compare the pinned
+old artifact for EVERY model before using it; mismatch>1e-10 aborts that row.
+Readout normalization remains off. Same source, thresholds and modes; no tuning
+from this expanded panel. Save each row, count all reference and validation
+work plus repeated imports/chunk setup. Fixed complete raw outputs and every
+failure preserved, no truncation interpreted as a result. Report ratios per
+model and per original noise group but retain incomplete cost qualifications;
+no final ladder adoption without DRI review and portable cost treatment.
