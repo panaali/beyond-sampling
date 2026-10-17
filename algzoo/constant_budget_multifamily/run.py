@@ -66,21 +66,32 @@ def main(H,seed):
  recurrence_error=float(np.max(abs(h-htest[:1024])));agreement=bool(np.array_equal((h@output.T).argmax(1),(htest[:1024]@output.T).argmax(1)))
  if not agreement:raise AssertionError('NumPy recurrence class disagreement')
  out=dict(H=H,T=10,seed=seed,training_sequences=2**30,weights_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),train_seed=72301,test_seed=72302,n_train=12000,n_test=200000,model_accuracy=acc,model_accuracy_ci=wilson(int(correct.sum()),len(test)),numpy_recurrence_max_error=recurrence_error,numpy_recurrence_class_agreement=agreement,rows=[],coefficients={},features={},compute=dict(model_hidden_forward_sequences=212000,independent_numpy_sequences=1024,threads=1))
- result_path=HERE/f'results_H{H}_seed{seed}.json';checkpoint_cpu=0.
+ result_path=HERE/f'results_H{H}_seed{seed}.json';checkpoint_cpu=0.;previous_cpu=0.
+ if result_path.exists():
+  saved=json.loads(result_path.read_text());assert saved['H']==H and saved['seed']==seed and saved['weights_sha256']==out['weights_sha256']
+  previous_cpu=saved['compute']['cpu_seconds'];out=saved
+ out.setdefault('attempts',[]).append(dict(starting_completed_cells=len(out['rows']),prior_recorded_cpu=previous_cpu))
+ out['status']='partial'
  def save():
   nonlocal checkpoint_cpu
-  t=time.process_time();out['compute'].update(cpu_seconds=time.process_time()-start,wall_seconds=time.perf_counter()-wall,checkpoint_cpu=checkpoint_cpu,objective_calls=sum(r['solver']['objective_evals'] for r in out['rows']))
+  t=time.process_time();out['compute'].update(cpu_seconds=previous_cpu+time.process_time()-start,current_attempt_cpu=time.process_time()-start,wall_seconds=time.perf_counter()-wall,checkpoint_cpu=checkpoint_cpu,objective_calls=sum(r['solver']['objective_evals'] for r in out['rows']))
   result_path.write_text(json.dumps(out,indent=2)+'\n');checkpoint_cpu+=time.process_time()-t
  save()
  for family in FAMILIES:
   phi,names=features(train,family);phi_test,_=features(test,family);out['features'][family]=names;last=None
   for K in BUDGETS:
+   key=f'{family}_{K}'
+   if key in out['coefficients']:
+    old_beta=np.asarray(out['coefficients'][key]);last=(np.maximum(phi_test[:,:K]@old_beta,0)@output.T).argmax(1)==truth
+    continue
+   if time.process_time()-start>45:
+    out['attempts'][-1]['bounded_return']=True;save();print('BOUNDED partial',len(out['rows']),flush=True);return
    t=time.process_time();beta,solver=fit(phi[:,:K],htrain);prediction=np.maximum(phi_test[:,:K]@beta,0);error=((prediction-htest)**2).sum(0);r2=np.where(variance>1e-9,1-error/np.maximum(variance,1e-9),(error<1e-6).astype(float));good=(prediction@output.T).argmax(1)==truth;rate=float(good.mean())
    delta=None
    if last is not None:
     d=good.astype(float)-last.astype(float);se=d.std(ddof=1)/np.sqrt(len(d));delta=dict(mean=float(d.mean()),ci=[float(d.mean()-1.96*se),float(d.mean()+1.96*se)])
    row=dict(family=family,budget=K,fitted_scalars=int(beta.size),replacement_accuracy=rate,accuracy_ci=wilson(int(good.sum()),len(test)),gap_recovered=(rate-.1)/(acc-.1),passes_reconstruction_threshold=rate>=.1+.9*(acc-.1),r2=r2.tolist(),n_r2_at_least_0_8=int((r2>=.8).sum()),mean_r2=float(r2.mean()),change_from_previous_budget=delta,solver=solver,fit_score_cpu=time.process_time()-t)
    out['rows'].append(row);out['coefficients'][f'{family}_{K}']=beta.tolist();last=good;save();print(H,seed,family,K,rate,solver['converged'],solver['gradient_inf'],flush=True)
- save();print('CPU',out['compute']['cpu_seconds'],flush=True)
+ out['status']='complete';save();print('CPU',out['compute']['cpu_seconds'],flush=True)
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--H',type=int,required=True);p.add_argument('--seed',type=int,required=True);a=p.parse_args();main(a.H,a.seed)
