@@ -12,7 +12,7 @@ Frozen alternatives before implementation:
 3. Polygon-level cancellation dominates even if individual arcs improve. Preserve existing thin/equator polygons and guard failures; compare an independent positive polygon rule where needed. A fair trained-prefix pilot follows only after controls, with its cases frozen separately.
 
 ## Status
-Protocol frozen; implementation pending. One thread, 2GB, shared locks, <=110CPU per cycle; primitive controls <=20CPU review lane. No sampled model inputs or new Monte Carlo.
+Bounded implementation and tests complete; independent review requested. One thread, 2GB, shared locks, <=110CPU per cycle; primitive controls <=20CPU review lane. No sampled model inputs or new Monte Carlo. This folder exposes a conditional primitive, not a complete `est(model,budget,rng)` accuracy estimator.
 
 ## Results
 Raw controls (`python m16/approaches/real_arc_tail/controls.py`) took4.722CPU:300 arc cases,20 negative real and14 negative Fourier values, with huge relative errors near vanishing integrands. Both variants reject5/36 polygons. Raw benchmark includes redundant construction of the common nine-polygon fixture on each timed call; preserve it, but use a separately reported cached-fixture benchmark for a kernel comparison. No winner selected.
@@ -33,14 +33,24 @@ Normalized oracle repair4.415CPU over332 controls: endpoint formula max represen
 ### Frozen full conditional-kernel pilot
 Use public seed0 H2,T=4/6/8/10 checkpoints, no noisy fitting. For each T use normalized prefix proportional to alternating signs with magnitudes1,...,T−2, and its negative (two fixed directions). Evaluate complete old and endpoint kernels from the same unmodified T55 geometry, preserving all stats, input model loading and prefix setup time. Then repeat each conditional query three times per method for timing; source geometry is rebuilt each time, no cached answer. Record probability and partition differences, fallback counts/error bounds and all opaque special-function counts. Expected alternative: geometry cost dominates and total speed benefit is small even when arc work falls. Any explicit failure is retained; no other prefix is substituted. No new MC, full outer integration or estimator-win claim.
 
+Pilot (`python m16/approaches/real_arc_tail/pilot.py`) takes1.366CPU including.7404 torch import. Eight queries agree within4.17e−17; maximum partition defect2.23e−16; neither variant needs polygon fallback on these eight cases. Summed cold conditional CPU.08879 Fourier vs.06882 endpoint (1.29x); three-repeat totals.25467 vs.20775 (1.23x). Individual millisecond timings and all counters are retained; these are local implementation measurements, not portable operation savings. The retained adversarial polygon controls still require five fallbacks. No improvement in outer accuracy is claimed.
+
+Production choice for this bounded handoff is the endpoint-aware positive formula, because raw/stable recurrences fail positivity and plain incomplete beta underflows prematurely. `recurrence.endpoint` is an isolated copy of T55's moments namespace with only `polygon_moment` replaced; the original geometry, polygon guard and positive quadrature fallback remain unchanged. Source hashes are in results. Canonical shared code was not modified.
+
 ## Compute accounting
 Charge normalization/edge geometry, all arc chains, endpoint trig/powers, polygon recurrence, guards and fallback construction/query work. Report named operation categories and CPU including controls separately. Do not call a partial scalar proxy a portable full FLOP audit. Baseline Fourier term count is vertices*(1+3+...+degree), matching parity only.
+
+Measured cycles: raw4.722CPU, first rescue.938CPU, endpoint.967CPU, normalized-reference repair4.415CPU, trained pilot1.366CPU. Module startup outside each script's internal timer is excluded; torch import is explicitly included in pilot. Named scalar counters omit some indexing, comparisons, allocations and special-function internals; beta, betainc and hyp2f1 calls are reported separately. The first raw benchmark redundantly constructs fixtures; subsequent benchmarks reuse the identical preconstructed fixture. No fixed model-specific advice, random inputs or missing failed numerical sweeps are hidden.
 
 ## Claims
 [inferred] Real recurrence is algebraically identical in exact arithmetic (T55 independent derivative check). [speculative] It may lower existing conditional-kernel cost. No full accuracy, topology certification, sampling win or ladder claim.
 
+[measured] Endpoint-aware positive arcs pass the332 fixed controls up to documented underflow; the eight trained conditional queries preserve prior values and locally lower total CPU. [inferred] Centered positivity eliminates direct arc cancellation in exact arithmetic, but polygon boundary cancellation remains. No method is marked confirmed by its author.
+
 ## Alternatives not ruled out
 Stable endpoint differences, long-double arithmetic, positive fallback, vectorized Fourier and compiled implementations remain open. Outer quadrature and prefix/rank coupling are unchanged.
+
+Exhaustion checklist: raw real chain tested and fails; stable endpoint difference tested and still fails; positive incomplete beta tested and exposes representational endpoint failures; complementary/hypergeometric positive formula tested and passes this panel; normalized independent reference repaired and all variants rechecked. Long double, directed special-function arithmetic, degrees beyond6, vectorized/compiled Fourier and full-estimator reuse are untested. Thus only the tested raw/stable variants are rejected, not real recurrence families in general. Existing polygon geometry and outer-angle errors remain separate open problems.
 
 ## Failure modes
 Cancellation in endpoint subtraction or polygon boundary sums; tiny arcs; under/overflow at extreme scales; rounded geometry and incomplete topology. Passing positivity bounds is not an accuracy certificate. Existing T55 fallback bounds cover integration only.
