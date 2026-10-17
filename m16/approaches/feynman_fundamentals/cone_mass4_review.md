@@ -63,3 +63,13 @@ leaves all corpus values nonnegative, but does not validate every
 remaining source-positive value or certify the whole estimator cost.
 No further theoretical concern with this finite geometry-only rescue
 was found. The original negatives/domain exception remain evidence.
+
+## T123 full frozen quadratic geometry inventory
+
+The independent Fraction checker now verifies the stored dyadic rays for
+all4033 native common-orthant cones and all1826 chosen rational rotations.
+Every rotation has exact c^2+s^2=1 and every transformed cone shares one
+coordinate orthant. The488 uncovered cones remain outside this positive
+representation; the finite rotation list failing to cover them is not an
+impossibility proof. Geometry checks and T122 raw checks together cost
+.2774CPU. Numerical corpus results remain a separate pending review.

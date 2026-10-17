@@ -64,3 +64,31 @@ is not resolved accuracy coverage. The 120 ordered rank pairs comprise
 these counts do not determine the probability carried by those pairs.
 Integrating the conditioned regions is a distinct next experiment.
 The original capped partial panel remains preserved.
+
+## T122 conditioned rank-region mass source and raw audit
+
+Cofactor normals for each parent ray simplex are correctly oriented toward
+the opposite ray. Initial tight sets15 xor(1<<i) are correct: ray i lies
+on the other three facets. The three ordered top/second halfspaces form
+all12 rank chambers up to proper tie boundaries. Exact clip/triangulation
+and parent normalized-determinant partition are appropriate here because
+every parent and child shares one coordinate orthant; its L1 section is
+linear, so the normalized determinant is additive under this partition.
+
+Independent check_rank_mass_rotation_review.py checks all130 saved parent
+cofactors and normalized determinants by permutation determinants and
+verifies their common orthants. It does not independently reclip children
+or rerun integration. Source inspection confirms children are checked
+against rank inequalities and only complete determinant-verified parents
+enter saved totals. Existing correct-event simplices are separately
+checked against rank facets, excluded from uniformly wrong cells and
+matched to uniformly correct masses within stated numerical bounds.
+
+Decimal60 recomputation gives uniform resolved mass.1725884540421260749,
+comprising wrong.12333757610644563 and correct.04925087793568042.
+Unresolved full probability is.8274115459578739251, not just the selected
+mixed mass.2756146497017266; unselected histories remain unresolved too.
+Uniform integration-only bound sums to9.12903705080237e-9. Floating ray,
+determinant and summation errors are outside that bound. These exact
+classification certificates resolve a nontrivial partial measure but do
+not certify a competitive full estimator or negate richer conditioning.
