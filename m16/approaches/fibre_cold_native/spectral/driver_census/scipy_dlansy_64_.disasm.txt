@@ -1,0 +1,474 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000d29600 <scipy_dlansy_64_>:
+  d29600:	48 83 3a 00          	cmpq   $0x0,(%rdx)
+  d29604:	75 0a                	jne    d29610 <scipy_dlansy_64_+0x10>
+  d29606:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d2960a:	66 0f 28 c1          	movapd %xmm1,%xmm0
+  d2960e:	c3                   	ret
+  d2960f:	90                   	nop
+  d29610:	41 57                	push   %r15
+  d29612:	31 c0                	xor    %eax,%eax
+  d29614:	49 89 f7             	mov    %rsi,%r15
+  d29617:	48 8d 35 2e 62 69 00 	lea    0x69622e(%rip),%rsi        # 13bf84c <.annobin___pthread_atfork.end+0x28fc>
+  d2961e:	41 56                	push   %r14
+  d29620:	49 89 fe             	mov    %rdi,%r14
+  d29623:	41 55                	push   %r13
+  d29625:	41 54                	push   %r12
+  d29627:	49 89 d4             	mov    %rdx,%r12
+  d2962a:	ba 01 00 00 00       	mov    $0x1,%edx
+  d2962f:	55                   	push   %rbp
+  d29630:	48 89 cd             	mov    %rcx,%rbp
+  d29633:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d29638:	53                   	push   %rbx
+  d29639:	4c 89 cb             	mov    %r9,%rbx
+  d2963c:	48 83 ec 58          	sub    $0x58,%rsp
+  d29640:	4d 8b 28             	mov    (%r8),%r13
+  d29643:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+  d29648:	4d 85 ed             	test   %r13,%r13
+  d2964b:	f2 0f 11 0c 24       	movsd  %xmm1,(%rsp)
+  d29650:	4c 0f 48 e8          	cmovs  %rax,%r13
+  d29654:	e8 47 cd 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d29659:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+  d2965e:	f2 0f 10 0c 24       	movsd  (%rsp),%xmm1
+  d29663:	48 85 c0             	test   %rax,%rax
+  d29666:	0f 84 ec 00 00 00    	je     d29758 <scipy_dlansy_64_+0x158>
+  d2966c:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d29671:	ba 01 00 00 00       	mov    $0x1,%edx
+  d29676:	48 8d 35 ff 5f 69 00 	lea    0x695fff(%rip),%rsi        # 13bf67c <.annobin___pthread_atfork.end+0x272c>
+  d2967d:	4c 89 ff             	mov    %r15,%rdi
+  d29680:	e8 1b cd 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d29685:	49 8b 0c 24          	mov    (%r12),%rcx
+  d29689:	48 85 c0             	test   %rax,%rax
+  d2968c:	0f 84 4e 02 00 00    	je     d298e0 <scipy_dlansy_64_+0x2e0>
+  d29692:	48 85 c9             	test   %rcx,%rcx
+  d29695:	0f 8e 38 02 00 00    	jle    d298d3 <scipy_dlansy_64_+0x2d3>
+  d2969b:	49 c1 e5 03          	shl    $0x3,%r13
+  d2969f:	48 83 ed 08          	sub    $0x8,%rbp
+  d296a3:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d296a7:	49 89 cf             	mov    %rcx,%r15
+  d296aa:	f3 0f 7e 15 ee 3a 69 	movq   0x693aee(%rip),%xmm2        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+  d296b1:	00 
+  d296b2:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+  d296b8:	4c 8d 74 24 40       	lea    0x40(%rsp),%r14
+  d296bd:	0f 1f 00             	nopl   (%rax)
+  d296c0:	bb 01 00 00 00       	mov    $0x1,%ebx
+  d296c5:	eb 4a                	jmp    d29711 <scipy_dlansy_64_+0x111>
+  d296c7:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d296ce:	00 00 00 00 
+  d296d2:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d296d9:	00 00 00 00 
+  d296dd:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d296e4:	00 00 00 00 
+  d296e8:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d296ef:	00 00 00 00 
+  d296f3:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d296fa:	00 00 00 00 
+  d296fe:	66 90                	xchg   %ax,%ax
+  d29700:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  d29704:	48 83 c3 01          	add    $0x1,%rbx
+  d29708:	4c 39 e3             	cmp    %r12,%rbx
+  d2970b:	0f 8f 9f 01 00 00    	jg     d298b0 <scipy_dlansy_64_+0x2b0>
+  d29711:	f2 0f 10 44 dd 00    	movsd  0x0(%rbp,%rbx,8),%xmm0
+  d29717:	66 0f 54 c2          	andpd  %xmm2,%xmm0
+  d2971b:	66 0f 2f c1          	comisd %xmm1,%xmm0
+  d2971f:	f2 0f 11 44 24 40    	movsd  %xmm0,0x40(%rsp)
+  d29725:	77 d9                	ja     d29700 <scipy_dlansy_64_+0x100>
+  d29727:	4c 89 f7             	mov    %r14,%rdi
+  d2972a:	0f 29 14 24          	movaps %xmm2,(%rsp)
+  d2972e:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d29734:	e8 07 dc 35 ff       	call   87340 <scipy_disnan_64_@plt>
+  d29739:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d2973f:	66 0f 28 14 24       	movapd (%rsp),%xmm2
+  d29744:	48 85 c0             	test   %rax,%rax
+  d29747:	74 bb                	je     d29704 <scipy_dlansy_64_+0x104>
+  d29749:	f2 0f 10 44 24 40    	movsd  0x40(%rsp),%xmm0
+  d2974f:	eb af                	jmp    d29700 <scipy_dlansy_64_+0x100>
+  d29751:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  d29758:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d2975d:	ba 01 00 00 00       	mov    $0x1,%edx
+  d29762:	4c 89 f7             	mov    %r14,%rdi
+  d29765:	4c 89 04 24          	mov    %r8,(%rsp)
+  d29769:	48 8d 35 8d 60 69 00 	lea    0x69608d(%rip),%rsi        # 13bf7fd <.annobin___pthread_atfork.end+0x28ad>
+  d29770:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d29776:	e8 25 cc 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d2977b:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d29781:	4c 8b 04 24          	mov    (%rsp),%r8
+  d29785:	48 85 c0             	test   %rax,%rax
+  d29788:	75 2c                	jne    d297b6 <scipy_dlansy_64_+0x1b6>
+  d2978a:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d2978f:	ba 01 00 00 00       	mov    $0x1,%edx
+  d29794:	4c 89 f7             	mov    %r14,%rdi
+  d29797:	4c 89 04 24          	mov    %r8,(%rsp)
+  d2979b:	48 8d 35 d4 49 69 00 	lea    0x6949d4(%rip),%rsi        # 13be176 <.annobin___pthread_atfork.end+0x1226>
+  d297a2:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d297a8:	e8 f3 cb 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d297ad:	48 85 c0             	test   %rax,%rax
+  d297b0:	0f 84 ae 03 00 00    	je     d29b64 <scipy_dlansy_64_+0x564>
+  d297b6:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d297bb:	ba 01 00 00 00       	mov    $0x1,%edx
+  d297c0:	48 8d 35 b5 5e 69 00 	lea    0x695eb5(%rip),%rsi        # 13bf67c <.annobin___pthread_atfork.end+0x272c>
+  d297c7:	4c 89 ff             	mov    %r15,%rdi
+  d297ca:	e8 d1 cb 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d297cf:	4d 8b 34 24          	mov    (%r12),%r14
+  d297d3:	48 85 c0             	test   %rax,%rax
+  d297d6:	0f 84 dc 01 00 00    	je     d299b8 <scipy_dlansy_64_+0x3b8>
+  d297dc:	4d 85 f6             	test   %r14,%r14
+  d297df:	0f 8e ee 00 00 00    	jle    d298d3 <scipy_dlansy_64_+0x2d3>
+  d297e5:	48 83 ed 08          	sub    $0x8,%rbp
+  d297e9:	4d 8d 46 01          	lea    0x1(%r14),%r8
+  d297ed:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d297f1:	f3 0f 7e 15 a7 39 69 	movq   0x6939a7(%rip),%xmm2        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+  d297f8:	00 
+  d297f9:	4e 8d 14 ed 08 00 00 	lea    0x8(,%r13,8),%r10
+  d29800:	00 
+  d29801:	4e 8d 0c ed 00 00 00 	lea    0x0(,%r13,8),%r9
+  d29808:	00 
+  d29809:	48 89 e9             	mov    %rbp,%rcx
+  d2980c:	bf 01 00 00 00       	mov    $0x1,%edi
+  d29811:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29818:	00 00 00 00 
+  d2981c:	0f 1f 40 00          	nopl   0x0(%rax)
+  d29820:	f2 0f 10 45 08       	movsd  0x8(%rbp),%xmm0
+  d29825:	48 89 fe             	mov    %rdi,%rsi
+  d29828:	4c 01 d5             	add    %r10,%rbp
+  d2982b:	4c 01 c9             	add    %r9,%rcx
+  d2982e:	66 0f 54 c2          	andpd  %xmm2,%xmm0
+  d29832:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+  d29836:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d2983a:	f2 0f 11 44 fb f8    	movsd  %xmm0,-0x8(%rbx,%rdi,8)
+  d29840:	48 83 c7 01          	add    $0x1,%rdi
+  d29844:	49 39 f8             	cmp    %rdi,%r8
+  d29847:	0f 84 c3 02 00 00    	je     d29b10 <scipy_dlansy_64_+0x510>
+  d2984d:	b8 01 00 00 00       	mov    $0x1,%eax
+  d29852:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29859:	00 00 00 00 
+  d2985d:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29864:	00 00 00 00 
+  d29868:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d2986f:	00 00 00 00 
+  d29873:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d2987a:	00 00 00 00 
+  d2987e:	66 90                	xchg   %ax,%ax
+  d29880:	f2 0f 10 04 c1       	movsd  (%rcx,%rax,8),%xmm0
+  d29885:	48 89 c2             	mov    %rax,%rdx
+  d29888:	66 0f 54 c2          	andpd  %xmm2,%xmm0
+  d2988c:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+  d29890:	f2 0f 58 44 c3 f8    	addsd  -0x8(%rbx,%rax,8),%xmm0
+  d29896:	f2 0f 11 44 c3 f8    	movsd  %xmm0,-0x8(%rbx,%rax,8)
+  d2989c:	48 83 c0 01          	add    $0x1,%rax
+  d298a0:	48 39 d6             	cmp    %rdx,%rsi
+  d298a3:	75 db                	jne    d29880 <scipy_dlansy_64_+0x280>
+  d298a5:	e9 76 ff ff ff       	jmp    d29820 <scipy_dlansy_64_+0x220>
+  d298aa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  d298b0:	49 83 c4 01          	add    $0x1,%r12
+  d298b4:	4c 01 ed             	add    %r13,%rbp
+  d298b7:	4d 39 fc             	cmp    %r15,%r12
+  d298ba:	0f 8e 00 fe ff ff    	jle    d296c0 <scipy_dlansy_64_+0xc0>
+  d298c0:	48 83 c4 58          	add    $0x58,%rsp
+  d298c4:	66 0f 28 c1          	movapd %xmm1,%xmm0
+  d298c8:	5b                   	pop    %rbx
+  d298c9:	5d                   	pop    %rbp
+  d298ca:	41 5c                	pop    %r12
+  d298cc:	41 5d                	pop    %r13
+  d298ce:	41 5e                	pop    %r14
+  d298d0:	41 5f                	pop    %r15
+  d298d2:	c3                   	ret
+  d298d3:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d298d7:	eb e7                	jmp    d298c0 <scipy_dlansy_64_+0x2c0>
+  d298d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  d298e0:	48 85 c9             	test   %rcx,%rcx
+  d298e3:	7e ee                	jle    d298d3 <scipy_dlansy_64_+0x2d3>
+  d298e5:	4a 8d 04 ed 00 00 00 	lea    0x0(,%r13,8),%rax
+  d298ec:	00 
+  d298ed:	48 83 ed 08          	sub    $0x8,%rbp
+  d298f1:	4c 89 64 24 18       	mov    %r12,0x18(%rsp)
+  d298f6:	f3 0f 7e 15 a2 38 69 	movq   0x6938a2(%rip),%xmm2        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+  d298fd:	00 
+  d298fe:	48 89 04 24          	mov    %rax,(%rsp)
+  d29902:	48 89 eb             	mov    %rbp,%rbx
+  d29905:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d29909:	4c 8d 7c 24 40       	lea    0x40(%rsp),%r15
+  d2990e:	41 be 01 00 00 00    	mov    $0x1,%r14d
+  d29914:	48 89 cd             	mov    %rcx,%rbp
+  d29917:	49 89 cc             	mov    %rcx,%r12
+  d2991a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  d29920:	4d 39 e6             	cmp    %r12,%r14
+  d29923:	7f 6b                	jg     d29990 <scipy_dlansy_64_+0x390>
+  d29925:	4d 89 f5             	mov    %r14,%r13
+  d29928:	eb 23                	jmp    d2994d <scipy_dlansy_64_+0x34d>
+  d2992a:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29931:	00 00 00 00 
+  d29935:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d2993c:	00 00 00 00 
+  d29940:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  d29944:	49 83 c5 01          	add    $0x1,%r13
+  d29948:	4d 39 e5             	cmp    %r12,%r13
+  d2994b:	7f 43                	jg     d29990 <scipy_dlansy_64_+0x390>
+  d2994d:	f2 42 0f 10 04 eb    	movsd  (%rbx,%r13,8),%xmm0
+  d29953:	66 0f 54 c2          	andpd  %xmm2,%xmm0
+  d29957:	66 0f 2f c1          	comisd %xmm1,%xmm0
+  d2995b:	f2 0f 11 44 24 40    	movsd  %xmm0,0x40(%rsp)
+  d29961:	77 dd                	ja     d29940 <scipy_dlansy_64_+0x340>
+  d29963:	4c 89 ff             	mov    %r15,%rdi
+  d29966:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d2996c:	e8 cf d9 35 ff       	call   87340 <scipy_disnan_64_@plt>
+  d29971:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d29977:	f3 0f 7e 15 21 38 69 	movq   0x693821(%rip),%xmm2        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+  d2997e:	00 
+  d2997f:	48 85 c0             	test   %rax,%rax
+  d29982:	74 c0                	je     d29944 <scipy_dlansy_64_+0x344>
+  d29984:	f2 0f 10 44 24 40    	movsd  0x40(%rsp),%xmm0
+  d2998a:	eb b4                	jmp    d29940 <scipy_dlansy_64_+0x340>
+  d2998c:	0f 1f 40 00          	nopl   0x0(%rax)
+  d29990:	48 8b 04 24          	mov    (%rsp),%rax
+  d29994:	49 83 c6 01          	add    $0x1,%r14
+  d29998:	48 01 c3             	add    %rax,%rbx
+  d2999b:	49 39 ee             	cmp    %rbp,%r14
+  d2999e:	0f 8f 1c ff ff ff    	jg     d298c0 <scipy_dlansy_64_+0x2c0>
+  d299a4:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  d299a9:	4c 8b 20             	mov    (%rax),%r12
+  d299ac:	e9 6f ff ff ff       	jmp    d29920 <scipy_dlansy_64_+0x320>
+  d299b1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  d299b8:	4d 85 f6             	test   %r14,%r14
+  d299bb:	0f 8e 12 ff ff ff    	jle    d298d3 <scipy_dlansy_64_+0x2d3>
+  d299c1:	4a 8d 14 f5 00 00 00 	lea    0x0(,%r14,8),%rdx
+  d299c8:	00 
+  d299c9:	31 f6                	xor    %esi,%esi
+  d299cb:	48 89 df             	mov    %rbx,%rdi
+  d299ce:	48 83 ed 08          	sub    $0x8,%rbp
+  d299d2:	e8 39 a7 35 ff       	call   84110 <memset@plt>
+  d299d7:	48 8d 44 24 40       	lea    0x40(%rsp),%rax
+  d299dc:	4c 89 f7             	mov    %r14,%rdi
+  d299df:	49 89 ef             	mov    %rbp,%r15
+  d299e2:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  d299e7:	4c 89 e1             	mov    %r12,%rcx
+  d299ea:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  d299ee:	4a 8d 14 ed 08 00 00 	lea    0x8(,%r13,8),%rdx
+  d299f5:	00 
+  d299f6:	4a 8d 34 ed 00 00 00 	lea    0x0(,%r13,8),%rsi
+  d299fd:	00 
+  d299fe:	49 89 d6             	mov    %rdx,%r14
+  d29a01:	49 89 ec             	mov    %rbp,%r12
+  d29a04:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+  d29a0a:	f3 0f 7e 15 8e 37 69 	movq   0x69378e(%rip),%xmm2        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+  d29a11:	00 
+  d29a12:	48 89 f5             	mov    %rsi,%rbp
+  d29a15:	48 89 fa             	mov    %rdi,%rdx
+  d29a18:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  d29a1f:	00 
+  d29a20:	f2 41 0f 10 5c 24 08 	movsd  0x8(%r12),%xmm3
+  d29a27:	66 0f 54 da          	andpd  %xmm2,%xmm3
+  d29a2b:	f2 42 0f 58 5c eb f8 	addsd  -0x8(%rbx,%r13,8),%xmm3
+  d29a32:	49 83 c5 01          	add    $0x1,%r13
+  d29a36:	f2 0f 11 5c 24 40    	movsd  %xmm3,0x40(%rsp)
+  d29a3c:	49 39 fd             	cmp    %rdi,%r13
+  d29a3f:	7f 68                	jg     d29aa9 <scipy_dlansy_64_+0x4a9>
+  d29a41:	48 83 c7 01          	add    $0x1,%rdi
+  d29a45:	4c 89 e8             	mov    %r13,%rax
+  d29a48:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29a4f:	00 00 00 00 
+  d29a53:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29a5a:	00 00 00 00 
+  d29a5e:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29a65:	00 00 00 00 
+  d29a69:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29a70:	00 00 00 00 
+  d29a74:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  d29a7b:	00 00 00 00 
+  d29a7f:	90                   	nop
+  d29a80:	f2 41 0f 10 04 c7    	movsd  (%r15,%rax,8),%xmm0
+  d29a86:	66 0f 54 c2          	andpd  %xmm2,%xmm0
+  d29a8a:	f2 0f 58 d8          	addsd  %xmm0,%xmm3
+  d29a8e:	f2 0f 58 44 c3 f8    	addsd  -0x8(%rbx,%rax,8),%xmm0
+  d29a94:	f2 0f 11 44 c3 f8    	movsd  %xmm0,-0x8(%rbx,%rax,8)
+  d29a9a:	48 83 c0 01          	add    $0x1,%rax
+  d29a9e:	48 39 f8             	cmp    %rdi,%rax
+  d29aa1:	75 dd                	jne    d29a80 <scipy_dlansy_64_+0x480>
+  d29aa3:	f2 0f 11 5c 24 40    	movsd  %xmm3,0x40(%rsp)
+  d29aa9:	66 0f 2f d9          	comisd %xmm1,%xmm3
+  d29aad:	76 21                	jbe    d29ad0 <scipy_dlansy_64_+0x4d0>
+  d29aaf:	66 0f 28 cb          	movapd %xmm3,%xmm1
+  d29ab3:	4d 01 f4             	add    %r14,%r12
+  d29ab6:	49 01 ef             	add    %rbp,%r15
+  d29ab9:	49 39 d5             	cmp    %rdx,%r13
+  d29abc:	0f 8f fe fd ff ff    	jg     d298c0 <scipy_dlansy_64_+0x2c0>
+  d29ac2:	48 8b 39             	mov    (%rcx),%rdi
+  d29ac5:	e9 56 ff ff ff       	jmp    d29a20 <scipy_dlansy_64_+0x420>
+  d29aca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  d29ad0:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  d29ad5:	48 89 4c 24 20       	mov    %rcx,0x20(%rsp)
+  d29ada:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+  d29adf:	0f 29 14 24          	movaps %xmm2,(%rsp)
+  d29ae3:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d29ae9:	e8 52 d8 35 ff       	call   87340 <scipy_disnan_64_@plt>
+  d29aee:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d29af4:	66 0f 28 14 24       	movapd (%rsp),%xmm2
+  d29af9:	48 85 c0             	test   %rax,%rax
+  d29afc:	48 8b 54 24 18       	mov    0x18(%rsp),%rdx
+  d29b01:	48 8b 4c 24 20       	mov    0x20(%rsp),%rcx
+  d29b06:	74 ab                	je     d29ab3 <scipy_dlansy_64_+0x4b3>
+  d29b08:	f2 0f 10 5c 24 40    	movsd  0x40(%rsp),%xmm3
+  d29b0e:	eb 9f                	jmp    d29aaf <scipy_dlansy_64_+0x4af>
+  d29b10:	bd 01 00 00 00       	mov    $0x1,%ebp
+  d29b15:	4c 8d 64 24 40       	lea    0x40(%rsp),%r12
+  d29b1a:	eb 15                	jmp    d29b31 <scipy_dlansy_64_+0x531>
+  d29b1c:	0f 1f 40 00          	nopl   0x0(%rax)
+  d29b20:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  d29b24:	48 83 c5 01          	add    $0x1,%rbp
+  d29b28:	4c 39 f5             	cmp    %r14,%rbp
+  d29b2b:	0f 8f 8f fd ff ff    	jg     d298c0 <scipy_dlansy_64_+0x2c0>
+  d29b31:	f2 0f 10 44 eb f8    	movsd  -0x8(%rbx,%rbp,8),%xmm0
+  d29b37:	66 0f 2f c1          	comisd %xmm1,%xmm0
+  d29b3b:	f2 0f 11 44 24 40    	movsd  %xmm0,0x40(%rsp)
+  d29b41:	77 dd                	ja     d29b20 <scipy_dlansy_64_+0x520>
+  d29b43:	4c 89 e7             	mov    %r12,%rdi
+  d29b46:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d29b4c:	e8 ef d7 35 ff       	call   87340 <scipy_disnan_64_@plt>
+  d29b51:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d29b57:	48 85 c0             	test   %rax,%rax
+  d29b5a:	74 c8                	je     d29b24 <scipy_dlansy_64_+0x524>
+  d29b5c:	f2 0f 10 44 24 40    	movsd  0x40(%rsp),%xmm0
+  d29b62:	eb bc                	jmp    d29b20 <scipy_dlansy_64_+0x520>
+  d29b64:	41 80 3e 31          	cmpb   $0x31,(%r14)
+  d29b68:	0f 84 48 fc ff ff    	je     d297b6 <scipy_dlansy_64_+0x1b6>
+  d29b6e:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d29b73:	ba 01 00 00 00       	mov    $0x1,%edx
+  d29b78:	48 8d 35 ee 5b 69 00 	lea    0x695bee(%rip),%rsi        # 13bf76d <.annobin___pthread_atfork.end+0x281d>
+  d29b7f:	4c 89 f7             	mov    %r14,%rdi
+  d29b82:	e8 19 c8 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d29b87:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d29b8d:	4c 8b 04 24          	mov    (%rsp),%r8
+  d29b91:	48 85 c0             	test   %rax,%rax
+  d29b94:	75 37                	jne    d29bcd <scipy_dlansy_64_+0x5cd>
+  d29b96:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d29b9b:	ba 01 00 00 00       	mov    $0x1,%edx
+  d29ba0:	4c 89 f7             	mov    %r14,%rdi
+  d29ba3:	4c 89 04 24          	mov    %r8,(%rsp)
+  d29ba7:	48 8d 35 a2 5e 69 00 	lea    0x695ea2(%rip),%rsi        # 13bfa50 <.annobin___pthread_atfork.end+0x2b00>
+  d29bae:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
+  d29bb4:	e8 e7 c7 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d29bb9:	4c 8b 04 24          	mov    (%rsp),%r8
+  d29bbd:	48 85 c0             	test   %rax,%rax
+  d29bc0:	75 0b                	jne    d29bcd <scipy_dlansy_64_+0x5cd>
+  d29bc2:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
+  d29bc8:	e9 f3 fc ff ff       	jmp    d298c0 <scipy_dlansy_64_+0x2c0>
+  d29bcd:	48 8b 05 1c 38 69 00 	mov    0x69381c(%rip),%rax        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  d29bd4:	48 8d 35 a1 5a 69 00 	lea    0x695aa1(%rip),%rsi        # 13bf67c <.annobin___pthread_atfork.end+0x272c>
+  d29bdb:	b9 01 00 00 00       	mov    $0x1,%ecx
+  d29be0:	4c 89 ff             	mov    %r15,%rdi
+  d29be3:	ba 01 00 00 00       	mov    $0x1,%edx
+  d29be8:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+  d29bed:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
+  d29bf4:	00 00 
+  d29bf6:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+  d29bfb:	e8 a0 c7 35 ff       	call   863a0 <scipy_lsame_64_@plt>
+  d29c00:	49 8b 34 24          	mov    (%r12),%rsi
+  d29c04:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+  d29c09:	48 85 c0             	test   %rax,%rax
+  d29c0c:	0f 84 e5 00 00 00    	je     d29cf7 <scipy_dlansy_64_+0x6f7>
+  d29c12:	48 83 fe 01          	cmp    $0x1,%rsi
+  d29c16:	0f 8e 80 01 00 00    	jle    d29d9c <scipy_dlansy_64_+0x79c>
+  d29c1c:	48 8d 4c 24 38       	lea    0x38(%rsp),%rcx
+  d29c21:	4c 89 44 24 28       	mov    %r8,0x28(%rsp)
+  d29c26:	4e 8d 7c ed 00       	lea    0x0(%rbp,%r13,8),%r15
+  d29c2b:	41 be 02 00 00 00    	mov    $0x2,%r14d
+  d29c31:	48 8d 05 d0 8a 6a 00 	lea    0x6a8ad0(%rip),%rax        # 13d2708 <ipivot.2+0x108>
+  d29c38:	48 89 0c 24          	mov    %rcx,(%rsp)
+  d29c3c:	48 8d 7c 24 40       	lea    0x40(%rsp),%rdi
+  d29c41:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  d29c46:	4a 8d 1c ed 00 00 00 	lea    0x0(,%r13,8),%rbx
+  d29c4d:	00 
+  d29c4e:	4c 8d 6c 24 48       	lea    0x48(%rsp),%r13
+  d29c53:	4c 89 64 24 18       	mov    %r12,0x18(%rsp)
+  d29c58:	4d 89 fc             	mov    %r15,%r12
+  d29c5b:	4d 89 f7             	mov    %r14,%r15
+  d29c5e:	4d 89 ee             	mov    %r13,%r14
+  d29c61:	48 89 6c 24 20       	mov    %rbp,0x20(%rsp)
+  d29c66:	49 89 fd             	mov    %rdi,%r13
+  d29c69:	48 89 f5             	mov    %rsi,%rbp
+  d29c6c:	0f 1f 40 00          	nopl   0x0(%rax)
+  d29c70:	49 8d 57 ff          	lea    -0x1(%r15),%rdx
+  d29c74:	48 8b 0c 24          	mov    (%rsp),%rcx
+  d29c78:	4c 89 e6             	mov    %r12,%rsi
+  d29c7b:	4d 89 e8             	mov    %r13,%r8
+  d29c7e:	48 89 54 24 48       	mov    %rdx,0x48(%rsp)
+  d29c83:	48 8b 54 24 10       	mov    0x10(%rsp),%rdx
+  d29c88:	4c 89 f7             	mov    %r14,%rdi
+  d29c8b:	49 01 dc             	add    %rbx,%r12
+  d29c8e:	49 83 c7 01          	add    $0x1,%r15
+  d29c92:	e8 39 bb 35 ff       	call   857d0 <scipy_dlassq_64_@plt>
+  d29c97:	49 39 ef             	cmp    %rbp,%r15
+  d29c9a:	7e d4                	jle    d29c70 <scipy_dlansy_64_+0x670>
+  d29c9c:	4c 8b 64 24 18       	mov    0x18(%rsp),%r12
+  d29ca1:	48 8b 6c 24 20       	mov    0x20(%rsp),%rbp
+  d29ca6:	4c 89 ef             	mov    %r13,%rdi
+  d29ca9:	4d 89 f5             	mov    %r14,%r13
+  d29cac:	4c 8b 44 24 28       	mov    0x28(%rsp),%r8
+  d29cb1:	48 8b 0c 24          	mov    (%rsp),%rcx
+  d29cb5:	f2 0f 10 44 24 40    	movsd  0x40(%rsp),%xmm0
+  d29cbb:	49 8b 00             	mov    (%r8),%rax
+  d29cbe:	4c 89 ea             	mov    %r13,%rdx
+  d29cc1:	49 89 f8             	mov    %rdi,%r8
+  d29cc4:	48 89 ee             	mov    %rbp,%rsi
+  d29cc7:	4c 89 e7             	mov    %r12,%rdi
+  d29cca:	f2 0f 58 c0          	addsd  %xmm0,%xmm0
+  d29cce:	48 83 c0 01          	add    $0x1,%rax
+  d29cd2:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+  d29cd7:	f2 0f 11 44 24 40    	movsd  %xmm0,0x40(%rsp)
+  d29cdd:	e8 ee ba 35 ff       	call   857d0 <scipy_dlassq_64_@plt>
+  d29ce2:	f2 0f 10 4c 24 40    	movsd  0x40(%rsp),%xmm1
+  d29ce8:	f2 0f 51 c9          	sqrtsd %xmm1,%xmm1
+  d29cec:	f2 0f 59 4c 24 38    	mulsd  0x38(%rsp),%xmm1
+  d29cf2:	e9 c9 fb ff ff       	jmp    d298c0 <scipy_dlansy_64_+0x2c0>
+  d29cf7:	48 83 fe 01          	cmp    $0x1,%rsi
+  d29cfb:	0f 8e 9b 00 00 00    	jle    d29d9c <scipy_dlansy_64_+0x79c>
+  d29d01:	48 8d 15 00 8a 6a 00 	lea    0x6a8a00(%rip),%rdx        # 13d2708 <ipivot.2+0x108>
+  d29d08:	4c 8d 7d 08          	lea    0x8(%rbp),%r15
+  d29d0c:	48 89 6c 24 20       	mov    %rbp,0x20(%rsp)
+  d29d11:	48 89 f0             	mov    %rsi,%rax
+  d29d14:	48 89 54 24 10       	mov    %rdx,0x10(%rsp)
+  d29d19:	48 8d 7c 24 40       	lea    0x40(%rsp),%rdi
+  d29d1e:	4c 89 e2             	mov    %r12,%rdx
+  d29d21:	48 8d 4c 24 38       	lea    0x38(%rsp),%rcx
+  d29d26:	4d 89 fc             	mov    %r15,%r12
+  d29d29:	4c 89 44 24 28       	mov    %r8,0x28(%rsp)
+  d29d2e:	bb 01 00 00 00       	mov    $0x1,%ebx
+  d29d33:	48 89 f5             	mov    %rsi,%rbp
+  d29d36:	4e 8d 34 ed 08 00 00 	lea    0x8(,%r13,8),%r14
+  d29d3d:	00 
+  d29d3e:	48 89 0c 24          	mov    %rcx,(%rsp)
+  d29d42:	4c 8d 6c 24 48       	lea    0x48(%rsp),%r13
+  d29d47:	49 89 d7             	mov    %rdx,%r15
+  d29d4a:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+  d29d4f:	eb 03                	jmp    d29d54 <scipy_dlansy_64_+0x754>
+  d29d51:	49 8b 07             	mov    (%r15),%rax
+  d29d54:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  d29d59:	48 8b 0c 24          	mov    (%rsp),%rcx
+  d29d5d:	48 29 d8             	sub    %rbx,%rax
+  d29d60:	4c 89 e6             	mov    %r12,%rsi
+  d29d63:	48 8b 54 24 10       	mov    0x10(%rsp),%rdx
+  d29d68:	4c 89 ef             	mov    %r13,%rdi
+  d29d6b:	48 83 c3 01          	add    $0x1,%rbx
+  d29d6f:	4d 01 f4             	add    %r14,%r12
+  d29d72:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+  d29d77:	e8 54 ba 35 ff       	call   857d0 <scipy_dlassq_64_@plt>
+  d29d7c:	48 39 eb             	cmp    %rbp,%rbx
+  d29d7f:	75 d0                	jne    d29d51 <scipy_dlansy_64_+0x751>
+  d29d81:	48 8b 6c 24 20       	mov    0x20(%rsp),%rbp
+  d29d86:	4c 8b 44 24 28       	mov    0x28(%rsp),%r8
+  d29d8b:	4d 89 fc             	mov    %r15,%r12
+  d29d8e:	48 8b 0c 24          	mov    (%rsp),%rcx
+  d29d92:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  d29d97:	e9 19 ff ff ff       	jmp    d29cb5 <scipy_dlansy_64_+0x6b5>
+  d29d9c:	48 8d 7c 24 40       	lea    0x40(%rsp),%rdi
+  d29da1:	48 8d 4c 24 38       	lea    0x38(%rsp),%rcx
+  d29da6:	4c 8d 6c 24 48       	lea    0x48(%rsp),%r13
+  d29dab:	e9 05 ff ff ff       	jmp    d29cb5 <scipy_dlansy_64_+0x6b5>
+  d29db0:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  d29db7:	00 00 00 
+  d29dba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
