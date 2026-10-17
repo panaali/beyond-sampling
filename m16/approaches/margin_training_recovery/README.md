@@ -27,3 +27,10 @@ First phase is read-only source/data inventory and finite raw arithmetic only. a
 
 ## Failure modes
 Repeating completed panels; replacing E43/T115 source snapshots silently; treating mean truth as mean p(1−p); inventing missing per-copy counters; skippingk29; claiming a full certificate from empirically accurate recipes after T108's bounded soundness finding; or reporting inherited operation counts as hardware/full implementation costs.
+
+## Frozen missing-k30 continuation
+Published TASKS-only scope 4b6e3a4d. `continuation.py pilot` checks all five clean checkpoints, the first copy of each noise seed 20–23 for completed seed0, and the first four copies for each missing training seed1–4. Every pilot truth uses the independently reviewed T114 ordered-chart reference; original zero/identical-readout reference limitations do not disappear through source agreement. Seed0 recipe errors and clean native counters must reproduce saved rows. Checkpoint, dependency and model hashes are retained. The original absolute sigma .05 and per-matrix draw order are unchanged.
+
+Only after these provenance checks pass, `continuation.py <seed> <noise_seed>` fills missing k30 seed1–4 p20 shards (256 copies each), reusing pilot evaluations. No completed seed0 panel is repeated. Noisy estimates and individual inherited native counters are saved; truths outside the pilot are the original T101 values. No input Monte Carlo or training occurs. The full frozen continuation has four missing seeds ×1024 copies×two recipes, with 64 noisy pilot pairs reused, plus 5 clean and 4 noisy seed0 control pairs. This is a recovered partial rung, not a full training-ladder or common-cost pass; k29 and new p100 remain uncomputed. Numerator cost closure is a separate T113 successor owned by recover_910.
+
+Reproduce each phase with one thread, 2GB and primary compute lock, <=110 CPU seconds per process. Pilot and shard files are never overwritten; interruption requires a separately documented resume preserving prior cost/evidence. `audit.py` reproduces the saved-data recovery without model evaluations.
