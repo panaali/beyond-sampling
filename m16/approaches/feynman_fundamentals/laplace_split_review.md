@@ -1,0 +1,11 @@
+# Independent Laplace near/tail source review
+
+T55 read-only review of T20 c351d2b, 2026-10-17. No additional model sweep.
+
+After dividing the face and its displacement limits by rho, the old direction has entries +1/2 and -1/2 and norm 1/sqrt(2). The unit-direction walker therefore uses t=k/sqrt(2). Its density A(1+t^2)^(-5), with A=sqrt(2)*C_RAD, includes the Jacobian. The near interval uses upper min(hi,k0)/sqrt(2) and lower lo/sqrt(2); rows with upper at most lower contribute zero. The adapter's nonnegative upper clamp cannot add a band when lo is nonnegative. Both tail sides start at max(lo,k0) and use the same transformed density. No probability normalization is appropriate for the full radial line mass 2sqrt(pi).
+
+Tail input nodes retain the legacy inverse-table coordinates, with complete model forwards charged. Their mass is evaluated by the corrected radial interval helper. A single deterministic tail indicator lies between zero and its full nonnegative mass, regardless of its quadrature quality. Consequently, summing positive face weights gives the displayed conditional interval around the completed near contribution. The blind term is held at its selected outer estimate. This interval concerns exact tail indicators on the fixed faces: face and blind outer error, floating walker predicates, beta/midpoint rounding and table precision are outside it. It is not a certified interval for true network accuracy. Its width near 0.57 is evidence of a weak tail allowance, not a discovered 57 percent error.
+
+For zero readout, first-index ownership makes target zero always correct and every other target wrong. The independent fixed-face positive integral must therefore include the near wrong mass as well as tail/blind terms. Saved independent accuracy 0.1244383229737977 differs from native by 2.45e-14; deleting the independently computed near wrong mass 0.3423693154792967 predicts legacy 0.4668076384530944 to 1.11e-16. This supports the stated legacy near tie defect, while the remaining difference from true accuracy 0.1 is retained outer error.
+
+Source hashes, cold setup, full tail forwards and opaque-kernel qualifications are explicit. This review accepts parameterization and scoped interpretation; it neither independently reruns the complete model panel nor certifies the numerical proxy as a portable operation upper bound.
