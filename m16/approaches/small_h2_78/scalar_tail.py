@@ -8,6 +8,7 @@ from functools import lru_cache
 import numpy as np
 from scipy.special import ndtr
 from prefix import cdf_probability
+from envelope import envelope
 
 
 @lru_cache(maxsize=None)
@@ -35,11 +36,28 @@ def interior(lo,hi):
     return lo+(hi-lo)/2
 
 
-def output_intervals(model,hidden,lower=-np.inf,upper=np.inf):
+@lru_cache(maxsize=32)
+def readout_boundaries(key):
+    output=np.asarray(key,dtype=float).reshape(-1,2)
+    topology=envelope(output)
+    winners=[c['winner'] for c in topology['cells']]
+    pairs=tuple(sorted({(a,b) for a,b in zip(winners,winners[1:]) if a!=b}))
+    return pairs,topology
+
+
+def output_intervals(model,hidden,lower=-np.inf,upper=np.inf,use_envelope=True):
     wi,wh,wo=(np.asarray(w,dtype=float) for w in model)
     wi=wi.reshape(-1);offset=wh@hidden;T=len(wo)
     stats={'gate_cells':0,'logit_pair_roots':0,'readout_cells':0,
            'last_step_matrix_products':1,'scalar_gate_products':0}
+    if use_envelope and len(wi)==2:
+        before=readout_boundaries.cache_info().misses
+        pairs,topology=readout_boundaries(tuple(wo.ravel()))
+        stats['envelope_builds']=readout_boundaries.cache_info().misses-before
+        stats['rational_arithmetic_operations']=stats['envelope_builds']*topology['rational_arithmetic_operations']
+        stats['rational_comparisons']=stats['envelope_builds']*topology['rational_comparisons']
+    else:
+        pairs=tuple((i,j) for i in range(T) for j in range(i))
     roots=[-offset[i]/wi[i] for i in range(len(wi)) if wi[i]!=0]
     cuts=sorted({lower,upper,*[r for r in roots if lower<r<upper]})
     result=[]
@@ -48,12 +66,11 @@ def output_intervals(model,hidden,lower=-np.inf,upper=np.inf):
         alpha=wo@(offset*active);beta=wo@(wi*active)
         stats['gate_cells']+=1;stats['scalar_gate_products']+=len(wi)
         splits={a,b}
-        for i in range(T):
-            for j in range(i):
-                d=beta[i]-beta[j]
-                if d!=0:
-                    r=(alpha[j]-alpha[i])/d
-                    if a<r<b:splits.add(r);stats['logit_pair_roots']+=1
+        for i,j in pairs:
+            d=beta[i]-beta[j]
+            if d!=0:
+                r=(alpha[j]-alpha[i])/d
+                if a<r<b:splits.add(r);stats['logit_pair_roots']+=1
         splits=sorted(splits)
         for c,d in zip(splits,splits[1:]):
             # First-index argmax handles positive-volume duplicate logits/dead states.
@@ -73,6 +90,8 @@ def conditional_tail(model,m,known_suffix):
     """
     wi,wh,wo=(np.asarray(w,dtype=float) for w in model);wi=wi.reshape(-1)
     known=np.asarray(known_suffix,dtype=float)
+    if len(set(known))!=len(known):
+        raise ValueError('fixed suffix ties are outside the continuous-input conditioning convention')
     T=len(wo)
     if T!=m+2+len(known)+1:raise ValueError('inconsistent total sequence length')
     if len(known) and (known[0]<=0 or np.any((known[:-1]<0)&(known[1:]<0))):

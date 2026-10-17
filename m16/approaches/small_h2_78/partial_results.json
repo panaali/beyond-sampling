@@ -14,34 +14,42 @@
         },
         {
           "suffix_length": 2,
-          "contribution": 0.029721540682953206,
+          "contribution": 0.029721540682953212,
           "outer_dimension": 1,
-          "outer_order": 8,
+          "outer_orders": [
+            8
+          ],
           "known_sign_patterns": 1
         },
         {
           "suffix_length": 3,
-          "contribution": 0.02094122009046471,
+          "contribution": 0.020671337702709965,
           "outer_dimension": 2,
-          "outer_order": 8,
+          "outer_orders": [
+            8,
+            10
+          ],
           "known_sign_patterns": 2
         }
       ],
-      "partial_correct_mass": 0.1281599705948465,
+      "partial_correct_mass": 0.12789008820709175,
       "resolved_event_mass": "19/32",
       "unresolved_event_mass": "13/32",
       "no_reset_mass": "55/256",
       "interval_ignoring_outer_quadrature_error": [
-        0.1281599705948465,
-        0.5344099705948465
+        0.12789008820709175,
+        0.5341400882070917
       ],
       "stats": {
-        "conditional_tail_calls": 136,
-        "prefix_recurrent_steps": 264,
-        "gate_cells": 296,
-        "readout_cells": 1682,
-        "polynomial_probability_calls": 4694,
-        "logit_pair_roots": 1795
+        "conditional_tail_calls": 168,
+        "prefix_recurrent_steps": 328,
+        "gate_cells": 364,
+        "readout_cells": 504,
+        "polynomial_probability_calls": 2481,
+        "logit_pair_roots": 142,
+        "envelope_builds": 1,
+        "rational_arithmetic_operations": 1069,
+        "rational_comparisons": 441
       },
       "classification": "analytic scalar elimination plus approximate outer quadrature",
       "order": 8
@@ -60,34 +68,42 @@
         },
         {
           "suffix_length": 2,
-          "contribution": 0.029719343881335278,
+          "contribution": 0.02971934388133528,
           "outer_dimension": 1,
-          "outer_order": 16,
+          "outer_orders": [
+            16
+          ],
           "known_sign_patterns": 1
         },
         {
           "suffix_length": 3,
-          "contribution": 0.020792690613335902,
+          "contribution": 0.020708933305083586,
           "outer_dimension": 2,
-          "outer_order": 16,
+          "outer_orders": [
+            16,
+            18
+          ],
           "known_sign_patterns": 2
         }
       ],
-      "partial_correct_mass": 0.12800924431609975,
+      "partial_correct_mass": 0.12792548700784745,
       "resolved_event_mass": "19/32",
       "unresolved_event_mass": "13/32",
       "no_reset_mass": "55/256",
       "interval_ignoring_outer_quadrature_error": [
-        0.12800924431609975,
-        0.5342592443160997
+        0.12792548700784745,
+        0.5341754870078474
       ],
       "stats": {
-        "conditional_tail_calls": 528,
-        "prefix_recurrent_steps": 1040,
-        "gate_cells": 1140,
-        "readout_cells": 6333,
-        "polynomial_probability_calls": 17794,
-        "logit_pair_roots": 6474
+        "conditional_tail_calls": 592,
+        "prefix_recurrent_steps": 1168,
+        "gate_cells": 1276,
+        "readout_cells": 1768,
+        "polynomial_probability_calls": 8583,
+        "logit_pair_roots": 509,
+        "envelope_builds": 0,
+        "rational_arithmetic_operations": 0,
+        "rational_comparisons": 0
       },
       "classification": "analytic scalar elimination plus approximate outer quadrature",
       "order": 16
@@ -108,32 +124,40 @@
           "suffix_length": 2,
           "contribution": 0.0297188456023262,
           "outer_dimension": 1,
-          "outer_order": 32,
+          "outer_orders": [
+            32
+          ],
           "known_sign_patterns": 1
         },
         {
           "suffix_length": 3,
-          "contribution": 0.020750601742923924,
+          "contribution": 0.020710037868583567,
           "outer_dimension": 2,
-          "outer_order": 32,
+          "outer_orders": [
+            32,
+            34
+          ],
           "known_sign_patterns": 2
         }
       ],
-      "partial_correct_mass": 0.1279666571666787,
+      "partial_correct_mass": 0.12792609329233834,
       "resolved_event_mass": "19/32",
       "unresolved_event_mass": "13/32",
       "no_reset_mass": "55/256",
       "interval_ignoring_outer_quadrature_error": [
-        0.1279666571666787,
-        0.5342166571666787
+        0.12792609329233834,
+        0.5341760932923383
       ],
       "stats": {
-        "conditional_tail_calls": 2080,
-        "prefix_recurrent_steps": 4128,
-        "gate_cells": 4472,
-        "readout_cells": 24728,
-        "polynomial_probability_calls": 69247,
-        "logit_pair_roots": 25479
+        "conditional_tail_calls": 2208,
+        "prefix_recurrent_steps": 4384,
+        "gate_cells": 4750,
+        "readout_cells": 6572,
+        "polynomial_probability_calls": 31865,
+        "logit_pair_roots": 1885,
+        "envelope_builds": 0,
+        "rational_arithmetic_operations": 0,
+        "rational_comparisons": 0
       },
       "classification": "analytic scalar elimination plus approximate outer quadrature",
       "order": 32
@@ -163,16 +187,16 @@
     },
     {
       "suffix_length": 3,
-      "predicted": 0.020750601742923924,
+      "predicted": 0.020710037868583567,
       "mc": 0.0206451416015625,
       "se": 0.0005554423743547572,
-      "z": -0.18986693531247864
+      "z": -0.11683708340843647
     }
   ],
   "compute": {
-    "cpu_seconds": 1.7760793949999998,
+    "cpu_seconds": 1.260384596,
     "validation_full_inputs": 65536,
     "analytic_random_inputs": 0,
-    "total_conditional_tail_calls": 2744
+    "total_conditional_tail_calls": 2968
   }
 }
