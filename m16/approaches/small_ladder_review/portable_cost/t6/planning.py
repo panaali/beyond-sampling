@@ -5,6 +5,7 @@ import numpy as np
 from ..accounting import Audit
 from .geometry import determinant
 from .jacobi import outer_rule
+from .projection import project
 HERE=Path(__file__).resolve().parent
 ORDERS=(4,6,8,10,12,16,20,24,28,32)
 
@@ -34,11 +35,13 @@ def main():
  start=time.process_time();geo=json.loads((HERE/'geometry_results.json').read_text());cache=HERE/'independent_correct_rays.npz'
  assert geo['complete'] and 'error_type' not in geo
  assert hashlib.sha256(cache.read_bytes()).hexdigest()==geo['ray_cache_sha256']
- rays=np.load(cache)['rays'];norm_error=float(np.max(abs(np.sum(abs(rays),axis=1)-1)))
+ original=np.load(cache)['rays'];projection_audit=Audit();rays,projection_bounds,projection_stats=project(original,projection_audit)
+ np.savez_compressed(HERE/'projected_correct_rays.npz',rays=rays,projection_bounds=projection_bounds)
+ norm_error=float(np.max(abs(np.sum(abs(rays),axis=1)-1)))
  mixed=int(np.sum(np.any((rays.min(axis=2)<0)&(rays.max(axis=2)>0),axis=1)))
  assert norm_error<1e-12 and mixed==0,(norm_error,mixed)
  radial_audit=Audit();facts=[radial_data(r,radial_audit) for r in rays]
- out=dict(source_geometry_sha256=geo['ray_cache_sha256'],correct_simplices=len(rays),ray_l1_error=norm_error,mixed_orthant_cones=mixed,radial_cost=radial_audit.report(),plans=[],mass_evaluations=0)
+ out=dict(source_geometry_sha256=geo['ray_cache_sha256'],projected_cache_sha256=hashlib.sha256((HERE/'projected_correct_rays.npz').read_bytes()).hexdigest(),projection=projection_stats,projection_cost=projection_audit.report(),correct_simplices=len(rays),collapsed_projected_cones=sum(x[0]==0 for x in facts),ray_l1_error=norm_error,mixed_orthant_cones=mixed,radial_cost=radial_audit.report(),plans=[],mass_evaluations=0)
  for target in (1e-5,1e-6,1e-7):
   a=copy.deepcopy(radial_audit);chosen=[];bounds=[];per=target/len(rays);unresolved=0
   for data in facts:
@@ -52,7 +55,7 @@ def main():
   for n in ORDERS:
    if n in chosen:outer_rule(n,a)
   histogram={str(n):chosen.count(n) for n in ORDERS if n in chosen}
-  row=dict(target=target,bound_sum=float(sum(bounds)),unresolved=unresolved,orders=histogram,planned_triangles=sum(n**3 for n in chosen),planning_and_rule_setup_cost=a.report(),full_geometry_plus_planning_ops=geo['production_cost']['known_arithmetic_upper_bound']+a.known)
+  row=dict(target=target,bound_sum=float(sum(bounds)),bound_including_projection=float(sum(bounds)+projection_stats['mass_shift_bound']),unresolved=unresolved,orders=histogram,planned_triangles=sum(n**3 for n in chosen),planning_and_rule_setup_cost=a.report(),full_geometry_plus_planning_ops=geo['production_cost']['known_arithmetic_upper_bound']+projection_audit.known+a.known)
   out['plans'].append(row)
   np.savez_compressed(HERE/f'plan_{target}.npz',orders=np.array(chosen),bounds=np.array(bounds))
   out['cpu_seconds']=time.process_time()-start;(HERE/'planning_results.json').write_text(json.dumps(out,indent=2)+'\n')
