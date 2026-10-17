@@ -114,6 +114,6 @@ writes; six cold objects total .00570CPU geometry,36 primary/swapped queries
 agree within5.56e-16 with all probability guards satisfied. Every value,
 conditional rank mass, numerical error estimate, joint-prefix consistency
 flag and object counter is stored in pilot.json. These are extension-operator
-controls, not an accuracy estimate or wall-time scaling claim. Only12 of the
+controls, not an accuracy estimate or wall-time scaling claim. Only6 of the
 18 crossed(h,u,j) cases use the actual target value of the defining prefix.
 No full outer/spatial estimator has been run or declared competitive.
