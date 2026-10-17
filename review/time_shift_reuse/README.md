@@ -13,7 +13,7 @@ masked/ReLU controls, adjacent-segment composition and shifted coordinates.
 No trained capture or geometry/mass enumeration in this phase.
 
 ## Status
-Initial synthetic phase complete at484b9599; independent saved audit delegated to recover_56 by published TASKS-onlya98dcd8b. No trained census executed.
+Initial synthetic phase complete at484b9599 and independently verified0132cd8f (checker22daa2a8),1.394151262reviewCPU. Next saved-only prefix-shared cost census claimed79c49477, sourcef601aeb1, execution gate pending. No trained census executed.
 
 ## Results
 All420 fixed words pass:5220 masked and5220 direct ReLU checks,10440 shifted-coordinate checks and720 adjacent compositions. Both incoming-domain/truth counterexamples pass. The31 coefficient-zero ON words are sufficient infeasibility flags, not a complete feasibility census;165 compatible fixed points are not probability coverage. PROOF.md separates algebraic reuse from geometry, remaining depth, readout, truth rank and integration obligations.
@@ -27,7 +27,7 @@ not free and remain separately recorded or unpriced. No Monte Carlo inputs,
 trained model calls, quadrature or speed/cost advantage inferred.
 
 ## Claims
-[inferred, independent source/theory checks pass; saved audit pending] Fixed gate-word templates are invariant
+[inferred, independent source/theory and saved checks pass] Fixed gate-word templates are invariant
 under time-coordinate insertion for identical recurrent weights.
 [speculative] Their reuse may reduce a meaningful portion of estimator cost.
 
