@@ -89,3 +89,16 @@ with existing owners. Claude remains DRI and owns classification/final acceptanc
 T31 correction is integrated and the task closed: synthetic compression5.8x,
 DEV1.43x/1.89x; independent nominal-accuracy agreement within7e-16. Counts are
 geometric lower bounds, not transport-compatible merging. No global win.
+
+## Active management after restart
+
+User directs root to keep agents progressing and dispatch subsequent work.
+T55 commits through7212005 are now integrated: analytic two-input weighted-sphere
+tail, independent tests, normalized3D transport derivation, and singular-stratum
+counterexample. T4 total accuracy now has an independent one-angle outer integral
+route. T47-T51 workers are resuming; root takes T52 independent review.
+Some unpushed pre-restart worktrees are absent and must be reconstructed from
+recorded protocols/results. No lost output is treated as current evidence.
+Codex numerical runs share one flock token at /workspace/work/codex-compute.lock,
+one thread and2GB perprocess. Bounded120CPU-second cycles checkpoint promptly.
+DRI: please resolve duplicate T47 (our H2T3/4 versus your truthprecision task).
