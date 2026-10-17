@@ -1,5 +1,6 @@
 """Bounded exact-rational topology reference; floating mass explicitly separate."""
 from fractions import Fraction
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -32,15 +33,20 @@ def serialize_simplex(item):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--hidden', type=int, choices=(2, 4), default=2)
+    args = parser.parse_args()
+    H = args.hidden
+    tag = 't4' if H == 2 else 'h4_t4'
     started = time.process_time()
     import torch
-    checkpoint = ROOT/'work/checkpoints/H2_T4_seed0.pth'
+    checkpoint = ROOT/f'work/checkpoints/H{H}_T4_seed0.pth'
     state = torch.load(checkpoint, weights_only=True, map_location='cpu')
     arrays = tuple(state[k].numpy().astype(float) for k in ('rnn.weight_ih_l0', 'rnn.weight_hh_l0', 'linear.weight'))
     arrays = (arrays[0].ravel(), arrays[1], arrays[2])
     model = dyadic_model(arrays)
     exact = Exact(seconds=max(1., 110-(time.process_time()-started)))
-    output = dict(complete=False, model_forward_inputs=0,
+    output = dict(complete=False, H=H, T=4, model_forward_inputs=0,
         checkpoint_sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
         classification='exact rational topology; floating Gaussian-mass integration remains numerical')
     def save():
@@ -48,7 +54,7 @@ def main():
         output['observed_bit_maxima'] = dict(exact.bits)
         output['cpu_seconds'] = time.process_time()-started
         output['max_rss_kib'] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        (HERE/'results_t4.json').write_text(json.dumps(output, indent=2)+'\n')
+        (HERE/f'results_{tag}.json').write_text(json.dumps(output, indent=2)+'\n')
     try:
         clock = time.process_time()
         cells, stage_counts = exact.gates(model)
@@ -80,7 +86,7 @@ def main():
         output['correct_simplices'] = len(correct_simplices)
         output['exact_gate_determinant_sum'] = str(gate_det)
         output['correct_determinant_sum_float'] = float(correct_det)
-        output['exact_correct_determinant_sum'] = [str(correct_det.numerator), str(correct_det.denominator)]
+        output['exact_correct_determinant_sum_hex'] = [hex(correct_det.numerator), hex(correct_det.denominator)]
         if gate_det != 16:
             raise ArithmeticError(f'exact gate partition determinant sum {gate_det}')
         save()
@@ -116,11 +122,12 @@ def main():
             exact_tight_sets_equal_after_numerical_ray_matching=comparable and not ray_count_mismatches and not incidence_mismatches,
             comparison_note='Matching only compares independent outputs; no floating decisions enter exact geometry',
             max_l1_ray_coordinate_difference=max_ray_difference, max_gate_map_difference=max_map_difference,
-            stored_reference_correct_simplices=258, matches_stored_simplex_count=len(correct_simplices)==258)
+            stored_reference_correct_simplices=258 if H == 2 else 5040,
+            matches_stored_simplex_count=len(correct_simplices)==(258 if H == 2 else 5040))
         # Equal nonzero readout rows must behave exactly like the zero readout.
         # Build the two outcome decompositions separately and compare integer cones.
-        zero = (model[0], model[1], [[Fraction(0)]*2 for _ in range(4)])
-        equal = (model[0], model[1], [[Fraction(1), Fraction(2)] for _ in range(4)])
+        zero = (model[0], model[1], [[Fraction(0)]*H for _ in range(4)])
+        equal = (model[0], model[1], [[Fraction(i+1) for i in range(H)] for _ in range(4)])
         control_simplices = []
         clock = time.process_time()
         for cone, A in cells:
@@ -141,8 +148,8 @@ def main():
                    [[[str(x.numerator), str(x.denominator)] for x in row] for row in model[2]]],
             gate_simplices=[serialize_simplex(s) for s in gate_simplices],
             correct_simplices=[serialize_simplex(s) for s in correct_simplices])
-        (HERE/'geometry_t4.json').write_text(json.dumps(artifact, separators=(',', ':'))+'\n')
-        output['integer_artifact_bytes'] = (HERE/'geometry_t4.json').stat().st_size
+        (HERE/f'geometry_{tag}.json').write_text(json.dumps(artifact, separators=(',', ':'))+'\n')
+        output['integer_artifact_bytes'] = (HERE/f'geometry_{tag}.json').stat().st_size
         volume_path = ROOT/'m16/approaches/small_h4_4/stable_volume.py'
         volume = module('rational_reference_positive_mass', volume_path)
         output['mass_source_sha256'] = hashlib.sha256(volume_path.read_bytes()).hexdigest()

@@ -140,8 +140,8 @@ a fully certified final probability is not yet claimed.
 The full successful run cost1.367CPU seconds including torch import/loading,
 independent DD comparison, tie controls and all mass calculations. Gate
 construction itself cost.00655CPU in the first attempt; successful timing is
-stored separately in `results_t4.json`. Combined exact geometry and audits took
-about.28CPU. No large-integer limit was approached: primitive rays at most175bits,
+stored separately in `results_t4.json`. The successful exact geometry and audits took
+.23219CPU; its gate construction took.004265CPU. No large-integer limit was approached: primitive rays at most175bits,
 plane normals131bits, rational map numerators132bits/denominators128bits,
 tracked Bareiss intermediates893bits. The correct determinant accumulator reached
 5696bits, so it is tracked separately from geometry-object4096bit limits; aggregate
@@ -168,3 +168,23 @@ floating rays. [inferred] The rational construction closes the prior topology
 qualification for this reference, conditional on the implementation/proof audit.
 Independent review is still required before a confirmed claim. Broader models,
 noisy copies and fully enclosed floating mass arithmetic remain untested.
+
+
+## H4T4 extension protocol, frozen before computation
+Root authorized one original H4T4 seed0 case, no noisy copies. Reuse exactly the
+integer gate/clip/rank/cofactor implementation and first-index tie handling, now
+loading four hidden units. Keep all exact containment/incidence/partition tests,
+zero/equal-nonzero readout controls and numerical GL16/20 comparisons. Reference
+floating DD reports450 final gate cells,5040 correct simplices and GL16 accuracy
+.47701312599404416. Triangulation count need not match under a different ray order;
+compare gate ray/incidence sets after permutation matching and retain differences.
+
+Alternatives: (1) H2 may hide non-simple or redundant-face errors; H4 increases
+branch and incidence complexity, while exact cofactors/partition identity and
+independent DD comparison provide falsifiers. (2) integer growth or rational
+accumulation may dominate at H4; retain the same110CPU deadline,4096bit geometry
+object limit,1,000,000bit rational-accumulator limit,2000ray cap and2GBRSS. Stop
+explicitly, preserving partial results. Large aggregate numerator/denominator
+values are serialized in hexadecimal to avoid Python's decimal digit limit.
+This is exact topology for the real-arithmetic network with binary-rational
+weights; normalized cone masses remain numerical. No floating fallback is added.
