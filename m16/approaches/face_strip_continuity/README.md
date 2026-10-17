@@ -9,7 +9,7 @@ Freeze H2T4 seed0, u=1, both T155 axis/prefix intervals and x,y in [-6,6]. For e
 For row A*x+B*y+C*s+E=0, q is the minimum of (C*s+E)^2/[2(A^2+B^2)] over the ENTIRE frozen state interval, including zero if crossed. Multiply the old strip allowance by 1/(1+q), using exp(-q)<=1/(1+q). Exact proportional rows have equal damping.
 
 ## Status
-Frozen coefficient phase executed after TASKS-only claim7b3a264 and independent T55 source/theorem review. Independent T55 rebuilt all88 faces via a separate forced affine recurrence and pairwise intersection enumeration, matching every saved vertex including two degenerate faces and all sums; review hash pending notification.
+Frozen coefficient phase executed after TASKS-only claim7b3a264 and independent T55 source/theorem review. Independent T55 rebuilt all88 faces via a separate forced affine recurrence and pairwise intersection enumeration, matching every saved vertex including two degenerate faces and all sums; review a24db934.
 
 ## Results
 Eight closed-face controls, four exact elimination identities, four density/scaling controls, two correctness-face pairs, any-occurrence retention and576 direct forced-chronology checks pass. A synthetic rank-side expectation failure and correction are preserved in execution_failures.md.
