@@ -97,3 +97,6 @@ Reproduction under the same memory/thread setup:
 ```
 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/check_noise.py
 ```
+
+### Cycle 6 frozen interface robustness
+Review gap: an explicit rank failure must retain its already-spent work, and importing the public adapter as a repository package must not require modifying sys.path. Preserve the original exception class, attach partial cost/CPU metadata, and save it in future noisy-case reports. Two falsifiers: package import from repository root should succeed; a deliberately injected rank ambiguity after a known charge must propagate unchanged with that charge present. Also test the existing zero-input unsupported-case rejection through the real path. These are interface/primitive checks only, not additional model sweeps or a change in accepted geometry.
