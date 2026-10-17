@@ -83,3 +83,22 @@ including compressed artifact loading,56MB RSS. `readout.json` preserves all
 exact primal/dual coefficients and source hashes. Reproduce `python readout.py`
 under the review lock. Independent certificate review requested before any
 mechanism conclusion; no numerical tolerance defines reachability.
+
+## Frozen artifact attribution and numerical gate
+T68 stores3853 full-partition and5058 correct-event simplices, not merely
+floating gate samples. Reconstruct exact gate history and maps at a positive
+integer interior combination, then verify every simplex ray against each exact
+gate inequality. Use common dyadic denominator scaling to keep recurrence/map
+arithmetic integer. Correct-simplex interiors must directly predict their
+second-ranked input; first-index ties are explicit. Classification priority is
+final all-off, any earlier all-off, locally zero output-contrast column without
+reset, remaining. Tie-pair and forgotten-column diagnostics are recorded
+separately, not added as overlapping error categories.
+
+No new geometry enumeration. Existing positive mass rules16/20 are run on
+both artifact lists, with per-category numerical bounds and total/reference
+checks. Gate total must be1 and correct total match.477013125994119 within
+combined integration bounds plus1e-11 arithmetic allowance. Compare rule
+changes separately; numerical arithmetic remains uncertified. CPU cap40seconds,
+no noisy copies. This is diagnostic exact-geometry attribution, not a cheap
+production estimator. Report prior construction cold dependencies explicitly.
