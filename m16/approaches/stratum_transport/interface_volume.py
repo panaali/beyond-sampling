@@ -9,10 +9,13 @@ from affine_volume import AffineOperator
 class InterfaceOperator(SupportOperator):
     def __init__(self,model,n,reconstruction='uniform',order=4,L=6.):
         super().__init__(model,n,L)
-        cls={'uniform':QuadratureOperator,'affine':AffineOperator}[reconstruction]
+        cls=self.helper_type(reconstruction)
         self.helpers=[cls(model,n,order,L) for _ in range(3)]
         self.reconstruction=reconstruction
         self.work['interface_helper_operators_constructed']+=3
+
+    def helper_type(self,reconstruction):
+        return {'uniform':QuadratureOperator,'affine':AffineOperator}[reconstruction]
 
     def empty(self,box):
         state=super().empty(box);state.side_states=[]
