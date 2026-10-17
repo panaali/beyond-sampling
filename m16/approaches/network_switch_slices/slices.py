@@ -152,3 +152,15 @@ class Slice:
         values=self.values(q.ravel()).reshape(q.shape)
         self.work['quadrature_nodes'] += q.size; self.work['quadrature_panels'] += len(lo)
         return float(np.sum(values*w*(hi-lo)[:,None]/2))
+
+    def integrate_gaussian(self,knots,order):
+        x,w=np.polynomial.legendre.leggauss(order)
+        zknots=self.toz(knots); lo,hi=zknots[:-1],zknots[1:]
+        z=(lo[:,None]+hi[:,None])/2+(hi-lo)[:,None]*x/2
+        density=np.exp(-z*z/2)/np.sqrt(2*np.pi)/(1-self.P if self.upper else self.P)
+        value=(vertical_mass([self.domain],z.ravel(),self.work)-
+               vertical_mass(self.correct,z.ravel(),self.work)).reshape(z.shape)
+        self.work['quadrature_nodes'] += z.size;self.work['quadrature_panels'] += len(lo)
+        self.work['gaussian_exp_calls'] += z.size
+        weights=density*w*(hi-lo)[:,None]/2
+        return float(np.sum(value*weights)),float(weights.sum())
