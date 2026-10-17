@@ -12,7 +12,7 @@ Copy the prior factored/factored_mixed sources into this owned folder with sourc
 Alternative1: all remaining H2 discrepancies come from late exact resets; factoring those roots makes paired counts equal. Alternative2: nonzero hidden affine dependencies or recurrence rounding create other coincident roots, so the repair is partial or null. A negative does not establish that double precision is invalid. Alternative3: apparently zero floating coefficients arose through cancellation, not structural gating; instrument active flags if necessary before claiming structural exactness. Cheapest discriminator is the unchanged per-plane count/output comparison and a concrete residual fixture, not a larger benchmark.
 
 ## Status
-Bounded reset and axis phases complete, independent axis review pending. Bounded <=110CPU cycles, one thread, <=2GB, shared locks; short controls <=20CPU may use review lock.
+Bounded reset and axis phases complete with independent T55 reviews de5abd2/cfd905e. Bounded <=110CPU cycles, one thread, <=2GB, shared locks; short controls <=20CPU may use review lock.
 
 ## Results
 Reset and axis exact-factor controls pass on the frozen workload; full results and limitations follow. Independent T55 reviews are recorded below.
@@ -60,3 +60,6 @@ Matched warm H2 CPU decreases .004866/.004427 to .002895/.002706 (about1.68/1.64
 Finite tested alternatives: initial-step-only common factor; structural late-reset factor; exact Fraction gate-history discriminator; final origin/axis readout factor; same model/plane/precision controls; first-index/zero/tiny-gap/scale/cap fixtures. General multiactive affine dependencies, compensated recurrence and outward-rounded geometry remain open. The observed H2 gate and readout discrepancies have explicit algebraic repairs, so this task is a scoped positive, not a family-wide negative. Wider model/plane sweeps are unnecessary for that finite claim and are not automatically authorized.
 
 Reproduce from repo root with one-thread environment and the shared review lock: run `build.py --engine` for factored, factored_mixed, factored_axis and factored_mixed_axis; then `check.py`, `check_exact_trained.py`, `check_axis.py`, `check_exact_axis.py` in this folder. Oracle and baseline source path/hashes are retained; no external internet source was used. Root/DRI decides shared adoption and registry status.
+
+## Independent axis handoff
+T55 cfd905e verifies final-support cache refresh, strict first-index Wo-column comparison, and retention of all input-rank cuts. Its separate48-case closed-form control uses a single active hidden coordinate: output3 on the positive ray yields exact3/8 circle accuracy; tied top rows2/3 with first-index output2 yield exact1/2. Both kernels, four frames and three scales pass exactly. No generic floating topology certificate is asserted. This closes the bounded T66 numerical repair; general native extensions remain open for a distinct future claim.
