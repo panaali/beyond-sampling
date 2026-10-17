@@ -802,3 +802,15 @@ The owner's orthant AST extraction and log-grid expressions preserve the pinned 
 ### T171 trained model-facing capture parity and known cost subset
 
 `check_adapter_capture_review.py` compares every one of35098/30726 captured rays bitwise with prior seed0/seed1 archives, source/model-reference pins and statistics, zero tie-guard branches, saved-value contractions and copied-byte ledgers. New guard units164409/159194 and storage4492544/3932928 bytes are correct. No masses are recomputed and earlier mass work remains charged. Seed0 known subset185465029 includes geometry, cold halves, positive mass, guard and still-executed original-rule setup; separate48-inverse numeric envelope13920 yields185478949. Remaining rank/setup/MP/Fraction/library/control/storage work is explicit, and seed0 geometry cost is not transferred toseed1. The lost110CPU initial validation attempt and all-off finite-order unresolved control remain preserved. Review0.056CPU.
+
+### T172 full H8 native-source budget panel
+
+`check_native_recipe_full_review.py` independently checks all20 archives and1280 complete site ledgers, source/prior pins, baseline/traced outputs and statistics, and model hashes linked to the independently regenerated T113 panel. Named numeric total579318688 and separate integer categories14682950 are reconstructed.65-digit contractions and all five conditional bootstrap calculations agree: ratios0.0003173033,0.0005846604,0.0207068119,0.0248346894,0.1916995096; largest conditional95% upper0.5348052439. Each model receives floor(own named cost/351) sampling draws. This is a fixed H8 panel under a declared source-numeric convention; no multiplier transfer, other-H result, hardware/setup/library/control closure or unconditional certification follows. Author replay465.857325CPU, review0.516CPU, no trace rerun.
+
+### T168/T180/T179 bounded source continuation gates
+
+T168's original moment insertion preserves reviewed T135 geometry/moments, finite variance/reversed-intersection guards, retained counts and unchanged T161 quadrature/exact rescue. Cancellation zeros are preserved and reject the shortcut. This clears only the fixed64 original-form pilot, not a proposed stable-form replacement.
+
+T180's fibre source transformer preserves original numerical functions and the reviewed exact-zero clip guard. Cross9, vector dot2n-1 and mean(n-m)+m are consistent named rules; computed-receiver repair matches prior T153. Lowercase stats diagnostic increments stay in raw totals and are removed separately. Cold setup, SVD and other opaque work remain explicit. Four analytic parity controls clear only one frozen noisy component; no toy-to-H8 multiplier transfer.
+
+T179 full replay amortizes immutable AST/grid construction, clears observer lists and resets percase counters. Persistent STATS simplices does not feed mass values. Reused256 values retain reference equality and their original raw-node archive; new anomalies/sentinels are saved. Prior256 work must be charged once. This is new source mass quadrature, with no new geometry/network inputs/reference integration.
