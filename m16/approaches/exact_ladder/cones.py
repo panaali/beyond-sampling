@@ -403,7 +403,8 @@ def _gm_eval(V, s, ops):
     return (q ** (-T / 2)) @ w
 
 
-def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=60, chunk=4096, dmin=None):
+def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=60, chunk=4096, dmin=None, plackett=True,
+                 lam_min=1e-3):
     """Gaussian measure of simplicial cones (rows of V[i] = unit rays). Returns (p, err) per input simplex.
     Depth-first over a bounded work stack (memory stays O(chunk x maxdepth))."""
     S, T, _ = V.shape
@@ -440,6 +441,18 @@ def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=60, chunk=4096, dm
         np.add.at(p, idx[ok], val[ok]); np.add.at(e, idx[ok], err[ok])
         if ok.all():
             continue
+        if plackett and depth == 0 and T >= 4:
+            # wide, well-conditioned simplices: Plackett path integral (accurate exactly where GM + bisection is slow)
+            Rb = _corr(W[~ok], ops)
+            lam = np.linalg.eigvalsh(Rb)[:, 0]; ops.add(len(Rb) * 4 * T ** 3, "measure")
+            good = lam > lam_min
+            if good.any():
+                sel = np.nonzero(~ok)[0][good]
+                pp, ee = orthant(Rb[good], ops, tol=1e-12)
+                np.add.at(p, idx[sel], pp); np.add.at(e, idx[sel], np.nan_to_num(ee, nan=1e-6))
+                ok[sel] = True
+                if ok.all():
+                    continue
         Wb = W[~ok]; ib = idx[~ok]
         # bisect the longest edge (smallest ray dot product)
         G = Wb @ np.transpose(Wb, (0, 2, 1)); ops.add(len(Wb) * (2 * T ** 3 + 3 * T + TRANS), "measure")
