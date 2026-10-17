@@ -16,7 +16,7 @@ Copy the independently checked T4 lifecycle into this subfolder, specialize to H
 H2T5 seed0 plus the exact two earlier T48/T52 relative RMS .0025/.02 copies, RNG1 reset each sigma and multiplication order w + normal*rms*sigma. Record full model hashes. First synthetic controls, then one cold and warm geometry pair per trained case; no best-of timing. Checkpoint each case under shared locks, <=110CPU/2GB/one thread. Independently review indexing/ties and any negative before an integration phase. All-zero Wi remains explicitly unsupported. No H4/H16 or T6 until another bounded scope is frozen.
 
 ## Status
-Protocol frozen; implementation next.
+Geometry parity phase complete; independent review pending before full integration comparison.
 
 ## Results
 Pending. No new accuracy or efficiency result.
@@ -32,3 +32,10 @@ Native integration, robust/rational predicates, wider H with new safe constraint
 
 ## Failure modes
 Strict-zero versus near-zero margins, rank at normalized rays near1e-9, scalar/BLAS summation, determinant underflow, unsupported all-zero input weights, output serialization and build overhead. Equal finite corpus behavior is not universal topology equivalence.
+
+## Geometry results
+Six synthetic controls and all three fixed trained cases pass every ordered header/incidence bit and all13 count fields, including rank/clip calls, orthant pieces and determinant-zero filtering. Correct simplex counts2039/3701/3969 match the existing T52 references. Maximum trained ray difference3.664e-15; all map screens pass. Synthetic scaling gives maximum ray5.552e-16. Zero/identical outputs, second-word constraints and explicit unsupported-zero-input rejection are retained.
+
+Trained warm geometry CPU ratios23.45/41.67/48.19 and wall32.13/35.45/39.89 on base/.0025/.02. Each comparison constructs and serializes the full same diagnostic corpus; these are geometry timings, not portable cost or full-estimator results. Compiler2.248CPU is additional setup. Controls6.059CPU; all trained comparisons3.562CPU/217MB, excluding initial imports. No numerical failure occurred in this phase; clock-zero synthetic timings remain null ratios.
+
+Freeze the end-to-end check now, conditional on independent source review: use exactly the T71 fixed GL24 tetra primitive, inner budget1e-9, same three models, and compare old counted Python geometry+mass to native orthant geometry+the identical mass code. One cold and one warm pair per model; no cache or chosen repeat. Record estimate, bound, fallback counts, complete elapsed CPU/wall and component costs; add compile cost separately. Preserve native SVD/geometry as opaque numerical work and return infinite portable forward-equivalent cost from any adapter until separately audited. The old portable operation ledger is not reassigned to the new implementation.
