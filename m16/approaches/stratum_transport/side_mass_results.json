@@ -1,0 +1,191 @@
+{
+  "classification": "exact-form floating three-input side-mass reference",
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_side_mass.py": "0191038b5fa2151777ed32412b88e294b9aa0a26e028b3311b9afdde8ff54e61",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/third_step.py": "701f96941e8e9a95cee45ef2731aa82ad01011022f7b8feed4d35eafd98faa82",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input.py": "4286350221428688c19cbb04fdf5dddd20c8791404f6cab70d58882a81cfdd22",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/interface_results.json": "c98d3b44cf26cb395f6b385d4fd172d6476819e8cd0e23845a279b69aa307481"
+  },
+  "random_model_inputs": 0,
+  "rows": [
+    {
+      "model": "toy",
+      "reference_side_masses": [
+        0.5256040955873917,
+        0.0
+      ],
+      "reference": {
+        "stratum_masses": {
+          "origin": 0.21996578621230073,
+          "axis0": 0.0,
+          "axis1": 0.09253421378769927,
+          "input_ray": 0.16189590441260832,
+          "area": 0.5256040955873917
+        },
+        "output_masses": [
+          1.0,
+          0.0
+        ],
+        "work": {
+          "source_sectors": 5,
+          "threshold_forms": 8,
+          "angular_intervals": 5,
+          "destination_bands": 13,
+          "skipped_angular_mass_bound": 0.0,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 13,
+          "angular_roots_returned": 0,
+          "primitive_evaluations": 52
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 767,
+          "rational_comparisons": 15,
+          "angle_evaluations": 6
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "comparisons": [
+        {
+          "grid": 16,
+          "reconstruction": "uniform",
+          "side_masses": [
+            0.5252560216355755,
+            0.0
+          ],
+          "signed_side_errors": [
+            -0.00034807395181624123,
+            0.0
+          ]
+        },
+        {
+          "grid": 16,
+          "reconstruction": "affine",
+          "side_masses": [
+            0.5254296882869741,
+            0.0
+          ],
+          "signed_side_errors": [
+            -0.00017440730041762276,
+            0.0
+          ]
+        },
+        {
+          "grid": 32,
+          "reconstruction": "uniform",
+          "side_masses": [
+            0.5255257670920436,
+            0.0
+          ],
+          "signed_side_errors": [
+            -7.832849534816777e-05,
+            0.0
+          ]
+        },
+        {
+          "grid": 32,
+          "reconstruction": "affine",
+          "side_masses": [
+            0.5255865698747988,
+            0.0
+          ],
+          "signed_side_errors": [
+            -1.752571259294733e-05,
+            0.0
+          ]
+        }
+      ],
+      "reference_cpu_seconds": 0.0014377340000000238
+    },
+    {
+      "model": "trained_H2T8",
+      "reference_side_masses": [
+        0.06883229878782396,
+        0.05386682350278046
+      ],
+      "reference": {
+        "stratum_masses": {
+          "origin": 0.5316468024752884,
+          "axis0": 0.0014485660724980116,
+          "axis1": 0.10126798982036758,
+          "input_ray": 0.2429375193412417,
+          "area": 0.12269912229060435
+        },
+        "output_masses": [
+          0.9446846104247216,
+          0.05531538957527847
+        ],
+        "work": {
+          "source_sectors": 5,
+          "threshold_forms": 8,
+          "angular_intervals": 6,
+          "destination_bands": 16,
+          "skipped_angular_mass_bound": 0.0,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 13,
+          "angular_roots_returned": 2,
+          "primitive_evaluations": 64
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 767,
+          "rational_comparisons": 15,
+          "angle_evaluations": 6
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "comparisons": [
+        {
+          "grid": 16,
+          "reconstruction": "uniform",
+          "side_masses": [
+            0.06857605325740808,
+            0.05339433196322465
+          ],
+          "signed_side_errors": [
+            -0.00025624553041588005,
+            -0.00047249153955580825
+          ]
+        },
+        {
+          "grid": 16,
+          "reconstruction": "affine",
+          "side_masses": [
+            0.06881563642965607,
+            0.05386085965032577
+          ],
+          "signed_side_errors": [
+            -1.666235816788486e-05,
+            -5.96385245468789e-06
+          ]
+        },
+        {
+          "grid": 32,
+          "reconstruction": "uniform",
+          "side_masses": [
+            0.06876612343946018,
+            0.0537483840811637
+          ],
+          "signed_side_errors": [
+            -6.617534836378391e-05,
+            -0.0001184394216167603
+          ]
+        },
+        {
+          "grid": 32,
+          "reconstruction": "affine",
+          "side_masses": [
+            0.06882972147353099,
+            0.05386846802608633
+          ],
+          "signed_side_errors": [
+            -2.5773142929702564e-06,
+            1.6445233058728914e-06
+          ]
+        }
+      ],
+      "reference_cpu_seconds": 0.0013466689999999115
+    }
+  ],
+  "cpu_seconds_including_torch_import": 0.838129707
+}
