@@ -13,7 +13,7 @@ Compare positive recipe accuracy against T131 corrected exact-reference .9761608
 Alternative1: numerical quadrature dominates the old recipe discrepancy (same-ray replacement separates it). Alternative2: freezing gates creates genuine approximation bias (positive recipe versus positive exact). Alternative3: stale source/geometry/tie semantics explain discrepancies (hashes, cell counts, original reproduction and tie audit). Independent reviewers examine source and saved-array attribution; direct true-network membership is not presumed for approximate cells.
 
 ## Status
-Bounded decomposition complete; independent review pending. Claim a99881b preceded protocol85de4b3 and implementation.
+Bounded decomposition complete; independent review d7e0d5e passes. Claim a99881b preceded protocol85de4b3 and implementation.
 
 ## Results
 Results below. Reproduce capture.py, replay.py BATCH for0..7, summarize.py using project interpreter and one-thread resource locks.
@@ -47,3 +47,5 @@ The doubled-rule recipe's total discrepancy is **+4.76455693077e-6**. Its own nu
 Positive recipe integration uses19951 GL20 and8049 GL32 cones, total conditional bound1.09566649490e-10, no target misses. Capture14.537045709CPU plus all three replay methods146.221977482CPU are charged, in addition to earlier exact reference dependence. Source geometry named count36398526 is reconstructed by subtracting recording/control charges and adding initial gate comparisons; source/doubled mass counts164765088/325162176 yield original/doubled full partial counters201163614/361560702. These are inherited named counts, not portable totals; T146 separately audits their kernel/setup omissions.
 
 [measured] On H8,T4 seed0, the unchanged recipe approximation is already much more accurate than the original apparent discrepancy suggested; finite mass integration dominates that discrepancy. [inferred] The original numerical failure is not evidence that this recipe's approximation necessarily fails in the target regime. No conclusion about all seeds/noise, other rungs, floating topology certification or sampling competitiveness follows yet. T55 independent source/array/decomposition review requested. A fixed held-out checkpoint is the next generalization discriminator; no parameters are changed from this calculation.
+
+Independent T55 audit d7e0d5e verifies all28000 indices, source hashes, exact sums of stored binary64 values, approximation/numerical decomposition and original/doubled named-counter identities. No integration rerun is claimed. T145 handed off; frozen held-out seed1 T148 remains a separate validation, with full-panel T149 blocked on that independent handoff and T146 cost evidence.
