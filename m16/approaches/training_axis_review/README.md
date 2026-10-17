@@ -32,3 +32,10 @@ Other training seeds, per-layer relative perturbations, adversarial weight chang
 
 ## Failure modes
 Low-noise tails, small positive-volume output ties, thin cones, model-specific cost correlation and underpowered fibre subsets may change apparent advantage. Positive results apply only to tested cells and predeclared conventions.
+
+### Initial controls and retained defects
+`controls.py` under the20CPU review lock took2.607CPU excluding initial imports. Twelve clean/first-copy trained controls (k24seed4 and k20seeds0..4) match author's truth within2.22e-16, and R3 scalar reimplementation agrees with frozen T75 within4.44e-16. Local counter adds unary negation and the sampling correctness comparison; nonnegative integer powers use repeated-multiplication cost. No estimator is altered. Model-independent cached geometry remains separate from these model-dependent counts and does not become magically free in a cold executable.
+
+Three deterministic fixtures expose inherited failures: zero input weights yield exact accuracy1/3, but both T75 and author's exact.py return1.0; zero/identical output rows give1/3 while T75 returns.9976141 and author truth.9983942. New independent reference and F2L3 return1/3 within5e-16 on all three. Preserve these failures. They are outside the predeclared E44 trained/noisy panel and do not by themselves refute its scoped claim. Frozen estimators remain unchanged; all panel references come from the independent implementation, with author-reference discrepancies recorded.
+
+Independent T55 semantic review: mean[p_i(1-p_i)/n_i] compares equal per-model costs, while mean[p_i(1-p_i)]/mean[n_i] is a distinct uniform-allocation comparison at mean cost. Both are useful but not interchangeable. Anchored global RMS perturbations preserve relative parameter noise across training rungs; they are not function-invariant under neuron rescaling. Absolute and relative results will remain separate.
