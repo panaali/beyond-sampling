@@ -1010,3 +1010,12 @@ fibre inventory, arbitrary-ray positive mass bound implementation and
 T23 continued frozen panels. Parent integrates reviewer commits; no
 review alone self-confirms a leaderboard claim. The review lane remains
 one thread with short locked checks and no nested agents.
+
+Review update: T23 final90-cell convergence chain and invariant-family
+20% theorem; T124 scalar-power attribution/pilot; T130/T135 positive mass
+counts/moment rescue; T131 selected unchanged-ray analytic controls; and
+T133 fixed-panel/scaling evidence now have independent bounded review.
+T131 whole-corpus replay and independent leaf geometry audit remain live.
+Review does not mark claims confirmed; source/roundoff/cost limits remain
+explicit in the individual notes. Latest checks run with one thread and
+review lock; the longest current phase used14.906CPU.
