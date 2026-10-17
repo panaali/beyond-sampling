@@ -58,7 +58,8 @@ and independent raw-artifact arithmetic review passed. No adopted recipe or
 full benchmark pass claim. Full fixed T95 panel validation is the next phase.
 
 ## Results
-Pending bounded first cycle.
+Detailed pilot, scale and broader-panel results appear below. Raw estimates,
+all changed cases and costs are retained in the JSON artifacts.
 
 ## Compute accounting
 Source setup and checkpoint acquisition logged. Scalar arithmetic counters are
