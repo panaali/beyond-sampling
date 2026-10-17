@@ -33,3 +33,23 @@ Next useful discriminator is direct existing H4T4 h64 panel cost coverage
 with unchanged original saved outputs/counters and exact noise provenance;
 it requires fresh task scope, no multiplier transfer or implicit h128 truth.
 Alternative sorter/setup improvements remain distinct untested candidates.
+
+
+## Full original H4T4 panel continuation
+Claims304a1ddb/3963b86c precede models/trace/comparison. Full25 exact saved
+outputs/counters and model identities pass; reused clean0 and pilot exactly
+once. Sourcesf8a58823/e158adb1/ecd62bc1/ed9721b0/241d3fd4;
+raw8d6119ec/4fe22457/9f8006a0/9538346f/69e5211d/f36cfc2d;
+summarydb770a8e; comparison07fcf64b. Full saved audit e61dffe3 and independent
+exact60-comparison audit792106be. No numerical reruns required for review.
+Explicit3,524,673,740/conditional5,975,034,725 across25;348.245486 numerical
+trace CPU including reused records once,321.035824 new remaining23, plus
+3.288779 saved contraction CPU. Complete1,433,600 source-closure records.
+
+All60 point ratios<1 (max.503497). Optimized matched pooled ratios.04537–.23512
+but original75-family truth-box uppers2.1983–3.1365. This is inconclusive at
+panel level, not estimator failure or a noisy-rung win. Native-equivalence,
+control/memory/runtime, root-mask and numerical-CP qualifications remain.
+The single clean positive-reference conditional ratio.04746 remains separate.
+Root/DRI registration requested. Higher-precision truth is a separate next
+claim; no silent new MC or retuning inside this frozen cost phase.

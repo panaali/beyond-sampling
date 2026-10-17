@@ -224,3 +224,18 @@ The comparison is frozen by TASKS3963b86c and source241d3fd4, independently
 source-gated. It waits complete saved-cost audit, uses original75-family
 simultaneous CP truth boxes, both dense/optimized costs and both uniform/matched
 integer draw allocations. No noise subtraction or h128-as-truth is used.
+
+### Reviewed panel comparison
+Full cost audit e61dffe3 and all60 exact-rational budget/interval comparisons
+792106be passed independently. All raw point ratios are below1, maximum
+.5034968603. Optimized matched pooled point ratios by seed0..4 are
+.2351224/.0453680/.1266595/.1335504/.0578261, but simultaneous truth-box
+upper ratios are3.13647/2.19832/2.58346/2.82010/2.25329, with all lower0.
+These intervals do not establish a panel win or failure. Reference precision,
+incomplete native/runtime accounting and the generic mask defect remain
+separate qualifications. No h128 truth or noise-subtracted-only success claim.
+
+The next useful scientific discriminator is fixed higher-precision truth for
+this already frozen panel. Owner34 confirms no matching reviewed positive
+references beyond clean seed0; new reference work requires a separate claim,
+fixed sample size/seeds and cost-first pilot, never accuracy-adaptive stopping.
