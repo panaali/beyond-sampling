@@ -13,7 +13,7 @@ THEORY.md states the rank-conditioned independence and all limits. No omitted
 rank information is silently added. Future network controls need a new gate.
 
 ## Status
-Eight scalar and four domain controls completed once after independent T55 source/theory gate5fae242f; saved-result independent audit passed dfb2a5f4 (h4), with erf160 contractions and no integral replay. Seven analytic network controls now separately claimed67830ea3; source/theory gate passed47e280de and all seven completed once; independent saved-network audit pending.
+Eight scalar and four domain controls completed once after independent T55 source/theory gate5fae242f; saved-result independent audit passed dfb2a5f4 (h4), with erf160 contractions and no integral replay. Seven analytic network controls now separately claimed67830ea3; source/theory gate passed47e280de and all seven completed once; independent saved-network audit passed b1044b36. New DRI remote-evidence gate remains pending; see HANDOFF.md.
 
 ## Results
 All8 formulas/expectations agree with direct-density controls (maximum absolute difference1.7562e-95); all4 domain/degenerate controls pass. Fixed mean-plus-quarter bounds improve below1; mean-minus-quarter controls retain the convex no-improvement diagnosis. This is scalar validation, not neural performance. Recorded1.559815508CPU plus.115609266prior/import=1.675424774processCPU. Command under20CPU/2GB and one thread: `flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/conditional_order_bounds/controls.py`.
