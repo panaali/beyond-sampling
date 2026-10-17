@@ -27,3 +27,9 @@ Record CPU/wall time, angular nodes, deterministic prefix steps, clipping calls,
 
 ## Failure modes
 Outer quadrature has unbounded discretization bias without further analysis; geometry uses floating tolerances; conditional zero-probability prefix ties require special handling if nodes land exactly on them; estimator budget is advisory and reported work may exceed it. No extrapolation to H16T10 or other seeds.
+
+### Recovery cycle 1 partial result
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 python m16/approaches/small_h4_4/run.py /path/H4_T4_seed0.pth` (run under the shared flock and memory cap).
+Original GL2/4/8 estimates:0.4731219478/0.4772917066/0.4768521781, costing1.03/2.01/4.26 CPU seconds. Independent262144-input validation:0.4770965576 with standard error0.0009755374. The GL4-to-GL8 change0.0004395 exceeds the equal-CPU sampling standard error; convergence and efficiency remain unresolved. These data do not establish a win.
+
+The .0025 noisy model completed GL2 (0.4978691891) but GL4 raised the T55 geometric moment bound guard. `moment_failure.json` preserves the offending polygon; `capture_failure.py` reproduces it. No clamping or silent omission was used. The T55 owner has been notified and the noisy/refinement cycle awaits its stability correction. Partial results survive in `results.json`.
