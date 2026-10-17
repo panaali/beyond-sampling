@@ -14,7 +14,7 @@ Source inventory found `_cuts` concatenates plus roots for all columns followed 
 Bounded H4T4 evidence/source phase complete and independently reviewed; shared repair and complete cost closure are separate Ready tasks T182/T183. T115 completed handoff71d71050/reviewa558c8a9; k29 continuation remains Ready.
 
 ## Results
-None yet. Source-level concerns are hypotheses awaiting the frozen checks. The source's unqualified continuity and approximately N^-1 convergence claim needs separate nondegeneracy/rate assumptions.
+Bounded verified findings appear below. Wider saved-data results are in WIDER_RESULTS.md; independent review of that continuation is pending.
 
 ## Compute accounting
 Read-only source/data inventory, finite arithmetic, beta inversion and small analytic circle-root controls only. One thread,2GB, <=20CPU review lane. No new model/reference/MC runs. Inherited native96 counts stay labeled; inspect source expressions and sampler convention before any same-unit conclusion.
@@ -55,3 +55,6 @@ Published renewed TASKS scope55b629e6 after H4 handoff5a9b0daa. Current cf9c17cb
 Freeze all75 existing H4/H5/H6 T4 models and only h64 for this wider comparison. Each width has five clean models and four absolute-sigma.05 noise50 copies per model; sourceMC is1e7 per case. Recompute raw and clamped variance-adjusted discrepancies, finite h128-reference discrepancies, separate clean/noise/pooled groupings, and mean-budget versus per-model-budget native ratios. Use one nominal95% Bonferroni family over all75 binomial marginal truth intervals, with numerical inversion qualification. Model dependence is allowed. Keep the earlier25-case H4 bounds unchanged and distinguish the new75-case family. Use only inherited96/140/192 counters, no T183 multiplier or full-cost inference.
 
 No model, reference, MC, checkpoint, source instrumentation or quadrature replay; no acceptance of wider rung advancement. H6 was incomplete at the earlier snapshot and is complete only in this pinned continuation. Stop/preserve metadata/provenance inconsistencies. Independent raw arithmetic review precedes conclusions.
+
+## Wider saved-data checkpoint
+All75 frozen cases and45 group contractions are saved in wider_audit.json. WIDER_RESULTS.md distinguishes raw, clamped, finite-reference and simultaneous-truth-box metrics, clean/noise/pooled groups, and uniform versus matched native budgets. No new models or MC inputs. Three clean raw point ratios exceed1, but their simultaneous lower bounds remain below1; preserve these exceptions alongside all pooled point ratios below1. Independent continuation review pending.
