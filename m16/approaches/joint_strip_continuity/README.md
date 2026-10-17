@@ -15,16 +15,22 @@ Freeze exact primitive controls before trained code: memoryless Wh=0 and constan
 Competing explanations: (1) huge bound reflects a truly sharp value function; joint-normal bound may remain huge. (2) conditioning only on y creates spurious nearzero denominators; joint normals may remove them. (3) hidden-dependent constant-input margins permit jumps; unknown controls must detect them. A smaller global bound alone does not validate a practical interpolation grid.
 
 ## Status
-Protocol frozen; exact primitive implementation next.
+Bounded trained coefficient phase complete after independent theorem/source review. Independent raw trained-coefficient review pending.
 
 ## Results
-Pending.
+All exact primitive controls pass, including880 noncommuting forced-gate coefficient checks. The joint-rescue toy has literal K=84 and unique K=12; its y-only predecessor is unknown. The identity-recurrence counterexample correctly returns unknown. Both state-independent controls return0.
+
+On the same H2T4 checkpoint,176 forms produce45 distinct hidden-dependent known strips and no unknowns. The rational literal coefficient is7931.87837672; proportional deduplication gives K=4291.12801458. With displayed Gaussian rank masses, the actual need1 coefficient becomes16073.5954211 versus the prior1.867361243e9, a factor116175.7 improvement. A matched exact-hidden-derivative y-only ablation attributes a factor193.107 to the joint normal; deduplication contributes1.84844. The rest is the changed derivative/union bound structure, not evidence of a single isolated mechanism.
+
+Without relying on floating CDF normalization, the elementary rational need1 coefficient is173790.684590. Neither bound is small enough for practical1e-7 interpolation certification. No interpolation output, grid, probability estimate or estimator cost has changed. In particular the bound concerns the direct pair value in its initial hidden state; it does not validate old stage2 interpolation into later mixed-support states.
+
+Reproduce `controls.py` then `pilot.py` from this folder with the project interpreter, single thread, review lock and2GB limit. The pilot loads weights once but evaluates no inputs. Every exact boundary and sum is retained in pilot.json. Independent source review preceded trained application.
 
 ## Compute accounting
 Only finite exact matrix/boundary algebra, one checkpoint load and scalar CDF displays. Count emitted/unique/unknown forms and CPU. Zero trained-model forward passes/random inputs;880 exact synthetic prescribed-gate map evaluations are counted separately. One thread,2GB, review lock <=20CPU. Proof coefficient is not an operation-count estimate.
 
 ## Claims
-[inferred, proof reviewed] A finite union of affine Gaussian strips gives the stated sufficient continuity criterion. [speculative] Its exact joint-input coefficient is substantially smaller for the trained pair kernel.
+[inferred, proof reviewed] A finite union of affine Gaussian strips gives the stated sufficient continuity criterion. [measured algebra; independent raw check pending] Its rational joint-input coefficient is much smaller for the frozen trained pair kernel, but still too loose to certify a useful grid.
 
 ## Alternatives not ruled out
 Facet-restricted integration, reachable-word pruning, local state-dependent density bounds, adaptive interpolation, other terminal representations and exact integration. A still-large coefficient would not exclude these alternatives.
@@ -32,4 +38,7 @@ Facet-restricted integration, reachable-word pruning, local state-dependent dens
 ## Failure modes
 Omitting final-support/positive-volume tie transitions, discarding zero joint normals with hidden dependence, counting only actual endpoint gate words, dividing need1 by LU rather than2LU, or treating an improved continuity coefficient as an accuracy/cost result. Exact coefficient arithmetic does not certify inherited floating kernels.
 
-Primitive phase: all stated controls pass; the joint-rescue toy has literal K=84 and unique K=12, while the earlier final-y criterion is unknown.880 exact noncommuting forced-gate coefficient checks pass. Initial controls .012000041CPU, extended controls .035985731CPU; both retained in accounting, no failed controls. Trained application waits independent source review.
+Primitive phase: all stated controls pass; the joint-rescue toy has literal K=84 and unique K=12, while the earlier final-y criterion is unknown.880 exact noncommuting forced-gate coefficient checks pass. Initial controls .012000041CPU, extended controls .035985731CPU; both retained in accounting, no failed controls. Independent source review passed before trained application; pilot CPU .007999914.
+
+### Remaining bottleneck and scoped alternatives
+The largest strip terms include hidden derivative components near[26695.56,-3.83569], while the saved positive-prefix state lies on the second axis. A direction-specific bound and exact gate-word feasibility restriction could remove sensitivity transverse to that support. This is a distinct untested rescue, not an explanation already verified. It could support a new direct pair-value outer integral; it cannot certify the old mixed-support stage2 interpolation. Facet-restricted Gaussian densities, reachable-word pruning and local second-order controls remain open. No continuity or interpolation family is retired.
