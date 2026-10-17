@@ -940,3 +940,9 @@ The installed DNRM2 source gate confirms N multiplies, N accumulation adds, thre
 `check_fibre_cell_rescue_review.py` checks all61 saved cells of completed controls2 and6, ordered parent-cell identity, source/model/previous-file hashes, binary running-total continuity, final hex, stats, actual/corrected legacy and every site-count difference. Nonzero control2 preserves536 pieces and final0x1.4125ee2a14d06p-17; control6 preserves zero output. Only repeated clamp `_fn` setup differs, and it is charged. This clears the unchanged cell-adapter gate for failed component12 under independent process caps; the original114.875CPU timeout and all replay/setup costs remain recorded. No component evaluation was repeated by the reviewer.
 
 The h64 Hopf continuation wrapper was separately source-gated as exact asserted substitutions in the pinned reviewed h8 runner, preserving model/source/closure logic and requiring saved original h64 parity. No broader panel/full-cost claim is authorized by that source gate.
+
+### Installed norm finite census
+
+`check_norm_saved_review.py` checks all192 saved length/stride/pattern controls, including extreme/nonfinite cases, and independently contracts every saved native norm call with one cold phase. Exact/recipe named numeric subsets are6,495,956/5,889,672, each including28,696 cold units. N1 absolute values and N>1 x87 multiplies/adds/sqrt remain distinct; no parent work is double charged. This is a finite installed numeric subset under historical source/binding provenance, not a full native-cost envelope. No norm/rank/model calls were repeated.
+
+The H4T4 seed0 Hopf checkpoint identity83ddefea... agrees with the checkpoint pinned by T110 whose6347 rays feed the reviewed T129 positive reference. That reference can support a one-model comparison with its integration-only3.158e-8 bound and floating geometry/kernel qualifications; it does not make the finite h128 Hopf result exact or justify a panel transfer.
