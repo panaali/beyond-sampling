@@ -166,3 +166,48 @@ integration as the apparent gain. No new MC, no choice among noise outcomes,
 and no further degree sweep. T55 algebra review passes; its independent
 nonzero-Fourier integral check is pending. Transfer failure will narrow the
 claim, not erase the successful base-case mechanism test.
+
+Frozen H4 noise validation (`near_tie_copies.py`) gives supported RMSE.01157594
+versus corrected isotropic.04008814 over eight existing copies; mean CPU
+.11555 versus.16695 seconds. The ratio of error_squared*CPU is.05628
+(about17.77x improvement in this implementation-specific proxy). Seven of
+eight individual errors improve; copy7 worsens from-.01137 to-.01409 and
+is retained. The strong clean-model result therefore narrows on noise,
+although the aggregate CPU-adjusted gain remains. No continuous parameter
+or degree was selected from these outcomes. Hidden-coordinate and tiny
+Wi/Wo scaling controls pass; doubled quadrature is also stable.
+
+Independent T55 review f5544c5 verifies the half-lune partition, conditional
+basis normalization, and frame/cut phases. Four nonzero-Fourier off-diagonal
+matrix entries independently integrated in arc then direct-z coordinates
+agree within1.401e-15, including both cut signs and signed mode differences.
+This complements our earlier radial-only direct integral. It is not an
+end-to-end independent geometry or global truncation certificate.
+
+Bounded phase status: implemented and independently primitive-reviewed,
+with a scoped positive rescue relative to corrected isotropic projection.
+There is no portable-FLOP10x claim or challenge/sampling-win claim: complex
+arithmetic, special functions and bookkeeping are not yet on a common fully
+audited ledger. On clean H4 the supported arithmetic ledger alone is48.9M,
+compared with about18.5k reported ops for exact enumeration under its other
+convention; even allowing convention differences, this is not competitive
+with the small exact solver. Further degrees did not reliably lower bias.
+
+Finite alternatives retained for handoff:
+- Wrong root normalization or ignored first-index ties: controls and the
+  independent partition proof pass; corrected isotropic is the comparator.
+- Incorrect Fourier phase or primitive integration: independent signed-mode
+  checks and doubled-rule estimates strongly constrain this explanation.
+- Normal-degree truncation alone: N4/8/16 at fixedM4 is nonmonotone and does
+  not resolve the residual. It is not an unlimited-degree impossibility.
+- Tangential, bisector or internal-gate leakage: still plausible. Increasing
+  M from1 to4 helps substantially; M8 yields little further gain on H2.
+  A future distinct rescue could keep exact support on the full root lune,
+  or use a localized tangential basis. Neither was implemented here.
+- Full branch enumeration cost: remains a major scaling obstruction; the
+  present method keeps one sketch per exact region and does not address it.
+- Broader training-seed transfer and matched-FLOP validation: not tested.
+  Existing parameter-noise results do not establish those claims.
+
+Canonical isotropic and other agents' files were imported read-only and
+remain unchanged. Root/DRI owns acceptance and shared task registration.
