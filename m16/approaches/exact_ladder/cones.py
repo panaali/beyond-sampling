@@ -379,7 +379,7 @@ def _gm_eval(V, s, ops):
     return (q ** (-T / 2)) @ w
 
 
-def cone_measure(V, ops, rtol=1e-9, atol=1e-16, s=3, maxdepth=40, chunk=4096):
+def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=40, chunk=4096):
     """Gaussian measure of simplicial cones (rows of V[i] = unit rays). Returns (p, err) per input simplex.
     Depth-first over a bounded work stack (memory stays O(chunk x maxdepth))."""
     S, T, _ = V.shape

@@ -9,7 +9,7 @@ import numpy as np
 import cones as E
 
 
-def exact_acc(model, check=False, rtol=1e-9, chunk=8192):
+def exact_acc(model, check=False, rtol=1e-6, chunk=8192):
     """check=True also measures the correct pieces (correct + wrong must sum to 1); that work is not charged."""
     t0 = time.process_time()
     T = model[2].shape[0]
