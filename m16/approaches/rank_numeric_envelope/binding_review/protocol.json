@@ -10,5 +10,23 @@
     "a558c8a9",
     "b313819e"
   ],
-  "dynamic_control_plan": "Only if static callsites support coverage: frozen N1/2/4, alpha1 and subnormal1e-310, positive/subnormal vectors; compare direct native and preloaded observer outputs/calls under LD_DEBUG binding. Existing160 source controls remain preserved; no claim from finitely observed callsites alone."
+  "dynamic_control_plan": "Only if static callsites support coverage: frozen N1/2/4, alpha1 and subnormal1e-310, positive/subnormal vectors; compare direct native and preloaded observer outputs/calls under LD_DEBUG binding. Existing160 source controls remain preserved; no claim from finitely observed callsites alone.",
+  "dynamic_controls": {
+    "N": [
+      1,
+      2,
+      4
+    ],
+    "alpha": [
+      1.0,
+      1e-310
+    ],
+    "x": "x_j=1+j/8 or1e-310*(1+j/8); stride1",
+    "expected": "N<=1 zero norms; N>1 one initial norm; both alpha andx subnormal cause secondnorm",
+    "observer": "Existing pinned source spy.so, direct native versus preloaded observed function; all output hex bytes match, ELF binding lines retained. No geometry or rank calls."
+  },
+  "new_pins": {
+    "m16/approaches/rank_numeric_envelope/binding_review/check.py": "cf4e9ecb23962e3308e35228ad110329cf2680405a628bc8d618076c75526f26",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_runtime_census/spy.so": "7b787eecb2986d40b8de92e86fc96d7e3ce9a6a1d2b85a86111c96e9c181bd74"
+  }
 }
