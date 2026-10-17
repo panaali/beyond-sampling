@@ -560,3 +560,106 @@ Cost per model ≈ (number of half-chamber families) × (cells per family) × (c
 - `run87.py`, `run87.json`.
 - `diag87.py`, `diag87.log`; `diag87b.py`, `diag87b.log`; `diag87c.py`, `diag87c.log`.
 - `regions87.py`, `regions87.log`.
+
+---
+
+# T112: the recipe along H at T = 3, rungs (4,3) → (5,3) → (6,3) → (8,3) (added 2026-10-17)
+
+The earlier sections are unchanged.
+
+## Diagnosis at (5,3)-(8,3) and the fix
+
+**RECIPE85B on the clean zoo models of (5,3), (6,3) and (8,3).** These models are 94-99.95% accurate. The recipe
+over-counts the error by up to 0.78 pp, for example −0.32 pp on (6,3) seed 1 (T73's failing case) and −0.36 pp on
+(8,3) seed 0. Against sampling at equal ops (RMSE about 0.1% when p ≈ 0.999) that fails.
+
+**Attribution (clean seeds).** All of the error comes from the **intermediate step 2**:
+- Resolving step 2 exactly while keeping the step-3 margin rule gives an error of ≤ 1e-4 pp.
+- Resolving step 3 exactly while keeping the step-2 impact rule leaves the error unchanged, e.g. −0.776 pp on (5,3)
+  seed 0.
+
+This is the same failure as at (4,4): an uncertified freeze at an intermediate step.
+
+**Fix (T108 at T = 3; frozen as `est75.RECIPE112` before the fresh noise seeds).** The step-2 gates now get the
+same margin test as the last step.
+- A frozen step-2 gate k is resolved only if, somewhere on its minority side, the change it can cause in the readout
+  margin reaches the frozen network's margin m(v) there. The margin is computed by a full forward pass of the frozen
+  model at v.
+- The change is bounded by |a_k·v|·w_k, with w_k = max_o Σ_j |(Wo[t,j] − Wo[o,j])·Wh[j,k]|. This holds because
+  ReLU is 1-Lipschitz, and it is scale-invariant.
+- The gate is also resolved if the margin changes sign there.
+- Triggering gates are split together and the children are re-tested.
+
+The rule is now `rule="margin_all"` in `est75.py`.
+- **[inferred]** For one point the bound is rigorous. It is not a region certificate: the frozen network's margin is
+  not concave on a cell, so testing vertices does not cover the interior.
+
+## Results: fresh noise seeds 70-73
+
+Each rung uses 4 × 64 copies per zoo seed, σ = 0.05 absolute, with exact truth from exact.py. Ops are counted
+strictly, and sampling costs 3H(H+1)+3H ops per sample. Every 8th model is re-run after a random rescaling and
+permutation. Command: `for H in 4 5 6 8; do OMP_NUM_THREADS=1 python evalH.py $H 64; done; python reportH.py`
+(about 35 CPU-min; writes `evalH_<H>.json` and `reportH.log`).
+
+| rung | zoo seed | clean acc | clean err | noisy acc | noisy RMSE | max | ops (exact) | MSE ratio [CI] | regions | exact leaves | recipe cells | resolved | rescale change |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| (4,3) | 0 | 0.9846 | -0.0000 pp | 0.878 | 0.003% | 0.03% | 69k (18k) | 0.0000 [0.0000, 0.0000] | 70 | 93 | 348 | 90% | 1e-15 |
+| (4,3) | 1 | 0.8928 | -0.0000 pp | 0.724 | 0.001% | 0.01% | 63k (17k) | 0.0000 [0.0000, 0.0000] | 52 | 81 | 254 | 76% | 2e-15 |
+| (4,3) | 2 | 0.7590 | +0.0000 pp | 0.734 | 0.000% | 0.00% | 58k (15k) | 0.0000 [0.0000, 0.0000] | 64 | 80 | 297 | 91% | 2e-16 |
+| (4,3) | 3 | 0.9044 | -0.0269 pp | 0.788 | 0.058% | 0.49% | 64k (18k) | 0.0018 [0.0010, 0.0032] | 70 | 89 | 300 | 80% | 1e-15 |
+| (4,3) | 4 | 0.9452 | +0.0000 pp | 0.582 | 0.082% | 1.27% | 69k (18k) | 0.0027 [0.0000, 0.0104] | 72 | 101 | 350 | 80% | 2e-15 |
+| (5,3) | 0 | 0.9420 | +0.0000 pp | 0.643 | 0.023% | 0.31% | 92k (24k) | 0.0002 [0.0000, 0.0006] | 94 | 127 | 396 | 81% | 2e-15 |
+| (5,3) | 1 | 0.9991 | +0.0000 pp | 0.941 | 0.006% | 0.09% | 85k (25k) | 0.0000 [0.0000, 0.0001] | 98 | 142 | 368 | 70% | 1e-16 |
+| (5,3) | 2 | 0.9987 | -0.0000 pp | 0.926 | 0.037% | 0.40% | 75k (25k) | 0.0015 [0.0001, 0.0035] | 94 | 142 | 342 | 59% | 2e-16 |
+| (5,3) | 3 | 0.9968 | +0.0003 pp | 0.906 | 0.077% | 1.23% | 84k (25k) | 0.0057 [0.0000, 0.0182] | 100 | 140 | 384 | 68% | 3e-16 |
+| (5,3) | 4 | 0.9987 | -0.0000 pp | 0.896 | 0.221% | 2.97% | 82k (25k) | 0.0416 [0.0037, 0.1157] | 100 | 147 | 370 | 67% | 3e-16 |
+| (6,3) | 0 | 0.9988 | -0.0000 pp | 0.933 | 0.039% | 0.52% | 102k (34k) | 0.0017 [0.0002, 0.0046] | 134 | 194 | 364 | 54% | 1e-16 |
+| (6,3) | 1 | 0.9991 | +0.0001 pp | 0.942 | 0.043% | 0.48% | 98k (34k) | 0.0023 [0.0004, 0.0051] | 136 | 189 | 372 | 53% | 1e-16 |
+| (6,3) | 2 | 0.9988 | -0.0001 pp | 0.950 | 0.017% | 0.19% | 102k (34k) | 0.0004 [0.0002, 0.0009] | 136 | 196 | 352 | 55% | 1e-16 |
+| (6,3) | 3 | 0.9992 | +0.0000 pp | 0.952 | 0.111% | 1.23% | 100k (35k) | 0.0189 [0.0013, 0.0450] | 138 | 195 | 392 | 54% | 1e-16 |
+| (6,3) | 4 | 0.9992 | -0.0000 pp | 0.950 | 0.017% | 0.08% | 100k (35k) | 0.0004 [0.0003, 0.0005] | 128 | 189 | 372 | 53% | 1e-16 |
+| (8,3) | 0 | 0.9993 | +0.0000 pp | 0.951 | 0.009% | 0.03% | 169k (62k) | 0.0001 [0.0001, 0.0001] | 238 | 316 | 496 | 55% | 1e-16 |
+| (8,3) | 1 | 0.9995 | +0.0000 pp | 0.953 | 0.187% | 2.16% | 156k (61k) | 0.0512 [0.0003, 0.1289] | 232 | 313 | 482 | 50% | 1e-16 |
+| (8,3) | 2 | 0.9994 | +0.0004 pp | 0.954 | 0.307% | 2.63% | 152k (59k) | 0.1365 [0.0516, 0.2461] | 232 | 301 | 470 | 47% | 1e-16 |
+| (8,3) | 3 | 0.9992 | -0.0008 pp | 0.945 | 0.041% | 0.36% | 154k (59k) | 0.0020 [0.0006, 0.0039] | 226 | 281 | 404 | 48% | 2e-16 |
+| (8,3) | 4 | 0.9993 | +0.0000 pp | 0.955 | 0.152% | 1.75% | 163k (63k) | 0.0364 [0.0048, 0.0873] | 250 | 315 | 478 | 50% | 1e-16 |
+
+**Every rung passes on every seed**, clean and noisy. Rung (4,3) was re-run with the new recipe.
+- The noisy-copy MSE ratios are at most 0.14. The worst is (8,3) seed 2 at 0.14 [0.05, 0.25].
+- On the clean models the errors are at most 0.03 pp.
+- Under rescaling and permutation the estimate changes by at most 2e-15.
+
+**Cells against regions.**
+
+| rung | linear regions (exact) | recipe cells | cells / regions | share of cutting gates resolved | recipe ops / exact-enumeration ops |
+|---|---|---|---|---|---|
+| (4,3) | 52-72 | 254-350 | ≈ 4.8 | 76-91% | ≈ 3.8 |
+| (5,3) | 94-100 | 342-396 | ≈ 3.8 | 59-81% | ≈ 3.4 |
+| (6,3) | 128-138 | 352-392 | ≈ 2.8 | 53-55% | ≈ 2.9 |
+| (8,3) | 226-250 | 404-496 | ≈ 2.0 | 47-55% | ≈ 2.6 |
+
+- **[measured]** The share of cutting gates the margin rules need to resolve falls from about 85% at H = 4 to about
+  50% at H = 8. Regions grow about 3.5× from H = 4 to H = 8, while recipe cells grow only about 1.5×.
+- The recipe is still about 2.6× *more* expensive than exact enumeration at (8,3). Its cell count includes the 24
+  half-chamber splits and the margin re-test overhead.
+- **[inferred]** Cells per region falling with H is the first sign that the recipe does not have to visit every
+  region. Two rungs more are needed before calling that a scaling law. A per-cell cost reduction (T109) and
+  chamber-free families (T110) would come on top of it.
+
+## Claims (T112)
+
+- [measured] RECIPE112 (margin rule at both steps) passes rungs (4,3), (5,3), (6,3) and (8,3) on all 5 seeds,
+  clean and noisy, with fresh noise seeds 70-73. The MSE ratios are 0.0000-0.14 and the clean errors at most 0.03 pp.
+- [measured] RECIPE85B's errors on high-accuracy models come entirely from the uncertified step-2 freeze. That
+  includes T73's failing (6,3) seed-1 case: −0.32 pp under RECIPE85B, +0.0001 pp under RECIPE112.
+- [measured] The cells/regions ratio falls from about 4.8 to about 2.0 between H = 4 and H = 8. The recipe is still
+  2.6-3.8× costlier than exact enumeration on these rungs.
+- [inferred] The next rung (8,4) needs the margin rule propagated through two later steps (T108). The Lipschitz
+  bound generalises as a product of |Wh| and |ΔWo| along the remaining steps. It also needs cheap exact 4-D masses
+  (T109), because cone masses were 90% of the cost at (4,4).
+
+## Files (T112)
+
+- `est75.py`: `_resolve_margin2`, `RECIPE112`.
+- `evalH.py`, `evalH_4.json`, `evalH_5.json`, `evalH_6.json`, `evalH_8.json`, `evalH.log` (partial; the JSONs are complete).
+- `reportH.py`, `reportH.log`.
