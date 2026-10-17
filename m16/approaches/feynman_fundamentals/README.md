@@ -329,3 +329,16 @@ The root approved this second lock for checks below20CPU seconds. Two earlier
 runs before the final cost metadata and known-normal extension used.154219 and
 .173212CPU seconds,48 primitive calls and28812 reference evaluations each;
 these runs count toward author development cost rather than being hidden.
+
+## Cycle 8 protocol (frozen before implementation)
+The scalar triangle method is too costly for millions of outer nodes. For
+signed-L1-normalized endpoints, construct a tangent basis from B-A,C-A and
+the perpendicular component of A; its norm is at least1/sqrt(d). This avoids
+per-triangle QR, SVD and plane solves. Vectorize spherical moments of degrees
+1..3 using elementary edge integrals, and retain scalar guarded fallback for
+suspect geometry. Alternative1: orientation or edge moments are wrong; compare
+fixed batches against the reviewed scalar implementation for d4..6, including
+endpoint permutations. Alternative2: tangent Gram-Schmidt loses thin geometry;
+test a predeclared progression of widths and expose all fallback cases/errors.
+Bound initial geometry benchmark to4096 deterministic triangles and at most20
+CPU seconds through the approved review lock, no sampled model inputs.
