@@ -30,8 +30,10 @@ for i,r in zip(indices,rows):
 raw=float(sum((Fraction(r['raw_error_component']) for r in rows),Fraction()))
 out={'complete':indices==list(range(48)),'indices':indices,'rows':summary,'numeric':sum(r['numeric'] for r in summary),'integer':sum(r['integer'] for r in summary),'diagnostic':sum(r['diagnostic'] for r in summary),'visible_after_diagnostic':sum(r['visible_after_diagnostic'] for r in summary),'legacy':sum(r['legacy'] for r in summary),'cpu':sum(r['cpu'] for r in summary),'raw_exact_saved_float_sum':raw,'pending_indices':pending,'resource_failures':failures,'cell_rescued_indices':rescued,'failure_recorded_cpu':sum(x['cpu_seconds'] or 0 for x in failures),'scope':'Partial component census until all48; failed12 may use separately reviewed exact-order cell adapter with repeated setup included, a conservative source-arithmetic upper count. Cold setup and opaque/runtime categories separate. No transferred ratios or full implementation-cost claim.'}
 if out['complete']:
- out['estimate']=1-raw/(2*math.pi**2)
+ out['exact_saved_float_sum_estimate']=1-raw/(2*math.pi**2)
  saved=json.loads((prior/'noise_summary.json').read_text());assert out['legacy']==saved['legacy_ops']
- out['original_order_estimate']=1-sum(r['raw_error_component'] for r in rows)/(2*math.pi**2)
+ sequential=0.0
+ for r in rows:sequential+=r['raw_error_component']
+ out['original_order_estimate']=1-sequential/(2*math.pi**2)
  assert out['original_order_estimate']==saved['estimate']
 (HERE/'summary.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({k:v for k,v in out.items() if k not in ('rows','indices')}))
