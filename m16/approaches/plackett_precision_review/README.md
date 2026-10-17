@@ -84,7 +84,7 @@ source edits, fitted tolerance or noisy-model sweep.
 ## Claims
 [inferred] Holding nodes/covariance fixed separates rounding from finite-rule
 error for that frozen numerical expression.
-[experiment] Finite-rule error dominates this frozen negative fixture;
+[measured] Finite-rule error dominates this frozen negative fixture;
 arithmetic/covariance/node rounding accounts for only about3.49e-17.
 
 ## Alternatives not ruled out
@@ -111,3 +111,12 @@ arcsines,72 positive-definiteness checks, two exact-ray covariance inversions
 and two ideal-rule constructions. Float diagnostic adds12 inversions; the
 source replay retains its1980 named operations. These are review costs,
 not production-cost savings.
+
+Reproduce the bounded phases with the repository interpreter (one thread,
+2GB limit, review lock):
+```sh
+python m16/approaches/plackett_precision_review/pin_rule.py
+python m16/approaches/plackett_precision_review/review.py controls
+python m16/approaches/plackett_precision_review/review.py fixture
+```
+These commands use only the pinned existing source fixture and rule.
