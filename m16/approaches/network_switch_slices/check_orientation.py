@@ -32,6 +32,17 @@ def main():
              primitive_work=dict(work),slice_integral=value,weight_normalization_defect=norm-(1-2e-6),
              slice_pointwise_defect=defect,slice_work=dict(s.work),walker_fpe_proxy=float(cost.sum()),
              cpu_seconds=time.process_time()-start)
+    st=torch.load(ROOT/'work/checkpoints/H4_T4_seed0.pth',map_location='cpu',weights_only=True)
+    model=(st['rnn.weight_ih_l0'].numpy().astype(float).ravel(),st['rnn.weight_hh_l0'].numpy().astype(float),st['linear.weight'].numpy().astype(float))
+    nodes,_=np.polynomial.legendre.leggauss(3);nodes=(nodes+1)/2
+    s=Slice(model,'23',7,qlo=1e-6,qhi=1-1e-6,fixed_quantiles=[.5,nodes[0],.5,nodes[1]])
+    value,norm=s.integrate_gaussian(s.knots,16)
+    U=np.tile([.5,nodes[0],.5,nodes[1]],(len(q),1));U[:,0]=7.5/12;U[:,2]=q
+    y,a,b,tau=walker.face_points(4,'23',U);ref,cost,cells=walker.walk_mass(model,y,a,b,tau,'23')
+    defect=float(np.max(abs(s.values(q)-ref)));assert defect<1e-8
+    out['nonconvex_fixture']=dict(slice_integral=value,pointwise_defect=defect,work=dict(s.work),
+                                  walker_fpe_proxy=float(cost.sum()))
+    out['cpu_seconds']=time.process_time()-start
     (HERE/'orientation_results.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))
 
 
