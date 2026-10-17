@@ -1034,3 +1034,16 @@ observed internal scale bound is 850; old public SCAL is not counted twice.
 The observed ordinary/zero-norm reflector paths add 146 native categories.
 These are finite fixed-path components, not a complete cold-runtime claim.
 
+# Cold composition and third completed k29 seed
+
+`check_cold_composition_review.py` independently verifies fixed driver counts
+1,914 and additive cold categories 295,652. The resulting 1,838,695,310 total
+is a qualified mixture of source and selected native categories; it does not
+close ufunc/reduction internals, conversions, memory/control or hardware cost.
+No ratio claim is promoted by this composition.
+
+The unchanged saved k29 checker also passes seed 2: 1,024 models, both recipes,
+all 2,048 ledgers/pins and exact budget contractions. Named ratios are
+0.0001208581671 and 3.3117337165e-11. Seeds 3/4 and final global coverage remain
+pending; numerical truths and incomplete source-cost conventions remain.
+
