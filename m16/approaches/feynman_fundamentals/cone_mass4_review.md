@@ -1457,3 +1457,11 @@ recurrence/readout dimensions are explicit; the padded original-mask witness
 still returns0.125 instead of its analytic value, so no defect repair is claimed.
 The source-gated next step is only clean seed0 h64, requiring original saved
 output/counter parity before tracing; no panel or H4-cost transfer follows.
+
+The completed33-row source-constant sensitivity panel is independently checked
+by `check_node_perturbation_panel_review.py`: exact mapped node/weight errors,
+source sums, all25 Gram entries and determinant bindings per fixture, and every
+rational bound match. All33 are bounded;21 lie below the existing1e-10 diagnostic
+and12 are loose. This bounds ideal-real sums with changed constants only.
+No tensor/mass/model evaluation was repeated, and source arithmetic remains
+outside the certificate. Review CPU was0.0160 seconds.
