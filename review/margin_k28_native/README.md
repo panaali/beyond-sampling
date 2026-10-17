@@ -45,6 +45,13 @@ Continuation command per fixed seed/noise/block:
 with external `ulimit -v 2500000; ulimit -t 110`. Pilot(0,20,0) is excluded.
 Saved-only `full_summary.py` refuses incomplete coverage and completed overwrite.
 
+Independent saved seed audits ac75ff27/5663c685 pass all site sums, original
+subtraction errors and exact mean counters. Seed0 numeric111 ratios85B/112
+.0003436985830/.00001354385190, zero individual losses. Seed1 ratios
+.04952494424/3.068269852e-7, with TWO85B individual losses (worst1.2840496);
+112 has none. Historical72 has no seed1 losses and stays separate. These are
+partial fixed-panel results; three seeds/global reconciliation remain.
+
 Reproduce source inventory with
 `python review/margin_k28_native/inventory.py` (refuses completed overwrite).
 
