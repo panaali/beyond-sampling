@@ -11,10 +11,12 @@ Freeze12 synthetic integer-array fixtures: 4x4 identity selftranspose; dense C-o
 After dispatch gate, identify/preregister relevant installed small kernels before any operation-price claim. Do not erase triangle-copy memory or generic setup: state whether excluded by the numerical convention. Source matrix expressions and actual packed lanes are different objects. Strided inputs may require copies and lose the shared-pointer optimization; preserve that outcome rather than assume all products use SYRK.
 
 ## Status
-Source inventory complete;12 controls frozen, no matrix test runs yet.
+All12 dispatch/parity controls complete; independent raw review pending.
 
 ## Results
-None. Both source and binary have SYRK and GEMM branches; actual captured fixtures pending.
+All12 baseline/interposed products agree bitwise and with exact integer matrix products. Contiguous C/F selftranspose fixtures (three cases) dispatch SYRK. The strided selftranspose case is copied and dispatches GEMM with distinct pointers; all other independent/tall cases dispatch GEMM (nine total). Alpha1/beta0 and every dimension/transpose/leading dimension are saved. The six tall cases retain1000x4 by4x4 geometry, including leading dimension8 for the strided tall left matrix. No operation price has changed; actual child-kernel accounting remains open.
+
+Reproduce baseline and LD_PRELOAD=<absolute spy.so> instrumented controls under one-thread2GB review lock. CPU .093037018+.079143817=.172180835, including exact checking but excluding imports; no mass/model runs.
 
 ## Compute accounting
 One thread2GB, review lock<=20CPU each. No cone/model/MC/reference integration. Fixed12 analytic array products only; exact integer checking and instrumentation validation costs separately recorded. No timing-to-operation conversion.
