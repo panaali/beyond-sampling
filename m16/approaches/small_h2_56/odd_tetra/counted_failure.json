@@ -1,0 +1,253 @@
+{
+  "checkpoint_sha256": "18b8b66d227c9360310f035a093dc0c891c5918fc8e01197f8f16682d0f7682c",
+  "checkpoint_loading_cpu_seconds": 0.78609643,
+  "models": [
+    {
+      "sigma": 0.0,
+      "model_sha256": "107fc06d0523920c3be2494e8e7992df1c41b088384ebcbb4dc2bfaec961c54a",
+      "geometry": {
+        "gate_cells": 110,
+        "stage_counts": [
+          2,
+          5,
+          14,
+          39,
+          110
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 682534.0,
+        "original_dd_parts": {
+          "lift": 20604.0,
+          "clip": 518181.0,
+          "adj": 128124.0,
+          "final": 15625.0
+        }
+      },
+      "correct_simplices": 2039,
+      "geometry_cpu": 0.6234754310000001,
+      "failure": "ValueError('finite common-orthant rays required')",
+      "cost": {
+        "known_arithmetic_upper_bound": 33611911,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 400,
+          "gate_map_setup": 80640,
+          "lift_scalar": 24892,
+          "zero_normal_check": 34500,
+          "clip_scalar": 1043780,
+          "clip_adjacency": 10237362,
+          "clip_new_rays": 4990624,
+          "gate_masks": 4876,
+          "outcome_maps": 11000,
+          "outcome_predicates": 16185,
+          "outcome_control": 22324,
+          "orthant_control": 41400,
+          "ray_l1_normalization": 41610,
+          "tri_incidence": 1108224,
+          "tri_control": 84040,
+          "tri_face_scan": 2249420,
+          "rank_result_test": 3076,
+          "qr_control_static": 3149824,
+          "qr_norm": 927384,
+          "qr_bounds": 116888,
+          "qr_pivot": 794534,
+          "qr_normalize": 42850,
+          "qr_project": 1295880,
+          "qr_reorthogonalize": 342880,
+          "qr_bracket_products": 1173468,
+          "qr_inverse": 329716,
+          "determinant_control": 554752,
+          "determinants": 233559,
+          "simplex_test": 2039,
+          "rule_newton": 16424,
+          "tetra_outer_rule": 304,
+          "tetra_cone_validation": 32768,
+          "tetra_cone_coordinates": 32768,
+          "tetra_cone_cross_products": 16384,
+          "tetra_cone_inverse_control": 32768,
+          "tetra_node_endpoints": 393216,
+          "tetra_node_norm_condition": 1179648,
+          "tetra_node_facets": 1376256,
+          "tetra_node_radial_screen": 1179648,
+          "tetra_node_control": 393216
+        },
+        "black_box_kernels": [],
+        "events": {
+          "lift_calls": 120,
+          "clip_calls": 3462,
+          "triangulate_calls": 336,
+          "bounded_rank_calls": 3076
+        },
+        "validation_kernel_calls": {}
+      },
+      "cpu_seconds": 0.62844031
+    },
+    {
+      "sigma": 0.0025,
+      "model_sha256": "4e258938f9cf99333d3408c66b9028a7de2e937a52f7c9db35e66c35a17a2285",
+      "geometry": {
+        "gate_cells": 162,
+        "stage_counts": [
+          2,
+          6,
+          18,
+          54,
+          162
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 1167404.0,
+        "original_dd_parts": {
+          "lift": 29376.0,
+          "clip": 852244.0,
+          "adj": 260944.0,
+          "final": 24840.0
+        }
+      },
+      "correct_simplices": 3701,
+      "geometry_cpu": 1.162706015,
+      "failure": "ValueError('finite common-orthant rays required')",
+      "cost": {
+        "known_arithmetic_upper_bound": 57422147,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 400,
+          "gate_map_setup": 108352,
+          "lift_scalar": 35392,
+          "zero_normal_check": 53696,
+          "clip_scalar": 1695418,
+          "clip_adjacency": 19140302,
+          "clip_new_rays": 8819584,
+          "gate_masks": 6984,
+          "outcome_maps": 16200,
+          "outcome_predicates": 29322,
+          "outcome_control": 32840,
+          "orthant_control": 61710,
+          "ray_l1_normalization": 71565,
+          "tri_incidence": 1901312,
+          "tri_control": 154450,
+          "tri_face_scan": 4030890,
+          "rank_result_test": 5726,
+          "qr_control_static": 5863424,
+          "qr_norm": 1725904,
+          "qr_bounds": 217588,
+          "qr_pivot": 1479877,
+          "qr_normalize": 79695,
+          "qr_project": 2414560,
+          "qr_reorthogonalize": 635400,
+          "qr_bracket_products": 2181790,
+          "qr_inverse": 609672,
+          "determinant_control": 980224,
+          "determinants": 412385,
+          "simplex_test": 3701,
+          "rule_newton": 16424,
+          "tetra_outer_rule": 304,
+          "tetra_cone_validation": 32768,
+          "tetra_cone_coordinates": 32768,
+          "tetra_cone_cross_products": 16384,
+          "tetra_cone_inverse_control": 32768,
+          "tetra_node_endpoints": 393216,
+          "tetra_node_norm_condition": 1179648,
+          "tetra_node_facets": 1376256,
+          "tetra_node_radial_screen": 1179648,
+          "tetra_node_control": 393216
+        },
+        "black_box_kernels": [],
+        "events": {
+          "lift_calls": 160,
+          "clip_calls": 5384,
+          "triangulate_calls": 541,
+          "bounded_rank_calls": 5726
+        },
+        "validation_kernel_calls": {}
+      },
+      "cpu_seconds": 1.167445239
+    },
+    {
+      "sigma": 0.02,
+      "model_sha256": "d703d7e6c4ece168a2ff854e264dc82c7db819492ca43cb1af1b8af0601d0215",
+      "geometry": {
+        "gate_cells": 162,
+        "stage_counts": [
+          2,
+          6,
+          18,
+          54,
+          162
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 1198278.0,
+        "original_dd_parts": {
+          "lift": 29376.0,
+          "clip": 880514.0,
+          "adj": 263548.0,
+          "final": 24840.0
+        }
+      },
+      "correct_simplices": 3969,
+      "geometry_cpu": 1.1177096300000002,
+      "failure": "ValueError('finite common-orthant rays required')",
+      "cost": {
+        "known_arithmetic_upper_bound": 60533315,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 400,
+          "gate_map_setup": 108352,
+          "lift_scalar": 35392,
+          "zero_normal_check": 54206,
+          "clip_scalar": 1728223,
+          "clip_adjacency": 20290732,
+          "clip_new_rays": 9168352,
+          "gate_masks": 6984,
+          "outcome_maps": 16200,
+          "outcome_predicates": 29322,
+          "outcome_control": 33384,
+          "orthant_control": 62250,
+          "ray_l1_normalization": 74220,
+          "tri_incidence": 1971456,
+          "tri_control": 166730,
+          "tri_face_scan": 4351390,
+          "rank_result_test": 6153,
+          "qr_control_static": 6300672,
+          "qr_norm": 1848660,
+          "qr_bounds": 233814,
+          "qr_pivot": 1583630,
+          "qr_normalize": 85255,
+          "qr_project": 2580600,
+          "qr_reorthogonalize": 675080,
+          "qr_bracket_products": 2327392,
+          "qr_inverse": 646712,
+          "determinant_control": 1048832,
+          "determinants": 441169,
+          "simplex_test": 3969,
+          "rule_newton": 16424,
+          "tetra_outer_rule": 304,
+          "tetra_cone_validation": 32768,
+          "tetra_cone_coordinates": 32768,
+          "tetra_cone_cross_products": 16384,
+          "tetra_cone_inverse_control": 32768,
+          "tetra_node_endpoints": 393216,
+          "tetra_node_norm_condition": 1179648,
+          "tetra_node_facets": 1376256,
+          "tetra_node_radial_screen": 1179648,
+          "tetra_node_control": 393216
+        },
+        "black_box_kernels": [],
+        "events": {
+          "lift_calls": 160,
+          "clip_calls": 5435,
+          "triangulate_calls": 558,
+          "bounded_rank_calls": 6153
+        },
+        "validation_kernel_calls": {}
+      },
+      "cpu_seconds": 1.122557064
+    }
+  ],
+  "cpu_seconds": 3.706135033,
+  "peak_rss_kb": 217684,
+  "source_hashes": {
+    "counted.py": "9e91af9587700505db1cae6b232545c13211d78c34be329c5b98cdf19ff0dcaf",
+    "fixed_tangent.py": "d4ae1189210f56d41a8b864f1a58cf6aeb9082edbd62a790634e23b6da74a7e3",
+    "primitive.py": "6a3961fd858d91a2ab2314dc2b8267de310a3e9d9a08fdcc8ad00a8dc4936e2d"
+  }
+}
