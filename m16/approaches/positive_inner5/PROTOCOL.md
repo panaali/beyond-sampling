@@ -22,17 +22,17 @@ Alternatives: (1) endpoint subtraction causes the observed loss, discriminated
 by same-sign tiny-angle fixtures against a direct floating primitive;
 (2) Gram/determinant conditioning or scale arithmetic dominates, discriminated
 by exact stored-input high-precision references and power-of-two scaling pairs.
-Positive expressions alone do not establish relative floating error.
+Positive expressions alone do not establish relative floating error. In particular, computed a,b and the wedge-sum delta need not obey delta=ac-b² exactly. Inputs are fixed five-float Python lists; array API dispatch is outside this primitive.
 
 Freeze the manifest before execution. Fixed valid analytic fixtures, exact
 collinear/origin/nonfinite guards, dyadic eps2^-10/30/60 controls, and scales
-2^-20/2^20/2^-300/2^300. Compare to 160-digit stored-input reference, analytic
+2^-20/2^20/2^-300/2^300. Compare to 240/280-digit stored-input references, analytic
 unit/orthogonal checks, and direct binary64 endpoint subtraction. Relative
 error <=1e-10 is a diagnostic threshold, not a bound. Unsupported finite
 collinear fixtures remain unresolved, not failed mathematics or dead methods.
 
 All numerical work uses one thread, 2GB, secondary review lock <=20CPU. Save
-once and refuse existing output. Count every explicitly named scalar arithmetic,
+once and refuse existing output or append-only progress. Append each attempt before execution and each result immediately. Before execution, review identified that the initially proposed 160/200-digit direct endpoint references can lose about72 digits at eps2^-60; source precision is frozen at240/280 with unchanged relative stability criterion1e-100. This is a pre-run reference correction, not a candidate or threshold change. Count every explicitly named scalar arithmetic,
 comparison/Boolean, abs/sqrt/isfinite operation through Ledger; API type/shape,
 loop/index, allocation, Python dispatch, library implementation and MP reference
 cost remain separate. Finiteness checks do not certify intermediate rounding.

@@ -42,14 +42,14 @@ class Ledger:
 def integrate(P, D):
     """Return integral_0^1 ||P+zD||^-5 dz or explicit unsupported status.
 
-    Fixed five-element real float inputs. Nonconstant collinear segments remain
+    Fixed five-element real float lists (not ndarray inputs). Nonconstant collinear segments remain
     unsupported even if their true integral is finite. No quadrature fallback.
     Common scaling and wedge delta reduce two cancellation mechanisms, but no
     directed rounding or total-return theorem is asserted.
     """
     L = Ledger(); o = L.op
     out = {'status': 'unresolved', 'value': None, 'branch': None, 'counts': L.counts}
-    if len(P) != 5 or len(D) != 5:
+    if type(P) is not list or type(D) is not list or len(P) != 5 or len(D) != 5:
         raise ValueError('five coordinates required; API shape checks outside numeric ledger')
     try:
         if o('not', L.all([o('finite_check', x) for x in P + D])):
