@@ -195,6 +195,103 @@
           }
         }
       }
+    },
+    {
+      "seed": 2,
+      "recipes": {
+        "r85b": {
+          "named_numeric": {
+            "models": 1024,
+            "mse": 2.2865584026395093e-08,
+            "mean_sampling_variance_integer": 0.00018919353630579314,
+            "ratio_integer_budget": 0.00012085816710692217,
+            "ratio_continuous_budget": 0.00012091691715967952,
+            "ratio_mean_budget": 0.00012104391678030048,
+            "bootstrap95_integer": [
+              9.95629174275134e-05,
+              0.00014569188373592877
+            ],
+            "mean_ops": 114020.2861328125,
+            "sampler_ops": 111,
+            "min_samples": 925,
+            "max_samples": 1158,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 0.007077693950765762,
+            "worst_copy_index": 494
+          },
+          "historical": {
+            "models": 1024,
+            "mse": 2.2865584026395093e-08,
+            "mean_sampling_variance_integer": 0.0003060919333384605,
+            "ratio_integer_budget": 7.470168774788169e-05,
+            "ratio_continuous_budget": 7.475908839759863e-05,
+            "ratio_mean_budget": 7.485749839513925e-05,
+            "bootstrap95_integer": [
+              6.154677697280308e-05,
+              9.004895135242257e-05
+            ],
+            "mean_ops": 45738.7177734375,
+            "sampler_ops": 72,
+            "min_samples": 565,
+            "max_samples": 722,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 0.004343469024522567,
+            "worst_copy_index": 494
+          }
+        },
+        "r112": {
+          "named_numeric": {
+            "models": 1024,
+            "mse": 4.973924886334761e-15,
+            "mean_sampling_variance_integer": 0.00015019096678978733,
+            "ratio_integer_budget": 3.3117337165133535e-11,
+            "ratio_continuous_budget": 3.312968917050094e-11,
+            "ratio_mean_budget": 3.3142880246054214e-11,
+            "bootstrap95_integer": [
+              1.7311287822941425e-12,
+              7.40585274389551e-11
+            ],
+            "mean_ops": 143520.0185546875,
+            "sampler_ops": 111,
+            "min_samples": 1211,
+            "max_samples": 1394,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 1.5464254043011708e-08,
+            "worst_copy_index": 280
+          },
+          "historical": {
+            "models": 1024,
+            "mse": 4.973924886334761e-15,
+            "mean_sampling_variance_integer": 0.00024177818157738895,
+            "ratio_integer_budget": 2.0572265263491917e-11,
+            "ratio_continuous_budget": 2.058495349460223e-11,
+            "ratio_mean_budget": 2.059498845081569e-11,
+            "bootstrap95_integer": [
+              1.0754958493800976e-12,
+              4.600821032460921e-11
+            ],
+            "mean_ops": 57848.66015625,
+            "sampler_ops": 72,
+            "min_samples": 748,
+            "max_samples": 870,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 9.626198446928994e-09,
+            "worst_copy_index": 280
+          }
+        }
+      }
     }
   ],
   "files": {
@@ -230,17 +327,33 @@
     "panel/s1_n23_b1.json": "a3755e86734fc532e860488db3bf92e6224b40d6450e1c9e8a5524228138e78a",
     "panel/s1_n23_b2.json": "66963840a10fd5435eb173f6b6dba0ff2524f8ea2d702a99d31d277c8aeeed28",
     "panel/s1_n23_b3.json": "a52892f30831b44841c07181406db53f81ad591d4e61d7f1956ffe6fc9d8b9fa",
+    "panel/s2_n20_b0.json": "d953fa0f300f1c142eb9cdd2d73d4bd79c96c84eb89044a9efe884eb6580d81e",
+    "panel/s2_n20_b1.json": "43b32259d8d9e047c5edd4e2a20661276fb979323d7ab144591b0cbebe72946c",
+    "panel/s2_n20_b2.json": "7fa0638dfcbf83946803b9ed4137918531e17cb0cff80e9c81b483a44bf47e28",
+    "panel/s2_n20_b3.json": "10820d436182ba8841acf498b5040e56de0c626826dbebf450eb88aeee570e4e",
+    "panel/s2_n21_b0.json": "c38d74322a25a79e6c35f2403463664954d4ccff348c00c67bec7d408f8de886",
+    "panel/s2_n21_b1.json": "357642691b7e9ad9a3203b8c3b56d43c0fd7faf62067895fd47c55f78ade87c9",
+    "panel/s2_n21_b2.json": "9af9bb5f2022d0a2127774ff2a452e35b1bc54cc4f1531cd77694d7eab84a145",
+    "panel/s2_n21_b3.json": "d879ebdcb9b87efb70df9fab61ac22762a582f7eee75db6bde182541072fbe0c",
+    "panel/s2_n22_b0.json": "0505d36ab2e9264898ff0de697f7611a6fd263b1d9e0252fd80985ee50e18fba",
+    "panel/s2_n22_b1.json": "bb482ea87b48ae98fac2f087b8a44fdcf77609684f49accc45d514fed89c1b0d",
+    "panel/s2_n22_b2.json": "e230a9347bf5015518c36eb217016ce2baeb24ee38f5f501dd730d794698cb86",
+    "panel/s2_n22_b3.json": "9ac75ec672de0387b60726413595449c43c38fabc010e6691ce4cf4c588c057f",
+    "panel/s2_n23_b0.json": "6fc46321b9bbf9c6cd8d010a8cd97dece82b737b50255c8c0268b12a10e9d967",
+    "panel/s2_n23_b1.json": "d62e21d80c1c01dfaa90fbdbdb34aeccab2af16c068c8a631db7531cfe9ca00b",
+    "panel/s2_n23_b2.json": "9d3decd51ed581f7238280d9bfc576e95320f5458eb8f208f962392a486aa4df",
+    "panel/s2_n23_b3.json": "2bb8c819a60c1e664248bef25dce98fccf4daaad3a00fa75bdeeaf06cf991a61",
     "clean.json": "8fcb293a79302f3caac6407218093f783bfe8fd7fe2046e593539fcf07ae754a"
   },
-  "total_rows": 2048,
+  "total_rows": 3072,
   "scope": "All frozen k29 models, two unchanged recipes. Numerical-source111 and historical72 conventions separate. Conditional1000-bootstrap excludes truth/geometry uncertainty; no fullhardware or population guarantee.",
   "numeric_totals": {
-    "r85b": 236739724,
-    "r112": 321609082
+    "r85b": 353496497,
+    "r112": 468573581
   },
   "integer_totals": {
-    "r85b": 7531339,
-    "r112": 10992580
+    "r85b": 10944532,
+    "r112": 15707338
   },
   "clean": [
     {
@@ -739,8 +852,8 @@
       }
     }
   ],
-  "research_cpu": 863.639432547,
+  "research_cpu": 1255.711168581,
   "research_cpu_scope": "Completed included chunks plus two controls and clean; excludes provenance and earlier source work, and import-before-timer caveats remain. No repeated pilot/control estimates counted as new statistical models.",
   "contraction_source_sha256": "95234de850c1669d7affcec2dee48b065f11d4ac35d825b22c4f9cfb9cd70082",
-  "cpu_summary": 0.421681694
+  "cpu_summary": 0.752328258
 }
