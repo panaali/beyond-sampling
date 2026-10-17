@@ -29,3 +29,6 @@ Different small-size dispatch or packed lanes could invalidate naive dimension s
 
 ## Failure modes
 Double counting inherited counters; counting only mathematical nonzeros in dense operations; silent source/backend drift; singular and subnormal paths; integer tuple/branch comparisons mixed with a numeric-only sampler; conflating a bounded category upper with a full implementation upper/lower. Preserve any failed parity/control and unresolved categories. This is no method-family negative.
+
+## Explicit remaining native interiors
+Visible dense dot/reduction/norm charges are scalar-expression counts; installed determinant/inverse categories are numerical-lane envelopes. BLAS accumulator work, NumPy reductions and Python3.12 sum compensation are not automatically covered by the visible convention. Report their combination as a hybrid subtotal with these gaps, never a full native upper/lower or a matched-budget MSE result.
