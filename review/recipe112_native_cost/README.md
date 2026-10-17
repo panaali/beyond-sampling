@@ -15,7 +15,7 @@ Frozen analytic controls: exact3D basis dot/cross/norm; dense2x3 times3x2; scala
 Two alternatives: (1) native dense/repeated arithmetic materially exceeds the scalar count despite output parity; direct source trace distinguishes. (2) accounting wrapper itself changes branches or costs; analytic operator controls and full output/counter/STATS parity distinguish. (3) a false cost increase comes from counting bookkeeping or nonexecuted branches; site ledger and independent source audit distinguish.
 
 ## Status
-Static inventory,12 analytic operator checks and five synthetic model parity controls complete; independent source/control gate ea2609ef passed before both frozen trained traces. Both traces completed with bitwise source parity; independent two-case raw cost review a558c8a9 passes.
+Static inventory,12 analytic operator checks and five synthetic model parity controls complete; independent source/control gate ea2609ef passed before both frozen trained traces. Both traces completed with bitwise source parity; independent two-case raw cost review a558c8a9 passes. Full1,280-case H8 panel now complete; final independent aggregate review pending.
 
 ## Results
 The actual `_resolve_margin2.margin` evaluates `P @ A3f.T` twice and uses dense matrices for both; scalar rec112 instead computes each point separately and skips inactive terms. Source `_est75` also constructs full HxH products after masks. These source differences motivate direct accounting and prevent cost transfer. The repeated expression is preserved. Original known positive-volume tie defects are not repaired in this task.
@@ -53,3 +53,20 @@ The explicit numeric-only sampling comparator is4H²+12H−1=351 atH8: first/rec
 First64 native pilot (H8seed0/noise80) completed23.965232631CPU,64/64 model hashes, bitwise traced/baseline outputs, historical counters and saved cell counts pass. Total named native numeric30,628,550, with each full source ledger in `panel/H8_z0_n80.jsonl.gz`. T55 independently checked every compressed site ledger, hash, baseline/traced field and prior cell/counter identity; numeric total30,628,550 and integer777,410 reproduce. Review took.024CPU without traces. The gate passed before the remaining19 shards launched; written independent review9b4c6a94. The bounded cost gate is feasible under55CPU; no accuracy/cost conclusion is drawn from the single pilot group.
 
 Independent two-case review a558c8a9 verifies model/source hashes, every saved ledger total, and baseline/traced value, legacy counter, STATS and all12 grouped family keys. The reviewer initially expected24 keys (the number of initial halves), preserved that assertion failure, then verified the actual12 grouped keys. The first64 pilot review subsequently passed as recorded below; remaining shards require a final independent aggregate audit.
+
+
+## Complete H8 panel
+
+All 20 frozen shards completed, covering exactly 1,280 original H8 models. Every native estimate equals its saved original estimate bit for bit; source tracing also preserves every legacy counter, cell count and grouped family result. No cap, unsupported call or numerical failure occurred. Each model's own integer budget is used, with sampler351 under the explicit numeric-only convention.
+
+| Zoo seed | Models | MSE / sampling variance | Conditional bootstrap95 interval | Mean named units |
+|---|---:|---:|---:|---:|
+| 0 | 256 | 0.000317303 | [0.000217971, 0.000431947] | 476852 |
+| 1 | 256 | 0.000584660 | [0.000327240, 0.000882001] | 448043 |
+| 2 | 256 | 0.020706812 | [0.006975190, 0.043529044] | 436508 |
+| 3 | 256 | 0.024834689 | [0.004719236, 0.055135376] | 440013 |
+| 4 | 256 | 0.191699510 | [0.005287945, 0.534805244] | 461549 |
+
+These five intervals are conditional on saved truths and source-count convention, not simultaneous guarantees or population-wide proof. The finite H8 core advantage survives direct named-source pricing; the first two controls' cost ratios were never transferred. Full H4/5/6 native core pricing, the separate borderline relative-noise group, library/hardware costs and setup qualifications are unchanged. In particular, the T113 borderline failure is not silently reclassified by this core-only result. No full ARC solution, full ladder acceptance or generic simultaneous-freezing theorem follows.
+
+Recorded replay CPU465.857324962 seconds across bounded shards; final aggregation.072352408CPU. Research timing includes imports, tracing and archival overhead and is not the estimator's production runtime. Reproduce all summaries with `panel_summary.py`; archived full site ledgers permit review without repeating any model calls. Final independent all-row arithmetic/source/hash review is requested before DRI registration.
