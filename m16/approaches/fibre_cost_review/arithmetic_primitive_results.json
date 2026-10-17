@@ -42,6 +42,94 @@
     "integer_control_total": 3,
     "complete_implementation_cost": false
   },
+  "zero_State": {
+    "sites": {
+      "__init__:L59:R @ P": {
+        "matrix_mul": 36,
+        "matrix_add": 24
+      },
+      "__init__:L59:R @ U": {
+        "matrix_mul": 36,
+        "matrix_add": 24
+      },
+      "__init__:L59:R @ nn": {
+        "matrix_mul": 36,
+        "matrix_add": 24
+      },
+      "__init__:L60:np.abs(Rn)": {
+        "special_np.abs": 12
+      },
+      "__init__:L60:np.abs(Rn) > 1e-300": {
+        "array_compare": 12
+      },
+      "__init__:L62:-RP": {
+        "array_USub": 12
+      },
+      "__init__:L62:-RP / Rn": {
+        "array_Div": 12
+      },
+      "__init__:L62:-RU": {
+        "array_USub": 12
+      },
+      "__init__:L62:-RU / Rn": {
+        "array_Div": 12
+      },
+      "__init__:L65:L @ P": {
+        "matrix_mul": 9,
+        "matrix_add": 6
+      },
+      "__init__:L65:L @ U": {
+        "matrix_mul": 9,
+        "matrix_add": 6
+      },
+      "__init__:L65:L @ nn": {
+        "matrix_mul": 9,
+        "matrix_add": 6
+      },
+      "rows_at:L43:t > 0": {
+        "integer_control_compare": 3
+      },
+      "rows_at:L44:A[:, t] += Wi": {
+        "array_Add": 8
+      },
+      "rows_at:L44:Wh @ Ag": {
+        "matrix_mul": 96,
+        "matrix_add": 72
+      },
+      "rows_at:L46:A @ x": {
+        "matrix_mul": 36,
+        "matrix_add": 24
+      },
+      "rows_at:L46:A @ x > 0": {
+        "array_compare": 12
+      },
+      "rows_at:L47:A * g[:, None]": {
+        "array_Mult": 36
+      },
+      "rows_at:L48:Wo @ Ag": {
+        "matrix_mul": 36,
+        "matrix_add": 27
+      },
+      "rows_at:L49:g.any()": {
+        "reduce_.any": 3
+      }
+    },
+    "totals": {
+      "array_Add": 8,
+      "array_Div": 24,
+      "array_Mult": 36,
+      "array_USub": 24,
+      "array_compare": 24,
+      "integer_control_compare": 3,
+      "matrix_add": 213,
+      "matrix_mul": 303,
+      "reduce_.any": 3,
+      "special_np.abs": 12
+    },
+    "named_numeric_total": 647,
+    "integer_control_total": 3,
+    "complete_implementation_cost": false
+  },
   "Sint_nonzero": {
     "sites": {
       "_Sint:L101:1 + R * R": {
