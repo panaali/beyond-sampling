@@ -17,8 +17,8 @@ def program(path,functions_only=False):
  else:tree.body=[n for n in tree.body if not(isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='LABELS' for t in n.targets))]
  return tree
 
-def assess(name,tree,fitted,extra=None):
- payload=tree if extra is None else (tree,extra);bits=C.encode(payload);decoded=C.decode(bits);restored=decoded if extra is None else decoded[0];assert dump(tree)==dump(restored)
+def assess(name,tree,fitted,extra=None,frame=False):
+ payload=(tree,extra) if frame else tree;bits=C.encode(payload);decoded=C.decode(bits);restored=decoded[0] if frame else decoded;assert dump(tree)==dump(restored)
  if extra is not None:assert C.encode(extra)==C.encode(decoded[1])
  values=[n.value for n in ast.walk(tree) if isinstance(n,ast.Constant) and isinstance(n.value,float)]
  out=dict(name=name,encoded_bits=len(bits),fitted_float_count=fitted,fitted_payload_bits=64*fitted,other_code_and_structure_bits=len(bits)-64*fitted,ast_nodes=sum(1 for _ in ast.walk(tree)),float_literals=len(values),syntax_sha256=hashlib.sha256(dump(tree).encode()).hexdigest(),encoded_sha256=hashlib.sha256(bits.encode()).hexdigest(),roundtrip=True)
@@ -39,7 +39,7 @@ def main():
    fitted_nodes=[n for f in tree.body if isinstance(f,ast.FunctionDef) and f.name.startswith('_n') and f.name[2:].isdigit() for n in ast.walk(f) if isinstance(n,ast.Constant) and isinstance(n.value,float)]
   else:
    table=next(n.value for n in tree.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='P' for t in n.targets));fitted_nodes=[n for n in ast.walk(table) if isinstance(n,ast.Constant) and isinstance(n.value,float)]
-  row,decoded=assess(filename,tree,len(fitted_nodes));original=environment(tree);restored=environment(decoded);checks=0
+  row,decoded=assess(filename,tree,len(fitted_nodes),frame=True);original=environment(tree);restored=environment(decoded);checks=0
   for i in range(H):
    a=original['f'](i,x);b=restored['f'](i,x);assert np.array_equal(a,b);checks+=len(x)
   subsets=[]
@@ -61,7 +61,7 @@ def main():
      # Global family index and dimensions; float matrix has an explicit nested-list structure.
      header=(H,K,families.index(family));extra=(header,beta);bits=C.encode(extra);recovered=C.decode(bits);assert extra==recovered
      a=scope['predict'](x,np.asarray(beta),K,family);b=restored['predict'](x,np.asarray(recovered[1]),K,family);assert np.array_equal(a,b)
-     out['universal'].append(dict(source=label,H=H,K=K,family=family,fitted_scalars=H*K,fitted_payload_bits=64*H*K,conditional_header_payload_bits=len(bits),conditional_structure_bits=len(bits)-64*H*K,standalone_bits=library['encoded_bits']+len(bits),shared_library_bits=library['encoded_bits'],prediction_scalar_checks=int(a.size),roundtrip=True))
+     out['universal'].append(dict(source=label,H=H,K=K,family=family,fitted_scalars=H*K,fitted_payload_bits=64*H*K,conditional_header_payload_bits=len(bits),conditional_structure_bits=len(bits)-64*H*K,standalone_bits=len(C.encode((tree,extra))),standalone_framing_bits=len(C.encode((tree,extra)))-library['encoded_bits']-len(bits),shared_library_bits=library['encoded_bits'],prediction_scalar_checks=int(a.size),roundtrip=True))
  out.update(complete=True,cpu_seconds_including_imports=time.process_time()-START,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,limitations=['All code lengths are upper bounds relative to the frozen Python/NumPy decoder.','Reporting names and identifier spellings are included; no shortest-code or intrinsic legibility comparison.','T23 uses seed0 coefficients for byte/dimension controls; all seeds have same frozen H*K count.','No source-model scoring, accuracy rerun, quantization or search-compute measurement.'])
  (HERE/'results.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({'original':out['original'],'libraries':out['libraries'],'universal_rows':len(out['universal']),'cpu':out['cpu_seconds_including_imports']}))
 if __name__=='__main__':main()
