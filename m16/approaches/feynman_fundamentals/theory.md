@@ -151,6 +151,18 @@ last input being negative, all other target positions are exchangeable. This
 family tests ties and rank semantics with no numerical integration, but does not
 solve the trained H2 ladder.
 
+A separate closed-form check for the T4 tail uses R~chi_2 and c=u/sqrt(1+u^2):
+
+    E Phi(uR) = 1/2+c/2,
+    E Phi(uR)^2 = 1/4+c/2+c atan(c)/pi.
+
+The second identity follows by integration by parts in the Rayleigh density,
+then the bivariate Gaussian wedge identity. With all output rows identical,
+prediction is always index0. If its prefix value is the largest, correctness
+probability is 2 E[Phi(uR)(1-Phi(uR))]; if it is second, E Phi(uR)^2; if lower,
+zero. `check_rayleigh.py` checks four positive/negative prefix examples without
+any numerical reference integration.
+
 ## Next cycle
 
 Use the weighted primitive inside a bounded two-input network-tail enumerator;
