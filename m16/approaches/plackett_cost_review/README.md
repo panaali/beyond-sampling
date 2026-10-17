@@ -100,3 +100,18 @@ traced geometry now match all72 ordered ray callbacks,96 cells, and17472
 legacy operations (.206571CPU). Trained tracing will use the source's
 existing eight12-parent partition to keep each batch bounded; repeated
 setup is measured separately and composed once for one cold estimator.
+
+## Existing branch census
+No trained integration was rerun. All35098 stored indices/flags appear once:
+wide10245, thin24780, cutoff73. Scaling the branch controls reconstructs the
+legacy404438808 exactly and yields510972352 inclusive explicit units plus
+2659858 opaque4x4 inverse calls and35098 opaque determinant calls. This
+ledger is deliberately separate from the later independent T150 inverse
+kernel audit and T144 determinant replacement work.
+
+The explicit-expression convention counts each special-function call or
+power as one named unit and reductions by their declared algebraic count.
+Python/NumPy's internal reduction/power implementation, vectorization, and
+branch machinery are not thereby certified; these are additional native
+implementation qualifications, alongside LAPACK and memory. Source diagnostic
+Ops/STATS accounting is excluded, while actual integer decisions are retained.
