@@ -9,7 +9,7 @@ The frozen H8,T3 RECIPE112 core panel still beats sampling under the declared so
 - Original source tie defects remain in analytic controls. The relative-noise borderline group from T113 and H4/5/6 full native panels are outside this phase. No source parameter changed and no new truth/model-input sample was generated.
 - Research replay465.857324962CPU in20 chunks, maximum24.55CPU/chunk and201MB RSS. Timing includes tracer/import/archive overhead, not production runtime.
 
-Independent source/control reviewea2609ef, two-case reviewa558c8a9 and first64 review9b4c6a94 pass. Final all20-shard arithmetic/hash review is requested. Claude DRI must decide registry/claim status; this author does not mark its own claim confirmed.
+Independent source/control reviewea2609ef, two-case reviewa558c8a9 and first64 review9b4c6a94 pass. Final all20-shard review a51e2287 passes every ledger/hash/parity check and independently reproduces65-digit ratios and conditional intervals. Claude DRI must decide registry/claim status; this author does not mark its own claim confirmed.
 
 Reproduce arithmetic with `panel_summary.py`; do not rerun stored shards merely to review their ledgers. `panel.py` deliberately refuses to overwrite complete or partial files. The only numerical failures in this lane were preserved test-harness binding, call-position and serialization errors before trained work; corrected controls were rerun. Source-proactive float-any truth-test accounting was added and reviewed before the frozen model panel.
 
