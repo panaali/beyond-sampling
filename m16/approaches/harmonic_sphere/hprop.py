@@ -96,8 +96,8 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
         for (b, K, c, g) in live:
             lp_flops += K.flops; K.flops = 0
         br = [(br[b][0], K, c, g[:, None] * Wt[b]) for (b, K, c, g) in live]
-    if cells == "global":
-        acc = readout_global(sp, br, Wo, T); ncut += _NC[0]
+    if cells in ("global", "tree"):
+        acc = (readout_global if cells == "global" else readout_tree)(sp, br, Wo, T); ncut += _NC[0]
         flops = sp.flops + lp_flops + len(br) * 2 * T * T * H
         info = dict(flops=flops, harm_flops=sp.flops, lp_flops=lp_flops, ncut=ncut, nleaf=len(br), m=sp.m, N=sp.N,
                     hilton_flops=ncut * sp.m * D * D + lp_flops)
@@ -189,4 +189,55 @@ def readout_global(sp, br, Wo, T):
                 Ci = sp.cut(Ci, np.tile(a / np.linalg.norm(a), (B, 1))); _NC[0] += B
             a = rows[-1]
             acc += float(sp.mass_in(Ci, np.tile(a / np.linalg.norm(a), (B, 1))).sum())
+    return acc
+
+
+def readout_tree(sp, br, Wo, T):
+    """Like readout_global, but as a binary decision tree (each cut's two children are g 1_H and g - that), so
+    the readout conserves every leaf's mass exactly: logit tournament (winner w vs q), then for the winner p a
+    count of the x_k (k != p) above x_p; a branch is dropped once the count reaches 2; count == 1 is correct."""
+    _NC[0] = 0
+    C = np.stack([c for (_, _, c, _) in br], 1)
+    Ls = np.stack([Wo @ A for (_, _, _, A) in br])            # B x T x T
+    nodes = [(C, np.arange(C.shape[1]), np.zeros(C.shape[1], int))]   # (coeffs, leaf idx, current winner)
+    def split(C, V):
+        n = np.linalg.norm(V, axis=1, keepdims=True); ok = n[:, 0] > 0
+        V = np.where(ok[:, None], V / np.maximum(n, 1e-300), 0)
+        Cp = sp.cut(C, V); _NC[0] += C.shape[1]
+        Cp[:, ~ok] = C[:, ~ok]                             # zero form: x on the + side everywhere
+        return Cp, C - Cp
+    for q in range(1, T):
+        new = []
+        for (C, idx, w) in nodes:
+            V = Ls[idx, w, :] - Ls[idx, q, :]
+            Cp, Cm = split(C, V)
+            new.append((Cp, idx, w)); new.append((Cm, idx, np.full_like(w, q)))
+        nodes = new
+    acc = 0.0
+    E = np.eye(T)
+    for (C, idx, w) in nodes:
+        # regroup by winner so that the order cuts share normals
+        for p in range(T):
+            sel = w == p
+            if not sel.any():
+                continue
+            st = [(C[:, sel], 0)]
+            others = [k for k in range(T) if k != p]
+            for kk, k in enumerate(others):
+                a = (E[k] - E[p]) / np.sqrt(2); st2 = []
+                last = kk == len(others) - 1
+                for (Cs, cnt) in st:
+                    V = np.tile(a, (Cs.shape[1], 1))
+                    if last:
+                        mp = sp.mass_in(Cs, V); m0 = Cs[0]
+                        if cnt == 0:
+                            acc += float(mp.sum())          # x_k above: count 1
+                        elif cnt == 1:
+                            acc += float((m0 - mp).sum())   # x_k below: count stays 1
+                        continue
+                    Cp = sp.cut(Cs, V); _NC[0] += Cs.shape[1]
+                    if cnt + 1 < 2:
+                        st2.append((Cp, cnt + 1))
+                    st2.append((Cs - Cp, cnt))
+                st = st2
     return acc
