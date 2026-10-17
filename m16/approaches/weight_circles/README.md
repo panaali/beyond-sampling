@@ -18,7 +18,7 @@ source gate8dfaf3de and27 input/dependency files. The original Hopf source is
 used with only the prior reviewed tile-mask correction; no shared edits.
 
 ## Status
-Bounded analytic phase complete21e3f9dc, saved independent review pending.
+Bounded analytic phase complete21e3f9dc, independently reviewed3b9aa608.
 No trained estimator, model-reference draw or new geometry capture has run.
 No trained accuracy or scalable mechanistic reduction is established.
 
@@ -43,7 +43,7 @@ Use saved `controls.json` for review; no repeated estimator calls are needed.
 Recorded0.520463486 process CPU seconds;32 fibre calls and180 deterministic
 forward checks,14 successful frames and2 exact-collinear rejections. Zero
 trained calls/reference draws. The16 observed fibre ledgers total306396 named
-numeric expressions; integer-control category0, with sort/search/native-opaque
+numeric expressions plus16 startup expressions (306412 total); integer-control category0, with100 sort/search/native-opaque
 and memory records retained separately. Plain calls, control checks, startup,
 frame construction and discovery are separate from that observed subtotal.
 A successful explicit4D frame kernel has39 arithmetic/sqrt/division expressions
@@ -54,7 +54,7 @@ These source counts are not complete binary/runtime cost bounds.
 [inferred, independently source/algebra reviewed8dfaf3de] An appropriate
 rank2 representation of the entire correctness predicate gives an exact
 circle law; an orthogonal rotation alone leaves an outer base integral.
-[measured, saved review pending] The finite controls satisfy their frozen
+[measured, independently saved-reviewed3b9aa608] The finite controls satisfy their frozen
 expectations/parity checks. No generic fibre correctness follows.
 [speculative] A weight-derived certificate or conditional decomposition may
 reduce the trained network's integration dimension or branching.
@@ -72,3 +72,7 @@ off as identities; incomplete first-index ties; ambient-null exceptions on the
 chosen circle; the known mixed-zero root mask; hidden discovery/branch costs.
 Frame controls only reject two exactly collinear fixtures and do not establish
 robust rank detection near degeneracy. No claim about every floating input.
+
+Independent audit checks all saved model/output/pin/site records and einsum shapes.
+Hidden state vectors were not serialized; hidden-state equality therefore rests
+on source algebra and author checks, not independent raw-state reconstruction.
