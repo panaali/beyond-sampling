@@ -730,3 +730,11 @@ loses finite-precision terms. Prove anchored antisymmetric least-squares
 identity and expose the rounded-midpoint term missing from a cubic-only
 Gaussian-interval bound. `interface_and_controls_review.md` records all three
 read-only derivations. No numerical run or production edit.
+
+## Cycle 29: blocked primitive derivation and reservation
+Root requested a backlog-only reservation for an exact polygon/CDF primitive.
+Fresh admin checkout, TASKS-only push06680a4 reserves T92 as Blocked pending a
+concrete T91/T67 need. `polygon_gaussian_transfer.md` derives uniform/affine
+boundary antiderivatives, active affine bounds and tie ownership; it freezes
+normalization, cancellation and complete-cost falsifiers. No implementation or
+experiment, and no automatic accuracy rescue from eliminating quadrature.
