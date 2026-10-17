@@ -13,10 +13,10 @@ THEORY.md states the rank-conditioned independence and all limits. No omitted
 rank information is silently added. Future network controls need a new gate.
 
 ## Status
-Source prepared; independent source gate required before one bounded run.
+Eight scalar and four domain controls completed once after independent T55 source/theory gate5fae242f; saved-result independent audit pending.
 
 ## Results
-Pending. Planned command under20CPU/2GB and one thread: `flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/conditional_order_bounds/controls.py`.
+All8 formulas/expectations agree with direct-density controls (maximum absolute difference1.7562e-95); all4 domain/degenerate controls pass. Fixed mean-plus-quarter bounds improve below1; mean-minus-quarter controls retain the convex no-improvement diagnosis. This is scalar validation, not neural performance. Recorded1.559815508CPU plus.115609266prior/import=1.675424774processCPU. Command under20CPU/2GB and one thread: `flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/conditional_order_bounds/controls.py`.
 
 ## Compute accounting
 Only scalar MP formulas and independent direct Gaussian integrals; all CPU and
