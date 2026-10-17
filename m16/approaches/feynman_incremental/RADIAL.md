@@ -1,0 +1,15 @@
+# T20 radial tube port protocol
+
+Status: primitive phase, claimed/pushed2a9c932 before implementation. Same owned folder; canonical Gaussian port and original tube sources remain unchanged.
+
+Question: preserve tube's radius-integrated coarea law while using the corrected incremental gate walker and explicit full charges. For original half-coordinate direction k, set t=k/sqrt2 so the shared direction has unit length. Normalize the face by rho as original tube does: y=x0/rho, tau=hi/(rho*sqrt2), tex=lo/(rho*sqrt2). The target convention remains kind23/12. Weight becomes A*(1+t²)^−5 dt, A=sqrt2*C_RAD, C_RAD=sqrt2*Gamma(5)/Gamma(4.5). Its full-line mass is2sqrt(pi), not1; no probability renormalization.
+
+Method: exact real-arithmetic antiderivatives via incomplete beta. On a,b>=0 use .5*A*B(4.5,.5)*[I_{1/(1+a²)}−I_{1/(1+b²)}], with parameters(4.5,.5). Reflect negative intervals; across zero use signed CDF pieces I_{t²/(1+t²)}(.5,4.5). Tiny widths delta use A*delta*(1+a²+a*delta+delta²/4)^−5. Absolute midpoint remainder<=delta³*M/24 where M=min(10A,10A*(11max endpoint²+1)/(1+min endpoint²)^7), minimum endpoint square is0 across zero. This algebra was independently reviewed by T55 before implementation. Bound evaluation and elementary/beta rounding remain unverified floating arithmetic.
+
+Frozen falsifiers/alternatives:
+1. A direction or normalization mismatch could yield convincing but wrong tube values. Compare scalar intervals and full-line limit against independent high-precision positive integration; keep full mass2sqrt(pi).
+2. A target/tie bug could be hidden by scalar agreement. Reuse exact-rational T30 gate/readout intervals, both target conventions and exclusions; replace only their Gaussian mass with independent high-precision radial integration. Include zero-output atoms, duplicate/tiny margins and thin strips.
+3. Caps must raise with spent costs, never reinterpret the original tube remainder as zero. Keep forced cap0/1 controls. This phase returns completed integrals or explicit failure, not extrapolation.
+4. Incomplete-beta differences can cancel in very thin intervals. Use the bounded algebraic midpoint selection; test adjacent-float tails and crossings. No global relative-error/underflow certification.
+
+Compute: per attempted interval350 scalar-operation proxy units (two incomplete-beta100 calls plus conservative ordinary algebra),40 per complement assembly,500 per radial adapter setup, in addition to all unchanged native/shared charges. Obsolete shared CDF allowances remain duplicated conservatively. Beta100 is an opaque-kernel convention, not a portable upper bound. No normal-CDF evaluation is performed by radial callbacks. Exact-rational/high-precision diagnostics are charged separately. First cycle<=20CPU using review lock, one thread/2GB; no trained-model sweep. Full tube node/table/importance setup accounting remains the next bounded phase. Tube fitted importance arrays and Newton/hybrid variants are not silently generalized or ported.
