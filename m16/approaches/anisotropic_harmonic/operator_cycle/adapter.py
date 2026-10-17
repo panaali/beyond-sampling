@@ -17,12 +17,13 @@ finally:
     else:sys.modules['space']=previous
 
 
-def estimate(model,**kwargs):
-    driver.Space=Space
+def estimate(model,vectorized=False,**kwargs):
+    driver.Space=lambda *a,**kw:Space(*a,**kw,vectorized=vectorized)
     value,stats=driver.estimate(model,optimized=True,**kwargs)
     count=stats['cut_work'].get('real_operator_multiply_adds',0.)
     stats['accounted_scalar_arithmetic_upper']+=2*count
     stats['representation']='real matrix-free equivalent cut'
+    stats['vectorized_angular_assembly']=vectorized
     stats['driver_source_sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
     return value,stats
 

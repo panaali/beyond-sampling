@@ -92,3 +92,11 @@ vectorize angular matrix entry assembly using fixed index arrays constructed
 inside each Space. Same formula, nodes, basis and arithmetic; count index
 setup and test parity again. This addresses Python overhead only, not a new
 approximation or degree choice.
+
+## Vectorized equivalence result
+Fixed angular entry assembly is bit-identical on all12 primitive normals.
+Base H2/H4 parity remains5.56e-17/2.23e-16. Same-session cold CPU is
+.1040→.0841 and.3959→.3360 seconds, with unchanged ordinary arithmetic
+counts (new integer index setup separately recorded). This passes the
+frozen equivalence/cost gate. Repeat the identical17 prior cases for parity
+and cold comparison; no coefficient, degree, node or truth selection.
