@@ -12,7 +12,7 @@ Freeze the25 analytic matrices in PROTOCOL.md before implementation. Independent
 
 ## Status
 
-Frozen25 analytic controls complete after independent theorem/source gate. Independent saved-results audit pending. No trained cofactors, mass or model calls.
+Frozen25 analytic controls complete after independent theorem/source gate. Independent saved-results audit cb751402 passes all25 exact Gaussian-elimination references, endpoints and category counts. No trained cofactors, mass or model calls.
 
 ## Results
 
