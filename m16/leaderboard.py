@@ -42,7 +42,7 @@ determinism check (two different rngs give the same estimate) or it is reported 
 
 SCORING. MSE = mean (estimate - truth)^2 - truth_se^2 (unbiased for the MSE against the exact accuracy),
 reported as the ratio to plain sampling's MSE p(1-p)/cost at the same mean cost (below 1 = better), with a
-bootstrap 95% CI. Every single run is stored in results/leaderboard_v3_raw.jsonl, so tables are recomputed
+bootstrap 95% CI. Every single run is stored in data/leaderboard_v3_raw.jsonl (copied to results/ by each report), so tables are recomputed
 from raw estimates when truths improve (`report`), without re-running estimators.
 
 usage:
@@ -56,6 +56,7 @@ import argparse
 import importlib.util
 import json
 import os
+import shutil
 import sys
 import time
 import zlib
@@ -72,7 +73,8 @@ DEFAULT_BUDGETS = (16_000, 64_000)
 CURVE_BUDGETS = (1_000, 4_000, 16_000, 64_000, 256_000, 1_000_000)  # T15
 SIGMAS = (0.0025, 0.005, 0.01, 0.02)                                  # x RMS of each matrix; T17 adds 0.01, 0.02
 N_NOISY = 6
-RAW = "results/leaderboard_v3_raw.jsonl"
+RAW = "data/leaderboard_v3_raw.jsonl"            # live, git-ignored: git checkouts/stashes must never touch an open file
+RAW_SNAPSHOT = "results/leaderboard_v3_raw.jsonl"  # committed copy, refreshed by every report
 
 # DRI-reviewed classes (T14). Reason and audit pointer for each; see review/estimator_audit/.
 # Classes from the independent audit (review/estimator_audit/README.md, 2026-10-17); determinism verified there.
@@ -244,7 +246,7 @@ def run(names, H, T, budgets, groups):
     ms = models(H, T)
     if groups:
         ms = {k: v for k, v in ms.items() if group_of(k) in groups}
-    os.makedirs("results", exist_ok=True)
+    os.makedirs("results", exist_ok=True); os.makedirs(os.path.dirname(RAW), exist_ok=True)
     for name in names:
         est, a = load_estimator(name)
         if a["supports"] != "all" and (H, T) not in a["supports"]:
@@ -291,6 +293,8 @@ def _sampling_sec_per_fpe(H, T, budget):
 def load_raw(H, T):
     """Latest run per (name, model, budget, rep): a re-run replaces earlier rows."""
     rows = {}
+    if not os.path.exists(RAW) and os.path.exists(RAW_SNAPSHOT):     # fresh clone: start from the committed copy
+        os.makedirs(os.path.dirname(RAW), exist_ok=True); shutil.copy(RAW_SNAPSHOT, RAW)
     if os.path.exists(RAW):
         for line in open(RAW):
             d = json.loads(line)
@@ -330,6 +334,8 @@ def table(H, T, names=None):
 
 
 def report(H=16, T=10, names=None):
+    if os.path.exists(RAW):
+        shutil.copy(RAW, RAW_SNAPSHOT)
     rows = table(H, T, names)
     json.dump(rows, open(f"results/leaderboard_v3_H{H}_T{T}.json", "w"), indent=1)
     print(f"\n=== Leaderboard v{VERSION}, M_{H},{T}. MSE / sampling-MSE at equal cost (below 1 beats sampling) ===")
