@@ -126,3 +126,40 @@ underflow, trained/noise behavior and complete cost remain open.
 Reproduce source controls with `python analytic_controls.py CASE` and local
 rescue with `python guard_controls.py CASE`, CASE=zero,constant0,plus3_minus0,
 plus0_minus3; use one-thread resource/lock limits from the protocol.
+
+### First missing noisy-case cost preflight (board e77a8098)
+The independent T100 analytic/source review is2827c813. The original missing
+case `abs0.05_n0_0` is now pinned in `noise_identity.json`: local seed1 checkpoint
+34fbb32d51cfae0d77b6cba73747506a93a72077657c4f02e243074178b75761,
+float64 Wi/Wh/Wo model bytes ef22df10439aa5f65366a09e3cf1a42b3a8874bb1f7ee5eea68823bfaf52c9e9.
+Noise is original default_rng(0), sigma.05, first copy, after float64 conversion;
+independent explicit generation agrees exactly. No model inputs were drawn.
+The best-of-five mapping selects seed1. T131/T145/T148/T109 references are
+clean, final3 noisy seed0 sigma.005/RNG7 differs, and T113 is T3. A search of
+both current source and910 approach JSON/README files finds no matching model
+hash; generic matching noise labels belong to T3, not this checkpoint.
+
+`observer.py` adds counters only to existing trace/walk64 loops and subdivision
+depth6 termination; numerical statements, branches, thresholds and return
+values remain unchanged. For-else counts actual loop exhaustion, not a final
+iteration that exits normally. The exact-zero guard is identical to the
+reviewed local rescue. `observer_controls.py` replays all eight saved analytic
+arms and checks answers, legacy counters and trace/piece stats bitwise.
+All pass in9.82CPU, maxRSS36MB; max trace iterations2, max subdivision depth3,
+no exhausted cap. These controls do not exercise the downward walk, whose
+source transformation still needs independent review. Observer bookkeeping
+is review overhead and is not added to the candidate legacy cost.
+
+After independent source review, `noise_preflight.py` evaluates ONLY family0,
+side0 F2L3. It is one additive error contribution, not a complete accuracy.
+One thread2GB/110CPU maximum, frozen LOOK3/ADAPT/default orders/EMAX. No
+fresh MC, complete noisy sweep or clean rerun is authorized by this phase.
+A killed attempt retains its pre-run artifact; normal completion records
+legacy cost, counters, timing and cap observations. Alternative explanations
+for poor noise performance include (a) face/trace explosion, checked cheaply
+by this fixed first component, and (b) unchanged cubature/lookahead bias,
+which this preflight cannot establish or exclude. A reviewed bounded full
+case and independent truth/convergence discriminator remain necessary.
+Reproduce identity with `python noise_identity.py`, observer parity with
+`python observer_controls.py`, and frozen component with
+`python noise_preflight.py` under the stated locks/resource limits.
