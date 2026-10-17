@@ -5,7 +5,7 @@ import numpy as np
 HERE=Path(__file__).parent
 _libraries={}
 
-def walk(model,u,v,max_pieces=5000,engine='projective'):
+def walk(model,u,v,max_pieces=5000,engine='factored_axis'):
     if engine not in ('factored','factored_mixed','factored_axis','factored_mixed_axis'):raise ValueError('unknown engine')
     wi,wh,wo=(np.ascontiguousarray(a,dtype=np.float64) for a in model)
     u,v=(np.ascontiguousarray(a,dtype=np.float64) for a in (u,v))

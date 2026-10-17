@@ -12,10 +12,10 @@ Copy the prior factored/factored_mixed sources into this owned folder with sourc
 Alternative1: all remaining H2 discrepancies come from late exact resets; factoring those roots makes paired counts equal. Alternative2: nonzero hidden affine dependencies or recurrence rounding create other coincident roots, so the repair is partial or null. A negative does not establish that double precision is invalid. Alternative3: apparently zero floating coefficients arose through cancellation, not structural gating; instrument active flags if necessary before claiming structural exactness. Cheapest discriminator is the unchanged per-plane count/output comparison and a concrete residual fixture, not a larger benchmark.
 
 ## Status
-Protocol frozen before implementation. Bounded <=110CPU cycles, one thread, <=2GB, shared locks; short controls <=20CPU may use review lock.
+Bounded reset and axis phases complete, independent axis review pending. Bounded <=110CPU cycles, one thread, <=2GB, shared locks; short controls <=20CPU may use review lock.
 
 ## Results
-Pending. Preserve failures and all cold/warm results. Independent T55 review requested before handoff.
+Reset and axis exact-factor controls pass on the frozen workload; full results and limitations follow. Independent T55 reviews are recorded below.
 
 ## Compute accounting
 Charge compilation, copied-source preparation, wrapper loading, plane/model preparation, finite checks and all kernel runs. Added zero-prefix tests cost at most2H coefficient comparisons per recomputed step and are counted explicitly. Record cold/warm CPU separately; existing arithmetic counters are partial, not a complete portable FLOP ledger. Random planes make this a sampling-based baseline primitive, not a deductive challenge solution.
@@ -51,3 +51,12 @@ With exactly one structurally active final neuron k, h_k>0 on an open gate cell,
 Alternative1: the residual classified-interval excess consists of axis-readout boundary artifacts, so this factorization matches exact counts. Alternative2: multiple active hidden coordinates or other coincident affine differences produce residual cuts, requiring a different explicitly proved factorization. Repeat the same28 Fraction controls/caps and32 planes on all four frozen models, with exact planes0/31 comparison. Require unchanged integrals<=1e-12 and preserve every count residual; no wider sweep or model-dependent fallback. Count final-support tests, skipped readout comparisons and fixed-winner work; charge compilation and same-run comparisons. <=110CPU, same locks/memory. This is the finite numerical-representation alternative promised by T66, not a new accuracy estimator.
 
 The first axis-variant source-generation attempt stopped before writing files because the long-double declaration used different formatting. The following build argument consequently failed; no compiler or numerical experiment ran. The exact replacement assertion was corrected, and shell fail-fast is now applied before source preparation too.
+
+## Axis result and finite alternatives
+All28 Fraction controls and four cap failures pass again. On H2T10,1113/1188 final gate cells are origin/axis-supported. Classified intervals decrease from reset-only long/mixed5411/6749 to4466/4466, with per-plane parity on all32. Gate counts remain1188/1188 and probability discrepancy<=8.33e-17. Exact trained planes0/31 now match BOTH oracle gate cells38/36 and classified intervals128/126; their probabilities match the oracle's final doubles exactly. All H16 gate/interval counts remain unchanged, and no final origin/axis cells are detected.
+
+Matched warm H2 CPU decreases .004866/.004427 to .002895/.002706 (about1.68/1.64x relative to reset-only versions in this same run); the values are millisecond-scale and not a portable speed certificate. H16 adds support-mask overhead without useful axis skipping. Full check2.179100318CPU, exact-trained check separately saved, successful builds .547232/.542281CPU. Partial support/root counters include every kernel call; original benchmark artifacts remain. No claim of equal-compute sampling advantage or improved accuracy is made.
+
+Finite tested alternatives: initial-step-only common factor; structural late-reset factor; exact Fraction gate-history discriminator; final origin/axis readout factor; same model/plane/precision controls; first-index/zero/tiny-gap/scale/cap fixtures. General multiactive affine dependencies, compensated recurrence and outward-rounded geometry remain open. The observed H2 gate and readout discrepancies have explicit algebraic repairs, so this task is a scoped positive, not a family-wide negative. Wider model/plane sweeps are unnecessary for that finite claim and are not automatically authorized.
+
+Reproduce from repo root with one-thread environment and the shared review lock: run `build.py --engine` for factored, factored_mixed, factored_axis and factored_mixed_axis; then `check.py`, `check_exact_trained.py`, `check_axis.py`, `check_exact_axis.py` in this folder. Oracle and baseline source path/hashes are retained; no external internet source was used. Root/DRI decides shared adoption and registry status.
