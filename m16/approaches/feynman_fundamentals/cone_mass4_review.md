@@ -1298,3 +1298,16 @@ supported by pinned source and saved records; this result does not bound
 coefficient or denominator error, libm, source sequential arithmetic,
 quadrature, or the full cone mass. Those exclusions remain material despite
 the small numerator-only bounds.
+
+### Five synthetic five-dimensional cost paths
+
+`check_orth5_cost_pilot_review.py` verifies all five saved paths, three log and
+two thin, including unchanged bits/proxy/STATS/warnings and every site/category
+and opaque-call record. Each log path contains one5x5,665 4x4 and3,840 3x3
+determinant instances. The source expression arithmetic and opaque calls remain
+separate; no installed-library prices are transferred by name.
+
+The H8T5 scalar sampler inventory is672 units with the first zero recurrent
+product omitted, or800 when executed (671/799 excluding integer correctness).
+These conventions are not measured batched native costs. The inherited thin
+numerical counterexamples remain unchanged. No masses were rerun in review.
