@@ -180,3 +180,20 @@ on source allowances and reference geometry, with no panel multiplier transfer.
 both grids; the exact analytic mask-defect witness remains valid.
 [inferred] The h64 conditional comparison is promising for a direct broader
 saved-panel cost audit; it does not establish that audit's result.
+
+### Existing panel continuation
+TASKS304a1ddb reserves direct original-source h64 coverage for the existing
+25 H4T4 rows. Canonical checkpoint metadata and exact original noise code are
+pinned in f8a58823; reconstructed identities e158adb1 preserve seed0 clean hash.
+Pilot seed0 copy1 (8d6119ec) matches saved value .35535204853183044 and legacy
+64,861,332 exactly. Explicit146,777,020 and conditional247,259,835 are measured
+directly,13.385CPU, not transferred from seed0 clean. Saved audit pending.
+The remaining23 entrypoint ecd62bc1 makes only index/pin substitutions in the
+frozen pilot source. Its execution waits independent pilot and source gates.
+See PANEL_SCOPE.md for exclusions and failure-preserving metadata correction.
+
+```
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_models.py
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_probe.py --seed 0 --copy 1
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/panel_continue.py --seed S --copy C
+```
