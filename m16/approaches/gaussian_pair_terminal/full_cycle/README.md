@@ -91,3 +91,19 @@ floating arithmetic. Check the recorded fixture at80 digits and both signs,
 repeat existing primitive and full constants before the trained pilot.
 Do not suppress QUADPACK failures on wider intervals or omit unused rank11
 just to hide this defect. All counters include the fallback.
+
+## Wider narrow-panel failure and distinct numerical rescue
+The explicit2-ulp fallback matches80-digit positive integrals (three original,
+reflected and signed fixtures) within9.8e-33, with a deliberately conservative
+uncertified floating allowance. Repeating full constants exposes another
+QUADPACK domain-conditioning failure on a128-ulp interval of width5.64e-14
+near-2.18918; this is outside the frozen tiny fallback threshold and remains
+an explicit failure in second_controls_failure.json. No threshold is widened.
+
+Freeze the algebraically exact affine change x=a+(b-a)t for every remaining
+adaptive integral, integrating t on[0,1] and scaling both value/error by width.
+This avoids asking the adaptive driver to subdivide an almost indistinguishable
+physical-x interval. Divide its absolute tolerance by width to preserve the
+same requested raw-probability tolerance. Keep the explicit2-ulp fallback,
+all guards, geometry and every wider nonconvergence rejection. Re-run both
+known fixtures and prior controls; no full trained pilot before they pass.
