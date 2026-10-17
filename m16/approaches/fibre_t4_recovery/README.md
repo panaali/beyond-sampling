@@ -203,3 +203,14 @@ same eventual reference exactly once. No estimator answer is used to select
 sample count; full100M continuation depends on bounded throughput only.
 MC uncertainty will remain explicit, and one missing case cannot establish
 noisy-rung or full-cost success. No duplicate exact-positive capture is run.
+
+The frozen pilot passed:1M inputs in0.2599CPU, peak178MB,312 extra parity
+forwards (not counted as additional truth inputs). The source gate passed
+before the pilot. Boardb7e61008 now freezes original100M completion because
+throughput is affordable, independently of the still-incomplete fibre answer.
+`reference_continue.py START STOP` calls the unchanged reviewed block routine
+for at most10 blocks per primary-lock acquisition, each block1M with original
+500k internal batches. Block0 is reused once; blocks1..99 continue exact saved
+PCG state. The original pilot entry point remains unchanged and pinned.
+All statistical conclusions must retain binomial sampling uncertainty and
+one-case scope; historical/complete cost and noisy-panel qualifications remain.
