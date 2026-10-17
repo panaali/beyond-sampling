@@ -9,10 +9,28 @@ For signed-L1 rays R=[v0,v1,v2,v3], set Ai=u*v0+(1-u)*vi for i=1,2,3. The cone m
 Use the same geometry-only Gauss orders and Chebyshev bounds as ../stable_volume.py. Degree K=n-2 remains exactly integrated: the inner operator integrates a polynomial exactly and the remaining Jacobian has degree two. Triangle fallback quadrature bounds are added with positive outer weights. Geometry and roundoff remain outside these bounds.
 
 ## Status
-Protocol frozen before T64 measurements. Root pushed claim 2d178fa. Canonical estimator remains unchanged. T55 owns primitive implementation/vectorization; this folder owns the outer driver and comparisons.
+Full three-case validation passed; matched cost check next. Protocol frozen before T64 measurements in54ef5fe. Root pushed claim2d178fa. Canonical estimator remains unchanged. T55 owns primitive implementation/vectorization; this folder owns the outer driver and comparisons.
 
 ## Results
-Pending. First controls: orthogonal triangle integral 3*pi/4; identity four-dimensional cone mass 1/16. Pilot fixed first32 original-model cones, then all three existing models if bounded cost permits. Existing fixed-GL20 references are comparisons, never allocation inputs. Noise is the previously fixed RNG51001, relative RMS scales0,.0025,.02.
+Orthogonal triangle and identity cone controls pass to4.45e-16 and1.39e-17 absolute error. Fixed first32-cone pilot matches the previous3D rule to2.17e-19;468 triangles include6 guarded fallbacks. Its integration took.00405CPU versus.00797CPU for the previous rule.
+
+Full results (full_results.json):
+
+| noise | estimate | difference from fixed3D reference | outer+inner integration bound | total CPU | triangle integration CPU |
+|---|---:|---:|---:|---:|---:|
+|0|.477013125994119|2.78e-16|6.88653e-10|2.456|.572|
+|.0025|.5014929079254983|1.11e-16|8.69052e-10|2.548|.532|
+|.02|.3638126426226529|1.67e-16|5.98247e-10|1.924|.300|
+
+Triangle counts127748/124861/93894; guarded fallback counts8226/10349/2474 and fallback nodes1341072/2243568/239296. Weighted fallback integration bounds1.77e-13/1.60e-13/2.22e-14 are included above. Previous3D node counts were30832112/26687215/18126648. Geometry remains the main cost. Neither node reduction nor historical CPU alone establishes portable speedup.
+
+Run from the repository root with one thread and the shared compute lock:
+
+```
+/workspace/clean-neurons/.venv/bin/python m16/approaches/small_h4_4/triangle_cycle/run.py --triangle-dir /workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals --geometry /workspace/clean-neurons/m16/approaches/small_h2_56/geometry.py --checkpoint /workspace/clean-neurons/work/checkpoints/H4_T4_seed0.pth --mode full
+```
+
+Use --mode pilot for the fixed sample. Source hashes are saved in both result files; T55 batch primitive is commit5d08526. Existing fixed-GL20 references are comparisons, never allocation inputs. Noise is the previously fixed RNG51001, relative RMS scales0,.0025,.02. Follow-up cost protocol: regenerate the same three geometries once each, run both integrators on the same rays, alternating execution order by case; report geometry plus each integration cost, with no repetitions chosen by outcome.
 
 ## Compute accounting
 Charge geometry, determinant/order planning, outer rules, endpoint construction, all analytic triangles and fallback quadrature, including guards. Report CPU and operation counters separately; no portable forward-equivalent claim and no new Monte Carlo. Batches at most512 cones; one numerical thread,2GB cap,120CPU-second cycle. Short independent controls may use the approved20CPU review lane; complete models use the main compute lock.
