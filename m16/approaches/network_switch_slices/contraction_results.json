@@ -17,13 +17,16 @@
           "max_gate_cells": 16,
           "max_panels": 19,
           "maximum_inner_discrepancy": 6.106226635438361e-16,
-          "construction_cpu_seconds": 0.204470563000001,
-          "integration_cpu_seconds": 0.049215264000001424,
-          "diagnostic_cpu_seconds": 0.06948527599999998,
+          "construction_cpu_seconds": 0.3804887329999982,
+          "integration_cpu_seconds": 0.046331872999999746,
+          "diagnostic_cpu_seconds": 0.06393377800000044,
           "construction_and_integration_work": {
             "polygon_clips": 7580,
             "tested_vertices": 33630,
             "intersections": 3803,
+            "convexity_turn_tests": 21752,
+            "negative_local_turns": 10,
+            "maximum_negative_turn": 7.466762123267884e-18,
             "cdf_calls": 51035,
             "affine_coefficient_proxy": 31140,
             "stage_cells": 1491,
@@ -32,11 +35,14 @@
             "readout_inequalities": 1663,
             "retained_gate_cells": 561,
             "correct_polygons": 276,
+            "area_predicates": 10093,
             "quantile_calls": 679,
             "vertical_edge_queries": 120013,
             "quadrature_nodes": 9136,
             "quadrature_panels": 571,
-            "gaussian_exp_calls": 9136
+            "gaussian_exp_calls": 9136,
+            "exact_area_fallbacks": 1404,
+            "exact_area_vertices": 4494
           },
           "diagnostic_work": {
             "cdf_calls": 97738,
@@ -56,13 +62,16 @@
           "max_gate_cells": 10,
           "max_panels": 18,
           "maximum_inner_discrepancy": 4.718447854656915e-16,
-          "construction_cpu_seconds": 0.12309083200000148,
-          "integration_cpu_seconds": 0.029768691999998653,
-          "diagnostic_cpu_seconds": 0.036558286999999856,
+          "construction_cpu_seconds": 0.17641669800000281,
+          "integration_cpu_seconds": 0.023055755999999317,
+          "diagnostic_cpu_seconds": 0.03063939900000001,
           "construction_and_integration_work": {
             "polygon_clips": 3923,
             "tested_vertices": 17654,
             "intersections": 2107,
+            "convexity_turn_tests": 11645,
+            "negative_local_turns": 4,
+            "maximum_negative_turn": 1.7561959870030926e-17,
             "cdf_calls": 26662,
             "affine_coefficient_proxy": 15690,
             "stage_cells": 746,
@@ -71,11 +80,14 @@
             "readout_inequalities": 950,
             "retained_gate_cells": 277,
             "correct_polygons": 145,
+            "area_predicates": 5223,
             "quantile_calls": 379,
             "vertical_edge_queries": 64149,
             "quadrature_nodes": 5200,
             "quadrature_panels": 325,
-            "gaussian_exp_calls": 5200
+            "gaussian_exp_calls": 5200,
+            "exact_area_fallbacks": 443,
+            "exact_area_vertices": 1437
           },
           "diagnostic_work": {
             "cdf_calls": 51064,
@@ -87,7 +99,7 @@
           }
         }
       ],
-      "total_cpu_seconds": 0.5246197020000001,
+      "total_cpu_seconds": 0.7246970279999998,
       "H": 2,
       "T": 4,
       "reference": 0.30773074302315223,
@@ -95,11 +107,127 @@
       "old_full_grid_estimate": 0.2989085233019545,
       "old_full_grid_bias": -0.008822219721197733,
       "checkpoint_sha256": "ac26737f08bc7012a404fd3f9e525cdaaaebf8dce0ca398dc4c7354762a1e028"
+    },
+    {
+      "outer_order": 5,
+      "inner_order": 16,
+      "diagnostic_order": 32,
+      "estimate": 0.30881220887773897,
+      "diagnostic_estimate": 0.30881220887773875,
+      "endpoint_omitted_mass_bound": 8.350959312163835e-06,
+      "families": [
+        {
+          "kind": "23",
+          "factor": 2.350959312178077,
+          "integral": 0.16660606749208542,
+          "diagnostic_integral": 0.16660606749208545,
+          "slices": 300,
+          "max_gate_cells": 16,
+          "max_panels": 20,
+          "maximum_inner_discrepancy": 2.4424906541753444e-15,
+          "construction_cpu_seconds": 0.9932745140000021,
+          "integration_cpu_seconds": 0.12579905099999955,
+          "diagnostic_cpu_seconds": 0.16776614499999587,
+          "construction_and_integration_work": {
+            "polygon_clips": 20254,
+            "tested_vertices": 89748,
+            "intersections": 10159,
+            "convexity_turn_tests": 57894,
+            "negative_local_turns": 82,
+            "maximum_negative_turn": 1.809548528730872e-15,
+            "cdf_calls": 132812,
+            "affine_coefficient_proxy": 83220,
+            "stage_cells": 3973,
+            "centroid_validation_forward_steps": 5996,
+            "readout_coefficient_proxy": 53964,
+            "readout_inequalities": 4400,
+            "retained_gate_cells": 1499,
+            "correct_polygons": 699,
+            "area_predicates": 26886,
+            "exact_area_fallbacks": 3685,
+            "exact_area_vertices": 12019,
+            "quantile_calls": 1957,
+            "vertical_edge_queries": 314099,
+            "quadrature_nodes": 26512,
+            "quadrature_panels": 1657,
+            "gaussian_exp_calls": 26512,
+            "reoriented_polygons": 4,
+            "reoriented_polygon_area": 5.341923442355853e-18
+          },
+          "diagnostic_work": {
+            "cdf_calls": 254284,
+            "quantile_calls": 1957,
+            "vertical_edge_queries": 628195,
+            "quadrature_nodes": 53024,
+            "quadrature_panels": 1657,
+            "gaussian_exp_calls": 53024
+          }
+        },
+        {
+          "kind": "12",
+          "factor": 1.8245203439038404,
+          "integral": 0.16415476335305726,
+          "diagnostic_integral": 0.16415476335305731,
+          "slices": 150,
+          "max_gate_cells": 17,
+          "max_panels": 24,
+          "maximum_inner_discrepancy": 8.56259507742152e-15,
+          "construction_cpu_seconds": 0.5744856570000016,
+          "integration_cpu_seconds": 0.06658093300000356,
+          "diagnostic_cpu_seconds": 0.08818704500000552,
+          "construction_and_integration_work": {
+            "polygon_clips": 11492,
+            "tested_vertices": 51432,
+            "intersections": 6106,
+            "convexity_turn_tests": 34010,
+            "negative_local_turns": 31,
+            "maximum_negative_turn": 4.916518810899176e-16,
+            "cdf_calls": 82782,
+            "affine_coefficient_proxy": 46890,
+            "stage_cells": 2209,
+            "centroid_validation_forward_steps": 3184,
+            "readout_coefficient_proxy": 28656,
+            "readout_inequalities": 2830,
+            "retained_gate_cells": 796,
+            "correct_polygons": 421,
+            "area_predicates": 15328,
+            "exact_area_fallbacks": 1725,
+            "exact_area_vertices": 5757,
+            "quantile_calls": 1200,
+            "vertical_edge_queries": 203094,
+            "quadrature_nodes": 16800,
+            "quadrature_panels": 1050,
+            "gaussian_exp_calls": 16800
+          },
+          "diagnostic_work": {
+            "cdf_calls": 159096,
+            "quantile_calls": 1200,
+            "vertical_edge_queries": 406251,
+            "quadrature_nodes": 33600,
+            "quadrature_panels": 1050,
+            "gaussian_exp_calls": 33600
+          }
+        }
+      ],
+      "total_cpu_seconds": 2.0265130429999996,
+      "H": 2,
+      "T": 4,
+      "reference": 0.30773074302315223,
+      "error_to_reference": 0.0010814658545867384,
+      "old_full_grid_estimate": 0.3047305993328504,
+      "old_full_grid_bias": -0.0030001436903018264,
+      "checkpoint_sha256": "ac26737f08bc7012a404fd3f9e525cdaaaebf8dce0ca398dc4c7354762a1e028"
     }
   ],
   "sources": {
-    "/workspace/work/recover-small_h2_78/m16/approaches/network_switch_slices/slices.py": "b6b930dca271dcfc7b436e213f0e408ba7fde460fd27e3fb8d87a26a70167217",
-    "/workspace/work/recover-small_h2_78/m16/approaches/network_switch_slices/contract.py": "271be4d73475370a90762ed34420b3794f7be533c2f7915f0a23aaeb3d43e50a"
+    "/workspace/work/recover-small_h2_78/m16/approaches/network_switch_slices/slices.py": "51beb8718e943079eaf06662033e9afbaf6cbb84d75bc6da8458977eb043d691",
+    "/workspace/work/recover-small_h2_78/m16/approaches/network_switch_slices/contract.py": "4ff60912657bcf3bdd8c55fff3dfeaa7780ea4116c753d31be28b763509fa29e"
   },
-  "cpu_seconds": 1.433053765
+  "cpu_seconds": 3.6283685680000004,
+  "failure": {
+    "H": 4,
+    "outer_order": 3,
+    "error": "{'kind': '23', 'configuration': 7, 'outer_indices': [0, 1], 'fixed_quantiles': [0.5, np.float64(0.1127016653792583), 0.5, np.float64(0.5)], 'outer_order': 3, 'completed_slices': 64, 'elapsed_cpu': 0.8732768560000004, 'cause': \"{'reason': 'Inverted vertical section', 'polygon': [[-0.23711460492179492, 0.0], [-0.23711460492179495, 0.0], [-0.235729184112479, 0.0005585582706915254], [-0.23572918411247903, 0.0005585582706915322]], 'z': -0.23572918411247903, 'low': 0.0005585582706915142, 'high': 0.0}\"}",
+    "total_cpu_at_failure": 3.6283663049999997
+  }
 }
