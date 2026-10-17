@@ -45,6 +45,27 @@ def main():
     # Same geometric strip may have multiple faces: retain if any closed face survives.
     union=[face((F(0),F(0),F(1),F(0)),c,F(0),F(1)) for c in [[(0,0,1,-1)],[]]]
     assert any(f['feasible'] for f in union) and not all(f['feasible'] for f in union)
-    out=dict(cases=cases,density=ds,correctness=correctness,elimination_identity_checks=4,any_occurrence_control=union,cpu_seconds=time.process_time()-start)
+    wi=(F(-2),F(3));wh=((F(1),F(2)),(F(-1),F(1)));wo=((F(2),F(-1)),(F(-1),F(2)),(F(1),F(1)),(F(0),F(0)))
+    forms=S.certify((wi,wh,wo),2)['forms'];chronology_checks=0
+    for f in forms:
+        if f['kind']!='margin' or f['competitor']!=0:continue
+        for axis in (0,1):
+            for side in (0,1):
+                rows=occurrence_constraints(f,forms,wi,wh,wo,axis,side)
+                for s,x,y in [(F(1),F(-2),F(3)),(F(2,3),F(1,5),F(-7,4)),(F(0),F(0),F(0))]:
+                    h=[F(0),F(0)];h[axis]=s
+                    z1=[sum(wh[i][j]*h[j] for j in range(2))+wi[i]*x for i in range(2)]
+                    h1=[v*int(g) for v,g in zip(z1,f['first'])]
+                    z2=[sum(wh[i][j]*h1[j] for j in range(2))+wi[i] for i in range(2)]
+                    h2=[v*int(g) for v,g in zip(z2,f['middle'])]
+                    z3=[sum(wh[i][j]*h2[j] for j in range(2))+wi[i]*y for i in range(2)]
+                    h3=[v*int(g) for v,g in zip(z3,f['final'])]
+                    expect=[v*(1 if g else -1) for z,gate in [(z1,f['first']),(z2,f['middle'])] for v,g in zip(z,gate)]
+                    expect += [1-x,y-1] if side==0 else [x-1,1-y]
+                    expect += [v*(1 if g else -1) for v,g in zip(z3,f['final'])]
+                    expect += [sum((wo[2][i]-wo[j][i])*h3[i] for i in range(2)) for j in (0,1,3)]
+                    actual=[sum(a*b for a,b in zip(r,(s,x,y,1))) for r in rows]
+                    assert actual==expect;chronology_checks+=1
+    out=dict(cases=cases,density=ds,correctness=correctness,elimination_identity_checks=4,any_occurrence_control=union,forced_chronology_checks=chronology_checks,cpu_seconds=time.process_time()-start)
     Path(__file__).with_suffix('.json').write_text(json.dumps(G.serial(out),indent=2)+'\n');print(out['cpu_seconds'])
 if __name__=='__main__':main()
