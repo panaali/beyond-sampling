@@ -1,0 +1,40 @@
+{
+  "complete": true,
+  "input_rows": 3853,
+  "unique_histories": 450,
+  "prefix_counts": [
+    1,
+    2,
+    10,
+    66,
+    450
+  ],
+  "baseline": 6160,
+  "cuts": [
+    {
+      "cut": 1,
+      "warm": 2184,
+      "cold": 10528,
+      "combined": 12712,
+      "named_saving": -6552
+    },
+    {
+      "cut": 2,
+      "warm": 4312,
+      "cold": 2240,
+      "combined": 6552,
+      "named_saving": -392
+    },
+    {
+      "cut": 3,
+      "warm": 6160,
+      "cold": 0,
+      "combined": 6160,
+      "named_saving": 0
+    }
+  ],
+  "author_sha256": "5fdb872d955c4f3a06b444b1c9653b8674784b12ccc9e8a855c2e7e879235f08",
+  "author_cpu": 0.018243328000000003,
+  "review_cpu": 0.01564435,
+  "scope": "Independent saved history/prefix/suffix identities and closed-form category contractions. No trained matrix/cache or geometry execution. No strict cold dense arithmetic saving here; sparse/reset/other reuse and actual runtime unresolved."
+}
