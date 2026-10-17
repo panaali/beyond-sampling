@@ -16,6 +16,14 @@ with trigger rank <= 3, and splits by cell mass; (c): concentration of splits by
 
 **Status:** STATUS_PLACEHOLDER
 
+**Phase 2 (DRI request 2026-10-17): budgeted refinement.** Rule: a cell whose mass (bound) < tau is not refined; it
+takes the true network's class at its ray centroid and its mass bound goes into a certified bound B. Alternatives /
+risks written down before the (8,4)/(8,5) grid (after only the (8,3) pilot): (p1) pruned mass concentrates in the
+error band (thin cells sit at tie walls), so the centroid class is biased and B is the realistic error, not ~0;
+(p2) cells are numerous because of moderate-mass cells, not tiny ones, so pruning by mass barely slows growth;
+(p3) the cheap cap bound is too loose to prune what exact masses would, and exact masses cost as much as the leaves;
+(p4) cost is dominated by retained leaves' orthant masses, so cell counts understate/overstate savings.
+
 ## Method
 Deductive instrumentation of the unchanged recipe (no estimator change). `estT.py` = byte-identical copy of
 `estT_fix/estT.py`; `attr.py` re-writes `_finish` / `_margin_split` (recipe108 branch) line by line with hooks that use
