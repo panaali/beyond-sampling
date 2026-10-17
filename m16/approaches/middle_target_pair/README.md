@@ -48,10 +48,15 @@ signed discrepancy, setup/query work and CPU, no favorable selection.
    no full transport or larger grid follows from local accuracy alone.
 
 ## Status
-Protocol frozen before implementation.
+Bounded phase complete through dfacb39. Independent source/primitive review
+70f2b21 and nonzero-prefix scope/result review39f7deb pass. DRI classification
+pending; next task T132 isolates continuity and rank branches.
 
 ## Results
-Pending. Deductive finite local diagnostic, no model-input sampling.
+Results below. Deductive finite local diagnostic, no model-input sampling.
+Reproduce in this folder with the project interpreter: `python controls.py`,
+`python check_interpolation.py`, `python pilot.py`, `python nonzero_prefix.py`.
+Use one thread, the review lock and the stated memory cap.
 
 ## Primitive controls
 Thirty toy panels pass partition to4.45e-16, axes to3.34e-16, exact binary

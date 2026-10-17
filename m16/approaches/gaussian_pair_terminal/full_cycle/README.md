@@ -45,10 +45,12 @@ noise/model expansion, native speedups, adaptive panel selection or full
 challenge claim. Inconclusive precision is recorded, never silently relaxed.
 
 ## Status
-Claim b981947 pushed before implementation. Protocol frozen now.
+Bounded phase complete7d6ef05. Independent source/law and60-digit result
+checks pass. Claim b981947 preceded implementation. Both outer precision
+gates failed; no expanded grid/noise study was authorized by these results.
 
 ## Results
-Pending. Fixed full/per-label cone references are diagnostics only.
+Results below. Fixed full/per-label cone references are diagnostics only.
 
 ## Compute accounting
 Full cold grid, old/new geometry, original halfspaces, all line intersections,
