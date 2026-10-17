@@ -218,3 +218,34 @@ on identical gate histories, propagate each floating path's map error using
 |Wh|E plus a conservative dot-product gamma bound, then sum the two path
 bounds. Bound arithmetic/BLAS/underflow need explicit qualifications. Passing
 that bound cannot certify unseen near-threshold topology.
+
+T45 boundary rescue: independent exact per-group ranks again match every
+saved within-(H,T) association: mean alignment Sobol1/15, iid-17/180; lower
+decile alignment Sobol1/20, iid1/60. Read boundary_features.py: projecting
+mu by -n*(n.mu)/2 is correct because ||n||²=2. The small inward displacement
+preserves the chosen top-two order (asserted), and signed output-margin
+orientation matches the rank normal. The displacement2^-20*||face|| is a
+finite probe, not an exact one-sided boundary gradient: an intervening gate
+can change the derivative. Strong across-size association and weak within-
+size association are compatible; neither is a heldout forecast certificate.
+
+T66 sort followup: owner reproduced an actual NumPy/stable-sort mismatch on
+H16 repeated |Wi|, breaking ordered incidence equivalence. The separately
+frozen repair passes the exact original NumPy order through the native ABI.
+The failure is retained. This fixes ordering agreement for the port rather
+than proving independence from gate-cut order under floating tolerances.
+
+T76 first-sign mixture derivation: with one sign-conditioned omitted input
+CDF G and n remaining iid omitted inputs CDF F, A=G F^n is the all-below
+probability and B=(1-G)F^n+nG(1-F)F^(n-1) is exactly-one-above. Let retained
+suffix extrema be L<=U. The special omitted input is second-largest with
+probability integral_L^U F(t)^n dG(t) plus
+integral_U^infinity n(1-F(t))F(t)^(n-1)dG(t). Remaining n exchangeable omitted
+indices share the remainder after the two suffix and special probabilities.
+Conditional first-two-state mean is (hypot(c_sign,Wi)+c_sign)/sqrt(2pi).
+Both signs mix with weight1/2. The shuffled falsifier swaps means while
+retaining the original sign's G. Handle n0 separately for any extension.
+On the allowed CDF half interval dG=2dq, so rank primitives are elementary
+polynomials; positive low-order Gauss integrates the E polynomial without
+near-one cancellation. These checks do not validate the deterministic
+conditional-mean history approximation itself.
