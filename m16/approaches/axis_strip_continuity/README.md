@@ -15,19 +15,28 @@ Freeze controls before weights: exact unit-square clipping to half-square, empty
 Competing explanations: (1) large sensitivity remains on the actual axis; directional baseline may stay large. (2) impossible gate words dominate; exact feasibility pruning may help. (3) pruning drops degenerate feasible states unsafely; line/point and independent intersection controls must detect this. No finite bound improvement proves a practical integral or interpolation recipe.
 
 ## Status
-Protocol frozen; exact primitives next.
+Bounded trained phase complete. T55 independently enumerated all pairwise boundary intersections, verified all32 feasibility classifications/author vertices, and recomputed directional sums and prefix normalization. DRI registration requested; reviewer commit notification pending.
 
 ## Results
-Pending.
+All7 exact geometry controls and32 synthetic word checks pass. The trained negative-prefix interval admits3 of16 first/middle words; its all-word directional K=4253.90026727 falls to1.10635377929 after exact feasibility pruning. The positive-prefix interval admits5 words; directional K=37.22774731 falls to8.31442262194. No feasible trained set is degenerate, but the synthetic tests explicitly preserve lines/points.
+
+After translating to prefix-coordinate sensitivity, the displayed need1 coefficients are3.99510268389 and13.5982261739. Elementary certified bounds that avoid floating CDF normalization are43.1957886368 and147.026534765. Relative reductions differ by axis: feasibility contributes3844.97x on the negative branch; direction restriction115.267x and feasibility4.47749x contribute on the positive branch. These are bound improvements, not measured derivatives or estimator gains.
+
+The source/proof was independently reviewed before the trained run. Independent pairwise-intersection enumeration then confirms all32 exact feasibility decisions, every retained vertex and the exact coefficient sums. No new pair value, interpolation output, grid or accuracy estimate was computed. These constants still do not automatically certify a useful global integration recipe.
+
+Reproduce `controls.py` and `pilot.py` from this folder with the project interpreter, single thread, review lock and2GB limit. Full closed constraints, polygons, source indices and exact reduced strip sums are retained in pilot.json.
 
 ## Compute accounting
 Reuse saved boundary forms, one checkpoint load,32 trained word feasibility problems in two variables and exact finite coefficient sums. Zero new trained forward evaluations or random inputs. Count synthetic geometry controls and timing. One thread,2GB, review lock <=20CPU.
 
 ## Claims
-[inferred] Directional strip bounds and conservative closed-word feasibility can sharpen the prior sufficient bound on these two fixed intervals. [speculative] The trained constants become practically useful.
+[inferred, independently checked] Directional strip bounds and exact conservative word feasibility sharpen the sufficient bound on the two frozen intervals. [open] Practical integration usefulness remains untested.
 
 ## Alternatives not ruled out
 Final-support/rank-facet restriction, exact Gaussian line densities, other prefix intervals, direct outer integration and local higher-order regularity. No bound outside the frozen intervals is implied. Transverse state variation and later mixed-support interpolation remain separate problems.
 
 ## Failure modes
 Using polygon area to discard feasible lines/points; treating strict ReLU ownership as a closed infeasibility certificate; forgetting prefix-to-hidden scaling; silently applying local word exclusions globally; or confusing direct-pair continuity with the old interpolated estimator's error.
+
+### Exhaustion and next precise alternative
+Tested both frozen intervals, both all-word directional baselines, exact first/middle feasibility and independent intersection verification. Untested: whether the remaining boundary hyperplanes actually meet the correct-region/rank faces, and state-local Gaussian line-density bounds. These are plausible further refinements; neither a full probability nor a family-level negative follows from the present constants.
