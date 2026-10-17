@@ -171,3 +171,13 @@ No zero normal occurred. Trace max11 (2631calls), downward walk max1
 (784calls), subdivision maxdepth3; no observed loop/depth cap. This makes
 one whole fixed noisy case a plausible bounded continuation; no inference
 about the other47 component costs or approximation error is made yet.
+
+Board86f0a9f1 freezes the remaining47 components, preserving the preflight
+component0 exactly once. `noise_components.py INDEX` uses family=INDEX//2,
+side=INDEX%2, INDEX1..47. It calls the same F3.face_err with identical initial
+Ops/stats and pinned observer; no source settings change. Each process runs
+with one thread/2GB/110CPU, writes an attempt before compute, then complete
+raw fields or exception evidence. Resume never overwrites an attempt.
+Final contraction must use original ascending family/side scalar addition,
+not sorted-by-value or a selected partial sum. Full noisy accuracy remains
+unavailable until all48 components and independent aggregate review finish.
