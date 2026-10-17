@@ -33,3 +33,10 @@ DD floating tolerances and finite bitset capacity; zero or degenerate input weig
 
 ### Cycle 1 implementation checks
 `check.py` completed in0.984 CPU seconds including torch import/checkpoint loading. Gaussian rules n4/8/12/16/20 integrate every monomial through degree2n-1 within2.23e-16. Twenty ordinary/nearly dependent4x4 determinant cases agree with NumPy within2.67e-15 absolute error. Counted DD plus local first-index tie handling gives0.2499999999990603 for both allzero and identical readouts, within the analytic integration bound of1/4. The DD source is unchanged. `checks.json` saves exact costs and cases.
+
+### Cycle 2: fixed precision versus symbolic operation cost
+The two-checkpoint curve took3.182 CPU seconds total. DD gives258 correct simplices for H2 and5040 for H4. Explicit GL20 results are0.30773074302392717 and0.47701312599411877, agreeing with independent geometry references. Full positive integration dominates the old geometry-only counters: known arithmetic upper bounds at GL16 are47,498,549 (H2) and932,535,166 (H4), plus293 and6797 matrix-rank kernels respectively. These are symbolic totals, not complete numeric FPEs.
+
+The curve exposes four rank-price scenarios, including zero (clearly labeled an incomplete lower bound) and an intentionally extreme one billion operations per rank call. Even under the latter assumed price, GL16's integration-bound squared remains below equal-operation sampling variance on both examples. This is sensitivity evidence, not a proof of the SVD implementation's cost, and the integration bound still excludes floating geometry. `results.json` contains all orders4/8/12/16/20, component counters, assumptions, CPU, and bounds. No new model/noise sweep was run. Two65536-input sampling batches are timing-only; their outcomes do not enter the estimate or reference.
+
+Next bounded cycle: replace the remaining small-rank black box with an explicitly bounded scalar rank routine, fail closed on ambiguous threshold decisions, and compare every decision/geometry result with SVD on the two existing examples. Keep numerical correctness checks separate from charged production work.
