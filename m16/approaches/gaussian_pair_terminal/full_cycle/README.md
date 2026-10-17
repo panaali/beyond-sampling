@@ -132,3 +132,39 @@ label<2. The inherited prepare already rejects any model where target-last
 label3 is possible; this frozen base passes that exclusion. No support for
 a general target-last model is silently inferred. Local quad/roundoff errors
 remain diagnostics, not certificates. The frozen four-estimate pilot proceeds.
+
+## Frozen full result: strong representation gain, precision gate fails
+All four estimates complete in11.571CPU seconds, below the frozen cap.
+
+| Arm | GL4 accuracy | Error | Component L2 | GL2/4 change | GL4 CPU |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| baseline with same penultimate cache | .256589235103 | -.051141507921 | .0446998964 | 7.66826e-6 | 1.3404 |
+| exact early-label Gaussian pairs | .301712330584 | -.006018412440 | .00664234763 | 7.20229e-6 | 6.1644 |
+
+The pair arm reduces absolute full error8.50x and component L2 by6.73x,
+while CPU grows4.60x. Its measured error-squared-times-CPU is15.70x smaller
+on this single fixed comparison; this is not a sampling comparison or a
+portable-cost claim. Both arms fail the strict1e-7 outer-stability gate.
+The GL2/4 shifts are much smaller than the .04512 full-probability change,
+but no convergence threshold is relaxed and no larger-grid expansion follows.
+
+GL4 per-label errors baseline:
+[-.044223807064,-.000425013252,-.006492687605,0].
+Pair arm:
+[-.000725494554,+.001199769719,-.006492687605,0].
+Label0 improves strongly; label1 worsens; label2 is identical and dominates
+the new error. All signed components are retained rather than selecting an
+estimator from them. The remaining label2 GL2/4 change7.70e-6 accounts for
+most of the shared outer drift. Floating geometry/quad diagnostics remain
+uncertified, and this off-regime H2T4 result does not solve the full challenge.
+
+## Bounded handoff
+Implementation defects, local representation error and outer precision were
+separated rather than collapsed into a single negative. Independent review
+checks the measure, terminal, rank topology and recurrence; final arithmetic
+summary review requested. Broad transport remains open. Untested alternatives
+are earlier-state/prefix representation for the penultimate target, event-local
+outer error localization, and faster positive Gaussian polygon integration.
+No larger h, higher global quadrature order, model/noise sweep or full-cost
+sampling claim is justified under the failed frozen precision gate. The
+next work item must state a distinct discriminator and preserve these results.
