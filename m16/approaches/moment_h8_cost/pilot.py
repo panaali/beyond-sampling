@@ -27,10 +27,10 @@ def main():
   base=bases[index];row=variant.one(rays[index],M,old,kernel,rescue,radial,rules);row.update(index=index,reference=base['reference'],reference_bound=base['reference_bound'],baseline_value=base['value'],baseline_method=base['method'],baseline_known_row_total=sum(counts(base).values()))
   if row['mode']=='returned':
    row.update(error=row['value']-row['reference'],comparison_pass=abs(row['value']-row['reference'])<=row['bound']+row['reference_bound']+5e-14)
-   assert row['bound']<=M.TOL
-   if row['method']!='moment_interval':row['unchanged_numerical_result']=row['value']==base['value'] and row['bound']==base['bound'];assert row['unchanged_numerical_result']
+   row['bound_pass']=row['bound']<=M.TOL
+   if row['method']!='moment_interval':row['unchanged_numerical_result']=row['value']==base['value'] and row['bound']==base['bound']
   out['rows'].append(row);save()
-  if row['mode']=='failure' or row.get('comparison_pass') is False:out['stop_reason']='Explicit failure/reference gate';save();return
+  if row['mode']=='failure' or row.get('comparison_pass') is False or row.get('bound_pass') is False or row.get('unchanged_numerical_result') is False:out['stop_reason']='Explicit failure/reference gate';save();return
  out.update(complete=True,methods=dict(Counter(r.get('method',r['mode']) for r in out['rows'])),moment_attempts=sum('moment' in r['center'] for r in out['rows']),moment_failures=[dict(index=r['index'],reason=r['center']['moment']['failure']) for r in out['rows'] if 'failure' in r['center'].get('moment',{})],unresolved_indices=[r['index'] for r in out['rows'] if r['mode']!='returned'])
  good=[r for r in out['rows'] if r['mode']=='returned'];out.update(error_sum=math.fsum(r['error'] for r in good),absolute_error_sum=math.fsum(abs(r['error']) for r in good),conditional_bound_sum=math.fsum(r['bound'] for r in good));save();out.update(known_cost_ratio=out['known_total']/out['baseline_known_total'],known_unit_saving=out['baseline_known_total']-out['known_total']);save();print(json.dumps({k:v for k,v in out.items() if k not in ('rows','cold_rules')},indent=2))
 if __name__=='__main__':main()
