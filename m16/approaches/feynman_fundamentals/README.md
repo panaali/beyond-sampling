@@ -1052,9 +1052,10 @@ T155/T159 local strip/face refinement, T156/T165 SVD dispatch and finite
 native census, T158 installed determinant categories, T160 preserved Schur
 failure, T161/T162 bounded representation pilots, T163 conditional dqds proof,
 T164 unbounded face projections, T109 full35,098-case positive-inner corpus,
-and T113 recovered recipe raw arithmetic plus counter/tie qualifications.
+T108 simultaneous-freeze counterexamples and cumulative primitive, T80 scope and
+exact second-step means, and T113 recovered recipe counter/tie qualifications.
 Current remaining dependencies are complete nonoverlapping native-cost
-pricing, DRI-priority T108 joint freezing certificate review, T80 corrected
-scope/exact-prefix moment review, and T113 repair/provenance gaps. Parent
+pricing, T80 exact-covariance continuation, T100 recovered fibre controls,
+and T113 full repaired-counter/provenance gaps. Parent
 integrates owned commits; only DRI may confirm scoped challenge claims.
 All failures and conditional/finite scope limits stay visible in the notes.
