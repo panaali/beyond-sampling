@@ -118,3 +118,52 @@ rule as default and its results. Require zero-history reproduction within
 1e-8 plus explicit missing-y mass; no fitted breakpoint locations. If this
 fails, the scoped pilot remains numerically inconclusive; do not begin a
 full sweep or blindly increase order. Independent code review requested.
+
+## Landmark rescue outcome
+The separate landmark rule passes the zero-history reproduction control:
+maximum discrepancy5.87e-10, below the omitted y-tail bound1.974e-9. Every
+GL16/32 pair agrees within1.11e-16, and full geometry partition defects are
+at most4.45e-16. These are numerical controls, not a floating-point proof.
+
+| case | zero-history error | plugin-mean error | exact2-seeded error |
+|---|---:|---:|---:|
+| T4 base | -.00544372 | -.00546674 | -.00593840 |
+| T4 relative .02 copy0 | +.03126919 | +.03160073 | +.03621509 |
+| T5 base | -.00623715 | -.00969401 | -.00969678 |
+| T5 seed2 | -.01127019 | -.02142358 | -.02254915 |
+
+Both nonzero mean recipes worsen all four frozen pilot cases. In T4,
+exact2 is the actual prefix mean, so its failure cannot be blamed on mean
+closure error. Averaging the state loses information needed by the nonlinear
+suffix; this does not identify all missing information or exclude richer
+history approximations. The initial GL16/32 numerical failure and its
+weight-derived landmark rescue remain separately recorded.
+
+The twelve production estimates use960–2560 outer nodes and60–160 affine
+panels each; CPU .0026–.0158 seconds in this short run. Full preparation and
+both quadrature orders use1.16CPU seconds. Counts include affine construction,
+line intersections, mean setup, special functions and per-interval powers;
+these event counts are not a complete portable arithmetic/FLOP ledger.
+In particular, scipy/NumPy kernels are not assigned fictitious unit costs.
+No own-cost or matched-sampling winner is claimed from this diagnostic pilot.
+
+Finite alternatives checklist:
+- Tried zero, recursive deterministic mean, and exact-first-two-step mean
+  followed by closure. Exact mean is the stronger frozen rescue forT4.
+- Tried full affine topology plus Gaussian-width panel rescue, constant and
+  tie controls, scaling, independent scalar mean integration, zero-history
+  reproduction and order doubling. Numerical error no longer explains the
+  checked percent-level discrepancies, subject to independent review.
+- Not tried conditional first-input-sign/history mixtures, covariance-aware
+  approximations, rank-conditioned state or longer exact history. These
+  retain information discarded by every deterministic-mean variant and
+  remain plausible; some overlap existing transport tasks. Do not infer a
+  broad memory-model impossibility from this four-case pilot.
+- No expanded28-case sweep: the frozen pilot's rescue criterion fails on all
+  four cases. A different representation must be separately claimed/frozen.
+- Independent direct-suffix validation requested from T55 before this scoped
+  failure is treated as verified; root/DRI owns final classification.
+
+Reproduction: use the standard one-thread capped review-lock command for
+`controls.py`, `pilot.py`, and `pilot.py --normal-landmarks`. Reference loading
+is confined to pilot.py; affine.py uses weights only and no input sampling.
