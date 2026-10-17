@@ -214,3 +214,16 @@ for at most10 blocks per primary-lock acquisition, each block1M with original
 PCG state. The original pilot entry point remains unchanged and pinned.
 All statistical conclusions must retain binomial sampling uncertainty and
 one-case scope; historical/complete cost and noisy-panel qualifications remain.
+
+### First complete noisy estimator result
+All48 components completed and were summed once in original order:
+F2L3 estimate0.6056912072571354, raw error sum7.783343592486414,
+1,166,612,480 legacy units (including the conservative exact-zero guard
+checks),88,763 traces/70,387 pieces. No exact-zero normal occurred in20,189,586
+clip calls, so the local rescue did not change any clipping outcome.
+Observed max forward iterations17, reverse6, subdivision depth3; no cap
+exhausted. Component CPU sums219.944 seconds, largest23.692 seconds, peak39MB.
+This is the first original missing abs.05/noise0 copy's estimator result;
+independent fixed-size MC reference and full aggregate review remain pending.
+No cost/rung claim is inferred. `noise_summary.py` checks all component IDs,
+model/observer/runner hashes and original-order contraction.
