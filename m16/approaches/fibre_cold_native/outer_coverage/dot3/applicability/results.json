@@ -1,0 +1,163 @@
+{
+  "complete": true,
+  "protocol_sha256": "fc33e43098e06f962ea50d4dc6657f4d42722e78f43f2a6e93578336462fe63e",
+  "source_sha256": "f5ae344af9494a172c184ed9ea665c0abc47e0d40f451600a3fe4aa27b3f2ff1",
+  "cpu": 0.10643905,
+  "max_rss_kib": 63768,
+  "model_metadata": {
+    "parameters": 104,
+    "all_finite_float_leaves": true,
+    "shape": [
+      [
+        8
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        4,
+        8
+      ]
+    ],
+    "model_sha256": "ef22df10439aa5f65366a09e3cf1a42b3a8874bb1f7ee5eea68823bfaf52c9e9"
+  },
+  "independent_control_review": {
+    "commit": "920a9da107059d98a41fd16f415573f8870f3f15",
+    "result_sha256": "245933282a5cb632041feb15a31ab68f06290ef7827de2cb0cd05f82c7b9706b",
+    "author_results_sha256": "107225c77d4bb54f7c9a6d61b872a089c7af678b8553aa6daf1aabd083c580fc"
+  },
+  "source_checks": [
+    {
+      "site": "_subdivide:L294:np.linalg.norm(ab)",
+      "file": "fibre4.py",
+      "ast_expression": "np.linalg.norm(ab)"
+    },
+    {
+      "site": "_subdivide:L294:np.linalg.norm(bc)",
+      "file": "fibre4.py",
+      "ast_expression": "np.linalg.norm(bc)"
+    },
+    {
+      "site": "_subdivide:L294:np.linalg.norm(ca)",
+      "file": "fibre4.py",
+      "ast_expression": "np.linalg.norm(ca)"
+    },
+    {
+      "site": "cells_on_face:L342:np.linalg.norm(w)",
+      "file": "fibre4.py",
+      "ast_expression": "np.linalg.norm(w)"
+    },
+    {
+      "site": "clip:L41:np.linalg.norm(n)",
+      "file": "fibre4.py",
+      "ast_expression": "np.linalg.norm(n)"
+    },
+    {
+      "site": "clip:L62:np.linalg.norm(p)",
+      "file": "fibre4.py",
+      "ast_expression": "np.linalg.norm(p)"
+    },
+    {
+      "site": "face_err:L107:np.linalg.norm(w)",
+      "file": "fibre4b.py",
+      "ast_expression": "np.linalg.norm(w)"
+    },
+    {
+      "site": "face_err:L113:np.linalg.norm(w0)",
+      "file": "fibre4b.py",
+      "ast_expression": "np.linalg.norm(w0)"
+    },
+    {
+      "site": "poly_int:L324:np.dot(v0, np.cross(v1, v2))",
+      "file": "fibre4.py",
+      "ast_expression": "np.dot(v0, np.cross(v1, v2))"
+    },
+    {
+      "site": "clip:L42:n @ v",
+      "file": "fibre4.py",
+      "ast_expression": "n @ v"
+    }
+  ],
+  "selected": [
+    {
+      "site": "_subdivide:L294:np.linalg.norm(ab)",
+      "calls": 20213,
+      "old_units": 121278,
+      "new_upper": 161704,
+      "kind": "norm3"
+    },
+    {
+      "site": "_subdivide:L294:np.linalg.norm(bc)",
+      "calls": 20213,
+      "old_units": 121278,
+      "new_upper": 161704,
+      "kind": "norm3"
+    },
+    {
+      "site": "_subdivide:L294:np.linalg.norm(ca)",
+      "calls": 20213,
+      "old_units": 121278,
+      "new_upper": 161704,
+      "kind": "norm3"
+    },
+    {
+      "site": "cells_on_face:L342:np.linalg.norm(w)",
+      "calls": 2770,
+      "old_units": 16620,
+      "new_upper": 22160,
+      "kind": "norm3"
+    },
+    {
+      "site": "clip:L41:np.linalg.norm(n)",
+      "calls": 20189586,
+      "old_units": 121137516,
+      "new_upper": 161516688,
+      "kind": "norm3"
+    },
+    {
+      "site": "clip:L62:np.linalg.norm(p)",
+      "calls": 154851,
+      "old_units": 929106,
+      "new_upper": 1238808,
+      "kind": "norm3"
+    },
+    {
+      "site": "face_err:L107:np.linalg.norm(w)",
+      "calls": 4878,
+      "old_units": 29268,
+      "new_upper": 39024,
+      "kind": "norm3"
+    },
+    {
+      "site": "face_err:L113:np.linalg.norm(w0)",
+      "calls": 88763,
+      "old_units": 532578,
+      "new_upper": 710104,
+      "kind": "norm3"
+    },
+    {
+      "site": "poly_int:L324:np.dot(v0, np.cross(v1, v2))",
+      "calls": 183552,
+      "old_units": 917760,
+      "new_upper": 1468416,
+      "kind": "dot3_upper"
+    },
+    {
+      "site": "clip:L42:n @ v",
+      "calls": 74509590,
+      "old_units": 372547950,
+      "new_upper": 596076720,
+      "kind": "dot3_upper"
+    }
+  ],
+  "selected_old": 496474632,
+  "selected_new_numeric_upper": 761557032,
+  "added_upper": 265082400,
+  "prior_hybrid_named": 1838695310,
+  "conditional_revised_hybrid": 2103777710,
+  "source_invariant": "Pinned real float64 model/families and closure under listed3vector operations, independently reviewable in PROOF.md.",
+  "historical_binary_binding_is_conditional": true,
+  "zero_model_or_kernel_evaluations": true,
+  "scope": "Replace-once selected numeric upper only. All other matrix/native/libm/cold and integer/control/copy/allocation/runtime categories retain previous qualifications. No cost-ratio or full-native/hardware conclusion. Source and all-stride proof require independent acceptance."
+}

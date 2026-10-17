@@ -28,4 +28,4 @@ Hash/provenance mismatch, incomplete or duplicate components, lost failed12 acco
 
 [measured] The saved census used3.194381075CPU and112760KiB peak; no estimator calls. Reproduction uses `python census.py` only in a fresh result directory, preserving immutable existing results, followed by `python summarize.py`. See HANDOFF.md for exact scope and retained gaps.
 
-The separately frozen dot3 phase passes90 bitwise baseline/passthrough controls in0.077773772CPU,57040KiB: norm copies strided/reversed vectors, positive-stride2 dot uses another scalar path, reversed matmul uses NumPy fallback with no BLAS event. Source/ABI gate passed; independent saved review pending. No corpus count substitution.
+The separately frozen dot3 phase passes90 bitwise baseline/passthrough controls in0.077773772CPU,57040KiB: norm copies strided/reversed vectors, positive-stride2 dot uses another scalar path, reversed matmul uses NumPy fallback with no BLAS event. Source/ABI gate passed; independent saved review920a9da1 passes. Separately frozen source-only applicability contraction uses upper8 and preserves historical-binding/full-cost qualifications; see dot3/applicability/HANDOFF.md.
