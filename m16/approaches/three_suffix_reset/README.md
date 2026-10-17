@@ -175,3 +175,10 @@ is insufficient to justify another dimension of integration. Generic readout
 support alone may constrain reachable labels, but its unconditional mass bound
 need not tighten a residual event this small. Independently verified rank-aware
 bounds or local residual approximations remain open, not rejected.
+
+Independent T55 review f140fa6 supplies the rank/Jacobian/tail derivation and
+its separately launched radial64/target64 intervention (3.283CPU, no topology
+rerun), agreeing2.43e-17. The author and reviewer refined concurrently before
+their coordination message arrived; both costs remain recorded. This bounded
+phase is complete. No four-suffix expansion or competitive full estimator is
+claimed. Root moved the worker to the separately claimed bulk-error track.
