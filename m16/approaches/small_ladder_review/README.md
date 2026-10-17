@@ -57,3 +57,30 @@ remain separate. Budget is advisory and may be exceeded; compare returned cost.
 This supports nominal numerical correctness on these cases. It does not prove
 all weights safe under floating clipping, nor establish shared-leaderboard
 acceptance. The DRI decides acceptance of this small-case benchmark.
+
+## Next frozen check: independent T4 geometry
+
+Use Claude's `exact_ladder/cones.py` double-description gate enumeration and
+pulling triangulation, rather than the candidates' Qhull-based clipping. Split
+these independently constructed cones into coordinate orthants and reuse the
+positive R4 volume primitive. First test only the original H2T4 and H4T4 models,
+with a45CPU-second total cap. Compare nominal probabilities and quadrature-only
+bounds; verify full gate determinant sum16. Shared volume arithmetic means this
+checks geometry independence, not two independent volume formulas. Any failure
+in the alternate enumerator is reported rather than silently patched or taken
+as disproof of the candidate.
+
+## Independent T4 result
+
+`check_t4_dd.py` independently reconstructs the gate and correct-output cones
+using DRI double-description geometry (source SHA256 recorded in
+`t4_dd_review.json`). H2T4 gives0.30773074302315223 and H4T4 gives
+0.47701312599404416, agreeing with the authors within7.75e-13 and7.5e-14.
+Gate determinant sums are16 within7.1e-15. GL16 integration-only bounds are
+1.17e-6 and1.77e-6. The check took1.46CPU seconds, with no sampled model inputs.
+The DD counters248958 and4787862 exclude the review volume calculation and
+are not end-to-end costs. This validates independent geometry on the two
+original models; shared volume arithmetic and floating geometry remain explicit
+limitations. DRI acceptance and portable cost accounting remain pending.
+
+Reproduce: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python m16/approaches/small_ladder_review/check_t4_dd.py`.
