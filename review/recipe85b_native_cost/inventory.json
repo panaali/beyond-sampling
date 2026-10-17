@@ -1,0 +1,80 @@
+{
+  "pins": {
+    "/workspace/work/recover-small_h2_910/review/recipe112_recovery/dependencies/understand_m43/est75.py": "426020c67a52678e5cccb20c552837fe2d233c3fe5e13557916034a3c46877d3",
+    "/workspace/work/recover-small_h2_910/review/recipe112_native_cost/trace.py": "a3be9de04c6a7f2db519ddebe5efc5bbf748a6f807dbdbfdc407f57223baf5f0",
+    "/workspace/work/recover-small_h2_910/review/recipe112_native_cost/base_snapshot.py": "48bf04ead5510fc301a8db9732d90e00179d0ae6524f515344f28df2a94385db",
+    "/workspace/work/recover-small_h2_910/review/recipe112_native_cost/inventory.json": "1757c739ed18adf5257725402979f99067e0d463b735314eca3e1960ddc5779f",
+    "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/frozen/est75_t112.py": "4a75e4beb5286958a2330beb7826f109d986b9d9331302239bf3e57a130c053b",
+    "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/continuation_manifest.json": "27738bd1d2039996367d0a38144a1c7f2c80cf5fe4d99d5c05513e92302db3d2",
+    "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/continuation.py": "19a339cf7d9b4972e145e17e2cafe582a9d8e47001397fa997bed285909b2c06",
+    "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/continuation_pilot.json": "7837abeab7abe2a51afb9cdc68724712aa504b9516d3d91a24f2262d48dcf058",
+    "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/k30_s1_noise20.json": "743f4587bdf693741298da6193a09f91a3ad3e4409d511310f0e2e93e19201cc",
+    "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/k30_s4_noise23.json": "a01e2344b2e1ee35ce9bf5a520b144ea687550ffa13bc65935711350b80ea122"
+  },
+  "cases": [
+    {
+      "seed": 1,
+      "noise": 20,
+      "copy": 0,
+      "path": "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/k30_s1_noise20.json",
+      "keys": [
+        "seed",
+        "noise_seed",
+        "sigma",
+        "rows",
+        "complete",
+        "cpu_seconds"
+      ],
+      "structure_type": "dict"
+    },
+    {
+      "seed": 4,
+      "noise": 23,
+      "copy": 255,
+      "path": "/workspace/work/recover-small_h2_78/m16/approaches/margin_training_recovery/k30_s4_noise23.json",
+      "keys": [
+        "seed",
+        "noise_seed",
+        "sigma",
+        "rows",
+        "complete",
+        "cpu_seconds"
+      ],
+      "structure_type": "dict"
+    }
+  ],
+  "recipe": {
+    "K": [
+      4,
+      4
+    ],
+    "rule": "margin_inv2",
+    "eps": 0.1,
+    "cliptol": 1e-12
+  },
+  "resolve_inv_calls": [
+    "(A2 @ ref > 0).astype",
+    "(A3r @ ref > 0).astype",
+    "S[:, k].max",
+    "S[:, k].min",
+    "_arc",
+    "clip",
+    "cut.append",
+    "cut.sort",
+    "g3r.sum",
+    "gg.copy",
+    "gref.sum",
+    "int",
+    "len",
+    "np.abs",
+    "np.abs(S).max",
+    "np.array",
+    "np.max",
+    "np.mean",
+    "np.outer",
+    "np.zeros",
+    "nxt.append",
+    "ops.add",
+    "range"
+  ]
+}
