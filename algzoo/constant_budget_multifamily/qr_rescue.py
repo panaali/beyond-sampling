@@ -29,7 +29,8 @@ def rescue(phi,h,beta,threshold):
 def main(H,seed):
  files=sorted(HERE.glob('results_H*_seed*.json'));assert len(files)==6 and all(len(json.loads(p.read_text())['rows'])==15 for p in files),'finish all original90 fits first'
  torch.set_num_threads(1);start=time.process_time();original_path=HERE/f'results_H{H}_seed{seed}.json';old=json.loads(original_path.read_text());sha=hashlib.sha256(original_path.read_bytes()).hexdigest();dest=HERE/f'qr_H{H}_seed{seed}.json'
- state=torch.load(WEIGHTS/f'2nd_argmax_{H}_10_1073741824_{seed}.pth',map_location='cpu',weights_only=True);rnn=torch.nn.RNN(1,H,nonlinearity='relu',bias=False,batch_first=True);rnn.load_state_dict({k.removeprefix('rnn.'):v for k,v in state.items() if k.startswith('rnn.')});rnn.eval();output=state['linear.weight'].numpy().astype(np.float64)
+ weight_path=WEIGHTS/f'2nd_argmax_{H}_10_1073741824_{seed}.pth';assert hashlib.sha256(weight_path.read_bytes()).hexdigest()==old['weights_sha256']
+ state=torch.load(weight_path,map_location='cpu',weights_only=True);rnn=torch.nn.RNN(1,H,nonlinearity='relu',bias=False,batch_first=True);rnn.load_state_dict({k.removeprefix('rnn.'):v for k,v in state.items() if k.startswith('rnn.')});rnn.eval();output=state['linear.weight'].numpy().astype(np.float64)
  train=np.random.default_rng(72301).standard_normal((12000,10)).astype(np.float32);test=np.random.default_rng(72302).standard_normal((200000,10)).astype(np.float32);truth=np.argsort(test,axis=1,kind='stable')[:,-2];htrain=targets(rnn,train);htest=targets(rnn,test);variance=((htest-htest.mean(0))**2).sum(0)
  out=json.loads(dest.read_text()) if dest.exists() else dict(H=H,seed=seed,original_sha256=sha,rows=[],coefficients={},attempts=0,cpu_seconds=0.)
  assert out['original_sha256']==sha;prior=out['cpu_seconds'];out['attempts']+=1;out['status']='partial'
