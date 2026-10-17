@@ -8,4 +8,4 @@ The upper8 handles valid float64 length3 dot strides without a historical contig
 
 This closes selected numerical-path uncertainty conditionally on historical installed-library binding. It does not close other matrix/GEMV work, scalar/array elementary-function internals, reductions, integer/control/copy/conversion/allocation/runtime work or hardware cost. The remaining named square-root convention is unchanged. Do not apply a new sampling ratio or call the full implementation cost certified. Original prior ledgers, all failures and all unpriced categories remain preserved.
 
-Saved final contraction independently reviewable in results.json; independent final raw review requested. No further native replay is needed to check the contraction.
+Independent saved contraction review 048fc6ec passes all 104 metadata values, ten AST sites, original counts, delta and final composition. No numerical replay was needed. The bounded phase is complete with the qualifications above; root/Claude INDEX registration requested.
