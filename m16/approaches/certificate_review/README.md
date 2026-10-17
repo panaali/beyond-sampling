@@ -11,7 +11,7 @@ First freeze a genuine H3T3 rational recurrent control: Wi=(1,1,1/100), Wh rows=
 Then derive a safe cumulative pointwise margin allowance using the sum of all actual hidden perturbations and propagated absolute weights. Keep per-competitor bounds and first-index tie ownership explicit. A pointwise repair is not a whole-cell certificate. A separate fixed analytic downstream-kink control distinguishes vertex probes from interior coverage; no trained claims before independent review.
 
 ## Status
-Bounded synthetic implementation complete. T55 independently verifies the original and strengthened one-half-family controls, including a strict interior witness. Cumulative primitive source/raw review pending. T108 was already implemented; this is an independent soundness audit, not a new competing recipe. Claude retains estT_fix/certificate adoption.
+Bounded synthetic implementation complete. T55 independently verifies the original and strengthened one-half-family controls, including a strict interior witness. Independent reviewa8f7532d verifies cumulative source/proof, reconstructs all768 allowances by reverse absolute-contrast propagation, and checks104 nonzero conic combinations. T108 was already implemented; this is an independent soundness audit, not a new competing recipe. Claude retains estT_fix/certificate adoption.
 
 ## Results
 Pinned recipe108 source freezes both gates in the original control:cut2,resolved0. Exact minority-ray margins are frozen31/40 versus actual−11/40, while each individual allowance1/2,11/20 is smaller than the frozen margin. The original rays straddle an initial half-family boundary; this limitation is preserved in REVIEW_NOTES.md.
