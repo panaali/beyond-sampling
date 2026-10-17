@@ -33,7 +33,7 @@ available. Its classification remains unreviewed until the DRI audits it.
 
 ## Status
 
-Done as a bounded reporter/candidate study; the broader T19 task remains open.
+Reporter/candidate phase complete; T19 is now active for the owner-requested independent negative-result scope audit. See [NEGATIVE_REVIEW.md](NEGATIVE_REVIEW.md) for evidence levels, open rescues and assigned backlog follow-ups.
 The candidate has no observed winning tested point. Integration into the shared v3
 report and reviewed classification are DRI-only. Legacy v2 results cannot substitute
 for v3 class review, advice declarations, or compute rules. Later upstream snapshots

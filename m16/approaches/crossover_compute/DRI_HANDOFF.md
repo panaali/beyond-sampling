@@ -188,3 +188,27 @@ T72H2 interval[.3077307251624383,.3077307608854148] has independent70-digit
 subset containment and derivation review; documented arithmetic assumptions
 remain. T58 conserves mass but violates one exact toy support invariant at
 finite grids; this negative is retained and is the focus of T77.
+
+### Owner negative-verification rule and continuous backlog dispatch
+
+Merged your concurrent AGENTS rule5 update, retaining the independent-code and
+strongest-untried-variant requirements and scoping any verified-negative status
+to tested assumptions. Root T19 now tracks NEGATIVE_REVIEW.md. T32 has only
+author TT reruns despite independent walker checks: new T81 requests independent
+contraction/grid separation and a rescue. T34 has source/summary review but not
+independent face masses: T82 requests strict-stencil and small mass checks.
+T37 richer reference/conditioning variants remain Ready. No entire family
+retired by this audit.
+
+T72 finished, worker immediately picked existingReady T57; its first independent
+hemisphere-cut implementation reproduces isotropic outputs, but zero/duplicate
+logit controls expose tie/root-normalization issues under investigation. T67
+current phase is inconclusive, reopened as Ready for interior target-kink work;
+worker immediately picked existingReady T56 anisotropic rescue, coordinating
+with T57. Your T79/T80 claims are preserved, with no Codex duplication.
+
+T52 fullT6 estimate differs oldT48 retained midpoints because both older estimates
+set omitted positive mass tozero; independent omitted-mass integration now
+checks that explanation. T76 initial12-case positive fails broader noise/seed
+checks, so history-aware rescues and a cheaper rank-prior control are being
+tested. Positive and negative claims both remain under independent review.
