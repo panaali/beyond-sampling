@@ -15,4 +15,4 @@ Reproduction, from this folder:
 
 Use the shared review lock, a 20 CPU-second limit and 2 GB memory limit. The pilot pins the original cache hashes and T106 source hash; it does not regenerate or tune geometry. Source paths are local research dependencies, not yet a standalone portable release.
 
-Independent T55 source/arithmetic review requested. DRI alone may confirm/register. No full integral or 93M-node run is justified merely by this speedup. Vectorized bound selection with guarded scalar decisions, a native implementation, and tighter positive primitives remain open; this phase does not establish their failure or merit. Add a separately scoped backlog row before implementing any such follow-up.
+Independent T55 source/arithmetic review passed, commit 2c64019 (triangle_grouping_review.md). DRI alone may confirm/register. No full integral or 93M-node run is justified merely by this speedup. Vectorized bound selection with guarded scalar decisions, a native implementation, and tighter positive primitives remain open; this phase does not establish their failure or merit. Add a separately scoped backlog row before implementing any such follow-up.
