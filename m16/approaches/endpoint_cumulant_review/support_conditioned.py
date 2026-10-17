@@ -7,6 +7,8 @@ import numpy as np
 import torch
 import gate_mixture as G
 import full_covariance_bounded as B
+from transition_orthant import orthant
+import exact_hidden_map as E
 HERE=Path(__file__).resolve().parent
 
 def stats():
@@ -17,7 +19,7 @@ def wedge(mu,cov,lo,hi,eps):
     s=stats()
     if hi<=lo:return 0.,s
     D=np.array([[-math.sin(lo),math.cos(lo)],[math.sin(hi),-math.cos(hi)]])
-    p=B.orthant(D@mu,D@cov@D.T,[False,False],eps,s)
+    p=orthant(D@mu,D@cov@D.T,[False,False],eps,s)
     return p,s
 
 def clip(lo,hi,n,strict=False):
@@ -55,15 +57,15 @@ def main():
     begin=time.process_time();pieces,geom=G.groups(M);geom['cpu_seconds']=time.process_time()-begin
     assert len(pieces)==len(saved['components'])
     controls=[]
-    for lo,hi in [(0.,math.pi/2),(.1,.7),(.6,1.2),(.1,.1001)]:
+    for lo,hi in [(0.,math.pi/2),(.1,.7),(.6,1.2)]+[(.1,.1+w) for w in [1e-2,1e-4,1e-6,1e-7]]:
         p,s=wedge(np.zeros(2),np.eye(2),lo,hi,1e-12);truth=(hi-lo)/(2*math.pi)
-        assert abs(p-truth)<1e-10
+        assert abs(p-truth)<1e-10+err(s)
         controls.append(dict(bounds=[lo,hi],value=p,truth=truth,stats=s))
     control_W=np.array([[1.,0.],[0.,1.],[0.,0.]])
     c=probabilities(np.zeros(2),np.eye(2),control_W,[0,math.pi/2],1e-12)
     assert np.max(abs(np.array(c['q'])-[.5,.5,0.]))<1e-10
     assert clip(0,math.pi/2,[0,0],True)==(1.,0.)
-    totals={'orthant':0.,'component_cone':0.};rows=[];fixed=0.
+    totals={'orthant':0.,'component_cone':0.};rows=[];fixed=0.;ray_controls=[]
     for old,g in zip(saved['components'],pieces):
         assert (old['gate_cell'],old['order'],old['target'])==(g['gate_cell'],list(g['order']),g['target'])
         assert abs(old['mass']-g['mass'])<1e-12 and old['fixed_winner']==g['fixed_winner']
@@ -72,6 +74,19 @@ def main():
             val=mass*(old['fixed_winner']==j);fixed+=val
             for key in totals:totals[key]+=val
             continue
+        point=np.sum(g['triangles'][0][1],axis=0)
+        exact_A,masks=E.matrix(M,point);arank=E.rank(exact_A)
+        assert arank>0
+        # Independently check all triangle interiors give the same exact map.
+        for _,R,L,_ in g['triangles']:
+            check,_=E.matrix(M,np.sum(R,axis=0));assert np.array_equal(check,exact_A)
+        if arank==1:
+            win=E.ray_winner(M,exact_A,point)
+            val=mass*(win==j);fixed+=val
+            for key in totals:totals[key]+=val
+            ray_controls.append(dict(gate_cell=g['gate_cell'],order=g['order'],target=j,mass=mass,winner=win,
+                exact_map=[[str(v) for v in rr] for rr in exact_A],gate_masks=masks))
+            continue
         K=old['cumulants'];mu=inv@np.array(K['1']);cov=inv@np.array(K['2'])@inv.T
         scale=max(float(np.max(abs(cov))),1e-300)
         asym=float(np.max(abs(cov-cov.T))/scale);assert asym<1e-12
@@ -79,10 +94,10 @@ def main():
         cov=(cov+cov.T)/2;ev=np.linalg.eigvalsh(cov);assert ev[0]>0,('nonpositive residual covariance',ev)
         residual=max(float(np.max(abs(Wo@mu-np.array(K['1'])))),float(np.max(abs(Wo@cov@Wo.T-np.array(K['2'])))))
         assert residual<1e-10
-        rays=np.concatenate([R@L.T@inv.T for _,R,L,_ in g['triangles']]);rs=max(1.,float(np.max(abs(rays))))
+        rays=np.concatenate([R@np.array(exact_A,float).T for _,R,L,_ in g['triangles']]);rs=max(1.,float(np.max(abs(rays))))
         negative=float(np.min(rays));assert negative>=-1e-12*rs
         # Tiny negative roundoff on known ReLU support is recorded, then set0.
-        rays=np.maximum(rays,0);active=np.linalg.norm(rays,axis=1)>1e-14*rs
+        rays=np.maximum(rays,0);active=np.any(rays!=0,axis=1)
         assert np.any(active)
         angles=np.arctan2(rays[active,1],rays[active,0]);bounds=[float(min(angles)),float(max(angles))]
         assert bounds[1]>bounds[0]
@@ -102,9 +117,9 @@ def main():
     out=dict(complete=True,source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         input_sha256=hashlib.sha256((HERE/'gate_mixture.json').read_bytes()).hexdigest(),checkpoint_sha256=hashlib.sha256(Path(G.T.CP).read_bytes()).hexdigest(),
         controls=controls,partition_control=c,condition_number_Wo=cond,geometry=geom,constant_correct_mass=fixed,rows=rows,
-        truth=saved['truth'],accuracy=totals,bias={k:v-saved['truth'] for k,v in totals.items()},
+        rank_one_controls=ray_controls,truth=saved['truth'],accuracy=totals,bias={k:v-saved['truth'] for k,v in totals.items()},
         cpu_seconds_including_imports=time.process_time()-START,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
         qualifications='Numerical topology, moment quadrature, special functions, covariance symmetrization and tiny-ray clipping remain uncertified. Error estimates are conditional numerical diagnostics, not global enclosures. Cold cost includes prior geometry/moments; endpoint scalar proxy incomplete.')
     (HERE/'support_conditioned.json').write_text(json.dumps(out,indent=2)+'\n')
-    print(json.dumps({k:v for k,v in out.items() if k not in ['rows','controls','partition_control']},indent=2))
+    print(json.dumps({k:v for k,v in out.items() if k not in ['rows','controls','partition_control','rank_one_controls']},indent=2))
 if __name__=='__main__':main()
