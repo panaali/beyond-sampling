@@ -1,0 +1,336 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000544420 <DOUBLE_pairwise_sum>:
+  544420:	41 56                	push   %r14
+  544422:	41 55                	push   %r13
+  544424:	41 54                	push   %r12
+  544426:	49 89 fc             	mov    %rdi,%r12
+  544429:	55                   	push   %rbp
+  54442a:	48 89 f5             	mov    %rsi,%rbp
+  54442d:	53                   	push   %rbx
+  54442e:	48 89 d3             	mov    %rdx,%rbx
+  544431:	48 83 ec 10          	sub    $0x10,%rsp
+  544435:	48 83 fe 07          	cmp    $0x7,%rsi
+  544439:	0f 8e 61 03 00 00    	jle    5447a0 <DOUBLE_pairwise_sum+0x380>
+  54443f:	48 81 fe 80 00 00 00 	cmp    $0x80,%rsi
+  544446:	0f 8f 1c 01 00 00    	jg     544568 <DOUBLE_pairwise_sum+0x148>
+  54444c:	48 8d 04 17          	lea    (%rdi,%rdx,1),%rax
+  544450:	48 89 f1             	mov    %rsi,%rcx
+  544453:	c5 fb 10 0f          	vmovsd (%rdi),%xmm1
+  544457:	4c 8d 04 9b          	lea    (%rbx,%rbx,4),%r8
+  54445b:	c5 fb 10 38          	vmovsd (%rax),%xmm7
+  54445f:	48 01 d0             	add    %rdx,%rax
+  544462:	48 8d 14 12          	lea    (%rdx,%rdx,1),%rdx
+  544466:	48 83 e1 f8          	and    $0xfffffffffffffff8,%rcx
+  54446a:	c5 fb 10 30          	vmovsd (%rax),%xmm6
+  54446e:	48 01 d8             	add    %rbx,%rax
+  544471:	48 8d 3c 1a          	lea    (%rdx,%rbx,1),%rdi
+  544475:	c5 fb 10 18          	vmovsd (%rax),%xmm3
+  544479:	48 01 d8             	add    %rbx,%rax
+  54447c:	4c 8d 0c 3f          	lea    (%rdi,%rdi,1),%r9
+  544480:	c5 fb 10 00          	vmovsd (%rax),%xmm0
+  544484:	48 01 d8             	add    %rbx,%rax
+  544487:	c5 fb 10 28          	vmovsd (%rax),%xmm5
+  54448b:	48 01 d8             	add    %rbx,%rax
+  54448e:	c5 fb 10 10          	vmovsd (%rax),%xmm2
+  544492:	48 01 d8             	add    %rbx,%rax
+  544495:	c5 fb 10 20          	vmovsd (%rax),%xmm4
+  544499:	48 83 f9 08          	cmp    $0x8,%rcx
+  54449d:	74 67                	je     544506 <DOUBLE_pairwise_sum+0xe6>
+  54449f:	48 89 de             	mov    %rbx,%rsi
+  5444a2:	49 89 da             	mov    %rbx,%r10
+  5444a5:	48 01 d0             	add    %rdx,%rax
+  5444a8:	ba 08 00 00 00       	mov    $0x8,%edx
+  5444ad:	48 c1 e6 06          	shl    $0x6,%rsi
+  5444b1:	4c 8d 1c dd 00 00 00 	lea    0x0(,%rbx,8),%r11
+  5444b8:	00 
+  5444b9:	49 f7 da             	neg    %r10
+  5444bc:	48 29 de             	sub    %rbx,%rsi
+  5444bf:	90                   	nop
+  5444c0:	48 83 c2 08          	add    $0x8,%rdx
+  5444c4:	c4 a1 73 58 0c 10    	vaddsd (%rax,%r10,1),%xmm1,%xmm1
+  5444ca:	c5 c3 58 38          	vaddsd (%rax),%xmm7,%xmm7
+  5444ce:	0f 18 0c 06          	prefetcht0 (%rsi,%rax,1)
+  5444d2:	c5 cb 58 34 18       	vaddsd (%rax,%rbx,1),%xmm6,%xmm6
+  5444d7:	c5 e3 58 1c 58       	vaddsd (%rax,%rbx,2),%xmm3,%xmm3
+  5444dc:	c5 fb 58 04 38       	vaddsd (%rax,%rdi,1),%xmm0,%xmm0
+  5444e1:	c5 d3 58 2c 98       	vaddsd (%rax,%rbx,4),%xmm5,%xmm5
+  5444e6:	c4 a1 6b 58 14 00    	vaddsd (%rax,%r8,1),%xmm2,%xmm2
+  5444ec:	c4 a1 5b 58 24 08    	vaddsd (%rax,%r9,1),%xmm4,%xmm4
+  5444f2:	4c 01 d8             	add    %r11,%rax
+  5444f5:	48 39 ca             	cmp    %rcx,%rdx
+  5444f8:	7c c6                	jl     5444c0 <DOUBLE_pairwise_sum+0xa0>
+  5444fa:	48 83 e9 09          	sub    $0x9,%rcx
+  5444fe:	48 83 e1 f8          	and    $0xfffffffffffffff8,%rcx
+  544502:	48 83 c1 10          	add    $0x10,%rcx
+  544506:	c5 f3 58 cf          	vaddsd %xmm7,%xmm1,%xmm1
+  54450a:	c5 e3 58 de          	vaddsd %xmm6,%xmm3,%xmm3
+  54450e:	c5 fb 58 c5          	vaddsd %xmm5,%xmm0,%xmm0
+  544512:	c5 eb 58 d4          	vaddsd %xmm4,%xmm2,%xmm2
+  544516:	c5 f3 58 cb          	vaddsd %xmm3,%xmm1,%xmm1
+  54451a:	c5 fb 58 c2          	vaddsd %xmm2,%xmm0,%xmm0
+  54451e:	c5 f3 58 c8          	vaddsd %xmm0,%xmm1,%xmm1
+  544522:	48 39 cd             	cmp    %rcx,%rbp
+  544525:	7e 29                	jle    544550 <DOUBLE_pairwise_sum+0x130>
+  544527:	48 89 d8             	mov    %rbx,%rax
+  54452a:	48 0f af c1          	imul   %rcx,%rax
+  54452e:	4c 01 e0             	add    %r12,%rax
+  544531:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  544538:	00 00 00 00 
+  54453c:	0f 1f 40 00          	nopl   0x0(%rax)
+  544540:	48 83 c1 01          	add    $0x1,%rcx
+  544544:	c5 f3 58 08          	vaddsd (%rax),%xmm1,%xmm1
+  544548:	48 01 d8             	add    %rbx,%rax
+  54454b:	48 39 cd             	cmp    %rcx,%rbp
+  54454e:	75 f0                	jne    544540 <DOUBLE_pairwise_sum+0x120>
+  544550:	48 83 c4 10          	add    $0x10,%rsp
+  544554:	c5 f9 28 c1          	vmovapd %xmm1,%xmm0
+  544558:	5b                   	pop    %rbx
+  544559:	5d                   	pop    %rbp
+  54455a:	41 5c                	pop    %r12
+  54455c:	41 5d                	pop    %r13
+  54455e:	41 5e                	pop    %r14
+  544560:	c3                   	ret
+  544561:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  544568:	49 89 f5             	mov    %rsi,%r13
+  54456b:	49 d1 fd             	sar    $1,%r13
+  54456e:	49 83 e5 f8          	and    $0xfffffffffffffff8,%r13
+  544572:	49 81 fd 80 00 00 00 	cmp    $0x80,%r13
+  544579:	0f 8f a9 02 00 00    	jg     544828 <DOUBLE_pairwise_sum+0x408>
+  54457f:	48 8d 04 17          	lea    (%rdi,%rdx,1),%rax
+  544583:	48 89 d9             	mov    %rbx,%rcx
+  544586:	c5 fb 10 0f          	vmovsd (%rdi),%xmm1
+  54458a:	48 89 df             	mov    %rbx,%rdi
+  54458d:	c5 fb 10 38          	vmovsd (%rax),%xmm7
+  544591:	48 01 d0             	add    %rdx,%rax
+  544594:	48 8d 14 12          	lea    (%rdx,%rdx,1),%rdx
+  544598:	48 c1 e1 06          	shl    $0x6,%rcx
+  54459c:	c5 fb 10 18          	vmovsd (%rax),%xmm3
+  5445a0:	48 01 d8             	add    %rbx,%rax
+  5445a3:	48 8d 34 1a          	lea    (%rdx,%rbx,1),%rsi
+  5445a7:	4c 8d 04 9b          	lea    (%rbx,%rbx,4),%r8
+  5445ab:	c5 fb 10 30          	vmovsd (%rax),%xmm6
+  5445af:	48 01 d8             	add    %rbx,%rax
+  5445b2:	4c 8d 0c 36          	lea    (%rsi,%rsi,1),%r9
+  5445b6:	48 29 d9             	sub    %rbx,%rcx
+  5445b9:	c5 fb 10 00          	vmovsd (%rax),%xmm0
+  5445bd:	48 01 d8             	add    %rbx,%rax
+  5445c0:	4c 8d 14 dd 00 00 00 	lea    0x0(,%rbx,8),%r10
+  5445c7:	00 
+  5445c8:	48 f7 df             	neg    %rdi
+  5445cb:	c5 fb 10 28          	vmovsd (%rax),%xmm5
+  5445cf:	48 01 d8             	add    %rbx,%rax
+  5445d2:	c5 fb 10 10          	vmovsd (%rax),%xmm2
+  5445d6:	48 01 d8             	add    %rbx,%rax
+  5445d9:	c5 fb 10 20          	vmovsd (%rax),%xmm4
+  5445dd:	48 01 d0             	add    %rdx,%rax
+  5445e0:	ba 08 00 00 00       	mov    $0x8,%edx
+  5445e5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5445ec:	00 00 00 00 
+  5445f0:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5445f7:	00 00 00 00 
+  5445fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  544600:	48 83 c2 08          	add    $0x8,%rdx
+  544604:	c5 f3 58 0c 38       	vaddsd (%rax,%rdi,1),%xmm1,%xmm1
+  544609:	c5 c3 58 38          	vaddsd (%rax),%xmm7,%xmm7
+  54460d:	0f 18 0c 01          	prefetcht0 (%rcx,%rax,1)
+  544611:	c5 e3 58 1c 18       	vaddsd (%rax,%rbx,1),%xmm3,%xmm3
+  544616:	c5 cb 58 34 58       	vaddsd (%rax,%rbx,2),%xmm6,%xmm6
+  54461b:	c5 fb 58 04 30       	vaddsd (%rax,%rsi,1),%xmm0,%xmm0
+  544620:	c5 d3 58 2c 98       	vaddsd (%rax,%rbx,4),%xmm5,%xmm5
+  544625:	c4 a1 6b 58 14 00    	vaddsd (%rax,%r8,1),%xmm2,%xmm2
+  54462b:	c4 a1 5b 58 24 08    	vaddsd (%rax,%r9,1),%xmm4,%xmm4
+  544631:	4c 01 d0             	add    %r10,%rax
+  544634:	4c 39 ea             	cmp    %r13,%rdx
+  544637:	7c c7                	jl     544600 <DOUBLE_pairwise_sum+0x1e0>
+  544639:	c5 f3 58 cf          	vaddsd %xmm7,%xmm1,%xmm1
+  54463d:	c5 e3 58 de          	vaddsd %xmm6,%xmm3,%xmm3
+  544641:	4c 29 ed             	sub    %r13,%rbp
+  544644:	c5 fb 58 c5          	vaddsd %xmm5,%xmm0,%xmm0
+  544648:	c5 eb 58 d4          	vaddsd %xmm4,%xmm2,%xmm2
+  54464c:	4c 0f af eb          	imul   %rbx,%r13
+  544650:	c5 f3 58 cb          	vaddsd %xmm3,%xmm1,%xmm1
+  544654:	c5 fb 58 c2          	vaddsd %xmm2,%xmm0,%xmm0
+  544658:	4d 01 e5             	add    %r12,%r13
+  54465b:	c5 f3 58 c8          	vaddsd %xmm0,%xmm1,%xmm1
+  54465f:	48 83 fd 07          	cmp    $0x7,%rbp
+  544663:	0f 8e 0e 02 00 00    	jle    544877 <DOUBLE_pairwise_sum+0x457>
+  544669:	48 81 fd 80 00 00 00 	cmp    $0x80,%rbp
+  544670:	0f 8f 82 02 00 00    	jg     5448f8 <DOUBLE_pairwise_sum+0x4d8>
+  544676:	49 8d 44 1d 00       	lea    0x0(%r13,%rbx,1),%rax
+  54467b:	48 8d 0c 1b          	lea    (%rbx,%rbx,1),%rcx
+  54467f:	48 89 ea             	mov    %rbp,%rdx
+  544682:	c4 c1 7b 10 45 00    	vmovsd 0x0(%r13),%xmm0
+  544688:	c5 7b 10 00          	vmovsd (%rax),%xmm8
+  54468c:	48 01 d8             	add    %rbx,%rax
+  54468f:	48 8d 3c 19          	lea    (%rcx,%rbx,1),%rdi
+  544693:	48 83 e2 f8          	and    $0xfffffffffffffff8,%rdx
+  544697:	c5 fb 10 20          	vmovsd (%rax),%xmm4
+  54469b:	48 01 d8             	add    %rbx,%rax
+  54469e:	4c 8d 04 9b          	lea    (%rbx,%rbx,4),%r8
+  5446a2:	4c 8d 0c 3f          	lea    (%rdi,%rdi,1),%r9
+  5446a6:	c5 fb 10 38          	vmovsd (%rax),%xmm7
+  5446aa:	48 01 d8             	add    %rbx,%rax
+  5446ad:	c5 fb 10 10          	vmovsd (%rax),%xmm2
+  5446b1:	48 01 d8             	add    %rbx,%rax
+  5446b4:	c5 fb 10 30          	vmovsd (%rax),%xmm6
+  5446b8:	48 01 d8             	add    %rbx,%rax
+  5446bb:	c5 fb 10 18          	vmovsd (%rax),%xmm3
+  5446bf:	48 01 d8             	add    %rbx,%rax
+  5446c2:	c5 fb 10 28          	vmovsd (%rax),%xmm5
+  5446c6:	48 83 fa 08          	cmp    $0x8,%rdx
+  5446ca:	74 7a                	je     544746 <DOUBLE_pairwise_sum+0x326>
+  5446cc:	48 89 de             	mov    %rbx,%rsi
+  5446cf:	49 89 da             	mov    %rbx,%r10
+  5446d2:	48 01 c8             	add    %rcx,%rax
+  5446d5:	b9 08 00 00 00       	mov    $0x8,%ecx
+  5446da:	48 c1 e6 06          	shl    $0x6,%rsi
+  5446de:	4c 8d 1c dd 00 00 00 	lea    0x0(,%rbx,8),%r11
+  5446e5:	00 
+  5446e6:	49 f7 da             	neg    %r10
+  5446e9:	48 29 de             	sub    %rbx,%rsi
+  5446ec:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5446f3:	00 00 00 00 
+  5446f7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  5446fe:	00 00 
+  544700:	48 83 c1 08          	add    $0x8,%rcx
+  544704:	c4 a1 7b 58 04 10    	vaddsd (%rax,%r10,1),%xmm0,%xmm0
+  54470a:	c5 3b 58 00          	vaddsd (%rax),%xmm8,%xmm8
+  54470e:	0f 18 0c 06          	prefetcht0 (%rsi,%rax,1)
+  544712:	c5 db 58 24 18       	vaddsd (%rax,%rbx,1),%xmm4,%xmm4
+  544717:	c5 c3 58 3c 58       	vaddsd (%rax,%rbx,2),%xmm7,%xmm7
+  54471c:	c5 eb 58 14 38       	vaddsd (%rax,%rdi,1),%xmm2,%xmm2
+  544721:	c5 cb 58 34 98       	vaddsd (%rax,%rbx,4),%xmm6,%xmm6
+  544726:	c4 a1 63 58 1c 00    	vaddsd (%rax,%r8,1),%xmm3,%xmm3
+  54472c:	c4 a1 53 58 2c 08    	vaddsd (%rax,%r9,1),%xmm5,%xmm5
+  544732:	4c 01 d8             	add    %r11,%rax
+  544735:	48 39 ca             	cmp    %rcx,%rdx
+  544738:	7f c6                	jg     544700 <DOUBLE_pairwise_sum+0x2e0>
+  54473a:	48 83 ea 09          	sub    $0x9,%rdx
+  54473e:	48 83 e2 f8          	and    $0xfffffffffffffff8,%rdx
+  544742:	48 83 c2 10          	add    $0x10,%rdx
+  544746:	c4 c1 7b 58 c0       	vaddsd %xmm8,%xmm0,%xmm0
+  54474b:	c5 db 58 e7          	vaddsd %xmm7,%xmm4,%xmm4
+  54474f:	c5 eb 58 d6          	vaddsd %xmm6,%xmm2,%xmm2
+  544753:	c5 e3 58 dd          	vaddsd %xmm5,%xmm3,%xmm3
+  544757:	c5 fb 58 c4          	vaddsd %xmm4,%xmm0,%xmm0
+  54475b:	c5 eb 58 d3          	vaddsd %xmm3,%xmm2,%xmm2
+  54475f:	c5 fb 58 c2          	vaddsd %xmm2,%xmm0,%xmm0
+  544763:	48 39 ea             	cmp    %rbp,%rdx
+  544766:	7d 28                	jge    544790 <DOUBLE_pairwise_sum+0x370>
+  544768:	48 89 d8             	mov    %rbx,%rax
+  54476b:	48 0f af c2          	imul   %rdx,%rax
+  54476f:	4c 01 e8             	add    %r13,%rax
+  544772:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  544779:	00 00 00 00 
+  54477d:	0f 1f 00             	nopl   (%rax)
+  544780:	48 83 c2 01          	add    $0x1,%rdx
+  544784:	c5 fb 58 00          	vaddsd (%rax),%xmm0,%xmm0
+  544788:	48 01 d8             	add    %rbx,%rax
+  54478b:	48 39 ea             	cmp    %rbp,%rdx
+  54478e:	75 f0                	jne    544780 <DOUBLE_pairwise_sum+0x360>
+  544790:	c5 f3 58 c8          	vaddsd %xmm0,%xmm1,%xmm1
+  544794:	e9 b7 fd ff ff       	jmp    544550 <DOUBLE_pairwise_sum+0x130>
+  544799:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  5447a0:	48 85 f6             	test   %rsi,%rsi
+  5447a3:	0f 8e 9f 01 00 00    	jle    544948 <DOUBLE_pairwise_sum+0x528>
+  5447a9:	c5 fb 10 0f          	vmovsd (%rdi),%xmm1
+  5447ad:	48 83 fe 01          	cmp    $0x1,%rsi
+  5447b1:	0f 84 99 fd ff ff    	je     544550 <DOUBLE_pairwise_sum+0x130>
+  5447b7:	49 01 d4             	add    %rdx,%r12
+  5447ba:	c4 c1 73 58 0c 24    	vaddsd (%r12),%xmm1,%xmm1
+  5447c0:	48 83 fe 02          	cmp    $0x2,%rsi
+  5447c4:	0f 84 86 fd ff ff    	je     544550 <DOUBLE_pairwise_sum+0x130>
+  5447ca:	49 01 d4             	add    %rdx,%r12
+  5447cd:	c4 c1 73 58 0c 24    	vaddsd (%r12),%xmm1,%xmm1
+  5447d3:	48 83 fe 03          	cmp    $0x3,%rsi
+  5447d7:	0f 84 73 fd ff ff    	je     544550 <DOUBLE_pairwise_sum+0x130>
+  5447dd:	49 01 d4             	add    %rdx,%r12
+  5447e0:	c4 c1 73 58 0c 24    	vaddsd (%r12),%xmm1,%xmm1
+  5447e6:	48 83 fe 04          	cmp    $0x4,%rsi
+  5447ea:	0f 84 60 fd ff ff    	je     544550 <DOUBLE_pairwise_sum+0x130>
+  5447f0:	49 01 d4             	add    %rdx,%r12
+  5447f3:	c4 c1 73 58 0c 24    	vaddsd (%r12),%xmm1,%xmm1
+  5447f9:	48 83 fe 05          	cmp    $0x5,%rsi
+  5447fd:	0f 84 4d fd ff ff    	je     544550 <DOUBLE_pairwise_sum+0x130>
+  544803:	49 01 d4             	add    %rdx,%r12
+  544806:	c4 c1 73 58 0c 24    	vaddsd (%r12),%xmm1,%xmm1
+  54480c:	48 83 fe 07          	cmp    $0x7,%rsi
+  544810:	0f 85 3a fd ff ff    	jne    544550 <DOUBLE_pairwise_sum+0x130>
+  544816:	c4 c1 73 58 0c 14    	vaddsd (%r12,%rdx,1),%xmm1,%xmm1
+  54481c:	e9 2f fd ff ff       	jmp    544550 <DOUBLE_pairwise_sum+0x130>
+  544821:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  544828:	4d 89 ee             	mov    %r13,%r14
+  54482b:	4c 29 ed             	sub    %r13,%rbp
+  54482e:	49 d1 fe             	sar    $1,%r14
+  544831:	49 83 e6 f8          	and    $0xfffffffffffffff8,%r14
+  544835:	4c 89 f6             	mov    %r14,%rsi
+  544838:	e8 e3 fb ff ff       	call   544420 <DOUBLE_pairwise_sum>
+  54483d:	4c 89 ee             	mov    %r13,%rsi
+  544840:	4c 0f af eb          	imul   %rbx,%r13
+  544844:	48 89 da             	mov    %rbx,%rdx
+  544847:	4c 29 f6             	sub    %r14,%rsi
+  54484a:	4c 0f af f3          	imul   %rbx,%r14
+  54484e:	c5 fb 11 04 24       	vmovsd %xmm0,(%rsp)
+  544853:	4d 01 e5             	add    %r12,%r13
+  544856:	4b 8d 3c 34          	lea    (%r12,%r14,1),%rdi
+  54485a:	e8 c1 fb ff ff       	call   544420 <DOUBLE_pairwise_sum>
+  54485f:	c5 fb 58 0c 24       	vaddsd (%rsp),%xmm0,%xmm1
+  544864:	48 83 fd 07          	cmp    $0x7,%rbp
+  544868:	0f 8f fb fd ff ff    	jg     544669 <DOUBLE_pairwise_sum+0x249>
+  54486e:	48 85 ed             	test   %rbp,%rbp
+  544871:	0f 8e d9 fc ff ff    	jle    544550 <DOUBLE_pairwise_sum+0x130>
+  544877:	c4 c1 7b 10 45 00    	vmovsd 0x0(%r13),%xmm0
+  54487d:	48 83 fd 01          	cmp    $0x1,%rbp
+  544881:	0f 84 09 ff ff ff    	je     544790 <DOUBLE_pairwise_sum+0x370>
+  544887:	49 01 dd             	add    %rbx,%r13
+  54488a:	c4 c1 7b 58 45 00    	vaddsd 0x0(%r13),%xmm0,%xmm0
+  544890:	48 83 fd 02          	cmp    $0x2,%rbp
+  544894:	0f 84 f6 fe ff ff    	je     544790 <DOUBLE_pairwise_sum+0x370>
+  54489a:	49 01 dd             	add    %rbx,%r13
+  54489d:	c4 c1 7b 58 45 00    	vaddsd 0x0(%r13),%xmm0,%xmm0
+  5448a3:	48 83 fd 03          	cmp    $0x3,%rbp
+  5448a7:	0f 84 e3 fe ff ff    	je     544790 <DOUBLE_pairwise_sum+0x370>
+  5448ad:	49 01 dd             	add    %rbx,%r13
+  5448b0:	c4 c1 7b 58 45 00    	vaddsd 0x0(%r13),%xmm0,%xmm0
+  5448b6:	48 83 fd 04          	cmp    $0x4,%rbp
+  5448ba:	0f 84 d0 fe ff ff    	je     544790 <DOUBLE_pairwise_sum+0x370>
+  5448c0:	49 01 dd             	add    %rbx,%r13
+  5448c3:	c4 c1 7b 58 45 00    	vaddsd 0x0(%r13),%xmm0,%xmm0
+  5448c9:	48 83 fd 05          	cmp    $0x5,%rbp
+  5448cd:	0f 84 bd fe ff ff    	je     544790 <DOUBLE_pairwise_sum+0x370>
+  5448d3:	49 01 dd             	add    %rbx,%r13
+  5448d6:	c4 c1 7b 58 45 00    	vaddsd 0x0(%r13),%xmm0,%xmm0
+  5448dc:	48 83 fd 07          	cmp    $0x7,%rbp
+  5448e0:	0f 85 aa fe ff ff    	jne    544790 <DOUBLE_pairwise_sum+0x370>
+  5448e6:	c4 c1 7b 58 44 1d 00 	vaddsd 0x0(%r13,%rbx,1),%xmm0,%xmm0
+  5448ed:	e9 9e fe ff ff       	jmp    544790 <DOUBLE_pairwise_sum+0x370>
+  5448f2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  5448f8:	49 89 ec             	mov    %rbp,%r12
+  5448fb:	48 89 da             	mov    %rbx,%rdx
+  5448fe:	4c 89 ef             	mov    %r13,%rdi
+  544901:	c5 fb 11 4c 24 08    	vmovsd %xmm1,0x8(%rsp)
+  544907:	49 d1 fc             	sar    $1,%r12
+  54490a:	49 83 e4 f8          	and    $0xfffffffffffffff8,%r12
+  54490e:	4c 89 e6             	mov    %r12,%rsi
+  544911:	e8 0a fb ff ff       	call   544420 <DOUBLE_pairwise_sum>
+  544916:	48 89 ee             	mov    %rbp,%rsi
+  544919:	48 89 da             	mov    %rbx,%rdx
+  54491c:	4c 29 e6             	sub    %r12,%rsi
+  54491f:	4c 0f af e3          	imul   %rbx,%r12
+  544923:	c5 fb 11 04 24       	vmovsd %xmm0,(%rsp)
+  544928:	4b 8d 7c 25 00       	lea    0x0(%r13,%r12,1),%rdi
+  54492d:	e8 ee fa ff ff       	call   544420 <DOUBLE_pairwise_sum>
+  544932:	c5 fb 10 4c 24 08    	vmovsd 0x8(%rsp),%xmm1
+  544938:	c5 fb 58 04 24       	vaddsd (%rsp),%xmm0,%xmm0
+  54493d:	e9 4e fe ff ff       	jmp    544790 <DOUBLE_pairwise_sum+0x370>
+  544942:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  544948:	c5 fb 10 0d 10 47 3a 	vmovsd 0x3a4710(%rip),%xmm1        # 8e9060 <_ZTSSt9exception+0x218>
+  54494f:	00 
+  544950:	e9 fb fb ff ff       	jmp    544550 <DOUBLE_pairwise_sum+0x130>
+  544955:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  54495c:	00 00 00 00 
