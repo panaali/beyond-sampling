@@ -1533,3 +1533,7 @@ The eleven previously selected split-parent orders remain unchanged. Independent
 H5 seed3 passes all five saved records and286,720 conditional closure checks, subtotal1,593,689,839. Twenty of25 cases are reviewed; final five and full uncertainty comparison remain pending.
 
 T175 one-model h3 runner source gate: exact saved H16T4seed3 weights, unchanged reviewed sector/facet assembly and all per-cell MP160/200 versus angular80 diagnostics, explicit step3 references, one capped durable attempt. Requires independent six-network saved review before launch. Historical sampling/closure comparisons remain diagnostic, not rigorous truth; no covariance, downstream accuracy or full-cost claim.
+
+### Full original H5 Hopf saved cost panel
+
+All25 original H5 cases and1,433,600 closure records independently pass complete saved site/category/formula audits and final source/model/output/hash/coverage reconciliation. Pilot reused once. Explicit subtotal5,356,002,834; conditional source allowance8,185,943,976; historical proxy2,342,659,452. Recorded numerical research CPU371.571170808, not estimator speed or hardware cost. Full old-reference comparison may now be contracted under its frozen protocol; original mask defect, historical identity and old75-family10M truth uncertainty remain. No traces or references repeated by review.
