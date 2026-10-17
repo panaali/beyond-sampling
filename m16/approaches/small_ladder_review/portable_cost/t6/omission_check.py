@@ -69,13 +69,18 @@ def main():
         if row['full_quadrature_bound']<=2e-7:break
     full=json.loads((HERE/'full_results.json').read_text())
     reference=json.loads((AUTHOR/'cycle13.json').read_text())
+    revised=next(x for x in json.loads((AUTHOR/'cycle15.json').read_text())['rebounded_results'] if x['name']=='reference')
+    reference_bound=revised['exact_coefficient_outer_bound']+revised['inner_positive_bound']+revised['inner_series_bound']
     row=out['cases'][-1];restored=reference['estimate']+row['estimate']
     out.update(complete=True,reference_midpoint=reference['estimate'],
                restored_reference_midpoint=restored,dd_estimate=full['partial_mass'],
                restored_midpoint_difference=abs(restored-full['partial_mass']),
                dd_conditional_bound=full['conditional_error_bound'],
-               reference_integration_bound=reference['total_conditional_integration_bound'],
-               combined_conditional_bound=full['conditional_error_bound']+row['full_quadrature_bound']+reference['total_conditional_integration_bound'])
+               original_reference_integration_bound=reference['total_conditional_integration_bound'],
+               reference_integration_bound=reference_bound,
+               reference_bound_source='cycle15.json, unchanged estimate with tightened analytic coefficients',
+               dd_plus_omission_bound=full['conditional_error_bound']+row['full_quadrature_bound'],
+               combined_conditional_bound=full['conditional_error_bound']+row['full_quadrature_bound']+reference_bound)
     save();print(json.dumps(out,indent=2),flush=True)
 
 if __name__=='__main__':main()
