@@ -477,3 +477,76 @@ original bounded primitive and failure. Test isotropic wedge widths .01,
 independent-product controls, and unchanged27-law old endpoint panel before
 inference. Near-singular limit error bound remains explicit at width1e-7.
 No tuning of knots after outcomes. Preserve all trained closure results.
+
+The initial trained continuation correctly rejected a covariance with minimum
+eigenvalue-4.845e-15; no Gaussian aggregate was produced. Seven of13 unresolved
+components appear rank-one, missed by the old floating all-ray sign test.
+Predeclared singular-support handling now uses an exact binary-rational gate
+map at each stored triangle interior, requires every triangle's map to agree,
+and computes exact matrix rank and first-index winner on its nonnegative ray.
+This classifies the fixed map algebraically; completeness of the underlying
+floating cone partition remains uncertified. Genuine rank2 support rays use
+that direct map, avoiding the ill-conditioned logit inverse for geometry.
+The moment inverse remains checked. Covariance symmetrization only averages
+roundoff asymmetry and is explicitly reported; no eigenvalue clipping occurs.
+Two assertion-stopped diagnostic runs and one failed CUDA-load diagnostic had
+unmeasured process CPU; the corrected diagnostic elapsed1.70s. Their work is
+not silently charged as zero. Subsequent successful cycle records full CPU.
+
+## Support-conditioned result
+[measured] Seven previously unresolved components have exact rank-one fixed
+maps and constant first-index winners, mass .0108444780071776. Six genuine
+rank2 components remain, mass .0183341311087075. Both frozen variants preserve
+the other25 fixed-support components. Exact map checks use binary-rational
+weights and all stored triangle interiors; floating partition completeness
+is still an assumption. No covariance eigenvalues were clipped.
+
+| Endpoint variant on same law | Accuracy | Bias versus .4101712617268285 |
+| --- | ---: | ---: |
+| Previous full-covariance gate mixture | .4090643340795152 | -.0011069276473133 |
+| Exact rank1, Gaussian conditioned on nonnegative orthant | .4091993183303292 | -.0009719433964993 |
+| Exact rank1, Gaussian conditioned on component support cone | .4103475373067133 | +.0001762755798848 |
+
+This is a positive scoped support-conditioning result on one trained model,
+not an exact method or broader performance claim. Both prespecified variants
+remain reported. The second result has bias .01763 percentage points; the
+previous finite E0 Gaussian-mixture endpoint had .02777 points, also retained.
+A normal conditioned to a wedge generally no longer has the input moments.
+The remaining non-Gaussian density inside each support cone is not modeled.
+
+[measured] Thin-wedge transition knots repair the .0001-width missed-bulk
+failure. The1e-7-width control uses the preexisting singular-limit branch:
+value0 versus true1.59154943e-8, computed-correlation replacement bound
+1.59091326e-8. Their6.36e-12 difference demonstrates why the latter is not a
+floating error certificate for the intended real Gaussian. Controls accept
+this only under their explicit1e-10 numerical tolerance plus conditional
+bound; do not state all narrow wedges are integrated exactly. The unchanged27
+prior Gaussian laws differ at most3.22e-15 after transition-knot refinement;
+all9 large-mean independent-product controls pass. Source failure remains.
+
+The12 trained endpoint laws (six components, two supports), each evaluated at
+two tolerances and two extra scales, use728 adaptive subintervals and21,462
+integrand evaluations. No outside-unit correlation correction occurs there.
+Minimum support denominator .77520448; largest winner-partition residual
+2.22e-16, scale change1.53e-14, rule change2.22e-16. Largest conditional ratio
+numerical-error estimate8.97e-13 excludes geometry, moment and roundoff errors.
+Hidden left-inverse condition number45.8253 is recorded. Tiny negative support
+rays and covariance asymmetry are explicitly logged before their numerical
+roundoff treatment. They prevent a certification claim.
+
+Successful support cycle1.278519439CPU including imports,232404KiB RSS;
+geometry replay.023564105CPU/62777 inherited proxy operations. Prior moment
+construction remains a cold dependency and no portable endpoint operation
+counter or efficiency win is claimed. The27-law/large-mean replay costs
+.298766578CPU. Assertion-stopped/setup failures above are extra unmeasured CPU,
+not excluded evidence. Reproduce support_conditioned.py with the same Python,
+PYTHONPATH=/workspace/work/t40_deps, single-thread primary lock; replay
+check_transition.py under the review lock. Source and prior input hashes are
+in saved outputs. Independent T55 source/aggregation review requested.
+
+[inferred] This supports retaining support-aware closures as a live direction;
+full gate-cone enumeration is currently more work than direct T3 accuracy and
+cannot by itself solve the scaling challenge. Untried plausible variants:
+coarser merged support mixtures with certified mass, conditional higher moments
+inside each wedge, and downstream use of upstream propagated moments. Those
+are separate scoped tasks; no family is retired by the residual error here.
