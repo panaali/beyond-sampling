@@ -435,3 +435,67 @@ approximation-family conclusion follows. The independent check costs.604CPU;
 an initial final JSON NumPy-int serialization failure is preserved and fixed
 by conversion only. Author replay146.222CPU and capture14.537CPU remain
 separate. No numerical integration was repeated by the reviewer.
+
+## T144 determinant primitive
+
+The two-row complementary-minor expansion has30 multiplies and17 additions
+or subtractions. Its signs match the24-term determinant expansion. Outward
+interval operations enclose correctly-rounded binary64 results by one
+nextafter in each direction; product extrema over four corners enclose
+interval products. Nonfinite outputs reject. Underflow and singularity can
+leave sign ambiguous rather than yield a false sign certificate.
+
+Independent audit checks all6347 stored exact-value containments, nonzero
+interval signs, point errors and counters. A67-ray subset including the
+fixed16, evenly spaced cases and worst errors/width is recomputed with exact
+24-term Leibniz sums, independently of author elimination. All agree.
+Point47 improves3792, worsens1701, ties854: no universal accuracy ranking.
+Interval work154 arithmetic/243 comparisons/340 finite checks/94 nextafter
+is separately charged. This certifies stored binary determinants only,
+not input geometry, masses or hardware cost. Reviewer.340CPU.
+
+## T143 analytic inner integration and corrected ledger
+
+For q(z)=a*z²+2*b*z+c, delta=a*c-b²>0, the angle substitution gives the
+positive identity a/(2*delta^(3/2))*[(Delta-sinDelta)+sinDelta*(1+cosSigma)].
+The source squared sine/cosine expression equals1+cosSigma. Small-angle
+series through degree11 has separately weighted degree13 remainder.
+Endpoint-zero and collinear-origin crossing domains reject; fallback remains
+positive GL integration. Ordinary floating arithmetic is not certified.
+
+For any uniform degreeN polynomial in quadratic q, Duffy substitution and
+its Jacobian produce outer degrees at most2N+2. Taking N=n-2, n-point GL
+in both outer coordinates is exact after exact inner integration. Choosing
+positive GLn at some inner nodes preserves the same polynomial exactness.
+Both functionals have weight1/6, so the existing Chebyshev-tail mass bound
+transfers unchanged in real arithmetic; analytic series remainder is added
+separately. This does not cover generic floating analytic evaluation error.
+
+The independent audit verifies all frozen rows/orders/bounds/coverage and
+stored values, plus corrected per-row ledger totals. Newly counted guards
+cost M arithmetic and12M-2 comparisons; formerly omitted Boolean work adds
+(6 or9)M-3 comparisons, for (18 or21)M-5 combined. Totals31,692,407 and
+94,913,850 reduce the comparable named subset64.59% and73.99%. The strict
+run still leaves the identical32 unresolved cones. Covered mass errors
+8.8642074e-6 and5.2774643e-10, and tiny separate series bounds reproduce.
+No trained numerical rerun was needed; audit8.68CPU. Node generation,
+indexing/memory/runtime and floating certification remain qualified.
+
+## T146 partial cost source review
+
+The AST wrapper preserves native results, operand evaluation and short-circuit
+reductions, with setup reported separately. Geometry replaces only mass
+values by zero and checks every ordered ray against the captured archive;
+geometry does not branch on the returned mass. This is a valid bounded
+trace contract. The independent sampler count is16 initial operations,
+3*144 recurrence,60 readout and4 decisions=512 under this convention.
+
+A residual quadrature node has48 array operations, six*(4+13) scalar
+operations and42 explicit complement-index comparisons=192. Primitive
+wide24/thin96/cutoff counts4808/18632/184 and all saved site sums reproduce.
+Across fixed branches the explicit total is510,972,352; nominal inherited
+mass counter404,438,808 is different. There are2,659,858 opaque4x4 inverse
+calls and35,098 determinant calls. These are unpriced, not free. This is
+an explicit source-operation subset with separate memory/opaque inventories,
+not complete implementation cost or hardware cycles. Geometry totals await
+completed trace review; no trained integration rerun was requested.
