@@ -29,3 +29,19 @@ Relaxations on smaller adaptive subregions, nonuniform error approximations, par
 
 ## Failure modes
 Finite probes do not bound missing outcome mass. Small exact radii are formal support witnesses, not practically important error mass. No Gaussian probability lower bound is claimed from a witness unless separately integrated. Exact checkpoint arithmetic differs from finite-precision inference at boundaries.
+
+## Frozen finite-panel result
+`probe.py` completes all1944 trained probes and48 fixture checks in .667074573 CPU seconds;1941 trained inputs have certified open neighborhoods, three are rejected at genuine gate/output boundaries. Both analytic constant-output controls pass all24 charts. Results preserve outcome counts and45 first accepted witnesses.
+
+**21/24 charts are proved mixed**, carrying exact Gaussian input probability173/192≈.9010416667. Therefore a method restricted to whole-chart uniform correctness certificates can cover at most19/192≈.0989583333 of this checkpoint's input distribution. This is a certificate-granularity obstruction, not an accuracy lower bound or failure of approximation/integration on these charts. The positive neighborhoods may carry tiny mass.
+
+Three charts have only wrong witnesses among the81 frozen probes: (top1,second3,x0>0), (top2,second3,x0>0), and(top2,second3,x0<0). Their masses1/64,1/64,13/192 sum19/192. All three remain **unknown**, not uniformly wrong. No threshold or probe was adapted to the result.
+
+Reproduce with:
+
+```sh
+ulimit -v 2500000
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/rank_chart_ambiguity/probe.py
+```
+
+[measured] The finite panel finds exact open outcome ambiguity on21 charts. [inferred] No sound relaxation can prove whole-chart uniform correctness on any of these21 charts, because the exact network itself has both outcomes. This does not preclude cheap margin bounds on smaller regions, T108 gate-freezing approximation, or output-integrated estimators. Independent review pending.
