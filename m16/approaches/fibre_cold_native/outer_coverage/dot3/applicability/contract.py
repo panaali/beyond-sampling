@@ -42,6 +42,8 @@ def main():
   norm_calls=sum(x['calls'] for x in selected if x['kind']=='norm3');assert norm_calls==census['by_name']['np.linalg.norm']['calls'];assert next(x['calls'] for x in selected if x['site']==DOT)==census['by_name']['np.dot']['calls']
   old=sum(x['old_units'] for x in selected);new=sum(x['new_upper'] for x in selected);prior=census['prior_hybrid_named_composition'];assert prior==1838695310
   control=read(pr['controls']);assert control['complete'] and control['control_count']==90 and control['all_bitwise_parity'] and control['restored']
+  reviewer=read(pr['reviewer_result']);assert reviewer['complete'] and reviewer['cases']==90 and reviewer['results_sha256']==sha(pr['controls'])
+  d['independent_control_review']=dict(commit=pr['reviewer_commit'],result_sha256=sha(pr['reviewer_result']),author_results_sha256=reviewer['results_sha256'])
   d.update(complete=True,source_checks=source_checks,selected=selected,selected_old=old,selected_new_numeric_upper=new,added_upper=new-old,prior_hybrid_named=prior,conditional_revised_hybrid=prior-old+new,source_invariant='Pinned real float64 model/families and closure under listed3vector operations, independently reviewable in PROOF.md.',historical_binary_binding_is_conditional=True,zero_model_or_kernel_evaluations=True,scope='Replace-once selected numeric upper only. All other matrix/native/libm/cold and integer/control/copy/allocation/runtime categories retain previous qualifications. No cost-ratio or full-native/hardware conclusion. Source and all-stride proof require independent acceptance.')
   save();print(json.dumps({k:d[k] for k in ('complete','selected_old','selected_new_numeric_upper','added_upper','conditional_revised_hybrid','cpu')}))
  except Exception:
