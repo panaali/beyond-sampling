@@ -1,0 +1,153 @@
+{
+  "complete": true,
+  "model_forward_inputs": 0,
+  "validation": [
+    {
+      "name": "trained96",
+      "queries": 96,
+      "max_absolute_difference": 0.0,
+      "scalar_cpu_seconds": 1.8395741409999997,
+      "scalar_work": {
+        "clips": 12508.0,
+        "affine_products": 1614.0,
+        "readout_margin_products": 5158.0,
+        "moment_calls": 1769.0,
+        "gate_cells": 1574.0,
+        "correct_pieces": 195.0,
+        "positive_fallbacks": 0.0,
+        "positive_quadrature_fallbacks": 0.0,
+        "high_precision_fallbacks": 0.0,
+        "fallback_rule_generations": 0.0,
+        "fallback_rule_generation_nodes": 0.0,
+        "fallback_quadrature_nodes": 0.0,
+        "fallback_quadrature_error_bound": 0.0
+      },
+      "batch": {
+        "build_work": {
+          "affine_products": 407.0,
+          "clips": 3241.0,
+          "constructed_step_cells": 670.0,
+          "one_fresh_complexes": 4.0,
+          "two_fresh_complexes": 4.0,
+          "moment_calls": 522.0,
+          "partition_moment_calls": 522.0,
+          "max_partition_error": 2.220446049250313e-16,
+          "readout_margin_products": 1695.0,
+          "readout_complexes": 32.0,
+          "retained_readout_polygons": 117.0,
+          "late_complexes": 24.0,
+          "readout_cache_hits": 64.0
+        },
+        "query_work": {
+          "queries": 97.0,
+          "clips": 930.0,
+          "moment_calls": 195.0,
+          "correct_pieces": 195.0,
+          "absorbed_count_two": 1.0
+        },
+        "build_cpu_seconds": 0.5182625589999983,
+        "query_cpu_seconds": 0.2043905779999995,
+        "total_api_cpu_seconds": 0.7226531369999978,
+        "cached_unique_arrays": 1191,
+        "cached_array_bytes": 78432,
+        "partition_cache_entries": 28,
+        "readout_cache_entries": 32
+      }
+    },
+    {
+      "name": "first_index_ties24",
+      "queries": 24,
+      "max_absolute_difference": 0.0,
+      "scalar_cpu_seconds": 0.5029861790000001,
+      "scalar_work": {
+        "clips": 2338.0,
+        "affine_products": 402.0,
+        "readout_margin_products": 1710.0,
+        "moment_calls": 500.0,
+        "gate_cells": 414.0,
+        "correct_pieces": 86.0,
+        "positive_fallbacks": 0.0,
+        "positive_quadrature_fallbacks": 0.0,
+        "high_precision_fallbacks": 0.0,
+        "fallback_rule_generations": 0.0,
+        "fallback_rule_generation_nodes": 0.0,
+        "fallback_quadrature_nodes": 0.0,
+        "fallback_quadrature_error_bound": 0.0
+      },
+      "batch": {
+        "build_work": {
+          "affine_products": 101.0,
+          "clips": 436.0,
+          "constructed_step_cells": 165.0,
+          "one_fresh_complexes": 2.0,
+          "two_fresh_complexes": 2.0,
+          "moment_calls": 153.0,
+          "partition_moment_calls": 153.0,
+          "max_partition_error": 2.220446049250313e-16,
+          "readout_margin_products": 369.0,
+          "readout_complexes": 8.0,
+          "retained_readout_polygons": 27.0,
+          "late_complexes": 6.0,
+          "readout_cache_hits": 16.0
+        },
+        "query_work": {
+          "queries": 25.0,
+          "clips": 486.0,
+          "moment_calls": 86.0,
+          "correct_pieces": 86.0,
+          "absorbed_count_two": 1.0
+        },
+        "build_cpu_seconds": 0.151277106000002,
+        "query_cpu_seconds": 0.08141260999999655,
+        "total_api_cpu_seconds": 0.23268971599999855,
+        "cached_unique_arrays": 323,
+        "cached_array_bytes": 21048,
+        "partition_cache_entries": 8,
+        "readout_cache_entries": 8
+      }
+    }
+  ],
+  "full_grid": {
+    "batch": {
+      "build_work": {
+        "affine_products": 11048.0,
+        "clips": 135979.0,
+        "constructed_step_cells": 19450.0,
+        "one_fresh_complexes": 81.0,
+        "two_fresh_complexes": 81.0,
+        "moment_calls": 18806.0,
+        "partition_moment_calls": 18806.0,
+        "max_partition_error": 4.440892098500626e-16,
+        "readout_margin_products": 92282.0,
+        "readout_complexes": 972.0,
+        "retained_readout_polygons": 8210.0,
+        "readout_cache_hits": 4860.0,
+        "late_complexes": 729.0
+      },
+      "query_work": {
+        "queries": 5832.0,
+        "clips": 91452.0,
+        "moment_calls": 20885.0,
+        "correct_pieces": 20885.0
+      },
+      "build_cpu_seconds": 19.100360167000034,
+      "query_cpu_seconds": 20.17686782099984,
+      "total_api_cpu_seconds": 39.27722798799987,
+      "cached_unique_arrays": 46546,
+      "cached_array_bytes": 3177696,
+      "partition_cache_entries": 810,
+      "readout_cache_entries": 972
+    },
+    "queries": 5832,
+    "maximum_absolute_difference": 0.0,
+    "total_driver_cpu_seconds": 39.342363432
+  },
+  "source_sha256": {
+    "target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d",
+    "tail.py": "b3aee707e09538928551d9d8d22791daa9ad09cefeeda5a985629866fc821a33",
+    "moments.py": "239d1b88e959e0703548ef625752b9d6215e324f0545a354a7271164c3ef1613",
+    "positive.py": "23f242afa834fee0fee021446b7c310ae3939cea556a4bb921e52de6c909f1d1"
+  },
+  "cpu_seconds_excluding_imports": 43.560015823,
+  "max_rss_kib": 246500
+}

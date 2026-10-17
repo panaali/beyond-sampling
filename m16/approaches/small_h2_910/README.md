@@ -370,3 +370,58 @@ MC, no interpolation changes or solved claim. Use one bounded <=120CPU cycle;
 stop and preserve partial results if the deadline is reached. Tests use no random
 model inputs. Any later interpolation evaluation reuses the same values and does
 not constitute a new accuracy result.
+
+## T59 outcome: equivalent cache, approximately threefold lower construction CPU
+Completed the frozen check in43.560CPU seconds including120 scalar validation
+calls, their cold batch equivalents, absorbed-count checks, and a new cold batch
+for all5832 grid9 entries. All120 scalar comparisons and all5832 stored-grid
+comparisons were bit-identical (maximum absolute difference0). Constant readout
+honored first-index ties; count2 returned0 without constructing geometry.
+Partition mass error <=4.45e-16. No positive-quadrature fallback occurred.
+
+The full cold batch cost39.277CPU seconds:19.100 construction/cache lookup and
+20.177 rank-query work (driver overhead raises this to39.342). Earlier scalar
+construction of the same grid cost approximately119.7CPU seconds including the
+charged grid5 reuse, so the observed implementation speedup is approximately3x.
+Those historical timings are not a same-process microbenchmark or auditedFLOPs.
+The full batch includes every one of its caches; warm-query timing alone is not
+an estimator cost. Cache arrays occupy3,177,696bytes; maximum process RSS was
+246,500KiB including imports and torch checkpoint loading. Python object overhead
+is included in RSS but excluded from the explicit array-byte count.
+
+| Work for all5832 values | Original scalar | Cold batch build | Cold batch query | Cold batch total |
+|---|---:|---:|---:|---:|
+| Polygon clips | 895146 | 135979 | 91452 | 227431 |
+| Affine products | 89856 | 11048 | 0 | 11048 |
+| Readout margin products | 439732 | 92282 | 0 | 92282 |
+| Weighted polygon moments | 116737 | 18806 | 20885 | 39691 |
+
+The batch built81 one-fresh complexes,81 two-fresh complexes,729 late-target
+complexes,810 partition checks and972 readout complexes. Early-target requests
+share hidden-state geometry across b,j,K; the late targetj9 dominates much of
+the remaining cost. The fixed tests additionally cover middle insertionj8.
+No probabilities were clipped or integration rules changed. No interpolation
+estimate changed; V/W linear/cubic grid9 results and their limitations above
+all remain in force. This is a reusable implementation improvement, not an
+accuracy certificate or an efficiency win against sampling.
+
+API: `batch = BatchTerminal((Wi,Wh,Wo))`, then
+`batch.probability(a,b,count,j)` and `batch.report()` for cumulative complete
+construction/query accounting. The object copies weights and caches exact
+floating state keys; arbitrary new states can grow its cache, so the caller
+must bound query count/memory. `batch_terminal.py` imports read-only T55 helpers;
+`check_batch.py` records all four helper source hashes in `batch_results.json`.
+Reproduce with:
+
+```
+ulimit -v 2500000
+flock /workspace/work/codex-compute.lock env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 FUNDAMENTALS_DIR=/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals /workspace/clean-neurons/.venv/bin/python m16/approaches/small_h2_910/check_batch.py
+```
+
+[measured] Reuse preserves this fixed trained-model grid exactly and reduces
+recorded geometry work. [inferred] Geometry duplication explained substantial
+CPU cost. [speculative] Further moment specialization may reduce remaining
+cost: final degree7 depends only on boundary powers0,2,4,6, whereas the current
+full-moment primitive computes every power0..6. Sent this to T55 owner; no
+primitive changes made here. Unchecked: noisy-copy batch equivalence, audited
+FPE costs, certified interpolation error, and any competitive full estimator.
