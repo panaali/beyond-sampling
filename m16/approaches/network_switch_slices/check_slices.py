@@ -44,13 +44,13 @@ def controls():
                 clipping_work=dict(work),cpu_seconds=time.process_time()-start)
 
 
-def main():
+def main(outname='results.json'):
     start=time.process_time();out=dict(controls=controls(),cases=[])
     paths=[HERE/'slices.py',WALKER,ROOT/'m16/approaches/sci_tao/core.py']
     out['sources']={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     def save():
         out['cpu_seconds']=time.process_time()-start
-        (HERE/'results.json').write_text(json.dumps(out,indent=2)+'\n')
+        (HERE/outname).write_text(json.dumps(out,indent=2)+'\n')
     save()
     import torch
     for H in (2,4):

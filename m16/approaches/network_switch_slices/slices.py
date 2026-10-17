@@ -42,6 +42,13 @@ def clip(p, row, work):
         work['reoriented_polygons'] += 1
         work['reoriented_polygon_area'] += -signed
         out=out[::-1].copy()
+    if signed!=0:
+        edges=np.roll(out,-1,axis=0)-out
+        following=np.roll(edges,-1,axis=0)
+        turns=edges[:,0]*following[:,1]-edges[:,1]*following[:,0]
+        work['convexity_turn_tests'] += len(turns)
+        work['negative_local_turns'] += int(np.sum(turns<0))
+        work['maximum_negative_turn'] = max(work['maximum_negative_turn'],float(np.max(-turns)))
     return out if signed!=0 else np.empty((0,2))
 
 
