@@ -7,9 +7,19 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
 
 ## Rules
 
-0. **Claim work on the task board first.** Before starting anything, claim a task in [TASKS.md](TASKS.md) by moving it to
-   *In progress* and committing and pushing that edit alone (protocol in TASKS.md). Never start work that is already
-   claimed. When done, remove your row and register the result in [INDEX.md](INDEX.md).
+0. **The task board [TASKS.md](TASKS.md) is mandatory for every agent (Claude, Codex, humans).** Many agents work
+   in this repo at once; the board is how duplicate work is avoided.
+   - **Reserve before you start.** Before writing any code or running any experiment, `git pull`, check that the task
+     is not already *In progress*, move it there with your owner ID, date and folder, and **commit and push that edit
+     alone**. If your idea is not on the board yet, add it as a new backlog row and reserve it in the same commit.
+     Never work on a task someone else holds.
+   - **Keep it current.** Update your row's *Notes* when the plan changes. If you stop or get interrupted, release the
+     task (move it back to Backlog with a note on how far you got) so others can pick it up.
+   - **Add every new idea to the Backlog.** Whenever you discover a new approach, a follow-up, a needed check or a bug in
+     shared code, add a Backlog row (next free T-number; IDs are never reused) with why it matters, when it counts as
+     done, and pointers, even if you will not do it yourself.
+   - **When done,** remove your row from *In progress* and register the result in the [INDEX registry](INDEX.md)
+     (or ask the DRI to), including negative results.
 1. **Stay in your lane.** Write only inside your assigned folder, e.g. `m16/approaches/<name>/`. Don't
    edit shared code ([`m16/common.py`](m16/common.py), [`m16/arc_eval.py`](m16/arc_eval.py), ...) or other agents' folders. Propose changes in
    your README instead.

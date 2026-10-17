@@ -16,7 +16,10 @@ in the [hypothesis ledger](INDEX.md#4-hypothesis-ledger).
 4. **Finish:** remove the row from In progress, add your experiment to the [INDEX registry](INDEX.md#3-experiment-registry)
    (or ask the DRI to), and list any new tasks you discovered in Backlog.
 5. **Stale claims:** a claim with no commit in its folder for 24 hours may be taken over. Note the takeover in *Notes*.
-6. New ideas go into Backlog with the next free ID (T-numbers are never reused).
+6. **Add new ideas to the Backlog as soon as you have them**: new approaches to try, follow-ups, needed checks and bugs
+   in shared code. Use the next free ID (T-numbers are never reused) and give each a goal, a "done when" and pointers,
+   even if you will not do it yourself. If you start it right away, reserve it in the same commit.
+7. **Releasing:** if you stop or are interrupted, move your task back to Backlog with a note on how far you got.
 
 ## In progress
 
@@ -35,6 +38,10 @@ Strategy note (2026-10-17): climb from solved small models. Calculation beats sa
 | T11 | **Climb the ladder**: once T10 works, step T=5->6->...->10 at H=16 and check it survives H=8/32; each step must beat sampling on the leaderboard before moving on | Turns a small-model solution into the M_16,10 solution, or shows exactly where it breaks | [m16/leaderboard.py](m16/leaderboard.py) (generalise to (H,T)) |
 | T12 | **Training-stage dimension**: track when the hard error patches form across checkpoints (`n_seqs` = 2^20..2^30) for H=16, T=5 and T=10 | Shows which learned feature creates the heavy-tailed bands | `zoo_2nd_argmax(16, T, n_seqs=...)` |
 | T13 | **Error-family / input simplifications (diagnostic)**: solve the 2-3 tie family alone exactly; positive-only inputs to remove the blind region | Isolates pieces; not a solution by itself | ledger H-M5 |
+| T14 | **Split the leaderboard: deductive vs sampling** with a reviewed (not self-declared) DEDUCTIVE status | Our current top method (srb) is sampling, so topping the leaderboard is not solving ARC's challenge. Done when [m16/leaderboard.py](m16/leaderboard.py) reports the two tables separately and each approach's status is reviewed | ARC wording: "mechanistically estimating" (Jan 2026 post); [STATUS.md](STATUS.md) |
+| T15 | **Score the full MSE-vs-compute curve** (~1k to 1M evals) and report where each method crosses sampling | ARC asks to match sampling across compute; v2 tested only 16k/64k (tube won at 64k and lost at 256k) | [m16/leaderboard.py](m16/leaderboard.py) |
+| T16 | **One written compute-accounting rule**: all model-dependent work in FLOPs, including per-model tuning ("advice"); model-free precomputation counted once or reported separately | Free precomputation and uncharged tuning flatter some methods. Done when the rule is in the leaderboard docstring and all estimators comply | ledger H-E4 |
+| T17 | **Harsher noise levels** (sigma 0.01-0.02 x RMS) in the leaderboard, reported per level; more truth samples for large budgets | "Significantly alter accuracy" may mean more noise than our 0.0025/0.005 | [m16/arc_eval.py](m16/arc_eval.py); ledger H-E4 |
 | T1 | **Stochastic reduction of the tie margin** (deductive): carry the low inputs as a distribution and track the exact law of the residual tie margin given the top values/positions | The one untried deductive direction (suggested by E23 and E27). Done when an estimator is scored on [leaderboard v2](m16/leaderboard.py) with a verdict | Ledger H-E9, H-E10, H-E12; [bandwidth](m16/approaches/bandwidth/README.md), [sci_poincare](m16/approaches/sci_poincare/README.md) |
 | T2 | **Explain the T~5 collapse**: why the tie-band integrand becomes heavy-tailed; repeat the H x T scan with 3+ training seeds per (H, T) | Turns H-E11 from "supported, one seed per cell" into a firm result, and points at what a solution must handle | [sci_tao](m16/approaches/sci_tao/README.md) (`scan_HT.json`), ledger H-E11 |
 | T3 | **Symbols from rotating-neuron gate switches** instead of records (Poincare's untried variant) | Ceiling test like E27: done when the reduced system's exact bias is measured on all 18 models | [sci_poincare](m16/approaches/sci_poincare/README.md) |
