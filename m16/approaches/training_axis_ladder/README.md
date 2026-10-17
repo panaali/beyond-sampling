@@ -20,16 +20,16 @@ First controls/pilot: all five clean checkpoints at both training amounts; for t
 Before seeing pilot accuracy, freeze the full new-rung panel: noise seeds20,21,22,23, each256 copies for each of five training seeds, with the same Wi/Wh/Wo draw order as zoo43.noisy_copies. If the pilot is numerically sound and projects under110CPU seconds per256-copy block, run all20 blocks, checkpointing each. If slower, subdivide the same panel; never select fewer/favorable copies. Bootstrap500 resamples per training seed with RNG0, exactly the T75 report convention. Also report mean(err²)/mean(72*p*(1-p)/ops), preserving the published ratio using mean ops separately. Full panel planning is fixed; no lower amount2^28 is authorized by a successful pilot alone. If any complete rung criterion fails, stop the ladder, independently diagnose the new behavior and record plausible rescues before changing the recipe. Re-running every earlier rung is mandatory after a future recipe change.
 
 ## Status
-Protocol frozen. Checkpoint acquisition and dependency controls next. T66 scoped speedup handoff is separate.
+First2^29 neighbor phase complete with independent review; handed to root/Claude for finite-rung classification. No lower amount evaluated. T66 scoped speedup handoff is separate.
 
 ## Results
-Pending. No passed-rung or challenge-solved claim.
+The complete fixed2^29 panel passes the author-defined finite per-seed criterion, and independent arithmetic/geometry checks agree. Detailed results and qualifications below; no challenge-solved or unseen-model guarantee.
 
 ## Compute accounting
 One thread,2GB RSS, <=110CPU cycles under codex-compute.lock; <=20CPU review/control lane uses codex-review.lock. Record every model hash, estimator operation counter, geometry/reference operations, candidate cells, reference leaves, full CPU, source setup and failures. Random weight generation and bootstrap are validation work; no validation truth or per-model fitted advice enters the frozen estimator.
 
 ## Claims
-[inferred] This changes exactly one ladder axis by one training checkpoint step. [speculative] The unchanged recipe remains competitive for all five seeds at2^29. Only the DRI confirms a rung after independent checks.
+[inferred] This changes exactly one ladder axis by one training checkpoint step. [measured] The unchanged recipe passes the frozen finite-panel per-seed criterion at2^29 under inherited T75 units. Independent review checks arithmetic and a preselected extra geometry case. Only the DRI confirms a rung; population and other-training-amount claims remain open.
 
 ## Alternatives not ruled out
 Margin-aware T85, different representation/re-merging, stricter impact thresholds and exact-small-support mechanisms. They are not silently substituted for the T75 recipe. Earlier model amounts remain untested until this neighbor passes.
@@ -62,3 +62,6 @@ Independent T55 statistical review distinguishes the published ratio, which uses
 Reference correct-piece counts are75–90 on average and are labeled accordingly. Independent global DD gate counts on the five clean models are70,52,53,70,72; they are not interchangeable with rank-conditioned correct leaves or candidate half-chamber cells. The method still resolves much of a small model and does not establish favorable asymptotic scaling.
 
 Validation block CPU totals112.917 seconds across five bounded cycles, each below26CPU; pilot1.835CPU, summary.060CPU. These block totals exclude Python imports before each timer and network acquisition, which are not per-model estimator advice and are not silently presented as complete campaign cold cost. Candidate/reference timings and all operation counters are retained per model. Reproduce with the pinned source checkout and downloaded hashes: `python pilot.py`, `python block.py --training-seed s` for s0..4 under the resource lock, then `python summarize.py`. No2^28 model has been fetched or evaluated; advancement awaits independent review and a separate rung claim.
+
+## Independent handoff
+T55 reviewe49308c independently recomputes the primary, model-matched and integer-budget ratios from all5120 raw rows using Decimal arithmetic, agreeing within4.89e−15 relative. It verifies unique model hashes and independently preserves the individual-loss counts. Before opening the selected author row, it reconstructed seed4/noise23/copy255 and summed separate native-DD triangles with60-digit areas: p=.60181227642865760011 and total mass=.99999999999999999572, agreeing with polygon truth within1.00e−16 and the exact same model hash. This supplements, not replaces, the source/statistical review and15 original reference controls. See [independent review](../feynman_fundamentals/training_neighbor_review.md). Rung advancement remains a DRI/board action; no next checkpoint is inferred safe from this finite result.
