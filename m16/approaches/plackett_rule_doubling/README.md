@@ -11,7 +11,7 @@ Analytic controls: coordinate orthant mass1/16 and coordinate-order half-orthant
 Alternative1: insufficient fixed quadrature order causes bias; uniform doubling is a direct falsifiable rescue. Alternative2: covariance/inverse roundoff dominates; T137 same-expression MP reevaluation separates that case. Alternative3: unresolved endpoint peaks still defeat doubled finite rule; preserved per-cone errors and negatives expose this without declaring Plackett integration impossible. No adaptive-order or cheap certified error bound is tested here.
 
 ## Status
-Bounded fixed-candidate experiment complete; independent review pending. Claim d56bea3 and protocol ceef8ba preceded implementation.
+Bounded fixed-candidate experiment complete; independent review ea53df3 passes. Claim d56bea3 and protocol ceef8ba preceded implementation.
 
 ## Results
 Measured results below. Reproduction: run.py BATCH for BATCH0..7, then summarize.py. No random model inputs or new MC.
@@ -36,3 +36,5 @@ The73 source determinant-cutoff cones have summed positive reference mass2.18853
 Candidate named mass count **404438808** equals2×204957048−156×35098:156 setup units per cone and152 per evaluated node, with unchanged branch/cutoff. The same-counter hypothetical full geometry+mass total is **440089662**, versus240607902 original. This inherited partial count omits kernel/setup categories and is not a portable FLOP certificate. Candidate replay CPU97.669149593 includes controls, rule generation, provenance, extra branch-diagnostic inversions and saving; controls contribute92544 named units separately. Source/positive reference costs remain prior dependence. One process launch failed before execution because the exec transport disconnected; retry succeeded, no scientific data was lost. Partial batch4 checkpoint was committed during execution and then replaced by its complete result; final summary requires complete disjoint indices.
 
 [measured] One fixed order doubling sharply reduces both signed and absolute numerical bias on this checkpoint at roughly double the inherited mass-rule counter. [inferred] This rescues a plausible inexpensive quadrature variant and prevents interpreting the original finite-rule failure as a negative for all Plackett representations. It does not establish the remaining recipe approximation error, all-seed/noise performance, portable cost, H16T10 scalability, or a passed rung. Independent T55 saved-array/source/counter review requested.
+
+Independent T55 review ea53df3 verifies all35098 saved indices, raw sums/absolute errors/negative terms, all source-style branch flags and named-cost identities in.587CPU. Nearest rmax to.95 is5.49e-6, so diagnostic branch arithmetic agrees with the actual source on this corpus. T140 is handed off; T145 separates unchanged recipe pruning error, while T146 independently audits full sourcecost. No additional rule candidate is selected here.

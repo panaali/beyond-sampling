@@ -15,7 +15,7 @@ Next scope requires freezing before implementation: replay same captured leaf si
 Alternative1: finite Plackett integration error accumulates on thin cells (same-geometry positive replay). Alternative2: symbolic clipping/triangulation overlaps cells (density-free section conservation, exact dyadic checks). Alternative3: terminal/output tie handling or checkpoint/source mismatch (hashes and separate gate/output ownership). These remain distinct until tested.
 
 ## Status
-Completed bounded reference repair; full gate aggregate independently audited f0f4012, output aggregate review pending.
+Completed bounded reference repair; full gate aggregate independently audited f0f4012, output aggregate independently audited8f90409.
 
 ## Results
 See measured gate and output-error results below; exact commands: capture.py, mass_check.py, full_mass.py BATCH (0..7), summarize_full.py, error_capture.py, error_mass.py BATCH (0..7), summarize_error.py.
@@ -88,3 +88,5 @@ All eight replay batches complete in81.39114827CPU. The unchanged source yields 
 The corrected reference differs from pre-existing4M numpy sampling .97606325 by+1.28 plug-in standard errors, and from README's rounded10M torch .97617 by−.19 standard errors (that printed number has rounding halfwidth .000005). These are external diagnostics with sampling uncertainty; no fitting, new sampling or threshold selection uses them. T55 independent saved-array aggregate review is pending. `error_summary.json` retains raw totals, costs, provenance and uncertainty calculations.
 
 [measured] Replacing only Gaussian mass integration repairs both the gate total and this model's accuracy discrepancy. [inferred] These results strongly support a finite mass-rule defect as the cause of the published computational discrepancy; independent high-precision T137 review distinguishes quadrature truncation from covariance arithmetic on a concrete negative fixture. Floating geometry/roundoff certification and arbitrary other models remain outside this result. Positive integration here is a reference repair with substantial cost, not evidence of a challenge-winning estimator. The captured source named mass counter204957048 omits positive quadrature cost and cannot be reused to claim competitiveness.
+
+Independent T55 output-array review8f90409 verifies all35098 indices and exact sums of stored binary64 values, bounds,2984 negatives and source reproduction. T139 separately verifies all35098 fixed interior direct-network witnesses and64 small-margin exact Fraction witnesses (point-panel scope only). T131 is complete within the stated conditional reference scope; board closured9240ad requests Claude/root registry acceptance.
