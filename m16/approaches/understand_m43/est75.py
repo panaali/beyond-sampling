@@ -130,6 +130,71 @@ def _resolve(cells, rows, n_true, K, ops, rule="arc", w=None, eps=0.1):
     return out
 
 
+def _margin(L, truth, V):
+    """m(v) = l_truth(v) - max_other l(v) at the points V (rows of an array)."""
+    Z = V @ L.T
+    oth = np.max(np.delete(Z, truth, axis=1), axis=1)
+    return Z[:, truth] - oth
+
+
+def _cells_margin(poly, A3, Wo, truth, n_true, ops, eps, done=()):
+    """T85 margin-aware step-3 rule. Freeze every cutting gate at its arc state, then resolve (split by) a cutting
+    gate k only if, on its minority side (the part of the cell where its true state differs from the frozen one),
+    the logit shift it can cause, |a_k . v| * w_k with w_k = max_o |Wo[truth,k] - Wo[o,k]|, reaches the frozen
+    readout margin m(v) = l_truth - max_other l at some point, or the margin changes sign there with a shift of at
+    least eps * max|m|. Points tested: minority vertices and the points where the gate plane cuts the cell's edges
+    (m - shift is concave on a cell, so vertex tests bound the whole region). Recursive: children are re-tested."""
+    on = _arc(poly, n_true, ops)
+    ref = np.mean(on, 0) if len(on) >= 2 else np.mean(poly, 0); ops.add(3 * len(poly))
+    V = np.array(poly)
+    S = V @ A3.T; ops.add(4 * len(poly) * len(A3))
+    g = np.zeros(len(A3)); cut = []
+    tol = 1e-12 * np.abs(S).max(0)
+    for k in range(len(A3)):
+        if S[:, k].min() >= -tol[k]:
+            g[k] = 1.0 if S[:, k].max() > tol[k] else float(A3[k] @ ref > 0)
+        elif S[:, k].max() <= tol[k]:
+            g[k] = 0.0
+        else:
+            g[k] = float(A3[k] @ ref > 0); ops.add(4)
+            if k not in done:
+                cut.append(k)
+    if not cut:
+        return [(poly, g)]
+    w = np.max(np.abs(Wo[truth][None, :] - Wo), 0); ops.add(3 * len(A3))
+    L = Wo @ (g[:, None] * A3); ops.add(3 * int(g.sum()) * 3)
+    best = None
+    for k in cut:
+        sk = S[:, k]
+        minority = (sk > 0) != (g[k] > 0)
+        pts = [V[q] for q in np.flatnonzero(minority)]
+        shifts = [abs(sk[q]) * w[k] for q in np.flatnonzero(minority)]
+        m_ = len(poly)
+        for q in range(m_):                         # gate-plane / edge crossing points (shift 0 there)
+            r = (q + 1) % m_
+            if (sk[q] > 0) != (sk[r] > 0) and sk[q] != 0 and sk[r] != 0:
+                pp = abs(sk[q]) * V[r] + abs(sk[r]) * V[q]; pts.append(pp / np.linalg.norm(pp)); shifts.append(0.0); ops.add(13)
+        P = np.array(pts); sh = np.array(shifts)
+        if g.sum() == 0:
+            mm = np.full(len(P), 1.0 if truth == 0 else -1.0) * 0.0
+        else:
+            mm = _margin(L, truth, P); ops.add(len(P) * (3 * 3 + 3))
+        score = np.max(sh / (np.abs(mm) + 1e-300)); ops.add(2 * len(P))
+        flips = mm.min() < 0 < mm.max() and sh.max() >= eps * np.abs(mm).max()
+        if score >= 1 or flips:
+            if best is None or score > best[0]:
+                best = (score, k)
+    if best is None:
+        return [(poly, g)]
+    k = best[1]
+    out = []
+    ins, outp = clip(poly, A3[k], ops)
+    for q in (ins, outp):
+        if q:
+            out += _cells_margin(q, A3, Wo, truth, n_true, ops, eps, tuple(done) + (k,))
+    return out
+
+
 def est75(model, ops=None, K=(4, 2), info=None, rule="arc", eps=0.1):
     Wi, Wh, Wo = model
     ops = ops if ops is not None else Ops()
@@ -145,9 +210,13 @@ def est75(model, ops=None, K=(4, 2), info=None, rule="arc", eps=0.1):
         w3 = np.max(np.abs(Wo[truth][None, :] - Wo), 0) if rule != "arc" else None
         if rule != "arc":
             ops.add(16 + 12)
-        for p2, g2 in _resolve([h["poly"]], A2, n_true, K[0], ops, rule, w2, eps[0] if isinstance(eps, tuple) else eps):
+        r2 = "adaptive" if rule == "margin" else rule
+        for p2, g2 in _resolve([h["poly"]], A2, n_true, K[0], ops, r2, w2, eps[0] if isinstance(eps, tuple) else eps):
             A3 = Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2]); ops.add(4 * int(g2.sum()) * 2)
-            for p3, g3 in _resolve([p2], A3, n_true, K[1], ops, rule, w3, eps[1] if isinstance(eps, tuple) else eps):
+            e3 = eps[1] if isinstance(eps, tuple) else eps
+            cells3 = _cells_margin(p2, A3, Wo, truth, n_true, ops, e3) if rule == "margin" else \
+                _resolve([p2], A3, n_true, K[1], ops, rule, w3, e3)
+            for p3, g3 in cells3:
                 STATS["cells"] += 1
                 if g3.sum() == 0:
                     if truth != 0:

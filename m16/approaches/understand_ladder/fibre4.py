@@ -251,22 +251,54 @@ def G(u):
     return 0.5 * (np.arctan(u) + u / (1 + u * u))
 
 
-def poly_int(poly, fns, signs, ops):
-    """sum_f sign_f * int_poly G(f . omega) dOmega, fan triangulation + Duffy-Gauss per triangle."""
+def _duffy(nq):
+    x, w = np.polynomial.legendre.leggauss(nq)
+    x = 0.5 * (x + 1); w = 0.5 * w
+    A, Bq = np.meshgrid(x, x, indexing="ij")
+    return A.ravel(), ((1 - A) * Bq).ravel(), (np.outer(w, w) * (1 - A)).ravel()
+
+
+NQ_CORR = 3
+_S3, _T3, _W3 = _duffy(NQ_CORR)
+
+
+def vec_area(poly, ops):
+    """int_P omega dOmega = 1/2 sum_e theta_e n_e for a convex spherical polygon (closed form, check4.py)."""
+    A = np.zeros(3)
+    for q in range(len(poly)):
+        a, b = poly[q], poly[(q + 1) % len(poly)]
+        x = np.cross(a, b); s = math.sqrt(x @ x)
+        if s < 1e-300:
+            continue
+        A += (0.5 * math.atan2(s, a @ b) / s) * x
+    ops.add(20 * len(poly) + 3)
+    return A if A @ poly[0] + A @ poly[1] > 0 else -A
+
+
+def poly_int(poly, fns, signs, ops, mode="closed"):
+    """sum_f sign_f * int_poly G(f . omega) dOmega. 'closed': the linear part of G exactly (vector area) plus the
+    cubic-and-higher remainder G(u) - u by a 3x3 Duffy-Gauss rule per fan triangle; 'cubature': NQ x NQ rule."""
     if len(poly) < 3 or not fns:
         return 0.0
-    v0 = poly[0]; tot = 0.0
     F = np.array(fns); sg = np.array(signs)
+    if mode == "closed":
+        VA = vec_area(poly, ops)
+        tot = float((F @ VA) @ sg); ops.add(3 * len(fns))
+        S_, T_, W_ = _S3, _T3, _W3
+        g = lambda u: G(u) - u
+    else:
+        tot = 0.0; S_, T_, W_ = _S, _T, _WW; g = G
+    v0 = poly[0]
     for q in range(1, len(poly) - 1):
         v1, v2 = poly[q], poly[q + 1]
         det = float(np.dot(v0, np.cross(v1, v2)))
         if abs(det) < 1e-18:
             continue
-        W = v0[None] + _S[:, None] * (v1 - v0)[None] + _T[:, None] * (v2 - v0)[None]
+        W = v0[None] + S_[:, None] * (v1 - v0)[None] + T_[:, None] * (v2 - v0)[None]
         r = np.sqrt((W * W).sum(1))
         U = (W @ F.T) / r[:, None]
-        tot += abs(det) * float(((G(U) @ sg) / r ** 3) @ _WW)
-        ops.add(len(_S) * (9 + 5 + len(fns) * (4 + 6)) + 12)
+        tot += abs(det) * float(((g(U) @ sg) / r ** 3) @ W_)
+        ops.add(len(S_) * (9 + 5 + len(fns) * (4 + 6)) + 12)
     return tot
 
 

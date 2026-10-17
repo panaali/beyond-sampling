@@ -19,3 +19,10 @@ for trial in range(6):
     worst = max(worst, ec)
     print(f"trial {trial}: max|mean err| {em:.1e}  max|cov err| {ec:.1e} (cov scale {np.abs(cov).max():.2f}; MC se ~{np.abs(cov).max()*2/2000:.0e})")
 print("worst cov err", worst)
+# deterministic cross-check against E13's closed form (Owen's T), non-degenerate covariances
+sys.path.insert(0, "../../m16/approaches/propagation")
+from relu_moments import relu_moments
+for trial in range(3):
+    B = r.standard_normal((8, 8)); C = B @ B.T / 8 + 0.1 * np.eye(8); mu = r.standard_normal(8)
+    m1, c1, _ = relu_layer(mu, C, "gauss"); m2, c2, _ = relu_moments(mu[None], C[None])
+    print(f"vs E13 closed form: max|mean diff| {np.abs(m1-m2[0]).max():.1e} max|cov diff| {np.abs(c1-c2[0]).max():.1e}")

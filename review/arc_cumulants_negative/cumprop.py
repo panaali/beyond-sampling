@@ -17,7 +17,8 @@ _GL_X, _GL_W = np.polynomial.legendre.leggauss(40)
 
 
 def npdf(z):
-    return np.exp(-0.5 * z * z) / SQ2PI
+    with np.errstate(over="ignore", under="ignore"):
+        return np.exp(-0.5 * np.minimum(z * z, 1e6)) / SQ2PI
 
 
 def relu1(mu, var):
