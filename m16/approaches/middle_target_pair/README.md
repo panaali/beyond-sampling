@@ -53,6 +53,18 @@ Protocol frozen before implementation.
 ## Results
 Pending. Deductive finite local diagnostic, no model-input sampling.
 
+## Primitive controls
+Thirty toy panels pass partition to4.45e-16, axes to3.34e-16, exact binary
+rescaling with zero discrepancy and memoryless closed-form checks. Initial
+direct checks used only label2, which was dominated in the toy; that weak
+control is preserved in initial_controls.json and expanded to all4 labels.
+The24 independent scalar comparisons differ by at most3.61e-11. One scalar
+reference reports QUADPACK roundoff/nonconvergence; its message and error
+estimate remain explicit in controls.json. It is a numerical diagnostic,
+not a converged or certified reference. The analytic Wh0 and partition/tie
+controls do not depend on this adaptive scalar reference. Full control CPU
+approximately2.1 seconds. No trained query before independent source review.
+
 ## Compute accounting
 One thread, 2GB, review lock and <=20CPU per bounded control/panel phase.
 Charge geometry, intersections, density calls, callbacks, scalar controls,
