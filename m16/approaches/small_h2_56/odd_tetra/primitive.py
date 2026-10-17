@@ -27,7 +27,11 @@ def radial_interval(v):
  center=v.sum(axis=-2);center/=np.linalg.norm(center,axis=-1,keepdims=True)
  projection=np.sum(v*center[...,None,:],axis=-1).min(axis=-1)
  signs=np.sign(v.sum(axis=-2));qsign=np.sum(v*signs[...,None,:],axis=-1).min(axis=-1)**2/np.sum(signs*signs,axis=-1)
- return np.maximum(projection**2,qsign),np.sum(v*v,axis=-1).max(axis=-1)
+ upper=np.sum(v*v,axis=-1).max(axis=-1)
+ # The analytic lower bound cannot exceed the convex upper bound. Equal
+ # endpoints can invert them by one rounded ulp; preserve the domain order.
+ # This is domain repair, not a certificate for floating arithmetic.
+ return np.minimum(np.maximum(projection**2,qsign),upper),upper
 
 def positive_fallback(v,tolerance):
  a,b=radial_interval(v);trials=0
