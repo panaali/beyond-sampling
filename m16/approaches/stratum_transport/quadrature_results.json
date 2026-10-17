@@ -1,0 +1,1511 @@
+{
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "85c5e700b5989d2631dc6872a5f9abd84f1859fa5b768884e7daa53cea920b66",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_volume.py": "9f0f74ee92739a60e3fe8a592612e2a624388e3f991b3486da2d91bd71fd0c6a",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_quadrature_volume.py": "d8ed2c84f632082e3ba3804cfecbfa534f0c30328ddaf0d4e117b75b146804f5",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_results.json": "e35b5f566de2d9329d392fa0705b52ca9fdba74e72ecc332a15e243fc71a2c7d",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input_results.json": "c86c8ffb19da35d5501bbe372a58d385f6bb4201c51db15df3e92f0813298015",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/third_step_results.json": "64cc77754865a5690253cbd6f5e381e95dc45bd6f3125d0962b20d4c92a0ca79"
+  },
+  "classification": "source quadrature versus uniform projection diagnostic",
+  "random_model_inputs": 0,
+  "rows": [
+    {
+      "model": "toy",
+      "grid": 16,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.3237905178092559,
+          "axis0": 0.0,
+          "axis1": 0.05120866209558431,
+          "input_ray": 0.24999999901341233,
+          "area": 0.3750008171353968
+        },
+        {
+          "origin": 0.21950717744107115,
+          "axis0": 0.0,
+          "axis1": 0.09334026135453527,
+          "input_ray": 0.1618952585851802,
+          "area": 0.5252572966996872
+        },
+        {
+          "origin": 0.1505342440888342,
+          "axis0": 0.0,
+          "axis1": 0.12323655955713847,
+          "input_ray": 0.10975358850397249,
+          "area": 0.6164755999573533
+        }
+      ],
+      "output_masses": [
+        0.1505342440888342,
+        0.10975358850397249,
+        0.7397121595144884,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.1505342440888342,
+        0.10975358850397249,
+        0.7397121595144917,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "upper",
+        "upper"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 1280.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 295.0,
+        "normal_cdf_values": 49920.0,
+        "input_intervals": 48640.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 17009.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 83.0,
+        "support_polygon_source_nodes": 332.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 1590.0
+      },
+      "cpu_seconds": 0.06712659100000007,
+      "old_order2_implementation_discrepancy": 3.6637359812630166e-15,
+      "stage_stratum_errors": [
+        1.2910159607470995e-06,
+        0.000806047566835999,
+        0.0012043470318235938
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -1.2910159607470995e-06,
+          "axis0": 0.0,
+          "axis1": 4.7092080095872957e-07,
+          "input_ray": -9.865876726689038e-10,
+          "area": 8.171353967911799e-07
+        },
+        {
+          "origin": -0.00045860877122957944,
+          "axis0": 0.0,
+          "axis1": 0.000806047566835999,
+          "input_ray": -6.45827428119583e-07,
+          "area": -0.0003467988877043915
+        },
+        {
+          "origin": -0.0008710433858539202,
+          "axis0": 0.0,
+          "axis1": 0.0012043470318235938,
+          "input_ray": -0.0002293046021794587,
+          "area": -0.0001040069365044749
+        }
+      ],
+      "endpoint_error": 0.0011003400953160103,
+      "histogram_error": 0.00110034009531923
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.32379180734864244,
+          "axis0": 0.0,
+          "axis1": 0.05120819117211225,
+          "input_ray": 0.24999999901341233,
+          "area": 0.37499999851948235
+        },
+        {
+          "origin": 0.21950435921210384,
+          "axis0": 0.0,
+          "axis1": 0.09334370987792222,
+          "input_ray": 0.1618959033548722,
+          "area": 0.5252560216355755
+        },
+        {
+          "origin": 0.15052990027941127,
+          "axis0": 0.0,
+          "axis1": 0.12324008120992795,
+          "input_ray": 0.10975217938949162,
+          "area": 0.6164778312284678
+        }
+      ],
+      "output_masses": [
+        0.15052990027941127,
+        0.10975217938949162,
+        0.7397179124383877,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15052990027941127,
+        0.10975217938949162,
+        0.739717912438396,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "upper",
+        "upper"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4920.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 295.0,
+        "normal_cdf_values": 191880.0,
+        "input_intervals": 186960.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 64550.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 83.0,
+        "support_polygon_source_nodes": 1328.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 1617.0
+      },
+      "cpu_seconds": 0.079100744,
+      "stage_stratum_errors": [
+        1.480517652918678e-09,
+        0.000809496090222947,
+        0.0012078686846130754
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -1.4765741962463608e-09,
+          "axis0": 0.0,
+          "axis1": -2.671106391627376e-12,
+          "input_ray": -9.865876726689038e-10,
+          "area": -1.480517652918678e-09
+        },
+        {
+          "origin": -0.00046142700019688454,
+          "axis0": 0.0,
+          "axis1": 0.000809496090222947,
+          "input_ray": -1.0577361209129776e-09,
+          "area": -0.0003480739518161302
+        },
+        {
+          "origin": -0.0008753871952768555,
+          "axis0": 0.0,
+          "axis1": 0.0012078686846130754,
+          "input_ray": -0.0002307137166603218,
+          "area": -0.00010177566539004701
+        }
+      ],
+      "endpoint_error": 0.0011060930192152707,
+      "histogram_error": 0.0011060930192235974
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.32379172696973,
+          "axis0": 0.0,
+          "axis1": 0.0512082208124279,
+          "input_ray": 0.24999999901341233,
+          "area": 0.37500004925807906
+        },
+        {
+          "origin": 0.21985185312854916,
+          "axis0": 0.0,
+          "axis1": 0.09272666298547019,
+          "input_ray": 0.16189586316541607,
+          "area": 0.5255256148010385
+        },
+        {
+          "origin": 0.15119420704368688,
+          "axis0": 0.0,
+          "axis1": 0.1223050354944771,
+          "input_ray": 0.10992592634737144,
+          "area": 0.6165748232217633
+        }
+      ],
+      "output_masses": [
+        0.15119420704368688,
+        0.10992592634737144,
+        0.7388798587162282,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15119420704368688,
+        0.10992592634737144,
+        0.7388798587162403,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "upper",
+        "upper"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4014.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 1097.0,
+        "normal_cdf_values": 284994.0,
+        "input_intervals": 280980.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 99774.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 154.0,
+        "support_polygon_source_nodes": 616.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 5637.0
+      },
+      "cpu_seconds": 0.19772092399999996,
+      "old_order2_implementation_discrepancy": 2.6645352591003757e-15,
+      "stage_stratum_errors": [
+        8.185548661110431e-08,
+        0.00019244919777092195,
+        0.0002728229691622286
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -8.185548661110431e-08,
+          "axis0": 0.0,
+          "axis1": 2.963764454688711e-08,
+          "input_ray": -9.865876726689038e-10,
+          "area": 4.925807906008828e-08
+        },
+        {
+          "origin": -0.00011393308375157174,
+          "axis0": 0.0,
+          "axis1": 0.00019244919777092195,
+          "input_ray": -4.1247192245075226e-08,
+          "area": -7.848078635308564e-05
+        },
+        {
+          "origin": -0.00021108043100123708,
+          "axis0": 0.0,
+          "axis1": 0.0002728229691622286,
+          "input_ray": -5.696675878050228e-05,
+          "area": -4.7836720945548805e-06
+        }
+      ],
+      "endpoint_error": 0.00026803929705576657,
+      "histogram_error": 0.000268039297067868
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.32379180734639434,
+          "axis0": 0.0,
+          "axis1": 0.05120819117372663,
+          "input_ray": 0.24999999901341233,
+          "area": 0.37499999852011606
+        },
+        {
+          "origin": 0.21985183207902256,
+          "axis0": 0.0,
+          "axis1": 0.0927264915556597,
+          "input_ray": 0.16189590335374815,
+          "area": 0.5255257670920436
+        },
+        {
+          "origin": 0.15119433602803356,
+          "axis0": 0.0,
+          "axis1": 0.12230481497820068,
+          "input_ray": 0.10992591582260818,
+          "area": 0.6165749252784563
+        }
+      ],
+      "output_masses": [
+        0.15119433602803356,
+        0.10992591582260818,
+        0.7388797402565834,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15119433602803356,
+        0.10992591582260818,
+        0.7388797402566563,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "upper",
+        "upper"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 15716.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 1097.0,
+        "normal_cdf_values": 1115836.0,
+        "input_intervals": 1100120.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 386836.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 154.0,
+        "support_polygon_source_nodes": 2464.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 5783.0
+      },
+      "cpu_seconds": 0.29798066200000006,
+      "stage_stratum_errors": [
+        1.479883937616222e-09,
+        0.00019227776796043594,
+        0.000272602452885809
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -1.4788222868489243e-09,
+          "axis0": 0.0,
+          "axis1": -1.0567241526260318e-12,
+          "input_ray": -9.865876726689038e-10,
+          "area": -1.479883937616222e-09
+        },
+        {
+          "origin": -0.00011395413327816573,
+          "axis0": 0.0,
+          "axis1": 0.00019227776796043594,
+          "input_ray": -1.0588601662142594e-09,
+          "area": -7.832849534805675e-05
+        },
+        {
+          "origin": -0.00021095144665456145,
+          "axis0": 0.0,
+          "axis1": 0.000272602452885809,
+          "input_ray": -5.697728354377152e-05,
+          "area": -4.681615401569417e-06
+        }
+      ],
+      "endpoint_error": 0.0002679208374110065,
+      "histogram_error": 0.0002679208374838371
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.4858748165213425,
+          "axis0": 0.0,
+          "axis1": 0.15789473711855387,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623044340034066
+        },
+        {
+          "origin": 0.5328517639924364,
+          "axis0": 0.00145982266422948,
+          "axis1": 0.10077964238420811,
+          "input_ray": 0.24293740778131315,
+          "area": 0.12197135725828695
+        },
+        {
+          "origin": 0.5158180458023192,
+          "axis0": 0.0009101308315993753,
+          "axis1": 0.10705349455283626,
+          "input_ray": 0.2664258814705132,
+          "area": 0.10979243945003078
+        }
+      ],
+      "output_masses": [
+        0.5158180458023192,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.01259293555935412,
+        0.11618998754075982,
+        0.3553990232048663
+      ],
+      "histogram_output_masses": [
+        0.5158180458023192,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.022586818312358314,
+        0.11637203487156794,
+        0.3452230931210534
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 1222.0,
+        "max_total_mass_defect": 3.3306690738754696e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 107.0,
+        "normal_cdf_values": 78208.0,
+        "input_intervals": 76986.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 30446.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 216.0,
+        "max_source_support_deficit": 6.900785104440264e-16,
+        "readout_polygon_clips": 4203.0
+      },
+      "cpu_seconds": 0.09804916900000027,
+      "old_order2_implementation_discrepancy": 5.551115123125783e-17,
+      "stage_stratum_errors": [
+        1.114293196824434e-06,
+        0.0012049615171481065,
+        0.0008476962331644411
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -2.2216114087258987e-07,
+          "axis0": 0.0,
+          "axis1": 1.114293196824434e-06,
+          "input_ray": -9.865876726689038e-10,
+          "area": -8.950918189143398e-07
+        },
+        {
+          "origin": 0.0012049615171481065,
+          "axis0": 1.1256591731468365e-05,
+          "axis1": -0.0004883474361594559,
+          "input_ray": -1.1155992854505747e-07,
+          "area": -0.0007277650323174317
+        },
+        {
+          "origin": 0.00030366556373961906,
+          "axis0": 3.0105458543834085e-06,
+          "axis1": -6.146800200912406e-05,
+          "input_ray": 0.0006024802328653545,
+          "area": -0.0008476962331644411
+        }
+      ],
+      "endpoint_error": 0.00030366556373961906,
+      "histogram_error": 0.010336826501329055
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.48587503691477496,
+          "axis0": 0.0,
+          "axis1": 0.15789362212568742,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623133799977456
+        },
+        {
+          "origin": 0.5328533913515413,
+          "axis0": 0.001459321674148503,
+          "axis1": 0.10077937785612219,
+          "input_ray": 0.24293751797802915,
+          "area": 0.12197038522063272
+        },
+        {
+          "origin": 0.5158185118117821,
+          "axis0": 0.0009098945476017143,
+          "axis1": 0.10705296572110021,
+          "input_ray": 0.26642669515006406,
+          "area": 0.10979192487675041
+        }
+      ],
+      "output_masses": [
+        0.5158185118117821,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.012587182904148942,
+        0.11618964154272193,
+        0.35540465584863984
+      ],
+      "histogram_output_masses": [
+        0.5158185118117821,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.022595114483988384,
+        0.11648651093503953,
+        0.34509985487648864
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4684.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 107.0,
+        "normal_cdf_values": 299776.0,
+        "input_intervals": 295092.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 114539.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 864.0,
+        "max_source_support_deficit": 1.2756121792703637e-15,
+        "readout_polygon_clips": 4233.0
+      },
+      "cpu_seconds": 0.12458961000000013,
+      "stage_stratum_errors": [
+        1.7677084240830254e-09,
+        0.001206588876253023,
+        0.0008482108064448157
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -1.7677084240830254e-09,
+          "axis0": 0.0,
+          "axis1": -6.996696277905556e-10,
+          "input_ray": -9.865876726689038e-10,
+          "area": -4.923850077664937e-10
+        },
+        {
+          "origin": 0.001206588876253023,
+          "axis0": 1.075560165049146e-05,
+          "axis1": -0.0004886119642453779,
+          "input_ray": -1.3632125428486574e-09,
+          "area": -0.0007287370699716605
+        },
+        {
+          "origin": 0.00030413157320252626,
+          "axis0": 2.774261856722379e-06,
+          "axis1": -6.199683374517873e-05,
+          "input_ray": 0.0006032939124162029,
+          "area": -0.0008482108064448157
+        }
+      ],
+      "endpoint_error": 0.00030413157320252626,
+      "histogram_error": 0.010460064745893838
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.4858750228856242,
+          "axis0": 0.0,
+          "axis1": 0.1578936916635103,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623128249110245
+        },
+        {
+          "origin": 0.5319631972093227,
+          "axis0": 0.0014513076721921181,
+          "axis1": 0.10113339167509826,
+          "input_ray": 0.24293751096345376,
+          "area": 0.12251458656040698
+        },
+        {
+          "origin": 0.5155879806429623,
+          "axis0": 0.0009076963588398436,
+          "axis1": 0.1070989203805125,
+          "input_ray": 0.265981598079833,
+          "area": 0.11042379664515097
+        }
+      ],
+      "output_masses": [
+        0.5155879806429623,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.01264106195734962,
+        0.11624441909149327,
+        0.3555265304154842
+      ],
+      "histogram_output_masses": [
+        0.5155879806429623,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.019212954047064933,
+        0.11633574096227073,
+        0.3488633164550009
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4176.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 401.0,
+        "normal_cdf_values": 400896.0,
+        "input_intervals": 396720.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 172709.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 110.0,
+        "support_polygon_source_nodes": 440.0,
+        "max_source_support_deficit": 6.472354060760604e-16,
+        "readout_polygon_clips": 14526.0
+      },
+      "cpu_seconds": 0.3434858820000004,
+      "old_order2_implementation_discrepancy": 1.1102230246251565e-16,
+      "stage_stratum_errors": [
+        6.883815326097498e-08,
+        0.00031639473403444196,
+        0.00021633903804425814
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -1.579685920960472e-08,
+          "axis0": 0.0,
+          "axis1": 6.883815326097498e-08,
+          "input_ray": -9.865876726689038e-10,
+          "area": -5.600105712488812e-08
+        },
+        {
+          "origin": 0.00031639473403444196,
+          "axis0": 2.7415996941065543e-06,
+          "axis1": -0.00013459814526931013,
+          "input_ray": -8.377787935609504e-09,
+          "area": -0.0001845357301974021
+        },
+        {
+          "origin": 7.36004043827565e-05,
+          "axis0": 5.760730948517478e-07,
+          "axis1": -1.6042174332889236e-05,
+          "input_ray": 0.00015819684218515428,
+          "area": -0.00021633903804425814
+        }
+      ],
+      "endpoint_error": 7.36004043827565e-05,
+      "histogram_error": 0.006696603167381576
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.48587503691465406,
+          "axis0": 0.0,
+          "axis1": 0.15789362212671298,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623133799886994
+        },
+        {
+          "origin": 0.5319635691816482,
+          "axis0": 0.0014513072353134627,
+          "axis1": 0.10113309216491964,
+          "input_ray": 0.2429375179779687,
+          "area": 0.12251450752062382
+        },
+        {
+          "origin": 0.5155879651324011,
+          "axis0": 0.0009076870730901278,
+          "axis1": 0.10709882046762233,
+          "input_ray": 0.2659817840659954,
+          "area": 0.11042373536818967
+        }
+      ],
+      "output_masses": [
+        0.5155879651324011,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.012641453344598716,
+        0.11624432155030467,
+        0.3555262520799418
+      ],
+      "histogram_output_masses": [
+        0.5155879651324011,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.019216757963331513,
+        0.11630931658823669,
+        0.3488859524233292
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 16184.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 401.0,
+        "normal_cdf_values": 1553664.0,
+        "input_intervals": 1537480.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 665130.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 110.0,
+        "support_polygon_source_nodes": 1760.0,
+        "max_source_support_deficit": 1.3679065594348687e-15,
+        "readout_polygon_clips": 14676.0
+      },
+      "cpu_seconds": 0.4389624369999998,
+      "stage_stratum_errors": [
+        1.767829327370407e-09,
+        0.00031676670635993887,
+        0.0002164003150055549
+      ],
+      "signed_stage_stratum_errors": [
+        {
+          "origin": -1.767829327370407e-09,
+          "axis0": 0.0,
+          "axis1": -6.986440592715581e-10,
+          "input_ray": -9.865876726689038e-10,
+          "area": -4.932896313647461e-10
+        },
+        {
+          "origin": 0.00031676670635993887,
+          "axis0": 2.7411628154511234e-06,
+          "axis1": -0.00013489765544792698,
+          "input_ray": -1.3632729944923483e-09,
+          "area": -0.00018461476998056503
+        },
+        {
+          "origin": 7.358489382158773e-05,
+          "axis0": 5.667873451359415e-07,
+          "axis1": -1.6142087223058876e-05,
+          "input_ray": 0.00015838282834751416,
+          "area": -0.0002164003150055549
+        }
+      ],
+      "endpoint_error": 7.358489382158773e-05,
+      "histogram_error": 0.006673967199053277
+    }
+  ],
+  "coordinate_controls": [
+    {
+      "model": "toy",
+      "grid": 16,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.3237905178092559,
+          "axis0": 0.05120866209558431,
+          "axis1": 0.0,
+          "input_ray": 0.24999999901341233,
+          "area": 0.37500081713539685
+        },
+        {
+          "origin": 0.2195101535250475,
+          "axis0": 0.09333782380650268,
+          "axis1": 0.0,
+          "input_ray": 0.1618952585851802,
+          "area": 0.5252567581637435
+        },
+        {
+          "origin": 0.1505365968503137,
+          "axis0": 0.12323515307080118,
+          "axis1": 0.0,
+          "input_ray": 0.10975507654595773,
+          "area": 0.6164731656402259
+        }
+      ],
+      "output_masses": [
+        0.1505365968503137,
+        0.10975507654595773,
+        0.7397083187110212,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.1505365968503137,
+        0.10975507654595773,
+        0.7397083187110275,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "lower",
+        "lower",
+        "lower"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 1280.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 295.0,
+        "normal_cdf_values": 49920.0,
+        "input_intervals": 48640.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 17003.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 83.0,
+        "support_polygon_source_nodes": 332.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 1590.0
+      },
+      "cpu_seconds": 0.05689332299999994,
+      "change": "swap",
+      "max_stratum_coordinate_discrepancy": 2.976083976341526e-06,
+      "max_output_coordinate_discrepancy": 3.840803467269893e-06
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.32379180734864244,
+          "axis0": 0.05120819117211225,
+          "axis1": 0.0,
+          "input_ray": 0.24999999901341233,
+          "area": 0.37499999851948235
+        },
+        {
+          "origin": 0.21950435903844473,
+          "axis0": 0.09334371005627001,
+          "axis1": 0.0,
+          "input_ray": 0.1618959033548722,
+          "area": 0.5252560216308871
+        },
+        {
+          "origin": 0.15052987143593036,
+          "axis0": 0.12324010793793312,
+          "axis1": 0.0,
+          "input_ray": 0.10975217930266207,
+          "area": 0.616477833430773
+        }
+      ],
+      "output_masses": [
+        0.15052987143593036,
+        0.10975217930266207,
+        0.7397179413686932,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15052987143593036,
+        0.10975217930266207,
+        0.7397179413687066,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "lower",
+        "lower",
+        "lower"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4920.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 295.0,
+        "normal_cdf_values": 191880.0,
+        "input_intervals": 186960.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 64541.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 83.0,
+        "support_polygon_source_nodes": 1328.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 1617.0
+      },
+      "cpu_seconds": 0.07294547800000006,
+      "change": "swap",
+      "max_stratum_coordinate_discrepancy": 2.884348090925748e-08,
+      "max_output_coordinate_discrepancy": 2.8930305484564656e-08
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.3237905178092559,
+          "axis0": 0.0,
+          "axis1": 0.05120866209558431,
+          "input_ray": 0.24999999901341233,
+          "area": 0.3750008171353968
+        },
+        {
+          "origin": 0.21950717744107115,
+          "axis0": 0.0,
+          "axis1": 0.09334026135453527,
+          "input_ray": 0.1618952585851802,
+          "area": 0.5252572966996872
+        },
+        {
+          "origin": 0.1505342440888342,
+          "axis0": 0.0,
+          "axis1": 0.12323655955713847,
+          "input_ray": 0.10975358850397249,
+          "area": 0.6164755999573533
+        }
+      ],
+      "output_masses": [
+        0.1505342440888342,
+        0.10975358850397249,
+        0.7397121595144884,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.1505342440888342,
+        0.10975358850397249,
+        0.7397121595144917,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "upper",
+        "upper"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 1280.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 295.0,
+        "normal_cdf_values": 49920.0,
+        "input_intervals": 48640.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 17009.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 83.0,
+        "support_polygon_source_nodes": 332.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 1590.0
+      },
+      "cpu_seconds": 0.055662245999999804,
+      "change": "diagonal",
+      "max_stratum_coordinate_discrepancy": 0.0,
+      "max_output_coordinate_discrepancy": 0.0
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.32379180734864244,
+          "axis0": 0.0,
+          "axis1": 0.05120819117211225,
+          "input_ray": 0.24999999901341233,
+          "area": 0.37499999851948235
+        },
+        {
+          "origin": 0.21950435921210384,
+          "axis0": 0.0,
+          "axis1": 0.09334370987792222,
+          "input_ray": 0.1618959033548722,
+          "area": 0.5252560216355755
+        },
+        {
+          "origin": 0.15052990027941127,
+          "axis0": 0.0,
+          "axis1": 0.12324008120992795,
+          "input_ray": 0.10975217938949162,
+          "area": 0.6164778312284678
+        }
+      ],
+      "output_masses": [
+        0.15052990027941127,
+        0.10975217938949162,
+        0.7397179124383878,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15052990027941127,
+        0.10975217938949162,
+        0.739717912438396,
+        0.0
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "upper",
+        "upper"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4920.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 295.0,
+        "normal_cdf_values": 191880.0,
+        "input_intervals": 186960.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 64550.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 83.0,
+        "support_polygon_source_nodes": 1328.0,
+        "max_source_support_deficit": 0.0,
+        "readout_polygon_clips": 1617.0
+      },
+      "cpu_seconds": 0.07659946700000031,
+      "change": "diagonal",
+      "max_stratum_coordinate_discrepancy": 0.0,
+      "max_output_coordinate_discrepancy": 1.1102230246251565e-16
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.4858748165213425,
+          "axis0": 0.15789473711855387,
+          "axis1": 0.0,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623044340034066
+        },
+        {
+          "origin": 0.5328517405737396,
+          "axis0": 0.1007795217103397,
+          "axis1": 0.0014598226642294797,
+          "input_ray": 0.24293740778131315,
+          "area": 0.12197150135085208
+        },
+        {
+          "origin": 0.5158179997422259,
+          "axis0": 0.10705356691155407,
+          "axis1": 0.000910130446371515,
+          "input_ray": 0.26642586976116484,
+          "area": 0.10979242524598243
+        }
+      ],
+      "output_masses": [
+        0.5158179997422259,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.01259297497112696,
+        0.11619007463791042,
+        0.35539894275603323
+      ],
+      "histogram_output_masses": [
+        0.5158179997422259,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.02258682615988588,
+        0.1163721296450094,
+        0.3452230365601774
+      ],
+      "support_history": [
+        "ray",
+        "lower",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 1218.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 107.0,
+        "normal_cdf_values": 77952.0,
+        "input_intervals": 76734.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 30408.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 216.0,
+        "max_source_support_deficit": 4.440892098500626e-16,
+        "readout_polygon_clips": 4203.0
+      },
+      "cpu_seconds": 0.08986666300000001,
+      "change": "swap",
+      "max_stratum_coordinate_discrepancy": 1.4409256512970536e-07,
+      "max_output_coordinate_discrepancy": 8.709715060284395e-08
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.48587503691477496,
+          "axis0": 0.15789362212568742,
+          "axis1": 0.0,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623133799977456
+        },
+        {
+          "origin": 0.5328533913514986,
+          "axis0": 0.10077937785596543,
+          "axis1": 0.0014593216741485024,
+          "input_ray": 0.24293751797802915,
+          "area": 0.12197038522083216
+        },
+        {
+          "origin": 0.5158185263729265,
+          "axis0": 0.10705294402252816,
+          "axis1": 0.000909894018879548,
+          "input_ray": 0.2664266951500427,
+          "area": 0.10979193254292169
+        }
+      ],
+      "output_masses": [
+        0.5158185263729265,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.012587187203406383,
+        0.11618961635438152,
+        0.35540466217657757
+      ],
+      "histogram_output_masses": [
+        0.5158185263729265,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.022595111325538347,
+        0.11648648513448369,
+        0.34509986927435005
+      ],
+      "support_history": [
+        "ray",
+        "lower",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4684.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 107.0,
+        "normal_cdf_values": 299776.0,
+        "input_intervals": 295092.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 114676.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 864.0,
+        "max_source_support_deficit": 1.7763568394002505e-15,
+        "readout_polygon_clips": 4233.0
+      },
+      "cpu_seconds": 0.11530499900000013,
+      "change": "swap",
+      "max_stratum_coordinate_discrepancy": 2.169857205025494e-08,
+      "max_output_coordinate_discrepancy": 2.518834041342899e-08
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "source_order": 2,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.4858748165213425,
+          "axis0": 0.0,
+          "axis1": 0.15789473711855387,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623044340034066
+        },
+        {
+          "origin": 0.5328517639924364,
+          "axis0": 0.00145982266422948,
+          "axis1": 0.10077964238420811,
+          "input_ray": 0.24293740778131315,
+          "area": 0.12197135725828695
+        },
+        {
+          "origin": 0.5158180458023192,
+          "axis0": 0.0009101308315993753,
+          "axis1": 0.10705349455283626,
+          "input_ray": 0.2664258814705132,
+          "area": 0.10979243945003078
+        }
+      ],
+      "output_masses": [
+        0.5158180458023192,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.01259293555935412,
+        0.11618998754075982,
+        0.3553990232048663
+      ],
+      "histogram_output_masses": [
+        0.5158180458023192,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.022586818312358314,
+        0.11637203487156794,
+        0.3452230931210534
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 1222.0,
+        "max_total_mass_defect": 3.3306690738754696e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 107.0,
+        "normal_cdf_values": 78208.0,
+        "input_intervals": 76986.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 30446.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 216.0,
+        "max_source_support_deficit": 3.450392552220132e-16,
+        "readout_polygon_clips": 4203.0
+      },
+      "cpu_seconds": 0.09122385700000013,
+      "change": "diagonal",
+      "max_stratum_coordinate_discrepancy": 0.0,
+      "max_output_coordinate_discrepancy": 0.0
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "source_order": 4,
+      "steps": [
+        {
+          "origin": 0.49999999901341236,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.4999999990134123,
+          "area": 0.0
+        },
+        {
+          "origin": 0.48587503691477496,
+          "axis0": 0.0,
+          "axis1": 0.15789362212568742,
+          "input_ray": 0.24999999901341233,
+          "area": 0.10623133799977456
+        },
+        {
+          "origin": 0.5328533913515413,
+          "axis0": 0.001459321674148503,
+          "axis1": 0.10077937785612219,
+          "input_ray": 0.24293751797802915,
+          "area": 0.12197038522063272
+        },
+        {
+          "origin": 0.5158185118117821,
+          "axis0": 0.0009098945476017143,
+          "axis1": 0.10705296572110021,
+          "input_ray": 0.26642669515006406,
+          "area": 0.10979192487675041
+        }
+      ],
+      "output_masses": [
+        0.5158185118117821,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.012587182904148942,
+        0.11618964154272193,
+        0.35540465584863984
+      ],
+      "histogram_output_masses": [
+        0.5158185118117821,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.022595114483988384,
+        0.11648651093503953,
+        0.34509985487648864
+      ],
+      "support_history": [
+        "ray",
+        "upper",
+        "full",
+        "full"
+      ],
+      "work": {
+        "support_rational_products": 14.0,
+        "support_rational_sums": 7.0,
+        "source_rule_constructions": 1.0,
+        "source_nodes": 4684.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 5.0,
+        "support_cell_clips": 107.0,
+        "normal_cdf_values": 299776.0,
+        "input_intervals": 295092.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 114539.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 864.0,
+        "max_source_support_deficit": 6.378060896351818e-16,
+        "readout_polygon_clips": 4233.0
+      },
+      "cpu_seconds": 0.12280649300000013,
+      "change": "diagonal",
+      "max_stratum_coordinate_discrepancy": 0.0,
+      "max_output_coordinate_discrepancy": 0.0
+    }
+  ],
+  "cpu_seconds_including_torch_import": 3.266118893,
+  "sources_after": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "85c5e700b5989d2631dc6872a5f9abd84f1859fa5b768884e7daa53cea920b66",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_volume.py": "9f0f74ee92739a60e3fe8a592612e2a624388e3f991b3486da2d91bd71fd0c6a",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_quadrature_volume.py": "d8ed2c84f632082e3ba3804cfecbfa534f0c30328ddaf0d4e117b75b146804f5",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_results.json": "e35b5f566de2d9329d392fa0705b52ca9fdba74e72ecc332a15e243fc71a2c7d",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input_results.json": "c86c8ffb19da35d5501bbe372a58d385f6bb4201c51db15df3e92f0813298015",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/third_step_results.json": "64cc77754865a5690253cbd6f5e381e95dc45bd6f3125d0962b20d4c92a0ca79"
+  }
+}
