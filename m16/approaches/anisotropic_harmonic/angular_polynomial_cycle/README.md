@@ -118,3 +118,14 @@ closing the bounded phase. Other local/internal-support bases remain open.
 No further basis/degree rescue is justified within this frozen pilot: the
 predeclared shared-recipe gate failed. A distinct mechanism remains Ready,
 while independent reproduction of the H2 loss is the remaining handoff gate.
+
+## Independent handoff
+T55 review `1e8d9df` replaces the positive GL9 angular primitive with
+Legendre-product antiderivatives while retaining the shared branching and
+radial Q64 rule. It returns H2 .4083876713432273, differing by1.11e-16;
+identity/complement discrepancies are3.55e-15/2.22e-16, with1.254CPU seconds
+including cold setup. This independently reproduces the fixed-basis H2
+failure and rules out the GL9 angular integration implementation as its
+cause. Shared branching/radial geometry is not independently reimplemented.
+The bounded phase is complete. H4's mixed result and other basis/allocation
+choices remain open; no harmonic-family rejection or sampling claim.
