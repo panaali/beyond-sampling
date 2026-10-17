@@ -30,7 +30,8 @@ def main():
                     local=defaultdict(float);localclock=time.process_time()
                     tables[j]=terminal(model,j,grids[j][-1],boxes[j][-1],local,deadline,cache)
                     provenance[j]={'checkpoint_sha256':modelhash,'hidden_nodes':nh,'target_nodes':nb,'target':j,
-                        'construction_work':dict(local),'construction_cpu_seconds':time.process_time()-localclock}
+                        'construction_work':dict(local),'construction_cpu_seconds':time.process_time()-localclock,
+                        'construction_sources':result['sources']}
                     np.savez(path,raw=tables[j]);meta.write_text(json.dumps(provenance[j],indent=2)+'\n')
                     for key,val in local.items():work[key]+=val
             kernelcpu=time.process_time()-clock
