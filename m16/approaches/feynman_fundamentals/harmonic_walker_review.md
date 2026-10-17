@@ -74,3 +74,40 @@ or measure error frequency on archived trained models. The scoped defect is
 unconditional exactness of those implementations, not face integration or
 all possible walkers. Complete affine envelopes, exact/validated event
 ordering, and explicit remainders remain possible remedies.
+
+## T56 exact-lune final bounded handoff
+Read lune_cycle/README.md, ensemble.py, cost_cycle.py, cost_floor.py and saved
+ensemble rows. H2 cases are the prior base plus8 absolute .05 perturbations
+at seed47001; H4 cases are exactly the first8 prior ARC .05 perturbations at
+seed0. Each estimator constructs its own state, Q64 is frozen production,
+Q128 is a separately charged refinement diagnostic. No copied reference
+accuracy is used to select a degree/order or omit a case.
+
+Independent arithmetic from individual saved rows confirms all17 absolute
+errors improve. Mean(error²*CPU) new/old ratios are1.09412439 for9 H2 cases
+and.03623102 for8 H4 cases. These are ratios of mean products, not products
+of separately averaged errors and costs. Maximum Q64/Q128 changes are
+3.5343e-10 and1.2530e-8. Thus root support is a useful finite representation
+rescue for H4 compared with the older hemisphere code; H2 loses under this
+CPU proxy. Neither is a sampling superiority or portable-FLOP result.
+
+The dense-operation floor sums real Gram, complex Gram and complex matvec
+multiply-add events, charging only one scalar multiplication per event. This
+is deliberately below ordinary dense arithmetic cost, not a lower bound on
+all possible algorithms for the represented matrices. Complex storage and
+real degrees of freedom must not be equated with identical cost. The stated
+network-forward comparison omits input generation; its above-one ratios
+therefore do not establish universal sampling impossibility. Named opaque
+kernels, geometry, full branch enumeration and setup remain separate.
+
+Primitive/source proof was reviewed previously, including opposite-order
+entry integration by the owner. Shared cone geometry is not an independent
+end-to-end solver. Basis truncation at internal gates/readout remains an
+uncontrolled approximation; quadrature stability does not bound that bias.
+Real-only/localized bases, internal-gate support and certified allocation
+remain open finite alternatives. The T3 lune chart does not automatically
+extend to higher input dimension. No broad spectral-family rejection or
+challenge-solved claim is supported.
+
+Saved-result recomputation costs.001467CPU; no new engine/model-input calls.
+See check_lune_summary_review.py and lune_summary_review_results.json.

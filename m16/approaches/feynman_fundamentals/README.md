@@ -888,3 +888,16 @@ Cycle40 completed: four independent exact-rational within-size associations
 match T45 exactly (Sobol uncertainty-7/90, alignment-1/90; iid-1/60,+7/60).
 No useful seed association established by these point values; uncertainty
 and frozen-alternative scope remain separate. No model inputs or fit.
+
+## Cycle 41 protocol: T56 final saved-result audit
+Read frozen exact-lune ensemble source, result provenance and dense-cost floor.
+Independently recompute all17 error comparisons and mean(error²*CPU) ratios
+from saved rows, not reported aggregates. Check charge names correspond to
+executed dense products. No fresh engine evaluation, parameter sweep or input
+sampling. Scope remains relative fixed-case implementation improvement with
+opaque kernels and finite-basis bias, not a sampling/FLOP certificate.
+Cycle41 completed: independent per-row arithmetic confirms all17 exact-lune
+errors improve, H2 CPU-error proxy1.09412 and H4.036231. Scope, special-function
+cost and open finite-basis alternatives preserved. T66 native lifecycle/LAPACK
+source reviewed; added map assertion failure retained separately from frozen
+ray tolerance, with a justified accumulation-bound alternative.

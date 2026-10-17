@@ -200,3 +200,21 @@ associations only, not bootstrap coverage, historic gain/truth uncertainty,
 or heldout predictive value. Signed rank normals point inward: max-second
 for the larger competitor and second-lower for each lower competitor;
 output-gradient alignment must use matching correct-side orientation.
+
+T66 native lifecycle review: dgesvd packs selected ray rows column-major,
+sets lda=max(1,m), JOBU=JOBVT=N and dummy leading dimensions1. Workspace
+max(5min,3min+max) is the documented minimum for these flags. The interface
+assumes LP64 LAPACK int32 ABI; source/export wrapper copies returned arrays
+before freeing the C++ handle in a finally block. Singular values use the
+same strict>1e-9 rank threshold. Native stable_sort on equal |Wi| may differ
+from NumPy default argsort tie ordering; test/qualify duplicate magnitudes
+before claiming ordered topology identity. No generalized dimension claim.
+
+The owner retained a newly added hidden-map absolute-error assertion failure
+3.64e-12 while ordered rays/bits/triangles passed the frozen1e-12 ray check.
+These are distinct tests. A separately frozen map accumulation bound is a
+legitimate alternative, not a silent relaxation of ray tolerance. Conditional
+on identical gate histories, propagate each floating path's map error using
+|Wh|E plus a conservative dot-product gamma bound, then sum the two path
+bounds. Bound arithmetic/BLAS/underflow need explicit qualifications. Passing
+that bound cannot certify unseen near-threshold topology.
