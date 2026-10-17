@@ -47,3 +47,12 @@ it is not a noisy-panel ARC pass, complete hardware cost or numerical
 truth enclosure. Constant first-index output controls retain1/3. Native
 instrumentation preserves every saved output/trace/statistic on this
 panel. Previously known approximation failures remain part of the record.
+
+The no-change cap iterator yields exactly0..63. It flags exhaustion only
+when the loop requests the next value after64 iterations, so a break or
+return during the final allowed iteration is not falsely labeled a cap.
+The AST check replaces exactly forward_trace and reverse_walk. Fresh
+module/value/counter parity plus no exhaustions on the fixed12 (maxima9
+and4) exclude those particular64-step caps as an explanation there;
+this is not a universal termination or topology proof. Tiny-angle and
+nearzero approximations remain separately disclosed.
