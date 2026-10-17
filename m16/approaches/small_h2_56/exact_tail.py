@@ -15,3 +15,15 @@ def bounds(rays,orders):
  lower=np.einsum('bij,bi->bj',rays,center).min(axis=1);a=np.maximum(a,np.maximum(lower,0)**2-1e-12)
  b=np.maximum(a,np.diagonal(g,axis1=1,axis2=2).max(axis=1)+1e-12)
  return abs(np.linalg.det(rays))*tail(a,b,orders-1)/(60*pi**3)
+
+def table(rays,orders):
+ """Same exact tail for all candidate Jacobi orders; setup once per cone."""
+ if rays.shape[1:]!=(6,6):raise ValueError('dimension6 only')
+ g=np.swapaxes(rays,1,2)@rays;a=np.maximum((1-1e-12)/6,g.min(axis=(1,2))-1e-12)
+ center=rays.sum(axis=2);center/=np.sqrt(np.sum(center*center,axis=1))[:,None]
+ lower=np.einsum('bij,bi->bj',rays,center).min(axis=1);a=np.maximum(a,np.maximum(lower,0)**2-1e-12)
+ b=np.maximum(a,np.diagonal(g,axis1=1,axis2=2).max(axis=1)+1e-12)
+ determinant=abs(np.linalg.det(rays))
+ errors=determinant[:,None]*tail(a[:,None],b[:,None],np.asarray(orders)[None,:]-1)/(60*pi**3)
+ upper=determinant*a**-3/(120*pi**3)
+ return errors,upper
