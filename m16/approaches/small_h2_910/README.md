@@ -253,3 +253,28 @@ cubic refinement should show a consistent trend if this is the explanation.
 5→7 changes or failed controls falsify unrestricted cubic reliability. Existing
 terminal geometry must still be charged; this cycle adds only interpolation,
 small model-free rank rules and constant-control calls. Cap120CPU seconds.
+
+## Cycle4 outcome: cubic proximity is not a verified solution
+`check_cubic.py` / `cubic_results.json` give all four cubic variants:
+
+| grid | unconditioned V | rank-conditioned W |
+|---|---:|---:|
+| 5³ | .158218873 | .143721549 |
+| 7³ | .159719128 | .155956270 |
+
+The grid7 V number is close to the .160247803±.001432963SE reference, but its
+constant-class control is .101665801 rather than .1 (grid5 gives .107283722).
+Queried V values include negatives down to−.07885/−.05355; W queries span as
+widely as−.11438 to1.30019. These are preserved, not clipped. W's constant-class
+control remains within2.35e-9 of .1 but its trained estimate is still low.
+[inferred] Cubic interpolation improves this trained-model number, while the
+control and overshoots falsify treating coarse cubic interpolation as generally
+reliable. Cancellation remains a live explanation for the closest result.
+
+The incremental cycle used2.207CPU seconds and no random/full-model inputs.
+Existing terminal geometry remains charged. It used an additional24constant
+terminal calls,178176model-free rank nodes,1048320angular nodes and1052104
+interpolation queries. Cubic spline coefficient solves are additional work:
+from the explicit loop there are176direct sparse solves across both grids,
+including controls, with2right-hand sides each. Sparse factorization arithmetic
+has not been converted to FLOPs; query counts alone are not an efficiency metric.
