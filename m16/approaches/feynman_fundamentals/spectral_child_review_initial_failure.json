@@ -1,0 +1,5 @@
+{
+  "failure": "AssertionError requiring all six SVD child shape lists identical",
+  "cause": "Reviewer assumption was too strong. Actual saved GEMV/GER dimensions are 1,2,3,2,3,3; the owner already reported shapes1..3. Original outputs and old event subsequences passed.",
+  "repair": "Validate each saved dimension and retain every shape list; no numerical replay."
+}
