@@ -97,3 +97,14 @@ error, while rejecting the tested full-accuracy recipe and leaving remaining
 outer error unresolved. It does not reject exact terminal caching or the
 transport family. Independent source/boundary review is requested; numerical
 pilot remains author-run until DRI acceptance.
+
+## Bounded handoff
+The frozen recipe fails both total-accuracy and strict outer-stability gates;
+no further sweep or truth-selected combination is justified here. The exact
+terminal primitive and component improvement remain useful, with total error
+and outer integration explicitly unresolved. T55 reviewed the derivation
+before implementation; implementation read-only review is pending and DRI
+retains acceptance authority. Earlier component-cancellation interpretation
+has independent T55 reviewf49d187. This lane can return Ready for a distinct
+accuracy discriminator; a native scalar-kernel cost port is separately scoped
+under T66 and will preserve these numerical negatives unchanged.
