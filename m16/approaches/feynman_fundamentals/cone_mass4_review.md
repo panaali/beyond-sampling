@@ -312,3 +312,32 @@ active pairs avoid the known positive-volume output-tie defect for this
 frozen capture. Per-parent/leaf indexing and pinned hashes are consistent.
 A corrected error mass remains conditional on captured floating geometry,
 and must not be inferred by normalizing the previously incorrect gate total.
+
+## T131 captured output-error replay
+
+`check_error_mass_review.py` independently audits all35098 saved error
+simplices exactly once across eight batches, nonnegative new masses,
+per-cone target bounds and parent-pair error<=gate mass. Exact Fraction
+sums of stored binary64 values reproduce original accuracy.9750473359398664
+and yield same-geometry positive accuracy.9761608075466027. The original
+error mass is overstated by.0011134716067363745;2984 original pieces are
+negative. Total conditional integration bound is1.04221660744e-10, with no
+finite-rule target misses. Capture/replay costs14.9911/81.3911CPU; this is
+validation, not a cheap-estimator claim. Review cost.2893CPU, no integration
+rerun.
+
+The prior final3 raw record reports NumPy4M accuracy.97606325; its README
+reports rounded independent Torch10M accuracy.97617. The new value differs
+by+1.28 and-.19 nominal binomial standard errors, respectively. The latter
+has reporting uncertainty±.000005; both are sampling estimates, not exact
+truth or certificates. Comparisons are descriptive and do not establish a
+multi-seed/noisy ladder pass. Direct recurrence semantics on selected cone
+interiors is being checked independently in T139. Floating captured
+geometry/roundoff remain outside the integration-only bound.
+
+T137's initial assumed thin48/cubic branch failed a preregistered metadata
+guard before precision evaluation. The actual fixture672 uses wide12 and
+quadratic mapping (rmax=.9418468705, determinant1.74464624e-9). The failed
+assumption was preserved, then corrected in a separately frozen protocol.
+The Plackett formula review above applies unchanged to the actual branch;
+no unrun48-point result should be inferred.
