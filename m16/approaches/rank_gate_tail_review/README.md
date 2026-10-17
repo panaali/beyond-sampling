@@ -65,13 +65,19 @@ independent pairs. All90x2 equal-probability cells have weight1/180. Normal
    sampled joint linear accuracy, retaining the known E30 oracle limitation.
 
 ## Status
-Protocol frozen; implementation next. <=20CPU review lane, one thread,2GB RSS,
-no new grid/model/noise sweep. No shared/source edits. Independent control and
-conditional-law derivation review requested; Claude remains DRI.
+Bounded diagnostic and predeclared final-two-gate rescue complete; numerical
+independent check requested. <=20CPU review lane, one thread,2GB RSS, no new
+grid/model/noise sweep. No shared/source edits. Independent conditional-law/SE
+derivation review received from T55; Claude remains DRI.
 
 ## Results
-Pending. No result is a scored equal-compute estimator or a universal rejection
-of conditional non-Gaussian/gate-aware propagation.
+`RESULTS.md` gives the full comparison and limitations; `results.json` retains
+all cell marginal arrays and accounting. Gaussian law leaves the top-two
+chamber42.76% of the time. Restoring rank support alone leaves frozen-gate
+biases+3.086/+10.608pp; the exact final-two-step rescue leaves−1.363/+5.425pp.
+All fixed biases exceed3SE plus.1pp. Total1.56614CPU including setup/imports,
+293640KiB RSS. No result is a scored equal-compute estimator or a universal
+rejection of conditional non-Gaussian/gate-aware propagation.
 
 ## Compute accounting
 Charge numerical moment construction even though model free, public weights,
