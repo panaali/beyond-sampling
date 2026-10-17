@@ -138,3 +138,38 @@ accuracy without claiming an expressivity limit. A numerical estimator may fail
 on new geometry despite validating onT10; apply at most8fixed prefix-direction
 analytic tails and2conditional32768-input checks, preservingfailures. The goal
 is reproducible provenance and a first method check, not high trainingaccuracy.
+
+## Cycle2 outcome
+`backward.py` and `backward_results.json` record the first deterministic backward
+transport application. The exact terminal kernel is T55 commit23b2291; fallback
+dependency86c3759. The source hash is saved with the result. Run with one thread
+and the shared compute lock; `FUNDAMENTALS_DIR` can select that dependency folder
+when using an older isolated worktree.
+
+| hidden/target grid | angle nodes per rank interval | estimated accuracy |
+|---|---:|---:|
+| 5³ | 8 | .142955257 |
+| 7³ | 8 | .150793513 |
+| 7³ | 16 | .150857393 |
+
+The independent cycle1 reference is .160247803 with SE .001432963. Spatial
+refinement changes the result by .00784, versus .000064 from angular doubling;
+this is not convergence at the desired precision. The constant-class control
+returns .096628695 and .098598010 instead of exact .1, directly exposing rank
+mass distortion from interpolation. No neural prediction error is involved in
+that control. The final trained estimate remains about .00939 below reference.
+
+All3768 terminal calls (3744 trained-model grid points/counts plus24 constant
+controls) succeeded. Maximum gate partition error was4.45e-16; no positive
+quadrature fallback occurred. Work, counting the grid7 kernel only once despite
+angular reuse:572604 polygon clips,57736 affine products,282626 readout-margin
+products,74690 weighted moments,621824 angular nodes and624753 interpolation
+queries. Total CPU was76.746 seconds including checkpoint loading; no random
+inputs or full-sequence forward evaluations occurred in this cycle. Terminal
+caches are saved solely for explicitly charged reuse, not free model advice.
+
+[inferred] The low-dimensional representation is operational on a trained T10
+network, but this coarse interpolation does not yet give competitive accuracy.
+[inferred] Preserving rank-event mass is a concrete next improvement; it does not
+by itself address hidden-state interpolation. Next numerical task is the queued
+T54 local T9 pilot, followed by a separately frozen rank-conditioned variant.
