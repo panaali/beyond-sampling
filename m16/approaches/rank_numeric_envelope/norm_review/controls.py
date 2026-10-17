@@ -26,6 +26,7 @@ def ref(x):
     return float(np.sqrt(((s[0]+s[2])+s[1])+s[3]))
 
 def main():
+    assert not (HERE/'controls.json').exists(), "Refuse to overwrite an attempted panel"
     start=time.process_time()
     proto=json.loads((HERE/'controls_protocol.json').read_text())
     rows=[]
