@@ -1,0 +1,1576 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "name": "single",
+      "result": {
+        "H": 1,
+        "T": 3,
+        "input_rows": 1,
+        "unique_histories": [
+          "000"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "0"
+          ],
+          [
+            "00"
+          ],
+          [
+            "000"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 1,
+            "add": 0
+          },
+          {
+            "mul": 2,
+            "add": 0
+          }
+        ],
+        "baseline": {
+          "mul": 3,
+          "add": 0
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 1,
+                "add": 0
+              },
+              {
+                "mul": 1,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold": {
+              "mul": 2,
+              "add": 0
+            },
+            "combined": {
+              "mul": 4,
+              "add": 0
+            },
+            "named_saving": -1,
+            "logical_cache_preactivation_entries": 5
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 1,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 3,
+              "add": 0
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 3,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 2
+          }
+        ]
+      },
+      "expected_baseline": 3,
+      "expected_combined": [
+        4,
+        3
+      ]
+    },
+    {
+      "name": "duplicates",
+      "result": {
+        "H": 1,
+        "T": 3,
+        "input_rows": 4,
+        "unique_histories": [
+          "000"
+        ],
+        "duplicate_rows": 3,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "0"
+          ],
+          [
+            "00"
+          ],
+          [
+            "000"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 1,
+            "add": 0
+          },
+          {
+            "mul": 2,
+            "add": 0
+          }
+        ],
+        "baseline": {
+          "mul": 3,
+          "add": 0
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 1,
+                "add": 0
+              },
+              {
+                "mul": 1,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold": {
+              "mul": 2,
+              "add": 0
+            },
+            "combined": {
+              "mul": 4,
+              "add": 0
+            },
+            "named_saving": -1,
+            "logical_cache_preactivation_entries": 5
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 1,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 3,
+              "add": 0
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 3,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 2
+          }
+        ]
+      },
+      "expected_baseline": 3,
+      "expected_combined": [
+        4,
+        3
+      ]
+    },
+    {
+      "name": "last_branch",
+      "result": {
+        "H": 1,
+        "T": 3,
+        "input_rows": 2,
+        "unique_histories": [
+          "000",
+          "001"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "0"
+          ],
+          [
+            "00"
+          ],
+          [
+            "000",
+            "001"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 1,
+            "add": 0
+          },
+          {
+            "mul": 2,
+            "add": 0
+          }
+        ],
+        "baseline": {
+          "mul": 3,
+          "add": 0
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 1,
+                "add": 0
+              },
+              {
+                "mul": 1,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold": {
+              "mul": 2,
+              "add": 0
+            },
+            "combined": {
+              "mul": 4,
+              "add": 0
+            },
+            "named_saving": -1,
+            "logical_cache_preactivation_entries": 5
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 1,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 2,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 3,
+              "add": 0
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 3,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 2
+          }
+        ]
+      },
+      "expected_baseline": 3,
+      "expected_combined": [
+        4,
+        3
+      ]
+    },
+    {
+      "name": "first_branch",
+      "result": {
+        "H": 1,
+        "T": 3,
+        "input_rows": 2,
+        "unique_histories": [
+          "000",
+          "100"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "0",
+            "1"
+          ],
+          [
+            "00",
+            "10"
+          ],
+          [
+            "000",
+            "100"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 2,
+            "add": 0
+          },
+          {
+            "mul": 4,
+            "add": 0
+          }
+        ],
+        "baseline": {
+          "mul": 6,
+          "add": 0
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 2,
+                "add": 0
+              },
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 4,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 2,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 4,
+              "add": 0
+            },
+            "cold": {
+              "mul": 2,
+              "add": 0
+            },
+            "combined": {
+              "mul": 6,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 5
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 2,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 4,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 4,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 6,
+              "add": 0
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 6,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 2
+          }
+        ]
+      },
+      "expected_baseline": 6,
+      "expected_combined": [
+        6,
+        6
+      ]
+    },
+    {
+      "name": "all_H1T3",
+      "result": {
+        "H": 1,
+        "T": 3,
+        "input_rows": 8,
+        "unique_histories": [
+          "000",
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "110",
+          "111"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "0",
+            "1"
+          ],
+          [
+            "00",
+            "01",
+            "10",
+            "11"
+          ],
+          [
+            "000",
+            "001",
+            "010",
+            "011",
+            "100",
+            "101",
+            "110",
+            "111"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 2,
+            "add": 0
+          },
+          {
+            "mul": 8,
+            "add": 0
+          }
+        ],
+        "baseline": {
+          "mul": 10,
+          "add": 0
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 2,
+                "add": 0
+              },
+              {
+                "mul": 4,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 6,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 4,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 6,
+              "add": 0
+            },
+            "cold": {
+              "mul": 4,
+              "add": 0
+            },
+            "combined": {
+              "mul": 10,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 8
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 2,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 8,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 8,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 10,
+              "add": 0
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 10,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 2
+          }
+        ]
+      },
+      "expected_baseline": 10,
+      "expected_combined": [
+        10,
+        10
+      ]
+    },
+    {
+      "name": "all_H1T4",
+      "result": {
+        "H": 1,
+        "T": 4,
+        "input_rows": 16,
+        "unique_histories": [
+          "0000",
+          "0001",
+          "0010",
+          "0011",
+          "0100",
+          "0101",
+          "0110",
+          "0111",
+          "1000",
+          "1001",
+          "1010",
+          "1011",
+          "1100",
+          "1101",
+          "1110",
+          "1111"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "0",
+            "1"
+          ],
+          [
+            "00",
+            "01",
+            "10",
+            "11"
+          ],
+          [
+            "000",
+            "001",
+            "010",
+            "011",
+            "100",
+            "101",
+            "110",
+            "111"
+          ],
+          [
+            "0000",
+            "0001",
+            "0010",
+            "0011",
+            "0100",
+            "0101",
+            "0110",
+            "0111",
+            "1000",
+            "1001",
+            "1010",
+            "1011",
+            "1100",
+            "1101",
+            "1110",
+            "1111"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 2,
+            "add": 0
+          },
+          {
+            "mul": 8,
+            "add": 0
+          },
+          {
+            "mul": 24,
+            "add": 0
+          }
+        ],
+        "baseline": {
+          "mul": 34,
+          "add": 0
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0",
+                "1"
+              ],
+              [
+                "00",
+                "01",
+                "10",
+                "11"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 2,
+                "add": 0
+              },
+              {
+                "mul": 4,
+                "add": 0
+              },
+              {
+                "mul": 8,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 14,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 4,
+                "add": 0
+              },
+              {
+                "mul": 12,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 14,
+              "add": 0
+            },
+            "cold": {
+              "mul": 16,
+              "add": 0
+            },
+            "combined": {
+              "mul": 30,
+              "add": 0
+            },
+            "named_saving": 4,
+            "logical_cache_preactivation_entries": 24
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 2,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 8,
+                "add": 0
+              },
+              {
+                "mul": 16,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 24,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 4,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 26,
+              "add": 0
+            },
+            "cold": {
+              "mul": 4,
+              "add": 0
+            },
+            "combined": {
+              "mul": 30,
+              "add": 0
+            },
+            "named_saving": 4,
+            "logical_cache_preactivation_entries": 8
+          },
+          {
+            "cut": 3,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 10,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 24,
+                "add": 0
+              }
+            ],
+            "substitutions": {
+              "mul": 24,
+              "add": 0
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 34,
+              "add": 0
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 34,
+              "add": 0
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 2
+          }
+        ]
+      },
+      "expected_baseline": 34,
+      "expected_combined": [
+        30,
+        30,
+        34
+      ]
+    },
+    {
+      "name": "all_H2T3",
+      "result": {
+        "H": 2,
+        "T": 3,
+        "input_rows": 64,
+        "unique_histories": [
+          "000000",
+          "000001",
+          "000010",
+          "000011",
+          "000100",
+          "000101",
+          "000110",
+          "000111",
+          "001000",
+          "001001",
+          "001010",
+          "001011",
+          "001100",
+          "001101",
+          "001110",
+          "001111",
+          "010000",
+          "010001",
+          "010010",
+          "010011",
+          "010100",
+          "010101",
+          "010110",
+          "010111",
+          "011000",
+          "011001",
+          "011010",
+          "011011",
+          "011100",
+          "011101",
+          "011110",
+          "011111",
+          "100000",
+          "100001",
+          "100010",
+          "100011",
+          "100100",
+          "100101",
+          "100110",
+          "100111",
+          "101000",
+          "101001",
+          "101010",
+          "101011",
+          "101100",
+          "101101",
+          "101110",
+          "101111",
+          "110000",
+          "110001",
+          "110010",
+          "110011",
+          "110100",
+          "110101",
+          "110110",
+          "110111",
+          "111000",
+          "111001",
+          "111010",
+          "111011",
+          "111100",
+          "111101",
+          "111110",
+          "111111"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "00",
+            "01",
+            "10",
+            "11"
+          ],
+          [
+            "0000",
+            "0001",
+            "0010",
+            "0011",
+            "0100",
+            "0101",
+            "0110",
+            "0111",
+            "1000",
+            "1001",
+            "1010",
+            "1011",
+            "1100",
+            "1101",
+            "1110",
+            "1111"
+          ],
+          [
+            "000000",
+            "000001",
+            "000010",
+            "000011",
+            "000100",
+            "000101",
+            "000110",
+            "000111",
+            "001000",
+            "001001",
+            "001010",
+            "001011",
+            "001100",
+            "001101",
+            "001110",
+            "001111",
+            "010000",
+            "010001",
+            "010010",
+            "010011",
+            "010100",
+            "010101",
+            "010110",
+            "010111",
+            "011000",
+            "011001",
+            "011010",
+            "011011",
+            "011100",
+            "011101",
+            "011110",
+            "011111",
+            "100000",
+            "100001",
+            "100010",
+            "100011",
+            "100100",
+            "100101",
+            "100110",
+            "100111",
+            "101000",
+            "101001",
+            "101010",
+            "101011",
+            "101100",
+            "101101",
+            "101110",
+            "101111",
+            "110000",
+            "110001",
+            "110010",
+            "110011",
+            "110100",
+            "110101",
+            "110110",
+            "110111",
+            "111000",
+            "111001",
+            "111010",
+            "111011",
+            "111100",
+            "111101",
+            "111110",
+            "111111"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 16,
+            "add": 8
+          },
+          {
+            "mul": 128,
+            "add": 64
+          }
+        ],
+        "baseline": {
+          "mul": 144,
+          "add": 72
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "00",
+                "01",
+                "10",
+                "11"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 16,
+                "add": 8
+              },
+              {
+                "mul": 64,
+                "add": 32
+              }
+            ],
+            "substitutions": {
+              "mul": 80,
+              "add": 40
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 48,
+                "add": 24
+              }
+            ],
+            "warm": {
+              "mul": 80,
+              "add": 40
+            },
+            "cold": {
+              "mul": 48,
+              "add": 24
+            },
+            "combined": {
+              "mul": 128,
+              "add": 64
+            },
+            "named_saving": 24,
+            "logical_cache_preactivation_entries": 38
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 16,
+              "add": 8
+            },
+            "substitution_sites": [
+              {
+                "mul": 128,
+                "add": 64
+              }
+            ],
+            "substitutions": {
+              "mul": 128,
+              "add": 64
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 144,
+              "add": 72
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 144,
+              "add": 72
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 6
+          }
+        ]
+      },
+      "expected_baseline": 216,
+      "expected_combined": [
+        192,
+        216
+      ]
+    },
+    {
+      "name": "shared_suffix_H2T4",
+      "result": {
+        "H": 2,
+        "T": 4,
+        "input_rows": 4,
+        "unique_histories": [
+          "00000000",
+          "01000000",
+          "10000000",
+          "11000000"
+        ],
+        "duplicate_rows": 0,
+        "parent_prefixes": [
+          [
+            ""
+          ],
+          [
+            "00",
+            "01",
+            "10",
+            "11"
+          ],
+          [
+            "0000",
+            "0100",
+            "1000",
+            "1100"
+          ],
+          [
+            "000000",
+            "010000",
+            "100000",
+            "110000"
+          ],
+          [
+            "00000000",
+            "01000000",
+            "10000000",
+            "11000000"
+          ]
+        ],
+        "baseline_sites": [
+          {
+            "mul": 0,
+            "add": 0
+          },
+          {
+            "mul": 16,
+            "add": 8
+          },
+          {
+            "mul": 32,
+            "add": 16
+          },
+          {
+            "mul": 48,
+            "add": 24
+          }
+        ],
+        "baseline": {
+          "mul": 96,
+          "add": 48
+        },
+        "cuts": [
+          {
+            "cut": 1,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "00"
+              ],
+              [
+                "0000"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 0,
+              "add": 0
+            },
+            "substitution_sites": [
+              {
+                "mul": 16,
+                "add": 8
+              },
+              {
+                "mul": 16,
+                "add": 8
+              },
+              {
+                "mul": 16,
+                "add": 8
+              }
+            ],
+            "substitutions": {
+              "mul": 48,
+              "add": 24
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 12,
+                "add": 6
+              },
+              {
+                "mul": 16,
+                "add": 8
+              }
+            ],
+            "warm": {
+              "mul": 48,
+              "add": 24
+            },
+            "cold": {
+              "mul": 28,
+              "add": 14
+            },
+            "combined": {
+              "mul": 76,
+              "add": 38
+            },
+            "named_saving": 30,
+            "logical_cache_preactivation_entries": 24
+          },
+          {
+            "cut": 2,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ],
+              [
+                "00"
+              ]
+            ],
+            "prefix_work": {
+              "mul": 16,
+              "add": 8
+            },
+            "substitution_sites": [
+              {
+                "mul": 32,
+                "add": 16
+              },
+              {
+                "mul": 32,
+                "add": 16
+              }
+            ],
+            "substitutions": {
+              "mul": 64,
+              "add": 32
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              },
+              {
+                "mul": 12,
+                "add": 6
+              }
+            ],
+            "warm": {
+              "mul": 80,
+              "add": 40
+            },
+            "cold": {
+              "mul": 12,
+              "add": 6
+            },
+            "combined": {
+              "mul": 92,
+              "add": 46
+            },
+            "named_saving": 6,
+            "logical_cache_preactivation_entries": 14
+          },
+          {
+            "cut": 3,
+            "suffix_parent_prefixes": [
+              [
+                ""
+              ]
+            ],
+            "prefix_work": {
+              "mul": 48,
+              "add": 24
+            },
+            "substitution_sites": [
+              {
+                "mul": 48,
+                "add": 24
+              }
+            ],
+            "substitutions": {
+              "mul": 48,
+              "add": 24
+            },
+            "cold_sites": [
+              {
+                "mul": 0,
+                "add": 0
+              }
+            ],
+            "warm": {
+              "mul": 96,
+              "add": 48
+            },
+            "cold": {
+              "mul": 0,
+              "add": 0
+            },
+            "combined": {
+              "mul": 96,
+              "add": 48
+            },
+            "named_saving": 0,
+            "logical_cache_preactivation_entries": 6
+          }
+        ]
+      },
+      "expected_baseline": 144,
+      "expected_combined": [
+        114,
+        138,
+        144
+      ]
+    }
+  ],
+  "invalid": [
+    {
+      "name": "empty",
+      "status": "rejected",
+      "reason": "nonempty string histories required"
+    },
+    {
+      "name": "ragged",
+      "status": "rejected",
+      "reason": "equal positive H-bit history lengths required"
+    },
+    {
+      "name": "nonbinary",
+      "status": "rejected",
+      "reason": "equal positive H-bit history lengths required"
+    },
+    {
+      "name": "invalidH",
+      "status": "rejected",
+      "reason": "H must be a positive integer"
+    }
+  ],
+  "source_sha256": "745ee3b7c61f304e2e454986166a23af833d1f0f244b808e38c86c2511387029",
+  "active": null,
+  "protocol_sha256": "993c43799806e3ec8c8af9bb65bcca426e5a131961eaaef2160fb632146529f0",
+  "cpu_seconds": 0.02966211299999999
+}
