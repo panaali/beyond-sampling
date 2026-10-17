@@ -7,6 +7,8 @@ Can a tractable algorithmic reference retain the non-Gaussian rank geometry whil
 Analytical derivation and repository review only. This memo proposes a concrete version of T37 for the DRI to reserve and assess; it does not claim T37 or implement experiments. It incorporates the distinction in `lit/web_arc/README.md`, S4, between propagating an exact reference plus an error and approximating the entire network distribution. T35, T36, T38 and the parent's T33/T34 remain separate work.
 
 ## Status
+**Correction: the proposed top-two normalization has an infinite second moment on the original checkpoint. Its Gaussian covariance-matching version is withdrawn.** See the exact obstruction below. The endpoint identity remains conditional on its assumed surrogate law, but true residual covariance cannot be supplied for this scale.
+
 Ready for DRI handoff. Zero experiments or model calls. Recommendation: do a small oracle independence falsifier before investing in recurrent covariance propagation. The reference-error route has a tractable endpoint calculation, but its independence and residual-shape assumptions are substantial and unverified.
 
 ## Results: exact reference anchor
@@ -166,3 +168,43 @@ Residual/reference dependence; non-Gaussian multimodality; large factor rank; co
 Zero model evaluations, generated inputs, LP solves, fitting operations or new experiments. Work is file reading, algebra and documentation. Source implementation read: `/workspace/dependencies/alg-zoo/alg_zoo/handcrafted.py` (existing checkout). Prior results reviewed: T1/stoch_margin, T29/tensor_mass, T32/tensor_cross, `lit/web_methods/README.md`, `lit/web_arc/README.md`, FINDINGS, and the existing theory probes. The T32 report is treated as provisional while the parent's stale-prefix walker audit is pending; none of its numerical results is used in these derivations.
 
 No new external URL was opened. The ARC reference/error motivation comes through the DRI's local web_arc summary of Hilton's December21,2024 notes (S4: https://drive.google.com/file/d/1t2rXhDQqWrOXRwjqstbrBPWiCmYlMts_/view). The local summary also exposed post-January2026 sources already logged by the DRI in `lit/web_log.md`; this memo depends on their methodological context, not their unverified performance claims. It does not derive from an unpublished M16,T10 solution.
+
+## Correction: top-two normalization is singular (independently flagged by parent)
+
+The assertion that s=sqrt(M^2+S^2) merely has a probability-zero zero denominator
+missed a second-moment divergence. At the deterministic anchor
+x=(0,0,-1,-1,-1,-1,-1,-1,-1,-1), the reference scores are all zero, while exact
+rational evaluation of the original checkpoint gives f_0-f_1=-0.6230636190194814
+(the decimal is rounded; the rational is printed by `normalization_witness.py`).
+The centered-logit norm is approximately54.7154. Thus the numerator is nonzero.
+
+By continuity there is an open box of negative low inputs near -1, and a small
+neighborhood of (M,S)=(0,0), on which |f_0-f_1| has a positive lower bound. In that
+neighborhood reference-score differences are O(s), so for every fixed finite
+positive beta the normalized residual difference has magnitude at least c/s on
+a sufficiently small subneighborhood. The Gaussian density is bounded below.
+The ordering constraint M>S occupies a nonzero angular sector. Integrating its
+squared magnitude gives a positive constant times
+
+    integral_0^epsilon r dr / r^2 = infinity.
+
+Therefore at least one residual coordinate has infinite second moment. Finite
+sample covariance can look well behaved while drifting as rare nearzero top-two
+values are encountered. Covariance matching is not a globally defined oracle
+for this scale. The same obstruction affects any comparable continuous,
+degree-one scale depending only on (M,S); changing its norm does not fix it.
+
+Two possible NEW assumptions are a fixed positive scale (finite Gaussian-input
+moments but loss of positive homogeneity) or a scale proportional to ||X||
+(bounded residual on the sphere, but the low-input product endpoint no longer
+factorizes as written). A sector cutoff must explicitly include its excluded
+probability/error contribution. None of these repairs was tested or selected in
+this memo, and no finite empirical covariance silently repairs the old formula.
+
+`normalization_witness.py` reproduces the anchor using Fraction arithmetic on the
+binary floating-point checkpoint weights. Checkpoint SHA256:
+498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb.
+This correction performed ONE deterministic forward-weight evaluation, with
+exact rational arithmetic, not zero model calls. No random dataset or estimator
+experiment was run. The original memo's zero-call accounting applies only to its
+initial derivation, before this correction.
