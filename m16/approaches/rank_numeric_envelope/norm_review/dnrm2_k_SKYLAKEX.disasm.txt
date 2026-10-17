@@ -1,0 +1,129 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a3da00 <dnrm2_k_SKYLAKEX>:
+  a3da00:	d9 ee                	fldz
+  a3da02:	48 85 ff             	test   %rdi,%rdi
+  a3da05:	0f 8e 25 01 00 00    	jle    a3db30 <dnrm2_k_SKYLAKEX+0x130>
+  a3da0b:	48 85 d2             	test   %rdx,%rdx
+  a3da0e:	0f 84 1c 01 00 00    	je     a3db30 <dnrm2_k_SKYLAKEX+0x130>
+  a3da14:	48 c1 e2 03          	shl    $0x3,%rdx
+  a3da18:	d9 ee                	fldz
+  a3da1a:	d9 ee                	fldz
+  a3da1c:	d9 ee                	fldz
+  a3da1e:	48 83 fa 08          	cmp    $0x8,%rdx
+  a3da22:	75 7c                	jne    a3daa0 <dnrm2_k_SKYLAKEX+0xa0>
+  a3da24:	48 89 f8             	mov    %rdi,%rax
+  a3da27:	48 c1 f8 03          	sar    $0x3,%rax
+  a3da2b:	7e 43                	jle    a3da70 <dnrm2_k_SKYLAKEX+0x70>
+  a3da2d:	0f 1f 00             	nopl   (%rax)
+  a3da30:	dd 06                	fldl   (%rsi)
+  a3da32:	d8 c8                	fmul   %st(0),%st
+  a3da34:	dd 46 08             	fldl   0x8(%rsi)
+  a3da37:	d8 c8                	fmul   %st(0),%st
+  a3da39:	dd 46 10             	fldl   0x10(%rsi)
+  a3da3c:	d8 c8                	fmul   %st(0),%st
+  a3da3e:	dd 46 18             	fldl   0x18(%rsi)
+  a3da41:	d8 c8                	fmul   %st(0),%st
+  a3da43:	de c7                	faddp  %st,%st(7)
+  a3da45:	de c5                	faddp  %st,%st(5)
+  a3da47:	de c3                	faddp  %st,%st(3)
+  a3da49:	de c1                	faddp  %st,%st(1)
+  a3da4b:	dd 46 20             	fldl   0x20(%rsi)
+  a3da4e:	d8 c8                	fmul   %st(0),%st
+  a3da50:	dd 46 28             	fldl   0x28(%rsi)
+  a3da53:	d8 c8                	fmul   %st(0),%st
+  a3da55:	dd 46 30             	fldl   0x30(%rsi)
+  a3da58:	d8 c8                	fmul   %st(0),%st
+  a3da5a:	dd 46 38             	fldl   0x38(%rsi)
+  a3da5d:	d8 c8                	fmul   %st(0),%st
+  a3da5f:	48 83 c6 40          	add    $0x40,%rsi
+  a3da63:	de c7                	faddp  %st,%st(7)
+  a3da65:	de c5                	faddp  %st,%st(5)
+  a3da67:	de c3                	faddp  %st,%st(3)
+  a3da69:	de c1                	faddp  %st,%st(1)
+  a3da6b:	48 ff c8             	dec    %rax
+  a3da6e:	7f c0                	jg     a3da30 <dnrm2_k_SKYLAKEX+0x30>
+  a3da70:	48 83 e7 07          	and    $0x7,%rdi
+  a3da74:	0f 8e a6 00 00 00    	jle    a3db20 <dnrm2_k_SKYLAKEX+0x120>
+  a3da7a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3da80:	dd 06                	fldl   (%rsi)
+  a3da82:	d8 c8                	fmul   %st(0),%st
+  a3da84:	de c1                	faddp  %st,%st(1)
+  a3da86:	48 83 c6 08          	add    $0x8,%rsi
+  a3da8a:	48 ff cf             	dec    %rdi
+  a3da8d:	7f f1                	jg     a3da80 <dnrm2_k_SKYLAKEX+0x80>
+  a3da8f:	e9 8c 00 00 00       	jmp    a3db20 <dnrm2_k_SKYLAKEX+0x120>
+  a3da94:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3da9b:	00 00 00 00 
+  a3da9f:	90                   	nop
+  a3daa0:	48 89 f8             	mov    %rdi,%rax
+  a3daa3:	48 c1 f8 03          	sar    $0x3,%rax
+  a3daa7:	7e 57                	jle    a3db00 <dnrm2_k_SKYLAKEX+0x100>
+  a3daa9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  a3dab0:	dd 06                	fldl   (%rsi)
+  a3dab2:	48 01 d6             	add    %rdx,%rsi
+  a3dab5:	d8 c8                	fmul   %st(0),%st
+  a3dab7:	dd 06                	fldl   (%rsi)
+  a3dab9:	48 01 d6             	add    %rdx,%rsi
+  a3dabc:	d8 c8                	fmul   %st(0),%st
+  a3dabe:	dd 06                	fldl   (%rsi)
+  a3dac0:	48 01 d6             	add    %rdx,%rsi
+  a3dac3:	d8 c8                	fmul   %st(0),%st
+  a3dac5:	dd 06                	fldl   (%rsi)
+  a3dac7:	48 01 d6             	add    %rdx,%rsi
+  a3daca:	d8 c8                	fmul   %st(0),%st
+  a3dacc:	de c7                	faddp  %st,%st(7)
+  a3dace:	de c5                	faddp  %st,%st(5)
+  a3dad0:	de c3                	faddp  %st,%st(3)
+  a3dad2:	de c1                	faddp  %st,%st(1)
+  a3dad4:	dd 06                	fldl   (%rsi)
+  a3dad6:	48 01 d6             	add    %rdx,%rsi
+  a3dad9:	d8 c8                	fmul   %st(0),%st
+  a3dadb:	dd 06                	fldl   (%rsi)
+  a3dadd:	48 01 d6             	add    %rdx,%rsi
+  a3dae0:	d8 c8                	fmul   %st(0),%st
+  a3dae2:	dd 06                	fldl   (%rsi)
+  a3dae4:	48 01 d6             	add    %rdx,%rsi
+  a3dae7:	d8 c8                	fmul   %st(0),%st
+  a3dae9:	dd 06                	fldl   (%rsi)
+  a3daeb:	48 01 d6             	add    %rdx,%rsi
+  a3daee:	d8 c8                	fmul   %st(0),%st
+  a3daf0:	de c7                	faddp  %st,%st(7)
+  a3daf2:	de c5                	faddp  %st,%st(5)
+  a3daf4:	de c3                	faddp  %st,%st(3)
+  a3daf6:	de c1                	faddp  %st,%st(1)
+  a3daf8:	48 ff c8             	dec    %rax
+  a3dafb:	7f b3                	jg     a3dab0 <dnrm2_k_SKYLAKEX+0xb0>
+  a3dafd:	0f 1f 00             	nopl   (%rax)
+  a3db00:	48 83 e7 07          	and    $0x7,%rdi
+  a3db04:	7e 1a                	jle    a3db20 <dnrm2_k_SKYLAKEX+0x120>
+  a3db06:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a3db0d:	00 00 00 
+  a3db10:	dd 06                	fldl   (%rsi)
+  a3db12:	48 01 d6             	add    %rdx,%rsi
+  a3db15:	d8 c8                	fmul   %st(0),%st
+  a3db17:	de c1                	faddp  %st,%st(1)
+  a3db19:	48 ff cf             	dec    %rdi
+  a3db1c:	7f f2                	jg     a3db10 <dnrm2_k_SKYLAKEX+0x110>
+  a3db1e:	66 90                	xchg   %ax,%ax
+  a3db20:	de c2                	faddp  %st,%st(2)
+  a3db22:	de c1                	faddp  %st,%st(1)
+  a3db24:	de c1                	faddp  %st,%st(1)
+  a3db26:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a3db2d:	00 00 00 
+  a3db30:	d9 fa                	fsqrt
+  a3db32:	48 83 ec 10          	sub    $0x10,%rsp
+  a3db36:	dd 1c 24             	fstpl  (%rsp)
+  a3db39:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
+  a3db3e:	48 83 c4 10          	add    $0x10,%rsp
+  a3db42:	c3                   	ret
+
+Disassembly of section .fini:

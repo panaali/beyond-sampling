@@ -1,0 +1,129 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000008bbe00 <dnrm2_k_HASWELL>:
+  8bbe00:	d9 ee                	fldz
+  8bbe02:	48 85 ff             	test   %rdi,%rdi
+  8bbe05:	0f 8e 25 01 00 00    	jle    8bbf30 <dnrm2_k_HASWELL+0x130>
+  8bbe0b:	48 85 d2             	test   %rdx,%rdx
+  8bbe0e:	0f 84 1c 01 00 00    	je     8bbf30 <dnrm2_k_HASWELL+0x130>
+  8bbe14:	48 c1 e2 03          	shl    $0x3,%rdx
+  8bbe18:	d9 ee                	fldz
+  8bbe1a:	d9 ee                	fldz
+  8bbe1c:	d9 ee                	fldz
+  8bbe1e:	48 83 fa 08          	cmp    $0x8,%rdx
+  8bbe22:	75 7c                	jne    8bbea0 <dnrm2_k_HASWELL+0xa0>
+  8bbe24:	48 89 f8             	mov    %rdi,%rax
+  8bbe27:	48 c1 f8 03          	sar    $0x3,%rax
+  8bbe2b:	7e 43                	jle    8bbe70 <dnrm2_k_HASWELL+0x70>
+  8bbe2d:	0f 1f 00             	nopl   (%rax)
+  8bbe30:	dd 06                	fldl   (%rsi)
+  8bbe32:	d8 c8                	fmul   %st(0),%st
+  8bbe34:	dd 46 08             	fldl   0x8(%rsi)
+  8bbe37:	d8 c8                	fmul   %st(0),%st
+  8bbe39:	dd 46 10             	fldl   0x10(%rsi)
+  8bbe3c:	d8 c8                	fmul   %st(0),%st
+  8bbe3e:	dd 46 18             	fldl   0x18(%rsi)
+  8bbe41:	d8 c8                	fmul   %st(0),%st
+  8bbe43:	de c7                	faddp  %st,%st(7)
+  8bbe45:	de c5                	faddp  %st,%st(5)
+  8bbe47:	de c3                	faddp  %st,%st(3)
+  8bbe49:	de c1                	faddp  %st,%st(1)
+  8bbe4b:	dd 46 20             	fldl   0x20(%rsi)
+  8bbe4e:	d8 c8                	fmul   %st(0),%st
+  8bbe50:	dd 46 28             	fldl   0x28(%rsi)
+  8bbe53:	d8 c8                	fmul   %st(0),%st
+  8bbe55:	dd 46 30             	fldl   0x30(%rsi)
+  8bbe58:	d8 c8                	fmul   %st(0),%st
+  8bbe5a:	dd 46 38             	fldl   0x38(%rsi)
+  8bbe5d:	d8 c8                	fmul   %st(0),%st
+  8bbe5f:	48 83 c6 40          	add    $0x40,%rsi
+  8bbe63:	de c7                	faddp  %st,%st(7)
+  8bbe65:	de c5                	faddp  %st,%st(5)
+  8bbe67:	de c3                	faddp  %st,%st(3)
+  8bbe69:	de c1                	faddp  %st,%st(1)
+  8bbe6b:	48 ff c8             	dec    %rax
+  8bbe6e:	7f c0                	jg     8bbe30 <dnrm2_k_HASWELL+0x30>
+  8bbe70:	48 83 e7 07          	and    $0x7,%rdi
+  8bbe74:	0f 8e a6 00 00 00    	jle    8bbf20 <dnrm2_k_HASWELL+0x120>
+  8bbe7a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  8bbe80:	dd 06                	fldl   (%rsi)
+  8bbe82:	d8 c8                	fmul   %st(0),%st
+  8bbe84:	de c1                	faddp  %st,%st(1)
+  8bbe86:	48 83 c6 08          	add    $0x8,%rsi
+  8bbe8a:	48 ff cf             	dec    %rdi
+  8bbe8d:	7f f1                	jg     8bbe80 <dnrm2_k_HASWELL+0x80>
+  8bbe8f:	e9 8c 00 00 00       	jmp    8bbf20 <dnrm2_k_HASWELL+0x120>
+  8bbe94:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  8bbe9b:	00 00 00 00 
+  8bbe9f:	90                   	nop
+  8bbea0:	48 89 f8             	mov    %rdi,%rax
+  8bbea3:	48 c1 f8 03          	sar    $0x3,%rax
+  8bbea7:	7e 57                	jle    8bbf00 <dnrm2_k_HASWELL+0x100>
+  8bbea9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  8bbeb0:	dd 06                	fldl   (%rsi)
+  8bbeb2:	48 01 d6             	add    %rdx,%rsi
+  8bbeb5:	d8 c8                	fmul   %st(0),%st
+  8bbeb7:	dd 06                	fldl   (%rsi)
+  8bbeb9:	48 01 d6             	add    %rdx,%rsi
+  8bbebc:	d8 c8                	fmul   %st(0),%st
+  8bbebe:	dd 06                	fldl   (%rsi)
+  8bbec0:	48 01 d6             	add    %rdx,%rsi
+  8bbec3:	d8 c8                	fmul   %st(0),%st
+  8bbec5:	dd 06                	fldl   (%rsi)
+  8bbec7:	48 01 d6             	add    %rdx,%rsi
+  8bbeca:	d8 c8                	fmul   %st(0),%st
+  8bbecc:	de c7                	faddp  %st,%st(7)
+  8bbece:	de c5                	faddp  %st,%st(5)
+  8bbed0:	de c3                	faddp  %st,%st(3)
+  8bbed2:	de c1                	faddp  %st,%st(1)
+  8bbed4:	dd 06                	fldl   (%rsi)
+  8bbed6:	48 01 d6             	add    %rdx,%rsi
+  8bbed9:	d8 c8                	fmul   %st(0),%st
+  8bbedb:	dd 06                	fldl   (%rsi)
+  8bbedd:	48 01 d6             	add    %rdx,%rsi
+  8bbee0:	d8 c8                	fmul   %st(0),%st
+  8bbee2:	dd 06                	fldl   (%rsi)
+  8bbee4:	48 01 d6             	add    %rdx,%rsi
+  8bbee7:	d8 c8                	fmul   %st(0),%st
+  8bbee9:	dd 06                	fldl   (%rsi)
+  8bbeeb:	48 01 d6             	add    %rdx,%rsi
+  8bbeee:	d8 c8                	fmul   %st(0),%st
+  8bbef0:	de c7                	faddp  %st,%st(7)
+  8bbef2:	de c5                	faddp  %st,%st(5)
+  8bbef4:	de c3                	faddp  %st,%st(3)
+  8bbef6:	de c1                	faddp  %st,%st(1)
+  8bbef8:	48 ff c8             	dec    %rax
+  8bbefb:	7f b3                	jg     8bbeb0 <dnrm2_k_HASWELL+0xb0>
+  8bbefd:	0f 1f 00             	nopl   (%rax)
+  8bbf00:	48 83 e7 07          	and    $0x7,%rdi
+  8bbf04:	7e 1a                	jle    8bbf20 <dnrm2_k_HASWELL+0x120>
+  8bbf06:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  8bbf0d:	00 00 00 
+  8bbf10:	dd 06                	fldl   (%rsi)
+  8bbf12:	48 01 d6             	add    %rdx,%rsi
+  8bbf15:	d8 c8                	fmul   %st(0),%st
+  8bbf17:	de c1                	faddp  %st,%st(1)
+  8bbf19:	48 ff cf             	dec    %rdi
+  8bbf1c:	7f f2                	jg     8bbf10 <dnrm2_k_HASWELL+0x110>
+  8bbf1e:	66 90                	xchg   %ax,%ax
+  8bbf20:	de c2                	faddp  %st,%st(2)
+  8bbf22:	de c1                	faddp  %st,%st(1)
+  8bbf24:	de c1                	faddp  %st,%st(1)
+  8bbf26:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  8bbf2d:	00 00 00 
+  8bbf30:	d9 fa                	fsqrt
+  8bbf32:	48 83 ec 10          	sub    $0x10,%rsp
+  8bbf36:	dd 1c 24             	fstpl  (%rsp)
+  8bbf39:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
+  8bbf3e:	48 83 c4 10          	add    $0x10,%rsp
+  8bbf42:	c3                   	ret
+
+Disassembly of section .fini:

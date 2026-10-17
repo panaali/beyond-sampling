@@ -1,0 +1,134 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000637800 <dnrm2_k_NEHALEM>:
+  637800:	d9 ee                	fldz
+  637802:	48 85 ff             	test   %rdi,%rdi
+  637805:	0f 8e 45 01 00 00    	jle    637950 <dnrm2_k_NEHALEM+0x150>
+  63780b:	48 85 d2             	test   %rdx,%rdx
+  63780e:	0f 84 3c 01 00 00    	je     637950 <dnrm2_k_NEHALEM+0x150>
+  637814:	48 c1 e2 03          	shl    $0x3,%rdx
+  637818:	d9 ee                	fldz
+  63781a:	d9 ee                	fldz
+  63781c:	d9 ee                	fldz
+  63781e:	48 83 fa 08          	cmp    $0x8,%rdx
+  637822:	0f 85 98 00 00 00    	jne    6378c0 <dnrm2_k_NEHALEM+0xc0>
+  637828:	48 89 f8             	mov    %rdi,%rax
+  63782b:	48 c1 f8 03          	sar    $0x3,%rax
+  63782f:	7e 5f                	jle    637890 <dnrm2_k_NEHALEM+0x90>
+  637831:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  637838:	00 00 00 00 
+  63783c:	0f 1f 40 00          	nopl   0x0(%rax)
+  637840:	0f 18 8e 80 05 00 00 	prefetcht0 0x580(%rsi)
+  637847:	dd 06                	fldl   (%rsi)
+  637849:	d8 c8                	fmul   %st(0),%st
+  63784b:	dd 46 08             	fldl   0x8(%rsi)
+  63784e:	d8 c8                	fmul   %st(0),%st
+  637850:	dd 46 10             	fldl   0x10(%rsi)
+  637853:	d8 c8                	fmul   %st(0),%st
+  637855:	dd 46 18             	fldl   0x18(%rsi)
+  637858:	d8 c8                	fmul   %st(0),%st
+  63785a:	de c7                	faddp  %st,%st(7)
+  63785c:	de c5                	faddp  %st,%st(5)
+  63785e:	de c3                	faddp  %st,%st(3)
+  637860:	de c1                	faddp  %st,%st(1)
+  637862:	dd 46 20             	fldl   0x20(%rsi)
+  637865:	d8 c8                	fmul   %st(0),%st
+  637867:	dd 46 28             	fldl   0x28(%rsi)
+  63786a:	d8 c8                	fmul   %st(0),%st
+  63786c:	dd 46 30             	fldl   0x30(%rsi)
+  63786f:	d8 c8                	fmul   %st(0),%st
+  637871:	dd 46 38             	fldl   0x38(%rsi)
+  637874:	d8 c8                	fmul   %st(0),%st
+  637876:	48 83 c6 40          	add    $0x40,%rsi
+  63787a:	de c7                	faddp  %st,%st(7)
+  63787c:	de c5                	faddp  %st,%st(5)
+  63787e:	de c3                	faddp  %st,%st(3)
+  637880:	de c1                	faddp  %st,%st(1)
+  637882:	48 ff c8             	dec    %rax
+  637885:	7f b9                	jg     637840 <dnrm2_k_NEHALEM+0x40>
+  637887:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  63788e:	00 00 
+  637890:	48 83 e7 07          	and    $0x7,%rdi
+  637894:	0f 8e a6 00 00 00    	jle    637940 <dnrm2_k_NEHALEM+0x140>
+  63789a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  6378a0:	dd 06                	fldl   (%rsi)
+  6378a2:	d8 c8                	fmul   %st(0),%st
+  6378a4:	de c1                	faddp  %st,%st(1)
+  6378a6:	48 83 c6 08          	add    $0x8,%rsi
+  6378aa:	48 ff cf             	dec    %rdi
+  6378ad:	7f f1                	jg     6378a0 <dnrm2_k_NEHALEM+0xa0>
+  6378af:	e9 8c 00 00 00       	jmp    637940 <dnrm2_k_NEHALEM+0x140>
+  6378b4:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  6378bb:	00 00 00 00 
+  6378bf:	90                   	nop
+  6378c0:	48 89 f8             	mov    %rdi,%rax
+  6378c3:	48 c1 f8 03          	sar    $0x3,%rax
+  6378c7:	7e 57                	jle    637920 <dnrm2_k_NEHALEM+0x120>
+  6378c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  6378d0:	dd 06                	fldl   (%rsi)
+  6378d2:	48 01 d6             	add    %rdx,%rsi
+  6378d5:	d8 c8                	fmul   %st(0),%st
+  6378d7:	dd 06                	fldl   (%rsi)
+  6378d9:	48 01 d6             	add    %rdx,%rsi
+  6378dc:	d8 c8                	fmul   %st(0),%st
+  6378de:	dd 06                	fldl   (%rsi)
+  6378e0:	48 01 d6             	add    %rdx,%rsi
+  6378e3:	d8 c8                	fmul   %st(0),%st
+  6378e5:	dd 06                	fldl   (%rsi)
+  6378e7:	48 01 d6             	add    %rdx,%rsi
+  6378ea:	d8 c8                	fmul   %st(0),%st
+  6378ec:	de c7                	faddp  %st,%st(7)
+  6378ee:	de c5                	faddp  %st,%st(5)
+  6378f0:	de c3                	faddp  %st,%st(3)
+  6378f2:	de c1                	faddp  %st,%st(1)
+  6378f4:	dd 06                	fldl   (%rsi)
+  6378f6:	48 01 d6             	add    %rdx,%rsi
+  6378f9:	d8 c8                	fmul   %st(0),%st
+  6378fb:	dd 06                	fldl   (%rsi)
+  6378fd:	48 01 d6             	add    %rdx,%rsi
+  637900:	d8 c8                	fmul   %st(0),%st
+  637902:	dd 06                	fldl   (%rsi)
+  637904:	48 01 d6             	add    %rdx,%rsi
+  637907:	d8 c8                	fmul   %st(0),%st
+  637909:	dd 06                	fldl   (%rsi)
+  63790b:	48 01 d6             	add    %rdx,%rsi
+  63790e:	d8 c8                	fmul   %st(0),%st
+  637910:	de c7                	faddp  %st,%st(7)
+  637912:	de c5                	faddp  %st,%st(5)
+  637914:	de c3                	faddp  %st,%st(3)
+  637916:	de c1                	faddp  %st,%st(1)
+  637918:	48 ff c8             	dec    %rax
+  63791b:	7f b3                	jg     6378d0 <dnrm2_k_NEHALEM+0xd0>
+  63791d:	0f 1f 00             	nopl   (%rax)
+  637920:	48 83 e7 07          	and    $0x7,%rdi
+  637924:	7e 1a                	jle    637940 <dnrm2_k_NEHALEM+0x140>
+  637926:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  63792d:	00 00 00 
+  637930:	dd 06                	fldl   (%rsi)
+  637932:	48 01 d6             	add    %rdx,%rsi
+  637935:	d8 c8                	fmul   %st(0),%st
+  637937:	de c1                	faddp  %st,%st(1)
+  637939:	48 ff cf             	dec    %rdi
+  63793c:	7f f2                	jg     637930 <dnrm2_k_NEHALEM+0x130>
+  63793e:	66 90                	xchg   %ax,%ax
+  637940:	de c2                	faddp  %st,%st(2)
+  637942:	de c1                	faddp  %st,%st(1)
+  637944:	de c1                	faddp  %st,%st(1)
+  637946:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  63794d:	00 00 00 
+  637950:	d9 fa                	fsqrt
+  637952:	48 83 ec 10          	sub    $0x10,%rsp
+  637956:	dd 1c 24             	fstpl  (%rsp)
+  637959:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
+  63795e:	48 83 c4 10          	add    $0x10,%rsp
+  637962:	c3                   	ret
+
+Disassembly of section .fini:
