@@ -33,3 +33,17 @@ Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /work
 
 ## Trained pilot scope
 Frozen b9c6389e/66e029e3, not yet executed: parents0,1,20,21 of H4T3seed0 then H4T4seed0. Capture source lookahead and prefix geometry, reuse initial cones, stop with one input left. Exact frozen-history reconstruction and stored-float-map signatures are analyzed separately. The driver refuses a pending source gate and requires the same completed T3 protocol before T4. Group memberships, identical-state repeats and extra function equivalences will be retained; a nonmatch cannot rule out domain-restricted/label-only merging.
+
+## Fixed trained results (saved independent audit pending)
+Source gate b927baa2 preceded both runs; d7d9b678 and d503d07a retain every state, geometry, canonical key and group member.
+
+| model | captured pieces | history groups | identical-state groups | exact/projective margin groups | extra different-state groups |
+|---|---:|---:|---:|---:|---:|
+| H4T3seed0 | 12 | 6 | 6 | 6/6 | 0 |
+| H4T4seed0 | 55 | 38 | 37 | 37/37 | 0 |
+
+All groups require the same truth/depth. H4T4 members5,18,29 include two histories ending in all gates off, so their represented states reset exactly to zero. Repeated chart/state instances are separately counted; no union has been formed. Stored floating maps equal exact frozen-history maps for12/12 T3 and5/55 T4 states; the largest T4 coefficient difference is79479/9444732965739290427392 (~8.415e-18). Both analyses have the same group counts on this tiny panel, not necessarily on larger models.
+
+T3/T4 actual CPU .087992572/.287949654, incomplete prefix proxies4892/71407,16/71 recursive entries,8/39 lookahead calls involving22/159 deterministic source ray points. No final-cell/mass/reference/MC calls. Four initial cones/model were reused once from the120 zero controls; each process still imported universal setup. Exact formation counts respectively1728mul+1728add+192sub and15180mul+15180add+1320sub. Canonical counts624div+480mul+480add and4310div+4128mul+4128add. Comparison/hash/sort/GCD/temporary bits, array conversion and native work remain separate/unpriced; these counts do not establish a cost saving.
+
+Commands: same external20CPU/2GB single-thread review lock as zero controls, `.../capture/trained.py 3` then `.../capture/trained.py 4`. No trained phase rerun. [measured] This bounded pilot finds an exact reset but no additional global margin/projective equivalence between distinct states. [inferred] This does not reject prefix-domain or label-only equivalence, more parents/widths, or cheaper state reuse. Ready T11596 preserves a distinct exact ray-sign domain restriction rescue; it has not been implemented or run.
