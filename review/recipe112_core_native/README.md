@@ -7,10 +7,10 @@ Do original E43 core results retain their finite-panel comparison after direct s
 Freeze the original60 shards/3840 model copies and15 checkpoint identities. Verify provenance before three separately gated source/native pilots. Reuse identical reviewed T172 tracer controls. See PROTOCOL.md.
 
 ## Status
-Claim14649359 active. Saved-only provenance90ec022e passes all3840 original row bindings and15 checkpoint byte hashes. No model regeneration/evaluator/truth calls;0.039990105CPU. Independent provenance and three-pilot source review pending.
+Claim14649359 active. Saved-only provenance90ec022e passes all3840 original row bindings and15 checkpoint byte hashes. No model regeneration/evaluator/truth calls;0.039990105CPU. Independent provenance/source reviewb3cf708f passed. Three fixed pilots91150009 pass exact original output and plain/traced parity; saved ledger review pending.
 
 ## Results
-None yet. H8 evidence and historical scalar counts do not establish these direct costs.
+Fixed H4/H5/H6 first-copy pilots give named numeric164531/224034/260997 versus historical source68229/89330/98219. Their exact saved output bits, model hashes, grouped contributions, STATS and cells match. These three cases are resource/parity controls, not a panel-level cost multiplier or success statement. Six source calls took1.755049169CPU including imports/setup.
 
 ## Compute accounting
 No new evaluator/truth/model-input calls. Future hash regeneration, source calls and ledgers charged separately. Named-operation convention is not complete hardware/runtime cost.
