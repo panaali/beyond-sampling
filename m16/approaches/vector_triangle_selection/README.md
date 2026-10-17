@@ -103,6 +103,14 @@ that one square operation by `float(projection)**2` restores every radial
 tuple exactly. The frozen attribution gate passes in .328CPU. This isolates
 the cause on the tested corpus; it is not a universal BLAS parity claim.
 
+The distinct scalar-pow adapter leaves selector.py unchanged and pins its
+hash before replacing exactly one radial-setup expression. It adds an
+explicit160-unit allowance per triangle for the extra batch/pow work. All
+9309 complete metadata/value controls and30 boundary fixtures still pass;
+control time is .1743 versus .2235CPU for the original grouped baseline.
+Original slower-selector and radial-failure artifacts remain unchanged.
+The rescue complete pilot awaits independent review.
+
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Preserve original
 conservative allowance and explicitly add every batch/guard/scalar-rescue
