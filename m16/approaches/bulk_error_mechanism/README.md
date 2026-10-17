@@ -215,3 +215,27 @@ and certified-wrong correct-event mass is zero, within numerical qualifications.
 This is an independently falsifiable sufficient certificate, not exact feasible
 label enumeration. Cost <=20CPU, no new region engine, truth fitting or noise.
 Report event coverage and residual interval width before suggesting efficiency.
+
+### Whole-cone correctness result and scoped negative
+The sufficient certificate labels48 gate histories uniformly wrong and39
+uniformly correct, but their total mass is only.005750412999... . Uniformly
+wrong mass is.00284266898053852; uniformly correct mass is.00290774401952806.
+All correct-event simplices avoid certified-wrong histories, and the certified
+correct full/correct mass agrees exactly at recorded precision. This passes
+the independent stored-event consistency controls.
+
+The remaining363 histories carry.9942495869999322 of the input distribution.
+Consequently this coarse certificate only gives the uninformative accuracy
+interval[.0029077440,.9971573310], before numerical allowances. A large fraction
+of certified history counts does not imply useful mass coverage. The tested
+whole-gate output/rank-set shortcut is insufficient as an estimator; its
+sufficient labels deliberately retain correlations and feasible possibilities
+conservatively, so this is not a proof that stronger cone certificates fail.
+
+The run costs2.417973CPU/66MB,102048 integer plane checks plus unchanged mass
+rules. `cone_correctness.json` preserves every certificate/exclusion and all
+mass bounds. A stronger plausible alternative is conditioning on ordered top-two
+families before certification, as worker34's distinct T110 engine already does.
+Do not duplicate that engine or retire coarse correctness certificates based
+on this raw-gate control. Exact simultaneous rank/readout feasibility and
+cross-gate merging remain untested; none is claimed impossible.
