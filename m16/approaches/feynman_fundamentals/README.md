@@ -396,3 +396,18 @@ required geometric area. Total validation/benchmark CPU.467380 seconds, no model
 passes or sampled inputs. Source hash and exact results are in `parity_results.json`.
 Reproduce under the review lock using `check_parity.py`. T50 retains independent
 cached-terminal comparisons and full estimator cost measurement.
+
+## Cycle 10 protocol (frozen before validation)
+Remove repeated target-coordinate interpolation by conditioning directly on
+the target being second-largest. Its input CDF q has Beta(T-1,2) law; conditional
+on no greater input yet among m remaining non-target positions, the next one
+exceeds the target with probability1/m. Validate the combinatorial recursion
+and resulting two-dimensional fixed-target transport before implementation.
+Alternative1: observing hidden state changes the remaining-position law;
+prove conditional independence from the full processed history, not merely
+the unconditional1/m marginal. Alternative2: the outer rank normalization is
+wrong; check constant-readout accuracy1/T and the exact H1/zero-recurrence
+sign-classifier formulas for T3..10 using independent scalar quadrature.
+No transport implementation or sampled inputs in this cycle; separate owners
+must claim the follow-up. Truncating original inputs at a common symmetric
+bound gives an explicit missing-mass interval rather than an assumed grid box.
