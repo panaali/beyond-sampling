@@ -13,7 +13,7 @@ synthetic extracted-loop controls exercise unequal rescaled counts and confirm
 unchanged values/ops/invariance checks; no estimator/model imports or calls.
 
 ## Status
-Source/provenance inventory and patch preparation. No controls executed.
+Source/provenance inventory and patch prepared and published throughbf295e9d. Six frozen synthetic controls52eea74f remain UNEXECUTED: independent source gate pending. Other agents report automatic approval blocked their research exports; their reviewers paused under the DRI evidence gate. No rerouting of blocked uploads. Local native-H4 provenance checkpoint5aaa3e87 is unpushed.
 
 ## Results
 The source appends rows AFTER its every-eighth rescale evaluation, using
@@ -47,3 +47,9 @@ Blindly dividing by2 or9/8; mixing scalar/native topology, noise seeds70 vs80,
 model versions or recipe variants; inferring cell-count equality from close
 output values; treating sampled-region lower bounds as full region counts.
 Original summaries and all failed controls will be retained.
+
+## Saved native H4 clean evidence located
+
+Prior independently reviewed T115 continuation_pilot contains native RECIPE112 cells174,127,148,150,175 for clean seeds0..4, with matching original operation counts69392,63026,57598,64665,72537. Historical E43 cells were348,254,297,300,350. The seed2 mismatch is148+149, not an exact double. The frozen source is identical after removing only two provenance comment lines. This binding still needs the current independent saved-contraction gate; no corrected full-table/scaling result is claimed.
+
+No estimator, model input, truth, geometry or Monte Carlo call was made in this phase. Proposed remaining15clean/original5120-noise statistics reconstruction has NOT been implemented or authorized for execution; it needs a new published resource scope after review/publication resumes.
