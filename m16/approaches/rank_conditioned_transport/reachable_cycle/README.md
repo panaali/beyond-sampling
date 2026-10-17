@@ -84,3 +84,35 @@ maximum absolute weighted interpolation residual1.74e-17, target-rule mass
 correct within1e-13, exact first-index constant accuracy1/4. CPU.272 total.
 Controls use q4 perhalf/prefix4 and h5; full arrays/event counts preserved in
 controls.json. Trained frozen comparison follows these controls.
+
+## Frozen trained diagnostic result and next discriminator
+At q8 perhalf and prefix8/16 the physical absolute terminal residual is:
+
+| h | Mesh | prefix8 | prefix16 |
+| --- | --- | ---: | ---: |
+|9|baseline squared|.00726456|.00703559|
+|9|curvature|.000817789|.000766126|
+|9|gate|.000779193|.000702698|
+|17|baseline squared|.00232511|.00171563|
+|17|curvature|.000275990|.000256593|
+|17|gate|.000201066|.000140246|
+
+The absolute improvement survives identical physical probes at both rules.
+This contradicts the proposed explanation that artificial source weighting
+alone caused prior local gains. However, signed residuals are not converged:
+h9 baseline .000269871→.000223785, curvature .000157442→.0000649921,
+gate -.0000420292→+.00000586077. Direct source quadrature changes
+.307998158→.307582910 (reference .307730743). No q refinement is launched:
+the frozen prefix-stability condition fails for signed bias. CPU.628/1.324.
+All arrays, shared source cost and per-mesh setup costs are in pilot.json.
+
+T55 independently checked the conditional law and scoped interpretation.
+A mesh's smaller absolute terminal error does not imply smaller signed full
+transport bias. Earlier interpolation and cancellation remain open.
+
+Supplemental discriminator frozen before measurement (T55 recommendation):
+repeat the SAME prefix16/q8 probes once, separating origin, each coordinate
+axis and interior contributions. Record mass, signed/absolute residual and
+positive-volume terminal readout ties. No new mesh, nodes, q refinement or
+accuracy tuning. If non-origin tied affine readouts can occur, report that
+limitation rather than silently classify every tie as a zero hidden state.
