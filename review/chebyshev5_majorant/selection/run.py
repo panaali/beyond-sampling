@@ -21,6 +21,7 @@ def main():
     try:
         p=json.loads((P/'protocol.json').read_text())
         for name,h in p['pins'].items():assert sha(name)==h,name
+        assert sha(P/'controls.json')=='e0ccad0c86f8d3dd7fc9a0bb0b907cc1e2319818341f79abefd65d60e699e1ad'
         controls=json.loads((P/'controls.json').read_text())
         assert controls['complete'] and controls['selector_sha256']==out['selector_sha256'] and controls['protocol_sha256']==out['protocol_sha256']
         assert controls['source_sha256']==sha(P/'controls.py')
