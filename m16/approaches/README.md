@@ -3,7 +3,7 @@
 ↑ [Project README](../../README.md) · [STATUS](../../STATUS.md) · [INDEX (registry + ledger)](../../INDEX.md) ·
 [FINDINGS (mechanism)](../FINDINGS.md) · [Leaderboard code](../leaderboard.py)
 
-Each folder is one attempt, run by one agent, with a `README.md` in the template from [CLAUDE.md](../../CLAUDE.md).
+Each folder is one attempt, run by one agent, with a `README.md` in the template from [AGENTS.md](../../AGENTS.md).
 The **ID** is the experiment's row in the [INDEX registry](../../INDEX.md#3-experiment-registry). "Deductive" means no
 random inputs are fed to the model. MSE ratios are relative to plain sampling at equal compute (below 1 is better).
 Only the leaderboard (LB2) numbers were run by the DRI; the rest are the agents' own.

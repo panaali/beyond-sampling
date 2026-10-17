@@ -1,12 +1,12 @@
 # Project index: clean-neurons
 
-↑ [Project README](README.md) · [STATUS](STATUS.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md) · [Literature](lit/README.md)
+↑ [Project README](README.md) · [TASKS](TASKS.md) · [STATUS](STATUS.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md) · [Literature](lit/README.md)
 
 **DRI:** the main Claude session on branch `ccr-6a61f25c-wn80ii` (with the user).
-**Start here for a summary:** [`STATUS.md`](STATUS.md) (plain language + technical status).
+**Start here for a summary:** [STATUS.md](STATUS.md). **What is in progress / backlog:** [TASKS.md](TASKS.md) (claim tasks there before starting).
 This file is the single source of truth: what is being asked, who is doing what, where outputs live,
 and **how well each claim is actually supported**. Update it whenever an experiment starts, ends or
-changes status. Rules for contributors are in [`CLAUDE.md`](CLAUDE.md).
+changes status. Rules for contributors are in [`AGENTS.md`](AGENTS.md).
 
 ## 1. Questions
 

@@ -1,6 +1,6 @@
 # Project status (2026-10-17)
 
-↑ [Project README](README.md) · [INDEX](INDEX.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md)
+↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md)
 
 The registry, hypothesis ledger and every number with its source are in [`INDEX.md`](INDEX.md). This page summarises them.
 
@@ -84,5 +84,5 @@ samples; a "62x" efficiency figure retracted as an arithmetic error.
 M_16,10 (relayed privately) is unverified. [`m16/arc_eval.py`](m16/arc_eval.py) and [`m16/leaderboard.py`](m16/leaderboard.py) can score any estimator with the
 same interface for a direct comparison.
 
-**Next steps:** [`INDEX.md`](INDEX.md) section 5 (top: a stochastic reduction tracking the exact law of the tie margin; explaining
+**Next steps** (prioritized and claimable in [TASKS.md](TASKS.md)): [`INDEX.md`](INDEX.md) section 5 (top: a stochastic reduction tracking the exact law of the tie margin; explaining
 the T~5 collapse; an optional brute-force exact reference with more compute).

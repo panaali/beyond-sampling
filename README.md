@@ -10,12 +10,13 @@ An independent test of two claims about neural-network interpretability:
 
 | Document | What it is |
 |---|---|
+| [TASKS.md](TASKS.md) | **Task board: what is in progress (and who holds it) and the prioritized backlog. Claim a task here before starting work** |
 | [STATUS.md](STATUS.md) | **Current status**, in plain words plus a technical summary |
 | [INDEX.md](INDEX.md) | Single source of truth: questions, repo map, **experiment registry** (E1-E27, LB2, R1), **hypothesis ledger** (every claim with its status and evidence), synthesis, open questions |
 | [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study, with review corrections |
 | [m16/FINDINGS.md](m16/FINDINGS.md) | How the 432-param RNN M_16,10 computes the 2nd argmax: mechanism, error anatomy, estimators, failed hypotheses |
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before any data was collected |
-| [CLAUDE.md](CLAUDE.md) | Rules for agents working in this repo (README template, skepticism, independence) |
+| [AGENTS.md](AGENTS.md) | Rules for all agents (Claude, Codex, humans): claiming tasks, README template, skepticism, independence. ([CLAUDE.md](CLAUDE.md) only imports it for Claude Code) |
 
 ## Folders
 
