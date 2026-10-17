@@ -8,6 +8,7 @@ import sys
 import time
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
+from scipy.sparse.linalg import spsolve
 from scipy.special import betainc,betaincinv
 from numpy.polynomial.legendre import leggauss
 
@@ -74,7 +75,19 @@ def target_kernel_grid(model,j,grid,stats,deadline,constant=False):
     return values
 
 
-def integrate_backwards(model,j,grid,terminal,nangle,stats):
+def make_interpolator(grid,values,method):
+    extra={"solver":spsolve} if method=="cubic" else {}
+    return RegularGridInterpolator(grid,values,bounds_error=True,method=method,**extra)
+
+
+def observe_interpolation(values,stats):
+    stats["minimum_interpolated_value"]=min(stats["minimum_interpolated_value"],float(np.min(values)))
+    stats["maximum_interpolated_value"]=max(stats["maximum_interpolated_value"],float(np.max(values)))
+    stats["queries_below_minus_1e_10"]+=int(np.count_nonzero(values < -1e-10))
+    stats["queries_above_one_plus_1e_10"]+=int(np.count_nonzero(values > 1+1e-10))
+
+
+def integrate_backwards(model,j,grid,terminal,nangle,stats,method="linear"):
     wi,wh,wo=model;T=len(wo)
     axes=np.meshgrid(*grid,indexing='ij')
     states=np.column_stack([a.ravel() for a in axes])
@@ -84,10 +97,11 @@ def integrate_backwards(model,j,grid,terminal,nangle,stats):
     nodes=(nodes+1)/2;weights=weights/2
     values=terminal
     for t in reversed(range(npre)):
-        interpolator=RegularGridInterpolator(grid,values,bounds_error=True)
+        interpolator=make_interpolator(grid,values,method)
         if t==j:
             transformed=np.column_stack((np.maximum(states[:,:2]@wh.T+states[:,2,None]*wi,0),states[:,2]))
             values=interpolator(transformed).reshape(shape)
+            observe_interpolation(values,stats)
             stats['interpolation_queries']+=len(transformed)
             continue
         k=1+t-int(j<t)
@@ -102,6 +116,7 @@ def integrate_backwards(model,j,grid,terminal,nangle,stats):
             coords=np.concatenate((hidden,(b[:,None]*cosine)[:,:,None]),axis=2).reshape(-1,3)
             # No clipping: the positive-part invariant-box proof must suffice.
             evaluated=interpolator(coords).reshape(len(states),nangle,2)
+            observe_interpolation(evaluated,stats)
             integrated=np.einsum('nqk,q->nk',evaluated,weights)*(hi-lo)[:,None]
             if exceeds:
                 nextval[:,0]+=integrated[:,1]
@@ -110,7 +125,7 @@ def integrate_backwards(model,j,grid,terminal,nangle,stats):
             stats['interpolation_queries']+=len(coords)
             stats['angle_nodes']+=len(coords)
         values=nextval.reshape(shape)
-    initial=RegularGridInterpolator(grid,values,bounds_error=True)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
+    initial=make_interpolator(grid,values,method)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
     stats['interpolation_queries']+=2
     return float(initial.mean()),initial.tolist()
 

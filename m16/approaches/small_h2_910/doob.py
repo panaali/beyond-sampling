@@ -7,7 +7,7 @@ import numpy as np
 from scipy.interpolate import RegularGridInterpolator
 from scipy.special import roots_genlaguerre,ndtr,gammaln,betainc
 from numpy.polynomial.legendre import leggauss
-from backward import load,invariant_box,possible_labels,theta_quantile,target_kernel_grid
+from backward import load,invariant_box,possible_labels,theta_quantile,target_kernel_grid,make_interpolator,observe_interpolation
 
 HERE=pathlib.Path(__file__).resolve().parent
 
@@ -69,17 +69,18 @@ def conditional_rules(b,T,nangle,rank,stats):
     return result
 
 
-def transport(model,j,grid,terminal,rules,stats):
+def transport(model,j,grid,terminal,rules,stats,method="linear"):
     wi,wh,wo=model;T=len(wo)
     states=np.column_stack([a.ravel() for a in np.meshgrid(*grid,indexing='ij')])
     repeats=len(grid[0])*len(grid[1]);shape=terminal.shape
     values=terminal
     npre=T-2 if j<T-2 else T-3
     for t in reversed(range(npre)):
-        interp=RegularGridInterpolator(grid,values,bounds_error=True)
+        interp=make_interpolator(grid,values,method)
         if t==j:
             coords=np.column_stack((np.maximum(states[:,:2]@wh.T+states[:,2,None]*wi,0),states[:,2]))
             values=interp(coords).reshape(shape);stats['interpolation_queries']+=len(coords)
+            observe_interpolation(values,stats)
             continue
         k=1+t-int(j<t)
         updated=np.zeros((len(states),2))
@@ -89,13 +90,14 @@ def transport(model,j,grid,terminal,rules,stats):
             h=np.maximum((states[:,:2]@wh.T)[:,None,:]*cos[:,:,None]+wi*sin[:,:,None],0)
             coords=np.concatenate((h,(states[:,2,None]*cos)[:,:,None]),axis=2).reshape(-1,3)
             evaluated=interp(coords).reshape(len(states),sine.shape[1],2)
+            observe_interpolation(evaluated,stats)
             if exceeds:
                 updated[:,0]+=np.sum(evaluated[:,:,1]*weight[:,:,0],axis=1)
             else:
                 updated+=np.sum(evaluated*weight,axis=1)
             stats['interpolation_queries']+=len(coords);stats['angle_nodes']+=len(coords)
         values=updated.reshape(shape)
-    initial=RegularGridInterpolator(grid,values,bounds_error=True)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
+    initial=make_interpolator(grid,values,method)(np.array([[0.,0.,-1.],[0.,0.,1.]]))[:,0]
     stats['interpolation_queries']+=2
     qminus=2*(T+1)/(T*2**T);qplus=2/T-qminus
     return float((initial[0]*qminus+initial[1]*qplus)/2),initial.tolist()
