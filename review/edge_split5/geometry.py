@@ -79,12 +79,13 @@ def controls(Exact, rows, save):
     cases.append(('norm_overflow',I*1e308,None,'invalid_norm'))
     cases.append(('norm_underflow',I*1e-308,None,'invalid_norm'))
     for name,R,v,expected in cases:
+        entry=dict(name=name,expected=expected,status='started',
+            rays_hex=hexrows(R),candidate_hex=None if v is None else [float(x).hex() for x in v])
+        rows.append(entry);save()
         try: split(R,Exact,v)
         except Rejected as e: result=str(e)
         else: result='unexpected_acceptance'
-        rows.append(dict(name=name,expected=expected,result=result,pass_control=result==expected,
-            rays_hex=hexrows(R),candidate_hex=None if v is None else [float(x).hex() for x in v]))
-        save()
+        entry.update(status='completed',result=result,pass_control=result==expected);save()
     assert all(x['pass_control'] for x in rows)
     return rows
 
