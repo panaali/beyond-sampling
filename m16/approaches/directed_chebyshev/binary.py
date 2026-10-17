@@ -53,6 +53,7 @@ class Binary:
         ctx=Directed(50);pi=ctx.pi().floats();self.counts.update({'decimal_setup_'+k:v for k,v in ctx.counts.items()})
         with np.errstate(over='ignore',under='ignore',invalid='ignore',divide='ignore'):
             v=self.div(self.mul((lo,hi),self.tail(a,b,degree)),self.mul(self.point(60),self.power(pi,3)))
-        v=tuple(np.where(hi==0,0.,x) for x in v)
+        zero=(hi==0)|(np.asarray(a)==np.asarray(b))
+        v=tuple(np.where(zero,0.,x) for x in v)
         self.counts['infinite_output_bounds']+=int(np.isinf(v[1]).sum())
         return v
