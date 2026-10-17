@@ -848,3 +848,19 @@ normal Chernoff bounds integrated over the second order statistic. Proof and
 falsifiers in frozen_gate_certificate.md; no claim of a useful bound or new
 engine. Also read T56 exact-lune source, confirming arc phase/complement/
 endpoint knots while retaining finite-projection and floating qualifications.
+
+## Cycle 38 protocol: T82 coordinate/topology confound
+On exactly the eight saved network-switch slices, use4 Gauss nodes per panel
+and compare network vertex slabs in Gaussian z against the SAME number of
+equal-width z panels. Add geometry-only z panels with actual smaller node
+counts explicitly recorded; this latter comparison is unequal work. Reuse
+read-only polygon masses but independently assemble Gaussian weights and
+normalization, retaining all outcomes. No new models or full-dimensional
+integration. This tests whether the reported gain comes from coordinates
+alone, not an independent implementation of polygon geometry.
+Cycle38 completed: matched Gaussian-coordinate controls favor network knots
+in6/8 slices, but equal-width z wins both H2R23 cases. Geometry-only low-cost
+rules fail two cases substantially. All errors/normalizer defects retained;
+no universal alignment or end-to-end efficiency conclusion. .0454CPU after
+imports. Also source-reviewed native DD clipping against the original Python
+semantics; tolerance and floating summation remain explicit qualifications.
