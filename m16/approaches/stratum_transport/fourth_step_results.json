@@ -1,0 +1,411 @@
+{
+  "classification": "four-input marginal validation, not T8 rank accuracy",
+  "sources": {
+    "/workspace/clean-neurons/m16/approaches/small_h2_56/geometry.py": "1e80b004aa6931de78b2e7e7bbb2212f37be3325a8c7ee176aaf2bce17b0194e",
+    "/workspace/clean-neurons/m16/approaches/small_h4_4/stable_volume.py": "da723d4dfd8b307c0d21ff00a38e85555950fee8c4fd557ed64ba9cb5b510578",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "f516415af1b2db03351bd5a5dbee54c120bc74a9267e400a0406eb885eff2f85"
+  },
+  "checkpoint_sha256": "d9cefb20379ab66434c6ea6e923eb791c86dbf0477669b03a1d5c0ae9957954c",
+  "rows": [
+    {
+      "model": "toy",
+      "grid": 16,
+      "reference": {
+        "stratum_masses": {
+          "origin": 0.15140528747468812,
+          "axis0": 0.0,
+          "axis1": 0.12203221252531488,
+          "input_ray": 0.10998289310615195,
+          "area": 0.6165796068938578
+        },
+        "stratum_integration_bounds": {
+          "origin": 9.576003007426734e-09,
+          "axis0": 0.0,
+          "axis1": 6.251870433603345e-09,
+          "input_ray": 6.7532260015061654e-09,
+          "area": 3.530369485608803e-08
+        },
+        "output_masses": [
+          0.15140528747468812,
+          0.10998289310615195,
+          0.7386118194191724,
+          0.0
+        ],
+        "output_integration_bounds": [
+          9.576003007426734e-09,
+          6.7532260015061654e-09,
+          4.155556528969139e-08,
+          0.0
+        ],
+        "full_stratum_mass": 1.0000000000000129,
+        "full_output_mass": 1.0000000000000124,
+        "geometry_counts": {
+          "clips": 833,
+          "hulls": 258,
+          "vertex_plane_products": 3343,
+          "map_compositions": 94,
+          "gate_pieces": 60,
+          "correct_pieces": 0,
+          "simplices": 350,
+          "zero_determinants": 0,
+          "whitened_hull_retries": 0,
+          "bounded_degenerate_clips": 0,
+          "omitted_mass_upper_bound": 0.0
+        },
+        "integration_work": {
+          "simplex_queries": 350.0,
+          "unique_simplex_integrations": 175.0,
+          "quadrature_nodes": 1400000.0,
+          "simplex_cache_hits": 175.0
+        },
+        "geometry_cpu_seconds": 0.07549931800000009,
+        "total_cpu_seconds": 0.11270154500000018,
+        "classification": "integration-only bounds conditional on floating cone geometry and arithmetic"
+      },
+      "stratum_masses": {
+        "origin": 0.15184647812821755,
+        "axis0": 2.5522972489800413e-05,
+        "axis1": 0.12090870203749234,
+        "input_ray": 0.11005389216857035,
+        "area": 0.6171653968005285
+      },
+      "integrated_output_masses": [
+        0.15184647812821755,
+        0.1114346147590807,
+        0.7367188992199993,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15184647812821755,
+        0.13462845288258923,
+        0.7135250610964922,
+        0.0
+      ],
+      "max_stratum_error": 0.0011235104878225405,
+      "max_integrated_output_error": 0.001892920199173087,
+      "max_histogram_output_error": 0.025086758322680258,
+      "known_input_tail_omission": 7.892701603395835e-09,
+      "mass_error_from_truncated_law": 2.220446049250313e-16,
+      "transport_work": {
+        "source_nodes": 1132.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "normal_cdf_values": 44148.0,
+        "input_intervals": 43016.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 14689.0,
+        "readout_polygon_clips": 1660.0
+      },
+      "transport_cpu_seconds": 0.040351561000000036
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "reference": {
+        "stratum_masses": {
+          "origin": 0.15140528747468812,
+          "axis0": 0.0,
+          "axis1": 0.12203221252531488,
+          "input_ray": 0.10998289310615195,
+          "area": 0.6165796068938578
+        },
+        "stratum_integration_bounds": {
+          "origin": 9.576003007426734e-09,
+          "axis0": 0.0,
+          "axis1": 6.251870433603345e-09,
+          "input_ray": 6.7532260015061654e-09,
+          "area": 3.530369485608803e-08
+        },
+        "output_masses": [
+          0.15140528747468812,
+          0.10998289310615195,
+          0.7386118194191724,
+          0.0
+        ],
+        "output_integration_bounds": [
+          9.576003007426734e-09,
+          6.7532260015061654e-09,
+          4.155556528969139e-08,
+          0.0
+        ],
+        "full_stratum_mass": 1.0000000000000129,
+        "full_output_mass": 1.0000000000000124,
+        "geometry_counts": {
+          "clips": 833,
+          "hulls": 258,
+          "vertex_plane_products": 3343,
+          "map_compositions": 94,
+          "gate_pieces": 60,
+          "correct_pieces": 0,
+          "simplices": 350,
+          "zero_determinants": 0,
+          "whitened_hull_retries": 0,
+          "bounded_degenerate_clips": 0,
+          "omitted_mass_upper_bound": 0.0
+        },
+        "integration_work": {
+          "simplex_queries": 350.0,
+          "unique_simplex_integrations": 175.0,
+          "quadrature_nodes": 1400000.0,
+          "simplex_cache_hits": 175.0
+        },
+        "geometry_cpu_seconds": 0.07549931800000009,
+        "total_cpu_seconds": 0.11270154500000018,
+        "classification": "integration-only bounds conditional on floating cone geometry and arithmetic"
+      },
+      "stratum_masses": {
+        "origin": 0.15153371244086986,
+        "axis0": 4.17067553939514e-07,
+        "axis1": 0.12173377509365141,
+        "input_ray": 0.11000309270774529,
+        "area": 0.6167289947974782
+      },
+      "integrated_output_masses": [
+        0.15153371244086986,
+        0.11007134284058265,
+        0.7383949368258369,
+        0.0
+      ],
+      "histogram_output_masses": [
+        0.15153371244086986,
+        0.11975095729805049,
+        0.7287153223683778,
+        0.0
+      ],
+      "max_stratum_error": 0.0002984374316634675,
+      "max_integrated_output_error": 0.00021688259333552118,
+      "max_histogram_output_error": 0.00989649705079465,
+      "known_input_tail_omission": 7.892701603395835e-09,
+      "mass_error_from_truncated_law": 2.220446049250313e-16,
+      "transport_work": {
+        "source_nodes": 3734.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "normal_cdf_values": 265114.0,
+        "input_intervals": 261380.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 91350.0,
+        "readout_polygon_clips": 5746.0
+      },
+      "transport_cpu_seconds": 0.14366809699999994
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "reference": {
+        "stratum_masses": {
+          "origin": 0.5155143802385795,
+          "axis0": 0.0009071202857449919,
+          "axis1": 0.10711496255484539,
+          "input_ray": 0.26582340123764786,
+          "area": 0.11064013568319522
+        },
+        "stratum_integration_bounds": {
+          "origin": 2.9688940350094178e-08,
+          "axis0": 4.584042765529439e-11,
+          "axis1": 6.397194992612731e-09,
+          "input_ray": 1.5310534883061733e-08,
+          "area": 6.442283645200338e-09
+        },
+        "output_masses": [
+          0.5155143802385795,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01266199850776274,
+          0.11626370163128748,
+          0.3555599196223825
+        ],
+        "output_integration_bounds": [
+          2.9688940350094178e-08,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          6.238725589163567e-10,
+          6.8231449101141325e-09,
+          2.0748836479499608e-08
+        ],
+        "full_stratum_mass": 1.000000000000013,
+        "full_output_mass": 1.0000000000000122,
+        "geometry_counts": {
+          "clips": 2023,
+          "hulls": 620,
+          "vertex_plane_products": 8262,
+          "map_compositions": 100,
+          "gate_pieces": 74,
+          "correct_pieces": 0,
+          "simplices": 535,
+          "zero_determinants": 0,
+          "whitened_hull_retries": 0,
+          "bounded_degenerate_clips": 0,
+          "omitted_mass_upper_bound": 0.0
+        },
+        "integration_work": {
+          "simplex_queries": 535.0,
+          "unique_simplex_integrations": 329.0,
+          "quadrature_nodes": 2632000.0,
+          "simplex_cache_hits": 206.0
+        },
+        "geometry_cpu_seconds": 0.09224638499999993,
+        "total_cpu_seconds": 0.162133533,
+        "classification": "integration-only bounds conditional on floating cone geometry and arithmetic"
+      },
+      "stratum_masses": {
+        "origin": 0.5160545192388111,
+        "axis0": 0.0009188146375486105,
+        "axis1": 0.10705611223093228,
+        "input_ray": 0.2660521943635351,
+        "area": 0.10991835163647172
+      },
+      "integrated_output_masses": [
+        0.5160545192388111,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.012689106247705523,
+        0.11619195752714549,
+        0.3550644090936387
+      ],
+      "histogram_output_masses": [
+        0.5160545192388111,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.02266950437079748,
+        0.11637403255506261,
+        0.34490193594262747
+      ],
+      "max_stratum_error": 0.0007217840467235032,
+      "max_integrated_output_error": 0.000540139000231532,
+      "max_histogram_output_error": 0.010657983679755012,
+      "known_input_tail_omission": 7.892701603395835e-09,
+      "mass_error_from_truncated_law": 3.3306690738754696e-16,
+      "transport_work": {
+        "source_nodes": 1156.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "normal_cdf_values": 73984.0,
+        "input_intervals": 72828.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 28056.0,
+        "readout_polygon_clips": 4203.0
+      },
+      "transport_cpu_seconds": 0.08630630799999994
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "reference": {
+        "stratum_masses": {
+          "origin": 0.5155143802385795,
+          "axis0": 0.0009071202857449919,
+          "axis1": 0.10711496255484539,
+          "input_ray": 0.26582340123764786,
+          "area": 0.11064013568319522
+        },
+        "stratum_integration_bounds": {
+          "origin": 2.9688940350094178e-08,
+          "axis0": 4.584042765529439e-11,
+          "axis1": 6.397194992612731e-09,
+          "input_ray": 1.5310534883061733e-08,
+          "area": 6.442283645200338e-09
+        },
+        "output_masses": [
+          0.5155143802385795,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01266199850776274,
+          0.11626370163128748,
+          0.3555599196223825
+        ],
+        "output_integration_bounds": [
+          2.9688940350094178e-08,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          6.238725589163567e-10,
+          6.8231449101141325e-09,
+          2.0748836479499608e-08
+        ],
+        "full_stratum_mass": 1.000000000000013,
+        "full_output_mass": 1.0000000000000122,
+        "geometry_counts": {
+          "clips": 2023,
+          "hulls": 620,
+          "vertex_plane_products": 8262,
+          "map_compositions": 100,
+          "gate_pieces": 74,
+          "correct_pieces": 0,
+          "simplices": 535,
+          "zero_determinants": 0,
+          "whitened_hull_retries": 0,
+          "bounded_degenerate_clips": 0,
+          "omitted_mass_upper_bound": 0.0
+        },
+        "integration_work": {
+          "simplex_queries": 535.0,
+          "unique_simplex_integrations": 329.0,
+          "quadrature_nodes": 2632000.0,
+          "simplex_cache_hits": 206.0
+        },
+        "geometry_cpu_seconds": 0.09224638499999993,
+        "total_cpu_seconds": 0.162133533,
+        "classification": "integration-only bounds conditional on floating cone geometry and arithmetic"
+      },
+      "stratum_masses": {
+        "origin": 0.5156514153440399,
+        "axis0": 0.000910052129696945,
+        "axis1": 0.1070995577566154,
+        "input_ray": 0.26588114801507884,
+        "area": 0.1104578188618675
+      },
+      "integrated_output_masses": [
+        0.5156514153440399,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.012667124774158984,
+        0.11624488587092759,
+        0.3554365661181642
+      ],
+      "histogram_output_masses": [
+        0.5156514153440399,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.019237183636169084,
+        0.11633620329676578,
+        0.34877518983032385
+      ],
+      "max_stratum_error": 0.00018231682132772986,
+      "max_integrated_output_error": 0.00013703510546037023,
+      "max_histogram_output_error": 0.00678472979205863,
+      "known_input_tail_omission": 7.892701603395835e-09,
+      "mass_error_from_truncated_law": 2.220446049250313e-16,
+      "transport_work": {
+        "source_nodes": 4018.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "normal_cdf_values": 385728.0,
+        "input_intervals": 381710.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 164395.0,
+        "readout_polygon_clips": 14564.0
+      },
+      "transport_cpu_seconds": 0.3041561880000001
+    }
+  ],
+  "random_model_inputs": 0,
+  "cpu_seconds_including_torch_import": 1.653118083,
+  "sources_after": {
+    "/workspace/clean-neurons/m16/approaches/small_h2_56/geometry.py": "1e80b004aa6931de78b2e7e7bbb2212f37be3325a8c7ee176aaf2bce17b0194e",
+    "/workspace/clean-neurons/m16/approaches/small_h4_4/stable_volume.py": "da723d4dfd8b307c0d21ff00a38e85555950fee8c4fd557ed64ba9cb5b510578",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "f516415af1b2db03351bd5a5dbee54c120bc74a9267e400a0406eb885eff2f85"
+  },
+  "source_files_changed_during_run": false
+}
