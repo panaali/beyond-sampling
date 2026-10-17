@@ -106,3 +106,14 @@ all numerical discrepancies (.449CPU); no favorable timing inference.
 The trained crossed(h,u,label) panel is an extension-operator check: h is
 reachable for some prefix but not necessarily jointly with each crossed u.
 No actual rank-weighted full-accuracy inference will be made from that panel.
+
+## Frozen trained primitive panel
+`pilot.py` completes18 fixed H2T4 queries in .05763CPU including saved output
+writes; six cold objects total .00570CPU geometry,36 primary/swapped queries
+.03593CPU including swapped geometry construction. Both integration axes
+agree within5.56e-16 with all probability guards satisfied. Every value,
+conditional rank mass, numerical error estimate, joint-prefix consistency
+flag and object counter is stored in pilot.json. These are extension-operator
+controls, not an accuracy estimate or wall-time scaling claim. Only12 of the
+18 crossed(h,u,j) cases use the actual target value of the defining prefix.
+No full outer/spatial estimator has been run or declared competitive.
