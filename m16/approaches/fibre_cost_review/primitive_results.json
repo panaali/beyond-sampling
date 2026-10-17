@@ -1,0 +1,228 @@
+{
+  "cases": [
+    {
+      "name": "dot3",
+      "ledger": {
+        "sites": {
+          "dot3": {
+            "calls": 1,
+            "historical_mac": 3,
+            "dense_mac": 3,
+            "mul": 3,
+            "add": 2,
+            "mask_mul": 0
+          }
+        },
+        "totals": {
+          "calls": 1,
+          "historical_mac": 3,
+          "dense_mac": 3,
+          "mul": 3,
+          "add": 2,
+          "mask_mul": 0
+        },
+        "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+      }
+    },
+    {
+      "name": "mv4x3",
+      "ledger": {
+        "sites": {
+          "mv4x3": {
+            "calls": 1,
+            "historical_mac": 12,
+            "dense_mac": 12,
+            "mul": 12,
+            "add": 8,
+            "mask_mul": 0
+          }
+        },
+        "totals": {
+          "calls": 1,
+          "historical_mac": 12,
+          "dense_mac": 12,
+          "mul": 12,
+          "add": 8,
+          "mask_mul": 0
+        },
+        "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+      }
+    },
+    {
+      "name": "mm4x4x3",
+      "ledger": {
+        "sites": {
+          "mm4x4x3": {
+            "calls": 1,
+            "historical_mac": 48,
+            "dense_mac": 48,
+            "mul": 48,
+            "add": 36,
+            "mask_mul": 0
+          }
+        },
+        "totals": {
+          "calls": 1,
+          "historical_mac": 48,
+          "dense_mac": 48,
+          "mul": 48,
+          "add": 36,
+          "mask_mul": 0
+        },
+        "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+      }
+    },
+    {
+      "name": "zero_mv",
+      "ledger": {
+        "sites": {
+          "zero_mv": {
+            "calls": 1,
+            "historical_mac": 12,
+            "dense_mac": 12,
+            "mul": 12,
+            "add": 8,
+            "mask_mul": 0
+          }
+        },
+        "totals": {
+          "calls": 1,
+          "historical_mac": 12,
+          "dense_mac": 12,
+          "mul": 12,
+          "add": 8,
+          "mask_mul": 0
+        },
+        "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+      }
+    }
+  ],
+  "zero_rows_at": {
+    "sites": {
+      "rows_at:L44:Wh @ Ag": {
+        "calls": 2,
+        "historical_mac": 0,
+        "dense_mac": 96,
+        "mul": 96,
+        "add": 72,
+        "mask_mul": 0
+      },
+      "rows_at:L46:A @ x": {
+        "calls": 3,
+        "historical_mac": 24,
+        "dense_mac": 36,
+        "mul": 36,
+        "add": 24,
+        "mask_mul": 0
+      },
+      "rows_at:L47:A * g[:, None]": {
+        "calls": 3,
+        "historical_mac": 0,
+        "dense_mac": 0,
+        "mul": 0,
+        "add": 0,
+        "mask_mul": 36
+      },
+      "rows_at:L48:Wo @ Ag": {
+        "calls": 1,
+        "historical_mac": 0,
+        "dense_mac": 36,
+        "mul": 36,
+        "add": 27,
+        "mask_mul": 0
+      }
+    },
+    "totals": {
+      "calls": 9,
+      "historical_mac": 24,
+      "dense_mac": 168,
+      "mul": 168,
+      "add": 123,
+      "mask_mul": 36
+    },
+    "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+  },
+  "zero_rows_at_historical_n": 24,
+  "zero_rows_at_historical_x": 20,
+  "manifest": {
+    "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+    "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+    "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+    "sites": [
+      {
+        "site": "rows_at:L44:Wh @ Ag",
+        "historical_expression": "H * int(g.sum()) * t"
+      },
+      {
+        "site": "rows_at:L46:A @ x",
+        "historical_expression": "H * (t+1)"
+      },
+      {
+        "site": "rows_at:L47:A * g[:, None]",
+        "historical_expression": "not charged in pinned source"
+      },
+      {
+        "site": "rows_at:L48:Wo @ Ag",
+        "historical_expression": "T * int(g.sum()) * T"
+      },
+      {
+        "site": "__init__:L59:R @ P",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "__init__:L59:R @ U",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "__init__:L59:R @ nn",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "__init__:L65:L @ P",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "__init__:L65:L @ U",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "__init__:L65:L @ nn",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "trace_arc_rows:L258:A @ P",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "trace_arc_rows:L258:A @ U",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "est_fibre:L273:wcl @ nn",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "est_fibre:L273:wcl @ P",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "est_fibre:L273:wcl @ U",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "est_fibre2:L433:wcl @ nn",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "est_fibre2:L433:wcl @ P",
+        "historical_expression": "dense MAC dimensions"
+      },
+      {
+        "site": "est_fibre2:L433:wcl @ U",
+        "historical_expression": "dense MAC dimensions"
+      }
+    ],
+    "look": 3
+  },
+  "scope": "primitive and named-kernel counts only"
+}
