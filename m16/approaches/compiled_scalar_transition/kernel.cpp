@@ -10,6 +10,7 @@ extern "C" int gaussian_basis(std::int64_t n,const double* lo,const double* hi,
  for(std::int64_t i=0;i<n;i++){
   const double l=lo[i],r=hi[i],c=(l+r)/2,h=(r-l)/2;
   if(!(r>l)||!std::isfinite(l)||!std::isfinite(r)||!std::isfinite(ss[i])||!std::isfinite(tt[i])||!std::isfinite(ds[i])||!std::isfinite(dt[i]))return 1;
+  if(l < -6.0 || r > 6.0)return 2;
   const double M=std::abs(c)*h+h*h/2;
   const double mass=l>=0?Phi(-l)-Phi(-r):Phi(r)-Phi(l);
   const double pl=std::exp(-l*l/2)*invsqrt2pi,pr=std::exp(-r*r/2)*invsqrt2pi;

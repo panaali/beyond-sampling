@@ -28,10 +28,11 @@ for index,(l,r,ss,tt,dd,ee) in enumerate(rows):
             return h*value*mp.exp(-(c+h*v)**2/2)/mp.sqrt(2*mp.pi)
         exact=mp.quad(f,[-1,1]);err=float(abs(mp.mpf(new[index,k])-exact));assert err<=3e-12
         independent.append(dict(interval=index,basis=k,error=err,quadrature_only_bound=float(b1[index]),floating_error_exceeds_bound=bool(err>b1[index])))
-for bad in ('zero_width','nan'):
+for bad in ('zero_width','nan','outside_domain'):
     values=[x[:1].copy() for x in arr]
     if bad=='zero_width':values[1]=values[0].copy()
-    else:values[0][0]=np.nan
+    elif bad=='nan':values[0][0]=np.nan
+    else:values[0][0]=-7.;values[1][0]=-6.5
     try:backend.integrate(*values,stats)
     except ArithmeticError:pass
     else:raise AssertionError('invalid input accepted')
