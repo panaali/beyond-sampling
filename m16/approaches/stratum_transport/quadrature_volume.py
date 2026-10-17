@@ -12,13 +12,16 @@ class QuadratureOperator(SupportOperator):
         self.q=(1+q)/2;self.qw=w/2;self.order=order
         self.work['source_rule_constructions']+=1
 
+    def source_reweight(self,kind,points,weights):
+        return weights
+
     def source_nodes(self,state):
         nodes=[];weights=[];q=self.q;qw=self.qw
         for i in (0,1):
             for j in np.flatnonzero(state.axes[i]):
                 a,b=state.edges[i][j:j+2];r=a+(b-a)*q
                 h=np.zeros((len(q),2));h[:,i]=r
-                nodes.append(h);weights.append(state.axes[i,j]*qw)
+                nodes.append(h);weights.append(self.source_reweight('axis'+str(i),h,state.axes[i,j]*qw))
         if state.ray_factor:
             a,b=state.ray_edges[:-1],state.ray_edges[1:]
             r=a[:,None]+(b-a)[:,None]*q
@@ -38,13 +41,15 @@ class QuadratureOperator(SupportOperator):
                     self.work['support_source_triangles']+=1
                 raw=np.asarray(raw)
                 if not len(raw) or np.any(raw<=0):raise ArithmeticError('invalid positive polygon quadrature')
-                nodes.append(np.array(points));weights.append(state.area[i,j]*raw/raw.sum())
+                points=np.array(points)
+                nodes.append(points);weights.append(self.source_reweight('area',points,state.area[i,j]*raw/raw.sum()))
                 self.work['support_polygon_source_nodes']+=len(raw)
             else:
                 a,b=state.edges[0][i:i+2];c,d=state.edges[1][j:j+2]
                 x,y=np.meshgrid(a+(b-a)*q,c+(d-c)*q,indexing='ij')
-                nodes.append(np.column_stack((x.ravel(),y.ravel())))
-                weights.append(state.area[i,j]*(qw[:,None]*qw).ravel())
+                points=np.column_stack((x.ravel(),y.ravel()))
+                nodes.append(points)
+                weights.append(self.source_reweight('area',points,state.area[i,j]*(qw[:,None]*qw).ravel()))
         if not nodes:return np.empty((0,2)),np.empty(0)
         H=np.concatenate(nodes);P=np.concatenate(weights)
         if state.support_kind in ('upper','lower'):
