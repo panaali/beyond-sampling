@@ -186,3 +186,21 @@ fixed rule by1.79e-17. Zero-threshold controls at m0/2/6 reproduce
 1/48,1/320,1/9216. CPU .000438 seconds. The completed eight signed
 events cover about .32226979, leaving about .67773021 unresolved;
 neither this contribution nor coverage is the full model accuracy.
+
+## Exact four-suffix ambiguity complement
+
+Independent check_complement_review.py rebuilds all25 saved nonzero affine
+gate/readout inequalities from the saved rational model, without importing
+author certificate functions. For suffix(-1,-1,+1,-1), initial h=(0,0)
+and(256,0) produce labels0 and6. Every rebuilt inequality agrees exactly;
+the common radius928873407584354211505/12871199735412830144098 keeps at
+least half of every center slack throughout the box. Separate direct
+Fraction recurrence at all32 state/vertex cases preserves both labels.
+
+With |x_i|<1.25, sqrt(2*pi)<3 and e<3 imply phi(x_i)>1/9.
+The exact positive mass lower bound(2*rho/9)^4 is6.614544537666294e-8.
+Thus uniform classification for every arbitrary nonnegative prior hidden
+state cannot cover this suffix box. This is not an accuracy obstruction
+under the actual prefix law, a practical coverage ceiling, or a negative
+about state-conditioned/longer-suffix integration. Actual reachable open
+prefix boxes are a separate proposed extension, not checked here.
