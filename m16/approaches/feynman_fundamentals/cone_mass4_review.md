@@ -1384,3 +1384,15 @@ would therefore contribute497,715 numeric categories and18,685 named libm calls;
 adding32,262 exposed expressions gives529,977 partial numeric categories.
 This arithmetic does not close libm internals, other opaque kernels, control,
 memory or complete native cost, and supplies no speed comparison.
+
+### k28 historical inventory before native recovery
+
+`check_k28_inventory_review.py` verifies source hashes and evaluator AST equality,
+all5,120 saved truths and both recipes' error arrays, and independently contracts
+the ten historical mean-counter ratios with exact fractions. Original checkpoint
+byte hashes, per-copy model identities and per-copy costs remain absent. Current
+canonical checkpoint retrieval can establish current object provenance, but
+cannot retroactively prove historical byte identity. Future parity must compare
+the original computed estimate-minus-truth subtraction with saved errors;
+adding an error back to truth does not recover the original estimate bits.
+This review used0.0838 CPU seconds with no downloads or evaluator calls.
