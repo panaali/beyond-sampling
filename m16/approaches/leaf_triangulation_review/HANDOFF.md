@@ -1,6 +1,6 @@
 # T136 bounded handoff
 
-Claim3e02ca4, protocol89eadbd, controls/implementation18f0ea1. Independent T55 review pending. No shared code edits.
+Claim3e02ca4, protocol89eadbd, controls/implementation18f0ea1. Independent T55 review1854472 complete: different coordinate elimination construction reproduces all337 hulls within2.01e-16, vertices and aggregates checked; common Qhull/floating limitations retained. No shared code edits.
 
 Fixed H8T4 seed0 parents0,1,20,21: all337 raw leaf cones (1762 source pulling simplices) agree with independent ConvexHull volumes constructed from all raw vertices, in ordinary and full-SVD-conditioned affine coordinates. Both frozen parent-relative screens pass. Maximum parent aggregate relative residual2.11e-15; maximum per-leaf raw absolute discrepancy1.46e-16. Inequality/incidence residuals<=2.72e-16. Trained CPU2.10seconds, peakRSS221372KiB, no Gaussian integration or random inputs.
 

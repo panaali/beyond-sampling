@@ -15,7 +15,7 @@ Fixed trained diagnostic tolerances: report every raw/conditioned per-leaf absol
 Alternatives: (1) source pulling omits a face or duplicates simplices: independent full-vertex hull volume can expose a discrepancy; (2) clipping already omitted extreme rays: both representations can agree, so this check cannot rule it out alone; (3) signed quadrature bias causes the mass mismatch despite good affine volumes: no Gaussian mass is evaluated here. Equal volumes alone do not prove absence of overlapping and compensating missing regions or certify all floating topology.
 
 ## Status
-Bounded four-parent capture complete; independent source/raw-artifact review pending. No full topology or Gaussian-mass certification.
+Bounded four-parent capture complete; independent source/raw-artifact review complete1854472. No full topology or Gaussian-mass certification.
 
 ## Results
 Eleven frozen analytic controls completed. Orthant, unit boxes and unrotated widths down to2^-45 agree to about1.6e-15 relative. Hadamard-rotated width2^-45 exposes floating input/projection precision: source error .00108507, raw hull .00121088, conditioned hull .00206163 relative to ideal volume (absolute errors below6e-17). This failure is preserved in controls.json; SVD cannot recover bits already lost before conditioning. Flat control is rejected as expected. The trained fixed-parent screen remains a parent-relative finite diagnostic, not an accuracy guarantee for extremely thin individual leaves. Command: one-thread Python review.py controls (0.206CPU seconds including imports).
@@ -36,3 +36,5 @@ Uncaptured parents, clipping omissions, offsetting overlaps/gaps, floating incid
 
 ## Failure modes
 Very thin projected hulls can exceed QHull precision; SVD conditioning can amplify input roundoff. Source rays and incidences remain floating inputs. Equal aggregate volume can hide local defects, and shared source capture is not independent neural geometry enumeration.
+
+Independent review1854472 (T55): alternative coordinate map eliminates the largest anchor coordinate, computes Qhull in the remaining3 coordinates and multiplies by ||a||/|a_p|. All337 saved leaf hulls pass; max difference from source2.01e-16, all1762 source-simplex vertices equal original leaf rays, aggregates reproduced. This is an independently coded coordinate construction with the same Qhull backend, not an exact topology certificate. Reviewer CPU .160seconds.
