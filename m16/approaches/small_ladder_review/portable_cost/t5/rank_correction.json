@@ -1,0 +1,86 @@
+{
+  "captured_matrix_rank": 3,
+  "captured_matrix_cost": {
+    "known_arithmetic_upper_bound": 2819,
+    "parts": {
+      "qr_control_static": 1024,
+      "qr_norm": 324,
+      "qr_bounds": 38,
+      "qr_pivot": 288,
+      "qr_normalize": 15,
+      "qr_project": 480,
+      "qr_reorthogonalize": 120,
+      "qr_bracket_products": 422,
+      "qr_inverse": 108
+    },
+    "black_box_kernels": [],
+    "events": {},
+    "validation_kernel_calls": {}
+  },
+  "threshold_ambiguity_retained": true,
+  "geometry": {
+    "gate_cells": 162,
+    "stage_counts": [
+      2,
+      6,
+      18,
+      54,
+      162
+    ],
+    "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+    "original_dd_counter": 1198278.0,
+    "original_dd_parts": {
+      "lift": 29376.0,
+      "clip": 880514.0,
+      "adj": 263548.0,
+      "final": 24840.0
+    }
+  },
+  "correct_simplices": 3969,
+  "geometry_cost": {
+    "known_arithmetic_upper_bound": 55833393,
+    "parts": {
+      "module_bitset_setup": 384,
+      "root_gate_setup": 400,
+      "gate_map_setup": 108352,
+      "lift_scalar": 35392,
+      "zero_normal_check": 54206,
+      "clip_scalar": 1728223,
+      "clip_adjacency": 20290732,
+      "clip_new_rays": 9168352,
+      "gate_masks": 6984,
+      "outcome_maps": 16200,
+      "outcome_predicates": 29322,
+      "outcome_control": 33384,
+      "orthant_control": 62250,
+      "ray_l1_normalization": 74220,
+      "tri_incidence": 1971456,
+      "tri_control": 166730,
+      "tri_face_scan": 4351390,
+      "rank_result_test": 6153,
+      "qr_control_static": 6300672,
+      "qr_norm": 1848660,
+      "qr_bounds": 233814,
+      "qr_pivot": 1583630,
+      "qr_normalize": 85255,
+      "qr_project": 2580600,
+      "qr_reorthogonalize": 675080,
+      "qr_bracket_products": 2327392,
+      "qr_inverse": 646712,
+      "determinant_control": 1016064,
+      "determinants": 427415,
+      "simplex_test": 3969
+    },
+    "black_box_kernels": [],
+    "events": {
+      "lift_calls": 160,
+      "clip_calls": 5435,
+      "triangulate_calls": 558,
+      "bounded_rank_calls": 6153
+    },
+    "validation_kernel_calls": {
+      "matrix_rank_SVD": 6153
+    }
+  },
+  "cpu_seconds": 1.394977811
+}

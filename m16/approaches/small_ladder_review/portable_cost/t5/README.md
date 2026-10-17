@@ -45,3 +45,15 @@ The failure reports retained rank4 lower bound1.4805e-10, omitted bound1.9991e-1
 The captured4x5 matrix in `rank_failure.json` has singular values approximately1.99894,0.00182878,3.64127e-6,1.50048e-10; its SVD threshold rank is3. Diagnostic CPU0.185 seconds, one reference-only SVD. The bounded routine waits for residual<=0.1*tol before proposing a rank, so it unnecessarily retains this sub-threshold direction. Change only the proposal trigger to residual<=tol; keep the final retained/omitted singular-value bracket and floating cushion unchanged. A proposal still fails unless the existing bracket proves every retained value>tol and every omitted value<tol.
 
 Falsifiers before use: the exact captured matrix must return3 with the same final bracket, and the exact-threshold fixture must still raise ambiguity. Then compare every rank decision on the previously failed sigma0.02 geometry with SVD, with all reference work separately recorded. No one-sided Jacobi or opaque production fallback is introduced. Preserve original failed curve and run the corrected sigma0.02 curve into a separate result file; do not rerun completed base/noise curves unnecessarily.
+
+### Cycle 3 results
+The proposal-only correction returns rank3 on the captured matrix and retains the exact-threshold ambiguity. All6153 sigma0.02 DD rank decisions agree with separately counted validation SVD; geometry has162 gate cells and3969 correct simplices. This diagnostic took1.395 CPU seconds. Final acceptance brackets and their roundoff caveats are unchanged.
+
+The corrected full production curve is preserved separately in `corrected_sigma002.json` and took21.850 CPU seconds. GL16/24/32 estimates are0.3250610824108350/0.3250610824117561/0.3250610824117566. Full charged operation counts are2,383,250,642 /7,866,329,848 /18,543,899,362. Conditional integration bounds are6.301e-4 /7.260e-7 /6.522e-10. Squared-bound/equal-affine-operation sampling-variance ratios are66.35 /2.91e-4 /5.53e-10. GL16 remains insufficient under this conservative bound; GL24 and GL32 support the conditional arithmetic comparison on all three frozen models.
+
+No production SVD or random model inputs occur. The sigma0.02 GL24 result is2.999e-11 below the prior T48 reference, comfortably within its saved2.247e-5 integration bound. Original failed results remain intact. Reproduce this corrected case with:
+```
+flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python -m m16.approaches.small_ladder_review.portable_cost.t5.run --case rms0.02 --output corrected_sigma002.json
+```
+
+The specialization must not be silently generalized to T6: its outcome IDs60..69 would overlap T6 gate IDs65/66. A future extension must allocate disjoint constraints (and re-audit bitset capacity). This does not affect the H2T5 results.
