@@ -80,7 +80,8 @@ model. Five model seeds are fixed panel, not a population-generalization claim.
 
 ## Status
 Initial correlated-rule panel completed; independent review caught a seed
-namespace defect before statistical acceptance. Clean rescue frozen below.
+namespace defect before statistical acceptance. Clean rescue completed;
+independent point-statistic review requested. Finite H16T4/5/6 phase only.
 
 ## Frozen independent-namespace rescue
 T55 found that the inherited kind12 offset+7 causes rule r's kind12 scramble
@@ -101,18 +102,82 @@ preserving old panels. One bounded<=100CPU primary-lock cycle perT, no new
 truths or model sweeps. Do not choose between old/new estimates by accuracy.
 
 ## Results
-Pending. Commands and hashes will accompany artifacts.
+The disjoint-namespace results preserve a substantial T4->T5 decline at64k,
+and show why a fixed threshold has no budget-independent meaning. Geometric
+means across the five specified seeds, corrected cold FPE proxies:
+
+| Nominal budget | T | Variance gain | MSE gain [conditional95% CI] |
+| ---: | ---: | ---: | --- |
+| 16000 | 4 | 2.555 | 2.676 [2.183,3.837] |
+| 16000 | 5 | 1.246 | 1.247 [.947,1.927] |
+| 16000 | 6 | .802 | .798 [.630,1.190] |
+| 64000 | 4 | 41.413 | 43.060 [28.923,61.822] |
+| 64000 | 5 | 5.045 | 5.036 [3.240,7.657] |
+| 64000 | 6 | 1.692 | 1.858 [1.268,3.347] |
+
+Threshold-free MSE decline factors: at16k, T4/T5 is2.145 [1.422,3.111]
+and T5/T6 is1.562 [.985,2.592]; at64k,8.551 [4.945,14.473] and
+2.710 [1.335,4.468]. Variance decline factors at64k are8.209 [5.354,11.994]
+and2.982 [1.645,4.556]. These are fixed five-seed panel intervals conditional
+on the explicit numerical-cost and approximate truth-uncertainty model, not
+population coverage guarantees. They cannot certify a deductive rung.
+
+Per-seed MSE gains (seeds0,1,2,3,4, no best-seed selection):
+
+| Budget | T | Gains |
+| ---: | ---: | --- |
+| 16000 | 4 | 2.598,2.574,1.896,3.171,3.412 |
+| 16000 | 5 | 1.911,3.864,.675,.935,.648 |
+| 16000 | 6 | .598,1.447,.794,.715,.660 |
+| 64000 | 4 | 36.918,59.605,80.142,29.119,28.829 |
+| 64000 | 5 | 8.521,7.127,2.834,5.425,3.469 |
+| 64000 | 6 | 1.620,1.652,3.380,1.873,1.309 |
+
+All30 mean budgets lie between.96805 and1.00103 of target; none triggered the
+frozen10% replanning criterion. The comparison is approximately matched, not
+an exact-cost equality. The T5seed1/64k truth SE exceeds half the estimator SD;
+that cell retains its unresolved-truth flag rather than switching to a better
+metric. All point denominators are positive. Full uncertainty/diagnostics are
+in `independent_analysis.json`; original correlated panel remains in
+`analysis.json` with inference explicitly invalidated.
+
+The30million-operation table proxy alone costs12500,10000,8333.33 FPE at
+T4,5,6 respectively. This dominates16k and is explicitly declared, not a
+validated instruction count. Warm costs in every row expose this assumption;
+these same rows do NOT constitute a new warm-budget-matched experiment.
+Changing cost assumptions would require new counts/runs for matched budgets.
+
+Reproduce with the pinned interpreter and lock/thread/memory policy:
+`python calibrate.py`; `python run_panel.py --T 4 --independent` (repeat T5,6);
+`python analyse.py --independent`. Original failure uses the same commands
+without `--independent`. Existing files resume completed rules, so use a clean
+owned artifact directory for a genuinely cold replay. Protocol/calibration
+commits882862b/09dfdf7 precede outcomes; rescue protocole629db8 precedes reruns.
 
 ## Compute accounting
 Charge checkpoint loads, table construction, calibration, nodes/face mapping,
 all walker counters, failed controls, reductions and bootstrap. Historical truth
 generation is reused evidence with original cost separate. Actual measured CPU
 and composed per-call cold operation proxies are not interchangeable.
+Measured total CPU68.949012327 seconds includes calibration/controls2.092491533,
+original production33.271591812, clean production33.448898910, and both
+analysis passes. Max RSS265060KiB. Both panels together execute1917376 production
+faces,17896062 gate cells,44109389 suffix-step vectors and79253752 CDF calls.
+Their recorded walker arithmetic categories total78,559,256,192 proxy operations
+(including declared CDF allowances); setup/node/pilot proxies remain separate.
+The control and15 cost-pilot work is retained separately in calibration.json;
+every reported estimator cost charges its own pilot/setup, even though repeated
+identical diagnostic calibration work was reused across rules. No new truth
+sampling; inherited T2 truth generation is not erased from the evidence cost.
 
 ## Claims
 [inferred] Fixed face count does not ensure equal compute. [speculative] A
 threshold-free within-seed decline persists at nominally matched budgets.
-No present accuracy/gain claim.
+[measured] Under the explicit cold proxies the clean fixed panel retains a
+large64k T4->T5 decline. [measured] Budget strongly affects its magnitude.
+[inferred] Fixed threshold-crossing language obscures these dependencies.
+No mechanistic solution, all-seed/noisy rung pass, portable-FLOP guarantee or
+family-wide impossibility follows.
 
 ## Alternatives not ruled out
 Other allocations, boundary partitions, deterministic mechanism recipes,
