@@ -77,3 +77,17 @@ polygon formulas, positive bounded fixed rules, batching and native kernels.
 Affine offsets accidentally dropped, duplicate zero gates, readout ties,
 near-coincident lines, insufficient thin-region error control, quadrature
 error estimates mistaken for proofs, and wrong previous-prefix measure.
+
+## Toy primitive checkpoint
+`controls.py` completes36 model/state/threshold panels (all4 readout labels,
+both rank needs) in .593CPU. All-label partition and independently swapped
+integration-axis discrepancies are<=4.45e-16. A separate direct scalar
+terminal recursion agrees on six fixed ordinary queries within1.06e-12;
+positive hidden/input rescaling1e-16 agrees within1.12e-16. Constant,
+duplicate, exact-zero gates, Wh0 and a1e-9 thin-readout fixture all pass.
+No quadrature warning is ignored: a nonconverged QUADPACK return raises.
+Quad errors are diagnostics, not rigorous floating bounds. The JSON stores
+all values; the detailed ledger covers the36 main panels, while total CPU
+also includes independent direct/scale checks whose event counters are not
+combined into that ledger. This is not a complete arithmetic inventory.
+Independent source review requested before the frozen trained primitive panel.
