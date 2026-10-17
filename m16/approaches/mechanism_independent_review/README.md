@@ -30,23 +30,54 @@ than assuming transfer. Antisymmetric readout offsets and stable gate histories
 are distinct claims, not evidence for every proposed neuron role.
 
 ## Status
-Primary-source audit underway. <=110CPU/2GB per cycle, shared locks and
-single thread for numerical work. No edits to author/shared files and no claim
-self-confirmation. Claude remains DRI.
+Bounded review complete; DRI handoff. Independent T55 algebra review f813e13
+supports the symmetry argument; no claim self-confirmation. Claude remains DRI.
+No author/shared files were edited or external source code executed.
 
 ## Results and reproduction
-Pending. Commands, source provenance and numerical checks will be retained.
+`COMPARISON.md` contains the eight-claim comparison, algebra, primary-source
+pointers and limitations. `source_log.json` records pinned source hashes and
+post-January-2026 readings for parent integration into `lit/web_log.md`.
+`results.json` retains complete spectra and finite controls.
+
+The apparent5.4/8.4 discrepancy is raw Wh versus the common gated matrix:
+independent periods5.37064 and8.42149 on the same public checkpoint.
+M1/S.8 two-impulse accuracy90/90 reproduces; S.2 gives89/90 and S.99 gives77/90.
+Relative gate histories agree under translation within each ratio but change
+in200/330 and150/330 post-second comparisons across ratios.
+Balanced offset fitting forces G=-F algebraically even for unlearned synthetic
+data. Actual separability R²=.910112 differs from source doc33's.89; this
+discrepancy is retained. Separability and discrimination remain substantive,
+separate measurements. No Gaussian accuracy estimator is produced.
+
+Reproduce from this worktree:
+```
+ulimit -v 2500000
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+flock /workspace/work/codex-review.lock \
+/workspace/clean-neurons/.venv/bin/python \
+m16/approaches/mechanism_independent_review/check.py \
+--weights /workspace/work/t39_sources/example_checkpoint.pth
+```
+Checkpoint public URL and exact SHA256 are in `source_log.json`.
 
 ## Compute accounting
 Documentary reads and bounded matrix algebra; charge checkpoint loading, all
 decompositions/forward trajectories and setup CPU. No accuracy-estimator or
-equal-compute claim is implied by a mechanism comparison.
+equal-compute claim is implied by a mechanism comparison. Total numerical CPU
+including Python imports/loading/setup0.92721sec, peak RSS197568KiB. Counts:
+7 eigendecompositions,360 sequences,3600 hidden steps,3600 readout vectors,
+2 least-squares diagnostics,0 random model inputs. JSON serialization follows
+the timing snapshot; network retrieval and documentary review are separate.
 
 ## Claims
 [inferred] Comparing periods requires specifying the actual recurrent operator.
-[speculative] The apparent5.4/8.4 discrepancy is definitional, pending direct
-source and weight checks. A third-party qualitative account is not an
-independent proof of Gaussian accuracy.
+[measured] The apparent5.4/8.4 discrepancy is reproduced by different operators
+on the same checkpoint. [inferred, independently algebra-reviewed] Balanced
+antisymmetric fitting forces G=-F; it is not sufficient evidence of learning.
+[measured] Impulse accuracy/gate histories depend on magnitude ratio.
+[inferred] A third-party qualitative account is not an independent proof of
+Gaussian accuracy, causal neuron roles, or estimator cost advantage.
 
 ## Alternatives not ruled out
 Checkpoint mismatch, gate/input-history dependence, nonnormal transients,
