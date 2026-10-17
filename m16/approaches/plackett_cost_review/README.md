@@ -57,10 +57,42 @@ uncertainty and no noisy-suite/rung success claim.
    call shapes and state the limitation instead of inventing kernel costs.
 
 ## Status
-Protocol frozen; pinned source inventory and primitive controls next.
+Bounded full trace complete; independent raw aggregate review pending.
 
 ## Results
-Pending. No new mass, accuracy, seed/noise or recipe experiment.
+All eight geometry batches reproduce all35098 ordered ray arrays,8455
+terminal cells, and the35650854 legacy geometry count. No trained Gaussian
+mass was recomputed. Independent source review by56 and T55 passed before
+the trained trace; T55 independently derives the192-per-node and512-sampler
+counts.
+
+| Category | Explicit named units |
+| --- | ---: |
+| Full geometry, correcting seven extra diagnostic return subtractions | 42,396,504 |
+| Mass from existing fixed branch census | 510,972,352 |
+| Cold chamber construction | 30,288 |
+| Executed original plus candidate rule setup expressions | 1,624 |
+| Visible cold total | **553,400,768** |
+
+Opaque additional kernels:2,659,906 4x4 inverses (including48 cold chamber
+inverses),35,098 determinants,275,897 matrix-rank/SVD calls, and four
+model-independent leggauss generations. Rank shapes range1x4 through24x4;
+208,370 calls use2x4. Membership/hash/tuple search, short-circuit machinery,
+memory/indexing and native implementation internals remain unpriced.
+
+Conditioned on the saved single-checkpoint reference and its integration
+bound only, equal-bias sampling break-even total cost is about609.4 billion
+of the declared units. The visible subtotal's squared-bias comparison is
+about0.000908, leaving large algebraic headroom for opaque work. This is
+**not a complete cost comparison or a sampling win**: these unknowns and
+floating geometry/reference uncertainty remain. Other seeds/noisy copies
+are outside this audit. T150 independently studies inverse dispatch costs.
+
+Trace functions used50.542638CPU total, maxRSS202000KiB. Timings include
+model loading and repeated source/rule/chamber setup inside each batch, but
+exclude initial module imports and final JSON serialization. They are review
+costs, not production timing. Cold setup is composed once for one estimator;
+the eight review launches are retained as consumed diagnostic compute.
 
 ## Compute accounting
 One thread,2GB; review lock for <=20CPU controls, primary lock <=110CPU for
@@ -124,3 +156,17 @@ membership/identity comparisons, set/hash/tuple searches, Boolean short
 circuit machinery, implicit loops and dispatch. These are not free in any
 whole-implementation claim. The reviewed inventory is a common abstract
 expression convention with opaque categories, not a portable total.
+
+## Reproduce
+Use the project interpreter, one BLAS thread,2GB cap and the appropriate
+shared lock.
+```sh
+python m16/approaches/plackett_cost_review/controls.py
+python m16/approaches/plackett_cost_review/geometry.py controls
+python m16/approaches/plackett_cost_review/mass_summary.py
+# Run geometry.py with each integer0..7, one bounded primary-lock phase each.
+python m16/approaches/plackett_cost_review/summarize.py
+```
+Every source, model, archived reference and trace source is pinned in
+`inventory.py` / `trace_provenance.json`. Scope remains an explicit-expression
+ledger with opaque categories; it is not a full hardware instruction count.
