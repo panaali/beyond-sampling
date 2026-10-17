@@ -922,3 +922,17 @@ face formula independently confirms legacy first-index tie defect while
 retaining new outer approximation bias. T82 Fraction area fallback repairs
 its saved fixture; exact-sign conversion/convexity qualifications sent owner.
 No numerical experiment or production edits.
+
+## Cycle 44 protocol: mixed-precision common-root falsifier
+T66 reports ~26–28 extra pieces/circle with near-identical integral. At step1,
+all nonzero input weights share exact root -U0/V0. Mixed double products
+followed by long-double division may expose distinct rounded ratios instead.
+Reconstruct only the existing32 fixed planes and weights, count distinct
+first-step roots in both arithmetic modes, and compare2*(mixed−stable) to
+saved full-circle piece differences. No new walks or root merging. Exact
+common-factor argument distinguishes a precision artifact from genuine gates.
+Cycle44 completed: common first-step factor explains all96 H16 extra-piece
+counts exactly (24–30/circle). H2 leaves later residuals on29/32 planes.
+.01449CPU, zero network forwards. Separate algebraic factoring rescue is
+justified; no epsilon/root merging or topology certification. See
+common_root_review.md and raw per-plane counts.
