@@ -27,3 +27,9 @@ Additional seeds/noise, correct accounting of all model-dependent operations, ri
 
 ## Failure modes
 Missing model/source hashes, historical input correlation, bootstrap conditionality, counter-transfer bias, shared floating topology, positive-volume ties, duplicate gate patterns and retrospective variant selection.
+
+## Frozen gap-driven semantic phase
+
+TASKS continuationbaf3d099 pushed before probes. Existing `Num` has no equality methods, while `_test` checks numeric `!=0`; the saved count panel itself has output differences up to3.28215e-6. First compare wrapped/plain0 and1 equality. Then run only existingH8seed2 noise89copy3 andH4seed1 noise89copy2 (selected from already-recorded counter discrepancies, not new accuracy claims), using locally cached checkpoint hashes. Compare original float, original wrapped and in-memory equality-only repaired wrapper, all with unchanged recipe constants. Repair only `__eq__`/`__ne__`, recording their operation count; preserve unary-negation and other accounting omissions. No full cost-panel rerun or general count transfer.
+
+Four exact analytic constant-first-label controls atH1,T3: (a) Wi0/Wh0/Wo0, (b) Wi1/Wh0/Wo0, (c) Wi1/Wh0/Wo rowsall1, (d) Wi1/Wh0/Wo[1,0,-1]. Each network always predicts firstlabel0 and therefore accuracy1/3 by exchangeability. Run both recorded exact references and original recipe/float reimplementation. Failures scope positive-volume tie ownership, not generic continuous-weight panel accuracy. No shared fixes or extra variants. This phase also records exact source/dependency and checkpoint hashes; no downloaded weights or model-input MC.
