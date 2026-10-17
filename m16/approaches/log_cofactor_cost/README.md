@@ -13,16 +13,20 @@ Tentative3x3 category derivation: LU arithmetic24, absolute/comparison lanes63, 
 For visible source costs, state a consistent arithmetic-expression convention; inventory each scalar/vector/matrix dot, reduction, norm, transcendental and comparison. Record model-free reusable rule generation separately. Do not add the inherited mass counter to newly recounted operations (double counting); retain old totals for comparison. Numeric-library internals, integer/control, memory/allocation and setup exclusions remain explicit. No extrapolated multiplier from old mass rules or other estimator panels.
 
 ## Status
-Claimed; frozen source and controls, no new determinant runs yet. T179256 source/control gate independently292b54cc; latest full c05a4bd2 raw audit pending.
+Bounded source/control/contraction complete; independent final raw review pending. T179 latest full census c05a4bd2 independently reviewed4cc3fe39.
 
 ## Results
-None. T178 prior handoff49fbc301/review292b54cc is separate saved Hopf evidence.
+All18 frozen fixtures (19 matrices) preserve determinant outputs bitwise under GETRF/log/exp interposition and process-local child-kernel capture. Finite exact-rational comparisons pass, including retained singular/subnormal/overflow/underflow/nonfinite cases. The observed19 GETRF calls have dimensions/lda3,51 logs and19 exps;17 successful and2 singular matrices. Actual runtime pointers/block parameters match the pinned prior dispatch. Child shapes match the proposed3x3 bounds with no GEMM/solve path. This supports the104-unit named numeric subset, not a full library cost.
+
+The reviewed35,098-cone census contains17,955 thin and17,143 wide calls. Source-visible arithmetic978,197,934 plus small-native determinant/inverse category envelopes1,800,324,820 gives hybrid2,778,522,754. The inherited mass counter is1,064,714,168; their2.60964 ratio is only an accounting diagnostic, not a cost correction multiplier for MSE. Model-free runtime constants190,197 remain separate. See VISIBLE_LEDGER.md, DETERMINANT3.md and summary.json for categories. These are exact-source mass calls, not a full recipe or estimator count. No mass/model/MC reevaluation occurred.
+
+Reproduce: compile spy.c with gcc -shared -fPIC -O2 -ldl and kernel_spy.c likewise; run controls.py baseline, LD_PRELOAD=<absolute spy.so> controls.py instrumented, and controls.py kernels under the review lock with one thread2GB. summarize.py contracts saved controls/census. Control CPU .024640942+.028443582+.040779073=.093863597; contraction .002191372, imports/compilation separate. No unplanned repeated numerical runs.
 
 ## Compute accounting
 One thread2GB; bounded analytic controls under20CPU review lock, source/count work only. No mass/model/geometry/MC replay. Instrumentation is validation work and not inference overhead. Elementary function calls count as named operations while libm internals remain unpriced; category envelopes are not hardware instruction counts.
 
 ## Claims
-[inferred] Previously reviewed4x4 native categories may transfer after exact binary/dispatch checks. [speculative] Tentative3x3 subtotal104. No full-cost superiority, quadrature accuracy or rung claim.
+[inferred] Previously reviewed4x4 native categories may transfer after exact binary/dispatch checks. [measured/inferred] Frozen actual-dispatch controls and source/lane analysis support3x3 numeric subset104, pending independent final raw review. No full-cost superiority, quadrature accuracy or rung claim.
 
 ## Alternatives not ruled out
 Different small-size dispatch or packed lanes could invalidate naive dimension scaling: inspect binary and actual shapes. Source/counter mismatch could explain inherited low costs: reconstruct branch arithmetic directly. Thin and wide costs differ: retain both multiplicities and no mean multiplier. Reusable setup might be free under protocol but model-dependent executed inverse is not: separate rather than erase it.

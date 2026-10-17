@@ -1,0 +1,856 @@
+{
+  "mode": "instrumented",
+  "rows": [
+    {
+      "name": "identity",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "0x1.0000000000000p+0"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "1"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.0000000000000p+0"
+        }
+      ]
+    },
+    {
+      "name": "positive_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+1",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+2"
+      ],
+      "value_hex": [
+        "0x1.ffffffffffffep+2"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "8"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.0000000000000p+3"
+        }
+      ]
+    },
+    {
+      "name": "negative_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "-0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "-0x1.0000000000000p+1",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "-0x1.0000000000000p+2"
+      ],
+      "value_hex": [
+        "-0x1.ffffffffffffep+2"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 3,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "-8"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "-0x1.0000000000000p+3"
+        }
+      ]
+    },
+    {
+      "name": "one_swap",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "-0x1.0000000000000p+0"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 1,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "-1"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "-0x1.0000000000000p+0"
+        }
+      ]
+    },
+    {
+      "name": "dense",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+2",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "0x1.4000000000000p+2",
+        "0x0.0p+0",
+        "0x1.0000000000000p+1",
+        "0x0.0p+0",
+        "0x1.8000000000000p+2"
+      ],
+      "value_hex": [
+        "0x1.7800000000000p+6"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "94"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.7800000000000p+6"
+        }
+      ]
+    },
+    {
+      "name": "three_cycle",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.4000000000000p+2",
+        "0x0.0p+0",
+        "0x1.0000000000000p+1",
+        "0x0.0p+0",
+        "0x1.8000000000000p+2",
+        "0x1.0000000000000p+2",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "value_hex": [
+        "0x1.7800000000000p+6"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 2,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "94"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.7800000000000p+6"
+        }
+      ]
+    },
+    {
+      "name": "near_singular",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000001000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "0x1.0000000000000p-40"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "1/1099511627776"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.0000000000000p-40"
+        }
+      ]
+    },
+    {
+      "name": "zero",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "value_hex": [
+        "0x0.0p+0"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 0,
+        "singular": 1,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 0,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 1
+      },
+      "exact_determinants": [
+        "0"
+      ],
+      "reference_checks": [
+        {
+          "kind": "exact_zero_or_underflow",
+          "passed": true,
+          "reference_hex": "0x0.0p+0"
+        }
+      ]
+    },
+    {
+      "name": "duplicate_row",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+2",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "0x1.4000000000000p+2",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x1.4000000000000p+2",
+        "0x0.0p+0"
+      ],
+      "value_hex": [
+        "0x0.0p+0"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 0,
+        "singular": 1,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 0,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 1
+      },
+      "exact_determinants": [
+        "0"
+      ],
+      "reference_checks": [
+        {
+          "kind": "exact_zero_or_underflow",
+          "passed": true,
+          "reference_hex": "0x0.0p+0"
+        }
+      ]
+    },
+    {
+      "name": "subnormal_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x0.8000000000000p-1022",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "0x0.7ffffffffffbap-1022"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "1/89884656743115795386465259539451236680898848947115328636715040578866337902750481566354238661203768010560056939935696678829394884407208311246423715319737062188883946712432742638151109800623047059726541476042502884419075341171231440736956555270413618581675255342293149119973622969239858152417678164812112068608"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x0.8000000000000p-1022"
+        }
+      ]
+    },
+    {
+      "name": "small_dense",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p-248",
+        "0x1.0000000000000p-250",
+        "0x1.0000000000000p-249",
+        "0x1.0000000000000p-250",
+        "0x1.4000000000000p-248",
+        "0x0.0p+0",
+        "0x1.0000000000000p-249",
+        "0x0.0p+0",
+        "0x1.8000000000000p-248"
+      ],
+      "value_hex": [
+        "0x1.77ffffffffe8cp-744"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "47/2961193260766427870080908753323559866441509279473679754522422863056280045864824078237301652581494289303756200212728639995902214134435299666298460531313288000496778442422580538845568248046109094286466596972878396512780851085312"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.7800000000000p-744"
+        }
+      ]
+    },
+    {
+      "name": "large_dense",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+252",
+        "0x1.0000000000000p+250",
+        "0x1.0000000000000p+251",
+        "0x1.0000000000000p+250",
+        "0x1.4000000000000p+252",
+        "0x0.0p+0",
+        "0x1.0000000000000p+251",
+        "0x0.0p+0",
+        "0x1.8000000000000p+252"
+      ],
+      "value_hex": [
+        "0x1.780000000004dp+756"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "556704333024088439575210845624829254891003744541051793850215498254580648622586926708612710685320926389106165639992984319229616257273836337264110579886898144093394347175445141302966830632668509725855720230901138544402800004038656"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.7800000000000p+756"
+        }
+      ]
+    },
+    {
+      "name": "overflow_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+400",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+400",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+400"
+      ],
+      "value_hex": [
+        "inf"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "17218479456385750618067377696052635483579924745448689921733236816400740691241745619397484537236046173286370919031961587788584927290816661024991609882728717344659503471655990880884679896520055123906467064419056526231345685268240569209892573766037966584735183775739433978714578587782701380797240772477647874555986712746271362892227516205318914435913511141036261376"
+      ],
+      "reference_checks": [
+        {
+          "kind": "overflow",
+          "passed": true,
+          "reference_hex": "inf"
+        }
+      ]
+    },
+    {
+      "name": "underflow_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p-400",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p-400",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p-400"
+      ],
+      "value_hex": [
+        "0x0.0p+0"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "1/17218479456385750618067377696052635483579924745448689921733236816400740691241745619397484537236046173286370919031961587788584927290816661024991609882728717344659503471655990880884679896520055123906467064419056526231345685268240569209892573766037966584735183775739433978714578587782701380797240772477647874555986712746271362892227516205318914435913511141036261376"
+      ],
+      "reference_checks": [
+        {
+          "kind": "exact_zero_or_underflow",
+          "passed": true,
+          "reference_hex": "0x0.0p+0"
+        }
+      ]
+    },
+    {
+      "name": "balanced_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+500",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p-500",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "0x1.0000000000000p+0"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "1"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.0000000000000p+0"
+        }
+      ]
+    },
+    {
+      "name": "nan_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "nan",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "nan"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 1,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 1,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 1
+      }
+    },
+    {
+      "name": "infinite_diagonal",
+      "shape": [
+        3,
+        3
+      ],
+      "input_hex": [
+        "inf",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "value_hex": [
+        "inf"
+      ],
+      "spy": {
+        "getrf_calls": 1,
+        "m3": 1,
+        "n3": 1,
+        "lda3": 1,
+        "success": 1,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 1,
+        "log_calls": 3,
+        "nonfinite_log_inputs": 1,
+        "exp_calls": 1,
+        "nonfinite_exp_inputs": 1
+      }
+    },
+    {
+      "name": "batch",
+      "shape": [
+        2,
+        3,
+        3
+      ],
+      "input_hex": [
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+2",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "0x1.4000000000000p+2",
+        "0x0.0p+0",
+        "0x1.0000000000000p+1",
+        "0x0.0p+0",
+        "0x1.8000000000000p+2"
+      ],
+      "value_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.7800000000000p+6"
+      ],
+      "spy": {
+        "getrf_calls": 2,
+        "m3": 2,
+        "n3": 2,
+        "lda3": 2,
+        "success": 2,
+        "singular": 0,
+        "invalid": 0,
+        "nontrivial_pivots": 0,
+        "negative_diagonal_success": 0,
+        "nonfinite_diagonal_success": 0,
+        "log_calls": 6,
+        "nonfinite_log_inputs": 0,
+        "exp_calls": 2,
+        "nonfinite_exp_inputs": 0
+      },
+      "exact_determinants": [
+        "1",
+        "94"
+      ],
+      "reference_checks": [
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.0000000000000p+0"
+        },
+        {
+          "kind": "relative_or_subnormal",
+          "passed": true,
+          "reference_hex": "0x1.7800000000000p+6"
+        }
+      ]
+    }
+  ],
+  "complete": true,
+  "cpu_seconds": 0.028443581999999995,
+  "binary_hashes": {
+    "numpy_linalg": "2e075f582c3a25a21fe97a55931a0fdb22ceb84f4fce8203a5040d405ccf65ce",
+    "openblas": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96"
+  },
+  "runtime_dispatch": null,
+  "scope": "Frozen18 analytic fixtures19 matrices; native numeric categories only; no mass/model replay."
+}

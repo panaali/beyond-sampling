@@ -1,0 +1,68 @@
+{
+  "branches": {
+    "thin": {
+      "common_visible": 150,
+      "extra_visible": 38001,
+      "det3_calls": 0,
+      "det4_calls": 1,
+      "inverse4_calls": 1,
+      "model_free_runtime": 2,
+      "visible": 38151,
+      "native_small_subset_envelope": 466,
+      "hybrid_subtotal": 38617
+    },
+    "wide": {
+      "common_visible": 150,
+      "extra_visible": 16953,
+      "det3_calls": 784,
+      "det4_calls": 129,
+      "inverse4_calls": 1,
+      "model_free_runtime": 9,
+      "visible": 17103,
+      "native_small_subset_envelope": 104530,
+      "hybrid_subtotal": 121633
+    }
+  },
+  "det3_numeric_categories": {
+    "lu_arithmetic": 24,
+    "lu_abs_comparison": 63,
+    "reconstruction": 17
+  },
+  "cases": 35098,
+  "thin": 17955,
+  "wide": 17143,
+  "visible_expression_total": 978197934,
+  "native_small_subset_envelopes": {
+    "determinant3": 1397771648,
+    "determinant4": 392374752,
+    "inverse4": 10178420
+  },
+  "hybrid_subtotal": 2778522754,
+  "model_free_runtime_constants": 190197,
+  "hybrid_plus_runtime_constants": 2778712951,
+  "old_legacy_mass": 1064714168,
+  "hybrid_over_legacy_diagnostic": 2.6096419466449703,
+  "source_sha256": "b8d3baf0d85d47bf4a7a204f82cdfc648de580b47baea5f42a4c77c49beb906a",
+  "full_census_review": "4cc3fe39",
+  "control_totals": {
+    "getrf_calls": 19,
+    "m3": 19,
+    "n3": 19,
+    "lda3": 19,
+    "success": 17,
+    "log_calls": 51,
+    "exp_calls": 19,
+    "negative_diagonal_success": 3,
+    "nontrivial_pivots": 3,
+    "singular": 2,
+    "nonfinite_exp_inputs": 4,
+    "nonfinite_diagonal_success": 2,
+    "nonfinite_log_inputs": 2
+  },
+  "control_cpu": 0.09386359700000002,
+  "cpu_seconds": 0.002191371999999997,
+  "new_mass_model_MC_evaluations": 0,
+  "complete_native_upper_or_lower": false,
+  "sampling_ratio_not_computed": true,
+  "scope": "Pinned exact35098-cone mass calls only. Hybrid source-expression plus installed small-library category upper; BLAS/NumPy/builtin reduction internals, control/integer/memory, libm internals, geometry and cold setup remain unpriced. Not a full implementation bound or budget-comparable MSE."
+}
