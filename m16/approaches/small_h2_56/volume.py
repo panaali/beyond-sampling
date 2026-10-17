@@ -55,9 +55,9 @@ def sum_mass(rays,n):
   x,b,k=mass(v,n);value+=x;bound+=b;nodes+=k
  return dict(estimate=value,conditional_quadrature_error_bound=bound,nodes=nodes,order=n)
 
-def bernstein_bound(rays,n):
+def bernstein_bound(rays,n,degree=None):
  """Analytic bound optimized over a fixed grid of Bernstein ellipses."""
- d=len(rays);p=d/2;k=(2*n-d+1)//2
+ d=len(rays);p=d/2;k=(2*n-d+1)//2 if degree is None else degree
  if k<0:return float('inf')
  det=abs(np.linalg.det(rays));g=rays.T@rays
  # Tiny outward cushions; not a floating-point certificate for the entire geometry.
