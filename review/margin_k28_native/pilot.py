@@ -23,7 +23,7 @@ def main():
     model=tuple(w+.05*rng.standard_normal(w.shape) for w in base);digest=mh(model);assert digest==expected['hashes'][j];truth=rung['seeds']['0']['panel']['truths'][j]
     row=dict(copy=j,model_sha256=digest,truth=truth,reused_control=j==0,recipes={});out['rows'].append(row);save()
     for name in ('r85b','r112'):
-     raw=dict(copy=j,model_sha256=digest,recipe=name,reused_control=j==0,complete=False)
+     raw=dict(copy=j,model_sha256=digest,recipe=name,reused_control=j==0,stage='paired_before_validation')
      if j==0:
       assert digest==control['model_sha256'] and control['truth']==truth;baseline=control['recipes'][name]['baseline'];traced=control['recipes'][name]['traced']
      else:
