@@ -81,3 +81,13 @@ accuracy/cost validation. T145 separately measures recipe pruning bias.
 Double-counting legacy and new counters, granting unimplemented sparsity,
 ignoring integer decisions on one side, hiding LAPACK work, changed tracing
 semantics, setup exclusions, and reading a single-checkpoint bias as MSE success.
+
+## Primitive phase
+Original missing single-iterable min/max tracing raised explicitly during
+controls; no trained geometry ran. Failure/source preserved da7689d, then
+streaming counting was added without materializing or changing iteration.
+Three mass branches preserve exact baseline outputs and legacy counters.
+Inclusive explicit expressions: wide24=4808, thin96=18632, cutoff=184, plus
+opaque inverse/determinant calls. All fixed-array function shapes remain
+recorded. Same-wrapper dense scalar sampling is exactly512 units for H8T4.
+Primitive CPU.099790s; source review required before full geometry trace.

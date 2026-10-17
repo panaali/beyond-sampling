@@ -1,0 +1,983 @@
+{
+  "rows": [
+    {
+      "name": "wide",
+      "value": 0.0625,
+      "legacy": 3804,
+      "ledger": {
+        "sites": {
+          "orthant:L116:B @ B.T": {
+            "matrix_mul": 64,
+            "matrix_add": 48
+          },
+          "orthant:L116:S / np.outer(dg, dg)": {
+            "array_Div": 16
+          },
+          "orthant:L116:np.outer(dg, dg)": {
+            "array_Mult": 16
+          },
+          "orthant:L116:np.sqrt(np.diag(S))": {
+            "special_np.sqrt": 4
+          },
+          "orthant:L119:i + 1": {
+            "integer_control_Add": 4
+          },
+          "orthant:L120:d == 2": {
+            "integer_control_compare": 1
+          },
+          "orthant:L122:d == 3": {
+            "integer_control_compare": 1
+          },
+          "orthant:L125:d == 4": {
+            "integer_control_compare": 1
+          },
+          "orthant:L126:1 / 16 + sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu)) / (8 * math.pi)": {
+            "scalar_Add": 1
+          },
+          "orthant:L126:8 * math.pi": {
+            "scalar_Mult": 1
+          },
+          "orthant:L126:math.asin(np.clip(C[i, j], -1, 1))": {
+            "special_math.asin": 6
+          },
+          "orthant:L126:np.clip(C[i, j], -1, 1)": {
+            "array_compare": 12
+          },
+          "orthant:L126:sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu))": {
+            "scalar_sum": 6
+          },
+          "orthant:L126:sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu)) / (8 * math.pi)": {
+            "scalar_Div": 1
+          },
+          "orthant:L127:abs(np.linalg.det(Rays))": {
+            "special_abs": 1
+          },
+          "orthant:L127:abs(np.linalg.det(Rays)) < 1e-12": {
+            "scalar_compare": 1
+          },
+          "orthant:L129:abs(C[i, j])": {
+            "special_abs": 6
+          },
+          "orthant:L129:max((abs(C[i, j]) for i, j in iu))": {
+            "scalar_compare": 5
+          },
+          "orthant:L131:rmax > 0.95": {
+            "scalar_compare": 1
+          },
+          "orthant:L132:C - np.eye(4)": {
+            "array_Sub": 384
+          },
+          "orthant:L132:np.eye(4) + t * (C - np.eye(4))": {
+            "array_Add": 384
+          },
+          "orthant:L132:t * (C - np.eye(4))": {
+            "array_Mult": 384
+          },
+          "orthant:L135:q != i": {
+            "integer_control_compare": 576
+          },
+          "orthant:L135:q != j": {
+            "integer_control_compare": 432
+          },
+          "orthant:L136:-Om[k, l]": {
+            "scalar_USub": 144
+          },
+          "orthant:L136:-Om[k, l] / math.sqrt(Om[k, k] * Om[l, l])": {
+            "scalar_Div": 144
+          },
+          "orthant:L136:Om[k, k] * Om[l, l]": {
+            "scalar_Mult": 144
+          },
+          "orthant:L136:math.sqrt(Om[k, k] * Om[l, l])": {
+            "special_math.sqrt": 144
+          },
+          "orthant:L138:(t * r) ** 2": {
+            "scalar_Pow": 144
+          },
+          "orthant:L138:1 - (t * r) ** 2": {
+            "scalar_Sub": 144
+          },
+          "orthant:L138:acc += wgt * jac * r * math.asin(np.clip(pc, -1, 1)) / math.sqrt(max(1e-300, 1 - (t * r) ** 2))": {
+            "scalar_Add": 144
+          },
+          "orthant:L138:math.asin(np.clip(pc, -1, 1))": {
+            "special_math.asin": 144
+          },
+          "orthant:L138:math.sqrt(max(1e-300, 1 - (t * r) ** 2))": {
+            "special_math.sqrt": 144
+          },
+          "orthant:L138:max(1e-300, 1 - (t * r) ** 2)": {
+            "scalar_compare": 144
+          },
+          "orthant:L138:np.clip(pc, -1, 1)": {
+            "array_compare": 288
+          },
+          "orthant:L138:t * r": {
+            "scalar_Mult": 144
+          },
+          "orthant:L138:wgt * jac": {
+            "scalar_Mult": 144
+          },
+          "orthant:L138:wgt * jac * r": {
+            "scalar_Mult": 144
+          },
+          "orthant:L138:wgt * jac * r * math.asin(np.clip(pc, -1, 1))": {
+            "scalar_Mult": 144
+          },
+          "orthant:L138:wgt * jac * r * math.asin(np.clip(pc, -1, 1)) / math.sqrt(max(1e-300, 1 - (t * r) ** 2))": {
+            "scalar_Div": 144
+          },
+          "orthant:L140:4 * math.pi ** 2": {
+            "scalar_Mult": 1
+          },
+          "orthant:L140:acc / (4 * math.pi ** 2)": {
+            "scalar_Div": 1
+          },
+          "orthant:L140:math.pi ** 2": {
+            "scalar_Pow": 1
+          },
+          "orthant:L140:p + acc / (4 * math.pi ** 2)": {
+            "scalar_Add": 1
+          }
+        },
+        "totals": {
+          "array_Add": 384,
+          "array_Div": 16,
+          "array_Mult": 400,
+          "array_Sub": 384,
+          "array_compare": 300,
+          "integer_control_Add": 4,
+          "integer_control_compare": 1011,
+          "matrix_add": 48,
+          "matrix_mul": 64,
+          "scalar_Add": 146,
+          "scalar_Div": 290,
+          "scalar_Mult": 722,
+          "scalar_Pow": 145,
+          "scalar_Sub": 144,
+          "scalar_USub": 144,
+          "scalar_compare": 151,
+          "scalar_sum": 6,
+          "special_abs": 7,
+          "special_math.asin": 150,
+          "special_math.sqrt": 288,
+          "special_np.sqrt": 4
+        },
+        "named_numeric_total": 3793,
+        "integer_control_total": 1015,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 4808,
+        "opaque_calls": [
+          {
+            "key": [
+              "orthant:L115:np.linalg.inv(Rays.T)",
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L127:np.linalg.det(Rays)",
+              "np.linalg.det",
+              "(4, 4)",
+              "()",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L133:np.linalg.inv(Rt)",
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)",
+              "{}"
+            ],
+            "count": 24
+          }
+        ],
+        "memory_calls": [
+          {
+            "key": [
+              "orthant:L116:np.diag(S)",
+              "np.diag",
+              "(4, 4)",
+              "(4,)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L132:np.eye(4)",
+              "np.eye",
+              "()",
+              "(4, 4)"
+            ],
+            "count": 48
+          }
+        ],
+        "native_calls": [
+          {
+            "key": [
+              "abs",
+              "()",
+              "()"
+            ],
+            "count": 7
+          },
+          {
+            "key": [
+              "math.asin",
+              "()",
+              "()"
+            ],
+            "count": 150
+          },
+          {
+            "key": [
+              "math.sqrt",
+              "()",
+              "()"
+            ],
+            "count": 288
+          },
+          {
+            "key": [
+              "max",
+              "()",
+              "()"
+            ],
+            "count": 144
+          },
+          {
+            "key": [
+              "np.clip",
+              "()",
+              "()"
+            ],
+            "count": 150
+          },
+          {
+            "key": [
+              "np.diag",
+              "(4, 4)",
+              "(4,)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.eye",
+              "()",
+              "(4, 4)"
+            ],
+            "count": 48
+          },
+          {
+            "key": [
+              "np.linalg.det",
+              "(4, 4)",
+              "()"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)"
+            ],
+            "count": 25
+          },
+          {
+            "key": [
+              "np.outer",
+              "(4,)",
+              "(4, 4)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.sqrt",
+              "(4,)",
+              "(4,)"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "thin",
+      "value": 0.11936832329444849,
+      "legacy": 14748,
+      "ledger": {
+        "sites": {
+          "orthant:L116:B @ B.T": {
+            "matrix_mul": 64,
+            "matrix_add": 48
+          },
+          "orthant:L116:S / np.outer(dg, dg)": {
+            "array_Div": 16
+          },
+          "orthant:L116:np.outer(dg, dg)": {
+            "array_Mult": 16
+          },
+          "orthant:L116:np.sqrt(np.diag(S))": {
+            "special_np.sqrt": 4
+          },
+          "orthant:L119:i + 1": {
+            "integer_control_Add": 4
+          },
+          "orthant:L120:d == 2": {
+            "integer_control_compare": 1
+          },
+          "orthant:L122:d == 3": {
+            "integer_control_compare": 1
+          },
+          "orthant:L125:d == 4": {
+            "integer_control_compare": 1
+          },
+          "orthant:L126:1 / 16 + sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu)) / (8 * math.pi)": {
+            "scalar_Add": 1
+          },
+          "orthant:L126:8 * math.pi": {
+            "scalar_Mult": 1
+          },
+          "orthant:L126:math.asin(np.clip(C[i, j], -1, 1))": {
+            "special_math.asin": 6
+          },
+          "orthant:L126:np.clip(C[i, j], -1, 1)": {
+            "array_compare": 12
+          },
+          "orthant:L126:sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu))": {
+            "scalar_sum": 6
+          },
+          "orthant:L126:sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu)) / (8 * math.pi)": {
+            "scalar_Div": 1
+          },
+          "orthant:L127:abs(np.linalg.det(Rays))": {
+            "special_abs": 1
+          },
+          "orthant:L127:abs(np.linalg.det(Rays)) < 1e-12": {
+            "scalar_compare": 1
+          },
+          "orthant:L129:abs(C[i, j])": {
+            "special_abs": 6
+          },
+          "orthant:L129:max((abs(C[i, j]) for i, j in iu))": {
+            "scalar_compare": 5
+          },
+          "orthant:L131:rmax > 0.95": {
+            "scalar_compare": 1
+          },
+          "orthant:L132:C - np.eye(4)": {
+            "array_Sub": 1536
+          },
+          "orthant:L132:np.eye(4) + t * (C - np.eye(4))": {
+            "array_Add": 1536
+          },
+          "orthant:L132:t * (C - np.eye(4))": {
+            "array_Mult": 1536
+          },
+          "orthant:L135:q != i": {
+            "integer_control_compare": 2304
+          },
+          "orthant:L135:q != j": {
+            "integer_control_compare": 1728
+          },
+          "orthant:L136:-Om[k, l]": {
+            "scalar_USub": 576
+          },
+          "orthant:L136:-Om[k, l] / math.sqrt(Om[k, k] * Om[l, l])": {
+            "scalar_Div": 576
+          },
+          "orthant:L136:Om[k, k] * Om[l, l]": {
+            "scalar_Mult": 576
+          },
+          "orthant:L136:math.sqrt(Om[k, k] * Om[l, l])": {
+            "special_math.sqrt": 576
+          },
+          "orthant:L138:(t * r) ** 2": {
+            "scalar_Pow": 576
+          },
+          "orthant:L138:1 - (t * r) ** 2": {
+            "scalar_Sub": 576
+          },
+          "orthant:L138:acc += wgt * jac * r * math.asin(np.clip(pc, -1, 1)) / math.sqrt(max(1e-300, 1 - (t * r) ** 2))": {
+            "scalar_Add": 576
+          },
+          "orthant:L138:math.asin(np.clip(pc, -1, 1))": {
+            "special_math.asin": 576
+          },
+          "orthant:L138:math.sqrt(max(1e-300, 1 - (t * r) ** 2))": {
+            "special_math.sqrt": 576
+          },
+          "orthant:L138:max(1e-300, 1 - (t * r) ** 2)": {
+            "scalar_compare": 576
+          },
+          "orthant:L138:np.clip(pc, -1, 1)": {
+            "array_compare": 1152
+          },
+          "orthant:L138:t * r": {
+            "scalar_Mult": 576
+          },
+          "orthant:L138:wgt * jac": {
+            "scalar_Mult": 576
+          },
+          "orthant:L138:wgt * jac * r": {
+            "scalar_Mult": 576
+          },
+          "orthant:L138:wgt * jac * r * math.asin(np.clip(pc, -1, 1))": {
+            "scalar_Mult": 576
+          },
+          "orthant:L138:wgt * jac * r * math.asin(np.clip(pc, -1, 1)) / math.sqrt(max(1e-300, 1 - (t * r) ** 2))": {
+            "scalar_Div": 576
+          },
+          "orthant:L140:4 * math.pi ** 2": {
+            "scalar_Mult": 1
+          },
+          "orthant:L140:acc / (4 * math.pi ** 2)": {
+            "scalar_Div": 1
+          },
+          "orthant:L140:math.pi ** 2": {
+            "scalar_Pow": 1
+          },
+          "orthant:L140:p + acc / (4 * math.pi ** 2)": {
+            "scalar_Add": 1
+          }
+        },
+        "totals": {
+          "array_Add": 1536,
+          "array_Div": 16,
+          "array_Mult": 1552,
+          "array_Sub": 1536,
+          "array_compare": 1164,
+          "integer_control_Add": 4,
+          "integer_control_compare": 4035,
+          "matrix_add": 48,
+          "matrix_mul": 64,
+          "scalar_Add": 578,
+          "scalar_Div": 1154,
+          "scalar_Mult": 2882,
+          "scalar_Pow": 577,
+          "scalar_Sub": 576,
+          "scalar_USub": 576,
+          "scalar_compare": 583,
+          "scalar_sum": 6,
+          "special_abs": 7,
+          "special_math.asin": 582,
+          "special_math.sqrt": 1152,
+          "special_np.sqrt": 4
+        },
+        "named_numeric_total": 14593,
+        "integer_control_total": 4039,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 18632,
+        "opaque_calls": [
+          {
+            "key": [
+              "orthant:L115:np.linalg.inv(Rays.T)",
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L127:np.linalg.det(Rays)",
+              "np.linalg.det",
+              "(4, 4)",
+              "()",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L133:np.linalg.inv(Rt)",
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)",
+              "{}"
+            ],
+            "count": 96
+          }
+        ],
+        "memory_calls": [
+          {
+            "key": [
+              "orthant:L116:np.diag(S)",
+              "np.diag",
+              "(4, 4)",
+              "(4,)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L132:np.eye(4)",
+              "np.eye",
+              "()",
+              "(4, 4)"
+            ],
+            "count": 192
+          }
+        ],
+        "native_calls": [
+          {
+            "key": [
+              "abs",
+              "()",
+              "()"
+            ],
+            "count": 7
+          },
+          {
+            "key": [
+              "math.asin",
+              "()",
+              "()"
+            ],
+            "count": 582
+          },
+          {
+            "key": [
+              "math.sqrt",
+              "()",
+              "()"
+            ],
+            "count": 1152
+          },
+          {
+            "key": [
+              "max",
+              "()",
+              "()"
+            ],
+            "count": 576
+          },
+          {
+            "key": [
+              "np.clip",
+              "()",
+              "()"
+            ],
+            "count": 582
+          },
+          {
+            "key": [
+              "np.diag",
+              "(4, 4)",
+              "(4,)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.eye",
+              "()",
+              "(4, 4)"
+            ],
+            "count": 192
+          },
+          {
+            "key": [
+              "np.linalg.det",
+              "(4, 4)",
+              "()"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)"
+            ],
+            "count": 97
+          },
+          {
+            "key": [
+              "np.outer",
+              "(4,)",
+              "(4, 4)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.sqrt",
+              "(4,)",
+              "(4,)"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "cutoff",
+      "value": 0.0,
+      "legacy": 156,
+      "ledger": {
+        "sites": {
+          "orthant:L116:B @ B.T": {
+            "matrix_mul": 64,
+            "matrix_add": 48
+          },
+          "orthant:L116:S / np.outer(dg, dg)": {
+            "array_Div": 16
+          },
+          "orthant:L116:np.outer(dg, dg)": {
+            "array_Mult": 16
+          },
+          "orthant:L116:np.sqrt(np.diag(S))": {
+            "special_np.sqrt": 4
+          },
+          "orthant:L119:i + 1": {
+            "integer_control_Add": 4
+          },
+          "orthant:L120:d == 2": {
+            "integer_control_compare": 1
+          },
+          "orthant:L122:d == 3": {
+            "integer_control_compare": 1
+          },
+          "orthant:L125:d == 4": {
+            "integer_control_compare": 1
+          },
+          "orthant:L126:1 / 16 + sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu)) / (8 * math.pi)": {
+            "scalar_Add": 1
+          },
+          "orthant:L126:8 * math.pi": {
+            "scalar_Mult": 1
+          },
+          "orthant:L126:math.asin(np.clip(C[i, j], -1, 1))": {
+            "special_math.asin": 6
+          },
+          "orthant:L126:np.clip(C[i, j], -1, 1)": {
+            "array_compare": 12
+          },
+          "orthant:L126:sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu))": {
+            "scalar_sum": 6
+          },
+          "orthant:L126:sum((math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu)) / (8 * math.pi)": {
+            "scalar_Div": 1
+          },
+          "orthant:L127:abs(np.linalg.det(Rays))": {
+            "special_abs": 1
+          },
+          "orthant:L127:abs(np.linalg.det(Rays)) < 1e-12": {
+            "scalar_compare": 1
+          }
+        },
+        "totals": {
+          "array_Div": 16,
+          "array_Mult": 16,
+          "array_compare": 12,
+          "integer_control_Add": 4,
+          "integer_control_compare": 3,
+          "matrix_add": 48,
+          "matrix_mul": 64,
+          "scalar_Add": 1,
+          "scalar_Div": 1,
+          "scalar_Mult": 1,
+          "scalar_compare": 1,
+          "scalar_sum": 6,
+          "special_abs": 1,
+          "special_math.asin": 6,
+          "special_np.sqrt": 4
+        },
+        "named_numeric_total": 177,
+        "integer_control_total": 7,
+        "complete_implementation_cost": false,
+        "inclusive_explicit_total": 184,
+        "opaque_calls": [
+          {
+            "key": [
+              "orthant:L115:np.linalg.inv(Rays.T)",
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)",
+              "{}"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "orthant:L127:np.linalg.det(Rays)",
+              "np.linalg.det",
+              "(4, 4)",
+              "()",
+              "{}"
+            ],
+            "count": 1
+          }
+        ],
+        "memory_calls": [
+          {
+            "key": [
+              "orthant:L116:np.diag(S)",
+              "np.diag",
+              "(4, 4)",
+              "(4,)"
+            ],
+            "count": 1
+          }
+        ],
+        "native_calls": [
+          {
+            "key": [
+              "abs",
+              "()",
+              "()"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "math.asin",
+              "()",
+              "()"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "np.clip",
+              "()",
+              "()"
+            ],
+            "count": 6
+          },
+          {
+            "key": [
+              "np.diag",
+              "(4, 4)",
+              "(4,)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.linalg.det",
+              "(4, 4)",
+              "()"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.linalg.inv",
+              "(4, 4)",
+              "(4, 4)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.outer",
+              "(4,)",
+              "(4, 4)"
+            ],
+            "count": 1
+          },
+          {
+            "key": [
+              "np.sqrt",
+              "(4,)",
+              "(4,)"
+            ],
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
+  "startup": {
+    "sites": {
+      "_rule:L35:0.5 * (x + 1)": {
+        "array_Mult": 180
+      },
+      "_rule:L35:x + 1": {
+        "array_Add": 180
+      },
+      "_rule:L36:(1 - s) ** (p - 1)": {
+        "array_Pow": 180
+      },
+      "_rule:L36:(1 - s) ** p": {
+        "array_Pow": 180
+      },
+      "_rule:L36:0.5 * w": {
+        "array_Mult": 180
+      },
+      "_rule:L36:1 - (1 - s) ** p": {
+        "array_Sub": 180
+      },
+      "_rule:L36:1 - s": {
+        "array_Sub": 360
+      },
+      "_rule:L36:p * (1 - s) ** (p - 1)": {
+        "array_Mult": 180
+      },
+      "_rule:L36:p - 1": {
+        "integer_control_Sub": 4
+      }
+    },
+    "totals": {
+      "array_Add": 180,
+      "array_Mult": 540,
+      "array_Pow": 360,
+      "array_Sub": 540,
+      "integer_control_Sub": 4
+    },
+    "named_numeric_total": 1620,
+    "integer_control_total": 4,
+    "complete_implementation_cost": false,
+    "inclusive_explicit_total": 1624,
+    "opaque_calls": [
+      {
+        "key": [
+          "_rule:L35:np.polynomial.legendre.leggauss(n)",
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 12)",
+          "{}"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_rule:L35:np.polynomial.legendre.leggauss(n)",
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 24)",
+          "{}"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_rule:L35:np.polynomial.legendre.leggauss(n)",
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 48)",
+          "{}"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "_rule:L35:np.polynomial.legendre.leggauss(n)",
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 96)",
+          "{}"
+        ],
+        "count": 1
+      }
+    ],
+    "memory_calls": [],
+    "native_calls": [
+      {
+        "key": [
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 12)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 24)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 48)"
+        ],
+        "count": 1
+      },
+      {
+        "key": [
+          "np.polynomial.legendre.leggauss",
+          "()",
+          "(2, 96)"
+        ],
+        "count": 1
+      }
+    ]
+  },
+  "sampler": {
+    "sites": {
+      "scalar_sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 4
+      },
+      "scalar_sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 28
+      },
+      "scalar_sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 28
+      },
+      "scalar_sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 3
+      },
+      "scalar_sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "scalar_sampler:L3:x[0] * z": {
+        "scalar_Mult": 8
+      },
+      "scalar_sampler:L3:z > zero": {
+        "scalar_compare": 8
+      },
+      "scalar_sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 24
+      },
+      "scalar_sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 192
+      },
+      "scalar_sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 192
+      },
+      "scalar_sampler:L9:value > zero": {
+        "scalar_compare": 24
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 220,
+      "scalar_Mult": 256,
+      "scalar_compare": 35
+    },
+    "named_numeric_total": 511,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false,
+    "inclusive_explicit_total": 512,
+    "opaque_calls": [],
+    "memory_calls": [],
+    "native_calls": []
+  },
+  "pins": {
+    "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/estT_snapshot.py": "afa94627ff5b860a4b922dc340e90d0d6718c770d74e326dfbf667a2bb0bbc3a",
+    "/workspace/work/recover-small_h2_78/m16/approaches/fibre_cost_review/arithmetic.py": "48bf04ead5510fc301a8db9732d90e00179d0ae6524f515344f28df2a94385db",
+    "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_captured.npz": "15f9e5e483c69325c10fcbe4eaaa80f91503b177070ccec1ff2569a11c9436b6",
+    "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_capture.json": "7cdd206f29c35dd5b46319b94d5ed5f5609e99873e9f0a6c73efe68fe9f48057",
+    "/workspace/work/recover-small_h2_910/m16/approaches/plackett_rule_doubling/run.py": "38213c96b31538b0aad2532a9c169fad60db3725d8345a39f7782d33e6531d18",
+    "/workspace/work/recover-small_h2_910/m16/approaches/plackett_rule_doubling/summary.json": "8b33bef924d64fa2e5cd366fb9328d9c23e76029f4e85d8fc7285b02ba934bed",
+    "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth": "b771f40fcae826e010b2e89fb698e2ec35026119bc9f66d3ff046dba537b07da"
+  },
+  "cpu_seconds": 0.09978948100000001
+}

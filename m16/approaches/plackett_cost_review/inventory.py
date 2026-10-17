@@ -20,6 +20,15 @@ base.BINARY['FloorDiv']=operator.floordiv
 class Ledger(base.Ledger):
     def __init__(self):super().__init__();self.opaque=Counter();self.memory=Counter();self.calls=Counter()
     def call(self,site,name,fn,*args,**kwargs):
+        if name in ('min','max') and len(args)==1:
+            seen=0;category='integer_control'
+            def values():
+                nonlocal seen,category
+                for value in args[0]:
+                    seen+=1
+                    if self.category(value)!='integer_control':category='scalar'
+                    yield value
+            result=fn(values(),**kwargs);self.charge(site,category+'_compare',max(seen-1,0));return result
         if name=='sum':
             def values():
                 for value in args[0]:
