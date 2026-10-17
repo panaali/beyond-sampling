@@ -7,9 +7,10 @@ from .estimator import Engine
 from .adapter import WalkFailure
 
 HERE=Path(__file__).parent
-CHECKPOINT=Path('/workspace/clean-neurons/m16/approaches/mechanism_checks/checkpoint.pth')
+CHECKPOINT=Path('/workspace/work/t39_sources/example_checkpoint.pth')
 def main():
     start=time.process_time()
+    assert hashlib.sha256(CHECKPOINT.read_bytes()).hexdigest()=='498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb'
     state=torch.load(CHECKPOINT,weights_only=True,map_location='cpu')
     model=(state['rnn.weight_ih_l0'].numpy()[:,0].astype(float),state['rnn.weight_hh_l0'].numpy().astype(float),state['linear.weight'].numpy().astype(float))
     out=dict(checkpoint_sha256=hashlib.sha256(CHECKPOINT.read_bytes()).hexdigest(),cases=[],random_model_inputs=0,

@@ -63,3 +63,5 @@ Before whole-estimator adoption, independently flagged positive-tail CDF cancell
 
 ## Tail check result
 [measured] Eighteen signed tail intervals plus three zero/crossing controls pass the frozen checks. Maximum relative error excluding the explicit subnormal-underflow control is2.905e-14; CPU0.0203 seconds. The subnormal interval remains a documented floating underflow limit. Re-running the90 independent walker fixtures gives no failures, maximum absolute difference2.221e-16, with positive thin masses retained; CPU0.519 seconds. Saved `tail_results.json` and updated `native_results.json` include the revised940-per-complement allowance. This improvement is not a global relative-error certificate.
+
+The first whole-port validation command stopped before any model calculation because the historical checkpoint path was absent after restart. The identical SHA256498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb file survives at `/workspace/work/t39_sources/example_checkpoint.pth`; the runner now verifies that hash explicitly. No model substitution.
