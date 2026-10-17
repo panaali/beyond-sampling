@@ -101,3 +101,33 @@ not establish a large practical coverage ceiling or that either witness
 state occurs with meaningful probability under the six-input prefix law.
 The current result is a scoped obstruction to universal four-input output
 forgetting, not a negative about state-conditioned integration or full accuracy.
+
+## Actual-prefix support qualification, frozen before implementation
+TASKS scope29a5e8b pushed. The two chosen initial states can be realized by
+six-input prefixes A=(1/4,0,0,0,0,0) and
+B=(1/4,0,0,0,0,-256/alpha), alpha=-Wi[0]. The first positive input puts hidden
+on axis2; the next zero resets it because the second Wh column is negative.
+The final large negative input of B produces(256,0). Both complete center
+sequences have the same unique second-largest index0, because the suffix
+contains +1 and three -1 values while the first prefix input is1/4.
+
+A pointwise center is not a positive-probability prefix event. Define exact
+M=||Wh||infinity, B0=||Wi||infinity, L6=B0*sum(M^k,k=0..5).
+A prefix L-infinity perturbation epsilon changes its final hidden state by
+at most L6*epsilon. A suffix gate preactivation at step t changes by at most
+M^(t+1)*L6*epsilon; an output margin changes by at most
+||Wo[j]-Wo[k]||1*M^4*L6*epsilon. Choose epsilon<=1/16 and every retained
+center slack divided by four times its respective bound coefficient. The
+existing suffix box uses at most half each slack, and the prefix error at
+most one quarter, leaving a strict margin. Every gate constraint must be
+present; an ignored identically-zero readout margin must remain identically
+zero on the entire final active support, not merely at fixed initial h.
+
+Independent direct Fraction recurrence checks all1024 ten-input box vertices
+for each of the two boxes and verifies unique target index0. T55 independently
+checks the Lipschitz/slack argument before measurement. Exact lower Gaussian
+mass is stored in factored rational form to avoid enormous integer strings;
+80-digit stable-tail CDF products give a numerical log probability separately.
+The B prefix includes a Gaussian input near-403, so its probability is
+astronomically small. This phase establishes support/identifiability, not a
+practically important remaining error or a competitive full estimator.
