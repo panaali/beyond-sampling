@@ -187,3 +187,19 @@ raw fields or exception evidence. Resume never overwrites an attempt.
 Final contraction must use original ascending family/side scalar addition,
 not sorted-by-value or a selected partial sum. Full noisy accuracy remains
 unavailable until all48 components and independent aggregate review finish.
+
+### Original-reference throughput pilot (board94e761d5)
+No matching hashed noisy truth exists. Before committing the whole original
+100M-input reference, freeze the first1M inputs of that same CRC32-name stream
+as a throughput/forward-parity pilot. `noise_reference.py 0` preserves original
+500k batch shape and float64 semantics, stores exact integer hits and RNG
+states before/after each block, and refuses to overwrite attempts. Its entry
+point explicitly permits only block0 in this phase. Shared `arc_eval.forward`
+is extracted unchanged with global T=4, avoiding that module's T10-only load
+and unrelated random advice. Independent original zoo.forward must match
+bitwise on four analytic models and first128 pilot inputs. These extra
+parity evaluations are separately charged; pilot input counts enter the
+same eventual reference exactly once. No estimator answer is used to select
+sample count; full100M continuation depends on bounded throughput only.
+MC uncertainty will remain explicit, and one missing case cannot establish
+noisy-rung or full-cost success. No duplicate exact-positive capture is run.
