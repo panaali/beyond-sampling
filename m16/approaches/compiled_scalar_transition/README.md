@@ -66,3 +66,18 @@ and exact boundary representations. No total-error or total-cost certificate.
 Platform erfc rounding, narrow tail cancellation, coefficient ordering,
 overflow/nonfinite inputs, changed fallback thresholds, sparse guard failure,
 and benchmark warm-cache/cold-build mismatch.
+
+## Control checkpoint
+Build via `python -c 'from native import build; build()'` in this folder,
+then `controls.py` and `full_controls.py`, one thread/review lock. Compiler
+child CPU .189867 and wall .190244 seconds, source/command in build.json.
+Forty signed/tail/narrow interval cases agree with Python within6.94e-18;
+160 independent60-digit positive integrals agree within4.97e-17. Floating
+errors can exceed the tiny quadrature-only bound and are explicitly counted.
+Fifteen trained stage/target sparse-matrix comparisons agree within1.13e-13;
+row guards pass. Invalid zero-width/NaN inputs reject explicitly.
+A single40,000-interval batch costs .043900CPU Python versus .007993native.
+Primitive/control cycle1.191CPU; no end-to-end inference from this ratio.
+Full h3 constant/duplicate ties and1e-16 scaling pass, with base/scale parity
+exact to displayed double precision; full-control cycle .859CPU. Each native
+estimate constructs its own rule/library setup and baseline clears GL12.
