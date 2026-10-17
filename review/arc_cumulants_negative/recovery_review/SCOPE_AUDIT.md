@@ -38,7 +38,7 @@ The saved noisy M16T4 s0.01_0 cell readout has K2−24.97pp, K3+0.98pp and K4+0.
 
 For any neuron with nonzero fresh-input coefficient b, its preactivation at every step is v(history)+bX with fresh independent Gaussian X and finite history-dependent v. Conditional positive and negative probabilities are both strictly positive. Consequently E[ReLU(v+bX)] is strictly positive after averaging over histories. A very small finite-MC activation mean does not prove the neuron is never active or has exactly zero mean. Exact inactivity is possible only under additional structure, such as b=0 and a proven nonpositive recurrent contribution.
 
-This theorem has not yet been specialized to the claimed trained units by checking their checkpoint coefficients. A cheap independent specialization is available: first-two-step means have a closed-form two-dimensional Gaussian half-plane integral. That discriminator will be frozen separately before evaluating the old model checkpoint. It may distinguish rare support from truly absent support without repeating million-sample references.
+The frozen second-step discriminator now specializes this theorem to the historical H16T4 seed3 checkpoint: all16 input coefficients are nonzero, all exact second-step means are positive, and independent50-digit angular references agree. The three striking small means are .0001583230354, .008062322542 and .005034181112. Gaussian closure still has relative RMS mean error1.494186402 at that step. See prefix_trained.json and README for counts, controls and floating qualifications. No million-sample reference was repeated.
 
 ## 5. Status proposal and preserved alternatives
 
