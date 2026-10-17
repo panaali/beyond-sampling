@@ -14,6 +14,8 @@ def main():
     # Hidden weights do not affect zero output; use H1 control to minimize gate work.
     model=(np.ones(1),np.ones((1,1)),np.zeros((10,1)))
     def independent(model,y,a,b,tau,tex,top=False):
+        engine.faces.update(np.asarray(y,dtype="<f8").tobytes())
+        for array in (a,b,tau,tex):engine.faces.update(np.asarray(array,dtype="<f8").tobytes())
         truth=[]
         for ai,bi,lo,hi in zip(a,b,tex,tau):
             mass=mp.mpf(0)
