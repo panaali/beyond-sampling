@@ -173,3 +173,28 @@ network, but this coarse interpolation does not yet give competitive accuracy.
 [inferred] Preserving rank-event mass is a concrete next improvement; it does not
 by itself address hidden-state interpolation. Next numerical task is the queued
 T54 local T9 pilot, followed by a separately frozen rank-conditioned variant.
+
+## Cycle3 protocol: rank-conditioned backward values
+Frozen before this variant's implementation/run. Reuse both recorded terminal
+grids, charging their original model-specific geometry in any complete-estimator
+cost. Let q_m^k(b,K) be the model-free probability that exactly one of all
+non-target inputs exceeds the target after m remaining fresh inputs. Propagate
+W=V/q instead of V. At each random step weight each quadrature node by the next
+q and normalize these positive weights to sum one. Deterministic target
+insertion leaves q unchanged. Use the exact initial masses
+q(+1)=2/T*(1-(T+1)/2^T) and q(-1)=2*(T+1)/(T*2^T), each sign weighted1/2.
+
+Compute q directly at every distinct b/angle query by positive generalized
+Gauss-Laguerre quadrature (R²/2 has Gamma(k/2) law), with32 and64 nodes as an
+explicit sensitivity test. Queries depend only on b, k, remaining count and
+angle, so share them across hidden-grid coordinates and target passes. No q
+interpolation is used. Keep the previous linear spatial interpolator and16nodes
+per rank interval. Test both spatial grids5/7 and both rank rules32/64.
+
+Falsifiers: (1) constant W=1 must remain1 to roundoff; otherwise the conditional
+weights or capped counts are wrong. (2) Gaussian-rank quadrature may introduce
+its own bias: report rule sensitivity, terminal W excursions outside[0,1], and
+normalization defects before row normalization. (3) apparent improvement may
+leave hidden spatial bias: preserve both grid resolutions and all original
+uncorrected results. No solved claim or free-cache efficiency claim. Initial
+cycle cap120CPU seconds under the same lock/thread/memory limits.
