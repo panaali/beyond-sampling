@@ -29,3 +29,6 @@ Weighted lower-input accumulators, gate-conditioned affine margin coefficients, 
 
 ## Failure modes
 Floating LP tolerances, exact-zero gates/readout ties, rational rounding crossing a facet, restricted anchors missing collisions, overly loose state reachability assumptions, or confusing a structural counterexample with a practical probability lower bound. This procedure works in actual input space, not arbitrary hidden states.
+
+### Frozen follow-up after exact witness
+The first exact pair passes, with correct output3 and wrong output6. To preserve a constructive rescue, derive the exact affine margin3-6 on this fixed gate word. Evaluate its unique zero on the segment and check that all other outputs are strictly below both there. If so, linearity and endpoint margins prove this segment has exactly one classification switch, controlled by a weighted sum of the seven lower inputs. Record all coefficients, not a fitted feature. This is a local retained-coordinate rescue, not global compression or a new probability estimator; implementation begins after this protocol note.
