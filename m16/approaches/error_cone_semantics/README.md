@@ -13,7 +13,7 @@ For selected cases convert every stored binary ray and checkpoint coefficient ex
 Competing explanations: (1) output clipping has a semantic error, exposed by exact mislabelled witnesses; (2) floating direct evaluation is unstable near a boundary, separated by Fraction recurrence; (3) error volume bias comes from mass integration despite correct captured point semantics, investigated separately by T131. No claim that interior-point checks prove the full simplex, absence of overlap, or complete error-set coverage. Input ties are separate measure-zero ambiguity, not silently counted as successful strict interiors.
 
 ## Status
-Bounded floating and exact point checks complete; independent source/raw arithmetic review pending.
+Bounded floating and exact point checks complete; independent source/raw arithmetic review complete ea53df3.
 
 ## Results
 All35098 fixed ray-sum witnesses match parent second-argmax and classify incorrectly; no input ties. All64 frozen smallest-margin cases pass exact Fraction recurrence on unrounded sums of stored binary rays, with zero floating/exact label differences and zero exact gate ties. Exact truth-minus-best-other margins range from-.002063120414889303 to-.00043188188539797093. Six hand-computed ReLU/tie/rank controls pass. Full witnesses in floating.npz; rational inputs/logits/signs in exact_0.json through exact_3.json.
@@ -31,3 +31,5 @@ Errors elsewhere inside simplices, degenerate simplices without genuine interior
 
 ## Failure modes
 Floating sums can move across thin decision boundaries. Exact arithmetic applies to the stored binary geometry, not ideal mathematical rays. First-index output ties can occupy full volume; equal input ranks require explicit separate reporting. A passing point panel does not establish full accuracy.
+
+Independent T55 review ea53df3 checks all35098 saved ranks/labels and exact64 smallest-margin selection, then independently reproduces every selected input, logit, gate sign and incorrect label using integer-scaled recurrence. This strengthens the finite point claim, not whole-cone coverage. Reviewer preserved an initial repeated-NPZ-decompression resource failure and repaired materialization; its cost is separate from producer accounting.
