@@ -1523,3 +1523,5 @@ Seeds 0 and 1 (ten original models) independently pass all saved historical/outp
 ### First complete k28 seed saved audit
 
 Seed0's full 1,024 original noisy specifications pass all 2,048 recipe pairs, 2,044 separately recorded baseline stages, two control reuses, current model hashes, historical subtraction errors and exact whole-seed mean counters. Named counts are 136,210,559 / 168,596,486 for85B/112. Independent own-budget numeric111 ratios are .0003436985830 / .00001354385190; no individual losses on this seed. Historical72 results remain separate. This is one seed, not the final five-seed claim; historical checkpoint byte identity, numerical-truth and incomplete native/runtime qualifications remain. The reviewer made no evaluator calls.
+
+H5 seed2 also passes the identical saved audit: all five records and 286,720 closures, conditional subtotal1,725,446,516. Fifteen of25 records are now independently reviewed; final global coverage and uncertainty comparison remain pending.
