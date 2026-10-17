@@ -45,3 +45,8 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work
 ```
 
 [measured] The finite panel finds exact open outcome ambiguity on21 charts. [inferred] No sound relaxation can prove whole-chart uniform correctness on any of these21 charts, because the exact network itself has both outcomes. This does not preclude cheap margin bounds on smaller regions, T108 gate-freezing approximation, or output-integrated estimators. Independent review pending.
+
+## Frozen reference-artifact discriminator for the three one-sided charts
+Before any additional probe or learned rule, scan the already existing exact T68 correct-event simplices (5058) to identify chart ownership at positive ray sums; verify every simplex ray satisfies that chart's rank/sign inequalities. For each of the three unknown charts, try at most the first three corresponding simplex interiors as new exact direct network/neighborhood witnesses, using unchanged witness logic. This costs at most nine extra deterministic checks, reported separately from the completed2000-check-capped phase. Cap5CPU and no new neural geometry, mass integration, LP solve or adaptive search. Existing artifact construction10.009618928CPU is a dependency, not a free production oracle.
+
+A new correct open witness resolves a finite-search miss. Absence of a corresponding full-dimensional correct simplex is only an artifact-conditional observation; retain unknown unless reference completeness and tie semantics are independently accepted. This phase cannot create a weight-only whole-chart certificate. Preserve phase1 results unchanged.
