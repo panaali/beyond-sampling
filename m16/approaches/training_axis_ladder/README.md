@@ -36,3 +36,8 @@ Margin-aware T85, different representation/re-merging, stricter impact threshold
 
 ## Failure modes
 Positive-mass output ties outside the current generic trained checks, floating polygon/DD topology, uncertain full operation coverage, calibration noise dependence, bootstrap interpretation and accidental source drift. Exact/fully-resolved comparators share some primitives but use distinct geometry arrangements; native DD supplies an independent arrangement. No broad impossibility follows from a finite failed rung.
+
+## Pilot and predecessor regression
+All five2^30 clean models exactly reproduce the saved T75 outputs and operation counts. The next2^29 clean ratios are approximately0, .0061, .0018, .0293 and .0182; this is only a pilot, not a passed noisy rung. Original/strict polygon truth, the fully resolved boundary recipe and independent native DD agree within the frozen1e−12 tolerance on every specified clean/first-noisy control, with unit total DD mass. Exact public checkpoint hashes and frozen source hashes are saved in `manifest.json` and `pilot.json`. No recipe changed.
+
+The full panel remains the previously frozen20 blocks of256 noisy copies. The first4 RNG20 copies overlap the resource pilot and enter the final statistical panel only once; repeated pilot computation is validation overhead, not independent evidence. Block files preserve every estimate, exact truth, operation/cell counts, model hash and CPU. Blocks checkpoint independently; no lower training amount is tested before complete review.
