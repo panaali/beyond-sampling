@@ -133,3 +133,16 @@ Reproduction (one thread and review lock as in task protocol):
 `LD_PRELOAD=$PWD/counted_spy.so python dense_controls.py instrumented`.
 `counted_controls.py instrumented` under the same preload reproduces the
 114 original controls with the repaired counters.
+
+### Independent review and bounded handoff
+T55 c4fed84f independently checks all114 analytic cases, the3 dense spectra,
+684 GESDD calls and78 Q3/69 actual iterations. T163 d7dd46ac independently
+finds a conditional four-Q5-attempt proof but keeps active-array invariants
+and installed-source equivalence explicit. Public Q2 failure cleanup has a
+non-progress syntactic state; reachability from valid inputs and installed
+binary behavior are unproved. Consequently no universal finite SVD cost
+envelope is claimed here. This is an audit limitation, not an estimator or
+SVD-method negative. The distinct claimed rank_runtime_census folder (T165
+claim cb6ed1c0, duplicate numerical ID pending DRI reconciliation) records
+actual finite evaluation paths instead. Native reduction bounds and all
+unpriced numeric helpers remain part of the overall cost gate.

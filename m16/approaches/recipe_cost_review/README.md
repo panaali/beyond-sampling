@@ -121,3 +121,8 @@ python m16/approaches/recipe_cost_review/summarize.py
 The initial nested-method failure and initial missing-flag assumption remain
 explicit. Complete portable cost and full seed/noise/rung evaluation are
 still blocked by unresolved categories and independent downstream review.
+
+Final independent T55 aggregate review79b6876 reproduces every site,
+cutoff/node contraction,455976715 visible units and all opaque-call counts.
+This validates the bounded ledger; it does not discharge native kernel
+work or establish a complete-cost competitiveness claim.
