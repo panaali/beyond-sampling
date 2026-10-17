@@ -1,0 +1,118 @@
+{
+  "primitive": [
+    {
+      "d": 4,
+      "order": 4,
+      "error": 0.0005509706854128216,
+      "bernstein_bound": 0.3443873586772386
+    },
+    {
+      "d": 4,
+      "order": 8,
+      "error": 8.142037684621961e-07,
+      "bernstein_bound": 0.013451871356676703
+    },
+    {
+      "d": 5,
+      "order": 4,
+      "error": 0.00011217220697111452,
+      "bernstein_bound": 0.40647354932330626
+    },
+    {
+      "d": 5,
+      "order": 8,
+      "error": 1.6049740778761867e-07,
+      "bernstein_bound": 0.03125582122493534
+    },
+    {
+      "d": 6,
+      "order": 4,
+      "error": 0.0003974977717489843,
+      "bernstein_bound": 0.6244462316138858
+    },
+    {
+      "d": 6,
+      "order": 8,
+      "error": 1.8420593384527173e-06,
+      "bernstein_bound": 0.0881218207924684
+    }
+  ],
+  "plans": [
+    {
+      "name": "t5_cones",
+      "target_bound": 0.0001,
+      "actual_bound": 2.4975576259353533e-05,
+      "histogram": {
+        "4": 2696,
+        "6": 549,
+        "8": 563,
+        "10": 539,
+        "12": 413,
+        "16": 560,
+        "20": 397,
+        "24": 147,
+        "28": 6
+      },
+      "nodes": 170340864
+    },
+    {
+      "name": "t5_partition",
+      "target_bound": 0.0001,
+      "actual_bound": 2.373337787157757e-05,
+      "histogram": {
+        "4": 701,
+        "6": 87,
+        "8": 83,
+        "10": 113,
+        "12": 111,
+        "16": 364,
+        "20": 265,
+        "24": 114,
+        "28": 19
+      },
+      "nodes": 119819904
+    }
+  ],
+  "integrals": [
+    {
+      "estimate": 0.27923737135451504,
+      "conditional_quadrature_error_bound": 2.4975576259353533e-05,
+      "nodes": 170340864,
+      "order_histogram": {
+        "4": 2696,
+        "6": 549,
+        "8": 563,
+        "10": 539,
+        "12": 413,
+        "16": 560,
+        "20": 397,
+        "24": 147,
+        "28": 6
+      },
+      "arithmetic_ops_excluding_power_and_setup": 10390792704,
+      "power_calls": 170340864,
+      "name": "t5_cones"
+    },
+    {
+      "estimate": 1.000000000087144,
+      "conditional_quadrature_error_bound": 2.373337787157757e-05,
+      "nodes": 119819904,
+      "order_histogram": {
+        "4": 701,
+        "6": 87,
+        "8": 83,
+        "10": 113,
+        "12": 111,
+        "16": 364,
+        "20": 265,
+        "24": 114,
+        "28": 19
+      },
+      "arithmetic_ops_excluding_power_and_setup": 7309014144,
+      "power_calls": 119819904,
+      "name": "t5_partition"
+    }
+  ],
+  "cpu_seconds": 9.176787205,
+  "peak_rss_kb": 62236
+}
