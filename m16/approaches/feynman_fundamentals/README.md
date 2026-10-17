@@ -268,3 +268,20 @@ supports still miss their weights numerically; independently integrate the
 four-component toy law already derived and compare masses with exact angles.
 This bounded cycle uses only scalar quadrature, no model-input samples. It
 does not implement T50's transport driver or claim its interpolation is solved.
+
+Cycle6 result: `strata_theorem.md` proves the support decomposition directly
+from the rank of the final gate-cell map. T47 independently checked both the
+unconditional theorem and the two-fresh-input conditional smoothing statement;
+the latter requires both input weights nonzero and det(W*Wi,Wi) nonzero.
+Explicit counterexamples show each hypothesis matters. This finite support
+list is not a finite exact parameterization of its component densities.
+
+`check_strata.py` independently integrates the four toy components with scipy
+quadrature. Their masses are .32379180882521663, .25,
+.051208191174783355, and .375; the sum is1 and maximum discrepancy from
+the angle formulas is5.552e-17. Cost:870 scalar integrand evaluations,
+.002456CPU seconds, zero model passes or sampled model inputs. Run under the
+same single-thread flock wrapper as `check_segment.py`, substituting
+`check_strata.py`. Saved output is `strata_results.json`. The first attempted
+command used an incorrect file location and exited before computation; the
+files were moved into the owned folder and the documented run then succeeded.
