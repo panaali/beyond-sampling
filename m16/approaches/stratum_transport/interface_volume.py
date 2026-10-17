@@ -4,6 +4,7 @@ import numpy as np
 from support_volume import SupportOperator
 from quadrature_volume import QuadratureOperator
 from affine_volume import AffineOperator
+from loglinear_volume import LoglinearOperator
 
 
 class InterfaceOperator(SupportOperator):
@@ -15,7 +16,7 @@ class InterfaceOperator(SupportOperator):
         self.work['interface_helper_operators_constructed']+=3
 
     def helper_type(self,reconstruction):
-        return {'uniform':QuadratureOperator,'affine':AffineOperator}[reconstruction]
+        return {'uniform':QuadratureOperator,'affine':AffineOperator,'loglinear':LoglinearOperator}[reconstruction]
 
     def empty(self,box):
         state=super().empty(box);state.side_states=[]
