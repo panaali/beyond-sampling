@@ -7,12 +7,12 @@ import numpy as np
 TRANS=20
 
 class Audit:
- def __init__(self):self.parts=Counter();self.kernels=Counter();self.events=Counter()
+ def __init__(self):self.parts=Counter();self.kernels=Counter();self.events=Counter();self.validation_kernels=Counter()
  def add(self,part,n):self.parts[part]+=int(n)
  def kernel(self,name,shape):self.kernels[(name,tuple(shape))]+=1
  @property
  def known(self):return sum(self.parts.values())
- def report(self):return dict(known_arithmetic_upper_bound=self.known,parts=dict(self.parts),black_box_kernels=[dict(name=k[0],shape=list(k[1]),calls=v) for k,v in self.kernels.items()],events=dict(self.events))
+ def report(self):return dict(known_arithmetic_upper_bound=self.known,parts=dict(self.parts),black_box_kernels=[dict(name=k[0],shape=list(k[1]),calls=v) for k,v in self.kernels.items()],events=dict(self.events),validation_kernel_calls=dict(self.validation_kernels))
 
 
 def determinant(A,audit):
@@ -74,7 +74,7 @@ def volume(rays,n,audit):
  return float(total),float(bound)
 
 
-def instrument_dd(path,audit):
+def instrument_dd(path,audit,rank_mode='svd',validate_rank=False):
  """Source is read once; geometry algorithms retained, local tie adapter below."""
  source=Path(path).read_text();dd=types.ModuleType('counted_dd');dd.__file__=str(path);exec(compile(source,str(path),'exec'),dd.__dict__)
  dd.source_sha256=hashlib.sha256(source.encode()).hexdigest();audit.add('module_bitset_setup',128*3)
@@ -97,8 +97,16 @@ def instrument_dd(path,audit):
   H=len(model[0]);audit.add('gate_map_setup',100*H*H+2*H*H*t+100*H*(t+1)+4*H*dd.NW)
   out=rawchildren(R,Z,A,allm,t,model,ops);audit.add('gate_masks',len(out)*(H*(t+1)+20));return out
  def rank(M,ops):
-  audit.kernel('matrix_rank_SVD',M.shape);audit.add('rank_result_test',1)
-  return rawrank(M,ops)
+  audit.add('rank_result_test',1)
+  if rank_mode=='svd':
+   audit.kernel('matrix_rank_SVD',M.shape)
+   return rawrank(M,ops)
+  from bounded_rank import bounded_rank
+  value=bounded_rank(M,audit);audit.events['bounded_rank_calls']+=1
+  if validate_rank:
+   expected=rawrank(M,ops);audit.validation_kernels['matrix_rank_SVD']+=1
+   if value!=expected:raise AssertionError(f'QR rank{value} != SVD{expected} on{M.shape}')
+  return value
  def triangulate(R,Z,ops):
   k,d=R.shape;audit.events['triangulate_calls']+=1
   inc=np.unpackbits(Z.view(np.uint8),axis=1,bitorder='little').astype(bool)
@@ -177,8 +185,8 @@ def simplices(dd,R,Z,ops,audit):
  return out
 
 
-def enumerate_correct(model,dd_path,audit):
- dd=instrument_dd(dd_path,audit);ops=dd.Ops();counts=[0]*4;rays=[];cells=0
+def enumerate_correct(model,dd_path,audit,rank_mode='svd',validate_rank=False):
+ dd=instrument_dd(dd_path,audit,rank_mode,validate_rank);ops=dd.Ops();counts=[0]*4;rays=[];cells=0
  H=len(model[0]);assert H in (2,4) and len(model[2])==4
  if np.all(model[0]==0):raise ValueError('zero-input weights require separately proved special case')
  audit.add('root_gate_setup',100*H+100)
