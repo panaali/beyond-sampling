@@ -1,5 +1,6 @@
 """Bounded two-dimensional affine network cells on a fixed tie-face slice."""
 from collections import Counter
+from fractions import Fraction
 import importlib.util
 from pathlib import Path
 import numpy as np
@@ -9,12 +10,21 @@ ROOT = Path('/workspace/clean-neurons')
 WALKER = ROOT/'m16/approaches/sci_tao_v2/core.py'
 spec = importlib.util.spec_from_file_location('_slice_reference_walker', WALKER)
 walker = importlib.util.module_from_spec(spec); spec.loader.exec_module(walker)
+AREA_WORK=Counter()
 
 
 def signed_area(p):
     if len(p) < 3: return 0.
+    AREA_WORK['area_predicates'] += 1
     q = np.asarray(p)-p[0]
-    return float(np.sum(q[:-1,0]*q[1:,1]-q[:-1,1]*q[1:,0])/2)
+    value=float(np.sum(q[:-1,0]*q[1:,1]-q[:-1,1]*q[1:,0])/2)
+    scale=float(np.max(abs(p)))
+    if abs(value)<=64*np.finfo(float).eps*len(p)*scale*scale:
+        AREA_WORK['exact_area_fallbacks'] += 1; AREA_WORK['exact_area_vertices'] += len(p)
+        a=[[Fraction(float(v)) for v in row] for row in p]
+        value=float(sum(a[i][0]*a[(i+1)%len(a)][1]-a[i][1]*a[(i+1)%len(a)][0]
+                        for i in range(len(a)))/2)
+    return value
 
 
 def area(p):
@@ -79,6 +89,7 @@ class Slice:
         self.model, self.kind = tuple(np.asarray(a,float) for a in model), kind
         wi, wh, wo = self.model; H, T = len(wi), len(wo)
         self.work = Counter(); self.qlo, self.qhi = qlo, qhi
+        area_before=Counter(AREA_WORK)
         cfg = walker.geometry.configs(T,kind)
         U = np.full((3,T),.5)
         if fixed_quantiles is not None:
@@ -157,6 +168,7 @@ class Slice:
         self.knots=np.unique(np.r_[qlo,self.toq(np.concatenate(vertices)),qhi])
         self.knots=self.knots[(self.knots>=qlo)&(self.knots<=qhi)]
         self.work['retained_gate_cells']=len(cells); self.work['correct_polygons']=len(self.correct)
+        self.work.update(AREA_WORK-area_before)
 
     def toq(self,z):
         self.work['cdf_calls'] += np.size(z)
