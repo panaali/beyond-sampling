@@ -38,3 +38,6 @@ Run `flock /workspace/work/codex-review.lock env OMP_NUM_THREADS=1 OPENBLAS_NUM_
 
 ## Alternatives not ruled out and failure modes
 Reachable-state restrictions could yield an even larger reset set. Unsupported weight signs need a different theorem. Small input weights can make kappa huge and gains negligible. Rank dependence, long surviving suffixes and conditional integration error may dominate even if resets improve. Exact algebra does not certify floating numerical evaluation; no method family is declared solved or dead here.
+
+## Rank factorization checkpoint
+Protocol `RANK_PROTOCOL.md`, implementation `rank.py`, independent controls `check_rank.py`. The last reset leaves the older iid prefix unrestricted; only a two-input wedge rank law remains. The three unnormalized pair-count masses are nonnegative and include the reset probability. On25 frozen slope/threshold cases, independent Y-first rectangle integration agrees within6.67e-16; explicit Bernoulli-bit enumeration agrees with binomial convolution, and1,024 deterministic event checks confirm the last-pair/future-positive identity. Total control CPU.010055 seconds,8,043 scalar callbacks, no random model inputs. See `rank_results.json`; adaptive error estimates and floating arithmetic remain uncertified. This is a rank primitive, not a full estimator.
