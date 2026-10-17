@@ -182,7 +182,7 @@ def assemble_matrices(triplets, nrows, axes, stats):
         stats['polynomial_sparse_nonzeros_constructed'] += matrix.nnz
         stats['polynomial_sparse_matrices_constructed'] += 1
         if minimum < -1e-12 or defect > 1e-10:
-            raise ArithmeticError('sparse conditional kernel failed probability guards')
+            raise ArithmeticError(f'sparse conditional kernel failed probability guards: minimum={minimum:.17g}, row_defect={defect:.17g}')
         matrices.append(matrix)
     return matrices
 
