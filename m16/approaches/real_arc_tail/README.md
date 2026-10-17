@@ -54,3 +54,11 @@ Exhaustion checklist: raw real chain tested and fails; stable endpoint differenc
 
 ## Failure modes
 Cancellation in endpoint subtraction or polygon boundary sums; tiny arcs; under/overflow at extreme scales; rounded geometry and incomplete topology. Passing positivity bounds is not an accuracy certificate. Existing T55 fallback bounds cover integration only.
+
+### Independent bounded review
+T55 commits38da93e and4e15957 independently check the recurrence/beta algebra, exact stored-float sin6 reference falsifier, source binding and fresh mixed-sign/reversed arcs at degrees0..8. Independent80-digit controls agree within6.77e−16; reversal is bit-identical in that fixture. They do not independently re-run trained queries or certify floating topology/total portable cost.
+
+### Next bounded alternative: explicit positive arc quadrature
+This was predeclared as an alternative, now frozen before implementation. For even n<=6, finite Fourier coefficients have absolute sum r^n, r=hypot(a,b), hence the16th derivative of f^n has magnitude at most n^16*r^n. Composite positive8-point Gauss-Legendre on M equal panels gives error at most C*theta*(theta/M)^16*n^16*r^n, C=(8!)^4/[17*(16!)^3]. Choose M deterministically so this is <=1e−13*theta*r^n for the largest requested n; this is an absolute normalized bound, not relative error in a possibly tiny integral. Share nodes across all requested even powers; n0 is exacttheta. Generate the model-free8-node rule once per complete conditional query and charge it. Propagate arc absolute errors through boundary sums and the polygon recurrence using absolute coefficients; sum over all queried masses. This remains conditional on ideal nodes/arithmetic, with floating-rule/roundoff qualifications explicit.
+
+Repeat the same332 controls, nine polygons and eight trained conditional cases, preserving the endpoint baseline. Alternatives: positive node arithmetic may beat opaque special functions while providing a transparent bound, or extra trig/node work may erase the gain. Do not hide slow/failing cases or select per-model methods. No new outer estimator, random inputs or degree sweep. Bound<=110CPU, expected under20CPU review lane.
