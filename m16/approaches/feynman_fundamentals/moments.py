@@ -93,3 +93,21 @@ def tail_mass(vertices, prefix_dimension):
     if value < 0 or value > upper*(1+1e-12):
         raise ArithmeticError("moment violates geometric bound; higher precision required")
     return prefix_dimension / (2*pi) * value
+
+
+def tail_mass_with_fallback(vertices,prefix_dimension,stats=None,absolute_tolerance=1e-12):
+    """Use analytic recurrence, then positive integration on explicit failure.
+
+    Fallback error accounting covers quadrature only, not geometric/roundoff error.
+    The old tail_mass remains available to expose the original failure cases.
+    """
+    try:
+        return tail_mass(vertices,prefix_dimension)
+    except ArithmeticError:
+        from positive import polygon_tail_mass
+        result,metadata=polygon_tail_mass(vertices,prefix_dimension,absolute_tolerance)
+        if stats is not None:
+            stats["positive_fallbacks"]=stats.get("positive_fallbacks",0)+1
+            stats["fallback_quadrature_nodes"]=stats.get("fallback_quadrature_nodes",0)+metadata["quadrature_nodes"]
+            stats["fallback_quadrature_error_bound"]=stats.get("fallback_quadrature_error_bound",0.)+metadata["quadrature_error_bound"]
+        return result
