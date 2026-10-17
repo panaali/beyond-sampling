@@ -11,7 +11,7 @@ fetches of every public branch of `alignment-research-center/alg-zoo` and `mlp_c
 forks, the Google Drive notes linked from the AlgZoo post, ARC's May 2026 PDFs, and the AIcrowd challenge pages. The
 GitHub REST API is blocked in this session (repo-scoped), so issues and PRs were read from the github.com HTML pages.
 Every post-January-2026 ARC/AlgZoo source is logged in [../web_log.md](../web_log.md). I ran no estimator code. The
-only computation was two accuracy checks (about 10 CPU-seconds), reproduced in section 4.
+only computation was two accuracy checks (about 10 CPU-seconds), in [noise_check.py](noise_check.py).
 
 **Status.** Done (2026-10-17).
 
@@ -120,18 +120,18 @@ Trained structure is supposed to enter as "advice" π, and the advice mechanism 
 contest results (S12) show that at practical sizes, sampling variants or kprop combined with learned correctors win.
 In short, ARC's public toolkit is not yet sufficient for M_16,10, which matches the August 2026 comment.
 
-## 3. Ideas for our estimator (added to TASKS.md Backlog as T32-T37)
+## 3. Ideas for our estimator (added to TASKS.md Backlog as T36-T41)
 
 | ID | Goal | Done when | Pointers |
 |---|---|---|---|
-| T32 | **Reproduce ARC's two M_4,3 estimators** (Girard-volume subregions with a latent-Bernoulli gate correlation q = 0.2, and symmetry reduction with ε covariance propagation) on `zoo_2nd_argmax(4,3)`. This calibrates what ARC itself calls "roughly match", and checks our op accounting against theirs (72 ops per sample). | We obtain RMS errors close to 3% and 5% at absolute σ = 0.05 over 256 noisy models, with the ARC-style op counts, and we report our best M_4,3 deductive method under the same protocol. | S4, S5; [../web_arc/README.md](README.md) section 2 |
-| T33 | **Reference model plus error propagation for M_16,10** ("George's approach" scaled up). Build a reference RNN from our mechanism (FINDINGS) or `handcrafted_2nd_argmax(10)` whose accuracy and region structure are computable deductively. Write trained = reference + ε, and propagate the mean and covariance of the ε terms through the 10 steps under a presumption of independence, as in S4 (this is not E13's propagation of the full distribution). | We measure bias and RMSE on the leaderboard models (original, seeds 0-4, noisy copies). We also measure the ceiling: the error of the reference-only estimate before any ε correction. | S4 ("Version based on George's approach"), S1 (22-neuron handcrafted model), [m16/FINDINGS.md](../../m16/FINDINGS.md) |
-| T34 | **Harmonic-polynomial deduction-projection on S⁹** (Hilton's halfspace algorithm adapted to the RNN). The model has no biases, so accuracy is a spherical measure. Within a gate history, each new gate and each logit comparison is a halfspace through the origin. Propagate g̃ (degree ≤ D on S⁹) through the halfspaces step by step, projecting by Gegenbauer kernels (Funk-Hecke). Or, following the sketching theorem, choose the projection basis from the top eigenfunctions of E_f[f fᵀ] over an ensemble of "future" functions (for example the noisy-copy ensemble), so the sketch keeps exactly the inner products later steps need. Start at T = 4-5 (the T10 minimal pair). | We have a bias/RMSE-vs-FLOPs curve at T = 4, 5 and 6 (and 10 if it holds) against sampling. A negative result counts if it shows which degree D the rare wide bands (H-E12) need. | S11 (algorithm + runtime), S10 (sketching), ledger H-E11/H-E12, T10 |
-| T35 | **Independent check of our mechanism claims against Martin Keane's analysis** (rule 4 needs independent checks). Compare his phase-wheel period (complex W_hh eigenvalue, "period = 5.4 steps"), his forward/reverse offset f(m)+g(s) with g = −f, and his D[t] stability after an impulse with our H-M claims (42.7 deg/step phase, about 8.4 steps). | A table lists each H-M claim as agreeing, conflicting or not covered, with the discrepancy (5.4 vs 8.4 steps) explained. | S15 (docs 32-49, `src/`), S2, S16 |
-| T36 | **Argmax endpoint from cumulants (ARC max-endpoint branch).** q_i = ∂_a E[max_j(l_j + a_j)] via an Edgeworth expansion gives smooth argmax probabilities from propagated cumulants. Test it as the final-step endpoint only, on top of exact gate enumeration for the early steps, where E13's cumulants were reasonable. Low priority: E13 shows the full-depth cumulants are far from Gaussian. | We measure the bias of the endpoint alone at T = 3-5, given exact cumulants of the final logits, jointly with the target index. | S9 (`src/mlp_kprop/max_endpoint/argmax.py`), E13 |
-| T37 | **Ask ARC for the protocol and whether a solution exists.** Use a comment on the LW AlgZoo post, or contact Hilton: noise σ for M_16,10, FLOPs or forward passes, whether fixed QMC nets count as "mechanistic", and whether advice may be computed per noisy copy. Report our negative map (H-E11/H-E12). | We have an answer (or no answer after 2 weeks), recorded in H-E4 and H-E5. *Blocked: needs user approval* for external communication. | S1 footnotes, S2, S4; ledger H-E4/H-E5; T9 |
+| T36 | **Reproduce ARC's two M_4,3 estimators** (Girard-volume subregions with a latent-Bernoulli gate correlation q = 0.2, and symmetry reduction with ε covariance propagation) on `zoo_2nd_argmax(4,3)`. This calibrates what ARC itself calls "roughly match", and checks our op accounting against theirs (72 ops per sample). | We obtain RMS errors close to 3% and 5% at absolute σ = 0.05 over 256 noisy models, with the ARC-style op counts, and we report our best M_4,3 deductive method under the same protocol. | S4, S5; [../web_arc/README.md](README.md) section 2 |
+| T37 | **Reference model plus error propagation for M_16,10** ("George's approach" scaled up). Build a reference RNN from our mechanism (FINDINGS) or `handcrafted_2nd_argmax(10)` whose accuracy and region structure are computable deductively. Write trained = reference + ε, and propagate the mean and covariance of the ε terms through the 10 steps under a presumption of independence, as in S4 (this is not E13's propagation of the full distribution). | We measure bias and RMSE on the leaderboard models (original, seeds 0-4, noisy copies). We also measure the ceiling: the error of the reference-only estimate before any ε correction. | S4 ("Version based on George's approach"), S1 (22-neuron handcrafted model), [m16/FINDINGS.md](../../m16/FINDINGS.md) |
+| T38 | **Harmonic-polynomial deduction-projection on S⁹** (Hilton's halfspace algorithm adapted to the RNN). The model has no biases, so accuracy is a spherical measure. Within a gate history, each new gate and each logit comparison is a halfspace through the origin. Propagate g̃ (degree ≤ D on S⁹) through the halfspaces step by step, projecting by Gegenbauer kernels (Funk-Hecke). Or, following the sketching theorem, choose the projection basis from the top eigenfunctions of E_f[f fᵀ] over an ensemble of "future" functions (for example the noisy-copy ensemble), so the sketch keeps exactly the inner products later steps need. Start at T = 4-5 (the T10 minimal pair). | We have a bias/RMSE-vs-FLOPs curve at T = 4, 5 and 6 (and 10 if it holds) against sampling. A negative result counts if it shows which degree D the rare wide bands (H-E12) need. | S11 (algorithm + runtime), S10 (sketching), ledger H-E11/H-E12, T10 |
+| T39 | **Independent check of our mechanism claims against Martin Keane's analysis** (rule 4 needs independent checks). Compare his phase-wheel period (complex W_hh eigenvalue, "period = 5.4 steps"), his forward/reverse offset f(m)+g(s) with g = −f, and his D[t] stability after an impulse with our H-M claims (42.7 deg/step phase, about 8.4 steps). | A table lists each H-M claim as agreeing, conflicting or not covered, with the discrepancy (5.4 vs 8.4 steps) explained. | S15 (docs 32-49, `src/`), S2, S16 |
+| T40 | **Argmax endpoint from cumulants (ARC max-endpoint branch).** q_i = ∂_a E[max_j(l_j + a_j)] via an Edgeworth expansion gives smooth argmax probabilities from propagated cumulants. Test it as the final-step endpoint only, on top of exact gate enumeration for the early steps, where E13's cumulants were reasonable. Low priority: E13 shows the full-depth cumulants are far from Gaussian. | We measure the bias of the endpoint alone at T = 3-5, given exact cumulants of the final logits, jointly with the target index. | S9 (`src/mlp_kprop/max_endpoint/argmax.py`), E13 |
+| T41 | **Ask ARC for the protocol and whether a solution exists.** Use a comment on the LW AlgZoo post, or contact Hilton: noise σ for M_16,10, FLOPs or forward passes, whether fixed QMC nets count as "mechanistic", and whether advice may be computed per noisy copy. Report our negative map (H-E11/H-E12). | We have an answer (or no answer after 2 weeks), recorded in H-E4 and H-E5. *Blocked: needs user approval* for external communication. | S1 footnotes, S2, S4; ledger H-E4/H-E5; T9 |
 
-I also added a pointer to row T22: ARC's MSP fixes the estimand (see section 4, point 3).
+T40 extends T35 (ARC's cumulant method, already reserved by another agent): T35 implements kprop, and T40 adds only the argmax endpoint.
 
 ## 4. Points that contradict or refine the project's assumptions
 
@@ -148,18 +148,19 @@ I also added a pointer to row T22: ARC's MSP fixes the estimand (see section 4, 
    (12 models each). All of these "significantly alter" the accuracy, so ARC's wording is satisfied. The seed-averaged
    protocol (footnote 9) is the one ARC calls "better", which supports giving the seeds 0-4 column weight in the
    leaderboard.
-   Reproduce the noise numbers: the two inline `python3 -c` snippets in this task's session (they use
-   `arc_eval.forward`, `arc_eval.noisy_models` and `common.Wi/Wh/Wo`; rng seeds 3 and 5).
+   Reproduce: `source .venv/bin/activate && python lit/web_arc/noise_check.py` (about 10 CPU-seconds; prints every
+   number in this point and in point 7).
 2. **ARC's own bar for "roughly match" is looser than ours.** In S4, ARC's M_4,3 estimators are 2x worse in RMSE (4x
    in compute) and S1 still says "We find that we are able to roughly match the computational efficiency of
    sampling". Its George-style estimator also used *sampling* for a sub-integral. Our success criterion 3 ("MSE at most
    that of sampling") is stricter than ARC's self-assessment. That is fine as a target, but our "every pure calculation
-   loses by 8x to 300x" should be read against ARC's own 4x. **The project's best deductive methods are 2-75x behind
-   ARC's M_4,3-level bar, not just behind sampling.**
-3. **The estimand for the sampling benchmark (relevant to T22).** The MSP (S7) requires
+   loses by 8x to 300x" should be read against ARC's own 4x. If the 8-300x figures are compute (MSE) ratios, then our
+   deductive methods are roughly 2-75x behind ARC's M_4,3-level bar, not 8-300x.
+3. **The estimand for the sampling benchmark (T22).** The MSP (S7) requires
    E_c[(G − E_x M)²] ≤ ε² E_c[Var_x M], and the halfspace note (S11) states the baseline as "a mean squared error of
    E[p(1−p)]ε²". So ARC's benchmark is the **mean of the per-model variances p_i(1−p_i)** divided by the budget, not
-   mean(p)(1 − mean(p)). This settles T22's choice of estimand in favour of `mean(p_i(1−p_i)/cost_i)` at equal cost.
+   mean(p)(1 − mean(p)). This agrees with how T22 was resolved (v3 baseline = mean of p_m(1−p_m)/cost; commit 65db758). It now has ARC's own
+   wording as support.
 4. **Compute accounting.** ARC's accounting is in elementary operations or FLOPs, never wall-clock. In S4,
    sampling = (ops of one forward pass) × k. In S8/S9, "MC FLOPs = m * (one instrumented MLP forward + max reduction
    ...); random-number generation is excluded", and ground-truth computation "is never charged to any estimator". In
@@ -191,7 +192,7 @@ I also added a pointer to row T22: ARC's MSP fixes the estimand (see section 4, 
   architectures and a handcrafted k-th-argmax MLP. There are 0 issues and 0 PRs. There are three forks; only
   mrsirrisrm's contains substantial analysis.
 - [measured] Accuracy of the example model: 0.9531 under Gaussian inputs vs 0.9394 under Unif[−1,1] (400k each). Noisy
-  accuracies as in section 4, point 1.
+  accuracies as in section 4, point 1. Command: `python lit/web_arc/noise_check.py`.
 - [measured, quoted] ARC's M_4,3 protocol and numbers in section 2. Hilton's "not much closer" comment of 2026-08-17.
 - [inferred] ARC's public methods do not yet handle M_16,10. Their successes are on random instances, and their own
   contest is won by sampling variants.
