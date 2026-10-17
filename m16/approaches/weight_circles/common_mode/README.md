@@ -20,7 +20,7 @@ common open neighborhood of projections, avoiding a null-line-only inference.
 Source/theory independently cleared3ee0667b. Four controls pass4b3886c1 in
 0.004423146CPU, independently saved-reviewed443d4875. Trained driver505220d3
 was separately source-gated443d4875 and bound by dd9260be. All768 saved-map
-contractions completed743fd576; independent full saved audit pending. No dense
+contractions completed743fd576; independent full saved audit c84d99e8 passes. No dense
 network forward or reference draws; symbolic map and affine probe work is charged.
 
 ## Results
@@ -67,7 +67,7 @@ No automatic continuation or expanded sweep on failure.
 ## Claims
 [inferred, independently source-reviewed] Positive cubes with opposite
 correctness at common-shift partners reject this natural projection beyond
-a single ambient-null line. [measured, controls independently reviewed443d4875; trained saved audit pending]
+a single ambient-null line. [measured, controls independently reviewed443d4875; trained saved audit c84d99e8 passes]
 Four controls pass and both trained models have exact robust common-shift
 counterexamples. No probability, practical error floor or mass/cost saving
 is inferred from this finite, deliberately nonrandom witness set.
