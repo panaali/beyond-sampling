@@ -7,7 +7,7 @@ Can different represented prefix states share a provably identical final classif
 First exact-rational one-step canonicalization, with no trained capture. Combine proportional ReLU hyperplanes after orientation normalization and retain the resulting linear residues. Equality of canonical margin functions, or a common positive scaling of them, is sufficient for identical predictions including first-index ties. DERIVATION.md states the precise domain and proof.24 synthetic algebraic pairs plus4 shape guards include a same-label/different-margin counterexample.
 
 ## Status
-Claimd4f976bb pushed first. Source58007be5 independently gated, controls e498912c complete and independentlyc3ae1627 audited. No trained state capture yet.
+Claimd4f976bb pushed first. Source58007be5 independently gated, controls e498912c complete and independentlyc3ae1627 audited. Zero-prefix observer source288fedad independently2695e545 gated; all120 zero charts now pass. No trained state capture yet.
 
 ## Results
 All28 controls pass,19 exact-equal and20 projective-equal pairs among24,4 rejected malformed shapes.564 synthetic evaluations,.028001461CPU. Independent absolute-value normal form check confirms signatures and witness differences without replay. Owners confirm T131/T145/T146/T153 archives retain rays/counters, not step3 g/A state maps. Any new prefix capture needs a separate bounded source gate. No equality fraction is claimed from synthetic controls.
@@ -25,3 +25,8 @@ Label-only or prefix-cone-restricted equivalence, positive input-dependent score
 Forgetting the linear residue for a reversed hinge; accepting negative common score scaling; ignoring first-index ties; conflating float dyadic map equality with source floating execution; merging across truth labels; counting initial-chart duplicates as new state simplification; assuming a union of equal-function cells is convex or free to integrate.
 
 Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/future_equivalence/controls.py` under20CPU/2GB limits in a fresh output directory. Saved results refuse overwrite.
+
+## Prefix-observer controls
+The frozen zero H4T3/H4T4 controls yield exactly24/96 prefix states, all zero, with correct history/depth.336 recursive entries, no lookahead/model-point calls, no final-cell/mass calls. Inherited source proxy81,864; .096035809 process CPU including .023994303 source import/setup. This proxy omits initial-gate/wrapper formation and substantial native/setup work; it is not a complete operation count. Universal initial cones are saved once for later separately gated reuse. Source gate2695e545 preceded execution; saved independent review pending.
+
+Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/future_equivalence/capture/zero_controls.py` with external20CPU/2GB and internal12CPU/5Mproxy/10000states caps. No trained capture or accuracy follows.
