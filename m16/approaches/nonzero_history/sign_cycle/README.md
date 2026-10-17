@@ -66,7 +66,8 @@ T5seed2, both true/shuffled variants at GL16/32. References only in scoring.
 No expanded sweep until controls and the frozen rescue criterion pass.
 
 ## Status
-Frozen four-case pilot complete; independent failed-case verification requested.
+Frozen four-case pilot complete; independent direct-forward verification
+reproduces the failed-case ordering and magnitude.
 No expanded sweep: the preregistered failed-case rescue criterion fails.
 
 ## Results
@@ -144,3 +145,31 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python m16/
 Scripts load the pinned checkpoint paths and references documented in the
 parent README; no new Monte Carlo inputs or training are used. Independent
 verification is required before registering this negative as checked.
+
+
+## Independent verification and finite alternatives checklist
+T55 independently used uniform-CDF midpoint products and direct two-step
+forwards, without importing ranks.py or affine.py. At1024/1025 nodes the
+correct/shuffled estimates were .3097523612/.2803303935; at2048/2049 they
+were .3097347191/.2803085799. The finer values differ from this affine
+calculation by1.45e-5/2.41e-5, far below the .02944 association gap and the
+.04605 correct-mixture bias. Rank partition error was2.22e-16, with
+nonnegative weights. This independent deterministic quadrature check used
+20.98M tiny direct forwards and1.98CPU seconds after imports; it is diagnostic
+cost, not included as free production computation.
+
+The frozen finite rescue checklist is now complete:
+- formulation: exact nonexchangeable rank law; direct-integration and
+  independent direct-forward implementations agree on the failure;
+- conditioning: first sign with correct and deliberately shuffled means;
+- representation: exact T4 conditional means, one additional T5 mean closure;
+- numerical accuracy: positive exact-degree scalar primitives, GL16/32 outer
+  refinement, constants, Wh0 and zero-history reproduction controls;
+- cost: both branches and setup charged, event counts retained, unsupported
+  scalar-op estimate explicitly rejected rather than used.
+
+Not tried here: more sign/history bits, conditional variance, nondegenerate
+within-component state distributions, or rank-conditioned transport. These
+remain distinct open representations. This handoff closes only the frozen
+two-mean rescue; DRI owns claim classification. No broad impossibility or
+sampling advantage is asserted.
