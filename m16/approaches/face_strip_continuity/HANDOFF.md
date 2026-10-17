@@ -1,6 +1,6 @@
 # T159 bounded handoff
 
-Claim7b3a264 (row T159; commit subject historical T158 push race) preceded implementation. Research a156549 ->80294e04 ->64c4a5ed (T155 documentation) ->2471db2c -> final handoff. Independent T55 source theorem and all88-face audit passed; reviewer hash pending.
+Claim7b3a264 (row T159; commit subject historical T158 push race) preceded implementation. Research a156549 ->80294e04 ->64c4a5ed (T155 documentation) ->2471db2c -> final handoff. Independent T55 source theorem and all88-face audit passed; review a24db934.
 
 Same fixed H2T4seed0,u1 and prefix intervals[-3/8,-1/8],[1/8,3/8], input pair[-6,6]^2 with exactly one aboveu. Negative axis has no feasible moving correctness boundary: direct truncated pair value is invariant across that interval. Positive15 unique forms reduce to8,14 feasible occurrences including2 degenerate. Exact face K.178267919995; density-damped K.0910712094892; elementary prefix coefficient1.61044067122, displayed CDF coefficient.148946831413. Earlier elementary147.026534765. Independent exact recurrence/intersection reconstruction matches all vertices and rational sums.
 
