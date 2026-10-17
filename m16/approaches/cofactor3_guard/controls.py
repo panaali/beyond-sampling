@@ -6,6 +6,7 @@ import json
 import math
 from pathlib import Path
 import resource
+import sys
 import time
 from primitive import enclose
 
@@ -61,6 +62,8 @@ def main():
     assert not (HERE/'results.json').exists(), 'Preserve prior results'
     resource.setrlimit(resource.RLIMIT_CPU, (20, 20))
     start = time.process_time()
+    assert (sys.float_info.radix, sys.float_info.mant_dig, sys.float_info.max_exp,
+            sys.float_info.min_exp, sys.float_info.rounds) == (2, 53, 1024, -1021, 1)
     rows = []
     for name, matrix in fixtures():
         row = dict(name=name, input_hex=[[x.hex() for x in r] for r in matrix])
@@ -88,6 +91,7 @@ def main():
     gap = 8*(1-u)**5*(1-5*u)-5
     assert gap > 0
     result = dict(complete=True, rows=rows, gamma_inequality_gap=[str(gap.numerator), str(gap.denominator)],
+                  python_version=sys.version, binary64_round_to_nearest_environment=True,
                   source_sha256={name: hashlib.sha256((HERE/name).read_bytes()).hexdigest()
                                  for name in ('primitive.py', 'controls.py', 'PROOF.md', 'PROTOCOL.md')},
                   cpu_seconds=time.process_time()-start, new_primitive_calls=25,
