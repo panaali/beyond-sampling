@@ -1,0 +1,6 @@
+{
+  "issue": "Initial adapter.load imports pinned m43 only for Ops, but module executes unrelated np.load(m43_weights.npz) at import. Initial clean model-only claim was too broad.",
+  "effect": "No observed numerical dependence; inherited Ops class only increments n. Initial seven results remain preserved and independent import correction checked separately.",
+  "repair": "Extract pinned Ops class AST only; remove only ImportFrom m43 from engine AST. Verify every other engine statement identical; forbid np.load during new load.",
+  "control_status": "six returned analytical cases, alloff finite-order unresolved; no mass rerun warranted for import-only correction"
+}
