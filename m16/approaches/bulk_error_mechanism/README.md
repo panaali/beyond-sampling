@@ -102,3 +102,13 @@ combined integration bounds plus1e-11 arithmetic allowance. Compare rule
 changes separately; numerical arithmetic remains uncertified. CPU cap40seconds,
 no noisy copies. This is diagnostic exact-geometry attribution, not a cheap
 production estimator. Report prior construction cold dependencies explicitly.
+
+
+Independent T55 review reproduced all20 saved primal/dual certificates using
+Fraction arithmetic without importing the author LP solver (.063CPU). This
+checks exact feasibility, normalization, stationarity, signs and equal
+objectives. It confirms only the readout-superset statement. The generic
+routine currently raises if normalized weak-later constraints are infeasible,
+rather than returning an infeasibility certificate; that unsupported case
+occurs in none of the frozen rows. Do not call this a complete general LP
+classifier or infer actual recurrent reachability from these witnesses.
