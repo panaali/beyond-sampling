@@ -137,3 +137,19 @@ vectorized=True explicitly selects the tested fast variant. Rule/basis
 construction occurs inside every estimate. No model-dependent cache is
 reused across calls. Operator-source and unchanged-driver hashes accompany
 results; dense canonical files are untouched.
+
+## Independent review and handoff
+T55 review d8f9f1c independently integrates a literal angular interval with
+50-digit positive quadrature, without using the arc or dense-matrix code:
+25 real Gram entries agree within5.55e-17; separately evaluated real/complex
+fields agree within4.48e-16. The product-event formula, complement/mass,
+weight scaling and accumulation accounting pass. All17 aggregate arithmetic
+and CPU values reproduce independently.
+
+Status: equivalent-operator phase complete. Representation and numerical
+accuracy gates pass; the initial Python-loop cost failure was rescued by
+fixed vectorization and retained. The full total-cost/sampling gate remains
+open because opaque kernels and finite projection error remain. No new
+accuracy, impossibility or portable-FLOP claim is made. Future lower/local
+bases or internal support changes need a new frozen phase, not retrospective
+selection from the current17 results. DRI owns registry/claim confirmation.
