@@ -1,0 +1,692 @@
+{
+  "cases": [
+    {
+      "name": "all",
+      "rows": [],
+      "result": {
+        "feasible": true,
+        "lower": null,
+        "upper": null,
+        "reduced": [],
+        "contradictions": []
+      },
+      "witness": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "empty",
+      "rows": [
+        [
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "-1"
+        ]
+      ],
+      "result": {
+        "feasible": false,
+        "lower": null,
+        "upper": null,
+        "reduced": [
+          {
+            "row": [
+              "0",
+              "-1"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": [
+          0
+        ]
+      },
+      "witness": [
+        null,
+        null
+      ]
+    },
+    {
+      "name": "positive",
+      "rows": [
+        [
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "0"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": "0",
+        "upper": null,
+        "reduced": [
+          {
+            "row": [
+              "1",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      },
+      "witness": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "negative",
+      "rows": [
+        [
+          "-1",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "0"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": null,
+        "upper": "0",
+        "reduced": [
+          {
+            "row": [
+              "-1",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      },
+      "witness": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "bounded",
+      "rows": [
+        [
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "0"
+        ],
+        [
+          "-1",
+          "0",
+          "2"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": "0",
+        "upper": "2",
+        "reduced": [
+          {
+            "row": [
+              "-1",
+              "2"
+            ],
+            "sources": [
+              [
+                2,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "1",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      },
+      "witness": [
+        "1",
+        "-1/2"
+      ]
+    },
+    {
+      "name": "point",
+      "rows": [
+        [
+          "1",
+          "1",
+          "-1"
+        ],
+        [
+          "-1",
+          "-1",
+          "1"
+        ],
+        [
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "0"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": "1",
+        "upper": "1",
+        "reduced": [
+          {
+            "row": [
+              "0",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "1",
+              "-1"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ],
+              [
+                3,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "-1",
+              "1"
+            ],
+            "sources": [
+              [
+                2,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "0",
+              "0"
+            ],
+            "sources": [
+              [
+                2,
+                "1"
+              ],
+              [
+                3,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      },
+      "witness": [
+        "1",
+        "0"
+      ]
+    },
+    {
+      "name": "constant_true",
+      "rows": [
+        [
+          "0",
+          "0",
+          "1"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": null,
+        "upper": null,
+        "reduced": [
+          {
+            "row": [
+              "0",
+              "1"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      },
+      "witness": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "constant_false",
+      "rows": [
+        [
+          "0",
+          "0",
+          "-1"
+        ]
+      ],
+      "result": {
+        "feasible": false,
+        "lower": null,
+        "upper": null,
+        "reduced": [
+          {
+            "row": [
+              "0",
+              "-1"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": [
+          0
+        ]
+      },
+      "witness": [
+        null,
+        null
+      ]
+    },
+    {
+      "name": "one_sided_t",
+      "rows": [
+        [
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "-1",
+          "1",
+          "0"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": null,
+        "upper": null,
+        "reduced": [],
+        "contradictions": []
+      },
+      "witness": [
+        "0",
+        "0"
+      ]
+    }
+  ],
+  "substitution_controls": [
+    {
+      "boundary": [
+        "1",
+        "1",
+        "1",
+        "0"
+      ],
+      "original_rows": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          -1
+        ]
+      ],
+      "substituted": [
+        [
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "1"
+        ],
+        [
+          "-1",
+          "-1",
+          "-1"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": "0",
+        "upper": null,
+        "reduced": [
+          {
+            "row": [
+              "1",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      }
+    },
+    {
+      "boundary": [
+        "1",
+        "1",
+        "1",
+        "0"
+      ],
+      "original_rows": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "substituted": [
+        [
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "1"
+        ],
+        [
+          "-1",
+          "-1",
+          "-1"
+        ],
+        [
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "result": {
+        "feasible": false,
+        "lower": "0",
+        "upper": "-1",
+        "reduced": [
+          {
+            "row": [
+              "1",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "0",
+              "1"
+            ],
+            "sources": [
+              [
+                3,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "-1",
+              "-1"
+            ],
+            "sources": [
+              [
+                3,
+                "1"
+              ],
+              [
+                2,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      }
+    },
+    {
+      "boundary": [
+        "-1",
+        "1",
+        "1",
+        "0"
+      ],
+      "original_rows": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "substituted": [
+        [
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "-1",
+          "1"
+        ],
+        [
+          "1",
+          "-1",
+          "-1"
+        ],
+        [
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "result": {
+        "feasible": true,
+        "lower": "1",
+        "upper": null,
+        "reduced": [
+          {
+            "row": [
+              "1",
+              "0"
+            ],
+            "sources": [
+              [
+                0,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "0",
+              "1"
+            ],
+            "sources": [
+              [
+                3,
+                "1"
+              ],
+              [
+                1,
+                "1"
+              ]
+            ]
+          },
+          {
+            "row": [
+              "1",
+              "-1"
+            ],
+            "sources": [
+              [
+                3,
+                "1"
+              ],
+              [
+                2,
+                "1"
+              ]
+            ]
+          }
+        ],
+        "contradictions": []
+      }
+    }
+  ],
+  "interval_union_controls": 3,
+  "cpu_seconds": 0.0
+}
