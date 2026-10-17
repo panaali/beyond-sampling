@@ -1,0 +1,12 @@
+{
+  "seed": 0,
+  "exit_code": 152,
+  "signal": "SIGXCPU at110CPU soft RLIMIT",
+  "source_sha256": "6d38e2e9fa9f33cdb0ceb0b9794586d3978948ec19a22a69b701574765093d33",
+  "reason": "Validation loops over ref['rays'][i] on lazy NpzFile: each access decompresses whole rays archive. This bypasses geometry Ops soft timer.",
+  "attribution": "Code defect explains unbounded validation overhead; final process stage was not checkpointed, so exact stage timing is unavailable. No numerical/geometry negative inferred.",
+  "failed_attempt_cpu_budget_charged": 110,
+  "exact_failed_cpu_unmeasured": true,
+  "fix": "Load reference rays once; persist completed capture rays and metadata before any comparisons. No cap increase, target change or mass evaluation.",
+  "lost_capture": "No saved new checkpoint exists from failed process; rerun needed to materialize model-facing checkpoint, then reuse on further validation."
+}

@@ -23,10 +23,18 @@ def main(seed):
   E.Ops=BoundedOps
   state=torch.load(case['weights'],map_location='cpu',weights_only=True)
   model=(state['rnn.weight_ih_l0'].numpy().astype(float)[:,0],state['rnn.weight_hh_l0'].numpy().astype(float),state['linear.weight'].numpy().astype(float));assert model[1].shape==(8,8) and model[2].shape==(4,8)
-  # No reference arrays or mass values are opened until model collection finishes.
-  rays,capture=adapter.collect(model,E,guard);out['capture']=capture
-  ref=np.load(case['reference_capture']);metadata=json.loads(Path(case['capture_metadata']).read_text());assert len(rays)==len(ref['rays'])
-  mismatch=[i for i,R in enumerate(rays) if not np.array_equal(R,ref['rays'][i])];assert not mismatch,mismatch[:10]
+  # Checkpoint completed capture before validation; resume it if validation fails.
+  checkpoint=P/f'captured_seed{seed}.npz';metapath=P/f'captured_seed{seed}.json'
+  if checkpoint.exists() and metapath.exists():
+   saved=json.loads(metapath.read_text());assert saved['protocol_sha256']==out['protocol_sha256']
+   rays=np.load(checkpoint)['rays'];capture=saved['capture'];out['reused_capture']=True
+  else:
+   rays,capture=adapter.collect(model,E,guard);out['reused_capture']=False
+   np.savez_compressed(checkpoint,rays=np.asarray(rays))
+   metapath.write_text(json.dumps(dict(protocol_sha256=out['protocol_sha256'],capture=capture),indent=2)+'\n')
+  out['capture']=capture
+  reference_rays=np.load(case['reference_capture'])['rays'];metadata=json.loads(Path(case['capture_metadata']).read_text());assert len(rays)==len(reference_rays)
+  mismatch=[i for i,R in enumerate(rays) if not np.array_equal(R,reference_rays[i])];assert not mismatch,mismatch[:10]
   digest=hashlib.sha256()
   for R in rays:digest.update(R.tobytes())
   assert capture['stats']==metadata['stats']
