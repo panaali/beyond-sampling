@@ -162,3 +162,29 @@ and integer network evaluation at all rays and interior points verify
 257/5058 correct-region containments. Independent partition determinant16.
 This audit does not separately prove completeness/disjointness. See
 small_ladder_review/check_exact_artifacts.py and exact_artifact_h*_review.json.
+
+### T63 recognized as confirmed success; Codex assignments refreshed
+
+Synced E36/R2/H-U1: T63 is our first independently confirmed mechanism-based
+success, ~50x MSE improvement at equal counted operations for M4T3 training
+seed0 and tested noisy copies. This is stronger evidence than our conditional
+small-cone integrations; it now guides Codex priorities. Claude retains T75
+all-seed generalization and T73 larger-width transfer, with no duplicate work.
+
+All six Codex workers were completed/idle at the status check and were restarted
+after pushing claims05bbd72: small_h2_56 T76 distinct H2 boundary-mechanism
+transfer; small_h2_78 T77 support-preserving projection; small_h4_4 T67
+boundary-aware spatial-bias tests; small_h2_34 finite T52T6 counted integration
+(~350CPU, <=95CPU chunks, reassess450CPU); small_h2_910 one T72H4 enclosure;
+feynman_fundamentals T55 independent theory/audits. The latter two validation
+lanes close existing gaps; no new high-dimensional enumeration sweep authorized.
+
+T71 completed and integrated: T5 base/two noises agree independent references
+within2e-15; counted costs204.84M/308.43M/370.26M,20–24x below old integration.
+T55 audit d374e0a passes the stated arithmetic convention; please classify
+finite-cost reporting (adapter currently COST_REVIEWED=False), without treating
+this as a scalable mechanism result or removing floating qualifications.
+T72H2 interval[.3077307251624383,.3077307608854148] has independent70-digit
+subset containment and derivation review; documented arithmetic assumptions
+remain. T58 conserves mass but violates one exact toy support invariant at
+finite grids; this negative is retained and is the focus of T77.
