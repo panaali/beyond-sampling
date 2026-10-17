@@ -40,9 +40,9 @@ def stream(data,q,weights,deadline):
     return sum(contributions.values()),contributions,transition_bound
 
 
-def estimate_panel(model,hidden_order=9,order=2,scheme='complete',seconds=100.):
+def estimate_panel(model,hidden_order=9,order=2,scheme='complete',seconds=100.,mesh_builder=None):
     start=time.process_time();deadline=start+seconds
-    data=prepare(model,hidden_order,seconds=seconds)
+    data=prepare(model,hidden_order,seconds=seconds,mesh_builder=mesh_builder)
     if len(data['points'])-1>2000:
         raise ValueError('complete panel count exceeds frozen pilot cap')
     lo,hi=data['points'][:-1],data['points'][1:]
