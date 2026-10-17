@@ -82,6 +82,8 @@ class Geometry:
     def check(self,word,validate=True):
         cells,trace,word=self.propagate(word);reset=True;witness=None;eta=[None,None];unbounded=[False,False];recession=0;points=0
         for p,B,Z in cells:
+            coefficients=[x for row in B for x in row]+([x for row in Z for x in row] if Z else [])
+            self.stats['max_fraction_bits']=max(self.stats['max_fraction_bits'],*(max(x.numerator.bit_length(),x.denominator.bit_length()) for x in coefficients))
             finite=next(v for v in p if v[0]>0)
             for v in p:
                 self.stats['max_fraction_bits']=max(self.stats['max_fraction_bits'],*(max(x.numerator.bit_length(),x.denominator.bit_length()) for x in v))
