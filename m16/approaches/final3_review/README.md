@@ -31,3 +31,6 @@ T131 mass/geometry repair; certified mass integration; coarser top-two or class-
 
 ## Failure modes
 Treating Monte Carlo truth as exact, assuming independence of reused input streams, comparing seed averages to one seed without disclosure, equating lower bounds with exact region counts, propagating two observed growth factors as a theorem, or calling a fixed implementation's cost barrier a method-family negative.
+
+## Further scoped source lower bound and cheap rescue caveat
+The two first recurrent maps are identical across many charts and could be memoized by sign(x0), so the first2.09B bound alone does not exclude that implementation change. Independently, each nonempty initial cone is full-dimensional and pointed, hence any correct extreme-ray representation has at leastT rays. Its first _margin_split always charges len(c.R)*H*(T+1) for ray/gate dot products, before its gate decisions. This gives4*T!*T*H*(T+1) additional nominal charged operations,25.547B atH16,T10, even if the two recurrent maps are cached. It still applies only to the unchanged ray-testing/chart architecture; sparse predicate evaluation or a different chart representation can evade it. No general lower bound on accuracy estimation is claimed.
