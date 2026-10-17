@@ -103,3 +103,88 @@ def rnn_step_joint(mu, C, Wh, Wi, t, H, mode):
 def rnn_step_inject(mu, C, Wh, Q, mode):
     """Random-RNN step with a fresh input independent of h: u = Wh h + (input with covariance Q)."""
     return relu_layer(Wh @ mu, Wh @ C @ Wh.T + Q, mode)[:2]
+
+
+def relu_layer_b(mu_u, C_u, mode):
+    """Batched relu_layer: mu_u (B, n), C_u (B, n, n). Returns mean (B, n), cov (B, n, n), c (B, n)."""
+    B, n = mu_u.shape
+    var = np.maximum(np.einsum("bii->bi", C_u), 1e-300)
+    m, v, c = relu1(mu_u, var)
+    if mode == "arc2":
+        cov = C_u * c[:, :, None] * c[:, None, :]
+    elif mode == "gauss":
+        sd = np.sqrt(var)
+        i0, i1 = np.triu_indices(n, 1)
+        rho = np.clip(C_u[:, i0, i1] / (sd[:, i0] * sd[:, i1]), -1.0, 1.0)
+        E = relu_pair_moment(mu_u[:, i0], sd[:, i0], mu_u[:, i1], sd[:, i1], rho)
+        cov = np.zeros((B, n, n))
+        cov[:, i0, i1] = E - m[:, i0] * m[:, i1]
+        cov = cov + cov.transpose(0, 2, 1)
+        dead = var < 1e-24
+        cov = np.where(dead[:, :, None] | dead[:, None, :], 0.0, cov)
+    else:
+        raise ValueError(mode)
+    d = np.arange(n)
+    cov[:, d, d] = v
+    return m, cov, c
+
+
+def gh_nodes(n):
+    """Nodes/weights for N(0,1). n > 0: probabilists' Gauss-Hermite. n < 0: |n|/2 Gauss-Legendre nodes on each
+    half-line [0, 8] x phi (the 'split' rule: exact for functions linear on each half-line, i.e. for h_1)."""
+    if n > 0:
+        z, w = np.polynomial.hermite_e.hermegauss(n)
+        return z, w / w.sum()
+    k = -n // 2
+    g, gw = np.polynomial.legendre.leggauss(k)
+    z = 4 * (g + 1); w = 4 * gw * npdf(z)
+    z = np.concatenate([-z[::-1], z]); w = np.concatenate([w[::-1], w])
+    return z, w / w.sum()
+
+
+def rim_hidden(Wi, Wh, T, m, n, mode, record=None):
+    """'Recent-input mixture' (T80 variant a, structure vs randomness): the last m inputs are integrated exactly
+    on an n-node Gauss-Hermite grid (each grid point = one mixture component, the exactly known x-driven part),
+    the older inputs are summarised by a Gaussian/ARC-K2 residual (mean, cov) per component. Each step adds the
+    new input as a grid dimension and merges the oldest one by moment matching (law of total covariance).
+    m = 0: x_t-conditioned closure; m >= T: plain tensor-product quadrature (no closure error).
+    Returns overall (mean, cov) of h_t after each step in `record` (list) and the final components."""
+    H = Wh.shape[0]
+    z, w = gh_nodes(n)
+    W = np.ones(1); MU = np.zeros((1, H)); C = np.zeros((1, H, H))
+    keys = [()]
+    for t in range(T):
+        B = len(W)
+        n = len(z)
+        mu_u = (MU @ Wh.T)[:, None, :] + z[None, :, None] * Wi[None, None, :]      # (B, n, H)
+        Cu = np.einsum("ij,bjk,lk->bil", Wh, C, Wh)                              # (B, H, H)
+        Cu = np.broadcast_to(Cu[:, None], (B, n, H, H)).reshape(B * n, H, H)
+        mu_f = mu_u.reshape(B * n, H)
+        if not C.any():                          # deterministic components (all inputs on the grid so far)
+            mm, cc = np.maximum(mu_f, 0), np.zeros_like(Cu)
+        else:
+            parts = [relu_layer_b(mu_f[i:i + 1024], Cu[i:i + 1024], mode) for i in range(0, B * n, 1024)]
+            mm = np.concatenate([p[0] for p in parts]); cc = np.concatenate([p[1] for p in parts])
+        Wn = (W[:, None] * w[None, :]).reshape(-1)
+        kn = [k + (j,) for k in keys for j in range(n)]
+        if len(kn[0]) > m:                       # merge over the oldest grid dimension
+            kn = [k[1:] for k in kn]
+            uniq = {}
+            for i, k in enumerate(kn):
+                uniq.setdefault(k, []).append(i)
+            keys = list(uniq)
+            W2 = np.empty(len(keys)); MU2 = np.empty((len(keys), H)); C2 = np.empty((len(keys), H, H))
+            for a, k in enumerate(keys):
+                ii = uniq[k]; ww = Wn[ii]; s = ww.sum()
+                mu_ = (ww[:, None] * mm[ii]).sum(0) / s
+                dm = mm[ii] - mu_
+                C2[a] = (ww[:, None, None] * (cc[ii] + dm[:, :, None] * dm[:, None, :])).sum(0) / s
+                W2[a] = s; MU2[a] = mu_
+            W, MU, C = W2, MU2, C2
+        else:
+            keys, W, MU, C = kn, Wn, mm, cc
+        if record is not None:
+            mu_ = (W[:, None] * MU).sum(0)
+            dm = MU - mu_
+            record.append((mu_, (W[:, None, None] * (C + dm[:, :, None] * dm[:, None, :])).sum(0)))
+    return W, MU, C

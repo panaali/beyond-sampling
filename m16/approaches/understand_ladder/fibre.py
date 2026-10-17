@@ -90,14 +90,14 @@ class Cons:
         return a, b
 
 
-def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache):
+def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=1, info=None):
     """Wrong intervals on the fibre at theta, and the theta-interval on which they keep this combinatorics.
     Returns (intervals [(lo, hi)] with fn = (alpha, beta) or None for u = 0, (a, b))."""
     c, s = math.cos(theta), math.sin(theta)
     p = c * P + s * U
     ucl = fcl[0] * c + fcl[1] * s
     st = st0; f_u = None; u = 0.0
-    out = []; cons = Cons()
+    out = []; cons = Cons(); n_ok = 0
     T = st.L.shape[0]
     for _ in range(64):
         # gate candidates of this piece
@@ -193,7 +193,12 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache):
                 else:
                     out.append((edges[q][1], edges[q + 1][1]))
             cls_end = cls
-        if kk < 0 or (mode == "F1" and cls_end == truth):
+        piece_ok = all(int(np.argmax(a + 0.5 * (edges[q][0] + edges[q + 1][0]) * b)) == truth if st.live else truth == 0
+                       for q in range(len(edges) - 1))
+        n_ok = n_ok + 1 if piece_ok else 0
+        if info is not None:
+            info["f_stop"], info["u_stop"] = f_next, unext
+        if kk < 0 or (mode == "F1" and cls_end == truth and (look <= 1 or n_ok >= look)):
             break
         # step across gate kk; the pattern beyond it is cached per (piece, gate) within this call
         key = (id(st), kk)
@@ -350,13 +355,23 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
     return out, f_u, u
 
 
+LOOK = 0      # 0: attached-wedge forward walk (F2); L >= 1: forward trace until L consecutive correct pieces (F2L)
+
+
 def trace_F2(model, st0, P, U, nn, truth, fcl, theta, ops, cache):
     cons = Cons()
     c, s = math.cos(theta), math.sin(theta)
     ucl = fcl[0] * c + fcl[1] * s
     if ucl <= 0:
         return [], cons
-    iv, f_a, u_a = _walk(model, st0, P, U, nn, truth, theta, None, 0.0, 1, fcl, ucl, ops, cache, cons)
+    if LOOK > 0:
+        inf = {}
+        iv, cons = fibre_trace(model, st0, P, U, nn, truth, fcl, theta, "F1", ops, cache, look=LOOK, info=inf)
+        f_a, u_a = inf.get("f_stop", None), inf.get("u_stop", 0.0)
+        if f_a is fcl:
+            return iv, cons                              # traced to the clamp
+    else:
+        iv, f_a, u_a = _walk(model, st0, P, U, nn, truth, theta, None, 0.0, 1, fcl, ucl, ops, cache, cons)
     if iv and iv[-1][1] is fcl:
         return iv, cons                                  # wrong all the way to the clamp
     if u_a is None:

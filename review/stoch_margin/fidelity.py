@@ -1,12 +1,12 @@
 """T79 check 1: fidelity of reductions of the low inputs given a top-K skeleton (DIAGNOSIS ONLY, random inputs).
 Independent re-implementation of E31's diag_cond/diag_condk (analytic Jacobian instead of finite differences,
-truncnorm sampler, Genz orthant probability instead of sampled Gaussians, different seeds/models).
+truncnorm sampler, 16k-draw Gaussian orthant probability, different seeds/models).
 
 Per skeleton S: q = P(correct|S) from M paired low draws; each reduction evaluated on the SAME draws.
   R0      low inputs at the conditional mean
   lin     exact linear map of the gate pattern at the conditional-mean point
   add     cut-HDMR additive surrogate (cross-check of E31)
-  gauss   Gaussian law of the 9 margins with their TRUE conditional mean/cov (Genz orthant probability)
+  gauss   Gaussian law of the 9 margins with their TRUE conditional mean/cov (16k Gaussian draws)
   slin    statistical linearisation: OLS of logits on the low inputs over the M draws (oracle, in-sample)
   slin_r  slin + independent Gaussian residual with the true residual covariance (oracle 'linear + noise' law)
   lin_r   lin + independent Gaussian residual with the true residual covariance of lin (oracle)
@@ -18,7 +18,6 @@ import sys
 import time
 
 import numpy as np
-from scipy.stats import multivariate_normal as mvn
 
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
 import rv  # noqa: E402
@@ -33,6 +32,7 @@ nl = rv.T - K
 CH = 100
 cols = {k: [] for k in ["q", "R0", "lin", "add", "gauss", "slin", "slin_r", "lin_r", "v2", "v3"]}
 t0 = time.time()
+GZ = np.random.default_rng(seed + 1).standard_normal((16384, 9))
 
 
 def frac_ok(L, lab):
@@ -43,8 +43,10 @@ def orthant(Lmat, lab):
     """P(all margins > 0) for Gaussian logits-law given by sample moments of Lmat (M,10)."""
     others = [k for k in range(10) if k != lab]
     mar = Lmat[:, [lab]] - Lmat[:, others]
-    mu, C = mar.mean(0), np.cov(mar.T) + 1e-8 * np.eye(9)
-    return float(mvn.cdf(np.zeros(9), mean=-mu, cov=C, abseps=1e-6, releps=1e-5))
+    mu, C = mar.mean(0), np.cov(mar.T)
+    w, V = np.linalg.eigh(C)
+    z = mu + GZ @ (V * np.sqrt(np.clip(w, 0, None))).T     # 16384 Gaussian draws (unbiased; s.e. <= 0.4 pp/skeleton)
+    return float((z > 0).all(1).mean())
 
 
 for c in range(NS // CH):

@@ -159,6 +159,8 @@ def _cells_margin(poly, A3, Wo, truth, n_true, ops, eps, done=()):
             g[k] = float(A3[k] @ ref > 0); ops.add(4)
             if k not in done:
                 cut.append(k)
+    if not done:
+        STATS["cut"] += len(cut)
     if not cut:
         return [(poly, g)]
     w = np.max(np.abs(Wo[truth][None, :] - Wo), 0); ops.add(3 * len(A3))
@@ -186,7 +188,7 @@ def _cells_margin(poly, A3, Wo, truth, n_true, ops, eps, done=()):
                 best = (score, k)
     if best is None:
         return [(poly, g)]
-    k = best[1]
+    k = best[1]; STATS["resolved"] += 1
     out = []
     ins, outp = clip(poly, A3[k], ops)
     for q in (ins, outp):
@@ -241,3 +243,6 @@ def est75(model, ops=None, K=(4, 2), info=None, rule="arc", eps=0.1):
 
 # The frozen T75 recipe (chosen on dev noise seeds 0 of zoo seeds 0-4 before the fresh evaluation)
 RECIPE = dict(K=(4, 4), rule="adaptive", eps=0.1)
+
+# T85 recipe at rung (H=4, T=3): step 2 as T75 (adaptive impact), step 3 margin-aware (frozen before fresh seeds 40-43)
+RECIPE85 = dict(K=(4, 4), rule="margin", eps=0.1)
