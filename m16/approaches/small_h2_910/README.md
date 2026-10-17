@@ -120,3 +120,21 @@ angle node and CPU. Use no random inputs in the transport calculation; any reuse
 MC reference fromcycle1 is validation only. Stopcycle at120CPU seconds; if actual
 terminal cost threatens that cap, savepartialresults and reduce scheduled work
 explicitly, never silently reuse model-fitted values as free advice.
+
+## T54 queued local T9 pilot protocol
+Root reserved T54 for this owner; execute aftercycle2. Reuse T53's shared engine
+`small_h2_78/train_pilot.py` (commit21917b4), with sequence length9, torchseed0,
+training-input seed0, a biasfree torchReLU RNN with2hiddenneurons and9linear
+outputs, Adam learningrate.01/defaultremainingparameters, batch256, crossentropy
+against second-largest input position. Freeze max2000steps (512000sequences),
+stop training at27CPU seconds with30CPU totalcap, and preserve earlystopreason.
+Evaluate32768heldoutinputs with seed54003, chunks4096. Save weights andprovenance
+as `LOCALPILOT_H2_T9_seed0`; this is not a published/billion-example Zoo model.
+No seed selection, hyperparameter search, or accuracy-based restart.
+
+Alternatives: weak accuracy may reflect undertraining or architectural limits;
+this bounded pilot cannot distinguish them, so report trainingcurve andheldout
+accuracy without claiming an expressivity limit. A numerical estimator may fail
+on new geometry despite validating onT10; apply at most8fixed prefix-direction
+analytic tails and2conditional32768-input checks, preservingfailures. The goal
+is reproducible provenance and a first method check, not high trainingaccuracy.
