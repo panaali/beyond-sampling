@@ -84,3 +84,20 @@ error<=2.46e-10, and an independent direct-z adaptive integral agrees within
 zero mass. Doubling the positive quadrature rule changes a difficult near-
 tangential cut matrix by up to3.38e-8, so primitive integration is numerical
 and not certified. Preserve that limitation in trained comparisons.
+
+First H2T3 pilot (`pilot.py`) uses the existing exact accuracy
+.41017126172687207. Zero and identical readouts return1/3. Errors for
+N/M=4/0,4/1,8/1,16/1,8/2 are respectively -.00956,-.02481,-.02426,-.02422,
+-.01149. Every root/gate partition is conserved. Normal refinement at fixed
+M1 stalls, while M2 changes the result substantially; the M0 near-hit is not
+selected. Each estimate takes about.020-.024CPU, but dense arithmetic ranges
+from.31M to13.0M explicitly counted ops. Indexing/comparisons and some setup
+arithmetic are not fully audited, so that ledger is not a total-cost bound.
+
+Next fixed discriminator: N8 with M4 and M8, plus N4/M2 for equal-state context;
+repeat N8/M4 with doubled cut quadrature to isolate primitive error. Compare
+with the independent T57 isotropic evaluator at D2/4/8 with first-index and
+root-mass fixes, charging its cold setup and gate-map omissions. Actual CPU is
+reported separately from each implementation's imperfect arithmetic ledger.
+This tests tangential under-resolution as the strongest remaining cheap
+rescue; it is not an unbounded degree sweep. No new random inputs or fitting.
