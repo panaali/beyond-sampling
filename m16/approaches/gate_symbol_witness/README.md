@@ -13,7 +13,7 @@ Before target searches, analytic H2T4 fixture uses four positive inputs and iden
 Competing explanations: (1) E27 lower-input effects require gate switches; an exact same-cell pair would distinguish this. (2) A floating LP crossing is tolerance/roundoff or an input/gate tie; exact rational checks reject it. (3) Dependence is confined to isolated top3 values; strict inequalities give open persistence. No result here estimates probability or accuracy.
 
 ## Status
-Bounded search and exact certificate complete; independent T55 endpoint/radius reproduction received, written margin review pending.
+Done as a bounded exact structural result. Independent T55 direct recurrence, global radius and reverse-adjoint margin reconstruction all pass; gate_symbol_review_results.json records the independent values. DRI registration requested.
 
 ## Results
 All64 frozen anchors and640 LP calls completed in1.203938813CPU. Eight anchors have floating positive candidates:0,8,9,17,25,32,40,48; all64 statuses, including56 null searches, are retained in search_results.json. Per frozen rule, only the first positive pair needed exact certification; it passed with no failed exact attempts. This is not an estimate of how common ambiguity is.
@@ -28,7 +28,7 @@ Analytic H2T4 positive and constant-tie controls passed before the target search
 No random model inputs or MC. Fixed deterministic anchors, LP proposals and exact proof arithmetic only. Count every LP, diagnostic forward and exact recurrence; record CPU including failed stages. One thread,2GB, bounded primary/review locks. This is a structural diagnostic, not estimator cost.
 
 ## Claims
-[inferred from exact arithmetic, independently reproduced] Top3 values plus complete rank/gate history do not determine correctness for the original target model. [inferred, review pending] A single derived affine lower-input coordinate restores correctness on the exhibited segment. Neither statement determines accuracy or the cost of global symbolic integration.
+[inferred from exact arithmetic, independently reproduced] Top3 values plus complete rank/gate history do not determine correctness for the original target model. [inferred, independently reviewed] A single derived affine lower-input coordinate restores correctness on the exhibited segment. Neither statement determines accuracy or the cost of global symbolic integration.
 
 ## Alternatives not ruled out
 Weighted lower-input accumulators, gate-conditioned affine margin coefficients, stochastic integration over discarded inputs, nonlinear state summaries, approximate rather than exact correctness, and other retained coordinates. Full gate history includes rotating-gate history, so a certified collision excludes only summaries which discard all additional continuous information. No family-wide symbolic-dynamics impossibility.
