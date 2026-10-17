@@ -6,6 +6,6 @@ Method: unchanged reviewed exact sectors, all facet means160/200 digits and inde
 
 Status: source frozen; execution gates pass: saved-network7ad8ea7a and T55 runner source gate on52da5a9d with explicit len16 guards d290e34e. All attempts/cells durable; geometry saved before validation; no overwrite or automatic resume.
 
-Results: all544 cells pass in11.542CPU, max independent angular discrepancy4.865e-80; mean sample-relative RMS0.00262984 versus0.0920779 retained-sector baseline. See HANDOFF.md; independent saved audit pending. Candidate/geometry/reference/validation CPU and exact named arithmetic retained separately, not a full-cost claim. Reference inputs are not regenerated. Old Gaussian/mixture calls are not repeated.
+Results: all544 cells pass in11.542CPU, max independent angular discrepancy4.865e-80; mean sample-relative RMS0.00262984 versus0.0920779 retained-sector baseline. See HANDOFF.md; independent saved geometry4142246c and aggregatefb944bce pass. Candidate/geometry/reference/validation CPU and exact named arithmetic retained separately, not a full-cost claim. Reference inputs are not regenerated. Old Gaussian/mixture calls are not repeated.
 
 Claims: [inferred] exact-real mean follows the reviewed facet identity; finite MP and stored sample checks are numerical diagnostics. Signed cancellation, model-only scope, historical ordinary floating recurrence and sample uncertainty remain. No covariance/step4/final accuracy conclusion.
