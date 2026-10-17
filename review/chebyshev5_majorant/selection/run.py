@@ -41,6 +41,7 @@ def main():
         def get(key,n):
             full=key+(n,);assert full not in seen;seen.add(full)
             rec=dict(index=out['evaluations'],key=list(key),order=n,certificate=certs[key],status='started')
+            out['active_bound']=dict(rec);save()
             if full in cached:
                 old=cached[full];rec.update(status='completed',origin='cached',upper_bound=old['upper_bound'],counts=old['counts'],prior_record=full)
                 out['cached']+=1
@@ -51,6 +52,7 @@ def main():
                 rec['research_cpu']=time.process_time()-t;out['new']+=1;new_counts.update(rec['counts'])
             all_counts.update(rec['counts']);out['evaluations']+=1
             with ledger.open('a') as f:f.write(json.dumps(rec)+'\n')
+            out['active_bound']=None;save()
             return rec
         for panel,name in parents:
             keys=sorted(parents[(panel,name)],key=lambda x:-1 if x[2] is None else x[2]);assert len(keys)==(1 if panel=='original' else 2)
