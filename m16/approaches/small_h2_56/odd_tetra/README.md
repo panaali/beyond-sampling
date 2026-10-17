@@ -111,3 +111,6 @@ Validate the completed counted MGS/GL pipeline on the full gate partition of the
 
 ## Counted partition result
 [measured] `counted_partition.json` reports full gate masses1.000000000000005,1.0000000000269944 and .9999999999994292 for base/.0025/.02. Absolute discrepancies are5.11e-15/2.70e-11/5.71e-13, all below their conditional outer-plus-positive-inner bounds2.3822e-6/2.3807e-6/2.3579e-6. These independent target-free checks preserve all gate pieces and use the unchanged counted primitive. Validation costs are recorded separately from estimator costs.
+
+## Independent scalar audit
+T55's read-only audit agrees with the GL24 outer degree22, positive-fallback GL degree n-2, finite-product Chebyshev tail and positive inner-budget allocation. It finds the line groups conservative:1394 scalar units per cone including the MGS frame and1472 per outer node, with every fallback charged separately. The reviewer requested that fixed squares/cubes explicitly count as one/two scalar multiplications while noninteger powers cost20; `COUNTING.md` now states this operation-model convention. No numerical code or result changed. The adapter remains conservative until DRI acceptance; this review does not certify floating geometry or rounding.
