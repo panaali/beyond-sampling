@@ -18,7 +18,7 @@ Frozen first phase and radial continuation complete. Exact analytic formula conc
 Each arm's set_rules5 setup measured separately, plus every call including failures. Source ops is the inherited abstract proxy, never native runtime or hardware cost. Record order4 tensor node counts and full named setup/call scope; compilation/import/serialization and MP/reference research overhead remain separate. One thread,2GB,20CPU review lock; no full T5/model/MC replay.
 
 ## Claims
-[inferred] The product formula follows independent isotropic Gaussian coordinates and the reviewed source normalization. [speculative] Equal determinant can hide very different radial conditioning and invalidate fixed GL6 as a universal rule. No trained-model or algorithm-family conclusion is asserted.
+[inferred] The product formula follows independent isotropic Gaussian coordinates and the reviewed source normalization. [inferred; independently reviewed baadda44] Equal determinant hides very different radial conditioning and invalidates fixed GL6 as a universal rule on the explicit wide family. [measured; independently reviewed c39c57fa] The frozen conservative bound qualifies6/33 cases and leaves27 unresolved. No trained-model or algorithm-family conclusion is asserted.
 
 ## Alternatives not ruled out
 Different representations, certified range/order selection, geometric splitting, stable log/cofactor formulas and positive fallback remain open. A finite forced log success would validate these controls only. No family retirement.
@@ -30,4 +30,4 @@ Frozen result: the original hybrid source fails the1e-10 absolute gate on all th
 
 Independentbaadda44 accepts the fixed-interior obstruction and ideal radial minimum formula. This confirms a universal determinant-only fixed-rule defect, not failure on the saved trained T5 corpus. A separately frozen range/tail-bound continuation is proposed; exact positive edge splitting remains an open alternative to register.
 
-Claim36828ec0 continuation is saved under radial_bound/:33 directed ideal-rule bounds and9 fixed range controls, no mass reruns. Only narrow35/48 qualify at allthree frozen orders;27 outcomes remain unresolved, including accurate identity cases because the global binomial tail is conservative. Exact setup/bitwidth and directed costs retained. See radial_bound/HANDOFF.md. Independent raw audit requested.
+Claim36828ec0 continuation is saved under radial_bound/:33 directed ideal-rule bounds and9 fixed range controls, no mass reruns. Only narrow35/48 qualify at allthree frozen orders;27 outcomes remain unresolved, including accurate identity cases because the global binomial tail is conservative. Exact setup/bitwidth and directed costs retained. See radial_bound/HANDOFF.md. Independent raw audit c39c57fa passes all certificates, bounds and counts without integration replay.
