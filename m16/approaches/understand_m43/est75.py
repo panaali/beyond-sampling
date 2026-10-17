@@ -212,6 +212,73 @@ def _cells_margin(poly, A3, Wo, truth, n_true, ops, eps, done=()):
     return out
 
 
+def _resolve_margin2(poly, A2, model, truth, n_true, ops, eps, done=()):
+    """T112 certified-style step-2 rule (intermediate step). Freeze every cutting step-2 gate at its arc state; resolve
+    gate k only if on its minority side the change it can cause in the readout margin, |a_k . v| * w_k with the
+    Lipschitz bound w_k = max_o sum_j |(Wo[t,j] - Wo[o,j]) Wh[j,k]| (ReLU is 1-Lipschitz), reaches the margin of the
+    frozen network m(v) (full forward of the frozen model at v), or that margin changes sign there with a change
+    >= eps * max|m|. Test points: minority vertices and gate/edge crossing points. All triggering gates are split at
+    once and the children re-tested (order-independent). Scale-invariant like _resolve_inv."""
+    Wi, Wh, Wo = model
+    on = _arc(poly, n_true, ops)
+    ref = np.mean(on, 0) if len(on) >= 2 else np.mean(poly, 0); ops.add(3 * len(poly))
+    V = np.array(poly); S = V @ A2.T; ops.add(4 * len(poly) * len(A2))
+    tol = 1e-12 * np.abs(S).max(0)
+    g = np.zeros(len(A2)); cut = []
+    for k in range(len(A2)):
+        if S[:, k].min() >= -tol[k]:
+            g[k] = 1.0 if S[:, k].max() > tol[k] else float(A2[k] @ ref > 0)
+        elif S[:, k].max() <= tol[k]:
+            g[k] = 0.0
+        else:
+            g[k] = float(A2[k] @ ref > 0); ops.add(4)
+            if k not in done:
+                cut.append(k)
+    if not done:
+        STATS["cut"] += len(cut)
+    if not cut:
+        return [(poly, g)]
+    D = np.abs(Wo[truth][None, :] - Wo)
+    w = np.max(D @ np.abs(Wh), 0); ops.add(3 * len(A2) * len(A2) + 3 * len(A2))
+    A3f = Wh @ (g[:, None] * A2) + np.outer(Wi, E[2]); ops.add(len(A2) * int(g.sum()) * 2)
+
+    def margin(P):
+        Z = np.maximum(P @ A3f.T, 0) @ Wo.T; ops.add(len(P) * (4 * len(A2) + 3 * len(A2)))
+        if not np.any(np.maximum(P @ A3f.T, 0)):
+            return np.zeros(len(P))
+        return Z[:, truth] - np.max(np.delete(Z, truth, axis=1), axis=1)
+
+    trig = []
+    for k in cut:
+        sk = S[:, k]
+        mino = (sk > 0) != (g[k] > 0)
+        pts = [V[q] for q in np.flatnonzero(mino)]; sh = [abs(sk[q]) * w[k] for q in np.flatnonzero(mino)]
+        m_ = len(poly)
+        for q in range(m_):
+            r = (q + 1) % m_
+            if (sk[q] > 0) != (sk[r] > 0) and sk[q] != 0 and sk[r] != 0:
+                pp = abs(sk[q]) * V[r] + abs(sk[r]) * V[q]; pts.append(pp / np.linalg.norm(pp)); sh.append(0.0); ops.add(13)
+        P = np.array(pts); sh = np.array(sh); mm = margin(P)
+        score = np.max(sh / (np.abs(mm) + 1e-300)); ops.add(2 * len(P))
+        flips = mm.min() < 0 < mm.max() and sh.max() >= eps * np.abs(mm).max()
+        if score >= 1 - TIE or flips:
+            trig.append(k)
+    if not trig:
+        return [(poly, g)]
+    STATS["resolved"] += len(trig)
+    pieces = [poly]
+    for k in trig:
+        nxt = []
+        for q in pieces:
+            ins, outp = clip(q, A2[k], ops)
+            nxt += [x for x in (ins, outp) if x]
+        pieces = nxt
+    out = []
+    for q in pieces:
+        out += _resolve_margin2(q, A2, model, truth, n_true, ops, eps, tuple(done) + tuple(trig))
+    return out
+
+
 def _resolve_inv(poly, A2, model, truth, n_true, ops, eps, bound=False):
     """T85b scale-invariant step-2 rule. Like 'adaptive', but the weight factor of step-2 neuron k is its effect on
     the readout margin through the step-3 neurons that are on at the cell's arc point: v_k = Wo diag(g3_ref) Wh[:, k],
@@ -286,12 +353,13 @@ def _est75(model, ops, K, info, rule, eps):
             ops.add(16 + 12)
         r2 = "adaptive" if rule == "margin" else rule
         e2 = eps[0] if isinstance(eps, tuple) else eps
-        cells2 = _resolve_inv(h["poly"], A2, model, truth, n_true, ops, e2, rule == "margin_inv2") if rule in ("margin_inv", "margin_inv2") else \
+        cells2 = _resolve_margin2(h["poly"], A2, model, truth, n_true, ops, e2) if rule == "margin_all" else \
+            _resolve_inv(h["poly"], A2, model, truth, n_true, ops, e2, rule == "margin_inv2") if rule in ("margin_inv", "margin_inv2") else \
             _resolve([h["poly"]], A2, n_true, K[0], ops, r2, w2, e2)
         for p2, g2 in cells2:
             A3 = Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2]); ops.add(4 * int(g2.sum()) * 2)
             e3 = eps[1] if isinstance(eps, tuple) else eps
-            cells3 = _cells_margin(p2, A3, Wo, truth, n_true, ops, e3) if rule in ("margin", "margin_inv", "margin_inv2") else \
+            cells3 = _cells_margin(p2, A3, Wo, truth, n_true, ops, e3) if rule in ("margin", "margin_inv", "margin_inv2", "margin_all") else \
                 _resolve([p2], A3, n_true, K[1], ops, rule, w3, e3)
             for p3, g3 in cells3:
                 STATS["cells"] += 1
@@ -324,3 +392,7 @@ RECIPE85 = dict(K=(4, 4), rule="margin", eps=0.1)
 
 # T85b: scale-invariant step-2 impact + margin-aware step 3 (frozen before fresh noise seeds 60-63)
 RECIPE85B = dict(K=(4, 4), rule="margin_inv2", eps=0.1, cliptol=1e-12)
+
+# T112: margin certificate at BOTH steps (intermediate step 2 via the Lipschitz readout bound, step 3 as T85);
+# chosen after the clean-seed diagnosis at H = 4, 5, 6, 8 (T = 3), frozen before fresh noise seeds 70-73.
+RECIPE112 = dict(K=(99, 99), rule="margin_all", eps=0.1, cliptol=1e-12)

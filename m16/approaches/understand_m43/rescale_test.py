@@ -28,7 +28,7 @@ def max_change(recipe, models, rng):
 if __name__ == "__main__":
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 20
     rng = np.random.default_rng(12345)
-    for name in ("RECIPE", "RECIPE85", "RECIPE85B"):
+    for name in ("RECIPE", "RECIPE85", "RECIPE85B", "RECIPE112"):
         rec = getattr(E75, name); out = []
         for s in range(5):
             ms = [zoo_model(s)] + noisy_copies(zoo_model(s), n, 0.05, 1)[:n]
