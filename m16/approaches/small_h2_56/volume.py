@@ -55,13 +55,20 @@ def sum_mass(rays,n):
   x,b,k=mass(v,n);value+=x;bound+=b;nodes+=k
  return dict(estimate=value,conditional_quadrature_error_bound=bound,nodes=nodes,order=n)
 
-def bernstein_bound(rays,n,degree=None):
+def supporting_lower(rays):
+ """Squared supporting-plane distance, computed once per simplex."""
+ center=rays.sum(axis=1);center=center/np.sqrt(center@center)
+ lower=float(np.min(rays.T@center))
+ return lower*lower if lower>=0 else 0.
+
+def bernstein_bound(rays,n,degree=None,radial_lower=None):
  """Analytic bound optimized over a fixed grid of Bernstein ellipses."""
  d=len(rays);p=d/2;k=(2*n-d+1)//2 if degree is None else degree
  if k<0:return float('inf')
  det=abs(np.linalg.det(rays));g=rays.T@rays
  # Tiny outward cushions; not a floating-point certificate for the entire geometry.
  a=max((1-1e-12)/d,float(g.min())-1e-12);b=max(a,float(np.diag(g).max())+1e-12)
+ if radial_lower is not None:a=max(a,radial_lower-1e-12)
  m=(a+b)/2;delta=(b-a)/2
  if delta==0:return 0.
  limit=(np.sqrt(b)+np.sqrt(a))/(np.sqrt(b)-np.sqrt(a))
@@ -71,11 +78,12 @@ def bernstein_bound(rays,n,degree=None):
  logterms=-p*np.log(lower[good])-k*np.log(r[good])-np.log(r[good]-1)
  return float(gamma(p)*det/(2*pi**p)*4/factorial(d-1)*np.exp(logterms.min()))
 
-def plan(rays,tolerance=1e-4,orders=(4,6,8,10,12,16,20,24,28,32),jacobi=False):
+def plan(rays,tolerance=1e-4,orders=(4,6,8,10,12,16,20,24,28,32),jacobi=False,support=False):
  chosen=[];bounds=[];per=tolerance/len(rays)
  for v in rays:
+  lower=supporting_lower(v) if support else None
   for n in orders:
-   b=bernstein_bound(v,n,degree=n-1 if jacobi else None)
+   b=bernstein_bound(v,n,degree=n-1 if jacobi else None,radial_lower=lower)
    if b<=per:break
   chosen.append(n);bounds.append(b)
  return np.array(chosen),np.array(bounds)
