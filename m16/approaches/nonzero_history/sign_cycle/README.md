@@ -66,7 +66,8 @@ T5seed2, both true/shuffled variants at GL16/32. References only in scoring.
 No expanded sweep until controls and the frozen rescue criterion pass.
 
 ## Status
-Primitive and surrogate-driver controls pass; frozen trained pilot next.
+Frozen four-case pilot complete; independent failed-case verification requested.
+No expanded sweep: the preregistered failed-case rescue criterion fails.
 
 ## Results
 Rank partition/averaging and independent nested direct-integral controls pass
@@ -98,3 +99,48 @@ model is rejected if this finite mixture fails.
 ## Failure modes
 Wrong special-prefix ownership, rank polynomial switches at0/y, CDF-tail
 cancellation, affine floating geometry, and increased mixture cost.
+
+
+## Frozen pilot outcome
+
+| Case | Full reference | Zero history | Correct sign mixture | Shuffled mixture |
+| --- | ---: | ---: | ---: | ---: |
+| T4 base | .307730743024 | .302287019997 | .309159528200 | .293088649172 |
+| T4 relative .02 copy0 | .263667911892 | .294937102057 | .309720246156 | .280284513892 |
+| T5 base | .279237371315 | .273000219154 | .269786605638 | .269239840661 |
+| T5 seed2 | .304775458782 | .293505264962 | .285836764539 | .275695022268 |
+
+[measured] Correct association improves T4 base, but remains worse than zero
+history on the other three cases. On the frozen noisy T4 failure, correct
+association is worse than shuffled association and the prior deterministic
+mean. The T4 means are exact conditional means, so this failure cannot be
+assigned to the T5 extra mean-closure approximation.
+
+[measured] GL16/32 differences are at most5.56e-17. This checks this numerical
+outer rule on these cases; it does not certify floating affine geometry or
+surrogate error. y-tail omission remains<=1.974e-9, and source references
+have their own recorded bounds. All eight estimates and diagnostics, source
+hashes, both sign states and individual partition masses are in pilot.json.
+The complete cycle used2.7145CPU seconds. Each production GL16 estimate used
+.0640-.1920CPU seconds,2112-5824 outer nodes and152064-419328 inner rank
+polynomial nodes. Setup and both sign arrangements are charged. These are
+CPU/event observations, not portable FLOP bounds or a sampling comparison.
+
+[inferred] An exact conditional mean and a correct rank law still discard
+within-sign state variation and its dependence on earlier order statistics.
+This four-case failure rejects the frozen two-mean rescue, not conditioning
+or state-distribution transport in general. Shuffled association is a
+falsifier, not a replacement estimator selected after looking at truth.
+
+Reproduce from repository root with one numerical process under the shared
+lock and the documented caps:
+
+```
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python m16/approaches/nonzero_history/sign_cycle/controls.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python m16/approaches/nonzero_history/sign_cycle/model_controls.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python m16/approaches/nonzero_history/sign_cycle/pilot.py
+```
+
+Scripts load the pinned checkpoint paths and references documented in the
+parent README; no new Monte Carlo inputs or training are used. Independent
+verification is required before registering this negative as checked.
