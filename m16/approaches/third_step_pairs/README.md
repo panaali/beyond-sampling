@@ -11,10 +11,11 @@ PROOF.md, primitive.py and the fixed24 controls in controls.py. It does not
 assemble trained neuron pairs or run a network.
 
 ## Status
-Claim91e79d3b pushed. Source frozen before independent gate and one bounded run.
+Claim91e79d3b pushed. Source138a0e91 independently gated by78/T55; all24 controls now pass, saved audit pending.
 
 ## Results
-Pending.16 full-dimensional analytic controls,2 zero-volume controls,
+All24 pass in0.187677CPU; max analytic difference5.998e-118. See HANDOFF.md.
+16 full-dimensional analytic controls,2 zero-volume controls,
 3 explicitly unsupported lineality cases and3 invalid input controls.
 Reproduction after source gate: one thread2GB under secondary20CPU lock,
 `/workspace/clean-neurons/.venv/bin/python m16/approaches/third_step_pairs/controls.py`.
