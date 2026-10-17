@@ -1,5 +1,5 @@
 """Pinned recipe-mode adapter over the independently reviewed T146 tracer."""
-import hashlib,json,sys,time,types,resource
+import ast,hashlib,json,sys,time,types,resource
 from pathlib import Path
 import numpy as np
 HERE=Path(__file__).resolve().parent;PRIOR=HERE.parent/'plackett_cost_review'
@@ -12,6 +12,16 @@ PINS={PRIOR/'inventory.py':'25fbf143de8d93e6a9b42e0d38754b0ea8369b07af14cb65771e
  SOURCE/'summary.json':'3f83f04583d2144cd02fbe53310dddf8eb4decd78edc28cbf9f852900328902e'}
 for p,sha in PINS.items():assert hashlib.sha256(p.read_bytes()).hexdigest()==sha,str(p)
 sys.path.insert(0,str(PRIOR));from inventory import Ledger,load
+import inventory as inherited
+class RecipeRewrite(inherited.Rewrite):
+    def visit_Call(self,node):
+        # A computed ndarray receiver such as np.abs(mm).max is a method,
+        # unlike the namespace function np.max. Preserve its original receiver.
+        if isinstance(node.func,ast.Attribute) and node.func.attr in ('min','max','sum','mean','any','all','copy','astype') and not isinstance(node.func.value,ast.Name):
+            site=self.site(node);name='.'+node.func.attr;node=self.generic_visit(node)
+            out=self.wrap(node,'call',[ast.Constant(site),ast.Constant(name),node.func]+node.args);out.keywords=node.keywords;return out
+        return super().visit_Call(node)
+inherited.Rewrite=RecipeRewrite
 source=(PRIOR/'geometry.py').read_text();assert source.count("mode='exact'")==1
 source=source.replace("mode='exact'","mode='recipe108'")
 G=types.ModuleType('reviewed_recipe_adapter');G.__file__=str(PRIOR/'geometry.py');exec(compile(source,G.__file__+' [one mode replacement]','exec'),G.__dict__)

@@ -57,7 +57,7 @@ uncertainty and no noisy-suite/rung success claim.
    call shapes and state the limitation instead of inventing kernel costs.
 
 ## Status
-Bounded full trace complete; independent raw aggregate review pending.
+Bounded full trace complete; independent raw aggregate review add47fb passes.
 
 ## Results
 All eight geometry batches reproduce all35098 ordered ray arrays,8455
@@ -170,3 +170,8 @@ python m16/approaches/plackett_cost_review/summarize.py
 Every source, model, archived reference and trace source is pinned in
 `inventory.py` / `trace_provenance.json`. Scope remains an explicit-expression
 ledger with opaque categories; it is not a full hardware instruction count.
+
+T55 add47fb independently recomputes every site ledger, the seven extra-return
+correction, single cold setup, opaque counts and553400768 visible total.
+The conditional break-even algebra is independently reproduced, retaining
+all unpriced categories and no full-cost/sampling-win claim.

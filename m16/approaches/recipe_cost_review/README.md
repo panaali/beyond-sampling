@@ -7,7 +7,7 @@ never exercised, and how does that change the repaired candidate's budget?
 ## Method
 TASKS-only claim b69ca6b precedes implementation. Pin the unchanged T145
 H8T4seed0 recipe108 eps.1 source/weights,28000 ordered error simplices,
-6182 terminal cells, and existing doubled-rule branch flags. Reuse the
+6182 terminal cells, and existing doubled-rule source counts. Reuse the
 independently reviewed T146 native-expression inventory without source edits.
 Change exactly its execution mode from exact to recipe108 in a pinned local
 adapter. The original author's estimator remains unchanged.
@@ -17,9 +17,12 @@ match uninstrumented recipe geometry, legacy counters and every ordered ray.
 The second fixture must exercise _weights_to_margin and _frozen_margin.
 Only then trace the frozen trained model in eight12-parent batches with
 complete ordered-ray parity against T145. Reconstruct36398526 legacy geometry
-operations; no trained Gaussian mass replay. Scale T146's unchanged fixed
-24/96 mass branch inventory by saved T145 flags, requiring325162176 inherited
-mass units. Native recipe-only routines receive explicit separate subtotals.
+operations; no trained Gaussian mass replay. T145 does not save thin/cutoff flags (unlike T140); the initial metadata
+assumption was corrected before any mass census. Source counts determine
+2110488 residual nodes exactly. TASKS correction6c33756 freezes a determinant-
+only census of the28000 existing rays using the unchanged source1e-12 guard.
+No covariance or quadrature evaluation is needed. Scale T146's unchanged
+node/setup inventory, requiring325162176 inherited mass units. Native recipe-only routines receive explicit separate subtotals.
 
 Compose one cold chamber/rule setup and subtract seven extra diagnostic
 return subtractions, exactly as independently reviewed in T146. Compare
@@ -66,3 +69,13 @@ held-out and wider validation; T150 owns inverse-kernel accounting.
 Assuming cost transfers from exact mode, dropping setup/failed operations,
 double-counting repeated review launches, unimplemented sparse savings,
 price-free opaque kernels, or presenting single-checkpoint headroom as a win.
+
+## Preserved control failure and repair
+Rational controls reached `np.abs(mm).max`, which the inherited wrapper
+misidentified as a namespace function. The explicit unclassified-call failure
+is preserved76df3d9 before trained runs. A local AST adapter now recognizes
+methods on computed ndarray receivers, preserving receiver evaluation and
+operand order; the pinned T146 source files remain untouched. Full96-parent
+zero and rational-cut models match baseline ordered rays/counters/cells.
+Zero:96cells/72mass callbacks/17472legacy. Rational:243cells/339callbacks/
+372667legacy, exercising both recipe-only routines. Controls used1.061921CPU.
