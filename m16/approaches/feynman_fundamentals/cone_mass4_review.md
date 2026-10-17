@@ -1272,3 +1272,14 @@ folded constants and short-circuit side effects. Compile-only constant probes
 preserve CPython folding instead of manufacturing runtime arithmetic. The
 loader extracts only two pinned definitions, with rule setup separate. This
 clears the adapter controls, not a full mass cost or numerical-source replay.
+
+### Selected historical dot/norm replacement
+
+`check_fibre_dot3_replacement_review.py` checks the pinned104-parameter float64
+metadata, ten source AST sites and their saved category counts. The source
+three-vector invariant plus the reviewed all-stride numeric envelope permits
+conditional replacement: 496,474,632 prior expression units become at most
+761,557,032 selected numeric units. The added265,082,400 yields hybrid
+2,103,777,710. This remains conditional on historical installed-library binding;
+all other matrix/library/control/memory categories and sampler comparisons are
+unclosed. No model or kernel work was repeated.
