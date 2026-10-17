@@ -106,3 +106,37 @@ to lower, but the next test on e1 and(1,1) has opposite signs and reaches the
 full quadrant. These exercise all branches without model-input sampling.
 Numerical implementations still need exact or conservative half-plane signs
 and boundary handling; a correct support theorem does not certify float clips.
+
+## Read-only review of the T77 implementation
+
+Reviewed support_volume.py from the author's da11d8b checkpoint. Its exact
+binary-rational n*W products and generator signs implement the proof above.
+Clipping starts with counterclockwise rectangles and preserves that order.
+The polygon quadrature maps (s,t) in[0,1]^2 to
+
+    (1-s)*a+s*((1-t)*b+t*c),
+
+whose positive Jacobian is |det(b-a,c-a)|*s. Thus the four two-point Gauss
+weights determinant*s/4 integrate each triangle's area exactly in real
+arithmetic. Constant, linear and quadratic source moments are within the rule's
+polynomial degree. Reweighting them to the assigned cell mass preserves that
+mass without deleting any forbidden outgoing transition.
+
+For pointwise area convolution, the old coordinate is h=a-b*x. Each CCW
+polygon edge has inward normal n and offset n*v. The condition n*h>=n*v becomes
+(-n*b)*x>=n*v-n*a, matching the implemented signs for lower/upper input bounds.
+The usual1/|det W| and clipped-cell density factors are retained. Fully admitted
+cells use the original rectangular source rule; clipped cells use polygon
+nodes. The parent histogram readout now uses the cell polygon and its volume.
+
+The implementation deliberately retains the parent's generic nondegeneracy
+requirements. Consequently some theorem controls, such as W=I, are not valid
+inputs to this particular mixed-density engine; they remain valid independent
+tests of the exact support recursion itself. This is a scope distinction, not
+a reason to relax the singular-density requirements.
+
+No algebraic defect was found in the reviewed paths, and no independent numeric
+rerun was needed. Exact support-sign logic does not turn the floating clipping,
+polygon-area calculation or1e-12 source-deficit guard into interval arithmetic.
+The author's fixed-grid comparisons and explicit leakage assertions remain
+necessary empirical checks of those numerical paths.
