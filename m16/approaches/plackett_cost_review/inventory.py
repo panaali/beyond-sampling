@@ -17,6 +17,12 @@ for p,sha in PINS.items():assert hashlib.sha256(p.read_bytes()).hexdigest()==sha
 spec=importlib.util.spec_from_file_location('reviewed_t121_base',BASE);base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
 base.BINARY['FloorDiv']=operator.floordiv
 
+def shape_of(value):
+    try:return tuple(np.shape(value))
+    except ValueError:
+        if isinstance(value,(tuple,list)):return ('heterogeneous',tuple(shape_of(v) for v in value))
+        raise
+
 class Ledger(base.Ledger):
     def __init__(self):super().__init__();self.opaque=Counter();self.memory=Counter();self.calls=Counter()
     def call(self,site,name,fn,*args,**kwargs):
@@ -36,7 +42,7 @@ class Ledger(base.Ledger):
             return fn(values(),*args[1:],**kwargs)
         result=fn(*args,**kwargs)
         receiver=fn.__self__ if name.startswith('.') else (args[0] if args else None)
-        shape=tuple(np.shape(receiver));self.calls[(name,str(shape),str(np.shape(result)))]+=1
+        shape=shape_of(receiver);self.calls[(name,str(shape),str(np.shape(result)))]+=1
         if name in ('np.linalg.inv','np.linalg.det','np.linalg.matrix_rank','np.polynomial.legendre.leggauss'):
             self.opaque[(site,name,str(shape),str(np.shape(result)),str(kwargs))]+=1
         elif name=='np.linalg.norm':

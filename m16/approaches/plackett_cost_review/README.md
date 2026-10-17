@@ -27,7 +27,7 @@ counter35650854. Trace halves construction separately because source uses
 its own discarded Ops objects. A native-expression AST wrapper delegates
 every unchanged numerical operation, preserving numerical order. Source,
 model and mass archive are pinned; instrumentation controls precede full
-geometry. One primary-lock bounded run <=110CPU,2GB; save complete failure
+geometry. Eight fixed12-parent primary-lock batches each <=110CPU,2GB; save complete failure
 and do not interpret an incomplete ledger as a cost result.
 
 Reuse the independently reviewed T121 AST approach read-only, extending
@@ -91,3 +91,12 @@ Inclusive explicit expressions: wide24=4808, thin96=18632, cutoff=184, plus
 opaque inverse/determinant calls. All fixed-array function shapes remain
 recorded. Same-wrapper dense scalar sampling is exactly512 units for H8T4.
 Primitive CPU.099790s; source review required before full geometry trace.
+
+The geometry control found a metadata-only failure when a stack's input list
+contained differently shaped arrays. c04bc38 preserves the failure before
+trained execution. Recursive shape descriptors repair metadata without
+changing any numerical operands. Full96-parent zero-model baseline and
+traced geometry now match all72 ordered ray callbacks,96 cells, and17472
+legacy operations (.206571CPU). Trained tracing will use the source's
+existing eight12-parent partition to keep each batch bounded; repeated
+setup is measured separately and composed once for one cold estimator.
