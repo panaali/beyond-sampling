@@ -11,7 +11,7 @@ Freeze12 synthetic integer-array fixtures: 4x4 identity selftranspose; dense C-o
 After dispatch gate, identify/preregister relevant installed small kernels before any operation-price claim. Do not erase triangle-copy memory or generic setup: state whether excluded by the numerical convention. Source matrix expressions and actual packed lanes are different objects. Strided inputs may require copies and lose the shared-pointer optimization; preserve that outcome rather than assume all products use SYRK.
 
 ## Status
-All12 dispatch/parity controls complete; independent raw review155b3b18 passes.
+All12 dispatch/parity controls complete; independent raw review155b3b18 passes. Child paths reviewed0cfdfa39 and body arithmetic reviewed3ed60f55. Fixed replay applicability and replacement-only contraction are saved; independent final raw audit pending.
 
 ## Results
 All12 baseline/interposed products agree bitwise and with exact integer matrix products. Contiguous C/F selftranspose fixtures (three cases) dispatch SYRK. The strided selftranspose case is copied and dispatches GEMM with distinct pointers; all other independent/tall cases dispatch GEMM (nine total). Alpha1/beta0 and every dimension/transpose/leading dimension are saved. The six tall cases retain1000x4 by4x4 geometry, including leading dimension8 for the strided tall left matrix. No operation price has changed; actual child-kernel accounting remains open.
@@ -44,3 +44,26 @@ Independent child-capture audit0cfdfa39 checks all12 saved products, hexadecimal
 Independent installed-body audit3ed60f55 checks the reached unmasked NN instructions (72 operations per output column) and packed SYRK instructions (170 body operations plus a scoped11 guard envelope). Direct SCAL arguments iz0/ix1/alpha0 reach zero-fill without data multiplication. Public DSCAL wrapper costs and NT/ordinary GEMM variants are not substituted.
 
 Frozen layout_applicability.py source passed independent review before execution. Header/hash of the original35,098-ray replay establishes C strides32/8 for every indexed ray; pinned _duffy10 setup gives C1000x4 with strides32/8. Two exact identity inverse-allocation controls, C and F input, both give C4x4 outputs; fixed cofactor N allocation is C4x4. These data-independent allocation choices and unchanged source assignments connect the recorded replay to the priced paths. CPU .053528799, two synthetic inverses and one model-free setup, zero matrix products/mass/model calls. This applicability is restricted to the saved replay, not inferred for arbitrary original geometry arrays. The initial combined patch failed a documentation-context match before creating the script; it was reapplied without that unrelated hunk, with no numerical execution or evidence overwritten.
+
+## Fixed replay contraction
+
+`contract.py` uses only saved evidence. It replaces the earlier matrix-expression terms, without adding them twice or changing the original parent summary. Independent source/body gates precede this contraction; final raw review remains pending.
+
+| Category | Thin branch | Wide branch |
+|---|---:|---:|
+| Copies | 17,955 | 17,143 |
+| Earlier hybrid per copy | 38,617 | 121,633 |
+| Removed scalar matrix terms | 28,112 | 224 |
+| Installed matrix body lanes | 72,170 | 340 |
+| Selected matrix guard envelope | 11 | 22 |
+| Revised hybrid per copy | 82,686 | 121,771 |
+
+The revised hybrid is **3,572,147,383**, with the same190,197 model-free runtime constants separate. It still combines remaining scalar-expression terms with installed category envelopes and is neither a complete native upper nor a complete lower bound. No same-budget MSE is calculated.
+
+Separately, the reviewed matrix bodies alone execute **1,301,640,970** scalar-lane arithmetic operations, counting each FMA as two. This named subset exceeds the inherited whole-mass proxy1,064,714,168. The conventions differ: this is evidence about the installed arithmetic, not proof that an intentionally abstract proxy is internally inconsistent, and not a runtime or sampling comparison. In particular, discarded SIMD lanes and multiplication by alpha1 are executed and charged here.
+
+Remaining work includes NumPy reductions/norms and elementwise kernel interiors, Python compensated sums, libm interiors, model-free dispatch, control/integer/memory/allocation, geometry and cold setup. Original geometry may pass different layouts; only the frozen saved replay is covered. The NT and ordinary GEMM controls remain valid alternative paths with no transferred price.
+
+This continuation used .387889607 recorded CPU seconds: initial dispatch .172180835, inventories .058700918 and .044861154, child capture .058223356, applicability .053528799, contraction .000394545. These timings account for the audit, not estimator operations. No mass/model/MC evaluations. Reproduce `contract.py` under the one-thread review lock into a fresh owned output location; the script refuses to overwrite saved results.
+
+T11580 is a separate Ready follow-up: fixed3x3 cofactor evaluation with an explicit error guard/fallback, exact cancellation controls and independent cost review before any mass substitution. The14-arithmetic point formula alone does not justify changing the source; T160 cancellation failures and T144 enclosure costs remain relevant.
