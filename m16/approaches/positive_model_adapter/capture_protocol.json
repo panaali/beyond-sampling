@@ -1,0 +1,50 @@
+{
+  "claim": "c3df8fef",
+  "latest_scope_checkpoint": "de3beeb1",
+  "independent_gate": "T55 seven control + corrected-loader audit passes; independent review message received before this protocol",
+  "cases": [
+    {
+      "seed": 0,
+      "weights": "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth",
+      "reference_capture": "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_captured.npz",
+      "capture_metadata": "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_capture.json",
+      "positive_values": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/values.npz",
+      "positive_summary": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/summary.json"
+    },
+    {
+      "seed": 1,
+      "weights": "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_1.pth",
+      "reference_capture": "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact/error_captured.npz",
+      "capture_metadata": "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact/error_capture.json",
+      "positive_values": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/values.npz",
+      "positive_summary": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/summary.json"
+    }
+  ],
+  "pins": {
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/adapter.py": "f33a99fce6a63df2e9e30eca9a74775fbce48b835fdf6668a4481acae2b59e98",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/guard.py": "388c837dd640441e853e25dc5110ac19ff6d5dc48d4699ac8b332a9b7e31c554",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/adapter_pins.json": "21076f30540df3d4151dce259615f31488c75afe268fa834ee0a7711e9b7cd91",
+    "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth": "b771f40fcae826e010b2e89fb698e2ec35026119bc9f66d3ff046dba537b07da",
+    "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_captured.npz": "15f9e5e483c69325c10fcbe4eaaa80f91503b177070ccec1ff2569a11c9436b6",
+    "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_capture.json": "7cdd206f29c35dd5b46319b94d5ed5f5609e99873e9f0a6c73efe68fe9f48057",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/values.npz": "ee1ed2348989b31618c22ff743a9a14b97b0d1e50c03018baa3da1796d1aab8e",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/summary.json": "5e6461d33f7525e75b8f6e39ad62862d231167a2d9d3279873ffdcc39c2752bc",
+    "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_1.pth": "34fbb32d51cfae0d77b6cba73747506a93a72077657c4f02e243074178b75761",
+    "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact/error_captured.npz": "215ce37b68c283e29224a2c720ae30c24aaf741b1269bf6bc5d0f2044b6ec9db",
+    "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact/error_capture.json": "9d44297aded8825a6ada3daf60e1ed4905bca3d876cb144949aa49925c202b27",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/values.npz": "18a6e17b12b2db7e3332274f8244c8f655b158a181a17a4122e3bbfd151e56c9",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/summary.json": "9dc4f65648057e0d1693ae40ce96ab16f0e167fc504d76aa575a14e5906b7a48"
+  },
+  "scope": "Only actual model to captured rays, source geometry/guard/copy cost; compare all ordered rays exactly to existing capture after model-only collection. No trained positive mass or reference integration rerun. Prior values replayed for diagnostic parity only, charged prior full kernel work separately before composition.",
+  "limits": "one thread2GB primary lock, <=110CPU perseed;95CPU soft budget hook preserves failure; no cap change/sweep",
+  "alternatives": [
+    {
+      "explanation": "New model-facing loader/guard changes trained geometry despite0 saved ties",
+      "test": "All ordered ray arrays bitwise equal, everysource STATS equal, zero tie events"
+    },
+    {
+      "explanation": "Capture/model-specific N is silently free advice",
+      "test": "Actual full model collection and explicit copied elements, storage, new guard checks, cold geometry/inherited proxy caveats; prior masses never used during collection"
+    }
+  ]
+}
