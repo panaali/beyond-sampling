@@ -318,3 +318,44 @@ or even common-probe dominance claim. A distinct future cheap check would
 compare every interpolant on the same frozen off-grid probe set. Interior
 target/grid kinks and earlier-stage interpolation remain open alternatives.
 This review does not classify rank-conditioned transport as a dead method.
+
+## T67 interior-kink phase (claim pushed1b7bfe1)
+
+Question: do known discrete transitions inside the target-value integral,
+rather than broad quadrature resolution, explain the oscillation? Freeze a
+complete breakpoint construction for models whose possible predicted labels
+exclude the last position (true of the current H2T4 base). Do not silently
+apply it to a target-last suffix, whose topology needs additional derivation.
+
+For every hidden stage before the scalar terminal, the existing StagePieces
+cache stores all scalar-input values at which ReLU or next-grid coordinates
+change pieces. The same list covers inserting the fixed target at that stage.
+For each possible nonfinal target, the terminal cache contains accepted
+scalar intervals independent of target value; their endpoints are exactly
+where lower/upper conditional terminal masses change formula. The union of
+these endpoints, input-grid crossings,0 and integration-domain endpoints
+therefore contains all target-u formula changes of the supplied finite-grid
+interpolant. Between them, conditional Gaussian moments/CDFs and interpolation
+are analytic; finite spatial bias is still present. Floating endpoint
+construction is not an exact-real geometry proof.
+
+Alternative A: hidden interpolation dominates despite these kinks; panelled
+outer rules may stabilize while still missing the exact model accuracy.
+Alternative B: missing terminal or target-last transitions invalidate the
+panel list; exclude target-last predictions initially and compare omission
+controls. Alternative C: finding all transitions is too expensive. Count
+panels first on h9/17/33, then integrate only bounded feasible cases.
+
+First experiment: baseline quadratic mesh, existing H2T4 model, target[-4,4]
+and inputs[-6,6], with the already-derived target/input omitted-mass bounds.
+Compare GL2 andGL4 on every complete breakpoint panel to a uniform-panel
+control with exactly the same number of panels/nodes. Stop rather than expand
+if there are more than2000 panels at h9. Charge breakpoint/terminal/cache
+construction inside each estimate. Stream one target node across all labels
+before discarding its conditional matrices; retain full-stage pieces only
+within this estimate. This changes memory order, not the transport formula.
+Keep no global cross-run model-dependent cache. Test constant-class mass and
+same-fixed-node streaming equivalence before interpreting trained results.
+Numerically unresolvable intervals may be omitted only with their full
+width times a global target-density upper bound recorded separately. Never
+renormalize quadrature mass or drop an unexplained probability-guard failure.
