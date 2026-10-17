@@ -15,16 +15,18 @@ Source-derived alternative: halves(T) has4*T! nonempty open strict-order/sign/to
 Competing explanations: a summary arithmetic/transcription issue; finite MC uncertainty explains the apparent failures; missing common cost units change comparisons; sampled region undercount drives apparent super-region growth; or the fixed chart representation has an independent combinatorial cost barrier. The listed raw arithmetic/statistical/source checks separate these without duplicating T131 geometry work.
 
 ## Status
-Running bounded raw/source checks. One thread,2GB, review lock<=20CPU; independent T55 verification required. No new neural sampling or geometry enumeration.
+Done as a bounded independent review. T55 independent review5829cd4 verifies raw arithmetic, interval tails, scope and both source completion bounds. DRI registration requested; no new neural sampling or geometry enumeration.
 
 ## Results
-Pending. Shared E45 tables and claims are not edited here; DRI receives explicit proposed qualifications.
+All nine saved H8T4 failures survive simultaneous95% binomial uncertainty under nominal counters: minimum ratio1.09707648094. Sampled region denominators cannot establish true region growth. Unchanged recipe108/exact completion atH16T10 has a27,636,940,800 nominal prefix bound. See REVIEW.md for qualifications and audit_results.json/chart_prefix_results.json for complete values.
+
+Reproduce from this worktree with `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/final3_review/audit.py` and the same interpreter/environment for `m16/approaches/final3_review/chart_prefix.py`; use the project review lock and2GB limit. Shared E45 tables remain untouched.
 
 ## Compute accounting
 This audit reads saved outputs and performs small arithmetic/statistics/integer witness checks. Public weights are read only for support; zero model forward passes. Existing reported ops are nominal source counters, not newly certified hardware operations. Every new audit runtime and source hash is recorded.
 
 ## Claims
-[inferred] Sample lower bounds alone cannot determine ratios to true region counts or their growth. [inferred, review pending] The unchanged factorial-chart prefix already exceeds1e9 nominal charged operations at the target whenr16. No family-wide impossibility.
+[inferred] Sample lower bounds alone cannot determine ratios to true region counts or their growth. [inferred, independently reviewed5829cd4] The unchanged factorial-chart prefix already exceeds1e9 nominal charged operations at the target whenr16. No family-wide impossibility.
 
 ## Alternatives not ruled out
 T131 mass/geometry repair; certified mass integration; coarser top-two or class-region parameterizations; symbolic/repeated-time structure; alternative gate certificates; matched units and faster executed kernels. Recipe-minus-biased-exact differences are not known repaired errors without a shared-error proof.
@@ -33,4 +35,4 @@ T131 mass/geometry repair; certified mass integration; coarser top-two or class-
 Treating Monte Carlo truth as exact, assuming independence of reused input streams, comparing seed averages to one seed without disclosure, equating lower bounds with exact region counts, propagating two observed growth factors as a theorem, or calling a fixed implementation's cost barrier a method-family negative.
 
 ## Further scoped source lower bound and cheap rescue caveat
-The two first recurrent maps are identical across many charts and could be memoized by sign(x0), so the first2.09B bound alone does not exclude that implementation change. Independently, each nonempty initial cone is full-dimensional and pointed, hence any correct extreme-ray representation has at leastT rays. Its first _margin_split always charges len(c.R)*H*(T+1) for ray/gate dot products, before its gate decisions. This gives4*T!*T*H*(T+1) additional nominal charged operations,25.547B atH16,T10, even if the two recurrent maps are cached. It still applies only to the unchanged ray-testing/chart architecture; sparse predicate evaluation or a different chart representation can evade it. No general lower bound on accuracy estimation is claimed.
+The two first recurrent maps are identical across many charts and could be memoized by sign(x0), so the first2.09B bound alone does not exclude that implementation change. Independently, each nonempty initial cone is full-dimensional and pointed, hence any correct extreme-ray representation has at leastT rays. In the unchanged recipe108/exact branch, its first _margin_split always charges len(c.R)*H*(T+1) for ray/gate dot products, before its gate decisions. This gives4*T!*T*H*(T+1) additional nominal charged operations,25.547B atH16,T10, even if the two recurrent maps are cached. It still applies only to the unchanged ray-testing/chart architecture; sparse predicate evaluation or a different chart representation can evade it. No general lower bound on accuracy estimation is claimed.
