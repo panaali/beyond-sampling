@@ -91,3 +91,18 @@ all values; the detailed ledger covers the36 main panels, while total CPU
 also includes independent direct/scale checks whose event counters are not
 combined into that ledger. This is not a complete arithmetic inventory.
 Independent source review requested before the frozen trained primitive panel.
+
+## Independent review correction
+T55 source review passes chronology, original-halfspace geometry, strict
+readout ties, swapped-axis transpose and the two rank normalizers in the
+frozen limit6 regime. It independently found an API domain defect outside
+that regime: limit40,target39 underflows the upper-side mass and returned
+[1,NaN] for constant label0. `initial_underflow_failure.json` preserves the
+reproduced failure. The local repair explicitly rejects nonpositive/nonfinite
+rank normalizers, nonfinite affine maps, quadrature values/errors and final
+probabilities/bounds. `domain_check.py` verifies underflow and affine overflow
+rejection. Repeating the same36 controls after this material repair preserves
+all numerical discrepancies (.449CPU); no favorable timing inference.
+The trained crossed(h,u,label) panel is an extension-operator check: h is
+reachable for some prefix but not necessarily jointly with each crossed u.
+No actual rank-weighted full-accuracy inference will be made from that panel.

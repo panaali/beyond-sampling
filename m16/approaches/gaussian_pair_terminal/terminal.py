@@ -58,6 +58,7 @@ class PairTerminal:
         if not math.isfinite(limit) or limit<=0:raise ValueError('positive input limit required')
         self.limit=limit;self.model=wi,wh,wo;self.hidden=h;self.label=label;self.cells=[]
         offset=wh@h;edges=[-limit,limit];self.stats['first_map_scalar_products']+=4
+        if not np.all(np.isfinite(offset)):raise ArithmeticError('nonfinite first hidden affine map')
         for a,b in zip(wi,offset):
             if a:
                 root=-b/a;self.stats['first_gate_roots']+=1
@@ -66,12 +67,14 @@ class PairTerminal:
         for left,right in zip(edges[:-1],edges[1:]):
             active=offset+wi*((left+right)/2)>0
             cx=wh@(wi*active);cc=wh@(offset*active);self.stats['second_map_scalar_products']+=8
+            if not np.all(np.isfinite(np.r_[cx,cc])):raise ArithmeticError('nonfinite second affine map')
             zero=(cx==0)&(wi==0)&(cc==0)
             for pattern in product((False,True),repeat=2):
                 mask=np.asarray(pattern);self.stats['second_masks_tested']+=1
                 if np.any(mask&zero):continue
                 logits=np.stack((wo@(cx*mask),wo@(wi*mask),wo@(cc*mask)),axis=1)
                 self.stats['readout_scalar_products']+=6*T
+                if not np.all(np.isfinite(logits)):raise ArithmeticError('nonfinite affine readout')
                 constraints=[(np.array([1.,0.,-left]),False),(np.array([-1.,0.,right]),False)]
                 constraints.extend((np.array([cx[i],wi[i],cc[i]])*(1 if mask[i] else -1),bool(mask[i])) for i in range(2) if not zero[i])
                 for other in range(T):
@@ -89,6 +92,8 @@ class PairTerminal:
             self.stats['swapped_vertical_pieces']=len(self.pieces[swap])
         lowmass=mass(-limit,u,self.stats);highmass=mass(u,limit,self.stats)
         denominators=np.array([[lowmass*lowmass,lowmass*highmass],[highmass*lowmass,highmass*highmass]])
+        if not np.all(np.isfinite(denominators)) or np.any(denominators<=0):
+            raise ArithmeticError('rank normalization underflow or nonfinite mass')
         raw=np.zeros((2,2));errors=np.zeros((2,2));pieces=self.pieces[swap]
         for first,second in product((0,1),repeat=2):
             for left,right,lower,upper in pieces:
@@ -111,13 +116,14 @@ class PairTerminal:
                     result=quad(integrand,a,b,epsabs=max(1e-300,tolerance*denominators[first,second]/max(1,4*len(pieces))),epsrel=tolerance,limit=100,full_output=1)
                     if len(result)!=3:raise ArithmeticError('quadrature did not converge: '+str(result[3]))
                     value,error,info=result
-                    if not np.isfinite(value) or value<0:raise ArithmeticError('invalid positive polygon mass')
+                    if not np.isfinite(value) or not np.isfinite(error) or value<0 or error<0:raise ArithmeticError('invalid positive polygon mass or error')
                     raw[first,second]+=value;errors[first,second]+=error;self.stats['quad_calls']+=1
                     self.stats['quad_subintervals']+=info['last']
         if swap:raw=raw.T;errors=errors.T
         conditional=raw/denominators
-        if np.any(conditional < -1e-12) or np.any(conditional>1+1e-10):raise ArithmeticError('conditional probability outside unit interval')
+        if not np.all(np.isfinite(conditional)) or not np.all(np.isfinite(errors)) or np.any(conditional < -1e-12) or np.any(conditional>1+1e-10):raise ArithmeticError('conditional probability outside unit interval')
         values=np.array([conditional[0,0],(conditional[0,1]+conditional[1,0])/2])
         bounds=np.array([errors[0,0]/denominators[0,0],(errors[0,1]+errors[1,0])/(2*denominators[0,1])])
+        if not np.all(np.isfinite(values)) or not np.all(np.isfinite(bounds)):raise ArithmeticError('nonfinite normalized probability or error')
         self.stats['queries']+=1;self.stats['query_cpu_seconds']+=time.process_time()-start
         return values,dict(raw_rank_masses=raw.tolist(),conditional_by_sides=conditional.tolist(),quadrature_error_estimates=bounds.tolist(),quadrature_error_certified=False)
