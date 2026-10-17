@@ -846,3 +846,11 @@ The stated scalar examples check: recurrent coefficients4nH²+2H, gate midpoint/
 Exact cofactor-normal orientation and the atan2 Jacobi formulation are valid for unit-normal SPD correlations. Floating diagonal norms need qualification: the complementary2x2 minor is Rii*Rjj-Rij², not exactly1-t²rho² when Cii differs from1. Raw negative det(Rt) should be observed before the new max floor. The initial inverse is still executed before both new branches, despite the 'no inverse' wording.
 
 A small unit-ray determinant does not imply small cone mass. For rows e1,(-sqrt(1-epsilon²),epsilon,0,0),e3,e4 with epsilon>0, exact mass is atan2(epsilon,-sqrt(1-epsilon²))/(8pi), tending1/8. Every fixed interior Duffy node has a nonzero limiting q because its third/fourth barycentric coordinates are positive, so the fixed1000-node result tends0 with the determinant. This disproves generic thin-determinant accuracy/mass claims; actual ordered-chart restrictions may exclude the counterfamily, so no trained-case failure is inferred. Owner56 was asked to freeze this analytic control before trained validation. No duplicate numerical run here.
+
+### T176 RECIPE85B sort-specific source gate
+
+The isolated flat numeric tuple comparator preserves Python's element identity shortcut, equality before ordering, tuple-prefix length and scalar ordering for the pinned sort() and sort(reverse=True) callsites. It is not a generic key=None adapter. `check_recipe85b_controls_review.py` verifies nine analytic sort ledgers, five initial source-parity models and the separately frozen rational model's12 actual sort comparisons. The initial five models execute no sort comparisons, so their coverage limitation remains explicit. Source/model pins and all saved site totals agree. This clears only two frozen trained controls; it does not transfer T172's other recipe costs. Review0.003CPU, no native rerun.
+
+### T181 stable moment source gate
+
+Only moment.moments is rebound to the reviewed centered-square identity, using the same cached Gram summaries and mean. Diagnostic second=variance+mean² is counted, original selector guards/fallback preserved. Positive recovered nearconstant controls do not resolve the eps2^-28 case where Gram/mean computation already loses information. This clears the fixed64 plus separately charged exact35-moment validation, not a floating certificate.
