@@ -475,3 +475,15 @@ to4.441e-16, ellipse/ellipsoid surface masses and coordinate second moments to
 model inputs. Run under the review lock; output is `projection_results.json`.
 T58's current unnormalized transport and T67's fixed-target transport avoid
 this normalized-sphere issue. Existing T48 primitives were not modified.
+
+## Cycle 12 protocol (frozen before validation)
+Derive a generic positive Chebyshev-tail bound for (m+delta*x)^(-nu), nu>=1,
+including half-integer nu=2.5 used by T5. Factor the denominator into conjugate
+linear Fourier factors, then bound the positive coefficient ratio and residual
+hypergeometric factor. Alternative1: Fourier/Chebyshev normalization misses a
+factor2; compare individual coefficients with independent high-precision cosine
+integrals. Alternative2: the proposed geometric ratio is not an upper bound;
+compare coefficient ratios and summed positive tails with the exact nu3
+polynomial tail independently derived by T48. This is theory/bound validation
+only, no estimator/source changes or new model integration. Use a short review
+lock run, retain discrepancies, and report special-function evaluations.
