@@ -1,0 +1,113 @@
+{
+  "status": "pass_for_checked_in_run",
+  "coefficients_sha256": "dc4d06199d77424aa0589c360960df92f0b335b5ff9cf40f28670766ebeb712d",
+  "sweep_source_sha256": "31ad3f1fb5af104e48c9eeea649c8509be220022b7a9fc8068378d37f8ec3be9",
+  "synthetic_seed": 97131,
+  "synthetic_sequences": 128,
+  "scales_checked": [
+    0.0,
+    0.1,
+    0.5,
+    2.0,
+    10.0
+  ],
+  "feature_max_abs_error": 0.0,
+  "rows": [
+    {
+      "key": "16_10_k1",
+      "fitted_scalars": 16,
+      "prediction_max_abs_error": 0.0,
+      "homogeneity_max_abs_error": 5.684341886080802e-14,
+      "solver_converged": true
+    },
+    {
+      "key": "16_10_k3",
+      "fitted_scalars": 48,
+      "prediction_max_abs_error": 7.105427357601002e-15,
+      "homogeneity_max_abs_error": 5.684341886080802e-14,
+      "solver_converged": true
+    },
+    {
+      "key": "16_10_k5",
+      "fitted_scalars": 80,
+      "prediction_max_abs_error": 1.354472090042691e-14,
+      "homogeneity_max_abs_error": 2.3092638912203256e-13,
+      "solver_converged": false
+    },
+    {
+      "key": "16_10_k10",
+      "fitted_scalars": 160,
+      "prediction_max_abs_error": 1.4210854715202004e-14,
+      "homogeneity_max_abs_error": 1.7053025658242404e-13,
+      "solver_converged": false
+    },
+    {
+      "key": "16_10_k20",
+      "fitted_scalars": 320,
+      "prediction_max_abs_error": 2.842170943040401e-14,
+      "homogeneity_max_abs_error": 2.495781359357352e-13,
+      "solver_converged": false
+    },
+    {
+      "key": "32_10_k1",
+      "fitted_scalars": 32,
+      "prediction_max_abs_error": 0.0,
+      "homogeneity_max_abs_error": 2.842170943040401e-14,
+      "solver_converged": true
+    },
+    {
+      "key": "32_10_k3",
+      "fitted_scalars": 96,
+      "prediction_max_abs_error": 3.552713678800501e-15,
+      "homogeneity_max_abs_error": 5.684341886080802e-14,
+      "solver_converged": false
+    },
+    {
+      "key": "32_10_k5",
+      "fitted_scalars": 160,
+      "prediction_max_abs_error": 8.881784197001252e-15,
+      "homogeneity_max_abs_error": 1.9539925233402755e-13,
+      "solver_converged": false
+    },
+    {
+      "key": "32_10_k10",
+      "fitted_scalars": 320,
+      "prediction_max_abs_error": 7.105427357601002e-15,
+      "homogeneity_max_abs_error": 5.684341886080802e-14,
+      "solver_converged": false
+    },
+    {
+      "key": "32_10_k20",
+      "fitted_scalars": 640,
+      "prediction_max_abs_error": 1.0658141036401503e-14,
+      "homogeneity_max_abs_error": 1.2079226507921703e-13,
+      "solver_converged": false
+    }
+  ],
+  "accounting_crosschecks": {
+    "hidden_forward_sequences": 424000,
+    "validation_forward_sequences": 2048,
+    "objective_evals_including_initial_mse_recheck": 665
+  },
+  "source_review": {
+    "fit_split": "Only train features/hidden targets enter fitting; independent seeded test data enter scoring.",
+    "feature_dependence": "Features use inputs and fixed structure only; no weights, fitted normalizers, or per-neuron feature selections.",
+    "output_weights": "Used only for replacement and model scoring, not regression fitting.",
+    "fitted_parameter_count": "Exactly K coefficients per neuron; no intercept. Fixed dictionary design is additional shared structure."
+  },
+  "limitations": [
+    "No model runs or independent accuracy reproduction; reported statistics were checked for internal consistency only.",
+    "Seven of ten optimizers hit the iteration cap; failure of a fit does not prove failure of its hypothesis class.",
+    "K=10 cuts the fourth gap-frequency cosine/sine pair, so budget effects also depend on feature ordering.",
+    "Model-independent feature evaluation does not imply model-independent prior selection of this rank/position dictionary.",
+    "Sequence counts and timing are not full FLOP accounting; least-squares work, feature operations, scoring, and solver algebra are not enumerated.",
+    "Torch thread count is forced in source, but NumPy/BLAS thread limits depend on the launch environment.",
+    "Changing K changes the available feature family as well as coefficient count; results do not establish a universal constant-budget limit.",
+    "Homogeneity was checked at zero and positive scales, not negative scales, which need not preserve input ranks."
+  ],
+  "audit_compute": {
+    "model_calls": 0,
+    "fits": 0,
+    "process_cpu_seconds": 0.25068613100000003
+  }
+}
