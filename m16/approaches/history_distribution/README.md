@@ -37,3 +37,10 @@ Rounded coincident gate angles, tiny angular panels, ill-conditioned moment matr
 
 ## Primitive control checkpoint
 All16 distribution fixtures (four gate/support cases times angular2/4 and radial2/4) and three model controls pass in1.372302479CPU. Positive diagonal scaling commutes with atom construction to the frozen tolerance; conditional means/masses and Rayleigh moments pass; covariance loss is PSD. Collapsing atoms to their mean reproduces the old sign-mean surrogate, and zero-readout/Wh0 controls reproduce previous rank results. Exact duplicate states are coalesced within sign without any tolerance; this preserves origin mass and avoids identical arrangements. Source dictionary/matrix-library overhead remains named, not a portable arithmetic certificate. Proceed only to the frozen two-case factorial.
+
+## Frozen factorial result
+All eight estimates complete in40.851967513CPU including separately charged suffix GL32 diagnostics. The H2T4 base estimates for angular/radial(2,2),(2,4),(4,2),(4,4) are .2995265077,.2993158415,.2994500839,.2992352346, errors−.00820424,−.00841490,−.00828066,−.00849551. All worsen the previous exact-mean estimate .3091595282 (error+.00142879).
+
+On the prior noisy failure, the corresponding estimates are .2751180907,.2763612684,.2762112287,.2772640971, errors+.01145018,+.01269336,+.01254332,+.01359619. All substantially improve the old mean estimate .3097202462 (error+.04605233), but none removes the bias. Angular and radial refinements both move this case away from truth; no winner is selected. Suffix GL16/32 differences are<=5.56e-17, so that retained scalar rule does not explain the milliscale component-rule changes. The finite angular/radial rules remain approximate; no convergence or unique causal explanation follows.
+
+[inferred] Within-sign variation matters on the failed noisy case and can worsen a previously lucky base estimate. Missing state/rank coupling, remaining component quadrature and their interactions are still plausible. Better marginal moments do not imply correct accuracy. Original pilot, controls, source hashes and per-component costs remain recorded; no equal-compute claim.
