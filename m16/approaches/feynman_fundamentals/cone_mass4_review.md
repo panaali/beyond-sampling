@@ -197,3 +197,47 @@ Multiply by |detR|/(12*pi^2) for cone probability. Rejecting negative
 computed variance is necessary but insufficient for floating certification:
 a positive variance can underestimate after cancellation. The proposed
 moment shortcut requires separate frozen implementation/results review.
+
+## T131 unchanged-ray H8/T4 analytic chambers
+
+`check_leaf_mass_review.py` independently verifies1762 captured ray
+certificates:1643 exact nonnegative-Gram bounds and119 exact KKT bounds.
+All determinants are recomputed by24-term Fraction expansion; all stored
+KKT simplex/slack conditions pass. An independent60-digit tail formula
+matches every GL20/32 bound. At descending rank r, a fixed permutation's
+coordinate is positive with probability sum_{k=r}^4 binom(4,k)/16.
+Dividing by24 and joining the two top-gap halves gives analytic chamber
+masses5/128 and5/384 for parent pairs0/1 and20/21.
+
+On precisely the same864 and898 ray simplices, existing source mass
+exceeds truth by1.1257156447e-5 and1.5765814581e-5, with99 and45 negative
+pieces. Positive GL32 gives errors0 and-1.73e-18, with integration-only
+bounds3.3453e-14 and1.0786e-14. Thus the source mass primitive contributes
+to the error in these partitions; attributing these discrepancies solely
+to geometry is contradicted. This does not apportion the full-model mass
+excess or prove absence of compensating geometric overlap. Source import
+provenance was explicitly pinned by the author after review. Review cost
+14.906CPU, no numerical integration rerun. A bounded whole-corpus replay
+and independent geometry controls remain separate steps.
+
+## T135 moment shortcut implementation
+
+The source computes s=||sum rays||^2, row sums r_i=ray_i dot(sum rays),
+and the six extra off-diagonal Gram entries. Its moment formula matches
+the exact identity above. Intersecting the radial interval with the
+Jensen/Taylor interval is valid in real arithmetic. Nonpositive variance
+or reversed intersection rejects only the shortcut; unchanged positive
+quadrature remains available. Positive cancellation error still prevents
+a floating certificate; the author's exact16-ray controls expose4.38%
+relative error in a tiny variance and correctly retain that limitation.
+
+`check_moment_budget_review.py` independently verifies every saved moment
+intersection/selection, call-ledger aggregate and exact sum of binary64
+reference differences. Per-cone allocation uses1576 moment shortcuts,
+86,395,006 named operations, mass error+8.795528123e-6 and bound.000100006242.
+Aggregate allocation uses1599 shortcuts,362,966,837 named operations,
+covered mass error-2.062409388e-9 and bound1.564812848e-8; the same32 cones
+remain unresolved. Relative named count reductions are3.4836% and.5441%.
+This is a finite cheap-moment rescue, not exhaustion of moment expansions,
+adaptive integration, or other positive representations. No full floating
+accuracy or portable operation certificate follows. Review CPU.1973.
