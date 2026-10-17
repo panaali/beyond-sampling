@@ -92,3 +92,28 @@ Uniform integration-only bound sums to9.12903705080237e-9. Floating ray,
 determinant and summation errors are outside that bound. These exact
 classification certificates resolve a nontrivial partial measure but do
 not certify a competitive full estimator or negate richer conditioning.
+
+## T125 independent whole-chart ambiguity certificates
+
+The24 ordered-top/second/sign(x0) charts have exact masses determined by
+exchangeability and binomial sign counts. Conditional P(x0>0) is15/16
+when0 is top,11/16 when0 is second, and3/16 for either other position;
+each ordered pair has mass1/12. Positive and negative charts sum to1.
+
+Independent check_chart_ambiguity_review.py reconstructs true Fraction
+network affine maps, gates, chart inequalities and readout ownership for
+all45 original saved open witnesses. Every supplied L-infinity radius
+keeps every necessary inequality strictly positive. The initial21 mixed
+charts carry173/192, so whole-chart uniform-correctness coverage is at
+most19/192. The finite81-probe failures do not prove uniformity.
+
+Two additional correct witnesses found in the existing complete artifact
+pass the same independent exact reconstruction, bringing the total to47
+certified neighborhoods. Now23 mixed charts carry63/64; at most1/64 can
+be resolved by whole-chart constant correctness. The final chart
+(top2,second3,x0>0) remains unknown under a weight-only proof: artifact
+absence alone is not independently established infeasibility here.
+The selected witness radius does not estimate event probability and can
+be degraded by arbitrary integer ray scaling. These certificates concern
+whole-chart constant labels, not numerical expectation estimation, finer
+subdivision or the challenge generally.

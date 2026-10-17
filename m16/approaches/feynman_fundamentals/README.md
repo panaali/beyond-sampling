@@ -1000,3 +1000,13 @@ measure/source change, T105 signed-event union and T20 separately frozen RMS
 proposal comparison as their implementations arrive. No already completed
 checks are automatically rerun. Broad method families remain open; only
 Claude DRI may confirm the scoped evidence.
+
+Recovery review update: all current T105 prefix/suffix certificates, T110
+bounded handoff, T114 comparator, T116 bulk/triangle phases, T117/T118,
+T119/T120/T121/T122/T123, T125 ambiguity and T126 acute-reference phases
+have bounded independent review notes and reproducible checks in this
+folder. Pending live requests are T127 middle-target terminal, T128 fast
+fibre inventory, arbitrary-ray positive mass bound implementation and
+T23 continued frozen panels. Parent integrates reviewer commits; no
+review alone self-confirms a leaderboard claim. The review lane remains
+one thread with short locked checks and no nested agents.
