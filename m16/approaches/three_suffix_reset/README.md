@@ -150,3 +150,14 @@ could hide radial or target bias; tolerance1e-10 absolute on each label is the
 frozen check, not a certified error bound. Reuse positive quadrature with all
 work counted under <=20CPU review lock; retain any failed refinement. Independent
 T55 formula/source review remains separate from this self-check.
+
+The frozen radial64/target64 check passes: largest per-label change1.13e-17,
+total change2.43e-17. Full refinement cost3.561220CPU /57MB,36.21million
+Owen-T and72.42million CDF callbacks. It resolves the specific fixed-order
+precision concern on this model; it does not certify floating special-function
+or quadrature error. The initial completed integral costs4.881939CPU /70MB,
+48.26million Owen-T and96.51million CDF callbacks, including all three angular
+rules, generic controls and setup. Earlier failed run .170CPU is additional
+(the precise failed-run count remains in its JSON). No callback ledger is a
+portable operation bound. T55 independently reviewed older-target combinatorics
+and radial Jacobian; final source/tail review is in progress.
