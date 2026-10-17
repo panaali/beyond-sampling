@@ -7,7 +7,7 @@ Can we remove an early hidden-state amplitude while bounding the probability tha
 Reuse exact reviewed crossing-face certificates and verify their shared gate inequality. Integrate a rank-coupled Gaussian superset of all possible disagreements, with exact rational elementary-function enclosures. PROTOCOL.md freezes controls and one H2T4weight application. A separate later gate may evaluate the limit with three-dimensional orthant formulas.
 
 ## Status
-First bounded phase complete, independently reviewed38d50e9c. Claim50726fa7; controls/application source gates passed before execution. Reset-limit value phase awaits its separately frozen partition/source controls.
+First bounded phase complete, independently reviewed38d50e9c. Claim50726fa7; controls/application source gates passed before execution. Renewed reset-limit claim b0db2209 is active. Nine exact analytic mass/partition controls and four outward-rounding controls passed once in 9a8372bb after independent source review. Their independent saved-result audit and trained application source gate are pending; no trained reset-limit value has run.
 
 ## Results
 All198moving occurrence/rank pairs and77zero-state forms match the complete pinned construction. Every14feasible face has the exact positive-proportional gate inequality, not merely a compatible witness. The trained k is288.0319287802435. The rational event enclosure is[0.0001359524278442906,0.00013595326039030626] (displayed decimals; exact fractions in application.json); independent scalar integral0.000135952548144979 lies inside it.
@@ -33,6 +33,8 @@ Controls0.211953959CPU; application0.091999859CPU, imports/final serialization e
 
 ## Alternatives not ruled out
 The conservative crossing set may include irrelevant faces; actual error can be much smaller. Other prefix/target signs, other models and fullaccuracy remain separate. A small remainder alone does not provide a free limit value.
+
+For the reset-limit phase, two concrete confounds are missing persistent first-index ties and an incorrect rank/CDF normalization. The frozen earlier/later-tie, all-zero, rank-boundary and known exact-mass controls distinguish these before any trained result. Every gate and pairwise readout root is retained, with exact boundary ownership and two distinct rational representatives in each open interval. Rational CDF enclosures are rounded outward to a 160-bit dyadic lattice; this limits denominator growth without floating endpoint rounding.
 
 ## Failure modes
 Incomplete face coverage, zero-normal degeneracy, missing tie ownership, wrong rank factors or unpriced exact arithmetic invalidate stronger claims. Existing absence of global unbounded invariance remains intact; no method-family negative.
