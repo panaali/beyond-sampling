@@ -436,3 +436,15 @@ no model passes or sampled inputs. Saved fixture and full source hashes are in
 `triangle_failure.npz` and `triangle_bound_results.json`; reproduce via
 `check_triangle_bound.py` under the review lock. Prior fixed-case result files
 retain their old source-era counters rather than silently rewriting history.
+
+Cycle10 derivation is now complete in `rank_conditioned_theory.md`, including
+the conditional-on-full-history proof, Beta outer law, finite Gaussian-box
+missing mass, and final scalar-interval kernel specification. T67 owns the
+new transport implementation. Independent scalar integration for T3..10
+recovered constant and sign-network toy accuracies with maximum discrepancy
+2.776e-17. At T10 the rigorous omitted-box masses are6.33244e-4 for L4,
+5.73302e-6 for L5 and1.97318e-8 for L6. Validation used1344 scalar integrand
+evaluations,.000724CPU seconds, no model passes or sampled inputs. Reproduce
+`check_rank_conditioned.py` under the review lock; results are saved in
+`rank_conditioned_results.json`. These controls establish the measure algebra,
+not trained-model collocation accuracy or an advantage over Monte Carlo.
