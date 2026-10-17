@@ -1,0 +1,22 @@
+# What the saved native96 ratios count
+
+This is an operation-site inventory, not a completed replacement counter. All report reproductions retain the supplied counts and96-operation sampling convention. No multiplier from T121/T172 or a different algorithm is transferred.
+
+The source calls a multiply-add, comparison and elementary function one unit, but its formulas do not state a complete mapping to every executed expression. The following direct scalar-expansion examples count a multiplication, addition, numerical comparison, or elementary function as one; they illustrate why a fresh common-unit trace is required. They do not prove a net total undercount, since other native formulas may overcharge or charge model-free work.
+
+| Source site | Native charge | Remaining accounting question |
+|---|---|---|
+| recurrent coefficient construction | n H(2H+2) | Dense `Wh @ C` has2nH dot products of lengthH; input multiplication is broadcast from2H values, then added to2nH outputs. Direct dense scalar expansion is4nH²+2H operations. A MAC convention gives a different count; time0 zero-state work must be treated consistently. |
+| `_cuts` | 3nH, or4n times number of readout pairs | Root construction has atan2, two shifts, two mod operations, two endpoint tests per root and coefficient-zero tests. The direct scalar expansion for n×H arrays is11nH if mod is one elementary operation and Boolean/control/memory operations are free. This is not3nH in that convention. Readout differences add their own subtraction work. |
+| `_split` | no explicit site charge | `lexsort` compares model-dependent angle keys; sorting, gathering and integer-index work need an explicit convention. Memory can be excluded, but that does not make all numerical key comparisons free. Duplicate roots can produce zero-length pieces. |
+| gate midpoint and activation | n(2+2H) | Midpoint arithmetic, two trig calls, two products plus addition per neuron, numerical gate comparison and two mask multiplications per neuron expand to n(4+6H) named operations. Native MAC pricing cannot silently substitute for that scalar convention. |
+| readout coefficients | 2nTH | Two outputs per class require dense dots; scalar expansion is n(4TH−2T). |
+| rank roots |4 per input pair plus binary-search proxy | Root angles on each chosen circle are model-free and potentially precomputable, but searches within model-dependent gate intervals are not. Recorded source executes both; a rule allowing reusable model-free setup must be explicit. |
+| final class/rank and integration | n(2+7T), then2n | Numerical sorting/argmax, midpoint/trig evaluations, interval weights, correctness comparisons, masked sum and normalization require source-level category accounting. The fixed sort proxy T×2 is not an audited portable comparison count. |
+| base quadrature |10 per circle | Circle geometry is model-free; source executes it per model, but it could be precomputed under a declared setup exemption. Outer accumulation and final division remain separate. |
+
+Here n means the relevant interval count at the site, which changes after splitting. These formulas are an abstract source-expression convention, not compiler/hardware instruction measurements, and do not resolve NumPy sorting or elementary-function implementation cost.
+
+The saved denominator is `T*H*(H+1)+T*H`,96 forH4T4. The supplied `zoo44.mc_acc` actually executes the dense recurrent multiplication even at time0, when the state is zero. Counting direct scalar dense arithmetic, ReLUs, output argmax and one integer correctness comparison, while giving the true input label for free, gives `2*T*H*H+4*T*H` =192. A valid optimized sampler that omits the zero-state recurrence instead gives `2*(T-1)*H*H+4*T*H` =160. Excluding the final integer correctness comparison gives191 or159. These are different declared implementations/conventions; none licenses replacing96 alone while keeping the Hopf native numerator unchanged. True-label argsort, random generation, unary negation, memory/control and setup exclusions must also be aligned explicitly.
+
+Future closure must freeze one convention, cover actual model-dependent operations including sorting and broadcast dimensions, preserve output parity on the analytic controls, and retain per-model counts. A larger native count at a site does not establish a full-cost pass or failure of the saved panel. The independent raw arithmetic review96522579 deliberately does not certify these counts.
