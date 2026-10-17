@@ -1511,3 +1511,7 @@ Independently reconstructed all 22 exact stored-ray Gram matrices and permutatio
 ### T184 saved provenance and fixed pilot gate
 
 Independently checked all 3,840 original H4/H5/H6 row bindings across 60 shards, 15 checkpoint byte hashes and exact native tracer/source dependencies. Prior independent full model-hash regeneration in 88490d79 is reused, not repeated. The three separately frozen first-copy pilot cases use the unchanged reviewed evaluator and enforce current model hash, historical estimate/counter/cell and baseline/traced grouped-error parity. Six evaluator calls only are gated, under the primary process cap; this does not authorize the full panel or transfer an H8 cost multiplier. `check_core_native_provenance_review.py` records the saved-data audit.
+
+### T184 three native pilots
+
+All three fixed H4/H5/H6 first-copy pilots pass independent full saved site/category, historical estimate/counter/cell and baseline/traced grouped-contribution checks. Named numerical counts are 164531/224034/260997; integer categories 5579/7222/7495; inherited proxies 68229/89330/98219. Startup numerical totals are zero, with other setup exclusions retained. These are three direct cases, not transferable multipliers or population accuracy evidence. Six source calls used 1.755049169 research CPU seconds. No calls repeated by review; full continuation needs separately frozen coverage/resource/source gates.
