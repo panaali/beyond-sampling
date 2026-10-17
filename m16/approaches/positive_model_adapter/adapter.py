@@ -2,7 +2,7 @@
 from pathlib import Path
 from fractions import Fraction
 from collections import Counter
-import hashlib,importlib.util,json,math,sys,time
+import ast,hashlib,importlib.util,json,math,sys,time,types
 import numpy as np
 P=Path(__file__).resolve().parent
 
@@ -13,9 +13,14 @@ def load():
     pins=json.loads((P/'adapter_pins.json').read_text())
     for f,h in pins.items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h,f
     engine_path=Path(next(f for f in pins if f.endswith('estT_snapshot.py')));m43=Path(next(f for f in pins if f.endswith('/m43.py')))
-    sys.path.insert(0,str(m43.parent))
-    try:E=module('adapter_engine',engine_path)
-    finally:sys.path.pop(0)
+    engine_tree=ast.parse(engine_path.read_text());counter_tree=ast.parse(m43.read_text())
+    ops_class=next(n for n in counter_tree.body if isinstance(n,ast.ClassDef) and n.name=='Ops')
+    removed=[n for n in engine_tree.body if isinstance(n,ast.ImportFrom) and n.module=='m43']
+    assert len(removed)==1 and len(removed[0].names)==1 and removed[0].names[0].name=='Ops'
+    engine_tree.body=[n for n in engine_tree.body if n not in removed]
+    E=types.ModuleType('adapter_engine');E.__file__=str(engine_path)
+    exec(compile(ast.Module(body=[ops_class],type_ignores=[]),str(m43),'exec'),E.__dict__)
+    exec(compile(engine_tree,str(engine_path),'exec'),E.__dict__)
     guard=module('adapter_guard',P/'guard.py');original,counts,patched=guard.install(E)
     M=module('adapter_selector',P.parent/'positive_h8_cost/run.py')
     old=module('adapter_positive',M.OLD);kernel=module('adapter_inner',M.KERNEL)
