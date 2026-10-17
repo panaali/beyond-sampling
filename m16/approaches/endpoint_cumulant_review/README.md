@@ -384,3 +384,20 @@ cumulants through4 but winner vectors differing by2/15. This is not a proof
 about the restricted Gaussian-input RNN family or a bound on useful
 approximation there. It explains why retaining support/distributional
 structure can supply information absent from a finite cumulant list.
+
+## Independent large-mean falsifier and frozen correction
+T55 source review verifies the orthant formula and singular bound, but identifies
+a numerical tail risk: infinite-interval QUADPACK can miss Gaussian bulk when
+its lower limit is very negative. Preserve the9 independent-Gaussian tests
+(a,b) in{-100,0,100}^2 against Phi(a)Phi(b), and original source hash in
+full_covariance_large_mean_failure.json before changing the implementation.
+Also reject malformed zero-variance covariance rows with nonzero cross entry.
+
+Frozen rescue: integrate only the intersection of[-a,infinity] with[-12,12],
+split at -8,0,8 and the conditional transition when inside. Dropped probability
+is nonnegative and at most2Phi(-12), recorded for every orthant call; this is
+an exact analytic truncation bound, not a roundoff/quadrature enclosure. Return
+zero when lower limit>=12 with the same tail bound. Repeat the exact same
+saved law/control panel and additional9 extreme-mean product controls. Preserve
+original trained results, compare new values rather than silently overwrite
+old evidence; no new models or selected tolerances. <=18CPU review lock.
