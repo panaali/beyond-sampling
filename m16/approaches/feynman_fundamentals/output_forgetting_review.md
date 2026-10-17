@@ -53,3 +53,33 @@ No sampler comparison, portable full cost, exhaustive event covering,
 or uniform numerical certificate follows from this review. Overlapping
 event unions, other sign patterns and full-estimator complements remain
 open, not disproved.
+
+## Four disjoint signed events and selected-target integration
+
+The signed extension preserves the first two positive inputs. From
+state(0,v), C+ gives(0,w) with0<=w<=beta*C; C- gives(w,0) with
+0<=w<=alpha*abs(C). Hence D+ thresholds d*C or a*abs(C) force the
+second axis; D- thresholds b*beta*C/alpha or c*alpha*abs(C)/beta force
+the first axis. Strict signs and thresholds keep positive amplitude,
+and the four last-sign pairs are disjoint. This checks the extended
+event theorem independently of the projective fixtures.
+
+For a free positive target A/B under the +- event, C is the only
+possibly positive constrained partner. Given target CDF v, C above the
+target supplies the sole exceeding value, leaving
+f0(v)=v^m(v-1/2). When C lies below, the m ordinary prefix inputs and
+the other free positive input supply exactly one exceeding value,
+f1(v)=(1-v)[m*v^(m-1)(v-1/2)+v^m]. Swapping the C/target integrals
+gives H(F)=integral_(1/2)^F f0 + integral_F^1 f1, weighted by
+phi(C)Q(k*C). Both polynomials have degree at most m+1; Gaussian
+quadrature of order ceil((m+2)/2) is exact for them in real arithmetic.
+For m6 this isGL4. Under --, both constrained inputs lie below every
+eligible positive target, so the contribution factors as pair-wedge
+mass times integral_(1/2)^1 f1. Both negative positions are impossible
+second-largest targets because the first two suffix values are positive.
+
+The general signed `p0/p1` source correctly splits at C=u and C=u/k,
+including k>1 and the mixed-sign cases. These are probability masses,
+not conditionally normalized pair laws. The selected-target adapter
+can remove unused all-target integration while retaining its controls;
+it does not expand event coverage or justify a full-estimator claim.
