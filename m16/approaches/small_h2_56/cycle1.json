@@ -1,0 +1,132 @@
+{
+  "primitive": [
+    {
+      "d": 4,
+      "order": 4,
+      "estimate": 0.06305097068541282,
+      "truth": 0.0625,
+      "error": 0.0005509706854128216,
+      "bound": 0.14940416455164537,
+      "nodes": 64
+    },
+    {
+      "d": 4,
+      "order": 8,
+      "estimate": 0.06249918579623154,
+      "truth": 0.0625,
+      "error": 8.142037684621961e-07,
+      "bound": 0.029788891885989585,
+      "nodes": 512
+    },
+    {
+      "d": 5,
+      "order": 4,
+      "estimate": 0.031362172206971115,
+      "truth": 0.03125,
+      "error": 0.00011217220697111452,
+      "bound": 0.26494085629374836,
+      "nodes": 256
+    },
+    {
+      "d": 5,
+      "order": 8,
+      "estimate": 0.03125016049740779,
+      "truth": 0.03125,
+      "error": 1.6049740778761867e-07,
+      "bound": 0.0567964040255823,
+      "nodes": 4096
+    },
+    {
+      "d": 6,
+      "order": 4,
+      "estimate": 0.015227502228251016,
+      "truth": 0.015625,
+      "error": 0.0003974977717489843,
+      "bound": Infinity,
+      "nodes": 1024
+    },
+    {
+      "d": 6,
+      "order": 8,
+      "estimate": 0.015626842059338453,
+      "truth": 0.015625,
+      "error": 1.8420593384527173e-06,
+      "bound": 0.12336008376560573,
+      "nodes": 32768
+    }
+  ],
+  "models": [
+    {
+      "T": 5,
+      "sigma": 0,
+      "sha256": "18b8b66d227c9360310f035a093dc0c891c5918fc8e01197f8f16682d0f7682c",
+      "gate_count": 258,
+      "correct_count": 336,
+      "simplex_count": 5870,
+      "correct_integrals": [
+        {
+          "estimate": 0.2792704228447156,
+          "conditional_quadrature_error_bound": 2.2760897446393877,
+          "nodes": 1502720,
+          "order": 4,
+          "cpu_seconds": 0.13577206800000008
+        },
+        {
+          "estimate": 0.27923837663663276,
+          "conditional_quadrature_error_bound": 0.4877510465823422,
+          "nodes": 24043520,
+          "order": 8,
+          "cpu_seconds": 0.8814016260000002
+        }
+      ],
+      "partition_simplex_count": 1857,
+      "partition_integral": {
+        "estimate": 1.0000048414054903,
+        "conditional_quadrature_error_bound": 1.8090273800106913,
+        "nodes": 7606272,
+        "order": 8
+      },
+      "geometry_counts": {
+        "clips": 7126,
+        "hulls": 4592,
+        "vertex_plane_products": 41233,
+        "map_compositions": 348,
+        "gate_pieces": 258,
+        "correct_pieces": 336,
+        "simplices": 7727,
+        "zero_determinants": 115
+      },
+      "validation": {
+        "n": 131072,
+        "correct": 36838,
+        "estimate": 0.2810516357421875,
+        "se": 0.001241614985096441
+      }
+    },
+    {
+      "T": 6,
+      "sigma": 0,
+      "sha256": "ad1a7653ad43319becf17aa634add9230a63d79abd03f1c04d476b98aaf14002",
+      "gate_count": 759,
+      "geometry_error": "degenerate clip: refused silent discard",
+      "geometry_counts": {
+        "clips": 10570,
+        "hulls": 5596,
+        "vertex_plane_products": 69387,
+        "map_compositions": 1132,
+        "gate_pieces": 759,
+        "correct_pieces": 0,
+        "simplices": 0,
+        "zero_determinants": 0
+      },
+      "validation": {
+        "n": 131072,
+        "correct": 32904,
+        "estimate": 0.25103759765625,
+        "se": 0.0011976900190272379
+      }
+    }
+  ],
+  "cpu_seconds": 4.232706105,
+  "peak_rss_kb": 233208
+}
