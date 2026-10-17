@@ -16,7 +16,8 @@ def main():
         f=Fraction(s);return mp.mpf(f.numerator)/f.denominator
     def integral(a,b):
         a,b=real(a),real(b);d=b-a
-        return amplitude*d*mp.quad(lambda u:(1+(a+d*u)**2)**-5,[0,1]) if d>0 else mp.mpf(0)
+        cuts=[mp.mpf(0)]+[(mp.mpf(x)-a)/d for x in (-10,-1,0,1,10) if a<x<b]+[mp.mpf(1)] if d>0 else []
+        return amplitude*d*mp.quad(lambda u:(1+(a+d*u)**2)**-5,cuts) if d>0 else mp.mpf(0)
     out=dict(scalar=[],fixtures=[],caps=[],random_model_inputs=0)
     pairs=[(-2.,3.),(-.1,.2),(0.,1.),(-100.,100.)]
     for a in (0.,1.,8.,20.):
