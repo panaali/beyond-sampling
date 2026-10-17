@@ -11,7 +11,7 @@ class FixedMass:
  def __init__(self,audit):
   self.audit=audit;self.triangle=Engine(audit);self.rules={}
  def one(self,ray,order,inner_budget):
-  audit=self.audit;det=abs(determinant(ray,audit));factor=det/(math.pi**3);audit.add('mass_prefactor',10)
+  audit=self.audit;det=abs(determinant(ray,audit));factor=det/(math.pi*math.pi*math.pi);audit.add('mass_prefactor',10)
   if det==0:return 0.,0.,0.,dict(triangles=0,positive_quadrature_fallbacks=0,quadrature_nodes=0)
   if order not in self.rules:self.rules[order]=outer_rule(order,audit)
   y,rest,w=self.rules[order];prefix=y@ray[:,:3].T
@@ -37,14 +37,14 @@ def main():
  def save():
   out['cpu_seconds']=time.process_time()-begin;(HERE/'pilot_results.json').write_text(json.dumps(out,indent=2)+'\n')
  for name,cls in (('old',MassEngine),('new',FixedMass)):
-  c=time.process_time();t=time.perf_counter();audit=Audit();engine=cls(audit);rows=[];out['passes'][name]=dict(rows=rows)
+  c=time.process_time();t=time.perf_counter();audit=Audit();engine=cls(audit);rows=[];out['passes'][name]=dict(rows=rows);checkpoint_cpu=0.;checkpoint_wall=0.
   for index in indices:
    try:
     mass,inner,series,stats=engine.one(rays[index],int(orders[index]),1e-8/len(rays))
     rows.append(dict(index=int(index),order=int(orders[index]),mass=mass,inner_bound=inner,series_bound=series,stats=stats))
    except Exception as exc:out['failure']=dict(pass_name=name,index=int(index),type=type(exc).__name__,message=str(exc));save();raise
-   save()
-  out['passes'][name].update(cpu=time.process_time()-c,wall=time.perf_counter()-t,cost=audit.report(),partial_mass=sum(r['mass'] for r in rows),inner_bound=sum(r['inner_bound'] for r in rows),series_bound=sum(r['series_bound'] for r in rows));save()
+   cc=time.process_time();tt=time.perf_counter();save();checkpoint_cpu+=time.process_time()-cc;checkpoint_wall+=time.perf_counter()-tt
+  out['passes'][name].update(cpu=time.process_time()-c-checkpoint_cpu,wall=time.perf_counter()-t-checkpoint_wall,checkpoint_cpu=checkpoint_cpu,checkpoint_wall=checkpoint_wall,cost=audit.report(),partial_mass=sum(r['mass'] for r in rows),inner_bound=sum(r['inner_bound'] for r in rows),series_bound=sum(r['series_bound'] for r in rows));save()
  pairs=list(zip(out['passes']['old']['rows'],out['passes']['new']['rows']))
  out['max_relative_mass_difference']=max(abs(b['mass']/a['mass']-1) if a['mass'] else abs(b['mass']) for a,b in pairs)
  out['changed_fallbacks']=[a['index'] for a,b in pairs if a['stats']['positive_quadrature_fallbacks']!=b['stats']['positive_quadrature_fallbacks']]
