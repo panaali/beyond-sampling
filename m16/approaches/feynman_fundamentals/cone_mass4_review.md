@@ -1339,3 +1339,20 @@ The third1024-copy k30 seed also passes the same raw audit: named111 ratio
 reconcile all four independent seeds, sixteen noise groups,4096 unique models,
 source hashes and both reused controls against the completed author summary;
 it has not run before the fourth seed finishes.
+
+### Complete missing-k30 native panel
+
+The fourth seed and `check_k30_native_global_review.py` complete independent
+coverage of all4096 models,64 shards and full native site ledgers, sixteen noise
+groups and both historical controls reused exactly once. All source/model/truth
+pins, exact own-budget summaries, conditional bootstraps and individual ratios
+match. Named numeric units total434,926,019;13,500,632 integer units are separate.
+Research tracing CPU is745.682597126, maximum shard13.303207.
+
+The four named111 seed ratios are0.06470897,0.0001409611,0.01345273 and0.244644686.
+There are48 individual named-budget losses (3/0/0/45), worst12.455; historical72
+has25 losses. The old seed4 aggregate0.16013643139 is the mean-budget metric,
+whereas0.159435460758 uses each model's integer budget: both reproduce without
+changing estimates. Saved-truth/conditional-bootstrap and incomplete native,
+setup/control/memory/runtime qualifications remain. No full population or
+per-copy universal claim is supported. No evaluator calls were repeated.
