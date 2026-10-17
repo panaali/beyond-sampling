@@ -68,8 +68,9 @@ selection. Missing/nonpositive gains remain explicit; do not silently discard.
    source hashes/metric flags and the no-T3 comparison; no portable-cost claim.
 
 ## Status
-Claimed; protocol frozen before feature computation/associations. Claude remains
-DRI. Only this folder is edited; independently reviewed controls/results required.
+Two frozen feature panels completed; initial point associations independently
+checked by T55 (b66026d), boundary rescue review pending. Claude remains DRI.
+Only this folder is edited. This is a scoped diagnostic, not an estimator.
 
 ## Results
 Initial full90 feature panel saved before gain join. Sobol pooled within-(H,T)
@@ -80,6 +81,40 @@ alignment rho.3262 disappears after also controlling H. Global−T baseline is
 no favorable feature is selected. Features1.97344CPU, association1.23403CPU;
 all90 explicit public checkpoints total404290bytes. No walker/F calls.
 This diagnostic cannot pass a ladder rung or certify an estimator win.
+
+Boundary-point rescue improves global and within-T descriptive associations,
+but does not establish prediction among seeds of the same architecture:
+
+| Feature | Global Sobol rho | Within-T rho | Within-(H,T) rho and conditional95% CI |
+| --- | ---: | ---: | --- |
+| Interior gate uncertainty | .1592 | .1423 | -.0778 [-.3204,.1722] |
+| Interior alignment | -.0877 | .3262 | -.0111 [-.2485,.2337] |
+| Boundary mean alignment | .7445 | .5060 | .0667 [-.1861,.3077] |
+| Boundary p10 alignment | .6464 | .4994 | .0500 [-.2257,.2893] |
+
+Boundary iid within-(H,T) rho is -.0944 [-.3079,.1553] and .0167
+[-.2025,.2538], respectively. Every within-(H,T) interval includes zero in
+both the no-T3 and accuracy>.97 subsets too. No metric or feature is selected
+afterward. These intervals do not prove the correlations vanish; five seeds
+per architecture give limited power, and historical gain uncertainty is omitted.
+The boundary representation carries architectural information beyond T alone,
+but its tested summaries do not demonstrate useful seed discrimination beyond
+both H and T. This does not retire walk-free prediction as a family.
+
+Artifacts: `features.json` and `boundary_features.json` are separately committed
+before their respective joins; `associations.json` and
+`boundary_associations.json` retain all comparisons. T55's independent
+pair-comparison integer ranks reproduce the initial four within-(H,T) point
+correlations exactly as -7/90, -1/60, -1/90 and 7/60. That check does not validate
+bootstrap coverage or historical gain estimation.
+
+Reproduce from this folder with the pinned public manifest paths available:
+`python features.py`, then `python associate.py`; and `python boundary_features.py`,
+then `python associate.py --feature-file boundary_features.json --feature-names
+boundary_mean_alignment boundary_p10_alignment --output boundary_associations.json`.
+Use the repository interpreter, one BLAS thread, memory limit and shared lock
+specified in AGENTS. The association script's later CLI extension only selects
+input feature columns/output path; the ranking/bootstrap algorithm is unchanged.
 
 ## Frozen distinct boundary-point rescue (after initial panel, before new run)
 The interior canonical mean may miss the geometry where tie-slicing integrates.
@@ -109,11 +144,23 @@ and Jacobian propagation, margin gradients, covariance products, invariance
 controls, table join and bootstrap. Record bytes/URLs/hashes separately from
 CPU. Feature generation must not read gain/F columns; association is a separate
 stage. Elapsed CPU is not a portable scalar-FPE certificate.
+Initial feature/association CPU is1.973443095+1.234027921 seconds; boundary
+feature/association CPU is2.914304882+1.30767786, total7.429453758. Imports,
+checkpoint loads, all18 invariance controls and numerical moment setup are
+included. Public download404290bytes/8.535seconds wall is separate. Boundary
+cycle uses25116 probe inputs,217848 hidden/Jacobian steps,25116 margin gradients,
+six moment tables and90 checkpoint loads; max RSS251288KiB. Each association
+charges9,992,994 ranked elements and2000 model bootstraps per subset. These
+deterministic diagnostic probes are model inputs, even though no random model
+inputs, accuracy labels, face walks or F evaluations generate the features.
 
 ## Claims
 [speculative] Rank-boundary alignment and gate uncertainty may predict variation
 in historical tie-slicing gain beyond T. [inferred] They do not use face-walk F.
-No correlation, estimator advantage or causal explanation is claimed in advance.
+[measured] Both panels' all90 within-(H,T) correlations have intervals containing
+zero. [measured] Boundary alignment is associated with gain across architectures.
+[inferred] Neither finite panel establishes beyond-size prediction or an
+estimator advantage. No causal explanation follows from these correlations.
 
 ## Alternatives not ruled out
 Different structural features, exact support/cell summaries, mixtures of gates,
