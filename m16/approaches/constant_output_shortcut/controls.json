@@ -1,0 +1,1096 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "name": "alloff",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 14,
+          "scalar_comparison": 2,
+          "scalar_division": 1
+        },
+        "reason": "zero_input_weights",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "identical_nonzero",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8,
+          "scalar_division": 1
+        },
+        "reason": "row0_coordinatewise_dominance_including_identical_rows",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "identical_zero",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8,
+          "scalar_division": 1
+        },
+        "reason": "row0_coordinatewise_dominance_including_identical_rows",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "tie_winner0",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8,
+          "scalar_division": 1
+        },
+        "reason": "row0_coordinatewise_dominance_including_identical_rows",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            -1.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "tie_winner1",
+      "status": "fallback",
+      "certificate": {
+        "status": "fallback",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8
+        },
+        "reason": "Sufficient constant-first-label predicates do not hold"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            2.0,
+            2.0
+          ],
+          [
+            2.0,
+            2.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0,
+        1
+      ],
+      "returned_original_fallback_object": true,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "tie_winner2",
+      "status": "fallback",
+      "certificate": {
+        "status": "fallback",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8
+        },
+        "reason": "Sufficient constant-first-label predicates do not hold"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            3.0,
+            3.0
+          ],
+          [
+            3.0,
+            3.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0,
+        2
+      ],
+      "returned_original_fallback_object": true,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "strict_winner3",
+      "status": "fallback",
+      "certificate": {
+        "status": "fallback",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8
+        },
+        "reason": "Sufficient constant-first-label predicates do not hold"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            2.0,
+            2.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0,
+        3
+      ],
+      "returned_original_fallback_object": true,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "alloff_T2",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 10,
+          "boolean_reduction": 10,
+          "scalar_comparison": 2,
+          "scalar_division": 1
+        },
+        "reason": "zero_input_weights",
+        "prediction": 0,
+        "accuracy": 0.5,
+        "exact_accuracy": [
+          1,
+          2
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 9,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "alloff_T3",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 12,
+          "boolean_reduction": 12,
+          "scalar_comparison": 2,
+          "scalar_division": 1
+        },
+        "reason": "zero_input_weights",
+        "prediction": 0,
+        "accuracy": 0.3333333333333333,
+        "exact_accuracy": [
+          1,
+          3
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 27,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "alloff_T10",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 26,
+          "boolean_reduction": 26,
+          "scalar_comparison": 2,
+          "scalar_division": 1
+        },
+        "reason": "zero_input_weights",
+        "prediction": 0,
+        "accuracy": 0.1,
+        "exact_accuracy": [
+          1,
+          10
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 21,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "unequal_dominance",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8,
+          "scalar_division": 1
+        },
+        "reason": "row0_coordinatewise_dominance_including_identical_rows",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            2.0,
+            3.0
+          ],
+          [
+            2.0,
+            2.0
+          ],
+          [
+            1.0,
+            3.0
+          ],
+          [
+            -1.0,
+            -2.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "unreachable_negative_margin",
+      "status": "fallback",
+      "certificate": {
+        "status": "fallback",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8
+        },
+        "reason": "Sufficient constant-first-label predicates do not hold"
+      },
+      "model_weights": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0,
+            -100.0
+          ],
+          [
+            0.0,
+            100.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": true,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "one_ulp_violation",
+      "status": "fallback",
+      "certificate": {
+        "status": "fallback",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 19,
+          "scalar_comparison": 8
+        },
+        "reason": "Sufficient constant-first-label predicates do not hold"
+      },
+      "model_weights": [
+        [
+          1.0,
+          -1.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.9999999999999999,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            -1.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0,
+        1
+      ],
+      "returned_original_fallback_object": true,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "alloff_other_row_dominates",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 14,
+          "scalar_comparison": 2,
+          "scalar_division": 1
+        },
+        "reason": "zero_input_weights",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            5.0,
+            5.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    },
+    {
+      "name": "signed_zero_input",
+      "status": "certified",
+      "certificate": {
+        "status": "certified",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 14,
+          "scalar_comparison": 2,
+          "scalar_division": 1
+        },
+        "reason": "zero_input_weights",
+        "prediction": 0,
+        "accuracy": 0.25,
+        "exact_accuracy": [
+          1,
+          4
+        ],
+        "contract": "Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics"
+      },
+      "model_weights": [
+        [
+          -0.0,
+          -0.0
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "validation_forward_inputs": 81,
+      "observed_labels": [
+        0
+      ],
+      "returned_original_fallback_object": false,
+      "model_unchanged": true,
+      "not_an_accuracy_sample": true
+    }
+  ],
+  "invalid": [
+    {
+      "array": 0,
+      "value": "nan",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 0,
+      "value": "inf",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 0,
+      "value": "-inf",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 1,
+      "value": "nan",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 1,
+      "value": "inf",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 1,
+      "value": "-inf",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 2,
+      "value": "nan",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 2,
+      "value": "inf",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "array": 2,
+      "value": "-inf",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 15,
+          "finite_checks": 14,
+          "boolean_reduction": 13
+        },
+        "reason": "Nonfinite weight"
+      }
+    },
+    {
+      "name": "float32",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 4
+        },
+        "reason": "Stored binary64 weights required"
+      }
+    },
+    {
+      "name": "wrong_hidden",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 14
+        },
+        "reason": "Recurrent weight shape mismatch"
+      }
+    },
+    {
+      "name": "T1",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 13
+        },
+        "reason": "At least two input positions required"
+      }
+    },
+    {
+      "name": "missing_array",
+      "result": {
+        "status": "rejected",
+        "counts": {
+          "metadata_predicate": 2
+        },
+        "reason": "Expected Wi,Wh,Wo"
+      }
+    }
+  ],
+  "prior_alloff_failure_preserved": {
+    "N": 72,
+    "known_mass_total": 280,
+    "complete": false
+  },
+  "estimator_random_inputs": 0,
+  "validation_inputs": 1029,
+  "no_geometry_or_mass_calls": true,
+  "cpu": 0.077092143,
+  "source_sha256": "df9cc0bca5868499b29011ab7bac9e674aae0946bb4465a64796f34d2308384d",
+  "primitive_sha256": "2c10a924d198e1b3d9104ce5300a4c4f34c062b4f5d2f7d92572029379ad3eb5"
+}
