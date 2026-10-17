@@ -1,0 +1,54 @@
+{
+  "scope": "Read-only headers/source inventory of known existing H8T4 captures, not an exhaustive proof that no other archive exists.",
+  "archives": [
+    {
+      "path": "m16/approaches/leaf_mass_review/captured.npz",
+      "sha256": "02f3a5b837e73bdfdac6b93d85be100ddd049664e312ef92a6f603eea861b95d",
+      "archive_members": [
+        "rays.npy",
+        "parent_ids.npy",
+        "leaf_ids.npy"
+      ]
+    },
+    {
+      "path": "m16/approaches/leaf_mass_review/error_captured.npz",
+      "sha256": "15f9e5e483c69325c10fcbe4eaaa80f91503b177070ccec1ff2569a11c9436b6",
+      "archive_members": [
+        "rays.npy",
+        "parent_ids.npy",
+        "leaf_ids.npy"
+      ]
+    },
+    {
+      "path": "m16/approaches/recipe_mass_separation/error_captured.npz",
+      "sha256": "1a4ee131e9ab252a46828a1d1d2985b9d397ec1b3a626a71ddb3c00535682c44",
+      "archive_members": [
+        "rays.npy",
+        "parent_ids.npy",
+        "leaf_ids.npy"
+      ]
+    },
+    {
+      "path": "m16/approaches/frozen_recipe_holdout/exact/error_captured.npz",
+      "sha256": "215ce37b68c283e29224a2c720ae30c24aaf741b1269bf6bc5d0f2044b6ec9db",
+      "archive_members": [
+        "rays.npy",
+        "parent_ids.npy",
+        "leaf_ids.npy"
+      ]
+    },
+    {
+      "path": "m16/approaches/frozen_recipe_holdout/recipe108/error_captured.npz",
+      "sha256": "fecc3783c7f86feef5ef73e8d0167b221d2f771258eeb9e5cc46b01a17a12083",
+      "archive_members": [
+        "rays.npy",
+        "parent_ids.npy",
+        "leaf_ids.npy"
+      ]
+    }
+  ],
+  "source_fields": "All corresponding capture.py/error_capture.py np.savez calls retain rays,parent_ids,leaf_ids only; no gates/g/A/parent-child edges.",
+  "peer_check": "recover_34 confirms T193 seed2 local capture is likewise error rays+aggregate counters, not a tree; T187384 witness histories are not celltree coverage. No recapture.",
+  "T195_remote_files": [],
+  "decision": "Pause T190 pending a published existing H8 tree or DRI-issued scope. No cache-hit fraction from simplex duplication/witness counts; no new matrix/geometry/mass/model work."
+}
