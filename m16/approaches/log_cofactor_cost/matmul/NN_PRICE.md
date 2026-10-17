@@ -1,0 +1,13 @@
+# Fixed reached NN beta0 body: candidate native lane count
+
+This counts only the floating arithmetic body of the observed `dgemm_small_kernel_b0_nn_SKYLAKEX` with M4,K4,N4 or1000. The new child capture identifies that precise function and arguments for independent_C and all C/tall-strided-left controls. Source/binary reasoning below precedes corpus replacement; pending independent review. No claim covers transposed-right fallback or NT/TT variants.
+
+The pinned public NN source selects its remaining-row branch because M4 bypasses m32/m16/m8 loops. Its mm4 and K4 satisfy K<16; installed branches0xa89100/0xa89109 lead to0xa893e8, not the dot-reduction/allocation alternative. It processes columns in blocks6, then2, then1. For N1000 there are166 blocks6 and2 blocks2; N4 has2 blocks2. Each column has4 inner iterations.
+
+At0xa89580 the A load is masked/zeroed into a ZMM register, but the six FMA instructions0xa89589..0xa895ab are unmasked ZMM arithmetic. Each executes8 scalar lanes, including four lanes ultimately discarded. The six alpha multiplications0xa895bb..0xa895e6 are also unmasked; only stores carry the lane mask. The two-column tail0xa897a0..0xa897de has the same pattern: masked load, two unmasked8-lane FMAs per inner iteration, two unmasked alpha multiplications, masked stores. No third column-tail is reached for the fixed even N. No C load/beta arithmetic occurs in beta0 mode.
+
+Under the same numerical-lane convention as T157, an FMA counts2 scalar operations. Therefore body count per output column is4*8*2+8=72, giving288 for N4 and72,000 for N1000. The corresponding earlier minimal scalar-expression dots were112/28,000. We retain both layers and only replace the applicable28,000 term after independent source/assembly review. No precision or estimator-quality conclusion follows from charging discarded lanes.
+
+Model-free numeric dispatch is separate: the permit function converts three dimensions to doubles, performs two multiplications and a floating comparison with its size threshold; CBLAS compares beta with zero. Dimension/sign/control predicates and conversions are not model-data floating work, but their runtime presence is recorded. Actual body data-independent count depends on the pinned selected kernel/layout/dimensions. Existing64/256/whole corpus values are not rerun. Source generated code can differ across backend/build and public source alone is insufficient; binary branch/instruction evidence and runtime target capture jointly support this scoped body count.
+
+This closes only one native arithmetic body. Symmetric products, reductions/norms, libm interiors, geometry, control/memory/allocation and cold setup remain separate. It is not a full native estimator bound or a sampling-budget multiplier.

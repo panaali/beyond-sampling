@@ -15,6 +15,6 @@ def main():
     for off in range(0,0x1800,8):
         ptr=ctypes.c_void_p.from_address(table+off).value
         if ptr and ptr-base in addresses:rows.append(dict(offset=hex(off),symbol=addresses[ptr-base],target=hex(ptr-base)))
-    out=dict(binary_sha256=manifest['binary_sha256']['openblas'],table_relative_offset=hex(table-base),read_only_prefix_bytes=0x1800,entries=rows,cpu_seconds=time.process_time()-start,new_matrix_mass_calls=0)
-    (HERE/'runtime_table.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(dict(entries=len(rows),cpu_seconds=out['cpu_seconds'],matrix_entries=[r for r in rows if any(x in r['symbol'] for x in ('dgemm','dsyrk'))])))
+    out=dict(binary_sha256=manifest['binary_sha256']['openblas'],table_relative_offset=hex(table-base),read_only_prefix_bytes=0x1800,entries=rows,gemm_unroll_mn=ctypes.c_int.from_address(table+0x304).value,cpu_seconds=time.process_time()-start,new_matrix_mass_calls=0)
+    (HERE/'runtime_table.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(dict(entries=len(rows),gemm_unroll_mn=out['gemm_unroll_mn'],cpu_seconds=out['cpu_seconds'],matrix_entries=[r for r in rows if any(x in r['symbol'] for x in ('dgemm','dsyrk'))])))
 if __name__=='__main__':main()
