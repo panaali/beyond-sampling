@@ -14,6 +14,7 @@ Also: leverage = Var_S(q)/p(1-p) and its inverse, the conditional-MC gain ceilin
 usage: python review/stoch_margin/fidelity.py MODEL K [NS] [M] [seed]
 """
 import json
+import os
 import sys
 import time
 
@@ -33,6 +34,7 @@ CH = 100
 cols = {k: [] for k in ["q", "R0", "lin", "add", "gauss", "slin", "slin_r", "lin_r", "v2", "v3"]}
 t0 = time.time()
 GZ = np.random.default_rng(seed + 1).standard_normal((16384, 9))
+FRESH = os.environ.get("FRESH_GZ") == "1"   # fresh Gaussian draws per skeleton (check of the common-draw set)
 
 
 def frac_ok(L, lab):
@@ -45,7 +47,8 @@ def orthant(Lmat, lab):
     mar = Lmat[:, [lab]] - Lmat[:, others]
     mu, C = mar.mean(0), np.cov(mar.T)
     w, V = np.linalg.eigh(C)
-    z = mu + GZ @ (V * np.sqrt(np.clip(w, 0, None))).T     # 16384 Gaussian draws (unbiased; s.e. <= 0.4 pp/skeleton)
+    Z = rng.standard_normal((16384, 9)) if FRESH else GZ
+    z = mu + Z @ (V * np.sqrt(np.clip(w, 0, None))).T     # 16384 Gaussian draws (unbiased; s.e. <= 0.4 pp/skeleton)
     return float((z > 0).all(1).mean())
 
 
@@ -104,5 +107,5 @@ out = dict(model=name, K=K, NS=n, M=M, seed=seed, acc=float(p), leverage=float(v
 for k in ["R0", "lin", "add", "gauss", "slin", "slin_r", "lin_r"]:
     out[k] = rv.summarize(q, R[k], n)
 print(json.dumps(out, indent=1))
-np.savez(f"{rv.OUT}/fid_{name}_K{K}_s{seed}.npz", **R)
-json.dump(out, open(f"{__file__.rsplit('/', 1)[0]}/fid_{name}_K{K}.json", "w"), indent=1)
+np.savez(f"{rv.OUT}/fid_{name}_K{K}_s{seed}{'_fresh' if FRESH else ''}.npz", **R)
+json.dump(out, open(f"{__file__.rsplit('/', 1)[0]}/fid_{name}_K{K}{'_fresh' if FRESH else ''}.json", "w"), indent=1)
