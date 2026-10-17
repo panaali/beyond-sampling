@@ -32,7 +32,8 @@ def bounded_rank(M,audit,tol=1e-9):
  size=norm(A,audit);cushion=1e-12*max(1.,size);audit.add('qr_bounds',3)
  for step in range(min(m,n)+1):
   norms=np.sum(R*R,axis=1);residual=math.sqrt(float(norms.sum()));audit.add('qr_pivot',2*m*n+m+TRANS+5)
-  if residual<=tol*.1 or step==min(m,n):
+  # Candidate proposal only: final retained/omitted brackets still decide rank.
+  if residual<=tol or step==min(m,n):
    rank=len(Q)
    if rank==0:
     if size+cushion<tol:return 0
