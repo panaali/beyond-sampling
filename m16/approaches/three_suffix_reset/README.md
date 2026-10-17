@@ -79,3 +79,30 @@ Inherited floating checkpoint conversion, excessive rational bit growth,
 positive-volume tied outputs, negative selected targets, thin polygons,
 unresolved quadrature/roundoff error and confusion between event coverage and
 correctness probability. No method-wide negative follows from this phase.
+
+## Frozen old-target rescue and integration
+The five zero-hidden regions predict a particular older input (label0), not
+an arbitrary prefix winner. All surviving sign patterns have at least two
+positive suffix inputs. With N=T-5=3, largest L and second-largest S>0, its
+unnormalized correct rank mass is
+
+`int_S^L phi(t)*Phi(t)^(N-1)*g0(t) dt`
+`+ int_L^infinity phi(t)*[(N-1)*sf(t)*Phi(t)^(N-2)*g0(t)+Phi(t)^(N-1)*g1(t)] dt`.
+
+Here g0/g1 are the existing positive-threshold coupled reset-pair masses;
+there is no N multiplier for a specified older label. Independent generic
+conditional.py checks on fixed suffix triples precede numerical use.
+
+Subdivide every exact winner polygon at all three suffix-equality planes,
+so order/rank formulas are smooth inside each cell (cap256 cells). Triangulate
+convex polygons from one vertex. In signed L1 coordinates y, Gaussian
+Jacobian is `r^2 exp(-r^2/2)/(2pi)^(3/2)/||y||^3` after radius rescaling.
+Use positive Duffy triangle Gauss rules angular orders8/16/32, radial32 on
+[0,8]. Older-target inner rule32 on[S,L] and[L,8]; check64 against32 on frozen
+fixed suffix controls before main integral. Report exact chi3 radial tail and
+old-target normal tail allowances separately from uncertified quadrature.
+Before correctness integrals, compare angular rule mass against independent
+solid-angle triangle atan2 formula and analytic last-reset event mass. Stop if
+geometry mass error exceeds1e-7 at order32 or wall/cpu exceeds90seconds; no
+unbounded order sweep. Preserve all rule failures. This is one base-model
+partial contribution, not an adaptive fitted estimator or noisy evaluation.
