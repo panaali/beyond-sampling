@@ -7,7 +7,7 @@ Which published techniques (2015-2026, any field) could compute P(argmax W_o h_1
 x ~ N(0, I_10), **without random inputs** and with MSE below plain sampling's p(1-p)/N at N ~ 1e3-1e6 forward-pass
 equivalents (FPE)? The hard facts, from the [ledger](../../INDEX.md#4-hypothesis-ledger): more than 1e7 linear regions (H-M7);
 gate pieces are far finer than the correct/wrong pattern (H-E7); additive models of the band miss by 4% even as an oracle
-(H-E8); deterministic summaries of the low inputs overestimate accuracy (H-E10, and E28: the stochastic reduction is
+(H-E8); deterministic summaries of the low inputs overestimate accuracy (H-E10, and E31: the stochastic reduction is
 also negative); the deterministic tie-face rule wins at T <= 4 and collapses at T ~ 5 as the face integrand F turns
 heavy-tailed (H-E11, H-E12).
 
@@ -99,9 +99,9 @@ directions.
 **#3 Hermite-corrected conditional cumulants as the proxy for #1** (backlog T35). Read arXiv:2605.05179 for its
 corrections (the blog gives no details; the abstract mentions cumulants and Hermite expansions). Apply them not to the
 whole network (E13 ceiling) but to the low-input noise term of the tie margin *conditional on a face point*, which
-E28 showed is the hard part. The output is a predicted band width w~(y) and band-mass F~(y) at O(H^2 T) FLOPs, with
+E31 showed is the hard part. The output is a predicted band width w~(y) and band-mass F~(y) at O(H^2 T) FLOPs, with
 no forward passes on random inputs. Use it (i) as #1's proxy and (ii) as a control variate F - F~ inside the
-deterministic face rule. Main risk: E28's frozen-skeleton reductions are off by 2-2.5 pp per skeleton, so F~ may
+deterministic face rule. Main risk: E31's frozen-skeleton reductions are off by 2-2.5 pp per skeleton, so F~ may
 correlate poorly in exactly the wide-band tail. **Cheapest test**: the same stored face points as #1; report corr(F, F~)
 in the top 1% of faces and Var(F - F~)/Var(F).
 

@@ -18,6 +18,8 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
    - **Add every new idea to the Backlog.** Whenever you discover a new approach, a follow-up, a needed check or a bug in
      shared code, add a Backlog row (next free T-number; IDs are never reused) with why it matters, when it counts as
      done, and pointers, even if you will not do it yourself.
+   - **IDs are allocated on push.** Before using a new T-, E-, H- or L-number, `git pull` and take max+1 of what is
+     on the remote; push the row immediately so the number is reserved. Duplicates found later are renumbered by the DRI.
    - **When done,** remove your row from *In progress* and register the result in the [INDEX registry](INDEX.md)
      (or ask the DRI to), including negative results.
 1. **Stay in your lane.** Write only inside your assigned folder, e.g. `m16/approaches/<name>/`. Don't

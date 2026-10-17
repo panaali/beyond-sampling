@@ -21,7 +21,7 @@ Only the leaderboard (LB2) numbers were run by the DRI; the rest are the agents'
 | [sci_laplace](sci_laplace/README.md) | E26 | Laplace: asymptotics of tie bands | Oracle additive model misses by 4% (H-E8); fallback fails on seeds |
 | [sci_poincare](sci_poincare/README.md) | E27 | Poincare: symbolic dynamics over records | Ceiling +0.07-0.75 pp, always positive (H-E10) |
 | [sci_feynman](sci_feynman/README.md) | E24 | Feynman: exact partition + segment walks | Deterministic quadrature ~1-3x; not deductive in ARC's sense |
-| [stoch_margin](stoch_margin/README.md) | E28 | T1: low inputs as a distribution given a top-3 skeleton | Best reduction -0.13 to -0.45 pp; fidelity needs top-5, which leaves <=1.2x to gain |
+| [stoch_margin](stoch_margin/README.md) | E31 | T1: low inputs as a distribution given a top-3 skeleton | Best reduction -0.13 to -0.45 pp; fidelity needs top-5, which leaves <=1.2x to gain |
 | [sci_tao](sci_tao/README.md) | E25 | Tao: exact structure + averaged pseudorandom part | 507x at T=3, collapses at T~5 (H-E11); ~1.5x at T=10 |
 
 ## Sampling-based and quadrature methods (baselines, not solutions)
