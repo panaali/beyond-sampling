@@ -864,3 +864,27 @@ rules fail two cases substantially. All errors/normalizer defects retained;
 no universal alignment or end-to-end efficiency conclusion. .0454CPU after
 imports. Also source-reviewed native DD clipping against the original Python
 semantics; tolerance and floating summation remain explicit qualifications.
+
+## Cycle 39 protocol: falsify cheap gate-certificate usefulness
+T28 owner confirms no collision with T45 averaged uncertainty predictor.
+Evaluate only the first-mismatch Cantelli union certificate on the two existing
+DEV copies using pinned rank-chamber moments and fixed mean-gate templates.
+No model inputs, accuracy evaluation, fitting or new estimator. Record raw
+union sums and capped averages even if entirely vacuous; don't infer failure
+of conditional Chernoff or other certificates. This is conditional floating
+arithmetic, not a rigorous enclosure. <=20CPU review lane.
+Cycle39 result: all180 cells on both DEV copies have Cantelli union bound1;
+raw sums are at least24.07/25.64. This cheap certificate is completely vacuous,
+not evidence against conditional or output-sensitive alternatives.
+
+## Cycle 40 protocol: independent within-size predictor association
+Use only the frozen90 joined rows from T45. Form each of18 five-seed groups
+independently, assign ordinal ranks by direct pair comparisons, compute exact
+Fraction Spearman covariance per group, and average. Verify no ties before
+using the common rank norm10. Compare saved all90 within-HT associations for
+both features and Sobol/iid gains. No source imports, feature refits, bootstrap
+or input sampling; this checks reported point associations, not CI coverage.
+Cycle40 completed: four independent exact-rational within-size associations
+match T45 exactly (Sobol uncertainty-7/90, alignment-1/90; iid-1/60,+7/60).
+No useful seed association established by these point values; uncertainty
+and frozen-alternative scope remain separate. No model inputs or fit.

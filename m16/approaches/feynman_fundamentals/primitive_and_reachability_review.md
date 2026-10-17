@@ -188,3 +188,15 @@ match inherited formulas, not a complete portable cost certificate. Scalar
 C++ summation can differ from NumPy near the tolerance, so finite corpus
 agreement is not universal bitwise topology equivalence. The original
 module's phrase 'exact tight sets' must not be promoted to a rigorous claim.
+
+T45 independent association arithmetic: grouped the90 frozen joined rows
+into18 five-seed(H,T) groups, using direct pair-comparison ranks and exact
+Fraction covariance rather than scipy rankdata. Every feature/gain group
+has five distinct values. Common centered-rank norm10 makes pooled
+within-group correlation exactly the mean of per-group Spearman values.
+Gate uncertainty: Sobol -7/90, iid -1/60. Boundary alignment: Sobol -1/90,
+iid7/60. All four equal saved values exactly. This verifies point
+associations only, not bootstrap coverage, historic gain/truth uncertainty,
+or heldout predictive value. Signed rank normals point inward: max-second
+for the larger competitor and second-lower for each lower competitor;
+output-gradient alignment must use matching correct-side orientation.

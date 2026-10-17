@@ -59,3 +59,14 @@ truncated-normal probability, strict upper-bound checks against those exact
 cases, numerical log-MGF convexity and theta0=0, positive quadrature error,
 and full Jacobian/optimization/cell costs. Do not compare a heuristic
 integral of upper bounds to truth as if it were rigorously enclosed.
+
+Bounded usefulness test (Cycle39): the cheap Cantelli union was evaluated on
+all180 fixed rank/quantile cells for DEV .0025 and .02 copies, reusing the
+pinned model-free moment table. Every cell saturates at1. Raw union minima
+24.0671/25.6363, means66.6878/68.3453. Thus this certificate is entirely
+vacuous on both models; the average individual gate bounds .41680/.42716
+must not be mistaken for prediction-disagreement probabilities. Cost.571954
+CPU after imports, zero model input samples. Conditional Chernoff, first-hit
+and output-sensitive alternatives remain untested. Numerical moment/error
+qualification remains as stated above. See check_gate_certificate.py and
+its raw gate_certificate_results.json.
