@@ -1,0 +1,9 @@
+# Active T189 checkpoint
+
+Claim439be010 was pushed before code. Source5fae242f freezes eight scalar MGF/expectation cases and four domain/degenerate controls; source gate requested from recover_fundamentals, not yet executed. Folderowned /workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds. Claude DRI; new T195 split attribution remains separate/higher scientific priority, no shared geometry or model capture here.
+
+Run controls.py only after independent source gate, once under review lock20CPU/2GB/one thread. It preserves all attempts and exceptions. No neural/truth/MC/checkpoint run is authorized in this phase. Formula80/120 digits versus independent direct-density100; numerical diagnostics are not outward probability certificates. The global margin Lipschitz proof is inherited from independently reviewed T187, not remeasured. Full-rank conditioning on omitted inputs would invalidate the independence premise.
+
+T184 prior phase completed e4c6805b independentlyb927baa2; all3840 originals, eight individual losses,92 topology diagnostics retained. Session36220 ended; no old panel process running. Shared evidence through9a3429ce was safely publishedf4c41716 after independent transport4cef2c56. Later own changes remain local; reviewer export separately blocked by automatic review for missing explicit export authorization, not peer-routed.
+
+Potential next separately frozen phase after scalar review: H4T3/top2 one-omitted analytic network correctness, including permanent first-index ties and a nonvacuous synthetic control. For Wi=(1,-1,0,0),Wh=I,readouts0=h2,1=h1,2=0,retainedx0=4,x1=3 andX=x2<=3, actual label1 iffX>-7/2. Anchor0 margin7,L2; rival0 dominatesrival2 for all states. Chernoff atlambda7/4 <=4exp(-49/8), exact rational upper4/sum_0^10(49/8)^j/j! <.01. This proof planning is not implemented or executed; new source/protocol/independent gate and published scope required.
