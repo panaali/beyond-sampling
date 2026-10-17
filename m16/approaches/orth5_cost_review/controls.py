@@ -23,8 +23,8 @@ def main():
     assert not OUT.exists(),'Preserve earlier controls'
     start=time.process_time();rows=[]
     fixtures=[
-      ('signed_scalar','def f(a,b):\n return (a+b,a-b,a*b,a/b,-a,+b,a**2)\n',(-0.0,2.0),
-       {'numeric_expression:Add':1,'numeric_expression:Sub':1,'numeric_expression:Mult':1,'numeric_expression:Div':1,'numeric_expression:USub':1,'numeric_expression:UAdd':1,'opaque_power:Pow':1}),
+      ('signed_scalar','def f(a,b):\n acc=a\n acc+=b\n return (a+b,a-b,a*b,a/b,-a,+b,a**2,acc)\n',(-0.0,2.0),
+       {'numeric_expression:Add':2,'numeric_expression:Sub':1,'numeric_expression:Mult':1,'numeric_expression:Div':1,'numeric_expression:USub':1,'numeric_expression:UAdd':1,'opaque_power:Pow':1}),
       ('integer_sign','def f(a,b):\n return ((-1)**a,a+b,a!=b)\n',(2,3),
        {'integer_expression:USub':1,'integer_expression:Pow':1,'integer_expression:Add':1,'integer_comparison:NotEq':1}),
       ('broadcast','def f(a,b):\n return (a+b,a*b)\n',(np.array([[1.],[2.]]),np.array([[3.,4.,5.]])),
