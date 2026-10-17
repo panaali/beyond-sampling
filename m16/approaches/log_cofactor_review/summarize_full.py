@@ -10,6 +10,12 @@ assert all('failure' not in r and r['parity'] for r in rows)
 keys=['negative_principal_minors','zero_principal_minors','product_floor_hits','denominator_floor_hits','pc_clip_hits','pc_nonfinite','scalar_3det_calls','scalar_4det_calls','inverse_calls']
 s=dict(cases=len(rows),reused256_once=256,source_mass=math.fsum(r['value'] for r in rows),positive_mass=math.fsum(r['reference'] for r in rows),old_mass=math.fsum(r['old_source'] for r in rows),signed_error=math.fsum(r['difference'] for r in rows),L1_error=math.fsum(abs(r['difference']) for r in rows),max_abs_error=max(abs(r['difference']) for r in rows),max_relative_error=max(abs(r['difference'])/r['reference'] for r in rows if r['reference']>0),reference_bound_sum=math.fsum(r['reference_bound'] for r in rows),reference_only_bound_exceedances=sum(abs(r['difference'])>r['reference_bound'] for r in rows),gate_exceedances=sum(abs(r['difference'])>1e-10+r['reference_bound'] for r in rows),negative_values=sum(r['value']<0 for r in rows),cutoffs=sum(r['diagnostics']['cutoff'] for r in rows),source_cpu_once=math.fsum(r['source_cpu'] for r in rows),observer_cpu_once=math.fsum(r['diagnostic_cpu'] for r in rows),legacy_ops_once=sum(r['legacy_ops'] for r in rows),shard_process_cpu=math.fsum(b['cpu'] for b in batches))
 s.update({k:sum(r['diagnostics'].get(k,0) for r in rows) for k in keys})
+# Cutoff observer records shapes rather than full-node counters; all still execute4x4det.
+s['scalar_4det_calls']=sum(r['diagnostics'].get('scalar_4det_calls',sum(sh==[4,4] for sh in r['diagnostics'].get('determinant_shapes',[]))) for r in rows)
+s['finite_gate_pass']=s['gate_exceedances']==0
+s['clipped_cones']=sum(r['diagnostics'].get('pc_clip_hits',0)>0 for r in rows)
+s['cutoff_positive_mass']=math.fsum(r['reference'] for r in rows if r['diagnostics']['cutoff'])
+s['cutoff_max_positive_mass']=max(r['reference'] for r in rows if r['diagnostics']['cutoff'])
 s['source_accuracy']=1-s['source_mass'];s['positive_accuracy']=1-s['positive_mass'];s['accuracy_difference']=s['source_accuracy']-s['positive_accuracy']
 s['old_L1_error']=math.fsum(abs(r['old_difference']) for r in rows);s['old_max_abs_error']=max(abs(r['old_difference']) for r in rows)
 s['worst_abs10']=[{k:r[k] for k in ['index','value','reference','difference','reference_bound']} for r in sorted(rows,key=lambda r:abs(r['difference']),reverse=True)[:10]]
