@@ -12,6 +12,7 @@ from network_pairs import unpack,prepare_pair,evaluate_pair
 from pair_reference import integrate
 
 def main():
+    start=time.process_time()
     out=HERE/'results.json';progress=HERE/'progress.jsonl';assert not out.exists() and not progress.exists()
     P=json.loads((HERE/'protocol.json').read_text());assert P['source_gate'] and P['analytic_saved_review']
     for path,sha in P['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
@@ -21,11 +22,11 @@ def main():
     assert len(weights['rows'])==1 and weights['rows'][0]['name']=='H16T4seed3'
     assert c['wi']==list(map(F,weights['rows'][0]['wi'])) and c['wh']==[list(map(F,r)) for r in weights['rows'][0]['wh']]
     assert P['pairs']==[[0,0],[1,1],[15,15],[0,1],[0,15]]
-    pairs=[tuple(v) for v in P['pairs']];start=time.process_time();result=dict(complete=False,rows=[],protocol_sha256=hashlib.sha256((HERE/'protocol.json').read_bytes()).hexdigest())
+    pairs=[tuple(v) for v in P['pairs']];result=dict(complete=False,rows=[],preflight_cpu=time.process_time()-start,import_and_prior_cpu=start,protocol_sha256=hashlib.sha256((HERE/'protocol.json').read_bytes()).hexdigest())
     def record(x):
         with progress.open('a') as f:f.write(json.dumps(pack(x),allow_nan=False)+'\n')
     def save():
-        result.update(cpu=time.process_time()-start,maxrss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+        result.update(cpu=time.process_time()-start,process_cpu=time.process_time(),maxrss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         tmp=out.with_suffix('.tmp');tmp.write_text(json.dumps(pack(result),indent=2,allow_nan=False)+'\n');tmp.replace(out)
     try:
         for i,j in pairs:
