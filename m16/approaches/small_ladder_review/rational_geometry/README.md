@@ -106,3 +106,65 @@ integer incidence bitsets. This matching uses floats to compare two outputs;
 it never changes the exact construction or decides its geometry. Retain any
 real coordinate/incidence mismatch and the different simplex counts. Numerical
 mass follows even if floating DD disagrees; exact audits still must pass.
+
+## H2T4 seed0 result
+The permutation-invariant comparison completed. Exact gate counts by step are
+2,6,18,54. Every final gate cone and outcome/orthant cone used in the reference
+passes integer containment, full-rank, complete-incidence and active-plane
+cofactor checks. The54 floating DD gate cells have the same ray counts and
+matching incidence bitsets after ray matching; largest L1-coordinate difference
+is2.21e-14 and largest gate-map coefficient difference3.64e-12. These floating
+comparisons do not enter the exact geometry decisions.
+
+There are221 exact gate simplices and257 correct simplices, versus258 correct
+simplices in the prior differently ordered pulling triangulation. Their exact
+normalized gate determinant sum is16. The exact correct determinant sum, stored
+as numerator/denominator in `results_t4.json`, is approximately4.937112672159329,
+matching the independent floating reference. Equal nonzero output rows and zero
+output rows generate exactly identical integer correctness cones, verifying
+first-index ties beyond merely the dead-state case.
+
+| Floating positive mass calculation on exact rays | Value | Quadrature-only bound |
+|---|---:|---:|
+| Accuracy, GL16 | .30773074302338094 | 1.1679e-6 |
+| Accuracy, GL20 | .3077307430239267 | 1.7861e-8 |
+| Gate partition, GL20 | 1.0000000000000129 | 5.7885e-8 |
+| Constant-class0, GL20 | .25000000000000155 | 1.4471e-8 |
+
+The GL20 accuracy differs from the separate Qhull reference's GL20 result by
+less than1e-15. These bounds cover quadrature truncation under ideal arithmetic;
+conversion, quadrature nodes/weights and floating evaluation remain unverified
+arithmetic. Thus [measured] exact topology is now available for this checkpoint;
+a fully certified final probability is not yet claimed.
+
+The full successful run cost1.367CPU seconds including torch import/loading,
+independent DD comparison, tie controls and all mass calculations. Gate
+construction itself cost.00655CPU in the first attempt; successful timing is
+stored separately in `results_t4.json`. Combined exact geometry and audits took
+about.28CPU. No large-integer limit was approached: primitive rays at most175bits,
+plane normals131bits, rational map numerators132bits/denominators128bits,
+tracked Bareiss intermediates893bits. The correct determinant accumulator reached
+5696bits, so it is tracked separately from geometry-object4096bit limits; aggregate
+rational numerators/denominators have a separate1,000,000bit cap. Ray cap2000,
+cell cap20000, and the110CPU deadline remain explicit stopping conditions.
+
+Successful-run work including controls:37315 integer dot products,1885 clips,
+1140 intersections,1894 exact rank calls,17207 integer determinants,76484 Bareiss
+updates,2194 cofactor ray certificates and5456 rational map products. Those counts
+are algorithm-operation counts, not unit-cost big-integer FLOPs. Full integer
+simplices and exact dyadic model weights are serialized in `geometry_t4.json`;
+all mass conversions use those integer rays. First failed comparison cost1.247CPU
+and is retained separately, so total spent across both attempts is2.614CPU.
+
+Reproduce from the repository worktree:
+
+```
+ulimit -v 2500000
+flock /workspace/work/codex-compute.lock env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/rational_geometry/check_t4.py
+```
+
+[measured] This checkpoint's topology needs neither tolerances nor normalized
+floating rays. [inferred] The rational construction closes the prior topology
+qualification for this reference, conditional on the implementation/proof audit.
+Independent review is still required before a confirmed claim. Broader models,
+noisy copies and fully enclosed floating mass arithmetic remain untested.
