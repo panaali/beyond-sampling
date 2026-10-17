@@ -107,3 +107,19 @@ physical-x interval. Divide its absolute tolerance by width to preserve the
 same requested raw-probability tolerance. Keep the explicit2-ulp fallback,
 all guards, geometry and every wider nonconvergence rejection. Re-run both
 known fixtures and prior controls; no full trained pilot before they pass.
+
+## Unit-coordinate repair verification
+The128-ulp fixture now agrees with80-digit integration within2.65e-31;
+its returned numerical error estimate is1.14e-29. Existing36 toy panels
+still partition/agree by axis within4.45e-16, direct scalar checks1.06e-12,
+and scaling2.23e-16. The frozen18 trained primitive queries are repeated
+because the integration kernel materially changed: axes agree4.45e-16,
+.0680CPU, recorded as unit_pilot.json; original pilot.json is preserved.
+Full constant/duplicate baseline/new controls pass rawmass/T within2.78e-17,
+and six full conditional scaling probes agree1.12e-16, in5.256CPU.
+Both original failures remain recorded; this repair changes integration
+coordinates without dropping geometry or relaxing convergence gates.
+The tiny fallback range uses separate extrema of upper/lower affine bounds,
+not extrema of the CDF gap at matching endpoints. T55 independently confirms
+that distinction; explicit floating padding is heuristic, not certification.
+Source review is pending before the frozen four-estimate trained pilot.
