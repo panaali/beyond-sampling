@@ -8,3 +8,5 @@ independent ones.
 
 | Date read | Agent | URL | Published | Relevant content | Used by |
 |---|---|---|---|---|---|
+| 2026-10-16 | Codex literature_protocol | https://www.alignment.org/ | Rolling page, search snippet on read date | Homepage snippet showed June 2026 white-box contest and recent random-MLP work titles. Snippet only. | None; exposure only |
+| 2026-10-16 | Codex literature_protocol | https://www.alignment.org/blog/a-mikes-eye-view-of-arcs-research/ | 2026-06-09 | Search snippet described mechanistic models and rare-behavior estimation. Full page not opened. | None; exposure only |
