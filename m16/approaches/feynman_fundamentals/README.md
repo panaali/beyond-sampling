@@ -69,7 +69,13 @@ All seven agree with separate 65,536-draw direct validation within 1.83 standard
 errors. Multiplying input and output weights each by 1e-16 changes the answers
 by at most 1.39e-17. Gate-partition mass differs from one by at most 2.23e-16.
 These are conditional probabilities for fixed prefix directions, not solved
-long-sequence accuracies. Independent implementation review is pending.
+long-sequence accuracies. T47's bounded independent implementation review passed;
+see `INDEPENDENT_REVIEW.md` and its reproducible `independent_review.py`.
+
+`python m16/approaches/feynman_fundamentals/check_rayleigh.py` adds four closed-form
+T4 constant-readout checks, derived by Rayleigh integration by parts in
+`theory.md`. They agree within 1.12e-16; see `rayleigh_check.json`. No sampled or
+quadrature reference is used for these four tests.
 
 ## Compute accounting
 Cycle 1 uses zero model forward passes and zero random inputs. Each complete
@@ -84,6 +90,12 @@ tail calls use no model-input sampling. Normal and rescaled calls together used
 1,678 polygon clips, 136 affine products, and 222 weighted-moment calls. No
 high-precision fallback occurred; these selected cases did not trip the guard.
 The counted operations are not yet converted to an audited FLOP/FPE budget.
+The additional four Rayleigh checks used 0.0613 CPU seconds, four deterministic
+prefixes/eight recurrent steps, 208 clips, 32 affine products and 29 moment calls;
+zero full model-input evaluations.
+The independent reviewer additionally used 0.1345 CPU seconds, six 1-D positive
+integrals and 262,144 direct conditional validation inputs. These are separate
+from the author totals. No shared leaderboard or trained checkpoint was run.
 
 ## Claims
 - [inferred] H2 accuracy admits a target-specific Markov formulation with three
