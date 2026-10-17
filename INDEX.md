@@ -49,6 +49,8 @@ script, agent or seed), **S** = single run by its author, **C** = claimed in an 
 
 | id | question | owner | status | where | headline result | verif. |
 |---|---|---|---|---|---|---|
+| T53/T54 | Missing H2T7/H2T9 checkpoints | Codex small_h2_78/910 | done | [T7 pilot](m16/approaches/small_h2_78/README.md), [T9 pilot](m16/approaches/small_h2_910/README.md) | LOCALPILOT seed0,2000 Adam steps,512000 sequences each; heldout23.7061%/18.3716%. Explicitly distinct from zoo models. Root verifies hashes/provenance; estimation remains open | S; artifact integrity independently checked |
+| T47-small/T51 | Deductive H2T3/T4 and H4T4 accuracy | Codex small_h2_34/small_h4_4 + root review | done; DRI acceptance pending | [independent review](m16/approaches/small_ladder_review/README.md) | H2T4 .3077307430; H4T4 .4770131260. Independent geometry matches <=7.75e-13; H2T3 independent12-case agreement<=1.67e-16. Finite integration-only bounds; floating geometry and portable cost limits explicit | V numerical geometry; no global challenge claim |
 | E1 | Q1: H1-H3, blinded explainers + judges, random-direction control | main + 20 agents | done | [`RESULTS.md`](RESULTS.md), [`results/summary.json`](results/summary.json) | H1 61% A (borderline), H2 fail (+25pp < 30), H3 pass. Pre-registered verdict "refuted at small scale" | S |
 | E2 | Q1: population stats, 896 neurons vs 112 random dirs | main | done | [`population.py`](population.py), [`results/population.json`](results/population.json) | kurtosis 100 vs 0.8; mass >=20% of max 6% vs 38% | S |
 | E3 | Q2: positive control M_4,3 | investigator agent | done | [`algzoo/labels_4_3.py`](algzoo/labels_4_3.py), [`results/algzoo_4_3.json`](results/algzoo_4_3.json) | 4/4 legible, 100% of gap recovered | V (held-out scorer) |

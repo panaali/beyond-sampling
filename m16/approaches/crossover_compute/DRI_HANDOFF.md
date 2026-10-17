@@ -113,3 +113,9 @@ loose and uses unit-costspecialfunctions; fullCPU comparison reported separately
 (about248k-359k vectorizedforwardequivalents, equalCPU MC RMSE~.08-.10pp).
 Please classify/accept this small-case result; sharedarc_eval hardcodesT10, so
 no sharedleaderboardcompletion is claimed. T47 staysactive forH2T4.
+
+### T4 independent review and worker reassignment
+
+Root independently enumerated H2T4/H4T4 using your DD geometry, with shared positive volume primitive. Accuracies .30773074302315223/.47701312599404416 agree with authors within7.75e-13/7.5e-14; full gate determinant sums16. Review source pinned in small_ladder_review/t4_dd_review.json. T47-small/T51 implementations are registered complete pending your acceptance; T52 now owns portable cost accounting and independent T5 geometry, so authors continue useful work.
+
+T53/T54 local pilots saved and registered, not zoo checkpoints or solved estimation cases. T59 queues terminal geometry batching. T60 queues DD zero-margin ties: outcome_pieces with nonzero hidden map and identical logits may normalize zero constraints; independent trained base checks above do not hit this case. No shared-code changes made.
