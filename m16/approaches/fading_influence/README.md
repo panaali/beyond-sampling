@@ -15,11 +15,10 @@ Related T49 reset events/T105 suffix forgetting/T108 cumulative bounds do not
 replace the present strict-region checks. No geometry enumeration or merging.
 
 ## Status
-Claim ba0bc420 pushed before implementation. Source controls awaiting independent
-review. No controls or trained evaluations have run.
+Claim ba0bc420 pushed before implementation. T55 source gate passed; all12 exact controls pass in0.063825CPU, with80 rational interior perturbation checks. Saved independent audit pending; no trained evaluations have run.
 
 ## Results
-Pending. Commands: python controls.py, later separately frozen trained runner.
+Controls complete; no trained result. Commands: python controls.py, later separately frozen trained runner.
 Existing output files are immutable; failures and partial progress retained.
 
 ## Compute accounting
