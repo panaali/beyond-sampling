@@ -25,3 +25,5 @@ Apparent prior wins may depend on undercounted costs; direct native tracing dist
 Positive-volume tie defects remain scoped in T113; generic finite-copy success is not a theorem. Cap/parity/source failures remain unresolved and preserved. Statistical intervals conditional on fixed truth estimates do not certify exact real-network probabilities or the full ARC challenge.
 
 Full scope/continuation claim b93dc799; FULL_PROTOCOL.md freezes all5120 noisy plus5 clean original cases. Research projection~40CPU-minutes, each shard≤110CPU. All clean outputs/parity saved, including r112 seed3 error−.0003392190026937. No recipe selection or new truth.
+
+Incremental independent review924177cc passes all2048 seed0/1 models and4096 native site ledgers, exact per-copy budgets and bootstrap. Seed1 r85b has4 named111 individual losses (historical72 has1); no remaining-seed inference. Full panel continues unchanged.
