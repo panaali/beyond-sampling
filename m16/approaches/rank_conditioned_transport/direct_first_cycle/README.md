@@ -104,3 +104,31 @@ their sum to reproduce the existing .307730743024 reference. This will tell
 whether label0 moves toward its own truth while worsening total error, or
 away from it. <=20CPU, no new inputs and no change to the estimator; charge
 all geometry/volume work and preserve quadrature-only/floating limitations.
+
+## Independent labelwise reference: large cancelling errors
+The separate R4 cone calculation returns correct-label contributions
+[.08335201493410087,.13328554811717747,.09109317997264917,0]. Their sum agrees
+with the previous full reference within5.56e-17. It uses117 gate cells,
+569 correct simplices and4,552,000 positive order20 nodes in .260CPU;
+integration-only error bound sums1.79e-8, with no bounded omissions triggered.
+Floating geometry/roundoff remains uncertified; exact source hashes recorded.
+
+Baseline per-label errors are[-.003060092074,-.000002521140,+.003055119024,0].
+Direct label0 removal changes the first to-.003235455027, leaving the others
+identical. Thus removal worsens label0 itself; later discretization can
+dominate. The baseline's small total error is cancellation between two
+large component errors, and does not establish component convergence.
+Missing truncated-input/target mass is below1.4e-8, immaterial at this scale.
+
+T55 source review3624456 independently checks chronology, mixture, cache
+independence and topology. It notes omitted fine-grained event counters for
+h1 arithmetic and repeated CDF setup: full CPU includes them, event counts
+remain partial/unaudited and cannot support portable total cost claims.
+
+Freeze one read-only follow-up before examining earlier contribution rows:
+compare this same labelwise truth with every saved h9 GL4 terminal-curvature
+and terminal-gate estimate from panel_mesh_results.json, alongside baseline.
+Question: did the prior mesh's larger total error conceal an improvement in
+individual components? Report every saved variant, per-label errors and
+component L1/L2 as diagnostics; do not substitute these for challenge accuracy
+or select a winner. No new numerical integration or parameter search.
