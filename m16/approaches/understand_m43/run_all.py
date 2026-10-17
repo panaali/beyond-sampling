@@ -13,20 +13,16 @@ from m43 import Ops, Wi0, Wh0, Wo0, noisy_models, OPS_PER_SAMPLE, mc_acc
 from exact import exact_acc
 from est_mech import est_mech
 from diag_family import exact_by_half
+from zoo43 import zoo_model
 
 TIERS = {
-    "T1 pair, anchor strip": dict(strips="anchor", resolve=()),
-    "T2 pair, all strips": dict(strips="all", resolve=()),
-    "T3 pair + resolved crossover": dict(strips="all", resolve=("c12",)),
-    "T4 resolved everywhere": dict(strips="all", resolve=("c01", "c02", "c12")),
+    "T1 anchor pair, anchor strip": dict(strips="anchor", resolve=(), pair_rule="anchor"),
+    "T2 anchor pair, all strips": dict(strips="all", resolve=(), pair_rule="anchor"),
+    "T2b arc-read pair, all strips": dict(strips="all", resolve=(), pair_rule="arc"),
+    "T3 T2b + resolved crossover": dict(strips="all", resolve=("c12",), pair_rule="arc"),
+    "T4 resolved everywhere": dict(strips="all", resolve=("c01", "c02", "c12"), pair_rule="arc"),
 }
-
-
-def zoo_model(seed):
-    import alg_zoo
-    m = alg_zoo.zoo_2nd_argmax(4, 3, seed=seed)
-    sd = {k: v.detach().numpy().astype(float) for k, v in m.state_dict().items()}
-    return sd["rnn.weight_ih_l0"][:, 0], sd["rnn.weight_hh_l0"], sd["linear.weight"]
+DEFAULT = "T3 T2b + resolved crossover"
 
 
 def main():
@@ -70,7 +66,7 @@ def main():
     # where the residual of the default tier comes from (exact mass per family, as a diagnostic)
     fam_ex = {}; fam_es = {}
     for m in noisy:
-        d = exact_by_half(m); inf = {}; est_mech(m, info=inf, **TIERS["T3 pair + resolved crossover"])
+        d = exact_by_half(m); inf = {}; est_mech(m, info=inf, **TIERS[DEFAULT])
         for k in d:
             fam_ex.setdefault(str(k), []).append(d[k]); fam_es.setdefault(str(k), []).append(inf["err_by"].get(k, 0.0))
     for k in sorted(fam_ex):

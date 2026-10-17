@@ -152,47 +152,56 @@ def _strip_pieces(h, ts, ops):
     return pieces
 
 
-def _arc_resolved_err(piece, n_true, A3, Wo, truth, ops, tol=1e-9):
-    """Error in a strip piece with the step-3 gates that switch ON the true boundary arc resolved (piece split by
-    those gate planes) and the others frozen at their value on the arc. Active set S read on the sub-piece's arc:
-    |S| = 2 ratio readout (relu kept), |S| = 1 single neuron (off -> tie -> class 0), |S| >= 3 frozen linear
-    logits, S empty dead (class 0). Returns None if the piece does not touch the true plane."""
-    on = [v for v in piece if abs(n_true @ v) < tol]
-    if len(on) < 2:
-        return None
-    P, Q = on[0], on[-1]
-    cross = [kk for kk in range(4) if (A3[kk] @ P) * (A3[kk] @ Q) < 0]
-    ops.add(7 * 4)
+def _parts_for(S, A3, Wo, truth, ops):
+    """Readout of a piece in which the neurons S are on (read at one point): |S| = 2 ratio sectors (relu kept for
+    the pair), |S| = 1 single neuron (off -> tie -> class 0), |S| >= 3 frozen linear logits, S empty dead."""
+    if len(S) == 0:
+        return [(0, [])]
+    if len(S) == 1:
+        return [(int(np.argmax(Wo[:, S[0]])), [A3[S[0]]]), (0, [-A3[S[0]]])]
+    if len(S) == 2:
+        return _pair_parts(A3, S[0], S[1], _envelope(Wo[:, S[0]], Wo[:, S[1]], ops), ops)
+    L = Wo[:, S] @ A3[S]; ops.add(3 * len(S) * 3 + 6)
+    return [(truth, [L[truth] - L[o] for o in range(3) if o != truth])]
+
+
+def _read_point(poly, n_true, tol=1e-9):
+    """Midpoint of the polygon's edge on the true boundary plane (or its vertex mean if it has no such edge)."""
+    on = [v for v in poly if abs(n_true @ v) < tol]
+    return (np.mean(on, 0), on) if len(on) >= 2 else (np.mean(poly, 0), on)
+
+
+def _arc_err(piece, n_true, A3, Wo, truth, ops, resolve):
+    """Error in a strip piece, active set read ON the true boundary arc. resolve=True: the step-3 gate planes that
+    cross the arc inside the piece are resolved (piece split by them, active set read on each sub-arc); gates that
+    do not cross the arc are frozen at their value on the arc (first order in the width of the error band)."""
+    m, on = _read_point(piece, n_true)
     subs = [piece]
-    for kk in cross:
-        nxt = []
-        for p in subs:
-            a_, b_ = clip(p, A3[kk], ops)
-            nxt += [q for q in (a_, b_) if q]
-        subs = nxt
+    if resolve and len(on) >= 2:
+        P, Q = on[0], on[-1]
+        cross = [kk for kk in range(4) if (A3[kk] @ P) * (A3[kk] @ Q) < 0]
+        ops.add(7 * 4)
+        for kk in cross:
+            nxt = []
+            for p in subs:
+                a_, b_ = clip(p, A3[kk], ops)
+                nxt += [q for q in (a_, b_) if q]
+            subs = nxt
     err = 0.0
     for p in subs:
-        onp = [v for v in p if abs(n_true @ v) < tol]
-        mid = np.mean(onp, 0) if len(onp) >= 2 else np.mean(p, 0)
+        mid, _ = _read_point(p, n_true) if p is not piece else (m, on)
         S = [kk for kk in range(4) if A3[kk] @ mid > 0]; ops.add(12)
-        if len(S) == 0:
-            parts = [(0, [])]
-        elif len(S) == 1:
-            parts = [(int(np.argmax(Wo[:, S[0]])), [A3[S[0]]]), (0, [-A3[S[0]]])]
-        elif len(S) == 2:
-            parts = _pair_parts(A3, S[0], S[1], _envelope(Wo[:, S[0]], Wo[:, S[1]], ops), ops)
-        else:
-            L = Wo[:, S] @ A3[S]; ops.add(3 * len(S) * 3 + 6)
-            parts = [(truth, [L[truth] - L[o] for o in range(3) if o != truth])]
-        err += _err(p, parts, truth, ops)
+        err += _err(p, _parts_for(S, A3, Wo, truth, ops), truth, ops)
     return err
 
 
 # ------------------------------------------------------------------------------------------------------ estimator
-def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",)):
+def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",), pair_rule="arc"):
     """Mechanism-derived accuracy estimate.
     strips: 'all' = every step-2 strip a family's half-chamber meets; 'anchor' = only the anchor point's strip.
-    resolve: circles whose strip pieces get the arc-resolved treatment (default: the crossover x1 = x2)."""
+    resolve: circles whose strip pieces get the arc-resolved treatment (default: the crossover x1 = x2).
+    pair_rule: 'arc' = active set read on each piece's boundary arc; 'anchor' = one pair per family read at the
+    anchor point (falls back to 'arc' when the anchor does not have exactly two neurons on)."""
     Wi, Wh, Wo = model
     ops = ops if ops is not None else Ops()
     err_by = {}; n_bad = 0
@@ -222,21 +231,21 @@ def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",
             sa = int(np.searchsorted(ts, a[1] / a[0])); ops.add(1 + 2)
             za = A3s[sa] @ a; ops.add(12)
             act = [m for m in range(4) if za[m] > 0]
-            if len(act) != 2:
-                n_bad += 1
-                act = list(np.argsort(-za)[:2])
-            pa, pb = sorted(int(m) for m in act)
-            if (pa, pb) not in env_cache:
-                env_cache[(pa, pb)] = _envelope(Wo[:, pa], Wo[:, pb], ops)
+            use_anchor = pair_rule == "anchor" and len(act) == 2
+            n_bad += len(act) != 2
+            if use_anchor:
+                pa, pb = act
+                if (pa, pb) not in env_cache:
+                    env_cache[(pa, pb)] = _envelope(Wo[:, pa], Wo[:, pb], ops)
             for s, piece in _strip_pieces(h, ts, ops):
                 if strips == "anchor" and s != sa:
                     continue
                 A3 = A3s[s]
-                e_ = None
-                if key[1][:3] in resolve:
-                    e_ = _arc_resolved_err(piece, h["n_true"], A3, Wo, truth, ops)
-                if e_ is None:
+                res = key[1][:3] in resolve
+                if use_anchor and not res:
                     e_ = _err(piece, _pair_parts(A3, pa, pb, env_cache[(pa, pb)], ops), truth, ops)
+                else:
+                    e_ = _arc_err(piece, h["n_true"], A3, Wo, truth, ops, res)
                 err_by[key] = err_by.get(key, 0.0) + e_
             if info is not None:
                 d_ = info.setdefault("ops_by", {}); d_[key] = d_.get(key, 0) + ops.n - info.get("_last", 0); info["_last"] = ops.n
