@@ -3,6 +3,7 @@ import hashlib, json, time
 from pathlib import Path
 import numpy as np
 from .enrich import CachedOracle, Enriched, cross, SOURCE, ROOT
+from .additive import Additive
 
 HERE = Path(__file__).resolve().parent
 TRUTH = {2: .30773074302315223, 4: .47701312599404416}
@@ -14,7 +15,7 @@ def main(recipes=('original_rank2', 'original_rank4', 'residual_weighted', 'resi
     # Explicitly use the reviewed Python backend; no optional native substitution.
     cross.WALK = cross.C.walk_mass
     paths = [SOURCE, ROOT/'m16/approaches/sci_tao_v2/core.py',
-             ROOT/'m16/approaches/sci_tao/core.py', HERE/'enrich.py']
+             ROOT/'m16/approaches/sci_tao/core.py', HERE/'enrich.py', HERE/'additive.py']
     hashes = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     result = dict(cases=[], sources=hashes, common_walker_dependency=True,
                   costs_are_proxies=True, validation_does_not_feed_construction=True)
@@ -47,6 +48,10 @@ def main(recipes=('original_rank2', 'original_rank4', 'residual_weighted', 'resi
                         integral = fit.integral(grid.weights)
                         report = dict(unique_queries=len(cache.cache), requests=cache.requests,
                                       original_cross_algebra_proxy=fit.flops, enrichment_work={})
+                    elif name == 'residual_additive':
+                        fit = Additive(cache, grid.shape, grid.weights)
+                        integral = fit.integral()
+                        report = fit.report()
                     else:
                         fit = Enriched(cache, grid.shape, grid.weights, weighted=name != 'residual_unweighted',
                                        local=name == 'residual_local')
