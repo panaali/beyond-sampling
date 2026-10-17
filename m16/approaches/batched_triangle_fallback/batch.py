@@ -7,6 +7,7 @@ from m16.approaches.small_ladder_review.portable_cost.t6.triangle import Engine
 SOURCE=Path(__file__).resolve().parents[1]/'t6_edge_algebra/primitive.py'
 
 def load_evaluator():
+ assert hashlib.sha256(SOURCE.read_bytes()).hexdigest()=='f8620876672fb9dac954a7d0f6ce73fe783c2c1b0556dfc042d676b95bacee32'
  src=SOURCE.read_text();old='''    fallback_stats=[]
     for i in np.flatnonzero(~good):
         values[i],meta=positive(vv[i],p+3,absolute_tolerance,128)
