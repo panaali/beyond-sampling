@@ -334,7 +334,10 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
                     cons.add(st.gal[kk] - fv(fe)[0], st.gbe[kk] - fv(fe)[1])
                 out.append((f_start, fe) if sgn > 0 else (fe, f_start))
                 return out, fe, seq[stop][0]
-            return out, f_u, u if not out else None
+            if f_u is f_start:
+                return out, f_u, u                      # correct right at the start: nothing attached
+            out.append((f_start, f_u) if sgn > 0 else (f_u, f_start))
+            return out, f_u, u
         if kk < 0:
             out.append((f_start, f_bound) if sgn > 0 else (f_bound, f_start))
             return out, f_bound, u_bound
