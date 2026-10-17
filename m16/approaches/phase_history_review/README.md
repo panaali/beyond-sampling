@@ -60,18 +60,36 @@ heldout evidence. Count pilot generation too. No scalar estimator-cost claim.
    do not select a more favorable unwrap convention after seeing results.
 
 ## Status
-Protocol frozen; algebra and implementation next. Claude remains DRI. Only this
-owned folder is edited. Independent algebra review requested from T55.
+Bounded diagnostic complete; DRI handoff. Claude remains DRI. Only this owned
+folder is edited. T55 independently checked the exact identity, correct
+principal-block extension and noncausal interpretation before the run.
 
 ## Results
-Pending. No claim that an exact identity itself supplies a low-compute predictor
-of gate histories or network accuracy.
+`RESULTS.md` gives the interpretation and complete alternatives inventory;
+`results.json` retains all outcomes and controls. All E29 sample counts match,
+supported slopes agree within1.65e−12 degrees/step, and reconstruction absolute
+error is at most8.994e−13. Initial phase, forcing, operator history and an
+unwrap ambiguity matter; eigenangle alone is insufficient. No claim that an
+exact identity itself supplies a low-compute predictor of gate histories or
+network accuracy.
+
+Reproduction:
+```
+ulimit -v 2500000
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+flock /workspace/work/codex-review.lock \
+/workspace/clean-neurons/.venv/bin/python \
+m16/approaches/phase_history_review/check.py \
+--weights /workspace/work/t39_sources/example_checkpoint.pth
+```
 
 ## Compute accounting
 Charge checkpoint loading/imports, generating discarded pilot and evaluation
 inputs, every hidden step, gate mask, eigendecomposition/inverse, complex
 projection/recurrence and summary. CPU/RSS plus explicit operation counts will
 be retained; scalar FLOPs excluding special functions are not an ARC FPE total.
+Measured total1.41881CPU including imports,328528KiB RSS; detailed counts in
+`RESULTS.md` and `results.json`. No additional cohort or estimator run.
 
 ## Claims
 [inferred] The stated telescoping identity holds in exact arithmetic.
