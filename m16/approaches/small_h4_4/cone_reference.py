@@ -34,7 +34,7 @@ def main():
             values=np.array(values)
             row['rules'].append(dict(order=n,estimate=float(values[:,0].sum()),integration_only_bound=float(values[:,1].sum()),cpu_seconds=time.process_time()-begin,quadrature_nodes=len(rays)*n**3))
             save();print(sig,n,row['rules'][-1],flush=True)
-        begin=time.process_time();values=np.array([mass(r,16) for r in gate_rays]);row['gate_mass']=dict(estimate=float(values[:,0].sum()),integration_only_bound=float(values[:,1].sum()),cpu_seconds=time.process_time()-begin,quadrature_nodes=len(gate_rays)*16**3));save()
+        begin=time.process_time();values=np.array([mass(r,16) for r in gate_rays]);row['gate_mass']=dict(estimate=float(values[:,0].sum()),integration_only_bound=float(values[:,1].sum()),cpu_seconds=time.process_time()-begin,quadrature_nodes=len(gate_rays)*16**3);save()
         print('gate',sig,row['gate_mass'],'affine',affine_error,flush=True)
     save()
 
