@@ -20,6 +20,7 @@ def metrics(rows,name):
 def main(partial=False):
  start=time.process_time();pilot=json.loads((HERE/'pilot.json').read_text());assert pilot['complete']
  out=dict(complete=False,partial=partial,groups=[],files={},total_rows=0,scope='All frozen k29 models, two unchanged recipes. Numerical-source111 and historical72 conventions separate. Conditional1000-bootstrap excludes truth/geometry uncertainty; no fullhardware or population guarantee.',numeric_totals={'r85b':0,'r112':0},integer_totals={'r85b':0,'r112':0})
+ all_model_hashes=set()
  for seed in range(5):
   paths=[HERE/('pilot.json' if (seed,noise,block)==(0,20,0) else f'panel/s{seed}_n{noise}_b{block}.json') for noise in range(20,24) for block in range(4)]
   if not all(p.exists() and json.loads(p.read_text()).get('complete') for p in paths):
@@ -31,6 +32,8 @@ def main(partial=False):
    archive=path.with_suffix('.jsonl.gz');assert sha(archive)==d['archive_sha256'];out['files'][str(path.relative_to(HERE))]=sha(path)
    rows.extend(dict(r,noise=noise) for r in d['rows'])
   assert len(rows)==1024 and len({r['model_sha256'] for r in rows})==1024
+  assert not all_model_hashes.intersection(r['model_sha256'] for r in rows)
+  all_model_hashes.update(r['model_sha256'] for r in rows)
   for name in ('r85b','r112'):
    out['numeric_totals'][name]+=sum(r['recipes'][name]['numeric'] for r in rows);out['integer_totals'][name]+=sum(r['recipes'][name]['integer'] for r in rows)
   g=dict(seed=seed,recipes={name:metrics(rows,name) for name in ('r85b','r112')})
