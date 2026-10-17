@@ -9,7 +9,7 @@ For signed-L1 rays R=[v0,v1,v2,v3], set Ai=u*v0+(1-u)*vi for i=1,2,3. The cone m
 Use the same geometry-only Gauss orders and Chebyshev bounds as ../stable_volume.py. Degree K=n-2 remains exactly integrated: the inner operator integrates a polynomial exactly and the remaining Jacobian has degree two. Triangle fallback quadrature bounds are added with positive outer weights. Geometry and roundoff remain outside these bounds.
 
 ## Status
-Full three-case validation passed; matched cost check next. Protocol frozen before T64 measurements in54ef5fe. Root pushed claim2d178fa. Canonical estimator remains unchanged. T55 owns primitive implementation/vectorization; this folder owns the outer driver and comparisons.
+Done: full three-case validation and matched cost comparison passed. Protocol frozen before T64 measurements in54ef5fe. Root pushed claim2d178fa. Canonical estimator remains unchanged pending root/DRI review. T55 owns primitive implementation/vectorization; this folder owns the outer driver and comparisons.
 
 ## Results
 Orthogonal triangle and identity cone controls pass to4.45e-16 and1.39e-17 absolute error. Fixed first32-cone pilot matches the previous3D rule to2.17e-19;468 triangles include6 guarded fallbacks. Its integration took.00405CPU versus.00797CPU for the previous rule.
@@ -32,11 +32,21 @@ Run from the repository root with one thread and the shared compute lock:
 
 Use --mode pilot for the fixed sample. Source hashes are saved in both result files; T55 batch primitive is commit5d08526. Existing fixed-GL20 references are comparisons, never allocation inputs. Noise is the previously fixed RNG51001, relative RMS scales0,.0025,.02. Follow-up cost protocol: regenerate the same three geometries once each, run both integrators on the same rays, alternating execution order by case; report geometry plus each integration cost, with no repetitions chosen by outcome.
 
+The matched-process check (cost.py, cost_results.json) took11.17CPU in total:
+
+| noise | triangle integration CPU | previous integration CPU | triangle total CPU | previous total CPU | total speed ratio |
+|---|---:|---:|---:|---:|---:|
+|0|.648|1.075|2.818|3.246|1.152|
+|.0025|.580|.952|2.700|3.072|1.138|
+|.02|.288|.600|1.936|2.248|1.161|
+
+Both totals include the same freshly measured geometry cost. Integration speed ratios are1.66,1.64,2.08; overall CPU savings are12–14%. Matched estimates differ by at most2.22e-16. This is one hardware-specific comparison with alternating execution order, not a confidence interval or portable operation-count proof. Reproduce using the same interpreter, one-thread settings and compute lock with `m16/approaches/small_h4_4/triangle_cycle/cost.py`.
+
 ## Compute accounting
 Charge geometry, determinant/order planning, outer rules, endpoint construction, all analytic triangles and fallback quadrature, including guards. Report CPU and operation counters separately; no portable forward-equivalent claim and no new Monte Carlo. Batches at most512 cones; one numerical thread,2GB cap,120CPU-second cycle. Short independent controls may use the approved20CPU review lane; complete models use the main compute lock.
 
 ## Claims
-[inferred] Two integrations can be eliminated analytically, reducing numerical dimension from three to one. [speculative] Batched triangles may reduce total cost. Only numerical quadrature, conditional on floating geometry, is claimed.
+[inferred] Two integrations can be eliminated analytically, reducing numerical dimension from three to one. [measured] The three unchanged test cases agree with the previous positive3D rule to2.8e-16; matched total CPU improves by factors1.14–1.16. Only numerical quadrature, conditional on floating geometry, is claimed. Root/DRI acceptance and portable cost validation remain separate.
 
 ## Alternatives not ruled out
 1. A missing measure factor or wrong exponent could create a consistent bias. The orthogonal triangle and identity-cone controls can reject this cheaply; full-model agreement with the prior positive3D rule tests the composition.
