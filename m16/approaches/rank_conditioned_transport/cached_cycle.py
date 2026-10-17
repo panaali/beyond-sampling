@@ -6,11 +6,12 @@ from collections import defaultdict
 from pathlib import Path
 import numpy as np
 from scipy.special import ndtr
-from engine import estimate
+from engine import estimate, terminal, batched_terminal
 from polynomial import conditional_expectations, conditional_matrices, StagePieces
 
 p = argparse.ArgumentParser()
 p.add_argument('--reuse-pieces', action='store_true')
+p.add_argument('--reuse-terminal', action='store_true')
 args = p.parse_args()
 transition = 'polynomial_piece_cached' if args.reuse_pieces else 'polynomial_cached'
 HERE = Path(__file__).resolve().parent
@@ -31,9 +32,20 @@ else:
 delta = max(float(np.max(abs(matrix@values.reshape(-1, 2)-reference)))
             for matrix, reference in zip(matrices, (low, high)))
 assert delta < 1e-12
+terminal_delta = 0.
+if args.reuse_terminal:
+    terminal_model = (model[0], model[1], np.array([[.3, -.2], [-.1, .4], [.3, -.2]]))
+    terminal_cache = {}
+    for target_u in (-2., 0., 2.):
+        target_q = (ndtr(target_u)-ndtr(-6))/(1-2*ndtr(-6))
+        direct = np.array([terminal(terminal_model, h, target_u, target_q, 1, 6., stats) for h in states])
+        reused = batched_terminal(terminal_model, states, target_u, target_q, 1, 6., stats, terminal_cache)
+        terminal_delta = max(terminal_delta, float(np.max(abs(direct-reused))))
+    assert terminal_delta < 1e-12
 constant = (model[0], model[1], np.zeros((7, 2)))
 value, work = estimate(constant, hidden_order=5, target_order=8, mesh_power=2.,
-                        target_rule='split_sign', transition=transition, seconds=18-(time.process_time()-start))
+                        target_rule='split_sign', transition=transition, terminal_reuse=args.reuse_terminal,
+                        seconds=18-(time.process_time()-start))
 assert abs(value-1/7) < 1e-12
 path = Path('/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/LOCALPILOT_H2_T7_seed0.npz')
 arrays = np.load(path)
@@ -42,18 +54,25 @@ result = dict(checkpoint_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
               sources={name: hashlib.sha256((HERE/name).read_bytes()).hexdigest()
                        for name in ('engine.py', 'polynomial.py')},
               direct_kernel_max_difference=delta, kernel_control_work=dict(stats),
+              terminal_cache_max_difference=terminal_delta,
               constant_control=dict(estimate=value, error=value-1/7, stats=work), rows=[])
-for n in (17, 33):
+choices = [(17, transition, 8), (33, transition, 8)]
+if args.reuse_terminal:
+    choices.append((33, 'quantile', 16))
+for n, method, input_order in choices:
     try:
         value, stats = estimate(model, hidden_order=n, target_order=8, mesh_power=2.,
-                                target_rule='split_sign', transition=transition,
+                                target_rule='split_sign', transition=method, input_order=input_order,
+                                terminal_reuse=args.reuse_terminal,
                                 seconds=18-(time.process_time()-start))
         row = dict(estimate=value, stats=stats)
     except (ValueError, ArithmeticError, TimeoutError) as error:
         row = dict(hidden_order=n, failure=str(error))
     result['rows'].append(row)
     result['total_cpu'] = time.process_time()-start
-    (HERE/('piece_cached_results.json' if args.reuse_pieces else 'cached_results.json')).write_text(json.dumps(result, indent=2)+'\n')
+    filename = ('terminal_cached_results.json' if args.reuse_terminal else
+                'piece_cached_results.json' if args.reuse_pieces else 'cached_results.json')
+    (HERE/filename).write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(row), flush=True)
     if 'failure' in row:
         break
