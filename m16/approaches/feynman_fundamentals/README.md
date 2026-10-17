@@ -255,3 +255,16 @@ inputs. The main28 evaluations used56 norms,28 dot products,16 positive-series
 evaluations of28 terms and12 closed-form evaluations. Independent numerical
 reference quadrature is validation overhead, not part of the estimator.
 Results and every tested endpoint are saved in `segment_results.json`.
+
+## Cycle 6 protocol (frozen before the next validation)
+Formalize the H2 support decomposition before proposing a density transport
+implementation. Hypothesis: from zero initial state, its law has only an
+interior density, two axis densities, an origin atom, and possibly one input
+ray; after a fixed target insertion, two fresh inputs restore this support
+under explicit nondegeneracy conditions. Alternative1: an omitted rank-one
+gate cell creates another interior line; examine the final active gate matrix
+and supply degenerate counterexamples. Alternative2: mathematically correct
+supports still miss their weights numerically; independently integrate the
+four-component toy law already derived and compare masses with exact angles.
+This bounded cycle uses only scalar quadrature, no model-input samples. It
+does not implement T50's transport driver or claim its interpolation is solved.
