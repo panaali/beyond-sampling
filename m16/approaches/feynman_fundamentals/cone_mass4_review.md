@@ -1403,3 +1403,18 @@ have3,840 det3,665 det4 and one unpriced det5 calls. It reconstructs497,715
 selected numeric categories,14,180 log calls and4,505 exp calls, and independently
 sums32,262 exposed source units kept separate. No native work was repeated;
 the inherited conditional envelope and all unresolved cost categories remain.
+
+### Current k28 and H5 checkpoint provenance
+
+`check_current_checkpoint_provenance_review.py` checks all ten downloaded files'
+SHA/MD5/length/generation metadata, original three state keys, exact float32
+shapes and float64 conversion, then independently reconstructs all5,120 k28
+noisy-weight hashes and the25 H5 saved models. The initial k28 checksum-header
+failure and reused seed0 payload remain intact. All checks pass, including the
+H5 saved-output metadata and inferred historical MC hit counts.
+
+Review accounting is ten weights-only checkpoint loads and5,140 noisy-weight
+reconstructions,0.9049 CPU seconds including imports, zero evaluator/forward,
+reference or network calls. Current canonical provenance is established;
+historical byte identity is not. Original saved output/error parity remains a
+separate bounded evaluator gate, and H5 inherits neither H4 costs nor new truth.
