@@ -101,6 +101,7 @@ class Engine:
             self.kernel('table_cdf_arguments',2*TABLE_POINTS)
             self.kernel('table_sf_arguments',TABLE_POINTS)
         self.add('validation_and_final_aggregation',1000)
+        stage='validation'
         try:
             model=tuple(np.asarray(v,dtype=float) for v in model)
             if len(model)!=3:raise ValueError('Expected Wi,Wh,Wo')
@@ -112,13 +113,15 @@ class Engine:
             if not math.isfinite(budget) or budget<=0:raise ValueError('Budget must be finite and positive')
             n23=max(1,int(budget*.70/(360*7.5)));n12=max(1,int(budget*.26/(45*6.7)));nb=max(1,int(budget*.04/11))
             if max(n23,n12,nb)>65536:raise ValueError('Requested node batch exceeds65536')
+            stage='estimation'
             value,old_cost,parts=self.namespace['estimate'](model,budget)
             if not math.isfinite(value):raise ArithmeticError('Nonfinite estimate')
         except Exception as exc:
             ledger=self.ledger(cold,start,False)
-            ledger['failure_kind']='walker' if isinstance(exc,WalkFailure) else 'invalid_input' if isinstance(exc,(ValueError,TypeError)) else 'numerical_or_implementation'
+            ledger['failure_kind']='walker' if isinstance(exc,WalkFailure) else 'invalid_input' if stage=='validation' else 'numerical_or_implementation'
             ledger['failed_walk']=self.failed_walk
-            ledger['cost_is_partial']=self.failed_walk is not None and self.failed_walk.get('cost_is_partial',True)
+            ledger['cost_is_partial']=bool(stage=='estimation')
+            ledger['unresolved_failed_kernel_cost']=(self.failed_walk.get('unresolved_failed_kernel_cost',True) if self.failed_walk else stage=='estimation')
             raise WalkFailure(str(exc),ledger) from exc
         ledger=self.ledger(cold,start,True)
         ledger.update(parts=parts,requested_budget=budget,legacy_reported_fpe=float(old_cost),
