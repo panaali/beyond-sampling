@@ -1047,3 +1047,17 @@ all 2,048 ledgers/pins and exact budget contractions. Named ratios are
 0.0001208581671 and 3.3117337165e-11. Seeds 3/4 and final global coverage remain
 pending; numerical truths and incomplete source-cost conventions remain.
 
+# Compiled determinant enclosure handoff
+
+`check_compiled_cofactor_review.py` verifies 81 saved fast-path bit matches,
+five separately charged exact fallbacks, three nonfinite unknowns and four
+restored-environment rejections. It checks all saved intervals and the assembly
+path contraction: 2,507 scalar arithmetic operations, 3,017 scalar comparisons,
+1,575 packed mask instructions, plus 158 nextafter and 89 fegetround calls.
+The mask instructions are a separate category, not silently converted to
+floating operations or compared with the earlier determinant upper bound.
+No speed or downstream mass claim follows. Three reviewer ledger-scope
+assertion failures are preserved: original guard-plus-fallback categories
+must be separated before comparing fallback-only counts. Candidate results
+and source were unchanged, and no compiled calls were repeated by the reviewer.
+
