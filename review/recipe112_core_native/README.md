@@ -23,3 +23,10 @@ Missing provenance, unhandled shape paths, source/parity errors, individual loss
 
 ## Failure modes
 Exact checkpoint/model/source mismatch blocks dependent replay. Saved truth uncertainty and positive-volume tie defects remain inherited; no new truth or generic guarantee.
+
+## Recovery checkpoint
+The original cell-equality gate failed once, and its files remain intact (4142246c). Source inspection independently confirmed that the old `fresh.py` stores native E75 estimates/legacy costs but scalar R.rec112 topology. Those counters belong to different implementations. Revised scope835b0587/runner9f7bb32f preserves native baseline/traced full parity and exact original native output/legacy/model pins while reporting scalar/native topology differences. The failed shard's two fully evaluated cases are reused once; there is no numerical retry. Measured failed CPU1.3072819100000002 and charged reservation110 are separate.
+
+T55 independently audited H4 zoo2 in e0cb033d and zoo0/1/3 in e99ed577:1024 full raw ledgers pass, including92 scalar/native topology differences in zoo2. These are finite current-source counts, not historical native topology reconstruction. Remaining groups and the all60-shard global summary stay pending. All20 H4 shards are now complete; H5/H6 continue unchanged. The original old summaries remain preserved.
+
+The frozen original truth files include both EX and independent scalar-mine values for each257-row seed group (clean+256 noisy), with existing maximum disagreement1.3116677743951755e-9 across H4/5/6. This records a finite numerical cross-check, not an outward error certificate or new truth run. Positive-volume degenerate readout-tie limitations remain separate from the generic fixed panel.
