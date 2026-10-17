@@ -1,0 +1,14 @@
+H=4 zoo 0 model 0 n=2: truth 0.98455 err orig -0.0000pp, worst split neuron 0 err -0.0001pp
+H=4 zoo 0 model 0 n=4: truth 0.98455 err orig -0.0000pp, worst split neuron 2 err +0.0076pp
+H=4 zoo 0 model 0 n=8: truth 0.98455 err orig -0.0000pp, worst split neuron 2 err +0.0105pp
+H=4 zoo 0 model 1 n=2: truth 0.88159 err orig +0.0000pp, worst split neuron 0 err -0.0310pp
+H=4 zoo 0 model 1 n=4: truth 0.88159 err orig +0.0000pp, worst split neuron 0 err -0.0310pp
+H=4 zoo 0 model 1 n=8: truth 0.88159 err orig +0.0000pp, worst split neuron 0 err -0.0310pp
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/review/recipe112/adv.py", line 131, in <module>
+    dict(split=part_split, climb=part_climb, diag=part_diag)[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/user/clean-neurons/review/recipe112/adv.py", line 45, in part_split
+    assert abs(E75.est75(ms, Ops(), **E75.RECIPE112) - es) < 1e-9
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
