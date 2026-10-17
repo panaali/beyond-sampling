@@ -23,3 +23,7 @@ Expensive residual rules may dominate despite many moment hits; extra setup may 
 
 ## Failure modes
 Preserve finite-order unresolved, nonpositive variance, reversed intervals and discrepancies. Do not clamp variance, alter cap/target or select cases based on reference error.
+
+Controls6e09687c: six of12 return, six remain finite-order unresolved, matching original coverage. Exact256-monomial probes show original variance cancellation: eps2^-12,-20,-28 yield floating0 despite true variances8.63e-17,2.01e-26,4.68e-36. Guard correctly disables the moment shortcut; no clamping. At eps2^-4 relative variance error7.53e-11. Probe work is validation-only and separate from estimator counters.
+
+Source accounting before pilot: full_geometry retains original172arithmetic/10comparison/1abs with cached row/diagonal values. Moment computation adds98arithmetic. A valid moment interval attempt adds12arithmetic+6comparisons, hence116 additional named units before quadrature or return. A nonpositive variance skips interval work and adds99 named units. These are explicit source-category counts, not native/hardware costs. Pilot logs failed gates before stopping so a parity/bound failure remains reviewable.
