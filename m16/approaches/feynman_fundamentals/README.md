@@ -513,3 +513,14 @@ the real-arithmetic bound is mistaken for a float certificate; separately record
 ordinary-float discrepancies on narrow intervals and do not claim the bound
 covers them. Test fixed centers0,+/-6, half-widths1e-2/1e-4/1e-8, and three
 nonnegative quadratic polynomials. Only theory/check files; T67 owns the engine.
+
+Cycle13 result: `quadratic_gaussian.md` proves the centered four-point-positive-
+quadrature fallback bound and records conditional normalization/error propagation
+requirements. Twenty-seven fixed cases passed the100-digit quadrature check;
+the largest actual high-precision quadrature error was.002903 times the stated
+bound. Ordinary-float total relative errors reached3.484e-13, and12 cases
+exceeded their tiny quadrature-only bounds due to arithmetic, explicitly retained.
+Cost:.638798CPU seconds,17550 high-precision integrand evaluations and108 float
+quadrature nodes, no model passes or sampled inputs. Reproduce
+`check_quadratic_gaussian.py` through the review lock. This validates the
+fallback theorem; T67's engine still needs its own integration/rounding controls.
