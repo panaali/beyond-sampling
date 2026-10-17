@@ -59,3 +59,33 @@ This study makes no equal-compute win claim.
 AbsentT9 checkpoint; floating clipping tolerances and cancellation; trained
 singular/axis atoms; substantial uncertainty from32 outer directions; scalar
 Python geometry overhead; no certified bound on floating integration error.
+
+## Cycle1 outcome
+Completed in2.682CPU seconds excludingimports. All96 trained/noisy conditional
+calls succeeded. Twelve independent conditional checks (393216 full inputs) had
+maximum absolute z-score1.694. Gate partition error was at most2.23e-16; six
+positive scale checks differed by at most2.78e-17. Results are in
+`trained_tail_results.json` and use checkpoint SHA256
+`004cc1af2e13b635110488da191ac3d89b32a086720225f4805200c05edb4fa1`.
+
+| sigma | MC reference (65536 inputs) | 32-direction conditional estimate | outer SE | equal-count variance gain |
+|---|---:|---:|---:|---:|
+| 0 | .160248 | .144579 | .025108 | 6.67 |
+| .0025 | .160248 | .144565 | .025048 | 6.70 |
+| .02 | .159851 | .144743 | .022991 | 7.94 |
+
+These coarse outer estimates are statistically compatible with the references,
+but too uncertain for a precise accuracy claim. The implemented scalar geometry
+costs roughly90000–98000 times one batched forward perprefix in CPU, so the
+variance gain is nowhere near an equal-wall-time win. That ratio is an
+implementation timing comparison, not an audited arithmetic/FLOP result.
+
+Total primitive work including scale checks:24195 clips,1068 affine products,
+1952 moment calls,1212 gatecells and740 correctpieces. There were96 outerprefixes,
+6 additional scale prefixes and816 recurrent prefix steps. Reference inputs
+196608 plus conditional validation inputs393216 total589824 full forwards.
+
+Next cycle: backward target-count value-function collocation on the compact3D
+state; exact terminal tail supplied byT55. Backward functions accommodate
+axis/origin atoms without postulating a smooth state density. Interpolation and
+terminal decision boundaries still require explicit convergence checks.
