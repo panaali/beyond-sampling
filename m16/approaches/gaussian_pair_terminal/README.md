@@ -160,3 +160,26 @@ CPU .05763 versus this baseline-only .00911; those are different workloads,
 so no direct speed ratio is claimed. A full estimator still needs every
 state/target query and its entire geometry/integration cost. No exact-pair
 full transport run, convergence claim or sampling advantage follows here.
+
+## Independent support qualification
+T55 confirms the StagePieces/terminal mixture and that support endpoints
+suffice to bound componentwise ReLU affine states. It correctly distinguishes
+matching target value from a reachable remaining-rank flag: the other prefix
+input determines which one of need0/1 is possible. Prefix(1,1) also has an
+exact input tie and is a zero-probability diagnostic under the continuous
+law. `annotate_support.py` records both facts without rerunning the operator.
+Four untied value-and-rank-consistent probes remain:
+
+| Prefix | Target label | Remaining need | Interpolation error |
+| --- | ---: | ---: | ---: |
+|(-1,1)|0|0| +.00000632418 |
+|(-1,1)|1|1| -.00000102657 |
+|(1,-1)|0|1| -.01636544555 |
+|(1,-1)|1|0| -.00000118383 |
+
+Thus the1.6365-percentage-point local discrepancy for the third probe is
+rank-consistent; most other consistent probes are far closer. The earlier
+six-probe table includes impossible rank flags and tied-prefix diagnostics
+and must not be interpreted as a physically weighted error distribution.
+All18 extension queries and failures remain on record. No population
+accuracy claim is made from any finite unweighted selection of states.
