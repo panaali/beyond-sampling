@@ -113,3 +113,14 @@ geometry, spatial bias and total portable cost are still uncertified.
 T55 source/law review2db43ce checks mixture/sign normalization and stage1-only
 placement. Independent high-precision elementary-CDF inversion is pending
 before the bounded handoff; it will not independently reimplement transport.
+
+## Independent placement check and handoff
+T55 independently inverted the elementary T4 marginal polynomial using
+60-digit bisection. All36 physical/reversed stage1 coordinates agree within
+2.103e-15; the independent check costs .139CPU. This validates placement,
+not the shared transport recurrence or full accuracy. Raw review artifact
+SHA256 `1643161976030313f1ff83b3640c8548d978c8b1be79b28f48c0e3dc88d6e47e`.
+Together with source review2db43ce, constant controls and stable GL2/4,
+this supports the bounded conclusion that this fixed marginal-placement
+recipe fails the frozen expansion gate. The phase is complete; q-dependent
+placement and direct removal of stage1 interpolation remain untested.
