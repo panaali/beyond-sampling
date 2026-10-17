@@ -149,3 +149,15 @@ replacement challenge metric, general estimator win, or selected recipe.
 Direct label0 on the old terminal grid instead increases component L2 to
 .00444994. Exact-boundary terminal representation and interactions with earlier
 interpolation remain open. T55 independently reviews this interpretation.
+
+## Bounded handoff and remaining discriminator
+The frozen direct-label0 recipe fails its expansion gate; it is complete,
+with independent transition/source review3624456 and separate cone-based
+component diagnosis. The latter uses a different geometric formulation but
+its new per-label adaptation has author-run numerical status pending DRI
+review; no self-confirmation is claimed. No larger grid/noise sweep follows.
+A concrete next discriminator is the penultimate-target insertion: replace
+interpolation of final-stage terminal values by an original-halfspace cache
+at the preceding fixed state, preserving other labels. This directly targets
+one measured large contribution error; it requires its own claim/protocol,
+strict target-boundary ownership and full topology/cost controls.
