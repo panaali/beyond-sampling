@@ -708,3 +708,16 @@ phases pass independent derivation; four direct complex entries agree<=1.401e-15
 read-only review; legacy source contains the stated approximate tie/lookahead
 mechanisms. `harmonic_walker_review.md` preserves finite-method limitations
 and explicit remaining remedies. No trained rerun or production-source edit.
+
+## Cycle 27 protocol: T82 raw stencil and panel review
+Alternative1: the strict-interior negative reflects an indexing/statistics bug;
+recompute the first frozen raw NPZ case independently, without author helpers.
+Alternative2: geometric panel splitting gains only extra resolution; verify
+same-panel-count control and the exact quadratic panel-length factor. Review
+max/min and cap knots algebraically. No walker/model calls; <=20CPU review lane.
+
+Cycle27 completed: raw NPZ first-case RMS/L1 match<=5.422e-20, slopes match
+roundoff. Geometry versus equal-count panel slopes1.089/1.118; exact quadratic
+panel-length factor checks1.108e-12. .022998CPU, zero face evaluations.
+`surplus_review.md` verifies this finite negative without rejecting sparse
+quadrature or untested actual-network boundary alignment.
