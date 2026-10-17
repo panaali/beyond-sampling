@@ -45,6 +45,8 @@ Fine check (fine_mesh.py, fine_mesh_results.json): quadratich65 gives.23477246 i
 
 Comparison with the existing three-coordinate T65 transport is descriptive, not a matched-compute MSE claim: its saved h5/b9/input16 result is.22550079 with24.1465CPU terminal construction plus.0401CPU transport (small_h2_78/anisotropic_results.json). T67h65 uses12.357CPU including all construction and gives.23477246. Both use the same checkpoint; the old result is from an earlier run, and the shared heldout reference remains coarse. The new method is promising at lower measured CPU, but its total numerical error and sampling competitiveness remain unresolved.
 
+The T65 owner subsequently supplied the stronger final h9/b17/input16 result.23193864 (interaction_results.json). That final cycle records38.5489CPU excluding imports and reuses earlier terminal caches whose construction is additional; it must not be represented as a free warm-cache estimate. This newer result improves the old baseline and is retained here to avoid comparing only against its weaker setting.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
