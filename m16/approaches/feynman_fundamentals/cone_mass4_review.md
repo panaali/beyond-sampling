@@ -499,3 +499,26 @@ calls and35,098 determinant calls. These are unpriced, not free. This is
 an explicit source-operation subset with separate memory/opaque inventories,
 not complete implementation cost or hardware cycles. Geometry totals await
 completed trace review; no trained integration rerun was requested.
+
+## T146 completed geometry aggregation
+
+Independent composition of every saved site ledger checks35098 ordered-ray
+callbacks,8455 cells, nominal geometry35650854 and explicit geometry42396504.
+Eight diagnostic calls duplicate only seven scalar final-return subtractions
+within the counted numeric work; these are removed. Cold halves and rule
+setup are composed once. Total visible explicit work553400768, plus opaque
+2659906 inverse,35098 determinant,275897 matrix-rank and4 leggauss calls,
+reproduces exactly. Diagnostic repeated setup is not eight cold estimators.
+The single-case conditional break-even budget609416949166.6 follows the
+stated sampling variance and integration-only uncertainty. It is algebraic
+headroom, not a complete cost or sampling-win conclusion. Reviewer.006CPU.
+
+## T151 held-out error-cone point semantics
+
+The independently integer-scaled recurrence checker is applied unchanged
+apart from held-out paths/checkpoint and output name. All30726 saved floating
+ray-sum labels and the frozen64 smallest-margin selection agree. All64 exact
+inputs/logits/gates match independent integer arithmetic; margins range
+-.00244276239988 to-1.16869915524e-5, with no zero gates or input ties.
+Review.048CPU excluding imports/load. This remains a finite interior-point
+check, not whole-cone validity, completeness or a mass certificate.
