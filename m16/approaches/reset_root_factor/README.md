@@ -28,3 +28,6 @@ Compensated recurrence, general exact dependency detection and interval predicat
 
 ## Failure modes
 Floating coefficients can be zero by cancellation, so a structural gate mask is the safer certificate. Tiny nonzero maps, root rounding, overflow/underflow, target ties on degenerate planes and compiler behavior remain qualified. CPU improvement alone is not equal-compute MSE improvement.
+
+## Pre-run structural refinement
+Use a cached Boolean all-gates-inactive certificate, initialized true at h0, rather than testing rounded coefficients for zero. Set the next certificate only when every gate is inactive on the represented branch. This excludes cancellation-only zeros; it does not certify the upstream floating gate topology. Charge one certificate lookup per recomputed step and H active-flag conjunctions; the previous proposed2H coefficient checks are not used. Preserve certificate values alongside cached affine coefficients on prefix reuse.
