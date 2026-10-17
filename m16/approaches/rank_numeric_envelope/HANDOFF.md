@@ -13,3 +13,20 @@ Remaining: independent raw controls review; DLARFG child and parent-exclusive ke
 Independent reflector source/160-control audit b313819e passed generic113 and conditional norescale10. Tighter finite inference remains unadopted pending observed symbol/phase completeness.
 
 Independent Q5 source,64-control and saved-census audit a558c8a9 passed. Reflector source/160-control review b313819e passed. Both retain source-to-installed qualifications; neither is a complete native-cost proof.
+
+
+## Resumed native helper phase (claim8c9d87a4)
+
+Binding12 controls/32 saved phase checks support conditional finite no-rescale
+composition only under complete historical observer/binding provenance; generic
+113 parent bound remains. Current binding trace is not a historical trace.
+Norm source and192 controls/census independently reviewed d90477c1.
+Helper404 controls and raw composition independently reviewed0cfdfa39.
+Conditional reflector/norm/helper named subset upper31,689,663 exact and
+29,160,578 recipe includes one cold setup. Generic source-rescale counterpart
+230,514,579 /212,199,418 remains. These exclude other SVD kernels, integer/
+character control, memory/runtime and are not full computation bounds.
+
+Current continuation6ac20edd owns shift_review Q4/Q3 parent source pricing,
+first Q4 ledger/source translation and1152 frozen controls bcd59570 awaiting
+independent pre-run gate. No geometry/model/rank/mass traces are repeated.
