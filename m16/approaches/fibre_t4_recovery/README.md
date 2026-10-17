@@ -24,7 +24,8 @@ by this initial recovery phase.
 ## Status
 Saved-data recovery and analytic zero-normal repair are independently reviewed
 (2827c813). Observer/preflight review passed88490d79. The first missing noisy
-case is running as48 resumable face-side components; no noisy-rung judgment.
+case and original100M reference are complete, awaiting independent aggregate
+review; no noisy-rung judgment.
 
 ## Results
 Five clean rows recovered without reruns; historical group ratio.01796 is
@@ -227,3 +228,33 @@ This is the first original missing abs.05/noise0 copy's estimator result;
 independent fixed-size MC reference and full aggregate review remain pending.
 No cost/rung claim is inferred. `noise_summary.py` checks all component IDs,
 model/observer/runner hashes and original-order contraction.
+
+### First noisy-case reference and qualified comparison
+The original fixed100M stream is complete:60,561,725 correct,
+reference0.60561725, standard error4.88718e-5, two-sided95% Clopper-Pearson
+interval[0.6055214550,0.6057130389]. All100 blocks have exact integer hit totals,
+contiguous RNG states, unchanged source/model hashes and original500k batch
+semantics. Reference CPU25.585 seconds, peak194MB, plus312 analytic/parity
+forward evaluations. The precondition failure from trying contraction while
+only91 blocks existed is retained in `reference_summary_pending.json`; no
+samples were repeated, dropped or selected and no premature summary existed.
+
+The fibre answer differs by+7.39573e-5 and lies inside this95% reference
+interval. The corresponding bias interval is[-2.18316e-5,+1.69752e-4], so this
+reference cannot establish nonzero bias or exactness. Historical320-sampler
+ratio is.08349 (variance-subtracted floor.04703), with interval[0,.43980]
+conditional on that legacy cost convention. These are not full-cost results.
+Using the separately counted512-unit sampler, the minimum matched-sampling
+cost budget over the95% reference interval is4.24416B units; actual fibre
+cost remains unpriced. Endpoints suffice because p(1-p)/(estimate-p)^2
+increases toward its pole at p=estimate on(0,1) and decreases after it.
+This is statistical cost headroom for one model, not a certified cost win.
+The local guard adds121,137,516 declared legacy units; removing that charge
+leaves the original-path hand counter1,045,474,964 because all zero tests fail.
+
+This fills one formerly missing noisy row and preserves all clean evidence.
+The remaining original noisy panel, cubature/lookahead convergence and full
+cost remain open. No further truth samples are justified merely to improve
+this ratio; useful next work should fill the fixed missing cases or close
+those representation/cost gaps. Independent final raw/state/cost-qualification
+review is requested before DRI registration.
