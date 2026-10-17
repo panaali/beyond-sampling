@@ -66,8 +66,10 @@ requested from T55; no self-confirmed causal specificity.
    readout magnitude used for matching with final outputs, without retuning.
 
 ## Status
-Frozen first phase; implementation next. The full task may remain inconclusive
-if natural controls do not match or selective reachable patches are absent.
+Bounded partial-patch test and strongest reachable rescue complete;
+**selective causal mediation remains inconclusive**. `RESULTS.md` records all
+outcomes and limits. Independent T55 algebra review is recorded there; DRI
+confirmation is not claimed. No neuron role or mechanism family is retired.
 
 ## Results
 First frozen run:1014 selected pairs;626 coordinate-pair and279 fast-span
@@ -78,6 +80,11 @@ fast patches have negative coordinates. Thus these are **not causal negatives**.
 Full donor resumption agrees exactly. CPU1.13193sec including imports/loading,
 RSS208772KiB; all results/costs retained in `results.json`.
 Full-state swaps alone do not identify a neuron group's causal role.
+Reachable minimum-leakage rescue has615/626 and279/279 positive-step witnesses,
+all preserving gate histories. Median step sizes.033/.005 are small and require
+substantial complementary changes; only306/7 positive-step norm matches survive.
+No witness completes the donor input order. Detailed costs/protocol and all
+initial/rescue artifacts are retained; total numerical CPU3.26037sec.
 
 ## Compute accounting
 CPU/RSS and operation/forward/decomposition counts will be retained. Random
