@@ -80,8 +80,16 @@ Beta(9,2) law; within equal-probability strata one must uniformly sample its
 Beta-CDF coordinate and invert; conditional upper/lower coordinates are
 independent truncated uniforms transformed by Phi-inverse. T55 also checked
 the fixed-cell SE formula and the pseudo-label/interaction interpretation.
-An independent high-noise numerical check using ordinary iid inputs assigned
-to chambers, rather than this conditional sampler, was requested separately.
+T55 independently checked the high-noise failure with8192 ordinary iid normal
+inputs (seed28103), assigning their observed ranks/strata and applying a direct
+fixed-mask recurrence. It used neither this conditional sampler nor Jacobian
+map implementation. Actual accuracy.62072754; frozen.73022461, paired bias
++10.94971±.41664pp SE; final-two rescue.67529297, bias+5.45654±.43137pp.
+This independently reproduces both high-noise failures. The model-free moment
+table is shared, so that numerical integration is not independently rederived.
+Reviewer CPU.53433sec after imports and262144 hidden-step vectors are separate
+from this folder's1.56614CPU author run. The lower-noise effect remains author-
+measured with algebra/control review, not independently resampled here.
 
 ## Scope and alternatives
 
