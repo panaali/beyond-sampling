@@ -11,10 +11,10 @@ Analytic controls: coordinate orthant mass1/16 and coordinate-order half-orthant
 Alternative1: insufficient fixed quadrature order causes bias; uniform doubling is a direct falsifiable rescue. Alternative2: covariance/inverse roundoff dominates; T137 same-expression MP reevaluation separates that case. Alternative3: unresolved endpoint peaks still defeat doubled finite rule; preserved per-cone errors and negatives expose this without declaring Plackett integration impossible. No adaptive-order or cheap certified error bound is tested here.
 
 ## Status
-Claim d56bea3 pushed before work. Protocol frozen; implementation pending.
+Bounded fixed-candidate experiment complete; independent review pending. Claim d56bea3 and protocol ceef8ba preceded implementation.
 
 ## Results
-Pending. Reproduction: run.py BATCH for BATCH0..7, then summarize.py. No random model inputs or new MC.
+Measured results below. Reproduction: run.py BATCH for BATCH0..7, then summarize.py. No random model inputs or new MC.
 
 ## Compute accounting
 Charge rule creation, import/setup, inversion and every inherited node operation, captured-source dependence and all failed passes. Report candidate named mass counter and delta from same captured old source counter204957048. Carry prior full source total240607902 only to show the same-counter hypothetical geometry+mass total; that inherited counter is partial and not a portable FLOP proof. Positive validation's81.39114827CPU plus14.991144678CPU capture remains prior reference cost, never a free estimator. Candidate CPU includes setup/checkpointing. No sampling-win claim from this one checkpoint or a partial counter.
@@ -27,3 +27,12 @@ Other fixed orders, determinant/eigenvalue endpoint diagnostics, adaptive rules,
 
 ## Failure modes
 Endpoint concentration, cancellation, near-singular covariance, clipped correlations, determinant cutoff, parameter-selection overfit, reference conditional bounds and incomplete portable cost. Preserve every domain error, nonfinite value, negative output and incomplete batch. No normalization or probability clipping.
+
+## Bounded result
+All35098 fixed simplices complete. Candidate accuracy **.9761652290904052** versus independent reference **.9761608075466027**; error-mass bias is−4.42154380245e-6, compared with old+1.11347160674e-3 (absolute total bias improves about252x). Per-cone absolute-error sum drops .00221562360584→.0000555451350264 (about39.9x); maximum per-cone error drops3.91415e-6→1.74488e-7. Thus improvement is not solely signed cancellation, but cancellation still reduces the total substantially. There remain735 negative candidate masses summing−6.78627790418e-6; none is clamped. No claim of nonnegative or certified probability output is made.
+
+The73 source determinant-cutoff cones have summed positive reference mass2.188531825e-13, negligible for this panel but not a universal cutoff theorem. Reference total conditional integration bound1.04221660744e-10 excludes geometry/roundoff. T137 independent high-precision fixture review isolates finite quadrature bias in the original wide12/power2 branch; maxpair correlation alone misses that case.
+
+Candidate named mass count **404438808** equals2×204957048−156×35098:156 setup units per cone and152 per evaluated node, with unchanged branch/cutoff. The same-counter hypothetical full geometry+mass total is **440089662**, versus240607902 original. This inherited partial count omits kernel/setup categories and is not a portable FLOP certificate. Candidate replay CPU97.669149593 includes controls, rule generation, provenance, extra branch-diagnostic inversions and saving; controls contribute92544 named units separately. Source/positive reference costs remain prior dependence. One process launch failed before execution because the exec transport disconnected; retry succeeded, no scientific data was lost. Partial batch4 checkpoint was committed during execution and then replaced by its complete result; final summary requires complete disjoint indices.
+
+[measured] One fixed order doubling sharply reduces both signed and absolute numerical bias on this checkpoint at roughly double the inherited mass-rule counter. [inferred] This rescues a plausible inexpensive quadrature variant and prevents interpreting the original finite-rule failure as a negative for all Plackett representations. It does not establish the remaining recipe approximation error, all-seed/noise performance, portable cost, H16T10 scalability, or a passed rung. Independent T55 saved-array/source/counter review requested.
