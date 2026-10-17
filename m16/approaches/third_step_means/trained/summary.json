@@ -1,0 +1,61 @@
+{
+  "complete": true,
+  "all_checks_pass": true,
+  "model": "H16T4seed3",
+  "counts": {
+    "facet_exact_named": {
+      "mul": 50592,
+      "add": 22848,
+      "sub": 8160
+    },
+    "facet_retained_result_bits": [
+      494,
+      462
+    ],
+    "network": {
+      "mul": 19008,
+      "add": 17412
+    },
+    "network_extra": {
+      "input_sign_multiplications": 32,
+      "input_positive_part_comparisons": 32,
+      "exact_slope_divisions": 32,
+      "exact_slope_negations": 32,
+      "activation_comparisons": 544,
+      "boundary_normal_negations": 68
+    },
+    "validation": {
+      "mul": 217600,
+      "add": 193120
+    }
+  },
+  "reference_evaluations": 222042,
+  "candidate_cpu": 0.49679909399999644,
+  "reference_cpu": 10.060963253,
+  "build_cpu": 0.051991708,
+  "validation_cpu": 0.647921543,
+  "cpu": 11.542077496000001,
+  "maxrss_kib": 59644,
+  "protocol_sha256": "8fd763a71a335d832c2c7b5ad341a460f130773b2e5c2debc009dc655e7a56e0",
+  "scope": "One pinned H16T4seed3 h3 mean only, exact stored-weight real arithmetic plus finite MP validation. Historical8-block ordinary floating recurrence is sampling diagnostic, not exact truth or rigorous confidence. Exact deterministic recurrence/map validation is charged separately. No checkpoint loading, sampled inputs, reference regeneration, covariance/downstream closure/final accuracy call; no full native/scalar-cost or outward FP certificate.",
+  "maximum_cell_absolute_reference_error": "4.864233056898751025610201849929137182665073955226819601448095065691091446099597038419096098406327556e-80",
+  "relative_mean_errors": {
+    "inherited_gauss": {
+      "relative_rms_to_exact_mean": "3.883145725571797505141247100702153571765665615774389504517282656438974452721340009113590704918824506",
+      "relative_rms_to_saved_sample": "3.890865143581455225987004405111426183952861545004209260550205319464508173452210252057572941242016709"
+    },
+    "exact_h2_then_inherited_gauss": {
+      "relative_rms_to_exact_mean": "1.06332544118773485189935311520725116418130936134814879357686458477825574517785383580592853447500851",
+      "relative_rms_to_saved_sample": "1.065742137940961215896228487257814631738719201726478034172865483709236643727786541340001390949141907"
+    },
+    "retained_sector_gaussian": {
+      "relative_rms_to_exact_mean": "0.09070135748547795980952287271043217120210234586216135980005866064436634013378202036986454262190153776",
+      "relative_rms_to_saved_sample": "0.09207794248544649009881445121016485962867203757598558402804450558482458846841464810005671823909107366"
+    },
+    "exact_facet_h3": {
+      "relative_rms_to_exact_mean": "0.0",
+      "relative_rms_to_saved_sample": "0.002629843554049397489800031655735553028870361609342780437158452391437759480730949867718576692648188237"
+    }
+  },
+  "sectors": 34
+}
