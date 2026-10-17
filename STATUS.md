@@ -49,6 +49,8 @@ those rare wide patches. That is exactly where every approach here broke.
 | Q3 Mechanism of M_16,10 | running max / record detector / comparators / damped rotating modes (phase = time since max); error anatomy exact; Fourier/harmonic reading weakened | [`m16/FINDINGS.md`](m16/FINDINGS.md), H-M1..M8 |
 | Q4 ARC challenge | **open**; best verified estimator srb (sampling) | [`INDEX.md`](INDEX.md) section 4b |
 
+**Correction in progress (leaderboard v3, 2026-10-17):** an independent audit found that several estimators under-charged their compute (by 1.8-2.3x) and were tuned on the original model. Charging compute as implemented, **srb no longer beats plain sampling** on untuned groups (preliminary; full v3 table pending). The v2 table below is superseded once v3 finishes.
+
 **Leaderboard v2** ([`m16/leaderboard.py`](m16/leaderboard.py); 18 models: original, 5 trained seeds, 12 noisy copies; 24 repeats; 95% CIs).
 MSE relative to plain sampling at 64k model evaluations (below 1 is better):
 
