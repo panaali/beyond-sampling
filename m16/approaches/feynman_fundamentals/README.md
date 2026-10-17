@@ -460,3 +460,18 @@ counterexample and check its mass/first moment by separate scalar integration.
 Verify normalization and second moments for low ranks and k values using
 deterministic quadrature only. Keep existing T48 primitives frozen; add theory
 and checks in new files. T58 and T67 retain their respective engine ownership.
+
+Cycle11 result: `projection_strata.md` derives both ellipsoid-ball densities
+(k>rank) and ellipsoid-surface densities (k=rank), with the gate-cell conditional
+fiber factor. A k2/rank1 gate example has mass1/2 but first submoment
+-1/(pi*sqrt(2)); replacing its gate factor by an independent1/2 would silently
+get that moment wrong. This sharpens the earlier finite-support theorem rather
+than assuming unnormalized and normalized laws have the same strata.
+
+`check_projection.py` verifies eight ball-density normalizations/radial moments
+to4.441e-16, ellipse/ellipsoid surface masses and coordinate second moments to
+3.4e-15, and the gate-fiber example to2.8e-17. Cost:2560 surface parameter nodes,
+1176 scalar integrand evaluations,.002028CPU seconds; no model passes or sampled
+model inputs. Run under the review lock; output is `projection_results.json`.
+T58's current unnormalized transport and T67's fixed-target transport avoid
+this normalized-sphere issue. Existing T48 primitives were not modified.
