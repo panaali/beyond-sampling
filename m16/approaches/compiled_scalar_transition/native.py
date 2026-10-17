@@ -37,7 +37,7 @@ class NativeBasis:
         if any(x.shape!=(n,) for x in arrays):raise ValueError('native basis arrays must be flat and equal-length')
         out=np.empty((n,4));bounds=np.empty(n);counts=np.zeros(5,dtype=np.uint64)
         status=self.function(n,*arrays,self.nodes,self.weights,out,bounds,counts)
-        if status:raise ArithmeticError('native Gaussian basis invalid/nonfinite input')
+        if status:raise ArithmeticError('native Gaussian basis invalid/nonfinite input or outside supported [-6,6] domain')
         total,fallback,badmom,badvalue,nodes=map(int,counts)
         stats['polynomial_intervals']+=total
         stats['polynomial_centered_moment_triples']+=total

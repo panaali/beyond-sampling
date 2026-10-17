@@ -97,3 +97,16 @@ improvement, noisy-model win, portable FLOP win or full-error certification
 is claimed. Compiler/setup costs and named opaque library calls are explicit.
 The finite same-rule CPU benefit is a scoped implementation result awaiting
 independent source review. No larger mesh or additional model sweep follows.
+
+## Independent review correction before handoff
+T55 reviewed C ABI, basis ordering, moment/fallback formulas and private
+function globals. It correctly notes that this is an identity-basis-only
+internal API and finite endpoints alone do not prevent0*infinity in fallback
+bounds for arbitrary extreme intervals. The production domain is[-6,6];
+enforce that domain explicitly at the native entry before broader reuse.
+Preserve all initial artifacts as initial_*.json, rebuild and repeat the
+same frozen controls/pilot once because a hot-loop guard changes code/cost.
+No additional models/rules or selected timings. erfc moment-screen counts
+44versus36 differed initially while fallback count192991 was identical;
+all160 floating comparisons exceed their tiny/zero quadrature-only bounds,
+so those bounds must never be interpreted as floating error certificates.
