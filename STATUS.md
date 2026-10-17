@@ -80,7 +80,7 @@ corrected to 2.1/1.8/1.4x (and lower with generation cost); "harmonic series" we
 corrected to 13 in groups; tube's high-budget gain not confirmed (bias floor); orig ground truth fixed by pooling 28M
 samples; a "62x" efficiency figure retracted as an arithmetic error.
 
-**Independence:** no ARC AlgZoo material published after January 2026 was read. The claim that ARC has solved
+**Independence:** until 2026-10-17 no ARC AlgZoo material published after January 2026 was read. On 2026-10-17 the project owner relaxed this rule (ARC's M_16,10 solution is reported to be unpublished); every later ARC source read is logged in [lit/web_log.md](lit/web_log.md). The claim that ARC has solved
 M_16,10 (relayed privately) is unverified. [`m16/arc_eval.py`](m16/arc_eval.py) and [`m16/leaderboard.py`](m16/leaderboard.py) can score any estimator with the
 same interface for a direct comparison.
 
