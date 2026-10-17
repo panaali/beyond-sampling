@@ -98,6 +98,103 @@
           }
         }
       }
+    },
+    {
+      "seed": 1,
+      "recipes": {
+        "r85b": {
+          "named_numeric": {
+            "models": 1024,
+            "mse": 1.3347295655907543e-05,
+            "mean_sampling_variance_integer": 0.00022117563051513473,
+            "ratio_integer_budget": 0.0603470446758564,
+            "ratio_continuous_budget": 0.0603812478054655,
+            "ratio_mean_budget": 0.060768518772878394,
+            "bootstrap95_integer": [
+              0.05138341045237795,
+              0.07079110303206891
+            ],
+            "mean_ops": 98014.2373046875,
+            "sampler_ops": 111,
+            "min_samples": 683,
+            "max_samples": 1091,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 4,
+            "max_individual_ratio": 1.6269063290798487,
+            "worst_copy_index": 244
+          },
+          "historical": {
+            "models": 1024,
+            "mse": 1.3347295655907543e-05,
+            "mean_sampling_variance_integer": 0.0003334262667839869,
+            "ratio_integer_budget": 0.04003072638711666,
+            "ratio_continuous_budget": 0.0400644946136953,
+            "ratio_mean_budget": 0.040335529814646005,
+            "bootstrap95_integer": [
+              0.034088448310651234,
+              0.046952837556290004
+            ],
+            "mean_ops": 42199.5478515625,
+            "sampler_ops": 72,
+            "min_samples": 448,
+            "max_samples": 727,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 1,
+            "max_individual_ratio": 1.0814142069766053,
+            "worst_copy_index": 244
+          }
+        },
+        "r112": {
+          "named_numeric": {
+            "models": 1024,
+            "mse": 2.2935583143611602e-11,
+            "mean_sampling_variance_integer": 0.00014522539244390096,
+            "ratio_integer_budget": 1.5793094277552996e-07,
+            "ratio_continuous_budget": 1.5798911817550174e-07,
+            "ratio_mean_budget": 1.5856747469681755e-07,
+            "bootstrap95_integer": [
+              9.80547617948455e-09,
+              4.174524164031117e-07
+            ],
+            "mean_ops": 148836.0439453125,
+            "sampler_ops": 111,
+            "min_samples": 1168,
+            "max_samples": 1559,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 9.475501634056011e-05,
+            "worst_copy_index": 119
+          },
+          "historical": {
+            "models": 1024,
+            "mse": 2.2935583143611602e-11,
+            "mean_sampling_variance_integer": 0.00022117053231699617,
+            "ratio_integer_budget": 1.037008994974919e-07,
+            "ratio_continuous_budget": 1.0375860100513825e-07,
+            "ratio_mean_budget": 1.0416272498176944e-07,
+            "bootstrap95_integer": [
+              6.437876400778773e-09,
+              2.7414121549163206e-07
+            ],
+            "mean_ops": 63418.484375,
+            "sampler_ops": 72,
+            "min_samples": 759,
+            "max_samples": 1026,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 6.247440168909607e-05,
+            "worst_copy_index": 119
+          }
+        }
+      }
     }
   ],
   "files": {
@@ -117,17 +214,33 @@
     "panel/s0_n23_b1.json": "9b58e6050c780e79af01f3ece8a39974e8ea205ca344c24a3fe77aa1ee332df4",
     "panel/s0_n23_b2.json": "0b2be587be51d6829a6388f6754407e72cbe034ef8c148816c7648d4ad89d59a",
     "panel/s0_n23_b3.json": "4bdf295f16722bc6a6d8df27cc7b5927b3761b9d2c12982a8bd6f93b18701e4c",
+    "panel/s1_n20_b0.json": "a16abf66e8349d25aab018daddabf64ee716b69f1cbc1fc22ec27171caf4f827",
+    "panel/s1_n20_b1.json": "02acff5453ea68a7c3a514c1d8c77a58a8d95d36ae92f2c4d71518e83173f1ed",
+    "panel/s1_n20_b2.json": "28a7526057ea258fb8e15e7b55d603b07fbfa426604267222430a1b88b7f2e42",
+    "panel/s1_n20_b3.json": "0f45a754be5c22e478f604ca4acc492ec3704302087d0faf817d5efe4c00412b",
+    "panel/s1_n21_b0.json": "cf03ea1c9ec6210c4360dfa1ffcbaaa4a24243e41f08e11f7329775b998116bd",
+    "panel/s1_n21_b1.json": "82c46146a354d7d1a23b9fb06c023d41c154486cdd2be0442f52a9af1c9d853b",
+    "panel/s1_n21_b2.json": "287a6735f90d33468e9578596060b808a339db1ef8896fb202ccc39f283ed306",
+    "panel/s1_n21_b3.json": "555e47ef0b089928d2bbfcbf28150f23c51a262133a9cc9f91375ba8df45b0c0",
+    "panel/s1_n22_b0.json": "b92c5e0148e103039a2796fb8323bcbe4949cfa3656c7ad224d9ac42fddc111b",
+    "panel/s1_n22_b1.json": "ef8037d31d015c4dfb8b8f47afc43e98358bcf439159695db90c5f0fe89b5284",
+    "panel/s1_n22_b2.json": "152f2837da281cdfc30b77cb200a9b53ed375d0f00d8024c29a035f45954a88d",
+    "panel/s1_n22_b3.json": "36b6c1793302b07476e92c5a2a7ebb42820bab7cea447188d54ac05b9a1fa111",
+    "panel/s1_n23_b0.json": "d27fad87c4e41a133a35306b3176ffcb1d0de977c5cc81dca716b1c0e339be85",
+    "panel/s1_n23_b1.json": "a3755e86734fc532e860488db3bf92e6224b40d6450e1c9e8a5524228138e78a",
+    "panel/s1_n23_b2.json": "66963840a10fd5435eb173f6b6dba0ff2524f8ea2d702a99d31d277c8aeeed28",
+    "panel/s1_n23_b3.json": "a52892f30831b44841c07181406db53f81ad591d4e61d7f1956ffe6fc9d8b9fa",
     "clean.json": "8fcb293a79302f3caac6407218093f783bfe8fd7fe2046e593539fcf07ae754a"
   },
-  "total_rows": 1024,
+  "total_rows": 2048,
   "scope": "All frozen k29 models, two unchanged recipes. Numerical-source111 and historical72 conventions separate. Conditional1000-bootstrap excludes truth/geometry uncertainty; no fullhardware or population guarantee.",
   "numeric_totals": {
-    "r85b": 136373145,
-    "r112": 169200973
+    "r85b": 236739724,
+    "r112": 321609082
   },
   "integer_totals": {
-    "r85b": 4330624,
-    "r112": 5724219
+    "r85b": 7531339,
+    "r112": 10992580
   },
   "clean": [
     {
@@ -626,8 +739,8 @@
       }
     }
   ],
-  "research_cpu": 464.772992263,
+  "research_cpu": 863.639432547,
   "research_cpu_scope": "Completed included chunks plus two controls and clean; excludes provenance and earlier source work, and import-before-timer caveats remain. No repeated pilot/control estimates counted as new statistical models.",
   "contraction_source_sha256": "95234de850c1669d7affcec2dee48b065f11d4ac35d825b22c4f9cfb9cd70082",
-  "cpu_summary": 0.28028813500000005
+  "cpu_summary": 0.421681694
 }
