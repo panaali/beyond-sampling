@@ -97,3 +97,26 @@ Use T55's independent finite directional-cone recursion for positive Wi. Let n=(
 Represent area cells as their intersection with the proven cone, carrying uniform density on that polygon. Assign incoming probability directly to the admissible cell; never generate and then discard or renormalize forbidden outgoing mass. Fully admissible rectangles retain the original2x2 Gauss source rule. Boundary polygons use positive two-point Duffy quadrature on a fan triangulation, normalized to the cell's existing mass. Keep explicit axis/ray/origin measures; assert forbidden-axis mass is zero and no positive area mass enters an empty clipped cell. Read out the polygonal histogram with exact-form polygon clipping, keeping it separate from the final-input integrated endpoint marginal. Generalize the pointwise line-convolution to the clipped old cells without changing its determinant factor.
 
 Freeze toy and publicH2T8, grids16/32, source order2, L6, stages1..4. Compare with the same saved four-dimensional references and the preserved T58 rectangular results; report preprocessing/quadrature nodes, row/total conservation, support leakage, marginal errors and CPU. No Monte Carlo or target augmentation. Alternative1: preserving total mass can hide forbidden support, tested by the exact toy axis0 invariant and polygon-node checks. Alternative2: clipping removes the defect but adds bias or excessive work, tested by the same fixed trained-model controls and costs. Cap110CPU seconds, shared compute lock, one thread/2GB. Commit/report the first comparison before further refinement.
+
+### T77 result: support fixed; accuracy improvement is mixed
+[measured] The forbidden toy axis0 mass is exactly zero at every computed step for both grids. The old four-step rectangular values, retained in `fourth_step_results.json`, were2.55229725e-5 and4.17067554e-7. Total retained mass and scalar transition rows agree to2.22e-16; no mass is deleted or renormalized to remove forbidden support. A separate uniform-triangle convolution control agrees with direct scalar quadrature to5.56e-17, and the positive triangle source rule preserves its unit mass and both linear moments. `support_results.json` records complete stages, costs, source hashes and old reference/results.
+
+| Model/grid | Old endpoint output error | Clipped endpoint output error | Old stratum error | Clipped stratum error | New forward CPU seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Toy16 | .001892920 | .001100340 | .001123511 | .001204347 | .0523 |
+| Toy32 | .000216883 | .000268039 | .000298437 | .000272823 | .1790 |
+| TrainedH2T8 16 | .000540139 | .000303666 | .000721784 | .000847696 | .0904 |
+| TrainedH2T8 32 | .000137035 | .000073600 | .000182317 | .000216339 | .3078 |
+
+[inferred] Clipping corrects a known support violation, but does not uniformly improve numerical accuracy. In particular the fine toy endpoint error and both trained stratum errors worsen. Trained endpoint errors decrease at these fixed grids, with similar measured CPU to the old rectangular runs(.0863/.3042 seconds). These timings are individual lightweight runs, not stable performance estimates. Histogram readout remains substantially worse on trainedH2T8(.01034/.00670 maximum error); the last-input integrated output remains the endpoint estimator.
+
+The full validation took1.4851CPU seconds including torch import, plus the reused previously charged four-dimensional references(.1127toy/.1621trainedCPU). There were no new random model inputs or reference integrations. New grid32 transport used4014/4176 source nodes and284994/400896 CDF values for toy/trained, with616/440 added boundary-polygon source nodes,1097/401 support cell clips,14 exact rational products and7 sums per model. These are heterogeneous operation counts, not FLOPs; integer bit complexity, memory allocation, and Python overhead are represented only in CPU time. The same L6 four-input tail omission remains7.89e-9. No warm-cache construction costs are hidden.
+
+T55 independently proved the directional recursion in `feynman_fundamentals/reachable_cones.md` commitca756aa and reviewed the clipping, Duffy Jacobian, line inequalities and base-method dispatch before the run. This is independent algebra/code review, not DRI confirmation of a challenge estimator. Cone decisions use exact binary-rational signs; floating cell clipping/quadrature is not interval-certified. Maximum checked source half-plane deficit was6.91e-16, from floating arithmetic. The cone only constrains directions, not the full radial reachable support under bounded inputs. No target-rank law or fullT8 accuracy is estimated.
+
+Reproduce from the worktree root:
+
+```sh
+ulimit -v 2500000
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/stratum_transport/check_support_volume.py
+```
