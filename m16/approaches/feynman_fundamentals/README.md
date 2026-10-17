@@ -738,3 +738,36 @@ concrete T91/T67 need. `polygon_gaussian_transfer.md` derives uniform/affine
 boundary antiderivatives, active affine bounds and tie ownership; it freezes
 normalization, cancellation and complete-cost falsifiers. No implementation or
 experiment, and no automatic accuracy rescue from eliminating quadrature.
+
+## Cycle 30 protocol: discriminate two promising rescues
+T91 alternative1: positive same-side log results depend on event quadrature
+rather than the interface; disable only event cuts at n16/n32, retaining the
+triangle rule. Alternative2: orientation bias survives diagonal checks; swap
+hidden coordinates at n16 with event cuts on. Shared engine, read-only audit,
+not an independent solver. Separately T37 alternative1: hidden-linear failure
+is recurrence bookkeeping; reimplement e_next=delta+DWe on first512 fixed
+heldout inputs and saved calibration-only B. Alternative2: support clipping
+is coded incorrectly; independently use D*relu(W hclip+w x), including the
+frozen last-exact-step rescue. No refit or new validation stream, <20CPU lane.
+
+Cycle30 first result: T37 independent reformulations match predictions exactly,
+logits<=8.05e-13. T91 event-off endpoint errors nearly equal event-on, isolating
+the side-specific reconstruction. Coordinate swap at n16 changes the output
+by1.37e-6, not roundoff. Freeze one followup at n32 to compare that orientation
+uncertainty with the claimed~2e-5 improvement; no broader resolution sweep.
+
+Cycle30 completed: T37 independent residual and masked-ReLU support formulas
+match every fixed-subset prediction; no broad negative as support repair is
+inconclusive on one DEV model. T91 event-off retains the same-side log gain;
+coordinate-swap discrepancy drops1.37e-6→1.72e-7 at n16→n32, small but not
+roundoff. Combined1.361CPU plus.777CPU followup, raw outputs retained. No claim
+of target accuracy or portable efficiency. Memos updated accordingly.
+
+## Cycle 31: further read-only formula reviews
+T67 breakpoint completeness includes target insertion because the same
+StagePieces endpoints cover relu(Wh+wi*u); induction adds no new mathematical
+kinks for nonfinal targets. T76 exact two-step history mean and scalar omitted
+rank primitives pass derivation with cancellation guards. T27 observed-gate
+phase decomposition passes with active-block and complex-conjugation caveats.
+Details in spatial_transport_review.md and hidden_reference_review.md. No new
+engine, fitting, input sampling or numerical run.
