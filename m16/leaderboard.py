@@ -42,7 +42,7 @@ determinism check (two different rngs give the same estimate) or it is reported 
 
 SCORING. MSE = mean (estimate - truth)^2 - truth_se^2 (unbiased for the MSE against the exact accuracy),
 reported as the ratio to plain sampling's MSE at the same cost, mean over runs of p_m(1-p_m)/cost_run with p_m the
-run's model accuracy (T22; below 1 = better), with a bootstrap 95% CI over runs. Every single run is stored in data/leaderboard_v3_raw.jsonl (copied to results/ by each report), so tables are recomputed
+run's model accuracy (T22; below 1 = better), with a cluster-bootstrap 95% CI (models resampled, then runs within each model). Every single run is stored in data/leaderboard_v3_raw.jsonl (copied to results/ by each report), so tables are recomputed
 from raw estimates when truths improve (`report`), without re-running estimators.
 
 usage:
@@ -324,8 +324,13 @@ def table(H, T, names=None):
                 cst = np.array([_charged(name, d["cost"], b) for d in sel])
                 v = np.array([truth[d["model"]]["acc"] * (1 - truth[d["model"]]["acc"]) for d in sel]) / cst
                 C = float(cst.mean()); base = float(v.mean())
-                idx = np.random.default_rng(0).integers(0, len(sel), (2000, len(sel)))
-                lo, hi = np.percentile(se2[idx].mean(1) / v[idx].mean(1), [2.5, 97.5])
+                # cluster bootstrap over models (runs on one model share its truth error), runs resampled within
+                mods = sorted({d["model"] for d in sel}); by = {m: np.flatnonzero([d["model"] == m for d in sel]) for m in mods}
+                brng = np.random.default_rng(0); bs = []
+                for _ in range(2000):
+                    ii = np.concatenate([brng.choice(by[m], len(by[m])) for m in brng.choice(mods, len(mods))])
+                    bs.append(se2[ii].mean() / v[ii].mean())
+                lo, hi = np.percentile(bs, [2.5, 97.5])
                 out.append(dict(name=name, cls=cls, budget=b, group=g, cost=C, n=len(sel),
                                 rmse_pp=100 * np.sqrt(max(se2.mean(), 0)), ratio=se2.mean() / base, ci=[lo, hi],
                                 bias_pp=100 * np.mean([d["est"] - truth[d["model"]]["acc"] for d in sel]),
