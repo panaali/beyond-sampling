@@ -1,0 +1,45 @@
+{
+  "sites": {
+    "primitive:run:L10:sum((k for k in [1, 2, 3]))": {
+      "integer_control_sum": 3
+    },
+    "primitive:run:L3:np.outer(a, b)": {
+      "array_Mult": 9
+    },
+    "primitive:run:L4:np.maximum(a, b)": {
+      "array_compare": 3
+    },
+    "primitive:run:L4:np.minimum(a, b)": {
+      "array_compare": 3
+    },
+    "primitive:run:L5:np.hypot(a, b)": {
+      "special_np.hypot": 3
+    },
+    "primitive:run:L6:np.array_equal(a, b)": {
+      "array_compare": 3,
+      "reduce_array_equal": 2
+    },
+    "primitive:run:L7:divmod(7, 3)": {
+      "integer_control_divmod": 2
+    },
+    "primitive:run:L8:a // 2": {
+      "array_FloorDiv": 3
+    },
+    "primitive:run:L9:sum([1.0, 2.0, 3.0])": {
+      "scalar_sum": 3
+    }
+  },
+  "totals": {
+    "array_FloorDiv": 3,
+    "array_Mult": 9,
+    "array_compare": 9,
+    "integer_control_divmod": 2,
+    "integer_control_sum": 3,
+    "reduce_array_equal": 2,
+    "scalar_sum": 3,
+    "special_np.hypot": 3
+  },
+  "named_numeric_total": 29,
+  "integer_control_total": 5,
+  "complete_implementation_cost": false
+}
