@@ -61,7 +61,10 @@ those rare wide patches. That is exactly where every approach here broke.
 | Q3 Mechanism of M_16,10 | running max / record detector / comparators / damped rotating modes (phase = time since max); error anatomy exact; Fourier/harmonic reading weakened | [`m16/FINDINGS.md`](m16/FINDINGS.md), H-M1..M8 |
 | Q4 ARC challenge | **open**; best verified estimator srb (sampling) | [`INDEX.md`](INDEX.md) section 4b |
 
-**Correction in progress (leaderboard v3, 2026-10-17):** an independent audit found that several estimators under-charged their compute (by 1.8-2.3x) and were tuned on the original model. Charging compute as implemented, **srb no longer beats plain sampling** on untuned groups (preliminary; full v3 table pending). The v2 table below is superseded once v3 finishes.
+**Leaderboard v3 (final, 2026-10-17; supersedes the v2 table below):** compute charged as implemented, results on models an
+estimator was tuned on excluded, 30 test models up to harsh noise, 32M-sample truths. **Every mechanistic (no-sampling) estimator
+loses on M_16,10, by 37x to >4000x.** Fixed-node quadrature (sci_tao, sci_feynman) beats sampling on the seeds and mild noise
+(MSE ratio 0.07-0.46) but not at harsh noise; srb no longer beats sampling. Summary: [results/leaderboard_v3_summary.txt](results/leaderboard_v3_summary.txt).
 
 **Leaderboard v2** ([`m16/leaderboard.py`](m16/leaderboard.py); 18 models: original, 5 trained seeds, 12 noisy copies; 24 repeats; 95% CIs).
 MSE relative to plain sampling at 64k model evaluations (below 1 is better):

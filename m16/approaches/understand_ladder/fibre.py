@@ -266,3 +266,148 @@ def est_fibre(model, mode="F1", ops=None, info=None):
     if info is not None:
         info["err_by"] = by; info["segments"] = nseg; info["traces"] = budget[0]
     return 1.0 - tot / (4 * math.pi)
+
+
+# ----------------------------------------------------------------------------- tier F2: attached wedges at both ends
+def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_bound, ops, cache, cons):
+    """Walk the fibre from u_start in direction sgn (+1 up, -1 down) while it is misclassified (attached-wedge
+    semantics), stopping at the first correctly classified point or at u_bound. Returns (intervals, f_stop, u_stop)
+    with intervals as (lo_fn, hi_fn) in increasing u; fn None means u = 0."""
+    c, s = math.cos(theta), math.sin(theta)
+    p = c * P + s * U
+    T = st.L.shape[0]
+    f_u, u = f_start, u_start
+    out = []
+    zero = (0.0, 0.0)
+
+    def fv(f):
+        return zero if f is None else f
+    for _ in range(64):
+        ug = st.gal * c + st.gbe * s; ops.add(2 * len(ug))
+        fu = fv(f_u)
+        dal = st.gal - fu[0]; dbe = st.gbe - fu[1]
+        same = st.ok & (np.abs(dal) + np.abs(dbe) < 1e-12 * (1 + abs(fu[0]) + abs(fu[1])))
+        m = st.ok & ~same
+        cons.add(dal[m], dbe[m])
+        ahead = m & ((ug - u) * sgn > 0) & ((ug - u_bound) * sgn < 0)
+        fb = fv(f_bound)
+        if ahead.any():
+            idx = np.flatnonzero(ahead); kk = int(idx[np.argmin(ug[idx] * sgn)])
+            unext = float(ug[kk]); f_next = (float(st.gal[kk]), float(st.gbe[kk]))
+            cons.add(st.gal[kk] - fb[0], st.gbe[kk] - fb[1])
+        else:
+            kk = -1; unext = u_bound; f_next = f_bound
+            o = np.flatnonzero(m & ((ug - u) * sgn > 0))
+            cons.add(st.gal[o] - fb[0], st.gbe[o] - fb[1])
+        a = st.LP * c + st.LU * s; b = st.Ln; ops.add(2 * T)
+        lo_u, hi_u = (u, unext) if sgn > 0 else (unext, u)
+        edges = []
+        if st.live:
+            for d in range(T):
+                if d == truth:
+                    continue
+                den = b[d] - b[truth]
+                if abs(den) < 1e-300:
+                    cons.add(st.LP[truth] - st.LP[d], st.LU[truth] - st.LU[d]); continue
+                fd = ((st.LP[truth] - st.LP[d]) / den, (st.LU[truth] - st.LU[d]) / den); ops.add(4)
+                fn = fv(f_next)
+                cons.add(fd[0] - fu[0], fd[1] - fu[1]); cons.add(fd[0] - fn[0], fd[1] - fn[1])
+                v = fd[0] * c + fd[1] * s
+                if lo_u < v < hi_u:
+                    edges.append((v, fd))
+            if len(edges) > 1:
+                for x in range(len(edges)):
+                    for y in range(x + 1, len(edges)):
+                        cons.add(edges[x][1][0] - edges[y][1][0], edges[x][1][1] - edges[y][1][1])
+        edges.sort(key=lambda e: e[0] * sgn)
+        seq = [(u, f_u)] + edges + [(unext, f_next)]
+        stop = None
+        for q in range(len(seq) - 1):
+            vm = 0.5 * (seq[q][0] + seq[q + 1][0])
+            cls = int(np.argmax(a + vm * b)) if st.live else 0; ops.add(2 * T)
+            if cls == truth:
+                stop = q; break
+        if stop is not None:
+            if stop > 0:
+                fe = seq[stop][1]
+                if kk >= 0:          # the gate ahead stays beyond the stop point
+                    cons.add(st.gal[kk] - fv(fe)[0], st.gbe[kk] - fv(fe)[1])
+                out.append((f_start, fe) if sgn > 0 else (fe, f_start))
+                return out, fe, seq[stop][0]
+            return out, f_u, u if not out else None
+        if kk < 0:
+            out.append((f_start, f_bound) if sgn > 0 else (f_bound, f_start))
+            return out, f_bound, u_bound
+        key = (id(st), kk)
+        if key not in cache:
+            x = p + (unext + sgn * (abs(unext) * 1e-9 + 1e-12)) * nn
+            cache[key] = State(model, x, P, U, nn, ops)
+        st = cache[key]; u = unext; f_u = f_next
+    out.append((f_start, f_u) if sgn > 0 else (f_u, f_start))
+    return out, f_u, u
+
+
+def trace_F2(model, st0, P, U, nn, truth, fcl, theta, ops, cache):
+    cons = Cons()
+    c, s = math.cos(theta), math.sin(theta)
+    ucl = fcl[0] * c + fcl[1] * s
+    if ucl <= 0:
+        return [], cons
+    iv, f_a, u_a = _walk(model, st0, P, U, nn, truth, theta, None, 0.0, 1, fcl, ucl, ops, cache, cons)
+    if iv and iv[-1][1] is fcl:
+        return iv, cons                                  # wrong all the way to the clamp
+    if u_a is None:
+        f_a, u_a = None, 0.0
+    # reverse walk from the clamp, state just below it
+    p = c * P + s * U
+    x = p + ucl * (1 - 1e-9) * nn
+    stc = State(model, x, P, U, nn, ops)
+    iv2, _, _ = _walk(model, stc, P, U, nn, truth, theta, fcl, ucl, -1, f_a, u_a, ops, cache, cons)
+    return iv + iv2, cons
+
+
+def _integrate2(model, st0, P, U, nn, truth, fcl, t0, t1, ops, cache, budget):
+    tot = 0.0
+    stack = [(t0, t1)]
+    while stack:
+        a0, a1 = stack.pop()
+        if a1 - a0 < 1e-13:
+            continue
+        tm = 0.5 * (a0 + a1)
+        iv, cons = trace_F2(model, st0, P, U, nn, truth, fcl, tm, ops, cache)
+        a, b = cons.interval(tm, a0, a1, ops)
+        budget[0] += 1
+        if budget[0] > 400000:
+            a, b = a0, a1
+        for lo, hi in iv:
+            if hi is not None:
+                tot += _Sint(hi[0], hi[1], a, b); ops.add(12)
+            if lo is not None:
+                tot -= _Sint(lo[0], lo[1], a, b); ops.add(12)
+        if a > a0:
+            stack.append((a0, a))
+        if b < a1:
+            stack.append((b, a1))
+    return tot
+
+
+def est_fibre2(model, ops=None, info=None):
+    """Tier F2: attached wedges traced exactly from the boundary (u = 0 up) and from the clamp (down)."""
+    ops = ops if ops is not None else Ops()
+    tot = 0.0; by = {}; nseg = 0; budget = [0]
+    for f in FAMS:
+        P, U = f["P"], f["U"]
+        segs = trace_arc_rows(model, P, U, 0.0, math.pi, ops)
+        nseg += len(segs)
+        for nn, truth, wcl in f["sides"]:
+            wn = -(wcl @ nn); fcl = ((wcl @ P) / wn, (wcl @ U) / wn); ops.add(11)
+            e = 0.0
+            for t0, t1, xm in segs:
+                cache = {}
+                st0 = State(model, xm, P, U, nn, ops)
+                e += _integrate2(model, st0, P, U, nn, truth, fcl, t0, t1, ops, cache, budget)
+            tot += e
+            by[(f["circle"], f["s"], truth)] = e / (4 * math.pi)
+    if info is not None:
+        info["err_by"] = by; info["segments"] = nseg; info["traces"] = budget[0]
+    return 1.0 - tot / (4 * math.pi)
