@@ -1,0 +1,154 @@
+{
+  "cases": 15,
+  "source_sha256": "ed72ccfb52ee6f43afc19384dcc7f164f5022dc7c2610ba94da52f58b8e81461",
+  "max_relative_difference_from_saved_positive_reference": 5.138356407030642e-11,
+  "constant_triangle": 107.99999999999999,
+  "expected_constant": 108,
+  "stats": {
+    "quadrature_nodes": 112,
+    "quadrature_error_bound": 7.46568134126378e-15,
+    "legendre_rule_generations": 1,
+    "legendre_rule_generation_nodes": 4,
+    "bound_trials": 7,
+    "bound_lgamma_calls": 0,
+    "bound_exp_calls": 0,
+    "bound_log_calls": 0,
+    "maximum_quadrature_error_bound": 7.464935251564685e-15,
+    "analytic_series_truncation_bound_sum": 1.0725267928358956e-31,
+    "maximum_analytic_series_truncation_bound": 1.0725267928263968e-31,
+    "triangles": 15,
+    "ambient_dimension": 6,
+    "exponent": 6,
+    "analytic_triangles": 8,
+    "positive_quadrature_fallbacks": 7,
+    "tangent_basis_constructions": 15,
+    "qr_factorizations": 0,
+    "svd_condition_estimates": 0,
+    "linear_solves": 0,
+    "model_forward_passes": 0,
+    "known_plane_residual": 2.220446049250313e-16,
+    "boundary_triangles_attempted": 10,
+    "great_circle_edges": 30,
+    "great_circle_arctan2_calls": 30,
+    "solid_angle_arctan2_calls": 10,
+    "elementary_tan_calls": 0,
+    "elementary_sin_calls": 90,
+    "elementary_cos_calls": 30,
+    "numerical_screen_rejections": 2,
+    "maximum_heuristic_relative_roundoff": 3.4558022578615567e-09,
+    "method": "analytic_weighted_spherical_triangles_with_guarded_positive_quadrature",
+    "roundoff_certified": false
+  },
+  "constant_stats": {
+    "quadrature_nodes": 16,
+    "quadrature_error_bound": 1.55751049949825e-61,
+    "legendre_rule_generations": 0,
+    "legendre_rule_generation_nodes": 0,
+    "bound_trials": 1,
+    "bound_lgamma_calls": 0,
+    "bound_exp_calls": 0,
+    "bound_log_calls": 0,
+    "maximum_quadrature_error_bound": 1.55751049949825e-61,
+    "analytic_series_truncation_bound_sum": 0.0,
+    "maximum_analytic_series_truncation_bound": 0.0,
+    "triangles": 1,
+    "ambient_dimension": 6,
+    "exponent": 6,
+    "analytic_triangles": 0,
+    "positive_quadrature_fallbacks": 1,
+    "tangent_basis_constructions": 1,
+    "qr_factorizations": 0,
+    "svd_condition_estimates": 0,
+    "linear_solves": 0,
+    "model_forward_passes": 0,
+    "known_plane_residual": 1.1102230246251565e-16,
+    "boundary_triangles_attempted": 0,
+    "great_circle_edges": 0,
+    "great_circle_arctan2_calls": 0,
+    "solid_angle_arctan2_calls": 0,
+    "elementary_tan_calls": 0,
+    "elementary_sin_calls": 0,
+    "elementary_cos_calls": 0,
+    "numerical_screen_rejections": 0,
+    "maximum_heuristic_relative_roundoff": 0.0,
+    "method": "analytic_weighted_spherical_triangles_with_guarded_positive_quadrature",
+    "roundoff_certified": false
+  },
+  "production_primitive_cost": {
+    "known_arithmetic_upper_bound": 199810,
+    "parts": {
+      "triangle_engine_setup": 100,
+      "triangle_analytic_upper_allowance": 180000,
+      "positive_radial_setup": 4096,
+      "positive_bound_trials": 960,
+      "rule_newton": 574,
+      "positive_duffy_setup": 480,
+      "positive_nodes": 12800,
+      "positive_metadata": 800
+    },
+    "black_box_kernels": [],
+    "events": {
+      "triangle_batches": 2,
+      "triangles": 16,
+      "positive_fallback_calls": 8,
+      "positive_quadrature_nodes": 128
+    },
+    "validation_kernel_calls": {}
+  },
+  "rule_checks": [
+    {
+      "order": 48,
+      "max_moment_error": 7.979727989493313e-17,
+      "cost": {
+        "known_arithmetic_upper_bound": 59938,
+        "parts": {
+          "rule_newton": 59938
+        },
+        "black_box_kernels": [],
+        "events": {},
+        "validation_kernel_calls": {}
+      }
+    },
+    {
+      "order": 64,
+      "max_moment_error": 2.220446049250313e-16,
+      "cost": {
+        "known_arithmetic_upper_bound": 104498,
+        "parts": {
+          "rule_newton": 104498
+        },
+        "black_box_kernels": [],
+        "events": {},
+        "validation_kernel_calls": {}
+      }
+    },
+    {
+      "order": 96,
+      "max_moment_error": 2.220446049250313e-16,
+      "cost": {
+        "known_arithmetic_upper_bound": 229332,
+        "parts": {
+          "rule_newton": 229332
+        },
+        "black_box_kernels": [],
+        "events": {},
+        "validation_kernel_calls": {}
+      }
+    },
+    {
+      "order": 128,
+      "max_moment_error": 1.1102230246251565e-16,
+      "cost": {
+        "known_arithmetic_upper_bound": 402550,
+        "parts": {
+          "rule_newton": 402550
+        },
+        "black_box_kernels": [],
+        "events": {},
+        "validation_kernel_calls": {}
+      }
+    }
+  ],
+  "cpu_seconds": 0.022095334999999994,
+  "model_mass_evaluations": 0
+}
