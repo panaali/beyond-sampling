@@ -77,3 +77,18 @@ geometry pruning remain open if this exact-equivalence optimization fails.
 ## Failure modes
 Sine sign errors, complex-to-real normalization, floating cancellation,
 missed angular wrap, uncharged setup/special functions and unfair warm runs.
+
+## Initial equivalence and cost gate
+Primitive parity maximum1.67e-16, including sine modes, both support walls,
+complements and small axial normals. Full H2/H4 estimates differ by
+5.56e-17/2.23e-16; constant/duplicate ties and1e-16 hidden scaling pass.
+The first implementation's counted ordinary arithmetic falls from
+74.22M→15.63M (H2) and289.28M→61.05M (H4), but CPU .120→.112 and
+.408→.484 respectively. Thus arithmetic improves while the H4 Python-loop
+implementation is slower. No ensemble run or sampling-win claim follows.
+
+Preserve this initial pilot. Next bounded implementation-only alternative:
+vectorize angular matrix entry assembly using fixed index arrays constructed
+inside each Space. Same formula, nodes, basis and arithmetic; count index
+setup and test parity again. This addresses Python overhead only, not a new
+approximation or degree choice.
