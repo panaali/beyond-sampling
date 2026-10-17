@@ -21,7 +21,9 @@ and nonzero deterministic coefficients. Independent adapter gate precedes any
 saved-model trace. No new MC/noise/model/reference draw or panel tuning.
 
 ## Status
-Source inventory and adapter construction; analytic source gate pending.
+Initial source gate passed; all15 frozen analytic controls preserve outputs and
+legacy counters (5f24544a),0.248CPU. Sorting/search source controls are prepared
+and await independent gate; no trained model run yet.
 T180 bounded handoff is complete and independently reviewed ba401fec.
 
 ## Results
@@ -64,3 +66,14 @@ Changed tie/duplicate ordering, omitted broadcast factors, treating numerical
 sort as memory, counting n_ops as estimator work, double-counting nested native
 kernels, confusing indicator and batch-average sampler cost, source changes or
 unsupported calls, or extrapolating one circle/model to all saved cases.
+
+### Initial numerical controls
+Four original coefficient-root controls each count130 explicit units, matching
+16m+2 at m=8 (including Boolean arrays). The original analytic circle remains
+.125, the tile-only arm.051208191174783355, each unchanged by observation.
+The fixed2x3 generic Hopf grid remains.27181996624992727 with legacy15396;
+visible arithmetic34246 plus42 opaque sorting/search calls. No H4 ratio follows.
+The unchanged5-input H4 sampler returns.2; raw983 =966 prediction, hit
+aggregation and final-division units +17 explicit loop/index units. True-label
+argsort remains separately opaque/free-label convention, and no random draws
+occurred. Native counts do not certify quadrature bias.
