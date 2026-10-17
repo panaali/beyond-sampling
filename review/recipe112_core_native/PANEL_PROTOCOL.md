@@ -1,0 +1,9 @@
+# Original sixty-shard continuation
+
+Renewed TASKS scope098f0411. Provenance independentlyb3cf708f; three direct pilots independently77f90583. Freeze original H4/5/6 × zoo0..4 × noise80..83 ×64 copies, unchanged .05 law and RECIPE112. Exactly three pilot evaluations are reused once at zoo0/noise80/copy0. Remaining3837 models need two source calls each, no new truth/MC or source setting. Reconstructing model bytes is necessary to bind each newly priced case; no standalone repetition of the old hash experiment.
+
+Run one shard per primary-lock acquisition, one thread2GB, external110CPU; internal105 soft/110 hard and90 graceful before a new case. Before each shard reserve110CPU from a3000CPU research total including prior pilots/provenance. Complete shards charge actual recorded CPU, incomplete attempts conservatively charge110. Durable attempt metadata precedes numerical imports/model/source work; preserve partial compressed ledgers, failures and all started/completed call counts. Never overwrite a shard; no automatic partial retry or outcome-based skipping.
+
+Every source output bit must match the original saved estimate and baseline/traced parity. Grouped contributions, historical counter/STATS/cells and model hash must agree. Full per-site/category/startup/memory/call ledger is retained in compressed JSONL. No H8 or three-pilot multiplier transfer. Native library internals, integer/control/memory and model-free setup remain qualified under the named source convention.
+
+After independently checked coverage: report15 seed groups and60 noise blocks, all individual losses, numeric111/159/215 versus historical conventions, per-model floor budgets versus mean/uniform allocation, and conditional bootstrap uncertainty. No new truth, population/rung assertion or tuning. The old32-case relative-noise borderline group is outside this frozen core continuation and stays unresolved in its prior scope.
