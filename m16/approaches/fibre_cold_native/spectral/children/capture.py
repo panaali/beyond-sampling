@@ -29,6 +29,7 @@ def main():
             new['events']=[{'function':names[buf[5*j]],'args':list(buf[5*j+1:5*j+5])} for j in range(n)]
             assert new['parity']
             if row['name']=='leggauss':
+                assert sum(e['function']=='dsterf' for e in new['events'])==1
                 spy.sterf_input.argtypes=[ctypes.POINTER(ctypes.c_double),ctypes.POINTER(ctypes.c_double)];spy.sterf_input.restype=ctypes.c_int64
                 dd=(ctypes.c_double*16)();ee=(ctypes.c_double*16)();nn=spy.sterf_input(dd,ee);assert nn==row['args']['items'][0]
                 new['sterf_input_D_hex']=[float(dd[j]).hex() for j in range(nn)];new['sterf_input_E_hex']=[float(ee[j]).hex() for j in range(nn-1)]
