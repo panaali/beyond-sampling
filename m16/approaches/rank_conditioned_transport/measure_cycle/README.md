@@ -69,3 +69,38 @@ are below2e-9. Constant and duplicate-readout recurrences at h3 match their
 raw omission-adjusted mass/T within1.67e-16 in both coordinates. T55
 independently derives the Jacobian, Beta CDF Tq^(T-1)-(T-1)q^T, per-label
 1/T factor and separate full-input omission. Full trained pilot follows.
+
+## Frozen trained result: coordinate hypothesis not supported
+All four integrations complete in50.983CPU seconds. q-space estimates
+exactly reproduce the previous cached GL2/4 values to displayed precision.
+
+| Coordinate | GL2 estimate | GL4 estimate | Absolute change | GL4 CPU |
+| --- | ---: | ---: | ---: | ---: |
+| q | .304211687608592 | .304211864775995 | 1.77167e-7 | 17.098 |
+| u | .304211688729408 | .304211864742884 | 1.76013e-7 | 16.954 |
+
+Both fail the frozen1e-7 refinement gate. GL4 coordinate disagreement is
+3.31e-11 and raw target mass defects are below4.48e-14. Thus the tested
+coordinate change does not remove the refinement discrepancy; a missing
+Jacobian or target-mass normalization cannot explain its scale. This is
+finite evidence against this particular conditioning explanation, not a
+proof of convergence or a universal negative about target coordinates.
+
+Both retain total bias-.003518878 and component errors approximately
+[-.003060092,-.000002521,-.000456265,0]. Spatial approximation remains the
+much larger unresolved error. No noise/grid/order expansion follows.
+The stored stats include all cache and operator work, target nodes and
+omission bounds. Full CPU measured, event counts partial and unaudited.
+
+## Exhaustion checklist and handoff
+Formulation: independent Beta/Jacobian derivation and omission-adjusted tie
+controls pass. Representation: unchanged h9 and complete1532-panel union;
+not a test of alternative spatial representations. Numerical alternatives:
+q/u GL2/4 tested, neither passes strict refinement; higher orders, adaptive
+local error localization and directed bounds remain untested because this
+bounded phase tests coordinate choice rather than launching a sweep. Cost:
+full cold setup/recurrence measured, no portable-cost or sampling assertion.
+Independent source/results review requested. Only Claude may classify the
+scoped negative; no family is declared dead. A concrete later discriminator
+is localizing the signed GL2/4 difference by complete physical panel before
+choosing a numerical repair, rather than increasing all rule orders.
