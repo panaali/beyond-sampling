@@ -26,3 +26,6 @@ Record exact geometry setup,50-digit bound/order selection, GL construction/inte
 ## Claims / failure modes
 [inferred] Exact radial bounds permit a positive representation of any independent pointed simplicial cone.
 [speculative] The fixed finite order set makes all56 remaining references useful. No cheap estimator, floating certificate or solved-rung claim. Singular inputs and near-rho1 expensive bounds need explicit rejection/guarding; never clip an inaccurate negative mass to zero.
+
+## Results and bounded completion
+All27 analytic controls and exact special cases pass. All56 trained radial certificates meet the frozen error target withGL20, no higher-order trial required. Their mass .026630168417774144, summed integration-only bound5.382e-14, source-minus-positive5.263e-9; phase .133CPU. Combined6347-cone positive reference gives .4770131259941194, differing3.89e-16 from the independent whole-model reference, summed conditional quadrature bound3.158e-8 and zero negative values. End-to-end floating accuracy and portable cost remain uncertified. Total known positive-integrand arithmetic across all phases1.980264B; no cheap-estimator claim. [HANDOFF.md](HANDOFF.md) preserves qualifications and reproduction details.
