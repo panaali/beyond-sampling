@@ -32,5 +32,5 @@ def main():
     for i in INDICES:
         R=rays[i];cert=bounds(R);r=integrate(R,20,float(np.linalg.det(R)),rules);bd=probability_bound(cert,20)['bound'];r.update(index=i,reference=float(ref['values'][i]),reference_bound=float(ref['bounds'][i]),quadrature_bound=bd,error=r['value']-float(ref['values'][i]),passes=abs(r['value']-ref['values'][i])<=bd+ref['bounds'][i]+r['series_error_bound']+5e-14);out['trained'].append(r)
     out.update(complete=True,cpu=time.process_time()-start,scalar_all_pass=all(r['passes'] for r in out['scalar']),analytic_all_pass=all(r['passes'] for r in out['analytic']),trained_all_pass=all(r['passes'] for r in out['trained']),scalar_modes=dict(sum((Counter(r['modes']) for r in out['scalar']),Counter())),cold_rules=rules.events)
-    (HERE/'controls.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({k:v for k,v in out.items() if k not in ('scalar','analytic','trained','cold_rules')},indent=2));assert out['scalar_all_pass'] and out['analytic_all_pass'] and out['trained_all_pass']
+    (HERE/'controls.json').write_text(json.dumps(out,indent=2,default=lambda x:x.item())+'\n');print(json.dumps({k:v for k,v in out.items() if k not in ('scalar','analytic','trained','cold_rules')},indent=2));assert out['scalar_all_pass'] and out['analytic_all_pass'] and out['trained_all_pass']
 if __name__=='__main__':main()
