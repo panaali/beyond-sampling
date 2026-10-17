@@ -46,9 +46,9 @@ artifacts and do not broaden a scoped implementation result to the family.
    report complete and component timings independently.
 
 ## Status
-Initial bounded pilot complete after independent T55 source review9f3681a
-and original T116 owner review. A separately frozen arithmetic-attribution
-rescue is proposed; the initial candidate is retained unchanged.
+Bounded initial and rescue pilots complete, with independent source and
+attribution checks. See HANDOFF.md; DRI classification remains pending.
+Original failed/slow variants are retained unchanged.
 
 ## Results
 Pending. This task does not change the integral or claim higher accuracy.

@@ -56,7 +56,8 @@ state scale, hidden grid, rule order, model or noise panel.
 
 ## Status
 Bounded trained phase complete after independent source/theorem review.
-Result classification remains with DRI.
+Independent exact coefficient and branch reconstruction review d8bc064
+passes. Result classification remains with DRI.
 
 ## Results
 Reproduce from this folder using the project interpreter: `python controls.py`
