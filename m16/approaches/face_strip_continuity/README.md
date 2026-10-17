@@ -9,10 +9,14 @@ Freeze H2T4 seed0, u=1, both T155 axis/prefix intervals and x,y in [-6,6]. For e
 For row A*x+B*y+C*s+E=0, q is the minimum of (C*s+E)^2/[2(A^2+B^2)] over the ENTIRE frozen state interval, including zero if crossed. Multiply the old strip allowance by 1/(1+q), using exp(-q)<=1/(1+q). Exact proportional rows have equal damping.
 
 ## Status
-Protocol frozen after TASKS-only claim7b3a264. Independent T55 theorem review passed; implementation controls and raw review pending.
+Frozen coefficient phase executed after TASKS-only claim7b3a264 and independent T55 source/theorem review. Raw88-face independent audit pending; conclusions provisional until that check.
 
 ## Results
-No new result yet. Planned finite controls cover both elimination choices, rank sides, empty/line/point faces, correctness constraints, any-occurrence retention and density minima/scaling. Only the two prior trained intervals will be applied after controls.
+Eight closed-face controls, four exact elimination identities, four density/scaling controls, two correctness-face pairs, any-occurrence retention and576 direct forced-chronology checks pass. A synthetic rank-side expectation failure and correction are preserved in execution_failures.md.
+
+All88 frozen occurrence/rank-side feasibility problems were evaluated. Negative axis:5 unique moving boundaries to0 feasible, candidate K=0 (local invariance). Positive axis:15 to8 unique boundaries,14 feasible occurrences including2 degenerate; K8.31442262194 to.178267919995 after faces and.0910712094892 after density. Density-only ablations are1.10585586207 /8.19777060784, so face restriction accounts for most of the gain. Positive elementary prefix coefficient1.61044067122; displayed CDF-normalized coefficient.148946831413 (not outward rounded). No new pair value was evaluated. Independent raw audit pending.
+
+Reproduce with project Python: `python controls.py`, then `python pilot.py`, using one thread, review lock,2GB and20CPU limit. Protocol hashes pinned in manifest.json.
 
 ## Compute accounting
 No model forward, Monte Carlo, Gaussian pair integration or interpolation run. Charge exact rational feasibility, coefficient arithmetic and one checkpoint load separately; one thread,2GB, <=20CPU review cycles.

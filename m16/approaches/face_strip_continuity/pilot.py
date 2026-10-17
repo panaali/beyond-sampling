@@ -14,6 +14,7 @@ def main():
     sd=torch.load(path,map_location='cpu',weights_only=True);wi=tuple(F(float(v)) for v in sd['rnn.weight_ih_l0'][:,0]);wh=tuple(tuple(F(float(v)) for v in row) for row in sd['rnn.weight_hh_l0']);wo=tuple(tuple(F(float(v)) for v in row) for row in sd['linear.weight'])
     results=[];problem_count=0
     for old in prior['rows']:
+        assert old['feasible_bound']['sufficient'] and not old['feasible_bound']['unknown']
         axis=old['axis'];slo,shi=map(F,old['hidden_interval']);records=[]
         for record in old['feasible_bound']['unique_records']:
             row=tuple(map(F,record['row']));A,B,C,E=row;occurrences=[]
