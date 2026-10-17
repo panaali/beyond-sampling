@@ -1,0 +1,355 @@
+{
+  "complete": true,
+  "random_model_inputs": 0,
+  "source_sha256": {
+    "sphere.py": "54650d9c2a29eb240b8e6e6d84b75cc6db16c451e7b42395bc202fa66ff1eea5",
+    "hprop.py": "ea6ba9f572843759c439a7b024324d259a8d7d08f612a31d4352e5f9c9442550",
+    "cones.py": "05f31ce9ef3fe2aff251c41d89648037c6419c864d17fd82c60f32dce98b433a",
+    "hemisphere.py": "2103c370fd980dc171bc96882ad25c323e3c1796c090b9ff05b6bfbcdd8a7b20"
+  },
+  "cut_controls": [
+    {
+      "D": 2,
+      "orthogonality_error": 1.1102230246251565e-15,
+      "cut_coefficient_error": 3.930189507173054e-14,
+      "complement_error": 2.8449465006019636e-16,
+      "constant_mass_error": 0.0,
+      "same_hemisphere_readout": [
+        0.43750000000000006,
+        0.43749999999999994,
+        0.43749999999999994,
+        0.4374999999999997,
+        0.4374999999999999
+      ],
+      "exact_readout_deficit": "1/16",
+      "repeated_readout_error": 2.7755575615628914e-16,
+      "cpu": 0.09832537800000019,
+      "independent_counts": {
+        "basis_scalar_values": 3105,
+        "associated_legendre_scalar_evaluations": 2070,
+        "atan2_scalar_evaluations": 345,
+        "sin_cos_scalar_evaluations": 2070,
+        "rotated_nodes": 300,
+        "cuts": 15,
+        "contraction_multiply_add_upper": 9825,
+        "mass_queries": 5
+      }
+    },
+    {
+      "D": 4,
+      "orthogonality_error": 4.440892098500626e-15,
+      "cut_coefficient_error": 3.863576125695545e-14,
+      "complement_error": 4.996003610813204e-16,
+      "constant_mass_error": 5.551115123125783e-17,
+      "same_hemisphere_readout": [
+        0.4648437500000003,
+        0.46484375000000017,
+        0.46484375000000017,
+        0.46484375000000017,
+        0.46484375000000017
+      ],
+      "exact_readout_deficit": "9/256",
+      "repeated_readout_error": 2.7755575615628914e-16,
+      "cpu": 0.10072643200000009,
+      "independent_counts": {
+        "basis_scalar_values": 26325,
+        "associated_legendre_scalar_evaluations": 15795,
+        "atan2_scalar_evaluations": 1053,
+        "sin_cos_scalar_evaluations": 21060,
+        "rotated_nodes": 900,
+        "cuts": 15,
+        "contraction_multiply_add_upper": 79875,
+        "mass_queries": 5
+      }
+    },
+    {
+      "D": 8,
+      "orthogonality_error": 1.5903944827755235e-14,
+      "cut_coefficient_error": 3.907985046680551e-14,
+      "complement_error": 9.037909309839165e-16,
+      "constant_mass_error": 2.7755575615628914e-16,
+      "same_hemisphere_readout": [
+        0.48130798339843744,
+        0.4813079833984375,
+        0.4813079833984373,
+        0.4813079833984372,
+        0.48130798339843694
+      ],
+      "exact_readout_deficit": "1225/65536",
+      "repeated_readout_error": 5.551115123125783e-16,
+      "cpu": 0.12671697699999984,
+      "independent_counts": {
+        "basis_scalar_values": 293301,
+        "associated_legendre_scalar_evaluations": 162945,
+        "atan2_scalar_evaluations": 3621,
+        "sin_cos_scalar_evaluations": 260712,
+        "rotated_nodes": 3060,
+        "cuts": 15,
+        "contraction_multiply_add_upper": 871335,
+        "mass_queries": 5
+      }
+    }
+  ],
+  "cpu_seconds": 3.763478192,
+  "max_rss_kib": 218128,
+  "checkpoint_sha256": {
+    "seed0": "d9e5245146436fa8ec847a9ec3c771c7dd959708cae64825d46b52d51ec35551",
+    "seed1": "e425ad7db73384432163b51410772181d4efe18ffe0d71c71569a348e0b49a6b"
+  },
+  "models": [
+    {
+      "name": "seed0",
+      "D": 2,
+      "independent_cut": {
+        "estimate": 0.8402361867042235,
+        "cpu": 0.2708448269999999,
+        "leaf_count": 942,
+        "cut_count": 953,
+        "charged_harness_flops": 1613729.0,
+        "charged_geometry_flops": 441068.0,
+        "claimed_hilton_flops": 475376.0,
+        "independent_counts": {
+          "rotated_nodes": 17505,
+          "basis_scalar_values": 157545,
+          "associated_legendre_scalar_evaluations": 105030,
+          "atan2_scalar_evaluations": 17505,
+          "sin_cos_scalar_evaluations": 105030,
+          "cuts": 965,
+          "contraction_multiply_add_upper": 596175,
+          "mass_queries": 202
+        },
+        "independent_setup_cpu": 0.0003540050000001571,
+        "cost_warning": "harness count excludes basis special-function cost; not an FPE estimate"
+      },
+      "original_cut": {
+        "estimate": 0.8402361867042638,
+        "cpu": 0.22359719999999994,
+        "leaf_count": 942,
+        "cut_count": 953,
+        "charged_harness_flops": 3094673.0,
+        "charged_geometry_flops": 441068.0,
+        "claimed_hilton_flops": 475376.0
+      },
+      "cut_method_difference": -4.030109579389318e-14,
+      "stored_estimate": 0.8402361867042638,
+      "stored_truth": 0.99937775,
+      "stored_truth_se": 1.246858858228896e-05,
+      "stored_cost_fpe": 1719.2627777777777,
+      "stored_estimate_difference": 0.0
+    },
+    {
+      "name": "seed0",
+      "D": 4,
+      "independent_cut": {
+        "estimate": 0.905684062867172,
+        "cpu": 0.37530793299999976,
+        "leaf_count": 942,
+        "cut_count": 953,
+        "charged_harness_flops": 6451979.0,
+        "charged_geometry_flops": 441068.0,
+        "claimed_hilton_flops": 822268.0,
+        "independent_counts": {
+          "rotated_nodes": 52515,
+          "basis_scalar_values": 1312875,
+          "associated_legendre_scalar_evaluations": 787725,
+          "atan2_scalar_evaluations": 52515,
+          "sin_cos_scalar_evaluations": 1050300,
+          "cuts": 965,
+          "contraction_multiply_add_upper": 4858605,
+          "mass_queries": 202
+        },
+        "independent_setup_cpu": 0.0002974710000001046,
+        "cost_warning": "harness count excludes basis special-function cost; not an FPE estimate"
+      },
+      "original_cut": {
+        "estimate": 0.905684062867219,
+        "cpu": 0.31248938100000023,
+        "leaf_count": 942,
+        "cut_count": 953,
+        "charged_harness_flops": 19878993.0,
+        "charged_geometry_flops": 441068.0,
+        "claimed_hilton_flops": 822268.0
+      },
+      "cut_method_difference": -4.707345624410664e-14,
+      "stored_estimate": 0.905684062867219,
+      "stored_truth": 0.99937775,
+      "stored_truth_se": 1.246858858228896e-05,
+      "stored_cost_fpe": 11043.885,
+      "stored_estimate_difference": 0.0
+    },
+    {
+      "name": "seed1",
+      "D": 2,
+      "independent_cut": {
+        "estimate": 0.8051768312555472,
+        "cpu": 0.260611328,
+        "leaf_count": 1072,
+        "cut_count": 1084,
+        "charged_harness_flops": 1841298.0,
+        "charged_geometry_flops": 502602.0,
+        "claimed_hilton_flops": 541626.0,
+        "independent_counts": {
+          "rotated_nodes": 20010,
+          "basis_scalar_values": 180090,
+          "associated_legendre_scalar_evaluations": 120060,
+          "atan2_scalar_evaluations": 20010,
+          "sin_cos_scalar_evaluations": 120060,
+          "cuts": 1096,
+          "contraction_multiply_add_upper": 679680,
+          "mass_queries": 238
+        },
+        "independent_setup_cpu": 0.0003586320000001919,
+        "cost_warning": "harness count excludes basis special-function cost; not an FPE estimate"
+      },
+      "original_cut": {
+        "estimate": 0.8051768312555654,
+        "cpu": 0.23959144900000018,
+        "leaf_count": 1072,
+        "cut_count": 1084,
+        "charged_harness_flops": 3522084.0,
+        "charged_geometry_flops": 502602.0,
+        "claimed_hilton_flops": 541626.0
+      },
+      "cut_method_difference": -1.8207657603852567e-14,
+      "stored_estimate": 0.8051768312555654,
+      "stored_truth": 0.99950675,
+      "stored_truth_se": 1.1101877143500336e-05,
+      "stored_cost_fpe": 1956.7133333333334,
+      "stored_estimate_difference": 0.0
+    },
+    {
+      "name": "seed1",
+      "D": 4,
+      "independent_cut": {
+        "estimate": 0.8943983252827066,
+        "cpu": 0.42164724600000003,
+        "leaf_count": 1072,
+        "cut_count": 1084,
+        "charged_harness_flops": 7365858.0,
+        "charged_geometry_flops": 502602.0,
+        "claimed_hilton_flops": 936202.0,
+        "independent_counts": {
+          "rotated_nodes": 60030,
+          "basis_scalar_values": 1500750,
+          "associated_legendre_scalar_evaluations": 900450,
+          "atan2_scalar_evaluations": 60030,
+          "sin_cos_scalar_evaluations": 1200600,
+          "cuts": 1096,
+          "contraction_multiply_add_upper": 5538240,
+          "mass_queries": 238
+        },
+        "independent_setup_cpu": 0.0002660749999998657,
+        "cost_warning": "harness count excludes basis special-function cost; not an FPE estimate"
+      },
+      "original_cut": {
+        "estimate": 0.8943983252827554,
+        "cpu": 0.24823953500000018,
+        "leaf_count": 1072,
+        "cut_count": 1084,
+        "charged_harness_flops": 22615300.0,
+        "charged_geometry_flops": 502602.0,
+        "claimed_hilton_flops": 936202.0
+      },
+      "cut_method_difference": -4.884981308350689e-14,
+      "stored_estimate": 0.8943983252827554,
+      "stored_truth": 0.99950675,
+      "stored_truth_se": 1.1101877143500336e-05,
+      "stored_cost_fpe": 12564.055555555555,
+      "stored_estimate_difference": 0.0
+    },
+    {
+      "name": "s0.02_0",
+      "D": 2,
+      "independent_cut": {
+        "estimate": 0.6393574479244325,
+        "cpu": 0.23299137400000047,
+        "leaf_count": 1012,
+        "cut_count": 1038,
+        "charged_harness_flops": 1743544.0,
+        "charged_geometry_flops": 478318.0,
+        "claimed_hilton_flops": 515686.0,
+        "independent_counts": {
+          "rotated_nodes": 18840,
+          "basis_scalar_values": 169560,
+          "associated_legendre_scalar_evaluations": 113040,
+          "atan2_scalar_evaluations": 18840,
+          "sin_cos_scalar_evaluations": 113040,
+          "cuts": 1050,
+          "contraction_multiply_add_upper": 644550,
+          "mass_queries": 206
+        },
+        "independent_setup_cpu": 0.00027973499999989215,
+        "cost_warning": "harness count excludes basis special-function cost; not an FPE estimate"
+      },
+      "original_cut": {
+        "estimate": 0.6393574479244195,
+        "cpu": 0.2250081039999996,
+        "leaf_count": 1012,
+        "cut_count": 1038,
+        "charged_harness_flops": 3362926.0,
+        "charged_geometry_flops": 478318.0,
+        "claimed_hilton_flops": 515686.0
+      },
+      "cut_method_difference": 1.2989609388114332e-14,
+      "stored_estimate": 0.6393574479244195,
+      "stored_truth": 0.854813,
+      "stored_truth_se": 0.00017614463874256856,
+      "stored_cost_fpe": 1868.2922222222223,
+      "stored_estimate_difference": 0.0
+    },
+    {
+      "name": "s0.02_0",
+      "D": 4,
+      "independent_cut": {
+        "estimate": 0.7821353407274105,
+        "cpu": 0.3459525450000003,
+        "leaf_count": 1012,
+        "cut_count": 1038,
+        "charged_harness_flops": 6977164.0,
+        "charged_geometry_flops": 478318.0,
+        "claimed_hilton_flops": 893518.0,
+        "independent_counts": {
+          "rotated_nodes": 56520,
+          "basis_scalar_values": 1413000,
+          "associated_legendre_scalar_evaluations": 847800,
+          "atan2_scalar_evaluations": 56520,
+          "sin_cos_scalar_evaluations": 1130400,
+          "cuts": 1050,
+          "contraction_multiply_add_upper": 5254290,
+          "mass_queries": 206
+        },
+        "independent_setup_cpu": 0.0002690589999998494,
+        "cost_warning": "harness count excludes basis special-function cost; not an FPE estimate"
+      },
+      "original_cut": {
+        "estimate": 0.7821353407274444,
+        "cpu": 0.25061380899999985,
+        "leaf_count": 1012,
+        "cut_count": 1038,
+        "charged_harness_flops": 21641358.0,
+        "charged_geometry_flops": 478318.0,
+        "claimed_hilton_flops": 893518.0
+      },
+      "cut_method_difference": -3.3861802251067274e-14,
+      "stored_estimate": 0.7821353407274444,
+      "stored_truth": 0.854813,
+      "stored_truth_se": 0.00017614463874256856,
+      "stored_cost_fpe": 12022.976666666667,
+      "stored_estimate_difference": 0.0
+    }
+  ],
+  "tie_controls": [
+    {
+      "name": "all_zero",
+      "estimate": 0.9375,
+      "exact_truth": 0.3333333333333333,
+      "correct_first_index_ties": false
+    },
+    {
+      "name": "duplicate_readout",
+      "estimate": 0.9375000000000001,
+      "exact_truth": 0.3333333333333333,
+      "correct_first_index_ties": false
+    }
+  ]
+}
