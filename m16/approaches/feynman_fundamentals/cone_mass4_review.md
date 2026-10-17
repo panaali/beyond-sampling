@@ -409,3 +409,29 @@ Independent eigenvalue trace/product checks support minimum eigenvalue
 thresholds do not reveal this conditioning. No endpoint-cause conclusion or
 full floating certificate follows. Reviewer .0777CPU; an initial nonexistent
 mpmath.trace call was preserved and repaired by explicit diagonal summation.
+
+## T145 fixed recipe pruning versus numerical mass error
+
+The independent stored-array audit verifies all28000 indices exactly once,
+all recorded source hashes, parent batches, and exact rational sums of stored
+binary floats. Corrected recipe accuracy .976160677036335 differs from the
+corrected exact-geometry value .9761608075466027 by -1.30510267696e-7;
+the combined integration-only bound is2.13788310235e-10. The original
+recipe numerical accuracy error is -.000906436516688. Thus on this fixed
+checkpoint the numerical mass error dominated apparent recipe error.
+This does not assert pointwise true-network membership of approximate cells.
+
+Doubled-rule recipe accuracy .9761655721035335 has total difference
++4.76455693077e-6; per-cone absolute numerical discrepancy sums to
+4.65761282012e-5 and503 terms remain negative. Exact stored-float arithmetic
+checks pruning-plus-numerical decomposition without cancellation ambiguity.
+The inherited mass count325162176=2*164765088-156*28000; removing capture
+stub/control charges and restoring96 first-gate charges gives geometry
+36398526 and original full partial count201163614, reproducing the archive.
+Doubled full partial count361560702 is not a complete audited cost.
+
+No full floating geometry certificate, held-out/noisy ladder pass or broad
+approximation-family conclusion follows. The independent check costs.604CPU;
+an initial final JSON NumPy-int serialization failure is preserved and fixed
+by conversion only. Author replay146.222CPU and capture14.537CPU remain
+separate. No numerical integration was repeated by the reviewer.
