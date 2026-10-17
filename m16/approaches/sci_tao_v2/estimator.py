@@ -5,12 +5,21 @@ This is QUADRATURE, not a mechanistic solution. rng is deliberately ignored.
 Pilot observations are reused and all model-dependent work is charged.
 """
 import importlib.util
+import os
 from pathlib import Path
 import numpy as np
 
 _spec = importlib.util.spec_from_file_location('_sci_tao_v2_core', Path(__file__).with_name('core.py'))
 C = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(C)
+BACKEND = os.environ.get('SCI_TAO_V2_BACKEND', 'python')
+if BACKEND == 'cpp':
+    _cpp_spec = importlib.util.spec_from_file_location('_sci_tao_v2_cpp', Path(__file__).with_name('compiled.py'))
+    _cpp = importlib.util.module_from_spec(_cpp_spec)
+    _cpp_spec.loader.exec_module(_cpp)
+    C.walk_mass = _cpp.walk_mass
+elif BACKEND != 'python':
+    raise ValueError('SCI_TAO_V2_BACKEND must be python or cpp')
 
 DEDUCTIVE = False  # do not confuse deterministic numerical quadrature with mechanism
 CLASS = 'quadrature'  # advisory; shared leaderboard class still requires DRI registration

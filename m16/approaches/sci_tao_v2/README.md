@@ -44,7 +44,8 @@ Two alternative explanations tested during validation:
 
 ## Status
 
-Done for this bounded `sci_tao` port. Other T20 estimator ports remain open.
+Done for this bounded `sci_tao` port, including an optional compiled backend.
+Other T20 estimator ports remain open.
 No leaderboard test-model accuracy evaluation or tuning was performed. The
 frozen DEV runs do not establish competitive MSE. Independent review is pending.
 
@@ -79,7 +80,7 @@ The legacy reported costs were 3,730.8/3,783.4: the new charge is **higher** tha
 that unjustified idealized charge, despite actually doing fewer dense products.
 The old implementation's two-full-pass proxy is 8,426/8,372 FPE before separately
 charging root and envelope work. This proxy is not an exact new-style FLOP count.
-The new walker is **11–44% slower in wall time** in the stored run on these batches, despite
+The Python reference walker is **11–44% slower in wall time** in the stored run on these batches, despite
 lower arithmetic work, because caching/indexing adds Python and memory overhead.
 Timing is host-sensitive; see the stored measurements rather than interpreting
 this as a hardware speedup.
@@ -109,6 +110,55 @@ the logits are constantly [0,1e-14,0]. The new wrong mass is .0987063257, the
 closed-form `Phi(.25)-.5`; the old walker returns .1974126514 because it treats
 a strictly positive constant logit gap as a tie. The new code tests actual
 equality. This constructed case is separate from the 2,112 agreement cases.
+
+### Optional compiled backend (bounded follow-up)
+
+`walker.cpp` implements the same cached affine algorithm in a serial C++ loop,
+with one line's state resident at a time. `compiled.py:walk_mass` preserves the
+Python API, optional detailed counters, and failure behavior. Build explicitly:
+
+```bash
+/workspace/clean-neurons/.venv/bin/python m16/approaches/sci_tao_v2/build.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  /workspace/clean-neurons/.venv/bin/python m16/approaches/sci_tao_v2/check_compiled.py \
+  --checkpoint /workspace/clean-neurons/m16/approaches/mechanism_checks/checkpoint.pth
+```
+
+The compiler invocation is `g++ -std=c++17 -O3 -ffp-contract=off -fPIC -shared`.
+There is no fast-math, native-CPU specialization, downloaded dependency, or
+model-fitted parameter. The generated `_walker.so` is git-ignored. Compilation
+is explicit, never triggered by import; selecting an absent backend raises with
+build instructions. Set `SCI_TAO_V2_BACKEND=cpp` before importing the estimator to
+use it; the default remains `python`. Standalone clients can directly import
+`compiled.py:walk_mass`. A C++ compiler is the sole extra build requirement.
+
+`compiled_validation.json` records the frozen checks: all 2,112 previous lines,
+maximum Python/C++ mass difference **1.36e-14**, identical per-line cell counts,
+all eleven counter arrays, and FPE costs. All-zero, tiny-gap, zero-width, and
+cell-limit guards pass. The original independent dense-grid validation was not
+repeated, since the compiled backend already agrees with that reference.
+
+| DEV, 4,096 R23 lines | Legacy CPU seconds | Python cached | C++ cached | C++ speedup over legacy |
+|---|---:|---:|---:|---:|
+| sigma .0025 | .1495 | .1313 | .06585 | 2.27x |
+| sigma .02 | .1554 | .1368 | .06732 | 2.31x |
+
+These are medians of three warm CPU timings on the shared host. Speedup is
+larger for small batches because the Python reference has substantial indexing
+and dispatch overhead: the full frozen estimator is 11–12x faster at 1k,
+8.8–9.2x at 4k, and approximately 5x at 16k. At 16k the C++ estimator takes
+about .0305 seconds. All six DEV estimates and costs remain unchanged to
+floating-point rounding. This check generated **no additional truth samples**
+and ran no test-model accuracy experiments. Compilation plus validation finishes
+in under 20 CPU seconds on this host, below the 300-second follow-up cap.
+
+The compiled backend retains the same transparent conservative FLOP schedule,
+including a 50-operation proxy for each Gaussian CDF. `0.5*erfc(-x/sqrt(2))`
+replaces scipy `ndtr`; shape-based dense-product charges are identical. Scalar
+branching can avoid some work charged to numpy's selects, so the schedule is
+conservative for C++. Compiler instruction counts and libm internals are not
+measured. Caching now takes O(T*H) scratch storage per serial batch, plus O(n)
+output/counter arrays, rather than O(n*T*H) Python cache storage.
 
 ## Compute accounting
 
@@ -162,12 +212,16 @@ fresh truth calculation is performed.
   independent confirmation.
 - [measured] The tiny constant-gap example fixes one legacy tie error, and cap
   exhaustion now raises instead of silently returning an incomplete integral.
-- [measured] There is no wall-time speedup in the current Python implementation.
+- [measured] There is no consistent wall-time speedup in the Python reference.
+  The optional compiled backend is 2.27–2.31x faster than the legacy walker on
+  the two predeclared 4,096-line DEV batches (three-run median CPU time).
 - [inferred] Prefix caching is useful for more efficient compiled analytic line
   solvers; the present code provides a reusable correctness/accounting reference.
 - [inferred] The 50-FLOP CDF approximation and conservative scalar schedules are
   adequate transparent proxies, but need DRI review before headline comparisons.
-- [speculative] A compiled version could turn arithmetic savings into a speedup.
+- [measured] The compiled backend gives about a 5x end-to-end speedup versus
+  the Python reference for the six frozen DEV estimator checks at 16k; this does
+  not by itself establish competitive MSE per wall-clock time.
 
 ## Alternatives not ruled out
 
@@ -199,5 +253,5 @@ Register the new quadrature entry and review its FLOP convention. Port the
 reusable walker to the other T20 estimators without changing their geometry.
 Audit their near-tie tolerances and cell-limit truncation. Support an `all`
 metadata declaration in the shared loader if arbitrary generic sizes are wanted.
-A compiled implementation and per-primitive profiling may improve wall time;
-these are separate work, not claims made by this port.
+Per-primitive profiling may refine the scalar cost schedule. The optional
+compiled implementation below demonstrates a speedup without changing the rule.
