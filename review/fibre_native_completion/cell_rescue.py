@@ -54,6 +54,11 @@ if mode in ('prepare','cell'):
 elif mode=='summarize':
  prep=json.loads((folder/'prepare.json').read_text());assert prep['complete'];rows=[json.loads((folder/f'cell_{k:05d}.json').read_text()) for k in range(prep['cell_count'])];assert rows and all(r['complete'] and r['cell']==k for k,r in enumerate(rows))
  assert all(r['source_sha256']==source_sha for r in [prep]+rows)
+ prepare_sha=hashlib.sha256((folder/'prepare.json').read_bytes()).hexdigest()
+ for k,r in enumerate(rows):
+  assert r['prepare_sha256']==prepare_sha and r['model_sha256']==inv['model_sha256']
+  assert r['initial_total'].hex()==(rows[k-1]['total'].hex() if k else 0.0.hex())
+  assert r['previous_sha256']==(hashlib.sha256((folder/f'cell_{k-1:05d}.json').read_bytes()).hexdigest() if k else None)
  assert rows[-1]['total_hex']==expected['raw_error_component'].hex()
  stats={key:sum(r['stats'][key] for r in rows) for key in ('traces','pieces')};assert stats==expected['stats']
  actual_legacy=prep['legacy_ops']+sum(r['legacy_ops'] for r in rows);repeat=(len(rows)-1)*16*prep['clamps'];assert actual_legacy-repeat==expected['legacy_ops']
