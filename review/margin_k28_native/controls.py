@@ -45,8 +45,9 @@ def main():
     assert mh(model)==expected_hash
     row=dict(seed=seed,noise=noise,copy=j,index=index,truth=truth,model_sha256=mh(model),recipes={});out['rows'].append(row);save()
     for name in ('r85b','r112'):
-     baseline=evaluate(model,name,False);traced=evaluate(model,name,True)
-     record=dict(baseline=baseline,traced=traced,parity=False,old_error_match=False);row['recipes'][name]=record;save()
+     record=dict(parity=False,old_error_match=False);row['recipes'][name]=record;save()
+     baseline=evaluate(model,name,False);record['baseline']=baseline;save()
+     traced=evaluate(model,name,True);record['traced']=traced;save()
      for key in ('hex','legacy','stats','info','recipe'):assert baseline[key]==traced[key],(seed,index,name,key)
      old=margin['seeds'][str(seed)];saved_error=old['clean'][name]['err'] if index<0 else old['p20'][name]['errs'][index]
      actual_error=baseline['value']-truth;record.update(saved_error=saved_error,actual_error=actual_error)
