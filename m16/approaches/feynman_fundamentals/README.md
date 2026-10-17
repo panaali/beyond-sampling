@@ -606,3 +606,12 @@ derive each individual simplex perturbation and sum absolute errors.
 Alternative2: the static triangle charge hides an unbounded kernel or fallback
 setup; inspect the pinned source and local callback separately. No numerical
 rerun, no production changes. `t6_projection_review.md` records the result.
+
+## Cycle 19: exact reachable-direction closure for T77
+Derive the support of the H2 recurrence for strictly positive input weights.
+Alternative1: a toy invariant does not generalize; normalize by input weights
+and characterize the image of every cone under one scalar-input step.
+Alternative2: bounded inputs invalidate conic support reasoning; distinguish
+the exact set of directions from the bounded radial extent using homogeneity.
+`reachable_cones.md` proves the four-state recursion and supplies algebraic
+falsifiers. No experiments or engine edits; T77 owns the implementation.
