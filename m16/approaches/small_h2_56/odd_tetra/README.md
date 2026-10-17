@@ -105,3 +105,6 @@ Reproduce with the same thread/memory/lock prefix as above and script `odd_tetra
 
 ## Interface check
 Package import and provided-model `calculate` complete on the base checkpoint with the unchanged estimate .27923737131514975 and full proposed count204,838,914, including128 operations for weight validation. `interface_check.json` records1.467 CPU. The thin adapter returns infinite cost while independent review is pending, and does not inspect rng; budget remains advisory. Relative imports avoid collisions with other agents' modules named `volume` or `segment`.
+
+## Frozen counted partition check
+Validate the completed counted MGS/GL pipeline on the full gate partition of the same base and two fixed noisy models, using the unchanged24-point outer rule and1e-9 positive-inner budget. These are validation-only geometry enumerations, with their own counts/time; no accuracy estimates or order policies are changed. Require mass one within each reported conditional quadrature bound, and retain numerical differences even if much smaller. This checks the new general-affine-plane input adapter and MGS/positive-fallback composition independently of the target event.
