@@ -1,5 +1,6 @@
 """Independent toy densities and full-circle geometric reference."""
 from collections import defaultdict
+from fractions import Fraction
 import hashlib,json,math,time
 from pathlib import Path
 import numpy as np
@@ -43,7 +44,18 @@ def angular_reference(model):
         elif h[0]==0:kind='axis1'
         elif abs(np.linalg.det(B))>1e-12*np.max(abs(B))**2:kind='area'
         else:kind='input_ray'
-        p=(hi-lo)/(2*math.pi);mass[kind]+=p;output[np.argmax(wo@h)]+=p
+        p=(hi-lo)/(2*math.pi);mass[kind]+=p
+        # Preserve ties that hold on this entire gate cell; floating dot products
+        # can split a positive-mass ray between algebraically identical logits.
+        wq=[Fraction(float(v)) for v in wi]
+        vq=[max(Fraction(0),sign*v) for v in wq]
+        aq=[sum(Fraction(float(wh[i,k]))*vq[k] for k in (0,1)) for i in (0,1)]
+        Bq=[[sign*aq[i] if z[i]>0 else Fraction(0),wq[i] if z[i]>0 else Fraction(0)] for i in (0,1)]
+        linesq=[tuple(sum(Fraction(float(row[i]))*Bq[i][k] for i in (0,1)) for k in (0,1)) for row in wo]
+        winner=int(np.argmax(wo@h))
+        winner=next(i for i,line in enumerate(linesq) if line==linesq[winner])
+        stats['exact_tie_coefficient_checks']+=len(linesq)
+        output[winner]+=p
     return mass,output,dict(stats)
 
 
@@ -85,7 +97,7 @@ def main():
             summary=current.summary()
             outputerror=float(np.max(abs(np.array(summary['output_masses'])-refout)))
             masserror=max(abs(summary['stratum_masses'][k]-v) for k,v in refmass.items())
-            assert outputerror<1e-12 and masserror<1e-12
+            assert outputerror<1e-12 and masserror<1e-12,(name,scale,summary['output_masses'],refout.tolist(),summary['stratum_masses'],refmass)
             assert max(abs(summary['stratum_masses'][k]-v) for k,v in basemass.items())<1e-12
             assert np.max(abs(np.array(summary['output_masses'])-baseout))<1e-12
             assert abs(sum(summary['stratum_masses'].values())-1)<1e-12
