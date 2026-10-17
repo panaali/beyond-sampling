@@ -13,7 +13,7 @@ Compare selected entries only with existing8-block sample and three saved
 approximation outputs, using explicit step3 lookup. No new forwards or samples.
 
 ## Status
-Completed once after independent source gate. All170 cells pass; independent saved geometry and aggregate audits pending.
+Completed once after independent source gate. All170 cells pass; independent geometry2557c3d4 and aggregate19610915 audits pass.
 
 ## Results
 All170 cells pass (145 pointed,25 measure-zero), maximum independent reference discrepancy4.238e-79. Both selected covariance minors positive. Candidate0.591CPU, reference6.926CPU/76,612 evaluations; total process8.572CPU. See summary.json and HANDOFF.md. Reproduction: `python run.py` in a fresh isolated output copy after preserving pinned sources; original runner refuses existing results. This is not full136-pair coverage or a full covariance PSD test.

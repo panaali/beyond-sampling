@@ -1,4 +1,4 @@
-# Five trained pair pilot: saved audit pending
+# Five trained pair pilot: independently reviewed
 
 Fixed H16T4seed3,34 existing exact sectors, pairs(0,0),(1,1),(15,15),(0,1),(0,15). All170 cells pass:145 pointed and25 measure-zero, no unsupported or negative cells. Independent cylindrical reference maximum discrepancy4.23774324e-79. Both selected2x2 covariance minors positive(.28476419,.39493996). These five entries do not establish full covariance PSD or downstream closure accuracy.
 
@@ -9,3 +9,5 @@ Saved sampled covariance differences are within descriptive8-block standard erro
 Complementary independent review requested: recover_78 exact geometry/facets/alternate matrices; T55 aggregate contractions/reference/baselines/counts. No author or numerical integration replay. Only after both pass may a separately frozen full136-pair phase be proposed, reusing these five exactly once. T11595 remains blocked.
 
 Independent geometry review2557c3d4 now passes all170 exact normal/ray/facet/tangent/fan certificates; alternate MP140 spherical-excess/boundary contractions agree within7.43534e-115. Review0.59158CPU, no author/angular/model calls. T55 aggregate audit remains pending.
+
+T55 aggregate review19610915 passes all170 saved raw products, five covariance/sample/three-baseline entries, selected minors, counts and351 progress records. Reviewer-only excessive diagnostic tolerance failure was retained and corrected without candidate replay. Combined bounded handoff is complete; DRI confirmation/INDEX registration requested. Full136 coverage remains a separately frozen follow-up (131 remaining pairs/4454new cells, five pilot pairs reused once), with T11595 still blocked. Per new DRI priority, worker next investigates T187 rather than expanding covariance immediately.
