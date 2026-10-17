@@ -117,3 +117,24 @@ flag and object counter is stored in pilot.json. These are extension-operator
 controls, not an accuracy estimate or wall-time scaling claim. Only6 of the
 18 crossed(h,u,j) cases use the actual target value of the defining prefix.
 No full outer/spatial estimator has been run or declared competitive.
+
+## Same-probe interpolation discriminator, frozen before measurement
+TASKS scope update1d0362c published. Evaluate the original h9 stage2-to-stage3
+continuation on the SAME18 saved(h,u,j) probes; use exactly the previous
+squared-coordinate stage3 grid and original scalar Gaussian interpolation
+operator. For each label, terminal grid values integrate the last fresh input
+exactly. Apply the first fresh-input below/above matrices; with two inputs
+remaining the resulting values are low[:,0] and
+(low[:,1]+high[:,0])/2. No fitted combination or final-accuracy extrapolation.
+
+Check the input states against the stage2 box and both scalar support
+endpoints after the next transition against the stage3 box. Reject any
+out-of-domain point explicitly, without clamping or extrapolation. Constant
+and duplicate outputs and positive hidden/input rescaling must pass before
+the trained comparison. Frozen metrics: max/mean absolute discrepancy and
+per-label errors for each rank need, plus the six target-consistent probes
+separately. Every probe remains visible; no selection on favorable error.
+The reference is the already measured pair primitive, reused only for this
+diagnostic, with its source hashes and prior CPU retained. New baseline
+setup/operator/query CPU is recorded separately, not a fresh paired timing
+experiment. No new grid/threshold/model/noise nodes or full transport run.
