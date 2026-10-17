@@ -63,7 +63,30 @@ reference reports QUADPACK roundoff/nonconvergence; its message and error
 estimate remain explicit in controls.json. It is a numerical diagnostic,
 not a converged or certified reference. The analytic Wh0 and partition/tie
 controls do not depend on this adaptive scalar reference. Full control CPU
-approximately2.1 seconds. No trained query before independent source review.
+approximately1.51 seconds on the final recorded run. No trained query before
+independent source review.
+
+## Nine-probe result and frozen nonzero-prefix check
+Independent source/law/comparator review70f2b21 passes; its separate
+identity-memory nontrivial calculation agrees to1.12e-16. The old comparator
+also passes Wh0 analytic controls to1.12e-16 in .0213CPU. The frozen9 trained
+probes complete in .0441CPU. An initial serialization error (builtin abs on
+a list) and its unchanged-query rerun are preserved explicitly.
+
+Swapped axes agree to1.12e-16. All source and complete image supports lie
+inside the old grids. Of the6 untied rank-consistent values,5 agree to1.12e-16;
+the exception x0=0,u=1,need1 gives exact pair .59696485871 versus old
+.46132425722, difference-.13564060149. Exact zero is a special prefix and
+does not by itself establish a positive-mass interpolation error. Other
+conditional need flags remain extension diagnostics, never population error.
+
+Scope update c50b34f pushed before the follow-up: evaluate exactly two
+nonzero prefixes x0=-1/4,+1/4 with u=1. Both need1 are rank-consistent.
+Compare old/new values, swapped axes and the independent direct scalar
+recursion. No additional offsets, tuning or outer integration. Preserve any
+scalar nonconvergence explicitly and do not promote its error estimate to
+a certificate. This discriminates a zero-state artifact from discrepancies
+away from zero; it still cannot quantify full population bias.
 
 ## Compute accounting
 One thread, 2GB, review lock and <=20CPU per bounded control/panel phase.
