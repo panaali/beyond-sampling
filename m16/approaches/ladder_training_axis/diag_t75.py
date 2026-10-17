@@ -4,7 +4,7 @@ For zoo seed s at rung k, on n copies of a DEV noise seed (default 0; never the 
   s3only  = eps (0, 0.1): every cutting step-2 gate resolved, only step-3 gates frozen
   s2only  = eps (0.1, 0): only step-2 gates frozen
   exact0  = eps (0, 0): every cutting gate resolved (should equal exact.py)
-  margin  = rule 'margin' (est75's margin-aware step-3 impact, from T85/R3; NOT the frozen recipe)
+  margin  = rule 'margin' (LIVE understand_m43/est75.py margin-aware step-3 rule = RECIPE85, T85/R3; NOT the frozen recipe)
 and report MSE ratio vs sampling at each variant's own ops.
 usage: python diag_t75.py k s [n=64] [noise_seed=0] [variants]"""
 import sys
@@ -26,7 +26,7 @@ def run(k, s, n=64, ns=0, names=None):
     for nm in (names or VARIANTS):
         e, o = [], []
         for m in ms:
-            r, ops, _ = lt.t75(m, VARIANTS[nm]); e.append(r); o.append(ops)
+            r, ops, _ = lt.t75(m, VARIANTS[nm], lt.live_est75() if nm == 'margin' else None); e.append(r); o.append(ops)
         e = np.array(e) - tr; om = np.mean(o)
         out[nm] = dict(ratio=float(np.mean(e ** 2) / (pq / (om / lt.OPS_PER_SAMPLE))), rms=float(np.sqrt(np.mean(e ** 2))),
                        bias=float(e.mean()), max_abs=float(np.abs(e).max()), ops=float(om), errs=e.tolist())

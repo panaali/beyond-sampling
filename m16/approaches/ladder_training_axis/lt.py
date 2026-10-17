@@ -26,7 +26,7 @@ for d in (os.path.join(APP, "arc_m43_repro"), os.path.join(APP, "understand_m43"
         sys.path.append(d)
 
 import exact as EX  # noqa: E402
-import est75 as E75  # noqa: E402
+import est75_e37 as E75  # noqa: E402  (pinned copy of understand_m43/est75.py @ d406c17; bit-identical to live RECIPE on 140 models)
 from m43 import Ops, OPS_PER_SAMPLE  # noqa: E402
 from zoo43 import noisy_copies  # noqa: E402
 import rtruth as RT  # noqa: E402
@@ -70,10 +70,17 @@ def regions(m):
     return RT.exact(m)[1]
 
 
-def t75(m, recipe=None):
-    E75.STATS.update(cut=0, resolved=0, cells=0)
-    o = Ops(); r = E75.est75(m, o, **(recipe or E75.RECIPE))
-    return r, o.n, dict(E75.STATS)
+def t75(m, recipe=None, mod=None):
+    """mod=None: the pinned E37 copy (frozen RECIPE); mod=live_est75() for later rules (margin, T85/T112)."""
+    M = mod or E75
+    M.STATS.update(cut=0, resolved=0, cells=0)
+    o = Ops(); r = M.est75(m, o, **(recipe or E75.RECIPE))
+    return r, o.n, dict(M.STATS)
+
+
+def live_est75():
+    import est75
+    return est75
 
 
 def f2l(m, look=3):
