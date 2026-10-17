@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "case": "injected_rank_ambiguity",
+      "error_type": "AmbiguousRank",
+      "partial_stats": {
+        "order": 16,
+        "cost": {
+          "known_arithmetic_upper_bound": 123,
+          "parts": {
+            "deliberate_test_work": 123
+          },
+          "black_box_kernels": [],
+          "events": {},
+          "validation_kernel_calls": {}
+        },
+        "cpu_seconds": 1.5774000000023936e-05,
+        "failure_kind": "numerical_ambiguity"
+      }
+    },
+    {
+      "case": "unsupported_zero_input",
+      "error_type": "ValueError",
+      "partial_stats": {
+        "order": 16,
+        "cost": {
+          "known_arithmetic_upper_bound": 684,
+          "parts": {
+            "module_bitset_setup": 384,
+            "root_gate_setup": 300
+          },
+          "black_box_kernels": [],
+          "events": {},
+          "validation_kernel_calls": {}
+        },
+        "cpu_seconds": 0.006496071999999992,
+        "failure_kind": "invalid_or_unsupported_input",
+        "advisory_budget": 1
+      }
+    }
+  ],
+  "cpu_seconds": 0.006567788000000019,
+  "package_import_succeeded": true
+}

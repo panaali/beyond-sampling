@@ -51,6 +51,7 @@ def main():
    row.update(accuracy=p,difference=difference,within_combined_integration_bounds=consistent,stats=stats,affine_only_sampling_variance=sampling_variance,integration_bound_squared_over_sampling_variance=stats['integration_only_bound']**2/sampling_variance)
   except Exception as exc:
    row.update(error_type=type(exc).__name__,error=str(exc))
+   if hasattr(exc,'partial_stats'):row['partial_stats']=exc.partial_stats
   row['evaluation_cpu_seconds']=time.process_time()-begin;output['rows'].append(row);output['total_cpu_seconds']=time.process_time()-start
   (HERE/'noise_checks.json').write_text(json.dumps(output,indent=2)+'\n')
   print(json.dumps({k:row[k] for k in ('name','accuracy','difference','within_combined_integration_bounds','error_type','error') if k in row}),flush=True)

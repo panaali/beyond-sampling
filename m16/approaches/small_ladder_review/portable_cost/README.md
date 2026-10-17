@@ -100,3 +100,13 @@ flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/pytho
 
 ### Cycle 6 frozen interface robustness
 Review gap: an explicit rank failure must retain its already-spent work, and importing the public adapter as a repository package must not require modifying sys.path. Preserve the original exception class, attach partial cost/CPU metadata, and save it in future noisy-case reports. Two falsifiers: package import from repository root should succeed; a deliberately injected rank ambiguity after a known charge must propagate unchanged with that charge present. Also test the existing zero-input unsupported-case rejection through the real path. These are interface/primitive checks only, not additional model sweeps or a change in accepted geometry.
+
+### Cycle 6 results
+Package import and both failure-cost checks passed in0.0066 CPU seconds. An injected `AmbiguousRank` preserves its class and123 already-charged operations; actual zero-input rejection preserves `ValueError` and684 charged operations. Exceptions expose `partial_stats`, including failure category, component ledger and CPU. The public tuple adapter additionally records its advisory budget. An invalid/unsupported input is explicitly distinct from numerical ambiguity; there is no budget-exhaustion state because this fixed-rule adapter does not promise a hard budget cap. Future noisy-case failures are saved with this partial metadata.
+
+Successful production arithmetic and estimates are unchanged. The default DD source intentionally remains `/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py`, the audited source used by the saved runs. `calculate(dd_path=...)` accepts an explicit alternative location and records its source hash, but a different source revision requires fresh accounting review. This avoids silently substituting the older DD implementation present in this isolated worktree. Package imports themselves no longer require sys.path changes.
+
+Reproduce from the repository root under the same resource setup:
+```
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python -m m16.approaches.small_ladder_review.portable_cost.check_failures
+```

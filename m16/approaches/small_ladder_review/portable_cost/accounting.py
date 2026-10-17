@@ -105,7 +105,10 @@ def instrument_dd(path,audit,rank_mode='svd',validate_rank=False):
   if rank_mode=='svd':
    audit.kernel('matrix_rank_SVD',M.shape)
    return rawrank(M,ops)
-  from bounded_rank import bounded_rank
+  try:
+   from .bounded_rank import bounded_rank
+  except ImportError:
+   from bounded_rank import bounded_rank
   value=bounded_rank(M,audit);audit.events['bounded_rank_calls']+=1
   if validate_rank:
    expected=rawrank(M,ops);audit.validation_kernels['matrix_rank_SVD']+=1
@@ -192,8 +195,8 @@ def simplices(dd,R,Z,ops,audit):
 def enumerate_correct(model,dd_path,audit,rank_mode='svd',validate_rank=False):
  dd=instrument_dd(dd_path,audit,rank_mode,validate_rank);ops=dd.Ops();counts=[0]*4;rays=[];cells=0
  H=len(model[0]);assert H in (2,4) and len(model[2])==4
- if np.all(model[0]==0):raise ValueError('zero-input weights require separately proved special case')
  audit.add('root_gate_setup',100*H+100)
+ if np.all(model[0]==0):raise ValueError('zero-input weights require separately proved special case')
  for cell in dd.iter_cells(model,ops,counts):
   cells+=1;good,_=outcome(dd,cell,model,ops,audit)
   for R,Z in good:rays.extend(simplices(dd,R,Z,ops,audit))
