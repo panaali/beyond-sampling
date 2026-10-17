@@ -14,7 +14,7 @@ Source inventory found `_cuts` concatenates plus roots for all columns followed 
 Bounded H4T4 evidence/source phase complete and independently reviewed; shared repair and complete cost closure are separate Ready tasks T182/T183. T115 completed handoff71d71050/reviewa558c8a9; k29 continuation remains Ready.
 
 ## Results
-Bounded verified findings appear below. Wider saved-data results are in WIDER_RESULTS.md; independent review of that continuation is pending.
+Bounded verified findings appear below. Wider saved-data results are in WIDER_RESULTS.md; independent review292b54cc passes for that continuation.
 
 ## Compute accounting
 Read-only source/data inventory, finite arithmetic, beta inversion and small analytic circle-root controls only. One thread,2GB, <=20CPU review lane. No new model/reference/MC runs. Inherited native96 counts stay labeled; inspect source expressions and sampler convention before any same-unit conclusion.
@@ -57,4 +57,6 @@ Freeze all75 existing H4/H5/H6 T4 models and only h64 for this wider comparison.
 No model, reference, MC, checkpoint, source instrumentation or quadrature replay; no acceptance of wider rung advancement. H6 was incomplete at the earlier snapshot and is complete only in this pinned continuation. Stop/preserve metadata/provenance inconsistencies. Independent raw arithmetic review precedes conclusions.
 
 ## Wider saved-data checkpoint
-All75 frozen cases and45 group contractions are saved in wider_audit.json. WIDER_RESULTS.md distinguishes raw, clamped, finite-reference and simultaneous-truth-box metrics, clean/noise/pooled groups, and uniform versus matched native budgets. No new models or MC inputs. Three clean raw point ratios exceed1, but their simultaneous lower bounds remain below1; preserve these exceptions alongside all pooled point ratios below1. Independent continuation review pending.
+All75 frozen cases and45 group contractions are saved in wider_audit.json. WIDER_RESULTS.md distinguishes raw, clamped, finite-reference and simultaneous-truth-box metrics, clean/noise/pooled groups, and uniform versus matched native budgets. No new models or MC inputs. Three clean raw point ratios exceed1, but their simultaneous lower bounds remain below1; preserve these exceptions alongside all pooled point ratios below1. Independent continuation review292b54cc passes.
+
+The full bounded T178 evidence phase is complete, including wider saved-data audit51d5ce1a and independent292b54cc. Shared root-mask adoption remains T182; native cost remains separately owned T183. All statistical and implementation qualifications above remain.
