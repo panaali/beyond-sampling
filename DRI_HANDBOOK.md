@@ -16,7 +16,8 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   on every trained seed and noisy copy of M_4,3 (independently confirmed, H-U1/H-U2) and of (H,T) = (5,3), (6,3),
   (8,3) (E43, review T113 unfinished). Cells visited / linear regions fell 4.8 -> 2.0 from H=4 to 8 (H-U4) — the
   only hint so far that cost can grow slower than the region count.
-- **Decisive question answered (E45, unverified): no.** Along T at H=8 the recipe's cells/regions grow 2.8 -> 5.4 -> 33
+- **Decisive question answered (E45 corrected by E46/E48, unverified): accuracy yes, cost no.** (8,4) passes after the
+  mass-bug fix; (8,5) is accurate but costs 2.2e11 ops; M_16,10 projects to >=1e17 ops. Earlier wording: Along T at H=8 the recipe's cells/regions grow 2.8 -> 5.4 -> 33
   (T=3,4,5); (8,4) loses to sampling (MSE ratio 3-48); M_16,10 projects to >=1e15 ops. Also: estT's exact mode has a
   leaf-mass bug at T>=4 (T131).
 - **ARC's own position (public, 2026-08-17):** "not much closer to succeeding at the challenge". Their M_4,3

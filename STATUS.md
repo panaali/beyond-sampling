@@ -50,8 +50,8 @@ squared error under ARC's protocol, where ARC's own estimators were 2.4-10x wors
 yet transfer to the other four (T75), and the ladder to bigger models is T73.
 
 **Correction (E46):** the (8,4) loss in E45 was a bug in the 4-D probability calculation; with it fixed the recipe
-**passes (8,4)** on all 5 seeds and noisy copies (MSE ratio <= 0.27). Still open: the number of cells grows faster than
-the number of regions along T. Earlier text: the recipe at (8,4) appeared to lose to sampling (MSE ratio 3-48) and its cells grow faster than the number of
+**passes (8,4)** on all 5 seeds and noisy copies (MSE ratio <= 0.27). At (8,5) it is still accurate (error 0.0002 pp, seed 0) but costs 2.2e11 operations; the cost
+grows ~250-5000x per extra input, so **M_16,10 projects to >=1e17 operations (E48): the challenge remains unsolved**. Earlier text: the recipe at (8,4) appeared to lose to sampling (MSE ratio 3-48) and its cells grow faster than the number of
 linear regions (cells/regions 2.8, 5.4, 33 for T=3,4,5). Projected cost for M_16,10 is >=1e15 operations, so it was not
 run. **The challenge remains unsolved**; the route needs a new idea that avoids following every gate switch (see
 [DRI_HANDBOOK.md](DRI_HANDBOOK.md) section 6).
