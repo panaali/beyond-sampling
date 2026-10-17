@@ -200,3 +200,57 @@ cost or used to prove a speed advantage. Save each model before continuing;
 <=100CPU total this cycle, primary lock,2GB. If time bound approaches, report
 partial panel rather than select models. No parameter or scale repair chosen
 based on results; failed canonicalization is not used.
+
+## Thirty-model discriminator result
+[measured] All30 deferred-but-retained outputs agree with the unmodified
+recipe within1e-12. Omission lowers declared arithmetic proxy cost in every
+case, by2.13% to12.29%. Six estimates change by more than1e-12; the largest
+change is+4.55968358478e-5 on H4seed4's noisy copy, so this is demonstrably an
+approximation. Do not report it as an exact rewrite.
+
+| H, ten models each | Mean per-model cost saving | Reference mean proxy | Omission mean proxy | Maximum omission absolute bias | Worst omission proxy sampling ratio |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 4 | 3.7021% | 197463.1 | 190193.3 | .00260350467 | .0981455 |
+| 5 | 7.0007% | 285083.0 | 265392.4 | .000191556234 | .00193254 |
+| 6 | 8.3396% | 393873.6 | 361017.8 | 2.24543556e-7 | 4.27064e-9 |
+
+Every method has ratio<1 on all30 cases under the declared incomplete proxy.
+That includes the original, omission, cap and full trace; this does not
+establish improvement on the full ladder protocol. Capped mean proxies are
+349549/500539/666361 for H4/5/6: the accuracy rescue is costly and does not
+remove every changed estimate. All four alternatives remain in panel.json.
+Full LOOK64 reaches the clamp on all16,196 forward traces and matches the
+separate numerical polygon truth within3.00e-15. Its mean proxies are
+200179/300751/433717, demonstrating that its cost can be close to LOOK2 in
+this dimension. These facts do not extend to larger T or certify predicates.
+
+Six omission changes (estimate minus reference):
+H4seed1 noisy +5.74861018e-6; H4seed4 original +2.04333996e-5;
+H4seed4 noisy +4.55968358e-5; H5seed1 original +4.73963316e-8;
+H5seed2 original +8.12675705e-10; H6seed2 noisy +3.06388821e-8.
+The remaining24 changes are<=1e-12. This keeps tiny introduced errors visible
+rather than declaring methods equivalent from rounded aggregate values.
+
+Panel CPU22.495051669 including imports,209288KiB RSS. Public15-checkpoint
+acquisition took1.2906 wall seconds; paths, URLs and exact hashes are saved.
+No model inputs were sampled. The experiment's noisy weights are fixed
+benchmark instances, not estimator sampling. Initial pilot and scale control
+add4.923612167 measured CPU (one failed import attempt remains unmeasured).
+The source family setup is still an uncharged operation-count limitation.
+
+Reproduce panel.py under the primary-lock command above; checkpoint URLs and
+hashes are in panel_checkpoint_manifest.json. The small summary is a direct
+aggregation of panel.json, retaining per-H mean savings, worst errors/ratios,
+all changed cases, exact-control parity and clamp counts. Independent
+numerical summary/control review requested from small_h2_34.
+
+## Handoff and remaining adoption requirements
+[measured] This finite confirmation-order omission provides a modest cost
+saving on30 fixed models, with small but real added error. [inferred] It is a
+candidate local optimization, not a route around the observed per-trace H
+cost or proof that all gate-order constraints can be dropped. The full
+original T95 noise panel, complete portable cost, inherited LOOK2 scale
+sensitivity, and DRI recipe adoption remain open. No shared code was changed.
+Impact-based freezing and a rigorously bounded omitted-region method remain
+plausible distinct alternatives; the failed angular/canonical rescues do not
+retire either family.
