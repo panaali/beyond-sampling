@@ -39,20 +39,29 @@ class Ops:
 NW = 2              # 64-bit words per tight-set bitset (constraint ids < 128)
 
 
+_BITS = np.zeros((64 * NW, NW), np.uint64)
+for _c in range(64 * NW):
+    _BITS[_c, _c // 64] = np.uint64(1) << np.uint64(_c % 64)
+
+
 def bit(c):
-    z = np.zeros(NW, np.uint64)
-    z[c // 64] = np.uint64(1) << np.uint64(c % 64)
-    return z
+    return _BITS[c]
 
 
 def clip(R, Z, a, cid, ops, want=(True, True)):
     """Split cone (rays R (k,d) unit rows, tight bitsets Z (k,NW)) by a.x >= 0 (constraint id cid).
     Returns (inside, outside), each (R, Z) or None if that side is not full-dimensional."""
     k, d = R.shape
-    a = a / np.sqrt(a @ a); ops.add(3 * d + TRANS, "clip")
-    v = R @ a; ops.add(2 * k * d, "clip")
-    pos = v > TOL; neg = v < -TOL; zer = ~(pos | neg)
-    b = bit(cid)
+    a = a / math.sqrt(a @ a)
+    v = R @ a; ops.add(3 * d + TRANS + 2 * k * d, "clip")
+    pos = v > TOL; neg = v < -TOL
+    npos = pos.sum(); nneg = neg.sum()
+    if npos + nneg == k and (npos == 0 or nneg == 0):      # fast path: no split, no tight rays
+        if nneg == 0:
+            return ((R, Z) if want[0] else None), None
+        return None, ((R, Z) if want[1] else None)
+    zer = ~(pos | neg)
+    b = _BITS[cid]
     if not neg.any() or not pos.any():
         Zn = Z.copy(); Zn[zer] |= b
         if not neg.any():
