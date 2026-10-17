@@ -771,3 +771,25 @@ rank primitives pass derivation with cancellation guards. T27 observed-gate
 phase decomposition passes with active-block and complex-conjugation caveats.
 Details in spatial_transport_review.md and hidden_reference_review.md. No new
 engine, fitting, input sampling or numerical run.
+
+## Cycle 32 protocol: independent nonzero-history failure
+Freeze the T4 RMS .02 copy0 model and exact two-step prefix mean. Alternative1:
+the affine-region implementation causes the reported 3.6 percentage point
+bias; independently integrate direct two-step forward labels and elementary
+omitted-rank weights by product Gaussian quadrature, orders128/129 and256/257.
+Alternative2: deterministic prefix mean helps but an integration artifact hides
+it; run zero and exact-mean prefixes on the same quadrature. Unequal axis orders
+avoid placing positive quadrature mass on the input equality diagonal. This
+is a coarse independent failure check, not a certified surrogate reference.
+No new input sampling, fitting, region construction or production edits.
+Cycle32 Gaussian rules corroborate a >3pp surrogate bias, but drift .00257
+prevents the intended ~.001 numerical comparison. Preserve both results and
+freeze one distinct rule: product midpoint quadrature in uniform-CDF coordinates
+1024x1025 and2048x2049. This resolves normal-tail node spacing differently;
+no adaptive selection from the full-network reference.
+Cycle32 completed: distinct CDF-midpoint controls reproduce exact-mean surrogate
+.299902 versus full .263668, and its worsening from zero-prefix .294965.
+Author surrogate agreement~2e-5 suffices for this3.6pp failure. Gaussian drift
+retained; no precision certificate or broad history-family negative. Costs
+and source/tie review in mean_history_review.md. Corrected T91 historical
+CPU comparison to distinguish unmatched diagnostics from matched fresh runs.

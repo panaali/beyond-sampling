@@ -127,9 +127,10 @@ max difference1.71699e-7, endpoint error5.26865545e-5. The ambiguity is much
 smaller than the original uniform-to-split-log endpoint improvement2.0727e-5,
 but it remains a finite quadrature orientation effect, not exact symmetry.
 
-References and cutoff agree with the earlier marginal experiment. Saved n32
-CPU is.804784 for split log versus.438962 for source-order4 uniform and.282078
-for unsplit log. Therefore smaller error does not by itself establish an
+References and cutoff agree with the earlier marginal experiment. Historical n32
+CPU .804784/.438962/.282078 includes different diagnostics and is not a matched
+comparison. The owner later reports matched fresh-weight candidate costs
+.799/.880CPU versus uniform .190/.191CPU. Smaller error does not establish an
 end-to-end efficiency gain, much less the challenge criterion. These are
 marginal hidden/readout probabilities at step4, NOT second-largest-index
 network accuracy. Fresh-weight validation and target augmentation remain
