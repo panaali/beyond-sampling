@@ -78,3 +78,12 @@ Boundary/positive-volume confusion; first-index identical margins; scaling of
 floating LP proposals; nonbasic numerical dual support; exact integer bit growth;
 resource exhaustion; and mistaking selected mass or existence of two events for
 the quantitative error mass inside a mixed gate cone.
+
+## Frozen selected panel
+`select.py` persisted ten histories before any feasibility solve. Their total
+input mass is.4482031037438533, with.5517968962561467 outside the selected
+panel. This is selected mass, not resolved accuracy coverage. Selection costs
+.937495CPU including artifact/source setup; the complete gate partition is
+1.0000000000000002 with conditional quadrature bound5.79e-8. Every history,
+individual mass/bound and source hash is saved in selection.json. No correct
+mass or per-history error rate was used by selection.
