@@ -1,4 +1,4 @@
-# T73 / T88 / T91: climbing the understanding ladder (fibre-traced error wedges)
+# T73 / T88 / T93: climbing the understanding ladder (fibre-traced error wedges)
 
 ↑ [Approaches](../README.md) · [TASKS](../../../TASKS.md) · [INDEX](../../../INDEX.md) · [T63/T75 (M_4,3)](../understand_m43/README.md) · [ARC protocol (T36)](../arc_m43_repro/README.md)
 
@@ -13,7 +13,7 @@ copies. A second question is whether its cost scales with neurons, steps and bou
 the number of linear regions.
 
 **Short answer.**
-- **Rungs (4,3) re-run, (5,3) (T88) and (6,3) (T91) pass** with one frozen deductive recipe (F2L2). Every zoo seed
+- **Rungs (4,3) re-run, (5,3) (T88) and (6,3) (T93) pass** with one frozen deductive recipe (F2L2). Every zoo seed
   passes individually, as does every noisy group (ARC's absolute σ = 0.05, and the leaderboard's relative σ =
   0.0025-0.02). The worst single model has MSE ratio 0.15 (on M_4,3). On H ≥ 5 the estimate is exact to rounding
   on most models. M_8,3 also passes, but it is not a rung yet: H = 7 is missing from the zoo.
@@ -137,7 +137,7 @@ Commands:
 |---|---|---|---|---|---|---|---|---|---|
 | M_4,3 | 32 | 66 | 17.9k | 295k | 439 | 3.5e-2 / 3.4e-4 / 2.0e-5 / 1.5e-5 / 2.0e-6 / 3.9e-4 | 5/5 | 0.15 | base rung re-run: pass |
 | M_5,3 | 45 | 97 | 26.9k | 462k | 562 | 2.6e-3 / 2.9e-7 / ~0 / ~0 / ~0 / 4.4e-10 | 5/5 | <0.01 | **T88: pass** |
-| M_6,3 | 60 | 134 | 37.7k | 644k | 676 | ~0 / 2.5e-10 / ~0 / ~0 / ~0 / ~0 | 5/5 | <0.01 | **T91: pass** |
+| M_6,3 | 60 | 134 | 37.7k | 644k | 676 | ~0 / 2.5e-10 / ~0 / ~0 / ~0 / ~0 | 5/5 | <0.01 | **T93: pass** |
 | M_8,3 | 96 | 236 | 62.9k | 1.18M | 863 | 1.4e-10 / 3.2e-7 / ~0 / ~0 / ~0 / 4.5e-8 | 5/5 | <0.01 | data only (H = 7 rung missing) |
 
 "~0" means below 1e-20: the estimate equals the exact value to rounding. CPU time per model is 0.44-0.82 s (Python;
@@ -266,7 +266,7 @@ Not ruled out:
 | F0 fails on M_8,3 seeds and M_4,3/M_5,3 | gate switches inside the wedge make the frozen logits invent or miss wrong regions (shown on M_8,3 seed 3, x0 = x2 family) | F1: trace through gates | fixed for well-trained seeds |
 | F1 fails per model on M_5,3 seed 0 (ratio 1.47) and M_4,3 seeds | (b) wedges spilling across the clamp from the neighbouring boundary | F2: second trace from the clamp; first version had a bug dropping multi-piece intervals (fixed) | 5.4e-3 → 1.8e-3 on seed 0 |
 | F2 fails per model on M_4,3 seeds 1 and 4 (1.56) | (a) wedges separated from the boundary by a thin correct sliver | look-ahead L = 1, 2, 3 | L = 2: all pass; L = 3: exact on spot checks |
-| cost not better than enumeration | per-trace O(T·H) gate checks; at T = 3 traces ~H but regions ~H^1.8 | (not yet) incremental crossing order, gate pruning by impact (T75-style) | open (T93) |
+| cost not better than enumeration | per-trace O(T·H) gate checks; at T = 3 traces ~H but regions ~H^1.8 | (not yet) incremental crossing order, gate pruning by impact (T75-style) | open (T95) |
 | arc3.py (polygon half-chambers + lazy check) | lazy wrong-sliver checks explode (0.5-1.7M ops) | replaced by fibre coordinates | superseded |
 
 ## Proposed changes to shared code
