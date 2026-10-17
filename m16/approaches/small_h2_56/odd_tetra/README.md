@@ -14,10 +14,10 @@ First test identity endpoints (truth2*pi/3), equal endpoints (norm^-5/6), collin
 Alternative1: a sign/factor error can reproduce selected shapes accidentally; exact identity/equal controls and permutation invariance can falsify it. Alternative2: facet cancellation may erase the expected savings on thin trained cones; measure all rejection/fallback counts and compare against positive quadrature. Alternative3: per-call QR/cofactor setup may dominate despite fewer coordinates; record full cold CPU and scalar component costs, without equating wall speed with audited FPE.
 
 ## Status
-Initial primitive implementation and falsifiable controls pending. No solved or equal-compute claim.
+Initial controls, trained pilot and full three-model comparison completed. Independent asymmetric-thin review is pending. No solved or equal-compute claim.
 
 ## Results
-Pending.
+Full comparison in `full.json`, with costs and limitations below.
 
 ## Compute accounting
 Every numerical cycle acquires /workspace/work/codex-compute.lock, uses one thread and ulimit -v2500000, at most110CPU seconds, and node blocks<=65536. Explicitly authorized review work may use the separate review lock for<=20CPU seconds. Peak memory<=2GB. Initial controls use the compute lock. Total FPE remains unaudited until geometry/library/setup costs are counted.
@@ -44,3 +44,22 @@ The one-coordinate tetra method agrees with the old three-coordinate I5 rule at 
 
 ## Frozen full comparison and inner error allocation
 Before full trained runs, replace the unnecessarily strict universal tolerance by a fixed total positive-inner budget1e-7. Each cone receives1e-7/N; its uniform tetra absolute tolerance is that amount divided by C5*|detV|*sum(outer_weights). Positive weights guarantee the total propagated inner error<=1e-7. Root previously checked this same allocation algebra for T6. Retain the prior frozen geometry-only1e-4 outer-bound policy (Jacobi, centroid radial lower bound, finite order list, equal per-cone allocation), so old and new integration estimates are directly comparable. Rebuild all three model geometries cold, preserve every failure/cost and compare to their existing saved references. No pruning, new Monte Carlo or reference-derived parameters. Use the same per-cone orders in both tetra and I5 cost comparisons; do not select models or orders by outcome.
+
+## Full trained comparison
+[measured] All three cold geometry rebuilds finish. Estimates for base, relative noise .0025 and .02 are respectively .27923737131493037, .31063601432908156 and .32506108240958753. Differences from the saved independent/refined references are at most 4.104e-11; differences from the old I5 rule at identical outer orders are at most 5.585e-11. Base full gate mass is .9999999999977828. These are validation differences, not certified arithmetic errors.
+
+| Noise | Outer quadrature bound | Positive inner bound | Integration CPU | Cold CPU including checkpoint load | Tetra calls | Positive fallbacks | Fallback I5 nodes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 2.19040e-5 | 2.03074e-9 | .689 | 2.741 | 44,514 | 7,565 | 289,888 |
+| .0025 | 2.14788e-5 | 9.41838e-10 | 1.182 | 3.959 | 87,762 | 12,568 | 285,936 |
+| .02 | 2.09620e-5 | 1.12957e-9 | 1.265 | 4.365 | 88,146 | 14,423 | 359,680 |
+
+Cold CPU includes geometry, bound planning and integration, charging each case the same measured .840 CPU checkpoint loading. Validation work is separate. Geometry's recorded omitted-mass upper bounds are below 3.84e-14, conditional on its floating classifications. Compared with the pilot, allocating the inner tolerance by positive contribution substantially reduces fallback work. Nevertheless, 14–17% of calls still fall back. The old I5 rule uses 7.13/15.82/14.18 million nodes at the same orders; tetra calls are substantially more expensive individually.
+
+Every tetra call includes QR and SVD; attempted analytic calls additionally include a 4x4 determinant, sixteen 3x3 cofactor determinants, plane projection and four atan2 calls. `full.json` retains all counts, including rejected attempts, fallback bound trials and fallback segment nodes. These library operations and geometry setup have not been converted to a complete scalar-operation upper bound, so total FPE remains infinite/unaudited. The heuristic cancellation test is not an interval arithmetic certificate, and the quadrature bounds do not cover geometry or analytic rounding.
+
+Reproduce from the repository root:
+```sh
+ulimit -v 2500000
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_h2_56/odd_tetra/full.py
+```

@@ -43,7 +43,8 @@ def inverse_fifth_tetra(vertices,known_plane_normal=None,absolute_tolerance=1e-1
  if original.shape[-2:]!=(4,5):raise ValueError('need (...,4,5) T5 endpoint arrays')
  shape=original.shape[:-2];vv=original.reshape(-1,4,5);number=len(vv)
  if not np.isfinite(vv).all() or np.any((vv.min(axis=1)<0)&(vv.max(axis=1)>0)):raise ValueError('finite shared-orthant endpoints required')
- if absolute_tolerance<=0:raise ValueError('positive tolerance required')
+ tolerances=np.broadcast_to(np.asarray(absolute_tolerance,float),shape).reshape(-1)
+ if np.any(tolerances<=0):raise ValueError('positive tolerance required')
  normal=None;residual=0.
  if known_plane_normal is not None:
   normal=np.broadcast_to(np.asarray(known_plane_normal,float),shape+(5,)).reshape(-1,5)
@@ -76,6 +77,6 @@ def inverse_fifth_tetra(vertices,known_plane_normal=None,absolute_tolerance=1e-1
   values[ids[accept]]=estimate[accept]/scale[ids[accept]]**5;good[ids[~accept]]=False;rejections=int((~accept).sum())
  nodes=trials=0
  for i in np.flatnonzero(~good):
-  values[i],quad_bounds[i],count,attempt=positive_fallback(vv[i],absolute_tolerance);nodes+=count;trials+=attempt
+  values[i],quad_bounds[i],count,attempt=positive_fallback(vv[i],float(tolerances[i]));nodes+=count;trials+=attempt
  stats=dict(tetrahedra=number,analytic_tetrahedra=int(good.sum()),positive_fallbacks=int((~good).sum()),fallback_segment_nodes=nodes,fallback_bound_trials=trials,qr_factorizations=number,svd_condition_estimates=number,determinants4=attempts,cofactor_determinants3=16*attempts,linear_solves=attempts if normal is None else 0,known_normal_projections=attempts if normal is not None else 0,facet_atan2_calls=4*attempts,numerical_screen_rejections=rejections,minimum_singular_ratio=float(ratio.min()),maximum_heuristic_relative_roundoff=maxscreen,known_plane_residual=residual,quadrature_error_bounds=quad_bounds.reshape(shape),quadrature_error_bound_sum=float(quad_bounds.sum()),maximum_quadrature_error_bound=float(quad_bounds.max()),roundoff_certified=False,dependencies=DEPENDENCIES)
  return values.reshape(shape),stats
