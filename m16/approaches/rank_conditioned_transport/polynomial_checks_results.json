@@ -1,0 +1,288 @@
+{
+  "intervals": [
+    {
+      "lo": -6.0,
+      "hi": 6.0,
+      "estimate": 0.5049999986389935,
+      "reference": 0.5049999986389935,
+      "error": 0.0,
+      "relative_error": 0.0,
+      "quadrature_only_bound": 0.0
+    },
+    {
+      "lo": -6.0,
+      "hi": -5.999999999,
+      "estimate": 3.4024946875106527e-18,
+      "reference": 3.4024946875106558e-18,
+      "error": -3.0814879110195774e-33,
+      "relative_error": -9.05655465776514e-16,
+      "quadrature_only_bound": 5.392844585881392e-119
+    },
+    {
+      "lo": -0.1,
+      "hi": 0.1,
+      "estimate": 0.03982916310232227,
+      "reference": 0.03982916310232226,
+      "error": 6.938893903907228e-18,
+      "relative_error": 1.7421641238308249e-16,
+      "quadrature_only_bound": 1.961805100036018e-34
+    },
+    {
+      "lo": 0.25,
+      "hi": 0.250000000001,
+      "estimate": 1.9538391044811928e-13,
+      "reference": 1.9538391044811925e-13,
+      "error": 2.524354896707238e-29,
+      "relative_error": 1.291997325121372e-16,
+      "quadrature_only_bound": 2.2547972404106084e-162
+    },
+    {
+      "lo": 5.5,
+      "hi": 6.0,
+      "estimate": 1.3903344162246136e-08,
+      "reference": 1.3903344162246153e-08,
+      "error": -1.6543612251060553e-23,
+      "relative_error": -1.1899016566089127e-15,
+      "quadrature_only_bound": 0.0
+    },
+    {
+      "lo": 1.0,
+      "hi": 1.2,
+      "estimate": 0.02301115045683818,
+      "reference": 0.02301115045683818,
+      "error": 0.0,
+      "relative_error": 0.0,
+      "quadrature_only_bound": 1.1394264242027157e-19
+    },
+    {
+      "lo": 0.0,
+      "hi": 1.0,
+      "estimate": 0.17430867425966423,
+      "reference": 0.17430867425966426,
+      "error": -2.7755575615628914e-17,
+      "relative_error": -1.5923232583527065e-16,
+      "quadrature_only_bound": 0.0
+    },
+    {
+      "lo": -2.0,
+      "hi": -1.99,
+      "estimate": 0.00026176127631848725,
+      "reference": 0.0002617612763184872,
+      "error": 5.421010862427522e-20,
+      "relative_error": 2.0709751032202836e-16,
+      "quadrature_only_bound": 2.7220439151433778e-33
+    }
+  ],
+  "conditional_control": {
+    "lower": [
+      [
+        0.10189545335621834,
+        1.0000000000000002
+      ],
+      [
+        0.10189545335621834,
+        1.0000000000000002
+      ]
+    ],
+    "upper": [
+      [
+        0.157108428607058,
+        0.9999999999999999
+      ],
+      [
+        0.157108428607058,
+        0.9999999999999999
+      ]
+    ],
+    "references": [
+      0.10189545335621833,
+      0.15710842860705804
+    ],
+    "maximum_error": 2.7755575615628914e-17,
+    "quadrature_only_bound": 1.0240973818788161e-24
+  },
+  "constant_controls": [
+    {
+      "T": 3,
+      "estimate": 0.33333333333333326,
+      "exact": 0.3333333333333333,
+      "error": -5.551115123125783e-17,
+      "stats": {
+        "cpu_seconds": 0.02400890499999997,
+        "work": {
+          "hidden_grid_points_constructed": 76.0,
+          "target_rule_nodes": 16,
+          "conditional_inverse_normal_calls": 16.0,
+          "scalar_gate_roots": 800.0,
+          "scalar_affine_steps": 400.0,
+          "scalar_readout_margins": 1856.0,
+          "scalar_terminal_queries": 400.0,
+          "scalar_gate_pieces": 928.0,
+          "scalar_correct_intervals": 928.0,
+          "normal_cdf_interval_queries": 1856.0,
+          "polynomial_grid_crossings_constructed": 4000.0,
+          "polynomial_sorts": 400.0,
+          "polynomial_intervals": 3648.0,
+          "polynomial_centered_moment_triples": 3648.0,
+          "polynomial_cdf_values": 7296.0,
+          "polynomial_endpoint_density_exponentials": 7296.0,
+          "polynomial_expm1_calls": 3648.0,
+          "polynomial_basis_mixes": 18048.0,
+          "polynomial_positive_fallback_intervals": 592.0,
+          "polynomial_positive_fallback_nodes": 7104.0,
+          "polynomial_moment_screen_failures": 0.0,
+          "polynomial_value_screen_failures": 0.0,
+          "polynomial_conditional_rows": 800.0,
+          "interpolators_built": 16.0,
+          "interpolation_queries": 16.0
+        },
+        "hidden_order": 5,
+        "mesh_power": 2.0,
+        "target_order": 8,
+        "target_rule": "split_sign",
+        "input_order": null,
+        "transition": "polynomial",
+        "transition_quadrature_only_bound": 3.7479799954080513e-19,
+        "limit": 6.0,
+        "possible_labels": [
+          0
+        ],
+        "contributions": {
+          "0": 0.33333333333333326
+        },
+        "stage_bounds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            4.199999999999999,
+            2.4000000000000004
+          ],
+          [
+            7.559999999999999,
+            5.4
+          ],
+          [
+            10.247999999999998,
+            8.772
+          ]
+        ],
+        "omitted_input_mass_bound": 5.919525869479969e-09,
+        "input_tail_only_interval": [
+          0.33333333136015797,
+          0.33333333727968395
+        ],
+        "total_error_certified": false,
+        "classification": "deterministic quadrature and 2D interpolation with analytic scalar terminal"
+      }
+    },
+    {
+      "T": 7,
+      "estimate": 0.1428571428571428,
+      "exact": 0.14285714285714285,
+      "error": -5.551115123125783e-17,
+      "stats": {
+        "cpu_seconds": 0.05199688499999999,
+        "work": {
+          "hidden_grid_points_constructed": 176.0,
+          "target_rule_nodes": 16,
+          "conditional_inverse_normal_calls": 16.0,
+          "scalar_gate_roots": 800.0,
+          "scalar_affine_steps": 400.0,
+          "scalar_readout_margins": 4416.0,
+          "scalar_terminal_queries": 400.0,
+          "scalar_gate_pieces": 736.0,
+          "scalar_correct_intervals": 736.0,
+          "normal_cdf_interval_queries": 1472.0,
+          "polynomial_grid_crossings_constructed": 20000.0,
+          "polynomial_sorts": 2000.0,
+          "polynomial_intervals": 13552.0,
+          "polynomial_centered_moment_triples": 13552.0,
+          "polynomial_cdf_values": 27104.0,
+          "polynomial_endpoint_density_exponentials": 27104.0,
+          "polynomial_expm1_calls": 13552.0,
+          "polynomial_basis_mixes": 58248.0,
+          "polynomial_positive_fallback_intervals": 1466.0,
+          "polynomial_positive_fallback_nodes": 17592.0,
+          "polynomial_moment_screen_failures": 0.0,
+          "polynomial_value_screen_failures": 0.0,
+          "polynomial_conditional_rows": 4000.0,
+          "interpolators_built": 16.0,
+          "interpolation_queries": 16.0
+        },
+        "hidden_order": 5,
+        "mesh_power": 2.0,
+        "target_order": 8,
+        "target_rule": "split_sign",
+        "input_order": null,
+        "transition": "polynomial",
+        "transition_quadrature_only_bound": 4.505024220515443e-19,
+        "limit": 6.0,
+        "possible_labels": [
+          0
+        ],
+        "contributions": {
+          "0": 0.1428571428571428
+        },
+        "stage_bounds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            4.199999999999999,
+            2.4000000000000004
+          ],
+          [
+            7.559999999999999,
+            5.4
+          ],
+          [
+            10.247999999999998,
+            8.772
+          ],
+          [
+            12.398399999999997,
+            12.3444
+          ],
+          [
+            14.118719999999998,
+            15.989640000000001
+          ],
+          [
+            15.494975999999998,
+            19.614420000000003
+          ],
+          [
+            16.5959808,
+            23.151973200000008
+          ]
+        ],
+        "omitted_input_mass_bound": 1.3812226917764292e-08,
+        "input_tail_only_interval": [
+          0.14285714088396753,
+          0.14285715469619453
+        ],
+        "total_error_certified": false,
+        "classification": "deterministic quadrature and 2D interpolation with analytic scalar terminal"
+      }
+    }
+  ],
+  "primitive_work": {
+    "polynomial_intervals": 20.0,
+    "polynomial_centered_moment_triples": 20.0,
+    "polynomial_cdf_values": 40.0,
+    "polynomial_endpoint_density_exponentials": 40.0,
+    "polynomial_expm1_calls": 20.0,
+    "polynomial_basis_mixes": 168.0,
+    "polynomial_positive_fallback_intervals": 9.0,
+    "polynomial_positive_fallback_nodes": 108.0,
+    "polynomial_moment_screen_failures": 2.0,
+    "polynomial_value_screen_failures": 0.0,
+    "polynomial_grid_crossings_constructed": 20.0,
+    "polynomial_sorts": 2.0,
+    "polynomial_conditional_rows": 4.0
+  },
+  "total_cpu": 0.231768719
+}
