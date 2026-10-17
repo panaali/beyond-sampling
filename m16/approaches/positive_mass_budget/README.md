@@ -27,3 +27,5 @@ Named scalar arithmetic/comparison/transcendental counts correspond to executed 
 ## Claims / remaining alternatives
 [inferred] Separating-center bounds produce positive mass intervals without signed cancellation, conditional on exact arithmetic.
 [speculative] Interval shortcuts and small positive rules can reduce useful mass cost. Stronger geometric bounds, exact moments, stable determinants, subdivision and author endpoint repairs remain open if this finite variant fails.
+
+The exact-rational setup subset is the same predeclared16 quadratic indices used by T119:0,2115,4231,6346,3222,3219,3221,3224,5962,3251,3254,3836,2567,2577,5448,2020. It is not selected from new cost-study results. Known node-plan arithmetic is additionally18n³+3n per cold order for the implemented Duffy-coordinate/weight expressions; Legendre-rule generation remains separately timed/unaudited. Direct dot-product integrand count is39n³+1 including the final mass scale and exact reduction length; this refines the earlier39n³ convention.
