@@ -170,3 +170,30 @@ count; the author was notified before a full cost conclusion. Legendre
 rule generation remains separately unknown. Floating determinant/radial
 interval error and finite-order unresolved cases cannot be promoted to
 an exact bound or family-wide failure. Final corpus/count review pending.
+
+## T130 final count and moment identity audit
+
+`check_positive_budget_review.py` independently sums every stored row and
+checks kernel/selection formulas. After charging each executed pi-square
+constant expression, per-cone tolerance1e-7 returns6347 cones using3143
+quadratures and3204 intervals:89,513,307 named operations, mass error
++8.864729199e-6, summed bound.000119691583. Aggregate allocation1e-7/6347
+returns6315 cones (5461 quadratures,854 intervals), retaining32 finite-order
+unresolved cases:364,952,602 named operations, covered mass error
++5.27704927e-10 and bound1.59898999e-8. Counts include cold Duffy plans;
+model-free declared reusable plans may be free under leaderboard rule4.
+Legendre generation remains uncounted and floating intervals uncertified.
+These are finite implementation outcomes, not a positive-integration
+family impossibility or full portable cost certificate.
+
+`check_dirichlet_moments_review.py` independently enumerates all256 fourth
+index products and checks the55 Gram-quadratic coefficients exactly. For
+uniform simplex y and q=y^T G y, write s=sumG,t=trG,r=G1,d=diagG. Then
+E q=(s+t)/20 and
+E q^2=(s^2+2st+4||r||^2+t^2+2tr(G^2)+8d dot r+6||d||^2)/840.
+For q>=a>0, Jensen and Taylor with f''(q)<=6/a^4 imply
+mu^-2 <= E(q^-2) <= mu^-2+3Var(q)/a^4.
+Multiply by |detR|/(12*pi^2) for cone probability. Rejecting negative
+computed variance is necessary but insufficient for floating certification:
+a positive variance can underestimate after cancellation. The proposed
+moment shortcut requires separate frozen implementation/results review.

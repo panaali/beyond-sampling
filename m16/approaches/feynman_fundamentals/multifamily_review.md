@@ -43,3 +43,41 @@ raises rather than truncating. Checkpoint hash pinning was requested and
 added before measurements, independently of immutable old-result hashes.
 Rescue runs remain restricted to original nonconverged fits and retain
 failures/caps. No QR numerical fit results were independently rerun here.
+
+## Final active-set rescue and saved-run audit
+
+On a fixed neuron and direction, all ReLU breakpoints partition the line
+into quadratics. The implemented coefficients and crossing updates agree
+with direct expansion; endpoints and clipped stationary points give the
+real-arithmetic minimum. Long-double ranking followed by direct original
+loss checks on the best eight candidates plus endpoints guarantees only
+measured nonincrease, not a certified global line minimum under floating
+cancellation. The correction direction A^+(y-A beta) preserves the current
+active nullspace component, unlike replacing beta with A^+y. Both optimize
+the same fixed active least-squares objective but can follow different
+inactive patterns. Neither proves global network reconstruction optimality.
+
+`check_multifamily_final_review.py` independently joins raw saved records,
+without executing the author's summary or fitting again. Exactly90,25,14,3
+cells enter original, QR, active and correction stages, respectively;
+rescue keys equal the preceding stage's failed set. First-passing counts
+are65,11,11,3, totaling90. Every original threshold, coefficient shape,
+16 source/result hashes,803 nonincreasing saved steps, final stage/accuracy
+and gap arithmetic pass. Maximum final gradient/threshold is.9997099279.
+Recorded stage CPU sums to599.344223127, including repeated preparation;
+review CPU.0207. This audits stored gradient values and source logic, not
+independent recomputation of every fitted gradient. Ordinary floating
+first-order convergence remains distinct from global optimality.
+
+For iid continuous inputs, a predictor invariant under permutations of
+the first nine positions has accuracy at most1/5 on second-largest-index
+prediction. Conditional on the unordered first-nine values and the last
+value, the last index is identifiable as target exactly when m2<x9<m1;
+this event has probability1/10. Otherwise the true index is uniformly
+one of the first nine, so conditional success is at most1/9. Therefore
+accuracy <=1/10+(9/10)/9=1/5. Choosing index9 on that event and fixed index0
+otherwise attains the bound in the unrestricted invariant predictor class.
+Rank-only features followed by any fixed readout inherit this obstruction;
+attainability need not hold in the particular linear-ReLU parametrization.
+This exact scoped symmetry obstruction says nothing about position-aware
+compact descriptions or the ARC accuracy-estimation challenge.
