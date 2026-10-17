@@ -31,12 +31,20 @@ def to_real(a,M):
 
 
 class Space(dense.Space):
-    def __init__(self,normal_degree=8,tangent_degree=4,quadrature_order=64,optimized=True):
+    def __init__(self,normal_degree=8,tangent_degree=4,quadrature_order=64,optimized=True,vectorized=False):
         super().__init__(normal_degree,tangent_degree,quadrature_order,optimized=True)
         self.constant=0
         # The parent's small identity allocation is included in cold setup;
         # it is unused by this matrix-free implementation.
         self.eye=None
+        self.vectorized=vectorized
+        if vectorized:
+            k=np.arange(1,self.M+1)
+            self.cosine=2*k-1;self.sine=2*k
+            self.total=k[:,None]+k[None,:]
+            difference=k[None,:]-k[:,None]
+            self.difference=abs(difference);self.difference_sign=np.sign(difference)
+            self.work['angular_index_setup_integer_ops']+=4*self.M+4*self.M**2
 
     def one(self):
         c=np.zeros(self.size);c[0]=1.
@@ -51,6 +59,20 @@ class Space(dense.Space):
         R[:,0,0]=arcs[:,0].real
         root2=np.sqrt(2.)
         self.work['angular_normalization_sqrt_calls']+=1
+        if self.vectorized:
+            ci,si=self.cosine,self.sine
+            real_difference=arcs[:,self.difference].real
+            imag_l_minus_k=self.difference_sign*arcs[:,self.difference].imag
+            total=arcs[:,self.total]
+            R[:,0,ci]=R[:,ci,0]=root2*arcs[:,1:self.M+1].real
+            R[:,0,si]=R[:,si,0]=root2*arcs[:,1:self.M+1].imag
+            R[:,ci[:,None],ci[None,:]]=real_difference+total.real
+            R[:,si[:,None],si[None,:]]=real_difference-total.real
+            R[:,ci[:,None],si[None,:]]=total.imag+imag_l_minus_k
+            R[:,si[:,None],ci[None,:]]=total.imag-imag_l_minus_k
+            self.work['angular_assembly_real_ops']+=len(arcs)*(5*self.M**2+2*self.M)
+            self.work['angular_real_matrices']+=len(arcs)
+            return R
         for k in range(1,self.M+1):
             ci,si=2*k-1,2*k
             R[:,0,ci]=R[:,ci,0]=root2*arcs[:,k].real
