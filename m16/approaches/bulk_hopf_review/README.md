@@ -29,3 +29,8 @@ Read-only source/data inventory, finite arithmetic, beta inversion and small ana
 
 ## Failure modes
 Clamping a noise-subtracted discrepancy to zero does not imply zero error. Five clean/noise observations per seed do not establish a distributional guarantee. Shared RNG streams prevent an independent-model chi-square argument. Repeated quadrature levels, source agreement and asymptotic claims are not finite error certificates. No broad negative or source adoption follows from this bounded review.
+
+## Frozen continuity counterexample extension
+T55 independently checked the angular-order derivation before implementation. Use the legal all-zero H1T4 model, whose prediction is always first index0. Let a=(r,0,0,1)/sqrt(1+r²), b=(0,r,-1,0)/sqrt(1+r²), so a,b are orthonormal Hopf circles at exact phase gap pi/2. For r<1, coordinate0 is never an extreme rank; antipodal symmetry gives second-largest fraction1/2. For r>1, it is second exactly on two cosine-positive sectors of total length3pi/4−atan(r), so F=(3pi/4−atan(r))/(2pi). The one-sided limits at r=1 are1/2 and1/4. No choice of tie ownership at r=1 repairs this discontinuity. The true global Gaussian accuracy remains1/4.
+
+Freeze r=1/2,2 and r=1±2^-k for k=2,4,8,16; compare unchanged source circle integral with these analytic angular lengths, without random inputs, dense angular sampling or a trained checkpoint. These cases have no identically equal input pair because r!=1. All readout differences are zero, so they do not exercise the mixed-zero mask defect; this isolates the continuity claim. The synthetic result does not refute generic trained convergence or provide a general rate bound. Continuity alone would not prove a specific quadrature rate in any case.
