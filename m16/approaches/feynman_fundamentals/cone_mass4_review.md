@@ -1333,3 +1333,9 @@ frozen bootstrap. Seeds1/2 currently pass with named111 ratios0.06470896873 and
 1.70745, versus one under historical72; seed2 has none. These are partial-panel
 results. Final all4096 uniqueness, reuse and author-summary comparison remains
 pending the other two seeds. No estimator evaluations are repeated.
+
+The third1024-copy k30 seed also passes the same raw audit: named111 ratio
+0.01345273342 and no individual losses. A final global checker is prepared to
+reconcile all four independent seeds, sixteen noise groups,4096 unique models,
+source hashes and both reused controls against the completed author summary;
+it has not run before the fourth seed finishes.
