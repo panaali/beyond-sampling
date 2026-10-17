@@ -1,0 +1,7 @@
+# Reciprocal T11589 review
+
+Registered scope3a793c76 before checker implementation. Source gates passed after preserving pre-run160/200→240/280 reference correction and durable progress. Candidate formula unchanged.
+
+Independent reference completes the square and substitutes theta=atan((az+b)/sqrt(delta)), yielding a^(3/2)/delta² times a positive integral of cos³(theta). Numerical positive quadrature at100 digits and fixed maxdegree5 avoids the author antiderivative subtraction. Exact Fraction Gram-domain classification and direct positive collinear integral cover all26 frozen rows. Agreement threshold1e-50 is a diagnostic, not an outward quadrature certificate.
+
+Static source ledger derivation: finite/constant/scale guards29 Boolean/comparisons,10 abs,10 finite checks; normalized a/c cost28 arithmetic. Constant branch adds3 before4 rescaling operations and final2 Boolean/1 finite check, giving35/32/10/1sqrt/11finite. Nonconstant b/wedges add58 to86 arithmetic and3 guards to32. Endpoint/radius/ap setup adds6 to92 arithmetic,3 sqrt and7 sign tests to39 Boolean. Same-sign denominator5,V3,inner8,final2 plus rescale4 yields114; crossing ds3,inner7,final4 plus rescale4 yields110. Successful/nonfinite-result final tests add2 Boolean and1finite; divide-byzero before them retains39/10. Collinear exits at86/32/10abs/0sqrt/10finite. Nonfinite input exits0arith/10Boolean/0abs/0sqrt/10finite; origin exits0/29/10/0/10. These are source named categories only; API, loops, runtime, library internals excluded.
