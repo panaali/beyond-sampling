@@ -7,3 +7,5 @@ Raw results.json preserves every exact certificate, MP80/120 matrix/product, MP8
 Saved sampled covariance differences are within descriptive8-block standard errors in these entries. This is no new truth, confidence certificate, sampling win, full floating certificate or model-family claim. Existing baseline differences and all sample hex values remain in results/summary. No failures occurred in this bounded run; rank/precision/cap and broader-model limitations remain open.
 
 Complementary independent review requested: recover_78 exact geometry/facets/alternate matrices; T55 aggregate contractions/reference/baselines/counts. No author or numerical integration replay. Only after both pass may a separately frozen full136-pair phase be proposed, reusing these five exactly once. T11595 remains blocked.
+
+Independent geometry review2557c3d4 now passes all170 exact normal/ray/facet/tangent/fan certificates; alternate MP140 spherical-excess/boundary contractions agree within7.43534e-115. Review0.59158CPU, no author/angular/model calls. T55 aggregate audit remains pending.
