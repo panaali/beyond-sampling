@@ -1,0 +1,51 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python_inv_file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+  "binary_paths": {
+    "numpy_linalg": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_umath_linalg.cpython-312-x86_64-linux-gnu.so",
+    "openblas": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+  },
+  "binary_hashes": {
+    "numpy_linalg": "2e075f582c3a25a21fe97a55931a0fdb22ceb84f4fce8203a5040d405ccf65ce",
+    "openblas": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96"
+  },
+  "runtime": {
+    "config": "OpenBLAS 0.3.34.106.0  USE64BITINT DYNAMIC_ARCH NO_AFFINITY SkylakeX MAX_THREADS=64",
+    "core": "SkylakeX",
+    "threads": 1
+  },
+  "build_config": "Build Dependencies:\n  blas:\n    detection method: pkgconfig\n    found: true\n    include directory: /opt/_internal/cpython-3.12.13/lib/python3.12/site-packages/scipy_openblas64/include\n    lib directory: /opt/_internal/cpython-3.12.13/lib/python3.12/site-packages/scipy_openblas64/lib\n    name: scipy-openblas\n    openblas configuration: OpenBLAS 0.3.34.106.0  USE64BITINT DYNAMIC_ARCH NO_AFFINITY\n      SkylakeX MAX_THREADS=64\n    pc file directory: /project/.openblas\n    version: 0.3.34.106.0\n  lapack:\n    detection method: pkgconfig\n    found: true\n    include directory: /opt/_internal/cpython-3.12.13/lib/python3.12/site-packages/scipy_openblas64/include\n    lib directory: /opt/_internal/cpython-3.12.13/lib/python3.12/site-packages/scipy_openblas64/lib\n    name: scipy-openblas\n    openblas configuration: OpenBLAS 0.3.34.106.0  USE64BITINT DYNAMIC_ARCH NO_AFFINITY\n      SkylakeX MAX_THREADS=64\n    pc file directory: /project/.openblas\n    version: 0.3.34.106.0\nCompilers:\n  c:\n    commands: cc\n    linker: ld.bfd\n    name: gcc\n    version: 14.2.1\n  c++:\n    commands: c++\n    linker: ld.bfd\n    name: gcc\n    version: 14.2.1\n  cython:\n    commands: cython\n    linker: cython\n    name: cython\n    version: 3.3.0\nMachine Information:\n  build:\n    cpu: x86_64\n    endian: little\n    family: x86_64\n    system: linux\n  host:\n    cpu: x86_64\n    endian: little\n    family: x86_64\n    system: linux\nPython Information:\n  path: /tmp/build-env-ptu49_tp/bin/python\n  version: '3.12'\nSIMD Extensions:\n  baseline:\n  - X86_V2\n  found:\n  - X86_V3\n  - X86_V4\n  - AVX512_ICL\n  not found:\n  - AVX512_SPR\n\n",
+  "public_upstream": [
+    {
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/lapack/getf2/getf2_k.c",
+      "download_date": "2026-10-17",
+      "local": "upstream_getf2_k.c",
+      "sha256": "f6e63d294b7d0b0a3aa5f4fb374bc87936035d24abc056eef124ee3185d4de85",
+      "exact_build_source_equivalence_not_yet_proved": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/lapack/getrf/getrf_single.c",
+      "download_date": "2026-10-17",
+      "local": "upstream_getrf_single.c",
+      "sha256": "bd920cab74a6a18c31aa68edb2e0a5168445ed70d4fb6169488786d1008df4bd",
+      "exact_build_source_equivalence_not_yet_proved": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/lapack/getrs/getrs_single.c",
+      "download_date": "2026-10-17",
+      "local": "upstream_getrs_single.c",
+      "sha256": "990a65a796be4f86c11d089759646b892b7eca638f8461d557ea3c0f05449b85",
+      "exact_build_source_equivalence_not_yet_proved": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OpenMathLib/OpenBLAS/v0.3.34/driver/level3/trsm_L.c",
+      "download_date": "2026-10-17",
+      "local": "upstream_trsm_L.c",
+      "sha256": "9ce5f1b689d15c778f0b1dc222fed9025c7cefaca621d31ff9c5bc6fdebe10f4",
+      "exact_build_source_equivalence_not_yet_proved": true
+    }
+  ],
+  "ldd": "\tlinux-vdso.so.1 (0x00007f76bf848000)\n\tlibscipy_openblas64_-f48b354e.so => /workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/../../numpy.libs/libscipy_openblas64_-f48b354e.so (0x00007f76be1a9000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f76be096000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f76bdea2000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f76bde9d000)\n\tlibgfortran-83c28eba-468e71e5.so.5.0.0 => /workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/../../numpy.libs/libgfortran-83c28eba-468e71e5.so.5.0.0 (0x00007f76bd800000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f76bf84a000)\n\tlibquadmath-2284e583-a9307bba.so.0.0.0 => /workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/../../numpy.libs/libquadmath-2284e583-a9307bba.so.0.0.0 (0x00007f76bd400000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f76bde7b000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f76bde4e000)\n"
+}
