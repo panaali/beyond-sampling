@@ -24,3 +24,6 @@ This finite test does not establish trained accuracy, efficient covariance propa
 
 ## Failure modes
 Nearly cancelling facet sums may lose relative numerical precision. Saved quadrature agrees numerically but is not an interval reference. Degenerate output/normal statuses are checked exactly here; broader redundant-facet constructions would require another domain proof.
+
+## Single trained saved extension
+Explicit reciprocal assignment d6052847, checker0953418f independently source-gated by T55. `trained_check.py` passed once: one stored H16T4seed3 model, 34 sectors, 544 cells and 510 map records, with all 222,042 historical reference evaluations accounted. Maximum alternate-asin cell discrepancy 1.08367e-104 at110 diagnostic digits; 0.471872407 review CPU. Zero author/candidate/quadrature/model calls. Exact old-weight binding, generator signs, reduced-normal statuses and per-cell formulas are checked; T55 separately owns mean/baseline/reference aggregation and count closure. No covariance, final accuracy, outward precision or full-cost claim. The setup script initially referred to an undefined local protocol name while constructing pins; it was repaired before checker execution, with no mathematical change or numerical attempt.
