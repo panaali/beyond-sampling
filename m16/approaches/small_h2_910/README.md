@@ -198,3 +198,22 @@ normalization defects before row normalization. (3) apparent improvement may
 leave hidden spatial bias: preserve both grid resolutions and all original
 uncorrected results. No solved claim or free-cache efficiency claim. Initial
 cycle cap120CPU seconds under the same lock/thread/memory limits.
+
+## T54 pilot outcome
+The fixed run completed all2000steps/512000trainingsequences in2.507CPU seconds;
+training plus heldout evaluation/save took2.520CPU seconds. Heldout accuracy was
+6020/32768=.18371582 (SE .00213929). This is a weak, locally trained pilot;
+undertraining and architectural limits remain unresolved. Full provenance,
+versions and loss trace are in `LOCALPILOT_H2_T9_seed0.json`, with small weights
+in the matchingnpz; SHA256
+`38a8174ef25ace94e84ad18ffa7f1b3c038b20da652fe3b51646a7a0330cab3c`.
+Reproduce with `python m16/approaches/small_h2_910/pilot_t9.py` after integrating
+T53's `train_pilot.py`. Training implementation hash is recorded in provenance.
+
+All8 analytic conditional-tail calls passed; their2 independent32768-input checks
+had z-scores−.674 and1.178. Partition mass error was at most4.45e-16. The8-direction
+outer diagnostic was .167269±.032289SE, too uncertain for a precise estimate.
+The follow-up took .159CPU seconds and1672clips,80affine products,145moment calls,
+plus56prefix steps and65536full validation inputs. These are additional to the
+training examples/gradients and32768heldout inputs. T54's checkpoint gap now has
+a reproducible LOCALPILOT artifact; the accuracy-estimation problem remains open.
