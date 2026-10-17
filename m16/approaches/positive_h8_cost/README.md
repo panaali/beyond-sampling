@@ -26,3 +26,7 @@ One thread2GB, <=20CPU review controls/pilot with20CPU cap (preserve partial if1
 
 ## Alternatives not ruled out / failure modes
 Finite-order exhaustion is inconclusive, not impossibility. Better representations, subdivision or stronger bounds remain open. Existing references are conditional on captured floating geometry and arithmetic. This pilot alone establishes no full accuracy, sampling advantage, noisy-model generality or challenge solution.
+
+## Preserved initial control failure
+
+Before any trained evaluation, the unequal diagonal control correctly returned `unresolved` at the frozen order32 cap: its exact KKT bound1.38192994e-5 exceeds the2.849e-12 target. The initial harness incorrectly required every control to return a value. `run_initial.py` and `controls_initial_unresolved.json` preserve this harness failure. The algorithm, target, geometry and orders are unchanged. Corrected controls accept explicitly unresolved status, independently evaluate the rejected order32 candidate against the known analytic mass using its saved looser bound, and keep this validation work separate from estimator output/counts. Returned controls must still meet the frozen target; scale invariance must preserve status and value. This is finite-bound inadequacy for unnormalized diagonal rays, not an analytic-inner kernel failure or broad impossibility.
