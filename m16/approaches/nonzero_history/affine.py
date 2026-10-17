@@ -145,12 +145,27 @@ def rank_integrals(y,lo,hi,m,stats):
     return mass,first,last,earlier
 
 
-def calculate(model,mode='exact2',order=16,limit=6.):
+def calculate(model,mode='exact2',order=16,limit=6.,normal_landmarks=False):
     start=time.process_time();stats=defaultdict(float)
     wi,wh,wo=model;T=len(wo);m=T-2
     if m<1:raise ValueError('at least three inputs required')
     mu=prefix_mean(model,mode,stats)
     pieces=arrangement(model,mu,limit,stats)
+    if normal_landmarks:
+        refined=[]
+        for yl,yr,low,high,label in pieces:
+            cuts=[yl,yr]
+            for level in range(-8,9):
+                if yl<level<yr:cuts.append(float(level))
+                for line in (low,high):
+                    stats['normal_landmark_intersection_tests']+=1
+                    if line[0]!=0:
+                        root=(level-line[1])/line[0]
+                        if yl<root<yr:cuts.append(float(root))
+            cuts=np.unique(cuts);stats['sort_input_items']+=len(cuts)
+            refined.extend((a,b,low,high,label) for a,b in zip(cuts[:-1],cuts[1:]))
+        pieces=refined
+        stats['normal_landmark_panels']=len(pieces)
     nodes,weights=leggauss(order);value=0.;partition=0.
     for yl,yr,low,high,label in pieces:
         y=(yl+yr)/2+(yr-yl)/2*nodes
@@ -162,7 +177,7 @@ def calculate(model,mode='exact2',order=16,limit=6.):
         stats['quadrature_nodes']+=len(y)
         stats['normal_density_exponentials']+=len(y)
     omission=float(2*ndtr(-limit))
-    stats.update(mode=mode,order=order,prefix_mean=mu.tolist(),estimate=value,
+    stats.update(mode=mode,order=order,normal_landmarks=normal_landmarks,prefix_mean=mu.tolist(),estimate=value,
                  partition_mass=partition,partition_defect=partition-(1-omission),
                  omitted_y_mass_bound=omission,cpu_seconds=time.process_time()-start,
                  total_error_certified=False)
