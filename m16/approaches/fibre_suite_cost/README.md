@@ -18,13 +18,13 @@ Run chunks of at most20 models, primary<=110CPU hard/90CPU soft, one thread/2GB;
 Instrumentation could change stopping or cache behavior: exact parity against every saved value/counter/family result. Source drift could explain differences: explicit hashes plus original-helper AST equivalence. Dataset reconstruction could alter panels: all471 weight SHA checks precede computation. Larger native costs could overturn previously favorable cases: report every case/group, including failures, using the same comparator. Existing approximate fast/slow recipe differences are outside this recount and remain preserved.
 
 ## Status / results
-Protocol frozen; source/model preflight pending. No new full-rung or sampling claim.
+Completed all471 frozen cases in24 bounded chunks. Every estimate, family result, source-era counter and trace/constraint/segment diagnostic matches its historical value exactly. All21 equal-weight fixed-group ratios remain below1 under the explicit-expression comparator; maximum individual ratios atH4/H5/H6 are0.1923764203/0.0038867193/8.85039438e-9. The last tiny number is relative to saved numerical truths, not a truth-precision certificate. See HANDOFF.md and summary.json. Independent T55 final raw review requested; no self-confirmed claim.
 
 ## Compute accounting
 Native per-model expression counts include model-dependent setup and written integer expressions; diagnostic reconstruction/import/AST-compile work is timed separately from estimator workload. Historical counter increments themselves are audit instrumentation, excluded from estimator arithmetic. Fresh modules prevent model-dependent cache reuse across calls. Universal model-independent precompute and unknown low-level costs remain explicit.
 
 ## Claims / failure modes
-[speculative] The old471-case conclusions survive a consistent explicit-expression recount. Exact value parity does not certify floating geometry or population/noise generalization. Formal truth uncertainty, hardware cost, untested H7 andT4 rungs, and tolerance/cap robustness remain open.
+[measured] The old471-case conclusions survive the specified explicit-expression recount against saved numerical truths. Exact value parity does not certify floating geometry or population/noise generalization. Formal truth uncertainty, hardware cost, untested H7 andT4 rungs, and tolerance/cap robustness remain open.
 
 ## Preflight result
 All471 reconstructed model hashes match the saved original suite exactly; saved truth values agree with their prior reference metadata. All nine zero/constant/duplicate-readout controls atH4/5/6 return1/3 under the native inventory. Matched scalar sampler totals are112/160/216. Current helper/imported-function ASTs match the original helper after removing only X diagnostic calls, including State. Preflight completes2.505CPU including imports. Frozen fast LOOK2 is distinct from the slow LOOK3 recipe; this recount does not rewrite their historically different estimates.
