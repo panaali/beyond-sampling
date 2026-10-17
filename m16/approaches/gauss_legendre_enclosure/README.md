@@ -7,10 +7,10 @@ Can the ideal Gauss-Legendre nodes and weights underlying the fixed T5 positive 
 Claim T11588 ba23ebd1. Rational Legendre/Sturm isolation to160 dyadic bits, interval derivative weight formula, outward128-bit weight endpoints. Orders6,10,16 only; fixed arithmetic/root controls and independent source gate precede target execution. See PROOF.md, exact.py and protocol.json.
 
 ## Status
-Source and13 controls frozen for independent review; no numerical execution yet. Target comparison driver follows controls/source gate.
+All13 controls and fixed n6/10/16 target run pass after reciprocal source gates. Independent saved audit d5fc9359 checks all32 nodes/weights and64 moments via closed Rodrigues coefficients and original endpoint signs, without source-generation or bisection reruns.
 
 ## Results
-No measured results. [inferred] Exact root isolation plus weight interval arithmetic can certify the ideal constants; [speculative] their source deviations may be small enough for a later integrand perturbation bound.
+[measured] All32 ideal node/weight intervals are bounded; no unresolved cases. Source component errors are at most approximately8.878e-17 for nodes and4.364e-16 for weights (exact rational intervals authoritative). Target CPU .624518240 seconds. [inferred] Exact root isolation plus weight interval arithmetic can certify the ideal constants; [speculative] their source deviations may be small enough for a later integrand perturbation bound.
 
 ## Compute accounting
 One thread,2GB, review lock20CPU per cycle. Rational/integer operations and peak operand sizes retained; model-independent setup separated. No tensor, model, mass, geometry or MC evaluations. Exact setup is not called free runtime work, and no ranked entry is produced.
