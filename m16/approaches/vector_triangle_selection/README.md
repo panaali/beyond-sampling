@@ -48,6 +48,23 @@ Protocol frozen; source/control experiment pending.
 ## Results
 Pending. This task does not change the integral or claim higher accuracy.
 
+## Exact-radial compatibility gate and rescue controls
+The first batched radial implementation differs on7 of9309 original cases;
+qmin/midpoint/ratio differences reach1.12e-16. This fails the frozen exact
+metadata gate despite the small numerical differences. radial_probe.json
+retains all7 cases. The predeclared scalar-radial/vector-trial rescue is used;
+there is no trained pilot of the failed radial variant.
+
+The guarded rescue preserves all9309 complete metadata dictionaries and
+output values exactly, across all10 orders. Thirty exact/adjacent tolerance
+fixtures preserve both selected orders and failure behavior, including scalar
+rescue. Empty batches and the single-rule node cap pass. It executes93090
+vector trials and18187 scalar selected/previous checks, with no full scalar
+rescue on the ordinary panel. Original charges plus all additional work
+are retained. The control run is slower (.3023 versus .2230CPU), a preliminary
+timing observation only. Complete cold64-cone pilot awaits independent source
+review; no speedup is inferred from vectorization.
+
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Preserve original
 conservative allowance and explicitly add every batch/guard/scalar-rescue
