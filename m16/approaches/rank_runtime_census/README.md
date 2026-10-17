@@ -69,3 +69,11 @@ The rational models exercise native rank; zero geometry is correctly allowed
 to bypass it. Baseline0.419806CPU, observed0.451832CPU; analytic controls
 0.0101045CPU. Native Q5+Q6 calls equal Q3 ITER increments in every control.
 Source-review gate remains before trained batches.
+
+All sixteen trained chunks completed with exact ordered-ray, cell, legacy
+counter and per-chunk rank-call parity. Initial aggregate assertion compared
+geometry-only calls to the earlier cold-inclusive rank total, omitting768
+setup ranks (576 shape2x4 and192 shape4x4). The failed contraction is
+preserved in summary_failure.json. Include one cold setup in the aggregate;
+all eight diagnostic setups are retained only in measured review CPU. No
+trained rerun is needed.
