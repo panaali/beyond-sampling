@@ -9,6 +9,7 @@ from engine import estimate
 
 p = argparse.ArgumentParser()
 p.add_argument('case', choices=('t7', 't4'))
+p.add_argument('--analytic', action='store_true')
 args = p.parse_args()
 HERE = Path(__file__).resolve().parent
 start = time.process_time()
@@ -34,7 +35,9 @@ for nh, nq, nx in choices:
     try:
         value, stats = estimate(model, hidden_order=nh, target_order=nq, input_order=nx,
                                 mesh_power=2., target_rule='split_sign',
-                                seconds=18-(time.process_time()-start))
+                                seconds=18-(time.process_time()-start),
+                                transition=('polynomial_piece_cached' if args.analytic else 'quantile'),
+                                terminal_reuse=args.analytic)
         row = dict(estimate=value, stats=stats)
         if reference is not None:
             row['difference_from_cone'] = value-reference
@@ -42,7 +45,8 @@ for nh, nq, nx in choices:
         row = dict(hidden=nh, target=nq, inputs=nx, failure=str(error))
     result['rows'].append(row)
     result['total_cpu'] = time.process_time()-start
-    (HERE/(args.case+'_refine_results.json')).write_text(json.dumps(result, indent=2)+'\n')
+    suffix = '_analytic_refine_results.json' if args.analytic else '_refine_results.json'
+    (HERE/(args.case+suffix)).write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(row), flush=True)
     if 'failure' in row:
         break
