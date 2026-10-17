@@ -45,7 +45,44 @@ def arithmetic_controls():
     for x in (F(0), F(1), F(1, 3), F(1, 2**1075), F(2**500+1, 2**500)):
         lo, hi = fraction_bounds(x)
         assert F.from_float(lo) <= x <= F.from_float(hi)
-    return dict(fixed_elementary_operation_cases=checked, counts=dict(counts),
+    vector_cases = 0
+    for name, function, exact_function in (
+            ('add', ops.add, lambda a,b:a+b),
+            ('multiply', ops.mul, lambda a,b:a*b),
+            ('divide', ops.div, lambda a,b:a/b)):
+        pairs = [(a,b) for a in values for b in values
+                 if name != 'divide' or (b and math.isfinite(a/b))]
+        left = np.array([a for a,b in pairs])
+        right = np.array([b for a,b in pairs])
+        lower, upper = function((left,left), (right,right))
+        for (a,b), lo, hi in zip(pairs, lower, upper):
+            truth = exact_function(F.from_float(a), F.from_float(b))
+            if not F.from_float(float(lo)) <= truth <= F.from_float(float(hi)):
+                raise ArithmeticError(f'vectorized {name} containment failed')
+        vector_cases += len(pairs)
+    complement_values = np.array([x for x in values if x <= 1])
+    lower, upper = ops.complement((complement_values, complement_values))
+    for x, lo, hi in zip(complement_values, lower, upper):
+        if not F.from_float(float(lo)) <= 1-F.from_float(float(x)) <= F.from_float(float(hi)):
+            raise ArithmeticError('complement containment failed')
+    reductions = []
+    for size in (1,3,49,8000):
+        data = np.resize(np.array(values), size)
+        lower, upper = ops.sum((data,data))
+        truth = sum((F.from_float(float(x)) for x in data), F(0))
+        if not F.from_float(float(lower)) <= truth <= F.from_float(float(upper)):
+            raise ArithmeticError('pairwise reduction containment failed')
+        reductions.append(size)
+    with np.errstate(over='ignore'):
+        try:
+            ops.add((np.finfo(float).max,)*2, (0.,0.))
+        except ArithmeticError:
+            pass
+        else:
+            raise ArithmeticError('nonfinite outward endpoint was not rejected')
+    return dict(fixed_elementary_operation_cases=checked, vectorized_cases=vector_cases,
+                complement_cases=len(complement_values), reduction_lengths=reductions,
+                rejected_nonfinite_outward_endpoint=True, counts=dict(counts),
                 binary64=True, tested_gradual_underflow=True, tested_round_to_nearest_even=True)
 
 
