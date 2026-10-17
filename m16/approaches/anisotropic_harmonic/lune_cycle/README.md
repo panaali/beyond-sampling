@@ -75,3 +75,21 @@ scope and all its failures remain valid; this phase does not erase them.
 ## Failure modes
 Floating cone classification, signed projected densities, endpoint quadrature,
 near-parallel boundaries, large branching cost and cost of special functions.
+
+## Primitive controls
+T55 independently accepts lune measure/basis normalization, with the warning
+to include every wrapped arc intersection and handle the transverse-zero
+case explicitly. The primitive integrates z on sine-mapped panels between
+window-edge/cut-tangency transitions, smoothing square-root endpoints.
+`controls.py` instead integrates radial Legendre products analytically and
+then performs direct adaptive azimuth integration; its three nontrivial
+entries agree within5.00e-16. Root-wall identity, complement, Hermitian,
+eigenvalue and order64/128 controls pass. This independent integration order
+shares the mathematical basis, not the arc-construction code. Runtime .044CPU.
+
+Initial implementation corrections retained in this log: the first control
+launch had a misspelled NumPy legval import, corrected before numerical work.
+The first passing numerical run emitted a divide-by-zero warning when an
+extremely thin radial panel rounded a node to a pole. The explicit limiting
+empty/full arc now handles those nodes and records their count; it does not
+clip eigenvalues or renormalize masses. Controls still pass without warnings.
