@@ -48,7 +48,9 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
    material about AlgZoo published after January 2026 (ARC's M_16,10 solution is reported to be unpublished). To
    keep the comparison honest, **log every post-January-2026 ARC/AlgZoo source you read** (URL, date, what it
    says that is relevant) in [lit/web_log.md](lit/web_log.md), and mark results that depend on it.
-8. Keep runs CPU-light (4 shared cores): at most 2 heavy tasks at once, tracked by the *CPU* column in [TASKS.md](TASKS.md). Large data goes in `data/` (git-ignored).
+8. Keep runs CPU-light (4 shared cores): at most 2 heavy tasks at once, tracked by the *CPU* column in [TASKS.md](TASKS.md).
+   **Memory: at most 2 GB per process** (15 GB total, no swap; a container restart on 2026-10-17 was most likely memory
+   exhaustion). Process samples in chunks; start long runs with `ulimit -v 2500000` (KB). Large data goes in `data/` (git-ignored).
 9. **Never kill processes by name pattern** (`pkill -f`, `pgrep -f ... | xargs kill`): other agents run
    scripts with the same names. Kill only PIDs you started and have checked (e.g. by their working
    directory, `ls -l /proc/<pid>/cwd`).
