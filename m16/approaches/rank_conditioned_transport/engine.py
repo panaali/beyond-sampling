@@ -242,6 +242,19 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
         weights = np.tile(base_weights/4, 2)*T*(T-1)*q**(T-2)*(1-q)
         if abs(weights.sum()-1) > 1e-12:
             raise ArithmeticError('target rule does not integrate Beta mass')
+    elif target_rule == 'split_value':
+        nodes, base_weights = leggauss(target_order)
+        u = np.concatenate((limit*(nodes-1)/2, limit*(nodes+1)/2))
+        alpha = ndtr(-limit)
+        z = 1-2*alpha
+        q = (ndtr(u)-alpha)/z
+        weights = (np.tile(base_weights*limit/2, 2)*T*(T-1)*q**(T-2)*(1-q)
+                   *np.exp(-u*u/2)/(np.sqrt(2*np.pi)*z))
+        stats['target_density_cdf_values'] += len(q)
+        stats['target_density_exponentials'] += len(q)
+        stats['target_density_raw_mass_defect'] = float(weights.sum()-1)
+        if np.any(q <= 0) or np.any(q >= 1) or abs(weights.sum()-1) > 1e-10:
+            raise ArithmeticError('target value rule fails support/mass control')
     else:
         raise ValueError('unknown target rule')
     stats['target_rule_nodes'] = len(q)

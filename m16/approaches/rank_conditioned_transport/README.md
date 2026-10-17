@@ -237,3 +237,28 @@ constant-mass defect and fail if it exceeds1e-10; no silent renormalization.
 Constant-class and gate/reflection toy controls precede interpreting trained
 results. No larger hidden mesh, no new MC, and no winner claim if either
 coordinate remains unstable. T55 independently reviews the measure formula.
+
+Final q-only confound check completed: at q128 the baseline/curvature/gate
+h33 errors are +5.16295e-5/-1.86411e-5/-2.22842e-5 (13.30CPU total); at
+q256 they are +5.11377e-5/-3.09970e-6/-8.42545e-6 (23.57CPU total).
+The curvature/gate q128-to256 change remains1.55e-5/1.39e-5, chiefly in
+label2's contribution. Thus those global mesh errors remain unresolved.
+No more q-only refinement is planned for this phase.
+
+The full[-6,6] target-value rule failed its first constant control before any
+trained run: sparse conditional row-mass defect7.89096e-10 exceeds the
+1e-10 guard (`value_controls_results.json`). Its near-tail u nodes correspond
+to1-q around1e-11; reconstructing u and dividing a tail CDF by rounded1-q
+amplifies floating error. The guard remains unchanged. This implementation
+failure does not reject the change of variable or the transport method.
+
+Bounded followup frozen before measurement: integrate target u only[-4,4]
+while all model inputs and hidden boxes remain truncated at[-6,6]. Compute
+q_minus=F_6(-4), q_plus=F_6(4) and omitted target mass
+betainc(T-1,2,q_minus)+betaincc(T-1,2,q_plus). Do not renormalize weights.
+Retained constant-class integral must equal(1-omission)/T; any other bounded
+conditional correctness differs from the full-target integral by a value in
+[0,omission]. Original-input uncertainty adds Z^T*omission to1-Z^T.
+Grid/outer/rounding errors still excluded. T55 independently approved this
+measure and tail accounting. This isolates the existing floating-tail issue
+without relaxing guards or implementing a new conditional-probability API.
