@@ -1,6 +1,6 @@
 # T11589 fixed original/split outer application
 
-Author full results cde47931; independent final saved audit pending. The pilot
+Author full results cde47931; independent final saved audit41b84a50 passes all99 rows/66groups,198progress records, source/reference pins, exact saved-float errors and thresholds, single pilot reuse and branch ledgers. Review used.011997087CPU without candidate/mass calls. The pilot
 and runner were independently reviewed0e7943d6. Source7471b783 row/column error
 was caught before execution, corrected e366f326, and checked with33 exact
 nonsymmetric stored-ray maps. No numerical result from the incorrect source
@@ -54,4 +54,4 @@ Open alternatives: compiled/vectorized positive inner evaluation under pinned
 parity; local/global basis preprocessing with rounding bounds; finite collinear
 branch; adaptive outer chart/refinement with charged selection; actual corpus
 provenance and DRI decisionT11584. None is implied successful or exhausted here.
-Root/Claude INDEX registration requested after independent final audit.
+Root/Claude INDEX registration requested. The bounded phase is complete; all remaining cost/floating/corpus qualifications stay open. Worker moves to separately claimed ReadyT175 exact early-step means.

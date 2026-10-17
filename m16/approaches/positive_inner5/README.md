@@ -10,8 +10,9 @@ controls, not a trained estimator. The same-sign rationalization removes an
 explicit inverse Gram determinant from the endpoint difference.
 
 ## Status
-Running: bounded primitive phase complete8440898e, independently4cc6f14e.
-See HANDOFF.md; a separate frozen outer-rule gate is next. The original source
+Done for the bounded primitive and fixed-product phases: primitive8440898e
+independently4cc6f14e; outer99 cde47931 independently41b84a50. See HANDOFF.md
+and outer/HANDOFF.md for explicit unresolved scope. The original source
 protocol/README snapshot is preserved atf9ca116b for reproduction.
 
 ## Results
