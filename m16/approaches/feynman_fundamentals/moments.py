@@ -107,7 +107,11 @@ def tail_mass_with_fallback(vertices,prefix_dimension,stats=None,absolute_tolera
         from positive import polygon_tail_mass
         result,metadata=polygon_tail_mass(vertices,prefix_dimension,absolute_tolerance)
         if stats is not None:
+            stats["positive_quadrature_fallbacks"]=stats.get("positive_quadrature_fallbacks",0)+1
+            # Compatibility alias; neither key means high-precision arithmetic.
             stats["positive_fallbacks"]=stats.get("positive_fallbacks",0)+1
             stats["fallback_quadrature_nodes"]=stats.get("fallback_quadrature_nodes",0)+metadata["quadrature_nodes"]
             stats["fallback_quadrature_error_bound"]=stats.get("fallback_quadrature_error_bound",0.)+metadata["quadrature_error_bound"]
+            stats["fallback_rule_generations"]=stats.get("fallback_rule_generations",0)+metadata.get("legendre_rule_generations",0)
+            stats["fallback_rule_generation_nodes"]=stats.get("fallback_rule_generation_nodes",0)+metadata.get("legendre_rule_generation_nodes",0)
         return result
