@@ -25,7 +25,8 @@ def push(model,deadline=math.inf):
     wh=[[F(float(x)) for x in row] for row in law.wh]
     out=np.zeros(len(law.wo));masses={k:0. for k in ('origin','axis0','axis1','input_ray','area')}
     stats={'source_sectors':len(law.cells),'threshold_forms':0,'angular_intervals':0,'destination_bands':0,
-        'skipped_angular_mass_bound':0.,'minimum_band_mass':0.}
+        'skipped_angular_mass_bound':0.,'minimum_band_mass':0.,
+        'angular_root_queries':0,'angular_roots_returned':0,'primitive_evaluations':0}
     def dot(a,b):return law.add(law.mul(a[0],b[0]),law.mul(a[1],b[1]))
     for cell in law.cells:
         B=cell['B'];C=[[dot(row,[B[0][k],B[1][k]]) for k in (0,1)] for row in wh]
@@ -52,11 +53,14 @@ def push(model,deadline=math.inf):
         lo=-math.pi/2 if cell['lo'] is None else math.atan(float(cell['lo']))
         hi=math.pi/2 if cell['hi'] is None else math.atan(float(cell['hi']))
         angles={lo,hi}
-        for v in angular:angles.update(roots_in(v,lo,hi))
+        for v in angular:
+            roots=roots_in(v,lo,hi);angles.update(roots)
+            stats['angular_root_queries']+=1;stats['angular_roots_returned']+=len(roots)
         for i in range(len(forms)):
             for j in range(i):
                 v=[law.add(forms[i][k],-forms[j][k]) for k in (0,1)]
-                angles.update(roots_in(v,lo,hi))
+                roots=roots_in(v,lo,hi);angles.update(roots)
+                stats['angular_root_queries']+=1;stats['angular_roots_returned']+=len(roots)
         angles=sorted(angles);Cf=np.array(C,dtype=float);wf=np.array(wi,dtype=float)
         for a,b in zip(angles,angles[1:]):
             if time.process_time()>deadline:raise TimeoutError('forward push deadline')
@@ -77,6 +81,6 @@ def push(model,deadline=math.inf):
                       (primitive(b,fl,'lower')-primitive(a,fl,'lower')))/(2*math.pi)
                 stats['minimum_band_mass']=min(stats['minimum_band_mass'],mass)
                 if mass < -1e-12:raise ArithmeticError(f'negative band mass {mass}')
-                masses[kind]+=mass;out[winner]+=mass;stats['destination_bands']+=1
+                masses[kind]+=mass;out[winner]+=mass;stats['destination_bands']+=1;stats['primitive_evaluations']+=4
     return {'stratum_masses':masses,'output_masses':out.tolist(),'work':stats,
-        'rational_and_angle_work':dict(law.work),'classification':'exact-form sector push with floating angular arithmetic'}
+        'rational_and_angle_work':dict(law.work),'sorting_bit_and_hash_cost_excluded':True,'classification':'exact-form sector push with floating angular arithmetic'}
