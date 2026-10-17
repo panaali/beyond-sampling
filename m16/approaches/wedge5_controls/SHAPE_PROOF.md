@@ -1,0 +1,11 @@
+# Why a fixed interior simplex rule cannot cover all thin cones
+
+Reuse the reviewed5D radial formula. For epsilon in(0,pi/2), take rays e0,(-cos epsilon,sin epsilon,0,0,0),e2,e3,e4. The absolute determinant is sin epsilon and the exact Gaussian mass is(pi-epsilon)/(16pi). The matched narrow wedge replaces the negative cosine by positive cosine, keeps exactly the same determinant, and has mass epsilon/(16pi). Their masses therefore differ by nearly1/16 as epsilon tends tozero.
+
+For a barycentric point u, the wide-cone quadratic is
+q=(u0-cos(epsilon)u1)^2+(sin(epsilon)u1)^2+u2^2+u3^2+u4^2.
+Every fixed strictly interior Duffy/Gauss node has u2,u3,u4>0. Hence q at that node is bounded below independently of epsilon by u2^2+u3^2+u4^2>0. A finite collection of fixed nodes and finite weights produces a bounded weighted q^(-5/2) sum as epsilon tends tozero. Multiplying by3sin(epsilon)/(8pi^2) makes its estimated mass tend tozero, whereas the true mass tends to1/16. Thus no single fixed finite interior rule can uniformly validate the source's determinant-only thin branch over these cones. Increasing a fixed order can postpone but cannot remove this real-arithmetic obstruction. This does not rule out adaptive orders, different coordinates, analytic integration, geometric subdivision or independently controlled log methods.
+
+Conditioning explanation for ideal unit rays: with cosine c, the Gram matrix has2x2 block[[1,c],[c,1]] and3x3 identity. For -1<c<1, the simplex minimizer has u0=u1=1/(5+3c), u2=u3=u4=(1+c)/(5+3c), all positive. Its squared norm is a=(1+c)/(5+3c); maximum is1. In the wide family c approaches-1 and a approacheszero; in the narrow family c approaches1 and a approaches1/4. Small determinant alone cannot distinguish these. This ideal formula is explanatory; stored dyadic rays are individually reference-checked by their exact angular geometry, not silently assumed exactly unit length.
+
+A negative pair dot detects this particular dangerous wide family and survives exact stored-Fraction evaluation. Routing such cases to log128 fixes the frozen absolute-error controls, but is only a control rescue: it does not certify log quadrature or floating cofactors on arbitrary5D cones. No adaptive selection or trained-model evaluation was performed.
