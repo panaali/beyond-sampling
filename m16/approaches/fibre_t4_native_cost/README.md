@@ -55,3 +55,22 @@ Missing native calls, changed short-circuit/receiver evaluation, double
 counting nested helpers or setup, omitting masks/reductions, assuming zeros
 make dense BLAS sparse, transferring a local ratio to other components, and
 promoting a declared numerical subset to complete runtime cost.
+
+### Primitive source/count checkpoint
+`inventory.py` and artifact580f2612 pin the source/native call surface.
+`tracer.py`71ffd085 reuses T146 accounting plus the T153 computed-receiver fix;
+additional vector-cross, vector-dot, mean and atan/acos rules keep native
+operands/results unchanged. Cold module initialization is currently retained
+from original imports and explicitly excluded from the component ledger.
+SVD, inverse and rule generation remain opaque/separate. The adapter compiles
+all original F4/F3 functions and only rows_at from the T3 helper, with the same
+local exact-zero guard; shared files are untouched.
+
+Eight fixed spherical polygon clip controls include zero, whole positive/
+negative, central cut, and both sides of EPS-near vertex cuts. Four original
+analytic models exercise dense rows with inactive and active gates. All outputs
+and legacy counters match bitwise in0.072CPU. The rows_at sites independently
+sum to892 named units +16 explicit integer comparisons, versus original
+34/62/62/62 counters; see ROWS_COST.md. Native-cost source review is pending,
+and four complete saved F2L3 analytic controls are running before any trained
+component trace. No full-cost/rung claim follows from these primitive controls.
