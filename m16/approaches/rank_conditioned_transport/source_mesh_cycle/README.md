@@ -81,3 +81,35 @@ pass. Constant/duplicate readouts differ from retained target mass/4 by at
 most2.78e-17. Complete h9 panel counts baseline/physical/reversed are
 1190/1191/1221, below the frozen2000 cap. Control CPU .692; full event counts
 and exact axis locations are in controls.json. Ready for frozen GL2/4 pilot.
+
+## Frozen pilot: physical allocation loses to baseline
+Run `python m16/approaches/rank_conditioned_transport/source_mesh_cycle/pilot.py`
+under the primary lock with one thread. All six integrations complete under
+the100CPU internal budget; no larger grid, target rule or model sweep follows.
+
+| Stage1 mesh | GL4 estimate | Error vs reference | GL2/4 change | GL4 CPU |
+| --- | ---: | ---: | ---: | ---: |
+| baseline | .307723248833985 | -.000007494190 | 8.69e-12 | 14.987 |
+| physical | .307741572240580 | +.000010829217 | 3.18e-12 | 14.822 |
+| reversed | .307539712539522 | -.000191030484 | 1.36e-12 | 15.181 |
+
+Physical allocation improves over reversed but is worse than the original
+baseline. Error-squared CPU products are8.42e-10/1.74e-9/5.54e-7 in table
+order. Outer refinement cannot explain this material ordering. This rejects
+the fixed marginal-placement recipe's frozen expansion gate, not physical
+or q-dependent meshes generally. The first-input marginal is(g+8)/9, close
+to a uniform CDF-coordinate law; nonlinear interpolation placement and
+cancellation can therefore dominate the modest rank-law change.
+
+Cost qualification: each call charges grid/mesh, caches, topology and target
+rule anew. The existing polynomial primitive has a process-wide cached
+12-point fallback rule, initialized once in the complete pilot; later rows
+reuse this small rule. Thus these are not perfectly independent cold starts
+as the protocol intended. All its quadrature applications are still counted,
+and no efficiency gain is asserted (the accuracy gate already fails).
+Full pilot totals and named operation events remain in pilot.json. Floating
+geometry, spatial bias and total portable cost are still uncertified.
+
+T55 source/law review2db43ce checks mixture/sign normalization and stage1-only
+placement. Independent high-precision elementary-CDF inversion is pending
+before the bounded handoff; it will not independently reimplement transport.
