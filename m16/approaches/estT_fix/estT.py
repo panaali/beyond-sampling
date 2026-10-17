@@ -30,13 +30,16 @@ from m43 import Ops  # noqa: E402
 
 TOL = 1e-10
 MODE = ['recipe']
-EXACT_STEPS = [set()]     # diagnostic hook: input indices t whose gates are resolved exactly
+EXACT_STEPS = [set()]
+DIAG = [None]             # T164 diagnostic hook: f(cell, A, g, k, t, model, truth) per resolved split (no ops)     # diagnostic hook: input indices t whose gates are resolved exactly
 def _rule(n, p):
     x, w = np.polynomial.legendre.leggauss(n); s = 0.5 * (x + 1)
     return list(zip(1 - (1 - s) ** p, 0.5 * w, p * (1 - s) ** (p - 1)))      # (t, weight, dt/ds), t = 1-(1-s)^p
 
 
-_RULES = {"wide": _rule(12, 2), "thin": _rule(48, 3)}      # 'thin' when max |rho| > 0.95 (peaked 1/sqrt(1-t^2 rho^2))
+_RULES = {"wide": _rule(12, 2), "thin": _rule(48, 3)}      # old rules (unused since the T131 fix)
+_xg, _wg = np.polynomial.legendre.leggauss(128); _vg = 35.0 * (_xg + 1)
+_LOG_S = np.exp(-_vg); _LOG_T = 1 - _LOG_S; _LOG_W = 35.0 * _wg * np.exp(-_vg)          # 1 - t = e^-v, v in [0, 70]
 STATS = {"cells": 0, "cut": 0, "resolved": 0, "simplices": 0}
 
 
@@ -126,17 +129,23 @@ def orthant(Rays, ops):
     p = 1 / 16 + sum(math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu) / (8 * math.pi); ops.add(6 * 2)
     if abs(np.linalg.det(Rays)) < 1e-12:
         return 0.0
-    rmax = max(abs(C[i, j]) for i, j in iu)
+    # T131 fix (estT_fix): the old fixed rules ((12,2) if max|rho| <= .95 else (48,3) in t = 1-(1-s)^p) mis-integrate
+    # thin simplices (feature at 1-t ~ smallest eigenvalue of C); errors up to 4e-6 per simplex, +1.1e-3 summed at
+    # (8,4) zoo0. Log substitution 1-t = exp(-v), v in [0,70], 128 Gauss-Legendre nodes resolves every scale.
+    K = len(_LOG_T)
+    Rt = C[None] + _LOG_S[:, None, None] * (np.eye(4) - C)[None]      # = I + t (C - I), exact for small 1 - t
     acc = 0.0
-    for t, wgt, jac in _RULES["thin" if rmax > 0.95 else "wide"]:
-        Rt = np.eye(4) + t * (C - np.eye(4))
-        Om = np.linalg.inv(Rt); ops.add(4 ** 3 + 16)
-        for i, j in iu:
-            k, l = [q for q in range(4) if q != i and q != j]
-            pc = -Om[k, l] / math.sqrt(Om[k, k] * Om[l, l])
-            r = C[i, j]
-            acc += wgt * jac * r * math.asin(np.clip(pc, -1, 1)) / math.sqrt(max(1e-300, 1 - (t * r) ** 2))
-            ops.add(12)
+    for i, j in iu:
+        k, l = [q for q in range(4) if q != i and q != j]
+        # partial correlation from cofactors (scale-free, defined even when Rt is singular at t -> 1)
+        ck, cl = [q for q in range(4) if q != k], [q for q in range(4) if q != l]
+        ckk = np.linalg.det(Rt[:, ck][:, :, ck]); cll = np.linalg.det(Rt[:, cl][:, :, cl])
+        ckl = (-1) ** (k + l) * np.linalg.det(Rt[:, ck][:, :, cl])
+        pc = np.clip(-ckl / np.sqrt(np.maximum(ckk * cll, 1e-300)), -1, 1)
+        r = C[i, j]
+        ra = min(abs(r), 1.0); om = ((1 - ra) + ra * _LOG_S) * (1 + ra * _LOG_T)     # 1 - t^2 r^2 without cancellation
+        acc += float(np.sum(_LOG_W * r * np.arcsin(pc) / np.sqrt(np.maximum(1e-300, om))))
+        ops.add(K * (3 * 14 + 12))
     return p + acc / (4 * math.pi ** 2)
 
 
@@ -376,6 +385,9 @@ def _margin_split(c, A, model, t, truth, n_true, eps, ops, exact, done=()):
         if not trig:
             return [(c, g)]
     STATS["resolved"] += len(trig)
+    if DIAG[0] is not None and not exact:
+        for k in trig:
+            DIAG[0](c, A, g, k, t, model, truth)
     pieces = [c]
     for k in trig:
         nxt = []
