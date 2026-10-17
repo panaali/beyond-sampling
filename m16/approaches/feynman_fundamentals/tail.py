@@ -1,7 +1,7 @@
 """Exact-formula two-input tail, with explicitly numerical polygon geometry."""
 import itertools
 import numpy as np
-from moments import unit, area, tail_mass
+from moments import unit, area, tail_mass_with_fallback
 
 GEOMETRY_TOL = 1e-13
 
@@ -49,7 +49,8 @@ def conditional_probability(model, normalized_hidden, prefix_top, prefix_dimensi
     if len(prefix_top)==2 and prefix_top[0][0]<=prefix_top[1][0]:
         raise ValueError("prefix records must be strictly ordered")
     stats=dict(clips=0,affine_products=0,moment_calls=0,gate_cells=0,
-               correct_pieces=0,high_precision_fallbacks=0)
+               correct_pieces=0,high_precision_fallbacks=0,positive_fallbacks=0,
+               fallback_quadrature_nodes=0,fallback_quadrature_error_bound=0.)
     B=np.zeros((H,3));B[:,0]=normalized_hidden
     regions=[(np.diag([1.,a,b]),B.copy()) for a,b in itertools.product((-1,1),repeat=2)]
     for input_coordinate in (1,2):
@@ -78,7 +79,7 @@ def conditional_probability(model, normalized_hidden, prefix_top, prefix_dimensi
     rank_values.extend([(np.array([0.,1.,0.]),k),(np.array([0.,0.,1.]),k+1)])
     probability=0.;partition=0.
     for polygon,B in regions:
-        partition+=tail_mass(polygon,k);stats["moment_calls"]+=1
+        partition+=tail_mass_with_fallback(polygon,k,stats);stats["moment_calls"]+=1
         for rank_position,(value,target_index) in enumerate(rank_values):
             q=polygon
             # Reject positive-volume ties that first-index argmax awards elsewhere.
@@ -103,7 +104,7 @@ def conditional_probability(model, normalized_hidden, prefix_top, prefix_dimensi
                     if other_position not in (rank_position,max_position):
                         p=clip(p,value-other,stats)
                 if len(p):
-                    probability+=tail_mass(p,k)
+                    probability+=tail_mass_with_fallback(p,k,stats)
                     stats["moment_calls"]+=1;stats["correct_pieces"]+=1
     stats["partition_mass"]=partition
     if not (-1e-12<=probability<=1+1e-12):
