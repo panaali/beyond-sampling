@@ -1200,3 +1200,16 @@ hybrid is 1,838,695,310; no prices were added. Matrix expression units are
 evidence. The census is coverage evidence, not native applicability or a new
 sampling comparison.
 
+
+### Actual-binary five-dimensional edge partition
+
+`check_edge_split5_geometry_review.py` independently verifies all eleven saved
+partitions and seven rejection controls, using permutation determinants rather
+than the author's elimination. All 22 child determinants, positive edge
+coefficients, common duals, section ratios and recorded rounding differences
+match. The exact child cones cover the parent with only a measure-zero shared
+face. Section ratios are not Gaussian mass fractions. Successful normalization
+work is recorded; rejected-path exact work and compiled setup remain unpriced.
+No mass kernels were rerun. The separately frozen numerical child evaluation
+has passed source review, with fixed orders and all failures retained; its saved
+outputs require a separate audit.
