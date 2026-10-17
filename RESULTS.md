@@ -85,9 +85,10 @@ Deeper first-principles analysis of M_16,10 (`m16/FINDINGS.md`):
 - Errors grouped by what the model picks: blind region (2nd largest <= 0) 0.82%, picks the 3rd 2.14%, picks
   the max 0.52% (when x9 is below both), plus a ~0.27% remainder picking rank >= 4. (The 99.96% accuracy on
   rank-canonical inputs is close to true by construction: canonical inputs never fall in the blind region.)
-- ARC's open challenge (estimating accuracy mechanistically as well as sampling) is **not met**. Under ARC's
-  noisy-weights protocol (`m16/arc_eval.py`) my best estimator has RMSE 2.8 pp vs sampling's 0.3 pp at equal
-  compute. Six hypotheses that failed are documented.
+- ARC's open challenge (estimating accuracy mechanistically as well as sampling) is **not met**. After about 30
+  attempts, every deductive method loses to sampling (8x to >300x). The best verified estimator is sampling-based
+  ("srb", ~1.6-2.4x better than plain sampling on all 18 leaderboard models). Calculation does beat sampling by up
+  to ~500x on short sequences (T=3-4) and collapses around T=5-8. See `STATUS.md` and `INDEX.md` section 4b.
 
 ## What this says about the essay
 

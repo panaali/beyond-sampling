@@ -1,6 +1,7 @@
 # Project index: clean-neurons
 
 **DRI:** the main Claude session on branch `ccr-6a61f25c-wn80ii` (with the user).
+**Start here for a summary:** `STATUS.md` (plain language + technical status).
 This file is the single source of truth: what is being asked, who is doing what, where outputs live,
 and **how well each claim is actually supported**. Update it whenever an experiment starts, ends or
 changes status. Rules for contributors are in `CLAUDE.md`.
@@ -12,7 +13,7 @@ changes status. Rules for contributors are in `CLAUDE.md`.
 | Q1 | Is Cammarata's "Neural Networks Are Already Clean" right that most MLP neurons have one main job? | Answered at small scale (Qwen3-0.6B). See `RESULTS.md` |
 | Q2 | Hilton/ARC: does per-neuron legibility add up to understanding? (AlgZoo models) | Answered for the 432-param model under one protocol. See E4 |
 | Q3 | How does the 432-param AlgZoo RNN (M_16,10) compute the 2nd argmax? | Mostly answered. See `m16/FINDINGS.md` |
-| Q4 | ARC challenge: a *mechanistic* (deductive) estimate of M_16,10's accuracy matching sampling in MSE vs compute, on noisy-weight copies | **Open.** E10 onward |
+| Q4 | ARC challenge: a *mechanistic* (deductive) estimate of M_16,10's accuracy matching sampling in MSE vs compute, on noisy-weight copies | **Open, not solved** (about 30 attempts; see section 4b and `STATUS.md`) |
 
 **Success criteria for Q4 (re-centred on ARC's stated intent: "a scalable, algorithmic approach to producing
 mechanistic estimates"; hand analysis is "a warm-up"):**
@@ -125,17 +126,39 @@ Nothing is "confirmed" on its author's word alone.
 | H-E4 | Our harness implements ARC's protocol | **unverified**; R1: sigma levels were our choice (code default 0.05 not reported; at 0.02-0.05 accuracy drops to 26-77%); MSE from ~48 squared errors has ~+-20% relative s.e., so ratios need CIs | ARC: "add noise enough to significantly alter accuracy" | the noise scale (sigma x matrix RMS) and the levels (0.0025, 0.005) are our choices; ARC may use seeds rather than noise; FLOPs vs evals accounting is not settled |
 | H-E5 | "Someone at ARC has cracked M_16,10" | **unverified** | private message relayed by the user | not checked by design (independence) |
 
-## 4b. State of Q4 (synthesis after 13 approaches)
-- **Deductive methods:** all fail vs sampling (8x to >300x worse). Best bias: FORM/SORM per chamber, +0.15 pp at 2.5M evals.
-- **Sampling baselines:** srb (E12) and joint (E18) ~2.7x / 2.2x / 1.5x (orig / sigma 0.0025 / sigma 0.005). Stratified ~2.1/1.8/1.4x on model evals, but only 1.45/1.22/0.91x with generation counted. Tube: gains at <=64k, bias floor ~0.09 pp at 256k.
-- **The obstacle, located:** the misclassified band width at ties varies irregularly with the other inputs (CV ~1.2, <10% explained by simple features). It is mediated by gates that flip every ~0.02 near ties; there are 1e7+ linear regions. A deductive solution needs a compact description of that function (E23).
+## 4b. State of Q4 (final synthesis, 2026-10-17; ~30 attempts, ~40 agents)
+Full plain-language status: `STATUS.md`.
+- **Not solved.** No deductive method beats sampling on M_16,10. Deductive attempts lose by 8x to >300x
+  (E10, E13, E14, E17, E19, E21; probe v2-v4). The best deductive bias is FORM/SORM per chamber, +0.15 pp at 2.5M evals.
+- **Best verified estimator (sampling-based): srb** (E12: exact last step + model-free near-tie strata). It is the only
+  method whose 95% CI is below 1 in every leaderboard group: MSE/sampling 0.42 / 0.45 / 0.50 / 0.61
+  (orig / seeds 0-4 / sigma 0.0025 / sigma 0.005), i.e. ~1.6-2.4x (LB2). Joint (E18), boundary (E11) and stratified (E9)
+  are close; tube (E15) and other deterministic quadratures (E24, E26) win on the original/noisy copies but
+  lose on the independently trained seeds.
+- **Where calculation does work (E25, H-E11):** deterministic tie-slicing beats sampling by 38-507x on short sequences
+  (T=3-4) and collapses at T~5-8 depending on hidden size (H=8: T=5; H=16: T=5-6; H=32: T=6-8). The collapse tracks a
+  heavy-tailed band integrand (rare wide multi-cell bands; H-E12), **not** cancellation (H-E9 refuted as root cause).
+- **Why deterministic summaries fail:** the low inputs act as noise on the tie margin, so replacing them with typical
+  values always overestimates accuracy (H-E10, 60/60 models). Additive descriptions miss by 4% even as an oracle
+  (H-E8). The band width is learnable (an MLP reaches R^2 0.67) but not compact, and it is uncorrelated across seeds (E23).
+- **For the comparison with ARC's claimed solution:** the decisive question is how their method handles the rare, wide,
+  multi-linear-cell error bands at T=10. That is where every approach here broke.
 
-## 5. Open questions / next decisions
-- **Leaderboard v2 (decided):** pass 1 shows sampling-vs-itself MSE ratios of 0.55-2.72 (true value 1.0), so single-model cells with 8 reps are noise. v2: add `zoo_2nd_argmax(16,10, seed=0..4)` (generality criterion); 24 reps for randomised methods; bootstrap CIs on every ratio; compare deterministic methods only across model groups.
-- **Brute-force option (needs more compute):** exhaustive region enumeration (reverse search) plus exact cone masses would give an exact reference answer at roughly 1e9-1e10 eval-equivalents. Deciding experiment first: can exact 10-D cone masses be computed fast and accurately enough on a sample of regions? Even if it works, it is a benchmark, not an explanation in ARC's sense.
-0. R1 follow-ups: re-run H2 with >=100 controls (neurons projected out, or dense rotation) and 2-3 explainers per item; n-gram dedupe for judges; sweep the label constant budget; finish M_32,10; count candidate-generation FLOPs for stratified; add CIs to all MSE ratios; report a higher-noise sigma too.
-1. Check H-Q2's alternative: are random directions dominated by massive-activation neurons? (needs a Qwen re-run; deferred while CPU is saturated)
-2. Orthogonal/causal test for H-M3; check H-M1's phase clock across the other common gate sets. (The H-M2 null test is done: weakened.)
-3. Settle compute accounting (FLOPs incl. input generation) and re-run H-E3 with more repeats.
-4. Collect approach-agent results into the registry; independently re-run the best one before believing it.
-5. Reviewer report (R1): fold into the ledger.
+## 5. Open questions / next steps
+**Done:** leaderboard v2 (LB2); reviewer R1 folded in; H-M2 null test (weakened); best estimator re-run
+independently (LB2); compute accounting incl. input generation (E18); orig truth fixed by pooling 28M samples.
+
+**Still open:**
+1. **Untried deductive direction (suggested by E23, E27):** a *stochastic* reduction that carries the low inputs as a
+   distribution and tracks the exact law of the residual tie margin; also symbols defined by rotating-neuron gate
+   switches rather than records.
+2. Explain the T~5 collapse mechanistically (why do bands become heavy-tailed?); repeat the E25 scan with several
+   training seeds per (H,T).
+3. Brute-force exact reference (needs more compute): reverse-search region enumeration plus exact cone masses at
+   ~1e9-1e10 eval-equivalents. Deciding experiment first: exact 10-D cone masses on a sample of regions.
+4. R1 follow-ups for the Qwen study: H2 with >=100 controls (top neurons projected out, or dense rotation) and 2-3
+   explainers per item; n-gram dedupe for judges; sweep the label constant budget; finish M_32,10 (E5).
+5. H-Q2 alternative (random directions dominated by massive-activation neurons) partly confirmed by R1; a full re-run is pending.
+6. Causal/orthogonal test for H-M3; check H-M1's phase clock across other common gate sets.
+7. Leaderboard v2's orig rows used the pre-fix truth (~0.025 pp low); re-score orig rows with the pooled truth.
+8. ARC protocol (H-E4): our sigma levels and accounting are our own choices; confirm against ARC's method when shared.

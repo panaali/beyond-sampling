@@ -205,7 +205,9 @@ at about 100k evals, a deterministic method needs bias below about 0.05-0.1 pp *
 
 ## 6. What is still not done
 
-- ARC's challenge (section 5): a deductive estimate that matches sampling.
+- ARC's challenge (section 5): a deductive estimate that matches sampling. **Update:** about 30 further attempts by
+  agents (`m16/approaches/*/`, registry E10-E27 in `INDEX.md`) also failed deductively. Best verified estimator:
+  sampling-based srb, ~1.6-2.4x (leaderboard v2). See `STATUS.md` and `INDEX.md` section 4b.
 - The gating rules are measured (92-100% predictable from record history), not derived from the weights.
 - The "assist" (why the max's contribution normally favours p2 over p3) is measured exactly per input; it
   is value-dependent through gating (positions explain R^2 0.05), with no closed form found.
