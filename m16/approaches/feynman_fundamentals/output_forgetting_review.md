@@ -159,3 +159,30 @@ gives .007984888967696072 for C+, and .009743822453890811 for C-.
 Their sum .017728711421586885 differs from the fixed-rule result by
 about1.4e-16. CPU .0191 seconds. Adaptive error estimates are numerical,
 not certified bounds; this remains a partial event contribution.
+
+## Negative target sectors completing the signed event family
+
+For A<0,B>0,C>0,D<0, a negative selected A cannot be second largest:
+B,C are already larger. For A<0,B>0,C<0,D<0, selected A=-s requires
+all m ordinary prefix inputs below -s, B>kappa*s, and both negative
+partners below -s. The resulting integrand is
+phi(s)Q(s)^m Q(kappa*s)J(s), where
+J(s)=integral_s^infinity phi(r)Q(max(s,k*r))dr. At trained k0,
+J(s)=Q(s)^2. With kappa0 also, the integral is exactly
+1/[2^(m+4)(m+3)].
+
+The `negative_rank.py` source correctly keeps positive target sectors
+for ordinary prefix/B and negative sectors for prefix/A/C/D. The
+negative-prefix sector uses m-1 other ordinary values and the joint
+first-pair tail I(s); C uses Q(max(s,k*s)); D requires partner magnitude
+in(s,s/k), hence is zero for k>=1. These are unnormalized event masses.
+The split for J at s/k is correct, with its finite cutoff tail reported
+separately. No negative A/C/D can enter the positive-target sectors.
+
+`check_negative_target_review.py` independently uses scalar erfc and
+adaptive integration, without author functions. The selected trained
+negative-A contribution is .00010442263405448726, differing from the
+fixed rule by1.79e-17. Zero-threshold controls at m0/2/6 reproduce
+1/48,1/320,1/9216. CPU .000438 seconds. The completed eight signed
+events cover about .32226979, leaving about .67773021 unresolved;
+neither this contribution nor coverage is the full model accuracy.
