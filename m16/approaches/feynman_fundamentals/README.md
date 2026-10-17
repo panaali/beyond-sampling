@@ -597,3 +597,12 @@ the explicit MGS/fallback callbacks. Alternative2: a valid primitive is composed
 with the wrong quadrature degree or inner-error factor; independently count
 Duffy degrees and positive weights. No new numerical integration is needed.
 The outcome and exact source hashes are recorded in `t71_count_review.md`.
+
+## Cycle 18: T52 projection and static triangle review
+Parent restarted the persistent T55 scope in05bbd72. First review the ongoing
+T6 computation's explicit orthant projection. Alternative1: determinant and
+radial errors need an omitted factor or an impossible disjointness assumption;
+derive each individual simplex perturbation and sum absolute errors.
+Alternative2: the static triangle charge hides an unbounded kernel or fallback
+setup; inspect the pinned source and local callback separately. No numerical
+rerun, no production changes. `t6_projection_review.md` records the result.
