@@ -1642,3 +1642,11 @@ T187 trained806efc72 passes independent exact saved-mask algebra for all768:384s
 ### T184 H6/zoo0 saved raw audit
 
 All256 original rows/four shards pass all bindings/sites, including one H6 pilot reuse. Named69260320 numerical+2015202 integer units, source215 own-floor group ratio.07457853067163603. One individual loss is retained, maximum25.081583901885413; no topology differences. Completed-shard73.909970091CPU. No method-family failure or universal win inferred from group/individual mix; H6 remaining groups and global reconciliation pending.
+
+### T115 k28 completed independent global audit
+
+Final seed4 full raw-site audit passes:85B103965032 numerical/3276311integer,112170327135/5844220. Own-floor source111 ratios.15733241240783316/.0025309826255002386;23/1 individual losses retained. Global checker reuses all five immutable seed audits, independently checks clean ledgers,160 file pins,5120 unique models,10240 paired/10220 baseline records and ten control reuses. All group/noise/individual/mean-counter metrics reconcile; total25/1 named individual losses versus6/1 historical. Research2081.222020532CPU,max31.417634027, no replay. Current recovered canonical bytes and exact old subtraction match remain distinct from unproved historical-byte identity; source allowances/conditional bootstrap not full native/runtime or universal success.
+
+### Reviewer evidence transfer status
+
+DRI handbook532d9130 section9 item4 requests shared evidence.154 own-folder commits prepared on fresh shared checkout, independently conserved by78 review493885d4; latest-origin rebase target3fe7c12f preserves all ordered patch bytes and source3bb92013 folder tree. External push was rejected by automatic approval review: exporting154commits to GitHub destination was not explicitly authorized by user. No bypass, peer-push request or retry after rejection; root notified to obtain approval. Transfer remains local in /workspace/work/integrate-reviewed-fundamentals. Later e4527546 and current k28 audit remain outside that frozen transfer.
