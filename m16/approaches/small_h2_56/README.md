@@ -69,3 +69,16 @@ For T5, integrate the last Duffy coordinate exactly. For segment X(u)=(1-u)A+uB,
 `(r+s)*[(r*r+s*s-r*s)*S+(r+s)**2*r*s]/[3*r**3*s**3*S**2]`.
 
 Differentiate the known inverse-cube integral (r+s)/(rsS) with respect to the common quadratic constant to derive this formula. Two sibling agents independently checked the algebra, A=B and orthogonal-unit cases. Same-orthant rays give S>=1/d, avoiding antipodal singularities. The final Duffy Jacobian exponent is zero, and exact last-coordinate integration preserves the Taylor/Chebyshev polynomial degree in all remaining variables; the existing analytic quadrature bound therefore survives. This reduces T5 tensor nodes from n^4 to n^3. Before using it on trained cones, validate arbitrary deterministic endpoints against high-order positive one-dimensional quadrature and analytic cases, then reproduce all three previously committed T5 estimates and the full partition. Preserve all discrepancies and count actual scalar operations separately from Qhull setup. No model-specific tuning.
+
+## Cycle5 results: one coordinate eliminated analytically
+The positive segment formula passes15 analytic/deterministic endpoint checks against128-node independent positive one-dimensional quadrature, including equal, orthogonal, collinear and nearly equal endpoints. Algebra and inherited-error-bound reasoning were independently checked by root and two sibling agents before implementation.
+
+Using exactly the prior frozen per-cone orders and bounds, the three T5 estimates are:
+
+| relative noise | accuracy | conditional quadrature bound | numerical nodes | arithmetic ops excluding sqrt/setup | square roots |
+|---|---:|---:|---:|---:|---:|
+|0|0.2792373713559676|2.49756e-5|9,465,648|851,925,929|18,931,296|
+|.0025|0.31063601436566657|2.32966e-5|20,237,216|1,821,382,349|40,474,432|
+|.02|0.32506108244184867|2.24711e-5|18,708,560|1,683,804,857|37,417,120|
+
+All differ from the previous full-dimensional positive quadrature by less than1.5e-12. The original full-gate partition gives1.0000000000928302. This cuts numerical node counts by18–20x while preserving the analytic integration bound. Each node uses90 scalar arithmetic operations plus2 square roots; explicit scalar per-simplex aggregation is added. Determinant, planning, node generation and Qhull setup are still separate and require review before claiming an equal-compute win. Planning plus integration took1.49,2.93,2.76CPU seconds respectively, excluding geometry already reported. `cycle5.json` contains complete counts and checks; `cycle5.py` reproduces them. No new random inputs were used in this cycle.
