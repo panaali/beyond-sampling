@@ -206,3 +206,50 @@ description to grow too quickly; mass conservation and this exact four-part law
 are the first falsifiers. Separately, reset-prefix marginalization remains an
 independent candidate. Root should track implementation/review follow-ups in the
 backlog; T55 does not modify shared files or other owners' estimators.
+
+## Cycle 3: positive fallback with a quadrature bound
+
+For a triangle with ray matrix V, the moment integral is
+|det V| integral_Delta a(y)^p q(y)^(-s)dy, where a=(Vy)_0,
+q=||Vy||^2 and s=(p+3)/2. Scale each ray to L1 norm1. For rays in a common
+orthant, q is between1/3 and1. More locally, for any unit separating vector c,
+q>=(min_i c dot v_i)^2, while q<=max_i ||v_i||^2 by convexity.
+
+Choose qlo,qhi, center C=(qlo+qhi)/2 and r=(qhi-qlo)/(qhi+qlo). Expand
+(q/C)^(-s) as a binomial series in z=(q-C)/C. Its degree-K truncation has a
+uniform remainder bounded by
+
+    R <= t_N/(1-rho),
+    N=K+1, t_N=(s)_N r^N/N!, rho=r(s+N)/(N+1)<1.
+
+The successive absolute term ratios decrease because s>1. Multiplying by
+amax^p C^(-s), where amax is the largest vertex coordinate0, bounds the
+integrand error. Under the Duffy map y=(u,(1-u)v,(1-u)(1-v)), a polynomial
+of simplex degreeD has coordinate degree at mostD; its Jacobian adds one.
+Therefore n-point tensor Gauss-Legendre quadrature integrates the truncated
+polynomial exactly when p+2K+1<=2n-1.
+
+The positive quadrature weights sum to the simplex area1/2. Both the true
+integral and quadrature incur at most that area times the uniform remainder.
+Thus a bound on the moment quadrature error is
+
+    |det V| amax^p C^(-s) t_N/(1-rho).
+
+Multiply by k/(2*pi) for tail probability and sum bounds over polygon triangles.
+The T48 agent independently checked the degree count, factor2, and ratio bound.
+`positive.py` implements this route, using tensor orders no greater than128.
+
+This is a quadrature-error bound in real arithmetic on the supplied polygon,
+NOT an interval-arithmetic certificate. Roundoff can exceed that bound when the
+series remainder is extremely small. The saved tests explicitly expose such
+cases instead of inflating the mathematical bound or calling them certified.
+Across the tested polygons actual errors remain below1.48e-15. The supplied
+trained H4T4 failing triangle is recovered as1.1427937453027048e-16 versus
+the 100-digit reference1.1427937452910193e-16, using16 quadrature nodes.
+Its difference1.17e-27 exceeds the much smaller9.53e-34 quadrature bound,
+demonstrating the separate floating-geometry/determinant error limitation.
+
+`tail_mass_with_fallback` preserves the original recurrence/guard and invokes
+positive integration only after an explicit ArithmeticError. It records fallback
+count, quadrature nodes and the quadrature-only bound in caller statistics.
+Passing the original geometric guard still does not prove total numerical error.
