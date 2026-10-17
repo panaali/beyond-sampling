@@ -71,14 +71,18 @@ def discarded_target_probability(m,target,suffix_cdfs):
     return density*p
 
 
-def normal_probability(m,target,suffix):
-    suffix=np.asarray(suffix,dtype=float)
-    if target<m+2:return float(discarded_target_probability(m,target,list(ndtr(suffix))))
+def cdf_probability(m,target,values):
+    """Conditional rank probability in CDF coordinates, preserving Fractions."""
+    if target<m+2:return discarded_target_probability(m,target,values)
     j=target-(m+2)
-    if not 0<=j<len(suffix):raise ValueError('target outside full sequence')
-    u=suffix[j];c=int(np.count_nonzero(suffix>u))
-    if c>1:return 0.
-    return float(count_probability(float(ndtr(u)),m,2,1-c))
+    if not 0<=j<len(values):raise ValueError('target outside full sequence')
+    v=values[j];c=sum(x>v for x in values)
+    if c>1:return 0*v
+    return count_probability(v,m,2,1-c)
+
+
+def normal_probability(m,target,suffix):
+    return float(cdf_probability(m,target,list(ndtr(suffix))))
 
 
 def sign_rank_masses(T,requirements):
