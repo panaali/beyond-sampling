@@ -44,10 +44,10 @@ bound, but the actual inner/determinant/node/kernel floating errors remain
 unbounded. T11588 exact constants and T11591 original-rule perturbation work
 are distinct qualifications, not a full certificate for this changed rule.
 
-Reproduce from source d7e949b1 in a fresh checkout with one thread and2GB,
-first pilot.py under the review lock, then run_full.py under the primary lock
-(<=110CPU). For exact saved pilot reuse, use the pinned pilot artifact rather
-than regenerating it; full_protocol.json intentionally pins it. Existing
+Reproduce pilot.py from pre-result source eb303cd1 in a fresh checkout with
+one thread and2GB under the review lock. Reproduce run_full.py separately from
+d7e949b1 under the primary lock (<=110CPU): that snapshot includes the pinned
+pilot artifact, which must be reused rather than regenerated. Existing
 progress/results are refused; all partial failures remain explicit.
 
 Open alternatives: compiled/vectorized positive inner evaluation under pinned
