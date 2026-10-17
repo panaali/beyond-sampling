@@ -43,3 +43,22 @@ All five2^30 clean models exactly reproduce the saved T75 outputs and operation 
 The full panel remains the previously frozen20 blocks of256 noisy copies. The first4 RNG20 copies overlap the resource pilot and enter the final statistical panel only once; repeated pilot computation is validation overhead, not independent evidence. Block files preserve every estimate, exact truth, operation/cell counts, model hash and CPU. Blocks checkpoint independently; no lower training amount is tested before complete review.
 
 Pilot accounting:1.835CPU/199MB; predicted candidate+truth time5.53CPU per256-copy block. Maximum independent-reference difference4.45e−16. One individual pilot copy has ratio1.228, so the pilot is not described as every-copy success. The predeclared criterion concerns each training seed's aggregate noisy MSE/CI plus its clean case; all individual failures remain in the raw panel and worst-case summary. This distinction is fixed before full evaluation and matches the predecessor's aggregate protocol.
+
+## Complete2^29 panel: author result, independent review pending
+All5,120 predeclared noisy models were evaluated,1024 per training seed, with no omitted cases. The frozen per-seed aggregate criterion passes for all five seeds under the inherited T75 operation convention. This is a finite-panel result awaiting DRI confirmation, not a claim that every individual model wins.
+
+| training seed | noisy RMSE | published MSE ratio | conditional95% bootstrap CI | mean candidate ops | candidate cells |
+|---|---:|---:|---:|---:|---:|
+|0|0.0001123|0.0000592|[0.0000519,0.0000674]|34481.7|170.0|
+|1|0.0051411|0.04771|[0.03464,0.06311]|25207.3|103.0|
+|2|0.0012678|0.003648|[0.002868,0.004731]|31708.6|157.2|
+|3|0.0018642|0.009184|[0.004518,0.01555]|30507.4|144.8|
+|4|0.0148706|0.30358|[0.25365,0.35643]|23262.0|109.8|
+
+The per-model-matched ratios are0.0000591,.04742,.003641,.009137,.30222, consistent with the primary conclusion. Clean ratios remain below.030. Individual failures are explicit:0/11/0/2/97 noisy copies have ratio>1; the worst copy has8.084pp absolute bias and ratio8.57. Thus this is not uniform accuracy dominance over the weight distribution.
+
+Independent T55 statistical review distinguishes the published ratio, which uses one observed ensemble-average budget, from the per-model matched comparison. The primary bootstrap holds that mean budget fixed, so its CI is conditional on it; the model-matched bootstrap resamples individual costs. Five separate95% intervals are not a simultaneous95% family certificate or a theorem over unseen training amounts. Noise draws are paired across training seeds by design; no pooled-seed confidence argument is made.
+
+Reference correct-piece counts are75–90 on average and are labeled accordingly. Independent global DD gate counts on the five clean models are70,52,53,70,72; they are not interchangeable with rank-conditioned correct leaves or candidate half-chamber cells. The method still resolves much of a small model and does not establish favorable asymptotic scaling.
+
+Validation block CPU totals112.917 seconds across five bounded cycles, each below26CPU; pilot1.835CPU, summary.060CPU. These block totals exclude Python imports before each timer and network acquisition, which are not per-model estimator advice and are not silently presented as complete campaign cold cost. Candidate/reference timings and all operation counters are retained per model. Reproduce with the pinned source checkout and downloaded hashes: `python pilot.py`, `python block.py --training-seed s` for s0..4 under the resource lock, then `python summarize.py`. No2^28 model has been fetched or evaluated; advancement awaits independent review and a separate rung claim.
