@@ -10,7 +10,7 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
 0. **The task board [TASKS.md](TASKS.md) is mandatory for every agent (Claude, Codex, humans).** Many agents work
    in this repo at once; the board is how duplicate work is avoided.
    - **Reserve before you start.** Before writing any code or running any experiment, `git pull`, check that the task
-     is not already *In progress*, move it there with your owner ID, date and folder, and **commit and push that edit
+     is **Ready** (not Blocked) and not already *In progress*, move it there with your owner ID, date and folder, and **commit and push that edit
      alone**. If your idea is not on the board yet, add it as a new backlog row and reserve it in the same commit.
      Never work on a task someone else holds.
    - **Keep it current.** Update your row's *Notes* when the plan changes. If you stop or get interrupted, release the
@@ -44,7 +44,7 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
    whether the method is deductive (no random model inputs) or sampling-based.
 7. **Independence.** Do not read Alignment Research Center material about AlgZoo published after
    January 2026 (we are doing an independent attempt to compare with theirs).
-8. Keep runs CPU-light (4 shared cores). Large data goes in `data/` (git-ignored).
+8. Keep runs CPU-light (4 shared cores): at most 2 heavy tasks at once, tracked by the *CPU* column in [TASKS.md](TASKS.md). Large data goes in `data/` (git-ignored).
 9. **Never kill processes by name pattern** (`pkill -f`, `pgrep -f ... | xargs kill`): other agents run
    scripts with the same names. Kill only PIDs you started and have checked (e.g. by their working
    directory, `ls -l /proc/<pid>/cwd`).
