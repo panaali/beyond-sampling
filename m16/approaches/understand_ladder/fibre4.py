@@ -283,6 +283,22 @@ def vec_area(poly, ops):
     return A if A @ poly[0] + A @ poly[1] > 0 else -A
 
 
+EMAX = 0.25       # fan triangles with an edge longer than this (radians) are split into 4 (cubature accuracy)
+
+
+def _subdivide(a, b, c, ops, depth=0):
+    """Split a spherical triangle into 4 (edge midpoints) until all edges are <= EMAX."""
+    e = max(float(np.arccos(np.clip(x @ y, -1, 1))) for x, y in ((a, b), (b, c), (c, a))); ops.add(9 + 3)
+    if e <= EMAX or depth >= 6:
+        return [(a, b, c)]
+    ab = a + b; ab /= np.linalg.norm(ab); bc = b + c; bc /= np.linalg.norm(bc); ca = c + a; ca /= np.linalg.norm(ca)
+    ops.add(3 * 9)
+    out = []
+    for t in ((a, ab, ca), (ab, b, bc), (ca, bc, c), (ab, bc, ca)):
+        out += _subdivide(*t, ops, depth + 1)
+    return out
+
+
 def poly_int(poly, fns, signs, ops, mode="closed"):
     """sum_f sign_f * int_poly G(f . omega) dOmega. 'closed': the linear part of G exactly (vector area) plus the
     cubic-and-higher remainder G(u) - u by a 3x3 Duffy-Gauss rule per fan triangle; 'cubature': NQ x NQ rule."""
@@ -293,16 +309,18 @@ def poly_int(poly, fns, signs, ops, mode="closed"):
         VA = vec_area(poly, ops)
         tot = float((F @ VA) @ sg); ops.add(3 * len(fns))
         S_, T_, W_ = _S3, _T3, _W3
-        if ADAPT:
-            umax = float(np.max(np.abs(np.array(poly) @ F.T))); ops.add(3 * len(poly) * len(fns))
-            nq = 3 if umax <= 0.1 else 6 if umax <= 0.5 else 10 if umax <= 2 else 16
-            S_, T_, W_ = _RULES[nq]
         g = lambda u: G(u) - u
     else:
         tot = 0.0; S_, T_, W_ = _S, _T, _WW; g = G
     v0 = poly[0]
+    tris = []
     for q in range(1, len(poly) - 1):
-        v1, v2 = poly[q], poly[q + 1]
+        tris += _subdivide(v0, poly[q], poly[q + 1], ops)
+    for (v0, v1, v2) in tris:
+        if mode == "closed" and ADAPT:
+            um = float(np.max(np.abs(np.array([v0, v1, v2]) @ F.T))); ops.add(9 * len(fns))
+            nq = 3 if um <= 0.1 else 6 if um <= 0.5 else 10 if um <= 2 else 16
+            S_, T_, W_ = _RULES[nq]
         det = float(np.dot(v0, np.cross(v1, v2)))
         if abs(det) < 1e-18:
             continue
