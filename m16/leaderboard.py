@@ -41,8 +41,8 @@ Estimators not yet reviewed are reported as "unreviewed". Anything classed mecha
 determinism check (two different rngs give the same estimate) or it is reported as sampling.
 
 SCORING. MSE = mean (estimate - truth)^2 - truth_se^2 (unbiased for the MSE against the exact accuracy),
-reported as the ratio to plain sampling's MSE p(1-p)/cost at the same mean cost (below 1 = better), with a
-bootstrap 95% CI. Every single run is stored in data/leaderboard_v3_raw.jsonl (copied to results/ by each report), so tables are recomputed
+reported as the ratio to plain sampling's MSE at the same cost, mean over runs of p_m(1-p_m)/cost_run with p_m the
+run's model accuracy (T22; below 1 = better), with a bootstrap 95% CI over runs. Every single run is stored in data/leaderboard_v3_raw.jsonl (copied to results/ by each report), so tables are recomputed
 from raw estimates when truths improve (`report`), without re-running estimators.
 
 usage:
@@ -320,10 +320,12 @@ def table(H, T, names=None):
                 if not sel:
                     continue
                 se2 = np.array([(d["est"] - truth[d["model"]]["acc"]) ** 2 - truth[d["model"]]["se"] ** 2 for d in sel])
-                p = np.mean([truth[k]["acc"] for k in {d["model"] for d in sel}])
-                C = float(np.mean([_charged(name, d["cost"], b) for d in sel])); base = p * (1 - p) / C
-                boot = np.random.default_rng(0).choice(se2, (2000, len(se2))).mean(1) / base
-                lo, hi = np.percentile(boot, [2.5, 97.5])
+                # T22: each run's own sampling MSE at its own charged cost, p_m(1-p_m)/C_run (not mean(p)(1-mean(p)))
+                cst = np.array([_charged(name, d["cost"], b) for d in sel])
+                v = np.array([truth[d["model"]]["acc"] * (1 - truth[d["model"]]["acc"]) for d in sel]) / cst
+                C = float(cst.mean()); base = float(v.mean())
+                idx = np.random.default_rng(0).integers(0, len(sel), (2000, len(sel)))
+                lo, hi = np.percentile(se2[idx].mean(1) / v[idx].mean(1), [2.5, 97.5])
                 out.append(dict(name=name, cls=cls, budget=b, group=g, cost=C, n=len(sel),
                                 rmse_pp=100 * np.sqrt(max(se2.mean(), 0)), ratio=se2.mean() / base, ci=[lo, hi],
                                 bias_pp=100 * np.mean([d["est"] - truth[d["model"]]["acc"] for d in sel]),
