@@ -18,7 +18,7 @@ def fixtures(ks):
     return rows
 
 def reference(row,dps):
-    if row['ideal'] is None:return str(F(1,32)),mp.mpf(1)/32
+    if row['ideal'] is None:return '0.03125',mp.mpf(1)/32
     c,s=map(F,row['rays'][1,:2])
     with mp.workdps(dps):
         cc=mp.mpf(c.numerator)/c.denominator;ss=mp.mpf(s.numerator)/s.denominator
@@ -29,7 +29,7 @@ def main():
     resource.setrlimit(resource.RLIMIT_CPU,(20,22));dest=HERE/'results.json';assert not dest.exists()
     p=json.loads((HERE/'protocol.json').read_text());pins=json.loads((HERE/'pins.json').read_text())
     for path,sha in pins.items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
-    start=time.process_time();out={'complete':False,'protocol':p,'fixtures':[],'setup':[],'rows':[],'pins_sha256':hashlib.sha256((HERE/'pins.json').read_bytes()).hexdigest()}
+    start=time.process_time();out={'complete':False,'protocol':p,'fixtures':[],'setup':[],'rows':[],'pins_sha256':hashlib.sha256((HERE/'pins.json').read_bytes()).hexdigest(),'numpy_version':np.__version__,'mpmath_version':mp.__version__}
     def save():
         out.update(cpu=time.process_time()-start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         dest.write_text(json.dumps(out,indent=2,allow_nan=False)+'\n')
