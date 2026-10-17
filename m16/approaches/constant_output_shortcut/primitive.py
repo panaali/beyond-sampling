@@ -28,7 +28,7 @@ def recognize(model):
   if not bool(dominance.all()):return result('fallback',reason='Sufficient constant-first-label predicates do not hold')
   reason='row0_coordinatewise_dominance_including_identical_rows'
  counts['scalar_division']+=1
- return result('certified',reason=reason,prediction=0,accuracy=1./T,exact_accuracy=[1,T],contract='Bias-free ReLU recurrence with zero initial hidden state; iid or continuous exchangeable scalar inputs; first-index argmax; real-arithmetic model semantics')
+ return result('certified',reason=reason,prediction=0,accuracy=1./T,exact_accuracy=[1,T],contract='Bias-free ReLU recurrence with zero initial hidden state; iid continuous inputs, or exchangeable inputs with almost-surely distinct coordinates; first-index argmax; real-arithmetic model semantics')
 
 def dispatch(model,fallback):
  certificate=recognize(model)

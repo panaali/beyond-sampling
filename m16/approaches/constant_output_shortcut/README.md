@@ -4,7 +4,7 @@
 Can a sufficient weight-only test resolve the preserved alloff control before geometry/quadrature, while leaving nonconstant trained calls unchanged?
 
 ## Method
-Claimbe027783 before code. Require finitebinary64 arrays, zero initialhidden, biasfree ReLU scalar-input recurrence. If Wi==0 then hidden remainszero. Otherwise, if readoutrow0 is coordinatewise>=every rival, nonnegativehidden implies logit0>=every rival; first-index tie ownership givesprediction0 everywhere. Identical rows are covered by that same dominance test rather than redundant work. Under continuous exchangeable inputs, the second-largest position is uniform, so accuracy exactly1/T. Return exactpair(1,T) plus its binary64 division. No sampled inputs, mass/geometry calls or storedweight dependency in the primitive.
+Claimbe027783 before code. Require finitebinary64 arrays, zero initialhidden, biasfree ReLU scalar-input recurrence. If Wi==0 then hidden remainszero. Otherwise, if readoutrow0 is coordinatewise>=every rival, nonnegativehidden implies logit0>=every rival; first-index tie ownership givesprediction0 everywhere. Identical rows are covered by that same dominance test rather than redundant work. Under exchangeable inputs with almost-surely distinct coordinates (in particular iid continuous Gaussian inputs), the second-largest position is uniform, so accuracy exactly1/T. Return exactpair(1,T) plus its binary64 division. No sampled inputs, mass/geometry calls or storedweight dependency in the primitive.
 
 ## Status
 Protocol/primitive prepared; independent theorem gate supplied, source/control gate pending.
@@ -23,3 +23,5 @@ Reachable-hidden restrictions could certify more models even when coordinatewise
 
 ## Failure modes
 Nonfinite/shape/dtypeinvalid inputs reject explicitly. Exact zero/comparisons only; no tolerance. A failed sufficientpredicate delegates unchanged to caller's fallback, rather than asserting nonconstant or inventing accuracy. Final1/T float is rounded; exactrationalpair retained.
+
+The input condition explicitly excludes tied-coordinate exchangeable laws: continuous marginals alone do not imply distinct coordinates (all coordinates could equal one shared continuous variable). No accuracy1/T claim for discrete or tied input laws.
