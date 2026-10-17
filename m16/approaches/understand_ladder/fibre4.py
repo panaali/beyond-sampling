@@ -138,14 +138,14 @@ def _fn(w, B, nn):
     return -(B.T @ w) / d
 
 
-def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache):
+def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache, look=1, info=None):
     """Fibre at face point w0 (unit, hyperplane coords). cfn: clamp fns (list of 3-vectors).
     Returns (intervals [(lo or None, hi)], constraints list of 3-vectors c with sign(c . w0) to keep)."""
     p = B @ w0
     nn_ = nn
     cv = [float(c @ w0) for c in cfn]; ic = int(np.argmin(cv)); ucl = cv[ic]; fcl = cfn[ic]
     cons = [cfn[q] - fcl for q in range(len(cfn)) if q != ic]
-    st = st0; f_u = None; u = 0.0; out = []
+    st = st0; f_u = None; u = 0.0; out = []; n_ok = 0
     T = st.L.shape[0]
     for _ in range(64):
         ug = st.gal @ w0; ops.add(3 * len(ug))
@@ -220,7 +220,12 @@ def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache):
                 if cls != truth:
                     _append(out, edges[q][1], edges[q + 1][1])
                 cls_end = cls
-            if kk < 0 or (mode == "F1" and cls_end == truth):
+            piece_ok = all((int(np.argmax(a + 0.5 * (edges[q][0] + edges[q + 1][0]) * b)) == truth) if st.live
+                           else truth == 0 for q in range(len(edges) - 1))
+            n_ok = n_ok + 1 if piece_ok else 0
+            if info is not None:
+                info["f_stop"], info["u_stop"] = f_next, unext
+            if kk < 0 or (mode == "F1" and cls_end == truth and (look <= 1 or n_ok >= look)):
                 break
         key = (id(st), kk)
         if key not in cache:
@@ -260,6 +265,8 @@ def _duffy(nq):
 
 NQ_CORR = 3
 _S3, _T3, _W3 = _duffy(NQ_CORR)
+_RULES = {n: _duffy(n) for n in (3, 6, 10, 16)}
+ADAPT = True        # remainder order from the largest |u| at the vertices (|u| <= 0.1: 3, <= 0.5: 6, <= 2: 10, else 16)
 
 
 def vec_area(poly, ops):
@@ -285,6 +292,10 @@ def poly_int(poly, fns, signs, ops, mode="closed"):
         VA = vec_area(poly, ops)
         tot = float((F @ VA) @ sg); ops.add(3 * len(fns))
         S_, T_, W_ = _S3, _T3, _W3
+        if ADAPT:
+            umax = float(np.max(np.abs(np.array(poly) @ F.T))); ops.add(3 * len(poly) * len(fns))
+            nq = 3 if umax <= 0.1 else 6 if umax <= 0.5 else 10 if umax <= 2 else 16
+            S_, T_, W_ = _RULES[nq]
         g = lambda u: G(u) - u
     else:
         tot = 0.0; S_, T_, W_ = _S, _T, _WW; g = G

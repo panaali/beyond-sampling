@@ -16,7 +16,7 @@ import leaderboard as LB  # noqa: E402
 T = int(sys.argv[1]); H = 16
 name, (Wi, Wh, Wo) = LB._base(H, T)
 r = np.random.default_rng(3)
-x = r.standard_normal((1_000_000, T))
+x = r.standard_normal((500_000, T))
 z, w = np.polynomial.hermite_e.hermegauss(200); w = w / w.sum()
 He3 = z ** 3 - 3 * z; He4 = z ** 4 - 6 * z ** 2 + 3; He6 = z ** 6 - 15 * z ** 4 + 45 * z ** 2 - 15
 h = np.zeros((len(x), H))
