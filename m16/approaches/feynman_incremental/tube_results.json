@@ -1,0 +1,653 @@
+{
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "cases": [
+    {
+      "name": "checkpoint512",
+      "budget": 512,
+      "native": {
+        "estimate": 0.9492560879517723,
+        "cost": 19721.6505,
+        "ledger": {
+          "complete": true,
+          "known_flops": 118329903,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "face_geometry": 195300,
+            "radius_direction": 31000,
+            "aggregation": 3920,
+            "sobol_nodes": 3128500,
+            "node_shift_remainder": 3800,
+            "radial_native_walker": 4688453,
+            "blind_transform_geometry": 99000,
+            "blind_forward_and_ranking": 175770
+          },
+          "kernels": {
+            "face_quantile_coordinates": 62,
+            "face_normal_transform_coordinates": 496,
+            "sobol_initializations": 3,
+            "sobol_coordinates": 950
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 42,
+              "walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 11680,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 42,
+                    "flops": 2960064,
+                    "counters": {
+                      "prefix_steps": 113,
+                      "suffix_steps": 1696,
+                      "readout_vectors": 716,
+                      "root_vectors": 1696,
+                      "envelope_sides": 375,
+                      "cdf_calls": 1500,
+                      "recurrence_flops": 2344512,
+                      "root_flops": 188256,
+                      "readout_flops": 236280,
+                      "envelope_flops": 154500,
+                      "bookkeeping_flops": 36516
+                    }
+                  }
+                ],
+                "known_flops": 3380494,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 563.4156666666667,
+                "empty_windows": 42,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 1125,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 2250,
+                  "radial_density_evaluations": 2250,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 408750,
+                "roundoff_certified": false
+              }
+            },
+            {
+              "kind": "12",
+              "rows": 20,
+              "walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 7280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 20,
+                    "flops": 1103389,
+                    "counters": {
+                      "prefix_steps": 55,
+                      "suffix_steps": 601,
+                      "readout_vectors": 322,
+                      "root_vectors": 601,
+                      "envelope_sides": 181,
+                      "cdf_calls": 724,
+                      "recurrence_flops": 839424,
+                      "root_flops": 66711,
+                      "readout_flops": 106260,
+                      "envelope_flops": 74572,
+                      "bookkeeping_flops": 16422
+                    }
+                  }
+                ],
+                "known_flops": 1307959,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 217.99316666666667,
+                "empty_windows": 20,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 543,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 1086,
+                  "radial_density_evaluations": 1086,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 197290,
+                "roundoff_certified": false
+              }
+            }
+          ],
+          "node_sha256": "1ee5fa217e3fc69595d3ad99e12439526c1b549c2191e85458ef3b7c132664aa",
+          "face_sha256": "93d29314e9984d0abd44c2e94e533d48c90233a22ba35a09c0a42eb04ad45c9d",
+          "cpu_seconds": 0.08657116200000003,
+          "source_sha256": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718",
+          "uniform_faces": true,
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "cold": true,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.028454478766881158,
+            "e12": 0.014053756198013164,
+            "blind": 0.008235677083333334
+          },
+          "node_counts": [
+            42,
+            20,
+            30
+          ],
+          "requested_budget": 512.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 19721.6505,
+          "legacy_walk_fpe": 0.0
+        }
+      },
+      "legacy": {
+        "estimate": 0.9492560879527374,
+        "cost": 18940.241666666665,
+        "ledger": {
+          "complete": true,
+          "known_flops": 113641450,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "face_geometry": 195300,
+            "radius_direction": 31000,
+            "aggregation": 3920,
+            "sobol_nodes": 3128500,
+            "node_shift_remainder": 3800,
+            "blind_transform_geometry": 99000,
+            "blind_forward_and_ranking": 175770
+          },
+          "kernels": {
+            "face_quantile_coordinates": 62,
+            "face_normal_transform_coordinates": 496,
+            "sobol_initializations": 3,
+            "sobol_coordinates": 950
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 42,
+              "legacy_remaining_mass": 0.0,
+              "legacy_fpe": 385.7
+            },
+            {
+              "kind": "12",
+              "rows": 20,
+              "legacy_remaining_mass": 0.0,
+              "legacy_fpe": 154.7
+            }
+          ],
+          "node_sha256": "1ee5fa217e3fc69595d3ad99e12439526c1b549c2191e85458ef3b7c132664aa",
+          "face_sha256": "93d29314e9984d0abd44c2e94e533d48c90233a22ba35a09c0a42eb04ad45c9d",
+          "cpu_seconds": 0.03290338600000009,
+          "source_sha256": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718",
+          "uniform_faces": true,
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "cold": true,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.0284544787668669,
+            "e12": 0.01405375619706236,
+            "blind": 0.008235677083333334
+          },
+          "node_counts": [
+            42,
+            20,
+            30
+          ],
+          "requested_budget": 512.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 18940.241666666665,
+          "legacy_walk_fpe": 540.4
+        }
+      },
+      "difference": -9.651168753066486e-13
+    },
+    {
+      "name": "checkpoint2048",
+      "budget": 2048,
+      "native": {
+        "estimate": 0.9513606249747522,
+        "cost": 22181.434833333333,
+        "ledger": {
+          "complete": true,
+          "known_flops": 133088609,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "face_geometry": 781200,
+            "radius_direction": 124000,
+            "aggregation": 6700,
+            "sobol_nodes": 3214660,
+            "node_shift_remainder": 15288,
+            "radial_native_walker": 17825203,
+            "blind_transform_geometry": 402600,
+            "blind_forward_and_ranking": 714798
+          },
+          "kernels": {
+            "face_quantile_coordinates": 248,
+            "face_normal_transform_coordinates": 1984,
+            "sobol_initializations": 3,
+            "sobol_coordinates": 3822
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 168,
+              "walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 36880,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 164,
+                    "flops": 10695902,
+                    "counters": {
+                      "prefix_steps": 435,
+                      "suffix_steps": 6110,
+                      "readout_vectors": 2552,
+                      "root_vectors": 6110,
+                      "envelope_sides": 1415,
+                      "cdf_calls": 5660,
+                      "recurrence_flops": 8462400,
+                      "root_flops": 678210,
+                      "readout_flops": 842160,
+                      "envelope_flops": 582980,
+                      "bookkeeping_flops": 130152
+                    }
+                  }
+                ],
+                "known_flops": 12275132,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 2045.8553333333334,
+                "empty_windows": 168,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 4245,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 8490,
+                  "radial_density_evaluations": 8490,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 1542350,
+                "roundoff_certified": false
+              }
+            },
+            {
+              "kind": "12",
+              "rows": 80,
+              "walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 19280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 80,
+                    "flops": 4703481,
+                    "counters": {
+                      "prefix_steps": 215,
+                      "suffix_steps": 2577,
+                      "readout_vectors": 1358,
+                      "root_vectors": 2577,
+                      "envelope_sides": 759,
+                      "cdf_calls": 3036,
+                      "recurrence_flops": 3587328,
+                      "root_flops": 286047,
+                      "readout_flops": 448140,
+                      "envelope_flops": 312708,
+                      "bookkeeping_flops": 69258
+                    }
+                  }
+                ],
+                "known_flops": 5550071,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 925.0118333333334,
+                "empty_windows": 80,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 2277,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 4554,
+                  "radial_density_evaluations": 4554,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 827310,
+                "roundoff_certified": false
+              }
+            }
+          ],
+          "node_sha256": "21f0af47016f89e4fcb0521d0464c01ec96b8ffd8829d6d5fcd1d880910e8434",
+          "face_sha256": "7a8ffef312f48b2d099cd39ddef18d5c9879b719bf4c1a3031a8d1d36c554e9c",
+          "cpu_seconds": 0.09141565099999993,
+          "source_sha256": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718",
+          "uniform_faces": true,
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "cold": true,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.029171829863372096,
+            "e12": 0.011102727026629884,
+            "blind": 0.0083648181352459
+          },
+          "node_counts": [
+            168,
+            80,
+            122
+          ],
+          "requested_budget": 2048.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 22181.434833333333,
+          "legacy_walk_fpe": 0.0
+        }
+      },
+      "legacy": {
+        "estimate": 0.9513606249746962,
+        "cost": 19210.567666666666,
+        "ledger": {
+          "complete": true,
+          "known_flops": 115263406,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "face_geometry": 781200,
+            "radius_direction": 124000,
+            "aggregation": 6700,
+            "sobol_nodes": 3214660,
+            "node_shift_remainder": 15288,
+            "blind_transform_geometry": 402600,
+            "blind_forward_and_ranking": 714798
+          },
+          "kernels": {
+            "face_quantile_coordinates": 248,
+            "face_normal_transform_coordinates": 1984,
+            "sobol_initializations": 3,
+            "sobol_coordinates": 3822
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 168,
+              "legacy_remaining_mass": 0.0,
+              "legacy_fpe": 1481.5
+            },
+            {
+              "kind": "12",
+              "rows": 80,
+              "legacy_remaining_mass": 0.0,
+              "legacy_fpe": 653.9000000000001
+            }
+          ],
+          "node_sha256": "21f0af47016f89e4fcb0521d0464c01ec96b8ffd8829d6d5fcd1d880910e8434",
+          "face_sha256": "7a8ffef312f48b2d099cd39ddef18d5c9879b719bf4c1a3031a8d1d36c554e9c",
+          "cpu_seconds": 0.04841894499999988,
+          "source_sha256": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718",
+          "uniform_faces": true,
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "cold": true,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.02917182986351431,
+            "e12": 0.011102727026543595,
+            "blind": 0.0083648181352459
+          },
+          "node_counts": [
+            168,
+            80,
+            122
+          ],
+          "requested_budget": 2048.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 19210.567666666666,
+          "legacy_walk_fpe": 2135.4
+        }
+      },
+      "difference": 5.595524044110789e-14
+    },
+    {
+      "name": "zero_readout512",
+      "budget": 512,
+      "native": {
+        "estimate": 0.04495499423662075,
+        "cost": 19721.6505,
+        "ledger": {
+          "complete": true,
+          "known_flops": 118329903,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "face_geometry": 195300,
+            "radius_direction": 31000,
+            "aggregation": 3920,
+            "sobol_nodes": 3128500,
+            "node_shift_remainder": 3800,
+            "radial_native_walker": 4688453,
+            "blind_transform_geometry": 99000,
+            "blind_forward_and_ranking": 175770
+          },
+          "kernels": {
+            "face_quantile_coordinates": 62,
+            "face_normal_transform_coordinates": 496,
+            "sobol_initializations": 3,
+            "sobol_coordinates": 950
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 42,
+              "walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 11680,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 42,
+                    "flops": 2960064,
+                    "counters": {
+                      "prefix_steps": 113,
+                      "suffix_steps": 1696,
+                      "readout_vectors": 716,
+                      "root_vectors": 1696,
+                      "envelope_sides": 375,
+                      "cdf_calls": 1500,
+                      "recurrence_flops": 2344512,
+                      "root_flops": 188256,
+                      "readout_flops": 236280,
+                      "envelope_flops": 154500,
+                      "bookkeeping_flops": 36516
+                    }
+                  }
+                ],
+                "known_flops": 3380494,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 563.4156666666667,
+                "empty_windows": 42,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 1125,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 2250,
+                  "radial_density_evaluations": 2250,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 408750,
+                "roundoff_certified": false
+              }
+            },
+            {
+              "kind": "12",
+              "rows": 20,
+              "walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 7280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 20,
+                    "flops": 1103389,
+                    "counters": {
+                      "prefix_steps": 55,
+                      "suffix_steps": 601,
+                      "readout_vectors": 322,
+                      "root_vectors": 601,
+                      "envelope_sides": 181,
+                      "cdf_calls": 724,
+                      "recurrence_flops": 839424,
+                      "root_flops": 66711,
+                      "readout_flops": 106260,
+                      "envelope_flops": 74572,
+                      "bookkeeping_flops": 16422
+                    }
+                  }
+                ],
+                "known_flops": 1307959,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 217.99316666666667,
+                "empty_windows": 20,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 543,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 1086,
+                  "radial_density_evaluations": 1086,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 197290,
+                "roundoff_certified": false
+              }
+            }
+          ],
+          "node_sha256": "1ee5fa217e3fc69595d3ad99e12439526c1b549c2191e85458ef3b7c132664aa",
+          "face_sha256": "93d29314e9984d0abd44c2e94e533d48c90233a22ba35a09c0a42eb04ad45c9d",
+          "cpu_seconds": 0.07246329100000004,
+          "source_sha256": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718",
+          "uniform_faces": true,
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "cold": true,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.5760747971306915,
+            "e12": 0.36930223988268773,
+            "blind": 0.00966796875
+          },
+          "node_counts": [
+            42,
+            20,
+            30
+          ],
+          "requested_budget": 512.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 19721.6505,
+          "legacy_walk_fpe": 0.0
+        }
+      },
+      "legacy": {
+        "estimate": 0.99033203125,
+        "cost": 18940.241666666665,
+        "ledger": {
+          "complete": true,
+          "known_flops": 113641450,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "face_geometry": 195300,
+            "radius_direction": 31000,
+            "aggregation": 3920,
+            "sobol_nodes": 3128500,
+            "node_shift_remainder": 3800,
+            "blind_transform_geometry": 99000,
+            "blind_forward_and_ranking": 175770
+          },
+          "kernels": {
+            "face_quantile_coordinates": 62,
+            "face_normal_transform_coordinates": 496,
+            "sobol_initializations": 3,
+            "sobol_coordinates": 950
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 42,
+              "legacy_remaining_mass": 0.0,
+              "legacy_fpe": 385.7
+            },
+            {
+              "kind": "12",
+              "rows": 20,
+              "legacy_remaining_mass": 0.0,
+              "legacy_fpe": 154.7
+            }
+          ],
+          "node_sha256": "1ee5fa217e3fc69595d3ad99e12439526c1b549c2191e85458ef3b7c132664aa",
+          "face_sha256": "93d29314e9984d0abd44c2e94e533d48c90233a22ba35a09c0a42eb04ad45c9d",
+          "cpu_seconds": 0.03898771600000006,
+          "source_sha256": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718",
+          "uniform_faces": true,
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "cold": true,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.0,
+            "e12": 0.0,
+            "blind": 0.00966796875
+          },
+          "node_counts": [
+            42,
+            20,
+            30
+          ],
+          "requested_budget": 512.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 18940.241666666665,
+          "legacy_walk_fpe": 540.4
+        }
+      },
+      "difference": -0.9453770370133793,
+      "analytic_truth": 0.1
+    }
+  ],
+  "random_model_inputs": 0,
+  "uniform_faces": true,
+  "accuracy_scoring": false,
+  "cpu_seconds": 0.377579232,
+  "complete": true
+}
