@@ -339,6 +339,13 @@ interpolant. Between them, conditional Gaussian moments/CDFs and interpolation
 are analytic; finite spatial bias is still present. Floating endpoint
 construction is not an exact-real geometry proof.
 
+T55 independently reviewed this completeness argument: backward induction
+only takes sums/products of the piecewise analytic coefficients, with q and
+1-q bounded away from zero on the target domain, so no new mathematical
+kinks appear. "Complete" describes the exact-arithmetic topology of the
+fixed interpolant. It excludes floating roundoff and adaptive numerical
+fallback branch changes, and is not a Gauss-Legendre error certificate.
+
 Alternative A: hidden interpolation dominates despite these kinks; panelled
 outer rules may stabilize while still missing the exact model accuracy.
 Alternative B: missing terminal or target-last transitions invalidate the
@@ -400,3 +407,49 @@ order changes are comparable to the mesh effect, classify inconclusive.
 If either mesh improves only one order, preserve cancellation rather than
 selecting a favorable row. No h17/33 integration until a separate cost-based
 protocol; no new samples. Independent completeness review requested from T55.
+
+Matched spatial-placement discriminator (`panel_mesh_cycle.py`):
+
+| terminal mesh | retained panels | GL2 estimate | GL4 estimate | GL4 CPU |
+|---|---:|---:|---:|---:|
+| baseline quadratic | 1153 | .307723249229 | .307723248834 | 16.32 |
+| curvature monitor | 1170 | .307482069304 | .307482069431 | 15.79 |
+| gate scale | 1315 | .307445133425 | .307445133520 | 16.99 |
+
+[measured] Curvature/gate order changes are1.27e-10/9.44e-11, whereas
+reference errors are -2.486736e-4/-2.856095e-4, versus baseline -7.494190e-6.
+The two proposed terminal meshes fail to improve this h9 case. The observed
+local interpolation-residual reduction is not sufficient to predict global
+accuracy. Four new rows cost49.29CPU seconds total. Per-estimate setup and
+monitor work are included; no model-dependent cache survives an estimate.
+These same-count hidden meshes have different outer panel counts, so this
+is not an exactly matched operation comparison. It does not claim all
+boundary-aware meshes fail, or that the h9 baseline error is monotone in h.
+
+Finite checklist and handoff:
+- Fixed-target rank law, truncated support, first-index terminal decisions and
+  streaming equivalence have independent algebra/control support.
+- Exact-arithmetic breakpoint completeness passes T55 independent review
+  only for the stated nonfinal-target readout restriction. Target-last models
+  remain explicitly rejected, not treated as an accepted generalization.
+- Baseline and both tested meshes stabilize across GL2/4 to below4e-10; this
+  distinguishes the checked finite-grid errors from earlier outer oscillation.
+  Order agreement is still not a certified quadrature/roundoff bound.
+- Curvature and gate meshes fail at h9; their higher-h results remain
+  inconclusive because those old outer rules oscillate. No favorable row was
+  selected. h17/33 complete panels were counted, not integrated, under the
+  frozen2000-panel cost cap.
+- Untested plausible alternatives remain open: reachable-mass-weighted or
+  earlier-stage mesh design, common fixed off-grid diagnostics, adaptive
+  panel integration with a genuine error guarantee, and target-last topology.
+  These require separate bounded protocols; no broad method rejection.
+- This numerical finite-grid transport phase establishes a diagnostic route
+  but no original-challenge solution, complete error certificate, or sampling
+  advantage. Root/DRI owns classification; the next scoped followup can stay
+  Ready rather than repeating unbounded spatial/outer refinement.
+
+Reproduction of this phase: with one thread and the standard memory/CPU
+limits, run `breakpoint_count.py`, `panel_controls.py`, `panel_cycle.py`, then
+`panel_mesh_cycle.py` using the shared interpreter. Long cycles use the
+primary compute lock; controls use the review lock. Existing earlier
+results and their failures remain unchanged.
