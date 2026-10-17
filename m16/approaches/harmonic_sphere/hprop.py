@@ -65,8 +65,10 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
     lp_flops = 0.0
     if cells == "first":
         br = [(cell, K.copy(), c.copy(), np.zeros((H, T))) for cell, K, c in roots(T, D)]
+        keys = [(cell, b"") for (cell, _, _, _) in br]
     else:                                          # "last" or "global": no root split
         br = [(None, Cone(T), sp.one(), np.zeros((H, T)))]
+        keys = [(None, b"")]
     ncut = 0
     for t in range(T):
         Wt = [Wh @ A + np.outer(Wi, np.eye(T)[t]) for (_, _, _, A) in br]
@@ -95,6 +97,7 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
             live = nxt
         for (b, K, c, g) in live:
             lp_flops += K.flops; K.flops = 0
+        keys = [(keys[b][0], keys[b][1] + np.packbits(g).tobytes()) for (b, K, c, g) in live]
         br = [(br[b][0], K, c, g[:, None] * Wt[b]) for (b, K, c, g) in live]
     if cells in ("global", "tree"):
         acc = (readout_global if cells == "global" else readout_tree)(sp, br, Wo, T); ncut += _NC[0]
@@ -103,8 +106,8 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
                     hilton_flops=ncut * sp.m * D * D + lp_flops)
         return (acc, info) if return_info else (acc, flops)
     # readout
-    acc = 0.0; nleaf = len(br); pend = []
-    for (cell, K, c, A) in br:
+    acc = 0.0; nleaf = len(br); pend = []; contrib = np.zeros(nleaf)
+    for li, (cell, K, c, A) in enumerate(br):
         L = Wo @ A
         if cells == "first":
             items = [(cell, K, c)]
@@ -145,18 +148,19 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
                 if s == 1:
                     continue
                 if not rows:
-                    pend.append((c2, a / np.linalg.norm(a))); dead = True; break
+                    pend.append((c2, a / np.linalg.norm(a), li)); dead = True; break
                 c2 = sp.cut(c2[:, None], (a / np.linalg.norm(a))[None])[:, 0]; ncut += 1
                 K2.add(a)
             lp_flops += K2.flops
             if not dead:
-                acc += c2[0]
+                acc += c2[0]; contrib[li] += c2[0]
     if pend:
         C = np.stack([x[0] for x in pend], 1); V = np.stack([x[1] for x in pend])
-        acc += float(sp.mass_in(C, V).sum())
+        mi = sp.mass_in(C, V); acc += float(mi.sum())
+        np.add.at(contrib, [x[2] for x in pend], mi)
     flops = sp.flops + lp_flops + nleaf * 2 * T * T * H
     if return_info:
-        return acc, dict(flops=flops, harm_flops=sp.flops, lp_flops=lp_flops, ncut=ncut, nleaf=nleaf,
+        return acc, dict(leaves=[(k, br[i][2][0], contrib[i]) for i, k in enumerate(keys)], flops=flops, harm_flops=sp.flops, lp_flops=lp_flops, ncut=ncut, nleaf=nleaf,
                          m=sp.m, N=sp.N, hilton_flops=ncut * sp.m * D * D + lp_flops)
     return acc, flops
 
