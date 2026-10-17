@@ -1,0 +1,159 @@
+{
+  "degree_check": {
+    "order": 4,
+    "barycentric_max_degree": 4,
+    "monomials": 126,
+    "max_absolute_error": 2.7755575615628914e-17,
+    "rule_cost": {
+      "known_arithmetic_upper_bound": 3134,
+      "parts": {
+        "rule_newton": 574,
+        "rule_duffy": 2560
+      },
+      "black_box_kernels": [],
+      "events": {},
+      "validation_kernel_calls": {}
+    }
+  },
+  "segment_checks": {
+    "cases": 18,
+    "max_relative_error": 7.23956005008384e-16,
+    "reference": "T52 independent100-digit antiderivative saved controls"
+  },
+  "determinants": {
+    "seed": 52051,
+    "cases": 20,
+    "max_absolute_error": 1.0658141036401503e-14
+  },
+  "rank_fixtures": "rank4,rank5,and explicit threshold ambiguity passed",
+  "orthant": [
+    {
+      "order": 8,
+      "estimate": 0.03125019855882675,
+      "bound": 0.0312558212249354,
+      "cost": {
+        "known_arithmetic_upper_bound": 99921,
+        "parts": {
+          "rule_newton": 2016,
+          "rule_duffy": 20480,
+          "determinant_control": 256,
+          "determinants": 105,
+          "mass_scalar": 21,
+          "segment_endpoints": 25600,
+          "segment_scalar": 25600,
+          "segment_sqrt": 20480,
+          "mass_weighted_sum": 1024,
+          "bound_geometry": 310,
+          "bound_setup": 50,
+          "bound_trials": 1408,
+          "bound_specialfunctions": 2560,
+          "bound_prefactor": 10,
+          "bound_sum": 1
+        },
+        "black_box_kernels": [],
+        "events": {
+          "segment_endpoint_pairs": 512
+        },
+        "validation_kernel_calls": {}
+      }
+    },
+    {
+      "order": 16,
+      "estimate": 0.0312500000025943,
+      "bound": 6.409622687603004e-05,
+      "cost": {
+        "known_arithmetic_upper_bound": 757875,
+        "parts": {
+          "rule_newton": 7682,
+          "rule_duffy": 163840,
+          "determinant_control": 256,
+          "determinants": 105,
+          "mass_scalar": 21,
+          "segment_endpoints": 204800,
+          "segment_scalar": 204800,
+          "segment_sqrt": 163840,
+          "mass_weighted_sum": 8192,
+          "bound_geometry": 310,
+          "bound_setup": 50,
+          "bound_trials": 1408,
+          "bound_specialfunctions": 2560,
+          "bound_prefactor": 10,
+          "bound_sum": 1
+        },
+        "black_box_kernels": [],
+        "events": {
+          "segment_endpoint_pairs": 4096
+        },
+        "validation_kernel_calls": {}
+      }
+    }
+  ],
+  "base_geometry": {
+    "stats": {
+      "gate_cells": 110,
+      "stage_counts": [
+        2,
+        5,
+        14,
+        39,
+        110
+      ],
+      "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+      "original_dd_counter": 682534.0,
+      "original_dd_parts": {
+        "lift": 20604.0,
+        "clip": 518181.0,
+        "adj": 128124.0,
+        "final": 15625.0
+      }
+    },
+    "correct_simplices": 2039,
+    "cost": {
+      "known_arithmetic_upper_bound": 28911967,
+      "parts": {
+        "module_bitset_setup": 384,
+        "root_gate_setup": 400,
+        "gate_map_setup": 80640,
+        "lift_scalar": 24892,
+        "zero_normal_check": 34500,
+        "clip_scalar": 1043780,
+        "clip_adjacency": 10237362,
+        "clip_new_rays": 4990624,
+        "gate_masks": 4876,
+        "outcome_maps": 11000,
+        "outcome_predicates": 16185,
+        "outcome_control": 22324,
+        "orthant_control": 41400,
+        "ray_l1_normalization": 41610,
+        "tri_incidence": 1108224,
+        "tri_control": 84040,
+        "tri_face_scan": 2249420,
+        "rank_result_test": 3076,
+        "qr_control_static": 3149824,
+        "qr_norm": 927384,
+        "qr_bounds": 116888,
+        "qr_pivot": 794534,
+        "qr_normalize": 42850,
+        "qr_project": 1295880,
+        "qr_reorthogonalize": 342880,
+        "qr_bracket_products": 1173468,
+        "qr_inverse": 329716,
+        "determinant_control": 521984,
+        "determinants": 219783,
+        "simplex_test": 2039
+      },
+      "black_box_kernels": [],
+      "events": {
+        "lift_calls": 120,
+        "clip_calls": 3462,
+        "triangulate_calls": 336,
+        "bounded_rank_calls": 3076
+      },
+      "validation_kernel_calls": {
+        "matrix_rank_SVD": 3076
+      }
+    },
+    "cpu_including_rank_validation": 0.787022638
+  },
+  "cpu_seconds": 1.7285464369999999
+}
