@@ -217,3 +217,23 @@ The follow-up took .159CPU seconds and1672clips,80affine products,145moment call
 plus56prefix steps and65536full validation inputs. These are additional to the
 training examples/gradients and32768heldout inputs. T54's checkpoint gap now has
 a reproducible LOCALPILOT artifact; the accuracy-estimation problem remains open.
+
+## Cycle3 outcome: rank normalization does not fix neural interpolation
+`doob.py` / `doob_results.json` preserve all four frozen variants. At32/64rank
+nodes, grid5 accuracy was .137260857/.137261377 and grid7 was
+.148063152/.148063575. These are worse than the unconditioned estimates despite
+fixing the constant-class control to .1 within3.49e-9 (constant W within2.78e-17).
+Changing the rank rule moves the final result by at most5.21e-7, so this tested
+rank-quadrature resolution does not explain the remaining percentage-point bias.
+
+The normalized terminal W exceeded1 by up to .000197 at32nodes and .00000934 at64;
+no values were clipped. Before row normalization, model-free rank mass differed
+by at most .000450/.000236 in absolute terms, with large relative defects on
+rare states. These diagnostics preclude calling the numerical weights certified.
+
+The incremental cycle used1.636CPU seconds, zero random inputs,267264rank
+quadrature nodes,1536rule-generation nodes,1257984angular nodes and1262712
+interpolation queries. It also recomputed24constant-control terminal calls
+(1440clips,192affine products,324moments). The previously charged trained terminal
+caches remain part of any full-estimator cost. [inferred] Hidden-state/value
+interpolation, not just lost rank mass, remains a material obstacle.
