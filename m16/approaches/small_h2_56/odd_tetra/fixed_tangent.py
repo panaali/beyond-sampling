@@ -8,24 +8,28 @@ from primitive import positive_fallback, radial_interval
 
 
 def fixed_tangent_tetra(rays, nodes, absolute_tolerance=1e-11,
-                       min_singular_ratio=1e-6, roundoff_screen=1e-10):
+                       min_singular_ratio=1e-6, roundoff_screen=1e-10,
+                       frame_builder=None, fallback=None):
     v = np.asarray(rays, float)
     u = np.asarray(nodes, float)
     if v.ndim != 3 or v.shape[1:] != (5, 5):
         raise ValueError('need (cones,5,5) endpoint rows')
-    if not np.isfinite(v).all() or np.any((v.min(1) < 0) & (v.max(1) > 0)):
-        raise ValueError('finite common-orthant rays required')
+    if not np.isfinite(v).all():
+        raise ValueError('finite rays required')
     signs = np.sign(v.sum(1))
     if np.max(abs(np.einsum('nvd,nd->nv', v, signs)-1)) > 1e-10:
-        raise ValueError('signed L1 endpoint normalization required')
+        raise ValueError('shared signed-normal affine plane required')
     if np.any((u <= 0) | (u >= 1)):
         raise ValueError('open interval nodes required')
     nc, nn = len(v), len(u)
     tolerance = np.broadcast_to(np.asarray(absolute_tolerance, float), (nc, nn))
     edges = np.swapaxes(v[:, 2:] - v[:, 1:2], 1, 2)
-    frame, edge_coordinates = np.linalg.qr(edges, mode='reduced')
-    singular = np.linalg.svd(edge_coordinates, compute_uv=False)
-    frame_good = singular[:, -1] >= min_singular_ratio * singular[:, 0]
+    if frame_builder is None:
+        frame, edge_coordinates = np.linalg.qr(edges, mode='reduced')
+        singular = np.linalg.svd(edge_coordinates, compute_uv=False)
+        frame_good = singular[:, -1] >= min_singular_ratio * singular[:, 0]
+    else:
+        frame, frame_good = frame_builder(edges)
     tangent = v @ frame
     residual = v[:, :2] - tangent[:, :2] @ np.swapaxes(frame, 1, 2)
     l = 1-u
@@ -67,12 +71,13 @@ def fixed_tangent_tetra(rays, nodes, absolute_tolerance=1e-11,
     error = np.zeros_like(value)
     nodes_used = trials = 0
     for i, j in np.argwhere(~accept):
-        value[i, j], error[i, j], count, attempt = positive_fallback(endpoints[i, j], float(tolerance[i, j]))
+        value[i, j], error[i, j], count, attempt = (positive_fallback if fallback is None else fallback)(endpoints[i, j], float(tolerance[i, j]))
         nodes_used += count
         trials += attempt
     stats = dict(tetrahedra=nc*nn, analytic_tetrahedra=int(accept.sum()), positive_fallbacks=int((~accept).sum()),
                  fallback_segment_nodes=nodes_used, fallback_bound_trials=trials,
-                 qr_factorizations=nc, svd_condition_estimates=nc,
+                 qr_factorizations=nc if frame_builder is None else 0,
+                 svd_condition_estimates=nc if frame_builder is None else 0,
                  tangent_cross_products=7*nc, facet_atan2_calls=4*nc*nn,
                  numerical_screen_rejections=int((eligible & ~accept).sum()),
                  rank_screen_rejections=int((~eligible).sum()),

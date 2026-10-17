@@ -25,8 +25,8 @@ def fallback_rule(n):
 
 def radial_interval(v):
  center=v.sum(axis=-2);center/=np.linalg.norm(center,axis=-1,keepdims=True)
- projection=np.sum(v*center[...,None,:],axis=-1).min(axis=-1)
- signs=np.sign(v.sum(axis=-2));qsign=np.sum(v*signs[...,None,:],axis=-1).min(axis=-1)**2/np.sum(signs*signs,axis=-1)
+ projection=np.maximum(0.,np.sum(v*center[...,None,:],axis=-1).min(axis=-1))
+ signs=np.sign(v.sum(axis=-2));qsign=np.maximum(0.,np.sum(v*signs[...,None,:],axis=-1).min(axis=-1))**2/np.sum(signs*signs,axis=-1)
  upper=np.sum(v*v,axis=-1).max(axis=-1)
  # The analytic lower bound cannot exceed the convex upper bound. Equal
  # endpoints can invert them by one rounded ulp; preserve the domain order.
