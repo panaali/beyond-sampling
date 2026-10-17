@@ -1,25 +1,14 @@
 # T55 independent reviewer checkpoint
 
-Latest numerical reviews are recorded in `cone_mass4_review.md`; each has an independent checker and JSON output. Reviewer calls do not execute author estimators, neural forwards, mass kernels, or random reference draws. Shared review lock, <=20CPU, one thread and2GB remain mandatory.
+Own review artifacts only; saved checks under codex-review.lock,20CPU/2GB/one thread. No author numerical replays. Claude final DRI.
 
-## Current pending queue
+- T184: all15 raw group checks and final3840/60 coverage/reuse/resource/metric audit now pass. Eight individual losses retained; named source allowance is not full native/runtime. Owner summary28909ce0.
+- T193: nine-case saved audit passes; pointwise zoo2/4 inconclusive, Bonferroni-nine only zoo1 upper<1. New selected-seed2 positive-reference proposal awaits separately frozen scope/source.
+- T188: zero120 reviewed282a2788; trained four-parent T3/T4 source66e029e3 cleared, results pending.
+- T191: corrected rank2/orthogonal theory4f307b4c checked; numerical control implementation pending.
+- H5 fresh reference/comparison complete2695e545/282a2788:42/60 group and35/50 individual upper<1,18/15 inconclusive, no lower>1. No all-panel H5 win/rejection.
+- H4 fixed25 Hopf strongest conditional panel remains all60/all50 simultaneous upper<1; H16T10 unresolved.
+- K28 full5120/clean complete fb8a2443,25/1 individual losses retained; historical checkpoint bytes unproved.
 
-- T184 original H4/H5/H6 native panel: recovery corrects scalar/native counter ownership only. All H4 and all H5 groups reviewed once. Run `check_core_native_seed_review.py H zoo` only for newly complete groups, then final unique coverage/reuse/resource/summary audit. Old9 shards remain under `panel`, remaining51 under `panel_v2`; failed first two completed evaluations reused once. Native bits/legacy and baseline/traced metadata strict; scalar topology diagnostic. Own H4 results have92 topology differences in zoo2, none elsewhere. Do not rerun completed reviews.
-- T115 k28: all five seeds and final global5120/clean coverage independently reviewed. No raw replay needed; bounded handoff ready. Seed1 85B has two numeric111 individual losses, retained. Historical model-byte identity remains unproved.
-- T11594 H5 fresh reference: fixed first1M passed, projection602.25CPU<900; continuation8cd2b469 running fixed25 streams/100M each under1200 recorded research envelope. Summary9d95e616 and comparisone5617ed4 source-gated, comparison held pending full independent saved audit. Prepared `check_h5_reference_complete_review.py` is unrun; execute only after complete2500 blocks and author summary. No redraws. New25-family confidence separate from old75-family data.
-- T11593 second moments: primitive24 reviewed84e0040c, six analytic-network340 cells reviewed3e5cfdd0. Finite MP/PSD diagnostics only; no trained covariance yet. Five-pair trained170 pilot now independently aggregate-reviewed; complementary geometry2557c3d4 passed. Full136 pairs remains unexecuted. Independent cylindrical reference normalization3/(4pi) and Spitzer Wh=I third-step second moment3/2+(1+sqrt2)/(2pi) checked.
-- T11589 batched positive-inner: controls30 reviewed34891b4c, outer2 reviewede99ed577, all66 split outputs reviewed63f21254. Exact saved output parity preserves lower-order losses. No speed/native-cost or floating-error claim; bounded handoff ready.
-
-## Recent commit manifest after221abbc6
-
-bf892316,84e0040c,34891b4c,e0cb033d,e99ed577,1a9f2774,63f21254,c2fc7b2a,3e5cfdd0. Root has been sent each for integration; root/Claude owns shared publication and DRI claims.
-
-## User-facing scope
-
-Strongest fixed H4T4 Hopf evidence remains all60 group/all50 individual simultaneous upper ratios below1 under declared source allowances (max.53684/.85196), from25 fresh100M references. This is not complete native/runtime accounting, universal mask correctness, or an H16T10 solution. Old H5 intervals all contained1; fresh H5 references are still running. Keep this distinction explicit.
-
-Latest bounded reviews19610915 (trained five-pair aggregate, geometry78 at2557c3d4),8f922a46 (544 heuristic/pooling), H5z3 saved raw audit retain one individual loss. T175 direct and hybrid pooled means both pass; no fallback necessity claim.
-
-T187 fixed12 exact influence controls and trained768 source gated6dc4d3a3; trained output pending. H5 core all1280 raw rows reviewed, three individual losses retained; H6 pending.
-
-Evidence integration154 own-folder commits locally prepared at3fe7c12f, independently conserved493885d4; external push rejected by automatic approval review, awaiting explicit user authorization via root. Do not bypass or request peer push. Later commits remain unintegrated.
+## External integration blocker
+154 owned-folder commits from3bb92013 conserved by493885d4, prepared local integration3fe7c12f. Automatic approval review rejected GitHub push for lack of explicit authorization to export this payload. Do not retry or route via peers. Root notified; user approval required for this external push. Later own commits remain outside frozen transfer.
