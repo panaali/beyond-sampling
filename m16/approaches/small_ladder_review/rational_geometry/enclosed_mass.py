@@ -139,6 +139,8 @@ class PositiveIntervals:
             raise ArithmeticError('nonfinite interval arithmetic')
         lo = np.maximum(0., np.nextafter(lower, -np.inf))
         hi = np.nextafter(upper, np.inf)
+        if not np.all(np.isfinite(lo)) or not np.all(np.isfinite(hi)):
+            raise ArithmeticError('nonfinite outward endpoint')
         if np.any(lo > hi) or np.any(hi < 0):
             raise ArithmeticError('invalid positive interval')
         self.stats[operation+'_scalar_operations'] += 2*lo.size
@@ -274,5 +276,7 @@ class EnclosedMass:
         self.stats['final_signed_add_subtract_operations'] += 2
         self.stats['nextafter_scalar_operations'] += 2
         return dict(quadrature_interval=[float(qlo), float(qhi)],
+                    quadrature_interval_hex=[float(qlo).hex(), float(qhi).hex()],
+                    probability_interval_hex=[lo.hex(), hi.hex()],
                     truncation_error_upper=error, probability_interval=[lo, hi],
                     quadrature_interval_width=float(qhi-qlo), total_width=hi-lo)

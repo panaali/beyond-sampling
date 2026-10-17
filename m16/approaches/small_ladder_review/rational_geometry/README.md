@@ -247,7 +247,7 @@ model-specific setup, and separately report every new rule/interval/validation
 cost. One bounded <=110CPU cycle, primary flock (or approved review lock for a
 <=20CPU review), one thread, <=2GBRSS.
 
-Assume NumPy scalar/elementwise binary64 addition, subtraction, multiplication
+Assume CPython float and NumPy scalar/elementwise binary64 addition, subtraction, multiplication
 and division use IEEE754 correctly rounded finite arithmetic, with gradual
 underflow and without flush-to-zero/fast-math reassociation. Each operation is
 a separate ufunc with materialized output; no BLAS dot or untracked fused
@@ -343,3 +343,16 @@ single-thread command. Root independently replayed the H2 and H4 exact artifacts
 with a separate determinant expansion and integer forward calculation (b1cb920),
 providing additional geometry support without independently proving the complete
 partition algorithm. Original exact artifacts remain unchanged.
+
+
+## T72 arithmetic hardening follow-up, frozen before rerun
+The first fixed arithmetic checks exercised scalar ufuncs; the production path
+uses arrays. Add the same136 exact-Fraction comparisons in vectorized form,
+explicit1-u complement tests, and outward pairwise sums of lengths1/3/49/8000.
+Also reject nonfinite endpoints created by nextafter itself, even when its input
+is finite. This guard does not affect the tested finite mass range. Record
+authoritative hexadecimal interval endpoints in addition to round-tripping JSON
+floats; decimal text in this README is a display of those binary64 endpoints.
+These checks address unresolved array/underflow/reduction assumptions, not new
+models or tighter grids. Preserve the first run in the narrative and count the
+new run separately. The enclosure logic and GL20 truncation formula are unchanged.
