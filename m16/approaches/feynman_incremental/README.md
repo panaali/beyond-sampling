@@ -1,0 +1,29 @@
+# T20: incremental Feynman estimator port
+
+## Question
+Can the existing sci_feynman quadrature retain its face law while replacing historical recurrence-only charges and unsafe legacy walking with the corrected incremental walker? TASKS-only claim b0950a0 was pushed from a fresh administrative checkout before implementation. This folder owns the port; T30 owns the independent legacy-walker audit. No original/shared sources are edited.
+
+## Method
+Freeze the first phase: adapt the pinned sci_tao_v2 Python walker to sci_feynman's R23/R12 target convention and excluded center. For0<=tex<tau, wrong mass on tex<=|t|<=tau equals full-window mass at tau minus full-window mass at tex. R23 uses kind23 and R12/top uses kind12. Empty windows return0; tex=0 skips the second call. Charge every executed window call, prefix setup, local subtraction and validation; this deliberately recomputes overlapping windows instead of claiming unimplemented reuse. Return explicit per-call counters. Refuse invalid/nonfinite windows and preserve available partial work on failure; never return truncated mass as a completed estimate.
+
+The initial adapter is a numerical integration primitive, not a full estimator. After it passes, retain the original model-free configuration enumeration and node schedule in a local estimator adapter, then inventory and charge node generation, transforms, blind evaluation, recurrence, readout and aggregation. Precomputation, opaque library work and cold import/setup must be named rather than called free. Publish est(model,budget,rng) only with its actual cost convention and limits; historical estimator scores do not transfer to this port.
+
+## Frozen alternatives and falsifiers
+1. Subtracting two complete intervals may have the wrong target sign or exclusion orientation. Compare exact binary-rational gate/readout reference intervals from independent T30 on R23 and R12, tex in{0,.0625,.25,.5}, including empty windows and positive-volume ties.
+2. The corrected shared walker may still fail near roots or the adapter may mask cap exhaustion. Reuse T30's9 predeclared fixtures, particularly its close affine envelope crossings, and force cap0/1. Errors must propagate with available partial costs; no fallback success value.
+3. Independent full-window evaluation may lose precision by cancellation when the annulus is tiny. Freeze tex=nextafter(tau,0) cases; report any negative/poor relative result rather than applying an arbitrary scale-dependent tie threshold. An interval-native engine is a later alternative if this simple adapter fails.
+4. Old/new whole-estimator disagreement may reflect old bugs, changed nodes or cost conventions. Later comparisons must retain exact node schedules/source hashes and classify each discrepancy before changing geometry or interpreting accuracy.
+
+## Compute accounting
+One thread,2GB RSS, batches<=65,536, primary lock for longer checks; review lock only for<=20CPU primitive checks. Each phase<=110CPU. Shared walker counters use its declared FPE/scalar-operation proxy, including CDF50, not a machine-instruction certificate. Every local validation/combination operation is additionally charged. Whole-estimator input-generation/precomputation costs are pending the second phase and cannot yet support an end-to-end sampling comparison. Independent T30 exact-rational/reference checks are separate diagnostic cost.
+
+## Claims
+- [measured] No new port experiment has run at this protocol commit.
+- [inferred] Full-window subtraction gives the same excluded-center integral in exact arithmetic, with both target conventions explicit.
+- [speculative] It may be slower than an interval-native walker but is a bounded, reviewable first port with honest recomputation.
+
+## Alternatives not ruled out
+Interval-native integration, merging the two walks, compiling the validated interface, and more efficient model-free node generation remain open. This phase does not port tube, Laplace, boundary or control-variate estimators; those remain T20 follow-ups. A numerical adapter failure does not refute the underlying quadrature method.
+
+## Failure modes
+Cancellation in very thin annuli, inherited floating root probes, cap exhaustion, invalid model/window inputs, incomplete partial counters after numerical exceptions, hidden node-generation costs and budget overshoot. No silent clipping or default estimate on failure. Claude remains DRI; independent validation/classification is separate from implementation.
