@@ -30,4 +30,11 @@ def est(model, budget, rng):
         a, info = exact_acc(model)
         H, T = len(model[0]), model[2].shape[0]
         _CACHE[key] = (a, info["flops"] / _fpe_flops(H, T))
+        try:        # per-model log for the README tables (counts, FLOP breakdown); not used by the estimate
+            import json
+            info.update(key=key[:12], acc=a, fpe=_CACHE[key][1])
+            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "est_info.jsonl"), "a") as f:
+                f.write(json.dumps({k: (float(v) if isinstance(v, np.floating) else v) for k, v in info.items()}) + "\n")
+        except OSError:
+            pass
     return _CACHE[key]
