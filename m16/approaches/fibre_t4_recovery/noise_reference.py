@@ -23,7 +23,9 @@ def controls():
   saved=json.loads((HERE/('guard_'+name+'.json')).read_text());m=tuple(np.array(w) for w in saved['model'])
   a=forward(m,x);b=original_forward(m,x);assert np.array_equal(a,b)
   rows.append({'name':name,'n':len(x),'predictions':a.argmax(1).tolist()})
- assert rows[0]['predictions']==[0]*len(x)
+ assert rows[0]['predictions']==rows[1]['predictions']==[0]*len(x)
+ assert rows[2]['predictions']==np.where(x[:,-1]>0,3,0).tolist()
+ assert rows[3]['predictions']==np.where(x[:,-1]<0,3,0).tolist()
  return rows,2*len(x)*len(rows)
 
 def run(index):
