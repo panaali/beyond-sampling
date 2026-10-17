@@ -90,3 +90,7 @@ Documentation may lag a worker's latest result; follow task ownership and pinned
 commits. A shared oracle can hide common bugs. Review can confirm a limited
 negative without validating the proposed rescue. Neither sunk compute nor a
 desire to keep workers busy justifies duplicating work or omitting resource caps.
+
+### Fixed-state terminal representation control
+
+Root read T117 affine polygon construction, exact-zero branch ownership, readout strictness, rank clipping and conditional normalizers. A separate 60-digit closed-form calculation for a zero recurrent matrix and two opposite input rays checks12 label/hidden-state/threshold cases: maximum discrepancy4.45e-16, .0096CPU excluding imports. The law with one remaining exceedance is the equal mixture of below/above assignments; fixed hidden state does not alter independence of the two future Gaussian inputs. Reproducer check_pair_terminal_review.py and source-pinned PAIR_TERMINAL_REVIEW.json are preserved. This checks a bounded primitive fixture, not trained-model accuracy, arbitrary thin-cell robustness, full transport convergence or portable cost. The new representation remains a plausible rescue after the finite q/u coordinate change failed.
