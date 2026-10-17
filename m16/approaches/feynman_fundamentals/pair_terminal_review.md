@@ -87,3 +87,20 @@ although only labels0/1 were constructed. This is harmless on the
 frozen model where label3 is excluded, but was reported for a local
 `paired and label<2` guard before general interpretation. The full
 comparison remains bounded, with no h9 or accuracy claim implied.
+
+## Completed fixed h3 comparison
+
+`check_pair_full_review.py` independently contracts all four raw rows
+with60-digit Decimal arithmetic. At GL4 the new estimate is
+.30171233058385778 versus baseline .25658923510284402 and reference
+.30773074302392744. Absolute-error improvement is8.4975080, component
+L2 improvement6.7295328, and the descriptive error-squared-times-CPU
+improvement15.7013446. The penultimate-label contribution is exactly
+unchanged between arms, as required by the shared cache.
+
+GL2 toGL4 changes remain7.66825534042e-6 and7.20229103228e-6, both
+failing the frozen stability threshold. This is a scoped representation
+gain on one small-grid model, not convergence, a sampling comparison,
+or a certified portable-cost claim. Label1 error worsens locally while
+label0 improves strongly; unresolved prefix interpolation and outer
+integration remain open. No larger-grid or noisy sweep is implied.
