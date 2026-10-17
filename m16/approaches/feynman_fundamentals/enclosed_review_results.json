@@ -1,0 +1,79 @@
+{
+  "cpu_seconds": 1.530284762,
+  "precision_decimal_digits": 70,
+  "high_precision_quadrature_nodes": 24000,
+  "independent_rule_generations": 1,
+  "model_passes": 0,
+  "author_setup_counts": {
+    "uncertified_seed_rule_generations": 1,
+    "exact_legendre_evaluations": 1180,
+    "exact_legendre_recurrence_steps": 22420,
+    "root_bisections": 1140,
+    "rational_interval_legendre_steps": 360,
+    "certified_root_intervals": 20,
+    "subtract_scalar_operations": 48000,
+    "nextafter_scalar_operations": 208390,
+    "multiply_scalar_operations": 144006,
+    "pairwise_reduction_padding_entries": 192,
+    "add_scalar_operations": 16382,
+    "divide_scalar_operations": 2
+  },
+  "author_counts": {
+    "uncertified_seed_rule_generations": 1,
+    "exact_legendre_evaluations": 1180,
+    "exact_legendre_recurrence_steps": 22420,
+    "root_bisections": 1140,
+    "rational_interval_legendre_steps": 360,
+    "certified_root_intervals": 20,
+    "subtract_scalar_operations": 48000,
+    "nextafter_scalar_operations": 2273554,
+    "multiply_scalar_operations": 1152018,
+    "pairwise_reduction_padding_entries": 768,
+    "add_scalar_operations": 1025528,
+    "divide_scalar_operations": 48008,
+    "exact_ray_coordinate_conversions": 48,
+    "simplices_integrated": 3,
+    "quadrature_nodes": 24000
+  },
+  "source_sha256": "81610b36367ecea504d04438665a523aef990680d8aede6be506d7490a3fe26e",
+  "artifact_sha256": "1e5ebf80c17675c4c3c09b22ea3553e7c5cd5787609fadc18b8697dd4f951338",
+  "cases": [
+    {
+      "case": "orthant",
+      "raw_interval": [
+        0.06250000000000085,
+        0.06250000000000214
+      ],
+      "high_precision_GL20": "0.06250000000000148964927890772912319877330118977303301871302625845668991",
+      "contained": true,
+      "lower_margin": "0.0000000000000006431042226310472611257541542705225447374630262584566899076514953997477",
+      "upper_margin": "0.0000000000000006475300434956972171167176598850560685437869737415433100923485046002523",
+      "truncation_upper": 3.617799643664019e-09
+    },
+    {
+      "case": "0",
+      "raw_interval": [
+        1.893850109500709e-10,
+        1.8938501095007505e-10
+      ],
+      "high_precision_GL20": "0.0000000001893850109500729858509906199400916857015700571731256803957688930572444",
+      "contained": true,
+      "lower_margin": "2.098360053654776870846614781640934165627089695942694085232787987703626e-24",
+      "upper_margin": "2.063392403252643618350160200336066441375902487027352911837524512296374e-24",
+      "truncation_upper": 8.920902770502184e-18
+    },
+    {
+      "case": "128",
+      "raw_interval": [
+        2.081441231864569e-05,
+        2.0814412318646136e-05
+      ],
+      "high_precision_GL20": "0.00002081441231864591342119496357324701494398250118410714412536641744079712",
+      "contained": true,
+      "lower_margin": "0.0000000000000000002217564719560320203079816485090605033233245851674407971175237170043558",
+      "upper_margin": "0.0000000000000000002220887924052213573638193418470718847916046140513092028824762829956442",
+      "truncation_upper": 4.049131716743337e-12
+    }
+  ],
+  "scope": "Numerical falsifier for raw cubature containment; not a standalone proof of all cones or IEEE assumptions."
+}

@@ -1,0 +1,122 @@
+{
+  "cpu_seconds": 1.0953770170000001,
+  "high_precision_tensor_nodes": 12096,
+  "precision_decimal_digits": 70,
+  "independent_rule_generations": 1,
+  "model_passes": 0,
+  "source_sha256": "cb142ae37dac4302be7fb6af9f43f59c569c93f81b821b72b36e8365ede9329b",
+  "cases": [
+    {
+      "epsilon": 0.01,
+      "value": 0.5050969034110812,
+      "reference": "0.5050969034111680143286197564152890441667402390383912203576641826562936",
+      "relative_error": 1.7196551893719524e-13,
+      "analytic": true,
+      "cancellation_screen": 2.240828731333513e-12,
+      "singular_ratio": 0.003722456313796802,
+      "permutation_relative_difference": 2.531308496145357e-13,
+      "scale_relative_difference": 0.0
+    },
+    {
+      "epsilon": 0.001,
+      "value": 0.490844242108483,
+      "reference": "0.4908442421089221220922979337904792025719750642827490054623696241055088",
+      "relative_error": 8.94653586342302e-13,
+      "analytic": true,
+      "cancellation_screen": 2.2739443671779967e-11,
+      "singular_ratio": 0.000367885029944058,
+      "permutation_relative_difference": 2.3232527013306026e-12,
+      "scale_relative_difference": 0.0
+    },
+    {
+      "epsilon": 0.0001,
+      "value": 0.4894441769145923,
+      "reference": "0.4894441769145921756239778693069603077411846351136269639115231967644646",
+      "relative_error": 2.527979599164888e-16,
+      "analytic": false,
+      "cancellation_screen": 2.2772615072579984e-10,
+      "singular_ratio": 3.674514749304247e-05,
+      "permutation_relative_difference": 2.220446049250313e-16,
+      "scale_relative_difference": 0.0
+    },
+    {
+      "epsilon": 1e-05,
+      "value": 0.48930441963539895,
+      "reference": "0.4893044196353989714407416316332329954293761317435805090945973684665623",
+      "relative_error": 5.174819831091562e-17,
+      "analytic": false,
+      "cancellation_screen": 2.2775932747869472e-09,
+      "singular_ratio": 3.6740814449131936e-06,
+      "permutation_relative_difference": 0.0,
+      "scale_relative_difference": 0.0
+    },
+    {
+      "epsilon": 1e-06,
+      "value": 0.48929044639712305,
+      "reference": "0.4892904463971229409142878197976384181039625703026097401411464383500311",
+      "relative_error": 2.1610264039032181e-16,
+      "analytic": false,
+      "cancellation_screen": 0.0,
+      "singular_ratio": 3.6740381170149964e-07,
+      "permutation_relative_difference": 2.220446049250313e-16,
+      "scale_relative_difference": 0.0
+    },
+    {
+      "epsilon": 1e-07,
+      "value": 0.48928904909818904,
+      "reference": "0.489289049098188876790062821681873343055560297330458356318162708003294",
+      "relative_error": 3.415279663736886e-16,
+      "analytic": false,
+      "cancellation_screen": 0.0,
+      "singular_ratio": 3.674033785468909e-08,
+      "permutation_relative_difference": 0.0,
+      "scale_relative_difference": 0.0
+    },
+    {
+      "epsilon": 1e-08,
+      "value": 0.4892889093685443,
+      "reference": "0.4892889093685444557219283283736086682690397910281263783470308894847302",
+      "relative_error": 3.177073344071224e-16,
+      "analytic": false,
+      "cancellation_screen": 0.0,
+      "singular_ratio": 3.6740333521218285e-09,
+      "permutation_relative_difference": 0.0,
+      "scale_relative_difference": 0.0
+    }
+  ],
+  "batch_stats": {
+    "tetrahedra": 7,
+    "analytic_tetrahedra": 2,
+    "positive_fallbacks": 5,
+    "fallback_segment_nodes": 80,
+    "fallback_bound_trials": 5,
+    "qr_factorizations": 7,
+    "svd_condition_estimates": 7,
+    "determinants4": 4,
+    "cofactor_determinants3": 64,
+    "linear_solves": 0,
+    "known_normal_projections": 4,
+    "facet_atan2_calls": 16,
+    "numerical_screen_rejections": 2,
+    "minimum_singular_ratio": 3.6740333521218285e-09,
+    "maximum_heuristic_relative_roundoff": 2.2775932747869472e-09,
+    "known_plane_residual": 2.220446049250313e-16,
+    "quadrature_error_bounds": [
+      0.0,
+      0.0,
+      1.9570588754846348e-16,
+      1.9565119122426578e-20,
+      1.9564572256820786e-24,
+      1.956451757862843e-28,
+      1.956451348095858e-32
+    ],
+    "quadrature_error_bound_sum": 1.957254546242388e-16,
+    "maximum_quadrature_error_bound": 1.9570588754846348e-16,
+    "roundoff_certified": false,
+    "dependencies": {
+      "segment.py": "a06dac84f17e7819fa7340ec142a32b6330bae0b2f21e8a22ddef93f78abb190",
+      "chebyshev_positive.py": "492f3a1466f2710cf96981011f4f91b8465d5f14946ff9a3937874e95a65cca7"
+    }
+  },
+  "scope": "Independent numerical adversarial check; not a directed rounding certificate."
+}
