@@ -182,3 +182,20 @@ All numerical runs acquire `/workspace/work/codex-compute.lock`, use one BLAS
 thread and remain below2GB RSS. Cycle budget120CPU seconds. No trained T4 outer
 integration: its assigned owners retain that work. Root receives checkpoint
 commits and the standing investigation continues after each bounded cycle.
+
+## Cycle 4 protocol (frozen before implementation)
+Provide T50's backward collocation owner an exact-formula terminal kernel on
+(a=h/R,b=u/R,K,j), with two fresh non-target inputs remaining. If j is already
+processed, perform two random steps; if j is penultimate, insert bR between them;
+if j is last, insert it after them. Radius dimension is always T-2. K=1 requires
+both fresh inputs below u; K=0 requires exactly one above. Positive-volume
+logit ties use first-index argmax, including dead states. Grid construction and
+interpolation remain T50-owned, not part of this cycle.
+
+Competing explanations: (1) wrong target insertion order/radius normalization;
+test every target position of synthetic T3 against the independent top-two tail
+and direct conditional simulation. (2) count boundaries or zero/axis states
+silently lose mass; include a=0, b=0, counts0/1/2, identical output rows and
+positive input/output rescaling. Up to12 fixed cases with65536 validation draws
+each, one bounded locked run initially. Keep every failure. Analytic kernel
+calls use no sampled model inputs; the check's random draws are validation only.
