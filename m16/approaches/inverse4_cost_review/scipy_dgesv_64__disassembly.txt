@@ -1,0 +1,181 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000b18a0 <scipy_dgesv_64_>:
+   b18a0:	41 57                	push   %r15
+   b18a2:	48 89 d0             	mov    %rdx,%rax
+   b18a5:	41 56                	push   %r14
+   b18a7:	41 55                	push   %r13
+   b18a9:	41 54                	push   %r12
+   b18ab:	49 89 f4             	mov    %rsi,%r12
+   b18ae:	55                   	push   %rbp
+   b18af:	48 89 fd             	mov    %rdi,%rbp
+   b18b2:	53                   	push   %rbx
+   b18b3:	48 81 ec b8 00 00 00 	sub    $0xb8,%rsp
+   b18ba:	48 8b 17             	mov    (%rdi),%rdx
+   b18bd:	bf 00 00 00 00       	mov    $0x0,%edi
+   b18c2:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+   b18c7:	48 8b 84 24 f0 00 00 	mov    0xf0(%rsp),%rax
+   b18ce:	00 
+   b18cf:	66 48 0f 6e c2       	movq   %rdx,%xmm0
+   b18d4:	48 85 d2             	test   %rdx,%rdx
+   b18d7:	4c 89 4c 24 18       	mov    %r9,0x18(%rsp)
+   b18dc:	48 8b 9c 24 f8 00 00 	mov    0xf8(%rsp),%rbx
+   b18e3:	00 
+   b18e4:	0f 16 06             	movhps (%rsi),%xmm0
+   b18e7:	48 8b 31             	mov    (%rcx),%rsi
+   b18ea:	b9 01 00 00 00       	mov    $0x1,%ecx
+   b18ef:	48 8b 00             	mov    (%rax),%rax
+   b18f2:	48 0f 4f ca          	cmovg  %rdx,%rcx
+   b18f6:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+   b18fb:	66 48 0f 6e c8       	movq   %rax,%xmm1
+   b1900:	66 48 0f 6e c6       	movq   %rsi,%xmm0
+   b1905:	4c 89 44 24 20       	mov    %r8,0x20(%rsp)
+   b190a:	48 39 c8             	cmp    %rcx,%rax
+   b190d:	b8 07 00 00 00       	mov    $0x7,%eax
+   b1912:	66 0f 6c c1          	punpcklqdq %xmm1,%xmm0
+   b1916:	48 0f 4d c7          	cmovge %rdi,%rax
+   b191a:	48 39 ce             	cmp    %rcx,%rsi
+   b191d:	b9 04 00 00 00       	mov    $0x4,%ecx
+   b1922:	0f 11 44 24 58       	movups %xmm0,0x58(%rsp)
+   b1927:	48 0f 4c c1          	cmovl  %rcx,%rax
+   b192b:	49 83 3c 24 00       	cmpq   $0x0,(%r12)
+   b1930:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+   b1935:	78 39                	js     b1970 <scipy_dgesv_64_+0xd0>
+   b1937:	48 85 d2             	test   %rdx,%rdx
+   b193a:	78 42                	js     b197e <scipy_dgesv_64_+0xde>
+   b193c:	48 83 7c 24 08 00    	cmpq   $0x0,0x8(%rsp)
+   b1942:	75 43                	jne    b1987 <scipy_dgesv_64_+0xe7>
+   b1944:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   b1948:	48 c7 03 00 00 00 00 	movq   $0x0,(%rbx)
+   b194f:	0f 29 44 24 30       	movaps %xmm0,0x30(%rsp)
+   b1954:	48 85 d2             	test   %rdx,%rdx
+   b1957:	75 57                	jne    b19b0 <scipy_dgesv_64_+0x110>
+   b1959:	48 81 c4 b8 00 00 00 	add    $0xb8,%rsp
+   b1960:	31 c0                	xor    %eax,%eax
+   b1962:	5b                   	pop    %rbx
+   b1963:	5d                   	pop    %rbp
+   b1964:	41 5c                	pop    %r12
+   b1966:	41 5d                	pop    %r13
+   b1968:	41 5e                	pop    %r14
+   b196a:	41 5f                	pop    %r15
+   b196c:	c3                   	ret
+   b196d:	0f 1f 00             	nopl   (%rax)
+   b1970:	48 c7 44 24 08 02 00 	movq   $0x2,0x8(%rsp)
+   b1977:	00 00 
+   b1979:	48 85 d2             	test   %rdx,%rdx
+   b197c:	79 09                	jns    b1987 <scipy_dgesv_64_+0xe7>
+   b197e:	48 c7 44 24 08 01 00 	movq   $0x1,0x8(%rsp)
+   b1985:	00 00 
+   b1987:	48 8d 74 24 08       	lea    0x8(%rsp),%rsi
+   b198c:	ba 05 00 00 00       	mov    $0x5,%edx
+   b1991:	48 8d 3d 9e c0 30 01 	lea    0x130c09e(%rip),%rdi        # 13bda36 <.annobin___pthread_atfork.end+0xae6>
+   b1998:	e8 33 76 36 00       	call   418fd0 <__xerbla>
+   b199d:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+   b19a2:	48 f7 d8             	neg    %rax
+   b19a5:	48 89 03             	mov    %rax,(%rbx)
+   b19a8:	eb af                	jmp    b1959 <scipy_dgesv_64_+0xb9>
+   b19aa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   b19b0:	bf 01 00 00 00       	mov    $0x1,%edi
+   b19b5:	e8 96 6d 36 00       	call   418750 <blas_memory_alloc>
+   b19ba:	49 89 c6             	mov    %rax,%r14
+   b19bd:	48 8d 05 ac 8d 50 01 	lea    0x1508dac(%rip),%rax        # 15ba770 <gotoblas>
+   b19c4:	48 8b 00             	mov    (%rax),%rax
+   b19c7:	8b 88 f0 02 00 00    	mov    0x2f0(%rax),%ecx
+   b19cd:	0f af 88 f4 02 00 00 	imul   0x2f4(%rax),%ecx
+   b19d4:	8b 50 1c             	mov    0x1c(%rax),%edx
+   b19d7:	4c 63 78 14          	movslq 0x14(%rax),%r15
+   b19db:	48 63 40 18          	movslq 0x18(%rax),%rax
+   b19df:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   b19e6:	00 00 
+   b19e8:	44 8d 2c ca          	lea    (%rdx,%rcx,8),%r13d
+   b19ec:	f7 d2                	not    %edx
+   b19ee:	4d 01 f7             	add    %r14,%r15
+   b19f1:	41 21 d5             	and    %edx,%r13d
+   b19f4:	4d 63 ed             	movslq %r13d,%r13
+   b19f7:	4d 01 fd             	add    %r15,%r13
+   b19fa:	49 01 c5             	add    %rax,%r13
+   b19fd:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+   b1a02:	48 0f af c0          	imul   %rax,%rax
+   b1a06:	48 3d 0f 27 00 00    	cmp    $0x270f,%rax
+   b1a0c:	7f 6a                	jg     b1a78 <scipy_dgesv_64_+0x1d8>
+   b1a0e:	48 c7 84 24 80 00 00 	movq   $0x1,0x80(%rsp)
+   b1a15:	00 01 00 00 00 
+   b1a1a:	48 8b 55 00          	mov    0x0(%rbp),%rdx
+   b1a1e:	48 8d 6c 24 10       	lea    0x10(%rsp),%rbp
+   b1a23:	48 89 54 24 48       	mov    %rdx,0x48(%rsp)
+   b1a28:	45 31 c9             	xor    %r9d,%r9d
+   b1a2b:	4d 89 e8             	mov    %r13,%r8
+   b1a2e:	4c 89 f9             	mov    %r15,%rcx
+   b1a31:	31 d2                	xor    %edx,%edx
+   b1a33:	31 f6                	xor    %esi,%esi
+   b1a35:	48 89 ef             	mov    %rbp,%rdi
+   b1a38:	e8 83 bd 36 00       	call   41d7c0 <dgetrf_single>
+   b1a3d:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+   b1a42:	48 85 c0             	test   %rax,%rax
+   b1a45:	75 19                	jne    b1a60 <scipy_dgesv_64_+0x1c0>
+   b1a47:	49 8b 04 24          	mov    (%r12),%rax
+   b1a4b:	48 85 c0             	test   %rax,%rax
+   b1a4e:	0f 8f 9c 00 00 00    	jg     b1af0 <scipy_dgesv_64_+0x250>
+   b1a54:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   b1a5b:	00 00 00 00 
+   b1a5f:	90                   	nop
+   b1a60:	4c 89 f7             	mov    %r14,%rdi
+   b1a63:	e8 d8 71 36 00       	call   418c40 <blas_memory_free>
+   b1a68:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+   b1a6d:	48 89 03             	mov    %rax,(%rbx)
+   b1a70:	e9 e4 fe ff ff       	jmp    b1959 <scipy_dgesv_64_+0xb9>
+   b1a75:	0f 1f 00             	nopl   (%rax)
+   b1a78:	48 8d 05 e9 8c 50 01 	lea    0x1508ce9(%rip),%rax        # 15ba768 <blas_cpu_number>
+   b1a7f:	8b 10                	mov    (%rax),%edx
+   b1a81:	83 fa 01             	cmp    $0x1,%edx
+   b1a84:	74 88                	je     b1a0e <scipy_dgesv_64_+0x16e>
+   b1a86:	48 63 00             	movslq (%rax),%rax
+   b1a89:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+   b1a90:	00 
+   b1a91:	48 8b 55 00          	mov    0x0(%rbp),%rdx
+   b1a95:	48 83 f8 01          	cmp    $0x1,%rax
+   b1a99:	74 83                	je     b1a1e <scipy_dgesv_64_+0x17e>
+   b1a9b:	48 8d 6c 24 10       	lea    0x10(%rsp),%rbp
+   b1aa0:	48 89 54 24 48       	mov    %rdx,0x48(%rsp)
+   b1aa5:	45 31 c9             	xor    %r9d,%r9d
+   b1aa8:	4d 89 e8             	mov    %r13,%r8
+   b1aab:	4c 89 f9             	mov    %r15,%rcx
+   b1aae:	31 d2                	xor    %edx,%edx
+   b1ab0:	31 f6                	xor    %esi,%esi
+   b1ab2:	48 89 ef             	mov    %rbp,%rdi
+   b1ab5:	e8 36 d0 36 00       	call   41eaf0 <dgetrf_parallel>
+   b1aba:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+   b1abf:	48 85 c0             	test   %rax,%rax
+   b1ac2:	75 9c                	jne    b1a60 <scipy_dgesv_64_+0x1c0>
+   b1ac4:	49 8b 04 24          	mov    (%r12),%rax
+   b1ac8:	48 85 c0             	test   %rax,%rax
+   b1acb:	7e 93                	jle    b1a60 <scipy_dgesv_64_+0x1c0>
+   b1acd:	45 31 c9             	xor    %r9d,%r9d
+   b1ad0:	4d 89 e8             	mov    %r13,%r8
+   b1ad3:	4c 89 f9             	mov    %r15,%rcx
+   b1ad6:	31 d2                	xor    %edx,%edx
+   b1ad8:	31 f6                	xor    %esi,%esi
+   b1ada:	48 89 ef             	mov    %rbp,%rdi
+   b1add:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   b1ae2:	e8 59 69 38 00       	call   438440 <dgetrs_N_parallel>
+   b1ae7:	e9 74 ff ff ff       	jmp    b1a60 <scipy_dgesv_64_+0x1c0>
+   b1aec:	0f 1f 40 00          	nopl   0x0(%rax)
+   b1af0:	45 31 c9             	xor    %r9d,%r9d
+   b1af3:	4d 89 e8             	mov    %r13,%r8
+   b1af6:	4c 89 f9             	mov    %r15,%rcx
+   b1af9:	31 d2                	xor    %edx,%edx
+   b1afb:	31 f6                	xor    %esi,%esi
+   b1afd:	48 89 ef             	mov    %rbp,%rdi
+   b1b00:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   b1b05:	e8 f6 66 38 00       	call   438200 <dgetrs_N_single>
+   b1b0a:	e9 51 ff ff ff       	jmp    b1a60 <scipy_dgesv_64_+0x1c0>
+
+Disassembly of section .fini:

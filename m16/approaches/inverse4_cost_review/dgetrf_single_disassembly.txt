@@ -1,0 +1,468 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000041d7c0 <dgetrf_single>:
+  41d7c0:	41 57                	push   %r15
+  41d7c2:	49 89 fa             	mov    %rdi,%r10
+  41d7c5:	48 89 d6             	mov    %rdx,%rsi
+  41d7c8:	41 56                	push   %r14
+  41d7ca:	41 55                	push   %r13
+  41d7cc:	41 54                	push   %r12
+  41d7ce:	55                   	push   %rbp
+  41d7cf:	53                   	push   %rbx
+  41d7d0:	48 81 ec 08 01 00 00 	sub    $0x108,%rsp
+  41d7d7:	48 8b 47 30          	mov    0x30(%rdi),%rax
+  41d7db:	4c 8b 3f             	mov    (%rdi),%r15
+  41d7de:	48 89 4c 24 30       	mov    %rcx,0x30(%rsp)
+  41d7e3:	4c 8b 6f 48          	mov    0x48(%rdi),%r13
+  41d7e7:	4c 89 44 24 18       	mov    %r8,0x18(%rsp)
+  41d7ec:	48 89 84 24 90 00 00 	mov    %rax,0x90(%rsp)
+  41d7f3:	00 
+  41d7f4:	48 85 d2             	test   %rdx,%rdx
+  41d7f7:	0f 84 60 06 00 00    	je     41de5d <dgetrf_single+0x69d>
+  41d7fd:	48 8b 1a             	mov    (%rdx),%rbx
+  41d800:	48 8b 42 08          	mov    0x8(%rdx),%rax
+  41d804:	48 29 9c 24 90 00 00 	sub    %rbx,0x90(%rsp)
+  41d80b:	00 
+  41d80c:	48 29 d8             	sub    %rbx,%rax
+  41d80f:	48 89 5c 24 50       	mov    %rbx,0x50(%rsp)
+  41d814:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+  41d81b:	00 
+  41d81c:	49 8d 45 01          	lea    0x1(%r13),%rax
+  41d820:	48 0f af c3          	imul   %rbx,%rax
+  41d824:	4d 8d 3c c7          	lea    (%r15,%rax,8),%r15
+  41d828:	48 8b 9c 24 90 00 00 	mov    0x90(%rsp),%rbx
+  41d82f:	00 
+  41d830:	48 85 db             	test   %rbx,%rbx
+  41d833:	0f 8e 13 06 00 00    	jle    41de4c <dgetrf_single+0x68c>
+  41d839:	48 8b 84 24 80 00 00 	mov    0x80(%rsp),%rax
+  41d840:	00 
+  41d841:	48 85 c0             	test   %rax,%rax
+  41d844:	0f 8e 02 06 00 00    	jle    41de4c <dgetrf_single+0x68c>
+  41d84a:	48 39 c3             	cmp    %rax,%rbx
+  41d84d:	48 0f 4e c3          	cmovle %rbx,%rax
+  41d851:	48 8d 1d 18 cf 19 01 	lea    0x119cf18(%rip),%rbx        # 15ba770 <gotoblas>
+  41d858:	4c 8b 03             	mov    (%rbx),%r8
+  41d85b:	48 89 84 24 a0 00 00 	mov    %rax,0xa0(%rsp)
+  41d862:	00 
+  41d863:	48 d1 f8             	sar    $1,%rax
+  41d866:	4d 63 88 00 03 00 00 	movslq 0x300(%r8),%r9
+  41d86d:	49 8d 7c 01 ff       	lea    -0x1(%r9,%rax,1),%rdi
+  41d872:	48 89 f8             	mov    %rdi,%rax
+  41d875:	48 99                	cqto
+  41d877:	49 f7 f9             	idiv   %r9
+  41d87a:	49 63 80 f4 02 00 00 	movslq 0x2f4(%r8),%rax
+  41d881:	48 29 d7             	sub    %rdx,%rdi
+  41d884:	48 39 c7             	cmp    %rax,%rdi
+  41d887:	48 0f 4e c7          	cmovle %rdi,%rax
+  41d88b:	48 89 84 24 c0 00 00 	mov    %rax,0xc0(%rsp)
+  41d892:	00 
+  41d893:	48 89 c2             	mov    %rax,%rdx
+  41d896:	43 8d 04 09          	lea    (%r9,%r9,1),%eax
+  41d89a:	48 98                	cltq
+  41d89c:	48 39 c2             	cmp    %rax,%rdx
+  41d89f:	0f 8e d2 05 00 00    	jle    41de77 <dgetrf_single+0x6b7>
+  41d8a5:	49 8b 42 10          	mov    0x10(%r10),%rax
+  41d8a9:	48 8b 4c 24 18       	mov    0x18(%rsp),%rcx
+  41d8ae:	4c 89 3c 24          	mov    %r15,(%rsp)
+  41d8b2:	4d 89 fc             	mov    %r15,%r12
+  41d8b5:	48 8b b4 24 c0 00 00 	mov    0xc0(%rsp),%rsi
+  41d8bc:	00 
+  41d8bd:	4c 8b 74 24 50       	mov    0x50(%rsp),%r14
+  41d8c2:	48 c7 84 24 a8 00 00 	movq   $0x0,0xa8(%rsp)
+  41d8c9:	00 00 00 00 00 
+  41d8ce:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+  41d8d3:	41 8b 40 1c          	mov    0x1c(%r8),%eax
+  41d8d7:	48 89 f2             	mov    %rsi,%rdx
+  41d8da:	48 8b ac 24 a0 00 00 	mov    0xa0(%rsp),%rbp
+  41d8e1:	00 
+  41d8e2:	4c 89 7c 24 68       	mov    %r15,0x68(%rsp)
+  41d8e7:	4d 89 ef             	mov    %r13,%r15
+  41d8ea:	48 0f af d6          	imul   %rsi,%rdx
+  41d8ee:	4c 89 b4 24 88 00 00 	mov    %r14,0x88(%rsp)
+  41d8f5:	00 
+  41d8f6:	4c 89 94 24 d0 00 00 	mov    %r10,0xd0(%rsp)
+  41d8fd:	00 
+  41d8fe:	49 89 ea             	mov    %rbp,%r10
+  41d901:	48 8d 14 d1          	lea    (%rcx,%rdx,8),%rdx
+  41d905:	48 63 c8             	movslq %eax,%rcx
+  41d908:	f7 d0                	not    %eax
+  41d90a:	48 01 ca             	add    %rcx,%rdx
+  41d90d:	48 98                	cltq
+  41d90f:	48 89 f1             	mov    %rsi,%rcx
+  41d912:	48 21 d0             	and    %rdx,%rax
+  41d915:	49 63 50 18          	movslq 0x18(%r8),%rdx
+  41d919:	49 89 ce             	mov    %rcx,%r14
+  41d91c:	48 01 d0             	add    %rdx,%rax
+  41d91f:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  41d924:	4a 8d 04 ed 08 00 00 	lea    0x8(,%r13,8),%rax
+  41d92b:	00 
+  41d92c:	48 0f af f0          	imul   %rax,%rsi
+  41d930:	48 83 e8 08          	sub    $0x8,%rax
+  41d934:	48 0f af c1          	imul   %rcx,%rax
+  41d938:	48 89 b4 24 b8 00 00 	mov    %rsi,0xb8(%rsp)
+  41d93f:	00 
+  41d940:	48 89 84 24 b0 00 00 	mov    %rax,0xb0(%rsp)
+  41d947:	00 
+  41d948:	48 8d 84 24 f0 00 00 	lea    0xf0(%rsp),%rax
+  41d94f:	00 
+  41d950:	48 89 84 24 c8 00 00 	mov    %rax,0xc8(%rsp)
+  41d957:	00 
+  41d958:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
+  41d95f:	00 
+  41d960:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+  41d965:	4d 89 f5             	mov    %r14,%r13
+  41d968:	4c 89 54 24 08       	mov    %r10,0x8(%rsp)
+  41d96d:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  41d972:	48 8b 94 24 c8 00 00 	mov    0xc8(%rsp),%rdx
+  41d979:	00 
+  41d97a:	48 89 c5             	mov    %rax,%rbp
+  41d97d:	48 8b bc 24 d0 00 00 	mov    0xd0(%rsp),%rdi
+  41d984:	00 
+  41d985:	48 89 84 24 f0 00 00 	mov    %rax,0xf0(%rsp)
+  41d98c:	00 
+  41d98d:	48 29 cd             	sub    %rcx,%rbp
+  41d990:	4d 39 f2             	cmp    %r14,%r10
+  41d993:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+  41d998:	4d 0f 4e ea          	cmovle %r10,%r13
+  41d99c:	45 31 c9             	xor    %r9d,%r9d
+  41d99f:	31 f6                	xor    %esi,%esi
+  41d9a1:	48 89 6c 24 40       	mov    %rbp,0x40(%rsp)
+  41d9a6:	4c 01 e8             	add    %r13,%rax
+  41d9a9:	48 89 84 24 f8 00 00 	mov    %rax,0xf8(%rsp)
+  41d9b0:	00 
+  41d9b1:	e8 0a fe ff ff       	call   41d7c0 <dgetrf_single>
+  41d9b6:	4c 8b 54 24 08       	mov    0x8(%rsp),%r10
+  41d9bb:	48 85 c0             	test   %rax,%rax
+  41d9be:	74 1f                	je     41d9df <dgetrf_single+0x21f>
+  41d9c0:	48 8b 8c 24 a8 00 00 	mov    0xa8(%rsp),%rcx
+  41d9c7:	00 
+  41d9c8:	48 85 c9             	test   %rcx,%rcx
+  41d9cb:	0f 94 c2             	sete   %dl
+  41d9ce:	48 01 e8             	add    %rbp,%rax
+  41d9d1:	84 d2                	test   %dl,%dl
+  41d9d3:	48 0f 44 c1          	cmove  %rcx,%rax
+  41d9d7:	48 89 84 24 a8 00 00 	mov    %rax,0xa8(%rsp)
+  41d9de:	00 
+  41d9df:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+  41d9e4:	48 8b 8c 24 80 00 00 	mov    0x80(%rsp),%rcx
+  41d9eb:	00 
+  41d9ec:	4c 01 e8             	add    %r13,%rax
+  41d9ef:	48 89 84 24 98 00 00 	mov    %rax,0x98(%rsp)
+  41d9f6:	00 
+  41d9f7:	48 39 c8             	cmp    %rcx,%rax
+  41d9fa:	0f 8c ef 00 00 00    	jl     41daef <dgetrf_single+0x32f>
+  41da00:	48 8b 8c 24 b8 00 00 	mov    0xb8(%rsp),%rcx
+  41da07:	00 
+  41da08:	4c 01 b4 24 88 00 00 	add    %r14,0x88(%rsp)
+  41da0f:	00 
+  41da10:	4d 29 f2             	sub    %r14,%r10
+  41da13:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
+  41da1a:	00 
+  41da1b:	48 8b 94 24 b0 00 00 	mov    0xb0(%rsp),%rdx
+  41da22:	00 
+  41da23:	49 01 cc             	add    %rcx,%r12
+  41da26:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+  41da2b:	48 01 54 24 68       	add    %rdx,0x68(%rsp)
+  41da30:	48 29 c8             	sub    %rcx,%rax
+  41da33:	48 39 84 24 a0 00 00 	cmp    %rax,0xa0(%rsp)
+  41da3a:	00 
+  41da3b:	0f 8f 17 ff ff ff    	jg     41d958 <dgetrf_single+0x198>
+  41da41:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+  41da48:	00 
+  41da49:	48 8b 6c 24 50       	mov    0x50(%rsp),%rbp
+  41da4e:	4d 89 fd             	mov    %r15,%r13
+  41da51:	45 31 e4             	xor    %r12d,%r12d
+  41da54:	4c 89 e9             	mov    %r13,%rcx
+  41da57:	4c 8b b4 24 c0 00 00 	mov    0xc0(%rsp),%r14
+  41da5e:	00 
+  41da5f:	4c 8b 3c 24          	mov    (%rsp),%r15
+  41da63:	4d 89 e5             	mov    %r12,%r13
+  41da66:	48 8d 5c 05 00       	lea    0x0(%rbp,%rax,1),%rbx
+  41da6b:	49 89 cc             	mov    %rcx,%r12
+  41da6e:	48 89 1c 24          	mov    %rbx,(%rsp)
+  41da72:	48 89 c3             	mov    %rax,%rbx
+  41da75:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  41da7c:	00 00 00 00 
+  41da80:	48 89 df             	mov    %rbx,%rdi
+  41da83:	4c 89 e2             	mov    %r12,%rdx
+  41da86:	48 89 e8             	mov    %rbp,%rax
+  41da89:	4c 89 f9             	mov    %r15,%rcx
+  41da8c:	4c 29 ef             	sub    %r13,%rdi
+  41da8f:	4d 89 e0             	mov    %r12,%r8
+  41da92:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  41da96:	4c 39 f7             	cmp    %r14,%rdi
+  41da99:	49 0f 4f fe          	cmovg  %r14,%rdi
+  41da9d:	49 0f af d5          	imul   %r13,%rdx
+  41daa1:	48 83 ec 08          	sub    $0x8,%rsp
+  41daa5:	45 31 c9             	xor    %r9d,%r9d
+  41daa8:	6a 01                	push   $0x1
+  41daaa:	ff 74 24 68          	push   0x68(%rsp)
+  41daae:	49 01 fd             	add    %rdi,%r13
+  41dab1:	6a 00                	push   $0x0
+  41dab3:	48 29 d0             	sub    %rdx,%rax
+  41dab6:	4a 8d 74 2d 01       	lea    0x1(%rbp,%r13,1),%rsi
+  41dabb:	48 8b 54 24 20       	mov    0x20(%rsp),%rdx
+  41dac0:	48 c1 e0 03          	shl    $0x3,%rax
+  41dac4:	48 29 c1             	sub    %rax,%rcx
+  41dac7:	e8 74 d4 00 00       	call   42af40 <dlaswp_plus>
+  41dacc:	48 83 c4 20          	add    $0x20,%rsp
+  41dad0:	49 39 dd             	cmp    %rbx,%r13
+  41dad3:	7c ab                	jl     41da80 <dgetrf_single+0x2c0>
+  41dad5:	48 8b 84 24 a8 00 00 	mov    0xa8(%rsp),%rax
+  41dadc:	00 
+  41dadd:	48 81 c4 08 01 00 00 	add    $0x108,%rsp
+  41dae4:	5b                   	pop    %rbx
+  41dae5:	5d                   	pop    %rbp
+  41dae6:	41 5c                	pop    %r12
+  41dae8:	41 5d                	pop    %r13
+  41daea:	41 5e                	pop    %r14
+  41daec:	41 5f                	pop    %r15
+  41daee:	c3                   	ret
+  41daef:	48 8b 03             	mov    (%rbx),%rax
+  41daf2:	4c 89 54 24 08       	mov    %r10,0x8(%rsp)
+  41daf7:	4c 89 f9             	mov    %r15,%rcx
+  41dafa:	4c 89 e2             	mov    %r12,%rdx
+  41dafd:	4c 8b 4c 24 18       	mov    0x18(%rsp),%r9
+  41db02:	4c 89 ee             	mov    %r13,%rsi
+  41db05:	4c 89 ef             	mov    %r13,%rdi
+  41db08:	45 31 c0             	xor    %r8d,%r8d
+  41db0b:	ff 90 90 04 00 00    	call   *0x490(%rax)
+  41db11:	48 8b 7c 24 50       	mov    0x50(%rsp),%rdi
+  41db16:	4c 8b 1b             	mov    (%rbx),%r11
+  41db19:	4c 89 b4 24 d8 00 00 	mov    %r14,0xd8(%rsp)
+  41db20:	00 
+  41db21:	48 8b 8c 24 98 00 00 	mov    0x98(%rsp),%rcx
+  41db28:	00 
+  41db29:	4c 8b 54 24 08       	mov    0x8(%rsp),%r10
+  41db2e:	4c 89 a4 24 e8 00 00 	mov    %r12,0xe8(%rsp)
+  41db35:	00 
+  41db36:	4c 89 ed             	mov    %r13,%rbp
+  41db39:	41 8b 83 f8 02 00 00 	mov    0x2f8(%r11),%eax
+  41db40:	41 8b 93 f0 02 00 00 	mov    0x2f0(%r11),%edx
+  41db47:	49 89 c9             	mov    %rcx,%r9
+  41db4a:	48 01 f9             	add    %rdi,%rcx
+  41db4d:	41 8b b3 f4 02 00 00 	mov    0x2f4(%r11),%esi
+  41db54:	4c 89 94 24 e0 00 00 	mov    %r10,0xe0(%rsp)
+  41db5b:	00 
+  41db5c:	48 89 4c 24 70       	mov    %rcx,0x70(%rsp)
+  41db61:	48 8b 8c 24 88 00 00 	mov    0x88(%rsp),%rcx
+  41db68:	00 
+  41db69:	4d 89 da             	mov    %r11,%r10
+  41db6c:	48 83 c1 01          	add    $0x1,%rcx
+  41db70:	48 89 4c 24 78       	mov    %rcx,0x78(%rsp)
+  41db75:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  41db7c:	00 00 00 00 
+  41db80:	39 f2                	cmp    %esi,%edx
+  41db82:	0f 4d f2             	cmovge %edx,%esi
+  41db85:	29 f0                	sub    %esi,%eax
+  41db87:	48 8b b4 24 80 00 00 	mov    0x80(%rsp),%rsi
+  41db8e:	00 
+  41db8f:	48 98                	cltq
+  41db91:	4c 29 ce             	sub    %r9,%rsi
+  41db94:	48 39 f0             	cmp    %rsi,%rax
+  41db97:	48 0f 4e f0          	cmovle %rax,%rsi
+  41db9b:	4a 8d 04 0e          	lea    (%rsi,%r9,1),%rax
+  41db9f:	48 89 74 24 60       	mov    %rsi,0x60(%rsp)
+  41dba4:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  41dba9:	4c 39 c8             	cmp    %r9,%rax
+  41dbac:	0f 8e 80 01 00 00    	jle    41dd32 <dgetrf_single+0x572>
+  41dbb2:	4c 89 4c 24 20       	mov    %r9,0x20(%rsp)
+  41dbb7:	49 63 82 00 03 00 00 	movslq 0x300(%r10),%rax
+  41dbbe:	4c 89 4c 24 48       	mov    %r9,0x48(%rsp)
+  41dbc3:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  41dbca:	00 00 00 00 
+  41dbce:	66 90                	xchg   %ax,%ax
+  41dbd0:	4c 8b 64 24 20       	mov    0x20(%rsp),%r12
+  41dbd5:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  41dbda:	4d 89 f8             	mov    %r15,%r8
+  41dbdd:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  41dbe1:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+  41dbe6:	4c 29 e2             	sub    %r12,%rdx
+  41dbe9:	4d 89 e6             	mov    %r12,%r14
+  41dbec:	48 39 c2             	cmp    %rax,%rdx
+  41dbef:	48 0f 4e c2          	cmovle %rdx,%rax
+  41dbf3:	4d 0f af f7          	imul   %r15,%r14
+  41dbf7:	48 83 ec 08          	sub    $0x8,%rsp
+  41dbfb:	45 31 c9             	xor    %r9d,%r9d
+  41dbfe:	49 89 c5             	mov    %rax,%r13
+  41dc01:	4c 89 f0             	mov    %r14,%rax
+  41dc04:	4c 89 ef             	mov    %r13,%rdi
+  41dc07:	48 29 c8             	sub    %rcx,%rax
+  41dc0a:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  41dc0f:	6a 01                	push   $0x1
+  41dc11:	ff 74 24 68          	push   0x68(%rsp)
+  41dc15:	6a 00                	push   $0x0
+  41dc17:	48 8d 0c c1          	lea    (%rcx,%rax,8),%rcx
+  41dc1b:	48 8b 94 24 90 00 00 	mov    0x90(%rsp),%rdx
+  41dc22:	00 
+  41dc23:	48 8b b4 24 98 00 00 	mov    0x98(%rsp),%rsi
+  41dc2a:	00 
+  41dc2b:	e8 10 d3 00 00       	call   42af40 <dlaswp_plus>
+  41dc30:	48 8b 54 24 68       	mov    0x68(%rsp),%rdx
+  41dc35:	4c 89 e0             	mov    %r12,%rax
+  41dc38:	4c 89 ee             	mov    %r13,%rsi
+  41dc3b:	48 89 ef             	mov    %rbp,%rdi
+  41dc3e:	48 29 d0             	sub    %rdx,%rax
+  41dc41:	48 8b 54 24 58       	mov    0x58(%rsp),%rdx
+  41dc46:	48 0f af c5          	imul   %rbp,%rax
+  41dc4a:	4c 8d 04 c2          	lea    (%rdx,%rax,8),%r8
+  41dc4e:	4c 89 44 24 28       	mov    %r8,0x28(%rsp)
+  41dc53:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+  41dc58:	48 83 c4 20          	add    $0x20,%rsp
+  41dc5c:	48 8b 0c 24          	mov    (%rsp),%rcx
+  41dc60:	4c 01 f0             	add    %r14,%rax
+  41dc63:	48 8d 14 c1          	lea    (%rcx,%rax,8),%rdx
+  41dc67:	48 8b 03             	mov    (%rbx),%rax
+  41dc6a:	4c 89 f9             	mov    %r15,%rcx
+  41dc6d:	ff 90 e8 03 00 00    	call   *0x3e8(%rax)
+  41dc73:	4c 8b 13             	mov    (%rbx),%r10
+  41dc76:	48 85 ed             	test   %rbp,%rbp
+  41dc79:	0f 8e 88 00 00 00    	jle    41dd07 <dgetrf_single+0x547>
+  41dc7f:	45 31 e4             	xor    %r12d,%r12d
+  41dc82:	4c 89 6c 24 10       	mov    %r13,0x10(%rsp)
+  41dc87:	49 63 82 f0 02 00 00 	movslq 0x2f0(%r10),%rax
+  41dc8e:	49 89 ed             	mov    %rbp,%r13
+  41dc91:	4c 89 e5             	mov    %r12,%rbp
+  41dc94:	4c 8b 64 24 40       	mov    0x40(%rsp),%r12
+  41dc99:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  41dca0:	4c 89 ee             	mov    %r13,%rsi
+  41dca3:	4c 89 ef             	mov    %r13,%rdi
+  41dca6:	49 8d 0c 2c          	lea    (%r12,%rbp,1),%rcx
+  41dcaa:	48 8b 54 24 18       	mov    0x18(%rsp),%rdx
+  41dcaf:	48 0f af f5          	imul   %rbp,%rsi
+  41dcb3:	48 29 ef             	sub    %rbp,%rdi
+  41dcb6:	4c 01 f1             	add    %r14,%rcx
+  41dcb9:	55                   	push   %rbp
+  41dcba:	48 39 c7             	cmp    %rax,%rdi
+  41dcbd:	41 57                	push   %r15
+  41dcbf:	f2 0f 10 05 41 f7 f9 	movsd  0xf9f741(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  41dcc6:	00 
+  41dcc7:	48 0f 4f f8          	cmovg  %rax,%rdi
+  41dccb:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  41dcd0:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  41dcd5:	48 8d 34 f2          	lea    (%rdx,%rsi,8),%rsi
+  41dcd9:	4c 89 ea             	mov    %r13,%rdx
+  41dcdc:	4c 8d 0c c8          	lea    (%rax,%rcx,8),%r9
+  41dce0:	48 89 f1             	mov    %rsi,%rcx
+  41dce3:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+  41dce8:	41 ff 92 48 04 00 00 	call   *0x448(%r10)
+  41dcef:	4c 8b 13             	mov    (%rbx),%r10
+  41dcf2:	5f                   	pop    %rdi
+  41dcf3:	41 58                	pop    %r8
+  41dcf5:	49 63 82 f0 02 00 00 	movslq 0x2f0(%r10),%rax
+  41dcfc:	48 01 c5             	add    %rax,%rbp
+  41dcff:	49 39 ed             	cmp    %rbp,%r13
+  41dd02:	7f 9c                	jg     41dca0 <dgetrf_single+0x4e0>
+  41dd04:	4c 89 ed             	mov    %r13,%rbp
+  41dd07:	49 63 82 00 03 00 00 	movslq 0x300(%r10),%rax
+  41dd0e:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+  41dd13:	48 01 44 24 20       	add    %rax,0x20(%rsp)
+  41dd18:	48 8b 54 24 20       	mov    0x20(%rsp),%rdx
+  41dd1d:	48 39 ca             	cmp    %rcx,%rdx
+  41dd20:	0f 8c aa fe ff ff    	jl     41dbd0 <dgetrf_single+0x410>
+  41dd26:	4c 8b 4c 24 48       	mov    0x48(%rsp),%r9
+  41dd2b:	41 8b 92 f0 02 00 00 	mov    0x2f0(%r10),%edx
+  41dd32:	4c 8b ac 24 98 00 00 	mov    0x98(%rsp),%r13
+  41dd39:	00 
+  41dd3a:	4c 8b b4 24 90 00 00 	mov    0x90(%rsp),%r14
+  41dd41:	00 
+  41dd42:	4d 39 f5             	cmp    %r14,%r13
+  41dd45:	0f 8d b4 00 00 00    	jge    41ddff <dgetrf_single+0x63f>
+  41dd4b:	4c 89 f8             	mov    %r15,%rax
+  41dd4e:	4c 89 4c 24 10       	mov    %r9,0x10(%rsp)
+  41dd53:	49 0f af c1          	imul   %r9,%rax
+  41dd57:	4d 89 d1             	mov    %r10,%r9
+  41dd5a:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  41dd5f:	48 63 c2             	movslq %edx,%rax
+  41dd62:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  41dd69:	00 00 00 00 
+  41dd6d:	0f 1f 00             	nopl   (%rax)
+  41dd70:	4c 89 f2             	mov    %r14,%rdx
+  41dd73:	4c 8b 44 24 30       	mov    0x30(%rsp),%r8
+  41dd78:	4c 89 f9             	mov    %r15,%rcx
+  41dd7b:	48 89 ef             	mov    %rbp,%rdi
+  41dd7e:	4c 29 ea             	sub    %r13,%rdx
+  41dd81:	48 39 c2             	cmp    %rax,%rdx
+  41dd84:	48 0f 4e c2          	cmovle %rdx,%rax
+  41dd88:	49 89 c4             	mov    %rax,%r12
+  41dd8b:	48 8b 44 24 68       	mov    0x68(%rsp),%rax
+  41dd90:	4c 89 e6             	mov    %r12,%rsi
+  41dd93:	4a 8d 14 e8          	lea    (%rax,%r13,8),%rdx
+  41dd97:	41 ff 91 e0 03 00 00 	call   *0x3e0(%r9)
+  41dd9e:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  41dda3:	48 83 ec 08          	sub    $0x8,%rsp
+  41dda7:	4c 89 e7             	mov    %r12,%rdi
+  41ddaa:	f2 0f 10 05 56 f6 f9 	movsd  0xf9f656(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  41ddb1:	00 
+  41ddb2:	4a 8d 14 28          	lea    (%rax,%r13,1),%rdx
+  41ddb6:	48 8b 03             	mov    (%rbx),%rax
+  41ddb9:	41 57                	push   %r15
+  41ddbb:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  41ddc0:	4c 8b 44 24 48       	mov    0x48(%rsp),%r8
+  41ddc5:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+  41ddca:	4c 8d 0c d6          	lea    (%rsi,%rdx,8),%r9
+  41ddce:	48 8b 74 24 70       	mov    0x70(%rsp),%rsi
+  41ddd3:	48 89 ea             	mov    %rbp,%rdx
+  41ddd6:	ff 90 c8 03 00 00    	call   *0x3c8(%rax)
+  41dddc:	4c 8b 0b             	mov    (%rbx),%r9
+  41dddf:	59                   	pop    %rcx
+  41dde0:	5e                   	pop    %rsi
+  41dde1:	49 63 81 f0 02 00 00 	movslq 0x2f0(%r9),%rax
+  41dde8:	49 01 c5             	add    %rax,%r13
+  41ddeb:	48 89 c2             	mov    %rax,%rdx
+  41ddee:	4d 39 ee             	cmp    %r13,%r14
+  41ddf1:	0f 8f 79 ff ff ff    	jg     41dd70 <dgetrf_single+0x5b0>
+  41ddf7:	4d 89 ca             	mov    %r9,%r10
+  41ddfa:	4c 8b 4c 24 10       	mov    0x10(%rsp),%r9
+  41ddff:	41 8b b2 f4 02 00 00 	mov    0x2f4(%r10),%esi
+  41de06:	41 8b 82 f8 02 00 00 	mov    0x2f8(%r10),%eax
+  41de0d:	41 89 d0             	mov    %edx,%r8d
+  41de10:	39 d6                	cmp    %edx,%esi
+  41de12:	89 c7                	mov    %eax,%edi
+  41de14:	44 0f 4d c6          	cmovge %esi,%r8d
+  41de18:	44 29 c7             	sub    %r8d,%edi
+  41de1b:	48 63 ff             	movslq %edi,%rdi
+  41de1e:	49 01 f9             	add    %rdi,%r9
+  41de21:	4c 39 8c 24 80 00 00 	cmp    %r9,0x80(%rsp)
+  41de28:	00 
+  41de29:	0f 8f 51 fd ff ff    	jg     41db80 <dgetrf_single+0x3c0>
+  41de2f:	4c 8b b4 24 d8 00 00 	mov    0xd8(%rsp),%r14
+  41de36:	00 
+  41de37:	4c 8b 94 24 e0 00 00 	mov    0xe0(%rsp),%r10
+  41de3e:	00 
+  41de3f:	4c 8b a4 24 e8 00 00 	mov    0xe8(%rsp),%r12
+  41de46:	00 
+  41de47:	e9 b4 fb ff ff       	jmp    41da00 <dgetrf_single+0x240>
+  41de4c:	48 c7 84 24 a8 00 00 	movq   $0x0,0xa8(%rsp)
+  41de53:	00 00 00 00 00 
+  41de58:	e9 78 fc ff ff       	jmp    41dad5 <dgetrf_single+0x315>
+  41de5d:	48 c7 44 24 50 00 00 	movq   $0x0,0x50(%rsp)
+  41de64:	00 00 
+  41de66:	48 8b 47 38          	mov    0x38(%rdi),%rax
+  41de6a:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+  41de71:	00 
+  41de72:	e9 b1 f9 ff ff       	jmp    41d828 <dgetrf_single+0x68>
+  41de77:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  41de7c:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+  41de81:	48 89 f2             	mov    %rsi,%rdx
+  41de84:	45 31 c9             	xor    %r9d,%r9d
+  41de87:	48 81 c4 08 01 00 00 	add    $0x108,%rsp
+  41de8e:	31 f6                	xor    %esi,%esi
+  41de90:	4c 89 d7             	mov    %r10,%rdi
+  41de93:	5b                   	pop    %rbx
+  41de94:	5d                   	pop    %rbp
+  41de95:	41 5c                	pop    %r12
+  41de97:	41 5d                	pop    %r13
+  41de99:	41 5e                	pop    %r14
+  41de9b:	41 5f                	pop    %r15
+  41de9d:	e9 5e 96 00 00       	jmp    427500 <dgetf2_k>
+
+Disassembly of section .fini:
