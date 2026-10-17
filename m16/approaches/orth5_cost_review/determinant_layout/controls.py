@@ -85,6 +85,9 @@ def main():
             old=json.loads((HERE/'baseline.json').read_text());assert old['complete'] and old['source_pins']==out['source_pins']
             out['baseline_sha256']=hashlib.sha256((HERE/'baseline.json').read_bytes()).hexdigest()
             spy=C.CDLL(str(HERE/'spy.so'));spy.audit_real_address.restype=C.c_size_t
+            spy.audit_real_address.argtypes=[]
+            for name in ['audit_start','audit_stop']:
+                getattr(spy,name).argtypes=[];getattr(spy,name).restype=None
             assert spy.audit_real_address()==actual and C.cast(spy.scipy_dgetrf_64_,C.c_void_p).value!=actual
             global_scope=C.CDLL(None)
             assert C.cast(global_scope.audit_real_address,C.c_void_p).value==C.cast(spy.audit_real_address,C.c_void_p).value,'Observer must be preloaded before NumPy'
