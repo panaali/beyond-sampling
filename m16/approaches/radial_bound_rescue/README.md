@@ -15,7 +15,7 @@ Before trained work freeze48 radial controls: identity, positive diagonal(1,2,3,
 Process trained32 in four fixed8-case chunks<=20CPU. Save full Gram/certificate/selection history and rational arithmetic counts/operand bitwidths, CPU and all kernel/cold-rule work. If all return, merge their values with existing6315 and report conditional bound sum and deviation from independently established .4770131259941194 reference, without treating its own conditional error as zero. Any remaining failure preserves deterministic edge-split/alternate representation as an explicit next option, not a blanket negative.
 
 ## Status
-Frozen bounded phase complete; independent source/certificate/raw review in progress.
+Frozen bounded phase complete; independent T55 source/certificate/raw review bebac70 passes.
 
 ## Results
 All32 prior failures return at the fixed order cap:13 use the acute Gram lower bound,19 use exact KKT after a negative off-diagonal sign. Orders12/16/20/24/32 occur7/12/1/11/1 times. Lower bounds improve1.6064–6.3491 times over the old center-based bound. No geometry or integration-kernel change was needed. All6315 prior values are bitwise unchanged.
@@ -25,6 +25,8 @@ The combined ERROR probability is.5229868745335334, hence accuracy.4770131254664
 All48 exact radial controls pass their known minima;24 return analytic-mass estimates within the stated conditional comparisons and24 remain unresolved at the frozen order cap. These unresolved controls are preserved. MP80 versusMP100 selected-bound rounded displays agree for all32; this is a precision check, not outward certification.
 
 The first summary mislabeled summed error masses as accuracy. Both initial JSON and summary script are preserved as summary_initial_label_error.json and summarize_initial_label_error.py. Corrected summary explicitly reports both probabilities; combined archive is byte-identical (SHAe1d98a0bc0084fe154ff22cb305b173a594b164d46ba25aed0eeb8e16f77cb58). No numerical rerun or changed estimates.
+
+Independent review bebac70 reconstructs all32 original-ray exact Gram/determinant certificates,13 acute and19 KKT certificates,100-digit bound/order decisions, all6315 retained values/bounds and the2,038,604 new named kernel count (.120CPU). It confirms the corrected probability semantics and separately qualified exact/MP cost; it does not certify excluded general floating arithmetic.
 
 ## Compute accounting
 One thread,2GB, review lock<=20CPU per process. All exact per-model certificate work is charged by CPU and rational operation/bitwidth inventory, never universal free advice. Big-integer implementation cost is not converted to scalar FLOPs. Baseline T14394,913,850 named operations includes prior failed attempts; new kernel/selection/radial work is additional. High-precision bound arithmetic, Fraction gcd/division internals and library/memory costs retain explicit unknown portable cost. CPU includes wrapper overhead and persistence; final write/return excluded. No model forwards or Gaussian sampling.
