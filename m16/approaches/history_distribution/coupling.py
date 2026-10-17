@@ -6,6 +6,20 @@ def normal_mass(lo,hi,stats):
     valid=hi>lo;right=np.maximum(lo,hi)
     stats['coupled_cdf_values']+=4*np.size(lo)
     value=np.where(lo>0,ndtr(-lo)-ndtr(-right),ndtr(right)-ndtr(lo))
+    finite=valid&np.isfinite(lo)&np.isfinite(right)
+    narrow=np.zeros_like(valid)
+    narrow[finite]=(right[finite]-lo[finite])*(1+np.maximum(abs(lo[finite]),abs(right[finite])))<1e-5
+    if np.any(narrow):
+        a=lo[narrow];b=right[narrow];width=b-a;middle=a+width/2
+        density=lambda x:np.exp(-x*x/2)/np.sqrt(2*np.pi)
+        lower=width*np.minimum(density(a),density(b))
+        upper=width*density(np.minimum(b,np.maximum(a,0.)))
+        value[narrow]=width*density(middle)
+        allowance=16*np.finfo(float).eps*upper
+        stats['narrow_gaussian_intervals']+=len(a)
+        stats['narrow_gaussian_exp_calls']+=4*len(a)
+        stats['narrow_gaussian_mass_upper_sum']+=float(np.sum(upper))
+        stats['narrow_gaussian_uncertainty_proxy_sum']+=float(np.sum(upper-lower+allowance))
     if np.any(value<0):
         index=np.flatnonzero(value<0)[0]
         raise ArithmeticError(dict(message='negative Gaussian interval',lo=float(np.ravel(lo)[index]),hi=float(np.ravel(hi)[index]),right=float(np.ravel(right)[index]),value=float(np.ravel(value)[index]),cdf_lo=float(ndtr(np.ravel(lo)[index])),cdf_right=float(ndtr(np.ravel(right)[index])),sf_lo=float(ndtr(-np.ravel(lo)[index])),sf_right=float(ndtr(-np.ravel(right)[index]))))
