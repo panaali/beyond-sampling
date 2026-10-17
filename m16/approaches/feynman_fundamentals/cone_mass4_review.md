@@ -1496,3 +1496,10 @@ Research CPU26.5501 projects2,124 CPU seconds for80 such shards; this is resourc
 planning only. Historical byte identity, absent original noisy per-copy costs,
 conditional truth and incomplete native/runtime accounting remain explicit.
 No evaluator calls were repeated in the0.0920-second review.
+
+The single H5 comparison is independently verified by
+`check_h5_hopf_comparison_review.py`. Dense/initial-zero conventions allocate
+1,143,794/1,391,369 samples; point ratios0.006217/0.007563 have original75-family
+10M truth-box ranges[0,1.512155]/[0,1.839462]. It is inconclusive under the
+retained numerical confidence and conditional source-cost premises. Neither
+a win nor an actual-cost failure is established; no new truth was generated.
