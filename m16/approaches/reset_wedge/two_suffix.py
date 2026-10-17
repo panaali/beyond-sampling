@@ -28,10 +28,15 @@ def regions(wi,wh,wo):
             out.append(dict(lo=l,hi=r,label=label,gates=gates,other_suffix_above=(z>1 if label==len(wo)-2 else z<1)))
     return out,dict(pair_root_checks=comparisons,regions=len(out),rational_arithmetic=True)
 
-def integrate(wi,wh,wo,order):
+def integrate(wi,wh,wo,order,radial_rule="laguerre"):
     start=time.process_time();cells,stats=regions(wi,wh,wo);T=len(wo);N=T-4;k=float(coefficient(wi,wh)['kappa']);q=math.atan(k)/(2*math.pi);r=.5-q
     if N<1:raise ValueError('This primitive requires T>=5')
-    a,aw=roots_legendre(order);s,sw=roots_laguerre(order);rad=np.sqrt(2*s);value=0.;nodes=0;negative_clamps=0;mass=0.
+    a,aw=roots_legendre(order)
+    if radial_rule=="laguerre":s,sw=roots_laguerre(order);rad=np.sqrt(2*s);radial_tail=0.
+    elif radial_rule=="legendre":
+        rad=4*(a+1);sw=4*aw*rad*np.exp(-rad*rad/2);radial_tail=math.exp(-32)
+    else:raise ValueError("Unknown radial rule")
+    value=0.;nodes=0;negative_clamps=0;mass=0.
     for cell in cells:
         if cell['label'] not in (T-2,T-1):raise ValueError('Non-suffix prediction in current two-suffix integral')
         lo=math.atan(float(cell['lo']));hi=math.pi/2 if cell['hi'] is None else math.atan(float(cell['hi']));angles=(lo+hi)/2+(hi-lo)/2*a
@@ -41,5 +46,5 @@ def integrate(wi,wh,wo,order):
         negative_clamps+=int(np.sum(g1<0));g1=np.maximum(g1,0.)
         f=u**N*g0 if cell['other_suffix_above'] else N*sf*u**(N-1)*g0+u**N*g1
         value+=float(aw@f@sw)*(hi-lo)/(4*math.pi);mass+=float(np.sum(aw)*np.sum(sw))*r*(hi-lo)/(4*math.pi);nodes+=order*order
-    stats.update(order=order,nodes=nodes,owens_t_calls=nodes,normal_cdf_calls=2*nodes,negative_clamps=negative_clamps,cpu_seconds=time.process_time()-start,event_mass_integrated=mass,event_mass_analytic=r*(.25+q),roundoff_certified=False,quadrature_bound=None)
+    stats.update(order=order,radial_rule=radial_rule,radial_tail_allowance=r*(.25+q)*radial_tail,nodes=nodes,owens_t_calls=nodes,normal_cdf_calls=2*nodes,negative_clamps=negative_clamps,cpu_seconds=time.process_time()-start,event_mass_integrated=mass,event_mass_analytic=r*(.25+q),roundoff_certified=False,quadrature_bound=None)
     return value,stats
