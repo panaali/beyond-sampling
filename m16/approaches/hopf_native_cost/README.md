@@ -21,22 +21,39 @@ and nonzero deterministic coefficients. Independent adapter gate precedes any
 saved-model trace. No new MC/noise/model/reference draw or panel tuning.
 
 ## Status
-Initial source gate passed; all15 frozen analytic controls preserve outputs and
-legacy counters (5f24544a),0.248CPU. Sorting/search source controls are prepared
-and await independent gate; no trained model run yet.
-T180 bounded handoff is complete and independently reviewed ba401fec.
+Bounded analytic, h8 and h64 phases complete. Independent saved audits:
+1d008fde (sort/search), 6da114dc (network/closure), 155b3b18 (h8),
+0cfdfa39 (h64). Same-checkpoint reference contraction a283a329 passed independent exact-rational
+arithmetic review (written review commit pending). No full panel, full runtime or challenge claim.
 
 ## Results
-No numerical estimator experiment yet. T178 proves the coefficient-zero mask
-bug on an analytic circle, not on every saved trained row. Its source inventory
-identifies root, dense recurrence, gate and sorting categories missing from the
-old formulas; no total multiplier is assumed.
+Both original and tile-only source arms preserve the original saved clean
+H4T4 seed0 values and counters. No source correction is adopted globally.
+
+| Grid | Estimate | Legacy counter | Explicit expressions | Conditional source allowance total |
+|---|---:|---:|---:|---:|
+| nu8/nd16 | .4810975064800962 | 1,032,520 | 2,324,112 | 3,960,665 |
+| nu64/nd128 | .47710001754048736 | 65,934,700 | 148,561,137 | 252,465,096 |
+
+The existing same-checkpoint positive-cone reference is .4770131259941194
+with an integration-only bound 3.157995918627031e-8 (6347 cones; independent
+review 449a01e). Floating geometry/kernel error is excluded from that bound.
+The h64 squared error divided by equal-source-budget sampling variance is
+.0395893 for the unchanged dense comparator, or .0474580 for the separately
+derived zero-state-optimized comparator. Conditional integration-only upper
+ratios are .0396181/.0474925. These are single-model comparisons under the
+qualified cost/reference assumptions, not a noisy-rung result.
+
+The h8 allowance-budget ratios are 1.37224/1.64500; because the candidate
+allowance is an upper envelope, these do not prove an actual-cost failure.
+The old saved h128 reference differs from the positive reference by
++.00015865237928625 and is not treated as exact.
 
 ## Compute accounting
 One thread,2GB; review processes <=20CPU, primary <=110CPU. Elementary function
 units do not recursively count libm instructions. Dense einsum dots count k
-multiplications and k-1 additions even with zeros. NumPy sorting/search remain
-opaque pending source-supported closure, with dimensions/call census retained.
+multiplications and k-1 additions even with zeros. NumPy sorting/search keep their opaque dimensions/call census alongside
+separately qualified source allowances; installed-binary equivalence remains open.
 All actually executed circle/base setup is initially included once per call;
 legacy n_ops bookkeeping is diagnostic and left uninstrumented.
 
@@ -93,7 +110,7 @@ The original and tile-only seed0 H4T4 h8 probe is frozen by admin fec66d8b.
 Existing checkpoint83ddef... matches canonical public object MD5 metadata;
 converted float64 model086adb... is saved, no new weight download. Exact
 source/controls/checkpoint hashes and original ev_44 h8 value/counter are
-required before execution. No h64 or noisy-panel claim is licensed.
+required before execution. The h64 continuation was separately frozen by c57b8cb6; no noisy-panel claim is licensed.
 
 ### Commands and preservation
 All numerical commands use the venv Python, OMP/OPENBLAS/MKL threads1,
@@ -128,9 +145,38 @@ trace took.228/.232CPU with198MB peakRSS; imports/identity loading precede the
 trace timer. The tile-only arm changes no output/count here, which does not
 undo the independently demonstrated coefficient-zero defect.
 
-No new model/noise/input stream was generated. No h64 cost or whole-panel
-ratio follows. Final saved model ledger audit is pending; next useful phase is
-one direct existing h64 seed0 trace, after a new board freeze and review gate.
+No new model/noise/input stream was generated. No whole-panel ratio follows. Saved model ledger audit passed155b3b18;
+the separately frozen direct h64 trace passed0cfdfa39.
 The largest conservative allowance is the SIMD label sorter; any replacement
 or model-free setup exemption is a separate candidate/convention, never silently
 substituted into this original-source result.
+
+### Direct h64 and reference reproduction
+
+```
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/model_probe.py --arm original
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/model_probe.py --arm tile
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/model_h64.py --arm original
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/model_h64.py --arm tile
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/archive_h64.py
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_native_cost/reference_compare.py
+```
+
+Each primary process uses the shared compute lock and <=110CPU/2GB/one thread.
+The h64 trace CPU totals are13.8247/14.1811, peakRSS215MB, excluding startup
+and identity loading. Every one of57,344 opaque calls has a closure record.
+Lossless model_h64_{original,tile}.json.gz archives contain the full ledgers;
+model_h64_summary.json records raw/compressed hashes. Read with gzip without
+rerunning. Original model_probe/model_h64 outputs refuse overwrite.
+
+The comparison includes actual hit aggregation and explicit loop/index terms:
+193N+8ceil(N/1,000,000)+2 for the dense sampler and the separately labeled
+161N+7ceil(N/1,000,000)+2 zero-state comparator. At h64 these admit
+1,308,109/1,568,106 draws. RNG and true labels are free under the stated
+comparison; prediction and aggregation are charged. Claims remain conditional
+on source allowances and reference geometry, with no panel multiplier transfer.
+
+[measured] The original and repaired mask arms agree on this one checkpoint at
+both grids; the exact analytic mask-defect witness remains valid.
+[inferred] The h64 conditional comparison is promising for a direct broader
+saved-panel cost audit; it does not establish that audit's result.
