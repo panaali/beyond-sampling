@@ -296,3 +296,50 @@ failure; do not select whichever bound agrees with the old floating estimate.
 The exact H2T4 gate partition and constant-class controls remain available for
 later extension, but the first full numerical enclosure covers its257 correct
 simplices only. No final certified-probability claim before independent review.
+
+## T72 first enclosure result, pending independent containment review
+The first H2T4 run completed in2.840CPU seconds, maximum RSS38316KiB. Rule setup
+cost1.517CPU: rational root/weight/pi setup.2954CPU and the40 exact rational
+moment checks1.2174CPU. All moment degrees0..39 were enclosed, with largest
+rational interval width1.763e-22. The tensor Jacobian integral interval
+[.16666666666666607,.16666666666666732] contains1/6. All136 fixed elementary
+arithmetic cases contained exact Fraction answers; tested subnormal and tie
+rounding behavior matched the stated assumptions.
+
+The257 correct simplices required1.299CPU and2,056,000 GL20 nodes. Their exact
+quadrature value, conditional on the arithmetic model, is enclosed by
+[.30773074302392284,.3077307430239303], width7.44e-15. Adding the enclosed analytic
+truncation bound1.7861484466067163e-8 gives the probability interval
+
+**[.3077307251624383, .3077307608854148]**.
+
+Its width is3.5722976465812906e-8. This is an enclosure claim conditional on the
+frozen IEEE/NumPy assumptions and exact geometry proof; independent T55 source
+and high-precision containment review is still pending. The old floating GL20
+value lies inside the quadrature interval but was not used to select it.
+
+The orthant control's GL20 quadrature interval is
+[.06250000000000085,.06250000000000214]; it does not contain the true1/16 because
+the finite quadrature has bias. Its total interval after truncation,
+[.062499996382201196,.0625000036178018], does contain1/16. Keeping these two
+intervals distinct is essential; directed rounding alone does not bound
+quadrature approximation error.
+
+Full integration work, excluding rule setup and orthant control:86,353,028
+scalar multiplications,86,452,218 additions,4,112,514 divisions, two final signed
+add/subtract operations and176,917,762 nextafter operations. These include both
+interval endpoints and outward pairwise reductions. There are4112 exact ray
+coordinate conversions. Counts omit Python loop/bookkeeping and rational
+operation bit costs, which are recorded separately by rule/geometry counters;
+no audited FPE or equal-compute claim is made. Full setup included1180 exact
+Legendre evaluations,1140 bisections,22420 exact recurrence steps,360 rational
+interval recurrence steps,800 moment terms and one untrusted seed-rule call.
+Already-charged exact model geometry must be added to any cold estimator cost.
+
+`rule20_certificate.json` stores exact rational root/weight/pi brackets;
+`enclosed_h2_t4_results.json` stores every simplex quadrature interval and
+truncation upper bound. Run `check_enclosed.py` under the same primary flock and
+single-thread command. Root independently replayed the H2 and H4 exact artifacts
+with a separate determinant expansion and integer forward calculation (b1cb920),
+providing additional geometry support without independently proving the complete
+partition algorithm. Original exact artifacts remain unchanged.
