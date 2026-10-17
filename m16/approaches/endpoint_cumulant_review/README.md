@@ -141,6 +141,49 @@ Gate/atom-conditioned mixtures, support-aware readouts, full covariance
 references, higher-order expansions, different endpoints, and a hybrid exact
 last step. Toy failures cannot retire the endpoint family or its trained use.
 
+## Frozen trained T3 phase (after control results, before trained moments)
+Use ONLY public H2T3seed0 checkpoint SHA256
+47aa8e4b38f6433242b13d89666f01add73923b34123a6d56345e2c210cec1bd.
+Read-only exact_ladder/cones.py snapshot SHA256
+fc006840adc9513ac711b6c208afe96f4d10c429068d087dac8c674e8e6ee948
+provides final gate cells and DD clipping/triangulation; its floating topology
+is explicitly not the exact-rational T68 certificate. Avoid its outcome tie
+tolerance: local correctness clipping treats exactly zero margins by first
+index and records other near-zero margins rather than declaring them zero.
+
+Split every final gate cell by all six input orders and all eight orthants,
+retaining the second index. Pulling triangulate each piece with row rays R.
+For b=(u,(1-u)v,(1-u)(1-v)), define x=bR and y=x/||x||. Integrate the joint
+logit moment of orderk using positive tensor GL on[0,1]^2:
+
+    |detR|*(1-u)/(4*pi*||x||^3) * (L y)^tensor_k * E[chi3^k],
+    E[chi3^k]=2^(k/2)*Gamma((3+k)/2)/Gamma(3/2), k=0..4.
+
+This is an exact real-arithmetic moment identity, evaluated numerically.
+Sum joint moments then divide by each label mass; no Gaussian approximation
+to the input/rank law, no empirical moment fitting, no random model inputs.
+Freeze GL16/32 moment sensitivity, analytic cone solid-angle mass comparison,
+total mass1 and label masses1/3 controls. Accept a numerical moment reference
+only if mass discrepancy<=1e-9 and normalized maximum moment difference<=1e-8
+(scale=max(1,maxabs(moment32)) per tensor). Otherwise one predeclared GL64
+refinement within the bounded budget, preserving coarse failures. These are
+diagnostics, not rigorous moment enclosures. No thin-cone error bound asserted.
+
+Compute true accuracy independently of endpoint moments by clipping each rank
+piece to its target's winning logit margins and summing analytic3D solid angles.
+Compare the known H2T3 reference. Record zero-margin ties explicitly.
+Evaluate all five upstream endpoint orders with Q128/256 for each of three
+conditional target laws. Preserve atom-free and h=0-atom-separated variants:
+subtract only the exact h=0 cone mass, renormalize nonzero-law raw moments,
+then add the atom's label0 contribution to accuracy. This scoped rescue does
+not remove every possible duplicate-readout/annihilated-map tie; record those
+structures separately. No output-truth fitting or selected expansion order.
+
+One<=100CPU primary-lock cycle, one thread,<2GB, persist before endpoint if
+near deadline. Charge all geometry, clipping, moment nodes/tensor arithmetic,
+endpoint calls and setup; no new training or model sweep. T55 independently
+checked the moment Jacobian/radial normalization and the scoped atom caveat.
+
 ## Failure modes
 Singular logit covariance, positive-mass ties, variance clamps, finite expansion
 nonpositivity, quadrature resolution and understated setup proxies. Dense
