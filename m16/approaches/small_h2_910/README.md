@@ -508,3 +508,32 @@ report both positive linear interpolation and explicitly clamped cubic, retainin
 the full9/9 baseline and independent reference. No monotone convergence or error
 certificate is inferred from one favorable anisotropic comparison. This changes
 no terminal construction and introduces no new random inputs.
+
+## T50 anisotropic outcome: target-coordinate interpolation dominates this test
+Completed in2.481CPU seconds, with no new terminal evaluations or random inputs.
+Exact nested slices of the existing9³ cache gave:
+
+| Hidden nodes per axis | Target nodes | Linear W | Range-clamped cubic W |
+|---|---:|---:|---:|
+| 5 | 9 | .153293288 | .155465454 |
+| 9 | 5 | .137249950 | .142852102 |
+| 9 | 9 | .153411641 | .155353189 |
+
+Reducing hidden resolution from9 to5 at target9 changes linear accuracy by
+-.0118 percentage points and clamped cubic by+.0112 points. Reducing target
+resolution from9 to5 at hidden9 changes them by-1.616 and-1.250 points. All
+constant controls remain .1 within5.6e-17. The target-coordinate bottleneck
+reported independently on the T7 local pilot therefore also appears on this
+public T10 checkpoint at these tested grids. This is stronger diagnostic
+evidence than varying all three coordinates together, but does not establish
+an asymptotic error bound or rule out cancellation between coordinate errors.
+
+Results/costs are in `anisotropic_results.json`; reproduce `check_anisotropic.py`
+under the same single-thread/flock command. Each resolution shares its rank
+rules across the two methods; do not double-count repeated rank metadata.
+Full-grid values reproduce the prior checks. The already-charged model-specific
+terminal cache remains part of any full estimator cost. Root assigned a separate
+T67 engine to the former H4 worker: condition on target rank first and carry
+only hidden state for each fixed target quantile, eliminating repeated target
+coordinate interpolation. This lane supplied read-only math notes and is not
+implementing that engine.
