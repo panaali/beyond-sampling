@@ -65,3 +65,40 @@ unrepresentably tiny nonzero area could underflow. Therefore exact-sign/no-
 sliver-deletion language needs that domain qualification or a separate
 rational sign. Negative local turns are counted rather than rejected, so
 full-run convexity counts must be inspected before extending the claim.
+# Final halfspace and normalization followup
+
+Read-only review of the final T82 `slices.py`, `check_partition.py`, and saved
+results confirms that vertical sections now use inherited original affine
+constraints. A constraint az+bt+c>=0 supplies a lower t bound when b>0, an
+upper bound when b<0, and a feasibility test when b=0. Intersecting these
+bounds and assigning zero to an infeasible interval is the correct operation;
+it does not require the rounded polygon's edges to remain convex or oriented.
+The registry retains a strong polygon reference alongside each identity key,
+so identity reuse does not silently substitute another polygon's constraints.
+
+This repairs the represented-section defect exposed by clockwise and
+nonconvex slivers. It does not certify branch completeness: rounded vertices
+still determine whether branches survive clipping and supply projected
+quadrature knots. The Fraction fallback recovers the area sign of stored
+floats in the saved fixture, not the exact original network polytope. Its
+conversion back to float also leaves an underflow qualification for arbitrary
+extreme examples. Failures and rational fallback work remain recorded.
+
+The final partition discriminator computes M from the geometry-only domain
+halfspaces, independently of the network's correct gate cells. Values are
+M3=.998019014152934 and M5=.998687578953307, with true complete face mass1.
+Replacing 1-E by 1-E/M improves three of the four fixed H2/H4 contractions
+and worsens coarse H2. Normalized errors are approximately -.004920,
+.000173, +.007404, +.003687. The raw results remain essential.
+
+For complete configuration symmetry, a constant label has E=(1-1/T)M,
+so normalized accuracy1/T holds algebraically even when the outer rule is
+biased. This is a useful partition/tie bookkeeping control, not independent
+validation that normalization removes network error. Correlation between E
+and M errors determines whether the ratio helps. The prior matched-coordinate
+check remains the distinct numerical discriminator: six of eight slices
+benefit from network knots over equal-count z panels, while both H2 R23
+slices favor the equal-count control. No universal topology or efficiency
+claim follows. The adapter's cost proxy remains explicitly partial.
+
+No new engine run was needed for this source/interpretation followup.
