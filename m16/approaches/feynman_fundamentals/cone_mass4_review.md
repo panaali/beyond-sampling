@@ -1519,3 +1519,7 @@ All three fixed H4/H5/H6 first-copy pilots pass independent full saved site/cate
 ### H5 Hopf partial full-panel saved audit
 
 Seeds 0 and 1 (ten original models) independently pass all saved historical/output/source/model bindings, site/category totals and conditional search/sort closure formulas. The previously reviewed pilot is reused once. Conditional source allowances sum to 1,609,794,960 and 1,606,807,151 respectively; these are partial coverage, not full native cost or a new accuracy comparison. Each seed has 286,720 closure records. Remaining three seeds and the final all-panel coverage/comparison audit are pending; no traces were repeated.
+
+### First complete k28 seed saved audit
+
+Seed0's full 1,024 original noisy specifications pass all 2,048 recipe pairs, 2,044 separately recorded baseline stages, two control reuses, current model hashes, historical subtraction errors and exact whole-seed mean counters. Named counts are 136,210,559 / 168,596,486 for85B/112. Independent own-budget numeric111 ratios are .0003436985830 / .00001354385190; no individual losses on this seed. Historical72 results remain separate. This is one seed, not the final five-seed claim; historical checkpoint byte identity, numerical-truth and incomplete native/runtime qualifications remain. The reviewer made no evaluator calls.
