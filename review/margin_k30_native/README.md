@@ -13,12 +13,24 @@ legacy cost, cells, STATS and grouped errors. Complete ledgers are losslessly
 compressed. No new truth, training, noisy weights or recipe choice.
 
 ## Status
-Source/provenance phase; independent source gate required before pilot.
+Provenance and fixed64 pilot complete. Independent source gate passed before
+execution; saved raw review pending. All4096 unique hashes reconstructed in
+0.067944CPU, without estimator or truth calls.
 Full continuation is not authorized by pilot code: review its completeness,
 cost and resource projection first, then publish the concrete board extension.
 
 ## Results
-Pending. Commands from repository root, one thread and shared lock:
+Pilot c7f45934/73ed7c21 preserves all64 original values/counters/cells and
+every baseline/traced STATS/grouped error. Named numeric6,327,190; integer
+202,274. Numeric111 matched ratio.0795080, historical72 ratio.0527719;
+conditional bootstrap ranges[.04494,.11565]/[.02984,.07669]. No individual
+loss in this pilot. This is not a complete-panel result.
+
+Recorded pilot10.569564315CPU, peak206072KiB; naive64-shard projection
+676.452CPU is a resource estimate only, not a guarantee or production cost.
+First historical control was reused once, no repeated estimator evaluation.
+
+Commands from repository root, one thread and shared lock:
 `python review/margin_k30_native/provenance.py` and then independently gated
 `python review/margin_k30_native/pilot.py`.
 
