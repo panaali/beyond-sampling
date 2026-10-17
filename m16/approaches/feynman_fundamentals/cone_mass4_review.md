@@ -1016,3 +1016,21 @@ No confirmed win/failure follows from this one clean case. See
 `t185_source_review.md` for the correct five-dimensional normalization,
 conditional cofactor identity, ideal log-tail bound, and limitations.
 
+# Fixed pilot and native child review continuation
+
+`check_hopf_reference_pilot.py` checks all 25 model hashes, six saved controls,
+initial RNG state and pilot pins without drawing samples. The frozen throughput
+projection is 539.894275 CPU seconds, below its 600-second gate; it is not a
+runtime guarantee. Fixed 100M per model and one-time pilot reuse remain required.
+
+`check_reducer_blas_review.py` verifies all 1,344 saved ABI/layout controls and
+independently contracts the qualified small-kernel bounds to 26,684,096 / 23,948,021
+for exact / recipe. Counts exclude application scans and previously priced
+reflectors. Binding, reached-path, source-category and incomplete-cost limits remain.
+
+`check_cold_kernel_driver_review.py` checks all six SVD kernel records and 12
+driver records, including original event subsequences. The tiny body plus newly
+observed internal scale bound is 850; old public SCAL is not counted twice.
+The observed ordinary/zero-norm reflector paths add 146 native categories.
+These are finite fixed-path components, not a complete cold-runtime claim.
+
