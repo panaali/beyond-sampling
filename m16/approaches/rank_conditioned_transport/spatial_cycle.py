@@ -12,6 +12,7 @@ from spatial import terminal_mesh
 p = argparse.ArgumentParser()
 p.add_argument('--refine-q', action='store_true')
 p.add_argument('--q', type=int)
+p.add_argument('--gate-cycle', action='store_true')
 args = p.parse_args()
 HERE = Path(__file__).resolve().parent
 path = Path('/workspace/clean-neurons/work/checkpoints/H2_T4_seed0.pth')
@@ -25,8 +26,8 @@ result = dict(checkpoint_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
                              for name in ('engine.py', 'spatial.py')},
               reference=reference, weights=[a.tolist() for a in model], rows=[])
 target_order = args.q or (16 if args.refine_q else 8)
-for h in ((33,) if args.refine_q or args.q else (17, 33)):
-    for mode in ('baseline', 'curvature', 'reversed'):
+for h in ((33,) if (args.refine_q or args.q) and not args.gate_cycle else (17, 33)):
+    for mode in (('baseline', 'curvature', 'gate') if args.gate_cycle else ('baseline', 'curvature', 'reversed')):
         try:
             value, stats = estimate(model, hidden_order=h, target_order=target_order,
                 target_rule='split_sign', mesh_power=2., transition='polynomial_piece_cached',
@@ -38,6 +39,8 @@ for h in ((33,) if args.refine_q or args.q else (17, 33)):
         result['rows'].append(row)
         result['total_cpu_seconds'] = time.process_time()-start
         name = f'spatial_q{target_order}_results.json' if args.refine_q or args.q else 'spatial_results.json'
+        if args.gate_cycle:
+            name = f'gate_q{target_order}_results.json'
         (HERE/name).write_text(json.dumps(result, indent=2)+'\n')
         print(json.dumps({k:v for k,v in row.items() if k!='stats'}), flush=True)
         if 'failure' in row:

@@ -199,3 +199,27 @@ curvature and gate meshes at h17/33, q32 then q64, retaining all results and
 charging construction inside each estimate. Reuse the independent local
 residual diagnostic; use no exact-reference parameter tuning. Constants and
 positive hidden-unit scaling must remain invariant. No new MC or larger grid.
+
+Weight-only gate mesh result (`spatial_cycle.py --gate-cycle --q 32/64`):
+
+| mesh size | q32 gate error | q64 gate error | q64 baseline error |
+|---|---:|---:|---:|
+| h17 | -2.68271e-6 | -3.53116e-5 | +1.12520e-4 |
+| h33 | +2.10492e-5 | -1.08733e-5 | +4.40260e-5 |
+
+Gate scales are .003347 and .61456, computed solely from weights; no monitor
+calls. The h17 q32 near-exact result fails q64, so is not a chosen setting.
+Independent local residual diagnostic (`spatial_diagnostic.py --source
+ gate_q32_results.json --output gate_diagnostic_results.json`) improves h33
+coordinate0 from.003819 to.001737 and coordinate1 from.000476 to.000408.
+This supports narrow gate layers as one source of interpolation error, while
+curvature targeting better captures other terminal features. Earlier-stage
+error and outer integration remain unresolved. Gate constant/rescaling tests
+(`spatial_controls.py --gate`) agree within8.4e-17.
+
+Next bounded isolation check: all three h33 meshes at q128 and q256 with the
+same frozen meshes; no spatial changes. This increases only outer integration
+to distinguish apparent spatial gains from the observed q oscillation. Each
+process remains<=110CPU/2GB using the primary lock if it can exceed20CPU.
+If q128-to256 remains large, stop interpreting global mesh accuracy; report
+outer integration as an unresolved bottleneck rather than refine blindly.

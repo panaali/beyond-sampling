@@ -7,13 +7,39 @@ from engine import batched_terminal, possible_labels
 
 
 def terminal_mesh(mode):
-    if mode not in ('curvature', 'reversed'):
+    if mode not in ('curvature', 'reversed', 'gate'):
         raise ValueError(mode)
 
     def build(model, axes, states, limit, stats):
         start = time.process_time()
         stage = len(model[2])-1
         labels = [j for j in possible_labels(model[2]) if j != stage]
+        if mode == 'gate':
+            newaxes = []
+            scales = []
+            wi, wh, _ = model
+            for d in range(2):
+                bound = axes[stage][d][-1]
+                valid = (wi != 0) & (wh[:, d] != 0)
+                if not np.any(valid) or bound == 0:
+                    newaxes.append(axes[stage][d])
+                    scales.append(None)
+                    continue
+                scale = float(np.min(abs(wi[valid]/wh[valid, d])))
+                axis = scale*np.expm1(np.linspace(0, 1, len(axes[stage][d]))*np.log1p(bound/scale))
+                axis[-1] = bound
+                if np.any(np.diff(axis) <= 0):
+                    raise ArithmeticError('gate mesh not strictly ordered')
+                newaxes.append(axis)
+                scales.append(scale)
+                stats['gate_mesh_scalar_transcendentals'] += 1+len(axis)
+                stats['gate_mesh_scale_ratios'] += int(np.count_nonzero(valid))
+            axes, states = list(axes), list(states)
+            axes[stage] = tuple(newaxes)
+            states[stage] = np.stack(np.meshgrid(*newaxes, indexing='ij'), axis=-1).reshape(-1, 2)
+            stats['hidden_grid_points_constructed'] += len(states[stage])
+            return axes, states, dict(mode=mode, changed_stage=stage, scales=scales,
+                monitor=[dict(axis=a.tolist()) for a in newaxes], node_count=len(states[stage]))
         nodes, weights = leggauss(4)
         q = np.r_[(nodes+1)/4, .5+(nodes+1)/4]
         weights = np.tile(weights/4, 2)*len(model[2])*(len(model[2])-1)*q**(len(model[2])-2)*(1-q)
