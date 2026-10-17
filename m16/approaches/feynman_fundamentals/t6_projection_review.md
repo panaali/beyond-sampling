@@ -104,3 +104,39 @@ triangle_batch.py, and replaces only its local positive fallback import. These
 findings do not automatically cover a future changed source. Checkpoint/source
 hash validation and completed-index continuity remain the full-run driver's
 responsibility.
+
+## Subsequent full-estimate comparison: retained is not full
+
+The new DD calculation reports0.24815238374808765 with its own conditional
+integration allowance about2.68714e-7. It exceeds the two older author values
+0.24815022292589073 and0.2481502215110707 by about2.16e-6. Comparing that gap
+with the DD allowance alone would be invalid: the older values are retained-
+cone integrals, not converged full-accuracy midpoints.
+
+Independent source/artifact inspection confirms:
+
+* cycle10.py explicitly loads t6_retained_cones and carries omitted upper mass
+  5.003269270003126e-6 separately in its error budget.
+* cycle13.json records62585 completed cones, estimate0.24815022292589073 and
+  the same pruned_mass_bound. The original author geometry contains136438
+  correct simplices, so73853 positive pieces were omitted.
+* cycle14.json records the same62585 retained correct simplices, the same
+  pruning allowance and estimate0.2481502215110707. Its full cold construction
+  reproduces the retained-set policy rather than filling the missing cones.
+* cycle15.json recomputes sharper bounds around both unchanged estimates and
+  retains the identical omitted-mass allowance. It does not add a midpoint or
+  numerical estimate of that omitted mass.
+
+Thus closeness of the two old numbers establishes numerical consistency of
+their retained calculation only. Their full probability has an additional
+one-sided contribution in[0,5.003269270003126e-6], before other integration and
+geometry qualifications. The DD increase lies inside that contribution range.
+This is a concrete compatible accounting explanation, not evidence that the
+DD error allowance has been violated.
+
+The precise omitted mass has not been independently measured here. Therefore
+this review does not prove the entire observed gap is due to omission, nor
+does it replace same-ray primitive or outcome-label checks. It removes an
+invalid inference from midpoint agreement. A future decisive numerical check
+could integrate only the omitted author cones with positive lower/upper bounds;
+a full geometry or full retained-integral rerun is unnecessary for that test.
