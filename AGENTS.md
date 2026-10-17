@@ -42,8 +42,10 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
 6. **Shared evaluation.** Estimators for the ARC challenge must use [`m16/arc_eval.py`](m16/arc_eval.py): the same noisy
    copies, ground truth and estimator interface `est(model, budget, rng) -> (estimate, evals)`. State
    whether the method is deductive (no random model inputs) or sampling-based.
-7. **Independence.** Do not read Alignment Research Center material about AlgZoo published after
-   January 2026 (we are doing an independent attempt to compare with theirs).
+7. **Independence (relaxed by the project owner on 2026-10-17).** Any source may now be read, including ARC
+   material about AlgZoo published after January 2026 (ARC's M_16,10 solution is reported to be unpublished). To
+   keep the comparison honest, **log every post-January-2026 ARC/AlgZoo source you read** (URL, date, what it
+   says that is relevant) in [lit/web_log.md](lit/web_log.md), and mark results that depend on it.
 8. Keep runs CPU-light (4 shared cores): at most 2 heavy tasks at once, tracked by the *CPU* column in [TASKS.md](TASKS.md). Large data goes in `data/` (git-ignored).
 9. **Never kill processes by name pattern** (`pkill -f`, `pgrep -f ... | xargs kill`): other agents run
    scripts with the same names. Kill only PIDs you started and have checked (e.g. by their working
