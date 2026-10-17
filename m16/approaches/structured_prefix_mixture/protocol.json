@@ -1,0 +1,86 @@
+{
+  "task_scope": "187346b7",
+  "weight_path": "/workspace/work/t45_weights/2nd_argmax_16_4_1073741824_3.pth",
+  "weight_sha256": "7470f434c29e2c3e8f992266ed962b6af89d8b981336c405ee488deb3058f91e",
+  "control_pairs": [
+    [
+      -2,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      -3,
+      4
+    ],
+    [
+      3,
+      -4
+    ],
+    [
+      0,
+      -2
+    ],
+    [
+      -100000000,
+      1
+    ],
+    [
+      100000000,
+      -1
+    ]
+  ],
+  "control_scales": [
+    0.5,
+    2
+  ],
+  "reference_precision_digits": 50,
+  "relative_tolerance": 2e-13,
+  "absolute_tolerance": 1e-14,
+  "trained_models": 1,
+  "trained_scope": "One historical model, per-step hidden mean/covariance only; no final accuracy or cost-competition claim.",
+  "reference_scope": "Exact-binary rational input coefficients plus independent50digit pairwise angular antiderivative; fresh fixed8block MC diagnostic at steps1..4.",
+  "source_sha256": "7116b42ddf1c9ea4e5ac3a689c37731e73e93618a62f4eed6dd53cdb37aa7d83",
+  "mc_samples": 262144,
+  "mc_blocks": 8,
+  "mc_block_size": 32768,
+  "mc_seed": 20261017080,
+  "continuation_steps": [
+    3,
+    4
+  ],
+  "methods": [
+    "inherited_gauss",
+    "exact_h2_then_inherited_gauss"
+  ],
+  "controls": [
+    "zero",
+    "zero_recurrent",
+    "identity",
+    "negative_identity",
+    "duplicates_opposites",
+    "mixed_rational"
+  ],
+  "moment_abs_tolerance": 1e-10,
+  "moment_rel_tolerance": 2e-12,
+  "source_pins": {
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/cumprop_snapshot.py": "7116b42ddf1c9ea4e5ac3a689c37731e73e93618a62f4eed6dd53cdb37aa7d83",
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/prefix_covariance.py": "47dfadc1a409d21434d9ca376ff6c584d9cabfc187cf87ea4b497af04d997e52",
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/rescue_protocol.json": "e044bd3ac482aedef2d1451b37c867d70633df2f5d88a18c8ab60ad3d6cd69bc",
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/closure_reference.npz": "a430cf29ab850314aa2947de1100627896500d48cd9b4682eb378d2e7e90d16c",
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/closure_result.json": "98379b8c561f5dbf06f96d04ef0321c7f8f7580346fc1bd76cce45b51ab93e60",
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/covariance_controls.json": "2ab026e7835938ade81b1271eeb38d66c4e7010dcce2d144cd00ee1b420f22a7",
+    "/workspace/work/recover-small_h2_56/review/arc_cumulants_negative/recovery_review/covariance_trained.json": "8179b2b88bd895528f19cc333540c8000e5ad855eef812aaf9d1647647e51599"
+  },
+  "method": "Each exact h2 gate sector kept as conditional Gaussian moment component; unchanged inherited closure3..4 per component; recombine total covariance only for reporting.",
+  "reference_policy": "Reuse frozen T80 reference, no fresh inputs. Same model only, not random-width or final accuracy claim.",
+  "component_mass_tolerance": 2e-14,
+  "aggregate_abs_tolerance": 1e-10,
+  "aggregate_rel_tolerance": 2e-12
+}
