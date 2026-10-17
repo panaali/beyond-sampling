@@ -104,3 +104,28 @@ gain on one small-grid model, not convergence, a sampling comparison,
 or a certified portable-cost claim. Label1 error worsens locally while
 label0 improves strongly; unresolved prefix interpolation and outer
 integration remain open. No larger-grid or noisy sweep is implied.
+
+## T127 middle-target chronology and independent nontrivial control
+
+The new affine construction correctly propagates h -> x -> fixed u -> y.
+First-step gate roots partition x; middle target insertion creates further
+x-only roots; final gates/readouts are affine in(x,y) and use the reviewed
+polygon integrator. Stable zero-OFF and earlier-index readout ties remain
+as before. Conditional need0=P00/L^2 and need1=(P01+P10)/(2LU) follow from
+two exchangeable fresh truncated-Gaussian inputs. For actual preceding x0,
+need0 iff x0>u, otherwise need1, excluding separately annotated ties.
+
+Independent check_middle_target_review.py uses Wh=I,Wi=(1,-1), with default
+penultimate label2 winning iff h1>h2. After x and fixed u, the two hidden
+coordinates are a=max(max(x,0)+u,0),b=max(max(-x,0)-u,0). Final label2 wins
+iff y>(b-a)/2. A separately implemented scalar Gaussian integral splits
+these explicit affine boundaries and rank thresholds; at u=-1,0,1 it
+matches the polygon primitive within1.12e-16, .0074CPU. This tests a
+nontrivial default target, not a dominated zero-probability class.
+
+The old comparator transports actual stage1 states through StagePieces
+into the stage2 grid, then applies the penultimate cache. Its low[:,0]
+and(low[:,1]+high[:,0])/2 use the same rank mixture. Source/full-image
+support checks are valid because each ReLU coordinate achieves its maximum
+on an interval endpoint. These are fixed-state primitive/comparator checks;
+trained probe results and full outer behavior remain separate.
