@@ -1,0 +1,29 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000a3f000 <dgemv_kernel_4x1>:
+  a3f000:	31 c0                	xor    %eax,%eax
+  a3f002:	f2 44 0f 10 22       	movsd  (%rdx),%xmm12
+  a3f007:	f2 45 0f 59 20       	mulsd  (%r8),%xmm12
+  a3f00c:	66 45 0f c6 e4 00    	shufpd $0x0,%xmm12,%xmm12
+  a3f012:	44 0f 10 04 c6       	movups (%rsi,%rax,8),%xmm8
+  a3f017:	44 0f 10 4c c6 10    	movups 0x10(%rsi,%rax,8),%xmm9
+  a3f01d:	0f 10 24 c1          	movups (%rcx,%rax,8),%xmm4
+  a3f021:	0f 10 6c c1 10       	movups 0x10(%rcx,%rax,8),%xmm5
+  a3f026:	66 45 0f 59 c4       	mulpd  %xmm12,%xmm8
+  a3f02b:	66 45 0f 59 cc       	mulpd  %xmm12,%xmm9
+  a3f030:	66 41 0f 58 e0       	addpd  %xmm8,%xmm4
+  a3f035:	66 41 0f 58 e9       	addpd  %xmm9,%xmm5
+  a3f03a:	0f 11 24 c1          	movups %xmm4,(%rcx,%rax,8)
+  a3f03e:	0f 11 6c c1 10       	movups %xmm5,0x10(%rcx,%rax,8)
+  a3f043:	48 83 c0 04          	add    $0x4,%rax
+  a3f047:	48 83 ef 04          	sub    $0x4,%rdi
+  a3f04b:	75 c5                	jne    a3f012 <dgemv_kernel_4x1+0x12>
+  a3f04d:	c5 f8 77             	vzeroupper
+  a3f050:	c3                   	ret
+  a3f051:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3f058:	00 00 00 00 
+  a3f05c:	0f 1f 40 00          	nopl   0x0(%rax)

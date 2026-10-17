@@ -1,0 +1,62 @@
+{
+  "scope": "630 analytic helper source/native controls, no rank/model/geometry replay",
+  "dlas2": {
+    "count": 216,
+    "grid": [
+      0.0,
+      "-0.0",
+      1,
+      -1,
+      1e-310,
+      1e+300
+    ],
+    "cartesian_power": 3,
+    "upper": 28
+  },
+  "dlascl": {
+    "count": 48,
+    "k": [
+      1,
+      4,
+      7
+    ],
+    "cfrom_cto": "Cartesian minsubnormal, minnormal, 1, maxfinite",
+    "input": "alternating signs; even1, odd1e-300",
+    "iterations_upper": 3,
+    "named_upper": "43+3K"
+  },
+  "dlasrt": {
+    "count": 364,
+    "alphabet": [
+      -1,
+      "-0.0",
+      "+0.0",
+      1
+    ],
+    "lengths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "extra": "all24 permutations[-2,-1,1,2]",
+    "upper": "N(N-1)/2 comparisons"
+  },
+  "ieeeck": {
+    "count": 2,
+    "specs": [
+      0,
+      1
+    ],
+    "abi": "REAL binary32",
+    "expected": 1,
+    "source_units": [
+      18,
+      30
+    ]
+  },
+  "source_sha256": "711eee8cbe85b87833bf66d31108f24e9147fd8accce74e87027ab29a2c9062b",
+  "retention": "Refuse existing results/progress; append each control before final assertions, all failures preserved; hex nonfinite values",
+  "limits": "one thread2GB20CPU review lock",
+  "source_gate": "T55 message independently approves ledger under stated finite domain; execution pending code review"
+}

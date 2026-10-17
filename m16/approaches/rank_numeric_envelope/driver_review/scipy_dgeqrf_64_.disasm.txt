@@ -1,0 +1,427 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000ce2210 <scipy_dgeqrf_64_>:
+  ce2210:	41 57                	push   %r15
+  ce2212:	49 89 f7             	mov    %rsi,%r15
+  ce2215:	41 56                	push   %r14
+  ce2217:	49 89 fe             	mov    %rdi,%r14
+  ce221a:	41 55                	push   %r13
+  ce221c:	41 54                	push   %r12
+  ce221e:	4c 8d 25 c3 fe 6e 00 	lea    0x6efec3(%rip),%r12        # 13d20e8 <locu12.4+0x1248>
+  ce2225:	55                   	push   %rbp
+  ce2226:	48 8d 2d 09 cb 6d 00 	lea    0x6dcb09(%rip),%rbp        # 13bed36 <.annobin___pthread_atfork.end+0x1de6>
+  ce222d:	53                   	push   %rbx
+  ce222e:	48 81 ec d0 00 00 00 	sub    $0xd0,%rsp
+  ce2235:	48 8b 37             	mov    (%rdi),%rsi
+  ce2238:	4d 8b 17             	mov    (%r15),%r10
+  ce223b:	48 8b 84 24 10 01 00 	mov    0x110(%rsp),%rax
+  ce2242:	00 
+  ce2243:	48 89 54 24 28       	mov    %rdx,0x28(%rsp)
+  ce2248:	48 8d 15 ee bb 6d 00 	lea    0x6dbbee(%rip),%rdx        # 13bde3d <.annobin___pthread_atfork.end+0xeed>
+  ce224f:	4c 89 44 24 48       	mov    %r8,0x48(%rsp)
+  ce2254:	4c 8b 29             	mov    (%rcx),%r13
+  ce2257:	4d 89 f8             	mov    %r15,%r8
+  ce225a:	4c 89 4c 24 18       	mov    %r9,0x18(%rsp)
+  ce225f:	4d 89 e1             	mov    %r12,%r9
+  ce2262:	48 89 4c 24 10       	mov    %rcx,0x10(%rsp)
+  ce2267:	48 89 f9             	mov    %rdi,%rcx
+  ce226a:	48 8d 3d 7f fe 6e 00 	lea    0x6efe7f(%rip),%rdi        # 13d20f0 <locu12.4+0x1250>
+  ce2271:	48 89 74 24 20       	mov    %rsi,0x20(%rsp)
+  ce2276:	48 89 ee             	mov    %rbp,%rsi
+  ce2279:	4c 89 54 24 30       	mov    %r10,0x30(%rsp)
+  ce227e:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+  ce2285:	6a 01                	push   $0x1
+  ce2287:	6a 06                	push   $0x6
+  ce2289:	41 54                	push   %r12
+  ce228b:	e8 60 43 3a ff       	call   865f0 <scipy_ilaenv_64_@plt>
+  ce2290:	48 83 c4 20          	add    $0x20,%rsp
+  ce2294:	48 89 c3             	mov    %rax,%rbx
+  ce2297:	49 8b 06             	mov    (%r14),%rax
+  ce229a:	48 85 c0             	test   %rax,%rax
+  ce229d:	0f 88 d5 00 00 00    	js     ce2378 <scipy_dgeqrf_64_+0x168>
+  ce22a3:	4d 8b 1f             	mov    (%r15),%r11
+  ce22a6:	4d 85 db             	test   %r11,%r11
+  ce22a9:	0f 88 a9 00 00 00    	js     ce2358 <scipy_dgeqrf_64_+0x148>
+  ce22af:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  ce22b4:	48 85 c0             	test   %rax,%rax
+  ce22b7:	ba 01 00 00 00       	mov    $0x1,%edx
+  ce22bc:	48 0f 4f d0          	cmovg  %rax,%rdx
+  ce22c0:	48 39 11             	cmp    %rdx,(%rcx)
+  ce22c3:	0f 8c c7 00 00 00    	jl     ce2390 <scipy_dgeqrf_64_+0x180>
+  ce22c9:	48 8b bc 24 00 01 00 	mov    0x100(%rsp),%rdi
+  ce22d0:	00 
+  ce22d1:	48 8b 74 24 18       	mov    0x18(%rsp),%rsi
+  ce22d6:	4c 8b 54 24 28       	mov    0x28(%rsp),%r10
+  ce22db:	48 8b 17             	mov    (%rdi),%rdx
+  ce22de:	4c 39 d6             	cmp    %r10,%rsi
+  ce22e1:	4c 0f 4e d6          	cmovle %rsi,%r10
+  ce22e5:	48 83 fa ff          	cmp    $0xffffffffffffffff,%rdx
+  ce22e9:	0f 84 51 05 00 00    	je     ce2840 <scipy_dgeqrf_64_+0x630>
+  ce22ef:	48 85 d2             	test   %rdx,%rdx
+  ce22f2:	7e 1e                	jle    ce2312 <scipy_dgeqrf_64_+0x102>
+  ce22f4:	48 85 c0             	test   %rax,%rax
+  ce22f7:	0f 84 a3 00 00 00    	je     ce23a0 <scipy_dgeqrf_64_+0x190>
+  ce22fd:	4d 85 db             	test   %r11,%r11
+  ce2300:	b8 01 00 00 00       	mov    $0x1,%eax
+  ce2305:	49 0f 4f c3          	cmovg  %r11,%rax
+  ce2309:	48 39 c2             	cmp    %rax,%rdx
+  ce230c:	0f 8d 8e 00 00 00    	jge    ce23a0 <scipy_dgeqrf_64_+0x190>
+  ce2312:	48 8b 84 24 08 01 00 	mov    0x108(%rsp),%rax
+  ce2319:	00 
+  ce231a:	48 c7 00 f9 ff ff ff 	movq   $0xfffffffffffffff9,(%rax)
+  ce2321:	b8 07 00 00 00       	mov    $0x7,%eax
+  ce2326:	48 8d b4 24 b8 00 00 	lea    0xb8(%rsp),%rsi
+  ce232d:	00 
+  ce232e:	ba 06 00 00 00       	mov    $0x6,%edx
+  ce2333:	48 89 ef             	mov    %rbp,%rdi
+  ce2336:	48 89 84 24 b8 00 00 	mov    %rax,0xb8(%rsp)
+  ce233d:	00 
+  ce233e:	e8 8d 6c 73 ff       	call   418fd0 <__xerbla>
+  ce2343:	48 81 c4 c8 00 00 00 	add    $0xc8,%rsp
+  ce234a:	5b                   	pop    %rbx
+  ce234b:	5d                   	pop    %rbp
+  ce234c:	41 5c                	pop    %r12
+  ce234e:	41 5d                	pop    %r13
+  ce2350:	41 5e                	pop    %r14
+  ce2352:	41 5f                	pop    %r15
+  ce2354:	c3                   	ret
+  ce2355:	0f 1f 00             	nopl   (%rax)
+  ce2358:	48 c7 c2 fe ff ff ff 	mov    $0xfffffffffffffffe,%rdx
+  ce235f:	b8 02 00 00 00       	mov    $0x2,%eax
+  ce2364:	48 8b 9c 24 08 01 00 	mov    0x108(%rsp),%rbx
+  ce236b:	00 
+  ce236c:	48 89 13             	mov    %rdx,(%rbx)
+  ce236f:	eb b5                	jmp    ce2326 <scipy_dgeqrf_64_+0x116>
+  ce2371:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  ce2378:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+  ce237f:	b8 01 00 00 00       	mov    $0x1,%eax
+  ce2384:	eb de                	jmp    ce2364 <scipy_dgeqrf_64_+0x154>
+  ce2386:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  ce238d:	00 00 00 
+  ce2390:	48 c7 c2 fc ff ff ff 	mov    $0xfffffffffffffffc,%rdx
+  ce2397:	b8 04 00 00 00       	mov    $0x4,%eax
+  ce239c:	eb c6                	jmp    ce2364 <scipy_dgeqrf_64_+0x154>
+  ce239e:	66 90                	xchg   %ax,%ax
+  ce23a0:	48 8b 84 24 08 01 00 	mov    0x108(%rsp),%rax
+  ce23a7:	00 
+  ce23a8:	48 8b 00             	mov    (%rax),%rax
+  ce23ab:	48 85 c0             	test   %rax,%rax
+  ce23ae:	0f 85 c4 04 00 00    	jne    ce2878 <scipy_dgeqrf_64_+0x668>
+  ce23b4:	4d 85 d2             	test   %r10,%r10
+  ce23b7:	0f 84 23 03 00 00    	je     ce26e0 <scipy_dgeqrf_64_+0x4d0>
+  ce23bd:	31 c0                	xor    %eax,%eax
+  ce23bf:	4d 85 ed             	test   %r13,%r13
+  ce23c2:	49 0f 49 c5          	cmovns %r13,%rax
+  ce23c6:	48 89 44 24 60       	mov    %rax,0x60(%rsp)
+  ce23cb:	48 f7 d0             	not    %rax
+  ce23ce:	48 89 44 24 68       	mov    %rax,0x68(%rsp)
+  ce23d3:	48 83 fb 01          	cmp    $0x1,%rbx
+  ce23d7:	0f 8e db 02 00 00    	jle    ce26b8 <scipy_dgeqrf_64_+0x4a8>
+  ce23dd:	49 39 da             	cmp    %rbx,%r10
+  ce23e0:	0f 8e d2 02 00 00    	jle    ce26b8 <scipy_dgeqrf_64_+0x4a8>
+  ce23e6:	4c 89 54 24 28       	mov    %r10,0x28(%rsp)
+  ce23eb:	48 83 ec 08          	sub    $0x8,%rsp
+  ce23ef:	4d 89 f8             	mov    %r15,%r8
+  ce23f2:	4c 89 f1             	mov    %r14,%rcx
+  ce23f5:	4c 89 5c 24 20       	mov    %r11,0x20(%rsp)
+  ce23fa:	48 8d 15 3c ba 6d 00 	lea    0x6dba3c(%rip),%rdx        # 13bde3d <.annobin___pthread_atfork.end+0xeed>
+  ce2401:	48 89 ee             	mov    %rbp,%rsi
+  ce2404:	4c 8d 0d dd fc 6e 00 	lea    0x6efcdd(%rip),%r9        # 13d20e8 <locu12.4+0x1248>
+  ce240b:	6a 01                	push   $0x1
+  ce240d:	48 8d 3d e4 fc 6e 00 	lea    0x6efce4(%rip),%rdi        # 13d20f8 <locu12.4+0x1258>
+  ce2414:	6a 06                	push   $0x6
+  ce2416:	41 54                	push   %r12
+  ce2418:	e8 d3 41 3a ff       	call   865f0 <scipy_ilaenv_64_@plt>
+  ce241d:	31 d2                	xor    %edx,%edx
+  ce241f:	48 85 c0             	test   %rax,%rax
+  ce2422:	48 0f 49 d0          	cmovns %rax,%rdx
+  ce2426:	4c 8b 54 24 48       	mov    0x48(%rsp),%r10
+  ce242b:	48 83 c4 20          	add    $0x20,%rsp
+  ce242f:	4c 8b 5c 24 18       	mov    0x18(%rsp),%r11
+  ce2434:	49 39 d2             	cmp    %rdx,%r10
+  ce2437:	49 89 d5             	mov    %rdx,%r13
+  ce243a:	0f 8e 50 03 00 00    	jle    ce2790 <scipy_dgeqrf_64_+0x580>
+  ce2440:	49 8b 0f             	mov    (%r15),%rcx
+  ce2443:	48 8b 84 24 00 01 00 	mov    0x100(%rsp),%rax
+  ce244a:	00 
+  ce244b:	49 89 db             	mov    %rbx,%r11
+  ce244e:	4c 0f af d9          	imul   %rcx,%r11
+  ce2452:	48 8b 00             	mov    (%rax),%rax
+  ce2455:	48 89 8c 24 a8 00 00 	mov    %rcx,0xa8(%rsp)
+  ce245c:	00 
+  ce245d:	4c 39 d8             	cmp    %r11,%rax
+  ce2460:	0f 8c c2 02 00 00    	jl     ce2728 <scipy_dgeqrf_64_+0x518>
+  ce2466:	4c 89 d0             	mov    %r10,%rax
+  ce2469:	31 d2                	xor    %edx,%edx
+  ce246b:	48 8b 7c 24 60       	mov    0x60(%rsp),%rdi
+  ce2470:	4c 89 7c 24 38       	mov    %r15,0x38(%rsp)
+  ce2475:	4c 29 e8             	sub    %r13,%rax
+  ce2478:	4d 89 f7             	mov    %r14,%r15
+  ce247b:	4c 89 5c 24 78       	mov    %r11,0x78(%rsp)
+  ce2480:	48 8b 6c 24 20       	mov    0x20(%rsp),%rbp
+  ce2485:	48 83 e8 01          	sub    $0x1,%rax
+  ce2489:	4c 89 94 24 80 00 00 	mov    %r10,0x80(%rsp)
+  ce2490:	00 
+  ce2491:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+  ce2497:	4d 89 d6             	mov    %r10,%r14
+  ce249a:	48 f7 f3             	div    %rbx
+  ce249d:	48 8d 57 01          	lea    0x1(%rdi),%rdx
+  ce24a1:	48 0f af d3          	imul   %rbx,%rdx
+  ce24a5:	48 8d 3c d5 00 00 00 	lea    0x0(,%rdx,8),%rdi
+  ce24ac:	00 
+  ce24ad:	48 89 7c 24 48       	mov    %rdi,0x48(%rsp)
+  ce24b2:	48 8d bc 24 b8 00 00 	lea    0xb8(%rsp),%rdi
+  ce24b9:	00 
+  ce24ba:	48 89 7c 24 30       	mov    %rdi,0x30(%rsp)
+  ce24bf:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+  ce24c4:	48 83 ef 08          	sub    $0x8,%rdi
+  ce24c8:	48 89 7c 24 50       	mov    %rdi,0x50(%rsp)
+  ce24cd:	48 8d bc 24 98 00 00 	lea    0x98(%rsp),%rdi
+  ce24d4:	00 
+  ce24d5:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+  ce24da:	48 8d bc 24 a0 00 00 	lea    0xa0(%rsp),%rdi
+  ce24e1:	00 
+  ce24e2:	48 89 7c 24 58       	mov    %rdi,0x58(%rsp)
+  ce24e7:	48 89 84 24 88 00 00 	mov    %rax,0x88(%rsp)
+  ce24ee:	00 
+  ce24ef:	49 89 c5             	mov    %rax,%r13
+  ce24f2:	eb 20                	jmp    ce2514 <scipy_dgeqrf_64_+0x304>
+  ce24f4:	0f 1f 40 00          	nopl   0x0(%rax)
+  ce24f8:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
+  ce24fd:	49 83 ed 01          	sub    $0x1,%r13
+  ce2501:	49 01 dc             	add    %rbx,%r12
+  ce2504:	49 29 de             	sub    %rbx,%r14
+  ce2507:	48 01 c5             	add    %rax,%rbp
+  ce250a:	49 83 fd ff          	cmp    $0xffffffffffffffff,%r13
+  ce250e:	0f 84 e4 01 00 00    	je     ce26f8 <scipy_dgeqrf_64_+0x4e8>
+  ce2514:	49 39 de             	cmp    %rbx,%r14
+  ce2517:	48 89 da             	mov    %rbx,%rdx
+  ce251a:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+  ce251f:	49 0f 4e d6          	cmovle %r14,%rdx
+  ce2523:	48 83 ec 08          	sub    $0x8,%rsp
+  ce2527:	4e 8d 04 e0          	lea    (%rax,%r12,8),%r8
+  ce252b:	48 89 94 24 a0 00 00 	mov    %rdx,0xa0(%rsp)
+  ce2532:	00 
+  ce2533:	49 8b 17             	mov    (%r15),%rdx
+  ce2536:	4c 29 e2             	sub    %r12,%rdx
+  ce2539:	48 83 c2 01          	add    $0x1,%rdx
+  ce253d:	48 89 94 24 c0 00 00 	mov    %rdx,0xc0(%rsp)
+  ce2544:	00 
+  ce2545:	48 89 ea             	mov    %rbp,%rdx
+  ce2548:	ff 74 24 60          	push   0x60(%rsp)
+  ce254c:	4c 8b 4c 24 20       	mov    0x20(%rsp),%r9
+  ce2551:	48 8b 4c 24 18       	mov    0x18(%rsp),%rcx
+  ce2556:	48 8b 74 24 38       	mov    0x38(%rsp),%rsi
+  ce255b:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+  ce2560:	4c 89 44 24 28       	mov    %r8,0x28(%rsp)
+  ce2565:	e8 b6 56 3a ff       	call   87c20 <scipy_dgeqr2_64_@plt>
+  ce256a:	48 8b 94 24 a8 00 00 	mov    0xa8(%rsp),%rdx
+  ce2571:	00 
+  ce2572:	59                   	pop    %rcx
+  ce2573:	5e                   	pop    %rsi
+  ce2574:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  ce2579:	4c 01 e2             	add    %r12,%rdx
+  ce257c:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  ce2581:	48 3b 10             	cmp    (%rax),%rdx
+  ce2584:	0f 8f 6e ff ff ff    	jg     ce24f8 <scipy_dgeqrf_64_+0x2e8>
+  ce258a:	49 8b 17             	mov    (%r15),%rdx
+  ce258d:	48 83 ec 08          	sub    $0x8,%rsp
+  ce2591:	48 8d 35 c4 bc 6d 00 	lea    0x6dbcc4(%rip),%rsi        # 13be25c <.annobin___pthread_atfork.end+0x130c>
+  ce2598:	48 8d 3d c8 bc 6d 00 	lea    0x6dbcc8(%rip),%rdi        # 13be267 <.annobin___pthread_atfork.end+0x1317>
+  ce259f:	4c 29 e2             	sub    %r12,%rdx
+  ce25a2:	48 83 c2 01          	add    $0x1,%rdx
+  ce25a6:	48 89 94 24 c0 00 00 	mov    %rdx,0xc0(%rsp)
+  ce25ad:	00 
+  ce25ae:	6a 0a                	push   $0xa
+  ce25b0:	6a 07                	push   $0x7
+  ce25b2:	4c 8d 9c 24 c0 00 00 	lea    0xc0(%rsp),%r11
+  ce25b9:	00 
+  ce25ba:	41 53                	push   %r11
+  ce25bc:	4c 89 9c 24 90 00 00 	mov    %r11,0x90(%rsp)
+  ce25c3:	00 
+  ce25c4:	ff 74 24 30          	push   0x30(%rsp)
+  ce25c8:	41 50                	push   %r8
+  ce25ca:	49 89 e8             	mov    %rbp,%r8
+  ce25cd:	48 8b 4c 24 58       	mov    0x58(%rsp),%rcx
+  ce25d2:	48 8b 54 24 60       	mov    0x60(%rsp),%rdx
+  ce25d7:	4c 8b 4c 24 38       	mov    0x38(%rsp),%r9
+  ce25dc:	e8 df 15 3a ff       	call   83bc0 <scipy_dlarft_64_@plt>
+  ce25e1:	49 8b 37             	mov    (%r15),%rsi
+  ce25e4:	4c 29 e6             	sub    %r12,%rsi
+  ce25e7:	48 89 f2             	mov    %rsi,%rdx
+  ce25ea:	48 8b 74 24 68       	mov    0x68(%rsp),%rsi
+  ce25ef:	48 83 c2 01          	add    $0x1,%rdx
+  ce25f3:	48 8b 36             	mov    (%rsi),%rsi
+  ce25f6:	48 89 94 24 e0 00 00 	mov    %rdx,0xe0(%rsp)
+  ce25fd:	00 
+  ce25fe:	48 8b 94 24 c8 00 00 	mov    0xc8(%rsp),%rdx
+  ce2605:	00 
+  ce2606:	48 89 74 24 48       	mov    %rsi,0x48(%rsp)
+  ce260b:	4c 29 e6             	sub    %r12,%rsi
+  ce260e:	48 89 f1             	mov    %rsi,%rcx
+  ce2611:	48 29 d1             	sub    %rdx,%rcx
+  ce2614:	48 83 c1 01          	add    $0x1,%rcx
+  ce2618:	48 89 8c 24 e8 00 00 	mov    %rcx,0xe8(%rsp)
+  ce261f:	00 
+  ce2620:	48 83 c4 28          	add    $0x28,%rsp
+  ce2624:	6a 0a                	push   $0xa
+  ce2626:	6a 07                	push   $0x7
+  ce2628:	6a 09                	push   $0x9
+  ce262a:	6a 04                	push   $0x4
+  ce262c:	4c 8b 9c 24 98 00 00 	mov    0x98(%rsp),%r11
+  ce2633:	00 
+  ce2634:	41 53                	push   %r11
+  ce2636:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+  ce263b:	48 8d 0c d0          	lea    (%rax,%rdx,8),%rcx
+  ce263f:	4c 01 e2             	add    %r12,%rdx
+  ce2642:	51                   	push   %rcx
+  ce2643:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+  ce2648:	48 8d 0d 0d bc 6d 00 	lea    0x6dbc0d(%rip),%rcx        # 13be25c <.annobin___pthread_atfork.end+0x130c>
+  ce264f:	57                   	push   %rdi
+  ce2650:	48 8b b4 24 a0 00 00 	mov    0xa0(%rsp),%rsi
+  ce2657:	00 
+  ce2658:	48 0f af d6          	imul   %rsi,%rdx
+  ce265c:	48 8b b4 24 a8 00 00 	mov    0xa8(%rsp),%rsi
+  ce2663:	00 
+  ce2664:	48 01 f2             	add    %rsi,%rdx
+  ce2667:	48 8b 74 24 60       	mov    0x60(%rsp),%rsi
+  ce266c:	4c 01 e2             	add    %r12,%rdx
+  ce266f:	48 8d 14 d6          	lea    (%rsi,%rdx,8),%rdx
+  ce2673:	48 8d 35 06 d1 6d 00 	lea    0x6dd106(%rip),%rsi        # 13bf780 <.annobin___pthread_atfork.end+0x2830>
+  ce267a:	52                   	push   %rdx
+  ce267b:	48 8d 15 e5 bb 6d 00 	lea    0x6dbbe5(%rip),%rdx        # 13be267 <.annobin___pthread_atfork.end+0x1317>
+  ce2682:	41 53                	push   %r11
+  ce2684:	50                   	push   %rax
+  ce2685:	57                   	push   %rdi
+  ce2686:	48 8d 3d 53 bb 6d 00 	lea    0x6dbb53(%rip),%rdi        # 13be1e0 <.annobin___pthread_atfork.end+0x1290>
+  ce268d:	55                   	push   %rbp
+  ce268e:	ff b4 24 90 00 00 00 	push   0x90(%rsp)
+  ce2695:	4c 8b 8c 24 a0 00 00 	mov    0xa0(%rsp),%r9
+  ce269c:	00 
+  ce269d:	4c 8d 84 24 20 01 00 	lea    0x120(%rsp),%r8
+  ce26a4:	00 
+  ce26a5:	e8 66 6a 3a ff       	call   89110 <scipy_dlarfb_64_@plt>
+  ce26aa:	48 83 c4 70          	add    $0x70,%rsp
+  ce26ae:	e9 45 fe ff ff       	jmp    ce24f8 <scipy_dgeqrf_64_+0x2e8>
+  ce26b3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  ce26b8:	b8 01 00 00 00       	mov    $0x1,%eax
+  ce26bd:	4c 39 d0             	cmp    %r10,%rax
+  ce26c0:	0f 8e 3a 01 00 00    	jle    ce2800 <scipy_dgeqrf_64_+0x5f0>
+  ce26c6:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  ce26ca:	f2 49 0f 2a c3       	cvtsi2sd %r11,%xmm0
+  ce26cf:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  ce26d4:	f2 0f 11 00          	movsd  %xmm0,(%rax)
+  ce26d8:	e9 66 fc ff ff       	jmp    ce2343 <scipy_dgeqrf_64_+0x133>
+  ce26dd:	0f 1f 00             	nopl   (%rax)
+  ce26e0:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  ce26e5:	48 8b 1d 04 ad 6d 00 	mov    0x6dad04(%rip),%rbx        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  ce26ec:	48 89 18             	mov    %rbx,(%rax)
+  ce26ef:	e9 4f fc ff ff       	jmp    ce2343 <scipy_dgeqrf_64_+0x133>
+  ce26f4:	0f 1f 40 00          	nopl   0x0(%rax)
+  ce26f8:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
+  ce26ff:	00 
+  ce2700:	4d 89 fe             	mov    %r15,%r14
+  ce2703:	4c 8b 5c 24 78       	mov    0x78(%rsp),%r11
+  ce2708:	4c 8b 94 24 80 00 00 	mov    0x80(%rsp),%r10
+  ce270f:	00 
+  ce2710:	4c 8b 7c 24 38       	mov    0x38(%rsp),%r15
+  ce2715:	48 83 c0 01          	add    $0x1,%rax
+  ce2719:	48 0f af c3          	imul   %rbx,%rax
+  ce271d:	48 83 c0 01          	add    $0x1,%rax
+  ce2721:	eb 9a                	jmp    ce26bd <scipy_dgeqrf_64_+0x4ad>
+  ce2723:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  ce2728:	48 99                	cqto
+  ce272a:	4c 89 5c 24 18       	mov    %r11,0x18(%rsp)
+  ce272f:	48 83 ec 08          	sub    $0x8,%rsp
+  ce2733:	4d 89 f8             	mov    %r15,%r8
+  ce2736:	6a 01                	push   $0x1
+  ce2738:	4c 8d 0d a9 f9 6e 00 	lea    0x6ef9a9(%rip),%r9        # 13d20e8 <locu12.4+0x1248>
+  ce273f:	48 89 ee             	mov    %rbp,%rsi
+  ce2742:	48 8d 3d b7 f9 6e 00 	lea    0x6ef9b7(%rip),%rdi        # 13d2100 <locu12.4+0x1260>
+  ce2749:	48 f7 f9             	idiv   %rcx
+  ce274c:	6a 06                	push   $0x6
+  ce274e:	41 54                	push   %r12
+  ce2750:	48 8d 15 e6 b6 6d 00 	lea    0x6db6e6(%rip),%rdx        # 13bde3d <.annobin___pthread_atfork.end+0xeed>
+  ce2757:	4c 89 f1             	mov    %r14,%rcx
+  ce275a:	48 89 c3             	mov    %rax,%rbx
+  ce275d:	e8 8e 3e 3a ff       	call   865f0 <scipy_ilaenv_64_@plt>
+  ce2762:	ba 02 00 00 00       	mov    $0x2,%edx
+  ce2767:	48 39 d0             	cmp    %rdx,%rax
+  ce276a:	48 0f 4c c2          	cmovl  %rdx,%rax
+  ce276e:	48 83 c4 20          	add    $0x20,%rsp
+  ce2772:	4c 8b 5c 24 18       	mov    0x18(%rsp),%r11
+  ce2777:	48 39 c3             	cmp    %rax,%rbx
+  ce277a:	7c 14                	jl     ce2790 <scipy_dgeqrf_64_+0x580>
+  ce277c:	4c 8b 54 24 28       	mov    0x28(%rsp),%r10
+  ce2781:	49 39 da             	cmp    %rbx,%r10
+  ce2784:	0f 8f dc fc ff ff    	jg     ce2466 <scipy_dgeqrf_64_+0x256>
+  ce278a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  ce2790:	b8 01 00 00 00       	mov    $0x1,%eax
+  ce2795:	49 8b 16             	mov    (%r14),%rdx
+  ce2798:	4c 89 5c 24 18       	mov    %r11,0x18(%rsp)
+  ce279d:	48 8d b4 24 b8 00 00 	lea    0xb8(%rsp),%rsi
+  ce27a4:	00 
+  ce27a5:	48 8d bc 24 b0 00 00 	lea    0xb0(%rsp),%rdi
+  ce27ac:	00 
+  ce27ad:	48 83 ec 08          	sub    $0x8,%rsp
+  ce27b1:	48 29 c2             	sub    %rax,%rdx
+  ce27b4:	48 83 c2 01          	add    $0x1,%rdx
+  ce27b8:	48 89 94 24 b8 00 00 	mov    %rdx,0xb8(%rsp)
+  ce27bf:	00 
+  ce27c0:	49 8b 17             	mov    (%r15),%rdx
+  ce27c3:	48 29 c2             	sub    %rax,%rdx
+  ce27c6:	48 8d 42 01          	lea    0x1(%rdx),%rax
+  ce27ca:	48 89 84 24 c0 00 00 	mov    %rax,0xc0(%rsp)
+  ce27d1:	00 
+  ce27d2:	48 8d 84 24 a8 00 00 	lea    0xa8(%rsp),%rax
+  ce27d9:	00 
+  ce27da:	50                   	push   %rax
+  ce27db:	4c 8b 4c 24 20       	mov    0x20(%rsp),%r9
+  ce27e0:	4c 8b 44 24 50       	mov    0x50(%rsp),%r8
+  ce27e5:	48 8b 4c 24 18       	mov    0x18(%rsp),%rcx
+  ce27ea:	48 8b 54 24 30       	mov    0x30(%rsp),%rdx
+  ce27ef:	e8 2c 54 3a ff       	call   87c20 <scipy_dgeqr2_64_@plt>
+  ce27f4:	58                   	pop    %rax
+  ce27f5:	5a                   	pop    %rdx
+  ce27f6:	4c 8b 5c 24 18       	mov    0x18(%rsp),%r11
+  ce27fb:	e9 c6 fe ff ff       	jmp    ce26c6 <scipy_dgeqrf_64_+0x4b6>
+  ce2800:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
+  ce2805:	48 8b 54 24 60       	mov    0x60(%rsp),%rdx
+  ce280a:	48 0f af d0          	imul   %rax,%rdx
+  ce280e:	48 8d 5c c3 f8       	lea    -0x8(%rbx,%rax,8),%rbx
+  ce2813:	48 89 5c 24 40       	mov    %rbx,0x40(%rsp)
+  ce2818:	48 8b 5c 24 68       	mov    0x68(%rsp),%rbx
+  ce281d:	48 01 da             	add    %rbx,%rdx
+  ce2820:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  ce2825:	48 01 c2             	add    %rax,%rdx
+  ce2828:	48 8d 1c d3          	lea    (%rbx,%rdx,8),%rbx
+  ce282c:	48 89 5c 24 20       	mov    %rbx,0x20(%rsp)
+  ce2831:	e9 5f ff ff ff       	jmp    ce2795 <scipy_dgeqrf_64_+0x585>
+  ce2836:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  ce283d:	00 00 00 
+  ce2840:	48 8b 84 24 08 01 00 	mov    0x108(%rsp),%rax
+  ce2847:	00 
+  ce2848:	48 8b 00             	mov    (%rax),%rax
+  ce284b:	48 85 c0             	test   %rax,%rax
+  ce284e:	75 28                	jne    ce2878 <scipy_dgeqrf_64_+0x668>
+  ce2850:	f2 0f 10 05 98 ab 6d 	movsd  0x6dab98(%rip),%xmm0        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  ce2857:	00 
+  ce2858:	4d 85 d2             	test   %r10,%r10
+  ce285b:	0f 84 6e fe ff ff    	je     ce26cf <scipy_dgeqrf_64_+0x4bf>
+  ce2861:	49 0f af db          	imul   %r11,%rbx
+  ce2865:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  ce2869:	f2 48 0f 2a c3       	cvtsi2sd %rbx,%xmm0
+  ce286e:	e9 5c fe ff ff       	jmp    ce26cf <scipy_dgeqrf_64_+0x4bf>
+  ce2873:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  ce2878:	48 f7 d8             	neg    %rax
+  ce287b:	e9 a6 fa ff ff       	jmp    ce2326 <scipy_dgeqrf_64_+0x116>
+
+Disassembly of section .fini:

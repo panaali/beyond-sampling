@@ -1,0 +1,321 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_umath_linalg.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000005cb0 <void det<double, double>(char**, long const*, long const*, void*)>:
+    5cb0:	41 57                	push   %r15
+    5cb2:	41 56                	push   %r14
+    5cb4:	41 55                	push   %r13
+    5cb6:	41 54                	push   %r12
+    5cb8:	49 89 d4             	mov    %rdx,%r12
+    5cbb:	55                   	push   %rbp
+    5cbc:	53                   	push   %rbx
+    5cbd:	48 81 ec a8 00 00 00 	sub    $0xa8,%rsp
+    5cc4:	48 8b 06             	mov    (%rsi),%rax
+    5cc7:	f3 0f 6f 1a          	movdqu (%rdx),%xmm3
+    5ccb:	48 8b 5e 08          	mov    0x8(%rsi),%rbx
+    5ccf:	48 89 7c 24 50       	mov    %rdi,0x50(%rsp)
+    5cd4:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+    5cd9:	48 8b 02             	mov    (%rdx),%rax
+    5cdc:	0f 29 5c 24 60       	movaps %xmm3,0x60(%rsp)
+    5ce1:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+    5ce6:	48 85 db             	test   %rbx,%rbx
+    5ce9:	0f 84 46 04 00 00    	je     6135 <void det<double, double>(char**, long const*, long const*, void*)+0x485>
+    5cef:	48 89 dd             	mov    %rbx,%rbp
+    5cf2:	48 0f af eb          	imul   %rbx,%rbp
+    5cf6:	48 c1 e5 03          	shl    $0x3,%rbp
+    5cfa:	48 8d 7c dd 00       	lea    0x0(%rbp,%rbx,8),%rdi
+    5cff:	e8 fc e5 ff ff       	call   4300 <PyMem_RawMalloc@plt>
+    5d04:	48 89 c7             	mov    %rax,%rdi
+    5d07:	48 85 c0             	test   %rax,%rax
+    5d0a:	0f 84 40 04 00 00    	je     6150 <void det<double, double>(char**, long const*, long const*, void*)+0x4a0>
+    5d10:	48 83 7c 24 48 00    	cmpq   $0x0,0x48(%rsp)
+    5d16:	49 8b 44 24 10       	mov    0x10(%r12),%rax
+    5d1b:	4d 8b 6c 24 18       	mov    0x18(%r12),%r13
+    5d20:	0f 8e a4 03 00 00    	jle    60ca <void det<double, double>(char**, long const*, long const*, void*)+0x41a>
+    5d26:	48 c1 e8 03          	shr    $0x3,%rax
+    5d2a:	48 85 db             	test   %rbx,%rbx
+    5d2d:	48 c7 44 24 30 00 00 	movq   $0x0,0x30(%rsp)
+    5d34:	00 00 
+    5d36:	4c 8d 34 dd 00 00 00 	lea    0x0(,%rbx,8),%r14
+    5d3d:	00 
+    5d3e:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+    5d43:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+    5d48:	48 89 7c 24 38       	mov    %rdi,0x38(%rsp)
+    5d4d:	4c 8b 38             	mov    (%rax),%r15
+    5d50:	48 8d 04 2f          	lea    (%rdi,%rbp,1),%rax
+    5d54:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+    5d59:	b8 01 00 00 00       	mov    $0x1,%eax
+    5d5e:	48 0f 4f c3          	cmovg  %rbx,%rax
+    5d62:	49 83 e5 f8          	and    $0xfffffffffffffff8,%r13
+    5d66:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+    5d6b:	48 8d 84 24 98 00 00 	lea    0x98(%rsp),%rax
+    5d72:	00 
+    5d73:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+    5d78:	48 8d 84 24 90 00 00 	lea    0x90(%rsp),%rax
+    5d7f:	00 
+    5d80:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+    5d85:	48 8d 84 24 88 00 00 	lea    0x88(%rsp),%rax
+    5d8c:	00 
+    5d8d:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+    5d92:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    5d99:	00 00 00 00 
+    5d9d:	0f 1f 00             	nopl   (%rax)
+    5da0:	48 8b 44 24 78       	mov    0x78(%rsp),%rax
+    5da5:	48 89 9c 24 88 00 00 	mov    %rbx,0x88(%rsp)
+    5dac:	00 
+    5dad:	48 c7 84 24 98 00 00 	movq   $0x1,0x98(%rsp)
+    5db4:	00 01 00 00 00 
+    5db9:	48 89 84 24 90 00 00 	mov    %rax,0x90(%rsp)
+    5dc0:	00 
+    5dc1:	48 85 db             	test   %rbx,%rbx
+    5dc4:	0f 8e 8d 00 00 00    	jle    5e57 <void det<double, double>(char**, long const*, long const*, void*)+0x1a7>
+    5dca:	4c 8b 64 24 38       	mov    0x38(%rsp),%r12
+    5dcf:	31 ed                	xor    %ebp,%ebp
+    5dd1:	4c 89 e1             	mov    %r12,%rcx
+    5dd4:	49 89 ec             	mov    %rbp,%r12
+    5dd7:	4c 89 fd             	mov    %r15,%rbp
+    5dda:	49 89 cf             	mov    %rcx,%r15
+    5ddd:	eb 4a                	jmp    5e29 <void det<double, double>(char**, long const*, long const*, void*)+0x179>
+    5ddf:	90                   	nop
+    5de0:	48 8b 94 24 88 00 00 	mov    0x88(%rsp),%rdx
+    5de7:	00 
+    5de8:	0f 84 f2 02 00 00    	je     60e0 <void det<double, double>(char**, long const*, long const*, void*)+0x430>
+    5dee:	48 83 ea 01          	sub    $0x1,%rdx
+    5df2:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+    5df7:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+    5dfc:	4c 89 f9             	mov    %r15,%rcx
+    5dff:	48 0f af d0          	imul   %rax,%rdx
+    5e03:	48 8d 74 d5 00       	lea    0x0(%rbp,%rdx,8),%rsi
+    5e08:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+    5e0d:	e8 ae e7 ff ff       	call   45c0 <scipy_dcopy_64_@plt>
+    5e12:	49 83 c4 01          	add    $0x1,%r12
+    5e16:	4c 01 ed             	add    %r13,%rbp
+    5e19:	4d 01 f7             	add    %r14,%r15
+    5e1c:	4c 39 e3             	cmp    %r12,%rbx
+    5e1f:	74 36                	je     5e57 <void det<double, double>(char**, long const*, long const*, void*)+0x1a7>
+    5e21:	48 8b 84 24 90 00 00 	mov    0x90(%rsp),%rax
+    5e28:	00 
+    5e29:	48 85 c0             	test   %rax,%rax
+    5e2c:	7e b2                	jle    5de0 <void det<double, double>(char**, long const*, long const*, void*)+0x130>
+    5e2e:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+    5e33:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+    5e38:	4c 89 f9             	mov    %r15,%rcx
+    5e3b:	48 89 ee             	mov    %rbp,%rsi
+    5e3e:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+    5e43:	49 83 c4 01          	add    $0x1,%r12
+    5e47:	4c 01 ed             	add    %r13,%rbp
+    5e4a:	4d 01 f7             	add    %r14,%r15
+    5e4d:	e8 6e e7 ff ff       	call   45c0 <scipy_dcopy_64_@plt>
+    5e52:	4c 39 e3             	cmp    %r12,%rbx
+    5e55:	75 ca                	jne    5e21 <void det<double, double>(char**, long const*, long const*, void*)+0x171>
+    5e57:	4c 8b 7c 24 40       	mov    0x40(%rsp),%r15
+    5e5c:	48 8b 74 24 18       	mov    0x18(%rsp),%rsi
+    5e61:	48 89 9c 24 88 00 00 	mov    %rbx,0x88(%rsp)
+    5e68:	00 
+    5e69:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+    5e6e:	4c 8b 4c 24 08       	mov    0x8(%rsp),%r9
+    5e73:	48 c7 84 24 90 00 00 	movq   $0x0,0x90(%rsp)
+    5e7a:	00 00 00 00 00 
+    5e7f:	48 8b 4c 24 10       	mov    0x10(%rsp),%rcx
+    5e84:	48 8b 54 24 38       	mov    0x38(%rsp),%rdx
+    5e89:	4d 89 f8             	mov    %r15,%r8
+    5e8c:	48 89 f7             	mov    %rsi,%rdi
+    5e8f:	48 89 84 24 98 00 00 	mov    %rax,0x98(%rsp)
+    5e96:	00 
+    5e97:	e8 74 ea ff ff       	call   4910 <scipy_dgetrf_64_@plt>
+    5e9c:	48 83 bc 24 90 00 00 	cmpq   $0x0,0x90(%rsp)
+    5ea3:	00 00 
+    5ea5:	0f 85 75 02 00 00    	jne    6120 <void det<double, double>(char**, long const*, long const*, void*)+0x470>
+    5eab:	48 8b ac 24 88 00 00 	mov    0x88(%rsp),%rbp
+    5eb2:	00 
+    5eb3:	48 85 ed             	test   %rbp,%rbp
+    5eb6:	0f 8e b8 02 00 00    	jle    6174 <void det<double, double>(char**, long const*, long const*, void*)+0x4c4>
+    5ebc:	48 8d 45 ff          	lea    -0x1(%rbp),%rax
+    5ec0:	48 83 f8 02          	cmp    $0x2,%rax
+    5ec4:	0f 86 c0 02 00 00    	jbe    618a <void det<double, double>(char**, long const*, long const*, void*)+0x4da>
+    5eca:	48 89 ea             	mov    %rbp,%rdx
+    5ecd:	b9 01 00 00 00       	mov    $0x1,%ecx
+    5ed2:	bf 04 00 00 00       	mov    $0x4,%edi
+    5ed7:	4c 89 f8             	mov    %r15,%rax
+    5eda:	48 c1 ea 02          	shr    $0x2,%rdx
+    5ede:	66 0f 6e f7          	movd   %edi,%xmm6
+    5ee2:	66 0f ef d2          	pxor   %xmm2,%xmm2
+    5ee6:	be 01 00 00 00       	mov    $0x1,%esi
+    5eeb:	48 c1 e2 05          	shl    $0x5,%rdx
+    5eef:	66 48 0f 6e e1       	movq   %rcx,%xmm4
+    5ef4:	66 0f 6e ee          	movd   %esi,%xmm5
+    5ef8:	66 0f 6f 1d 00 43 02 	movdqa 0x24300(%rip),%xmm3        # 2a200 <numeric_limits<float>::one+0xd0>
+    5eff:	00 
+    5f00:	4c 01 fa             	add    %r15,%rdx
+    5f03:	66 0f 6c e4          	punpcklqdq %xmm4,%xmm4
+    5f07:	66 0f 70 f6 00       	pshufd $0x0,%xmm6,%xmm6
+    5f0c:	66 0f 70 ed 00       	pshufd $0x0,%xmm5,%xmm5
+    5f11:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    5f18:	00 00 00 00 
+    5f1c:	0f 1f 40 00          	nopl   0x0(%rax)
+    5f20:	66 0f 6f c3          	movdqa %xmm3,%xmm0
+    5f24:	f3 0f 6f 38          	movdqu (%rax),%xmm7
+    5f28:	48 83 c0 20          	add    $0x20,%rax
+    5f2c:	66 0f fe de          	paddd  %xmm6,%xmm3
+    5f30:	66 0f fe c5          	paddd  %xmm5,%xmm0
+    5f34:	66 0f 38 25 c8       	pmovsxdq %xmm0,%xmm1
+    5f39:	66 0f 73 d8 08       	psrldq $0x8,%xmm0
+    5f3e:	66 0f 38 29 cf       	pcmpeqq %xmm7,%xmm1
+    5f43:	f3 0f 6f 78 f0       	movdqu -0x10(%rax),%xmm7
+    5f48:	66 0f 38 25 c0       	pmovsxdq %xmm0,%xmm0
+    5f4d:	66 0f 38 29 c7       	pcmpeqq %xmm7,%xmm0
+    5f52:	66 0f df cc          	pandn  %xmm4,%xmm1
+    5f56:	66 0f df c4          	pandn  %xmm4,%xmm0
+    5f5a:	0f c6 c8 88          	shufps $0x88,%xmm0,%xmm1
+    5f5e:	66 0f fe d1          	paddd  %xmm1,%xmm2
+    5f62:	48 39 c2             	cmp    %rax,%rdx
+    5f65:	75 b9                	jne    5f20 <void det<double, double>(char**, long const*, long const*, void*)+0x270>
+    5f67:	66 0f 6f c2          	movdqa %xmm2,%xmm0
+    5f6b:	89 ea                	mov    %ebp,%edx
+    5f6d:	66 0f 73 d8 08       	psrldq $0x8,%xmm0
+    5f72:	83 e2 fc             	and    $0xfffffffc,%edx
+    5f75:	66 0f fe d0          	paddd  %xmm0,%xmm2
+    5f79:	66 0f 6f c2          	movdqa %xmm2,%xmm0
+    5f7d:	66 0f 73 d8 04       	psrldq $0x4,%xmm0
+    5f82:	66 0f fe d0          	paddd  %xmm0,%xmm2
+    5f86:	66 0f 7e d0          	movd   %xmm2,%eax
+    5f8a:	40 f6 c5 03          	test   $0x3,%bpl
+    5f8e:	74 54                	je     5fe4 <void det<double, double>(char**, long const*, long const*, void*)+0x334>
+    5f90:	4c 8b 54 24 40       	mov    0x40(%rsp),%r10
+    5f95:	48 63 fa             	movslq %edx,%rdi
+    5f98:	8d 4a 01             	lea    0x1(%rdx),%ecx
+    5f9b:	48 63 c9             	movslq %ecx,%rcx
+    5f9e:	48 8d 34 fd 00 00 00 	lea    0x0(,%rdi,8),%rsi
+    5fa5:	00 
+    5fa6:	49 39 0c fa          	cmp    %rcx,(%r10,%rdi,8)
+    5faa:	40 0f 95 c7          	setne  %dil
+    5fae:	40 0f b6 ff          	movzbl %dil,%edi
+    5fb2:	01 f8                	add    %edi,%eax
+    5fb4:	48 39 e9             	cmp    %rbp,%rcx
+    5fb7:	7d 2b                	jge    5fe4 <void det<double, double>(char**, long const*, long const*, void*)+0x334>
+    5fb9:	8d 4a 02             	lea    0x2(%rdx),%ecx
+    5fbc:	31 ff                	xor    %edi,%edi
+    5fbe:	48 63 c9             	movslq %ecx,%rcx
+    5fc1:	49 39 4c 32 08       	cmp    %rcx,0x8(%r10,%rsi,1)
+    5fc6:	40 0f 95 c7          	setne  %dil
+    5fca:	01 f8                	add    %edi,%eax
+    5fcc:	48 39 cd             	cmp    %rcx,%rbp
+    5fcf:	7e 13                	jle    5fe4 <void det<double, double>(char**, long const*, long const*, void*)+0x334>
+    5fd1:	83 c2 03             	add    $0x3,%edx
+    5fd4:	48 63 d2             	movslq %edx,%rdx
+    5fd7:	49 39 54 32 10       	cmp    %rdx,0x10(%r10,%rsi,1)
+    5fdc:	0f 95 c2             	setne  %dl
+    5fdf:	0f b6 d2             	movzbl %dl,%edx
+    5fe2:	01 d0                	add    %edx,%eax
+    5fe4:	48 8b 0d 4d 41 02 00 	mov    0x2414d(%rip),%rcx        # 2a138 <numeric_limits<float>::one+0x8>
+    5feb:	48 89 0c 24          	mov    %rcx,(%rsp)
+    5fef:	a8 01                	test   $0x1,%al
+    5ff1:	74 0b                	je     5ffe <void det<double, double>(char**, long const*, long const*, void*)+0x34e>
+    5ff3:	48 8b 05 46 41 02 00 	mov    0x24146(%rip),%rax        # 2a140 <numeric_limits<float>::one+0x10>
+    5ffa:	48 89 04 24          	mov    %rax,(%rsp)
+    5ffe:	48 8d 04 ed 08 00 00 	lea    0x8(,%rbp,8),%rax
+    6005:	00 
+    6006:	41 89 ec             	mov    %ebp,%r12d
+    6009:	48 8b 6c 24 38       	mov    0x38(%rsp),%rbp
+    600e:	45 31 ff             	xor    %r15d,%r15d
+    6011:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+    6016:	66 0f ef c9          	pxor   %xmm1,%xmm1
+    601a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    6020:	f2 0f 10 45 00       	movsd  0x0(%rbp),%xmm0
+    6025:	66 0f ef d2          	pxor   %xmm2,%xmm2
+    6029:	f2 0f 11 4c 24 20    	movsd  %xmm1,0x20(%rsp)
+    602f:	66 0f 2f d0          	comisd %xmm0,%xmm2
+    6033:	76 1a                	jbe    604f <void det<double, double>(char**, long const*, long const*, void*)+0x39f>
+    6035:	f2 0f 10 2c 24       	movsd  (%rsp),%xmm5
+    603a:	66 0f 57 2d ce 41 02 	xorpd  0x241ce(%rip),%xmm5        # 2a210 <numeric_limits<float>::one+0xe0>
+    6041:	00 
+    6042:	66 0f 57 05 c6 41 02 	xorpd  0x241c6(%rip),%xmm0        # 2a210 <numeric_limits<float>::one+0xe0>
+    6049:	00 
+    604a:	f2 0f 11 2c 24       	movsd  %xmm5,(%rsp)
+    604f:	e8 3c e9 ff ff       	call   4990 <log@plt>
+    6054:	f2 0f 10 4c 24 20    	movsd  0x20(%rsp),%xmm1
+    605a:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+    605f:	41 83 c7 01          	add    $0x1,%r15d
+    6063:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+    6067:	48 01 c5             	add    %rax,%rbp
+    606a:	45 39 e7             	cmp    %r12d,%r15d
+    606d:	75 b1                	jne    6020 <void det<double, double>(char**, long const*, long const*, void*)+0x370>
+    606f:	4c 8b 7c 24 50       	mov    0x50(%rsp),%r15
+    6074:	66 0f 28 c1          	movapd %xmm1,%xmm0
+    6078:	49 8b 6f 08          	mov    0x8(%r15),%rbp
+    607c:	e8 ef df ff ff       	call   4070 <exp@plt>
+    6081:	f2 0f 59 04 24       	mulsd  (%rsp),%xmm0
+    6086:	49 8b 07             	mov    (%r15),%rax
+    6089:	4c 89 f9             	mov    %r15,%rcx
+    608c:	48 8b 74 24 58       	mov    0x58(%rsp),%rsi
+    6091:	48 83 44 24 30 01    	addq   $0x1,0x30(%rsp)
+    6097:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+    609c:	4c 8d 3c 30          	lea    (%rax,%rsi,1),%r15
+    60a0:	f2 0f 11 45 00       	movsd  %xmm0,0x0(%rbp)
+    60a5:	66 48 0f 6e c0       	movq   %rax,%xmm0
+    60aa:	66 48 0f 3a 22 c5 01 	pinsrq $0x1,%rbp,%xmm0
+    60b1:	66 0f d4 44 24 60    	paddq  0x60(%rsp),%xmm0
+    60b7:	0f 11 01             	movups %xmm0,(%rcx)
+    60ba:	48 39 7c 24 48       	cmp    %rdi,0x48(%rsp)
+    60bf:	0f 85 db fc ff ff    	jne    5da0 <void det<double, double>(char**, long const*, long const*, void*)+0xf0>
+    60c5:	48 8b 7c 24 38       	mov    0x38(%rsp),%rdi
+    60ca:	48 81 c4 a8 00 00 00 	add    $0xa8,%rsp
+    60d1:	5b                   	pop    %rbx
+    60d2:	5d                   	pop    %rbp
+    60d3:	41 5c                	pop    %r12
+    60d5:	41 5d                	pop    %r13
+    60d7:	41 5e                	pop    %r14
+    60d9:	41 5f                	pop    %r15
+    60db:	e9 a0 e3 ff ff       	jmp    4480 <PyMem_RawFree@plt>
+    60e0:	31 c0                	xor    %eax,%eax
+    60e2:	48 85 d2             	test   %rdx,%rdx
+    60e5:	0f 8e 27 fd ff ff    	jle    5e12 <void det<double, double>(char**, long const*, long const*, void*)+0x162>
+    60eb:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    60f2:	00 00 00 00 
+    60f6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    60fd:	00 00 00 
+    6100:	48 8b 55 00          	mov    0x0(%rbp),%rdx
+    6104:	49 89 14 c7          	mov    %rdx,(%r15,%rax,8)
+    6108:	48 83 c0 01          	add    $0x1,%rax
+    610c:	48 3b 84 24 88 00 00 	cmp    0x88(%rsp),%rax
+    6113:	00 
+    6114:	7c ea                	jl     6100 <void det<double, double>(char**, long const*, long const*, void*)+0x450>
+    6116:	e9 f7 fc ff ff       	jmp    5e12 <void det<double, double>(char**, long const*, long const*, void*)+0x162>
+    611b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+    6120:	48 c7 04 24 00 00 00 	movq   $0x0,(%rsp)
+    6127:	00 
+    6128:	f2 0f 10 0d 58 9c 02 	movsd  0x29c58(%rip),%xmm1        # 2fd88 <numeric_limits<double>::ninf>
+    612f:	00 
+    6130:	e9 3a ff ff ff       	jmp    606f <void det<double, double>(char**, long const*, long const*, void*)+0x3bf>
+    6135:	bf 10 00 00 00       	mov    $0x10,%edi
+    613a:	bd 08 00 00 00       	mov    $0x8,%ebp
+    613f:	e8 bc e1 ff ff       	call   4300 <PyMem_RawMalloc@plt>
+    6144:	48 89 c7             	mov    %rax,%rdi
+    6147:	48 85 c0             	test   %rax,%rax
+    614a:	0f 85 c0 fb ff ff    	jne    5d10 <void det<double, double>(char**, long const*, long const*, void*)+0x60>
+    6150:	e8 fb e3 ff ff       	call   4550 <PyGILState_Ensure@plt>
+    6155:	89 c3                	mov    %eax,%ebx
+    6157:	e8 54 e0 ff ff       	call   41b0 <PyErr_NoMemory@plt>
+    615c:	48 81 c4 a8 00 00 00 	add    $0xa8,%rsp
+    6163:	89 df                	mov    %ebx,%edi
+    6165:	5b                   	pop    %rbx
+    6166:	5d                   	pop    %rbp
+    6167:	41 5c                	pop    %r12
+    6169:	41 5d                	pop    %r13
+    616b:	41 5e                	pop    %r14
+    616d:	41 5f                	pop    %r15
+    616f:	e9 ec df ff ff       	jmp    4160 <PyGILState_Release@plt>
+    6174:	f2 0f 10 1d bc 3f 02 	movsd  0x23fbc(%rip),%xmm3        # 2a138 <numeric_limits<float>::one+0x8>
+    617b:	00 
+    617c:	66 0f ef c9          	pxor   %xmm1,%xmm1
+    6180:	f2 0f 11 1c 24       	movsd  %xmm3,(%rsp)
+    6185:	e9 e5 fe ff ff       	jmp    606f <void det<double, double>(char**, long const*, long const*, void*)+0x3bf>
+    618a:	31 c0                	xor    %eax,%eax
+    618c:	31 d2                	xor    %edx,%edx
+    618e:	e9 fd fd ff ff       	jmp    5f90 <void det<double, double>(char**, long const*, long const*, void*)+0x2e0>
+    6193:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    619a:	00 00 00 00 
+    619e:	66 90                	xchg   %ax,%ax

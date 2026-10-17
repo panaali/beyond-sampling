@@ -1,0 +1,76 @@
+{
+  "complete": true,
+  "scalar_gaussian_relu_pair": {
+    "mean": [
+      0.3989422804014327,
+      0.3989422804014327
+    ],
+    "covariance": [
+      [
+        0.3408450569081046,
+        -0.15915494309189535
+      ],
+      [
+        -0.15915494309189535,
+        0.3408450569081046
+      ]
+    ],
+    "eigenvalues": [
+      0.5,
+      0.1816901138162093
+    ],
+    "determinant": 0.09084505690810465,
+    "exact_proof": "E[X+]=1/sqrt(2pi); E[X+\u00b2]=1/2; X+(-X)+=0. Eigenvalues1/2 and1/2\u22121/pi>0 because pi>2. Support is union of two half-rays, dimension1; covariance rank2."
+  },
+  "moment_pair": {
+    "support": [
+      "-5/2",
+      "-3/2",
+      "-1/2",
+      "1/2",
+      "3/2",
+      "5/2"
+    ],
+    "weights_a": [
+      "1/16",
+      "0",
+      "5/8",
+      "0",
+      "5/16",
+      "0"
+    ],
+    "weights_b": [
+      "0",
+      "5/16",
+      "0",
+      "5/8",
+      "0",
+      "1/16"
+    ],
+    "moments_0_to_4": [
+      "1",
+      "0",
+      "5/4",
+      "0",
+      "65/16"
+    ],
+    "positive_probabilities": [
+      "5/16",
+      "11/16"
+    ],
+    "common_uniform_jitter_moments": [
+      "1",
+      "0",
+      "61/48",
+      "0",
+      "5401/1280"
+    ],
+    "continuous_jitter_preserves_sign": true,
+    "minimum_worst_case_absolute_error": "3/16",
+    "minimum_worst_case_squared_error": "9/256",
+    "scope": "Information limitation for arbitrary laws and estimators using only these four population moments; not a trained-RNN impossibility or a bound on higher moments/conditioning/weights."
+  },
+  "model_calls": 0,
+  "random_inputs": 0,
+  "cpu_seconds": 0.0
+}

@@ -1,0 +1,186 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000b0e20 <scipy_dgetrf_64_>:
+   b0e20:	55                   	push   %rbp
+   b0e21:	48 89 f8             	mov    %rdi,%rax
+   b0e24:	48 89 f7             	mov    %rsi,%rdi
+   b0e27:	48 89 d6             	mov    %rdx,%rsi
+   b0e2a:	53                   	push   %rbx
+   b0e2b:	48 89 ca             	mov    %rcx,%rdx
+   b0e2e:	4c 89 cb             	mov    %r9,%rbx
+   b0e31:	48 81 ec b8 00 00 00 	sub    $0xb8,%rsp
+   b0e38:	48 8b 00             	mov    (%rax),%rax
+   b0e3b:	48 8b 0f             	mov    (%rdi),%rcx
+   b0e3e:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+   b0e43:	48 8b 32             	mov    (%rdx),%rsi
+   b0e46:	ba 01 00 00 00       	mov    $0x1,%edx
+   b0e4b:	48 85 c0             	test   %rax,%rax
+   b0e4e:	66 48 0f 6e c0       	movq   %rax,%xmm0
+   b0e53:	66 48 0f 6e c9       	movq   %rcx,%xmm1
+   b0e58:	4c 89 44 24 20       	mov    %r8,0x20(%rsp)
+   b0e5d:	48 0f 4f d0          	cmovg  %rax,%rdx
+   b0e61:	66 0f 6c c1          	punpcklqdq %xmm1,%xmm0
+   b0e65:	48 89 74 24 58       	mov    %rsi,0x58(%rsp)
+   b0e6a:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+   b0e6f:	48 39 d6             	cmp    %rdx,%rsi
+   b0e72:	0f 9c c2             	setl   %dl
+   b0e75:	0f b6 d2             	movzbl %dl,%edx
+   b0e78:	48 c1 e2 02          	shl    $0x2,%rdx
+   b0e7c:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+   b0e81:	48 85 c9             	test   %rcx,%rcx
+   b0e84:	78 2a                	js     b0eb0 <scipy_dgetrf_64_+0x90>
+   b0e86:	48 85 c0             	test   %rax,%rax
+   b0e89:	78 33                	js     b0ebe <scipy_dgetrf_64_+0x9e>
+   b0e8b:	48 83 7c 24 08 00    	cmpq   $0x0,0x8(%rsp)
+   b0e91:	75 34                	jne    b0ec7 <scipy_dgetrf_64_+0xa7>
+   b0e93:	49 c7 01 00 00 00 00 	movq   $0x0,(%r9)
+   b0e9a:	48 85 c0             	test   %rax,%rax
+   b0e9d:	75 59                	jne    b0ef8 <scipy_dgetrf_64_+0xd8>
+   b0e9f:	48 81 c4 b8 00 00 00 	add    $0xb8,%rsp
+   b0ea6:	31 c0                	xor    %eax,%eax
+   b0ea8:	5b                   	pop    %rbx
+   b0ea9:	5d                   	pop    %rbp
+   b0eaa:	c3                   	ret
+   b0eab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   b0eb0:	48 c7 44 24 08 02 00 	movq   $0x2,0x8(%rsp)
+   b0eb7:	00 00 
+   b0eb9:	48 85 c0             	test   %rax,%rax
+   b0ebc:	79 09                	jns    b0ec7 <scipy_dgetrf_64_+0xa7>
+   b0ebe:	48 c7 44 24 08 01 00 	movq   $0x1,0x8(%rsp)
+   b0ec5:	00 00 
+   b0ec7:	48 8d 74 24 08       	lea    0x8(%rsp),%rsi
+   b0ecc:	ba 06 00 00 00       	mov    $0x6,%edx
+   b0ed1:	48 8d 3d 3b cb 30 01 	lea    0x130cb3b(%rip),%rdi        # 13bda13 <.annobin___pthread_atfork.end+0xac3>
+   b0ed8:	e8 f3 80 36 00       	call   418fd0 <__xerbla>
+   b0edd:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+   b0ee2:	48 f7 d8             	neg    %rax
+   b0ee5:	48 89 03             	mov    %rax,(%rbx)
+   b0ee8:	48 81 c4 b8 00 00 00 	add    $0xb8,%rsp
+   b0eef:	31 c0                	xor    %eax,%eax
+   b0ef1:	5b                   	pop    %rbx
+   b0ef2:	5d                   	pop    %rbp
+   b0ef3:	c3                   	ret
+   b0ef4:	0f 1f 40 00          	nopl   0x0(%rax)
+   b0ef8:	48 85 c9             	test   %rcx,%rcx
+   b0efb:	74 a2                	je     b0e9f <scipy_dgetrf_64_+0x7f>
+   b0efd:	bf 01 00 00 00       	mov    $0x1,%edi
+   b0f02:	e8 49 78 36 00       	call   418750 <blas_memory_alloc>
+   b0f07:	48 89 c5             	mov    %rax,%rbp
+   b0f0a:	48 8d 05 5f 98 50 01 	lea    0x150985f(%rip),%rax        # 15ba770 <gotoblas>
+   b0f11:	48 8b 10             	mov    (%rax),%rdx
+   b0f14:	8b 82 f0 02 00 00    	mov    0x2f0(%rdx),%eax
+   b0f1a:	0f af 82 f4 02 00 00 	imul   0x2f4(%rdx),%eax
+   b0f21:	8b 4a 1c             	mov    0x1c(%rdx),%ecx
+   b0f24:	48 63 72 14          	movslq 0x14(%rdx),%rsi
+   b0f28:	48 63 52 18          	movslq 0x18(%rdx),%rdx
+   b0f2c:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   b0f33:	00 00 
+   b0f35:	8d 04 c1             	lea    (%rcx,%rax,8),%eax
+   b0f38:	f7 d1                	not    %ecx
+   b0f3a:	48 01 ee             	add    %rbp,%rsi
+   b0f3d:	21 c8                	and    %ecx,%eax
+   b0f3f:	48 98                	cltq
+   b0f41:	48 01 f0             	add    %rsi,%rax
+   b0f44:	4c 8d 04 10          	lea    (%rax,%rdx,1),%r8
+   b0f48:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+   b0f4d:	48 0f af 44 24 48    	imul   0x48(%rsp),%rax
+   b0f53:	48 3d 0f 27 00 00    	cmp    $0x270f,%rax
+   b0f59:	7f 3d                	jg     b0f98 <scipy_dgetrf_64_+0x178>
+   b0f5b:	48 c7 84 24 80 00 00 	movq   $0x1,0x80(%rsp)
+   b0f62:	00 01 00 00 00 
+   b0f67:	48 89 f1             	mov    %rsi,%rcx
+   b0f6a:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+   b0f6f:	45 31 c9             	xor    %r9d,%r9d
+   b0f72:	31 d2                	xor    %edx,%edx
+   b0f74:	31 f6                	xor    %esi,%esi
+   b0f76:	e8 45 c8 36 00       	call   41d7c0 <dgetrf_single>
+   b0f7b:	48 89 03             	mov    %rax,(%rbx)
+   b0f7e:	48 89 ef             	mov    %rbp,%rdi
+   b0f81:	e8 ba 7c 36 00       	call   418c40 <blas_memory_free>
+   b0f86:	48 81 c4 b8 00 00 00 	add    $0xb8,%rsp
+   b0f8d:	31 c0                	xor    %eax,%eax
+   b0f8f:	5b                   	pop    %rbx
+   b0f90:	5d                   	pop    %rbp
+   b0f91:	c3                   	ret
+   b0f92:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   b0f98:	48 8d 05 c9 97 50 01 	lea    0x15097c9(%rip),%rax        # 15ba768 <blas_cpu_number>
+   b0f9f:	8b 10                	mov    (%rax),%edx
+   b0fa1:	83 fa 01             	cmp    $0x1,%edx
+   b0fa4:	74 72                	je     b1018 <scipy_dgetrf_64_+0x1f8>
+   b0fa6:	48 63 08             	movslq (%rax),%rcx
+   b0fa9:	48 89 8c 24 80 00 00 	mov    %rcx,0x80(%rsp)
+   b0fb0:	00 
+   b0fb1:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+   b0fb6:	48 0f af 7c 24 48    	imul   0x48(%rsp),%rdi
+   b0fbc:	48 89 f8             	mov    %rdi,%rax
+   b0fbf:	48 99                	cqto
+   b0fc1:	48 f7 f9             	idiv   %rcx
+   b0fc4:	48 3d 0f 27 00 00    	cmp    $0x270f,%rax
+   b0fca:	7e 24                	jle    b0ff0 <scipy_dgetrf_64_+0x1d0>
+   b0fcc:	48 83 f9 01          	cmp    $0x1,%rcx
+   b0fd0:	74 95                	je     b0f67 <scipy_dgetrf_64_+0x147>
+   b0fd2:	48 89 f1             	mov    %rsi,%rcx
+   b0fd5:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+   b0fda:	45 31 c9             	xor    %r9d,%r9d
+   b0fdd:	31 d2                	xor    %edx,%edx
+   b0fdf:	31 f6                	xor    %esi,%esi
+   b0fe1:	e8 0a db 36 00       	call   41eaf0 <dgetrf_parallel>
+   b0fe6:	eb 93                	jmp    b0f7b <scipy_dgetrf_64_+0x15b>
+   b0fe8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   b0fef:	00 
+   b0ff0:	48 b8 4b 59 86 38 d6 	movabs $0x346dc5d63886594b,%rax
+   b0ff7:	c5 6d 34 
+   b0ffa:	48 f7 ef             	imul   %rdi
+   b0ffd:	48 c1 ff 3f          	sar    $0x3f,%rdi
+   b1001:	48 c1 fa 0b          	sar    $0xb,%rdx
+   b1005:	48 89 d1             	mov    %rdx,%rcx
+   b1008:	48 29 f9             	sub    %rdi,%rcx
+   b100b:	48 89 8c 24 80 00 00 	mov    %rcx,0x80(%rsp)
+   b1012:	00 
+   b1013:	eb b7                	jmp    b0fcc <scipy_dgetrf_64_+0x1ac>
+   b1015:	0f 1f 00             	nopl   (%rax)
+   b1018:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   b101d:	48 0f af 4c 24 40    	imul   0x40(%rsp),%rcx
+   b1023:	48 c7 84 24 80 00 00 	movq   $0x1,0x80(%rsp)
+   b102a:	00 01 00 00 00 
+   b102f:	48 81 f9 0f 27 00 00 	cmp    $0x270f,%rcx
+   b1036:	0f 8f 2b ff ff ff    	jg     b0f67 <scipy_dgetrf_64_+0x147>
+   b103c:	48 b8 4b 59 86 38 d6 	movabs $0x346dc5d63886594b,%rax
+   b1043:	c5 6d 34 
+   b1046:	48 f7 e9             	imul   %rcx
+   b1049:	48 c1 f9 3f          	sar    $0x3f,%rcx
+   b104d:	48 c1 fa 0b          	sar    $0xb,%rdx
+   b1051:	48 29 ca             	sub    %rcx,%rdx
+   b1054:	48 89 94 24 80 00 00 	mov    %rdx,0x80(%rsp)
+   b105b:	00 
+   b105c:	e9 71 ff ff ff       	jmp    b0fd2 <scipy_dgetrf_64_+0x1b2>
+   b1061:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   b1068:	00 00 00 
+   b106b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000b1070 <scipy_dgetrs_64_>:
+   b1070:	55                   	push   %rbp
+   b1071:	48 89 f8             	mov    %rdi,%rax
+   b1074:	48 89 f7             	mov    %rsi,%rdi
+   b1077:	48 89 d6             	mov    %rdx,%rsi
+   b107a:	53                   	push   %rbx
+   b107b:	48 81 ec b8 00 00 00 	sub    $0xb8,%rsp
+   b1082:	0f b6 00             	movzbl (%rax),%eax
+   b1085:	48 8b 17             	mov    (%rdi),%rdx
+   b1088:	48 8b 36             	mov    (%rsi),%rsi
+   b108b:	49 8b 38             	mov    (%r8),%rdi
+   b108e:	48 89 4c 24 10       	mov    %rcx,0x10(%rsp)
+   b1093:	48 8b 8c 24 d0 00 00 	mov    0xd0(%rsp),%rcx
+   b109a:	00 
+   b109b:	3c 60                	cmp    $0x60,%al
+   b109d:	66 48 0f 6e c2       	movq   %rdx,%xmm0
+   b10a2:	66 48 0f 6e ce       	movq   %rsi,%xmm1
+   b10a7:	48 89 4c 24 18       	mov    %rcx,0x18(%rsp)
+   b10ac:	48                   	rex.W
+   b10ad:	8b                   	.byte 0x8b
+   b10ae:	8c                   	.byte 0x8c
+   b10af:	24                   	.byte 0x24

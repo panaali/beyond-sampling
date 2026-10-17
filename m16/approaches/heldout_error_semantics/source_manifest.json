@@ -1,0 +1,33 @@
+{
+  "source": "m16/approaches/error_cone_semantics/check.py",
+  "source_sha256": "140cbe38b8209e5117413dace9f924143903b790bae21c2bb53d14ea463385e0",
+  "configured_sha256": "dbed1d8ebd707c73f6817cba1aef7c5790ac3e293c023b0256b5e0cd52bdb23d",
+  "replacements": [
+    [
+      "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review",
+      "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact"
+    ],
+    [
+      "2nd_argmax_8_4_1073741824_0.pth",
+      "2nd_argmax_8_4_1073741824_1.pth"
+    ],
+    [
+      "7cdd206f29c35dd5b46319b94d5ed5f5609e99873e9f0a6c73efe68fe9f48057",
+      "9d44297aded8825a6ada3daf60e1ed4905bca3d876cb144949aa49925c202b27"
+    ],
+    [
+      "15f9e5e483c69325c10fcbe4eaaa80f91503b177070ccec1ff2569a11c9436b6",
+      "215ce37b68c283e29224a2c720ae30c24aaf741b1269bf6bc5d0f2044b6ec9db"
+    ],
+    [
+      "b771f40fcae826e010b2e89fb698e2ec35026119bc9f66d3ff046dba537b07da",
+      "34fbb32d51cfae0d77b6cba73747506a93a72077657c4f02e243074178b75761"
+    ],
+    [
+      "(35098,4,4)",
+      "(30726,4,4)"
+    ]
+  ],
+  "only_declared_configuration_changes": true,
+  "diff": "--- m16/approaches/error_cone_semantics/check.py\n+++ m16/approaches/heldout_error_semantics/check.py\n@@ -10,13 +10,13 @@\n import numpy as np\n \n HERE=Path(__file__).resolve().parent\n-BASE=Path('/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review')\n+BASE=Path('/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact')\n META=BASE/'error_capture.json'\n DATA=BASE/'error_captured.npz'\n-WEIGHTS=Path('/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth')\n-EXPECTED={META:'7cdd206f29c35dd5b46319b94d5ed5f5609e99873e9f0a6c73efe68fe9f48057',\n-          DATA:'15f9e5e483c69325c10fcbe4eaaa80f91503b177070ccec1ff2569a11c9436b6',\n-          WEIGHTS:'b771f40fcae826e010b2e89fb698e2ec35026119bc9f66d3ff046dba537b07da'}\n+WEIGHTS=Path('/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_1.pth')\n+EXPECTED={META:'9d44297aded8825a6ada3daf60e1ed4905bca3d876cb144949aa49925c202b27',\n+          DATA:'215ce37b68c283e29224a2c720ae30c24aaf741b1269bf6bc5d0f2044b6ec9db',\n+          WEIGHTS:'34fbb32d51cfae0d77b6cba73747506a93a72077657c4f02e243074178b75761'}\n \n def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()\n \n@@ -36,7 +36,7 @@\n     wi=state['rnn.weight_ih_l0'].numpy().astype(float)[:,0]\n     wh=state['rnn.weight_hh_l0'].numpy().astype(float)\n     wo=state['linear.weight'].numpy().astype(float)\n-    assert data['rays'].shape==(35098,4,4) and wi.shape==(8,) and wo.shape==(4,8)\n+    assert data['rays'].shape==(30726,4,4) and wi.shape==(8,) and wo.shape==(4,8)\n     return meta,data,(wi,wh,wo)\n \n def forward(x,model):\n"
+}

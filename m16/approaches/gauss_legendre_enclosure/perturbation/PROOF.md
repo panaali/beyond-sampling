@@ -1,0 +1,13 @@
+# T11591 source-constant perturbation only
+
+Use the original four-dimensional Duffy cube map u=(z1,(1-z1)z2,(1-z1)(1-z2)z3,(1-z1)(1-z2)(1-z3)z4,remaining), in any fixed ray order. Its Jacobian is J=(1-z1)^3(1-z2)^2(1-z3). Each coordinate derivative of the barycentric vector has L1 norm at most2 (a remaining stick is transferred between one coordinate and the rest). For exact stored row rays with max squared norm M2, v=uR has norm<=sqrt(M2), and each coordinate derivative of v has norm<=2sqrt(M2). Hence |dq/dzj|<=4M2 for q=||v||².
+
+With an exact global q>=a>0 on the simplex, f=J q^-5/2 is continuously differentiable on the cube. J<=1 and sum_j|dJ/dzj|<=3+2+1=6. Therefore sum_j|df/dzj|<=L=6a^-5/2+40M2 a^-7/2. The multivariate mean-value bound gives |f(source_nodes)-f(ideal_nodes)|<=epsilon L when every mapped[0,1] node differs by at most epsilon.
+
+Let ideal one-dimensional Gaussian weights be nonnegative and sum exactly1. Let selected source weights be nonnegative with exact sum s, and delta bound their L1 discrepancy (NOT half-L1 total variation). Tensor telescoping gives an L1 product-weight discrepancy at most delta*(s³+s²+s+1). The source-weighted node term is s^4 epsilon L; the weight term is at most delta*(s³+s²+s+1)*a^-5/2. These bound the difference between two ideal real-arithmetic cube sums using the respective constants. They do not bound actual floating Duffy coordinate/Jacobian construction, q/kernel summation, determinant calculation or prior geometry.
+
+Existing T11588 exact ideal intervals bound epsilon/delta against binary source constants after the original[0,1] affine mapping. Source sums/discrepancies are computed as exact rationals. Existing reviewed exact radial certificates supply a and determinant; maximum raynorm is reconstructed exactly from stored rays and checked against the saved Gram diagonal. No cone mass or tensor rule is evaluated.
+
+For fixed160-bit dyadic square-root lower enclosure, k=isqrt(floor(a*2^320)) satisfies k²<=a*2^320<(k+1)². If k=0, preserve unknown fixed precision. Otherwise 1/(a²*(k/2^160)) and its quotient by a are exact rational upper bounds for a^-5/2 and a^-7/2. Multiply by |detR|/24, a deliberately conservative upper for3|detR|/(8pi²) since pi>3. No rounded pi is treated as directed.
+
+Freeze all11 original5D fixtures and orders6,10,16 before outputs. Any loose bound is a limitation of this global sensitivity estimate, not proof of a source numerical error or of method-family failure. Two likely alternatives are severe q-min conditioning and conservative derivative maxima; direct tensor interval evaluation/local bounds remain separate untested rescues. Model-free constant setup and model/ray-dependent certificate work remain separate and explicitly counted.

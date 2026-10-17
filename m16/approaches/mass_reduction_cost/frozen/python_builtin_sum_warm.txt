@@ -1,0 +1,70 @@
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .bolt.org.text:
+
+Disassembly of section .fini:
+
+Disassembly of section .text:
+
+Disassembly of section .text.warm:
+
+0000000001ac5340 <builtin_sum.warm>:
+ 1ac5340:	48 ff c9             	dec    %rcx
+ 1ac5343:	49 89 0c 24          	mov    %rcx,(%r12)
+ 1ac5347:	0f 85 f6 83 e2 ff    	jne    18ed743 <builtin_sum+0x243>
+ 1ac534d:	49 8b 4c 24 08       	mov    0x8(%r12),%rcx
+ 1ac5352:	4c 89 e7             	mov    %r12,%rdi
+ 1ac5355:	49 89 c4             	mov    %rax,%r12
+ 1ac5358:	ff 51 30             	call   *0x30(%rcx)
+ 1ac535b:	4c 89 e0             	mov    %r12,%rax
+ 1ac535e:	e9 e0 83 e2 ff       	jmp    18ed743 <builtin_sum+0x243>
+ 1ac5363:	48 89 d8             	mov    %rbx,%rax
+ 1ac5366:	48 c1 e8 3c          	shr    $0x3c,%rax
+ 1ac536a:	48 89 45 98          	mov    %rax,-0x68(%rbp)
+ 1ac536e:	48 83 f8 01          	cmp    $0x1,%rax
+ 1ac5372:	48 89 d8             	mov    %rbx,%rax
+ 1ac5375:	bb 03 00 00 00       	mov    $0x3,%ebx
+ 1ac537a:	48 83 db 00          	sbb    $0x0,%rbx
+ 1ac537e:	48 89 45 90          	mov    %rax,-0x70(%rbp)
+ 1ac5382:	48 3d 00 00 00 40    	cmp    $0x40000000,%rax
+ 1ac5388:	b8 01 00 00 00       	mov    $0x1,%eax
+ 1ac538d:	48 0f 42 d8          	cmovb  %rax,%rbx
+ 1ac5391:	89 d8                	mov    %ebx,%eax
+ 1ac5393:	48 8d 34 85 18 00 00 	lea    0x18(,%rax,4),%rsi
+ 1ac539a:	00 
+ 1ac539b:	48 8b 3d fe 29 a8 ff 	mov    -0x57d602(%rip),%rdi        # 1547da0 <_PyRuntime+0xb0>
+ 1ac53a2:	ff 15 00 2a a8 ff    	call   *-0x57d600(%rip)        # 1547da8 <_PyRuntime+0xb8>
+ 1ac53a8:	48 85 c0             	test   %rax,%rax
+ 1ac53ab:	0f 84 bf a5 0c 00    	je     1b8f970 <builtin_sum.cold+0x3b0>
+ 1ac53b1:	49 89 c4             	mov    %rax,%r12
+ 1ac53b4:	48 c1 e3 03          	shl    $0x3,%rbx
+ 1ac53b8:	48 89 58 10          	mov    %rbx,0x10(%rax)
+ 1ac53bc:	48 c7 40 08 20 49 44 	movq   $0x1444920,0x8(%rax)
+ 1ac53c3:	01 
+ 1ac53c4:	f6 05 fe f5 97 ff 02 	testb  $0x2,-0x680a02(%rip)        # 14449c9 <PyLong_Type+0xa9>
+ 1ac53cb:	0f 85 e3 a5 0c 00    	jne    1b8f9b4 <builtin_sum.cold+0x3f4>
+ 1ac53d1:	83 3d ec 33 a8 ff 00 	cmpl   $0x0,-0x57cc14(%rip)        # 15487c4 <_PyRuntime+0xad4>
+ 1ac53d8:	0f 85 15 a6 0c 00    	jne    1b8f9f3 <builtin_sum.cold+0x433>
+ 1ac53de:	48 8b 4d 90          	mov    -0x70(%rbp),%rcx
+ 1ac53e2:	48 89 c8             	mov    %rcx,%rax
+ 1ac53e5:	48 c1 e8 1e          	shr    $0x1e,%rax
+ 1ac53e9:	49 c7 04 24 01 00 00 	movq   $0x1,(%r12)
+ 1ac53f0:	00 
+ 1ac53f1:	48 0b 5d b0          	or     -0x50(%rbp),%rbx
+ 1ac53f5:	49 89 5c 24 10       	mov    %rbx,0x10(%r12)
+ 1ac53fa:	48 89 cb             	mov    %rcx,%rbx
+ 1ac53fd:	81 e1 ff ff ff 3f    	and    $0x3fffffff,%ecx
+ 1ac5403:	41 89 4c 24 18       	mov    %ecx,0x18(%r12)
+ 1ac5408:	48 85 c0             	test   %rax,%rax
+ 1ac540b:	0f 84 1b 83 e2 ff    	je     18ed72c <builtin_sum+0x22c>
+ 1ac5411:	e9 ac a3 0c 00       	jmp    1b8f7c2 <builtin_sum.cold+0x202>
+
+Disassembly of section .text.cold:

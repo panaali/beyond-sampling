@@ -1,0 +1,48 @@
+# T156 bounded partial handoff
+
+Q5 source envelope and frozen64 bitwise native controls are complete through907fe8dc; independently checked source proof, raw review pending. Saved actual-call contractions give5949769 exact /4879642 recipe named numeric upper units. No full rank cost claim.
+
+Reflector-exclusive generic source envelope is113 named units for N>1, zero for N<=1; child kernels remain unpriced. Frozen160 controls all pass against native top-level with native children, hence wrapper parity only. See REFLECTOR_DERIVATION.md and reflector_controls.json; controls .029972977 CPU. Q5 controls1.067302626 CPU. No geometry, mass or model-input reruns.
+
+Candidate finite tightening to10 exclusive units is NOT adopted. DNRM2 counts equal active reflector counts886771 exact /820870 recipe. This implies no rescale or other callers only after complete observed symbol/phase coverage is proved. Installed binding and missing-call risks remain. Global norms must not be subtracted from AST norm costs merely by shared names. Cold setup includes94 reflector calls N>24, max95, so the global census is not rank-exclusive. Source/binary parity outside fixtures remains conditional.
+
+Initial protocol raw-file glob run_*.json matched none; summary and spy.c were pinned. census_inventory_correction.json now pins actual exact_*.json/recipe108_*.json and observer/run/manifest. No data changed.
+
+Remaining: independent raw controls review; DLARFG child and parent-exclusive kernel pricing/composition; native symbol coverage if tighter finite inference is desired. Preserve index/control/memory and elementary internals exclusions. Released Ready to prioritize T179 mass-reference audit. The method remains incomplete, not negative.
+
+Independent reflector source/160-control audit b313819e passed generic113 and conditional norescale10. Tighter finite inference remains unadopted pending observed symbol/phase completeness.
+
+Independent Q5 source,64-control and saved-census audit a558c8a9 passed. Reflector source/160-control review b313819e passed. Both retain source-to-installed qualifications; neither is a complete native-cost proof.
+
+
+## Resumed native helper phase (claim8c9d87a4)
+
+Binding12 controls/32 saved phase checks support conditional finite no-rescale
+composition only under complete historical observer/binding provenance; generic
+113 parent bound remains. Current binding trace is not a historical trace.
+Norm source and192 controls/census independently reviewed d90477c1.
+Helper404 controls and raw composition independently reviewed0cfdfa39.
+Conditional reflector/norm/helper named subset upper31,689,663 exact and
+29,160,578 recipe includes one cold setup. Generic source-rescale counterpart
+230,514,579 /212,199,418 remains. These exclude other SVD kernels, integer/
+character control, memory/runtime and are not full computation bounds.
+
+Current continuation6ac20edd owns shift_review Q4/Q3 parent source pricing,
+first Q4 ledger/source translation and1152 frozen controls bcd59570 awaiting
+independent pre-run gate. No geometry/model/rank/mass traces are repeated.
+
+Q3 parent880 saved controls and all census contractions independently reviewed f4b76ba3. Outer Q1/Q2 helper/source gate passes under explicit N<=4 premise; candidate cold callgraph closure is in outer_review/COLD_CALLGRAPH.md, pending independent review. No outer global contraction yet.
+
+Outer Q1/Q2 bounded phase now passes630 source/native helper controls (216 DLAS2,48 positive-finite DLASCL,364 small sorts,2 REAL32 IEEECK), .036012CPU. All bitwise parity and named bounds pass, including scaling extremes. The static cold eigensolver exclusion received independent source review: leggauss uses DSYEVD JOBZ=N→DSTERF, while remaining rank matrices have four columns. The original lastN gap remains preserved; this is a separate pinned ABI/callgraph argument, with historical binding premises explicit. Outer saved-census upper25,958,983 exact /23,059,486 recipe includes cold once and excludes Q3/Q4/Q5. Raw control/contraction independently passed fd0dabc7. Reproduce with outer_review/helper_controls.py and outer_review/contract.py only in a fresh result-free checkout; commands refuse overwrite.
+
+The disjoint priced subset is now91,338,381 exact /79,899,424 recipe using conditional no-rescale reflector pricing; generic reflector alternative290,163,297 /262,938,264. These remain incomplete named numeric source/native subsets: matrix reductions and their BLAS, remaining wrappers/helpers, integer/control/memory/runtime are not fully priced. They are not complete cost bounds or sampling/MSE conversion factors.
+
+Reduction application phase: installed DGEQR2/DGELQ2/DGEBD2 call unprefixed dlarf1f_; symbol correction and pre-run right-scan bound correction preserved. Independently source-gated1152 wrapper controls all pass bitwise matrix/work/V and padding checks, .107968CPU. Controls share original BLAS children, so validate parent semantics only. Side-specific scan/negation upper contracts855,533/795,427 application calls to10,520,049 exact /9,590,329 recipe named source units, cold once. No DLARFG/BLAS child double-counting; raw independent review passed365823b1. Reproduce reduction_review/controls.py and contract.py in a fresh result-free checkout,20CPU/2GB/one thread. Partial priced subset becomes101,858,430 exact /89,489,753 recipe (generic reflector300,683,346/272,528,593). BLAS matrix/vector bodies and remaining drivers/control/runtime remain open; no full-cost bound.
+
+Small BLAS continuation:1344 frozen ABI/layout controls all pass (.131983CPU):576 exactFraction-FMA AXPY,432 rounded-product/FMA GER,336 exactdyadic GEMV with beta0 NaN-output overwrite. Input/padding preserved. Source/block/tail gate passed under fixed small dimensions and pinned reached SKYLAKEX kernel premises; controls do not independently count instructions. Child-only saved shape contraction26,684,096 exact /23,948,021 recipe includes cold once, excludes parent scans/DLARFG/global other BLAS. Raw/category independent audit passed91cbea3c. Partial named numeric source/native subset128,542,526 exact /113,437,774 recipe; generic reflector alternative327,367,442/296,476,614. Full rank cost remains open: driver/setup/scaling helpers, integer/control/memory/runtime and historical binding qualifications remain. Reproduce reduction_review/blas_controls.py and blas_contract.py in a fresh result-free checkout with the existing20CPU/2GB/singlethread limits.
+
+Remaining-driver phase: all 439 frozen controls pass (100 DLARTG, 288 maxnorm, 10 workspace roundups, 41 actual-shape ILAENV), .032006 CPU. Every saved reduction shape reports blocksize32 >= min dimension, supporting selected unblocked source paths. Saved successful GESDD query/execution counts give 72,626,763 exact /67,303,059 recipe named source upper, cold once; .011995 CPU contraction. This includes generic input/output scaling and the selected values-only bidiagonal wrapper, excluding all already priced descendants. Independent source and raw control/contraction/composition review passed baadda44. Reproduce driver_review/helper_controls.py and contract.py only in a fresh result-free checkout under20CPU/2GB/singlethread.
+
+Composition now totals201,169,289 exact /180,740,833 recipe conditional named units; generic reflector alternative399,994,205 /363,779,673. compose.py contracts saved records only. These numbers retain historical binding and selected successful source-path assumptions. They do not cover the larger cold Legendre eigensolver, integer/control/memory/casts/runtime, or prove all-input compiled instruction-lane correspondence. See COVERAGE.md; no full-cost or MSE-budget inference.
+
+Final bounded phase independently reviewed baadda44: all439 driver controls,41 blocksize queries,16 raw phase ledgers and disjoint composition pass. All6,429 frozen controls across this audit remain preserved. Worker releases T156 with explicit remaining convention/coverage limits and proceeds to highest eligible unowned T11579 after a fresh TASKS-only claim. Root/Claude should register the scoped result, not full native-cost confirmation.

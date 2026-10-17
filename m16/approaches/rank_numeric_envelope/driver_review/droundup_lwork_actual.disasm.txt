@@ -1,0 +1,22 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000011af980 <droundup_lwork_>:
+ 11af980:	48 8b 07             	mov    (%rdi),%rax
+ 11af983:	66 0f ef c0          	pxor   %xmm0,%xmm0
+ 11af987:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+ 11af98c:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
+ 11af991:	48 39 d0             	cmp    %rdx,%rax
+ 11af994:	7e 08                	jle    11af99e <droundup_lwork_+0x1e>
+ 11af996:	f2 0f 59 05 82 dd 20 	mulsd  0x20dd82(%rip),%xmm0        # 13bd720 <.annobin___pthread_atfork.end+0x7d0>
+ 11af99d:	00 
+ 11af99e:	c3                   	ret
+
+Disassembly of section .fini:
