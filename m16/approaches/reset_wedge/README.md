@@ -41,3 +41,14 @@ Reachable-state restrictions could yield an even larger reset set. Unsupported w
 
 ## Rank factorization checkpoint
 Protocol `RANK_PROTOCOL.md`, implementation `rank.py`, independent controls `check_rank.py`. The last reset leaves the older iid prefix unrestricted; only a two-input wedge rank law remains. The three unnormalized pair-count masses are nonnegative and include the reset probability. On25 frozen slope/threshold cases, independent Y-first rectangle integration agrees within6.67e-16; explicit Bernoulli-bit enumeration agrees with binomial convolution, and1,024 deterministic event checks confirm the last-pair/future-positive identity. Total control CPU.010055 seconds,8,043 scalar callbacks, no random model inputs. See `rank_results.json`; adaptive error estimates and floating arithmetic remain uncertified. This is a rank primitive, not a full estimator.
+
+## Two terminal strata
+`terminal.py` computes last certified pair ending at T and T−1, preserving rank comparisons. `check_terminal.py` independently checks the first with exchangeability plus labeled-pair order statistics and the second by reversing integration order and using a beta tail. Exact-rational one-step readout dot products give label7 on all three H2T8 copies; zero hidden state gives label0 by first-index ties.
+
+| copy | last pair T | last pair T−1 | partial accuracy | unresolved event mass |
+| --- | ---: | ---: | ---: | ---: |
+| base | .06912486824189505 | .06529653195477915 | .1344214001966742 | .271187441976275 |
+| .0025 | .06909699972477873 | .06526891158197362 | .13436591130675235 | .27153857383164737 |
+| .02 | .06890195958938533 | .06507568930312446 | .1339776488925098 | .273995305173665 |
+
+Run the same locked/thread-limited Python command as above with module `m16.approaches.reset_wedge.check_terminal`. Total CPU .053997 seconds excluding imports; each copy uses777 outer scalar callbacks and38,241–38,262 rank-kernel callbacks, plus rational readout setup and beta/CDF operations. Both production and independent-reference work are included in those diagnostic totals. No portable cost or network forward-equivalent claim. Independent formulas differ at most3e-17. All omitted strata remain explicit; the real-arithmetic partial sum is a lower contribution, but ordinary adaptive error estimates/roundoff do not make the saved floating result a formal enclosure. This is not a full network accuracy estimate.
