@@ -41,6 +41,10 @@ Refinement checks (refine.py t7/t4): at T7 quadratich33, target doubling gives.2
 
 Next frozen bounded check: T7 quadratich65, keeping target8/input8, to measure the remaining spatial change. This is the only next trained run; retain its cost and result regardless of whether it approaches heldout accuracy.
 
+Fine check (fine_mesh.py, fine_mesh_results.json): quadratich65 gives.23477246 in12.357CPU, a+.00049725 change fromh33. Spatial changes shrink, but this alone neither bounds the remaining bias nor resolves the existing heldout uncertainty. There were18,523,184 interpolation queries and270,400 analytic scalar-terminal queries; no new samples.
+
+Comparison with the existing three-coordinate T65 transport is descriptive, not a matched-compute MSE claim: its saved h5/b9/input16 result is.22550079 with24.1465CPU terminal construction plus.0401CPU transport (small_h2_78/anisotropic_results.json). T67h65 uses12.357CPU including all construction and gives.23477246. Both use the same checkpoint; the old result is from an earlier run, and the shared heldout reference remains coarse. The new method is promising at lower measured CPU, but its total numerical error and sampling competitiveness remain unresolved.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
