@@ -50,7 +50,7 @@ def calculate(model,subdivisions=2,radial_order=2,order=16,collapse=False,limit=
                 value+=float(weight@truth);partition+=float(weight@total)
                 stats['outer_normal_density_exponentials']+=len(y);stats['outer_quadrature_nodes']+=len(y)
             sign_value+=mass*value;sign_partition+=mass*partition
-            values.append(dict(state=list(key),weight=float(mass),estimate=value,partition_mass=partition))
+            values.append(dict(state=state.tolist(),prefix=prefix,weight=float(mass),estimate=value,partition_mass=partition))
         signs.append(dict(sign=sign,estimate=sign_value,partition_mass=sign_partition,components=values))
         stats['scored_components']+=len(unique)
         if time.process_time()-start>seconds:raise TimeoutError('bounded mixture CPU')
