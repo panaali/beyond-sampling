@@ -24,6 +24,11 @@ def inverse(A,audit):
 
 def bounded_rank(M,audit,tol=1e-9):
  A=np.asarray(M,dtype=float);m,n=A.shape;R=A.copy();Q=[];selected=[]
+ if n>4:raise ValueError('this bounded control allowance is for width at most4')
+ # At most5 outer iterations,4x4 inversion, and12 paired reorthogonalization
+ # visits. Covers explicit scalar branch/loop/index arithmetic not included
+ # in matrix/reduction counters; excludes interpreter and memory addressing.
+ audit.add('qr_control_static',512)
  size=norm(A,audit);cushion=1e-12*max(1.,size);audit.add('qr_bounds',3)
  for step in range(min(m,n)+1):
   norms=np.sum(R*R,axis=1);residual=math.sqrt(float(norms.sum()));audit.add('qr_pivot',2*m*n+m+TRANS+5)

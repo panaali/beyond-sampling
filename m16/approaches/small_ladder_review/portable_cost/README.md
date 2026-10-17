@@ -63,3 +63,20 @@ flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/pytho
 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/check_rank.py --H 4
 /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/rank_curves.py
 ```
+
+### Cycle 4 frozen interface check
+Expose a fixed GL16 `est(model,budget,rng)` adapter with the actual conservative arithmetic forward-equivalent cost returned. Like the earlier exact T3 adapter, this is an indivisible computation: budget is advisory, and the returned cost can exceed it. The RNG is unused. No silent lower-order fallback or sampling is allowed. Falsifiers: an RNG object that raises on every access must remain untouched; zero and duplicate readout models must retain first-index probability1/4 through the bounded-rank production path. Check only these existing analytic controls, without a new noisy ensemble or Monte Carlo reference.
+
+### Cycle 4 audit and public adapter
+Root independently reviewed the exact-arithmetic rank bracket derivation and agreed with it. This independent algebra review does not certify floating roundoff. Root identified small control/power charges that deserved explicit allowances. Final accounting adds512 operations per bounded-rank call for scalar guards/control (width at most4),128 per determinant for its bounded scalar control, and charges50 for the final error-bound expression including a20-cost general power. All earlier numerical check files are preserved; `rank_curves.py` explicitly reprices their unchanged work with these audit revisions. The curves in `rank_curves.json` supersede earlier cost totals, not their numerical checks.
+
+Final GL16 totals are **48,030,604** operations for H2 and **944,241,992** for H4. GL20 totals are **91,462,544** and **1,790,437,836**. Sampling's affine-only arithmetic is52 and172 operations per example: T*(2H^2+3H-1), including hidden affine updates and readout but excluding ReLU comparisons, input generation, target sorting and output argmax. Under that more generous sampling comparator, GL16 squared integration-bound/sampling-variance ratios are5.91e-6 and6.88e-5; GL20 ratios are2.63e-9 and3.05e-8. These remain conditional integration-error comparisons on the two nominal checkpoints.
+
+`estimator.est(model,budget,rng)` returns fixed GL16 and the full **affine-only forward-equivalent** charged cost, even when above the advisory budget. `calculate` also returns component counts, source hash, integration bound and CPU. `check_interface.py` exercises both analytic tie controls through this production path, with zero production or validation SVD calls and an RNG that raises on access. Both return0.2499999999990603, within their analytic bounds of1/4. No training or new noisy-model sweep was performed.
+
+Cost convention: explicit real and integer arithmetic, comparisons, Boolean operations,64-bit bitset operations, popcount, and scalar control allowances cost1. Square root, cosine and general floating power cost20. Vectorized arithmetic is expanded into scalar counts, with conservative multiply-add charges. Python bytecode dispatch, container hashing, object allocation, memory indexing/address calculations, copies, source import and checkpoint I/O are excluded from this arithmetic metric; they are included when encountered in reported CPU. The bound is therefore a declared algorithmic arithmetic metric, not a complete machine-work certificate. Loop/index scalar allowances are limited to the fixed-width numerical kernels; DD control is included by conservative wrapper allowances. This convention and the separate floating-error qualifications must accompany any FPE claim.
+
+Reproduce the final production controls using the same thread/memory setup above and:
+```
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/check_interface.py
+```
