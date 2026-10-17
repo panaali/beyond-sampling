@@ -1,0 +1,95 @@
+{
+  "cases": [
+    {
+      "name": "base",
+      "model_sha256": "e5428cefb47e25208e8debb0fee962da7bdac74ab1b861733336b1bf5d465ed0",
+      "curves": [
+        {
+          "order": 24,
+          "accuracy": 0.27923737131514903,
+          "full_scalar_operation_upper_bound": 4041686470,
+          "affine_only_forward_equivalents": 62179791.84615385,
+          "integration_only_bound": 6.523712392461099e-07,
+          "own_bound_squared_over_sampling_variance": 0.00013148405061912696,
+          "reference_interval_error_upper_bound": 2.9785236541617898e-09,
+          "minimum_sampling_variance_over_reference_interval": 3.2368049889750545e-09,
+          "reference_interval_error_squared_over_sampling_variance": 2.7408519168189136e-09,
+          "end_to_end_cpu": 3.4340808750000003
+        },
+        {
+          "order": 32,
+          "accuracy": 0.27923737131514953,
+          "full_scalar_operation_upper_bound": 9527463344,
+          "affine_only_forward_equivalents": 146576359.13846153,
+          "integration_only_bound": 5.917744393236611e-10,
+          "own_bound_squared_over_sampling_variance": 2.5504131187847374e-10,
+          "reference_interval_error_upper_bound": 2.978524153762151e-09,
+          "minimum_sampling_variance_over_reference_interval": 1.3730990566557856e-09,
+          "reference_interval_error_squared_over_sampling_variance": 6.461009561940519e-09,
+          "end_to_end_cpu": 7.410963564000001
+        }
+      ]
+    },
+    {
+      "name": "rms0.0025",
+      "model_sha256": "710351ad2e5139dca2752dcce736d5fad0e6b3a5d8f59d8761ceea9d1b62358b",
+      "curves": [
+        {
+          "order": 24,
+          "accuracy": 0.31063601432980836,
+          "full_scalar_operation_upper_bound": 7335866676,
+          "affine_only_forward_equivalents": 112859487.32307692,
+          "integration_only_bound": 6.971651406251686e-07,
+          "own_bound_squared_over_sampling_variance": 0.00025615863717392553,
+          "reference_interval_error_upper_bound": 2.3296630800875905e-05,
+          "minimum_sampling_variance_over_reference_interval": 1.897336789390358e-09,
+          "reference_interval_error_squared_over_sampling_variance": 0.286049904111493,
+          "end_to_end_cpu": 6.408273591999999
+        },
+        {
+          "order": 32,
+          "accuracy": 0.3106360143298089,
+          "full_scalar_operation_upper_bound": 17292503326,
+          "affine_only_forward_equivalents": 266038512.7076923,
+          "integration_only_bound": 6.272464172316482e-10,
+          "own_bound_squared_over_sampling_variance": 4.88787953321848e-10,
+          "reference_interval_error_upper_bound": 2.3296630800320793e-05,
+          "minimum_sampling_variance_over_reference_interval": 8.048927020017018e-10,
+          "reference_interval_error_squared_over_sampling_variance": 0.6742923687799917,
+          "end_to_end_cpu": 13.441866661000004
+        }
+      ]
+    },
+    {
+      "name": "rms0.02",
+      "model_sha256": "7106b528f97b82f5ac16d65a42809c696563de4caf49d3dd0b47cc2a6fe4e9e9",
+      "curves": [
+        {
+          "order": 24,
+          "accuracy": 0.32506108241175613,
+          "full_scalar_operation_upper_bound": 7866329848,
+          "affine_only_forward_equivalents": 121020459.2,
+          "integration_only_bound": 7.259570091477899e-07,
+          "own_bound_squared_over_sampling_variance": 0.0002907040980741801,
+          "reference_interval_error_upper_bound": 2.2471149452253655e-05,
+          "minimum_sampling_variance_over_reference_interval": 1.8128216825675115e-09,
+          "reference_interval_error_squared_over_sampling_variance": 0.2785450784052583,
+          "end_to_end_cpu": 6.292780294999998
+        },
+        {
+          "order": 32,
+          "accuracy": 0.3250610824117566,
+          "full_scalar_operation_upper_bound": 18543899362,
+          "affine_only_forward_equivalents": 285290759.4153846,
+          "integration_only_bound": 6.521272186928625e-10,
+          "own_bound_squared_over_sampling_variance": 5.529971738571833e-10,
+          "reference_interval_error_upper_bound": 2.2471149451809566e-05,
+          "minimum_sampling_variance_over_reference_interval": 7.689997142620601e-10,
+          "reference_interval_error_squared_over_sampling_variance": 0.6566355595725013,
+          "end_to_end_cpu": 14.815829379
+        }
+      ]
+    }
+  ],
+  "qualification": "Every interval is integration-only and conditional on its floating geometry; no total-error certificate."
+}
