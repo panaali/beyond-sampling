@@ -22,14 +22,20 @@ source change, T108 certificate work, or DRI estT_fix re-score is authorized
 by this initial recovery phase.
 
 ## Status
-Inventory and independent saved-data contraction in progress.
+Saved-data recovery and analytic zero-normal repair are independently reviewed
+(2827c813). Observer/preflight review passed88490d79. The first missing noisy
+case is running as48 resumable face-side components; no noisy-rung judgment.
 
 ## Results
-Pending. The README's one-model prototype statement is stale relative to the
-saved five clean H8T4 rows; noisy work must be checked from actual artifacts.
+Five clean rows recovered without reruns; historical group ratio.01796 is
+qualified by legacy costs and MC truth. An allzero clipping bug was found and
+locally repaired; three nonzero analytic controls preserve outputs bitwise.
+The fixed first noisy component completes7.13CPU with no observed cap.
+Detailed protocols, raw records and limitations are below.
 
 ## Compute accounting
-Read-only inventory and saved-data arithmetic only in this phase. One thread,
+Inventory, analytic controls and the frozen noisy component runs are logged
+separately below. One thread,
 2 GB, <=20CPU review cycles. Native kernel/cubature/trace costs stay qualified;
 the historical hand counter and its sampler convention are retained exactly.
 
