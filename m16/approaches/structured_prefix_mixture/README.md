@@ -9,10 +9,10 @@ Claim187346b7 freezes every h2 gate sector as one component. Its probability is 
 Two competing explanations: most loss comes from merging distinct prefix activation patterns, in which case preserving them should reduce error; or within-sector non-Gaussian/support structure dominates, in which case this repair can still fail. Six frozen zero/duplicate/opposite/diagonal/mixed controls test weights/recombination before trained use. Component Gaussian support is not the original sector support.
 
 ## Status
-Protocol frozen; implementation and controls next.
+Frozen single-model discriminator complete; independent saved-result audit requested. Original random scalar-width question remains open.
 
 ## Results
-None yet. No old result is rerun.
+See the fixed single-model result below. Prior reference reused unchanged; no old model calculation repeated.
 
 ## Compute accounting
 One thread2GB; review cycles<=20CPU, primary<=110CPU. Existing reference construction costs remain charged in T80, not repeated or presented as candidate work. Conditional moment construction, one Gaussian closure per component per remaining step, recombination and model-dependent setup are candidate costs; report source structure and CPU, not full scalar/hardware cost without an audit.
@@ -25,3 +25,16 @@ Within-sector radial/truncation effects, finer or later conditioning, enriched m
 
 ## Failure modes
 Ordinary floating angles/moments; narrow-sector cancellation; tiny covariance eigenvalues; inherited Gaussian quadrature/clipping; retained labels describe only the first two inputs. Recombination may hide individual component defects, so mass and covariance diagnostics are retained.
+
+## Frozen single-model result
+Source gate passed independent T55 review before trained evaluation. All six controls preserve unit total mass and the original aggregate exact-prefix moments (max discrepancy8.88e−16). The trained H16T4 seed3 has34 sectors; weights sum1, minimum7.0981e−5. Tiny component covariance eigenvalue−1.72e−14 is retained without projection.
+
+| Step | Collapsed exact-prefix mean relative RMS | Sector mixture | Collapsed covariance relative RMS | Sector mixture |
+|---|---:|---:|---:|---:|
+|2|.002602|.002602|.004649|.004649|
+|3|1.065742|.092078|6.878440|.307598|
+|4|2.955124|.706845|20.974102|3.192038|
+
+The additional conditioning substantially improves this fixed model, but final hidden moments still have large errors. Against the original unmodified Gaussian closure, step4 mean error falls5.663295→.706845 and covariance56.822947→3.192038. No output-accuracy implication follows directly. Step4 paired eight-block reductions relative to the collapsed reset are2.24825±.00293 descriptive SE for mean and17.78150±.04168 for covariance; no rigorous interval or selection-adjusted claim.
+
+Reproduce in this folder using `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python run.py controls` then `trained`, under codex-review.lock and20CPU/2GB. Controls used.001400CPU; trained process.806435CPU including imports/model load, candidate continuation.023999CPU. Candidate performs68 inherited Gaussian layer calls plus component setup/recombination; no full-cost assertion. `trained.json` retains every conditional moment at every step, so aggregate improvement does not conceal individual states. Reference generation is the already charged T80 work, with no new model input draws.
