@@ -237,3 +237,19 @@ interpolation queries. It also recomputed24constant-control terminal calls
 (1440clips,192affine products,324moments). The previously charged trained terminal
 caches remain part of any full-estimator cost. [inferred] Hidden-state/value
 interpolation, not just lost rank mass, remains a material obstacle.
+
+## Cycle4 protocol: higher-order interpolation check
+Freeze a bounded comparison of linear versus cubic tensor splines on the same
+5³/7³ terminal caches, both for unconditioned V and rank-conditioned W. Use16
+angular nodes,64rank nodes, and direct sparse solves for cubic coefficients to
+avoid an iterative solver tolerance masquerading as transport error. Record
+all four cubic outcomes alongside their existing linear controls, every queried
+value excursion outside[0,1], and constant-readout/constant-W controls. Do not
+clip overshoots or select a claimed winner from closeness to the base-model MC.
+
+Alternatives: (1) piecewise-linear interpolation has a low-order spatial bias;
+cubic refinement should show a consistent trend if this is the explanation.
+(2) decision-boundary nonsmoothness produces oscillation; overshoots, inconsistent
+5→7 changes or failed controls falsify unrestricted cubic reliability. Existing
+terminal geometry must still be charged; this cycle adds only interpolation,
+small model-free rank rules and constant-control calls. Cap120CPU seconds.
