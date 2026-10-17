@@ -1,0 +1,241 @@
+{
+  "pointwise_label_checks": 768,
+  "status_counts": {
+    "correct": 106,
+    "wrong": 354,
+    "unknown": 308
+  },
+  "scaling_checks": 768,
+  "exact_true_traces": 12,
+  "exact_frozen_traces": 384,
+  "tie_controls": [
+    [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      0,
+      "correct"
+    ],
+    [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      1,
+      "wrong"
+    ],
+    [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      1,
+      "unknown"
+    ],
+    [
+      [
+        0,
+        -1
+      ],
+      [
+        0,
+        1
+      ],
+      0,
+      "unknown"
+    ],
+    [
+      [
+        0,
+        -2
+      ],
+      [
+        0,
+        1
+      ],
+      0,
+      "wrong"
+    ]
+  ],
+  "final_cell_controls": [
+    {
+      "name": "two_gates",
+      "result": {
+        "status": "unknown",
+        "vertex_margins_errors": [
+          [
+            [
+              "153/200",
+              "153/100",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ],
+          [
+            [
+              "31/40",
+              "31/20",
+              "0"
+            ],
+            [
+              "21/20",
+              "21/20",
+              "0"
+            ]
+          ],
+          [
+            [
+              "191/200",
+              "191/100",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "name": "single_adverse_gate",
+      "result": {
+        "status": "correct",
+        "vertex_margins_errors": [
+          [
+            [
+              "153/200",
+              "153/100",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ],
+          [
+            [
+              "31/40",
+              "31/20",
+              "0"
+            ],
+            [
+              "1/2",
+              "1/2",
+              "0"
+            ]
+          ],
+          [
+            [
+              "191/200",
+              "191/100",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "name": "one_initial_family",
+      "result": {
+        "status": "unknown",
+        "vertex_margins_errors": [
+          [
+            [
+              "167/500",
+              "167/250",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ],
+          [
+            [
+              "169/500",
+              "169/250",
+              "0"
+            ],
+            [
+              "11/25",
+              "11/25",
+              "0"
+            ]
+          ],
+          [
+            [
+              "709/2000",
+              "709/1000",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "name": "wrong_competitor_switch",
+      "result": {
+        "status": "unknown",
+        "vertex_margins_errors": [
+          [
+            [
+              "0",
+              "3/4",
+              "-1/4"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ],
+          [
+            [
+              "0",
+              "-1/4",
+              "3/4"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "cpu_seconds": 0.123992193,
+  "scope": "Cumulative allowance rigorous pointwise for all remaining depths; vertex extension only final affine readout and a fixed wrong competitor."
+}

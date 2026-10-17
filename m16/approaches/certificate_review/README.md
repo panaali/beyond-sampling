@@ -11,10 +11,16 @@ First freeze a genuine H3T3 rational recurrent control: Wi=(1,1,1/100), Wh rows=
 Then derive a safe cumulative pointwise margin allowance using the sum of all actual hidden perturbations and propagated absolute weights. Keep per-competitor bounds and first-index tie ownership explicit. A pointwise repair is not a whole-cell certificate. A separate fixed analytic downstream-kink control distinguishes vertex probes from interior coverage; no trained claims before independent review.
 
 ## Status
-Protocol frozen; implementation and independent review pending. T108 was already implemented; this is an independent soundness audit, not a new competing recipe. Claude retains estT_fix/certificate adoption.
+Bounded synthetic implementation complete. T55 independently verifies the original and strengthened one-half-family controls, including a strict interior witness. Cumulative primitive source/raw review pending. T108 was already implemented; this is an independent soundness audit, not a new competing recipe. Claude retains estT_fix/certificate adoption.
 
 ## Results
-No computed result yet. Source snapshots and manifest pin the reviewed implementation.
+Pinned recipe108 source freezes both gates in the original control:cut2,resolved0. Exact minority-ray margins are frozen31/40 versus actual−11/40, while each individual allowance1/2,11/20 is smaller than the frozen margin. The original rays straddle an initial half-family boundary; this limitation is preserved in REVIEW_NOTES.md.
+
+The stronger fresh control changes Wh30 to2/5 and the three rays as frozen in REVIEW_NOTES.md. All initial sign/rank/nearest-gap inequalities are strict. Source stillcut2,resolved0; frozen margin169/500, individual allowances1/5,6/25, actual−51/500. T55 independently reconstructs the whole recurrence and finds a strict interior witness with ray weights(1,100,1): frozen68977/2000, actual−4347/500. This is a positive-volume generic cell-rule soundness counterexample inside one initial half-family; default solver visitation of this exact subcone and trained-panel failure are not established.
+
+Single-adverse-gate control remains correct; low-baseline control triggers both cuts. The safe cumulative primitive passes768 exact multi-step label checks and768 neuron-rescaling comparisons (106correct,354wrong,308unknown), five tie controls and four final-cell controls. It rejects both unsafe freeze examples and certifies the single-adverse control. SAFE_BOUND.md states the proof and scope. A separate exact downstream ReLU map has positive endpoint margins and negative midpoint, preserving the already acknowledged intermediate-step vertex limitation.
+
+Reproduce `python simultaneous.py`, `python family_control.py`, `python cumulative_controls.py`, `python interior_control.py` with the project interpreter, one thread, review lock and2GB/20CPU caps. No trained model or mass call.
 
 ## Compute accounting
 One thread2GB, <=20CPU review cycles. Only finite synthetic exact recurrence, source-function control runs and proof arithmetic. No checkpoint loads, model sampling, mass integration or full estimator replay planned in first phase.

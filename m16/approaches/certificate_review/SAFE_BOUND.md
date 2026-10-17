@@ -1,0 +1,11 @@
+# What the cumulative bound certifies
+
+At a frozen step let z be the preactivation, g its fixed binary mask, real hidden state r=ReLU(z), and frozen hidden state f=g*z. Coordinatewise δ=r−f>=0, even where a frozen ON coordinate is negative. After q remaining recurrent steps, coordinatewise ReLU Lipschitzness gives |h_real−h_frozen|<=|Wh|^q δ. Thus each target-minus-competitor margin changes by at most e_o=|Wo_target−Wo_o| |Wh|^q δ. Sum all coordinate contributions; checking each coordinate independently against the same margin is insufficient.
+
+Let m_o be the frozen margin. A correct-class certificate requires m_o−e_o>0 for every earlier-index competitor and >=0 for every later-index competitor. A wrong-class certificate needs one earlier competitor with m_o+e_o<=0, or one later competitor with m_o+e_o<0. These inequalities preserve first-index argmax ownership; no output-tie tolerance is introduced.
+
+At the final step, z=A*x and frozen margins are linear. Each δ_i=ReLU(A_i*x)−g_i*A_i*x is convex, nonnegative and positively homogeneous. Therefore m_o−e_o is concave homogeneous and m_o+e_o convex homogeneous. Correct lower-bound inequalities at every generating ray extend to every nonzero conic combination. For incorrectness, the SAME competitor must satisfy its upper-bound inequality at every ray. Different losing competitors at different vertices do not certify the interior.
+
+At intermediate steps, the frozen margin itself contains later ReLUs and need not be concave. The exact two-variable control ReLU(v−w/2)+ReLU(w/2−v)−ReLU(w)/5 has margin3/10 at both endpoints(v,w)=(0,1),(1,1), but−1/5 at their midpoint. Even a small simultaneous allowance cannot make endpoint tests sufficient. Additional partitioning or valid global network bounds remain necessary. The analytic map control demonstrates the logical issue; it is not claimed to be the same recurrent model as the simultaneous-freeze example.
+
+The primitive is independently verifiable and can reject the unsafe synthetic freeze. It has not been integrated into estT_fix or RECIPE112, costed as a full estimator, or evaluated on trained/noisy panels. More splitting may repair correctness while worsening cost. Claude DRI owns source adoption and empirical assessment.
