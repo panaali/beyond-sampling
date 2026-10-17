@@ -237,3 +237,21 @@ run with at most120 CPU seconds and at most2GB RSS. Report scalar endpoint
 evaluations, coefficient-series terms and actual CPU. The series bound excludes
 floating arithmetic and the closed-form coefficient branch; do not label it a
 full numerical certificate. T48 retains trained T6 integration ownership.
+
+Cycle5 result: `segment.inverse_six_segment(A,B,diagnostics=False)` broadcasts
+endpoint arrays of shape (...,dimension), returning one analytic integral per
+pair. With diagnostics enabled it returns (values,stats); the stats include an
+array of series-truncation bounds, NaN for the closed-form branch. Independent
+80-digit direct quadrature of28 fixed pairs (norm ratios through10000, equal
+and perpendicular directions, branch threshold, and nearly parallel inputs)
+gave maximum relative error3.411e-15. Scale checks gave5.996e-15 and endpoint
+swaps were identical. This is a validated primitive, not a solved T6 model.
+
+Reproduce with single-thread environment variables and
+`flock /workspace/work/codex-compute.lock python m16/approaches/feynman_fundamentals/check_segment.py`.
+Measured author CPU1.5765 seconds for the entire check;84 analytic endpoint
+evaluations including rescaling and swapping, no model passes or sampled
+inputs. The main28 evaluations used56 norms,28 dot products,16 positive-series
+evaluations of28 terms and12 closed-form evaluations. Independent numerical
+reference quadrature is validation overhead, not part of the estimator.
+Results and every tested endpoint are saved in `segment_results.json`.
