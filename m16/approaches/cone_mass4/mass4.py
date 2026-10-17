@@ -104,11 +104,24 @@ def nodes_for(kappa):
 NODE_C = 1.0
 
 
-def mass_from_corr(C, ops=None, n=None, return_info=False):
-    """Orthant probability P(X > 0), X ~ N(0, C), C a 4 x 4 correlation matrix. n = Gauss nodes (None: adaptive)."""
+FLAT_ADJ = 1e-6          # max 3x3 principal minor below this: C is numerically rank <= 2 (flat cone), see mass4_rays
+
+
+class FlatCone(Exception):
+    pass
+
+
+def mass_from_corr(C, ops=None, n=None, return_info=False, flat_check=False):
+    """Orthant probability P(X > 0), X ~ N(0, C), C a 4 x 4 correlation matrix. n = Gauss nodes (None: adaptive).
+    flat_check: raise FlatCone when C is numerically rank <= 2 (all 3x3 principal minors < FLAT_ADJ); in that regime
+    the float correlations have lost the cone's geometry and the caller should split the cone (mass4_rays)."""
     ops = ops if ops is not None else Ops()
     m = C.tolist() if hasattr(C, "tolist") else C
     adj, det = adjugate_sym(m, ops)
+    if flat_check:
+        ops.add(4)
+        if max(adj[0][0], adj[1][1], adj[2][2], adj[3][3]) < FLAT_ADJ:
+            raise FlatCone()
     if det < 0:
         det = 0.0
     # Candidates: for each pair the nearer root of D(rho0 + h) = det + 2 adj_ij h - (1 - rho_kl^2) h^2 as endpoint.
@@ -198,23 +211,21 @@ def mass4(N, ops=None, n=None):
     return mass_from_corr(corr_from_normals(N, ops), ops, n)
 
 
-FLAT_TOL = 1e-6
-
-
-def mass4_rays(R, ops=None, n=None, flat_tol=FLAT_TOL, _depth=0):
+def mass4_rays(R, ops=None, n=None, _depth=0):
     """Gaussian mass of the simplicial cone spanned by the rows of R (as estT.orthant): normals = rows of inv(R^T).
-    Flat cones (rays nearly in a hyperplane; facet normals nearly +-parallel, correlations within flat_tol of +-1 for
-    >= 3 pairs) lose all their information in a float correlation matrix. They are split exactly by the signed
-    decomposition from an apex w = the first unit facet normal (perpendicular to the near-hyperplane):
+    Flat cones (rays nearly in a hyperplane, so the facet normals are nearly +-parallel and the float correlation
+    matrix is numerically rank <= 2) are split exactly by the signed decomposition from an apex w = the first unit
+    facet normal (perpendicular to the near-hyperplane):
         1_S = sum_i eps_i 1_cone(w, F_i),  eps_i = sign(n_i . w),  F_i = facet opposite ray i,
     whose four pieces are well conditioned (w is far from every facet plane)."""
     ops = ops if ops is not None else Ops()
     R = np.asarray(R, float)
     B = np.linalg.inv(R.T); ops.add(4 ** 3)
     C = corr_from_normals(B, ops)
-    near = int((np.abs(C[np.triu_indices(4, 1)]) > 1 - flat_tol).sum()); ops.add(12)
-    if near < 3 or _depth > 0:
-        return mass_from_corr(C, ops, n)
+    try:
+        return mass_from_corr(C, ops, n, flat_check=_depth < 2)
+    except FlatCone:
+        pass
     U = B / np.sqrt((B * B).sum(1))[:, None]; ops.add(48)
     w = U[0]
     tot = 0.0
@@ -223,5 +234,5 @@ def mass4_rays(R, ops=None, n=None, flat_tol=FLAT_TOL, _depth=0):
         if abs(e) < 1e-300:
             continue
         Ri = R.copy(); Ri[i] = w
-        tot += math.copysign(1.0, e) * mass4_rays(Ri, ops, n, flat_tol, _depth + 1)
+        tot += math.copysign(1.0, e) * mass4_rays(Ri, ops, n, _depth + 1)
     return tot
