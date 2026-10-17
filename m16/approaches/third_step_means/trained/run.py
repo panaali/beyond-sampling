@@ -69,6 +69,8 @@ def main():
             methods={name:to_mp(r['mean']) for name,r in cr[0]['methods'].items()}
             assert set(methods)=={'inherited_gauss','exact_h2_then_inherited_gauss'}
             methods['retained_sector_gaussian']=to_mp(mr[0]['mean']);methods['exact_facet_h3']=mu
+            assert all(len(values)==16 for values in methods.values())
+            assert len(mu)==len(rm)==len(sample)==16 and all(len(b)==16 for b in bref)
             def relative(a,b):return mp.sqrt(sum((x-y)**2 for x,y in zip(a,b))/sum(y*y for y in b))
             diagnostic={name:dict(mean=[mp.nstr(x,200) for x in values],relative_rms_to_exact_mean=mp.nstr(relative(values,mu),100),
                                    relative_rms_to_saved_sample=mp.nstr(relative(values,sample),100),
