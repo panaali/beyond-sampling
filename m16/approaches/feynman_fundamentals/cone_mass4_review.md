@@ -1465,3 +1465,14 @@ rational bound match. All33 are bounded;21 lie below the existing1e-10 diagnosti
 and12 are loose. This bounds ideal-real sums with changed constants only.
 No tensor/mass/model evaluation was repeated, and source arithmetic remains
 outside the certificate. Review CPU was0.0160 seconds.
+
+The subsequent64 stored-matrix joint-angle application passes independent
+`check_joint_angle_application_review.py`: all exact determinants/radicands,
+source-array/sign bindings, square-root/ratio intervals and exact extrema match.
+Strict absolute-error interval comparisons favor the candidate38 times and the
+source23 times, with three overlaps unresolved. Maximum argument-angle errors
+are3.7949870442e-11 for source and3.8123235941e-11 for candidate; the denominator
+alone contributes up to2.0560860276e-11 on this subset. Diagonal drift is at most
+2^-52. These are exact stored-matrix argument-angle comparisons, not wholemass
+errors or a general candidate improvement. Review CPU5.416 seconds includes
+independent exact determinants and160-digit angle diagnostics; no native replay.
