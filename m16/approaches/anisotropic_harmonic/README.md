@@ -75,3 +75,12 @@ planes. Signed projected densities and apparent error cancellation remain
 possible. Exact region branching may itself become prohibitive at larger T.
 A failure here rejects only this finite formulation, not every anisotropic
 or locally supported sketch.
+
+First primitive controls (`checks.py`, `checks_results.json`) complete in
+.028CPU. Across N/M=(4/0),(4/1),(8/1),(16/2) and six fixed normal directions,
+complements/Hermitian/eigenvalue checks pass; hemisphere intersection mass
+error<=2.46e-10, and an independent direct-z adaptive integral agrees within
+9.66e-15. Twelve root masses sum1 and an aligned protected-wall readout loses
+zero mass. Doubling the positive quadrature rule changes a difficult near-
+tangential cut matrix by up to3.38e-8, so primitive integration is numerical
+and not certified. Preserve that limitation in trained comparisons.
