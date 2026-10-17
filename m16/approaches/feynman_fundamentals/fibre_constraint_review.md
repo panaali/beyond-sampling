@@ -1,0 +1,9 @@
+# T99 constraint deferral and scale diagnosis review
+
+T55 read-only supplementary review, 2026-10-17. Agent small_h2_34 already reviewed the primary deferral algebra; no duplicate model run was performed.
+
+The local adapter postpones only the nearest-next-gate versus other-ahead-gate constraints. In retained mode it restores the same arguments before either the loop break or child-state mutation, so the real constraint set is unchanged. Floating reduction ordering can still differ. Omitting those constraints merely because the sampled piece is correct does not prove the surrounding angular interval correct: other angles can have a different next gate. The pi/128 cap is a diagnostic restriction, not an error certificate.
+
+The scale discriminator uses the unchanged forward tracer at LOOK64, records that every returned stop is the actual clamp object, and compares against separate polygon accuracy for each of the three readout scales. Agreement on all three controls supports the stated diagnosis: the observed LOOK2 drift is in the finite tracing/partition recipe, rather than a large mass-integration failure in these controls. The same source still has numerical ahead/root tolerances and a perturbed child probe. Therefore this is not an arbitrary-model exactness or topology certificate.
+
+Dividing all readout weights by their positive maximum preserves the classifier in real arithmetic, including first-index ties; floating rescaling need not be bitwise invariant. Its observed failure to repair LOOK2 scaling is a valid retained negative. More lookahead need not cost more when it removes reverse confirmation work, but the one-model lower proxy cost is not a general speed claim. Source validation/proxy counters and later broader fixed-model tests must remain separate from portable cost and statistical generalization.
