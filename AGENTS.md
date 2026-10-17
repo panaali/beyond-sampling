@@ -44,7 +44,14 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
    the ledger; never delete them. A negative is only **"negative (unverified)"** until (a) the README lists every variant
    tried and every variant NOT tried with why (an exhaustion checklist), and (b) an independent agent re-checks the key
    failure with different code and tries the most promising untried variant. Only then may the DRI mark it **"dead
-   (verified)"**. An agent that finishes a task (positive or negative) moves on to the next Ready backlog row.
+   (verified)"**, scoped to the method and assumptions actually tested. An implementation defect, finite sweep,
+   precision limit or exhausted compute budget is not broad impossibility; unexamined plausible alternatives remain
+   open/inconclusive in the backlog. A claim excluding every conceivable variant requires a proof.
+   **Keep progressing:** an agent that finishes a task (positive or negative) moves on to the next eligible Ready
+   backlog row. Root reserves/pushes coordinated claims before implementation. Continue useful review or analysis
+   while that handoff is arranged. Respect existing CPU/memory limits; continuity does not authorize empty polling,
+   duplicate work or unbounded runs.
+
 6. **Shared evaluation.** Estimators for the ARC challenge must use [`m16/arc_eval.py`](m16/arc_eval.py): the same noisy
    copies, ground truth and estimator interface `est(model, budget, rng) -> (estimate, evals)`. State
    whether the method is deductive (no random model inputs) or sampling-based.
