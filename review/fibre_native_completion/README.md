@@ -59,3 +59,5 @@ The initial final aggregator correctly failed its parity assertion: Python's bui
 Recorded successful component phase CPU is1175.340487352, including reused prior component0 at37.094605088. New recorded campaign phase CPU is1269.823768530, including the failed114.874646771CPU attempt, both controls16.617654927, cold and assembly; imports before per-script timers and JSON/transport overhead remain explicit exclusions. The recovered144 cells use130.600627132CPU in total, max10.575499155 per cell. Original failed timer overrun remains visible; untouched later runs and rescue processes enforce OS soft105/hard110.
 
 Reproduce final saved contractions with `python review/fibre_native_completion/summarize.py` and `python review/fibre_native_completion/compare.py`. Independent verification should read saved ledgers/state chains rather than repeat the expensive traces.
+
+Independent final review:27c8545c. All48 pins/site sums,144 rescue states and exact rational cost comparison pass; reviewer CPU-sum rounding assertion failure is preserved. Cold native numerical closure is explicitly yielded to recover_34; no full-cost claim.
