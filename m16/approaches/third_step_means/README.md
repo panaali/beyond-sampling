@@ -12,8 +12,8 @@ fixed-precision MP handles transcendental values, with independent references.
 
 ## Status
 Running under claim2666600d. Initial35 analytic/domain controls complete
-a24b97ba, independently88f212b6; next network-assembly gate must be frozen
-separately. See HANDOFF.md.
+a24b97ba, independently88f212b6; six analytic network-assembly controls now pass under claim d7c0edab,
+with independent saved review pending. See HANDOFF.md and NETWORK_HANDOFF.md.
 
 ## Results
 All35 initial controls pass; maximum relative independent-reference difference
