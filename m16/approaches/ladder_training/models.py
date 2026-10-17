@@ -18,7 +18,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "../../../data/ladder_training"))
 
 # (H, T) -> n_tag: log2(n_train), "s" = warm-up scaled to keep the zoo's schedule shape (README, Method)
-CHOSEN = {}
+CHOSEN = {(7, 3): "28s", (4, 7): "28s"}
 
 
 def load(H, T, seed, n_tag=None):
