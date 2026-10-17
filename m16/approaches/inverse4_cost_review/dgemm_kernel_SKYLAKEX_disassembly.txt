@@ -1,0 +1,2807 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a421a0 <dgemm_kernel_SKYLAKEX>:
+  a421a0:	48 85 ff             	test   %rdi,%rdi
+  a421a3:	0f 84 0f 28 00 00    	je     a449b8 <dgemm_kernel_SKYLAKEX+0x2818>
+  a421a9:	48 85 f6             	test   %rsi,%rsi
+  a421ac:	0f 84 06 28 00 00    	je     a449b8 <dgemm_kernel_SKYLAKEX+0x2818>
+  a421b2:	55                   	push   %rbp
+  a421b3:	48 89 c8             	mov    %rcx,%rax
+  a421b6:	49 89 d2             	mov    %rdx,%r10
+  a421b9:	48 89 e5             	mov    %rsp,%rbp
+  a421bc:	41 57                	push   %r15
+  a421be:	41 56                	push   %r14
+  a421c0:	41 55                	push   %r13
+  a421c2:	41 54                	push   %r12
+  a421c4:	53                   	push   %rbx
+  a421c5:	48 83 e4 e0          	and    $0xffffffffffffffe0,%rsp
+  a421c9:	48 83 ec 48          	sub    $0x48,%rsp
+  a421cd:	c5 fb 11 44 24 a8    	vmovsd %xmm0,-0x58(%rsp)
+  a421d3:	48 89 7c 24 b0       	mov    %rdi,-0x50(%rsp)
+  a421d8:	4c 89 54 24 b8       	mov    %r10,-0x48(%rsp)
+  a421dd:	48 c7 44 24 c0 00 00 	movq   $0x0,-0x40(%rsp)
+  a421e4:	00 00 
+  a421e6:	c5 fd 6f 05 32 cc 98 	vmovdqa 0x98cc32(%rip),%ymm0        # 13cee20 <CSWTCH.2+0x660>
+  a421ed:	00 
+  a421ee:	48 8b 4d 10          	mov    0x10(%rbp),%rcx
+  a421f2:	c5 fd 7f 44 24 c8    	vmovdqa %ymm0,-0x38(%rsp)
+  a421f8:	c5 fd 6f 05 40 cc 98 	vmovdqa 0x98cc40(%rip),%ymm0        # 13cee40 <CSWTCH.2+0x680>
+  a421ff:	00 
+  a42200:	48 8d 14 cd 00 00 00 	lea    0x0(,%rcx,8),%rdx
+  a42207:	00 
+  a42208:	48 89 54 24 98       	mov    %rdx,-0x68(%rsp)
+  a4220d:	c5 fd 7f 44 24 e8    	vmovdqa %ymm0,-0x18(%rsp)
+  a42213:	c5 fd 6f 05 45 cc 98 	vmovdqa 0x98cc45(%rip),%ymm0        # 13cee60 <CSWTCH.2+0x6a0>
+  a4221a:	00 
+  a4221b:	c5 fd 7f 44 24 08    	vmovdqa %ymm0,0x8(%rsp)
+  a42221:	c5 fd 6f 05 57 cc 98 	vmovdqa 0x98cc57(%rip),%ymm0        # 13cee80 <CSWTCH.2+0x6c0>
+  a42228:	00 
+  a42229:	c5 fd 7f 44 24 28    	vmovdqa %ymm0,0x28(%rsp)
+  a4222f:	48 83 fe 0b          	cmp    $0xb,%rsi
+  a42233:	0f 8e 87 27 00 00    	jle    a449c0 <dgemm_kernel_SKYLAKEX+0x2820>
+  a42239:	48 8d 0c 49          	lea    (%rcx,%rcx,2),%rcx
+  a4223d:	4b 8d 1c 12          	lea    (%r10,%r10,1),%rbx
+  a42241:	48 8d 3c 8d 00 00 00 	lea    0x0(,%rcx,4),%rdi
+  a42248:	00 
+  a42249:	4c 89 c9             	mov    %r9,%rcx
+  a4224c:	48 89 7c 24 a0       	mov    %rdi,-0x60(%rsp)
+  a42251:	31 ff                	xor    %edi,%edi
+  a42253:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a42258:	4c 01 d3             	add    %r10,%rbx
+  a4225b:	48 c1 e3 05          	shl    $0x5,%rbx
+  a4225f:	4c 01 c3             	add    %r8,%rbx
+  a42262:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a42269:	f5 
+  a4226a:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a4226f:	4d 89 c6             	mov    %r8,%r14
+  a42272:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a42277:	49 c1 e4 04          	shl    $0x4,%r12
+  a4227b:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a42280:	49 83 fb 10          	cmp    $0x10,%r11
+  a42284:	0f 82 f7 07 00 00    	jb     a42a81 <dgemm_kernel_SKYLAKEX+0x8e1>
+  a4228a:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a42290:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a42296:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a4229c:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a422a2:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a422a8:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a422ae:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a422b4:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a422ba:	62 a1 fd 40 ef c0    	vpxorq %zmm16,%zmm16,%zmm16
+  a422c0:	62 a1 f5 40 ef c9    	vpxorq %zmm17,%zmm17,%zmm17
+  a422c6:	62 a1 ed 40 ef d2    	vpxorq %zmm18,%zmm18,%zmm18
+  a422cc:	62 a1 e5 40 ef db    	vpxorq %zmm19,%zmm19,%zmm19
+  a422d2:	62 a1 dd 40 ef e4    	vpxorq %zmm20,%zmm20,%zmm20
+  a422d8:	62 a1 d5 40 ef ed    	vpxorq %zmm21,%zmm21,%zmm21
+  a422de:	62 a1 cd 40 ef f6    	vpxorq %zmm22,%zmm22,%zmm22
+  a422e4:	62 a1 c5 40 ef ff    	vpxorq %zmm23,%zmm23,%zmm23
+  a422ea:	62 01 bd 40 ef c0    	vpxorq %zmm24,%zmm24,%zmm24
+  a422f0:	62 01 b5 40 ef c9    	vpxorq %zmm25,%zmm25,%zmm25
+  a422f6:	62 01 ad 40 ef d2    	vpxorq %zmm26,%zmm26,%zmm26
+  a422fc:	62 01 a5 40 ef db    	vpxorq %zmm27,%zmm27,%zmm27
+  a42302:	62 01 9d 40 ef e4    	vpxorq %zmm28,%zmm28,%zmm28
+  a42308:	62 01 95 40 ef ed    	vpxorq %zmm29,%zmm29,%zmm29
+  a4230e:	62 01 8d 40 ef f6    	vpxorq %zmm30,%zmm30,%zmm30
+  a42314:	62 01 85 40 ef ff    	vpxorq %zmm31,%zmm31,%zmm31
+  a4231a:	4c 89 ef             	mov    %r13,%rdi
+  a4231d:	4d 89 f0             	mov    %r14,%r8
+  a42320:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a42324:	4d 01 e7             	add    %r12,%r15
+  a42327:	4c 89 c9             	mov    %r9,%rcx
+  a4232a:	48 83 ff 10          	cmp    $0x10,%rdi
+  a4232e:	0f 82 24 04 00 00    	jb     a42758 <dgemm_kernel_SKYLAKEX+0x5b8>
+  a42334:	48 c7 c7 10 00 00 00 	mov    $0x10,%rdi
+  a4233b:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a42341:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a42348:	00 00 00 
+  a4234b:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a42352:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a42359:	00 00 00 
+  a4235c:	48 05 80 00 00 00    	add    $0x80,%rax
+  a42362:	62 d2 7d 48 1a 28    	vbroadcastf32x4 (%r8),%zmm5
+  a42368:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a4236e:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a42374:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a4237a:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a42380:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a42387:	62 92 7d 48 1a 2c 20 	vbroadcastf32x4 (%r8,%r12,1),%zmm5
+  a4238e:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a42394:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a4239a:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a423a0:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a423a6:	62 92 7d 48 1a 2c 60 	vbroadcastf32x4 (%r8,%r12,2),%zmm5
+  a423ad:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a423b3:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a423b9:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a423bf:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a423c5:	49 83 c0 10          	add    $0x10,%r8
+  a423c9:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a423d0:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a423d6:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a423dc:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a423e2:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a423e8:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a423ee:	62 92 7d 48 1a 2c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm5
+  a423f5:	62 62 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm24
+  a423fb:	62 62 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm25
+  a42401:	62 62 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm26
+  a42407:	62 62 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm27
+  a4240d:	62 92 7d 48 1a 2c 67 	vbroadcastf32x4 (%r15,%r12,2),%zmm5
+  a42414:	62 62 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm28
+  a4241a:	62 62 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm29
+  a42420:	62 62 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm30
+  a42426:	62 62 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm31
+  a4242c:	49 83 c7 10          	add    $0x10,%r15
+  a42430:	48 83 c7 04          	add    $0x4,%rdi
+  a42434:	48 f7 c7 0c 00 00 00 	test   $0xc,%rdi
+  a4243b:	49 c7 c2 ac 00 00 00 	mov    $0xac,%r10
+  a42442:	4c 0f 44 d2          	cmove  %rdx,%r10
+  a42446:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a4244c:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a42453:	00 00 00 
+  a42456:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a4245d:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a42464:	00 00 00 
+  a42467:	48 05 80 00 00 00    	add    $0x80,%rax
+  a4246d:	62 d2 7d 48 1a 28    	vbroadcastf32x4 (%r8),%zmm5
+  a42473:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a42479:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a4247f:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a42485:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a4248b:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a42492:	62 92 7d 48 1a 2c 20 	vbroadcastf32x4 (%r8,%r12,1),%zmm5
+  a42499:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a4249f:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a424a5:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a424ab:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a424b1:	62 92 7d 48 1a 2c 60 	vbroadcastf32x4 (%r8,%r12,2),%zmm5
+  a424b8:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a424be:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a424c4:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a424ca:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a424d0:	49 83 c0 10          	add    $0x10,%r8
+  a424d4:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a424db:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a424e1:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a424e7:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a424ed:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a424f3:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a424f9:	62 92 7d 48 1a 2c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm5
+  a42500:	62 62 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm24
+  a42506:	62 62 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm25
+  a4250c:	62 62 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm26
+  a42512:	62 62 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm27
+  a42518:	62 92 7d 48 1a 2c 67 	vbroadcastf32x4 (%r15,%r12,2),%zmm5
+  a4251f:	62 62 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm28
+  a42525:	62 62 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm29
+  a4252b:	62 62 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm30
+  a42531:	62 62 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm31
+  a42537:	49 83 c7 10          	add    $0x10,%r15
+  a4253b:	0f 18 11             	prefetcht1 (%rcx)
+  a4253e:	48 81 e9 81 00 00 00 	sub    $0x81,%rcx
+  a42545:	4c 01 d1             	add    %r10,%rcx
+  a42548:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a4254e:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a42555:	00 00 00 
+  a42558:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a4255f:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a42566:	00 00 00 
+  a42569:	48 05 80 00 00 00    	add    $0x80,%rax
+  a4256f:	62 d2 7d 48 1a 28    	vbroadcastf32x4 (%r8),%zmm5
+  a42575:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a4257b:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a42581:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a42587:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a4258d:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a42594:	62 92 7d 48 1a 2c 20 	vbroadcastf32x4 (%r8,%r12,1),%zmm5
+  a4259b:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a425a1:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a425a7:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a425ad:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a425b3:	62 92 7d 48 1a 2c 60 	vbroadcastf32x4 (%r8,%r12,2),%zmm5
+  a425ba:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a425c0:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a425c6:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a425cc:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a425d2:	49 83 c0 10          	add    $0x10,%r8
+  a425d6:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a425dd:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a425e3:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a425e9:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a425ef:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a425f5:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a425fb:	62 92 7d 48 1a 2c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm5
+  a42602:	62 62 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm24
+  a42608:	62 62 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm25
+  a4260e:	62 62 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm26
+  a42614:	62 62 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm27
+  a4261a:	62 92 7d 48 1a 2c 67 	vbroadcastf32x4 (%r15,%r12,2),%zmm5
+  a42621:	62 62 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm28
+  a42627:	62 62 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm29
+  a4262d:	62 62 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm30
+  a42633:	62 62 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm31
+  a42639:	49 83 c7 10          	add    $0x10,%r15
+  a4263d:	0f 18 13             	prefetcht1 (%rbx)
+  a42640:	48 83 c3 20          	add    $0x20,%rbx
+  a42644:	48 81 ff d0 00 00 00 	cmp    $0xd0,%rdi
+  a4264b:	49 0f 44 c9          	cmove  %r9,%rcx
+  a4264f:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a42655:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a4265c:	00 00 00 
+  a4265f:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a42666:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a4266d:	00 00 00 
+  a42670:	48 05 80 00 00 00    	add    $0x80,%rax
+  a42676:	62 d2 7d 48 1a 28    	vbroadcastf32x4 (%r8),%zmm5
+  a4267c:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a42682:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a42688:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a4268e:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a42694:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a4269b:	62 92 7d 48 1a 2c 20 	vbroadcastf32x4 (%r8,%r12,1),%zmm5
+  a426a2:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a426a8:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a426ae:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a426b4:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a426ba:	62 92 7d 48 1a 2c 60 	vbroadcastf32x4 (%r8,%r12,2),%zmm5
+  a426c1:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a426c7:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a426cd:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a426d3:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a426d9:	49 83 c0 10          	add    $0x10,%r8
+  a426dd:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a426e4:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a426ea:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a426f0:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a426f6:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a426fc:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a42702:	62 92 7d 48 1a 2c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm5
+  a42709:	62 62 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm24
+  a4270f:	62 62 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm25
+  a42715:	62 62 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm26
+  a4271b:	62 62 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm27
+  a42721:	62 92 7d 48 1a 2c 67 	vbroadcastf32x4 (%r15,%r12,2),%zmm5
+  a42728:	62 62 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm28
+  a4272e:	62 62 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm29
+  a42734:	62 62 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm30
+  a4273a:	62 62 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm31
+  a42740:	49 83 c7 10          	add    $0x10,%r15
+  a42744:	49 39 fd             	cmp    %rdi,%r13
+  a42747:	0f 83 ee fb ff ff    	jae    a4233b <dgemm_kernel_SKYLAKEX+0x19b>
+  a4274d:	4c 89 c9             	mov    %r9,%rcx
+  a42750:	48 f7 df             	neg    %rdi
+  a42753:	49 8d 7c 3d 10       	lea    0x10(%r13,%rdi,1),%rdi
+  a42758:	48 85 ff             	test   %rdi,%rdi
+  a4275b:	0f 84 0c 01 00 00    	je     a4286d <dgemm_kernel_SKYLAKEX+0x6cd>
+  a42761:	0f 18 09             	prefetcht0 (%rcx)
+  a42764:	0f 18 49 40          	prefetcht0 0x40(%rcx)
+  a42768:	0f 18 49 7f          	prefetcht0 0x7f(%rcx)
+  a4276c:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a42772:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a42779:	00 00 00 
+  a4277c:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a42783:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a4278a:	00 00 00 
+  a4278d:	48 05 80 00 00 00    	add    $0x80,%rax
+  a42793:	62 d2 7d 48 1a 28    	vbroadcastf32x4 (%r8),%zmm5
+  a42799:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a4279f:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a427a5:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a427ab:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a427b1:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a427b8:	62 92 7d 48 1a 2c 20 	vbroadcastf32x4 (%r8,%r12,1),%zmm5
+  a427bf:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a427c5:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a427cb:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a427d1:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a427d7:	62 92 7d 48 1a 2c 60 	vbroadcastf32x4 (%r8,%r12,2),%zmm5
+  a427de:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a427e4:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a427ea:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a427f0:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a427f6:	49 83 c0 10          	add    $0x10,%r8
+  a427fa:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a42801:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a42807:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a4280d:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a42813:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a42819:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a4281f:	62 92 7d 48 1a 2c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm5
+  a42826:	62 62 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm24
+  a4282c:	62 62 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm25
+  a42832:	62 62 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm26
+  a42838:	62 62 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm27
+  a4283e:	62 92 7d 48 1a 2c 67 	vbroadcastf32x4 (%r15,%r12,2),%zmm5
+  a42845:	62 62 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm28
+  a4284b:	62 62 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm29
+  a42851:	62 62 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm30
+  a42857:	62 62 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm31
+  a4285d:	49 83 c7 10          	add    $0x10,%r15
+  a42861:	48 01 d1             	add    %rdx,%rcx
+  a42864:	48 ff cf             	dec    %rdi
+  a42867:	0f 85 f4 fe ff ff    	jne    a42761 <dgemm_kernel_SKYLAKEX+0x5c1>
+  a4286d:	41 0f 18 0e          	prefetcht0 (%r14)
+  a42871:	4c 89 c9             	mov    %r9,%rcx
+  a42874:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a4287b:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a42881:	62 d1 ad 48 14 d3    	vunpcklpd %zmm11,%zmm10,%zmm2
+  a42887:	62 d1 bd 48 15 d9    	vunpckhpd %zmm9,%zmm8,%zmm3
+  a4288d:	62 d1 ad 48 15 e3    	vunpckhpd %zmm11,%zmm10,%zmm4
+  a42893:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42899:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4289f:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a428a6:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a428ad:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a428b4:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a428bb:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a428c2:	01 
+  a428c3:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a428ca:	01 
+  a428cb:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a428cf:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a428d5:	62 d1 8d 48 14 d7    	vunpcklpd %zmm15,%zmm14,%zmm2
+  a428db:	62 d1 9d 48 15 dd    	vunpckhpd %zmm13,%zmm12,%zmm3
+  a428e1:	62 d1 8d 48 15 e7    	vunpckhpd %zmm15,%zmm14,%zmm4
+  a428e7:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a428ed:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a428f3:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a428fa:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a42901:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a42908:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a4290f:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a42916:	01 
+  a42917:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a4291e:	01 
+  a4291f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42923:	62 b1 fd 40 14 c9    	vunpcklpd %zmm17,%zmm16,%zmm1
+  a42929:	62 b1 ed 40 14 d3    	vunpcklpd %zmm19,%zmm18,%zmm2
+  a4292f:	62 b1 fd 40 15 d9    	vunpckhpd %zmm17,%zmm16,%zmm3
+  a42935:	62 b1 ed 40 15 e3    	vunpckhpd %zmm19,%zmm18,%zmm4
+  a4293b:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42941:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42947:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a4294e:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a42955:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a4295c:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a42963:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a4296a:	01 
+  a4296b:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a42972:	01 
+  a42973:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42977:	62 b1 dd 40 14 cd    	vunpcklpd %zmm21,%zmm20,%zmm1
+  a4297d:	62 b1 cd 40 14 d7    	vunpcklpd %zmm23,%zmm22,%zmm2
+  a42983:	62 b1 dd 40 15 dd    	vunpckhpd %zmm21,%zmm20,%zmm3
+  a42989:	62 b1 cd 40 15 e7    	vunpckhpd %zmm23,%zmm22,%zmm4
+  a4298f:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42995:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4299b:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a429a2:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a429a9:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a429b0:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a429b7:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a429be:	01 
+  a429bf:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a429c6:	01 
+  a429c7:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a429cb:	62 91 bd 40 14 c9    	vunpcklpd %zmm25,%zmm24,%zmm1
+  a429d1:	62 91 ad 40 14 d3    	vunpcklpd %zmm27,%zmm26,%zmm2
+  a429d7:	62 91 bd 40 15 d9    	vunpckhpd %zmm25,%zmm24,%zmm3
+  a429dd:	62 91 ad 40 15 e3    	vunpckhpd %zmm27,%zmm26,%zmm4
+  a429e3:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a429e9:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a429ef:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a429f6:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a429fd:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a42a04:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a42a0b:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a42a12:	01 
+  a42a13:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a42a1a:	01 
+  a42a1b:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42a1f:	62 91 9d 40 14 cd    	vunpcklpd %zmm29,%zmm28,%zmm1
+  a42a25:	62 91 8d 40 14 d7    	vunpcklpd %zmm31,%zmm30,%zmm2
+  a42a2b:	62 91 9d 40 15 dd    	vunpckhpd %zmm29,%zmm28,%zmm3
+  a42a31:	62 91 8d 40 15 e7    	vunpckhpd %zmm31,%zmm30,%zmm4
+  a42a37:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42a3d:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42a43:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a42a4a:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a42a51:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a42a58:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a42a5f:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a42a66:	01 
+  a42a67:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a42a6e:	01 
+  a42a6f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42a73:	49 83 eb 10          	sub    $0x10,%r11
+  a42a77:	49 83 fb 10          	cmp    $0x10,%r11
+  a42a7b:	0f 83 09 f8 ff ff    	jae    a4228a <dgemm_kernel_SKYLAKEX+0xea>
+  a42a81:	49 83 fb 08          	cmp    $0x8,%r11
+  a42a85:	0f 82 fa 01 00 00    	jb     a42c85 <dgemm_kernel_SKYLAKEX+0xae5>
+  a42a8b:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a42a91:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a42a97:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a42a9d:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a42aa3:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a42aa9:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a42aaf:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a42ab5:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a42abb:	62 a1 fd 40 ef c0    	vpxorq %zmm16,%zmm16,%zmm16
+  a42ac1:	62 a1 f5 40 ef c9    	vpxorq %zmm17,%zmm17,%zmm17
+  a42ac7:	62 a1 ed 40 ef d2    	vpxorq %zmm18,%zmm18,%zmm18
+  a42acd:	62 a1 e5 40 ef db    	vpxorq %zmm19,%zmm19,%zmm19
+  a42ad3:	4c 89 ef             	mov    %r13,%rdi
+  a42ad6:	4d 89 f0             	mov    %r14,%r8
+  a42ad9:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a42add:	4d 01 e7             	add    %r12,%r15
+  a42ae0:	48 85 ff             	test   %rdi,%rdi
+  a42ae3:	0f 84 95 00 00 00    	je     a42b7e <dgemm_kernel_SKYLAKEX+0x9de>
+  a42ae9:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a42aef:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a42af6:	00 00 00 
+  a42af9:	48 83 c0 40          	add    $0x40,%rax
+  a42afd:	62 d2 7d 48 1a 18    	vbroadcastf32x4 (%r8),%zmm3
+  a42b03:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a42b09:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a42b0f:	62 92 7d 48 1a 1c 20 	vbroadcastf32x4 (%r8,%r12,1),%zmm3
+  a42b16:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a42b1c:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a42b22:	62 92 7d 48 1a 1c 60 	vbroadcastf32x4 (%r8,%r12,2),%zmm3
+  a42b29:	62 72 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm12
+  a42b2f:	62 72 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm13
+  a42b35:	49 83 c0 10          	add    $0x10,%r8
+  a42b39:	62 d2 7d 48 1a 1f    	vbroadcastf32x4 (%r15),%zmm3
+  a42b3f:	62 72 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm14
+  a42b45:	62 72 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm15
+  a42b4b:	62 92 7d 48 1a 1c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm3
+  a42b52:	62 e2 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm16
+  a42b58:	62 e2 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm17
+  a42b5e:	62 92 7d 48 1a 1c 67 	vbroadcastf32x4 (%r15,%r12,2),%zmm3
+  a42b65:	62 e2 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm18
+  a42b6b:	62 e2 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm19
+  a42b71:	49 83 c7 10          	add    $0x10,%r15
+  a42b75:	48 ff cf             	dec    %rdi
+  a42b78:	0f 85 6b ff ff ff    	jne    a42ae9 <dgemm_kernel_SKYLAKEX+0x949>
+  a42b7e:	4c 89 c9             	mov    %r9,%rcx
+  a42b81:	49 83 c1 40          	add    $0x40,%r9
+  a42b85:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a42b8b:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42b91:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42b97:	62 d1 bd 48 15 d1    	vunpckhpd %zmm9,%zmm8,%zmm2
+  a42b9d:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a42ba4:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a42bab:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42baf:	62 d1 ad 48 14 cb    	vunpcklpd %zmm11,%zmm10,%zmm1
+  a42bb5:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42bbb:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42bc1:	62 d1 ad 48 15 d3    	vunpckhpd %zmm11,%zmm10,%zmm2
+  a42bc7:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a42bce:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a42bd5:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42bd9:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a42bdf:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42be5:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42beb:	62 d1 9d 48 15 d5    	vunpckhpd %zmm13,%zmm12,%zmm2
+  a42bf1:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a42bf8:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a42bff:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42c03:	62 d1 8d 48 14 cf    	vunpcklpd %zmm15,%zmm14,%zmm1
+  a42c09:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42c0f:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42c15:	62 d1 8d 48 15 d7    	vunpckhpd %zmm15,%zmm14,%zmm2
+  a42c1b:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a42c22:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a42c29:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42c2d:	62 b1 fd 40 14 c9    	vunpcklpd %zmm17,%zmm16,%zmm1
+  a42c33:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42c39:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42c3f:	62 b1 fd 40 15 d1    	vunpckhpd %zmm17,%zmm16,%zmm2
+  a42c45:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a42c4c:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a42c53:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42c57:	62 b1 ed 40 14 cb    	vunpcklpd %zmm19,%zmm18,%zmm1
+  a42c5d:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a42c63:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a42c69:	62 b1 ed 40 15 d3    	vunpckhpd %zmm19,%zmm18,%zmm2
+  a42c6f:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a42c76:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a42c7d:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42c81:	49 83 eb 08          	sub    $0x8,%r11
+  a42c85:	49 83 fb 04          	cmp    $0x4,%r11
+  a42c89:	0f 82 19 03 00 00    	jb     a42fa8 <dgemm_kernel_SKYLAKEX+0xe08>
+  a42c8f:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a42c93:	c5 d5 ef ed          	vpxor  %ymm5,%ymm5,%ymm5
+  a42c97:	c5 cd ef f6          	vpxor  %ymm6,%ymm6,%ymm6
+  a42c9b:	c5 c5 ef ff          	vpxor  %ymm7,%ymm7,%ymm7
+  a42c9f:	c4 41 3d ef c0       	vpxor  %ymm8,%ymm8,%ymm8
+  a42ca4:	c4 41 35 ef c9       	vpxor  %ymm9,%ymm9,%ymm9
+  a42ca9:	c4 41 2d ef d2       	vpxor  %ymm10,%ymm10,%ymm10
+  a42cae:	c4 41 25 ef db       	vpxor  %ymm11,%ymm11,%ymm11
+  a42cb3:	c4 41 1d ef e4       	vpxor  %ymm12,%ymm12,%ymm12
+  a42cb8:	c4 41 15 ef ed       	vpxor  %ymm13,%ymm13,%ymm13
+  a42cbd:	c4 41 0d ef f6       	vpxor  %ymm14,%ymm14,%ymm14
+  a42cc2:	c4 41 05 ef ff       	vpxor  %ymm15,%ymm15,%ymm15
+  a42cc7:	4c 89 ef             	mov    %r13,%rdi
+  a42cca:	4d 89 f0             	mov    %r14,%r8
+  a42ccd:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a42cd1:	4d 01 e7             	add    %r12,%r15
+  a42cd4:	48 85 ff             	test   %rdi,%rdi
+  a42cd7:	0f 84 f8 01 00 00    	je     a42ed5 <dgemm_kernel_SKYLAKEX+0xd35>
+  a42cdd:	48 83 ff 02          	cmp    $0x2,%rdi
+  a42ce1:	0f 82 6a 01 00 00    	jb     a42e51 <dgemm_kernel_SKYLAKEX+0xcb1>
+  a42ce7:	62 61 fd 48 10 b4 24 	vmovupd 0x8(%rsp),%zmm30
+  a42cee:	08 00 00 00 
+  a42cf2:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a42cf8:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a42cff:	00 00 00 
+  a42d02:	48 83 c0 40          	add    $0x40,%rax
+  a42d06:	62 d2 fd 48 1b 18    	vbroadcastf64x4 (%r8),%zmm3
+  a42d0c:	62 f2 8d 40 16 db    	vpermpd %zmm3,%zmm30,%zmm3
+  a42d12:	62 f2 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm4
+  a42d18:	62 f2 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm5
+  a42d1e:	62 92 fd 48 1b 1c 20 	vbroadcastf64x4 (%r8,%r12,1),%zmm3
+  a42d25:	62 f2 8d 40 16 db    	vpermpd %zmm3,%zmm30,%zmm3
+  a42d2b:	62 f2 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm6
+  a42d31:	62 f2 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm7
+  a42d37:	62 92 fd 48 1b 1c 60 	vbroadcastf64x4 (%r8,%r12,2),%zmm3
+  a42d3e:	62 f2 8d 40 16 db    	vpermpd %zmm3,%zmm30,%zmm3
+  a42d44:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a42d4a:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a42d50:	49 83 c0 20          	add    $0x20,%r8
+  a42d54:	62 d2 fd 48 1b 1f    	vbroadcastf64x4 (%r15),%zmm3
+  a42d5a:	62 f2 8d 40 16 db    	vpermpd %zmm3,%zmm30,%zmm3
+  a42d60:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a42d66:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a42d6c:	62 92 fd 48 1b 1c 27 	vbroadcastf64x4 (%r15,%r12,1),%zmm3
+  a42d73:	62 f2 8d 40 16 db    	vpermpd %zmm3,%zmm30,%zmm3
+  a42d79:	62 72 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm12
+  a42d7f:	62 72 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm13
+  a42d85:	62 92 fd 48 1b 1c 67 	vbroadcastf64x4 (%r15,%r12,2),%zmm3
+  a42d8c:	62 f2 8d 40 16 db    	vpermpd %zmm3,%zmm30,%zmm3
+  a42d92:	62 72 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm14
+  a42d98:	62 72 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm15
+  a42d9e:	49 83 c7 20          	add    $0x20,%r15
+  a42da2:	48 83 ef 02          	sub    $0x2,%rdi
+  a42da6:	48 83 ff 02          	cmp    $0x2,%rdi
+  a42daa:	0f 83 42 ff ff ff    	jae    a42cf2 <dgemm_kernel_SKYLAKEX+0xb52>
+  a42db0:	62 93 fd 48 1b e6 01 	vextractf64x4 $0x1,%zmm4,%ymm30
+  a42db7:	62 f1 8d 20 58 e4    	vaddpd %ymm4,%ymm30,%ymm4
+  a42dbd:	62 93 fd 48 1b ee 01 	vextractf64x4 $0x1,%zmm5,%ymm30
+  a42dc4:	62 f1 8d 20 58 ed    	vaddpd %ymm5,%ymm30,%ymm5
+  a42dca:	62 93 fd 48 1b f6 01 	vextractf64x4 $0x1,%zmm6,%ymm30
+  a42dd1:	62 f1 8d 20 58 f6    	vaddpd %ymm6,%ymm30,%ymm6
+  a42dd7:	62 93 fd 48 1b fe 01 	vextractf64x4 $0x1,%zmm7,%ymm30
+  a42dde:	62 f1 8d 20 58 ff    	vaddpd %ymm7,%ymm30,%ymm7
+  a42de4:	62 13 fd 48 1b c6 01 	vextractf64x4 $0x1,%zmm8,%ymm30
+  a42deb:	62 51 8d 20 58 c0    	vaddpd %ymm8,%ymm30,%ymm8
+  a42df1:	62 13 fd 48 1b ce 01 	vextractf64x4 $0x1,%zmm9,%ymm30
+  a42df8:	62 51 8d 20 58 c9    	vaddpd %ymm9,%ymm30,%ymm9
+  a42dfe:	62 13 fd 48 1b d6 01 	vextractf64x4 $0x1,%zmm10,%ymm30
+  a42e05:	62 51 8d 20 58 d2    	vaddpd %ymm10,%ymm30,%ymm10
+  a42e0b:	62 13 fd 48 1b de 01 	vextractf64x4 $0x1,%zmm11,%ymm30
+  a42e12:	62 51 8d 20 58 db    	vaddpd %ymm11,%ymm30,%ymm11
+  a42e18:	62 13 fd 48 1b e6 01 	vextractf64x4 $0x1,%zmm12,%ymm30
+  a42e1f:	62 51 8d 20 58 e4    	vaddpd %ymm12,%ymm30,%ymm12
+  a42e25:	62 13 fd 48 1b ee 01 	vextractf64x4 $0x1,%zmm13,%ymm30
+  a42e2c:	62 51 8d 20 58 ed    	vaddpd %ymm13,%ymm30,%ymm13
+  a42e32:	62 13 fd 48 1b f6 01 	vextractf64x4 $0x1,%zmm14,%ymm30
+  a42e39:	62 51 8d 20 58 f6    	vaddpd %ymm14,%ymm30,%ymm14
+  a42e3f:	62 13 fd 48 1b fe 01 	vextractf64x4 $0x1,%zmm15,%ymm30
+  a42e46:	62 51 8d 20 58 ff    	vaddpd %ymm15,%ymm30,%ymm15
+  a42e4c:	48 85 ff             	test   %rdi,%rdi
+  a42e4f:	74 78                	je     a42ec9 <dgemm_kernel_SKYLAKEX+0xd29>
+  a42e51:	c5 ff 12 08          	vmovddup (%rax),%ymm1
+  a42e55:	c5 ff 12 50 08       	vmovddup 0x8(%rax),%ymm2
+  a42e5a:	48 83 c0 20          	add    $0x20,%rax
+  a42e5e:	c4 c2 7d 1a 18       	vbroadcastf128 (%r8),%ymm3
+  a42e63:	c4 e2 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm4
+  a42e68:	c4 e2 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm5
+  a42e6d:	c4 82 7d 1a 1c 20    	vbroadcastf128 (%r8,%r12,1),%ymm3
+  a42e73:	c4 e2 e5 b8 f1       	vfmadd231pd %ymm1,%ymm3,%ymm6
+  a42e78:	c4 e2 e5 b8 fa       	vfmadd231pd %ymm2,%ymm3,%ymm7
+  a42e7d:	c4 82 7d 1a 1c 60    	vbroadcastf128 (%r8,%r12,2),%ymm3
+  a42e83:	c4 62 e5 b8 c1       	vfmadd231pd %ymm1,%ymm3,%ymm8
+  a42e88:	c4 62 e5 b8 ca       	vfmadd231pd %ymm2,%ymm3,%ymm9
+  a42e8d:	49 83 c0 10          	add    $0x10,%r8
+  a42e91:	c4 c2 7d 1a 1f       	vbroadcastf128 (%r15),%ymm3
+  a42e96:	c4 62 e5 b8 d1       	vfmadd231pd %ymm1,%ymm3,%ymm10
+  a42e9b:	c4 62 e5 b8 da       	vfmadd231pd %ymm2,%ymm3,%ymm11
+  a42ea0:	c4 82 7d 1a 1c 27    	vbroadcastf128 (%r15,%r12,1),%ymm3
+  a42ea6:	c4 62 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm12
+  a42eab:	c4 62 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm13
+  a42eb0:	c4 82 7d 1a 1c 67    	vbroadcastf128 (%r15,%r12,2),%ymm3
+  a42eb6:	c4 62 e5 b8 f1       	vfmadd231pd %ymm1,%ymm3,%ymm14
+  a42ebb:	c4 62 e5 b8 fa       	vfmadd231pd %ymm2,%ymm3,%ymm15
+  a42ec0:	49 83 c7 10          	add    $0x10,%r15
+  a42ec4:	48 ff cf             	dec    %rdi
+  a42ec7:	75 88                	jne    a42e51 <dgemm_kernel_SKYLAKEX+0xcb1>
+  a42ec9:	48 ff c7             	inc    %rdi
+  a42ecc:	48 ff cf             	dec    %rdi
+  a42ecf:	0f 85 08 fe ff ff    	jne    a42cdd <dgemm_kernel_SKYLAKEX+0xb3d>
+  a42ed5:	4c 89 c9             	mov    %r9,%rcx
+  a42ed8:	49 83 c1 20          	add    $0x20,%r9
+  a42edc:	c5 dd 14 cd          	vunpcklpd %ymm5,%ymm4,%ymm1
+  a42ee0:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a42ee5:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a42ee9:	c5 dd 15 d5          	vunpckhpd %ymm5,%ymm4,%ymm2
+  a42eed:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a42ef3:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a42ef8:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42efc:	c5 cd 14 cf          	vunpcklpd %ymm7,%ymm6,%ymm1
+  a42f00:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a42f05:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a42f09:	c5 cd 15 d7          	vunpckhpd %ymm7,%ymm6,%ymm2
+  a42f0d:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a42f13:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a42f18:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42f1c:	c4 c1 3d 14 c9       	vunpcklpd %ymm9,%ymm8,%ymm1
+  a42f21:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a42f26:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a42f2a:	c4 c1 3d 15 d1       	vunpckhpd %ymm9,%ymm8,%ymm2
+  a42f2f:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a42f35:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a42f3a:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42f3e:	c4 c1 2d 14 cb       	vunpcklpd %ymm11,%ymm10,%ymm1
+  a42f43:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a42f48:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a42f4c:	c4 c1 2d 15 d3       	vunpckhpd %ymm11,%ymm10,%ymm2
+  a42f51:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a42f57:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a42f5c:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42f60:	c4 c1 1d 14 cd       	vunpcklpd %ymm13,%ymm12,%ymm1
+  a42f65:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a42f6a:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a42f6e:	c4 c1 1d 15 d5       	vunpckhpd %ymm13,%ymm12,%ymm2
+  a42f73:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a42f79:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a42f7e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42f82:	c4 c1 0d 14 cf       	vunpcklpd %ymm15,%ymm14,%ymm1
+  a42f87:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a42f8c:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a42f90:	c4 c1 0d 15 d7       	vunpckhpd %ymm15,%ymm14,%ymm2
+  a42f95:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a42f9b:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a42fa0:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a42fa4:	49 83 eb 04          	sub    $0x4,%r11
+  a42fa8:	49 83 fb 02          	cmp    $0x2,%r11
+  a42fac:	0f 82 76 04 00 00    	jb     a43428 <dgemm_kernel_SKYLAKEX+0x1288>
+  a42fb2:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a42fb6:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a42fba:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a42fbe:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a42fc2:	c4 41 39 ef c0       	vpxor  %xmm8,%xmm8,%xmm8
+  a42fc7:	c4 41 31 ef c9       	vpxor  %xmm9,%xmm9,%xmm9
+  a42fcc:	c4 41 29 ef d2       	vpxor  %xmm10,%xmm10,%xmm10
+  a42fd1:	c4 41 21 ef db       	vpxor  %xmm11,%xmm11,%xmm11
+  a42fd6:	c4 41 19 ef e4       	vpxor  %xmm12,%xmm12,%xmm12
+  a42fdb:	c4 41 11 ef ed       	vpxor  %xmm13,%xmm13,%xmm13
+  a42fe0:	c4 41 09 ef f6       	vpxor  %xmm14,%xmm14,%xmm14
+  a42fe5:	c4 41 01 ef ff       	vpxor  %xmm15,%xmm15,%xmm15
+  a42fea:	4c 89 ef             	mov    %r13,%rdi
+  a42fed:	4d 89 f0             	mov    %r14,%r8
+  a42ff0:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a42ff4:	4d 01 e7             	add    %r12,%r15
+  a42ff7:	48 85 ff             	test   %rdi,%rdi
+  a42ffa:	0f 84 55 03 00 00    	je     a43355 <dgemm_kernel_SKYLAKEX+0x11b5>
+  a43000:	48 83 ff 04          	cmp    $0x4,%rdi
+  a43004:	0f 82 c7 02 00 00    	jb     a432d1 <dgemm_kernel_SKYLAKEX+0x1131>
+  a4300a:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a43010:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a43017:	00 00 00 
+  a4301a:	48 83 c0 40          	add    $0x40,%rax
+  a4301e:	62 d1 fd 48 10 18    	vmovupd (%r8),%zmm3
+  a43024:	62 f2 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm4
+  a4302a:	62 f2 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm5
+  a43030:	62 91 fd 48 10 1c 20 	vmovupd (%r8,%r12,1),%zmm3
+  a43037:	62 f2 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm6
+  a4303d:	62 f2 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm7
+  a43043:	62 91 fd 48 10 1c 60 	vmovupd (%r8,%r12,2),%zmm3
+  a4304a:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a43050:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a43056:	49 83 c0 40          	add    $0x40,%r8
+  a4305a:	62 d1 fd 48 10 1f    	vmovupd (%r15),%zmm3
+  a43060:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a43066:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a4306c:	62 91 fd 48 10 1c 27 	vmovupd (%r15,%r12,1),%zmm3
+  a43073:	62 72 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm12
+  a43079:	62 72 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm13
+  a4307f:	62 91 fd 48 10 1c 67 	vmovupd (%r15,%r12,2),%zmm3
+  a43086:	62 72 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm14
+  a4308c:	62 72 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm15
+  a43092:	49 83 c7 40          	add    $0x40,%r15
+  a43096:	48 83 ef 04          	sub    $0x4,%rdi
+  a4309a:	48 83 ff 04          	cmp    $0x4,%rdi
+  a4309e:	0f 83 66 ff ff ff    	jae    a4300a <dgemm_kernel_SKYLAKEX+0xe6a>
+  a430a4:	62 b3 fd 48 19 e4 00 	vextractf64x2 $0x0,%zmm4,%xmm20
+  a430ab:	62 b3 fd 48 19 e5 01 	vextractf64x2 $0x1,%zmm4,%xmm21
+  a430b2:	62 b3 fd 48 19 e6 02 	vextractf64x2 $0x2,%zmm4,%xmm22
+  a430b9:	62 b3 fd 48 19 e7 03 	vextractf64x2 $0x3,%zmm4,%xmm23
+  a430c0:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a430c6:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a430cc:	62 b1 cd 00 58 e4    	vaddpd %xmm20,%xmm22,%xmm4
+  a430d2:	62 b3 fd 48 19 ec 00 	vextractf64x2 $0x0,%zmm5,%xmm20
+  a430d9:	62 b3 fd 48 19 ed 01 	vextractf64x2 $0x1,%zmm5,%xmm21
+  a430e0:	62 b3 fd 48 19 ee 02 	vextractf64x2 $0x2,%zmm5,%xmm22
+  a430e7:	62 b3 fd 48 19 ef 03 	vextractf64x2 $0x3,%zmm5,%xmm23
+  a430ee:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a430f4:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a430fa:	62 b1 cd 00 58 ec    	vaddpd %xmm20,%xmm22,%xmm5
+  a43100:	62 b3 fd 48 19 f4 00 	vextractf64x2 $0x0,%zmm6,%xmm20
+  a43107:	62 b3 fd 48 19 f5 01 	vextractf64x2 $0x1,%zmm6,%xmm21
+  a4310e:	62 b3 fd 48 19 f6 02 	vextractf64x2 $0x2,%zmm6,%xmm22
+  a43115:	62 b3 fd 48 19 f7 03 	vextractf64x2 $0x3,%zmm6,%xmm23
+  a4311c:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43122:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43128:	62 b1 cd 00 58 f4    	vaddpd %xmm20,%xmm22,%xmm6
+  a4312e:	62 b3 fd 48 19 fc 00 	vextractf64x2 $0x0,%zmm7,%xmm20
+  a43135:	62 b3 fd 48 19 fd 01 	vextractf64x2 $0x1,%zmm7,%xmm21
+  a4313c:	62 b3 fd 48 19 fe 02 	vextractf64x2 $0x2,%zmm7,%xmm22
+  a43143:	62 b3 fd 48 19 ff 03 	vextractf64x2 $0x3,%zmm7,%xmm23
+  a4314a:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43150:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43156:	62 b1 cd 00 58 fc    	vaddpd %xmm20,%xmm22,%xmm7
+  a4315c:	62 33 fd 48 19 c4 00 	vextractf64x2 $0x0,%zmm8,%xmm20
+  a43163:	62 33 fd 48 19 c5 01 	vextractf64x2 $0x1,%zmm8,%xmm21
+  a4316a:	62 33 fd 48 19 c6 02 	vextractf64x2 $0x2,%zmm8,%xmm22
+  a43171:	62 33 fd 48 19 c7 03 	vextractf64x2 $0x3,%zmm8,%xmm23
+  a43178:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a4317e:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43184:	62 31 cd 00 58 c4    	vaddpd %xmm20,%xmm22,%xmm8
+  a4318a:	62 33 fd 48 19 cc 00 	vextractf64x2 $0x0,%zmm9,%xmm20
+  a43191:	62 33 fd 48 19 cd 01 	vextractf64x2 $0x1,%zmm9,%xmm21
+  a43198:	62 33 fd 48 19 ce 02 	vextractf64x2 $0x2,%zmm9,%xmm22
+  a4319f:	62 33 fd 48 19 cf 03 	vextractf64x2 $0x3,%zmm9,%xmm23
+  a431a6:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a431ac:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a431b2:	62 31 cd 00 58 cc    	vaddpd %xmm20,%xmm22,%xmm9
+  a431b8:	62 33 fd 48 19 d4 00 	vextractf64x2 $0x0,%zmm10,%xmm20
+  a431bf:	62 33 fd 48 19 d5 01 	vextractf64x2 $0x1,%zmm10,%xmm21
+  a431c6:	62 33 fd 48 19 d6 02 	vextractf64x2 $0x2,%zmm10,%xmm22
+  a431cd:	62 33 fd 48 19 d7 03 	vextractf64x2 $0x3,%zmm10,%xmm23
+  a431d4:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a431da:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a431e0:	62 31 cd 00 58 d4    	vaddpd %xmm20,%xmm22,%xmm10
+  a431e6:	62 33 fd 48 19 dc 00 	vextractf64x2 $0x0,%zmm11,%xmm20
+  a431ed:	62 33 fd 48 19 dd 01 	vextractf64x2 $0x1,%zmm11,%xmm21
+  a431f4:	62 33 fd 48 19 de 02 	vextractf64x2 $0x2,%zmm11,%xmm22
+  a431fb:	62 33 fd 48 19 df 03 	vextractf64x2 $0x3,%zmm11,%xmm23
+  a43202:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43208:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a4320e:	62 31 cd 00 58 dc    	vaddpd %xmm20,%xmm22,%xmm11
+  a43214:	62 33 fd 48 19 e4 00 	vextractf64x2 $0x0,%zmm12,%xmm20
+  a4321b:	62 33 fd 48 19 e5 01 	vextractf64x2 $0x1,%zmm12,%xmm21
+  a43222:	62 33 fd 48 19 e6 02 	vextractf64x2 $0x2,%zmm12,%xmm22
+  a43229:	62 33 fd 48 19 e7 03 	vextractf64x2 $0x3,%zmm12,%xmm23
+  a43230:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43236:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a4323c:	62 31 cd 00 58 e4    	vaddpd %xmm20,%xmm22,%xmm12
+  a43242:	62 33 fd 48 19 ec 00 	vextractf64x2 $0x0,%zmm13,%xmm20
+  a43249:	62 33 fd 48 19 ed 01 	vextractf64x2 $0x1,%zmm13,%xmm21
+  a43250:	62 33 fd 48 19 ee 02 	vextractf64x2 $0x2,%zmm13,%xmm22
+  a43257:	62 33 fd 48 19 ef 03 	vextractf64x2 $0x3,%zmm13,%xmm23
+  a4325e:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43264:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a4326a:	62 31 cd 00 58 ec    	vaddpd %xmm20,%xmm22,%xmm13
+  a43270:	62 33 fd 48 19 f4 00 	vextractf64x2 $0x0,%zmm14,%xmm20
+  a43277:	62 33 fd 48 19 f5 01 	vextractf64x2 $0x1,%zmm14,%xmm21
+  a4327e:	62 33 fd 48 19 f6 02 	vextractf64x2 $0x2,%zmm14,%xmm22
+  a43285:	62 33 fd 48 19 f7 03 	vextractf64x2 $0x3,%zmm14,%xmm23
+  a4328c:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43292:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43298:	62 31 cd 00 58 f4    	vaddpd %xmm20,%xmm22,%xmm14
+  a4329e:	62 33 fd 48 19 fc 00 	vextractf64x2 $0x0,%zmm15,%xmm20
+  a432a5:	62 33 fd 48 19 fd 01 	vextractf64x2 $0x1,%zmm15,%xmm21
+  a432ac:	62 33 fd 48 19 fe 02 	vextractf64x2 $0x2,%zmm15,%xmm22
+  a432b3:	62 33 fd 48 19 ff 03 	vextractf64x2 $0x3,%zmm15,%xmm23
+  a432ba:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a432c0:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a432c6:	62 31 cd 00 58 fc    	vaddpd %xmm20,%xmm22,%xmm15
+  a432cc:	48 85 ff             	test   %rdi,%rdi
+  a432cf:	74 78                	je     a43349 <dgemm_kernel_SKYLAKEX+0x11a9>
+  a432d1:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a432d5:	c5 fb 12 50 08       	vmovddup 0x8(%rax),%xmm2
+  a432da:	48 83 c0 10          	add    $0x10,%rax
+  a432de:	c4 c1 79 10 18       	vmovupd (%r8),%xmm3
+  a432e3:	c4 e2 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm4
+  a432e8:	c4 e2 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm5
+  a432ed:	c4 81 79 10 1c 20    	vmovupd (%r8,%r12,1),%xmm3
+  a432f3:	c4 e2 e1 b8 f1       	vfmadd231pd %xmm1,%xmm3,%xmm6
+  a432f8:	c4 e2 e1 b8 fa       	vfmadd231pd %xmm2,%xmm3,%xmm7
+  a432fd:	c4 81 79 10 1c 60    	vmovupd (%r8,%r12,2),%xmm3
+  a43303:	c4 62 e1 b8 c1       	vfmadd231pd %xmm1,%xmm3,%xmm8
+  a43308:	c4 62 e1 b8 ca       	vfmadd231pd %xmm2,%xmm3,%xmm9
+  a4330d:	49 83 c0 10          	add    $0x10,%r8
+  a43311:	c4 c1 79 10 1f       	vmovupd (%r15),%xmm3
+  a43316:	c4 62 e1 b8 d1       	vfmadd231pd %xmm1,%xmm3,%xmm10
+  a4331b:	c4 62 e1 b8 da       	vfmadd231pd %xmm2,%xmm3,%xmm11
+  a43320:	c4 81 79 10 1c 27    	vmovupd (%r15,%r12,1),%xmm3
+  a43326:	c4 62 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm12
+  a4332b:	c4 62 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm13
+  a43330:	c4 81 79 10 1c 67    	vmovupd (%r15,%r12,2),%xmm3
+  a43336:	c4 62 e1 b8 f1       	vfmadd231pd %xmm1,%xmm3,%xmm14
+  a4333b:	c4 62 e1 b8 fa       	vfmadd231pd %xmm2,%xmm3,%xmm15
+  a43340:	49 83 c7 10          	add    $0x10,%r15
+  a43344:	48 ff cf             	dec    %rdi
+  a43347:	75 88                	jne    a432d1 <dgemm_kernel_SKYLAKEX+0x1131>
+  a43349:	48 ff c7             	inc    %rdi
+  a4334c:	48 ff cf             	dec    %rdi
+  a4334f:	0f 85 ab fc ff ff    	jne    a43000 <dgemm_kernel_SKYLAKEX+0xe60>
+  a43355:	4c 89 c9             	mov    %r9,%rcx
+  a43358:	49 83 c1 10          	add    $0x10,%r9
+  a4335c:	c5 d9 14 cd          	vunpcklpd %xmm5,%xmm4,%xmm1
+  a43360:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43365:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43369:	c5 d9 15 d5          	vunpckhpd %xmm5,%xmm4,%xmm2
+  a4336d:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43373:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43378:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4337c:	c5 c9 14 cf          	vunpcklpd %xmm7,%xmm6,%xmm1
+  a43380:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43385:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43389:	c5 c9 15 d7          	vunpckhpd %xmm7,%xmm6,%xmm2
+  a4338d:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43393:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43398:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4339c:	c4 c1 39 14 c9       	vunpcklpd %xmm9,%xmm8,%xmm1
+  a433a1:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a433a6:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a433aa:	c4 c1 39 15 d1       	vunpckhpd %xmm9,%xmm8,%xmm2
+  a433af:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a433b5:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a433ba:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a433be:	c4 c1 29 14 cb       	vunpcklpd %xmm11,%xmm10,%xmm1
+  a433c3:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a433c8:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a433cc:	c4 c1 29 15 d3       	vunpckhpd %xmm11,%xmm10,%xmm2
+  a433d1:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a433d7:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a433dc:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a433e0:	c4 c1 19 14 cd       	vunpcklpd %xmm13,%xmm12,%xmm1
+  a433e5:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a433ea:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a433ee:	c4 c1 19 15 d5       	vunpckhpd %xmm13,%xmm12,%xmm2
+  a433f3:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a433f9:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a433fe:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43402:	c4 c1 09 14 cf       	vunpcklpd %xmm15,%xmm14,%xmm1
+  a43407:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a4340c:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43410:	c4 c1 09 15 d7       	vunpckhpd %xmm15,%xmm14,%xmm2
+  a43415:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a4341b:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43420:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43424:	49 83 eb 02          	sub    $0x2,%r11
+  a43428:	4d 85 db             	test   %r11,%r11
+  a4342b:	0f 84 96 02 00 00    	je     a436c7 <dgemm_kernel_SKYLAKEX+0x1527>
+  a43431:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a43435:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a43439:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a4343d:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a43441:	c4 41 39 ef c0       	vpxor  %xmm8,%xmm8,%xmm8
+  a43446:	c4 41 31 ef c9       	vpxor  %xmm9,%xmm9,%xmm9
+  a4344b:	4c 89 ef             	mov    %r13,%rdi
+  a4344e:	4d 89 f0             	mov    %r14,%r8
+  a43451:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a43455:	4d 01 e7             	add    %r12,%r15
+  a43458:	48 85 ff             	test   %rdi,%rdi
+  a4345b:	0f 84 b9 01 00 00    	je     a4361a <dgemm_kernel_SKYLAKEX+0x147a>
+  a43461:	48 83 ff 04          	cmp    $0x4,%rdi
+  a43465:	0f 82 6c 01 00 00    	jb     a435d7 <dgemm_kernel_SKYLAKEX+0x1437>
+  a4346b:	62 f1 fd 48 10 94 24 	vmovupd -0x38(%rsp),%zmm2
+  a43472:	c8 ff ff ff 
+  a43476:	c5 fd 10 08          	vmovupd (%rax),%ymm1
+  a4347a:	62 f2 ed 48 16 c9    	vpermpd %zmm1,%zmm2,%zmm1
+  a43480:	48 83 c0 20          	add    $0x20,%rax
+  a43484:	62 d2 f5 48 b8 20    	vfmadd231pd (%r8),%zmm1,%zmm4
+  a4348a:	62 92 f5 48 b8 2c 20 	vfmadd231pd (%r8,%r12,1),%zmm1,%zmm5
+  a43491:	62 92 f5 48 b8 34 60 	vfmadd231pd (%r8,%r12,2),%zmm1,%zmm6
+  a43498:	49 83 c0 40          	add    $0x40,%r8
+  a4349c:	62 d2 f5 48 b8 3f    	vfmadd231pd (%r15),%zmm1,%zmm7
+  a434a2:	62 12 f5 48 b8 04 27 	vfmadd231pd (%r15,%r12,1),%zmm1,%zmm8
+  a434a9:	62 12 f5 48 b8 0c 67 	vfmadd231pd (%r15,%r12,2),%zmm1,%zmm9
+  a434b0:	49 83 c7 40          	add    $0x40,%r15
+  a434b4:	48 83 ef 04          	sub    $0x4,%rdi
+  a434b8:	48 83 ff 04          	cmp    $0x4,%rdi
+  a434bc:	73 b8                	jae    a43476 <dgemm_kernel_SKYLAKEX+0x12d6>
+  a434be:	62 b3 fd 48 19 e4 00 	vextractf64x2 $0x0,%zmm4,%xmm20
+  a434c5:	62 b3 fd 48 19 e5 01 	vextractf64x2 $0x1,%zmm4,%xmm21
+  a434cc:	62 b3 fd 48 19 e6 02 	vextractf64x2 $0x2,%zmm4,%xmm22
+  a434d3:	62 b3 fd 48 19 e7 03 	vextractf64x2 $0x3,%zmm4,%xmm23
+  a434da:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a434e0:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a434e6:	62 b1 cd 00 58 e4    	vaddpd %xmm20,%xmm22,%xmm4
+  a434ec:	62 b3 fd 48 19 ec 00 	vextractf64x2 $0x0,%zmm5,%xmm20
+  a434f3:	62 b3 fd 48 19 ed 01 	vextractf64x2 $0x1,%zmm5,%xmm21
+  a434fa:	62 b3 fd 48 19 ee 02 	vextractf64x2 $0x2,%zmm5,%xmm22
+  a43501:	62 b3 fd 48 19 ef 03 	vextractf64x2 $0x3,%zmm5,%xmm23
+  a43508:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a4350e:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43514:	62 b1 cd 00 58 ec    	vaddpd %xmm20,%xmm22,%xmm5
+  a4351a:	62 b3 fd 48 19 f4 00 	vextractf64x2 $0x0,%zmm6,%xmm20
+  a43521:	62 b3 fd 48 19 f5 01 	vextractf64x2 $0x1,%zmm6,%xmm21
+  a43528:	62 b3 fd 48 19 f6 02 	vextractf64x2 $0x2,%zmm6,%xmm22
+  a4352f:	62 b3 fd 48 19 f7 03 	vextractf64x2 $0x3,%zmm6,%xmm23
+  a43536:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a4353c:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43542:	62 b1 cd 00 58 f4    	vaddpd %xmm20,%xmm22,%xmm6
+  a43548:	62 b3 fd 48 19 fc 00 	vextractf64x2 $0x0,%zmm7,%xmm20
+  a4354f:	62 b3 fd 48 19 fd 01 	vextractf64x2 $0x1,%zmm7,%xmm21
+  a43556:	62 b3 fd 48 19 fe 02 	vextractf64x2 $0x2,%zmm7,%xmm22
+  a4355d:	62 b3 fd 48 19 ff 03 	vextractf64x2 $0x3,%zmm7,%xmm23
+  a43564:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a4356a:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a43570:	62 b1 cd 00 58 fc    	vaddpd %xmm20,%xmm22,%xmm7
+  a43576:	62 33 fd 48 19 c4 00 	vextractf64x2 $0x0,%zmm8,%xmm20
+  a4357d:	62 33 fd 48 19 c5 01 	vextractf64x2 $0x1,%zmm8,%xmm21
+  a43584:	62 33 fd 48 19 c6 02 	vextractf64x2 $0x2,%zmm8,%xmm22
+  a4358b:	62 33 fd 48 19 c7 03 	vextractf64x2 $0x3,%zmm8,%xmm23
+  a43592:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a43598:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a4359e:	62 31 cd 00 58 c4    	vaddpd %xmm20,%xmm22,%xmm8
+  a435a4:	62 33 fd 48 19 cc 00 	vextractf64x2 $0x0,%zmm9,%xmm20
+  a435ab:	62 33 fd 48 19 cd 01 	vextractf64x2 $0x1,%zmm9,%xmm21
+  a435b2:	62 33 fd 48 19 ce 02 	vextractf64x2 $0x2,%zmm9,%xmm22
+  a435b9:	62 33 fd 48 19 cf 03 	vextractf64x2 $0x3,%zmm9,%xmm23
+  a435c0:	62 a1 d5 00 58 e4    	vaddpd %xmm20,%xmm21,%xmm20
+  a435c6:	62 a1 c5 00 58 f6    	vaddpd %xmm22,%xmm23,%xmm22
+  a435cc:	62 31 cd 00 58 cc    	vaddpd %xmm20,%xmm22,%xmm9
+  a435d2:	48 85 ff             	test   %rdi,%rdi
+  a435d5:	74 37                	je     a4360e <dgemm_kernel_SKYLAKEX+0x146e>
+  a435d7:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a435db:	48 83 c0 08          	add    $0x8,%rax
+  a435df:	c4 c2 f1 b8 20       	vfmadd231pd (%r8),%xmm1,%xmm4
+  a435e4:	c4 82 f1 b8 2c 20    	vfmadd231pd (%r8,%r12,1),%xmm1,%xmm5
+  a435ea:	c4 82 f1 b8 34 60    	vfmadd231pd (%r8,%r12,2),%xmm1,%xmm6
+  a435f0:	49 83 c0 10          	add    $0x10,%r8
+  a435f4:	c4 c2 f1 b8 3f       	vfmadd231pd (%r15),%xmm1,%xmm7
+  a435f9:	c4 02 f1 b8 04 27    	vfmadd231pd (%r15,%r12,1),%xmm1,%xmm8
+  a435ff:	c4 02 f1 b8 0c 67    	vfmadd231pd (%r15,%r12,2),%xmm1,%xmm9
+  a43605:	49 83 c7 10          	add    $0x10,%r15
+  a43609:	48 ff cf             	dec    %rdi
+  a4360c:	75 c9                	jne    a435d7 <dgemm_kernel_SKYLAKEX+0x1437>
+  a4360e:	48 ff c7             	inc    %rdi
+  a43611:	48 ff cf             	dec    %rdi
+  a43614:	0f 85 47 fe ff ff    	jne    a43461 <dgemm_kernel_SKYLAKEX+0x12c1>
+  a4361a:	4c 89 c9             	mov    %r9,%rcx
+  a4361d:	49 83 c1 08          	add    $0x8,%r9
+  a43621:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43625:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a4362a:	c4 e2 f9 b8 d4       	vfmadd231pd %xmm4,%xmm0,%xmm2
+  a4362f:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43633:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43638:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4363c:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43640:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43645:	c4 e2 f9 b8 d5       	vfmadd231pd %xmm5,%xmm0,%xmm2
+  a4364a:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a4364e:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43653:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43657:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a4365b:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43660:	c4 e2 f9 b8 d6       	vfmadd231pd %xmm6,%xmm0,%xmm2
+  a43665:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43669:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a4366e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43672:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43676:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a4367b:	c4 e2 f9 b8 d7       	vfmadd231pd %xmm7,%xmm0,%xmm2
+  a43680:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43684:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43689:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4368d:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43691:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43696:	c4 c2 f9 b8 d0       	vfmadd231pd %xmm8,%xmm0,%xmm2
+  a4369b:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a4369f:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a436a4:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a436a8:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a436ac:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a436b1:	c4 c2 f9 b8 d1       	vfmadd231pd %xmm9,%xmm0,%xmm2
+  a436b6:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a436ba:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a436bf:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a436c3:	49 83 eb 01          	sub    $0x1,%r11
+  a436c7:	4d 89 f0             	mov    %r14,%r8
+  a436ca:	4c 8b 64 24 b0       	mov    -0x50(%rsp),%r12
+  a436cf:	4c 8b 54 24 b8       	mov    -0x48(%rsp),%r10
+  a436d4:	48 83 ee 0c          	sub    $0xc,%rsi
+  a436d8:	4d 89 e3             	mov    %r12,%r11
+  a436db:	4b 8d 1c 12          	lea    (%r10,%r10,1),%rbx
+  a436df:	4d 0f af da          	imul   %r10,%r11
+  a436e3:	49 c1 e3 03          	shl    $0x3,%r11
+  a436e7:	4c 29 d8             	sub    %r11,%rax
+  a436ea:	4e 8d 1c 13          	lea    (%rbx,%r10,1),%r11
+  a436ee:	49 c1 e3 05          	shl    $0x5,%r11
+  a436f2:	4d 01 d8             	add    %r11,%r8
+  a436f5:	4c 8b 5c 24 a0       	mov    -0x60(%rsp),%r11
+  a436fa:	4d 29 e3             	sub    %r12,%r11
+  a436fd:	4f 8d 0c d9          	lea    (%r9,%r11,8),%r9
+  a43701:	48 83 fe 0b          	cmp    $0xb,%rsi
+  a43705:	0f 8f 4d eb ff ff    	jg     a42258 <dgemm_kernel_SKYLAKEX+0xb8>
+  a4370b:	48 83 fe 09          	cmp    $0x9,%rsi
+  a4370f:	0f 8e 2f 09 00 00    	jle    a44044 <dgemm_kernel_SKYLAKEX+0x1ea4>
+  a43715:	4c 8b 54 24 b8       	mov    -0x48(%rsp),%r10
+  a4371a:	4c 89 c3             	mov    %r8,%rbx
+  a4371d:	4f 8d 14 92          	lea    (%r10,%r10,4),%r10
+  a43721:	49 c1 e2 04          	shl    $0x4,%r10
+  a43725:	4d 01 c2             	add    %r8,%r10
+  a43728:	4d 89 d0             	mov    %r10,%r8
+  a4372b:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a43732:	f5 
+  a43733:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a43738:	49 89 de             	mov    %rbx,%r14
+  a4373b:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a43740:	49 c1 e4 04          	shl    $0x4,%r12
+  a43744:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a43749:	49 83 fb 10          	cmp    $0x10,%r11
+  a4374d:	0f 82 29 03 00 00    	jb     a43a7c <dgemm_kernel_SKYLAKEX+0x18dc>
+  a43753:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a43759:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a4375f:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a43765:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a4376b:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a43771:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a43777:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a4377d:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a43783:	62 a1 fd 40 ef c0    	vpxorq %zmm16,%zmm16,%zmm16
+  a43789:	62 a1 f5 40 ef c9    	vpxorq %zmm17,%zmm17,%zmm17
+  a4378f:	62 a1 ed 40 ef d2    	vpxorq %zmm18,%zmm18,%zmm18
+  a43795:	62 a1 e5 40 ef db    	vpxorq %zmm19,%zmm19,%zmm19
+  a4379b:	62 a1 dd 40 ef e4    	vpxorq %zmm20,%zmm20,%zmm20
+  a437a1:	62 a1 d5 40 ef ed    	vpxorq %zmm21,%zmm21,%zmm21
+  a437a7:	62 a1 cd 40 ef f6    	vpxorq %zmm22,%zmm22,%zmm22
+  a437ad:	62 a1 c5 40 ef ff    	vpxorq %zmm23,%zmm23,%zmm23
+  a437b3:	62 01 bd 40 ef c0    	vpxorq %zmm24,%zmm24,%zmm24
+  a437b9:	62 01 b5 40 ef c9    	vpxorq %zmm25,%zmm25,%zmm25
+  a437bf:	62 01 ad 40 ef d2    	vpxorq %zmm26,%zmm26,%zmm26
+  a437c5:	62 01 a5 40 ef db    	vpxorq %zmm27,%zmm27,%zmm27
+  a437cb:	4c 89 ef             	mov    %r13,%rdi
+  a437ce:	4c 89 f3             	mov    %r14,%rbx
+  a437d1:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a437d5:	4d 01 e7             	add    %r12,%r15
+  a437d8:	48 85 ff             	test   %rdi,%rdi
+  a437db:	0f 84 df 00 00 00    	je     a438c0 <dgemm_kernel_SKYLAKEX+0x1720>
+  a437e1:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a437e7:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a437ee:	00 00 00 
+  a437f1:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a437f8:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a437ff:	00 00 00 
+  a43802:	48 05 80 00 00 00    	add    $0x80,%rax
+  a43808:	62 f2 7d 48 1a 2b    	vbroadcastf32x4 (%rbx),%zmm5
+  a4380e:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a43814:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a4381a:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a43820:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a43826:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a4382d:	62 b2 7d 48 1a 2c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm5
+  a43834:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a4383a:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a43840:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a43846:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a4384c:	62 b2 7d 48 1a 2c 63 	vbroadcastf32x4 (%rbx,%r12,2),%zmm5
+  a43853:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a43859:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a4385f:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a43865:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a4386b:	48 83 c3 10          	add    $0x10,%rbx
+  a4386f:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a43876:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a4387c:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a43882:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a43888:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a4388e:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a43894:	62 92 7d 48 1a 2c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm5
+  a4389b:	62 62 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm24
+  a438a1:	62 62 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm25
+  a438a7:	62 62 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm26
+  a438ad:	62 62 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm27
+  a438b3:	49 83 c7 10          	add    $0x10,%r15
+  a438b7:	48 ff cf             	dec    %rdi
+  a438ba:	0f 85 21 ff ff ff    	jne    a437e1 <dgemm_kernel_SKYLAKEX+0x1641>
+  a438c0:	4c 89 c9             	mov    %r9,%rcx
+  a438c3:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a438ca:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a438d0:	62 d1 ad 48 14 d3    	vunpcklpd %zmm11,%zmm10,%zmm2
+  a438d6:	62 d1 bd 48 15 d9    	vunpckhpd %zmm9,%zmm8,%zmm3
+  a438dc:	62 d1 ad 48 15 e3    	vunpckhpd %zmm11,%zmm10,%zmm4
+  a438e2:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a438e8:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a438ee:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a438f5:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a438fc:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a43903:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a4390a:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a43911:	01 
+  a43912:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a43919:	01 
+  a4391a:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4391e:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a43924:	62 d1 8d 48 14 d7    	vunpcklpd %zmm15,%zmm14,%zmm2
+  a4392a:	62 d1 9d 48 15 dd    	vunpckhpd %zmm13,%zmm12,%zmm3
+  a43930:	62 d1 8d 48 15 e7    	vunpckhpd %zmm15,%zmm14,%zmm4
+  a43936:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a4393c:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43942:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a43949:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a43950:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a43957:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a4395e:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a43965:	01 
+  a43966:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a4396d:	01 
+  a4396e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43972:	62 b1 fd 40 14 c9    	vunpcklpd %zmm17,%zmm16,%zmm1
+  a43978:	62 b1 ed 40 14 d3    	vunpcklpd %zmm19,%zmm18,%zmm2
+  a4397e:	62 b1 fd 40 15 d9    	vunpckhpd %zmm17,%zmm16,%zmm3
+  a43984:	62 b1 ed 40 15 e3    	vunpckhpd %zmm19,%zmm18,%zmm4
+  a4398a:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43990:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43996:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a4399d:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a439a4:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a439ab:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a439b2:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a439b9:	01 
+  a439ba:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a439c1:	01 
+  a439c2:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a439c6:	62 b1 dd 40 14 cd    	vunpcklpd %zmm21,%zmm20,%zmm1
+  a439cc:	62 b1 cd 40 14 d7    	vunpcklpd %zmm23,%zmm22,%zmm2
+  a439d2:	62 b1 dd 40 15 dd    	vunpckhpd %zmm21,%zmm20,%zmm3
+  a439d8:	62 b1 cd 40 15 e7    	vunpckhpd %zmm23,%zmm22,%zmm4
+  a439de:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a439e4:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a439ea:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a439f1:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a439f8:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a439ff:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a43a06:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a43a0d:	01 
+  a43a0e:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a43a15:	01 
+  a43a16:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43a1a:	62 91 bd 40 14 c9    	vunpcklpd %zmm25,%zmm24,%zmm1
+  a43a20:	62 91 ad 40 14 d3    	vunpcklpd %zmm27,%zmm26,%zmm2
+  a43a26:	62 91 bd 40 15 d9    	vunpckhpd %zmm25,%zmm24,%zmm3
+  a43a2c:	62 91 ad 40 15 e3    	vunpckhpd %zmm27,%zmm26,%zmm4
+  a43a32:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43a38:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43a3e:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a43a45:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a43a4c:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a43a53:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a43a5a:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a43a61:	01 
+  a43a62:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a43a69:	01 
+  a43a6a:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43a6e:	49 83 eb 10          	sub    $0x10,%r11
+  a43a72:	49 83 fb 10          	cmp    $0x10,%r11
+  a43a76:	0f 83 d7 fc ff ff    	jae    a43753 <dgemm_kernel_SKYLAKEX+0x15b3>
+  a43a7c:	49 83 fb 08          	cmp    $0x8,%r11
+  a43a80:	0f 82 a9 01 00 00    	jb     a43c2f <dgemm_kernel_SKYLAKEX+0x1a8f>
+  a43a86:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a43a8c:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a43a92:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a43a98:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a43a9e:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a43aa4:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a43aaa:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a43ab0:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a43ab6:	62 a1 fd 40 ef c0    	vpxorq %zmm16,%zmm16,%zmm16
+  a43abc:	62 a1 f5 40 ef c9    	vpxorq %zmm17,%zmm17,%zmm17
+  a43ac2:	4c 89 ef             	mov    %r13,%rdi
+  a43ac5:	4c 89 f3             	mov    %r14,%rbx
+  a43ac8:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a43acc:	4d 01 e7             	add    %r12,%r15
+  a43acf:	48 85 ff             	test   %rdi,%rdi
+  a43ad2:	74 7e                	je     a43b52 <dgemm_kernel_SKYLAKEX+0x19b2>
+  a43ad4:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a43ada:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a43ae1:	00 00 00 
+  a43ae4:	48 83 c0 40          	add    $0x40,%rax
+  a43ae8:	62 f2 7d 48 1a 1b    	vbroadcastf32x4 (%rbx),%zmm3
+  a43aee:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a43af4:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a43afa:	62 b2 7d 48 1a 1c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm3
+  a43b01:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a43b07:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a43b0d:	62 b2 7d 48 1a 1c 63 	vbroadcastf32x4 (%rbx,%r12,2),%zmm3
+  a43b14:	62 72 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm12
+  a43b1a:	62 72 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm13
+  a43b20:	48 83 c3 10          	add    $0x10,%rbx
+  a43b24:	62 d2 7d 48 1a 1f    	vbroadcastf32x4 (%r15),%zmm3
+  a43b2a:	62 72 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm14
+  a43b30:	62 72 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm15
+  a43b36:	62 92 7d 48 1a 1c 27 	vbroadcastf32x4 (%r15,%r12,1),%zmm3
+  a43b3d:	62 e2 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm16
+  a43b43:	62 e2 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm17
+  a43b49:	49 83 c7 10          	add    $0x10,%r15
+  a43b4d:	48 ff cf             	dec    %rdi
+  a43b50:	75 82                	jne    a43ad4 <dgemm_kernel_SKYLAKEX+0x1934>
+  a43b52:	4c 89 c9             	mov    %r9,%rcx
+  a43b55:	49 83 c1 40          	add    $0x40,%r9
+  a43b59:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a43b5f:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43b65:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43b6b:	62 d1 bd 48 15 d1    	vunpckhpd %zmm9,%zmm8,%zmm2
+  a43b71:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a43b78:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a43b7f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43b83:	62 d1 ad 48 14 cb    	vunpcklpd %zmm11,%zmm10,%zmm1
+  a43b89:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43b8f:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43b95:	62 d1 ad 48 15 d3    	vunpckhpd %zmm11,%zmm10,%zmm2
+  a43b9b:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a43ba2:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a43ba9:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43bad:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a43bb3:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43bb9:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43bbf:	62 d1 9d 48 15 d5    	vunpckhpd %zmm13,%zmm12,%zmm2
+  a43bc5:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a43bcc:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a43bd3:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43bd7:	62 d1 8d 48 14 cf    	vunpcklpd %zmm15,%zmm14,%zmm1
+  a43bdd:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43be3:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43be9:	62 d1 8d 48 15 d7    	vunpckhpd %zmm15,%zmm14,%zmm2
+  a43bef:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a43bf6:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a43bfd:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43c01:	62 b1 fd 40 14 c9    	vunpcklpd %zmm17,%zmm16,%zmm1
+  a43c07:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a43c0d:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a43c13:	62 b1 fd 40 15 d1    	vunpckhpd %zmm17,%zmm16,%zmm2
+  a43c19:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a43c20:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a43c27:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43c2b:	49 83 eb 08          	sub    $0x8,%r11
+  a43c2f:	49 83 fb 04          	cmp    $0x4,%r11
+  a43c33:	0f 82 59 01 00 00    	jb     a43d92 <dgemm_kernel_SKYLAKEX+0x1bf2>
+  a43c39:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a43c3d:	c5 d5 ef ed          	vpxor  %ymm5,%ymm5,%ymm5
+  a43c41:	c5 cd ef f6          	vpxor  %ymm6,%ymm6,%ymm6
+  a43c45:	c5 c5 ef ff          	vpxor  %ymm7,%ymm7,%ymm7
+  a43c49:	c4 41 3d ef c0       	vpxor  %ymm8,%ymm8,%ymm8
+  a43c4e:	c4 41 35 ef c9       	vpxor  %ymm9,%ymm9,%ymm9
+  a43c53:	c4 41 2d ef d2       	vpxor  %ymm10,%ymm10,%ymm10
+  a43c58:	c4 41 25 ef db       	vpxor  %ymm11,%ymm11,%ymm11
+  a43c5d:	c4 41 1d ef e4       	vpxor  %ymm12,%ymm12,%ymm12
+  a43c62:	c4 41 15 ef ed       	vpxor  %ymm13,%ymm13,%ymm13
+  a43c67:	4c 89 ef             	mov    %r13,%rdi
+  a43c6a:	4c 89 f3             	mov    %r14,%rbx
+  a43c6d:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a43c71:	4d 01 e7             	add    %r12,%r15
+  a43c74:	48 85 ff             	test   %rdi,%rdi
+  a43c77:	74 68                	je     a43ce1 <dgemm_kernel_SKYLAKEX+0x1b41>
+  a43c79:	c5 ff 12 08          	vmovddup (%rax),%ymm1
+  a43c7d:	c5 ff 12 50 08       	vmovddup 0x8(%rax),%ymm2
+  a43c82:	48 83 c0 20          	add    $0x20,%rax
+  a43c86:	c4 e2 7d 1a 1b       	vbroadcastf128 (%rbx),%ymm3
+  a43c8b:	c4 e2 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm4
+  a43c90:	c4 e2 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm5
+  a43c95:	c4 a2 7d 1a 1c 23    	vbroadcastf128 (%rbx,%r12,1),%ymm3
+  a43c9b:	c4 e2 e5 b8 f1       	vfmadd231pd %ymm1,%ymm3,%ymm6
+  a43ca0:	c4 e2 e5 b8 fa       	vfmadd231pd %ymm2,%ymm3,%ymm7
+  a43ca5:	c4 a2 7d 1a 1c 63    	vbroadcastf128 (%rbx,%r12,2),%ymm3
+  a43cab:	c4 62 e5 b8 c1       	vfmadd231pd %ymm1,%ymm3,%ymm8
+  a43cb0:	c4 62 e5 b8 ca       	vfmadd231pd %ymm2,%ymm3,%ymm9
+  a43cb5:	48 83 c3 10          	add    $0x10,%rbx
+  a43cb9:	c4 c2 7d 1a 1f       	vbroadcastf128 (%r15),%ymm3
+  a43cbe:	c4 62 e5 b8 d1       	vfmadd231pd %ymm1,%ymm3,%ymm10
+  a43cc3:	c4 62 e5 b8 da       	vfmadd231pd %ymm2,%ymm3,%ymm11
+  a43cc8:	c4 82 7d 1a 1c 27    	vbroadcastf128 (%r15,%r12,1),%ymm3
+  a43cce:	c4 62 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm12
+  a43cd3:	c4 62 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm13
+  a43cd8:	49 83 c7 10          	add    $0x10,%r15
+  a43cdc:	48 ff cf             	dec    %rdi
+  a43cdf:	75 98                	jne    a43c79 <dgemm_kernel_SKYLAKEX+0x1ad9>
+  a43ce1:	4c 89 c9             	mov    %r9,%rcx
+  a43ce4:	49 83 c1 20          	add    $0x20,%r9
+  a43ce8:	c5 dd 14 cd          	vunpcklpd %ymm5,%ymm4,%ymm1
+  a43cec:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a43cf1:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a43cf5:	c5 dd 15 d5          	vunpckhpd %ymm5,%ymm4,%ymm2
+  a43cf9:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a43cff:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a43d04:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43d08:	c5 cd 14 cf          	vunpcklpd %ymm7,%ymm6,%ymm1
+  a43d0c:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a43d11:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a43d15:	c5 cd 15 d7          	vunpckhpd %ymm7,%ymm6,%ymm2
+  a43d19:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a43d1f:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a43d24:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43d28:	c4 c1 3d 14 c9       	vunpcklpd %ymm9,%ymm8,%ymm1
+  a43d2d:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a43d32:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a43d36:	c4 c1 3d 15 d1       	vunpckhpd %ymm9,%ymm8,%ymm2
+  a43d3b:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a43d41:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a43d46:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43d4a:	c4 c1 2d 14 cb       	vunpcklpd %ymm11,%ymm10,%ymm1
+  a43d4f:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a43d54:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a43d58:	c4 c1 2d 15 d3       	vunpckhpd %ymm11,%ymm10,%ymm2
+  a43d5d:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a43d63:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a43d68:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43d6c:	c4 c1 1d 14 cd       	vunpcklpd %ymm13,%ymm12,%ymm1
+  a43d71:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a43d76:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a43d7a:	c4 c1 1d 15 d5       	vunpckhpd %ymm13,%ymm12,%ymm2
+  a43d7f:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a43d85:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a43d8a:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43d8e:	49 83 eb 04          	sub    $0x4,%r11
+  a43d92:	49 83 fb 02          	cmp    $0x2,%r11
+  a43d96:	0f 82 58 01 00 00    	jb     a43ef4 <dgemm_kernel_SKYLAKEX+0x1d54>
+  a43d9c:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a43da0:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a43da4:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a43da8:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a43dac:	c4 41 39 ef c0       	vpxor  %xmm8,%xmm8,%xmm8
+  a43db1:	c4 41 31 ef c9       	vpxor  %xmm9,%xmm9,%xmm9
+  a43db6:	c4 41 29 ef d2       	vpxor  %xmm10,%xmm10,%xmm10
+  a43dbb:	c4 41 21 ef db       	vpxor  %xmm11,%xmm11,%xmm11
+  a43dc0:	c4 41 19 ef e4       	vpxor  %xmm12,%xmm12,%xmm12
+  a43dc5:	c4 41 11 ef ed       	vpxor  %xmm13,%xmm13,%xmm13
+  a43dca:	4c 89 ef             	mov    %r13,%rdi
+  a43dcd:	4c 89 f3             	mov    %r14,%rbx
+  a43dd0:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a43dd4:	4d 01 e7             	add    %r12,%r15
+  a43dd7:	48 85 ff             	test   %rdi,%rdi
+  a43dda:	74 67                	je     a43e43 <dgemm_kernel_SKYLAKEX+0x1ca3>
+  a43ddc:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a43de0:	c5 fb 12 50 08       	vmovddup 0x8(%rax),%xmm2
+  a43de5:	48 83 c0 10          	add    $0x10,%rax
+  a43de9:	c5 f9 10 1b          	vmovupd (%rbx),%xmm3
+  a43ded:	c4 e2 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm4
+  a43df2:	c4 e2 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm5
+  a43df7:	c4 a1 79 10 1c 23    	vmovupd (%rbx,%r12,1),%xmm3
+  a43dfd:	c4 e2 e1 b8 f1       	vfmadd231pd %xmm1,%xmm3,%xmm6
+  a43e02:	c4 e2 e1 b8 fa       	vfmadd231pd %xmm2,%xmm3,%xmm7
+  a43e07:	c4 a1 79 10 1c 63    	vmovupd (%rbx,%r12,2),%xmm3
+  a43e0d:	c4 62 e1 b8 c1       	vfmadd231pd %xmm1,%xmm3,%xmm8
+  a43e12:	c4 62 e1 b8 ca       	vfmadd231pd %xmm2,%xmm3,%xmm9
+  a43e17:	48 83 c3 10          	add    $0x10,%rbx
+  a43e1b:	c4 c1 79 10 1f       	vmovupd (%r15),%xmm3
+  a43e20:	c4 62 e1 b8 d1       	vfmadd231pd %xmm1,%xmm3,%xmm10
+  a43e25:	c4 62 e1 b8 da       	vfmadd231pd %xmm2,%xmm3,%xmm11
+  a43e2a:	c4 81 79 10 1c 27    	vmovupd (%r15,%r12,1),%xmm3
+  a43e30:	c4 62 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm12
+  a43e35:	c4 62 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm13
+  a43e3a:	49 83 c7 10          	add    $0x10,%r15
+  a43e3e:	48 ff cf             	dec    %rdi
+  a43e41:	75 99                	jne    a43ddc <dgemm_kernel_SKYLAKEX+0x1c3c>
+  a43e43:	4c 89 c9             	mov    %r9,%rcx
+  a43e46:	49 83 c1 10          	add    $0x10,%r9
+  a43e4a:	c5 d9 14 cd          	vunpcklpd %xmm5,%xmm4,%xmm1
+  a43e4e:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43e53:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43e57:	c5 d9 15 d5          	vunpckhpd %xmm5,%xmm4,%xmm2
+  a43e5b:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43e61:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43e66:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43e6a:	c5 c9 14 cf          	vunpcklpd %xmm7,%xmm6,%xmm1
+  a43e6e:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43e73:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43e77:	c5 c9 15 d7          	vunpckhpd %xmm7,%xmm6,%xmm2
+  a43e7b:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43e81:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43e86:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43e8a:	c4 c1 39 14 c9       	vunpcklpd %xmm9,%xmm8,%xmm1
+  a43e8f:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43e94:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43e98:	c4 c1 39 15 d1       	vunpckhpd %xmm9,%xmm8,%xmm2
+  a43e9d:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43ea3:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43ea8:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43eac:	c4 c1 29 14 cb       	vunpcklpd %xmm11,%xmm10,%xmm1
+  a43eb1:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43eb6:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43eba:	c4 c1 29 15 d3       	vunpckhpd %xmm11,%xmm10,%xmm2
+  a43ebf:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43ec5:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43eca:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43ece:	c4 c1 19 14 cd       	vunpcklpd %xmm13,%xmm12,%xmm1
+  a43ed3:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a43ed8:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a43edc:	c4 c1 19 15 d5       	vunpckhpd %xmm13,%xmm12,%xmm2
+  a43ee1:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a43ee7:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a43eec:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43ef0:	49 83 eb 02          	sub    $0x2,%r11
+  a43ef4:	4d 85 db             	test   %r11,%r11
+  a43ef7:	0f 84 ea 00 00 00    	je     a43fe7 <dgemm_kernel_SKYLAKEX+0x1e47>
+  a43efd:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a43f01:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a43f05:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a43f09:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a43f0d:	c4 41 39 ef c0       	vpxor  %xmm8,%xmm8,%xmm8
+  a43f12:	4c 89 ef             	mov    %r13,%rdi
+  a43f15:	4c 89 f3             	mov    %r14,%rbx
+  a43f18:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a43f1c:	4d 01 e7             	add    %r12,%r15
+  a43f1f:	48 85 ff             	test   %rdi,%rdi
+  a43f22:	74 31                	je     a43f55 <dgemm_kernel_SKYLAKEX+0x1db5>
+  a43f24:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a43f28:	48 83 c0 08          	add    $0x8,%rax
+  a43f2c:	c4 e2 f1 b8 23       	vfmadd231pd (%rbx),%xmm1,%xmm4
+  a43f31:	c4 a2 f1 b8 2c 23    	vfmadd231pd (%rbx,%r12,1),%xmm1,%xmm5
+  a43f37:	c4 a2 f1 b8 34 63    	vfmadd231pd (%rbx,%r12,2),%xmm1,%xmm6
+  a43f3d:	48 83 c3 10          	add    $0x10,%rbx
+  a43f41:	c4 c2 f1 b8 3f       	vfmadd231pd (%r15),%xmm1,%xmm7
+  a43f46:	c4 02 f1 b8 04 27    	vfmadd231pd (%r15,%r12,1),%xmm1,%xmm8
+  a43f4c:	49 83 c7 10          	add    $0x10,%r15
+  a43f50:	48 ff cf             	dec    %rdi
+  a43f53:	75 cf                	jne    a43f24 <dgemm_kernel_SKYLAKEX+0x1d84>
+  a43f55:	4c 89 c9             	mov    %r9,%rcx
+  a43f58:	49 83 c1 08          	add    $0x8,%r9
+  a43f5c:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43f60:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43f65:	c4 e2 f9 b8 d4       	vfmadd231pd %xmm4,%xmm0,%xmm2
+  a43f6a:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43f6e:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43f73:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43f77:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43f7b:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43f80:	c4 e2 f9 b8 d5       	vfmadd231pd %xmm5,%xmm0,%xmm2
+  a43f85:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43f89:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43f8e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43f92:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43f96:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43f9b:	c4 e2 f9 b8 d6       	vfmadd231pd %xmm6,%xmm0,%xmm2
+  a43fa0:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43fa4:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43fa9:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43fad:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43fb1:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43fb6:	c4 e2 f9 b8 d7       	vfmadd231pd %xmm7,%xmm0,%xmm2
+  a43fbb:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43fbf:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43fc4:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43fc8:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a43fcc:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a43fd1:	c4 c2 f9 b8 d0       	vfmadd231pd %xmm8,%xmm0,%xmm2
+  a43fd6:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a43fda:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a43fdf:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a43fe3:	49 83 eb 01          	sub    $0x1,%r11
+  a43fe7:	4c 89 f3             	mov    %r14,%rbx
+  a43fea:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a43fef:	4c 8b 44 24 b8       	mov    -0x48(%rsp),%r8
+  a43ff4:	48 83 ee 0a          	sub    $0xa,%rsi
+  a43ff8:	4d 89 da             	mov    %r11,%r10
+  a43ffb:	4d 0f af d0          	imul   %r8,%r10
+  a43fff:	4f 8d 04 80          	lea    (%r8,%r8,4),%r8
+  a44003:	49 c1 e0 04          	shl    $0x4,%r8
+  a44007:	49 01 d8             	add    %rbx,%r8
+  a4400a:	48 8b 5d 10          	mov    0x10(%rbp),%rbx
+  a4400e:	49 c1 e2 03          	shl    $0x3,%r10
+  a44012:	4c 29 d0             	sub    %r10,%rax
+  a44015:	4c 8d 14 9b          	lea    (%rbx,%rbx,4),%r10
+  a44019:	4d 01 d2             	add    %r10,%r10
+  a4401c:	4d 29 da             	sub    %r11,%r10
+  a4401f:	4f 8d 0c d1          	lea    (%r9,%r10,8),%r9
+  a44023:	48 83 fe 01          	cmp    $0x1,%rsi
+  a44027:	0f 84 bc 07 00 00    	je     a447e9 <dgemm_kernel_SKYLAKEX+0x2649>
+  a4402d:	0f 1f 00             	nopl   (%rax)
+  a44030:	c5 f8 77             	vzeroupper
+  a44033:	48 8d 65 d8          	lea    -0x28(%rbp),%rsp
+  a44037:	31 c0                	xor    %eax,%eax
+  a44039:	5b                   	pop    %rbx
+  a4403a:	41 5c                	pop    %r12
+  a4403c:	41 5d                	pop    %r13
+  a4403e:	41 5e                	pop    %r14
+  a44040:	41 5f                	pop    %r15
+  a44042:	5d                   	pop    %rbp
+  a44043:	c3                   	ret
+  a44044:	48 83 fe 07          	cmp    $0x7,%rsi
+  a44048:	0f 8e 7c 09 00 00    	jle    a449ca <dgemm_kernel_SKYLAKEX+0x282a>
+  a4404e:	bb 06 00 00 00       	mov    $0x6,%ebx
+  a44053:	c4 62 e1 f7 54 24 b8 	shlx   %rbx,-0x48(%rsp),%r10
+  a4405a:	4d 01 c2             	add    %r8,%r10
+  a4405d:	4c 89 c3             	mov    %r8,%rbx
+  a44060:	4d 89 d0             	mov    %r10,%r8
+  a44063:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a4406a:	f5 
+  a4406b:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a44070:	49 89 de             	mov    %rbx,%r14
+  a44073:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a44078:	49 c1 e4 04          	shl    $0x4,%r12
+  a4407c:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a44081:	49 83 fb 10          	cmp    $0x10,%r11
+  a44085:	0f 82 9e 02 00 00    	jb     a44329 <dgemm_kernel_SKYLAKEX+0x2189>
+  a4408b:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a44091:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a44097:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a4409d:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a440a3:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a440a9:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a440af:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a440b5:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a440bb:	62 a1 fd 40 ef c0    	vpxorq %zmm16,%zmm16,%zmm16
+  a440c1:	62 a1 f5 40 ef c9    	vpxorq %zmm17,%zmm17,%zmm17
+  a440c7:	62 a1 ed 40 ef d2    	vpxorq %zmm18,%zmm18,%zmm18
+  a440cd:	62 a1 e5 40 ef db    	vpxorq %zmm19,%zmm19,%zmm19
+  a440d3:	62 a1 dd 40 ef e4    	vpxorq %zmm20,%zmm20,%zmm20
+  a440d9:	62 a1 d5 40 ef ed    	vpxorq %zmm21,%zmm21,%zmm21
+  a440df:	62 a1 cd 40 ef f6    	vpxorq %zmm22,%zmm22,%zmm22
+  a440e5:	62 a1 c5 40 ef ff    	vpxorq %zmm23,%zmm23,%zmm23
+  a440eb:	4c 89 ef             	mov    %r13,%rdi
+  a440ee:	4c 89 f3             	mov    %r14,%rbx
+  a440f1:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a440f5:	4d 01 e7             	add    %r12,%r15
+  a440f8:	48 85 ff             	test   %rdi,%rdi
+  a440fb:	0f 84 c0 00 00 00    	je     a441c1 <dgemm_kernel_SKYLAKEX+0x2021>
+  a44101:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a44107:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a4410e:	00 00 00 
+  a44111:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a44118:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a4411f:	00 00 00 
+  a44122:	48 05 80 00 00 00    	add    $0x80,%rax
+  a44128:	62 f2 7d 48 1a 2b    	vbroadcastf32x4 (%rbx),%zmm5
+  a4412e:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a44134:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a4413a:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a44140:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a44146:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a4414d:	62 b2 7d 48 1a 2c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm5
+  a44154:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a4415a:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a44160:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a44166:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a4416c:	62 b2 7d 48 1a 2c 63 	vbroadcastf32x4 (%rbx,%r12,2),%zmm5
+  a44173:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a44179:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a4417f:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a44185:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a4418b:	48 83 c3 10          	add    $0x10,%rbx
+  a4418f:	0f 18 88 c0 01 00 00 	prefetcht0 0x1c0(%rax)
+  a44196:	62 d2 7d 48 1a 2f    	vbroadcastf32x4 (%r15),%zmm5
+  a4419c:	62 e2 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm20
+  a441a2:	62 e2 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm21
+  a441a8:	62 e2 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm22
+  a441ae:	62 e2 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm23
+  a441b4:	49 83 c7 10          	add    $0x10,%r15
+  a441b8:	48 ff cf             	dec    %rdi
+  a441bb:	0f 85 40 ff ff ff    	jne    a44101 <dgemm_kernel_SKYLAKEX+0x1f61>
+  a441c1:	4c 89 c9             	mov    %r9,%rcx
+  a441c4:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a441cb:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a441d1:	62 d1 ad 48 14 d3    	vunpcklpd %zmm11,%zmm10,%zmm2
+  a441d7:	62 d1 bd 48 15 d9    	vunpckhpd %zmm9,%zmm8,%zmm3
+  a441dd:	62 d1 ad 48 15 e3    	vunpckhpd %zmm11,%zmm10,%zmm4
+  a441e3:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a441e9:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a441ef:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a441f6:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a441fd:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a44204:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a4420b:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a44212:	01 
+  a44213:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a4421a:	01 
+  a4421b:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4421f:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a44225:	62 d1 8d 48 14 d7    	vunpcklpd %zmm15,%zmm14,%zmm2
+  a4422b:	62 d1 9d 48 15 dd    	vunpckhpd %zmm13,%zmm12,%zmm3
+  a44231:	62 d1 8d 48 15 e7    	vunpckhpd %zmm15,%zmm14,%zmm4
+  a44237:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a4423d:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44243:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a4424a:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a44251:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a44258:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a4425f:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a44266:	01 
+  a44267:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a4426e:	01 
+  a4426f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44273:	62 b1 fd 40 14 c9    	vunpcklpd %zmm17,%zmm16,%zmm1
+  a44279:	62 b1 ed 40 14 d3    	vunpcklpd %zmm19,%zmm18,%zmm2
+  a4427f:	62 b1 fd 40 15 d9    	vunpckhpd %zmm17,%zmm16,%zmm3
+  a44285:	62 b1 ed 40 15 e3    	vunpckhpd %zmm19,%zmm18,%zmm4
+  a4428b:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44291:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44297:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a4429e:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a442a5:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a442ac:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a442b3:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a442ba:	01 
+  a442bb:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a442c2:	01 
+  a442c3:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a442c7:	62 b1 dd 40 14 cd    	vunpcklpd %zmm21,%zmm20,%zmm1
+  a442cd:	62 b1 cd 40 14 d7    	vunpcklpd %zmm23,%zmm22,%zmm2
+  a442d3:	62 b1 dd 40 15 dd    	vunpckhpd %zmm21,%zmm20,%zmm3
+  a442d9:	62 b1 cd 40 15 e7    	vunpckhpd %zmm23,%zmm22,%zmm4
+  a442df:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a442e5:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a442eb:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a442f2:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a442f9:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a44300:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a44307:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a4430e:	01 
+  a4430f:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a44316:	01 
+  a44317:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4431b:	49 83 eb 10          	sub    $0x10,%r11
+  a4431f:	49 83 fb 10          	cmp    $0x10,%r11
+  a44323:	0f 83 62 fd ff ff    	jae    a4408b <dgemm_kernel_SKYLAKEX+0x1eeb>
+  a44329:	49 83 fb 08          	cmp    $0x8,%r11
+  a4432d:	0f 82 60 01 00 00    	jb     a44493 <dgemm_kernel_SKYLAKEX+0x22f3>
+  a44333:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a44339:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a4433f:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a44345:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a4434b:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a44351:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a44357:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a4435d:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a44363:	4c 89 ef             	mov    %r13,%rdi
+  a44366:	4c 89 f3             	mov    %r14,%rbx
+  a44369:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a4436d:	4d 01 e7             	add    %r12,%r15
+  a44370:	48 85 ff             	test   %rdi,%rdi
+  a44373:	74 6b                	je     a443e0 <dgemm_kernel_SKYLAKEX+0x2240>
+  a44375:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a4437b:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a44382:	00 00 00 
+  a44385:	48 83 c0 40          	add    $0x40,%rax
+  a44389:	62 f2 7d 48 1a 1b    	vbroadcastf32x4 (%rbx),%zmm3
+  a4438f:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a44395:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a4439b:	62 b2 7d 48 1a 1c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm3
+  a443a2:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a443a8:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a443ae:	62 b2 7d 48 1a 1c 63 	vbroadcastf32x4 (%rbx,%r12,2),%zmm3
+  a443b5:	62 72 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm12
+  a443bb:	62 72 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm13
+  a443c1:	48 83 c3 10          	add    $0x10,%rbx
+  a443c5:	62 d2 7d 48 1a 1f    	vbroadcastf32x4 (%r15),%zmm3
+  a443cb:	62 72 e5 48 b8 f1    	vfmadd231pd %zmm1,%zmm3,%zmm14
+  a443d1:	62 72 e5 48 b8 fa    	vfmadd231pd %zmm2,%zmm3,%zmm15
+  a443d7:	49 83 c7 10          	add    $0x10,%r15
+  a443db:	48 ff cf             	dec    %rdi
+  a443de:	75 95                	jne    a44375 <dgemm_kernel_SKYLAKEX+0x21d5>
+  a443e0:	4c 89 c9             	mov    %r9,%rcx
+  a443e3:	49 83 c1 40          	add    $0x40,%r9
+  a443e7:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a443ed:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a443f3:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a443f9:	62 d1 bd 48 15 d1    	vunpckhpd %zmm9,%zmm8,%zmm2
+  a443ff:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a44406:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a4440d:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44411:	62 d1 ad 48 14 cb    	vunpcklpd %zmm11,%zmm10,%zmm1
+  a44417:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a4441d:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44423:	62 d1 ad 48 15 d3    	vunpckhpd %zmm11,%zmm10,%zmm2
+  a44429:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a44430:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a44437:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4443b:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a44441:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44447:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4444d:	62 d1 9d 48 15 d5    	vunpckhpd %zmm13,%zmm12,%zmm2
+  a44453:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a4445a:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a44461:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44465:	62 d1 8d 48 14 cf    	vunpcklpd %zmm15,%zmm14,%zmm1
+  a4446b:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44471:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44477:	62 d1 8d 48 15 d7    	vunpckhpd %zmm15,%zmm14,%zmm2
+  a4447d:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a44484:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a4448b:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4448f:	49 83 eb 08          	sub    $0x8,%r11
+  a44493:	49 83 fb 04          	cmp    $0x4,%r11
+  a44497:	0f 82 1d 01 00 00    	jb     a445ba <dgemm_kernel_SKYLAKEX+0x241a>
+  a4449d:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a444a1:	c5 d5 ef ed          	vpxor  %ymm5,%ymm5,%ymm5
+  a444a5:	c5 cd ef f6          	vpxor  %ymm6,%ymm6,%ymm6
+  a444a9:	c5 c5 ef ff          	vpxor  %ymm7,%ymm7,%ymm7
+  a444ad:	c4 41 3d ef c0       	vpxor  %ymm8,%ymm8,%ymm8
+  a444b2:	c4 41 35 ef c9       	vpxor  %ymm9,%ymm9,%ymm9
+  a444b7:	c4 41 2d ef d2       	vpxor  %ymm10,%ymm10,%ymm10
+  a444bc:	c4 41 25 ef db       	vpxor  %ymm11,%ymm11,%ymm11
+  a444c1:	4c 89 ef             	mov    %r13,%rdi
+  a444c4:	4c 89 f3             	mov    %r14,%rbx
+  a444c7:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a444cb:	4d 01 e7             	add    %r12,%r15
+  a444ce:	48 85 ff             	test   %rdi,%rdi
+  a444d1:	74 58                	je     a4452b <dgemm_kernel_SKYLAKEX+0x238b>
+  a444d3:	c5 ff 12 08          	vmovddup (%rax),%ymm1
+  a444d7:	c5 ff 12 50 08       	vmovddup 0x8(%rax),%ymm2
+  a444dc:	48 83 c0 20          	add    $0x20,%rax
+  a444e0:	c4 e2 7d 1a 1b       	vbroadcastf128 (%rbx),%ymm3
+  a444e5:	c4 e2 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm4
+  a444ea:	c4 e2 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm5
+  a444ef:	c4 a2 7d 1a 1c 23    	vbroadcastf128 (%rbx,%r12,1),%ymm3
+  a444f5:	c4 e2 e5 b8 f1       	vfmadd231pd %ymm1,%ymm3,%ymm6
+  a444fa:	c4 e2 e5 b8 fa       	vfmadd231pd %ymm2,%ymm3,%ymm7
+  a444ff:	c4 a2 7d 1a 1c 63    	vbroadcastf128 (%rbx,%r12,2),%ymm3
+  a44505:	c4 62 e5 b8 c1       	vfmadd231pd %ymm1,%ymm3,%ymm8
+  a4450a:	c4 62 e5 b8 ca       	vfmadd231pd %ymm2,%ymm3,%ymm9
+  a4450f:	48 83 c3 10          	add    $0x10,%rbx
+  a44513:	c4 c2 7d 1a 1f       	vbroadcastf128 (%r15),%ymm3
+  a44518:	c4 62 e5 b8 d1       	vfmadd231pd %ymm1,%ymm3,%ymm10
+  a4451d:	c4 62 e5 b8 da       	vfmadd231pd %ymm2,%ymm3,%ymm11
+  a44522:	49 83 c7 10          	add    $0x10,%r15
+  a44526:	48 ff cf             	dec    %rdi
+  a44529:	75 a8                	jne    a444d3 <dgemm_kernel_SKYLAKEX+0x2333>
+  a4452b:	4c 89 c9             	mov    %r9,%rcx
+  a4452e:	49 83 c1 20          	add    $0x20,%r9
+  a44532:	c5 dd 14 cd          	vunpcklpd %ymm5,%ymm4,%ymm1
+  a44536:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a4453b:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a4453f:	c5 dd 15 d5          	vunpckhpd %ymm5,%ymm4,%ymm2
+  a44543:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a44549:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a4454e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44552:	c5 cd 14 cf          	vunpcklpd %ymm7,%ymm6,%ymm1
+  a44556:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a4455b:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a4455f:	c5 cd 15 d7          	vunpckhpd %ymm7,%ymm6,%ymm2
+  a44563:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a44569:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a4456e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44572:	c4 c1 3d 14 c9       	vunpcklpd %ymm9,%ymm8,%ymm1
+  a44577:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a4457c:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a44580:	c4 c1 3d 15 d1       	vunpckhpd %ymm9,%ymm8,%ymm2
+  a44585:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a4458b:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a44590:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44594:	c4 c1 2d 14 cb       	vunpcklpd %ymm11,%ymm10,%ymm1
+  a44599:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a4459e:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a445a2:	c4 c1 2d 15 d3       	vunpckhpd %ymm11,%ymm10,%ymm2
+  a445a7:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a445ad:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a445b2:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a445b6:	49 83 eb 04          	sub    $0x4,%r11
+  a445ba:	49 83 fb 02          	cmp    $0x2,%r11
+  a445be:	0f 82 1c 01 00 00    	jb     a446e0 <dgemm_kernel_SKYLAKEX+0x2540>
+  a445c4:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a445c8:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a445cc:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a445d0:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a445d4:	c4 41 39 ef c0       	vpxor  %xmm8,%xmm8,%xmm8
+  a445d9:	c4 41 31 ef c9       	vpxor  %xmm9,%xmm9,%xmm9
+  a445de:	c4 41 29 ef d2       	vpxor  %xmm10,%xmm10,%xmm10
+  a445e3:	c4 41 21 ef db       	vpxor  %xmm11,%xmm11,%xmm11
+  a445e8:	4c 89 ef             	mov    %r13,%rdi
+  a445eb:	4c 89 f3             	mov    %r14,%rbx
+  a445ee:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a445f2:	4d 01 e7             	add    %r12,%r15
+  a445f5:	48 85 ff             	test   %rdi,%rdi
+  a445f8:	74 57                	je     a44651 <dgemm_kernel_SKYLAKEX+0x24b1>
+  a445fa:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a445fe:	c5 fb 12 50 08       	vmovddup 0x8(%rax),%xmm2
+  a44603:	48 83 c0 10          	add    $0x10,%rax
+  a44607:	c5 f9 10 1b          	vmovupd (%rbx),%xmm3
+  a4460b:	c4 e2 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm4
+  a44610:	c4 e2 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm5
+  a44615:	c4 a1 79 10 1c 23    	vmovupd (%rbx,%r12,1),%xmm3
+  a4461b:	c4 e2 e1 b8 f1       	vfmadd231pd %xmm1,%xmm3,%xmm6
+  a44620:	c4 e2 e1 b8 fa       	vfmadd231pd %xmm2,%xmm3,%xmm7
+  a44625:	c4 a1 79 10 1c 63    	vmovupd (%rbx,%r12,2),%xmm3
+  a4462b:	c4 62 e1 b8 c1       	vfmadd231pd %xmm1,%xmm3,%xmm8
+  a44630:	c4 62 e1 b8 ca       	vfmadd231pd %xmm2,%xmm3,%xmm9
+  a44635:	48 83 c3 10          	add    $0x10,%rbx
+  a44639:	c4 c1 79 10 1f       	vmovupd (%r15),%xmm3
+  a4463e:	c4 62 e1 b8 d1       	vfmadd231pd %xmm1,%xmm3,%xmm10
+  a44643:	c4 62 e1 b8 da       	vfmadd231pd %xmm2,%xmm3,%xmm11
+  a44648:	49 83 c7 10          	add    $0x10,%r15
+  a4464c:	48 ff cf             	dec    %rdi
+  a4464f:	75 a9                	jne    a445fa <dgemm_kernel_SKYLAKEX+0x245a>
+  a44651:	4c 89 c9             	mov    %r9,%rcx
+  a44654:	49 83 c1 10          	add    $0x10,%r9
+  a44658:	c5 d9 14 cd          	vunpcklpd %xmm5,%xmm4,%xmm1
+  a4465c:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a44661:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a44665:	c5 d9 15 d5          	vunpckhpd %xmm5,%xmm4,%xmm2
+  a44669:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a4466f:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a44674:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44678:	c5 c9 14 cf          	vunpcklpd %xmm7,%xmm6,%xmm1
+  a4467c:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a44681:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a44685:	c5 c9 15 d7          	vunpckhpd %xmm7,%xmm6,%xmm2
+  a44689:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a4468f:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a44694:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44698:	c4 c1 39 14 c9       	vunpcklpd %xmm9,%xmm8,%xmm1
+  a4469d:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a446a2:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a446a6:	c4 c1 39 15 d1       	vunpckhpd %xmm9,%xmm8,%xmm2
+  a446ab:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a446b1:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a446b6:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a446ba:	c4 c1 29 14 cb       	vunpcklpd %xmm11,%xmm10,%xmm1
+  a446bf:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a446c4:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a446c8:	c4 c1 29 15 d3       	vunpckhpd %xmm11,%xmm10,%xmm2
+  a446cd:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a446d3:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a446d8:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a446dc:	49 83 eb 02          	sub    $0x2,%r11
+  a446e0:	4d 85 db             	test   %r11,%r11
+  a446e3:	0f 84 c4 00 00 00    	je     a447ad <dgemm_kernel_SKYLAKEX+0x260d>
+  a446e9:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a446ed:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a446f1:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a446f5:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a446f9:	4c 89 ef             	mov    %r13,%rdi
+  a446fc:	4c 89 f3             	mov    %r14,%rbx
+  a446ff:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44703:	4d 01 e7             	add    %r12,%r15
+  a44706:	48 85 ff             	test   %rdi,%rdi
+  a44709:	74 2b                	je     a44736 <dgemm_kernel_SKYLAKEX+0x2596>
+  a4470b:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a4470f:	48 83 c0 08          	add    $0x8,%rax
+  a44713:	c4 e2 f1 b8 23       	vfmadd231pd (%rbx),%xmm1,%xmm4
+  a44718:	c4 a2 f1 b8 2c 23    	vfmadd231pd (%rbx,%r12,1),%xmm1,%xmm5
+  a4471e:	c4 a2 f1 b8 34 63    	vfmadd231pd (%rbx,%r12,2),%xmm1,%xmm6
+  a44724:	48 83 c3 10          	add    $0x10,%rbx
+  a44728:	c4 c2 f1 b8 3f       	vfmadd231pd (%r15),%xmm1,%xmm7
+  a4472d:	49 83 c7 10          	add    $0x10,%r15
+  a44731:	48 ff cf             	dec    %rdi
+  a44734:	75 d5                	jne    a4470b <dgemm_kernel_SKYLAKEX+0x256b>
+  a44736:	4c 89 c9             	mov    %r9,%rcx
+  a44739:	49 83 c1 08          	add    $0x8,%r9
+  a4473d:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a44741:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a44746:	c4 e2 f9 b8 d4       	vfmadd231pd %xmm4,%xmm0,%xmm2
+  a4474b:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a4474f:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a44754:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44758:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a4475c:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a44761:	c4 e2 f9 b8 d5       	vfmadd231pd %xmm5,%xmm0,%xmm2
+  a44766:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a4476a:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a4476f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44773:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a44777:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a4477c:	c4 e2 f9 b8 d6       	vfmadd231pd %xmm6,%xmm0,%xmm2
+  a44781:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a44785:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a4478a:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4478e:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a44792:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a44797:	c4 e2 f9 b8 d7       	vfmadd231pd %xmm7,%xmm0,%xmm2
+  a4479c:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a447a0:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a447a5:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a447a9:	49 83 eb 01          	sub    $0x1,%r11
+  a447ad:	4c 89 f3             	mov    %r14,%rbx
+  a447b0:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a447b5:	4c 8b 44 24 b8       	mov    -0x48(%rsp),%r8
+  a447ba:	48 83 ee 08          	sub    $0x8,%rsi
+  a447be:	4d 89 da             	mov    %r11,%r10
+  a447c1:	4d 0f af d0          	imul   %r8,%r10
+  a447c5:	49 c1 e0 06          	shl    $0x6,%r8
+  a447c9:	49 01 d8             	add    %rbx,%r8
+  a447cc:	49 c1 e2 03          	shl    $0x3,%r10
+  a447d0:	4c 29 d0             	sub    %r10,%rax
+  a447d3:	4c 8b 54 24 98       	mov    -0x68(%rsp),%r10
+  a447d8:	4d 29 da             	sub    %r11,%r10
+  a447db:	4f 8d 0c d1          	lea    (%r9,%r10,8),%r9
+  a447df:	48 83 fe 01          	cmp    $0x1,%rsi
+  a447e3:	0f 85 47 f8 ff ff    	jne    a44030 <dgemm_kernel_SKYLAKEX+0x1e90>
+  a447e9:	48 8b 74 24 b8       	mov    -0x48(%rsp),%rsi
+  a447ee:	49 8d 34 f0          	lea    (%r8,%rsi,8),%rsi
+  a447f2:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a447f9:	f5 
+  a447fa:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a447ff:	4d 89 c6             	mov    %r8,%r14
+  a44802:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a44807:	49 c1 e4 04          	shl    $0x4,%r12
+  a4480b:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a44810:	49 83 fb 10          	cmp    $0x10,%r11
+  a44814:	72 77                	jb     a4488d <dgemm_kernel_SKYLAKEX+0x26ed>
+  a44816:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a4481c:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a44822:	4c 89 ef             	mov    %r13,%rdi
+  a44825:	4d 89 f0             	mov    %r14,%r8
+  a44828:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a4482c:	4d 01 e7             	add    %r12,%r15
+  a4482f:	48 85 ff             	test   %rdi,%rdi
+  a44832:	74 2e                	je     a44862 <dgemm_kernel_SKYLAKEX+0x26c2>
+  a44834:	62 f1 fd 48 10 08    	vmovupd (%rax),%zmm1
+  a4483a:	62 f1 fd 48 10 50 01 	vmovupd 0x40(%rax),%zmm2
+  a44841:	48 05 80 00 00 00    	add    $0x80,%rax
+  a44847:	62 d2 fd 48 19 18    	vbroadcastsd (%r8),%zmm3
+  a4484d:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a44853:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a44859:	49 83 c0 08          	add    $0x8,%r8
+  a4485d:	48 ff cf             	dec    %rdi
+  a44860:	75 d2                	jne    a44834 <dgemm_kernel_SKYLAKEX+0x2694>
+  a44862:	62 52 fd 48 a8 01    	vfmadd213pd (%r9),%zmm0,%zmm8
+  a44868:	62 51 fd 48 11 01    	vmovupd %zmm8,(%r9)
+  a4486e:	62 52 fd 48 a8 49 01 	vfmadd213pd 0x40(%r9),%zmm0,%zmm9
+  a44875:	62 51 fd 48 11 49 01 	vmovupd %zmm9,0x40(%r9)
+  a4487c:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a44883:	49 83 eb 10          	sub    $0x10,%r11
+  a44887:	49 83 fb 10          	cmp    $0x10,%r11
+  a4488b:	73 89                	jae    a44816 <dgemm_kernel_SKYLAKEX+0x2676>
+  a4488d:	49 83 fb 08          	cmp    $0x8,%r11
+  a44891:	72 45                	jb     a448d8 <dgemm_kernel_SKYLAKEX+0x2738>
+  a44893:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a44899:	4c 89 ef             	mov    %r13,%rdi
+  a4489c:	4d 89 f0             	mov    %r14,%r8
+  a4489f:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a448a3:	4d 01 e7             	add    %r12,%r15
+  a448a6:	48 85 ff             	test   %rdi,%rdi
+  a448a9:	74 19                	je     a448c4 <dgemm_kernel_SKYLAKEX+0x2724>
+  a448ab:	62 d2 fd 48 19 08    	vbroadcastsd (%r8),%zmm1
+  a448b1:	49 83 c0 08          	add    $0x8,%r8
+  a448b5:	62 72 f5 48 b8 00    	vfmadd231pd (%rax),%zmm1,%zmm8
+  a448bb:	48 83 c0 40          	add    $0x40,%rax
+  a448bf:	48 ff cf             	dec    %rdi
+  a448c2:	75 e7                	jne    a448ab <dgemm_kernel_SKYLAKEX+0x270b>
+  a448c4:	62 52 fd 48 a8 01    	vfmadd213pd (%r9),%zmm0,%zmm8
+  a448ca:	62 51 fd 48 11 01    	vmovupd %zmm8,(%r9)
+  a448d0:	49 83 c1 40          	add    $0x40,%r9
+  a448d4:	49 83 eb 08          	sub    $0x8,%r11
+  a448d8:	49 83 fb 04          	cmp    $0x4,%r11
+  a448dc:	72 3f                	jb     a4491d <dgemm_kernel_SKYLAKEX+0x277d>
+  a448de:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a448e2:	4c 89 ef             	mov    %r13,%rdi
+  a448e5:	4d 89 f0             	mov    %r14,%r8
+  a448e8:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a448ec:	4d 01 e7             	add    %r12,%r15
+  a448ef:	48 85 ff             	test   %rdi,%rdi
+  a448f2:	74 17                	je     a4490b <dgemm_kernel_SKYLAKEX+0x276b>
+  a448f4:	c4 c2 7d 19 08       	vbroadcastsd (%r8),%ymm1
+  a448f9:	49 83 c0 08          	add    $0x8,%r8
+  a448fd:	c4 e2 f5 b8 20       	vfmadd231pd (%rax),%ymm1,%ymm4
+  a44902:	48 83 c0 20          	add    $0x20,%rax
+  a44906:	48 ff cf             	dec    %rdi
+  a44909:	75 e9                	jne    a448f4 <dgemm_kernel_SKYLAKEX+0x2754>
+  a4490b:	c4 c2 fd a8 21       	vfmadd213pd (%r9),%ymm0,%ymm4
+  a44910:	c4 c1 7d 11 21       	vmovupd %ymm4,(%r9)
+  a44915:	49 83 c1 20          	add    $0x20,%r9
+  a44919:	49 83 eb 04          	sub    $0x4,%r11
+  a4491d:	49 83 fb 02          	cmp    $0x2,%r11
+  a44921:	72 3f                	jb     a44962 <dgemm_kernel_SKYLAKEX+0x27c2>
+  a44923:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a44927:	4c 89 ef             	mov    %r13,%rdi
+  a4492a:	4d 89 f0             	mov    %r14,%r8
+  a4492d:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44931:	4d 01 e7             	add    %r12,%r15
+  a44934:	48 85 ff             	test   %rdi,%rdi
+  a44937:	74 17                	je     a44950 <dgemm_kernel_SKYLAKEX+0x27b0>
+  a44939:	c4 c1 7b 12 08       	vmovddup (%r8),%xmm1
+  a4493e:	49 83 c0 08          	add    $0x8,%r8
+  a44942:	c4 e2 f1 b8 20       	vfmadd231pd (%rax),%xmm1,%xmm4
+  a44947:	48 83 c0 10          	add    $0x10,%rax
+  a4494b:	48 ff cf             	dec    %rdi
+  a4494e:	75 e9                	jne    a44939 <dgemm_kernel_SKYLAKEX+0x2799>
+  a44950:	c4 c2 f9 a8 21       	vfmadd213pd (%r9),%xmm0,%xmm4
+  a44955:	c4 c1 79 11 21       	vmovupd %xmm4,(%r9)
+  a4495a:	49 83 c1 10          	add    $0x10,%r9
+  a4495e:	49 83 eb 02          	sub    $0x2,%r11
+  a44962:	4d 85 db             	test   %r11,%r11
+  a44965:	74 3f                	je     a449a6 <dgemm_kernel_SKYLAKEX+0x2806>
+  a44967:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a4496b:	4c 89 ef             	mov    %r13,%rdi
+  a4496e:	4d 89 f0             	mov    %r14,%r8
+  a44971:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44975:	4d 01 e7             	add    %r12,%r15
+  a44978:	48 85 ff             	test   %rdi,%rdi
+  a4497b:	74 17                	je     a44994 <dgemm_kernel_SKYLAKEX+0x27f4>
+  a4497d:	c4 c1 7b 10 08       	vmovsd (%r8),%xmm1
+  a44982:	49 83 c0 08          	add    $0x8,%r8
+  a44986:	c4 e2 f1 b9 20       	vfmadd231sd (%rax),%xmm1,%xmm4
+  a4498b:	48 83 c0 08          	add    $0x8,%rax
+  a4498f:	48 ff cf             	dec    %rdi
+  a44992:	75 e9                	jne    a4497d <dgemm_kernel_SKYLAKEX+0x27dd>
+  a44994:	c4 c2 f9 a9 21       	vfmadd213sd (%r9),%xmm0,%xmm4
+  a44999:	c4 c1 7b 11 21       	vmovsd %xmm4,(%r9)
+  a4499e:	49 83 c1 08          	add    $0x8,%r9
+  a449a2:	49 83 eb 01          	sub    $0x1,%r11
+  a449a6:	4d 89 f0             	mov    %r14,%r8
+  a449a9:	c5 f8 77             	vzeroupper
+  a449ac:	e9 82 f6 ff ff       	jmp    a44033 <dgemm_kernel_SKYLAKEX+0x1e93>
+  a449b1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  a449b8:	31 c0                	xor    %eax,%eax
+  a449ba:	c3                   	ret
+  a449bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a449c0:	4c 89 c9             	mov    %r9,%rcx
+  a449c3:	31 ff                	xor    %edi,%edi
+  a449c5:	e9 41 ed ff ff       	jmp    a4370b <dgemm_kernel_SKYLAKEX+0x156b>
+  a449ca:	48 83 fe 05          	cmp    $0x5,%rsi
+  a449ce:	0f 8e 1a 06 00 00    	jle    a44fee <dgemm_kernel_SKYLAKEX+0x2e4e>
+  a449d4:	4c 8b 54 24 b8       	mov    -0x48(%rsp),%r10
+  a449d9:	4c 89 c3             	mov    %r8,%rbx
+  a449dc:	4f 8d 14 52          	lea    (%r10,%r10,2),%r10
+  a449e0:	49 c1 e2 04          	shl    $0x4,%r10
+  a449e4:	4d 01 c2             	add    %r8,%r10
+  a449e7:	4d 89 d0             	mov    %r10,%r8
+  a449ea:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a449f1:	f5 
+  a449f2:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a449f7:	49 89 de             	mov    %rbx,%r14
+  a449fa:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a449ff:	49 c1 e4 04          	shl    $0x4,%r12
+  a44a03:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a44a08:	49 83 fb 10          	cmp    $0x10,%r11
+  a44a0c:	0f 82 09 02 00 00    	jb     a44c1b <dgemm_kernel_SKYLAKEX+0x2a7b>
+  a44a12:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a44a18:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a44a1e:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a44a24:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a44a2a:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a44a30:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a44a36:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a44a3c:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a44a42:	62 a1 fd 40 ef c0    	vpxorq %zmm16,%zmm16,%zmm16
+  a44a48:	62 a1 f5 40 ef c9    	vpxorq %zmm17,%zmm17,%zmm17
+  a44a4e:	62 a1 ed 40 ef d2    	vpxorq %zmm18,%zmm18,%zmm18
+  a44a54:	62 a1 e5 40 ef db    	vpxorq %zmm19,%zmm19,%zmm19
+  a44a5a:	4c 89 ef             	mov    %r13,%rdi
+  a44a5d:	4c 89 f3             	mov    %r14,%rbx
+  a44a60:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44a64:	4d 01 e7             	add    %r12,%r15
+  a44a67:	48 85 ff             	test   %rdi,%rdi
+  a44a6a:	0f 84 97 00 00 00    	je     a44b07 <dgemm_kernel_SKYLAKEX+0x2967>
+  a44a70:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a44a76:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a44a7d:	00 00 00 
+  a44a80:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a44a87:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a44a8e:	00 00 00 
+  a44a91:	48 05 80 00 00 00    	add    $0x80,%rax
+  a44a97:	62 f2 7d 48 1a 2b    	vbroadcastf32x4 (%rbx),%zmm5
+  a44a9d:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a44aa3:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a44aa9:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a44aaf:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a44ab5:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a44abc:	62 b2 7d 48 1a 2c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm5
+  a44ac3:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a44ac9:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a44acf:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a44ad5:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a44adb:	62 b2 7d 48 1a 2c 63 	vbroadcastf32x4 (%rbx,%r12,2),%zmm5
+  a44ae2:	62 e2 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm16
+  a44ae8:	62 e2 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm17
+  a44aee:	62 e2 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm18
+  a44af4:	62 e2 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm19
+  a44afa:	48 83 c3 10          	add    $0x10,%rbx
+  a44afe:	48 ff cf             	dec    %rdi
+  a44b01:	0f 85 69 ff ff ff    	jne    a44a70 <dgemm_kernel_SKYLAKEX+0x28d0>
+  a44b07:	4c 89 c9             	mov    %r9,%rcx
+  a44b0a:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a44b11:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a44b17:	62 d1 ad 48 14 d3    	vunpcklpd %zmm11,%zmm10,%zmm2
+  a44b1d:	62 d1 bd 48 15 d9    	vunpckhpd %zmm9,%zmm8,%zmm3
+  a44b23:	62 d1 ad 48 15 e3    	vunpckhpd %zmm11,%zmm10,%zmm4
+  a44b29:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44b2f:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44b35:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a44b3c:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a44b43:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a44b4a:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a44b51:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a44b58:	01 
+  a44b59:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a44b60:	01 
+  a44b61:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44b65:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a44b6b:	62 d1 8d 48 14 d7    	vunpcklpd %zmm15,%zmm14,%zmm2
+  a44b71:	62 d1 9d 48 15 dd    	vunpckhpd %zmm13,%zmm12,%zmm3
+  a44b77:	62 d1 8d 48 15 e7    	vunpckhpd %zmm15,%zmm14,%zmm4
+  a44b7d:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44b83:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44b89:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a44b90:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a44b97:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a44b9e:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a44ba5:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a44bac:	01 
+  a44bad:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a44bb4:	01 
+  a44bb5:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44bb9:	62 b1 fd 40 14 c9    	vunpcklpd %zmm17,%zmm16,%zmm1
+  a44bbf:	62 b1 ed 40 14 d3    	vunpcklpd %zmm19,%zmm18,%zmm2
+  a44bc5:	62 b1 fd 40 15 d9    	vunpckhpd %zmm17,%zmm16,%zmm3
+  a44bcb:	62 b1 ed 40 15 e3    	vunpckhpd %zmm19,%zmm18,%zmm4
+  a44bd1:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44bd7:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44bdd:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a44be4:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a44beb:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a44bf2:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a44bf9:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a44c00:	01 
+  a44c01:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a44c08:	01 
+  a44c09:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44c0d:	49 83 eb 10          	sub    $0x10,%r11
+  a44c11:	49 83 fb 10          	cmp    $0x10,%r11
+  a44c15:	0f 83 f7 fd ff ff    	jae    a44a12 <dgemm_kernel_SKYLAKEX+0x2872>
+  a44c1b:	49 83 fb 08          	cmp    $0x8,%r11
+  a44c1f:	0f 82 14 01 00 00    	jb     a44d39 <dgemm_kernel_SKYLAKEX+0x2b99>
+  a44c25:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a44c2b:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a44c31:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a44c37:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a44c3d:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a44c43:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a44c49:	4c 89 ef             	mov    %r13,%rdi
+  a44c4c:	4c 89 f3             	mov    %r14,%rbx
+  a44c4f:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44c53:	4d 01 e7             	add    %r12,%r15
+  a44c56:	48 85 ff             	test   %rdi,%rdi
+  a44c59:	74 55                	je     a44cb0 <dgemm_kernel_SKYLAKEX+0x2b10>
+  a44c5b:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a44c61:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a44c68:	00 00 00 
+  a44c6b:	48 83 c0 40          	add    $0x40,%rax
+  a44c6f:	62 f2 7d 48 1a 1b    	vbroadcastf32x4 (%rbx),%zmm3
+  a44c75:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a44c7b:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a44c81:	62 b2 7d 48 1a 1c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm3
+  a44c88:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a44c8e:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a44c94:	62 b2 7d 48 1a 1c 63 	vbroadcastf32x4 (%rbx,%r12,2),%zmm3
+  a44c9b:	62 72 e5 48 b8 e1    	vfmadd231pd %zmm1,%zmm3,%zmm12
+  a44ca1:	62 72 e5 48 b8 ea    	vfmadd231pd %zmm2,%zmm3,%zmm13
+  a44ca7:	48 83 c3 10          	add    $0x10,%rbx
+  a44cab:	48 ff cf             	dec    %rdi
+  a44cae:	75 ab                	jne    a44c5b <dgemm_kernel_SKYLAKEX+0x2abb>
+  a44cb0:	4c 89 c9             	mov    %r9,%rcx
+  a44cb3:	49 83 c1 40          	add    $0x40,%r9
+  a44cb7:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a44cbd:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44cc3:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44cc9:	62 d1 bd 48 15 d1    	vunpckhpd %zmm9,%zmm8,%zmm2
+  a44ccf:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a44cd6:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a44cdd:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44ce1:	62 d1 ad 48 14 cb    	vunpcklpd %zmm11,%zmm10,%zmm1
+  a44ce7:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44ced:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44cf3:	62 d1 ad 48 15 d3    	vunpckhpd %zmm11,%zmm10,%zmm2
+  a44cf9:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a44d00:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a44d07:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44d0b:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a44d11:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a44d17:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a44d1d:	62 d1 9d 48 15 d5    	vunpckhpd %zmm13,%zmm12,%zmm2
+  a44d23:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a44d2a:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a44d31:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44d35:	49 83 eb 08          	sub    $0x8,%r11
+  a44d39:	49 83 fb 04          	cmp    $0x4,%r11
+  a44d3d:	0f 82 de 00 00 00    	jb     a44e21 <dgemm_kernel_SKYLAKEX+0x2c81>
+  a44d43:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a44d47:	c5 d5 ef ed          	vpxor  %ymm5,%ymm5,%ymm5
+  a44d4b:	c5 cd ef f6          	vpxor  %ymm6,%ymm6,%ymm6
+  a44d4f:	c5 c5 ef ff          	vpxor  %ymm7,%ymm7,%ymm7
+  a44d53:	c4 41 3d ef c0       	vpxor  %ymm8,%ymm8,%ymm8
+  a44d58:	c4 41 35 ef c9       	vpxor  %ymm9,%ymm9,%ymm9
+  a44d5d:	4c 89 ef             	mov    %r13,%rdi
+  a44d60:	4c 89 f3             	mov    %r14,%rbx
+  a44d63:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44d67:	4d 01 e7             	add    %r12,%r15
+  a44d6a:	48 85 ff             	test   %rdi,%rdi
+  a44d6d:	74 45                	je     a44db4 <dgemm_kernel_SKYLAKEX+0x2c14>
+  a44d6f:	c5 ff 12 08          	vmovddup (%rax),%ymm1
+  a44d73:	c5 ff 12 50 08       	vmovddup 0x8(%rax),%ymm2
+  a44d78:	48 83 c0 20          	add    $0x20,%rax
+  a44d7c:	c4 e2 7d 1a 1b       	vbroadcastf128 (%rbx),%ymm3
+  a44d81:	c4 e2 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm4
+  a44d86:	c4 e2 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm5
+  a44d8b:	c4 a2 7d 1a 1c 23    	vbroadcastf128 (%rbx,%r12,1),%ymm3
+  a44d91:	c4 e2 e5 b8 f1       	vfmadd231pd %ymm1,%ymm3,%ymm6
+  a44d96:	c4 e2 e5 b8 fa       	vfmadd231pd %ymm2,%ymm3,%ymm7
+  a44d9b:	c4 a2 7d 1a 1c 63    	vbroadcastf128 (%rbx,%r12,2),%ymm3
+  a44da1:	c4 62 e5 b8 c1       	vfmadd231pd %ymm1,%ymm3,%ymm8
+  a44da6:	c4 62 e5 b8 ca       	vfmadd231pd %ymm2,%ymm3,%ymm9
+  a44dab:	48 83 c3 10          	add    $0x10,%rbx
+  a44daf:	48 ff cf             	dec    %rdi
+  a44db2:	75 bb                	jne    a44d6f <dgemm_kernel_SKYLAKEX+0x2bcf>
+  a44db4:	4c 89 c9             	mov    %r9,%rcx
+  a44db7:	49 83 c1 20          	add    $0x20,%r9
+  a44dbb:	c5 dd 14 cd          	vunpcklpd %ymm5,%ymm4,%ymm1
+  a44dbf:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a44dc4:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a44dc8:	c5 dd 15 d5          	vunpckhpd %ymm5,%ymm4,%ymm2
+  a44dcc:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a44dd2:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a44dd7:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44ddb:	c5 cd 14 cf          	vunpcklpd %ymm7,%ymm6,%ymm1
+  a44ddf:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a44de4:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a44de8:	c5 cd 15 d7          	vunpckhpd %ymm7,%ymm6,%ymm2
+  a44dec:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a44df2:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a44df7:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44dfb:	c4 c1 3d 14 c9       	vunpcklpd %ymm9,%ymm8,%ymm1
+  a44e00:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a44e05:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a44e09:	c4 c1 3d 15 d1       	vunpckhpd %ymm9,%ymm8,%ymm2
+  a44e0e:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a44e14:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a44e19:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44e1d:	49 83 eb 04          	sub    $0x4,%r11
+  a44e21:	49 83 fb 02          	cmp    $0x2,%r11
+  a44e25:	0f 82 dd 00 00 00    	jb     a44f08 <dgemm_kernel_SKYLAKEX+0x2d68>
+  a44e2b:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a44e2f:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a44e33:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a44e37:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a44e3b:	c4 41 39 ef c0       	vpxor  %xmm8,%xmm8,%xmm8
+  a44e40:	c4 41 31 ef c9       	vpxor  %xmm9,%xmm9,%xmm9
+  a44e45:	4c 89 ef             	mov    %r13,%rdi
+  a44e48:	4c 89 f3             	mov    %r14,%rbx
+  a44e4b:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44e4f:	4d 01 e7             	add    %r12,%r15
+  a44e52:	48 85 ff             	test   %rdi,%rdi
+  a44e55:	74 44                	je     a44e9b <dgemm_kernel_SKYLAKEX+0x2cfb>
+  a44e57:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a44e5b:	c5 fb 12 50 08       	vmovddup 0x8(%rax),%xmm2
+  a44e60:	48 83 c0 10          	add    $0x10,%rax
+  a44e64:	c5 f9 10 1b          	vmovupd (%rbx),%xmm3
+  a44e68:	c4 e2 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm4
+  a44e6d:	c4 e2 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm5
+  a44e72:	c4 a1 79 10 1c 23    	vmovupd (%rbx,%r12,1),%xmm3
+  a44e78:	c4 e2 e1 b8 f1       	vfmadd231pd %xmm1,%xmm3,%xmm6
+  a44e7d:	c4 e2 e1 b8 fa       	vfmadd231pd %xmm2,%xmm3,%xmm7
+  a44e82:	c4 a1 79 10 1c 63    	vmovupd (%rbx,%r12,2),%xmm3
+  a44e88:	c4 62 e1 b8 c1       	vfmadd231pd %xmm1,%xmm3,%xmm8
+  a44e8d:	c4 62 e1 b8 ca       	vfmadd231pd %xmm2,%xmm3,%xmm9
+  a44e92:	48 83 c3 10          	add    $0x10,%rbx
+  a44e96:	48 ff cf             	dec    %rdi
+  a44e99:	75 bc                	jne    a44e57 <dgemm_kernel_SKYLAKEX+0x2cb7>
+  a44e9b:	4c 89 c9             	mov    %r9,%rcx
+  a44e9e:	49 83 c1 10          	add    $0x10,%r9
+  a44ea2:	c5 d9 14 cd          	vunpcklpd %xmm5,%xmm4,%xmm1
+  a44ea6:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a44eab:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a44eaf:	c5 d9 15 d5          	vunpckhpd %xmm5,%xmm4,%xmm2
+  a44eb3:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a44eb9:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a44ebe:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44ec2:	c5 c9 14 cf          	vunpcklpd %xmm7,%xmm6,%xmm1
+  a44ec6:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a44ecb:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a44ecf:	c5 c9 15 d7          	vunpckhpd %xmm7,%xmm6,%xmm2
+  a44ed3:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a44ed9:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a44ede:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44ee2:	c4 c1 39 14 c9       	vunpcklpd %xmm9,%xmm8,%xmm1
+  a44ee7:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a44eec:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a44ef0:	c4 c1 39 15 d1       	vunpckhpd %xmm9,%xmm8,%xmm2
+  a44ef5:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a44efb:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a44f00:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44f04:	49 83 eb 02          	sub    $0x2,%r11
+  a44f08:	4d 85 db             	test   %r11,%r11
+  a44f0b:	0f 84 9c 00 00 00    	je     a44fad <dgemm_kernel_SKYLAKEX+0x2e0d>
+  a44f11:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a44f15:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a44f19:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a44f1d:	4c 89 ef             	mov    %r13,%rdi
+  a44f20:	4c 89 f3             	mov    %r14,%rbx
+  a44f23:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a44f27:	4d 01 e7             	add    %r12,%r15
+  a44f2a:	48 85 ff             	test   %rdi,%rdi
+  a44f2d:	74 22                	je     a44f51 <dgemm_kernel_SKYLAKEX+0x2db1>
+  a44f2f:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a44f33:	48 83 c0 08          	add    $0x8,%rax
+  a44f37:	c4 e2 f1 b8 23       	vfmadd231pd (%rbx),%xmm1,%xmm4
+  a44f3c:	c4 a2 f1 b8 2c 23    	vfmadd231pd (%rbx,%r12,1),%xmm1,%xmm5
+  a44f42:	c4 a2 f1 b8 34 63    	vfmadd231pd (%rbx,%r12,2),%xmm1,%xmm6
+  a44f48:	48 83 c3 10          	add    $0x10,%rbx
+  a44f4c:	48 ff cf             	dec    %rdi
+  a44f4f:	75 de                	jne    a44f2f <dgemm_kernel_SKYLAKEX+0x2d8f>
+  a44f51:	4c 89 c9             	mov    %r9,%rcx
+  a44f54:	49 83 c1 08          	add    $0x8,%r9
+  a44f58:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a44f5c:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a44f61:	c4 e2 f9 b8 d4       	vfmadd231pd %xmm4,%xmm0,%xmm2
+  a44f66:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a44f6a:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a44f6f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44f73:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a44f77:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a44f7c:	c4 e2 f9 b8 d5       	vfmadd231pd %xmm5,%xmm0,%xmm2
+  a44f81:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a44f85:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a44f8a:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44f8e:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a44f92:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a44f97:	c4 e2 f9 b8 d6       	vfmadd231pd %xmm6,%xmm0,%xmm2
+  a44f9c:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a44fa0:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a44fa5:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a44fa9:	49 83 eb 01          	sub    $0x1,%r11
+  a44fad:	4c 89 f3             	mov    %r14,%rbx
+  a44fb0:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a44fb5:	4c 8b 44 24 b8       	mov    -0x48(%rsp),%r8
+  a44fba:	48 83 ee 06          	sub    $0x6,%rsi
+  a44fbe:	4d 89 da             	mov    %r11,%r10
+  a44fc1:	4d 0f af d0          	imul   %r8,%r10
+  a44fc5:	4f 8d 04 40          	lea    (%r8,%r8,2),%r8
+  a44fc9:	49 c1 e0 04          	shl    $0x4,%r8
+  a44fcd:	49 01 d8             	add    %rbx,%r8
+  a44fd0:	48 8b 5d 10          	mov    0x10(%rbp),%rbx
+  a44fd4:	49 c1 e2 03          	shl    $0x3,%r10
+  a44fd8:	4c 29 d0             	sub    %r10,%rax
+  a44fdb:	4c 8d 14 5b          	lea    (%rbx,%rbx,2),%r10
+  a44fdf:	4d 01 d2             	add    %r10,%r10
+  a44fe2:	4d 29 da             	sub    %r11,%r10
+  a44fe5:	4f 8d 0c d1          	lea    (%r9,%r10,8),%r9
+  a44fe9:	e9 35 f0 ff ff       	jmp    a44023 <dgemm_kernel_SKYLAKEX+0x1e83>
+  a44fee:	48 83 fe 03          	cmp    $0x3,%rsi
+  a44ff2:	0f 8e 99 04 00 00    	jle    a45491 <dgemm_kernel_SKYLAKEX+0x32f1>
+  a44ff8:	bb 05 00 00 00       	mov    $0x5,%ebx
+  a44ffd:	c4 62 e1 f7 54 24 b8 	shlx   %rbx,-0x48(%rsp),%r10
+  a45004:	4d 01 c2             	add    %r8,%r10
+  a45007:	4c 89 c3             	mov    %r8,%rbx
+  a4500a:	4d 89 d0             	mov    %r10,%r8
+  a4500d:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a45014:	f5 
+  a45015:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a4501a:	49 89 de             	mov    %rbx,%r14
+  a4501d:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a45022:	49 c1 e4 04          	shl    $0x4,%r12
+  a45026:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a4502b:	49 83 fb 10          	cmp    $0x10,%r11
+  a4502f:	0f 82 76 01 00 00    	jb     a451ab <dgemm_kernel_SKYLAKEX+0x300b>
+  a45035:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a4503b:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a45041:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a45047:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a4504d:	62 51 9d 48 ef e4    	vpxorq %zmm12,%zmm12,%zmm12
+  a45053:	62 51 95 48 ef ed    	vpxorq %zmm13,%zmm13,%zmm13
+  a45059:	62 51 8d 48 ef f6    	vpxorq %zmm14,%zmm14,%zmm14
+  a4505f:	62 51 85 48 ef ff    	vpxorq %zmm15,%zmm15,%zmm15
+  a45065:	4c 89 ef             	mov    %r13,%rdi
+  a45068:	4c 89 f3             	mov    %r14,%rbx
+  a4506b:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a4506f:	4d 01 e7             	add    %r12,%r15
+  a45072:	48 85 ff             	test   %rdi,%rdi
+  a45075:	74 74                	je     a450eb <dgemm_kernel_SKYLAKEX+0x2f4b>
+  a45077:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a4507d:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a45084:	00 00 00 
+  a45087:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a4508e:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a45095:	00 00 00 
+  a45098:	48 05 80 00 00 00    	add    $0x80,%rax
+  a4509e:	62 f2 7d 48 1a 2b    	vbroadcastf32x4 (%rbx),%zmm5
+  a450a4:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a450aa:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a450b0:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a450b6:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a450bc:	0f 18 88 80 01 00 00 	prefetcht0 0x180(%rax)
+  a450c3:	62 b2 7d 48 1a 2c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm5
+  a450ca:	62 72 d5 48 b8 e1    	vfmadd231pd %zmm1,%zmm5,%zmm12
+  a450d0:	62 72 d5 48 b8 ea    	vfmadd231pd %zmm2,%zmm5,%zmm13
+  a450d6:	62 72 d5 48 b8 f3    	vfmadd231pd %zmm3,%zmm5,%zmm14
+  a450dc:	62 72 d5 48 b8 fc    	vfmadd231pd %zmm4,%zmm5,%zmm15
+  a450e2:	48 83 c3 10          	add    $0x10,%rbx
+  a450e6:	48 ff cf             	dec    %rdi
+  a450e9:	75 8c                	jne    a45077 <dgemm_kernel_SKYLAKEX+0x2ed7>
+  a450eb:	4c 89 c9             	mov    %r9,%rcx
+  a450ee:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a450f5:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a450fb:	62 d1 ad 48 14 d3    	vunpcklpd %zmm11,%zmm10,%zmm2
+  a45101:	62 d1 bd 48 15 d9    	vunpckhpd %zmm9,%zmm8,%zmm3
+  a45107:	62 d1 ad 48 15 e3    	vunpckhpd %zmm11,%zmm10,%zmm4
+  a4510d:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a45113:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a45119:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a45120:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a45127:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a4512e:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a45135:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a4513c:	01 
+  a4513d:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a45144:	01 
+  a45145:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45149:	62 d1 9d 48 14 cd    	vunpcklpd %zmm13,%zmm12,%zmm1
+  a4514f:	62 d1 8d 48 14 d7    	vunpcklpd %zmm15,%zmm14,%zmm2
+  a45155:	62 d1 9d 48 15 dd    	vunpckhpd %zmm13,%zmm12,%zmm3
+  a4515b:	62 d1 8d 48 15 e7    	vunpckhpd %zmm15,%zmm14,%zmm4
+  a45161:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a45167:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4516d:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a45174:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a4517b:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a45182:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a45189:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a45190:	01 
+  a45191:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a45198:	01 
+  a45199:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4519d:	49 83 eb 10          	sub    $0x10,%r11
+  a451a1:	49 83 fb 10          	cmp    $0x10,%r11
+  a451a5:	0f 83 8a fe ff ff    	jae    a45035 <dgemm_kernel_SKYLAKEX+0x2e95>
+  a451ab:	49 83 fb 08          	cmp    $0x8,%r11
+  a451af:	0f 82 cb 00 00 00    	jb     a45280 <dgemm_kernel_SKYLAKEX+0x30e0>
+  a451b5:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a451bb:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a451c1:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a451c7:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a451cd:	4c 89 ef             	mov    %r13,%rdi
+  a451d0:	4c 89 f3             	mov    %r14,%rbx
+  a451d3:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a451d7:	4d 01 e7             	add    %r12,%r15
+  a451da:	48 85 ff             	test   %rdi,%rdi
+  a451dd:	74 42                	je     a45221 <dgemm_kernel_SKYLAKEX+0x3081>
+  a451df:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a451e5:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a451ec:	00 00 00 
+  a451ef:	48 83 c0 40          	add    $0x40,%rax
+  a451f3:	62 f2 7d 48 1a 1b    	vbroadcastf32x4 (%rbx),%zmm3
+  a451f9:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a451ff:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a45205:	62 b2 7d 48 1a 1c 23 	vbroadcastf32x4 (%rbx,%r12,1),%zmm3
+  a4520c:	62 72 e5 48 b8 d1    	vfmadd231pd %zmm1,%zmm3,%zmm10
+  a45212:	62 72 e5 48 b8 da    	vfmadd231pd %zmm2,%zmm3,%zmm11
+  a45218:	48 83 c3 10          	add    $0x10,%rbx
+  a4521c:	48 ff cf             	dec    %rdi
+  a4521f:	75 be                	jne    a451df <dgemm_kernel_SKYLAKEX+0x303f>
+  a45221:	4c 89 c9             	mov    %r9,%rcx
+  a45224:	49 83 c1 40          	add    $0x40,%r9
+  a45228:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a4522e:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a45234:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4523a:	62 d1 bd 48 15 d1    	vunpckhpd %zmm9,%zmm8,%zmm2
+  a45240:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a45247:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a4524e:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45252:	62 d1 ad 48 14 cb    	vunpcklpd %zmm11,%zmm10,%zmm1
+  a45258:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a4525e:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a45264:	62 d1 ad 48 15 d3    	vunpckhpd %zmm11,%zmm10,%zmm2
+  a4526a:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a45271:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a45278:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4527c:	49 83 eb 08          	sub    $0x8,%r11
+  a45280:	49 83 fb 04          	cmp    $0x4,%r11
+  a45284:	0f 82 a2 00 00 00    	jb     a4532c <dgemm_kernel_SKYLAKEX+0x318c>
+  a4528a:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a4528e:	c5 d5 ef ed          	vpxor  %ymm5,%ymm5,%ymm5
+  a45292:	c5 cd ef f6          	vpxor  %ymm6,%ymm6,%ymm6
+  a45296:	c5 c5 ef ff          	vpxor  %ymm7,%ymm7,%ymm7
+  a4529a:	4c 89 ef             	mov    %r13,%rdi
+  a4529d:	4c 89 f3             	mov    %r14,%rbx
+  a452a0:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a452a4:	4d 01 e7             	add    %r12,%r15
+  a452a7:	48 85 ff             	test   %rdi,%rdi
+  a452aa:	74 35                	je     a452e1 <dgemm_kernel_SKYLAKEX+0x3141>
+  a452ac:	c5 ff 12 08          	vmovddup (%rax),%ymm1
+  a452b0:	c5 ff 12 50 08       	vmovddup 0x8(%rax),%ymm2
+  a452b5:	48 83 c0 20          	add    $0x20,%rax
+  a452b9:	c4 e2 7d 1a 1b       	vbroadcastf128 (%rbx),%ymm3
+  a452be:	c4 e2 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm4
+  a452c3:	c4 e2 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm5
+  a452c8:	c4 a2 7d 1a 1c 23    	vbroadcastf128 (%rbx,%r12,1),%ymm3
+  a452ce:	c4 e2 e5 b8 f1       	vfmadd231pd %ymm1,%ymm3,%ymm6
+  a452d3:	c4 e2 e5 b8 fa       	vfmadd231pd %ymm2,%ymm3,%ymm7
+  a452d8:	48 83 c3 10          	add    $0x10,%rbx
+  a452dc:	48 ff cf             	dec    %rdi
+  a452df:	75 cb                	jne    a452ac <dgemm_kernel_SKYLAKEX+0x310c>
+  a452e1:	4c 89 c9             	mov    %r9,%rcx
+  a452e4:	49 83 c1 20          	add    $0x20,%r9
+  a452e8:	c5 dd 14 cd          	vunpcklpd %ymm5,%ymm4,%ymm1
+  a452ec:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a452f1:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a452f5:	c5 dd 15 d5          	vunpckhpd %ymm5,%ymm4,%ymm2
+  a452f9:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a452ff:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a45304:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45308:	c5 cd 14 cf          	vunpcklpd %ymm7,%ymm6,%ymm1
+  a4530c:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a45311:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a45315:	c5 cd 15 d7          	vunpckhpd %ymm7,%ymm6,%ymm2
+  a45319:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a4531f:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a45324:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45328:	49 83 eb 04          	sub    $0x4,%r11
+  a4532c:	49 83 fb 02          	cmp    $0x2,%r11
+  a45330:	0f 82 a1 00 00 00    	jb     a453d7 <dgemm_kernel_SKYLAKEX+0x3237>
+  a45336:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a4533a:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a4533e:	c5 c9 ef f6          	vpxor  %xmm6,%xmm6,%xmm6
+  a45342:	c5 c1 ef ff          	vpxor  %xmm7,%xmm7,%xmm7
+  a45346:	4c 89 ef             	mov    %r13,%rdi
+  a45349:	4c 89 f3             	mov    %r14,%rbx
+  a4534c:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a45350:	4d 01 e7             	add    %r12,%r15
+  a45353:	48 85 ff             	test   %rdi,%rdi
+  a45356:	74 34                	je     a4538c <dgemm_kernel_SKYLAKEX+0x31ec>
+  a45358:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a4535c:	c5 fb 12 50 08       	vmovddup 0x8(%rax),%xmm2
+  a45361:	48 83 c0 10          	add    $0x10,%rax
+  a45365:	c5 f9 10 1b          	vmovupd (%rbx),%xmm3
+  a45369:	c4 e2 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm4
+  a4536e:	c4 e2 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm5
+  a45373:	c4 a1 79 10 1c 23    	vmovupd (%rbx,%r12,1),%xmm3
+  a45379:	c4 e2 e1 b8 f1       	vfmadd231pd %xmm1,%xmm3,%xmm6
+  a4537e:	c4 e2 e1 b8 fa       	vfmadd231pd %xmm2,%xmm3,%xmm7
+  a45383:	48 83 c3 10          	add    $0x10,%rbx
+  a45387:	48 ff cf             	dec    %rdi
+  a4538a:	75 cc                	jne    a45358 <dgemm_kernel_SKYLAKEX+0x31b8>
+  a4538c:	4c 89 c9             	mov    %r9,%rcx
+  a4538f:	49 83 c1 10          	add    $0x10,%r9
+  a45393:	c5 d9 14 cd          	vunpcklpd %xmm5,%xmm4,%xmm1
+  a45397:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a4539c:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a453a0:	c5 d9 15 d5          	vunpckhpd %xmm5,%xmm4,%xmm2
+  a453a4:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a453aa:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a453af:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a453b3:	c5 c9 14 cf          	vunpcklpd %xmm7,%xmm6,%xmm1
+  a453b7:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a453bc:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a453c0:	c5 c9 15 d7          	vunpckhpd %xmm7,%xmm6,%xmm2
+  a453c4:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a453ca:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a453cf:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a453d3:	49 83 eb 02          	sub    $0x2,%r11
+  a453d7:	4d 85 db             	test   %r11,%r11
+  a453da:	74 77                	je     a45453 <dgemm_kernel_SKYLAKEX+0x32b3>
+  a453dc:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a453e0:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a453e4:	4c 89 ef             	mov    %r13,%rdi
+  a453e7:	4c 89 f3             	mov    %r14,%rbx
+  a453ea:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a453ee:	4d 01 e7             	add    %r12,%r15
+  a453f1:	48 85 ff             	test   %rdi,%rdi
+  a453f4:	74 1c                	je     a45412 <dgemm_kernel_SKYLAKEX+0x3272>
+  a453f6:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a453fa:	48 83 c0 08          	add    $0x8,%rax
+  a453fe:	c4 e2 f1 b8 23       	vfmadd231pd (%rbx),%xmm1,%xmm4
+  a45403:	c4 a2 f1 b8 2c 23    	vfmadd231pd (%rbx,%r12,1),%xmm1,%xmm5
+  a45409:	48 83 c3 10          	add    $0x10,%rbx
+  a4540d:	48 ff cf             	dec    %rdi
+  a45410:	75 e4                	jne    a453f6 <dgemm_kernel_SKYLAKEX+0x3256>
+  a45412:	4c 89 c9             	mov    %r9,%rcx
+  a45415:	49 83 c1 08          	add    $0x8,%r9
+  a45419:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a4541d:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a45422:	c4 e2 f9 b8 d4       	vfmadd231pd %xmm4,%xmm0,%xmm2
+  a45427:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a4542b:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a45430:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45434:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a45438:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a4543d:	c4 e2 f9 b8 d5       	vfmadd231pd %xmm5,%xmm0,%xmm2
+  a45442:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a45446:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a4544b:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4544f:	49 83 eb 01          	sub    $0x1,%r11
+  a45453:	4c 89 f3             	mov    %r14,%rbx
+  a45456:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a4545b:	4c 8b 44 24 b8       	mov    -0x48(%rsp),%r8
+  a45460:	48 83 ee 04          	sub    $0x4,%rsi
+  a45464:	4d 89 da             	mov    %r11,%r10
+  a45467:	4d 0f af d0          	imul   %r8,%r10
+  a4546b:	49 c1 e0 05          	shl    $0x5,%r8
+  a4546f:	49 01 d8             	add    %rbx,%r8
+  a45472:	48 8b 5d 10          	mov    0x10(%rbp),%rbx
+  a45476:	49 c1 e2 03          	shl    $0x3,%r10
+  a4547a:	4c 29 d0             	sub    %r10,%rax
+  a4547d:	4c 8d 14 9d 00 00 00 	lea    0x0(,%rbx,4),%r10
+  a45484:	00 
+  a45485:	4d 29 da             	sub    %r11,%r10
+  a45488:	4f 8d 0c d1          	lea    (%r9,%r10,8),%r9
+  a4548c:	e9 92 eb ff ff       	jmp    a44023 <dgemm_kernel_SKYLAKEX+0x1e83>
+  a45491:	48 83 fe 01          	cmp    $0x1,%rsi
+  a45495:	0f 8e 88 eb ff ff    	jle    a44023 <dgemm_kernel_SKYLAKEX+0x1e83>
+  a4549b:	bb 04 00 00 00       	mov    $0x4,%ebx
+  a454a0:	c4 62 e1 f7 54 24 b8 	shlx   %rbx,-0x48(%rsp),%r10
+  a454a7:	4d 01 c2             	add    %r8,%r10
+  a454aa:	4c 89 c3             	mov    %r8,%rbx
+  a454ad:	4d 89 d0             	mov    %r10,%r8
+  a454b0:	62 f2 fd 48 19 44 24 	vbroadcastsd -0x58(%rsp),%zmm0
+  a454b7:	f5 
+  a454b8:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a454bd:	49 89 de             	mov    %rbx,%r14
+  a454c0:	4c 8b 64 24 b8       	mov    -0x48(%rsp),%r12
+  a454c5:	49 c1 e4 04          	shl    $0x4,%r12
+  a454c9:	4c 8b 6c 24 b8       	mov    -0x48(%rsp),%r13
+  a454ce:	49 83 fb 10          	cmp    $0x10,%r11
+  a454d2:	0f 82 e4 00 00 00    	jb     a455bc <dgemm_kernel_SKYLAKEX+0x341c>
+  a454d8:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a454de:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a454e4:	62 51 ad 48 ef d2    	vpxorq %zmm10,%zmm10,%zmm10
+  a454ea:	62 51 a5 48 ef db    	vpxorq %zmm11,%zmm11,%zmm11
+  a454f0:	4c 89 ef             	mov    %r13,%rdi
+  a454f3:	4c 89 f3             	mov    %r14,%rbx
+  a454f6:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a454fa:	4d 01 e7             	add    %r12,%r15
+  a454fd:	48 85 ff             	test   %rdi,%rdi
+  a45500:	74 4e                	je     a45550 <dgemm_kernel_SKYLAKEX+0x33b0>
+  a45502:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a45508:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a4550f:	00 00 00 
+  a45512:	62 f1 ff 48 12 58 01 	vmovddup 0x40(%rax),%zmm3
+  a45519:	62 f1 ff 48 12 a0 48 	vmovddup 0x48(%rax),%zmm4
+  a45520:	00 00 00 
+  a45523:	48 05 80 00 00 00    	add    $0x80,%rax
+  a45529:	62 f2 7d 48 1a 2b    	vbroadcastf32x4 (%rbx),%zmm5
+  a4552f:	62 72 d5 48 b8 c1    	vfmadd231pd %zmm1,%zmm5,%zmm8
+  a45535:	62 72 d5 48 b8 ca    	vfmadd231pd %zmm2,%zmm5,%zmm9
+  a4553b:	62 72 d5 48 b8 d3    	vfmadd231pd %zmm3,%zmm5,%zmm10
+  a45541:	62 72 d5 48 b8 dc    	vfmadd231pd %zmm4,%zmm5,%zmm11
+  a45547:	48 83 c3 10          	add    $0x10,%rbx
+  a4554b:	48 ff cf             	dec    %rdi
+  a4554e:	75 b2                	jne    a45502 <dgemm_kernel_SKYLAKEX+0x3362>
+  a45550:	4c 89 c9             	mov    %r9,%rcx
+  a45553:	49 81 c1 80 00 00 00 	add    $0x80,%r9
+  a4555a:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a45560:	62 d1 ad 48 14 d3    	vunpcklpd %zmm11,%zmm10,%zmm2
+  a45566:	62 d1 bd 48 15 d9    	vunpckhpd %zmm9,%zmm8,%zmm3
+  a4556c:	62 d1 ad 48 15 e3    	vunpckhpd %zmm11,%zmm10,%zmm4
+  a45572:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a45578:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4557e:	62 f2 fd 48 a8 51 01 	vfmadd213pd 0x40(%rcx),%zmm0,%zmm2
+  a45585:	62 f1 fd 48 11 51 01 	vmovupd %zmm2,0x40(%rcx)
+  a4558c:	62 f2 fd 48 a8 1c 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm3
+  a45593:	62 f1 fd 48 11 1c 11 	vmovupd %zmm3,(%rcx,%rdx,1)
+  a4559a:	62 f2 fd 48 a8 64 11 	vfmadd213pd 0x40(%rcx,%rdx,1),%zmm0,%zmm4
+  a455a1:	01 
+  a455a2:	62 f1 fd 48 11 64 11 	vmovupd %zmm4,0x40(%rcx,%rdx,1)
+  a455a9:	01 
+  a455aa:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a455ae:	49 83 eb 10          	sub    $0x10,%r11
+  a455b2:	49 83 fb 10          	cmp    $0x10,%r11
+  a455b6:	0f 83 1c ff ff ff    	jae    a454d8 <dgemm_kernel_SKYLAKEX+0x3338>
+  a455bc:	49 83 fb 08          	cmp    $0x8,%r11
+  a455c0:	0f 82 82 00 00 00    	jb     a45648 <dgemm_kernel_SKYLAKEX+0x34a8>
+  a455c6:	62 51 bd 48 ef c0    	vpxorq %zmm8,%zmm8,%zmm8
+  a455cc:	62 51 b5 48 ef c9    	vpxorq %zmm9,%zmm9,%zmm9
+  a455d2:	4c 89 ef             	mov    %r13,%rdi
+  a455d5:	4c 89 f3             	mov    %r14,%rbx
+  a455d8:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a455dc:	4d 01 e7             	add    %r12,%r15
+  a455df:	48 85 ff             	test   %rdi,%rdi
+  a455e2:	74 2f                	je     a45613 <dgemm_kernel_SKYLAKEX+0x3473>
+  a455e4:	62 f1 ff 48 12 08    	vmovddup (%rax),%zmm1
+  a455ea:	62 f1 ff 48 12 90 08 	vmovddup 0x8(%rax),%zmm2
+  a455f1:	00 00 00 
+  a455f4:	48 83 c0 40          	add    $0x40,%rax
+  a455f8:	62 f2 7d 48 1a 1b    	vbroadcastf32x4 (%rbx),%zmm3
+  a455fe:	62 72 e5 48 b8 c1    	vfmadd231pd %zmm1,%zmm3,%zmm8
+  a45604:	62 72 e5 48 b8 ca    	vfmadd231pd %zmm2,%zmm3,%zmm9
+  a4560a:	48 83 c3 10          	add    $0x10,%rbx
+  a4560e:	48 ff cf             	dec    %rdi
+  a45611:	75 d1                	jne    a455e4 <dgemm_kernel_SKYLAKEX+0x3444>
+  a45613:	4c 89 c9             	mov    %r9,%rcx
+  a45616:	49 83 c1 40          	add    $0x40,%r9
+  a4561a:	62 d1 bd 48 14 c9    	vunpcklpd %zmm9,%zmm8,%zmm1
+  a45620:	62 f2 fd 48 a8 09    	vfmadd213pd (%rcx),%zmm0,%zmm1
+  a45626:	62 f1 fd 48 11 09    	vmovupd %zmm1,(%rcx)
+  a4562c:	62 d1 bd 48 15 d1    	vunpckhpd %zmm9,%zmm8,%zmm2
+  a45632:	62 f2 fd 48 a8 14 11 	vfmadd213pd (%rcx,%rdx,1),%zmm0,%zmm2
+  a45639:	62 f1 fd 48 11 14 11 	vmovupd %zmm2,(%rcx,%rdx,1)
+  a45640:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45644:	49 83 eb 08          	sub    $0x8,%r11
+  a45648:	49 83 fb 04          	cmp    $0x4,%r11
+  a4564c:	72 6a                	jb     a456b8 <dgemm_kernel_SKYLAKEX+0x3518>
+  a4564e:	c5 dd ef e4          	vpxor  %ymm4,%ymm4,%ymm4
+  a45652:	c5 d5 ef ed          	vpxor  %ymm5,%ymm5,%ymm5
+  a45656:	4c 89 ef             	mov    %r13,%rdi
+  a45659:	4c 89 f3             	mov    %r14,%rbx
+  a4565c:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a45660:	4d 01 e7             	add    %r12,%r15
+  a45663:	48 85 ff             	test   %rdi,%rdi
+  a45666:	74 25                	je     a4568d <dgemm_kernel_SKYLAKEX+0x34ed>
+  a45668:	c5 ff 12 08          	vmovddup (%rax),%ymm1
+  a4566c:	c5 ff 12 50 08       	vmovddup 0x8(%rax),%ymm2
+  a45671:	48 83 c0 20          	add    $0x20,%rax
+  a45675:	c4 e2 7d 1a 1b       	vbroadcastf128 (%rbx),%ymm3
+  a4567a:	c4 e2 e5 b8 e1       	vfmadd231pd %ymm1,%ymm3,%ymm4
+  a4567f:	c4 e2 e5 b8 ea       	vfmadd231pd %ymm2,%ymm3,%ymm5
+  a45684:	48 83 c3 10          	add    $0x10,%rbx
+  a45688:	48 ff cf             	dec    %rdi
+  a4568b:	75 db                	jne    a45668 <dgemm_kernel_SKYLAKEX+0x34c8>
+  a4568d:	4c 89 c9             	mov    %r9,%rcx
+  a45690:	49 83 c1 20          	add    $0x20,%r9
+  a45694:	c5 dd 14 cd          	vunpcklpd %ymm5,%ymm4,%ymm1
+  a45698:	c4 e2 fd a8 09       	vfmadd213pd (%rcx),%ymm0,%ymm1
+  a4569d:	c5 fd 11 09          	vmovupd %ymm1,(%rcx)
+  a456a1:	c5 dd 15 d5          	vunpckhpd %ymm5,%ymm4,%ymm2
+  a456a5:	c4 e2 fd a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%ymm0,%ymm2
+  a456ab:	c5 fd 11 14 11       	vmovupd %ymm2,(%rcx,%rdx,1)
+  a456b0:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a456b4:	49 83 eb 04          	sub    $0x4,%r11
+  a456b8:	49 83 fb 02          	cmp    $0x2,%r11
+  a456bc:	72 69                	jb     a45727 <dgemm_kernel_SKYLAKEX+0x3587>
+  a456be:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a456c2:	c5 d1 ef ed          	vpxor  %xmm5,%xmm5,%xmm5
+  a456c6:	4c 89 ef             	mov    %r13,%rdi
+  a456c9:	4c 89 f3             	mov    %r14,%rbx
+  a456cc:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a456d0:	4d 01 e7             	add    %r12,%r15
+  a456d3:	48 85 ff             	test   %rdi,%rdi
+  a456d6:	74 24                	je     a456fc <dgemm_kernel_SKYLAKEX+0x355c>
+  a456d8:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a456dc:	c5 fb 12 50 08       	vmovddup 0x8(%rax),%xmm2
+  a456e1:	48 83 c0 10          	add    $0x10,%rax
+  a456e5:	c5 f9 10 1b          	vmovupd (%rbx),%xmm3
+  a456e9:	c4 e2 e1 b8 e1       	vfmadd231pd %xmm1,%xmm3,%xmm4
+  a456ee:	c4 e2 e1 b8 ea       	vfmadd231pd %xmm2,%xmm3,%xmm5
+  a456f3:	48 83 c3 10          	add    $0x10,%rbx
+  a456f7:	48 ff cf             	dec    %rdi
+  a456fa:	75 dc                	jne    a456d8 <dgemm_kernel_SKYLAKEX+0x3538>
+  a456fc:	4c 89 c9             	mov    %r9,%rcx
+  a456ff:	49 83 c1 10          	add    $0x10,%r9
+  a45703:	c5 d9 14 cd          	vunpcklpd %xmm5,%xmm4,%xmm1
+  a45707:	c4 e2 f9 a8 09       	vfmadd213pd (%rcx),%xmm0,%xmm1
+  a4570c:	c5 f9 11 09          	vmovupd %xmm1,(%rcx)
+  a45710:	c5 d9 15 d5          	vunpckhpd %xmm5,%xmm4,%xmm2
+  a45714:	c4 e2 f9 a8 14 11    	vfmadd213pd (%rcx,%rdx,1),%xmm0,%xmm2
+  a4571a:	c5 f9 11 14 11       	vmovupd %xmm2,(%rcx,%rdx,1)
+  a4571f:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a45723:	49 83 eb 02          	sub    $0x2,%r11
+  a45727:	4d 85 db             	test   %r11,%r11
+  a4572a:	74 52                	je     a4577e <dgemm_kernel_SKYLAKEX+0x35de>
+  a4572c:	c5 d9 ef e4          	vpxor  %xmm4,%xmm4,%xmm4
+  a45730:	4c 89 ef             	mov    %r13,%rdi
+  a45733:	4c 89 f3             	mov    %r14,%rbx
+  a45736:	4f 8d 3c 66          	lea    (%r14,%r12,2),%r15
+  a4573a:	4d 01 e7             	add    %r12,%r15
+  a4573d:	48 85 ff             	test   %rdi,%rdi
+  a45740:	74 16                	je     a45758 <dgemm_kernel_SKYLAKEX+0x35b8>
+  a45742:	c5 fb 12 08          	vmovddup (%rax),%xmm1
+  a45746:	48 83 c0 08          	add    $0x8,%rax
+  a4574a:	c4 e2 f1 b8 23       	vfmadd231pd (%rbx),%xmm1,%xmm4
+  a4574f:	48 83 c3 10          	add    $0x10,%rbx
+  a45753:	48 ff cf             	dec    %rdi
+  a45756:	75 ea                	jne    a45742 <dgemm_kernel_SKYLAKEX+0x35a2>
+  a45758:	4c 89 c9             	mov    %r9,%rcx
+  a4575b:	49 83 c1 08          	add    $0x8,%r9
+  a4575f:	c5 fb 10 11          	vmovsd (%rcx),%xmm2
+  a45763:	c5 e9 16 14 11       	vmovhpd (%rcx,%rdx,1),%xmm2,%xmm2
+  a45768:	c4 e2 f9 b8 d4       	vfmadd231pd %xmm4,%xmm0,%xmm2
+  a4576d:	c5 fb 11 11          	vmovsd %xmm2,(%rcx)
+  a45771:	c5 f9 17 14 11       	vmovhpd %xmm2,(%rcx,%rdx,1)
+  a45776:	48 8d 0c 51          	lea    (%rcx,%rdx,2),%rcx
+  a4577a:	49 83 eb 01          	sub    $0x1,%r11
+  a4577e:	4c 89 f3             	mov    %r14,%rbx
+  a45781:	4c 8b 5c 24 b0       	mov    -0x50(%rsp),%r11
+  a45786:	4c 8b 44 24 b8       	mov    -0x48(%rsp),%r8
+  a4578b:	48 83 ee 02          	sub    $0x2,%rsi
+  a4578f:	4d 89 da             	mov    %r11,%r10
+  a45792:	4d 0f af d0          	imul   %r8,%r10
+  a45796:	49 c1 e0 04          	shl    $0x4,%r8
+  a4579a:	49 01 d8             	add    %rbx,%r8
+  a4579d:	48 8b 5d 10          	mov    0x10(%rbp),%rbx
+  a457a1:	49 c1 e2 03          	shl    $0x3,%r10
+  a457a5:	4c 29 d0             	sub    %r10,%rax
+  a457a8:	4c 8d 14 1b          	lea    (%rbx,%rbx,1),%r10
+  a457ac:	4d 29 da             	sub    %r11,%r10
+  a457af:	4f 8d 0c d1          	lea    (%r9,%r10,8),%r9
+  a457b3:	e9 6b e8 ff ff       	jmp    a44023 <dgemm_kernel_SKYLAKEX+0x1e83>
+
+Disassembly of section .fini:
