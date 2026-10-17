@@ -81,7 +81,9 @@ model. Five model seeds are fixed panel, not a population-generalization claim.
 ## Status
 Initial correlated-rule panel completed; independent review caught a seed
 namespace defect before statistical acceptance. Clean rescue completed;
-independent point-statistic review requested. Finite H16T4/5/6 phase only.
+T55 independently recomputed all30 point statistics with Decimal arithmetic
+(relative difference<=1.90e-12) and reviewed seed covariance/bootstrap source.
+Finite H16T4/5/6 phase only.
 
 ## Frozen independent-namespace rescue
 T55 found that the inherited kind12 offset+7 causes rule r's kind12 scramble
@@ -169,6 +171,19 @@ The control and15 cost-pilot work is retained separately in calibration.json;
 every reported estimator cost charges its own pilot/setup, even though repeated
 identical diagnostic calibration work was reused across rules. No new truth
 sampling; inherited T2 truth generation is not erased from the evidence cost.
+
+## Independent review and statistical limits
+T55 recomputed gains directly from raw rules/truth using Decimal, without
+importing analyse.py or evaluating models, in.0118CPU. It reproduces both
+metrics in all30 cells and both64k geometric decline factors. Bootstrap source
+preserves shared rule resampling and a common truth perturbation across the
+two budgets of a model. Clean analysis has ZERO invalid denominator draws in
+every per-model, geometric and decline interval. If a future analysis has
+undefined gain/decline draws, its intervals must be marked unresolved; mapping
+them upward is only a reporting convention and cannot guarantee conservative
+coverage, particularly for ratios with an undefined denominator. The frozen
+truth-resolution flag is a heuristic, not a proof. Finite16-replicate bootstrap
+and normal truth perturbations do not certify95% coverage.
 
 ## Claims
 [inferred] Fixed face count does not ensure equal compute. [speculative] A
