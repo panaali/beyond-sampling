@@ -7,7 +7,7 @@ What direct qualified source/native cost does the original saved H5T4 Hopf metho
 Claim8e88e89f; coordinate recover78/h4. Pin original ev_54.json and unchanged Hopf37e5cb78, canonical AlgZoo5x4 seed0..4 checkpoints, original absolute.05/noise50 four copies per base, and existing10M truth metadata. Recover canonical checkpoint identities first. Reuse the reviewed H4 tracer read-only only after H5 shape/source applicability controls. First measured case is fixed cleanseed0 h64, not a full panel. No new training/noise law/reference sampling or method selection.
 
 ## Status
-Canonical checkpoint and 25-model provenance complete, independently f51a6d34. Current canonical byte identities do not prove historical byte identity; exact saved estimator-output parity remains the next gate. Eight fixed H5 synthetic controls independently58b9bc18 pass. The original clean0 h64 direct trace and sampler independentlybce7f7bb pass. Single-case saved uncertainty comparison is complete, pending independent contraction audit; full panel remains unexecuted.
+Canonical checkpoint and 25-model provenance complete, independently f51a6d34. Current canonical byte identities do not prove historical byte identity; exact saved estimator-output parity remains the next gate. Eight fixed H5 synthetic controls independently58b9bc18 pass. The original clean0 h64 direct trace and sampler independentlybce7f7bb pass. Single-case comparison independentlyabb3b5de and full25 raw/comparison79f9bef8/d0458af9 complete. Bounded handoff is ready; higher-precision truth and remaining native categories are separate continuations.
 
 ## Results
 Pins/source snapshots in protocol.json and frozen/. Five checkpoint SHA/MD5/generation identities are in checkpoint_identity.json; all 25 original float64 model arrays/hashes and saved10M metadata are in models.json. Reproduction: `python provenance.py` (immutable output; use an isolated copy). Eight synthetic circle/grid/einsum controls in controls.json pass original/traced hex and legacy parity, with 0.190784927 CPU. The padded analytic root-mask witness remains .125 versus true .05120819117478336; this is retained, not repaired. Reproduction: `python controls.py` (immutable output). Source original root-mask defect is retained; a local repair is not silently substituted. Existing h128 values are approximations, not exact truths. Missing or mismatching source/checkpoint/shape data remains unresolved.
@@ -43,7 +43,7 @@ under that uncertainty and conditional cost convention, not a verified win
 or method failure. Numerical beta endpoints are not outward rounded.
 No new MC, h128 truth claim, broader panel or complete native/runtime result.
 
-### Remaining original panel (active)
+### Remaining original panel (complete)
 Continuation claim3f1c228b and source672fc54f independentlyabb3b5de freeze
 indices1..24 in seed/copy order. Each separate capped process first proves
 historical hex/legacy parity, then directly traces the unchanged source.
@@ -53,3 +53,26 @@ Full saved ledger contraction8c254166 independently source-gated, with
 independent reviewer reconstruction of native closure formulas still required.
 Comparison sourcea482a037 freezes all60 group and50 individual views before
 completion. Existing75-family truth boxes and native exclusions are retained.
+
+### Full-panel result and independent review
+All25 original h64 values, legacy counters and actual native-source traces
+pass independent79f9bef8 (earlier incrementalc924193b/6fda202e/939e2226).
+Named explicit5,356,002,834 and conditional source8,185,943,976 include
+setup1 permodel; all1,433,600 source-closure records are retained.
+Research371.571170808CPU includes the pilot exactly once; no failures or
+discarded cases. Reproduce in an isolated output copy with `python panel.py
+--index I` for1..24, then `python panel_summary.py`; all source gates/caps apply.
+
+Frozen `python panel_compare.py` produces60 group and50 individual views,
+independentlyd0458af9. Eight group views and five individual views have point
+ratios>=1; max3.1574721894. Every nominal simultaneous uncertainty interval
+contains1; maximum group/individual uppers9.2661985766/9.2462387825.
+Optimized own-budget pooled points byseed are.104613,.876546,.245136,.138862,
+.633342, with old75-family10M box uppers2.35124,4.37905,3.07556,2.52580,4.12456.
+No H5 panel win or method failure is established. No noisy outlier is removed.
+
+[measured] Complete finite-panel source/counter parity and stated site costs.
+[inferred] Existing truth precision does not settle the conditional comparison.
+[speculative] A separately fixed independent higher-precision reference phase
+can distinguish genuine h64 error from old-reference uncertainty; it cannot
+close native/runtime exclusions or validate the known generic root-mask bug.
