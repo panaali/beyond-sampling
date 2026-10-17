@@ -15,7 +15,12 @@ Frozen alternatives before implementation:
 Protocol frozen; implementation pending. One thread, 2GB, shared locks, <=110CPU per cycle; primitive controls <=20CPU review lane. No sampled model inputs or new Monte Carlo.
 
 ## Results
-Pending. Reproduction commands will accompany each result. No winner selected.
+Raw controls (`python m16/approaches/real_arc_tail/controls.py`) took4.722CPU:300 arc cases,20 negative real and14 negative Fourier values, with huge relative errors near vanishing integrands. Both variants reject5/36 polygons. Raw benchmark includes redundant construction of the common nine-polygon fixture on each timed call; preserve it, but use a separately reported cached-fixture benchmark for a kernel comparison. No winner selected.
+
+### Rescue protocol frozen after raw controls
+Test stable endpoint differences as a separate variant; they remove direct endpoint subtraction but cannot fix recurrence cancellation near a zero integrand. Also test an exact positive centered formula, a concrete alternative to positive quadrature: set A=f(theta/2), B=f'(theta/2), z=sin²(theta/2). For even n and 0<=theta<=pi,
+I_n=sum over even j of binom(n,j)*A^(n−j)*B^j*Beta_z((j+1)/2,(n−j+1)/2).
+Odd powers of sin integrate to zero on the centered symmetric interval; all retained terms are nonnegative. Evaluate incomplete beta directly through scipy.special, preserving underflow and floating special-function qualifications. Run the same frozen arc/polygon cases and cached-fixture300-call benchmark. This is not a directed arithmetic certificate. Compare full positive and stable variants, not only a post-hoc winner. No trained pilot until this result is recorded.
 
 ## Compute accounting
 Charge normalization/edge geometry, all arc chains, endpoint trig/powers, polygon recurrence, guards and fallback construction/query work. Report named operation categories and CPU including controls separately. Do not call a partial scalar proxy a portable full FLOP audit. Baseline Fourier term count is vertices*(1+3+...+degree), matching parity only.
