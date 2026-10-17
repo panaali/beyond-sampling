@@ -22,3 +22,5 @@ Same detailed named floating/category counters, exact rational/MP operation inve
 
 ## Alternatives not ruled out / failure modes
 A failed finite-order or kernel test is scoped and preserved, not a general impossibility. The original<300operations-per-cone goal remains unmet on seed0; this transfer tests accuracy/cost stability, not that target by assumption. Full results require a separate frozen phase and independent audit.
+
+Initial preflight (before any cone evaluation) caught an overly strict equality assertion: binary64 `(1e-7)/30726` is one ulp below the rounded exact Fraction tolerance. `pilot_initial.py` and `preflight_failure.json` preserve this harness issue. The estimator arithmetic and target are unchanged; validation now proves via Fraction that the floating tolerance is conservative and differs by at most one ulp. No target relaxation or numerical result replacement.
