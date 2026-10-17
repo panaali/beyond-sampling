@@ -253,3 +253,55 @@ demonstrating the separate floating-geometry/determinant error limitation.
 positive integration only after an explicit ArithmeticError. It records fallback
 count, quadrature nodes and the quadrature-only bound in caller statistics.
 Passing the original geometric guard still does not prove total numerical error.
+
+## Cycle 5: analytic inverse-sixth norm on a segment
+
+Let A,B be nonzero vectors in a common closed orthant, r=||A||, s=||B||,
+c=(A dot B)/(rs), theta=acos(c), and z=1-c^2. Thus 0<=theta<=pi/2.
+Set
+
+    a = integral_0^1 t^4 / sqrt(1-z*t^2) dt
+      = [3*theta - sin(theta)*c*(3+2*z)]/[8*sin(theta)^5],
+    b = 1/4 - c*a,
+    d = (1-2*z/3)*a - c/6.
+
+The desired integral is
+
+    I6 = 1/(rs) * [(r^-4+s^-4)*a
+          + 4*(r^-3*s^-1+r^-1*s^-3)*b + 6*r^-2*s^-2*d].
+
+All three coefficients are positive. At theta=0 their limits are
+(1/5,1/20,1/30), giving the correct collinear formula; for perpendicular
+unit vectors I6=2+3*pi/4. To derive this, parameterize points on the segment
+by polar angle phi from A. Their radius rho satisfies
+
+    1/rho = [sin(theta-phi)/r + sin(phi)/s]/sin(theta),
+    du = rho^2/(rs*sin(theta)) dphi.
+
+Expand the fourth power of the bracket. The normalized angular coefficients
+are J40/sin(theta)^5=a, J31/sin(theta)^5=b and J22/sin(theta)^5=d, where
+Jij=integral_0^theta sin(theta-phi)^i sin(phi)^j dphi. Elementary integration
+gives the stated formulas. The T48 owner independently derived all three.
+
+For z<=1/4 use the positive expansion
+
+    a = sum_{n>=0} [(1/2)_n/n!]*z^n/(2*n+5).
+
+Each successive term ratio is less than z, so after N terms the remaining
+sum is at most term_N/(1-z). The implementation uses28 terms. Multiplying
+this bound by
+
+    1/(rs) * [U + |c|*V + |1-2*z/3|*W],
+    U=r^-4+s^-4, V=4*(r^-3*s^-1+r^-1*s^-3), W=6*r^-2*s^-2,
+
+propagates it conservatively to I6. This excludes floating roundoff. The
+closed-form branch reports no numerical error certificate. Endpoint scaling
+by their largest absolute coordinate reduces avoidable overflow. The API
+rejects zero endpoints and opposite signs in any coordinate.
+
+In the simplex Duffy map the final coordinate has constant Jacobian factor.
+Replacing its Gauss rule by this exact segment integral removes one quadrature
+dimension. Integrating a polynomial in that coordinate does not increase its
+degree in remaining coordinates, so the existing polynomial-approximation
+quadrature bound can retain its degree argument. This does not itself certify
+floating cone geometry or establish a favorable total cost for T6.
