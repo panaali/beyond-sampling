@@ -9,16 +9,16 @@ Use only frozen_recipe_holdout/exact/error_captured.npz (SHA215ce37b68c283e29224
 Alternative explanations: performance could rely on seed0 cone shapes (fixed new-checkpoint64 then full census); a tolerance mismatch between float and Fraction selectors could cause false coverage (assert both derive from sameN); exceptional cones could fail numerical positivity (preserve and stop on failure/reference discrepancy). Finite-order unresolved cases stay unresolved. No candidate substitution into frozen T14924/96 and no model-dependent tuning or favorable-index selection.
 
 ## Status
-Frozen fixed64 transfer phase, implementation pending.
+Bounded full transfer complete; independent full source/raw/cost audit requested. Pilot gate independently passed2827c813; TASKS14983b7b froze full phase before implementation.
 
 ## Results
-Pending. Prior seed1 exact positive accuracy .9874600108260589 is reference only, not a fitted target.
+All30726 return, with64 pilot rows reused once. Accuracy .9874600098992554 versus independently frozen reference .9874600108260589, difference−9.26803523e-10. Sum conditional integration bounds1.14093936608e-8, reference-error L1 1.55760650188e-9, maximum cone discrepancy2.53238447e-12. No unresolved or failed rows. Methods:16420 center intervals,14251 center quadratures,55 exact KKT rescues. No trained geometry/reference rerun.
 
 ## Compute accounting
 Same detailed named floating/category counters, exact rational/MP operation inventories, cold plans and failed trials as T161/T109; unknown library/gcd/MP, integer/control/memory and FP error remain explicit. One thread2GB, <=20CPU review cycles; no completed reference or geometry replay. No full-cost/noisy-rung or challenge claim.
 
 ## Claims
-[inferred, independently reviewed] Unchanged positive kernel and real-arithmetic bound. [speculative] Transfer coverage and useful cost remain to be checked on seed1.
+[inferred, independently reviewed] Unchanged positive kernel and real-arithmetic bound. [measured] The unchanged algorithm covers this second captured corpus at the frozen conditional target. [measured] The300-operation goal is unmet:3323.66 known units/cone. Neither statement certifies arbitrary floating error or complete model-facing cost.
 
 ## Alternatives not ruled out / failure modes
 A failed finite-order or kernel test is scoped and preserved, not a general impossibility. The original<300operations-per-cone goal remains unmet on seed0; this transfer tests accuracy/cost stability, not that target by assumption. Full results require a separate frozen phase and independent audit.
@@ -28,3 +28,9 @@ Initial preflight (before any cone evaluation) caught an overly strict equality 
 Fixed64 transfer result: all64 returned,35 center intervals and29 center quadratures, no exact rescue. Maximum independent-reference discrepancy3.03400e-13; summed absolute discrepancy1.09269e-12 versus conditional bound2.10497e-11. Known floating/category total532,864 plus unknown library/FP terms, CPU0.195270. This selected pilot has a larger cost than seed0's pilot; no corpus extrapolation is made. All failures and original preflight issue remain preserved. Independent source/tolerance/raw gate requested before full transfer.
 
 Reproduce fixed64 only if needed using one-thread2GB review-lock wrapper and `/workspace/clean-neurons/.venv/bin/python m16/approaches/positive_h8_holdout/pilot.py`. Completed results are ready for saved-data review without rerunning integration.
+
+Full source and data: `full_protocol.json`, `full_run.py`, `full_summarize.py`, `shard_000..120.json.gz`, three uniquely named session records, `summary.json`, `values.npz`. Each256-index shard preserves all trials, setup, selected orders, exact certificates, comparison and ledger. The final shard has6 rows. Attempts have unique names so resumed CPU would not overwrite prior attempts.
+
+Known numerical/category subtotal102,122,861, including one canonical cold rule plan union18,050 and six universal constants. Actual staged cold-plan work65,236 is separately recorded; total staged CPU including pilot/imports11.996909, aggregation0.463958. Exact setup55 rescues has maximum793/770 numerator/denominator bits, certificateCPU0.224280 and MPselection0.067847; full operation inventory retained. GCD/MP/Legendre internals, integer/control/memory and capture/geometry are outside the named subtotal. T171 explicitly tracks model-facing capture/N/storage integration before adoption.
+
+Original commands (do not rerun completed cones): one-thread memory-limited review-lock Python `full_run.py 0 32`, `full_run.py 32 72`, `full_run.py 72 121`; saved-data aggregation `full_summarize.py`. Existing completed shards are skipped and partial shards resume only missing suffixes. No source fallback, extra order, changed target or reweighted selection was introduced.
