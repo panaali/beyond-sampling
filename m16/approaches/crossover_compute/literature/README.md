@@ -1,5 +1,7 @@
 # T19: protocol clarification and three bounded research leads
 
+Follow-up: [gate-supported projection formulas and T38 cautions](supported_projection.md). This is a source/formula handoff to the DRI-held T38, not a competing task.
+
 ## Question
 
 What does ARC's original challenge require, and which specific numerical ideas remain worth falsifying after E10–E30?

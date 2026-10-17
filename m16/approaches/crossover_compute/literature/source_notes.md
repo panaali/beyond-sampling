@@ -34,3 +34,19 @@ Do not allocate T numbers here; the board is shared and may have advanced.
 3. Extend T28 notes (do not duplicate T1): rank/gate-respecting joint Gaussian probability reference plus EP representation-invariance test. Done when union/chamber versus frozen-gate effects are separated on predeclared DEV surrogate cases.
 
 None has been started by this agent. The caps are suggested experiment designs; DRI may change them before preregistration.
+
+## T19 follow-up exposures and primary formulas
+
+The follow-up read the current local `lit/web_methods` and `lit/web_arc` reports first. This is secondary exposure to their logged sources; only the following additional primary pages/PDFs were opened directly. Read date remains 2026-10-16 client time (2026-10-17 host). Append these rows to the shared log via the lead/DRI.
+
+| Date read | Agent | URL | Published | Relevant content | Used by |
+|---|---|---|---|---|---|
+| 2026-10-16 | Codex literature_protocol | https://arxiv.org/pdf/2605.05179v2 | 2026-05-14 v2 | Full PDF, especially S.4.3 and Table 1: factorization preserves estimator; depth-dependent arithmetic cost. | T19 supported_projection.md cost caution; no imported implementation |
+| 2026-10-16 | Codex literature_protocol | https://www.alignment.org/content/files/2026/05/deductive_estimation_for_random_halfspace_intersections.pdf | Dated 2025-05-02, posted May 2026 | Sections 3–5, projection recurrence and average-case sketch guarantee. | T19 supported_projection.md, extension for DRI-held T38 |
+| 2026-10-16 | Codex literature_protocol | https://www.alignment.org/blog/mechanistic-estimation-for-expectations-of-random-products/ | 2026-05-15 | Opened accompanying announcement. | Context only, formula taken from PDF |
+| 2026-10-16 | Codex literature_protocol | https://discourse.aicrowd.com/t/phase-1-write-ups-team-puffi/18175 | 2026-08-16 | Public third-party challenge report; separate analytical and QMC entries, not AlgZoo. | Source discovery only |
+| 2026-10-16 | Codex literature_protocol | https://discourse.aicrowd.com/uploads/short-url/yQsl71y2a3zDgb4SpYQFnt9EpoE.pdf | Linked 2026-08-16 | Separate-Universe Response Closure, equation (2), fitted response modes; reported loss to sampling at greatest depth. | T19 supported_projection.md: distinct closure considered and not selected |
+
+Pre-2026 primary reads: [Wu thesis](https://gabrieldwu.com/assets/thesis.pdf), March 2025 title page / May 16 Harvard deposit, section 6.4 and algorithm 4; [Formalizing the presumption of independence](https://arxiv.org/pdf/2211.06738), appendix D. These overlap existing background and were used to avoid repeating E13. Harvard PDF endpoint returned 429; the author's public copy was successfully read.
+
+No source was found establishing a public M_16,10 solution, but this bounded search cannot establish its absence. No private solution was sought. The new supported-projection formula is our mathematical application of the published DPE framework, not a claimed ARC algorithm or a result verified on trained models.
