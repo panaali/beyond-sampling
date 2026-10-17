@@ -1263,3 +1263,12 @@ Only narrow35/48 at each order have qualifying ideal bounds (six of33).
 The positive finite diagnostic does not establish a generic, trained or
 floating-error certificate. Rule/setup, rational and MP costs remain separate
 from source proxies. No mass evaluations were repeated by the reviewer.
+
+### Five-dimensional expression-tracer controls
+
+`check_orth5_cost_controls_review.py` checks all eight saved adapter controls:
+output bits, hand-counted category totals, site and opaque-call conservation,
+folded constants and short-circuit side effects. Compile-only constant probes
+preserve CPython folding instead of manufacturing runtime arithmetic. The
+loader extracts only two pinned definitions, with rule setup separate. This
+clears the adapter controls, not a full mass cost or numerical-source replay.
