@@ -1,0 +1,87 @@
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .bolt.org.text:
+
+Disassembly of section .fini:
+
+Disassembly of section .text:
+
+000000000180a04e <float_add>:
+ 180a04e:	55                   	push   %rbp
+ 180a04f:	48 89 e5             	mov    %rsp,%rbp
+ 180a052:	53                   	push   %rbx
+ 180a053:	48 83 ec 18          	sub    $0x18,%rsp
+ 180a057:	48 8b 47 08          	mov    0x8(%rdi),%rax
+ 180a05b:	48 3d 00 21 44 01    	cmp    $0x1442100,%rax
+ 180a061:	0f 84 01 01 00 00    	je     180a168 <float_add+0x11a>
+ 180a067:	48 8b 88 58 01 00 00 	mov    0x158(%rax),%rcx
+ 180a06e:	48 85 c9             	test   %rcx,%rcx
+ 180a071:	0f 84 79 d6 2d 00    	je     1ae76f0 <float_add.cold+0x20>
+ 180a077:	48 8b 51 10          	mov    0x10(%rcx),%rdx
+ 180a07b:	48 85 d2             	test   %rdx,%rdx
+ 180a07e:	7e 1a                	jle    180a09a <float_add+0x4c>
+ 180a080:	45 31 c0             	xor    %r8d,%r8d
+ 180a083:	4a 81 7c c1 18 00 21 	cmpq   $0x1442100,0x18(%rcx,%r8,8)
+ 180a08a:	44 01 
+ 180a08c:	0f 84 d6 00 00 00    	je     180a168 <float_add+0x11a>
+ 180a092:	49 ff c0             	inc    %r8
+ 180a095:	4c 39 c2             	cmp    %r8,%rdx
+ 180a098:	75 e9                	jne    180a083 <float_add+0x35>
+ 180a09a:	f6 80 ab 00 00 00 01 	testb  $0x1,0xab(%rax)
+ 180a0a1:	0f 84 4b 49 26 00    	je     1a6e9f2 <float_add.warm+0x60>
+ 180a0a7:	48 89 f3             	mov    %rsi,%rbx
+ 180a0aa:	e8 61 fe ff ff       	call   1809f10 <PyLong_AsDouble>
+ 180a0af:	66 0f 2e 05 41 f0 9c 	ucomisd -0x630fbf(%rip),%xmm0        # 11d90f8 <.LCPI0_0>
+ 180a0b6:	ff 
+ 180a0b7:	48 89 de             	mov    %rbx,%rsi
+ 180a0ba:	0f 84 4a 49 26 00    	je     1a6ea0a <float_add.warm+0x78>
+ 180a0c0:	48 8b 46 08          	mov    0x8(%rsi),%rax
+ 180a0c4:	48 3d 00 21 44 01    	cmp    $0x1442100,%rax
+ 180a0ca:	0f 85 c2 48 26 00    	jne    1a6e992 <float_add.warm>
+ 180a0d0:	f2 0f 10 4e 10       	movsd  0x10(%rsi),%xmm1
+ 180a0d5:	64 48 8b 04 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rax
+ 180a0dc:	ff ff 
+ 180a0de:	48 8b 48 10          	mov    0x10(%rax),%rcx
+ 180a0e2:	48 8b 81 98 14 04 00 	mov    0x41498(%rcx),%rax
+ 180a0e9:	48 85 c0             	test   %rax,%rax
+ 180a0ec:	74 4a                	je     180a138 <float_add+0xea>
+ 180a0ee:	48 8b 50 08          	mov    0x8(%rax),%rdx
+ 180a0f2:	48 89 91 98 14 04 00 	mov    %rdx,0x41498(%rcx)
+ 180a0f9:	ff 89 90 14 04 00    	decl   0x41490(%rcx)
+ 180a0ff:	48 c7 40 08 00 21 44 	movq   $0x1442100,0x8(%rax)
+ 180a106:	01 
+ 180a107:	f6 05 9b 80 c3 ff 02 	testb  $0x2,-0x3c7f65(%rip)        # 14421a9 <PyFloat_Type+0xa9>
+ 180a10e:	0f 85 1e d6 2d 00    	jne    1ae7732 <float_add.cold+0x62>
+ 180a114:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+ 180a118:	83 3d a5 e6 d3 ff 00 	cmpl   $0x0,-0x2c195b(%rip)        # 15487c4 <_PyRuntime+0xad4>
+ 180a11f:	0f 85 26 d6 2d 00    	jne    1ae774b <float_add.cold+0x7b>
+ 180a125:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+ 180a12c:	f2 0f 11 40 10       	movsd  %xmm0,0x10(%rax)
+ 180a131:	48 83 c4 18          	add    $0x18,%rsp
+ 180a135:	5b                   	pop    %rbx
+ 180a136:	5d                   	pop    %rbp
+ 180a137:	c3                   	ret
+ 180a138:	48 8b 3d 61 dc d3 ff 	mov    -0x2c239f(%rip),%rdi        # 1547da0 <_PyRuntime+0xb0>
+ 180a13f:	be 18 00 00 00       	mov    $0x18,%esi
+ 180a144:	f2 0f 11 45 f0       	movsd  %xmm0,-0x10(%rbp)
+ 180a149:	f2 0f 11 4d e8       	movsd  %xmm1,-0x18(%rbp)
+ 180a14e:	ff 15 54 dc d3 ff    	call   *-0x2c23ac(%rip)        # 1547da8 <_PyRuntime+0xb8>
+ 180a154:	f2 0f 10 4d e8       	movsd  -0x18(%rbp),%xmm1
+ 180a159:	f2 0f 10 45 f0       	movsd  -0x10(%rbp),%xmm0
+ 180a15e:	48 85 c0             	test   %rax,%rax
+ 180a161:	75 9c                	jne    180a0ff <float_add+0xb1>
+ 180a163:	e9 72 d5 2d 00       	jmp    1ae76da <float_add.cold+0xa>
+ 180a168:	f2 0f 10 47 10       	movsd  0x10(%rdi),%xmm0
+ 180a16d:	e9 4e ff ff ff       	jmp    180a0c0 <float_add+0x72>
+
+Disassembly of section .text.warm:
+
+Disassembly of section .text.cold:

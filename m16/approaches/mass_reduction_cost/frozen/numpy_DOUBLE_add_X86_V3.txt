@@ -1,0 +1,321 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000005462e0 <DOUBLE_add_X86_V3>:
+  5462e0:	55                   	push   %rbp
+  5462e1:	48 89 e5             	mov    %rsp,%rbp
+  5462e4:	41 57                	push   %r15
+  5462e6:	41 56                	push   %r14
+  5462e8:	41 55                	push   %r13
+  5462ea:	41 54                	push   %r12
+  5462ec:	53                   	push   %rbx
+  5462ed:	48 8b 1f             	mov    (%rdi),%rbx
+  5462f0:	48 8b 4f 08          	mov    0x8(%rdi),%rcx
+  5462f4:	48 8b 47 10          	mov    0x10(%rdi),%rax
+  5462f8:	48 8b 3a             	mov    (%rdx),%rdi
+  5462fb:	4c 8b 42 08          	mov    0x8(%rdx),%r8
+  5462ff:	48 8b 52 10          	mov    0x10(%rdx),%rdx
+  546303:	48 83 e4 e0          	and    $0xffffffffffffffe0,%rsp
+  546307:	48 8b 36             	mov    (%rsi),%rsi
+  54630a:	48 85 ff             	test   %rdi,%rdi
+  54630d:	41 0f 94 c2          	sete   %r10b
+  546311:	48 39 d7             	cmp    %rdx,%rdi
+  546314:	41 0f 94 c4          	sete   %r12b
+  546318:	45 84 d2             	test   %r10b,%r10b
+  54631b:	0f 84 8f 00 00 00    	je     5463b0 <DOUBLE_add_X86_V3+0xd0>
+  546321:	45 84 e4             	test   %r12b,%r12b
+  546324:	0f 84 86 00 00 00    	je     5463b0 <DOUBLE_add_X86_V3+0xd0>
+  54632a:	48 39 c3             	cmp    %rax,%rbx
+  54632d:	0f 84 66 03 00 00    	je     546699 <DOUBLE_add_X86_V3+0x3b9>
+  546333:	48 83 fe 08          	cmp    $0x8,%rsi
+  546337:	7e 27                	jle    546360 <DOUBLE_add_X86_V3+0x80>
+  546339:	4c 8d 4e ff          	lea    -0x1(%rsi),%r9
+  54633d:	49 89 de             	mov    %rbx,%r14
+  546340:	49 89 df             	mov    %rbx,%r15
+  546343:	49 89 c3             	mov    %rax,%r11
+  546346:	49 89 c5             	mov    %rax,%r13
+  546349:	4d 39 df             	cmp    %r11,%r15
+  54634c:	0f 82 a6 00 00 00    	jb     5463f8 <DOUBLE_add_X86_V3+0x118>
+  546352:	4d 39 f5             	cmp    %r14,%r13
+  546355:	0f 82 9d 00 00 00    	jb     5463f8 <DOUBLE_add_X86_V3+0x118>
+  54635b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  546360:	48 85 f6             	test   %rsi,%rsi
+  546363:	7e 36                	jle    54639b <DOUBLE_add_X86_V3+0xbb>
+  546365:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  54636c:	00 00 00 00 
+  546370:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  546377:	00 00 00 00 
+  54637b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  546380:	c5 fb 10 03          	vmovsd (%rbx),%xmm0
+  546384:	c5 fb 58 01          	vaddsd (%rcx),%xmm0,%xmm0
+  546388:	48 01 fb             	add    %rdi,%rbx
+  54638b:	4c 01 c1             	add    %r8,%rcx
+  54638e:	c5 fb 11 00          	vmovsd %xmm0,(%rax)
+  546392:	48 01 d0             	add    %rdx,%rax
+  546395:	48 83 ee 01          	sub    $0x1,%rsi
+  546399:	75 e5                	jne    546380 <DOUBLE_add_X86_V3+0xa0>
+  54639b:	48 8d 65 d8          	lea    -0x28(%rbp),%rsp
+  54639f:	5b                   	pop    %rbx
+  5463a0:	41 5c                	pop    %r12
+  5463a2:	41 5d                	pop    %r13
+  5463a4:	41 5e                	pop    %r14
+  5463a6:	41 5f                	pop    %r15
+  5463a8:	5d                   	pop    %rbp
+  5463a9:	c3                   	ret
+  5463aa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  5463b0:	48 83 fe 08          	cmp    $0x8,%rsi
+  5463b4:	7e aa                	jle    546360 <DOUBLE_add_X86_V3+0x80>
+  5463b6:	4c 8d 4e ff          	lea    -0x1(%rsi),%r9
+  5463ba:	49 89 fe             	mov    %rdi,%r14
+  5463bd:	49 89 d3             	mov    %rdx,%r11
+  5463c0:	49 89 df             	mov    %rbx,%r15
+  5463c3:	4d 0f af f1          	imul   %r9,%r14
+  5463c7:	4d 0f af d9          	imul   %r9,%r11
+  5463cb:	49 01 de             	add    %rbx,%r14
+  5463ce:	49 01 c3             	add    %rax,%r11
+  5463d1:	48 85 ff             	test   %rdi,%rdi
+  5463d4:	0f 89 b4 02 00 00    	jns    54668e <DOUBLE_add_X86_V3+0x3ae>
+  5463da:	49 89 c5             	mov    %rax,%r13
+  5463dd:	48 85 d2             	test   %rdx,%rdx
+  5463e0:	0f 89 9d 02 00 00    	jns    546683 <DOUBLE_add_X86_V3+0x3a3>
+  5463e6:	4d 39 fd             	cmp    %r15,%r13
+  5463e9:	0f 85 5a ff ff ff    	jne    546349 <DOUBLE_add_X86_V3+0x69>
+  5463ef:	4d 39 f3             	cmp    %r14,%r11
+  5463f2:	0f 85 51 ff ff ff    	jne    546349 <DOUBLE_add_X86_V3+0x69>
+  5463f8:	4d 0f af c8          	imul   %r8,%r9
+  5463fc:	49 89 ce             	mov    %rcx,%r14
+  5463ff:	49 01 c9             	add    %rcx,%r9
+  546402:	4d 85 c0             	test   %r8,%r8
+  546405:	78 06                	js     54640d <DOUBLE_add_X86_V3+0x12d>
+  546407:	4d 89 ce             	mov    %r9,%r14
+  54640a:	49 89 c9             	mov    %rcx,%r9
+  54640d:	4d 39 d9             	cmp    %r11,%r9
+  546410:	0f 85 52 01 00 00    	jne    546568 <DOUBLE_add_X86_V3+0x288>
+  546416:	4d 39 ee             	cmp    %r13,%r14
+  546419:	0f 85 49 01 00 00    	jne    546568 <DOUBLE_add_X86_V3+0x288>
+  54641f:	48 83 ff 08          	cmp    $0x8,%rdi
+  546423:	41 0f 94 c1          	sete   %r9b
+  546427:	4c 39 c7             	cmp    %r8,%rdi
+  54642a:	0f 85 50 01 00 00    	jne    546580 <DOUBLE_add_X86_V3+0x2a0>
+  546430:	45 84 c9             	test   %r9b,%r9b
+  546433:	0f 84 47 01 00 00    	je     546580 <DOUBLE_add_X86_V3+0x2a0>
+  546439:	48 83 fa 08          	cmp    $0x8,%rdx
+  54643d:	0f 85 1d ff ff ff    	jne    546360 <DOUBLE_add_X86_V3+0x80>
+  546443:	48 83 fe 07          	cmp    $0x7,%rsi
+  546447:	0f 8e 8b 00 00 00    	jle    5464d8 <DOUBLE_add_X86_V3+0x1f8>
+  54644d:	48 89 f7             	mov    %rsi,%rdi
+  546450:	31 d2                	xor    %edx,%edx
+  546452:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  546459:	00 00 00 00 
+  54645d:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  546464:	00 00 00 00 
+  546468:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  54646f:	00 00 00 00 
+  546473:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  54647a:	00 00 00 00 
+  54647e:	66 90                	xchg   %ax,%ax
+  546480:	c5 fd 10 44 13 20    	vmovupd 0x20(%rbx,%rdx,1),%ymm0
+  546486:	c5 fd 10 0c 13       	vmovupd (%rbx,%rdx,1),%ymm1
+  54648b:	48 83 ef 08          	sub    $0x8,%rdi
+  54648f:	c5 fd 58 44 11 20    	vaddpd 0x20(%rcx,%rdx,1),%ymm0,%ymm0
+  546495:	c5 f5 58 0c 11       	vaddpd (%rcx,%rdx,1),%ymm1,%ymm1
+  54649a:	c5 fd 11 44 10 20    	vmovupd %ymm0,0x20(%rax,%rdx,1)
+  5464a0:	c5 fd 11 0c 10       	vmovupd %ymm1,(%rax,%rdx,1)
+  5464a5:	48 83 c2 40          	add    $0x40,%rdx
+  5464a9:	48 83 ff 07          	cmp    $0x7,%rdi
+  5464ad:	7f d1                	jg     546480 <DOUBLE_add_X86_V3+0x1a0>
+  5464af:	48 89 f2             	mov    %rsi,%rdx
+  5464b2:	48 c1 ea 03          	shr    $0x3,%rdx
+  5464b6:	48 83 ea 01          	sub    $0x1,%rdx
+  5464ba:	48 89 d7             	mov    %rdx,%rdi
+  5464bd:	48 f7 da             	neg    %rdx
+  5464c0:	48 c1 e7 06          	shl    $0x6,%rdi
+  5464c4:	48 8d 74 d6 f8       	lea    -0x8(%rsi,%rdx,8),%rsi
+  5464c9:	48 8d 44 38 40       	lea    0x40(%rax,%rdi,1),%rax
+  5464ce:	48 8d 4c 39 40       	lea    0x40(%rcx,%rdi,1),%rcx
+  5464d3:	48 8d 5c 3b 40       	lea    0x40(%rbx,%rdi,1),%rbx
+  5464d8:	48 85 f6             	test   %rsi,%rsi
+  5464db:	74 73                	je     546550 <DOUBLE_add_X86_V3+0x270>
+  5464dd:	ba 04 00 00 00       	mov    $0x4,%edx
+  5464e2:	c5 fd 6f 15 16 2b 3a 	vmovdqa 0x3a2b16(%rip),%ymm2        # 8e9000 <_ZTSSt9exception+0x1b8>
+  5464e9:	00 
+  5464ea:	c4 e1 f9 6e ee       	vmovq  %rsi,%xmm5
+  5464ef:	48 39 d6             	cmp    %rdx,%rsi
+  5464f2:	c4 e2 7d 59 cd       	vpbroadcastq %xmm5,%ymm1
+  5464f7:	48 0f 46 d6          	cmovbe %rsi,%rdx
+  5464fb:	c4 e2 75 37 ca       	vpcmpgtq %ymm2,%ymm1,%ymm1
+  546500:	48 83 ee 04          	sub    $0x4,%rsi
+  546504:	c4 e1 f9 6e c2       	vmovq  %rdx,%xmm0
+  546509:	c4 e2 7d 59 c0       	vpbroadcastq %xmm0,%ymm0
+  54650e:	c4 e2 7d 37 c2       	vpcmpgtq %ymm2,%ymm0,%ymm0
+  546513:	c4 e2 fd 8c 1b       	vpmaskmovq (%rbx),%ymm0,%ymm3
+  546518:	c4 e2 fd 8c 01       	vpmaskmovq (%rcx),%ymm0,%ymm0
+  54651d:	c5 fd 58 c3          	vaddpd %ymm3,%ymm0,%ymm0
+  546521:	c4 e2 f5 8e 00       	vpmaskmovq %ymm0,%ymm1,(%rax)
+  546526:	48 85 f6             	test   %rsi,%rsi
+  546529:	7e 25                	jle    546550 <DOUBLE_add_X86_V3+0x270>
+  54652b:	c4 e1 f9 6e ee       	vmovq  %rsi,%xmm5
+  546530:	c4 e2 7d 59 c5       	vpbroadcastq %xmm5,%ymm0
+  546535:	c4 e2 7d 37 c2       	vpcmpgtq %ymm2,%ymm0,%ymm0
+  54653a:	c4 e2 fd 8c 53 20    	vpmaskmovq 0x20(%rbx),%ymm0,%ymm2
+  546540:	c4 e2 fd 8c 49 20    	vpmaskmovq 0x20(%rcx),%ymm0,%ymm1
+  546546:	c5 f5 58 ca          	vaddpd %ymm2,%ymm1,%ymm1
+  54654a:	c4 e2 fd 8e 48 20    	vpmaskmovq %ymm1,%ymm0,0x20(%rax)
+  546550:	c5 fc 77             	vzeroall
+  546553:	48 8d 65 d8          	lea    -0x28(%rbp),%rsp
+  546557:	5b                   	pop    %rbx
+  546558:	41 5c                	pop    %r12
+  54655a:	41 5d                	pop    %r13
+  54655c:	41 5e                	pop    %r14
+  54655e:	41 5f                	pop    %r15
+  546560:	5d                   	pop    %rbp
+  546561:	c3                   	ret
+  546562:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  546568:	4d 39 cd             	cmp    %r9,%r13
+  54656b:	0f 82 ae fe ff ff    	jb     54641f <DOUBLE_add_X86_V3+0x13f>
+  546571:	4d 39 de             	cmp    %r11,%r14
+  546574:	0f 83 e6 fd ff ff    	jae    546360 <DOUBLE_add_X86_V3+0x80>
+  54657a:	e9 a0 fe ff ff       	jmp    54641f <DOUBLE_add_X86_V3+0x13f>
+  54657f:	90                   	nop
+  546580:	49 83 f8 08          	cmp    $0x8,%r8
+  546584:	0f 85 27 01 00 00    	jne    5466b1 <DOUBLE_add_X86_V3+0x3d1>
+  54658a:	45 84 d2             	test   %r10b,%r10b
+  54658d:	0f 84 1e 01 00 00    	je     5466b1 <DOUBLE_add_X86_V3+0x3d1>
+  546593:	48 83 fa 08          	cmp    $0x8,%rdx
+  546597:	0f 85 c3 fd ff ff    	jne    546360 <DOUBLE_add_X86_V3+0x80>
+  54659d:	c4 e2 7d 19 03       	vbroadcastsd (%rbx),%ymm0
+  5465a2:	48 83 fe 07          	cmp    $0x7,%rsi
+  5465a6:	7e 61                	jle    546609 <DOUBLE_add_X86_V3+0x329>
+  5465a8:	48 89 c7             	mov    %rax,%rdi
+  5465ab:	48 89 ca             	mov    %rcx,%rdx
+  5465ae:	49 89 f0             	mov    %rsi,%r8
+  5465b1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5465b8:	00 00 00 00 
+  5465bc:	0f 1f 40 00          	nopl   0x0(%rax)
+  5465c0:	c5 fd 58 12          	vaddpd (%rdx),%ymm0,%ymm2
+  5465c4:	49 83 e8 08          	sub    $0x8,%r8
+  5465c8:	48 83 c2 40          	add    $0x40,%rdx
+  5465cc:	48 83 c7 40          	add    $0x40,%rdi
+  5465d0:	c5 fd 58 4a e0       	vaddpd -0x20(%rdx),%ymm0,%ymm1
+  5465d5:	c5 fd 11 57 c0       	vmovupd %ymm2,-0x40(%rdi)
+  5465da:	c5 fd 11 4f e0       	vmovupd %ymm1,-0x20(%rdi)
+  5465df:	49 83 f8 07          	cmp    $0x7,%r8
+  5465e3:	7f db                	jg     5465c0 <DOUBLE_add_X86_V3+0x2e0>
+  5465e5:	48 89 f2             	mov    %rsi,%rdx
+  5465e8:	48 c1 ea 03          	shr    $0x3,%rdx
+  5465ec:	48 83 ea 01          	sub    $0x1,%rdx
+  5465f0:	48 89 d7             	mov    %rdx,%rdi
+  5465f3:	48 f7 da             	neg    %rdx
+  5465f6:	48 c1 e7 06          	shl    $0x6,%rdi
+  5465fa:	48 8d 74 d6 f8       	lea    -0x8(%rsi,%rdx,8),%rsi
+  5465ff:	48 8d 44 38 40       	lea    0x40(%rax,%rdi,1),%rax
+  546604:	48 8d 4c 39 40       	lea    0x40(%rcx,%rdi,1),%rcx
+  546609:	48 85 f6             	test   %rsi,%rsi
+  54660c:	0f 84 3e ff ff ff    	je     546550 <DOUBLE_add_X86_V3+0x270>
+  546612:	ba 04 00 00 00       	mov    $0x4,%edx
+  546617:	c5 fd 6f 1d e1 29 3a 	vmovdqa 0x3a29e1(%rip),%ymm3        # 8e9000 <_ZTSSt9exception+0x1b8>
+  54661e:	00 
+  54661f:	c4 e1 f9 6e f6       	vmovq  %rsi,%xmm6
+  546624:	48 39 d6             	cmp    %rdx,%rsi
+  546627:	c4 e2 7d 59 d6       	vpbroadcastq %xmm6,%ymm2
+  54662c:	48 0f 46 d6          	cmovbe %rsi,%rdx
+  546630:	c4 e2 6d 37 d3       	vpcmpgtq %ymm3,%ymm2,%ymm2
+  546635:	48 83 ee 04          	sub    $0x4,%rsi
+  546639:	c4 e1 f9 6e ca       	vmovq  %rdx,%xmm1
+  54663e:	c4 e2 7d 59 c9       	vpbroadcastq %xmm1,%ymm1
+  546643:	c4 e2 75 37 cb       	vpcmpgtq %ymm3,%ymm1,%ymm1
+  546648:	c4 e2 f5 8c 09       	vpmaskmovq (%rcx),%ymm1,%ymm1
+  54664d:	c5 fd 58 c9          	vaddpd %ymm1,%ymm0,%ymm1
+  546651:	c4 e2 ed 8e 08       	vpmaskmovq %ymm1,%ymm2,(%rax)
+  546656:	48 85 f6             	test   %rsi,%rsi
+  546659:	0f 8e f1 fe ff ff    	jle    546550 <DOUBLE_add_X86_V3+0x270>
+  54665f:	c4 e1 f9 6e f6       	vmovq  %rsi,%xmm6
+  546664:	c4 e2 7d 59 ce       	vpbroadcastq %xmm6,%ymm1
+  546669:	c4 e2 75 37 cb       	vpcmpgtq %ymm3,%ymm1,%ymm1
+  54666e:	c4 e2 f5 8c 51 20    	vpmaskmovq 0x20(%rcx),%ymm1,%ymm2
+  546674:	c5 fd 58 c2          	vaddpd %ymm2,%ymm0,%ymm0
+  546678:	c4 e2 f5 8e 40 20    	vpmaskmovq %ymm0,%ymm1,0x20(%rax)
+  54667e:	e9 cd fe ff ff       	jmp    546550 <DOUBLE_add_X86_V3+0x270>
+  546683:	4d 89 dd             	mov    %r11,%r13
+  546686:	49 89 c3             	mov    %rax,%r11
+  546689:	e9 58 fd ff ff       	jmp    5463e6 <DOUBLE_add_X86_V3+0x106>
+  54668e:	4d 89 f7             	mov    %r14,%r15
+  546691:	49 89 de             	mov    %rbx,%r14
+  546694:	e9 41 fd ff ff       	jmp    5463da <DOUBLE_add_X86_V3+0xfa>
+  546699:	4c 89 c2             	mov    %r8,%rdx
+  54669c:	48 89 cf             	mov    %rcx,%rdi
+  54669f:	e8 7c dd ff ff       	call   544420 <DOUBLE_pairwise_sum>
+  5466a4:	c5 fb 58 03          	vaddsd (%rbx),%xmm0,%xmm0
+  5466a8:	c5 fb 11 03          	vmovsd %xmm0,(%rbx)
+  5466ac:	e9 ea fc ff ff       	jmp    54639b <DOUBLE_add_X86_V3+0xbb>
+  5466b1:	4d 85 c0             	test   %r8,%r8
+  5466b4:	0f 85 a6 fc ff ff    	jne    546360 <DOUBLE_add_X86_V3+0x80>
+  5466ba:	45 84 cc             	test   %r9b,%r12b
+  5466bd:	0f 84 9d fc ff ff    	je     546360 <DOUBLE_add_X86_V3+0x80>
+  5466c3:	c4 e2 7d 19 09       	vbroadcastsd (%rcx),%ymm1
+  5466c8:	48 83 fe 07          	cmp    $0x7,%rsi
+  5466cc:	7e 7b                	jle    546749 <DOUBLE_add_X86_V3+0x469>
+  5466ce:	48 89 c1             	mov    %rax,%rcx
+  5466d1:	48 89 da             	mov    %rbx,%rdx
+  5466d4:	48 89 f7             	mov    %rsi,%rdi
+  5466d7:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5466de:	00 00 00 00 
+  5466e2:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5466e9:	00 00 00 00 
+  5466ed:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5466f4:	00 00 00 00 
+  5466f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  5466ff:	00 
+  546700:	c5 f5 58 12          	vaddpd (%rdx),%ymm1,%ymm2
+  546704:	48 83 ef 08          	sub    $0x8,%rdi
+  546708:	48 83 c2 40          	add    $0x40,%rdx
+  54670c:	48 83 c1 40          	add    $0x40,%rcx
+  546710:	c5 f5 58 42 e0       	vaddpd -0x20(%rdx),%ymm1,%ymm0
+  546715:	c5 fd 11 51 c0       	vmovupd %ymm2,-0x40(%rcx)
+  54671a:	c5 fd 11 41 e0       	vmovupd %ymm0,-0x20(%rcx)
+  54671f:	48 83 ff 07          	cmp    $0x7,%rdi
+  546723:	7f db                	jg     546700 <DOUBLE_add_X86_V3+0x420>
+  546725:	48 89 f2             	mov    %rsi,%rdx
+  546728:	48 c1 ea 03          	shr    $0x3,%rdx
+  54672c:	48 83 ea 01          	sub    $0x1,%rdx
+  546730:	48 89 d1             	mov    %rdx,%rcx
+  546733:	48 f7 da             	neg    %rdx
+  546736:	48 c1 e1 06          	shl    $0x6,%rcx
+  54673a:	48 8d 74 d6 f8       	lea    -0x8(%rsi,%rdx,8),%rsi
+  54673f:	48 8d 5c 0b 40       	lea    0x40(%rbx,%rcx,1),%rbx
+  546744:	48 8d 44 08 40       	lea    0x40(%rax,%rcx,1),%rax
+  546749:	48 85 f6             	test   %rsi,%rsi
+  54674c:	0f 84 fe fd ff ff    	je     546550 <DOUBLE_add_X86_V3+0x270>
+  546752:	ba 04 00 00 00       	mov    $0x4,%edx
+  546757:	c5 fd 6f 1d a1 28 3a 	vmovdqa 0x3a28a1(%rip),%ymm3        # 8e9000 <_ZTSSt9exception+0x1b8>
+  54675e:	00 
+  54675f:	c4 e1 f9 6e e6       	vmovq  %rsi,%xmm4
+  546764:	48 39 d6             	cmp    %rdx,%rsi
+  546767:	c4 e2 7d 59 d4       	vpbroadcastq %xmm4,%ymm2
+  54676c:	48 0f 46 d6          	cmovbe %rsi,%rdx
+  546770:	c4 e2 6d 37 d3       	vpcmpgtq %ymm3,%ymm2,%ymm2
+  546775:	48 83 ee 04          	sub    $0x4,%rsi
+  546779:	c4 e1 f9 6e c2       	vmovq  %rdx,%xmm0
+  54677e:	c4 e2 7d 59 c0       	vpbroadcastq %xmm0,%ymm0
+  546783:	c4 e2 7d 37 c3       	vpcmpgtq %ymm3,%ymm0,%ymm0
+  546788:	c4 e2 fd 8c 03       	vpmaskmovq (%rbx),%ymm0,%ymm0
+  54678d:	c5 f5 58 c0          	vaddpd %ymm0,%ymm1,%ymm0
+  546791:	c4 e2 ed 8e 00       	vpmaskmovq %ymm0,%ymm2,(%rax)
+  546796:	48 85 f6             	test   %rsi,%rsi
+  546799:	0f 8e b1 fd ff ff    	jle    546550 <DOUBLE_add_X86_V3+0x270>
+  54679f:	c4 e1 f9 6e fe       	vmovq  %rsi,%xmm7
+  5467a4:	c4 e2 7d 59 c7       	vpbroadcastq %xmm7,%ymm0
+  5467a9:	c4 e2 7d 37 c3       	vpcmpgtq %ymm3,%ymm0,%ymm0
+  5467ae:	c4 e2 fd 8c 53 20    	vpmaskmovq 0x20(%rbx),%ymm0,%ymm2
+  5467b4:	c5 f5 58 ca          	vaddpd %ymm2,%ymm1,%ymm1
+  5467b8:	c4 e2 fd 8e 48 20    	vpmaskmovq %ymm1,%ymm0,0x20(%rax)
+  5467be:	e9 8d fd ff ff       	jmp    546550 <DOUBLE_add_X86_V3+0x270>
+
+Disassembly of section .fini:
