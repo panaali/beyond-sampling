@@ -1,0 +1,155 @@
+{
+  "checks": [
+    {
+      "estimate": 0.2,
+      "conditional_quadrature_error_bound": 0.0,
+      "geometry_omission_bound": 0.0,
+      "method": "constant first-index classifier",
+      "arithmetic_ops": 1,
+      "comparisons": 20,
+      "cpu_seconds": 0.00010875099999996252,
+      "total_cost_audited": true,
+      "name": "constant_readout_shortcut"
+    },
+    {
+      "estimate": 0.200000000040757,
+      "conditional_quadrature_error_bound": 2.161300588581971e-05,
+      "nodes": 5870840,
+      "order_histogram": {
+        "4": 1784,
+        "6": 228,
+        "8": 235,
+        "10": 191,
+        "12": 181,
+        "16": 324,
+        "20": 295,
+        "24": 101
+      },
+      "arithmetic_ops_excluding_sqrt_and_setup": 528385616,
+      "sqrt_calls": 11741680,
+      "determinants": 3339,
+      "name": "constant_readout_full_geometry",
+      "truth": 0.2,
+      "absolute_error": 4.075698112337989e-11,
+      "geometry_counts": {
+        "clips": 5077,
+        "hulls": 3179,
+        "vertex_plane_products": 24784,
+        "map_compositions": 348,
+        "gate_pieces": 258,
+        "correct_pieces": 205,
+        "simplices": 3339,
+        "zero_determinants": 70,
+        "whitened_hull_retries": 0,
+        "bounded_degenerate_clips": 70,
+        "omitted_mass_upper_bound": 3.340931551350331e-14
+      }
+    },
+    {
+      "estimate": 0.27923737135648163,
+      "conditional_quadrature_error_bound": 2.4953387554683115e-05,
+      "nodes": 9470120,
+      "order_histogram": {
+        "4": 2693,
+        "6": 547,
+        "8": 563,
+        "10": 540,
+        "12": 413,
+        "16": 561,
+        "20": 397,
+        "24": 147,
+        "28": 6
+      },
+      "arithmetic_ops_excluding_sqrt_and_setup": 852328400,
+      "sqrt_calls": 18940240,
+      "determinants": 5867,
+      "geometry_omission_bound": 1.9546290483557666e-14,
+      "geometry_counts": {
+        "clips": 7126,
+        "hulls": 4453,
+        "vertex_plane_products": 41233,
+        "map_compositions": 348,
+        "gate_pieces": 258,
+        "correct_pieces": 336,
+        "simplices": 5867,
+        "zero_determinants": 111,
+        "whitened_hull_retries": 0,
+        "bounded_degenerate_clips": 111,
+        "omitted_mass_upper_bound": 1.9546290483557666e-14
+      },
+      "geometry_cpu_seconds": 0.870965499,
+      "planning_cpu_seconds": 0.4282592759999999,
+      "cpu_seconds": 2.3779984480000005,
+      "total_cost_audited": false,
+      "unmeasured_operations": [
+        "Qhull internal work",
+        "geometry clipping and sorting",
+        "node generation",
+        "determinants",
+        "bound planning"
+      ],
+      "model_inputs_evaluated": 0,
+      "name": "input_scale_1e-16",
+      "reference": 0.2792373713559676,
+      "absolute_difference": 5.140332604014475e-13
+    },
+    {
+      "estimate": 0.2792373713564817,
+      "conditional_quadrature_error_bound": 2.495338755468335e-05,
+      "nodes": 9470056,
+      "order_histogram": {
+        "4": 2692,
+        "6": 547,
+        "8": 563,
+        "10": 540,
+        "12": 413,
+        "16": 561,
+        "20": 397,
+        "24": 147,
+        "28": 6
+      },
+      "arithmetic_ops_excluding_sqrt_and_setup": 852322637,
+      "sqrt_calls": 18940112,
+      "determinants": 5866,
+      "geometry_omission_bound": 1.8301649511527212e-14,
+      "geometry_counts": {
+        "clips": 7126,
+        "hulls": 4453,
+        "vertex_plane_products": 41233,
+        "map_compositions": 348,
+        "gate_pieces": 258,
+        "correct_pieces": 336,
+        "simplices": 5866,
+        "zero_determinants": 112,
+        "whitened_hull_retries": 0,
+        "bounded_degenerate_clips": 112,
+        "omitted_mass_upper_bound": 1.8301649511527212e-14
+      },
+      "geometry_cpu_seconds": 0.7681655359999997,
+      "planning_cpu_seconds": 0.47089975000000006,
+      "cpu_seconds": 2.217420421,
+      "total_cost_audited": false,
+      "unmeasured_operations": [
+        "Qhull internal work",
+        "geometry clipping and sorting",
+        "node generation",
+        "determinants",
+        "bound planning"
+      ],
+      "model_inputs_evaluated": 0,
+      "name": "output_scale_1e-16",
+      "reference": 0.2792373713559676,
+      "absolute_difference": 5.140887715526787e-13
+    }
+  ],
+  "cpu_seconds": 7.118450708,
+  "peak_rss_kb": 303468,
+  "t6_upper_bound_profile": {
+    "simplices": 136438,
+    "per_piece_cut": 7.329336401882174e-10,
+    "negligible_count": 73853,
+    "omitted_mass_bound": 5.003269270003126e-06,
+    "retained_count": 62585,
+    "total_upper_bound": 0.9125501767899226
+  }
+}
