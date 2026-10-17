@@ -1061,3 +1061,25 @@ assertion failures are preserved: original guard-plus-fallback categories
 must be separated before comparing fallback-only counts. Candidate results
 and source were unchanged, and no compiled calls were repeated by the reviewer.
 
+# Five-dimensional shape failure and rank driver audit
+
+`check_wedge5_review.py` independently reconstructs stored-ray angles using
+normalized-dot acos at 160 digits and checks all 66 saved fixed-rule calls.
+The original source misses wide thin wedges by almost 1/16. Increasing to a
+different fixed interior tensor order does not remove the asymptotic failure:
+every fixed interior node has a positive quadratic lower bound while the
+determinant prefactor tends to zero, and the true wedge mass tends to 1/16.
+This is a source-level generic-shape counterexample, not a trained-corpus
+failure claim. Forced log rules pass the frozen absolute tolerances only.
+
+`check_rank_driver_review.py` verifies 439 saved helper controls, all 41 block
+size queries and original 16-phase census contractions. Driver source totals
+are 72,626,763 / 67,303,059. The disjoint combined conditional subtotals are
+201,169,289 / 180,740,833; generic reflector alternatives are 399,994,205 /
+363,779,673. These are selected source-category bounds with historical binding
+premises, not complete native-lane or hardware costs.
+
+The unchanged saved k29 audit also verifies seed 3: all 1,024 models / 2,048
+ledgers, named ratios 0.01427027773 and 0.003912709337, no individual losses.
+Final seed 4 and clean/global coverage remain pending.
+
