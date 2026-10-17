@@ -49,9 +49,10 @@ def controls():
         for label,a in cuts():
             got=derivative(C,a,stats)
             expected=r/(2*mp.pi*mp.sqrt(1-(a*r)**2))*(mp.mpf(1)/4+mp.asin(a*s)/(2*mp.pi))+s/(2*mp.pi*mp.sqrt(1-(a*s)**2))*(mp.mpf(1)/4+mp.asin(a*r)/(2*mp.pi))
+            expected-=sum(C[i,j]/mp.sqrt(1-(a*C[i,j])**2) for i,j in PAIRS)/(8*mp.pi)
             difference=abs(mp.mpf(got['derivative'])-expected);assert difference<mp.mpf('1e-75')
-            bound=tail_bound(C,a,stats);actual=prob(1)-prob(a);assert abs(actual)<=bound
-            stats['control_extra_arcsines']+=6
+            bound=tail_bound(C,a,stats);actual=prob(1)-prob(a)-sum(mp.asin(C[i,j])-mp.asin(a*C[i,j]) for i,j in PAIRS)/(8*mp.pi);assert abs(actual)<=bound
+            stats['control_extra_arcsines']+=18
             rows.append(dict(name=name,cut=label,derivative_error=str(difference),exact_tail=str(actual),bound=str(bound)))
     return dict(rows=rows,work=dict(stats),cpu_seconds=time.process_time()-start,pins=PINS)
 

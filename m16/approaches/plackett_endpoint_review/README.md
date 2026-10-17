@@ -7,7 +7,8 @@ layer, and can a cheap analytic endpoint bound constrain that explanation?
 ## Method
 TASKS-only claim889e2bb precedes implementation. Use only fixture672 and its
 pinned T137 wide12/power2 metadata. No new quadrature rules or accuracy run.
-For the straight path C(t)=I+t(C−I), the derivative is a sum over six pairs:
+For the straight path C(t)=I+t(C−I), subtract the analytically integrated
+base arcsine term. The remaining Plackett integrand f is a sum over six pairs:
 Cij asin(partial_kl.ij(t))/(4 pi² sqrt(1−t² Cij²)). Consequently its integral
 on [a,1] has absolute value at most
 B(a)=sum_ij [asin(abs(Cij))−asin(a abs(Cij))]/(8 pi).
@@ -15,7 +16,7 @@ The bound holds for every positive definite C, including limits by continuity.
 It bounds the true contribution, not the quadrature error.
 
 Freeze a at the original largest t node, and at1−2^-16,1−2^-24,1−2^-32.
-Evaluate B, the derivative at a and actual endpoint C, and eigenvalues of C.
+Evaluate B, the residual integrand at a and actual endpoint C, and eigenvalues of C.
 Also inspect the six partial correlations at all original12 nodes and these
 four cuts. Repeat exact binary-ray correlation calculations at80/100 digits.
 No adaptive probes, eigenvalue-based selection, additional rule, or tuning.
@@ -33,7 +34,8 @@ no claim that their quadrature contributions are absent or unchanged.
 Controls before fixture: identity and two independent correlated pairs. The
 latter's exact orthant law along the entire path is the product of two
 bivariate arcsine formulas. Check its analytic derivative independently by
-differentiating that product and its exact tail against B at every cut.
+differentiating that product, subtracting the base-term derivative, and
+checking the residual exact tail against B at every cut.
 
 ## Alternatives and falsifiers
 1. Last-node D exceeds observed error: this test cannot localize the source.
@@ -69,3 +71,12 @@ uniform degree doubling; T141 owns analytic positive coordinate reduction.
 Mistaking a bound for observed error, treating GL nodes as interval endpoints,
 changing covariance/branch/source, ignoring rounding, or extrapolating one
 fixture to a corpus. All initial failures remain in version control.
+
+## Preserved control failure
+Initial controls compared the residual integrand against the full orthant
+derivative, omitting the derivative of the analytically integrated base
+asin term. The block control failed before any trained fixture run; source
+and failure are preserved in f2ec592. The correction subtracts the explicit
+base derivative and base tail from the independent block-product formula.
+The residual integrand, original task and tail-bound formula are unchanged;
+wording now distinguishes the full derivative from the residual integrand.
