@@ -1,0 +1,7 @@
+# T11579 bounded norm/reduction handoff
+
+TASKS-only claim e3e2f164; source117ea87d, frozen172 controlsdff1767f, preservedfixture/type repairb6acab8b, all172 rawpasses76bcc026. Independent source gates passed before each numerical run. Metadata source/ELF-base failures and safe correction6bf1e55f are retained; canonical checked entry5881020f refuses old outputs and unmapped pointers. No model/mass/geometry/MC work.
+
+Selected source/native category prices independently gated: norm4=10 (vs8), selected pairwise sum n adds including accumulator (shortsource5/native4), six-Python-float compiled compensation conservative61 (vs5). Source/disassembly and controls are distinct evidence; historical layout/dispatch applicability remains conditional. Saved-only contraction19,584,397 extra gives3,591,731,780 partialhybrid,190,197 constants separate. This does not yield full native upper/lower, runtime, speed advantage or sampler ratio. Final independent raw/control/aggregate review pending.
+
+172 passing control rows and append-only progress, source pins, rawsafe metadata and complete replacement ledger are available. Initial aborted160 in-memory rows are explicitly unclaimed; no silent deletion. No orientation-dot replacement, generic elementwise/libm, geometry, cold or control/memory closure. RemainingT11579 scope stays Ready after bounded review; original cheaper-mass goal is unchanged. Root/Claude should register the scoped result and preserve all failures and qualifications.
