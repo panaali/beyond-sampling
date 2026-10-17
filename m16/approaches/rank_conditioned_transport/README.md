@@ -308,3 +308,13 @@ requested; global accuracy/cost improvement remains inconclusive. This is
 neither a method-level rejection nor a challenge solution. Root owns task
 registration and any followup prioritization. All commits retain the original
 quadrature-cancellation and tail-normalization failures.
+
+Independent T55 review (a8d5898, feynman_fundamentals/spatial_transport_review.md)
+accepts scale covariance, target-value/truncation algebra, and the bounded
+inconclusive interpretation. Its additional limitation is adopted: midpoint
+probes change with each tested mesh, and their weighting is artificial, so
+the reported local residual reductions are diagnostic evidence, not a global
+or even common-probe dominance claim. A distinct future cheap check would
+compare every interpolant on the same frozen off-grid probe set. Interior
+target/grid kinks and earlier-stage interpolation remain open alternatives.
+This review does not classify rank-conditioned transport as a dead method.
