@@ -33,3 +33,21 @@ pilot and full replay require separate gates, no automatic precision expansion.
 
 Failure modes: checkpoint/source/shape/leaf-count mismatch, gate degeneracy,
 resource cap, archive failure. All recorded; no repeated unbounded enumeration.
+
+## Reference precision and comparison scope
+
+The published seed2 recipe minus exact-mode value is
+-0.00007252615667030504. As a planning sensitivity calculation only, an interval
+of width plus/minus 1e-7 around that published reference would put its existing
+legacy-proxy ratio between 0.24825115 and 0.24962582. This supports retaining the
+previous positive method's 1e-7 aggregate target; it is not evidence that the
+published reference is accurate, or that this interval covers floating geometry
+and arithmetic error. The current Monte Carlo comparison remains unresolved.
+
+After capture review, the proposed fixed64 pilot will pin the actual archive
+hashes, N and index list. A separate GL32 three-dimensional positive Duffy rule
+can check consistency with the analytic-inner candidate using exact stored-ray
+radial certificates. A loose diagnostic bound must remain loose: overlap of
+conditional bounds would not establish the candidate target or a floating-error
+certificate. Such diagnostic work, exact setup and rule setup are additional
+verification cost. No pilot source or numerical calls have been made yet.
