@@ -166,3 +166,32 @@ independent integer source checks and preserve known totals. <=20CPU review
 lock, one thread. This diagnoses a plausible discrete-output mechanism despite
 nonzero derivatives; it does not itself remove enumeration cost or prove global
 state forgetting across distinct gates.
+
+### Constant-output rescue result
+The stronger test certifies166 additional no-reset gate histories whose argmax
+is constant on the full-dimensional cone interior (boundaries may have different
+first-index tie ownership). Their mass is.2746298311839157 and error contribution
+.13511906916754257. Thus exact contrast-erasure would have missed a substantial
+discrete-output family: nonzero logit derivatives do not imply changing labels.
+
+However267 remaining histories, mass.6990938610243618, still contribute
+.36516565860955724 errors. Their selected class varies inside the gate cone;
+constant-output gate interiors plus resets explain only about30.18% of error.
+This rejects their sufficiency as the whole explanation on the fixed model,
+not their value as components or the possibility of coarser cross-gate regions.
+
+All450 exact logit maps have contrast ranks134 at rank3,222 at rank2,81 at rank1,
+and13 at rank0. All four actual classes now have recurrent cone-interior
+witnesses via nonempty certified constant-output cells, stronger than the earlier
+unrestricted-hidden feasibility check. No label is globally missing on this
+model. The certification uses51,024 integer ray-margin checks; unchanged positive
+GL20 mass attribution takes1.934568CPU including setup,66MB RSS. It retains the
+original total/reference and conditional mass bounds. Reproduce
+`python constant_output.py` under the review lock. Independent certificate/source
+review requested; no portable-cost advantage or cross-model extrapolation.
+
+Untested rescues remain explicit: overlapping gate cells may merge into simpler
+common-output regions; weak but nonzero input influence may admit a bounded
+approximation; exact rank boundaries can interact with internal readout regions.
+Those require concrete cost/accuracy discriminators, not relabeling the residual
+as unexplained noise or sweeping parameters until a favorable result appears.
