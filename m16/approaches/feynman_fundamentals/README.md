@@ -974,3 +974,29 @@ These are conditional mathematical/implementation reviews, not a solution
 claim, family-wide impossibility result, or portable total-cost certificate.
 Ready independent checks continue under T55; alternative methods remain
 open where the individual handoffs say so.
+
+## Recovered persistent review phase
+
+The successor reviewer resumed the clean owned checkout at caae08f and
+reported every unintegrated commit to root before continuing. New independent
+reviews cover T105 output forgetting and coupled ranks, T107 exact-zero gate
+incidence and analytic accuracy controls, T110 class-family/nearest-facet
+partitions and full-volume ties, and T20 cold importance objective/cost scope.
+See `output_forgetting_review.md`, `native_zero_gate_review.md`,
+`class_family_review.md` and `cold_importance_review.md`.
+
+Reproduce the new independent numerical/rational check with
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 python
+m16/approaches/feynman_fundamentals/check_output_event_review.py`.
+It imports no author event or geometry functions and uses no model-input
+samples. The selected-last T105 partial mass is .009222679058888647;
+the T107 synthetic accuracy is exactly89/320 by Fraction integration.
+Measured arithmetic CPU after imports is .000535 seconds. The adaptive
+integration error estimate is not a rounding certificate. Source/theorem
+reviews add no production estimator work and confer no portable-cost claim.
+
+Pending reviews continue under the existing T55 reservation: T67 target
+measure/source change, T105 signed-event union and T20 separately frozen RMS
+proposal comparison as their implementations arrive. No already completed
+checks are automatically rerun. Broad method families remain open; only
+Claude DRI may confirm the scoped evidence.
