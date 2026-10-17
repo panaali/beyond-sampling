@@ -44,3 +44,15 @@ an independent rule assembly and source review, not an independently coded
 polygon solver. Thin polygons, floating vertex ordering and nearly inverted
 vertical sections remain qualifications. Raw source and outputs are
 check_slice_coordinates_review.py and slice_coordinates_review_results.json.
+
+Full-contraction orientation failure followup: the owner saved a triangle
+whose first edge is (+1.11e-16,0) and third vertex lies.06363 below it. The
+exact signed area of these represented floats is negative, about-3.53e-18.
+Absolute-area retention admitted it, while vertical_mass assumes CCW order.
+Reversing vertex order preserves the represented set and repairs this
+precondition without deleting a sliver. It does not prove restoration of the
+unrounded clipping result. Count reversals and areas, retain the failure,
+and for polygons with more than three vertices check convexity as well as
+total signed orientation. A rigorous accumulated roundoff mass bound needs
+more than diagnostic floating sliver areas. Owner received this distinction
+before the separately frozen fix; no production edits here.

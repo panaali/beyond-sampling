@@ -1,13 +1,15 @@
-import json,time,hashlib
+import json,time,hashlib,sys
 from pathlib import Path
 from fractions import Fraction as F
 start=time.process_time()
-source=Path('/workspace/work/recover-small_h2_910/m16/approaches/walkfree_gain_review/associations.json')
+boundary='--boundary' in sys.argv
+filename='boundary_associations.json' if boundary else 'associations.json'
+source=Path('/workspace/work/recover-small_h2_910/m16/approaches/walkfree_gain_review')/filename
 data=json.loads(source.read_text());groups={}
 for r in data['joined_model_rows']:groups.setdefault((r['H'],r['T']),[]).append(r)
 assert len(groups)==18 and all(len(v)==5 for v in groups.values())
 rows=[]
-for feature in ('gate_uncertainty','boundary_alignment'):
+for feature in (('boundary_mean_alignment','boundary_p10_alignment') if boundary else ('gate_uncertainty','boundary_alignment')):
  for gain in ('sobol','iid'):
   per=[]
   for key,group in sorted(groups.items()):
@@ -20,4 +22,4 @@ for feature in ('gate_uncertainty','boundary_alignment'):
   expected=next(r['rho'] for rep in data['reports'] if rep['subset']=='all90' for r in rep['results'] if r['conditioning']=='within_HT' and r['feature']==feature and r['gain']==gain)
   rows.append(dict(feature=feature,gain=gain,group_rhos=per,exact_mean_rho=str(mean),mean_rho=float(mean),saved_rho=expected,difference=float(mean)-expected))
 out=dict(results=rows,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),cpu_seconds=time.process_time()-start)
-Path(__file__).with_name('gain_association_review_results.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps([{k:v for k,v in r.items() if k!='group_rhos'} for r in rows],indent=2))
+Path(__file__).with_name('boundary_association_review_results.json' if boundary else 'gain_association_review_results.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps([{k:v for k,v in r.items() if k!='group_rhos'} for r in rows],indent=2))

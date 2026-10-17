@@ -901,3 +901,16 @@ errors improve, H2 CPU-error proxy1.09412 and H4.036231. Scope, special-function
 cost and open finite-basis alternatives preserved. T66 native lifecycle/LAPACK
 source reviewed; added map assertion failure retained separately from frozen
 ray tolerance, with a justified accumulation-bound alternative.
+
+## Cycle 42 protocol: boundary-feature rescue review
+Apply the same independent exact within-five-seed rank calculation to T45's
+separately frozen boundary-feature rows, with no model runs or recomputation
+of the features. Read the probe's projection and inward perturbation formula;
+check whether it is an actual limit or a finite probe. Preserve descriptive
+size associations and weak within-size association separately.
+Cycle42 completed: independent boundary-feature rank arithmetic matches all
+four saved within-size correlations. The finite facet probe is not an exact
+one-sided derivative. Also verified T76 first-sign rank/mean formulas, and
+reviewed T82 clockwise-sliver orientation fix and T66 actual tied-sort failure.
+Both native/slice failures remain visible; fixes preserve represented semantics
+without conferring exact floating topology.
