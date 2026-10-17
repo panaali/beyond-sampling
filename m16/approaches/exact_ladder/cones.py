@@ -52,7 +52,10 @@ def clip(R, Z, a, cid, ops, want=(True, True)):
     """Split cone (rays R (k,d) unit rows, tight bitsets Z (k,NW)) by a.x >= 0 (constraint id cid).
     Returns (inside, outside), each (R, Z) or None if that side is not full-dimensional."""
     k, d = R.shape
-    a = a / math.sqrt(a @ a)
+    na = math.sqrt(a @ a)
+    if not na > 0:
+        raise ValueError("clip: zero normal")
+    a = a / na
     v = R @ a; ops.add(3 * d + TRANS + 2 * k * d, "clip")
     pos = v > TOL; neg = v < -TOL
     npos = pos.sum(); nneg = neg.sum()
@@ -160,6 +163,9 @@ def iter_cells(model, ops, counts):
         stack += [(x, t + 1) for x in ch[::-1]]
 
 
+ZERO_MARGINS = [0]      # count of identically-zero logit margins met (diagnostic)
+
+
 def outcome_pieces(cell, model, ops, base_id):
     """Split one final cell into convex outcome pieces. Returns (correct, wrong), lists of (R, Z).
     For each argmax region j: count c = #{k: x_k > x_j} by splitting on x_j - x_k; c == 1 is correct;
@@ -176,10 +182,19 @@ def outcome_pieces(cell, model, ops, base_id):
             Q = (R, Z)          # all h_T = 0: logits tie, argmax returns index 0
         else:
             Q = (R, Z)
+            scale = np.abs(L).max()
             for k in range(T):
                 if k == j:
                     continue
-                Q, _ = clip(Q[0], Q[1], L[j] - L[k], base_id + k, ops, want=(True, False)); ops.add(T, "final")
+                dl = L[j] - L[k]; ops.add(T, "final")
+                if np.abs(dl).max() <= 1e-13 * scale:
+                    # identically tied logits on this cell (T60): np.argmax returns the first index,
+                    # so j loses the tie to k < j and wins it against k > j; never clip by a zero normal
+                    ZERO_MARGINS[0] += 1
+                    if k < j:
+                        Q = None; break
+                    continue
+                Q, _ = clip(Q[0], Q[1], dl, base_id + k, ops, want=(True, False))
                 if Q is None:
                     break
             if Q is None:

@@ -13,6 +13,7 @@ def exact_acc(model, check=False, rtol=1e-6, chunk=8192, progress=0):
     """check=True also measures the correct pieces (correct + wrong must sum to 1); that work is not charged."""
     t0 = time.process_time()
     T = model[2].shape[0]
+    E.ZERO_MARGINS[0] = 0
     ops = E.Ops(); dops = E.Ops()
     counts = [0] * T
     base = 1 + 16 * (T - 1)
@@ -48,7 +49,7 @@ def exact_acc(model, check=False, rtol=1e-6, chunk=8192, progress=0):
         flush("g", True)
     info = dict(T=T, cells=counts[-1], cells_per_step=counts, wrong_pieces=acc["nw"], correct_pieces=acc["ng"],
                 simplices=acc["sw"], flops=ops.n, parts=ops.parts, err_est=acc["werr"],
-                cpu_s=time.process_time() - t0)
+                zero_margins=E.ZERO_MARGINS[0], cpu_s=time.process_time() - t0)
     if check:
         info.update(correct_mass=acc["good"], total_mass=acc["good"] + acc["wrong"], check_err_est=acc["gerr"],
                     correct_simplices=acc["sg"])
