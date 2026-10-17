@@ -138,3 +138,25 @@ The reference is the already measured pair primitive, reused only for this
 diagnostic, with its source hashes and prior CPU retained. New baseline
 setup/operator/query CPU is recorded separately, not a fresh paired timing
 experiment. No new grid/threshold/model/noise nodes or full transport run.
+
+## Same-probe representation result
+The comparison's constant/duplicate and scale controls pass within2.23e-16
+and1.12e-16 (.0325CPU). Every source and full next-input support lies inside
+the declared grids; no clamping or extrapolation occurs. The new baseline
+operator comparison costs .00911CPU including cold grids/geometry.
+
+| Label | All9 probes: max error need0 / need1 | Target-consistent3: max error need0 / need1 |
+| --- | --- | --- |
+|0| .0153444 / .0310603 | .0140210 / .0163654 |
+|1| .00622528 / .00168245 | .00622528 / .000187587 |
+
+Signed errors and all points are in interpolation_comparison.json. Label0
+errors are predominantly negative, consistent with the earlier negative
+component bias but not a population-weighted decomposition or proof of its
+entire cause. Removing the final interpolation changes real conditional
+values on this frozen panel, including target-consistent points. The pair
+primitive is more expensive per local panel, with earlier full axis-control
+CPU .05763 versus this baseline-only .00911; those are different workloads,
+so no direct speed ratio is claimed. A full estimator still needs every
+state/target query and its entire geometry/integration cost. No exact-pair
+full transport run, convergence claim or sampling advantage follows here.
