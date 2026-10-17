@@ -53,6 +53,16 @@ def main():
   means=[mp.mpf(0) for _ in range(h)];refs=[mp.mpf(0) for _ in range(h)]
   for cell in saved['cells']:
    sec=sectors[cell['sector']];unit=cell['unit'];fc=cell['facet'];v=vec(fc['v']);assert v==mat(sec['h3_rows'])[unit]
+   original=mat(sec['normals'])+[v];keys=[];reduced=[]
+   for normal in original:
+    first=next((x for x in normal if x),None)
+    if first is None:continue
+    key=tuple(x/abs(first) for x in normal)
+    if key not in keys:keys.append(key);reduced.append(normal)
+   opposite=any(tuple(-x for x in key) in keys for key in keys)
+   expected='zero_output' if not any(v) else ('opposite_measure_zero' if opposite else 'prepared')
+   assert fc['status']==expected
+   if expected=='prepared':assert mat(fc['normals'])==reduced
    total=mp.mpf(0)
    if fc['status']=='prepared':
     normals=mat(fc['normals'])
