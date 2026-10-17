@@ -27,3 +27,5 @@ Positive-volume tie defects remain scoped in T113; generic finite-copy success i
 Full scope/continuation claim b93dc799; FULL_PROTOCOL.md freezes all5120 noisy plus5 clean original cases. Research projection~40CPU-minutes, each shard≤110CPU. All clean outputs/parity saved, including r112 seed3 error−.0003392190026937. No recipe selection or new truth.
 
 Incremental independent review924177cc passes all2048 seed0/1 models and4096 native site ledgers, exact per-copy budgets and bootstrap. Seed1 r85b has4 named111 individual losses (historical72 has1); no remaining-seed inference. Full panel continues unchanged.
+
+Independent seed2 review815c5576 passes all1024 models/2048 ledgers, exact own-budget ratios and bootstrap; no individual losses in that seed. Seeds3/4 and clean/global review remain pending.
