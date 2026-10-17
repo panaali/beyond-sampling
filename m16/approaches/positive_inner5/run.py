@@ -50,21 +50,22 @@ def safe(obj):
 
 
 def main():
-    dest=HERE/'results.json'
-    if dest.exists(): raise RuntimeError('refuse to overwrite preserved results')
+    dest=HERE/'results.json'; progress=HERE/'progress.jsonl'
+    if dest.exists() or progress.exists(): raise RuntimeError('refuse to overwrite preserved results')
     protocol=json.loads((HERE/'protocol.json').read_text())
     for name, expected in protocol['sha256'].items():
         assert hashlib.sha256((HERE/name).read_bytes()).hexdigest()==expected, name
     start=time.process_time(); rows=[]
     try:
         for item in protocol['controls']:
+            with progress.open('a') as fh: fh.write(json.dumps({'stage':'attempt','id':item['id']})+'\n')
             P=[float.fromhex(x) for x in item['P']]; D=[float.fromhex(x) for x in item['D']]
             before=time.process_time(); result=integrate(P,D); candidate_cpu=time.process_time()-before
-            before=time.process_time(); ref=reference(P,D,160); ref2=reference(P,D,200)
+            before=time.process_time(); ref=reference(P,D,240); ref2=reference(P,D,280)
             reference_cpu=time.process_time()-before
-            row={'id':item['id'],'P':item['P'],'D':item['D'],'candidate':result,'reference160':ref,
-                 'reference200':ref2,'naive':naive(P,D),'candidate_cpu':candidate_cpu,'reference_cpu':reference_cpu}
-            with mp.workdps(180):
+            row={'id':item['id'],'P':item['P'],'D':item['D'],'candidate':result,'reference240':ref,
+                 'reference280':ref2,'naive':naive(P,D),'candidate_cpu':candidate_cpu,'reference_cpu':reference_cpu}
+            with mp.workdps(260):
                 if ref['domain']=='finite_positive':
                     v=mp.mpf(ref2['value']); diff=abs(mp.mpf(ref['value'])-v)/v
                     row['reference_relative_difference']=mp.nstr(diff,30)
@@ -77,6 +78,7 @@ def main():
                 if item['id']=='orthogonal_unit':
                     row['analytic_reference_pass']=bool(abs(mp.mpf(ref2['value'])-5/(6*mp.sqrt(2)))<mp.mpf('1e-150'))
             rows.append(row)
+            with progress.open('a') as fh: fh.write(json.dumps(safe({'stage':'result','row':row}),allow_nan=False)+'\n')
         output={'complete':True,'protocol_sha256':hashlib.sha256((HERE/'protocol.json').read_bytes()).hexdigest(),
                 'rows':rows,'research_cpu':time.process_time()-start,'maxrss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                 'qualifications':['diagnostic error threshold only','no floating certificate','collinear finite domain unsupported',
