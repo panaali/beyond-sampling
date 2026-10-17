@@ -77,3 +77,25 @@ for the degree8 polynomial versus .0269540/.0248418/.0269540 for Fourier±4.
 Thus this fixed toy supports the endpoint mechanism, but says nothing yet
 about trained accuracy or efficiency. Primitive cycle CPU.004; full work
 recorded in controls.json. No degree was selected from these results.
+
+## Frozen trained pilot: mixed, expansion gate failed
+
+| Model | Reference | Real Fourier | Angular polynomial | Q64/128 change |
+| --- | ---: | ---: | ---: | ---: |
+| H2T3 base | .410171261727 | .409040821130 | .408387671343 | 1.36e-13 |
+| H4T3 base | .984550381359 | .986874860376 | .983124819661 | 1.07e-8 |
+
+Absolute error ratios polynomial/Fourier are1.578 (H2) and.6133 (H4).
+CPU changes .0920→.0720 and.3160→.2639 seconds, but ordinary arithmetic
+subtotals rise15.63M→40.51M and61.05M→160.92M because explicit positive
+angular Gram work replaces opaque Fourier functions. Error²*CPU ratios
+are1.949/.3142; error²*ordinary-subtotal ratios6.450/.9913. These partial
+cost comparisons do not certify portable total FLOPs. Full pilot including
+refinements and six constant/duplicate/scale controls costs1.956CPU seconds.
+
+The frozen both-model gate fails on H2. No17-case expansion or degree search
+is run. The endpoint toy gain does not establish a general trained-network
+gain; internal projection and error cancellation remain important. Negative
+scope is this matched81DOF basis substitution on the two frozen base models.
+Independent H2 angular-antiderivative reimplementation requested before
+closing the bounded phase. Other local/internal-support bases remain open.
