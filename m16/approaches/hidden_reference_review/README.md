@@ -40,3 +40,20 @@ Time-dependent/nonlinear alignment, a different reference network, conditionally
 
 ## Failure modes
 Reference capacity/alignment mismatch; large accumulated gate crossings; unstable recurrent products; target-margin sensitivity; sampling uncertainty; least-squares ill-conditioning; an empirical oracle diagnostic being misrepresented as mechanistic success; ignoring full fitting/propagation costs.
+
+## First frozen result
+Both fitted alignments have rank22. On held-out sequences, the pathwise first-order rule is substantially more faithful than the aligned reference alone, but all rules reject the .001 bias ceiling:
+
+| DEV noise | Actual accuracy | Aligned reference | First order | Exact final-step rescue |
+|---|---:|---:|---:|---:|
+| .0025 | .9399414 | .5220947 | .8674622 | .8774414 |
+| .02 | .6241760 | .4451599 | .6016846 | .6033325 |
+
+First-order paired biases are -.0724792(SE.0016890) and -.0224915(SE.0017843). The predeclared final-step rescue leaves -.0625000(SE.0015633) and -.0208435(SE.0016306). No approximate rule advances. The held-out hidden RMS itself is12.8605/12.7122; first-order state-error RMS is only .5821/.6217, yet label disagreements are10.81%/16.03%. Centered-logit error RMS4.607/5.102 and target-margin error RMS6.217/6.836 show why hidden MSE alone is misleading.
+
+The accumulated gate-crossing identity holds within2.51e-13 in hidden coordinates and1.09e-12 at readout; kappa nonnegativity/upper-bound violations are only7.11e-15 floating residuals. Crossings occur in roughly2.8–5.3% of neuron-input pairs per later step, with kappa RMS rising to .43/.45 in middle steps. These facts distinguish the omitted nonlinear remainder from an implementation identity error. T55 independently checked the algebra and is checking the recurrence via a different residual-state formulation.
+
+Total first cycle1.5345CPU seconds, peak338,988KB RSS, including torch and model construction. Calibration least-squares uses .0320/.0240CPU. It uses73,728 trained and36,864 reference trajectory evaluations, plus deterministic controls; these are trajectory counts, not an end-to-end FPE score. The held-out diagnostic also performs five16x16 dense products and two22-to16 products per step, one extra final-step16x16 product, five terminal16-to10 products, and an extra terminal22-to16 product. Calibration adds two40960x22 least-squares solves with16 right-hand sides and their residual products. Elementwise gate/remainder checks, sorting, RNG, statistics and reference construction are included in CPU; no portable complete scalar-operation total or estimator efficiency claim is asserted. The full JSON retains both B matrices, singular values, seeds and every rule.
+
+## Frozen support-preserving rescue (separate second phase)
+A first-order expansion can produce negative hidden coordinates, violating the trained ReLU state's exact support. Before evaluating this new variant, freeze hclip_(t+1)=max(relu(z_t)+D_t W(hclip_t-hbar_t),0), hclip_0=0, using the already calibrated B. It repairs surrogate deactivations when a reference-active coordinate crosses below zero; it still cannot activate a reference-inactive coordinate and therefore is not the exact full recurrence. This cheap structural correction is distinct from fitting a residual law or simply rerunning the full model. Compare original first-order and clipped first-order on a fresh32768-sequence pool, seed370203, both DEV copies. Record pre-clipping negative fractions and paired accuracy/error; no new alignment or tolerance selection. Apply the same .001 descriptive bias gate; no automatic larger sample or new fitted parameter. Preserve the first phase unchanged. A zero result is not failure of all support-aware or nonlinear reference methods.
