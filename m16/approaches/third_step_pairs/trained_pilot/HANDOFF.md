@@ -1,0 +1,9 @@
+# Five trained pair pilot: saved audit pending
+
+Fixed H16T4seed3,34 existing exact sectors, pairs(0,0),(1,1),(15,15),(0,1),(0,15). All170 cells pass:145 pointed and25 measure-zero, no unsupported or negative cells. Independent cylindrical reference maximum discrepancy4.23774324e-79. Both selected2x2 covariance minors positive(.28476419,.39493996). These five entries do not establish full covariance PSD or downstream closure accuracy.
+
+Raw results.json preserves every exact certificate, MP80/120 matrix/product, MP80 independent angular reference, diagnostic sample/baseline binding and cost.351 progress records retained. summary.json is a derived convenience table. Candidate0.590550868CPU; reference6.925512136CPU with76,612 evaluations; total process8.571949785CPU including preflight/import, peak93,756KiB. Exact named counts9759div/58116mul/12366sub/26660add/250neg; retained bitwidth743/743. These exclude full native/control/GCD cost and require historical exact geometry/means preparation.
+
+Saved sampled covariance differences are within descriptive8-block standard errors in these entries. This is no new truth, confidence certificate, sampling win, full floating certificate or model-family claim. Existing baseline differences and all sample hex values remain in results/summary. No failures occurred in this bounded run; rank/precision/cap and broader-model limitations remain open.
+
+Complementary independent review requested: recover_78 exact geometry/facets/alternate matrices; T55 aggregate contractions/reference/baselines/counts. No author or numerical integration replay. Only after both pass may a separately frozen full136-pair phase be proposed, reusing these five exactly once. T11595 remains blocked.
