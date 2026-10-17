@@ -38,3 +38,12 @@ r=0 and collinear base edges require positive fallback. Floating endpoint constr
 [measured] Fifteen thin controls, zero remainder and first16 stored cones at orders4/8 pass the frozen screen: max old/new relative difference4.93394e-11, no changed fallback counts. All fifteen thin/zero controls also use original-domain positive quadrature. Total.319345CPU, zero model forwards; raw diagnostics in control_results.json. This does not certify floating accuracy. Short per-case CPU clocks report zeros; the three4096-node repetitions do not establish a stable speed ratio. Source hashes retained.
 
 Next frozen validation: all six endpoint permutations on the same fifteen controls and stored cone2/order8, positive-domain reference for the largest old/new difference in that fixed cone (diagnostic selection, not estimator fitting); then20 alternating old/new4096-node batches with full per-call frame/setup included, reporting wall and aggregate CPU. Independent T55 review requested. No tolerance or screen changes.
+
+### Permutation and paired timing cycle
+`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock bash -c 'ulimit -v 2500000; ulimit -t 20; /workspace/clean-neurons/.venv/bin/python m16/approaches/fixed_t6_triangle/refine_controls.py'`
+
+[measured] Six permutations of the fifteen thin controls and fixed stored cone2/order8 preserve old/new fallback counts. Maximum new permutation-relative difference9.812e-11. At diagnostic-selected node447, old/new/reference values are2.222033652230084/2.2220336522738324/2.2220336522643134; new differs4.284e-12 relative from positive quadrature. These ordinary arithmetic references are not a floating certificate. Twenty alternating4096-node calls (engine initialization, endpoint construction and new fixed frame included) total old/newCPU.180032/.131884 and wall.181967/.131078:1.365x CPU,1.388x wall in this ordinary case. Entire cycle.379819CPU. All raw observations retained in refined_controls.json; no favorable repetition selection.
+
+COST.md separates the108*n−111 scalar frame-operation saving from any future tightening of the legacy10000-operation allowance. No estimator-win inference follows from this primitive speed.
+
+The original T52 pilot caches are ignored and absent from the root checkout. Their owner has been asked for existing paths/hashes; no regeneration or alternate cone selection has been substituted.
