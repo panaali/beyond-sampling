@@ -99,3 +99,31 @@ signs suffice before normalization. A negative pair dot rules out every
 orthogonal common-orthant image but not more general positive integration,
 other radial bounds or subdivision. Floating normalization/determinant
 remain outside a real-arithmetic integration bound.
+
+## T126 acute-ray source and saved-result verification
+
+Independent exact dyadic pair products verify all488 remaining cones:
+432 acute and56 with a strictly negative pair. Source unit-L2 normalization
+and positive Gaussian/Duffy factor agree with the reviewed derivation.
+Exact summation of stored floats gives additional mass.02737008814941666,
+integration-only bound5.33635685313e-9 and original source discrepancy
+-3.26410287568e-9. No numerical integration was repeated. Combined positive
+references cover6291/6347 cones, with56 still independently unresolved.
+
+For the remaining arbitrary independent rays, their exact Gram is positive
+definite. On each of15 nonempty supports S, solve the equality-constrained
+quadratic minimum y=G_S^-1*1/(1^T*G_S^-1*1); retain nonnegative y. The minimum
+among feasible candidates is the simplex global minimum a>0, since the
+true minimizer is interior to some support. Convexity bounds the maximum
+by b=max(G_ii). This is a valid exact-rational geometric discriminator.
+
+Writing alpha=(a+b)/2,delta=sqrt(a*b),rho=(sqrt(b)-sqrt(a))/(sqrt(b)+sqrt(a)),
+the reciprocal-square Chebyshev magnitudes are c0=alpha/delta^3 and
+|c_k|=2*(alpha+k*delta)*rho^k/delta^3. Summing the geometric/arithmetic tail
+past N gives the proposed positive remainder. With N=n-2, the Duffy
+polynomial degree in each coordinate is at most2N+2, within GLn exactness.
+The quadrature and exact simplex integral each contribute at most one
+supremum tail times volume1/6, yielding |detR|*tail/(6*pi^2).
+This covers the real-arithmetic formula; near-rho1 cancellation, floating
+normalization and a possibly useless fixed-order bound need separate
+handling. No general56-cone computation was run by this reviewer.
