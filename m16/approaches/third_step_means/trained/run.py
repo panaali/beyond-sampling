@@ -1,4 +1,4 @@
-"""One frozen stored-weight h3 mean; no network/truth/reference regeneration."""
+"""One frozen stored-weight h3 mean with exact deterministic map validation."""
 from pathlib import Path
 from fractions import Fraction as F
 from collections import Counter
