@@ -1507,3 +1507,7 @@ a win nor an actual-cost failure is established; no new truth was generated.
 ### Split-child source-constant perturbation audit
 
 Independently reconstructed all 22 exact stored-ray Gram matrices and permutation determinants, acute radial premises, 66 rational sensitivity bounds and 33 two-child sums. All sums are below the fixed 1e-10 diagnostic; maximum 9.943990166418174e-14. The 12 previously loose original-chart bounds become small after the archived split. This certifies only exact-real source-node/weight perturbation, excluding ideal quadrature tail and floating map, kernel, determinant and accumulation errors. No tensor, model or mass evaluation was repeated. `check_split_constant_bounds_review.py` and its saved result retain category counts and artifact hashes; peak bit counts remain scoped to observed ledger operations.
+
+### T184 saved provenance and fixed pilot gate
+
+Independently checked all 3,840 original H4/H5/H6 row bindings across 60 shards, 15 checkpoint byte hashes and exact native tracer/source dependencies. Prior independent full model-hash regeneration in 88490d79 is reused, not repeated. The three separately frozen first-copy pilot cases use the unchanged reviewed evaluator and enforce current model hash, historical estimate/counter/cell and baseline/traced grouped-error parity. Six evaluator calls only are gated, under the primary process cap; this does not authorize the full panel or transfer an H8 cost multiplier. `check_core_native_provenance_review.py` records the saved-data audit.
