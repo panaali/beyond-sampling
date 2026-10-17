@@ -3,7 +3,8 @@ Integration by a fixed set of plain Gaussian draws of the explicit endpoint dens
 Checked on known distributions in test_endpoint.py."""
 import numpy as np
 
-NG = 1 << 22
+import os
+NG = 1 << int(os.environ.get("T80_LOG2_NG", "22"))
 
 
 def cumulants(m):
