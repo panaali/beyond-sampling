@@ -13,7 +13,7 @@ Tentative3x3 category derivation: LU arithmetic24, absolute/comparison lanes63, 
 For visible source costs, state a consistent arithmetic-expression convention; inventory each scalar/vector/matrix dot, reduction, norm, transcendental and comparison. Record model-free reusable rule generation separately. Do not add the inherited mass counter to newly recounted operations (double counting); retain old totals for comparison. Numeric-library internals, integer/control, memory/allocation and setup exclusions remain explicit. No extrapolated multiplier from old mass rules or other estimator panels.
 
 ## Status
-Bounded source/control/contraction complete; independent final raw review pending. T179 latest full census c05a4bd2 independently reviewed4cc3fe39.
+Bounded source/control/contraction complete; independent final review26fd4e11 passes. T179 latest full census c05a4bd2 independently reviewed4cc3fe39.
 
 ## Results
 All18 frozen fixtures (19 matrices) preserve determinant outputs bitwise under GETRF/log/exp interposition and process-local child-kernel capture. Finite exact-rational comparisons pass, including retained singular/subnormal/overflow/underflow/nonfinite cases. The observed19 GETRF calls have dimensions/lda3,51 logs and19 exps;17 successful and2 singular matrices. Actual runtime pointers/block parameters match the pinned prior dispatch. Child shapes match the proposed3x3 bounds with no GEMM/solve path. This supports the104-unit named numeric subset, not a full library cost.
@@ -26,7 +26,7 @@ Reproduce: compile spy.c with gcc -shared -fPIC -O2 -ldl and kernel_spy.c likewi
 One thread2GB; bounded analytic controls under20CPU review lock, source/count work only. No mass/model/geometry/MC replay. Instrumentation is validation work and not inference overhead. Elementary function calls count as named operations while libm internals remain unpriced; category envelopes are not hardware instruction counts.
 
 ## Claims
-[inferred] Previously reviewed4x4 native categories may transfer after exact binary/dispatch checks. [measured/inferred] Frozen actual-dispatch controls and source/lane analysis support3x3 numeric subset104, pending independent final raw review. No full-cost superiority, quadrature accuracy or rung claim.
+[inferred] Previously reviewed4x4 native categories may transfer after exact binary/dispatch checks. [measured/inferred] Frozen actual-dispatch controls and source/lane analysis support3x3 numeric subset104, independently reviewed26fd4e11. No full-cost superiority, quadrature accuracy or rung claim.
 
 ## Alternatives not ruled out
 Different small-size dispatch or packed lanes could invalidate naive dimension scaling: inspect binary and actual shapes. Source/counter mismatch could explain inherited low costs: reconstruct branch arithmetic directly. Thin and wide costs differ: retain both multiplicities and no mean multiplier. Reusable setup might be free under protocol but model-dependent executed inverse is not: separate rather than erase it.
@@ -36,3 +36,5 @@ Double counting inherited counters; counting only mathematical nonzeros in dense
 
 ## Explicit remaining native interiors
 Visible dense dot/reduction/norm charges are scalar-expression counts; installed determinant/inverse categories are numerical-lane envelopes. BLAS accumulator work, NumPy reductions and Python3.12 sum compensation are not automatically covered by the visible convention. Report their combination as a hybrid subtotal with these gaps, never a full native upper/lower or a matched-budget MSE result.
+
+Independent26fd4e11 reconstructs17 finite rational determinant fixtures, all19 native paths/runtime targets and both branch/corpus contractions. This completes the initial bounded phase; native array-kernel closure remains a separately frozen continuation.
