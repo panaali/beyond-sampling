@@ -1170,3 +1170,33 @@ conditional selected-category composition, not complete native cost, a timing
 result or a sampler comparison. Original failed fixture and metadata probes
 remain preserved; no kernels or masses were rerun by this review.
 
+### Reset-limit sector and fibre census completion
+
+`check_reset_limit_review.py` verifies nine exact analytic partitions and four
+dyadic controls: complete roots, affine readouts, persistent/boundary first-index
+ties and known masses. Independent 180-digit arcsine CDF evaluation is used
+only as a diagnostic. Its first strict endpoint comparison differed from an
+exact clipped 1/24 by about 2e-182; the reviewer source/failure are preserved,
+with 1e-170 numerical diagnostic tolerance and exact rational truth checks
+unchanged. No candidate rerun was needed.
+
+`check_reset_limit_application_review.py` verifies the saved trained seven-cell
+partition, six boundaries and exact crossing
+6341485325517743533/170399438932673560576. The limit joint mass is enclosed near
+0.05164970982082518; combining the inherited shared-wedge remainder gives
+original sector joint mass [0.05151375656043487, 0.05178566308121548], or
+conditional sector accuracy [0.6181650787252184, 0.6214279569745857]. This is an
+exact-real stored-weight H2T4 result on one negative-prefix/positive-target
+second-rank sector, conditional on the earlier exhaustive face proof. It is
+not whole-model accuracy or a floating-forward/cost certificate. No original
+network evaluations were added.
+
+`check_fibre_outer_census_review.py` independently reconstructs every saved
+component and preparation plus 144 rescue cells once. All raw call/site totals,
+diagnostic subtraction and heterogeneous-shape omissions match. The unchanged
+hybrid is 1,838,695,310; no prices were added. Matrix expression units are
+857,804,265 and norm units 123,008,922. The 20,501,487 length-3 norm calls and
+183,552 explicit dot calls still lack historical per-call layout/dtype/target
+evidence. The census is coverage evidence, not native applicability or a new
+sampling comparison.
+
