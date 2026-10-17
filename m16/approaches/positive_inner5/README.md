@@ -10,11 +10,14 @@ controls, not a trained estimator. The same-sign rationalization removes an
 explicit inverse Gram determinant from the endpoint difference.
 
 ## Status
-Running: claim23bfb42e published; source and fixed manifest await independent
-review before execution.
+Running: bounded primitive phase complete8440898e, independently4cc6f14e.
+See HANDOFF.md; a separate frozen outer-rule gate is next. The original source
+protocol/README snapshot is preserved atf9ca116b for reproduction.
 
 ## Results
-Pending fixed controls. No source numerical rule changed.
+All16 supported controls satisfy the frozen relative diagnostic;10 explicit
+unsupported/singular/extreme/nonfinite outcomes remain. No source rule changed.
+See HANDOFF.md for numbers, qualifications and exact reproduction command.
 
 ## Compute accounting
 Named scalar ledger plus separate reference/setup CPU; integer, dispatch,
