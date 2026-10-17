@@ -18,6 +18,8 @@ class Audit:
 def determinant(A,audit):
  """Scalar partial-pivot LU determinant; arithmetic, abs and comparisons charged."""
  a=np.array(A,dtype=float,copy=True);n=len(a);sgn=1.
+ if n>4:raise ValueError('determinant control allowance covers dimensions at most4')
+ audit.add('determinant_control',128)
  for j in range(n):
   pivot=j;best=abs(a[j,j]);audit.add('determinants',1)
   for i in range(j+1,n):
@@ -66,11 +68,13 @@ def volume(rays,n,audit):
  for ray in rays:
   det=abs(determinant(ray,audit));audit.add('mass_scalar',1)
   q=np.sum((y@ray.T)**2,axis=1)
-  total+=det/(2*np.pi**2)*np.dot(w,1/(q*q));det_sum+=det
+  total+=det/(2*np.pi*np.pi)*np.dot(w,1/(q*q));det_sum+=det
   # 32 matrix/vector multiply-add scalar ops,7 norm,2 reciprocal-square,2 weighted sum.
   audit.add('mass_nodes',43*len(w));audit.add('mass_scalar',10)
- audit.add('bound',n+20)
- bound=det_sum/(6*np.pi**2)*(12*n+9)/3.**(n-1)
+ # General floating power is one TRANS kernel, plus <=30 scalar arithmetic
+ # operations for the exponent, prefactors and final bound (including pi^2).
+ audit.add('bound',TRANS+30)
+ bound=det_sum/(6*np.pi*np.pi)*(12*n+9)/3.**(n-1)
  return float(total),float(bound)
 
 
