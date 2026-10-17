@@ -8,3 +8,5 @@ Board41c0b794 authorizes completed component6 as the control, then failed compon
 4. On completed component6, require original estimate hex, stats and corrected legacy parity. Verify every native site difference against the repeated clamp preparation, with no unexplained differences. Independent review gates component12; no source tuning or later-model expansion.
 
 Saved cells are computed from this model and counted; they are not free advice. Process imports, JSON/state transport and memory/control remain outside the named numerical convention. Any individual cell cap or unexplained mismatch is preserved and halts this finite rescue. Independent-subtotal summation is never used.
+
+Control6 passed all31 cells, hex/legacy/stats and exact repeated-setup site differences, but has no error pieces. Board d4bfd2af adds fixed nonzero component2 (first completed nonzero component under10CPU) before12. cell_rescue_nonzero.py reverses exactly to the original source after its three index/path-only substitutions; retain both controls and require actual nonzero carried totals.
