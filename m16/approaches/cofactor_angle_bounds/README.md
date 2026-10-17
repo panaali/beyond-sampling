@@ -10,7 +10,7 @@ Claim5be8e715 before implementation. For x>0, atan2(y,x) has derivative x/(x²+y
 Independent source gate passed; all21 frozen analytic/undefined controls pass. Exact rational proof remains separate from120-digit diagnostics. Original64 continuation completed after independent source/control gate and immutable completed-output linkage; saved aggregate review pending.
 
 ## Results
-[inferred] The derivative formula gives a numerator-only error bound for each fixed nonnegative denominator. T55 independently checked the algebra and required explicit origin-undefined status. No measured results yet.
+[inferred] The derivative formula gives a numerator-only error bound for each fixed nonnegative denominator. T55 independently checked the algebra and required explicit origin-undefined status. [measured] All21 frozen analytic controls and64 original saved cases pass. The maximum numerator-only bound is1.2710635397296333e-9 radians; candidate diagnostic errors improve34 cases, worsen27 and tie3. These are fixed-denominator comparisons, not whole-mass or speed results.
 
 ## Compute accounting
 One thread2GB, review<=20CPU. No determinant, geometry, model, mass or MC replay. Exact rational arithmetic/conversions, sign transforms and peak numerator/denominator bits will be recorded separately; high-precision reference angle work is evaluation-only and never free production work.
