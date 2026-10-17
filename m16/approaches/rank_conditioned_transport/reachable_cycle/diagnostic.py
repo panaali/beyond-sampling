@@ -17,7 +17,7 @@ sys.path.pop(0)
 
 
 def evaluate(model, prefix_order=8, q_order=8, hidden_orders=(9,17),
-             modes=('baseline','curvature','gate'), seconds=100.):
+             modes=('baseline','curvature','gate'), seconds=100., strata=False):
     start=time.process_time();deadline=start+seconds
     wi,wh,wo=model
     if wi.shape!=(2,) or wo.shape!=(4,2):raise ValueError('frozen H2T4 scope')
@@ -43,8 +43,13 @@ def evaluate(model, prefix_order=8, q_order=8, hidden_orders=(9,17),
                 axis=axes[3],states=states[3],cache={},work=work,
                 setup_cpu=time.process_time()-setup_start,metadata=metadata,
                 signed=0.,absolute=0.,squared=0.,maximum=0.,by_label={},
-                first_cell_mass=np.zeros(2),probe_mass=0.))
+                first_cell_mass=np.zeros(2),probe_mass=0.,strata={}))
     exact=0.;by_label={};max_bound_violation=0.;min_probability=1.;max_probability=0.
+    stratum_mass=defaultdict(float);stratum_zero_tie=defaultdict(float)
+    nonzero_mask_slopes_distinct=True
+    for mask in (np.array([1,0]),np.array([0,1]),np.array([1,1])):
+        slopes=wo@(wi*mask)
+        nonzero_mask_slopes_distinct &= len(np.unique(slopes))==len(slopes)
     for qq,weight in zip(q,weights):
         u=float(ndtri(alpha+z*qq));stats['target_inverse_cdf_values']+=1
         below=[ndtri(alpha+z*qq*v) for v in (v1,v2)]
@@ -72,6 +77,29 @@ def evaluate(model, prefix_order=8, q_order=8, hidden_orders=(9,17),
             max_probability=max(max_probability,float(truth.max()))
             contribution=float(mass@truth);exact+=contribution
             by_label[label]=by_label.get(label,0.)+contribution
+            names=np.array(['origin','axis1','axis0','interior'])[
+                (h[:,0]>0).astype(int)+2*(h[:,1]>0).astype(int)]
+            if strata:
+                # The all-inactive final gate owns a positive-volume all-logit tie.
+                lo=np.where(need==0,-limit,u);hi=np.where(need==0,u,limit)
+                offset=h@wh.T
+                for neuron in range(2):
+                    if wi[neuron]>0:hi=np.minimum(hi,-offset[:,neuron]/wi[neuron])
+                    elif wi[neuron]<0:lo=np.maximum(lo,-offset[:,neuron]/wi[neuron])
+                    else:hi=np.where(offset[:,neuron]>0,lo,hi)
+                valid=hi>lo;tie=np.zeros(len(h));positive=valid&(lo>=0)
+                negative=valid&~positive
+                tie[positive]=ndtr(-lo[positive])-ndtr(-hi[positive])
+                tie[negative]=ndtr(hi[negative])-ndtr(lo[negative])
+                tie/=z*np.where(need==0,qq,1-qq)
+                stats['tie_cdf_values']+=2*int(valid.sum())
+                stats['tie_hidden_matrix_products']+=4*len(h)
+                if tie.min() < -1e-12 or tie.max()>1+1e-10:
+                    raise ArithmeticError('zero-state tie mass out of bounds')
+                for name in np.unique(names):
+                    selected=names==name
+                    stratum_mass[name]+=float(mass[selected].sum())
+                    stratum_zero_tie[name]+=float(mass[selected]@tie[selected])
             for item in variants:
                 axis=item['axis'];work=item['work']
                 violation=max(float(np.max(-h)),
@@ -94,6 +122,12 @@ def evaluate(model, prefix_order=8, q_order=8, hidden_orders=(9,17),
                 entry['signed']+=signed;entry['absolute']+=absolute
                 item['first_cell_mass']+=mass@(h<=np.array([a[1] for a in axis]))
                 item['probe_mass']+=float(mass.sum())
+                if strata:
+                    for name in np.unique(names):
+                        selected=names==name;w=mass[selected];d=delta[selected]
+                        cell=item['strata'].setdefault(name,dict(mass=0.,signed=0.,absolute=0.,squared=0.))
+                        cell['mass']+=float(w.sum());cell['signed']+=float(w@d)
+                        cell['absolute']+=float(w@abs(d));cell['squared']+=float(w@(d*d))
                 work['bilinear_queries']+=len(h)
                 work['bilinear_interpolator_constructions']+=1
             if time.process_time()>deadline:raise TimeoutError('frozen diagnostic deadline')
@@ -111,6 +145,8 @@ def evaluate(model, prefix_order=8, q_order=8, hidden_orders=(9,17),
                 min_probability=min_probability,max_probability=max_probability,
                 maximum_stage_box_violation=max_bound_violation,
                 shared_probe_work=dict(stats),cpu_seconds=time.process_time()-start,
+                stratum_mass=dict(stratum_mass),stratum_zero_tie_mass=dict(stratum_zero_tie),
+                no_other_positive_volume_ties_by_distinct_affine_slopes=bool(nonzero_mask_slopes_distinct),
                 source_sha256={f:hashlib.sha256((HERE.parent/f).read_bytes()).hexdigest()
                                for f in ('engine.py','spatial.py')},
                 total_error_certified=False,portable_flops_certified=False)
