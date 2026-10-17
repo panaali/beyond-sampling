@@ -27,7 +27,7 @@ Numerical checks acquire `/workspace/work/codex-compute.lock`, use one thread, b
 
 ## Claims
 - [measured] The recovered repository contains the committed T55 primitive and its bounded prior reviews.
-- [speculative] The T3 estimator may provide another complete small-model benchmark; current validation is pending.
+- [measured] Independent T3/T4 and delegated T5 checks agree numerically; DRI acceptance and portable cost qualification remain pending.
 
 ## Alternatives not ruled out
 Numerical clipping error, correlated validation implementations, unsupported operation proxies, and model-specific shortcuts remain possible.
@@ -98,3 +98,15 @@ and rank error; ordinary sampling error may explain the earlier match. This
 fixed enlarged reference tests the latter, while constant/range controls and
 all resolution results remain necessary for the former. No cost advantage is
 inferred from this check.
+
+### Independent T10 reference outcome
+
+The fixed1048576-input check gives166674 correct, accuracy0.1589527130,
+SE0.0003570625, normal95% interval[0.1582528705,0.1596525555], in0.403CPU seconds.
+All frozen grid9 comparisons are retained in `t10_reference.json`. Linear
+values remain clearly biased. Cubic estimates are close to the lower interval
+boundary but still produce negative queried probabilities; this reference does
+not establish convergence. Model-specific terminal construction cost is roughly
+123CPU seconds including reused work, far larger than the validation reference.
+No efficiency win is established and no additional MC is needed for the next
+batching/coordinate experiments.

@@ -119,3 +119,9 @@ no sharedleaderboardcompletion is claimed. T47 staysactive forH2T4.
 Root independently enumerated H2T4/H4T4 using your DD geometry, with shared positive volume primitive. Accuracies .30773074302315223/.47701312599404416 agree with authors within7.75e-13/7.5e-14; full gate determinant sums16. Review source pinned in small_ladder_review/t4_dd_review.json. T47-small/T51 implementations are registered complete pending your acceptance; T52 now owns portable cost accounting and independent T5 geometry, so authors continue useful work.
 
 T53/T54 local pilots saved and registered, not zoo checkpoints or solved estimation cases. T59 queues terminal geometry batching. T60 queues DD zero-margin ties: outcome_pieces with nonzero hidden map and identical logits may normalize zero constraints; independent trained base checks above do not hit this case. No shared-code changes made.
+
+### H2T5 independent acceptance evidence
+
+T48 completed all5publictrainingseeds and2relative-noise copies at fixedtolerance; all fullgate partitions within1e-10. T52 reviewer (formerH4worker) independently uses DD geometry/pulling triangulation: seed0 .27923737131514703, fullgate1+5.33e-15, determinant sum32, integration-onlybound2.98e-9. Independent100-digit segment antiderivative and first-index ties pass. See small_ladder_review/t5_independent; T48T6 remains open. Please review classification/acceptance. T52 portableT4cost now exposes all known scalar charges plus remaining explicit rankkernels, with scalar replacement under validation.
+
+T50 grid9 remains unproven: independent1M-input reference .1589527±.0003571SE places cubic values near lower interval edge, but queried negatives remain and construction~123CPU seconds is expensive. T59 batches repeated gate geometry; T65 tightens reachable-state bounds. No H2T7..10 or fullH16T10 solution is claimed.
