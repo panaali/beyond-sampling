@@ -65,43 +65,55 @@ def transport(model,j,grids,terminal,rules,stats):
 
 def main():
     started=time.process_time();deadline=started+110
+    reuse='--reuse-kernels' in sys.argv
+    historical=json.loads((HERE/'finite_transport_approx_q_historical.json').read_text()) if reuse else None
     data=np.load(HERE/'LOCALPILOT_H2_T7_seed0.npz');model=tuple(data[k].astype(float) for k in ('Wi','Wh','Wo'))
     T=len(model[2]);labels=nonvanishing_certificate(model)['nonzero_state_output_labels']
     result={'classification':'deterministic rank-conditioned collocation; no error certificate',
             'model':'LOCALPILOT_H2_T7_seed0','possible_labels':labels,'rows':[],
             'sources':{str(path):hashlib.sha256(path.read_bytes()).hexdigest() for path in
                 [TRANSPORT/'doob.py',TRANSPORT/'backward.py',FUND/'target_tail.py']},
-            'model_input_samples':0}
+            'model_input_samples':0,'uses_previously_charged_terminal_caches':reuse,
+            'checkpoint_sha256':hashlib.sha256((HERE/'LOCALPILOT_H2_T7_seed0.npz').read_bytes()).hexdigest(),
+            'terminal_rank_denominator':'analytic constant-target spherical tail'}
     for n in (3,5):
         kernelwork=defaultdict(float);clock=time.process_time();cache={};grids={};boxes={}
         try:
             for j in labels:
                 grids[j],boxes[j]=stage_grids(model,j,n)
-                cache[j]=target_kernel_grid(model,j,grids[j][-1],kernelwork,deadline)
+                if reuse:
+                    cache[j]=np.load(HERE/f'T7_terminal_grid{n}.npz')[f'j{j}']
+                else:
+                    cache[j]=target_kernel_grid(model,j,grids[j][-1],kernelwork,deadline)
             kernel_cpu=time.process_time()-clock
-            np.savez(HERE/f'T7_terminal_grid{n}.npz',**{f'j{j}':v for j,v in cache.items()})
+            if not reuse:np.savez(HERE/f'T7_terminal_grid{n}.npz',**{f'j{j}':v for j,v in cache.items()})
             control=(model[0],model[1],np.zeros_like(model[2]));controlgrids,_=stage_grids(control,0,n)
             controlwork=defaultdict(float)
             actual_constant=target_kernel_grid(control,0,controlgrids[-1],controlwork,deadline,constant=True)
             for nq in (32,64):
                 clock=time.process_time();stats=defaultdict(float);rank=RankRules(nq,stats)
-                b=grids[labels[0]][-1][2];qterminal=rank.mass(b,T-2,2)
+                b=grids[labels[0]][-1][2]
+                qterminal=actual_constant[0,0,:,:]
+                approximate_q=rank.mass(b,T-2,2)
+                stats['max_relative_terminal_rank_quadrature_error']=float(np.max(abs(approximate_q-qterminal)/qterminal))
                 rules=conditional_rules(b,T,8,rank,stats)
                 estimates={};initials={};wmin=1.;wmax=0.
                 for j in labels:
                     W=cache[j]/qterminal[None,None,:,:]
                     wmin=min(wmin,float(W.min()));wmax=max(wmax,float(W.max()))
                     estimates[j],initials[j]=transport(model,j,grids[j],W,rules,stats)
+                if wmin < -1e-10 or wmax > 1+1e-8:raise ArithmeticError(f'Terminal conditional probability range [{wmin},{wmax}]')
                 ones,_=transport(control,0,controlgrids,np.ones_like(actual_constant),rules,stats)
                 sanity,_=transport(control,0,controlgrids,actual_constant/qterminal[None,None,:,:],rules,stats)
                 assert abs(ones-1/T)<1e-12
-                assert abs(sanity-1/T)<1e-6
+                assert abs(sanity-1/T)<1e-12
                 result['rows'].append({'grid':n,'rank_nodes':nq,'angles_per_rank_interval':8,
                     'accuracy':sum(estimates.values()),'contributions':estimates,'initial_sign_values':initials,
                     'boxes':{str(j):[v.tolist() for v in boxes[j]] for j in labels},
                     'terminal_W_min':wmin,'terminal_W_max':wmax,
                     'constant_W_error':ones-1/T,'constant_readout_error':sanity-1/T,
-                    'kernel_cpu_seconds':kernel_cpu,'kernel_work':dict(kernelwork),'kernel_reused':nq==64,
+                    'kernel_cpu_seconds':kernel_cpu,'kernel_work':dict(kernelwork),'kernel_reused':reuse or nq==64,
+                    'previous_kernel_work':next((r['kernel_work'] for r in historical['rows'] if r.get('grid')==n),{}) if reuse else {},
                     'extra_control_work':dict(controlwork),'transport_work':dict(stats),
                     'transport_cpu_seconds':time.process_time()-clock})
                 (HERE/'finite_transport_results.json').write_text(json.dumps(result,indent=2)+'\n')
