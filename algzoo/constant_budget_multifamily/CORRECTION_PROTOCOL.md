@@ -1,0 +1,5 @@
+# Null-preserving correction, frozen before measurement
+
+Claim368d5aa scopes only H32seed2 Fourier10/Fourier20/position-polynomial10, the three remaining failed cells. Start from saved active-stage coefficients. Keep original training/test data, global gradient threshold and guarded line solver; use minimum-norm correction lstsq(A,y-A*beta) instead of minimum-norm target minus beta. This preserves the current numerical active-null component. Record the singular-value cutoff and active ranks; do not describe truncated numerical directions as exact-real certificates. Cap80 steps per neuron, retain every prior file unchanged. No test-based decision or further retries.
+
+The fixed rank-deficient control A=[[1,0,1],[2,0,2]], beta=[1,7,3], y=[6,12] verifies that both targets fit observed rows while the new correction preserves the unobserved second component7. T55 reviewed this algebra. Existing79 rational line controls and direct nonincrease guards remain applicable because the line solver is unchanged. A remaining failure will stay explicitly unresolved.
