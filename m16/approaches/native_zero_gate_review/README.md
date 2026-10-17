@@ -51,20 +51,53 @@ primary lock; <=20CPU primitive checks may use review lock.
    interior against recurrence and use independent analytic accuracy controls.
 
 ## Status
-Protocol frozen. No repair/accuracy claim until controls pass.
+Bounded implementation and controls complete; independent review requested.
+This is a local native repair candidate, not a general topology certificate.
 
 ## Results
-Pending; original rejection preserved as a required control.
+The original native rejects all seven frozen exact-zero synthetic models. The
+local branch accepts them and matches the separate Python reference in every
+ordered geometry array, incidence bit and original counter; all 224 rational
+interior recurrence checks pass. The conditional-zero recurrent model takes
+30 zero branches, while the six globally zero-row controls take 60 each.
+The 1e-8 nonzero control takes zero exact-zero branches and retains original
+geometry. Allzero input weights and nonfinite weights remain rejected.
+
+The unchanged T71 mass rule returns 89/320 = .278125 for the zero-second,
+permuted, and two coordinate-scale controls, differing by at most 5.6e-17.
+Zero and duplicate readouts return .2 within 2.8e-17. These are independent
+analytic target values, not fitted values; the numerical mass enclosure still
+inherits T71 floating geometry and roundoff qualifications.
+
+For H2T5 seed0 and fixed RNG1 relative-RMS noise .0025/.02, all six geometry
+arrays (`good`, `bad`, `rays`, `bits`, `headers`, `maps`) are bit-identical to
+unmodified native output, and all 13 original counters match. Added exactzero
+coefficient comparisons total 270/364/364; zero branches are zero.
+
+Reproduce from this folder, using the shared interpreter, one BLAS thread,
+`ulimit -v 2500000`, and `flock /workspace/work/codex-compute.lock`:
+`python prepare.py`, `python build.py`, `python check.py`, `python validate.py`.
+Source manifests and binary/build hashes are saved. The pinned reference
+wrapper retains its existing `/workspace/work/admin-t66-d5-claim` reference
+path, and the unchanged T71 primitive is loaded from the H2T5 worker checkout;
+these dependencies are explicit in the scripts and JSON source hashes.
 
 ## Compute accounting
+Two cold builds cost 4.735942 CPU seconds in total. Synthetic controls cost
+.276747 CPU seconds including imports (RSS 37 MB); mass and trained parity
+validation costs 1.165286 CPU seconds including imports (RSS 223 MB).
+Combined recorded CPU = 6.177975 seconds, including original baseline builds
+and comparisons. Individual trained native calls cost .0084-.0150 seconds;
+these tiny timings do not establish a speed claim. Analytic mass-only upper
+operation counts are 3.01-3.59 million, and exclude native geometry/setup.
 Count compiler/setup, original/native/reference execution and all extra zero
 checks. Existing native operation cost is opaque; do not inherit a portable
 sampling-win counter from old Python. No estimator inputs sampled; deterministic
 ray/interior evaluations are validation and fully counted.
 
 ## Claims
-[speculative] An exactzero/off branch fixes the safe rejection without affecting
-trained cells. Exactzero comparisons concern computed floating coefficients;
+[measured] The exactzero/off branch fixes the seven frozen safe rejections and
+preserves three frozen trained geometries. Independent review is pending. Exactzero comparisons concern computed floating coefficients;
 this is not a general exact-real arithmetic topology certificate.
 
 ## Alternatives not ruled out

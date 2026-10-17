@@ -1,0 +1,42 @@
+[
+  {
+    "name": "original",
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-ffp-contract=off",
+      "-fPIC",
+      "-shared",
+      "/workspace/work/recover-small_h2_910/m16/approaches/native_zero_gate_review/original.cpp",
+      "-o",
+      "/workspace/work/recover-small_h2_910/m16/approaches/native_zero_gate_review/data/original.so",
+      "-l:liblapack.so.3",
+      "-l:libblas.so.3"
+    ],
+    "wall_seconds": 2.2683578860014677,
+    "cpu_seconds": 2.267904,
+    "source_sha256": "12392e620b5680d9cb4d1c66d43a2ad8ed7806093636e9308a5f05cbd636ee88",
+    "binary_sha256": "f81434feea74b55a73f4c6d2c9c085a6253061895d58368087a9bcf47126f9d2"
+  },
+  {
+    "name": "fixed",
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-ffp-contract=off",
+      "-fPIC",
+      "-shared",
+      "/workspace/work/recover-small_h2_910/m16/approaches/native_zero_gate_review/fixed.cpp",
+      "-o",
+      "/workspace/work/recover-small_h2_910/m16/approaches/native_zero_gate_review/data/fixed.so",
+      "-l:liblapack.so.3",
+      "-l:libblas.so.3"
+    ],
+    "wall_seconds": 2.46887726299974,
+    "cpu_seconds": 2.4680379999999995,
+    "source_sha256": "3d0e5a0416f649a755904b6083dbf2835156aed29034cdf54147632ecf3b8164",
+    "binary_sha256": "a817df6bd9ba0c5aebcb5e2c704085692d2e7fe746d72cb751e1895845b5c9d7"
+  }
+]
