@@ -1,0 +1,55 @@
+{
+  "claim": "8dc60612",
+  "source_gate": "pending",
+  "control_review": "9a2f2bb9 independent exact16 control audit",
+  "models": [
+    {
+      "name": "H4T3seed0",
+      "H": 4,
+      "T": 3,
+      "kind": "capture",
+      "path": "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/capture/trained_t3.json",
+      "checkpoint_sha256": "e1003b62cdbdf671ee7ef875ed7aea3a410684681b6e0659fd0738a5d0e014e7",
+      "subsets": 16,
+      "review": "3ee0667b"
+    },
+    {
+      "name": "H4T4seed0",
+      "H": 4,
+      "T": 4,
+      "kind": "capture",
+      "path": "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/capture/trained_t4.json",
+      "checkpoint_sha256": "83ddefeaee737c73613cdc786b01b3bb79c0007bd6c1e42a454302c4801dd146",
+      "subsets": 16,
+      "review": "3ee0667b"
+    },
+    {
+      "name": "H8T4seed0",
+      "H": 8,
+      "T": 4,
+      "kind": "integer_archive",
+      "path": "/workspace/work/recover-small_h2_34/m16/approaches/fading_influence/trained.json",
+      "checkpoint_sha256": "b771f40fcae826e010b2e89fb698e2ec35026119bc9f66d3ff046dba537b07da",
+      "subsets": 256,
+      "review": "3bb92013"
+    }
+  ],
+  "scope": "Exact sufficient global one-step margin/projective state-identifiability predicates on three fixed stored dyadic models. Failed conditions remain inconclusive. No label/domain/approximate impossibility, no speed/MSE/rung result. Weight decoding and all rational predicate work are model-dependent costs, not free advice.",
+  "resource": "one thread2GB external20CPU review lock, one attempt",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/primitive.py": "f7e527ebef93ad9f1c4fb7f75b673dfde4e0ac8915410c03928b92e7676f9519",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/controls.py": "66f1c3564cc38a43807fe42f1d6405d5a951f33e6932b59281cecf9b14a5fb6a",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/controls.json": "a45ccae57d31af2303e519ed77941e06f1e53d14054492621a70c5a281db3eb7",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/protocol.json": "7623ee2caff0481fcaf06d997c08cbaafb289f3921bbc4727a0f2220c65b02a8",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/PROOF.md": "0b76875422a4d6355a4ee1b0e346518b3d06765a6419b74019e6f40df94fa4ef",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/trained.py": "f8c1d1c91e4ea1a374785a7062b2c6c931099dce6721bf802eed253d12d348b7",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/capture/trained_t3.json": "8d6119b4a050d0bbf07b9245f7d9b1d34d80c009f3483ed6134689f03b30adda",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/capture/trained_t4.json": "0f4e97bb64b1d7c622883c7eea2db1f6d585d0a865d84f8059dce66040f50d60",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fading_influence/trained.json": "53b40d48601e6cf7d976c7a4773bb3fda9046149e2246003026c58b6439aa8c4",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/capture/trained_protocol.json": "173a5cae20a1277363eaec13c42502eb0582489242e39184463501c8043fd01c",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fading_influence/trained_protocol.json": "61ed05115044be51fa2da02b46ed067597e67c110b630dcada9b8d4968cabf9d",
+    "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth": "b771f40fcae826e010b2e89fb698e2ec35026119bc9f66d3ff046dba537b07da",
+    "/workspace/work/t114_checkpoints/2nd_argmax_4_3_1073741824_0.pth": "e1003b62cdbdf671ee7ef875ed7aea3a410684681b6e0659fd0738a5d0e014e7",
+    "/workspace/clean-neurons/m16/approaches/small_ladder_review/rational_geometry/geometry_h4_t4.json.gz": "f3ed7934fbd5be669dcbba0bef5bd7131dbe18791aaa552b38d0eb88b58495a6"
+  }
+}
