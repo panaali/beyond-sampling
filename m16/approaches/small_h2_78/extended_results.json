@@ -1,0 +1,246 @@
+{
+  "runs": [
+    {
+      "rows": [
+        {
+          "suffix_length": 0,
+          "contribution": 0.04038783482142857,
+          "exact": "579/14336"
+        },
+        {
+          "suffix_length": 1,
+          "contribution": 0.037109375,
+          "exact": "19/512"
+        },
+        {
+          "suffix_length": 2,
+          "contribution": 0.030937500668080858,
+          "outer_dimension": 1,
+          "outer_orders": [
+            2
+          ],
+          "known_sign_patterns": 1
+        },
+        {
+          "suffix_length": 3,
+          "contribution": 0.021209544621810014,
+          "outer_dimension": 2,
+          "outer_orders": [
+            2,
+            4
+          ],
+          "known_sign_patterns": 2
+        },
+        {
+          "suffix_length": 4,
+          "contribution": 0.016635188971485613,
+          "outer_dimension": 3,
+          "outer_orders": [
+            2,
+            4,
+            6
+          ],
+          "known_sign_patterns": 3
+        },
+        {
+          "suffix_length": 5,
+          "contribution": 0.013099149417443518,
+          "outer_dimension": 4,
+          "outer_orders": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "known_sign_patterns": 5
+        },
+        {
+          "suffix_length": 6,
+          "contribution": 0.007665100385466967,
+          "outer_dimension": 5,
+          "outer_orders": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "known_sign_patterns": 8
+        }
+      ],
+      "partial_correct_mass": 0.16704369388571555,
+      "resolved_event_mass": "201/256",
+      "unresolved_event_mass": "55/256",
+      "no_reset_mass": "55/256",
+      "interval_ignoring_outer_quadrature_error": [
+        0.16704369388571555,
+        0.38188744388571555
+      ],
+      "stats": {
+        "conditional_tail_calls": 32802,
+        "prefix_recurrent_steps": 161746,
+        "gate_cells": 73435,
+        "readout_cells": 101904,
+        "polynomial_probability_calls": 508818,
+        "logit_pair_roots": 28764,
+        "envelope_builds": 1,
+        "rational_arithmetic_operations": 1069,
+        "rational_comparisons": 441
+      },
+      "stopped_due_cpu_budget": false,
+      "cpu_seconds": 6.146229775,
+      "classification": "analytic scalar elimination plus approximate outer quadrature",
+      "base_order": 2
+    },
+    {
+      "rows": [
+        {
+          "suffix_length": 0,
+          "contribution": 0.04038783482142857,
+          "exact": "579/14336"
+        },
+        {
+          "suffix_length": 1,
+          "contribution": 0.037109375,
+          "exact": "19/512"
+        },
+        {
+          "suffix_length": 2,
+          "contribution": 0.029732903400629344,
+          "outer_dimension": 1,
+          "outer_orders": [
+            4
+          ],
+          "known_sign_patterns": 1
+        },
+        {
+          "suffix_length": 3,
+          "contribution": 0.020681211289860568,
+          "outer_dimension": 2,
+          "outer_orders": [
+            4,
+            6
+          ],
+          "known_sign_patterns": 2
+        },
+        {
+          "suffix_length": 4,
+          "contribution": 0.01723573601922456,
+          "outer_dimension": 3,
+          "outer_orders": [
+            4,
+            6,
+            8
+          ],
+          "known_sign_patterns": 3
+        },
+        {
+          "suffix_length": 5,
+          "contribution": 0.01294141855143823,
+          "outer_dimension": 4,
+          "outer_orders": [
+            4,
+            6,
+            8,
+            10
+          ],
+          "known_sign_patterns": 5
+        },
+        {
+          "suffix_length": 6,
+          "contribution": 0.00787295649746574,
+          "outer_dimension": 5,
+          "outer_orders": [
+            4,
+            6,
+            8,
+            10,
+            12
+          ],
+          "known_sign_patterns": 8
+        }
+      ],
+      "partial_correct_mass": 0.16596143558004703,
+      "resolved_event_mass": "201/256",
+      "unresolved_event_mass": "55/256",
+      "no_reset_mass": "55/256",
+      "interval_ignoring_outer_quadrature_error": [
+        0.16596143558004703,
+        0.38080518558004706
+      ],
+      "stats": {
+        "conditional_tail_calls": 194548,
+        "prefix_recurrent_steps": 961828,
+        "gate_cells": 435736,
+        "readout_cells": 617228,
+        "polynomial_probability_calls": 3037687,
+        "logit_pair_roots": 187045,
+        "envelope_builds": 0,
+        "rational_arithmetic_operations": 0,
+        "rational_comparisons": 0
+      },
+      "stopped_due_cpu_budget": false,
+      "cpu_seconds": 36.184105312,
+      "classification": "analytic scalar elimination plus approximate outer quadrature",
+      "base_order": 4
+    }
+  ],
+  "validation": [
+    {
+      "suffix_length": 0,
+      "outer_approx": 0.04038783482142857,
+      "mc": 0.0408935546875,
+      "se": 0.0007736078556127477,
+      "z": 0.6537160428274976
+    },
+    {
+      "suffix_length": 1,
+      "outer_approx": 0.037109375,
+      "mc": 0.03759765625,
+      "se": 0.0007430512294693334,
+      "z": 0.657129994049962
+    },
+    {
+      "suffix_length": 2,
+      "outer_approx": 0.029732903400629344,
+      "mc": 0.0296173095703125,
+      "se": 0.0006622231482278763,
+      "z": -0.1745541976691321
+    },
+    {
+      "suffix_length": 3,
+      "outer_approx": 0.020681211289860568,
+      "mc": 0.0208282470703125,
+      "se": 0.0005578479395349139,
+      "z": 0.2635768101510214
+    },
+    {
+      "suffix_length": 4,
+      "outer_approx": 0.01723573601922456,
+      "mc": 0.01788330078125,
+      "se": 0.0005176848111511035,
+      "z": 1.2508861532667719
+    },
+    {
+      "suffix_length": 5,
+      "outer_approx": 0.01294141855143823,
+      "mc": 0.013641357421875,
+      "se": 0.000453112721910089,
+      "z": 1.5447345364442424
+    },
+    {
+      "suffix_length": 6,
+      "outer_approx": 0.00787295649746574,
+      "mc": 0.0082855224609375,
+      "se": 0.00035408971381356243,
+      "z": 1.16514529334503
+    }
+  ],
+  "no_reset_diagnostic_correct_mass": 0.038909912109375,
+  "compute": {
+    "cpu_seconds": 43.224915109,
+    "peak_rss_kib": 223552,
+    "validation_inputs": 65536,
+    "random_inputs_for_estimation": 0
+  }
+}
