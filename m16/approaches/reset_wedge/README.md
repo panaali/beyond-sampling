@@ -8,7 +8,7 @@ Assume Wi=(w1,w2)>0 and Wh=[[-a,-b],[c,-d]] with a,b,c,d>=0. The initial hidden 
 
 Proof candidate: after the first input, maximize c*h1-d*h2 over old state(u,v)>=0. Increasing u cannot increase the objective, so u=0 attains the maximum. For x>0, remaining v dependence is piecewise linear with breakpoints w1*x/b and w2*x/d; its maximum occurs at v=0, v=w2*x/d, or the nonpositive/zero branch. For x<=0, h1=0 and the maximum is0. At the second input the second gate vanishes for every old state exactly when w2*y+Gamma*max(x,0)<=0. Since Gamma>=0 this also makes y<=0, forcing the first gate off. Equality resets exactly; there is no epsilon test.
 
-For iid standard Gaussian inputs, q=atan(kappa)/(2*pi), reset-pair mass r=1/2-q. Let S_n be probability of no reset among n inputs. Proposed exact recurrence S0=S1=1; S_n=.5*S_(n-1)+q*S_(n-2). The surviving positive final-input density is phi(x)*S_(n-1); negative x requires previous positive y>-x/kappa, whose surviving density is phi(y)*S_(n-2). For a last reset ending at j>=2, mass is r*U_(T-j), where U0=1,U1=.5 and the same recurrence holds. These masses plus S_T must sum1. kappa0 and kappa→infinity yield reset-on-any-negative and the original two-negative rule respectively.
+For iid standard Gaussian inputs, q=atan(kappa)/(2*pi), reset-pair mass r=1/2-q. Let S_n be probability of no certified reset pair among n inputs (not absence of actual zero hidden states). Proposed exact recurrence S0=S1=1; S_n=.5*S_(n-1)+q*S_(n-2). The surviving positive final-input density is phi(x)*S_(n-1); negative x requires previous positive y>-x/kappa, whose surviving density is phi(y)*S_(n-2). For a last reset ending at j>=2, mass is r*U_(T-j), where U0=1,U1=.5 and the same recurrence holds. These masses plus S_T must sum1. kappa0 and kappa→infinity yield reset-on-any-negative and the original two-negative rule respectively.
 
 ## Frozen falsifiers and alternatives
 1. The proposed wedge may only suffice, or may omit an optimizer/degenerate gate case. Independently maximize the piecewise-affine objective by enumerating all quadrant/activation-region vertices using rational arithmetic, compare synthetic positive/zero a,b,c,d cases, and construct violating states just outside the candidate boundary. No fitted coefficient.
@@ -20,7 +20,21 @@ For iid standard Gaussian inputs, q=atan(kappa)/(2*pi), reset-pair mass r=1/2-q.
 Each cycle<=110CPU, one thread/2GB; primary compute lock for long runs, review lock only<=20CPU checks. Initial phase target<=20CPU. Rational operations/bit lengths, adaptive scalar callbacks, arithmetic/special-function proxies and measured CPU reported separately. No silent conversion of exact-rational operations into FLOPs. Source/review diagnostics are not production cost. No shared-source edits, no sampling advantage claim before independent review.
 
 ## Status and claims
-Status: frozen theory/control phase. [inferred] Piecewise linear optimization and recurrence may give exact real-arithmetic reset masses; proof awaiting independent review. [speculative] The additional reset mass may materially shorten suffixes. Numerical integration, floating probability evaluation and trained usefulness are not yet measured.
+Status: theorem/control phase complete; rank coupling remains open. T55 independently reviewed the algebra in f49d187, including the distinction between absent pair certificates and absent actual resets. DRI classification remains pending.
+
+[inferred, independently reviewed] The wedge is the exact uniform-state two-step reset set under the stated signs. The overlap recurrence and last-certified-pair partition are exact in real arithmetic. [measured] All 972 rational synthetic cases passed, with 2,188 vertex evaluations and 10,208 direct reset checks; independent scalar quadrature at six slopes agrees through n3 within 2.23e-16, and all mass partitions sum to one. No random model inputs were used.
+
+## Results
+Run `flock /workspace/work/codex-review.lock env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python -m m16.approaches.reset_wedge.check` from the research worktree. Results and complete model/checkpoint hashes are in `results.json`. Total check CPU: 0.246920 seconds (imports excluded).
+
+| Existing H2T8 copy | kappa | No certified pair, T8 |
+| --- | ---: | ---: |
+| seed0 | 0.08898349890 | 0.01100327750 |
+| relative noise .0025 | 0.09046615772 | 0.01106174626 |
+| relative noise .02 | 0.10085114517 | 0.01147610084 |
+| two-negative certificate | infinity | 0.21484375000 |
+
+[measured] This is a substantial reduction of the unresolved pair-certificate stratum, not yet an accuracy estimator. Exact coefficient setup reports a 30-rational-operation proxy and parameter/intermediate bit-size diagnostic (87/209/205 summed numerator+denominator bits); scalar mass assembly uses a declared 114-operation proxy and one atan. These are transparent conventions, not audited portable cost bounds. Floating probability evaluation is not roundoff-certified. Exact diagonal hidden rescaling by powers 2±40 and generic-vertex maximization passed on all three copies.
 
 ## Alternatives not ruled out and failure modes
 Reachable-state restrictions could yield an even larger reset set. Unsupported weight signs need a different theorem. Small input weights can make kappa huge and gains negligible. Rank dependence, long surviving suffixes and conditional integration error may dominate even if resets improve. Exact algebra does not certify floating numerical evaluation; no method family is declared solved or dead here.
