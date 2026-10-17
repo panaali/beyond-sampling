@@ -7,7 +7,7 @@ Does a strictly compiled fast kernel preserve the existing reviewed enclosure an
 PROTOCOL.md freezes existing25+64 controls, build flags, fenv rejection and explicit fallback ownership. guard.c ports the separate binary64 trees. build.py saves compiler/source/library/disassembly pins without executing the kernel.
 
 ## Status
-Bounded controls and saved-path contraction complete; final independent raw review pending. Claimf058ce6f. Independent source gates preceded build, execution and ledger contraction.
+Bounded controls and saved-path contraction complete, independently reviewed7dff1dee. Claimf058ce6f. Independent source gates preceded build, execution and ledger contraction. All81fast bits, fivefallback records, threeunknowns, fourenvironment restores and separate ledger totals pass without compiled replay by the reviewer.
 
 ## Results
 All81 fast inputs preserve point, outward endpoints, permanent and allowance bit for bit; five finite out-of-range inputs request the existing exact fallback and reproduce its saved outputs; three nonfinite inputs remain unknown. Four altered-environment probes reject and restore original rounding/MXCSR.93 kernel calls total, no new matrices or scientific sampling. Existing point cancellation failures and wide intervals are unchanged.
