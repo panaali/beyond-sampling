@@ -79,7 +79,26 @@ metrics; same bootstrap draws preserve shared truth/rule dependence within a
 model. Five model seeds are fixed panel, not a population-generalization claim.
 
 ## Status
-Protocol frozen; source audit complete, calibration not run.
+Initial correlated-rule panel completed; independent review caught a seed
+namespace defect before statistical acceptance. Clean rescue frozen below.
+
+## Frozen independent-namespace rescue
+T55 found that the inherited kind12 offset+7 causes rule r's kind12 scramble
+to equal rule r+7's kind23 scramble. Thus the16 rule estimates share inputs;
+ordinary iid-rule variance/bootstrap inference is unjustified. This defect
+also occurs in historical ht_seeds/est.py. Preserve all original480 results,
+their source and33.27159CPU production cost; their point descriptions may be
+reported but their ordinary rule-bootstrap CIs cannot be used as confidence
+statements. No claim that this explains all historical gain differences.
+
+Freeze kind23 seeds44100..44115 and kind12 seeds144100..144115, disjoint across
+all16 replicates within each model/budget. Retain intentional same-rule pairing
+across T/budget/model cases. Cost-only calibration remains unchanged (its64-face
+pilot used different seeds; no cross-replicate pilot estimates enter outcomes).
+Use EXACT same saved face counts, cost definitions, models, budgets, statistical
+recipe and diagnostics. Save to separate independent_panel_T*.json artifacts,
+preserving old panels. One bounded<=100CPU primary-lock cycle perT, no new
+truths or model sweeps. Do not choose between old/new estimates by accuracy.
 
 ## Results
 Pending. Commands and hashes will accompany artifacts.
