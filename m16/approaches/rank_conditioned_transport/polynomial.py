@@ -145,7 +145,6 @@ def conditional_expectations(model, hidden, axes, values, u, q, limit, stats, de
 
 def conditional_matrices(model, hidden, axes, u, q, limit, stats, deadline):
     """Sparse interpolation kernels, independent of continuation or label."""
-    from scipy.sparse import coo_matrix
     supports = (1-2*ndtr(-limit))*np.array([q, 1-q])
     triplets = [([], [], []), ([], [], [])]
     errors = np.zeros((len(hidden), 2))
@@ -162,11 +161,18 @@ def conditional_matrices(model, hidden, axes, u, q, limit, stats, deadline):
         # Four individually bounded basis integrals give a conservative sum
         # bound for the row operator acting on any continuation in[-1,1].
         np.add.at(errors, (rows, side), 4*bound)
+    matrices = assemble_matrices(triplets, len(hidden), axes, stats)
+    errors /= supports[None, :]
+    return matrices, float(np.max(errors))
+
+
+def assemble_matrices(triplets, nrows, axes, stats):
+    from scipy.sparse import coo_matrix
     matrices = []
     for rows, columns, weights in triplets:
         data = np.concatenate(weights)
         matrix = coo_matrix((data, (np.concatenate(rows), np.concatenate(columns))),
-                            shape=(len(hidden), len(axes[0])*len(axes[1]))).tocsr()
+                            shape=(nrows, len(axes[0])*len(axes[1]))).tocsr()
         matrix.eliminate_zeros()
         minimum = float(matrix.data.min()) if matrix.nnz else 0.
         defect = float(np.max(np.abs(np.asarray(matrix.sum(axis=1)).ravel()-1)))
@@ -178,5 +184,59 @@ def conditional_matrices(model, hidden, axes, u, q, limit, stats, deadline):
         if minimum < -1e-12 or defect > 1e-10:
             raise ArithmeticError('sparse conditional kernel failed probability guards')
         matrices.append(matrix)
-    errors /= supports[None, :]
-    return matrices, float(np.max(errors))
+    return matrices
+
+
+class StagePieces:
+    """Full-input pieces reused across target quantiles inside one estimate."""
+
+    def __init__(self, model, hidden, axes, limit, stats, deadline):
+        self.axes, self.limit, self.nrows = axes, limit, len(hidden)
+        fields = {name: [] for name in ('rows', 'lo', 'hi', 'columns', 's', 't', 'ds', 'dt', 'mass', 'bound')}
+        for rows, _, lo, hi, indices, fractions, increments in interval_geometry(
+                model, hidden, axes, -limit, limit, stats, deadline):
+            corners = tuple(np.broadcast_to(np.eye(4)[k], (len(lo), 4)) for k in range(4))
+            mass, bound = interval_integrals(lo, hi, corners, *fractions, *increments, stats)
+            columns = np.stack([ix*len(axes[1])+iy for ix, iy in indices], axis=1)
+            for key, value in zip(fields, (rows, lo, hi, columns, *fractions, *increments, mass, bound)):
+                fields[key].append(value)
+        for key, chunks in fields.items():
+            setattr(self, key, np.concatenate(chunks))
+        stats['polynomial_full_stage_caches_built'] += 1
+        stats['polynomial_cached_full_intervals'] += len(self.lo)
+        stats['polynomial_full_piece_array_bytes'] += sum(getattr(self, name).nbytes for name in fields)
+
+    def matrices(self, u, q, stats, deadline):
+        if time.process_time() > deadline:
+            raise TimeoutError('piece-cache conditional kernel CPU cap')
+        supports = (1-2*ndtr(-self.limit))*np.array([q, 1-q])
+        crossing = (self.lo < u) & (self.hi > u)
+        ids = np.flatnonzero(crossing)
+        triplets = [([], [], []), ([], [], [])]
+        errors = np.zeros((self.nrows, 2))
+        old_mid = (self.lo[ids]+self.hi[ids])/2
+        old_half = (self.hi[ids]-self.lo[ids])/2
+        for side in (0, 1):
+            complete = self.hi <= u if side == 0 else self.lo >= u
+            triplets[side][0].append(np.repeat(self.rows[complete], 4))
+            triplets[side][1].append(self.columns[complete].ravel())
+            triplets[side][2].append((self.mass[complete]/supports[side]).ravel())
+            np.add.at(errors[:, side], self.rows[complete], 4*self.bound[complete]/supports[side])
+            if not len(ids):
+                continue
+            lo = self.lo[ids] if side == 0 else np.full(len(ids), u)
+            hi = np.full(len(ids), u) if side == 0 else self.hi[ids]
+            mid, half = (lo+hi)/2, (hi-lo)/2
+            shift, shrink = (mid-old_mid)/old_half, half/old_half
+            s, t = self.s[ids]+self.ds[ids]*shift, self.t[ids]+self.dt[ids]*shift
+            ds, dt = self.ds[ids]*shrink, self.dt[ids]*shrink
+            corners = tuple(np.broadcast_to(np.eye(4)[k], (len(ids), 4)) for k in range(4))
+            mass, bound = interval_integrals(lo, hi, corners, s, t, ds, dt, stats)
+            triplets[side][0].append(np.repeat(self.rows[ids], 4))
+            triplets[side][1].append(self.columns[ids].ravel())
+            triplets[side][2].append((mass/supports[side]).ravel())
+            np.add.at(errors[:, side], self.rows[ids], 4*bound/supports[side])
+            stats['polynomial_partial_target_intervals'] += len(ids)
+        stats['polynomial_stage_piece_cache_queries'] += 1
+        matrices = assemble_matrices(triplets, self.nrows, self.axes, stats)
+        return matrices, float(np.max(errors))
