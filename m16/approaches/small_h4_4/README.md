@@ -45,3 +45,8 @@ Hypothesis: known prefix-rank and ReLU transitions cause conditional probability
 
 ### Cycle 4 protocol
 Use the T55 positive fallback (upstream86c3759) and retain all fallback counts, nodes, and the outer-weighted sum of its quadrature bounds. Those bounds do not cover outer discretization or floating geometry. Run unchanged prefix-split GL4, GL8 and subdivided GL8 on original plus the two predeclared noisy models. Full-cycle CPU cap remains115 seconds; each completed rule is saved immediately. No rule is selected using sampled accuracy.
+
+### Cycle 4 result
+`python m16/approaches/small_h4_4/run.py /path/H4_T4_seed0.pth --mode prefix --rules 4:1,8:1,8:2 --output prefix_noise_results.json` under the common lock/thread/memory settings completed in73.30 CPU seconds. Final subdivided-GL8 estimates are0.4769827522/0.5014803932/0.3638047717 for noise0/.0025/.02, costing13.82/14.56/13.56 seconds per estimate. The GL8-to-subdivided-GL8 changes are+0.00013345/+0.00015422/-0.00009597, versus equal-CPU sampling standard errors0.00005982/0.00005705/0.00005979. These changes are not rigorous errors, but prevent a credible efficiency claim without a stronger reference. Independent262144-input truth estimates are0.47709656/0.50111771/0.36341858 with standard errors around0.00094–0.00098, too imprecise for that comparison.
+
+The .0025 model used one16-node positive fallback at GL4 and one at subdividedGL8. Weighted fallback quadrature bounds were below4e-33; this excludes float geometry/roundoff and does not bound the dominant outer integration error. No moment guards failed after the fix. The shared T55 contribution is upstream86c3759; root integrated it separately.
