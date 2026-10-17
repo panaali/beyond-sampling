@@ -4,7 +4,7 @@ import importlib.util
 import math
 import sys
 import numpy as np
-from scipy.special import beta,betainc
+from scipy.special import beta,betainc,hyp2f1
 
 SOURCE=Path('/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals')
 sys.path.insert(0,str(SOURCE))
@@ -49,7 +49,7 @@ def stable_arc(a,b,theta,degree,stats=None):
         add(stats,arc_integer_power_calls=2*(n-1)+1,arc_recurrence_steps=1,arc_scalar_arithmetic=2*(n-1)+8)
     return out
 
-def positive_arc(a,b,theta,degree,stats=None):
+def positive_arc(a,b,theta,degree,stats=None,endpoint=False):
     if degree<0 or degree%2 or not 0<=theta<=math.pi:raise ValueError('even degree and minor arc required')
     out=[float(theta)]
     add(stats,arc_chains=1,arc_values=degree//2+1)
@@ -61,8 +61,17 @@ def positive_arc(a,b,theta,degree,stats=None):
         value=0.
         for j in range(0,n+1,2):
             p=(j+1)/2;q=(n-j+1)/2
-            value+=math.comb(n,j)*A**(n-j)*B**j*float(beta(p,q)*betainc(p,q,z))
-            add(stats,arc_beta_calls=1,arc_betainc_calls=1,arc_integer_power_calls=2,arc_binomial_calls=1,arc_scalar_arithmetic=9)
+            if endpoint and theta<=math.pi/2:
+                mass=s**(j+1)/p*float(hyp2f1(p,1-q,p+1,z))
+                add(stats,arc_hyp2f1_calls=1,arc_integer_power_calls=1,arc_scalar_arithmetic=4)
+            elif endpoint:
+                mass=float(beta(p,q)*(1-betainc(q,p,c*c)))
+                add(stats,arc_beta_calls=1,arc_betainc_calls=1,arc_scalar_arithmetic=3)
+            else:
+                mass=float(beta(p,q)*betainc(p,q,z))
+                add(stats,arc_beta_calls=1,arc_betainc_calls=1,arc_scalar_arithmetic=1)
+            value+=math.comb(n,j)*A**(n-j)*B**j*mass
+            add(stats,arc_integer_power_calls=2,arc_binomial_calls=1,arc_scalar_arithmetic=8)
         out.append(value)
     return out
 
@@ -101,3 +110,8 @@ def module_for(arc):
 
 stable=module_for(stable_arc)
 positive=module_for(positive_arc)
+
+def endpoint_arc(a,b,theta,degree,stats=None):
+    return positive_arc(a,b,theta,degree,stats,endpoint=True)
+
+endpoint=module_for(endpoint_arc)
