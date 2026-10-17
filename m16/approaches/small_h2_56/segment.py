@@ -7,7 +7,10 @@ from functools import lru_cache
 from math import pi
 import time
 import numpy as np
-from volume import gl
+try:
+ from .volume import gl
+except ImportError:
+ from volume import gl
 from scipy.special import roots_jacobi
 
 

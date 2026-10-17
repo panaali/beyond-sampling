@@ -5,9 +5,12 @@ import sys,hashlib
 import numpy as np
 from scipy.special import roots_jacobi
 PARENT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(PARENT))
-from segment import inverse_fifth_segment
-sys.path.pop(0)
+try:
+ from ..segment import inverse_fifth_segment
+except ImportError:
+ sys.path.insert(0,str(PARENT))
+ from segment import inverse_fifth_segment
+ sys.path.pop(0)
 SOURCE=PARENT.parent/'feynman_fundamentals'
 if not (SOURCE/'chebyshev_positive.py').exists():SOURCE=Path('/workspace/clean-neurons/m16/approaches/feynman_fundamentals')
 sys.path.insert(0,str(SOURCE))

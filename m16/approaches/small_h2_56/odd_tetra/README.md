@@ -102,3 +102,6 @@ The full scalar bounds include geometry, rules, bounds, rejected analytic attemp
 `estimator.est(model,budget,rng)` exposes the required interface; its fixed24 rule treats the budget as advisory and never uses rng or reference estimates. Until independent cost review the adapter conservatively returns infinite cost, while `calculate` exposes the complete proposed inventory. `COUNTING.md` gives the explicit line-group proof obligations. The worst reference-interval MSE ratio is below .014, conditional on those reference intervals and floating geometry; this is not a completed challenge claim.
 
 Reproduce with the same thread/memory/lock prefix as above and script `odd_tetra/counted_full.py`. That script preserves all three cases, geometry diagnostics, source hashes, counters and failures. Validation CPU8.274 seconds, peak RSS221MB.
+
+## Interface check
+Package import and provided-model `calculate` complete on the base checkpoint with the unchanged estimate .27923737131514975 and full proposed count204,838,914, including128 operations for weight validation. `interface_check.json` records1.467 CPU. The thin adapter returns infinite cost while independent review is pending, and does not inspect rng; budget remains advisory. Relative imports avoid collisions with other agents' modules named `volume` or `segment`.
