@@ -1,4 +1,4 @@
-"""T165 scoring. usage: OMP_NUM_THREADS=1 python ev.py 44|43k20  -> ev_<tag>.json, <=10 summary lines.
+"""T165 scoring. usage: OMP_NUM_THREADS=1 python ev.py 44|54|64|43k20 (H>4: recipe not run)  -> ev_<tag>.json, <=10 summary lines.
 Panel: zoo seeds 0-4 clean + 4 ARC noisy copies each (abs sigma 0.05, noise seed 50, as run87).
 Truth: MC 1e7 (rng 7 noisy / 100+s clean, as run87) and a high-resolution Hopf reference (validated against MC).
 Sampling baseline: RMSE^2 = p(1-p)/(ops/ops_per_sample), ops_per_sample = T H (H+1) + T H (as run87).
@@ -13,13 +13,13 @@ from m43 import Ops
 from zoo44 import zoo, mc_acc, ops_per_sample
 from zoo43 import noisy_copies
 import hopf
-tag = sys.argv[1]; T = 4 if tag == "44" else 3; H = 4; OPS_S = ops_per_sample(H, T)
+tag = sys.argv[1]; T = 3 if tag == "43k20" else 4; H = int(tag[0]); OPS_S = ops_per_sample(H, T)
 LEVELS = (8, 16, 32, 64) if T == 4 else (16, 64, 256, 1024); REF = 128 if T == 4 else 16384
 
 
 def base(s):
     if T == 4:
-        return zoo(4, 4, s)
+        return zoo(H, 4, s)
     import lt
     return tuple(np.asarray(w, float) for w in lt.zoo(20, s))
 
@@ -42,12 +42,14 @@ def ratio(rows, key, ops_key, truth="ref"):
     return float(max(mse, 0) / (np.mean(p * (1 - p)) / (np.mean([q[ops_key] for q in rows]) / OPS_S)))
 
 
-R87 = json.load(open(os.path.join(HERE, "..", "understand_m43", "run87.json"))) if T == 4 else None
+R87 = json.load(open(os.path.join(HERE, "..", "understand_m43", "run87.json"))) if (T, H) == (4, 4) else None
 out = {}
 for s in range(5):
     b = base(s); rows = []
     for i, m in enumerate([b] + noisy_copies(b, 4, 0.05, 50)):
-        if T == 4:
+        if R87 is None and T == 4:
+            mc = mc_acc(m, 10_000_000, np.random.default_rng(100 + s if i == 0 else 7)); rec = (np.nan, 1)
+        elif T == 4:
             q = R87["clean"][str(s)] if i == 0 else R87["noisy"][str(s)]["rows"][i - 1]
             mc = q["mc1e7"] if i == 0 else q["truth"]; rec = (q["est"], q["ops"])
         else:
