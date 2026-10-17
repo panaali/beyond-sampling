@@ -74,3 +74,26 @@ cases. Positive scale1e-16 discrepancy is5.56e-17; full constant/duplicate
 retained-mass checks pass. At h9,664 cached pieces and398 knots expand1190
 baseline panels to1532, within the frozen2000 cap. Cache setup .076CPU and
 47,008 bytes; full plane/intersection/envelope counts in controls.json.
+
+## Frozen pilot: component benefit, total and precision gates fail
+`pilot.py` completes all four integrations in50.711CPU seconds.
+
+| Variant | GL4 total | Total error | Label2 error | GL2/4 change | GL4 CPU |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| baseline | .307723248833984 | -.000007494190 | +.003055119024 | 3.96e-12 | 17.370 |
+| cached penultimate | .304211864775995 | -.003518878248 | -.000456265034 | 1.77e-7 | 16.899 |
+
+Label2 absolute error decreases6.70x and component L2 decreases from.00432411
+to.00309392. The other contributions are unchanged; total accuracy worsens
+because the original positive label2 bias cancelled the negative label0 bias.
+The fixed cache also fails the strict1e-7 GL2/4 stability gate, so the pilot
+is not a numerical-convergence certificate. That drift is much smaller than
+the measured component/total changes, but no precision claim is relaxed.
+No higher outer order, mesh sweep, estimator combination or noise expansion
+is run. Cost is full CPU with partial named counters; no sampling win.
+
+This bounded result supports removing a measured component interpolation
+error, while rejecting the tested full-accuracy recipe and leaving remaining
+outer error unresolved. It does not reject exact terminal caching or the
+transport family. Independent source/boundary review is requested; numerical
+pilot remains author-run until DRI acceptance.
