@@ -851,6 +851,20 @@
           "n_r2_at_least_0_8": 8,
           "mean_r2": 0.45868073598885906,
           "rescued": false
+        },
+        {
+          "family": "rank_values",
+          "budget": 20,
+          "accuracy": 0.194815,
+          "accuracy_ci": [
+            0.19308509863958145,
+            0.19655662469134705
+          ],
+          "gap": 0.10601198595675214,
+          "converged": true,
+          "n_r2_at_least_0_8": 8,
+          "mean_r2": 0.46015672384963163,
+          "rescued": true
         }
       ]
     },
@@ -986,6 +1000,20 @@
           "rescued": true
         },
         {
+          "family": "position_polynomial",
+          "budget": 20,
+          "accuracy": 0.908945,
+          "accuracy_ci": [
+            0.9076763110174626,
+            0.9101979798304936
+          ],
+          "gap": 0.9055996507215064,
+          "converged": false,
+          "n_r2_at_least_0_8": 18,
+          "mean_r2": 0.7470054948837732,
+          "rescued": true
+        },
+        {
           "family": "rank_values",
           "budget": 1,
           "accuracy": 0.100585,
@@ -1040,6 +1068,20 @@
           "n_r2_at_least_0_8": 9,
           "mean_r2": 0.41129931569829364,
           "rescued": false
+        },
+        {
+          "family": "rank_values",
+          "budget": 20,
+          "accuracy": 0.19214,
+          "accuracy_ci": [
+            0.19041924673598365,
+            0.19387257935199464
+          ],
+          "gap": 0.10314910385437774,
+          "converged": true,
+          "n_r2_at_least_0_8": 9,
+          "mean_r2": 0.4156519382355819,
+          "rescued": true
         }
       ]
     },
@@ -1105,6 +1147,20 @@
           "rescued": true
         },
         {
+          "family": "fourier",
+          "budget": 20,
+          "accuracy": 0.92595,
+          "accuracy_ci": [
+            0.9247942037002547,
+            0.9270894339201757
+          ],
+          "gap": 0.926607357214176,
+          "converged": false,
+          "n_r2_at_least_0_8": 22,
+          "mean_r2": -0.13790751353635017,
+          "rescued": true
+        },
+        {
           "family": "position_polynomial",
           "budget": 1,
           "accuracy": 0.100485,
@@ -1131,6 +1187,48 @@
           "n_r2_at_least_0_8": 12,
           "mean_r2": 0.4260481024506605,
           "rescued": false
+        },
+        {
+          "family": "position_polynomial",
+          "budget": 5,
+          "accuracy": 0.183495,
+          "accuracy_ci": [
+            0.1818046986615944,
+            0.1851974595141204
+          ],
+          "gap": 0.0936704174473002,
+          "converged": false,
+          "n_r2_at_least_0_8": 17,
+          "mean_r2": 0.6417365873177691,
+          "rescued": true
+        },
+        {
+          "family": "position_polynomial",
+          "budget": 10,
+          "accuracy": 0.22926,
+          "accuracy_ci": [
+            0.22742294931631862,
+            0.2311074508495335
+          ],
+          "gap": 0.14501273320843194,
+          "converged": false,
+          "n_r2_at_least_0_8": 18,
+          "mean_r2": 0.7063613328967954,
+          "rescued": true
+        },
+        {
+          "family": "position_polynomial",
+          "budget": 20,
+          "accuracy": 0.92629,
+          "accuracy_ci": [
+            0.9251366244707522,
+            0.9274270000889688
+          ],
+          "gap": 0.9269887925328427,
+          "converged": false,
+          "n_r2_at_least_0_8": 22,
+          "mean_r2": 0.6222920725188816,
+          "rescued": true
         },
         {
           "family": "rank_values",
@@ -1173,12 +1271,40 @@
           "n_r2_at_least_0_8": 12,
           "mean_r2": 0.43686536522054586,
           "rescued": false
+        },
+        {
+          "family": "rank_values",
+          "budget": 10,
+          "accuracy": 0.191985,
+          "accuracy_ci": [
+            0.1902647807223868,
+            0.19371705131973824
+          ],
+          "gap": 0.10319508172812634,
+          "converged": true,
+          "n_r2_at_least_0_8": 12,
+          "mean_r2": 0.4081670956513089,
+          "rescued": true
+        },
+        {
+          "family": "rank_values",
+          "budget": 20,
+          "accuracy": 0.19176,
+          "accuracy_ci": [
+            0.19004055663062921,
+            0.19349128405461222
+          ],
+          "gap": 0.10294266129665572,
+          "converged": true,
+          "n_r2_at_least_0_8": 12,
+          "mean_r2": 0.4343192190642309,
+          "rescued": true
         }
       ]
     }
   ],
-  "rescue_count": 16,
-  "rescue_converged": 7,
+  "rescue_count": 25,
+  "rescue_converged": 11,
   "unresolved": [
     {
       "H": 16,
@@ -1623,6 +1749,69 @@
     },
     {
       "H": 32,
+      "seed": 1,
+      "family": "position_polynomial",
+      "budget": 20,
+      "solver": {
+        "initial_mse": 0.5457624798996084,
+        "train_mse": 0.5453395890186233,
+        "original_gradient_inf": 3.5100034528193063e-06,
+        "threshold": 1e-07,
+        "converged": false,
+        "worse_than_initial": false,
+        "condition_R": 17.45491713977879,
+        "rank": 20,
+        "factorization_error": 7.988054662178001e-14,
+        "initial_transform_error": 2.7915447731174936e-12,
+        "final_transform_error": 1.162625551387464e-11,
+        "objective_evals": 8130,
+        "original_gradient_evaluations": 5,
+        "segments": [
+          {
+            "segment": 0,
+            "iterations": 2000,
+            "objective_evals": 2023,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 0.5454930192315525,
+            "original_gradient_inf": 3.874452048570639e-06,
+            "transformed_gradient_inf": 3.1982277214092556e-06
+          },
+          {
+            "segment": 1,
+            "iterations": 2000,
+            "objective_evals": 2038,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 0.5454252675463332,
+            "original_gradient_inf": 3.6343408917470092e-06,
+            "transformed_gradient_inf": 2.2600952035042703e-06
+          },
+          {
+            "segment": 2,
+            "iterations": 2000,
+            "objective_evals": 2036,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 0.5453882485293208,
+            "original_gradient_inf": 4.1515932789977825e-06,
+            "transformed_gradient_inf": 2.685732359894432e-06
+          },
+          {
+            "segment": 3,
+            "iterations": 2000,
+            "objective_evals": 2033,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 0.5453395890186233,
+            "original_gradient_inf": 3.5100034528193063e-06,
+            "transformed_gradient_inf": 2.79686194383524e-06
+          }
+        ]
+      }
+    },
+    {
+      "H": 32,
       "seed": 2,
       "family": "fourier",
       "budget": 5,
@@ -1746,11 +1935,263 @@
           }
         ]
       }
+    },
+    {
+      "H": 32,
+      "seed": 2,
+      "family": "fourier",
+      "budget": 20,
+      "solver": {
+        "initial_mse": 1.5885314525694885,
+        "train_mse": 1.5883678189565713,
+        "original_gradient_inf": 2.0793895009217277e-06,
+        "threshold": 1e-07,
+        "converged": false,
+        "worse_than_initial": false,
+        "condition_R": 5.970762402432566,
+        "rank": 20,
+        "factorization_error": 1.2434497875801753e-14,
+        "initial_transform_error": 1.808153626825515e-11,
+        "final_transform_error": 2.18192131029582e-11,
+        "objective_evals": 8183,
+        "original_gradient_evaluations": 5,
+        "segments": [
+          {
+            "segment": 0,
+            "iterations": 2000,
+            "objective_evals": 2045,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.5884983725315038,
+            "original_gradient_inf": 4.354617815309025e-06,
+            "transformed_gradient_inf": 3.4492791997314902e-06
+          },
+          {
+            "segment": 1,
+            "iterations": 2000,
+            "objective_evals": 2050,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.5884192711552092,
+            "original_gradient_inf": 3.173746212427057e-05,
+            "transformed_gradient_inf": 4.326157671923331e-05
+          },
+          {
+            "segment": 2,
+            "iterations": 2000,
+            "objective_evals": 2037,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.588382920630101,
+            "original_gradient_inf": 1.9994245319021203e-05,
+            "transformed_gradient_inf": 1.2433863330385464e-05
+          },
+          {
+            "segment": 3,
+            "iterations": 2000,
+            "objective_evals": 2051,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.5883678189565713,
+            "original_gradient_inf": 2.0793895009217277e-06,
+            "transformed_gradient_inf": 1.9601170372487803e-06
+          }
+        ]
+      }
+    },
+    {
+      "H": 32,
+      "seed": 2,
+      "family": "position_polynomial",
+      "budget": 5,
+      "solver": {
+        "initial_mse": 3.5521195100146907,
+        "train_mse": 3.550639326971058,
+        "original_gradient_inf": 1.4813896494353403e-05,
+        "threshold": 1e-07,
+        "converged": false,
+        "worse_than_initial": false,
+        "condition_R": 5.939520573938568,
+        "rank": 5,
+        "factorization_error": 1.2434497875801753e-14,
+        "initial_transform_error": 3.069544618483633e-11,
+        "final_transform_error": 4.843059286940843e-11,
+        "objective_evals": 8303,
+        "original_gradient_evaluations": 5,
+        "segments": [
+          {
+            "segment": 0,
+            "iterations": 2000,
+            "objective_evals": 2089,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 3.551408718239493,
+            "original_gradient_inf": 1.6688346612406654e-05,
+            "transformed_gradient_inf": 1.7616408025392992e-05
+          },
+          {
+            "segment": 1,
+            "iterations": 2000,
+            "objective_evals": 2089,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 3.5509111122622246,
+            "original_gradient_inf": 2.6827020547497727e-05,
+            "transformed_gradient_inf": 2.3609988651344487e-05
+          },
+          {
+            "segment": 2,
+            "iterations": 2000,
+            "objective_evals": 2055,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 3.550703500080035,
+            "original_gradient_inf": 1.1214625001288767e-05,
+            "transformed_gradient_inf": 1.4199311775027176e-05
+          },
+          {
+            "segment": 3,
+            "iterations": 2000,
+            "objective_evals": 2070,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 3.550639326971058,
+            "original_gradient_inf": 1.4813896494353403e-05,
+            "transformed_gradient_inf": 9.212348926493475e-06
+          }
+        ]
+      }
+    },
+    {
+      "H": 32,
+      "seed": 2,
+      "family": "position_polynomial",
+      "budget": 10,
+      "solver": {
+        "initial_mse": 2.357041972700211,
+        "train_mse": 2.3551181418634575,
+        "original_gradient_inf": 4.126188314128809e-06,
+        "threshold": 1e-07,
+        "converged": false,
+        "worse_than_initial": false,
+        "condition_R": 8.366994874575163,
+        "rank": 10,
+        "factorization_error": 2.1538326677728037e-14,
+        "initial_transform_error": 1.3301360013429075e-11,
+        "final_transform_error": 4.411049303598702e-11,
+        "objective_evals": 8331,
+        "original_gradient_evaluations": 5,
+        "segments": [
+          {
+            "segment": 0,
+            "iterations": 2000,
+            "objective_evals": 2091,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 2.355823739206671,
+            "original_gradient_inf": 2.963207976477785e-05,
+            "transformed_gradient_inf": 2.972902559388361e-05
+          },
+          {
+            "segment": 1,
+            "iterations": 2000,
+            "objective_evals": 2098,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 2.355656263261497,
+            "original_gradient_inf": 1.9584038210243333e-05,
+            "transformed_gradient_inf": 3.0632804491335895e-05
+          },
+          {
+            "segment": 2,
+            "iterations": 2000,
+            "objective_evals": 2080,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 2.355413351236717,
+            "original_gradient_inf": 1.5706532952830903e-05,
+            "transformed_gradient_inf": 1.577671374063751e-05
+          },
+          {
+            "segment": 3,
+            "iterations": 2000,
+            "objective_evals": 2062,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 2.3551181418634575,
+            "original_gradient_inf": 4.126188314128809e-06,
+            "transformed_gradient_inf": 6.027608319099758e-06
+          }
+        ]
+      }
+    },
+    {
+      "H": 32,
+      "seed": 2,
+      "family": "position_polynomial",
+      "budget": 20,
+      "solver": {
+        "initial_mse": 1.5892319392043874,
+        "train_mse": 1.588673664949256,
+        "original_gradient_inf": 2.924825006370942e-06,
+        "threshold": 1e-07,
+        "converged": false,
+        "worse_than_initial": false,
+        "condition_R": 17.45491713977879,
+        "rank": 20,
+        "factorization_error": 7.988054662178001e-14,
+        "initial_transform_error": 7.58326734739967e-12,
+        "final_transform_error": 1.7006840380417998e-11,
+        "objective_evals": 8240,
+        "original_gradient_evaluations": 5,
+        "segments": [
+          {
+            "segment": 0,
+            "iterations": 2000,
+            "objective_evals": 2059,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.5889408057739844,
+            "original_gradient_inf": 1.0865779724454142e-05,
+            "transformed_gradient_inf": 1.0769386515451775e-05
+          },
+          {
+            "segment": 1,
+            "iterations": 2000,
+            "objective_evals": 2060,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.5888617627439,
+            "original_gradient_inf": 9.825962145110122e-06,
+            "transformed_gradient_inf": 8.834399546457784e-06
+          },
+          {
+            "segment": 2,
+            "iterations": 2000,
+            "objective_evals": 2062,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.5888014601761709,
+            "original_gradient_inf": 1.1978162791183133e-05,
+            "transformed_gradient_inf": 1.6095662453219963e-05
+          },
+          {
+            "segment": 3,
+            "iterations": 2000,
+            "objective_evals": 2059,
+            "success": false,
+            "message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+            "train_mse": 1.588673664949256,
+            "original_gradient_inf": 2.924825006370942e-06,
+            "transformed_gradient_inf": 2.940130432791055e-06
+          }
+        ]
+      }
     }
   ],
-  "complete": false,
-  "additional_cpu": 135.019758245,
-  "additional_hidden_passes": 1272000,
+  "complete": true,
+  "additional_cpu": 228.058551441,
+  "additional_hidden_passes": 1908000,
   "max_transform_prediction_discrepancy": 4.2249226339663437e-10,
-  "additional_objective_gradient_evaluations": 91246
+  "additional_objective_gradient_evaluations": 142604
 }

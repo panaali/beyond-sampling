@@ -21,7 +21,7 @@ Report held-out accuracy/Wilson interval, paired adjacent-budget differences, so
 Alternatives: (1) old cap-limited fitting explains the curve: compare frozen initial/first-segment/final training diagnostics, not just accuracy; (2) feature order matters: compare fixed prefixes and equal full-span Fourier/polynomial endpoints; (3) source seed explains apparent width effect: report all three paired seeds; (4) output sensitivity differs from activation error: report both metrics. No causal neuron-role claim follows from reconstruction.
 
 ## Status
-All90 original fits complete; separately claimed QR conditioning rescue follows. Independent T55 theory/source review145d6db passes full-span and parameter-count claims.
+All90 original fits and25 prescribed QR rescues complete.76/90 final cells meet the frozen gradient criterion;14 remain unresolved. The requested fully converged sweep is therefore incomplete. Independent T55 theory/source review145d6db passes full-span and parameter-count claims.
 
 ## Results
 Original frozen phase:65/90 fits satisfy the declared first-order criterion;25 remain unresolved after the maximum four segments. Every solver status and failed criterion is retained. Independent scalar feature controls agree <=1.56e-15; full position-basis span residual1.33e-15, transform condition11.87.
@@ -30,11 +30,15 @@ At20 coefficients/neuron, Fourier reconstruction for H16 seeds0/1/2 is73.681%,70
 
 `summary.json` preserves all per-model/family/budget values and convergence flags. Reproduce one model with `python run.py --H 16 --seed 0` (existing completed panels are preserved; use a fresh folder for refitting), controls with `python check.py`, audit with `python summarize.py`. QR follow-up is separately frozen in QR_PROTOCOL.md; original files are immutable during it.
 
+QR rescue resolves11 of25 failed criteria, so76/90 final fits pass;14 remain unresolved (one H16,13 H32). All6 rank-only20-feature fits now pass the same first-order criterion and remain poor predictors (15.26–19.48%). The fixed full-span H32 reconstruction successes persist. QR changes test accuracy by at most0.040 percentage points across attempted cells; no threshold was relaxed. `qr_summary.json` reports original-plus-rescue curves without test-based selection. This finite optimization failure does not show that converged fits are unavailable.
+
 ## Compute accounting
-One thread,2GB, shared compute lock and <=110CPU per model cycle. Include input generation/sorting, forward targets, all optimization objective calls, reconstruction/readout work, setup and checkpoint time. No source-network training or LP solves. This research is not an estimator-cost benchmark; no equal-FLOP sampling claim.
+One thread,2GB, shared compute lock and <=110CPU per model cycle. Include input generation/sorting, forward targets, all optimization objective calls, reconstruction/readout work, setup and checkpoint time. Original phase365.05948 recordedCPU and1,908,000 hidden sequence passes (nine process preparations, including resumed models), plus9,216 independent NumPy recurrence checks. QR phase228.05855 recordedCPU and1,908,000 additional hidden passes (nine preparations), plus142,604 recorded objective/gradient evaluations. Combined593.11803 recordedCPU, excluding Python imports/control scripts and tiny final write overhead. Raw per-panel original `model_hidden_forward_sequences=212000` is per preparation; summary explicitly multiplies by attempt count so repeated setup is charged. No source-network training or LP solves. This research is not an estimator-cost benchmark; no equal-FLOP sampling claim.
 
 ## Claims
-[speculative] Budget sensitivity persists after controlling solver status and source seed.
+[measured] Six20-feature Fourier/polynomial H32 predictors exceed90% gap recovery on the three frozen source seeds; their convergence failures remain explicit.
+[measured] QR resolves11 original failures without relaxing their criterion.
+[inferred] This study remains incomplete as a fully converged sweep; unresolved numerical fits cannot establish a feature-capacity limit.
 [inferred] Equal full feature spans distinguish basis/conditioning effects from different representational capacity.
 
 ## Alternatives not ruled out
