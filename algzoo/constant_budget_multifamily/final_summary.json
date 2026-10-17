@@ -1057,7 +1057,7 @@
         {
           "family": "fourier",
           "budget": 10,
-          "stage": "active",
+          "stage": "correction",
           "accuracy": 0.23479,
           "accuracy_ci": [
             0.23293745764326043,
@@ -1065,20 +1065,20 @@
           ],
           "gap": 0.15121666647968857,
           "r2_count": 19,
-          "converged": false
+          "converged": true
         },
         {
           "family": "fourier",
           "budget": 20,
-          "stage": "active",
-          "accuracy": 0.92597,
+          "stage": "correction",
+          "accuracy": 0.925955,
           "accuracy_ci": [
-            0.9248143459028234,
-            0.9271092909493298
+            0.9247992392486083,
+            0.9270943981797527
           ],
-          "gap": 0.9266297945858621,
+          "gap": 0.9266129665570975,
           "r2_count": 22,
-          "converged": false
+          "converged": true
         },
         {
           "family": "position_polynomial",
@@ -1122,7 +1122,7 @@
         {
           "family": "position_polynomial",
           "budget": 10,
-          "stage": "active",
+          "stage": "correction",
           "accuracy": 0.229275,
           "accuracy_ci": [
             0.22743790669049932,
@@ -1130,7 +1130,7 @@
           ],
           "gap": 0.14502956123719668,
           "r2_count": 18,
-          "converged": false
+          "converged": true
         },
         {
           "family": "position_polynomial",
@@ -1213,35 +1213,13 @@
       ]
     }
   ],
-  "final_converged": 87,
+  "final_converged": 90,
   "final_cells": 90,
   "active_cells": 14,
-  "unresolved": [
-    {
-      "H": 32,
-      "seed": 2,
-      "family": "fourier",
-      "budget": 10,
-      "stage": "active",
-      "gradient": 4.6059224412036324e-06
-    },
-    {
-      "H": 32,
-      "seed": 2,
-      "family": "fourier",
-      "budget": 20,
-      "stage": "active",
-      "gradient": 1.907354915990955e-06
-    },
-    {
-      "H": 32,
-      "seed": 2,
-      "family": "position_polynomial",
-      "budget": 10,
-      "stage": "active",
-      "gradient": 8.769489633615393e-06
-    }
-  ],
+  "unresolved": [],
+  "correction_cells": 3,
+  "correction_cpu": 0.835943012,
+  "correction_hidden_passes": 212000,
   "complete": true,
   "active_cpu": 5.390246622,
   "active_hidden_passes": 848000,
