@@ -57,3 +57,14 @@ class Binary:
         v=tuple(np.where(zero,0.,x) for x in v)
         self.counts['infinite_output_bounds']+=int(np.isinf(v[1]).sum())
         return v
+    def sum(self,interval):
+        """Pairwise outward positive sum; no ordinary floating reduction."""
+        lo,hi=np.broadcast_arrays(np.asarray(interval[0],float),np.asarray(interval[1],float));lo=lo.ravel();hi=hi.ravel()
+        if np.isnan(lo).any() or np.isnan(hi).any() or (lo<0).any() or (hi<lo).any():raise ValueError('ordered nonnegative intervals required')
+        if not len(lo):return self.point(0)
+        with np.errstate(over='ignore',under='ignore',invalid='ignore'):
+            while len(lo)>1:
+                n=len(lo)//2;a,b=self.add((lo[:2*n:2],hi[:2*n:2]),(lo[1:2*n:2],hi[1:2*n:2]))
+                if len(lo)%2:a=np.append(a,lo[-1]);b=np.append(b,hi[-1])
+                lo,hi=a,b
+        return lo[0],hi[0]
