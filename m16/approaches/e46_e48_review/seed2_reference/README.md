@@ -12,7 +12,7 @@ partials. No source/positive mass evaluation, random inputs, Monte Carlo or
 new candidate prediction. Geometry still performs charged neural affine updates.
 
 Status: capture complete; complementary recover_56 execution gate passed for
-d1f4e23e. Independent saved audit pending. Prior loader/guard/source controls
+d1f4e23e. Independent saved audit c8fff4dd passed. Prior loader/guard/source controls
 and existing seed0/1 capture audits are reused unchanged, not rerun.
 
 Results: one attempt saved96 parents,37739 error simplices and9470 terminal
@@ -64,3 +64,19 @@ verification cost. No pilot source or numerical calls have been made yet.
 
 Capture count `mass_evaluations=0` means zero Gaussian numerical evaluations;
 the source function named `mass` still performs charged cone triangulation.
+
+## Fixed64 pilot source
+
+Scope update130a293d prepares pilot.py; capture independently reviewedc8fff4dd.
+Actual37739-ray stream and all source/reviewer pins frozen. Uniform64 indices
+include both endpoints. All64 exact KKT certificates are persisted and checked
+with independent Gram, slack, objective and24-term determinants before either
+numerical method runs. Candidate source/finite-order selector is unchanged.
+The diagnostic uses fixed GL32 in three dimensions and MP80 conditional bounds
+with explicit exact-determinant to float-factor correction. All finite failures
+and loose bounds remain; no rule tuning. Separate reference kernel arithmetic
+39*32^3+1 per cone and cold18*32^3+3*32 are named subsets, with3 reference constant
+operations separate. Adapter imports, exact validation, MP, Legendre/native
+internals and storage remain separately charged/qualified. Pilot source gate
+pending; no probability evaluations yet. One review-lock20CPU attempt with18CPU
+soft stop; output and progress refuse overwrite.
