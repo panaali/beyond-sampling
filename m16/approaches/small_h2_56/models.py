@@ -2,9 +2,9 @@ import hashlib
 from pathlib import Path
 import numpy as np
 
-def load(t):
+def load(t,seed=0):
  import torch
- p=Path(f'/workspace/clean-neurons/work/checkpoints/H2_T{t}_seed0.pth')
+ p=Path(f'/workspace/clean-neurons/work/checkpoints/H2_T{t}_seed{seed}.pth')
  sd=torch.load(p,weights_only=True,map_location='cpu')
  return (sd['rnn.weight_ih_l0'].numpy().astype(float).ravel(),sd['rnn.weight_hh_l0'].numpy().astype(float),sd['linear.weight'].numpy().astype(float)),hashlib.sha256(p.read_bytes()).hexdigest()
 def noisy(model,sigma):

@@ -95,3 +95,8 @@ For T6, use the whole-simplex upper bound Gamma(d/2)|detV|*a^(-d/2)/[2pi^(d/2)(d
 
 ## Cross-seed protocol
 Root approved all five full-training T5 seeds, same tolerance1e-4, identical code and no outcome-based selection. Seed0 is already evaluated. Next run seeds1,2 then3,4 in bounded cycles<=120 CPU seconds, preserve every estimate and failure, and record checkpoint hashes. New-model validation uses131072 Gaussian inputs (seed48001, chunks65536); no additional MC is run on existing cases. Full gate-partition checks accompany new seeds. T6 work uses T55's separately validated inverse-sixth segment primitive, retaining its series-error/roundoff qualifications.
+
+## Cross-seed replication, first batch
+Fixed-protocol training seeds1 and2 complete. Seed1 accuracy0.27920628913235723 with quadrature bound2.62342e-5; full partition1.0000000000998137; validation discrepancy1.58SE. Seed2 accuracy0.3047754587821175 with bound2.24263e-5; full partition1.0000000000157727; validation discrepancy0.36SE. Geometry omissions are bounded by1.65e-14 and2.91e-13. Accuracy integrals use10.45M and51.29M numerical nodes respectively, showing real cross-seed cost variability. Both full geometry and full partition costs are retained in `crossseed_1_2.json`; batch CPU25.19 seconds,249MB peakRSS. No seed was selected by accuracy or cost. Seeds3,4 are the next already-frozen batch.
+
+Reproduce: `crossseed.py 1 2` or `crossseed.py 3 4`, with the shared-lock, single-thread and memory-limit command used for earlier cycles. Checkpoint SHA256 values are recorded per seed.
