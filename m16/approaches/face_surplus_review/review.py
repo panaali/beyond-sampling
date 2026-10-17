@@ -103,6 +103,27 @@ def model(t,sigma):
     return tuple(a+sigma*np.sqrt(np.mean(a*a))*rng.standard_normal(a.shape) for a in arrays)
 
 
+def knot_controls(anchors,t,family,axis):
+    residuals=[];active=[]
+    for anchor in anchors:
+        cuts=geometry_knots(anchor,t,family,axis)
+        for v in cuts[1:-1]:
+            u=anchor.copy();u[axis]=v;y,a,b,tau=core.face_points(t,family,u[None,:]);s=float(y[0,a[0]])
+            ordered=np.sort(y[0]);
+            if family=='23':
+                upper=math.sqrt(2)*(ordered[-1]-s)/3;lower=math.sqrt(2)*(s-ordered[-4])
+                # Candidate is either branch equality or first-branch cap.
+                residuals.append(min(abs(upper-lower),abs(upper-8.5)))
+                active.append(bool(abs(upper-lower)<1e-9 and upper<=8.5))
+            else:
+                pu=float(ndtr(s));others=[anchor[i] for i in range(2,t) if i!=axis]
+                value=float(ndtri(v*pu));other=float(ndtri(max(others)*pu))
+                residuals.append(min(abs(value-other),abs(math.sqrt(2)*(s-value)/3-8.5)))
+                active.append(bool(abs(value-other)<1e-9 and math.sqrt(2)*(s-value)/3<=8.5))
+    maximum=max(residuals,default=0.);assert maximum<1e-9
+    return dict(candidate_count=len(residuals),max_equation_residual=maximum,active_max_min_switches=sum(active))
+
+
 class FaceOracle:
     def __init__(self,weights,t,family):self.weights=weights;self.t=t;self.family=family;self.faces=0;self.fpe=0.;self.geometry_cpu=0.;self.walker_cpu=0.;self.max_cells=0
     def __call__(self,u):
@@ -121,6 +142,7 @@ def run():
     for t,sigma,family,axis in CASES:
         tick=time.process_time();weights=model(t,sigma);anchors=np.random.default_rng(820001+100*t+int(family)+axis).random((32,t))
         oracle=FaceOracle(weights,t,family);row=dict(t=t,sigma=sigma,family=family,axis=axis)
+        row['knot_controls']=knot_controls(anchors,t,family,axis)
         arrays={};raw={}
         for name,lo,hi in (('full',1e-5,1-1e-5),('interior',.05,.95)):
             grid=np.linspace(lo,hi,257);u=np.repeat(anchors,257,axis=0);u[:,axis]=np.tile(grid,len(anchors));f=oracle(u).reshape(32,257)
