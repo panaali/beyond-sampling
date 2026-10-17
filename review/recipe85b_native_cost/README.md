@@ -15,10 +15,10 @@ Coordination with T115 author78 identified two pre-existing, fixed cases: k30 se
 Alternative explanations: (1) apparent count differences arise from incorrect tuple accounting; independent analytic key comparisons distinguish. (2) instrumentation changes sorting/branches; bitwise values, counters and STATS distinguish. (3) actual source branch differs from the training artifact; hashes and frozen recipe parameters distinguish. A successful finite trace does not price every training copy.
 
 ## Status
-Source/case inventory and nine sorting controls pass. The additional rational model executes12 sorting comparisons with bitwise source parity; independent source/control gate requested. No trained execution yet.
+Source/control review ce905f1e independently checks the nine sorting controls and the rational model with 12 integrated sorting comparisons. Both frozen trained controls now pass; independent saved-result audit is pending.
 
 ## Results
-T172's source/control gate and 1,280 H8 margin_all traces are dependencies, not RECIPE85B evidence. The distinct _resolve_inv/sort path remains unverified here.
+T172's source/control gate and 1,280 H8 margin_all traces remain dependencies. The two RECIPE85B controls below independently exercise its distinct _resolve_inv/sort path; their cost ratios are not transferred to other cases.
 
 ## Compute accounting
 One thread and2GB. Analytic/review checks use the review lock for at most20CPU; any trained phase uses primary lock and55CPU cap. No random model-input evaluation. Sampling at H4 uses111 named numeric units, excluding model-free rank comparisons and final integer correctness in both methods. Native72 historical counts remain separately retained.
@@ -39,3 +39,14 @@ Nine exact tuple/sort controls and the five prior synthetic networks pass source
 Before trained use, add one fixed rational H3T3 model: Wi=[1,2,-1], Wh=[[1,-2,0],[-3,1,1],[2,0,-1]], Wo=[[1,0,-1],[-1,2,0],[0,-1,1]]. For positive x0, step2 thresholds include3,.5,2, so distinct cuts can coexist in a half-chamber. Require actual sort comparisons plus exact baseline/traced parity; do not tune weights after results. This is a control of the previously unexercised branch, not a new accuracy claim.
 
 The frozen rational branch control returns0.34989741936905017 with12 sort comparisons and52,744 named numeric units; baseline and trace match exactly. Control CPU.101919661. `trained.py` is prepared for only the two pinned existing cases, and is not executed before independent approval.
+
+## Frozen trained controls
+
+After the independent source gate, both frozen original T115 cases reproduce the saved estimate, legacy counter and cells exactly. Baseline/traced output hex, STATS and all 12 grouped error contributions agree. Full source/model/checkpoint pins and site ledgers are retained in trained_seed1.json and trained_seed4.json.
+
+| k30 case | Estimate | Legacy units | Named numeric units | Integer expressions | Tuple comparisons | CPU seconds |
+|---|---:|---:|---:|---:|---:|---:|
+| seed 1, noise 20, copy 0 | 0.720555347726532 | 49564 | 114665 | 3838 | 40 | 1.217443618 |
+| seed 4, noise 23, copy 255 | 0.60702720961067 | 38813 | 92227 | 2772 | 32 | 1.150666805 |
+
+These finite controls validate accounting and source parity under the declared named-source convention, not a full training-panel cost or equal-cost result. The adapter supports the observed cut.sort() and cut.sort(reverse=True) call forms. Explicit key=None is not a generic supported call form and does not occur in this pinned source. No estimator or truth has changed; original tie failures remain open.
