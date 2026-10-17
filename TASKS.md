@@ -92,7 +92,24 @@ T11592 bounded handoff21b03813 independentlyed1fbdf5/b15c0250:92 new GL node/wei
 
 T11589 expression comparison41291eaf independently221abbc6 checks66children/33parents, n16 diagnostic21.57M versus82.18M with both11/11accuracy; n10 new4/6 versusold5/7 failures retained. No native/runtime/MSE implication; root/Claude registry requested. Same owner renews separately frozen batch primitive parity, preserving originalsource/costs.
 
-### Priority queue (DRI, 2026-10-17, owner-approved: backtrack to the last success and fix measurement first)
+### Priority queue (DRI, updated 2026-10-17 after E46-E48: the recipe is accurate along T but its cost explodes)
+
+| T187 | **Ready** (light) | **Fading-memory merge** (handbook idea 1): bound from the weights the influence of step t on the final margin; merge cells differing only in negligible steps. First measure the decay rate at (4,4) and (8,4); if no decay, drop | Cell growth along T is the isolated failure (E48). Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+| T188 | **Ready** (light) | **Same-future merging / bisimulation** (idea 2): merge cells whose state maps give the same answers for all future inputs; first measure the future-equivalent fraction in recipe108 at (4,4) and (8,4) | 33-49% of splits never change the class (T164). Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+| T189 | **Ready** (light) | **Mechanistic coordinates** (idea 3): accuracy as an integral over order statistics (top values, positions, time since max) + weight-derived bound on the other inputs (bound, not average) | E27/E31 failed by averaging low inputs (Jensen). Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+| T190 | **Ready** (light) | **Time-shift reuse** (idea 4): cache cell sub-trees across steps (shared Wh, Wi); measure hit rate at (4,4)-(4,5), (8,4) | weight sharing is unused so far. Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+| T191 | **Ready** (light) | **Mechanistic circles** (idea 5): choose Hopf circles from the weights instead of a fixed grid; bulk-error regime | E47 is quadrature-class. Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+| T192 | **Ready** (light) | **GPU/compiled exact reference and cost law** (idea 6; needs owner approval for compute): time exact enumeration and recipe108 at (8,5), (8,6) | real cost law 1e17 vs 1e23; possible M_16,10 answer key (T5). Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+| T193 | **Ready** (light) | **Independent check of E46-E48** ((8,4) pass after mass fix; (8,5) seed 0; cost projection): fresh noise seeds, own truth, op recount | rule 4. Test sizes: develop (4,3)->(4,4)->(4,5), confirm (8,3)->(8,4)->(8,5), then (16,3)->(16,5) | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) sections 7-8 |
+Take tasks in this order; everything not listed comes after the queue (non-ARC rows last).
+1. **T187** fading-memory measurement + merge, and **T188** same-future merging: cheap measurements at (4,4), (8,4)
+   that decide whether the current recipe can be rescued.
+2. **T193** independent check of E46-E48.
+3. **T189** mechanistic coordinates (order statistics + bound), **T190** time-shift reuse.
+4. Open reviews: T113 (E43), T114 (E44), T80 (E35), T57 (E34).
+5. **T191** mechanistic circles (bulk-error regime), T86 (train missing sizes), T110 (class-region families).
+6. **T192** GPU exact reference / cost law (needs owner approval), T5.
+7. Codex research rows, theory rows, then non-ARC rows.
 
 Take tasks in this order; everything not listed comes after the queue (non-ARC rows T3, T6, T23-T27 last).
 1. **T131** fix estT exact-mode leaf-mass over-count (the (8,4) reference is biased by the same amount as the recipe).

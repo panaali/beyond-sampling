@@ -16,10 +16,14 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   on every trained seed and noisy copy of M_4,3 (independently confirmed, H-U1/H-U2) and of (H,T) = (5,3), (6,3),
   (8,3) (E43, review T113 unfinished). Cells visited / linear regions fell 4.8 -> 2.0 from H=4 to 8 (H-U4) — the
   only hint so far that cost can grow slower than the region count.
-- **Decisive question answered (E45 corrected by E46/E48, unverified): accuracy yes, cost no.** (8,4) passes after the
-  mass-bug fix; (8,5) is accurate but costs 2.2e11 ops; M_16,10 projects to >=1e17 ops. Earlier wording: Along T at H=8 the recipe's cells/regions grow 2.8 -> 5.4 -> 33
-  (T=3,4,5); (8,4) loses to sampling (MSE ratio 3-48); M_16,10 projects to >=1e15 ops. Also: estT's exact mode has a
-  leaf-mass bug at T>=4 (T131).
+- **Scaling verdict (E46, E48; unverified):** the recipe stays *accurate* as lists get longer ((8,4) passes on all
+  5 seeds + noisy copies, MSE ratio <= 0.27; (8,5) seed 0 error 0.0002 pp, ratio 0.0097) but its *cost* explodes:
+  1.7e5 -> 8.7e8 -> 2.2e11 ops at H=8, T=3,4,5 (cells/regions 2.8 -> 5.4 -> 33). M_16,10 projects to >=1e17 ops
+  (realistic trend ~1e23). An earlier "(8,4) fails" (E45) was a 4-D orthant-mass bug, fixed in
+  `m16/approaches/estT_fix/`.
+- **T=4 small-H track (E47):** a fixed great-circle grid ("Hopf", exact along each circle) beats sampling at (4,4),
+  (5,4), (6,4) (poorly trained, bulk errors), but it is *quadrature* (model-independent node set), not
+  ARC-mechanistic, and its margin shrinks with H. T111: the T=4 failure is about T, not undertraining.
 - **ARC's own position (public, 2026-08-17):** "not much closer to succeeding at the challenge". Their M_4,3
   estimators were 2.4-10x *worse* than sampling in MSE and they called that "roughly match" (E32). The private claim
   that ARC cracked M_16,10 is doubtful on public evidence (H-E5).
@@ -109,13 +113,77 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 - Token economy: sub-agents' long transcripts are re-sent every turn; for final work spawn a fresh agent with a
   tight brief, scripts that print ≤10 lines, details to files.
 
-## 6. How to continue
+## 6. Scoreboard: which sizes pass (beat sampling on all 5 seeds + noisy copies, deductive)
 
-1. Read `m16/approaches/final3/README.md`. Cost grows faster than the region count along T, so the gate-following
-   cell approach cannot reach M_16,10 as is. It needs a new idea that does not follow every gate switch: merging cells
-   across time positions with shared structure (the RNN reuses the same weights every step), symbolic dynamics over
-   records, class-region families (T110), or a description of the error set that is not a union of linear pieces.
-   Fix the estT leaf-mass bug (T131) first and have E45 independently checked.
-2. Open reviews / checks: T113 (E43), T114 (E44), T80 (E35), T57 (E34). Finish them before claiming more.
-3. Keep the leaderboard honest: any new estimator for M_16,10 goes through `m16/leaderboard.py` v3.
-4. Ask ARC (T41, needs owner approval) for the M_16,10 protocol if a candidate solution appears.
+| (H,T) | params | method | status |
+|---|---|---|---|
+| (4,3) | 32 | RECIPE112 / T75 / fibre F2L2 | pass, **independently confirmed** (R2, R3) |
+| (4,3), n_seqs 2^20-2^29 | 32 | T75, fibre | pass (E44; review T114 open) |
+| (5,3), (6,3) | 45, 60 | RECIPE112; fibre F2L2 | pass (fibre confirmed R4; RECIPE112 review T113 open) |
+| (8,3) | 96 | RECIPE112; fibre | pass (unreviewed) |
+| (8,4) | 112 | RECIPE112 + multi-step certificate (estT recipe108) | pass after mass fix (E46, unreviewed); cost 6e8-1e9 ops |
+| (8,5) | 128 | same | accurate on seed 0, 2.2e11 ops (E48); other seeds not run |
+| (4,4), (5,4), (6,4) | 48-84 | Hopf circle grid | pass but **quadrature class** (E47) |
+| (16,10) target | 432 | all | **fail**: deductive methods 37x->4000x worse than sampling (LB3); recipe projects >=1e17 ops |
+
+## 7. Theory notes (why this is hard, and what any solution must use)
+
+- Exact accuracy of a ReLU net = Gaussian measure of a union of polyhedral cones: #P-hard in general (polytope volume,
+  Dyer-Frieze). ARC only needs approximate answers.
+- Black-box deterministic volume estimation is provably worse than random sampling (Elekes; Barany-Furedi): a
+  deterministic method can only win by reading *structure in the weights*.
+- Networks can compute pseudorandom functions; deterministic efficient estimation of circuit acceptance probability in
+  general is the CAPP problem, tied to circuit lower bounds (Kabanets-Impagliazzo, Williams). If PRGs exist,
+  enumerating PRG seeds works — but that is pseudorandom sampling, excluded by ARC. So adversarial networks are almost
+  surely impossible under ARC's rules; ARC's bet (no-coincidence principle, Christiano-Neyman-Xu) is that *trained*
+  networks have short explanations. Nothing rules out M_16,10, but its explanation may be long.
+- Region counts depend on the weights, not just (H,T). Upper bound prod_{t=1..T} sum_{j<=t} C(H,j) is useless:
+  825 vs 66 at (4,3); 1.3e36 vs ~1e7-1e8 at (16,10). Trained nets use a tiny fraction of possible regions because
+  their neurons switch in coordinated ways (running max, record alarm, clocks) — that coordination is the structure a
+  solution must exploit.
+- Any per-gate-pattern method (enumeration, fibre tracing, cell splitting) pays at least the number of distinct gate
+  histories it must distinguish; at T=3 exact boundary tracking costs >= the region count (E39). The cost must be cut
+  by *merging* histories that do not matter for the answer, not by cheaper bookkeeping.
+- Compute is not the main blocker for a single exact answer (a GPU could plausibly do ~1e17 branchy ops in hours-days),
+  but (a) the real trend is ~1e23, (b) irregular geometry runs at 1-5% of GPU peak, (c) at 1e17 ops sampling is precise
+  to ~5e-6 pp so the method must be essentially exact, and (d) brute force at that scale is not what ARC is asking for.
+
+## 8. Ideas to try next (brainstorm, prioritised; board rows T187-T193)
+
+All aim at the one isolated failure: gate histories multiply with every extra time step.
+1. **Fading memory (T187).** The rotating modes are damped, so inputs far in the past may barely affect the final
+   answer. Bound, from the weights, the influence of step t on the final logit margin (products of |Wh| restricted to
+   active patterns, or exact per-cell Jacobians); merge cells that differ only in steps whose influence is below the
+   margin. Cheap first test: measure the decay rate at (4,4) and (8,4). If influence does not decay, drop it.
+2. **Same-future merging / bisimulation (T188).** After each step, merge cells whose current affine state maps lead to
+   the same answers for every future input (state-machine minimisation). Cheap first test: in recipe108 at (4,4) and
+   (8,4), measure how many cells are future-equivalent. Known: 33-49% of resolved splits never change the class.
+3. **Mechanistic coordinates (T189).** Write accuracy as an integral over order statistics (top values, positions,
+   time since max), whose joint law is known in closed form, plus a weight-derived *bound* on how much the other inputs
+   can move the answer (not an average: E27 and E31 failed because averaging the low inputs is Jensen-biased).
+4. **Time-shift reuse (T190).** The same Wh, Wi run at every step; a cell sub-tree computed for steps 1..k may recur
+   (shifted) for steps 2..k+1. Cache and reuse; measure the hit rate.
+5. **Mechanistic circles (T191).** Turn the Hopf grid (E47) into a mechanistic estimator by choosing circles from the
+   weights (e.g. through the tie walls and the bulk-error chambers) instead of a fixed grid; needed for the bulk-error
+   regime (heavily noised copies).
+6. **GPU exact reference (T192; owner approval needed).** Port exact enumeration / the recipe to compiled+GPU code and
+   time (8,5), (8,6) to measure the real cost law; possibly an exact answer key for M_16,10 (T5).
+7. **Independent checks (T193)** of E46-E48 before building on them (fresh noise seeds, own truth, op recount).
+
+**Test sizes for ideas 1-4:** develop on (4,3) -> (4,4) -> (4,5) (exact answers in seconds; (4,3) must keep passing),
+confirm in-regime on (8,3) -> (8,4) -> (8,5) (compare with recipe108's cells/regions 2.8, 5.4, 33), then (16,3) ->
+(16,4) -> (16,5) (same H as the target, 99% accurate) only after (8,·) shows sub-region growth. Success criterion:
+cells or ops growing no faster than the region count along T, while still beating sampling on all 5 seeds.
+
+## 9. How to continue
+
+1. Take the priority queue at the top of TASKS.md (ideas 1-2 first: they are cheap measurements that decide whether the
+   current recipe can be rescued).
+2. Finish open reviews before new claims: T113 (E43), T114 (E44), T80 (E35), T57 (E34), and the E46-E48 check.
+3. Keep the leaderboard honest: any new estimator for M_16,10 goes through `m16/leaderboard.py` v3; class it
+   (mechanistic / quadrature / sampling) before reporting.
+4. Codex agents have recorded work on the board that never reached this branch (e.g. their T131 fix). Ask every agent
+   to push to `ccr-6a61f25c-wn80ii`, and check `git log` before trusting a board note.
+5. Ask ARC (T41, needs owner approval) for the M_16,10 protocol if a candidate solution appears.
+6. The owner's working style that worked: climb one axis one step at a time; backtrack to the last success when a step
+   fails; verify negatives before calling an idea dead; keep token use low (lean agents, scripts printing <=10 lines).
