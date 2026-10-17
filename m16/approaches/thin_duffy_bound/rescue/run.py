@@ -11,7 +11,7 @@ spec=importlib.util.spec_from_file_location('thin_prior_primitive',P.parent/'pri
 PROTOCOL=json.loads((P/'protocol.json').read_text())
 
 def main():
- resource.setrlimit(resource.RLIMIT_CPU,(20,22))
+ resource.setrlimit(resource.RLIMIT_CPU,(20,22));assert not (P/'results.json').exists(),'Preserve existing bounded attempt; do not rerun or overwrite'
  for f,h in PROTOCOL['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h
  tracker,radial=A.load();rays=np.load(A.PROTOCOL['rays'])['rays'];rows={r['index']:r for p in sorted(P.parent.glob('shard_*.json.gz')) for r in json.loads(gzip.decompress(p.read_bytes()))['rows']};assert len(rows)==17955
  prior=json.loads((P.parent/'summary.json').read_text());assert prior['complete'];ids=PROTOCOL['indices'];assert ids==prior['loose_indices'] and len(ids)==54
@@ -26,7 +26,8 @@ def main():
    assert F(cert['a'])>=F(old['a']) and F(cert['b'])==F(old['b']) and F(cert['det'])==F(old['det'])
    checked=A.certificate(rays[i],tracker,radial,dict(method='exact_kkt',certificate=cert));assert checked['mode']=='bounded' and F(checked['a'])==F(cert['a'])
    result=A.bound(checked);precision=A.bound(checked,100);assert F(result['bound_decimal'])<=F(old['quadrature']['bound_decimal'])
-   row=dict(index=i,mode='bounded',prior_bound=old['quadrature'],prior_a=old['a'],certificate=cert,construction_inventory=construction,construction_cpu=construction_cpu,recheck=checked,quadrature=result,precision100=precision)
+   precision_difference=abs(F(result['bound_decimal'])-F(precision['bound_decimal']))/F(precision['bound_decimal']);assert precision_difference<F(1,10**70)
+   row=dict(index=i,mode='bounded',prior_bound=old['quadrature'],prior_a=old['a'],certificate=cert,construction_inventory=construction,construction_cpu=construction_cpu,recheck=checked,quadrature=result,precision100=precision,precision_relative_difference=float(precision_difference))
   except Exception as exc:row=dict(index=i,mode='failure',reason=repr(exc))
   out['rows'].append(row);save()
   if row['mode']=='failure':out['stop_reason']='Explicit failure';save();return
