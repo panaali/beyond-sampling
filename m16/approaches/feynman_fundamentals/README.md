@@ -502,3 +502,14 @@ evaluations,160 high-precision hypergeometric evaluations and24 float bounds;
 zero model passes or sampled inputs. Run `check_chebyshev_positive.py` through
 the review lock. Existing trained integrations and their source hashes remain
 unchanged; T48 owns any later adoption.
+
+## Cycle 13 protocol (frozen before validation)
+T67 requested independent stability support for exact quadratic-Gaussian scalar
+transitions. Verify the supplied positive Gauss fallback bound after centering
+an interval, using the exp(-c*h*t-h²*t²/2) Taylor polynomial. Alternative1: the
+degree count or positive-weight factor is wrong; compare high-precision Gauss
+quadrature to independent high-precision scalar integration. Alternative2:
+the real-arithmetic bound is mistaken for a float certificate; separately record
+ordinary-float discrepancies on narrow intervals and do not claim the bound
+covers them. Test fixed centers0,+/-6, half-widths1e-2/1e-4/1e-8, and three
+nonnegative quadratic polynomials. Only theory/check files; T67 owns the engine.
