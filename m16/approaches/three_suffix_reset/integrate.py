@@ -32,8 +32,8 @@ def older(suffix,n=32):
         out[start:start+len(z)]=total
     return out.reshape(shape)
 
-def rank_suffix(suffix,label,order):
-    if label==0:return older(suffix)
+def rank_suffix(suffix,label,order,targetorder=32):
+    if label==0:return older(suffix,targetorder)
     j=label-5;t=suffix[...,j];assert np.min(t)>=0
     above=sum(i!=j and order.index(i)>order.index(j) for i in range(3))
     if above>=2:return np.zeros_like(t)
@@ -62,8 +62,8 @@ def triangle_mass(v):
     denominator=np.prod(norms)+np.dot(v[0],v[1])*norms[2]+np.dot(v[0],v[2])*norms[1]+np.dot(v[1],v[2])*norms[0]
     return 2*math.atan2(det,denominator)/(4*math.pi)
 
-def integrate(rankcells,n,correct=True):
-    tick=time.process_time();gx,gw=rule(n);rad,rw=rule(32,0.,8.);rw=rw*rad**2*np.exp(-rad*rad/2)/(2*math.pi)**1.5
+def integrate(rankcells,n,correct=True,radialorder=32,targetorder=32):
+    tick=time.process_time();gx,gw=rule(n);rad,rw=rule(radialorder,0.,8.);rw=rw*rad**2*np.exp(-rad*rad/2)/(2*math.pi)**1.5
     u,v=np.meshgrid(gx,gx,indexing='ij');ww=np.outer(gw,gw)*(1-u);bylabel={};mass=0.;solid=0.;triangles=0
     for cell in rankcells:
         vv=np.array(cell['vertices'],float);sign=np.array(cell['sign'])
@@ -73,7 +73,7 @@ def integrate(rankcells,n,correct=True):
             weight=ww*det/norm**3;mass+=float(np.sum(weight)*np.sum(rw))*RESET;solid+=triangle_mass(tri)*RESET;triangles+=1
             if correct:
                 suffix=y[...,None,:]*sign*rad[None,None,:,None]/norm[...,None,None]
-                f=rank_suffix(suffix,cell['label'],cell['order']);value=float(np.sum(weight*np.einsum('ijk,k->ij',f,rw)));bylabel[cell['label']]=bylabel.get(cell['label'],0.)+value
+                f=rank_suffix(suffix,cell['label'],cell['order'],targetorder);value=float(np.sum(weight*np.einsum('ijk,k->ij',f,rw)));bylabel[cell['label']]=bylabel.get(cell['label'],0.)+value
             if time.process_time()-START>90:raise TimeoutError('frozen CPU cap')
     return dict(order=n,contribution=sum(bylabel.values()),bylabel=bylabel,event_mass_rule=mass,event_mass_solid=solid,event_mass_analytic=RESET*(.125+Q),triangles=triangles,cpu_seconds=time.process_time()-tick)
 
