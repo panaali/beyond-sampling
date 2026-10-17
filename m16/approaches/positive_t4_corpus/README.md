@@ -28,3 +28,6 @@ One thread, primary lock,2GB,110CPU hard cap; at most two global numerical proce
 
 ## Alternatives not ruled out / failure modes
 Non-coverable cones, determinant/coordinate roundoff, expensive high-order positive integration, unresolved source-positive errors on uncovered cones, and uncertain aggregate reference precision. A finite catalog failure is not a mass-method obstruction. Broader rotations, geometric subdivision, stable Schur paths and author endpoint repairs remain available.
+
+## Inventory result
+The fixed geometry-only inventory completes .959CPU:4033 native orthants,1826 additional rotations,488 uncovered. Therefore this catalog cannot by itself establish a complete positive corpus reference. Integrating the5859 represented cones remains a valid independent diagnostic; the uncovered source sum is reported explicitly without substituting it into a purported certified aggregate. Known rotation arithmetic is1,222,656, excluding comparisons/coefficient setup.
