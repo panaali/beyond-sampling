@@ -49,8 +49,9 @@ derived from the network's mechanism (no sampling, no region listing, nothing fi
 squared error under ARC's protocol, where ARC's own estimators were 2.4-10x worse. Scope: one training seed; it does not
 yet transfer to the other four (T75), and the ladder to bigger models is T73.
 
-**Final experiments (2026-10-17, E45):** the understanding-based recipe that passes every T=3 rung up to H=8 does NOT
-scale along sequence length: at (8,4) it loses to sampling (MSE ratio 3-48) and its cells grow faster than the number of
+**Correction (E46):** the (8,4) loss in E45 was a bug in the 4-D probability calculation; with it fixed the recipe
+**passes (8,4)** on all 5 seeds and noisy copies (MSE ratio <= 0.27). Still open: the number of cells grows faster than
+the number of regions along T. Earlier text: the recipe at (8,4) appeared to lose to sampling (MSE ratio 3-48) and its cells grow faster than the number of
 linear regions (cells/regions 2.8, 5.4, 33 for T=3,4,5). Projected cost for M_16,10 is >=1e15 operations, so it was not
 run. **The challenge remains unsolved**; the route needs a new idea that avoids following every gate switch (see
 [DRI_HANDBOOK.md](DRI_HANDBOOK.md) section 6).
