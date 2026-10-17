@@ -9,7 +9,7 @@ from ladder import exact_acc  # noqa: E402
 T = int(sys.argv[1]); name = sys.argv[2]; check = len(sys.argv) > 3
 ms = L.models(16, T)
 m = ms[name]
-a, info = exact_acc(m, check=check)
+a, info = exact_acc(m, check=check, progress=20000)
 info.update(name=name, acc=a, fpe=info["flops"] / L.fpe_flops(16, T))
 print(json.dumps(info), flush=True)
 with open("runs.jsonl", "a") as f:

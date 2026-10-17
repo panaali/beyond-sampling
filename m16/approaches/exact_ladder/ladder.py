@@ -9,7 +9,7 @@ import numpy as np
 import cones as E
 
 
-def exact_acc(model, check=False, rtol=1e-6, chunk=8192):
+def exact_acc(model, check=False, rtol=1e-6, chunk=8192, progress=0):
     """check=True also measures the correct pieces (correct + wrong must sum to 1); that work is not charged."""
     t0 = time.process_time()
     T = model[2].shape[0]
@@ -29,7 +29,11 @@ def exact_acc(model, check=False, rtol=1e-6, chunk=8192):
             else:
                 acc["good"] += p.sum(); acc["gerr"] += e.sum(); acc["sg"] += len(V)
 
-    for c in E.iter_cells(model, ops, counts):
+    for ic, c in enumerate(E.iter_cells(model, ops, counts)):
+        if progress and ic % progress == 0:
+            import sys
+            print(f"  cells {counts} wrong {acc['nw']} flops {ops.n:.3g} cpu {time.process_time() - t0:.0f}s",
+                  file=sys.stderr, flush=True)
         good, bad = E.outcome_pieces(c, model, ops, base)
         acc["nw"] += len(bad); acc["ng"] += len(good)
         for R, Z in bad:
