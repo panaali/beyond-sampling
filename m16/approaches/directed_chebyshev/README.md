@@ -38,3 +38,6 @@ Binary directed arithmetic, exact algebraic bounds for sqrt, tighter error alloc
 
 ## Failure modes
 Incorrect input enclosures, Decimal exponent underflow/overflow, pi-series endpoint sign, tail-index mistakes, integer recurrence overflow, accidental float conversion and assuming directed tail arithmetic fixes floating geometry. Reject arithmetic exceptions and require strictly positive lower endpoints.
+
+## Algebra before controls
+Differentiation at fixed delta gives r'/r=-1/s, s'=1+z and z'=-(z²+2z)/s. Thus -d_m/nu maps coefficient magnitude r^k*s^-nu*P_nu to the stated recurrence. In coefficient form, a monomial c*k^j*z^l contributes c/nu to(j+1,l), c*(nu+2l)/nu to(j,l), and c*(nu+l)/nu to(j,l+1), all nonnegative. The alternating Chebyshev sign(-1)^k is unchanged. For N>=1, sum_(k=N)^infinity k^j r^k=r^N sum_(l=0)^j binomial(j,l)N^(j-l) sum_(v=0)^infinity v^l r^v. The last sum has Eulerian numerator for l>=1, and1/(1-r) for l0. The error factor includes twice the polynomial remainder and simplex volume1/(2nu-1)!, yielding (nu-1)!/[pi^nu(2nu-1)!].
