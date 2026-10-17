@@ -25,5 +25,17 @@ assert next(cases,None) is None and checked==1850
 for r in d['search_cases']:
  n=r['n'];a=sorted((17*i)%31 for i in range(n));keys=[-math.inf,-1,0,.5,4,15,30,31,math.inf,math.nan];ids=[n if math.isnan(key) else sum(v<=key for v in a) for key in keys];assert ids==r['indices'];assert r['comparator_calls']==(10*(max((n-1).bit_length(),1)+1) if n else 0)
 assert len(d['search_cases'])==40
-out=dict(sort_permutations_checked=checked,search_cases_checked=40,review_cpu=time.process_time()-start,scope='Independent Python stable ordering reconstructs every saved permutation hash and direct rank counts reconstruct all search outputs. Saved comparator counts satisfy declared per-call ranges; no source shadow/native binary rerun or equivalence proof. Compiler child CPU remains unmeasured separately.')
+network=read(P/'argsort4_controls.json');assert network['status']=='complete' and len(network['rows'])==108
+for r in network['rows']:
+ a=r['keys'];ids=r['numpy'];assert ids==r['source_network'] and sorted(ids)==list(range(4));assert [a[i] for i in ids]==sorted(a)
+closed=read(P/'closed_controls.json');old=read(P/'controls.json');assert closed['status']=='complete' and len(closed['rows'])==10
+for r in closed['rows']:
+ prior=next(x for x in old['rows'] if x['case']==r['case'] and x['rescue']==r['rescue'] and x.get('model')==r.get('model'));assert r['value']==prior['value'] and r['legacy']==prior['legacy'];l=r['ledger'];assert l['sites']==prior['ledger']['sites'] and l['opaque_calls']==prior['ledger']['opaque_calls'];total=0
+ for q in l['source_closures']:
+  if q['name']=='np.lexsort':assert q['numerical_allowance']==q['source_scalar_comparisons'] and q['source_comparator_calls']<=q['source_scalar_comparisons']<=3*q['source_comparator_calls']
+  elif q['name']=='np.searchsorted':assert q['source_comparator_calls']==(q['keys']*(max((q['n']-1).bit_length(),1)+1) if q['n'] else 0) and q['numerical_allowance']==4*q['source_comparator_calls']
+  else:assert q['name']=='np.argsort' and q['n']==4 and q['numerical_allowance']==157*q['rows']
+  total+=q['numerical_allowance']
+ assert total==l['source_closure_allowance'] and l['explicit_plus_conditional_source_allowance']==l['inclusive_explicit_total']+total;assert sum(q['count'] for q in l['opaque_calls'])==len(l['source_closures'])
+out=dict(sort_permutations_checked=checked,search_cases_checked=40,finite_network_controls=108,unchanged_closure_controls=10,review_cpu=time.process_time()-start,scope='Independent Python stable ordering reconstructs every saved permutation hash and direct rank counts reconstruct all search outputs. Saved comparator counts satisfy declared per-call ranges; no source shadow/native binary rerun or equivalence proof. Compiler child CPU remains unmeasured separately.')
 Path(__file__).with_name('hopf_sort_saved_review_results.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))
