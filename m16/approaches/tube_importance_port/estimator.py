@@ -10,28 +10,29 @@ TABLES={'23':'fb01ea23e82324990c7e94ff3f354b406bc463a42f13801e94ca2d0795c7c4c6',
 
 def digest(array):return hashlib.sha256(np.asarray(array,dtype='<f8').tobytes()).hexdigest()
 
-def fit_proposal(values,costs,groups,K):
+def fit_proposal(values,costs,groups,K,score_kind="sd"):
+    if score_kind not in ("sd","rms"):raise ValueError("Unknown pilot score")
     values=np.asarray(values,float);costs=np.asarray(costs,float);groups=np.asarray(groups)
     if values.shape!=costs.shape or groups.shape!=values.shape or values.ndim!=1 or not np.isfinite(values).all() or not np.isfinite(costs).all() or np.any(costs<=0) or np.any(groups!=groups.astype(int)) or np.any((groups<0)|(groups>=K)):raise ValueError('Invalid pilot data')
     groups=groups.astype(int);counts=np.bincount(groups,minlength=K)
     if np.min(counts)<2:raise ValueError('Pilot did not cover every stratum twice')
-    scores=np.array([np.std(values[groups==j],ddof=1)/math.sqrt(float(np.mean(costs[groups==j]))) for j in range(K)])
+    scores=np.array([(np.std(values[groups==j],ddof=1) if score_kind=="sd" else math.sqrt(float(np.mean(values[groups==j]**2))))/math.sqrt(float(np.mean(costs[groups==j]))) for j in range(K)])
     total=float(scores.sum());q=np.full(K,1/K) if total==0 else .2/K+.8*scores/total
     if not np.isfinite(q).all() or np.min(q)<.2/K or abs(float(q.sum())-1)>1e-12:raise ArithmeticError('Invalid learned proposal')
-    return q,dict(min_count=int(counts.min()),max_count=int(counts.max()),score_sum=total,uniform_fallback=total==0,proposal_sha256=digest(q),proposal=q.tolist(),fit_proxy=25*len(values)+200*K)
+    return q,dict(score_kind=score_kind,min_count=int(counts.min()),max_count=int(counts.max()),score_sum=total,uniform_fallback=total==0,proposal_sha256=digest(q),proposal=q.tolist(),fit_proxy=25*len(values)+200*K)
 
-def estimate(model,budget,mode='cold'):
+def estimate(model,budget,mode='cold',score_kind='sd'):
     start=time.process_time();components={'validation':1000};records=[];tables={};kernels={};stage='validation';failed=None
     def add(name,n):components[name]=components.get(name,0)+int(n)
     def snapshot(complete):
-        return dict(complete=complete,mode=mode,cold=True,known_flops=sum(components.values()),components=dict(components),records=list(records),proposals=dict(tables),kernels=dict(kernels),cpu_seconds=time.process_time()-start,scalar_cost_is_proxy=True,portable_bound_certified=False,opaque_kernel_costs_certified=False,imports_and_interpreter_excluded_from_scalar_proxy=True,original_advice_fitting_cost_unknown=mode=='advice',complete_model_dependent_setup=mode!='advice',source_sha256=EXPECTED,roundoff_certified=False)
+        return dict(complete=complete,mode=mode,score_kind=score_kind,cold=True,known_flops=sum(components.values()),components=dict(components),records=list(records),proposals=dict(tables),kernels=dict(kernels),cpu_seconds=time.process_time()-start,scalar_cost_is_proxy=True,portable_bound_certified=False,opaque_kernel_costs_certified=False,imports_and_interpreter_excluded_from_scalar_proxy=True,original_advice_fitting_cost_unknown=mode=='advice',complete_model_dependent_setup=mode!='advice',source_sha256=EXPECTED,roundoff_certified=False)
     try:
         model=tuple(np.asarray(v,float) for v in model)
         if len(model)!=3:raise ValueError('Expected Wi,Wh,Wo')
         wi,wh,wo=model;H=wi.size;add('model_validation',5*sum(x.size for x in model))
         if wi.shape!=(H,) or wh.shape!=(H,H) or wo.shape!=(10,H) or H<1 or not all(np.isfinite(x).all() for x in model):raise ValueError('Expected finite bias-free T10 model')
         budget=float(budget)
-        if not math.isfinite(budget) or budget<=0 or mode not in ('uniform','advice','cold'):raise ValueError('Invalid budget/mode')
+        if not math.isfinite(budget) or budget<=0 or mode not in ('uniform','advice','cold') or score_kind not in ('sd','rms'):raise ValueError('Invalid budget/mode')
         sizes={'23':max(8,int(.66*budget/8)),'12':max(8,int(.28*budget/7.1))};nb=max(11,int(.06*budget))
         if max(*sizes.values(),nb)>65536:raise ValueError('Requested batch exceeds65536')
         stage='setup';text=SOURCE.read_text()
@@ -60,7 +61,7 @@ def estimate(model,budget,mode='cold'):
             stage='pilot'
             for kind,n,K in (('23',2048,360),('12',256,45)):
                 mass,cost,fc=evaluate(kind,n,pilot=True);add('proposal_fit',25*n+200*K)
-                proposal,fit=fit_proposal(mass,cost,fc['combo'],K);proposals[kind]=proposal;tables[kind]=fit
+                proposal,fit=fit_proposal(mass,cost,fc['combo'],K,score_kind=score_kind);proposals[kind]=proposal;tables[kind]=fit
         elif mode=='advice':
             for kind in ('23','12'):
                 source=SOURCE.with_name('q'+kind+'.npy');add('advice_loading_validation',20000)
