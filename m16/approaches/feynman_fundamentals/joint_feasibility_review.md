@@ -48,3 +48,19 @@ both outcomes inside tested histories but do not quantify their error
 mass; selected gate mass and resolved accuracy coverage remain distinct.
 No whole gate was resolved by this bounded panel. Tighter conditioned
 mass integration remains a separate open task.
+
+## Completed selected-panel continuation
+
+The second phase preserves the first 168 systems byte-for-byte and adds
+83 systems. Independent regeneration and exact checks pass all 39 new
+primal witnesses (including direct network/rank evaluation) and 44 new
+dual certificates in .0846 CPU seconds. Across both phases, all 251
+systems have exact witnesses: 135 feasible and 116 infeasible.
+
+The selected ten-history panel is now complete. All ten histories admit
+both correct and wrong open witnesses. Their selected mass .4482031
+is not resolved accuracy coverage. The 120 ordered rank pairs comprise
+66 empty, 22 uniformly wrong, 6 uniformly correct and 26 mixed pairs;
+these counts do not determine the probability carried by those pairs.
+Integrating the conditioned regions is a distinct next experiment.
+The original capped partial panel remains preserved.

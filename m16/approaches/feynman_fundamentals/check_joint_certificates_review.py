@@ -1,11 +1,15 @@
 """Independent original-row, exact witness and direct-model T120 audit."""
-import gzip,json,math,time
+import gzip,json,math,time,sys
 from pathlib import Path
 from fractions import Fraction as F
 from collections import Counter
 start=time.process_time()
-p=Path('/workspace/work/recover-small_h2_910/m16/approaches/bulk_joint_feasibility/panel.json')
+p=Path('/workspace/work/recover-small_h2_910/m16/approaches/bulk_joint_feasibility')/(sys.argv[1] if len(sys.argv)>1 else 'panel.json')
 d=json.loads(p.read_text())
+skip=0
+if p.name=='panel_phase2.json':
+    previous=json.loads(p.with_name('panel.json').read_text())['systems'];skip=len(previous)
+    assert d['systems'][:skip]==previous
 source=Path('/workspace/clean-neurons/m16/approaches/small_ladder_review/rational_geometry/geometry_h4_t4.json.gz')
 m=json.loads(gzip.decompress(source.read_bytes()))['model'];f=lambda v:F(int(v[0]),int(v[1]))
 wi=list(map(f,m[0]));wh=[list(map(f,r)) for r in m[1]];wo=[list(map(f,r)) for r in m[2]]
@@ -24,7 +28,7 @@ def maps(history):
     L=[[sum(wo[i][k]*A[k][q] for k in range(4)) for q in range(4)] for i in range(4)]
     return list(dict.fromkeys(gates)),L
 cache={};counts=Counter();forward_checks=0
-for s in d['systems']:
+for s in d['systems'][skip:]:
     key=s['history'];cache.setdefault(key,maps(key)) if key not in cache else None
     gates,L=cache[key];top,second=s['top'],s['second']
     expected=gates+[tuple(int(q==a)-int(q==b) for q in range(4)) for a,b in [(top,second)]+[(second,k) for k in range(4) if k not in(top,second)]]
@@ -54,8 +58,9 @@ for s in d['systems']:
     elif c['status']=='infeasible':
         dual={int(i):F(v) for i,v in c['dual'].items()};assert min(dual.values())>=0 and sum(dual.values())==1
         assert all(sum(v*rows[i][q] for i,v in dual.items())==0 for q in range(4))
-out={'systems':len(d['systems']),'statuses':dict(counts),'direct_fraction_forwards':forward_checks,'distinct_history_maps':len(cache),
+out={'systems':len(d['systems'])-skip,'unchanged_previously_verified_systems':skip,'statuses':dict(counts),'direct_fraction_forwards':forward_checks,'distinct_history_maps':len(cache),
      'panel_complete':d['complete'],'lp_cap_stop':d.get('stop'),'cpu_seconds':time.process_time()-start,
-     'scope':'all stored row systems and exact witnesses verified independently; partial panel, no conditioned masses computed'}
-Path(__file__).with_name('joint_certificates_review_results.json').write_text(json.dumps(out,indent=2)+'\n')
+     'scope':'stored new row systems and exact witnesses verified independently; no conditioned masses computed'}
+name='joint_certificates_phase2_review_results.json' if skip else 'joint_certificates_review_results.json'
+Path(__file__).with_name(name).write_text(json.dumps(out,indent=2)+'\n')
 print(json.dumps(out,indent=2))
