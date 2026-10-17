@@ -1251,3 +1251,15 @@ contiguous dot, 8 including norm sqrt, 8 for positive nonunit dot and 6 for the
 scalar fallback, counting FMA as two operations. Shape/dtype applicability to
 historical sites is a separate prerequisite; no corpus replacement or full
 native/hardware claim is made here. No kernels were rerun.
+
+### Fixed edge-split numerical panel
+
+`check_edge_split5_numerical_review.py` verifies all 22 child wedge references,
+acute exact Gram ranges, 66 ideal directed bounds and 33 fixed-order groups.
+All parent-child reference sums and source proxy totals match. Order16 passes
+both frozen diagnostics on all eleven fixtures, with maximum absolute error
+5.130794205e-12; orders6 and10 pass absolute checks on three and five fixtures.
+Only narrow35/48 at each order have qualifying ideal bounds (six of33).
+The positive finite diagnostic does not establish a generic, trained or
+floating-error certificate. Rule/setup, rational and MP costs remain separate
+from source proxies. No mass evaluations were repeated by the reviewer.
