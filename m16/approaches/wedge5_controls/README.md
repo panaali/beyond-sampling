@@ -1,0 +1,27 @@
+# T11583 five-dimensional wedge-product controls
+
+## Question
+Does a small determinant justify the pinned five-dimensional GL6 mass branch, including near-opposite rays?
+
+## Method
+TASKS-only claim9b187e08 precedes this folder. Reuse independently reviewed normalization199420a1. A2D wedge times the positive3D orthant has mass theta/(16pi). Freeze five rational tan-half-angle widths, paired narrow/wide wedges with exactly equal stored determinants, plus the positive5orthant. Pin full source and extract only unchanged set_rules5/_orth5 AST definitions into an isolated model-free module. No m43/imported model or source geometry code executes. Protocol freezes original mixed rule, three forced Duffy orders and two forced log orders before any mass evaluation.
+
+Two alternatives: thin GL error may be a radial-conditioning problem, distinguished by matched determinant/opposite dot signs; or cofactor/log cancellation may fail too, distinguished by the independently analytic references and fixed log128/256 arms. No adaptive arm/order selection after outcomes.
+
+## Status
+Frozen protocol and runner preparing for independent source/analytic gate. No numerical results yet.
+
+## Results
+Pending. Exact analytic formula concerns the stored binary64 rays;80/120digit reference agreement is a diagnostic, not outward FP certification. Preserve ideal rational geometry and actual binary geometry separately. Outcomes report absolute/relative error, negative/nonfinite/exception status and all source proxy counts.
+
+## Compute accounting
+Each arm's set_rules5 setup measured separately, plus every call including failures. Source ops is the inherited abstract proxy, never native runtime or hardware cost. Record order4 tensor node counts and full named setup/call scope; compilation/import/serialization and MP/reference research overhead remain separate. One thread,2GB,20CPU review lock; no full T5/model/MC replay.
+
+## Claims
+[inferred] The product formula follows independent isotropic Gaussian coordinates and the reviewed source normalization. [speculative] Equal determinant can hide very different radial conditioning and invalidate fixed GL6 as a universal rule. No trained-model or algorithm-family conclusion is asserted.
+
+## Alternatives not ruled out
+Different representations, certified range/order selection, geometric splitting, stable log/cofactor formulas and positive fallback remain open. A finite forced log success would validate these controls only. No family retirement.
+
+## Failure modes
+Nonfinite/negative mass, source drift, reference disagreement, exception, limit exhaustion or failed parity are retained explicitly. Do not erase partial results or raise caps/orders/targets after seeing outcomes. Shared source remains unchanged.
