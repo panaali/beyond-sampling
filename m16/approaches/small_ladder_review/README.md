@@ -84,3 +84,17 @@ original models; shared volume arithmetic and floating geometry remain explicit
 limitations. DRI acceptance and portable cost accounting remain pending.
 
 Reproduce: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python m16/approaches/small_ladder_review/check_t4_dd.py`.
+
+## Frozen T10 reference check
+
+T50 grid9 values are frozen before this independent check. Its previous65536-input
+reference cannot distinguish roughly0.2percentage-point error. Use exactly2^20
+new Gaussian sequences with RNG52010, chunk65536, direct float64 NumPy recurrence
+and independent input sorting. Report count, binomial SE and all frozen grid9
+estimates, including linear/cubic and V/W; do not select the nearest estimate.
+The reference is validation data only, charged as1048576 full forwards.
+Alternatives: apparent convergence may be cancellation between interpolation
+and rank error; ordinary sampling error may explain the earlier match. This
+fixed enlarged reference tests the latter, while constant/range controls and
+all resolution results remain necessary for the former. No cost advantage is
+inferred from this check.
