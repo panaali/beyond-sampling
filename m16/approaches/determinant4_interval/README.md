@@ -13,7 +13,7 @@ Independently evaluate the same factored identity with closed intervals. Point i
 Before trained matrices freeze analytic controls: zero/identity, all24 row permutations, duplicate rows, dyadic triangular matrices with known determinant, orthogonal Hadamard times a2^-k final-row scale for k=10,30,45,52, and diagonal2^300/2^-300 extreme scales. Exact Fraction Gaussian elimination is the independent reference, including for every6347 stored matrix. Save exact determinants, both floating errors, intervals/relative widths, sign status and all failures. Fixed analytic determinant-known cases additionally guard the independent reference. No selection from observed new errors. Process corpus in four fixed chunks of at most1600 matrices, <=20CPU per chunk; preserve cap outcomes.
 
 ## Status
-Bounded implementation and full fixed-corpus exact reference comparison complete; independent T55 review pending.
+Bounded implementation and full fixed-corpus exact reference comparison complete; independent T55 review complete851e2e6.
 
 ## Results
 All6347 interval evaluations enclose the exact binary-entry determinant and excludezero; no trained unsupported cases. Maximum relative interval width6.45527e-9. The47-op point formula improves absolute error in3792 matrices, worsens1701, and ties854, so there is no universal floating improvement. Its largest relative error3.21799e-10 (index4707) versus old95's3.84647e-9 (index4730); maximum absolute errors8.28462e-17 and1.06795e-16. The prior16 fixtures are explicitly marked in raw rows.
@@ -37,3 +37,5 @@ Adaptive error-free expansion, row/column pivoting, compensated summation and in
 
 ## Failure modes
 Overflow causes explicit unsupported status; underflow/cancellation can make intervals uninformative. IEEE/environment behavior is an assumption, not a platform-independent proof assistant certificate. A correct determinant interval alone cannot certify a Gaussian cone mass or topology. Existing point95 and new point47 can both lose relative precision on thin cones.
+
+Independent T55 review851e2e6: all6347 saved interval containments/counts/error summaries reproduced;67 original-ray exact determinants independently recomputed by24-term Leibniz expansion (different from producer Gaussian elimination), covering prior16, evenly spaced and worst cases.47-op identity and elementary outward enclosure proof accepted under stated IEEE754/nextafter assumptions. Runtime .340CPU; full floating geometry/mass certification remains excluded.
