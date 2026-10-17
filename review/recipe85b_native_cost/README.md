@@ -31,3 +31,9 @@ Other implementations, a proven global source envelope, more efficient dense/spa
 
 ## Failure modes
 Tuple equality/order undercount, object-identity shortcuts, NaNs, key/reverse/stability changes, computed ndarray methods, omitted dense operations, inherited source mismatch and conflating named arithmetic with compiled instructions or walltime.
+
+## Initial controls and missing branch coverage
+
+Nine exact tuple/sort controls and the five prior synthetic networks pass source-value/legacy/STATS parity. Named numeric totals are5390/9996/9996/13396/21764. However, none of those networks executes a comparison inside cut.sort, so they do not validate the integrated sorting path. Preserve this coverage limitation rather than treating the first controls as sufficient.
+
+Before trained use, add one fixed rational H3T3 model: Wi=[1,2,-1], Wh=[[1,-2,0],[-3,1,1],[2,0,-1]], Wo=[[1,0,-1],[-1,2,0],[0,-1,1]]. For positive x0, step2 thresholds include3,.5,2, so distinct cuts can coexist in a half-chamber. Require actual sort comparisons plus exact baseline/traced parity; do not tune weights after results. This is a control of the previously unexercised branch, not a new accuracy claim.
