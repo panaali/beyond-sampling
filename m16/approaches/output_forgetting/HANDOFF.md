@@ -11,7 +11,7 @@ Measured positive Gaussian quadrature:
 - fresh complete integration `.0212–.0428` CPU seconds, with fresh rules;
 - setup/model loading/exact diagnostic controls separate; no portable total-cost or sampling-win claim.
 
-Latest author implementation/results: `fcff464`. T55 independently reviewed all forcing, readout-kink, signed-pair and negative-target formulas. Different-code adaptive scalar reproduction verified the initial positive contribution and the new mixed-prefix positive-D contribution. Final negative-source/scalar review is requested; do not label that check complete until its independent artifact arrives.
+Latest author implementation/results: `fcff464`. T55 independently reviewed all forcing, readout-kink, signed-pair and negative-target formulas. Different-code adaptive scalar reproduction verified the initial positive contribution and the new mixed-prefix positive-D contribution. Final negative-source/scalar review also passed: independent math.erfc plus adaptive integration gives `.00010442263405448726`, 1.79e-17 from the fixed rule; exact zero-threshold T4/T6/T10 controls are1/48,1/320,1/9216. T55 is committing the written artifact; DRI classification remains separate.
 
 Reproduction commands use `/workspace/clean-neurons/.venv/bin/python` from the repository with one thread and the shared compute lock:
 
