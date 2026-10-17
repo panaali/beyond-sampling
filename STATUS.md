@@ -44,6 +44,11 @@ sampling in MSE at ARC's own operation counts, which ARC called "roughly match" 
 as implemented, as our leaderboard does). So the private claim that ARC has cracked M_16,10 is doubtful on public
 evidence (H-E5), and ARC's demonstrated bar is an MSE ratio of roughly 2-10, not our 1.
 
+**First positive (2026-10-17, E36, independently confirmed by R2):** for the 32-parameter M_4,3, an accuracy estimate
+derived from the network's mechanism (no sampling, no region listing, nothing fitted) beats random sampling ~50x in
+squared error under ARC's protocol, where ARC's own estimators were 2.4-10x worse. Scope: one training seed; it does not
+yet transfer to the other four (T75), and the ladder to bigger models is T73.
+
 **4. The question to ask ARC.** If they have solved the 10-step network, they must have a compact way to handle
 those rare wide patches. That is exactly where every approach here broke.
 
