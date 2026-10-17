@@ -36,7 +36,7 @@ def enclose(x,lo,hi,p):
  # Separate analytic comparator, never selected in place of the frozen bound.
  uniform=None
  if L.cmp('gt',d,F(0)):
-  uniform=L.op('div',radius,L.op('mul',F(2),d));assert raw<=uniform
+  uniform=L.op('div',radius,L.op('mul',F(2),d));assert not L.cmp('gt',raw,uniform)
  return L.result('bounded',bound=bound,raw=raw,uniform=uniform,radius=radius,distance=d,slope=slope)
 
 def pack(result):

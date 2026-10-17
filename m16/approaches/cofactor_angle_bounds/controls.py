@@ -31,6 +31,7 @@ def m(x):return mp.mpf(x.numerator)/x.denominator
 def main():
  out=HERE/'controls.json';progress=HERE/'controls_progress.jsonl';assert not out.exists() and not progress.exists()
  proto=json.loads((HERE/'protocol.json').read_text());assert hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==proto['controls_sha256']
+ assert hashlib.sha256((HERE/'bound.py').read_bytes()).hexdigest()==proto['bound_sha256']
  mp.mp.dps=120;rows=[];fail=[];start=time.process_time()
  for label,x,lo,hi,p,status,expected in FIXTURES:
   with progress.open('a') as f:f.write(json.dumps(dict(stage='attempt',label=label))+'\n')
