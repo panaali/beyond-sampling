@@ -302,3 +302,30 @@ endpoint permutations, and count QR, condition estimates, solves, moment calls,
 fallback nodes and rule construction. This is a primitive check only: no
 trained integrations, no sampled model inputs, one bounded locked numeric run.
 T48 and root independently checked the measure and coefficient exponent.
+
+Cycle7 result: `triangle.py` exposes `triangle_inverse_norm(vertices, exponent,
+absolute_tolerance=1e-11, known_plane_normal=None) -> (value,stats)` for three
+endpoint rows in a common orthant. The scalar prototype uses weighted moments
+on well-conditioned triangles and explicit positive original-domain quadrature
+on suspect ones. For signed-L1-normalized Duffy endpoints, supply the orthant
+sign vector as `known_plane_normal` to replace the plane solve by a projection.
+The full measure proof and limitations are in `triangle_theory.md`.
+
+Across16 fixed cases (ambient/exponent3..6, ordinary, orthogonal, nearly
+collinear, exactly collinear), independent nested quadrature differed by at
+most6.662e-16 relatively. Scaling and endpoint-permutation differences were
+4.441e-16 and1.111e-15. Twelve further signed-L1-normalized cases using the
+known normal differed by at most1.111e-15. The final validation run used60
+primitive calls (30 analytic,30 fallback),12576 fallback nodes,51912 reference
+integrand evaluations, and.242807CPU seconds, no model inputs. Full geometry,
+special-function and rule-construction counters are in `triangle_results.json`.
+Three primary fallback discrepancies exceeded their much smaller quadrature-
+only bounds, exposing roundoff rather than a full certificate. No full-model
+cost or accuracy claim follows from these primitive checks.
+
+Reproduce with the same single-thread setup and
+`flock /workspace/work/codex-review.lock python m16/approaches/feynman_fundamentals/check_triangle.py`.
+The root approved this second lock for checks below20CPU seconds. Two earlier
+runs before the final cost metadata and known-normal extension used.154219 and
+.173212CPU seconds,48 primitive calls and28812 reference evaluations each;
+these runs count toward author development cost rather than being hidden.
