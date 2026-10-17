@@ -87,3 +87,22 @@ Random outer prefixes produce a sampling baseline, not a deductive solution.
 ## Continuity
 Keep this task active across successive cycles. Root owns backlog updates,
 integration and communication with Claude; only this folder is agent-owned.
+
+## Cycle 2 protocol (frozen before implementation)
+Build a two-final-input conditional probability from normalized prefix hidden
+state, its largest two inputs and their indices. Enumerate only the two tail
+steps, then rank/readout polygons; integrate with the weighted sphere primitive.
+No long-prefix estimator or trained-model performance claim in this cycle.
+
+Alternatives: (1) correct moments but incorrect rank/first-index tie handling;
+test H1 zero-recurrence/all-tied outputs and deterministic direct classifications;
+(2) truncated geometry or normalization produces biased probabilities; compare
+conditional outputs against independent random-direction validation, include
+positive rescaling and partition-mass checks; (3) work per tail outweighs variance
+reduction, so record geometric operations and CPU without asserting an FPE gain.
+
+Use fixed synthetic H1/H2 cases, T3 and T5/T10 prefixes, at most 65,536 independent
+validation draws per case, at most 12 cases initially. Single thread, 120 CPU
+seconds total initial experiments across both cycles. Random draws are validation
+only; the primitive itself is analytic. Preserve all failure cases. High-precision
+fallbacks must be counted; no silent clipping of small negative probabilities.
