@@ -1612,3 +1612,7 @@ Saved pilot a73ae95a independently passes all five raw-second/covariance sums, i
 ### T175 fixed544 float/hybrid saved audit
 
 All544 saved heuristic decisions, exact decimal-reference errors,155 actualMP80 fallback terms/1860 rational decodes, source-category counts and1105 durable records pass independent review. Direct31 cell-relative failures are retained; hybrid all544 absolute/relative gates pass. Independent sequential pooling confirms both direct and hybrid all16 means pass1e-10/1e-8: max direct absolute2.1688261249959774e-14 versus hybrid1.873466207081548e-15. Thus fallbacks improve this model's cell-relative diagnostics but are not shown necessary for its pooled tolerance. No candidate/MP/preparation/reference replay; exact-prepared geometry, generic error bounds and full native/speed claims remain separate. Author .15182424CPU is not a comparative speed result.
+
+### T184 H5/zoo3 once-only raw audit
+
+All256 original rows/four recovered shards pass saved model/output/legacy, native baseline/traced and complete site/category checks. Named53987408 numerical+1668896 integer units; source159 per-model-floor group ratio.005128446805333035. One individual loss remains, maximum1.8127620863061007. No scalar/native topology difference. Completed-shard68.347796663CPU; global failure reservation and coverage still pending. No estimator/truth replay or full native/runtime implication.
