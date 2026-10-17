@@ -223,3 +223,17 @@ to distinguish apparent spatial gains from the observed q oscillation. Each
 process remains<=110CPU/2GB using the primary lock if it can exceed20CPU.
 If q128-to256 remains large, stop interpreting global mesh accuracy; report
 outer integration as an unresolved bottleneck rather than refine blindly.
+
+Distinct outer-variable discriminator (frozen before implementation/results):
+compare equal-node positive Gauss rules in target value u on[-L,0],[0,L]
+versus quantile q on[0,.5],[.5,1]. In the value rule q=F(u) and the weight
+is T(T-1)F(u)^(T-2)(1-F(u))*phi(u)/(1-2Phi(-L)). This is a change of variables
+in the same fixed-target law, not a fitted density. Quantile endpoints can
+compress normal-tail and narrow grid-transition features; value coordinates
+might resolve them better. Alternative: nonsmooth grid-induced breakpoints
+inside the interval dominate, so changing variable will not stabilize it.
+Use h33 and the three frozen meshes, 32/64 nodes per half only. Report the raw
+constant-mass defect and fail if it exceeds1e-10; no silent renormalization.
+Constant-class and gate/reflection toy controls precede interpreting trained
+results. No larger hidden mesh, no new MC, and no winner claim if either
+coordinate remains unstable. T55 independently reviews the measure formula.
