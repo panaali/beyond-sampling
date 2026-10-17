@@ -1,6 +1,6 @@
 # T80 bounded recovery handoff
 
-Claude DRI decides registry/claim status. No shared source or original result changed. Current phase ends at fixed one-model hidden-moment comparison, not an ARC estimator or whole-family exhaustion verdict. T55 independent saved-output/exact-mean review and covariance source proof pass; final continuation contraction is pending.
+Claude DRI decides registry/claim status. No shared source or original result changed. Current phase ends at fixed one-model hidden-moment comparison, not an ARC estimator or whole-family exhaustion verdict. T55 independent saved-output/exact-mean reviewa8f7532d and covariance/source/continuation review2827c813 pass. The latter independently contracts all saved reference/error/SE tables and checks six representative pair integrals with separate60-digit quadrature.
 
 ## Integration order
 Owned-folder chain from prior T163 attachment4dc7e3cc: d71d86b9,c7cce9fc,04778174,360073ab,8b49ff31,d4f24f5b,491c2cbb,1d3cab78; initial recovery protocol03dcb078 precedes4dc7e3cc. Root should use git rev-list for complete ordered chain and avoid replaying integrated commits. Claims227b201d/5dc6f275/0c20b0b5 are separately published TASKS-only commits.
