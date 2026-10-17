@@ -24,7 +24,7 @@ saved-model trace. No new MC/noise/model/reference draw or panel tuning.
 Bounded analytic, h8 and h64 phases complete. Independent saved audits:
 1d008fde (sort/search), 6da114dc (network/closure), 155b3b18 (h8),
 0cfdfa39 (h64). Same-checkpoint reference contraction a283a329 passed independent exact-rational
-arithmetic review (written review commit pending). No full panel, full runtime or challenge claim.
+arithmetic review (3ed60f55). No full panel, full runtime or challenge claim.
 
 ## Results
 Both original and tile-only source arms preserve the original saved clean

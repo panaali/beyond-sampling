@@ -19,7 +19,7 @@ The h8 upper-budget comparison above1 does not prove actual-cost failure.
 Old h128 discrepancy+.00015865237928625 precludes treating h128 as exact.
 
 Independent reviews: source/control1d008fde,6da114dc; h8 raw155b3b18;
-h64 raw0cfdfa39; comparison exact-rational audit passed, written commit pending.
+h64 raw0cfdfa39; comparison exact-rational audit3ed60f55.
 
 Key evidence commits after T180 handoff05b91db3, in order:
 b566d047 59b7dc18 bdbff4a0 5f24544a 0d8eb24e 4cf185bb cb2c7c85
