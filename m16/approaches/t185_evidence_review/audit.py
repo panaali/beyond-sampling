@@ -69,7 +69,7 @@ series = {'pl256': [r[1] for r in rows],
           'thin10': [r[1]+r[6] for r in rows],
           'thin6': [r[1]+r[6]+r[5] for r in rows]}
 thin_actual = [r for r in rows if r[0] < F(1, 1_000_000)]
-t4 = read('rescore/zoo0.json')
+t4 = read('rescore/zoo0.json')['recipe108']
 result = {
  'scope': 'Saved one-clean-model audit; numerical CP conditional on source-documented MC provenance; abstract legacy cost only',
  'manifest_files_checked': len(manifest['files']),
