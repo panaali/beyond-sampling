@@ -1,0 +1,671 @@
+{
+  "classification": "deterministic nested curved-box collocation; no error certificate",
+  "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/batch_terminal.py": "63fade566fff9e783bf8d299db41cc4425caa3d36ac51d5804b68fe23d47ef39",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/moments.py": "0c4a6cb4c8ed3f89b0a8506138b6b8cf81b523979eae6992c7117c9235081f2e",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/tail.py": "b3aee707e09538928551d9d8d22791daa9ad09cefeeda5a985629866fc821a33"
+  },
+  "model_input_samples": 0,
+  "hidden_nodes": 9,
+  "target_nodes": 17,
+  "angles": 16,
+  "rank_nodes": 64,
+  "previous_construction_provenance": {
+    "h5_b17": {
+      "3": {
+        "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+        "sources": {
+          "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/batch_terminal.py": "63fade566fff9e783bf8d299db41cc4425caa3d36ac51d5804b68fe23d47ef39",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/moments.py": "239d1b88e959e0703548ef625752b9d6215e324f0545a354a7271164c3ef1613",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/tail.py": "b3aee707e09538928551d9d8d22791daa9ad09cefeeda5a985629866fc821a33"
+        },
+        "target": 3,
+        "hidden_nodes": 5,
+        "target_nodes": 17,
+        "cumulative_new_terminal_calls": 400,
+        "cumulative_cache_hits": 450,
+        "cumulative_batch_report": {
+          "build_work": {
+            "affine_products": 1287.0,
+            "clips": 16753.0,
+            "constructed_step_cells": 2644.0,
+            "one_fresh_complexes": 100.0,
+            "two_fresh_complexes": 100.0,
+            "moment_calls": 1801.0,
+            "partition_moment_calls": 1801.0,
+            "max_partition_error": 4.440892098500626e-16,
+            "readout_margin_products": 10137.0,
+            "readout_complexes": 107.0,
+            "retained_readout_polygons": 759.0,
+            "readout_cache_hits": 329.0,
+            "late_complexes": 8.0
+          },
+          "query_work": {
+            "queries": 436.0,
+            "clips": 9036.0,
+            "moment_calls": 1766.0,
+            "correct_pieces": 1766.0
+          },
+          "build_cpu_seconds": 1.578057161999994,
+          "query_cpu_seconds": 1.4314701080000016,
+          "total_api_cpu_seconds": 3.0095272699999955,
+          "cached_unique_arrays": 5987,
+          "cached_array_bytes": 408432,
+          "partition_cache_entries": 107,
+          "readout_cache_entries": 107
+        },
+        "previous_construction_provenance": {
+          "3": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 3,
+            "construction_work": {
+              "new_terminal_calls": 450.0,
+              "terminal_clips": 79830.0,
+              "terminal_affine_products": 5328.0,
+              "terminal_readout_margin_products": 43164.0,
+              "terminal_moment_calls": 9121.0,
+              "terminal_gate_cells": 7488.0,
+              "terminal_correct_pieces": 1633.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0
+            },
+            "construction_cpu_seconds": 7.036153416,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          },
+          "5": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 5,
+            "construction_work": {
+              "new_terminal_calls": 354.0,
+              "terminal_clips": 75500.0,
+              "terminal_affine_products": 7808.0,
+              "terminal_readout_margin_products": 26804.0,
+              "terminal_moment_calls": 9576.0,
+              "terminal_gate_cells": 7356.0,
+              "terminal_correct_pieces": 2220.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0,
+              "terminal_cache_hits": 96.0,
+              "collapsed_terminal_axes_checked": 4.0
+            },
+            "construction_cpu_seconds": 7.146690343,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          },
+          "6": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 6,
+            "construction_work": {
+              "new_terminal_calls": 354.0,
+              "terminal_clips": 104498.0,
+              "terminal_affine_products": 10032.0,
+              "terminal_readout_margin_products": 37758.0,
+              "terminal_moment_calls": 12291.0,
+              "terminal_gate_cells": 8560.0,
+              "terminal_correct_pieces": 3731.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0,
+              "terminal_cache_hits": 96.0,
+              "collapsed_terminal_axes_checked": 4.0
+            },
+            "construction_cpu_seconds": 9.961193412,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          }
+        }
+      },
+      "5": {
+        "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+        "sources": {
+          "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/batch_terminal.py": "63fade566fff9e783bf8d299db41cc4425caa3d36ac51d5804b68fe23d47ef39",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/moments.py": "239d1b88e959e0703548ef625752b9d6215e324f0545a354a7271164c3ef1613",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/tail.py": "b3aee707e09538928551d9d8d22791daa9ad09cefeeda5a985629866fc821a33"
+        },
+        "target": 5,
+        "hidden_nodes": 5,
+        "target_nodes": 17,
+        "cumulative_new_terminal_calls": 800,
+        "cumulative_cache_hits": 900,
+        "cumulative_batch_report": {
+          "build_work": {
+            "affine_products": 5311.0,
+            "clips": 51563.0,
+            "constructed_step_cells": 9702.0,
+            "one_fresh_complexes": 196.0,
+            "two_fresh_complexes": 100.0,
+            "moment_calls": 6019.0,
+            "partition_moment_calls": 6019.0,
+            "max_partition_error": 4.440892098500626e-16,
+            "readout_margin_products": 25447.0,
+            "readout_complexes": 307.0,
+            "retained_readout_polygons": 2831.0,
+            "readout_cache_hits": 529.0,
+            "late_complexes": 208.0
+          },
+          "query_work": {
+            "queries": 836.0,
+            "clips": 21468.0,
+            "moment_calls": 4371.0,
+            "correct_pieces": 4371.0
+          },
+          "build_cpu_seconds": 4.889745812999972,
+          "query_cpu_seconds": 3.1116136350000048,
+          "total_api_cpu_seconds": 8.001359447999977,
+          "cached_unique_arrays": 18031,
+          "cached_array_bytes": 1232304,
+          "partition_cache_entries": 307,
+          "readout_cache_entries": 307
+        },
+        "previous_construction_provenance": {
+          "3": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 3,
+            "construction_work": {
+              "new_terminal_calls": 450.0,
+              "terminal_clips": 79830.0,
+              "terminal_affine_products": 5328.0,
+              "terminal_readout_margin_products": 43164.0,
+              "terminal_moment_calls": 9121.0,
+              "terminal_gate_cells": 7488.0,
+              "terminal_correct_pieces": 1633.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0
+            },
+            "construction_cpu_seconds": 7.036153416,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          },
+          "5": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 5,
+            "construction_work": {
+              "new_terminal_calls": 354.0,
+              "terminal_clips": 75500.0,
+              "terminal_affine_products": 7808.0,
+              "terminal_readout_margin_products": 26804.0,
+              "terminal_moment_calls": 9576.0,
+              "terminal_gate_cells": 7356.0,
+              "terminal_correct_pieces": 2220.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0,
+              "terminal_cache_hits": 96.0,
+              "collapsed_terminal_axes_checked": 4.0
+            },
+            "construction_cpu_seconds": 7.146690343,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          },
+          "6": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 6,
+            "construction_work": {
+              "new_terminal_calls": 354.0,
+              "terminal_clips": 104498.0,
+              "terminal_affine_products": 10032.0,
+              "terminal_readout_margin_products": 37758.0,
+              "terminal_moment_calls": 12291.0,
+              "terminal_gate_cells": 8560.0,
+              "terminal_correct_pieces": 3731.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0,
+              "terminal_cache_hits": 96.0,
+              "collapsed_terminal_axes_checked": 4.0
+            },
+            "construction_cpu_seconds": 9.961193412,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          }
+        }
+      },
+      "6": {
+        "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+        "sources": {
+          "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/batch_terminal.py": "63fade566fff9e783bf8d299db41cc4425caa3d36ac51d5804b68fe23d47ef39",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/moments.py": "239d1b88e959e0703548ef625752b9d6215e324f0545a354a7271164c3ef1613",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/tail.py": "b3aee707e09538928551d9d8d22791daa9ad09cefeeda5a985629866fc821a33"
+        },
+        "target": 6,
+        "hidden_nodes": 5,
+        "target_nodes": 17,
+        "cumulative_new_terminal_calls": 1200,
+        "cumulative_cache_hits": 1350,
+        "cumulative_batch_report": {
+          "build_work": {
+            "affine_products": 9407.0,
+            "clips": 93260.0,
+            "constructed_step_cells": 16298.0,
+            "one_fresh_complexes": 196.0,
+            "two_fresh_complexes": 196.0,
+            "moment_calls": 10983.0,
+            "partition_moment_calls": 10983.0,
+            "max_partition_error": 4.440892098500626e-16,
+            "readout_margin_products": 47284.0,
+            "readout_complexes": 507.0,
+            "retained_readout_polygons": 6202.0,
+            "readout_cache_hits": 729.0,
+            "late_complexes": 408.0
+          },
+          "query_work": {
+            "queries": 1236.0,
+            "clips": 41694.0,
+            "moment_calls": 8792.0,
+            "correct_pieces": 8792.0
+          },
+          "build_cpu_seconds": 8.631539975999967,
+          "query_cpu_seconds": 5.91391705600002,
+          "total_api_cpu_seconds": 14.545457031999987,
+          "cached_unique_arrays": 34594,
+          "cached_array_bytes": 2429712,
+          "partition_cache_entries": 507,
+          "readout_cache_entries": 507
+        },
+        "previous_construction_provenance": {
+          "3": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 3,
+            "construction_work": {
+              "new_terminal_calls": 450.0,
+              "terminal_clips": 79830.0,
+              "terminal_affine_products": 5328.0,
+              "terminal_readout_margin_products": 43164.0,
+              "terminal_moment_calls": 9121.0,
+              "terminal_gate_cells": 7488.0,
+              "terminal_correct_pieces": 1633.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0
+            },
+            "construction_cpu_seconds": 7.036153416,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          },
+          "5": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 5,
+            "construction_work": {
+              "new_terminal_calls": 354.0,
+              "terminal_clips": 75500.0,
+              "terminal_affine_products": 7808.0,
+              "terminal_readout_margin_products": 26804.0,
+              "terminal_moment_calls": 9576.0,
+              "terminal_gate_cells": 7356.0,
+              "terminal_correct_pieces": 2220.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0,
+              "terminal_cache_hits": 96.0,
+              "collapsed_terminal_axes_checked": 4.0
+            },
+            "construction_cpu_seconds": 7.146690343,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          },
+          "6": {
+            "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+            "hidden_nodes": 5,
+            "target_nodes": 9,
+            "target": 6,
+            "construction_work": {
+              "new_terminal_calls": 354.0,
+              "terminal_clips": 104498.0,
+              "terminal_affine_products": 10032.0,
+              "terminal_readout_margin_products": 37758.0,
+              "terminal_moment_calls": 12291.0,
+              "terminal_gate_cells": 8560.0,
+              "terminal_correct_pieces": 3731.0,
+              "terminal_positive_fallbacks": 0.0,
+              "terminal_positive_quadrature_fallbacks": 0.0,
+              "terminal_high_precision_fallbacks": 0.0,
+              "terminal_fallback_rule_generations": 0.0,
+              "terminal_fallback_rule_generation_nodes": 0.0,
+              "terminal_fallback_quadrature_nodes": 0.0,
+              "terminal_fallback_quadrature_error_bound": 0.0,
+              "terminal_cache_hits": 96.0,
+              "collapsed_terminal_axes_checked": 4.0
+            },
+            "construction_cpu_seconds": 9.961193412,
+            "construction_sources": {
+              "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+              "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+              "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+            }
+          }
+        }
+      }
+    },
+    "h9_b5": {
+      "3": {
+        "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+        "hidden_nodes": 9,
+        "target_nodes": 5,
+        "target": 3,
+        "construction_work": {
+          "terminal_cache_hits": 250.0,
+          "new_terminal_calls": 560.0,
+          "terminal_clips": 101360.0,
+          "terminal_affine_products": 6720.0,
+          "terminal_readout_margin_products": 54880.0,
+          "terminal_moment_calls": 11425.0,
+          "terminal_gate_cells": 9520.0,
+          "terminal_correct_pieces": 1905.0,
+          "terminal_positive_fallbacks": 0.0,
+          "terminal_positive_quadrature_fallbacks": 0.0,
+          "terminal_high_precision_fallbacks": 0.0,
+          "terminal_fallback_rule_generations": 0.0,
+          "terminal_fallback_rule_generation_nodes": 0.0,
+          "terminal_fallback_quadrature_nodes": 0.0,
+          "terminal_fallback_quadrature_error_bound": 0.0
+        },
+        "construction_cpu_seconds": 9.741931495000003,
+        "construction_sources": {
+          "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+        }
+      },
+      "5": {
+        "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+        "hidden_nodes": 9,
+        "target_nodes": 5,
+        "target": 5,
+        "construction_work": {
+          "terminal_cache_hits": 474.0,
+          "new_terminal_calls": 336.0,
+          "terminal_clips": 71836.0,
+          "terminal_affine_products": 7472.0,
+          "terminal_readout_margin_products": 25396.0,
+          "terminal_moment_calls": 8970.0,
+          "terminal_gate_cells": 6932.0,
+          "terminal_correct_pieces": 2038.0,
+          "terminal_positive_fallbacks": 0.0,
+          "terminal_positive_quadrature_fallbacks": 0.0,
+          "terminal_high_precision_fallbacks": 0.0,
+          "terminal_fallback_rule_generations": 0.0,
+          "terminal_fallback_rule_generation_nodes": 0.0,
+          "terminal_fallback_quadrature_nodes": 0.0,
+          "terminal_fallback_quadrature_error_bound": 0.0,
+          "collapsed_terminal_axes_checked": 4.0
+        },
+        "construction_cpu_seconds": 6.495323646999999,
+        "construction_sources": {
+          "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+        }
+      },
+      "6": {
+        "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+        "hidden_nodes": 9,
+        "target_nodes": 5,
+        "target": 6,
+        "construction_work": {
+          "terminal_cache_hits": 474.0,
+          "new_terminal_calls": 336.0,
+          "terminal_clips": 99494.0,
+          "terminal_affine_products": 9744.0,
+          "terminal_readout_margin_products": 35396.0,
+          "terminal_moment_calls": 11405.0,
+          "terminal_gate_cells": 8020.0,
+          "terminal_correct_pieces": 3385.0,
+          "terminal_positive_fallbacks": 0.0,
+          "terminal_positive_quadrature_fallbacks": 0.0,
+          "terminal_high_precision_fallbacks": 0.0,
+          "terminal_fallback_rule_generations": 0.0,
+          "terminal_fallback_rule_generation_nodes": 0.0,
+          "terminal_fallback_quadrature_nodes": 0.0,
+          "terminal_fallback_quadrature_error_bound": 0.0,
+          "collapsed_terminal_axes_checked": 4.0
+        },
+        "construction_cpu_seconds": 8.455762274000001,
+        "construction_sources": {
+          "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+          "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+          "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+        }
+      }
+    }
+  },
+  "batch_scalar_check": {
+    "comparisons": 36,
+    "max_abs_difference": 0.0,
+    "scalar_work": {
+      "calls": 36.0,
+      "clips": 5764.0,
+      "affine_products": 534.0,
+      "readout_margin_products": 2364.0,
+      "moment_calls": 706.0,
+      "gate_cells": 540.0,
+      "correct_pieces": 166.0,
+      "positive_fallbacks": 0.0,
+      "positive_quadrature_fallbacks": 0.0,
+      "high_precision_fallbacks": 0.0,
+      "fallback_rule_generations": 0.0,
+      "fallback_rule_generation_nodes": 0.0,
+      "fallback_quadrature_nodes": 0.0,
+      "fallback_quadrature_error_bound": 0.0,
+      "moment_edge_integrals": 4932.0,
+      "moment_fourier_terms": 14796.0,
+      "moment_area_calls": 1412.0,
+      "moment_recurrence_steps": 1412.0
+    },
+    "batch_work_included_in_cumulative_report": true
+  },
+  "previous_unique_terminal_states": 3590,
+  "accuracy": 0.23193864074668794,
+  "contributions": {
+    "3": 0.07328743568910032,
+    "5": 0.03072299119904651,
+    "6": 0.1279282138585411
+  },
+  "initial_sign_values": {
+    "3": [
+      0.21224516216778017,
+      0.5330631756674303
+    ],
+    "5": [
+      0.6630351521173292,
+      0.18519599081172533
+    ],
+    "6": [
+      0.2090747492816886,
+      0.9412590135249943
+    ]
+  },
+  "constant_W_error": -2.7755575615628914e-17,
+  "terminal_W_min": 3.6606963557833465e-05,
+  "terminal_W_max": 0.9999999917347966,
+  "transport_work": {
+    "rank_rules_generated": 5.0,
+    "rank_rule_generation_nodes": 320.0,
+    "rank_probability_queries": 2244.0,
+    "rank_quadrature_nodes": 143616.0,
+    "max_unnormalized_rank_defect": 0.0007419055853326757,
+    "max_relative_rank_defect": 0.08988507118213282,
+    "max_normalized_row_defect": 4.440892098500626e-16,
+    "zero_width_coordinates": 2.0,
+    "max_box_excess": 0.0,
+    "min_interpolated": 0.0,
+    "max_interpolated": 1.0000000000000007,
+    "interpolation_queries": 575866.0,
+    "angle_nodes": 574464.0
+  },
+  "rank_tail_work": {
+    "calls": 34.0,
+    "clips": 2040.0,
+    "affine_products": 272.0,
+    "readout_margin_products": 1632.0,
+    "moment_calls": 470.0,
+    "gate_cells": 272.0,
+    "correct_pieces": 198.0,
+    "positive_fallbacks": 0.0,
+    "positive_quadrature_fallbacks": 0.0,
+    "high_precision_fallbacks": 0.0,
+    "fallback_rule_generations": 0.0,
+    "fallback_rule_generation_nodes": 0.0,
+    "fallback_quadrature_nodes": 0.0,
+    "fallback_quadrature_error_bound": 0.0,
+    "moment_edge_integrals": 2948.0,
+    "moment_fourier_terms": 8844.0,
+    "moment_area_calls": 940.0,
+    "moment_recurrence_steps": 940.0
+  },
+  "new_terminal_calls": 4032,
+  "terminal_cache_hits": 4230,
+  "batch_report": {
+    "build_work": {
+      "affine_products": 31995.0,
+      "clips": 316545.0,
+      "constructed_step_cells": 55100.0,
+      "one_fresh_complexes": 676.0,
+      "two_fresh_complexes": 676.0,
+      "moment_edge_integrals": 265224,
+      "moment_fourier_terms": 795672,
+      "moment_area_calls": 73882,
+      "moment_recurrence_steps": 73882,
+      "moment_calls": 36941.0,
+      "partition_moment_calls": 36941.0,
+      "max_partition_error": 4.440892098500626e-16,
+      "readout_margin_products": 160297.0,
+      "readout_complexes": 1691.0,
+      "retained_readout_polygons": 21039.0,
+      "readout_cache_hits": 2377.0,
+      "late_complexes": 1352.0
+    },
+    "query_work": {
+      "queries": 4068.0,
+      "clips": 140652.0,
+      "moment_edge_integrals": 222262,
+      "moment_fourier_terms": 666786,
+      "moment_area_calls": 59304,
+      "moment_recurrence_steps": 59304,
+      "moment_calls": 29652.0,
+      "correct_pieces": 29652.0
+    },
+    "build_cpu_seconds": 22.70714562400003,
+    "query_cpu_seconds": 14.629209601999982,
+    "total_api_cpu_seconds": 37.33635522600001,
+    "cached_unique_arrays": 117187,
+    "cached_array_bytes": 8234976,
+    "partition_cache_entries": 1691,
+    "readout_cache_entries": 1691
+  },
+  "cpu_seconds_excluding_imports": 38.548901625,
+  "sources_after": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/batch_terminal.py": "63fade566fff9e783bf8d299db41cc4425caa3d36ac51d5804b68fe23d47ef39",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/moments.py": "0c4a6cb4c8ed3f89b0a8506138b6b8cf81b523979eae6992c7117c9235081f2e",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/tail.py": "b3aee707e09538928551d9d8d22791daa9ad09cefeeda5a985629866fc821a33"
+  },
+  "source_files_changed_during_run": false
+}

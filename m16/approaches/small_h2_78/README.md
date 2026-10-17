@@ -9,10 +9,10 @@ Recover the earlier exact rational readout envelope and two-negative-input reset
 Recovery cycle protocol, frozen before implementation: verify exact envelope and reset coefficients; test prefix integration at fixed positive/negative suffixes and predicted labels both before and after the reset. Use exact polynomial antiderivatives in Gaussian CDF coordinates for discarded-index targets. Compare with independent conditional Monte Carlo only as validation. Subsequently integrate suffix lengths0,1,2 with analytic or deterministic low-dimensional integration and explicitly retain all unresolved probability mass. Test base seed0 and fixed relative noises0.0025/0.02 with RNG1 if checkpoints and time permit. No full accuracy claim from a partial decomposition.
 
 ## Status
-Running; original uncommitted implementation was lost in the runtime restart. The earlier broad interval [7.7497%,43.3468%] is a recorded provisional result to reproduce, not a validated claim. Root reserved the task before delegation. Claude remains DRI.
+T49 remains open: no certified full accuracy estimator. T53 delivered the explicitly labelled local T7 pilot. T61 is a recorded negative. T65 completed its authorized coordinate/factorial diagnosis; root owns review and registry updates. Root reserved tasks before delegation. Claude remains DRI.
 
 ## Results
-Pending recovery implementation. Standard H2T7 full-training seed0 endpoint returned404 before the outage; zoo API explicitly excludes length7. H2T8 seed0 is the fixed primary checkpoint, not a best-of-five selection.
+The H2T8 reset-prefix implementation is recovered, with exact algebra and approximate suffix integration; no-reset mass55/256 remains unresolved. T7 LOCALPILOT transport reaches23.19386% on the final authorized grid, versus independent heldout23.70605% (SE0.23494pp), without a certified error bound. Standard H2T7 full-training seed0 endpoint returned404; zoo API excludes length7. H2T8 seed0 is the fixed public checkpoint, not a best-of-five selection.
 
 ## Compute accounting
 Each experimental cycle <=120 CPU seconds, one thread, process RSS below2GB. Numerical runs acquire /workspace/work/codex-compute.lock; long runs use ulimit -v2500000. Validation chunks <=65536. Count analytic preprocessing, exact rational operations, CDF/polynomial calls, suffix model steps, and independent validation inputs separately. Rational operations are not silently equated to FLOPs. No equal-compute advantage is claimed until cost is audited.
@@ -147,3 +147,17 @@ The run took15.656CPU seconds excluding imports and added1200 analytic terminal 
 Root authorized exactly one hidden9/b17,angle16,rank64 test under T65, with no b33 afterward. Reuse the union of persisted hidden5/b17 and hidden9/b5 states only on bit-identical keys, retaining complete provenance and construction counts for both. This completes the existing factorial comparison:5/5,5/17,9/5,9/17. The hypothesis is that hidden resolution matters more once b is resolved; the alternative is that the remaining bias lies elsewhere despite both refinements. Same36 scalar/batch checks, constant-W, range and box controls, one-thread/memory lock and110CPU cap. No new Monte Carlo or independent target-conditioned transport engine; root assigned that distinct approach to T67.
 
 Final factorial bookkeeping: the stored5/5 baseline originally used angle8. Replay only its angle16 transport using every fourth b node of the persisted5/17 tables, with no new neural terminal construction, to make the four-cell comparison use the same angle order. Charge analytic constant-rank denominator and transport work, preserve original baseline, and retain source-table provenance. This is a within-cycle control, not an additional grid escalation.
+
+### T65 final factorial result
+With the same rank64 and angle16 rules, the four estimates are:
+
+| Hidden nodes per axis | Target nodes5 | Target nodes17 |
+| --- | ---: | ---: |
+| 5 | 21.36005% | 22.86444% |
+| 9 | 21.38473% | 23.19386% |
+
+The hidden refinement adds0.02469pp at b5 and0.32942pp at b17: there is an interaction of0.30474pp. Target refinement remains the larger tested effect, but hidden interpolation becomes relevant once the target coordinate is better resolved. The earlier coarse-grid result does not justify declaring hidden interpolation negligible in general. The final23.19386% estimate is0.51219pp below the fixed heldout23.70605% (SE0.23494pp); this is approximately2.18 heldout standard errors and is not a convergence or accuracy certificate.
+
+The final9/17 construction took38.549CPU seconds, adding4032 analytic terminal calls to3590 unique cached states from5/17 and9/5. All36 scalar/batch checks were bit-identical; constant-W error was roundoff, conditional ranges and curved-box checks passed, and source hashes remained unchanged. `interaction_results.json` retains full nested construction provenance. The5/5 angle16 control (`factorial_baseline.json`) reused existing terminal nodes, added no neural terminal calls, and cost0.107CPU seconds including its analytic rank denominator. Total CPU across all T65 coordinate/anisotropic/nested/factorial cycles is114.20 seconds, each separately below110 seconds; this total excludes earlier T61 and rectangular experiments and includes no model-input samples. It is diagnostic work, not an equal-compute estimator claim.
+
+Reproduce the final run with the standard wrapper and `nested_transport.py --interaction`; reproduce the same-angle baseline with `check_interaction.py`. The final authorized factorial diagnosis is complete. No b33 run or new fixed-target engine was started here; root assigned that different method to T67.
