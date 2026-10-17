@@ -33,3 +33,22 @@ or invariance under arbitrary hidden-unit rescaling. Keep the absolute
 noise panel as its original comparison and distinguish the relative
 panel. Neither by itself establishes intrinsic robustness as a universal
 function of training amount.
+
+## Tight absolute-noise panel arithmetic
+
+`check_training_bulk_review.py` independently reads the256 frozen
+k24,seed4 absolute-noise rows.60-digit arithmetic gives the per-model
+allocation ratio .745153320481545068, versus own-counter uniform
+average-budget ratio .747009609599737775. The historical-counter
+uniform ratio is .730732685765223589. Independent histogram aggregation
+of the same1000 frozen bootstrap resamples reproduces the percentile
+interval [.5651172397240184,.9291922067425471]. All reference probabilities
+are in(0,1), all costs positive. There are50 individual losses and the
+largest absolute error is .0600192364653358.
+
+This checks saved arithmetic, not the complete scalar instrumentation.
+The interval is a pointwise noisy-copy bootstrap with finite-resampling
+variation, not simultaneous coverage or training-seed generalization.
+Individual losses do not themselves refute the ensemble-MSE criterion.
+The reused R3/R4 cost conventions and floating reference qualifications
+remain explicit; no additional estimator runs were made for this audit.
