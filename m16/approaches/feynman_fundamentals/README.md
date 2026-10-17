@@ -1061,3 +1061,19 @@ native recipe trace, T171 model-facing adapter import/tie qualification,
 T115 missing panels and T100 first noisy-case/reference completion. Parent
 integrates owned commits; only DRI may confirm scoped challenge claims.
 All failures and conditional/finite scope limits stay visible in the notes.
+
+
+Latest continuation (2026-10-17): T115 missing k30 panels, T171 import/tie and
+two-seed capture parity, T172 all1280 H8 native-source cost rows, and T100 first
+noisy fibre case plus fixed100M reference now have independent saved-data
+reviews. T178 Hopf root-mask defect is verified through an exact synthetic
+whole-circle counterexample; universal fibre continuity also fails at a
+rank-degenerate fibre. These are scoped counterexamples, not trained-panel
+refutations. T179 full ac321d97 replay reproduces aggregate accuracy but fails
+its preset percone threshold once, with a negative mass and raw-PC clipping.
+The newer cf9c17cb thin/atan2 kernel is a separate active review, not covered
+by the older result. Generic small-determinant accuracy lacks a q-min bound.
+Current queue: new DRI kernel controls, T176 recipe85b native traces, T181
+stable-moment pilot, and T180/T183 further common-unit cost work. Recent
+checks are source/raw-record reviews under20CPU, preserving all failures;
+no mass/Monte Carlo reruns unless explicitly needed for independence.
