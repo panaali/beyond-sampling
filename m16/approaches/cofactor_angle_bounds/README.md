@@ -7,7 +7,7 @@ Does the reviewed cofactor interval give a useful bound on the resulting partial
 Claim5be8e715 before implementation. For x>0, atan2(y,x) has derivative x/(x²+y²); maximize it over the signed numerator interval and multiply the maximum distance from the selected point. Use exact rational arithmetic and the universal cap4 (angle difference<pi<4). For x=0 and a strictly one-sign interval the angle is constant; intervals containing the origin stay unknown. Independent proof/control gate precedes21 fixed analytic fixtures; only then reuse original64 saved cofactor intervals and stored atan2 denominators. Preserve every failed/unknown case.
 
 ## Status
-Source/control implementation and independent gate in progress. No numerical execution or saved64 continuation yet.
+Independent source gate passed; all21 frozen analytic/undefined controls pass. Exact rational proof remains separate from120-digit diagnostics. Original64 continuation is frozen and awaiting saved-control/source review, not executed.
 
 ## Results
 [inferred] The derivative formula gives a numerator-only error bound for each fixed nonnegative denominator. T55 independently checked the algebra and required explicit origin-undefined status. No measured results yet.
@@ -23,3 +23,5 @@ Cancellation may make a certified determinant interval too wide; test explicit c
 
 ## Failure modes
 Treating atan2(0,0) as a defined real angle, ignoring sign changes, comparing derivative error with a different denominator, inferring mass accuracy from64 nodes, uncharged exact arithmetic, or confusing ordinary high-precision diagnostics with proof of floating libm rounding.
+
+Frozen21 controls pass with all undefined/invalid statuses retained; CPU0.004003642000000016. Reproduce with controls.py only in a fresh output-free checkout under the20CPU review lock. No determinant/model/mass work.
