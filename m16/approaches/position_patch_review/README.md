@@ -70,7 +70,14 @@ Frozen first phase; implementation next. The full task may remain inconclusive
 if natural controls do not match or selective reachable patches are absent.
 
 ## Results
-Pending. Full-state swaps alone do not identify a neuron group's causal role.
+First frozen run:1014 selected pairs;626 coordinate-pair and279 fast-span
+controls match both norms within10%. Partial target-minus-control donor-contrast
+changes are−.5802 (SE.1401) and−10.7741 (SE1.9622). However every tested
+partial direction fails the recipient-cell linear feasibility test, and274
+fast patches have negative coordinates. Thus these are **not causal negatives**.
+Full donor resumption agrees exactly. CPU1.13193sec including imports/loading,
+RSS208772KiB; all results/costs retained in `results.json`.
+Full-state swaps alone do not identify a neuron group's causal role.
 
 ## Compute accounting
 CPU/RSS and operation/forward/decomposition counts will be retained. Random
@@ -93,3 +100,28 @@ Natural matched controls may be scarce. SVD feasibility is numerical, not exact
 certification. Local-cell impossibility does not imply global unreachability.
 Matched immediate readout norm does not equalize nonlinear suffix sensitivity.
 Partial patches can be off-manifold even if all coordinates are nonnegative.
+
+## Frozen reachable-tangent rescue (before second execution)
+Use the same1014 pairs and ONLY the first run's successfully matched controls;
+do not regenerate the matching choice or select outcomes. Reconstruct those
+fixed subspaces deterministically and count this setup. For each target/control
+Q and desired group coordinates b=Q^T(h_donor−h_recipient), let U span the
+recipient-prefix gate-map range. The minimum-norm reachable hidden displacement
+preserving those group coordinates is d=U*(Q^T U)^+b, provided the equality
+is feasible. It minimizes complementary leakage because ||Q^T d|| is fixed.
+Solve A8 dx=d, then compute a safe COMMON target/control step alpha<=.9 from
+all preactivation inequalities at every one of the10 original steps (including
+the common suffix). Zero preactivation forms are treated explicitly; zero
+safe-step pairs are retained as failures. No assertion of strict feasibility
+on identically-zero forms. This produces actual perturbed input witnesses,
+not arbitrary hidden vectors; check full forward reconstruction and gate signs.
+
+Report unavoidable complement/target norm ratio, retained fraction alpha,
+group-coordinate equality residual, witness errors and donor-order changes.
+Evaluate target/control donor-logit contrast change using the same common alpha;
+also report derivative changes divided by alpha only for alpha>0. These latter
+are local sensitivities, not a completed donor-position swap or isolated-group
+mediation. Do not rematch readout energies after this rescue; instead report
+how many original10% matches survive. If they fail, state that the first matched
+test and the reachable test answer different questions. <=20CPU, same lock,
+no new model inputs/cohorts beyond deterministic reconstruction.
