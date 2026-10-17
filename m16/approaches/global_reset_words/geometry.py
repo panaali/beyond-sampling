@@ -9,7 +9,7 @@ def rational(v):return v if isinstance(v,F) else F(v)
 class Geometry:
     def __init__(self,wi,wh,seconds=100):
         self.wi=tuple(map(rational,wi));self.wh=tuple(tuple(map(rational,row)) for row in wh)
-        if len(self.wi)!=2 or any(len(row)!=2 for row in self.wh):raise ValueError('H2 only')
+        if len(self.wi)!=2 or len(self.wh)!=2 or any(len(row)!=2 for row in self.wh):raise ValueError('H2 only')
         self.stats={'rational_mul':0,'rational_add_sub':0,'rational_div':0,'dot_calls':0,'clips':0,'created_vertices':0,'direct_steps':0,'max_fraction_bits':0}
         self.start=time.process_time();self.seconds=seconds
 
