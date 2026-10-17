@@ -65,6 +65,10 @@ Within-run label reuse (cached_cycle.py, cached_results.json) passes: direct/spa
 
 Next frozen reuse step: scalar ReLU/grid crossings themselves are independent of target q. Build full-input interval geometry and basis moments once per stage; for each q reuse complete intervals below/above u and recompute only the single interval crossing u per hidden state. Assemble lower and upper kernels independently, avoiding subtraction of nearly equal total/cumulative masses. Validate against the current sparse implementation on the same controls and h17 before h33. All full-piece and partial-piece construction remains charged within the estimate.
 
+Full-piece reuse (cached_cycle.py --reuse-pieces, piece_cached_results.json) preserves h17/h33 estimates to2.78e-17/zero and reduces CPU to1.003/3.691. At h33 it computes386807 interval moment triples instead of3487696, retaining the same sparse kernel entries and row checks. This is now comparable in measured cost to GL16, while removing its conditional-input quadrature error for the fixed interpolant. It does not remove the larger hidden-grid error.
+
+Next frozen terminal reuse: when the target is not the final index, accepted scalar-input intervals depend on hidden node and label but not target value u. Cache those intervals once per label within the estimate, then evaluate their truncated CDF intersections in batches for each q. The target-last suffix still depends on u and will be rebuilt. Preserve root/tie logic and compare unchanged h17/h33 outputs; count both interval construction and all CDF queries.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
