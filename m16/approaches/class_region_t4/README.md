@@ -32,3 +32,8 @@ Other chart choices, exact boundary representation, all-facet gate certificates,
 
 ## Failure modes
 Inherited clipping tolerance, nearly singular cone mass, exact-zero versus near-zero ownership, uncounted numerical kernels, truncated runs and cancellation of integration errors. Preserve all caps and failures explicitly.
+
+## Preserved initial control failure and frozen discriminator
+The original partition H1T4 zero-readout control gives .249999976701354, a−2.3299e-8 discrepancy from.25, exceeding the frozen1e-8 test. It completes96 families/240 terminal cells/216 mass simplices; initial family mass normalization itself passed. The full failure ledger is retained in `initial_control_failure.json`; no trained case has run. This small discrepancy is consistent with the inherited Plackett quadrature, but that explanation must be tested.
+
+Freeze a controls-only comparison for all three partitions with the unchanged default12/48 graded rules, doubled24/96 and quadrupled48/192 rules, preserving identical gates/geometry and analytic target. Report every result, error, cost and CPU. If tighter rules restore the analytic value and leave all geometry counts identical, classify the original control as a finite mass-rule accuracy failure rather than a partition/tie failure. Do not silently replace the default trained recipe or erase its failure; full comparisons retain default quadrature and explicit error limitations. Separate stronger mass rules or an independent mass method would require a new scope.
