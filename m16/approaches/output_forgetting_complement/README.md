@@ -51,9 +51,13 @@ integrals are repeated, and no new uniform-output event family is added.
 ## Status
 Claim63660ab pushed before implementation. Existing T105 author confirms
 no overlap; its eight-event phase is complete and T121 is its current task.
+Bounded witness and actual-prefix extension complete. Independent T55 exact
+suffix review868c69b passes; actual-prefix extension review pending.
 
 ## Results
-Pending. This is a complement discriminator, not a full accuracy estimator.
+Results below. This is a complement discriminator, not a full accuracy estimator.
+Reproduce from this folder with the project interpreter: `python controls.py`,
+`python pilot.py`, `python prefix_support.py`; one thread and review lock.
 
 ## Compute accounting
 One thread,2GB, <=20CPU/review lock for the bounded finite search and controls.
@@ -68,8 +72,9 @@ forgetting based only on four suffix inputs for every nonnegative initial h.
 [speculative] The complement has practically important state dependence.
 
 ## Alternatives not ruled out
-Both witness states need not be reachable under the actual six-input prefix
-law. Conditioning on prior hidden state, using a longer suffix, marginalizing
+Actual-prefix open neighborhoods now realize both outputs, but the constructed
+second event is astronomically rare. Conditioning on prior hidden state,
+using a longer suffix, marginalizing
 its distribution or integrating the full network remains possible. No broad
 negative about mechanistic estimation, the original model or the challenge.
 
@@ -131,3 +136,31 @@ mass is stored in factored rational form to avoid enormous integer strings;
 The B prefix includes a Gaussian input near-403, so its probability is
 astronomically small. This phase establishes support/identifiability, not a
 practically important remaining error or a competitive full estimator.
+
+## Actual-prefix support result
+`prefix_support.py/json` constructs both exact rational prefix boxes and
+checks all25 suffix gate/readout inequalities with the additional prefix
+perturbation. All9 omitted readout comparisons belong to the zero-final-hidden
+case; their coefficients vanish on its entire active support. They therefore
+remain exact ties after prefix perturbation, with first-index label0 retained.
+The common prefix radius is approximately1.51835e-7. Each retained inequality
+has at least one quarter of its original exact slack throughout the full box.
+
+All2048 direct Fraction ten-input vertex recurrences pass, with output0 for A,
+output6 for B, and unique second-largest input index0 for both. The whole-box
+claim follows from the exact bounds, not interpolation between tested vertices.
+CPU .346812 including rational construction, vertices and80-digit probabilities.
+
+The numerical ten-input box masses are4.55853872891e-48 and
+6.29544730648e-35396. Separate rigorous lower bounds have factored form
+`(2*epsilon)^6*(2*rho)^4/3^P`, where P=20 and81411. Their log10 values are
+approximately-52.01054 and-38885.38658. Factored exact positivity does not
+depend on the numerical CDF computations. The far-negative interval uses
+erfc differences to avoid cancellation.
+
+[inferred, independent review pending] Even under the actual Gaussian input
+law, exact prediction/correctness cannot be determined almost surely from
+these four suffix inputs alone: the same positive-mass suffix box admits
+positive-mass prefix boxes with different output and correctness. This does
+not bound the practically important mass of the unresolved complement, and
+does not exclude a competitive approximate suffix-based estimator.
