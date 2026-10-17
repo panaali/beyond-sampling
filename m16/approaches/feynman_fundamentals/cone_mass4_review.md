@@ -127,3 +127,28 @@ supremum tail times volume1/6, yielding |detR|*tail/(6*pi^2).
 This covers the real-arithmetic formula; near-rho1 cancellation, floating
 normalization and a possibly useless fixed-order bound need separate
 handling. No general56-cone computation was run by this reviewer.
+
+## T129 all remaining exact radial certificates and full captured reference
+
+Independent check_radial_certificate_review.py verifies each of56 KKT
+certificates directly on the original dyadic rays: simplex feasibility,
+exact objective a, dual slack Gy-a>=0, complementarity and b=max diagonal.
+These suffice for the global convex minimum without trusting the author's
+15-face search. Independent permutation determinants match exactly.
+Explicit summation of Chebyshev coefficient magnitudes through degree400
+at80 digits matches saved50-digit tail values within1.37e-49 relative.
+All observed rho<1/2, so the omitted coefficient-sum remainder is far
+below that comparison tolerance; this checks formula evaluation, not
+outward floating certification.
+
+The three saved reference sets are disjoint and cover5859+432+56=6347
+captured error cones exactly once. Exact summation of their stored binary
+float values gives accuracy.4770131259941193, with summed real-arithmetic
+integration-only bound3.157995918627031e-8. The author's two-stage float
+subtraction rounds to.4770131259941194; this one-ulp difference is benign.
+The existing independent whole-model reference is.477013125994119.
+No captured residual remains unrepresented. Exact original geometry,
+float-normalized transformed rays, determinants and floating quadrature
+error still require separate end-to-end treatment for a total certificate.
+The expensive reference calculation is not a competitive estimator or
+solved challenge claim.

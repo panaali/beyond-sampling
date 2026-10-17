@@ -31,3 +31,15 @@ original beta. Its gradient criterion must remain in original-beta
 coordinates for comparison; whitened gradient norms are different.
 Rank-truncated SVD can change the class and must not be called a merely
 reversible preconditioner. No further fit or new task was run in review.
+
+## Frozen QR implementation
+
+The source uses S=sqrt(N)*Q and gamma=R*beta/sqrt(N), then solves
+beta=R^-1*(sqrt(N)*gamma). The gradient relation is
+original_gradient=R^T*transformed_gradient/sqrt(N). The synthetic finite
+-difference control avoids ReLU kinks; transform/objective controls and
+original-coordinate stopping are appropriate. Numerical rank deficiency
+raises rather than truncating. Checkpoint hash pinning was requested and
+added before measurements, independently of immutable old-result hashes.
+Rescue runs remain restricted to original nonconverged fits and retain
+failures/caps. No QR numerical fit results were independently rerun here.
