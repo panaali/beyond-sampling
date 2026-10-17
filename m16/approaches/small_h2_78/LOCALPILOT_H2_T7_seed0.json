@@ -1,0 +1,73 @@
+{
+  "provenance": "LOCALPILOT, not AlgZoo pretrained or 2^30-sequence training",
+  "H": 2,
+  "T": 7,
+  "seed": 0,
+  "training_input_seed": 0,
+  "heldout_seed": 49003,
+  "architecture": "bias-free ReLU torch.nn.RNN plus final linear readout",
+  "optimizer": "Adam, lr0.01, PyTorch defaults",
+  "loss": "cross entropy, second-largest input position",
+  "batch": 256,
+  "steps": 2000,
+  "training_sequences": 512000,
+  "max_steps": 2000,
+  "stop_reason": "max_steps",
+  "training_cpu_seconds": 2.485252001,
+  "max_cpu_seconds": 30,
+  "heldout_sequences": 32768,
+  "heldout_correct": 7768,
+  "heldout_accuracy": 0.237060546875,
+  "heldout_standard_error": 0.002349360758032801,
+  "loss_trace": [
+    {
+      "step": 1,
+      "loss": 1.9531254768371582
+    },
+    {
+      "step": 200,
+      "loss": 1.8478820323944092
+    },
+    {
+      "step": 400,
+      "loss": 1.862571358680725
+    },
+    {
+      "step": 600,
+      "loss": 1.8341584205627441
+    },
+    {
+      "step": 800,
+      "loss": 1.8436346054077148
+    },
+    {
+      "step": 1000,
+      "loss": 1.818352460861206
+    },
+    {
+      "step": 1200,
+      "loss": 1.8528767824172974
+    },
+    {
+      "step": 1400,
+      "loss": 1.8094472885131836
+    },
+    {
+      "step": 1600,
+      "loss": 1.8664381504058838
+    },
+    {
+      "step": 1800,
+      "loss": 1.819892406463623
+    },
+    {
+      "step": 2000,
+      "loss": 1.8657220602035522
+    }
+  ],
+  "last_loss": 1.8657220602035522,
+  "torch_version": "2.14.1+cpu",
+  "numpy_version": "2.5.4",
+  "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+  "total_cpu_seconds": 2.4961888539999997
+}
