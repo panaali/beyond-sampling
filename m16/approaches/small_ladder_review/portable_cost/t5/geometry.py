@@ -42,7 +42,12 @@ def triangulated(dd,R,Z,ops,audit):
 def enumerate_correct(model,audit,validate_rank=False,partition=False):
  dd=instrument_dd(DD,audit)
  def rank(M,ops):
-  audit.add('rank_result_test',1);value=bounded_rank(M,audit);audit.events['bounded_rank_calls']+=1
+  audit.add('rank_result_test',1)
+  try:value=bounded_rank(M,audit)
+  except ArithmeticError as exc:
+   exc.rank_matrix=M.copy()
+   raise
+  audit.events['bounded_rank_calls']+=1
   if validate_rank:
    audit.validation_kernels['matrix_rank_SVD']+=1
    expected=np.linalg.matrix_rank(M,tol=1e-9)

@@ -1,0 +1,85 @@
+{
+  "error": "rank4 threshold unresolved: lower=1.4804850902494002e-10, upper=1.9990553851279145e-12, tol=1e-09",
+  "matrix": [
+    [
+      0.9999955265694085,
+      0.0,
+      -4.473430591461602e-06,
+      2.5388208472346587e-24,
+      0.0
+    ],
+    [
+      0.9978894106755846,
+      -0.0021105893244153556,
+      6.564992581653021e-22,
+      -1.7630710076015333e-24,
+      0.0
+    ],
+    [
+      0.9999999449443461,
+      -1.3763913542034917e-08,
+      -1.3763913542034725e-08,
+      -1.3763913542034914e-08,
+      -1.3763913542034914e-08
+    ],
+    [
+      0.9999999443460105,
+      -1.3913497381947533e-08,
+      -1.3913497381947344e-08,
+      -1.3913497381947533e-08,
+      -1.3913497381947533e-08
+    ]
+  ],
+  "singular_values": [
+    1.9989435254245902,
+    0.0018287796955845411,
+    3.641273072538547e-06,
+    1.5004756453792135e-10
+  ],
+  "svd_rank_at_1e9": 3,
+  "validation_svd_calls": 1,
+  "partial_production_cost": {
+    "known_arithmetic_upper_bound": 7712234,
+    "parts": {
+      "module_bitset_setup": 384,
+      "root_gate_setup": 400,
+      "gate_map_setup": 29360,
+      "lift_scalar": 8940,
+      "zero_normal_check": 12522,
+      "clip_scalar": 359161,
+      "clip_adjacency": 2851752,
+      "clip_new_rays": 1519856,
+      "gate_masks": 1966,
+      "outcome_maps": 4200,
+      "outcome_predicates": 7692,
+      "outcome_control": 8398,
+      "orthant_control": 12360,
+      "ray_l1_normalization": 12210,
+      "tri_incidence": 327168,
+      "tri_control": 16940,
+      "tri_face_scan": 551940,
+      "rank_result_test": 645,
+      "qr_control_static": 660480,
+      "qr_norm": 204988,
+      "qr_bounds": 24510,
+      "qr_pivot": 178325,
+      "qr_normalize": 9665,
+      "qr_project": 296240,
+      "qr_reorthogonalize": 84800,
+      "qr_bracket_products": 275119,
+      "qr_inverse": 82742,
+      "determinant_control": 119040,
+      "determinants": 49966,
+      "simplex_test": 465
+    },
+    "black_box_kernels": [],
+    "events": {
+      "lift_calls": 44,
+      "clip_calls": 1257,
+      "triangulate_calls": 114,
+      "bounded_rank_calls": 644
+    },
+    "validation_kernel_calls": {}
+  },
+  "cpu_seconds": 0.184931532
+}
