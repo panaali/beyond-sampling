@@ -85,8 +85,12 @@ T55 independently checked the local affine-image criterion, the need for all-
 time gate inequalities, and the distinction between closed-cell feasibility
 and stable strict gates. Its active-ambient-dimension caveat is respected:
 we compute actual complement ranks, rather than infer them from H=16 alone.
-The minimum-norm rescue was submitted for independent algebra/source review;
-forward witnesses supply a separate numerical construction check.
+T55 also independently checked the minimum-norm rescue: orthonormal U makes
+the pseudoinverse solution minimize hidden norm; fixing Q^T d makes this
+equivalent to minimizing complementary leakage. It explicitly requires the
+retained equality residual check and does not imply input-order preservation.
+Forward witnesses supply a separate numerical construction check. This review
+is algebra/source reasoning, not an independent rerun of every paired effect.
 
 Numerical SVD/pseudoinverse tests are not exact rational certification. Full
 donor witnesses are genuine reachable states, but they change multiple hidden
