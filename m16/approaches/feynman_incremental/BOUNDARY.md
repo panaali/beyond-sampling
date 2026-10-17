@@ -13,3 +13,6 @@ Frozen falsifiers:
 4. Adaptive reuse/table approximation/special-function costs may invalidate historical unbiasedness or compute claims. Keep these limitations explicit; full scoring requires separate arc_eval protocol.
 
 Cycles<=110CPU under primary lock (<=20CPU primitive checks on review lock), one thread/2GB. No shared source edits. Feynman/tube/Laplace estimates remain unchanged. Fitted-importance/Newton variants stay open.
+
+## Frozen setup-failure interface check
+Initial normal runs complete. Before handoff, preserve spent charges if model-free setup itself fails, not only line/estimate failures. Inject a setup callback that charges17 and raises; require known total11017 and unresolved partial setup flag. This exercises interface failure accounting only, with no model integrations. Original source hashes and successful estimates stay unchanged.
