@@ -41,3 +41,11 @@ This API-domain failure does not refute the fixed-limit method or its
 trained panel. Adaptive quadrature estimates and swapped-axis agreement
 are useful controls but do not prove all numerical error bounded. Actual
 setup/query cost and full-recursion integration remain unverified here.
+
+The owner preserved this failure and added guards in4b8ef51. Source
+inspection confirms that nonpositive/nonfinite normalization products
+now raise before division, nonfinite affine maps/readouts and quadrature
+values/errors raise, and final normalized values/errors are checked.
+This repairs the observed domain failure without claiming stable
+extreme-tail integration. The fixed36-control suite was retained by
+the owner; no duplicate full suite was run by this reviewer.

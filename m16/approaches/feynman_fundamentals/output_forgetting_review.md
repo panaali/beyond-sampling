@@ -117,3 +117,30 @@ therefore detected. Above the old axis threshold, strictly positive
 axis support covers the unbounded remainder. Degenerate k=old leaves
 only the excluded finite boundary, which is harmless. The caller's
 positive-parameter assumptions remain required.
+
+The selected -- adapter's exact Fraction antiderivative also checks:
+f1(v)=(m+1)(v^m-v^(m+1))-(m/2)(v^(m-1)-v^m), with the second term
+absent at m0. Integrating these monomials from1/2 to1 is the displayed
+`exact_negative_pair_target_integral`. This removes a test-module import
+without changing the mathematical integral.
+
+## Negative-positive initial pair
+
+A proposed larger first-pair event begins with A=-s<0. From arbitrary
+(p,q)>=0 its new coordinates are
+u=max(a*p-b*q+alpha*s,0), v=max(c*p-d*q-beta*s,0).
+The supremum of a*u-b*v is a*(alpha+a*beta/c)*s. If u=0 the expression
+is nonpositive. If v=0, substitute p<=(d*q+beta*s)/c to obtain
+a*(a*d/c-b)*q+a*(alpha+a*beta/c)*s, bounded above by the proposed
+supremum. If both are positive, the coefficient of p is a²-bc<0;
+substituting the lower p bound yields the same expression. Equality
+is achieved at q=0,p=beta*s/c. Thus a following positive input
+B>kappa*s, kappa=a+a²*beta/(c*alpha), forces coordinate1 OFF for
+every prior state. This is sharp for that uniform OFF property.
+
+The surviving coordinate may be zero; later positive-output guarantees
+must still be applied. For a final positive D, B,D provide two positive
+values, so any selected second-largest target must be positive. The
+initial negative-positive pair still has a coupled joint rank law;
+its event probability must not be multiplied into that law a second
+time. This derivation alone is not a complete event-mass implementation.
