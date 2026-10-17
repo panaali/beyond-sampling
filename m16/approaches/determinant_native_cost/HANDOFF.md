@@ -1,6 +1,6 @@
 # T158 bounded installed determinant audit
 
-Claim7f18b7d; frozen0eeae5b; controls e2619d2e; completed source/raw/count22c19b43. Independent T55 review requested; T157 LU numeric dependency final review pending. Root integrates and Claude DRI classifies.
+Claim7f18b7d; frozen0eeae5b; controls e2619d2e; completed source/raw/count22c19b43. Independent T55 review f53ea74a passes source/count/controls, including17 independent rational elimination determinants; T157 LU numeric dependency independently reviewed a24db934. Root integrates and Claude DRI classifies.
 
 Installed NumPy4x4 float64 determinant uses the same T150 small LU plus log/exp reconstruction. All18 frozen controls (19 matrices) preserve outputs bitwise under transparent GETRF/log/exp wrappers; finite exact-rational controls pass. Singular, subnormal, extreme scale, NaN and infinity cases remain saved. No trained source/geometry/probability replay.
 

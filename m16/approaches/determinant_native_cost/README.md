@@ -13,14 +13,16 @@ Compose only existing35098 exact/28000 recipe determinant counts, pin source sum
 Alternatives: actual determinant may use a different LU dispatcher than inverse (inspect installed binary); source version may not match installed code (binary comparison plus transparent controls); nonfinite/singular paths can change counts (fixed adversarial controls). No timing substitutes for count evidence.
 
 ## Status
-Bounded source/control/count phase complete; independent review pending.
+Bounded source/control/count phase complete; independent T55 review f53ea74a passes, including reviewed T157 dependency a24db934.
 
 ## Results
 All18 frozen controls (19 matrices including batch) preserve baseline outputs bitwise under transparent GETRF/log/exp interposition. All finite exact-rational comparisons pass, including preserved expected singular/overflow/underflow and subnormal behavior. Installed GETRF dimensions and small-path binary dispatch match reviewed T150 LU. Successful matrices use4logs+1exp; singular fixtures0logs+1exp.
 
-DERIVATION.md and summary.json give176 named numeric units per determinant as a category envelope (including reviewed LU56 arithmetic and T15798 pivot/guard units, whose final independent review is pending). Eleven separately named pivot/info source-integer expressions yield187 if assigned unit cost. Exact/recipe census35098/28000 gives6,177,248/4,928,000 numeric units, or6,563,326/5,236,000 including those source-integer expressions. Neither is a full implementation cost; elementary-function internals and other excluded categories remain unknown.
+DERIVATION.md and summary.json give176 named numeric units per determinant as a category envelope (including reviewed LU56 arithmetic and T15798 pivot/guard units, independently reviewed a24db934). Eleven separately named pivot/info source-integer expressions yield187 if assigned unit cost. Exact/recipe census35098/28000 gives6,177,248/4,928,000 numeric units, or6,563,326/5,236,000 including those source-integer expressions. Neither is a full implementation cost; elementary-function internals and other excluded categories remain unknown.
 
 Reproduce saved-data composition: `/workspace/clean-neurons/.venv/bin/python m16/approaches/determinant_native_cost/summarize.py`. Reproduce fixed controls under one-thread environment, review lock and2GB: compile spy.c with `gcc -shared -fPIC -O2 spy.c -ldl -o spy.so`; run `controls.py baseline`, then `LD_PRELOAD=<absolute-folder>/spy.so controls.py instrumented`. No trained replay is needed. Source/download/binary hashes are saved in environment.json; dependency and census hashes in summary.json.
+
+Independent review f53ea74a verifies all18 baseline/interposed controls,19 GETRF calls,68 log/19 exp calls, all17 finite matrix determinants with an independent rational elimination algorithm, source/category algebra and both parent censuses. The author uses a24-term rational permutation sum, so the exact controls use different arithmetic. All stated omissions remain.
 
 ## Compute accounting
 One thread2GB, review lock<=20CPU each bounded process. Fixed controls CPU baseline.029339016 plus instrumented.032629730=.061968746, excluding interpreter imports and compilation/source inventory. No geometry/mass replay. Audit wrapper instrumentation is review-only, not charged as estimator inference. Numeric expression categories and library work stay separate; no complete portable-cost or sampling claim.
