@@ -1152,3 +1152,21 @@ the identity fixture. These are ideal positive-rule truncation bounds; loose
 bounds do not establish observed failure, and source floating evaluation and
 log quadrature remain outside this certificate.
 
+### Selected reduction replacement audit
+
+`check_mass_reduction_review.py` verifies all 172 preserved reduction controls,
+source/binary pins, current safe metadata records and replacement arithmetic.
+Selected norm4 has four FMAs, one accumulator add and one sqrt. Selected native
+pairwise reduction has n-1 body additions plus its accumulator add; the source
+short-row initial addition gives a different source-only count. The pinned
+Python compensation path computes both candidate corrections, supporting the
+declared conservative 61-category allowance for six exact floats. Packed masks
+and runtime exclusions remain explicit.
+
+The listed replacements add 19,584,397 to the previous hybrid subtotal, yielding
+3,591,731,780 with 190,197 model-free constants still separate. Current dispatch
+metadata does not prove historical binding or row traversal. This is a
+conditional selected-category composition, not complete native cost, a timing
+result or a sampler comparison. Original failed fixture and metadata probes
+remain preserved; no kernels or masses were rerun by this review.
+
