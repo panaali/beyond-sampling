@@ -13,16 +13,18 @@ For selected cases convert every stored binary ray and checkpoint coefficient ex
 Competing explanations: (1) output clipping has a semantic error, exposed by exact mislabelled witnesses; (2) floating direct evaluation is unstable near a boundary, separated by Fraction recurrence; (3) error volume bias comes from mass integration despite correct captured point semantics, investigated separately by T131. No claim that interior-point checks prove the full simplex, absence of overlap, or complete error-set coverage. Input ties are separate measure-zero ambiguity, not silently counted as successful strict interiors.
 
 ## Status
-Protocol frozen; implementation/controls next.
+Bounded floating and exact point checks complete; independent source/raw arithmetic review pending.
 
 ## Results
-None yet.
+All35098 fixed ray-sum witnesses match parent second-argmax and classify incorrectly; no input ties. All64 frozen smallest-margin cases pass exact Fraction recurrence on unrounded sums of stored binary rays, with zero floating/exact label differences and zero exact gate ties. Exact truth-minus-best-other margins range from-.002063120414889303 to-.00043188188539797093. Six hand-computed ReLU/tie/rank controls pass. Full witnesses in floating.npz; rational inputs/logits/signs in exact_0.json through exact_3.json.
+
+Commands from repository root: `.../python m16/approaches/error_cone_semantics/check.py controls`, then `floating`, then `exact 0` through `exact 3`; use `/workspace/clean-neurons/.venv/bin/python`, one-thread OMP/OPENBLAS/MKL settings, review flock and `ulimit -v 2500000`. Each chunk runs independently under20CPU. Source/archive hashes and exact selection are saved before rational runs.
 
 ## Compute accounting
-One thread,2GB; primary cycles<=110CPU, review cycles<=20CPU. Every35098 deterministic forward pass and64 exact rational forward passes count as review compute, not estimator runtime. Imports, serialization and checkpointing reported. No Gaussian integration or random model inputs. No cost-competitive claim.
+One thread,2GB; primary cycles<=110CPU, review cycles<=20CPU. Every35098 deterministic forward pass and64 exact rational forward passes count as review compute, not estimator runtime. Imports, serialization and checkpointing reported. No Gaussian integration or random model inputs. No cost-competitive claim. Floating pass1.12191CPU; four exact chunks together4.59148CPU, total5.71338CPU plus tiny controls (.02449CPU; exact recorded value in summary.json). Each timer includes imports and previous persistence; final JSON serialization/return overhead outside timer. PeakRSS recorded in summary.json;35098 floating plus64 exact trained forward passes.
 
 ## Claims
-[inferred] A single exact incorrect semantic witness can falsify the captured label/error interpretation locally. [speculative] The frozen finite witnesses may expose clipping/tie defects independently of Gaussian mass errors.
+[inferred] A single exact incorrect semantic witness can falsify the captured label/error interpretation locally. [measured] No semantic error is exposed by all35098 frozen floating witnesses or64 exact rational checks. This supports the fixed point interpretation only; it is not a proof of whole-cone correctness or mass completeness.
 
 ## Alternatives not ruled out
 Errors elsewhere inside simplices, degenerate simplices without genuine interior, overlapping/missing error regions, input rounding, other models/parents, exact checks beyond64. Full affine-logit certificates or independent complete clipping would be stronger and require a separately claimed follow-up.
