@@ -100,3 +100,40 @@ Base H2/H4 parity remains5.56e-17/2.23e-16. Same-session cold CPU is
 counts (new integer index setup separately recorded). This passes the
 frozen equivalence/cost gate. Repeat the identical17 prior cases for parity
 and cold comparison; no coefficient, degree, node or truth selection.
+
+## Frozen17-case comparison
+All prior cases pass numerical equivalence (max1.11e-16 H2,3.33e-16 H4).
+These are the same H2 base+8 absolute.05 copies RNG47001 and H4 seed0's
+first8 absolute.05 copies RNG0; array hashes and references are preserved.
+
+| Family | Dense mean CPU | Real mean CPU | Dense counted arithmetic | Real counted arithmetic |
+| --- | ---: | ---: | ---: | ---: |
+| H2 (9) | .0986325 | .0786669 | 74.722M | 15.739M |
+| H4 (8) | .352435 | .289961 | 271.764M | 57.370M |
+
+[measured] Cold runtime drops about20.2%/17.7%; ordinary arithmetic about
+4.75x/4.74x. CPU ratios are one same-session diagnostic, not timing CIs.
+RMSE stays .001210658/.001268277: this is no new approximation improvement.
+Squared-error-times-CPU decreases from1.4422e-7→1.1572e-7 (H2) and
+5.6869e-7→4.6963e-7 (H4), only relative to this prior dense implementation.
+The initial H4 slowdown is preserved in pilot.json, and vectorization is
+separately documented; no favorable run was silently substituted.
+
+Each contraction product is an unambiguous scalar-multiplication floor.
+It drops from31.3–32.3M to5.15–5.30M for H2, and106.9–123.5M to
+17.57–20.30M for H4. With the prior conventional forward count excluding
+input generation, mean conditional error²-cost ratios at that FLOOR change
+3.994→.6564 (H2) and20.080→3.3003 (H4). A floor below1 is inconclusive,
+not a sampling win; additions, arc work, setup, geometry and special
+functions still cost work. Four of eight H4 cases remain above1 even at
+this reduced floor. This comparison is conditional on the stated forward
+convention, not a universal impossibility theorem.
+
+## Reproduction
+Run controls.py, pilot.py, vectorization.py, ensemble.py, then cost_floor.py
+using the project Python with one thread, caps and the shared lock. Initial
+scalar assembly remains the default parameter for exact historical replay;
+vectorized=True explicitly selects the tested fast variant. Rule/basis
+construction occurs inside every estimate. No model-dependent cache is
+reused across calls. Operator-source and unchanged-driver hashes accompany
+results; dense canonical files are untouched.
