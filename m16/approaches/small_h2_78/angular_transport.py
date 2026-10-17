@@ -125,7 +125,8 @@ def main():
                     if wmin < -1e-10 or wmax>1+1e-8:raise ArithmeticError(f'conditional range [{wmin},{wmax}]')
                     estimates[j],initials[j]=transport(model,j,grids,boxes,W,rules,stats)
                     counts[j]={'radial_nodes':len(grids[-1][0]),'angular_nodes':len(grids[-1][1]),
-                        'target_nodes':len(grids[-1][2]),'readout_directions_added':len(directions[-1]),
+                        'target_nodes':len(grids[-1][2]),'readout_directions_added':len(directions[-1]) if aligned else 0,
+                        'extra_angular_nodes_vs_radial':len(grids[-1][1])-n,
                         'terminal_grid_points':int(np.prod([len(g) for g in grids[-1]])),
                         'terminal_angular_values':grids[-1][1].tolist()}
                 controlgrids,controlboxes,_=make_grids(model,0,n,aligned)
@@ -147,6 +148,8 @@ def main():
         if result.get('truncated'):break
     result['cpu_seconds_excluding_imports']=time.process_time()-started
     result['terminal_unique_states']=len(cache)
+    e=envelope(model[2])
+    result['readout_preprocessing']={'envelope_constructions':16, 'rational_arithmetic_operations':16*e['rational_arithmetic_operations'], 'rational_comparisons':16*e['rational_comparisons'], 'sorting_and_bit_cost_excluded':True}
     (HERE/'angular_results.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'total_cpu':result['cpu_seconds_excluding_imports'],'unique_terminal_states':len(cache)}))
 if __name__=='__main__':main()
