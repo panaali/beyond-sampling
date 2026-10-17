@@ -27,3 +27,10 @@ Interval-native integration, merging the two walks, compiling the validated inte
 
 ## Failure modes
 Cancellation in very thin annuli, inherited floating root probes, cap exhaustion, invalid model/window inputs, incomplete partial counters after numerical exceptions, hidden node-generation costs and budget overshoot. No silent clipping or default estimate on failure. Claude remains DRI; independent validation/classification is separate from implementation.
+
+## First adapter cycle
+[measured] The9 independent T30 exact-rational fixtures, both target conventions and four ordinary exclusions produce72 passing cases. All18 adjacent-float thin-annulus controls also satisfy the frozen absolute tolerance; maximum absolute difference over90 cases is1.943e-16. There are no negative-mass or other adapter failures. CPU0.244 seconds, no random model inputs. Empty windows execute no shared walk; nonempty tex=0 windows execute one. Full/excluded calls and adapter work are saved separately in `adapter_results.json`.
+
+[measured, precision limitation] All18 thin-annulus true masses are positive but the subtraction returns0, giving relative error1 despite tiny absolute error. This is preserved as a failed relative-accuracy alternative, not hidden by clipping or called an exact result. An interval-native engine with stable CDF differences is a potential rescue; ordinary-window agreement does not resolve this relative limitation.
+
+[measured] Forced gate-at-zero cap0/1 failures propagate explicitly, retaining358/992 known operations respectively, including48/682 shared-walker operations already spent. No truncated mass is returned. For an unexpected numerical exception the ledger marks unresolved failed-kernel cost rather than inventing a complete charge. Shape/model validation and whole-estimator generation/setup accounting remain subject to the next bounded audit; this primitive is not an end-to-end cost-complete estimator.
