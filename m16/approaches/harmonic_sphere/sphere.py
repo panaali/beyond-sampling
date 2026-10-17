@@ -120,10 +120,14 @@ class Space:
 
     def cut(self, C, V):
         """C (m,B) coefficient columns, V (B,n) unit normals. Returns coeffs of proj_D(g_b * 1[v_b.y >= 0])."""
+        B = C.shape[1]
+        ch = max(1, int(2e7 // (8 * self.N)))                         # chunk columns: <~200 MB of temporaries
+        if B > ch:
+            out = np.concatenate([self.cut(C[:, k:k + ch], V[k:k + ch]) for k in range(0, B, ch)], 1)
+            return out
         F = self.Phi @ C                                              # N x B
         S = zonal(self.n, 2 * self.D, self.lam, self.Y @ V.T)         # N x B
         out = self.PhiTw @ (F * S)
-        B = C.shape[1]
         self.flops += B * (4.0 * self.N * self.m + self.N * (2 * self.n + 6 * self.D) + self.N)
         return out
 

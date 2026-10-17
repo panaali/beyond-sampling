@@ -39,7 +39,7 @@ leaderboard.py, written here).
 
 ## Status
 **Done. Decisive negative.** At every T and every D tried, the method loses to sampling by 2 to 7 orders of
-magnitude in MSE at equal compute. The gap *grows* with D. T=6 and T=10 were not run, because the scaling makes them
+magnitude in MSE at equal compute. The gap *grows* with D. T=5 (out of memory at D=2), T=6 and T=10 were not run, because the scaling makes them
 pointless (see below).
 
 ## Results
@@ -96,9 +96,14 @@ propagated mass against 0.045 true). [measured; the mechanism is inferred]
   That is still about 50x sampling's RMSE at the same Hilton-accounting cost (1.5e6 FPE gives 0.002 pp on seed0).
 
 **4. Leaderboard (official, v3)**: `python m16/leaderboard.py run harmonic_sphere --H 16 --T 4 --budgets 16000 --groups seed`
-(from the repo root; log in `leaderboard_T4.log`). At every leaderboard budget the estimator falls back to D=2, at a
-cost of ~3e5 FPE per model. Result: see the log (seeds: bias about -31.6 pp, ratio ~1e7). Only the seed group was run,
-because the method is deterministic and `eval_all.py` already covers all 29 models with one run each.
+(from the repo root; `leaderboard_T4.log`). At every leaderboard budget the estimator uses its floor of D=2. Seeds
+(n=120 runs): cost 3.3e5 FPE, **MSE ratio 1.5e7 [1.2e7, 2.0e7]**, bias -31.6 pp, time ratio 45.7 (Python double
+description). Only the seed group was run through the leaderboard, because the method is deterministic and
+`eval_all.py` covers all 29 models with one run each.
+
+**5. T=5 and beyond.** At T=5, seed0 at D=2 runs out of memory under the 2 GB per-process rule during gate propagation:
+a single neuron round already had 3.6e4 live sub-branches (`T5_D2.log`). With the T=4 rates (bias -32 pp at D=2,
+cones alone > budget), T=5, 6 and 10 were not pursued.
 
 **ARC's bar.** ARC calls an MSE ratio of ~4 "roughly match". The best cell here is 1.3e2 (T=3, D=4, Hilton accounting,
 all models, carried by the noisy copies). On the seeds the best is 1.1e4. That misses the bar by 1.5 to 6 orders of
