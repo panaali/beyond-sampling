@@ -29,3 +29,17 @@ General noise ensembles and other training seeds may behave differently. Full ch
 
 ## Failure modes
 Positive-volume output ties; floating thin polygons; cancellation of moments; incomplete operation counts; underestimating error from two agreeing numerical implementations. Numerical geometry is not a real-arithmetic certificate.
+
+### Cycle 1 cost addendum, frozen before accounting revision
+The recovered two-tail estimator agrees with independent geometry on all nine copies (maximum1.67e-16); new CPU benchmarks are saved. Before changing its interface cost, use an intentionally loose scalar-operation bound: for T3 each polygon has at most V=3+2H+2+2=2H+7 vertices (initial triangle plus gate, readout, and rank planes). Charge1000(V+3) scalar operations per clip and per moment call,100(H+1)^2 per affine product,1000(H+1) per final gate cell, and1000(H+1)^2 prefix/setup overhead. This covers arithmetic, comparisons, norm/division, polygon area determinant and trig calls as unit operations with a large margin; it excludes memory allocation/Python dispatch, which full CPU timings include. It is a proposed conservative arithmetic bound for review, not a hardware-FLOP count. Use the same conventional forward arithmetic proxy2[T H(H+1)+TH] to express this bound in FPE; no calibration model forwards belong inside est(). Verify the copied checkpoint arrays against restored files before finalizing the cycle.
+
+### Recovered cycle 1 result
+`results_t3.json` reproduces the full nine-copy accuracy range0.40901220810786887--0.4113077285977156 using T55's two-tail estimator. The independent octant-first facet calculation differs by at most1.67e-16. Both constant-output controls give1/3; both independent geometry partitions have mass one within floating precision. Positive Wi/Wo rescaling checks pass. The restored checkpoint SHA256 hashes and every stored weight were exactly verified.
+
+The complete first run used0.529 CPU seconds, including nine independent geometry calculations, nine rescaled estimators, two tie controls, and27 timed batches of65536 direct forward inputs (1,769,472 benchmark inputs). These benchmark outputs are not used as probability estimates. Per-estimator CPU time corresponds to248,264--359,077 batched direct forwards; equal-CPU sampling RMSE is about0.08--0.10 percentage points. This is a CPU comparison, not a FLOP claim. Proposed conservative arithmetic bounds are stored separately and await root's independent audit.
+
+Reproduce from repository root:
+```
+flock /workspace/work/codex-compute.lock bash -c 'ulimit -v 2500000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/small_h2_34/run_t3.py'
+```
+The shared arc_eval is hardcoded to T10 and imports large calibration arrays, so this bounded ladder driver retains its model-tuple/est interface without importing that incompatible harness. DRI must adapt shared evaluation before claiming shared-leaderboard acceptance.
