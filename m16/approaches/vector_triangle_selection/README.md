@@ -26,6 +26,9 @@ converge); otherwise call the original scalar selector. In its convergent
 regime, the positive binomial numerator decreases and denominator increases
 with n, so this adjacent check certifies minimality, not just feasibility.
 Return the original scalar radial metadata and selected scalar error.
+The monotonicity argument is in real arithmetic; it is not a universal
+floating-point monotonicity certificate. Exact metadata agreement is tested
+on the frozen finite controls, with explicit scalar checks/fallback retained.
 
 All original charges remain; add vector arithmetic, guards, exact checks and
 fallback costs. Timing may improve or worsen; no FLOP-saving inference.
