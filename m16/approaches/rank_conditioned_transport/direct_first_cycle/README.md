@@ -132,3 +132,20 @@ Question: did the prior mesh's larger total error conceal an improvement in
 individual components? Report every saved variant, per-label errors and
 component L1/L2 as diagnostics; do not substitute these for challenge accuracy
 or select a winner. No new numerical integration or parameter search.
+
+## Saved terminal-grid comparison resolves an earlier ambiguity
+`saved_components.py` uses every prior GL4 curvature/gate row, without new
+integration. Terminal-curvature and gate grids reduce component L2 error
+from baseline .00432411 to .000339889 and .000431178, respectively (12.7x
+and10.0x). Their per-label errors are:
+- curvature[-.0000579573,+.0001214123,-.0003121286,0];
+- gate[-.0000517998,+.0001622886,-.0003960984,0].
+
+Their total errors still worsen to-.000248674/-.000285610. Thus the prior
+terminal-grid negative on total accuracy concealed a substantial improvement
+in individual contributions; the old total was fortuitous cancellation.
+This is diagnostic evidence supporting continued representation work, NOT a
+replacement challenge metric, general estimator win, or selected recipe.
+Direct label0 on the old terminal grid instead increases component L2 to
+.00444994. Exact-boundary terminal representation and interactions with earlier
+interpolation remain open. T55 independently reviews this interpretation.
