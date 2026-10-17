@@ -9,7 +9,7 @@ Does the unchanged DRI ac321d97 mass rule pass fixed independent analytic and sa
 Frozen protocol.json pins source and references. First analytic orthant/equicorrelation controls and original negative fixture672; then256 evenly spaced original error cones after independent gate. Observe every raw cofactor product/partial correlation and floor/clipping hit, retain source cutoff and individual errors. No geometry rerun or new model inputs.
 
 ## Status
-Pilot independently reviewed882efc72. Full35098 finite phase complete and fails one frozen absolute-tolerance case; see FULL_HANDOFF.md. Full raw review pending.
+Pilot independently reviewed882efc72. Full35098 finite phase complete and fails one frozen absolute-tolerance case; see FULL_HANDOFF.md. Full raw review ba401fec independently confirms the scoped failure.
 
 ## Results
 `python controls.py` from this folder reproduces18 controls. All observed source values match unobserved source bitwise; worst analytic/fixture absolute discrepancy9.283159210226312e-16 at fixture672 (new1.4731889319552494e-11 versus positive1.473096100363147e-11). This greatly improves the old negative result, without certifying all floating errors. Raw nodes in control_nodes.npz; third cofactor array stores the unsigned complementary determinant before source parity sign. Diagnostic thresholds are frozen tolerances, not rigorous bounds.

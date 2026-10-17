@@ -12,4 +12,4 @@ Costs:8newshards59.613488801CPU; prior256process4.997994847 counted once separat
 
 Exhaustion checklist: unchanged original versus new rule compared; no precision/representation rescue tried here. Cheapest open diagnostic: high-precision same128binarynodes on fixed9clipped cones plusnegative4885, first source roundedC then C from original binary rays, separating cofactor/interpolation from covariance rounding. Interior quadrature versus floating errors remains unresolved; new quadrature nodes/orders and full noisy-model panel untested. No broad negative or positivity guarantee.
 
-Independent full raw review pending with T55. Root/Claude registry requested; no self-confirmation. Source, controls, protocol, full8rows/rawnodes and full_summary.json are immutable phase evidence.
+Independent full raw review ba401fec checks all 35,098 saved cases, reference links, reuse and anomalous nodes; it confirms the scoped failure. Root/Claude registry requested; no self-confirmation. Source, controls, protocol, full8rows/rawnodes and full_summary.json are immutable phase evidence.
