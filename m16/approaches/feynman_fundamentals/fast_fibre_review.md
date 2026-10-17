@@ -56,3 +56,25 @@ module/value/counter parity plus no exhaustions on the fixed12 (maxima9
 and4) exclude those particular64-step caps as an explanation there;
 this is not a universal termination or topology proof. Tiny-angle and
 nearzero approximations remain separately disclosed.
+
+## T134 frozen471-instance common-unit audit
+
+Pinned loader order installs instrumented fiber3/fibre definitions before
+consumers import them and restores registry entries in finally. Current
+helper-X versus old helper AST equivalence and per-model original counter
+recovery remain intact. The same explicit-source sampler convention gives
+4H^2+12H operations forT3:112,160,216 atH4/5/6. Group ratios compare equal
+empirical mean squared bias with equal mean per-model matched-budget
+sampling variance; they are neither mean individual ratios nor one common
+fixed budget. Model-free declared preprocessing is separately free.
+
+`check_fibre_suite_review.py` independently checks25 pinned manifest files,
+all471 identities/prior estimates/old counters,942 site-ledger aggregations,
+and every individual and21 group ratio using rational arithmetic on saved
+binary64 values. All groups remain below1; largest individual ratios by
+H4/5/6 are.19237642029,.003886719292,8.850394381e-9. Review CPU.2088,
+no estimator rerun or new model/noise/truth generation. This preserves
+finite existing-suite evidence under the explicit source-expression cost
+convention, not full implementation/hardware cost. Very small H6 errors
+are against saved floating truths without interval certificates; no new
+broad ARC or all-noise-population success follows.

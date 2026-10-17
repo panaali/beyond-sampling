@@ -341,3 +341,53 @@ quadratic mapping (rmax=.9418468705, determinant1.74464624e-9). The failed
 assumption was preserved, then corrected in a separately frozen protocol.
 The Plackett formula review above applies unchanged to the actual branch;
 no unrun48-point result should be inferred.
+
+## T137 corrected fixed-rule result
+
+`check_plackett_precision_review.py` independently reconstructs covariance
+by inverting the ray Gram matrix, then evaluates conditional correlations
+through explicit2x2 Schur complements rather than the author's4x4 inverse
+kernel. At100digits all three fixed wide12/quadratic arms match within
+2.33e-99 and remain negative, approximately-4.80377125e-7. Their positive
+reference discrepancy is4.80391856e-7, whereas arithmetic/correlation/node
+reconstruction changes the original by only1.34e-17,2.84e-17,3.49e-17.
+This fixture's failure is finite-rule approximation, not repaired by high
+precision or ideal nodes at the same order. No claim about all source
+failures, all precision regimes or an interval certificate follows. Review
+CPU.0418; original branch-assumption failure remains preserved.
+
+## T139 captured-error witness semantics
+
+`check_error_semantics_review.py` independently checks saved labels on all
+35098 floating ray-sum points, the frozen smallest-margin64 selection,
+and reexecutes those64 exact witnesses with integer-scaled dyadic recurrence
+rather than Fraction recurrence. Every exact input/output/gate sign matches;
+all targets agree with parent rank and all predictions are wrong, with no
+zero gates or input ties. Margins range-.0020631204 to-.0004318818854.
+These are finite interior-point checks, not whole-cone classification,
+partition completeness or a mass certificate.
+
+The first reviewer sort repeatedly decompressed the NPZ margin field and
+was interrupted after26CPU observed, exceeding the intended20CPU phase
+cap. This failure/accounting is preserved. Materializing that field once
+fixes the issue; successful review costs.0572CPU excluding checkpoint load.
+An explicit20CPU hard limit is now in the script. No estimator changed.
+
+## T140 uniform doubled-rule discriminator
+
+`check_rule_doubling_review.py` independently audits all35098 arrays and
+recomputes the original-source correlation branch with batched arithmetic;
+all flags agree and the nearest rmax is5.49e-6 from threshold. Uniform
+12->24 and48->96 rules give accuracy.9761652290904052 versus positive
+reference.9761608075466027, signed error-mass difference-4.42154380245e-6.
+Per-cone absolute error sum falls from.002215623606 to.00005554513503,
+but735 negative terms remain and largest cone error is1.744876697e-7.
+The73 determinant-cutoff cones carry reference mass2.18853e-13. Aggregate
+agreement must not conceal remaining cancellation and lack of positivity.
+
+Named mass count404,438,808 exactly equals2*204,957,048-156*35098;
+inherited hypothetical full partial count is440,089,662. This is an
+inherited nominal subset, not audited complete cost or competitiveness.
+Recorded replay CPU97.6691; reviewer.5874. One frozen checkpoint and rule
+pair do not establish a noisy-model ladder pass or general source fix.
+A separate fixed recipe108 replay and full-cost audit remain appropriate.
