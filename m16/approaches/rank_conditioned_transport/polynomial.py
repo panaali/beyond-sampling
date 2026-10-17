@@ -80,13 +80,9 @@ def interval_integrals(lo, hi, corners, s, t, ds, dt, stats):
     return values, bounds
 
 
-def conditional_expectations(model, hidden, axes, values, u, q, limit, stats, deadline):
-    """Integrate interpolated continuation under both conditional input laws."""
+def interval_geometry(model, hidden, axes, u, limit, stats, deadline):
+    """Yield scalar pieces and four grid-corner indices in bounded batches."""
     wi, wh, _ = model
-    alpha = ndtr(-limit)
-    supports = (1-2*alpha)*np.array([q, 1-q])
-    output = np.zeros((len(hidden), 2, 2))  # hidden, below/above, need flag
-    errors = np.zeros((len(hidden), 2))
     for offset in range(0, len(hidden), 32):
         if time.process_time() > deadline:
             raise TimeoutError('polynomial transition CPU cap')
@@ -123,14 +119,64 @@ def conditional_expectations(model, hidden, axes, values, u, q, limit, stats, de
         ix, iy = indices
         jx = np.minimum(ix+1, len(axes[0])-1)
         jy = np.minimum(iy+1, len(axes[1])-1)
-        corners = values[ix, iy], values[jx, iy], values[ix, jy], values[jx, jy]
-        integrals, bound = interval_integrals(lo, hi, corners, *fractions, *increments, stats)
         side = (center > u).astype(int)
-        np.add.at(output, (offset+rows, side), integrals)
-        np.add.at(errors, (offset+rows, side), bound)
+        corners = ((ix, iy), (jx, iy), (ix, jy), (jx, jy))
+        yield offset+rows, side, lo, hi, corners, fractions, increments
+
+
+def conditional_expectations(model, hidden, axes, values, u, q, limit, stats, deadline):
+    """Integrate interpolated continuation under both conditional input laws."""
+    supports = (1-2*ndtr(-limit))*np.array([q, 1-q])
+    output = np.zeros((len(hidden), 2, 2))
+    errors = np.zeros((len(hidden), 2))
+    for rows, side, lo, hi, indices, fractions, increments in interval_geometry(
+            model, hidden, axes, u, limit, stats, deadline):
+        corners = tuple(values[ix, iy] for ix, iy in indices)
+        integrals, bound = interval_integrals(lo, hi, corners, *fractions, *increments, stats)
+        np.add.at(output, (rows, side), integrals)
+        np.add.at(errors, (rows, side), bound)
     output /= supports[None, :, None]
     errors /= supports[None, :]
     stats['polynomial_conditional_rows'] += 2*len(hidden)
     if np.any(output < -1e-11) or np.any(output > 1+1e-10):
         raise ArithmeticError('polynomial conditional probability outside unit interval')
     return output[:, 0], output[:, 1], float(np.max(errors))
+
+
+def conditional_matrices(model, hidden, axes, u, q, limit, stats, deadline):
+    """Sparse interpolation kernels, independent of continuation or label."""
+    from scipy.sparse import coo_matrix
+    supports = (1-2*ndtr(-limit))*np.array([q, 1-q])
+    triplets = [([], [], []), ([], [], [])]
+    errors = np.zeros((len(hidden), 2))
+    for rows, side, lo, hi, indices, fractions, increments in interval_geometry(
+            model, hidden, axes, u, limit, stats, deadline):
+        corners = tuple(np.broadcast_to(np.eye(4)[k], (len(lo), 4)) for k in range(4))
+        integrals, bound = interval_integrals(lo, hi, corners, *fractions, *increments, stats)
+        columns = np.stack([ix*len(axes[1])+iy for ix, iy in indices], axis=1)
+        for k in (0, 1):
+            selected = side == k
+            triplets[k][0].append(np.repeat(rows[selected], 4))
+            triplets[k][1].append(columns[selected].ravel())
+            triplets[k][2].append((integrals[selected]/supports[k]).ravel())
+        # Four individually bounded basis integrals give a conservative sum
+        # bound for the row operator acting on any continuation in[-1,1].
+        np.add.at(errors, (rows, side), 4*bound)
+    matrices = []
+    for rows, columns, weights in triplets:
+        data = np.concatenate(weights)
+        matrix = coo_matrix((data, (np.concatenate(rows), np.concatenate(columns))),
+                            shape=(len(hidden), len(axes[0])*len(axes[1]))).tocsr()
+        matrix.eliminate_zeros()
+        minimum = float(matrix.data.min()) if matrix.nnz else 0.
+        defect = float(np.max(np.abs(np.asarray(matrix.sum(axis=1)).ravel()-1)))
+        stats['polynomial_matrix_minimum_weight'] = min(stats['polynomial_matrix_minimum_weight'], minimum)
+        stats['polynomial_matrix_maximum_row_defect'] = max(stats['polynomial_matrix_maximum_row_defect'], defect)
+        stats['polynomial_sparse_triplets'] += len(data)
+        stats['polynomial_sparse_nonzeros_constructed'] += matrix.nnz
+        stats['polynomial_sparse_matrices_constructed'] += 1
+        if minimum < -1e-12 or defect > 1e-10:
+            raise ArithmeticError('sparse conditional kernel failed probability guards')
+        matrices.append(matrix)
+    errors /= supports[None, :]
+    return matrices, float(np.max(errors))

@@ -105,7 +105,7 @@ def grids(model, count, limit, stats, mesh_power=1.):
 
 
 def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
-                 transition='quantile'):
+                 transition='quantile', operator_cache=None):
     wi, wh, wo = model
     T = len(wo)
     alpha = ndtr(-limit)
@@ -118,7 +118,7 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
         above = ndtri(alpha+z*(q+(1-q)*v))
         stats['conditional_inverse_normal_calls'] += 2*ninput+1
     else:
-        from polynomial import conditional_expectations
+        from polynomial import conditional_expectations, conditional_matrices
         stats['conditional_inverse_normal_calls'] += 1
     stop = T-2 if label == T-1 else T-1
     values = np.array([terminal(model, h, u, q, label, limit, stats)
@@ -138,7 +138,18 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
             stats['interpolation_queries'] += len(coords)
         else:
             m = T-t-int(label >= t)
-            if transition == 'polynomial':
+            if transition == 'polynomial_cached':
+                key = (t, float(q))
+                if key not in operator_cache:
+                    operator_cache[key] = conditional_matrices(model, states[t], axes[t+1],
+                                                               u, q, limit, stats, deadline)
+                else:
+                    stats['polynomial_operator_cache_hits'] += 1
+                matrices, error = operator_cache[key]
+                expected = tuple(matrix @ values.reshape(-1, 2) for matrix in matrices)
+                stats['polynomial_sparse_value_products'] += 2*sum(matrix.nnz for matrix in matrices)
+                transition_error = (1+error)*transition_error+error
+            elif transition == 'polynomial':
                 low, high, error = conditional_expectations(model, states[t], axes[t+1], values,
                                                             u, q, limit, stats, deadline)
                 expected = low, high
@@ -170,7 +181,7 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     if wi.shape != (2,) or wh.shape != (2, 2) or wo.shape != (T, 2) or T < 3:
         raise ValueError('requires H2,T>=3 model')
     model = wi, wh, wo
-    if transition not in ('quantile', 'polynomial'):
+    if transition not in ('quantile', 'polynomial', 'polynomial_cached'):
         raise ValueError('unknown transition method')
     stats = defaultdict(float)
     if mesh_power <= 0 or hidden_order < 2:
@@ -192,9 +203,10 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     labels = possible_labels(wo)
     contributions = {}
     transition_bound = 0.
+    operator_cache = {}
     for label in labels:
         values = [fixed_target(model, label, qq, axes, states, input_order,
-                               limit, stats, start+seconds, transition) for qq in q]
+                               limit, stats, start+seconds, transition, operator_cache) for qq in q]
         contributions[label] = float(np.dot(weights, [v[0] for v in values])/T)
         transition_bound += float(np.dot(weights, [v[1] for v in values])/T)
     answer = sum(contributions.values())
@@ -204,7 +216,8 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
                         target_order=target_order, target_rule=target_rule,
                         input_order=(input_order if transition == 'quantile' else None),
                         transition=transition,
-                        transition_quadrature_only_bound=(transition_bound if transition == 'polynomial' else None),
+                        transition_quadrature_only_bound=(transition_bound if transition != 'quantile' else None),
+                        within_run_operator_cache_entries=len(operator_cache),
                         limit=limit, possible_labels=labels, contributions=contributions,
                         stage_bounds=[b.tolist() for b in bounds],
                         omitted_input_mass_bound=1-box_mass,
