@@ -32,7 +32,7 @@ The saved half sum is +7.527312106958561e-14, whereas README/INDEX print a minus
 
 Finite T3/T4/T5 observations do not imply recurring>=13.5growth throughT10, constant minimum ops/cell, or monotonicity in hidden width for independently trained weights. A constant continuation afterT5 matches all observed finite values, so a future lower bound needs algorithmic reasoning beyond that trend. This logical counterexample says nothing about the actual unknown T6..T10 runtime.
 
-Prior T133 established separate completion bounds for the unchanged factorial chart recipe under its stated assumptions; those are legitimate narrower statements and not cancelled by this audit. Coarser charts, adaptive integration, shared work, alternative certificates and output-focused methods remain unexcluded.
+Prior T133 established separate completion bounds for the unchanged factorial chart recipe under its stated assumptions; those are legitimate narrower statements and not cancelled by this audit. Its reviewed chart_prefix_results.json reports2,090,188,800 first-prefix charges plus25,546,752,000 first-margin charges, total27,636,940,800 atH16T10. Those exclude deeper work/masses and assume completion of the unchanged chart/ray-testing architecture. They are distinct from the>=1e17 trend projection. Coarser charts, adaptive integration, shared work, alternative certificates and output-focused methods remain unexcluded.
 
 ## Preserved review corrections
 
