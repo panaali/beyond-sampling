@@ -94,3 +94,48 @@ A separate owner's one-sided density calculation is the intended falsifier
 before adding an internal interface to reconstruction. This mechanism may
 explain part of later reconstruction error; its contribution to total error
 has not yet been measured, and no broad reconstruction failure is inferred.
+
+## T91 same-side log-linear review and independent discriminator
+
+The separate upper/lower helper states prevent neighbor fits from crossing
+the input-ray interface. Log gradients use positive neighbors only; exponent
+shifting by its maximum keeps all factors nonnegative and at least one factor
+one. Per-cell positive normalization preserves each stored mass, including
+across event-split triangles. True zero cells are not filled. This is a
+positive normalized exponential shape, not an exact recovery of a true
+exponential from cell averages on irregular clipped polygons. Normalization
+is numerical, and least squares/underflow remain qualified.
+
+EventRule clips each source polygon by nW h>=0 and its opposite, then uses
+positive triangle Duffy quadrature. Boundaries overlap only at zero area;
+nonzero normal and valid convex polygons are required. The two sides share
+one cell-density reconstruction and one normalization, as intended. The
+upper/lower helpers retain separate source masses throughout.
+
+Independent finite controls in check_rescues_review.py disable event cuts while
+retaining the triangle rule and same-side log-linear reconstruction:
+
+| trained H2T8 grid | event-off endpoint error | max output difference vs event-on |
+|---|---:|---:|
+|16|.0002133153819445|1.58694e-6|
+|32|.0000528585445078|1.38994e-7|
+
+Thus the gain comes from side-specific density representation, not event
+alignment. A hidden-coordinate swap with event cuts changes outputs1.36891e-6
+at n16. This is NOT roundoff, so one predeclared followup n32 was added:
+max difference1.71699e-7, endpoint error5.26865545e-5. The ambiguity is much
+smaller than the original uniform-to-split-log endpoint improvement2.0727e-5,
+but it remains a finite quadrature orientation effect, not exact symmetry.
+
+References and cutoff agree with the earlier marginal experiment. Saved n32
+CPU is.804784 for split log versus.438962 for source-order4 uniform and.282078
+for unsplit log. Therefore smaller error does not by itself establish an
+end-to-end efficiency gain, much less the challenge criterion. These are
+marginal hidden/readout probabilities at step4, NOT second-largest-index
+network accuracy. Fresh-weight validation and target augmentation remain
+separate. The independent comparison does not promote the shared engine to
+an independently implemented solver.
+
+Combined first controls(T37 plus three T91 runs) cost1.360769CPU; the additional
+coordinate-swap n32 run costs.777009CPU. No T91 random model inputs. Raw results
+are rescues_review_results.json and swap32_review_results.json.

@@ -52,3 +52,33 @@ The scoped conclusion is INCONCLUSIVE global accuracy/cost benefit. Neither
 rank-conditioned transport nor gate-aware spatial refinement is dead. Parent
 has retained the interior-kink followup in T67 Ready; no new task is claimed
 by this memo.
+
+## Followup: complete breakpoints of the nonfinal-target interpolant
+
+Read breakpoints.py, panel.py and StagePieces in polynomial.py. For fixed
+stage-t grid node h, target insertion uses relu(Wh+wi*u). Its gate and next-grid
+crossings occur at the SAME scalar endpoints stored by StagePieces for that
+node and stage. Thus the union over every stage also covers target insertion;
+it is not restricted to ordinary-input expectation steps.
+
+Ordinary conditional transition matrices change active integration formulas
+only when u crosses a stored full-input interval endpoint. For nonfinal target
+labels, terminal correct intervals are independent of u; intersecting them
+with above/below-u support adds their endpoints. Between union knots, terminal
+functions, interpolation weights, Gaussian CDFs and conditional matrices are
+analytic in u. Backward induction combines them by sums/products/division by
+q and1-q, which are positive on the retained target interval. This introduces
+no new mathematical kinks. Chronology is fixed by the chosen label and adds
+no branch changes. Rejecting any possible target-last label is necessary for
+this proof; the current dominance-based label screen is conservative.
+
+The tiny-panel bound multiplies omitted width by a valid upper bound on target
+density: separate maxima of the Beta polynomial and phi/Z are conservative.
+It bounds the underlying probability interpolant, not arbitrary floating
+overshoots. Completeness refers to exact-arithmetic topology of the finite-grid
+method; fallback implementation branches, roundoff and inverse-CDF restoration
+are not certified. Panel GL2/4 agreement is a useful convergence check, not a
+quadrature-error theorem. The reported h9 terminal-only curvature/gate meshes
+are worse than baseline after outer refinement stabilizes, so outer oscillation
+no longer explains that particular h9 negative. Higher meshes and different
+spatial refinement remain open.
