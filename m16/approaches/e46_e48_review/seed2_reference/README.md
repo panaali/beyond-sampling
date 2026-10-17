@@ -11,7 +11,8 @@ Every copied ray and auxiliary source Ops instance counted; preserve ties and
 partials. No source/positive mass evaluation, random inputs, Monte Carlo or
 new candidate prediction. Geometry still performs charged neural affine updates.
 
-Status: source frozen, source gate pending. Prior loader/guard/source controls
+Status: source frozen; complementary recover_56 execution gate passed for
+d1f4e23e. Capture execution pending. Prior loader/guard/source controls
 and existing seed0/1 capture audits are reused unchanged, not rerun.
 
 Results: pending; command python capture.py under110CPU primary/2GB cap.95CPU
@@ -51,3 +52,6 @@ radial certificates. A loose diagnostic bound must remain loose: overlap of
 conditional bounds would not establish the candidate target or a floating-error
 certificate. Such diagnostic work, exact setup and rule setup are additional
 verification cost. No pilot source or numerical calls have been made yet.
+
+Capture count `mass_evaluations=0` means zero Gaussian numerical evaluations;
+the source function named `mass` still performs charged cone triangulation.
