@@ -41,7 +41,8 @@ for old,new in (
     ('exp_evaluations=0,','radial_density_evaluations=0,'),
     ("counters['cdf_evaluations']+=2*len(lo)","counters['beta_evaluations']+=2*len(lo)"),
     ("counters['exp_evaluations']+=2*len(lo)","counters['radial_density_evaluations']+=2*len(lo)"),
-    ('per_row[ids]+=940','per_row[ids]+=1090')):
+    ('per_row[ids]+=940  # 3*300 interval allowance +40 assembly.',
+     'per_row[ids]+=1090  # 3*350 radial interval allowance +40 assembly.')):
     if _source.count(old)!=1:raise RuntimeError('Native interval adapter source layout changed')
     _source=_source.replace(old,new)
 _namespace=dict(native.__dict__);_namespace['normal_interval']=radial_interval
