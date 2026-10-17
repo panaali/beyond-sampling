@@ -11,7 +11,7 @@ Freeze 95% simultaneous marginal binomial intervals for these25 saved MC estimat
 Source inventory found `_cuts` concatenates plus roots for all columns followed by minus roots for all columns, while its nonzero mask repeats each column twice. Freeze two-column coefficient cases [1,0], [0,1], [1,-1], [0,0] with B=0, on (0,2pi) and (pi,2pi), plus a mixed-row fixture. Analytic expected roots are multiples of pi/2. Verify root membership and classification between returned cuts. Mixed zero/nonzero cases discriminate this mask defect; all-zero/all-nonzero alone cannot. A separately identified local tile-mask rescue may be tested only after preserving original failures, with all other operations unchanged. This does not establish any saved trained case contains the defect.
 
 ## Status
-Sources and protocols frozen; arithmetic and controls pending. T115 completed handoff71d71050/reviewa558c8a9; k29 continuation remains Ready.
+Bounded H4T4 evidence/source phase complete and independently reviewed; shared repair and complete cost closure are separate Ready tasks T182/T183. T115 completed handoff71d71050/reviewa558c8a9; k29 continuation remains Ready.
 
 ## Results
 None yet. Source-level concerns are hypotheses awaiting the frozen checks. The source's unqualified continuity and approximately N^-1 convergence claim needs separate nondegeneracy/rate assumptions.
@@ -45,6 +45,6 @@ The primitive has four mismatches in eight frozen coefficient-zero controls and 
 
 The frozen allzero-H1T4 rank-degenerate example has one-sided correct-fraction limits1/2 and1/4. All ten source-circle checks match the derived angular formulas within1.12e-16. Hence the universal continuity assertion is false without additional assumptions. Generic trained convergence and useful finite quadrature bounds remain open.
 
-`COST_SCOPE.md` inventories unresolved operation sites and distinguishes native96, dense-sampler192 and optimized-sampler160 conventions. No corrected global cost ratio is asserted. Independent review of the final full-circle and cost-inventory phase is pending.
+`COST_SCOPE.md` inventories unresolved operation sites and distinguishes native96, dense-sampler192 and optimized-sampler160 conventions. No corrected global cost ratio is asserted. Independent final review b313819e verifies the full-circle analytic failure/rescue and all ten continuity cases. T55 separately checked every displayed source-site and sampler-count formula under its stated convention; this remains an inventory, not a complete price.
 
 Reproduce with `python root_controls.py`, `python raw_audit.py`, `python continuity_control.py`, `python full_circle_control.py`, each under the <=20CPU review lock. No existing trained numerical result is rerun. Primitive CPU.004016341, raw arithmetic.007995607 then.007994986 after adding provenance guards, continuity.003986728, full circle.004005075. The first arithmetic run and its repeated accounting are preserved in run_accounting.json. Ten continuity circles and two original/rescued synthetic full-circle calls are validation work; no new trained checkpoint, whole-base grid, MC input or dense angular grid is used.
