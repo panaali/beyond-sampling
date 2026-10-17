@@ -66,7 +66,7 @@ def fixture():
         mp.mp.dps=precision;stats=defaultdict(float);C=prior.correlation(rays,stats)
         eigenvalues=mp.eigsy(C,eigvals_only=True);stats['eigenproblems']+=1;assert min(eigenvalues)>0
         probes=[dict(name=f'source_node_{i}',**derivative(C,prior.exact_float(node[0]),stats)) for i,node in enumerate(metadata['rounded_rule'])]
-        error=abs(mp.mpf(old['rows'][0]['arms']['exact_ray_C_ideal_rule']['mass'])-prior.exact_float(saved['positive']))
+        error=abs(mp.mpf(old['rows'][0]['arms']['exact_ray_C_rounded_rule']['mass'])-prior.exact_float(saved['positive']))
         tail_rows=[]
         for label,a in cuts():
             point=derivative(C,a,stats);B=tail_bound(C,a,stats);D=B+(1-a)*abs(mp.mpf(point['derivative']))

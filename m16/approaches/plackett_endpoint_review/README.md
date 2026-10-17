@@ -26,7 +26,7 @@ an omitted interval. A precise localization test is available only for the
 last original node a: define g(t)=f(t) below a, f(a) above. All source nodes
 see unchanged values, so Q(g)=Q(f). The continuous integral changes by at
 most D(a)=B(a)+(1−a)abs(f(a)). If D is smaller than the known absolute rule
-error, a constant extension past the last node cannot remove all the error.
+error for exact-ray C with the original rounded rule, a constant extension past the last node cannot remove all the error.
 If D is larger, this localization test is inconclusive. The other frozen cuts
 only bound how much true integral can lie in progressively narrower tails;
 no claim that their quadrature contributions are absent or unchanged.
