@@ -36,7 +36,7 @@ def cone_estimate(model,order=20,geometry_path=None,max_cpu=110.,check_partition
         if i%128==0 and time.process_time()-start>max_cpu:
             raise TimeoutError('cone estimator CPU cap')
     production_cpu=time.process_time()-start
-    stats=dict(geometry_sha256=source_sha,order=order,accuracy_simplices=len(rays),quadrature_nodes=nodes,order_counts=orders,requested_integration_tolerance=integration_tolerance,
+    stats=dict(geometry_sha256=source_sha,order=(order if integration_tolerance is None else None),accuracy_simplices=len(rays),quadrature_nodes=nodes,order_counts=orders,requested_integration_tolerance=integration_tolerance,
                integration_only_bound=bound,geometry_cpu=geometry_cpu,production_cpu=production_cpu,
                determinant_sum=float(np.abs(np.linalg.det(rays)).sum()),geometry_counts=g.counts.copy())
     if check_partition:
@@ -49,12 +49,12 @@ def cone_estimate(model,order=20,geometry_path=None,max_cpu=110.,check_partition
 
 
 def est(model,budget=None,rng=None):
-    """Fixed GL20; ignores budget, rng. Returns CPU-calibrated forward equivalents.
+    """Bounded adaptive GL; ignores budget, rng. Returns CPU-calibrated forwards.
 
     Timing-only deterministic-zero forwards do not affect the accuracy estimate.
     Calibration is charged. This is hardware-dependent, not a scalar-FLOP ledger.
     """
-    value,stats=cone_estimate(model)
+    value,stats=cone_estimate(model,integration_tolerance=1e-8)
     wi,wh,wo=model;x=np.zeros((32768,4));h=np.zeros((len(x),len(wi)))
     start=time.process_time()
     for k in range(4):h=np.maximum(h@wh.T+x[:,k,None]*wi,0)

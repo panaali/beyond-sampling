@@ -32,3 +32,11 @@ For disjoint cones within the16 signed orthants, normalized cross-section volume
     8/(3*pi^2) * (12n+9)/3^(n-1).
 
 This is approximately3.78e-6 at n16,5.79e-8 at n20, and8.52e-10 at n24. Actual per-model bounds can use its determinant sum instead of16. The bound covers ideal quadrature error only. Floating input weights, clipping tolerances, Qhull triangulation, omitted degenerate pieces, finite-precision determinants, and rounding in the quadrature still require separate scrutiny.
+
+## Per-cone interval improvement
+
+For G=R^T R, convexity gives s=y^T G y in[a,b], with a=max(1/4,min_ij Gij), b=max_i Gii. Set m=(a+b)/2, d=sqrt(ab), q=((b-a)/2)/(m+d). Differentiating the reciprocal Chebyshev series gives absolute coefficients2*q^k*(m/d^3+k/d^2), k>=1. The tail after degreeK is exactly bounded by
+
+    2*q^(K+1) * [m/(d^3*(1-q)) + ((K+1)/(1-q)+q/(1-q)^2)/d^2].
+
+For a=b the tail is zero. The same positive-quadrature argument multiplies this tail by |detR|/(6*pi^2). `adaptive_mass` chooses the smallest predeclared order whose error per determinant is at most total_tolerance/16. Summing over disjoint cones with total determinant at most16 gives the requested total bound. This allocation depends only on supplied cone geometry and the requested tolerance. It is not fitted to model accuracy or sampled inputs. The original arithmetic/geometry qualifications continue to apply.
