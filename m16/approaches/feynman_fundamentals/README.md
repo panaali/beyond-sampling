@@ -1019,3 +1019,28 @@ T131 whole-corpus replay and independent leaf geometry audit remain live.
 Review does not mark claims confirmed; source/roundoff/cost limits remain
 explicit in the individual notes. Latest checks run with one thread and
 review lock; the longest current phase used14.906CPU.
+
+Current review status (2026-10-17): the prior pending phases above have
+advanced. Independent checks now cover T131 complete unchanged-ray gate/error
+mass, T134 all471 common-unit fibre cases, T136 leaf triangulation, T137
+fixed-rule precision attribution, T138 same-cell information ambiguity,
+T139 exact error witnesses, T140 doubled quadrature, T141 opposite conditional
+slice biases, T142 residual-tail diagnostic, T143 analytic inner integration,
+T144 determinant intervals, T145 recipe/numerical bias separation, T146
+explicit cost plus opaque calls, T147 joint-strip continuity and T151 held-out
+point semantics. `cone_mass4_review.md` and `gate_symbol_review.md` collect
+recent scoped conclusions with separate check/result files.
+
+Pending live requests are T148 combined held-out exact/recipe mass sums and
+T150 actual installed inverse cost envelope; a separately owned32-unresolved
+positive-cone bound discriminator is in preparation. No new input search,
+production integration or completed experiment is rerun by default. Counts
+are explicit source-operation conventions unless stated otherwise; opaque
+native kernels and complete hardware/runtime costs remain separate.
+
+All new numerical checks now enforce20CPU hard limits and use the review
+lock. A reviewer NPZ sort accidentally exceeded the intended budget before
+this guard was introduced; the interrupted failure is retained in
+`error_semantics_review_initial_failure.json`. Exact determinant signs and
+rational information witnesses do not certify floating cone geometry or
+estimator accuracy. Conditional quadrature bounds do not include roundoff.
