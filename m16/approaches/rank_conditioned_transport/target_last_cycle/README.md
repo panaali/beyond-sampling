@@ -112,3 +112,29 @@ sweep. Any panel collapsing to equal floating q endpoints is omitted with
 an explicit original-u-width times density upper bound. Preserve original
 u-rule failure. Check raw target mass and cache values; report unresolved
 function quadrature separately. No h9 expansion in this rescue phase.
+
+## q-coordinate rescue and independent handoff
+Same-panel q GL2/4 estimates are .292265628860083/.292265646589676,
+change1.773e-8. Raw constant-mass defects including explicit omitted slabs
+are<=4.36e-14, without renormalization. qGL4 and uGL4 differ2.32e-12.
+There are301 candidate panels,298 retained q panels, with3 floating
+endpoint collapses; total omitted-panel bound4.008e-14. This resolves the
+identified constant-density error at fixed orders, not spatial error.
+No h9 integration or new accuracy reference was added.
+
+A final adapter audit changed the last-query key from u alone to (u,q):
+distinct q can round to the same inverse-CDF u but have different conditional
+denominators. Initial artifacts are retained as initial_single_key_*.json.
+The same full u/cache/direct and q rules were rerun after the fix: every
+reported estimate is unchanged. The earlier used_panels metadata included
+collapsed q panels; current metadata separates candidate/retained counts.
+
+T55 independent review13081d0 checks original-halfspace completeness,
+strict boundary ties and the q-measure rescue. It covers terminal_cache.py
+and measure algebra, not the private adapter's memoization; the reviewer
+subsequently explicitly agreed the (u,q) correction is necessary. Floating
+root/midpoint arithmetic remains qualified. Status: bounded target-last
+functionality phase complete. Original direct/cache parity, conditional
+ties and measure normalization pass; finite spatial interpolation and full
+accuracy remain unresolved. No broad negative or sampling win. Further
+h9/target-last scaling requires a separate frozen followup.
