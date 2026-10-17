@@ -7,7 +7,7 @@ Does the reviewed cofactor interval give a useful bound on the resulting partial
 Claim5be8e715 before implementation. For x>0, atan2(y,x) has derivative x/(x²+y²); maximize it over the signed numerator interval and multiply the maximum distance from the selected point. Use exact rational arithmetic and the universal cap4 (angle difference<pi<4). For x=0 and a strictly one-sign interval the angle is constant; intervals containing the origin stay unknown. Independent proof/control gate precedes21 fixed analytic fixtures; only then reuse original64 saved cofactor intervals and stored atan2 denominators. Preserve every failed/unknown case.
 
 ## Status
-Independent source gate passed; all21 frozen analytic/undefined controls pass. Exact rational proof remains separate from120-digit diagnostics. Original64 continuation completed after independent source/control gate and immutable completed-output linkage; saved aggregate review pending.
+Independent source gate passed; all21 frozen analytic/undefined controls pass. Exact rational proof remains separate from120-digit diagnostics. Original64 continuation completed after independent source/control gate and immutable completed-output linkage; independent saved aggregate review passes (review commit pending).
 
 ## Results
 [inferred] The derivative formula gives a numerator-only error bound for each fixed nonnegative denominator. T55 independently checked the algebra and required explicit origin-undefined status. [measured] All21 frozen analytic controls and64 original saved cases pass. The maximum numerator-only bound is1.2710635397296333e-9 radians; candidate diagnostic errors improve34 cases, worsen27 and tie3. These are fixed-denominator comparisons, not whole-mass or speed results.
@@ -28,3 +28,6 @@ Frozen21 controls pass with all undefined/invalid statuses retained; CPU0.004003
 
 
 Original64 saved interval continuation passes after completed21/source hashes were frozen8614fc95. All64 denominators are positive and all64 rational bounds are finite; no unknowns on this saved subset. Maximum bound1.27106353973e-09 radians (label825,node85,pair1; see exact raw for authoritative index), while source/point angle errors are separate highprecision diagnostics. No determinant/model/mass calls;192 diagnostic atan2 evaluations, .024007CPU, plus192 sign transforms and256 input-dyadic conversions. Exact rational arithmetic and operand bit sizes are retained, not priced as cheap floating operations. Independent saved64 audit pending.
+
+
+Continuation scope81b1841d is frozen in weighted_protocol.json and WEIGHTED_PROOF.md. Same eight archived cones, all768 nodes each, original64 guard records reused once. New coefficient reconstruction128 native3x3 determinants and6080 new guarded minors are explicitly charged. All stored Rt/denominator bytes must match before per-cone contraction. Seventeen exact upward-dyadic controls and independent source gate precede execution; no numerical continuation has run yet. This is an ideal weighted-angle numerator bound, excluding original source floating arithmetic and total mass accuracy.
