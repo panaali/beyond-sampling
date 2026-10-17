@@ -4,6 +4,22 @@ import numpy as np
 from scipy.special import ndtr
 from .adapter import CORE,SOURCE,EXPECTED,WalkFailure,walk_mass as validate_empty
 
+def normal_interval(lo,hi):
+    """Positive interval mass; only midpoint quadrature remainder is bounded."""
+    lo=np.asarray(lo,dtype=float);hi=np.asarray(hi,dtype=float)
+    delta=np.maximum(hi-lo,0.)
+    with np.errstate(over='ignore',invalid='ignore',under='ignore'):
+        midpoint=delta/math.sqrt(2*math.pi)*np.exp(-.5*lo*lo-.5*lo*delta-.125*delta*delta)
+        near=np.where(lo>0,lo,np.where(hi<0,hi,0.))
+        local=(np.maximum(lo*lo,hi*hi)+1)*np.exp(-.5*near*near)/math.sqrt(2*math.pi)
+        bound=delta*delta*delta*np.minimum(1/math.sqrt(2*math.pi),local)/24
+        use=(delta>0)&np.isfinite(midpoint)&(bound<=np.finfo(float).eps*midpoint)
+    positive=lo>=0
+    lower=np.where(positive,-hi,lo);upper=np.where(positive,-lo,hi)
+    plain=ndtr(upper)-ndtr(lower)
+    value=np.where(delta>0,np.where(use,midpoint,plain),0.)
+    return value,np.where(use,bound,0.),use
+
 def walk_mass(model,y,a,b,tau,tex,top=False,eps=1e-10,max_iter=2000,details=False):
     y=np.asarray(y,dtype=float);tau=np.asarray(tau,dtype=float);tex=np.asarray(tex,dtype=float)
     a=np.asarray(a);b=np.asarray(b)
@@ -21,15 +37,9 @@ def walk_mass(model,y,a,b,tau,tex,top=False,eps=1e-10,max_iter=2000,details=Fals
                   exp_evaluations=0,midpoint_quadrature_bound=0.)
 
     def interval(lo,hi):
-        delta=np.maximum(hi-lo,0.)
-        with np.errstate(over='ignore',invalid='ignore',under='ignore'):
-            midpoint=delta/math.sqrt(2*math.pi)*np.exp(-.5*lo*lo-.5*lo*delta-.125*delta*delta)
-            bound=delta*delta*delta/(24*math.sqrt(2*math.pi))
-            use=(delta>0)&np.isfinite(midpoint)&(bound<=np.finfo(float).eps*midpoint)
-        plain=ndtr(hi)-ndtr(lo)
-        value=np.where(delta>0,np.where(use,midpoint,plain),0.)
+        value,bound,use=normal_interval(lo,hi)
         counters['normal_intervals']+=len(lo);counters['midpoint_intervals']+=int(use.sum())
-        counters['cdf_evaluations']+=2*len(lo);counters['exp_evaluations']+=len(lo)
+        counters['cdf_evaluations']+=2*len(lo);counters['exp_evaluations']+=2*len(lo)
         return value,np.where(use,bound,0.)
 
     def wrong(ids,lo,hi,clo,chi,bad):
@@ -39,7 +49,7 @@ def walk_mass(model,y,a,b,tau,tex,top=False,eps=1e-10,max_iter=2000,details=Fals
         correct=(chi>clo)&~bad
         result=np.where(correct,left+right,full)
         counters['midpoint_quadrature_bound']+=float(np.where(correct,el+er,ef).sum())
-        per_row[ids]+=700  # 3*220 interval allowance +40 assembly.
+        per_row[ids]+=940  # 3*300 interval allowance +40 assembly.
         return result
 
     text=inspect.getsource(CORE.walk_mass)
