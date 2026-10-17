@@ -26,3 +26,13 @@ One thread,2GB, <=20CPU review lock. Count setup and fixture CPU separately; no 
 
 ## Alternatives not ruled out / failure modes
 Other backends, shapes, BLAS block sizes and thread counts require new analysis. NaNs/subnormal/overflow fixtures diagnose branch semantics, not inverse accuracy. Failures remain evidence of this finite implementation/test, not proof of a broad mathematical negative. A complete integer/control bound and runtime convention are still open.
+
+## Bounded results
+
+All4680 fixed IAMAX vectors match the actual pinned kernel, including signed zero, infinities, quiet NaNs and the smallest positive subnormal. Observed emulator lane maxima equal the frozen bounds. Eight fixed inverse controls preserve baseline outputs/exceptions under transparent own-process kernel capture, with IAMAX shapes4,3,2,1 and no GEMM. Controls CPU0.066751; saved-data count composition0.000639CPU. No trained-model input was used.
+
+The conservative added numerical subset is102 units; with T150 arithmetic the inverse numeric envelope is290. Exact/recipe inverse contributions771,372,740 /620,175,440; visible-plus-numeric subtotals1,324,773,508 /1,076,152,155. These are not full implementation cost bounds. `DERIVATION.md` and `summary.json` preserve category/source pins and explicit exclusions. Independent T55 source/count algebra agrees; final saved-control audit pending.
+
+Reproduce controls (if needed): `flock /workspace/work/codex-review.lock bash -c 'ulimit -v 2500000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/inverse_numeric_cost/controls.py'`. Existing reviewed T150 `kernel_spy.so` must be built from its saved C source first; no installed file is changed. Recount only: `/workspace/clean-neurons/.venv/bin/python m16/approaches/inverse_numeric_cost/summarize.py`.
+
+[measured] Fixed controls and passthrough parity. [inferred, source algebra independently checked]290 numerical-lane upper envelope under the stated convention. Signaling-NaN trap semantics, integer/control, memory and IEEE side effects remain outside scope. No broad negative or full-cost/MSE claim follows.
