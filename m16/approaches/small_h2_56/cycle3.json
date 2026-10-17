@@ -1,0 +1,127 @@
+{
+  "models": [
+    {
+      "T": 5,
+      "sigma": 0.0025,
+      "sha256": "18b8b66d227c9360310f035a093dc0c891c5918fc8e01197f8f16682d0f7682c",
+      "integrals": [
+        {
+          "name": "accuracy",
+          "skipped": "planned nodes exceed cycle guard",
+          "planned_nodes": 375350784
+        },
+        {
+          "estimate": 1.000000000024983,
+          "conditional_quadrature_error_bound": 2.860550528743045e-05,
+          "nodes": 214865888,
+          "order_histogram": {
+            "4": 950,
+            "6": 199,
+            "8": 163,
+            "10": 119,
+            "12": 295,
+            "16": 613,
+            "20": 360,
+            "24": 307,
+            "28": 11
+          },
+          "arithmetic_ops_excluding_sqrt_and_setup": 12677087392,
+          "sqrt_calls": 214865888,
+          "name": "partition"
+        }
+      ],
+      "geometry_counts": {
+        "clips": 11195,
+        "hulls": 6966,
+        "vertex_plane_products": 67597,
+        "map_compositions": 468,
+        "gate_pieces": 406,
+        "correct_pieces": 541,
+        "simplices": 13957,
+        "zero_determinants": 211,
+        "bounded_degenerate_clips": 0,
+        "omitted_mass_upper_bound": 0.0
+      },
+      "correct_simplices": 10940,
+      "partition_simplices": 3017,
+      "validation": {
+        "n": 131072,
+        "correct": 40900,
+        "estimate": 0.312042236328125,
+        "se": 0.0012797720344778338
+      }
+    },
+    {
+      "T": 5,
+      "sigma": 0.02,
+      "sha256": "18b8b66d227c9360310f035a093dc0c891c5918fc8e01197f8f16682d0f7682c",
+      "integrals": [
+        {
+          "name": "accuracy",
+          "skipped": "planned nodes exceed cycle guard",
+          "planned_nodes": 333953360
+        },
+        {
+          "estimate": 1.000000000044469,
+          "conditional_quadrature_error_bound": 2.6941002408745527e-05,
+          "nodes": 222496896,
+          "order_histogram": {
+            "4": 1424,
+            "6": 179,
+            "8": 274,
+            "10": 293,
+            "12": 335,
+            "16": 766,
+            "20": 539,
+            "24": 167,
+            "28": 31
+          },
+          "arithmetic_ops_excluding_sqrt_and_setup": 13127316864,
+          "sqrt_calls": 222496896,
+          "name": "partition"
+        }
+      ],
+      "geometry_counts": {
+        "clips": 12462,
+        "hulls": 7835,
+        "vertex_plane_products": 80096,
+        "map_compositions": 486,
+        "gate_pieces": 443,
+        "correct_pieces": 558,
+        "simplices": 15498,
+        "zero_determinants": 230,
+        "bounded_degenerate_clips": 1,
+        "omitted_mass_upper_bound": 9.17037226201145e-22
+      },
+      "correct_simplices": 11490,
+      "partition_simplices": 4008,
+      "validation": {
+        "n": 131072,
+        "correct": 42819,
+        "estimate": 0.32668304443359375,
+        "se": 0.001295442406081767
+      }
+    },
+    {
+      "T": 6,
+      "sigma": 0.0,
+      "sha256": "ad1a7653ad43319becf17aa634add9230a63d79abd03f1c04d476b98aaf14002",
+      "integrals": [],
+      "error": "degenerate clip mass bound 0.0003887430403498256: refused discard",
+      "geometry_counts": {
+        "clips": 10570,
+        "hulls": 5596,
+        "vertex_plane_products": 69387,
+        "map_compositions": 1132,
+        "gate_pieces": 759,
+        "correct_pieces": 0,
+        "simplices": 0,
+        "zero_determinants": 0,
+        "bounded_degenerate_clips": 0,
+        "omitted_mass_upper_bound": 0.0
+      }
+    }
+  ],
+  "cpu_seconds": 19.764286908,
+  "peak_rss_kb": 249672
+}
