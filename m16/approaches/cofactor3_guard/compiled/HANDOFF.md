@@ -1,6 +1,6 @@
 # T11580 bounded compiled gate
 
-Claimf058ce6f. Research5975622c source/protocol,540e4e06build/controls, d7220b74parity,311b2858assemblyledger,bf3aab83savedcontraction. Independent source gates passed before each execution; final raw review pending.
+Claimf058ce6f. Research5975622c source/protocol,540e4e06build/controls, d7220b74parity,311b2858assemblyledger,bf3aab83savedcontraction. Independent source gates passed before each execution; final raw review7dff1dee passes. Reviewer initially compared full guard-plus-fallback counters with fallback-only records; its failed assertion and correction are preserved in the review, with candidate data/source unchanged and no compiled replay.
 
 81fast inputs preserve prior binary64 enclosures exactly,5finite fallback requests reproduce original exact outputs,3nonfiniteunknowns retained. All4unsupported floating-environment probes reject and restore modes, including fullMXCSR. Existing fourfastpoint cancellation failures and nine analyticcross-zero intervals remain; no new point-accuracy claim.
 
