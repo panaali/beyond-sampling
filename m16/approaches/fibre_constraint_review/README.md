@@ -95,8 +95,10 @@ The angular-cap rescue retains the same estimates but more than doubles
 reference traces (1283/1266 versus445/475) and raises cost. It is not selected
 as the default. Omission drops306/285 calls (702/497 candidate pairs), reducing
 traces to434/455 and retained constraints to8746/8389. Deferred mode costs an
-extra970/998 local decisions, which are charged. All methods' output scaling
-checks at1e-8/1e8 agree within1e-12; full artifact preserves exact differences.
+extra970/998 local decisions, which are charged. Output scaling by1e-8 changes
+all methods by2.22e-16, but scaling by1e8 changes ALL four methods by
+6.901941298265157e-6. This inherited scale-sensitivity failure is preserved;
+it is not caused by the new omission. Diagnose it before broader adoption.
 
 Whole phase3.355113876CPU including imports/setup,202376KiB RSS, no random
 model inputs. Reference polygon accuracy on the original matches the pinned
@@ -116,7 +118,8 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work
 
 [inferred] The small initial gain justifies a fixed broader discriminator;
 it does not establish safe omission of other ordering calls. Full H4/H5/H6
-seed/noise panel and independent review remain required. The constant cases
+seed/noise panel, inherited scale-sensitivity diagnosis and independent review
+remain required. The constant cases
 are correctness controls, not representative cost measurements. Proxy MSE
 ratios in pilot.json omit uncharged setup/special-function details and are
 not portable leaderboard results or rung passes.
