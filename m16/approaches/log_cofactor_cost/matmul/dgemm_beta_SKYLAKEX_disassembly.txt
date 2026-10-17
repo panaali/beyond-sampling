@@ -1,0 +1,208 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a41ec0 <dgemm_beta_SKYLAKEX>:
+  a41ec0:	55                   	push   %rbp
+  a41ec1:	48 89 f1             	mov    %rsi,%rcx
+  a41ec4:	48 89 e5             	mov    %rsp,%rbp
+  a41ec7:	41 57                	push   %r15
+  a41ec9:	41 56                	push   %r14
+  a41ecb:	41 55                	push   %r13
+  a41ecd:	41 54                	push   %r12
+  a41ecf:	53                   	push   %rbx
+  a41ed0:	4c 8b 45 20          	mov    0x20(%rbp),%r8
+  a41ed4:	48 83 e4 e0          	and    $0xffffffffffffffe0,%rsp
+  a41ed8:	4c 39 c7             	cmp    %r8,%rdi
+  a41edb:	75 1b                	jne    a41ef8 <dgemm_beta_SKYLAKEX+0x38>
+  a41edd:	c5 f1 57 c9          	vxorpd %xmm1,%xmm1,%xmm1
+  a41ee1:	ba 00 00 00 00       	mov    $0x0,%edx
+  a41ee6:	c5 f9 2e c1          	vucomisd %xmm1,%xmm0
+  a41eea:	0f 9b c0             	setnp  %al
+  a41eed:	0f 45 c2             	cmovne %edx,%eax
+  a41ef0:	84 c0                	test   %al,%al
+  a41ef2:	0f 85 3d 02 00 00    	jne    a42135 <dgemm_beta_SKYLAKEX+0x275>
+  a41ef8:	48 85 ff             	test   %rdi,%rdi
+  a41efb:	0f 84 6a 01 00 00    	je     a4206b <dgemm_beta_SKYLAKEX+0x1ab>
+  a41f01:	48 85 c9             	test   %rcx,%rcx
+  a41f04:	0f 84 61 01 00 00    	je     a4206b <dgemm_beta_SKYLAKEX+0x1ab>
+  a41f0a:	c5 f1 57 c9          	vxorpd %xmm1,%xmm1,%xmm1
+  a41f0e:	49 c1 e0 03          	shl    $0x3,%r8
+  a41f12:	c5 f9 2e c1          	vucomisd %xmm1,%xmm0
+  a41f16:	0f 8a 64 01 00 00    	jp     a42080 <dgemm_beta_SKYLAKEX+0x1c0>
+  a41f1c:	0f 85 5e 01 00 00    	jne    a42080 <dgemm_beta_SKYLAKEX+0x1c0>
+  a41f22:	4c 8d 5f e0          	lea    -0x20(%rdi),%r11
+  a41f26:	48 8b 75 18          	mov    0x18(%rbp),%rsi
+  a41f2a:	c5 f9 57 c0          	vxorpd %xmm0,%xmm0,%xmm0
+  a41f2e:	45 31 c9             	xor    %r9d,%r9d
+  a41f31:	4d 89 da             	mov    %r11,%r10
+  a41f34:	41 83 e3 1f          	and    $0x1f,%r11d
+  a41f38:	49 c1 ea 05          	shr    $0x5,%r10
+  a41f3c:	49 ff c2             	inc    %r10
+  a41f3f:	49 c1 e2 08          	shl    $0x8,%r10
+  a41f43:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a41f48:	48 89 f0             	mov    %rsi,%rax
+  a41f4b:	48 89 fa             	mov    %rdi,%rdx
+  a41f4e:	48 83 ff 1f          	cmp    $0x1f,%rdi
+  a41f52:	7e 5e                	jle    a41fb2 <dgemm_beta_SKYLAKEX+0xf2>
+  a41f54:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a41f5b:	00 00 00 00 
+  a41f5f:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a41f66:	00 00 00 00 
+  a41f6a:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a41f71:	00 00 00 00 
+  a41f75:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a41f7c:	00 00 00 00 
+  a41f80:	48 83 ea 20          	sub    $0x20,%rdx
+  a41f84:	62 f1 fd 48 11 00    	vmovupd %zmm0,(%rax)
+  a41f8a:	48 05 00 01 00 00    	add    $0x100,%rax
+  a41f90:	62 f1 fd 48 11 40 fd 	vmovupd %zmm0,-0xc0(%rax)
+  a41f97:	62 f1 fd 48 11 40 fe 	vmovupd %zmm0,-0x80(%rax)
+  a41f9e:	62 f1 fd 48 11 40 ff 	vmovupd %zmm0,-0x40(%rax)
+  a41fa5:	48 83 fa 1f          	cmp    $0x1f,%rdx
+  a41fa9:	7f d5                	jg     a41f80 <dgemm_beta_SKYLAKEX+0xc0>
+  a41fab:	49 8d 04 32          	lea    (%r10,%rsi,1),%rax
+  a41faf:	4c 89 da             	mov    %r11,%rdx
+  a41fb2:	48 83 fa 07          	cmp    $0x7,%rdx
+  a41fb6:	7e 5e                	jle    a42016 <dgemm_beta_SKYLAKEX+0x156>
+  a41fb8:	48 89 d3             	mov    %rdx,%rbx
+  a41fbb:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+  a41fc2:	49 89 c6             	mov    %rax,%r14
+  a41fc5:	48 c1 eb 03          	shr    $0x3,%rbx
+  a41fc9:	4c 8d 63 ff          	lea    -0x1(%rbx),%r12
+  a41fcd:	48 c1 e3 06          	shl    $0x6,%rbx
+  a41fd1:	41 89 dd             	mov    %ebx,%r13d
+  a41fd4:	4a c7 44 28 f8 00 00 	movq   $0x0,-0x8(%rax,%r13,1)
+  a41fdb:	00 00 
+  a41fdd:	4c 8d 68 08          	lea    0x8(%rax),%r13
+  a41fe1:	49 83 e5 f8          	and    $0xfffffffffffffff8,%r13
+  a41fe5:	4d 29 ee             	sub    %r13,%r14
+  a41fe8:	44 01 f3             	add    %r14d,%ebx
+  a41feb:	45 31 f6             	xor    %r14d,%r14d
+  a41fee:	83 e3 f8             	and    $0xfffffff8,%ebx
+  a41ff1:	45 89 f7             	mov    %r14d,%r15d
+  a41ff4:	41 83 c6 08          	add    $0x8,%r14d
+  a41ff8:	4f 89 4c 3d 00       	mov    %r9,0x0(%r13,%r15,1)
+  a41ffd:	41 39 de             	cmp    %ebx,%r14d
+  a42000:	72 ef                	jb     a41ff1 <dgemm_beta_SKYLAKEX+0x131>
+  a42002:	4c 89 e3             	mov    %r12,%rbx
+  a42005:	49 c1 e4 06          	shl    $0x6,%r12
+  a42009:	48 f7 db             	neg    %rbx
+  a4200c:	4a 8d 44 20 40       	lea    0x40(%rax,%r12,1),%rax
+  a42011:	48 8d 54 da f8       	lea    -0x8(%rdx,%rbx,8),%rdx
+  a42016:	48 85 d2             	test   %rdx,%rdx
+  a42019:	7e 3e                	jle    a42059 <dgemm_beta_SKYLAKEX+0x199>
+  a4201b:	48 c1 e2 03          	shl    $0x3,%rdx
+  a4201f:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+  a42026:	89 d3                	mov    %edx,%ebx
+  a42028:	48 c7 44 18 f8 00 00 	movq   $0x0,-0x8(%rax,%rbx,1)
+  a4202f:	00 00 
+  a42031:	48 8d 58 08          	lea    0x8(%rax),%rbx
+  a42035:	48 83 e3 f8          	and    $0xfffffffffffffff8,%rbx
+  a42039:	48 29 d8             	sub    %rbx,%rax
+  a4203c:	01 c2                	add    %eax,%edx
+  a4203e:	83 e2 f8             	and    $0xfffffff8,%edx
+  a42041:	83 fa 08             	cmp    $0x8,%edx
+  a42044:	72 13                	jb     a42059 <dgemm_beta_SKYLAKEX+0x199>
+  a42046:	83 e2 f8             	and    $0xfffffff8,%edx
+  a42049:	31 c0                	xor    %eax,%eax
+  a4204b:	41 89 c4             	mov    %eax,%r12d
+  a4204e:	83 c0 08             	add    $0x8,%eax
+  a42051:	4e 89 0c 23          	mov    %r9,(%rbx,%r12,1)
+  a42055:	39 d0                	cmp    %edx,%eax
+  a42057:	72 f2                	jb     a4204b <dgemm_beta_SKYLAKEX+0x18b>
+  a42059:	48 ff c9             	dec    %rcx
+  a4205c:	4c 01 c6             	add    %r8,%rsi
+  a4205f:	48 85 c9             	test   %rcx,%rcx
+  a42062:	0f 8f e0 fe ff ff    	jg     a41f48 <dgemm_beta_SKYLAKEX+0x88>
+  a42068:	c5 f8 77             	vzeroupper
+  a4206b:	48 8d 65 d8          	lea    -0x28(%rbp),%rsp
+  a4206f:	31 c0                	xor    %eax,%eax
+  a42071:	5b                   	pop    %rbx
+  a42072:	41 5c                	pop    %r12
+  a42074:	41 5d                	pop    %r13
+  a42076:	41 5e                	pop    %r14
+  a42078:	41 5f                	pop    %r15
+  a4207a:	5d                   	pop    %rbp
+  a4207b:	c3                   	ret
+  a4207c:	0f 1f 40 00          	nopl   0x0(%rax)
+  a42080:	48 89 fe             	mov    %rdi,%rsi
+  a42083:	83 e7 07             	and    $0x7,%edi
+  a42086:	4c 8b 4d 18          	mov    0x18(%rbp),%r9
+  a4208a:	48 c1 fe 03          	sar    $0x3,%rsi
+  a4208e:	4c 8d 14 fd 00 00 00 	lea    0x0(,%rdi,8),%r10
+  a42095:	00 
+  a42096:	49 89 f3             	mov    %rsi,%r11
+  a42099:	49 c1 e3 06          	shl    $0x6,%r11
+  a4209d:	48 85 f6             	test   %rsi,%rsi
+  a420a0:	7f 19                	jg     a420bb <dgemm_beta_SKYLAKEX+0x1fb>
+  a420a2:	48 85 ff             	test   %rdi,%rdi
+  a420a5:	0f 85 e3 00 00 00    	jne    a4218e <dgemm_beta_SKYLAKEX+0x2ce>
+  a420ab:	48 ff c9             	dec    %rcx
+  a420ae:	4d 01 c1             	add    %r8,%r9
+  a420b1:	48 85 c9             	test   %rcx,%rcx
+  a420b4:	7e b5                	jle    a4206b <dgemm_beta_SKYLAKEX+0x1ab>
+  a420b6:	48 85 f6             	test   %rsi,%rsi
+  a420b9:	7e e7                	jle    a420a2 <dgemm_beta_SKYLAKEX+0x1e2>
+  a420bb:	c4 e2 7d 19 c8       	vbroadcastsd %xmm0,%ymm1
+  a420c0:	4c 89 c8             	mov    %r9,%rax
+  a420c3:	31 d2                	xor    %edx,%edx
+  a420c5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a420cc:	00 00 00 00 
+  a420d0:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a420d7:	00 00 00 00 
+  a420db:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a420e2:	00 00 00 00 
+  a420e6:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a420ed:	00 00 00 00 
+  a420f1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a420f8:	00 00 00 00 
+  a420fc:	0f 1f 40 00          	nopl   0x0(%rax)
+  a42100:	c5 f5 59 50 20       	vmulpd 0x20(%rax),%ymm1,%ymm2
+  a42105:	48 ff c2             	inc    %rdx
+  a42108:	48 83 c0 40          	add    $0x40,%rax
+  a4210c:	c5 f5 59 58 c0       	vmulpd -0x40(%rax),%ymm1,%ymm3
+  a42111:	c5 fd 11 50 e0       	vmovupd %ymm2,-0x20(%rax)
+  a42116:	c5 fd 11 58 c0       	vmovupd %ymm3,-0x40(%rax)
+  a4211b:	48 39 f2             	cmp    %rsi,%rdx
+  a4211e:	75 e0                	jne    a42100 <dgemm_beta_SKYLAKEX+0x240>
+  a42120:	48 85 ff             	test   %rdi,%rdi
+  a42123:	75 33                	jne    a42158 <dgemm_beta_SKYLAKEX+0x298>
+  a42125:	48 ff c9             	dec    %rcx
+  a42128:	4d 01 c1             	add    %r8,%r9
+  a4212b:	48 85 c9             	test   %rcx,%rcx
+  a4212e:	7f 90                	jg     a420c0 <dgemm_beta_SKYLAKEX+0x200>
+  a42130:	e9 33 ff ff ff       	jmp    a42068 <dgemm_beta_SKYLAKEX+0x1a8>
+  a42135:	48 0f af fe          	imul   %rsi,%rdi
+  a42139:	31 f6                	xor    %esi,%esi
+  a4213b:	48 8d 14 fd 00 00 00 	lea    0x0(,%rdi,8),%rdx
+  a42142:	00 
+  a42143:	48 8b 7d 18          	mov    0x18(%rbp),%rdi
+  a42147:	e8 c4 1f 64 ff       	call   84110 <memset@plt>
+  a4214c:	e9 1a ff ff ff       	jmp    a4206b <dgemm_beta_SKYLAKEX+0x1ab>
+  a42151:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  a42158:	4b 8d 04 0b          	lea    (%r11,%r9,1),%rax
+  a4215c:	4a 8d 14 10          	lea    (%rax,%r10,1),%rdx
+  a42160:	c5 fb 59 08          	vmulsd (%rax),%xmm0,%xmm1
+  a42164:	48 83 c0 08          	add    $0x8,%rax
+  a42168:	c5 fb 11 48 f8       	vmovsd %xmm1,-0x8(%rax)
+  a4216d:	48 39 c2             	cmp    %rax,%rdx
+  a42170:	75 ee                	jne    a42160 <dgemm_beta_SKYLAKEX+0x2a0>
+  a42172:	48 ff c9             	dec    %rcx
+  a42175:	4d 01 c1             	add    %r8,%r9
+  a42178:	48 85 c9             	test   %rcx,%rcx
+  a4217b:	0f 8e e7 fe ff ff    	jle    a42068 <dgemm_beta_SKYLAKEX+0x1a8>
+  a42181:	4c 89 c8             	mov    %r9,%rax
+  a42184:	48 85 f6             	test   %rsi,%rsi
+  a42187:	7e d3                	jle    a4215c <dgemm_beta_SKYLAKEX+0x29c>
+  a42189:	e9 2d ff ff ff       	jmp    a420bb <dgemm_beta_SKYLAKEX+0x1fb>
+  a4218e:	4c 89 c8             	mov    %r9,%rax
+  a42191:	eb c9                	jmp    a4215c <dgemm_beta_SKYLAKEX+0x29c>
+
+Disassembly of section .fini:
