@@ -30,4 +30,4 @@ Uniform allocation compares the mean squared error with native_sample * mean(p*(
 
 The original source hash37e5cb781c74b7c030ac305b5836bc9938963fe5fc56c07eaf1d56ee8d3422fc is unchanged. The earlier mixed-zero root defect and universal-continuity counterexample remain separately valid; no saved trained case is shown to trigger either. T183 owns native-cost closure. None of these finite-table checks proves quadrature accuracy, full-cost superiority or advancement to a wider challenge rung.
 
-Arithmetic CPU 0.012198615 seconds; no model calls. Independent arithmetic review pending.
+Arithmetic CPU 0.012198615 seconds; no model calls. Independent review292b54cc reconstructs all75 binomial intervals and45 group calculations, including the three clean point exceptions, pooled/noisy upper-bound lists and both budget allocations.
