@@ -13,7 +13,7 @@ assemble trained neuron pairs or run a network.
 ## Status
 Claim91e79d3b pushed. Source138a0e91 independently gated by78/T55; all24 controls now pass, independent saved audit84e0040c passes. Subsequent frozen six-network pair
 assembly also completes all340 cells plus8 reference controls; independent saved
-audit pending. See NETWORK_HANDOFF.md.
+audit3e5cfdd0 passes. See NETWORK_HANDOFF.md.
 
 ## Results
 All24 pass in0.187677CPU; max analytic difference5.998e-118. See HANDOFF.md.

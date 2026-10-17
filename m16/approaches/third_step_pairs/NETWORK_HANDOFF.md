@@ -1,4 +1,4 @@
-# T11593 analytic network pair assembly: raw bounded result
+# T11593 analytic network pair assembly: independently reviewed result
 
 Scopes7d394ba1/2678e75d, source766c5ec0, independent T55 source gate pinned2de697dc. The single110CPU attempt completes in14.026366616CPU,83,096KiB.
 
@@ -6,6 +6,6 @@ All8 independent halfplane-reference controls and340 sector/upper-triangle pair 
 
 Named exact setup19264div+108924mul+19038sub+52462add+433neg, reduced retained bits39/43. Candidate preparation and both MP evaluations/contractions0.894349097CPU; angular references9.074371369CPU/122736 integrand evaluations, plus independent reference-domain controls0.159924232CPU/2200evaluations. Serialization, validation/aggregation and complete native/MP/exact-comparison/GCD/transient-bit/control/memory costs remain unpriced but included in process CPU. Historical sector and mean artifacts are pinned and reused, not recomputed or claimed as free deployment precomputation.
 
-All709 durable progress records and per-cell exact certificates/matrices/references/counts remain saved. Independent saved audit pending before a separately frozen trained cost-first pilot. No trained covariance, later Gaussian closure, new random inputs/truth or final accuracy result follows. Finite MP/PSD diagnostics are not outward covariance certificates. The next conditional closure test is separately blockedT11595, pending full verified trained pair coverage.
+All709 durable progress records and per-cell exact certificates/matrices/references/counts remain saved. Independent saved audit3e5cfdd0 passes all340 exact pair geometries, alternative spherical-excess masses/boundary matrices (max1.19843e-120), pair contractions/raw/covariance/analytic/minor aggregates and counts/progress without candidate or quadrature replay. A trained cost-first pilot remains a separately frozen next phase. No trained covariance, later Gaussian closure, new random inputs/truth or final accuracy result follows. Finite MP/PSD diagnostics are not outward covariance certificates. The next conditional closure test is separately blockedT11595, pending full verified trained pair coverage.
 
 Reproduce from2de697dc in a fresh checkout under one thread2GB and primary110CPU lock: `/workspace/clean-neurons/.venv/bin/python m16/approaches/third_step_pairs/run_network.py`. Existing files refused; no precision/order/model changes or retries occurred.
