@@ -8,12 +8,12 @@ For iid continuous inputs, each target index j is second largest with probabilit
 
 We use the normal law truncated symmetrically to[-L,L], with F its normalized CDF. The rank statements remain exact. Original accuracy lies between Pbox*A_trunc and Pbox*A_trunc+1-Pbox, where Pbox=(1-2*Phi(-L))^T, conditional on exact evaluation of A_trunc. DefaultL6 gives omitted mass below2e-8 for T<=10. Numerical quadrature/interpolation errors are separate and uncertified.
 
-Outer target integration uses positive Gauss-Jacobi Beta weights. Conditional scalar integration uses positive Gauss-Legendre quantile nodes. Backward transport uses only two hidden coordinates plus the binary remaining-above state. Each time has its own finite box B_(t+1)=Wh_positive*B_t+L*abs(Wi), startingB0=0, ensuring all reachable transitions are in the next box even if Wh_positive expands.
+The final implementation splits outer target integration at q=.5 and uses positive Gauss-Legendre weights times the Beta density. The original Gauss-Jacobi failure is preserved below. Backward transport uses only two hidden coordinates plus the binary remaining-above state. Each time has its own finite box B_(t+1)=Wh_positive*B_t+L*abs(Wi), startingB0=0, ensuring all reachable transitions are in the next box even if Wh_positive expands. Conditional transitions support both quantile quadrature and guarded analytic Gaussian integration of the bilinear interpolant; the latter caches only charged within-estimate geometry and sparse kernels.
 
 Final fresh scalar-input integration explicitly splits ReLU gate intervals and intersects affine output margins; identically equal margins obey first-index argmax ties. When the target is last, that fixed target step is included in the scalar interval construction. No discontinuous argmax labels are silently interpolated as terminal data.
 
 ## Status
-The first transport milestone is complete; root authorized an exact polynomial transition phase within T67. Root pushed claim42f60e1. T55 supplies derivation and T50 read-only mathematical review; this folder owns the distinct engine.
+Bounded T67 implementation/validation phases complete; root/DRI acceptance and future scope remain separate. Root pushed claim42f60e1 and expanded scope inb7209a1. T55 supplies independent derivation/stability review and T50 read-only mathematical review; this folder owns the distinct engine. No global-challenge success claim.
 
 ## Results
 First cycle (checks.py, checks_results.json): six constant-readout controls on T3,T4,T7 have maximum error2.78e-17; six scalar terminal partitions have maximum defect2.22e-16, with duplicate logits correctly assigned to the first index. CPU.380seconds. The deterministic toy Wi=(1,0),Wh=0 selects the last label iff final input is positive, otherwise label0. Exact accuracy is1/T+1/[2(T-1)]-(T+1)/[(T-1)*2^T], unchanged by symmetric truncation. Global Gauss-Jacobi fails this sharp-boundary control: T4 errors at outer orders8/16/32 are-.01334/-.00773/-.00420; T7 errors+.002583/+.000906/+.000274. T3 happens to be exact and would have hidden the problem alone.
@@ -81,8 +81,10 @@ T7 analytic h65=.2346504539637787 in10.542CPU, peak RSS995076KB. Its h33-to-h65 
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
+The experimental estimator.py exposes est(model,budget,rng). It fixes hidden17/target8-per-half, analytic cached transitions and terminal reuse. Budget is explicitly advisory; actual charged CPU-calibrated forward equivalents are returned, including deterministic-zero timing calibration. Imports are excluded, calibration outputs never enter the accuracy estimate, and this is not a portable FLOP ledger. interface_check.py passes the constantT3 control with5.55e-17 error and returns a positive finite measured cost. The returned cost, which can exceed the requested budget, must be used in comparisons.
+
 ## Claims
-[inferred] Conditioning removes recurrent target-coordinate interpolation. [speculative] Remaining2D interpolation may be accurate enough at lower cost. This is deterministic numerical transport, not an exact accuracy certificate.
+[inferred] Conditioning removes recurrent target-coordinate interpolation. [measured] Exact toy/constant/tie controls pass; the optimized analytic engine gives T7 LOCALPILOT.23465045 at hidden65, while successive spatial refinement still moves.00049757. [measured] Charged reuse preserves finite-grid estimates and reduces cost. This is deterministic numerical transport, not an exact accuracy certificate or an equal-compute sampling win.
 
 ## Alternatives not ruled out
 1. An incorrect1/m law or missing1/T factor could make plausible probabilities. Constant readout, constant continuation and toy analytic controls test this before trained runs.
@@ -91,4 +93,4 @@ Charge all target nodes, terminal gate/margin interval operations, conditional q
 4. Finite hidden boxes might clip expanding dynamics. Use stage-specific proved boxes and fail on out-of-domain queries; account separately for discarded input-tail mass.
 
 ## Failure modes
-No certified bound for grid interpolation or outer/conditional quadrature. Gate arithmetic uses floats. Rare conditional tails need stable CDF differences. Positive-mass output ties cannot be discarded. Truncation guarantees alone do not certify total accuracy. The original challenge remains open.
+No certified bound for grid interpolation or outer quadrature. The optional quantile transition also has unbounded quadrature error; the guarded analytic transition bounds only its numerical fallback in real arithmetic. Gate and moment arithmetic use floats. Rare conditional tails need stable CDF differences. Positive-mass output ties cannot be discarded. Truncation guarantees alone do not certify total accuracy. Only one LOCALPILOT T7 and one zoo T4 checkpoint were tested, not an independent noisy ensemble or a full shared benchmark. The original challenge remains open.
