@@ -34,3 +34,26 @@ Numerical clipping error, correlated validation implementations, unsupported ope
 
 ## Failure modes
 Thin regions, nearly duplicate output rows, high-degree moment cancellation, and missing compute charges can each invalidate a result.
+
+## Recovery-cycle T3 independent result
+
+`check_t3.py` compares the two-tail calculation with octant-first three-step
+clipping on12 cases: public seed0, eight new relative-RMS perturbations
+(sigma.0025/.02, independent RNG52002), zero readout, identical nonzero rows,
+and duplicated first two rows. Maximum difference is1.67e-16. Both constant
+readouts independently equal1/3. The check uses0.281CPU seconds,24 analytic tails
+and12 independent cone enumerations, with zero sampled model inputs.
+` t3_review.json` preserves all results. This checks a separate perturbation
+ensemble from the author's absolute-sigma.05 copies.
+
+The candidate's T3 polygon-vertex bound2H+7 follows from an initial triangle,
+2H gate cuts, two readout cuts and two rank cuts. The proposed per-kernel scalar
+allowances appear conservative for H2 under unit-cost elementary/special
+operations, but are not an instruction-level FLOP certificate. The author's
+full-CPU comparison separately includes Python overhead; its benchmark inputs
+are not used to fit or evaluate accuracy. CPU and arithmetic-proxy costs must
+remain separate. Budget is advisory and may be exceeded; compare returned cost.
+
+This supports nominal numerical correctness on these cases. It does not prove
+all weights safe under floating clipping, nor establish shared-leaderboard
+acceptance. The DRI decides acceptance of this small-case benchmark.

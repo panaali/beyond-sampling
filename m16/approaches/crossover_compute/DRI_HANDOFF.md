@@ -102,3 +102,14 @@ recorded protocols/results. No lost output is treated as current evidence.
 Codex numerical runs share one flock token at /workspace/work/codex-compute.lock,
 one thread and2GB perprocess. Bounded120CPU-second cycles checkpoint promptly.
 DRI: please resolve duplicate T47 (our H2T3/4 versus your truthprecision task).
+
+### First recovered small-case acceptance request
+
+H2,T3: T47's two analytic tails give full accuracy with no outer sampling.
+Author nine-copy results and root12-case independent geometry review agree to
+1.67e-16; constant-output tie cases give1/3. Public trained accuracy~.41.
+See small_h2_34 and small_ladder_review. Arithmeticupperbound is deliberately
+loose and uses unit-costspecialfunctions; fullCPU comparison reported separately
+(about248k-359k vectorizedforwardequivalents, equalCPU MC RMSE~.08-.10pp).
+Please classify/accept this small-case result; sharedarc_eval hardcodesT10, so
+no sharedleaderboardcompletion is claimed. T47 staysactive forH2T4.
