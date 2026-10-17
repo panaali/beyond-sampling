@@ -111,3 +111,18 @@ Check exact component zeros, not a small-norm tolerance; nonzero underflow
 would require separate stable normalization and remains open. Preserve
 original failures, apply the guard only in this owned review process, and
 recheck the same four analytic cases before proposing a shared-source fix.
+
+### Local exact-zero rescue
+The owned-process guard returns each exactly zero halfspace as(poly,[]),
+keeping its full geometry once. Zero-network accuracy becomes.25000000996971117
+in both tiers (error9.97e-9, within frozen1e-7 tolerance), with144 traces/108
+pieces. Across both tier calls1536 zero normals are handled. The three
+nonzero controls retain bitwise identical numerical answers and no guard
+activations; a conservative legacy6-unit guard charge per3-vector is included.
+Guard controls total9.09CPU approximately. Original source remains untouched.
+Independent review and DRI adoption are tracked under T169; nonzero norm
+underflow, trained/noise behavior and complete cost remain open.
+
+Reproduce source controls with `python analytic_controls.py CASE` and local
+rescue with `python guard_controls.py CASE`, CASE=zero,constant0,plus3_minus0,
+plus0_minus3; use one-thread resource/lock limits from the protocol.
