@@ -55,12 +55,35 @@ at high precision and under the positive integral. A geometric upper-bound check
 rejects this result and ten other thin-case degree choices. It is a detection
 guard, not an error certificate. No probability is silently clipped.
 
+Cycle 2 (`1e5b93c` protocol) now has `tail.py`: it takes a normalized prefix
+hidden state plus its top-two values/indices, enumerates the final two steps,
+and analytically integrates their rank/readout polygons. Reproduce validation:
+
+```
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python m16/approaches/feynman_fundamentals/check_tail.py
+```
+
+`tail_results.json` contains seven fixed synthetic conditional cases (H1T3 and
+H2T3/T5/T10). The four H1 cases give the analytic 1/3 to floating precision.
+All seven agree with separate 65,536-draw direct validation within 1.83 standard
+errors. Multiplying input and output weights each by 1e-16 changes the answers
+by at most 1.39e-17. Gate-partition mass differs from one by at most 2.23e-16.
+These are conditional probabilities for fixed prefix directions, not solved
+long-sequence accuracies. Independent implementation review is pending.
+
 ## Compute accounting
 Cycle 1 uses zero model forward passes and zero random inputs. Each complete
 check uses 184,320 simplex quadrature nodes; the two runs used 368,640 nodes and
 approximately 0.481 CPU seconds in total. The saved final run took 0.284 CPU
 seconds, including high-precision checks. Full geometric partitioning and outer
 transport costs are not yet measured; no efficiency advantage is claimed.
+
+Cycle 2 used 0.241 CPU seconds, 458,752 full model inputs for validation, and
+14 deterministic prefix calculations totaling 32 recurrent steps. The analytic
+tail calls use no model-input sampling. Normal and rescaled calls together used
+1,678 polygon clips, 136 affine products, and 222 weighted-moment calls. No
+high-precision fallback occurred; these selected cases did not trip the guard.
+The counted operations are not yet converted to an audited FLOP/FPE budget.
 
 ## Claims
 - [inferred] H2 accuracy admits a target-specific Markov formulation with three
