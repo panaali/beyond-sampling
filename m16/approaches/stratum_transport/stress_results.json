@@ -1,0 +1,1076 @@
+{
+  "rows": [
+    {
+      "model": "public_T8_noise_0.0025",
+      "two_step": {
+        "stratum_masses": {
+          "origin": 0.4856409507789018,
+          "axis0": 0.0,
+          "axis1": 0.15828838887796495,
+          "input_ray": 0.25,
+          "area": 0.10607066034313328
+        },
+        "output_masses": [
+          0.4856409507789018,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.17154149371426058,
+          0.3428175555068377
+        ],
+        "cells": [
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.25,
+            "sign": -1,
+            "lo": "None",
+            "hi": "0",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "input_ray",
+            "rank": 1,
+            "mass": 0.25,
+            "sign": -1,
+            "lo": "0",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "8252038559349617/4503599627370496"
+              ],
+              [
+                "0",
+                "7940597883844937/4503599627370496"
+              ]
+            ]
+          },
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.23564095077890176,
+            "sign": 1,
+            "lo": "None",
+            "hi": "-6470370048064048585919931616387/71522547341566014705223025557504",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "axis1",
+            "rank": 1,
+            "mass": 0.15828838887796495,
+            "sign": 1,
+            "lo": "-6470370048064048585919931616387/71522547341566014705223025557504",
+            "hi": "94503142803842763644402052267781/74327755561867799523755309400064",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "6470370048064048585919931616387/40564819207303340847894502572032",
+                "7940597883844937/4503599627370496"
+              ]
+            ]
+          },
+          {
+            "kind": "area",
+            "rank": 2,
+            "mass": 0.10607066034313328,
+            "sign": 1,
+            "lo": "94503142803842763644402052267781/74327755561867799523755309400064",
+            "hi": "None",
+            "B": [
+              [
+                "-94503142803842763644402052267781/40564819207303340847894502572032",
+                "8252038559349617/4503599627370496"
+              ],
+              [
+                "6470370048064048585919931616387/40564819207303340847894502572032",
+                "7940597883844937/4503599627370496"
+              ]
+            ]
+          }
+        ],
+        "work": {
+          "rational_arithmetic": 1075,
+          "rational_comparisons": 396,
+          "angle_evaluations": 48
+        },
+        "rational_bit_and_hash_cost_excluded": true
+      },
+      "three_step": {
+        "stratum_masses": {
+          "origin": 0.5316786363723722,
+          "axis0": 0.0013385219255076918,
+          "axis1": 0.101524582690321,
+          "input_ray": 0.2428204753894509,
+          "area": 0.1226377836223482
+        },
+        "output_masses": [
+          0.5316786363723722,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0186321890009934,
+          0.10998508461699315,
+          0.3397040900096414
+        ],
+        "work": {
+          "source_sectors": 5,
+          "threshold_forms": 92,
+          "angular_intervals": 6,
+          "destination_bands": 128,
+          "skipped_angular_mass_bound": 1.0601848938211723e-16,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 1445,
+          "angular_roots_returned": 711,
+          "primitive_evaluations": 512
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 6891,
+          "rational_comparisons": 15,
+          "angle_evaluations": 6
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "reference_three_step": {
+        "stratum_masses": {
+          "origin": 0.5316786363723721,
+          "axis0": 0.0013385219255077083,
+          "axis1": 0.10152458269032105,
+          "input_ray": 0.2428204753894509,
+          "area": 0.12263778362234826
+        },
+        "output_masses": [
+          0.5316786363723721,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01863218900099317,
+          0.10998508461699319,
+          0.33970409000964147
+        ],
+        "work": {
+          "affine_products": 28.0,
+          "clips": 495.0,
+          "area_calls": 49.0,
+          "readout_comparisons": 497.0,
+          "final_gate_cells": 22
+        }
+      },
+      "two_step_reference_work": {
+        "angle_roots": 288,
+        "validation_direction_network_evaluations": 27,
+        "exact_tie_coefficient_checks": 216
+      },
+      "two_step_error": 1.1102230246251565e-16,
+      "three_step_error": 2.2898349882893854e-16,
+      "cpu_seconds": 0.03575706200000006
+    },
+    {
+      "model": "public_T8_noise_0.02",
+      "two_step": {
+        "stratum_masses": {
+          "origin": 0.48400312988422334,
+          "axis0": 0.0,
+          "axis1": 0.16104656720316252,
+          "input_ray": 0.25,
+          "area": 0.10495030291261415
+        },
+        "output_masses": [
+          0.48400312988422334,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.17427124320478476,
+          0.3417256269109919
+        ],
+        "cells": [
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.25,
+            "sign": -1,
+            "lo": "None",
+            "hi": "0",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "input_ray",
+            "rank": 1,
+            "mass": 0.25,
+            "sign": -1,
+            "lo": "0",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "2075235285300961/1125899906842624"
+              ],
+              [
+                "0",
+                "1007107825187145/562949953421312"
+              ]
+            ]
+          },
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.2340031298842233,
+            "sign": 1,
+            "lo": "None",
+            "hi": "-1829686022157250058780517447791/18142441704938947391981805895680",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "axis1",
+            "rank": 1,
+            "mass": 0.16104656720316252,
+            "sign": 1,
+            "lo": "-1829686022157250058780517447791/18142441704938947391981805895680",
+            "hi": "24113199272124772461471914569855/18692057715175025829208823693312",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "1829686022157250058780517447791/10141204801825835211973625643008",
+                "1007107825187145/562949953421312"
+              ]
+            ]
+          },
+          {
+            "kind": "area",
+            "rank": 2,
+            "mass": 0.10495030291261415,
+            "sign": 1,
+            "lo": "24113199272124772461471914569855/18692057715175025829208823693312",
+            "hi": "None",
+            "B": [
+              [
+                "-24113199272124772461471914569855/10141204801825835211973625643008",
+                "2075235285300961/1125899906842624"
+              ],
+              [
+                "1829686022157250058780517447791/10141204801825835211973625643008",
+                "1007107825187145/562949953421312"
+              ]
+            ]
+          }
+        ],
+        "work": {
+          "rational_arithmetic": 1111,
+          "rational_comparisons": 419,
+          "angle_evaluations": 52
+        },
+        "rational_bit_and_hash_cost_excluded": true
+      },
+      "three_step": {
+        "stratum_masses": {
+          "origin": 0.5319152128151527,
+          "axis0": 0.0005537192806326379,
+          "axis1": 0.1033162730079883,
+          "input_ray": 0.24200156494211167,
+          "area": 0.1222132299541145
+        },
+        "output_masses": [
+          0.5319152128151527,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.008027889057111414,
+          0.11175472563327488,
+          0.34830217249446094
+        ],
+        "work": {
+          "source_sectors": 5,
+          "threshold_forms": 92,
+          "angular_intervals": 6,
+          "destination_bands": 128,
+          "skipped_angular_mass_bound": 7.288771145020559e-17,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 1445,
+          "angular_roots_returned": 437,
+          "primitive_evaluations": 512
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 6891,
+          "rational_comparisons": 15,
+          "angle_evaluations": 6
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "reference_three_step": {
+        "stratum_masses": {
+          "origin": 0.5319152128151529,
+          "axis0": 0.0005537192806326455,
+          "axis1": 0.10331627300798826,
+          "input_ray": 0.24200156494211167,
+          "area": 0.12221322995411454
+        },
+        "output_masses": [
+          0.5319152128151529,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.00802788905711139,
+          0.11175472563327485,
+          0.3483021724944608
+        ],
+        "work": {
+          "affine_products": 28.0,
+          "clips": 500.0,
+          "area_calls": 49.0,
+          "readout_comparisons": 502.0,
+          "final_gate_cells": 22
+        }
+      },
+      "two_step_reference_work": {
+        "angle_roots": 288,
+        "validation_direction_network_evaluations": 28,
+        "exact_tie_coefficient_checks": 224
+      },
+      "two_step_error": 2.7755575615628914e-17,
+      "three_step_error": 1.1102230246251565e-16,
+      "cpu_seconds": 0.037063270000000204
+    },
+    {
+      "model": "LOCALPILOT_T7",
+      "two_step": {
+        "stratum_masses": {
+          "origin": 0.0,
+          "axis0": 0.28245835806180764,
+          "axis1": 0.4913072487021162,
+          "input_ray": 0.0,
+          "area": 0.2262343932360762
+        },
+        "output_masses": [
+          0.0,
+          0.0,
+          0.0,
+          0.07810743692490604,
+          0.0,
+          0.41931188781026507,
+          0.5025806752648289
+        ],
+        "cells": [
+          {
+            "kind": "axis0",
+            "rank": 1,
+            "mass": 0.17433102925403443,
+            "sign": -1,
+            "lo": "None",
+            "hi": "-59250095119171/115086416936960",
+            "B": [
+              [
+                "-65991985776165/562949953421312",
+                "-9805331/8388608"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "area",
+            "rank": 2,
+            "mass": 0.05976082760198823,
+            "sign": -1,
+            "lo": "-59250095119171/115086416936960",
+            "hi": "-6730215/67108864",
+            "B": [
+              [
+                "-65991985776165/562949953421312",
+                "-9805331/8388608"
+              ],
+              [
+                "59250095119171/562949953421312",
+                "6859685/33554432"
+              ]
+            ]
+          },
+          {
+            "kind": "axis1",
+            "rank": 1,
+            "mass": 0.26590814314397737,
+            "sign": -1,
+            "lo": "-6730215/67108864",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "59250095119171/562949953421312",
+                "6859685/33554432"
+              ]
+            ]
+          },
+          {
+            "kind": "axis0",
+            "rank": 1,
+            "mass": 0.1081273288077732,
+            "sign": 1,
+            "lo": "None",
+            "hi": "-324579/262144",
+            "B": [
+              [
+                "25632509482965/140737488355328",
+                "-9805331/8388608"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "area",
+            "rank": 2,
+            "mass": 0.16647356563408797,
+            "sign": 1,
+            "lo": "-324579/262144",
+            "hi": "25632509482965/164506156138496",
+            "B": [
+              [
+                "25632509482965/140737488355328",
+                "-9805331/8388608"
+              ],
+              [
+                "2226509697615/8796093022208",
+                "6859685/33554432"
+              ]
+            ]
+          },
+          {
+            "kind": "axis1",
+            "rank": 1,
+            "mass": 0.22539910555813883,
+            "sign": 1,
+            "lo": "25632509482965/164506156138496",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "2226509697615/8796093022208",
+                "6859685/33554432"
+              ]
+            ]
+          }
+        ],
+        "work": {
+          "rational_arithmetic": 1272,
+          "rational_comparisons": 566,
+          "angle_evaluations": 76
+        },
+        "rational_bit_and_hash_cost_excluded": true
+      },
+      "three_step": {
+        "stratum_masses": {
+          "origin": 0.0,
+          "axis0": 0.17682937870735346,
+          "axis1": 0.46201428880699613,
+          "input_ray": 0.0,
+          "area": 0.3611563324856505
+        },
+        "output_masses": [
+          0.0,
+          0.0,
+          0.0,
+          0.14941413891667157,
+          0.0,
+          0.36685229656741275,
+          0.4837335645159157
+        ],
+        "work": {
+          "source_sectors": 6,
+          "threshold_forms": 138,
+          "angular_intervals": 6,
+          "destination_bands": 144,
+          "skipped_angular_mass_bound": 0.0,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 1644,
+          "angular_roots_returned": 0,
+          "primitive_evaluations": 576
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 7198,
+          "rational_comparisons": 18,
+          "angle_evaluations": 8
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "reference_three_step": {
+        "stratum_masses": {
+          "origin": 0.0,
+          "axis0": 0.1768293787073535,
+          "axis1": 0.4620142888069961,
+          "input_ray": 0.0,
+          "area": 0.36115633248565043
+        },
+        "output_masses": [
+          0.0,
+          0.0,
+          0.0,
+          0.14941413891667163,
+          0.0,
+          0.36685229656741275,
+          0.48373356451591554
+        ],
+        "work": {
+          "affine_products": 32.0,
+          "clips": 921.0,
+          "area_calls": 86.0,
+          "readout_comparisons": 765.0,
+          "final_gate_cells": 34
+        }
+      },
+      "two_step_reference_work": {
+        "angle_roots": 470,
+        "validation_direction_network_evaluations": 41,
+        "exact_tie_coefficient_checks": 287
+      },
+      "two_step_error": 5.551115123125783e-17,
+      "three_step_error": 1.6653345369377348e-16,
+      "cpu_seconds": 0.09903250699999999
+    },
+    {
+      "model": "zero_input",
+      "two_step": {
+        "stratum_masses": {
+          "origin": 1.0,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.0,
+          "area": 0.0
+        },
+        "output_masses": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "cells": [
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.5,
+            "sign": -1,
+            "lo": "None",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.5,
+            "sign": 1,
+            "lo": "None",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          }
+        ],
+        "work": {
+          "rational_arithmetic": 118,
+          "rational_comparisons": 14,
+          "angle_evaluations": 0
+        },
+        "rational_bit_and_hash_cost_excluded": true
+      },
+      "three_step": {
+        "stratum_masses": {
+          "origin": 1.0,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.0,
+          "area": 0.0
+        },
+        "output_masses": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "work": {
+          "source_sectors": 2,
+          "threshold_forms": 0,
+          "angular_intervals": 2,
+          "destination_bands": 2,
+          "skipped_angular_mass_bound": 0.0,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 52,
+          "angular_roots_returned": 0,
+          "primitive_evaluations": 8
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 558,
+          "rational_comparisons": 8,
+          "angle_evaluations": 0
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "reference_three_step": {
+        "stratum_masses": {
+          "origin": 1.0,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.0,
+          "area": 0.0
+        },
+        "output_masses": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "work": {
+          "affine_products": 24.0,
+          "area_calls": 16.0,
+          "readout_comparisons": 48.0,
+          "final_gate_cells": 8
+        }
+      },
+      "two_step_reference_work": {
+        "validation_direction_network_evaluations": 3,
+        "exact_tie_coefficient_checks": 12
+      },
+      "two_step_error": 0.0,
+      "three_step_error": 0.0,
+      "cpu_seconds": 0.009264359999999972
+    },
+    {
+      "model": "collinear",
+      "two_step": {
+        "stratum_masses": {
+          "origin": 0.375,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.625,
+          "area": 0.0
+        },
+        "output_masses": [
+          0.375,
+          0.625,
+          0.0,
+          0.0
+        ],
+        "cells": [
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.25,
+            "sign": -1,
+            "lo": "None",
+            "hi": "0",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "input_ray",
+            "rank": 1,
+            "mass": 0.25,
+            "sign": -1,
+            "lo": "0",
+            "hi": "None",
+            "B": [
+              [
+                "0",
+                "1"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ]
+          },
+          {
+            "kind": "origin",
+            "rank": 0,
+            "mass": 0.125,
+            "sign": 1,
+            "lo": "None",
+            "hi": "-1",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "input_ray",
+            "rank": 1,
+            "mass": 0.375,
+            "sign": 1,
+            "lo": "-1",
+            "hi": "None",
+            "B": [
+              [
+                "1",
+                "1"
+              ],
+              [
+                "1",
+                "1"
+              ]
+            ]
+          }
+        ],
+        "work": {
+          "rational_arithmetic": 238,
+          "rational_comparisons": 36,
+          "angle_evaluations": 8
+        },
+        "rational_bit_and_hash_cost_excluded": true
+      },
+      "three_step": {
+        "stratum_masses": {
+          "origin": 0.3125,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.6875,
+          "area": 0.0
+        },
+        "output_masses": [
+          0.3125,
+          0.6875,
+          0.0,
+          0.0
+        ],
+        "work": {
+          "source_sectors": 4,
+          "threshold_forms": 4,
+          "angular_intervals": 4,
+          "destination_bands": 8,
+          "skipped_angular_mass_bound": 0.0,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 36,
+          "angular_roots_returned": 0,
+          "primitive_evaluations": 32
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 1244,
+          "rational_comparisons": 12,
+          "angle_evaluations": 4
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "reference_three_step": {
+        "stratum_masses": {
+          "origin": 0.3125,
+          "axis0": 0.0,
+          "axis1": 0.0,
+          "input_ray": 0.6875,
+          "area": 0.0
+        },
+        "output_masses": [
+          0.3125,
+          0.6875,
+          0.0,
+          0.0
+        ],
+        "work": {
+          "affine_products": 26.0,
+          "clips": 146.0,
+          "area_calls": 26.0,
+          "readout_comparisons": 94.0,
+          "final_gate_cells": 13
+        }
+      },
+      "two_step_reference_work": {
+        "angle_roots": 32,
+        "validation_direction_network_evaluations": 6,
+        "exact_tie_coefficient_checks": 24
+      },
+      "two_step_error": 0.0,
+      "three_step_error": 0.0,
+      "cpu_seconds": 0.015836374000000042
+    },
+    {
+      "model": "opposite_input",
+      "two_step": {
+        "stratum_masses": {
+          "origin": 0.0,
+          "axis0": 0.3872186259860987,
+          "axis1": 0.3872186259860987,
+          "input_ray": 0.0,
+          "area": 0.2255627480278026
+        },
+        "output_masses": [
+          0.0,
+          0.5,
+          0.5,
+          0.0
+        ],
+        "cells": [
+          {
+            "kind": "axis1",
+            "rank": 1,
+            "mass": 0.17620819117478337,
+            "sign": -1,
+            "lo": "None",
+            "hi": "-1/2",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "1/4",
+                "-1"
+              ]
+            ]
+          },
+          {
+            "kind": "area",
+            "rank": 2,
+            "mass": 0.1127813740139013,
+            "sign": -1,
+            "lo": "-1/2",
+            "hi": "1/4",
+            "B": [
+              [
+                "1/2",
+                "1"
+              ],
+              [
+                "1/4",
+                "-1"
+              ]
+            ]
+          },
+          {
+            "kind": "axis0",
+            "rank": 1,
+            "mass": 0.21101043481131532,
+            "sign": -1,
+            "lo": "1/4",
+            "hi": "None",
+            "B": [
+              [
+                "1/2",
+                "1"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          {
+            "kind": "axis1",
+            "rank": 1,
+            "mass": 0.21101043481131532,
+            "sign": 1,
+            "lo": "None",
+            "hi": "-1/4",
+            "B": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "1/2",
+                "-1"
+              ]
+            ]
+          },
+          {
+            "kind": "area",
+            "rank": 2,
+            "mass": 0.1127813740139013,
+            "sign": 1,
+            "lo": "-1/4",
+            "hi": "1/2",
+            "B": [
+              [
+                "1/4",
+                "1"
+              ],
+              [
+                "1/2",
+                "-1"
+              ]
+            ]
+          },
+          {
+            "kind": "axis0",
+            "rank": 1,
+            "mass": 0.17620819117478337,
+            "sign": 1,
+            "lo": "1/2",
+            "hi": "None",
+            "B": [
+              [
+                "1/4",
+                "1"
+              ],
+              [
+                "0",
+                "0"
+              ]
+            ]
+          }
+        ],
+        "work": {
+          "rational_arithmetic": 436,
+          "rational_comparisons": 130,
+          "angle_evaluations": 28
+        },
+        "rational_bit_and_hash_cost_excluded": true
+      },
+      "three_step": {
+        "stratum_masses": {
+          "origin": 0.0,
+          "axis0": 0.3395128638927496,
+          "axis1": 0.3395128638927496,
+          "input_ray": 0.0,
+          "area": 0.32097427221450076
+        },
+        "output_masses": [
+          0.0,
+          0.49999999999999994,
+          0.5000000000000001,
+          0.0
+        ],
+        "work": {
+          "source_sectors": 6,
+          "threshold_forms": 30,
+          "angular_intervals": 6,
+          "destination_bands": 36,
+          "skipped_angular_mass_bound": 0.0,
+          "minimum_band_mass": 0.0,
+          "angular_root_queries": 102,
+          "angular_roots_returned": 0,
+          "primitive_evaluations": 144
+        },
+        "rational_and_angle_work": {
+          "rational_arithmetic": 2002,
+          "rational_comparisons": 18,
+          "angle_evaluations": 8
+        },
+        "sorting_bit_and_hash_cost_excluded": true,
+        "classification": "exact-form sector push with floating angular arithmetic"
+      },
+      "reference_three_step": {
+        "stratum_masses": {
+          "origin": 0.0,
+          "axis0": 0.33951286389274965,
+          "axis1": 0.3395128638927496,
+          "input_ray": 0.0,
+          "area": 0.32097427221450076
+        },
+        "output_masses": [
+          0.0,
+          0.5,
+          0.5,
+          0.0
+        ],
+        "work": {
+          "affine_products": 32.0,
+          "clips": 435.0,
+          "area_calls": 74.0,
+          "readout_comparisons": 283.0,
+          "final_gate_cells": 32
+        }
+      },
+      "two_step_reference_work": {
+        "angle_roots": 116,
+        "validation_direction_network_evaluations": 15,
+        "exact_tie_coefficient_checks": 60
+      },
+      "two_step_error": 5.551115123125783e-17,
+      "three_step_error": 1.1102230246251565e-16,
+      "cpu_seconds": 0.02007087899999993
+    }
+  ],
+  "random_model_inputs": 0,
+  "classification": "fixed short-horizon primitive checks",
+  "cpu_seconds_including_torch_import": 1.151159418
+}
