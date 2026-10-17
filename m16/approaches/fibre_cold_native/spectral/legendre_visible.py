@@ -22,7 +22,7 @@ class Ledger(base.Ledger):
 class Rewrite(base.Rewrite):
     def visit_Call(self,node):
         name=ast.unparse(node.func)
-        if isinstance(node.func,ast.Attribute) and node.func.attr in ('max','sum','astype') and not name.startswith(('np.','pu.')):name='.'+node.func.attr
+        if isinstance(node.func,ast.Attribute) and node.func.attr in ('max','sum','astype') and not (isinstance(node.func.value,ast.Name) and node.func.value.id in ('np','pu')):name='.'+node.func.attr
         if name.startswith(('np.','pu.')) or name in ('.max','.sum','.astype'):
             site=self.site(node);node=self.generic_visit(node);out=self.wrap(node,'call',[ast.Constant(site),ast.Constant(name),node.func]+node.args);out.keywords=node.keywords;return out
         return super().visit_Call(node)
@@ -39,8 +39,11 @@ def main():
             ledger=Ledger();mod=types.ModuleType('isolated_legendre');mod.__dict__.update(original.__dict__);mod._arithmetic=ledger
             tree=ast.parse(source.read_text());tree.body=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in ('leggauss','legcompanion','legval','legder')];assert len(tree.body)==4
             exec(compile(ast.fix_missing_locations(Rewrite().visit(tree)),str(source)+' [visible cold count]','exec'),mod.__dict__)
-            n=row['args']['items'][0];value=mod.leggauss(n);encoded=[[float(x).hex() for x in a] for a in value];expected=[x['hex'] for x in row['output']['items']]
-            record={'saved_row':i,'order':n,'output_hex':encoded,'parity':encoded==expected,'ledger':ledger.report(),'calls':ledger.calls};rows.append(record);assert record['parity']
+            n=row['args']['items'][0];record={'saved_row':i,'order':n};rows.append(record)
+            try:
+                value=mod.leggauss(n);encoded=[[float(x).hex() for x in a] for a in value];expected=[x['hex'] for x in row['output']['items']]
+                record.update(output_hex=encoded,parity=encoded==expected);assert record['parity']
+            finally:record.update(ledger=ledger.report(),calls=ledger.calls)
         assert len(rows)==6;out['complete']=True
     except Exception as exc:out['failure']=repr(exc);raise
     finally:
