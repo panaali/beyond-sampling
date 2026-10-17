@@ -1,0 +1,11 @@
+# Exact target and scope
+
+Let A be the exact rational matrix represented by the saved binary64 entries. The implementation checks symmetry and every leading principal determinant strictly positive. Sylvester's criterion then implies positive definiteness; otherwise the result remains unknown. This is a property of A, not of an intended covariance before floating construction.
+
+For complementary pairs {i,j} and {k,l}, set y=−cof(A)[k,l]. Jacobi's identity gives cof(A)[k,k] cof(A)[l,l]−cof(A)[k,l]^2 = det(A) det(A[{i,j},{i,j}]) = q>0. Therefore the partial-correlation angle asin(−cof(A)[k,l]/sqrt(cof(A)[k,k]cof(A)[l,l])) equals atan2(y,sqrt(q)). The denominator is not sqrt(cof(A)[k,k]cof(A)[l,l]). Exact cofactors and both sides of the identity are independently formed in the candidate to detect indexing/sign mistakes.
+
+The inherited integer-square-root enclosure has x_lo²<=q<=x_hi². When x_lo>0, interval division encloses y/sqrt(q), for either sign of y. Outward dyadic floor/ceiling only widens that interval. Arctangent is increasing, so the inherited rational endpoint bounds enclose the angle. The inherited alternating-series remainder and Machin enclosure supply the endpoint proof. If a strictly positive lower square-root bound cannot be established at frozen precision, return unknown; no flooring.
+
+Saved binary source arguments (ys,xs) define a second exact mathematical angle atan2(ys,xs) when xs>0. Enclose it by the same primitive. Subtracting target intervals encloses their difference. This does not include the implementation's libm arctan2 rounding. Replacing only ys by the exact numerator isolates the effect of the stored denominator on this mathematical angle; source xs²−q combines native det, separately formed om, multiplication and sqrt rounding. The original om itself was not archived, so its individual error is not identified from xs.
+
+Even a narrow difference interval cannot certify the whole cone mass. A is already rounded, quadrature nodes and weights are approximate, the Plackett coefficient is computed separately, and source summation/libm/quadrature error are excluded. Exact permutation determinants and rational interval arithmetic are a diagnostic computational expense; no claim of meeting the300-unit target or beating sampling follows.
