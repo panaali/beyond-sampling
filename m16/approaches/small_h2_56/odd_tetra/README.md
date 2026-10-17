@@ -30,3 +30,11 @@ Conditioning, boundary cancellation, fallback-dominated cost and floating geomet
 
 ## Failure modes
 Rank-deficient tetrahedra and nearly cancelling facet sums require positive fallback. Tight quadrature bounds do not certify floating arithmetic. Shared signed-L1 planes are used only after checking their residual; incorrect normals cannot silently enter the formula.
+
+## Initial primitive result
+`controls.py` passes15 fixed identity/equal/collinear/deterministic signed and thin tetrahedra, two orientation permutations and positive scales1e-3/1e3. Maximum relative difference from independent positive original-domain I5/GL96 quadrature is4.32e-14; identity truth2*pi/3 and equal-endpoint truth||A||^-5/6 pass. The full control cycle uses0.067CPU seconds. `controls.json` preserves every analytic/fallback diagnostic. This supports normalization and numerical behavior of the primitive, not trained-model performance or certified floating arithmetic.
+
+`primitive.py` forms signed facet cofactors in a thin-QR frame, projects a verified known plane normal when available, and computes positive S2 facet solid angles. Small singular-value ratios, excessive estimated boundary cancellation or violated positive geometric bounds trigger original-domain Jacobi+I5 quadrature. Its error bound is one third of the uniform Chebyshev tail (two positive remainder errors times tetrahedron volume1/6). QR/SVD/cofactor determinants, atan2 calls, rejected attempts and all fallback nodes are counted separately; complete scalar-operation costs remain to audit.
+
+## Frozen trained pilot
+Use32 equally spaced indices from each existing T5 base, noise.0025 and noise.02 correct-cone cache. Outer Jacobi alpha3, beta0 at fixed orders8 and16; four inner endpoints are u*v0+(1-u)*v_i, i1..4. Check weights sum1/4, multiplied by tetrahedron volume1/6 gives1/24. Identity5-ray cone must approach1/32. Compare unchanged full-cone Jacobi/I5 integrals at the same orders with inherited geometry-only bounds; report all differences and fallback costs. Only after this pilot, rebuild cold full base/noisy cases with their previously frozen1e-4 per-model bound policy. No new random validation or data-selected orders.
