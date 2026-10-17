@@ -11,10 +11,14 @@ spec = importlib.util.spec_from_file_location('_slice_reference_walker', WALKER)
 walker = importlib.util.module_from_spec(spec); spec.loader.exec_module(walker)
 
 
-def area(p):
+def signed_area(p):
     if len(p) < 3: return 0.
     q = np.asarray(p)-p[0]
-    return float(abs(np.sum(q[:-1,0]*q[1:,1]-q[:-1,1]*q[1:,0]))/2)
+    return float(np.sum(q[:-1,0]*q[1:,1]-q[:-1,1]*q[1:,0])/2)
+
+
+def area(p):
+    return abs(signed_area(p))
 
 
 def clip(p, row, work):
@@ -33,7 +37,12 @@ def clip(p, row, work):
         if not np.array_equal(point, clean[-1]): clean.append(point)
     if len(clean)>1 and np.array_equal(clean[0],clean[-1]): clean.pop()
     out = np.asarray(clean)
-    return out if area(out)>0 else np.empty((0,2))
+    signed=signed_area(out)
+    if signed<0:
+        work['reoriented_polygons'] += 1
+        work['reoriented_polygon_area'] += -signed
+        out=out[::-1].copy()
+    return out if signed!=0 else np.empty((0,2))
 
 
 def vertical_mass(polygons, z, work):
