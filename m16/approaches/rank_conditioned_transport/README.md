@@ -359,3 +359,44 @@ same-fixed-node streaming equivalence before interpreting trained results.
 Numerically unresolvable intervals may be omitted only with their full
 width times a global target-density upper bound recorded separately. Never
 renormalize quadrature mass or drop an unexplained probability-guard failure.
+
+Breakpoint count (`breakpoint_count.py`): complete panels1190(h9),7386(h17),
+52669(h33), with minimum spacings down to1e-18 from numerically duplicated
+crossings. The frozen2000-panel cap therefore allows only h9 integration
+in this first cycle. Growth itself is a cost warning, not a method rejection.
+Before integration, intervals narrower than8*eps*max(1,abs(midpoint)) are
+numerically unresolved and omitted with a global beta-density times normal-
+density upper bound on their width. Record this separately, never merge a
+nontrivial interval without accounting. The uniform control uses exactly the
+number of retained complete panels, so its node count is identical.
+
+First panel results (`panel_results.json`):
+
+| scheme | GL order | nodes | estimate | CPU seconds |
+|---|---:|---:|---:|---:|
+| complete | 2 | 2306 | .3077232492285503 | 7.36 |
+| uniform | 2 | 2306 | .3077231900198099 | 7.43 |
+| complete | 4 | 4612 | .3077232488339859 | 16.32 |
+| uniform | 4 | 4612 | .3077232122986742 | 15.30 |
+
+Complete GL2/4 change3.95e-10 versus uniform2.23e-8. The complete GL4
+residual against the independent cone reference is -7.49419e-6, much larger
+than this order change or the target/input omissions (6.02e-9/7.89e-9).
+This supports a finite-grid residual in this h9 case; order agreement alone
+is not a certified outer-integration bound. The matched-node uniform rule
+also becomes fairly accurate, so this does not establish a cost advantage
+for finding every breakpoint. Complete panels omit37 unresolved intervals
+with density-width bound6.014e-15. Raw constant-mass defect is1.17e-9 for
+GL2 and6.46e-15 for GL4, including omitted-panel accounting. No normalization.
+Streaming fixed-node equivalence is5.55e-17; constant-class retained-mass
+control error4.95e-10. All four estimates cost46.42CPU seconds in total.
+
+Next bounded discriminator, frozen before measurements: compare h9 terminal
+curvature and gate meshes with their own complete panels, GL2 andGL4; retain
+the same2000-panel cap and all discovery costs. Baseline is the recorded
+complete result above. Equal hidden-node counts isolate spatial placement,
+but differing panel counts mean costs are not automatically matched. If
+order changes are comparable to the mesh effect, classify inconclusive.
+If either mesh improves only one order, preserve cancellation rather than
+selecting a favorable row. No h17/33 integration until a separate cost-based
+protocol; no new samples. Independent completeness review requested from T55.
