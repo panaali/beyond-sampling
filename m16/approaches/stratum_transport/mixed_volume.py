@@ -135,6 +135,13 @@ class Operator:
             value+=g*float(PHI(x))/self.line_det[k];self.work['line_source_density_terms']+=1
         return value
 
+    def area_polygon(self,state,i,j):
+        x0,x1=state.edges[0][i:i+2];y0,y1=state.edges[1][j:j+2]
+        return np.array([[x0,y0],[x1,y0],[x1,y1],[x0,y1]])
+
+    def area_cell_volume(self,state,i,j):
+        return (state.edges[0][i+1]-state.edges[0][i])*(state.edges[1][j+1]-state.edges[1][j])
+
     def histogram_output(self,state):
         """Readout integral of the represented measure; area cells are uniform."""
         out=np.zeros(len(self.wo));out[0]=state.origin
@@ -149,8 +156,7 @@ class Operator:
             self.work['readout_polygon_clips']+=1
             return np.array(answer).reshape(-1,2)
         for i,j in zip(*np.nonzero(state.area)):
-            x0,x1=state.edges[0][i:i+2];y0,y1=state.edges[1][j:j+2]
-            rectangle=np.array([[x0,y0],[x1,y0],[x1,y1],[x0,y1]])
+            rectangle=self.area_polygon(state,i,j);cell_volume=self.area_cell_volume(state,i,j)
             for label in range(len(self.wo)):
                 poly=rectangle
                 for other in range(len(self.wo)):
@@ -162,5 +168,5 @@ class Operator:
                     if not len(poly):break
                 if len(poly)>2:
                     cross=poly[:,0]*np.roll(poly[:,1],-1)-poly[:,1]*np.roll(poly[:,0],-1)
-                    out[label]+=state.area[i,j]*abs(cross.sum())/(2*(x1-x0)*(y1-y0))
+                    out[label]+=state.area[i,j]*abs(cross.sum())/(2*cell_volume)
         return out
