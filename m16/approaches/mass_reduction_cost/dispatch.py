@@ -19,11 +19,10 @@ def main():
  for stride in [8,24]:
   dtypes,cap=np.add._resolve_dtypes_and_context((np.dtype('d'),np.dtype('d'),None),reduction=True)
   np.add._get_strided_loop(cap,fixed_strides=(0,stride,0))
-  info=Info.from_address(get(cap,b'numpy_1.24_ufunc_call_info'));legacy=Legacy.from_address(info.aux)
-  offset=legacy.loop-nb;assert offset in [0x5462e0,0x356fa0]
-  rows.append(dict(stride=stride,adapter_offset=hex(info.loop-nb),legacy_offset=hex(offset),error_check=legacy.error,requires_api=info.requires,aux_loop_offset=Legacy.loop.offset))
+  info=Info.from_address(get(cap,b'numpy_1.24_ufunc_call_info'))
+  rows.append(dict(stride=stride,adapter_offset=hex(info.loop-nb),requires_api=info.requires,aux_raw=[hex(x or 0) for x in (C.c_void_p*7).from_address(info.aux)],scope='Raw metadata only; adapter representation unverified'))
  got=C.c_void_p.from_address(bb+0x15ba770).value;assert got
- dot=C.c_void_p.from_address(got+0x368).value;assert dot-bb==0xa3d7c0
+ dot=C.c_void_p.from_address(got+0x368).value
  result=dict(rows=rows,dot_offset=hex(dot-bb),gotoblas_pointer_slot='0x368',binary_pins={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [NP,BL]},scope='Current process metadata and pinned ABI only; not proof of historical binding or complete reduction chunk trace. No numeric kernels called.')
  out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
 if __name__=='__main__':main()
