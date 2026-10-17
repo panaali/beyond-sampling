@@ -11,10 +11,14 @@ PROTOCOL.md. Exact dyadic normal algebra handles multiplicity and degeneracies;
 fixed-precision MP handles transcendental values, with independent references.
 
 ## Status
-Running under claim2666600d; initial source and fixture freeze before controls.
+Running under claim2666600d. Initial35 analytic/domain controls complete
+a24b97ba, independently88f212b6; next network-assembly gate must be frozen
+separately. See HANDOFF.md.
 
 ## Results
-Pending analytic/domain controls. No trained-model application performed.
+All35 initial controls pass; maximum relative independent-reference difference
+3.840e-120. See HANDOFF.md for scope, cost and reproduction. No trained-model
+application performed.
 
 ## Compute accounting
 Named exact arithmetic and reduced operand bits, MP/reference CPU separately.
