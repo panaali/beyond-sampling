@@ -30,6 +30,9 @@ def main(first,stop):
   d=read(path) if path.exists() else dict(chunk=chunk,indices=indices,rows=[],complete=False,protocol_sha256=session['protocol_sha256'])
   assert d['indices']==indices and d['protocol_sha256']==session['protocol_sha256']
   assert [r['index'] for r in d['rows']]==indices[:len(d['rows'])]
+  bad=[r['index'] for r in d['rows'] if r['mode']=='failure' or any(r.get(k) is False for k in ('comparison_pass','bound_pass','unchanged_numerical_result'))]
+  if bad:
+   session['stop_reason']='Preserved prior explicit failure gate';session['failing_indices']=bad;save_session();print(json.dumps(session));return
   if d['complete']:session['complete_shards'].append(chunk);continue
   baseline_path=Path(PROTOCOL['baseline_folder'])/path.name;assert sha(baseline_path)==PROTOCOL['baseline_shards'][path.name];baseline={r['index']:r for r in read(baseline_path)['rows']}
   for index in indices[len(d['rows']):]:

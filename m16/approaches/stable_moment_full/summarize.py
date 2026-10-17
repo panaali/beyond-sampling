@@ -13,6 +13,7 @@ def main():
  N=proto['N'];complete=len(rows)==N and indices==list(range(N)) and all(s['complete'] for s in shards)
  known=Counter();exact=Counter();methods=Counter();orders=Counter();stages=Counter();bits=[0,0];values=np.full(N,np.nan);bounds=np.full(N,np.nan);errors=[];exact_cpu=mp_cpu=0.;new_kernel_cpu=0.
  for r in rows:
+  assert r['mode']!='failure' and all(r.get(k) is not False for k in ('comparison_pass','bound_pass','unchanged_numerical_result')),r['index']
   known.update(r['center']['setup_selection_counts']);known.update(r.get('repeated_determinant_counts',{}));known.update(r.get('kernel_counts',{}));methods[r.get('method',r['mode'])]+=1
   if r['mode']=='returned':
    values[r['index']]=r['value'];bounds[r['index']]=r['bound'];errors.append(r['error']);assert r['comparison_pass'] and r['bound']<=1e-7/N

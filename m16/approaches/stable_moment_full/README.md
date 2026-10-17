@@ -25,3 +25,5 @@ Pilot shortcuts may not cover costly cones, so full savings may be smaller. Chea
 Nonpositive/reversed floating intervals retain the original fallback. Reference/bound or non-moment parity failures stop. Finite cap unresolved is explicit; do not raise cap or relax target. No source-based mass fallback.
 
 Reproduction if needed: one-thread2GB review-lock Python run.py FIRST_SHARD STOP_SHARD, then summarize.py under the same limit. Existing completed shards are reused; do not rerun completed experiments.
+
+Pre-execution independent review found an inherited resume-harness defect: prefix validation alone could skip a persisted explicit failing row and later mark its shard complete. Before any trained execution, the runner now stops on preloaded failure/comparison/bound/parity failures, including already-complete shards; aggregation independently rejects them. Legitimate finite unresolved remains visible. Original pre-fix source is preserved in3dcc7b6c; no numerical kernel change.
