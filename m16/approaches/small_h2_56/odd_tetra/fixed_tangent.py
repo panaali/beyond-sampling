@@ -4,7 +4,10 @@ Rows of rays are five endpoints, not the column convention of geometry.py.
 The conditioning and cancellation guards are conservative heuristics in float.
 """
 import numpy as np
-from primitive import positive_fallback, radial_interval
+try:
+    from .primitive import positive_fallback, radial_interval
+except ImportError:
+    from primitive import positive_fallback, radial_interval
 
 
 def fixed_tangent_tetra(rays, nodes, absolute_tolerance=1e-11,

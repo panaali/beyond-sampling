@@ -7,8 +7,12 @@ sys.path.insert(0, '/workspace/clean-neurons')
 from m16.approaches.small_ladder_review.portable_cost.accounting import Audit, gauss_rule
 from m16.approaches.small_ladder_review.portable_cost.t5.geometry import enumerate_correct, determinant
 from m16.approaches.small_ladder_review.portable_cost.t5.volume import bernstein, segment
-from fixed_tangent import fixed_tangent_tetra
-from primitive import radial_interval
+try:
+    from .fixed_tangent import fixed_tangent_tetra
+    from .primitive import radial_interval
+except ImportError:
+    from fixed_tangent import fixed_tangent_tetra
+    from primitive import radial_interval
 
 
 def frame(edges, audit):

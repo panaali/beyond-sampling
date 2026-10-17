@@ -1,7 +1,10 @@
 """T71 fixed GL24 deductive estimator, with conservative counted diagnostics."""
 import time
 import numpy as np
-from counted import Audit, enumerate_correct, volume
+try:
+    from .counted import Audit, enumerate_correct, volume
+except ImportError:
+    from counted import Audit, enumerate_correct, volume
 
 COST_REVIEWED = False  # DRI may enable after independent code/accounting review.
 CLASSIFICATION = 'deductive geometry and analytic tetrahedron moments'
