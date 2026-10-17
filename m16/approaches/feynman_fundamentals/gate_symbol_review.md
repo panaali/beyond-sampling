@@ -37,3 +37,19 @@ sufficiency, probability integration, parameter-budget or FLOP claim was
 reviewed. Combined exact review used.0492CPU excluding checkpoint load;
 no new search or LP was run. The author's64-anchor/640-LP search and
 uncertified other candidates are not promoted to additional certificates.
+
+## T141 conditional Gaussian slice
+
+The independent check integrates exp(-||a+lambda*d||²/2) and lambda times
+that density directly at70 digits, splitting at the exact crossing; it does
+not use the author CDF formula. Correctness probabilities .724813275187512
+and .429435506464070, and conditional means .488446562402731 and
+.738552114127653, agree within9.1e-72 on frozen intervals[0,1] and[1/2,1].
+Mean substitution gives biases +.275186725 and -.429435506 respectively.
+Exact rational exponent-range and signed-moment inequalities independently
+certify these opposite signs: each density ratio is below2, and the two
+squared interval-length inequalities place each mean strictly on its
+claimed side of the crossing. Probabilities lie strictly between0 and1.
+This refutes an unrestricted universal bias-sign explanation, not E27's
+actual omitted-input distribution or its empirical60 outcomes. No global
+estimator accuracy or practical probability floor follows. Review .146CPU.
