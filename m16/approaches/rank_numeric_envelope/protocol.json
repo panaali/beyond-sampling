@@ -58,5 +58,34 @@
   "census_scope": "Use actual reviewed Q5 rows only; active-length m and ping-pong n semantics from pinned spy.c. No outer retry bound inferred.",
   "absolute_tolerance": 1e-13,
   "relative_tolerance": 2e-13,
-  "bitwise_parity_reported_separately": true
+  "bitwise_parity_reported_separately": true,
+  "reflector_controls": {
+    "n": [
+      1,
+      2,
+      4,
+      24
+    ],
+    "incx": [
+      1,
+      3
+    ],
+    "alpha": [
+      0,
+      1,
+      -1,
+      1e-310,
+      -1e-310
+    ],
+    "x_patterns": [
+      "zero",
+      "positive",
+      "alternating",
+      "tiny_positive"
+    ],
+    "x_formula": "selected x_j=(1+j/8), signs alternate for alternating; times1e-310 for tiny; padding=-17",
+    "reference": "Native top-level DLARFG versus counted source with native child calls. Checks exclusive wrapper/control arithmetic only, not child correctness or child cost.",
+    "loop_bound": 20,
+    "child_pricing": "Unpriced; explicit call-length upper envelopes. SIGN counted as named unit, not an assertion about its internal implementation."
+  }
 }
