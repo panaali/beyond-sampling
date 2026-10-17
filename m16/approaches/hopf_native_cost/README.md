@@ -8,8 +8,8 @@ same source-expression units as its sampling comparator?
 Claim bf7491f5 precedes implementation. Pin T178's original Hopf37e5cb source,
 analytic controls, sampler, and reviewed T146/T180 accounting helpers.
 Inventory before execution. Count scalar multiplication, addition, comparison,
-elementary function and modulo separately; Boolean array operations and
-explicit integer expressions have separate categories. Numerical sorting and
+elementary function and modulo separately; Boolean array operators retain separate tags; scalar integer expressions
+have separate categories (integer-array comparisons remain included). Numerical sorting and
 search are opaque initially, not free. Memory/index/dispatch/control are
 explicit exclusions. Preserve every original output and legacy counter.
 
