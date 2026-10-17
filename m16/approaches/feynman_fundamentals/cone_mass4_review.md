@@ -1007,3 +1007,12 @@ All60 frozen Hopf panel comparisons independently reconstruct exact maximal inte
 The corrected application review now passes all1,152 saved matrix/work/V bit-pattern controls, including90 right all-zero L>C cases. Independent source-shape reconstruction contracts855,533/795,427 applications to10,520,049 exact/9,590,329 recipe scan/negation units, with one cold phase. Shared native BLAS remains unpriced; zero exclusive numeric work refers only to the three named unblocked reducer parents and omits index/copy/runtime work.
 
 Incremental k29 saved audits cover seeds0/1 independently:2,048 models and4,096 complete native site ledgers, exact source/model/truth parity, own-budget rational ratios and frozen bootstraps. Named111 ratios are(.0003189210,.00001605449) for seed0 and(.0603470447,.0000001579309) for seed1, recipes85b/112 respectively. Seed1 recipe85b retains four named-budget individual losses (one under historical72). Remaining three seeds and clean/global aggregation are still pending; no full-panel claim is inferred.
+# T185 independent source and saved evidence review
+
+`check_t185_saved_review.py` verifies 14 pins, all 60 saved rows and exact
+decimal ratio/growth contractions. Independent binomial-tail inversion agrees
+within 4.75e-14: nominal ratio 0.009707, uncertainty upper about 106.648.
+No confirmed win/failure follows from this one clean case. See
+`t185_source_review.md` for the correct five-dimensional normalization,
+conditional cofactor identity, ideal log-tail bound, and limitations.
+
