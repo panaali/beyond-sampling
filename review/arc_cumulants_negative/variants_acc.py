@@ -130,10 +130,12 @@ def est_arccell(model, K):
 # ----------------------------------------------------------------- (a) recent-input mixture, joint with x
 def est_rim(model, m, n, closure):
     Wi, Wh, Wo = model; T = Wo.shape[0]; D = H + T
-    z, w = gh_nodes(n); nn = len(z)
     Wt = np.ones(1); MU = np.zeros((1, D)); C = np.zeros((1, D, D)); C[0, H:, H:] = np.eye(T)
     keys = [()]; flops = 0
     for t in range(T):
+        # a different rule per input (n-2t or n+t nodes): equal grid values in two inputs would be ties of x,
+        # which have probability 0 but get grid mass and break the 2nd-argmax label
+        z, w = gh_nodes(n - 2 * t if n < 0 else n + t); nn = len(z)
         B = len(Wt)
         MUn = np.repeat(MU, nn, 0); Cn = np.repeat(C, nn, 0)
         xi = np.tile(z, B)
