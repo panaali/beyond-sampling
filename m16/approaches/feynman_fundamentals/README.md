@@ -141,3 +141,22 @@ validation draws per case, at most 12 cases initially. Single thread, 120 CPU
 seconds total initial experiments across both cycles. Random draws are validation
 only; the primitive itself is analytic. Preserve all failure cases. High-precision
 fallbacks must be counted; no silent clipping of small negative probabilities.
+
+## Cycle 3 protocol (frozen before implementation)
+Build a positive simplex-quadrature fallback for weighted spherical moments with
+an explicit analytic quadrature-error bound. It must expose the bound and node
+count, rather than accepting agreement between two numerical approximations as
+certification. The bound will be conditional on supplied geometry and real
+arithmetic; floating-point clipping/rounding remains a separate qualification.
+
+Two alternatives: (1) Duffy degree counting or the positive-weight error factor
+is wrong; obtain an independent algebra review and compare against exact octant
+moments. (2) The bound is correct but too expensive; test ordinary and thin
+triangles from cycle1 at fixed absolute tolerances 1e-8 and1e-12, recording nodes
+and CPU. The cheap falsifier is a bound smaller than observed high-precision
+error, or inability to reach1e-12 within128 nodes per dimension.
+
+All numerical runs acquire `/workspace/work/codex-compute.lock`, use one BLAS
+thread and remain below2GB RSS. Cycle budget120CPU seconds. No trained T4 outer
+integration: its assigned owners retain that work. Root receives checkpoint
+commits and the standing investigation continues after each bounded cycle.
