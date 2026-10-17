@@ -333,3 +333,71 @@ def orthant(R, ops, level=None, tol=1e-13, maxlevel=7):
                 break
     err[~np.isfinite(err)] = np.nan
     return base + sums, err
+
+
+# ------------------------------------------------------------------ simplicial cone measure by the solid-angle integral
+# For unit rays v_1..v_T (rows of V), P(Z in cone) = |det V| Gamma(T/2)/(2 pi^(T/2)) * int_Delta |V^T mu|^(-T) d mu
+# over the standard (T-1)-simplex of barycentric weights mu (Lebesgue measure in mu_1..mu_{T-1}). The integrand is
+# smooth and bounded on narrow cones (thin cones are not ill-conditioned: the smallness sits in |det V|).
+# Grundmann-Moller rules of degree 2s+1, error = |Q_s - Q_{s-1}|, adaptive bisection of the longest edge.
+_GM = {}
+
+
+def gm_rule(n, s):
+    """Grundmann-Moller rule on the standard n-simplex (volume 1/n!): barycentric nodes (N, n+1), weights (N,)."""
+    if (n, s) in _GM:
+        return _GM[n, s]
+    from itertools import product
+    from math import factorial
+    d = 2 * s + 1
+    nodes = []; w = []
+    for i in range(s + 1):
+        m = s - i
+        c = (-1) ** i * 2.0 ** (-2 * s) * (d + n - 2 * i) ** d / (factorial(i) * factorial(d + n - i))
+        for beta in product(range(m + 1), repeat=n + 1):
+            if sum(beta) != m:
+                continue
+            nodes.append([(2 * b + 1) / (d + n - 2 * i) for b in beta]); w.append(c)
+    _GM[n, s] = (np.array(nodes), np.array(w))
+    return _GM[n, s]
+
+
+def _gm_eval(V, s, ops):
+    S, T, _ = V.shape
+    mu, w = gm_rule(T - 1, s)
+    X = np.einsum("nt,std->snd", mu, V)
+    q = (X * X).sum(-1)
+    ops.add(S * len(w) * (2 * T * T + 2 * T + TRANS + 2), "measure")
+    return (q ** (-T / 2)) @ w
+
+
+def cone_measure(V, ops, rtol=1e-9, atol=1e-16, s=2, maxdepth=30):
+    """Gaussian measure of simplicial cones (rows of V[i] = unit rays). Returns (p, err) per input simplex."""
+    S, T, _ = V.shape
+    if S == 0:
+        return np.zeros(0), np.zeros(0)
+    from math import gamma, pi
+    cst = gamma(T / 2) / (2 * pi ** (T / 2))
+    p = np.zeros(S); e = np.zeros(S)
+    idx = np.arange(S); W = V
+    for depth in range(maxdepth):
+        det = np.abs(np.linalg.det(W)); ops.add(len(W) * (2 * T ** 3 // 3 + T), "measure")
+        hi = _gm_eval(W, s, ops); lo = _gm_eval(W, s - 1, ops)
+        val = cst * det * hi; err = cst * det * np.abs(hi - lo)
+        ok = err <= rtol * val + atol
+        np.add.at(p, idx[ok], val[ok]); np.add.at(e, idx[ok], err[ok])
+        if ok.all():
+            break
+        if depth == maxdepth - 1:
+            np.add.at(p, idx[~ok], val[~ok]); np.add.at(e, idx[~ok], err[~ok]); break
+        Wb = W[~ok]; ib = idx[~ok]
+        # bisect the longest edge (smallest ray dot product)
+        G = Wb @ np.transpose(Wb, (0, 2, 1)); ops.add(len(Wb) * 2 * T ** 3, "measure")
+        G[:, np.arange(T), np.arange(T)] = 2.0
+        flat = G.reshape(len(Wb), -1).argmin(1); a, b = flat // T, flat % T
+        r = np.arange(len(Wb))
+        mid = Wb[r, a] + Wb[r, b]; mid /= np.linalg.norm(mid, axis=1)[:, None]
+        W1 = Wb.copy(); W1[r, a] = mid
+        W2 = Wb.copy(); W2[r, b] = mid
+        W = np.concatenate([W1, W2]); idx = np.concatenate([ib, ib])
+    return p, e
