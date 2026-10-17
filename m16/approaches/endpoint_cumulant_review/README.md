@@ -550,3 +550,15 @@ cannot by itself solve the scaling challenge. Untried plausible variants:
 coarser merged support mixtures with certified mass, conditional higher moments
 inside each wedge, and downstream use of upstream propagated moments. Those
 are separate scoped tasks; no family is retired by the residual error here.
+
+### Frozen independent polar cross-check
+Use a genuinely different coordinate formula on the SAME six saved rank2
+Gaussian laws: integrate their polar angular density over each support/winner
+wedge after analytically integrating radius. For s=b/sqrt(a), radial factor
+is exp(-c/2)/a times[1+s*sqrt(2pi)*exp(s^2/2)*Phi(s)]. Evaluate s>=0 with
+combined exponent exp(-(c-s^2)/2), moderate negative s using erfcx, and s<-5
+with a positive32/64-node Laguerre integral after z=-s*sqrt(a)*r. No new laws,
+no extra fitted threshold; check branch switch and s=-20,-5.01,-5,-1,0,1,20
+against independently integrated radial functions. Check narrow isotropic
+wedge1e-7 directly by angle, then all trained numerator/denominator ratios.
+No quadrature certification from positivity alone. <=20CPU review lock.
