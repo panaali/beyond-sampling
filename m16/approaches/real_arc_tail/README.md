@@ -28,6 +28,11 @@ Next endpoint repair frozen: for theta>pi/2 use complete beta minus the compleme
 
 Endpoint result0.967CPU: extra representable controls agree within5.33e−16;3 true underflow cases retained,5 polygon fallback cases retained. Original300 references now require correction: map s=theta*u and normalize the integrand by amplitude=|a|+|b|min(theta,1) before100-digit integration; multiply theta*amplitude^n outside. Recompute references for every variant identically, preserving all old artifacts. The raw/stable negatives already disprove their general positivity independent of the flawed reference.
 
+Normalized oracle repair4.415CPU over332 controls: endpoint formula max representable relative error1.210e−15; original positive beta fails tiny constant-direction arcs by underflow (relative1). Raw/Fourier/stable remain severe cancellation failures. Three true float-underflow cases are explicitly excluded from relative-accuracy maximum, retained in data. Command `python m16/approaches/real_arc_tail/reference_repair.py`.
+
+### Frozen full conditional-kernel pilot
+Use public seed0 H2,T=4/6/8/10 checkpoints, no noisy fitting. For each T use normalized prefix proportional to alternating signs with magnitudes1,...,T−2, and its negative (two fixed directions). Evaluate complete old and endpoint kernels from the same unmodified T55 geometry, preserving all stats, input model loading and prefix setup time. Then repeat each conditional query three times per method for timing; source geometry is rebuilt each time, no cached answer. Record probability and partition differences, fallback counts/error bounds and all opaque special-function counts. Expected alternative: geometry cost dominates and total speed benefit is small even when arc work falls. Any explicit failure is retained; no other prefix is substituted. No new MC, full outer integration or estimator-win claim.
+
 ## Compute accounting
 Charge normalization/edge geometry, all arc chains, endpoint trig/powers, polygon recurrence, guards and fallback construction/query work. Report named operation categories and CPU including controls separately. Do not call a partial scalar proxy a portable full FLOP audit. Baseline Fourier term count is vertices*(1+3+...+degree), matching parity only.
 
