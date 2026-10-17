@@ -29,10 +29,11 @@ def analytic_mean(wi,wh,sign):
     neg=~pos;mu[neg]=wi[neg]**2/((r[neg]-c[neg])*ROOT2PI)
     return mu
 
-def conditional(wi,wh,sign,subdivisions,radii,radial_weights,stats):
+def conditional(wi,wh,sign,subdivisions,radii,radial_weights,stats,rank_aligned=False):
     if sign not in (-1,1) or subdivisions not in (2,4):raise ValueError('frozen sign/subdivisions')
     c=wh@np.maximum(sign*wi,0);stats['prefix_matrix_scalar_products']+=len(wi)**2
     cuts=[-math.pi/2,math.pi/2]
+    if rank_aligned:cuts.append(sign*math.pi/4)
     for a,b in zip(c,wi):
         if a==0 and b==0:continue
         angle=math.atan2(-a,b);stats['gate_atan2_calls']+=1
@@ -40,7 +41,7 @@ def conditional(wi,wh,sign,subdivisions,radii,radial_weights,stats):
             root=angle+k*math.pi;stats['gate_root_boundary_tests']+=2
             if -math.pi/2<root<math.pi/2:cuts.append(root)
     cuts=sorted(set(cuts));stats['gate_angle_sort_items']+=len(cuts)
-    states=[];weights=[];support=[];second=np.zeros((len(wi),len(wi)));strata={};panel_records=[]
+    states=[];weights=[];support=[];inputs=[];second=np.zeros((len(wi),len(wi)));strata={};panel_records=[]
     for left,right in zip(cuts[:-1],cuts[1:]):
         width=right-left;mid=left+width/2
         mask=c*math.cos(mid)+wi*math.sin(mid)>0
@@ -57,6 +58,7 @@ def conditional(wi,wh,sign,subdivisions,radii,radial_weights,stats):
             if np.any(direction<0) or not np.all(np.isfinite(direction)):raise ArithmeticError('negative/nonfinite cell-mean state')
             for radius,rweight in zip(radii,radial_weights):
                 states.append(radius*direction);weights.append(span/math.pi*rweight);support.append(tag)
+                inputs.append([sign*radius*math.cos(center)*factor,radius*math.sin(center)*factor])
             stats['angular_panels']+=1;stats['angular_trig_calls']+=3
             stats['state_atom_coordinates']+=len(radii)*len(wi)
             panel_records.append(dict(lo=lo,hi=hi,mask=tag,direction_mean=direction.tolist()))
@@ -67,17 +69,17 @@ def conditional(wi,wh,sign,subdivisions,radii,radial_weights,stats):
     if np.max(abs(mean-analytic))>1e-11*max(1.,np.max(abs(analytic))):raise ArithmeticError('conditional mean')
     eig=np.linalg.eigvalsh(loss)
     if min(eig)<-1e-11*max(1.,np.linalg.norm(second)):raise ArithmeticError('covariance loss not PSD')
-    report=dict(sign=sign,atoms=len(weights),mass=float(weights.sum()),mean=mean.tolist(),analytic_mean=analytic.tolist(),mean_error=float(np.max(abs(mean-analytic))),second_moment=second.tolist(),represented_second_moment=represented_second.tolist(),covariance_loss=loss.tolist(),covariance_loss_eigenvalues=eig.tolist(),stratum_masses=strata,panels=panel_records)
+    report=dict(sign=sign,atoms=len(weights),mass=float(weights.sum()),mean=mean.tolist(),analytic_mean=analytic.tolist(),mean_error=float(np.max(abs(mean-analytic))),second_moment=second.tolist(),represented_second_moment=represented_second.tolist(),covariance_loss=loss.tolist(),covariance_loss_eigenvalues=eig.tolist(),stratum_masses=strata,panels=panel_records,prefix_inputs=inputs,rank_aligned=rank_aligned)
     stats['atom_mean_validation_products']+=states.size
     stats['atom_second_validation_products']+=len(weights)*len(wi)**2
     stats['covariance_validation_eigh_calls']+=1
     return states,weights,report
 
-def atoms(model,subdivisions=2,radial_order=2):
+def atoms(model,subdivisions=2,radial_order=2,rank_aligned=False):
     wi,wh,wo=(np.asarray(x,dtype=float) for x in model)
     if len(wo)!=4:raise ValueError('two-input prefix requires T4')
     stats=defaultdict(float);r,w,radial=rayleigh(radial_order,stats);result={};reports={}
     for sign in (1,-1):
-        states,weights,report=conditional(wi,wh,sign,subdivisions,r,w,stats)
+        states,weights,report=conditional(wi,wh,sign,subdivisions,r,w,stats,rank_aligned)
         result[sign]=(states,weights);reports[sign]=report
     return result,dict(subdivisions=subdivisions,radial_order=radial_order,radial=radial,conditional=reports,work=dict(stats))
