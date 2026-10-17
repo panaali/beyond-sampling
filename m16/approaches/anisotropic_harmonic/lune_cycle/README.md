@@ -93,3 +93,35 @@ The first passing numerical run emitted a divide-by-zero warning when an
 extremely thin radial panel rounded a node to a pole. The explicit limiting
 empty/full arc now handles those nodes and records their count; it does not
 clip eigenvalues or renormalize masses. Controls still pass without warnings.
+
+## First trained pilot
+H2T3 at N8,M4 gives .409040821130398 (error-.00113044059647), versus the
+saved hemisphere error-.0022035339. Order128 changes1.31e-11. Zero/identical
+readouts and positive coordinate scaling pass within1.12e-16. Geometry has69
+leaves; the root and gate partition masses remain1. The observed error is
+roughly halved but Q64 CPU .136 seconds exceeds the previous .033-second
+hemisphere run; this is not an efficiency victory or matched-session result.
+
+The expanded audit records147.5 million scalar arithmetic upper operations,
+21,184 radial nodes,508,416 complex exponential and sine calls each, plus
+explicit Gauss-rule and geometry elementary-function kernels. It includes
+conservative bounds for both possible geometry branches, root frame setup,
+coefficient complement, basis recurrence and all model matrix products.
+Python bit-mask work is separate. This is coverage of numerical work with
+named opaque kernels, not an accepted portable-FLOP total; transcendental and
+rule setup costs are not silently assigned unit cost. Source geometry is
+shared with the old sketch, not independently implemented geometry.
+
+T55 code review accepts arc orientation, wrapped intervals, Fourier phase,
+complement, wall/tangency knots and sine-map factor dz/2. It flags floating
+normal/knot roundoff and confirms the scoped nature of exact initial support.
+
+Next frozen cost phase: preserve this implementation as the default. A
+separate algebraically equivalent mode skips wraps with no intersected arc
+and forms each complex Gram matrix through two real matrix products. Count
+both products and complex assembly explicitly. Compare matrices and full H2
+outputs before a cold matched-session H2/H4 base comparison with hemisphere;
+use N8,M4,Q64, with Q128 validation for the new H4 case. This is implementation
+cost reduction at fixed numerical rule, not selection of lower resolution or
+truth-tuned degrees. If equivalence fails, retain the failure and do not call
+it an optimized estimator. No noisy sweep until this phase is assessed.
