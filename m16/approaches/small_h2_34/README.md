@@ -13,7 +13,7 @@ Two alternatives before runs: (1) agreement could reflect shared geometry bugs; 
 Cycle 2 planned: T4 normalized prefix is a uniform circle; integrate the T55 conditional probability over its angle with the H4T4 owner's reusable driver. Adaptive integration is numerical deduction over weight-derived probabilities, not an exact closed form. Require refinement, independent checks, and honest full cost.
 
 ## Status
-Running; root owns independent review and Claude is DRI. Existing T47 claim remains active. Each cycle <=120 CPU seconds, numerical work serialized with flock, one BLAS thread and <=2GB per-process memory. No shared files edited or remote pushes by this worker.
+Numerical work for both assigned sizes is complete; root independent review passed, and Claude DRI acceptance/classification remains pending. Root owns the task-board/registry update. No remaining owned model size is untested. Each completed cycle used <=120 CPU seconds, shared flock, one BLAS thread and <=2GB per-process memory. No shared evaluation files were edited or remote pushes made by this worker.
 
 ## Results
 Pending recovered artifacts. Old T3 report was accuracy40.9012--41.1308%,38--39 rank/gate cells, but will be reproduced independently. Old T4 inverse-covariance quadrature had warnings and shifted by3.96e-5; it is not accepted as a reference.
@@ -22,7 +22,7 @@ Pending recovered artifacts. Old T3 report was accuracy40.9012--41.1308%,38--39 
 Primitive counts and full process CPU are reported separately. CPU-equivalent forward counts include implementation overhead but depend on hardware and batch size. No FLOP advantage follows merely from elapsed time. Sampling baseline has exact Bernoulli variance p(1-p)/N when p is supplied by independently checked geometry.
 
 ## Claims
-[inferred] T3 reduces to two analytic conditional integrals. [speculative] Their cost may be competitive. No self-confirmed or solved claim.
+[inferred] T3 reduces to two analytic conditional integrals; T4 reduces to positive integrals over weight-derived simplices with explicit quadrature-error bounds. [measured] Independent geometric implementations agree to numerical precision on the reviewed examples. [measured] Full CPU comparisons favor the cone calculation on the tested H2T4 ensemble, conditional on floating-geometry correctness. Portable full-operation accounting and DRI acceptance remain outstanding. No self-confirmed or formally certified software claim.
 
 ## Alternatives not ruled out
 General noise ensembles and other training seeds may behave differently. Full challenge M16,T10 remains separate. T4 outer quadrature may have difficult angular breakpoints.
@@ -83,3 +83,9 @@ Test eight independent relative-RMS perturbations: four at sigma0.02 and four at
 
 ### Cycle 6 result: stronger noise and controls
 All12 cases completed without guards/errors. The eight stronger relative-RMS noisy copies have accuracy0.2324205399--0.2830553034, substantially different from the0.3077307430 base. Positive joint input/output scaling by1e-16 or1e16 leaves the GL16 result unchanged. Zero and duplicate readouts give0.2499999999993845 versus the exact1/4. `stress_t4.json` retains geometry counts, bounds, references, and timing for every case. There were no additional random model-input evaluations; only independently drawn weight perturbations. This is author-side robustness evidence; independent root review remains separate.
+
+
+## Completion handoff
+Both assigned sizes now have implemented estimators, noisy-copy results, cost limitations, and independent review. Root separately checked12 T3 cases with maximum disagreement1.67e-16. For T4, root used the DRI double-description geometry and a different pulling triangulation, obtaining0.30773074302315223 versus our0.30773074302392744 (difference7.75e-13); its geometry is independent, while the positive-volume formula is shared. Root reports its full gate determinant sum16 within7.2e-15. These reports support the numerical result but do not certify all floating arithmetic.
+
+`PROOF.md` gives the exact reductions, Chebyshev quadrature bound, and explicit distinction between integration error, geometry error, scalar operations, and measured CPU. Further repeated model sweeps are not justified by the present evidence. The highest-value next bounded task is portable operation accounting for the direct-cone solver (including geometry and quadrature setup), then a fixed error-versus-operation curve on the already tested small cases. This would resolve the principal remaining acceptance limitation without introducing a competing geometric engine. Root/DRI should assign ownership before work.
