@@ -579,3 +579,12 @@ results. Agreement validates the Gaussian wedge calculation, not the Gaussian
 closure or shared moment/geometry inputs. It also isolates the very-thin-wedge
 failure as correlation parameterization/integration sensitivity, not zero true
 mass. No endpoint-law improvement is selected from a new model sweep.
+
+Independent T55 source/algebra and Decimal aggregation review23deb0d passes:
+component-support accuracy .41034753730671331252 and orthant-support accuracy
+.40919931833032920559. Exact rank1 logic and wedge orientation are accepted
+conditional on numerical cell geometry. The review preserves moment-inversion,
+tiny-ray clipping, thin-layer failures and denominator qualifications. The
+scoped T40 phase is complete; no DRI claim confirmation or scaled performance
+claim is made. The worker proceeds to a distinct Ready task while support-aware
+upstream/mixture extensions remain live alternatives.
