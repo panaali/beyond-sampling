@@ -66,10 +66,19 @@ T5seed2, both true/shuffled variants at GL16/32. References only in scoring.
 No expanded sweep until controls and the frozen rescue criterion pass.
 
 ## Status
-Protocol frozen; implementation next.
+Primitive and surrogate-driver controls pass; frozen trained pilot next.
 
 ## Results
-Pending. Every numerical failure and correction will be retained.
+Rank partition/averaging and independent nested direct-integral controls pass
+(maximum independent difference 1.67e-16). Conditional constant-label, Wh0
+and zero-history reproduction controls pass (maximum reproduction 5.56e-17).
+T55 independently checked the positive regular-prefix formulas and exact
+polynomial degrees. The initial proposed 80 scalar operations per rank query
+was rejected by T55 as too small; it is removed, not used as a cost bound.
+Initial passing artifacts with that invalid counter are retained under
+initial_counter_*.json with the limitation stated. Corrected controls were
+rerun; current results contain event counts only. Every numerical failure
+and correction will be retained.
 
 ## Compute accounting
 One thread,2GB cap,<=110CPU cycles. Review lock for<=20CPU controls; main lock
