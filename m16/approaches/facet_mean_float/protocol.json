@@ -42,5 +42,7 @@
     "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
     "math_origin": "built-in",
     "metadata_probe_note": "Initial read-only math.__file__ probe raised AttributeError; math.__spec__ identifies built-in. No candidate/control run."
-  }
+  },
+  "detection_limit": "Conversion overflow/nonzero-to-zero and returned nonfinite/negative are explicit; intermediate arithmetic underflow is not exhaustively detected. Raw terms and exact saved-reference errors remain finite diagnostics.",
+  "source_review": "910 read-only gate, final92cfb601 conversion/runtime changes; external hardCPU20 required"
 }

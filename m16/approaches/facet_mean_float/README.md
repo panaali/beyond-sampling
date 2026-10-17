@@ -10,7 +10,7 @@ Author34 yields this numerical-only lane; their pair-moment work is separate. Re
 Claim6fb15756 pushed before implementation. Source frozen; independent gate before one20-control run. No trained-cell application yet.
 
 ## Results
-Pending. Every failed, unknown, negative, overflow and underflow result will remain visible. Original35 controls include12 distinct radial controls and3 invalid-preparation controls; this scope uses exactly20 facet controls and does not claim to replace the radial/preparation API.
+Pending. All detected failures remain visible. The conversion guard detects coefficient underflow; intermediate sqrt/division/product underflow is not exhaustively flagged, so raw terms and saved-reference errors are retained. Original35 controls include12 distinct radial controls and3 invalid-preparation controls; this scope uses exactly20 facet controls and does not claim to replace the radial/preparation API.
 
 ## Compute accounting
 One thread2GB20CPU review. Exact rational preparation and its comparison/GCD/bit costs remain inherited real work. New float operation categories are named-source counts, not native or complete runtime cost; integer parsing/control/library innards and diagnostics remain separate. MP/reference integration is not rerun. No speed ratio from historical timers.
