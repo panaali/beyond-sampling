@@ -19,6 +19,7 @@ def main(h,z,noise):
  used=prior['cpu_seconds']+provenance['cpu_seconds']
  for path in sorted(folder.glob('H*_z*_n*.json')):
   prev=json.loads(path.read_text());used+=prev['cpu_seconds'] if prev['complete'] else prev['reservation_cpu']
+  assert prev['complete'],('Prior incomplete attempt blocks new shards; fresh recovery scope required',str(path))
  assert used+RESERVE<=TOTAL,('Research CPU reservation limit',used)
  manifest=json.loads((HERE/'manifest.json').read_text())
  output={'complete':False,'H':h,'zoo':z,'noise':noise,'rows':[],'reservation_cpu':RESERVE,'prior_charged_cpu':used,'total_research_cap':TOTAL,
