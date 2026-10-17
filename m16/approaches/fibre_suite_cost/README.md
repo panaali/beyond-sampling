@@ -25,3 +25,6 @@ Native per-model expression counts include model-dependent setup and written int
 
 ## Claims / failure modes
 [speculative] The old471-case conclusions survive a consistent explicit-expression recount. Exact value parity does not certify floating geometry or population/noise generalization. Formal truth uncertainty, hardware cost, untested H7 andT4 rungs, and tolerance/cap robustness remain open.
+
+## Preflight result
+All471 reconstructed model hashes match the saved original suite exactly; saved truth values agree with their prior reference metadata. All nine zero/constant/duplicate-readout controls atH4/5/6 return1/3 under the native inventory. Matched scalar sampler totals are112/160/216. Current helper/imported-function ASTs match the original helper after removing only X diagnostic calls, including State. Preflight completes2.505CPU including imports. Frozen fast LOOK2 is distinct from the slow LOOK3 recipe; this recount does not rewrite their historically different estimates.
