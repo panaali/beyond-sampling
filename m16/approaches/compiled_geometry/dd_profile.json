@@ -1,0 +1,1508 @@
+{
+  "checkpoint_sha256": "d9e5245146436fa8ec847a9ec3c771c7dd959708cae64825d46b52d51ec35551",
+  "source_sha256": {
+    "cones.py": "fc006840adc9513ac711b6c208afe96f4d10c429068d087dac8c674e8e6ee948",
+    "ladder.py": "dcc51027f7bc94a0b2ae8724334bda08f8f6a7112941e418e4f45a96e5e400a4"
+  },
+  "cases": [
+    {
+      "sigma": 0.0,
+      "value": 0.9993899587525484,
+      "repeat_difference": 0.0,
+      "unprofiled_cpu": 0.295832109,
+      "info": {
+        "T": 3,
+        "cells": 776,
+        "cells_per_step": [
+          2,
+          34,
+          776
+        ],
+        "wrong_pieces": 296,
+        "correct_pieces": 834,
+        "simplices": 502,
+        "flops": 1123731.0,
+        "parts": {
+          "lift": 40580.0,
+          "clip": 721693.0,
+          "adj": 65052.0,
+          "final": 233862.0,
+          "tri": 33930.0,
+          "measure": 28614.0
+        },
+        "err_est": 0.0,
+        "zero_margins": 0,
+        "cpu_s": 0.295832109,
+        "correct_mass": 0.999389958752535,
+        "total_mass": 0.9999999999999866,
+        "check_err_est": 0.0,
+        "correct_simplices": 1684
+      },
+      "clip_calls": 11675,
+      "clip_shapes": {
+        "2x2": 270,
+        "3x3": 3046,
+        "4x3": 7045,
+        "5x3": 1069,
+        "6x3": 197,
+        "7x3": 41,
+        "8x3": 7
+      },
+      "profile_total": 0.4370494480000001,
+      "top_cumulative": [
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/ladder.py",
+          "line": 12,
+          "name": "exact_acc",
+          "primitive_calls": 1,
+          "calls": 1,
+          "self_seconds": 0.010055851000000001,
+          "cumulative_seconds": 0.43702371900000003
+        },
+        {
+          "file": "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_profile.py",
+          "line": 19,
+          "name": "recorded",
+          "primitive_calls": 11675,
+          "calls": 11675,
+          "self_seconds": 0.018110057000000002,
+          "cumulative_seconds": 0.253659281
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 51,
+          "name": "clip",
+          "primitive_calls": 11675,
+          "calls": 11675,
+          "self_seconds": 0.154926021,
+          "cumulative_seconds": 0.234234558
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 169,
+          "name": "outcome_pieces",
+          "primitive_calls": 776,
+          "calls": 776,
+          "self_seconds": 0.020995245000000003,
+          "cumulative_seconds": 0.16436809200000002
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 146,
+          "name": "iter_cells",
+          "primitive_calls": 777,
+          "calls": 777,
+          "self_seconds": 0.00111475,
+          "cumulative_seconds": 0.14406722700000002
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 113,
+          "name": "_children",
+          "primitive_calls": 36,
+          "calls": 36,
+          "self_seconds": 0.012258451,
+          "cumulative_seconds": 0.14274856700000002
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 231,
+          "name": "triangulate",
+          "primitive_calls": 1130,
+          "calls": 1130,
+          "self_seconds": 0.010266812,
+          "cumulative_seconds": 0.11598688300000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 240,
+          "name": "rec",
+          "primitive_calls": 1130,
+          "calls": 3028,
+          "self_seconds": 0.023001845,
+          "cumulative_seconds": 0.098407715
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 226,
+          "name": "_rank",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.0031438620000000003,
+          "cumulative_seconds": 0.059684680000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'sum' of 'numpy.ndarray' objects>",
+          "primitive_calls": 29664,
+          "calls": 29664,
+          "self_seconds": 0.010824222000000001,
+          "cumulative_seconds": 0.058759264000000005
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 45718,
+          "calls": 45718,
+          "self_seconds": 0.058441049,
+          "cumulative_seconds": 0.058441049
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 2051,
+          "name": "matrix_rank",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.007841153,
+          "cumulative_seconds": 0.055152341
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 47,
+          "name": "_sum",
+          "primitive_calls": 29664,
+          "calls": 29664,
+          "self_seconds": 0.005622088000000001,
+          "cumulative_seconds": 0.047935042000000004
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 1666,
+          "name": "svd",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.018431359,
+          "cumulative_seconds": 0.031937543
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/numeric.py",
+          "line": 483,
+          "name": "count_nonzero",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.002324477,
+          "cumulative_seconds": 0.013695899000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'any' of 'numpy.ndarray' objects>",
+          "primitive_calls": 6888,
+          "calls": 6888,
+          "self_seconds": 0.002717854,
+          "cumulative_seconds": 0.012204697
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 33,
+          "name": "add",
+          "primitive_calls": 22323,
+          "calls": 22323,
+          "self_seconds": 0.008921553,
+          "cumulative_seconds": 0.011979166000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 2031,
+          "name": "nonzero",
+          "primitive_calls": 7394,
+          "calls": 7394,
+          "self_seconds": 0.0024276190000000002,
+          "cumulative_seconds": 0.011756786
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 48,
+          "name": "_wrapfunc",
+          "primitive_calls": 7430,
+          "calls": 7430,
+          "self_seconds": 0.003447635,
+          "cumulative_seconds": 0.009716277
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 55,
+          "name": "_any",
+          "primitive_calls": 6888,
+          "calls": 6888,
+          "self_seconds": 0.00204434,
+          "cumulative_seconds": 0.009486843
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'max' of 'numpy.ndarray' objects>",
+          "primitive_calls": 5786,
+          "calls": 5786,
+          "self_seconds": 0.002189785,
+          "cumulative_seconds": 0.007751254000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'all' of 'numpy.ndarray' objects>",
+          "primitive_calls": 3380,
+          "calls": 3380,
+          "self_seconds": 0.002072266,
+          "cumulative_seconds": 0.007268920000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 39,
+          "name": "_amax",
+          "primitive_calls": 5786,
+          "calls": 5786,
+          "self_seconds": 0.001106122,
+          "cumulative_seconds": 0.005561469
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 64,
+          "name": "_all",
+          "primitive_calls": 3380,
+          "calls": 3380,
+          "self_seconds": 0.0009664090000000001,
+          "cumulative_seconds": 0.005196654
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'nonzero' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7394,
+          "calls": 7394,
+          "self_seconds": 0.0048681900000000005,
+          "cumulative_seconds": 0.0048681900000000005
+        }
+      ],
+      "top_self": [
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 51,
+          "name": "clip",
+          "primitive_calls": 11675,
+          "calls": 11675,
+          "self_seconds": 0.154926021,
+          "cumulative_seconds": 0.234234558
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 45718,
+          "calls": 45718,
+          "self_seconds": 0.058441049,
+          "cumulative_seconds": 0.058441049
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 240,
+          "name": "rec",
+          "primitive_calls": 1130,
+          "calls": 3028,
+          "self_seconds": 0.023001845,
+          "cumulative_seconds": 0.098407715
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 169,
+          "name": "outcome_pieces",
+          "primitive_calls": 776,
+          "calls": 776,
+          "self_seconds": 0.020995245000000003,
+          "cumulative_seconds": 0.16436809200000002
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 1666,
+          "name": "svd",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.018431359,
+          "cumulative_seconds": 0.031937543
+        },
+        {
+          "file": "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_profile.py",
+          "line": 19,
+          "name": "recorded",
+          "primitive_calls": 11675,
+          "calls": 11675,
+          "self_seconds": 0.018110057000000002,
+          "cumulative_seconds": 0.253659281
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 113,
+          "name": "_children",
+          "primitive_calls": 36,
+          "calls": 36,
+          "self_seconds": 0.012258451,
+          "cumulative_seconds": 0.14274856700000002
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'sum' of 'numpy.ndarray' objects>",
+          "primitive_calls": 29664,
+          "calls": 29664,
+          "self_seconds": 0.010824222000000001,
+          "cumulative_seconds": 0.058759264000000005
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 231,
+          "name": "triangulate",
+          "primitive_calls": 1130,
+          "calls": 1130,
+          "self_seconds": 0.010266812,
+          "cumulative_seconds": 0.11598688300000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/ladder.py",
+          "line": 12,
+          "name": "exact_acc",
+          "primitive_calls": 1,
+          "calls": 1,
+          "self_seconds": 0.010055851000000001,
+          "cumulative_seconds": 0.43702371900000003
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 33,
+          "name": "add",
+          "primitive_calls": 22323,
+          "calls": 22323,
+          "self_seconds": 0.008921553,
+          "cumulative_seconds": 0.011979166000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 2051,
+          "name": "matrix_rank",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.007841153,
+          "cumulative_seconds": 0.055152341
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 47,
+          "name": "_sum",
+          "primitive_calls": 29664,
+          "calls": 29664,
+          "self_seconds": 0.005622088000000001,
+          "cumulative_seconds": 0.047935042000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'nonzero' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7394,
+          "calls": 7394,
+          "self_seconds": 0.0048681900000000005,
+          "cumulative_seconds": 0.0048681900000000005
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 250,
+          "name": "<genexpr>",
+          "primitive_calls": 5782,
+          "calls": 5782,
+          "self_seconds": 0.004579486000000001,
+          "cumulative_seconds": 0.004579486000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<built-in method builtins.len>",
+          "primitive_calls": 32306,
+          "calls": 32306,
+          "self_seconds": 0.003689752,
+          "cumulative_seconds": 0.003689752
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'get' of 'dict' objects>",
+          "primitive_calls": 26135,
+          "calls": 26135,
+          "self_seconds": 0.003493346,
+          "cumulative_seconds": 0.003493346
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 48,
+          "name": "_wrapfunc",
+          "primitive_calls": 7430,
+          "calls": 7430,
+          "self_seconds": 0.003447635,
+          "cumulative_seconds": 0.009716277
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 226,
+          "name": "_rank",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.0031438620000000003,
+          "cumulative_seconds": 0.059684680000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'astype' of 'numpy.ndarray' objects>",
+          "primitive_calls": 4946,
+          "calls": 4946,
+          "self_seconds": 0.0027728550000000003,
+          "cumulative_seconds": 0.0027728550000000003
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'any' of 'numpy.ndarray' objects>",
+          "primitive_calls": 6888,
+          "calls": 6888,
+          "self_seconds": 0.002717854,
+          "cumulative_seconds": 0.012204697
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'append' of 'list' objects>",
+          "primitive_calls": 13209,
+          "calls": 13209,
+          "self_seconds": 0.0025725970000000003,
+          "cumulative_seconds": 0.0025725970000000003
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 2031,
+          "name": "nonzero",
+          "primitive_calls": 7394,
+          "calls": 7394,
+          "self_seconds": 0.0024276190000000002,
+          "cumulative_seconds": 0.011756786
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/numeric.py",
+          "line": 483,
+          "name": "count_nonzero",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.002324477,
+          "cumulative_seconds": 0.013695899000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_ufunc_config.py",
+          "line": 472,
+          "name": "__enter__",
+          "primitive_calls": 1906,
+          "calls": 1906,
+          "self_seconds": 0.0022163960000000003,
+          "cumulative_seconds": 0.0037456840000000004
+        }
+      ]
+    },
+    {
+      "sigma": 0.0025,
+      "value": 0.9830879036157264,
+      "repeat_difference": 0.0,
+      "unprofiled_cpu": 0.32612649699999996,
+      "info": {
+        "T": 3,
+        "cells": 776,
+        "cells_per_step": [
+          2,
+          34,
+          776
+        ],
+        "wrong_pieces": 319,
+        "correct_pieces": 815,
+        "simplices": 594,
+        "flops": 1151592.0,
+        "parts": {
+          "lift": 40580.0,
+          "clip": 730914.0,
+          "adj": 67912.0,
+          "final": 234048.0,
+          "tri": 44280.0,
+          "measure": 33858.0
+        },
+        "err_est": 0.0,
+        "zero_margins": 0,
+        "cpu_s": 0.32612649699999996,
+        "correct_mass": 0.9830879036157265,
+        "total_mass": 1.0000000000000002,
+        "check_err_est": 0.0,
+        "correct_simplices": 1610
+      },
+      "clip_calls": 11776,
+      "clip_shapes": {
+        "2x2": 270,
+        "3x3": 3295,
+        "4x3": 6650,
+        "5x3": 1285,
+        "6x3": 235,
+        "7x3": 40,
+        "8x3": 1
+      },
+      "profile_total": 0.4831079160000002,
+      "top_cumulative": [
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/ladder.py",
+          "line": 12,
+          "name": "exact_acc",
+          "primitive_calls": 1,
+          "calls": 1,
+          "self_seconds": 0.011099396000000001,
+          "cumulative_seconds": 0.483085733
+        },
+        {
+          "file": "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_profile.py",
+          "line": 19,
+          "name": "recorded",
+          "primitive_calls": 11776,
+          "calls": 11776,
+          "self_seconds": 0.018274084,
+          "cumulative_seconds": 0.276784379
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 51,
+          "name": "clip",
+          "primitive_calls": 11776,
+          "calls": 11776,
+          "self_seconds": 0.16795980000000002,
+          "cumulative_seconds": 0.25730420600000004
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 169,
+          "name": "outcome_pieces",
+          "primitive_calls": 776,
+          "calls": 776,
+          "self_seconds": 0.023730083000000003,
+          "cumulative_seconds": 0.18336057600000003
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 146,
+          "name": "iter_cells",
+          "primitive_calls": 777,
+          "calls": 777,
+          "self_seconds": 0.000997328,
+          "cumulative_seconds": 0.1552435
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 113,
+          "name": "_children",
+          "primitive_calls": 36,
+          "calls": 36,
+          "self_seconds": 0.012660861,
+          "cumulative_seconds": 0.154017983
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 231,
+          "name": "triangulate",
+          "primitive_calls": 1134,
+          "calls": 1134,
+          "self_seconds": 0.010238788,
+          "cumulative_seconds": 0.13094044300000002
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 240,
+          "name": "rec",
+          "primitive_calls": 1134,
+          "calls": 3058,
+          "self_seconds": 0.024863275,
+          "cumulative_seconds": 0.11239001800000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 226,
+          "name": "_rank",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.0032608620000000002,
+          "cumulative_seconds": 0.07087562600000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 46316,
+          "calls": 46316,
+          "self_seconds": 0.06795904500000001,
+          "cumulative_seconds": 0.06795904500000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'sum' of 'numpy.ndarray' objects>",
+          "primitive_calls": 30022,
+          "calls": 30022,
+          "self_seconds": 0.010126233,
+          "cumulative_seconds": 0.065936467
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 2051,
+          "name": "matrix_rank",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.010336098,
+          "cumulative_seconds": 0.06587525000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 47,
+          "name": "_sum",
+          "primitive_calls": 30022,
+          "calls": 30022,
+          "self_seconds": 0.006883844,
+          "cumulative_seconds": 0.055810234
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 1666,
+          "name": "svd",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.021678116,
+          "cumulative_seconds": 0.038398523000000004
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/numeric.py",
+          "line": 483,
+          "name": "count_nonzero",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.003005658,
+          "cumulative_seconds": 0.015473404000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 2031,
+          "name": "nonzero",
+          "primitive_calls": 7554,
+          "calls": 7554,
+          "self_seconds": 0.0025225570000000004,
+          "cumulative_seconds": 0.014237582
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 33,
+          "name": "add",
+          "primitive_calls": 22642,
+          "calls": 22642,
+          "self_seconds": 0.009957774,
+          "cumulative_seconds": 0.013578321
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'any' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7002,
+          "calls": 7002,
+          "self_seconds": 0.0037309950000000004,
+          "cumulative_seconds": 0.013481807
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 48,
+          "name": "_wrapfunc",
+          "primitive_calls": 7590,
+          "calls": 7590,
+          "self_seconds": 0.004612439,
+          "cumulative_seconds": 0.012023154000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'max' of 'numpy.ndarray' objects>",
+          "primitive_calls": 5848,
+          "calls": 5848,
+          "self_seconds": 0.0021063170000000003,
+          "cumulative_seconds": 0.010342376
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 55,
+          "name": "_any",
+          "primitive_calls": 7002,
+          "calls": 7002,
+          "self_seconds": 0.0022056470000000002,
+          "cumulative_seconds": 0.009750812000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 39,
+          "name": "_amax",
+          "primitive_calls": 5848,
+          "calls": 5848,
+          "self_seconds": 0.001279589,
+          "cumulative_seconds": 0.008236059
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'all' of 'numpy.ndarray' objects>",
+          "primitive_calls": 3444,
+          "calls": 3444,
+          "self_seconds": 0.0016797180000000002,
+          "cumulative_seconds": 0.007655669
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 64,
+          "name": "_all",
+          "primitive_calls": 3444,
+          "calls": 3444,
+          "self_seconds": 0.001444931,
+          "cumulative_seconds": 0.005975951
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'nonzero' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7554,
+          "calls": 7554,
+          "self_seconds": 0.0058304590000000005,
+          "cumulative_seconds": 0.0058304590000000005
+        }
+      ],
+      "top_self": [
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 51,
+          "name": "clip",
+          "primitive_calls": 11776,
+          "calls": 11776,
+          "self_seconds": 0.16795980000000002,
+          "cumulative_seconds": 0.25730420600000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 46316,
+          "calls": 46316,
+          "self_seconds": 0.06795904500000001,
+          "cumulative_seconds": 0.06795904500000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 240,
+          "name": "rec",
+          "primitive_calls": 1134,
+          "calls": 3058,
+          "self_seconds": 0.024863275,
+          "cumulative_seconds": 0.11239001800000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 169,
+          "name": "outcome_pieces",
+          "primitive_calls": 776,
+          "calls": 776,
+          "self_seconds": 0.023730083000000003,
+          "cumulative_seconds": 0.18336057600000003
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 1666,
+          "name": "svd",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.021678116,
+          "cumulative_seconds": 0.038398523000000004
+        },
+        {
+          "file": "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_profile.py",
+          "line": 19,
+          "name": "recorded",
+          "primitive_calls": 11776,
+          "calls": 11776,
+          "self_seconds": 0.018274084,
+          "cumulative_seconds": 0.276784379
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 113,
+          "name": "_children",
+          "primitive_calls": 36,
+          "calls": 36,
+          "self_seconds": 0.012660861,
+          "cumulative_seconds": 0.154017983
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/ladder.py",
+          "line": 12,
+          "name": "exact_acc",
+          "primitive_calls": 1,
+          "calls": 1,
+          "self_seconds": 0.011099396000000001,
+          "cumulative_seconds": 0.483085733
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 2051,
+          "name": "matrix_rank",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.010336098,
+          "cumulative_seconds": 0.06587525000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 231,
+          "name": "triangulate",
+          "primitive_calls": 1134,
+          "calls": 1134,
+          "self_seconds": 0.010238788,
+          "cumulative_seconds": 0.13094044300000002
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'sum' of 'numpy.ndarray' objects>",
+          "primitive_calls": 30022,
+          "calls": 30022,
+          "self_seconds": 0.010126233,
+          "cumulative_seconds": 0.065936467
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 33,
+          "name": "add",
+          "primitive_calls": 22642,
+          "calls": 22642,
+          "self_seconds": 0.009957774,
+          "cumulative_seconds": 0.013578321
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 47,
+          "name": "_sum",
+          "primitive_calls": 30022,
+          "calls": 30022,
+          "self_seconds": 0.006883844,
+          "cumulative_seconds": 0.055810234
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'nonzero' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7554,
+          "calls": 7554,
+          "self_seconds": 0.0058304590000000005,
+          "cumulative_seconds": 0.0058304590000000005
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 48,
+          "name": "_wrapfunc",
+          "primitive_calls": 7590,
+          "calls": 7590,
+          "self_seconds": 0.004612439,
+          "cumulative_seconds": 0.012023154000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'get' of 'dict' objects>",
+          "primitive_calls": 26490,
+          "calls": 26490,
+          "self_seconds": 0.0041408470000000005,
+          "cumulative_seconds": 0.0041408470000000005
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 250,
+          "name": "<genexpr>",
+          "primitive_calls": 5836,
+          "calls": 5836,
+          "self_seconds": 0.0038136180000000004,
+          "cumulative_seconds": 0.0038136180000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<built-in method builtins.len>",
+          "primitive_calls": 32783,
+          "calls": 32783,
+          "self_seconds": 0.0037384820000000004,
+          "cumulative_seconds": 0.0037384820000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'any' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7002,
+          "calls": 7002,
+          "self_seconds": 0.0037309950000000004,
+          "cumulative_seconds": 0.013481807
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 226,
+          "name": "_rank",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.0032608620000000002,
+          "cumulative_seconds": 0.07087562600000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 163,
+          "name": "_makearray",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.003193782,
+          "cumulative_seconds": 0.003605018
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/numeric.py",
+          "line": 483,
+          "name": "count_nonzero",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.003005658,
+          "cumulative_seconds": 0.015473404000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'astype' of 'numpy.ndarray' objects>",
+          "primitive_calls": 4986,
+          "calls": 4986,
+          "self_seconds": 0.0029868890000000004,
+          "cumulative_seconds": 0.0029868890000000004
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_ufunc_config.py",
+          "line": 472,
+          "name": "__enter__",
+          "primitive_calls": 1924,
+          "calls": 1924,
+          "self_seconds": 0.0025705040000000004,
+          "cumulative_seconds": 0.004350591
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 2031,
+          "name": "nonzero",
+          "primitive_calls": 7554,
+          "calls": 7554,
+          "self_seconds": 0.0025225570000000004,
+          "cumulative_seconds": 0.014237582
+        }
+      ]
+    },
+    {
+      "sigma": 0.02,
+      "value": 0.8749983968766459,
+      "repeat_difference": 0.0,
+      "unprofiled_cpu": 0.32793611200000017,
+      "info": {
+        "T": 3,
+        "cells": 762,
+        "cells_per_step": [
+          2,
+          34,
+          762
+        ],
+        "wrong_pieces": 397,
+        "correct_pieces": 715,
+        "simplices": 756,
+        "flops": 1154193.0,
+        "parts": {
+          "lift": 40580.0,
+          "clip": 717756.0,
+          "adj": 65368.0,
+          "final": 229797.0,
+          "tri": 57600.0,
+          "measure": 43092.0
+        },
+        "err_est": 0.0,
+        "zero_margins": 0,
+        "cpu_s": 0.32793611200000017,
+        "correct_mass": 0.8749983968766459,
+        "total_mass": 1.0,
+        "check_err_est": 0.0,
+        "correct_simplices": 1404
+      },
+      "clip_calls": 11602,
+      "clip_shapes": {
+        "2x2": 270,
+        "3x3": 3398,
+        "4x3": 6232,
+        "5x3": 1449,
+        "6x3": 227,
+        "7x3": 25,
+        "8x3": 1
+      },
+      "profile_total": 0.5077878110000001,
+      "top_cumulative": [
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/ladder.py",
+          "line": 12,
+          "name": "exact_acc",
+          "primitive_calls": 1,
+          "calls": 1,
+          "self_seconds": 0.011263654000000001,
+          "cumulative_seconds": 0.50773342
+        },
+        {
+          "file": "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_profile.py",
+          "line": 19,
+          "name": "recorded",
+          "primitive_calls": 11602,
+          "calls": 11602,
+          "self_seconds": 0.023642574000000003,
+          "cumulative_seconds": 0.294042868
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 51,
+          "name": "clip",
+          "primitive_calls": 11602,
+          "calls": 11602,
+          "self_seconds": 0.183203511,
+          "cumulative_seconds": 0.269287712
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 169,
+          "name": "outcome_pieces",
+          "primitive_calls": 762,
+          "calls": 762,
+          "self_seconds": 0.02111932,
+          "cumulative_seconds": 0.195088647
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 146,
+          "name": "iter_cells",
+          "primitive_calls": 763,
+          "calls": 763,
+          "self_seconds": 0.0031096110000000004,
+          "cumulative_seconds": 0.15978513800000002
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 113,
+          "name": "_children",
+          "primitive_calls": 36,
+          "calls": 36,
+          "self_seconds": 0.011220735,
+          "cumulative_seconds": 0.156501896
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 231,
+          "name": "triangulate",
+          "primitive_calls": 1112,
+          "calls": 1112,
+          "self_seconds": 0.017621296,
+          "cumulative_seconds": 0.139543419
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 240,
+          "name": "rec",
+          "primitive_calls": 1112,
+          "calls": 2984,
+          "self_seconds": 0.022888539000000003,
+          "cumulative_seconds": 0.11499115200000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 226,
+          "name": "_rank",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.0030300160000000004,
+          "cumulative_seconds": 0.071984323
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 45309,
+          "calls": 45309,
+          "self_seconds": 0.069784472,
+          "cumulative_seconds": 0.069784472
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'sum' of 'numpy.ndarray' objects>",
+          "primitive_calls": 29478,
+          "calls": 29478,
+          "self_seconds": 0.009895376,
+          "cumulative_seconds": 0.06751770700000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 2051,
+          "name": "matrix_rank",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.008192516,
+          "cumulative_seconds": 0.065150963
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 47,
+          "name": "_sum",
+          "primitive_calls": 29478,
+          "calls": 29478,
+          "self_seconds": 0.0070788050000000005,
+          "cumulative_seconds": 0.057622331000000006
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 1666,
+          "name": "svd",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.019284314,
+          "cumulative_seconds": 0.039237369
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/numeric.py",
+          "line": 483,
+          "name": "count_nonzero",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.0024671520000000002,
+          "cumulative_seconds": 0.014835076
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 2031,
+          "name": "nonzero",
+          "primitive_calls": 7304,
+          "calls": 7304,
+          "self_seconds": 0.002302703,
+          "cumulative_seconds": 0.013700633
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'max' of 'numpy.ndarray' objects>",
+          "primitive_calls": 5733,
+          "calls": 5733,
+          "self_seconds": 0.003932515,
+          "cumulative_seconds": 0.012496788
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 33,
+          "name": "add",
+          "primitive_calls": 22185,
+          "calls": 22185,
+          "self_seconds": 0.00881398,
+          "cumulative_seconds": 0.012043919
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'any' of 'numpy.ndarray' objects>",
+          "primitive_calls": 6786,
+          "calls": 6786,
+          "self_seconds": 0.002718678,
+          "cumulative_seconds": 0.012023345000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 48,
+          "name": "_wrapfunc",
+          "primitive_calls": 7340,
+          "calls": 7340,
+          "self_seconds": 0.005605312,
+          "cumulative_seconds": 0.011699177000000002
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 55,
+          "name": "_any",
+          "primitive_calls": 6786,
+          "calls": 6786,
+          "self_seconds": 0.001665933,
+          "cumulative_seconds": 0.009304667
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 39,
+          "name": "_amax",
+          "primitive_calls": 5733,
+          "calls": 5733,
+          "self_seconds": 0.0010751970000000002,
+          "cumulative_seconds": 0.008564273
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 250,
+          "name": "<genexpr>",
+          "primitive_calls": 5616,
+          "calls": 5616,
+          "self_seconds": 0.007348322000000001,
+          "cumulative_seconds": 0.007348322000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'all' of 'numpy.ndarray' objects>",
+          "primitive_calls": 3312,
+          "calls": 3312,
+          "self_seconds": 0.001721955,
+          "cumulative_seconds": 0.006784644
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 201,
+          "name": "_commonType",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.00210791,
+          "cumulative_seconds": 0.005627205000000001
+        }
+      ],
+      "top_self": [
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 51,
+          "name": "clip",
+          "primitive_calls": 11602,
+          "calls": 11602,
+          "self_seconds": 0.183203511,
+          "cumulative_seconds": 0.269287712
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 45309,
+          "calls": 45309,
+          "self_seconds": 0.069784472,
+          "cumulative_seconds": 0.069784472
+        },
+        {
+          "file": "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_profile.py",
+          "line": 19,
+          "name": "recorded",
+          "primitive_calls": 11602,
+          "calls": 11602,
+          "self_seconds": 0.023642574000000003,
+          "cumulative_seconds": 0.294042868
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 240,
+          "name": "rec",
+          "primitive_calls": 1112,
+          "calls": 2984,
+          "self_seconds": 0.022888539000000003,
+          "cumulative_seconds": 0.11499115200000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 169,
+          "name": "outcome_pieces",
+          "primitive_calls": 762,
+          "calls": 762,
+          "self_seconds": 0.02111932,
+          "cumulative_seconds": 0.195088647
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 1666,
+          "name": "svd",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.019284314,
+          "cumulative_seconds": 0.039237369
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 231,
+          "name": "triangulate",
+          "primitive_calls": 1112,
+          "calls": 1112,
+          "self_seconds": 0.017621296,
+          "cumulative_seconds": 0.139543419
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/ladder.py",
+          "line": 12,
+          "name": "exact_acc",
+          "primitive_calls": 1,
+          "calls": 1,
+          "self_seconds": 0.011263654000000001,
+          "cumulative_seconds": 0.50773342
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 113,
+          "name": "_children",
+          "primitive_calls": 36,
+          "calls": 36,
+          "self_seconds": 0.011220735,
+          "cumulative_seconds": 0.156501896
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'sum' of 'numpy.ndarray' objects>",
+          "primitive_calls": 29478,
+          "calls": 29478,
+          "self_seconds": 0.009895376,
+          "cumulative_seconds": 0.06751770700000001
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 33,
+          "name": "add",
+          "primitive_calls": 22185,
+          "calls": 22185,
+          "self_seconds": 0.00881398,
+          "cumulative_seconds": 0.012043919
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 2051,
+          "name": "matrix_rank",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.008192516,
+          "cumulative_seconds": 0.065150963
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 250,
+          "name": "<genexpr>",
+          "primitive_calls": 5616,
+          "calls": 5616,
+          "self_seconds": 0.007348322000000001,
+          "cumulative_seconds": 0.007348322000000001
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py",
+          "line": 47,
+          "name": "_sum",
+          "primitive_calls": 29478,
+          "calls": 29478,
+          "self_seconds": 0.0070788050000000005,
+          "cumulative_seconds": 0.057622331000000006
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py",
+          "line": 48,
+          "name": "_wrapfunc",
+          "primitive_calls": 7340,
+          "calls": 7340,
+          "self_seconds": 0.005605312,
+          "cumulative_seconds": 0.011699177000000002
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<built-in method numpy.asarray>",
+          "primitive_calls": 5620,
+          "calls": 5620,
+          "self_seconds": 0.0047343160000000006,
+          "cumulative_seconds": 0.0047343160000000006
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'nonzero' of 'numpy.ndarray' objects>",
+          "primitive_calls": 7304,
+          "calls": 7304,
+          "self_seconds": 0.004663326000000001,
+          "cumulative_seconds": 0.004663326000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'max' of 'numpy.ndarray' objects>",
+          "primitive_calls": 5733,
+          "calls": 5733,
+          "self_seconds": 0.003932515,
+          "cumulative_seconds": 0.012496788
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'get' of 'dict' objects>",
+          "primitive_calls": 25929,
+          "calls": 25929,
+          "self_seconds": 0.003907281,
+          "cumulative_seconds": 0.003907281
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<built-in method builtins.len>",
+          "primitive_calls": 32003,
+          "calls": 32003,
+          "self_seconds": 0.003268857,
+          "cumulative_seconds": 0.003268857
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 146,
+          "name": "iter_cells",
+          "primitive_calls": 763,
+          "calls": 763,
+          "self_seconds": 0.0031096110000000004,
+          "cumulative_seconds": 0.15978513800000002
+        },
+        {
+          "file": "/workspace/clean-neurons/m16/approaches/exact_ladder/cones.py",
+          "line": 226,
+          "name": "_rank",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.0030300160000000004,
+          "cumulative_seconds": 0.071984323
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_ufunc_config.py",
+          "line": 472,
+          "name": "__enter__",
+          "primitive_calls": 1872,
+          "calls": 1872,
+          "self_seconds": 0.0029303090000000003,
+          "cumulative_seconds": 0.004380038
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "name": "<method 'astype' of 'numpy.ndarray' objects>",
+          "primitive_calls": 4860,
+          "calls": 4860,
+          "self_seconds": 0.002832213,
+          "cumulative_seconds": 0.002832213
+        },
+        {
+          "file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py",
+          "line": 168,
+          "name": "isComplexType",
+          "primitive_calls": 3744,
+          "calls": 3744,
+          "self_seconds": 0.002758851,
+          "cumulative_seconds": 0.003103504
+        }
+      ]
+    }
+  ],
+  "cpu_seconds": 3.394332025,
+  "peak_rss_kb": 199668
+}
