@@ -14,7 +14,7 @@ First test identity endpoints (truth2*pi/3), equal endpoints (norm^-5/6), collin
 Alternative1: a sign/factor error can reproduce selected shapes accidentally; exact identity/equal controls and permutation invariance can falsify it. Alternative2: facet cancellation may erase the expected savings on thin trained cones; measure all rejection/fallback counts and compare against positive quadrature. Alternative3: per-call QR/cofactor setup may dominate despite fewer coordinates; record full cold CPU and scalar component costs, without equating wall speed with audited FPE.
 
 ## Status
-Primitive, independent asymmetric-thin review, three-model cold comparisons, counted composition and all three gate partitions completed. Independent review of the proposed scalar-operation bounds is pending; the harness adapter still reports infinite cost. No solved claim.
+Primitive, independent asymmetric-thin review, three-model cold comparisons, counted composition and all three gate partitions completed. Independent scalar audit T55 d374e0a passes with the documented arithmetic convention. DRI acceptance/finite-cost activation remains pending; the harness adapter still reports infinite cost. No solved claim.
 
 ## Results
 Full comparison in `full.json`, with costs and limitations below.
@@ -23,7 +23,7 @@ Full comparison in `full.json`, with costs and limitations below.
 Every numerical cycle acquires /workspace/work/codex-compute.lock, uses one thread and ulimit -v2500000, at most110CPU seconds, and node blocks<=65536. Explicitly authorized review work may use the separate review lock for<=20CPU seconds. Peak memory<=2GB. Initial controls use the compute lock. Total FPE remains unaudited until geometry/library/setup costs are counted.
 
 ## Claims
-[inferred, independently reviewed] The spherical divergence identity removes three coordinates in exact arithmetic. [measured] The fixed-tangent implementation reduces CPU time on all three fixed trained/noisy T5 cases while preserving the validation estimates. [inferred, review pending] Complete counted DD composition reduces the scalar bound by about20–24 times compared with T52's GL24 I5 engine. Floating geometry and arithmetic remain uncertified.
+[inferred, independently reviewed] The spherical divergence identity removes three coordinates in exact arithmetic. [measured] The fixed-tangent implementation reduces CPU time on all three fixed trained/noisy T5 cases while preserving the validation estimates. [inferred, independently reviewed] Complete counted DD composition reduces the scalar bound by about20–24 times compared with T52's GL24 I5 engine. Floating geometry and arithmetic remain uncertified.
 
 ## Alternatives not ruled out
 Conditioning, boundary cancellation, fallback-dominated cost and floating geometry errors.
@@ -113,4 +113,4 @@ Validate the completed counted MGS/GL pipeline on the full gate partition of the
 [measured] `counted_partition.json` reports full gate masses1.000000000000005,1.0000000000269944 and .9999999999994292 for base/.0025/.02. Absolute discrepancies are5.11e-15/2.70e-11/5.71e-13, all below their conditional outer-plus-positive-inner bounds2.3822e-6/2.3807e-6/2.3579e-6. These independent target-free checks preserve all gate pieces and use the unchanged counted primitive. Validation costs are recorded separately from estimator costs.
 
 ## Independent scalar audit
-T55's read-only audit agrees with the GL24 outer degree22, positive-fallback GL degree n-2, finite-product Chebyshev tail and positive inner-budget allocation. It finds the line groups conservative:1394 scalar units per cone including the MGS frame and1472 per outer node, with every fallback charged separately. The reviewer requested that fixed squares/cubes explicitly count as one/two scalar multiplications while noninteger powers cost20; `COUNTING.md` now states this operation-model convention. No numerical code or result changed. The adapter remains conservative until DRI acceptance; this review does not certify floating geometry or rounding.
+T55's read-only audit d374e0a (`feynman_fundamentals/t71_count_review.md`) agrees with the GL24 outer degree22, positive-fallback GL degree n-2, finite-product Chebyshev tail and positive inner-budget allocation. It finds the line groups conservative:1394 scalar units per cone including the MGS frame and1472 per outer node, with every fallback charged separately. The reviewer requested that fixed squares/cubes explicitly count as one/two scalar multiplications while noninteger powers cost20; `COUNTING.md` now states this operation-model convention. No numerical code or result changed. The adapter remains conservative until DRI acceptance; this review does not certify floating geometry or rounding.
