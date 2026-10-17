@@ -65,8 +65,9 @@ independent pairs. All90x2 equal-probability cells have weight1/180. Normal
    sampled joint linear accuracy, retaining the known E30 oracle limitation.
 
 ## Status
-Bounded diagnostic and predeclared final-two-gate rescue complete; numerical
-independent check requested. <=20CPU review lane, one thread,2GB RSS, no new
+Bounded diagnostic and predeclared final-two-gate rescue complete; independent
+T55 iid/direct-recurrence check reproduces both high-noise biases. <=20CPU
+review lane, one thread,2GB RSS, no new
 grid/model/noise sweep. No shared/source edits. Independent conditional-law/SE
 derivation review received from T55; Claude remains DRI.
 
