@@ -6,7 +6,9 @@ def normal_mass(lo,hi,stats):
     valid=hi>lo;right=np.maximum(lo,hi)
     stats['coupled_cdf_values']+=4*np.size(lo)
     value=np.where(lo>0,ndtr(-lo)-ndtr(-right),ndtr(right)-ndtr(lo))
-    if np.any(value<0):raise ArithmeticError('negative Gaussian interval')
+    if np.any(value<0):
+        index=np.flatnonzero(value<0)[0]
+        raise ArithmeticError(dict(message='negative Gaussian interval',lo=float(np.ravel(lo)[index]),hi=float(np.ravel(hi)[index]),right=float(np.ravel(right)[index]),value=float(np.ravel(value)[index]),cdf_lo=float(ndtr(np.ravel(lo)[index])),cdf_right=float(ndtr(np.ravel(right)[index])),sf_lo=float(ndtr(-np.ravel(lo)[index])),sf_right=float(ndtr(-np.ravel(right)[index]))))
     return np.where(valid,value,0.)
 
 def rank_mass(y,lo,hi,prefix,label,stats):
