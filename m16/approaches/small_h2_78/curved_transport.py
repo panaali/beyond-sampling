@@ -29,17 +29,18 @@ def coordinates_from(h,b,box,stats):
     return np.concatenate((q,np.asarray(b)[...,None]),axis=-1)
 
 
-def stage_grids(model,j,n):
+def stage_grids(model,j,n,nb=None):
+    nb=n if nb is None else nb
     wi,wh,wo=model;T=len(wo);npre=T-2 if j<T-2 else T-3
     A=np.maximum(wh,0);D=np.zeros(2);C=np.zeros(2);boxes=[(D.copy(),C.copy())]
-    grids=[(np.array([0.]),np.array([0.]),np.linspace(-1,1,n))]
+    grids=[(np.array([0.]),np.array([0.]),np.linspace(-1,1,nb))]
     for t in range(npre):
         if t==j:D,C=A@D+abs(wi),A@C
         else:D,C=A@D,np.sqrt((A@C)**2+wi**2)
         # Explicit outward rounding margin, retained in saved coefficients.
         D*=1+1e-12;C*=1+1e-12
         boxes.append((D.copy(),C.copy()))
-        grids.append((np.linspace(0,1,n),np.linspace(0,1,n),np.linspace(-1,1,n)))
+        grids.append((np.linspace(0,1,n),np.linspace(0,1,n),np.linspace(-1,1,nb)))
     return grids,boxes
 
 
