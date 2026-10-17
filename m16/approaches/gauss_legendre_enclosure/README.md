@@ -23,3 +23,5 @@ A root or derivative enclosure may remain unresolved at fixed precision; retain 
 
 ## Failure modes
 Miscounting roots at zero polynomial entries, treating moment inclusion as uniqueness, rounding reciprocal endpoints inward, erasing unknown denominators, pricing exact arithmetic as one cheap FLOP, or transferring component accuracy to the full source integral.
+
+Independent theorem gate T55 and source/control gate recover34 pass. Named square extremum count2 conservatively covers its zero-crossing branch (one actual max comparison). Integer/GCD/runtime and transient unreduced Fraction widths remain excluded; saved peak bits concern retained reduced rationals.
