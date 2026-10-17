@@ -83,3 +83,27 @@ including k>1 and the mixed-sign cases. These are probability masses,
 not conditionally normalized pair laws. The selected-target adapter
 can remove unused all-target integration while retaining its controls;
 it does not expand event coverage or justify a full-estimator claim.
+
+## Readout-aware enlargement for a negative third input
+
+For C<0, write s=abs(C) and hidden state(w,0), with0<=w<=alpha*s.
+For D>0, q=D/s, the second-axis winner j has readout differences
+Delta2>=0 against every competitor. Only Delta1<0 can threaten its
+margin while the first coordinate is active. At w=alpha*s the margin
+divided by s is
+`alpha*(a*Delta1+c*Delta2)+q*(-alpha*Delta1+beta*Delta2)`.
+The coefficient of q is positive for a threatening competitor. The
+other endpoint of each affine branch has nonnegative margin. Thus the
+maximum nonnegative root over competitors is a sufficient threshold,
+bounded above by a.
+
+For D<0, q=abs(D)/s, the first-axis winner has Delta1>=0. Only
+Delta2<0 threatens; its maximal-w margin is
+`alpha*(a*Delta1+c*Delta2)+q*(alpha*Delta1-beta*Delta2)`.
+The corresponding root threshold is bounded above by c*alpha/beta.
+Use strict q above these thresholds unless exact equality ownership is
+handled separately. These are sharp thresholds over the stated interval
+enclosure for w. Calling them maximal events for the actual network
+would additionally require proving that all enclosed w values are
+reachable for the fixed preceding inputs. This review does not assume
+that reachability or claim a globally largest forgetting event.
