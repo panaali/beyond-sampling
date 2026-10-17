@@ -175,3 +175,17 @@ metadata. `accounted_landmark_pilot.json` reruns the unchanged numerical rule
 with the corrected ledger; original pilot artifacts preserve the old counts.
 All estimates are unchanged. The ledger remains event accounting, not a
 complete special-function or linear-algebra scalar-FLOP conversion.
+
+## Independent failure check
+T55 independently evaluated direct two-step surrogate forwards, using no
+local affine arrangement code. Initial Gaussian product rules had a retained
+.00257 drift and were insufficient for precise comparison. Its separate
+uniform-CDF midpoint products at1024/1025 and2048/2049 gave zero-history
+.294990304387/.294964863318 and exact2 .299914157667/.299901995199 on the
+failed T4 relative .02 copy0. The finer estimates differ from this folder's
+values by2.78e-5/1.90e-5, far below both the full-network bias and the .00495
+worsening from exact mean. Constant-label errors were7.94e-8/1.99e-8.
+This independently verifies the scoped large failure and ordering. It does
+not certify every geometry piece, all pilot cases, or every history model.
+T55 charged10,656,512 direct two-step quadrature forwards,1.57CPU seconds,
+plus the retained earlier .89CPU attempt; no random sampling.
