@@ -9,10 +9,10 @@ Claim4f3a8a12 precedes implementation. Pin all48 complete component ledgers, usi
 Two competing explanations: remaining library work may be dominated by a few already reusable kernels, or the saved expression ledger may omit essential dispatch/layout/operand evidence. The cheapest discriminator is a complete saved-data census; source sites and existing inventories may establish some applicability, while missing layout/stride information stays unknown. No new estimator, model, mass or reference runs.
 
 ## Status
-Frozen census source is being prepared; independent gate precedes execution. Recover56 owns the separate mass contiguous4/128/1000 reduction controls. No duplication or direct count transfer.
+Frozen census completed after independent source gate; saved raw review requested. Recover56 owns the separate mass contiguous4/128/1000 reduction controls. No duplication or direct count transfer.
 
 ## Results
-Pending. The inventory makes no native-price or matched-sampler claim. Saved numerical expressions and native floating instructions remain separate conventions.
+All48 components and prepare+144 rescued cells reconcile prior totals. Matrix857,804,265 and norm123,008,922 named units dominate relevant remaining subsets;20,501,487 norm calls are length3. The inventory makes no native-price or matched-sampler claim. Saved numerical expressions and native floating instructions remain separate conventions.
 
 ## Compute accounting
 One thread,2GB,20CPU review lock. Count all48 input ledgers and144 retained cell files; report hashing/parsing CPU and maximum memory as research overhead. No estimator evaluations. The ledger's named operations retain original diagnostic removal and repeated rescue setup; integer/control, conversion, allocation, memory and runtime gaps stay explicit.
@@ -25,3 +25,5 @@ Further saved-source deductions, additional separately frozen shape/dispatch con
 
 ## Failure modes
 Hash/provenance mismatch, incomplete or duplicate components, lost failed12 accounting, incorrect rescue contraction, invalid shape parsing or aggregate mismatch stops the census and preserves partial evidence. No guessed dimensions or silent scalar/native cost substitution.
+
+[measured] The saved census used3.194381075CPU and112760KiB peak; no estimator calls. Reproduction uses `python census.py` only in a fresh result directory, preserving immutable existing results, followed by `python summarize.py`. See HANDOFF.md for exact scope and retained gaps.
