@@ -38,7 +38,11 @@ def controls(protocol,old,new):
 
 def run(seed,copy,first,last):
  protocol,old,new=load();assert 0<=first<=last<100
- ident=next(r for r in protocol['models'] if (r['seed'],r['copy'])==(seed,copy));model,h=model_for(protocol,seed,copy);folder=HERE/f's{seed}_c{copy}';folder.mkdir(exist_ok=True)
+ ident=next(r for r in protocol['models'] if (r['seed'],r['copy'])==(seed,copy));model,h=model_for(protocol,seed,copy)
+ assert ident['model_sha256']==h
+ assert sha(HERE/'controls.json')=='7c9a13ef81207e5e9e3fdcf948208b2a57af99ad5d6fe39e6cfa2dcda52efaf1'
+ checked=json.loads((HERE/'controls.json').read_text());assert len(checked['records'])==6 and checked['extra_forward_evaluations']==318
+ folder=HERE/f's{seed}_c{copy}';folder.mkdir(exist_ok=True)
  pin=sha(HERE/'protocol.json');source=sha(HERE/'reference.py')
  for block in range(first,last+1):
   dst=folder/f'block{block:03d}.json';assert not dst.exists();rng=np.random.default_rng(ident['rng_seed'])
