@@ -9,7 +9,7 @@ Read and hash T156's public DLASQ2/3/4/5/6 sources and installed-environment man
 Two alternative explanations: Q3's failure counter may implicitly bound retries (test threshold transitions and zero-shift exit); outer iteration caps may still leave a cleanup loop without progress (inspect every backwards jump and loop variant). Invalid internal state is not itself an executable valid-input counterexample.
 
 ## Status
-Bounded source review complete; independent proof review and owner integration pending.
+Bounded source review complete; independent T55 source-only review9558b53e passes with the stated conditional/reachability qualifications. Owner integration remains separate.
 
 ## Results
 Under the stated zero-shift sign invariant, Q3 uses at most4 Q5 calls and at most1 Q6 fallback per invocation. This counts attempts, not only retries. A NaN does not add a fifth attempt because it forces zero shift earlier. See PROOF.md for initial TTYPE and signed-zero qualifications.
@@ -22,7 +22,7 @@ Reproduce: inspect pinned files against source_pins.json and follow PROOF.md lin
 Read-only source reasoning plus file hashing; zero model, SVD or mass evaluations. No benchmark budget modification. Installed dispatch/binary proof remains T156 owner scope.
 
 ## Claims
-[inferred] Conditional four-attempt retry theorem and the explicit cleanup-state non-progress witness. Neither a universal installed-SVD termination proof nor a discovered reachable model failure is claimed. Independent review pending; Claude DRI classifies.
+[inferred] Conditional four-attempt retry theorem and the explicit cleanup-state non-progress witness. Neither a universal installed-SVD termination proof nor a discovered reachable model failure is claimed. Independent review9558b53e supports the scoped statements; Claude DRI classifies.
 
 ## Alternatives not ruled out
 A stronger invariant may prove the cleanup state unreachable for supported inputs; installed code may differ; a runtime finite-call census can bound the actual frozen run without a universal source theorem. Numerical examples cannot by themselves prove a universal cap.
