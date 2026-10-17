@@ -59,3 +59,21 @@ network enumeration. The recorded default constant-output failure
 and higher-order convergence concern finite mass quadrature, not a
 failure of the class partition. They do not certify the default rule
 on subsequent trained cases; those comparisons remain diagnostic.
+
+The completed six-case T4 handoff has distinct numerical and recipe
+questions. Same-ray quadratic mass replay changes the default reference
+error from-2.22e-5 to+3.59e-8, but retains two tiny negative masses.
+Nearest doubled replay remains-3.44e-6; its planned quadrupled replay
+exceeds the frozen200M operation cap. That is an unresolved numerical/
+resource issue, not evidence against the partition theorem. Costs at
+unequal mass accuracy are not a demonstrated efficiency win.
+
+Canonical mapping of all96 older halves to72 nearest-facet regions
+shows why T3 recipe invariance does not transfer: merging lower-order
+chambers changes the reference direction in48 halves and gate patterns
+in24. Observed default recipe estimates worsen, but exact-mode mass
+errors do not bound recipe-mode mass errors. In particular the small
+nearest-versus-old difference cannot be treated as certified ordering
+of their true approximation biases. Accepted positive precise mass
+primitives and all-facet/impact-based references remain open coordinated
+rescues under T109/T108; no additional blind sweep is required.

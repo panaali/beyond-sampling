@@ -144,3 +144,18 @@ values, so any selected second-largest target must be positive. The
 initial negative-positive pair still has a coupled joint rank law;
 its event probability must not be multiplied into that law a second
 time. This derivation alone is not a complete event-mass implementation.
+
+The implemented positive-final two-pair rank law has now been reviewed.
+Negative A is always below a positive target; its coupled positive B
+contributes joint p0/p1, multiplied with the other pair's polynomial
+and the ordinary prefix factor. For selected final D, the C partner
+supplies either zero or one exceeding value. No normalization by either
+pair's event probability is needed. The three-tail union allowance
+accounts for the target and either integrated partner beyond the cutoff.
+
+`check_two_pair_review.py` imports no author functions. Adaptive scalar
+quadrature with independent positive Gaussian first-pair integration
+gives .007984888967696072 for C+, and .009743822453890811 for C-.
+Their sum .017728711421586885 differs from the fixed-rule result by
+about1.4e-16. CPU .0191 seconds. Adaptive error estimates are numerical,
+not certified bounds; this remains a partial event contribution.

@@ -60,3 +60,28 @@ constant-label gate-cone rescue should use all-ray nonnegative margins
 and at least one positive ray against earlier-index competitors for
 strictness in the cone interior. Requiring all boundary rays strictly
 positive would incorrectly reject valid full-measure interior labels.
+
+## Independent direct recurrence and correctness certificates
+
+`check_constant_cones_review.py` evaluates the network by direct integer
+ReLU recurrence on4252 ray inputs from all450 saved histories, without
+importing the author's final-map or certificate code. It reconstructs
+every constant-label decision:183 constant interiors and267 varying
+ones. Summing each cone's rays gives a strict interior input witness;
+all four output labels have such witnesses. Actual recurrence
+reachability is therefore established for these four labels, beyond
+the earlier nonnegative-superset LP result. Geometry itself is still
+the independently checked pre-existing artifact.
+
+The extended conservative correctness rule also checks independently
+on all450 histories. A competitor dominating every ray excludes a
+candidate output, with earlier-index ties handled weakly and later
+competitors requiring strict interior advantage. An input cannot be
+second largest if two others are always above it, or if no other input
+can ever be above it. These produce supersets of possible labels.
+Disjoint output/target sets prove wrong classification; matching
+singleton sets prove correctness. The review reproduces48 wrong,
+39 correct and363 unresolved histories. The reported resolved mass
+is only about .005750413, leaving .994249587 unresolved before numerical
+mass qualifications. This weak shortcut is insufficient on the saved
+model, not an impossibility proof for tighter joint-label constraints.
