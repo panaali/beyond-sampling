@@ -272,3 +272,49 @@ candidate violates this ownership. The independently integrated replacement
 face rule need not equal true overall chance accuracy1/T at finite outer
 quadrature, so the reported remaining outer bias must remain visible. This
 is a concrete legacy tie defect, not proof that all tube approximations fail.
+
+## Structural reset-root factoring (T66 followup)
+If the cached preceding stage has every gate inactive on its current open
+cell, its hidden map is identically zero by ReLU suppression. At the next
+stage all nonzero input weights therefore share the exact input root
+-U_step/V_step. For V_step nonzero, right-side activation follows the sign
+of Wi*V_step; for V_step zero the preactivation is the constant Wi*U_step;
+Wi zero stays off. This is algebraic common-factor removal, not near-root
+merging. A Boolean all-inactive certificate avoids inferring an exact reset
+from rounded affine cancellation. When an earlier root changes a cell,
+invalidate and recompute the reset flags from the earliest changed stage,
+along with all downstream affine coefficients and roots. Failure to detect
+every possible exact-zero map can miss an optimization but must not change
+semantics. Simultaneous-root and cap controls remain necessary.
+
+## Exact reset-law endpoint controls (T40)
+For H1T3, Wh0, Wi1, and readout rows[-1,.25,1], final hidden state is
+ReLU(X2). Conditional on second-largest index J=2, X2 has density
+6*Phi(x)*(1-Phi(x))*phi(x). Conditional on J0 or J1, X2 is equiprobably the
+minimum or maximum, giving density1.5*(Phi(x)^2+(1-Phi(x))^2)*phi(x).
+Both laws are symmetric. Hence hidden zero atom has mass1/2, positive ray
+mass1/2, and conditional prediction probabilities are[1/2,0,1/2], with
+first-index output ties assigned to0. Overall accuracy is1/3. Positive
+one-dimensional integrals provide moments of every order without a model
+input sampler. A moment endpoint that ignores the atom can fail independently
+of cumulant propagation. Separately, for a positive-definite zero-mean
+Gaussian three-logit law, winner i has probability1/4+asin(rho_i)/(2*pi),
+where rho_i correlates Yi-Yj and Yi-Yk. Singular difference laws require
+separate tie/limit treatment; this formula does not assign positive tie mass.
+
+## Training-axis ratio protocol (T90)
+Read-only review of training_axis_ladder/{README,common,estimator,summarize}
+supports the frozen comparison's interpretation. MSE*mean(ops)/(72*mean(pq))
+uses one ensemble-average sampling budget; MSE/mean(72*pq/ops) matches each
+model's candidate cost. These are distinct valid descriptive benchmarks,
+not algebraically interchangeable. The integer-budget counterpart uses
+floor(ops/72). The primary bootstrap deliberately holds observed meanops
+fixed to match the earlier protocol, so it is conditional on that empirical
+budget; the per-model alternative resamples costs together with errors.
+Five per-training-seed95% intervals do not constitute simultaneous95%
+coverage. Passing the frozen per-seed gates supports this finite neighboring
+training checkpoint panel, not every model or training amount. Perturbation
+seeds shared across training seeds are a paired design and must remain paired
+in any future pooled analysis. Public checkpoint and source hashes, all
+individual failures, and the full predeclared panel must remain visible.
+This review does not independently audit the inherited72-op cost convention.
