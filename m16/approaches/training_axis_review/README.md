@@ -16,10 +16,10 @@ Frozen before new outputs:
 Competing explanations: (1) E44's weakest point passes only because of reused noise or mean-cost denominator; fresh independent samples and both denominators discriminate. (2) Low-training panels look easy only because absolute noise dominates small weights; anchored relative noise tests this without adapting estimator. (3) A numerical tie/topology defect masquerades as bias; independent reference and constant/duplicate readout controls precede conclusions.
 
 ## Status
-Protocol frozen; source/control implementation next. No results yet.
+Bounded review complete: initial panels, fixed independent confirmation, counter correction and cap telemetry retained. T75 supports a scoped positive; the fibre common-unit cost audit remains open. See the final result below.
 
 ## Results
-None yet.
+Machine-readable results are in per-cell JSON files and `summary.json`; the initial failures and independent review qualifications are retained below.
 
 ## Compute accounting
 All source setup/import, geometry, estimator/reference and validation CPU recorded; model downloads hashed separately. Prior R3/R4 cost frameworks explicitly attributed. Per-model results preserve both claimed and independently executed counts. Shared evaluator and estimator sources remain unchanged. No claim of equal-wall-time advantage.
@@ -49,3 +49,37 @@ All31 initial cells completed:2,176 noisy rows plus31 clean rows,160.324 recorde
 TASKS scope6c34141 was pushed before new runs: ONE independent confirmation panel for relative k24seed4, noise seeds124/125 with256 copies each, unchanged RMS scale and frozen estimators/reference/counters. Fibre uses first8 copies of each seed. Report separately from the initial cell selected for uncertainty; do not pool for a prespecified headline or expand again based on the outcome. This is a finite confirmation design, not an optional stopping rule.
 
 All527 original fibre evaluations were replayed with identical output and strict counts. No64-step trace loop exhausted; no400000-trace emergency threshold approached. Telemetry replay42.421CPU. This verifies that silent loop caps did not cause the reported finite-panel estimates; it is not a proof about all models or a fresh full arithmetic audit.
+
+## Final bounded review result
+
+The fresh checks support T75's operation-count advantage on the tested training-axis cells. They do not independently confirm every E44 rung or the full fibre cost claim. Only the DRI can classify the claim.
+
+A final protocol audit corrected the sampling denominator: leaderboard rule 5 exempts the three model-free second-argmax label comparisons. The independent sampler therefore costs 112 scalar operations: 56 multiplies, 41 adds, 12 ReLU comparisons, two prediction-argmax comparisons and one correctness comparison. Historical 115-operation results remain in their original fields. `protocol_aligned_*` fields use 112 and are the primary T75 results. No estimator rerun was needed for this accounting correction.
+
+| T75 panel | Noisy copies | Protocol MSE ratio | Pointwise bootstrap 95% CI |
+|---|---:|---:|---:|
+| Absolute sigma .05, k24 seed4 | 256 | .76511 | [.58025, .95408] |
+| Initial anchored-relative k24 seed4 | 64 | .78009 | [.39597, 1.20287] |
+| Independent anchored-relative confirmation, same model | 512 | .76472 | [.61701, .92698] |
+
+The initial relative cell was unresolved and remains on record. The confirmation used new seeds 124/125 after a published fixed design and is reported separately; no further optional enlargement was performed. Its maximum individual error is 7.116 percentage points. Individual failures remain in the raw rows even when the ensemble MSE is below sampling variance. Bootstrap intervals are pointwise, use 1,000 resamples, and are neither rigorous simultaneous bounds nor guarantees for new training seeds.
+
+Across all initial relative k20..23 cells, T75's largest protocol ratio is .03369; across the absolute k20 cells it is below .00053. All tested clean T75 cases also pass. These finite results argue against absolute-noise dominance as the sole explanation of the easy low-training rungs under the chosen global-RMS perturbation convention. They do not establish parametrization-invariant robustness.
+
+### Precomputation and cost scope
+
+Leaderboard rule 4 makes reusable model-free precomputation free when declared. `precomputation.json` explicitly lists the universal half-chamber and fibre geometry, with `PRECOMPUTE_FLOPS: null` and an unmeasured status; this is review metadata, not a ranked estimator entry. Cold setup timing is measured separately. All model-dependent calculations in the scalar T75 reimplementation are recomputed and counted for every model; no noisy-model answers or model-specific geometry are memoized across estimates.
+
+The alternative cold-run sensitivity is separate from that protocol result: in the absolute k24seed4 panel, adding a fixed 2,197 scalar operations to every model makes the pointwise upper CI reach one; about 14,062 additional operations makes the point ratio reach one. These are sensitivity thresholds, not claims about the actual opaque numpy setup count. Historical 115-operation sensitivity is retained alongside the corrected 112-operation version.
+
+The fibre outputs and old ratios remain useful diagnostics, but R4's `strict_ops/72` mixes one-per-MAC terms with scalar arithmetic/comparisons and is not the common scalar convention used for T75. In particular `rows_at` executes dense `Wh @ Ag` while charging active gates/columns. A new as-implemented common-unit audit is required before claiming independently verified fibre cost or using it for new ladder claims. Accordingly fibre `protocol_aligned_*` fields are null; inherited comparison fields are retained, clearly labeled. Its 16-copy subsets are also much smaller than T75 panels.
+
+### Verification and total work
+
+Independent T55 source review validates the reference's exact-zero gate and stable output-tie logic in real arithmetic. T55's independent high-precision raw-statistics and histogram-bootstrap check reproduces the initial absolute result; root independently recomputed the 112-operation correction. The trained numerical reference remains floating-point, not a certified interval truth.
+
+There are 2,688 noisy model rows and 32 clean evaluations (some clean models repeated across protocols), totaling 2,720 scored calls. Main recorded phase CPU is 195.302 seconds across bounded cycles. Every scored reference agrees with the author's trained-model truth within 5.56e-16; the scalar recipe agrees with T75 within 2.45e-15. All 544 fibre evaluations, including the confirmation, were replayed with identical estimates and inherited counts and zero natural 64-step-loop exhaustions. The 400,000-trace emergency cap was not approached. Controls, setup, telemetry, bootstrap and failed launch overhead are additional and explicitly recorded; one failed clean-row launch's CPU was not separately captured. All 34 initially hashed source/checkpoint files are unchanged at the final check.
+
+Reproduction: run `controls.py`; `panel.py absolute`; `panel.py 20` through `panel.py 24` in separate bounded cycles; `panel.py confirmation`; `report.py`; and `cap_review.py`. To reproduce the separately retained confirmation telemetry, use `cap_review.py 'confirmation*.json'`. Set OMP/OPENBLAS/MKL threads to one, use the documented locks, 2GB cap and CPU limits. Downloads are public AlgZoo checkpoint files named in `controls.json`; no training is performed.
+
+Bounded review complete. Open work is the fibre common-unit audit, DRI shared tie repairs, and any genuinely new training/perturbation generalization. No failed method family has been declared dead.

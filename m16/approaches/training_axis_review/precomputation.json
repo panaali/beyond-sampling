@@ -1,0 +1,11 @@
+{
+  "PRECOMPUTE_FLOPS": null,
+  "status": "Declared model-free precomputation; complete construction FLOP count not independently measured",
+  "objects": ["T75 universal 24 half-chamber polygons and reference facets", "F2L3 universal boundary-circle fibre families"],
+  "protocol": "m16/leaderboard.py rule 4 makes reusable model-free precomputation free when declared; no weights or model outputs enter these objects",
+  "timing": "setup_results.json records cold import/load and R3 geometry rebuild CPU",
+  "ranked_entry": false,
+  "model_dependent_preprocessing": "Recomputed and counted separately for every noisy model; no estimator-output memoization across model calls",
+  "cold_sensitivity": "setup_sensitivity_protocol.json reports a separate hypothetical per-model setup charge, not a blocker under rule 4",
+  "sample_comparator": "Rule 5 exempts the three model-free T3 label comparisons: independent scalar comparator112 operations, historical R3-style115 retained separately"
+}
