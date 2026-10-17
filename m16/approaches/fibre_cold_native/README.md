@@ -9,7 +9,7 @@ Claim c67d6544 precedes this folder. Pins preserve the released T180 source and 
 Then inspect installed dispatch and derive narrowly scoped numerical envelopes. Existing 4x4 inverse and values-only SVD prices cannot transfer without shape/path verification. Coordinate the separate T156 rank and T11579 matmul owners. Cold replay is independently checked; no existing costly trained panel is repeated.
 
 ## Status
-Active: cold inputs and native call paths captured; inverse and several spectral numerical subsets independently reviewed. Full SVD/utility/native driver categories remain open. No full-cost claim.
+Done: bounded fixed cold-call numerical audit, independently reviewed815c5576. Hybrid named expression/lane subtotal295,652; full implementation/native/hardware cost is still not certified. Outer ufunc/reduction and conversion/control/memory gaps remain explicit.
 
 ## Results
 Pending. Capture command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/fibre_cold_native/capture.py` under the review lock, 2GB cap and 20CPU limit.
@@ -31,3 +31,5 @@ Capture passed: same25 target names, fresh baseline/pass-through assigned values
 Independent bounded checkpoints: inverse3 7,968 numerical units for all48 calls (review1e7a6d49); visible six-rule wrapper6,910 numerical plus1,018 integer/control units (review4a6f9c80); all12 spectral outputs and child shapes preserved (reviews cb751402/300df19b). Installed DSTERF exclusive envelope274,568 differs from the source-only240,946; observed scalar helper subtotal2,424 is separate (reviewe61dffe3). No scaling occurred on these saved calls. Full SVD internal BLAS paths are frozen for six-call inspection in spectral/svd_kernels; remaining drivers/utilities/runtime are not declared free.
 
 Latest saved-kernel/driver audit91cbea3c passes all six native table traces and twelve driver output/event subsequences. Tiny body850 and finite reflector146 are independently checked. Final driver/norm/public-guard composition and additive handoff remain under review; see HANDOFF.md. All paths use existing saved cold inputs, with no estimator or reference rerun.
+
+Final independent815c5576 accepts all fixed driver paths and component arithmetic: cold295,652, composed named total1,838,695,310. No estimator/reference reruns, no full-native or rung claim. Remaining broader coverage stays open; bounded phase handed off.
