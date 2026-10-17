@@ -1396,3 +1396,10 @@ cannot retroactively prove historical byte identity. Future parity must compare
 the original computed estimate-minus-truth subtraction with saved errors;
 adding an error back to truth does not recover the original estimate bits.
 This review used0.0838 CPU seconds with no downloads or evaluator calls.
+
+The completed determinant bridge is independently checked by
+`check_orth5_determinant_bridge_review.py`: all three saved synthetic log paths
+have3,840 det3,665 det4 and one unpriced det5 calls. It reconstructs497,715
+selected numeric categories,14,180 log calls and4,505 exp calls, and independently
+sums32,262 exposed source units kept separate. No native work was repeated;
+the inherited conditional envelope and all unresolved cost categories remain.
