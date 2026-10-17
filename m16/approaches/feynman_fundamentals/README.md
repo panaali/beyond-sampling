@@ -221,3 +221,19 @@ silently lose mass; include a=0, b=0, counts0/1/2, identical output rows and
 positive input/output rescaling. Up to12 fixed cases with65536 validation draws
 each, one bounded locked run initially. Keep every failure. Analytic kernel
 calls use no sampled model inputs; the check's random draws are validation only.
+
+## Cycle 5 protocol (frozen before implementation)
+Supply T48 with a stable vectorized formula for the inverse-sixth-power norm
+integral along a segment whose endpoints share an orthant. This analytically
+eliminates the last Duffy coordinate in T6 spherical-simplex integration.
+Alternative 1: the angular expansion has a missing scale or Jacobian factor;
+compare independent high-precision integration on equal, orthogonal and unequal
+endpoint norms. Alternative 2: the formula cancels near parallel endpoints;
+use a positive coefficient series with a geometric remainder bound, test
+cosines near one and verify positive scaling. Preserve all discrepancies.
+
+Initial tests use fixed endpoint pairs, no model samples, one locked numeric
+run with at most120 CPU seconds and at most2GB RSS. Report scalar endpoint
+evaluations, coefficient-series terms and actual CPU. The series bound excludes
+floating arithmetic and the closed-form coefficient branch; do not label it a
+full numerical certificate. T48 retains trained T6 integration ownership.
