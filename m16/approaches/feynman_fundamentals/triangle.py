@@ -13,6 +13,12 @@ def _radial_bounds(vertices):
     center = np.sum(vertices, axis=0)
     center /= np.linalg.norm(center)
     qlo = float(np.min(vertices @ center))**2
+    # Every convex combination retains a positive projection on the orthant
+    # sign vector. For signed-L1 endpoints this gives the crucial q>=1/d.
+    signs=np.sign(np.sum(vertices,axis=0))
+    projection=float(np.min(vertices@signs))
+    if projection>0:
+        qlo=max(qlo,projection**2/float(signs@signs))
     qhi = float(np.max(np.sum(vertices**2, axis=1)))
     return min(qlo, qhi), qhi
 

@@ -78,6 +78,17 @@ nodes, and error contributions. No stochastic model evaluations are involved.
 
 ## Remaining work and cost
 
+Regression update: centroid projection alone was too weak for a real T6 cone.
+For the common orthant sign vector s, add the independent Cauchy lower bound
+min_i(s dot v_i)^2/(s dot s), taking the maximum with the centroid bound.
+For signed-L1 endpoints this is at least1/d; for globally scaled endpoints the
+same formula automatically includes the square of the scale. The failed
+fixture had old minimum qlo=.0791394 and now qlo=1/6. All64 triangles meet the
+unchanged1e-11 per-triangle quadrature tolerance within max-order128. Their
+maximum discrepancy from a separate positive160-point-per-axis reference is
+3.997e-14 absolute (9.659e-15 relative). This improves the valid bound; it does
+not relax tolerance, skip failed mass, or certify floating arithmetic.
+
 This operation reduces ordinary spherical-simplex outer integration from d-1
 coordinates to d-3: one for T4, two for T5, three for T6. The positive exact
 inner operator preserves degree in the remaining coordinates, so an existing
