@@ -1053,9 +1053,11 @@ native census, T158 installed determinant categories, T160 preserved Schur
 failure, T161/T162 bounded representation pilots, T163 conditional dqds proof,
 T164 unbounded face projections, T109 full35,098-case positive-inner corpus,
 T108 simultaneous-freeze counterexamples and cumulative primitive, T80 scope and
-exact second-step means, and T113 recovered recipe counter/tie qualifications.
-Current remaining dependencies are complete nonoverlapping native-cost
-pricing, T80 exact-covariance continuation, T100 recovered fibre controls,
-and T113 full repaired-counter/provenance gaps. Parent
+exact second-step means/covariance, T69 retained-sector and random-width
+diagnostics, T113 full5,152-row repaired-count evidence, T115 recovery/pilot
+provenance, T167 full30,726-ray held-out corpus, and T100 zero-clip/observer
+controls. Current dependencies include complete native-cost pricing, T172
+native recipe trace, T171 model-facing adapter import/tie qualification,
+T115 missing panels and T100 first noisy-case/reference completion. Parent
 integrates owned commits; only DRI may confirm scoped challenge claims.
 All failures and conditional/finite scope limits stay visible in the notes.
