@@ -111,3 +111,29 @@ A strict zero row remains infeasible in the generic solver; semantic zero gate
 forms are removed by the model adapter, preserving full-dimensional equalities.
 Original failure remains saved. Trained feasibility has not been used to choose
 these repairs or acceptance thresholds.
+
+## First bounded trained panel
+The frozen240-LP cap stops after seven complete histories and one partial rank
+pair in the eighth, in1.234235CPU including setup/checkpoints (95MB RSS). All
+accepted systems carry exact verified primal or normalized nonnegative dual
+certificates. Completed rank pairs:48 empty,14 uniformly wrong,2 uniformly
+correct,21 mixed; one pair remains partial. These are counts, not mass coverage.
+
+Every one of the seven fully examined gate histories has both a correct and
+an incorrect open input witness, including a history whose individual rank
+families are each constant-correctness. Their gate mass totals.36240678175283747.
+Thus those whole gate cones cannot be assigned a single exact correctness value;
+internal rank/readout splits are necessary for exact treatment. No whole-gate
+uniform certificate was obtained, so resolved whole-gate mass is0. The full
+selected panel remains.4482031037438533; unprocessed histories/pairs are not
+called infeasible or discarded. Feasibility says nothing about the relative
+masses of the two witnessed events inside a mixed cone.
+
+The output is intentionally incomplete at its predeclared call cap; no silent
+budget extension occurs. `panel.json` preserves original integer systems,
+exact certificates, direct recurrence/rank checks and every partial row. Source
+review has validated Gordan semantics and exact column rescaling; independent
+verification of trained certificates is requested before interpreting the
+negative. Future mass attribution of rank-conditioned certified regions is a
+separate scope, potentially reusing existing T110/T68 decompositions. This
+result does not rule out those conditioned or approximate mechanisms.
