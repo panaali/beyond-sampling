@@ -53,3 +53,32 @@ claimed side of the crossing. Probabilities lie strictly between0 and1.
 This refutes an unrestricted universal bias-sign explanation, not E27's
 actual omitted-input distribution or its empirical60 outcomes. No global
 estimator accuracy or practical probability floor follows. Review .146CPU.
+
+## T147 joint-input strip continuity
+
+The source's first/middle gate-word chronology matches scalar forced
+recurrences. Independently checking all880 coefficients on a noncommuting
+rational fixture and all880 trained coefficients reproduces every saved
+form. For an affine extension n·(x,y)+c·h+e*u, a crossing along the hidden
+segment lies between the endpoint hyperplanes even if that gate word is
+invalid at the endpoints. Standard Gaussian strip density is at most1,
+and Euclidean normal norm exceeds its maximum coordinate. Thus the rational
+coefficient ||c||1/max(|n_x|,|n_y|) is conservative. Final-gate boundaries
+cover support/tie changes; adjoining nonconstant margins cover transitions
+from tied pieces. A zero input normal with nonzero hidden coefficient must
+remain unknown. Permanent support-identical ties do not move.
+
+Exact proportional deduplication includes ALL input, hidden and target
+coefficients; it preserves both strips and coefficient ratios. Actual rank
+need1 uses the union probability2LU. At u=1, L>1/3 and U>1/27 follow from
+integrating over[-1,1] and[1,2] and elementary e/pi bounds, so coefficient
+(81/2)K does not rely on floating CDF evaluation.
+
+Independent sums give45 unique hidden-dependent forms and
+K=4291.128014579307. Displayed need1 coefficient16073.5954211 and exact
+rational elementary coefficient173790.68459046 reproduce. Matched y-only
+ablation separates joint-normal gain from exact hidden derivatives and
+deduplication. The bound remains too loose for a practical fine-grid
+certificate; no interpolation accuracy or estimator-cost claim follows.
+Combined independent synthetic/trained coefficient review1.057CPU including
+checkpoint import, with no trained input evaluation.
