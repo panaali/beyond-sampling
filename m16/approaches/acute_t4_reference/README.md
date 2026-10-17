@@ -24,3 +24,5 @@ Fraction/sign work, normalization, nodes/rules, determinant and summation all ti
 
 ## Alternatives not ruled out and failure modes
 Floating normalization/determinant error; costly positive quadrature; broad cones with negative pairs; insufficient precision of the old aggregate reference. General radial lower bounds, alternate cross sections, triangulation, or stable source formulas remain open. Finite coverage failure is not a Gaussian mass-method negative.
+
+The first primary-lock acquisition timed out before Python started; no experiment ran or failed. Because the488-cone phase is small, execute under the secondary review lock with a stricter20CPU hard/18CPU soft limit; retain partial results if reached. This is a resource reduction, not a changed numerical protocol.

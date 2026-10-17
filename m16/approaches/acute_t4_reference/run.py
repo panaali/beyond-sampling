@@ -29,13 +29,13 @@ def controls():
     (HERE/'controls.json').write_text(json.dumps(out,indent=2)+'\n');assert out['all_pass'];return out
 
 def main():
-    resource.setrlimit(resource.RLIMIT_CPU,(110,112));start=time.process_time();ctrl=controls();assert hashlib.sha256(CAPTURE.read_bytes()).hexdigest()==HASH
+    resource.setrlimit(resource.RLIMIT_CPU,(20,20));start=time.process_time();ctrl=controls();assert hashlib.sha256(CAPTURE.read_bytes()).hexdigest()==HASH
     rays=np.load(CAPTURE)['rays'];ids=json.loads((HERE.parent/'positive_t4_corpus/inventory.json').read_text())['uncovered'];source=np.load(HERE.parent/'cone_mass4_review/quadratic_values.npz')['values'];out=dict(rows=[],uncovered=[],complete=False,full_accuracy_certified=False,full_cost_certified=False,controls_cpu=ctrl['cpu']);values=np.full(len(rays),np.nan);bounds=np.full(len(rays),np.nan)
     def save():
         ok=np.isfinite(values);out.update(cpu=time.process_time()-start,covered=int(ok.sum()),positive_mass_sum=math.fsum(values[ok]),integration_only_bound_sum=math.fsum(bounds[ok]),source_covered_sum=math.fsum(source[ok]),source_minus_positive=math.fsum(source[ok]-values[ok]),known_integrand_arithmetic=int(ok.sum())*312000)
         (HERE/'results.json').write_text(json.dumps(out,indent=2)+'\n');np.savez_compressed(HERE/'acute_values.npz',values=values,bounds=bounds)
     for i in ids:
-        if time.process_time()-start>90:out['stop_reason']='90CPU soft cap';break
+        if time.process_time()-start>18:out['stop_reason']='18CPU soft cap within20CPU review lane';break
         signs=exact_signs(rays[i]);row=dict(index=i,exact_pair_signs=signs);out['rows'].append(row)
         if -1 in signs:out['uncovered'].append(i);row['rotation_obstruction']=True
         else:
