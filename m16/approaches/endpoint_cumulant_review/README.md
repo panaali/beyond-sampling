@@ -428,3 +428,35 @@ obtaining fixed mass.97082139088407668568; all five raw aggregates match within
 support criterion is applied on full-dimensional cone interiors; a nonnegative
 linear form with one positive extreme-ray value is strict there, so first-index
 ownership is correct in real arithmetic. Floating geometry remains uncertified.
+
+## Frozen support-conditioned hidden Gaussian endpoint
+T40 continuation reserved in pushed363f328. Same H2T3 seed0 and existing38
+conditional gate/rank components,13 unresolved. Recover hidden mean/covariance
+from saved logit moments via the fixed full-column-rank Wo left inverse; check
+conditioning, reconstruction residuals, symmetry and PSD. Keep25 constant
+support winners exactly as before, including atoms/rays and first-index ties.
+No upstream moment propagation or new model/T4 enumeration. A deterministic
+replay of the SAME13-cell T3 geometry is necessary because old JSON omitted
+rays; charge it, verify component identities/masses against saved artifact,
+and retain hidden support rays this time. No new moment cubature.
+
+Two predeclared closures: Gaussian conditioned only on h>=0, and Gaussian
+conditioned on the narrower hidden cone image of its gate/rank component.
+Compute each target winner intersection as a 2D angular wedge bounded by at
+most two linear inequalities, using corrected bounded full-covariance normal
+integration for numerator/denominator. Conditioning changes the Gaussian
+moments; this is not exact recovery of the original conditional law. Reject
+negative/invalid covariance beyond documented floating tolerance, singular
+residual laws, missing support, or denominator below1e-10. Report all cases,
+no covariance repair or selecting the best closure after truth comparison.
+
+Discriminators: independent centered isotropic wedge angles; positive scaling
+of hidden/logit units; full winner partition sums; rule tolerances1e-10/1e-12.
+Support omission could explain residual error, or moment closure within that
+support could still be wrong. Compare both fixed variants with previous full
+Gaussian and geometric truth without retuning. Opposite/fixed/ray supports
+are explicit controls, not silently treated as smooth full-rank laws. Numerical
+quadrature estimates and tail bounds propagate through the ratio using its
+actual denominator; they are not global floating/topology certificates.
+One<=20CPU cycle, primary lock,2GB. Save source/input hashes, all setup,
+geometry, integrator calls and costs. T55 independent review requested.
