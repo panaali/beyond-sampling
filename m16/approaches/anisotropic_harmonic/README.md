@@ -143,3 +143,26 @@ N16/M4, and corrected isotropicD8 only. No new parameter/input sampling or
 retuning. If support helps this near-tie case, report its scope; if not,
 retain tangential/bisector/gate leakage alternatives. T55 independent
 measure/partition/code review requested before any acceptance claim.
+
+Near-tie H4T3 result (`near_tie.py`): fixed N8/M4 gives.9763508118685411
+(error-.00819957) in.1286CPU, while corrected isotropicD8 gives.8877178206806144
+(error-.09683256) in.2079CPU. Absolute error is11.81x smaller with less CPU
+on this base case. N16/M4 gives.97548569, slightly worse, and is retained.
+This supports a scoped rescue of the near-wall leakage mechanism; it does
+not beat exact enumeration or establish competitiveness with sampling.
+
+The compared bases have81 real degrees of freedom. Our implementation stores
+81 complex coefficients constrained by conjugacy, whereas isotropic stores81
+real coefficients; storage and complex arithmetic are therefore not equal.
+The CPU and explicit complex-operation ledger, rather than coefficient count
+alone, must govern cost comparisons.
+
+Final bounded robustness check frozen now: fixed N8/M4 versus corrected
+isotropicD8 on the first eight existing ARC sigma.05 copies from seed0,
+reconstructing Wi/Wh/Wo draws in original order and reading existing exact
+truths. Also test base positive hidden-coordinate scaling and tiny positive
+Wi/Wo rescaling, plus double cut quadrature on base to exclude numerical
+integration as the apparent gain. No new MC, no choice among noise outcomes,
+and no further degree sweep. T55 algebra review passes; its independent
+nonzero-Fourier integral check is pending. Transfer failure will narrow the
+claim, not erase the successful base-case mechanism test.
