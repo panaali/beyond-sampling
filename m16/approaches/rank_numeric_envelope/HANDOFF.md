@@ -9,3 +9,5 @@ Candidate finite tightening to10 exclusive units is NOT adopted. DNRM2 counts eq
 Initial protocol raw-file glob run_*.json matched none; summary and spy.c were pinned. census_inventory_correction.json now pins actual exact_*.json/recipe108_*.json and observer/run/manifest. No data changed.
 
 Remaining: independent raw controls review; DLARFG child and parent-exclusive kernel pricing/composition; native symbol coverage if tighter finite inference is desired. Preserve index/control/memory and elementary internals exclusions. Released Ready to prioritize T179 mass-reference audit. The method remains incomplete, not negative.
+
+Independent reflector source/160-control audit b313819e passed generic113 and conditional norescale10. Tighter finite inference remains unadopted pending observed symbol/phase completeness.
