@@ -1,0 +1,3223 @@
+{
+  "classification": "event-aligned area quadrature with triangulation-only control",
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "9dd62d663d6332a4dfc680bc291d6aa0883d86d3a7981193cf3ea66d9a3277b4",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_volume.py": "0b760c10acf7fb8230aa655424e6d1fd1a9e1f0cc12631668708d27c2f979bfd",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/affine_volume.py": "eeeae959704bced0c3a2902e01853411e981730bb37123d781641a9fee2bba71",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/interface_volume.py": "7736feaa99b6322a3f5b333c1e431ad692421916ad74191fa772ad78d28521e6",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/event_volume.py": "727ce6447b9e61409caf1680e45e87fcfcd8ef6a0009b8b68d2afabfe83cab45",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_event_volume.py": "2e8b59084c24b6a428d476eabbcc92a192e8f7e3d500024efd02bcf658512f43",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/side_mass_results.json": "5641dfebdc6782348596db47f097a7c7664a05bd3d533924ae3dd3aa04724390",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/interface_results.json": "c98d3b44cf26cb395f6b385d4fd172d6476819e8cd0e23845a279b69aa307481"
+  },
+  "random_model_inputs": 0,
+  "event_control": {
+    "lower_event_mass": 0.25,
+    "lower_event_moments": [
+      0.16666666666666663,
+      0.04166666666666666
+    ],
+    "work": {
+      "support_rational_products": 4.0,
+      "support_rational_sums": 2.0,
+      "source_rule_constructions": 1.0,
+      "support_cell_clips": 2.0,
+      "event_polygon_cuts": 2.0,
+      "event_source_triangles": 3.0,
+      "event_area_source_nodes": 48.0,
+      "constructed_source_nodes": 48.0,
+      "zero_weight_source_nodes": 0.0
+    }
+  },
+  "rows": [
+    {
+      "grid": 16,
+      "reconstruction": "uniform",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734864244,
+            "axis0": 0.0,
+            "axis1": 0.05120819117211225,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999851948235
+          },
+          "output_masses": [
+            0.32379180734864244,
+            0.24999999901341233,
+            0.4262081896915951,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999851948235,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21950435936830034,
+            "axis0": 0.0,
+            "axis1": 0.09334370971833636,
+            "input_ray": 0.1618959033548722,
+            "area": 0.525256021638965
+          },
+          "output_masses": [
+            0.21950435936830034,
+            0.1618959033548722,
+            0.6185997313572824,
+            0.0
+          ],
+          "side_masses": [
+            0.525256021638965,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.15052995820558035,
+            "axis0": 0.0,
+            "axis1": 0.1232400060903441,
+            "input_ray": 0.10975217946758987,
+            "area": 0.6164778483437843
+          },
+          "output_masses": [
+            0.15052995820558035,
+            0.10975217946758987,
+            0.7397178544341168,
+            0.0
+          ],
+          "side_masses": [
+            0.6164778483437843,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 8232.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 295.0,
+          "normal_cdf_values": 321048.0,
+          "input_intervals": 312816.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 8232.0,
+          "interior_readout_evaluations": 104596.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 431.0,
+          "event_source_triangles": 497.0,
+          "event_area_source_nodes": 7952.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 7952.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 688.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 280.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.13165546799999994,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": -0.00046142684400038436,
+            "axis0": 0.0,
+            "axis1": 0.0008094959306370886,
+            "input_ray": -1.0577361209129776e-09,
+            "area": -0.0003480739484266193
+          },
+          "max_stratum_error": 0.0008094959306370886,
+          "max_output_error": 0.00046142684400038436
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.0008753292691077719,
+            "axis0": 0.0,
+            "axis1": 0.0012077935650292304,
+            "input_ray": -0.00023071363856207172,
+            "area": -0.00010175855007354961
+          },
+          "max_stratum_error": 0.0012077935650292304,
+          "max_output_error": 0.0011060350149443288
+        }
+      ],
+      "signed_step3_side_errors": [
+        -0.00034807394842673034,
+        0.0
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "uniform",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734864244,
+            "axis0": 0.0,
+            "axis1": 0.05120819117211225,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999851948235
+          },
+          "output_masses": [
+            0.32379180734864244,
+            0.24999999901341233,
+            0.4262081896915951,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999851948235,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21950435936830034,
+            "axis0": 0.0,
+            "axis1": 0.09334370971833636,
+            "input_ray": 0.1618959033548722,
+            "area": 0.525256021638965
+          },
+          "output_masses": [
+            0.21950435936830034,
+            0.1618959033548722,
+            0.6185997313572824,
+            0.0
+          ],
+          "side_masses": [
+            0.525256021638965,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.15052995820558035,
+            "axis0": 0.0,
+            "axis1": 0.1232400060903441,
+            "input_ray": 0.10975217946758987,
+            "area": 0.6164778483437843
+          },
+          "output_masses": [
+            0.15052995820558035,
+            0.10975217946758987,
+            0.7397178544341168,
+            0.0
+          ],
+          "side_masses": [
+            0.6164778483437843,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 8232.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 295.0,
+          "normal_cdf_values": 321048.0,
+          "input_intervals": 312816.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 8232.0,
+          "interior_readout_evaluations": 104596.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 925.0,
+          "event_polygon_cuts": 494.0,
+          "event_source_triangles": 497.0,
+          "event_area_source_nodes": 7952.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 7952.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 688.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 280.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.1296679460000001,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": -0.00046142684400038436,
+            "axis0": 0.0,
+            "axis1": 0.0008094959306370886,
+            "input_ray": -1.0577361209129776e-09,
+            "area": -0.0003480739484266193
+          },
+          "max_stratum_error": 0.0008094959306370886,
+          "max_output_error": 0.00046142684400038436
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.0008753292691077719,
+            "axis0": 0.0,
+            "axis1": 0.0012077935650292304,
+            "input_ray": -0.00023071363856207172,
+            "area": -0.00010175855007354961
+          },
+          "max_stratum_error": 0.0012077935650292304,
+          "max_output_error": 0.0011060350149443288
+        }
+      ],
+      "signed_step3_side_errors": [
+        -0.00034807394842673034,
+        0.0
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "affine",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734864244,
+            "axis0": 0.0,
+            "axis1": 0.05120819117211225,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999851948235
+          },
+          "output_masses": [
+            0.32379180734864244,
+            0.24999999901341233,
+            0.4262081896915951,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999851948235,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21998920872200195,
+            "axis0": 0.0,
+            "axis1": 0.09268519367573044,
+            "input_ray": 0.1618959033548722,
+            "area": 0.5254296883278694
+          },
+          "output_masses": [
+            0.21998920872200195,
+            0.1618959033548722,
+            0.6181148820035779,
+            0.0
+          ],
+          "side_masses": [
+            0.5254296883278694,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.15143559211471977,
+            "axis0": 0.0,
+            "axis1": 0.12225116603464721,
+            "input_ray": 0.10999460414396232,
+            "area": 0.6163186298139692
+          },
+          "output_masses": [
+            0.15143559211471977,
+            0.10999460414396232,
+            0.7385697958485854,
+            0.0
+          ],
+          "side_masses": [
+            0.6163186298139692,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 8232.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 295.0,
+          "normal_cdf_values": 321048.0,
+          "input_intervals": 312816.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 8232.0,
+          "interior_readout_evaluations": 104596.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 431.0,
+          "centroid_triangles": 704.0,
+          "gradient_fits": 247.0,
+          "gradient_neighbor_rows": 1795.0,
+          "limiter_vertex_checks": 991.0,
+          "limited_cells": 177.0,
+          "event_source_triangles": 497.0,
+          "event_area_source_nodes": 7952.0,
+          "affine_source_density_values": 7952.0,
+          "max_affine_normalization_defect": 6.938893903907228e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 7952.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 688.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 280.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 22.0,
+          "gradient_neighbor_rows": 42.0,
+          "limiter_vertex_checks": 44.0,
+          "limited_cells": 13.0,
+          "affine_source_density_values": 88.0,
+          "max_affine_normalization_defect": 3.469446951953614e-18,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.140733722,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 2.342250970122084e-05,
+            "axis0": 0.0,
+            "axis1": 0.0001509798880311719,
+            "input_ray": -1.0577361209129776e-09,
+            "area": -0.00017440725952222458
+          },
+          "max_stratum_error": 0.00017440725952222458,
+          "max_output_error": 2.3427371513062845e-05
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": 3.0304640031647567e-05,
+            "axis0": 0.0,
+            "axis1": 0.00021895350933233415,
+            "input_ray": 1.1711037810377412e-05,
+            "area": -0.0002609770798885913
+          },
+          "max_stratum_error": 0.0002609770798885913,
+          "max_output_error": 4.202357058702422e-05
+        }
+      ],
+      "signed_step3_side_errors": [
+        -0.0001744072595223356,
+        0.0
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "affine",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734864244,
+            "axis0": 0.0,
+            "axis1": 0.05120819117211225,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999851948235
+          },
+          "output_masses": [
+            0.32379180734864244,
+            0.24999999901341233,
+            0.4262081896915951,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999851948235,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21998920872200195,
+            "axis0": 0.0,
+            "axis1": 0.09268519367573044,
+            "input_ray": 0.1618959033548722,
+            "area": 0.5254296883278694
+          },
+          "output_masses": [
+            0.21998920872200195,
+            0.1618959033548722,
+            0.6181148820035779,
+            0.0
+          ],
+          "side_masses": [
+            0.5254296883278694,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.15143559211471977,
+            "axis0": 0.0,
+            "axis1": 0.12225116603464721,
+            "input_ray": 0.10999460414396232,
+            "area": 0.6163186298139692
+          },
+          "output_masses": [
+            0.15143559211471977,
+            0.10999460414396232,
+            0.7385697958485854,
+            0.0
+          ],
+          "side_masses": [
+            0.6163186298139692,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 8232.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 295.0,
+          "normal_cdf_values": 321048.0,
+          "input_intervals": 312816.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 8232.0,
+          "interior_readout_evaluations": 104596.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 925.0,
+          "centroid_triangles": 704.0,
+          "gradient_fits": 247.0,
+          "gradient_neighbor_rows": 1795.0,
+          "limiter_vertex_checks": 991.0,
+          "limited_cells": 177.0,
+          "event_polygon_cuts": 494.0,
+          "event_source_triangles": 497.0,
+          "event_area_source_nodes": 7952.0,
+          "affine_source_density_values": 7952.0,
+          "max_affine_normalization_defect": 6.938893903907228e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 7952.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 688.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 280.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 22.0,
+          "gradient_neighbor_rows": 42.0,
+          "limiter_vertex_checks": 44.0,
+          "limited_cells": 13.0,
+          "affine_source_density_values": 88.0,
+          "max_affine_normalization_defect": 3.469446951953614e-18,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.15502056600000014,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 2.342250970122084e-05,
+            "axis0": 0.0,
+            "axis1": 0.0001509798880311719,
+            "input_ray": -1.0577361209129776e-09,
+            "area": -0.00017440725952222458
+          },
+          "max_stratum_error": 0.00017440725952222458,
+          "max_output_error": 2.3427371513062845e-05
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": 3.0304640031647567e-05,
+            "axis0": 0.0,
+            "axis1": 0.00021895350933233415,
+            "input_ray": 1.1711037810377412e-05,
+            "area": -0.0002609770798885913
+          },
+          "max_stratum_error": 0.0002609770798885913,
+          "max_output_error": 4.202357058702422e-05
+        }
+      ],
+      "signed_step3_side_errors": [
+        -0.0001744072595223356,
+        0.0
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "uniform",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734639434,
+            "axis0": 0.0,
+            "axis1": 0.05120819117372663,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999852011606
+          },
+          "output_masses": [
+            0.32379180734639434,
+            0.24999999901341233,
+            0.42620818969384167,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999852011606,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21985183207817652,
+            "axis0": 0.0,
+            "axis1": 0.0927264915564768,
+            "input_ray": 0.16189590335374815,
+            "area": 0.5255257670920725
+          },
+          "output_masses": [
+            0.21985183207817652,
+            0.16189590335374815,
+            0.618252258648447,
+            0.0
+          ],
+          "side_masses": [
+            0.5255257670920725,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.1511943336621678,
+            "axis0": 0.0,
+            "axis1": 0.12230481821913111,
+            "input_ray": 0.10992591582218515,
+            "area": 0.6165749244038143
+          },
+          "output_masses": [
+            0.1511943336621678,
+            0.10992591582218515,
+            0.738879742622757,
+            0.0
+          ],
+          "side_masses": [
+            0.6165749244038143,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 28420.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 1097.0,
+          "normal_cdf_values": 2017820.0,
+          "input_intervals": 1989400.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 28420.0,
+          "interior_readout_evaluations": 685721.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 1625.0,
+          "event_source_triangles": 1742.0,
+          "event_area_source_nodes": 27872.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 27872.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2661.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 548.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.4808494849999998,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": -0.00011395413412421118,
+            "axis0": 0.0,
+            "axis1": 0.00019227776877753233,
+            "input_ray": -1.0588601662142594e-09,
+            "area": -7.832849531907993e-05
+          },
+          "max_stratum_error": 0.00019227776877753233,
+          "max_output_error": 0.00011395413412421118
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.00021095381252031475,
+            "axis0": 0.0,
+            "axis1": 0.0002726056938162358,
+            "input_ray": -5.6977283966794245e-05,
+            "area": -4.682490043483867e-06
+          },
+          "max_stratum_error": 0.0002726056938162358,
+          "max_output_error": 0.00026792320358459687
+        }
+      ],
+      "signed_step3_side_errors": [
+        -7.832849531919095e-05,
+        0.0
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "uniform",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734639434,
+            "axis0": 0.0,
+            "axis1": 0.05120819117372663,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999852011606
+          },
+          "output_masses": [
+            0.32379180734639434,
+            0.24999999901341233,
+            0.42620818969384167,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999852011606,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21985183207817652,
+            "axis0": 0.0,
+            "axis1": 0.0927264915564768,
+            "input_ray": 0.16189590335374815,
+            "area": 0.5255257670920725
+          },
+          "output_masses": [
+            0.21985183207817652,
+            0.16189590335374815,
+            0.618252258648447,
+            0.0
+          ],
+          "side_masses": [
+            0.5255257670920725,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.1511943336621678,
+            "axis0": 0.0,
+            "axis1": 0.12230481821913111,
+            "input_ray": 0.10992591582218515,
+            "area": 0.6165749244038143
+          },
+          "output_masses": [
+            0.1511943336621678,
+            0.10992591582218515,
+            0.738879742622757,
+            0.0
+          ],
+          "side_masses": [
+            0.6165749244038143,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 28420.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 1097.0,
+          "normal_cdf_values": 2017820.0,
+          "input_intervals": 1989400.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 28420.0,
+          "interior_readout_evaluations": 685721.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 3365.0,
+          "event_polygon_cuts": 1740.0,
+          "event_source_triangles": 1742.0,
+          "event_area_source_nodes": 27872.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 27872.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2661.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 548.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.5800376479999998,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": -0.00011395413412421118,
+            "axis0": 0.0,
+            "axis1": 0.00019227776877753233,
+            "input_ray": -1.0588601662142594e-09,
+            "area": -7.832849531907993e-05
+          },
+          "max_stratum_error": 0.00019227776877753233,
+          "max_output_error": 0.00011395413412421118
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.00021095381252031475,
+            "axis0": 0.0,
+            "axis1": 0.0002726056938162358,
+            "input_ray": -5.6977283966794245e-05,
+            "area": -4.682490043483867e-06
+          },
+          "max_stratum_error": 0.0002726056938162358,
+          "max_output_error": 0.00026792320358459687
+        }
+      ],
+      "signed_step3_side_errors": [
+        -7.832849531919095e-05,
+        0.0
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "affine",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734639434,
+            "axis0": 0.0,
+            "axis1": 0.05120819117372663,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999852011606
+          },
+          "output_masses": [
+            0.32379180734639434,
+            0.24999999901341233,
+            0.42620818969384167,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999852011606,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21996911689308038,
+            "axis0": 0.0,
+            "axis1": 0.09254840395846864,
+            "input_ray": 0.16189590335374815,
+            "area": 0.5255865698751767
+          },
+          "output_masses": [
+            0.21996911689308038,
+            0.16189590335374815,
+            0.618134973833509,
+            0.0
+          ],
+          "side_masses": [
+            0.5255865698751767,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.15141525989057225,
+            "axis0": 0.0,
+            "axis1": 0.12204440563083743,
+            "input_ray": 0.10998455822952137,
+            "area": 0.6165557683563676
+          },
+          "output_masses": [
+            0.15141525989057225,
+            0.10998455822952137,
+            0.738600173987021,
+            0.0
+          ],
+          "side_masses": [
+            0.6165557683563676,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 28420.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 1097.0,
+          "normal_cdf_values": 2017820.0,
+          "input_intervals": 1989400.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 28420.0,
+          "interior_readout_evaluations": 685721.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 1625.0,
+          "centroid_triangles": 2700.0,
+          "gradient_fits": 870.0,
+          "gradient_neighbor_rows": 6644.0,
+          "limiter_vertex_checks": 3482.0,
+          "limited_cells": 552.0,
+          "event_source_triangles": 1742.0,
+          "event_area_source_nodes": 27872.0,
+          "affine_source_density_values": 27872.0,
+          "max_affine_normalization_defect": 3.469446951953614e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 27872.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2661.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 548.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 41.0,
+          "gradient_neighbor_rows": 80.0,
+          "limiter_vertex_checks": 82.0,
+          "limited_cells": 17.0,
+          "affine_source_density_values": 164.0,
+          "max_affine_normalization_defect": 1.734723475976807e-18,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.619311577,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 3.3306807796507076e-06,
+            "axis0": 0.0,
+            "axis1": 1.4190170769368127e-05,
+            "input_ray": -1.0588601662142594e-09,
+            "area": -1.752571221491639e-05
+          },
+          "max_stratum_error": 1.752571221491639e-05,
+          "max_output_error": 3.335541581939161e-06
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": 9.97241588412967e-06,
+            "axis0": 0.0,
+            "axis1": 1.2193105522556591e-05,
+            "input_ray": 1.6651233694237044e-06,
+            "area": -2.383853749021725e-05
+          },
+          "max_stratum_error": 2.383853749021725e-05,
+          "max_output_error": 1.1645432151374813e-05
+        }
+      ],
+      "signed_step3_side_errors": [
+        -1.752571221502741e-05,
+        0.0
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "affine",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.4999999990134123,
+            0.0,
+            0.0
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.32379180734639434,
+            "axis0": 0.0,
+            "axis1": 0.05120819117372663,
+            "input_ray": 0.24999999901341233,
+            "area": 0.37499999852011606
+          },
+          "output_masses": [
+            0.32379180734639434,
+            0.24999999901341233,
+            0.42620818969384167,
+            0.0
+          ],
+          "side_masses": [
+            0.37499999852011606,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.21996911689308038,
+            "axis0": 0.0,
+            "axis1": 0.09254840395846864,
+            "input_ray": 0.16189590335374815,
+            "area": 0.5255865698751767
+          },
+          "output_masses": [
+            0.21996911689308038,
+            0.16189590335374815,
+            0.618134973833509,
+            0.0
+          ],
+          "side_masses": [
+            0.5255865698751767,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.15141525989057225,
+            "axis0": 0.0,
+            "axis1": 0.12204440563083743,
+            "input_ray": 0.10998455822952137,
+            "area": 0.6165557683563676
+          },
+          "output_masses": [
+            0.15141525989057225,
+            0.10998455822952137,
+            0.738600173987021,
+            0.0
+          ],
+          "side_masses": [
+            0.6165557683563676,
+            0.0
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 28420.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 0.0,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 1097.0,
+          "normal_cdf_values": 2017820.0,
+          "input_intervals": 1989400.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 28420.0,
+          "interior_readout_evaluations": 685721.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 3365.0,
+          "centroid_triangles": 2700.0,
+          "gradient_fits": 870.0,
+          "gradient_neighbor_rows": 6644.0,
+          "limiter_vertex_checks": 3482.0,
+          "limited_cells": 552.0,
+          "event_polygon_cuts": 1740.0,
+          "event_source_triangles": 1742.0,
+          "event_area_source_nodes": 27872.0,
+          "affine_source_density_values": 27872.0,
+          "max_affine_normalization_defect": 3.469446951953614e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 27872.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2661.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 548.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 41.0,
+          "gradient_neighbor_rows": 80.0,
+          "limiter_vertex_checks": 82.0,
+          "limited_cells": 17.0,
+          "affine_source_density_values": 164.0,
+          "max_affine_normalization_defect": 1.734723475976807e-18,
+          "max_source_support_deficit": 0.0
+        }
+      },
+      "cpu_seconds": 0.605705757,
+      "model": "toy",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 3.3306807796507076e-06,
+            "axis0": 0.0,
+            "axis1": 1.4190170769368127e-05,
+            "input_ray": -1.0588601662142594e-09,
+            "area": -1.752571221491639e-05
+          },
+          "max_stratum_error": 1.752571221491639e-05,
+          "max_output_error": 3.335541581939161e-06
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": 9.97241588412967e-06,
+            "axis0": 0.0,
+            "axis1": 1.2193105522556591e-05,
+            "input_ray": 1.6651233694237044e-06,
+            "area": -2.383853749021725e-05
+          },
+          "max_stratum_error": 2.383853749021725e-05,
+          "max_output_error": 1.1645432151374813e-05
+        }
+      ],
+      "signed_step3_side_errors": [
+        -1.752571221502741e-05,
+        0.0
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "uniform",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691477496,
+            "axis0": 0.0,
+            "axis1": 0.15789362212568742,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799977456
+          },
+          "output_masses": [
+            0.48587503691477496,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356608264,
+            0.34297457557279226
+          ],
+          "side_masses": [
+            0.10623133799977456,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5328535088354296,
+            "axis0": 0.001459204190120647,
+            "axis1": 0.10077926037196284,
+            "input_ray": 0.24293751797802915,
+            "area": 0.12197050270493165
+          },
+          "output_masses": [
+            0.5328535088354296,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.019990054926638894,
+            0.10919952981709365,
+            0.3379569005012995
+          ],
+          "side_masses": [
+            0.06859804248691845,
+            0.0533724602180132
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5146657075321636,
+            "axis0": 0.0009098147254148652,
+            "axis1": 0.10795941368436152,
+            "input_ray": 0.2664267538920081,
+            "area": 0.11003830227335051
+          },
+          "output_masses": [
+            0.5146657075321636,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.01258555283639807,
+            0.11719122004334653,
+            0.35555751169538014
+          ],
+          "side_masses": [
+            0.07545291207487723,
+            0.0345853901984733
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 9036.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 2.6020852139652106e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 107.0,
+          "normal_cdf_values": 578304.0,
+          "input_intervals": 569268.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 9036.0,
+          "interior_readout_evaluations": 223568.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 457.0,
+          "event_source_triangles": 472.0,
+          "event_area_source_nodes": 7552.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 7552.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 679.0,
+          "event_source_triangles": 73.0,
+          "event_area_source_nodes": 1168.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 1168.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 316.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 1.2756121792703637e-15
+        }
+      },
+      "cpu_seconds": 0.13813210100000006,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 0.0012067063601413075,
+            "axis0": 1.063811762263547e-05,
+            "axis1": -0.0004887294484047233,
+            "input_ray": -1.3632125428486574e-09,
+            "area": -0.0007286195856727323
+          },
+          "max_stratum_error": 0.0012067063601413075,
+          "max_output_error": 0.0012067063601413075
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.000848672706415976,
+            "axis0": 2.6944396698733424e-06,
+            "axis1": 0.00084445112951613,
+            "input_ray": 0.0006033526543602341,
+            "area": -0.0006018334098447098
+          },
+          "max_stratum_error": 0.000848672706415976,
+          "max_output_error": 0.0009275184120590557
+        }
+      ],
+      "signed_step3_side_errors": [
+        -0.00023425630090551097,
+        -0.000494363284767256
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "uniform",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691477496,
+            "axis0": 0.0,
+            "axis1": 0.15789362212568742,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799977456
+          },
+          "output_masses": [
+            0.48587503691477496,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356608264,
+            0.34297457557279226
+          ],
+          "side_masses": [
+            0.10623133799977456,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.532853413699832,
+            "axis0": 0.0014592993257137269,
+            "axis1": 0.10077935550756548,
+            "input_ray": 0.24293751797802915,
+            "area": 0.12197040756933356
+          },
+          "output_masses": [
+            0.532853413699832,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.01999198972313177,
+            0.10919964194209715,
+            0.33795494871539783
+          ],
+          "side_masses": [
+            0.06858142468758535,
+            0.05338898288174821
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5146646777912572,
+            "axis0": 0.0009098770027218136,
+            "axis1": 0.10796023262147542,
+            "input_ray": 0.26642670632420934,
+            "area": 0.11003849836763462
+          },
+          "output_masses": [
+            0.5146646777912572,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012586815041549218,
+            0.11719213915817885,
+            0.35555636011629793
+          ],
+          "side_masses": [
+            0.07544260678322301,
+            0.0345958915844117
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 10028.0,
+          "max_total_mass_defect": 0.0,
+          "max_area_side_sum_defect": 4.336808689942018e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 107.0,
+          "normal_cdf_values": 641792.0,
+          "input_intervals": 631764.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 10028.0,
+          "interior_readout_evaluations": 258954.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 929.0,
+          "event_polygon_cuts": 472.0,
+          "event_source_triangles": 534.0,
+          "event_area_source_nodes": 8544.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 8544.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 753.0,
+          "event_polygon_cuts": 74.0,
+          "event_source_triangles": 73.0,
+          "event_area_source_nodes": 1168.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 1168.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 316.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 1.2756121792703637e-15
+        }
+      },
+      "cpu_seconds": 0.16153214000000027,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 0.0012066112245436855,
+            "axis0": 1.073325321571529e-05,
+            "axis1": -0.0004886343128020915,
+            "input_ray": -1.3632125428486574e-09,
+            "area": -0.0007287147212708261
+          },
+          "max_stratum_error": 0.0012066112245436855,
+          "max_output_error": 0.0012066112245436855
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.000849702447322298,
+            "axis0": 2.756716976821689e-06,
+            "axis1": 0.00084527006663003,
+            "input_ray": 0.0006033050865614786,
+            "area": -0.0006016373155606075
+          },
+          "max_stratum_error": 0.000849702447322298,
+          "max_output_error": 0.000928437526891368
+        }
+      ],
+      "signed_step3_side_errors": [
+        -0.00025087410023860723,
+        -0.00047784062103224667
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "affine",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691477496,
+            "axis0": 0.0,
+            "axis1": 0.15789362212568742,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799977456
+          },
+          "output_masses": [
+            0.48587503691477496,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356608264,
+            0.34297457557279226
+          ],
+          "side_masses": [
+            0.10623133799977456,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5317260870163898,
+            "axis0": 0.001449611429049386,
+            "axis1": 0.10121018052862618,
+            "input_ray": 0.24293751797802915,
+            "area": 0.12267659712837929
+          },
+          "output_masses": [
+            0.5317260870163898,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.020035966368066743,
+            0.10967075610521425,
+            0.3385671845907934
+          ],
+          "side_masses": [
+            0.068834656863468,
+            0.053841940264911244
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.514400397972018,
+            "axis0": 0.0009070947064945139,
+            "axis1": 0.10807604216720033,
+            "input_ray": 0.2658630429836005,
+            "area": 0.11075341427798506
+          },
+          "output_masses": [
+            0.514400397972018,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012659876751943307,
+            0.11732118123980631,
+            0.35561853614351585
+          ],
+          "side_masses": [
+            0.07572241318854037,
+            0.035031001089444666
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 9036.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 2.168404344971009e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 107.0,
+          "normal_cdf_values": 578304.0,
+          "input_intervals": 569268.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 9036.0,
+          "interior_readout_evaluations": 223568.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 457.0,
+          "centroid_triangles": 704.0,
+          "gradient_fits": 236.0,
+          "gradient_neighbor_rows": 1692.0,
+          "limiter_vertex_checks": 944.0,
+          "limited_cells": 141.0,
+          "event_source_triangles": 472.0,
+          "event_area_source_nodes": 7552.0,
+          "affine_source_density_values": 7552.0,
+          "max_affine_normalization_defect": 2.168404344971009e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 7552.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 679.0,
+          "centroid_triangles": 213.0,
+          "gradient_fits": 37.0,
+          "gradient_neighbor_rows": 216.0,
+          "limiter_vertex_checks": 147.0,
+          "limited_cells": 25.0,
+          "event_source_triangles": 73.0,
+          "event_area_source_nodes": 1168.0,
+          "affine_source_density_values": 1168.0,
+          "max_affine_normalization_defect": 8.673617379884035e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 1168.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 316.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 31.0,
+          "gradient_neighbor_rows": 59.0,
+          "limiter_vertex_checks": 62.0,
+          "limited_cells": 16.0,
+          "affine_source_density_values": 124.0,
+          "max_affine_normalization_defect": 6.938893903907228e-18,
+          "max_source_support_deficit": 1.2756121792703637e-15
+        }
+      },
+      "cpu_seconds": 0.1808808700000002,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 7.928454110150973e-05,
+            "axis0": 1.0453565513744451e-06,
+            "axis1": -5.780929174138694e-05,
+            "input_ray": -1.3632125428486574e-09,
+            "area": -2.2525162225089934e-05
+          },
+          "max_stratum_error": 7.928454110150973e-05,
+          "max_output_error": 7.928454110150973e-05
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.001113982266561564,
+            "axis0": -2.5579250477946944e-08,
+            "axis1": 0.0009610796123549481,
+            "input_ray": 3.964174595261216e-05,
+            "area": 0.00011327859478983682
+          },
+          "max_stratum_error": 0.001113982266561564,
+          "max_output_error": 0.001113982266561564
+        }
+      ],
+      "signed_step3_side_errors": [
+        2.358075644040558e-06,
+        -2.488323786921376e-05
+      ]
+    },
+    {
+      "grid": 16,
+      "reconstruction": "affine",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691477496,
+            "axis0": 0.0,
+            "axis1": 0.15789362212568742,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799977456
+          },
+          "output_masses": [
+            0.48587503691477496,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356608264,
+            0.34297457557279226
+          ],
+          "side_masses": [
+            0.10623133799977456,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5317259795423404,
+            "axis0": 0.001449718903067581,
+            "axis1": 0.10121028800268124,
+            "input_ray": 0.24293751797802915,
+            "area": 0.12267648965435542
+          },
+          "output_masses": [
+            0.5317259795423404,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.020038133151886284,
+            0.10967088278324572,
+            0.3385649986029875
+          ],
+          "side_masses": [
+            0.06881990151163184,
+            0.0538565881427235
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5144003534930982,
+            "axis0": 0.0009071656783371072,
+            "axis1": 0.10807626042025234,
+            "input_ray": 0.26586298924657586,
+            "area": 0.11075322326903488
+          },
+          "output_masses": [
+            0.5144003534930982,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012661301090955292,
+            0.11732141753675235,
+            0.355616919986469
+          ],
+          "side_masses": [
+            0.07571303865991333,
+            0.035040184609121575
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 10028.0,
+          "max_total_mass_defect": 1.1102230246251565e-16,
+          "max_area_side_sum_defect": 5.0306980803327406e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 107.0,
+          "normal_cdf_values": 641792.0,
+          "input_intervals": 631764.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 10028.0,
+          "interior_readout_evaluations": 258954.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 929.0,
+          "centroid_triangles": 704.0,
+          "gradient_fits": 236.0,
+          "gradient_neighbor_rows": 1692.0,
+          "limiter_vertex_checks": 944.0,
+          "limited_cells": 141.0,
+          "event_polygon_cuts": 472.0,
+          "event_source_triangles": 534.0,
+          "event_area_source_nodes": 8544.0,
+          "affine_source_density_values": 8544.0,
+          "max_affine_normalization_defect": 2.168404344971009e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 8544.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 753.0,
+          "centroid_triangles": 213.0,
+          "gradient_fits": 37.0,
+          "gradient_neighbor_rows": 216.0,
+          "limiter_vertex_checks": 147.0,
+          "limited_cells": 25.0,
+          "event_polygon_cuts": 74.0,
+          "event_source_triangles": 73.0,
+          "event_area_source_nodes": 1168.0,
+          "affine_source_density_values": 1168.0,
+          "max_affine_normalization_defect": 8.673617379884035e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 1168.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 316.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 31.0,
+          "gradient_neighbor_rows": 59.0,
+          "limiter_vertex_checks": 62.0,
+          "limited_cells": 16.0,
+          "affine_source_density_values": 124.0,
+          "max_affine_normalization_defect": 6.938893903907228e-18,
+          "max_source_support_deficit": 1.2756121792703637e-15
+        }
+      },
+      "cpu_seconds": 0.21579964799999996,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 7.917706705207195e-05,
+            "axis0": 1.1528305695694251e-06,
+            "axis1": -5.770181768632865e-05,
+            "input_ray": -1.3632125428486574e-09,
+            "area": -2.2632636248964833e-05
+          },
+          "max_stratum_error": 7.917706705207195e-05,
+          "max_output_error": 7.917706705207195e-05
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.0011140267454813335,
+            "axis0": 4.5392592115342e-08,
+            "axis1": 0.0009612978654069543,
+            "input_ray": 3.958800892800429e-05,
+            "area": 0.0001130875858396524
+          },
+          "max_stratum_error": 0.0011140267454813335,
+          "max_output_error": 0.0011140267454813335
+        }
+      ],
+      "signed_step3_side_errors": [
+        -1.2397276192122053e-05,
+        -1.023536005696074e-05
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "uniform",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691465406,
+            "axis0": 0.0,
+            "axis1": 0.15789362212671298,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799886994
+          },
+          "output_masses": [
+            0.48587503691465406,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356747753,
+            0.34297457557151495
+          ],
+          "side_masses": [
+            0.10623133799886994,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5319635779553752,
+            "axis0": 0.0014512984615865244,
+            "axis1": 0.10113308339118798,
+            "input_ray": 0.2429375179779687,
+            "area": 0.1225145162943556
+          },
+          "output_masses": [
+            0.5319635779553752,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.020019334962900003,
+            0.10958502069307538,
+            0.3384320604690449
+          ],
+          "side_masses": [
+            0.0687708328306833,
+            0.05374368346367232
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5149883964447812,
+            "axis0": 0.0009076809958649307,
+            "axis1": 0.10758184830840009,
+            "input_ray": 0.26598178845285886,
+            "area": 0.11054027790539309
+          },
+          "output_masses": [
+            0.5149883964447812,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012641340077585703,
+            0.11677524492208631,
+            0.3555950106627146
+          ],
+          "side_masses": [
+            0.07560220277469552,
+            0.034938075130697584
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 31736.0,
+          "max_total_mass_defect": 3.3306690738754696e-16,
+          "max_area_side_sum_defect": 1.0408340855860843e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 401.0,
+          "normal_cdf_values": 3046656.0,
+          "input_intervals": 3014920.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 31736.0,
+          "interior_readout_evaluations": 1312222.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 1731.0,
+          "event_source_triangles": 1744.0,
+          "event_area_source_nodes": 27904.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 27904.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2593.0,
+          "event_source_triangles": 201.0,
+          "event_area_source_nodes": 3216.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 3216.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 616.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 1.3679065594348687e-15
+        }
+      },
+      "cpu_seconds": 0.6071664560000007,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 0.00031677548008690604,
+            "axis0": 2.7323890885127926e-06,
+            "axis1": -0.00013490642917958484,
+            "input_ray": -1.3632729944923483e-09,
+            "area": -0.00018460599624878227
+          },
+          "max_stratum_error": 0.00031677548008690604,
+          "max_output_error": 0.00031677548008690604
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.0005259837937983125,
+            "axis0": 5.607101199387983e-07,
+            "axis1": 0.00046688575355470496,
+            "input_ray": 0.00015838721521099774,
+            "area": -9.9857777802137e-05
+          },
+          "max_stratum_error": 0.0005259837937983125,
+          "max_output_error": 0.0005259837937983125
+        }
+      ],
+      "signed_step3_side_errors": [
+        -6.146595714065506e-05,
+        -0.00012314003910813415
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "uniform",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691465406,
+            "axis0": 0.0,
+            "axis1": 0.15789362212671298,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799886994
+          },
+          "output_masses": [
+            0.48587503691465406,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356747753,
+            0.34297457557151495
+          ],
+          "side_masses": [
+            0.10623133799886994,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5319635675945863,
+            "axis0": 0.0014513088223753945,
+            "axis1": 0.10113309375197688,
+            "input_ray": 0.2429375179779687,
+            "area": 0.12251450593356673
+          },
+          "output_masses": [
+            0.5319635675945863,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.020019523170278285,
+            0.10958503291795285,
+            0.33843187039757405
+          ],
+          "side_masses": [
+            0.06876846665547501,
+            0.05374603927809177
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.51498829075573,
+            "axis0": 0.0009076879781205826,
+            "axis1": 0.1075819403955498,
+            "input_ray": 0.2659817832724644,
+            "area": 0.11054028970543325
+          },
+          "output_masses": [
+            0.51498829075573,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012641467251904511,
+            0.11677534481144587,
+            0.35559488928807015
+          ],
+          "side_masses": [
+            0.07560025117856042,
+            0.0349400385268728
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 33688.0,
+          "max_total_mass_defect": 4.440892098500626e-16,
+          "max_area_side_sum_defect": 3.0791341698588326e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 401.0,
+          "normal_cdf_values": 3234048.0,
+          "input_intervals": 3200360.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 33688.0,
+          "interior_readout_evaluations": 1428088.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 3475.0,
+          "event_polygon_cuts": 1744.0,
+          "event_source_triangles": 1866.0,
+          "event_area_source_nodes": 29856.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 29856.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2795.0,
+          "event_polygon_cuts": 202.0,
+          "event_source_triangles": 201.0,
+          "event_area_source_nodes": 3216.0,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 3216.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 616.0,
+          "zero_weight_source_nodes": 0.0,
+          "max_source_support_deficit": 1.3679065594348687e-15
+        }
+      },
+      "cpu_seconds": 0.6687259240000003,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 0.00031676511929801254,
+            "axis0": 2.742749877382867e-06,
+            "axis1": -0.00013489606839069135,
+            "input_ray": -1.3632729944923483e-09,
+            "area": -0.000184616357037648
+          },
+          "max_stratum_error": 0.00031676511929801254,
+          "max_output_error": 0.00031676511929801254
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.00052608948284949,
+            "axis0": 5.676923755907086e-07,
+            "axis1": 0.00046697784070441617,
+            "input_ray": 0.000158382034816551,
+            "area": -9.98459777619698e-05
+          },
+          "max_stratum_error": 0.00052608948284949,
+          "max_output_error": 0.00052608948284949
+        }
+      ],
+      "signed_step3_side_errors": [
+        -6.383213234895102e-05,
+        -0.00012078422468869005
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "affine",
+      "event_cut": false,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691465406,
+            "axis0": 0.0,
+            "axis1": 0.15789362212671298,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799886994
+          },
+          "output_masses": [
+            0.48587503691465406,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356747753,
+            0.34297457557151495
+          ],
+          "side_masses": [
+            0.10623133799886994,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5316494262797082,
+            "axis0": 0.0014486806358500713,
+            "axis1": 0.10126617017978182,
+            "input_ray": 0.2429375179779687,
+            "area": 0.12269819900716496
+          },
+          "output_masses": [
+            0.5316494262797082,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.020029301743253035,
+            0.10972939111839297,
+            0.3385918749390281
+          ],
+          "side_masses": [
+            0.06883546484120392,
+            0.05386273416596106
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5150237691592937,
+            "axis0": 0.0009071637989098871,
+            "axis1": 0.10753901114854209,
+            "input_ray": 0.26582471261533536,
+            "area": 0.11070533538521728
+          },
+          "output_masses": [
+            0.5150237691592937,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012662278381889006,
+            0.1167270066747626,
+            0.3555869378912444
+          ],
+          "side_masses": [
+            0.07564865050638268,
+            0.035056684878834586
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 31736.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 1.734723475976807e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 401.0,
+          "normal_cdf_values": 3046656.0,
+          "input_intervals": 3014920.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 31736.0,
+          "interior_readout_evaluations": 1312222.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 1731.0,
+          "centroid_triangles": 2712.0,
+          "gradient_fits": 872.0,
+          "gradient_neighbor_rows": 6582.0,
+          "limiter_vertex_checks": 3488.0,
+          "limited_cells": 411.0,
+          "event_source_triangles": 1744.0,
+          "event_area_source_nodes": 27904.0,
+          "affine_source_density_values": 27904.0,
+          "max_affine_normalization_defect": 8.673617379884035e-19,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 27904.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2593.0,
+          "centroid_triangles": 801.0,
+          "gradient_fits": 101.0,
+          "gradient_neighbor_rows": 659.0,
+          "limiter_vertex_checks": 403.0,
+          "limited_cells": 69.0,
+          "event_source_triangles": 201.0,
+          "event_area_source_nodes": 3216.0,
+          "affine_source_density_values": 3216.0,
+          "max_affine_normalization_defect": 5.637851296924623e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 3216.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 616.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 58.0,
+          "gradient_neighbor_rows": 113.0,
+          "limiter_vertex_checks": 116.0,
+          "limited_cells": 23.0,
+          "affine_source_density_values": 232.0,
+          "max_affine_normalization_defect": 3.469446951953614e-18,
+          "max_source_support_deficit": 1.3679065594348687e-15
+        }
+      },
+      "cpu_seconds": 0.6891867820000002,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 2.6238044199544674e-06,
+            "axis0": 1.145633520597232e-07,
+            "axis1": -1.8196405857512366e-06,
+            "input_ray": -1.3632729944923483e-09,
+            "area": -9.232834394246048e-07
+          },
+          "max_stratum_error": 2.6238044199544674e-06,
+          "max_output_error": 2.6238044199544674e-06
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.0004906110792858298,
+            "axis0": 4.351316489526087e-08,
+            "axis1": 0.00042404859369669923,
+            "input_ray": 1.311377687496229e-06,
+            "area": 6.51997020220535e-05
+          },
+          "max_stratum_error": 0.0004906110792858298,
+          "max_output_error": 0.0004906110792858298
+        }
+      ],
+      "signed_step3_side_errors": [
+        3.166053379966005e-06,
+        -4.089336819397549e-06
+      ]
+    },
+    {
+      "grid": 32,
+      "reconstruction": "affine",
+      "event_cut": true,
+      "steps": [
+        {
+          "stratum_masses": {
+            "origin": 0.49999999901341236,
+            "axis0": 0.0,
+            "axis1": 0.0,
+            "input_ray": 0.4999999990134123,
+            "area": 0.0
+          },
+          "output_masses": [
+            0.49999999901341236,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4999999990134123
+          ],
+          "side_masses": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.48587503691465406,
+            "axis0": 0.0,
+            "axis1": 0.15789362212671298,
+            "input_ray": 0.24999999901341233,
+            "area": 0.10623133799886994
+          },
+          "output_masses": [
+            0.48587503691465406,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17115038356747753,
+            0.34297457557151495
+          ],
+          "side_masses": [
+            0.10623133799886994,
+            0.0
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5316494155446253,
+            "axis0": 0.0014486913709329937,
+            "axis1": 0.10126618091486476,
+            "input_ray": 0.2429375179779687,
+            "area": 0.12269818827208198
+          },
+          "output_masses": [
+            0.5316494155446253,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.02002949733590397,
+            0.10972940378453487,
+            0.33859167741530644
+          ],
+          "side_masses": [
+            0.0688326285938922,
+            0.053865559678189845
+          ]
+        },
+        {
+          "stratum_masses": {
+            "origin": 0.5150237593566157,
+            "axis0": 0.0009071709956697501,
+            "axis1": 0.10753902522115362,
+            "input_ray": 0.2658247072477939,
+            "area": 0.11070532928606512
+          },
+          "output_masses": [
+            0.5150237593566157,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.012662409801698162,
+            0.11672702310334325,
+            0.35558679984551456
+          ],
+          "side_masses": [
+            0.07564633401034743,
+            0.03505899527571773
+          ]
+        }
+      ],
+      "work": {
+        "transport": {
+          "support_rational_products": 14.0,
+          "support_rational_sums": 7.0,
+          "interface_helper_operators_constructed": 3.0,
+          "source_nodes": 33688.0,
+          "max_total_mass_defect": 2.220446049250313e-16,
+          "max_area_side_sum_defect": 2.0383000842727483e-17,
+          "support_sign_checks": 5.0,
+          "support_cell_clips": 401.0,
+          "normal_cdf_values": 3234048.0,
+          "input_intervals": 3200360.0,
+          "max_row_mass_defect": 2.220446049250313e-16,
+          "floating_zero_side_mass": 0.0,
+          "interface_side_classifications": 33688.0,
+          "interior_readout_evaluations": 1428088.0,
+          "max_forbidden_axis_mass": 0.0
+        },
+        "upper_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 3475.0,
+          "centroid_triangles": 2712.0,
+          "gradient_fits": 872.0,
+          "gradient_neighbor_rows": 6582.0,
+          "limiter_vertex_checks": 3488.0,
+          "limited_cells": 411.0,
+          "event_polygon_cuts": 1744.0,
+          "event_source_triangles": 1866.0,
+          "event_area_source_nodes": 29856.0,
+          "affine_source_density_values": 29856.0,
+          "max_affine_normalization_defect": 8.673617379884035e-19,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 29856.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "lower_area_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "support_cell_clips": 2795.0,
+          "centroid_triangles": 801.0,
+          "gradient_fits": 101.0,
+          "gradient_neighbor_rows": 659.0,
+          "limiter_vertex_checks": 403.0,
+          "limited_cells": 69.0,
+          "event_polygon_cuts": 202.0,
+          "event_source_triangles": 201.0,
+          "event_area_source_nodes": 3216.0,
+          "affine_source_density_values": 3216.0,
+          "max_affine_normalization_defect": 5.637851296924623e-18,
+          "max_source_support_deficit": 0.0,
+          "constructed_source_nodes": 3216.0,
+          "zero_weight_source_nodes": 0.0
+        },
+        "singular_helper": {
+          "support_rational_products": 4.0,
+          "support_rational_sums": 2.0,
+          "source_rule_constructions": 1.0,
+          "constructed_source_nodes": 616.0,
+          "zero_weight_source_nodes": 0.0,
+          "gradient_fits": 58.0,
+          "gradient_neighbor_rows": 113.0,
+          "limiter_vertex_checks": 116.0,
+          "limited_cells": 23.0,
+          "affine_source_density_values": 232.0,
+          "max_affine_normalization_defect": 3.469446951953614e-18,
+          "max_source_support_deficit": 1.3679065594348687e-15
+        }
+      },
+      "cpu_seconds": 0.7641737690000001,
+      "model": "trained_H2T8",
+      "errors": [
+        {
+          "step": 3,
+          "signed_stratum_errors": {
+            "origin": 2.613069337020768e-06,
+            "axis0": 1.252984349821469e-07,
+            "axis1": -1.8089055028036594e-06,
+            "input_ray": -1.3632729944923483e-09,
+            "area": -9.340185223999375e-07
+          },
+          "max_stratum_error": 2.613069337020768e-06,
+          "max_output_error": 2.613069337020768e-06
+        },
+        {
+          "step": 4,
+          "signed_stratum_errors": {
+            "origin": -0.0004906208819638325,
+            "axis0": 5.07099247582226e-08,
+            "axis1": 0.00042406266630823364,
+            "input_ray": 1.3060101460293794e-06,
+            "area": 6.519360286989795e-05
+          },
+          "max_stratum_error": 0.0004906208819638325,
+          "max_output_error": 0.0004906208819638325
+        }
+      ],
+      "signed_step3_side_errors": [
+        3.2980606824717373e-07,
+        -1.2638245906124168e-06
+      ]
+    }
+  ],
+  "regressions": [
+    {
+      "model": "toy",
+      "difference": 0.0,
+      "run": {
+        "grid": 16,
+        "reconstruction": "affine",
+        "event_cut": null,
+        "steps": [
+          {
+            "stratum_masses": {
+              "origin": 0.49999999901341236,
+              "axis0": 0.0,
+              "axis1": 0.0,
+              "input_ray": 0.4999999990134123,
+              "area": 0.0
+            },
+            "output_masses": [
+              0.49999999901341236,
+              0.4999999990134123,
+              0.0,
+              0.0
+            ],
+            "side_masses": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "stratum_masses": {
+              "origin": 0.32379180734864244,
+              "axis0": 0.0,
+              "axis1": 0.05120819117211225,
+              "input_ray": 0.24999999901341233,
+              "area": 0.37499999851948235
+            },
+            "output_masses": [
+              0.32379180734864244,
+              0.24999999901341233,
+              0.4262081896915951,
+              0.0
+            ],
+            "side_masses": [
+              0.37499999851948235,
+              0.0
+            ]
+          },
+          {
+            "stratum_masses": {
+              "origin": 0.21998920832952856,
+              "axis0": 0.0,
+              "axis1": 0.09268519410909914,
+              "input_ray": 0.1618959033548722,
+              "area": 0.5254296882869741
+            },
+            "output_masses": [
+              0.21998920832952856,
+              0.1618959033548722,
+              0.6181148823960607,
+              0.0
+            ],
+            "side_masses": [
+              0.5254296882869741,
+              0.0
+            ]
+          },
+          {
+            "stratum_masses": {
+              "origin": 0.15143551905922312,
+              "axis0": 0.0,
+              "axis1": 0.12225140002462972,
+              "input_ray": 0.10999460394772563,
+              "area": 0.6163184690757202
+            },
+            "output_masses": [
+              0.15143551905922312,
+              0.10999460394772563,
+              0.7385698691003366,
+              0.0
+            ],
+            "side_masses": [
+              0.6163184690757202,
+              0.0
+            ]
+          }
+        ],
+        "work": {
+          "transport": {
+            "support_rational_products": 14.0,
+            "support_rational_sums": 7.0,
+            "interface_helper_operators_constructed": 3.0,
+            "source_nodes": 4920.0,
+            "max_total_mass_defect": 2.220446049250313e-16,
+            "max_area_side_sum_defect": 0.0,
+            "support_sign_checks": 5.0,
+            "support_cell_clips": 295.0,
+            "normal_cdf_values": 191880.0,
+            "input_intervals": 186960.0,
+            "max_row_mass_defect": 2.220446049250313e-16,
+            "floating_zero_side_mass": 0.0,
+            "interface_side_classifications": 4920.0,
+            "interior_readout_evaluations": 64550.0,
+            "max_forbidden_axis_mass": 0.0
+          },
+          "upper_area_helper": {
+            "support_rational_products": 4.0,
+            "support_rational_sums": 2.0,
+            "source_rule_constructions": 1.0,
+            "support_cell_clips": 431.0,
+            "centroid_triangles": 704.0,
+            "gradient_fits": 247.0,
+            "gradient_neighbor_rows": 1795.0,
+            "limiter_vertex_checks": 991.0,
+            "limited_cells": 177.0,
+            "support_source_triangles": 83.0,
+            "support_polygon_source_nodes": 1328.0,
+            "affine_source_density_values": 4640.0,
+            "max_affine_normalization_defect": 6.938893903907228e-18,
+            "max_source_support_deficit": 0.0,
+            "constructed_source_nodes": 4640.0,
+            "zero_weight_source_nodes": 0.0
+          },
+          "lower_area_helper": {
+            "support_rational_products": 4.0,
+            "support_rational_sums": 2.0,
+            "source_rule_constructions": 1.0,
+            "support_cell_clips": 688.0
+          },
+          "singular_helper": {
+            "support_rational_products": 4.0,
+            "support_rational_sums": 2.0,
+            "source_rule_constructions": 1.0,
+            "constructed_source_nodes": 280.0,
+            "zero_weight_source_nodes": 0.0,
+            "gradient_fits": 22.0,
+            "gradient_neighbor_rows": 42.0,
+            "limiter_vertex_checks": 44.0,
+            "limited_cells": 13.0,
+            "affine_source_density_values": 88.0,
+            "max_affine_normalization_defect": 3.469446951953614e-18,
+            "max_source_support_deficit": 0.0
+          }
+        },
+        "cpu_seconds": 0.1068614269999999
+      }
+    },
+    {
+      "model": "trained_H2T8",
+      "difference": 1.3877787807814457e-17,
+      "run": {
+        "grid": 16,
+        "reconstruction": "affine",
+        "event_cut": null,
+        "steps": [
+          {
+            "stratum_masses": {
+              "origin": 0.49999999901341236,
+              "axis0": 0.0,
+              "axis1": 0.0,
+              "input_ray": 0.4999999990134123,
+              "area": 0.0
+            },
+            "output_masses": [
+              0.49999999901341236,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.4999999990134123
+            ],
+            "side_masses": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "stratum_masses": {
+              "origin": 0.48587503691477496,
+              "axis0": 0.0,
+              "axis1": 0.15789362212568742,
+              "input_ray": 0.24999999901341233,
+              "area": 0.10623133799977456
+            },
+            "output_masses": [
+              0.48587503691477496,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.17115038356608264,
+              0.34297457557279226
+            ],
+            "side_masses": [
+              0.10623133799977456,
+              0.0
+            ]
+          },
+          {
+            "stratum_masses": {
+              "origin": 0.5317259859605712,
+              "axis0": 0.0014497124898317092,
+              "axis1": 0.10121028157206008,
+              "input_ray": 0.24293751797802915,
+              "area": 0.12267649607998178
+            },
+            "output_masses": [
+              0.5317259859605712,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0200380115320227,
+              0.10967087520016908,
+              0.3385651213877094
+            ],
+            "side_masses": [
+              0.06881563642965606,
+              0.05386085965032577
+            ]
+          },
+          {
+            "stratum_masses": {
+              "origin": 0.5144003173579011,
+              "axis0": 0.0009071642291801576,
+              "axis1": 0.10807631006144693,
+              "input_ray": 0.2658629924556913,
+              "area": 0.110753208003079
+            },
+            "output_masses": [
+              0.5144003173579011,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.012661294048731616,
+              0.11732147211078965,
+              0.3556169085898724
+            ],
+            "side_masses": [
+              0.07571044882678454,
+              0.03504275917629448
+            ]
+          }
+        ],
+        "work": {
+          "transport": {
+            "support_rational_products": 14.0,
+            "support_rational_sums": 7.0,
+            "interface_helper_operators_constructed": 3.0,
+            "source_nodes": 5964.0,
+            "max_total_mass_defect": 1.1102230246251565e-16,
+            "max_area_side_sum_defect": 2.2551405187698492e-17,
+            "support_sign_checks": 5.0,
+            "support_cell_clips": 107.0,
+            "normal_cdf_values": 381696.0,
+            "input_intervals": 375732.0,
+            "max_row_mass_defect": 2.220446049250313e-16,
+            "floating_zero_side_mass": 0.0,
+            "interface_side_classifications": 5964.0,
+            "interior_readout_evaluations": 144792.0,
+            "max_forbidden_axis_mass": 0.0
+          },
+          "upper_area_helper": {
+            "support_rational_products": 4.0,
+            "support_rational_sums": 2.0,
+            "source_rule_constructions": 1.0,
+            "support_cell_clips": 457.0,
+            "centroid_triangles": 704.0,
+            "gradient_fits": 236.0,
+            "gradient_neighbor_rows": 1692.0,
+            "limiter_vertex_checks": 944.0,
+            "limited_cells": 141.0,
+            "support_source_triangles": 108.0,
+            "support_polygon_source_nodes": 1728.0,
+            "affine_source_density_values": 4640.0,
+            "max_affine_normalization_defect": 1.734723475976807e-18,
+            "max_source_support_deficit": 0.0,
+            "constructed_source_nodes": 4640.0,
+            "zero_weight_source_nodes": 0.0
+          },
+          "lower_area_helper": {
+            "support_rational_products": 4.0,
+            "support_rational_sums": 2.0,
+            "source_rule_constructions": 1.0,
+            "support_cell_clips": 679.0,
+            "centroid_triangles": 213.0,
+            "gradient_fits": 37.0,
+            "gradient_neighbor_rows": 216.0,
+            "limiter_vertex_checks": 147.0,
+            "limited_cells": 25.0,
+            "support_source_triangles": 53.0,
+            "support_polygon_source_nodes": 848.0,
+            "affine_source_density_values": 1008.0,
+            "max_affine_normalization_defect": 9.540979117872439e-18,
+            "max_source_support_deficit": 0.0,
+            "constructed_source_nodes": 1008.0,
+            "zero_weight_source_nodes": 0.0
+          },
+          "singular_helper": {
+            "support_rational_products": 4.0,
+            "support_rational_sums": 2.0,
+            "source_rule_constructions": 1.0,
+            "constructed_source_nodes": 316.0,
+            "zero_weight_source_nodes": 0.0,
+            "gradient_fits": 31.0,
+            "gradient_neighbor_rows": 59.0,
+            "limiter_vertex_checks": 62.0,
+            "limited_cells": 16.0,
+            "affine_source_density_values": 124.0,
+            "max_affine_normalization_defect": 6.938893903907228e-18,
+            "max_source_support_deficit": 1.2756121792703637e-15
+          }
+        },
+        "cpu_seconds": 0.12722299599999953
+      }
+    }
+  ],
+  "cpu_seconds_including_torch_import": 7.285960031,
+  "sources_after": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "9dd62d663d6332a4dfc680bc291d6aa0883d86d3a7981193cf3ea66d9a3277b4",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_volume.py": "0b760c10acf7fb8230aa655424e6d1fd1a9e1f0cc12631668708d27c2f979bfd",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/affine_volume.py": "eeeae959704bced0c3a2902e01853411e981730bb37123d781641a9fee2bba71",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/interface_volume.py": "7736feaa99b6322a3f5b333c1e431ad692421916ad74191fa772ad78d28521e6",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/event_volume.py": "727ce6447b9e61409caf1680e45e87fcfcd8ef6a0009b8b68d2afabfe83cab45",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_event_volume.py": "2e8b59084c24b6a428d476eabbcc92a192e8f7e3d500024efd02bcf658512f43",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/side_mass_results.json": "5641dfebdc6782348596db47f097a7c7664a05bd3d533924ae3dd3aa04724390",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/interface_results.json": "c98d3b44cf26cb395f6b385d4fd172d6476819e8cd0e23845a279b69aa307481"
+  }
+}
