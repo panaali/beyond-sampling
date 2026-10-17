@@ -112,3 +112,36 @@ routine currently raises if normalized weak-later constraints are infeasible,
 rather than returning an infeasibility certificate; that unsupported case
 occurs in none of the frozen rows. Do not call this a complete general LP
 classifier or infer actual recurrent reachability from these witnesses.
+
+
+## Exact-history bulk attribution result
+All8911 exact simplex interiors and570304 vertex/gate inequalities pass direct
+integer checks. The3853 gate and5058 correct simplices share450 distinct gate
+histories. Positive mass GL20 totals are.9999999999999993 and
+.4770131259941177, agreeing the independent reference. GL16/20 group changes
+are at most3.5e-14; conditional quadrature bounds, not floating certificates,
+remain attached to every category.
+
+| Weight-defined family | Probability mass | Correct mass | Error mass |
+| --- | ---: | ---: | ---: |
+| Final all-off | .0253699870522870 | .0030455804943812 | .0223244065579058 |
+| Earlier all-off | .0009063207394358 | .0005285810685598 | .0003777396708760 |
+| No reset, exact contrast forgetting | 0 | 0 | 0 |
+| Remaining | .9737236922082765 | .4734389644311767 | .5002847277770999 |
+
+The remaining category contains95.66% of all errors. Simple exact resets or
+exact locally forgotten input columns therefore do not dominate this model's
+bulk error. This is a negative about those precise mechanisms, not approximate
+memory loss, support-dependent readout reachability, or a broader mechanistic
+recipe. Input influence can be very weak without being identically zero.
+
+The first run completed all classification but hit Python's4300-digit decimal
+serialization limit on an exact determinant accumulator. The traceback and
+cost are preserved. Hexadecimal numerator/denominator storage repairs only
+serialization; geometry and classification did not change. `attribute.py`
+reproduces the completed result under the primary lock. All source hashes,
+per-simplex history assignments, exact category determinant sums and numerical
+bounds are saved. Original T68 geometry construction is a historical cold
+reference dependency, not free preprocessing in a proposed estimator.
+
+Completed attribution cost 6.239897062 CPU seconds including imports, RSS 65808 KiB. Failed-run CPU is additional and saved separately. This is a diagnostic, not an efficient estimator. Independent T55 source/attribution review is requested.
