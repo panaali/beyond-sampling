@@ -41,3 +41,37 @@ Finite decay slopes are not convergence theorems. A shared face oracle may retai
 T55 independently checked every proposed knot formula. Some cap candidates are inactive because another min/max branch dominates; such extra cuts are harmless but must not be called observed kinks. The reviewer also identified a confound: splitting into panels increases evaluations and shrinks physical steps, even for a smooth quadratic. Before any trained run, add a same-cost control: on each anchor, use the same number of panels as the geometry split, but divide[.05,.95] into equal widths. Compare that equal-count control to the geometry-aligned split, and retain the unsplit comparison only as an unequal-cost diagnostic. The synthetic hinge gets the same control. This is a preregistered review-driven refinement, not a response to trained outputs.
 
 The two exact checkpoint hashes match the original T34 record: T5 c026d6be1a44e4004d009443b768411e046e75ef42090e525b5ac8a3719e7040; T10 498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb. The corrected walker is compiled unchanged into this folder's ignoreddata directory using g++-std=c++17-O3-ffp-contract=off-fPIC-shared; no other agent's source or artifact is edited. Compilation used .443 wall seconds. URLs are the same public weight artifacts cited by T34; no new ARC prose was read.
+
+## First bounded result
+The four frozen coordinates all remain below the1.5 RMS-exponent heuristic when complete stencils are strictly interior. This independently checks only the selected coordinates/new anchors, not all original leading-three sets.
+
+| Case | Midpoint interior | Complete-stencil interior | Unsplit [.05,.95] | Geometry split | Same-count uniform panels |
+|---|---:|---:|---:|---:|---:|
+| T5,.0025,R23,axis2 | 1.4321 | 1.0792 | .9413 | 1.0890 | 1.1184 |
+| T5,.02,R12,axis2 | 1.0649 | .8270 | .8290 | .9986 | .8504 |
+| T10,.0025,R23,axis2 | 1.2490 | .9517 | 1.1913 | 1.1802 | 1.2314 |
+| T10,.02,R12,axis7 | 1.1847 | .9201 | 1.1311 | 1.0531 | 1.2341 |
+
+These are finite levels4..8 fits. Complete-stencil levels5..8 sensitivity is1.1399/.8470/.9119/1.1135. At level8 the geometry-split RMS divided by same-count-uniform RMS is .9908/.5224/1.5771/2.0903: one substantive improvement, one near tie, two losses. Thus known window switches explain some variation but their removal does not consistently repair the screen. Do not infer a sparse-grid error bound or a family-wide impossibility.
+
+Independent stencil controls give exact quadratic exponent2 and remove the known single-hinge surplus when its breakpoint is split. Whole-stencil selection keeps6 rather than8 level4 stencils. The68 fixed Python-versus-compiled face values agree within7.78e-16. All98 retained geometry knots are active switches in these particular cases, and their branch-equality residual is at most1.00e-15. This contrasts with the general possibility of inactive cap candidates, which remains correctly documented.
+
+T55 also derived the pure resolution factor for a quadratic: with relative panel widths p_j, width-weighted RMS split/unsplit=sqrt(sum_j p_j^5); K equal panels give K^-2 without changing exponent2. `quadratic_control.py` checks the actual saved panel geometries against this independent expression; maximum factor discrepancy9.84e-14. This demonstrates why an amplitude reduction alone is not proof of useful boundary alignment. All trained mass values and panel specifications are retained in ignoreddata/*.npz for independent recomputation; all per-line energies and summaries are committed in `results.json`.
+
+## Actual compute and reproduction
+Four cases require181,956 compiled face evaluations, returning2,117,363.534 walker-FPE. The68 Python backend checks are additional validation and separately counted in JSON. Whole cycle2.830CPU seconds, peak261,816KB RSS, including torch/checkpoint preparation; compiled build previously .443 wall seconds. Geometry and walker CPU are separate per case. This is diagnostic overhead, not an end-to-end estimator comparison. Restore the two recorded public checkpoint files into this folder'sdata directory and build the unchanged walker.cpp there, then run:
+
+```sh
+ulimit -v 2500000
+ulimit -t 20
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/face_surplus_review/review.py
+```
+
+The model-free `quadratic_control.py` uses the saved panel files and makes no network evaluation. T55 is independently recomputing a raw-file stencil/panel summary before this scoped negative is handed off.
+
+## Finite alternatives checklist
+- Tested midpoint versus whole-stencil interior selection, declared level-window sensitivity, known geometry-knot splitting, same-count uniform panels, synthetic smooth/hinge controls, source/compiled backend agreement, both lengths/families and two existing noise levels. All retained, including the one geometry-alignment improvement.
+- A different table interpolation may affect the tie-value axis. This subset holds tie value fixed and varies upper/lower inputs, so that explanation cannot account for its observed line irregularity; no claim is made about untested tie-axis results.
+- Actual network gate/output boundary switches along the face coordinates were not isolated. A boundary-aware rule using them remains open, requires a new costed algorithm, and is not excluded by splitting only the coarea-window switches.
+- Larger anchor ensembles, other coordinates/seeds, mixed derivatives, weighted/adaptive sparse rules and alternative coordinate maps remain untested. No blind wider sweep was run because it would not isolate a mechanism.
+- Oracle agreement is a different backend of the same reviewed formulation, not an independent derivation or interval certificate. Independent raw-summary review is pending; any remaining common-oracle defect would require a separate discrepancy fixture.
