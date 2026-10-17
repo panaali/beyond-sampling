@@ -105,10 +105,13 @@ Files:
 - [count_regions.py](count_regions.py): T = 4 counts.
 - [fibre4.py](fibre4.py), [check4.py](check4.py): the T = 4 prototype.
 - [arc3.py](arc3.py): first polygon version, superseded (kept as a negative).
+- [fibre_fast.py](fibre_fast.py), [verify_fast.py](verify_fast.py), [profile_ops.py](profile_ops.py), [profile_fast.py](profile_fast.py), [run_h16.py](run_h16.py): T95 (exact cost reductions, op attribution, H = 16 data).
 
 ## Status
 
 - Done for T = 3: rungs (4,3) re-run, (5,3) and (6,3) pass. M_8,3 is scored as data.
+- T95 done (2026-10-17): exact cost reductions give 1.5-1.65x; the cost law at T = 3 stays at region-count
+  scaling (see the T95 section).
 - Not started per owner directive: T ≥ 4 and H ≥ 8 rungs. The T = 4 code is a prototype, scored on one model only.
 
 ## Results
@@ -224,6 +227,12 @@ hyperplanes, and each sees all ~32 gate planes.
 - [inferred] The seeds-vs-noisy-copies gap at (5,3) has a structural cause. The noisy copies perturb the
   well-trained seed 1 (accuracy 0.999), while seed 0 is undertrained (0.942) and has a qualitatively different
   error geometry: a single x0 neuron, and wedges off the boundary.
+- [measured] (T95) Exact reductions (gate pruning by exact u-ranges, rank-1 incremental pieces, shared and
+  cached states) cut ops by 1.5-1.65x, with all rungs still passing. Ops per region are 3.0k (H = 4-8) and 3.7k
+  (H = 16): traces ∝ H^0.95, ops per trace ∝ H^1.03.
+- [inferred] (T95) At T = 3 any method that tracks the exact boundary pattern costs Ω(H²) (∝ H boundary segments ×
+  Ω(H) per readout update through a dense Wh), while regions ∝ H^1.84. So below-region scaling is impossible at
+  T = 3 for this family of methods.
 - [speculative] An advantage over enumeration would appear only for T ≥ 5 and large H, where boundary cells
   (~H^(T-2)) are much fewer than regions (~H^(T-1)). The H = 8, T = 4 data point does not show it.
 
@@ -268,6 +277,93 @@ Not ruled out:
 | F2 fails per model on M_4,3 seeds 1 and 4 (1.56) | (a) wedges separated from the boundary by a thin correct sliver | look-ahead L = 1, 2, 3 | L = 2: all pass; L = 3: exact on spot checks |
 | cost not better than enumeration | per-trace O(T·H) gate checks; at T = 3 traces ~H but regions ~H^1.8 | (not yet) incremental crossing order, gate pruning by impact (T75-style) | open (T95) |
 | arc3.py (polygon half-chambers + lazy check) | lazy wrong-sliver checks explode (0.5-1.7M ops) | replaced by fibre coordinates | superseded |
+
+## T95: can the fibre recipe's cost scale below the region count? (T = 3 only)
+
+**Short answer: not at T = 3.** Exact reductions R1-R5 cut the ops of the frozen recipe by 1.5-1.65x. Every rung
+still passes on all 5 seeds and all noisy groups; the worst single model is 0.10. Ops per region stay flat at
+about 3.0k for H = 4-8 and rise to 3.7k at H = 16. Measured law: traces ∝ H^0.95, ops per trace ∝ H^1.03, so ops
+∝ H^2.0, against regions ∝ H^1.84. We also give an argument [inferred] that no method which tracks the exact
+pattern along the boundaries can beat this at T = 3.
+
+**What was done** ([fibre_fast.py](fibre_fast.py), checked against the reference by [verify_fast.py](verify_fast.py)).
+All five reductions are exact rewrites of the same recipe:
+- **R1 gate pruning from the weights.** Along every fibre of an arc segment, a gate's crossing point
+  u_g(θ) = α cos θ + β sin θ has an exact range over the segment, computed once per (piece, segment). Gates whose
+  range misses (0, max clamp) can never switch on any fibre there, so they are never tested and need no constraint.
+- **R2 range-filtered order constraints.** A constraint is kept only if the ranges of its two functions overlap.
+- **R3 incremental pieces.** Crossing a gate (step t, neuron k) changes the later rows only by rank-1 terms
+  c ⊗ A_t,k, with c_{t+1} = ±Wh[:,k], c_{r+1} = Wh(g_r ∘ c_r) and ΔL = Wo(g ∘ c) ⊗ A_t,k. The later gates are
+  unchanged, because h_t,k = 0 at the crossing. Gates with an identical crossing plane flip together (all step-1
+  gates share x0 = 0; missing this was a bug, found by the reference check).
+- **R4 shared states.** Both fibre sides share the arc state. Base pieces of later arc segments are reached from
+  the previous segment's piece by exact flips, not new forward passes.
+- **R5 caching.** Per-(piece, segment) ranges are inherited from the parent piece for unchanged rows. The clamp
+  pieces of the reverse walk are cached (most recently used first) behind an exact self-consistency check (all of
+  the piece's gate signs hold at the new clamp point).
+
+**Reference check.** On H ≥ 5 the fast path equals the reference F2L2 to rounding wherever F2L2 is exact. Where
+F2L2 is itself approximate (M_4,3, some M_5,3 copies), the two differ by up to 6e-4 / 1.6e-5. Both are valid
+splittings of the θ-intervals, with residual errors of the same size: on 5 models checked with an intermediate version, the fast
+path's error was smaller on 2 and larger on 3.
+
+**Results** (`python verify_fast.py H` for H = 4, 5, 6, 8; `python run_h16.py`; `python ladder.py F2L2fast`):
+
+| model | regions | exact enum ops / region | F2L2 (reference) ops | F2L2fast ops | ops / region | traces | ops / trace | constraints / trace | MSE ratio seeds / ARC | seeds passed | worst model |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| M_4,3 | 66 | 273 | 295k | 199k | 3.04k | 429 | 465 | 21 | 2.3e-2 / 3.7e-4 | 5/5 | 0.10 |
+| M_5,3 | 97 | 277 | 462k | 288k | 2.97k | 544 | 531 | 23 | 1.6e-3 / 9e-8 | 5/5 | <0.01 |
+| M_6,3 | 134 | 281 | 644k | 398k | 2.96k | 655 | 608 | 26 | ~0 / 3e-11 | 5/5 | <0.01 |
+| M_8,3 (data) | 236 | 267 | 1.18M | 714k | 3.03k | 839 | 851 | 33 | ~0 / 2e-7 | 5/5 | <0.01 |
+| M_16,3 (data) | 838 | 304 | - | 3.11M | 3.71k | 1600 | 1943 | 61 | seeds: errors ≤ 5.6e-7; 6 ARC copies: ≤ 1.1e-4 | 5/5 | - |
+
+Where the cost goes, at H = 16 (`python profile_fast.py 16 1`):
+
+| item | share |
+|---|---|
+| per-segment ranges of new pieces | 21% |
+| rank-1 piece updates | 18% |
+| validity intervals (order constraints) | 17% |
+| forward trace bookkeeping | 14% |
+| constraint filtering | 7% |
+| clamp checks | 7% |
+| exact arc flips | 6% |
+| forward passes | 4% |
+
+The validity intervals are ended by gate-order constraints 62% of the time, by class-tie versus piece-end or zero
+23%, and by next gate versus clamp 13%. Every per-trace item grows like H:
+- a dense Wh makes every rank-1 propagation O(H·|g|);
+- candidate gates per (piece, segment) grow like H^0.55 (4.3, 5.1 and 6.4 of 12, 18 and 24 at H = 4, 6, 8);
+- pruning needs every row's crossing function once per piece.
+
+**Why T = 3 cannot go below the region count** [inferred].
+- The recipe has to know the exact readout on each constant-pattern segment of the boundary arcs.
+- There are ∝ H such segments (141 at H = 8, 260-288 at H = 16), and each update costs Ω(H). Each traced fibre
+  also crosses 1.2-1.7 pieces, each needing an Ω(H) row update.
+- So cost = Ω(H²), while regions ∝ H^1.84 at T = 3.
+- The traces themselves do scale like the boundary-family count, as hoped (traces / regions ∝ H^-0.9). But at T = 3
+  that saving is eaten by the Θ(H) cost per trace.
+- A gain can only appear along T: regions grow like H^(T-1), while boundary cells grow like H^(T-2) times Θ(T·H)
+  per cell. The T = 4 prototype at H = 8 did not yet show it (T96).
+
+The traces also visit most regions anyway: 95%/76% of the regions at H = 8 seeds 0/1, and 68%/64% at H = 16. Each
+visited region is built 4-6 times, once per fibre family or segment reaching it.
+
+### T95 exhaustion checklist
+
+| idea | status | result |
+|---|---|---|
+| R1 prune gates by exact u-range over the segment ("predict from the weights which gates can switch") | done | candidates 4-6 of T·H; constraints per trace 21-61 instead of about 400 |
+| R2 range-filter order constraints | done | part of the 1.5x |
+| R3 rank-1 incremental pieces (+ coincident-plane groups) | done | piece updates O((T-1-t)·H·\|g\|) instead of a forward pass |
+| R4 share arc state between sides; reach later segments by exact flips | done | small |
+| R5 cache ranges (inherited from the parent piece) and clamp pieces (most recently used first) | done | clamp checks 20% → 7% |
+| share trace prefixes between neighbouring fibres | effectively done | the pieces of a segment are cached and shared by all its traces; traces step through only 1.2-1.7 pieces each, so prefixes are short |
+| merge consecutive pieces with identical readout | not done | a crossing of a step-T gate always changes the logits by s·Wo[:,k] ⊗ a (never 0 in these models); a step < T crossing changes the later rows. No exactly identical readouts to merge |
+| drop gate-order constraints in confirmation pieces | not done | 62% of interval ends, but the order decides which piece comes next, and so whether a wrong interval exists. Dropping them makes the integral approximate (a recipe change that all rungs would need to re-pass) |
+| T75 resolve-by-impact (freeze low-impact gate crossings) | not done | approximate (T75 failed seed 1 at (6,3) per model). It would cut traces but not the Θ(H) cost per trace, since the impact test itself scans all gates |
+| sublinear candidate search (spatial index of gate planes per piece) | not done | each piece is used in only about 2 segments, so building an index (O(T·H log)) costs more than scanning |
+| along T (where the scaling gap should appear) | blocked | T96 (T ≥ 4 rungs) |
 
 ## Proposed changes to shared code
 
