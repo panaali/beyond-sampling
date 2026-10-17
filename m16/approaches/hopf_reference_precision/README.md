@@ -15,8 +15,11 @@ expansion requires independent source/pilot review and projected reference
 work<=600CPU. Never stop or choose sample size based on accuracy outcomes.
 
 ## Status
-Protocol/source preparation; no reference input draws yet. Only controls and
-first block are enabled by the entrypoint. No estimator recipe change.
+Protocol/source/pilot independently reviewed91cbea3c, plus56 read-only gate.
+Six deterministic controls preserve hits (318 extra forward evaluations). First
+1M block took .21595771CPU/161216KiB; fixed total projection539.894275CPU
+passes600CPU predeclared gate. Full fixed continuation d1c5e1da is running
+under per-model caps; pilot block0 reused once. No estimator recipe change.
 
 ## Results
 Pending. Prior T183 all60 point ratios<1 but75-family truth boxes inconclusive.
@@ -45,3 +48,18 @@ sampling uncertainty but are not available for these24 other models.
 State discontinuity, repeated first block, shared seeds, changed forward/dtype,
 accuracy-dependent stopping, dropping failures or treating floating network
 truth as an exact-real certificate. Resource failure is not estimator failure.
+
+
+Reproduction uses the shared venv interpreter, single BLAS thread, external
+2GB/110CPU cap and serialized compute lock:
+
+```
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_reference_precision/protocol.py
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_reference_precision/reference.py --controls
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_reference_precision/reference.py
+/workspace/clean-neurons/.venv/bin/python m16/approaches/hopf_reference_precision/continue_reference.py --seed S --copy C
+```
+
+Scripts refuse to overwrite records. Fixed25 streams are distinct from old
+seed7 and100..104 streams; old75-family10M results remain immutable in T183.
+The fresh evaluation uses its own predeclared25-case simultaneous family.
