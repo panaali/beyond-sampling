@@ -32,7 +32,7 @@ def run():
                 source_sha256={f:hashlib.sha256((HERE/f).read_bytes()).hexdigest() for f in ('terminal.py','interpolation.py','pilot.py')},
                 rows=rows,axes_max=axis,domain=old.domain,old_work=dict(old.stats),
                 old_penultimate_work=dict(old.penultimate.stats),
-                max_local_error=float(max(np.max(abs(r['old_minus_pair'])) for r in rows)),
+                max_local_error=float(max(np.max(np.abs(r['old_minus_pair'])) for r in rows)),
                 max_rank_consistent_error=max(abs(r['rank_consistent_error']) for r in rows if r['rank_consistent_error'] is not None),
                 rank_consistent_queries=sum(r['rank_consistent_need'] is not None for r in rows),
                 cpu_seconds=time.process_time()-start,population_weighted_error=False)
