@@ -15,10 +15,10 @@ Next scope requires freezing before implementation: replay same captured leaf si
 Alternative1: finite Plackett integration error accumulates on thin cells (same-geometry positive replay). Alternative2: symbolic clipping/triangulation overlaps cells (density-free section conservation, exact dyadic checks). Alternative3: terminal/output tie handling or checkpoint/source mismatch (hashes and separate gate/output ownership). These remain distinct until tested.
 
 ## Status
-Protocol frozen; capture pending.
+Completed bounded reference repair; full gate aggregate independently audited f0f4012, output aggregate review pending.
 
 ## Results
-Pending bounded discriminator.
+See measured gate and output-error results below; exact commands: capture.py, mass_check.py, full_mass.py BATCH (0..7), summarize_full.py, error_capture.py, error_mass.py BATCH (0..7), summarize_error.py.
 
 ## Compute accounting
 Charge checkpoint loading, engine/rule setup, all splitting/triangulation, normalization/determinants, capture/checkpoints and Fraction verification. Named-operation counters are inherited partial proxies, not a portable total. No model sampling or original accuracy benchmark is performed in this phase. Capture is new work and cannot be treated as a free reference for later methods.
