@@ -1,0 +1,11 @@
+{
+  "error": "ValueError('operands could not be broadcast together with shapes (512,) (512,32) ')",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/three_suffix_reset/integrate.py\", line 98, in <module>\n    try:main()\n        ^^^^^^\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/three_suffix_reset/integrate.py\", line 93, in main\n    run=integrate(rankcells,n);out['runs'].append(run);out['counts']=COUNT.copy();out['cpu_seconds_including_imports']=time.process_time()-START\n        ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/three_suffix_reset/integrate.py\", line 76, in integrate\n    f=rank_suffix(suffix,cell['label'],cell['order']);value=float(np.sum(weight*np.einsum('ijk,k->ij',f,rw)));bylabel[cell['label']]=bylabel.get(cell['label'],0.)+value\n      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/three_suffix_reset/integrate.py\", line 36, in rank_suffix\n    if label==0:return older(suffix)\n                       ^^^^^^^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/three_suffix_reset/integrate.py\", line 31, in older\n    total+=(hi-lo)*(np.exp(-t*t/2)/math.sqrt(2*math.pi)*f)@gw;COUNT['older_target_nodes']+=t.size\n           ~~~~~~~^^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nValueError: operands could not be broadcast together with shapes (512,) (512,32) \n",
+  "counts": {
+    "owens_t": 17536,
+    "normal_cdf": 35072,
+    "older_target_nodes": 1152,
+    "negative_roundoff_clamps": 0
+  },
+  "cpu_seconds": 0.364811145
+}
