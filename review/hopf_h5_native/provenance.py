@@ -16,6 +16,9 @@ def main():
     def save():out.update(cpu=time.process_time()-t,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);dest.write_text(json.dumps(out,indent=2)+'\n')
     save()
     try:
+        scope=json.loads((P/'provenance_scope.json').read_text())
+        for k in ('source_sha256','protocol_sha256','checkpoint_identity_sha256'):assert out[k]==scope[k]
+        assert sha(P/'fetch.py')==scope['fetch_sha256']
         p=json.loads((P/'protocol.json').read_text())
         for mapping in (p['source_pins'],p['frozen_pins']):
             for path,h in mapping.items():assert sha(path)==h,path
