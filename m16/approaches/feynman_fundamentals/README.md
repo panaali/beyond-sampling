@@ -936,3 +936,17 @@ counts exactly (24–30/circle). H2 leaves later residuals on29/32 planes.
 .01449CPU, zero network forwards. Separate algebraic factoring rescue is
 justified; no epsilon/root merging or topology certification. See
 common_root_review.md and raw per-plane counts.
+
+## Cycle 45 protocol: independent first-sign history failure
+Use the same failed T4 RMS .02 copy0 and two fixed uniform-CDF midpoint grids
+1024x1025/2048x2049. Derive sign-conditioned first-two means independently,
+run direct last-two forwards, and implement the n1 rank law with explicit
+positive polynomial primitives, importing neither sign ranks nor affine
+geometry. Compare correct sign association versus swapped means, signs still
+weighted1/2. Check partition/nonnegativity and constant-label average. No new
+model-input sampling; the same deterministic nodes test a new approximation.
+Cycle45 completed: independent correct-sign/shuffled values converge within
+2.5e-5 of the author's affine calculation, resolving the .02944 ordering gap
+and .04605 failed-case bias. Partition/constant controls pass; 1.9815 CPU and
+20.984M tiny forwards retained. See sign_history_review.md. This is a finite
+conditional-mean failure, not a rejection of conditional history methods.
