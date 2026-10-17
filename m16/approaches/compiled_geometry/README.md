@@ -21,16 +21,16 @@ Build C++17 with-O3-ffp-contract=off into ignoreddata; Pythonctypes wrapper owns
 Then compare a frozen small pilot of4 orthonormal planes (QR of RNG660001 normals) for originalH16T10 and its standard relative-RMS .0025/.02 copies, plus publicH2T10 seed0; no truth values used. If controls pass and the pilot completes within20CPU seconds, benchmark32 fixed planes per case (same seed/prefix) with one warm repeat. Retain every case and any legacy cap failure/discrepancy. Report numerical agreement at1e-12, absolute differences, cold compilation overhead and native/PythonCPU. No higher-N sweep or speed threshold tuning. A later DD profile is a separate frozen phase after this checkpoint, not permission to run an unbounded enumerator.
 
 ## Status
-Design and protocol frozen; native implementation and independent controls next. T55 math review requested. T37 prior diagnostic remains separately handed off.
+Bounded native phase complete and handed to root for independent integration/review. Complete native T3 geometry and factored H16 circles meet the scoped timing target. Higher-dimensional DD, the separately owned T20 port, H2 mixed-precision topology and formal floating enclosures remain open. No shared estimator was modified.
 
 ## Results
-Pending. No speed or accuracy claim yet.
+Final scoped results: native H16T3 geometry is32–41x faster by CPU on three fixed models; factored H16T10 circles are12–14x faster on32 fixed planes per model. Exact controls and detailed retained failures appear below. These are wall/CPU iteration gains, not an ARC deductive-accuracy solution or a FLOP-normalized improvement.
 
 ## Compute accounting
 One thread, <=2GB, ulimit-v2500000. Review/short cycles<=20CPU under codex-review.lock; longer checkpoints<=110CPU under codex-compute.lock. Include compilation, wrapper loading, plane generation, weight preparation and validation separately from warm kernelCPU. Actual coefficient matrix products, root work, sorting and readout checks remain necessary computation; a smaller wall time does not make them free. Great-circle accuracy estimation remains sampling-based when the planes are random; this task does not relabel it deductive or reuse its fitted control variates.
 
 ## Claims
-[inferred] The two projective charts give exactly the same real-arithmetic angular integral as the homogeneous great circle. [speculative] Native execution can achieve the task's10x wall-time target on ordinary full models. No scoped result is confirmed without independent checks.
+[inferred] The two projective charts give exactly the same real-arithmetic angular integral as the homogeneous great circle. [measured] Native T3 DD lifecycle and the factored H16 circle variant exceed10x on the frozen finite workloads. [measured] The per-clip binding adapter and unfactored mixed-precision variant fail their respective full-speed/topology criteria. Only the DRI may confirm the broader claim; arbitrary floating topology and other dimensions remain unproved.
 
 ## Alternatives not ruled out
 Incremental affine-state caching, native DD adjacency/bitsets, different batching, exact predicates and other compilers. The existing Feynman native work belongs toT20 and can supply coordinated evidence only after its own review.
