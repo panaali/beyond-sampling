@@ -46,7 +46,7 @@ checking the residual exact tail against B at every cut.
    preserve them, never clip or silently change covariance.
 
 ## Status
-Bounded diagnostic complete; independent result review pending. T55 reviewed
+Bounded diagnostic complete; independent result review ebc4f72 passes. T55 reviewed
 the bound and corrected-source logic before the fixture.
 
 ## Results
@@ -112,3 +112,8 @@ two covariance inversions, two symmetric eigenproblems,34 transformed
 inversions/positive-definiteness checks,204 partial correlations and300
 arcsines. The initial failed control is retained; it used less than.14wall
 seconds including interpreter startup, but CPU was not separately captured.
+
+T55 ebc4f72 independently integrates the absolute derivative bound directly
+and checks eigenvalue invariants. It reproduces the bound and confirms the
+constant-tail test is inconclusive. The diagnostic is verified within its
+stated real-arithmetic and finite-precision scope, not a family negative.
