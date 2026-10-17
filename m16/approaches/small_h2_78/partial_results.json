@@ -1,0 +1,178 @@
+{
+  "runs": [
+    {
+      "rows": [
+        {
+          "suffix_length": 0,
+          "contribution": 0.04038783482142857,
+          "exact": "579/14336"
+        },
+        {
+          "suffix_length": 1,
+          "contribution": 0.037109375,
+          "exact": "19/512"
+        },
+        {
+          "suffix_length": 2,
+          "contribution": 0.029721540682953206,
+          "outer_dimension": 1,
+          "outer_order": 8,
+          "known_sign_patterns": 1
+        },
+        {
+          "suffix_length": 3,
+          "contribution": 0.02094122009046471,
+          "outer_dimension": 2,
+          "outer_order": 8,
+          "known_sign_patterns": 2
+        }
+      ],
+      "partial_correct_mass": 0.1281599705948465,
+      "resolved_event_mass": "19/32",
+      "unresolved_event_mass": "13/32",
+      "no_reset_mass": "55/256",
+      "interval_ignoring_outer_quadrature_error": [
+        0.1281599705948465,
+        0.5344099705948465
+      ],
+      "stats": {
+        "conditional_tail_calls": 136,
+        "prefix_recurrent_steps": 264,
+        "gate_cells": 296,
+        "readout_cells": 1682,
+        "polynomial_probability_calls": 4694,
+        "logit_pair_roots": 1795
+      },
+      "classification": "analytic scalar elimination plus approximate outer quadrature",
+      "order": 8
+    },
+    {
+      "rows": [
+        {
+          "suffix_length": 0,
+          "contribution": 0.04038783482142857,
+          "exact": "579/14336"
+        },
+        {
+          "suffix_length": 1,
+          "contribution": 0.037109375,
+          "exact": "19/512"
+        },
+        {
+          "suffix_length": 2,
+          "contribution": 0.029719343881335278,
+          "outer_dimension": 1,
+          "outer_order": 16,
+          "known_sign_patterns": 1
+        },
+        {
+          "suffix_length": 3,
+          "contribution": 0.020792690613335902,
+          "outer_dimension": 2,
+          "outer_order": 16,
+          "known_sign_patterns": 2
+        }
+      ],
+      "partial_correct_mass": 0.12800924431609975,
+      "resolved_event_mass": "19/32",
+      "unresolved_event_mass": "13/32",
+      "no_reset_mass": "55/256",
+      "interval_ignoring_outer_quadrature_error": [
+        0.12800924431609975,
+        0.5342592443160997
+      ],
+      "stats": {
+        "conditional_tail_calls": 528,
+        "prefix_recurrent_steps": 1040,
+        "gate_cells": 1140,
+        "readout_cells": 6333,
+        "polynomial_probability_calls": 17794,
+        "logit_pair_roots": 6474
+      },
+      "classification": "analytic scalar elimination plus approximate outer quadrature",
+      "order": 16
+    },
+    {
+      "rows": [
+        {
+          "suffix_length": 0,
+          "contribution": 0.04038783482142857,
+          "exact": "579/14336"
+        },
+        {
+          "suffix_length": 1,
+          "contribution": 0.037109375,
+          "exact": "19/512"
+        },
+        {
+          "suffix_length": 2,
+          "contribution": 0.0297188456023262,
+          "outer_dimension": 1,
+          "outer_order": 32,
+          "known_sign_patterns": 1
+        },
+        {
+          "suffix_length": 3,
+          "contribution": 0.020750601742923924,
+          "outer_dimension": 2,
+          "outer_order": 32,
+          "known_sign_patterns": 2
+        }
+      ],
+      "partial_correct_mass": 0.1279666571666787,
+      "resolved_event_mass": "19/32",
+      "unresolved_event_mass": "13/32",
+      "no_reset_mass": "55/256",
+      "interval_ignoring_outer_quadrature_error": [
+        0.1279666571666787,
+        0.5342166571666787
+      ],
+      "stats": {
+        "conditional_tail_calls": 2080,
+        "prefix_recurrent_steps": 4128,
+        "gate_cells": 4472,
+        "readout_cells": 24728,
+        "polynomial_probability_calls": 69247,
+        "logit_pair_roots": 25479
+      },
+      "classification": "analytic scalar elimination plus approximate outer quadrature",
+      "order": 32
+    }
+  ],
+  "validation": [
+    {
+      "suffix_length": 0,
+      "predicted": 0.04038783482142857,
+      "mc": 0.040679931640625,
+      "se": 0.0007716705155422072,
+      "z": 0.37852530751572433
+    },
+    {
+      "suffix_length": 1,
+      "predicted": 0.037109375,
+      "mc": 0.0373382568359375,
+      "se": 0.0007405832931417466,
+      "z": 0.30905616972065875
+    },
+    {
+      "suffix_length": 2,
+      "predicted": 0.0297188456023262,
+      "mc": 0.0286865234375,
+      "se": 0.0006520466998942042,
+      "z": -1.5832028058629792
+    },
+    {
+      "suffix_length": 3,
+      "predicted": 0.020750601742923924,
+      "mc": 0.0206451416015625,
+      "se": 0.0005554423743547572,
+      "z": -0.18986693531247864
+    }
+  ],
+  "compute": {
+    "cpu_seconds": 1.7760793949999998,
+    "validation_full_inputs": 65536,
+    "analytic_random_inputs": 0,
+    "total_conditional_tail_calls": 2744
+  }
+}
