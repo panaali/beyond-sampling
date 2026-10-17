@@ -152,3 +152,21 @@ float-normalized transformed rays, determinants and floating quadrature
 error still require separate end-to-end treatment for a total certificate.
 The expensive reference calculation is not a competitive estimator or
 solved challenge claim.
+
+## T130 preliminary cheap center-bound/count review
+
+For c=sum rays and m=min_i(r_i dot c)>0, every barycentric point has
+norm squared at least m^2/||c||^2 by Cauchy-Schwarz; convexity gives upper
+bound max_i||r_i||^2. The Gaussian mass interval is
+|detR|/(12*pi^2)*[b^-2,a^-2], so midpoint plus half-width is valid in real
+arithmetic. The explicit24-product determinant uses72 multiplies and23
+signed sums=95 arithmetic operations. The Duffy setup18*n^3+3*n and
+positive kernel39*n^3+1 match their named arithmetic conventions.
+
+Review identified ordinary uninstrumented recomputation of12*pi^2,
+6*pi^2 and2*pi^2 in the source. Hoisting/declaring these model-free constants
+or separately charging those operations is needed for an as-implemented
+count; the author was notified before a full cost conclusion. Legendre
+rule generation remains separately unknown. Floating determinant/radial
+interval error and finite-order unresolved cases cannot be promoted to
+an exact bound or family-wide failure. Final corpus/count review pending.

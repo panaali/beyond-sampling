@@ -148,3 +148,30 @@ with no QUADPACK warnings, while swapped-axis pair differences are below
 5.56e-17. These are local numerical comparisons, not population-weighted
 bias or certified integration enclosures. A continuity/support diagnostic
 is a distinct next task; no new mesh or full engine was run in review.
+
+## T132 sufficient conditional continuity and branch localization
+
+For fixed target u and h before x,u,y, changing h by delta in infinity
+norm changes final preactivations by at mostM^3*delta, M=||Wh||infinity.
+Nonzero input slopes bound final-gate change bands by2M^3*delta/|Wi_i|.
+On unchanged final support, each nonconstant target-readout margin has
+slope s=deltaWo*(Wi masked by support); its change band has length at
+most2||deltaWo||1*M^3*delta/|s|. Identical restricted readouts have robust
+first-index ties; the empty support is handled by gate changes. The union
+bound, with conditional-y density below1/min(L,U), is uniform in x and
+therefore bounds side probabilities and their rank mixtures. Zero slopes
+without separate invariance proof return unknown, not discontinuity.
+
+Independent check_continuity_review.py reconstructs the true checkpoint's
+two gate and nine readout slopes exactly as Fractions. All are nonzero;
+M=130.47258614 and rational G=296266670.3860154 agree. Thus the value is
+Lipschitz in h under this sufficient criterion. The displayed coefficient
+G/min(L,U)=1.867361243e9 is far too loose for useful mesh-error control and
+is not outward-rounded. This excludes a true hidden-support jump for this
+fixed model/target, not sharp curvature or poor coarse interpolation.
+
+Independent saved-side arithmetic verifies that both need1 branches at
+prefix+1/4 contribute to the error: half contributions-.0616094691586
+and-.0741024131506 sum to-.1357118823092. The negative prefix branches
+agree at floating precision. No single-branch or population-bias conclusion
+is supported. Exact-side numerical quadrature remains separately scoped.
