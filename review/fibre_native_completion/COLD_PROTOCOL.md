@@ -1,0 +1,9 @@
+# Frozen cold-once census
+
+After the unchanged component continuation source gate, inventory the original top-level AST of fiber3, fibre and fibre4 (and fibre4b for constants). Create isolated module namespaces with original imports available; replay original function definitions and model-free assignments in source order through the same arithmetic transformer. Do not execute model functions or alter the original modules. Imports and unrelated m43 checkpoint loading remain explicitly unpriced I/O/implementation setup.
+
+Compare every produced model-free family, polygon and cached cubature-rule array against the original loader, including float hex/array bytes, dict keys, tuples and side order. Record named arithmetic, separate integer expressions, opaque SVD/inverse/leggauss calls with actual shapes/orders, memory calls, all instrumented assignments and omitted import statements. Runtime library setup and NumPy import internals are excluded, not silently free.
+
+Expected native census from the existing source-only audit: six1x4 SVDs,48 3x3 inverses, six leggauss calls with orders6,3,3,6,10,16. Original fiber3 families execute even though T4 uses only Ops and rows_at. Recompute those once in the isolated cold ledger. Repeated worker imports are research harness overhead and must not be multiplied by48 in a cold estimator total.
+
+Alternative explanations: source-selection omits a runtime assignment (compare top-level inventory and every output constant), namespace substitution changes data (require byte parity), or unknown native libraries hide cost (retain opaque ledger without inventing a complete ceiling). Freeze source before executing cold controls, request independent review, and preserve unsupported-call/parity failures rather than silently extending accounting after results.
