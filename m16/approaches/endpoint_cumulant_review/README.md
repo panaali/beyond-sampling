@@ -302,3 +302,33 @@ improvement or that this exact partition is the best representation. T4/T5,
 coarser weight-derived mixtures, full-covariance references and scalable
 mixture construction remain untested. This finite T3 result does not retire
 the endpoint family or establish a challenge solution.
+
+## Frozen full-covariance Gaussian reference rescue
+Next bounded phase retains each saved law's mean and complete covariance and
+replaces only the endpoint with exact-law Gaussian winner probabilities.
+For three logits, each winner is a bivariate Gaussian difference orthant.
+Standardize its two differences to means a,b and correlation rho and compute
+integral[-a,infinity] phi(z)*Phi((b+rho*z)/sqrt(1-rho^2)) dz by deterministic
+scipy.quad, split at the conditional transition when inside the domain.
+For rho=1 the limit is Phi(min(a,b)); for rho=-1 it is the normal mass between
+-a and b (zero if bounds reverse). Zero difference variance uses its constant
+mean and first-index tie; all equal deterministic logits must predict0.
+
+Freeze tau=64*machine-epsilon. For 1-|rho|<=tau use the singular limit and
+record its maximum Gaussian orthant perturbation bound
+acos(|rho|)/(2*pi) when |rho|<=1 (from Plackett's derivative bounded by
+1/(2*pi*sqrt(1-rho^2))). If floating rho exceeds1 by<=tau record the correction
+separately; it has no certified covariance-error bound. Larger excursions or
+negative difference variance fail explicitly, no generic PSD projection.
+These conventions do not repair non-Gaussian moments or model ties.
+
+Controls: centered iid/correlated Gaussians against analytic arcsines,
+constant first-index ties, perfect positive/negative correlation with
+nonzero means, output scaling1e-8/1e8, and sum of winner probabilities1.
+All saved reset and trained pooled/atom-split/gate-rank mixture laws are
+reported; no favorable subset or model fitting. Retain conditional vectors,
+all rule error estimates/evaluation counts, singular corrections, CPU/setup
+and prior moment/geometry costs. Compare epsabs1e-10 and1e-12, preserve
+nonconvergence. No random samples, new models, upstream cumulant propagation
+or shared source edits; <=18CPU review lock,2GB. This is a Gaussian moment
+closure reference, not an exact endpoint for non-Gaussian logit laws.
