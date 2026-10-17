@@ -41,7 +41,7 @@ def support_probes(shape):
 
 
 class Enriched:
-    def __init__(self, oracle, shape, weights, weighted=True, rounds=2):
+    def __init__(self, oracle, shape, weights, weighted=True, rounds=2, local=False):
         self.oracle, self.shape, self.weights = oracle, tuple(shape), weights
         self.base = cross.TensorCross(oracle, list(shape), 2, 2)
         self.terms = []
@@ -53,8 +53,9 @@ class Enriched:
         self.work['probe_indices_constructed'] = len(candidates) * len(shape)
         oracle(sorted(candidates))
         self.baseline_integral = self.base.integral(weights)
-        for _ in range(rounds):
-            points = sorted(candidates)
+        groups = range(shape[0]) if local else [None] * rounds
+        for group in groups:
+            points = sorted(p for p in candidates if group is None or p[0] == group)
             residual = oracle(points) - self.predict(points)
             if weighted:
                 importance = np.prod([weights[k][np.array(points)[:, k]]
@@ -66,11 +67,19 @@ class Enriched:
             selected = int(np.argmax(scores))
             pivot, amplitude = points[selected], float(residual[selected])
             if amplitude == 0:
-                self.records.append(dict(stopped_zero=True, pivot=list(pivot)))
+                self.records.append(dict(stopped_zero=True, pivot=list(pivot), configuration=group))
+                if local:
+                    continue
                 break
             fibers = []
             fiber_points = []
             for k, n in enumerate(shape):
+                if local and k == 0:
+                    indicator = np.zeros(n)
+                    indicator[group] = 1
+                    fibers.append(indicator)
+                    self.work['probe_indices_constructed'] += n
+                    continue
                 ps = []
                 for i in range(n):
                     p = list(pivot)
@@ -86,7 +95,7 @@ class Enriched:
             self.terms.append((amplitude, fibers))
             after = oracle(fiber_points) - self.predict(fiber_points)
             candidates.update(fiber_points)
-            self.records.append(dict(pivot=list(pivot), amplitude=amplitude,
+            self.records.append(dict(pivot=list(pivot), amplitude=amplitude, configuration=group,
                 score=float(scores[selected]), max_fiber_ratio=max(float(np.max(abs(f))) for f in fibers),
                 fiber_residual_before=float(np.max(abs(before))),
                 fiber_residual_after=float(np.max(abs(after))),

@@ -8,7 +8,7 @@ HERE = Path(__file__).resolve().parent
 TRUTH = {2: .30773074302315223, 4: .47701312599404416}
 
 
-def main():
+def main(recipes=('original_rank2', 'original_rank4', 'residual_weighted', 'residual_unweighted'), outname='neural_results.json'):
     start = time.process_time()
     import torch
     # Explicitly use the reviewed Python backend; no optional native substitution.
@@ -20,7 +20,7 @@ def main():
                   costs_are_proxies=True, validation_does_not_feed_construction=True)
     def save():
         result['cpu_seconds'] = time.process_time()-start
-        (HERE/'neural_results.json').write_text(json.dumps(result, indent=2)+'\n')
+        (HERE/outname).write_text(json.dumps(result, indent=2)+'\n')
     for H in (2, 4):
         path = ROOT/f'work/checkpoints/H{H}_T4_seed0.pth'
         st = torch.load(path, map_location='cpu', weights_only=True)
@@ -36,7 +36,7 @@ def main():
                 family = dict(kind=kind, factor=factor, recipes=[])
                 case['families'].append(family)
                 pending = []
-                for name in ('original_rank2', 'original_rank4', 'residual_weighted', 'residual_unweighted'):
+                for name in recipes:
                     if time.process_time()-start > 105:
                         save(); raise TimeoutError('T81 cycle budget')
                     cold = time.process_time()
@@ -48,7 +48,8 @@ def main():
                         report = dict(unique_queries=len(cache.cache), requests=cache.requests,
                                       original_cross_algebra_proxy=fit.flops, enrichment_work={})
                     else:
-                        fit = Enriched(cache, grid.shape, grid.weights, weighted=name.endswith('_weighted'))
+                        fit = Enriched(cache, grid.shape, grid.weights, weighted=name != 'residual_unweighted',
+                                       local=name == 'residual_local')
                         integral = fit.integral()
                         report = fit.report()
                     elapsed = time.process_time()-cold
@@ -77,7 +78,7 @@ def main():
             case['full_grid_accuracy'] = 1-sum(f['factor']*f['grid_integral'] for f in case['families'])
             case['full_grid_bias'] = case['full_grid_accuracy']-TRUTH[H]
             case['recipes'] = []
-            for k in range(4):
+            for k in range(len(recipes)):
                 rows = [f['recipes'][k] for f in case['families']]
                 accuracy = 1-sum(f['factor']*r['integral'] for f, r in zip(case['families'], rows))
                 case['recipes'].append(dict(recipe=rows[0]['recipe'], accuracy=accuracy,

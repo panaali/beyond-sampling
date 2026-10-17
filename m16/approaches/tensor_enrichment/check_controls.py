@@ -7,7 +7,7 @@ from .enrich import CachedOracle, Enriched
 HERE = Path(__file__).resolve().parent
 
 
-def main():
+def main(local=False, outname='controls_results.json'):
     start = time.process_time()
     shape = (7, 3, 3, 3)
     points = list(np.ndindex(shape))
@@ -23,7 +23,7 @@ def main():
     for name, tensor in cases.items():
         for weighted in (False, True):
             oracle = CachedOracle(lambda ps: np.array([tensor[p] for p in ps]))
-            fit = Enriched(oracle, shape, weights, weighted=weighted)
+            fit = Enriched(oracle, shape, weights, weighted=weighted, local=local)
             value = fit.integral(); report = fit.report()
             pred = fit.predict(points)
             direct = float(pred @ mass)
@@ -36,15 +36,16 @@ def main():
     # Choose the adversarial location after observing only the zero-response path.
     # Repeating with that spike must preserve exactly the algorithm's transcript.
     z = CachedOracle(lambda ps: np.zeros(len(ps)))
-    f = Enriched(z, shape, weights)
+    f = Enriched(z, shape, weights, local=local)
     unseen = next(p for p in points if p not in z.cache)
     adv = CachedOracle(lambda ps: np.array([float(p == unseen) for p in ps]))
-    g = Enriched(adv, shape, weights)
+    g = Enriched(adv, shape, weights, local=local)
     assert adv.cache.keys() == z.cache.keys() and g.integral() == 0
     out['adversarial_spike'] = dict(location=unseen, true_integral=float(mass[points.index(unseen)]),
                                    estimate=g.integral(), unique_queries=len(adv.cache), total_entries=len(points))
     out['cpu_seconds'] = time.process_time()-start
-    (HERE/'controls_results.json').write_text(json.dumps(out, indent=2)+'\n')
+    out['local'] = local
+    (HERE/outname).write_text(json.dumps(out, indent=2)+'\n')
     print(json.dumps(dict(cpu=out['cpu_seconds'], maximum_error=max(r['max_error'] for r in out['cases']),
                           adversarial=out['adversarial_spike'])))
 
