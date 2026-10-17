@@ -36,7 +36,7 @@ def main():
   if called:assert called==[True] and out['result'] is sentinel
   T=m[2].shape[0];inputs=list(itertools.product((-1.,0.,1.),repeat=T)) if T<=4 else [tuple([0.]*T)]+[tuple(s if j==i else 0. for j in range(T)) for i in range(T) for s in (-1.,1.)]
   labels=[evaluate(m,x) for x in inputs]
-  if status=='certified':assert set(labels)=={0};assert cert['exact_accuracy']==[1,T];assert F(cert['accuracy'])-F(1,T)<=F(1,2**52)
+  if status=='certified':assert set(labels)=={0};assert cert['exact_accuracy']==[1,T];assert abs(F(cert['accuracy'])-F(1,T))<=F(1,2**52)
   rows.append(dict(name=name,status=status,certificate=cert,model_weights=[a.tolist() for a in m],validation_forward_inputs=len(inputs),observed_labels=sorted(set(labels)),returned_original_fallback_object=bool(called),model_unchanged=True,not_an_accuracy_sample=True))
  invalid=[]
  for where in range(3):
