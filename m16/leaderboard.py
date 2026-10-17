@@ -71,6 +71,9 @@ RAW = "results/leaderboard_v3_raw.jsonl"
 CLASS = {
     "sampling": ("sampling", "plain Monte Carlo baseline"),
     "stratified": ("sampling", "stratified Monte Carlo"),
+    "control_variate": ("sampling", "srb: random prefixes + exact last step (DEDUCTIVE=False); cost audit pending"),
+    "tie_lines": ("sampling", "joint: random gap strata + antithetics (DEDUCTIVE=False); cost audit pending"),
+    "boundary": ("sampling", "random surface points and remainders (DEDUCTIVE=False); cost audit pending"),
 }
 
 
