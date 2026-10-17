@@ -30,3 +30,5 @@ character control, memory/runtime and are not full computation bounds.
 Current continuation6ac20edd owns shift_review Q4/Q3 parent source pricing,
 first Q4 ledger/source translation and1152 frozen controls bcd59570 awaiting
 independent pre-run gate. No geometry/model/rank/mass traces are repeated.
+
+Q3 parent880 saved controls and all census contractions independently reviewed f4b76ba3. Outer Q1/Q2 helper/source gate passes under explicit N<=4 premise; candidate cold callgraph closure is in outer_review/COLD_CALLGRAPH.md, pending independent review. No outer global contraction yet.
