@@ -69,7 +69,8 @@ selection. Missing/nonpositive gains remain explicit; do not silently discard.
 
 ## Status
 Two frozen feature panels completed; initial point associations independently
-checked by T55 (b66026d), boundary rescue review pending. Claude remains DRI.
+checked by T55 (b66026d), boundary rescue points and projection algebra also
+independently checked. Claude remains DRI.
 Only this folder is edited. This is a scoped diagnostic, not an estimator.
 
 ## Results
@@ -107,6 +108,11 @@ before their respective joins; `associations.json` and
 pair-comparison integer ranks reproduce the initial four within-(H,T) point
 correlations exactly as -7/90, -1/60, -1/90 and 7/60. That check does not validate
 bootstrap coverage or historical gain estimation.
+T55 separately recovers the boundary mean's exact within-size Sobol/iid
+correlations1/15 and-17/180, and p10 correlations1/20 and1/60. Its source review
+checks projection and normal orientation. The fixed inward epsilon probes a
+finite distance from the facet; it is not an exact one-sided derivative and
+can cross a network gate. No limiting-facet mechanism is established.
 
 Reproduce from this folder with the pinned public manifest paths available:
 `python features.py`, then `python associate.py`; and `python boundary_features.py`,
