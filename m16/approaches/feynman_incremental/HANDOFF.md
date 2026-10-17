@@ -49,3 +49,6 @@ f61cbd6 T20 independently reconstruct radial constant-label face masses
 
 ## Resumed Laplace phase
 The prior publication blocker resolved through the supported with_additional_permissions network path. After refetch/ownership check and normal rebase, pending57e235d was published as9e70bd7. Laplace protocol/implementation/control chain follows5883510:8f01dd6,c351d2b,b14a561,b4a44a9, then the result commit containing this update. See LAPLACE.md for full costs and the broad conditional tail-mass intervals. Original source geometry/fixed tail nodes are preserved, not silently replaced by full-tail enumeration. No new external credentials or proxy bypass were used.
+
+## Completed boundary baseline variant
+T20 scope extension2b3dc47 was pushed before the completed-line stochastic boundary phase. Research chain after69cf526:f35cee9,1c2d82b,4004117,697bc8f,942d8b4, then this result handoff commit. BOUNDARY.md records the explicit method change,32 independent constant-label face checks, full rejection/RNG/setup ledger, three small stochastic runs and setup-failure check. Original fitted-importance and Newton variants remain open. This baseline is not deductive and has no new MSE win claim. T55 review is requested separately.
