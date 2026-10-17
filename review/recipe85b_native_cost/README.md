@@ -15,7 +15,7 @@ Coordination with T115 author78 identified two pre-existing, fixed cases: k30 se
 Alternative explanations: (1) apparent count differences arise from incorrect tuple accounting; independent analytic key comparisons distinguish. (2) instrumentation changes sorting/branches; bitwise values, counters and STATS distinguish. (3) actual source branch differs from the training artifact; hashes and frozen recipe parameters distinguish. A successful finite trace does not price every training copy.
 
 ## Status
-Claimed; read-only source and saved-case inventory begins. No trained execution yet.
+Source/case inventory and nine sorting controls pass. The additional rational model executes12 sorting comparisons with bitwise source parity; independent source/control gate requested. No trained execution yet.
 
 ## Results
 T172's source/control gate and 1,280 H8 margin_all traces are dependencies, not RECIPE85B evidence. The distinct _resolve_inv/sort path remains unverified here.
@@ -37,3 +37,5 @@ Tuple equality/order undercount, object-identity shortcuts, NaNs, key/reverse/st
 Nine exact tuple/sort controls and the five prior synthetic networks pass source-value/legacy/STATS parity. Named numeric totals are5390/9996/9996/13396/21764. However, none of those networks executes a comparison inside cut.sort, so they do not validate the integrated sorting path. Preserve this coverage limitation rather than treating the first controls as sufficient.
 
 Before trained use, add one fixed rational H3T3 model: Wi=[1,2,-1], Wh=[[1,-2,0],[-3,1,1],[2,0,-1]], Wo=[[1,0,-1],[-1,2,0],[0,-1,1]]. For positive x0, step2 thresholds include3,.5,2, so distinct cuts can coexist in a half-chamber. Require actual sort comparisons plus exact baseline/traced parity; do not tune weights after results. This is a control of the previously unexercised branch, not a new accuracy claim.
+
+The frozen rational branch control returns0.34989741936905017 with12 sort comparisons and52,744 named numeric units; baseline and trace match exactly. Control CPU.101919661. `trained.py` is prepared for only the two pinned existing cases, and is not executed before independent approval.
