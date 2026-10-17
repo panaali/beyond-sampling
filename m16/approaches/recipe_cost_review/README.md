@@ -43,11 +43,41 @@ bound; matrix rank/control/memory/native internals remain explicit otherwise.
    trace; report the gap rather than interpreting visible units as total cost.
 
 ## Status
-Protocol frozen; local adapter and analytic geometry controls next.
+Bounded trace complete; independent raw aggregate review pending.
+T55 reviewed the tiny adapter and control results before trained batches.
 
 ## Results
-Pending. No new model, quadrature, input sampling, parameter selection, shared
-source edit or rung claim is part of this audit.
+All28000 ordered saved recipe rays,6182 terminal cells, and36398526
+inherited geometry units reproduce across eight fixed batches. No trained
+Gaussian probabilities were recalculated.
+
+| Visible category | Named units |
+| --- | ---: |
+| Recipe geometry | 45,131,971 |
+| Mass from saved node count plus determinant-only census | 410,812,832 |
+| One cold chamber plus executed rule setup | 31,912 |
+| Total | **455,976,715** |
+
+Geometry includes3,003,224 units in `_weights_to_margin` and8,142,277 in
+`_frozen_margin`, which exact mode did not exercise. Fewer cells offset some
+of this overhead. Overall visible total is.823954 of exact-mode T146's total
+(17.6% reduction), while saved candidate bias is4.76455693e-6. Neither method
+is selected as a winner from this one checkpoint.
+
+Opaque additional calls:2,138,536 inverses,28,000 determinants,257,040 matrix
+rank/SVD calls and four model-independent leggauss generations. All control,
+memory, special/native implementation and geometry/roundoff limitations from
+T146 remain. Conditional single-checkpoint sampling break-even is about
+524.8 billion declared units; visible-only ratio.0008688 is algebraic
+headroom, not a full-cost or sampling-win statement.
+
+Determinant-only census used28,004 calls including controls (.123796CPU),
+no covariance inversions or masses. It identified54 cutoff cones, giving
+wide7949/thin19997 and exactly2110488 residual nodes. All cutoff source and
+doubled values are zero as required by the unchanged guard. Full recipe
+trace functions consumed45.649249CPU, maxRSS201984KiB; module imports/final
+JSON serialization excluded, repeated diagnostic launch/setup included.
+No new model, quadrature, input sampling, parameter selection or shared edit.
 
 ## Compute accounting
 One thread,2GB; <=20CPU review controls or <=110CPU primary per12-parent batch.
@@ -79,3 +109,15 @@ operand order; the pinned T146 source files remain untouched. Full96-parent
 zero and rational-cut models match baseline ordered rays/counters/cells.
 Zero:96cells/72mass callbacks/17472legacy. Rational:243cells/339callbacks/
 372667legacy, exercising both recipe-only routines. Controls used1.061921CPU.
+
+## Reproduce
+With project interpreter, one thread,2GB cap and bounded shared locks:
+```sh
+python m16/approaches/recipe_cost_review/run.py controls
+python m16/approaches/recipe_cost_review/mass_census.py
+# Run run.py with each integer0..7, one primary-lock bounded phase each.
+python m16/approaches/recipe_cost_review/summarize.py
+```
+The initial nested-method failure and initial missing-flag assumption remain
+explicit. Complete portable cost and full seed/noise/rung evaluation are
+still blocked by unresolved categories and independent downstream review.
