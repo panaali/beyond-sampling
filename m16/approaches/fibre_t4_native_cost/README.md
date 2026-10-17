@@ -89,3 +89,28 @@ No opaque per-model numerical call was encountered in these controls; cold
 initialization is still separate and unpriced. The same frozen noisy first
 component is prepared in `component.py`, gated on all saved control hashes
 and independent source review before execution.
+
+### Frozen trained component result
+After independent source approval, the single frozen family0/side0 trace
+completed in37.095CPU, peak40MB. Error component.18712027456605582,
+legacy37,704,799 and2631traces/2163pieces match T100 exactly.
+Raw explicit numerical+integer count is59,028,138; separately removing4794
+diagnostic stats increments leaves59,023,344, or1.56541 times the legacy
+counter for this component. Named numerical units58,638,230 and explicit
+integer-control389,908 are separately retained. No opaque per-model native
+call appeared; the cold native setup remains outside this ledger.
+
+The fixed dense rows_at shape proof independently reconstructs2595 calls:
+5,436,525 named units (=2095×2595), plus10,380 integer comparisons.
+Clipping22,434,375, trace10,452,825 and face_err9,086,838 raw visible units
+are larger contributors, showing why the large local recurrence gap does
+not alone determine the full component ratio. The local guard itself has
+3,383,370 explicit comparison/reduction units versus its conservative old
+6-unit-per-call allowance. Raw site/function ledgers remain available.
+
+This cost discriminator preserves numerical behavior and does not by itself
+make the noisy method implausible. It neither extrapolates this ratio to
+all48 components nor closes cold/control/memory scope. All remaining
+component/native setup work requires a separately frozen continuation and
+independent review; seven more noisy models remain deferred. No method is
+ruled out by the discovered counter gap.
