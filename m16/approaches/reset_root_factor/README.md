@@ -31,3 +31,6 @@ Floating coefficients can be zero by cancellation, so a structural gate mask is 
 
 ## Pre-run structural refinement
 Use a cached Boolean all-gates-inactive certificate, initialized true at h0, rather than testing rounded coefficients for zero. Set the next certificate only when every gate is inactive on the represented branch. This excludes cancellation-only zeros; it does not certify the upstream floating gate topology. Charge one certificate lookup per recomputed step and H active-flag conjunctions; the previous proposed2H coefficient checks are not used. Preserve certificate values alongside cached affine coefficients on prefix reuse.
+
+## Initial build defect
+The scripted source edit inserted the zero-mask declaration in the mixed source but missed the differently formatted long-double declaration. That compilation failed (`zero` undeclared), then the control script failed loading the absent library. `failure_initial_build.json` preserves the downstream traceback; no numerical control ran. The failed compile/import CPU was not metered and is not silently included in successful costs. Adding the missing declaration is an implementation repair, not a method negative. The mixed build .688125CPU completed and is retained. Subsequent shell runs stop immediately on build errors.
