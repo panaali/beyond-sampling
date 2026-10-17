@@ -16,6 +16,7 @@ p.add_argument('--gate-cycle', action='store_true')
 p.add_argument('--hidden', type=int)
 p.add_argument('--seconds', type=float, default=18.)
 p.add_argument('--rule', choices=('split_sign', 'split_value'), default='split_sign')
+p.add_argument('--target-limit', type=float)
 args = p.parse_args()
 HERE = Path(__file__).resolve().parent
 path = Path('/workspace/clean-neurons/work/checkpoints/H2_T4_seed0.pth')
@@ -36,7 +37,7 @@ for h in hidden_orders:
             value, stats = estimate(model, hidden_order=h, target_order=target_order,
                 target_rule=args.rule, mesh_power=2., transition='polynomial_piece_cached',
                 terminal_reuse=True, mesh_builder=None if mode=='baseline' else terminal_mesh(mode),
-                seconds=args.seconds-(time.process_time()-start))
+                seconds=args.seconds-(time.process_time()-start), target_value_limit=args.target_limit)
             row = dict(h=h, mode=mode, estimate=value, error=value-reference, stats=stats)
         except (ValueError, ArithmeticError, TimeoutError) as error:
             row = dict(h=h, mode=mode, failure=str(error))
