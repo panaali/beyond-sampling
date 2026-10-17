@@ -537,3 +537,25 @@ and compare its raw GL20 interval with independently generated 70-digit GL20
 cubature for the orthant and two fixed artifact simplices (indices 0 and 128).
 The numerical check is at most 20 CPU seconds on the review lock, with no
 model passes, full-artifact sweep or changes to frozen integration primitives.
+
+T71 requested the asymmetric-coalescence numerical falsifier as well. Freeze
+p=(.8,.05,.05,.05,.05), endpoints p+epsilon*(e_i-p), i=0..3, and epsilon
+1e-2 through1e-8. Compare against independent70-digit original-domain tensor
+GL12; retain the analytical branch/fallback choice, errors, permutations and
+scale checks. These nearly constant denominators make GL12 truncation tiny;
+the reference is still a numerical check rather than an interval certificate.
+
+Cycle14 result: `t71_t72_review.md` independently derives T71's cofactor signs,
+measure and fallback normalization, and T72's exact rational truncation tail.
+Independent70-digit GL20 cubature lies inside all three raw T72 intervals:
+orthant, artifact cones0/128. Cost1.530285CPU,24000 high-precision nodes, no
+model inputs. The orthant finite-rule value .06250000000000148965 differs from
+the exact probability1/16, correctly covered only after the truncation bound.
+The asymmetric T71 test used12096 high-precision GL12 nodes and1.095377CPU.
+Two analytic cases have maximum relative error8.947e-13 and permutation
+difference2.324e-12; five narrower cases trigger fallback and agree within
+3.416e-16 relative. This is useful evidence for the current rejection policy,
+not a rounding certificate. Some fallback rounding discrepancies exceed their
+tiny quadrature-only bounds, as already expected and explicitly qualified.
+Reproduce `check_enclosed_review.py` and `check_tetra_adversarial.py` separately
+under the review lock; result JSON files contain source hashes and inventories.
