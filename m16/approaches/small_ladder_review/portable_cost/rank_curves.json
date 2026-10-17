@@ -1,0 +1,209 @@
+{
+  "models": [
+    {
+      "H": 2,
+      "geometry_cost": {
+        "known_arithmetic_upper_bound": 2224632,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 300,
+          "gate_map_setup": 30160,
+          "lift_scalar": 7648,
+          "zero_normal_check": 7760,
+          "clip_scalar": 212562,
+          "clip_adjacency": 706600,
+          "clip_new_rays": 532232,
+          "gate_masks": 2124,
+          "outcome_maps": 3456,
+          "outcome_predicates": 5562,
+          "outcome_control": 6321,
+          "orthant_control": 5880,
+          "ray_l1_normalization": 6456,
+          "tri_incidence": 219264,
+          "tri_control": 7241,
+          "tri_face_scan": 138720,
+          "rank_result_test": 293,
+          "qr_norm": 74062,
+          "qr_bounds": 11134,
+          "qr_pivot": 54113,
+          "qr_normalize": 2924,
+          "qr_project": 68000,
+          "qr_reorthogonalize": 18656,
+          "qr_bracket_products": 66396,
+          "qr_inverse": 20692,
+          "determinants": 15434,
+          "simplex_test": 258
+        },
+        "black_box_kernels": [],
+        "events": {
+          "lift_calls": 52,
+          "clip_calls": 975,
+          "triangulate_calls": 99,
+          "bounded_rank_calls": 293
+        },
+        "validation_kernel_calls": {
+          "matrix_rank_SVD": 293
+        }
+      },
+      "production_black_box_kernels": 0,
+      "curves": [
+        {
+          "order": 4,
+          "accuracy": 0.3082534746506318,
+          "integration_only_bound": 0.17600829434549253,
+          "arithmetic_upper_bound": 2955438,
+          "conventional_forward_equivalents": 46178.71875,
+          "sampling_variance": 4.61756574864789e-06,
+          "bound_squared_over_sampling_variance": 6708.928765655529,
+          "quadrature_nodes": 16512
+        },
+        {
+          "order": 8,
+          "accuracy": 0.3077301124097073,
+          "integration_only_bound": 0.004002787720657724,
+          "arithmetic_upper_bound": 7940436,
+          "conventional_forward_equivalents": 124069.3125,
+          "sampling_variance": 1.7170425630110281e-06,
+          "bound_squared_over_sampling_variance": 9.331340924101106,
+          "quadrature_nodes": 132096
+        },
+        {
+          "order": 12,
+          "accuracy": 0.30773074362465647,
+          "integration_only_bound": 7.20078214298215e-05,
+          "arithmetic_upper_bound": 21469672,
+          "conventional_forward_equivalents": 335463.625,
+          "sampling_variance": 6.35039143373212e-07,
+          "bound_squared_over_sampling_variance": 0.008165049983417742,
+          "quadrature_nodes": 445824
+        },
+        {
+          "order": 16,
+          "accuracy": 0.30773074302315245,
+          "integration_only_bound": 1.1678828457511596e-06,
+          "arithmetic_upper_bound": 47814526,
+          "conventional_forward_equivalents": 747101.96875,
+          "sampling_variance": 2.851451899906012e-07,
+          "bound_squared_over_sampling_variance": 4.78335384666592e-06,
+          "quadrature_nodes": 1056768
+        },
+        {
+          "order": 20,
+          "accuracy": 0.30773074302392717,
+          "integration_only_bound": 1.7861484466067117e-08,
+          "arithmetic_upper_bound": 91246470,
+          "conventional_forward_equivalents": 1425726.09375,
+          "sampling_variance": 1.494203786798504e-07,
+          "bound_squared_over_sampling_variance": 2.135134645958296e-09,
+          "quadrature_nodes": 2064000
+        }
+      ]
+    },
+    {
+      "H": 4,
+      "geometry_cost": {
+        "known_arithmetic_upper_bound": 51298878,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 500,
+          "gate_map_setup": 253536,
+          "lift_scalar": 27884,
+          "zero_normal_check": 82956,
+          "clip_scalar": 2865074,
+          "clip_adjacency": 23045396,
+          "clip_new_rays": 12040648,
+          "gate_masks": 18592,
+          "outcome_maps": 57600,
+          "outcome_predicates": 62358,
+          "outcome_control": 70413,
+          "orthant_control": 57280,
+          "ray_l1_normalization": 85704,
+          "tri_incidence": 2865536,
+          "tri_control": 160254,
+          "tri_face_scan": 2354780,
+          "rank_result_test": 6797,
+          "qr_norm": 1667148,
+          "qr_bounds": 258286,
+          "qr_pivot": 1210532,
+          "qr_normalize": 64536,
+          "qr_project": 1505760,
+          "qr_reorthogonalize": 380064,
+          "qr_bracket_products": 1431124,
+          "qr_inverse": 419058,
+          "determinants": 301638,
+          "simplex_test": 5040
+        },
+        "black_box_kernels": [],
+        "events": {
+          "lift_calls": 156,
+          "clip_calls": 10404,
+          "triangulate_calls": 961,
+          "bounded_rank_calls": 6797
+        },
+        "validation_kernel_calls": {
+          "matrix_rank_SVD": 6797
+        }
+      },
+      "production_black_box_kernels": 0,
+      "curves": [
+        {
+          "order": 4,
+          "accuracy": 0.4774150579828195,
+          "integration_only_bound": 0.26653054998169623,
+          "arithmetic_upper_bound": 65528554,
+          "conventional_forward_equivalents": 341294.5520833333,
+          "sampling_variance": 7.310105563395077e-07,
+          "bound_squared_over_sampling_variance": 97178.53382209246,
+          "quadrature_nodes": 322560
+        },
+        {
+          "order": 8,
+          "accuracy": 0.47701290143823416,
+          "integration_only_bound": 0.0060614485051068015,
+          "arithmetic_upper_bound": 162634000,
+          "conventional_forward_equivalents": 847052.0833333334,
+          "sampling_variance": 2.9451741895018655e-07,
+          "bound_squared_over_sampling_variance": 124.75037337698429,
+          "quadrature_nodes": 2580480
+        },
+        {
+          "order": 12,
+          "accuracy": 0.47701312612398566,
+          "integration_only_bound": 0.00010904193077969909,
+          "arithmetic_upper_bound": 426204452,
+          "conventional_forward_equivalents": 2219814.8541666665,
+          "sampling_variance": 1.1238396894278895e-07,
+          "bound_squared_over_sampling_variance": 0.10579927706786699,
+          "quadrature_nodes": 8709120
+        },
+        {
+          "order": 16,
+          "accuracy": 0.4770131259940428,
+          "integration_only_bound": 1.7685328884628027e-06,
+          "arithmetic_upper_bound": 939471674,
+          "conventional_forward_equivalents": 4893081.635416667,
+          "sampling_variance": 5.098455783319271e-08,
+          "bound_squared_over_sampling_variance": 6.134619403403628e-05,
+          "quadrature_nodes": 20643840
+        },
+        {
+          "order": 20,
+          "accuracy": 0.47701312599411877,
+          "integration_only_bound": 2.704776667448178e-08,
+          "arithmetic_upper_bound": 1785667522,
+          "conventional_forward_equivalents": 9300351.677083334,
+          "sampling_variance": 2.6823889277020762e-08,
+          "bound_squared_over_sampling_variance": 2.7273512596248736e-08,
+          "quadrature_nodes": 40320000
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Conditional on unchanged floating geometry and numerical rank decisions; no total floating-error certificate.",
+    "Scalar arithmetic/comparison/bit operation cost1; transcendental cost20; allocation, copying and interpreter dispatch excluded.",
+    "Conventional forward equivalents exclude sampling generation, ranking and argmax: this comparison deliberately gives sampling free ancillary work.",
+    "Nominal checkpoints only; this cost audit does not establish the challenge criterion on independently perturbed model ensembles.",
+    "No CPU improvement inferred: validation timing includes SVD references and is separately saved."
+  ]
+}

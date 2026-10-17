@@ -11,10 +11,10 @@ Evaluate the two existing seed0 checkpoints only, using fixed GL orders4/8/12/16
 Portable cost is a symbolic arithmetic bound K + sum C_rank(m,n), with matrix-rank call shapes/counts exposed. Arithmetic/comparisons/bitset operations have unit cost; transcendentals have declared cost20, matching the DRI convention. Memory allocation, copies and Python dispatch are excluded from scalar arithmetic but included in measured CPU. Publish rank-kernel sensitivity separately, not as a certificate. No expensive new Monte Carlo truths: compare known independent references and exact tie controls. All numerical runs use the shared flock, single threads,2GB cap; each cycle <=120 CPU seconds.
 
 ## Status
-Protocol frozen; implementation pending. Root reviews this lane; Claude owns acceptance and shared-source changes. T60 tracks the discovered shared DD positive-volume tie bug.
+Three bounded implementation cycles complete; independent accounting review pending. Root reviews this lane; Claude owns acceptance and shared-source changes. T60 tracks the discovered shared DD positive-volume tie bug.
 
 ## Results
-Pending.
+Saved symbolic and bounded-rank cost curves are described below. No large-model or general noisy-ensemble success claim is made.
 
 ## Compute accounting
 Include normalization, clipping predicates/reductions, adjacency bitsets, new rays, lifted maps, output/rank comparisons, triangulation incidence traversal, orthant splitting, L1 ray normalization, all determinants, quadrature nodes/weights, integration, and analytic bound calculation. Keep original DD Ops as a diagnostic only. Distinguish geometry reused for experimental convenience from geometry charged per estimator invocation. Calibration and reference/check costs reported separately.
@@ -45,3 +45,21 @@ Next bounded cycle: replace the remaining small-rank black box with an explicitl
 Replace only the matrix-rank predicate with row-pivoted, twice-reorthogonalized Gram-Schmidt, capped at min(m,n) basis vectors. Verify a numerical singular-value bracket: residual Frobenius norm bounds the first omitted singular value; a selected coefficient minor's inverse-residual/Frobenius bound supplies a lower bound for retained singular values. If this bracket does not straddle the original1e-9 threshold with a conservative floating cushion, raise an explicit ambiguity error. This is a bounded arithmetic algorithm, not interval-certified floating linear algebra.
 
 Falsifiers before runs: compare every rank decision with the original SVD on both existing checkpoints, and test zero/rank-deficient/well-separated/threshold-near matrices. Near-threshold ambiguity must be reported, not forced into a rank. Expose validation SVD calls separately; production cost must contain zero opaque numerical kernels. No new noisy-model sweep. If decisions disagree or geometry probabilities change materially, retain the SVD-symbolic result and report failure.
+
+### Cycle 3 results: bounded arithmetic rank
+`check_rank.py` passed all ten fixed fixtures, including zero, exact rank deficiency, four random factorizations with seed52031, and diagonal singular values below/above/at the1e-9 threshold. The exact-threshold case correctly raises `AmbiguousRank`. Fixture matrices are saved verbatim. Every rank call agrees with the original SVD:293 for H2 and6797 for H4. Correct simplex counts remain258 and5040, and GL16 probabilities are bit-for-bit identical to the earlier saved values. H2/H4 checks took0.934/3.054 CPU seconds including checkpoint loading and separately counted validation SVDs. These timings are validation costs, not a claimed production speedup.
+
+Production arithmetic now has no opaque numerical kernels. Full GL16 known-operation upper bounds are47,814,526 for H2 and939,471,674 for H4, including geometry, bounded rank, determinant and Gaussian-rule setup. The integration-only bounds are1.168e-6 and1.769e-6 respectively. Their squared-bound/equal-operation sampling-variance ratios are4.78e-6 and6.13e-5 under the declared cost convention. GL20 totals are91,246,470 and1,785,667,522, with bounds1.786e-8 and2.705e-8. `rank_curves.py` substitutes the checked geometry cost into the existing saved curves; it performs no new model or quadrature evaluations. Sampling receives free RNG, target ranking and argmax in this conservative arithmetic comparison.
+
+The numerical-rank bracket is justified in exact arithmetic as follows. Write A=CQ+E, with Q formed by twice-reorthogonalized row Gram-Schmidt. The residual Frobenius norm bounds the first omitted singular value. A selected square row minor T of C gives sigma_min(C)>=sigma_min(T). For an approximate inverse X, sigma_min(T)>=(1-||I-TX||_F)/||X||_F when the numerator is positive. Also sigma_min(Q)>=sqrt(1-||QQ^T-I||_F). Combining these and subtracting ||E||_F bounds the smallest retained singular value. The code adds a declared heuristic1e-12*max(1,||A||_F) cushion and fails closed if the rank threshold is unresolved. This cushion is not an interval-arithmetic roundoff proof. The production loop has at most min(m,n) basis steps and scalar inversion dimension at most4; all matrix multiply/add/norm operations are explicitly charged.
+
+Remaining limits: the cost ledger is a source-audited scalar arithmetic upper bound, not a machine-instruction or memory-work bound; independent audit is pending. The quadrature error excludes floating geometry and roundoff. Original DD SVD results remain preserved as a distinct fallback reference, but the bounded production method never silently invokes that fallback. These two nominal checkpoint curves alone do not establish the ARC challenge criterion across independent noisy copies or the H16,T10 model.
+
+Reproduction (run from this worktree, with the resource cap and single-thread environment):
+```
+ulimit -v 2500000
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/check_rank.py --H 2
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/check_rank.py --H 4
+/workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/portable_cost/rank_curves.py
+```
