@@ -18,6 +18,7 @@ def main():
     dest=HERE/'full.json';progress=HERE/'full_progress.jsonl'
     assert not dest.exists() and not progress.exists()
     p=load();fp=json.loads((HERE/'full_protocol.json').read_text())
+    assert not fp['pilot_review'].startswith('pending'), 'independent pilot review must be pinned before execution'
     for path,sha in fp['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
     pilot=json.loads((HERE/'pilot.json').read_text());assert pilot['pass']
     assert pilot['row']['id']=='original/positive5orthant' and pilot['row']['order']==16
