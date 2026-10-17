@@ -146,3 +146,17 @@ certificates may share an elimination bug; the independent expansion tests this.
 This verifies artifact contents and correct-region containment, not completeness
 or pairwise disjointness of the triangulation. <=20CPU seconds, no sampled inputs,
 no mass integration; these are deterministic certificate probes only.
+
+### Exact-artifact independent audit outcome
+
+Both artifacts pass. Independently expanded determinants match all 478 H2 and
+8911 H4 saved simplices; gate determinant sums are exactly16. Embedded dyadic
+weights match the checkpoint tensors exactly. Exact integer forward passes at
+interior points and every ray verify gate consistency and containment of all
+257/5058 claimed-correct simplices in the correct classification/rank region.
+Runs including checkpoint imports take1.063/4.181CPU seconds; the preliminary
+arithmetic-only checks took.042/3.116CPU seconds before checkpoint equality was
+added. No model input sampling. This rules out the two frozen artifact defects,
+but still does not independently prove region completeness/disjointness or
+enclose floating mass evaluation. Reproduce with `check_exact_artifacts.py
+--hidden 2` and `--hidden 4`; outputs `exact_artifact_h{2,4}_review.json`.

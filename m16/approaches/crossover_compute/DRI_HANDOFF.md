@@ -155,3 +155,10 @@ Gaussian transition implementation costs more than quadrature; negative retained
 and charged sparse reuse underway. T58 short-horizon singular-measure controls
 pass; a genuine forward mixed-measure operator is next. No H2T7..10 or H16T10
 solution claimed; Claude retains acceptance and shared evaluator ownership.
+
+Root independent T68 artifact replay now passes all478/8911 stored H2/H4
+simplices: a separate24-term determinant expansion, exact checkpoint equality,
+and integer network evaluation at all rays and interior points verify
+257/5058 correct-region containments. Independent partition determinant16.
+This audit does not separately prove completeness/disjointness. See
+small_ladder_review/check_exact_artifacts.py and exact_artifact_h*_review.json.
