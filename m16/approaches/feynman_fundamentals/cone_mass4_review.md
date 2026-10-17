@@ -1476,3 +1476,13 @@ alone contributes up to2.0560860276e-11 on this subset. Diagonal drift is at mos
 2^-52. These are exact stored-matrix argument-angle comparisons, not wholemass
 errors or a general candidate improvement. Review CPU5.416 seconds includes
 independent exact determinants and160-digit angle diagnostics; no native replay.
+
+`check_h5_hopf_pilot_review.py` checks the single H5 clean0 h64 trace and sampler
+control. Historical output0.6406594747588912 and91,641,612 inherited units match
+exactly. All saved explicit sites total208,961,448 including one setup unit;
+conditional source allowances bring the selected total to321,406,262 across
+57,344 closures. The five-input/two-batch sampler gives1,423 declared units,
+consistent with281*N+8*batches+2; analytic initial-zero optimization uses
+231*N+7*batches+2. These are dimension-specific conventions, not transferred H4
+prices or complete native/runtime costs. No new reference was generated and
+the original75-family10M truth uncertainty remains. Review CPU0.1240 seconds.
