@@ -5,12 +5,15 @@ import sys,json,hashlib,time
 import numpy as np
 H=Path(__file__).resolve().parent
 sys.path.insert(0,str(H.parent))
-from exact import Arithmetic,isolate,weight_interval,moments,signs_and_variations,pack,ROOT_BITS,WEIGHT_BITS
+from exact_extended import Arithmetic,isolate,weight_interval,moments,signs_and_variations,pack,ROOT_BITS,WEIGHT_BITS
 from run import distance
 
 def main(n):
     out=H/f'nodes_{n}.json';progress=H/f'nodes_{n}_progress.jsonl';assert not out.exists() and not progress.exists()
     P=json.loads((H/'nodes_protocol.json').read_text())
+    # Entire snapshot is byte-identical after reversing ONLY accepted-order guard.
+    snapshot=(H/'exact_extended.py').read_text();original=(H.parent/'exact.py').read_text()
+    assert snapshot.replace('assert n in [2,6,10,12,16,22,28,30] and bits>0','assert n in [2,6,10,16] and bits>0')==original
     assert n in P['orders']==[12,22,28,30] and ROOT_BITS==160 and WEIGHT_BITS==128
     for p,h in P['pins'].items():assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==h,p
     controls=json.loads(Path(P['controls']).read_text());assert controls['cases']==13 and not controls['failures']

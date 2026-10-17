@@ -4,7 +4,7 @@
 Can the missing universal constants be bounded tightly enough to preserve the already selected ideal-rule certificates?
 
 ## Method
-Claim647c4682. Freeze new GL orders12/22/28/30 only; existing6 constants reused. Same reviewed exact Legendre/Sturm160-bit root brackets and128-bit weight enclosure. One source leggauss call per new order; no source mass/rank/model calls. After independent saved certificate audit, apply unchanged original4D perturbation bound on only11 already fixed split-parent selections and add pinned ideal-tail upper bounds. Selection is never changed from outcomes.
+Claim647c4682. Freeze new GL orders12/22/28/30 only; existing6 constants reused. Same reviewed exact Legendre/Sturm160-bit root brackets and128-bit weight enclosure. Pre-run34 review caught the original explicit order guard would reject new orders; no calls had run. Local exact_extended.py extends only that list, with full byte parity after reversal enforced. Original exact.py remains immutable. One source leggauss call per new order; no source mass/rank/model calls. After independent saved certificate audit, apply unchanged original4D perturbation bound on only11 already fixed split-parent selections and add pinned ideal-tail upper bounds. Selection is never changed from outcomes.
 
 ## Status
 Node driver frozen; independent source gate before any new order. Four independent durable chunks at20CPU each, max80CPU phase.
