@@ -8,6 +8,7 @@ from math import pi
 import time
 import numpy as np
 from volume import gl
+from scipy.special import roots_jacobi
 
 
 def inverse_fifth_segment(a,b):
@@ -21,21 +22,25 @@ def inverse_fifth_segment(a,b):
  return n*((q0+q1-p)*total+n2*p)/(3*(p*p*p)*(total*total))
 
 @lru_cache(maxsize=12)
-def outer_rule(n):
+def outer_rule(n,jacobi=False):
  x,w=gl(n);idx=np.array(np.unravel_index(np.arange(n**3),(n,n,n))).T
  if len(idx)>65536:raise ValueError('outer rule exceeds chunk guard')
  u=x[idx];weight=np.prod(w[idx],axis=1);y=np.empty((len(idx),3));rest=np.ones(len(idx))
+ if jacobi:
+  weight=np.ones(len(idx))
+  for j in range(3):
+   xx,ww=roots_jacobi(n,3-j,0);u[:,j]=(xx[idx[:,j]]+1)/2;weight*=ww[idx[:,j]]/2**(4-j)
  for j in range(3):
   y[:,j]=rest*u[:,j];c=1-u[:,j]
-  for _ in range(3-j):weight*=c
+  for _ in range(0 if jacobi else 3-j):weight*=c
   rest*=c
  return y,rest,weight
 
-def grouped_mass(rays,orders,bounds,deadline=None):
+def grouped_mass(rays,orders,bounds,deadline=None,jacobi=False):
  if rays.shape[1:]!=(5,5):raise ValueError('T5 only')
  values=np.zeros(len(rays));nodes=0;const=3/(8*pi*pi)
  for n in np.unique(orders):
-  y,rest,w=outer_rule(int(n));idx=np.where(orders==n)[0];dets=np.abs(np.linalg.det(rays[idx]))
+  y,rest,w=outer_rule(int(n),jacobi);idx=np.where(orders==n)[0];dets=np.abs(np.linalg.det(rays[idx]))
   for j,det in zip(idx,dets):
    if deadline is not None and time.process_time()>deadline:raise TimeoutError('integration CPU deadline')
    prefix=y@rays[j,:,:3].T

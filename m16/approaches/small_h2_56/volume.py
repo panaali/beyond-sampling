@@ -71,11 +71,11 @@ def bernstein_bound(rays,n,degree=None):
  logterms=-p*np.log(lower[good])-k*np.log(r[good])-np.log(r[good]-1)
  return float(gamma(p)*det/(2*pi**p)*4/factorial(d-1)*np.exp(logterms.min()))
 
-def plan(rays,tolerance=1e-4,orders=(4,6,8,10,12,16,20,24,28,32)):
+def plan(rays,tolerance=1e-4,orders=(4,6,8,10,12,16,20,24,28,32),jacobi=False):
  chosen=[];bounds=[];per=tolerance/len(rays)
  for v in rays:
   for n in orders:
-   b=bernstein_bound(v,n)
+   b=bernstein_bound(v,n,degree=n-1 if jacobi else None)
    if b<=per:break
   chosen.append(n);bounds.append(b)
  return np.array(chosen),np.array(bounds)
