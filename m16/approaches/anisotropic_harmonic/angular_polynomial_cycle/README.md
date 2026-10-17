@@ -67,3 +67,13 @@ open, as do precise total cost and finite-projection error certification.
 Incorrect angular interval normalization/parity, floating Gram loss of
 positivity, radial quadrature error, cost overhead and favorable error
 cancellation on the small pilot. DRI owns final claim classification.
+
+## Primitive result
+Independent direct angular integrals agree within8.33e-16; full support,
+half-window complement/parity, PSD bounds and root identity pass. Independent
+Legendre-antiderivative coefficients agree within2.36e-15. At retained
+fractions.1/.5/.9, repeated-cut deficits are .0101433/.0186920/.0101433
+for the degree8 polynomial versus .0269540/.0248418/.0269540 for Fourier±4.
+Thus this fixed toy supports the endpoint mechanism, but says nothing yet
+about trained accuracy or efficiency. Primitive cycle CPU.004; full work
+recorded in controls.json. No degree was selected from these results.
