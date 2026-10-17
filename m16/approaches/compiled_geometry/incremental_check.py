@@ -44,4 +44,4 @@ def main(engine):
         print(name,'legacy speed',row['warm_speed_vs_legacy'],'full speed',row['warm_speed_vs_full'],'step ratio',row['coefficient_step_ratio'],flush=True)
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--engine',choices=('incremental','stable'),default='incremental');main(parser.parse_args().engine)
+    parser=argparse.ArgumentParser();parser.add_argument('--engine',choices=('incremental','stable','mixed'),default='incremental');main(parser.parse_args().engine)
