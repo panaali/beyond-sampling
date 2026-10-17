@@ -420,3 +420,10 @@ the numerical quadrature or covariance corrections. T55 independently checks
 the formula, singular perturbation bound, and finite bulk truncation logic.
 Reproduce by replacing the filename in the preceding review-lock command
 with full_covariance_bounded.py. No external endpoint code was changed.
+
+Independent mixture review: T55 recomputes the saved weighted sums in Decimal,
+obtaining fixed mass.97082139088407668568; all five raw aggregates match within
+3e-17, and bounded full-covariance aggregate is.4090643340795151832. The
+support criterion is applied on full-dimensional cone interiors; a nonnegative
+linear form with one positive extreme-ray value is strict there, so first-index
+ownership is correct in real arithmetic. Floating geometry remains uncertified.
