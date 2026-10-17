@@ -107,3 +107,13 @@ enclosure for w. Calling them maximal events for the actual network
 would additionally require proving that all enclosed w values are
 reachable for the fixed preceding inputs. This review does not assume
 that reachability or claim a globally largest forgetting event.
+
+The exact `readout_cone.py` certificate clips the finite(w,q) rectangle
+at the final gate kink. Each hidden/output margin is affine on each
+clipped face, so vertex checks suffice. A nonnegative affine margin
+that vanishes at an interior point above the excluded lower boundary
+must have a zero-margin vertex there as well; earlier-index ties are
+therefore detected. Above the old axis threshold, strictly positive
+axis support covers the unbounded remainder. Degenerate k=old leaves
+only the excluded finite boundary, which is harmless. The caller's
+positive-parameter assumptions remain required.
