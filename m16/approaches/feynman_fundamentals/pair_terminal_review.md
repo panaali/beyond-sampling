@@ -137,3 +137,14 @@ an exactzero prefix alone cannot establish a population-weighted error.
 Other table branches include impossible rank requirements or input ties.
 A separately frozen x0=+/-1/4,u=1 continuation is pending to test whether
 the discrepancy persists away from zero; no full outer run is implied.
+
+T127's frozen nonzero continuation establishes an off-zero discrepancy:
+x0=+1/4,u=1,need1 gives pair.5961164155717624 versus interpolated
+.4604045332625662, difference-.13571188230919623. x0=-1/4 on the same rank
+branch agrees to1.12e-16. Both states are actual one-input prefixes and
+inside the old interpolation support; both have unique x0<u and need1.
+The separately implemented scalar continuation differs at most2.28e-11
+with no QUADPACK warnings, while swapped-axis pair differences are below
+5.56e-17. These are local numerical comparisons, not population-weighted
+bias or certified integration enclosures. A continuity/support diagnostic
+is a distinct next task; no new mesh or full engine was run in review.
