@@ -46,7 +46,9 @@ artifacts and do not broaden a scoped implementation result to the family.
    report complete and component timings independently.
 
 ## Status
-Protocol frozen; source/control experiment pending.
+Initial bounded pilot complete after independent T55 source review9f3681a
+and original T116 owner review. A separately frozen arithmetic-attribution
+rescue is proposed; the initial candidate is retained unchanged.
 
 ## Results
 Pending. This task does not change the integral or claim higher accuracy.
@@ -67,6 +69,15 @@ rescue on the ordinary panel. Original charges plus all additional work
 are retained. The control run is slower (.3023 versus .2230CPU), a preliminary
 timing observation only. Complete cold64-cone pilot awaits independent source
 review; no speedup is inferred from vectorization.
+
+## Initial complete pilot
+All64 cone values and statistics remain exactly identical to the original
+grouped implementation. Twelve complete calls, including two correctness
+passes and five fresh alternating timings per variant, cost5.066CPU.
+Median complete time grows from .381970 to .451457CPU, ratio1.181918:
+this guarded scalar-radial implementation is18.2% slower on the frozen pilot.
+It is not a failure of vectorization in general. Pilot values, counters and
+timings remain in pilot.json; no full integration was run.
 
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Preserve original
