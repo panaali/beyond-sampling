@@ -90,3 +90,19 @@ Exact real-weight geometry differs from machine-rounded forward semantics on
 small neighborhoods of decision planes. Floating conversion and mass integration
 remain numerical until independently bounded; a quadrature truncation estimate
 alone is not an end-to-end certificate.
+
+## First bounded attempt and comparison correction
+The first run built54 gate cells,221 gate simplices and257 correct simplices,
+passed all exact geometry audits, and obtained determinant partition16 exactly
+in0.281CPU seconds for geometry/audits. It stopped at an ordered-array incidence
+comparison with floating DD; the preserved `initial_ordering_stop.json` records
+the stop. The implementations order rays differently after a one-sided cut:
+this reference groups signed and zero rays, while floating DD preserves order.
+Pulling triangulation depends on ray order, so simplex counts can differ even
+with identical cones. A permutation-sensitive comparison is therefore too strict.
+Before the next run, change only the independent comparison to minimum-distance
+matching of L1-normalized ray coordinates, then compare the associated exact
+integer incidence bitsets. This matching uses floats to compare two outputs;
+it never changes the exact construction or decides its geometry. Retain any
+real coordinate/incidence mismatch and the different simplex counts. Numerical
+mass follows even if floating DD disagrees; exact audits still must pass.
