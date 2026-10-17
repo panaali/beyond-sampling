@@ -219,14 +219,18 @@ class Slice:
         self.work['quadrature_nodes'] += q.size; self.work['quadrature_panels'] += len(lo)
         return float(np.sum(values*w*(hi-lo)[:,None]/2))
 
-    def integrate_gaussian(self,knots,order):
+    def integrate_gaussian(self,knots,order,return_partition=False):
         x,w=np.polynomial.legendre.leggauss(order)
         zknots=self.toz(knots); lo,hi=zknots[:-1],zknots[1:]
         z=(lo[:,None]+hi[:,None])/2+(hi-lo)[:,None]*x/2
         density=np.exp(-z*z/2)/np.sqrt(2*np.pi)/(1-self.P if self.upper else self.P)
-        value=(vertical_mass([self.domain],z.ravel(),self.work)-
-               vertical_mass(self.correct,z.ravel(),self.work)).reshape(z.shape)
+        domain=vertical_mass([self.domain],z.ravel(),self.work).reshape(z.shape)
+        value=domain-vertical_mass(self.correct,z.ravel(),self.work).reshape(z.shape)
         self.work['quadrature_nodes'] += z.size;self.work['quadrature_panels'] += len(lo)
         self.work['gaussian_exp_calls'] += z.size
         weights=density*w*(hi-lo)[:,None]/2
-        return float(np.sum(value*weights)),float(weights.sum())
+        result=(float(np.sum(value*weights)),float(weights.sum()))
+        if return_partition:
+            self.work['partition_weighted_sum_proxy'] += 2*z.size
+            return result+(float(np.sum(domain*weights)),)
+        return result
