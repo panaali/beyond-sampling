@@ -79,6 +79,22 @@ this guarded scalar-radial implementation is18.2% slower on the frozen pilot.
 It is not a failure of vectorization in general. Pilot values, counters and
 timings remain in pilot.json; no full integration was run.
 
+## Frozen arithmetic-attribution rescue
+Scope64dc12f pushed first. On exactly the same9309 triangles, record scalar
+and batched sum, norm, normalized center, center projection, squared center
+projection, sign projection/norm/bound, upper bound and final radial tuple.
+Competing explanations are changed reduction order and Python float `**2`
+versus the array square operation; seven mismatches alone distinguish neither.
+If all other relevant intermediates agree and replacing only squared center
+projection by the original scalar expression restores all radial metadata,
+use that minimal scalar operation in a distinct rescue implementation.
+Otherwise retain the failed attribution and do not proceed with that rescue.
+
+Preserve the initial selector and pilot files. A successful isolated rescue
+must repeat all original/threshold/empty/nodecap controls and then the same
+cold pilot with fresh timing, after independent source review. It does not
+relax near-threshold safeguards or certify floating behavior universally.
+
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Preserve original
 conservative allowance and explicitly add every batch/guard/scalar-rescue
