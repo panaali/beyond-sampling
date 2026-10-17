@@ -1,0 +1,112 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000011af9a0 <scipy_dlamch_64_>:
+ 11af9a0:	53                   	push   %rbx
+ 11af9a1:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11af9a6:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11af9ab:	48 89 fb             	mov    %rdi,%rbx
+ 11af9ae:	48 8d 35 9b 00 21 00 	lea    0x21009b(%rip),%rsi        # 13bfa50 <.annobin___pthread_atfork.end+0x2b00>
+ 11af9b5:	e8 e6 69 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11af9ba:	f2 0f 10 05 66 dd 20 	movsd  0x20dd66(%rip),%xmm0        # 13bd728 <.annobin___pthread_atfork.end+0x7d8>
+ 11af9c1:	00 
+ 11af9c2:	48 85 c0             	test   %rax,%rax
+ 11af9c5:	74 09                	je     11af9d0 <scipy_dlamch_64_+0x30>
+ 11af9c7:	5b                   	pop    %rbx
+ 11af9c8:	c3                   	ret
+ 11af9c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 11af9d0:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11af9d5:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11af9da:	48 8d 35 7c 01 21 00 	lea    0x21017c(%rip),%rsi        # 13bfb5d <.annobin___pthread_atfork.end+0x2c0d>
+ 11af9e1:	48 89 df             	mov    %rbx,%rdi
+ 11af9e4:	e8 b7 69 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11af9e9:	48 85 c0             	test   %rax,%rax
+ 11af9ec:	74 12                	je     11afa00 <scipy_dlamch_64_+0x60>
+ 11af9ee:	f2 0f 10 05 0a da 20 	movsd  0x20da0a(%rip),%xmm0        # 13bd400 <.annobin___pthread_atfork.end+0x4b0>
+ 11af9f5:	00 
+ 11af9f6:	5b                   	pop    %rbx
+ 11af9f7:	c3                   	ret
+ 11af9f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 11af9ff:	00 
+ 11afa00:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afa05:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afa0a:	48 8d 35 4c f0 20 00 	lea    0x20f04c(%rip),%rsi        # 13bea5d <.annobin___pthread_atfork.end+0x1b0d>
+ 11afa11:	48 89 df             	mov    %rbx,%rdi
+ 11afa14:	e8 87 69 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afa19:	f2 0f 10 05 c7 db 20 	movsd  0x20dbc7(%rip),%xmm0        # 13bd5e8 <.annobin___pthread_atfork.end+0x698>
+ 11afa20:	00 
+ 11afa21:	48 85 c0             	test   %rax,%rax
+ 11afa24:	75 a1                	jne    11af9c7 <scipy_dlamch_64_+0x27>
+ 11afa26:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afa2b:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afa30:	48 8d 35 69 fd 20 00 	lea    0x20fd69(%rip),%rsi        # 13bf7a0 <.annobin___pthread_atfork.end+0x2850>
+ 11afa37:	48 89 df             	mov    %rbx,%rdi
+ 11afa3a:	e8 61 69 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afa3f:	f2 0f 10 05 e9 dc 20 	movsd  0x20dce9(%rip),%xmm0        # 13bd730 <.annobin___pthread_atfork.end+0x7e0>
+ 11afa46:	00 
+ 11afa47:	48 85 c0             	test   %rax,%rax
+ 11afa4a:	0f 85 77 ff ff ff    	jne    11af9c7 <scipy_dlamch_64_+0x27>
+ 11afa50:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afa55:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afa5a:	48 8d 35 b0 03 21 00 	lea    0x2103b0(%rip),%rsi        # 13bfe11 <.annobin___pthread_atfork.end+0x2ec1>
+ 11afa61:	48 89 df             	mov    %rbx,%rdi
+ 11afa64:	e8 37 69 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afa69:	f2 0f 10 05 c7 dc 20 	movsd  0x20dcc7(%rip),%xmm0        # 13bd738 <.annobin___pthread_atfork.end+0x7e8>
+ 11afa70:	00 
+ 11afa71:	48 85 c0             	test   %rax,%rax
+ 11afa74:	0f 85 4d ff ff ff    	jne    11af9c7 <scipy_dlamch_64_+0x27>
+ 11afa7a:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afa7f:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afa84:	48 8d 35 05 04 21 00 	lea    0x210405(%rip),%rsi        # 13bfe90 <.annobin___pthread_atfork.end+0x2f40>
+ 11afa8b:	48 89 df             	mov    %rbx,%rdi
+ 11afa8e:	e8 0d 69 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afa93:	f2 0f 10 05 55 d9 20 	movsd  0x20d955(%rip),%xmm0        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+ 11afa9a:	00 
+ 11afa9b:	48 85 c0             	test   %rax,%rax
+ 11afa9e:	0f 85 23 ff ff ff    	jne    11af9c7 <scipy_dlamch_64_+0x27>
+ 11afaa4:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afaa9:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afaae:	48 8d 35 97 fd 20 00 	lea    0x20fd97(%rip),%rsi        # 13bf84c <.annobin___pthread_atfork.end+0x28fc>
+ 11afab5:	48 89 df             	mov    %rbx,%rdi
+ 11afab8:	e8 e3 68 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afabd:	f2 0f 10 05 7b dc 20 	movsd  0x20dc7b(%rip),%xmm0        # 13bd740 <.annobin___pthread_atfork.end+0x7f0>
+ 11afac4:	00 
+ 11afac5:	48 85 c0             	test   %rax,%rax
+ 11afac8:	0f 85 f9 fe ff ff    	jne    11af9c7 <scipy_dlamch_64_+0x27>
+ 11aface:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afad3:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afad8:	48 8d 35 9d fb 20 00 	lea    0x20fb9d(%rip),%rsi        # 13bf67c <.annobin___pthread_atfork.end+0x272c>
+ 11afadf:	48 89 df             	mov    %rbx,%rdi
+ 11afae2:	e8 b9 68 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afae7:	48 85 c0             	test   %rax,%rax
+ 11afaea:	0f 85 fe fe ff ff    	jne    11af9ee <scipy_dlamch_64_+0x4e>
+ 11afaf0:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afaf5:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afafa:	48 8d 35 88 03 21 00 	lea    0x210388(%rip),%rsi        # 13bfe89 <.annobin___pthread_atfork.end+0x2f39>
+ 11afb01:	48 89 df             	mov    %rbx,%rdi
+ 11afb04:	e8 97 68 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afb09:	f2 0f 10 05 37 dc 20 	movsd  0x20dc37(%rip),%xmm0        # 13bd748 <.annobin___pthread_atfork.end+0x7f8>
+ 11afb10:	00 
+ 11afb11:	48 85 c0             	test   %rax,%rax
+ 11afb14:	0f 85 ad fe ff ff    	jne    11af9c7 <scipy_dlamch_64_+0x27>
+ 11afb1a:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 11afb1f:	ba 01 00 00 00       	mov    $0x1,%edx
+ 11afb24:	48 8d 35 4b e6 20 00 	lea    0x20e64b(%rip),%rsi        # 13be176 <.annobin___pthread_atfork.end+0x1226>
+ 11afb2b:	48 89 df             	mov    %rbx,%rdi
+ 11afb2e:	e8 6d 68 ed fe       	call   863a0 <scipy_lsame_64_@plt>
+ 11afb33:	66 0f ef c0          	pxor   %xmm0,%xmm0
+ 11afb37:	48 85 c0             	test   %rax,%rax
+ 11afb3a:	0f 84 87 fe ff ff    	je     11af9c7 <scipy_dlamch_64_+0x27>
+ 11afb40:	f2 0f 10 05 00 da 20 	movsd  0x20da00(%rip),%xmm0        # 13bd548 <.annobin___pthread_atfork.end+0x5f8>
+ 11afb47:	00 
+ 11afb48:	5b                   	pop    %rbx
+ 11afb49:	c3                   	ret
+
+Disassembly of section .fini:

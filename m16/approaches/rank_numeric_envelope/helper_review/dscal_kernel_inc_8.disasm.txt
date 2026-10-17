@@ -1,0 +1,43 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000a3dea0 <dscal_kernel_inc_8>:
+  a3dea0:	4c 8d 04 cd 00 00 00 	lea    0x0(,%rcx,8),%r8
+  a3dea7:	00 
+  a3dea8:	31 c0                	xor    %eax,%eax
+  a3deaa:	48 6b c9 18          	imul   $0x18,%rcx,%rcx
+  a3deae:	f2 0f 12 06          	movddup (%rsi),%xmm0
+  a3deb2:	4a 8d 04 82          	lea    (%rdx,%r8,4),%rax
+  a3deb6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a3debd:	00 00 00 
+  a3dec0:	f2 0f 10 22          	movsd  (%rdx),%xmm4
+  a3dec4:	66 42 0f 16 24 02    	movhpd (%rdx,%r8,1),%xmm4
+  a3deca:	f2 42 0f 10 2c 42    	movsd  (%rdx,%r8,2),%xmm5
+  a3ded0:	66 0f 16 2c 0a       	movhpd (%rdx,%rcx,1),%xmm5
+  a3ded5:	f2 0f 10 30          	movsd  (%rax),%xmm6
+  a3ded9:	66 42 0f 16 34 00    	movhpd (%rax,%r8,1),%xmm6
+  a3dedf:	f2 42 0f 10 3c 40    	movsd  (%rax,%r8,2),%xmm7
+  a3dee5:	66 0f 16 3c 08       	movhpd (%rax,%rcx,1),%xmm7
+  a3deea:	66 0f 59 e0          	mulpd  %xmm0,%xmm4
+  a3deee:	66 0f 59 e8          	mulpd  %xmm0,%xmm5
+  a3def2:	66 0f 59 f0          	mulpd  %xmm0,%xmm6
+  a3def6:	66 0f 59 f8          	mulpd  %xmm0,%xmm7
+  a3defa:	f2 0f 11 22          	movsd  %xmm4,(%rdx)
+  a3defe:	66 42 0f 17 24 02    	movhpd %xmm4,(%rdx,%r8,1)
+  a3df04:	f2 42 0f 11 2c 42    	movsd  %xmm5,(%rdx,%r8,2)
+  a3df0a:	66 0f 17 2c 0a       	movhpd %xmm5,(%rdx,%rcx,1)
+  a3df0f:	f2 0f 11 30          	movsd  %xmm6,(%rax)
+  a3df13:	66 42 0f 17 34 00    	movhpd %xmm6,(%rax,%r8,1)
+  a3df19:	f2 42 0f 11 3c 40    	movsd  %xmm7,(%rax,%r8,2)
+  a3df1f:	66 0f 17 3c 08       	movhpd %xmm7,(%rax,%rcx,1)
+  a3df24:	4a 8d 14 c2          	lea    (%rdx,%r8,8),%rdx
+  a3df28:	4a 8d 04 c0          	lea    (%rax,%r8,8),%rax
+  a3df2c:	48 83 ef 08          	sub    $0x8,%rdi
+  a3df30:	75 8e                	jne    a3dec0 <dscal_kernel_inc_8+0x20>
+  a3df32:	c5 f8 77             	vzeroupper
+  a3df35:	c3                   	ret
+  a3df36:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a3df3d:	00 00 00 
