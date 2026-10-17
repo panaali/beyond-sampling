@@ -195,3 +195,23 @@ common-output regions; weak but nonzero input influence may admit a bounded
 approximation; exact rank boundaries can interact with internal readout regions.
 Those require concrete cost/accuracy discriminators, not relabeling the residual
 as unexplained noise or sweeping parameters until a favorable result appears.
+
+## Frozen whole-cone correctness discriminator
+To test whether bulk errors can be counted without internal readout/rank
+clipping, derive conservative possible-label sets from every exact gate ray.
+Exclude output j if one competitor k dominates it on the cone interior:
+all margins L_k-L_j nonnegative and either k<j or some margin strictly positive.
+Exclude true second-rank j if at least two inputs are strictly above it over
+the full cone interior, or no other input can ever be above it. Strict interior
+ordering means all ray differences nonnegative and at least one positive;
+possible-above needs at least one positive ray difference. These tests preserve
+supersets even though some retained labels may actually be infeasible.
+
+Disjoint possible-output and possible-second sets certify the whole cone
+uniformly wrong; matching singleton sets certify uniformly correct. Everything
+else remains unresolved. Apply to the same450 histories and unchanged GL20
+mass; validate certified-correct gate mass equals its stored correct-event mass,
+and certified-wrong correct-event mass is zero, within numerical qualifications.
+This is an independently falsifiable sufficient certificate, not exact feasible
+label enumeration. Cost <=20CPU, no new region engine, truth fitting or noise.
+Report event coverage and residual interval width before suggesting efficiency.
