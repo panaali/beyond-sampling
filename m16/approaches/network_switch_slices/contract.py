@@ -21,7 +21,13 @@ def contract(model,outer_order=3,inner_order=16,diagnostic_order=32,deadline=flo
                     s=Slice(model,kind,cfg,qlo=1e-6,qhi=1-1e-6,fixed_quantiles=fixed)
                     construction_cpu+=time.process_time()-t
                     maxcells=max(maxcells,len(s.cells));maxpanels=max(maxpanels,len(s.knots)-1)
-                    t=time.process_time();value,norm=s.integrate_gaussian(s.knots,inner_order)
+                    t=time.process_time()
+                    try: value,norm=s.integrate_gaussian(s.knots,inner_order)
+                    except Exception as error:
+                        raise RuntimeError(dict(kind=kind,configuration=cfg,outer_indices=[i,j],
+                                                fixed_quantiles=fixed,outer_order=outer_order,
+                                                completed_slices=slices,elapsed_cpu=time.process_time()-start,
+                                                cause=str(error))) from error
                     integral_cpu+=time.process_time()-t;work.update(s.work)
                     weight=w[i]*w[j]/count;candidate+=weight*value
                     if diagnostic_order:

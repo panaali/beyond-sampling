@@ -1,0 +1,105 @@
+{
+  "cases": [
+    {
+      "outer_order": 3,
+      "inner_order": 16,
+      "diagnostic_order": 32,
+      "estimate": 0.3041914023858382,
+      "diagnostic_estimate": 0.30419140238583786,
+      "endpoint_omitted_mass_bound": 8.350959312163835e-06,
+      "families": [
+        {
+          "kind": "23",
+          "factor": 2.350959312178077,
+          "integral": 0.16665043419677147,
+          "diagnostic_integral": 0.1666504341967715,
+          "slices": 108,
+          "max_gate_cells": 16,
+          "max_panels": 19,
+          "maximum_inner_discrepancy": 6.106226635438361e-16,
+          "construction_cpu_seconds": 0.204470563000001,
+          "integration_cpu_seconds": 0.049215264000001424,
+          "diagnostic_cpu_seconds": 0.06948527599999998,
+          "construction_and_integration_work": {
+            "polygon_clips": 7580,
+            "tested_vertices": 33630,
+            "intersections": 3803,
+            "cdf_calls": 51035,
+            "affine_coefficient_proxy": 31140,
+            "stage_cells": 1491,
+            "centroid_validation_forward_steps": 2244,
+            "readout_coefficient_proxy": 20196,
+            "readout_inequalities": 1663,
+            "retained_gate_cells": 561,
+            "correct_polygons": 276,
+            "quantile_calls": 679,
+            "vertical_edge_queries": 120013,
+            "quadrature_nodes": 9136,
+            "quadrature_panels": 571,
+            "gaussian_exp_calls": 9136
+          },
+          "diagnostic_work": {
+            "cdf_calls": 97738,
+            "quantile_calls": 679,
+            "vertical_edge_queries": 240015,
+            "quadrature_nodes": 18272,
+            "quadrature_panels": 571,
+            "gaussian_exp_calls": 18272
+          }
+        },
+        {
+          "kind": "12",
+          "factor": 1.8245203439038404,
+          "integral": 0.1666302096748586,
+          "diagnostic_integral": 0.16663020967485873,
+          "slices": 54,
+          "max_gate_cells": 10,
+          "max_panels": 18,
+          "maximum_inner_discrepancy": 4.718447854656915e-16,
+          "construction_cpu_seconds": 0.12309083200000148,
+          "integration_cpu_seconds": 0.029768691999998653,
+          "diagnostic_cpu_seconds": 0.036558286999999856,
+          "construction_and_integration_work": {
+            "polygon_clips": 3923,
+            "tested_vertices": 17654,
+            "intersections": 2107,
+            "cdf_calls": 26662,
+            "affine_coefficient_proxy": 15690,
+            "stage_cells": 746,
+            "centroid_validation_forward_steps": 1108,
+            "readout_coefficient_proxy": 9972,
+            "readout_inequalities": 950,
+            "retained_gate_cells": 277,
+            "correct_polygons": 145,
+            "quantile_calls": 379,
+            "vertical_edge_queries": 64149,
+            "quadrature_nodes": 5200,
+            "quadrature_panels": 325,
+            "gaussian_exp_calls": 5200
+          },
+          "diagnostic_work": {
+            "cdf_calls": 51064,
+            "quantile_calls": 379,
+            "vertical_edge_queries": 128306,
+            "quadrature_nodes": 10400,
+            "quadrature_panels": 325,
+            "gaussian_exp_calls": 10400
+          }
+        }
+      ],
+      "total_cpu_seconds": 0.5246197020000001,
+      "H": 2,
+      "T": 4,
+      "reference": 0.30773074302315223,
+      "error_to_reference": -0.003539340637314037,
+      "old_full_grid_estimate": 0.2989085233019545,
+      "old_full_grid_bias": -0.008822219721197733,
+      "checkpoint_sha256": "ac26737f08bc7012a404fd3f9e525cdaaaebf8dce0ca398dc4c7354762a1e028"
+    }
+  ],
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/network_switch_slices/slices.py": "b6b930dca271dcfc7b436e213f0e408ba7fde460fd27e3fb8d87a26a70167217",
+    "/workspace/work/recover-small_h2_78/m16/approaches/network_switch_slices/contract.py": "271be4d73475370a90762ed34420b3794f7be533c2f7915f0a23aaeb3d43e50a"
+  },
+  "cpu_seconds": 1.433053765
+}
