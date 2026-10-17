@@ -10,13 +10,21 @@ HERE=Path(__file__).resolve().parent
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--T',type=int,choices=[4,5,6],required=True)
-    args=ap.parse_args();path=HERE/f'panel_T{args.T}.json';planpath=HERE/'calibration.json'
+    ap.add_argument('--independent',action='store_true')
+    args=ap.parse_args();prefix='independent_' if args.independent else ''
+    path=HERE/f'{prefix}panel_T{args.T}.json';planpath=HERE/'calibration.json'
+    if args.independent:
+        import independent as D
+        run_faces=D.faces
+    else:run_faces=E.faces
     plans=json.loads(planpath.read_text());engine_hash=hashlib.sha256((HERE/'engine.py').read_bytes()).hexdigest()
     assert engine_hash==plans['engine_sha256']
     phash=hashlib.sha256(planpath.read_bytes()).hexdigest()
     out=json.loads(path.read_text()) if path.exists() else dict(T=args.T,models=[],cycles=[],complete=False,
         plan_sha256=phash,engine_sha256=engine_hash,source_pins=E.PINS,
-        source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
+        source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        independent_kind_namespaces=args.independent,
+        independent_source_sha256=hashlib.sha256((HERE/'independent.py').read_bytes()).hexdigest() if args.independent else None)
     assert out['plan_sha256']==phash and out['engine_sha256']==engine_hash
     table_start=time.process_time();E.C.tables(args.T);table_cpu=time.process_time()-table_start
     newrules=0;stop=False
@@ -33,7 +41,7 @@ def main():
             if not target['feasible']:continue
             for r in range(len(cell['rules']),16):
                 if time.process_time()-START>90:stop=True;break
-                rule=E.faces(M,target['faces_per_kind'],44100+r)
+                rule=run_faces(M,target['faces_per_kind'],44100+r)
                 rule.update(rule_seed=44100+r,pilot_fpe=plan['pilot']['variable_fpe'],
                     setup_fpe=plan['fixed']['setup_fpe'])
                 rule['cold_fpe']=rule['variable_fpe']+rule['pilot_fpe']+rule['setup_fpe']
