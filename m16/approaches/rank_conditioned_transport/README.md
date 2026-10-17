@@ -262,3 +262,49 @@ conditional correctness differs from the full-target integral by a value in
 Grid/outer/rounding errors still excluded. T55 independently approved this
 measure and tail accounting. This isolates the existing floating-tail issue
 without relaxing guards or implementing a new conditional-probability API.
+
+Bounded target-value controls pass (`value_controls.py --target-limit 4`):
+T3/4/7 constant errors against retained_mass/T are<=6.2e-16, raw density
+mass defects<=1.9e-15, and sign-toy discrepancies fall inside their explicit
+omission allowance. T4 omitted target mass is6.0179e-9; its composition with
+input truncation is about1.39e-8, excluding all numerical/spatial errors.
+
+Equal-node trained value-rule comparison (`spatial_cycle.py --gate-cycle
+--q 32/64 --hidden 33 --rule split_value --target-limit 4`):
+
+| nodes per sign half | baseline error | curvature error | gate error |
+|---|---:|---:|---:|
+| 32 | +1.92637e-4 | +1.62713e-4 | +1.58678e-4 |
+| 64 | -2.87531e-5 | -1.78355e-4 | -1.84753e-4 |
+
+These movements are much larger than the explicit target omission. Changing
+the variable alone therefore does not stabilize this implementation. We do
+not choose q256 curvature by its fortunate closeness to the reference, nor
+reject the general rank-conditioned transport method on this evidence.
+The canonical estimator remains unchanged. All experimental rules retain
+positive weights, exact scalar tie handling and unchanged probability guards.
+
+Finite alternatives checklist for this bounded phase:
+
+- Rank/normalization defect: independent algebra and constant/sign controls
+  support the law, including the target-value change of variables. This is
+  not a floating-point proof of the full trained implementation.
+- Narrow terminal gate layers: supported locally. The weight-derived scale
+  and independent-density diagnostic show that mesh placement reduces their
+  interpolation residual, but the diagnostic does not use reachable mass.
+- Quantile endpoint steepness as sole global cause: the matched-node target-
+  value comparison does not support this explanation; it is insufficient.
+- Interior target-value kinks from target insertion/grid crossings and
+  conditional interval endpoints: still plausible. Label2 carries most
+  observed q oscillation. An explicitly panelled rule or an independent
+  fixed-target conditional reference would discriminate this, but was not
+  implemented here; blindly increasing q/h is not the next step.
+- Earlier-stage spatial error and cross-coordinate weighting: unresolved.
+  Terminal-only mesh changes cannot settle them; T77 reachability information
+  could support a separate future weighted diagnostic.
+
+Status of this phase: bounded experiments complete, independent T55 review
+requested; global accuracy/cost improvement remains inconclusive. This is
+neither a method-level rejection nor a challenge solution. Root owns task
+registration and any followup prioritization. All commits retain the original
+quadrature-cancellation and tail-normalization failures.

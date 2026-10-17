@@ -7,7 +7,7 @@ from functools import lru_cache
 import time
 import numpy as np
 from numpy.polynomial.legendre import leggauss
-from scipy.special import ndtr, ndtri, roots_jacobi
+from scipy.special import ndtr, ndtri, roots_jacobi, betainc, betaincc
 from scipy.interpolate import RegularGridInterpolator
 
 
@@ -216,7 +216,7 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
 
 def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.,
              target_rule='jacobi', mesh_power=1., transition='quantile', terminal_reuse=False,
-             mesh_builder=None):
+             mesh_builder=None, target_value_limit=None):
     start = time.process_time()
     wi, wh, wo = (np.asarray(a, dtype=float) for a in model)
     T = len(wo)
@@ -232,6 +232,7 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     mesh_metadata = None
     if mesh_builder is not None:
         axes, states, mesh_metadata = mesh_builder(model, axes, states, limit, stats)
+    omitted_target_mass = 0.
     if target_rule == 'jacobi':
         nodes, weights = roots_jacobi(target_order, 1, T-2)
         q = (nodes+1)/2
@@ -244,16 +245,21 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
             raise ArithmeticError('target rule does not integrate Beta mass')
     elif target_rule == 'split_value':
         nodes, base_weights = leggauss(target_order)
-        u = np.concatenate((limit*(nodes-1)/2, limit*(nodes+1)/2))
+        target_limit = limit if target_value_limit is None else target_value_limit
+        if not 0 < target_limit <= limit:
+            raise ValueError('target value limit must lie in (0,input limit]')
+        u = np.concatenate((target_limit*(nodes-1)/2, target_limit*(nodes+1)/2))
         alpha = ndtr(-limit)
         z = 1-2*alpha
         q = (ndtr(u)-alpha)/z
-        weights = (np.tile(base_weights*limit/2, 2)*T*(T-1)*q**(T-2)*(1-q)
+        weights = (np.tile(base_weights*target_limit/2, 2)*T*(T-1)*q**(T-2)*(1-q)
                    *np.exp(-u*u/2)/(np.sqrt(2*np.pi)*z))
+        q_minus, q_plus = (ndtr(np.array([-target_limit, target_limit]))-alpha)/z
+        omitted_target_mass = float(betainc(T-1, 2, q_minus)+betaincc(T-1, 2, q_plus))
         stats['target_density_cdf_values'] += len(q)
         stats['target_density_exponentials'] += len(q)
-        stats['target_density_raw_mass_defect'] = float(weights.sum()-1)
-        if np.any(q <= 0) or np.any(q >= 1) or abs(weights.sum()-1) > 1e-10:
+        stats['target_density_raw_mass_defect'] = float(weights.sum()-(1-omitted_target_mass))
+        if np.any(q <= 0) or np.any(q >= 1) or abs(stats['target_density_raw_mass_defect']) > 1e-10:
             raise ArithmeticError('target value rule fails support/mass control')
     else:
         raise ValueError('unknown target rule')
@@ -285,6 +291,10 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
                         limit=limit, possible_labels=labels, contributions=contributions,
                         stage_bounds=[b.tolist() for b in bounds],
                         omitted_input_mass_bound=1-box_mass,
-                        input_tail_only_interval=[box_mass*answer, box_mass*answer+1-box_mass],
+                        omitted_target_mass_bound=omitted_target_mass,
+                        target_value_limit=target_value_limit,
+                        input_tail_only_interval=([box_mass*answer, box_mass*answer+1-box_mass]
+                                                  if omitted_target_mass == 0 else None),
+                        all_tail_only_interval=[box_mass*answer, box_mass*(answer+omitted_target_mass)+1-box_mass],
                         total_error_certified=False,
                         classification='deterministic quadrature and 2D interpolation with analytic scalar terminal')
