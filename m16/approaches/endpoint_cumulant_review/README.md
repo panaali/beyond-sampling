@@ -332,3 +332,55 @@ and prior moment/geometry costs. Compare epsabs1e-10 and1e-12, preserve
 nonconvergence. No random samples, new models, upstream cumulant propagation
 or shared source edits; <=18CPU review lock,2GB. This is a Gaussian moment
 closure reference, not an exact endpoint for non-Gaussian logit laws.
+
+## Full-covariance Gaussian rescue result
+[measured] Keeping the full Gaussian covariance fixes both genuinely Gaussian
+controls to roundoff (maximum error below1e-15), including the non-atomic
+control where the finite covariance series had.00577 error. Constant ties
+and perfectly correlated/anticorrelated affine controls pass. This is a
+useful stronger reference, not evidence of universal endpoint failure.
+
+For the reset toy its target-last vector is(.24767997,0,.75232003) and
+other-target vector(.23694831,0,.76305169); true vectors remain(.5,0,.5).
+Aggregate accuracy.3297561133592037 still benefits from cancellation. The
+explicit atom/ray rescue remains exactly1/3.
+
+| Trained H2T3 representation | Full Gaussian accuracy | Bias |
+| --- | ---: | ---: |
+| Pooled conditional target | .4942131153907876 | +.0840418536639591 |
+| Zero-atom separated | .4320903576237874 | +.0219190958969589 |
+| Gate/rank support mixture | .4090643340795152 | -.0011069276473133 |
+
+Thus full covariance repairs the Gaussian control, but does not explain away
+the trained pooled/atom-only mismatch. With geometric conditioning it is
+competitive in accuracy with the tested finite-cumulant endpoints on this
+single model. It does not beat every order, and no best-order choice is made.
+The Gaussian mixture endpoint uses simple one-dimensional quadrature rather
+than dense fourth-cumulant operators; the expensive partition/moment
+construction remains, so no total compute advantage is demonstrated.
+
+The entire diagnostic is.318441991CPU including imports,66612KiB peakRSS.
+It evaluates27 laws at four rule/scale settings:192 quadrature subintervals,
+31,968 integrand evaluations,120 explicit singular limits. Maximum numerical
+rule change1.11e-16; scaling mean/covariance by1e-8 or1e8 changes a probability
+by<=2.78e-16; maximum probability-sum residual2.22e-16. Summed QUADPACK error
+estimates8.53e-10 are diagnostics, not outward bounds. Singular snapping for
+correlations inside[-1,1] has analytic Gaussian probability perturbation
+bound at most1.83e-8. Floating correlations exceed the unit interval by up to
+1e-14 in46 evaluations; these recorded corrections have NO certified
+covariance-error bound. Prior geometry, moments and source setup must be
+charged on a cold run. No complete scalar operation/FPE count is asserted.
+
+Reproduce with one thread and the review lock:
+
+```sh
+ulimit -v 2500000
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/endpoint_cumulant_review/full_covariance.py
+```
+
+[measured] T55 independently establishes a further general endpoint limit:
+commitdf85381 gives two atom-free, full-covariance logit laws with identical
+cumulants through4 but winner vectors differing by2/15. This is not a proof
+about the restricted Gaussian-input RNN family or a bound on useful
+approximation there. It explains why retaining support/distributional
+structure can supply information absent from a finite cumulant list.
