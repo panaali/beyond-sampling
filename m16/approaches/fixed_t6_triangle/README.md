@@ -31,3 +31,10 @@ A compiled triangle kernel, additional degree-three algebraic simplifications, a
 
 ## Failure modes
 r=0 and collinear base edges require positive fallback. Floating endpoint construction and frame subtraction may disagree near degeneracy. Original topology, quadrature-bound arithmetic and cancellation screen are not directed certificates. The new implementation cannot strengthen those guarantees merely by matching finite controls. Source imports and counted fallback dependencies must be pinned.
+
+### First control cycle
+`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock bash -c 'ulimit -v 2500000; ulimit -t 20; /workspace/clean-neurons/.venv/bin/python m16/approaches/fixed_t6_triangle/check.py'`
+
+[measured] Fifteen thin controls, zero remainder and first16 stored cones at orders4/8 pass the frozen screen: max old/new relative difference4.93394e-11, no changed fallback counts. All fifteen thin/zero controls also use original-domain positive quadrature. Total.319345CPU, zero model forwards; raw diagnostics in control_results.json. This does not certify floating accuracy. Short per-case CPU clocks report zeros; the three4096-node repetitions do not establish a stable speed ratio. Source hashes retained.
+
+Next frozen validation: all six endpoint permutations on the same fifteen controls and stored cone2/order8, positive-domain reference for the largest old/new difference in that fixed cone (diagnostic selection, not estimator fitting); then20 alternating old/new4096-node batches with full per-call frame/setup included, reporting wall and aggregate CPU. Independent T55 review requested. No tolerance or screen changes.
