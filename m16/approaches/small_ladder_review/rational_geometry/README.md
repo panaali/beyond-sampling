@@ -236,3 +236,63 @@ directly. Reproduce the previous command with `--hidden 4`. No noise sweep or
 higher-dimensional geometry was attempted. Both original-checkpoint topology
 references are ready for independent review; certification of floating cone
 mass evaluation remains a separate unresolved step.
+
+# T72: enclosed positive T4 mass
+
+## Protocol and arithmetic model, frozen before implementation
+Root claimed T72 inb7209a1. First H2T4 only, using the exact integer geometry
+artifact; no H4 or noise sweep. The goal is an enclosure, not a nominal estimate
+with a final nextafter attached. Charge the already-built exact geometry as
+model-specific setup, and separately report every new rule/interval/validation
+cost. One bounded <=110CPU cycle, primary flock (or approved review lock for a
+<=20CPU review), one thread, <=2GBRSS.
+
+Assume NumPy scalar/elementwise binary64 addition, subtraction, multiplication
+and division use IEEE754 correctly rounded finite arithmetic, with gradual
+underflow and without flush-to-zero/fast-math reassociation. Each operation is
+a separate ufunc with materialized output; no BLAS dot or untracked fused
+multiply-add is used. Assume nextafter returns the adjacent representable value.
+Record NumPy/platform versions and test tie rounding/subnormals. These runtime
+tests are falsifiers, not a formal proof of hardware/compiler compliance. Stop
+on nonfinite values, invalid intervals, nonpositive reciprocal denominators, or
+failed rational containment. The certificate is conditional on this explicit
+arithmetic model and the exact-geometry proof/implementation audit.
+
+Use GL20 tensor quadrature. NumPy leggauss supplies guesses only; bracket each
+Legendre root with rational dyadic endpoints, verify exact opposite polynomial
+signs, and bisect to width<=2^-96. Twenty disjoint sign-changing intervals inside
+(-1,1) account for all twenty simple roots of the degree20 polynomial. Enclose
+weights by rational interval evaluation of
+w_i=2(1-x_i²)/(n² P_(n-1)(x_i)²), using the root identity P_n(x_i)=0. Enclose pi
+with the rational alternating-series Machin identity
+pi=16 atan(1/5)-4 atan(1/239). Every rational-to-binary64 endpoint conversion is
+checked against its exact Fraction and expanded outward when needed.
+
+For nonnegative intervals, round each product/addition/division outward, and
+evaluate1-u as [down(1-u_upper),up(1-u_lower)]. A lower bound may be raised to0
+only when nonnegativity is already proved. Convert each exact L1-normalized
+same-orthant ray to its absolute coordinate intervals; reflection preserves
+Gaussian mass. Build barycentric coordinates and Jacobian-weight intervals,
+then enclose squared norms, reciprocals and integrand products operation by
+operation. Use explicit outward pairwise reductions for nodes and simplices.
+Use the exact rational determinant from the geometry artifact, not linalg.det.
+
+The analytic truncation bound is also enclosed. On a same-orthant L1 simplex,
+1/4<=||Vy||²<=1. The Chebyshev approximation to s^-2 of degree n-2 has uniform
+remainder E=(12n+9)/3^(n-1). Under the stick-breaking map, its polynomial times
+the Jacobian has degree<=2n-2 in each cube coordinate, so GLn integrates it
+exactly. Positive quadrature and integral both give Jacobian mass1/6; therefore
+mass error<=|det V| E/(6 pi²). All constants/determinants here are rational except
+pi, whose interval is explicit. Add this bound outward to the quadrature interval.
+
+Independent containment falsifiers: (1) arithmetic assumptions or weight/root
+bracketing may be wrong. Check fixed adversarial binary64 operations against
+exact Fractions, all polynomial GL moments through degree39, and the tensor
+Jacobian mass1/6. (2) apparently narrow intervals may omit an operation or use
+an unjustified lower bound. Check the coordinate-orthant mass1/16, compare fixed
+cone quadrature values against independent high-precision evaluation, and ask
+T55 for a separate source/containment review. Keep raw interval widths and every
+failure; do not select whichever bound agrees with the old floating estimate.
+The exact H2T4 gate partition and constant-class controls remain available for
+later extension, but the first full numerical enclosure covers its257 correct
+simplices only. No final certified-probability claim before independent review.
