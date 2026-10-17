@@ -1486,3 +1486,13 @@ consistent with281*N+8*batches+2; analytic initial-zero optimization uses
 231*N+7*batches+2. These are dimension-specific conventions, not transferred H4
 prices or complete native/runtime costs. No new reference was generated and
 the original75-family10M truth uncertainty remains. Review CPU0.1240 seconds.
+
+`check_k28_native_pilot_review.py` independently verifies all254 raw records
+for the first64 k28 copies,128 paired recipe records and control0 reused once.
+All source/model/error parity and full site totals pass, as do exact own-budget
+ratios and frozen bootstrap contractions. Numeric totals are8,423,528/10,518,429;
+named111 ratios are0.0002665917/0.00000120810, with no losses in this pilot.
+Research CPU26.5501 projects2,124 CPU seconds for80 such shards; this is resource
+planning only. Historical byte identity, absent original noisy per-copy costs,
+conditional truth and incomplete native/runtime accounting remain explicit.
+No evaluator calls were repeated in the0.0920-second review.
