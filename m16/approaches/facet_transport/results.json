@@ -1,0 +1,169 @@
+{
+  "protocol_commit": "fcdde11",
+  "cases": [
+    {
+      "name": "synthetic",
+      "accuracy": 0.3232749682553496,
+      "gate_cells": 29,
+      "stage_counts": [
+        8,
+        14,
+        29
+      ],
+      "rank_cells": 59,
+      "gate_area_error": 0.0,
+      "rank_area_error": 0.0,
+      "max_affine_validation_error": 4.440892098500626e-16,
+      "flux": -0.011269356766327052,
+      "finite_differences": [
+        {
+          "step": 0.001,
+          "plus": 0.3232637016194623,
+          "minus": 0.3232862403327876,
+          "finite_difference": -0.011269356662652052,
+          "absolute_error": 1.0367499914121225e-10
+        },
+        {
+          "step": 0.0005,
+          "plus": 0.32326933425717325,
+          "minus": 0.32328060361391353,
+          "finite_difference": -0.011269356740284397,
+          "absolute_error": 2.6042654144298183e-11
+        },
+        {
+          "step": 0.00025,
+          "plus": 0.32327215108620816,
+          "minus": 0.323277785764588,
+          "finite_difference": -0.01126935675965779,
+          "absolute_error": 6.669262364589201e-12
+        }
+      ],
+      "gate_to_merged_ratio": 3.2222222222222223,
+      "counts": {
+        "clips": 1136,
+        "gate_affine_products": 30,
+        "validation_forwards": 29
+      },
+      "cpu_seconds": 0.04078575799999995,
+      "decision_arcs": 17,
+      "unique_planes": 9,
+      "merged_arcs": 9,
+      "degenerate_margins": 0,
+      "transport_patch_lower_bound": 9,
+      "transport_patch_upper_bound": 17,
+      "transport_merge_performed": false
+    },
+    {
+      "name": "dev_H4_T3_s0.0025",
+      "accuracy": 0.9804844929561732,
+      "gate_cells": 100,
+      "stage_counts": [
+        8,
+        24,
+        100
+      ],
+      "rank_cells": 164,
+      "gate_area_error": 0.0,
+      "rank_area_error": 0.0,
+      "max_affine_validation_error": 6.328271240363392e-15,
+      "flux": -0.01846958919023165,
+      "finite_differences": [
+        {
+          "step": 0.001,
+          "plus": 0.9804659531693591,
+          "minus": 0.9805028926493408,
+          "finite_difference": -0.018469739990811807,
+          "absolute_error": 1.5080058015509712e-07
+        },
+        {
+          "step": 0.0005,
+          "plus": 0.9804752406320846,
+          "minus": 0.9804937102589657,
+          "finite_difference": -0.018469626881123524,
+          "absolute_error": 3.769089187283248e-08
+        },
+        {
+          "step": 0.00025,
+          "plus": 0.9804798711789239,
+          "minus": 0.9804891059782305,
+          "finite_difference": -0.018469598613179983,
+          "absolute_error": 9.422948331339054e-09
+        }
+      ],
+      "gate_to_merged_ratio": 1.4285714285714286,
+      "counts": {
+        "clips": 3652,
+        "gate_affine_products": 40,
+        "validation_forwards": 100
+      },
+      "cpu_seconds": 0.19425379899999995,
+      "decision_arcs": 114,
+      "unique_planes": 66,
+      "merged_arcs": 70,
+      "degenerate_margins": 0,
+      "transport_patch_lower_bound": 70,
+      "transport_patch_upper_bound": 114,
+      "transport_merge_performed": false
+    },
+    {
+      "name": "dev_H4_T3_s0.02",
+      "accuracy": 0.9352406922760619,
+      "gate_cells": 100,
+      "stage_counts": [
+        8,
+        24,
+        100
+      ],
+      "rank_cells": 164,
+      "gate_area_error": 0.0,
+      "rank_area_error": 1.7763568394002505e-15,
+      "max_affine_validation_error": 6.661338147750939e-15,
+      "flux": -0.016744876754265708,
+      "finite_differences": [
+        {
+          "step": 0.001,
+          "plus": 0.9352238988958943,
+          "minus": 0.9352573887326441,
+          "finite_difference": -0.016744918374889117,
+          "absolute_error": 4.1620623409538426e-08
+        },
+        {
+          "step": 0.0005,
+          "plus": 0.9352323077170979,
+          "minus": 0.9352490526042568,
+          "finite_difference": -0.01674488715897038,
+          "absolute_error": 1.0404704670757825e-08
+        },
+        {
+          "step": 0.00025,
+          "plus": 0.9352365030273807,
+          "minus": 0.9352448754670587,
+          "finite_difference": -0.016744879355989895,
+          "absolute_error": 2.6017241867848373e-09
+        }
+      ],
+      "gate_to_merged_ratio": 1.8867924528301887,
+      "counts": {
+        "clips": 3684,
+        "gate_affine_products": 40,
+        "validation_forwards": 100
+      },
+      "cpu_seconds": 0.17223215699999983,
+      "decision_arcs": 86,
+      "unique_planes": 52,
+      "merged_arcs": 53,
+      "degenerate_margins": 0,
+      "transport_patch_lower_bound": 53,
+      "transport_patch_upper_bound": 86,
+      "transport_merge_performed": false
+    }
+  ],
+  "cpu_seconds": 1.425172792,
+  "wall_seconds": 15.826632357000108,
+  "counts": {
+    "clips": 8480,
+    "gate_affine_products": 110,
+    "validation_forwards": 229
+  },
+  "classification": "tiny exact-geometry diagnostic in float64, not a global estimator or formal certificate"
+}
