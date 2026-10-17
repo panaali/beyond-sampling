@@ -1,6 +1,8 @@
-# T11582 bounded handoff, pending final independent audit
+# T11582 independently reviewed bounded handoff
 
 Claim3706fcfa; source/data freezefadeef74; auditab712191 with pre-execution nested-schema correctiond4625b5d; sourcee03c5140/0524a8c8; successful output9c0bdf08. No model/mass/determinant/MC runs. T55 independently approved scalar source and5D normalization/conditional-block identities before execution.
+
+Final independent199420a1 reproduces all14pins/60rows/exact ratio/growth contractions, with separate binomial-tail inversion within4.75e−14. Source-only5D identity and ideal cutoff-tail note preserve quadrature/floating limitations. Audit CPU0.004005335 excluding imports/serialization. Backlog b9a8f9ce registers ReadyT11583 analytic control, BlockedT11584 reference validation and ReadyT11585 source-cost discriminator; none silently implemented.
 
 Nominal recipe/reference ratio0.009706984995 reproduces for ONE cleanH8T5 model under historical proxy units. Conditional10M MC interval only yields ratio[0,106.647682836], so independent finite sampling does not resolve the claimed win. A validated numerical reference may still establish it; this is not a negative result for the recipe. Same-source exact/recipe agreement and near-unit leaf sum alone are insufficient.
 

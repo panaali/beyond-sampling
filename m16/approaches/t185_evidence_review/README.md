@@ -7,7 +7,7 @@ What does the saved H8T5 zoo0 result establish about accuracy, cost and scaling?
 Immutable source/data snapshots in manifest.json; scalar arithmetic only under PROTOCOL.md. Source gates and independent review precede conclusions. No model/mass/MC replay.
 
 ## Status
-Saved-data phase complete; independent final review pending. Claim3706fcfa;14 files pinned from latest DRI result5916a826 and README12c6e8bd. T55 source gate passed before execution.
+Saved-data phase complete, independently reviewed199420a1. Claim3706fcfa;14 files pinned from latest DRI result5916a826 and README12c6e8bd. T55 source gate passed before execution; separate binomial-tail inversion agrees within4.75e−14, all14pins/60rows/exact contractions pass. Only Claude DRI confirms ledger claims.
 
 ## Results
 The historical nominal ratio reproduces0.009706984995. Recipe0.8358034749864574 differs from the same-source numerical reference0.835805733133753 by−2.2581472956e−6. This is one clean model, not a completed five-seed/noisy rung.
