@@ -22,7 +22,9 @@ def rational_forward(m,x):
     return logits,gates,counts
 
 def main():
-    start=time.process_time();out=HERE/'controls.json';progress=HERE/'controls_progress.jsonl';assert not out.exists() and not progress.exists()
+    start=time.process_time();P=json.loads((HERE/'control_protocol.json').read_text());assert P['source_gate']
+    for name,sha in P['pins'].items():assert hashlib.sha256((HERE/name).read_bytes()).hexdigest()==sha
+    out=HERE/'controls.json';progress=HERE/'controls_progress.jsonl';assert not out.exists() and not progress.exists()
     result=dict(complete=False,rows=[],source_sha256={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (HERE/'core.py',HERE/'controls.py')})
     def log(r):
         with progress.open('a') as f:f.write(json.dumps(pack(r))+'\n')
