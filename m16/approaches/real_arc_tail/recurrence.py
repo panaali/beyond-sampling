@@ -4,6 +4,7 @@ import importlib.util
 import math
 import sys
 import numpy as np
+from scipy.special import beta,betainc
 
 SOURCE=Path('/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals')
 sys.path.insert(0,str(SOURCE))
@@ -32,7 +33,40 @@ def even_arc(a,b,theta,degree,stats=None):
             add(stats,arc_scalar_arithmetic=2)
     return out
 
-def polygon_moment(vertices,degree,stats=None):
+def stable_arc(a,b,theta,degree,stats=None):
+    if degree<0 or degree%2:raise ValueError('nonnegative even degree required')
+    out=[float(theta)]
+    add(stats,arc_chains=1,arc_values=degree//2+1)
+    if not degree:return out
+    s,c=math.sin(theta/2),math.cos(theta/2)
+    df=2*s*(-a*s+b*c);dg=-2*s*(a*c+b*s)
+    f=a+df;r2=a*a+b*b
+    add(stats,arc_trig=2,arc_scalar_arithmetic=17)
+    for n in range(2,degree+1,2):
+        power_sum=sum(f**(n-2-j)*a**j for j in range(n-1))
+        endpoint=f**(n-1)*dg+b*df*power_sum
+        out.append(((n-1)*r2*out[-1]-endpoint)/n)
+        add(stats,arc_integer_power_calls=2*(n-1)+1,arc_recurrence_steps=1,arc_scalar_arithmetic=2*(n-1)+8)
+    return out
+
+def positive_arc(a,b,theta,degree,stats=None):
+    if degree<0 or degree%2 or not 0<=theta<=math.pi:raise ValueError('even degree and minor arc required')
+    out=[float(theta)]
+    add(stats,arc_chains=1,arc_values=degree//2+1)
+    if not degree:return out
+    s,c=math.sin(theta/2),math.cos(theta/2)
+    A=a*c+b*s;B=-a*s+b*c;z=s*s
+    add(stats,arc_trig=2,arc_scalar_arithmetic=8)
+    for n in range(2,degree+1,2):
+        value=0.
+        for j in range(0,n+1,2):
+            p=(j+1)/2;q=(n-j+1)/2
+            value+=math.comb(n,j)*A**(n-j)*B**j*float(beta(p,q)*betainc(p,q,z))
+            add(stats,arc_beta_calls=1,arc_betainc_calls=1,arc_integer_power_calls=2,arc_binomial_calls=1,arc_scalar_arithmetic=9)
+        out.append(value)
+    return out
+
+def polygon_moment(vertices,degree,stats=None,arc=even_arc):
     if degree<1 or degree%2!=1: raise ValueError('positive odd degree required')
     vertices=np.array([baseline.unit(v) for v in vertices])
     if len(vertices)<3 or np.min(vertices[:,0]) < -1e-14: raise ValueError('invalid positive-hemisphere polygon')
@@ -44,7 +78,7 @@ def polygon_moment(vertices,degree,stats=None):
         if not side:raise ValueError('degenerate polygon')
         inward*=np.sign(side);outward0=-inward[0]
         theta=np.arctan2(length,u@v);tangent=np.cross(cross/length,u)
-        arcs=even_arc(float(u[0]),float(tangent[0]),float(theta),degree-1,stats)
+        arcs=arc(float(u[0]),float(tangent[0]),float(theta),degree-1,stats)
         for i,value in enumerate(arcs):boundary[i]+=outward0*value
     value=0.
     for i,p in enumerate(range(1,degree+1,2)):
@@ -58,3 +92,12 @@ def polygon_moment(vertices,degree,stats=None):
 variant_spec=importlib.util.spec_from_file_location('arc_tail_variant',SOURCE/'moments.py')
 variant=importlib.util.module_from_spec(variant_spec);variant_spec.loader.exec_module(variant)
 variant.polygon_moment=polygon_moment
+
+def module_for(arc):
+    sp=importlib.util.spec_from_file_location('arc_tail_'+arc.__name__,SOURCE/'moments.py')
+    mod=importlib.util.module_from_spec(sp);sp.loader.exec_module(mod)
+    mod.polygon_moment=lambda vs,d,stats=None:polygon_moment(vs,d,stats,arc=arc)
+    return mod
+
+stable=module_for(stable_arc)
+positive=module_for(positive_arc)
