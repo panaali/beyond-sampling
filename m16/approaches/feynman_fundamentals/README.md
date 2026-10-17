@@ -950,3 +950,27 @@ Cycle45 completed: independent correct-sign/shuffled values converge within
 and .04605 failed-case bias. Partition/constant controls pass; 1.9815 CPU and
 20.984M tiny forwards retained. See sign_history_review.md. This is a finite
 conditional-mean failure, not a rejection of conditional history methods.
+
+## Subsequent independent review checkpoints
+
+Persistent T55 work continues as bounded mathematical and numerical reviews;
+the individual review files contain protocols, retained failures and scope.
+Recent checkpoints include exact four-moment argmax ambiguity
+(`four_moment` files), independent trained cumulant reconstruction, T90
+training-neighbor aggregate arithmetic, native T4 source review, coupled
+history/rank and adjacent-CDF controls, and target-last topology review.
+
+Current completed reviews: `directed_tail_review.md` and
+`binary_tail_review.md` validate positive Chebyshev bound arithmetic under
+their stated rounding/input assumptions; `polynomial_basis_review.md`
+independently reproduces the fixed H2 basis failure with analytic angular
+antiderivatives; `support_mixture_review.md` verifies component weighting
+and the corrected bounded Gaussian integral; `fibre_constraint_review.md`
+and `laplace_split_review.md` separate inherited numerical/tie defects from
+finite estimator bias. `source_mesh_review.md` checks the next fixed
+stage-one marginal placement experiment without duplicating its engine.
+
+These are conditional mathematical/implementation reviews, not a solution
+claim, family-wide impossibility result, or portable total-cost certificate.
+Ready independent checks continue under T55; alternative methods remain
+open where the individual handoffs say so.
