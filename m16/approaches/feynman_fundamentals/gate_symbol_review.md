@@ -82,3 +82,23 @@ deduplication. The bound remains too loose for a practical fine-grid
 certificate; no interpolation accuracy or estimator-cost claim follows.
 Combined independent synthetic/trained coefficient review1.057CPU including
 checkpoint import, with no trained input evaluation.
+
+## T155 support-axis restriction and feasible gate words
+
+Hidden motion h=s*e_axis changes the strip coefficient to |C_axis| divided
+by the maximum input-normal component. The exact first/middle gate inequalities
+in(s,x) restrict the entire frozen hidden interval and x in[-6,6]; discarding
+only an EMPTY closed feasible set preserves every relevant crossing word.
+Line/point sets must remain, regardless of zero area. Reduced(x,y,s,u) form
+deduplication remains exact; multiplying by|Wi_axis| translates the bound
+to the initial input coordinate. Both frozen prefix intervals are below u=1,
+so the actual rank requirement is need1.
+
+Independent all-pair boundary intersections, checked against every inequality,
+reproduce all32 feasibility decisions without using polygon clipping. There
+are3 feasible words on axis0 and5 on axis1. Exact directional coefficients,
+deduplication and normalization reproduce elementary prefix coefficients
+43.1957886368 and147.026534765, with floating CDF displays3.995102684 and
+13.598226174. These are bounds only on the two frozen support intervals;
+they do not certify the older interpolation into later mixed-support states,
+population accuracy, or a practical integration/grid algorithm. Review.023CPU.

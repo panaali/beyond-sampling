@@ -547,3 +547,44 @@ recipe remain partial. Replay CPU156.611/103.637 is preserved, plus captures.
 Independent audit.592CPU performs no integration or model-input search.
 No tuning, full nine-case/noisy ladder, complete-cost or global challenge
 claim follows from this held-out success.
+
+## T150 installed inverse floating-expression phase
+
+The saved11 controls show bitwise-equivalent baseline, GESV interception
+and temporary own-process kernel-table interception. Dimensions4x4 and four
+identity right-hand sides agree, including two calls for the batched fixture.
+The pinned small-size path uses left-looking LU and two packed triangular
+solves; observed solve shapes are4x2 twice per triangle, with no GEMM calls.
+Source-derived floating expressions total56 for LU: strided DOT lengths1,1,2
+cost11 including their final accumulation; three outer subtractions,32 GEMV
+tail operations, four reciprocals and six scaling multiplications. Each
+triangle costs16 diagonal multiplies plus48 updates, including unit-lower
+multiplications; upper packing adds four reciprocals. Total188.
+
+Independent event contraction agrees on all normal fixtures; conservative
+singular/subnormal counts50/56/185 and batch376 stay below188 per inverse.
+This is a floating-expression envelope for this pinned small-size dispatch,
+with FMA counted as multiply plus add. It excludes absolute values, comparisons,
+integer/index/control work, packing copies, allocation and runtime overhead;
+it is neither an exact instruction count nor complete inverse/hardware cost.
+Reviewer clock reported0 at its resolution, not zero work. No inverse or mass
+was reexecuted in the saved-event audit.
+
+## T153 recipe expression-cost continuation
+
+The local AST adapter correctly recognizes ndarray methods on computed
+receivers such as np.abs(mm).max; it preserves evaluation and uses the
+original callable. All other transformations remain pinned T146 behavior,
+and the geometry adapter asserts exactly one mode substitution. Independent
+aggregation checks every saved site ledger and28000 ordered callbacks/6182
+cells. Explicit geometry45131971 includes recipe-specific margin routines;
+mass410812832 and cold setup31912 give total455976715.
+
+A determinant-only source-identical census identifies54 cutoffs. The fixed
+per-node legacy counter implies2110488 nodes and uniquely determines7949
+wide/19997 thin calls; branch-ledger contraction matches exactly. Opaque
+counts2138536 inverse,28000 determinant,257040 matrix-rank and4 leggauss
+remain separate. Conditional single-case break-even524830209006.8 compares
+the actual doubled candidate with positive EXACT reference, not with its
+approximate-recipe reference. No complete-cost/sampling-win or candidate
+selection claim follows. Saved aggregate reviewer.008CPU, no mass replay.
