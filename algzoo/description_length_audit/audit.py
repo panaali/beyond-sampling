@@ -39,14 +39,25 @@ def main():
    fitted_nodes=[n for f in tree.body if isinstance(f,ast.FunctionDef) and f.name.startswith('_n') and f.name[2:].isdigit() for n in ast.walk(f) if isinstance(n,ast.Constant) and isinstance(n.value,float)]
   else:
    table=next(n.value for n in tree.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='P' for t in n.targets));fitted_nodes=[n for n in ast.walk(table) if isinstance(n,ast.Constant) and isinstance(n.value,float)]
-  row,decoded=assess(filename,tree,len(fitted_nodes),frame=True);original=environment(tree);restored=environment(decoded);checks=0
+  row,decoded=assess(filename,tree,len(fitted_nodes),frame=True);original=environment(ast.parse(path.read_text()));restored=environment(decoded);checks=0
   for i in range(H):
    a=original['f'](i,x);b=restored['f'](i,x);assert np.array_equal(a,b);checks+=len(x)
   subsets=[]
   for n in ast.walk(tree):
    is_set=isinstance(n,ast.Set);is_selected_list=H==16 and isinstance(n,ast.List)
    if (is_set or is_selected_list) and n.elts and all(isinstance(t,ast.Constant) and type(t.value) is int and 0<=t.value<9 for t in n.elts):subsets.append(sorted(t.value for t in n.elts))
-  row.update(neurons=H,coefficient_budget_max=5,prediction_scalar_checks=checks,subset_literal_occurrences=subsets,distinct_subsets=sorted(set(tuple(s) for s in subsets)),nine_bit_mask_occurrence_bits=9*len(subsets),nine_bit_mask_distinct_bits=9*len(set(tuple(s) for s in subsets)),subset_diagnostic_not_additional=True)
+  position_uses=[]
+  selected_functions=[f for f in tree.body if isinstance(f,ast.FunctionDef) and (f.name=='_formula' if H==32 else f.name.startswith('_n') and f.name[2:].isdigit())]
+  for function in selected_functions:
+   for node in ast.walk(function):
+    chosen=False
+    if isinstance(node,ast.Subscript) and isinstance(node.value,ast.Name):
+     if node.value.id in ('x','T1','T2','rk') and isinstance(node.slice,ast.Tuple):chosen=True
+     if H==16 and node.value.id=='F' and isinstance(node.slice,ast.Constant) and node.slice.value in ('x8','x9','R7'):chosen=True
+    if isinstance(node,ast.Call) and isinstance(node.func,ast.Name) and node.func.id=='top2' and node.args and isinstance(node.args[0],ast.Constant):chosen=True
+    if isinstance(node,ast.Compare) and isinstance(node.left,ast.Name) and node.left.id in ('am','a2'):chosen=True
+    if chosen:position_uses.append(dict(function=function.name,expression=ast.unparse(node)))
+  row.update(formula_position_uses=position_uses,position_inventory_is_syntax_not_parameter_count=True,neurons=H,coefficient_budget_max=5,prediction_scalar_checks=checks,subset_literal_occurrences=subsets,distinct_subsets=sorted(set(tuple(s) for s in subsets)),nine_bit_mask_occurrence_bits=9*len(subsets),nine_bit_mask_distinct_bits=9*len(set(tuple(s) for s in subsets)),subset_diagnostic_not_additional=True)
   assert len(fitted_nodes)==(78 if H==16 else 142)
   out['original'].append(row)
  for label,path,families in [('T7',ROOT/'constant_budget/sweep.py',[None]),('T23',T23/'run.py',['fourier','position_polynomial','rank_values'])]:
