@@ -1,0 +1,462 @@
+{
+  "zero": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "positive": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k30_s0_clean": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k30_s0_abs05_n124_0": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k30_s1_clean": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k30_s1_abs05_n124_0": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k30_s4_clean": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k30_s4_abs05_n124_0": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k24_s4_clean": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  },
+  "k24_s4_abs05_n124_0": {
+    "sites": {
+      "sampler:L13:row[0] * h[0]": {
+        "scalar_Mult": 3
+      },
+      "sampler:L14:row[j] * h[j]": {
+        "scalar_Mult": 9
+      },
+      "sampler:L14:value + row[j] * h[j]": {
+        "scalar_Add": 9
+      },
+      "sampler:L18:logits[i] > logits[winner]": {
+        "scalar_compare": 2
+      },
+      "sampler:L19:winner == truth": {
+        "integer_control_compare": 1
+      },
+      "sampler:L3:x[0] * z": {
+        "scalar_Mult": 4
+      },
+      "sampler:L3:z > zero": {
+        "scalar_compare": 4
+      },
+      "sampler:L7:x[t] * wi[i]": {
+        "scalar_Mult": 8
+      },
+      "sampler:L8:value + wh[i][j] * h[j]": {
+        "scalar_Add": 32
+      },
+      "sampler:L8:wh[i][j] * h[j]": {
+        "scalar_Mult": 32
+      },
+      "sampler:L9:value > zero": {
+        "scalar_compare": 8
+      }
+    },
+    "totals": {
+      "integer_control_compare": 1,
+      "scalar_Add": 41,
+      "scalar_Mult": 56,
+      "scalar_compare": 14
+    },
+    "named_numeric_total": 111,
+    "integer_control_total": 1,
+    "complete_implementation_cost": false
+  }
+}
