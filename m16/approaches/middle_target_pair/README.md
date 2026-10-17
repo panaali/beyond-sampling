@@ -88,6 +88,22 @@ scalar nonconvergence explicitly and do not promote its error estimate to
 a certificate. This discriminates a zero-state artifact from discrepancies
 away from zero; it still cannot quantify full population bias.
 
+## Nonzero-prefix result
+The discrepancy persists at x0=+1/4,u=1,need1: exact pair .596116415572,
+old interpolation .460404533263, difference-.135711882309. At x0=-1/4,
+the rank-consistent need1 value .694035425453 agrees to1.12e-16. Report
+both sides; the inactive need0 values differ but are not actual rank states.
+Swapped axes agree5.56e-17; separate scalar recursion agrees2.28e-11 with
+no warnings on either nonzero probe. Full two-probe comparison including
+scalar references costs .250CPU. The large difference therefore occurs
+away from exactly zero prefix, but its population-weighted size is unknown.
+
+The primitive provides a valid fixed-state alternative, not yet a full
+estimator or portable-compute gain. Before any full integration, the next
+question is whether the dominant local error comes from a discontinuity
+between zero/axis/interior hidden-state supports or ordinary curvature.
+That requires a separately frozen discriminator, not an unbounded mesh sweep.
+
 ## Compute accounting
 One thread, 2GB, review lock and <=20CPU per bounded control/panel phase.
 Charge geometry, intersections, density calls, callbacks, scalar controls,
