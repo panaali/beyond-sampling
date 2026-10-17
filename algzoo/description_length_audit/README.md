@@ -71,3 +71,5 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work
 ```
 
 Independent T55 source/theory review supports the grammar, framing,78/142 fitted counts and interpretation limits; separate length recomputation pending. Status: bounded audit complete, DRI confirmation pending.
+
+Final independent review39f7deb recomputes the original36182/64942bit totals with a separate recursive length checker, confirms78/142 fitted scalars and all40 dictionary framing equations. Source/decoder limitations remain as stated; no minimality or human-legibility conclusion is added.
