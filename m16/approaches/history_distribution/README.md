@@ -18,10 +18,10 @@ Freeze the2x2 factorial angular subdivisions2/4 and radial nodes2/4 on exactly t
 Alternative1: state variation was the dominant lost information; positive mixtures improve the failed noisy case and remain stable under the factorial checks. Alternative2: state/rank coupling dominates, so better marginal state variation fails or converges to the wrong surrogate accuracy. Alternative3: angular/radial approximation or suffix integration dominates; exact mean, covariance/mass controls and independent rule refinement distinguish this. A failed fixed mixture does not reject all history models.
 
 ## Status
-Protocol frozen before implementation; independent T55 algebra review requested.
+Bounded marginal-mixture and matched-coupling phases complete. Independent T55 primitive review c6759f8 passes; final rank/CDF handoff pending.
 
 ## Results
-Pending. Preserve all errors and numerical failures.
+Marginal mixtures improve the noisy case and worsen base; matched rank coupling improves both tested errors, with remaining finite-prefix quadrature bias. Details and all failures follow.
 
 ## Compute accounting
 Count gate-root discovery, angular panels, radial moment/Hankel/eigen setup, atom construction, every affine arrangement and scalar-rank integration, and cold CPU. Existing event counters remain partial, not portable FLOPs. Source/model hashes and prior references are recorded. No random model inputs or model-fitted constants enter this construction.
@@ -71,3 +71,6 @@ After the preserved CDF repair, all four frozen contrasts complete in32.56843600
 The finite prefix quadrature has target-label marginal defects up to.000305945(base) and.000937909(noisy), similar to the remaining accuracy errors. These are retained, never normalized away. The positive interval fix is independently checked by T55 at160 digits: true adjacent-float mass2.84715341832977905212e-17 versus the old negative CDF difference, with new formula relative error1.29e-16. Floating bound-width arithmetic is not a directed enclosure. All failures and diagnostic costs remain in earlier artifacts.
 
 [measured] Within-sign variation improves the prior noisy failure but worsens the base mean approximation. [measured] Restoring rank coupling on the same atoms improves both tested errors. [inferred] Marginal hidden-distribution accuracy alone is insufficient for this rank task. Untested higher-prefix representations and globally converged angular/radial integration remain open; a finite two-case diagnostic cannot prove a universal decomposition or sampling win.
+
+## Fixed adapter and cost qualification
+`estimator.est(model,budget,rng)` exposes the predeclared coupled angular4/radial4/suffixGL16 recipe on H2T4. It is deterministic and ignores the advisory budget. Returned FPE is explicitly a PARTIAL proxy from named scalar/CDF/comparison counters; factorization, sorting and uncounted bookkeeping remain excluded, so COST_REVIEWED=False and no shared-leaderboard acceptance is claimed. This interface is for review/reproduction, not evidence of a cost win.
