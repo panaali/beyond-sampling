@@ -126,3 +126,56 @@ repeat q16 for every h33 mesh to distinguish target error/cancellation. No
 parameter selection from the exact reference, no new MC, no h129. Rectangular
 axes cannot conform to oblique boundary lines, and the monitor's uniform
 cross-axis weighting is not the reachable hidden-state law. Preserve failures.
+
+First spatial results (`spatial_cycle.py`, `spatial_results.json`): at h17 the
+baseline/curvature/reversed errors are +4.5804e-4/+4.4647e-4/+5.2092e-4;
+at h33 they are +1.3648e-4/+7.1463e-6/+1.3274e-4. Charged h33 CPU is
+.435/.537/.534 seconds, including about.129 seconds of monitor construction.
+But the frozen q16 check (`spatial_cycle.py --refine-q`) changes those h33
+errors to +1.9415e-5/-3.2692e-5/-6.0493e-8. Thus the apparent improvement is
+not stable; the reversed control nearly matches truth through potential
+cancellation. This is a negative finding, not a selected winning mesh.
+
+Next bounded diagnosis, frozen now: measure terminal midpoint interpolation
+residuals for each stored mesh using a separate q8 rule and 17 cross-axis
+points (monitor used q4 and nine). Weight bin residuals by their mass under
+the original quadratic coordinate prior. This is a local diagnostic, not the
+reachable-state distribution or a global error certificate. Then q32 and,
+if affordable, q64 for all three h33 meshes, preserving every row. This tests
+whether spatial or target quadrature can actually be isolated at these costs.
+No mesh parameters will be changed based on the result.
+
+Completed first spatial cycle, including negatives:
+
+| h33 target nodes per sign half | baseline error | curvature error | reversed error |
+|---|---:|---:|---:|
+| 8 | +1.36478e-4 | +7.14635e-6 | +1.32744e-4 |
+| 16 | +1.94152e-5 | -3.26924e-5 | -6.04931e-8 |
+| 32 | +1.16201e-4 | +2.54092e-5 | +1.06695e-4 |
+| 64 | +4.40260e-5 | -5.51089e-6 | +3.73246e-5 |
+
+Commands: `spatial_cycle.py`, `spatial_cycle.py --refine-q`, and
+`spatial_cycle.py --q 32/64`. Each process used one thread, the review lock,
+20CPU-second cap and 2.5GB virtual-memory limit; each cycle completed below
+18CPU seconds. The q64 estimates cost2.38/2.20/2.36CPU. Timing variation and
+changed sparse interval counts mean equal node count is not exact equal cost.
+The independent `spatial_diagnostic.py` shows h33 mean midpoint residuals in
+coordinate0 of .003819/.000756/.003487 and coordinate1 of
+.000476/.000417/.000663. These diagnostics use the prior coordinate measure,
+not actual reachable-state mass. Local curvature reduction is measured; a
+stable global accuracy improvement is not established. Outer target error is
+large enough to change the apparent ordering. The q16 reversed near-exact
+value is retained as a cancellation warning, not selected as an estimator.
+
+Mechanistic interpretation: Wh[1,0]=-130.4538 while Wi[1]=.436625, so the
+second gate's scalar-input root changes by about299 standard deviations per
+unit of hidden coordinate0. A typical normal-input transition layer therefore
+has width about.00335 in h0. Baseline h33's first positive h0 node is.00974;
+the curvature mesh adds nodes.00231,.00462,.00693,.00924. This supports the
+narrow-layer explanation for the local interpolation defect, not a complete
+account of full-transport error. Earlier stages and target quadrature remain.
+
+`spatial_controls.py` verifies constant-class1/T and positive per-hidden-unit
+rescaling with both monitor orientations. The canonical `estimator.py` is
+unchanged; experimental mesh_builder is optional and default behavior stays
+identical. Monitor and matrix construction are charged inside every estimate.

@@ -215,7 +215,8 @@ def fixed_target(model, label, q, axes, states, ninput, limit, stats, deadline,
 
 
 def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., seconds=110.,
-             target_rule='jacobi', mesh_power=1., transition='quantile', terminal_reuse=False):
+             target_rule='jacobi', mesh_power=1., transition='quantile', terminal_reuse=False,
+             mesh_builder=None):
     start = time.process_time()
     wi, wh, wo = (np.asarray(a, dtype=float) for a in model)
     T = len(wo)
@@ -228,6 +229,9 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     if mesh_power <= 0 or hidden_order < 2:
         raise ValueError('need positive mesh power and at least two grid nodes')
     axes, states, bounds = grids(model, hidden_order, limit, stats, mesh_power)
+    mesh_metadata = None
+    if mesh_builder is not None:
+        axes, states, mesh_metadata = mesh_builder(model, axes, states, limit, stats)
     if target_rule == 'jacobi':
         nodes, weights = roots_jacobi(target_order, 1, T-2)
         q = (nodes+1)/2
@@ -257,6 +261,7 @@ def estimate(model, hidden_order=9, target_order=8, input_order=8, limit=6., sec
     box_mass = float(np.exp(T*np.log1p(-2*ndtr(-limit))))
     return answer, dict(cpu_seconds=time.process_time()-start, work=dict(stats),
                         hidden_order=hidden_order, mesh_power=mesh_power,
+                        mesh_metadata=mesh_metadata,
                         target_order=target_order, target_rule=target_rule,
                         input_order=(input_order if transition == 'quantile' else None),
                         transition=transition,
