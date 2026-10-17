@@ -56,12 +56,18 @@ def vertical_mass(polygons, z, work):
 
 
 class Slice:
-    def __init__(self, model, kind, configuration, qlo=.05, qhi=.95, cap=5000):
+    def __init__(self, model, kind, configuration, qlo=.05, qhi=.95, cap=5000, fixed_quantiles=None):
         self.model, self.kind = tuple(np.asarray(a,float) for a in model), kind
         wi, wh, wo = self.model; H, T = len(wi), len(wo)
         self.work = Counter(); self.qlo, self.qhi = qlo, qhi
         cfg = walker.geometry.configs(T,kind)
-        U = np.full((3,T),.5); U[:,0]=(configuration+.5)/len(cfg); U[:,2]=[qlo,.5,qhi]
+        U = np.full((3,T),.5)
+        if fixed_quantiles is not None:
+            fixed_quantiles=np.asarray(fixed_quantiles,float)
+            if fixed_quantiles.shape!=(T,) or np.any((fixed_quantiles<=0)|(fixed_quantiles>=1)):
+                raise ValueError('Interior fixed face quantiles required')
+            U[:]=fixed_quantiles
+        U[:,0]=(configuration+.5)/len(cfg); U[:,2]=[qlo,.5,qhi]
         y,a,b,_ = walker.face_points(T,kind,U)
         self.a, self.b = int(a[0]),int(b[0])
         changed = np.flatnonzero(y[0]!=y[2])
