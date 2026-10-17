@@ -1,0 +1,29 @@
+{
+  "claim": "c3df8fef",
+  "phase": "source dependency and analytic tie controls only; no trained capture or positive mass integration",
+  "pins": {
+    "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/estT_snapshot.py": "afa94627ff5b860a4b922dc340e90d0d6718c770d74e326dfbf667a2bb0bbc3a",
+    "/workspace/work/admin-t121-rank-mass/m16/approaches/arc_m43_repro/m43.py": "e4cca6147b5962b709f5d91b0749ed8a25a6f11fdef6b8346b8a16e292e11887"
+  },
+  "models": [
+    "H2T4 Wi=[1,-1],Wh=0,Wo=ones: all active output rows identical, trueaccuracy1/4",
+    "same hidden model Wo=zeros: active identical zero readouts, trueaccuracy1/4",
+    "H2T4 allzero: existing alloff tie path; sentinel masses are geometry probes, not probabilities"
+  ],
+  "sentinel_returns": [
+    0.0,
+    0.125,
+    0.75
+  ],
+  "gate": "For each model, ordered ray-byte hashes and STATS invariant across sentinel returns; inherited scores on identical-active controls expected1, preserve true1/4 failure; no finite-source claim beyond pinned call flow",
+  "alternatives": [
+    {
+      "explanation": "Positive values affect downstream gate/triangulation selection",
+      "test": "AST additive-only callsites plus synthetic changed-return invariant ray stream"
+    },
+    {
+      "explanation": "Positive mass accuracy automatically yields valid generic estimator",
+      "test": "Exact first-index tie counterexample independent of mass solver"
+    }
+  ]
+}
