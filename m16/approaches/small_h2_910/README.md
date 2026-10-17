@@ -425,3 +425,29 @@ cost: final degree7 depends only on boundary powers0,2,4,6, whereas the current
 full-moment primitive computes every power0..6. Sent this to T55 owner; no
 primitive changes made here. Unchecked: noisy-copy batch equivalence, audited
 FPE costs, certified interpolation error, and any competitive full estimator.
+
+## T50 range-control protocol, frozen before the next diagnostic
+Root authorized a <=20CPU cycle using only the existing5/7/9 terminal caches.
+Compare original cubic rank-conditioned W with the same interpolation followed
+by explicit clipping to its mathematical [0,1] range. Record every resolution,
+raw extrema, number of changed scalar values, signed/absolute/max correction,
+and original/clamped accuracy. This is an experimental modification, not silent
+repair of earlier results. No new network terminal builds or random inputs.
+
+Two alternatives: (1) overshoot could explain apparently good cubic estimates;
+compare the full change after clipping at every backward stage, rather than
+just clipping the final answer. (2) positive range may leave the dominant spatial
+bias untouched; keep constant-W control, resolution differences, prior linear
+results and the independent reference visible. Clipping is not an error bound.
+
+Use16 angular nodes per count interval,64 radial nodes for transition weights.
+The previous exact terminal rank arrays were not persisted, so reconstruct the
+model-free two-fresh-input rank mass via a separate deterministic1D integral.
+For R~chi_k, F(b)=E[Phi(bR)^2], G(b)=tCDF(b sqrt(k),df=k), F(0)=1/4 and
+F'(b)=2 c_k (1+b²)^(-(k+1)/2) tCDF(b sqrt((k+1)/(1+b²)),df=k+1),
+where c_k=Gamma((k+1)/2)/(sqrt(pi) Gamma(k/2)). Then q1=F,q0=2(G-F).
+Integrate with absolute/relative tolerance1e-13, retain reported error and
+integrand counts, and check symmetry q0(-b)=q0(b), q1(-b)=1-2G(b)+q1(b).
+This supplies rank mass to numerical roundoff, not a floating-point certificate.
+The constant-readout terminal is exactly q, so its W is1; control tests propagation
+and initial rank weights without reconstructing any model gate geometry.
