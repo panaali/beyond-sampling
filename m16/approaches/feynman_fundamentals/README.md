@@ -97,6 +97,28 @@ The independent reviewer additionally used 0.1345 CPU seconds, six 1-D positive
 integrals and 262,144 direct conditional validation inputs. These are separate
 from the author totals. No shared leaderboard or trained checkpoint was run.
 
+Cycle3 positive fallback: `positive.py` supplies a positive integral with an
+analytic quadrature-only error bound. The T48 agent independently checked its
+proof in `theory.md`. `tail.py` now automatically invokes the fallback after a
+recurrence guard failure and records its nodes/count/error bound in statistics.
+The old `moments.tail_mass` still exposes original failures for regression checks.
+
+Reproduce under the shared compute lock:
+
+```
+flock /workspace/work/codex-compute.lock env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python m16/approaches/feynman_fundamentals/check_positive.py
+```
+
+Seventy configurations (seven polygons, five k values, two tolerances) used
+91,472 nodes, maximum order96, and0.088 CPU seconds. Maximum disagreement with
+100-digit recurrence was1.48e-15. Twenty-four cases exceed their extremely small
+quadrature-only bounds because floating-point errors are separate; all are
+preserved in `positive_results.json`. No full numerical certification is claimed.
+The T51 agent supplied `trained_moment_failure.json`: its k2 guard failure is
+resolved using16 positive nodes, agreeing with high precision to1.17e-27 absolute.
+A separate direct regression call used approximately0.038 process wall seconds;
+neither check used model forward passes or random inputs.
+
 ## Claims
 - [inferred] H2 accuracy admits a target-specific Markov formulation with three
   continuous normalized coordinates and a capped exceedance count, independent
