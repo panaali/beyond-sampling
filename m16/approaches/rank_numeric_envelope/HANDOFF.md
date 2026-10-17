@@ -11,3 +11,5 @@ Initial protocol raw-file glob run_*.json matched none; summary and spy.c were p
 Remaining: independent raw controls review; DLARFG child and parent-exclusive kernel pricing/composition; native symbol coverage if tighter finite inference is desired. Preserve index/control/memory and elementary internals exclusions. Released Ready to prioritize T179 mass-reference audit. The method remains incomplete, not negative.
 
 Independent reflector source/160-control audit b313819e passed generic113 and conditional norescale10. Tighter finite inference remains unadopted pending observed symbol/phase completeness.
+
+Independent Q5 source,64-control and saved-census audit a558c8a9 passed. Reflector source/160-control review b313819e passed. Both retain source-to-installed qualifications; neither is a complete native-cost proof.

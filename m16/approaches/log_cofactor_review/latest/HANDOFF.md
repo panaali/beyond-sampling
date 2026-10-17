@@ -1,6 +1,6 @@
 # T179: latest source passes the full finite corpus check
 
-The pinned source is `139a7b9e`, under scopes `54573740` and `7603c96f`. The controls and 256-cone panel were independently reviewed in `292b54cc`. All 35,098 original T131 error cones have now been evaluated; the 266 previously evaluated actual cones are reused once. The full independent raw audit is pending. This checks the existing seed-0 corpus, not every E46 model or noisy copy.
+The pinned source is `139a7b9e`, under scopes `54573740` and `7603c96f`. The controls and 256-cone panel were independently reviewed in `292b54cc`. All 35,098 original T131 error cones have now been evaluated; the 266 previously evaluated actual cones are reused once. The full independent raw audit passed in 4cc3fe39: all indices, reference links, reuse, Decimal totals and 288 raw sentinel/reused records were checked. This checks the existing seed-0 corpus, not every E46 model or noisy copy.
 
 The accuracy is **0.9761608075404442**, exactly reproducing the latest DRI result. The saved positive reference is 0.9761608075466027, a difference of −6.16e−12. The largest individual mass error is 1.668e−14 and the sum of absolute errors is 1.018e−11. Every case passes the frozen diagnostic threshold of 1e−10 plus its reference bound, and every observer result matches the unobserved source bitwise. There are no negative masses, negative or zero interpolated determinants, denominator floors, or nonfinite angle arguments. The maximum unit-diagonal drift is 4.44e−16.
 
