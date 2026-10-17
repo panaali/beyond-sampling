@@ -149,3 +149,20 @@ Python, one BLAS/OpenMP thread and the shared lock/caps. Each script writes
 its named JSON; original trained pilot is preserved. The optional argument
 to pilot.py encodes the preregistered q refinement but was NOT run because
 its prefix-stability prerequisite failed. No result uses that unrun rule.
+
+## Independent review and handoff
+T55 review bed8918 checks the rank law,1/12 branch/label weight, chronology,
+nonfinal-target interval-cache independence and .75 pooled source mass.
+Independent saved stratum totals reproduce to1.74e-18. Review supports a
+bounded diagnostic handoff without another sweep.
+
+Status: this diagnosis is complete. It falsifies the specific explanation
+that prior mesh gains were confined to artificial box weighting. It does
+not settle spatial transport accuracy. The finite alternatives checklist
+separates formulation (law checked), representation (physical axis gain
+measured), numerical accuracy (signed/source quadrature unresolved), and
+cost (all diagnostic/setup events charged). No further quadrature is run
+under the frozen failed-stability criterion. Earlier-stage interpolation,
+signed cancellation and a non-tensor reachable-state representation remain
+Ready followups, not a claim that the method is dead. DRI classification
+and shared registry integration remain with the parent/Claude.
