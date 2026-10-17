@@ -11,6 +11,8 @@ HALF_BETA=.5*A*float(beta(4.5,.5))
 
 def radial_interval(lo,hi):
     lo=np.asarray(lo,dtype=float);hi=np.asarray(hi,dtype=float)
+    if not (np.isfinite(lo).all() and np.isfinite(hi).all()):
+        raise ValueError('Radial interval endpoints must be finite')
     delta=np.maximum(hi-lo,0.)
     with np.errstate(over='ignore',invalid='ignore',under='ignore'):
         q=1+lo*lo+lo*delta+.25*delta*delta

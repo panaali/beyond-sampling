@@ -19,6 +19,11 @@ def main():
         cuts=[mp.mpf(0)]+[(mp.mpf(x)-a)/d for x in (-10,-1,0,1,10) if a<x<b]+[mp.mpf(1)] if d>0 else []
         return amplitude*d*mp.quad(lambda u:(1+(a+d*u)**2)**-5,cuts) if d>0 else mp.mpf(0)
     out=dict(scalar=[],fixtures=[],caps=[],random_model_inputs=0)
+    for a,b in ((-np.inf,np.inf),(-np.inf,1.),(0.,np.inf)):
+        try:radial_interval(np.array([a]),np.array([b]))
+        except ValueError:pass
+        else:raise AssertionError('Nonfinite radial endpoint accepted')
+    out['nonfinite_endpoint_controls']=3
     pairs=[(-2.,3.),(-.1,.2),(0.,1.),(-100.,100.)]
     for a in (0.,1.,8.,20.):
         for b in (np.nextafter(a,np.inf),a+.1,a+1):pairs.extend(((a,b),(-b,-a)))
