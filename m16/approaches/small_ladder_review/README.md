@@ -110,3 +110,14 @@ not establish convergence. Model-specific terminal construction cost is roughly
 123CPU seconds including reused work, far larger than the validation reference.
 No efficiency win is established and no additional MC is needed for the next
 batching/coordinate experiments.
+
+## Frozen independent T6 reference
+
+T48 full retained-region estimate .24815022292589073 is frozen, with conditional
+interval [.248056233656573,.24824921546447845]. Existing131072-input validation
+is2.41SE away; this could be ordinary noise or an accuracy-region defect despite
+fullgate partition closure. Test with exactly2^20 independent sequences,
+RNG52006, direct NumPy recurrence and sorted target labels, chunk65536.
+Run `check_t10_reference.py --T 6`; retain the old validation and this check
+without selecting a preferred estimate. This tests a material unresolved concern
+and is separate from the predeclared cheap-rule experiment. No rule fitting.
