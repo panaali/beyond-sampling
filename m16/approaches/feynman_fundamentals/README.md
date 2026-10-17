@@ -36,12 +36,31 @@ outage; the assigned worktree was recreated from snapshot 72edef0. The requested
 small-ladder CHECKLIST was absent from that recovered snapshot.
 
 ## Results
-No numerical results yet. This protocol is committed before numerical tests.
+Protocol commit: `1d68fde`, before numerical implementation and tests.
+
+Reproduce the first primitive check:
+
+```
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python m16/approaches/feynman_fundamentals/check_moments.py
+```
+
+`moment_results.json` records nine deterministic triangles, degrees 0 through 9.
+Maximum absolute disagreement is 6.89e-15 against independent positive simplex
+quadrature and 1.12e-16 against the 100-digit version of the same recurrence.
+Summing four octants gives hemisphere probability one within 1.12e-16 for k=1..10.
+
+The thin-equatorial tests falsify unrestricted double-precision reliability:
+one degree-9 moment is approximately 1.65e-18 in double precision but 7.56e-70
+at high precision and under the positive integral. A geometric upper-bound check
+rejects this result and ten other thin-case degree choices. It is a detection
+guard, not an error certificate. No probability is silently clipped.
 
 ## Compute accounting
-Cycle 1 theory used no model forward passes, random inputs, or experiments.
-Numerical moment validation will report CPU time and quadrature evaluations.
-Full geometric partitioning and outer transport costs are not yet measured.
+Cycle 1 uses zero model forward passes and zero random inputs. Each complete
+check uses 184,320 simplex quadrature nodes; the two runs used 368,640 nodes and
+approximately 0.481 CPU seconds in total. The saved final run took 0.284 CPU
+seconds, including high-precision checks. Full geometric partitioning and outer
+transport costs are not yet measured; no efficiency advantage is claimed.
 
 ## Claims
 - [inferred] H2 accuracy admits a target-specific Markov formulation with three
@@ -49,6 +68,9 @@ Full geometric partitioning and outer transport costs are not yet measured.
   of sequence length. Low state dimension does not imply a cheap representation.
 - [inferred] Exactly two remaining Gaussian inputs can be integrated over weighted
   spherical polygons; the density and recurrence have independent algebra review.
+- [measured] The bounded primitive check agrees with independent positive
+  quadrature to 6.89e-15 absolute error, but unrestricted relative accuracy fails
+  on thin near-equatorial regions.
 - [speculative] Combining these primitives could be competitive with sampling.
 
 ## Alternatives not ruled out
