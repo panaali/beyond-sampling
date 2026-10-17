@@ -616,3 +616,9 @@ bad report and corrected labels/complements without changing the archive.
 Extra kernel named work2038604 is verified; exact rational operations/bitwidth
 and MP selection costs remain separate rather than being declared free.
 No complete portable cost or full floating certificate follows. Review.120CPU.
+
+### T157 installed inverse numerical categories (independent saved audit)
+
+The actual short IAMAX register semantics, including MAX's right-operand choice on unordered/equal inputs and COMISD/JE unordered acceptance, reproduce all 4,680 saved native cases with a separate scalar transcription. Lengths 4/3/2/1 require at most 32 absolute-value lanes and 44 MAX/comparison lanes total; packed duplicate/irrelevant lanes remain conservatively charged. The inspected four LU pivot guards add eight abs/eight comparisons, three SCAL guards at most six comparisons, and two fixed-beta triangular drivers at most four. Together with the earlier 188 floating expressions this is 290 units in this numerical subset. All eight saved inverse event controls use the expected IAMAX lengths and no GEMM; source parity assertions and pointer restoration were inspected, without another native run.
+
+`check_inverse_numeric_review.py` checks source hashes, reproduces the native digest, and independently composes exact/recipe subtotals 1,324,773,508 and 1,076,152,155 (0.027 review CPU). These combine an upper allowance on selected numeric categories with still-unpriced work: they are neither a complete implementation upper bound nor a complete lower bound. Integer/control/pointer/memory, mask/shuffle and runtime work remain excluded; no hardware-cycle or matched-budget conclusion follows.
