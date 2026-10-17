@@ -71,14 +71,14 @@ def main():
     assert not out.exists() and not progress.exists()
     def record(r):
         with progress.open('a') as f:f.write(json.dumps(pack(r),allow_nan=False)+'\n')
-    start=time.process_time();p=json.loads((H/'trained_protocol.json').read_text());assert p['zero_review']!='pending'
+    start=time.process_time();p=json.loads((H/'trained_protocol.json').read_text());assert p['zero_review']!='pending' and p['source_gate']!='pending'
     record(dict(stage='phase_attempt',T=T,protocol_sha256=hashlib.sha256((H/'trained_protocol.json').read_bytes()).hexdigest()))
-    result=dict(complete=False,T=T)
+    result=dict(complete=False,T=T,protocol_sha256=hashlib.sha256((H/'trained_protocol.json').read_bytes()).hexdigest())
     try:
         for path,sha in p['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
         zero=json.loads((H/'zero_controls.json').read_text());assert zero['all_pass'] and zero['observer']['states']==120
         if T==4:
-            prior=json.loads((H/'trained_t3.json').read_text());assert prior['complete'] and prior['observer']['mass_or_final_calls']==0
+            prior=json.loads((H/'trained_t3.json').read_text());assert prior['complete'] and prior['observer']['mass_or_final_calls']==0 and prior['protocol_sha256']==result['protocol_sha256']
         tick=time.process_time();E=load_engine(json.loads((H/'protocol.json').read_text()));result['source_import_setup_cpu']=time.process_time()-tick
         tick=time.process_time()
         if T==3:
