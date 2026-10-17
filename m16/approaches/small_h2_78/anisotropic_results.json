@@ -1,0 +1,727 @@
+{
+  "classification": "deterministic anisotropic curved-box collocation; no error certificate",
+  "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+  "model_input_samples": 0,
+  "labels": [
+    3,
+    5,
+    6
+  ],
+  "rows": [
+    {
+      "hidden_nodes": 5,
+      "target_nodes": 9,
+      "angles": 8,
+      "rank_nodes": 64,
+      "terminal_grid_points_per_target": 225,
+      "accuracy": 0.2258644736372185,
+      "contributions": {
+        "3": 0.07007942647841968,
+        "5": 0.032882439141352277,
+        "6": 0.12290260801744657
+      },
+      "initial_sign_values": {
+        "3": [
+          0.24409254667981278,
+          0.5069868812602127
+        ],
+        "5": [
+          0.6236403104400696,
+          0.20394619155942573
+        ],
+        "6": [
+          0.29212475709285435,
+          0.8981978227240774
+        ]
+      },
+      "constant_W_error": 0.0,
+      "terminal_W_min": 3.6606963557833465e-05,
+      "terminal_W_max": 0.9999999917347966,
+      "transport_work": {
+        "rank_rules_generated": 5.0,
+        "rank_rule_generation_nodes": 320.0,
+        "rank_probability_queries": 612.0,
+        "rank_quadrature_nodes": 39168.0,
+        "max_unnormalized_rank_defect": 0.0007419553104703776,
+        "max_relative_rank_defect": 0.08988507653810769,
+        "max_normalized_row_defect": 3.3306690738754696e-16,
+        "zero_width_coordinates": 2.0,
+        "max_box_excess": 0.0,
+        "min_interpolated": 0.0,
+        "max_interpolated": 1.0000000000000007,
+        "interpolation_queries": 47474.0,
+        "angle_nodes": 47232.0
+      },
+      "kernel_work": {
+        "new_terminal_calls": 1158.0,
+        "terminal_clips": 259828.0,
+        "terminal_affine_products": 23168.0,
+        "terminal_readout_margin_products": 107726.0,
+        "terminal_moment_calls": 30988.0,
+        "terminal_gate_cells": 23404.0,
+        "terminal_correct_pieces": 7584.0,
+        "terminal_positive_fallbacks": 0.0,
+        "terminal_positive_quadrature_fallbacks": 0.0,
+        "terminal_high_precision_fallbacks": 0.0,
+        "terminal_fallback_rule_generations": 0.0,
+        "terminal_fallback_rule_generation_nodes": 0.0,
+        "terminal_fallback_quadrature_nodes": 0.0,
+        "terminal_fallback_quadrature_error_bound": 0.0,
+        "terminal_cache_hits": 192.0,
+        "collapsed_terminal_axes_checked": 8.0
+      },
+      "kernel_cpu_seconds": 24.146468679999998,
+      "kernel_reused": false,
+      "kernel_provenance": {
+        "3": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 5,
+          "target_nodes": 9,
+          "target": 3,
+          "construction_work": {
+            "new_terminal_calls": 450.0,
+            "terminal_clips": 79830.0,
+            "terminal_affine_products": 5328.0,
+            "terminal_readout_margin_products": 43164.0,
+            "terminal_moment_calls": 9121.0,
+            "terminal_gate_cells": 7488.0,
+            "terminal_correct_pieces": 1633.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0
+          },
+          "construction_cpu_seconds": 7.036153416,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "5": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 5,
+          "target_nodes": 9,
+          "target": 5,
+          "construction_work": {
+            "new_terminal_calls": 354.0,
+            "terminal_clips": 75500.0,
+            "terminal_affine_products": 7808.0,
+            "terminal_readout_margin_products": 26804.0,
+            "terminal_moment_calls": 9576.0,
+            "terminal_gate_cells": 7356.0,
+            "terminal_correct_pieces": 2220.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "terminal_cache_hits": 96.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 7.146690343,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "6": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 5,
+          "target_nodes": 9,
+          "target": 6,
+          "construction_work": {
+            "new_terminal_calls": 354.0,
+            "terminal_clips": 104498.0,
+            "terminal_affine_products": 10032.0,
+            "terminal_readout_margin_products": 37758.0,
+            "terminal_moment_calls": 12291.0,
+            "terminal_gate_cells": 8560.0,
+            "terminal_correct_pieces": 3731.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "terminal_cache_hits": 96.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 9.961193412,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        }
+      },
+      "rank_tail_work": {
+        "calls": 18.0,
+        "clips": 1080.0,
+        "affine_products": 144.0,
+        "readout_margin_products": 864.0,
+        "moment_calls": 246.0,
+        "gate_cells": 144.0,
+        "correct_pieces": 102.0,
+        "positive_fallbacks": 0.0,
+        "positive_quadrature_fallbacks": 0.0,
+        "high_precision_fallbacks": 0.0,
+        "fallback_rule_generations": 0.0,
+        "fallback_rule_generation_nodes": 0.0,
+        "fallback_quadrature_nodes": 0.0,
+        "fallback_quadrature_error_bound": 0.0
+      },
+      "rank_tail_reused": false,
+      "transport_cpu_seconds": 0.026829730999999413
+    },
+    {
+      "hidden_nodes": 5,
+      "target_nodes": 9,
+      "angles": 16,
+      "rank_nodes": 64,
+      "terminal_grid_points_per_target": 225,
+      "accuracy": 0.22550079448268284,
+      "contributions": {
+        "3": 0.07006574991581016,
+        "5": 0.03295629398317658,
+        "6": 0.12247875058369609
+      },
+      "initial_sign_values": {
+        "3": [
+          0.24463509784778986,
+          0.5068485928481965
+        ],
+        "5": [
+          0.6229990760272479,
+          0.20454039000590193
+        ],
+        "6": [
+          0.29314420647021866,
+          0.8949650572602497
+        ]
+      },
+      "constant_W_error": -2.7755575615628914e-17,
+      "terminal_W_min": 3.6606963557833465e-05,
+      "terminal_W_max": 0.9999999917347966,
+      "transport_work": {
+        "rank_rules_generated": 5.0,
+        "rank_rule_generation_nodes": 320.0,
+        "rank_probability_queries": 1188.0,
+        "rank_quadrature_nodes": 76032.0,
+        "max_unnormalized_rank_defect": 0.0007419055853326757,
+        "max_relative_rank_defect": 0.08988507118213282,
+        "max_normalized_row_defect": 4.440892098500626e-16,
+        "zero_width_coordinates": 2.0,
+        "max_box_excess": 0.0,
+        "min_interpolated": 0.0,
+        "max_interpolated": 1.0000000000000007,
+        "interpolation_queries": 94706.0,
+        "angle_nodes": 94464.0
+      },
+      "kernel_work": {
+        "new_terminal_calls": 1158.0,
+        "terminal_clips": 259828.0,
+        "terminal_affine_products": 23168.0,
+        "terminal_readout_margin_products": 107726.0,
+        "terminal_moment_calls": 30988.0,
+        "terminal_gate_cells": 23404.0,
+        "terminal_correct_pieces": 7584.0,
+        "terminal_positive_fallbacks": 0.0,
+        "terminal_positive_quadrature_fallbacks": 0.0,
+        "terminal_high_precision_fallbacks": 0.0,
+        "terminal_fallback_rule_generations": 0.0,
+        "terminal_fallback_rule_generation_nodes": 0.0,
+        "terminal_fallback_quadrature_nodes": 0.0,
+        "terminal_fallback_quadrature_error_bound": 0.0,
+        "terminal_cache_hits": 192.0,
+        "collapsed_terminal_axes_checked": 8.0
+      },
+      "kernel_cpu_seconds": 24.146468679999998,
+      "kernel_reused": true,
+      "kernel_provenance": {
+        "3": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 5,
+          "target_nodes": 9,
+          "target": 3,
+          "construction_work": {
+            "new_terminal_calls": 450.0,
+            "terminal_clips": 79830.0,
+            "terminal_affine_products": 5328.0,
+            "terminal_readout_margin_products": 43164.0,
+            "terminal_moment_calls": 9121.0,
+            "terminal_gate_cells": 7488.0,
+            "terminal_correct_pieces": 1633.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0
+          },
+          "construction_cpu_seconds": 7.036153416,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "5": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 5,
+          "target_nodes": 9,
+          "target": 5,
+          "construction_work": {
+            "new_terminal_calls": 354.0,
+            "terminal_clips": 75500.0,
+            "terminal_affine_products": 7808.0,
+            "terminal_readout_margin_products": 26804.0,
+            "terminal_moment_calls": 9576.0,
+            "terminal_gate_cells": 7356.0,
+            "terminal_correct_pieces": 2220.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "terminal_cache_hits": 96.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 7.146690343,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "6": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 5,
+          "target_nodes": 9,
+          "target": 6,
+          "construction_work": {
+            "new_terminal_calls": 354.0,
+            "terminal_clips": 104498.0,
+            "terminal_affine_products": 10032.0,
+            "terminal_readout_margin_products": 37758.0,
+            "terminal_moment_calls": 12291.0,
+            "terminal_gate_cells": 8560.0,
+            "terminal_correct_pieces": 3731.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "terminal_cache_hits": 96.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 9.961193412,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        }
+      },
+      "rank_tail_work": {
+        "calls": 18.0,
+        "clips": 1080.0,
+        "affine_products": 144.0,
+        "readout_margin_products": 864.0,
+        "moment_calls": 246.0,
+        "gate_cells": 144.0,
+        "correct_pieces": 102.0,
+        "positive_fallbacks": 0.0,
+        "positive_quadrature_fallbacks": 0.0,
+        "high_precision_fallbacks": 0.0,
+        "fallback_rule_generations": 0.0,
+        "fallback_rule_generation_nodes": 0.0,
+        "fallback_quadrature_nodes": 0.0,
+        "fallback_quadrature_error_bound": 0.0
+      },
+      "rank_tail_reused": true,
+      "transport_cpu_seconds": 0.040111063999997754
+    },
+    {
+      "hidden_nodes": 9,
+      "target_nodes": 5,
+      "angles": 8,
+      "rank_nodes": 64,
+      "terminal_grid_points_per_target": 405,
+      "accuracy": 0.21405104328020821,
+      "contributions": {
+        "3": 0.0666336398851157,
+        "5": 0.03730464948392793,
+        "6": 0.11011275391116458
+      },
+      "initial_sign_values": {
+        "3": [
+          0.27462733697728886,
+          0.4792226886770446
+        ],
+        "5": [
+          0.5794651188235334,
+          0.23991037489175965
+        ],
+        "6": [
+          0.3745979866580518,
+          0.7972020300928254
+        ]
+      },
+      "constant_W_error": 0.0,
+      "terminal_W_min": 3.6606963557833465e-05,
+      "terminal_W_max": 0.9999999917347966,
+      "transport_work": {
+        "rank_rules_generated": 5.0,
+        "rank_rule_generation_nodes": 320.0,
+        "rank_probability_queries": 340.0,
+        "rank_quadrature_nodes": 21760.0,
+        "max_unnormalized_rank_defect": 0.0007419553104703776,
+        "max_relative_rank_defect": 0.08988507653810769,
+        "max_normalized_row_defect": 2.220446049250313e-16,
+        "zero_width_coordinates": 2.0,
+        "max_box_excess": 0.0,
+        "min_interpolated": 0.0,
+        "max_interpolated": 1.0000000000000009,
+        "interpolation_queries": 84898.0,
+        "angle_nodes": 84480.0
+      },
+      "kernel_work": {
+        "terminal_cache_hits": 1198.0,
+        "new_terminal_calls": 1232.0,
+        "terminal_clips": 272690.0,
+        "terminal_affine_products": 23936.0,
+        "terminal_readout_margin_products": 115672.0,
+        "terminal_moment_calls": 31800.0,
+        "terminal_gate_cells": 24472.0,
+        "terminal_correct_pieces": 7328.0,
+        "terminal_positive_fallbacks": 0.0,
+        "terminal_positive_quadrature_fallbacks": 0.0,
+        "terminal_high_precision_fallbacks": 0.0,
+        "terminal_fallback_rule_generations": 0.0,
+        "terminal_fallback_rule_generation_nodes": 0.0,
+        "terminal_fallback_quadrature_nodes": 0.0,
+        "terminal_fallback_quadrature_error_bound": 0.0,
+        "collapsed_terminal_axes_checked": 8.0
+      },
+      "kernel_cpu_seconds": 24.694966238999996,
+      "kernel_reused": false,
+      "kernel_provenance": {
+        "3": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 9,
+          "target_nodes": 5,
+          "target": 3,
+          "construction_work": {
+            "terminal_cache_hits": 250.0,
+            "new_terminal_calls": 560.0,
+            "terminal_clips": 101360.0,
+            "terminal_affine_products": 6720.0,
+            "terminal_readout_margin_products": 54880.0,
+            "terminal_moment_calls": 11425.0,
+            "terminal_gate_cells": 9520.0,
+            "terminal_correct_pieces": 1905.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0
+          },
+          "construction_cpu_seconds": 9.741931495000003,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "5": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 9,
+          "target_nodes": 5,
+          "target": 5,
+          "construction_work": {
+            "terminal_cache_hits": 474.0,
+            "new_terminal_calls": 336.0,
+            "terminal_clips": 71836.0,
+            "terminal_affine_products": 7472.0,
+            "terminal_readout_margin_products": 25396.0,
+            "terminal_moment_calls": 8970.0,
+            "terminal_gate_cells": 6932.0,
+            "terminal_correct_pieces": 2038.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 6.495323646999999,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "6": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 9,
+          "target_nodes": 5,
+          "target": 6,
+          "construction_work": {
+            "terminal_cache_hits": 474.0,
+            "new_terminal_calls": 336.0,
+            "terminal_clips": 99494.0,
+            "terminal_affine_products": 9744.0,
+            "terminal_readout_margin_products": 35396.0,
+            "terminal_moment_calls": 11405.0,
+            "terminal_gate_cells": 8020.0,
+            "terminal_correct_pieces": 3385.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 8.455762274000001,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        }
+      },
+      "rank_tail_work": {
+        "calls": 10.0,
+        "clips": 600.0,
+        "affine_products": 80.0,
+        "readout_margin_products": 480.0,
+        "moment_calls": 134.0,
+        "gate_cells": 80.0,
+        "correct_pieces": 54.0,
+        "positive_fallbacks": 0.0,
+        "positive_quadrature_fallbacks": 0.0,
+        "high_precision_fallbacks": 0.0,
+        "fallback_rule_generations": 0.0,
+        "fallback_rule_generation_nodes": 0.0,
+        "fallback_quadrature_nodes": 0.0,
+        "fallback_quadrature_error_bound": 0.0
+      },
+      "rank_tail_reused": false,
+      "transport_cpu_seconds": 0.033863701999997886
+    },
+    {
+      "hidden_nodes": 9,
+      "target_nodes": 5,
+      "angles": 16,
+      "rank_nodes": 64,
+      "terminal_grid_points_per_target": 405,
+      "accuracy": 0.2138473356077617,
+      "contributions": {
+        "3": 0.06661648810920373,
+        "5": 0.037404194249438055,
+        "6": 0.10982665324911992
+      },
+      "initial_sign_values": {
+        "3": [
+          0.27552989162324015,
+          0.4790344517738385
+        ],
+        "5": [
+          0.5790773026664455,
+          0.24067949688470783
+        ],
+        "6": [
+          0.3751877905802529,
+          0.7950264915547451
+        ]
+      },
+      "constant_W_error": 0.0,
+      "terminal_W_min": 3.6606963557833465e-05,
+      "terminal_W_max": 0.9999999917347966,
+      "transport_work": {
+        "rank_rules_generated": 5.0,
+        "rank_rule_generation_nodes": 320.0,
+        "rank_probability_queries": 660.0,
+        "rank_quadrature_nodes": 42240.0,
+        "max_unnormalized_rank_defect": 0.0007419055853326757,
+        "max_relative_rank_defect": 0.08988507118213282,
+        "max_normalized_row_defect": 4.440892098500626e-16,
+        "zero_width_coordinates": 2.0,
+        "max_box_excess": 0.0,
+        "min_interpolated": 0.0,
+        "max_interpolated": 1.0000000000000007,
+        "interpolation_queries": 169378.0,
+        "angle_nodes": 168960.0
+      },
+      "kernel_work": {
+        "terminal_cache_hits": 1198.0,
+        "new_terminal_calls": 1232.0,
+        "terminal_clips": 272690.0,
+        "terminal_affine_products": 23936.0,
+        "terminal_readout_margin_products": 115672.0,
+        "terminal_moment_calls": 31800.0,
+        "terminal_gate_cells": 24472.0,
+        "terminal_correct_pieces": 7328.0,
+        "terminal_positive_fallbacks": 0.0,
+        "terminal_positive_quadrature_fallbacks": 0.0,
+        "terminal_high_precision_fallbacks": 0.0,
+        "terminal_fallback_rule_generations": 0.0,
+        "terminal_fallback_rule_generation_nodes": 0.0,
+        "terminal_fallback_quadrature_nodes": 0.0,
+        "terminal_fallback_quadrature_error_bound": 0.0,
+        "collapsed_terminal_axes_checked": 8.0
+      },
+      "kernel_cpu_seconds": 24.694966238999996,
+      "kernel_reused": true,
+      "kernel_provenance": {
+        "3": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 9,
+          "target_nodes": 5,
+          "target": 3,
+          "construction_work": {
+            "terminal_cache_hits": 250.0,
+            "new_terminal_calls": 560.0,
+            "terminal_clips": 101360.0,
+            "terminal_affine_products": 6720.0,
+            "terminal_readout_margin_products": 54880.0,
+            "terminal_moment_calls": 11425.0,
+            "terminal_gate_cells": 9520.0,
+            "terminal_correct_pieces": 1905.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0
+          },
+          "construction_cpu_seconds": 9.741931495000003,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "5": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 9,
+          "target_nodes": 5,
+          "target": 5,
+          "construction_work": {
+            "terminal_cache_hits": 474.0,
+            "new_terminal_calls": 336.0,
+            "terminal_clips": 71836.0,
+            "terminal_affine_products": 7472.0,
+            "terminal_readout_margin_products": 25396.0,
+            "terminal_moment_calls": 8970.0,
+            "terminal_gate_cells": 6932.0,
+            "terminal_correct_pieces": 2038.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 6.495323646999999,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        },
+        "6": {
+          "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+          "hidden_nodes": 9,
+          "target_nodes": 5,
+          "target": 6,
+          "construction_work": {
+            "terminal_cache_hits": 474.0,
+            "new_terminal_calls": 336.0,
+            "terminal_clips": 99494.0,
+            "terminal_affine_products": 9744.0,
+            "terminal_readout_margin_products": 35396.0,
+            "terminal_moment_calls": 11405.0,
+            "terminal_gate_cells": 8020.0,
+            "terminal_correct_pieces": 3385.0,
+            "terminal_positive_fallbacks": 0.0,
+            "terminal_positive_quadrature_fallbacks": 0.0,
+            "terminal_high_precision_fallbacks": 0.0,
+            "terminal_fallback_rule_generations": 0.0,
+            "terminal_fallback_rule_generation_nodes": 0.0,
+            "terminal_fallback_quadrature_nodes": 0.0,
+            "terminal_fallback_quadrature_error_bound": 0.0,
+            "collapsed_terminal_axes_checked": 4.0
+          },
+          "construction_cpu_seconds": 8.455762274000001,
+          "construction_sources": {
+            "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+            "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+            "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+          }
+        }
+      },
+      "rank_tail_work": {
+        "calls": 10.0,
+        "clips": 600.0,
+        "affine_products": 80.0,
+        "readout_margin_products": 480.0,
+        "moment_calls": 134.0,
+        "gate_cells": 80.0,
+        "correct_pieces": 54.0,
+        "positive_fallbacks": 0.0,
+        "positive_quadrature_fallbacks": 0.0,
+        "high_precision_fallbacks": 0.0,
+        "fallback_rule_generations": 0.0,
+        "fallback_rule_generation_nodes": 0.0,
+        "fallback_quadrature_nodes": 0.0,
+        "fallback_quadrature_error_bound": 0.0
+      },
+      "rank_tail_reused": true,
+      "transport_cpu_seconds": 0.05573060799999752
+    }
+  ],
+  "uses_previously_charged_kernels": false,
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/small_h2_78/curved_transport.py": "7d3ca19c147103222da8fec35eba89f85f5a1ad9495775ef5199b9ef98d0d359",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/doob.py": "5368f0ae3328ffd566a8fb1c1c64876ad4ad3f5231119ee2e39f0aa14474e979",
+    "/workspace/work/recover-small_h2_910/m16/approaches/small_h2_910/backward.py": "3a42cf8808f01a9c3309c22988ba2ba4f7033cc3cb741f7f726bb88d5a9bb71c",
+    "/workspace/clean-neurons/m16/approaches/feynman_fundamentals/target_tail.py": "4ea5a1a9d3c0a57abacfee0a84acd51a921f23a47fde762ffe2540ddb636ea7d"
+  },
+  "new_terminal_unique_states": 2390,
+  "cpu_seconds_excluding_imports": 49.225523205
+}
