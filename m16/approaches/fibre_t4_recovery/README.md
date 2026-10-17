@@ -91,3 +91,23 @@ before outputs, record all discrepancies/costs and preserve partial arms.
 Each case is separately bounded<=110CPU, one thread2GB. No full trained
 run or sampled input is performed. Compare tiers to distinguish lookahead
 from common geometry/cubature error, without declaring a method dead.
+
+### Analytic result and scoped defect
+The unchanged all-zero network returns1.0 in both tiers, instead of1/4,
+with zero traces/pieces. `fibre4.clip` normalizes an identically zero normal,
+producing NaNs; all vertex-side tests fail and both polygon outputs vanish.
+`cells_on_face` therefore discards all geometry. This is a concrete zero-row
+implementation defect, not evidence against the fibre method.
+
+The other three controls pass both tiers, which agree bitwise: constantclass0
+error2.67953e-10, (+3,-0)1.94819e-10, (+0,-3)2.75244e-10. These validate finite
+normalization/sign/rank controls only; thin trained cubature and lookahead
+remain unverified. CPU allfour cases8.35 seconds approximately; raw per-arm
+counts/timings are preserved in analytic_*.json. No sampled inputs were used.
+
+Plausible local rescue: treat an exactly zero halfspace normal as containing
+the entire polygon on one side, with no duplicate complementary polygon.
+Check exact component zeros, not a small-norm tolerance; nonzero underflow
+would require separate stable normalization and remains open. Preserve
+original failures, apply the guard only in this owned review process, and
+recheck the same four analytic cases before proposing a shared-source fix.
