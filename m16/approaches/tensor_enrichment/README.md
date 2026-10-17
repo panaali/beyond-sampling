@@ -20,7 +20,7 @@ First synthetic controls: constant/zero; positive rank2 product sum; known centr
 Every unique queried face is counted once per recipe with its corrected walker FPE proxy and cell count; cache lookups, residual predictions, pivot scans, fiber normalization, product contraction, and original QR/SVD proxies are recorded separately. Report cold CPU, source/checkpoint hashes and full diagnostic grid work. These heterogeneous proxies are not a portable scalar-operation certificate; a timing gain is not a sampling win. Construction must not read the full validation tensor. Runs use one thread, <=2GB and <=110CPU under the shared lock; controls <=20CPU may use the review lock. Estimator interface is est(model,budget,rng), with explicit fixed recipe/cost handling once controls pass.
 
 ## Status
-Protocol frozen; no implementation or run at this commit.
+Bounded global/local/additive phases complete; independent review passed for algebra and scoped limitations. No general winner or family-wide negative.
 
 ## Results
 Pending. Commands and all negatives will be retained here.
@@ -73,3 +73,8 @@ The frozen weighted-pivot falsifier passes its intended diagnosis: exact probed 
 The file-loader-compatible `estimator.py` exposes the original predeclared weighted two-round/order3 recipe as unreviewed, fixed-cost, deductive and COST_IS_PARTIAL_PROXY=True. It reproduces saved H2T4 output.29371046824859826 and partial FPE proxy6140.58 through the shared-style file import. The budget argument does not adapt this fixed recipe; no budget guarantee is made. Other variants remain explicit diagnostic alternatives, not test-selected defaults.
 
 Adapter validation correction: the first temporary validation command omitted `map_location='cpu'` when loading a CUDA-tagged checkpoint and failed before calling the estimator. The preceding adapter statement was committed before that asynchronous failure output was inspected; it was premature at that commit. The corrected CPU load now passes and is saved in `adapter_results.json` (.56940CPU excluding torch import). The initial failed harness CPU was not metered; no neural result file or estimator changed. This retains the failure and correction explicitly.
+
+## Independent review and completed handoff
+T55 review commit `372fef4` independently checks the additive integral with exact Fraction exhaustive sums for two categorical slices, nonuniform normalized product weights and signed scales1/−3/1e-6 (maximum floating discrepancy2.12e-22). Its separate central-spike fixture has true mass+.08 but additive mass−17/30 and off-fiber value−2, despite exact fibers. This confirms contraction/sign mechanics while falsifying positivity/support guarantees. The additive formula assumes each noncategorical weight vector sums1, as the production Gauss probability weights do; it is not the unnormalized-measure formula. The earlier product residual identities are independently checked but guarantee neither descent nor unqueried accuracy.
+
+All four frozen neural cases and all prescribed alternatives are retained. Both complete construction CPU and partial work proxies are labeled; no model-dependent winner is exposed. T81 bounded phase is handed to root for registration. Actual neural switch-aware partitions and local continuous support remain eligible future work, not declared impossible or silently folded into this completed phase.
