@@ -145,3 +145,24 @@ bounds are saved. Original T68 geometry construction is a historical cold
 reference dependency, not free preprocessing in a proposed estimator.
 
 Completed attribution cost 6.239897062 CPU seconds including imports, RSS 65808 KiB. Failed-run CPU is additional and saved separately. This is a diagnostic, not an efficient estimator. Independent T55 source/attribution review is requested.
+
+## Frozen strongest untried rescue: constant-output whole gate cones
+Exact contrast-column erasure is stronger than output-label insensitivity.
+An input can change all logits while leaving the selected class fixed. Before
+retiring an output-forgetting explanation, group the existing full-partition
+rays by450 gate histories and reconstruct their exact final logit maps. For
+each candidate label, verify every competitor margin on every cone ray. A
+margin identically zero against an earlier index rejects that candidate;
+otherwise nonnegative rays and positive interior margin certify first-index
+winner throughout the full-dimensional gate cone. Do not infer a whole-cone
+property from a single triangulation piece or center.
+
+Predeclare two classes among the previously remaining histories: certified
+constant output on the entire gate cone; decision-varying or not certified.
+Report all labels and exact output-contrast ranks, then use unchanged GL20
+mass on the same gate/correct artifacts. No model perturbation, fitted threshold,
+new cone partition or truth-selected recipe. Verify certificate margins by
+independent integer source checks and preserve known totals. <=20CPU review
+lock, one thread. This diagnoses a plausible discrete-output mechanism despite
+nonzero derivatives; it does not itself remove enumeration cost or prove global
+state forgetting across distinct gates.
