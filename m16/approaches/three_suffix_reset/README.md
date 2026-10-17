@@ -141,3 +141,12 @@ This implementation defect did not produce a completed estimate and does not
 count as negative evidence against the method. Reproduce `python integrate.py`
 under the primary lock. Fully counted node/callback/CPU/RSS ledger and tails
 are in integration.json; independent review and portable-cost auditing remain.
+
+### Frozen radial and target precision discriminator
+Before handoff, repeat exactly angular16 with radial64 and older-target64,
+compare every label contribution to saved angular16/radial32/target32. Do not
+change models, geometry or region selection. Existing angular controls alone
+could hide radial or target bias; tolerance1e-10 absolute on each label is the
+frozen check, not a certified error bound. Reuse positive quadrature with all
+work counted under <=20CPU review lock; retain any failed refinement. Independent
+T55 formula/source review remains separate from this self-check.
