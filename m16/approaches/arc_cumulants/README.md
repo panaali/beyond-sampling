@@ -163,7 +163,12 @@ class unreviewed, deterministic, memoised so the time column after the first bud
 | (16,5) | 1000 → uncond K2 (114) | -87.2, -88.3, -86.5, -82.6, -74.2 | 467 - 8,950 |
 | (16,5) | 4000 → cell K2 (1,788) | -64.5, -78.0, -76.3, -72.4, -64.2 | 5,468 - 78,879 |
 | (16,5) | 16000 → uncond K3 (5,040) | -83.3, -98.0, -91.8, -83.5, -57.7 | 12,448 - 368,560 |
-T10_PLACEHOLDER
+| (16,10) | 1000, 4000 → uncond K2 (402) | orig -93.6; seed -89.5; -92.0, -88.1, -78.3, -61.8 | 711 - 7,887 |
+| (16,10) | 16000 → cell K2 (14,289) | orig -77.2; seed -68.4; -75.5, -71.7, -61.9, -46.0 | 14,320 - 190,741 |
+| (16,10) | 64000 → uncond K3 (45,249) | orig -84.1; seed -36.7; -82.4, -78.5, -68.7, -52.1 | 57,636 - 716,158 |
+
+(T = 10 groups: orig, seed, s0.0025, s0.005, s0.01, s0.02. One seed model at K3 returned 1.6e37 before clipping.)
+`out_lb_T4.txt`, `out_lb_T5.txt`, `out_lb_T10*.txt` hold the logs; raw rows are in `data/leaderboard_v3_raw.jsonl`.
 
 SKEL_PLACEHOLDER
 
