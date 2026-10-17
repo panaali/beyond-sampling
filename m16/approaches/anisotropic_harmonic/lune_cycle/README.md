@@ -151,3 +151,58 @@ is a refinement diagnostic only. Record every case, model hash, CPU, all work
 and the squared-error-times-CPU proxy; do not call it same-budget/FLOP success.
 No case, order or degree selected from accuracy. No new MC. A mixed result
 remains mixed; exact initial support does not rule out internal-gate leakage.
+
+## Frozen noisy-copy validation and audit
+All17 absolute errors improve relative to the prior hemisphere representation.
+
+| fixed cases | hemisphere RMSE | exact-lune RMSE | mean CPU old/new | error-squared-times-CPU ratio |
+|---|---:|---:|---:|---:|
+| H2 base+8 sigma .05, seed47001 | .0020447893 | .0012106581 | .03468 / .10778 | 1.09412 |
+| H4 eight sigma .05, seed0 | .0115759361 | .0012682771 | .11942 / .36225 | .03623 |
+
+H4 copies are exactly the first8 Wi/Wh/Wo noise draws in the earlier ARC
+reproduction's seed0 rows, with model hashes in `ensemble_results.json`.
+H2 uses the same9 prior rows, not newly drawn validation inputs. Maximum
+Q64/Q128 change is3.54e-10(H2)/1.26e-8(H4). These changes are much smaller
+than the retained finite-basis bias. H4 has a strong relative implementation
+gain on these8 copies; H2 has no gain under this CPU proxy. Neither statistic
+is an equal-FLOP/accuracy-budget result, and deterministic repetition cannot
+average away the bias. The validation-only Q128 runs are charged in total
+experiment CPU, not hidden as part of a chosen better estimator.
+
+The cost audit exposes the remaining obstacle: at least31.3–32.3 million(H2)
+and106.9–123.5 million(H4) dense scalar multiplications occur per optimized
+estimate, even counting just one multiplication per real/complex multiply-add
+and ignoring additions, all other products, special functions, geometry and
+setup. `cost_floor.py` reports comparisons under both declared network-forward
+conventions (affine-only and the prior conventional count). This arithmetic
+floor already gives conventional-baseline ratios above1 on all9 H2 and7/8 H4
+cases. Those baselines omit input-generation costs, so this is a conditional
+cost diagnosis, not a proof against sampling superiority under every complete
+cost convention. It certainly supplies no portable sampling-win certificate.
+Named opaque kernels and Python/bit work remain visible in each estimate.
+
+## Scoped handoff and alternatives
+[measured] Exact initial support improves every frozen-case error; independent
+primitive integration and T55 algebra/code review support the implementation.
+[measured] The cost proxy improves for these H4 copies and worsens slightly
+for the H2 set. No DRI confirmation, broad spectral-family win or original
+challenge solution is claimed.
+
+Tried: root-lune support at fixed81DOF, exact root/tie/scaling controls,
+opposite-order primitive integration, radial-order doubling, an algebraically
+equivalent fixed-rule cost optimization, cold comparison and all17 frozen
+copies. The original hemisphere and unoptimized lune remain reproducible.
+
+Not tried: smaller/real-only bases, exact internal-gate support, a different
+local coordinate family, and certified adaptive radial allocation. They may
+change accuracy/cost and are not excluded. Changing dimension beyondT3 needs
+a new support construction: this rectangular spherical-lune chart does not
+automatically generalize. Do not turn the current large dense cost into a
+claim against every local spectral representation. A further phase needs a
+concrete cost/error mechanism, not an unbounded degree sweep.
+
+Reproduction: run `controls.py`, `pilot.py`, `cost_cycle.py`, `ensemble.py`,
+then `cost_floor.py` using the standard interpreter and thread/memory limits.
+The ensemble uses the primary lock; short control/cost cycles use review lock.
+Every estimate constructs its own basis/rule/state; no persistent model cache.
