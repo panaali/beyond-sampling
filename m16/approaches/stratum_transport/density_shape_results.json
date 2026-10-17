@@ -1,0 +1,1068 @@
+{
+  "classification": "one-stage two-input density oracle; not a scalable solver",
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "85c5e700b5989d2631dc6872a5f9abd84f1859fa5b768884e7daa53cea920b66",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_volume.py": "20843767cc711fc495e5042b89b43784e4ce1fee965713d9a137a4e6edca0f09",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/density_shape.py": "978620d733c9a7e07e08b05967a50955824904d593352163e752f60de10a3b37",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_density_shape.py": "f395f368ca4a8643025ea8ac3b7c43e0ac09a6288000df5ddee78505ba74332a",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input.py": "4286350221428688c19cbb04fdf5dddd20c8791404f6cab70d58882a81cfdd22",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/third_step_results.json": "64cc77754865a5690253cbd6f5e381e95dc45bd6f3125d0962b20d4c92a0ca79",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_results.json": "652118109a64d9cc219bff0035f8e0ec00aaf6a12877f2f2be4c30a693f225be"
+  },
+  "random_model_inputs": 0,
+  "rows": [
+    {
+      "model": "toy",
+      "grid": 16,
+      "shape": "uniform",
+      "stratum_masses": {
+        "origin": 0.21950435921210384,
+        "axis0": 0.0,
+        "axis1": 0.09334370987792222,
+        "input_ray": 0.1618959033548722,
+        "area": 0.5252560216355755
+      },
+      "signed_stratum_errors": {
+        "origin": -0.00046142700019688454,
+        "axis0": 0.0,
+        "axis1": 0.000809496090222947,
+        "input_ray": -1.0577361209129776e-09,
+        "area": -0.0003480739518161302
+      },
+      "max_stratum_error": 0.000809496090222947,
+      "output_masses": [
+        0.21950435921210384,
+        0.1618959033548722,
+        0.6185997315134928,
+        0.0
+      ],
+      "max_output_error": 0.00046142700019688454,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 2216.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 215.0,
+        "constructed_source_nodes": 2216.0,
+        "zero_weight_source_nodes": 0.0,
+        "normal_cdf_values": 86424.0,
+        "input_intervals": 84208.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 33653.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 48.0,
+        "support_polygon_source_nodes": 768.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.023476794999999884
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "shape": "area",
+      "stratum_masses": {
+        "origin": 0.2196611844529743,
+        "axis0": 0.0,
+        "axis1": 0.0928389039191397,
+        "input_ray": 0.1618959033548722,
+        "area": 0.525604002353488
+      },
+      "signed_stratum_errors": {
+        "origin": -0.00030460175932642275,
+        "axis0": 0.0,
+        "axis1": 0.00030469013144042434,
+        "input_ray": -1.0577361209129776e-09,
+        "area": -9.32339035975005e-08
+      },
+      "max_stratum_error": 0.00030469013144042434,
+      "output_masses": [
+        0.2196611844529743,
+        0.1618959033548722,
+        0.6184429062726173,
+        0.0
+      ],
+      "max_output_error": 0.00030460175932642275,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 1895.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 215.0,
+        "constructed_source_nodes": 2216.0,
+        "zero_weight_source_nodes": 321.0,
+        "normal_cdf_values": 73905.0,
+        "input_intervals": 72010.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 29285.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 48.0,
+        "shape_density_queries": 2048.0,
+        "shape_bivariate_density_values": 1711.0,
+        "shape_reweighted_cells": 103.0,
+        "max_shape_cell_mass_defect": 3.469446951953614e-18,
+        "support_polygon_source_nodes": 768.0,
+        "shape_unresolved_cell_mass": 5.8348751612651376e-12,
+        "shape_unresolved_cells": 1.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.0246660110000001
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "shape": "axis",
+      "stratum_masses": {
+        "origin": 0.21980926872370332,
+        "axis0": 0.0,
+        "axis1": 0.09303880036632274,
+        "input_ray": 0.1618959033548722,
+        "area": 0.5252560216355755
+      },
+      "signed_stratum_errors": {
+        "origin": -0.00015651748859740744,
+        "axis0": 0.0,
+        "axis1": 0.0005045865786234699,
+        "input_ray": -1.0577361209129776e-09,
+        "area": -0.0003480739518161302
+      },
+      "max_stratum_error": 0.0005045865786234699,
+      "output_masses": [
+        0.21980926872370332,
+        0.1618959033548722,
+        0.6182948220018931,
+        0.0
+      ],
+      "max_output_error": 0.00015651748859740744,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 2213.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 215.0,
+        "constructed_source_nodes": 2216.0,
+        "zero_weight_source_nodes": 3.0,
+        "normal_cdf_values": 86307.0,
+        "input_intervals": 84094.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 33617.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 40.0,
+        "shape_univariate_density_values": 37.0,
+        "shape_normal_cdf_values": 74.0,
+        "shape_reweighted_cells": 10.0,
+        "max_shape_cell_mass_defect": 8.673617379884035e-19,
+        "support_source_triangles": 48.0,
+        "support_polygon_source_nodes": 768.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.022611291000000033
+    },
+    {
+      "model": "toy",
+      "grid": 16,
+      "shape": "both",
+      "stratum_masses": {
+        "origin": 0.21996609396457378,
+        "axis0": 0.0,
+        "axis1": 0.09253399440754023,
+        "input_ray": 0.1618959033548722,
+        "area": 0.5256040023534879
+      },
+      "signed_stratum_errors": {
+        "origin": 3.077522730543514e-07,
+        "axis0": 0.0,
+        "axis1": -2.1938015903888441e-07,
+        "input_ray": -1.0577361209129776e-09,
+        "area": -9.32339037085228e-08
+      },
+      "max_stratum_error": 3.077522730543514e-07,
+      "output_masses": [
+        0.21996609396457378,
+        0.1618959033548722,
+        0.6181379967610178,
+        0.0
+      ],
+      "max_output_error": 3.1261407318350365e-07,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 1892.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 215.0,
+        "constructed_source_nodes": 2216.0,
+        "zero_weight_source_nodes": 324.0,
+        "normal_cdf_values": 73788.0,
+        "input_intervals": 71896.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 29249.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 2088.0,
+        "shape_univariate_density_values": 37.0,
+        "shape_normal_cdf_values": 74.0,
+        "shape_reweighted_cells": 113.0,
+        "max_shape_cell_mass_defect": 3.469446951953614e-18,
+        "support_source_triangles": 48.0,
+        "shape_bivariate_density_values": 1711.0,
+        "support_polygon_source_nodes": 768.0,
+        "shape_unresolved_cell_mass": 5.8348751612651376e-12,
+        "shape_unresolved_cells": 1.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.025721006000000157
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "shape": "uniform",
+      "stratum_masses": {
+        "origin": 0.21985183207902256,
+        "axis0": 0.0,
+        "axis1": 0.0927264915556597,
+        "input_ray": 0.16189590335374815,
+        "area": 0.5255257670920436
+      },
+      "signed_stratum_errors": {
+        "origin": -0.00011395413327816573,
+        "axis0": 0.0,
+        "axis1": 0.00019227776796043594,
+        "input_ray": -1.0588601662142594e-09,
+        "area": -7.832849534805675e-05
+      },
+      "max_stratum_error": 0.00019227776796043594,
+      "output_masses": [
+        0.21985183207902256,
+        0.16189590335374815,
+        0.6182522586476412,
+        0.0
+      ],
+      "max_output_error": 0.00011395413327816573,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 6780.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 808.0,
+        "constructed_source_nodes": 6780.0,
+        "zero_weight_source_nodes": 0.0,
+        "normal_cdf_values": 481380.0,
+        "input_intervals": 474600.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 194449.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 88.0,
+        "support_polygon_source_nodes": 1408.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.08338740799999989
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "shape": "area",
+      "stratum_masses": {
+        "origin": 0.2198878768871224,
+        "axis0": 0.0,
+        "axis1": 0.09261211341333994,
+        "input_ray": 0.16189590335374815,
+        "area": 0.5256041004262635
+      },
+      "signed_stratum_errors": {
+        "origin": -7.790932517831584e-05,
+        "axis0": 0.0,
+        "axis1": 7.789962564067054e-05,
+        "input_ray": -1.0588601662142594e-09,
+        "area": 4.838871858758864e-09
+      },
+      "max_stratum_error": 7.790932517831584e-05,
+      "output_masses": [
+        0.2198878768871224,
+        0.16189590335374815,
+        0.6182162138395527,
+        0.0
+      ],
+      "max_output_error": 7.790932517831584e-05,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 6214.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 808.0,
+        "constructed_source_nodes": 6780.0,
+        "zero_weight_source_nodes": 566.0,
+        "normal_cdf_values": 441194.0,
+        "input_intervals": 434980.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 179543.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 88.0,
+        "shape_density_queries": 6448.0,
+        "shape_bivariate_density_values": 5850.0,
+        "shape_reweighted_cells": 358.0,
+        "max_shape_cell_mass_defect": 1.734723475976807e-18,
+        "support_polygon_source_nodes": 1408.0,
+        "shape_unresolved_cell_mass": 1.8959410770732594e-15,
+        "shape_unresolved_cells": 2.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.08926000200000006
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "shape": "axis",
+      "stratum_masses": {
+        "origin": 0.21992976954359075,
+        "axis0": 0.0,
+        "axis1": 0.09264855409109152,
+        "input_ray": 0.16189590335374815,
+        "area": 0.5255257670920436
+      },
+      "signed_stratum_errors": {
+        "origin": -3.601666870997611e-05,
+        "axis0": 0.0,
+        "axis1": 0.00011434030339224632,
+        "input_ray": -1.0588601662142594e-09,
+        "area": -7.832849534805675e-05
+      },
+      "max_stratum_error": 0.00011434030339224632,
+      "output_masses": [
+        0.21992976954359075,
+        0.16189590335374815,
+        0.6181743211830727,
+        0.0
+      ],
+      "max_output_error": 3.601666870997611e-05,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 6778.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 808.0,
+        "constructed_source_nodes": 6780.0,
+        "zero_weight_source_nodes": 2.0,
+        "normal_cdf_values": 481238.0,
+        "input_intervals": 474460.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 194403.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 76.0,
+        "shape_univariate_density_values": 74.0,
+        "shape_normal_cdf_values": 148.0,
+        "shape_reweighted_cells": 19.0,
+        "max_shape_cell_mass_defect": 8.673617379884035e-19,
+        "support_source_triangles": 88.0,
+        "support_polygon_source_nodes": 1408.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.08514312099999999
+    },
+    {
+      "model": "toy",
+      "grid": 32,
+      "shape": "both",
+      "stratum_masses": {
+        "origin": 0.2199658143516906,
+        "axis0": 0.0,
+        "axis1": 0.09253417594877175,
+        "input_ray": 0.16189590335374815,
+        "area": 0.5256041004262635
+      },
+      "signed_stratum_errors": {
+        "origin": 2.8139389873782505e-08,
+        "axis0": 0.0,
+        "axis1": -3.7838927519073806e-08,
+        "input_ray": -1.0588601662142594e-09,
+        "area": 4.838871858758864e-09
+      },
+      "max_stratum_error": 3.7838927519073806e-08,
+      "output_masses": [
+        0.2199658143516906,
+        0.16189590335374815,
+        0.6181382763749843,
+        0.0
+      ],
+      "max_output_error": 3.300010664730735e-08,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 6212.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 808.0,
+        "constructed_source_nodes": 6780.0,
+        "zero_weight_source_nodes": 568.0,
+        "normal_cdf_values": 441052.0,
+        "input_intervals": 434840.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 179497.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 6524.0,
+        "shape_univariate_density_values": 74.0,
+        "shape_normal_cdf_values": 148.0,
+        "shape_reweighted_cells": 377.0,
+        "max_shape_cell_mass_defect": 1.734723475976807e-18,
+        "support_source_triangles": 88.0,
+        "shape_bivariate_density_values": 5850.0,
+        "support_polygon_source_nodes": 1408.0,
+        "shape_unresolved_cell_mass": 1.8959410770732594e-15,
+        "shape_unresolved_cells": 2.0,
+        "max_source_support_deficit": 0.0
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.09184050199999994
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "shape": "uniform",
+      "stratum_masses": {
+        "origin": 0.5328533913515413,
+        "axis0": 0.001459321674148503,
+        "axis1": 0.10077937785612219,
+        "input_ray": 0.24293751797802915,
+        "area": 0.12197038522063272
+      },
+      "signed_stratum_errors": {
+        "origin": 0.001206588876253023,
+        "axis0": 1.075560165049146e-05,
+        "axis1": -0.0004886119642453779,
+        "input_ray": -1.3632125428486574e-09,
+        "area": -0.0007287370699716605
+      },
+      "max_stratum_error": 0.001206588876253023,
+      "output_masses": [
+        0.5328533913515413,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.019992442906425874,
+        0.1091996682814844,
+        0.33795449154101737
+      ],
+      "max_output_error": 0.001206588876253023,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 2500.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 107.0,
+        "constructed_source_nodes": 2500.0,
+        "zero_weight_source_nodes": 0.0,
+        "normal_cdf_values": 160000.0,
+        "input_intervals": 157500.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 60215.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 864.0,
+        "max_source_support_deficit": 1.2756121792703637e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.026802299999999946
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "shape": "area",
+      "stratum_masses": {
+        "origin": 0.5321104064655189,
+        "axis0": 0.001458824629412612,
+        "axis1": 0.10126892235756221,
+        "input_ray": 0.24293751797802915,
+        "area": 0.12222432264995113
+      },
+      "signed_stratum_errors": {
+        "origin": 0.00046360399023059884,
+        "axis0": 1.0258556914600342e-05,
+        "axis1": 9.325371946450334e-07,
+        "input_ray": -1.3632125428486574e-09,
+        "area": -0.00047479964065325064
+      },
+      "max_stratum_error": 0.00047479964065325064,
+      "output_masses": [
+        0.5321104064655189,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.019988948717981223,
+        0.109732379846809,
+        0.33816825905016284
+      ],
+      "max_output_error": 0.00046360399023059884,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 2471.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 107.0,
+        "constructed_source_nodes": 2500.0,
+        "zero_weight_source_nodes": 29.0,
+        "normal_cdf_values": 158144.0,
+        "input_intervals": 155673.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 60203.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 54.0,
+        "shape_density_queries": 2320.0,
+        "shape_bivariate_density_values": 2195.0,
+        "shape_reweighted_cells": 118.0,
+        "max_shape_cell_mass_defect": 8.673617379884035e-19,
+        "support_polygon_source_nodes": 864.0,
+        "shape_unresolved_cell_mass": 6.820606175054407e-15,
+        "shape_unresolved_cells": 6.0,
+        "max_source_support_deficit": 1.2756121792703637e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.031055363000000114
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "shape": "axis",
+      "stratum_masses": {
+        "origin": 0.5323891384234911,
+        "axis0": 0.001449101708295525,
+        "axis1": 0.10077937785612219,
+        "input_ray": 0.24293751797802915,
+        "area": 0.12244485811453601
+      },
+      "signed_stratum_errors": {
+        "origin": 0.0007423359482028324,
+        "axis0": 5.356357975134542e-07,
+        "axis1": -0.0004886119642453779,
+        "input_ray": -1.3632125428486574e-09,
+        "area": -0.00025426417606837226
+      },
+      "max_stratum_error": 0.0007423359482028324,
+      "output_masses": [
+        0.5323891384234911,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.02003250629673053,
+        0.1091996682814844,
+        0.3383786810787629
+      ],
+      "max_output_error": 0.0007423359482028324,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 2497.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 107.0,
+        "constructed_source_nodes": 2500.0,
+        "zero_weight_source_nodes": 3.0,
+        "normal_cdf_values": 159808.0,
+        "input_intervals": 157311.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 60192.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 52.0,
+        "shape_univariate_density_values": 49.0,
+        "shape_normal_cdf_values": 98.0,
+        "shape_reweighted_cells": 13.0,
+        "max_shape_cell_mass_defect": 3.469446951953614e-18,
+        "support_source_triangles": 54.0,
+        "support_polygon_source_nodes": 864.0,
+        "max_source_support_deficit": 1.2756121792703637e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.02745473899999995
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 16,
+      "shape": "both",
+      "stratum_masses": {
+        "origin": 0.5316461535374686,
+        "axis0": 0.001448604663559634,
+        "axis1": 0.10126892235756221,
+        "input_ray": 0.24293751797802915,
+        "area": 0.1226987955438544
+      },
+      "signed_stratum_errors": {
+        "origin": -6.489378197027662e-07,
+        "axis0": 3.859106162233672e-08,
+        "axis1": 9.325371946450334e-07,
+        "input_ray": -1.3632125428486574e-09,
+        "area": -3.2674674997623665e-07
+      },
+      "max_stratum_error": 9.325371946450334e-07,
+      "output_masses": [
+        0.5316461535374686,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.02002901210828588,
+        0.109732379846809,
+        0.3385924485879084
+      ],
+      "max_output_error": 1.0356607726275113e-06,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 2468.0,
+        "max_total_mass_defect": 3.3306690738754696e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 107.0,
+        "constructed_source_nodes": 2500.0,
+        "zero_weight_source_nodes": 32.0,
+        "normal_cdf_values": 157952.0,
+        "input_intervals": 155484.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 60180.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 2372.0,
+        "shape_univariate_density_values": 49.0,
+        "shape_normal_cdf_values": 98.0,
+        "shape_reweighted_cells": 131.0,
+        "max_shape_cell_mass_defect": 3.469446951953614e-18,
+        "support_source_triangles": 54.0,
+        "shape_bivariate_density_values": 2195.0,
+        "support_polygon_source_nodes": 864.0,
+        "shape_unresolved_cell_mass": 6.820606175054407e-15,
+        "shape_unresolved_cells": 6.0,
+        "max_source_support_deficit": 1.2756121792703637e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.02960304800000002
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "shape": "uniform",
+      "stratum_masses": {
+        "origin": 0.5319635691816482,
+        "axis0": 0.0014513072353134627,
+        "axis1": 0.10113309216491964,
+        "input_ray": 0.2429375179779687,
+        "area": 0.12251450752062382
+      },
+      "signed_stratum_errors": {
+        "origin": 0.00031676670635993887,
+        "axis0": 2.7411628154511234e-06,
+        "axis1": -0.00013489765544792698,
+        "input_ray": -1.3632729944923483e-09,
+        "area": -0.00018461476998056503
+      },
+      "max_stratum_error": 0.00031676670635993887,
+      "output_masses": [
+        0.5319635691816482,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.020019493705072604,
+        0.1095850310457785,
+        0.33843190014793206
+      ],
+      "max_output_error": 0.00031676670635993887,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 8212.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 401.0,
+        "constructed_source_nodes": 8212.0,
+        "zero_weight_source_nodes": 0.0,
+        "normal_cdf_values": 788352.0,
+        "input_intervals": 780140.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 331856.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 110.0,
+        "support_polygon_source_nodes": 1760.0,
+        "max_source_support_deficit": 1.3679065594348687e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.10469505200000007
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "shape": "area",
+      "stratum_masses": {
+        "origin": 0.5317637996685365,
+        "axis0": 0.001451186302989554,
+        "axis1": 0.10126791504511859,
+        "input_ray": 0.2429375179779687,
+        "area": 0.12257957508586059
+      },
+      "signed_stratum_errors": {
+        "origin": 0.00011699719324820279,
+        "axis0": 2.620230491542355e-06,
+        "axis1": -7.477524897880894e-08,
+        "input_ray": -1.3632729944923483e-09,
+        "area": -0.00011954720474378899
+      },
+      "max_stratum_error": 0.00011954720474378899,
+      "output_masses": [
+        0.5317637996685365,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.020018700179072087,
+        0.10973126536606803,
+        0.33848622886674373
+      ],
+      "max_output_error": 0.00011699719324820279,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 7992.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 401.0,
+        "constructed_source_nodes": 8212.0,
+        "zero_weight_source_nodes": 220.0,
+        "normal_cdf_values": 767232.0,
+        "input_intervals": 759240.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 328765.0,
+        "max_forbidden_axis_mass": 0.0,
+        "support_source_triangles": 110.0,
+        "shape_density_queries": 7856.0,
+        "shape_bivariate_density_values": 7572.0,
+        "shape_reweighted_cells": 436.0,
+        "max_shape_cell_mass_defect": 4.336808689942018e-19,
+        "support_polygon_source_nodes": 1760.0,
+        "shape_unresolved_cell_mass": 3.473969174389572e-15,
+        "shape_unresolved_cells": 4.0,
+        "max_source_support_deficit": 1.3679065594348687e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.11199017499999986
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "shape": "axis",
+      "stratum_masses": {
+        "origin": 0.5318466291746253,
+        "axis0": 0.0014486844284557362,
+        "axis1": 0.10113309216491964,
+        "input_ray": 0.2429375179779687,
+        "area": 0.12263407033450457
+      },
+      "signed_stratum_errors": {
+        "origin": 0.00019982669933704678,
+        "axis0": 1.183559577245738e-07,
+        "axis1": -0.00013489765544792698,
+        "input_ray": -1.3632729944923483e-09,
+        "area": -6.505195609980696e-05
+      },
+      "max_stratum_error": 0.00019982669933704678,
+      "output_masses": [
+        0.5318466291746253,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.020029303280231336,
+        0.10958503104577849,
+        0.33853903057979556
+      ],
+      "max_output_error": 0.00019982669933704678,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 8210.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 401.0,
+        "constructed_source_nodes": 8212.0,
+        "zero_weight_source_nodes": 2.0,
+        "normal_cdf_values": 788160.0,
+        "input_intervals": 779950.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 331818.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 100.0,
+        "shape_univariate_density_values": 98.0,
+        "shape_normal_cdf_values": 196.0,
+        "shape_reweighted_cells": 25.0,
+        "max_shape_cell_mass_defect": 3.469446951953614e-18,
+        "support_source_triangles": 110.0,
+        "support_polygon_source_nodes": 1760.0,
+        "max_source_support_deficit": 1.3679065594348687e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.11124795700000023
+    },
+    {
+      "model": "trained_H2T8",
+      "grid": 32,
+      "shape": "both",
+      "stratum_masses": {
+        "origin": 0.5316468596615135,
+        "axis0": 0.0014485634961318274,
+        "axis1": 0.10126791504511859,
+        "input_ray": 0.2429375179779687,
+        "area": 0.12269913789974134
+      },
+      "signed_stratum_errors": {
+        "origin": 5.7186225199679086e-08,
+        "axis0": -2.5763661841947394e-09,
+        "axis1": -7.477524897880894e-08,
+        "input_ray": -1.3632729944923483e-09,
+        "area": 1.5609136955196945e-08
+      },
+      "max_stratum_error": 7.477524897880894e-08,
+      "output_masses": [
+        0.5316468596615135,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.020028509754230817,
+        0.10973126536606803,
+        0.33859335929860723
+      ],
+      "max_output_error": 7.881996834380178e-08,
+      "work": {
+        "support_rational_products": 10.0,
+        "support_rational_sums": 5.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 7990.0,
+        "max_total_mass_defect": 1.1102230246251565e-16,
+        "support_sign_checks": 3.0,
+        "support_cell_clips": 401.0,
+        "constructed_source_nodes": 8212.0,
+        "zero_weight_source_nodes": 222.0,
+        "normal_cdf_values": 767040.0,
+        "input_intervals": 759050.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 328727.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 7956.0,
+        "shape_univariate_density_values": 98.0,
+        "shape_normal_cdf_values": 196.0,
+        "shape_reweighted_cells": 461.0,
+        "max_shape_cell_mass_defect": 3.469446951953614e-18,
+        "support_source_triangles": 110.0,
+        "shape_bivariate_density_values": 7572.0,
+        "support_polygon_source_nodes": 1760.0,
+        "shape_unresolved_cell_mass": 3.473969174389572e-15,
+        "shape_unresolved_cells": 4.0,
+        "max_source_support_deficit": 1.3679065594348687e-15
+      },
+      "exact_geometry_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.11887878799999996
+    }
+  ],
+  "kernel_controls": [
+    {
+      "axis_coordinate": 0.1,
+      "density": 0.07960583427606613,
+      "independent_density": 0.07960583427606611
+    },
+    {
+      "axis_coordinate": 0.5,
+      "density": 0.043704998029602274,
+      "independent_density": 0.04370499802960228
+    },
+    {
+      "axis_coordinate": 2.0,
+      "density": 0.00043593941384584956,
+      "independent_density": 0.00043593941384584956
+    },
+    {
+      "axis_coordinate": 5.0,
+      "density": 1.4424149299673528e-13,
+      "independent_density": 1.4424149299673442e-13
+    },
+    {
+      "axis_coordinate": 10.0,
+      "density": 0.0,
+      "independent_density": 0.0
+    },
+    {
+      "hidden": [
+        0.1,
+        0.2
+      ],
+      "density": 0.15836115450163704,
+      "independent_density": 0.15836115450163707
+    },
+    {
+      "hidden": [
+        0.3,
+        0.8
+      ],
+      "density": 0.13767257383326084,
+      "independent_density": 0.13767257383326084
+    },
+    {
+      "hidden": [
+        1.0,
+        1.5
+      ],
+      "density": 0.12394999430965298,
+      "independent_density": 0.12394999430965296
+    },
+    {
+      "hidden": [
+        2.0,
+        3.0
+      ],
+      "density": 0.05854983152431917,
+      "independent_density": 0.05854983152431917
+    },
+    {
+      "hidden": [
+        0.1,
+        7.0
+      ],
+      "density": 0.0,
+      "independent_density": 0.0
+    },
+    {
+      "hidden": [
+        8.0,
+        9.0
+      ],
+      "density": 0.0,
+      "independent_density": 0.0
+    }
+  ],
+  "kernel_control_work": {
+    "support_rational_products": 4.0,
+    "support_rational_sums": 2.0,
+    "source_rule_constructions": 1.0,
+    "two_input_density_cells_constructed": 2.0,
+    "shape_density_queries": 11.0,
+    "shape_univariate_density_values": 4.0,
+    "shape_normal_cdf_values": 8.0,
+    "shape_bivariate_density_values": 4.0
+  },
+  "cpu_seconds_including_torch_import": 1.890569804,
+  "sources_after": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "85c5e700b5989d2631dc6872a5f9abd84f1859fa5b768884e7daa53cea920b66",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_volume.py": "20843767cc711fc495e5042b89b43784e4ce1fee965713d9a137a4e6edca0f09",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/density_shape.py": "978620d733c9a7e07e08b05967a50955824904d593352163e752f60de10a3b37",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_density_shape.py": "f395f368ca4a8643025ea8ac3b7c43e0ac09a6288000df5ddee78505ba74332a",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input.py": "4286350221428688c19cbb04fdf5dddd20c8791404f6cab70d58882a81cfdd22",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/third_step_results.json": "64cc77754865a5690253cbd6f5e381e95dc45bd6f3125d0962b20d4c92a0ca79",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/quadrature_results.json": "652118109a64d9cc219bff0035f8e0ec00aaf6a12877f2f2be4c30a693f225be"
+  }
+}
