@@ -17,6 +17,13 @@ assert not OUT.exists(),'Preserve prior application'
 assert (HERE/'controls.json').exists(),'Primitive controls required first'
 sys.set_int_max_str_digits(0)
 t0=time.process_time()
+gate_pin=json.loads((HERE/'control_gate.json').read_text())
+assert hashlib.sha256((HERE/'controls.json').read_bytes()).hexdigest()==gate_pin['controls_sha256']
+assert hashlib.sha256((HERE/'THEOREM.md').read_bytes()).hexdigest()==gate_pin['theorem_sha256']
+control=json.loads((HERE/'controls.json').read_text())
+for name,sha in control['source_sha256'].items():
+    assert hashlib.sha256((HERE/name).read_bytes()).hexdigest()==sha,name
+assert len(control['roots'])==6 and len(control['angles'])==9 and len(control['event_controls'])==4
 pins=json.loads((HERE/'manifest.json').read_text())
 for path,sha in pins.items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
 base=HERE.parent
@@ -61,7 +68,7 @@ def integrand(v):
     return .25*phi0*math.exp(-v*v/2)*math.erf(v/(kf*rt))*(p*p-.25)
 value,error=quad(integrand,0,math.inf,epsabs=1e-16,epsrel=2e-12,limit=100)
 assert float(bound['event_probability'].lo)<=value<=float(bound['event_probability'].hi)
-out={'complete':True,'source_pins':pins,'weights':{'Wi':wi,'Wh':wh,'Wo':wo},'kappa':kappa,'k':k,
+out={'complete':True,'source_pins':pins,'primitive_control_gate':gate_pin,'weights':{'Wi':wi,'Wh':wh,'Wo':wo},'kappa':kappa,'k':k,
      'checked_complete_occurrence_rank_pairs':198,'reused_infeasible_projection_certificates':184,
      'shared_gate_constraint':gate,'feasible_face_evidence':evidence,'bounds':bound,
      'event_scalar_integral':value,'quad_error_estimate_uncertified':error,
