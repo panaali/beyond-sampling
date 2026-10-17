@@ -1213,3 +1213,19 @@ work is recorded; rejected-path exact work and compiled setup remain unpriced.
 No mass kernels were rerun. The separately frozen numerical child evaluation
 has passed source review, with fixed orders and all failures retained; its saved
 outputs require a separate audit.
+
+### Missing-k30 native pilot gate
+
+`check_k30_native_pilot_review.py` independently contracts all 64 saved native
+site ledgers and verifies original truth/model/output/counter parity, source
+pins and historical control reuse. Numeric units sum to 6,327,190, with 202,274
+integer units separately. Exact own-budget ratios reproduce 0.0795080369 under
+the named 111-unit sampler and 0.0527718560 under historical 72 accounting;
+the original bootstrap also matches. These are first64 results only.
+
+The unchanged remaining63-shard continuation is source-cleared for the original
+4,096 missing-k30 copies. It retains both historical controls exactly once,
+fixed per-process caps, saved failures and immutable pilot-review pins. The
+676.45CPU projection is research tracing effort, not estimator runtime. Full
+saved coverage and all individual losses must be reviewed before interpretation.
+No new estimator or truth evaluations occurred in this review.
