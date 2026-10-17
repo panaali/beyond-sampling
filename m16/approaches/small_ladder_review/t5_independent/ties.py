@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from check import module,safe_outcomes,simplices
 
-app=Path('/workspace/clean-neurons/m16/approaches');start=time.process_time();deadline=start+110
+app=Path('/workspace/clean-neurons/m16/approaches');start=time.process_time();deadline=start+18
 sys.path.insert(0,str(app/'small_h2_56'))
 dd,dsha=module('ties_dd',app/'exact_ladder/cones.py')
 vol,vsha=module('volume',app/'small_h2_56/volume.py');sys.modules['volume']=vol
