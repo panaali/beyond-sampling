@@ -8,7 +8,7 @@
     "projected_cache": "15ff556d1ef6168275d67a785eb7f2623a411cb8832816cf5cfc97060cd339c7",
     "plan": "3126342f2705bf7db13483b603f423c0d9a036a02eb434b5628913850013ae81"
   },
-  "done": 22669,
+  "done": 38670,
   "total": 42012,
   "cycles": [
     {
@@ -49,13 +49,52 @@
         },
         "validation_kernel_calls": {}
       }
+    },
+    {
+      "start": 22669,
+      "end": 38670,
+      "cpu_seconds": 92.005044492,
+      "status": "checkpoint",
+      "cost": {
+        "known_arithmetic_upper_bound": 341020067689,
+        "parts": {
+          "resume_scalar_setup": 10000,
+          "triangle_engine_setup": 100,
+          "determinant_control": 8192512,
+          "determinants": 2820103,
+          "mass_prefactor": 160010,
+          "jacobi_setup_control": 3000,
+          "jacobi_coefficients": 36600,
+          "jacobi_sturm": 12240000,
+          "jacobi_bisection_control": 288000,
+          "jacobi_christoffel": 199200,
+          "jacobi_duffy": 2524800,
+          "triangle_analytic_upper_allowance": 335473210000,
+          "outer_endpoint_and_weight_arithmetic": 2685705800,
+          "resume_per_cone_control_and_accumulation": 1600100,
+          "positive_radial_setup": 566233600,
+          "positive_bound_trials": 137636280,
+          "rule_newton": 118764,
+          "positive_duffy_setup": 131520,
+          "positive_nodes": 2018364800,
+          "positive_metadata": 110592500
+        },
+        "black_box_kernels": [],
+        "events": {
+          "triangle_batches": 16001,
+          "triangles": 33531320,
+          "positive_fallback_calls": 1105925,
+          "positive_quadrature_nodes": 20183648
+        },
+        "validation_kernel_calls": {}
+      }
     }
   ],
-  "partial_mass": 0.030797472010272425,
-  "outer_bound": 1.4918550338504407e-07,
-  "projection_bound": 1.6524237669115873e-12,
-  "inner_bound": 1.1566240382459207e-11,
-  "series_bound": 3.662188623013514e-25,
+  "partial_mass": 0.08007512266471249,
+  "outer_bound": 2.420572989223194e-07,
+  "projection_bound": 2.7690850621005956e-12,
+  "inner_bound": 5.071667002329407e-11,
+  "series_bound": 7.378711186657702e-25,
   "roundoff_certified": false,
   "floating_geometry_certified": false,
   "preprocessing_operations": 875013555,
@@ -63,37 +102,37 @@
   "author_reference_conditional_bound": 9.04235e-06,
   "fixed_inner_budget": 1e-08,
   "fixed_outer_plan": 1e-06,
-  "integration_operations": 348047939449,
-  "total_operations": 348922953004,
+  "integration_operations": 689068007138,
+  "total_operations": 689943020693,
   "operation_components": {
-    "resume_scalar_setup": 10000,
-    "triangle_engine_setup": 100,
-    "determinant_control": 11606528,
-    "determinants": 4004725,
-    "mass_prefactor": 226690,
-    "jacobi_setup_control": 3000,
-    "jacobi_coefficients": 36600,
-    "jacobi_sturm": 12240000,
-    "jacobi_bisection_control": 288000,
-    "jacobi_christoffel": 199200,
-    "jacobi_duffy": 2524800,
-    "triangle_analytic_upper_allowance": 343147410000,
-    "positive_radial_setup": 450647040,
-    "positive_bound_trials": 106922880,
-    "rule_newton": 58826,
-    "positive_duffy_setup": 62400,
-    "positive_nodes": 1473515200,
-    "positive_metadata": 88017000,
-    "outer_endpoint_and_weight_arithmetic": 2747899560,
-    "resume_per_cone_control_and_accumulation": 2266900
+    "resume_scalar_setup": 20000,
+    "triangle_engine_setup": 200,
+    "determinant_control": 19799040,
+    "determinants": 6824828,
+    "mass_prefactor": 386700,
+    "jacobi_setup_control": 6000,
+    "jacobi_coefficients": 73200,
+    "jacobi_sturm": 24480000,
+    "jacobi_bisection_control": 576000,
+    "jacobi_christoffel": 398400,
+    "jacobi_duffy": 5049600,
+    "triangle_analytic_upper_allowance": 678620620000,
+    "positive_radial_setup": 1016880640,
+    "positive_bound_trials": 244559160,
+    "rule_newton": 177590,
+    "positive_duffy_setup": 193920,
+    "positive_nodes": 3491880000,
+    "positive_metadata": 198609500,
+    "outer_endpoint_and_weight_arithmetic": 5433605360,
+    "resume_per_cone_control_and_accumulation": 3867000
   },
   "events": {
-    "triangle_batches": 22669,
-    "triangles": 34292072,
-    "positive_fallback_calls": 880170,
-    "positive_quadrature_nodes": 14735152
+    "triangle_batches": 38670,
+    "triangles": 67823392,
+    "positive_fallback_calls": 1986095,
+    "positive_quadrature_nodes": 34918800
   },
-  "integration_cpu_seconds": 92.00024221000001,
+  "integration_cpu_seconds": 184.005286702,
   "complete": false,
-  "conditional_error_bound": 1.4919872204919343e-07
+  "conditional_error_bound": 2.421107846774048e-07
 }
