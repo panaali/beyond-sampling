@@ -1367,3 +1367,20 @@ original groups qualify; all five wide original groups remain capped at64.
 All eight stopping/unknown controls passed. No quadrature was evaluated:
 selected orders and source proxies are predictions, with range/partition advice,
 rule setup, native costs and source floating errors still separate.
+
+### Five-dimensional kernel determinant layouts
+
+`check_orth5_determinant_layout_review.py` independently reconstructs all774
+saved matrices across twelve scalar/batched3x3/4x4 fixtures. Exact determinants
+from permutation expansion match every saved reference; all logical pre-copy
+matrix bytes and batch ordering, dimensions/leading dimensions, pivot validity,
+success/singular status and baseline/observed output bits pass. There are516
+successful and258 singular factorizations. Library/runtime/source/build pins
+also match. Reviewer CPU is0.1071 seconds, with no native/model/mass calls.
+
+The conditional inherited determinant tables separate into100 numeric categories
+plus4 named log/exp calls for3x3, and171 plus5 for4x4. The frozen log-arm census
+would therefore contribute497,715 numeric categories and18,685 named libm calls;
+adding32,262 exposed expressions gives529,977 partial numeric categories.
+This arithmetic does not close libm internals, other opaque kernels, control,
+memory or complete native cost, and supplies no speed comparison.
