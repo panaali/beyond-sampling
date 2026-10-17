@@ -20,7 +20,7 @@ For R23 upper coordinate v, let s be the fixed tie value, o2 the largest lower i
 Before trained runs, verify quadratic surplus exponent2 and a known hinge with/without its exact split; check strict selection excludes both endpoints of every selected stencil. Check geometry knots by evaluating the two window expressions on each side. Check Python versus compiled walker on the first anchor's17 coarsest nested nodes per cell. Save raw grids/values locally underdata for independent recomputation; source/results JSON are committed.
 
 ## Status
-Protocol frozen; model files absent at their old paths after environment recovery. Download only the exact public checkpoints already identified by T34, verify their recorded hashes, and retain this provenance. No substitute model is permitted.
+Bounded review complete with independent raw-statistics verification. The frozen complete-stencil and geometry-knot rescues do not clear the screen on the four selected coordinates; a same-count control limits attribution. Actual network-switch and mixed-regularity alternatives remain open. No sparse-quadrature family is retired.
 
 ## Results
 Pending. T34 used200 anchors per coordinate; this is a smaller independent diagnostic with new anchors, not a same-stream numerical replication.
@@ -67,11 +67,11 @@ ulimit -t 20
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/face_surplus_review/review.py
 ```
 
-The model-free `quadratic_control.py` uses the saved panel files and makes no network evaluation. T55 is independently recomputing a raw-file stencil/panel summary before this scoped negative is handed off.
+The model-free `quadratic_control.py` uses the saved panel files and makes no network evaluation. T55 independently recomputed the first raw NPZ with separate summary code in commit421d359: RMS/L1 differ at most5.422e-20, the three corresponding slopes match, and the quadratic panel factor agrees within1.108e-12. This used .023CPU seconds and no new face calls.
 
 ## Finite alternatives checklist
 - Tested midpoint versus whole-stencil interior selection, declared level-window sensitivity, known geometry-knot splitting, same-count uniform panels, synthetic smooth/hinge controls, source/compiled backend agreement, both lengths/families and two existing noise levels. All retained, including the one geometry-alignment improvement.
 - A different table interpolation may affect the tie-value axis. This subset holds tie value fixed and varies upper/lower inputs, so that explanation cannot account for its observed line irregularity; no claim is made about untested tie-axis results.
 - Actual network gate/output boundary switches along the face coordinates were not isolated. A boundary-aware rule using them remains open, requires a new costed algorithm, and is not excluded by splitting only the coarea-window switches.
 - Larger anchor ensembles, other coordinates/seeds, mixed derivatives, weighted/adaptive sparse rules and alternative coordinate maps remain untested. No blind wider sweep was run because it would not isolate a mechanism.
-- Oracle agreement is a different backend of the same reviewed formulation, not an independent derivation or interval certificate. Independent raw-summary review is pending; any remaining common-oracle defect would require a separate discrepancy fixture.
+- Oracle agreement is a different backend of the same reviewed formulation, not an independent derivation or interval certificate. Independent raw-summary review passed at421d359; any remaining common-oracle defect would require a separate discrepancy fixture.
