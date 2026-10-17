@@ -571,3 +571,20 @@ the derivation, a null-set pointwise API convention, and the retained numerical
 counterexample. No primitive or estimator code changed; no additional model
 or quadrature evaluations. This supports the assigned T58 owner, not a new
 transport implementation or an accuracy certificate.
+
+## Cycle 16 protocol (frozen before validation)
+T71 requests independent checking of its fixed per-cone tangent frame. Derive
+the cofactor scaling and inverse-Frobenius condition bound, then reuse the
+asymmetric cone p=(.8,.05,.05,.05,.05) with remaining rays e0..e3. Freeze outer
+nodes .99 and .999, the previously accepted analytic cases. Alternative1:
+the cached tangent formula loses a power of1-u or delta; compare with freshly
+generated70-digit original-domain GL12. Alternative2: row/column orientation
+works only for one ordering; repeat after permuting the last four rays. No
+trained sweep, one short review-lock check, no production-source edits.
+
+Cycle16 result: fixed tangent cofactor/Jacobian and condition-screen derivations
+are recorded in `t71_t72_review.md`. Both accepted analytic cases agree with
+fresh70-digit original-domain GL12 within4.360e-14 relatively; permutation
+difference<=3.931e-14. Cost3456 high-precision nodes,.410647CPU, no model inputs.
+`check_fixed_tangent_review.py` reproduces the result; source hashes are saved.
+This validates the algebra and two adversarial cases, not general roundoff.

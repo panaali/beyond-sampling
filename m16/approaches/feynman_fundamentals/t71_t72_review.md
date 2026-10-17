@@ -156,3 +156,43 @@ all branches/errors are preserved in tetra_adversarial_results.json. Tiny
 fallback quadrature bounds do not cover floating discrepancies, consistent
 with the stated real-arithmetic scope. This test found no change needed to
 the current heuristic policy, but cannot certify it for every endpoint array.
+
+## T71 fixed-tangent follow-up
+
+For one cone, choose an orthonormal frame of the three differences among the
+last four rays. At outer node u, put L=1-u and write endpoint coordinates as
+(delta,t_i(u)), where t_i(u)=u*t_0+L*t_i. The perpendicular component has length
+delta>=1/sqrt(5) for signed-L1 rays. Its unit direction is the first coordinate;
+the affine-plane normal in these coordinates is c=(1/delta,0,0,0).
+
+Let D=det[t_2-t_1,t_3-t_1,t_4-t_1]. For omitted face i, take its remaining
+indices j<k<l in their original order, n_i=(t_k-t_j) cross (t_l-t_j), and
+h_i=t_j(u) dot n_i. Its omitted-column cofactor is
+
+    w_i=(-1)^i L^2 (h_i,-delta*n_i).
+
+Also det R=delta*L^3*D. Substituting these two identities into the independently
+checked first-moment formula yields the implemented denominator
+3*delta^2*L^3*|D| and normalized face coefficient
+sign(D)*(-1)^i*h_i/sqrt(h_i^2+delta^2*||n_i||^2). Face areas use L^2 times
+that square root in the atan2 numerator. Thus no QR or SVD is needed at each
+outer node; only the per-cone tangent frame is reused. At L=0 the positive
+equal-endpoint parameter integral must be retained, not evaluated by division
+by L^3. The present API excludes endpoints u=0,1.
+
+Subtracting the first column from the other three gives B=R*C, where C has
+Frobenius norm sqrt(7). Since R^-1=C*B^-1,
+
+    sigma_min(R)/sigma_max(R)
+       >= 1/(sqrt(7)*||B^-1||_F*||R||_F).
+
+The block inverse of B supplies the inexpensive formula in fixed_tangent.py.
+This is a conservative real-arithmetic lower bound; a floating implementation
+does not automatically certify it. A small computed lower bound may reject a
+well-conditioned case, which costs time but preserves the intended fallback.
+
+Independent70-digit original-domain GL12 checks at u=.99 and.999 on the
+asymmetric cone found relative errors4.360e-14 and2.650e-14, with permutation
+differences at most3.931e-14. Both used the analytic branch. Cost3456 reference
+nodes and.410647 CPU seconds, recorded with exact source hashes in
+fixed_tangent_review_results.json. No production code was changed.
