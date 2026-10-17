@@ -1,0 +1,10 @@
+{
+  "failure": "FileNotFoundError for scipy_daxpy_64_.disasm.txt",
+  "cause": "Reviewer tried to reopen every callgraph boundary disassembly locally; boundary BLAS files are not retained in outer_review.",
+  "repair": "Verify retained non-boundary disassemblies and preserve explicit BLAS ABI/binding boundary premise; do not claim binary audit of omitted boundary files.",
+  "second_failure": {
+    "failure": "AssertionError on raw contraction",
+    "cause": "Reviewer looked for Q1/Q2 in kernels; their call/success counts are in nested[0:8]. Q3 remains in kernels.",
+    "repair": "Read exact recorded nested counters and success/failure fields; never use lastN."
+  }
+}
