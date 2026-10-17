@@ -411,3 +411,28 @@ sign-classifier formulas for T3..10 using independent scalar quadrature.
 No transport implementation or sampled inputs in this cycle; separate owners
 must claim the follow-up. Truncating original inputs at a common symmetric
 bound gives an explicit missing-mass interval rather than an assumed grid box.
+
+## Priority regression: original-triangle radial bound
+T48's full T6 partition stopped on a documented bound failure after2505 saved
+cones; the isolated failed global cone is3123. Its64 endpoint triangles are
+preserved in the supplied NPZ fixture. The centroid projection is valid but
+can underestimate the available radial lower bound. For a common orthant sign
+vector s, Cauchy gives ||sum y_i v_i||² >= min_i(s dot v_i)²/||s||².
+Signed-L1 endpoints therefore have q>=1/d, including arbitrary thin triangles.
+Test the saved failure before and after adding the maximum of these two valid
+bounds; retain tolerance1e-11 and max-order128. Alternatives: the known-plane
+assumption fails on supplied endpoints (verify residual), or the resulting
+Taylor bound still fails (preserve exception and do not drop mass). This fix
+takes priority over the pending cycle10 derivation.
+
+Regression result: reproduced the original exception, verified signed-L1
+residual2.221e-16, then added the valid orthant-plane lower bound. Minimum qlo
+rose from.07913941145 to1/6. All64 formerly problematic triangles now complete
+at the unchanged tolerance1e-11 and max-order128, using150384 positive nodes;
+the largest individual quadrature-only error bound is9.406e-12. A separate
+160-point-per-axis positive reference (1638400 nodes total) differs by at most
+3.997e-14 absolute and9.659e-15 relative. Final regression CPU.038162 seconds,
+no model passes or sampled inputs. Saved fixture and full source hashes are in
+`triangle_failure.npz` and `triangle_bound_results.json`; reproduce via
+`check_triangle_bound.py` under the review lock. Prior fixed-case result files
+retain their old source-era counters rather than silently rewriting history.
