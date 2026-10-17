@@ -14,8 +14,10 @@ pilot and independent saved gate before expansion. No estimator selection,
 parameter changes, old10M combination or H4 truth transfer.
 
 ## Status
-Six deterministic controls passed independently34891b4c; no fresh random
-input draws yet. Fixed first1M pilot source gate cleared.
+Controls independently34891b4c and fixed first1M pilot independently
+e0cb033d passed. Remaining2499 blocks source-gated before execution.
+Continuation scope claimbf839fb2: one model/process, shared lock released
+between models,1200CPU research envelope with110 reserved before each.
 
 ## Results
 The prior60group/50individual original75-family10M intervals all contain1;
@@ -24,6 +26,10 @@ New25-truth nominal95% simultaneous intervals will be separately reported.
 Deterministic controls: all six original/integer/direct recurrence and chunk
 checks pass,318 extra forwards,0 random draws,.010051108CPU.
 Command: `python review/hopf_h5_reference/reference.py --controls`.
+
+Pilot:640411/1M hits,.240898577 forwardCPU, projected602.2464425<=900.
+Command: `python review/hopf_h5_reference/reference.py --pilot`.
+The pilot is reused once; its accuracy does not determine expansion.
 
 ## Compute accounting
 One thread2GB; primary105/110CPU perprocess, shared fair lock. Fixed pilot
