@@ -15,16 +15,24 @@ Before trained work freeze48 radial controls: identity, positive diagonal(1,2,3,
 Process trained32 in four fixed8-case chunks<=20CPU. Save full Gram/certificate/selection history and rational arithmetic counts/operand bitwidths, CPU and all kernel/cold-rule work. If all return, merge their values with existing6315 and report conditional bound sum and deviation from independently established .4770131259941194 reference, without treating its own conditional error as zero. Any remaining failure preserves deterministic edge-split/alternate representation as an explicit next option, not a blanket negative.
 
 ## Status
-Protocol frozen; counted exact wrapper and analytic controls next.
+Frozen bounded phase complete; independent source/certificate/raw review in progress.
 
 ## Results
-None yet.
+All32 prior failures return at the fixed order cap:13 use the acute Gram lower bound,19 use exact KKT after a negative off-diagonal sign. Orders12/16/20/24/32 occur7/12/1/11/1 times. Lower bounds improve1.6064–6.3491 times over the old center-based bound. No geometry or integration-kernel change was needed. All6315 prior values are bitwise unchanged.
+
+The combined ERROR probability is.5229868745335334, hence accuracy.47701312546646657 versus independent reference.4770131259941194 (difference−5.2765281393e-10). Combined conditional bound1.6087896903e-8; reference conditional bound3.1579959186e-8. New32 bound sum9.7996982667e-11, maximum new absolute difference from reference1.1764091966e-13. The32 determinant-factor corrections are included; inherited6315 assumptions remain. This is not full floating certification.
+
+All48 exact radial controls pass their known minima;24 return analytic-mass estimates within the stated conditional comparisons and24 remain unresolved at the frozen order cap. These unresolved controls are preserved. MP80 versusMP100 selected-bound rounded displays agree for all32; this is a precision check, not outward certification.
+
+The first summary mislabeled summed error masses as accuracy. Both initial JSON and summary script are preserved as summary_initial_label_error.json and summarize_initial_label_error.py. Corrected summary explicitly reports both probabilities; combined archive is byte-identical (SHAe1d98a0bc0084fe154ff22cb305b173a594b164d46ba25aed0eeb8e16f77cb58). No numerical rerun or changed estimates.
 
 ## Compute accounting
 One thread,2GB, review lock<=20CPU per process. All exact per-model certificate work is charged by CPU and rational operation/bitwidth inventory, never universal free advice. Big-integer implementation cost is not converted to scalar FLOPs. Baseline T14394,913,850 named operations includes prior failed attempts; new kernel/selection/radial work is additional. High-precision bound arithmetic, Fraction gcd/division internals and library/memory costs retain explicit unknown portable cost. CPU includes wrapper overhead and persistence; final write/return excluded. No model forwards or Gaussian sampling.
 
+Four trained chunks total1.02118939CPU including repeated imports; controls.345072878CPU. Exact certificates.129326029CPU, high-precision selection.037603321CPU, kernel.027387328CPU are included components. New kernel2,038,604 named operations plus baseline94,913,850 gives96,952,454 known named operations, excluding explicitly inventoried exact/MP internals. Four cold rule plans add30,044 diagnostic arithmetic operations; they are not four mandatory setups for a single cached call. Rational operands/results reach799 numerator/796 denominator bits; full operation categories are saved in summary.json. This remains an incomplete portable cost, not a speed or challenge-win claim.
+
 ## Claims
-[inferred] Exact sharper radial bounds can distinguish a loose-bound failure from genuine finite-order insufficiency. [speculative] The fixed32 cases may close without changing cones or order cap.
+[measured] All32 fixed failures close using sharper exact radial lower bounds without changing cones or the order cap. [inferred] Their previous unresolved status was not evidence that this positive representation was exhausted. No self-confirmed, cheap-estimator or full floating certificate claim.
 
 ## Alternatives not ruled out
 Ray rescaling, deterministic edge subdivisions, adaptive positive outer quadrature and different error allocation. No failed finite bound establishes representation impossibility. Improved bound coverage alone does not imply cheap inference or full floating certification.
