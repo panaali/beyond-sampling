@@ -245,3 +245,152 @@ Still open:
    orthant routine (Genz). Measure ops against exact enumeration where it is still feasible (T46).
 5. Done when bias/RMSE/MSE-ratio vs sampling at equal ops are reported on the zoo seeds and noisy copies, together
    with the number of resolved gates against the number of linear regions (the scaling question).
+
+---
+
+# T75: one generic recipe for all five trained seeds (added 2026-10-17; the T63 sections above are unchanged)
+
+## Question
+
+Is there a single recipe that is deductive, has every coefficient a formula of the weights, and beats sampling at
+equal ops on each of zoo seeds 0-4 of M_4,3 **and** on their noisy copies? The owner's ruling (it replaces the earlier
+"cheaper than enumeration" target) adds a second requirement: the recipe's cost should scale with neurons, steps and
+boundary families, not with the number of linear regions. T74 found that T63's tier C fails on noisy copies of seeds
+2-3 (ratios 1.07 and 2.6), and that tiers B and C share a failure window when a crossover τ slope sits near 1.
+
+## How the five seeds differ (plain words; `python mechanism.py <seed>`, `python diag75.py`)
+
+- **Seed 0 (98.5%).** Two mirror pairs, as described in the T63 sections. A step-2 switch band brackets x1 = x0 (0.81–1.24).
+  Errors sit in cells where two neurons are on (82%).
+- **Seed 1 (89.3%).** No mirror symmetry. Neuron 3 has almost no input weight (Wi3 = 0.22), so it is a purely
+  recurrent neuron. x0 is stored in one neuron when x0 > 0 and in two when x0 < 0. There is a sharp step-2 switch at
+  x1/x0 ≈ 0.99. The readout often uses three neurons: 44% of the error lies in 3-active cells and 23% in 4-active cells.
+- **Seed 2 (75.9%).** Its step-2 gates mostly switch on the sign of x1 (t ≈ −0.03, 0.00, 0.01), not on x1 vs x0. In
+  the chart x0 < 0 there is a strip, 0.01 < x1/x0 < 0.96, in which every step-2 neuron is off, so x0 and x1 are
+  forgotten. Two thirds of its error is in all-off cells, where the logits tie and the network answers "x0".
+- **Seed 3 (90.4%).** Neuron 3 is purely recurrent (Wi3 = −0.03). When x0 > 0, x0 is held by a single neuron. The
+  step-2 switches sit at x1/x0 ≈ 0 and 1.00. The readout is dominated by neuron 0 (Wo[2,0] = −69).
+- **Seed 4 (94.5%).** One input weight is huge (Wi0 = 45). The chart x0 < 0 has a doubled x1-vs-x0 switch at
+  1.046/1.047. At +e0 every neuron is off. Errors come from 3-active cells (34%) and 2-active cells (29%).
+
+**What they share** `[measured, diag75.py]`:
+- Every seed has a step-2 switch plane at or near x1 = x0.
+- 82–99% of the error mass touches a true boundary x_i = x_j.
+- On average only about 2 of the 4 step-3 gates cut a step-2 piece.
+- The answer in any cell is a linear readout of the few neurons that are on there.
+
+None of them has seed 0's fixed pair structure, which is why the anchor-pair rule of tier B fails on them.
+
+## Method (frozen recipe `est75.RECIPE = dict(K=(4, 4), rule="adaptive", eps=0.1)`, file [est75.py](est75.py))
+
+1. Use the 24 half-chambers of T63. Each is fixed geometry with a known true class and an edge on its true boundary.
+2. Go step by step (t = 2, 3) inside each cell. A gate that does not cut the cell has a known state, so nothing is
+   approximated there. For a gate k that does cut the cell, compute its **impact**: depth_k × w_k.
+   - depth_k is the largest pre-activation the gate reaches on the side opposite to its state at the arc midpoint.
+   - w_k is the largest downstream weight difference: max |W_hh| over the neuron's column for step 2, and
+     max_o |Wo[true,k] − Wo[o,k]| for step 3.
+3. **Resolve** (split the cell by) every cutting gate whose impact is at least eps = 0.1 times the summed impact of
+   the neurons that are surely on in the cell. If no neuron is surely on, resolve all cutting gates. **Freeze** the
+   others at their state on the arc.
+   - In words: a neuron is frozen only if switching it cannot move the readout by more than 10% of what the
+     surely-on neurons contribute.
+   - With eps → 0 the recipe is exact. Resolving everything (`rule="impact"`, K = (4,4)) reproduces exact.py to 1e-16
+     on all five seeds.
+4. In each final cell the logits are linear. The error is the sum of the slivers cut off when the cell is clipped by
+   the two "true class wins" halfspaces. An all-off cell gets the tie answer, class 0.
+
+**Development and freezing.**
+- The rules I compared were: closest-to-arc K-cap (T63 C-style), impact K-cap, hybrid, and adaptive with
+  eps ∈ {0.3, 0.1, 0.03}.
+- I compared them on noise seed 0 only (32 copies per zoo seed, truth cached in `dev75_truth.json`) and on the clean
+  seeds.
+- `RECIPE` was written into `est75.py` before any fresh-seed run.
+- One 4-copy smoke run of `eval75.py` on the fresh seeds was made after freezing, to check the script. Nothing was
+  changed after it.
+
+## Results: fresh noise seeds 20-23 (4 × 256 copies per zoo seed, σ = 0.05 absolute, never used by T63, T74 or T75 development)
+
+Command: `cd m16/approaches/understand_m43 && OMP_NUM_THREADS=1 python eval75.py && python report75.py` (about 10
+CPU-min; writes `eval75.json` and `eval75.log`). Truth comes from exact.py. MSE ratio = MSE / (mean p(1−p) / (ops/72)).
+The 95% CI is a bootstrap over copies.
+**Ops for T75 are counted strictly**, following the T74 convention: clip costs 4 per vertex + 13 per new vertex, a
+triangle costs 23, and every comparison or sign test costs 1. B and C are counted with the T63 counter, which is about
+1.24× more lenient.
+
+| zoo seed (clean acc / noisy mean acc) | T75 noisy RMSE (bias) | T75 ops | **T75 MSE ratio [CI]** | T75 clean err (ratio) | T63 B ratio | T63 C ratio |
+|---|---|---|---|---|---|---|
+| 0 (0.985 / 0.880) | 0.01% (−0.00) | 34.5k | **0.0002 [0.000, 0.000]** | −0.03 pp (0.00) | 0.018 | 0.029 |
+| 1 (0.893 / 0.721) | 0.55% (+0.18) | 25.1k | **0.054 [0.039, 0.072]** | +0.18 pp (0.01) | 3.42 | 0.11 |
+| 2 (0.759 / 0.736) | 0.12% (−0.04) | 31.7k | **0.003 [0.003, 0.004]** | +0.03 pp (0.00) | 1.30 | 0.69 |
+| 3 (0.904 / 0.786) | 0.16% (−0.02) | 30.6k | **0.007 [0.004, 0.011]** | −0.21 pp (0.02) | 2.36 | 2.78 |
+| 4 (0.945 / 0.571) | 1.35% (+0.16) | 23.3k | **0.25 [0.20, 0.30]** | +0.23 pp (0.03) | 1.56 | 0.36 |
+
+The ratio per noise seed is stable. The largest single value is 0.28 (seed 4, noise seed 23). The worst single-copy
+error is 6.8 pp, on seed 4.
+
+**The τ-slope ≈ 1 failure window is closed** (`python window75.py`). Scanning Wh[0,3] by −0.40…0 (β_0 down through 1)
+and Wh[2,3] by 0…+0.8 (β_2 up through 1) on the clean seed-0 model gives T75 errors within ±0.04 pp everywhere. Tier B
+on the same scan errs by up to −4.97 pp and +5.93 pp.
+
+## Compute accounting and the scaling law
+
+- **Cost per model:** 23–35k strict ops. Exact enumeration costs 15–18k on the T63 counter and 18–22k when recounted
+  strictly with the same primitives (`eval75.py` monkeypatches exact.py's clip and frac in its own process). So T75 is
+  about 1.1–1.6× exact enumeration on this model. **On M_4,3 it is not cheaper than brute force.** It resolves 57–93%
+  of the cutting gates and ends with 103–170 cells per model. Exact enumeration has about 88 leaves; T75 has more cells
+  because the half-chambers split every chamber in two.
+- **Scaling law, stated.** Cost = Σ over boundary families F of Σ over cells (clips + triangles). A cell is split only
+  by gates that cut it *and* have relative impact ≥ eps. So
+  cost ≈ F × ∏_t 2^{r_t} × O(H·(vertices)),
+  where r_t is the number of high-impact gates that switch inside a family's cells at step t.
+  - For 2nd-argmax with T inputs, the families are the boundaries x_i = x_j between the top-2 or 2nd-3rd ranks:
+    F = O(T²) convex cones with O(T) facets. That is polynomial.
+  - The term ∏ 2^{r_t} is polynomial only if r_t stays bounded independently of H, and only if cells are re-merged
+    between steps. Without re-merging, a fixed per-step cap K gives 2^{K(T−1)} cells per family. That is
+    exponential in T: 4⁹ ≈ 2.6e5 at K = 2, T = 10.
+- **[inferred]:** the recipe as built does **not** guarantee polynomial cost at H = 16, T = 10. Getting there would
+  need two missing pieces.
+  1. Re-merging, or projecting, cells between steps. Gate patterns that lead to the same downstream linear map up to
+     the eps tolerance would be merged, as in ARC's deduction-projection.
+  2. A measured bound on r_t on the larger models.
+  On M_4,3 the adaptive rule resolves most gates. So what this model demonstrates is the accuracy of the
+  "resolve-by-impact, freeze the rest" rule, not a saving in cost.
+- **[speculative]:** cone masses in dimension T ≥ 4 have no closed form (Girard is 3-D only). T73 has to supply them.
+
+## Claims (T75)
+
+- [measured] A single frozen recipe beats sampling at equal (strictly counted) ops on every zoo seed of M_4,3 and on
+  their fresh noisy copies. The MSE ratios are 0.0002, 0.054, 0.003, 0.007 and 0.25, and every bootstrap CI is below
+  0.30. On the clean models the errors are at most 0.23 pp.
+- [measured] It fixes T74's two failures: noisy seeds 2-3 go from 1.30/2.36 (B) and 0.69/2.78 (C) to 0.003/0.007,
+  and the τ-slope ≈ 1 window is closed (|err| ≤ 0.04 pp over the scan).
+- [measured] The five seeds use different mechanisms (above). The common structure the recipe relies on has four
+  parts: a near-x1 = x0 step-2 switch; errors at the true boundaries; few gates cutting each piece; and a linear
+  readout of the active neurons in each cell. The recipe does not use any seed-specific pair or symmetry.
+- [measured] On M_4,3 it costs 1.1–1.6× exact enumeration and resolves 57–93% of the gates that cut a cell. It is
+  close to exhaustive here.
+- [inferred] Its accuracy comes from the impact rule. Freezing only neurons that cannot move the readout much keeps
+  the frozen-gate error small even when a gate runs parallel to the boundary, which is what broke T63's arc-distance
+  rule.
+
+## Alternatives not ruled out / failure modes (T75)
+
+- **This is close to enumeration in disguise on M_4,3.** With 4 neurons and eps = 0.1 most gates are resolved. A
+  harder test of the "understanding" content would be a larger eps at equal accuracy, or a larger H.
+- **eps and the impact proxy are design choices.** They were picked on dev noise seed 0 by comparing a handful of
+  variants, so this is mild selection. The fresh seeds 20-23 confirm the choice, but they use the same noise model.
+  - Seed 4 is the weakest case (ratio 0.25, worst copy 6.8 pp). Its frozen step-3 gates still matter at eps = 0.03,
+    because logit contributions cancel and the "surely-on" scale overstates the margin.
+  - A margin-aware impact (the frozen shift compared with the actual logit margin on the gate's minority side) is
+    the natural fix. It is untried.
+- **Mixed op conventions.** T75 is counted strictly and B/C leniently. That favours B/C in the table, not T75.
+- **Wall-clock time** is again far worse than vectorised sampling (T74's point). The comparison is in ops only.
+
+## Files (T75)
+
+- [est75.py](est75.py): the recipe, with its own strict-count clip and frac.
+- [eval75.py](eval75.py), [report75.py](report75.py), `eval75.json`, `eval75.log`: frozen fresh evaluation.
+- [window75.py](window75.py): the τ-slope window scan.
+- [dev75.py](dev75.py), `dev75_truth.json`: development harness on noise seed 0 only.
+- [diag75.py](diag75.py): per-seed error structure.
+- `zoo43.noisy_copies`: the ARC protocol for any base model; it reproduces m43.noisy_models for seed 0.
