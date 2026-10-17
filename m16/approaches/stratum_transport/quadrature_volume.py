@@ -15,6 +15,26 @@ class QuadratureOperator(SupportOperator):
     def source_reweight(self,kind,points,weights):
         return weights
 
+    def area_rule(self,state,i,j):
+        q,qw=self.q,self.qw
+        if state.support_kind in ('upper','lower') and not state.full_inside[i,j]:
+            poly=self.area_polygon(state,i,j);points=[];raw=[]
+            for k in range(1,len(poly)-1):
+                a,b,c=poly[0],poly[k],poly[k+1]
+                determinant=abs(np.linalg.det(np.column_stack((b-a,c-a))))
+                if not determinant:continue
+                for s,ws in zip(q,qw):
+                    for t,wt in zip(q,qw):
+                        points.append((1-s)*a+s*((1-t)*b+t*c));raw.append(determinant*s*ws*wt)
+                self.work['support_source_triangles']+=1
+            raw=np.asarray(raw)
+            if not len(raw) or np.any(raw<=0):raise ArithmeticError('invalid positive polygon quadrature')
+            self.work['support_polygon_source_nodes']+=len(raw)
+            return np.array(points),raw/raw.sum()
+        a,b=state.edges[0][i:i+2];c,d=state.edges[1][j:j+2]
+        x,y=np.meshgrid(a+(b-a)*q,c+(d-c)*q,indexing='ij')
+        return np.column_stack((x.ravel(),y.ravel())),(qw[:,None]*qw).ravel()
+
     def source_nodes(self,state):
         nodes=[];weights=[];q=self.q;qw=self.qw
         for i in (0,1):
@@ -29,27 +49,8 @@ class QuadratureOperator(SupportOperator):
             p*=(state.ray_factor*(ndtr(b)-ndtr(a)))[:,None]
             nodes.append(r.ravel()[:,None]*self.wi);weights.append(p.ravel())
         for i,j in zip(*np.nonzero(state.area)):
-            if state.support_kind in ('upper','lower') and not state.full_inside[i,j]:
-                poly=self.area_polygon(state,i,j);points=[];raw=[]
-                for k in range(1,len(poly)-1):
-                    a,b,c=poly[0],poly[k],poly[k+1]
-                    determinant=abs(np.linalg.det(np.column_stack((b-a,c-a))))
-                    if not determinant:continue
-                    for s,ws in zip(q,qw):
-                        for t,wt in zip(q,qw):
-                            points.append((1-s)*a+s*((1-t)*b+t*c));raw.append(determinant*s*ws*wt)
-                    self.work['support_source_triangles']+=1
-                raw=np.asarray(raw)
-                if not len(raw) or np.any(raw<=0):raise ArithmeticError('invalid positive polygon quadrature')
-                points=np.array(points)
-                nodes.append(points);weights.append(self.source_reweight('area',points,state.area[i,j]*raw/raw.sum()))
-                self.work['support_polygon_source_nodes']+=len(raw)
-            else:
-                a,b=state.edges[0][i:i+2];c,d=state.edges[1][j:j+2]
-                x,y=np.meshgrid(a+(b-a)*q,c+(d-c)*q,indexing='ij')
-                points=np.column_stack((x.ravel(),y.ravel()))
-                nodes.append(points)
-                weights.append(self.source_reweight('area',points,state.area[i,j]*(qw[:,None]*qw).ravel()))
+            points,raw=self.area_rule(state,i,j)
+            nodes.append(points);weights.append(self.source_reweight('area',points,state.area[i,j]*raw))
         if not nodes:return np.empty((0,2)),np.empty(0)
         H=np.concatenate(nodes);P=np.concatenate(weights)
         if state.support_kind in ('upper','lower'):
