@@ -43,3 +43,11 @@ Reproduce from repository root:
 flock /workspace/work/codex-compute.lock bash -c 'ulimit -v 2500000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/small_h2_34/run_t3.py'
 ```
 The shared arc_eval is hardcoded to T10 and imports large calibration arrays, so this bounded ladder driver retains its model-tuple/est interface without importing that incompatible harness. DRI must adapt shared evaluation before claiming shared-leaderboard acceptance.
+
+### Cycle 2 frozen recovery protocol
+Use H4 owner's generic circle driver unchanged on the verified H2,T4 base checkpoint. First GL2/4/8 per octant, then GL16/32 if no numerical guards fire and the120 CPU-second cycle cap permits. Save every level immediately. One65536-input Gaussian validation batch with RNG47004 is a coarse check only. Noise-copy sweep is deferred until base angular convergence and moment stability are adequate; this revises the pre-outage nine-copy T4 plan explicitly. Alternatives: narrow angular features may evade GL (test successive orders and offset); positive-moment guards may reject valid nearzero regions (report failure, request owner fix, never clip/skip). No solved claim based on noisy MC agreement.
+
+### Cycle 2 result
+H2T4 seed0 angular GL orders2/4/8/16/32 gave0.3089245331/0.3076513113/0.3076442083/0.3077707293/0.3077559052. All conditional partition guards passed. Convergence is nonmonotone: the GL8-to16 shift1.27e-4 is material, so neither the low-order value nor the old Plackett output is an adequate reference. Cycle results are in `results_t4.json`; cumulative compute includes the65536-input coarse validation and five rules. Two initial runner attempts failed while assembling output after GL2 (duplicate dictionary key), before any results were saved; roughly one additional GL2 computation each was spent and is not in the final file's CPU total.
+
+Reproduce using `run_t4.py --engine m16/approaches/small_h4_4/estimator.py` under the same flock/thread/memory wrapper. The T51 engine must be integrated alongside this folder. Next bounded cycle will use GL64/128 and an offset rule to test the apparent stabilization, without further Monte Carlo.
