@@ -1,1 +1,3 @@
 Independent source gates received from T55 for helper ledgers, candidate cold callgraph and630-control ABI/implementation. All controls pass; raw archive/contraction independent audit requested. Original cold_dimension_gap.json is retained as discovered, not evidence the gap was silently ignored. Static closure remains conditional on pinned ordinary ABI/binding and loader semantics. No rank replay performed.
+
+Saved630 controls, all source pins and raw cold-once contraction independently passed fd0dabc7. The reviewer preserved initial boundary-filename and counter-location assertions and repaired its own check without author numerical reruns.
