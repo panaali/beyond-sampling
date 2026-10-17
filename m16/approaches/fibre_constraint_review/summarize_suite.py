@@ -15,6 +15,16 @@ def main():
         complete=len(rows)==157 and set(names)==set(ref[str(h)]['rows']) and all(c['complete'] for c in chunks)
         cpu=sum(c['cpu_seconds_including_imports'] for c in chunks);out['total_cpu_seconds']+=cpu;out['complete']&=complete
         stats=dict(complete=complete,models=len(rows),chunks=len(chunks),cpu_seconds=cpu,methods={},failures=[])
+        stats['groups']={}
+        for group in sorted({'seeds' if r['name'].startswith('seed') else r['name'].rsplit('_',1)[0] for r in rows}):
+            selected=[r for r in rows if ('seeds' if r['name'].startswith('seed') else r['name'].rsplit('_',1)[0])==group]
+            stats['groups'][group]={}
+            for m in ['reference','omit','capped']:
+                valid=[r for r in selected if 'estimate'in r['methods'].get(m,{})]
+                if not valid:continue
+                mse=sum(r['methods'][m]['bias']**2 for r in valid)/len(valid)
+                sample=sum(r['truth']*(1-r['truth'])*3*h*(h+2)/r['methods'][m]['proxy_ops'] for r in valid)/len(valid)
+                stats['groups'][group][m]=dict(models=len(valid),mean_squared_error=mse,mean_sampling_proxy_variance=sample,ratio=mse/sample)
         for m in ['reference','omit','capped']:
             valid=[]
             for r in rows:
@@ -34,7 +44,7 @@ def main():
                 max_prior_reference_difference=max(abs(r['reference_difference_from_prior']) for r in rows if 'reference_difference_from_prior'in r))
         out['by_H'][h]=stats
     (HERE/'suite_summary.json').write_text(json.dumps(out,indent=2)+'\n')
-    print(json.dumps({**out,'by_H':{h:{k:v for k,v in s.items() if k!='changed'} for h,s in out['by_H'].items()}},indent=2))
+    print(json.dumps({**out,'by_H':{h:{k:v for k,v in s.items() if k not in ['changed','groups']} for h,s in out['by_H'].items()}},indent=2))
 
 
 if __name__=='__main__':main()
