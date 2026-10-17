@@ -15,7 +15,7 @@ Freeze exact primitive controls before trained code: memoryless Wh=0 and constan
 Competing explanations: (1) huge bound reflects a truly sharp value function; joint-normal bound may remain huge. (2) conditioning only on y creates spurious nearzero denominators; joint normals may remove them. (3) hidden-dependent constant-input margins permit jumps; unknown controls must detect them. A smaller global bound alone does not validate a practical interpolation grid.
 
 ## Status
-Bounded trained coefficient phase complete after independent theorem/source review. Independent raw trained-coefficient review pending.
+Done as a bounded theorem/coefficient result. Independent review add47fb reconstructs all880 trained coefficients matrix-free, all45 unique forms, both sums and normalizations. DRI registration requested.
 
 ## Results
 All exact primitive controls pass, including880 noncommuting forced-gate coefficient checks. The joint-rescue toy has literal K=84 and unique K=12; its y-only predecessor is unknown. The identity-recurrence counterexample correctly returns unknown. Both state-independent controls return0.
@@ -30,7 +30,7 @@ Reproduce `controls.py` then `pilot.py` from this folder with the project interp
 Only finite exact matrix/boundary algebra, one checkpoint load and scalar CDF displays. Count emitted/unique/unknown forms and CPU. Zero trained-model forward passes/random inputs;880 exact synthetic prescribed-gate map evaluations are counted separately. One thread,2GB, review lock <=20CPU. Proof coefficient is not an operation-count estimate.
 
 ## Claims
-[inferred, proof reviewed] A finite union of affine Gaussian strips gives the stated sufficient continuity criterion. [measured algebra; independent raw check pending] Its rational joint-input coefficient is much smaller for the frozen trained pair kernel, but still too loose to certify a useful grid.
+[inferred, proof reviewed] A finite union of affine Gaussian strips gives the stated sufficient continuity criterion. [measured exact algebra; independently checked add47fb] Its rational joint-input coefficient is much smaller for the frozen trained pair kernel, but still too loose to certify a useful grid.
 
 ## Alternatives not ruled out
 Facet-restricted integration, reachable-word pruning, local state-dependent density bounds, adaptive interpolation, other terminal representations and exact integration. A still-large coefficient would not exclude these alternatives.
