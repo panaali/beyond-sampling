@@ -2,7 +2,8 @@
 from pathlib import Path
 import ctypes as C,hashlib,json,struct
 import numpy as np
-from dispatch import NP,BL
+NP=Path('/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so')
+BL=Path('/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so')
 HERE=Path(__file__).resolve().parent
 OUT=HERE/'dispatch_offset0.jsonl'
 def record(d):
