@@ -1,0 +1,262 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000427500 <dgetf2_k>:
+  427500:	41 57                	push   %r15
+  427502:	41 56                	push   %r14
+  427504:	41 55                	push   %r13
+  427506:	41 54                	push   %r12
+  427508:	55                   	push   %rbp
+  427509:	53                   	push   %rbx
+  42750a:	48 83 ec 78          	sub    $0x78,%rsp
+  42750e:	48 8b 47 30          	mov    0x30(%rdi),%rax
+  427512:	4c 8b 6f 48          	mov    0x48(%rdi),%r13
+  427516:	48 8b 77 10          	mov    0x10(%rdi),%rsi
+  42751a:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  42751f:	48 8b 07             	mov    (%rdi),%rax
+  427522:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  427527:	48 85 d2             	test   %rdx,%rdx
+  42752a:	0f 84 a6 03 00 00    	je     4278d6 <dgetf2_k+0x3d6>
+  427530:	48 8b 02             	mov    (%rdx),%rax
+  427533:	48 8b 52 08          	mov    0x8(%rdx),%rdx
+  427537:	48 29 44 24 08       	sub    %rax,0x8(%rsp)
+  42753c:	48 89 c7             	mov    %rax,%rdi
+  42753f:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  427544:	48 29 c2             	sub    %rax,%rdx
+  427547:	49 8d 45 01          	lea    0x1(%r13),%rax
+  42754b:	48 0f af c7          	imul   %rdi,%rax
+  42754f:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  427554:	48 8d 04 c7          	lea    (%rdi,%rax,8),%rax
+  427558:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  42755d:	48 85 d2             	test   %rdx,%rdx
+  427560:	0f 8e 86 03 00 00    	jle    4278ec <dgetf2_k+0x3ec>
+  427566:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  42756b:	48 89 54 24 58       	mov    %rdx,0x58(%rsp)
+  427570:	45 31 d2             	xor    %r10d,%r10d
+  427573:	45 31 db             	xor    %r11d,%r11d
+  427576:	4a 8d 0c ed 00 00 00 	lea    0x0(,%r13,8),%rcx
+  42757d:	00 
+  42757e:	4c 89 6c 24 40       	mov    %r13,0x40(%rsp)
+  427583:	48 8d 41 08          	lea    0x8(%rcx),%rax
+  427587:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  42758c:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+  427591:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  427596:	48 c7 44 24 60 00 00 	movq   $0x0,0x60(%rsp)
+  42759d:	00 00 
+  42759f:	48 89 4c 24 50       	mov    %rcx,0x50(%rsp)
+  4275a4:	4c 8d 34 c6          	lea    (%rsi,%rax,8),%r14
+  4275a8:	4c 89 44 24 68       	mov    %r8,0x68(%rsp)
+  4275ad:	0f 1f 00             	nopl   (%rax)
+  4275b0:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  4275b5:	4c 39 d8             	cmp    %r11,%rax
+  4275b8:	49 89 c4             	mov    %rax,%r12
+  4275bb:	4d 0f 4f e3          	cmovg  %r11,%r12
+  4275bf:	4d 85 e4             	test   %r12,%r12
+  4275c2:	0f 8e f4 00 00 00    	jle    4276bc <dgetf2_k+0x1bc>
+  4275c8:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+  4275cd:	31 c0                	xor    %eax,%eax
+  4275cf:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  4275d6:	00 00 00 00 
+  4275da:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  4275e1:	00 00 00 00 
+  4275e5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  4275ec:	00 00 00 00 
+  4275f0:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  4275f7:	00 00 00 00 
+  4275fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  427600:	48 89 ca             	mov    %rcx,%rdx
+  427603:	48 f7 d2             	not    %rdx
+  427606:	49 03 14 c6          	add    (%r14,%rax,8),%rdx
+  42760a:	48 39 c2             	cmp    %rax,%rdx
+  42760d:	74 16                	je     427625 <dgetf2_k+0x125>
+  42760f:	48 8d 14 d3          	lea    (%rbx,%rdx,8),%rdx
+  427613:	f2 0f 10 04 c3       	movsd  (%rbx,%rax,8),%xmm0
+  427618:	f2 0f 10 0a          	movsd  (%rdx),%xmm1
+  42761c:	f2 0f 11 0c c3       	movsd  %xmm1,(%rbx,%rax,8)
+  427621:	f2 0f 11 02          	movsd  %xmm0,(%rdx)
+  427625:	48 83 c0 01          	add    $0x1,%rax
+  427629:	49 39 c4             	cmp    %rax,%r12
+  42762c:	75 d2                	jne    427600 <dgetf2_k+0x100>
+  42762e:	49 83 fc 01          	cmp    $0x1,%r12
+  427632:	0f 84 84 00 00 00    	je     4276bc <dgetf2_k+0x1bc>
+  427638:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  42763d:	4c 89 5c 24 20       	mov    %r11,0x20(%rsp)
+  427642:	41 bf 01 00 00 00    	mov    $0x1,%r15d
+  427648:	48 8d 2d 21 31 19 01 	lea    0x1193121(%rip),%rbp        # 15ba770 <gotoblas>
+  42764f:	4c 89 54 24 30       	mov    %r10,0x30(%rsp)
+  427654:	4c 89 74 24 28       	mov    %r14,0x28(%rsp)
+  427659:	4c 8d 68 08          	lea    0x8(%rax),%r13
+  42765d:	49 89 ee             	mov    %rbp,%r14
+  427660:	48 8b 6c 24 40       	mov    0x40(%rsp),%rbp
+  427665:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  42766c:	00 00 00 00 
+  427670:	4d 8b 16             	mov    (%r14),%r10
+  427673:	4c 89 ee             	mov    %r13,%rsi
+  427676:	4c 89 ff             	mov    %r15,%rdi
+  427679:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  42767f:	48 89 d9             	mov    %rbx,%rcx
+  427682:	48 89 ea             	mov    %rbp,%rdx
+  427685:	49 83 c5 08          	add    $0x8,%r13
+  427689:	41 ff 92 68 03 00 00 	call   *0x368(%r10)
+  427690:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  427694:	f2 42 0f 10 04 fb    	movsd  (%rbx,%r15,8),%xmm0
+  42769a:	f2 0f 5c c1          	subsd  %xmm1,%xmm0
+  42769e:	f2 42 0f 11 04 fb    	movsd  %xmm0,(%rbx,%r15,8)
+  4276a4:	49 83 c7 01          	add    $0x1,%r15
+  4276a8:	4d 39 fc             	cmp    %r15,%r12
+  4276ab:	75 c3                	jne    427670 <dgetf2_k+0x170>
+  4276ad:	4c 8b 5c 24 20       	mov    0x20(%rsp),%r11
+  4276b2:	4c 8b 74 24 28       	mov    0x28(%rsp),%r14
+  4276b7:	4c 8b 54 24 30       	mov    0x30(%rsp),%r10
+  4276bc:	4d 89 df             	mov    %r11,%r15
+  4276bf:	49 83 c3 01          	add    $0x1,%r11
+  4276c3:	4c 39 54 24 08       	cmp    %r10,0x8(%rsp)
+  4276c8:	0f 8e d3 01 00 00    	jle    4278a1 <dgetf2_k+0x3a1>
+  4276ce:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  4276d3:	4c 8b 6c 24 08       	mov    0x8(%rsp),%r13
+  4276d8:	31 d2                	xor    %edx,%edx
+  4276da:	49 89 d9             	mov    %rbx,%r9
+  4276dd:	48 8d 2d 8c 30 19 01 	lea    0x119308c(%rip),%rbp        # 15ba770 <gotoblas>
+  4276e4:	4c 89 5c 24 30       	mov    %r11,0x30(%rsp)
+  4276e9:	4c 89 fe             	mov    %r15,%rsi
+  4276ec:	4c 89 54 24 28       	mov    %r10,0x28(%rsp)
+  4276f1:	4e 8d 24 d0          	lea    (%rax,%r10,8),%r12
+  4276f5:	4c 89 ef             	mov    %r13,%rdi
+  4276f8:	f2 0f 10 05 08 5d f9 	movsd  0xf95d08(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  4276ff:	00 
+  427700:	48 8b 45 00          	mov    0x0(%rbp),%rax
+  427704:	ff 74 24 68          	push   0x68(%rsp)
+  427708:	4c 29 d7             	sub    %r10,%rdi
+  42770b:	4c 89 e1             	mov    %r12,%rcx
+  42770e:	6a 01                	push   $0x1
+  427710:	ff 74 24 20          	push   0x20(%rsp)
+  427714:	6a 01                	push   $0x1
+  427716:	4c 8b 44 24 60       	mov    0x60(%rsp),%r8
+  42771b:	48 89 7c 24 40       	mov    %rdi,0x40(%rsp)
+  427720:	ff 90 a0 03 00 00    	call   *0x3a0(%rax)
+  427726:	48 8b 45 00          	mov    0x0(%rbp),%rax
+  42772a:	48 83 c4 20          	add    $0x20,%rsp
+  42772e:	ba 01 00 00 00       	mov    $0x1,%edx
+  427733:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  427738:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  42773d:	ff 90 28 03 00 00    	call   *0x328(%rax)
+  427743:	48 8b 74 24 38       	mov    0x38(%rsp),%rsi
+  427748:	66 0f ef d2          	pxor   %xmm2,%xmm2
+  42774c:	4c 8b 54 24 28       	mov    0x28(%rsp),%r10
+  427751:	4c 01 f8             	add    %r15,%rax
+  427754:	4c 8b 5c 24 30       	mov    0x30(%rsp),%r11
+  427759:	4c 39 e8             	cmp    %r13,%rax
+  42775c:	49 0f 4f c5          	cmovg  %r13,%rax
+  427760:	48 8d 14 06          	lea    (%rsi,%rax,1),%rdx
+  427764:	48 83 e8 01          	sub    $0x1,%rax
+  427768:	f2 0f 10 0c c3       	movsd  (%rbx,%rax,8),%xmm1
+  42776d:	4b 89 14 d6          	mov    %rdx,(%r14,%r10,8)
+  427771:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+  427778:	00 
+  427779:	66 0f 2e ca          	ucomisd %xmm2,%xmm1
+  42777d:	7a 06                	jp     427785 <dgetf2_k+0x285>
+  42777f:	0f 84 0b 01 00 00    	je     427890 <dgetf2_k+0x390>
+  427785:	66 0f 28 c1          	movapd %xmm1,%xmm0
+  427789:	66 0f 54 05 0f 5a f9 	andpd  0xf95a0f(%rip),%xmm0        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+  427790:	00 
+  427791:	66 0f 2f 05 67 5c f9 	comisd 0xf95c67(%rip),%xmm0        # 13bd400 <.annobin___pthread_atfork.end+0x4b0>
+  427798:	00 
+  427799:	0f 82 02 01 00 00    	jb     4278a1 <dgetf2_k+0x3a1>
+  42779f:	4c 39 d0             	cmp    %r10,%rax
+  4277a2:	74 54                	je     4277f8 <dgetf2_k+0x2f8>
+  4277a4:	4c 89 54 24 30       	mov    %r10,0x30(%rsp)
+  4277a9:	48 83 ec 08          	sub    $0x8,%rsp
+  4277ad:	48 8b 45 00          	mov    0x0(%rbp),%rax
+  4277b1:	4c 89 df             	mov    %r11,%rdi
+  4277b4:	f2 0f 11 4c 24 30    	movsd  %xmm1,0x30(%rsp)
+  4277ba:	4c 89 e1             	mov    %r12,%rcx
+  4277bd:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  4277c1:	6a 00                	push   $0x0
+  4277c3:	6a 00                	push   $0x0
+  4277c5:	4c 8b 44 24 58       	mov    0x58(%rsp),%r8
+  4277ca:	41 50                	push   %r8
+  4277cc:	48 8b 74 24 38       	mov    0x38(%rsp),%rsi
+  4277d1:	4c 8d 0c 16          	lea    (%rsi,%rdx,1),%r9
+  4277d5:	31 d2                	xor    %edx,%edx
+  4277d7:	31 f6                	xor    %esi,%esi
+  4277d9:	4c 89 5c 24 40       	mov    %r11,0x40(%rsp)
+  4277de:	ff 90 98 03 00 00    	call   *0x398(%rax)
+  4277e4:	4c 8b 54 24 50       	mov    0x50(%rsp),%r10
+  4277e9:	f2 0f 10 4c 24 48    	movsd  0x48(%rsp),%xmm1
+  4277ef:	48 83 c4 20          	add    $0x20,%rsp
+  4277f3:	4c 8b 5c 24 20       	mov    0x20(%rsp),%r11
+  4277f8:	4c 8b 7c 24 08       	mov    0x8(%rsp),%r15
+  4277fd:	4d 39 df             	cmp    %r11,%r15
+  427800:	0f 8e 9b 00 00 00    	jle    4278a1 <dgetf2_k+0x3a1>
+  427806:	f2 0f 10 05 e2 5b f9 	movsd  0xf95be2(%rip),%xmm0        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  42780d:	00 
+  42780e:	48 8b 45 00          	mov    0x0(%rbp),%rax
+  427812:	31 d2                	xor    %edx,%edx
+  427814:	31 f6                	xor    %esi,%esi
+  427816:	4c 8b 6c 24 10       	mov    0x10(%rsp),%r13
+  42781b:	4c 89 54 24 28       	mov    %r10,0x28(%rsp)
+  427820:	4c 89 ff             	mov    %r15,%rdi
+  427823:	45 31 c9             	xor    %r9d,%r9d
+  427826:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+  42782a:	4c 89 5c 24 20       	mov    %r11,0x20(%rsp)
+  42782f:	48 83 ec 08          	sub    $0x8,%rsp
+  427833:	4c 29 df             	sub    %r11,%rdi
+  427836:	6a 00                	push   $0x0
+  427838:	49 8d 4d 08          	lea    0x8(%r13),%rcx
+  42783c:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  427842:	6a 00                	push   $0x0
+  427844:	6a 00                	push   $0x0
+  427846:	ff 90 90 03 00 00    	call   *0x390(%rax)
+  42784c:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+  427851:	4c 8b 54 24 48       	mov    0x48(%rsp),%r10
+  427856:	48 01 c3             	add    %rax,%rbx
+  427859:	48 8b 44 24 68       	mov    0x68(%rsp),%rax
+  42785e:	49 83 c2 01          	add    $0x1,%r10
+  427862:	49 01 c5             	add    %rax,%r13
+  427865:	4c 89 6c 24 30       	mov    %r13,0x30(%rsp)
+  42786a:	48 83 c4 20          	add    $0x20,%rsp
+  42786e:	4c 8b 5c 24 20       	mov    0x20(%rsp),%r11
+  427873:	4c 39 5c 24 58       	cmp    %r11,0x58(%rsp)
+  427878:	74 48                	je     4278c2 <dgetf2_k+0x3c2>
+  42787a:	4d 39 df             	cmp    %r11,%r15
+  42787d:	4d 0f 4f fb          	cmovg  %r11,%r15
+  427881:	4d 89 fc             	mov    %r15,%r12
+  427884:	e9 3f fd ff ff       	jmp    4275c8 <dgetf2_k+0xc8>
+  427889:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  427890:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+  427895:	48 85 c0             	test   %rax,%rax
+  427898:	49 0f 44 c3          	cmove  %r11,%rax
+  42789c:	48 89 44 24 60       	mov    %rax,0x60(%rsp)
+  4278a1:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+  4278a6:	48 8b 74 24 48       	mov    0x48(%rsp),%rsi
+  4278ab:	49 83 c2 01          	add    $0x1,%r10
+  4278af:	48 01 74 24 10       	add    %rsi,0x10(%rsp)
+  4278b4:	48 01 c3             	add    %rax,%rbx
+  4278b7:	4c 39 5c 24 58       	cmp    %r11,0x58(%rsp)
+  4278bc:	0f 85 ee fc ff ff    	jne    4275b0 <dgetf2_k+0xb0>
+  4278c2:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+  4278c7:	48 83 c4 78          	add    $0x78,%rsp
+  4278cb:	5b                   	pop    %rbx
+  4278cc:	5d                   	pop    %rbp
+  4278cd:	41 5c                	pop    %r12
+  4278cf:	41 5d                	pop    %r13
+  4278d1:	41 5e                	pop    %r14
+  4278d3:	41 5f                	pop    %r15
+  4278d5:	c3                   	ret
+  4278d6:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
+  4278dd:	00 00 
+  4278df:	48 8b 57 38          	mov    0x38(%rdi),%rdx
+  4278e3:	48 85 d2             	test   %rdx,%rdx
+  4278e6:	0f 8f 7a fc ff ff    	jg     427566 <dgetf2_k+0x66>
+  4278ec:	48 c7 44 24 60 00 00 	movq   $0x0,0x60(%rsp)
+  4278f3:	00 00 
+  4278f5:	eb cb                	jmp    4278c2 <dgetf2_k+0x3c2>
+
+Disassembly of section .fini:
