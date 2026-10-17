@@ -11,7 +11,7 @@ Freeze12 synthetic integer-array fixtures: 4x4 identity selftranspose; dense C-o
 After dispatch gate, identify/preregister relevant installed small kernels before any operation-price claim. Do not erase triangle-copy memory or generic setup: state whether excluded by the numerical convention. Source matrix expressions and actual packed lanes are different objects. Strided inputs may require copies and lose the shared-pointer optimization; preserve that outcome rather than assume all products use SYRK.
 
 ## Status
-All12 dispatch/parity controls complete; independent raw review pending.
+All12 dispatch/parity controls complete; independent raw review155b3b18 passes.
 
 ## Results
 All12 baseline/interposed products agree bitwise and with exact integer matrix products. Contiguous C/F selftranspose fixtures (three cases) dispatch SYRK. The strided selftranspose case is copied and dispatches GEMM with distinct pointers; all other independent/tall cases dispatch GEMM (nine total). Alpha1/beta0 and every dimension/transpose/leading dimension are saved. The six tall cases retain1000x4 by4x4 geometry, including leading dimension8 for the strided tall left matrix. No operation price has changed; actual child-kernel accounting remains open.
@@ -29,3 +29,8 @@ Copying/layout can disable symmetry (inspect actual pointers/strides); installed
 
 ## Failure modes
 Replacing installed code with mathematical minimal dot counts; reusing GESV child counts for different GEMM/SYRK paths; unsupported signatures; changed output due to instrumentation; incomplete native/control/memory accounting; extrapolating12 synthetic cases to all possible arrays.
+
+## Frozen child-kernel capture
+Independent155b3b18 validates all12 initial dispatch fixtures. Runtime read-only inventory reveals direct small-GEMM kernels, so the older GESV-child wrapper alone would omit a relevant path. Freeze one new capture of the same12 layouts for child identity/shapes; this is additional instrumentation evidence, not a repeated mass/model experiment. kernel_spy.c wraps exactly16 pinned table entries, records bounded4096 events, returns original results and restores pointers in finally. Pinned runtime targets checked before mutation. Small normal/beta0 signatures are matched across all four public NN/NT/TN/TT sources; installed CBLAS disassembly shows beta0 selection. Static SYRK helpers call ordinary GEMM/BETA children and remain a separate source-overhead obligation.
+
+No numeric kernel price is asserted before actual path capture and binary reasoning. In particular, source NN M4,K4 tail has masked loads but unmasked8-lane arithmetic, potentially charging unused lanes; source alone does not establish the selected path or installed instruction count. Keep model-free dimension-dispatch arithmetic and model-dependent arithmetic categories separate. No revised corpus subtotal yet.
