@@ -1,33 +1,43 @@
-# T115 k29 margin continuation
+# T115 complete k29 margin continuation
 
 ## Question
-Do the two frozen margin recipes remain competitive on the missing k29 training level when costs are measured directly under the reviewed named-source convention?
+Do both frozen margin recipes remain competitive at the missing H4,T3 training level2^29 when each noisy model receives its own directly measured numerical-source cost?
 
 ## Method
-Claim5be203e1. Reuse five T90 checkpoints and all5120 existing absolute.05 noisy-copy truths (independent e49308c). No training, MC or new truth. Pin all bytes, regenerate every noisy model hash, and use unchanged T176/T172 tracers for r85b/r112. Two fixed controls are seed0/noise20/copy0 and seed4/noise23/copy255; require baseline/traced output hex, legacy, STATS and grouped errors parity. Then first64 seed0/noise20 copies form the cost/parity gate before expansion. All failures preserved.
+Claims5be203e1/b93dc799. Five original checkpoints, original absolute.05 noise seeds20..23,256 copies each:5120 noisy models plus5 clean. All model hashes regenerate exactly; truths reuse independently reviewed T90/e49308c spherical geometry. No training, new truth/MC or random model inputs. Frozen RECIPE85B and RECIPE112 use the unchanged pinned426020c67a source and reviewed T176/T172 tracer. Every instrumented output hex, historical counter, STATS and grouped errors matches plain source. Pilot64 and final fixed control enter once. All80 shards retain complete native site ledgers.
 
 ## Status
-Full frozen continuation running after independent first64 reviewf4b76ba3 and source gate. All5120 provenance hashes pass. Two controls and five clean cases complete; remaining79 native64-copy shards run sequentially with fair lock release. No full-rung result yet.
+Complete numerical execution and contraction in da02c574; final independent global audit pending. First64 independently f4b76ba3; seeds0/1 independently924177cc, seed2 independently815c5576, seed3 independentlybaadda44, five clean cases independently38d50e9c. Claude/root must register final claim status; this author does not mark its own result confirmed.
 
 ## Results
-First64 fixed seed0/noise20: all128 ledgers/parity pass; r85b/r112 numeric totals8,424,200/10,559,696 and per-copy matched111-budget ratios.000234968429/4.95786826e-7. No extrapolation to remaining seeds. Independent f4b76ba3. Commands: `python provenance.py`; after independent gate `python control.py 0` and `python control.py 4`.
+All ten finite seed-group comparisons and all ten clean comparisons are below sampling at each model's own111-unit numeric budget. These are conditional, per-group comparisons, not a simultaneous population theorem. The historical72-unit comparison remains separate in full_summary.json.
+
+| Seed |85B ratio|85B conditional95 upper|85B individual losses|112 ratio|112 conditional95 upper|112 individual losses|
+|---|---|---|---|---|---|---|
+| 0 | 0.0003189210478 | 0.0003620067884 | 0 | 1.605449262e-05 | 2.756887012e-05 | 0 |
+| 1 | 0.06034704468 | 0.07079110303 | 4 | 1.579309428e-07 | 4.174524164e-07 | 0 |
+| 2 | 0.0001208581671 | 0.0001456918837 | 0 | 3.311733717e-11 | 7.405852744e-11 | 0 |
+| 3 | 0.01427027773 | 0.01592009701 | 0 | 0.003912709337 | 0.004950815361 | 0 |
+| 4 | 0.2090100012 | 0.2566527534 | 37 | 0.008184427774 | 0.01707150143 | 2 |
+
+There are41 individual85B losses and2 individual112 losses; maximum individual ratios14.19393925 and3.85784280. Thus group success is not every-model success. Largest clean ratio is85B seed3 at.0893267894;112 seed3 error−.00033921900269373584 is retained. Other four112 clean outputs agree with saved references to roundoff, without claiming exact real-network identity.
+
+Reproduce saved contractions with `python full_summary.py` (refuses overwriting completed evidence; copy the folder or select a new result filename for reproduction). `python progress.py` reports80 complete shards and5120 models, no failed or partial chunks. Runners control.py, pilot.py, clean.py and shard.py deliberately preserve existing artifacts; do not rerun model traces merely to review saved ledgers. FULL_PROTOCOL.md contains the frozen numerical/statistical scope.
 
 ## Compute accounting
-One thread,2GB, OS soft105/hard110 CPU per process, shared primary lock. Direct per-copy native numeric costs use H4 sampler111; historical legacy72 retained separately. Integer work separately exposed. No transferred multiplier. Named math/library operations do not imply compiled/hardware cost; memory, control and import exclusions inherited explicitly.
+Noisy named numerical totals571,644,569 /796,361,776 for85B/112; separately exposed integer totals17,858,677 /27,011,389. Comparator111 is numeric-only H4,T3 sampling, and each copy uses floor(its own cost/111). Continuous and mean-budget variants are reported distinctly. No multiplier transfers between models or recipes.
+
+Research replay2076.392106014CPU includes80 noisy shards, both reused controls and all five clean controls; provenance.06628438CPU is separate. Every chunk runs one thread with2GB limit and105/110CPU OS cap; maximum32.094169155CPU. No failures or cap breaches occurred. Research timing includes tracing/baseline/archive work and is not production estimator runtime. Reusable model-free setup, integer/control/memory and library implementation internals remain explicit exclusions from the111 numeric comparison. This is not complete hardware/native-cost closure.
 
 ## Claims
-[measured] Prior k29 checkpoints/truths exist. No new performance claim.
+[measured] All5120 noisy/5clean models preserve source parity and have direct per-copy costs.
+
+[measured] Both fixed recipes' group ratios and conditional intervals remain below1 across this finite k29 panel, despite43 total recipe-specific individual losses.
+
+[inferred] This strengthens small-ladder evidence under the declared numerical convention. It does not solve M16T10 or establish robustness for every noisy model, another training level or an altered recipe.
 
 ## Alternatives not ruled out
-Apparent prior wins may depend on undercounted costs; direct native tracing distinguishes this. Training level may change approximation quality; fixed recipes and all saved noisy models distinguish this without tuning. Truth errors or provenance drift could mimic changes; full hash regeneration and prior independent truth audit are required.
+Floating geometry/truth error and positive-volume tie pathologies outside reviewed generic controls remain separate. Conditional1000-resample bootstrap excludes truth uncertainty and is not a simultaneous guarantee across groups. Other training levels retain their own native-cost gaps. Primitive/library cost conventions could change an end-to-end deployment comparison; no hardware/runtime conclusion is inferred.
 
 ## Failure modes
-Positive-volume tie defects remain scoped in T113; generic finite-copy success is not a theorem. Cap/parity/source failures remain unresolved and preserved. Statistical intervals conditional on fixed truth estimates do not certify exact real-network probabilities or the full ARC challenge.
-
-Full scope/continuation claim b93dc799; FULL_PROTOCOL.md freezes all5120 noisy plus5 clean original cases. Research projection~40CPU-minutes, each shard≤110CPU. All clean outputs/parity saved, including r112 seed3 error−.0003392190026937. No recipe selection or new truth.
-
-Incremental independent review924177cc passes all2048 seed0/1 models and4096 native site ledgers, exact per-copy budgets and bootstrap. Seed1 r85b has4 named111 individual losses (historical72 has1); no remaining-seed inference. Full panel continues unchanged.
-
-Independent seed2 review815c5576 passes all1024 models/2048 ledgers, exact own-budget ratios and bootstrap; no individual losses in that seed. Seeds3/4 and clean/global review remain pending.
-
-Independent seed3 reviewbaadda44 passes all1024 models/2048 ledgers and exact budget/interval contractions; both recipes have zero individual losses in this seed. Final seed4 and clean/global review remain.
+Original T113 analytic tie failures and unsafe universal interpretations of margin-freezing remain preserved. There were no new parity/resource failures in this panel. Individual loss cases are never discarded;41/2 losses and worst ratios are reported explicitly. A finite group-average win cannot retire these failure mechanisms or validate all inputs.

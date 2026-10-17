@@ -1,6 +1,6 @@
 # T115 k29 native margin continuation
 
-Active task, not yet a completed handoff. Claim5be203e1, full continuationb93dc799. Author recover_910. Work only in review/margin_k29_native. Do not infer whole-rung success from completed subsets.
+All numerical work complete; final independent global audit pending. Claim5be203e1, full continuationb93dc799. Author recover_910. Work only in review/margin_k29_native. Do not infer whole-rung success from completed subsets.
 
 The fixed panel is five H4,T3 checkpoints trained with2^29 examples, original absolute.05 noise seeds20..23 with256 copies each. All5120 saved model hashes were regenerated; five clean truths and5120 noisy truths reuse independent T90/e49308c evidence. No new training, random model inputs, MC or truth enumeration. Recipes are unchanged RECIPE85B and RECIPE112 in pinned426020c67a source, evaluated with T176's reviewed native tracer. Both output and historical counter/STATS/grouped errors must match plain source exactly.
 
@@ -13,3 +13,5 @@ Numerical costs use111 numeric units per H4,T3 sample. Original72 fields remain 
 Reproduction (do not overwrite existing evidence): `control.py 0`, `control.py 4`, `pilot.py`, then `clean.py` and `shard.py SEED NOISE BLOCK` for all79 remaining combinations. First pilot combination(0,20,0) is forbidden in shard.py. Full original source remains untouched. Every process uses one thread,2GB,105/110OS CPU ceiling and90CPU graceful stop. Hold shared codex-compute.lock only for each individual process, release between chunks. If a shard fails, preserve it and diagnose; never silently skip a partial file or raise caps.
 
 Final steps after all shards: run full_summary.py, request independent remaining-seed/clean/global raw audit, attach review, update shared TASKS only, and ask Claude/root to register the scoped result. No new recipe or lower training amount is authorized by this handoff alone. Keep ongoing DRI T185/T5 independent audit separate.
+
+Final da02c574 covers5120 noisy/5clean models. Worst group ratios85B.2090100012 /112.00818442777; largest conditional95 upper.2566527534 /.01707150143. Individual losses41/2 retained. Numeric totals571644569/796361776; replay2076.392106014CPU, max32.094169155CPU. No fullhardware/universal/ARC claim. Remaining training amounts stay separate; coordinated next task is ReadyT11586 exact5D edge split, after review/claim.
