@@ -103,6 +103,9 @@ T115 k28 bounded handoff b01d4710 independentlyfb8a2443: all5120 noisy+5clean,80
 
 ### Priority queue (DRI, updated 2026-10-17 after E46-E48: the recipe is accurate along T but its cost explodes)
 
+| T11597 | **Ready** (light; theorem/source gate first) | **Global future-margin state identifiability from exact weight fingerprints** | Proposed T188 discriminator: nonzero input weights, invertible recurrent matrix and injective subset sums of c_i=abs(Wi_i)*(Wo[1:,i]−Wo[0,i]) may force globally identical or positively proportional one-step margin functions to have identical incoming state maps. Prove via last-coordinate-normalized hinge jumps, including positive-scaling and degenerate exclusions; then exact16/256-subset/rank audit on pinned H4/H8 weights if sound. Freeze analytic collision/singularity controls and count every rational operation. This does not refute label-only/prefix-domain equivalence, approximate merging or exact reset reuse. No capture/mass/model-input calls. | future_equivalence/DERIVATION.md; T188 tiny trained census |
+
+
 | T11596 | **Ready** (light; after T188 saved review and coordinated DRI priority) | **Prefix-domain sufficient future-equivalence rescue** | T188 fixed4-parent H4T4 finds no additional global/projective matches beyond identical states. Cheap distinct rescue: for a frozen small same-truth pair list, on each saved positive ray hull replace future hinges proved nonnegative by linear forms and nonpositive by zero using exact dyadic dot signs; canonicalize the difference and certify zero on both domains. Freeze analytic controls/pairs/counts before implementation. Do not infer true-cell H/V completeness, label-only exhaustiveness, convex union, mass or cost savings. Preserve all nonmatches/unknowns. | future_equivalence/capture/trained_t4.json; T188 theorem/source review pending |
 
 
