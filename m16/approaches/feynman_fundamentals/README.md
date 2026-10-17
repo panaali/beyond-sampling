@@ -793,3 +793,14 @@ Author surrogate agreement~2e-5 suffices for this3.6pp failure. Gaussian drift
 retained; no precision certificate or broad history-family negative. Costs
 and source/tie review in mean_history_review.md. Corrected T91 historical
 CPU comparison to distinguish unmatched diagnostics from matched fresh runs.
+
+## Cycle 33: independent primitive and reachability reviews
+Read T66 native circle and exact Fraction oracle; incremental earliest-step
+cache proof passes with simultaneous-root handling and extreme-spacing
+falsifiers. Read T20 radial beta callback; finite branches pass, crossing
+infinite endpoints expose an untested inf/inf edge sent to owner. T26
+minimum-leakage witness algebra and preactivation Jacobian source pass with
+local-cell/active-rank qualifications. T81 rank1 residual fiber algebra passes;
+unknown support, tiny-pivot amplification and partial cost remain open.
+No numerical experiment or production edits. Details in
+primitive_and_reachability_review.md; owners received actionable checks.
