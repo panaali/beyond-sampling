@@ -1,0 +1,565 @@
+{
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "cases": [
+    {
+      "name": "checkpoint512",
+      "budget": 512,
+      "native": {
+        "estimate": 0.9441116965877846,
+        "cost": 40228.68816666667,
+        "ledger": {
+          "complete": true,
+          "known_flops": 241372129,
+          "components": {
+            "cold_geometry_table": 200000500,
+            "validation_and_final_aggregation": 1000,
+            "model_validation": 2160,
+            "configuration_and_aggregation": 540800,
+            "fixed_shift_rng_crc": 8560320,
+            "constant_node_fill": 3755,
+            "node_shift_remainder": 15020,
+            "quantile_interpolation": 32400,
+            "truncated_normal": 772800,
+            "native_walker": 31378925,
+            "blind_forward_and_ranking": 64449
+          },
+          "kernels": {
+            "geometry_table_points": 400001,
+            "table_pdf_arguments": 800002,
+            "table_cdf_arguments": 800002,
+            "table_sf_arguments": 400001,
+            "rng_initializations": 416,
+            "uniform_variates": 3755,
+            "interp_queries": 405,
+            "ndtri_arguments": 3360,
+            "ndtr_arguments": 786,
+            "blind_inputs": 11
+          },
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "source_hashes": {
+            "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+            "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+          },
+          "cold": true,
+          "saved_warm_setup_flops": 0,
+          "cpu_seconds": 2.586070224,
+          "setup_cpu_seconds": 0.06279093599999985,
+          "node_sha256": "6dc8e876c2c186dc77f3c5695ca990938a667bc51a2c9552f8fbcbfd0bab87c4",
+          "face_sha256": "88368b3d1814d3f995659957af8d9ec2baa6af58f177dc8413b2b10b4c3a0e9e",
+          "node_rows": 416,
+          "walk_calls": 405,
+          "shared_walk_calls": 400,
+          "normal_intervals": 10983,
+          "midpoint_quadrature_bound": 0.0,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "r23": 0.035613043754813535,
+            "r12": 0.01148619715740187,
+            "blind": 0.0087890625,
+            "n": [
+              1,
+              1,
+              1
+            ]
+          },
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 5240.820833333334,
+          "actual_fpe": 40228.68816666667,
+          "fpe_unit": 6000.0,
+          "legacy_walk_fpe": 0.0
+        }
+      },
+      "legacy": {
+        "estimate": 0.9441116965877847,
+        "cost": 34998.867333333335,
+        "ledger": {
+          "complete": true,
+          "known_flops": 209993204,
+          "components": {
+            "cold_geometry_table": 200000500,
+            "validation_and_final_aggregation": 1000,
+            "model_validation": 2160,
+            "configuration_and_aggregation": 540800,
+            "fixed_shift_rng_crc": 8560320,
+            "constant_node_fill": 3755,
+            "node_shift_remainder": 15020,
+            "quantile_interpolation": 32400,
+            "truncated_normal": 772800,
+            "blind_forward_and_ranking": 64449
+          },
+          "kernels": {
+            "geometry_table_points": 400001,
+            "table_pdf_arguments": 800002,
+            "table_cdf_arguments": 800002,
+            "table_sf_arguments": 400001,
+            "rng_initializations": 416,
+            "uniform_variates": 3755,
+            "interp_queries": 405,
+            "ndtri_arguments": 3360,
+            "ndtr_arguments": 786,
+            "blind_inputs": 11
+          },
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "source_hashes": {
+            "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+            "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+          },
+          "cold": true,
+          "saved_warm_setup_flops": 0,
+          "cpu_seconds": 1.074543857000001,
+          "setup_cpu_seconds": 0.05445631600000045,
+          "node_sha256": "6dc8e876c2c186dc77f3c5695ca990938a667bc51a2c9552f8fbcbfd0bab87c4",
+          "face_sha256": "88368b3d1814d3f995659957af8d9ec2baa6af58f177dc8413b2b10b4c3a0e9e",
+          "node_rows": 416,
+          "walk_calls": 405,
+          "shared_walk_calls": 0,
+          "normal_intervals": 0,
+          "midpoint_quadrature_bound": 0.0,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "r23": 0.035613043754813535,
+            "r12": 0.011486197157401805,
+            "blind": 0.0087890625,
+            "n": [
+              1,
+              1,
+              1
+            ]
+          },
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 3113.999999999999,
+          "actual_fpe": 34998.867333333335,
+          "fpe_unit": 6000.0,
+          "legacy_walk_fpe": 3102.9999999999995
+        }
+      },
+      "native_minus_legacy": -1.1102230246251565e-16
+    },
+    {
+      "name": "checkpoint2048",
+      "budget": 2048,
+      "native": {
+        "estimate": 0.944251205516356,
+        "cost": 42162.19216666667,
+        "ledger": {
+          "complete": true,
+          "known_flops": 252973153,
+          "components": {
+            "cold_geometry_table": 200000500,
+            "validation_and_final_aggregation": 1000,
+            "model_validation": 2160,
+            "configuration_and_aggregation": 560600,
+            "fixed_shift_rng_crc": 8560320,
+            "constant_node_fill": 3645,
+            "node_shift_remainder": 17660,
+            "quantile_interpolation": 32400,
+            "truncated_normal": 938400,
+            "native_walker": 31378925,
+            "sobol": 11026400,
+            "blind_forward_and_ranking": 451143
+          },
+          "kernels": {
+            "geometry_table_points": 400001,
+            "table_pdf_arguments": 800002,
+            "table_cdf_arguments": 800002,
+            "table_sf_arguments": 400001,
+            "rng_initializations": 416,
+            "uniform_variates": 3755,
+            "interp_queries": 405,
+            "ndtri_arguments": 4080,
+            "ndtr_arguments": 786,
+            "sobol_initializations": 11,
+            "sobol_generated_coordinates": 880,
+            "blind_inputs": 77
+          },
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "source_hashes": {
+            "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+            "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+          },
+          "cold": true,
+          "saved_warm_setup_flops": 0,
+          "cpu_seconds": 2.612832020999999,
+          "setup_cpu_seconds": 0.059907735999999545,
+          "node_sha256": "41ccf837a90f7ee27ab36ff2592f236cf3ed33e9e32c523ac7b35fce29f3e99c",
+          "face_sha256": "88368b3d1814d3f995659957af8d9ec2baa6af58f177dc8413b2b10b4c3a0e9e",
+          "node_rows": 482,
+          "walk_calls": 405,
+          "shared_walk_calls": 400,
+          "normal_intervals": 10983,
+          "midpoint_quadrature_bound": 0.0,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "r23": 0.035613043754813535,
+            "r12": 0.01148619715740187,
+            "blind": 0.00864955357142857,
+            "n": [
+              1,
+              1,
+              7
+            ]
+          },
+          "requested_budget": 2048.0,
+          "legacy_reported_fpe": 5306.820833333334,
+          "actual_fpe": 42162.19216666667,
+          "fpe_unit": 6000.0,
+          "legacy_walk_fpe": 0.0
+        }
+      },
+      "legacy": {
+        "estimate": 0.9442512055163561,
+        "cost": 36932.371333333336,
+        "ledger": {
+          "complete": true,
+          "known_flops": 221594228,
+          "components": {
+            "cold_geometry_table": 200000500,
+            "validation_and_final_aggregation": 1000,
+            "model_validation": 2160,
+            "configuration_and_aggregation": 560600,
+            "fixed_shift_rng_crc": 8560320,
+            "constant_node_fill": 3645,
+            "node_shift_remainder": 17660,
+            "quantile_interpolation": 32400,
+            "truncated_normal": 938400,
+            "sobol": 11026400,
+            "blind_forward_and_ranking": 451143
+          },
+          "kernels": {
+            "geometry_table_points": 400001,
+            "table_pdf_arguments": 800002,
+            "table_cdf_arguments": 800002,
+            "table_sf_arguments": 400001,
+            "rng_initializations": 416,
+            "uniform_variates": 3755,
+            "interp_queries": 405,
+            "ndtri_arguments": 4080,
+            "ndtr_arguments": 786,
+            "sobol_initializations": 11,
+            "sobol_generated_coordinates": 880,
+            "blind_inputs": 77
+          },
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "source_hashes": {
+            "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+            "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+          },
+          "cold": true,
+          "saved_warm_setup_flops": 0,
+          "cpu_seconds": 0.9765539579999993,
+          "setup_cpu_seconds": 0.04826372499999998,
+          "node_sha256": "41ccf837a90f7ee27ab36ff2592f236cf3ed33e9e32c523ac7b35fce29f3e99c",
+          "face_sha256": "88368b3d1814d3f995659957af8d9ec2baa6af58f177dc8413b2b10b4c3a0e9e",
+          "node_rows": 482,
+          "walk_calls": 405,
+          "shared_walk_calls": 0,
+          "normal_intervals": 0,
+          "midpoint_quadrature_bound": 0.0,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "r23": 0.035613043754813535,
+            "r12": 0.011486197157401805,
+            "blind": 0.00864955357142857,
+            "n": [
+              1,
+              1,
+              7
+            ]
+          },
+          "requested_budget": 2048.0,
+          "legacy_reported_fpe": 3179.999999999999,
+          "actual_fpe": 36932.371333333336,
+          "fpe_unit": 6000.0,
+          "legacy_walk_fpe": 3102.9999999999995
+        }
+      },
+      "native_minus_legacy": -1.1102230246251565e-16
+    },
+    {
+      "name": "zero_readout512",
+      "budget": 512,
+      "native": {
+        "estimate": 0.08237294636757353,
+        "cost": 40228.68816666667,
+        "ledger": {
+          "complete": true,
+          "known_flops": 241372129,
+          "components": {
+            "cold_geometry_table": 200000500,
+            "validation_and_final_aggregation": 1000,
+            "model_validation": 2160,
+            "configuration_and_aggregation": 540800,
+            "fixed_shift_rng_crc": 8560320,
+            "constant_node_fill": 3755,
+            "node_shift_remainder": 15020,
+            "quantile_interpolation": 32400,
+            "truncated_normal": 772800,
+            "native_walker": 31378925,
+            "blind_forward_and_ranking": 64449
+          },
+          "kernels": {
+            "geometry_table_points": 400001,
+            "table_pdf_arguments": 800002,
+            "table_cdf_arguments": 800002,
+            "table_sf_arguments": 400001,
+            "rng_initializations": 416,
+            "uniform_variates": 3755,
+            "interp_queries": 405,
+            "ndtri_arguments": 3360,
+            "ndtr_arguments": 786,
+            "blind_inputs": 11
+          },
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "source_hashes": {
+            "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+            "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+          },
+          "cold": true,
+          "saved_warm_setup_flops": 0,
+          "cpu_seconds": 2.7196353159999997,
+          "setup_cpu_seconds": 0.06119360499999971,
+          "node_sha256": "6dc8e876c2c186dc77f3c5695ca990938a667bc51a2c9552f8fbcbfd0bab87c4",
+          "face_sha256": "88368b3d1814d3f995659957af8d9ec2baa6af58f177dc8413b2b10b4c3a0e9e",
+          "node_rows": 416,
+          "walk_calls": 405,
+          "shared_walk_calls": 400,
+          "normal_intervals": 10983,
+          "midpoint_quadrature_bound": 0.0,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "r23": 0.5680083288975587,
+            "r12": 0.34180622473486777,
+            "blind": 0.0078125,
+            "n": [
+              1,
+              1,
+              1
+            ]
+          },
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 5240.820833333334,
+          "actual_fpe": 40228.68816666667,
+          "fpe_unit": 6000.0,
+          "legacy_walk_fpe": 0.0
+        }
+      },
+      "legacy": {
+        "estimate": 0.08237294636757353,
+        "cost": 34998.867333333335,
+        "ledger": {
+          "complete": true,
+          "known_flops": 209993204,
+          "components": {
+            "cold_geometry_table": 200000500,
+            "validation_and_final_aggregation": 1000,
+            "model_validation": 2160,
+            "configuration_and_aggregation": 540800,
+            "fixed_shift_rng_crc": 8560320,
+            "constant_node_fill": 3755,
+            "node_shift_remainder": 15020,
+            "quantile_interpolation": 32400,
+            "truncated_normal": 772800,
+            "blind_forward_and_ranking": 64449
+          },
+          "kernels": {
+            "geometry_table_points": 400001,
+            "table_pdf_arguments": 800002,
+            "table_cdf_arguments": 800002,
+            "table_sf_arguments": 400001,
+            "rng_initializations": 416,
+            "uniform_variates": 3755,
+            "interp_queries": 405,
+            "ndtri_arguments": 3360,
+            "ndtr_arguments": 786,
+            "blind_inputs": 11
+          },
+          "scalar_cost_is_proxy": true,
+          "portable_bound_certified": false,
+          "opaque_kernel_costs_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "source_hashes": {
+            "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+            "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+          },
+          "cold": true,
+          "saved_warm_setup_flops": 0,
+          "cpu_seconds": 0.9596434330000001,
+          "setup_cpu_seconds": 0.05298092600000004,
+          "node_sha256": "6dc8e876c2c186dc77f3c5695ca990938a667bc51a2c9552f8fbcbfd0bab87c4",
+          "face_sha256": "88368b3d1814d3f995659957af8d9ec2baa6af58f177dc8413b2b10b4c3a0e9e",
+          "node_rows": 416,
+          "walk_calls": 405,
+          "shared_walk_calls": 0,
+          "normal_intervals": 0,
+          "midpoint_quadrature_bound": 0.0,
+          "roundoff_certified": false,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "r23": 0.5680083288975587,
+            "r12": 0.34180622473486777,
+            "blind": 0.0078125,
+            "n": [
+              1,
+              1,
+              1
+            ]
+          },
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 3113.999999999999,
+          "actual_fpe": 34998.867333333335,
+          "fpe_unit": 6000.0,
+          "legacy_walk_fpe": 3102.9999999999995
+        }
+      },
+      "native_minus_legacy": 0.0,
+      "analytic_accuracy": 0.1,
+      "native_minus_analytic": -0.017627053632426476
+    }
+  ],
+  "random_model_inputs": 0,
+  "accuracy_truth_not_evaluated": true,
+  "legacy_result_not_reference_truth": true,
+  "cpu_seconds": 10.994953845,
+  "invalid_controls": [
+    {
+      "request": "nan",
+      "failure": "Budget must be finite and positive",
+      "ledger": {
+        "complete": false,
+        "known_flops": 200003660,
+        "components": {
+          "cold_geometry_table": 200000500,
+          "validation_and_final_aggregation": 1000,
+          "model_validation": 2160
+        },
+        "kernels": {
+          "geometry_table_points": 400001,
+          "table_pdf_arguments": 800002,
+          "table_cdf_arguments": 800002,
+          "table_sf_arguments": 400001
+        },
+        "scalar_cost_is_proxy": true,
+        "portable_bound_certified": false,
+        "opaque_kernel_costs_certified": false,
+        "legacy_walker_cost_missing_from_proxy": false,
+        "source_hashes": {
+          "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+          "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+        },
+        "cold": true,
+        "saved_warm_setup_flops": 0,
+        "cpu_seconds": 0.059496816999999425,
+        "setup_cpu_seconds": 0.05944906599999911,
+        "node_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "face_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "node_rows": 0,
+        "walk_calls": 0,
+        "shared_walk_calls": 0,
+        "normal_intervals": 0,
+        "midpoint_quadrature_bound": 0.0,
+        "roundoff_certified": false,
+        "imports_and_interpreter_excluded_from_scalar_proxy": true,
+        "failure_kind": "invalid_input",
+        "failed_walk": null,
+        "cost_is_partial": false
+      }
+    },
+    {
+      "request": "0.0",
+      "failure": "Budget must be finite and positive",
+      "ledger": {
+        "complete": false,
+        "known_flops": 3160,
+        "components": {
+          "cold_geometry_table": 0,
+          "validation_and_final_aggregation": 1000,
+          "model_validation": 2160
+        },
+        "kernels": {},
+        "scalar_cost_is_proxy": true,
+        "portable_bound_certified": false,
+        "opaque_kernel_costs_certified": false,
+        "legacy_walker_cost_missing_from_proxy": false,
+        "source_hashes": {
+          "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+          "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+        },
+        "cold": false,
+        "saved_warm_setup_flops": 200000500,
+        "cpu_seconds": 1.2187999999468957e-05,
+        "setup_cpu_seconds": 0.0,
+        "node_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "face_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "node_rows": 0,
+        "walk_calls": 0,
+        "shared_walk_calls": 0,
+        "normal_intervals": 0,
+        "midpoint_quadrature_bound": 0.0,
+        "roundoff_certified": false,
+        "imports_and_interpreter_excluded_from_scalar_proxy": true,
+        "failure_kind": "invalid_input",
+        "failed_walk": null,
+        "cost_is_partial": false
+      }
+    },
+    {
+      "request": "1000000000000.0",
+      "failure": "Requested node batch exceeds65536",
+      "ledger": {
+        "complete": false,
+        "known_flops": 3160,
+        "components": {
+          "cold_geometry_table": 0,
+          "validation_and_final_aggregation": 1000,
+          "model_validation": 2160
+        },
+        "kernels": {},
+        "scalar_cost_is_proxy": true,
+        "portable_bound_certified": false,
+        "opaque_kernel_costs_certified": false,
+        "legacy_walker_cost_missing_from_proxy": false,
+        "source_hashes": {
+          "core.py": "99ec9408e042f019a54dd34c399840ddeb3301c533a0bd11e5ec0a426e154037",
+          "feyn.py": "ab568a48b90891302fa51e95c230a888d47f28ae221141730d9afac7e20b1309"
+        },
+        "cold": false,
+        "saved_warm_setup_flops": 200000500,
+        "cpu_seconds": 1.2337999999445515e-05,
+        "setup_cpu_seconds": 0.0,
+        "node_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "face_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "node_rows": 0,
+        "walk_calls": 0,
+        "shared_walk_calls": 0,
+        "normal_intervals": 0,
+        "midpoint_quadrature_bound": 0.0,
+        "roundoff_certified": false,
+        "imports_and_interpreter_excluded_from_scalar_proxy": true,
+        "failure_kind": "invalid_input",
+        "failed_walk": null,
+        "cost_is_partial": false
+      }
+    }
+  ],
+  "complete": true
+}
