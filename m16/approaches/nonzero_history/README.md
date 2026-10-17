@@ -167,3 +167,11 @@ Finite alternatives checklist:
 Reproduction: use the standard one-thread capped review-lock command for
 `controls.py`, `pilot.py`, and `pilot.py --normal-landmarks`. Reference loading
 is confined to pilot.py; affine.py uses weights only and no input sampling.
+
+Event-ledger correction: `np.where` evaluates both CDF-difference branches,
+so cdf_mass performs four scalar CDF values per entry, not the two initially
+counted. Corrected the counter and added explicit Legendre-rule construction
+metadata. `accounted_landmark_pilot.json` reruns the unchanged numerical rule
+with the corrected ledger; original pilot artifacts preserve the old counts.
+All estimates are unchanged. The ledger remains event accounting, not a
+complete special-function or linear-algebra scalar-FLOP conversion.

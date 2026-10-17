@@ -106,7 +106,9 @@ def arrangement(model,mu,limit,stats):
 
 
 def cdf_mass(lo,hi,stats):
-    stats['normal_cdf_values']+=2*np.size(lo)
+    # np.where eagerly evaluates both branches: four CDF arrays, not two.
+    stats['normal_cdf_values']+=4*np.size(lo)
+    stats['cdf_difference_arrays']+=np.size(lo)
     positive=lo>0
     return np.where(positive,ndtr(-lo)-ndtr(-hi),ndtr(hi)-ndtr(lo))
 
@@ -167,6 +169,8 @@ def calculate(model,mode='exact2',order=16,limit=6.,normal_landmarks=False):
         pieces=refined
         stats['normal_landmark_panels']=len(pieces)
     nodes,weights=leggauss(order);value=0.;partition=0.
+    stats['legendre_rules_constructed']+=1
+    stats['legendre_rule_order']=order
     for yl,yr,low,high,label in pieces:
         y=(yl+yr)/2+(yr-yl)/2*nodes
         lo=low[0]*y+low[1];hi=high[0]*y+high[1]

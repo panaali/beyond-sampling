@@ -11,6 +11,7 @@ from affine import calculate
 HERE=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser()
 parser.add_argument('--normal-landmarks',action='store_true')
+parser.add_argument('--output',default=None)
 args=parser.parse_args()
 ROOT=Path('/workspace/clean-neurons/m16/approaches')
 sys.path.insert(0,str(ROOT/'small_h2_56'))
@@ -39,6 +40,7 @@ for name,model in cases:
                 zero_reproduction_error=abs(fine-ref['estimate']) if mode=='zero' else None)
         except Exception as exc:row['failure']=repr(exc)
         out['rows'].append(row);out['total_cpu_seconds']=time.process_time()-start
-        (HERE/('landmark_pilot.json' if args.normal_landmarks else 'pilot.json')).write_text(json.dumps(out,indent=2)+'\n')
+        filename=args.output or ('landmark_pilot.json' if args.normal_landmarks else 'pilot.json')
+        (HERE/filename).write_text(json.dumps(out,indent=2)+'\n')
         print(json.dumps({k:v for k,v in row.items() if k not in ('stats','refinement_stats')}),flush=True)
         if 'failure' in row:raise SystemExit(1)
