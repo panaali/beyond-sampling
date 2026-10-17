@@ -18,8 +18,8 @@ def score(m,do_fibre):
 def run_cell(k,s,kind):
  path=HERE/f'{kind}_k{k}_s{s}.json'
  base=L.load(k,s);sigma=.05 if kind=='absolute' else .05*L.rms(base)/L.rms(L.load(30,s))
- ns=(120,121) if kind=='absolute' else (122,123)
- n=128 if kind=='absolute' and k==24 else 32
+ ns=(124,125) if kind=='confirmation' else ((120,121) if kind=='absolute' else (122,123))
+ n=256 if kind=='confirmation' else (128 if kind=='absolute' and k==24 else 32)
  start=time.process_time();wall=time.perf_counter()
  d=dict(k=k,training_seed=s,kind=kind,sigma=sigma,noise_seeds=ns,n_per_seed=n,rows=[],complete=False)
  if path.exists():
@@ -39,7 +39,8 @@ def run_cell(k,s,kind):
  print(path.name,'complete',len(d['rows']),'CPU',round(d['cpu'],3),'max truth difference',max(abs(z['reference_difference']) for z in d['rows']),flush=True)
 if __name__=='__main__':
  arg=sys.argv[1]
- if arg=='absolute':
+ if arg=='confirmation':run_cell(24,4,'confirmation')
+ elif arg=='absolute':
   run_cell(24,4,'absolute')
   for s in range(5):run_cell(20,s,'absolute')
  else:
