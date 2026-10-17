@@ -267,3 +267,48 @@ The error-region capture/replay is a separately frozen next experiment;
 complete floating geometry, integration roundoff and full operation counts
 remain qualified. Do not normalize an incorrect gate total and infer that
 this fixes the error-region calculation.
+
+## T136 independent section geometry
+
+A cone section a dot x=1 lies at height1/||a|| from the origin. The
+four-dimensional determinant pyramid formula therefore gives its simplex
+three-volume ||a||*|detR|/[6*prod(a dot r_i)]. QR coordinates in a-perp
+have the same volume. Centering/right-SVD rotation and dividing by all
+three positive singular values changes volume by1/prod(s); multiplying
+back is correct, without rank truncation. Conditioning cannot recover
+geometry already rounded away, as the preserved rotated-thin controls
+show. The controls are numerical screens, not a certificate.
+
+`check_leaf_geometry_review.py` independently uses coordinate elimination
+instead of QR/SVD: remove the coordinate with largest |a_i| and multiply
+three-coordinate hull volume by ||a||/|a_i|. Across337 captured leaves and
+1762 source simplices, no hull failures occur; maximum source difference
+is2.0123e-16 and old raw hull difference2.0817e-16. Every source simplex
+vertex exactly equals an original leaf ray. Saved parent aggregates match,
+with largest partition residual2.1094e-15. Review CPU.1598. This uses the
+same Qhull backend with an independent coordinate map, not an independent
+exact hull algorithm. Sum agreement alone does not prove absence of
+compensating overlap and holes.
+
+## T137 fixed-rule precision attribution source review
+
+For coefficient covariance from B=(R^T)^-1, C=correlation(BB^T), the path
+R_t=I+t(C-I) gives the Plackett derivative over six pairs. Integrating the
+conditional1/4 term yields1/16+sum asin(C_ij)/(8*pi); the remaining term
+is the integral of C_ij*asin(partial_remaining_pair)/sqrt(1-t^2*C_ij^2),
+scaled by1/(4*pi^2). The inverse-matrix partial-correlation sign is correct.
+Holding rounded C and rounded rules, then exact-binary-ray C, then ideal
+GL48 with unchanged cubic endpoint mapping separates the proposed sources
+of error. Cholesky/domain guards and exact binary lifting are appropriate.
+80/100-digit agreement is stability evidence, not certified MP rounding.
+An inadmissible rounded-C arm must remain a separate failure, not be
+silently clipped or attributed to finite quadrature. Numerical fixture
+outcomes are pending; no new rule/order/geometry tuning was reviewed.
+
+The next T131 error capture delegates unchanged sequential competitor
+clipping, which partitions the error union by the first failed margin.
+All-off first-index controls pass; recorded zero coefficient-identical
+active pairs avoid the known positive-volume output-tie defect for this
+frozen capture. Per-parent/leaf indexing and pinned hashes are consistent.
+A corrected error mass remains conditional on captured floating geometry,
+and must not be inferred by normalizing the previously incorrect gate total.
