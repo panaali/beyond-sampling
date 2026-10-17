@@ -29,6 +29,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from m43 import Ops  # noqa: E402
 
 TOL = 1e-10
+MODE = ['recipe']
+EXACT_STEPS = [set()]     # diagnostic hook: input indices t whose gates are resolved exactly
 def _rule(n, p):
     x, w = np.polynomial.legendre.leggauss(n); s = 0.5 * (x + 1)
     return list(zip(1 - (1 - s) ** p, 0.5 * w, p * (1 - s) ** (p - 1)))      # (t, weight, dt/ds), t = 1-(1-s)^p
@@ -284,6 +286,102 @@ def _margin_cells(c, A, Wo, truth, n_true, eps, ops, exact, done=()):
     return out
 
 
+TIE = 1e-9
+
+
+def _weights_to_margin(model, t, truth, ops):
+    """Lipschitz bound of the readout-margin change per unit change of h_t,k (input index t), through the remaining
+    steps t+1..T-1: u = |Wh|^(T-1-t) e_k, w_k = max_o sum_j |Wo[truth,j] - Wo[o,j]| u_j. Invariant to positive neuron
+    rescalings (every path product keeps exactly one 1/c_k)."""
+    Wi, Wh, Wo = model
+    T = Wo.shape[0]; H = len(Wi)
+    U = np.eye(H)
+    for _ in range(T - 1 - t):
+        U = np.abs(Wh) @ U; ops.add(H ** 3)
+    D = np.abs(Wo[truth][None, :] - Wo)
+    ops.add(T * H * H)
+    return np.max(D @ U, 0)
+
+
+def _frozen_margin(model, t, A, g, truth, P, ops):
+    """Readout margin at points P of the network whose step-t gates are frozen to g (h_t = g * (A x), linear), with
+    the true ReLUs at the later steps."""
+    Wi, Wh, Wo = model
+    T = Wo.shape[0]; H = len(Wi)
+    h = (P @ A.T) * g[None, :]; ops.add(len(P) * H * (T + 1))
+    for s in range(t + 1, T):
+        h = np.maximum(h @ Wh.T + P[:, s:s + 1] * Wi[None, :], 0); ops.add(len(P) * (H * H + 2 * H))
+    if t == T - 1:
+        Z = h @ Wo.T
+    else:
+        Z = h @ Wo.T
+    ops.add(len(P) * H * T)
+    if not np.any(h):
+        return np.zeros(len(P))
+    return Z[:, truth] - np.max(np.delete(Z, truth, 1), 1)
+
+
+def _margin_split(c, A, model, t, truth, n_true, eps, ops, exact, done=()):
+    """T108 rule at step t (any step, intermediate or last): freeze every cutting gate at its state on the cell's
+    true-boundary facet; resolve gate k only if on its minority side the margin change it can cause,
+    |a_k . v| * w_k (w from _weights_to_margin), reaches the frozen network's margin there, or that margin changes
+    sign there with a change >= eps * max|m|. Test points: minority rays + gate/edge crossing points. All triggering
+    gates are split at once and the children re-tested (order-independent)."""
+    ref = _ref(c, n_true, ops)
+    S = c.R @ A.T; ops.add(len(c.R) * A.shape[0] * (A.shape[1] + 1))
+    g = np.zeros(len(A)); cut = []
+    for k in range(len(A)):
+        sc = TOL * max(np.linalg.norm(A[k]), 1e-300)
+        if S[:, k].min() >= -sc:
+            g[k] = 1.0 if S[:, k].max() > sc else float(A[k] @ ref > 0)
+        elif S[:, k].max() <= sc:
+            g[k] = 0.0
+        else:
+            g[k] = float(A[k] @ ref > 0); ops.add(A.shape[1] + 1)
+            if k not in done:
+                cut.append(k)
+    if not done:
+        STATS["cut"] += len(cut)
+    if not cut:
+        return [(c, g)]
+    if exact:
+        trig = [cut[0]]
+    else:
+        w = _weights_to_margin(model, t, truth, ops)
+        pairs = _adjacent_pairs(c, ops)
+        trig = []
+        for k in cut:
+            sk = S[:, k]
+            mino = (sk > 0) != (g[k] > 0)
+            P = [c.R[q] for q in np.flatnonzero(mino)]; sh = [abs(sk[q]) * w[k] for q in np.flatnonzero(mino)]
+            for a, b in pairs:
+                if (sk[a] > 0) != (sk[b] > 0) and sk[a] != 0 and sk[b] != 0:
+                    pp = abs(sk[a]) * c.R[b] + abs(sk[b]) * c.R[a]; P.append(pp / np.linalg.norm(pp)); sh.append(0.0)
+                    ops.add(3 * A.shape[1] + 3)
+            P = np.array(P); sh = np.array(sh)
+            mm = _frozen_margin(model, t, A, g, truth, P, ops)
+            score = np.max(sh / (np.abs(mm) + 1e-300))
+            flips = mm.min() < 0 < mm.max() and sh.max() >= eps * np.abs(mm).max()
+            ops.add(3 * len(P))
+            if score >= 1 - TIE or flips:
+                trig.append(k)
+        if not trig:
+            return [(c, g)]
+    STATS["resolved"] += len(trig)
+    pieces = [c]
+    for k in trig:
+        nxt = []
+        for q in pieces:
+            for r in clip(q, A[k], ops):
+                if r is not None:
+                    nxt.append(r)
+        pieces = nxt
+    out = []
+    for q in pieces:
+        out += _margin_split(q, A, model, t, truth, n_true, eps, ops, exact, tuple(done) + tuple(trig))
+    return out
+
+
 def estT(model, ops=None, eps=0.1, mode="recipe", info=None):
     """mode 'recipe' (T85: adaptive impact at steps 2..T-1, margin rule at step T) or 'exact'."""
     Wi, Wh, Wo = model
@@ -292,6 +390,7 @@ def estT(model, ops=None, eps=0.1, mode="recipe", info=None):
     if T not in _HALVES:
         _HALVES[T] = halves(T)
     exact = mode == "exact"
+    MODE[0] = mode
     E = np.eye(T); err = 0.0
     for h in _HALVES[T]:
         g1 = (h["sigma"] * Wi > 0).astype(float); ops.add(len(Wi))
@@ -308,7 +407,11 @@ def _finish(c, g, A, t, model, truth, n_true, eps, ops, exact):
     H = len(Wi); T = Wo.shape[0]; E = np.eye(T)
     At = Wh @ (g[:, None] * A) + np.outer(Wi, E[t]); ops.add(H * int(g.sum()) * t)
     err = 0.0
-    if t < T - 1:
+    if MODE[0] == "recipe108" or exact:
+        for c2, g2 in _margin_split(c, At, model, t, truth, n_true, eps, ops, exact or t in EXACT_STEPS[0]):
+            err += _finish(c2, g2, At, t + 1, model, truth, n_true, eps, ops, exact) if t < T - 1 else \
+                _cell_error(c2, g2, At, Wo, truth, ops)
+    elif t < T - 1:
         for c2, g2 in _split_impact([(c, _ref(c, n_true, ops))], At, np.abs(Wh).max(0), eps, ops, exact):
             err += _finish(c2, g2, At, t + 1, model, truth, n_true, eps, ops, exact)
     else:
