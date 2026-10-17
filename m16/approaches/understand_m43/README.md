@@ -394,3 +394,169 @@ on the same scan errs by up to −4.97 pp and +5.93 pp.
 - [dev75.py](dev75.py), `dev75_truth.json`: development harness on noise seed 0 only.
 - [diag75.py](diag75.py): per-seed error structure.
 - `zoo43.noisy_copies`: the ARC protocol for any base model; it reproduces m43.noisy_models for seed 0.
+
+---
+
+# T85: invariance, margin-aware rule, cell merging (rung H=4, T=3) and T87: the first T step, rung (H=4, T=4) (added 2026-10-17)
+
+The T63 and T75 sections above are unchanged.
+
+## T85 changes to the recipe (frozen as `est75.RECIPE85B` before the fresh run)
+
+1. **Margin-aware last step (the seed-4 fix).**
+   - Every cutting step-3 gate is frozen at its state on the arc.
+   - A gate is resolved (the cell is split by it) only if, somewhere on its minority side, the logit shift it can
+     cause, |a_k·v|·max_o|Wo[t,k] − Wo[o,k]|, reaches the frozen readout margin m(v) = l_true − max_other l.
+   - It is also resolved if the margin changes sign there with a shift of at least eps·max|m|.
+   - The test points are the minority vertices plus the points where the gate cuts the cell's edges. For one gate,
+     m − shift is concave on a cell, so the vertex test bounds the whole region.
+   - All triggering gates are split at once and the children are re-tested, so the result does not depend on the
+     order. A tie (shift = margin exactly, a structural case) counts as triggering.
+2. **Scale-invariant step-2 impact.** T63/T75 used max_j|Wh[j,k]| as the weight factor, which depends on the
+   arbitrary scale of neuron j. The T84 review found this: rescaled copies moved seed 3 from 0.004 to 0.17. The weight
+   factor is now the triangle-inequality bound on neuron k's effect on the readout margin through all step-3 neurons:
+   w_k = max_o Σ_j |(Wo[t,j] − Wo[o,j])·Wh[j,k]|.
+   - A positive rescaling of any neuron (input and recurrent rows × c, recurrent and readout columns / c) leaves
+     depth_k·w_k unchanged.
+   - A first variant (effect through the step-3 neurons on at the arc point only) was tried on the dev set and
+     rejected: seed 4 had −2.4 pp clean error, because a downstream neuron that is off at the arc point gives w = 0.
+   - Two numerical fixes were needed: a relative tolerance for "vertex on the plane" (`cliptol = 1e-12`) and the
+     order-independent trigger set.
+   - **Permanent invariance test:** `rescale_test.py`, which applies a random rescaling e^U(−2,2) plus a permutation
+     of the hidden neurons. `eval85b.py` also repeats every 8th model under such a transform.
+3. **Cell re-merging between steps.** Two sibling cells that differ only in neuron k's step-t gate have downstream
+   maps that differ only through neuron k's contribution. Merging them when that contribution is below the impact
+   tolerance is *exactly* the freeze decision, so merging is already built into the impact rule.
+   - Merging non-sibling cells with equal downstream maps would need non-convex cells (unions of cones), which this
+     cone machinery cannot represent. That is not done; see the checklist below.
+
+## T85 results at rung (4,3): passes on fresh noise seeds 60-63
+
+Fresh noise seeds 60-63: 4 × 256 copies per zoo seed, σ = 0.05 absolute, never used before. Truth from exact.py. Ops
+are strict. Command: `OMP_NUM_THREADS=1 python eval85b.py`, which writes `eval85b.json`; `summary87_85b.log` is
+printed from it.
+
+| zoo seed | clean err (ratio) | noisy acc | RMSE | max | ops | **MSE ratio [CI]** | cells | max change under rescaling |
+|---|---|---|---|---|---|---|---|---|
+| 0 | +0.03 pp (0.003) | 0.882 | 0.016% | 0.07% | 55k | **0.0002** [0.0002, 0.0002] | 183 | 1e-15 |
+| 1 | +0.26 pp (0.040) | 0.723 | 0.39% | 1.9% | 42k | **0.046** [0.038, 0.053] | 114 | 1e-15 |
+| 2 | +0.01 pp (0.000) | 0.734 | 0.016% | 0.13% | 46k | **0.0001** | 161 | 3e-16 |
+| 3 | −0.24 pp (0.040) | 0.785 | 0.14% | 0.44% | 48k | **0.008** [0.007, 0.009] | 147 | 1e-15 |
+| 4 | +0.17 pp (0.032) | 0.579 | 0.79% | 5.5% | 42k | **0.15** [0.13, 0.18] | 123 | 4e-15 |
+
+- Seed 4 improves from T75's 0.25 to 0.15. Seed 3 is 0.008, and the recipe is now invariant to 1e-15.
+- Cost rose from 23-35k to 42-55k strict ops. Exact enumeration costs 18-22k strict, so on this rung the recipe is
+  still dominated by brute force.
+- The non-invariant RECIPE85 (margin rule only) was started on noise seeds 40-43. The process died after seeds 0-1:
+  ratios 0.0000 and 0.006 (`eval85_43.json`). It is superseded by RECIPE85B.
+- Region counts at (4,3): 52-72 linear regions (exact enumeration, `regions87.py`). The recipe uses 114-183 cells,
+  because the 24 half-chambers cut regions further.
+
+## T87: rung (H=4, T=4). FAILS
+
+A general-T implementation, [estT.py](estT.py), was needed:
+- cells are pointed polyhedral cones in R^T, kept in V- and H-representation;
+- clipping goes along the cone's edges (found by tight-set adjacency);
+- masses come from a pulling triangulation into simplicial cones;
+- each simplicial cone's 4-variate orthant probability uses Plackett's reduction to a 1-D integral, with fixed
+  Gauss-Legendre on a graded variable (12 nodes, or 48 if any |ρ| > 0.95).
+
+Checks:
+- The orthant rule agrees with 8e6-sample MC on 12 random cones (rms z 0.91).
+- Its worst error against a 1024-node reference is 2e-7.
+- At T = 3, estT reproduces exact.py to 1e-14 and est75's recipe to 1e-14.
+- At T = 4, its exact mode matches 1e7-sample MC on all 5 seeds (z between −0.8 and −0.3).
+
+Command: `OMP_NUM_THREADS=1 python run87.py 8`, which writes `run87.json`. The recipe was frozen T85 (eps = 0.1, impact
+rule at intermediate steps, margin rule at the last). The noisy copies are 8 per seed (noise seed 50) with 1e7-sample
+MC truth. Sampling uses 96 ops per sample.
+
+| zoo (4,4) seed | exact acc | exact cells / ops | recipe err | recipe cells / ops | MSE ratio clean | noisy acc | noisy RMSE | noisy ratio |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 0.477 | 2595 / 83M | −1.41 pp | 1550 / 55M | **459** | 0.351 | 0.70% | **91** |
+| 1 | 0.602 | 1919 / 65M | −0.62 pp | 1103 / 43M | **71** | 0.447 | 0.44% | **33** |
+| 2 | 0.602 | 1897 / 65M | −0.66 pp | 1023 / 40M | **76** | 0.451 | 0.28% | **14** |
+| 3 | 0.498 | 2207 / 65M | −0.21 pp | 1410 / 44M | **7.9** | 0.433 | 0.85% | **136** |
+| 4 | 0.602 | 1895 / 63M | −0.66 pp | 1028 / 40M | **76** | 0.516 | 0.31% | **17** |
+
+Region counts at (4,4) are ≥ 317-364 linear regions (distinct patterns among 2e6 inputs, a lower bound), against
+52-72 at (4,3). The cell count in the half-chamber framework goes from about 150 to about 2000.
+
+### What T = 4 changes (diagnosis; `diag87.py`, `diag87b.py`, `diag87c.py`)
+
+1. **An uncertified intermediate step.** At T = 4, step 3 is an *intermediate* step: its gates are frozen by the
+   impact rule, which has no margin certificate, because the readout comes one step later. That freezing causes
+   −1.30 of the −1.41 pp on seed 0:
+   - resolving the intermediate gates exactly and keeping the margin rule at the last step gives −0.106 pp;
+   - doing the reverse (intermediate impact rule, exact last step) gives −1.304 pp.
+   At T = 3 the only intermediate step was step 2, which costs little to resolve (4 strip planes through e2), and the
+   recipe resolved it almost completely.
+2. **4-D cone masses dominate the cost.** In exact mode, 74.5M of 83.2M ops go to orthant probabilities: about
+   7.5k ops per simplex against 23 for a 3-D Girard triangle. The cheaper rule (6/16 nodes, 2.6k ops per simplex)
+   gives **−0.80 pp even in full enumeration**. The triangulation produces thin, nearly degenerate simplices with
+   correlations near ±1, and there the cheap quadrature is biased. So accuracy and cost conflict directly here.
+3. **The (4,4) zoo models are bulk-error models.** Their accuracy is 0.48-0.60 (chance is 0.25). On errors the
+   median angle from the nearest class-changing boundary is 4-5.5°, against 6.4° for all inputs. On (4,3) seed 0
+   it is 0.3° against 10.7°. Only 47-56% of the error lies within 5° of a boundary, and in seeds 1, 2 and 4 all four
+   neurons are on for 59% of the errors. The premise "errors are thin wedges at the true boundaries, read by a few
+   neurons" fails: the network has not learned a clean mechanism.
+4. **Sampling gets cheaper relative to deduction.** Even exact enumeration costs 63-83M ops, about 0.7-0.9M
+   forward passes. At that budget sampling's RMSE is 0.07%, so any approximate recipe must be accurate to below
+   about 0.07 pp. Exact enumeration (error ≲ 1e-4, against 1e7 MC) does pass the MSE criterion, but it is brute force
+   and its cost tracks the region count.
+
+### Exhaustion checklist (rule 5) for the T87 failure
+
+| # | attempt | result |
+|---|---|---|
+| F1 | smaller eps (0.01) at all steps | −0.105 pp at 70M ops: ratio ≈ 3 on seed 0, fails |
+| F2 | resolve intermediate steps exactly, margin rule at the last step | −0.106 pp at 71M ops: fails, about 3× |
+| F3 | cheaper orthant quadrature (6/16 nodes) | 2.9× fewer mass ops but −0.80 pp bias even in full enumeration: fails |
+| F4 | F2 + F3 | −0.73 pp at 32M: ratio 71, fails |
+| F5 | full enumeration, accurate orthants | passes (ratio < 0.04), but this is brute force with cost ∝ regions; it does not meet the owner's criterion 3 |
+| — | not tried | (a) a margin certificate propagated through the remaining steps for intermediate gates (bound the downstream logit change of a frozen gate by a product of |Wh| over the later layers); (b) closed-form spherical-tetrahedron volumes in S^3 (Murakami / Schläfli dilogarithms) or the thin-wedge fibre integrals of T73, to make 4-D masses cheap *and* exact; (c) families defined as the O(T²) class regions instead of the T!·2 chamber halves (the chamber count alone grows 24 → 96 → 7M at T = 10); (d) better-trained (4,4) models (T86) to test whether the failure is about T or about undertraining; (e) true re-merging with non-convex cells |
+
+## Cost law (stated, and tested on the two rungs)
+
+Cost per model ≈ (number of half-chamber families) × (cells per family) × (cost per cell).
+
+| factor | how it grows | (4,3) | (4,4) |
+|---|---|---|---|
+| half-chamber families | 2·T!·2 | 24 | 96 |
+| cells per family | 2^(resolved gates); the impact/margin rules resolve most cutting gates on these small models | ≈ 5-8 | ≈ 11-16 |
+| cost per cell | clips O(m·d) and adjacency O(m²·f), plus masses: 23 ops per triangle at d = 3, 1.4-7.5k ops per simplex at d = 4 | — | — |
+| total cells, recipe / exact | — | 114-183 / ≈ 150-200 | 1000-1550 / 1900-2600 |
+| ops, recipe / exact | — | 42-55k / 18-22k | 40-55M / 63-83M |
+| regions | — | 52-72 | ≥ 317-364 |
+| sampling RMSE at the recipe's ops | — | ≈ 2-3% | ≈ 0.07% |
+
+- **[measured]** On both rungs the recipe's cell count is 50-100% of the full cell count (57-89% of the cutting gates
+  are resolved). Its cost therefore tracks the region count, not neurons × steps.
+- **[measured]** The masses add a factor of about 300 per cell going from d = 3 to d = 4.
+- **[inferred]** As built, the cost law is not polynomial: both the family count (T!) and the cells per family grow
+  with the number of regions. Criterion 3 is **not met**. Reaching it would need items (a)-(c) of the checklist:
+  certified freezing of intermediate gates, exact cheap masses, and O(T²) class-region families.
+
+## Claims (T85/T87)
+
+- [measured] RECIPE85B passes rung (4,3) on fresh noise seeds 60-63 for all 5 seeds (MSE ratio ≤ 0.15). It is
+  invariant to positive neuron rescalings and permutations to 1e-15, and the invariance test is now part of the
+  evaluation.
+- [measured] The frozen recipe fails rung (4,4) on every seed, clean (7.9-459) and noisy (14-136).
+- [measured] Most of the (4,4) error comes from freezing intermediate-step gates, which have no margin
+  certificate (−1.30 of −1.41 pp on seed 0). The (4,4) zoo models are 40-52% wrong, with the errors spread over the
+  sphere rather than concentrated at the boundaries.
+- [measured] At d = 4, cone masses take 90% of the ops. Cheaper quadrature biases thin simplices (−0.8 pp).
+- [inferred] The boundary-wedge account needs (i) a trained mechanism with boundary-concentrated errors and
+  (ii) cheap exact masses. (4,4) lacks (i), and our machinery lacks (ii).
+
+## Files (T85/T87)
+
+- `est75.py`: `RECIPE85`, `RECIPE85B`, `_cells_margin`, `_resolve_inv`.
+- `rescale_test.py`: the invariance test.
+- `eval85b.py`, `eval85b.json`, `summary87_85b.log`; `eval85_43.py`, `eval85_43.json` (partial, superseded).
+- `estT.py`: general-T recipe and exact mode.
+- `zoo44.py`.
+- `run87.py`, `run87.json`.
+- `diag87.py`, `diag87.log`; `diag87b.py`, `diag87b.log`; `diag87c.py`, `diag87c.log`.
+- `regions87.py`, `regions87.log`.

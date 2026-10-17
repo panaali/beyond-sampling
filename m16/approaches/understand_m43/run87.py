@@ -29,7 +29,12 @@ def run(m, with_exact):
 
 def main():
     res = {"clean": {}, "noisy": {}}
+    fn = os.path.join(HERE, "run87.json")
+    if os.path.exists(fn):
+        res = json.load(open(fn))
     for s in range(5):
+        if str(s) in res["noisy"]:
+            continue
         m = zoo(H, T, s); r = run(m, True)
         r["mc1e7"] = mc_acc(m, 10_000_000, np.random.default_rng(100 + s))
         p = r["exact"]; e = r["est"] - p

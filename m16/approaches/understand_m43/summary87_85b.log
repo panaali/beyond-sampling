@@ -1,0 +1,12 @@
+T85b at (4,3), fresh noise seeds [60, 61, 62, 63] 256
+zoo 0: clean err +0.026pp ratio 0.003 | noisy acc 0.882 rms 0.016% bias -0.003% max 0.07% ops 55167 ratio 0.0002 CI 0.0002-0.0002 cells 183 resolved 86% rescale 1.1e-15
+zoo 1: clean err +0.257pp ratio 0.040 | noisy acc 0.723 rms 0.391% bias -0.059% max 1.90% ops 41989 ratio 0.0456 CI 0.0384-0.0529 cells 114 resolved 62% rescale 1.2e-15
+zoo 2: clean err +0.007pp ratio 0.000 | noisy acc 0.734 rms 0.016% bias +0.002% max 0.13% ops 45848 ratio 0.0001 CI 0.0001-0.0001 cells 161 resolved 89% rescale 3.3e-16
+zoo 3: clean err -0.240pp ratio 0.040 | noisy acc 0.785 rms 0.139% bias -0.047% max 0.44% ops 47722 ratio 0.0078 CI 0.0071-0.0085 cells 147 resolved 71% rescale 1.3e-15
+zoo 4: clean err +0.170pp ratio 0.032 | noisy acc 0.579 rms 0.786% bias +0.236% max 5.47% ops 41703 ratio 0.1512 CI 0.1270-0.1757 cells 123 resolved 59% rescale 3.9e-15
+T87 rung (4,4): recipe = estT (T85 eps=0.1, non-invariant step weights) 
+zoo 0: exact 0.47691 MC1e7 0.47682 exact cells 2595 exact ops 83.2M | recipe err -1.411pp cells 1550 ops 55.2M ratio 459.0 | noisy x8 acc 0.351 rms 0.696% ops 40.9M ratio 90.8
+zoo 1: exact 0.60204 MC1e7 0.60199 exact cells 1919 exact ops 64.8M | recipe err -0.616pp cells 1103 ops 43.1M ratio 71.1 | noisy x8 acc 0.447 rms 0.444% ops 39.3M ratio 32.9
+zoo 2: exact 0.60177 MC1e7 0.60165 exact cells 1897 exact ops 64.6M | recipe err -0.657pp cells 1023 ops 40.4M ratio 75.8 | noisy x8 acc 0.451 rms 0.282% ops 43.1M ratio 14.4
+zoo 3: exact 0.49808 MC1e7 0.49790 exact cells 2207 exact ops 65.0M | recipe err -0.209pp cells 1410 ops 43.5M ratio 7.9 | noisy x8 acc 0.433 rms 0.851% ops 43.9M ratio 135.7
+zoo 4: exact 0.60200 MC1e7 0.60192 exact cells 1895 exact ops 63.2M | recipe err -0.664pp cells 1028 ops 39.7M ratio 76.2 | noisy x8 acc 0.516 rms 0.310% ops 43.3M ratio 17.3

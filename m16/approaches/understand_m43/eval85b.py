@@ -19,8 +19,13 @@ SEEDS = (60, 61, 62, 63)
 
 def main():
     t0 = time.time(); out = {"noise_seeds": SEEDS, "n_per_seed": N, "recipe": repr(E75.RECIPE85B), "zoo": {}}
-    rng = np.random.default_rng(999)
+    fn = os.path.join(HERE, "eval85b.json")
+    if os.path.exists(fn):                                   # resume (processes were killed on the shared machine)
+        out = json.load(open(fn))
     for zs in range(5):
+        if str(zs) in out["zoo"]:
+            continue
+        rng = np.random.default_rng(999 + zs)
         base = zoo_model(zs)
         models = [base] + [m for ns in SEEDS for m in noisy_copies(base, N, 0.05, ns)]
         rows = []; inv = 0.0
