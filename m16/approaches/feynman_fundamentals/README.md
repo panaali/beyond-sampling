@@ -840,3 +840,11 @@ caveat and unchanged floating topology limits. T20 rejects nonfinite callback
 endpoints after the reported inf/inf edge. T82 bounded polygon vertex slabs
 provide correct network-aware topology in exact arithmetic; implementation
 awaits the owner's pushed claim. No numerical work or production edits here.
+
+## Cycle 37: first-principles gate certificate alternative
+T28 exact-rank frozen-gate failure motivates an unimplemented first-mismatch
+union certificate: Cantelli from chamber moments, or conditional truncated-
+normal Chernoff bounds integrated over the second order statistic. Proof and
+falsifiers in frozen_gate_certificate.md; no claim of a useful bound or new
+engine. Also read T56 exact-lune source, confirming arc phase/complement/
+endpoint knots while retaining finite-projection and floating qualifications.
