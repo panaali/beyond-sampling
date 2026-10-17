@@ -141,3 +141,38 @@ try:
                   f"tail {o['tail']:.2f} | here {f(x['s']['var'])} [{f(x['s']['var_ci'][0])}, {f(x['s']['var_ci'][1])}] tail {x['s']['tail']:.2f}")
 except Exception as ex:
     print("sci_tao comparison skipped:", ex)
+
+# ---- extra discriminators
+from scipy.stats import mannwhitneyu, rankdata
+print("\nH=16 vs H=32 per T (5 seeds each): geo-mean gain ratio H32/H16 and two-sided Mann-Whitney p")
+for T in sorted({x["T"] for x in rows}):
+    g16 = [x["s"][A.gain] for x in rows if x["H"] == 16 and x["T"] == T]
+    g32 = [x["s"][A.gain] for x in rows if x["H"] == 32 and x["T"] == T]
+    g8 = [x["s"][A.gain] for x in rows if x["H"] == 8 and x["T"] == T]
+    if len(g16) == 5 and len(g32) == 5:
+        print(f"  T={T:2d}: H32/H16 = {np.exp(np.mean(np.log(g32)) - np.mean(np.log(g16))):.2f} (p={mannwhitneyu(g32, g16).pvalue:.3f}); "
+              f"H16/H8 = {np.exp(np.mean(np.log(g16)) - np.mean(np.log(g8))):.2f} (p={mannwhitneyu(g16, g8).pvalue:.3f})")
+
+
+def pooled(xs, kx, ky):
+    X, Y = [], []
+    for T in sorted({x["T"] for x in xs}):
+        g = [x for x in xs if x["T"] == T]
+        if len(g) < 3: continue
+        X += list((rankdata([kx(x) for x in g]) - 0.5) / len(g)); Y += list((rankdata([ky(x) for x in g]) - 0.5) / len(g))
+    X, Y = np.array(X), np.array(Y); n = len(X)
+    bs = [np.corrcoef(X[ii], Y[ii])[0, 1] for ii in (rng.integers(0, n, n) for _ in range(A.boot))]
+    return np.corrcoef(X, Y)[0, 1], np.percentile(bs, [2.5, 97.5]), n
+
+
+W = [x for x in rows if x["acc"] > A.wellacc]
+print(f"\nWell-trained (acc>{A.wellacc}) robustness, pooled within-T rank correlation [95% CI]:")
+for lab, kx, ky in (
+        ("tail from INDEPENDENT iid faces vs log Sobol gain", lambda x: x["i"]["tail"], lg),
+        ("Sobol tail vs log iid gain (no quadrature)", lambda x: x["s"]["tail"], lambda x: np.log(x["i"]["var"])),
+        ("Sobol tail vs log(Sobol/iid) = quadrature benefit", lambda x: x["s"]["tail"], lambda x: np.log(x["s"]["var"] / x["i"]["var"])),
+        ("log iid gain vs log Sobol gain", lambda x: np.log(x["i"]["var"]), lg)):
+    r, c, n = pooled(W, kx, ky)
+    print(f"  {lab:52s} n={n} rho={r:+.2f} [{c[0]:+.2f}, {c[1]:+.2f}]")
+r, c, n = spear_ci(W, lambda x: x["i"]["tail"], lg)
+print(f"  across all well-trained, iid-face tail vs log Sobol gain: rho={r:+.2f} [{c[0]:+.2f}, {c[1]:+.2f}] n={n}")
