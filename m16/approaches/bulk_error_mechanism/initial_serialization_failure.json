@@ -1,0 +1,9 @@
+{
+  "error": "ValueError('Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit')",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/bulk_error_mechanism/attribute.py\", line 70, in <module>\n    try:main()\n        ^^^^^^\n  File \"/workspace/work/recover-small_h2_910/m16/approaches/bulk_error_mechanism/attribute.py\", line 55, in main\n    result=dict(simplices=len(arrays),group_counts=dict(Counter(labels)),history_keys=histkeys,normalized_determinants={k:str(v) for k,v in sums.items()},classification_cpu=time.process_time()-tick,rules=[]);out['sets'][kind]=result\n                                                                                                                          ^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/fractions.py\", line 415, in __str__\n    return '%s/%s' % (self._numerator, self._denominator)\n                      ^^^^^^^^^^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit\n",
+  "counts": {
+    "exact_vertex_plane_checks": 570304,
+    "direct_recurrence_interiors": 8911
+  },
+  "cpu_seconds": 5.216432908
+}
