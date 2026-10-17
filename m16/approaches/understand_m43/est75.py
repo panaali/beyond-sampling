@@ -31,9 +31,17 @@ E = np.eye(3)
 
 
 # ------------------------------------------------------------------ strict-count geometry (own copies, same maths)
+DEBUG = None
+TIE = 0.0          # 1e-9 for T85b (set by est75(cliptol>0)); 0 keeps T85 as evaluated
+CLIP_TOL = [0.0]     # relative tolerance for "vertex on the plane"; 0 for T75/T85 (as evaluated), 1e-12 for T85b
+
+
 def clip(poly, n, ops):
     s = [float(n @ v) for v in poly]
     ops.add(4 * len(poly))
+    if CLIP_TOL[0] > 0:
+        tl = CLIP_TOL[0] * max(abs(x) for x in s)
+        s = [0.0 if abs(x) <= tl else x for x in s]
     if min(s) >= 0:
         return poly, []
     if max(s) <= 0:
@@ -165,7 +173,7 @@ def _cells_margin(poly, A3, Wo, truth, n_true, ops, eps, done=()):
         return [(poly, g)]
     w = np.max(np.abs(Wo[truth][None, :] - Wo), 0); ops.add(3 * len(A3))
     L = Wo @ (g[:, None] * A3); ops.add(3 * int(g.sum()) * 3)
-    best = None
+    trig = []
     for k in cut:
         sk = S[:, k]
         minority = (sk > 0) != (g[k] > 0)
@@ -183,21 +191,85 @@ def _cells_margin(poly, A3, Wo, truth, n_true, ops, eps, done=()):
             mm = _margin(L, truth, P); ops.add(len(P) * (3 * 3 + 3))
         score = np.max(sh / (np.abs(mm) + 1e-300)); ops.add(2 * len(P))
         flips = mm.min() < 0 < mm.max() and sh.max() >= eps * np.abs(mm).max()
-        if score >= 1 or flips:
-            if best is None or score > best[0]:
-                best = (score, k)
-    if best is None:
+        if DEBUG is not None:
+            DEBUG.append((tuple(done), len(poly), k, float(score), bool(flips), float(sh.max()), float(np.abs(mm).max()), float(mm.min()), float(mm.max())))
+        if score >= 1 - TIE or flips:      # ties (shift == margin exactly) are structural: count them as triggering
+            trig.append(k)
+    if not trig:
         return [(poly, g)]
-    k = best[1]; STATS["resolved"] += 1
+    # resolve every triggering gate at once (order-independent), then re-test the children
+    STATS["resolved"] += len(trig)
+    pieces = [poly]
+    for k in trig:
+        nxt = []
+        for q in pieces:
+            ins, outp = clip(q, A3[k], ops)
+            nxt += [x for x in (ins, outp) if x]
+        pieces = nxt
     out = []
-    ins, outp = clip(poly, A3[k], ops)
-    for q in (ins, outp):
-        if q:
-            out += _cells_margin(q, A3, Wo, truth, n_true, ops, eps, tuple(done) + (k,))
+    for q in pieces:
+        out += _cells_margin(q, A3, Wo, truth, n_true, ops, eps, tuple(done) + tuple(trig))
     return out
 
 
-def est75(model, ops=None, K=(4, 2), info=None, rule="arc", eps=0.1):
+def _resolve_inv(poly, A2, model, truth, n_true, ops, eps, bound=False):
+    """T85b scale-invariant step-2 rule. Like 'adaptive', but the weight factor of step-2 neuron k is its effect on
+    the readout margin through the step-3 neurons that are on at the cell's arc point: v_k = Wo diag(g3_ref) Wh[:, k],
+    w_k = max_o |v_k[truth] - v_k[o]|. Rescaling a neuron by c > 0 (input row x c, output column / c) leaves
+    depth_k * w_k unchanged, so the decision is a property of the function, not of the parametrisation."""
+    Wi, Wh, Wo = model
+    on = _arc(poly, n_true, ops)
+    ref = np.mean(on, 0) if len(on) >= 2 else np.mean(poly, 0); ops.add(3 * len(poly))
+    V = np.array(poly); S = V @ A2.T; ops.add(4 * len(poly) * len(A2))
+    g = np.zeros(len(A2)); cut = []
+    gref = (A2 @ ref > 0).astype(float); ops.add(4 * len(A2))
+    A3r = Wh @ (gref[:, None] * A2) + np.outer(Wi, E[2]); ops.add(len(A2) * int(gref.sum()) * 2)
+    g3r = (A3r @ ref > 0).astype(float); ops.add(4 * len(A2))
+    if bound:
+        # triangle-inequality bound over ALL step-3 neurons: w_k = max_o sum_j |(Wo[t,j] - Wo[o,j]) Wh[j,k]|
+        D = np.abs(Wo[truth][None, :] - Wo)                       # (classes, step-3 neurons)
+        w = np.max(D @ np.abs(Wh), 0); ops.add(3 * len(A2) * len(A2) + 3 * len(A2))
+    else:
+        Veff = Wo @ (g3r[:, None] * Wh); ops.add(3 * int(g3r.sum()) * len(A2))      # (classes, step-2 neurons)
+        w = np.max(np.abs(Veff[truth][None, :] - Veff), 0); ops.add(3 * len(A2))
+    scale = 0.0
+    tol = 1e-12 * np.abs(S).max(0)
+    for k in range(len(A2)):
+        if S[:, k].min() >= -tol[k]:
+            g[k] = 1.0 if S[:, k].max() > tol[k] else gref[k]
+            scale += S[:, k].max() * w[k] * g[k]; ops.add(1 + len(poly))
+        elif S[:, k].max() <= tol[k]:
+            g[k] = 0.0
+        else:
+            g[k] = gref[k]
+            depth = S[:, k].max() if g[k] == 0 else -S[:, k].min(); ops.add(len(poly) + 1)
+            cut.append((depth * w[k], k))
+    cut.sort(reverse=True); ops.add(2 * len(cut))
+    chosen = [k for imp, k in cut if imp >= eps * scale] if scale > 0 else [k for imp, k in cut]
+    STATS["cut"] += len(cut); STATS["resolved"] += len(chosen)
+    pieces = [(poly, g)]
+    for k in chosen:
+        nxt = []
+        for p, gg in pieces:
+            ins, outp = clip(p, A2[k], ops)
+            if ins:
+                g1 = gg.copy(); g1[k] = 1.0; nxt.append((ins, g1))
+            if outp:
+                g0 = gg.copy(); g0[k] = 0.0; nxt.append((outp, g0))
+        pieces = nxt
+    return pieces
+
+
+def est75(model, ops=None, K=(4, 2), info=None, rule="arc", eps=0.1, cliptol=0.0):
+    global TIE
+    CLIP_TOL[0] = cliptol; TIE = 1e-9 if cliptol > 0 else 0.0
+    try:
+        return _est75(model, ops, K, info, rule, eps)
+    finally:
+        CLIP_TOL[0] = 0.0; TIE = 0.0
+
+
+def _est75(model, ops, K, info, rule, eps):
     Wi, Wh, Wo = model
     ops = ops if ops is not None else Ops()
     err_by = {}
@@ -213,10 +285,13 @@ def est75(model, ops=None, K=(4, 2), info=None, rule="arc", eps=0.1):
         if rule != "arc":
             ops.add(16 + 12)
         r2 = "adaptive" if rule == "margin" else rule
-        for p2, g2 in _resolve([h["poly"]], A2, n_true, K[0], ops, r2, w2, eps[0] if isinstance(eps, tuple) else eps):
+        e2 = eps[0] if isinstance(eps, tuple) else eps
+        cells2 = _resolve_inv(h["poly"], A2, model, truth, n_true, ops, e2, rule == "margin_inv2") if rule in ("margin_inv", "margin_inv2") else \
+            _resolve([h["poly"]], A2, n_true, K[0], ops, r2, w2, e2)
+        for p2, g2 in cells2:
             A3 = Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2]); ops.add(4 * int(g2.sum()) * 2)
             e3 = eps[1] if isinstance(eps, tuple) else eps
-            cells3 = _cells_margin(p2, A3, Wo, truth, n_true, ops, e3) if rule == "margin" else \
+            cells3 = _cells_margin(p2, A3, Wo, truth, n_true, ops, e3) if rule in ("margin", "margin_inv", "margin_inv2") else \
                 _resolve([p2], A3, n_true, K[1], ops, rule, w3, e3)
             for p3, g3 in cells3:
                 STATS["cells"] += 1
@@ -246,3 +321,6 @@ RECIPE = dict(K=(4, 4), rule="adaptive", eps=0.1)
 
 # T85 recipe at rung (H=4, T=3): step 2 as T75 (adaptive impact), step 3 margin-aware (frozen before fresh seeds 40-43)
 RECIPE85 = dict(K=(4, 4), rule="margin", eps=0.1)
+
+# T85b: scale-invariant step-2 impact + margin-aware step 3 (frozen before fresh noise seeds 60-63)
+RECIPE85B = dict(K=(4, 4), rule="margin_inv2", eps=0.1, cliptol=1e-12)
