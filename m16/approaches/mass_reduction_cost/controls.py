@@ -4,6 +4,12 @@ from fractions import Fraction
 import ctypes as C,hashlib,itertools,json,math,sys,time
 import numpy as np
 HERE=Path(__file__).resolve().parent
+class SavedRows(list):
+ def __init__(self,path):
+  super().__init__();assert not path.exists();self.path=path
+ def append(self,row):
+  super().append(row)
+  with self.path.open('a') as f:f.write(json.dumps(row)+'\n')
 
 def enc(x):return float(x).hex()
 def same(a,b):return (math.isnan(float(a)) and math.isnan(float(b))) or enc(a)==enc(b)
@@ -49,7 +55,7 @@ def fmaref(a):
 def main():
  out=HERE/'controls.json';assert not out.exists()
  protocol=json.loads((HERE/'protocol.json').read_text());assert hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==protocol['controls_sha256']
- start=time.process_time();rows=[];fail=[]
+ start=time.process_time();rows=SavedRows(HERE/'control_progress.jsonl');fail=[]
  patterns=[[0.0],[-0.0],[1.0,-1.0],[1e16,1,-1e16,1],[math.pi,-math.pi,2**-52,1],[1e-200,-1e-200],[1e100,-1e100,1],[float.fromhex('0x0.0000000000001p-1022'),-0.0],[math.inf,1], [math.nan,1]]
  with np.errstate(all='ignore'):
   for shape in [(4,),(7,),(8,),(128,),(1000,),(1000,4)]:
@@ -65,7 +71,7 @@ def main():
     a=np.roll(base,rot);expected=math.sqrt(fmaref(a));actual=np.linalg.norm(a);ok=same(actual,expected)
     rows.append(dict(kind='norm4',pattern=j,rotation=rot,input=[enc(x) for x in a],value=enc(actual),reference=enc(expected),ok=ok))
     if not ok:fail.append(len(rows)-1)
-  bases=[list(map(float,np.resize(p,6))) for p in patterns]+[[1e16,1,1,-1e16,1,1],[1.0,2**-53,2**-53,-1.0,2**-100,-2**-100]]
+  bases=[list(map(float,np.resize(p,6))) for p in patterns]+[list(map(float,a)) for a in [[1e16,1,1,-1e16,1,1],[1.0,2**-53,2**-53,-1.0,2**-100,-2**-100]]]
   for j,base in enumerate(bases):
    for rot in range(6):
     a=base[rot:]+base[:rot];assert all(type(x) is float for x in a);expected,branches,c=pysumref(a);actual=sum(a);ok=same(actual,expected)

@@ -17,7 +17,7 @@ def main():
  nb=base(NP);bb=base(BL);get=C.pythonapi.PyCapsule_GetPointer;get.argtypes=[C.py_object,C.c_char_p];get.restype=C.c_void_p
  rows=[]
  for stride in [8,24]:
-  dtypes,cap=np.add._resolve_dtypes_and_context((np.dtype('d'),)*3,reduction=True)
+  dtypes,cap=np.add._resolve_dtypes_and_context((np.dtype('d'),np.dtype('d'),None),reduction=True)
   np.add._get_strided_loop(cap,fixed_strides=(0,stride,0))
   info=Info.from_address(get(cap,b'numpy_1.24_ufunc_call_info'));legacy=Legacy.from_address(info.aux)
   offset=legacy.loop-nb;assert offset in [0x5462e0,0x356fa0]
