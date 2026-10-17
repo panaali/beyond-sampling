@@ -1356,3 +1356,14 @@ whereas0.159435460758 uses each model's integer budget: both reproduce without
 changing estimates. Saved-truth/conditional-bootstrap and incomplete native,
 setup/control/memory/runtime qualifications remain. No full population or
 per-copy universal claim is supported. No evaluator calls were repeated.
+
+### Capped ideal-bound order selection
+
+`check_chebyshev5_selection_review.py` checks every one of400 saved decisions,
+including84 exact cached records and316 new bounds, complete failed-prior-order
+coverage, directed formula intervals, exact child sums and predicted proxy
+costs. All eleven split groups reach the ideal1e-10 target by order30. Six
+original groups qualify; all five wide original groups remain capped at64.
+All eight stopping/unknown controls passed. No quadrature was evaluated:
+selected orders and source proxies are predictions, with range/partition advice,
+rule setup, native costs and source floating errors still separate.
