@@ -23,3 +23,5 @@ Denominator error may be negligible, or source covariance construction/quadratur
 
 ## Failure modes
 Non-SPD/asymmetric/zero radicand and insufficient sqrt precision must remain unknown. Exact source matrix differs from its intended real covariance; libm and quadrature remain outside.
+
+First12 control attempt b279ad68 retained:9 saved,3 serialization failures after the mathematical and diagnostic assertions passed. Python4300-digit conversion limit prevented storing the exact angle bounds. Only those3 failed records are queued for a separately pinned retry with unrestricted integer-string serialization; no primitive or fixture change and no rerun of the9 completed controls. This is an implementation failure, not evidence against the angle theorem.
