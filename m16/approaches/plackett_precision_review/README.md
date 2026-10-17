@@ -47,11 +47,32 @@ and geometric uncertainty. No new positive-rule integration is needed.
    preserve the failure and do not silently repair the model/formula.
 
 ## Status
-Protocol frozen before implementation. Independent source/control review
-required before fixture evaluation.
+Bounded fixture evaluation complete; independent result review pending.
+T55 reviewed formula, exact binary lifting, guards and controls before the
+fixture, then acknowledged the corrected branch protocol.
 
 ## Results
-Pending. This is one bug fixture, not a full mass or accuracy estimator.
+The corrected source uses rmax=.9418468705031257 (<.95), determinant
+1.744646238739237e-9 (>1e-12), and therefore wide12/power2.
+
+| Evaluation | Probability | Change from source |
+| --- | ---: | ---: |
+| Original float source | -4.803771250228017e-7 | 0 |
+| MP rounded C, rounded rule | -4.803771250093878e-7 | 1.34139331533e-17 |
+| MP exact-ray C, rounded rule | -4.803771249943949e-7 | 2.84067988561e-17 |
+| MP exact-ray C, ideal GL12/power2 | -4.803771249879328e-7 | 3.48689759559e-17 |
+| Existing positive reference | 1.473096100363147e-11 | 4.80391855984e-7 |
+
+All three MP arms remain negative. Increasing arithmetic precision and
+reconstructing C and the same-order rule changes the result by only about
+3.49e-17, versus the 4.80e-7 reference discrepancy. Thus finite quadrature
+error dominates this fixture. Maximum 80/100-digit difference is3.59e-82;
+that is stability evidence, not a formal MP rounding certificate. No source
+asin clipping or denominator floors activate on this fixture.
+
+The max-pair-correlation threshold does not protect this example. This is
+one posthoc bug fixture, not a distributional result, a full estimator, or
+a rejection of Plackett integration with a different rule or error control.
 
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per phase. Count all correlation and
@@ -63,7 +84,8 @@ source edits, fitted tolerance or noisy-model sweep.
 ## Claims
 [inferred] Holding nodes/covariance fixed separates rounding from finite-rule
 error for that frozen numerical expression.
-[speculative] Finite-rule error is the dominant cause of this negative mass.
+[experiment] Finite-rule error dominates this frozen negative fixture;
+arithmetic/covariance/node rounding accounts for only about3.49e-17.
 
 ## Alternatives not ruled out
 Different quadrature rules/transforms, positive integration, certified error
@@ -82,3 +104,10 @@ freezes the actual source wide12/power2 branch. `rule_metadata.json` records
 the source rmax, determinant guard and all original rounded nodes, weights
 and Jacobians before the corrected fixture run. No numerical attribution
 was made from the failed setup.
+
+Corrected fixture CPU .156275s; metadata .011473s. The six MP arm evaluations
+(three each at80 and100 digits) used72 transformed inversions/nodes,468
+arcsines,72 positive-definiteness checks, two exact-ray covariance inversions
+and two ideal-rule constructions. Float diagnostic adds12 inversions; the
+source replay retains its1980 named operations. These are review costs,
+not production-cost savings.
