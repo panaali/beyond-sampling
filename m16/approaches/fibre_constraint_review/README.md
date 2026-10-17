@@ -77,3 +77,46 @@ from an explicit error budget, and higher-dimensional fibre formulations.
 Wrong interval topology after omission, inherited fixed tolerances/caps,
 false confidence from one seed, proxy undercounting, and an angular cap whose
 accuracy improves only by spending more than the original recipe.
+
+## First cycle results
+[measured] All3 constant-label controls pass to1e-10 in all four modes.
+Deferred-but-retained order constraints reproduce the unmodified fast recipe
+exactly on both trained models and all controls. The limited omission also
+preserves the two trained estimates at printed precision while lowering proxy
+cost by3.81%/4.15%. This is a scoped small gain, not the suggested62% overall
+reduction: only one specific ordering call was removed on correct pieces.
+
+| Model | Numerical truth | Reference estimate | Omission estimate | Reference / omission proxy ops | Capped proxy ops |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| H4T3 seed0 | .9845503813585573 | .9845554916788959 | .9845554916788959 | 211218 / 203164 | 439885 |
+| Same seed, first relative.02 copy | .8593001113320059 | .8595162512889670 | .8595162512889670 | 214688 / 205775 | 416801 |
+
+The angular-cap rescue retains the same estimates but more than doubles
+reference traces (1283/1266 versus445/475) and raises cost. It is not selected
+as the default. Omission drops306/285 calls (702/497 candidate pairs), reducing
+traces to434/455 and retained constraints to8746/8389. Deferred mode costs an
+extra970/998 local decisions, which are charged. All methods' output scaling
+checks at1e-8/1e8 agree within1e-12; full artifact preserves exact differences.
+
+Whole phase3.355113876CPU including imports/setup,202376KiB RSS, no random
+model inputs. Reference polygon accuracy on the original matches the pinned
+ladder artifact. The source m43.py eagerly reads its baseline weight NPZ;
+initial import failed because this dependency was missing from our snapshot.
+No numerical model test ran in that attempt; its CPU was not measured. The
+unchanged dependency was copied and hashed, while all evaluations still take
+the explicit frozen models. This setup overhead is not silently treated as0.
+
+Reproduce from the research worktree after downloading the checkpoint URL in
+source_manifest.json to /workspace/work/t99_checkpoints/H4_T3_seed0.pth:
+
+```sh
+ulimit -v 2500000
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/fibre_constraint_review/pilot.py
+```
+
+[inferred] The small initial gain justifies a fixed broader discriminator;
+it does not establish safe omission of other ordering calls. Full H4/H5/H6
+seed/noise panel and independent review remain required. The constant cases
+are correctness controls, not representative cost measurements. Proxy MSE
+ratios in pilot.json omit uncharged setup/special-function details and are
+not portable leaderboard results or rung passes.
