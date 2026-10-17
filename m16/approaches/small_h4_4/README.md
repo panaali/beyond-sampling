@@ -53,3 +53,21 @@ The .0025 model used one16-node positive fallback at GL4 and one at subdividedGL
 
 ### Cycle 5 protocol: independent cone reference
 Reuse the T48 generic geometry implementation (read-only import, source bytes and SHA captured at import) and this folder's positive R4 volume primitive. No new cone engine. On the same original and two noisy models, enumerate all gate regions, clip exact winning/rank inequalities, and compare GL12/16/20 cone masses. Independently integrate the complete gate partition with GL16; check determinant sum16, same-orthant/L1 ray conditions, and one direct affine-map check per gate region. Record all hull/clip/omission counters and any moment/geometry failures. The analytic quadrature bound is conditional on correct floating geometry/arithmetic. No exact/solved label until independent geometry review. Alternative explanations: duplicate/missing regions can bias every quadrature order (partition/affine checks); model accuracy agreement can be accidental while ties are wrong (zero-logit and scaling checks follow after base cycle). CPU cap115 seconds, one thread, global lock.
+
+### Cycle 5 result: stable cone reference
+`python m16/approaches/small_h4_4/cone_reference.py /path/H4_T4_seed0.pth --geometry /path/small_h2_56/geometry.py` under the common lock/thread/memory settings reproduces `cone_results.json` with geometry SHA1e80b004aa6931de78b2e7e7bbb2212f37be3325a8c7ee176aaf2bce17b0194e (T48 da5cb18 source). All three models and three accuracy integration orders plus full-gate partition checks finished in20.06 CPU seconds.
+
+| Noise | GL20 accuracy | Integration-only bound | Geometry + GL20 CPU |
+|---|---:|---:|---:|
+| 0 | 0.4770131259941187 | 2.705e-8 | 4.44s |
+| .0025 | 0.5014929079254982 | 2.821e-8 | 4.52s |
+| .02 | 0.3638126426226527 | 2.095e-8 | 3.62s |
+
+GL16 and GL20 differ by at most3.4e-15; GL12-to-GL20 differences are below8.7e-12. Full-gate Gaussian partition sums differ from1 by at most2.3e-13, determinant sums equal16, affine-map checks differ by at most2.7e-14, and ray L1 deviations are at most4.5e-16. There were zero discarded degenerate pieces, zero determinant omissions, and zero whitening retries. Geometry costs above include full-gate triangulation and affine validation, making those CPU figures conservative for the estimator itself; extra accuracy orders and partition integrations are validation costs and remain reported separately.
+
+[measured] The same code handles the original and two independent noisy copies without changing integration settings. [inferred] This is a strong small-case candidate: finite integration bounds are far below equal-CPU sampling uncertainty. [unverified] Floating geometry has not received independent T52 review, so neither total-error certification nor a solved label follows yet.
+
+The independent cone reference reveals final angular biases of-3.04e-5/-1.25e-5/-7.87e-6. These are smaller than equal-CPU sampling standard errors for that particular refined angular rule, but the cone method is both more accurate and faster here. Numerical outer quadrature remains a distinct method class.
+
+### Cycle 6 protocol
+Package the fixed-order cone estimator with the standard tuple interface, explicit ignored-budget/CPU-cost limitations, and no random input use in its estimate. Verify zero/identical output-row tie ownership, Wi/Wo scale factors1e-16, and full-gate mass/determinant invariants on these controls. Reuse pinned generic geometry read-only; no changes to T48. No acceptance claim before root's independent review.
