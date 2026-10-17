@@ -18,3 +18,27 @@ adjacent-tolerance bitwise controls support only their declared coverage.
 The initial slower controls remain preserved. A fixed64-cone pilot may
 measure CPU effects, but neither FLOP savings nor family failure follows
 from these controls. No model evaluation or expensive pilot was repeated.
+
+## Isolated scalar-power rescue and fixed pilot
+
+The frozen attribution compares every intermediate on the same9309
+triangles. Only seven squared projections differ: Python float power and
+NumPy square round differently. `check_radial_pow_review.py` independently
+reproduces all seven projections/power discrepancies and verifies the
+hybrid radial tuple equals the original scalar tuple for each. The adapter
+asserts the old selector hash and replaces exactly one radial setup
+expression, retaining every guarded order decision and adding160 units
+per triangle. Batch reduction equivalence remains finite-panel/platform
+specific. Reviewer initial length-one-array float conversion failure is
+preserved and repaired by explicit element indexing.
+
+The unchanged64-cone pilot has identical complete rows/stats. Independent
+raw timing medians are.357795772 baseline and.351168585 rescue, ratio
+.981477738 (1.85% decrease); this small fixed local timing effect is not a
+portable speed guarantee. Named conservative allowances increase from
+265,021,914 to272,830,302, independently summed from their parts. All3641
+fallbacks and58256 positive nodes remain; partial mass is unchanged at
+.003088193770479861. Initial scalar-radial guarded18.2% slowdown and seven
+radial failures remain preserved. No full integral, accuracy gain or FLOP
+improvement is established, and this result does not exhaust other batch
+implementations. Review reproduction plus raw audit costs.0185CPU.
