@@ -115,3 +115,12 @@ Python/NumPy's internal reduction/power implementation, vectorization, and
 branch machinery are not thereby certified; these are additional native
 implementation qualifications, alongside LAPACK and memory. Source diagnostic
 Ops/STATS accounting is excluded, while actual integer decisions are retained.
+
+Independent owner56 read-only review of1ed0d55 found no numerical blocker
+to the eight trained batches: ordered-ray callbacks, native dense/reduction
+counts and original source semantics are preserved. Specific missing
+control categories remain explicit in `unpriced_control_sites.json`:
+membership/identity comparisons, set/hash/tuple searches, Boolean short
+circuit machinery, implicit loops and dispatch. These are not free in any
+whole-implementation claim. The reviewed inventory is a common abstract
+expression convention with opaque categories, not a portable total.
