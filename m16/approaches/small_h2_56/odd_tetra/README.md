@@ -63,3 +63,11 @@ Reproduce from the repository root:
 ulimit -v 2500000
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_h2_56/odd_tetra/full.py
 ```
+
+## Independent adversarial review
+T55 review f07fc00 uses asymmetric coalescence toward p=(.8,.05,.05,.05,.05), where the perpendicular foot lies outside the tetrahedron and signed boundary terms cancel. Independent 70-digit positive original-domain GL12 agrees within 8.95e-13 on accepted epsilon .01/.001 cases; all five smaller cases trigger positive fallback and agree within 3.42e-16. The reviewer checked signs, Jacobians and the fallback factor. This strengthens numerical evidence but does not certify floating error.
+
+## Frozen fixed-tangent optimization
+The outer endpoints are u*v0+(1-u)*vi, i=1..4. Their three edge directions span a fixed subspace for each cone. Compute one thin QR and condition diagnostic per cone; express all endpoints in this common tangent basis and a perpendicular coordinate delta. Same-orthant signed-L1 normalization implies delta>=1/sqrt(5). Face cross products and the edge determinant can be computed once per cone, replacing repeated QR and sixteen cofactor determinants. Retain the old implementation and positive fallback unchanged for validation.
+
+Alternative1: the fixed-frame sign or powers of (1-u) can be wrong despite regular-shape agreement; compare against the old primitive on identity, reflected/permuted and deterministic trained pilot cases at both frozen orders8/16. Alternative2: removing per-node SVD can miss thin configurations; use an explicit conservative lower bound on singular ratio based on the block inverse Frobenius norm, and compare fallback classifications and asymmetric coalescence. No trained full runs until these controls pass. Outer orders and allocated inner budget remain unchanged. Count setup operations separately and retain all rejected attempts; no complete-FPE claim until the geometry/library audit is done.
