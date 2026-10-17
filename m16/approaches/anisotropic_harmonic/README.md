@@ -123,3 +123,23 @@ copy and report squared-error times actual cold CPU, both each model and
 aggregate; this compares implementations, not a portable operation benchmark.
 Do not retune the fixed N8/M4 choice on these copies. Independent review must
 check any apparent improvement and remaining alternatives before handoff.
+
+Existing-copy validation (`existing_copies.py`) retains all nine results:
+fixed N8/M4 RMSE.00204479, corrected isotropicD8 RMSE.00483270; mean cold
+CPU.03466 versus.04844 seconds. Every supported error is smaller, but the
+aggregate ratio of error_squared*CPU is.1275 (about7.84x improvement), below
+the task's10x target. This proxy compares sampling-normalized efficiency
+within implementations; it is not actual equal-budget performance, since
+repeating deterministic estimates does not remove bias. N4/M4 and N16/M4
+base errors are-.00201495 and-.00199131, so increasing normal degree beyond
+this range does not resolve the remaining defect. The unchanged N8/M4 rule
+was not selected from the noise-copy outcomes.
+
+Next distinct premise test, frozen before runs: the original leakage account
+concerns accurate networks whose decisions nearly match true tie planes.
+H2T3 accuracy.41017 is a weak test of that premise. Use the existing ARC
+H4T3 base weights and exact accuracy.9845503813585573, with fixed N8/M4,
+N16/M4, and corrected isotropicD8 only. No new parameter/input sampling or
+retuning. If support helps this near-tie case, report its scope; if not,
+retain tangential/bisector/gate leakage alternatives. T55 independent
+measure/partition/code review requested before any acceptance claim.
