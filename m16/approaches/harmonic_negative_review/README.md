@@ -91,3 +91,22 @@ Compare all three at degrees2/4 against stored eval_T3.json and its existing
 truth/se; do not draw new accuracy samples. Direct cut controls use degrees2/4/8.
 The fixed all-zero and duplicate-readout models must have accuracy1/3 under
 first-index argmax. A failure is recorded rather than silently repaired.
+
+## Follow-up falsifier, frozen after first controls
+The first run agrees with the author on all six trained estimates, but both
+constant-readout controls return .9375 instead of1/3. Source inspection separates
+two effects: zero margins are accepted for every candidate class; and the six
+separately projected root cells have total mass .9375 at D2. Freeze a <=30CPU
+follow-up at the same degrees/models: fix first-index zero margins in an isolated
+in-memory copy, then additionally rescale each model-free root density to its
+known1/6 mass. No shared/author edits. This is a diagnostic variant, not an
+unreported replacement of the original estimator. Record both adjustments and
+test constant readout again. Independently compute root total with Legendre
+addition theorem:6*[1/4+sum_odd_l<=(D)(2l+1)lambda_l² P_l(-1/2)].
+
+Record all encountered zero margin queries, gate-map branch counts and the
+missing dense matrix-product arithmetic in original accounting. Any cost
+correction remains partial: special functions/comparisons/norms and Python
+overhead are not fully audited. A model-free root normalization can repair the
+constant control without repairing subsequent truncation, so keep the observed
+accuracy/bias and do not infer general validity from mass conservation.
