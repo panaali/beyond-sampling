@@ -1083,3 +1083,24 @@ The unchanged saved k29 audit also verifies seed 3: all 1,024 models / 2,048
 ledgers, named ratios 0.01427027773 and 0.003912709337, no individual losses.
 Final seed 4 and clean/global coverage remain pending.
 
+### Shared-wedge remainder and clean k29 saved audit
+
+`check_prefix_wedge_review.py` checks the complete 198 occurrence/rank pairs,
+77 zero-state forms and exact positive-proportional shared gate inequality for
+all 14 feasible faces. It independently checks rational square-root endpoints,
+180-digit constants and the exact k=1 probability 11/384. The trained rational
+k is 46092239187787/160024756224. The outward event bracket is
+[0.0001359524278442906, 0.00013595326039030626]. Conditional on the previously
+reviewed exhaustive face proof, its upper endpoint bounds disagreement with
+the reset-limit network on the negative-prefix/positive-target sector only.
+The positive lower event bound is not a lower bound on actual disagreement.
+No forward calls, new quadrature or full-model accuracy claim are made.
+
+`check_k29_clean_review.py` independently checks all five clean checkpoint
+identities, ten complete native site ledgers, baseline parity, saved truth
+provenance and per-model integer-budget arithmetic. The largest clean named
+ratio is 0.0893267894 for r85b; r112 seed 3 has error -0.0003392190027 and ratio
+0.00189693251, while its other clean errors are at roundoff scale. These are
+finite numerical-source comparisons, not complete cost or population claims.
+The final noisy seed and global 5,120-model coverage remain pending.
+
