@@ -137,3 +137,13 @@ verification of trained certificates is requested before interpreting the
 negative. Future mass attribution of rank-conditioned certified regions is a
 separate scope, potentially reusing existing T110/T68 decompositions. This
 result does not rule out those conditioned or approximate mechanisms.
+
+## Frozen continuation of the original selected panel
+After independent audit of phase1, finish only the previously selected ten
+histories in one additional phase capped240 LP calls/20CPU. Preserve panel.json
+unchanged and write panel_phase2.json. Reuse completed systems/pairs, retain
+original system indices, and restart only the one incomplete pair (charge that
+small repeated work). No new selected gate, parameter, model or acceptance rule.
+Report original240 calls plus continuation calls and both CPU totals; historical
+selection/controls remain separate costs. This completes the original diagnostic
+panel without implying stronger mass or estimator claims.
