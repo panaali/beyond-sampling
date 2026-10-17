@@ -104,3 +104,52 @@ finite Fourier exponentials/sincs in the moment recurrence. Special-function
 counts are at the Python-level API, excluding internal LAPACK implementations.
 This overhead may outweigh the nodes saved on small cases; trained-model cost
 comparison and vectorization remain essential before claiming an advantage.
+
+## Batched signed-L1 geometry and degree1..3 moments
+
+For signed-L1 endpoints build an orthonormal tangent basis t1,t2 from B-A,C-A
+by modified Gram-Schmidt. Let A_perp=A-(A dot t1)t1-(A dot t2)t2 and
+delta=||A_perp||. In these coordinates all three endpoints have coordinate0
+equal to delta. Their plane normal is (1/delta,0,0), and the determinant is
+delta times the area of the tangent parallelogram. Because the original sign
+vector has endpoint dot product1, delta>=1/sqrt(d). Thus this construction
+avoids QR, SVD, a solve, and a separate axis rotation. The two tangent lengths
+still need a degeneracy check.
+
+Order vertices with positive determinant, and let each edge have angle theta,
+inward unit conormal n, outward coordinate nu0=-n0, and endpoint coordinates
+a=omega_start,0, b=omega_end,0. The arc integrals are
+
+    I0 = theta,
+    I1 = (a+b)*tan(theta/2),
+    I2 = alpha^2*(theta+sin(theta))/2
+         + beta^2*(theta-sin(theta))/2,
+    alpha=(a+b)/(2*cos(theta/2)), beta=(b-a)/(2*sin(theta/2)).
+
+The symmetric-midpoint form of I2 has positive terms. For theta<.1, evaluate
+theta-sin(theta) using its alternating series through theta^11; the omitted
+remainder is at most theta^13/13!. The implementation propagates this tiny
+real-arithmetic truncation bound through the moment and affine prefactors,
+reporting a sum and maximum for accepted analytic triangles. It is not hidden
+inside a claim of exact arithmetic, and it does not bound floating roundoff.
+
+The required moments are M1=-sum(nu0*I0)/2,
+M2=(M0-sum(nu0*I1))/3, M3=(2*M1-sum(nu0*I2))/4. M0 is the ordinary spherical
+solid angle. NumPy vectorization applies these fixed formulas to whole batches.
+
+The default screen rejects tangent ratios below1e-5, violations of positive
+integral bounds, or a heuristic32*machine_epsilon*sum_absolute_terms/abs(moment)
+above1e-10. This is an explicit heuristic, not an interval proof. All rejected
+triangles use the positive original-domain fallback, whose scalar loop can
+still dominate an application with many thin triangles. Metadata supplies
+the maximum fallback quadrature error as well as its sum; callers must combine
+it with their positive outer weights. Use chunks rather than unbounded batches.
+
+Symmetric width sweeps were near roundoff, but the adversarial asymmetric
+near-corner sweep exposed relative errors up to5.14e-11 in accepted analytic
+values. These are preserved. The ordinary4096-triangle benchmark is therefore
+a throughput illustration, not evidence of uniform2e-15 accuracy or proof of
+full-model efficiency. The parent reviewer also identified a further option:
+for endpoints P+r*v_i, the tangent basis can be precomputed once per original
+cone, and r^2 in the determinant cancels matching outer Duffy factors. This
+is not implemented in the current generic batch API.
