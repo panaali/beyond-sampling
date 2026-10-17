@@ -57,7 +57,11 @@ def controls():
         mass=[sum(engine.mass(h['cone'],ops) for h in hs if h['truth']==j) for j in range(4)]
         assert max(abs(v-.25) for v in mass)<1e-8
         m=(np.array([1.]),np.zeros((1,1)),np.zeros((4,1)))
-        run=partial_run(m,kind,'exact',cpu=15);assert run['complete'] and abs(run['estimate']-.25)<1e-8
+        run=partial_run(m,kind,'exact',cpu=15)
+        if not run['complete'] or abs(run.get('estimate',0)-.25)>=1e-8:
+            out['failed_control']=run;out['cpu_seconds']=time.process_time()-start
+            (HERE/'initial_control_failure.json').write_text(json.dumps(out,indent=2)+'\n')
+            raise AssertionError('Constant-label control failed; preserved full partial ledger')
         out['rows'].append(dict(kind=kind,families=len(hs),class_masses=mass,total_mass=sum(mass),constant_label_estimate=run['estimate'],named_ops=ops.n+run['named_ops']))
     out.update(complete=True,cpu_seconds=time.process_time()-start,import_cpu=IMPORT_CPU)
     (HERE/'controls.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out,indent=2))
