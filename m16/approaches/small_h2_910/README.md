@@ -337,3 +337,36 @@ batching is assessed. Next work is independent review/reference clarification,
 method classification and arithmetic accounting, not declaring the closest
 coarse number successful. T50 remains active; T54's local checkpoint deliverable
 has separately been registered complete by root.
+
+## Independent reference update
+Root independently evaluated 2^20 iid inputs with seed52010:166674 correct,
+accuracy .1589527130126953, SE .0003570624847954, 95% interval
+[.15825287,.15965256], .403CPU seconds. This is validation only. Grid9 cubic V
+and W lie near the interval's lower edge, while linear variants remain biased.
+Neither closeness nor agreement certifies interpolation accuracy; all variants
+and their range violations remain reported. No further MC is planned here.
+
+## T59 protocol: terminal geometry batching, frozen before implementation
+Question: how much repeated geometry can be removed without changing any
+terminal probability? Root claimed and pushed T59 in50cff08. Implement only in
+this folder, reading T55 helpers without editing them. Cache one-/two-fresh-input
+gate complexes by hidden state. For early target positions, cache readout-clipped
+polygons by hidden state and target index; the target threshold and rank count
+then require only rank clipping and moments. For late target insertion, cache
+its threshold-dependent gate/readout complex, sharing it across both counts.
+Compute gate partition masses once per distinct complex. Preserve scalar region
+and rank-condition summation order and first-index ties. Model-specific caches
+are charged construction, never free advice.
+
+Two alternatives and falsifiers: (1) changing clipping order or missing b-dependent
+late-target gates may silently alter probabilities. Compare96 fixed scalar and
+batch queries spanning origin/axes/interior, b=-1/0/1, both counts and target
+positions0/5/8/9; then compare all5832 existing grid9 terminal values, requiring
+absolute differences <=1e-12. (2) gate reuse may leave weighted moments dominant,
+so count every build and query clip/product/moment/fallback, construction CPU,
+query CPU and cached-object sizes; report full cost rather than warm queries.
+Include a constant-readout tie check and absorbed count2. No larger grid, no new
+MC, no interpolation changes or solved claim. Use one bounded <=120CPU cycle;
+stop and preserve partial results if the deadline is reached. Tests use no random
+model inputs. Any later interpolation evaluation reuses the same values and does
+not constitute a new accuracy result.
