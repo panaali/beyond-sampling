@@ -63,7 +63,7 @@ def main():
                         u,w=other;p1=dot(u,u)*norm-dot(u,n)**2;q=dot(w,w)*norm-dot(w,n)**2;b=dot(u,w)*norm-dot(u,n)*dot(w,n);rad=p1*q-b*b
                         assert p1>0 and q>0 and rad>=0 and f['projected_norm_products']==[p1,q] and f['projected_dot']==b and f['angle_radicand']==rad
                         count.update(mul=8,sub=4)
-                        prob=mp.acos(-mq(b)/mp.sqrt(mq(p1*q)))/(2*mp.pi)
+                        prob=(mp.mpf(0) if b<0 else mp.mpf(".5")) if rad==0 else mp.acos(-mq(b)/mp.sqrt(mq(p1*q)))/(2*mp.pi)
                     term=mq(vn)*prob/mp.sqrt(2*mp.pi*mq(norm));expected+=term
                     close(r['value200']['terms'][j]['probability'],prob);close(r['value200']['terms'][j]['contribution'],term)
             assert dict(count)==c['counts'],(r['id'],count,c['counts']);total.update(count)
