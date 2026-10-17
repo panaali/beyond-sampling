@@ -662,3 +662,33 @@ Alternative2: target-value reparameterization was invalid; derive its Beta
 Jacobian and omitted-tail composition independently. `spatial_transport_review.md`
 accepts the bounded inconclusive conclusion and preserves interior kinks and
 earlier spatial error as untested alternatives. No numerical run.
+
+## Cycle 24 protocol: independently test the three-input rescue
+T76's fixed-three-input rescue still fails T4 RMS.02 copy0. Alternative1:
+spherical clipping produces a spurious2.58pp bias; replace all clipping with
+a tensor sphere rule and direct three-step network evaluation. Alternative2:
+retaining one more input still loses important history; compare independent
+128x256 and256x512 sphere rules with the reported surrogate/full reference.
+No author boundary code, no random inputs, chunks<=65536, <=20CPU review lane.
+This fixed finite check is not a certified integration or a production method.
+
+## Cycle 25 protocol: density-shape and input-ray jump audit
+T83's positive reconstruction improves one stage but may blur an internal
+jump. Alternative1: each line-source jump cancels after all strata are added;
+compute the signed sum of exact two-input axis/ray limiting densities.
+Alternative2: an incorrect bounded-density oracle caused the apparent shape
+benefit; independently derive its line coarea constraints and inspect source
+normalization. Read-only source audit plus one tiny limit calculation; no
+transport sweep, no new reconstruction engine.
+
+Cycle24 result: independent direct S2 tensor rules reproduce the failed
+three-input rescue's2.57pp bias, with residual~4e-5 versus author's clipped
+value.163840 deterministic three-step forwards,.032894CPU; no claim of
+high-precision integration. Details in suffix_review.md/results JSON.
+
+Cycle25 result: read-only bounded line-density/centroid/positivity review passes
+with stated floating/cost qualifications. Independent exact-sector limit
+calculation finds a noncanceling trainedT8 area-density jump -.272615 at h=w;
+axes and input ray both included. .884107CPU, no transport sweep. Details in
+`density_reconstruction_review.md` and `jump_review_results.json`. The owner
+will falsify the predicted one-sided limits before an interface-aware engine.

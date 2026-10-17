@@ -95,3 +95,34 @@ This follows by integrating the last input's rank density on each half-line;
 all earlier labels are exchangeable. The tested T4 toy has j+=last,j-=0 and
 accuracy.3125. This value is not the trained T4 baseline: its last label is
 unreachable, so that model's corresponding control is.25.
+
+## Independent three-input rescue check
+
+Reviewed suffix3.py's fixed octant/gate/readout/order splitting. Successive
+linear gate maps, adjacent upper-envelope planes on the nonnegative quadrant,
+and all three suffix order planes suffice in exact arithmetic. Positive
+spherical density is |detV|/(4pi||Vy||³) times the triangle coordinate measure;
+the Duffy factor1-u is present. The chi3 rank formulas above are used correctly.
+Exactly identical readouts retain first-index ties. Floating thin triangles
+and readout/gate rounding remain qualified; the author's small midpoint
+mismatch masses must not be silently discarded.
+
+`check_suffix3_review.py` independently uses a tensor S² rule and direct
+three-step recurrence, without any author clipping or boundary helper. On the
+same failed T4 RMS.02 copy0 model:
+
+| sphere rule | surrogate accuracy | full-reference difference |
+|---|---:|---:|
+|128x256|.2893959027359555|+.0257279908444522|
+|256x512|.2894181217090186|+.0257502098175153|
+
+The author clipped GL8 value is about.28945814. This check does not establish
+high-precision equality: its remaining difference is about4e-5. It does
+independently reproduce a2.57pp failure, hundreds of times larger than the
+observed change/difference. Constant-readout rank controls err3.63e-7 and
+1.31e-7, respectively. Work163840 deterministic three-step quadrature forwards,
+.032894CPU, zero random samples. This independently exercises the strongest
+implemented rescue; it does not exhaust nonzero deterministic history states
+or all possible boundary approximations. A weight-derived nonzero mean state
+would break radial homogeneity and require new affine/radial integration and
+cost accounting; it remains open rather than implicitly ruled out.
