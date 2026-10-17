@@ -1,0 +1,3066 @@
+{
+  "complete": true,
+  "protocol_sha256": "a6217ae54efc3b740c15d69e6a718748125f3ef815d5a6186e67144ddd26db34",
+  "source_sha256": "20f729678e79e5dfda1ece527d2698236b5927f31950ddf1e83cdec035bd8573",
+  "spy_build": {
+    "source_sha256": "242b461889444f1fb5e80fa68e61e23da38aeefe9566c8c3a65344d44be7db0e",
+    "binary_sha256": "2706153746cc63598a972d6965d56a49e967c2f0ec5ba1db88c3ace18d946862",
+    "command": "gcc -O2 -shared -fPIC spy.c -o spy.so",
+    "compiler": "gcc (Debian 14.2.0-19) 14.2.0"
+  },
+  "rows": [
+    {
+      "pattern": 0,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 0,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "-0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "-0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "-0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "-0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "-0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "-0x0.0p+0",
+        "0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "-0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "-0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 1,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "-0x0.0p+0",
+        "0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "input_b_hex": [
+        "0x0.0p+0",
+        "-0x0.0p+0",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "2e2109148e980340",
+      "value_bits": "2e2109148e980340",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f0bf",
+      "value_bits": "000000000000f0bf",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f0bf",
+      "value_bits": "000000000000f0bf",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "2e2109148e980340",
+      "value_bits": "2e2109148e980340",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f0bf",
+      "value_bits": "000000000000f0bf",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f0bf",
+      "value_bits": "000000000000f0bf",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.0000000000000p+1",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "2e2109148e980340",
+      "value_bits": "2e2109148e980340",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.0000000000000p+1",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f0bf",
+      "value_bits": "000000000000f0bf",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 2,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.0000000000000p+1",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f0bf",
+      "value_bits": "000000000000f0bf",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "83e31b45191f4943",
+      "value_bits": "83e31b45191f4943",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "176e05b5b5b893c6",
+      "value_bits": "176e05b5b5b893c6",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "176e05b5b5b893c6",
+      "value_bits": "176e05b5b5b893c6",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "83e31b45191f4943",
+      "value_bits": "83e31b45191f4943",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "176e05b5b5b893c6",
+      "value_bits": "176e05b5b5b893c6",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "176e05b5b5b893c6",
+      "value_bits": "176e05b5b5b893c6",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.1c37937e08000p+53",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "83e31b45191f4943",
+      "value_bits": "83e31b45191f4943",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.1c37937e08000p+53",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "176e05b5b5b893c6",
+      "value_bits": "176e05b5b5b893c6",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 3,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "-0x1.1c37937e08000p+53",
+        "0x1.0000000000000p+0",
+        "0x1.1c37937e08000p+53"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.1c37937e08000p+53",
+        "-0x1.1c37937e08000p+53"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "176e05b5b5b893c6",
+      "value_bits": "176e05b5b5b893c6",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p-52",
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "e462dd1a83c51140",
+      "value_bits": "e462dd1a83c51140",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p-52",
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "de45bec93cbd23c0",
+      "value_bits": "de45bec93cbd23c0",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p-52",
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "de45bec93cbd23c0",
+      "value_bits": "de45bec93cbd23c0",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p-52",
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "e462dd1a83c51140",
+      "value_bits": "e462dd1a83c51140",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p-52",
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "de45bec93cbd23c0",
+      "value_bits": "de45bec93cbd23c0",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p-52",
+        "0x1.921fb54442d18p+1",
+        "-0x1.921fb54442d18p+1"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "de45bec93cbd23c0",
+      "value_bits": "de45bec93cbd23c0",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.0000000000000p-52",
+        "-0x1.921fb54442d18p+1",
+        "0x1.921fb54442d18p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.921fb54442d18p+1",
+        "0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "e462dd1a83c51140",
+      "value_bits": "e462dd1a83c51140",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.0000000000000p-52",
+        "-0x1.921fb54442d18p+1",
+        "0x1.921fb54442d18p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.921fb54442d18p+1",
+        "0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "de45bec93cbd23c0",
+      "value_bits": "de45bec93cbd23c0",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 4,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.0000000000000p-52",
+        "-0x1.921fb54442d18p+1",
+        "0x1.921fb54442d18p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.921fb54442d18p+1",
+        "0x1.921fb54442d18p+1",
+        "0x1.0000000000000p-52"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "de45bec93cbd23c0",
+      "value_bits": "de45bec93cbd23c0",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "input_b_hex": [
+        "0x1.87e92154ef7acp-664",
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "input_b_hex": [
+        "0x1.87e92154ef7acp-664",
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "input_b_hex": [
+        "0x1.87e92154ef7acp-664",
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "input_b_hex": [
+        "0x1.87e92154ef7acp-664",
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "input_b_hex": [
+        "0x1.87e92154ef7acp-664",
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "input_b_hex": [
+        "0x1.87e92154ef7acp-664",
+        "0x1.87e92154ef7acp-665",
+        "-0x1.87e92154ef7acp-665"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-664",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-665"
+      ],
+      "input_b_hex": [
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-664",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-665"
+      ],
+      "input_b_hex": [
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 5,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.87e92154ef7acp-664",
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-665"
+      ],
+      "input_b_hex": [
+        "-0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-665",
+        "0x1.87e92154ef7acp-664"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "834cd9e3e3dcb954",
+      "value_bits": "834cd9e3e3dcb954",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "5a62d7d718e774e9",
+      "value_bits": "5a62d7d718e774e9",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "5a62d7d718e774e9",
+      "value_bits": "5a62d7d718e774e9",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "834cd9e3e3dcb954",
+      "value_bits": "834cd9e3e3dcb954",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "5a62d7d718e774e9",
+      "value_bits": "5a62d7d718e774e9",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.249ad2594c37dp+332",
+        "-0x1.249ad2594c37dp+332"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "5a62d7d718e774e9",
+      "value_bits": "5a62d7d718e774e9",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.249ad2594c37dp+332"
+      ],
+      "input_b_hex": [
+        "-0x1.249ad2594c37dp+332",
+        "0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "834cd9e3e3dcb954",
+      "value_bits": "834cd9e3e3dcb954",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.249ad2594c37dp+332"
+      ],
+      "input_b_hex": [
+        "-0x1.249ad2594c37dp+332",
+        "0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "5a62d7d718e774e9",
+      "value_bits": "5a62d7d718e774e9",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 6,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.249ad2594c37dp+332",
+        "0x1.249ad2594c37dp+332"
+      ],
+      "input_b_hex": [
+        "-0x1.249ad2594c37dp+332",
+        "0x1.249ad2594c37dp+332",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "5a62d7d718e774e9",
+      "value_bits": "5a62d7d718e774e9",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 7,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x0.0000000000001p-1022",
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022"
+      ],
+      "input_b_hex": [
+        "-0x0.0p+0",
+        "0x0.0000000000001p-1022",
+        "0x0.0000000000001p-1022"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "0000000000000000",
+      "value_bits": "0000000000000000",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "inf",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+1",
+        "inf",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f07f",
+      "value_bits": "000000000000f07f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "inf",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+1",
+        "inf",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f8ff",
+      "value_bits": "000000000000f8ff",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "inf",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+1",
+        "inf",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f8ff",
+      "value_bits": "000000000000f8ff",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "inf",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+1",
+        "inf",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f07f",
+      "value_bits": "000000000000f07f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "inf",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+1",
+        "inf",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f8ff",
+      "value_bits": "000000000000f8ff",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "inf",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "-0x1.0000000000000p+1",
+        "inf",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f8ff",
+      "value_bits": "000000000000f8ff",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "-0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "inf"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "inf",
+        "-0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f07f",
+      "value_bits": "000000000000f07f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "-0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "inf"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "inf",
+        "-0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f8ff",
+      "value_bits": "000000000000f8ff",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 8,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "-0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "inf"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "inf",
+        "-0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f8ff",
+      "value_bits": "000000000000f8ff",
+      "events": [],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "contiguous",
+      "operation": "norm",
+      "input_a_hex": [
+        "nan",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "nan",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "contiguous",
+      "operation": "dot",
+      "input_a_hex": [
+        "nan",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "nan",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "contiguous",
+      "operation": "matmul",
+      "input_a_hex": [
+        "nan",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "nan",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        8
+      ],
+      "strides_b": [
+        8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "stride2",
+      "operation": "norm",
+      "input_a_hex": [
+        "nan",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "nan",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "stride2",
+      "operation": "dot",
+      "input_a_hex": [
+        "nan",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "nan",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "stride2",
+      "operation": "matmul",
+      "input_a_hex": [
+        "nan",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+1"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+1",
+        "nan",
+        "0x1.0000000000000p+0"
+      ],
+      "strides_a": [
+        16
+      ],
+      "strides_b": [
+        16
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 2,
+          "incy": 2
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "reversed",
+      "operation": "norm",
+      "input_a_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "nan"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "nan",
+        "0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "reversed",
+      "operation": "dot",
+      "input_a_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "nan"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "nan",
+        "0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [
+        {
+          "n": 3,
+          "incx": 1,
+          "incy": 1
+        }
+      ],
+      "parity": true
+    },
+    {
+      "pattern": 9,
+      "layout": "reversed",
+      "operation": "matmul",
+      "input_a_hex": [
+        "0x1.0000000000000p+1",
+        "0x1.0000000000000p+0",
+        "nan"
+      ],
+      "input_b_hex": [
+        "0x1.0000000000000p+0",
+        "nan",
+        "0x1.0000000000000p+1"
+      ],
+      "strides_a": [
+        -8
+      ],
+      "strides_b": [
+        -8
+      ],
+      "aligned_a": true,
+      "aligned_b": true,
+      "baseline_bits": "000000000000f87f",
+      "value_bits": "000000000000f87f",
+      "events": [],
+      "parity": true
+    }
+  ],
+  "cpu": 0.07777377199999999,
+  "max_rss_kib": 57040,
+  "runtime": {
+    "blas_base": "0x7ffa20c52000",
+    "numpy_base": "0x7ffa222b6000",
+    "table": "0x7ffa22208d60",
+    "dot_target": "0x7ffa2168f7c0",
+    "dot_offset": "0xa3d7c0",
+    "slot_offset": "0x368",
+    "rounding": 0,
+    "library_maps": [
+      [
+        140712268341248,
+        140712268873728,
+        "r--p",
+        0,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712268873728,
+        140712289038336,
+        "r-xp",
+        532480,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712289038336,
+        140712291033088,
+        "r--p",
+        20697088,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291033088,
+        140712291065856,
+        "r--p",
+        22687744,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291065856,
+        140712291127296,
+        "rw-p",
+        22720512,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291147776,
+        140712291180544,
+        "---p",
+        22806528,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291180544,
+        140712291340288,
+        "rw-p",
+        23687168,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291340288,
+        140712291459072,
+        "rw-p",
+        23846912,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291459072,
+        140712291577856,
+        "rw-p",
+        23965696,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291577856,
+        140712291700736,
+        "rw-p",
+        24084480,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291700736,
+        140712291819520,
+        "rw-p",
+        24207360,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so"
+      ],
+      [
+        140712291819520,
+        140712291995648,
+        "r--p",
+        0,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ],
+      [
+        140712291995648,
+        140712300077056,
+        "r-xp",
+        176128,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ],
+      [
+        140712300077056,
+        140712301719552,
+        "r--p",
+        8257536,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ],
+      [
+        140712301719552,
+        140712301731840,
+        "r--p",
+        9900032,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ],
+      [
+        140712301731840,
+        140712301875200,
+        "rw-p",
+        9912320,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ],
+      [
+        140712301969408,
+        140712301993984,
+        "rw-p",
+        10592256,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ],
+      [
+        140712301993984,
+        140712302014464,
+        "rw-p",
+        10616832,
+        "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so"
+      ]
+    ]
+  },
+  "restored": true,
+  "control_count": 90,
+  "all_bitwise_parity": true,
+  "scope": "Finite90 synthetic passthrough controls only. Recorded native event paths do not establish historical trained operand layouts or complete native/hardware costs. No count substitution."
+}
