@@ -12,11 +12,19 @@ Freeze the25 analytic matrices in PROTOCOL.md before implementation. Independent
 
 ## Status
 
-Protocol and theorem frozen. No controls or trained cofactors evaluated yet. T55 reviewed the proposed range/error derivation; implementation gate remains pending.
+Frozen25 analytic controls complete after independent theorem/source gate. Independent saved-results audit pending. No trained cofactors, mass or model calls.
 
 ## Results
 
-None yet. Prior native review T11579 gives104 named numerical units for one installed3x3 general determinant path, excluding opaque categories. A source-expression count for a new Python primitive is a different convention and does not establish native cost or speed.
+All22 finite controls enclose the exact six-permutation rational reference:17 use the fast enclosure and5 the exact fallback. The three nonfinite inputs correctly remain unknown. Nine fast enclosures contain zero, so containment alone does not resolve determinant sign.
+
+The raw point formula returns zero for four nonzero exact determinants: near-rank-one deltas2^-50 and2^-40, and the2^99/2^-99 scaled delta2^-50 matrices. These are preserved cancellation failures of the point formula. The delta2^-26 point retains its nonzero determinant, but its conservative interval still includes zero. The finite underflow fallback also has a zero binary64 point; its directed interval contains the exact nonzero result.
+
+The dense nonzero fast path uses31 arithmetic operations,9 absolute values and28 comparisons, plus9 finite checks,2 nextafter calls and9 float conversions recorded separately. Exact fallbacks use14 rational arithmetic operations and9 exact conversions, with maximum observed numerator3070bits and denominator2146bits. Rational gcd/normalization, interpreter work and native interiors are unpriced. Fallbacks are never called free.
+
+Prior native review T11579 gives104 named numerical units for one installed3x3 general determinant path, excluding opaque categories. This new source-expression inventory uses a different convention and establishes neither native cost nor speed. No cost ratio is inferred.
+
+Run the frozen controls with `/workspace/clean-neurons/.venv/bin/python controls.py` in this folder under the one-thread2GB review lock. The script refuses to overwrite results.json. Saved source hashes, input/output hexadecimal values, exact fractions and every category count are retained. Recorded control/reference CPU .000142111 seconds excludes imports and final serialization; it is audit accounting, not an estimator timing comparison.
 
 ## Compute accounting
 
@@ -36,4 +44,4 @@ One thread,2GB, at most20CPU seconds per primitive cycle under the review lock. 
 
 ## Failure modes
 
-Fused/reassociated operations, non-default rounding, unsupported input ranges, underflow/overflow, nonfinite data, treating an interval containing zero as an accurate relative approximation, uncharged fallback/control work, or transferring scalar-source counts to the installed native implementation. Prior T160 cancellation and T144 interval-cost evidence remains intact.
+Fused/reassociated operations, non-default rounding, unsupported input ranges, underflow/overflow, nonfinite data, treating an interval containing zero as an accurate relative approximation, uncharged fallback/control work, or transferring scalar-source counts to the installed native implementation. sys.float_info.rounds records the process environment declaration; it does not protect against a later external floating-environment change. Prior T160 cancellation and T144 interval-cost evidence remains intact.
