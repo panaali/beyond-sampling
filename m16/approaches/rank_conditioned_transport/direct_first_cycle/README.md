@@ -68,3 +68,14 @@ cancellation. No family-wide conclusion from one model.
 Wrong remaining-rank mixture, omitted line crossings, zero/tie ownership,
 float narrow intervals, and treating topology completeness as a numerical
 error certificate. A failed expansion gate ends this fixed bounded variant.
+
+## Primitive and topology checkpoint
+`python m16/approaches/rank_conditioned_transport/direct_first_cycle/controls.py`
+under the review lock passes in .428CPU. Independent scalar quadrature of
+bilinear continuation agrees within4.44e-16 on five signed target values;
+nine first-state node-aligned comparisons against the old full recurrence
+agree within1.11e-16. Positive scaling1e-16 gives1.67e-16; constant/duplicate
+retained mass errors<=5.56e-17. Moving topology has44 panels; its union with
+1190 fixed panels has1227, below the frozen cap. Two interior probes per
+non-tiny moving panel confirm fixed pairwise line ordering. This is a
+finite floating test, not a robust-predicate proof. Full counts in controls.json.
