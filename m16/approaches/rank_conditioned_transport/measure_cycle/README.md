@@ -61,3 +61,11 @@ representation, and rigorously bounded integration remain open.
 Missing Jacobian, raw target mass drift, first-index ties, inconsistent panel
 omissions, inverse-normal rounding, and treating GL agreement as certification.
 Independent review and Claude DRI classification are required.
+
+## Control checkpoint
+`controls.py` completed in1.462CPU. Artificial64-panel and complete1532-panel
+rules were checked against exact Beta integrals of1,q,q^2; all GL4 errors
+are below2e-9. Constant and duplicate-readout recurrences at h3 match their
+raw omission-adjusted mass/T within1.67e-16 in both coordinates. T55
+independently derives the Jacobian, Beta CDF Tq^(T-1)-(T-1)q^T, per-label
+1/T factor and separate full-input omission. Full trained pilot follows.
