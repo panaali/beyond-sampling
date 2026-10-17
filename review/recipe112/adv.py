@@ -8,7 +8,8 @@ certificate).
   part diag:  the worst models from both parts re-run with two diagnostic variants of the test (rec112.P):
               dense (interior grid points of the minority region) and joint (sum of the shift bounds of all frozen
               gates); which one removes the error says which gap caused it.
-Estimates use rec112 (== est75 RECIPE112 to 1e-15, checked here on every split model at n = 2); truth exact.py
+Estimates: split part uses the reviewed est75 RECIPE112 (rec112 differs on split models by tolerance ties of the
+duplicated identical gate rows; the difference is logged); climb and diag use rec112; truth exact.py
 (and own exact_mine on the split models).
 usage: OMP_NUM_THREADS=1 python adv.py split|climb|diag  -> out/adv_<part>.json"""
 import json, os, sys, time
@@ -37,19 +38,19 @@ def part_split():
             for j, m in enumerate([base] + M.noisy_abs(base, 4, 0.05, 87)):
                 tr = EX.exact_acc(m); e0 = est(m) - tr
                 for n in (2, 4, 8):
-                    worst = (0.0, None)
+                    worst = (0.0, None); rdiff = 0.0
                     for k in range(H):
                         ms = M.split_neuron(m, k, n)
-                        trs = EX.exact_acc(ms); es = est(ms)
+                        trs = EX.exact_acc(ms); es = E75.est75(ms, Ops(), **E75.RECIPE112)   # the reviewed code
+                        rdiff = max(rdiff, abs(est(ms) - es))
                         if n == 2 and k == 0:
-                            assert abs(E75.est75(ms, Ops(), **E75.RECIPE112) - es) < 1e-9
                             assert abs(M.exact_mine(ms) - trs) < 1e-8
                         assert abs(trs - tr) < 1e-8, (trs, tr)
                         if abs(es - tr) > abs(worst[0]):
                             worst = (es - tr, k)
-                    out.append(dict(H=H, zoo=zs, model=j, n=n, truth=tr, err_orig=e0, worst_err=worst[0], k=worst[1]))
+                    out.append(dict(H=H, zoo=zs, model=j, n=n, truth=tr, err_orig=e0, worst_err=worst[0], k=worst[1], reimpl_diff=rdiff))
                     print(f"H={H} zoo {zs} model {j} n={n}: truth {tr:.5f} err orig {100*e0:+.4f}pp, worst split "
-                          f"neuron {worst[1]} err {100*worst[0]:+.4f}pp", flush=True)
+                          f"neuron {worst[1]} err {100*worst[0]:+.4f}pp (rec112 vs est75 {rdiff:.0e})", flush=True)
             json.dump(out, open(os.path.join(HERE, "out", "adv_split.json"), "w"), indent=0)
 
 
