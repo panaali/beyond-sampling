@@ -91,3 +91,24 @@ mass bound. If h5 refinement<=1e-7 and cache/direct<=1e-11, test h9 GL2/4;
 otherwise retain an inconclusive result without a mesh/q sweep. This tests
 fixed-interpolant functionality/convergence only, not full accuracy or a
 sampling win. All cache/setup and lookup costs remain charged.
+
+## Full h5 cache parity and retained numerical failure
+Complete-panel GL2 cache/direct estimates are bit-identical at
+.292265329969663, CPU1.595/2.559 seconds. Cached GL4 gives
+.292265646591989, CPU3.195. Difference3.166e-7 fails the frozen1e-7 gate;
+no h9 integration was run. GL2 constant target-mass defect1.060e-6 versus
+GL4 8.98e-12 identifies a separate density-quadrature failure. Explicit tiny
+panel omitted mass bound is1.268e-14; no mass normalization occurred.
+The original readout permutation fixture has no full-accuracy reference in
+this test; these are finite-interpolant results, not trained-rung claims.
+
+One distinct bounded rescue is frozen now: map the SAME complete u-panel
+endpoints to q=F_6(u), then integrate Beta(3,2) directly with per-panel
+GL2/4. Its degree3 polynomial density has exact constant mass under GL2 in
+real arithmetic, without weight renormalization. u stays within[-4,4], so
+inverseCDF nodes avoid the previous far-tail rounded1-q issue. Reuse h5
+only, same orders; this is a measure-coordinate discriminator, not a degree
+sweep. Any panel collapsing to equal floating q endpoints is omitted with
+an explicit original-u-width times density upper bound. Preserve original
+u-rule failure. Check raw target mass and cache values; report unresolved
+function quadrature separately. No h9 expansion in this rescue phase.
