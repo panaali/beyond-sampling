@@ -1,0 +1,108 @@
+{
+  "checkpoint_sha256": "09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0",
+  "sources": {
+    "engine.py": "9dd274c106834d1cc903c867d3a2c541fa4890fae402473d16b0c92f32be98d3",
+    "polynomial.py": "f96fb67f2b62dbf31c8d483b9a63d7ffed6191fef08d39859b7ce78d719bae06"
+  },
+  "rows": [
+    {
+      "estimate": 0.23202739384220072,
+      "stats": {
+        "cpu_seconds": 2.9676657989999997,
+        "work": {
+          "hidden_grid_points_constructed": 2024.0,
+          "target_rule_nodes": 16,
+          "conditional_inverse_normal_calls": 64.0,
+          "scalar_gate_roots": 55040.0,
+          "scalar_affine_steps": 27520.0,
+          "scalar_readout_margins": 112531.0,
+          "scalar_terminal_queries": 18496.0,
+          "scalar_gate_pieces": 35272.0,
+          "scalar_correct_intervals": 10914.0,
+          "normal_cdf_interval_queries": 21828.0,
+          "polynomial_grid_crossings_constructed": 2674304.0,
+          "polynomial_sorts": 78656.0,
+          "polynomial_intervals": 1733648.0,
+          "polynomial_centered_moment_triples": 1733648.0,
+          "polynomial_cdf_values": 3467296.0,
+          "polynomial_endpoint_density_exponentials": 3467296.0,
+          "polynomial_expm1_calls": 1733648.0,
+          "polynomial_basis_mixes": 11947884.0,
+          "polynomial_positive_fallback_intervals": 562245.0,
+          "polynomial_positive_fallback_nodes": 6746940.0,
+          "polynomial_moment_screen_failures": 0.0,
+          "polynomial_value_screen_failures": 0.0,
+          "polynomial_conditional_rows": 157312.0,
+          "interpolators_built": 48.0,
+          "interpolation_queries": 9264.0
+        },
+        "hidden_order": 17,
+        "mesh_power": 2.0,
+        "target_order": 8,
+        "target_rule": "split_sign",
+        "input_order": null,
+        "transition": "polynomial",
+        "transition_quadrature_only_bound": 6.084916519698869e-18,
+        "limit": 6.0,
+        "possible_labels": [
+          0,
+          3,
+          5,
+          6
+        ],
+        "contributions": {
+          "0": 0.0,
+          "3": 0.0718313075141116,
+          "5": 0.03179719116130716,
+          "6": 0.12839889516678196
+        },
+        "stage_bounds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            7.013319253921509,
+            1.2266072630882263
+          ],
+          [
+            8.106098858666869,
+            3.3768522133587204
+          ],
+          [
+            10.021743660040661,
+            6.137618807565156
+          ],
+          [
+            12.481299801927051,
+            9.72840809697611
+          ],
+          [
+            15.680319910879508,
+            14.395882169511452
+          ],
+          [
+            19.838554274585146,
+            20.46305879791451
+          ],
+          [
+            25.243778161172955,
+            28.349675935533888
+          ]
+        ],
+        "omitted_input_mass_bound": 1.3812226917764292e-08,
+        "input_tail_only_interval": [
+          0.2320273906373857,
+          0.23202740444961267
+        ],
+        "total_error_certified": false,
+        "classification": "deterministic quadrature and 2D interpolation with analytic scalar terminal"
+      }
+    },
+    {
+      "hidden_order": 33,
+      "failure": "polynomial transition CPU cap"
+    }
+  ],
+  "total_cpu": 18.003200563
+}

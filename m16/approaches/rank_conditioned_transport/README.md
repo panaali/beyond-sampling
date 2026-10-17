@@ -57,6 +57,10 @@ Before trained comparisons: partition/constant continuation, a bilinear polynomi
 
 Primitive controls (polynomial_checks.py, polynomial_checks_results.json) pass in.232CPU: eight intervals checked against70-digit integration have maximum relative error1.19e-15, including widths1e-12 and tails near±6. The known bilinear conditional expectation agrees within2.78e-17; T3/T7 constant-readout errors are5.55e-17. Two narrow-interval moment guards triggered and used the positive fallback. Some float discrepancies exceed tiny quadrature-only bounds, as expected from the explicitly excluded rounding error. T55 independently checked the bound in quadratic_gaussian.md with high-precision arithmetic.
 
+First trained polynomial cycle (polynomial_cycle.py, polynomial_results.json) records a cost failure: h17 gives.23202739 in2.968CPU, compared with input8=.23215131 in.908CPU. The numerical scalar-input bias removed is about.000124, while the hidden-grid error is much larger. The h33 row hit the18CPU cycle cap and is retained as a failure. The h17 fallback-only integration bound6.09e-18 excludes floating moments, grid and outer-target errors; it is not a total accuracy bound.
+
+Next optimization is frozen before timing: the conditional transition is linear in the continuation grid and does not depend on the target label. Build its sparse four-corner interpolation weights once per(stage,target quantile), charging all interval/moment construction, and reuse only within a single estimate across labels. Preserve the direct polynomial implementation as a control. Verify constants, row sums, no materially negative weights, and same-mesh estimates before any cost conclusion. No free cross-model or cross-run caches.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
