@@ -99,3 +99,22 @@ gain; internal projection and error cancellation remain important. Negative
 scope is this matched81DOF basis substitution on the two frozen base models.
 Independent H2 angular-antiderivative reimplementation requested before
 closing the bounded phase. Other local/internal-support bases remain open.
+
+## Finite alternatives checklist
+- Formulation: same exact root domain, model, branching and dimension; only
+  the angular basis changes. The interval toy directly measures the proposed
+  endpoint mechanism, not model accuracy.
+- Conditioning/support: exact root support is retained; internal gates are
+  still finite projections, so their composition can dominate endpoint gain.
+- Representation: one fixed polynomial alternative is tested; mixed/local
+  bases and explicit internal support are NOT excluded or selected here.
+- Numerical accuracy: positive GL9 is exact-degree for angular products;
+  independent scalar quadrature and antiderivatives pass; radial Q128 and
+  constant/duplicate/scaling controls do not explain the material H2 loss.
+- Cost: removed opaque complex functions coexist with higher counted real
+  work. CPU and arithmetic products are both reported; neither is silently
+  substituted for a portable complete-cost metric.
+
+No further basis/degree rescue is justified within this frozen pilot: the
+predeclared shared-recipe gate failed. A distinct mechanism remains Ready,
+while independent reproduction of the H2 loss is the remaining handoff gate.
