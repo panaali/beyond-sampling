@@ -1537,3 +1537,7 @@ T175 one-model h3 runner source gate: exact saved H16T4seed3 weights, unchanged 
 ### Full original H5 Hopf saved cost panel
 
 All25 original H5 cases and1,433,600 closure records independently pass complete saved site/category/formula audits and final source/model/output/hash/coverage reconciliation. Pilot reused once. Explicit subtotal5,356,002,834; conditional source allowance8,185,943,976; historical proxy2,342,659,452. Recorded numerical research CPU371.571170808, not estimator speed or hardware cost. Full old-reference comparison may now be contracted under its frozen protocol; original mask defect, historical identity and old75-family10M truth uncertainty remain. No traces or references repeated by review.
+
+### Full H5 comparison with the original reference precision
+
+Independently verified all60 group and50 individual comparisons, exact integer budgets and original nominal75-family confidence-box contractions. All60/50 intervals contain1: none establishes a cost-adjusted win or failure. Maximum point ratio3.1574721894; maximum group upper9.2661985766 and individual upper9.2462387825. Favorable pooled points and point ratios above1 are both retained. The original10M references are insufficient for a decisive panel result here, and an upper-cost allowance above1 alone would not prove actual-cost failure. No new reference samples or estimators were run. This leaves the separate, stronger H4,T4 fixed-panel result unchanged.
