@@ -292,6 +292,103 @@
           }
         }
       }
+    },
+    {
+      "seed": 3,
+      "recipes": {
+        "r85b": {
+          "named_numeric": {
+            "models": 1024,
+            "mse": 2.236548507416732e-06,
+            "mean_sampling_variance_integer": 0.00015672774913152185,
+            "ratio_integer_budget": 0.014270277725611173,
+            "ratio_continuous_budget": 0.014277158632047062,
+            "ratio_mean_budget": 0.014372803570959946,
+            "bootstrap95_integer": [
+              0.012750744837333752,
+              0.015920097007919062
+            ],
+            "mean_ops": 114379.27734375,
+            "sampler_ops": 111,
+            "min_samples": 827,
+            "max_samples": 1357,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 0.28966062735463294,
+            "worst_copy_index": 998
+          },
+          "historical": {
+            "models": 1024,
+            "mse": 2.236548507416732e-06,
+            "mean_sampling_variance_integer": 0.0002439565530856875,
+            "ratio_integer_budget": 0.009167814838862578,
+            "ratio_continuous_budget": 0.009174803146132936,
+            "ratio_mean_budget": 0.009237428994280766,
+            "bootstrap95_integer": [
+              0.00818908647312377,
+              0.010226433315659795
+            ],
+            "mean_ops": 47683.3203125,
+            "sampler_ops": 72,
+            "min_samples": 528,
+            "max_samples": 872,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 0.18724078401708844,
+            "worst_copy_index": 998
+          }
+        },
+        "r112": {
+          "named_numeric": {
+            "models": 1024,
+            "mse": 4.521623386360451e-07,
+            "mean_sampling_variance_integer": 0.000115562465713755,
+            "ratio_integer_budget": 0.003912709337269063,
+            "ratio_continuous_budget": 0.003914162305503533,
+            "ratio_mean_budget": 0.003922997545520313,
+            "bootstrap95_integer": [
+              0.003055101289283521,
+              0.004950815361132913
+            ],
+            "mean_ops": 154421.5224609375,
+            "sampler_ops": 111,
+            "min_samples": 1191,
+            "max_samples": 1549,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 0.24892433998630875,
+            "worst_copy_index": 180
+          },
+          "historical": {
+            "models": 1024,
+            "mse": 4.521623386360451e-07,
+            "mean_sampling_variance_integer": 0.00018170601700560204,
+            "ratio_integer_budget": 0.0024884279898232803,
+            "ratio_continuous_budget": 0.0024898173731867073,
+            "ratio_mean_budget": 0.0024966518852375615,
+            "bootstrap95_integer": [
+              0.001943808810198375,
+              0.003148461636364811
+            ],
+            "mean_ops": 63746.640625,
+            "sampler_ops": 72,
+            "min_samples": 752,
+            "max_samples": 995,
+            "max_parity_difference": 0.0,
+            "cell_count_mismatches": 0,
+            "all_parity_pass": true,
+            "individual_losses": 0,
+            "max_individual_ratio": 0.15910808764452575,
+            "worst_copy_index": 180
+          }
+        }
+      }
     }
   ],
   "files": {
@@ -343,17 +440,33 @@
     "panel/s2_n23_b1.json": "d62e21d80c1c01dfaa90fbdbdb34aeccab2af16c068c8a631db7531cfe9ca00b",
     "panel/s2_n23_b2.json": "9d3decd51ed581f7238280d9bfc576e95320f5458eb8f208f962392a486aa4df",
     "panel/s2_n23_b3.json": "2bb8c819a60c1e664248bef25dce98fccf4daaad3a00fa75bdeeaf06cf991a61",
+    "panel/s3_n20_b0.json": "f25282ade651ea4af4f7438798861827fdb759aeb840a0b7129f630cd4e323a1",
+    "panel/s3_n20_b1.json": "c04cb471e93f543825217e1f03e944094155e3ed60a4793a0b8f167a1e756afe",
+    "panel/s3_n20_b2.json": "10d47b705ac7e2677c02fa3fbd85dc896f0956d197d58fe18dd33390577aa101",
+    "panel/s3_n20_b3.json": "12f9190a0aa23926e6c6fa000b0f44faff6dc8c5f70fd77cf020b8b26308a83d",
+    "panel/s3_n21_b0.json": "58509850df08e6a00548a6630902cd470d688bf184f463c32a545f19e069d3af",
+    "panel/s3_n21_b1.json": "c6e0c5e9a097e0d54dc65f164dedacb451ec84baace6ad74049cd151603b369d",
+    "panel/s3_n21_b2.json": "75805d17443a64d39e1ba892984b8345814428ee2b2601feaa92db1ef6075ce9",
+    "panel/s3_n21_b3.json": "8ee67ab57f252b336fed73b81697f9f126447ab81c5f58bb0ee46a7194044641",
+    "panel/s3_n22_b0.json": "8af0b6201cf1070794adc4be450de8f3b05cc525164e17fe7d103a624d5aed97",
+    "panel/s3_n22_b1.json": "5de92a90254a18ae2f3591d6cec651ee28fe0a1cf1e6438fd07b76ef401ca4ed",
+    "panel/s3_n22_b2.json": "1c229d720ce47916172d539e6ad4c23f31ca16f492d6dd574c5bee30277d86c7",
+    "panel/s3_n22_b3.json": "24d8a9e72d700f2539710754da8907d2bd0edc1f0eccfc2cd6e99e076e87d596",
+    "panel/s3_n23_b0.json": "748caf68372846302d064175b9b9d85749c913edb08d65115d7636368ea4913d",
+    "panel/s3_n23_b1.json": "3d62b4b3fdf967583f586a366c8e187d39e1566121cc2cb8956775c0f60dd217",
+    "panel/s3_n23_b2.json": "08e7540f6f617a60f33e4f8309ce6c8c5d6125bee3f8d4ab8d6defd6d9896673",
+    "panel/s3_n23_b3.json": "43ceef7b15fadfd5ede178a1b6de58377b235b0aa9a7019e7d15aa385d70a015",
     "clean.json": "8fcb293a79302f3caac6407218093f783bfe8fd7fe2046e593539fcf07ae754a"
   },
-  "total_rows": 3072,
+  "total_rows": 4096,
   "scope": "All frozen k29 models, two unchanged recipes. Numerical-source111 and historical72 conventions separate. Conditional1000-bootstrap excludes truth/geometry uncertainty; no fullhardware or population guarantee.",
   "numeric_totals": {
-    "r85b": 353496497,
-    "r112": 468573581
+    "r85b": 470620877,
+    "r112": 626701220
   },
   "integer_totals": {
-    "r85b": 10944532,
-    "r112": 15707338
+    "r85b": 14700217,
+    "r112": 21180610
   },
   "clean": [
     {
@@ -852,8 +965,8 @@
       }
     }
   ],
-  "research_cpu": 1255.711168581,
+  "research_cpu": 1669.457913402,
   "research_cpu_scope": "Completed included chunks plus two controls and clean; excludes provenance and earlier source work, and import-before-timer caveats remain. No repeated pilot/control estimates counted as new statistical models.",
   "contraction_source_sha256": "95234de850c1669d7affcec2dee48b065f11d4ac35d825b22c4f9cfb9cd70082",
-  "cpu_summary": 0.752328258
+  "cpu_summary": 0.803930893
 }
