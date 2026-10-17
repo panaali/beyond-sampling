@@ -10,7 +10,9 @@ def evaluate(certificate):
     if certificate['status']!='prepared':raise ValueError('unknown exact-prepared status')
     def f(pair):
         counts['exact_rational_to_binary64']+=1
-        z=float(Fraction(int(pair[0]),int(pair[1])))
+        q=Fraction(int(pair[0]),int(pair[1]));z=float(q)
+        # Exact conversion checks belong to the retained conversion work.
+        if q and z==0.0:raise ValueError('nonzero coefficient underflowed to zero')
         counts['finite_checks']+=1
         if not math.isfinite(z):raise ValueError('nonfinite converted coefficient')
         return z
