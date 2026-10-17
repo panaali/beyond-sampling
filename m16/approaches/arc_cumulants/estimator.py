@@ -76,6 +76,6 @@ def est(model, budget, rng=None):
     key = (hashlib.sha1(b"".join(np.ascontiguousarray(w).tobytes() for w in model)).hexdigest(), mode, K)
     if key not in _MEMO:
         e, raw, _ = _run(model, mode, K)
-        e = float(e) if np.isfinite(e) else 0.5          # a NaN/inf propagation (variance blow-up) is reported as 0.5
+        e = min(max(float(e), 0.0), 1.0) if np.isfinite(e) else 0.5   # model-free post-processing: clip to [0,1]; NaN -> 0.5
         _MEMO[key] = (e, raw / _fpe(H, T))
     return _MEMO[key]

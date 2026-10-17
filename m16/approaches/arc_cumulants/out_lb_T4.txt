@@ -1,0 +1,24 @@
+arc_cumulants budget 1000 done
+arc_cumulants budget 4000 done
+arc_cumulants budget 16000 done
+
+=== Leaderboard v3, M_16,4. MSE / sampling-MSE at equal cost (below 1 beats sampling) ===
+    ARC's demonstrated bar (E32, M_4,3): MSE ratios ~2.4 (B) to ~10 (A) at ARC's op counts were called 'roughly match'; A is ~1.4 when ops are counted as implemented (as here).
+
+--- unreviewed ---
+method             group       budget      cost  ratio         95% CI  bias pp  time  n
+arc_cumulants      s0.0025       1000       943 36799.90 [33683.79,40977.31]  -75.362 104.3 144
+arc_cumulants      s0.005        1000       943 17016.31 [15704.83,19147.78]  -73.723 104.3 144
+arc_cumulants      s0.01         1000       943 7388.43 [6854.04,8240.02]  -70.098  98.5 144
+arc_cumulants      s0.02         1000       943 2867.55 [2450.09,3363.74]  -61.944  99.5 144
+arc_cumulants      seed          1000       943 195475.43 [149259.99,258795.28]  -66.813 620.9 120
+arc_cumulants      s0.0025       4000      3659 244128.73 [223632.34,271667.56]  -98.523  16.4 144
+arc_cumulants      s0.005        4000      3659 114084.14 [105545.36,128140.07]  -96.891  15.6 144
+arc_cumulants      s0.01         4000      3659 50772.60 [47157.44,56578.64]  -93.272  16.0 144
+arc_cumulants      s0.02         4000      3659 20997.23 [18042.21,24454.27]  -85.093  16.0 144
+arc_cumulants      seed          4000      3659 1483056.09 [1080707.62,1842874.69]  -93.083  16.1 120
+arc_cumulants      s0.0025      16000      3659 244128.73 [223632.34,271667.56]  -98.523   0.0 144
+arc_cumulants      s0.005       16000      3659 114084.14 [105545.36,128140.07]  -96.891   0.0 144
+arc_cumulants      s0.01        16000      3659 50772.60 [47157.44,56578.64]  -93.272   0.0 144
+arc_cumulants      s0.02        16000      3659 20997.23 [18042.21,24454.27]  -85.093   0.0 144
+arc_cumulants      seed         16000      3659 1483056.09 [1080707.62,1842874.69]  -93.083   0.0 120

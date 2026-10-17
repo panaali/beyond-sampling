@@ -93,7 +93,7 @@ on 200k inputs at T = 4, 5, 10):
   + 1. This is the "per position of 2nd max" decomposition; E13 conditioned on the same (p1, p2).
 
 **Leaderboard estimator.** Untuned rule: highest K ∈ {1..4} whose counted cost fits the budget, cell mode preferred at
-equal K. Cost = raw FLOPs from ARC's counter (no symmetric discount, i.e. as implemented) / FPE. NaN → 0.5.
+equal K. Cost = raw FLOPs from ARC's counter (no symmetric discount, i.e. as implemented) / FPE. Out-of-range estimates are clipped to [0, 1] and NaN → 0.5 (model-free post-processing; it can only help the method).
 
 ## Status
 **Done (negative as a whole-model estimator; negative as a skeleton-conditional proxy, see 3d).** The faithful
