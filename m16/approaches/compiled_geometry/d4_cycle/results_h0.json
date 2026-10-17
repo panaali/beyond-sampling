@@ -1,0 +1,284 @@
+{
+  "source_sha256": {
+    "/workspace/work/admin-t66-d4-claim/m16/approaches/exact_ladder/cones.py": "fc006840adc9513ac711b6c208afe96f4d10c429068d087dac8c674e8e6ee948",
+    "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/d4_cycle/dd_geometry.cpp": "0be885ee1aed873b4e0b924cd2ed8e4153fbf6c1bc9a4cdeee337b6776c7c746",
+    "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_clip.cpp": "a7ccd5ebab3983154cd7f877c182617f96c9eb5ddbbc4e00c82d4c14528b135f"
+  },
+  "cases": [
+    {
+      "name": "base",
+      "model_sha256": "cf035edff56d44b0d5bb53fe6b577d20fa2c7b68a28636827bae4c5769b91258",
+      "python_cold_cpu": 0.047998501,
+      "python_cold_wall": 0.0475572369996371,
+      "native_cold_cpu": 0.0,
+      "native_cold_wall": 0.002801463999276166,
+      "differences": {
+        "good": 2.220446049250313e-16,
+        "bad": 2.220446049250313e-16,
+        "rays": 2.220446049250313e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.04799219100000002,
+      "python_warm_wall": 0.04730120399835869,
+      "native_warm_cpu": 0.003995269999999995,
+      "native_warm_wall": 0.0018728409995674156,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        68,
+        128,
+        229,
+        476,
+        910,
+        664
+      ],
+      "native_components": {
+        "kernel_cpu": 0.003995269999999995,
+        "kernel_wall": 0.00168926300102612,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.0001442580014554551
+      },
+      "inherited_partial_ops": 301948.0,
+      "warm_cpu_speed": 12.012252238271776,
+      "warm_wall_speed": 25.256390696959436
+    },
+    {
+      "name": "zero_output",
+      "model_sha256": "6eadbc41e0d5eeaa30ac51a0b8db378582d5c14b62cefaac5fab951175742266",
+      "python_cold_cpu": 0.034939158000000026,
+      "python_cold_wall": 0.03503260099932959,
+      "native_cold_cpu": 0.0,
+      "native_cold_wall": 0.0014303009993454907,
+      "differences": {
+        "good": 1.6653345369377348e-16,
+        "bad": 1.6653345369377348e-16,
+        "rays": 1.6653345369377348e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.03600487899999999,
+      "python_warm_wall": 0.03472412399969471,
+      "native_warm_cpu": 0.0,
+      "native_warm_wall": 0.0014075769995542942,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        52,
+        101,
+        161,
+        348,
+        632,
+        253
+      ],
+      "native_components": {
+        "kernel_cpu": 0.0,
+        "kernel_wall": 0.0012699389990302734,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 9.74769991444191e-05
+      },
+      "inherited_partial_ops": 192784.0,
+      "warm_cpu_speed": null,
+      "warm_wall_speed": 24.669431235868462
+    },
+    {
+      "name": "duplicate_output",
+      "model_sha256": "fea4b7483ffb4967b6b8deb96b8b55c891afeee59f7b4e4d89c548b06b04b2e0",
+      "python_cold_cpu": 0.033818034,
+      "python_cold_wall": 0.034523431000707205,
+      "native_cold_cpu": 0.0,
+      "native_cold_wall": 0.001643163999688113,
+      "differences": {
+        "good": 1.6653345369377348e-16,
+        "bad": 1.6653345369377348e-16,
+        "rays": 1.6653345369377348e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.03588491200000005,
+      "python_warm_wall": 0.033761881000828,
+      "native_warm_cpu": 0.0,
+      "native_warm_wall": 0.001334657001279993,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        52,
+        101,
+        161,
+        348,
+        632,
+        253
+      ],
+      "native_components": {
+        "kernel_cpu": 0.0,
+        "kernel_wall": 0.0012011359995085513,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 9.006599975691643e-05
+      },
+      "inherited_partial_ops": 192784.0,
+      "warm_cpu_speed": null,
+      "warm_wall_speed": 25.29629782666926
+    },
+    {
+      "name": "no_recurrence",
+      "model_sha256": "f450bf0e44f99f3f77f243e49d72594f3e94027ac084f787029309de426075c7",
+      "python_cold_cpu": 0.005745087999999954,
+      "python_cold_wall": 0.008078750001004664,
+      "native_cold_cpu": 0.0,
+      "native_cold_wall": 0.0004190839990769746,
+      "differences": {
+        "good": 0.0,
+        "bad": 0.0,
+        "rays": 0.0,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.007992823000000038,
+      "python_warm_wall": 0.007528909000029671,
+      "native_warm_cpu": 0.0,
+      "native_warm_wall": 0.00030169599995133467,
+      "counts": [
+        2,
+        4,
+        8,
+        16,
+        18,
+        31,
+        21,
+        43,
+        30,
+        182
+      ],
+      "native_components": {
+        "kernel_cpu": 0.0,
+        "kernel_wall": 0.00020065300122951157,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 6.265499905566685e-05
+      },
+      "inherited_partial_ops": 25356.0,
+      "warm_cpu_speed": null,
+      "warm_wall_speed": 24.95528280535416
+    },
+    {
+      "name": "coordinate_scale_1e-06",
+      "model_sha256": "aa6cd1dfe964aba1e30e7553cabbaa221dc274fbe52cdad988af043b8bf81f09",
+      "python_cold_cpu": 0.04465804200000001,
+      "python_cold_wall": 0.04800972500015632,
+      "native_cold_cpu": 0.004008018999999974,
+      "native_cold_wall": 0.0022146869996504392,
+      "differences": {
+        "good": 2.220446049250313e-16,
+        "bad": 3.3306690738754696e-16,
+        "rays": 3.3306690738754696e-16,
+        "maps": 1.0587911840678754e-22,
+        "map_bound_ratio": 0.02649095323350683
+      },
+      "python_warm_cpu": 0.047994375000000034,
+      "python_warm_wall": 0.04947922700011986,
+      "native_warm_cpu": 0.004002760999999966,
+      "native_warm_wall": 0.00244018799821788,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        68,
+        128,
+        229,
+        476,
+        910,
+        664
+      ],
+      "native_components": {
+        "kernel_cpu": 0.004002760999999966,
+        "kernel_wall": 0.0022575220009457553,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.0001403419992129784
+      },
+      "inherited_partial_ops": 301948.0,
+      "warm_cpu_speed": 11.990317433391713,
+      "warm_wall_speed": 20.276809424624485
+    },
+    {
+      "name": "coordinate_scale_1000000.0",
+      "model_sha256": "00cb489eb4b01fa8ae5150f0362ce8548928a85a08a01faa40a3d93be5aa9da3",
+      "python_cold_cpu": 0.04983731499999999,
+      "python_cold_wall": 0.05193639500066638,
+      "native_cold_cpu": 0.003992735999999941,
+      "native_cold_wall": 0.002074915999401128,
+      "differences": {
+        "good": 2.220446049250313e-16,
+        "bad": 2.220446049250313e-16,
+        "rays": 2.220446049250313e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.04400604500000005,
+      "python_warm_wall": 0.046569787999033,
+      "native_warm_cpu": 0.003996561999999981,
+      "native_warm_wall": 0.0020215759996062843,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        68,
+        128,
+        229,
+        476,
+        910,
+        664
+      ],
+      "native_components": {
+        "kernel_cpu": 0.003996561999999981,
+        "kernel_wall": 0.001798187999156653,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.0001815450013964437
+      },
+      "inherited_partial_ops": 301948.0,
+      "warm_cpu_speed": 11.010975183169998,
+      "warm_wall_speed": 23.036377562902796
+    }
+  ],
+  "ranks": [
+    [
+      0.0,
+      1,
+      1
+    ],
+    [
+      5e-10,
+      1,
+      1
+    ],
+    [
+      1e-09,
+      1,
+      1
+    ],
+    [
+      1.0000000000000003e-09,
+      2,
+      2
+    ],
+    [
+      2e-09,
+      2,
+      2
+    ],
+    [
+      1.0,
+      2,
+      2
+    ]
+  ],
+  "cpu_seconds": 0.467876121,
+  "peak_rss_kb": 37700,
+  "unsupported_zero_input": "native DD lifecycle status 1"
+}
