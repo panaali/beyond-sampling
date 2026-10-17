@@ -626,3 +626,13 @@ positive-mass dead/axis ties; derive final-gate preservation certificates for
 those strata. `boundary_history_certificate.md` includes the independently
 reviewed Rayleigh formulas, a tighter inhibitory-history bound and scope.
 No production implementation, model-input sampling or new numerical run.
+
+## Cycle 21: reconcile the T6 reference comparison before diagnosing a defect
+Root flagged a2.16e-6 gap between the new full DD integral and two older T48
+values whose retained integrals agree closely. Alternative1: geometry or
+quadrature is inconsistent; compare actual error scopes before numerical
+reruns. Alternative2: the two old estimates omit the same positive cones;
+inspect their source, saved counts and one-sided omitted-mass allowance.
+`t6_projection_review.md` records that the omission alternative is explicitly
+present in both artifacts. No new integration and no claim that the precise
+uncomputed omitted mass has been measured.
