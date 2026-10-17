@@ -487,3 +487,18 @@ compare coefficient ratios and summed positive tails with the exact nu3
 polynomial tail independently derived by T48. This is theory/bound validation
 only, no estimator/source changes or new model integration. Use a short review
 lock run, retain discrepancies, and report special-function evaluations.
+
+Cycle12 result: `chebyshev_positive.md` proves the positive generic coefficient-
+ratio bound, independently algebra-reviewed by T48. `chebyshev_positive.py`
+provides a small bound evaluator; no estimator imports it automatically.
+Twenty-four checks over nu1,2.5,3,5, interval lower bounds.2/.95 and first omitted
+degrees1,4,12 matched independent70-digit cosine-integral coefficients within
+5.804e-55 relatively. The exact nu3 summed tail matched the independent
+positive endpoint remainder within7.787e-51. Generic bound/exact-tail ratios
+ranged from.9999999999999994 to1.8963: the tiny lower-than-one value exposes
+ordinary float rounding for the exact nu1 case, so this is not a certified
+floating bound. Cost:.949231CPU seconds,32496 high-precision cosine integrand
+evaluations,160 high-precision hypergeometric evaluations and24 float bounds;
+zero model passes or sampled inputs. Run `check_chebyshev_positive.py` through
+the review lock. Existing trained integrations and their source hashes remain
+unchanged; T48 owns any later adoption.
