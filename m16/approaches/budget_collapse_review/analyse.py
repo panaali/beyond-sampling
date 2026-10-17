@@ -1,7 +1,7 @@
 """Fixed-rule/truth uncertainty; retain unresolved MSE and budget deviations."""
 import time
 START=time.process_time()
-import hashlib,json,resource
+import argparse,hashlib,json,resource
 from pathlib import Path
 import numpy as np
 
@@ -21,12 +21,14 @@ def interval(values):
 
 
 def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--independent',action='store_true');args=ap.parse_args()
+    prefix='independent_' if args.independent else ''
     assert hashlib.sha256(TRUTH.read_bytes()).hexdigest()==TRUTH_HASH
     truth=json.loads(TRUTH.read_text());rng=np.random.default_rng(44021);reps=2000
     idx=rng.integers(0,16,(reps,16));rows=[];draws={};hashes={};cycles=[]
     # Truth draw shared between the two budgets of each model, independent across models.
     for T in [4,5,6]:
-        path=HERE/f'panel_T{T}.json';panel=json.loads(path.read_text());assert panel['complete']
+        path=HERE/f'{prefix}panel_T{T}.json';panel=json.loads(path.read_text());assert panel['complete']
         hashes[path.name]=hashlib.sha256(path.read_bytes()).hexdigest();cycles.extend(panel['cycles'])
         for model in panel['models']:
             sd=model['seed'];tr=truth[f'16:{T}:{sd}']['truth'];p,se=tr['acc'],tr['se']
@@ -71,13 +73,15 @@ def main():
                 declines.append(dict(from_T=Ta,to_T=Tb,budget=B,metric=metric,per_seed=seedrows,
                     geometric_decline=float(np.exp(np.mean(np.log(points)))) if all(p is not None for p in points) else None,
                     **interval(sampled)))
-    out=dict(rows=rows,geometric_gains=geometric,declines=declines,budget_mismatches=[
+    out=dict(independent_kind_namespaces=args.independent,bootstrap_inference_valid_under_stated_model=args.independent,
+        correlated_panel_warning=None if args.independent else 'INVALID iid-rule inference: cross-kind seeds overlap between replicates; descriptive point results only.',
+        rows=rows,geometric_gains=geometric,declines=declines,budget_mismatches=[
         dict(T=r['T'],seed=r['seed'],budget=r['budget'],ratio=r['budget_ratio']) for r in rows if r['budget_mismatch']],
         panel_hashes=hashes,truth_sha256=TRUTH_HASH,source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         bootstrap_seed=44021,bootstrap_replicates=reps,production_cycles=cycles,
         cpu_seconds_including_imports=time.process_time()-START,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
         uncertainty='Fixed five-model panel; paired rule bootstrap and independent normal truth approximation; costs are declared proxies. Budget matching is approximate.')
-    (HERE/'analysis.json').write_text(json.dumps(out,indent=2)+'\n')
+    (HERE/f'{prefix}analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     print(json.dumps({k:v for k,v in out.items() if k not in ['rows','declines']},indent=2))
     for r in declines:print(r['budget'],r['metric'],r['from_T'],r['to_T'],r['geometric_decline'],r['ci95'])
 
