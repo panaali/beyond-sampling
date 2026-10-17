@@ -22,6 +22,10 @@ Test stable endpoint differences as a separate variant; they remove direct endpo
 I_n=sum over even j of binom(n,j)*A^(n−j)*B^j*Beta_z((j+1)/2,(n−j+1)/2).
 Odd powers of sin integrate to zero on the centered symmetric interval; all retained terms are nonnegative. Evaluate incomplete beta directly through scipy.special, preserving underflow and floating special-function qualifications. Run the same frozen arc/polygon cases and cached-fixture300-call benchmark. This is not a directed arithmetic certificate. Compare full positive and stable variants, not only a post-hoc winner. No trained pilot until this result is recorded.
 
+Rescue result (`python m16/approaches/real_arc_tail/rescue.py`):0.938CPU, stable recurrence still16 negative arcs. Positive beta has none, but worst relative error1.257e−8 near pi, where sin²(theta/2) rounds to1. All four polygon variants reject the same5/36 cases. Cached-fixture benchmark records all variants; positive k4/6/8 CPU.0477/.0531/.0647 vs Fourier.0657/.0896/.1248, with k2 timing noise/overhead retained. No generic speed claim.
+
+Next endpoint repair frozen: for theta>pi/2 use complete beta minus the complementary incomplete beta at cos²(theta/2), with swapped parameters. For smaller theta use B_z=sin(theta/2)^(j+1)/p * hyp2f1(p,1−q,p+1,z), p=(j+1)/2; this avoids squaring underflow in the j0 term. Add theta1e−200 and nextafter(pi,0) to the independent positive-integral controls, preserving previous results. Count hypergeometric calls as opaque work. This fixes represented small complements, not arbitrary scale overflow or a certified special-function implementation.
+
 ## Compute accounting
 Charge normalization/edge geometry, all arc chains, endpoint trig/powers, polygon recurrence, guards and fallback construction/query work. Report named operation categories and CPU including controls separately. Do not call a partial scalar proxy a portable full FLOP audit. Baseline Fourier term count is vertices*(1+3+...+degree), matching parity only.
 
