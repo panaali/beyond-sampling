@@ -1311,3 +1311,15 @@ The H8T5 scalar sampler inventory is672 units with the first zero recurrent
 product omitted, or800 when executed (671/799 excluding integer correctness).
 These conventions are not measured batched native costs. The inherited thin
 numerical counterexamples remain unchanged. No masses were rerun in review.
+
+### Fractional-power Chebyshev majorant
+
+`check_chebyshev5_majorant_review.py` independently expands geometric moments
+for the integer-three tail and checks nine exact controls, four invalid records,
+99 directed intervals and66 group sums. Termwise positive Fourier coefficient
+majorization supplies sqrt(K) times the integer-three tail, with the unchanged
+5D determinant/(32*pi^2) prefactor. All33 child groups improve;20 original
+groups improve, while severe original bounds can worsen. Seven of33 groups in
+each panel qualify, versus six previously. All reused exact setup and directed
+categories remain explicit. This is ideal truncation evidence only; no mass
+or floating-error/native-cost claim follows, and no mass calls were repeated.
