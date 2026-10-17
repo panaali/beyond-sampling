@@ -19,6 +19,7 @@ def dump(n):return ast.dump(n,include_attributes=False)
 def main():
     start=time.process_time();out=HERE/'results.json';progress=HERE/'progress.jsonl';assert not out.exists() and not progress.exists()
     P=read(HERE/'protocol.json');assert P['source_gate']
+    assert hashlib.sha256((HERE/'manifest.json').read_bytes()).hexdigest()==P['manifest_sha256']
     manifest=read(HERE/'manifest.json')
     for r in manifest['files']:assert hashlib.sha256(Path(r['path']).read_bytes()).hexdigest()==r['sha256']
     assert hashlib.sha256((HERE/'audit.py').read_bytes()).hexdigest()==P['audit_sha256']
