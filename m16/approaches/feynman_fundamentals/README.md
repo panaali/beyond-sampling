@@ -368,3 +368,14 @@ with `check_triangle_batch.py`. The small-angle series exposes its real-
 arithmetic truncation error; both floating geometry and the1e-10 roundoff screen
 remain uncertified. This is ready for independently owned outer-driver pilots,
 not a trained-model speed or challenge-solved claim.
+
+## Cycle 9 protocol (frozen before implementation)
+T50 identified redundant moment work: a final degree-p moment uses only its
+matching-parity recurrence chain, whereas polygon_moments computes every
+degree. Preserve polygon_moments as a reference and add a final-value evaluator.
+Alternative1: wrong base case or parity indexing changes values; compare fixed
+ordinary/thin polygons and all degrees0..9 against the unchanged full evaluator.
+Alternative2: fewer Fourier terms do not save useful time; benchmark fixed
+degree7 calls and count every boundary term, area evaluation and CPU. Keep
+failures/guard behavior unchanged, do not introduce a new clipping rule.
+This bounded check uses no sampled model inputs and the approved review lock.
