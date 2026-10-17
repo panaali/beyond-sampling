@@ -1,0 +1,304 @@
+{
+  "sources": {
+    "/workspace/work/admin-t66-d5-claim/m16/approaches/exact_ladder/cones.py": "fc006840adc9513ac711b6c208afe96f4d10c429068d087dac8c674e8e6ee948",
+    "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/d5_cycle/dd_geometry.cpp": "2f326c2c80a08052d8e3550ed9868485e5f912ed85adad946368ad3e63acbcb9",
+    "/workspace/work/recover-small_h2_56/m16/approaches/compiled_geometry/dd_clip.cpp": "a7ccd5ebab3983154cd7f877c182617f96c9eb5ddbbc4e00c82d4c14528b135f",
+    "/workspace/work/admin-t66-d5-claim/m16/approaches/small_ladder_review/portable_cost/accounting.py": "48db0257208c0e98bfdb4ff75474aff66eea17e55a21831053636c4736a63e93",
+    "/workspace/work/admin-t66-d5-claim/m16/approaches/small_ladder_review/portable_cost/t5/geometry.py": "186bd781b8b8970239e630f662d4a3597dacbb94b08fc790863479131dfcbc99"
+  },
+  "cases": [
+    {
+      "name": "base",
+      "model_sha256": "fc2b2ffd9281ed9f2934ca55ecda7e402fa0509ddf8ca4d9048a123c754f6be4",
+      "python_cold_cpu": 0.675424133,
+      "python_cold_wall": 0.6773436679995939,
+      "native_cold_cpu": 0.0279962829999999,
+      "native_cold_wall": 0.026538658999925246,
+      "differences": {
+        "good": 3.3306690738754696e-16,
+        "bad": 0.0,
+        "rays": 3.3306690738754696e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.7238131050000001,
+      "python_warm_wall": 0.7241936829996121,
+      "native_warm_cpu": 0.023999461000000055,
+      "native_warm_wall": 0.02426251900033094,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        162,
+        255,
+        554,
+        6562,
+        0,
+        10378,
+        4487,
+        601,
+        0
+      ],
+      "native_components": {
+        "kernel_cpu": 0.023999461000000055,
+        "kernel_wall": 0.023284877999685705,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.0008507510010531405
+      },
+      "inherited_partial_ops": 5736360.0,
+      "warm_cpu_speed": 30.159556708377675,
+      "warm_wall_speed": 29.84824794942908
+    },
+    {
+      "name": "zero_output",
+      "model_sha256": "21e48935790e2fb68ad67139a147857c435545803cf4ca24f3414edacd5dbc17",
+      "python_cold_cpu": 0.43579808600000014,
+      "python_cold_wall": 0.4371645379997062,
+      "native_cold_cpu": 0.016002710999999614,
+      "native_cold_wall": 0.017311973999312613,
+      "differences": {
+        "good": 3.3306690738754696e-16,
+        "bad": 0.0,
+        "rays": 3.3306690738754696e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.4398950270000004,
+      "python_warm_wall": 0.43744014000003517,
+      "native_warm_cpu": 0.011996796000000032,
+      "native_warm_wall": 0.013624885999888647,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        162,
+        183,
+        429,
+        4133,
+        0,
+        6510,
+        2219,
+        435,
+        0
+      ],
+      "native_components": {
+        "kernel_cpu": 0.011996796000000032,
+        "kernel_wall": 0.01322462800089852,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.00033886699930008035
+      },
+      "inherited_partial_ops": 3455812.0,
+      "warm_cpu_speed": 36.66770919502167,
+      "warm_wall_speed": 32.10596697863089
+    },
+    {
+      "name": "duplicate_output",
+      "model_sha256": "e7185f7407bb23c8c777704dc02ab0cae2d100a6977ddad6c8f52edb21d1ebeb",
+      "python_cold_cpu": 0.433201199,
+      "python_cold_wall": 0.43412764400090964,
+      "native_cold_cpu": 0.011996385999999859,
+      "native_cold_wall": 0.013948083000286715,
+      "differences": {
+        "good": 3.3306690738754696e-16,
+        "bad": 0.0,
+        "rays": 3.3306690738754696e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.4623626220000001,
+      "python_warm_wall": 0.4592392689992266,
+      "native_warm_cpu": 0.013523490999999943,
+      "native_warm_wall": 0.01388765200135822,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        162,
+        183,
+        429,
+        4133,
+        0,
+        6510,
+        2219,
+        435,
+        0
+      ],
+      "native_components": {
+        "kernel_cpu": 0.013523490999999943,
+        "kernel_wall": 0.013563716998760356,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.0002595789992483333
+      },
+      "inherited_partial_ops": 3455812.0,
+      "warm_cpu_speed": 34.18959069074709,
+      "warm_wall_speed": 33.06817228386143
+    },
+    {
+      "name": "no_recurrence",
+      "model_sha256": "65a2cc50bbf18b9314225fdae04f9316d628a199cb29aa73d41997feca06cf16",
+      "python_cold_cpu": 0.02704504200000013,
+      "python_cold_wall": 0.028831785000875243,
+      "native_cold_cpu": 0.0,
+      "native_cold_wall": 0.0009098120008275146,
+      "differences": {
+        "good": 0.0,
+        "bad": 0.0,
+        "rays": 0.0,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.02799795500000002,
+      "python_warm_wall": 0.02555113599919423,
+      "native_warm_cpu": 0.0,
+      "native_warm_wall": 0.001007538001431385,
+      "counts": [
+        2,
+        4,
+        8,
+        16,
+        32,
+        40,
+        85,
+        72,
+        0,
+        72,
+        702,
+        40,
+        0
+      ],
+      "native_components": {
+        "kernel_cpu": 0.0,
+        "kernel_wall": 0.0008205880003515631,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 9.161700108961668e-05
+      },
+      "inherited_partial_ops": 117124.0,
+      "warm_cpu_speed": null,
+      "warm_wall_speed": 25.359972490262745
+    },
+    {
+      "name": "coordinate_scale_1e-06",
+      "model_sha256": "5e5cb441374dd9099881601f5cb9edafcbba51bc13d07c57eeb529e8749812ea",
+      "python_cold_cpu": 0.6538763300000001,
+      "python_cold_wall": 0.6552168289999827,
+      "native_cold_cpu": 0.0207027670000004,
+      "native_cold_wall": 0.02152603300055489,
+      "differences": {
+        "good": 5.551115123125783e-16,
+        "bad": 0.0,
+        "rays": 5.551115123125783e-16,
+        "maps": 1.0587911840678754e-22,
+        "map_bound_ratio": 0.023403050709355694
+      },
+      "python_warm_cpu": 0.6552215699999993,
+      "python_warm_wall": 0.654573937999885,
+      "native_warm_cpu": 0.01999619900000038,
+      "native_warm_wall": 0.021099854000567575,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        162,
+        255,
+        554,
+        6562,
+        0,
+        10378,
+        4487,
+        601,
+        0
+      ],
+      "native_components": {
+        "kernel_cpu": 0.01999619900000038,
+        "kernel_wall": 0.020722559000205365,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.0002836940002453048
+      },
+      "inherited_partial_ops": 5736360.0,
+      "warm_cpu_speed": 32.76730592649067,
+      "warm_wall_speed": 31.02267617502364
+    },
+    {
+      "name": "coordinate_scale_1000000.0",
+      "model_sha256": "6f77756546e34bfba396d49a64545698404ddbfb8caf97b46e077e6934d8ebc0",
+      "python_cold_cpu": 0.6599246609999998,
+      "python_cold_wall": 0.6613476039983652,
+      "native_cold_cpu": 0.01999914299999972,
+      "native_cold_wall": 0.02127509700039809,
+      "differences": {
+        "good": 5.551115123125783e-16,
+        "bad": 0.0,
+        "rays": 5.551115123125783e-16,
+        "maps": 0.0,
+        "map_bound_ratio": 0.0
+      },
+      "python_warm_cpu": 0.663964977,
+      "python_warm_wall": 0.6612851099998807,
+      "native_warm_cpu": 0.019995086999999856,
+      "native_warm_wall": 0.02160868599821697,
+      "counts": [
+        2,
+        6,
+        18,
+        54,
+        162,
+        255,
+        554,
+        6562,
+        0,
+        10378,
+        4487,
+        601,
+        0
+      ],
+      "native_components": {
+        "kernel_cpu": 0.019995086999999856,
+        "kernel_wall": 0.021168227000089246,
+        "serialization_cpu": 0.0,
+        "serialization_wall": 0.00035453099917504005
+      },
+      "inherited_partial_ops": 5736360.0,
+      "warm_cpu_speed": 33.20640600363503,
+      "warm_wall_speed": 30.602745120848454
+    }
+  ],
+  "ranks": [
+    [
+      0.0,
+      1,
+      1
+    ],
+    [
+      5e-10,
+      1,
+      1
+    ],
+    [
+      1e-09,
+      1,
+      1
+    ],
+    [
+      1.0000000000000003e-09,
+      2,
+      2
+    ],
+    [
+      2e-09,
+      2,
+      2
+    ],
+    [
+      1.0,
+      2,
+      2
+    ]
+  ],
+  "cpu_seconds": 6.058527645,
+  "peak_rss_kb": 57444,
+  "zero_input_rejected": "native DD lifecycle status 1"
+}
