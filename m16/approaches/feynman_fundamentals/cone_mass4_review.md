@@ -1283,3 +1283,18 @@ conditional replacement: 496,474,632 prior expression units become at most
 2,103,777,710. This remains conditional on historical installed-library binding;
 all other matrix/library/control/memory categories and sampler comparisons are
 unclosed. No model or kernel work was repeated.
+
+### Eight-cone numerator-only weighted bounds
+
+`check_weighted_cofactor_review.py` independently checks all6,144 exact Fraction
+determinants from archived Rt matrices, their signed enclosures, rational angle
+bounds and exact upward dyadic weighted sums. The64 reused intervals occur
+once;6,080 new records are retained. All eight conditional bounds reproduce,
+with maximum2.0926326517936107e-14. The17 upward-rounding controls and source
+pins also pass. Reviewer work took about1.10CPU and called no native kernel.
+
+The weights are selected binary inputs. Reconstructed Rt/denominator parity is
+supported by pinned source and saved records; this result does not bound
+coefficient or denominator error, libm, source sequential arithmetic,
+quadrature, or the full cone mass. Those exclusions remain material despite
+the small numerator-only bounds.
