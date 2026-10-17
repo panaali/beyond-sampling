@@ -166,7 +166,169 @@
         "classification": "deterministic quadrature and 2D interpolation with analytic scalar terminal"
       },
       "difference_from_existing_heldout": -0.012305053507112806
+    },
+    {
+      "name": "target_refinement",
+      "estimate": 0.21254897359518907,
+      "stats": {
+        "cpu_seconds": 0.5434904929999997,
+        "work": {
+          "hidden_grid_points_constructed": 568.0,
+          "target_rule_nodes": 32,
+          "conditional_inverse_normal_calls": 2176.0,
+          "scalar_gate_roots": 29376.0,
+          "scalar_affine_steps": 14688.0,
+          "scalar_readout_margins": 46982.0,
+          "scalar_terminal_queries": 10368.0,
+          "scalar_gate_pieces": 16391.0,
+          "scalar_correct_intervals": 4129.0,
+          "normal_cdf_interval_queries": 8258.0,
+          "interpolators_built": 736.0,
+          "interpolation_queries": 711776.0,
+          "scalar_transition_nodes": 706560.0
+        },
+        "hidden_order": 9,
+        "target_order": 16,
+        "target_rule": "split_sign",
+        "input_order": 8,
+        "limit": 6.0,
+        "possible_labels": [
+          0,
+          3,
+          5,
+          6
+        ],
+        "contributions": {
+          "0": 0.0,
+          "3": 0.04862892062564778,
+          "5": 0.052666969098753146,
+          "6": 0.11125308387078814
+        },
+        "stage_bounds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            7.013319253921509,
+            1.2266072630882263
+          ],
+          [
+            8.106098858666869,
+            3.3768522133587204
+          ],
+          [
+            10.021743660040661,
+            6.137618807565156
+          ],
+          [
+            12.481299801927051,
+            9.72840809697611
+          ],
+          [
+            15.680319910879508,
+            14.395882169511452
+          ],
+          [
+            19.838554274585146,
+            20.46305879791451
+          ],
+          [
+            25.243778161172955,
+            28.349675935533888
+          ]
+        ],
+        "omitted_input_mass_bound": 1.3812226917764292e-08,
+        "input_tail_only_interval": [
+          0.21254897065941442,
+          0.21254898447164128
+        ],
+        "total_error_certified": false,
+        "classification": "deterministic quadrature and 2D interpolation with analytic scalar terminal"
+      },
+      "difference_from_existing_heldout": -0.024511573279810933
+    },
+    {
+      "name": "input_refinement",
+      "estimate": 0.212439388350944,
+      "stats": {
+        "cpu_seconds": 0.32184088499999985,
+        "work": {
+          "hidden_grid_points_constructed": 568.0,
+          "target_rule_nodes": 16,
+          "conditional_inverse_normal_calls": 2112.0,
+          "scalar_gate_roots": 14688.0,
+          "scalar_affine_steps": 7344.0,
+          "scalar_readout_margins": 23459.0,
+          "scalar_terminal_queries": 5184.0,
+          "scalar_gate_pieces": 8196.0,
+          "scalar_correct_intervals": 2058.0,
+          "normal_cdf_interval_queries": 4116.0,
+          "interpolators_built": 368.0,
+          "interpolation_queries": 709168.0,
+          "scalar_transition_nodes": 706560.0
+        },
+        "hidden_order": 9,
+        "target_order": 8,
+        "target_rule": "split_sign",
+        "input_order": 16,
+        "limit": 6.0,
+        "possible_labels": [
+          0,
+          3,
+          5,
+          6
+        ],
+        "contributions": {
+          "0": 0.0,
+          "3": 0.04867806731817724,
+          "5": 0.05262246478643361,
+          "6": 0.11113885624633316
+        },
+        "stage_bounds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            7.013319253921509,
+            1.2266072630882263
+          ],
+          [
+            8.106098858666869,
+            3.3768522133587204
+          ],
+          [
+            10.021743660040661,
+            6.137618807565156
+          ],
+          [
+            12.481299801927051,
+            9.72840809697611
+          ],
+          [
+            15.680319910879508,
+            14.395882169511452
+          ],
+          [
+            19.838554274585146,
+            20.46305879791451
+          ],
+          [
+            25.243778161172955,
+            28.349675935533888
+          ]
+        ],
+        "omitted_input_mass_bound": 1.3812226917764292e-08,
+        "input_tail_only_interval": [
+          0.21243938541668297,
+          0.21243939922890998
+        ],
+        "total_error_certified": false,
+        "classification": "deterministic quadrature and 2D interpolation with analytic scalar terminal"
+      },
+      "difference_from_existing_heldout": -0.024621158524055997
     }
   ],
-  "total_cpu": 1.1190106050000002
+  "total_cpu": 1.988563138
 }

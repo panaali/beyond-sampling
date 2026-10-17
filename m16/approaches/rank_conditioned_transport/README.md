@@ -22,6 +22,19 @@ Before any trained run, freeze this structural repair: split target quantiles at
 
 Split-boundary checks (checks.py --target-rule split_sign, checks_split_results.json) pass: all nine sign-toy cases have absolute error<=1.11e-16; constants<=8.33e-17; terminal partitions<=2.22e-16. CPU.909seconds. T55 independently reviewed the engine's chronology, remaining-slot count, conditional recurrence, scalar margins and normalization, finding no algebraic discrepancy. Trained convergence remains untested at this checkpoint.
 
+First trained cycle (pilot.py --seconds18, pilot_results.json), H2T7 LOCALPILOT checkpoint SHA09ac1bc640e3b15641a12606d91a4c28e699aa47fd14aff202bac52bfa0444e0:
+
+| hidden nodes per axis | target nodes per half | input nodes | estimate | CPU |
+|---:|---:|---:|---:|---:|
+|9|8|8|.21248113|.308|
+|17|8|8|.22475549|.811|
+|9|16|8|.21254897|.543|
+|9|8|16|.21243939|.322|
+
+Existing heldout estimate.23706055 has SE.00234936; it is not a precise reference. No new samples were generated. The input-tail bound is1.38123e-8, but hidden interpolation is plainly unresolved: doubling hidden resolution changes the estimate by.01227, whereas target/input refinements change it by less than.00007. This is a negative result for the coarse uniform hidden grid. Finite stage bounds grow to approximately(25.24,28.35), making those uniform cells large.
+
+Next bounded cycle is frozen before measurements: preserve the proved boxes but use fixed quadratic hidden coordinates B_t*(i/(n-1))^2 to resolve near-origin states. Compare hidden9/17/33 at target8/input8, plus uniform33 as a control. This changes mesh spacing only and uses no sampled states or truth-fitted allocation. Report all four outcomes and convergence rather than selecting whichever is nearest heldout accuracy.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
