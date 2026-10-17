@@ -4,7 +4,7 @@ import ctypes as C,hashlib,json,struct
 import numpy as np
 from dispatch import NP,BL
 HERE=Path(__file__).resolve().parent
-OUT=HERE/'dispatch_safe.jsonl'
+OUT=HERE/'dispatch_offset0.jsonl'
 def record(d):
  with OUT.open('a') as f:f.write(json.dumps(d)+'\n');f.flush()
 def maps():
@@ -19,7 +19,7 @@ def read(addr,n):
  return C.string_at(addr,n)
 def base(p):
  rows=[r for r in maps() if r[-1]==str(p)];record(dict(stage='library_maps',path=str(p),rows=rows));assert rows
- return min(r[0]-r[3] for r in rows)
+ zero=[r for r in rows if r[3]==0];assert len(zero)==1;return zero[0][0]
 def main():
  assert not OUT.exists()
  nb=base(NP);bb=base(BL);get=C.pythonapi.PyCapsule_GetPointer;get.argtypes=[C.py_object,C.c_char_p];get.restype=C.c_void_p
