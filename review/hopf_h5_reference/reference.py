@@ -48,7 +48,7 @@ def controls():
     for t in range(4):hidden=np.maximum(hidden@model[1].T+x[:,t,None]*model[0][None],0)
     direct=int(np.sum(np.argmax(hidden@model[2].T,axis=1)==np.argsort(x,axis=1)[:,-2]));out['completed_extra_forward_evaluations']+=n
     row.update(value=v,value_hex=float(v).hex(),hits=hits,direct_hits=direct,consumed=[a.index,b.index]);save()
-    assert isinstance(hits,int) and hits==direct and float(v).hex()==float(hits/n).hex() and a.index==b.index==n
+    assert type(hits) is int and hits==direct and float(v).hex()==float(hits/n).hex() and a.index==b.index==n
     row['status']='complete';save()
   assert len(out['rows'])==6 and out['completed_extra_forward_evaluations']==318;out['complete']=True
  except BaseException as e:out['failure']=repr(e);raise
@@ -65,7 +65,7 @@ def pilot():
   protocol,old,new=load();assert protocol['first_pilot']==[0,0,0];model,h=model_for(protocol,0);assert h==control['model_sha256'];ident=protocol['models'][0]
   rng=np.random.Generator(np.random.PCG64(ident['rng_seed']));out.update(seed=0,copy=0,model_sha256=h,n=protocol['block_size'],rng_seed=ident['rng_seed'],rng_name=ident['rng_name'],state_before=rng.bit_generator.state,numpy_version=np.__version__,phase='forward_started');save()
   t=time.process_time();hits=new(model,out['n'],rng,chunk=out['n']);forward_cpu=time.process_time()-t
-  assert isinstance(hits,int) and 0<=hits<=out['n']
+  assert type(hits) is int and 0<=hits<=out['n']
   projection=forward_cpu*protocol['blocks_per_model']*len(protocol['models'])
   out.update(complete=True,phase='complete',hits=hits,state_after=rng.bit_generator.state,forward_cpu_seconds=forward_cpu,projected_full_forward_cpu_seconds=projection,projection_gate_pass=projection<=protocol['total_projection_gate_forward_cpu_seconds'],scope='One predeclared block; no estimator evaluation or accuracy-based stopping. Projection excludes imports/IO and is scheduling only, not a runtime ceiling. Pilot must be reused once if expansion independently clears.')
  except BaseException as e:out['failure']=repr(e);raise
