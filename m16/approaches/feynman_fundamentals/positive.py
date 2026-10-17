@@ -70,12 +70,16 @@ def triangle_moment(vertices,power,absolute_tolerance,max_order=128):
     if chosen is None:
         raise ArithmeticError(f"quadrature bound exceeds tolerance at order {max_order}")
     order,error,degree=chosen
+    misses_before=rule.cache_info().misses
     bary,weights=rule(order)
+    generated=rule.cache_info().misses-misses_before
     points=rays.T@bary
     q=np.sum(points*points,axis=0)
     integral=determinant*float(np.dot(weights,points[0]**power/q**exponent))
     return integral,dict(quadrature_nodes=order*order,quadrature_error_bound=error,
                          order=order,polynomial_degree=degree,
+                         legendre_rule_generations=generated,
+                         legendre_rule_generation_nodes=generated*order,
                          qmin=qmin,qmax=qmax,series_ratio=ratio)
 
 
@@ -87,11 +91,15 @@ def polygon_tail_mass(vertices,prefix_dimension,absolute_tolerance=1e-12,max_ord
         return 0.,dict(quadrature_nodes=0,quadrature_error_bound=0.,max_order=0)
     factor=prefix_dimension/(2*pi)
     triangles=len(vertices)-2
-    mass=0.;error=0.;nodes=0;orders=[]
+    mass=0.;error=0.;nodes=0;orders=[];generations=0;generation_nodes=0
     for b,c in zip(vertices[1:-1],vertices[2:]):
         value,meta=triangle_moment(np.array([vertices[0],b,c]),prefix_dimension-1,
                                    absolute_tolerance/(factor*triangles),max_order)
         mass+=factor*value;error+=factor*meta["quadrature_error_bound"]
         nodes+=meta["quadrature_nodes"];orders.append(meta["order"])
+        generations+=meta.get("legendre_rule_generations",0)
+        generation_nodes+=meta.get("legendre_rule_generation_nodes",0)
     return mass,dict(quadrature_nodes=nodes,quadrature_error_bound=error,
-                     max_order=max(orders),roundoff_certified=False)
+                     max_order=max(orders),roundoff_certified=False,
+                     legendre_rule_generations=generations,
+                     legendre_rule_generation_nodes=generation_nodes)

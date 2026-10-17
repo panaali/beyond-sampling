@@ -119,6 +119,28 @@ resolved using16 positive nodes, agreeing with high precision to1.17e-27 absolut
 A separate direct regression call used approximately0.038 process wall seconds;
 neither check used model forward passes or random inputs.
 
+Cycle4 adapter: `target_tail.target_probability(model,a,b,K,j)` provides the
+two-fresh-input terminal on T50's normalized target/count state. It inserts the
+preselected target in the correct chronological location and handles count2
+absorption, axes/origin, b=0 and first-index ties. Some arbitrary grid states
+are unreachable; the callable defines an operator extension there.
+
+Reproduce `check_target.py` with the same flock/thread prefix above. Twelve
+fixed cases used786,432 direct validation draws in65,536 chunks and0.332 CPU
+seconds. Maximum discrepancy was2.26 SE; input/output scaling by1e-16 changed
+the kernel at most1.12e-16. For synthetic T3, summing all three target-specific
+passes gives .32421191293570956 versus .3242119129357096 from the separately
+partitioned top-two tail (difference5.56e-17). No positive fallback occurred.
+The kernel and its validation are not a full estimator or an efficiency result.
+
+Statistics now explicitly use `positive_quadrature_fallbacks`; `positive_fallbacks`
+is a compatibility alias. `high_precision_fallbacks` remains0 and does not count
+quadrature. Additional fields expose quadrature-node counts, quadrature-only
+error bounds, newly generated Legendre rules and their orders' node counts.
+`method_class` states `analytic_regions_with_numerical_quadrature_fallback`.
+The numerical fallback must not be described as exact arithmetic or as covered
+by a floating-point certificate.
+
 ## Claims
 - [inferred] H2 accuracy admits a target-specific Markov formulation with three
   continuous normalized coordinates and a capped exceedance count, independent

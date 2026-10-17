@@ -50,7 +50,10 @@ def conditional_probability(model, normalized_hidden, prefix_top, prefix_dimensi
         raise ValueError("prefix records must be strictly ordered")
     stats=dict(clips=0,affine_products=0,moment_calls=0,gate_cells=0,
                correct_pieces=0,high_precision_fallbacks=0,positive_fallbacks=0,
-               fallback_quadrature_nodes=0,fallback_quadrature_error_bound=0.)
+               positive_quadrature_fallbacks=0,fallback_rule_generations=0,
+               fallback_rule_generation_nodes=0,
+               fallback_quadrature_nodes=0,fallback_quadrature_error_bound=0.,
+               method_class="analytic_regions_with_numerical_quadrature_fallback")
     B=np.zeros((H,3));B[:,0]=normalized_hidden
     regions=[(np.diag([1.,a,b]),B.copy()) for a,b in itertools.product((-1,1),repeat=2)]
     for input_coordinate in (1,2):
