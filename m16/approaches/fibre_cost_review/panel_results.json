@@ -1,0 +1,2797 @@
+{
+  "rows": [
+    {
+      "name": "zero",
+      "checkpoint_sha256": null,
+      "baseline": {
+        "value": 0.33333333333333315,
+        "value_hex": "0x1.5555555555552p-2",
+        "n": 3936,
+        "x": 1876,
+        "historical_hybrid": 5812,
+        "segments": 6,
+        "traces": 12,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 5812,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.33333333333333315,
+        "value_hex": "0x1.5555555555552p-2",
+        "n": 3936,
+        "x": 1876,
+        "historical_hybrid": 5812,
+        "segments": 6,
+        "traces": 12,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 12,
+              "historical_mac": 432,
+              "dense_mac": 432,
+              "mul": 432,
+              "add": 288,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 12,
+              "historical_mac": 432,
+              "dense_mac": 432,
+              "mul": 432,
+              "add": 288,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 12,
+              "historical_mac": 432,
+              "dense_mac": 432,
+              "mul": 432,
+              "add": 288,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 12,
+              "historical_mac": 108,
+              "dense_mac": 108,
+              "mul": 108,
+              "add": 72,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 12,
+              "historical_mac": 108,
+              "dense_mac": 108,
+              "mul": 108,
+              "add": 72,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 12,
+              "historical_mac": 108,
+              "dense_mac": 108,
+              "mul": 108,
+              "add": 72,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 60,
+              "historical_mac": 0,
+              "dense_mac": 2880,
+              "mul": 2880,
+              "add": 2160,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 90,
+              "historical_mac": 720,
+              "dense_mac": 1080,
+              "mul": 1080,
+              "add": 720,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 90,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 1080
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 30,
+              "historical_mac": 0,
+              "dense_mac": 1080,
+              "mul": 1080,
+              "add": 810,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 18,
+              "historical_mac": 216,
+              "dense_mac": 216,
+              "mul": 216,
+              "add": 144,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 18,
+              "historical_mac": 216,
+              "dense_mac": 216,
+              "mul": 216,
+              "add": 144,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 414,
+            "historical_mac": 2880,
+            "dense_mac": 7200,
+            "mul": 7200,
+            "add": 5130,
+            "mask_mul": 1080
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 16342,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 80.72222222222223,
+      "partial_adjusted_sample_equivalents": 145.91071428571428,
+      "cpu_seconds": 0.03529268299999999,
+      "partial_vs_historical_budget_ratio": 1.8075656277652146
+    },
+    {
+      "name": "positive",
+      "checkpoint_sha256": null,
+      "baseline": {
+        "value": 0.33718274310532415,
+        "value_hex": "0x1.59466ed9a6d8ep-2",
+        "n": 54365,
+        "x": 37035,
+        "historical_hybrid": 91400,
+        "segments": 62,
+        "traces": 70,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 91400,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.33718274310532415,
+        "value_hex": "0x1.59466ed9a6d8ep-2",
+        "n": 54365,
+        "x": 37035,
+        "historical_hybrid": 91400,
+        "segments": 62,
+        "traces": 70,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 155,
+              "historical_mac": 5580,
+              "dense_mac": 5580,
+              "mul": 5580,
+              "add": 3720,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 155,
+              "historical_mac": 5580,
+              "dense_mac": 5580,
+              "mul": 5580,
+              "add": 3720,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 155,
+              "historical_mac": 5580,
+              "dense_mac": 5580,
+              "mul": 5580,
+              "add": 3720,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 155,
+              "historical_mac": 1395,
+              "dense_mac": 1395,
+              "mul": 1395,
+              "add": 930,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 155,
+              "historical_mac": 1395,
+              "dense_mac": 1395,
+              "mul": 1395,
+              "add": 930,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 155,
+              "historical_mac": 1395,
+              "dense_mac": 1395,
+              "mul": 1395,
+              "add": 930,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 474,
+              "historical_mac": 4896,
+              "dense_mac": 22752,
+              "mul": 22752,
+              "add": 17064,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 711,
+              "historical_mac": 5688,
+              "dense_mac": 8532,
+              "mul": 8532,
+              "add": 5688,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 711,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 8532
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 237,
+              "historical_mac": 4104,
+              "dense_mac": 8532,
+              "mul": 8532,
+              "add": 6399,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 82,
+              "historical_mac": 984,
+              "dense_mac": 984,
+              "mul": 984,
+              "add": 656,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 82,
+              "historical_mac": 984,
+              "dense_mac": 984,
+              "mul": 984,
+              "add": 656,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 3263,
+            "historical_mac": 37689,
+            "dense_mac": 62817,
+            "mul": 62817,
+            "add": 44485,
+            "mask_mul": 8532
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 169545,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 2,
+        "correct": false,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 1269.4444444444443,
+      "partial_adjusted_sample_equivalents": 1513.794642857143,
+      "cpu_seconds": 0.062039171000000115,
+      "partial_vs_historical_budget_ratio": 1.1924859331040951
+    },
+    {
+      "name": "k30_s0_clean",
+      "checkpoint_sha256": "e1003b62cdbdf671ee7ef875ed7aea3a410684681b6e0659fd0738a5d0e014e7",
+      "baseline": {
+        "value": 0.9845503813585573,
+        "value_hex": "0x1.f816fcd2660edp-1",
+        "n": 325315,
+        "x": 485464,
+        "historical_hybrid": 810779,
+        "segments": 81,
+        "traces": 468,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 810779,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.9845503813585573,
+        "value_hex": "0x1.f816fcd2660edp-1",
+        "n": 325315,
+        "x": 485464,
+        "historical_hybrid": 810779,
+        "segments": 81,
+        "traces": 468,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 541,
+              "historical_mac": 19476,
+              "dense_mac": 19476,
+              "mul": 19476,
+              "add": 12984,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 541,
+              "historical_mac": 19476,
+              "dense_mac": 19476,
+              "mul": 19476,
+              "add": 12984,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 541,
+              "historical_mac": 19476,
+              "dense_mac": 19476,
+              "mul": 19476,
+              "add": 12984,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 541,
+              "historical_mac": 4869,
+              "dense_mac": 4869,
+              "mul": 4869,
+              "add": 3246,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 541,
+              "historical_mac": 4869,
+              "dense_mac": 4869,
+              "mul": 4869,
+              "add": 3246,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 541,
+              "historical_mac": 4869,
+              "dense_mac": 4869,
+              "mul": 4869,
+              "add": 3246,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1252,
+              "historical_mac": 13688,
+              "dense_mac": 60096,
+              "mul": 60096,
+              "add": 45072,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1878,
+              "historical_mac": 15024,
+              "dense_mac": 22536,
+              "mul": 22536,
+              "add": 15024,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1878,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 22536
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 626,
+              "historical_mac": 11106,
+              "dense_mac": 22536,
+              "mul": 22536,
+              "add": 16902,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 85,
+              "historical_mac": 1020,
+              "dense_mac": 1020,
+              "mul": 1020,
+              "add": 680,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 85,
+              "historical_mac": 1020,
+              "dense_mac": 1020,
+              "mul": 1020,
+              "add": 680,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 9086,
+            "historical_mac": 115001,
+            "dense_mac": 180351,
+            "mul": 180351,
+            "add": 127120,
+            "mask_mul": 22536
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 1025785,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 11260.819444444445,
+      "partial_adjusted_sample_equivalents": 9158.794642857143,
+      "cpu_seconds": 0.229966632,
+      "partial_vs_historical_budget_ratio": 0.8133328740454726
+    },
+    {
+      "name": "k30_s0_abs05_n124_0",
+      "checkpoint_sha256": "e1003b62cdbdf671ee7ef875ed7aea3a410684681b6e0659fd0738a5d0e014e7",
+      "baseline": {
+        "value": 0.8782543980496853,
+        "value_hex": "0x1.c1aa8f7a6214cp-1",
+        "n": 295306,
+        "x": 424262,
+        "historical_hybrid": 719568,
+        "segments": 80,
+        "traces": 448,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 719568,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.8782543980496853,
+        "value_hex": "0x1.c1aa8f7a6214cp-1",
+        "n": 295306,
+        "x": 424262,
+        "historical_hybrid": 719568,
+        "segments": 80,
+        "traces": 448,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 517,
+              "historical_mac": 18612,
+              "dense_mac": 18612,
+              "mul": 18612,
+              "add": 12408,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 517,
+              "historical_mac": 18612,
+              "dense_mac": 18612,
+              "mul": 18612,
+              "add": 12408,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 517,
+              "historical_mac": 18612,
+              "dense_mac": 18612,
+              "mul": 18612,
+              "add": 12408,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 517,
+              "historical_mac": 4653,
+              "dense_mac": 4653,
+              "mul": 4653,
+              "add": 3102,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 517,
+              "historical_mac": 4653,
+              "dense_mac": 4653,
+              "mul": 4653,
+              "add": 3102,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 517,
+              "historical_mac": 4653,
+              "dense_mac": 4653,
+              "mul": 4653,
+              "add": 3102,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1198,
+              "historical_mac": 13816,
+              "dense_mac": 57504,
+              "mul": 57504,
+              "add": 43128,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1797,
+              "historical_mac": 14376,
+              "dense_mac": 21564,
+              "mul": 21564,
+              "add": 14376,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1797,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 21564
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 599,
+              "historical_mac": 10143,
+              "dense_mac": 21564,
+              "mul": 21564,
+              "add": 16173,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 82,
+              "historical_mac": 984,
+              "dense_mac": 984,
+              "mul": 984,
+              "add": 656,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 82,
+              "historical_mac": 984,
+              "dense_mac": 984,
+              "mul": 984,
+              "add": 656,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 8693,
+            "historical_mac": 110206,
+            "dense_mac": 172503,
+            "mul": 172503,
+            "add": 121591,
+            "mask_mul": 21564
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 925020,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 9994.0,
+      "partial_adjusted_sample_equivalents": 8259.107142857143,
+      "cpu_seconds": 0.20860542799999982,
+      "partial_vs_historical_budget_ratio": 0.8264065582206467
+    },
+    {
+      "name": "k30_s1_clean",
+      "checkpoint_sha256": "540ca26c0dbaa681453e3c437c2e321a4fe0c97f4a9ccdf8703bd98b9cd0ca56",
+      "baseline": {
+        "value": 0.8928290582800684,
+        "value_hex": "0x1.c920e3ec76766p-1",
+        "n": 297069,
+        "x": 459250,
+        "historical_hybrid": 756319,
+        "segments": 69,
+        "traces": 475,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 756319,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.8928290582800684,
+        "value_hex": "0x1.c920e3ec76766p-1",
+        "n": 297069,
+        "x": 459250,
+        "historical_hybrid": 756319,
+        "segments": 69,
+        "traces": 475,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 418,
+              "historical_mac": 15048,
+              "dense_mac": 15048,
+              "mul": 15048,
+              "add": 10032,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 418,
+              "historical_mac": 15048,
+              "dense_mac": 15048,
+              "mul": 15048,
+              "add": 10032,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 418,
+              "historical_mac": 15048,
+              "dense_mac": 15048,
+              "mul": 15048,
+              "add": 10032,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 418,
+              "historical_mac": 3762,
+              "dense_mac": 3762,
+              "mul": 3762,
+              "add": 2508,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 418,
+              "historical_mac": 3762,
+              "dense_mac": 3762,
+              "mul": 3762,
+              "add": 2508,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 418,
+              "historical_mac": 3762,
+              "dense_mac": 3762,
+              "mul": 3762,
+              "add": 2508,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1002,
+              "historical_mac": 14456,
+              "dense_mac": 48096,
+              "mul": 48096,
+              "add": 36072,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1503,
+              "historical_mac": 12024,
+              "dense_mac": 18036,
+              "mul": 18036,
+              "add": 12024,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1503,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 18036
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 501,
+              "historical_mac": 12843,
+              "dense_mac": 18036,
+              "mul": 18036,
+              "add": 13527,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 83,
+              "historical_mac": 996,
+              "dense_mac": 996,
+              "mul": 996,
+              "add": 664,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 83,
+              "historical_mac": 996,
+              "dense_mac": 996,
+              "mul": 996,
+              "add": 664,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 7219,
+            "historical_mac": 97853,
+            "dense_mac": 142698,
+            "mul": 142698,
+            "add": 100643,
+            "mask_mul": 18036
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 919843,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 10504.430555555555,
+      "partial_adjusted_sample_equivalents": 8212.88392857143,
+      "cpu_seconds": 0.1975796350000001,
+      "partial_vs_historical_budget_ratio": 0.7818495143678037
+    },
+    {
+      "name": "k30_s1_abs05_n124_0",
+      "checkpoint_sha256": "540ca26c0dbaa681453e3c437c2e321a4fe0c97f4a9ccdf8703bd98b9cd0ca56",
+      "baseline": {
+        "value": 0.6633483596097735,
+        "value_hex": "0x1.53a2656cc229bp-1",
+        "n": 269264,
+        "x": 406791,
+        "historical_hybrid": 676055,
+        "segments": 66,
+        "traces": 384,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 676055,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.6633483596097735,
+        "value_hex": "0x1.53a2656cc229bp-1",
+        "n": 269264,
+        "x": 406791,
+        "historical_hybrid": 676055,
+        "segments": 66,
+        "traces": 384,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 395,
+              "historical_mac": 14220,
+              "dense_mac": 14220,
+              "mul": 14220,
+              "add": 9480,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 395,
+              "historical_mac": 14220,
+              "dense_mac": 14220,
+              "mul": 14220,
+              "add": 9480,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 395,
+              "historical_mac": 14220,
+              "dense_mac": 14220,
+              "mul": 14220,
+              "add": 9480,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 395,
+              "historical_mac": 3555,
+              "dense_mac": 3555,
+              "mul": 3555,
+              "add": 2370,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 395,
+              "historical_mac": 3555,
+              "dense_mac": 3555,
+              "mul": 3555,
+              "add": 2370,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 395,
+              "historical_mac": 3555,
+              "dense_mac": 3555,
+              "mul": 3555,
+              "add": 2370,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 958,
+              "historical_mac": 13624,
+              "dense_mac": 45984,
+              "mul": 45984,
+              "add": 34488,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1437,
+              "historical_mac": 11496,
+              "dense_mac": 17244,
+              "mul": 17244,
+              "add": 11496,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1437,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 17244
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 479,
+              "historical_mac": 12303,
+              "dense_mac": 17244,
+              "mul": 17244,
+              "add": 12933,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 84,
+              "historical_mac": 1008,
+              "dense_mac": 1008,
+              "mul": 1008,
+              "add": 672,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 84,
+              "historical_mac": 1008,
+              "dense_mac": 1008,
+              "mul": 1008,
+              "add": 672,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 6885,
+            "historical_mac": 92872,
+            "dense_mac": 135921,
+            "mul": 135921,
+            "add": 95883,
+            "mask_mul": 17244
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 832231,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 9389.652777777777,
+      "partial_adjusted_sample_equivalents": 7430.633928571428,
+      "cpu_seconds": 0.19105296699999985,
+      "partial_vs_historical_budget_ratio": 0.7913640796342648
+    },
+    {
+      "name": "k30_s4_clean",
+      "checkpoint_sha256": "248396aaebf0399d481ff4f8dae323b7c77b58c4d68eeb777aabbc2aafe2c962",
+      "baseline": {
+        "value": 0.9452969827559238,
+        "value_hex": "0x1.e3fdf753e36a1p-1",
+        "n": 334884,
+        "x": 495946,
+        "historical_hybrid": 830830,
+        "segments": 85,
+        "traces": 505,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 830830,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.9452969827559238,
+        "value_hex": "0x1.e3fdf753e36a1p-1",
+        "n": 334884,
+        "x": 495946,
+        "historical_hybrid": 830830,
+        "segments": 85,
+        "traces": 505,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 545,
+              "historical_mac": 19620,
+              "dense_mac": 19620,
+              "mul": 19620,
+              "add": 13080,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 545,
+              "historical_mac": 19620,
+              "dense_mac": 19620,
+              "mul": 19620,
+              "add": 13080,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 545,
+              "historical_mac": 19620,
+              "dense_mac": 19620,
+              "mul": 19620,
+              "add": 13080,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 545,
+              "historical_mac": 4905,
+              "dense_mac": 4905,
+              "mul": 4905,
+              "add": 3270,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 545,
+              "historical_mac": 4905,
+              "dense_mac": 4905,
+              "mul": 4905,
+              "add": 3270,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 545,
+              "historical_mac": 4905,
+              "dense_mac": 4905,
+              "mul": 4905,
+              "add": 3270,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1260,
+              "historical_mac": 17928,
+              "dense_mac": 60480,
+              "mul": 60480,
+              "add": 45360,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1890,
+              "historical_mac": 15120,
+              "dense_mac": 22680,
+              "mul": 22680,
+              "add": 15120,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1890,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 22680
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 630,
+              "historical_mac": 12123,
+              "dense_mac": 22680,
+              "mul": 22680,
+              "add": 17010,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 85,
+              "historical_mac": 1020,
+              "dense_mac": 1020,
+              "mul": 1020,
+              "add": 680,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 85,
+              "historical_mac": 1020,
+              "dense_mac": 1020,
+              "mul": 1020,
+              "add": 680,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 9146,
+            "historical_mac": 120894,
+            "dense_mac": 181563,
+            "mul": 181563,
+            "add": 127972,
+            "mask_mul": 22680
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 1042151,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 11539.305555555555,
+      "partial_adjusted_sample_equivalents": 9304.919642857143,
+      "cpu_seconds": 0.232034992,
+      "partial_vs_historical_budget_ratio": 0.8063673847666963
+    },
+    {
+      "name": "k30_s4_abs05_n124_0",
+      "checkpoint_sha256": "248396aaebf0399d481ff4f8dae323b7c77b58c4d68eeb777aabbc2aafe2c962",
+      "baseline": {
+        "value": 0.557089731762813,
+        "value_hex": "0x1.1d3add85b7a6cp-1",
+        "n": 339481,
+        "x": 504271,
+        "historical_hybrid": 843752,
+        "segments": 83,
+        "traces": 502,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 843752,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.557089731762813,
+        "value_hex": "0x1.1d3add85b7a6cp-1",
+        "n": 339481,
+        "x": 504271,
+        "historical_hybrid": 843752,
+        "segments": 83,
+        "traces": 502,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 543,
+              "historical_mac": 19548,
+              "dense_mac": 19548,
+              "mul": 19548,
+              "add": 13032,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 543,
+              "historical_mac": 19548,
+              "dense_mac": 19548,
+              "mul": 19548,
+              "add": 13032,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 543,
+              "historical_mac": 19548,
+              "dense_mac": 19548,
+              "mul": 19548,
+              "add": 13032,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 543,
+              "historical_mac": 4887,
+              "dense_mac": 4887,
+              "mul": 4887,
+              "add": 3258,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 543,
+              "historical_mac": 4887,
+              "dense_mac": 4887,
+              "mul": 4887,
+              "add": 3258,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 543,
+              "historical_mac": 4887,
+              "dense_mac": 4887,
+              "mul": 4887,
+              "add": 3258,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1256,
+              "historical_mac": 17680,
+              "dense_mac": 60288,
+              "mul": 60288,
+              "add": 45216,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1884,
+              "historical_mac": 15072,
+              "dense_mac": 22608,
+              "mul": 22608,
+              "add": 15072,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1884,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 22608
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 628,
+              "historical_mac": 12510,
+              "dense_mac": 22608,
+              "mul": 22608,
+              "add": 16956,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 85,
+              "historical_mac": 1020,
+              "dense_mac": 1020,
+              "mul": 1020,
+              "add": 680,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 85,
+              "historical_mac": 1020,
+              "dense_mac": 1020,
+              "mul": 1020,
+              "add": 680,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 9116,
+            "historical_mac": 120715,
+            "dense_mac": 180957,
+            "mul": 180957,
+            "add": 127546,
+            "mask_mul": 22608
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 1054148,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 11718.777777777777,
+      "partial_adjusted_sample_equivalents": 9412.035714285714,
+      "cpu_seconds": 0.22508923399999992,
+      "partial_vs_historical_budget_ratio": 0.803158477169324
+    },
+    {
+      "name": "k24_s4_clean",
+      "checkpoint_sha256": "b6dce4ae96840232c18227e79674584e8e6f86f1c2055878177b9c23e596e09f",
+      "baseline": {
+        "value": 0.9247732717416058,
+        "value_hex": "0x1.d97be1dcb0b35p-1",
+        "n": 363280,
+        "x": 564230,
+        "historical_hybrid": 927510,
+        "segments": 81,
+        "traces": 567,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 927510,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.9247732717416058,
+        "value_hex": "0x1.d97be1dcb0b35p-1",
+        "n": 363280,
+        "x": 564230,
+        "historical_hybrid": 927510,
+        "segments": 81,
+        "traces": 567,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 534,
+              "historical_mac": 19224,
+              "dense_mac": 19224,
+              "mul": 19224,
+              "add": 12816,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 534,
+              "historical_mac": 19224,
+              "dense_mac": 19224,
+              "mul": 19224,
+              "add": 12816,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 534,
+              "historical_mac": 19224,
+              "dense_mac": 19224,
+              "mul": 19224,
+              "add": 12816,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 534,
+              "historical_mac": 4806,
+              "dense_mac": 4806,
+              "mul": 4806,
+              "add": 3204,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 534,
+              "historical_mac": 4806,
+              "dense_mac": 4806,
+              "mul": 4806,
+              "add": 3204,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 534,
+              "historical_mac": 4806,
+              "dense_mac": 4806,
+              "mul": 4806,
+              "add": 3204,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1234,
+              "historical_mac": 17448,
+              "dense_mac": 59232,
+              "mul": 59232,
+              "add": 44424,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1851,
+              "historical_mac": 14808,
+              "dense_mac": 22212,
+              "mul": 22212,
+              "add": 14808,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1851,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 22212
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 617,
+              "historical_mac": 12852,
+              "dense_mac": 22212,
+              "mul": 22212,
+              "add": 16659,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 83,
+              "historical_mac": 996,
+              "dense_mac": 996,
+              "mul": 996,
+              "add": 664,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 83,
+              "historical_mac": 996,
+              "dense_mac": 996,
+              "mul": 996,
+              "add": 664,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 8959,
+            "historical_mac": 119298,
+            "dense_mac": 177846,
+            "mul": 177846,
+            "add": 125351,
+            "mask_mul": 22212
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 1133621,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 12882.083333333334,
+      "partial_adjusted_sample_equivalents": 10121.61607142857,
+      "cpu_seconds": 0.24728049100000016,
+      "partial_vs_historical_budget_ratio": 0.7857126684810483
+    },
+    {
+      "name": "k24_s4_abs05_n124_0",
+      "checkpoint_sha256": "b6dce4ae96840232c18227e79674584e8e6f86f1c2055878177b9c23e596e09f",
+      "baseline": {
+        "value": 0.788339738210465,
+        "value_hex": "0x1.93a1442380969p-1",
+        "n": 349106,
+        "x": 525617,
+        "historical_hybrid": 874723,
+        "segments": 80,
+        "traces": 522,
+        "ledger": {
+          "sites": {},
+          "totals": {
+            "calls": 0,
+            "historical_mac": 0,
+            "dense_mac": 0,
+            "mul": 0,
+            "add": 0,
+            "mask_mul": 0
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 874723,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [],
+          "look": 3
+        }
+      },
+      "audit": {
+        "value": 0.788339738210465,
+        "value_hex": "0x1.93a1442380969p-1",
+        "n": 349106,
+        "x": 525617,
+        "historical_hybrid": 874723,
+        "segments": 80,
+        "traces": 522,
+        "ledger": {
+          "sites": {
+            "__init__:L59:R @ P": {
+              "calls": 547,
+              "historical_mac": 19692,
+              "dense_mac": 19692,
+              "mul": 19692,
+              "add": 13128,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ U": {
+              "calls": 547,
+              "historical_mac": 19692,
+              "dense_mac": 19692,
+              "mul": 19692,
+              "add": 13128,
+              "mask_mul": 0
+            },
+            "__init__:L59:R @ nn": {
+              "calls": 547,
+              "historical_mac": 19692,
+              "dense_mac": 19692,
+              "mul": 19692,
+              "add": 13128,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ P": {
+              "calls": 547,
+              "historical_mac": 4923,
+              "dense_mac": 4923,
+              "mul": 4923,
+              "add": 3282,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ U": {
+              "calls": 547,
+              "historical_mac": 4923,
+              "dense_mac": 4923,
+              "mul": 4923,
+              "add": 3282,
+              "mask_mul": 0
+            },
+            "__init__:L65:L @ nn": {
+              "calls": 547,
+              "historical_mac": 4923,
+              "dense_mac": 4923,
+              "mul": 4923,
+              "add": 3282,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ P": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ U": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "est_fibre2:L433:wcl @ nn": {
+              "calls": 12,
+              "historical_mac": 36,
+              "dense_mac": 36,
+              "mul": 36,
+              "add": 24,
+              "mask_mul": 0
+            },
+            "rows_at:L44:Wh @ Ag": {
+              "calls": 1262,
+              "historical_mac": 18080,
+              "dense_mac": 60576,
+              "mul": 60576,
+              "add": 45432,
+              "mask_mul": 0
+            },
+            "rows_at:L46:A @ x": {
+              "calls": 1893,
+              "historical_mac": 15144,
+              "dense_mac": 22716,
+              "mul": 22716,
+              "add": 15144,
+              "mask_mul": 0
+            },
+            "rows_at:L47:A * g[:, None]": {
+              "calls": 1893,
+              "historical_mac": 0,
+              "dense_mac": 0,
+              "mul": 0,
+              "add": 0,
+              "mask_mul": 22716
+            },
+            "rows_at:L48:Wo @ Ag": {
+              "calls": 631,
+              "historical_mac": 12843,
+              "dense_mac": 22716,
+              "mul": 22716,
+              "add": 17037,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ P": {
+              "calls": 84,
+              "historical_mac": 1008,
+              "dense_mac": 1008,
+              "mul": 1008,
+              "add": 672,
+              "mask_mul": 0
+            },
+            "trace_arc_rows:L258:A @ U": {
+              "calls": 84,
+              "historical_mac": 1008,
+              "dense_mac": 1008,
+              "mul": 1008,
+              "add": 672,
+              "mask_mul": 0
+            }
+          },
+          "totals": {
+            "calls": 9165,
+            "historical_mac": 122036,
+            "dense_mac": 181977,
+            "mul": 181977,
+            "add": 128259,
+            "mask_mul": 22716
+          },
+          "scope": "only executed matrix products and gate-mask products; other hybrid scalar categories remain unaudited"
+        },
+        "partial_scalar_adjustment": 1085639,
+        "complete_scalar_count": false,
+        "manifest": {
+          "source_sha256": "a9b68397453346102cc4b7fc2d1b38ed2b8de530397c22137640c648e03bf7b1",
+          "dependency_sha256": "a06a91d44dc11c5020675f5d5d655f25142286f98f79d49d4d4e6130b34af8e8",
+          "r4_source_sha256": "f52deda644ae49ddd4d38e04cdf17694ef7f6f31cc3db2c5120f558a4f95b6a9",
+          "sites": [
+            {
+              "site": "rows_at:L44:Wh @ Ag",
+              "historical_expression": "H * int(g.sum()) * t"
+            },
+            {
+              "site": "rows_at:L46:A @ x",
+              "historical_expression": "H * (t+1)"
+            },
+            {
+              "site": "rows_at:L47:A * g[:, None]",
+              "historical_expression": "not charged in pinned source"
+            },
+            {
+              "site": "rows_at:L48:Wo @ Ag",
+              "historical_expression": "T * int(g.sum()) * T"
+            },
+            {
+              "site": "__init__:L59:R @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L59:R @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "__init__:L65:L @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "trace_arc_rows:L258:A @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre:L273:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ nn",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ P",
+              "historical_expression": "dense MAC dimensions"
+            },
+            {
+              "site": "est_fibre2:L433:wcl @ U",
+              "historical_expression": "dense MAC dimensions"
+            }
+          ],
+          "look": 3
+        }
+      },
+      "parity": {
+        "value_hex": true,
+        "n": true,
+        "x": true,
+        "segments": true,
+        "traces": true
+      },
+      "sampling_scalar": {
+        "mul": 56,
+        "comparison": 15,
+        "add": 41,
+        "total": 112,
+        "prediction": 0,
+        "correct": true,
+        "formula": 112,
+        "label_generation_free": true
+      },
+      "historical_sample_equivalents": 12148.930555555555,
+      "partial_adjusted_sample_equivalents": 9693.205357142857,
+      "cpu_seconds": 0.24610793999999991,
+      "partial_vs_historical_budget_ratio": 0.7978649077642702
+    }
+  ],
+  "cpu_seconds": 2.70275196,
+  "complete_count": false,
+  "scope": "frozen ten cases, dense/mask correction and common-unit sampler; remaining scalar audit open"
+}
