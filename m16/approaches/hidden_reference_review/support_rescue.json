@@ -1,0 +1,116 @@
+{
+  "protocol": "dfe9504",
+  "calibration_artifact_sha256": "87a4ce53a45c57c42720149a0a839b5db63fb6637cddbf3cef929e9e86dfd22c",
+  "validation_seed": 370203,
+  "validation_n": 32768,
+  "models": [
+    {
+      "sigma": 0.0025,
+      "rules": {
+        "linear": {
+          "actual_accuracy": 0.9398193359375,
+          "approximate_accuracy": 0.865478515625,
+          "paired_bias": -0.0743408203125,
+          "paired_se": 0.001697776065149036,
+          "bias_minus_3se": -0.07943414850794711,
+          "bias_plus_3se": -0.06924749211705289,
+          "diagnostic_gate": "rejected",
+          "label_disagreement": 0.10888671875,
+          "centered_logit_error_rms": 4.562722540070771,
+          "target_margin_error_rms": 6.2216388422002336
+        },
+        "clipped": {
+          "actual_accuracy": 0.9398193359375,
+          "approximate_accuracy": 0.903533935546875,
+          "paired_bias": -0.036285400390625,
+          "paired_se": 0.00122599633303899,
+          "bias_minus_3se": -0.03996338938974197,
+          "bias_plus_3se": -0.03260741139150803,
+          "diagnostic_gate": "rejected",
+          "label_disagreement": 0.0565185546875,
+          "centered_logit_error_rms": 2.6993687867780625,
+          "target_margin_error_rms": 3.616448206549119
+        }
+      },
+      "step_preclip_negative_fraction": [
+        0.0,
+        0.04666328430175781,
+        0.0067348480224609375,
+        0.008378982543945312,
+        0.022352218627929688,
+        0.02889251708984375,
+        0.0268096923828125,
+        0.020700454711914062,
+        0.018110275268554688,
+        0.018018722534179688
+      ],
+      "step_preclip_negative_rms": [
+        0.0,
+        0.015501108744153884,
+        0.07818270189130147,
+        0.07909300980574531,
+        0.4095155583561907,
+        0.4076016613767003,
+        0.3495478239258869,
+        0.2954618829606137,
+        0.2695389434569088,
+        0.26350426346134226
+      ]
+    },
+    {
+      "sigma": 0.02,
+      "rules": {
+        "linear": {
+          "actual_accuracy": 0.6253662109375,
+          "approximate_accuracy": 0.601226806640625,
+          "paired_bias": -0.024139404296875,
+          "paired_se": 0.0018038992729224358,
+          "bias_minus_3se": -0.029551102115642307,
+          "bias_plus_3se": -0.018727706478107693,
+          "diagnostic_gate": "rejected",
+          "label_disagreement": 0.163604736328125,
+          "centered_logit_error_rms": 5.0422038812906385,
+          "target_margin_error_rms": 6.866080126923311
+        },
+        "clipped": {
+          "actual_accuracy": 0.6253662109375,
+          "approximate_accuracy": 0.627838134765625,
+          "paired_bias": 0.002471923828125,
+          "paired_se": 0.0012571062650821613,
+          "bias_minus_3se": -0.0012993949671214842,
+          "bias_plus_3se": 0.006243242623371484,
+          "diagnostic_gate": "inconclusive",
+          "label_disagreement": 0.0816650390625,
+          "centered_logit_error_rms": 2.923673095334974,
+          "target_margin_error_rms": 3.6570857201187965
+        }
+      },
+      "step_preclip_negative_fraction": [
+        0.0,
+        0.024980545043945312,
+        0.012903213500976562,
+        0.014322280883789062,
+        0.029100418090820312,
+        0.030376434326171875,
+        0.027879714965820312,
+        0.02156829833984375,
+        0.0185699462890625,
+        0.017848968505859375
+      ],
+      "step_preclip_negative_rms": [
+        0.0,
+        0.016803144299262263,
+        0.08616039001334831,
+        0.10044593392604659,
+        0.43453584369757003,
+        0.40938406117134435,
+        0.35806998921459726,
+        0.306347175013061,
+        0.2812296284426797,
+        0.2834144046520752
+      ]
+    }
+  ],
+  "cpu_seconds": 1.422714095,
+  "peak_rss_kb": 329628
+}
