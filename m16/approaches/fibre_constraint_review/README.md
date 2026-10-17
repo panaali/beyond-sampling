@@ -142,3 +142,30 @@ all3 scales. This preserves the real-arithmetic classifier and first-index
 ties; it is not guaranteed bitwise invariant after floating rescaling.
 Record normalization costs and all outputs, no choice based on truth. Same
 source snapshots,<=18CPU review lock; no new models or numerical tolerance.
+
+## Scale discriminator result
+[measured] Exact polygon accuracy is stable to4e-16 across1e-8/1/1e8 output
+scales. Full LOOK64 forward tracing reaches its clamp on EVERY trace (455 per
+model) and reproduces that truth to4e-16 at all three scales. Its estimates
+are.9845503813585574/.9845503813585572/.9845503813585574. This rules out a
+large mass-integration error in this control. It does not certify every
+floating predicate or arbitrary model.
+
+The canonical-readout rescue FAILS to restore LOOK2 invariance: normalized
+1e-8 yields.9845554916788958, while normalized1 and1e8 yield
+.984562393620194. All reference/omission/capped variants share this split.
+This finite-lookahead recipe is sensitive to small floating changes in how
+its angular partition and stopping decisions are arranged. This is scoped
+to the approximate recipe; real network argmax is unchanged by positive
+output scaling. No generic geometric failure is inferred.
+
+Full LOOK64 proxy costs204937/205075/205015 are even below the baseline
+LOOK2 reference211218 on this particular seed: avoiding its reverse-side
+confirmation work can outweigh tracing further. This is an informative
+counterexample to assuming more lookahead always costs more, not a general
+cost win. The bounded diagnosis used1.568498291CPU including imports; all
+canonicalization arithmetic is added to proxy cost (36 operations per run).
+Full panel decisions must retain the failed canonicalization and separate
+finite approximation error from omitted-constraint effects.
+
+Reproduce with scale_diagnosis.py under the same one-thread review lock.
