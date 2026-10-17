@@ -119,7 +119,9 @@ class Operator:
                     first=(a[i]-hi)/b[i];second=(a[i]-lo)/b[i]
                     lows=np.maximum(lows,np.minimum(first,second).reshape(shape));highs=np.minimum(highs,np.maximum(first,second).reshape(shape))
                 else:
-                    valid=(a[i]>=lo)&(a[i]<=hi);highs=np.where(valid.reshape(shape),highs,lows)
+                    # Half-open source cells, with the final endpoint included.
+                    valid=(a[i]>=lo)&((a[i]<hi)|((np.arange(self.n)==self.n-1)&(a[i]==hi)))
+                    highs=np.where(valid.reshape(shape),highs,lows)
             valid=highs>lows;prob=np.zeros_like(lows);prob[valid]=ndtr(highs[valid])-ndtr(lows[valid])
             density=state.area/(np.diff(state.edges[0])[:,None]*np.diff(state.edges[1])[None,:])
             value=float(np.sum(density*prob))/self.det;self.work['line_convolution_cells']+=state.area.size
