@@ -24,8 +24,11 @@ def coordinates_from(h,box):
     return np.stack((s,z),axis=-1)
 
 
-def make_grids(model,j,n,aligned):
+def make_grids(model,j,n,aligned,preprocessing=None):
     _,boxes=stage_grids(model,j,n);e=envelope(model[2]);cells=e['cells']
+    if preprocessing is not None:
+        preprocessing['envelope_constructions']+=1
+        for key in ('rational_arithmetic_operations','rational_comparisons'):preprocessing[key]+=e[key]
     boundaries=[float(Fraction(cells[i]['left'])) for i in range(1,len(cells))
                 if cells[i-1]['winner']!=cells[i]['winner']]
     grids=[];directions=[]
@@ -102,7 +105,7 @@ def main():
     assert inverse_error<1e-14
     result={'classification':'deterministic amplitude-angle collocation; no error certificate',
             'T':T,'labels':labels,'inverse_error':inverse_error,'rows':[],'model_input_samples':0}
-    cache={}
+    cache={};preprocessing=defaultdict(int)
     for n in (3,5):
         b=np.linspace(-1,1,n);rankstats=defaultdict(float);rank=RankRules(64,rankstats)
         rules=conditional_rules(b,T,8,rank,rankstats)
@@ -118,7 +121,7 @@ def main():
             clock=time.process_time();stats=defaultdict(float);estimates={};initials={};counts={};wmin=1.;wmax=0.
             try:
                 for j in labels:
-                    grids,boxes,directions=make_grids(model,j,n,aligned)
+                    grids,boxes,directions=make_grids(model,j,n,aligned,preprocessing)
                     raw=terminal(model,j,grids[-1],boxes[-1],stats,deadline,cache)
                     W=raw/q[None,None,:,:]
                     wmin=min(wmin,float(W.min()));wmax=max(wmax,float(W.max()))
@@ -129,7 +132,7 @@ def main():
                         'extra_angular_nodes_vs_radial':len(grids[-1][1])-n,
                         'terminal_grid_points':int(np.prod([len(g) for g in grids[-1]])),
                         'terminal_angular_values':grids[-1][1].tolist()}
-                controlgrids,controlboxes,_=make_grids(model,0,n,aligned)
+                controlgrids,controlboxes,_=make_grids(model,0,n,aligned,preprocessing)
                 ones=np.ones(tuple(len(g) for g in controlgrids[-1])+(2,))
                 control,_=transport(model,0,controlgrids,controlboxes,ones,rules,stats)
                 assert abs(control-1/T)<1e-12
@@ -148,8 +151,7 @@ def main():
         if result.get('truncated'):break
     result['cpu_seconds_excluding_imports']=time.process_time()-started
     result['terminal_unique_states']=len(cache)
-    e=envelope(model[2])
-    result['readout_preprocessing']={'envelope_constructions':16, 'rational_arithmetic_operations':16*e['rational_arithmetic_operations'], 'rational_comparisons':16*e['rational_comparisons'], 'sorting_and_bit_cost_excluded':True}
+    result['readout_preprocessing']={**dict(preprocessing),'sorting_and_bit_cost_excluded':True}
     (HERE/'angular_results.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'total_cpu':result['cpu_seconds_excluding_imports'],'unique_terminal_states':len(cache)}))
 if __name__=='__main__':main()
