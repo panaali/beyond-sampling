@@ -1,5 +1,6 @@
 """Independent-density local interpolation checks, not global error bounds."""
 import json
+import argparse
 import time
 from pathlib import Path
 from collections import defaultdict
@@ -9,7 +10,11 @@ from scipy.special import ndtr, ndtri
 from engine import batched_terminal, possible_labels
 
 HERE = Path(__file__).resolve().parent
-source = json.loads((HERE/'spatial_results.json').read_text())
+p = argparse.ArgumentParser()
+p.add_argument('--source', default='spatial_results.json')
+p.add_argument('--output', default='spatial_diagnostic_results.json')
+args = p.parse_args()
+source = json.loads((HERE/args.source).read_text())
 model = tuple(np.array(a) for a in source['weights'])
 start = time.process_time()
 stats = defaultdict(float)
@@ -48,4 +53,4 @@ for row in source['rows']:
                             max_residual=max_residual, bin_residuals=residuals.tolist()))
     rows.append(dict(h=row['h'], mode=row['mode'], dimensions=results))
     print(json.dumps(dict(h=row['h'], mode=row['mode'], metric=[r['weighted_residual'] for r in results])), flush=True)
-(HERE/'spatial_diagnostic_results.json').write_text(json.dumps(dict(rows=rows, work=dict(stats), cpu_seconds=time.process_time()-start), indent=2)+'\n')
+(HERE/args.output).write_text(json.dumps(dict(rows=rows, work=dict(stats), cpu_seconds=time.process_time()-start), indent=2)+'\n')
