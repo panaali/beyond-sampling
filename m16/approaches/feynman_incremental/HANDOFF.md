@@ -1,6 +1,6 @@
 # T20 bounded-phase handoff
 
-Status: Feynman and uniform radial tube ports implemented and numerically checked; DRI acceptance/full source review pending. Existing Gaussian primitives preserved. No full-challenge accuracy or sampling advantage claim. Remaining Laplace, boundary, fitted-importance/Newton/hybrid variants remain open.
+Status: Feynman, uniform radial tube and fixed-design Laplace hybrid ports implemented and numerically checked; DRI acceptance/full source review pending. Existing Gaussian primitives preserved. No full-challenge accuracy or sampling advantage claim. Boundary and fitted-importance/Newton variants remain open.
 
 ## Results
 - Feynman trained checkpoint512/2048 parity to1.11e-16 on identical node/face hashes; cold proxies241372129/252973153. Cold setup200000500 is explicit. Scalar tail and90 independent line fixtures pass. Independent constant-label formula isolates1.7627pp coarse outer-rule bias.
@@ -46,3 +46,6 @@ b559882 T20 enforce finite radial helper endpoints after independent review
 f61cbd6 T20 independently reconstruct radial constant-label face masses
 5b143f3 T20 record full radial port costs and independently diagnosed legacy tie defect
 ```
+
+## Resumed Laplace phase
+The prior publication blocker resolved through the supported with_additional_permissions network path. After refetch/ownership check and normal rebase, pending57e235d was published as9e70bd7. Laplace protocol/implementation/control chain follows5883510:8f01dd6,c351d2b,b14a561,b4a44a9, then the result commit containing this update. See LAPLACE.md for full costs and the broad conditional tail-mass intervals. Original source geometry/fixed tail nodes are preserved, not silently replaced by full-tail enumeration. No new external credentials or proxy bypass were used.

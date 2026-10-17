@@ -1,0 +1,731 @@
+{
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "cases": [
+    {
+      "name": "checkpoint512",
+      "budget": 512,
+      "native": {
+        "estimate": 0.956065225813501,
+        "cost": 23388.414666666667,
+        "ledger": {
+          "complete": true,
+          "known_flops": 140330488,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "sobol_rng_setup": 2241408,
+            "sobol_coordinates": 660,
+            "stratum_shifts": 302940,
+            "face_geometry": 1275750,
+            "radius_direction": 202500,
+            "aggregation": 7300,
+            "near_native_walker": 21273499,
+            "tail_mass_and_nodes": 564900,
+            "tail_forward_and_argmax": 3098342,
+            "blind_node_generation": 1130054,
+            "blind_transform_geometry": 82500,
+            "blind_forward_and_ranking": 146475
+          },
+          "kernels": {
+            "sobol_initializations": 3,
+            "uniform_shift_coordinates": 4455,
+            "tail_forward_inputs": 538
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 360,
+              "near_mean": 0.020554207987098252,
+              "tail_mass_mean": 0.29245542410555997,
+              "tail_selected_mean": 0.00017193735018898913,
+              "near_walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 75280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 352,
+                    "flops": 16259075,
+                    "counters": {
+                      "prefix_steps": 929,
+                      "suffix_steps": 9197,
+                      "readout_vectors": 3784,
+                      "root_vectors": 9197,
+                      "envelope_sides": 2186,
+                      "cdf_calls": 8744,
+                      "recurrence_flops": 12895872,
+                      "root_flops": 1020867,
+                      "readout_flops": 1248720,
+                      "envelope_flops": 900632,
+                      "bookkeeping_flops": 192984
+                    }
+                  }
+                ],
+                "known_flops": 18717095,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 3119.5158333333334,
+                "empty_windows": 360,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 6558,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 13116,
+                  "radial_density_evaluations": 13116,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 2382740,
+                "roundoff_certified": false
+              }
+            },
+            {
+              "kind": "12",
+              "rows": 45,
+              "near_mean": 0.011720768147965837,
+              "tail_mass_mean": 0.2784179496291523,
+              "tail_selected_mean": 0.0,
+              "near_walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 12280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 45,
+                    "flops": 2172434,
+                    "counters": {
+                      "prefix_steps": 120,
+                      "suffix_steps": 1194,
+                      "readout_vectors": 592,
+                      "root_vectors": 1194,
+                      "envelope_sides": 341,
+                      "cdf_calls": 1364,
+                      "recurrence_flops": 1673856,
+                      "root_flops": 132534,
+                      "readout_flops": 195360,
+                      "envelope_flops": 140492,
+                      "bookkeeping_flops": 30192
+                    }
+                  }
+                ],
+                "known_flops": 2556404,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 426.06733333333335,
+                "empty_windows": 45,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 1023,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 2046,
+                  "radial_density_evaluations": 2046,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 371690,
+                "roundoff_certified": false
+              }
+            }
+          ],
+          "node_sha256": "dafe4d6e1e3be35995b4ed8e7972595691ccf5c7351577bc6ff6a6726126df70",
+          "face_sha256": "0ca26a4c15df96d22dc7c856482ef0a69efb3eb28d9926e9793d69ac5d3d4ae2",
+          "tail_sha256": "5947f2791a12cf9fd481dced8f9406f31c58d938fc54f0bed6f449395efc61a5",
+          "cpu_seconds": 0.09821402200000007,
+          "source_hashes": {
+            "lp.py": "7372b3a980ee389db856a153f8210acc02b2032e2fd759e7392a61bb46d21b35",
+            "lqt.py": "55985f1adf35afcd44dcf8267be8cc921d33754a211030b6ac6f9a0aa0d150bc",
+            "estimator.py": "d5c7680850b1d0b04321226bf4523860cb6e4371cc10132e9537fa2f5eb5ee25",
+            "tube.py": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718"
+          },
+          "scalar_cost_is_proxy": true,
+          "opaque_kernel_costs_certified": false,
+          "portable_bound_certified": false,
+          "roundoff_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "fixed_design_seed": 0,
+          "cold": true,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.02632334218891551,
+            "e12": 0.009017681997583576,
+            "eb": 0.00859375
+          },
+          "node_counts": [
+            360,
+            45,
+            25
+          ],
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 25.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 23388.414666666667,
+          "conditional_tail_mass_bound": 0.585642630973921,
+          "conditional_accuracy_interval": [
+            0.3706409647115666,
+            0.9562835956854876
+          ],
+          "conditional_interval_excludes_outer_error": true
+        }
+      },
+      "legacy": {
+        "estimate": 0.9560652258135544,
+        "cost": 19232.291166666666,
+        "ledger": {
+          "complete": true,
+          "known_flops": 115393747,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "sobol_rng_setup": 2241408,
+            "sobol_coordinates": 660,
+            "stratum_shifts": 302940,
+            "face_geometry": 1275750,
+            "radius_direction": 202500,
+            "aggregation": 7300,
+            "blind_node_generation": 1130054,
+            "blind_transform_geometry": 82500,
+            "blind_forward_and_ranking": 146475
+          },
+          "kernels": {
+            "sobol_initializations": 3,
+            "uniform_shift_coordinates": 4455
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 360,
+              "legacy_fpe": 2746.2,
+              "legacy_near_cap_uncertainty_unavailable": true
+            },
+            {
+              "kind": "12",
+              "rows": 45,
+              "legacy_fpe": 364.8,
+              "legacy_near_cap_uncertainty_unavailable": true
+            }
+          ],
+          "node_sha256": "dafe4d6e1e3be35995b4ed8e7972595691ccf5c7351577bc6ff6a6726126df70",
+          "face_sha256": "0ca26a4c15df96d22dc7c856482ef0a69efb3eb28d9926e9793d69ac5d3d4ae2",
+          "tail_sha256": "5947f2791a12cf9fd481dced8f9406f31c58d938fc54f0bed6f449395efc61a5",
+          "cpu_seconds": 0.04550971700000006,
+          "source_hashes": {
+            "lp.py": "7372b3a980ee389db856a153f8210acc02b2032e2fd759e7392a61bb46d21b35",
+            "lqt.py": "55985f1adf35afcd44dcf8267be8cc921d33754a211030b6ac6f9a0aa0d150bc",
+            "estimator.py": "d5c7680850b1d0b04321226bf4523860cb6e4371cc10132e9537fa2f5eb5ee25",
+            "tube.py": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718"
+          },
+          "scalar_cost_is_proxy": true,
+          "opaque_kernel_costs_certified": false,
+          "portable_bound_certified": false,
+          "roundoff_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "fixed_design_seed": 0,
+          "cold": true,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.02632334218892648,
+            "e12": 0.009017681997519176,
+            "eb": 0.00859375
+          },
+          "node_counts": [
+            360,
+            45,
+            25
+          ],
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 3136.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 19232.291166666666
+        }
+      },
+      "difference": -5.340172748447003e-14
+    },
+    {
+      "name": "checkpoint2048",
+      "budget": 2048,
+      "native": {
+        "estimate": 0.9542295910108781,
+        "cost": 24012.217666666667,
+        "ledger": {
+          "complete": true,
+          "known_flops": 144073306,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "sobol_rng_setup": 2241408,
+            "sobol_coordinates": 990,
+            "stratum_shifts": 304920,
+            "face_geometry": 1417500,
+            "radius_direction": 225000,
+            "aggregation": 8520,
+            "near_native_walker": 23787664,
+            "tail_mass_and_nodes": 615300,
+            "tail_forward_and_argmax": 3374774,
+            "blind_node_generation": 1158852,
+            "blind_transform_geometry": 336600,
+            "blind_forward_and_ranking": 597618
+          },
+          "kernels": {
+            "sobol_initializations": 3,
+            "uniform_shift_coordinates": 4455,
+            "tail_forward_inputs": 586
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 360,
+              "near_mean": 0.020554207987098252,
+              "tail_mass_mean": 0.29245542410555997,
+              "tail_selected_mean": 0.00017193735018898913,
+              "near_walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 75280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 352,
+                    "flops": 16259075,
+                    "counters": {
+                      "prefix_steps": 929,
+                      "suffix_steps": 9197,
+                      "readout_vectors": 3784,
+                      "root_vectors": 9197,
+                      "envelope_sides": 2186,
+                      "cdf_calls": 8744,
+                      "recurrence_flops": 12895872,
+                      "root_flops": 1020867,
+                      "readout_flops": 1248720,
+                      "envelope_flops": 900632,
+                      "bookkeeping_flops": 192984
+                    }
+                  }
+                ],
+                "known_flops": 18717095,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 3119.5158333333334,
+                "empty_windows": 360,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 6558,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 13116,
+                  "radial_density_evaluations": 13116,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 2382740,
+                "roundoff_certified": false
+              }
+            },
+            {
+              "kind": "12",
+              "rows": 90,
+              "near_mean": 0.014565766999903142,
+              "tail_mass_mean": 0.26260191157897284,
+              "tail_selected_mean": 0.0003074270198520631,
+              "near_walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 21280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 90,
+                    "flops": 4301549,
+                    "counters": {
+                      "prefix_steps": 240,
+                      "suffix_steps": 2355,
+                      "readout_vectors": 1192,
+                      "root_vectors": 2355,
+                      "envelope_sides": 686,
+                      "cdf_calls": 2744,
+                      "recurrence_flops": 3303360,
+                      "root_flops": 261405,
+                      "readout_flops": 393360,
+                      "envelope_flops": 282632,
+                      "bookkeeping_flops": 60792
+                    }
+                  }
+                ],
+                "known_flops": 5070569,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 845.0948333333333,
+                "empty_windows": 90,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 2058,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 4116,
+                  "radial_density_evaluations": 4116,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 747740,
+                "roundoff_certified": false
+              }
+            }
+          ],
+          "node_sha256": "1dea6a81b492301d62e2931619ba57cc4b8856d81ff703e1d74765e92e765c4b",
+          "face_sha256": "e38fe04b30bc0ebc8c1c347f9367b24a8f89a7a6436b37194ede1963841e3ab7",
+          "tail_sha256": "368868b239961d0a1d5a711fbecfe285088c0a0d0b7842fa970d5edc58942316",
+          "cpu_seconds": 0.08515785399999998,
+          "source_hashes": {
+            "lp.py": "7372b3a980ee389db856a153f8210acc02b2032e2fd759e7392a61bb46d21b35",
+            "lqt.py": "55985f1adf35afcd44dcf8267be8cc921d33754a211030b6ac6f9a0aa0d150bc",
+            "estimator.py": "d5c7680850b1d0b04321226bf4523860cb6e4371cc10132e9537fa2f5eb5ee25",
+            "tube.py": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718"
+          },
+          "scalar_cost_is_proxy": true,
+          "opaque_kernel_costs_certified": false,
+          "portable_bound_certified": false,
+          "roundoff_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "fixed_design_seed": 0,
+          "cold": true,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.02632334218891551,
+            "e12": 0.011443083957069087,
+            "eb": 0.008003982843137254
+          },
+          "node_counts": [
+            360,
+            90,
+            102
+          ],
+          "requested_budget": 2048.0,
+          "legacy_reported_fpe": 102.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 24012.217666666667,
+          "conditional_tail_mass_bound": 0.5734741451035685,
+          "conditional_accuracy_interval": [
+            0.38121034286246114,
+            0.9546844879660297
+          ],
+          "conditional_interval_excludes_outer_error": true
+        }
+      },
+      "legacy": {
+        "estimate": 0.954229591011017,
+        "cost": 19382.594666666668,
+        "ledger": {
+          "complete": true,
+          "known_flops": 116295568,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "sobol_rng_setup": 2241408,
+            "sobol_coordinates": 990,
+            "stratum_shifts": 304920,
+            "face_geometry": 1417500,
+            "radius_direction": 225000,
+            "aggregation": 8520,
+            "blind_node_generation": 1158852,
+            "blind_transform_geometry": 336600,
+            "blind_forward_and_ranking": 597618
+          },
+          "kernels": {
+            "sobol_initializations": 3,
+            "uniform_shift_coordinates": 4455
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 360,
+              "legacy_fpe": 2746.2,
+              "legacy_near_cap_uncertainty_unavailable": true
+            },
+            {
+              "kind": "12",
+              "rows": 90,
+              "legacy_fpe": 710.6,
+              "legacy_near_cap_uncertainty_unavailable": true
+            }
+          ],
+          "node_sha256": "1dea6a81b492301d62e2931619ba57cc4b8856d81ff703e1d74765e92e765c4b",
+          "face_sha256": "e38fe04b30bc0ebc8c1c347f9367b24a8f89a7a6436b37194ede1963841e3ab7",
+          "tail_sha256": "368868b239961d0a1d5a711fbecfe285088c0a0d0b7842fa970d5edc58942316",
+          "cpu_seconds": 0.04668010299999992,
+          "source_hashes": {
+            "lp.py": "7372b3a980ee389db856a153f8210acc02b2032e2fd759e7392a61bb46d21b35",
+            "lqt.py": "55985f1adf35afcd44dcf8267be8cc921d33754a211030b6ac6f9a0aa0d150bc",
+            "estimator.py": "d5c7680850b1d0b04321226bf4523860cb6e4371cc10132e9537fa2f5eb5ee25",
+            "tube.py": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718"
+          },
+          "scalar_cost_is_proxy": true,
+          "opaque_kernel_costs_certified": false,
+          "portable_bound_certified": false,
+          "roundoff_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "fixed_design_seed": 0,
+          "cold": true,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.02632334218892648,
+            "e12": 0.01144308395691913,
+            "eb": 0.008003982843137254
+          },
+          "node_counts": [
+            360,
+            90,
+            102
+          ],
+          "requested_budget": 2048.0,
+          "legacy_reported_fpe": 3558.7999999999997,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 19382.594666666668
+        }
+      },
+      "difference": -1.3888890038060708e-13
+    },
+    {
+      "name": "zero_readout512",
+      "budget": 512,
+      "native": {
+        "estimate": 0.12443832297377322,
+        "cost": 23388.414666666667,
+        "ledger": {
+          "complete": true,
+          "known_flops": 140330488,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "sobol_rng_setup": 2241408,
+            "sobol_coordinates": 660,
+            "stratum_shifts": 302940,
+            "face_geometry": 1275750,
+            "radius_direction": 202500,
+            "aggregation": 7300,
+            "near_native_walker": 21273499,
+            "tail_mass_and_nodes": 564900,
+            "tail_forward_and_argmax": 3098342,
+            "blind_node_generation": 1130054,
+            "blind_transform_geometry": 82500,
+            "blind_forward_and_ranking": 146475
+          },
+          "kernels": {
+            "sobol_initializations": 3,
+            "uniform_shift_coordinates": 4455,
+            "tail_forward_inputs": 538
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 360,
+              "near_mean": 0.1648117997050032,
+              "tail_mass_mean": 0.29245542410555997,
+              "tail_selected_mean": 0.26088612976662384,
+              "near_walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 75280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 352,
+                    "flops": 16259075,
+                    "counters": {
+                      "prefix_steps": 929,
+                      "suffix_steps": 9197,
+                      "readout_vectors": 3784,
+                      "root_vectors": 9197,
+                      "envelope_sides": 2186,
+                      "cdf_calls": 8744,
+                      "recurrence_flops": 12895872,
+                      "root_flops": 1020867,
+                      "readout_flops": 1248720,
+                      "envelope_flops": 900632,
+                      "bookkeeping_flops": 192984
+                    }
+                  }
+                ],
+                "known_flops": 18717095,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 3119.5158333333334,
+                "empty_windows": 360,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 6558,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 13116,
+                  "radial_density_evaluations": 13116,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 2382740,
+                "roundoff_certified": false
+              }
+            },
+            {
+              "kind": "12",
+              "rows": 45,
+              "near_mean": 0.17293133723991497,
+              "tail_mass_mean": 0.2784179496291523,
+              "tail_selected_mean": 0.24951357155099163,
+              "near_walker": {
+                "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+                "adapter_flops": 12280,
+                "calls": [
+                  {
+                    "phase": "native_annulus",
+                    "windows": 45,
+                    "flops": 2172434,
+                    "counters": {
+                      "prefix_steps": 120,
+                      "suffix_steps": 1194,
+                      "readout_vectors": 592,
+                      "root_vectors": 1194,
+                      "envelope_sides": 341,
+                      "cdf_calls": 1364,
+                      "recurrence_flops": 1673856,
+                      "root_flops": 132534,
+                      "readout_flops": 195360,
+                      "envelope_flops": 140492,
+                      "bookkeeping_flops": 30192
+                    }
+                  }
+                ],
+                "known_flops": 2556404,
+                "complete": true,
+                "cost_is_partial": false,
+                "fpe": 426.06733333333335,
+                "empty_windows": 45,
+                "shared_calls": 1,
+                "method": "radial_interval_native",
+                "native_interval_counters": {
+                  "normal_intervals": 1023,
+                  "midpoint_intervals": 0,
+                  "beta_evaluations": 2046,
+                  "radial_density_evaluations": 2046,
+                  "midpoint_quadrature_bound": 0.0
+                },
+                "native_interval_flops": 371690,
+                "roundoff_certified": false
+              }
+            }
+          ],
+          "node_sha256": "dafe4d6e1e3be35995b4ed8e7972595691ccf5c7351577bc6ff6a6726126df70",
+          "face_sha256": "0ca26a4c15df96d22dc7c856482ef0a69efb3eb28d9926e9793d69ac5d3d4ae2",
+          "tail_sha256": "5947f2791a12cf9fd481dced8f9406f31c58d938fc54f0bed6f449395efc61a5",
+          "cpu_seconds": 0.084076488,
+          "source_hashes": {
+            "lp.py": "7372b3a980ee389db856a153f8210acc02b2032e2fd759e7392a61bb46d21b35",
+            "lqt.py": "55985f1adf35afcd44dcf8267be8cc921d33754a211030b6ac6f9a0aa0d150bc",
+            "estimator.py": "d5c7680850b1d0b04321226bf4523860cb6e4371cc10132e9537fa2f5eb5ee25",
+            "tube.py": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718"
+          },
+          "scalar_cost_is_proxy": true,
+          "opaque_kernel_costs_certified": false,
+          "portable_bound_certified": false,
+          "roundoff_certified": false,
+          "legacy_walker_cost_missing_from_proxy": false,
+          "fixed_design_seed": 0,
+          "cold": true,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.5406597360115367,
+            "e12": 0.32501912851469006,
+            "eb": 0.009882812500000001
+          },
+          "node_counts": [
+            360,
+            45,
+            25
+          ],
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 25.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 23388.414666666667,
+          "conditional_tail_mass_bound": 0.585642630973921,
+          "conditional_accuracy_interval": [
+            0.062105241046765514,
+            0.6477478720206865
+          ],
+          "conditional_interval_excludes_outer_error": true
+        }
+      },
+      "legacy": {
+        "estimate": 0.4668076384530943,
+        "cost": 19232.291166666666,
+        "ledger": {
+          "complete": true,
+          "known_flops": 115393747,
+          "components": {
+            "validation": 1000,
+            "model_validation": 2160,
+            "cold_geometry_tables": 110001000,
+            "sobol_rng_setup": 2241408,
+            "sobol_coordinates": 660,
+            "stratum_shifts": 302940,
+            "face_geometry": 1275750,
+            "radius_direction": 202500,
+            "aggregation": 7300,
+            "blind_node_generation": 1130054,
+            "blind_transform_geometry": 82500,
+            "blind_forward_and_ranking": 146475
+          },
+          "kernels": {
+            "sobol_initializations": 3,
+            "uniform_shift_coordinates": 4455
+          },
+          "records": [
+            {
+              "kind": "23",
+              "rows": 360,
+              "legacy_fpe": 2746.2,
+              "legacy_near_cap_uncertainty_unavailable": true
+            },
+            {
+              "kind": "12",
+              "rows": 45,
+              "legacy_fpe": 364.8,
+              "legacy_near_cap_uncertainty_unavailable": true
+            }
+          ],
+          "node_sha256": "dafe4d6e1e3be35995b4ed8e7972595691ccf5c7351577bc6ff6a6726126df70",
+          "face_sha256": "0ca26a4c15df96d22dc7c856482ef0a69efb3eb28d9926e9793d69ac5d3d4ae2",
+          "tail_sha256": "5947f2791a12cf9fd481dced8f9406f31c58d938fc54f0bed6f449395efc61a5",
+          "cpu_seconds": 0.04662388000000006,
+          "source_hashes": {
+            "lp.py": "7372b3a980ee389db856a153f8210acc02b2032e2fd759e7392a61bb46d21b35",
+            "lqt.py": "55985f1adf35afcd44dcf8267be8cc921d33754a211030b6ac6f9a0aa0d150bc",
+            "estimator.py": "d5c7680850b1d0b04321226bf4523860cb6e4371cc10132e9537fa2f5eb5ee25",
+            "tube.py": "09fc08e0e3386b664971f4cbf003824c2ff44b11fe85f7cda1b7f8f7cc60e718"
+          },
+          "scalar_cost_is_proxy": true,
+          "opaque_kernel_costs_certified": false,
+          "portable_bound_certified": false,
+          "roundoff_certified": false,
+          "legacy_walker_cost_missing_from_proxy": true,
+          "fixed_design_seed": 0,
+          "cold": true,
+          "imports_and_interpreter_excluded_from_scalar_proxy": true,
+          "parts": {
+            "e23": 0.3313397042446581,
+            "e12": 0.1919698448022476,
+            "eb": 0.009882812500000001
+          },
+          "node_counts": [
+            360,
+            45,
+            25
+          ],
+          "requested_budget": 512.0,
+          "legacy_reported_fpe": 3136.0,
+          "fpe_unit": 6000.0,
+          "actual_fpe": 19232.291166666666
+        }
+      },
+      "difference": -0.3423693154793211
+    }
+  ],
+  "accuracy_scoring": false,
+  "cpu_seconds": 0.414052267,
+  "complete": true
+}
