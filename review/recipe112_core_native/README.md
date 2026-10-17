@@ -7,7 +7,7 @@ Do original E43 core results retain their finite-panel comparison after direct s
 Freeze the original60 shards/3840 model copies and15 checkpoint identities. Verify provenance before three separately gated source/native pilots. Reuse identical reviewed T172 tracer controls. See PROTOCOL.md.
 
 ## Status
-Claim14649359 active. Provenance/source frozen, no numerical execution yet.
+Claim14649359 active. Saved-only provenance90ec022e passes all3840 original row bindings and15 checkpoint byte hashes. No model regeneration/evaluator/truth calls;0.039990105CPU. Independent provenance and three-pilot source review pending.
 
 ## Results
 None yet. H8 evidence and historical scalar counts do not establish these direct costs.
