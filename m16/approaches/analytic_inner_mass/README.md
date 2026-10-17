@@ -13,10 +13,12 @@ Freeze fallback to same-order positive GLn in z if a*c<=0, δ/(a*c)<1e−12, non
 Alternative explanations: numerical cancellation may offset node savings (fixed near-collinear/scaled/obtuse scalar controls against80digit integration); geometry/determinant drift may explain changed output (same rays, retained prior determinants/orders and full per-cone parity metadata). Cost could shift to transcendental/setup work (explicit scalar arithmetic/special/compare counts and cold node plans; unknown Legendre/library/hardware costs stay stated). Positive output alone does not certify relative precision.
 
 ## Status
-Protocol frozen; implementation and controls pending. No self-confirmed claim.
+Bounded phase complete;181 supported controls pass, all saved6347 rays replayed at both unchanged T130 objectives. Corrected named totals31,692,407/94,913,850 reduce prior work64.6%/74.0%; same32 strict-objective unresolved. No self-confirmed claim. See HANDOFF.md and cost_correction.json.
 
 ## Compute accounting
 One thread,2GB/process, primary lock<=110CPU or review<=20CPU. Count written scalar array expressions/reductions/special calls/comparisons in the new kernel, cold Duffy plans and all fallback calls. Retain inherited T130 setup/selection costs separately; deterministic geometry is not free. Model-independent constants are declared precomputed; implicit loop/memory and hardware/library internals excluded. Fresh process/cold plans per objective. No competitive estimator claim from local kernel savings alone.
 
 ## Claims and failure modes
 [speculative] An analytic inner primitive can lower the cost of the same positive reference. Bounds inherited from T130 exclude floating geometry and determinant arithmetic; T144 may separately improve that factor after independent handoff. Nearly collinear rays, underflow, finite quadrature limits and roundoff remain distinct possible failures, not representation impossibility. Untried alternatives include other coordinate orderings, stable series around a midpoint, adaptive positive outer rules and lower-bound improvements. None is retired.
+
+Independent recover_56 source review identified omitted explicit Boolean masks/reductions and divergent standalone inner domains. Initial results/source are preserved;40e4346 corrects every charge algebraically without rerunning trained kernels, validates124 controlledgers and preserves181 supported values exactly. Standalone zero endpoints/origin crossings are explicitly rejected. API requires nonempty node arrays (n>=2); empty-array reductions are outside this scope. Indexing/flatnonzero memory scans remain excluded. Final T55 raw audit pending.
