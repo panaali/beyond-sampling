@@ -1,0 +1,612 @@
+{
+  "primitive": [
+    {
+      "kind": "A",
+      "rows": 16,
+      "maximum_absolute_difference": 3.3306690738754696e-16,
+      "known_line_flops": 58757
+    },
+    {
+      "kind": "B",
+      "rows": 16,
+      "maximum_absolute_difference": 1.1102230246251565e-16,
+      "known_line_flops": 52439
+    }
+  ],
+  "cases": [
+    {
+      "name": "checkpoint_seed0",
+      "seed": 0,
+      "estimate": 0.9574513211429095,
+      "cost": 17755.830666666665,
+      "ledger": {
+        "complete": true,
+        "known_flops": 106534984,
+        "components": {
+          "validation_and_allocation": 11000,
+          "normalizer_setup": 3000,
+          "normalizer_integrands": 777000,
+          "cold_inverse_tables": 100000500,
+          "model_validation": 2160,
+          "term_aggregation": 5790,
+          "surface_geometry": 107100,
+          "rng_random": 43520,
+          "native_lines": 2304159,
+          "rng_standard_normal": 2008700,
+          "zone_classification": 1000000,
+          "point_forward_and_ranking": 263655,
+          "blind_transform_geometry": 8000,
+          "rng_integers": 400
+        },
+        "counts": {
+          "quad_evaluations": 777,
+          "random": 680,
+          "surface_model_lines": 34,
+          "standard_normal": 20087,
+          "rejection_candidates": 2000,
+          "discarded_or_overshoot_candidates": 1963,
+          "direct_model_inputs": 45,
+          "integers": 8
+        },
+        "records": [
+          {
+            "kind": "A",
+            "rows": 26,
+            "line_ledger": {
+              "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+              "adapter_flops": 7980,
+              "calls": [
+                {
+                  "phase": "native_annulus",
+                  "windows": 24,
+                  "flops": 1666273,
+                  "counters": {
+                    "prefix_steps": 58,
+                    "suffix_steps": 945,
+                    "readout_vectors": 426,
+                    "root_vectors": 945,
+                    "envelope_sides": 232,
+                    "cdf_calls": 928,
+                    "recurrence_flops": 1303488,
+                    "root_flops": 104895,
+                    "readout_flops": 140580,
+                    "envelope_flops": 95584,
+                    "bookkeeping_flops": 21726
+                  }
+                }
+              ],
+              "known_flops": 1892333,
+              "complete": true,
+              "cost_is_partial": false,
+              "fpe": 315.3888333333333,
+              "empty_windows": 26,
+              "shared_calls": 1,
+              "method": "interval_native",
+              "native_interval_counters": {
+                "normal_intervals": 696,
+                "midpoint_intervals": 0,
+                "cdf_evaluations": 1392,
+                "exp_evaluations": 1392,
+                "midpoint_quadrature_bound": 0.0
+              },
+              "native_interval_flops": 218080,
+              "roundoff_certified": false
+            },
+            "flops": 2008773
+          },
+          {
+            "kind": "B",
+            "rows": 8,
+            "line_ledger": {
+              "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+              "adapter_flops": 4380,
+              "calls": [
+                {
+                  "phase": "native_annulus",
+                  "windows": 7,
+                  "flops": 354806,
+                  "counters": {
+                    "prefix_steps": 16,
+                    "suffix_steps": 196,
+                    "readout_vectors": 98,
+                    "root_vectors": 196,
+                    "envelope_sides": 56,
+                    "cdf_calls": 224,
+                    "recurrence_flops": 272640,
+                    "root_flops": 21756,
+                    "readout_flops": 32340,
+                    "envelope_flops": 23072,
+                    "bookkeeping_flops": 4998
+                  }
+                }
+              ],
+              "known_flops": 411826,
+              "complete": true,
+              "cost_is_partial": false,
+              "fpe": 68.63766666666666,
+              "empty_windows": 8,
+              "shared_calls": 1,
+              "method": "interval_native",
+              "native_interval_counters": {
+                "normal_intervals": 168,
+                "midpoint_intervals": 0,
+                "cdf_evaluations": 336,
+                "exp_evaluations": 336,
+                "midpoint_quadrature_bound": 0.0
+              },
+              "native_interval_flops": 52640,
+              "roundoff_certified": false
+            },
+            "flops": 447834
+          },
+          {
+            "kind": "R",
+            "rows": 26,
+            "generated": 1000,
+            "flops": 1653594
+          },
+          {
+            "kind": "blind",
+            "rows": 8,
+            "generated": 8,
+            "flops": 65564
+          },
+          {
+            "kind": "R",
+            "rows": 11,
+            "generated": 1000,
+            "flops": 1565559
+          }
+        ],
+        "source_hashes": {
+          "zones.py": "d55a86b24532558b7803e850062fb586281e2768f302f775145d0ed7c3023c01",
+          "zones2.py": "71c3d8398051deba76e9039974a3d7bb4caab263a72d44e7855251da62fbd905",
+          "direct.py": "2c0c2b456ea8819ae4bafded43566e90d31ba9d6c7e1b373014c76950f7431f1",
+          "estimator.py": "8f9ee8cb0001a433059da50061e94496abf86c15a101bd77aa62b8c7ce9cf31a"
+        },
+        "cpu_seconds": 0.11834274800000011,
+        "scalar_cost_is_proxy": true,
+        "opaque_kernel_costs_certified": false,
+        "portable_bound_certified": false,
+        "roundoff_certified": false,
+        "deductive": false,
+        "completed_line_variant": true,
+        "original_stochastic_remainder_replaced": true,
+        "adaptive_pilot_reuse_unbiasedness_not_asserted": true,
+        "cold": true,
+        "terms": {
+          "A": 0.024556458704143604,
+          "B": 0.007250032652946808,
+          "R": 0.0,
+          "blind": 0.0107421875
+        },
+        "term_rows": {
+          "A": 26,
+          "B": 8,
+          "R": 37,
+          "blind": 8
+        },
+        "term_fpe": {
+          "A": 334.7955,
+          "B": 74.639,
+          "R": 536.5255,
+          "blind": 10.927333333333333
+        },
+        "requested_budget": 512.0,
+        "fpe_unit": 6000.0,
+        "actual_fpe": 17755.830666666665
+      }
+    },
+    {
+      "name": "checkpoint_seed1",
+      "seed": 1,
+      "estimate": 0.9380348782783853,
+      "cost": 17664.836166666668,
+      "ledger": {
+        "complete": true,
+        "known_flops": 105989017,
+        "components": {
+          "validation_and_allocation": 11000,
+          "normalizer_setup": 3000,
+          "normalizer_integrands": 777000,
+          "cold_inverse_tables": 100000500,
+          "model_validation": 2160,
+          "term_aggregation": 5810,
+          "surface_geometry": 107100,
+          "rng_random": 43520,
+          "native_lines": 1746454,
+          "rng_standard_normal": 2008700,
+          "zone_classification": 1000000,
+          "point_forward_and_ranking": 275373,
+          "blind_transform_geometry": 8000,
+          "rng_integers": 400
+        },
+        "counts": {
+          "quad_evaluations": 777,
+          "random": 680,
+          "surface_model_lines": 34,
+          "standard_normal": 20087,
+          "rejection_candidates": 2000,
+          "discarded_or_overshoot_candidates": 1961,
+          "direct_model_inputs": 47,
+          "integers": 8
+        },
+        "records": [
+          {
+            "kind": "A",
+            "rows": 26,
+            "line_ledger": {
+              "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+              "adapter_flops": 7980,
+              "calls": [
+                {
+                  "phase": "native_annulus",
+                  "windows": 26,
+                  "flops": 1190398,
+                  "counters": {
+                    "prefix_steps": 74,
+                    "suffix_steps": 654,
+                    "readout_vectors": 316,
+                    "root_vectors": 654,
+                    "envelope_sides": 184,
+                    "cdf_calls": 736,
+                    "recurrence_flops": 921600,
+                    "root_flops": 72594,
+                    "readout_flops": 104280,
+                    "envelope_flops": 75808,
+                    "bookkeeping_flops": 16116
+                  }
+                }
+              ],
+              "known_flops": 1371338,
+              "complete": true,
+              "cost_is_partial": false,
+              "fpe": 228.55633333333333,
+              "empty_windows": 26,
+              "shared_calls": 1,
+              "method": "interval_native",
+              "native_interval_counters": {
+                "normal_intervals": 552,
+                "midpoint_intervals": 0,
+                "cdf_evaluations": 1104,
+                "exp_evaluations": 1104,
+                "midpoint_quadrature_bound": 0.0
+              },
+              "native_interval_flops": 172960,
+              "roundoff_certified": false
+            },
+            "flops": 1487778
+          },
+          {
+            "kind": "B",
+            "rows": 8,
+            "line_ledger": {
+              "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+              "adapter_flops": 4380,
+              "calls": [
+                {
+                  "phase": "native_annulus",
+                  "windows": 6,
+                  "flops": 324676,
+                  "counters": {
+                    "prefix_steps": 12,
+                    "suffix_steps": 182,
+                    "readout_vectors": 86,
+                    "root_vectors": 182,
+                    "envelope_sides": 49,
+                    "cdf_calls": 196,
+                    "recurrence_flops": 251520,
+                    "root_flops": 20202,
+                    "readout_flops": 28380,
+                    "envelope_flops": 20188,
+                    "bookkeeping_flops": 4386
+                  }
+                }
+              ],
+              "known_flops": 375116,
+              "complete": true,
+              "cost_is_partial": false,
+              "fpe": 62.519333333333336,
+              "empty_windows": 8,
+              "shared_calls": 1,
+              "method": "interval_native",
+              "native_interval_counters": {
+                "normal_intervals": 147,
+                "midpoint_intervals": 0,
+                "cdf_evaluations": 294,
+                "exp_evaluations": 294,
+                "midpoint_quadrature_bound": 0.0
+              },
+              "native_interval_flops": 46060,
+              "roundoff_certified": false
+            },
+            "flops": 411124
+          },
+          {
+            "kind": "R",
+            "rows": 26,
+            "generated": 1000,
+            "flops": 1653594
+          },
+          {
+            "kind": "blind",
+            "rows": 8,
+            "generated": 8,
+            "flops": 65564
+          },
+          {
+            "kind": "R",
+            "rows": 13,
+            "generated": 1000,
+            "flops": 1577297
+          }
+        ],
+        "source_hashes": {
+          "zones.py": "d55a86b24532558b7803e850062fb586281e2768f302f775145d0ed7c3023c01",
+          "zones2.py": "71c3d8398051deba76e9039974a3d7bb4caab263a72d44e7855251da62fbd905",
+          "direct.py": "2c0c2b456ea8819ae4bafded43566e90d31ba9d6c7e1b373014c76950f7431f1",
+          "estimator.py": "8f9ee8cb0001a433059da50061e94496abf86c15a101bd77aa62b8c7ce9cf31a"
+        },
+        "cpu_seconds": 0.11107662399999985,
+        "scalar_cost_is_proxy": true,
+        "opaque_kernel_costs_certified": false,
+        "portable_bound_certified": false,
+        "roundoff_certified": false,
+        "deductive": false,
+        "completed_line_variant": true,
+        "original_stochastic_remainder_replaced": true,
+        "adaptive_pilot_reuse_unbiasedness_not_asserted": true,
+        "cold": true,
+        "terms": {
+          "A": 0.03667594743136677,
+          "B": 0.0026410094898200696,
+          "R": 0.014591524175427901,
+          "blind": 0.008056640625
+        },
+        "term_rows": {
+          "A": 26,
+          "B": 8,
+          "R": 39,
+          "blind": 8
+        },
+        "term_fpe": {
+          "A": 247.963,
+          "B": 68.52066666666667,
+          "R": 538.4818333333333,
+          "blind": 10.927333333333333
+        },
+        "requested_budget": 512.0,
+        "fpe_unit": 6000.0,
+        "actual_fpe": 17664.836166666668
+      }
+    },
+    {
+      "name": "zero_readout_seed0",
+      "seed": 0,
+      "estimate": 0.12572999763491643,
+      "cost": 17494.904166666667,
+      "ledger": {
+        "complete": true,
+        "known_flops": 104969425,
+        "components": {
+          "validation_and_allocation": 11000,
+          "normalizer_setup": 3000,
+          "normalizer_integrands": 777000,
+          "cold_inverse_tables": 100000500,
+          "model_validation": 2160,
+          "term_aggregation": 4680,
+          "surface_geometry": 107100,
+          "rng_random": 43520,
+          "native_lines": 2304159,
+          "rng_standard_normal": 1008700,
+          "zone_classification": 500000,
+          "point_forward_and_ranking": 199206,
+          "blind_transform_geometry": 8000,
+          "rng_integers": 400
+        },
+        "counts": {
+          "quad_evaluations": 777,
+          "random": 680,
+          "surface_model_lines": 34,
+          "standard_normal": 10087,
+          "rejection_candidates": 1000,
+          "discarded_or_overshoot_candidates": 974,
+          "direct_model_inputs": 34,
+          "integers": 8
+        },
+        "records": [
+          {
+            "kind": "A",
+            "rows": 26,
+            "line_ledger": {
+              "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+              "adapter_flops": 7980,
+              "calls": [
+                {
+                  "phase": "native_annulus",
+                  "windows": 24,
+                  "flops": 1666273,
+                  "counters": {
+                    "prefix_steps": 58,
+                    "suffix_steps": 945,
+                    "readout_vectors": 426,
+                    "root_vectors": 945,
+                    "envelope_sides": 232,
+                    "cdf_calls": 928,
+                    "recurrence_flops": 1303488,
+                    "root_flops": 104895,
+                    "readout_flops": 140580,
+                    "envelope_flops": 95584,
+                    "bookkeeping_flops": 21726
+                  }
+                }
+              ],
+              "known_flops": 1892333,
+              "complete": true,
+              "cost_is_partial": false,
+              "fpe": 315.3888333333333,
+              "empty_windows": 26,
+              "shared_calls": 1,
+              "method": "interval_native",
+              "native_interval_counters": {
+                "normal_intervals": 696,
+                "midpoint_intervals": 0,
+                "cdf_evaluations": 1392,
+                "exp_evaluations": 1392,
+                "midpoint_quadrature_bound": 0.0
+              },
+              "native_interval_flops": 218080,
+              "roundoff_certified": false
+            },
+            "flops": 2008773
+          },
+          {
+            "kind": "B",
+            "rows": 8,
+            "line_ledger": {
+              "shared_source_sha256": "aea5f9008fe9cc8a5436226f1057b5e0527f119d832df536127d8370bc7968f9",
+              "adapter_flops": 4380,
+              "calls": [
+                {
+                  "phase": "native_annulus",
+                  "windows": 7,
+                  "flops": 354806,
+                  "counters": {
+                    "prefix_steps": 16,
+                    "suffix_steps": 196,
+                    "readout_vectors": 98,
+                    "root_vectors": 196,
+                    "envelope_sides": 56,
+                    "cdf_calls": 224,
+                    "recurrence_flops": 272640,
+                    "root_flops": 21756,
+                    "readout_flops": 32340,
+                    "envelope_flops": 23072,
+                    "bookkeeping_flops": 4998
+                  }
+                }
+              ],
+              "known_flops": 411826,
+              "complete": true,
+              "cost_is_partial": false,
+              "fpe": 68.63766666666666,
+              "empty_windows": 8,
+              "shared_calls": 1,
+              "method": "interval_native",
+              "native_interval_counters": {
+                "normal_intervals": 168,
+                "midpoint_intervals": 0,
+                "cdf_evaluations": 336,
+                "exp_evaluations": 336,
+                "midpoint_quadrature_bound": 0.0
+              },
+              "native_interval_flops": 52640,
+              "roundoff_certified": false
+            },
+            "flops": 447834
+          },
+          {
+            "kind": "R",
+            "rows": 26,
+            "generated": 1000,
+            "flops": 1653594
+          },
+          {
+            "kind": "blind",
+            "rows": 8,
+            "generated": 8,
+            "flops": 65564
+          }
+        ],
+        "source_hashes": {
+          "zones.py": "d55a86b24532558b7803e850062fb586281e2768f302f775145d0ed7c3023c01",
+          "zones2.py": "71c3d8398051deba76e9039974a3d7bb4caab263a72d44e7855251da62fbd905",
+          "direct.py": "2c0c2b456ea8819ae4bafded43566e90d31ba9d6c7e1b373014c76950f7431f1",
+          "estimator.py": "8f9ee8cb0001a433059da50061e94496abf86c15a101bd77aa62b8c7ce9cf31a"
+        },
+        "cpu_seconds": 0.11872054899999984,
+        "scalar_cost_is_proxy": true,
+        "opaque_kernel_costs_certified": false,
+        "portable_bound_certified": false,
+        "roundoff_certified": false,
+        "deductive": false,
+        "completed_line_variant": true,
+        "original_stochastic_remainder_replaced": true,
+        "adaptive_pilot_reuse_unbiasedness_not_asserted": true,
+        "cold": true,
+        "terms": {
+          "A": 0.2569925332068091,
+          "B": 0.1044704710435118,
+          "R": 0.5034075840522626,
+          "blind": 0.0093994140625
+        },
+        "term_rows": {
+          "A": 26,
+          "B": 8,
+          "R": 26,
+          "blind": 8
+        },
+        "term_fpe": {
+          "A": 334.7955,
+          "B": 74.639,
+          "R": 275.599,
+          "blind": 10.927333333333333
+        },
+        "requested_budget": 512.0,
+        "fpe_unit": 6000.0,
+        "actual_fpe": 17494.904166666667
+      },
+      "analytic_truth": 0.1
+    }
+  ],
+  "accuracy_scoring": false,
+  "method_is_sampling_baseline": true,
+  "rejection_control": {
+    "requested": 8,
+    "generated": 1000,
+    "all_candidates_charged": true
+  },
+  "cap_control": "Explicit zone candidate cap exhausted",
+  "primitive_diagnostic_ledger": {
+    "complete": true,
+    "known_flops": 102442632,
+    "components": {
+      "validation_and_allocation": 11000,
+      "normalizer_setup": 3000,
+      "normalizer_integrands": 777000,
+      "cold_inverse_tables": 100000500,
+      "rng_random": 39936,
+      "native_lines": 111196,
+      "rng_standard_normal": 1000000,
+      "zone_classification": 500000
+    },
+    "counts": {
+      "quad_evaluations": 777,
+      "random": 624,
+      "surface_model_lines": 32,
+      "standard_normal": 10000,
+      "rejection_candidates": 1000,
+      "discarded_or_overshoot_candidates": 992
+    },
+    "records": [],
+    "source_hashes": {
+      "zones.py": "d55a86b24532558b7803e850062fb586281e2768f302f775145d0ed7c3023c01",
+      "zones2.py": "71c3d8398051deba76e9039974a3d7bb4caab263a72d44e7855251da62fbd905",
+      "direct.py": "2c0c2b456ea8819ae4bafded43566e90d31ba9d6c7e1b373014c76950f7431f1",
+      "estimator.py": "8f9ee8cb0001a433059da50061e94496abf86c15a101bd77aa62b8c7ce9cf31a"
+    },
+    "cpu_seconds": 0.10313475499999991,
+    "scalar_cost_is_proxy": true,
+    "opaque_kernel_costs_certified": false,
+    "portable_bound_certified": false,
+    "roundoff_certified": false,
+    "deductive": false,
+    "completed_line_variant": true,
+    "original_stochastic_remainder_replaced": true,
+    "adaptive_pilot_reuse_unbiasedness_not_asserted": true,
+    "cold": true
+  },
+  "checkpoint_sha256": "498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb",
+  "cpu_seconds": 0.45550905099999994,
+  "complete": true
+}

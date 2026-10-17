@@ -27,6 +27,11 @@ class Engine:
                 result=getattr(rng,method)(*args,**kwargs);n=np.asarray(result).size
                 outer.add('rng_'+method,charge*n);outer.counts[method]=outer.counts.get(method,0)+n;return result
         self.rng=CountedRNG()
+        try:self._setup()
+        except Exception as exc:
+            result=self.snapshot(False);result.update(failure_kind='setup',cost_is_partial=True,unresolved_failed_kernel_cost=True)
+            raise WalkFailure(str(exc),result) from exc
+    def _setup(self):
         def counted_quad(fun,*args,**kwargs):
             self.add('normalizer_setup',1000)
             def counted(x):
