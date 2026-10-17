@@ -410,3 +410,41 @@ construction, arithmetic controls and integration. This is a conservative
 composed cold CPU cost, not a fresh single-process timing or audited FPE count.
 No cached geometry or rule is free. Record historical failed/validation runs
 separately from this successful cold reference cost.
+
+## T72 H4T4 enclosed mass result
+[measured] The unchanged GL20 method completed on5058 exact correct-region
+simplices. The probability enclosure is
+**[0.4770130989463459,0.4770131530418916]**, width5.4095545709564874e-8.
+Its authoritative binary64 endpoints are `0x1.e8761f2ef3e24p-2` and
+`0x1.e87622d04e9c2p-2`. The raw finite-rule interval is
+[0.47701312599411266,0.4770131259941249], width1.2212453270876722e-14;
+the analytic truncation allowance is2.7047766674481884e-8. The prior independent
+floating GL20 value .47701312599411855 lies inside the raw interval.
+
+All arithmetic controls and the known orthant control pass. Artifact SHA256 is
+`f3ed7934fbd5be669dcbba0bef5bd7131dbe18791aaa552b38d0eb88b58495a6`.
+Every stored correct-simplex determinant was rechecked with exact integers.
+Original H2/H4 geometry and the deterministic rule certificate are unchanged.
+
+Incremental CPU28.245146371 seconds includes rational rule setup1.468550659,
+integration26.474530118, artifact loading/rechecks and fixed arithmetic controls.
+Peak RSS66900KiB. Adding the successful exact-reference run10.009618928 and
+compression.350494723 gives a conservative composed cold algorithm cost
+**38.605260022CPU seconds**. This includes earlier redundant floating validation,
+but excludes historical failed/review runs, Python import/startup and final
+report serialization; it is not an end-to-end wall-clock or audited FPE claim.
+The earlier geometry run peaked at273076KiB. No model-forward inputs were drawn.
+
+Integration used40,464,000 quadrature nodes,1,699,508,232 scalar multiplications,
+1,701,452,920 additions,80,938,116 divisions,3,481,899,270 nextafter operations,
+80,928 exact ray-coordinate conversions and two final signed operations.
+Both endpoints and pairwise reductions are charged. Setup and exact-integer
+work counters are retained separately in enclosed_h4_t4_results.json.
+
+Reproduce from the worktree root:
+`ulimit -v 2500000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/small_ladder_review/rational_geometry/check_enclosed.py --hidden 4`
+
+This finishes the authorized H4 original-checkpoint phase. No further geometry
+enumeration, noise sweep or higher-dimensional enclosure is launched. See
+[CERTIFICATION_HANDOFF.md](CERTIFICATION_HANDOFF.md) for the interface, assumptions
+and proposed next independent review opportunity.

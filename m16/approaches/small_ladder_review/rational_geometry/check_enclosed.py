@@ -1,4 +1,6 @@
-"""H2T4 outward mass check, exact setup controls and fixed arithmetic falsifiers."""
+"""T4 outward mass check, exact setup controls and fixed arithmetic falsifiers."""
+import argparse
+import gzip
 from fractions import Fraction as F
 from collections import defaultdict
 import hashlib
@@ -86,9 +88,10 @@ def arithmetic_controls():
                 binary64=True, tested_gradual_underflow=True, tested_round_to_nearest_even=True)
 
 
-def load_exact_simplices():
-    path = HERE/'geometry_t4.json'
-    data = json.loads(path.read_text())
+def load_exact_simplices(hidden=2):
+    path = HERE/('geometry_t4.json' if hidden == 2 else 'geometry_h4_t4.json.gz')
+    stored = path.read_bytes()
+    data = json.loads(gzip.decompress(stored) if path.suffix == '.gz' else stored)
     exact = Exact(seconds=10)
     simplices = []
     for item in data['correct_simplices']:
@@ -98,26 +101,39 @@ def load_exact_simplices():
         if checked != determinant:
             raise ArithmeticError('artifact determinant mismatch')
         simplices.append((rays, determinant))
-    return simplices, hashlib.sha256(path.read_bytes()).hexdigest(), dict(exact.counts)
+    return simplices, hashlib.sha256(stored).hexdigest(), dict(exact.counts)
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--hidden', type=int, choices=(2,4), default=2)
+    args = parser.parse_args()
     started = time.process_time()
-    output = dict(complete=False, model_forward_inputs=0,
+    reference_path = HERE/('results_t4.json' if args.hidden == 2 else 'results_h4_t4.json')
+    reference = json.loads(reference_path.read_text())
+    historical = reference['cpu_seconds'] + reference.get('post_run_lossless_compression_cpu_seconds', 0.)
+    output = dict(complete=False, H=args.hidden, T=4, model_forward_inputs=0,
         classification='conditional enclosure under documented IEEE754/NumPy elementary-operation assumptions',
         platform=platform.platform(), python=platform.python_version(), numpy=np.__version__)
     def save():
         output['cpu_seconds'] = time.process_time()-started
+        output['cold_cost'] = dict(
+            historical_successful_exact_reference_cpu=reference['cpu_seconds'],
+            historical_compression_cpu=reference.get('post_run_lossless_compression_cpu_seconds', 0.),
+            incremental_enclosure_cpu=output['cpu_seconds'],
+            composed_successful_cold_cpu=historical+output['cpu_seconds'],
+            note='Conservative composed timing includes setup and controls; not a single-process rerun or audited FPE count.')
         output['max_rss_kib'] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        (HERE/'enclosed_h2_t4_results.json').write_text(json.dumps(output, indent=2)+'\n')
+        (HERE/f'enclosed_h{args.hidden}_t4_results.json').write_text(json.dumps(output, indent=2)+'\n')
     try:
         with np.errstate(over='raise', divide='raise', invalid='raise', under='ignore'):
             output['arithmetic_controls'] = arithmetic_controls()
-            simplices, artifact_hash, exact_work = load_exact_simplices()
+            simplices, artifact_hash, exact_work = load_exact_simplices(args.hidden)
             output['exact_artifact_sha256'] = artifact_hash
             output['artifact_determinant_recheck_work'] = exact_work
             clock = time.process_time()
-            mass = EnclosedMass(order=20, seconds=max(1., 105-(time.process_time()-started)))
+            deadline = 94 if args.hidden == 4 else 105
+            mass = EnclosedMass(order=20, seconds=max(1., deadline-(time.process_time()-started)))
             output['rule_setup_cpu'] = time.process_time()-clock
             output['root_setup_cpu'] = mass.root_setup_cpu
             output['rational_moment_check_cpu'] = mass.moment_check_cpu
@@ -145,7 +161,8 @@ def main():
             output['complete_counts'] = dict(mass.stats)
             output['simplices'] = len(simplices)
             output['per_simplex_intervals'] = [dict(quadrature=list(value[0]), truncation_upper=value[1]) for value in values]
-            output['legacy_gl20_value'] = .3077307430239267
+            output['legacy_gl20_value'] = next(row['probability'] for row in reference['mass_rows']
+                                              if row['name'] == 'accuracy' and row['order'] == 20)
             output['legacy_inside_quadrature_interval'] = output['accuracy']['quadrature_interval'][0] <= output['legacy_gl20_value'] <= output['accuracy']['quadrature_interval'][1]
             output['complete'] = True
     except (ArithmeticError, ValueError, TimeoutError, AssertionError, FloatingPointError) as error:
