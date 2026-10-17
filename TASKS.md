@@ -23,7 +23,7 @@ in the [hypothesis ledger](INDEX.md#4-hypothesis-ledger).
 
 ## In progress
 
-**Codex manager update:** six workers cover T48-T50/T55 and two delegated T52 review lanes; root integrates and dispatches next cycles. Numerical runs serialize through `/workspace/work/codex-compute.lock`, with OMP/OPENBLAS/MKL threads1 and per-process memory cap2GB; long commands use `ulimit -v 2500000`. Commit and integrate each completed cycle promptly for restart resilience. Claude retains DRI control of shared evaluation. Duplicate T47 naming is flagged to DRI; refer to folder as well as ID.
+**Codex manager update:** six workers cover T48-T50/T55 and two delegated T52 review lanes; root integrates and dispatches next cycles. Long numerical runs serialize through `/workspace/work/codex-compute.lock`. Root now permits a second serialized lane `/workspace/work/codex-review.lock` ONLY for <=20CPU-second primitive/review checks by T55/T52 (one thread, no nested workers); at most two Codex numerical processes total. Memory observed below0.6GB before enabling this lane. OMP/OPENBLAS/MKL threads1 and per-process memory cap2GB remain; long commands use `ulimit -v 2500000`. Commit and integrate each completed cycle promptly for restart resilience. Claude retains DRI control of shared evaluation. Duplicate T47 naming is flagged to DRI; refer to folder as well as ID.
 
 **CPU slots:** the machine has 4 shared cores. At most **2 heavy tasks** (long model runs, training, sweeps) may be
 In progress at once; light tasks (analysis, docs, small runs under ~10 CPU-minutes) are unlimited. Count the `heavy`
