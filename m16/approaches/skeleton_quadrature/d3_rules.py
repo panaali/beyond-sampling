@@ -11,7 +11,7 @@ Rules:
   pertri3   every triple k times; each triple gets its OWN scrambled k-point 3-D Sobol set
   tieGL     every triple; U3 by a k3-point Gauss-Legendre rule (tie direction, deterministic), (U1,U2) by a
             per-triple scrambled 2-D Sobol set with k/k3 points
-usage: python m16/approaches/skeleton_quadrature/d3_rules.py MODEL [R] [M] [k list]
+usage: python m16/approaches/skeleton_quadrature/d3_rules.py MODEL [R] [M] [k list] [kinds] [tag]
 """
 import itertools
 import json
@@ -79,7 +79,8 @@ def rule(kind, k):
 
 
 out = dict(model=name, R=R, M=M, truth=truth, rules={})
-kinds = ["mc", "strat", "sob4", "shared3", "pertri3", "tieGL2", "tieGL4"]
+kinds = sys.argv[5].split(",") if len(sys.argv) > 5 else ["mc", "strat", "sob4", "shared3", "pertri3", "tieGL2", "tieGL4"]
+TAG = sys.argv[6] if len(sys.argv) > 6 else ""
 for k in KS:
     for kind in kinds:
         if kind.startswith("tieGL") and k % int(kind[5:]):
@@ -91,4 +92,4 @@ for k in KS:
         out["rules"][f"{kind}_k{k}"] = dict(N=720 * k, mean=float(e.mean()), var_rand=var_r, inner_noise=nv,
                                             mse_vs_truth=mse_t, var_q=float(np.mean([c for _, _, c in est])))
         print(kind, k, out["rules"][f"{kind}_k{k}"], flush=True)
-        json.dump(out, open(f"{D}/d3_{name}.json", "w"), indent=1)
+        json.dump(out, open(f"{D}/d3{TAG}_{name}.json", "w"), indent=1)
