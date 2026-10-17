@@ -23,15 +23,21 @@ def main():
         def functions(path):return {n.name:n for n in ast.parse(Path(path).read_text()).body if isinstance(n,(ast.FunctionDef,ast.ClassDef))}
         old,new=functions(P['old_engine']),functions(P['current_engine']);dump=lambda n:ast.dump(n,include_attributes=False)
         check={k:dump(v)==dump(new[k]) for k,v in old.items() if k not in ('orthant','_margin_split')};assert all(check.values())
+        def assignments(path):
+            return {n.targets[0].id:n for n in ast.parse(Path(path).read_text()).body if isinstance(n,ast.Assign) and len(n.targets)==1 and isinstance(n.targets[0],ast.Name)}
+        old_assign,new_assign=assignments(P['old_engine']),assignments(P['current_engine'])
+        global_check={k:dump(old_assign[k])==dump(new_assign[k]) for k in ('TOL','MODE','EXACT_STEPS','STATS','_HALVES')};assert all(global_check.values())
         margin=copy.deepcopy(new['_margin_split']);removed=[]
         for i,n in enumerate(margin.body):
             if isinstance(n,ast.If) and ast.unparse(n.test)=='DIAG[0] is not None and (not exact)':removed.append(i)
         assert len(removed)==1
         assert ast.unparse(margin.body[removed[0]])=='if DIAG[0] is not None and (not exact):\n    for k in trig:\n        DIAG[0](c, A, g, k, t, model, truth)'
         margin.body.pop(removed[0]);assert dump(margin)==dump(old['_margin_split'])
-        result['source_compatibility']=dict(functions=check,margin_split_after_only_nonexact_DIAG_removal=True,mass_callback_overridden=True,exact_mode_only=True)
+        result['source_compatibility']=dict(functions=check,geometry_global_assignments=global_check,margin_split_after_only_nonexact_DIAG_removal=True,mass_callback_overridden=True,exact_mode_only=True)
         spec=importlib.util.spec_from_file_location('t193_reviewed_adapter',P['adapter']);adapter=importlib.util.module_from_spec(spec);spec.loader.exec_module(adapter)
         tick=time.process_time();E,guards,*unused=adapter.load();result['adapter_load_cpu']=time.process_time()-tick
+        assert E.TOL==1e-10 and E.MODE==['recipe'] and E.EXACT_STEPS==[set()] and E._HALVES=={}
+        assert E.STATS==dict(cells=0,cut=0,resolved=0,simplices=0)
         import torch
         torch.set_num_threads(1);tick=time.process_time();state=torch.load(P['checkpoint'],map_location='cpu',weights_only=True)
         assert set(state)=={'rnn.weight_ih_l0','rnn.weight_hh_l0','linear.weight'}
