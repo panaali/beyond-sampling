@@ -11,7 +11,7 @@ Use the analytic normal-CDF ratio to integrate correctness and the analytic trun
 Competing explanations: (1) prior positive plug-in biases are an inherent sign theorem; an opposite-sign exact conditional example distinguishes this. (2) opposite sign comes from crossing a gate or rank boundary; T138 exact convex-cell certificate excludes that. (3) the Gaussian law is incorrectly induced along the line; independent completion-of-square and direct Gaussian integration check it. This is a regular Gaussian conditional distribution on a fixed transverse slice, not E27's particular distribution over omitted coordinates. It cannot overturn E27's60 empirical positive outcomes.
 
 ## Status
-Bounded analytic integration and exact sign certificates complete; independent scalar review pending.
+Done as a bounded component. T55 independently integrated the original unnormalized Gaussian density and its first moment at70digits, reproducing probabilities/means within9.1e-72, and independently checked every rational sign inequality. DRI registration requested.
 
 ## Results
 The exact conditional law has mu=.41090321648160383 and variance=.607916929974621. On[0,1], integrated correctness is .724813275187512; its mean .488446562402731 predicts correct, so replacement bias is +.275186724812488. On[1/2,1], correctness is .429435506464070; its mean .738552114127653 predicts wrong, so replacement bias is -.429435506464070. These are conditional probabilities on two different truncated line slices, not full-model accuracies or contributions to E27's experiment.
@@ -24,7 +24,7 @@ Analytic symmetry, reflection, outside-threshold and degenerate-interval control
 Zero new neural forward passes or random inputs. Exact rational dot products and two high-precision scalar-CDF evaluations per frozen interval, plus controls. Record failed stages and CPU. One thread,2GB, review lock <=20CPU. This is a conditional component, not full estimator cost.
 
 ## Claims
-[inferred, exact algebra] The conditional line law is Gaussian before truncation. [inferred, exact sign certificate; independent review pending] Mean replacement has opposite bias signs on the two frozen slices. [measured] High-precision CDF values are stable at the stated precision, without formal transcendental enclosures.
+[inferred, exact algebra] The conditional line law is Gaussian before truncation. [inferred, exact sign certificate independently checked] Mean replacement has opposite bias signs on the two frozen slices. [measured] High-precision CDF values are stable at the stated precision, without formal transcendental enclosures.
 
 ## Alternatives not ruled out
 Integrating discarded-coordinate laws, weighted continuous symbolic states, alternative transverse parameterizations, and conditional distribution approximations. No global challenge accuracy or cheap integration of transverse coordinates is supplied here.
