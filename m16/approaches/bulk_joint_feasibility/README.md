@@ -87,3 +87,19 @@ panel. This is selected mass, not resolved accuracy coverage. Selection costs
 1.0000000000000002 with conditional quadrature bound5.79e-8. Every history,
 individual mass/bound and source hash is saved in selection.json. No correct
 mass or per-history error rate was used by selection.
+
+## Preserved thin-wedge solver failure and bounded rescue
+The frozen thin feasible system x>0, y>10^12*x returns floating primal
+infeasible after row normalization; the numerical dual proposal fails exact
+balance and is correctly reported UNKNOWN, never infeasible. The control
+requires a real witness, so trained runs are not started. controls_failure.json
+preserves the failure. This is LP conditioning, not a mathematical obstruction.
+
+Before changing the implementation, freeze exact positive column equilibration:
+after rational row normalization, divide each variable column by its maximum
+absolute coefficient (use1 for identically zero columns). Map any proposed
+primal back with the inverse positive scale, then verify all original integer
+inequalities. The dual nullspace is unchanged by invertible column scaling;
+reconstruct against the original rational row-normalized matrix and verify
+original integer balance. Rerun the same ten controls, no new threshold or
+weakened exact acceptance rule. Solver unknown remains a valid unresolved state.
