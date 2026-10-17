@@ -74,3 +74,18 @@ sum to892 named units +16 explicit integer comparisons, versus original
 34/62/62/62 counters; see ROWS_COST.md. Native-cost source review is pending,
 and four complete saved F2L3 analytic controls are running before any trained
 component trace. No full-cost/rung claim follows from these primitive controls.
+
+### Full analytic candidate controls
+All four original F2L3 analytic answers, legacy counters and trace/piece counts
+match exactly under the native tracer. CPU totals16.96 seconds, peak40MB.
+After separately identifying the source's diagnostic stats increments, explicit
+visible totals are8,273,048 /23,328,216 /22,505,542 /26,147,423 for
+zero /constant0 /(+3,-0) /(+0,-3), respectively. Ratios to the corresponding
+legacy counters are1.556/1.551/1.552/1.549. These toy ratios are not transferred
+to H8T4. Raw ledgers retain diagnostic increments; `summarize.py` identifies
+and subtracts only stats['traces']/stats['pieces'], retaining algorithmic
+iteration/stopping arithmetic. Ops/X annotations remain excluded consistently.
+No opaque per-model numerical call was encountered in these controls; cold
+initialization is still separate and unpriced. The same frozen noisy first
+component is prepared in `component.py`, gated on all saved control hashes
+and independent source review before execution.
