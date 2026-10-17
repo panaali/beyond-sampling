@@ -52,7 +52,7 @@ integrals are repeated, and no new uniform-output event family is added.
 Claim63660ab pushed before implementation. Existing T105 author confirms
 no overlap; its eight-event phase is complete and T121 is its current task.
 Bounded witness and actual-prefix extension complete. Independent T55 exact
-suffix review868c69b passes; actual-prefix extension review pending.
+suffix review868c69b and actual-prefix extension review145d6db pass.
 
 ## Results
 Results below. This is a complement discriminator, not a full accuracy estimator.
@@ -158,9 +158,14 @@ approximately-52.01054 and-38885.38658. Factored exact positivity does not
 depend on the numerical CDF computations. The far-negative interval uses
 erfc differences to avoid cancellation.
 
-[inferred, independent review pending] Even under the actual Gaussian input
+[inferred, independently checked; DRI classification pending] Even under the actual Gaussian input
 law, exact prediction/correctness cannot be determined almost surely from
 these four suffix inputs alone: the same positive-mass suffix box admits
 positive-mass prefix boxes with different output and correctness. This does
 not bound the practically important mass of the unresolved complement, and
 does not exclude a competitive approximate suffix-based estimator.
+
+Independent extension review145d6db rebuilds the two center states, all25
+quarter-slack bounds, complete gate coverage, robust omitted readout ties,
+unique rank index0 and exact Gaussian denominator powers20/81411. No broad
+family failure or practically important error floor follows from this proof.
