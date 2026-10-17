@@ -42,7 +42,7 @@ def main():
    chosen=np.flatnonzero(np.isin(ids,pair));row=dict(parents=list(pair),analytic_mass=str(truth),indices=chosen.tolist(),records=[],rules=[],complete=False);out['pairs'].append(row)
    for i in chosen:
     check();source=E.orthant(rays[i],ops);bound=cert(rays[i]);row['records'].append(dict(index=int(i),source_value=source,radial_certificate=bound))
-   row['source_sum']=math.fsum(r['source_value'] for r in row['records']);row['source_error']=row['source_sum']-float(truth);row['negative_source_values']=sum(r['source_value']<0 for r in row['records']);save()
+   row['source_sum']=math.fsum(r['source_value'] for r in row['records']);row['source_error']=row['source_sum']-float(truth);row['negative_source_values']=int(sum(r['source_value']<0 for r in row['records']));save()
    for n in (20,32,48):
     values=[];bounds=[]
     for entry in row['records']:
