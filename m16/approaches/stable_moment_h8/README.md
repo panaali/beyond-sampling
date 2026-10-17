@@ -10,13 +10,13 @@ For symmetric4x4 GramG, r=G1,d=diagG,s=sumG,t=trG and mu=(s+t)/20, Var(yTG y)=[s
 Fixed controls and64 pilot complete after independent source gate; saved-data review requested.
 
 ## Results
-Pending; original T168 fixed64 known109484 versus147062 without moments.
+All64 frozen cases return with25 moment shortcuts; known subtotal109414 versus original-moment109484 and no-moment147062. Detailed errors, variance validation and limitations are recorded below.
 
 ## Compute accounting
 All changed scalar arithmetic and failed guards counted. Reconstruct second moment asvariance+mu² for diagnostic compatibility and charge two operations. Exact256 monomial references are validation work, never fitted estimator advice. One thread2GB<=20CPU review cycles.
 
 ## Claims
-[inferred, independently reviewed] Exact equivalent variance identity and real-arithmetic interval proof. [speculative] Better floating stability. Positivity does not establish an outward floating bound.
+[inferred, independently reviewed] Exact equivalent variance identity and real-arithmetic interval proof. [measured] Improved variance accuracy in34/35 frozen trained moment attempts and two formerly zero synthetic probes; one trained attempt slightly worsens and the smallest synthetic probe remainszero. Positivity does not establish an outward floating bound.
 
 ## Alternatives not ruled out
 Gram/mean/centering can still lose significant bits, extreme scaling can underflow, and stable formula may not improve actual trained inputs. Exact/interval arithmetic remains separate. No whole-family negative or full-cost/noisy-rung claim.
