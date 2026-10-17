@@ -1,0 +1,1268 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "name": "zero",
+      "input_hex": [
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "0x0.0p+0",
+        "upper": "0x0.0p+0",
+        "permanent": "0x0.0p+0",
+        "error_allowance": "0x0.0p+0",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 11,
+          "float_mul": 19,
+          "float_sub": 4,
+          "float_add": 6
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "0",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": null
+    },
+    {
+      "name": "negative_zero",
+      "input_hex": [
+        [
+          "-0x0.0p+0",
+          "-0x0.0p+0",
+          "-0x0.0p+0"
+        ],
+        [
+          "-0x0.0p+0",
+          "-0x0.0p+0",
+          "-0x0.0p+0"
+        ],
+        [
+          "-0x0.0p+0",
+          "-0x0.0p+0",
+          "-0x0.0p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "0x0.0p+0",
+        "upper": "0x0.0p+0",
+        "permanent": "0x0.0p+0",
+        "error_allowance": "0x0.0p+0",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 11,
+          "float_mul": 19,
+          "float_sub": 4,
+          "float_add": 6
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "0",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": null
+    },
+    {
+      "name": "identity",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p+0",
+        "lower": "0x1.ffffffffffff7p-1",
+        "upper": "0x1.0000000000005p+0",
+        "permanent": "0x1.0000000000000p+0",
+        "error_allowance": "0x1.0000000000000p-50",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "negative_diagonal",
+      "input_hex": [
+        [
+          "-0x1.0000000000000p+0",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+1",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.8000000000000p+1"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "-0x1.8000000000000p+2",
+        "lower": "-0x1.8000000000007p+2",
+        "upper": "-0x1.7fffffffffff9p+2",
+        "permanent": "0x1.8000000000000p+2",
+        "error_allowance": "0x1.8000000000000p-48",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "-6",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "cyclic",
+      "input_hex": [
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p+0",
+        "lower": "0x1.ffffffffffff7p-1",
+        "upper": "0x1.0000000000005p+0",
+        "permanent": "0x1.0000000000000p+0",
+        "error_allowance": "0x1.0000000000000p-50",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "dense_integer",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+1",
+          "0x1.8000000000000p+1"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+2",
+          "0x1.4000000000000p+2"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x0.0p+0",
+          "0x1.8000000000000p+2"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.6000000000000p+4",
+        "lower": "0x1.5fffffffffff3p+4",
+        "upper": "0x1.600000000000dp+4",
+        "permanent": "0x1.7000000000000p+5",
+        "error_allowance": "0x1.7000000000000p-45",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 24,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "22",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "duplicate_rows",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+1",
+          "0x1.8000000000000p+1"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+1",
+          "0x1.8000000000000p+1"
+        ],
+        [
+          "0x1.0000000000000p+2",
+          "0x1.4000000000000p+2",
+          "0x1.8000000000000p+2"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "-0x1.9800000000001p-44",
+        "upper": "0x1.9800000000001p-44",
+        "permanent": "0x1.9800000000000p+6",
+        "error_allowance": "0x1.9800000000000p-44",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "0",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": null
+    },
+    {
+      "name": "ones",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "-0x1.8000000000001p-48",
+        "upper": "0x1.8000000000001p-48",
+        "permanent": "0x1.8000000000000p+2",
+        "error_allowance": "0x1.8000000000000p-48",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "0",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": null
+    },
+    {
+      "name": "near_50",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000004p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000004p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "-0x1.8000000000005p-48",
+        "upper": "0x1.8000000000005p-48",
+        "permanent": "0x1.8000000000004p+2",
+        "error_allowance": "0x1.8000000000004p-48",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "1267650600228229401496703205376"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": true,
+      "point_error_exact": [
+        "-1",
+        "1267650600228229401496703205376"
+      ],
+      "relative_point_error": "1"
+    },
+    {
+      "name": "near_40",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000001000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000001000p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "-0x1.8000000001001p-48",
+        "upper": "0x1.8000000001001p-48",
+        "permanent": "0x1.8000000001000p+2",
+        "error_allowance": "0x1.8000000001000p-48",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "1208925819614629174706176"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": true,
+      "point_error_exact": [
+        "-1",
+        "1208925819614629174706176"
+      ],
+      "relative_point_error": "1"
+    },
+    {
+      "name": "near_26",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000004000000p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.0000000000000p+0",
+          "0x1.0000000000000p+0",
+          "0x1.0000004000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p-52",
+        "lower": "-0x1.7000004000001p-48",
+        "upper": "0x1.9000004000001p-48",
+        "permanent": "0x1.8000004000000p+2",
+        "error_allowance": "0x1.8000004000000p-48",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "4503599627370496"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "large_diagonal",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+100",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+100",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+100"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p+300",
+        "lower": "0x1.ffffffffffff7p+299",
+        "upper": "0x1.0000000000005p+300",
+        "permanent": "0x1.0000000000000p+300",
+        "error_allowance": "0x1.0000000000000p+250",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "2037035976334486086268445688409378161051468393665936250636140449354381299763336706183397376",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "small_diagonal",
+      "input_hex": [
+        [
+          "0x1.0000000000000p-100",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p-100",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p-100"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p-300",
+        "lower": "0x1.ffffffffffff7p-301",
+        "upper": "0x1.0000000000005p-300",
+        "permanent": "0x1.0000000000000p-300",
+        "error_allowance": "0x1.0000000000000p-350",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "2037035976334486086268445688409378161051468393665936250636140449354381299763336706183397376"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "mixed_diagonal",
+      "input_hex": [
+        [
+          "0x1.0000000000000p-100",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+100"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p+0",
+        "lower": "0x1.ffffffffffff7p-1",
+        "upper": "0x1.0000000000005p+0",
+        "permanent": "0x1.0000000000000p+0",
+        "error_allowance": "0x1.0000000000000p-50",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "large_cancel",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+99",
+          "0x1.0000000000000p+99",
+          "0x1.0000000000000p+99"
+        ],
+        [
+          "0x1.0000000000000p+99",
+          "0x1.0000000000004p+99",
+          "0x1.0000000000000p+99"
+        ],
+        [
+          "0x1.0000000000000p+99",
+          "0x1.0000000000000p+99",
+          "0x1.0000000000004p+99"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "-0x1.8000000000005p+249",
+        "upper": "0x1.8000000000005p+249",
+        "permanent": "0x1.8000000000004p+299",
+        "error_allowance": "0x1.8000000000004p+249",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "200867255532373784442745261542645325315275374222849104412672",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": true,
+      "point_error_exact": [
+        "-200867255532373784442745261542645325315275374222849104412672",
+        "1"
+      ],
+      "relative_point_error": "1"
+    },
+    {
+      "name": "small_cancel",
+      "input_hex": [
+        [
+          "0x1.0000000000000p-99",
+          "0x1.0000000000000p-99",
+          "0x1.0000000000000p-99"
+        ],
+        [
+          "0x1.0000000000000p-99",
+          "0x1.0000000000004p-99",
+          "0x1.0000000000000p-99"
+        ],
+        [
+          "0x1.0000000000000p-99",
+          "0x1.0000000000000p-99",
+          "0x1.0000000000004p-99"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x0.0p+0",
+        "lower": "-0x1.8000000000005p-345",
+        "upper": "0x1.8000000000005p-345",
+        "permanent": "0x1.8000000000004p-295",
+        "error_allowance": "0x1.8000000000004p-345",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 28,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "322781234760863573706989896500376484291213224103652939103832419567580952752105149328705669160017228929487896496593436672"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": true,
+      "point_error_exact": [
+        "-1",
+        "322781234760863573706989896500376484291213224103652939103832419567580952752105149328705669160017228929487896496593436672"
+      ],
+      "relative_point_error": "1"
+    },
+    {
+      "name": "below_guard",
+      "input_hex": [
+        [
+          "0x1.fffffffffffffp-101",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "exact_fallback",
+        "point": "0x1.fffffffffffffp-101",
+        "lower": "0x1.ffffffffffffep-101",
+        "upper": "0x1.0000000000000p-100",
+        "exact": [
+          "9007199254740991",
+          "11417981541647679048466287755595961091061972992"
+        ],
+        "counts": {
+          "to_float": 9,
+          "isfinite": 10,
+          "abs": 9,
+          "comparison": 14,
+          "float_to_exact": 9,
+          "exact_mul": 9,
+          "exact_sub": 4,
+          "exact_add": 1,
+          "exact_to_float": 1,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 53,
+        "fallback_max_denominator_bits": 154
+      },
+      "exact": [
+        "9007199254740991",
+        "11417981541647679048466287755595961091061972992"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "above_guard",
+      "input_hex": [
+        [
+          "0x1.0000000000001p+100",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "exact_fallback",
+        "point": "0x1.0000000000001p+100",
+        "lower": "0x1.0000000000000p+100",
+        "upper": "0x1.0000000000002p+100",
+        "exact": [
+          "1267650600228229682971679916032",
+          "1"
+        ],
+        "counts": {
+          "to_float": 9,
+          "isfinite": 10,
+          "abs": 9,
+          "comparison": 15,
+          "float_to_exact": 9,
+          "exact_mul": 9,
+          "exact_sub": 4,
+          "exact_add": 1,
+          "exact_to_float": 1,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 101,
+        "fallback_max_denominator_bits": 1
+      },
+      "exact": [
+        "1267650600228229682971679916032",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "subnormal",
+      "input_hex": [
+        [
+          "0x0.0000000000001p-1022",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "exact_fallback",
+        "point": "0x0.0000000000001p-1022",
+        "lower": "0x0.0p+0",
+        "upper": "0x0.0000000000002p-1022",
+        "exact": [
+          "1",
+          "202402253307310618352495346718917307049556649764142118356901358027430339567995346891960383701437124495187077864316811911389808737385793476867013399940738509921517424276566361364466907742093216341239767678472745068562007483424692698618103355649159556340810056512358769552333414615230502532186327508646006263307707741093494784"
+        ],
+        "counts": {
+          "to_float": 9,
+          "isfinite": 10,
+          "abs": 9,
+          "comparison": 14,
+          "float_to_exact": 9,
+          "exact_mul": 9,
+          "exact_sub": 4,
+          "exact_add": 1,
+          "exact_to_float": 1,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 1,
+        "fallback_max_denominator_bits": 1075
+      },
+      "exact": [
+        "1",
+        "202402253307310618352495346718917307049556649764142118356901358027430339567995346891960383701437124495187077864316811911389808737385793476867013399940738509921517424276566361364466907742093216341239767678472745068562007483424692698618103355649159556340810056512358769552333414615230502532186327508646006263307707741093494784"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    },
+    {
+      "name": "overflow",
+      "input_hex": [
+        [
+          "0x1.1ccf385ebc8a0p+1023",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.1ccf385ebc8a0p+1023",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.1ccf385ebc8a0p+1023"
+        ]
+      ],
+      "result": {
+        "status": "exact_fallback",
+        "point": "inf",
+        "lower": "0x1.fffffffffffffp+1023",
+        "upper": "inf",
+        "exact": [
+          "1000000000000000032937190888321366613834283828226033957659305088216587823045449088398951961150061486030859033590427719384351164990192232126700861258022714996230183354043361934482519267556591809137554296359675940137568063573211517993024820272258474246968396892558647809437210608859778204787403806790311736170598415523694582621937081817893432743638594106275156264906976401480188945799859931108823570706692065113692518311294098607217469255446614766563445873015816512075544952409334136567310340454274170808460774445142889893571701209138098222838641629706648987299353280198650591907680016853406762028844897054450452369688928302104297114299640479818101967234032518034746721416575298271873980233126882135772196013477783182173376823876211969644277422248543980956299503876269734168522757901549407275170425245199931740182657110964358171212984487148066025437648105932785068374647221878899335798470847180754140795997092162165498819117056",
+          "1"
+        ],
+        "counts": {
+          "to_float": 9,
+          "isfinite": 10,
+          "abs": 9,
+          "comparison": 16,
+          "float_to_exact": 9,
+          "exact_mul": 9,
+          "exact_sub": 4,
+          "exact_add": 1,
+          "exact_to_float": 1,
+          "exact_comparison": 1
+        },
+        "fallback_max_numerator_bits": 3070,
+        "fallback_max_denominator_bits": 1
+      },
+      "exact": [
+        "1000000000000000032937190888321366613834283828226033957659305088216587823045449088398951961150061486030859033590427719384351164990192232126700861258022714996230183354043361934482519267556591809137554296359675940137568063573211517993024820272258474246968396892558647809437210608859778204787403806790311736170598415523694582621937081817893432743638594106275156264906976401480188945799859931108823570706692065113692518311294098607217469255446614766563445873015816512075544952409334136567310340454274170808460774445142889893571701209138098222838641629706648987299353280198650591907680016853406762028844897054450452369688928302104297114299640479818101967234032518034746721416575298271873980233126882135772196013477783182173376823876211969644277422248543980956299503876269734168522757901549407275170425245199931740182657110964358171212984487148066025437648105932785068374647221878899335798470847180754140795997092162165498819117056",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false
+    },
+    {
+      "name": "underflow",
+      "input_hex": [
+        [
+          "0x1.87e92154ef7acp-665",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.87e92154ef7acp-665",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.87e92154ef7acp-665"
+        ]
+      ],
+      "result": {
+        "status": "exact_fallback",
+        "point": "0x0.0p+0",
+        "lower": "-0x0.0000000000001p-1022",
+        "upper": "0x0.0000000000001p-1022",
+        "exact": [
+          "5120834017984591243162272946680676671510201811",
+          "5120834017984591518147028606005386392991070803233539296225079797126347381640561714282620018633786528684625023495254338414266418034876748837569635527008462887513799703364491256252208677097644781218029521545625387720450034199300257983090290650191518075514440227307582827991892955933645635564359934476985058395497772801264225688705417270604479898255105628816161764712152286804906915652283101897505006786990112535065979412882966109410722156057838063961993103028819293481078313367826492291911499907219457764211473530756735049840415233164976184864760203928986194694093688479274544786530457604655777313274555786861719645260099496565700321073395329400832"
+        ],
+        "counts": {
+          "to_float": 9,
+          "isfinite": 10,
+          "abs": 9,
+          "comparison": 12,
+          "float_to_exact": 9,
+          "exact_mul": 9,
+          "exact_sub": 4,
+          "exact_add": 1,
+          "exact_to_float": 1,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 152,
+        "fallback_max_denominator_bits": 2146
+      },
+      "exact": [
+        "5120834017984591243162272946680676671510201811",
+        "5120834017984591518147028606005386392991070803233539296225079797126347381640561714282620018633786528684625023495254338414266418034876748837569635527008462887513799703364491256252208677097644781218029521545625387720450034199300257983090290650191518075514440227307582827991892955933645635564359934476985058395497772801264225688705417270604479898255105628816161764712152286804906915652283101897505006786990112535065979412882966109410722156057838063961993103028819293481078313367826492291911499907219457764211473530756735049840415233164976184864760203928986194694093688479274544786530457604655777313274555786861719645260099496565700321073395329400832"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": true,
+      "zero_point_nonzero_truth": true,
+      "point_error_exact": [
+        "-5120834017984591243162272946680676671510201811",
+        "5120834017984591518147028606005386392991070803233539296225079797126347381640561714282620018633786528684625023495254338414266418034876748837569635527008462887513799703364491256252208677097644781218029521545625387720450034199300257983090290650191518075514440227307582827991892955933645635564359934476985058395497772801264225688705417270604479898255105628816161764712152286804906915652283101897505006786990112535065979412882966109410722156057838063961993103028819293481078313367826492291911499907219457764211473530756735049840415233164976184864760203928986194694093688479274544786530457604655777313274555786861719645260099496565700321073395329400832"
+      ],
+      "relative_point_error": "1"
+    },
+    {
+      "name": "nan",
+      "input_hex": [
+        [
+          "nan",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "unknown_nonfinite",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "unknown_correctly_retained": true
+    },
+    {
+      "name": "posinf",
+      "input_hex": [
+        [
+          "inf",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "unknown_nonfinite",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "unknown_correctly_retained": true
+    },
+    {
+      "name": "neginf",
+      "input_hex": [
+        [
+          "-inf",
+          "0x0.0p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x0.0p+0",
+          "0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "unknown_nonfinite",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "unknown_correctly_retained": true
+    },
+    {
+      "name": "signed_zero_identity",
+      "input_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "-0x0.0p+0",
+          "-0x0.0p+0"
+        ],
+        [
+          "-0x0.0p+0",
+          "0x1.0000000000000p+0",
+          "-0x0.0p+0"
+        ],
+        [
+          "-0x0.0p+0",
+          "-0x0.0p+0",
+          "0x1.0000000000000p+0"
+        ]
+      ],
+      "result": {
+        "status": "fast_enclosure",
+        "point": "0x1.0000000000000p+0",
+        "lower": "0x1.ffffffffffff7p-1",
+        "upper": "0x1.0000000000005p+0",
+        "permanent": "0x1.0000000000000p+0",
+        "error_allowance": "0x1.0000000000000p-50",
+        "counts": {
+          "to_float": 9,
+          "isfinite": 9,
+          "abs": 9,
+          "comparison": 16,
+          "float_mul": 19,
+          "float_sub": 5,
+          "float_add": 7,
+          "nextafter": 2
+        },
+        "fallback_max_numerator_bits": 0,
+        "fallback_max_denominator_bits": 0
+      },
+      "exact": [
+        "1",
+        "1"
+      ],
+      "enclosed": true,
+      "interval_contains_zero": false,
+      "zero_point_nonzero_truth": false,
+      "point_error_exact": [
+        "0",
+        "1"
+      ],
+      "relative_point_error": "0"
+    }
+  ],
+  "gamma_inequality_gap": [
+    "200248784617584727369036389894705312698585273290904635005844608640362368112172400721834427809797",
+    "66749594872528440074844428317798503581334516323645399060845050244444366430645017188217565216768"
+  ],
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "binary64_round_to_nearest_environment": true,
+  "source_sha256": {
+    "primitive.py": "18881b3230092bd0877fcfbe1fed3a03a43d4de7497c3596138383ee30ee8842",
+    "controls.py": "43b6f115f988c83ee4177abf8e572cc56b00edfb486fa0e22eb7a03d647e8edf",
+    "PROOF.md": "0e7d19665ffc7cbeedbaf71f89916406320a51e0264cdd8fc52617eee00f3af7",
+    "PROTOCOL.md": "c31b568d950a6dc593683f9a8363ad11c8bb0fa1af65ae88031c08cfd57342fc"
+  },
+  "cpu_seconds": 0.00014211100000000032,
+  "new_primitive_calls": 25,
+  "new_mass_model_MC_calls": 0,
+  "scope": "Frozen primitive enclosures only; source counters are not installed native counts. No downstream mass accuracy, sampler or full cheap-mass claim."
+}
