@@ -5,10 +5,10 @@
 extern "C" void dgesvd_(const char*,const char*,const int*,const int*,double*,const int*,double*,double*,const int*,double*,const int*,double*,const int*,int*);
 struct Cell { Cone c;std::vector<double> A;std::array<uint64_t,2> all; };
 struct Geometry {
- int h;const double *wi,*wh,*wo;
+ int h;const double *wi,*wh,*wo;const int* input_order;
  std::vector<double> good,bad,rays,maps;std::vector<uint64_t> bits;std::vector<int> headers;
  long long counts[9]={0,0,0,0,0,0,0,0,0};
- Geometry(int H,const double* I,const double* W,const double* O):h(H),wi(I),wh(W),wo(O){}
+ Geometry(int H,const double* I,const double* W,const double* O,const int* order=nullptr):h(H),wi(I),wh(W),wo(O),input_order(order){}
  Result clip(const Cone& c,int d,const std::vector<double>& a,int cid,int want=3){Result r;int status=core(c.r.size()/d,d,c.r.data(),c.z.data(),a.data(),cid,want,r);++counts[8];if(status)throw status;return r;}
  int rank(const Cone& c,const std::vector<int>& indices){
   ++counts[7];int m=indices.size(),n=3,ld=std::max(1,m),one=1,info=0,lwork=std::max(5*std::min(m,n),3*std::min(m,n)+std::max(m,n));
@@ -57,8 +57,7 @@ struct Geometry {
  }
  void enumerate(const Cell& cell,int t){
   if(t==3){finish(cell);return;}
-  std::vector<int> order(h);for(int i=0;i<h;++i)order[i]=i;
-  std::stable_sort(order.begin(),order.end(),[&](int i,int j){return std::abs(wi[i])>std::abs(wi[j]);});int k0=order[0];if(wi[k0]==0)throw 1;
+  std::vector<int> order(input_order,input_order+h);int k0=order[0];if(wi[k0]==0)throw 1;
   std::vector<double>B(h*t,0);for(int j=0;j<h;++j)for(int q=0;q<t;++q)for(int k=0;k<h;++k)B[j*t+q]+=wh[j*h+k]*cell.A[k*3+q];
   struct Piece{Cone c;std::vector<bool> gates;};std::vector<Piece> pieces;
   for(double sign:{1.,-1.}){Piece p;p.c.present=true;p.gates.assign(h,false);p.gates[k0]=sign>0;int cid=1+16*(t-1)+k0;
@@ -74,8 +73,8 @@ struct Geometry {
  }
  void run(){counts[0]=2;for(double sign:{1.,-1.}){Cell c;c.c.present=true;c.c.r={sign};c.c.z={0,0};c.A.assign(h*3,0);c.all={1,0};for(int j=0;j<h;++j)if(sign*wi[j]>0)c.A[3*j]=wi[j];enumerate(c,1);}}
 };
-extern "C" void* dd_geometry(int h,const double* wi,const double* wh,const double* wo,int* status){
- if(h<1||h>16){*status=4;return nullptr;}Geometry* g=new Geometry(h,wi,wh,wo);try{g->run();*status=0;return g;}catch(int code){*status=code;delete g;return nullptr;}catch(...){*status=9;delete g;return nullptr;}}
+extern "C" void* dd_geometry(int h,const double* wi,const double* wh,const double* wo,const int* order,int* status){
+ if(h<1||h>16){*status=4;return nullptr;}Geometry* g=new Geometry(h,wi,wh,wo,order);try{g->run();*status=0;return g;}catch(int code){*status=code;delete g;return nullptr;}catch(...){*status=9;delete g;return nullptr;}}
 extern "C" const void* dd_get(void* ptr,int tag,long long* size){Geometry& g=*static_cast<Geometry*>(ptr);switch(tag){
  case 0:*size=g.good.size();return g.good.data();case 1:*size=g.bad.size();return g.bad.data();case 2:*size=g.rays.size();return g.rays.data();case 3:*size=g.bits.size();return g.bits.data();case 4:*size=g.headers.size();return g.headers.data();case 5:*size=g.maps.size();return g.maps.data();default:*size=9;return g.counts;}}
 extern "C" void dd_free(void* ptr){delete static_cast<Geometry*>(ptr);}
