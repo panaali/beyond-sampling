@@ -55,10 +55,40 @@ state scale, hidden grid, rule order, model or noise panel.
    no full-estimator or portable-cost conclusion from local comparisons.
 
 ## Status
-Protocol frozen. No trained computation yet.
+Bounded trained phase complete after independent source/theorem review.
+Result classification remains with DRI.
 
 ## Results
-Pending. Reproducible theorem/control and branch scripts will be retained.
+Reproduce from this folder using the project interpreter: `python controls.py`
+and `python pilot.py`, with one thread/review lock/memory cap.
+
+All5 exact toy controls behave as frozen. The trained model satisfies every
+required slope condition: both gates and all9 nonconstant target-margin
+support cases are nonzero exact rationals. Thus this conditional value
+function is Lipschitz in hidden state under the stated law. A jump at an
+axis/zero-support boundary is not the explanation for these particular
+interpolation errors. This conclusion is model/label-specific, not a claim
+about arbitrary recurrent models or all support degeneracies.
+
+The exact coefficient G has numerical value about2.96267e8; at u=1 the
+displayed G/min(L,U) is1.86736e9. This extremely loose bound gives no useful
+mesh error or accuracy certificate. Nearzero exact slopes are accepted as
+nonzero for continuity and retain their full large cost in the bound.
+
+For x0=-1/4, both actual need1 branches agree to roundoff; side00 alone has
+error-.00698826 and is not a physically consistent remaining need here.
+For x0=+1/4, both actual need1 branches are biased low:
+
+| Rank side of x,y | Exact pair | Old interpolation | Half error contributing to need1 |
+| --- | ---: | ---: | ---: |
+| below,above | 1.0000000000 | .8767810617 | -.0616094692 |
+| above,below | .1922328311 | .0440280048 | -.0741024132 |
+
+Their errors add to-.1357118823; there is no beneficial cancellation. The
+single-branch explanation is unsupported by this discriminator. All four
+rank-side arrays and their exact reconstruction of the saved T127 need
+values remain in pilot.json. Complete pilot CPU .02031. No full integration,
+larger grid, population-error estimate or computational victory follows.
 
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per bounded phase. Exact rational sums,
