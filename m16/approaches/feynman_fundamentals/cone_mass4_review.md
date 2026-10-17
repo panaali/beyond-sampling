@@ -814,3 +814,17 @@ T168's original moment insertion preserves reviewed T135 geometry/moments, finit
 T180's fibre source transformer preserves original numerical functions and the reviewed exact-zero clip guard. Cross9, vector dot2n-1 and mean(n-m)+m are consistent named rules; computed-receiver repair matches prior T153. Lowercase stats diagnostic increments stay in raw totals and are removed separately. Cold setup, SVD and other opaque work remain explicit. Four analytic parity controls clear only one frozen noisy component; no toy-to-H8 multiplier transfer.
 
 T179 full replay amortizes immutable AST/grid construction, clears observer lists and resets percase counters. Persistent STATS simplices does not feed mass values. Reused256 values retain reference equality and their original raw-node archive; new anomalies/sentinels are saved. Prior256 work must be charged once. This is new source mass quadrature, with no new geometry/network inputs/reference integration.
+
+### T178 exact full-circle consequence and continuity controls
+
+The independent angular ordering derivation now agrees with the saved explicit H2T4 model: Wi=(1,0),Wh=0,Wo row1=(1,0), other rowszero; circle a=(2,0,0,1)/sqrt5,b=(0,2,-1,0)/sqrt5. Correctness occurs only in quadrantI with1/2<tan(phi)<1, giving(atan1-atan(1/2))/(2pi)=0.05120819117478336. Original code returns0.125; local tile-only rescue returns the analytic value. Thus the primitive defect does cause an actual synthetic whole-circle error, while saved trained models remain untested by this counterexample. Ten continuity controls also match the derived formula1/2 for r<1 and(3pi/4-atan(r))/(2pi) for r>1. Saved arithmetic check added to the Hopf audit; no new circle runs here.
+
+### T156 reflector exclusive envelope and saved branch counts
+
+`check_reflector_saved_review.py` checks all160 saved native/source outputs bitwise and reconstructs branch counts exactly. Eighteen controls rescale. For nonzero-norm calls with k>=1 rescale passes, exclusive counts are6+3k arithmetic,2neg,2SIGN,1+kabs,2+kcomparisons. At k<=20 this yields the claimed113 bound; no-rescale gives10. Zero norm only uses one numeric comparison, N<=1 none. Child-call counts also match. Shared native children prevent inferring independently priced child arithmetic, and the proposed finite no-rescale census deduction still needs complete observation of all child calls. Review0.028CPU, no native rerun.
+
+### T168 fixed64 original moment-arm result
+
+`check_moment_h8_pilot_review.py` verifies all pins/indices/reference links, saved interval arithmetic and every count ledger.25 moment shortcuts among35 attempts replace quadrature; all39 other values/bounds remain bitwise baseline. Known units109484 versus147062 include cold rules and failed guards; L1 error3.813426e-12 and conditional bound sum1.807217e-11 reproduce. Original floating moment cancellation controls remain preserved, so these conditional bounds are not full numerical enclosures. No full-corpus or complete-cost inference. Review0.000218CPU, no mass rerun.
+
+The proposed stable moment identity is algebraically correct: with symmetric4x4 Gram G,r=G1,d=diag G and mu=(sum G+tr G)/20, Var(y^TGy)=[sum_i(r_i+d_i-5mu)^2+sum_{i<=j}(Gij-mu)^2]/210. Expansion gives the reviewed fourth-moment variance formula. It removes final subtraction of two nearly equal moments; Gram/mean/centering rounding remains outside exact certification. No new stable-form implementation is reviewed in this phase.
