@@ -19,6 +19,7 @@ def main():
     try:
         for i,row in enumerate(saved['rows']):
             if row['name'] not in ('svd','leggauss'):continue
+            assert row['kwargs']=={'dict':[]},'Only frozen default keyword calls supported'
             spy.reset();new={'saved_row':i,'name':row['name']};out['rows'].append(new)
             if row['name']=='svd':
                 a=row['args']['items'][0];A=np.array([float.fromhex(x) for x in a['hex']]).reshape(a['shape']);value=np.linalg.svd(A)
