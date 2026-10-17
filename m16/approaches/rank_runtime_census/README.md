@@ -77,3 +77,25 @@ setup ranks (576 shape2x4 and192 shape4x4). The failed contraction is
 preserved in summary_failure.json. Include one cold setup in the aggregate;
 all eight diagnostic setups are retained only in measured review CPU. No
 trained rerun is needed.
+
+### Completed finite census
+All16 chunks preserve35,098 exact and28,000 recipe rays,8,455/6,182 cells,
+and35,650,854/36,398,526 legacy geometry counters. Geometry plus one cold
+setup gives275,897/257,040 rank calls, exactly reproducing T146/T153 shapes.
+Actual Q3 calls are239,577/200,618 and Q5 updates201,773/165,964; no Q6,
+Q1/Q2 failure, or DGESDD failure occurred. Maximum Q3 ITER increment is3
+on each finite evaluation. This is observed work, not a universal loop cap.
+All reductions use the unblocked QR/LQ and bidiagonal paths represented in
+the saved kernel rows. DLARFG counts1,390,372/1,293,660 and DNRM2 counts
+886,771/820,870 expose additional native numeric work still needing prices.
+Review CPU18.337895/18.810851 seconds, peak RSS205572/204552KiB.
+
+`python summarize.py` contracts existing raw rows only. To reproduce a
+trained chunk (after compiling spy.c), run one-thread
+`LD_PRELOAD=$PWD/spy.so python run.py exact 0` or `recipe108 0`, indices0..7,
+with the protocol lock/resource caps. Source gate T55 review9558b53e passed
+before all trained chunks. Final independent aggregate review is requested.
+Parent/child kernels are nested: assigning both a full parent price and all
+child prices would duplicate work unless explicitly used as an upper bound.
+The current output is a call census, with no guessed operation conversion.
+No complete-cost, fullpanel, positivity or sampling-win claim follows.
