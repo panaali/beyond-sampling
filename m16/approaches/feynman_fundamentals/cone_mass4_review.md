@@ -1132,3 +1132,23 @@ Seed 4 has named integer-budget ratios 0.2090100012 / 0.00818442777 and retains
 uniform per-model superiority. Source111 and historical72 conventions remain
 separate from full hardware cost.
 
+### Individual fixed-panel evidence and 5-D truncation bounds
+
+`check_hopf_individual_review.py` verifies all 25 fixed individuals against
+both sampler budgets, using exact ratio extrema over the same simultaneous
+25-truth boxes. All 50 upper ratios are below one. The largest is
+0.851958091406472 at seed 3, copy 3 with the optimized sampler; its point ratio
+is 0.2947128527230173. No new reference data or subset selection is involved.
+This extends the fixed-panel conditional evidence to individuals while keeping
+the numerical confidence, floating-reference and source-allowance limitations.
+
+`check_wedge5_radial_review.py` independently reconstructs all 11 stored Gram
+matrices and determinants by a 120-term expansion, checks six acute and five
+exact KKT certificates, and verifies all 33 directed binomial-tail bounds and
+nine range controls against independent 180-digit rising-factorial formulas.
+Exact and directed count contractions match. Six bounds meet 1e-10: narrow
+fixtures 35 and 48 at each fixed order. The other 27 remain unresolved, including
+the identity fixture. These are ideal positive-rule truncation bounds; loose
+bounds do not establish observed failure, and source floating evaluation and
+log quadrature remain outside this certificate.
+
