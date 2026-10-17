@@ -106,3 +106,38 @@ solid-angle triangle atan2 formula and analytic last-reset event mass. Stop if
 geometry mass error exceeds1e-7 at order32 or wall/cpu exceeds90seconds; no
 unbounded order sweep. Preserve all rule failures. This is one base-model
 partial contribution, not an adaptive fitted estimator or noisy evaluation.
+
+
+## Bounded three-input integral result
+The rescue passes all six fixed older-target comparisons to the separate
+adaptive generic conditional implementation within1e-10; all target rules
+32/64 agree within1e-10. Exact rank subdivision produces38 polygons /61
+triangles. Independent solid-angle triangle mass.06759734596184741 matches
+analytic `r*U3 = r*(1/8+q)` within1.4e-17. Positive angular mass order32 differs
+from the analytic event by5.65e-15 (including finite radial truncation).
+
+| Angular order | Correct contribution | CPU seconds |
+| --- | ---: | ---: |
+| 8 | .015084632122914120 | .2233 |
+| 16 | .015084632123278756 | .8498 |
+| 32 | .015084632123278756 | 3.4899 |
+
+By output label at order32: label0 .0021473388552174844, label5
+.00257178420621214, label6 .003405227464051206, label7
+.006960281597797926. The older-label zero-state contribution is material;
+discarding it would have understated this stratum by14.2%.
+
+Combined with the previously completed three strata, the partial contribution
+is.18766409285337243; unresolved event mass falls to.07525837021726976.
+These are scoped numerical partial results, not certified full accuracy.
+The no-certified-pair residual and all longer surviving suffixes remain.
+Angular agreement does not check radial32 bias or inherited floating special
+functions; independent radial/target precision review remains requested.
+
+The first vectorized run failed on a broadcasting parenthesis after passing
+scalar controls. Its traceback/cost is preserved in initial_broadcast_failure.json
+and integration_failure.json; explicit parentheses repair the batch arithmetic.
+This implementation defect did not produce a completed estimate and does not
+count as negative evidence against the method. Reproduce `python integrate.py`
+under the primary lock. Fully counted node/callback/CPU/RSS ledger and tails
+are in integration.json; independent review and portable-cost auditing remain.
