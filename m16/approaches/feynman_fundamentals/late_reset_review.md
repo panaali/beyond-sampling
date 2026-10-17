@@ -29,3 +29,23 @@ counts on all32 H2 and96 H16 planes. This corroborates the reset mechanism
 on the frozen corpus; it is not a theorem that arbitrary floating gate-root
 topology is certified, nor a new deductive estimator over random outer planes.
 The initial missing-declaration compile failure remains in the owner's lane.
+
+## Axis-readout structural followup
+If the final structural active mask has exactly one neuron k, its hidden
+value is positive throughout the open gate cell. The winner is therefore the
+first index maximizing Wo[:,k], independent of the affine magnitude. With
+no active neuron it is index0. Source diffs for both axis kernels implement
+this rule using strict greater-than updates on the original readout column;
+they retain input-rank roots while skipping only readout roots/products.
+The final mask is recomputed on every suffix update, which always includes
+the last stage. This is not a numerical near-zero or near-tie rule.
+
+The independent check_axis_readout_review.py uses the same reset circle but
+only one nonzero Wi. It checks the prior3/8 case and a new positive-volume
+readout tie between rows2 and3. First-index winner2 then makes precisely the
+negative chart correct, giving probability1/2. Both kernels return the exact
+values on48 phase/scale/readout cases, .006530824 CPU seconds after imports.
+Raw counters and source hashes are preserved. This tests an actual tie and
+the structural simplification independently of the author's Fraction oracle.
+It does not certify arbitrary multi-active floating topology or imply that
+every classified-interval count must match an exact oracle on unseen planes.
