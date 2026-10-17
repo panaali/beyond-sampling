@@ -74,3 +74,20 @@ The finite prefix quadrature has target-label marginal defects up to.000305945(b
 
 ## Fixed adapter and cost qualification
 `estimator.est(model,budget,rng)` exposes the predeclared coupled angular4/radial4/suffixGL16 recipe on H2T4. It is deterministic and ignores the advisory budget. Returned FPE is explicitly a PARTIAL proxy from named scalar/CDF/comparison counters; factorization, sorting and uncounted bookkeeping remain excluded, so COST_REVIEWED=False and no shared-leaderboard acceptance is claimed. This interface is for review/reproduction, not evidence of a cost win.
+
+## Adapter validation and reproduction
+The shared-style file loader reproduces .30816295176592345 exactly; `adapter_results.json` records1.340816988CPU excluding imports and partial proxy49818.125FPE, with cost_reviewed false. This is a reproduction control, not shared noisy-model leaderboard validation.
+
+From this worktree root, use the pinned interpreter and one-thread environment. Each command is a separate recorded phase; historical failing commands/artifacts are retained above.
+
+```
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+ulimit -v 2500000
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/history_distribution/controls.py
+flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/history_distribution/pilot.py
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/history_distribution/narrow_controls.py
+flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/history_distribution/coupling_controls.py
+flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/history_distribution/coupling_pilot.py
+```
+
+The finite alternatives checklist is complete for this diagnostic: mean versus positive marginal distributions;2x2 angular/radial rules with exact mean and covariance-loss controls; exact same-atom rank coupling; scalar-rule doubling; conditional constant masses and direct forwards; independent angular moments and positive Gaussian primitive; explicit cold costs and partial interface. Not tested are complete angular convergence, all noisy models, larger prefixes or complete portable operation accounting. The old one-angle analytic tail is already known from T47/T51/T55 and its unresolved angular features are not relabeled as a new estimator by this task. Any future primitive acceleration must cite those results and isolate its own cost/stability mechanism.
