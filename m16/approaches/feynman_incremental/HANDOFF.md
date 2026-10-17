@@ -52,3 +52,6 @@ The prior publication blocker resolved through the supported with_additional_per
 
 ## Completed boundary baseline variant
 T20 scope extension2b3dc47 was pushed before the completed-line stochastic boundary phase. Research chain after69cf526:f35cee9,1c2d82b,4004117,697bc8f,942d8b4, then this result handoff commit. BOUNDARY.md records the explicit method change,32 independent constant-label face checks, full rejection/RNG/setup ledger, three small stochastic runs and setup-failure check. Original fitted-importance and Newton variants remain open. This baseline is not deductive and has no new MSE win claim. T55 review is requested separately.
+
+## Independent completion reviews
+T55 independently reviewed the Laplace split/conditional interval in2523103 and completed boundary mask/rejection accounting in4e15957. Four canonical local adapters are now handed off. This is not a DRI-confirmed accuracy/cost win. Remaining fitted-importance/Newton/adjacent-component variants are released as explicit open T20 work; current worker advances to the distinct enlarged-reset T49 hypothesis.
