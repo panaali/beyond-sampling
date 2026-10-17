@@ -89,3 +89,34 @@ Next cycle: backward target-count value-function collocation on the compact3D
 state; exact terminal tail supplied byT55. Backward functions accommodate
 axis/origin atoms without postulating a smooth state density. Interpolation and
 terminal decision boundaries still require explicit convergence checks.
+
+## Cycle2 protocol, frozen before transport implementation
+Apply backward value-function collocation to trainedH2T10seed0 only, using T55's
+forthcoming `target_probability(model,a,b,count,j)` as the terminal two-fresh-input
+kernel. For each potentially predicted target j, process the earlier steps
+backward on the compact3D state (h1/R,h2/R,u/R) and count0/1. Include hidden axes,
+origin and target coordinate±1/0 in the grid; do not approximate a state density.
+The two initial signs b=±1 each carry probability1/2. Preserve first-index ties.
+
+Freeze nested spatial grids5 and7 nodes percoordinate;8 angular nodes per
+rank-count interval, and16 nodes atgrid7 to diagnose angular error separately.
+Use Gauss-Legendre quadrature in each truncated angle-CDF interval, splitting
+exactly where the current input exceeds the target. Reuse terminal values for
+angle refinement and report that reuse. Possible labels may be reduced only by
+strict coordinatewise readout dominance; label0 is always retained fordeadstate.
+The hidden box bound is B=(I-positive_part(Wh))^-1*abs(Wi) only when nonnegative
+and verified invariant; otherwise stop rather than clamp an escaping state.
+
+Two alternatives/falsifiers: (1) interpolation may smooth target/rank boundaries
+so improvement with angular nodes hides a spatial bias. Compare both spatial
+resolutions and angular doubling, retaining every result. (2) hidden-state atoms
+may be mishandled even with a backward representation. Include all-zero readout
+as a constant-class sanity problem whose exact unconditional accuracy is1/T;
+check root transition probability normalization and all query coordinates against
+the invariant box. No certification or solved claim follows from grid agreement.
+
+Charge every analytic terminal call, geometry/fallback work, interpolation query,
+angle node and CPU. Use no random inputs in the transport calculation; any reused
+MC reference fromcycle1 is validation only. Stopcycle at120CPU seconds; if actual
+terminal cost threatens that cap, savepartialresults and reduce scheduled work
+explicitly, never silently reuse model-fitted values as free advice.
