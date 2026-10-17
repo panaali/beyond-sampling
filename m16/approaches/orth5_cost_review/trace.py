@@ -1,6 +1,8 @@
 """Transparent expression/call census; opaque kernels are not scalar priced."""
 import ast
 from collections import Counter
+import copy
+import dis
 import hashlib
 import operator
 import numpy as np
@@ -9,6 +11,18 @@ BINARY={k:getattr(operator,v) for k,v in {'Add':'add','Sub':'sub','Mult':'mul','
 UNARY={'USub':operator.neg,'UAdd':operator.pos}
 COMPARE={k:getattr(operator,v) for k,v in {'Lt':'lt','LtE':'le','Gt':'gt','GtE':'ge','Eq':'eq','NotEq':'ne'}.items()}
 CALLS={'np.linalg.det','np.linalg.norm','np.sum','np.sqrt','np.arctan2','np.maximum','np.minimum','math.atan2','sum','min','abs'}
+
+def compiled_constant(node):
+    """Do not prevent the running CPython compiler's constant folding.
+
+    Compile only; never evaluate a probe. A variable/call or unfurled numeric
+    expression necessarily has more than a single numeric constant return.
+    """
+    expr=ast.Expression(body=copy.deepcopy(node));ast.fix_missing_locations(expr)
+    code=compile(expr,'constant_fold_probe','eval')
+    ops=[x for x in dis.get_instructions(code) if x.opname not in {'RESUME','CACHE','NOP'}]
+    if len(ops)==1 and ops[0].opname=='RETURN_CONST':return isinstance(ops[0].argval,(int,float,bool))
+    return len(ops)==2 and ops[0].opname=='LOAD_CONST' and isinstance(ops[0].argval,(int,float,bool)) and ops[1].opname=='RETURN_VALUE'
 
 def fullname(node):
     if isinstance(node,ast.Name):return node.id
@@ -62,10 +76,12 @@ class Adapt(ast.NodeTransformer):
         return ast.copy_location(ast.Call(func=ast.Attribute(value=ast.Name(id='__trace',ctx=ast.Load()),attr=method,ctx=ast.Load()),
             args=[ast.Constant(site),ast.Constant(tag)]+args,keywords=[]),node)
     def visit_BinOp(self,node):
+        if compiled_constant(node):return node
         node=self.generic_visit(node);tag=type(node.op).__name__
         assert tag in BINARY,tag
         return self.wrap(node,'binary',tag,[node.left,node.right])
     def visit_UnaryOp(self,node):
+        if compiled_constant(node):return node
         node=self.generic_visit(node);tag=type(node.op).__name__
         assert tag in UNARY,tag
         return self.wrap(node,'unary',tag,[node.operand])
@@ -115,7 +131,6 @@ class Restore(ast.NodeTransformer):
         return ast.Call(func=args[0],args=args[1:],keywords=[self.visit(k) for k in node.keywords])
 
 def transform(tree):
-    import copy
     original=ast.dump(tree,include_attributes=False)
     adapted=Adapt().visit(copy.deepcopy(tree));ast.fix_missing_locations(adapted)
     recovered=Restore().visit(copy.deepcopy(adapted))
