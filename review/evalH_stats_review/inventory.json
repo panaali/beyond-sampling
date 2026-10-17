@@ -1,0 +1,17 @@
+{
+  "claim": "321fdd66",
+  "pins": {
+    "m16/approaches/understand_m43/evalH.py": "c0fc385ef7ae7730bb3aa34dfad447bf0e2ef072ee689ac2dc1f82593ebda8ac",
+    "m16/approaches/understand_m43/est75.py": "426020c67a52678e5cccb20c552837fe2d233c3fe5e13557916034a3c46877d3",
+    "m16/approaches/understand_m43/reportH.py": "50b37a06ce6156cfa24a335b3a65b761b7081d7ba3356f4fe5c2d0296a5ae5c1",
+    "m16/approaches/final3/README.md": "3912ce0ffc0f8a253e6adad5b37f89d44a539b4580f3e3ab5313a14f1f5d38db",
+    "m16/approaches/estT_fix/README.md": "866fbe901732c0e95483950bae6012fa700e93c5c010ee2c3581eb913c4a66d3",
+    "m16/approaches/understand_m43/evalH_4.json": "62084ced52103cf938ef31f76b2fb9e1719d65ef1acf7b5a795b057b3d706f5f",
+    "m16/approaches/understand_m43/evalH_5.json": "181f3f564202d84814159d2c64884e930ac4fffa2aaca987849d01ba91a888d4",
+    "m16/approaches/understand_m43/evalH_6.json": "490da8392a0b91baa06713ec2bfa21501942f47f040408295dcebf421757c0d9",
+    "m16/approaches/understand_m43/evalH_8.json": "17aa2a91c5b464994e7ce42dd923d0d53f77b82aee8eb2ecd0ed2ffa89b10afb"
+  },
+  "source_finding": "rows appended after rescale call reads cumulative E75.STATS; estimator value and Ops instance captured before rescale.",
+  "counterexample_to_halving": "H4 seed2 historical clean_cells297 is odd; exact equal original/rescale cellcounts impossible.",
+  "recovery_limits": "Historical evalH files save only perseed aggregates, not percopy cells or rescaled cells. T113 fresh rows use scalar rec112 stats, not native E75 stats. Do not substitute or divide noisy mean9/8. Existing H4 k30 margin panel independently records native clean0cells174 only; additional exact matches need provenance."
+}

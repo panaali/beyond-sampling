@@ -1,0 +1,16 @@
+--- a/m16/approaches/understand_m43/evalH.py
++++ b/m16/approaches/understand_m43/evalH.py
+@@ -32,10 +32,11 @@
+         for i, m in enumerate(models):
+             oe = Ops(); st = {}; tr = EX.exact_acc(m, oe, st)
+             E75.STATS.update(cut=0, resolved=0, cells=0); o = Ops(); r = E75.est75(m, o, **REC)
++            base_stats = dict(E75.STATS)
+             if i % 8 == 0:
+                 inv = max(inv, abs(E75.est75(rescale(m, rng), Ops(), **REC) - r))
+-            rows.append(dict(truth=tr, est=r, ops=o.n, exact_ops=oe.n, leaves=st["leaves"], cells=E75.STATS["cells"],
+-                             cut=E75.STATS["cut"], resolved=E75.STATS["resolved"]))
++            rows.append(dict(truth=tr, est=r, ops=o.n, exact_ops=oe.n, leaves=st["leaves"], cells=base_stats["cells"],
++                             cut=base_stats["cut"], resolved=base_stats["resolved"]))
+         clean, noisy = rows[0], rows[1:]
+         tr = np.array([q["truth"] for q in noisy]); e = np.array([q["est"] for q in noisy]) - tr
+         om = float(np.mean([q["ops"] for q in noisy])); pq = float(np.mean(tr * (1 - tr)))
