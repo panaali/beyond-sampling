@@ -75,13 +75,12 @@ def _family_halves():
                     n_true = E[hi] - E[lo]
                     n_side = (E[k] - E[hi]) if side == 1 else (E[lo] - E[k])
                     n_split = (E[k] + E[nb] - 2 * E[med]) if side == 1 else (2 * E[med] - E[nb] - E[k])
-                    R = np.linalg.inv(np.array([n_true, n_side, n_split + 1e-9 * E[0]])) if False else None
                     # pointed start: true plane, side plane, chart plane; then clip by the split plane
                     R = np.linalg.inv(np.array([n_true, n_side, sigma * E[0]]))
                     poly = [R[:, m] / np.linalg.norm(R[:, m]) for m in range(3)]
                     poly, _ = clip(poly, n_split)
                     truth = hi if side == 1 else lo
-                    out.append((sigma, (i, j, k), side, truth, poly))
+                    out.append((sigma, (i, j, k), side, truth, poly, n_true))
     return out
 
 
@@ -129,7 +128,61 @@ def _mass_in(poly, normals, ops):
     return (None, True) if same else (frac(q, ops), False)
 
 
-def est_mech(model, ops=None, info=None, strips="all", eps=0.05):
+def _arc_resolved_error(piece, n_true, A3, Wo, truth, ops, tol=1e-9):
+    """Error mass in a strip piece with the step-3 gates that switch ON the true boundary arc resolved exactly
+    (the piece is split by those gate planes) and the remaining gates frozen at their value on the arc.
+    In each sub-piece the active set S is read at its arc midpoint; |S| = 2 uses the ratio-sector readout
+    (relu kept for the two members), |S| = 1 a single neuron (on: argmax of its column, off: tie -> 0),
+    |S| >= 3 the frozen linear logits, S empty the dead tie (class 0)."""
+    def arc_mid(poly):
+        on = [v for v in poly if abs(n_true @ v) < tol]
+        return (np.mean(on, 0) if len(on) >= 2 else np.mean(poly, 0)), on
+    m, on = arc_mid(piece)
+    if len(on) < 2:
+        return None
+    P, Q = on[0], on[-1]
+    cross = [kk for kk in range(4) if (A3[kk] @ P) * (A3[kk] @ Q) < 0]
+    ops.add(6 * 4)
+    subs = [piece]
+    for kk in cross:
+        nxt = []
+        for p in subs:
+            a_, b_ = clip(p, A3[kk], ops)
+            nxt += [q for q in (a_, b_) if q]
+        subs = nxt
+    err = 0.0
+    for p in subs:
+        mid, _ = arc_mid(p)
+        S = [kk for kk in range(4) if A3[kk] @ mid > 0]; ops.add(12)
+        if len(S) == 0:
+            correct = [[]] if truth == 0 else []
+        elif len(S) == 1:
+            c = int(np.argmax(Wo[:, S[0]]))
+            correct = ([[A3[S[0]]]] if c == truth else []) + ([[-A3[S[0]]]] if truth == 0 else [])
+        elif len(S) == 2:
+            pa, pb = S
+            sect = _envelope(Wo[:, pa], Wo[:, pb], ops)
+            correct = [_sector(A3, pa, pb, nlo, nhi) for (nlo, nhi, c) in sect if c == truth]
+            if truth == 0:
+                correct.append([-A3[pa], -A3[pb]])
+        else:
+            L = Wo[:, S] @ A3[S]; ops.add(3 * len(S) * 3)
+            correct = [[L[truth] - L[o] for o in range(3) if o != truth]]; ops.add(6)
+        got = 0.0; whole = False
+        for cn in correct:
+            if not cn:
+                whole = True; break
+            mm, same = _mass_in(p, cn, ops)
+            if same:
+                whole = True; break
+            got += mm
+        if whole:
+            continue
+        err += frac(p, ops) - got
+    return err
+
+
+def est_mech(model, ops=None, info=None, strips="all", eps=0.05, resolve=("c12",)):
     """Mechanism-derived accuracy estimate (see module docstring).
     strips='all': every step-2 strip met by a family's half-chamber; 'anchor': only the anchor's strip."""
     Wi, Wh, Wo = model
@@ -148,7 +201,7 @@ def est_mech(model, ops=None, info=None, strips="all", eps=0.05):
             g2 = _gates2(Wi, A2, sigma, rmid); ops.add(4)
             A3s.append(Wh @ (g2[:, None] * A2) + np.outer(Wi, E[2])); ops.add(4 * int(g2.sum()) * 2)
         env_cache = {}
-        for (sg, (i, j, k), side, truth, poly) in HALVES:
+        for (sg, (i, j, k), side, truth, poly, n_true) in HALVES:
             if sg != sigma:
                 continue
             a = np.array([sigma * eps, -side, -side]) if k == 0 else np.full(3, sigma * eps)
@@ -170,6 +223,11 @@ def est_mech(model, ops=None, info=None, strips="all", eps=0.05):
                 if strips == "anchor" and s != sa:
                     continue
                 A3 = A3s[s]
+                if key[1][:3] in resolve:
+                    e_ = _arc_resolved_error(piece, n_true, A3, Wo, truth, ops)
+                    if e_ is not None:
+                        err_by[key] = err_by.get(key, 0.0) + e_
+                        continue
                 correct = [_sector(A3, pa, pb, nlo, nhi) for (nlo, nhi, c) in sect if c == truth]
                 if truth == 0:
                     correct.append([-A3[pa], -A3[pb]])          # both off: argmax of zeros -> class 0

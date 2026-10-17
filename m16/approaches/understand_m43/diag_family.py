@@ -13,7 +13,7 @@ from est_mech import HALVES, est_mech, E
 def exact_by_half(model):
     Wi, Wh, Wo = model
     out = defaultdict(float)
-    for (sigma, (i, j, k), side, truth, poly) in HALVES:
+    for (sigma, (i, j, k), side, truth, poly, _n) in HALVES:
         key = (int(sigma), f"c{i}{j}{'+' if side == 1 else '-'}")
         g1 = ((Wi * sigma) > 0).astype(float)
         A2 = Wh @ (g1[:, None] * np.outer(Wi, E[0])) + np.outer(Wi, E[1])
