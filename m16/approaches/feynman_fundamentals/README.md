@@ -448,3 +448,15 @@ evaluations,.000724CPU seconds, no model passes or sampled inputs. Reproduce
 `check_rank_conditioned.py` under the review lock; results are saved in
 `rank_conditioned_results.json`. These controls establish the measure algebra,
 not trained-model collocation accuracy or an advantage over Monte Carlo.
+
+## Cycle 11 protocol (frozen before validation)
+Derive the law of a fixed linear map of a normalized Gaussian direction,
+including singular ellipsoid surfaces when the map rank equals the number of
+underlying Gaussian coordinates. Alternative1: image rank incorrectly predicts
+volume dimension; compare the k=r surface Jacobian with a direct parameterized
+area element. Alternative2: applying the unrestricted projection density to a
+ReLU gate cell ignores hidden angular fibers; derive an explicit gate-weight
+counterexample and check its mass/first moment by separate scalar integration.
+Verify normalization and second moments for low ranks and k values using
+deterministic quadrature only. Keep existing T48 primitives frozen; add theory
+and checks in new files. T58 and T67 retain their respective engine ownership.
