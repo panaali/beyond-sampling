@@ -71,8 +71,11 @@ do not mistake a finite covariance series for the full Gaussian law.
    not established as the unique source of any measured error.
 
 ## Status
-Controls and one trained H2T3 reference phase completed; independent moment
-identity review passed, trained numerical artifact review requested.
+Controls, trained H2T3 reference, and gate/rank mixture rescue completed.
+Independent moment conversion review passed (T55 commit66efd3e): a distinct
+set-partition Mobius calculation matches all six conditional cumulant tensors
+through order4 to2.97e-16 scaled. This does not certify moment quadrature or
+the upstream endpoint implementation. Mixture support review requested.
 At most18CPU on review lane or100CPU on primary lock, single thread,<2GB;
 no model sweep or large Monte Carlo. Next trained T3 phase requires its own
 frozen moment-integration protocol and cost after these controls.
@@ -247,3 +250,55 @@ checked the moment Jacobian/radial normalization and the scoped atom caveat.
 Singular logit covariance, positive-mass ties, variance clamps, finite expansion
 nonpositivity, quadrature resolution and understated setup proxies. Dense
 three-output controls are not evidence of scalable H16T10 performance.
+
+## Gate/rank mixture result
+[measured] The stronger support-aware rescue materially improves this SAME
+trained H2T3 case. Of38 components,25 have a constant winning output and
+carry.9708213908840764 probability. Thirteen residual components carry
+.029178609115885115. Constant-correct mass is.39021612885431867, so even
+without an endpoint, nonnegativity gives the numerical geometric interval
+[.39021612885431867,.41939473797020377]. This is not a floating-error enclosure.
+Thus most of the accuracy information already comes from the partition and
+ray support test; the endpoint fills in a small residual.
+
+| Frozen method | Raw accuracy | Bias | Projected accuracy |
+| --- | ---: | ---: | ---: |
+| E0 product Gaussian | .4104490077860451 | +.0002777460592166 | .4104490077860451 |
+| E1 covariance | .4090293915614711 | -.0011418701653574 | .4090293915614710 |
+| E2 covariance | .4093165118685115 | -.0008547498583170 | .4093024847202162 |
+| E2 plus third cumulant | .4105399632214605 | +.0003687014946320 | .4104922748478612 |
+| E2 full fourth cumulant | .4108912372917807 | +.0007199755649522 | .4107769722937375 |
+
+Reference accuracy is.4101712617268285. All five orders are retained; E0's
+closest estimate is not a selected estimator or evidence higher cumulants
+are harmful generally. Residual component raw probabilities still range from
+-.0281107584 to1.0204872368. Maximum128/256 endpoint sensitivity is7.11e-15;
+component GL16/32 normalized moment difference is5.50e-11. Summed component
+joint moments match the unsplit artifact to1.39e-17 normalized and masses sum
+to.9999999999999618. These checks localize finite endpoint approximation but
+do not certify moment accuracy, topology, or successful extrapolation.
+
+The run used2.382443047CPU including imports,239220KiB peakRSS,74,240 moment
+nodes,62,777 geometry proxy operations and46,006,272 endpoint proxy operations
+(13 calls, all five orders each). Moments of constant components were also
+computed for reconciliation and are fully charged. Rule generation, tensor
+arithmetic and upstream reverse-mode cost remain counted only partially by
+these proxies; they are not a portable FLOP certificate. For scale, the
+previous full T3 correctness-cone reference used70,794 geometry proxy
+operations total. This rescue provides an accuracy improvement, not evidence
+of a compute advantage. Full gate enumeration is a likely scaling obstacle.
+
+Reproduce from this worktree, after source/dependency setup above:
+
+```sh
+ulimit -v 2500000
+PYTHONPATH=/workspace/work/t40_deps PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/endpoint_cumulant_review/gate_mixture.py
+```
+
+[inferred] Pooling disconnected gate/rank components is an important failure
+mode in the tested raw and atom-only summaries; retaining component support
+is a plausible rescue. It does not show that cumulants alone caused the
+improvement or that this exact partition is the best representation. T4/T5,
+coarser weight-derived mixtures, full-covariance references and scalable
+mixture construction remain untested. This finite T3 result does not retire
+the endpoint family or establish a challenge solution.
