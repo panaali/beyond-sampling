@@ -721,3 +721,12 @@ roundoff. Geometry versus equal-count panel slopes1.089/1.118; exact quadratic
 panel-length factor checks1.108e-12. .022998CPU, zero face evaluations.
 `surplus_review.md` verifies this finite negative without rejecting sparse
 quadrature or untested actual-network boundary alignment.
+
+## Cycle 28: interface and exact-control algebra
+Alternative1(T91): side classification forgot the scalar input; n·w=0 proves
+its cancellation and identifies a source-coordinate quadrature event instead.
+Alternative2(T39/T20): a plausible algebraic diagnostic is tautological or
+loses finite-precision terms. Prove anchored antisymmetric least-squares
+identity and expose the rounded-midpoint term missing from a cubic-only
+Gaussian-interval bound. `interface_and_controls_review.md` records all three
+read-only derivations. No numerical run or production edit.
