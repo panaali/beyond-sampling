@@ -1,0 +1,11 @@
+# T66 native H2T5 source review
+
+T55 read-only review of `compiled_geometry/d5_cycle`, 2026-10-17. No duplicate trained geometry run.
+
+The dimensional strides are consistently five: hidden maps H by five, logits five by five, simplex rays five by five, and SVD column count five. Gate constraint IDs are zero and 1+16(t-1)+k through fifty for H2. Output IDs60..64, rank65..69 and orthant90..94 are disjoint and below128. Incidence operations use cid/64 and cid%64, including in pulling triangulation, so output64 and every orthant correctly use the second word. The Python wrapper restricts H2/T5, passes the exact NumPy input-gate ordering, copies both incidence words and all arrays before freeing native storage.
+
+The strict maxabs==0 output-margin branch discards an identically tied later-index winner and keeps the first. This deliberately matches the T52 strict-zero policy, rather than the earlier relative near-zero heuristic. Ordinary clipping still has its inherited 1e-11 tolerance. L1 ray normalization preserves mathematical rays and incidence; floating normalization and scalar determinant-zero filtering are reference-parity operations, not exact rank or topology certification. Rank decisions retain the LP64 LAPACK SVD assumption and explicit opaque work.
+
+One safe-rejection domain caveat was found: Wi=(1,0), Wh=0 produces an identically zero non-leading gate normal. The enumerator passes it to the clipping core, which rejects zero norm. The wrapper accepts the model's dimensions and finite values but the run fails explicitly. The protocol's statement that only all-zero Wi is unsupported was therefore too narrow. This does not affect the three passing trained cases, and no guard should be silently removed to broaden support. An explicit zero-gate branch would be a separate preserved repair if desired.
+
+No index or constraint-capacity blocker was found for the frozen three-case end-to-end comparison using unchanged GL24 and inner budget. Successful finite parity does not authorize a portable-cost or arbitrary-weight claim; the estimator correctly keeps that cost unavailable.
