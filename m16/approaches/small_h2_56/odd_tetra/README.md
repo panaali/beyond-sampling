@@ -108,3 +108,6 @@ Package import and provided-model `calculate` complete on the base checkpoint wi
 
 ## Frozen counted partition check
 Validate the completed counted MGS/GL pipeline on the full gate partition of the same base and two fixed noisy models, using the unchanged24-point outer rule and1e-9 positive-inner budget. These are validation-only geometry enumerations, with their own counts/time; no accuracy estimates or order policies are changed. Require mass one within each reported conditional quadrature bound, and retain numerical differences even if much smaller. This checks the new general-affine-plane input adapter and MGS/positive-fallback composition independently of the target event.
+
+## Counted partition result
+[measured] `counted_partition.json` reports full gate masses1.000000000000005,1.0000000000269944 and .9999999999994292 for base/.0025/.02. Absolute discrepancies are5.11e-15/2.70e-11/5.71e-13, all below their conditional outer-plus-positive-inner bounds2.3822e-6/2.3807e-6/2.3579e-6. These independent target-free checks preserve all gate pieces and use the unchanged counted primitive. Validation costs are recorded separately from estimator costs.
