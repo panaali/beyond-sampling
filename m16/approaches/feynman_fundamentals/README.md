@@ -636,3 +636,29 @@ inspect their source, saved counts and one-sided omitted-mass allowance.
 `t6_projection_review.md` records that the omission alternative is explicitly
 present in both artifacts. No new integration and no claim that the precise
 uncomputed omitted mass has been measured.
+
+## Cycle 22 protocol: independently falsify the two-input surrogate
+T76 reports broader transfer failures. Alternative1: its closed radial formulas
+or envelope partition is wrong; independently split all readout pairs under all
+four final masks and integrate the Rayleigh radius directly with positive
+Gaussian density. Alternative2: the surrogate is correct but erased history
+matters; compare its independently computed value with the saved full-model
+reference. Freeze T4 relative-noise .02 copy0 and .10 copy0, T5 seed2, constant
+readout and zero-recurrence controls. Angular GL24, radial adaptive quadrature
+on [0,12], no input sampling and no production edits. One <=20CPU review run;
+this is a numerical implementation check, not a rigorous error enclosure.
+
+Cycle22 completed: independent direct-radius values match T76 within3.46e-11,
+including two actual failed transfers and one passing transfer. Exact constant
+and one-input controls pass1.12e-16. Cost1.072CPU,324072 radial evaluations,
+2352 angular nodes. `suffix_review.md` records inspected accounting, the weak
+agreement certificate, exact chi3 formulas and remaining alternatives. This
+checks the two-input surrogate; no broad boundary-method rejection.
+
+## Cycle 23: T67 finite-alternative review
+Alternative1: a favorable local residual establishes a global winner; inspect
+probe distribution, coordinate covariance and quadrature oscillations.
+Alternative2: target-value reparameterization was invalid; derive its Beta
+Jacobian and omitted-tail composition independently. `spatial_transport_review.md`
+accepts the bounded inconclusive conclusion and preserves interior kinks and
+earlier spatial error as untested alternatives. No numerical run.
