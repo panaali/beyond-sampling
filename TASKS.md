@@ -137,27 +137,6 @@ T115 k28 bounded handoff b01d4710 independentlyfb8a2443: all5120 noisy+5clean,80
 
 | T11593 | **Ready** (light; separately frozen scope required) | **Complete trained third-step pair coverage** | Five fixed pairs/170cells pass ac60e35f independently2557c3d4/19610915. Remaining131 upper-triangle pairs/4454cells on same34 exact sectors; reuse five pilot pairs bitwise once, unchanged MP80/120 candidate and independent80digit cylindrical references. Freeze bounded durable shards and full covariance/sector-raw accounting before execution; no new truth/MC/model or silent PSD repair. Full136 review unblocksT11595; finite pilot alone does not. | third_step_pairs/trained_pilot/HANDOFF.md |
 | T187 | **Ready: separately scoped rank/margin-conditioned rescue** (light)  DRI 2026-10-17: fading_influence/HANDOFF.md and commits 62975dfb/3bb92013 are NOT on ccr-6a61f25c-wn80ii; owner recover_34 please push them. Continuation waits on T195 split attribution. | **Fading-memory merging after exact influence diagnostic** | Bounded62975dfb independently6dc4d3a3/3bb92013:768 strict finite witnesses,49/96 histories; oldest margin sensitivity exceeds newest97/175times. Global absolute-weight bounds grow but may be loose. No probability/merge savings/asymptotic failure claim. Remaining rank-conditionedT189, state-domain/margin restrictions and reset events are plausible; coordinate currentT188/T189 before continuation. | fading_influence/HANDOFF.md |
-Take tasks in this order; everything not listed comes after the queue (non-ARC rows last).
-1. **T187** fading-memory measurement + merge, and **T188** same-future merging: cheap measurements at (4,4), (8,4)
-   that decide whether the current recipe can be rescued.
-2. **T193** independent check of E46-E48.
-3. **T189** mechanistic coordinates (order statistics + bound), **T190** time-shift reuse.
-4. Open reviews: T113 (E43), T114 (E44), T80 (E35), T57 (E34).
-5. **T191** mechanistic circles (bulk-error regime), T86 (train missing sizes), T110 (class-region families).
-6. **T192** GPU exact reference / cost law (needs owner approval), T5.
-7. Codex research rows, theory rows, then non-ARC rows.
-
-Take tasks in this order; everything not listed comes after the queue (non-ARC rows T3, T6, T23-T27 last).
-1. **T131** fix estT exact-mode leaf-mass over-count (the (8,4) reference is biased by the same amount as the recipe).
-2. **T164** re-score (8,4) with the fixed reference, then diagnose the 13x cell blow-up per step (splits vs. actual answer
-   changes); tighten the certificate if it over-splits. Depends on T131.
-3. **T165** T=4 track (owner priority): (4,4) -> (5,4) -> (6,4) at fixed T=4, one H step at a time (T116): with the fixed reference, find the bulk-error families of the poorly trained (4,4)
-   models and count them as regions; plus T111 (is the T=4 failure about T or undertraining?). Depends on T131.
-4. Finish independent reviews before new claims: **T113** (E43), **T114** (E44), **T80** (E35), T57 (E34).
-5. Then, depending on 2: **T108** (multi-step certificate), **T109** (cheap 4-D masses), **T100** (fibre at (8,4)),
-   **T115**, then (8,5).
-6. **T86** (train H=7 etc. for +1 steps on H), **T46** (exact ladder), T110 (class-region families), T60, T30, T20.
-7. Codex research rows (T150+), theory rows, then non-ARC rows.
 
 | ID | Status | Task | Done when / scope | Pointers |
 |---|---|---|---|---|
@@ -179,12 +158,6 @@ Take tasks in this order; everything not listed comes after the queue (non-ARC r
 [m16/arc_eval.py](m16/arc_eval.py), [m16/common.py](m16/common.py)) is DRI-only: if your task needs a change there,
 add a Backlog row describing it instead of editing.
 
-User update 2026-10-17: Codex now prioritizes the H=2,T=3..10 and H=4,T=4 ladder (T47-T51), independent review (T52), missing checkpoints (T53-T54), and persistent fundamentals work (T55). Claude remains DRI; its existing claims remain separate.
-
-Priorities revised 2026-10-17: (1) make the leaderboard measure ARC's challenge correctly (DRI, in progress);
-(2) verify the premise of the ladder (H-E11 has one seed per cell) before building on it; (3) the ladder (T10 -> T11)
-with the independent stochastic attack (T1) in parallel; (4) expensive measurement before any 'solved' claim;
-(5) everything not on the ARC critical path (T3, T6-T8 are Ready now so idle agents have work, but rank below T2).
 
 | ID | State | Task | Why / done when | Pointers |
 |---|---|---|---|---|
@@ -592,3 +565,36 @@ T11594 bounded handoff8dc7eaf5 independently2695e545/282a2788 verifies all2500 f
 T193 saved9case151e2b79 independentlyb927baa2 preserves all proxy ratios/CP extrema/source applicability and independentpositive0/1 comparisons; no complete-cost transfer. Worker continues separately published exactseed2capture prerequisite; no numerical mass run yet.
 
 T184 bounded handoff e4c6805b independently b927baa2 verifies all3840 original H4/H5/H6T3 noisy models,60shards,15groups/60noise blocks, raw ledgers/exact metrics/conditional bootstrap/resources/reuse. All15 group ratios<1, worst.07457853067 and largest conditional95upper.21125957883; eight individual losses (max25.08158) and92 scalar/native topology diagnostics retained. Numeric807850510/integer25063997,7680 total calls,3pilot+2failedcase reuses; measured provenance/pilot/panel993.899CPU versus1102.592 reserve. Named-source/saved-truth scope only, no fullnative/runtime/population/all-copy/H16T10 claim. Root/Claude INDEX registration requested; worker advances fresh T189 scalar scope.
+
+## Superseded priority lists (kept for the record)
+
+Moved here verbatim by the Claude DRI on 2026-10-17. Replaced by the DRI directives at the top of [In progress](#in-progress); do not use them to choose work.
+
+Take tasks in this order; everything not listed comes after the queue (non-ARC rows last).
+1. **T187** fading-memory measurement + merge, and **T188** same-future merging: cheap measurements at (4,4), (8,4)
+   that decide whether the current recipe can be rescued.
+2. **T193** independent check of E46-E48.
+3. **T189** mechanistic coordinates (order statistics + bound), **T190** time-shift reuse.
+4. Open reviews: T113 (E43), T114 (E44), T80 (E35), T57 (E34).
+5. **T191** mechanistic circles (bulk-error regime), T86 (train missing sizes), T110 (class-region families).
+6. **T192** GPU exact reference / cost law (needs owner approval), T5.
+7. Codex research rows, theory rows, then non-ARC rows.
+
+Take tasks in this order; everything not listed comes after the queue (non-ARC rows T3, T6, T23-T27 last).
+1. **T131** fix estT exact-mode leaf-mass over-count (the (8,4) reference is biased by the same amount as the recipe).
+2. **T164** re-score (8,4) with the fixed reference, then diagnose the 13x cell blow-up per step (splits vs. actual answer
+   changes); tighten the certificate if it over-splits. Depends on T131.
+3. **T165** T=4 track (owner priority): (4,4) -> (5,4) -> (6,4) at fixed T=4, one H step at a time (T116): with the fixed reference, find the bulk-error families of the poorly trained (4,4)
+   models and count them as regions; plus T111 (is the T=4 failure about T or undertraining?). Depends on T131.
+4. Finish independent reviews before new claims: **T113** (E43), **T114** (E44), **T80** (E35), T57 (E34).
+5. Then, depending on 2: **T108** (multi-step certificate), **T109** (cheap 4-D masses), **T100** (fibre at (8,4)),
+   **T115**, then (8,5).
+6. **T86** (train H=7 etc. for +1 steps on H), **T46** (exact ladder), T110 (class-region families), T60, T30, T20.
+7. Codex research rows (T150+), theory rows, then non-ARC rows.
+
+User update 2026-10-17: Codex now prioritizes the H=2,T=3..10 and H=4,T=4 ladder (T47-T51), independent review (T52), missing checkpoints (T53-T54), and persistent fundamentals work (T55). Claude remains DRI; its existing claims remain separate.
+
+Priorities revised 2026-10-17: (1) make the leaderboard measure ARC's challenge correctly (DRI, in progress);
+(2) verify the premise of the ladder (H-E11 has one seed per cell) before building on it; (3) the ladder (T10 -> T11)
+with the independent stochastic attack (T1) in parallel; (4) expensive measurement before any 'solved' claim;
+(5) everything not on the ARC critical path (T3, T6-T8 are Ready now so idle agents have work, but rank below T2).
