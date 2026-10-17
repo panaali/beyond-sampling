@@ -26,3 +26,8 @@ Each cycle is at most110CPU seconds under the primary shared lock, one numerical
 
 ## Failure modes
 Rank-deficient pivots, ill-conditioned interpolation, shared walker or geometry errors, underestimated algebra cost, full-grid validation not representative of H16T10, and cancellation between grid and compression bias. Computational failure is classified separately from approximation error and from mathematical impossibility. Only the DRI classifies claims after independent review.
+
+## Algebra cycle
+[measured] Independent weighted TT-SVD reconstruction, explicit scalar contraction, direct tensor enumeration and an independently selected maximum-area CUR identity pass the frozen low-rank controls. Largest reconstruction error is3.38e-14 and CUR error7.11e-15. Author cross contraction agrees with independent enumeration/scalar recursion within1.78e-15, including rank-deficient constant/zero cases. No contraction/indexing failure was found. CPU0.565 seconds; no neural model evaluations.
+
+[measured] The predeclared localized rank-one spike is missed entirely by the author's deterministic initialization/sweeps:45 queried entries are zero, the returned integral is0, and the true weighted integral is0.005291005291005291. Independent weighted TT-SVD reconstructs it within4.44e-16. This is a concrete pivot-discovery failure despite exact low rank, not a contraction bug or a proof against low-rank tensor representations. Neural full-grid bias/compression separation is the next frozen cycle.
