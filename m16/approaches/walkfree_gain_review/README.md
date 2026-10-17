@@ -72,7 +72,36 @@ Claimed; protocol frozen before feature computation/associations. Claude remains
 DRI. Only this folder is edited; independently reviewed controls/results required.
 
 ## Results
-Pending. This diagnostic cannot pass a ladder rung or certify an estimator win.
+Initial full90 feature panel saved before gain join. Sobol pooled within-(H,T)
+rho is−.07778 for gate uncertainty (CI[−.3204,.1722]) and−.01111 for boundary
+alignment (CI[−.2485,.2337]). Both confidence intervals include0. Within-T
+alignment rho.3262 disappears after also controlling H. Global−T baseline is
+.8912. All subsets/features/metrics are retained in `associations.json`;
+no favorable feature is selected. Features1.97344CPU, association1.23403CPU;
+all90 explicit public checkpoints total404290bytes. No walker/F calls.
+This diagnostic cannot pass a ladder rung or certify an estimator win.
+
+## Frozen distinct boundary-point rescue (after initial panel, before new run)
+The interior canonical mean may miss the geometry where tie-slicing integrates.
+For each fixed ordered top-two chamber and each competitor, project its mean
+onto the corresponding true rank facet: y=mean−n*(n·mean)/2, with the same
+inward norm-sqrt2 normal n as above. Evaluate the actual gate/Jacobian map at
+y+2^-20*||y||*n, a fixed small displacement inside the chamber; do not choose
+the side or epsilon from feature/gain outcomes. Define its signed cosine between
+network logit-margin gradient and n. Preserve zero gradients as0/counts.
+Freeze only two summaries of this new boundary representation: mean cosine and
+10th-percentile cosine over all cells/competitors. The latter tests whether a
+fixed low-alignment tail, rather than the average, matters. Neither summary is
+selected as a winner after the result.
+
+Use all90 unchanged models, the same source moment table and the SAME association
+script, subset definitions, bootstrap recipe and metric flags. Save boundary
+features before their gain join. Repeat positive hidden-coordinate/permutation/
+output-scaling checks on the same3 models. This is an explicitly post-initial-
+result mechanistic rescue, not a fresh blinded validation. <=20CPU review lane
+if feasible, else<=110CPU primary lock; no new face walks, widths, noise/model
+sweep, or fitted feature coefficients. Failure remains scoped to these finite
+representations, not all walk-free predictors.
 
 ## Compute accounting
 Charge all checkpoint loads, numerical rank-moment integration, canonical gate
