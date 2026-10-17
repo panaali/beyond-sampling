@@ -1650,3 +1650,9 @@ Final seed4 full raw-site audit passes:85B103965032 numerical/3276311integer,112
 ### Reviewer evidence transfer status
 
 DRI handbook532d9130 section9 item4 requests shared evidence.154 own-folder commits prepared on fresh shared checkout, independently conserved by78 review493885d4; latest-origin rebase target3fe7c12f preserves all ordered patch bytes and source3bb92013 folder tree. External push was rejected by automatic approval review: exporting154commits to GitHub destination was not explicitly authorized by user. No bypass, peer-push request or retry after rejection; root notified to obtain approval. Transfer remains local in /workspace/work/integrate-reviewed-fundamentals. Later e4527546 and current k28 audit remain outside that frozen transfer.
+
+### T11594 full fixed H5 reference audit
+
+All25 fixed100M references independently pass2500 block/hash/state chains, unique model/stream coverage, integer hits, pilot once,318 extra deterministic controls and resource accounting. No redraws. Forward619.695751504CPU, recorded630.019108551; independent beta inversion agrees with stored endpoints, max tail residual8.04912e-15. Bonferroni25-family nominal95% endpoints remain ordinary numerical, not outward certificates. Fresh60/50 comparison may execute only with this completed review and summary a90a507e pinned; original costs/estimates unchanged.
+
+T188 zero-prefix capture288fedad source gate passes: _finish return values are only added upstream, so stop at entry t=T-1 suppresses last-step cell/mass work without changing earlier recursion. Stack/depth/history/A guards, forbidden callbacks, deterministic lookahead counters,12CPU/5Mproxy/10000states and durable progress inspected. Fixed24+96 zero charts only; source imports still build unused rules, inherited proxy incomplete and trained frozen-gate correctness unproved. No trained capture authorized by this gate.
