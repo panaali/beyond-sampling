@@ -43,10 +43,10 @@ def rounded_rule(rule):
     return [tuple(exact_float(x) for x in row) for row in rule]
 
 
-def ideal_rule(n,stats):
+def ideal_rule(n,power,stats):
     start=time.process_time();x,w=mp.gauss_quadrature(n,'legendre');stats['ideal_legendre_rules']+=1
     stats['ideal_rule_cpu_seconds']+=time.process_time()-start
-    return [(1-(1-(x[i]+1)/2)**3,w[i]/2,3*(1-(x[i]+1)/2)**2) for i in range(n)]
+    return [(1-(1-(x[i]+1)/2)**power,w[i]/2,power*(1-(x[i]+1)/2)**(power-1)) for i in range(n)]
 
 
 def asin_checked(x,where,stats):
@@ -113,16 +113,21 @@ def fixture():
     assert np.array_equal(rays,captured['rays'][saved['index']])
     ops=Ops();float_value=source.orthant(rays,ops);assert abs(float_value-saved['source_value'])<1e-16
     B=np.linalg.inv(rays.T);S=B@B.T;d=np.sqrt(np.diag(S));C=S/np.outer(d,d)
-    assert max(abs(C[i,j]) for i in range(4) for j in range(i+1,4))>.95
-    assert abs(np.linalg.det(rays))>=1e-12
-    diagnostics=float_diagnostics(C,source._RULES['thin']);rows=[]
+    metadata=json.loads((HERE/'rule_metadata.json').read_text())
+    rmax=float(max(abs(C[i,j]) for i in range(4) for j in range(i+1,4)))
+    determinant=float(np.linalg.det(rays))
+    rule_name='thin' if rmax>.95 else 'wide'
+    assert rmax==metadata['rmax'] and determinant==metadata['determinant']
+    assert rule_name==metadata['rule_name']=='wide' and abs(determinant)>=1e-12
+    assert np.array_equal(source._RULES[rule_name],metadata['rounded_rule'])
+    diagnostics=float_diagnostics(C,source._RULES[rule_name]);rows=[]
     for precision in (80,100):
-        mp.mp.dps=precision;stats=defaultdict(float);rule=rounded_rule(source._RULES['thin'])
+        mp.mp.dps=precision;stats=defaultdict(float);rule=rounded_rule(source._RULES[rule_name])
         exactC=correlation(rays,stats)
         arms={
             'rounded_C_rounded_rule':plackett(mp_matrix(C),rule,stats),
             'exact_ray_C_rounded_rule':plackett(exactC,rule,stats),
-            'exact_ray_C_ideal_rule':plackett(exactC,ideal_rule(48,stats),stats),
+            'exact_ray_C_ideal_rule':plackett(exactC,ideal_rule(12,2,stats),stats),
         }
         original=exact_float(float_value);reference=exact_float(saved['positive'])
         for name,result in arms.items():
@@ -130,7 +135,7 @@ def fixture():
         rows.append(dict(precision=precision,arms=arms,work=dict(stats),exact_ray_C=[[str(exactC[i,j]) for j in range(4)] for i in range(4)]))
     stability={name:str(abs(mp.mpf(rows[0]['arms'][name]['mass'])-mp.mpf(rows[1]['arms'][name]['mass']))) for name in rows[0]['arms']}
     assert max(mp.mpf(v) for v in stability.values())<mp.mpf('1e-65')
-    return dict(index=saved['index'],source_value=float_value,source_named_ops=ops.n,rounded_C=C.tolist(),
+    return dict(rule_metadata=metadata,index=saved['index'],source_value=float_value,source_named_ops=ops.n,rounded_C=C.tolist(),
                 positive_reference=saved['positive'],positive_conditional_bound=saved['bound'],float_guard_diagnostics=diagnostics,
                 rows=rows,precision_stability=stability,source_hashes=HASHES,
                 source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),cpu_seconds=time.process_time()-start)

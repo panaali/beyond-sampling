@@ -10,7 +10,7 @@ rounded covariance construction, or floating evaluation of the same rule?
 Claim e0c135e pushed first, coordinated with T131 owner. Use only its existing
 posthoc diagnostic fixture672. Pin the fixture, source snapshot and captured
 ray corpus. Do not select a new example or change its ray permutation. Source
-estT uses its thin48-point rule with t=1-(1-s)^3 and the original weight and
+estT uses its wide12-point rule with t=1-(1-s)^2 and the original weight and
 Jacobian; retain every pair/complement ordering and normalization factor.
 
 Evaluate these frozen arms at80 decimal digits:
@@ -18,8 +18,8 @@ Evaluate these frozen arms at80 decimal digits:
    isolates arithmetic evaluation of exactly the stored source formula.
 2. C reconstructed from the exact binary ray entries at high precision,
    with the same stored t/w/jac: isolates correlation construction rounding.
-3. Same high-precision C with high-precision48-point Gauss-Legendre nodes,
-   weights and the unchanged power3 substitution: isolates stored-rule
+3. Same high-precision C with high-precision12-point Gauss-Legendre nodes,
+   weights and the unchanged power2 substitution: isolates stored-rule
    rounding without changing order, transformation or formula.
 
 Report constant arcsine term, integral term, final mass and differences for
@@ -41,7 +41,7 @@ and geometric uncertainty. No new positive-rule integration is needed.
 1. Same-rule high-precision arithmetic removes the discrepancy: rounding
    dominates this fixture; do not attribute it to quadrature.
 2. High-precision covariance removes the discrepancy: preprocessing dominates.
-3. Both remain negative and ideal48-point nodes do too: the finite rule is
+3. Both remain negative and ideal12-point nodes do too: the finite rule is
    inaccurate on this fixture, given the separate positive reference.
 4. An invalid correlation or singular transformed matrix blocks evaluation:
    preserve the failure and do not silently repair the model/formula.
@@ -73,3 +73,12 @@ bounds, topology defects elsewhere, and full estimator/cost tradeoffs.
 Changed covariance/permutation, implicit asin clipping, lost exact binary
 inputs, cancellation hidden by inadequate precision, or generalizing one
 posthoc diagnostic to the full captured population.
+
+## Preserved setup failure and correction
+The initial protocol assumed thin48/power3. Its explicit branch guard failed
+before any high-precision fixture evaluation; `fixture_failure.json` and
+commit d913169 preserve the failure. Fresh TASKS scope correction333aea4
+freezes the actual source wide12/power2 branch. `rule_metadata.json` records
+the source rmax, determinant guard and all original rounded nodes, weights
+and Jacobians before the corrected fixture run. No numerical attribution
+was made from the failed setup.
