@@ -64,6 +64,7 @@ def main():
       ctx.prec=80;p=dec(r['truth']);e=dec(r['estimate'])-p;n=r['named_numeric']//d['sampler_numeric'];ratio=e*e/(p*(1-p)/D(n))
       if ratio>=1:losses.append({'H':h,'zoo':z,'noise':noise,'copy':r['copy'],'model_sha256':r['model_sha256'],'ratio':str(ratio),'tie':ratio==1})
     b=group(d['rows'],d['sampler_numeric']);b.update(H=h,zoo=z,noise=noise);blocks.append(b)
+    assert d['pilot_reuses']==sum(r['reused_pilot'] for r in d['rows'])
     assert d['source_calls_started']==d['source_calls_completed']==2*(64-d['pilot_reuses'])
     total_cpu+=dec(d['cpu_seconds']);calls+=d['source_calls_completed'];reuse+=d['pilot_reuses']
     numeric+=sum(r['named_numeric'] for r in d['rows']);integer+=sum(r['integer_control'] for r in d['rows'])
@@ -71,6 +72,7 @@ def main():
    g=group(selected,4*h*h+12*h-1);g.update(H=h,zoo=z);groups.append(g)
  assert len(paths)==60 and len(allrows)==3840 and calls==7674 and reuse==3
  assert len({(r['H'],r['zoo'],r['noise'],r['copy']) for r in allrows})==3840
+ assert len({r['model_sha256'] for r in allrows})==3840
  assert sum(g['individual_losses']+g['individual_ties'] for g in groups)==len(losses)
  pilots=json.loads((HERE/'pilots.json').read_text());prov=json.loads((HERE/'provenance.json').read_text())
  result={'complete':True,'groups':groups,'noise_blocks':blocks,'individual_losses_or_ties':losses,'files':paths,
