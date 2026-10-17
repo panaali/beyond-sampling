@@ -26,3 +26,6 @@ Fraction/sign work, normalization, nodes/rules, determinant and summation all ti
 Floating normalization/determinant error; costly positive quadrature; broad cones with negative pairs; insufficient precision of the old aggregate reference. General radial lower bounds, alternate cross sections, triangulation, or stable source formulas remain open. Finite coverage failure is not a Gaussian mass-method negative.
 
 The first primary-lock acquisition timed out before Python started; no experiment ran or failed. Because the488-cone phase is small, execute under the secondary review lock with a stricter20CPU hard/18CPU soft limit; retain partial results if reached. This is a resource reduction, not a changed numerical protocol.
+
+## Bounded results
+All27 analytic controls pass. Exact dyadic pair tests classify432 of488 remaining cones acute;56 have negative pairs, retained as a scoped representation obstruction. The432 positive references sum .02737008814941666, integration-only bound5.33635685313e-9, source-minus-reference−3.26410287568e-9. Whole phase .375CPU, known integrand operations134,784,000 plus sign/setup work. Together with T123,6291 cones are covered,56 unverified; no full accuracy certificate. Phase complete; [HANDOFF.md](HANDOFF.md) records qualifications and the exact radial-bound rescue proposed next.
