@@ -1,0 +1,53 @@
+{
+  "event_controls": [
+    {
+      "k": 1,
+      "bracket": [
+        0.01926451192769568,
+        0.0391588798141826
+      ],
+      "scalar_integral": 0.028645833333333336
+    },
+    {
+      "k": 2,
+      "bracket": [
+        0.01709264392128043,
+        0.0195794399070913
+      ],
+      "scalar_integral": 0.017747095778168326
+    },
+    {
+      "k": 10,
+      "bracket": [
+        0.0038959936135317726,
+        0.00391588798141826
+      ],
+      "scalar_integral": 0.0038989790886484427
+    },
+    {
+      "k": 100,
+      "bracket": [
+        0.0003915689037739395,
+        0.00039158879814182597
+      ],
+      "scalar_integral": 0.00039157177943996944
+    }
+  ],
+  "accounting": {
+    "named_exact_operations": {
+      "atan_small_calls": 22,
+      "rational_mul": 1725,
+      "rational_div": 1449,
+      "rational_add": 747,
+      "rational_sub": 680,
+      "atan_series_terms": 1344,
+      "interval_minmax_4": 90,
+      "rational_neg": 44,
+      "sqrt_isqrt_calls": 10
+    },
+    "max_observed_numerator_bits": 25244,
+    "max_observed_denominator_bits": 25252,
+    "scope": "Named rational expressions and interval operations only; Fraction normalization, comparisons, integer isqrt/shift/division internals and serialization are not scalar-unit priced."
+  },
+  "cpu_seconds": 0.21195395899999997
+}
