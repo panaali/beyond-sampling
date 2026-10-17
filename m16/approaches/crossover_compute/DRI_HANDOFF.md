@@ -15,7 +15,8 @@ channel between the separate sessions. No external contact has been made.
 | T32 | Frozen global TT-cross diagnostic | Corrected rerun leaves all eight estimates exactly unchanged: 2.7–23.5 pp bias; construction 735,231 FPE. No higher-rank search planned without new evidence. |
 | T33 | Cheap model-derived proxy diagnostic for importance-weighted face integration | Claimed and pushed before work. DEV only, both noise levels, correct changed-measure variance formula; no fitted truth. Complete; independent review passed. Optimistic efficiency versus ordinary sampling .519x mild/.347x harsh; no transport built. |
 | T34 | Dyadic surplus decay in continuous face coordinates | Complete, negative screen; independent summary review integrated and published. |
-| T37 | Reference/error independence diagnostic | Claimed/pushed740378d, finite-moment alternatives being preregistered. No propagation implementation until the premise survives. |
+| T37 | Reference/error independence diagnostic | Complete, independently reviewed negative: all eight laws miss by 22.56–48.68 pp. Gaussian/rank follow-ups stopped. Other variants released to Ready. |
+| T31 | Tiny-complex decision-facet flux | Claimed/pushed330849b. Exact geometric diagnostic complements DRI T38; no harmonic-projection implementation or global M16 enumeration. |
 
 All subagents use isolated worktrees and commit only assigned folders. Root
 integrates commits and rebases on the shared branch; never force-pushes. Current
@@ -41,7 +42,8 @@ probes are light and single-threaded, with no additional heavy-task reservation.
   residual second moments near M=S=0 for this checkpoint. That Gaussian-moment
   variant is withdrawn; independent reviewer reproduced the exact rational witness
   and proof (two total deterministic rational forwards including replication).
-  Finite-moment diagnostic alternatives frozen in T37 protocol58778ab.
+  Finite-moment alternatives frozen in protocol58778ab also failed decisively;
+  all eight laws miss by 22.56–48.68 pp. See T37-P1 registry and README.
 - T38 caveat from source review: low-degree unconstrained spherical-density
   projection fails duplicate/opposite halfspaces badly even before RNN branching.
   The [gate-supported projection memo](literature/supported_projection.md) is
@@ -52,10 +54,10 @@ probes are light and single-threaded, with no additional heavy-task reservation.
 When the corrected walker is final, decide whether to register sci_tao_v2 for
 shared evaluation and which remaining T20 ports merit work. Numerical quadrature
 classification remains DRI-owned; speed alone is not a mechanistic solution.
-Completed studies are registered under task-derived IDs T19-R2/T20-P1/T29/T32/T33/T34
+Completed studies are registered under task-derived IDs T19-R2/T20-P1/T29/T32/T33/T34/T37-P1
   to avoid E-number races; please review/classify them. INDEX currently has
 two E28 rows from concurrent work; choose unique identifiers centrally.
 
 Redirect Codex priorities by editing our TASKS notes or this handoff. Until then,
-Codex continues the reserved T37 premise diagnostic; T33 integration is complete.
+Codex continues the reserved T31 tiny-complex flux diagnostic; T37-P1 is complete.
 T32/T34 are complete; T20 remaining ports have been released to Ready.
