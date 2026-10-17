@@ -28,11 +28,42 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "arc_m43_repro"))
-from m43 import clip  # noqa: E402
+from m43 import clip as _clip_raw  # noqa: E402
 from fiber3 import Ops  # noqa: E402
 from fibre import rows_at  # noqa: E402
 
 S3 = 2 * math.pi ** 2
+EPS = 1e-11
+
+
+def clip(poly, n, ops=None):
+    """m43.clip with vertices within EPS of the plane snapped onto it (no sliver loops)."""
+    nn_ = np.linalg.norm(n)
+    s = [float(n @ v) / nn_ for v in poly]
+    if ops is not None:
+        ops.add(3 * len(poly))
+    if min(s) >= -EPS:
+        return poly, []
+    if max(s) <= EPS:
+        return [], poly
+    ins, out = [], []
+    m = len(poly)
+    for i in range(m):
+        j = (i + 1) % m
+        vi, si, sj = poly[i], s[i], s[j]
+        si = 0.0 if abs(si) < EPS else si
+        sj = 0.0 if abs(sj) < EPS else sj
+        if si >= 0:
+            ins.append(vi)
+        if si <= 0:
+            out.append(vi)
+        if (si > 0 and sj < 0) or (si < 0 and sj > 0):
+            p = abs(si) * poly[j] + abs(sj) * vi
+            p = p / np.linalg.norm(p)
+            if ops is not None:
+                ops.add(10)
+            ins.append(p); out.append(p)
+    return (ins if len(ins) >= 3 else []), (out if len(out) >= 3 else [])
 NQ = 6                          # Gauss-Legendre points per Duffy direction (validated in check4.py)
 
 
@@ -281,9 +312,6 @@ def face_err(model, fam, side, mode, ops, stats):
                     keep = np.abs(C).sum(1) > 1e-13
                     for c, s in zip(C[keep], s0[keep]):
                         cc = c if s > 0 else -c
-                        sv = [float(cc @ v) for v in cur]; ops.add(3 * len(cur))
-                        if min(sv) >= 0:
-                            continue
                         a_, b_ = clip(cur, cc, ops)
                         if b_:
                             stack.append(b_)

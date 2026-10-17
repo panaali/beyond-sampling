@@ -17,10 +17,10 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "..", "arc_m43_repro"))
 from exact3 import count_regions, exact_acc  # noqa: E402
 import m43  # noqa: E402
-from fibre import est_fibre, Ops  # noqa: E402
+from fibre import est_fibre, est_fibre2, Ops  # noqa: E402
 from zoo import best_seed, leaderboard_models, noisy_abs, ops_per_sample, zoo_model  # noqa: E402
 
-TIERS = ("F0", "F1", "F1a")
+TIERS = ("F0", "F1a", "F1", "F2", "FX")
 
 
 def score(H, K):
@@ -38,7 +38,7 @@ def score(H, K):
         r = {"truth": ex, "exact_ops": oe.n, "leaves": st["leaves"], "regions": count_regions(m)}
         for tier in TIERS:
             o = Ops(); inf = {}; tt = time.time()
-            e = est_fibre(m, tier, o, inf)
+            e = est_fibre2(m, o, inf) if tier == "F2" else est_fibre(m, tier, o, inf)
             r[tier] = {"est": e, "ops": o.n, "traces": inf["traces"], "segments": inf["segments"], "sec": time.time() - tt}
         rows[name] = r
     print(f"H={H}: {len(rows)} models in {time.time() - t0:.0f} s")
