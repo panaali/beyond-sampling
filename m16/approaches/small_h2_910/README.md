@@ -491,3 +491,20 @@ single-thread/memory/flock command as the T59 check. Additional construction
 remains disallowed pending root review; existing data now support investigating
 the target coordinate or a different rank-conditioning representation rather
 than treating cubic grid agreement as sufficient evidence.
+
+## T50 anisotropic subsampling protocol, frozen before execution
+Root authorized <=20CPU and no new terminal evaluations. From the existing9³
+cache take exact nested slices for hidden5/target9 and hidden9/target5, and retain
+hidden9/target9 as reference. Compare linear W and range-clamped cubic W with16
+angular nodes per count interval and64 radial nodes. Use the same model-free1D
+numerical rank integral as the range-control cycle; report constant-W controls,
+all estimates, costs and unclipped extrema before the explicit cubic projection.
+
+Alternatives: (1) the dominant target-coordinate interpolation error seen by T49
+on its local T7 checkpoint may not transfer to trained T10. Compare removal of
+hidden resolution against removal of target resolution separately. (2) hidden
+and target errors may interact or cancel, especially under cubic interpolation;
+report both positive linear interpolation and explicitly clamped cubic, retaining
+the full9/9 baseline and independent reference. No monotone convergence or error
+certificate is inferred from one favorable anisotropic comparison. This changes
+no terminal construction and introduces no new random inputs.
