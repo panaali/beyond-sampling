@@ -7,10 +7,10 @@ Does the newer cofactor/atan2 plus thin-cone Duffy source pass frozen controls a
 Pinned unchanged source, original18controls,10old anomalies, separate5analytic nearly-antipodal unitray stress controls; then original256 indices after independent gate. Source observer records floors/angles/branches without changing return values.
 
 ## Status
-Protocol frozen; no latest evaluations yet.
+Full35098 actual-corpus phase complete, finite diagnostic gate passes; full independent raw audit pending. Controls/panel independently reviewed292b54cc. Generic fourthin stress failures remain. See HANDOFF.md.
 
 ## Results
-None.
+Latest exact accuracy .9761608075404442 matches DRI; positive reference .9761608075466027. Max individualerror1.66796e-14, L1 1.01815e-11,0negativevalues/floors.17955thin17143wide. Neither this finite pass nor the diagnostic threshold is a universal or floating certificate.
 
 ## Compute accounting
 Candidate/observer separately; initial inverse still executes even onthin path. Native counters partial; fixed setup reused.1thread2GB20CPUreview55CPUprimary.

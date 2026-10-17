@@ -1,3 +1,5 @@
+Latest source139a7b9e has a separately reviewed continuation in [latest/HANDOFF.md](latest/HANDOFF.md); all35098 actual cases pass its frozen diagnostic tolerance, while four generic thin-shape controls fail. Older-source results below remain version-specific.
+
 # T179 log/cofactor rule audit
 
 ## Question
