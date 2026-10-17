@@ -78,9 +78,88 @@
           "max_individual_ratio": 0.002162894319354053
         }
       }
+    },
+    "5": {
+      "models": 157,
+      "all_exact_parity": true,
+      "max_individual_ratio": 0.0038867192917648135,
+      "worst": "seed0",
+      "individual_ratio_ge_one": [],
+      "budget_multiplier_range": [
+        1.9104094918239654,
+        1.9603964087452284
+      ],
+      "mean_budget_multiplier": 1.9327993217206036,
+      "mean_expression_cost": 832982.8917197452,
+      "mean_original_counter": 282772.54140127386,
+      "groups": {
+        "abs0.05_n0": {
+          "models": 64,
+          "mean_squared_bias": 3.6146604188710357e-12,
+          "mean_matched_expression_sampling_variance": 1.0498454044682706e-05,
+          "ratio_of_means": 3.443040664355531e-07,
+          "old_mean_sampling_variance": 2.029340492418611e-05,
+          "old_ratio_of_means": 1.7811995731495047e-07,
+          "max_individual_ratio": 2.2590182881708714e-05
+        },
+        "abs0.05_n1": {
+          "models": 64,
+          "mean_squared_bias": 1.734463423328461e-16,
+          "mean_matched_expression_sampling_variance": 1.0149577834494099e-05,
+          "ratio_of_means": 1.7089020367268453e-11,
+          "old_mean_sampling_variance": 1.960872714957696e-05,
+          "old_ratio_of_means": 8.845364668995767e-12,
+          "max_individual_ratio": 1.0151312138901624e-09
+        },
+        "clean": {
+          "models": 5,
+          "mean_squared_bias": 7.338758176879349e-09,
+          "mean_matched_expression_sampling_variance": 2.1471992264743638e-06,
+          "ratio_of_means": 0.003417828251051193,
+          "old_mean_sampling_variance": 4.141460143389455e-06,
+          "old_ratio_of_means": 0.001772021925308971,
+          "max_individual_ratio": 0.0038867192917648135
+        },
+        "s0.0025": {
+          "models": 6,
+          "mean_squared_bias": 1.1298789007071783e-31,
+          "mean_matched_expression_sampling_variance": 1.0587337186187805e-06,
+          "ratio_of_means": 1.0671983718259332e-25,
+          "old_mean_sampling_variance": 2.044188241653096e-06,
+          "old_ratio_of_means": 5.527274238665352e-26,
+          "max_individual_ratio": 3.3064608603710236e-25
+        },
+        "s0.005": {
+          "models": 6,
+          "mean_squared_bias": 3.3280069439011436e-31,
+          "mean_matched_expression_sampling_variance": 2.1784277508584254e-06,
+          "ratio_of_means": 1.5277104978991008e-25,
+          "old_mean_sampling_variance": 4.211189082618274e-06,
+          "old_ratio_of_means": 7.902772539085281e-26,
+          "max_individual_ratio": 5.820769146562877e-25
+        },
+        "s0.01": {
+          "models": 6,
+          "mean_squared_bias": 5.074183426812237e-31,
+          "mean_matched_expression_sampling_variance": 4.432891518439544e-06,
+          "ratio_of_means": 1.1446667272828817e-25,
+          "old_mean_sampling_variance": 8.579926664030104e-06,
+          "old_ratio_of_means": 5.914017246889645e-26,
+          "max_individual_ratio": 7.022171217313729e-25
+        },
+        "s0.02": {
+          "models": 6,
+          "mean_squared_bias": 4.80950539721199e-15,
+          "mean_matched_expression_sampling_variance": 9.006420246842235e-06,
+          "ratio_of_means": 5.34008547835447e-10,
+          "old_mean_sampling_variance": 1.7456599782389235e-05,
+          "old_ratio_of_means": 2.755121534071011e-10,
+          "max_individual_ratio": 3.720580908206706e-09
+        }
+      }
     }
   },
-  "models": 157,
+  "models": 314,
   "complete": false,
   "scope": "Ratio of equal-weight empirical mean squared bias to equal-weight per-model matched-budget sampling variance; not mean individual ratios or one fixed common budget.",
   "new_truth_or_noise": false,
@@ -134,6 +213,54 @@
       "H": 4,
       "models": 17,
       "cpu": 12.258228413
+    },
+    {
+      "file": "h5_000.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 15.831658232999999
+    },
+    {
+      "file": "h5_020.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 15.879496194
+    },
+    {
+      "file": "h5_040.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 15.635630359999999
+    },
+    {
+      "file": "h5_060.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 15.01510925
+    },
+    {
+      "file": "h5_080.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 15.366020846
+    },
+    {
+      "file": "h5_100.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 15.958916820999999
+    },
+    {
+      "file": "h5_120.json",
+      "H": 5,
+      "models": 20,
+      "cpu": 14.655560426
+    },
+    {
+      "file": "h5_140.json",
+      "H": 5,
+      "models": 17,
+      "cpu": 12.897229996
     }
   ]
 }
