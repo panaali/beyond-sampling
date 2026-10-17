@@ -27,3 +27,5 @@ Nonpositive/indistinguishable radial range or arithmetic exception stops with pr
 Two staged sessions3.40332CPU, final aggregation.76195CPU, controls.00997CPU. Canonical categories:430,924 directed divides,1,041,396 multiplies,35,910 correctly-rounded square roots plus35,910 adjacentdecimal expansions,71,820 subtracts,359,100 adds,53,865 rational-polynomial terms,122 rationalatanseries terms. Cold pi counts once canonically and twice actually; all listed categories are Decimal/rational operations, not cheap binaryFLOPs. Exact radial construction/prior KKT setup remains additional.
 
 The lower_formula_endpoint field is only the lower endpoint of the expanded-range bound expression, not a lower bound on actual quadrature error. Upper endpoints and final sum use outward arithmetic; exact Fraction sum of endpoint decimals is saved and checked below the final directed upper. Every new upper exceeds the corresponding prior high-precision bound as a diagnostic, not a replacement for the directed proof.
+
+Independent directed full review aa12a41e validates all17,955 endpoints/counts and32 independent rational sqrt/pi upper constructions.

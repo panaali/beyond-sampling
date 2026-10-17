@@ -27,3 +27,5 @@ Any KKT/parity/bound-monotonicity assertion stops with saved failure. Remaining 
 All54 previously missing certificates were constructed in0.15062CPU; separate exact verification0.06719CPU and MP80/100 bounds0.01200CPU. Whole staged process1.03750CPU includes imports/hash/read/serialization, separate from prior17.9259CPU initial census. Maximum construction bits807/796; full rational operation inventory retained.80/100 evaluations agree below fixed1e-70 relative threshold, but remain non-directed.
 
 Independent initial census21213982 reconstructs all17,955 Gram/range/determinant values and MP tails. Initial4.769895409e-7 failure remains archived; this narrowly confirms that weaker radial ranges caused that certificate gap. It does not prove every possible future GL10 cone accurate, log128 correct, or actual binary64 determinant/nodes/kernel error bounded.
+
+Independent exact54 rescue review f9651951 validates all certificates,100-digit tails and exact merge.
