@@ -1,0 +1,13 @@
+# Capped certificate-order result
+
+All eleven split synthetic parents obtain an ideal-rule truncation certificate at order30 or below. All five unsplit wide parents remain unresolved at the frozen order64 cap. These are mathematical bounds and prospective node costs: **no selected quadrature rule was evaluated**.
+
+The fixed even grid6..64 and target1e-10 were committed before execution. First qualifying common-child orders are: positive5orthant30; narrow2=28, narrow10=22, narrow22=12, narrow35/48=6; every wide split parent30. Original successful orders match their split counterparts; only original wide parents hit the cap. Every earlier attempted bound is retained, and no observed mass error enters selection.
+
+The largest selected split rule predicts1,620,000 nodes and64,800,250 inherited kernel-proxy units per parent, plus one assembly addition, all attempted bound calculations, rule setup and required range/partition work. This is12.3595 times the order16 node count, where the earlier diagnostic already observed tiny errors. It exposes the conservative certification cost, not a measured speed or accuracy result. The ideal guarantee excludes floating nodes/weights, determinant/evaluation and geometric error; source proxy excludes native/library/control/memory costs.
+
+Exactly400 unique bound decisions:84 previously reviewed6/10/16 entries reused without recomputation,316 new entries. All reused entries are charged by their saved directed counts in the prospective fresh-production ledger. All33 range certificates and actual partition advice remain required and explicit. Research4.024182010CPU, peak27MB, plus0.018938531CPU selector controls. Eight exact stopping/unknown controls independently passed before the search. No cap/resource failure or unknown arithmetic occurred; numerical-rule cap failures are preserved as five unresolved parents.
+
+`bounds.jsonl` records every bound/index/source origin, and results.json retains every stopping step, source/hash pins, costs and cap outcome. `summary.json` contracts saved records. Reproduction in an empty copy only: one-thread review-lock Python controls.py followed after independent review by run.py under19/20CPU and2GB caps. Source commitments0c9e4b6d,79ff0ffc,5dccd5b9,c18985c7; result91f74725. Independent final400-entry audit is pending.
+
+This bounded discriminator supports the effectiveness of the exact split and a feasible ideal-rule certificate for these products. It does not establish a cheap mass method, a floating implementation guarantee, generic edge-split availability or actual trainedT5 behavior. Further improvements and whole-corpus applicability require separately frozen scope; the T11584 corpus decision remains blocked.
