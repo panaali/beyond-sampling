@@ -73,3 +73,14 @@ Exact rational growth can be expensive. Floating runtime semantics differ
 from exact-real interpretation of binary parameters. Legacy modules hardcode
 T10, so use T10 fixtures consistently. A source audit of ignored remainder does
 not measure its frequency or magnitude in past experiments.
+
+## Follow-up frozen after first fixtures
+Keep the first results unchanged. Compare both corrected sci_tao_v2 Python and
+available compiled backend on all nine fixtures, including cap0/1 failures.
+Record source/binary hashes. These are separately labeled existing corrections,
+not legacy methods or a new independent oracle. Local in-memory repairs only:
+replace legacy Tao's tolerance tie with c==0 and raise if active lines remain;
+replace tube's fixed-target zero-margin test with first-index argmax semantics.
+No change to eps/gate advancement is made, so success does not prove all near
+gate roots handled. Exact rational reference remains the strongest topology
+control for these fixtures. Follow-up<=15CPU, same resource limits.
