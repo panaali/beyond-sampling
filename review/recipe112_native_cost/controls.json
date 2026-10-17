@@ -271,6 +271,30 @@
         "calls": {},
         "memory_calls": []
       }
+    },
+    {
+      "source": "return np.any(a)",
+      "value": true,
+      "expected_numeric": 3,
+      "ledger": {
+        "sites": {
+          "fixture:L2:np.any(a)": {
+            "array_truth_compare": 3,
+            "integer_control_reduce_np.any": 2
+          }
+        },
+        "totals": {
+          "array_truth_compare": 3,
+          "integer_control_reduce_np.any": 2
+        },
+        "named_numeric_total": 3,
+        "integer_control_total": 2,
+        "complete_implementation_cost": false,
+        "calls": {
+          "np.any": 1
+        },
+        "memory_calls": []
+      }
     }
   ],
   "models": [
@@ -1560,6 +1584,7 @@
               "integer_control_Not": 12
             },
             "margin:L247:np.any(np.maximum(P @ A3f.T, 0))": {
+              "array_truth_compare": 34,
               "integer_control_reduce_np.any": 22
             },
             "margin:L247:np.maximum(P @ A3f.T, 0)": {
@@ -1578,6 +1603,7 @@
             "array_Mult": 832,
             "array_Sub": 254,
             "array_compare": 236,
+            "array_truth_compare": 34,
             "cross_mul": 48,
             "cross_sub": 24,
             "integer_control_Add": 80,
@@ -1607,7 +1633,7 @@
             "special_np.arctan2": 8,
             "special_sqrt": 40
           },
-          "named_numeric_total": 8066,
+          "named_numeric_total": 8100,
           "integer_control_total": 400,
           "complete_implementation_cost": false,
           "calls": {
@@ -2555,6 +2581,7 @@
               "integer_control_Not": 12
             },
             "margin:L247:np.any(np.maximum(P @ A3f.T, 0))": {
+              "array_truth_compare": 34,
               "integer_control_reduce_np.any": 22
             },
             "margin:L247:np.maximum(P @ A3f.T, 0)": {
@@ -2573,6 +2600,7 @@
             "array_Mult": 832,
             "array_Sub": 254,
             "array_compare": 236,
+            "array_truth_compare": 34,
             "cross_mul": 48,
             "cross_sub": 24,
             "integer_control_Add": 80,
@@ -2602,7 +2630,7 @@
             "special_np.arctan2": 8,
             "special_sqrt": 40
           },
-          "named_numeric_total": 8066,
+          "named_numeric_total": 8100,
           "integer_control_total": 400,
           "complete_implementation_cost": false,
           "calls": {
@@ -3622,6 +3650,7 @@
               "integer_control_Not": 12
             },
             "margin:L247:np.any(np.maximum(P @ A3f.T, 0))": {
+              "array_truth_compare": 34,
               "integer_control_reduce_np.any": 22
             },
             "margin:L247:np.maximum(P @ A3f.T, 0)": {
@@ -3640,6 +3669,7 @@
             "array_Mult": 994,
             "array_Sub": 254,
             "array_compare": 236,
+            "array_truth_compare": 34,
             "cross_mul": 180,
             "cross_sub": 90,
             "integer_control_Add": 138,
@@ -3669,7 +3699,7 @@
             "special_np.arctan2": 30,
             "special_sqrt": 60
           },
-          "named_numeric_total": 11539,
+          "named_numeric_total": 11573,
           "integer_control_total": 574,
           "complete_implementation_cost": false,
           "calls": {
@@ -4702,6 +4732,7 @@
               "integer_control_Not": 12
             },
             "margin:L247:np.any(np.maximum(P @ A3f.T, 0))": {
+              "array_truth_compare": 72,
               "integer_control_reduce_np.any": 60
             },
             "margin:L247:np.maximum(P @ A3f.T, 0)": {
@@ -4720,6 +4751,7 @@
             "array_Mult": 1966,
             "array_Sub": 545,
             "array_compare": 344,
+            "array_truth_compare": 72,
             "cross_mul": 246,
             "cross_sub": 123,
             "integer_control_Add": 199,
@@ -4749,7 +4781,7 @@
             "special_np.arctan2": 41,
             "special_sqrt": 76
           },
-          "named_numeric_total": 22872,
+          "named_numeric_total": 22944,
           "integer_control_total": 819,
           "complete_implementation_cost": false,
           "calls": {
@@ -4940,6 +4972,6 @@
       }
     }
   ],
-  "cpu": 0.3324457820000001,
+  "cpu": 0.28757889299999995,
   "scope": "Accounting controls preserve existing source errors; no accuracy repair or full native cost."
 }

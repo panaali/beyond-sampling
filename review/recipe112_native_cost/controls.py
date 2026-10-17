@@ -24,6 +24,7 @@ def main():
  ops.append(expression('return min(x for x in a)',dict(a=[2.,-1.,3.]),2))
  ops.append(expression('return 0. < a < b',dict(a=-1.,b=3.),1))
  a=np.array([1.,2.]);ops.append(expression('a=x\nb=a\na += c\nreturn a is b',dict(x=a,c=np.array([3.,4.])),2));assert np.array_equal(a,[4.,6.])
+ ops.append(expression('return np.any(a)',dict(a=np.array([0.,1.,0.])),3))
  rows=[]
  for name,wi,wh,wo in [('zero',[0.],[[0.]],[[0.],[0.],[0.]]),('zero_readout',[1.],[[0.]],[[0.],[0.],[0.]]),('identical_readout',[1.],[[0.]],[[1.],[1.],[1.]]),('dominant_first',[1.],[[0.]],[[1.],[0.],[-1.]]),('mixed',[1.,-1.],[[0.,1.],[1.,0.]],[[1.,0.],[0.,1.],[-1.,0.]])]:
   model=tuple(np.asarray(x) for x in (wi,wh,wo));baseline=T.evaluate(model,False);traced=T.evaluate(model,True)

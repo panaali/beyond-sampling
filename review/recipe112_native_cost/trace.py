@@ -42,6 +42,9 @@ class Ledger(B.Ledger):
    self.charge(site,'reduce_'+name,max(n-m,0))
    if name.endswith('mean'):self.charge(site,'array_Div',m)
   elif name in ('np.any','np.all','.any','.all'):
+   # Nonboolean truth conversion compares each numeric element to zero.
+   # Charge all elements even if an implementation can short-circuit.
+   if np.asarray(receiver).dtype.kind!='b':self.charge(site,'array_truth_compare',n)
    self.charge(site,'integer_control_reduce_'+name,max(n-m,0))
   elif name in ('min','max'):
    cat='integer_control' if all(isinstance(x,(int,np.integer)) for x in args) else 'scalar';self.charge(site,cat+'_compare',len(args)-1)
@@ -67,6 +70,8 @@ def load(instrument):
   if str(path) not in sys.path:sys.path.insert(0,str(path))
  import est_mech,m43
  assert Path(est_mech.__file__).resolve()==dep/'est_mech.py'
+ for row in json.loads((HERE.parent/'recipe112_recovery/dependencies.json').read_text()):
+  path=HERE.parents[1]/row['snapshot'];assert hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256']
  module=types.ModuleType('isolated_native_recipe');module.__file__=str(SOURCE)
  ledger=Ledger();module.__dict__.update(np=np,HALVES=est_mech.HALVES,Ops=m43.Ops,_arithmetic=ledger)
  tree=ast.parse(SOURCE.read_text());tree.body=[x for x in tree.body if isinstance(x,(ast.Assign,ast.FunctionDef,ast.ClassDef))]
