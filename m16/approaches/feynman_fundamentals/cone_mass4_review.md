@@ -1690,3 +1690,5 @@ T191 common-mode source f49f4303 cleared four controls only: exact strict gate i
 T191 common-mode four saved controls independently pass exact intervals/all roots/first-index ties/radii and open-change flags. Initial reviewer strict-zip endpoint-list bug preserved and corrected without author replay. Trained505220d3 source cleared for fixed768 saved maps only: exact old logit/denominator/zero-gate binding, per-row durable gzip,16CPU graceful/20external limits. All outcomes retained; no common-mode probabilities, arbitrary-projection impossibility or wider run.
 
 T190 cost census f601aeb1 source gate: baseline/suffix/global-parent sharing formulas and8 virtual operation controls/4 guards reviewed, named dense arithmetic only; saved controls and450 driver review pending.
+
+T190 eight saved cost controls/four invalid guards independently pass prefix/suffix closed-form category vectors, all cuts/cache entry totals. Saved450 run.py source gate passes fixed hash/checkpoint binding, completed control pin and durable19/20CPU scope. No actual trained matrices/cache or geometry replay; projected dense count only.
