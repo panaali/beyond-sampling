@@ -1,4 +1,8 @@
-"""T73: fibre-traced wedge estimator for bias-free 2nd-argmax RNNs, T = 3, any H (tiers F0 / F1 / FX).
+"""Strict op count (adopted 2026-10-17 from the T97 reviewer's fibre_strict.py, review/understand_ladder/): every
+elementwise op and comparison the original left uncharged is charged (X adds to ops.n). Also includes the reviewer's
+id()-reuse fix (fibre_fix.py): the clamp-side state is kept alive in the cache. The author-count original is
+fibre_authorcount.py (kept for the T73/T95 numbers).
+T73: fibre-traced wedge estimator for bias-free 2nd-argmax RNNs, T = 3, any H (tiers F0 / F1 / FX).
 
 Geometry: fiber3.FAMS, an exact model-independent partition of the sphere into fibres normal to the true boundary
 circles x_i = x_j (each fibre runs from the circle to the equidistance plane; area element cos(phi) dphi dtheta).
@@ -26,6 +30,10 @@ from fiber3 import FAMS, Ops, _Sint
 TWO_PI = 2 * math.pi
 
 
+def X(ops, k):
+    ops.add(k)
+
+
 def rows_at(model, x, ops):
     """Pre-activation rows of all steps at point x (exact pattern), stacked (T*H, T); logit map L; live flag."""
     Wi, Wh, Wo = model
@@ -34,9 +42,9 @@ def rows_at(model, x, ops):
     R = []
     for t in range(T):
         if t > 0:
-            A = Wh @ Ag; A[:, t] += Wi; ops.add(H * int(g.sum()) * t)
+            A = Wh @ Ag; A[:, t] += Wi; ops.add(H * int(g.sum()) * t); X(ops, H)
         R.append(A)
-        g = A @ x > 0; ops.add(H * (t + 1))
+        g = A @ x > 0; ops.add(H * (t + 1)); X(ops, H)
         Ag = A * g[:, None]
     L = Wo @ Ag; ops.add(T * int(g.sum()) * T)
     return np.vstack(R), L, bool(g.any())
@@ -50,7 +58,7 @@ class State:
         R, L, live = rows_at(model, x, ops)
         self.R, self.L, self.live = R, L, live
         RP, RU, Rn = R @ P, R @ U, R @ nn; ops.add(3 * 3 * len(R))
-        ok = np.abs(Rn) > 1e-300
+        ok = np.abs(Rn) > 1e-300; X(ops, 2 * len(R))
         with np.errstate(divide="ignore", invalid="ignore"):
             self.gal = np.where(ok, -RP / Rn, 0.0); self.gbe = np.where(ok, -RU / Rn, 0.0)
         ops.add(2 * len(R))
@@ -77,10 +85,10 @@ class Cons:
     def interval(self, tm, t0, t1, ops):
         if not self.al:
             return t0, t1
-        al = np.concatenate(self.al); be = np.concatenate(self.be)
+        al = np.concatenate(self.al); be = np.concatenate(self.be); X(ops, 4 * len(al))
         keep = (np.abs(al) + np.abs(be)) > 1e-13
         al, be = al[keep], be[keep]
-        ops.add(6 * len(al))
+        ops.add(6 * len(al)); X(ops, 10 * len(al))
         # roots of al cos + be sin: theta = atan2(al, -be) + k pi; nearest below / above tm
         r = np.arctan2(al, -be) % math.pi
         dl = (tm - r) % math.pi; dl = np.where(dl == 0, math.pi, dl)
@@ -96,6 +104,7 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=
     c, s = math.cos(theta), math.sin(theta)
     p = c * P + s * U
     ucl = fcl[0] * c + fcl[1] * s
+    X(ops, 10)
     st = st0; f_u = None; u = 0.0
     out = []; cons = Cons(); n_ok = 0
     T = st.L.shape[0]
@@ -106,22 +115,23 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=
             kk = -1; unext = math.inf
         else:
             if f_u is None:
-                ahead = st.ok & (ug > 1e-15)
+                ahead = st.ok & (ug > 1e-15); X(ops, len(ug))
                 cons.add(st.gal[st.ok], st.gbe[st.ok])                  # sign(u_g - 0)
             else:
                 dal = st.gal - f_u[0]; dbe = st.gbe - f_u[1]
                 same = st.ok & (np.abs(dal) + np.abs(dbe) < 1e-12 * (1 + abs(f_u[0]) + abs(f_u[1])))
-                ahead = st.ok & ~same & (ug > u)
+                ahead = st.ok & ~same & (ug > u); X(ops, 7 * len(ug))
                 m = st.ok & ~same
                 cons.add(dal[m], dbe[m])                                 # sign(u_g - u_cur)
             if ahead.any():
-                idx = np.flatnonzero(ahead); kk = int(idx[np.argmin(ug[idx])]); unext = float(ug[kk])
+                idx = np.flatnonzero(ahead); kk = int(idx[np.argmin(ug[idx])]); unext = float(ug[kk]); X(ops, len(idx))
                 if mode != "F1a":
-                    o = idx[idx != kk]
+                    o = idx[idx != kk]; X(ops, 2 * len(o) + 2)
                     cons.add(st.gal[o] - st.gal[kk], st.gbe[o] - st.gbe[kk])  # kk stays the nearest
                     cons.add(st.gal[kk] - fcl[0], st.gbe[kk] - fcl[1])        # vs clamp
             else:
                 kk = -1; unext = math.inf
+        X(ops, 1)
         if unext >= ucl:
             kk = -1; unext = ucl; f_next = fcl
         else:
@@ -136,7 +146,7 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=
                 den = b[d] - b[truth]
                 if abs(den) < 1e-300:
                     cons.add(st.LP[truth] - st.LP[d], st.LU[truth] - st.LU[d]); continue
-                fd = ((st.LP[truth] - st.LP[d]) / den, (st.LU[truth] - st.LU[d]) / den); ops.add(4)
+                fd = ((st.LP[truth] - st.LP[d]) / den, (st.LU[truth] - st.LU[d]) / den); ops.add(4); X(ops, 10)
                 for g in (f_u, f_next):
                     if g is None:
                         cons.add(fd[0], fd[1])
@@ -149,7 +159,7 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=
             if len(edges) > 2:
                 for x in range(1, len(edges)):
                     for y in range(x + 1, len(edges)):
-                        cons.add(edges[x][1][0] - edges[y][1][0], edges[x][1][1] - edges[y][1][1])
+                        cons.add(edges[x][1][0] - edges[y][1][0], edges[x][1][1] - edges[y][1][1]); X(ops, 2)
         edges.sort(key=lambda e: e[0])
         edges.append((unext, f_next))
         if mode == "F1a":
@@ -184,6 +194,7 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=
             st = cache[key]; u = unext; f_u = f_next
             continue
         cls_end = truth
+        X(ops, (2 * T + 4) * (len(edges) - 1))      # midpoints + piece_ok re-evaluation
         for q in range(len(edges) - 1):
             vm = 0.5 * (edges[q][0] + edges[q + 1][0])
             cls = int(np.argmax(a + vm * b)) if st.live else 0; ops.add(2 * T)
@@ -203,7 +214,7 @@ def fibre_trace(model, st0, P, U, nn, truth, fcl, theta, mode, ops, cache, look=
         # step across gate kk; the pattern beyond it is cached per (piece, gate) within this call
         key = (id(st), kk)
         if key not in cache:
-            x = p + (unext * (1 + 1e-9) + 1e-12) * nn
+            x = p + (unext * (1 + 1e-9) + 1e-12) * nn; X(ops, 8)
             cache[key] = State(model, x, P, U, nn, ops)
         st = cache[key]; u = unext; f_u = f_next
     return out, cons
@@ -245,7 +256,7 @@ def trace_arc_rows(model, P, U, lo, hi, ops):
             tm = 0.5 * (a0 + a1)
             R, _, _ = rows_at(model, math.cos(tm) * P + math.sin(tm) * U, ops)
             A = R[t * H:(t + 1) * H]
-            r = _roots_vec(A @ P, A @ U, a0, a1); ops.add(2 * H * T + 3 * H)
+            r = _roots_vec(A @ P, A @ U, a0, a1); ops.add(2 * H * T + 3 * H); X(ops, 4 * H + 10)
             bs = [a0] + sorted(float(v) for v in r if not np.isnan(v)) + [a1]
             nxt += [(bs[q], bs[q + 1]) for q in range(len(bs) - 1)]
         segs = nxt
@@ -281,6 +292,7 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
     c, s = math.cos(theta), math.sin(theta)
     p = c * P + s * U
     T = st.L.shape[0]
+    X(ops, 8)
     f_u, u = f_start, u_start
     out = []
     zero = (0.0, 0.0)
@@ -294,16 +306,16 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
         same = st.ok & (np.abs(dal) + np.abs(dbe) < 1e-12 * (1 + abs(fu[0]) + abs(fu[1])))
         m = st.ok & ~same
         cons.add(dal[m], dbe[m])
-        ahead = m & ((ug - u) * sgn > 0) & ((ug - u_bound) * sgn < 0)
+        ahead = m & ((ug - u) * sgn > 0) & ((ug - u_bound) * sgn < 0); X(ops, 13 * len(ug))
         fb = fv(f_bound)
         if ahead.any():
             idx = np.flatnonzero(ahead); kk = int(idx[np.argmin(ug[idx] * sgn)])
             unext = float(ug[kk]); f_next = (float(st.gal[kk]), float(st.gbe[kk]))
-            cons.add(st.gal[kk] - fb[0], st.gbe[kk] - fb[1])
+            cons.add(st.gal[kk] - fb[0], st.gbe[kk] - fb[1]); X(ops, 2 * len(idx) + 2)
         else:
             kk = -1; unext = u_bound; f_next = f_bound
             o = np.flatnonzero(m & ((ug - u) * sgn > 0))
-            cons.add(st.gal[o] - fb[0], st.gbe[o] - fb[1])
+            cons.add(st.gal[o] - fb[0], st.gbe[o] - fb[1]); X(ops, 2 * len(o))
         a = st.LP * c + st.LU * s; b = st.Ln; ops.add(2 * T)
         lo_u, hi_u = (u, unext) if sgn > 0 else (unext, u)
         edges = []
@@ -314,7 +326,7 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
                 den = b[d] - b[truth]
                 if abs(den) < 1e-300:
                     cons.add(st.LP[truth] - st.LP[d], st.LU[truth] - st.LU[d]); continue
-                fd = ((st.LP[truth] - st.LP[d]) / den, (st.LU[truth] - st.LU[d]) / den); ops.add(4)
+                fd = ((st.LP[truth] - st.LP[d]) / den, (st.LU[truth] - st.LU[d]) / den); ops.add(4); X(ops, 10)
                 fn = fv(f_next)
                 cons.add(fd[0] - fu[0], fd[1] - fu[1]); cons.add(fd[0] - fn[0], fd[1] - fn[1])
                 v = fd[0] * c + fd[1] * s
@@ -323,12 +335,12 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
             if len(edges) > 1:
                 for x in range(len(edges)):
                     for y in range(x + 1, len(edges)):
-                        cons.add(edges[x][1][0] - edges[y][1][0], edges[x][1][1] - edges[y][1][1])
+                        cons.add(edges[x][1][0] - edges[y][1][0], edges[x][1][1] - edges[y][1][1]); X(ops, 2)
         edges.sort(key=lambda e: e[0] * sgn)
         seq = [(u, f_u)] + edges + [(unext, f_next)]
         stop = None
         for q in range(len(seq) - 1):
-            vm = 0.5 * (seq[q][0] + seq[q + 1][0])
+            vm = 0.5 * (seq[q][0] + seq[q + 1][0]); X(ops, 2)
             cls = int(np.argmax(a + vm * b)) if st.live else 0; ops.add(2 * T)
             if cls == truth:
                 stop = q; break
@@ -348,7 +360,7 @@ def _walk(model, st, P, U, nn, truth, theta, f_start, u_start, sgn, f_bound, u_b
             return out, f_bound, u_bound
         key = (id(st), kk)
         if key not in cache:
-            x = p + (unext + sgn * (abs(unext) * 1e-9 + 1e-12)) * nn
+            x = p + (unext + sgn * (abs(unext) * 1e-9 + 1e-12)) * nn; X(ops, 9)
             cache[key] = State(model, x, P, U, nn, ops)
         st = cache[key]; u = unext; f_u = f_next
     out.append((f_start, f_u) if sgn > 0 else (f_u, f_start))
@@ -361,7 +373,7 @@ LOOK = 0      # 0: attached-wedge forward walk (F2); L >= 1: forward trace until
 def trace_F2(model, st0, P, U, nn, truth, fcl, theta, ops, cache):
     cons = Cons()
     c, s = math.cos(theta), math.sin(theta)
-    ucl = fcl[0] * c + fcl[1] * s
+    ucl = fcl[0] * c + fcl[1] * s; X(ops, 5)
     if ucl <= 0:
         return [], cons
     if LOOK > 0:
@@ -378,8 +390,9 @@ def trace_F2(model, st0, P, U, nn, truth, fcl, theta, ops, cache):
         f_a, u_a = None, 0.0
     # reverse walk from the clamp, state just below it
     p = c * P + s * U
-    x = p + ucl * (1 - 1e-9) * nn
+    x = p + ucl * (1 - 1e-9) * nn; X(ops, 12)
     stc = State(model, x, P, U, nn, ops)
+    cache.setdefault("_alive", []).append(stc)   # T97 reviewer fix: keep stc alive so id(stc) is never reused as a cache key
     iv2, _, _ = _walk(model, stc, P, U, nn, truth, theta, fcl, ucl, -1, f_a, u_a, ops, cache, cons)
     return iv + iv2, cons
 
@@ -391,7 +404,7 @@ def _integrate2(model, st0, P, U, nn, truth, fcl, t0, t1, ops, cache, budget):
         a0, a1 = stack.pop()
         if a1 - a0 < 1e-13:
             continue
-        tm = 0.5 * (a0 + a1)
+        tm = 0.5 * (a0 + a1); X(ops, 2)
         iv, cons = trace_F2(model, st0, P, U, nn, truth, fcl, tm, ops, cache)
         a, b = cons.interval(tm, a0, a1, ops)
         budget[0] += 1
@@ -399,9 +412,9 @@ def _integrate2(model, st0, P, U, nn, truth, fcl, t0, t1, ops, cache, budget):
             a, b = a0, a1
         for lo, hi in iv:
             if hi is not None:
-                tot += _Sint(hi[0], hi[1], a, b); ops.add(12)
+                tot += _Sint(hi[0], hi[1], a, b); ops.add(12); X(ops, 5)
             if lo is not None:
-                tot -= _Sint(lo[0], lo[1], a, b); ops.add(12)
+                tot -= _Sint(lo[0], lo[1], a, b); ops.add(12); X(ops, 5)
         if a > a0:
             stack.append((a0, a))
         if b < a1:

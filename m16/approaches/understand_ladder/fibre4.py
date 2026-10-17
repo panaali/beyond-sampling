@@ -41,7 +41,7 @@ def clip(poly, n, ops=None):
     nn_ = np.linalg.norm(n)
     s = [float(n @ v) / nn_ for v in poly]
     if ops is not None:
-        ops.add(3 * len(poly))
+        ops.add(5 * len(poly) + 4)          # strict: dot (3), normalise (1), compare (1) per vertex
     if min(s) >= -EPS:
         return poly, []
     if max(s) <= EPS:
@@ -61,7 +61,7 @@ def clip(poly, n, ops=None):
             p = abs(si) * poly[j] + abs(sj) * vi
             p = p / np.linalg.norm(p)
             if ops is not None:
-                ops.add(10)
+                ops.add(26)                     # strict: interpolate (6) + normalise (5) + bookkeeping, per cut
             ins.append(p); out.append(p)
     return (ins if len(ins) >= 3 else []), (out if len(out) >= 3 else [])
 NQ = 6                          # Gauss-Legendre points per Duffy direction (validated in check4.py)
@@ -143,6 +143,7 @@ def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache, look=1, info=None
     Returns (intervals [(lo or None, hi)], constraints list of 3-vectors c with sign(c . w0) to keep)."""
     p = B @ w0
     nn_ = nn
+    ops.add(12 + 4 * len(cfn))
     cv = [float(c @ w0) for c in cfn]; ic = int(np.argmin(cv)); ucl = cv[ic]; fcl = cfn[ic]
     cons = [cfn[q] - fcl for q in range(len(cfn)) if q != ic]
     st = st0; f_u = None; u = 0.0; out = []; n_ok = 0
@@ -152,22 +153,22 @@ def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache, look=1, info=None
         kk = -1; unext = math.inf; ahead = None
         if mode != "F0":
             if f_u is None:
-                ahead = st.ok & (ug > 1e-15)
+                ahead = st.ok & (ug > 1e-15); ops.add(2 * len(ug))
                 cons.append(st.gal[st.ok])
             else:
                 d = st.gal - f_u
                 same = st.ok & (np.abs(d).sum(1) < 1e-12 * (1 + np.abs(f_u).sum()))
                 ahead = st.ok & ~same & (ug > u)
-                cons.append(d[st.ok & ~same])
+                cons.append(d[st.ok & ~same]); ops.add(14 * len(ug))
             if ahead.any():
-                idx = np.flatnonzero(ahead); kk = int(idx[np.argmin(ug[idx])]); unext = float(ug[kk])
+                idx = np.flatnonzero(ahead); kk = int(idx[np.argmin(ug[idx])]); unext = float(ug[kk]); ops.add(len(idx))
         if unext >= ucl:
             kk = -1; unext = ucl; f_next = fcl
             if ahead is not None and ahead.any():
                 cons.append(st.gal[ahead] - fcl)
         else:
             f_next = st.gal[kk]
-            cons.append(fcl - f_next)
+            cons.append(fcl - f_next); ops.add(4)
             if mode != "F1a":
                 o = np.flatnonzero(ahead); o = o[o != kk]
                 cons.append(st.gal[o] - f_next)
@@ -180,7 +181,7 @@ def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache, look=1, info=None
                 den = b[dcl] - b[truth]
                 if abs(den) < 1e-300:
                     cons.append((st.Lb[truth] - st.Lb[dcl])[None]); continue
-                fd = (st.Lb[truth] - st.Lb[dcl]) / den; ops.add(4)
+                fd = (st.Lb[truth] - st.Lb[dcl]) / den; ops.add(4 + 16)
                 cons.append((fd if f_u is None else fd - f_u)[None]); cons.append((fd - f_next)[None])
                 v = float(fd @ w0)
                 if u < v < unext:
@@ -190,7 +191,7 @@ def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache, look=1, info=None
                     for y in range(x + 1, len(edges)):
                         cons.append((edges[x][1] - edges[y][1])[None])
         edges.sort(key=lambda e: e[0])
-        edges.append((unext, f_next))
+        edges.append((unext, f_next)); ops.add((2 * T + 4) * (len(edges) - 1) + 3 * len(edges))
         if mode == "F1a":
             stop = None
             for q in range(len(edges) - 1):
@@ -229,7 +230,7 @@ def trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache, look=1, info=None
                 break
         key = (id(st), kk)
         if key not in cache:
-            x = p + (unext * (1 + 1e-9) + 1e-12) * nn_
+            x = p + (unext * (1 + 1e-9) + 1e-12) * nn_; ops.add(12)
             cache[key] = State(model, x, B, nn_, ops)
         st = cache[key]; u = unext; f_u = f_next
     C = [c if c.ndim == 2 else c[None] for c in cons]
@@ -351,7 +352,7 @@ def face_err(model, fam, side, mode, ops, stats):
                 iv, C = trace(model, st0, B, nn, truth, cfn, w0, mode, ops, cache)
                 stats["traces"] += 1
                 if len(C):
-                    s0 = C @ w0; ops.add(3 * len(C))
+                    s0 = C @ w0; ops.add(3 * len(C) + 4 * len(C))   # dots + abs/sum/compare/sign
                     keep = np.abs(C).sum(1) > 1e-13
                     for c, s in zip(C[keep], s0[keep]):
                         cc = c if s > 0 else -c

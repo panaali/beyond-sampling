@@ -9,7 +9,7 @@ import numpy as np
 import fibre4 as F4
 from fiber3 import Ops
 
-LOOK = 2
+LOOK = 3            # frozen for rung (4,4) on the T97 reviewer's advice (L = 2 breaks far from trained weights)
 
 
 def _walk_down(model, st, B, nn, truth, w0, f_start, u_start, f_bound, u_bound, ops, cache, cons):
@@ -26,17 +26,17 @@ def _walk_down(model, st, B, nn, truth, w0, f_start, u_start, f_bound, u_bound, 
         same = st.ok & (np.abs(d).sum(1) < 1e-12 * (1 + np.abs(f_u).sum()))
         m = st.ok & ~same
         cons.append(d[m])
-        ahead = m & (ug < u) & (ug > u_bound)
+        ahead = m & (ug < u) & (ug > u_bound); ops.add(16 * len(ug))
         fb = fv(f_bound)
         if ahead.any():
             idx = np.flatnonzero(ahead); kk = int(idx[np.argmax(ug[idx])]); unext = float(ug[kk]); f_next = st.gal[kk]
             cons.append((st.gal[kk] - fb)[None])
             o = idx[idx != kk]
-            cons.append(st.gal[o] - f_next)
+            cons.append(st.gal[o] - f_next); ops.add(4 * len(idx) + 4)
         else:
             kk = -1; unext = u_bound; f_next = f_bound
             o = np.flatnonzero(m & (ug < u))
-            cons.append(st.gal[o] - fb)
+            cons.append(st.gal[o] - fb); ops.add(4 * len(o))
         a = st.Lb @ w0; b = st.Ln; ops.add(3 * T)
         edges = []
         if st.live:
@@ -46,7 +46,7 @@ def _walk_down(model, st, B, nn, truth, w0, f_start, u_start, f_bound, u_bound, 
                 den = b[dcl] - b[truth]
                 if abs(den) < 1e-300:
                     cons.append((st.Lb[truth] - st.Lb[dcl])[None]); continue
-                fd = (st.Lb[truth] - st.Lb[dcl]) / den; ops.add(4)
+                fd = (st.Lb[truth] - st.Lb[dcl]) / den; ops.add(4 + 16)
                 cons.append((fd - f_u)[None]); cons.append((fd - fv(f_next))[None])
                 v = float(fd @ w0)
                 if unext < v < u:
@@ -59,7 +59,7 @@ def _walk_down(model, st, B, nn, truth, w0, f_start, u_start, f_bound, u_bound, 
         seq = [(u, f_u)] + edges + [(unext, f_next)]
         stop = None
         for q in range(len(seq) - 1):
-            vm = 0.5 * (seq[q][0] + seq[q + 1][0])
+            vm = 0.5 * (seq[q][0] + seq[q + 1][0]); ops.add(2)
             cls = int(np.argmax(a + vm * b)) if st.live else 0; ops.add(2 * T)
             if cls == truth:
                 stop = q; break
@@ -76,7 +76,7 @@ def _walk_down(model, st, B, nn, truth, w0, f_start, u_start, f_bound, u_bound, 
             return [(f_bound, f_start)]
         key = (id(st), kk, -1)
         if key not in cache:
-            x = p + (unext - (abs(unext) * 1e-9 + 1e-12)) * nn
+            x = p + (unext - (abs(unext) * 1e-9 + 1e-12)) * nn; ops.add(12)
             cache[key] = F4.State(model, x, B, nn, ops)
         st = cache[key]; u = unext; f_u = f_next
     return [(f_u, f_start)]
@@ -90,8 +90,9 @@ def trace_F2L2(model, st0, B, nn, truth, cfn, w0, ops, cache):
     f_a = inf.get("f_stop"); u_a = inf.get("u_stop", 0.0)
     if ucl <= 0 or (f_a is not None and f_a is fcl) or (iv and iv[-1][1] is fcl):
         return iv, C
-    x = B @ w0 + ucl * (1 - 1e-9) * nn
+    x = B @ w0 + ucl * (1 - 1e-9) * nn; ops.add(12 + 16 + 4 * len(cfn))
     stc = F4.State(model, x, B, nn, ops)
+    cache.setdefault("_alive", []).append(stc)   # keep stc alive: id(stc) is a cache key (T97 reviewer's fix)
     iv2 = _walk_down(model, stc, B, nn, truth, w0, fcl, ucl, f_a, u_a, ops, cache, cons)
     C2 = np.vstack([c if c.ndim == 2 else c[None] for c in cons if len(c)]) if cons else np.zeros((0, 3))
     return iv + iv2, C2
@@ -113,7 +114,7 @@ def face_err(model, fam, side, ops, stats):
                 iv, C = trace_F2L2(model, st0, B, nn, truth, cfn, w0, ops, cache)
                 stats["traces"] += 1
                 if len(C):
-                    s0 = C @ w0; ops.add(3 * len(C))
+                    s0 = C @ w0; ops.add(3 * len(C) + 4 * len(C))
                     keep = np.abs(C).sum(1) > 1e-13
                     for c, s in zip(C[keep], s0[keep]):
                         a_, b_ = F4.clip(cur, c if s > 0 else -c, ops)

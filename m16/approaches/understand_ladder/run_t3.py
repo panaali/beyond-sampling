@@ -21,8 +21,9 @@ import fibre  # noqa: E402
 from fibre import est_fibre, est_fibre2, Ops  # noqa: E402
 from zoo import best_seed, leaderboard_models, noisy_abs, ops_per_sample, zoo_model  # noqa: E402
 
-TIERS = ("F0", "F1a", "F1", "F2", "F2L2", "FX")
-RECIPE = "F2L2"     # frozen ladder recipe (T88): attached wedges at both fibre ends, forward look-ahead of 2 pieces
+TIERS = ("F0", "F1a", "F1", "F2", "F2L2", "F2L3", "FX")
+RECIPE = "F2L3"     # frozen ladder recipe from T100 on: F2 with look-ahead 3 (T97 advice); strict op count, id() fix
+# (F2L2 = the T88/T93 recipe, scored with the author count and before the fix)
 
 
 def score(H, K, tiers=None, old=None):
@@ -43,8 +44,8 @@ def score(H, K, tiers=None, old=None):
             r = {"truth": ex, "exact_ops": oe.n, "leaves": st["leaves"], "regions": count_regions(m)}
         for tier in (tiers or TIERS):
             o = Ops(); inf = {}; tt = time.time()
-            if tier in ("F2", "F2L2"):
-                fibre.LOOK = 2 if tier == "F2L2" else 0
+            if tier in ("F2", "F2L2", "F2L3"):
+                fibre.LOOK = {"F2": 0, "F2L2": 2, "F2L3": 3}[tier]
                 e = est_fibre2(m, o, inf)
             else:
                 e = est_fibre(m, tier, o, inf)
