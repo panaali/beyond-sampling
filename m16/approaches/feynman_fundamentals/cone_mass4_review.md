@@ -45,3 +45,21 @@ precision evaluation remain open repairs coordinated with T109.
 
 No broad negative about cone integration, complete cost claim, or
 confirmation of the author's overall estimator follows from this review.
+
+## Finite orthogonal rescue of the mixed-sign failure
+
+The frozen rational Givens rotation c=255/257,s=32/257 has c^2+s^2=1.
+An independent Fraction application to the stored dyadic rays of
+nearest495 verifies every rotated coordinate has a common sign across
+all rays. Isotropic Gaussian mass is invariant under this rotation,
+and a global coordinate reflection then gives a positive-orthant cone.
+This establishes the geometric premise exactly for the stored rays;
+the numerical rotated arrays and quadrature remain floating arithmetic.
+
+The positive result8.46082735079679e-10 agrees with the independently
+reviewed MP result8.460827350796833e-10. The integration-only bound is
+not a total floating certificate. Fixing the four exposed failures
+leaves all corpus values nonnegative, but does not validate every
+remaining source-positive value or certify the whole estimator cost.
+No further theoretical concern with this finite geometry-only rescue
+was found. The original negatives/domain exception remain evidence.
