@@ -1447,3 +1447,13 @@ one-dimensional L1 weight discrepancy delta, the exact-real sum perturbation
 is at most s^4*epsilon*L+delta*(s^3+s^2+s+1)*a^(-5/2). Exact isqrt bounds and
 pi>3 give conservative rational probability bounds. Source map/kernel,
 determinant and accumulation arithmetic remain excluded.
+
+### H5 Hopf shape controls before the single-case pilot
+
+`check_h5_hopf_controls_review.py` checks eight saved controls: five circles,
+one2x3 grid and two exact dyadic einsums. All output bits, inherited counters,
+full explicit site sums and conditional sort/search allowances match. H5
+recurrence/readout dimensions are explicit; the padded original-mask witness
+still returns0.125 instead of its analytic value, so no defect repair is claimed.
+The source-gated next step is only clean seed0 h64, requiring original saved
+output/counter parity before tracing; no panel or H4-cost transfer follows.
