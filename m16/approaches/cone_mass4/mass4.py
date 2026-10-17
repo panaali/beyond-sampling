@@ -85,8 +85,8 @@ def adjugate_sym(m, ops):
     return adj, det
 
 
-KAPPA_GOOD = 1e9          # early exit threshold for the candidate search (set by calibration; inf = search all)
-TOL = 1e-9                # target quadrature error (relative to 1)
+KAPPA_GOOD = 0.1         # early exit of the candidate search (tune.py)
+TOL = 1e-6                # node-count target of the Bernstein-ellipse model (tune.py: actual max error 3e-8)
 NMAX = 40
 
 

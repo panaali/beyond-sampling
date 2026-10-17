@@ -1,4 +1,4 @@
-"""Tune (KAPPA_GOOD, TOL): max error vs a 64-node evaluation and mean ops, on 4000 cones of 4 kinds (as calibrate.py).
+"""Tune (KAPPA_GOOD, TOL) on non-flat cones: max error vs a 64-node evaluation and mean ops, on 4000 cones of 4 kinds (as calibrate.py).
 usage: python tune.py"""
 import json
 import os
@@ -24,10 +24,15 @@ for t in range(4000):
         R = rng.standard_normal((4, 4)); R[:, 3] *= 10 ** rng.uniform(-3, 0); R[1] += 10 ** rng.uniform(-3, 0) * R[0]
         N = np.linalg.inv(R.T)
     C = M.corr_from_normals(N, M.Ops())
+    try:
+        M.mass_from_corr(C, M.Ops(), 4, flat_check=True)
+    except M.FlatCone:
+        continue                      # flat cones are split by mass4_rays (tested separately)
     Cs.append((C, M.mass_from_corr(C, M.Ops(), 64)))
 out = []
-for kg in (0.25, 0.5, 1.0, 1e9):
-    for tol in (1e-8, 1e-9):
+print('non-flat cones:', len(Cs))
+for kg in (0.1,):
+    for tol in (1e-6, 1e-5, 1e-4, 1e-3):
         M.KAPPA_GOOD, M.TOL = kg, tol
         E, O = [], []
         for C, ref in Cs:
