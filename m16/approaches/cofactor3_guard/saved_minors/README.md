@@ -11,3 +11,9 @@ Apply the frozen primitive to the exact stored minor. Map its interval to the si
 Two alternatives remain live: the source may already be more accurate than the simpler point formula; or most useful intervals may be wide/cross zero despite passing containment. Preserve both outcomes and all source/candidate ties. No mass-level accuracy, native speed, full-corpus or cheap300-unit claim. Outward intervals certify stored minors only, excluding rounding in the upstream Rt construction and every other integrand term.
 
 Source gate before execution; independent saved audit before another phase. No saved data are modified and no original mass values are recalculated.
+
+The frozen64 application completed after the independent source/sign-mapping gate. All64 used the fast enclosure, contained the exact signed determinant, and excluded zero; no exact fallback. Candidate point error is smaller than the saved source point in34 cases, larger in27, and tied in3. Maximum relative candidate point error is7.37902440685544e-11; the source maximum is1.3418550782687846e-10 on a different row. No universal point-accuracy ranking follows.
+
+Maximum relative enclosure width is6.047830053966127e-9. This certifies the stored minor only and does not turn the error into a Gaussian mass bound. All64 have the dense primitive inventory31 arithmetic/9abs/28comparisons, plus9finite/2nextafter/9conversions. The signed wrapper uses96 additional negations across the32 negative-sign cases. No native cost ratio is formed.
+
+Saved results.json contains all exact errors, hashes, provenance, signs and category counts. run1.log preserves the first execution. Recorded audit/reference CPU .013559756 seconds excludes imports and final serialization; zero native determinant/mass/model/MC calls. Independent saved audit pending. Reproduce `run.py` under the review lock in an isolated output copy; the script refuses to overwrite the saved result.
