@@ -179,3 +179,23 @@ account of full-transport error. Earlier stages and target quadrature remain.
 rescaling with both monitor orientations. The canonical `estimator.py` is
 unchanged; experimental mesh_builder is optional and default behavior stays
 identical. Monitor and matrix construction are charged inside every estimate.
+
+Next mechanism test, frozen before new runs: eliminate the empirical curvature
+monitor and place terminal-stage axis nodes on an exponential map with the
+weight-derived gate scale s_d=min_i |Wi_i/Wh_id| over nonzero numerator and
+denominator. The gate root x_i(h)=-(Wh_i dot h)/Wi_i shifts by one standard
+normal input unit when coordinate d shifts s_d. Set h_d(z)=s_d*expm1(z*
+log1p(B_d/s_d)), z uniform[0,1], keeping exact box endpoints and node count.
+If no such slope exists retain the original quadratic axis. This heuristic
+resolves thin gate layers near zero; it does not locate every oblique readout
+boundary or use the reachable distribution. Wh/Wi=0 degeneracies are excluded
+from its scale, not asserted harmless.
+
+Alternative A: the observed improvement came from non-gate readout boundaries,
+so this gate-only mesh will not reduce local residuals. Alternative B: too many
+nodes are moved toward zero, worsening earlier accessible parts of the box;
+a local improvement may not improve final accuracy. Compare baseline,
+curvature and gate meshes at h17/33, q32 then q64, retaining all results and
+charging construction inside each estimate. Reuse the independent local
+residual diagnostic; use no exact-reference parameter tuning. Constants and
+positive hidden-unit scaling must remain invariant. No new MC or larger grid.
