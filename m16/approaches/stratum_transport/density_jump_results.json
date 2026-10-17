@@ -1,0 +1,351 @@
+{
+  "classification": "line-source density jump and represented area continuity diagnostic",
+  "random_model_inputs": 0,
+  "sources": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_density_jump.py": "64849dfee290cb4357d2fc08c0005dee0e65748cf2c9d64528eb86a885db4512",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/density_shape.py": "978620d733c9a7e07e08b05967a50955824904d593352163e752f60de10a3b37",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input.py": "4286350221428688c19cbb04fdf5dddd20c8791404f6cab70d58882a81cfdd22",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "85c5e700b5989d2631dc6872a5f9abd84f1859fa5b768884e7daa53cea920b66"
+  },
+  "rows": [
+    {
+      "model": "toy",
+      "boundary_amplitude_densities": [
+        0,
+        0.08920620580588089,
+        0.19947113980712483
+      ],
+      "signed_jump_coefficients": [
+        -0.0,
+        0.04460310290294044,
+        0.19947113980712483
+      ],
+      "net_coefficient": 0.24407424271006528,
+      "checks": [
+        {
+          "s": 0.5,
+          "epsilon": 0.001,
+          "line_plus": [
+            0.0,
+            0.015696863610099712,
+            0.07030116989979103
+          ],
+          "line_minus": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "line_difference": 0.08599803350989074,
+          "predicted_limit": 0.08593007801446807,
+          "line_limit_error": 6.795549542266965e-05,
+          "represented_area_plus": 3.885765031502119e-05,
+          "represented_area_minus": 0.0,
+          "represented_area_difference": 3.885765031502119e-05
+        },
+        {
+          "s": 0.5,
+          "epsilon": 1e-05,
+          "line_plus": [
+            0.0,
+            0.015703142652840184,
+            0.07022761686583034
+          ],
+          "line_minus": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "line_difference": 0.08593075951867053,
+          "predicted_limit": 0.08593007801446807,
+          "line_limit_error": 6.815042024599371e-07,
+          "represented_area_plus": 3.883049934881914e-07,
+          "represented_area_minus": 0.0,
+          "represented_area_difference": 3.883049934881914e-07
+        },
+        {
+          "s": 0.5,
+          "epsilon": 1e-07,
+          "line_plus": [
+            0.0,
+            0.015703205364779402,
+            0.0702268794649254
+          ],
+          "line_minus": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "line_difference": 0.0859300848297048,
+          "predicted_limit": 0.08593007801446807,
+          "line_limit_error": 6.815236722190754e-09,
+          "represented_area_plus": 3.883022749491968e-09,
+          "represented_area_minus": 0.0,
+          "represented_area_difference": 3.883022749491968e-09
+        },
+        {
+          "s": 1.0,
+          "epsilon": 0.001,
+          "line_plus": [
+            0.0,
+            0.01079210097933173,
+            0.048368515719106935
+          ],
+          "line_minus": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "line_difference": 0.05916061669843867,
+          "predicted_limit": 0.05905882134501574,
+          "line_limit_error": 0.00010179535342292462,
+          "represented_area_plus": 2.6725339115288434e-05,
+          "represented_area_minus": 0.0,
+          "represented_area_difference": 2.6725339115288434e-05
+        },
+        {
+          "s": 1.0,
+          "epsilon": 1e-05,
+          "line_plus": [
+            0.0,
+            0.010792639746298589,
+            0.048267200095177674
+          ],
+          "line_minus": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "line_difference": 0.05905983984147627,
+          "predicted_limit": 0.05905882134501574,
+          "line_limit_error": 1.0184964605239322e-06,
+          "represented_area_plus": 2.668797460385871e-07,
+          "represented_area_minus": 0.0,
+          "represented_area_difference": 2.668797460385871e-07
+        },
+        {
+          "s": 1.0,
+          "epsilon": 1e-07,
+          "line_plus": [
+            0.0,
+            0.010792645071443379,
+            0.04826618645859101
+          ],
+          "line_minus": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "line_difference": 0.059058831530034384,
+          "predicted_limit": 0.05905882134501574,
+          "line_limit_error": 1.0185018640973542e-08,
+          "represented_area_plus": 2.6687600947828406e-09,
+          "represented_area_minus": 0.0,
+          "represented_area_difference": 2.6687600947828406e-09
+        }
+      ],
+      "work": {
+        "support_rational_products": 6.0,
+        "support_rational_sums": 3.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 64.0,
+        "max_total_mass_defect": 2.220446049250313e-16,
+        "support_sign_checks": 1.0,
+        "support_cell_clips": 119.0,
+        "constructed_source_nodes": 64.0,
+        "zero_weight_source_nodes": 0.0,
+        "normal_cdf_values": 2496.0,
+        "input_intervals": 2432.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 1384.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 12.0,
+        "shape_univariate_density_values": 6.0,
+        "shape_normal_cdf_values": 12.0,
+        "area_density_queries": 12.0,
+        "line_source_density_terms": 18.0,
+        "support_line_convolution_cells": 1236.0
+      },
+      "exact_gate_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.03782502099999996
+    },
+    {
+      "model": "trained_H2T8",
+      "boundary_amplitude_densities": [
+        0,
+        0.11292325433972468,
+        0.19947113980712483
+      ],
+      "signed_jump_coefficients": [
+        0.0,
+        -1.1722514142072427,
+        0.04560703602165153
+      ],
+      "net_coefficient": -1.126644378185591,
+      "checks": [
+        {
+          "s": 0.5,
+          "epsilon": 0.001,
+          "line_plus": [
+            0.0,
+            0.0,
+            0.016053777430984798
+          ],
+          "line_minus": [
+            0.0,
+            0.40709128815928797,
+            0.0
+          ],
+          "line_difference": -0.3910375107283032,
+          "predicted_limit": -0.3966524211530711,
+          "line_limit_error": 0.005614910424767916,
+          "represented_area_plus": 0.0065278809465763215,
+          "represented_area_minus": 0.006369713527060207,
+          "represented_area_difference": 0.0001581674195161144
+        },
+        {
+          "s": 0.5,
+          "epsilon": 1e-05,
+          "line_plus": [
+            0.0,
+            0.0,
+            0.016056627288054105
+          ],
+          "line_minus": [
+            0.0,
+            0.4126533631944731,
+            0.0
+          ],
+          "line_difference": -0.396596735906419,
+          "predicted_limit": -0.3966524211530711,
+          "line_limit_error": 5.568524665211516e-05,
+          "represented_area_plus": 0.006521468001936707,
+          "represented_area_minus": 0.006519882307369946,
+          "represented_area_difference": 1.5856945667610048e-06
+        },
+        {
+          "s": 0.5,
+          "epsilon": 1e-07,
+          "line_plus": [
+            0.0,
+            0.0,
+            0.016056655752200773
+          ],
+          "line_minus": [
+            0.0,
+            0.41270852010015346,
+            0.0
+          ],
+          "line_difference": -0.3966518643479527,
+          "predicted_limit": -0.3966524211530711,
+          "line_limit_error": 5.568051184012823e-07,
+          "represented_area_plus": 0.006521404512015293,
+          "represented_area_minus": 0.00652138865466989,
+          "represented_area_difference": 1.5857345402915668e-08
+        },
+        {
+          "s": 1.0,
+          "epsilon": 0.001,
+          "line_plus": [
+            0.0,
+            0.0,
+            0.011031613596700341
+          ],
+          "line_minus": [
+            0.0,
+            0.2781937764702952,
+            0.0
+          ],
+          "line_difference": -0.26716216287359484,
+          "predicted_limit": -0.27261495646498723,
+          "line_limit_error": 0.005452793591392391,
+          "represented_area_plus": 0.003742926834010454,
+          "represented_area_minus": 0.003637654296478767,
+          "represented_area_difference": 0.00010527253753168713
+        },
+        {
+          "s": 1.0,
+          "epsilon": 1e-05,
+          "line_plus": [
+            0.0,
+            0.0,
+            0.011035528028206733
+          ],
+          "line_minus": [
+            0.0,
+            0.2835960115095882,
+            0.0
+          ],
+          "line_difference": -0.27256048348138145,
+          "predicted_limit": -0.27261495646498723,
+          "line_limit_error": 5.447298360578001e-05,
+          "represented_area_plus": 0.0037400741383599202,
+          "represented_area_minus": 0.003739015921833494,
+          "represented_area_difference": 1.058216526426091e-06
+        },
+        {
+          "s": 1.0,
+          "epsilon": 1e-07,
+          "line_plus": [
+            0.0,
+            0.0,
+            0.011035567154120303
+          ],
+          "line_minus": [
+            0.0,
+            0.28364997889553956,
+            0.0
+          ],
+          "line_difference": -0.27261441174141926,
+          "predicted_limit": -0.27261495646498723,
+          "line_limit_error": 5.447235679745255e-07,
+          "represented_area_plus": 0.0037400461369330755,
+          "represented_area_minus": 0.003740035554218372,
+          "represented_area_difference": 1.0582714703253476e-08
+        }
+      ],
+      "work": {
+        "support_rational_products": 6.0,
+        "support_rational_sums": 3.0,
+        "source_rule_constructions": 1.0,
+        "two_input_density_cells_constructed": 2.0,
+        "source_nodes": 64.0,
+        "max_total_mass_defect": 0.0,
+        "support_sign_checks": 1.0,
+        "support_cell_clips": 107.0,
+        "constructed_source_nodes": 64.0,
+        "zero_weight_source_nodes": 0.0,
+        "normal_cdf_values": 4096.0,
+        "input_intervals": 4032.0,
+        "max_row_mass_defect": 2.220446049250313e-16,
+        "interior_readout_evaluations": 1515.0,
+        "max_forbidden_axis_mass": 0.0,
+        "shape_density_queries": 12.0,
+        "shape_univariate_density_values": 6.0,
+        "shape_normal_cdf_values": 12.0,
+        "area_density_queries": 12.0,
+        "line_source_density_terms": 18.0,
+        "support_line_convolution_cells": 1416.0
+      },
+      "exact_gate_work": {
+        "rational_arithmetic": 61,
+        "rational_comparisons": 15,
+        "angle_evaluations": 6
+      },
+      "cpu_seconds": 0.04181595500000013
+    }
+  ],
+  "cpu_seconds_including_torch_import": 0.9032780220000001,
+  "sources_after": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/check_density_jump.py": "64849dfee290cb4357d2fc08c0005dee0e65748cf2c9d64528eb86a885db4512",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/density_shape.py": "978620d733c9a7e07e08b05967a50955824904d593352163e752f60de10a3b37",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/two_input.py": "4286350221428688c19cbb04fdf5dddd20c8791404f6cab70d58882a81cfdd22",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/support_volume.py": "3a0b06d1b2182ae05ad38cd90a756f809bf674c6fd73c4f78f6d031915895ee7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/stratum_transport/mixed_volume.py": "85c5e700b5989d2631dc6872a5f9abd84f1859fa5b768884e7daa53cea920b66"
+  }
+}
