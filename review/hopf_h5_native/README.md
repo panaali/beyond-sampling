@@ -7,13 +7,13 @@ What direct qualified source/native cost does the original saved H5T4 Hopf metho
 Claim8e88e89f; coordinate recover78/h4. Pin original ev_54.json and unchanged Hopf37e5cb78, canonical AlgZoo5x4 seed0..4 checkpoints, original absolute.05/noise50 four copies per base, and existing10M truth metadata. Recover canonical checkpoint identities first. Reuse the reviewed H4 tracer read-only only after H5 shape/source applicability controls. First measured case is fixed cleanseed0 h64, not a full panel. No new training/noise law/reference sampling or method selection.
 
 ## Status
-Provenance/source inventory started. Original H5 checkpoint hashes were not retained with the saved evidence; canonical recovery is an explicit prerequisite. No model/estimator/reference calls yet.
+Canonical checkpoint and 25-model provenance complete, independently f51a6d34. Current canonical byte identities do not prove historical byte identity; exact saved estimator-output parity remains the next gate. Eight fixed H5 synthetic tracer controls completed; trained clean0 h64 pilot source is frozen and awaiting independent gate.
 
 ## Results
-Pins/source snapshots in protocol.json and frozen/. Source original root-mask defect is retained; a local repair is not silently substituted. Existing h128 values are approximations, not exact truths. Missing or mismatching source/checkpoint/shape data remains unresolved.
+Pins/source snapshots in protocol.json and frozen/. Five checkpoint SHA/MD5/generation identities are in checkpoint_identity.json; all 25 original float64 model arrays/hashes and saved10M metadata are in models.json. Reproduction: `python provenance.py` (immutable output; use an isolated copy). Eight synthetic circle/grid/einsum controls in controls.json pass original/traced hex and legacy parity, with 0.190784927 CPU. The padded analytic root-mask witness remains .125 versus true .05120819117478336; this is retained, not repaired. Reproduction: `python controls.py` (immutable output). Source original root-mask defect is retained; a local repair is not silently substituted. Existing h128 values are approximations, not exact truths. Missing or mismatching source/checkpoint/shape data remains unresolved.
 
 ## Compute accounting
-One thread2GB, primary105/110CPU; review<=20CPU. Checkpoint download/read and model-free setup recorded separately. Direct trace will keep explicit arithmetic, conditional sort/search allowances, opaque/native/library/control/memory costs distinct. No full native/runtime or H5 rung claim at this stage.
+One thread2GB, primary105/110CPU; review<=20CPU. Provenance reconstruction .044897727 CPU excluding imports, no trained forward/estimator/MC; checkpoint fetch .030008709 CPU separately. Synthetic control .190784927 CPU includes its independent baseline and traced evaluations; zero trained calls. Checkpoint download/read and model-free setup recorded separately. Direct trace will keep explicit arithmetic, conditional sort/search allowances, opaque/native/library/control/memory costs distinct. No full native/runtime or H5 rung claim at this stage.
 
 ## Claims
 [inferred] H4 cost observations do not determine H5 cost; direct per-model evidence is required. [speculative] The original H5 saved results may remain favorable under a matched convention, but existing10M uncertainty can prevent a conclusion.
