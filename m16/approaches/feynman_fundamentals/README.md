@@ -342,3 +342,29 @@ endpoint permutations. Alternative2: tangent Gram-Schmidt loses thin geometry;
 test a predeclared progression of widths and expose all fallback cases/errors.
 Bound initial geometry benchmark to4096 deterministic triangles and at most20
 CPU seconds through the approved review lock, no sampled model inputs.
+
+Before adoption, extend the fixed width sweep to asymmetric triangles near a
+simplex corner, whose plane-normal foot lies outside the triangle. These produce
+mixed boundary signs and can expose cancellation hidden by the symmetric sweep.
+Test widths .1 down to0 against positive original-domain quadrature, record all
+heuristic-screen rejections, and retain the initial benchmark cost separately.
+
+Cycle8 result: `triangle_batch.signed_l1_triangles(vertices, exponent=d)` takes
+shape(...,3,d) signed-L1 endpoints and returns(values,stats). Degree1..3 moments
+use vectorized tangent geometry and elementary arcs, without QR, SVD or solves.
+The current4096-triangle d6 throughput check took.005956CPU seconds;32 slower
+scalar comparisons differed by at most1.999e-15. The broader symmetric AND
+asymmetric width sweep is more demanding: maximum relative differences from
+positive original-domain integration are1.765e-11,2.871e-11,5.139e-11 for
+d4,d5,d6. These are preserved, so no uniform near-machine-precision claim is
+made. Every numerical screen and fallback contributes explicit counters.
+
+`triangle_batch_results.json` records45 width cases, their endpoint-permutation
+checks, the4096-triangle benchmark and32 scalar comparisons. Current full
+check cost.033726CPU seconds, no model passes or sampled model inputs. Earlier
+checks before adding asymmetric cases and Taylor-tail metadata cost.032893
+and.032589CPU seconds. Reproduce under the approved single-thread review lock
+with `check_triangle_batch.py`. The small-angle series exposes its real-
+arithmetic truncation error; both floating geometry and the1e-10 roundoff screen
+remain uncertified. This is ready for independently owned outer-driver pilots,
+not a trained-model speed or challenge-solved claim.
