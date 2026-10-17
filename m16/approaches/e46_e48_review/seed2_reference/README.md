@@ -11,17 +11,26 @@ Every copied ray and auxiliary source Ops instance counted; preserve ties and
 partials. No source/positive mass evaluation, random inputs, Monte Carlo or
 new candidate prediction. Geometry still performs charged neural affine updates.
 
-Status: source frozen; complementary recover_56 execution gate passed for
-d1f4e23e. Capture execution pending. Prior loader/guard/source controls
+Status: capture complete; complementary recover_56 execution gate passed for
+d1f4e23e. Independent saved audit pending. Prior loader/guard/source controls
 and existing seed0/1 capture audits are reused unchanged, not rerun.
 
-Results: pending; command python capture.py under110CPU primary/2GB cap.95CPU
-soft guard preserves incomplete parent. Existing outputs refuse overwrite.
+Results: one attempt saved96 parents,37739 error simplices and9470 terminal
+cells, matching the published9470 cells and9374 resolved splits. No exact-zero
+output ties fired. Capture12.657329786CPU; total process12.790414188CPU,
+peak207736KiB. All195 progress records and96 parent archive hashes retained.
+Command: python capture.py under110CPU primary/2GB cap.95CPU soft guard preserves
+an incomplete parent. Existing outputs refuse overwrite; do not rerun.
 
 Compute accounting: imports/model loading/geometry/guard/copy/archive/process
 CPU and source partial proxies retained separately. New cold rules imported by
 reviewed adapter remain work even though mass does not run. Complete native,
 conversion/control/memory and floating geometry cost/certification unclaimed.
+Main inherited geometry proxy38393434,96 cold-half instances each595 give
+57120 additional proxy units; total38450554. Guard102156 scalar equalities plus
+76617 Boolean reductions are separate. Copied ray payload4830592bytes; archive
+stacking incurs another603824 copied float64 elements, with headers/compression
+work outside these counts. These are partial categories, not a full native cost.
 
 Claims: [inferred] exact-mode reachable geometry statements agree after specified
 AST removal; source parity is no historical runtime proof. [speculative] Positive
