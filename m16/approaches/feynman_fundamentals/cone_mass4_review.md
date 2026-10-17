@@ -391,3 +391,21 @@ inherited nominal subset, not audited complete cost or competitiveness.
 Recorded replay CPU97.6691; reviewer.5874. One frozen checkpoint and rule
 pair do not establish a noisy-model ladder pass or general source fix.
 A separate fixed recipe108 replay and full-cost audit remain appropriate.
+
+## T142 residual endpoint-tail diagnostic
+
+The reviewer independently integrates the absolute correlation derivative
+to reproduce the residual Plackett tail bound at all four frozen cuts.
+For the original rounded last node, B=3.48783409322e-5 and the constant-tail
+replacement bound D=5.02427322857e-5 exceed the known same-rule error
+4.80391855955e-7. The prescribed test is inconclusive. The comparison uses
+exact-ray correlations with the ORIGINAL rounded rule, ensuring replacement
+above that last node leaves the rule unchanged. The analytic base term is
+separate; the bound applies to the residual integrand only. Smaller-tail
+bounds are true contribution bounds, not quadrature-error shares.
+
+Independent eigenvalue trace/product checks support minimum eigenvalue
+4.02795850443e-8 and condition number8.57667654e7. Individual correlation
+thresholds do not reveal this conditioning. No endpoint-cause conclusion or
+full floating certificate follows. Reviewer .0777CPU; an initial nonexistent
+mpmath.trace call was preserved and repaired by explicit diagonal summation.
