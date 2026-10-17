@@ -1,0 +1,25 @@
+zoo seeds: exact truth / 2e5-sample MC check: {0: (np.float64(0.98455), np.float64(0.98386)), 1: (np.float64(0.89283), np.float64(0.89202)), 2: (np.float64(0.75901), np.float64(0.75986)), 3: (np.float64(0.90439), np.float64(0.90458)), 4: (np.float64(0.94516), np.float64(0.94532))}
+A anchor pair, anchor strip      rms 0.0116 bias +0.0082 max|e| 0.0906 ops 4545 (max 4994) samp_rmse@ops 0.0403 MSE ratio 0.0833 bad 34 per-seed [0.0118, 0.0109, 0.0114, 0.0124]
+                                 base err +0.00227; zoo errs {0: np.float64(0.0023), 1: np.float64(0.0108), 2: np.float64(0.0832), 3: np.float64(0.0397), 4: np.float64(-0.0404)} ops [4498, 5114, 4811, 5813, 4975]
+A2 anchor pair, all strips       rms 0.0076 bias +0.0026 max|e| 0.0760 ops 8363 (max 9528) samp_rmse@ops 0.0297 MSE ratio 0.0662 bad 34 per-seed [0.0078, 0.0073, 0.0073, 0.0081]
+                                 base err +0.00065; zoo errs {0: np.float64(0.0007), 1: np.float64(-0.0744), 2: np.float64(-0.0142), 3: np.float64(-0.0253), 4: np.float64(-0.0714)} ops [8454, 10343, 8914, 11854, 9638]
+B- default without completion    rms 0.0058 bias +0.0001 max|e| 0.0745 ops 12689 (max 15325) samp_rmse@ops 0.0241 MSE ratio 0.0585 bad 34 per-seed [0.0056, 0.0052, 0.007, 0.0053]
+                                 base err -0.00012; zoo errs {0: np.float64(-0.0001), 1: np.float64(-0.0712), 2: np.float64(-0.0163), 3: np.float64(-0.0194), 4: np.float64(-0.0736)} ops [13259, 12729, 10483, 14000, 14245]
+B default (A2 + resolved crossover) rms 0.0032 bias +0.0006 max|e| 0.0495 ops 13718 (max 17508) samp_rmse@ops 0.0232 MSE ratio 0.0186 bad 34 per-seed [0.0032, 0.0024, 0.0037, 0.0032]
+                                 base err -0.00006; zoo errs {0: np.float64(-0.0001), 1: np.float64(-0.0712), 2: np.float64(-0.0163), 3: np.float64(-0.0149), 4: np.float64(-0.0736)} ops [14724, 12729, 12903, 16410, 15811]
+C resolved everywhere            rms 0.0031 bias +0.0001 max|e| 0.0500 ops 23035 (max 27713) samp_rmse@ops 0.0179 MSE ratio 0.0294 bad 34 per-seed [0.003, 0.0023, 0.0037, 0.0031]
+                                 base err -0.00019; zoo errs {0: np.float64(-0.0002), 1: np.float64(-0.0056), 2: np.float64(-0.0149), 3: np.float64(-0.0094), 4: np.float64(-0.0097)} ops [24490, 19351, 19578, 25443, 23461]
+  family (-1, 'c01+')     exact 0.0045 model 0.0044 bias -0.00003 rms 0.0002
+  family (-1, 'c01-')     exact 0.0024 model 0.0023 bias -0.00007 rms 0.0002
+  family (-1, 'c02+')     exact 0.0226 model 0.0226 bias -0.00006 rms 0.0003
+  family (-1, 'c02-')     exact 0.0063 model 0.0062 bias -0.00010 rms 0.0002
+  family (-1, 'c12+')     exact 0.0022 model 0.0021 bias -0.00008 rms 0.0002
+  family (-1, 'c12-')     exact 0.0218 model 0.0218 bias -0.00003 rms 0.0018
+  family (1, 'c01+')      exact 0.0023 model 0.0022 bias -0.00007 rms 0.0002
+  family (1, 'c01-')      exact 0.0045 model 0.0044 bias -0.00004 rms 0.0002
+  family (1, 'c02+')      exact 0.0061 model 0.0060 bias -0.00011 rms 0.0002
+  family (1, 'c02-')      exact 0.0229 model 0.0229 bias -0.00005 rms 0.0002
+  family (1, 'c12+')      exact 0.0216 model 0.0217 bias +0.00016 rms 0.0024
+  family (1, 'c12-')      exact 0.0022 model 0.0021 bias -0.00009 rms 0.0003
+constant baseline (original model's accuracy for every copy): rms 0.1153
+done in 161 s
