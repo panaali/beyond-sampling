@@ -336,3 +336,11 @@ failed canonicalization are retained; neither certifies all floating predicates.
 Do not describe this as failure of Claude's separately fixed strict F2L3
 recipe. Shared author code remains unchanged. Final adoption belongs to DRI,
 and complete costs and scale behavior require explicit consideration.
+
+Independent complete-suite arithmetic review by small_h2_34 passes all471
+rows and12chunks in.0176CPU, no neural rerun. It recomputed each bias and
+sampling ratio, all per-H summaries, per-noise-group MSE and sampling variance,
+savings, uniqueness/completeness, and changed-case counts49/33/8 forH4/H5/H6.
+All saved figures match. This validates reporting consistency, not independent
+model truth, floating geometry or portable cost. The scoped T99 phase is done;
+remaining adoption and source corrections belong to DRI.
