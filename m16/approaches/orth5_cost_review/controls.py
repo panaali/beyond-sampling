@@ -25,8 +25,8 @@ def main():
     fixtures=[
       ('signed_scalar','def f(a,b):\n acc=a\n acc+=b\n return (a+b,a-b,a*b,a/b,-a,+b,a**2,acc)\n',(-0.0,2.0),
        {'numeric_expression:Add':2,'numeric_expression:Sub':1,'numeric_expression:Mult':1,'numeric_expression:Div':1,'numeric_expression:USub':1,'numeric_expression:UAdd':1,'opaque_power:Pow':1}),
-      ('integer_sign','def f(a,b):\n return ((-1)**a,a+b,a!=b)\n',(2,3),
-       {'integer_expression:USub':1,'integer_expression:Pow':1,'integer_expression:Add':1,'integer_comparison:NotEq':1}),
+      ('integer_sign','def f(a,b):\n return ((-1)**a,a+b,a!=b,1/32,(1+2)*3)\n',(2,3),
+       {'integer_expression:Pow':1,'integer_expression:Add':1,'integer_comparison:NotEq':1}),
       ('broadcast','def f(a,b):\n return (a+b,a*b)\n',(np.array([[1.],[2.]]),np.array([[3.,4.,5.]])),
        {'numeric_expression:Add':6,'numeric_expression:Mult':6}),
       ('dot','def f(a,b):\n return a@b\n',(np.array([1.,2.,3.]),np.array([4.,5.,6.])),{'opaque_matmul:MatMult':1}),
