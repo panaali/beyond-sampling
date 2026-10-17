@@ -9,10 +9,10 @@ Claim6023082d first pins the finite exact/recipe census, public LAPACK sources a
 Alternative explanations: a finite census resolves iteration uncertainty but leaves per-call work unknown; public source and installed instructions can differ; kernel observers may include calls from outside rank. Never turn a partial named-category total into complete cost. In particular DNRM2 is a global symbol and can include geometry norms; audit attribution before composition.
 
 ## Status
-Protocol/source inventory frozen. DLASQ5 proof and controls next; full native envelope remains open.
+DLASQ5 source proof independently checked,64 frozen installed controls pass bitwise, and actual histogram contraction complete. Full native envelope remains open; reflector-exclusive work is next.
 
 ## Results
-None yet. Existing geometry/mass/model calculations are not rerun.
+DLASQ5 actual201773 exact/165964 recipe calls have conditional pinned-source numeric upper subtotals5949769/4879642. These count only Q5 arithmetic/negation/comparison, excluding index/control/memory and all other rank work. See Q5_DERIVATION.md, controls.json and q5_summary.json. Existing geometry/mass/model calculations are not rerun.
 
 ## Compute accounting
 One thread2GB, review<=20CPU, primary<=110CPU. Cost convention counts scalar numeric arithmetic/comparisons/elementary calls explicitly; integer index/loop operations, memory/runtime and unpriced native helpers remain separately unknown. Ordinary source-operation envelope is neither a hardware count nor a complete rank cost until composition is finished.

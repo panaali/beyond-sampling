@@ -1,0 +1,126 @@
+{
+  "modes": {
+    "exact": {
+      "q5_calls": 201773,
+      "rows": [
+        {
+          "kernel": "dlasq5",
+          "m": 3,
+          "n": 0,
+          "query": false,
+          "calls": 36875,
+          "failures": 0
+        },
+        {
+          "kernel": "dlasq5",
+          "m": 3,
+          "n": 1,
+          "query": false,
+          "calls": 33999,
+          "failures": 0
+        },
+        {
+          "kernel": "dlasq5",
+          "m": 4,
+          "n": 0,
+          "query": false,
+          "calls": 71626,
+          "failures": 0
+        },
+        {
+          "kernel": "dlasq5",
+          "m": 4,
+          "n": 1,
+          "query": false,
+          "calls": 59273,
+          "failures": 0
+        }
+      ],
+      "named_numeric_source_upper": {
+        "arithmetic": 4013762,
+        "negation": 201773,
+        "comparison": 1734234
+      },
+      "named_numeric_source_upper_total": 5949769,
+      "unpriced_kernel_calls": {
+        "dgebd2": 275897,
+        "dgebrd": 275897,
+        "dgebrd_query": 1103588,
+        "dgelq2": 243753,
+        "dgelqf": 243753,
+        "dgelqf_query": 494986,
+        "dgeqr2": 15013,
+        "dgeqrf": 15013,
+        "dgeqrf_query": 56808,
+        "dgesdd": 275897,
+        "dgesdd_query": 275897,
+        "dlarfg": 1390372,
+        "dlasq3": 239577,
+        "dnrm2": 886771
+      },
+      "no_complete_rank_cost": true
+    },
+    "recipe108": {
+      "q5_calls": 165964,
+      "rows": [
+        {
+          "kernel": "dlasq5",
+          "m": 3,
+          "n": 0,
+          "query": false,
+          "calls": 30912,
+          "failures": 0
+        },
+        {
+          "kernel": "dlasq5",
+          "m": 3,
+          "n": 1,
+          "query": false,
+          "calls": 28805,
+          "failures": 0
+        },
+        {
+          "kernel": "dlasq5",
+          "m": 4,
+          "n": 0,
+          "query": false,
+          "calls": 58185,
+          "failures": 0
+        },
+        {
+          "kernel": "dlasq5",
+          "m": 4,
+          "n": 1,
+          "query": false,
+          "calls": 48062,
+          "failures": 0
+        }
+      ],
+      "named_numeric_source_upper": {
+        "arithmetic": 3292906,
+        "negation": 165964,
+        "comparison": 1420772
+      },
+      "named_numeric_source_upper_total": 4879642,
+      "unpriced_kernel_calls": {
+        "dgebd2": 257040,
+        "dgebrd": 257040,
+        "dgebrd_query": 1028160,
+        "dgelq2": 228998,
+        "dgelqf": 228998,
+        "dgelqf_query": 467190,
+        "dgeqr2": 12019,
+        "dgeqrf": 12019,
+        "dgeqrf_query": 46890,
+        "dgesdd": 257040,
+        "dgesdd_query": 257040,
+        "dlarfg": 1293660,
+        "dlasq3": 200618,
+        "dnrm2": 820870
+      },
+      "no_complete_rank_cost": true
+    }
+  },
+  "cpu_seconds": 0.002731965000000003,
+  "qualification": "Conditional pinned-source numeric upper subtotal using actual finite call counts. Not a full native/source/hardware cost. Integer control/index/memory and all other rank work remain explicit unknowns."
+}
