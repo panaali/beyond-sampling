@@ -15,6 +15,10 @@ def main():
  out=HERE/'saved_results.json';progress=HERE/'saved_progress.jsonl';assert not out.exists() and not progress.exists()
  controls=json.loads((HERE/'controls.json').read_text());assert controls['cases']==21 and controls['failures']==[]
  protocol=json.loads((HERE/'protocol.json').read_text());assert hashlib.sha256((HERE/'bound.py').read_bytes()).hexdigest()==protocol['bound_sha256']
+ saved_protocol=json.loads((HERE/'saved_protocol.json').read_text())
+ assert hashlib.sha256((HERE/'controls.py').read_bytes()).hexdigest()==protocol['controls_sha256']
+ assert hashlib.sha256((HERE/'controls.json').read_bytes()).hexdigest()==saved_protocol['completed_controls_sha256']
+ assert hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==saved_protocol['saved_driver_sha256']
  frozen=json.loads((HERE/'manifest.json').read_text())
  for name,d in frozen['files'].items():assert hashlib.sha256((HERE/'frozen'/name).read_bytes()).hexdigest()==d['sha256']
  old=json.loads((HERE/'frozen/saved_minors_results.json').read_text());man=old['manifest'];assert old['complete'] and len(old['rows'])==64
