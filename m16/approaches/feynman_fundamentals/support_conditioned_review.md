@@ -50,3 +50,24 @@ on the rounded correlation and is not a bound on covariance construction
 error. Polar-angle controls owned by the author are a useful independent
 integration-order falsifier. No claim that adaptive quadrature is now
 universally reliable follows from these finite repairs.
+
+## Independent polar-coordinate check
+
+The author's `polar_check.py` at 05bcb69 uses a genuinely different
+formula. With direction e(theta), put a=e^T C^-1 e,
+s=e^T C^-1 mu/sqrt(a), c=mu^T C^-1 mu. Radial integration is
+`exp(-c/2)/a * integral_0^infinity u exp(-u^2/2+s*u) du`, divided by
+`2pi sqrt(det C)`. Completing the square yields the implemented
+nonnegative-s formula; for moderate negative s it gives the erfcx
+formula. For s<-5, substituting z=-s*u produces the positive Laguerre
+integrand `z exp(-z^2/(2s^2))/s^2`. All three source branches and the
+normalization are correct.
+
+The saved polar check agrees on twelve trained probability vectors within
+3.50e-14 and the aggregates within 5.55e-17. Isotropic narrow wedges
+through width 1e-7 are resolved without the correlation-limit shortcut.
+Seven radial controls exercise the negative-s switch independently;
+the trained laws do not exercise its large-negative branch. These are
+author-run distinct-formula controls plus this independent source review,
+not a second independent numerical execution. Shared Gaussian moments,
+geometry and floating adaptive/Laguerre limitations remain.

@@ -44,3 +44,32 @@ nonnegative. Adjacent floating CDF evaluations can violate monotonicity,
 so this is a floating safeguard, not exact positivity or an outward
 bound. Tail allowances address truncation only. Future rare-event use
 must retain these qualifications and charge any stable-interval repair.
+
+## Two surviving suffix inputs
+
+The next `two_suffix.py` source also checks algebraically. Write the
+surviving inputs as v>0,w=zv, with z>-k. Then
+`h_final=v*ReLU(W*wi+wi*z)`. Exact Fraction roots for gates, all readout
+pair crossings, and z=0,1 give constant winner and relative suffix rank
+on each interval. First-index ties use stable exact maximization. The
+current integral deliberately raises for an earlier-label winner or a
+selected nonpositive final suffix; it is not a generic all-model solver.
+
+For selected suffix threshold t>=0, the identities
+`G0(t)=Phi(t)/2+OwenT(t,k)-q` and
+`G1(t)=Phi(-t)/2-OwenT(t,k)` have the correct derivative and endpoint
+constants, where q=atan(k)/(2pi). If the other suffix is above, its rank
+weight is `Phi(t)^N G0(t)`; otherwise it is
+`N Phi(-t)Phi(t)^(N-1)G0(t)+Phi(t)^N G1(t)`.
+The pair-reset mass is already contained in G, so no further r factor
+belongs in the correctness integrand.
+
+Polar suffix coordinates have measure
+`R*exp(-R^2/2)dR*dtheta/(2pi)`. Mapping the angular GL weights supplies
+the source's interval-width/(4pi) factor. The angle range has Gaussian
+mass 1/4+q, and the rank weight is at most r, so the radial cutoff R=8
+has correctness omission at most `r*(1/4+q)*exp(-32)`. Direct-radius
+GL32/64 agreement is useful after the retained Laguerre convergence
+failure, but does not bound all angular/radial error. Negative Owen-T
+roundoff clamps remain explicit. `conditional.py` correctly treats
+ordinary, pair, and suffix target indices and retains their rank coupling.
