@@ -6,9 +6,9 @@ from affine_volume import AffineOperator
 
 HERE=Path(__file__).resolve().parent
 
-def synthetic(model,kind):
+def synthetic(model,kind,gradient):
     op=AffineOperator(model,6);op.pending_kind=kind;state=op.empty(np.array([1.,1.]))
-    scalar=.7;gradient=np.array([.2,.3])
+    scalar=.7;gradient=np.array(gradient)
     for i in range(op.n):
         for j in range(op.n):
             volume=op.area_cell_volume(state,i,j)
@@ -31,8 +31,20 @@ def synthetic(model,kind):
     # Constant density must reconstruct with identically zero gradients.
     for i,j in zip(*np.nonzero(state.area)):state.area[i,j]=op.area_cell_volume(state,i,j)
     op.prepare(state);assert np.max(abs(op.area_gradients))<2e-13
-    return {'support':kind,'max_density_error':max_density_error,'max_gradient_error':max_gradient_error,
+    return {'support':kind,'gradient':gradient.tolist(),'max_density_error':max_density_error,'max_gradient_error':max_gradient_error,
         'moment_error':moment_error,'work':dict(op.work)}
+
+def axis_control(model):
+    op=AffineOperator(model,6);state=op.empty(np.ones(2));state.support_kind='full'
+    intercept=np.array([.7,.8]);slope=np.array([.3,-.2])
+    for axis in (0,1):
+        edge=state.edges[axis];mid=(edge[:-1]+edge[1:])/2
+        state.axes[axis]=np.diff(edge)*(intercept[axis]+slope[axis]*mid)
+    H,P=op.source_nodes(state)
+    error=float(np.max(abs(P@H-(intercept/2+slope/3))))
+    assert error<2e-13
+    assert abs(P.sum()-sum(intercept+slope/2))<2e-13
+    return {'axis_first_moment_error':error,'work':dict(op.work)}
 
 def main():
     started=time.process_time();deadline=started+110
@@ -49,7 +61,8 @@ def main():
         'check_affine_volume.py','third_step_results.json','quadrature_results.json','fourth_step_results.json')]
     sources=lambda:{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     result={'classification':'mass-only positive local affine reconstruction, marginal controls only',
-        'sources':sources(),'random_model_inputs':0,'synthetic_controls':[synthetic(toy,k) for k in ('full','upper')],
+        'sources':sources(),'random_model_inputs':0,'synthetic_controls':[synthetic(toy,k,g) for k in ('full','upper') for g in ((.2,.3),(.2,-.3))],
+        'axis_control':axis_control(toy),
         'rows':[],'coordinate_controls':[]}
     def run(model,n):
         clock=time.process_time();op=AffineOperator(model,n);state=op.initial();steps=[]
