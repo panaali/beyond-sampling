@@ -47,7 +47,7 @@ and geometric uncertainty. No new positive-rule integration is needed.
    preserve the failure and do not silently repair the model/formula.
 
 ## Status
-Bounded fixture evaluation complete; independent result review pending.
+Bounded fixture evaluation complete and independently reviewed ea53df3.
 T55 reviewed formula, exact binary lifting, guards and controls before the
 fixture, then acknowledged the corrected branch protocol.
 
@@ -120,3 +120,9 @@ python m16/approaches/plackett_precision_review/review.py controls
 python m16/approaches/plackett_precision_review/review.py fixture
 ```
 These commands use only the pinned existing source fixture and rule.
+
+T55 independently reconstructed correlation through the ray-Gram inverse
+and conditional correlations through2x2 Schur complements at100 digits.
+All three arms agree within2.33e-99 and the finite-rule attribution survives
+that different implementation (review ea53df3). DRI classification remains
+separate; this does not certify other simplices or a full estimator.

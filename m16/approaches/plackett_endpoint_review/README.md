@@ -86,7 +86,7 @@ No directed floating-point certificate is claimed from MP stability alone.
 ## Alternatives not ruled out
 Interior branch shape, cancellation, different transforms, positive integral
 representations, and controlled interior integration. T140 independently owns
-uniform degree doubling; T141 owns analytic positive coordinate reduction.
+uniform degree doubling; T143 owns analytic positive coordinate reduction.
 
 ## Failure modes
 Mistaking a bound for observed error, treating GL nodes as interval endpoints,
