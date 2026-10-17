@@ -31,3 +31,15 @@ Pending; all failures and changes will be retained.
 
 ## Failure modes and untested alternatives
 Thin polygons, nearparallel clipping, duplicate/identical readout ownership, floating vertex ordering, combinatorial slice growth, inherited face-table error and endpoint cutoffs. Results cover only the truncated quantile interval, not the omitted endpoints or every anchor. Sparse mixed-dimensional integration, local selective switching and larger models remain untested; no broad sparse-quadrature negative follows.
+
+## First bounded result
+All primitive controls pass, including an approximately1e-12 positive strip, zero/duplicate readout first-index ownership, affine states at cell centroids and gate-area partitions. On eight trained slices, the independently implemented corrected segment walker agrees with polygon vertical mass to6.67e-16. The GL16/GL32 network-panel reference disagreement is at most3.73e-10; this is numerical consistency, not a certified error bound.
+
+Network-aware GL4 beats the same-node equal-width quantile control in4/8 slices. The H2 R12 errors are approximately1.23e-11/2.08e-11 versus uniform8.51e-5/2.85e-5. H4 R12 first configuration similarly improves to6.77e-12 versus2.23e-5; its last configuration is already smooth and uniform does better. R23 outcomes are mostly negative: H2 network errors8.85e-5/1.76e-4 exceed uniform1.02e-5/4.50e-6. H4 R23 first configuration is worse(4.82e-6 versus6.90e-7), last is better(1.11e-7 versus1.05e-6). Thus exact topology resolves some kinks but does not remove all quadrature difficulty or automatically give efficient allocation.
+
+`results.json` retains all knots, counts, work, cold construction and integration times, pointwise reference cost and signed errors. Reproduce with `/workspace/clean-neurons/.venv/bin/python -m m16.approaches.network_switch_slices.check_slices` under the shared lock/thread/memory wrapper. No random model inputs or accuracy truths enter the construction.
+
+## Frozen second cycle: natural Gaussian coordinate
+The observed R23 negative is consistent with the already-listed smooth inverse-CDF explanation. Test one coordinate change on all eight cases with unchanged network polygons/panels and4nodes per panel: integrate in z with density phi(z)/(1−Phi(tie)) for R23 or phi(z)/Phi(tie) for R12. This is exactly dq/dz for the varying truncated-normal input; it does not reweight by a fitted model statistic. Use the same network-panel endpoints transformed from q, and retain original q GL4 and equal-count q controls. Compare z GL16 and z GL32 with the saved q GL32 reference. Charge all geometry reconstruction and every transformed node, Gaussian exponential, CDF and normalization. No panel/order/model selection or new network partitions.
+
+Alternative1: inverse-CDF curvature caused the R23 error, so natural-coordinate integration helps even when topology alone did not. Alternative2: steep Gaussian-CDF boundaries or small panels still dominate; transformed integration remains mixed. This tests a coordinate formulation, not blind grid escalation. Same <=110CPU/shared lock/2GB limits. All eight outcomes retained.
