@@ -24,4 +24,4 @@ Apparent prior wins may depend on undercounted costs; direct native tracing dist
 ## Failure modes
 Positive-volume tie defects remain scoped in T113; generic finite-copy success is not a theorem. Cap/parity/source failures remain unresolved and preserved. Statistical intervals conditional on fixed truth estimates do not certify exact real-network probabilities or the full ARC challenge.
 
-Full scope/continuation claim b93dc799; FULL_PROTOCOL.md freezes all5120 noisy plus5 clean original cases. Research projection~40CPU-minutes, each shard≤110CPU. All clean outputs/parity saved, including r112 seed3 error−.0003392185860437. No recipe selection or new truth.
+Full scope/continuation claim b93dc799; FULL_PROTOCOL.md freezes all5120 noisy plus5 clean original cases. Research projection~40CPU-minutes, each shard≤110CPU. All clean outputs/parity saved, including r112 seed3 error−.0003392190026937. No recipe selection or new truth.
