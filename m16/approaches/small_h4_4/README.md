@@ -1,24 +1,28 @@
-# T51: H4T4 angular reduction
+# T51: H4T4 accuracy by bounded cone integration
 
 ## Question
-Can the user-prioritized four-neuron, four-input model's accuracy be calculated efficiently through a one-dimensional integral?
+Can the user-prioritized four-neuron, four-input model's accuracy be calculated accurately and competitively with sampling, using its weights and decision geometry?
 
 ## Method
-The T55 weighted two-input tail integrates the last two Gaussian inputs and the independent chi_2 prefix radius by spherical polygon first moments. The remaining normalized two-input prefix is a uniform angle. `estimator.py` applies Gauss-Legendre integration separately to the eight angular octants. This is deterministic outer numerical integration, not certified exact accuracy or an accepted strict mechanistic solution. It reuses T55 `tail.py` without edits.
+The final estimator enumerates the network's homogeneous linear regions using the shared T48 geometry engine, clips by output and second-largest-input inequalities, triangulates the resulting cones, and integrates their Gaussian masses using positive quadrature with an analytic error bound. The cone calculation evaluates no sampled model inputs. `estimator.est` delegates to `cone_estimator.est`; `stable_volume.py` contains the fixed and adaptive mass primitives, and `volume_bound.md` gives their derivation. Numerical geometry and finite-precision arithmetic are not certified by the integration bound.
 
-`stable_volume.py` preserves a distinct, analytically derived four-dimensional simplex quadrature primitive from before the restart. It is not used by this experiment and has not yet passed executable checks.
+An independent root review using different double-description geometry and pulling triangulation agrees on the original model within7.5e-14; the volume formula is shared. Three predeclared original/noisy cases and explicit scale/tie controls pass. Acceptance and the final solved label belong to root/Claude, not this author.
+
+The earlier comparison route below is retained as a separate numerical-outer-integration baseline. The T55 weighted two-input tail integrates the last two Gaussian inputs and the independent chi_2 prefix radius by spherical polygon first moments. The remaining normalized two-input prefix is a uniform angle. `estimator.py` applies Gauss-Legendre integration separately to the eight angular octants. This is deterministic outer numerical integration, not certified exact accuracy or an accepted strict mechanistic solution. It reuses T55 `tail.py` without edits.
+
+`stable_volume.py` was recovered from before the restart, subsequently validated on closed-form orthant/subdivision controls, and now underlies the final cone estimator. The angular baseline remains useful as an independently formulated comparison.
 
 ## Status
-Running, under existing pushed T51 claim. Original worktree was lost during runtime restart; earlier Plackett cone estimates are historical and unvalidated. Recovery protocol frozen before new measurements.
+Implementation and seven bounded validation cycles complete under the pushed T51 claim; root/Claude acceptance and portable operation accounting remain external follow-ups. Original worktree was lost during runtime restart; earlier Plackett estimates remain historical and unvalidated. All recovery protocols were frozen before their respective measurements.
 
 ## Results
 Cycle 1 predeclared: trained H4T4 seed0 and independent relative-RMS noise .0025/.02 using RNG51001. Angular GL orders2,4,8 per octant; refinement16 if total CPU remains below120 seconds. Independent Gaussian validation uses262144 inputs, seed51002, chunks<=65536. Save each completed model/order immediately. Compare refinement differences and Monte Carlo uncertainty, never treat agreement with noisy truth as proof. Check zero-logit tie ownership and input/readout positive scaling on bounded controls. All numerical runs take `/workspace/work/codex-compute.lock` and use one BLAS thread and a2GB memory limit.
 
 ## Compute accounting
-Record CPU/wall time, angular nodes, deterministic prefix steps, clipping calls, affine products, moment calls and fallback counts. Sampling baseline includes generated inputs, forward passes and target/prediction argmax. Hardware CPU equivalents include geometry and moments; scalar primitive accounting remains incomplete and is not replaced by counting only network forward calls. Shared arc_eval is hard-coded T10, so this local dimension-generic runner preserves tuple interface and noise convention but cannot directly use its evaluator.
+Final cone results record full geometry/integration CPU, hull and clipping counts, deterministic affine products, simplex and quadrature-node counts, and integration-only bounds. Timing-only forward calibration is charged in the interface. Earlier angular results record CPU/wall time, angular nodes, deterministic prefix steps, clipping calls, affine products, moment calls and fallback counts. Sampling baseline includes generated inputs, forward passes and target/prediction argmax. Hardware CPU equivalents include geometry and moments; scalar primitive accounting remains incomplete and is not replaced by counting only network forward calls. Shared arc_eval is hard-coded T10, so this local dimension-generic runner preserves tuple interface and noise convention but cannot directly use its evaluator.
 
 ## Claims
-[speculative] Analytic tail integration may make the remaining one-angle function cheap enough for useful accuracy estimates.
+[measured] The final cone estimator returns stable accuracies on three predeclared original/noisy models, with author-run scale/tie/partition checks and an independent original-model geometry check. [inferred] Its integration-only error bound is far below equal-CPU sampling uncertainty. [unverified] Total floating-geometry error, portable operation cost, and generalization beyond these tested cases are not certified.
 
 ## Alternatives not ruled out
 1. Narrow angular error features can escape low-order rules: cheapest test successive GL orders and an offset partition.
