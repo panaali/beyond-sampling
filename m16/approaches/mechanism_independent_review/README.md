@@ -30,7 +30,7 @@ than assuming transfer. Antisymmetric readout offsets and stable gate histories
 are distinct claims, not evidence for every proposed neuron role.
 
 ## Status
-Claimed; primary-source audit next. <=110CPU/2GB per cycle, shared locks and
+Primary-source audit underway. <=110CPU/2GB per cycle, shared locks and
 single thread for numerical work. No edits to author/shared files and no claim
 self-confirmation. Claude remains DRI.
 
@@ -58,3 +58,30 @@ External documents may be exploratory, superseded or contain unsupported
 claims. Raw/gated eigenvalues do not prove causal encoding or predict an entire
 forced trajectory. Public-source reads afterJanuary2026 are explicitly logged;
 no independence claim based on a pre-publication cutoff is made.
+
+## Frozen bounded algebra protocol (before execution)
+Use the public example checkpoint SHA256
+498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb,
+converted to float64. Compute complete spectra of raw Wh and principal gated
+matrices for masks 64975,63951,65519,62927,65007, plus the n10/11/12 block;
+report every complex pair and select the largest-modulus complex pair explicitly.
+No new input distribution sampling is involved.
+
+Run all 90 ordered two-positive-impulse positions with M=1 and each fixed
+S in {0.2,0.8,0.99}; all other inputs zero. Save final correctness, countdown
+diagnostics after both impulses, and post-second gate histories. Compare histories
+only over their overlapping lengths for fixed gap/direction, and distinguish
+translation invariance within a magnitude ratio from changes between ratios.
+At S=.8 additionally run each sequence at common scale3 to check homogeneity.
+
+For S=.8, fit the same balanced position-additive offset model as the source
+(F0=G0=0), solely to audit its claimed symmetry and R². This is diagnostic
+fitting, not an estimator or a generalization claim. Repeat the symmetry check
+on a fixed synthetic antisymmetric array constructed from sin(i+2j+1) in
+three feature channels, with no learned weights. Compare least squares against
+the independent row-sum formula F_i=(r_i-r_0)/n, G=-F. Antisymmetry alone
+does not entail a readout discrimination sign; give an explicit counterexample.
+Record all sequence/hidden-step/readout/decomposition/fit counts, CPU including
+loading and imports, source and checkpoint hashes, and RSS. Numerical budget
+<=20CPU on review lock, no follow-up sweep. Source code fetched from Keane is
+read only and is not executed.
