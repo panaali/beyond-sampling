@@ -44,11 +44,25 @@ def draw(h, k, rng, batch=200_000):
     return np.concatenate(out)[:k]
 
 
+CANDIDATE_FPE = 0.04     # leaderboard rule 5: each extra candidate input beyond one per evaluation
+
+
+def draw_pooled(n, rng, batch=None):
+    """n[h] inputs from every stratum h with one shared rejection stream. -> (list of arrays, candidates drawn)."""
+    batch = batch or int(min(20_000, max(500, n.sum())))
+    out = [[] for _ in n]; have = np.zeros(len(n), int); cand = 0
+    while (have < n).any():
+        x = rng.standard_normal((batch, T)); cand += batch; s = stratum(x)
+        for h in np.flatnonzero(have < n):
+            xs = x[s == h][: n[h] - have[h]]; out[h].append(xs); have[h] += len(xs)
+    return [np.concatenate(o) for o in out], cand
+
+
 def estimate(forward, budget, rng, P, alloc):
-    """Unbiased stratified estimate of accuracy. alloc: fraction of the budget per stratum."""
+    """Unbiased stratified estimate of accuracy. alloc: fraction of the budget per stratum.
+    Cost (FPE) = model evaluations + 0.04 per candidate input beyond one per evaluation (T21, 2026-10-17;
+    before that, draw() used 200k candidates per stratum and the cost ignored them)."""
     n = np.maximum(2, np.round(alloc * budget).astype(int))
-    acc = 0.0
-    for h in range(N_STRATA):
-        x = draw(h, n[h], rng)
-        acc += P[h] * (forward(x).argmax(1) == np.argsort(x, 1)[:, -2]).mean()
-    return acc, int(n.sum())
+    xs, cand = draw_pooled(n, rng)
+    acc = sum(P[h] * (forward(x).argmax(1) == np.argsort(x, 1)[:, -2]).mean() for h, x in enumerate(xs))
+    return acc, float(n.sum() + CANDIDATE_FPE * max(cand - n.sum(), 0))

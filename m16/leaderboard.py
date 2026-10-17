@@ -108,8 +108,8 @@ OVERRIDES = {
     "control_variate": dict(cost_factor=3.3 / 1.6, advice=["orig"]),  # hand count rb9.py:158-176 vs :184
     "great_circle": dict(cost_factor=7 / 3, advice=["orig"]),        # hand count
     "tie_lines": dict(advice=["orig"]),
-    "stratified": dict(cost_add=lambda b: 1_400_000 * 0.04, advice=["orig"]),       # 200k candidates x 7 strata
-    "debiased_series": dict(cost_add=lambda b: 1_400_000 * 0.04 if b < 128_000 else 0, advice=["orig"]),
+    "stratified": dict(advice=["orig"]),          # rejection now charged inside stratified.estimate (T21)
+    "debiased_series": dict(advice=["orig"]),     # uses stratified.estimate below 128k (charged since T21)
     "observer": dict(fixed_cost=True, advice=["orig"] + _TUNED_NOISY),     # design chosen against these truths
     "reliability": dict(advice=["orig"] + _TUNED_NOISY),                    # ladder swept against these truths
     "propagation": dict(advice=["orig"]),                                   # budget->eps map only
