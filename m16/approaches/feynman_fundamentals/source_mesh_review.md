@@ -1,0 +1,11 @@
+# T67 first-input marginal mesh review
+
+T55 read-only review of `source_mesh_cycle/mesh.py` and `driver.py`, 2026-10-17. The fixed pilot was not rerun.
+
+Let q=F_L(X0), with F_L the same truncated normal CDF used by the engine. Conditional on position zero being the second-largest, q has Beta(T-1,2) density g. If any specified other position is second-largest, exchangeability and total probability give density (T-g)/(T-1). For a uniformly weighted set of K possible target labels that contains zero, the mixture is `[(T-K)*g+T*(K-1)]/[K*(T-1)]`. If zero is excluded, it is simply `(T-g)/(T-1)`, independent of K. The source implements both cases, then integrates them using the beta CDF.
+
+Conditional positive and negative input-magnitude CDFs divide by 1-G(1/2) and G(1/2), respectively. The chosen sign is correct: a positive first hidden coordinate requires the input sign to equal the sign of that coordinate's input weight. At the first step h_i=abs(Wi_i)*abs(X0), so scaling the magnitude nodes by abs(Wi_i) and the pre-existing positive endpoint padding preserves coverage. Mixed nonzero input weights make the two reachable supports the two axes. The implementation changes only stage one and reconstructs its rectangular interpolation grid; later stages and terminal meshes stay fixed.
+
+The reversed-CDF construction `1-F(L-s)` is normalized and increasing and is a distinct same-size placement control. Mixing either physical or reversed CDF with sqrt(s/L) remains increasing. Root solves and inverse placement incur explicit costs. This is an unconditional-over-targets marginal heuristic, not a q-conditioned reachable mesh. In the actual T4/K3 case the marginal density is only `(g+8)/9`, so any large estimator change cannot simply be described as correcting a large first-input density discrepancy.
+
+The complete-panel driver uses q coordinates and Beta density without renormalization. Its omission accounting bounds tiny/collapsed panels by the original u width times a valid maximum density, and reports target/input truncation separately. That bounds omitted mass, not spatial interpolation or floating topology. The finite hypothesis is whether this one stage's physical placement helps more than a reversed control at the same grid size; a negative would not rule out conditional meshes or other stages.
