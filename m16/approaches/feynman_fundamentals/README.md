@@ -588,3 +588,12 @@ fresh70-digit original-domain GL12 within4.360e-14 relatively; permutation
 difference<=3.931e-14. Cost3456 high-precision nodes,.410647CPU, no model inputs.
 `check_fixed_tangent_review.py` reproduces the result; source hashes are saved.
 This validates the algebra and two adversarial cases, not general roundoff.
+
+## Cycle 17: independent T71 scalar-cost audit
+T71 requested a read-only audit of its counted fixed-tangent composition.
+Alternative1: hidden QR/SVD/special-function work or an understated line group
+invalidates the portable cost; enumerate the fixed-width operations and follow
+the explicit MGS/fallback callbacks. Alternative2: a valid primitive is composed
+with the wrong quadrature degree or inner-error factor; independently count
+Duffy degrees and positive weights. No new numerical integration is needed.
+The outcome and exact source hashes are recorded in `t71_count_review.md`.
