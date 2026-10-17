@@ -692,3 +692,19 @@ calculation finds a noncanceling trainedT8 area-density jump -.272615 at h=w;
 axes and input ray both included. .884107CPU, no transport sweep. Details in
 `density_reconstruction_review.md` and `jump_review_results.json`. The owner
 will falsify the predicted one-sided limits before an interface-aware engine.
+
+## Cycle 26 protocol: T56 supported harmonic measure and phase review
+Alternative1: twelve supported half-lunes overlap or omit rank regions; derive
+the near/far inequalities and root-frame normal. Alternative2: a Fourier phase
+sign error survives constant/m0 checks; independently integrate a nonzero
+Fourier off-diagonal entry using direct arc-coordinate quadrature and direct-z
+adaptive quadrature for both signs of a generic cut. No trained sweep or new
+engine; one <=20CPU review run. Also record the requested T30 exact-line source
+and closed-form review without rerunning the legacy modules.
+
+Cycle26 completed: T56 half-cell partition, hemisphere measure and Fourier
+phases pass independent derivation; four direct complex entries agree<=1.401e-15
+(.045100CPU). T30 exact-line reference and two closed-form counterexamples pass
+read-only review; legacy source contains the stated approximate tie/lookahead
+mechanisms. `harmonic_walker_review.md` preserves finite-method limitations
+and explicit remaining remedies. No trained rerun or production-source edit.
