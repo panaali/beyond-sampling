@@ -9,7 +9,7 @@ Use only frozen_recipe_holdout/exact/error_captured.npz (SHA215ce37b68c283e29224
 Alternative explanations: performance could rely on seed0 cone shapes (fixed new-checkpoint64 then full census); a tolerance mismatch between float and Fraction selectors could cause false coverage (assert both derive from sameN); exceptional cones could fail numerical positivity (preserve and stop on failure/reference discrepancy). Finite-order unresolved cases stay unresolved. No candidate substitution into frozen T14924/96 and no model-dependent tuning or favorable-index selection.
 
 ## Status
-Bounded full transfer complete; independent full source/raw/cost audit requested. Pilot gate independently passed2827c813; TASKS14983b7b froze full phase before implementation.
+Bounded full transfer complete; independent full source/raw/cost audit passed88490d79. Pilot gate independently passed2827c813; TASKS14983b7b froze full phase before implementation.
 
 ## Results
 All30726 return, with64 pilot rows reused once. Accuracy .9874600098992554 versus independently frozen reference .9874600108260589, difference−9.26803523e-10. Sum conditional integration bounds1.14093936608e-8, reference-error L1 1.55760650188e-9, maximum cone discrepancy2.53238447e-12. No unresolved or failed rows. Methods:16420 center intervals,14251 center quadratures,55 exact KKT rescues. No trained geometry/reference rerun.
@@ -34,3 +34,5 @@ Full source and data: `full_protocol.json`, `full_run.py`, `full_summarize.py`, 
 Known numerical/category subtotal102,122,861, including one canonical cold rule plan union18,050 and six universal constants. Actual staged cold-plan work65,236 is separately recorded; total staged CPU including pilot/imports11.996909, aggregation0.463958. Exact setup55 rescues has maximum793/770 numerator/denominator bits, certificateCPU0.224280 and MPselection0.067847; full operation inventory retained. GCD/MP/Legendre internals, integer/control/memory and capture/geometry are outside the named subtotal. T171 explicitly tracks model-facing capture/N/storage integration before adoption.
 
 Original commands (do not rerun completed cones): one-thread memory-limited review-lock Python `full_run.py 0 32`, `full_run.py 32 72`, `full_run.py 72 121`; saved-data aggregation `full_summarize.py`. Existing completed shards are skipped and partial shards resume only missing suffixes. No source fallback, extra order, changed target or reweighted selection was introduced.
+
+T55 independent full audit88490d79 verifies all30726 indices/reference rows/shard hashes,64 pilot rows bitwise once, all55 exact original-ray Gram/KKT/determinants and80-digit selected bounds, exact stored-float error9.26803537875e-10 and both canonical/staged rule ledgers. Reviewer0.848CPU, no integrations rerun. All cost/FP/capture qualifications remain.
