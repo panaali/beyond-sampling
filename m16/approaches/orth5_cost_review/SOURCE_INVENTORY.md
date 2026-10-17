@@ -20,6 +20,8 @@ The unpadded mathematical matrix product alone has32,400 multiplies and25,920 ad
 
 Proxy is173,060. No determinant5 price exists in this lane. Earlier determinant3/4 and NN/SYRK prices require actual dimensions, strides, backend and call-path applicability; a source function name alone is insufficient. Native and source quantities cannot simply be added if already included in another category.
 
+The full pre-run hand contraction is frozen in expected_counts.json. For log numeric array/scalar expressions, multiplication terms are25+25+10+1+3200+3840+3840+3840+2560+1=17,342; divisions25+10+10+1+1280+1=1,327; subtractions50+10+25=85; additions50+1+3200+2560+3840+10+1=9,662; unary negations3,840. Six explicit numeric comparisons exclude opaque min/maximum implementations. Integer sign powers55, index additions30 and explicit index comparisons330 remain separate. The thin exposed arithmetic is three scalar multiplies and1,297 divisions, plus one threshold comparison; its large matrix/power/reduction work is opaque. These small exposed subtotals are not estimated total cost. The adapter must reproduce every frozen category, or retain a failure for review before any correction.
+
 ## Sampler convention
 
 For H8,T5, zero initial hidden state, a direct scalar forward with its known-zero first recurrent product omitted has336 multiplies,291 additions and45 comparisons:672 total. Multiplications:40 input scalings+256 recurrent+40 readout. Additions:224 recurrent dot+32 input/recurrent combinations+35 readout. Comparisons:40 ReLU+4 argmax+1 correctness. Supplying the true second index is model-free here, not counted as network work. Excluding the final integer correctness comparison gives671 numeric-only units.
