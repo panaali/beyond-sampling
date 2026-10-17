@@ -123,3 +123,12 @@ The tiny fallback range uses separate extrema of upper/lower affine bounds,
 not extrema of the CDF gap at matching endpoints. T55 independently confirms
 that distinction; explicit floating padding is heuristic, not certification.
 Source review is pending before the frozen four-estimate trained pilot.
+
+## Independent source review before trained evaluation
+T55 checks stage2 terminal chronology, remaining-count mixture through t1/t0,
+complete vertex/diagonal knots and the numerical-rescue scaling. Its suggested
+explicit early-label guard is adopted: pair_label is dispatched only for
+label<2. The inherited prepare already rejects any model where target-last
+label3 is possible; this frozen base passes that exclusion. No support for
+a general target-last model is silently inferred. Local quad/roundoff errors
+remain diagnostics, not certificates. The frozen four-estimate pilot proceeds.

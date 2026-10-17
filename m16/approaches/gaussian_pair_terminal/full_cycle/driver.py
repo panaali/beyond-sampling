@@ -79,7 +79,7 @@ def estimate(model,order=2,paired=True,seconds=100.):
         operators={}
         for label in data['labels']:
             if label==T-2:value,error=outer.pen.cached_label(data,float(qq),operators,deadline)
-            elif paired:value,error=pair_label(data,float(qq),label,operators,deadline)
+            elif paired and label<2:value,error=pair_label(data,float(qq),label,operators,deadline)
             else:value,error=fixed_target(model,label,float(qq),data['axes'],data['states'],8,data['limit'],stats,deadline,'polynomial_piece_cached',operators,data['piece_cache'],data['terminal_cache'])
             contributions[label]+=float(weight)*value/T;bound+=float(weight)*error/T
         stats['streaming_target_nodes']+=1
