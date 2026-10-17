@@ -50,6 +50,18 @@ verify every algorithm that uses the primitive.
 - T56: the anisotropic rescue is positive relative to the isotropic baseline on fixed groups, but costs/full estimator independence and sampling comparison remain unverified. Reviewing negatives can reopen a direction without establishing a challenge solution.
 - Root T81 source/summary check independently verifies scalar contraction (3.55e-15), low-rank reconstruction (1.78e-14), all four saved grid/cross bias decompositions and weighted error inequalities. This is not an independent neural walker or fresh full-model run;0.00182CPU, no model calls. Record: ROOT_T81_REVIEW.json.
 
+### Recovery and subsequent scope checks
+
+All394 previously unmerged worker/reviewer commits are now preserved on the shared branch; RECOVERY_MANIFEST.json verifies exact snapshots. Preservation is not a second scientific experiment. RECOVERY_REVIEW.md and the registry link the actual independent checks.
+
+- T81 residual enrichment now includes global/local products and additive fibers. Independent Fraction contraction passes, while unseen support, off-fiber explosion and negative additive values remain explicit counterexamples. These reject particular guarantees, not neural-specific tensor methods.
+- T82 actual network-switch slicing exposed floating orientation and inherited-halfspace defects; local repairs and controls are retained. Partition normalization helps3/4 cases but cannot certify correctness-dependent outer integration. Cost remains a partial proxy.
+- T37 hidden-reference first order and final-step rescue fail both DEV models. A support-preserving rescue improves both, leaving one clearly biased and one inconclusive; no family-wide negative is justified.
+- T20 cold proposal fitting is now charged. Its standard-deviation allocation is a heuristic for a mixture rule; independent review distinguishes it from the second-moment objective. Deterministic-node bias remains visible even with a corrected exact radial integrator. An iid objective theorem is not a deterministic quadrature error guarantee.
+- T107 exact-zero native gate handling has independent Fraction and source review; repairs preserve trained arrays. Floating near-zero semantics, initial all-zero input rejection, and universal robustness remain separate limitations.
+- T105 output forgetting can hold without hidden-state forgetting. Independent direct integration verifies the positive-event partial contribution. An explicit unresolved complement prevents any full-accuracy claim; signed-event extensions require disjointness and full rank coupling.
+- T110 fewer initial class charts preserve exact model integrals on fixed small cases but change the approximation and can worsen it. Nearest-facet refinement is a distinct rescue. Root separately derives chart-sign masses from the binomial count of positive iid inputs using exact Fraction arithmetic: all T3..10 formulas and total partitions pass (check_class_sign_review.py, CLASS_SIGN_REVIEW.json). This verifies rank/sign measure only, not neural clipping or full cost. A quadratic initial partition does not make downstream ReLU splitting polynomial.
+
 ## Compute accounting
 
 This inventory uses existing text, source and results; no new model evaluations,
