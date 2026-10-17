@@ -9,10 +9,12 @@ Claim6023082d first pins the finite exact/recipe census, public LAPACK sources a
 Alternative explanations: a finite census resolves iteration uncertainty but leaves per-call work unknown; public source and installed instructions can differ; kernel observers may include calls from outside rank. Never turn a partial named-category total into complete cost. DNRM2 is a global symbol without parent attribution; geometry norm overlap is possible, not observed proof. Audit attribution before composition.
 
 ## Status
-DLASQ5 source proof independently checked,64 frozen installed controls pass bitwise, and actual histogram contraction complete. Reflector-exclusive113-unit generic source bound and160 native-child wrapper controls also pass. Full native envelope remains open; released Ready at HANDOFF.md to prioritize T179.
+DLASQ5 source proof independently checked,64 frozen installed controls pass bitwise, and actual histogram contraction complete. Reflector-exclusive113-unit generic source bound and160 native-child wrapper controls also pass. Resumed under claim8c9d87a4 after the T179 handoff. Binding controls and saved phase equality support a conditional finite reflector-exclusive10 bound (generic113 retained). Installed DNRM2 source gate and192 controls pass; cold-once raw contraction is saved and independent raw review pending. Full native envelope remains open.
 
 ## Results
 DLASQ5 actual201773 exact/165964 recipe calls have conditional pinned-source numeric upper subtotals5949769/4879642. These count only Q5 arithmetic/negation/comparison, excluding index/control/memory and all other rank work. See Q5_DERIVATION.md, controls.json and q5_summary.json. Existing geometry/mass/model calculations are not rerun.
+
+DNRM2 installed named numeric subtotals are6,495,956 exact and5,889,672 recipe, including28,696 cold units once. Its wrapper uses one abs for N=1; five bundled kernels use2N+4 units for N>1 positive stride. These are x87 extended scalar units, not hardware cycles. All192 controls pass (.008 CPU); norm_review/contraction.json preserves all raw row hashes. Binding provenance remains an explicit condition for the separate finite no-rescale inference.
 
 ## Compute accounting
 One thread2GB, review<=20CPU, primary<=110CPU. Cost convention counts scalar numeric arithmetic/comparisons/elementary calls explicitly; integer index/loop operations, memory/runtime and unpriced native helpers remain separately unknown. Ordinary source-operation envelope is neither a hardware count nor a complete rank cost until composition is finished.
