@@ -27,8 +27,12 @@ requires a new measure identity; the Hopf law cannot simply be reused.
 ## An exact sufficient condition for one circle
 
 Let K be a two-dimensional linear subspace with orthonormal basis(a,b).
-Suppose a structural derivation establishes f(x)=g(P_K x) almost everywhere,
-and g(cz)=g(z) for c>0. The projection P_K X is a standard isotropic Gaussian
+Suppose a structural derivation establishes f(x)=g(P_K x) for every x
+whose projection lies outside a conical angular-null set E in K, and
+g(cz)=g(z) for c>0. In particular the identity holds on the selected circle
+away from an angular-null set. Ambient almost-everywhere agreement alone is
+NOT sufficient: the whole selected circle has zero ambient measure and could
+lie in an exceptional set. The projection P_K X is a standard isotropic Gaussian
 on K. Its angle is uniform and independent of radius, so
 
  A = integral_0^{2pi} f(a cos(phi)+b sin(phi)) dphi/(2pi).
