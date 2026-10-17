@@ -39,6 +39,9 @@ def main():
                retained_cache_exact_match=True,omitted_upper_bound=float(upper[small].sum()))
     assert out['omitted_cones']==73853
     rays=rays[small];g=g[small];det=det[small]
+    minimum_signed=float(np.min(rays*np.sign(rays.sum(axis=2))[:,:,None]))
+    out['minimum_signed_ray_coordinate']=minimum_signed
+    assert minimum_signed>=-1e-12, 'Material orthant violation'
     center=rays.sum(axis=2);center/=np.linalg.norm(center,axis=1)[:,None]
     supporting=np.min(np.einsum('bij,bi->bj',rays,center),axis=1)
     signed=np.sign(rays.sum(axis=2));signed/=np.linalg.norm(signed,axis=1)[:,None]
