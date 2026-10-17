@@ -3,8 +3,9 @@
 The estimator reuses T48 geometry. Floating clipping/tessellation is not certified.
 """
 from pathlib import Path
-import hashlib,time,types
+import hashlib,time,types,sys
 import numpy as np
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 from stable_volume import mass,adaptive_mass
 
 

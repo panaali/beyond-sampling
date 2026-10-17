@@ -76,7 +76,7 @@ def forward(model,x):
     return h@wo.T
 
 
-def est(model,budget=None,rng=None):
+def est_angular(model,budget=None,rng=None):
     """Fixed GL8; budget advisory, rng unused. Cost is CPU forward equivalents.
 
     Deterministic timing inputs do not influence estimate. Calibration CPU charged.
@@ -86,3 +86,13 @@ def est(model,budget=None,rng=None):
     x=np.zeros((32768,4));start=time.process_time();forward(model,x)
     calibration=time.process_time()-start
     return p,(s['cpu_seconds']+calibration)/(calibration/len(x))
+
+
+def est(model,budget=None,rng=None):
+    """Canonical estimator entrypoint: bounded adaptive cone integration.
+
+    Historical angular estimate remains available as est_angular.
+    """
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from cone_estimator import est as cone_est
+    return cone_est(model,budget,rng)
