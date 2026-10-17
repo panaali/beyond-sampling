@@ -35,6 +35,7 @@ def validate(R,cert,rescue):
 def main():
     start=time.process_time();proto=json.loads((P/'pilot_protocol.json').read_text())
     assert proto['capture_review'] and proto['source_gate']
+    assert proto['export_gate_clearance'], 'DRI evidence-export gate remains unresolved; do not execute'
     paths=[P/'pilot.json',P/'pilot_certificates.json',P/'pilot_progress.jsonl']
     assert not any(p.exists() for p in paths)
     for p,h in proto['pins'].items():assert sha(p)==h,p
