@@ -1,6 +1,6 @@
 # T121 bounded cost-audit handoff
 
-Status: implementation and frozen controls complete; final T55 review pending. Claim1e0b205 preceded implementation. DRI registers claims and owns any historical/shared-code corrections.
+Status: implementation and frozen controls complete; final T55 review145d6db complete. Claim1e0b205 preceded implementation. DRI registers claims and owns any historical/shared-code corrections.
 
 ## Result
 The exact slow R4-fixed LOOK3 implementation used by T101/T114 retains every tested value bit-for-bit, as well as n/x, segments and traces, on two analytic controls plus eight frozen clean/noisy trained cases. Its historical count charges dense Wh@Ag/Wo@Ag as though active-gate/truncated-column sparsity were implemented. Dense scalar arithmetic and an independently executed scalar sampler expose a second issue: the historical72 sampling denominator omitted comparisons/mixed units; the declared scalar sampler costs112.
@@ -15,7 +15,7 @@ This is code-form-dependent abstract accounting. Implicit loop iteration/branch 
 ## Verification and independence
 Primitive controls: zero rows_at350=291 dense multiply/add+36 masks+8 input additions+12 gate comparisons+3 Boolean ORs; zero State647=350+180 R projections+45 L projections+72 abs/comparison/negation/division; nonzero _Sint20 and zero-radius_Sint2. Chained comparisons short-circuit without evaluating a raising later operand; in-place assignment retains alias identity; sorting reproduces exact ordering and four comparisons on a three-key control. Every frozen estimate, n/x and topology counter matches baseline, and every matrix total matches the separate phase1 inventory.
 
-T55 first independent review2c64019 checks all10 named ledgers and sampler112. Final native-expression scope/source review is pending. Independent reviewer correctly flagged that algorithmic integer comparisons cannot be dropped; same-AST sampler and inclusive explicit-expression convention resolve that mismatch, with source-form caveat retained.
+T55 first independent review2c64019 checks all10 named ledgers and sampler112. Final native-expression scope/source review145d6db independently recomputes all ten site totals and ratios and checks the same-AST sampler. The reviewer preserved a too-tight absolute ratio-roundoff assertion and replaced it with a two-ulp tolerance; exact counts were unchanged. Independent reviewer correctly flagged that algorithmic integer comparisons cannot be dropped; same-AST sampler and inclusive explicit-expression convention resolve that mismatch, with source-form caveat retained.
 
 ## Finite alternatives checklist
 - Tested: full dense dimensions instead of hypothetical active sparse execution; scalar multiply/add instead of hybrid MAC+scalar accounting; class comparisons on both estimator and sampler; same pinned source/cache retention; zero and positive controls; four fixed trained checkpoints and their predeclared noisy copies; identical source-expression instrumentation on both algorithms.
