@@ -15,10 +15,10 @@ Fixed trained diagnostic tolerances: report every raw/conditioned per-leaf absol
 Alternatives: (1) source pulling omits a face or duplicates simplices: independent full-vertex hull volume can expose a discrepancy; (2) clipping already omitted extreme rays: both representations can agree, so this check cannot rule it out alone; (3) signed quadrature bias causes the mass mismatch despite good affine volumes: no Gaussian mass is evaluated here. Equal volumes alone do not prove absence of overlapping and compensating missing regions or certify all floating topology.
 
 ## Status
-Protocol frozen; controls and raw-leaf capture next.
+Protocol frozen; analytic controls completed, raw-leaf capture next.
 
 ## Results
-None yet.
+Eleven frozen analytic controls completed. Orthant, unit boxes and unrotated widths down to2^-45 agree to about1.6e-15 relative. Hadamard-rotated width2^-45 exposes floating input/projection precision: source error .00108507, raw hull .00121088, conditioned hull .00206163 relative to ideal volume (absolute errors below6e-17). This failure is preserved in controls.json; SVD cannot recover bits already lost before conditioning. Flat control is rejected as expected. The trained fixed-parent screen remains a parent-relative finite diagnostic, not an accuracy guarantee for extremely thin individual leaves. Command: one-thread Python review.py controls (0.206CPU seconds including imports).
 
 ## Compute accounting
 One thread,2GB, review lock<=20CPU per bounded process, checkpoints after each parent. Charge source setup, clipping, triangulation, all hulls/SVDs and persistence in measured CPU; source counter is a legacy geometry proxy, not full FLOPs. No random network inputs or trained-model forward sampling.
