@@ -129,3 +129,11 @@ and(low[:,1]+high[:,0])/2 use the same rank mixture. Source/full-image
 support checks are valid because each ReLU coordinate achieves its maximum
 on an interval endpoint. These are fixed-state primitive/comparator checks;
 trained probe results and full outer behavior remain separate.
+
+The first T127 trained panel has six untied rank-consistent queries.
+Only x0=0,u=1,need1 shows the large-.1356406015 old-minus-pair difference;
+the other five agree at floating precision. This fixed-state result at
+an exactzero prefix alone cannot establish a population-weighted error.
+Other table branches include impossible rank requirements or input ties.
+A separately frozen x0=+/-1/4,u=1 continuation is pending to test whether
+the discrepancy persists away from zero; no full outer run is implied.
