@@ -13,10 +13,10 @@ Freeze controls before runs: zero weights/readouts, an all-positive rational mod
 Competing explanations: the hybrid units and unimplemented sparsity materially change budget equivalence; or corrections on estimator and sampler cancel enough to preserve comparisons. Independent primitive counts and unchanged-output controls separate these. Another possibility is a numerical/import/cache change introduced by instrumentation; pinned source and output parity must falsify it before cost conclusions.
 
 ## Status
-Running first bounded cost discriminator. One thread,2GB, primary lock for<=110CPU cycles and review lock for<=20CPU primitives. Final independent count/source review required.
+First bounded cost discriminator complete; remaining scalar inventory in progress. One thread,2GB, primary lock for<=110CPU cycles and review lock for<=20CPU primitives. Final independent count/source review required.
 
 ## Results
-Pending frozen controls. No claim that historical numerical accuracy is wrong.
+All ten frozen cases preserve bitwise estimates, historical n/x, segment counts and trace counts. Trained-model named-kernel corrections raise numerators by21.6–28.6%, but changing the sampler denominator from72 to112 gives PARTIAL budget ratios0.782–0.826 of historical ratios. These are not complete scalar budgets. Zero-model rows_at costs44 historical hybrid units versus347 named scalar operations; the full zero-model partial budget ratio is1.808. The rational-positive control ratio is1.192. T55 independently checked dense dimensions, replacement rather than double addition, missing gate-mask products and112-op sampler derivation. Full per-site ledgers are in panel_results.json. No numerical-accuracy criticism follows from a cost correction.
 
 ## Compute accounting
 Both arithmetic inventories and source-level exclusions will be explicit. Special functions are counted as one call under the inherited convention, not asserted to cost one hardware FLOP. Compilation/loading, diagnostic reference computation and timing are separate. Numerical source snapshots, model-dependent preprocessing and in-call cache work are included in scope; data-independent family constants follow the historical exemption and are disclosed.
@@ -29,3 +29,6 @@ A genuinely sparse implementation, fused-operation versus scalar conventions, fu
 
 ## Failure modes
 Changing numerical order while counting; changing cache lifetime; charging a sparse algorithm that was not run; mixing fused and scalar operation units; forgetting model-dependent setup; first-index ties or silent caps; assigning hardware timing to abstract operation counts; selecting models after seeing cost changes.
+
+## Next bounded inventory protocol
+Before further results: instrument arithmetic operators in the pinned source by wrappers that execute the same native operations on unchanged operands. Include the imported _Sint function; count floating arithmetic, array arithmetic, comparisons, special-function calls, reductions and sorting comparisons separately. Preserve short-circuit comparisons and in-place augmented assignment. Exclude the historical counter expressions themselves and data-independent module initialization. Record integer/index/control arithmetic separately; do not silently call a floating/array inventory a complete implementation cost. Memory allocation, indexing, selection, dictionary lookup, interpreter/BLAS overhead and predicate-control conventions must remain named exclusions. Run primitive counts first and then the same ten-case parity panel. No new models, copies or truth budgets are selected after seeing results. This finite inventory can replace the old hybrid scalar remainder for its covered categories, while incomplete control conventions remain an explicit gap.
