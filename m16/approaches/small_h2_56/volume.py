@@ -36,10 +36,17 @@ def details(rays,n):
   else:bound=const*2/factorial(d-1)*exp(-p*log(m)+lgamma(p+k+1)-lgamma(p)-lgamma(k+2)+(k+1)*log(rho))/(1-ratio)
  return const,bound
 
+def inverse_radial(q,d):
+ # d<=6 in this ladder; make expensive scalar operations explicit.
+ denom=q.copy()
+ for _ in range(d//2-1):denom*=q
+ if d%2:denom*=np.sqrt(q)
+ return 1/denom
+
 def mass(rays,n):
  const,bound=details(rays,n);d=len(rays);total=0.;nodes=0
  for y,w in blocks(d,n):
-  x=y@rays.T;q=np.sum(x*x,axis=1);total+=float(w@np.power(q,-d/2));nodes+=len(y)
+  x=y@rays.T;q=np.sum(x*x,axis=1);total+=float(w@inverse_radial(q,d));nodes+=len(y)
  return const*total,bound,nodes
 
 def sum_mass(rays,n):
@@ -83,5 +90,5 @@ def grouped_mass(rays,orders,bounds,deadline=None):
    for j,det in zip(idx,dets):
     if deadline is not None and time.process_time()>deadline:raise TimeoutError('integration CPU deadline')
     x=y@rays[j].T;q=np.sum(x*x,axis=1)
-    values[j]+=const*det*float(w@np.power(q,-p));nodes+=len(y)
- return dict(estimate=float(values.sum()),conditional_quadrature_error_bound=float(bounds.sum()),nodes=int(nodes),order_histogram={str(n):int(np.sum(orders==n)) for n in np.unique(orders)},arithmetic_ops_excluding_power_and_setup=int(nodes*(2*d*d+2*d+1)),power_calls=int(nodes))
+    values[j]+=const*det*float(w@inverse_radial(q,d));nodes+=len(y)
+ return dict(estimate=float(values.sum()),conditional_quadrature_error_bound=float(bounds.sum()),nodes=int(nodes),order_histogram={str(n):int(np.sum(orders==n)) for n in np.unique(orders)},arithmetic_ops_excluding_sqrt_and_setup=int(nodes*(2*d*d+d+1+d//2+(d%2))),sqrt_calls=int(nodes*(d%2)))

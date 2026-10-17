@@ -1,13 +1,14 @@
 """Bounded floating-point cone geometry. Ambiguous clipping raises explicitly."""
 from itertools import combinations,product
 import time
+from math import gamma,pi
 import numpy as np
 from scipy.spatial import ConvexHull,QhullError
 
 class Geometry:
  def __init__(self,seconds=30):
   self.start=time.process_time();self.seconds=seconds
-  self.counts=dict(clips=0,hulls=0,vertex_plane_products=0,map_compositions=0,gate_pieces=0,correct_pieces=0,simplices=0,zero_determinants=0)
+  self.counts=dict(clips=0,hulls=0,vertex_plane_products=0,map_compositions=0,gate_pieces=0,correct_pieces=0,simplices=0,zero_determinants=0,bounded_degenerate_clips=0,omitted_mass_upper_bound=0.)
  def check(self):
   if time.process_time()-self.start>self.seconds:raise TimeoutError('geometry CPU cap')
  def hull(self,v):
@@ -28,7 +29,15 @@ class Geometry:
   w=np.array(keep);_,idx=np.unique(np.round(w,12),axis=0,return_index=True);w=w[np.sort(idx)]
   if len(w)<v.shape[1]:return None
   try:h=self.hull(w)
-  except QhullError as e:raise ArithmeticError('degenerate clip: refused silent discard') from e
+  except QhullError as e:
+   z=w[:,:-1]-w[:,:-1].mean(axis=0);_,_,rot=np.linalg.svd(z,full_matrices=False)
+   widths=np.ptp(z@rot.T,axis=0);d=w.shape[1]
+   # Add an outward numerical cushion, without claiming rigorous floating arithmetic.
+   bound=gamma(d/2)*d**(d/2)/(2*pi**(d/2))*float(np.prod(widths+1e-14))
+   if bound<=1e-12:
+    self.counts['bounded_degenerate_clips']+=1;self.counts['omitted_mass_upper_bound']+=bound
+    return None
+   raise ArithmeticError(f'degenerate clip mass bound {bound}: refused discard') from e
   return w[h.vertices]
  def gates(self,model):
   wi,wh,wo=model;t=len(wo);eye=np.eye(t);cells=[]
