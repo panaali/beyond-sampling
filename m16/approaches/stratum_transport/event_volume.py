@@ -2,6 +2,7 @@
 import numpy as np
 from quadrature_volume import QuadratureOperator
 from affine_volume import AffineOperator
+from loglinear_volume import LoglinearOperator
 from interface_volume import InterfaceOperator
 
 
@@ -30,6 +31,7 @@ class EventRule:
 
 class EventUniform(EventRule,QuadratureOperator):pass
 class EventAffine(EventRule,AffineOperator):pass
+class EventLoglinear(EventRule,LoglinearOperator):pass
 
 
 class EventInterfaceOperator(InterfaceOperator):
@@ -38,4 +40,4 @@ class EventInterfaceOperator(InterfaceOperator):
         for helper in self.helpers:helper.event_cut=event_cut
 
     def helper_type(self,reconstruction):
-        return {'uniform':EventUniform,'affine':EventAffine}[reconstruction]
+        return {'uniform':EventUniform,'affine':EventAffine,'loglinear':EventLoglinear}[reconstruction]
