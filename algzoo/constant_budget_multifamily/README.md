@@ -21,7 +21,7 @@ Report held-out accuracy/Wilson interval, paired adjacent-budget differences, so
 Alternatives: (1) old cap-limited fitting explains the curve: compare frozen initial/first-segment/final training diagnostics, not just accuracy; (2) feature order matters: compare fixed prefixes and equal full-span Fourier/polynomial endpoints; (3) source seed explains apparent width effect: report all three paired seeds; (4) output sensitivity differs from activation error: report both metrics. No causal neuron-role claim follows from reconstruction.
 
 ## Status
-Bounded study complete: all90 family/budget/source-seed fits meet the unchanged original first-order gradient criterion. This does not prove global optimality. Original failures and each separately frozen rescue are preserved. Independent T55 source/theory checks passed; final artifact arithmetic review requested. Only DRI may confirm the result.
+Bounded study complete: all90 family/budget/source-seed fits meet the unchanged original first-order gradient criterion. This does not prove global optimality. Original failures and each separately frozen rescue are preserved. Independent T55 source/theory checks and final raw-artifact audit9f3681a passed (no independent refitting or gradient replay). Only DRI may confirm the result.
 
 ## Results
 All three H32 source seeds have20-feature position-aware reconstructions above90% of the chance-to-model accuracy gap; all three H16 seeds miss that criterion. Final held-out accuracies (%):
