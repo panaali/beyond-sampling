@@ -14,7 +14,7 @@ def load():
  for f,h in PROTOCOL['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h,f
  path=P.parent/'positive_h8_cost/run.py';spec=importlib.util.spec_from_file_location('seed1_unchanged_selector',path);M=importlib.util.module_from_spec(spec);spec.loader.exec_module(M)
  old,kernel,rescue,radial=M.load();N=PROTOCOL['N'];M.TOL=1e-7/N;rescue.TOLERANCE=Fraction(1,10**7*N)
- assert M.TOL==float(rescue.TOLERANCE)
+ assert Fraction(M.TOL)<=rescue.TOLERANCE and abs(M.TOL-float(rescue.TOLERANCE))<=math.ulp(float(rescue.TOLERANCE))
  rays=np.load(REF/'error_captured.npz')['rays'];assert len(rays)==N
  reference=np.full(N,np.nan);bounds=np.full(N,np.nan);seen=np.zeros(N,int)
  for i in range(8):
