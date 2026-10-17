@@ -38,3 +38,5 @@ No numeric kernel price is asserted before actual path capture and binary reason
 Read-only dispatch inventory initially used .058700918 CPU. A second read adds the previously unrecorded runtime GEMM_UNROLL_MN field at0x304, needed to inspect SYRK diagonal blocks; both costs are retained rather than replacing the initial inventory record.
 
 The requested refuse-existing guard edit initially used a repo-relative path from the subfolder and raised FileNotFoundError; the shell continued to the first capture, which succeeded. Its result/log were new (noclobber log protection), so no earlier evidence was overwritten. The file guard is now installed and no repeat is performed. Preserve this orchestration error separately from numerical validation.
+
+Independent child-capture audit0cfdfa39 checks all12 saved products, hexadecimal parity, arguments and child paths. This validates the finite dispatch observations only. NN_PRICE.md and SYRK_PRICE.md freeze separate installed-body derivations for independent review; their candidate prices have not yet replaced any corpus term. The original hybrid summary remains unchanged.
