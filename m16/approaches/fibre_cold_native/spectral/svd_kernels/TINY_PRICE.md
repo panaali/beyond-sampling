@@ -1,0 +1,11 @@
+# Six observed tiny BLAS bodies: candidate numeric subsets
+
+All counts below are separate from public wrappers and LAPACK parents. FMA counts two scalar operations and unmasked SIMD lanes count even if later discarded. Exact saved dimensions/binding are premises. No mass or model replay.
+
+* GEMV_N: m=n in {1,2,3}, lda4, incX4, incY1. They take the scalar strided tail, not contiguous-special-case loops. Per row 2mn+2m; inherited T150 source/assembly witnesses a3fc25 (m2), a3fc6a (m3) and final scalar FMAs confirm no padded lanes. Total100.
+* AXPY: all26 observed native calls have n<=3 and unit strides. Selected a3cce0..a3ccf8 executes one scalar FMA per element, no floating guard inside. Thus2n each, total128. Twelve are direct public AXPY calls and14 are GER children; do not charge the GER child work again in its parent.
+* GER: six public calls have n1,2,3,2,3,3; the selected a41e40 loop multiplies alpha by each column coefficient once at a41e5d, then calls the already counted AXPY slot. Parent arithmetic14, child arithmetic already above. Input incX1 skips copy.
+* Additional GEMV beta scaling: one internal SCAL per SVD, n1,2,3,2,3,3. Reuse the conservative n+3 reviewed SCAL envelope even though these internal invocations skip the public wrapper comparison; total32. The original twelve public SCAL calls were already charged72 in helper2424 and are not added here.
+* Small beta-zero NN GEMM: all six calls M1,N4,K1. The same installed remaining-row branch reviewed for M4 is selected because K<16, with mask1. Two two-column blocks execute unmasked8-lane FMA and alpha multiplication per column (a897a0..a897de); hence4*(16+8)=96 each,576 total. Source masked loads/stores do not mask arithmetic. No packed GEMM or beta arithmetic occurs. Public permit, conversion/guard and driver work remains separate.
+
+Candidate body-plus-new-scale subtotal850 =100+128+14+32+576. Existing helper2424 includes the twelve public SCAL calls and the norms/hypots; no numerical array is recomputed to obtain these counts. Public GEMV/GER/AXPY/GEMM guards, permit, full SVD parents, Legendre utility/reduction internals, integer/control/memory remain open. This is neither a full cold upper nor hardware cost.
