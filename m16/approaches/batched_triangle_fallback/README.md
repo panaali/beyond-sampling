@@ -11,10 +11,12 @@ Freeze before results: mixed-order controls using all15 original thin triangles,
 Alternatives and discriminators: (1) order selection dominates, so batching nodes may not improve total CPU; measure selection versus node time and complete pilot, not only matrix throughput. (2) batched matmul/reduction changes rounding near a bound; preserve scalar selection and bounds, compare every fixed control and unchanged fallback indices. If dispatch gain is absent, a separately frozen vectorized selection with scalar handling near decision thresholds remains open; do not silently switch variants or declare all batching useless.
 
 ## Status
-Protocol frozen; implementation next.
+Controls passed; unchanged complete-pilot comparison next.
 
 ## Results
-None yet.
+`check.py`: all9309 fixed triangles across ten selected orders4..128 pass; exact stored node arrays and every metadata field match. Maximum relative value difference2.67e-15, absolute7.82e-14. Scalar .280/.296CPU versus grouped .208/.224CPU (one cold control each, not robust timing evidence). All5811104 nodes retained. Counters592630992 scalar versus592705784 grouped, including74792 extra grouping charges. Reproduce with one-thread Python `check.py`.
+
+Initial `controls_initial.json` retains a node-cap contract oversight: max_nodes16 forced one triangle per batch even when its rule needed more nodes. Production65536 was never exceeded. Added explicit rejection when one rule exceeds cap; repeated valid16384/65536 controls in `controls.json`, plus rejection and empty-set tests. No failed numerical controls were discarded.
 
 ## Compute accounting
 One thread,2GB; short controls use review lock<=20CPU, longer cycles compute lock<=110CPU. Same conservative node/rule/selection charges as original, plus actual grouping overhead. Cold source/frame/rule setup and artifact overhead separated. No model forward evaluations or random inputs.
