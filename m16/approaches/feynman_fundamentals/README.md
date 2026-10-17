@@ -524,3 +524,16 @@ Cost:.638798CPU seconds,17550 high-precision integrand evaluations and108 float
 quadrature nodes, no model passes or sampled inputs. Reproduce
 `check_quadratic_gaussian.py` through the review lock. This validates the
 fallback theorem; T67's engine still needs its own integration/rounding controls.
+
+## Cycle 14 protocol (frozen before validation)
+Independently review T71's odd-dimensional tetrahedron reduction and T72's
+outward T4 cubature enclosure without modifying either engine. Alternative 1:
+thin-face cancellation or a measure normalization error invalidates the T71
+formula; derive its cofactor signs, equal-endpoint limit and positive fallback
+degree count, and specify an asymmetric thin-tetrahedron falsifier. Alternative
+2: outward arithmetic encloses individual operations but misses quadrature
+truncation or algebraic-rule uncertainty; derive T72's rational tail constant
+and compare its raw GL20 interval with independently generated 70-digit GL20
+cubature for the orthant and two fixed artifact simplices (indices 0 and 128).
+The numerical check is at most 20 CPU seconds on the review lock, with no
+model passes, full-artifact sweep or changes to frozen integration primitives.
