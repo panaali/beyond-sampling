@@ -6,6 +6,12 @@ atan2 and other elementary transcendental calls cost20. Memory allocation and
 copies are excluded in both algorithms. This is an operation model, not CPU
 time, bit complexity or a floating-error guarantee.
 
+Fixed small integer powers are expanded into scalar multiplications: x squared
+costs one multiplication and x cubed costs two. Noninteger powers cost20. This
+convention describes the numerical arithmetic circuit even when NumPy writes
+the integer operation as `**2` or `**3`; it does not claim a particular libm
+implementation cost or instruction count.
+
 The counted engine imports the unchanged T52 bounded-rank DD geometry,
 determinants, Gauss-Legendre Newton setup and positive I5 segment. Their counters
 remain active. No QR, SVD, gamma, Qhull or other opaque numerical kernel is used
