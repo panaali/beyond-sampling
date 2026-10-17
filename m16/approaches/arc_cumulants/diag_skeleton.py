@@ -30,7 +30,7 @@ def trunc_cumulants(v, order=4):
     """Cumulants 1..order of N(0,1) | X < v (exact, via the moment recursion)."""
     lam = norm.pdf(v) / norm.cdf(v)
     m = [1.0, -lam]
-    for j in range(2, order + 1):
+    for j in range(2, 5):
         m.append((j - 1) * m[j - 2] - v ** (j - 1) * lam)
     k1 = m[1]
     k2 = m[2] - m[1] ** 2
