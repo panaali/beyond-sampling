@@ -29,8 +29,12 @@ class Ops:
 def families(kind,ops):
     return engine.halves(4) if kind=='old' else (quadratic if kind=='quadratic' else nearest)(4,ops)
 
-def partial_run(model,kind,mode,output=None,cpu=50):
+def partial_run(model,kind,mode,output=None,cpu=50,capture=False):
     start=time.process_time();ops=Ops(cpu);rows=[];error=0.;hs=[];setup=None
+    samples=[];original_orthant=engine.orthant
+    def record_mass(rays,counter):
+        value=original_orthant(rays,counter);samples.append((np.array(rays,copy=True),value));return value
+    if capture:engine.orthant=record_mass
     out=dict(kind=kind,mode=mode,complete=False,source_sha256=HASHES,checkpoint_sha256=CHECKHASH,import_cpu=IMPORT_CPU,partial_named_costs=True,portable_cost_certified=False,mass_roundoff_certified=False)
     def save():
         out.update(completed_families=len(rows),partial_completed_error=error,rows=rows,named_ops=ops.n,stats=engine.STATS.copy(),cpu_seconds=time.process_time()-start,maxrss_kb=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
@@ -48,6 +52,10 @@ def partial_run(model,kind,mode,output=None,cpu=50):
         out.update(complete=True,estimate=1-error,reference=REFERENCE,signed_reference_error=1-error-REFERENCE)
     except Exception as exc:
         out.update(failure_type=type(exc).__name__,failure=str(exc),cost_is_partial=True,unfinished_family_index=len(rows),no_partial_accuracy_reported=True)
+    engine.orthant=original_orthant
+    if capture:
+        rays=np.array([r for r,v in samples]);values=np.array([v for r,v in samples]);dest=HERE/(kind+'_'+mode+'_mass_calls.npz');np.savez_compressed(dest,rays=rays,values=values)
+        out['mass_capture']=dict(path=dest.name,sha256=hashlib.sha256(dest.read_bytes()).hexdigest(),calls=len(samples),negative_values=int(sum(values<0)),default_sum=float(values.sum()),zero_values=int(sum(values==0)),capture_is_diagnostic=True)
     save();return out
 
 def controls():
@@ -72,6 +80,6 @@ def main():
     if a.controls:return controls()
     assert a.kind and a.mode and hashlib.sha256(CHECKPOINT.read_bytes()).hexdigest()==CHECKHASH
     start=time.process_time();state=torch.load(CHECKPOINT,weights_only=True,map_location='cpu');model=(state['rnn.weight_ih_l0'].numpy()[:,0].astype(float),state['rnn.weight_hh_l0'].numpy().astype(float),state['linear.weight'].numpy().astype(float));load=time.process_time()-start
-    output=HERE/(a.kind+'_'+a.mode+'.json');out=partial_run(model,a.kind,a.mode,output);out['checkpoint_load_cpu']=load;output.write_text(json.dumps(out,indent=2)+'\n')
+    output=HERE/(a.kind+'_'+a.mode+'.json');out=partial_run(model,a.kind,a.mode,output,capture=a.mode=='exact');out['checkpoint_load_cpu']=load;output.write_text(json.dumps(out,indent=2)+'\n')
     print(json.dumps({k:v for k,v in out.items() if k!='rows'},indent=2))
 if __name__=='__main__':main()
