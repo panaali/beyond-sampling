@@ -163,3 +163,11 @@ case and independent truth/convergence discriminator remain necessary.
 Reproduce identity with `python noise_identity.py`, observer parity with
 `python observer_controls.py`, and frozen component with
 `python noise_preflight.py` under the stated locks/resource limits.
+
+The source gate passed before the fixed noisy component. Family0/side0
+completed in7.129CPU,36.8MB: raw error component.18712027456605582,
+normalised.009479623851256004,37,704,799 legacy units,2631 traces/2163pieces.
+No zero normal occurred. Trace max11 (2631calls), downward walk max1
+(784calls), subdivision maxdepth3; no observed loop/depth cap. This makes
+one whole fixed noisy case a plausible bounded continuation; no inference
+about the other47 component costs or approximation error is made yet.
