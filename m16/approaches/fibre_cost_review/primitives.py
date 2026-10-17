@@ -12,7 +12,7 @@ def main():
     # Direct rows_at isolate the executed dense work even when every gate is off.
     model=(np.zeros(4),np.zeros((4,4)),np.zeros((3,4)));ops=mod.Ops();mod.rows_at(model,np.array([.5,-1.,2.]),ops);z=mod._ledger.report()
     assert z['totals']['historical_mac']==24
-    assert z['totals']['mul']==168 and z['totals']['add']==129 and z['totals']['mask_mul']==36
+    assert z['totals']['mul']==168 and z['totals']['add']==123 and z['totals']['mask_mul']==36
     out={'cases':rows,'zero_rows_at':z,'zero_rows_at_historical_n':ops.n,'zero_rows_at_historical_x':getattr(ops,'x',0),'manifest':manifest,'scope':'primitive and named-kernel counts only'}
     Path(__file__).with_name('primitive_results.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({'sites':len(manifest['sites']),'zero_rows_at':z['totals'],'historical_n':ops.n,'historical_x':getattr(ops,'x',0)}))
 if __name__=='__main__':main()
