@@ -163,11 +163,46 @@ probability is 2 E[Phi(uR)(1-Phi(uR))]; if it is second, E Phi(uR)^2; if lower,
 zero. `check_rayleigh.py` checks four positive/negative prefix examples without
 any numerical reference integration.
 
-## Next cycle
+## Next cycle: transport must retain interior rays
 
-Use the weighted primitive inside a bounded two-input network-tail enumerator;
-compare exact H2T3 or synthetic closed-form cases before integrating any long
-prefixes. Charge all geometric partitioning, special functions and higher-
-precision fallbacks. Coordinate the implementation with T50 to avoid duplication.
-Separately, the normalized transport and reset marginalization remain distinct
-candidate formulations; root should track implementation/review as backlog items.
+The two-input enumerator is now implemented and independently checked on bounded
+synthetic cases. For T4, a prefix of length2 has a uniform circle direction, so
+the entire accuracy reduces to one angle integral with an analytic k=2 tail.
+The H2T4 and H4T4 owners have this primitive for an independent numerical route.
+Classification and full compute accounting remain DRI decisions.
+
+At fixed target u, the raw hidden-density update has a useful structure: a linear
+map, rank-one Gaussian convolution split at x=u for the count, followed by ReLU.
+Finite-volume or FFT transport could avoid the previous moment-closure failures.
+However, a smooth interior density plus axis masses is not a sufficient
+representation. Even the simplest reset example creates an interior singular ray.
+
+Take H2, w=(1,1), A=diag(1,2), h0=0 and two independent inputs x,y. Then
+
+    h1=(max(x,0),max(x,0)),
+    h2=(max(max(x,0)+y,0), max(2 max(x,0)+y,0)).
+
+Its exact law has four disjoint strata:
+
+- Atom at0: x<=0,y<=0, or x>0,y<=-2x. Mass
+  1/4 + atan(1/2)/(2*pi).
+- Interior ray(q,q), q>0: x<=0,y>0. Mass1/4, density (1/2)phi(q)dq.
+- Axis(0,s), s>0: x>0,-2x<y<=-x. Mass
+  [atan(2)-pi/4]/(2*pi), density phi(s/sqrt(5))/sqrt(5)*Phi(-3s/sqrt(5)) ds.
+- Two-dimensional interior b>a>0: x=b-a,y=2a-b. Mass3/8 and
+  density phi(b-a)phi(2a-b) da db.
+
+The masses sum exactly to one. A representation containing only a smooth
+interior, axes and origin would silently lose a quarter of the probability.
+This is an exact limiting-case falsifier for proposed transport code, not a
+claim about a trained checkpoint. A deterministic target insertion can also
+produce shifted line strata. Repeated random input generally smooths a ray into
+an interior density, but new reset atoms continually create new rays.
+
+The next bounded T55 cycle should preserve these strata and counts in this toy
+law before attempting any long-horizon density grid. The alternatives are that
+explicit strata remain cheap, or that conditioning/rank constraints cause their
+description to grow too quickly; mass conservation and this exact four-part law
+are the first falsifiers. Separately, reset-prefix marginalization remains an
+independent candidate. Root should track implementation/review follow-ups in the
+backlog; T55 does not modify shared files or other owners' estimators.
