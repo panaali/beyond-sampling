@@ -1,0 +1,117 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000009eab0 <scipy_daxpy_64_>:
+   9eab0:	48 83 ec 18          	sub    $0x18,%rsp
+   9eab4:	f2 0f 10 06          	movsd  (%rsi),%xmm0
+   9eab8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   9eabc:	49 89 d2             	mov    %rdx,%r10
+   9eabf:	be 00 00 00 00       	mov    $0x0,%esi
+   9eac4:	4d 89 c3             	mov    %r8,%r11
+   9eac7:	48 8b 3f             	mov    (%rdi),%rdi
+   9eaca:	4c 8b 01             	mov    (%rcx),%r8
+   9eacd:	66 0f 2e c1          	ucomisd %xmm1,%xmm0
+   9ead1:	49 8b 11             	mov    (%r9),%rdx
+   9ead4:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
+   9eada:	0f 9b c0             	setnp  %al
+   9eadd:	0f 45 c6             	cmovne %esi,%eax
+   9eae0:	84 c0                	test   %al,%al
+   9eae2:	0f 85 90 00 00 00    	jne    9eb78 <scipy_daxpy_64_+0xc8>
+   9eae8:	48 85 ff             	test   %rdi,%rdi
+   9eaeb:	0f 8e 87 00 00 00    	jle    9eb78 <scipy_daxpy_64_+0xc8>
+   9eaf1:	4c 89 c0             	mov    %r8,%rax
+   9eaf4:	48 09 d0             	or     %rdx,%rax
+   9eaf7:	0f 84 03 01 00 00    	je     9ec00 <scipy_daxpy_64_+0x150>
+   9eafd:	4d 85 c0             	test   %r8,%r8
+   9eb00:	0f 88 da 00 00 00    	js     9ebe0 <scipy_daxpy_64_+0x130>
+   9eb06:	48 85 d2             	test   %rdx,%rdx
+   9eb09:	0f 88 a9 00 00 00    	js     9ebb8 <scipy_daxpy_64_+0x108>
+   9eb0f:	4d 85 c0             	test   %r8,%r8
+   9eb12:	0f 94 c0             	sete   %al
+   9eb15:	48 85 d2             	test   %rdx,%rdx
+   9eb18:	0f 94 c1             	sete   %cl
+   9eb1b:	08 c8                	or     %cl,%al
+   9eb1d:	75 67                	jne    9eb86 <scipy_daxpy_64_+0xd6>
+   9eb1f:	48 81 ff 10 27 00 00 	cmp    $0x2710,%rdi
+   9eb26:	7e 5e                	jle    9eb86 <scipy_daxpy_64_+0xd6>
+   9eb28:	48 8d 05 39 bc 51 01 	lea    0x151bc39(%rip),%rax        # 15ba768 <blas_cpu_number>
+   9eb2f:	8b 08                	mov    (%rax),%ecx
+   9eb31:	83 f9 01             	cmp    $0x1,%ecx
+   9eb34:	74 4a                	je     9eb80 <scipy_daxpy_64_+0xd0>
+   9eb36:	8b 00                	mov    (%rax),%eax
+   9eb38:	83 f8 01             	cmp    $0x1,%eax
+   9eb3b:	74 43                	je     9eb80 <scipy_daxpy_64_+0xd0>
+   9eb3d:	48 83 ec 08          	sub    $0x8,%rsp
+   9eb41:	48 89 fe             	mov    %rdi,%rsi
+   9eb44:	4d 89 d1             	mov    %r10,%r9
+   9eb47:	31 c9                	xor    %ecx,%ecx
+   9eb49:	50                   	push   %rax
+   9eb4a:	48 8d 05 1f bc 51 01 	lea    0x151bc1f(%rip),%rax        # 15ba770 <gotoblas>
+   9eb51:	bf 03 00 00 00       	mov    $0x3,%edi
+   9eb56:	48 8b 00             	mov    (%rax),%rax
+   9eb59:	ff b0 88 03 00 00    	push   0x388(%rax)
+   9eb5f:	6a 00                	push   $0x0
+   9eb61:	6a 00                	push   $0x0
+   9eb63:	52                   	push   %rdx
+   9eb64:	31 d2                	xor    %edx,%edx
+   9eb66:	41 53                	push   %r11
+   9eb68:	41 50                	push   %r8
+   9eb6a:	4c 8d 44 24 48       	lea    0x48(%rsp),%r8
+   9eb6f:	e8 ac ba 37 00       	call   41a620 <blas_level1_thread>
+   9eb74:	48 83 c4 40          	add    $0x40,%rsp
+   9eb78:	48 83 c4 18          	add    $0x18,%rsp
+   9eb7c:	c3                   	ret
+   9eb7d:	0f 1f 00             	nopl   (%rax)
+   9eb80:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
+   9eb86:	48 8d 05 e3 bb 51 01 	lea    0x151bbe3(%rip),%rax        # 15ba770 <gotoblas>
+   9eb8d:	48 83 ec 08          	sub    $0x8,%rsp
+   9eb91:	4d 89 d9             	mov    %r11,%r9
+   9eb94:	31 f6                	xor    %esi,%esi
+   9eb96:	4c 89 d1             	mov    %r10,%rcx
+   9eb99:	48 8b 00             	mov    (%rax),%rax
+   9eb9c:	6a 00                	push   $0x0
+   9eb9e:	6a 00                	push   $0x0
+   9eba0:	52                   	push   %rdx
+   9eba1:	31 d2                	xor    %edx,%edx
+   9eba3:	ff 90 88 03 00 00    	call   *0x388(%rax)
+   9eba9:	48 83 c4 20          	add    $0x20,%rsp
+   9ebad:	48 83 c4 18          	add    $0x18,%rsp
+   9ebb1:	c3                   	ret
+   9ebb2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   9ebb8:	48 8d 47 ff          	lea    -0x1(%rdi),%rax
+   9ebbc:	48 0f af c2          	imul   %rdx,%rax
+   9ebc0:	48 c1 e0 03          	shl    $0x3,%rax
+   9ebc4:	49 29 c3             	sub    %rax,%r11
+   9ebc7:	4d 85 c0             	test   %r8,%r8
+   9ebca:	0f 94 c0             	sete   %al
+   9ebcd:	48 85 d2             	test   %rdx,%rdx
+   9ebd0:	0f 94 c1             	sete   %cl
+   9ebd3:	08 c8                	or     %cl,%al
+   9ebd5:	0f 84 44 ff ff ff    	je     9eb1f <scipy_daxpy_64_+0x6f>
+   9ebdb:	eb a9                	jmp    9eb86 <scipy_daxpy_64_+0xd6>
+   9ebdd:	0f 1f 00             	nopl   (%rax)
+   9ebe0:	48 8d 47 ff          	lea    -0x1(%rdi),%rax
+   9ebe4:	49 0f af c0          	imul   %r8,%rax
+   9ebe8:	48 c1 e0 03          	shl    $0x3,%rax
+   9ebec:	49 29 c2             	sub    %rax,%r10
+   9ebef:	48 85 d2             	test   %rdx,%rdx
+   9ebf2:	0f 89 17 ff ff ff    	jns    9eb0f <scipy_daxpy_64_+0x5f>
+   9ebf8:	eb be                	jmp    9ebb8 <scipy_daxpy_64_+0x108>
+   9ebfa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   9ec00:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   9ec04:	f2 48 0f 2a cf       	cvtsi2sd %rdi,%xmm1
+   9ec09:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   9ec0d:	f2 41 0f 59 0a       	mulsd  (%r10),%xmm1
+   9ec12:	f2 41 0f 58 0b       	addsd  (%r11),%xmm1
+   9ec17:	f2 41 0f 11 0b       	movsd  %xmm1,(%r11)
+   9ec1c:	48 83 c4 18          	add    $0x18,%rsp
+   9ec20:	c3                   	ret
+
+Disassembly of section .fini:
