@@ -69,7 +69,7 @@ def split(R, Exact, candidate=None):
         floating_setup_named={'addition':5,'norm_multiply':5,'norm_add':4,'sqrt':1,'divide':5},
         scope='actual binary rays; section fractions are not Gaussian masses')
 
-def controls(Exact):
+def controls(Exact, rows, save):
     I=np.eye(5);cases=[]
     R=I.copy();R[1]=-R[0];cases.append(('zero_sum',R,None,'zero_sum'))
     R=I.copy();R[0,0]=np.inf;cases.append(('nonfinite',R,None,'nonfinite_or_shape'))
@@ -78,30 +78,38 @@ def controls(Exact):
     v=(I[0]+I[1])/np.sqrt(2);v[2]=2.**-52;cases.append(('off_edge_span',I,v,'off_edge_span'))
     cases.append(('norm_overflow',I*1e308,None,'invalid_norm'))
     cases.append(('norm_underflow',I*1e-308,None,'invalid_norm'))
-    rows=[]
     for name,R,v,expected in cases:
         try: split(R,Exact,v)
         except Rejected as e: result=str(e)
         else: result='unexpected_acceptance'
         rows.append(dict(name=name,expected=expected,result=result,pass_control=result==expected,
             rays_hex=hexrows(R),candidate_hex=None if v is None else [float(x).hex() for x in v]))
+        save()
     assert all(x['pass_control'] for x in rows)
     return rows
 
 def main():
     out=P/'geometry.json';assert not out.exists()
-    start=time.process_time();p=pinned();m=primitive(p)
-    fixtures=json.loads((Path(p['prior'])/'results.json').read_text())['fixtures']
-    assert [f['name'] for f in fixtures]==p['fixture_names']
-    guard=controls(m.Exact);rows=[]
-    for f in fixtures:
-        R=[[float.fromhex(x) for x in row] for row in f['rays_hex']]
-        try: result=dict(status='accepted',**split(R,m.Exact))
-        except Rejected as e: result=dict(status='unresolved',reason=str(e),parent_hex=f['rays_hex'])
-        rows.append(dict(name=f['name'],**result))
-    result=dict(complete=True,protocol_sha256=sha(P/'protocol.json'),source_sha256=sha(__file__),
-        controls=guard,rows=rows,accepted=sum(x['status']=='accepted' for x in rows),
-        cpu=time.process_time()-start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
-        exclusions='Python control, imports, memory, exact bit-complexity and compiled norm internals not priced')
-    out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:result[k] for k in ('accepted','cpu','max_rss_kib')}))
+    start=time.process_time()
+    result=dict(complete=False,protocol_sha256=sha(P/'protocol.json'),source_sha256=sha(__file__),
+        controls=[],rows=[],accepted=0,
+        exclusions='Python control, imports, memory, exact bit-complexity and compiled norm internals not priced; rejected paths do not return exact-operation counts.')
+    def save():
+        result.update(cpu=time.process_time()-start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+        out.write_text(json.dumps(result,indent=2)+'\n')
+    save()
+    try:
+        p=pinned();m=primitive(p)
+        fixtures=json.loads((Path(p['prior'])/'results.json').read_text())['fixtures']
+        assert [f['name'] for f in fixtures]==p['fixture_names']
+        controls(m.Exact,result['controls'],save)
+        for f in fixtures:
+            entry=dict(name=f['name'],status='started',parent_hex=f['rays_hex']);result['rows'].append(entry);save()
+            R=[[float.fromhex(x) for x in row] for row in f['rays_hex']]
+            try: entry.update(status='accepted',**split(R,m.Exact))
+            except Rejected as e: entry.update(status='unresolved',reason=str(e))
+            result['accepted']=sum(x['status']=='accepted' for x in result['rows']);save()
+        result['complete']=True
+    except BaseException as e: result['failure']=repr(e);raise
+    finally:save();print(json.dumps({k:result[k] for k in ('complete','accepted','cpu','max_rss_kib')}))
 if __name__=='__main__': main()
