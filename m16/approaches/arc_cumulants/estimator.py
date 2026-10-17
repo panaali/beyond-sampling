@@ -51,8 +51,8 @@ def cost_table(H, T):
         tab = {}
         for K in KS:
             for mode in ("uncond", "cell"):
-                if mode == "cell" and T >= 10 and K >= 4:
-                    tab[(mode, K)] = np.inf      # not run: > 1e7 FPE, beyond every leaderboard budget
+                if T >= 10 and K >= 4:
+                    tab[(mode, K)] = np.inf      # not run: > 3e6 FPE (beyond every leaderboard budget) and > 2 GB
                     continue
                 _, raw, _ = _run(dummy, mode, K)
                 tab[(mode, K)] = raw / _fpe(H, T)

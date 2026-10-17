@@ -98,49 +98,57 @@ def lift(R, Z, a, alpha, cid, allmask, ops):
 
 
 # ------------------------------------------------------------------ enumeration
-def enumerate_cells(model, ops, stats=None):
-    """Yield final gate cells (R, Z, A_T, allmask) in R^T. A_T: (H,T) with h_T = A_T x on the cell."""
+def _children(R, Z, A, allm, t, model, ops):
+    """Cut the lifted cell C x R by the 16 step-(t+1) gate hyperplanes. Returns the child cells."""
+    Wi, Wh, Wo = model
+    H = len(Wi)
+    order = np.argsort(-np.abs(Wi))       # lift on the unit with the largest |Wi| (well-conditioned)
+    B = Wh @ A[:, :t]; ops.add(2 * H * H * t, "lift")     # z_{t+1} = B x' + Wi y
+    cid = lambda k: 1 + 16 * (t - 1) + k
+    k0 = order[0]
+    pieces = []
+    for sg in (1.0, -1.0):
+        R1, Z1 = lift(R, Z, sg * B[k0], sg * Wi[k0], cid(k0), allm, ops)
+        g = np.zeros(H, bool); g[k0] = sg > 0
+        pieces.append((R1, Z1, g))
+    for k in order[1:]:
+        a = np.concatenate([B[k], [Wi[k]]])
+        new = []
+        for R1, Z1, g in pieces:
+            ins, outs = clip(R1, Z1, a, cid(k), ops)
+            if ins is not None:
+                g2 = g.copy(); g2[k] = True; new.append((ins[0], ins[1], g2))
+            if outs is not None:
+                new.append((outs[0], outs[1], g))
+        pieces = new
+    allm2 = allm.copy()
+    for k in range(H):
+        allm2 |= bit(cid(k))
+    out = []
+    for R1, Z1, g in pieces:
+        A2 = A.copy(); A2[:, :t] = B; A2[:, t] = Wi; A2[~g] = 0.0
+        out.append((R1, Z1, A2, allm2))
+    return out
+
+
+def iter_cells(model, ops, counts):
+    """Depth-first generator of final gate cells (R, Z, A_T, allmask) in R^T; counts[t] = cells at step t+1."""
     Wi, Wh, Wo = model
     H = len(Wi); T = Wo.shape[0]
-    order = np.argsort(-np.abs(Wi))       # lift on the unit with the largest |Wi| (well-conditioned)
-    cells = []
+    roots = []
     for s in (1.0, -1.0):                 # step 1: x_1 > 0 or < 0; gates fixed
         g = (s * Wi) > 0
         A = np.zeros((H, T)); A[:, 0] = np.where(g, Wi, 0.0)
-        cells.append((np.array([[s]]), np.zeros((1, NW), np.uint64), A, bit(0)))
-    counts = [len(cells)]
-    for t in range(1, T):                 # add x_{t+1} (0-based column t)
-        nxt = []
-        for R, Z, A, allm in cells:
-            B = Wh @ A[:, :t]; ops.add(2 * H * H * t, "lift")     # z_{t+1} = B x' + Wi y
-            cid = lambda k: 1 + 16 * (t - 1) + k
-            k0 = order[0]
-            pieces = []
-            for sg in (1.0, -1.0):
-                R1, Z1 = lift(R, Z, sg * B[k0], sg * Wi[k0], cid(k0), allm, ops)
-                g = np.zeros(H, bool); g[k0] = sg > 0
-                pieces.append((R1, Z1, g))
-            for k in order[1:]:
-                a = np.concatenate([B[k], [Wi[k]]])
-                new = []
-                for R1, Z1, g in pieces:
-                    ins, outs = clip(R1, Z1, a, cid(k), ops)
-                    if ins is not None:
-                        g2 = g.copy(); g2[k] = True; new.append((ins[0], ins[1], g2))
-                    if outs is not None:
-                        new.append((outs[0], outs[1], g))
-                pieces = new
-            allm2 = allm.copy()
-            for k in range(H):
-                allm2 |= bit(cid(k))
-            for R1, Z1, g in pieces:
-                A2 = A.copy(); A2[:, :t] = B; A2[:, t] = Wi; A2[~g] = 0.0
-                nxt.append((R1, Z1, A2, allm2))
-        cells = nxt
-        counts.append(len(cells))
-    if stats is not None:
-        stats["cells_per_step"] = counts
-    return cells
+        roots.append((np.array([[s]]), np.zeros((1, NW), np.uint64), A, bit(0)))
+    counts[0] += 2
+    stack = [(c, 1) for c in roots[::-1]]
+    while stack:
+        c, t = stack.pop()
+        if t == T:
+            yield c; continue
+        ch = _children(*c, t, model, ops)
+        counts[t] += len(ch)
+        stack += [(x, t + 1) for x in ch[::-1]]
 
 
 def outcome_pieces(cell, model, ops, base_id):
@@ -371,33 +379,47 @@ def _gm_eval(V, s, ops):
     return (q ** (-T / 2)) @ w
 
 
-def cone_measure(V, ops, rtol=1e-9, atol=1e-16, s=2, maxdepth=30):
-    """Gaussian measure of simplicial cones (rows of V[i] = unit rays). Returns (p, err) per input simplex."""
+def cone_measure(V, ops, rtol=1e-9, atol=1e-16, s=3, maxdepth=40, chunk=4096):
+    """Gaussian measure of simplicial cones (rows of V[i] = unit rays). Returns (p, err) per input simplex.
+    Depth-first over a bounded work stack (memory stays O(chunk x maxdepth))."""
     S, T, _ = V.shape
     if S == 0:
         return np.zeros(0), np.zeros(0)
+    if T == 2:      # exact: angle / 2 pi
+        c = (V[:, 0] * V[:, 1]).sum(1); d = V[:, 0, 0] * V[:, 1, 1] - V[:, 0, 1] * V[:, 1, 0]
+        ops.add(S * (6 + TRANS), "measure")
+        return np.abs(np.arctan2(np.abs(d), c)) / (2 * np.pi), np.zeros(S)
+    if T == 3:      # exact: Van Oosterom-Strackee solid angle / 4 pi
+        a, b, c = V[:, 0], V[:, 1], V[:, 2]
+        num = np.abs(np.einsum("si,si->s", a, np.cross(b, c)))
+        den = 1 + (a * b).sum(1) + (b * c).sum(1) + (a * c).sum(1)
+        ops.add(S * (9 + 5 + 18 + 3 + TRANS + 2), "measure")
+        om = 2 * np.arctan2(num, den)
+        return om / (4 * np.pi), np.zeros(S)
     from math import gamma, pi
     cst = gamma(T / 2) / (2 * pi ** (T / 2))
     p = np.zeros(S); e = np.zeros(S)
-    idx = np.arange(S); W = V
-    for depth in range(maxdepth):
+    stack = [(V[i:i + chunk], np.arange(i, min(i + chunk, S)), 0) for i in range(0, S, chunk)][::-1]
+    while stack:
+        W, idx, depth = stack.pop()
+        if len(W) > chunk:
+            stack += [(W[i:i + chunk], idx[i:i + chunk], depth) for i in range(0, len(W), chunk)]
+            continue
         det = np.abs(np.linalg.det(W)); ops.add(len(W) * (2 * T ** 3 // 3 + T), "measure")
         hi = _gm_eval(W, s, ops); lo = _gm_eval(W, s - 1, ops)
         val = cst * det * hi; err = cst * det * np.abs(hi - lo)
-        ok = err <= rtol * val + atol
+        ok = (err <= rtol * val + atol) | (depth >= maxdepth)
         np.add.at(p, idx[ok], val[ok]); np.add.at(e, idx[ok], err[ok])
         if ok.all():
-            break
-        if depth == maxdepth - 1:
-            np.add.at(p, idx[~ok], val[~ok]); np.add.at(e, idx[~ok], err[~ok]); break
+            continue
         Wb = W[~ok]; ib = idx[~ok]
         # bisect the longest edge (smallest ray dot product)
-        G = Wb @ np.transpose(Wb, (0, 2, 1)); ops.add(len(Wb) * 2 * T ** 3, "measure")
+        G = Wb @ np.transpose(Wb, (0, 2, 1)); ops.add(len(Wb) * (2 * T ** 3 + 3 * T + TRANS), "measure")
         G[:, np.arange(T), np.arange(T)] = 2.0
         flat = G.reshape(len(Wb), -1).argmin(1); a, b = flat // T, flat % T
         r = np.arange(len(Wb))
         mid = Wb[r, a] + Wb[r, b]; mid /= np.linalg.norm(mid, axis=1)[:, None]
         W1 = Wb.copy(); W1[r, a] = mid
         W2 = Wb.copy(); W2[r, b] = mid
-        W = np.concatenate([W1, W2]); idx = np.concatenate([ib, ib])
+        stack.append((np.concatenate([W1, W2]), np.concatenate([ib, ib]), depth + 1))
     return p, e

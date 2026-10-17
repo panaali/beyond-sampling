@@ -63,7 +63,7 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
     H, T = Wh.shape[0], Wo.shape[0]
     sp = space(T, D); sp.flops = 0.0
     lp_flops = 0.0
-    if cells == "first":
+    if cells in ("first", "wedge"):
         br = [(cell, K.copy(), c.copy(), np.zeros((H, T))) for cell, K, c in roots(T, D)]
         keys = [(cell, b"") for (cell, _, _, _) in br]
     else:                                          # "last" or "global": no root split
@@ -109,7 +109,7 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
     acc = 0.0; nleaf = len(br); pend = []; contrib = np.zeros(nleaf)
     for li, (cell, K, c, A) in enumerate(br):
         L = Wo @ A
-        if cells == "first":
+        if cells in ("first", "wedge"):
             items = [(cell, K, c)]
         else:
             items = []
@@ -138,6 +138,17 @@ def estimate(model, D, cells="first", prune=0.0, return_info=False):
                     rows.append(a)
             lp_flops += K2.flops; K2.flops = 0
             if not ok:
+                continue
+            if cells == "wedge" and rows:
+                # wrong mass = sum over split rivals q of the wedge {cell wall p|q} x {L_q > L_p}: the leaf's leakage
+                # beyond its cell wall is NOT scored by the near-coincident decision plane (README, diag_bias)
+                i = cl2[0]; E = np.eye(T); wr = 0.0
+                for a in rows:
+                    q = int(np.argmax(np.abs([np.allclose(a, L[p] - L[k]) for k in range(T)])))
+                    wall = (E[i] - E[p]) if q == i else (E[p] - E[q])
+                    cw = sp.cut(c2[:, None], (wall / np.linalg.norm(wall))[None]); ncut += 1
+                    wr += float(sp.mass_in(cw, (-a / np.linalg.norm(a))[None])[0])
+                acc += c2[0] - wr; contrib[li] += c2[0] - wr
                 continue
             dead = False
             while rows:
