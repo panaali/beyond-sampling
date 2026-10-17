@@ -1,0 +1,506 @@
+{
+  "claim": "8dc60612",
+  "theorem_gate": "T55 message: subset-injective normalized hinge proof passes, exact predicates required",
+  "source_gate": "pending",
+  "cases": [
+    {
+      "name": "binary2",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "binary3",
+      "model": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            4
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "duplicate",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": false
+      }
+    },
+    {
+      "name": "cancel",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            -1
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": false
+      }
+    },
+    {
+      "name": "unread",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": false
+      }
+    },
+    {
+      "name": "negative_input",
+      "model": [
+        [
+          -2,
+          3
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            4
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "singular",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": false,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "zero_input",
+      "model": [
+        [
+          0,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": false,
+        "recurrent_invertible": true,
+        "subset_injective": false
+      }
+    },
+    {
+      "name": "vector",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "fractional",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            "1/2",
+            "3/4"
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "one_negative",
+      "model": [
+        [
+          -3
+        ],
+        [
+          [
+            2
+          ]
+        ],
+        [
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "tiny_exact",
+      "model": [
+        [
+          "1/13582985290493858492773514283592667786034938469317445497485196697278130927542418487205392083207560592298578262953847383475038725543234929971155548342800628721885763499406390331782864144164680730766837160526223176512798435772129956553355286032203080380775759732320198985094884004069116123084147875437183658467465148948790552744165376",
+          1
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "checks": {
+        "nonzero_input": true,
+        "recurrent_invertible": true,
+        "subset_injective": true
+      }
+    },
+    {
+      "name": "empty",
+      "model": [
+        [],
+        [],
+        [
+          [],
+          []
+        ]
+      ],
+      "reject": true
+    },
+    {
+      "name": "matrix_shape",
+      "model": [
+        [
+          1,
+          1
+        ],
+        [
+          [
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "reject": true
+    },
+    {
+      "name": "readout_shape",
+      "model": [
+        [
+          1
+        ],
+        [
+          [
+            1
+          ]
+        ],
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "reject": true
+    },
+    {
+      "name": "not_rational",
+      "model": [
+        [
+          "nan"
+        ],
+        [
+          [
+            1
+          ]
+        ],
+        [
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "reject": true
+    }
+  ],
+  "resource": "one thread2GB external20CPU review lock",
+  "scope": "Fixed16 synthetic condition controls only; no trained weights/capture/mass/model inputs. Failed predicates are inconclusive, not identifiability counterproofs.",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/primitive.py": "f7e527ebef93ad9f1c4fb7f75b673dfde4e0ac8915410c03928b92e7676f9519",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/controls.py": "66f1c3564cc38a43807fe42f1d6405d5a951f33e6932b59281cecf9b14a5fb6a",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/identifiability/PROOF.md": "0b76875422a4d6355a4ee1b0e346518b3d06765a6419b74019e6f40df94fa4ef"
+  }
+}
