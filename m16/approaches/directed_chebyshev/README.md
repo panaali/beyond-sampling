@@ -81,3 +81,5 @@ After the exact-zero API repair, all24+64 containment controls still pass. The r
 
 ## Directed planning-sum completion
 T55 Decimal review6d810bb independently checks source/algebra and18 closed-form edge cases. Complete the binary helper with a positive pairwise outward sum so callers need not use an ordinary NumPy reduction on individual upper bounds. Freeze empty/single/16/17-element sums, subnormals and an infinite-upper unresolved input, compared to exact Fraction sums where finite. Then apply the same sum to each existing16-cone/order batch; no new rays or integration. This adds summation accounting and leaves individual bound formulas unchanged.
+
+Pairwise outward sums pass all five finite controls and the infinite-upper control against exact Fraction arithmetic. Each16-cone bound sum encloses the exact sum of its supplied binary endpoints, with30 additions and30 nextafter calls. The empty sum is exactlyzero. The short test CPU timer returnedzero and is recorded as unresolved, not zero computation cost. `check_sum.py`/`sum_results.json` retain the evidence; this addition does not alter previously checked individual bound formulas.
