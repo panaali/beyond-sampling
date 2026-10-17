@@ -11,12 +11,14 @@ Freeze T148 commit a90dd3b archive directory `/workspace/work/recover-small_h2_9
 Alternative explanations/falsifiers: geometry semantics could fail on another seed; exact Fraction recurrence distinguishes thin-boundary double errors from true witness errors; passing witnesses do not exclude wrong behavior elsewhere inside a simplex or incomplete/overlapping error geometry. This is complementary to T148 mass/reference and T146 cost reviews.
 
 ## Status
-Bounded floating and exact held-out point checks complete; independent review pending.
+Bounded floating and exact held-out point checks complete; independent T55 saved-record/source review add47fb passes.
 
 ## Results
 All30726 fixed witnesses have the captured parent truth and an incorrect independent direct network prediction; no input ties. All64 smallest-margin witnesses pass exact Fraction recurrence with unrounded binary-ray sums, no floating/exact label changes and no exact gate zeros. Exact margin range[-.002442762399879239,-.000011686991552445548]. All six unchanged analytic controls pass. These are finite witness results, not a whole-cone or accuracy certificate.
 
 Reproduce from repository root using `/workspace/clean-neurons/.venv/bin/python m16/approaches/heldout_error_semantics/check.py controls`, then `floating`, then `exact 0` through `exact 3`, under one-thread OMP/OPENBLAS/MKL, review lock and `ulimit -v 2500000`. source_manifest.json records all six configuration substitutions and verifies their inverse reconstructs the original reviewed source byte-for-byte. Raw inputs/logits/margins in floating.npz, exact inputs/logits/signs in four exact JSON files; summary.json is compact.
+
+Independent reviewer add47fb checked all30726 saved labels/selection and independently reproduced all64 selected exact recurrences using integer arithmetic (.048CPU excluding load). This independently checks the finite panel; it does not expand the scope to whole cones.
 
 ## Compute accounting
 One thread,2GB, review lock<=20CPU per process.30726 floating and64 exact rational trained forward passes, plus fixed analytic controls. CPU includes imports and checkpoints except final serialization/return. Measured total5.417221427CPU including controls and repeated imports, peakRSS213128KiB. All review work is separate from estimator runtime; no cost-competitive claim.
