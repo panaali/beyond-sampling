@@ -1616,3 +1616,7 @@ All544 saved heuristic decisions, exact decimal-reference errors,155 actualMP80 
 ### T184 H5/zoo3 once-only raw audit
 
 All256 original rows/four recovered shards pass saved model/output/legacy, native baseline/traced and complete site/category checks. Named53987408 numerical+1668896 integer units; source159 per-model-floor group ratio.005128446805333035. One individual loss remains, maximum1.8127620863061007. No scalar/native topology difference. Completed-shard68.347796663CPU; global failure reservation and coverage still pending. No estimator/truth replay or full native/runtime implication.
+
+### T187 fixed exact sensitivity controls source gate
+
+Reviewed owner34 core7c067082/guard7371feed and proof: common dyadic denominator recurrence/Jacobian, age envelope |Wo_a-Wo_b||Wh|^age|Wi|, strict gate-radius induction and rank-gap/4 check. Positive neuron scaling/permutation/common readout preserve margin spread/envelope. Fixed12 T4 controls may run once; no trained768 authorization here. Identically-zero forms are locally OFF, nonzero zero-valued forms remain unresolved. Named integer ledger excludes Fraction construction/comparison/gcd and full cost. GenericT1 unsupported by current min(gaps) guard is outside frozen scope.
