@@ -77,3 +77,42 @@ The unchanged5-input H4 sampler returns.2; raw983 =966 prediction, hit
 aggregation and final-division units +17 explicit loop/index units. True-label
 argsort remains separately opaque/free-label convention, and no random draws
 occurred. Native counts do not certify quadrature bias.
+
+### Sorting/search closure controls
+After independent source gates,1850 fixed stable-sort cases and40 right-search
+shapes pass. The source-shadow keeps the complete numeric timsort body; actual
+NumPy permutations remain authoritative. Parent Python CPU.0365s excludes the
+compiler child; the full capped command took.487wall seconds, so no exact
+combined CPU claim is made. All108 finite four-label network controls pass
+in.004CPU, and10 old circle/grid controls preserve every raw site and output
+under the separate closure observer (.173CPU). `controls_summary.json` keeps
+unpriced/raw and conditional source allowances distinct. None establishes
+compiler/binary equivalence or a complete runtime budget.
+
+The original and tile-only seed0 H4T4 h8 probe is frozen by admin fec66d8b.
+Existing checkpoint83ddef... matches canonical public object MD5 metadata;
+converted float64 model086adb... is saved, no new weight download. Exact
+source/controls/checkpoint hashes and original ev_44 h8 value/counter are
+required before execution. No h64 or noisy-panel claim is licensed.
+
+### Commands and preservation
+All numerical commands use the venv Python, OMP/OPENBLAS/MKL threads1,
+`ulimit -v 2500000`, and a process CPU limit. Scripts refuse to overwrite
+saved artifacts; reproduce in an isolated owned checkout with prior outputs
+archived separately. Original commands relative to repo root:
+
+```
+.venv/bin/python m16/approaches/hopf_native_cost/inventory.py
+.venv/bin/python m16/approaches/hopf_native_cost/controls.py
+.venv/bin/python m16/approaches/hopf_native_cost/build_sort_shadow.py
+.venv/bin/python m16/approaches/hopf_native_cost/sort_controls.py
+.venv/bin/python m16/approaches/hopf_native_cost/argsort4_controls.py
+.venv/bin/python m16/approaches/hopf_native_cost/closed_controls.py
+```
+
+The research worktree uses the shared interpreter at
+`/workspace/clean-neurons/.venv/bin/python`. Source controls use the serialized
+codex-review lock, <=20CPU. build_sort_shadow generates source only;
+sort_controls invokes g++17/O2 to make the ignored source-shadow library.
+No external library binary is committed. Network source metadata is pinned;
+initial renamed-file404s and wrong-interpreter metadata remain preserved.
