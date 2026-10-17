@@ -28,3 +28,8 @@ Scalar arithmetic/comparisons/bit operations cost1; transcendental functions cos
 
 ## Failure modes
 Numerical DD tolerances, rank ambiguity, ill-conditioned rays, finite bitset capacity and polynomial-bound looseness. The quadrature bound does not certify floating topology, roundoff or the complete challenge at H16T10. No hard budget guarantee: fixed rules may exceed an advisory budget and must report their full charged work.
+
+### Cycle 1 primitive and geometry checks
+`python -m m16.approaches.small_ladder_review.portable_cost.t5.check --geometry` completed in1.729 CPU seconds under the review lock. All126 simplex barycentric moments through degree4 at GL4 agree within2.78e-17. The18 saved independent100-digit segment controls agree within7.24e-16 relative error. Twenty scalar5x5 determinants pass the NumPy comparison; width5 rank fixtures pass, including explicit near-threshold ambiguity. Identity-orthant estimates satisfy their analytic bounds around1/32.
+
+Base H2T5 DD gives110 gate cells and2039 correct simplices, exactly matching the independent review. Every one of3076 bounded-rank decisions agrees with the validation-only SVD. Production geometry has no opaque numerical kernels and costs28,911,967 declared scalar operations. The validation cycle records SVD calls separately and is not a production timing result. Full integration/cost curves are next.
