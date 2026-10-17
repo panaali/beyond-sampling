@@ -11,19 +11,23 @@ First verify algebra with Fraction rational symmetric positive definite matrices
 Competing explanations: inverse cost may dominate (compare explicit setup and node categories); cofactor cancellation may destroy parity near singular endpoints (fixed near-singular controls and node residuals); covariance preprocessing may dominate both (same initial C and exact algebra controls isolate this). No geometry, new model inputs, MC, positive-reference integration or seed1 replay. The frozen T149 production candidate remains unchanged.
 
 ## Status
-Protocol frozen; controls pending. Owned folder only, one thread2GB,<=20CPU review or55CPU primary phase, independent T55 review required.
+Initial bounded controls and diagnosis complete; trained256 panel withheld after severe numerical instability. Independent review requested. Owned folder only, one thread2GB,<=20CPU review or55CPU primary phase, independent T55 review required.
 
 ## Results
-Pending. Scripts and raw failures will be retained. Reproduce with the project interpreter under one-thread limits.
+`controls.py` verifies320 Fraction identities and three analytic cone masses. Near-singular controls expose a binary64 implementation failure: at rho=1−2^-20, the worst partial-correlation deviation from exact equicorrelation is1.5918956e-5; at rho=1−2^-40 it is1,732,665.7686. `diagnose.py` uses exact same-binary C and t and the closed-form conditional correlation s_k*s_l*(t*rho)/(1+2*t*rho). The source inverse errors at those nodes are1.80e-11 and5.89e-6, respectively, also not exact.
+
+At the thinner fixture, the true numerator is about−2.16344e-23 but floating Horner evaluation gives+1.11022e-16. Exact evaluation of rounded coefficients gives−2.08072e-23: both coefficient construction and polynomial evaluation contribute, with the latter dominant. The diagonal Bernstein minor is6.40760e-23 versus exact6.49032e-23, so positive polynomial terms alone do not make rounded coefficient preprocessing accurate. All exact cofactor identities still hold. Correlation clipping would conceal the catastrophic error, so no trained panel or cost benefit is claimed.
+
+Reproduce `controls.py` then `diagnose.py` with the project interpreter under one-thread limits. Raw controls and diagnosis are saved, including invalid raw correlations rather than clipped results.
 
 ## Compute accounting
-Charge polynomial coefficient construction and evaluations, initial inverse/determinant, source comparator, controls and diagnostic node inversions separately. No inherited source node counter is a valid new kernel cost. Hardware timing and operation categories remain distinct. Initial local subset only; no estimator or complete portable-cost claim.
+Charge polynomial coefficient construction and evaluations, initial inverse/determinant, source comparator, controls and diagnostic node inversions separately. No inherited source node counter is a valid new kernel cost. Hardware timing and operation categories remain distinct. Recorded controls CPU.086544743 and diagnosis CPU.078900606, total.165445349. No trained subset was run; no estimator or complete portable-cost claim.
 
 ## Claims
-[inferred] Schur complements provide the same real-arithmetic conditional correlation on positive definite matrices. [speculative] Precomputation may reduce production cost without changing quadrature bias.
+[inferred] Schur complements provide the same real-arithmetic conditional correlation on positive definite matrices. [measured] This binary64 power-basis numerator implementation is unstable on the frozen near-singular controls and is not ready for trained replay. [speculative] Stable Bernstein numerator evaluation with accurate coefficient preprocessing or a rigorously guarded fallback may retain the algebraic cost opportunity.
 
 ## Alternatives not ruled out
-Exact/compensated cofactor preprocessing, guarded source fallback, ordinary power-basis minors, other Schur evaluation order and positive integration. Failure of binary64 preprocessing is not a negative for Schur algebra.
+Exact/compensated cofactor preprocessing, guarded source fallback, ordinary power-basis minors, Bernstein numerator representation with accurate preprocessing, other Schur evaluation order and positive integration. Failure of binary64 preprocessing is not a negative for Schur algebra.
 
 ## Failure modes
 Rounded C can be indefinite, principal-minor cancellation, small negative variances, raw correlations outside unit interval, source inverse conditioning, setup overhead, exploratory panel limitations and equal totals hiding per-cone deviations.
