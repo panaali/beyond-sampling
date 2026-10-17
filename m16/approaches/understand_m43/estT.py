@@ -29,9 +29,12 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from m43 import Ops  # noqa: E402
 
 TOL = 1e-10
-_GX, _GW = np.polynomial.legendre.leggauss(16)
-_GS = 0.5 * (_GX + 1); _GWS = 0.5 * _GW
-_GT = 1 - (1 - _GS) ** 2; _GJ = 2 * (1 - _GS)          # t(s), dt/ds
+def _rule(n, p):
+    x, w = np.polynomial.legendre.leggauss(n); s = 0.5 * (x + 1)
+    return list(zip(1 - (1 - s) ** p, 0.5 * w, p * (1 - s) ** (p - 1)))      # (t, weight, dt/ds), t = 1-(1-s)^p
+
+
+_RULES = {"wide": _rule(12, 2), "thin": _rule(48, 3)}      # 'thin' when max |rho| > 0.95 (peaked 1/sqrt(1-t^2 rho^2))
 STATS = {"cells": 0, "cut": 0, "resolved": 0, "simplices": 0}
 
 
@@ -114,8 +117,11 @@ def orthant(Rays, ops):
         return 0.125 + sum(math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu) / (4 * math.pi)
     assert d == 4
     p = 1 / 16 + sum(math.asin(np.clip(C[i, j], -1, 1)) for i, j in iu) / (8 * math.pi); ops.add(6 * 2)
+    if abs(np.linalg.det(Rays)) < 1e-12:
+        return 0.0
+    rmax = max(abs(C[i, j]) for i, j in iu)
     acc = 0.0
-    for t, wgt, jac in zip(_GT, _GWS, _GJ):
+    for t, wgt, jac in _RULES["thin" if rmax > 0.95 else "wide"]:
         Rt = np.eye(4) + t * (C - np.eye(4))
         Om = np.linalg.inv(Rt); ops.add(4 ** 3 + 16)
         for i, j in iu:
