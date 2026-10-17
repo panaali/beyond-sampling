@@ -87,6 +87,11 @@ print(f"model {mname} T={T} top-{k} skeletons={NS} M={M} K={K}; non-finite q~: {
       f"q~ outside [0,1]: {int(((qt < 0) | (qt > 1)).sum())}; ARC CPU {t_arc:.1f}s")
 err = 1 - q
 stats(np.ones(NS, bool), "all")
-stats(err >= np.quantile(err, 0.9), "worst 10%")
-stats(err >= np.quantile(err, 0.99), "worst 1%")
+def worst(frac):          # rank-based (ties at q = 1 would otherwise select everything)
+    sel = np.zeros(NS, bool); sel[np.argsort(-err)[:max(2, int(round(frac * NS)))]] = True
+    return sel
+
+
+stats(worst(0.1), "worst 10%")
+stats(worst(0.01), "worst 1%")
 np.savez(f"data/arc_cumulants_skel_T{T}_k{k}_K{K}_{mname}.npz", q=q, qt=qt)
