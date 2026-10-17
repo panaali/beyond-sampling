@@ -1,0 +1,305 @@
+{
+  "rule_checks": [
+    {
+      "order": 4,
+      "weight_sum": 0.9999999999999998,
+      "polynomial_error": 2.220446049250313e-16,
+      "node_error": 0.0,
+      "weight_error": 1.6653345369377348e-16,
+      "orthant_mass": 0.06305097068541278,
+      "integration_bound": 0.035650046096378105,
+      "cost": {
+        "known_arithmetic_upper_bound": 5913,
+        "parts": {
+          "rule_newton": 1148,
+          "rule_duffy": 1920,
+          "determinants": 58,
+          "mass_scalar": 11,
+          "mass_nodes": 2752,
+          "bound": 24
+        },
+        "black_box_kernels": [],
+        "events": {}
+      }
+    },
+    {
+      "order": 8,
+      "weight_sum": 1.0,
+      "polynomial_error": 5.551115123125783e-17,
+      "node_error": 1.1102230246251565e-16,
+      "weight_error": 4.440892098500626e-16,
+      "orthant_mass": 0.06249918579623156,
+      "integration_bound": 0.0008107547845180207,
+      "cost": {
+        "known_arithmetic_upper_bound": 41505,
+        "parts": {
+          "rule_newton": 4032,
+          "rule_duffy": 15360,
+          "determinants": 58,
+          "mass_scalar": 11,
+          "mass_nodes": 22016,
+          "bound": 28
+        },
+        "black_box_kernels": [],
+        "events": {}
+      }
+    },
+    {
+      "order": 12,
+      "weight_sum": 1.0000000000000002,
+      "polynomial_error": 2.220446049250313e-16,
+      "node_error": 1.1102230246251565e-16,
+      "weight_error": 2.498001805406602e-16,
+      "orthant_mass": 0.06250000077565412,
+      "integration_bound": 1.4585006705615188e-05,
+      "cost": {
+        "known_arithmetic_upper_bound": 135173,
+        "parts": {
+          "rule_newton": 8928,
+          "rule_duffy": 51840,
+          "determinants": 58,
+          "mass_scalar": 11,
+          "mass_nodes": 74304,
+          "bound": 32
+        },
+        "black_box_kernels": [],
+        "events": {}
+      }
+    },
+    {
+      "order": 16,
+      "weight_sum": 1.0000000000000002,
+      "polynomial_error": 1.1102230246251565e-16,
+      "node_error": 0.0,
+      "weight_error": 1.5959455978986625e-16,
+      "orthant_mass": 0.06249999999887756,
+      "integration_bound": 2.365517911586099e-07,
+      "cost": {
+        "known_arithmetic_upper_bound": 314477,
+        "parts": {
+          "rule_newton": 15364,
+          "rule_duffy": 122880,
+          "determinants": 58,
+          "mass_scalar": 11,
+          "mass_nodes": 176128,
+          "bound": 36
+        },
+        "black_box_kernels": [],
+        "events": {}
+      }
+    },
+    {
+      "order": 20,
+      "weight_sum": 1.0000000000000002,
+      "polynomial_error": 2.220446049250313e-16,
+      "node_error": 5.551115123125783e-17,
+      "weight_error": 6.852157730108388e-16,
+      "orthant_mass": 0.06250000000000153,
+      "integration_bound": 3.6177996436640173e-09,
+      "cost": {
+        "known_arithmetic_upper_bound": 607161,
+        "parts": {
+          "rule_newton": 23052,
+          "rule_duffy": 240000,
+          "determinants": 58,
+          "mass_scalar": 11,
+          "mass_nodes": 344000,
+          "bound": 40
+        },
+        "black_box_kernels": [],
+        "events": {}
+      }
+    }
+  ],
+  "max_det_error": 2.6645352591003757e-15,
+  "det_cases": 20,
+  "tie_checks": [
+    {
+      "name": "zero",
+      "accuracy": 0.2499999999990603,
+      "bound": 9.462071646344397e-07,
+      "simplices": 233,
+      "geometry": {
+        "gate_cells": 54,
+        "stage_counts": [
+          2,
+          6,
+          18,
+          54
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 131306.0,
+        "original_dd_parts": {
+          "lift": 6000.0,
+          "clip": 52834.0,
+          "adj": 10168.0,
+          "final": 3456.0,
+          "tri": 58848.0
+        }
+      },
+      "cost": {
+        "known_arithmetic_upper_bound": 42404912,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 300,
+          "gate_map_setup": 30160,
+          "lift_scalar": 7648,
+          "zero_normal_check": 3936,
+          "clip_scalar": 110954,
+          "clip_adjacency": 410138,
+          "clip_new_rays": 295776,
+          "gate_masks": 2124,
+          "outcome_maps": 3456,
+          "outcome_predicates": 4158,
+          "outcome_control": 5279,
+          "orthant_control": 4880,
+          "ray_l1_normalization": 5724,
+          "tri_incidence": 194176,
+          "tri_control": 6649,
+          "tri_face_scan": 119790,
+          "rank_result_test": 272,
+          "determinants": 27890,
+          "simplex_test": 233,
+          "rule_newton": 7682,
+          "rule_duffy": 122880,
+          "mass_scalar": 2563,
+          "mass_nodes": 41037824,
+          "bound": 36
+        },
+        "black_box_kernels": [
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              4,
+              4
+            ],
+            "calls": 61
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              2,
+              4
+            ],
+            "calls": 134
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              3,
+              4
+            ],
+            "calls": 73
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              5,
+              4
+            ],
+            "calls": 4
+          }
+        ],
+        "events": {
+          "lift_calls": 52,
+          "clip_calls": 497,
+          "triangulate_calls": 86
+        }
+      }
+    },
+    {
+      "name": "duplicate",
+      "accuracy": 0.2499999999990603,
+      "bound": 9.462071646344397e-07,
+      "simplices": 233,
+      "geometry": {
+        "gate_cells": 54,
+        "stage_counts": [
+          2,
+          6,
+          18,
+          54
+        ],
+        "source_sha256": "c4293c925422191b17d0f4644a340bb30428e51527837711a9b5312ebd624ec6",
+        "original_dd_counter": 131306.0,
+        "original_dd_parts": {
+          "lift": 6000.0,
+          "clip": 52834.0,
+          "adj": 10168.0,
+          "final": 3456.0,
+          "tri": 58848.0
+        }
+      },
+      "cost": {
+        "known_arithmetic_upper_bound": 42404912,
+        "parts": {
+          "module_bitset_setup": 384,
+          "root_gate_setup": 300,
+          "gate_map_setup": 30160,
+          "lift_scalar": 7648,
+          "zero_normal_check": 3936,
+          "clip_scalar": 110954,
+          "clip_adjacency": 410138,
+          "clip_new_rays": 295776,
+          "gate_masks": 2124,
+          "outcome_maps": 3456,
+          "outcome_predicates": 4158,
+          "outcome_control": 5279,
+          "orthant_control": 4880,
+          "ray_l1_normalization": 5724,
+          "tri_incidence": 194176,
+          "tri_control": 6649,
+          "tri_face_scan": 119790,
+          "rank_result_test": 272,
+          "determinants": 27890,
+          "simplex_test": 233,
+          "rule_newton": 7682,
+          "rule_duffy": 122880,
+          "mass_scalar": 2563,
+          "mass_nodes": 41037824,
+          "bound": 36
+        },
+        "black_box_kernels": [
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              4,
+              4
+            ],
+            "calls": 61
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              2,
+              4
+            ],
+            "calls": 134
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              3,
+              4
+            ],
+            "calls": 73
+          },
+          {
+            "name": "matrix_rank_SVD",
+            "shape": [
+              5,
+              4
+            ],
+            "calls": 4
+          }
+        ],
+        "events": {
+          "lift_calls": 52,
+          "clip_calls": 497,
+          "triangulate_calls": 86
+        }
+      }
+    }
+  ],
+  "cpu_seconds": 0.9838671440000001
+}
