@@ -142,3 +142,29 @@ or conditional-distribution methods. No efficiency claim. The diagnostic uses
 81920 normal variates and262144 hidden-step vectors in.534333CPU after imports.
 Source/checkpoint hashes are asserted. Raw script/results are
 check_rank_gate_review.py and rank_gate_review_results.json.
+
+T66 stable helper followup: the owner reproduced both proposed numerical
+falsifiers, including 100% loss of some large-t thin arc widths. Read
+stable.cpp/endpoint_controls.py. Root-side ordering eliminates rounded
+midpoints, while same-sign normalized atan2(delta,1+ab), reflected negative
+intervals and semi-infinite complementary atan2 are algebraically correct.
+The180-digit exact-float-ratio reference has adequate precision for1e100
+adjacent endpoints. This improves two concrete failure modes without
+certifying coefficient/root topology. Source angle_width recomputes acos(-1)/2;
+the owner was asked to hoist or explicitly count it rather than assume compiler
+folding. atan_calls includes both atan/atan2 and needs that label qualification.
+
+T20 followup: owner b559882 chooses explicit finite-endpoint rejection and
+adds three nonfinite controls, rather than extending the callback domain.
+That resolves the reported inf/inf API edge within the intended finite tube
+windows. Full-line normalization remains an analytic/external control.
+
+T82 proposed network-aware slice: for bounded z/t domain, every fixed
+ReLU/readout/target-sign branch is an affine polygon. Its vertical slice
+bounds are affine in z, with changes only at projected vertex coordinates.
+Therefore Gaussian t-mass is a sum of normal-CDF affine-bound differences,
+smooth on each open vertex slab. Transforming z through q=Phi(z) introduces
+no interior kinks. Include all window/exclusion/sign constraints and explicit
+zero-form ownership. This is exact-arithmetic topology only; floating thin
+polygons, complete enumeration, endpoint regularity and cost need controls.
+Implementation remains the owner's responsibility after a pushed claim.

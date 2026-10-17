@@ -832,3 +832,11 @@ bias+.10950(SE.00417), final-two-exact rescue+.05457(SE.00431) on DEV .02.
 This verifies the high-noise finite failure while preserving the helpful
 partial rescue and untested alternatives. .534CPU after imports, all81920
 normal inputs explicitly diagnostic, no production estimator claim.
+
+## Cycle 36 read-only followups
+T66 owner reproduced midpoint/atan failure fixtures and implemented a separate
+stable variant; helper formulas pass source review, with named-operation cost
+caveat and unchanged floating topology limits. T20 rejects nonfinite callback
+endpoints after the reported inf/inf edge. T82 bounded polygon vertex slabs
+provide correct network-aware topology in exact arithmetic; implementation
+awaits the owner's pushed claim. No numerical work or production edits here.
