@@ -56,3 +56,18 @@ The full reference mapping confirms the T4 caveat: all96 original halves map uni
 Nearest exact default gives.476903805751 (2338 cells/11421 mass simplices/19.892CPU). Doubled same-ray mass replay gives.477009688057, still−3.44e-6 from the independent reference and66 negative masses. Its138,275,244 named operations exactly match the read-only branch-count plan. Quadrupled replay would require274,768,812, exceeding the frozen200M cap, so it is recorded as `not_run_known_cost_cap` without consuming an inevitably incomplete run. This is an unresolved precision/resource limitation, not a negative about nearest partitions; T109 owns mass-method development. All three already-frozen approximate recipe cases remain to be reported at their unchanged default rules.
 
 Saved-mass inventory (no additional integration): quadratic negative simplex masses sum−1.6973e-5(default),−2.4024e-7(doubled),−1.2071e-9(quadrupled); nearest sums−4.3473e-5/−5.4724e-7 at default/doubled. No mass is clamped or renormalized. Because the default aggregate accuracies are already too low, clamping their negative error masses to zero would lower accuracy further and cannot repair those aggregate discrepancies. This local observation does not certify the positive masses or eliminate better positivity-preserving integration methods.
+
+## Completed frozen six-case comparison
+All six cases finish within their per-run caps; `summary.json` lists every output and diagnostic, not just favorable ones.
+
+| Partition | Initial families | Exact terminal cells | Exact default accuracy | Recipe terminal cells | Recipe accuracy | Recipe CPU | Recipe named ops |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| original |96|2595|.476906205672|1550|.462801371821|13.866|55,241,861|
+| quadratic |24|1191|.476990961488|756|.458447368554|8.317|30,552,302|
+| nearest |72|2338|.476903805751|1444|.462562429335|14.468|54,092,377|
+
+The independent reference is.477013125994119. All three default exact estimates fail the5e-7 numerical check; same-geometry quadratic quadrupled mass replay reduces discrepancy to3.59e-8, while nearest doubled remains3.44e-6 low and further replay exceeds the frozen cap. Thus exact-mode cell-count reductions are measured, but the default accuracy values are not precise references. The quadratic full exact default run uses11.532CPU/44.55M named operations versus original21.107CPU/83.37M; refinement costs must also be paid before any matched-accuracy comparison. Two tiny negative masses remain after quadrupled quadratic replay, so it is not a positive/certified enclosure.
+
+The approximate quadratic and nearest outputs both change and both increase absolute error relative to the original recipe. The nearest error changes by−.000238942486, consistent with the directly verified altered canonical references; nearest facets alone do not preserve the recipe at T4. This is one fixed trained checkpoint, not a robust MSE benchmark or a whole-family negative. No rule was selected by truth, and no shared gate or mass implementation was changed. Exact coarser-family partitioning remains viable; independent gate-certificate and mass-primitive work belongs to T108/T109.
+
+Status: bounded T4 phase complete; independent review requested, DRI classification pending. CPU values include setup, numerical work and diagnostic checkpoint writing; importCPU (~.9 each) is separately recorded. Named operation counters remain partial. All failures, resource limits and alternatives remain visible.

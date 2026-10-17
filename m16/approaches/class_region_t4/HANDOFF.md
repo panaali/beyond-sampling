@@ -1,0 +1,11 @@
+# T110 T4 bounded handoff
+
+Claim6e0392f pushed before protocolab99fcf. Ordered research commits start ab99fcf and run through this handoff; all writes confined to class_region_t4. Imports pin the prior T110 snapshot and local tie repair. H4T4 seed0 only; no Monte Carlo, new weights or truth-guided thresholds.
+
+Completed six frozen comparisons plus analytic mass controls, same-geometry mass replay and canonical-reference mapping. Initial families96→24/72; exact terminal cells2595→1191/2338. Approximate values old.46280137, quadratic.45844737, nearest.46256243 against independent.477013125994119: fewer families do not preserve approximate accuracy. Every output/cost is retained in summary.json.
+
+All default exact values differ from independent reference by>5e-7 because the inherited Plackett primitive is not sufficiently accurate on trained thin cones. Constant-label and exact rank-sign controls independently isolate this without changing geometry. Quadratic refined replay gives.477013161887515 (3.59e-8 discrepancy), but costs157M named operations/37.56CPU for replay alone and retains2 negative tiny masses. Nearest doubled remains3.44e-6 low; exact named-operation plan274.77M exceeds frozen200M for quadrupled replay, so recorded not-run known cap. This is an unresolved numerical/resource gap, not a failure of the partition theorem.
+
+Canonical mapping proves the T4 caveat in all96 halves:24 top-nearest groups merge two lower-order chambers each;48 lower-nearest groups are unchanged. All48 top reference directions differ and24 change direct gate patterns. T3 nearest-recipe invariance must not be extrapolated to T4.
+
+T55 independently checked analytic rank-sign chart probabilities and agrees finite mass-rule convergence isolates the constant fixture failure; full trained source/results review requested. No self-confirmed claim, broad negative, polynomial total-cost inference, sampling win or new solved rung. Root/DRI should register results and release bounded T110 claim; followups must coordinate with T108 gate certificates and T109 mass work. Useful open directions: accepted precise mass primitive applied to captured rays, all-facet reference/certificates, signed-mean charts with valid step1 gate handling. No need to rerun completed six cases.
