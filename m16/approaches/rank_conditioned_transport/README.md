@@ -20,6 +20,8 @@ First cycle (checks.py, checks_results.json): six constant-readout controls on T
 
 Before any trained run, freeze this structural repair: split target quantiles at q=.5 (the deterministic zero-input boundary under the symmetric law), using positive Gauss-Legendre on each half with explicit Beta density. Report actual2*n target nodes. This split depends on the known zero/ReLU boundary, not observed accuracy. Repeat all controls; preserve the failed unsplit results. Then bounded H2T7 LOCALPILOT tests, initial grid9,outer8 per half,input8 and one-axis refinements grid17/outer16/input16, without fitting settings to heldout truth.
 
+Split-boundary checks (checks.py --target-rule split_sign, checks_split_results.json) pass: all nine sign-toy cases have absolute error<=1.11e-16; constants<=8.33e-17; terminal partitions<=2.22e-16. CPU.909seconds. T55 independently reviewed the engine's chronology, remaining-slot count, conditional recurrence, scalar margins and normalization, finding no algebraic discrepancy. Trained convergence remains untested at this checkpoint.
+
 ## Compute accounting
 Charge all target nodes, terminal gate/margin interval operations, conditional quantile transforms, hidden-grid construction, interpolation and rule setup; report CPU separately from operation counts. No new Monte Carlo or training. Each cycle<=120CPU with one thread,2GB cap and shared compute lock; checkpoints after coherent results. Large query arrays chunk below65536 points.
 
