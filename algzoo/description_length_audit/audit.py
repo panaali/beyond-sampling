@@ -47,7 +47,7 @@ def main():
    is_set=isinstance(n,ast.Set);is_selected_list=H==16 and isinstance(n,ast.List)
    if (is_set or is_selected_list) and n.elts and all(isinstance(t,ast.Constant) and type(t.value) is int and 0<=t.value<9 for t in n.elts):subsets.append(sorted(t.value for t in n.elts))
   row.update(neurons=H,coefficient_budget_max=5,prediction_scalar_checks=checks,subset_literal_occurrences=subsets,distinct_subsets=sorted(set(tuple(s) for s in subsets)),nine_bit_mask_occurrence_bits=9*len(subsets),nine_bit_mask_distinct_bits=9*len(set(tuple(s) for s in subsets)),subset_diagnostic_not_additional=True)
-  assert len(fitted_nodes)==(78 if H==16 else142)
+  assert len(fitted_nodes)==(78 if H==16 else 142)
   out['original'].append(row)
  for label,path,families in [('T7',ROOT/'constant_budget/sweep.py',[None]),('T23',T23/'run.py',['fourier','position_polynomial','rank_values'])]:
   out['source_hashes'][str(path)]=hashlib.sha256(path.read_bytes()).hexdigest();tree=program(path,True)
