@@ -110,3 +110,26 @@ invalid integer counters. Preserve `nested_instrumented.json` as the failed
 diagnostic artifact. This invalidates only its iteration fields, not numerical
 parity. The repair counts actual DLASQ3 entries and its documented integer
 ITER increment across each call instead of reading unspecified workspace.
+
+The repaired counter observes 324 DLASQ1 calls, 48 DLASQ2 calls, and 192
+DLASQ3 calls on the same panel, with zero dqds iterations: rank-one controls
+deflate without the dqds update. All numerical outputs still match exactly.
+This does not validate the iterative branch. Before running that branch,
+freeze three new positive tridiagonal controls at M=3,4,24, with square
+leading K=min(M,4) block diag2/offdiag1 and remaining entries zero. Their
+singular values are 2+2*cos(j*pi/(K+1)); both rank tolerances must return K.
+Require baseline/pass-through bitwise equality and positive recorded dqds
+iterations on at least one fixture, otherwise iterative path remains untested.
+
+Three tridiagonal controls pass analytic singular values (max discrepancy
+1.34e-15), known ranks and exact baseline/interposed parity. They record
+78 actual DLASQ3 calls and 69 dqds iterations across nine SVD executions,
+max one iteration per call. This validates the counter on nontrivial finite
+inputs; no worst-case bound follows. CPU baseline0.024395/interposed0.027833.
+
+Reproduction (one thread and review lock as in task protocol):
+`cc -shared -fPIC -O2 counted_spy.c -ldl -o counted_spy.so`; then
+`python dense_controls.py baseline` and
+`LD_PRELOAD=$PWD/counted_spy.so python dense_controls.py instrumented`.
+`counted_controls.py instrumented` under the same preload reproduces the
+114 original controls with the repaired counters.
