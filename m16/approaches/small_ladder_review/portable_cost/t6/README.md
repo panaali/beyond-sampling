@@ -40,3 +40,10 @@ Reproduce under the declared memory/thread caps:
 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python -m m16.approaches.small_ladder_review.portable_cost.t6.check_primitives
 flock /workspace/work/codex-compute.lock /workspace/clean-neurons/.venv/bin/python -m m16.approaches.small_ladder_review.portable_cost.t6.run_geometry
 ```
+
+### Frozen integration-planning cycle
+Before any mass evaluation, build counted scalar Jacobi rules for outer weights(1-u)^4,(1-u)^3,(1-u)^2. Use explicit tridiagonal Jacobi coefficients,60-step Sturm bisection for each node, and Christoffel weights from the polynomial recurrence; no opaque eigensolver. Validate polynomial moments through degree2n-1 and compare SciPy nodes/weights only as separately reported reference checks. This allows Chebyshev degree K=n-1 after exact inner triangle integration, whereas ordinary GL would allow only n-3.
+
+Plan orders4,6,8,10,12,16,20,24,28,32 from the closed q^-3 Chebyshev tail reviewed independently by root/T48, using the exact same positive-quadrature factor2*det/(120*pi^3). Geometry gives radial bounds from1/6, minimum Gram entry and centroid supporting plane; add explicit outward numerical cushions but do not call them interval certification. Targets1e-5/1e-6/1e-7 divide equally among the42012 independently generated cones; retain any unresolved bound. Charge all radial setup, determinants, order trials and rule construction. No triangle integral runs in this cycle.
+
+Falsifiers: an incorrect Jacobi normalization or recurrence fails monomial moments and independent node/weight comparison; a wrong degree or tail factor fails identity-cone/elementary coefficient algebra checks. Strict common-orthant and L1 checks on the independently generated rays must pass before invoking T55's triangle primitive. Planned triangle/node count alone is not an operation cost: later work must charge the full analytic triangle path and positive fallback including its rule construction.
