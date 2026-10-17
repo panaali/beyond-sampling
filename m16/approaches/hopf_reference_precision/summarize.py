@@ -17,7 +17,7 @@ def main():
    path=folder/f'block{block:03d}.json';r=json.loads(path.read_text())
    assert r['status']=='complete' and (r['seed'],r['copy'],r['block'])==(s,c,block) and r['n']==1000000
    assert r['protocol_sha256']==pin and r['source_sha256']==src and r['model_sha256']==model['model_sha256'] and r['rng_seed']==model['rng_seed']
-   assert r['state_before']==state;state=r['state_after'];assert 0<=r['hits']<=1000000
+   assert r['state_before']==state;state=r['state_after'];assert type(r['hits']) is int and 0<=r['hits']<=1000000
    hits+=r['hits'];cpu+=r['cpu_seconds'];records.append({'block':block,'sha256':sha(path)})
   n=100000000;lo=0. if hits==0 else float(betaincinv(hits,n-hits+1,tail));hi=1. if hits==n else float(betaincinv(hits+1,n-hits,1-tail))
   residual=max(0. if hits==0 else abs(float(betainc(hits,n-hits+1,lo))-tail),0. if hits==n else abs(float(betainc(hits+1,n-hits,hi))-(1-tail)));assert residual<1e-9
