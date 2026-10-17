@@ -53,9 +53,10 @@ rungs must be re-passed before DRI adoption. No blind degree or threshold sweep.
    remaining class constraints and trace work, not just counts removed.
 
 ## Status
-Pilot and30-model discriminator completed; two independent source reviewers
-and independent raw-artifact arithmetic review passed. No adopted recipe or
-full benchmark pass claim. Full fixed T95 panel validation is the next phase.
+Pilot,30-model discriminator and complete471-model existing T95 suite finished.
+Two independent source reviewers and initial raw-artifact arithmetic review
+passed; complete-suite arithmetic review requested. No adopted recipe or
+portable-cost benchmark pass claim.
 
 ## Results
 Detailed pilot, scale and broader-panel results appear below. Raw estimates,
@@ -285,3 +286,53 @@ work plus repeated imports/chunk setup. Fixed complete raw outputs and every
 failure preserved, no truncation interpreted as a result. Report ratios per
 model and per original noise group but retain incomplete cost qualifications;
 no final ladder adoption without DRI review and portable cost treatment.
+
+## Complete fixed T95 suite result
+[measured] All471 frozen models completed:157 each at H4,H5,H6, T3. Every
+recomputed polygon truth equals the pinned prior truth at stored precision,
+and every unmodified fast estimate equals its prior estimate. No rows failed
+or were selected out. The complete raw chunks and suite_summary.json retain
+all changed estimates, individual ratios and noise-group MSE/variance ratios.
+
+| H | Mean per-model omission saving | Mean reference / omission / capped proxy | Maximum omission absolute bias | Worst omission sampling proxy ratio |
+| --- | ---: | ---: | ---: | ---: |
+| 4 | 4.19018% | 206258 / 197615 / 417002 | .00186340660 | .0981455 |
+| 5 | 5.57582% | 282773 / 266973 / 501629 | .000191556234 | .00193254 |
+| 6 | 9.41992% | 383735 / 347577 / 637490 | .000008351445 | .00000322158 |
+
+All three methods have individual declared sampling-proxy ratios below1
+on all471 cases. This is a numerical reproduction under an incomplete MAC
+counter, not a portable operation certificate or DRI rung adoption. Omission
+introduces real errors: at H6 maximum bias increases from2.406e-7 to8.351e-6.
+The frozen angular cap lowers that maximum to9.165e-7 but increases mean cost
+to637490 versus383735 for reference; it is not the selected recipe. Do not
+read favorable ratios as exact-equivalence or noisy-model population claims.
+
+Full-suite CPU230.258348215, split into12 chunks each below30CPU seconds;
+H4/H5/H6 totals67.240884219/74.623584641/88.393879355. This includes repeated
+imports, estimator modes and numerical-reference recomputation. Earlier pilot,
+scale and30-model controls add27.418663836 measured CPU, for257.677012051
+total measured experiment CPU. Initial failed import remains unmeasured;
+checkpoint acquisition and summarization are separate setup, as documented.
+No random model inputs. Model-independent setup and special kernels remain
+incomplete in the operation proxy. Reproduce each H with suite.py --H H
+--start0/50/100/150 (space before numeric argument), then summarize_suite.py.
+Existing output files are protected against accidental overwrite.
+
+## R4 cache-fix source discrimination
+Read latest shared ladder_training_axis/lt.py and reviewer fibre_fix.py at
+origin e30f4b9. T101 patches the older fibre_strict/fibre.py trace_F2 by retaining
+stc in cache['_alive']; its child cache keys contain id(st), which can otherwise
+be reused after collection. This specific defect does not transfer to the
+pinned fibre_fast implementation tested here: it has no id() keys, child caches
+belong to the Piece objects, clamp states remain in clamp_caches lists, and
+flipcache keys are gate bytes. Imported old fibre helpers are Cons, rows_at,
+and trace_arc_rows; the affected trace_F2 is not called. This is source-based
+exclusion of one particular bug, not a proof of fast-cache correctness.
+
+The inherited output-scale discrepancy therefore remains an unresolved
+fast finite-tracing/partition sensitivity. The full-trace discriminator and
+failed canonicalization are retained; neither certifies all floating predicates.
+Do not describe this as failure of Claude's separately fixed strict F2L3
+recipe. Shared author code remains unchanged. Final adoption belongs to DRI,
+and complete costs and scale behavior require explicit consideration.
