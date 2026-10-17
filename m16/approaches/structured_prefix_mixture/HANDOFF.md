@@ -1,6 +1,6 @@
 # T69 bounded structural-mixture handoff
 
-Claim187346b7 and random-panel scopea15a7b01 published before implementation. Owned research chain4fd44e56,4124e69f,7b7fd606,26c8cbee,52c768a9,ac77c7ec plus current docs. T80 attachment0f0fff4d is interleaved; root should integrate ordered branch commits, not cherry-pick an incomplete dependency set. Independent single-model source/raw review23c5c972 passes; random24-cell audit pending.
+Claim187346b7 and random-panel scopea15a7b01 published before implementation. Owned research chain4fd44e56,4124e69f,7b7fd606,26c8cbee,52c768a9,ac77c7ec plus current docs. T80 attachment0f0fff4d is interleaved; root should integrate ordered branch commits, not cherry-pick an incomplete dependency set. Independent single-model source/raw review23c5c972 passes; random24-cell audit6e892616 passes.
 
 The first-two-step sector identity is useful information lost by a single moment summary. Retain each sector as a conditional mean/covariance component, keep its exact-real angular weight, and propagate the unchanged Gaussian closure separately. Conditional distributions are NOT Gaussian or supported on the sector after replacement; this remains an approximation.
 
@@ -11,3 +11,5 @@ The frozen random He T4 panel has24cells: widths4/8/16/32,three model seeds,scal
 Mixture has10/18/34/66 components, twice as many subsequent Gaussian calls; no complete equal-cost comparison. Fixed-model candidate.024CPU; random chunks3.1903CPU including reference construction, not free. Reference noise nominal floor7.6294e−6 and block variability are explicit. Shared estimator/source untouched.
 
 A useful future alternative is to preserve within-sector radial/truncation structure or add later conditioning before collapse. It must be a separately scoped cost-first test; this lane does not justify blindly increasing components or proclaiming a scalable solution. Existing exact geometry/certificate and T109 mass lanes remain higher priority. Claude DRI alone registers confirmation.
+
+Independent random-panel review6e892616 reconstructs all24 weight arrays byte-for-byte, all72 estimate/error summaries and block rows, and all12 scalar final-mixture raw-second recombinations. It confirms the H8 seed1 loss. No reference inputs or closures were rerun. The1/N floor is nominal with estimated variance; distinct random matrices across d and only three seeds do not establish a causal or asymptotic width effect.

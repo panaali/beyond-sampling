@@ -9,7 +9,7 @@ Claim187346b7 freezes every h2 gate sector as one component. Its probability is 
 Two competing explanations: most loss comes from merging distinct prefix activation patterns, in which case preserving them should reduce error; or within-sector non-Gaussian/support structure dominates, in which case this repair can still fail. Six frozen zero/duplicate/opposite/diagonal/mixed controls test weights/recombination before trained use. Component Gaussian support is not the original sector support.
 
 ## Status
-Single-model source/aggregate independently reviewed23c5c972. The separately frozen24-cell random-width phase is complete; independent full-panel audit pending. The broad structured-propagation family remains open.
+Single-model source/aggregate independently reviewed23c5c972. The separately frozen24-cell random-width phase is complete; independent full-panel audit6e892616 passes. The broad structured-propagation family remains open.
 
 ## Results
 See the fixed single-model result below. Prior reference reused unchanged; no old model calculation repeated.
@@ -54,3 +54,5 @@ The mixture improves on the ordinary Gaussian closure in all12 scalar-model cell
 Mixture component counts are10/18/34/66 at the four widths, requiring20/36/68/132 inherited Gaussian closure calls per model. Candidate cost increases with these counts, so lower bias does not itself imply better equal-compute estimation. Some very short per-method CPU readings are0.0 at clock resolution, not free work. Four process chunks used3.190287CPU seconds (cell work3.132682, reference work2.326073); references generated100663296 scalar normals. `random_H*_d*_s*.npz` retains weights, output reference blocks and final component arrays; JSONs retain every estimate/error/count/time and archive hash. Main reference arithmetic categories are explicit; RNG internals, summaries and runtime remain unpriced. Candidate timings and call counts are descriptive, not a complete scalar cost audit.
 
 Reproduce each width using `random_width.py H` with the same thread/interpreter environment under compute.lock/110CPU/2GB, then `report_random.py` for saved contraction. Existing completed cells are hash-pinned and skipped. `random_summary.json` includes all per-seed values and the H8 seed1 loss. Independent raw/source review is requested; no additional numerical run is warranted without a distinct preregistered question.
+
+Independent random-panel review6e892616 reconstructs all24 weight arrays byte-for-byte, all72 estimate/error summaries and block rows, and all12 scalar final-mixture raw-second recombinations. It confirms the H8 seed1 loss. No reference inputs or closures were rerun. The1/N floor is nominal with estimated variance; distinct random matrices across d and only three seeds do not establish a causal or asymptotic width effect.
