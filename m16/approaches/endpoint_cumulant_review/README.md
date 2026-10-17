@@ -460,3 +460,20 @@ quadrature estimates and tail bounds propagate through the ratio using its
 actual denominator; they are not global floating/topology certificates.
 One<=20CPU cycle, primary lock,2GB. Save source/input hashes, all setup,
 geometry, integrator calls and costs. T55 independent review requested.
+
+### Preserved thin-wedge primitive failure and frozen rescue
+The first new centered-isotropic control [.1,.1001] returns0 from the previous
+bounded Gaussian primitive, versus exact angular mass1.5915494309187782e-5;
+reported quadrature error is0. Other three wider controls pass. Finite bulk
+clipping fixed distant means but does not resolve a thin near-anticorrelated
+CDF layer adjacent to the integration endpoint. No trained result ran yet.
+The failed process CPU was not captured; diagnostic process elapsed1.6s.
+
+Freeze local transition-aware adapter with additional knots at standardized
+conditional-CDF arguments -12,-8,-4,0,4,8,12. The exact location is
+z=(t*sqrt(1-rho^2)-b)/rho, clipped only to the integration interval. Retain
+original bounded primitive and failure. Test isotropic wedge widths .01,
+.0001,.000001,.0000001 with exact angle mass, all previous distant-mean
+independent-product controls, and unchanged27-law old endpoint panel before
+inference. Near-singular limit error bound remains explicit at width1e-7.
+No tuning of knots after outcomes. Preserve all trained closure results.
