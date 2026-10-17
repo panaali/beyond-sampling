@@ -128,3 +128,11 @@ its common-mode component exactly. Optimizing this gate walker, or adding ordina
 outer QMC, is not justified by the measured variance ceiling alone. An independent
 algebraic check of the quotient and toy construction is cheap; no confirmation is
 self-awarded here.
+
+## Second bounded experiment
+
+[interval_notes.md](interval_notes.md) derives scalar-affine certificates on fixed
+rank-respecting tie segments. The implementation resolves all256 DEV lines, but
+costs3.45–4.10x the exact reference gate walk. It is retained as a possible audit
+primitive for approximate envelopes; the notes document the reusable bound API
+and the distinction between numerical validation and formal certificates.
