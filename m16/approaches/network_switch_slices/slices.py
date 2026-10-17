@@ -50,7 +50,10 @@ def vertical_mass(polygons, z, work):
             if dz > 0: low = np.maximum(low, a[1]+dt/dz*(z[ids]-a[0]))
             elif dz < 0: high = np.minimum(high, a[1]+dt/dz*(z[ids]-a[0]))
             work['vertical_edge_queries'] += len(ids)
-        if np.any(high < low-1e-11): raise ArithmeticError('Inverted vertical section')
+        if np.any(high < low-1e-11):
+            bad=int(np.argmin(high-low))
+            raise ArithmeticError(dict(reason='Inverted vertical section',polygon=p.tolist(),
+                                       z=float(z[ids[bad]]),low=float(low[bad]),high=float(high[bad])))
         out[ids] += ndtr(high)-ndtr(low); work['cdf_calls'] += 2*len(ids)
     return out
 
