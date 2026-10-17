@@ -3,7 +3,7 @@
   "pilot_review": "e0cb033d",
   "control_review": "34891b4c",
   "pins": {
-    "/workspace/work/recover-small_h2_910/review/hopf_h5_reference/continue_reference.py": "8c2d1848053af85049b49c6b2d58cc5ba6ed830b409ae316948c4a65d282394a",
+    "/workspace/work/recover-small_h2_910/review/hopf_h5_reference/continue_reference.py": "6c3b5f62c1319a1c6374da05e9f67297a9b0452b2706614e63a2f7602bbbdb3c",
     "/workspace/work/recover-small_h2_910/review/hopf_h5_reference/reference.py": "b30d8b8bf80e97d39d162081849a6e78a3e748f0c29a41e6896e90f93b274af4",
     "/workspace/work/recover-small_h2_910/review/hopf_h5_reference/protocol.json": "e300e87d328548ccb2289a9e25f83c3dac43b04e1e1dd8b9103ea3b9605021c9",
     "/workspace/work/recover-small_h2_910/review/hopf_h5_reference/source_scope.json": "8f62a655c6853aab9116a39356c0d99f7ed8f4f5a54628b2bb08f02aa2023358",
@@ -46,5 +46,6 @@
   "research_envelope_cpu": 1200,
   "reserve_per_new_process": 110,
   "failure": "Stop and preserve, no automatic retry or accuracy decision",
-  "scope": "Fixed existing25 models and100M draws each. No tuning, reference selection, old count combination or production-estimator calls. One model/process and fair primary lock release. Await independent source gate before execution."
+  "scope": "Fixed existing25 models and100M draws each. No tuning, reference selection, old count combination or production-estimator calls. One model/process and fair primary lock release. Await independent source gate before execution.",
+  "accounting": "1200 envelope includes recorded deterministic-control and pilot timers plus full continuation process CPU. Pilot/control import/setup excluded; future process imports included."
 }

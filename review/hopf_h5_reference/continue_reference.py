@@ -20,13 +20,14 @@ def run(index):
   pilot=json.loads((HERE/'pilot.json').read_text());assert pilot['complete'] and pilot['projection_gate_pass'] and pilot['projected_full_forward_cpu_seconds']<=900
   assert type(pilot['hits']) is int and pilot['n']==1000000 and pilot['block']==pilot['index']==0
   assert np.__version__==pilot['numpy_version']
-  prior_cpu=pilot['cpu_seconds'];prior_attempts={}
+  controls=json.loads((HERE/'controls.json').read_text());assert controls['complete']
+  prior_cpu=pilot['cpu_seconds']+controls['cpu_seconds'];prior_attempts={}
   for earlier in range(index):
    p=HERE/'blocks'/f'{earlier:02d}'/'attempt.json';a=json.loads(p.read_text())
    assert a['complete'] and a['index']==earlier and a['source_sha256']==R.sha(__file__)
    assert a['completed_new_blocks']==(99 if earlier==0 else 100)
    prior_cpu+=a['process_cpu_seconds'];prior_attempts[str(earlier)]=R.sha(p)
-  out.update(prior_research_cpu_seconds=prior_cpu,prior_attempt_hashes=prior_attempts,reserved_cpu=110,research_envelope=1200)
+  out.update(prior_research_cpu_seconds=prior_cpu,prior_attempt_hashes=prior_attempts,reserved_cpu=110,research_envelope=1200,pilot_control_timer_scope='Recorded post-import CPU; their import/setup time excluded. Continuation process_cpu_seconds includes own imports.')
   save();assert prior_cpu+110<=1200,'research envelope exhausted; no new model started'
   protocol,old,new=R.load();model,h=R.model_for(protocol,index);ident=protocol['models'][index]
   assert protocol['blocks_per_model']==100 and protocol['block_size']==1000000 and protocol['draws_per_model']==100000000
