@@ -615,3 +615,14 @@ Alternative2: bounded inputs invalidate conic support reasoning; distinguish
 the exact set of directions from the bounded radial extent using homogeneity.
 `reachable_cones.md` proves the four-state recursion and supplies algebraic
 falsifiers. No experiments or engine edits; T77 owns the implementation.
+
+## Cycle 20: T76 erased-prefix baseline and activation certificates
+T76 proposed a two-input boundary model instead of assuming high accuracy and
+thin error wedges. Alternative1: integrating omitted rank variables assumes
+false independence from hidden history; derive the surrogate's conditional
+rank probabilities exactly and bound its difference from the real predictor
+by prediction disagreement. Alternative2: a margin certificate loses all
+positive-mass dead/axis ties; derive final-gate preservation certificates for
+those strata. `boundary_history_certificate.md` includes the independently
+reviewed Rayleigh formulas, a tighter inhibitory-history bound and scope.
+No production implementation, model-input sampling or new numerical run.
