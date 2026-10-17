@@ -25,3 +25,12 @@ Frozen before implementation. [inferred] Conditional importance correction is al
 
 ## Alternatives not ruled out and failure modes
 Small pilots may learn poor weights; deterministic pilot/production coupling can matter. Native walker epsilon/root behavior, radial beta cancellation, fixed outer quadrature and blind-region error remain inherited limitations. Newton and adjacent-component variants are separate unported methods. Original table-fitting cost/provenance is incomplete; a failed cold variant would not retire importance sampling or deterministic importance quadrature generally.
+
+## Bounded matched comparison (2026-10-17)
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python -m m16.approaches.tube_importance_port.check_port`
+completed all nine frozen combinations. Original checkpoint estimates at budget512: uniform .949256087952, original advice .956874663052, cold .961631595385; at2048: .951360624975, .954311913238, .955103287242. These are estimator outputs, **not an accuracy/MSE validation**. Cold known numerical proxy costs49914.997/51976.279 forward equivalents include all2304 pilot faces, compared with uniform19721.754/22181.848. Advice costs19554.302/21819.206 exclude its unknown historical fitting work and are incomplete. Cold fixed setup can exceed the advisory requested budget.
+
+The all-zero readout control has exact accuracy.1. At512, uniform .044954994237, advice .077187168193, cold .098304631600. Preserve all three finite outer-rule biases; the closer cold result is one control, not robust superiority. Every uniform output exactly matches the previously tested corrected uniform port. Proposal identity, permutation invariance, zero/constant-score fallback, invalid pilots/budgets and an injected walker failure pass, including its321 known operations in the partial ledger. Actual per-stratum pilot coverage is recorded, not assumed.
+
+### Frozen independent weighted-face check
+Next reconstruct each zero-readout production face's exact error mass using positive scalar quadrature of A(1+t²)^−5 and first-index target logic, without network recurrence, native interval integration or incomplete-beta calls. Rebuild uniform/advice/cold faces from the stored proposals, compare both face and mass fingerprints where applicable and each weighted aggregate. This distinguishes a wrong radial/importance calculation from outer quadrature bias. No extra models or node sweep.
