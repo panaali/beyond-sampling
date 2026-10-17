@@ -30,4 +30,4 @@ Author sources and hashes remain pinned in manifest.json, recovery_gate.json and
 
 Open limitations: named arithmetic excludes library/hardware/control/memory work as declared; saved exact-method truths are numerical rather than outward certificates; positive-volume readout-tie defects outside this generic panel remain separate; conditional bootstrap is not a simultaneous population guarantee. None is hidden by the favorable group averages.
 
-Next research direction under newest DRI priorities is separately claimed T189 conditional-order-statistic uncertainty bounds, after final independent handoff and current ownership check. Existing T187 global envelope theorem reused; no blind lambda sweep when the convex-MGF mean precheck proves that fixed bound vacuous.
+The planned next direction under newest DRI priorities is T189 conditional-order-statistic uncertainty bounds; it still requires a separate claim after final independent handoff and current ownership check. Existing T187 global envelope theorem reused; no blind lambda sweep when the convex-MGF mean precheck proves that fixed bound vacuous.
