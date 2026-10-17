@@ -9,7 +9,7 @@ from run_t3 import summary
 for H in map(int, sys.argv[1:]):
     R = json.load(open(f"results_H{H}_T3.json"))
     rows = R["rows"]
-    tiers = [t for t in ("F0", "F1a", "F1", "F2", "FX") if t in next(iter(rows.values()))]
+    tiers = [t for t in ("F0", "F1a", "F1", "F2", "F2L2", "FX") if t in next(iter(rows.values()))]
     import run_t3
     run_t3.TIERS = tuple(tiers)
     S = summary(H, rows)

@@ -17,13 +17,15 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "..", "arc_m43_repro"))
 from exact3 import count_regions, exact_acc  # noqa: E402
 import m43  # noqa: E402
+import fibre  # noqa: E402
 from fibre import est_fibre, est_fibre2, Ops  # noqa: E402
 from zoo import best_seed, leaderboard_models, noisy_abs, ops_per_sample, zoo_model  # noqa: E402
 
-TIERS = ("F0", "F1a", "F1", "F2", "FX")
+TIERS = ("F0", "F1a", "F1", "F2", "F2L2", "FX")
+RECIPE = "F2L2"     # frozen ladder recipe (T88): attached wedges at both fibre ends, forward look-ahead of 2 pieces
 
 
-def score(H, K):
+def score(H, K, tiers=None, old=None):
     T = 3
     ms = leaderboard_models(H, T)
     base = zoo_model(H, T, best_seed(H, T))
@@ -33,12 +35,19 @@ def score(H, K):
     rows = {}
     t0 = time.time()
     for name, m in ms.items():
-        oe = m43.Ops(); st = {}
-        ex = exact_acc(m, oe, st)
-        r = {"truth": ex, "exact_ops": oe.n, "leaves": st["leaves"], "regions": count_regions(m)}
-        for tier in TIERS:
+        if old is not None:
+            r = old[name]
+        else:
+            oe = m43.Ops(); st = {}
+            ex = exact_acc(m, oe, st)
+            r = {"truth": ex, "exact_ops": oe.n, "leaves": st["leaves"], "regions": count_regions(m)}
+        for tier in (tiers or TIERS):
             o = Ops(); inf = {}; tt = time.time()
-            e = est_fibre2(m, o, inf) if tier == "F2" else est_fibre(m, tier, o, inf)
+            if tier in ("F2", "F2L2"):
+                fibre.LOOK = 2 if tier == "F2L2" else 0
+                e = est_fibre2(m, o, inf)
+            else:
+                e = est_fibre(m, tier, o, inf)
             r[tier] = {"est": e, "ops": o.n, "traces": inf["traces"], "segments": inf["segments"], "sec": time.time() - tt}
         rows[name] = r
     print(f"H={H}: {len(rows)} models in {time.time() - t0:.0f} s")
@@ -60,7 +69,7 @@ def summary(H, rows, T=3):
         d = {"n": len(names), "mean_truth": float(tr.mean()), "pq": pq,
              "exact_ops": float(np.mean([rows[n]["exact_ops"] for n in names])),
              "regions": float(np.mean([rows[n]["regions"] for n in names]))}
-        for tier in TIERS:
+        for tier in [t for t in TIERS if t in next(iter(rows.values()))]:
             e = np.array([rows[n][tier]["est"] for n in names]) - tr
             ops = float(np.mean([rows[n][tier]["ops"] for n in names]))
             mse_s = pq / (ops / ops1)
@@ -76,12 +85,17 @@ def summary(H, rows, T=3):
 
 if __name__ == "__main__":
     H = int(sys.argv[1]); K = int(sys.argv[2]) if len(sys.argv) > 2 else 64
-    rows = score(H, K)
+    tiers = sys.argv[3].split(",") if len(sys.argv) > 3 else None       # e.g. F2L2: add tiers to existing results
+    path = os.path.join(HERE, f"results_H{H}_T3.json")
+    old = json.load(open(path))["rows"] if tiers else None
+    rows = score(H, K, tiers, old)
     summ = summary(H, rows)
-    json.dump({"H": H, "T": 3, "K": K, "rows": rows, "summary": summ}, open(os.path.join(HERE, f"results_H{H}_T3.json"), "w"), indent=1)
+    json.dump({"H": H, "T": 3, "K": K, "rows": rows, "summary": summ}, open(path, "w"), indent=1)
     for g, d in summ.items():
         print(f"{g:10s} n={d['n']:3d} acc {d['mean_truth']:.4f} regions {d['regions']:.0f} exact_ops {d['exact_ops']:.0f}")
         for tier in TIERS:
+            if tier not in d:
+                continue
             x = d[tier]
             print(f"   {tier:4s} rmse {x['rmse']:.2e} bias {x['bias']:+.2e} max {x['max_abs']:.2e} ops {x['ops']:.0f} "
                   f"samp_rmse {x['sampling_rmse']:.2e} MSE ratio {x['mse_ratio']:.2e} (worst model {x['per_model_ratio_max']:.2e})")
