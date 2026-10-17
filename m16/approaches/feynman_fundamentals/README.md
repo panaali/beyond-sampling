@@ -804,3 +804,17 @@ local-cell/active-rank qualifications. T81 rank1 residual fiber algebra passes;
 unknown support, tiny-pivot amplification and partial cost remain open.
 No numerical experiment or production edits. Details in
 primitive_and_reachability_review.md; owners received actionable checks.
+
+## Cycle 34 protocol: additive tensor contraction discriminator
+T81 replacement removes tiny-pivot division but may have a sign/normalization
+bug in its product-weight integral. Independently compare the production
+additive correction with exhaustive exact Fraction tensor sums under
+nonuniform normalized weights, signed amplitudes and two categorical slices.
+Use a central spike as a second falsifier: exact fiber agreement must not
+be mistaken for correct off-fiber mass or positivity. Synthetic small tensor
+only, no neural inputs or repeated full experiment, <=20CPU review lane.
+Cycle34 completed: exact Fraction nonuniform-weight contraction agrees with
+production additive integral at signed scales. Central-spike counterexample
+still gives negative mass despite exact fibers; this is representation error,
+not sign bookkeeping. Included T28 conditional rank law and T56 exact-lune
+normalization review. No production changes or estimator efficiency claim.
