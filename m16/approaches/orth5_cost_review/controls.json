@@ -1,0 +1,998 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "name": "signed_scalar",
+      "source": "def f(a,b):\n acc=a\n acc+=b\n return (a+b,a-b,a*b,a/b,-a,+b,a**2,acc)\n",
+      "expected_category_output_elements": {
+        "numeric_expression:Add": 2,
+        "numeric_expression:Sub": 1,
+        "numeric_expression:Mult": 1,
+        "numeric_expression:Div": 1,
+        "numeric_expression:USub": 1,
+        "numeric_expression:UAdd": 1,
+        "opaque_power:Pow": 1
+      },
+      "baseline": [
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+1"
+        },
+        {
+          "type": "float",
+          "hex": "-0x1.0000000000000p+1"
+        },
+        {
+          "type": "float",
+          "hex": "-0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "-0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+1"
+        },
+        {
+          "type": "float",
+          "hex": "0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+1"
+        }
+      ],
+      "adapted": [
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+1"
+        },
+        {
+          "type": "float",
+          "hex": "-0x1.0000000000000p+1"
+        },
+        {
+          "type": "float",
+          "hex": "-0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "-0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+1"
+        },
+        {
+          "type": "float",
+          "hex": "0x0.0p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+1"
+        }
+      ],
+      "trace": {
+        "category_output_elements": {
+          "numeric_expression:Add": 2,
+          "numeric_expression:Sub": 1,
+          "numeric_expression:Mult": 1,
+          "numeric_expression:Div": 1,
+          "numeric_expression:USub": 1,
+          "numeric_expression:UAdd": 1,
+          "opaque_power:Pow": 1
+        },
+        "sites": [
+          {
+            "site": "3:1",
+            "category": "numeric_expression",
+            "op": "Add",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "3:1",
+            "category": "numeric_expression",
+            "op": "Add",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:13",
+            "category": "numeric_expression",
+            "op": "Sub",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:13",
+            "category": "numeric_expression",
+            "op": "Sub",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:17",
+            "category": "numeric_expression",
+            "op": "Mult",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:17",
+            "category": "numeric_expression",
+            "op": "Mult",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:21",
+            "category": "numeric_expression",
+            "op": "Div",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:21",
+            "category": "numeric_expression",
+            "op": "Div",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:25",
+            "category": "numeric_expression",
+            "op": "USub",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:25",
+            "category": "numeric_expression",
+            "op": "USub",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:28",
+            "category": "numeric_expression",
+            "op": "UAdd",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:28",
+            "category": "numeric_expression",
+            "op": "UAdd",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:31",
+            "category": "opaque_power",
+            "op": "Pow",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:31",
+            "category": "opaque_power",
+            "op": "Pow",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "4:9",
+            "category": "numeric_expression",
+            "op": "Add",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "4:9",
+            "category": "numeric_expression",
+            "op": "Add",
+            "unit": "output_elements",
+            "count": 1
+          }
+        ],
+        "kernel_events": [
+          {
+            "site": "4:31",
+            "category": "opaque_power",
+            "op": "Pow",
+            "inputs": [
+              {
+                "kind": "float"
+              },
+              {
+                "kind": "int"
+              }
+            ],
+            "output": {
+              "kind": "float"
+            }
+          }
+        ],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "integer_sign",
+      "source": "def f(a,b):\n return ((-1)**a,a+b,a!=b,1/32,(1+2)*3)\n",
+      "expected_category_output_elements": {
+        "integer_expression:Pow": 1,
+        "integer_expression:Add": 1,
+        "integer_comparison:NotEq": 1
+      },
+      "baseline": [
+        {
+          "type": "int",
+          "value": 1
+        },
+        {
+          "type": "int",
+          "value": 5
+        },
+        {
+          "type": "bool",
+          "value": true
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p-5"
+        },
+        {
+          "type": "int",
+          "value": 9
+        }
+      ],
+      "adapted": [
+        {
+          "type": "int",
+          "value": 1
+        },
+        {
+          "type": "int",
+          "value": 5
+        },
+        {
+          "type": "bool",
+          "value": true
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p-5"
+        },
+        {
+          "type": "int",
+          "value": 9
+        }
+      ],
+      "trace": {
+        "category_output_elements": {
+          "integer_expression:Pow": 1,
+          "integer_expression:Add": 1,
+          "integer_comparison:NotEq": 1
+        },
+        "sites": [
+          {
+            "site": "2:17",
+            "category": "integer_expression",
+            "op": "Add",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:17",
+            "category": "integer_expression",
+            "op": "Add",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "2:21",
+            "category": "integer_comparison",
+            "op": "NotEq",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:21",
+            "category": "integer_comparison",
+            "op": "NotEq",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "2:9",
+            "category": "integer_expression",
+            "op": "Pow",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:9",
+            "category": "integer_expression",
+            "op": "Pow",
+            "unit": "output_elements",
+            "count": 1
+          }
+        ],
+        "kernel_events": [],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "broadcast",
+      "source": "def f(a,b):\n return (a+b,a*b)\n",
+      "expected_category_output_elements": {
+        "numeric_expression:Add": 6,
+        "numeric_expression:Mult": 6
+      },
+      "baseline": [
+        {
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float64",
+          "bytes": "000000000000104000000000000014400000000000001840000000000000144000000000000018400000000000001c40"
+        },
+        {
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float64",
+          "bytes": "000000000000084000000000000010400000000000001440000000000000184000000000000020400000000000002440"
+        }
+      ],
+      "adapted": [
+        {
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float64",
+          "bytes": "000000000000104000000000000014400000000000001840000000000000144000000000000018400000000000001c40"
+        },
+        {
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float64",
+          "bytes": "000000000000084000000000000010400000000000001440000000000000184000000000000020400000000000002440"
+        }
+      ],
+      "trace": {
+        "category_output_elements": {
+          "numeric_expression:Add": 6,
+          "numeric_expression:Mult": 6
+        },
+        "sites": [
+          {
+            "site": "2:13",
+            "category": "numeric_expression",
+            "op": "Mult",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:13",
+            "category": "numeric_expression",
+            "op": "Mult",
+            "unit": "output_elements",
+            "count": 6
+          },
+          {
+            "site": "2:9",
+            "category": "numeric_expression",
+            "op": "Add",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:9",
+            "category": "numeric_expression",
+            "op": "Add",
+            "unit": "output_elements",
+            "count": 6
+          }
+        ],
+        "kernel_events": [],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "dot",
+      "source": "def f(a,b):\n return a@b\n",
+      "expected_category_output_elements": {
+        "opaque_matmul:MatMult": 1
+      },
+      "baseline": {
+        "type": "float64",
+        "hex": "0x1.0000000000000p+5"
+      },
+      "adapted": {
+        "type": "float64",
+        "hex": "0x1.0000000000000p+5"
+      },
+      "trace": {
+        "category_output_elements": {
+          "opaque_matmul:MatMult": 1
+        },
+        "sites": [
+          {
+            "site": "2:8",
+            "category": "opaque_matmul",
+            "op": "MatMult",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:8",
+            "category": "opaque_matmul",
+            "op": "MatMult",
+            "unit": "output_elements",
+            "count": 1
+          }
+        ],
+        "kernel_events": [
+          {
+            "site": "2:8",
+            "category": "opaque_matmul",
+            "op": "MatMult",
+            "inputs": [
+              {
+                "kind": "array",
+                "shape": [
+                  3
+                ],
+                "strides": [
+                  8
+                ],
+                "dtype": "float64",
+                "C": true,
+                "F": true,
+                "sha256": "a68de4b5e96a60c8ceb3c7b7ef93461725bdbbff3516b136585a743b5c0ec664"
+              },
+              {
+                "kind": "array",
+                "shape": [
+                  3
+                ],
+                "strides": [
+                  8
+                ],
+                "dtype": "float64",
+                "C": true,
+                "F": true,
+                "sha256": "88d2496775662fd4ff1f1dc675cdac4e258b11faa4a41f63e0c4bd6e72951bc8"
+              }
+            ],
+            "output": {
+              "kind": "numpy_scalar",
+              "dtype": "float64"
+            }
+          }
+        ],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "matrix",
+      "source": "def f(a,b):\n return a@b\n",
+      "expected_category_output_elements": {
+        "opaque_matmul:MatMult": 4
+      },
+      "baseline": {
+        "shape": [
+          2,
+          2
+        ],
+        "dtype": "float64",
+        "bytes": "00000000000036400000000000003c4000000000008048400000000000005040"
+      },
+      "adapted": {
+        "shape": [
+          2,
+          2
+        ],
+        "dtype": "float64",
+        "bytes": "00000000000036400000000000003c4000000000008048400000000000005040"
+      },
+      "trace": {
+        "category_output_elements": {
+          "opaque_matmul:MatMult": 4
+        },
+        "sites": [
+          {
+            "site": "2:8",
+            "category": "opaque_matmul",
+            "op": "MatMult",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:8",
+            "category": "opaque_matmul",
+            "op": "MatMult",
+            "unit": "output_elements",
+            "count": 4
+          }
+        ],
+        "kernel_events": [
+          {
+            "site": "2:8",
+            "category": "opaque_matmul",
+            "op": "MatMult",
+            "inputs": [
+              {
+                "kind": "array",
+                "shape": [
+                  2,
+                  3
+                ],
+                "strides": [
+                  24,
+                  8
+                ],
+                "dtype": "float64",
+                "C": true,
+                "F": false,
+                "sha256": "d73f023a3f852bf2e5c6d836cd36cd930d0091dcba7f778161c707e1c58222b0"
+              },
+              {
+                "kind": "array",
+                "shape": [
+                  3,
+                  2
+                ],
+                "strides": [
+                  16,
+                  8
+                ],
+                "dtype": "float64",
+                "C": true,
+                "F": false,
+                "sha256": "d73f023a3f852bf2e5c6d836cd36cd930d0091dcba7f778161c707e1c58222b0"
+              }
+            ],
+            "output": {
+              "kind": "array",
+              "shape": [
+                2,
+                2
+              ],
+              "strides": [
+                16,
+                8
+              ],
+              "dtype": "float64",
+              "C": true,
+              "F": false,
+              "sha256": "7e8f4413807591331d03b3f7f36efa516e93988bcbd9c6db9cb49f4db660c0fc"
+            }
+          }
+        ],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "sqrt_maximum",
+      "source": "def f(a):\n return np.sqrt(np.maximum(a,0.0))\n",
+      "expected_category_output_elements": {
+        "opaque_call:np.maximum": 3,
+        "opaque_call:np.sqrt": 3
+      },
+      "baseline": {
+        "shape": [
+          3
+        ],
+        "dtype": "float64",
+        "bytes": "000000000000000000000000000000400000000000000840"
+      },
+      "adapted": {
+        "shape": [
+          3
+        ],
+        "dtype": "float64",
+        "bytes": "000000000000000000000000000000400000000000000840"
+      },
+      "trace": {
+        "category_output_elements": {
+          "opaque_call:np.maximum": 3,
+          "opaque_call:np.sqrt": 3
+        },
+        "sites": [
+          {
+            "site": "2:16",
+            "category": "opaque_call",
+            "op": "np.maximum",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:16",
+            "category": "opaque_call",
+            "op": "np.maximum",
+            "unit": "output_elements",
+            "count": 3
+          },
+          {
+            "site": "2:8",
+            "category": "opaque_call",
+            "op": "np.sqrt",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:8",
+            "category": "opaque_call",
+            "op": "np.sqrt",
+            "unit": "output_elements",
+            "count": 3
+          }
+        ],
+        "kernel_events": [
+          {
+            "site": "2:16",
+            "category": "opaque_call",
+            "op": "np.maximum",
+            "inputs": [
+              {
+                "kind": "array",
+                "shape": [
+                  3
+                ],
+                "strides": [
+                  8
+                ],
+                "dtype": "float64",
+                "C": true,
+                "F": true,
+                "sha256": "7438b5b8306554e2ee7e861866545414a4768a4701256775e1dcac784bea8e80"
+              },
+              {
+                "kind": "float"
+              }
+            ],
+            "output": {
+              "kind": "array",
+              "shape": [
+                3
+              ],
+              "strides": [
+                8
+              ],
+              "dtype": "float64",
+              "C": true,
+              "F": true,
+              "sha256": "cccc935b5f3bd37cbfa2c30feb4ee0b3b8c74577f10f711b46ef790851e95c74"
+            }
+          },
+          {
+            "site": "2:8",
+            "category": "opaque_call",
+            "op": "np.sqrt",
+            "inputs": [
+              {
+                "kind": "array",
+                "shape": [
+                  3
+                ],
+                "strides": [
+                  8
+                ],
+                "dtype": "float64",
+                "C": true,
+                "F": true,
+                "sha256": "cccc935b5f3bd37cbfa2c30feb4ee0b3b8c74577f10f711b46ef790851e95c74"
+              }
+            ],
+            "output": {
+              "kind": "array",
+              "shape": [
+                3
+              ],
+              "strides": [
+                8
+              ],
+              "dtype": "float64",
+              "C": true,
+              "F": true,
+              "sha256": "2b4b8a31ad96990963dbb636e2e9b5af77feb2fa31caaf304f0687e0c8373851"
+            }
+          }
+        ],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "short_circuit",
+      "source": "def f(a,mark):\n return (a<0 and mark(),a>0 or mark())\n",
+      "expected_category_output_elements": {
+        "numeric_comparison:Lt": 2,
+        "numeric_comparison:Gt": 2
+      },
+      "side_effect_counts": [
+        2,
+        2
+      ],
+      "baseline": [
+        [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ],
+        [
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      ],
+      "adapted": [
+        [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ],
+        [
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      ],
+      "trace": {
+        "category_output_elements": {
+          "numeric_comparison:Lt": 2,
+          "numeric_comparison:Gt": 2
+        },
+        "sites": [
+          {
+            "site": "2:24",
+            "category": "numeric_comparison",
+            "op": "Gt",
+            "unit": "calls",
+            "count": 2
+          },
+          {
+            "site": "2:24",
+            "category": "numeric_comparison",
+            "op": "Gt",
+            "unit": "output_elements",
+            "count": 2
+          },
+          {
+            "site": "2:9",
+            "category": "numeric_comparison",
+            "op": "Lt",
+            "unit": "calls",
+            "count": 2
+          },
+          {
+            "site": "2:9",
+            "category": "numeric_comparison",
+            "op": "Lt",
+            "unit": "output_elements",
+            "count": 2
+          }
+        ],
+        "kernel_events": [],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    },
+    {
+      "name": "builtin_libm",
+      "source": "def f(a):\n return (sum(a),min(a),abs(a[0]),math.atan2(a[0],a[1]))\n",
+      "expected_category_output_elements": {
+        "opaque_call:sum": 1,
+        "opaque_call:min": 1,
+        "opaque_call:abs": 1,
+        "opaque_call:math.atan2": 1
+      },
+      "baseline": [
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+2"
+        },
+        {
+          "type": "float",
+          "hex": "-0x1.0000000000000p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+0"
+        },
+        {
+          "type": "float",
+          "hex": "-0x1.dac670561bb4fp-2"
+        }
+      ],
+      "adapted": [
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+2"
+        },
+        {
+          "type": "float",
+          "hex": "-0x1.0000000000000p+0"
+        },
+        {
+          "type": "float",
+          "hex": "0x1.0000000000000p+0"
+        },
+        {
+          "type": "float",
+          "hex": "-0x1.dac670561bb4fp-2"
+        }
+      ],
+      "trace": {
+        "category_output_elements": {
+          "opaque_call:sum": 1,
+          "opaque_call:min": 1,
+          "opaque_call:abs": 1,
+          "opaque_call:math.atan2": 1
+        },
+        "sites": [
+          {
+            "site": "2:16",
+            "category": "opaque_call",
+            "op": "min",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:16",
+            "category": "opaque_call",
+            "op": "min",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "2:23",
+            "category": "opaque_call",
+            "op": "abs",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:23",
+            "category": "opaque_call",
+            "op": "abs",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "2:33",
+            "category": "opaque_call",
+            "op": "math.atan2",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:33",
+            "category": "opaque_call",
+            "op": "math.atan2",
+            "unit": "output_elements",
+            "count": 1
+          },
+          {
+            "site": "2:9",
+            "category": "opaque_call",
+            "op": "sum",
+            "unit": "calls",
+            "count": 1
+          },
+          {
+            "site": "2:9",
+            "category": "opaque_call",
+            "op": "sum",
+            "unit": "output_elements",
+            "count": 1
+          }
+        ],
+        "kernel_events": [
+          {
+            "site": "2:9",
+            "category": "opaque_call",
+            "op": "sum",
+            "inputs": [
+              {
+                "kind": "list",
+                "length": 3
+              }
+            ],
+            "output": {
+              "kind": "float"
+            }
+          },
+          {
+            "site": "2:16",
+            "category": "opaque_call",
+            "op": "min",
+            "inputs": [
+              {
+                "kind": "list",
+                "length": 3
+              }
+            ],
+            "output": {
+              "kind": "float"
+            }
+          },
+          {
+            "site": "2:23",
+            "category": "opaque_call",
+            "op": "abs",
+            "inputs": [
+              {
+                "kind": "float"
+              }
+            ],
+            "output": {
+              "kind": "float"
+            }
+          },
+          {
+            "site": "2:33",
+            "category": "opaque_call",
+            "op": "math.atan2",
+            "inputs": [
+              {
+                "kind": "float"
+              },
+              {
+                "kind": "float"
+              }
+            ],
+            "output": {
+              "kind": "float"
+            }
+          }
+        ],
+        "scope": "Output-element expression census, opaque calls and integer categories only. No kernel-body, scalar-equivalent, memory/control/setup or full-native price."
+      }
+    }
+  ],
+  "source_sha256": {
+    "trace.py": "3cf1f5168a1dabf104962b195ed0f58dc905f31f9b9de81f1710a52230c0ba16",
+    "controls.py": "0e7005075c32d7ca33983f9035d1fca240d064634c283bd2d8f1c15056d503d5",
+    "PROTOCOL.md": "8dcfe171a216076aab255d4a8f3674e45ee5fa82ff7bea1248a0f2d8f060fc9c"
+  },
+  "numpy_version": "2.5.4",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "cpu_seconds": 0.007952252999999992,
+  "orth5_model_MC_calls": 0
+}
