@@ -13,16 +13,22 @@ Before target searches, analytic H2T4 fixture uses four positive inputs and iden
 Competing explanations: (1) E27 lower-input effects require gate switches; an exact same-cell pair would distinguish this. (2) A floating LP crossing is tolerance/roundoff or an input/gate tie; exact rational checks reject it. (3) Dependence is confined to isolated top3 values; strict inequalities give open persistence. No result here estimates probability or accuracy.
 
 ## Status
-Protocol frozen; implementation next. Independent review required.
+Bounded search and exact certificate complete; independent T55 endpoint/radius reproduction received, written margin review pending.
 
 ## Results
-Pending.
+All64 frozen anchors and640 LP calls completed in1.203938813CPU. Eight anchors have floating positive candidates:0,8,9,17,25,32,40,48; all64 statuses, including56 null searches, are retained in search_results.json. Per frozen rule, only the first positive pair needed exact certification; it passed with no failed exact attempts. This is not an estimate of how common ambiguity is.
+
+The exact target pair fixes indices0,3,6 to1,63/64,31/32, respectively. Both have the same strict full input order and all160 gates, but winners are3(correct) and6(wrong). Exact minimum gate/rank/output slacks are in certificate.json. A common input sup-norm radius8.28669939158e-10 preserves both cases and permits shared perturbations of the top3 values. The tiny conservative radius certifies open persistence, not a useful probability bound. T55 independently reproduced the recurrence and radius.
+
+The local constructive rescue also passes. Exact margin3-6 is affine in the seven lower inputs with coefficients approximately [.05032495,.03685721,.17661832,.27759050,.59516045,.19612536,.30373672] at time indices[1,2,4,5,7,8,9]. Its one zero on the segment is at parameter.6988823149957404; all other outputs lie at least2.43219660145 below there. Endpoint/crossing linearity proves exactly one switch on this segment. These coefficients are derived from weights/gates, not fitted. One weighted scalar thus restores local correctness along this segment; no global representation or cost claim follows.
+
+Analytic H2T4 positive and constant-tie controls passed before the target search; post-search LP adapter controls also recover both true winners and reject tied truth. Reproduce each saved artifact with single-thread `/workspace/clean-neurons/.venv/bin/python m16/approaches/gate_symbol_witness/{search.py,certify.py,margin_rescue.py,lp_controls.py}` in that order, with2GB limit and project compute/review locks. Commands denote four separate script invocations.
 
 ## Compute accounting
 No random model inputs or MC. Fixed deterministic anchors, LP proposals and exact proof arithmetic only. Count every LP, diagnostic forward and exact recurrence; record CPU including failed stages. One thread,2GB, bounded primary/review locks. This is a structural diagnostic, not estimator cost.
 
 ## Claims
-[speculative] Top3 values plus complete rank/gate symbols may fail to determine correctness even locally. A finite null search is inconclusive.
+[inferred from exact arithmetic, independently reproduced] Top3 values plus complete rank/gate history do not determine correctness for the original target model. [inferred, review pending] A single derived affine lower-input coordinate restores correctness on the exhibited segment. Neither statement determines accuracy or the cost of global symbolic integration.
 
 ## Alternatives not ruled out
 Weighted lower-input accumulators, gate-conditioned affine margin coefficients, stochastic integration over discarded inputs, nonlinear state summaries, approximate rather than exact correctness, and other retained coordinates. Full gate history includes rotating-gate history, so a certified collision excludes only summaries which discard all additional continuous information. No family-wide symbolic-dynamics impossibility.
@@ -32,3 +38,6 @@ Floating LP tolerances, exact-zero gates/readout ties, rational rounding crossin
 
 ### Frozen follow-up after exact witness
 The first exact pair passes, with correct output3 and wrong output6. To preserve a constructive rescue, derive the exact affine margin3-6 on this fixed gate word. Evaluate its unique zero on the segment and check that all other outputs are strictly below both there. If so, linearity and endpoint margins prove this segment has exactly one classification switch, controlled by a weighted sum of the seven lower inputs. Record all coefficients, not a fitted feature. This is a local retained-coordinate rescue, not global compression or a new probability estimator; implementation begins after this protocol note.
+
+### Exhaustion and scope checklist
+Tested: frozen64 rank/top3/sign-range anchors,640 LP proposals, exact first positive pair, open neighborhood preservation, analytic synthetic positive/no-crossing controls, and one exact local weighted-margin rescue. Untested: other weights/noise, omitted56 finite-search nulls with alternative anchors, probability integration of the ambiguous cell, reduced histories augmented by continuous variables, and global complexity. The seven additional floating positive pairs were not certified because the predeclared existential stopping rule was met. These are unnecessary for the counterexample but cannot be reported as exact witnesses. No broader symbolic family is retired.
