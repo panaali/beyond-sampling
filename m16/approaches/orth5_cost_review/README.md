@@ -7,7 +7,7 @@ Which operations does the frozen five-dimensional mass implementation execute, a
 Pin the existing T185 source and independently reviewed analytic fixtures. First inventory source expressions and transparent kernel-call shapes; verify instrumentation on fixed controls before five saved synthetic cases. PROTOCOL.md freezes scope and alternatives.
 
 ## Status
-Claim6a3dc9fc active. Eight adapter controls passed once in92f871f9, independently5878cae1. Five fixed synthetic source paths passed once in9ad24cd9 after a separate source gate; independent saved pilot review e54c58e9 passes. The bounded expression/call phase is complete; native applicability/pricing remain separate. No trained corpus or model replay.
+Initial claim6a3dc9fc; renewed applicability phase bbf0c5af now complete. Eight adapter controls passed once in92f871f9, independently5878cae1. Five fixed synthetic source paths passed once in9ad24cd9 after a separate source gate; independent saved pilot review e54c58e9 passes. The bounded expression/call phase is complete; native applicability/pricing remain separate. No trained corpus or model replay.
 
 ## Results
 Source reading gives a thin proxy of125+1296*40=51,965 and log proxy125+1,175+240+128*1,340=173,060. The log branch executes one5x5 determinant,25 scalar4x4 determinants, five batches of128 4x4 determinants, and30 batches of128 3x3 determinants: totals1/665/3840 by dimension. The finite synthetic call census reproduces these source deductions, but does not establish installed kernel prices. The thin branch multiplies1296x5 by5x5, unlike prior4D audited layouts.
@@ -35,3 +35,13 @@ An abstract proxy may be intentional; different conventions alone do not show an
 
 ## Failure modes
 Instrumentation can alter rounding or short-circuit order; fixed bitwise controls and source parity are mandatory. Opaque calls, missing historical layouts, integer/control/memory/setup and libm internals prevent a full numerator. Source agreement does not validate quadrature accuracy.
+
+## Strided determinant applicability: bounded completion
+
+Renewed claim bbf0c5af; protocol45f6f4d6, build319d172b, controls41ecce3d independently9572a0be. Twelve fixed arrays cover dimensions3/4, scalar C and actual source128-batch strides, identity/permuted-dense/zero-row patterns with batch-unique entries. All774 exact logical matrices, native copied bytes/order, dimensions/lda/pivots,516 success/258 singular statuses, runtime/build pins and baseline/observed output bits pass. Baseline .069757530 CPU and observer .055142238 CPU;1548 scalar determinant factorizations across both phases, zero mass/model/MC calls. Finite coverage does not establish arbitrary layout support or historical T185 runtime binding.
+
+Saved-only bridge48816f48 independently6a308ddc contracts inherited conditional selected-category envelopes to497,715 arithmetic/absolute/sign/comparison units,14,180 log calls and4,505 exp calls per completed default log branch. Exposed source32,262 expression units stay separate. The old combined named subtotal516,400 charges each libm call as one opaque invocation, not its internals. The one determinant5, matrix/norm/dot/reduction/power/sqrt/atan2 bodies, copying/control/memory/setup/geometry and matched sampler remain unpriced. No complete native upper/lower, speed, MSE or rung claim follows. Bridge .011993 CPU, no numerical replay.
+
+Reproduction (fresh outputs only): `determinant_layout/build.py`, then `controls.py baseline`, then `controls.py observed` under the frozen spy.so LD_PRELOAD, then `bridge.py`; exact caps/commands are in PROTOCOL.md and saved logs. Existing results must not be overwritten. No failed numerical attempt occurred. Early protocol improvements preserved batch uniqueness and explicit ctypes ABI before execution.
+
+Root/Claude INDEX registration requested. This bounded phase is complete; further native categories need a fresh scope. A higher-value next gate is whole-angle denominator validation on archived4D nodes, with exact stored-matrix target distinct from rounded source om.
