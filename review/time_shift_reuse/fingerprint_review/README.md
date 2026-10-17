@@ -36,3 +36,9 @@ reset states remain distinct. No trained model or cost-saving conclusion.
 ## Failure modes
 No row-swap fixture occurs; observed reduced-bit maxima were not independently
 replayed. Source arithmetic excludes decode/hash/GCD/control/storage work.
+
+## Fixed trained3 extension
+
+After published delegation36c46b08 and owned evidence export8a21b10e, checker747896fb audits the three fixed stored exact models H4T3/H4T4/H8T4 seed0. Independent integer Bareiss determinants establish full recurrent rank; exact Cramer/Schur minors establish all80 nonzero elimination coefficients and dense count formulas, without importing or running the author's RREF. All16/16/256 direct subset sums are distinct, Wi are nonzero, and source/archive/checkpoint/progress contracts plus172 weight decodes pass. ReviewCPU.031322382, no failure, no author/model/geometry/mass calls. Original authorCPU.027990574 remains separate.
+
+This supports applicability of the independently reviewed sufficient global one-step margin/projective identifiability theorem for these three exact weight sets. It does not exclude label-only/domain-restricted/approximate merging or identical-state resets, other horizons/models, and does not measure cost savings. Observed-bit maxima are not independently replayed. Invocation is the same capped lock command above with `check_trained.py` instead of `check.py`.
