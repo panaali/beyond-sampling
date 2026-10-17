@@ -121,3 +121,28 @@ RNG52006, direct NumPy recurrence and sorted target labels, chunk65536.
 Run `check_t10_reference.py --T 6`; retain the old validation and this check
 without selecting a preferred estimate. This tests a material unresolved concern
 and is separate from the predeclared cheap-rule experiment. No rule fitting.
+
+### Independent T6 reference outcome
+
+The frozen 1,048,576-input check gives 260267 correct: p=.24820995330810547,
+SE=.00042184987581041835, 95% normal interval [.24738312755,.24903677906].
+The calculated .24815022292589073 differs by -0.142 SE, consistent with this
+independent test. Runtime .22962 CPU seconds; all 1,048,576 forwards charged.
+Both the older 131072-input reference and this result remain retained.
+Subsequent analytic re-bounding reduces the calculation's conditional error bound
+to 9.04235e-6; geometry/roundoff and competitive full cost remain separate questions.
+
+## Frozen exact-artifact independent audit
+
+T68 produced exact integer simplex rays for H2T4 and H4T4. Root will independently
+recompute every normalized determinant by the 24-term Leibniz formula (not the
+author's Bareiss routine), check gate determinant partition16, and evaluate exact
+rational network gates at each correct simplex centroid and all its rays. Each
+ray must obey the centroid's gate inequalities, output winner inequalities and
+second-largest target ordering; strict interior ties use first-index semantics.
+Alternative1: exact arithmetic could still encode an incorrect classifier/rank
+cone; direct rational forward checks test this. Alternative2: saved determinant
+certificates may share an elimination bug; the independent expansion tests this.
+This verifies artifact contents and correct-region containment, not completeness
+or pairwise disjointness of the triangulation. <=20CPU seconds, no sampled inputs,
+no mass integration; these are deterministic certificate probes only.

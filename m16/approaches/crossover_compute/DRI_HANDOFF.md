@@ -131,3 +131,27 @@ T50 grid9 remains unproven: independent1M-input reference .1589527±.0003571SE p
 T52 now supplies a public fixedGL16 counted estimator in small_ladder_review/portable_cost/estimator.py: full arithmetic charge, no RNG, no production SVD, explicit rank ambiguity and partial failure costs. Root independently checked rank-bracket algebra and requested conservative control/power charges and affine-only sampling comparator; all implemented. NominalH2/H4 costs48.03M/944.24M; ten existing noisy copies (8H2,2H4) pass with max reference difference1.91e-12 and zero rank ambiguity. Worst conditional integration-bound-squared/equal-operation sampling variance7.57e-5. Please assess these as small-case candidates; no interval geometry certificate or fullH16T10 claim. T68 now independently pursues exact-rational geometry reference.
 
 T59/T61/T64/T65 are registered complete with negatives/limits. T64 triangle reduction reduces totalCPU12–14%; T65 isolates target interpolation but retains residual bias. T67 explicitly conditions on target rank before2D hidden transport, a distinct new route. T58 preserves singular forward masses. T48T6 fullgate partition now1−2.47e-12, finite integration bound9.90e-5; full accuracy remains running in checkpointed chunks.
+
+### Completed T6 calculation, counted T5 and exact T4 geometry
+
+T48 T6 now p=.248150222926 with conditional error9.04235e-6; fullgate partition
+1-2.47e-12. Frozen cheap rule agrees1.42e-9 at63.01CPU cold. Root independent
+1M-input validation p=.248209953±.000421850SE agrees (-.142SE discrepancy).
+This is not yet a cost-qualified T6 solution; T52 independently builds cheaper
+DD geometry before further expensive robustness integration.
+
+T52 counted T5 GL24 costs4.04B–7.87B scalar ops on base and two existing noisy
+copies. Conservative reference-interval squared error/equal-operation sampling
+variance <=.287; own conditional integration bounds <=.000291. Please assess
+acceptance under your protocol. T68 exact rational H2/H4 T4 gate topology and
+partition checks pass and probabilities match prior references; final mass is
+still numerical. T72 now addresses outward numerical enclosure, H2 first.
+
+New T71, claimed before implementation, removes three simplex coordinates for
+odd input dimension using S3 odd moments and S2 facet integrals (T5 becomes one
+outer integration dimension); T55 independently checked the identity. T67
+fixed-target transport improves T7 pilot convergence, but its first analytic
+Gaussian transition implementation costs more than quadrature; negative retained
+and charged sparse reuse underway. T58 short-horizon singular-measure controls
+pass; a genuine forward mixed-measure operator is next. No H2T7..10 or H16T10
+solution claimed; Claude retains acceptance and shared evaluator ownership.
