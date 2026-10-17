@@ -75,3 +75,19 @@ reference. Sharing the author's cone harness leaves correlated geometry bugs
 possible. Existing MC truths have uncertainty. Platform floating arithmetic
 and special functions are not certified. Repeated exact-cone shortcuts may
 change the sketch's treatment of leakage, so compare the actual branches.
+
+## Fixed model selection, frozen before the first run
+H16T3 seed0 checkpoint SHA256
+`d9e5245146436fa8ec847a9ec3c771c7dd959708cae64825d46b52d51ec35551`;
+seed1 SHA256 `e425ad7db73384432163b51410772181d4efe18ffe0d71c71569a348e0b49a6b`.
+Public source URLs are
+`https://storage.googleapis.com/arc-ml-public/alg/zoo/2nd_argmax_16_3_1073741824_0.pth`
+and the corresponding `_1.pth`. Root downloaded both. This uses checkpoint
+weights only, not additional ARC research text. AlgZoo zoo.py fixes best seed
+for(H16,T3) to1, and leaderboard.models uses that as its noisy-copy base.
+Third model s0.02_0 is exactly the first copy from default_rng(0), drawing
+standard normals in Wi,Wh,Wo order and adding .02 times each matrix RMS.
+Compare all three at degrees2/4 against stored eval_T3.json and its existing
+truth/se; do not draw new accuracy samples. Direct cut controls use degrees2/4/8.
+The fixed all-zero and duplicate-readout models must have accuracy1/3 under
+first-index argmax. A failure is recorded rather than silently repaired.
