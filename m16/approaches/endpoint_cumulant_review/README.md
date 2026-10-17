@@ -71,7 +71,8 @@ do not mistake a finite covariance series for the full Gaussian law.
    not established as the unique source of any measured error.
 
 ## Status
-First bounded control cycle completed; no trained application yet.
+Controls and one trained H2T3 reference phase completed; independent moment
+identity review passed, trained numerical artifact review requested.
 At most18CPU on review lane or100CPU on primary lock, single thread,<2GB;
 no model sweep or large Monte Carlo. Next trained T3 phase requires its own
 frozen moment-integration protocol and cost after these controls.
@@ -114,6 +115,38 @@ competitive-compute claim follows. `controls.json` preserves all raw/projected
 vectors, status, moments, quadrature sensitivity and operation metadata.
 Reproduce with PYTHONPATH=/workspace/work/t40_deps and the repository interpreter:
 `python controls.py`, one thread, shared lock and memory limit.
+
+### Trained H2T3 seed0
+Gate/rank/orthant geometry produces58 triangles and label masses within3.55e-14
+of1/3. Accuracy from separately clipped solid angles is.4101712617268285,
+within4.36e-14 of the earlier independent facet reference. GL16/32 joint
+moments differ by at most1.573e-11 under the frozen normalization; both pass
+mass controls. These are converged numerical moments of the exact gate/rank
+law, not formally enclosed exact tensors. Positive h=0 atom has joint masses
+(.18514742,.17204551,.24324000) by target label, total.60043293.
+
+| Endpoint | Raw mixture accuracy | h=0-atom-separated accuracy |
+| --- | ---: | ---: |
+| E0 | .4961440974 | .4420537096 |
+| E1 covariance | .4702369821 | .4219622607 |
+| E2 covariance | .4985776685 | .4325032914 |
+| E2 plus third cumulant | .3934887773 | .3827291332 |
+| E2 full fourth cumulant | 1.5268572951 | .5010903210 |
+
+The atom rescue improves E0/E1/E2cov/full but worsens E2k3; no order is selected.
+The raw full estimate outside[0,1] is preserved. Its simplex-projected accuracy
+is.54218576 (raw mixture) and.46332326 (atom-separated), still biased.
+Largest per-conditional raw vector violations include-6.2301 and4.5928.
+Q128/256 changes are<=4.18e-14, separating these discrepancies from observed
+endpoint quadrature sensitivity. No nonzero near-zero margin was treated as
+zero; geometry found22 exact zero comparisons and no nonzero-hidden/all-zero-
+readout cell. Floating clipping/topology remains qualified.
+
+Trained phase1.866418015CPU including imports, RSS238544KiB; geometry70794
+declared proxy operations,.02442CPU;74240 moment nodes (16/32),.09937CPU.
+Six endpoint calls report21,233,664 upstream proxy operations, excluding the
+qualified setup/moment work. No sampling or training. `trained_t3.py` and
+`trained_t3.json` retain all tensors, per-target results, projections and costs.
 T55 independently checked the conditional reset densities, half-mass atom/ray
 and Gaussian arcsine formula (e6378b2). Two initial import attempts stopped
 before numerical work for missing einops/joblib. Dependencies are pinned in
