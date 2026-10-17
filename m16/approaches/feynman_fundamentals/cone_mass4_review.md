@@ -1104,3 +1104,31 @@ ratio is 0.0893267894 for r85b; r112 seed 3 has error -0.0003392190027 and ratio
 finite numerical-source comparisons, not complete cost or population claims.
 The final noisy seed and global 5,120-model coverage remain pending.
 
+### Completed fixed fresh reference and k29 panels
+
+`check_hopf_fresh_reference_review.py` verifies all 2,500 saved blocks, 2.5
+billion fixed reference draws, exact integer hit totals, model/source pins and
+RNG state continuity. The 318 deterministic control evaluations remain
+separate. Independent binomial-tail inversion matches all 25 confidence-box
+endpoints within 1.12e-15. Recorded reference CPU is 485.652734666 seconds.
+No random draws or model forwards were repeated by this review.
+
+`check_hopf_fresh_comparison_review.py` independently contracts all 60 exact
+integer-budget comparisons and rational confidence-box extrema. All upper
+ratios are below one; the largest is 0.5368409195243403. Optimized matched pooled
+upper ratios are 0.3076300, 0.2745163, 0.3409843, 0.4753996 and 0.2128810. This
+is fixed H4T4 panel evidence under the declared source allowances and nominal
+simultaneous numerical confidence boxes. It is not a full native/runtime
+comparison, an outward floating certificate, or a repair of the generic Hopf
+mask defect. No H16T10 conclusion follows.
+
+The final k29 seed audit and `check_k29_global_review.py` complete coverage of
+all 5,120 noisy models, 10,240 noisy ledgers, five clean models and ten clean
+ledgers. All 80 shards and model hashes are unique, and controls/pilot are reused
+once as declared. Numeric totals are 571,644,569 / 796,361,776; separate integer
+totals are 17,858,677 / 27,011,389. Recorded research CPU is 2,076.392106014.
+Seed 4 has named integer-budget ratios 0.2090100012 / 0.00818442777 and retains
+37 / 2 individual losses. The five-seed aggregate evidence does not imply
+uniform per-model superiority. Source111 and historical72 conventions remain
+separate from full hardware cost.
+
