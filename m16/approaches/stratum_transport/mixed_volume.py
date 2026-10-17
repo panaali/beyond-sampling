@@ -96,7 +96,7 @@ class Operator:
                 np.add.at(new.axes[i],idx[i][mask],mass[mask]);output[self.axis_winner[i]]+=float(mass[mask].sum())
             interior=positive&active[:,:,0]&active[:,:,1]
             if any(np.any(idx[i][interior]>=self.n) for i in (0,1)):raise ArithmeticError('area transfer outside finite bound')
-            np.add.at(new.area,(idx[0][interior],idx[1][interior]),mass[interior])
+            self.add_area(new,idx,mass,interior,c)
             winners=np.argmax(dest[interior]@self.wo.T,axis=1)
             np.add.at(output,winners,mass[interior]);self.work['interior_readout_evaluations']+=len(winners)
         oldmass=sum(state.masses().values());newmass=sum(new.masses().values())
@@ -104,6 +104,9 @@ class Operator:
         assert abs(newmass-oldmass*self.retained)<1e-12
         assert abs(output.sum()-newmass)<1e-12
         return new,output
+
+    def add_area(self,state,indices,mass,interior,preactivation):
+        np.add.at(state.area,(indices[0][interior],indices[1][interior]),mass[interior])
 
     def area_density(self,state,y):
         """Exact positive convolution of the represented area/line densities."""
