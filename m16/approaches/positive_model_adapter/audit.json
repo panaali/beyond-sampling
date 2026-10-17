@@ -1,0 +1,208 @@
+{
+  "complete": true,
+  "source_sha256": "afa94627ff5b860a4b922dc340e90d0d6718c770d74e326dfbf667a2bb0bbc3a",
+  "audit_sha256": "041d3245657151b17157b3bd32d9fc4735e52ac31aa87cd05b40f00c3e3fac12",
+  "call_sites": [
+    {
+      "caller": "mass",
+      "callee": "orthant",
+      "line": 147,
+      "expression": "orthant(c.R, ops)"
+    },
+    {
+      "caller": "mass",
+      "callee": "orthant",
+      "line": 181,
+      "expression": "orthant(c.R[list(simp)], ops)"
+    },
+    {
+      "caller": "estT",
+      "callee": "_finish",
+      "line": 406,
+      "expression": "_finish(h['cone'], g1, A1, 1, model, h['truth'], h['n_true'], eps, ops, exact)"
+    },
+    {
+      "caller": "_finish",
+      "callee": "_finish",
+      "line": 420,
+      "expression": "_finish(c2, g2, At, t + 1, model, truth, n_true, eps, ops, exact)"
+    },
+    {
+      "caller": "_finish",
+      "callee": "_cell_error",
+      "line": 421,
+      "expression": "_cell_error(c2, g2, At, Wo, truth, ops)"
+    },
+    {
+      "caller": "_finish",
+      "callee": "_finish",
+      "line": 424,
+      "expression": "_finish(c2, g2, At, t + 1, model, truth, n_true, eps, ops, exact)"
+    },
+    {
+      "caller": "_finish",
+      "callee": "_cell_error",
+      "line": 427,
+      "expression": "_cell_error(c2, g2, At, Wo, truth, ops)"
+    },
+    {
+      "caller": "_cell_error",
+      "callee": "mass",
+      "line": 434,
+      "expression": "mass(c, ops)"
+    },
+    {
+      "caller": "_cell_error",
+      "callee": "mass",
+      "line": 442,
+      "expression": "mass(co, ops)"
+    }
+  ],
+  "rows": [
+    {
+      "model": "active_identical_nonzero",
+      "sentinel": 0.0,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 0,
+      "ray_stream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_float64_bytes": 0,
+      "stats": {
+        "cells": 240,
+        "cut": 288,
+        "resolved": 144,
+        "simplices": 0
+      },
+      "inherited_ops_without_mass": 166159
+    },
+    {
+      "model": "active_identical_nonzero",
+      "sentinel": 0.125,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 0,
+      "ray_stream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_float64_bytes": 0,
+      "stats": {
+        "cells": 240,
+        "cut": 288,
+        "resolved": 144,
+        "simplices": 0
+      },
+      "inherited_ops_without_mass": 166159
+    },
+    {
+      "model": "active_identical_nonzero",
+      "sentinel": 0.75,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 0,
+      "ray_stream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_float64_bytes": 0,
+      "stats": {
+        "cells": 240,
+        "cut": 288,
+        "resolved": 144,
+        "simplices": 0
+      },
+      "inherited_ops_without_mass": 166159
+    },
+    {
+      "model": "active_identical_zero",
+      "sentinel": 0.0,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 0,
+      "ray_stream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_float64_bytes": 0,
+      "stats": {
+        "cells": 240,
+        "cut": 288,
+        "resolved": 144,
+        "simplices": 0
+      },
+      "inherited_ops_without_mass": 166159
+    },
+    {
+      "model": "active_identical_zero",
+      "sentinel": 0.125,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 0,
+      "ray_stream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_float64_bytes": 0,
+      "stats": {
+        "cells": 240,
+        "cut": 288,
+        "resolved": 144,
+        "simplices": 0
+      },
+      "inherited_ops_without_mass": 166159
+    },
+    {
+      "model": "active_identical_zero",
+      "sentinel": 0.75,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 0,
+      "ray_stream_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_float64_bytes": 0,
+      "stats": {
+        "cells": 240,
+        "cut": 288,
+        "resolved": 144,
+        "simplices": 0
+      },
+      "inherited_ops_without_mass": 166159
+    },
+    {
+      "model": "alloff",
+      "sentinel": 0.0,
+      "synthetic_accumulator": 1.0,
+      "cone_count": 72,
+      "ray_stream_sha256": "11e5a0ef46c47c563ddd6ebfb01ecb1868afff1f3558f41a9a071a003d20963e",
+      "stored_float64_bytes": 9216,
+      "stats": {
+        "cells": 96,
+        "cut": 0,
+        "resolved": 0,
+        "simplices": 72
+      },
+      "inherited_ops_without_mass": 17472
+    },
+    {
+      "model": "alloff",
+      "sentinel": 0.125,
+      "synthetic_accumulator": -8.0,
+      "cone_count": 72,
+      "ray_stream_sha256": "11e5a0ef46c47c563ddd6ebfb01ecb1868afff1f3558f41a9a071a003d20963e",
+      "stored_float64_bytes": 9216,
+      "stats": {
+        "cells": 96,
+        "cut": 0,
+        "resolved": 0,
+        "simplices": 72
+      },
+      "inherited_ops_without_mass": 17472
+    },
+    {
+      "model": "alloff",
+      "sentinel": 0.75,
+      "synthetic_accumulator": -53.0,
+      "cone_count": 72,
+      "ray_stream_sha256": "11e5a0ef46c47c563ddd6ebfb01ecb1868afff1f3558f41a9a071a003d20963e",
+      "stored_float64_bytes": 9216,
+      "stats": {
+        "cells": 96,
+        "cut": 0,
+        "resolved": 0,
+        "simplices": 72
+      },
+      "inherited_ops_without_mass": 17472
+    }
+  ],
+  "sentinel_geometry_invariant": true,
+  "active_identical_counterexample": {
+    "source_accuracy": 1.0,
+    "exact_accuracy": 0.25,
+    "error": 0.75,
+    "claim": "analytic first-index symmetry; no input sampling or numerical mass"
+  },
+  "cpu_including_imports": 0.636031903,
+  "max_rss_kib": 37528,
+  "scope": "Dependency and finite synthetic geometry audit only. Source finite returns/no exception assumed; timers/budget exceptions are distinct. No generic adapter adoption or trained rerun."
+}
