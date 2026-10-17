@@ -32,3 +32,7 @@ also require their usual pseudorandomness assumptions.
 
 The same +7 schedule occurs in historical ht_seeds/est.py. This note records
 the issue for DRI review; no historical or shared source is silently rewritten.
+
+T55 independently checked both identities and the Cauchy-Schwarz bound. The
+review explicitly retains the fixed-function/iid-stream assumptions and the
+difference between expected variance and realized reciprocal-gain behavior.
