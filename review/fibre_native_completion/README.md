@@ -11,10 +11,10 @@ Alternative explanations: (1) component0's cost ratio is unrepresentative; direc
 The source/control gate precedes execution. Each component uses one thread, a primary lock,2GB memory and110CPU ceiling; timeout and unsupported-call failures remain saved, not retried with changed caps. A cold-only continuation will separately freeze setup instrumentation and parity before execution. Existing original loader imports, six leggauss calls, six SVD and48 inverse calls remain unpriced until that phase.
 
 ## Status
-Inventory and continuation driver prepared; independent source gate pending. No new component execution yet.
+Independent continuation source gate passed before execution. Index1 passes exact saved value/legacy/STATS; indices2..47 are running as separate capped, locked components. Component0 is reused once. Cold driver remains pending its separate source gate.
 
 ## Results
-No new results. Inherited component0:59,023,344 explicit units after diagnostic removal versus37,704,799 legacy;37.094605088CPU. These numbers are not extrapolated.
+First transferred index1 completes in45.944116974CPU with exact saved parity. Reused0 plus1 total122,371,841 explicit units after diagnostics versus78,577,185 legacy; this is a partial measured subtotal, not an extrapolation. Inherited component0:59,023,344 explicit units after diagnostic removal versus37,704,799 legacy;37.094605088CPU. These numbers are not extrapolated.
 
 ## Compute accounting
 Each actual site is charged by the inherited named-source convention; integer expressions, diagnostics, opaque kernels and memory operations remain separate. Library internals and general control/memory are not a compiled instruction ceiling. Compare the completed numerical subtotal to the existing reference uncertainty only after exhaustive coverage; preserve exact sampler convention and cold exclusions.
@@ -27,3 +27,6 @@ A model-facing adapter removing unused imports, analytic cold setup, alternate q
 
 ## Failure modes
 Source drift, missing or duplicate components, incorrect family/side mapping, floating parity failure, unpriced native calls, diagnostic double-counting, repeated-import cost charged48 times, or free cold setup. All failures will be preserved.
+
+## Frozen final reference comparison
+After exhaustive48-component accounting, reuse the original100M reference and95% Clopper-Pearson interval from noise_comparison.json (pinned separately, independent96522579). Compare the measured subtotal with the same512-unit sampler using per-model integer budget floor(cost/512). For any fixed budget, worst squared-error/sampling-variance ratio over a truth interval occurs at an endpoint when the estimator lies inside: (a-p)^2/[p(1-p)] decreases to zero at p=a and increases afterward. Preserve reference uncertainty, named-numeric versus inclusive-integer conventions and unpriced cold/native categories. No new observations, tuned model choice, interval narrowing or population inference.
