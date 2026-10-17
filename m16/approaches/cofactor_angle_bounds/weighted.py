@@ -60,7 +60,7 @@ def main():
     with np.load(P['rays_path']) as a:rays=a['rays'][P['labels']]
     with np.load(P['nodes_path']) as a:
         saved={label:{key:a[f'{label}_{key}'] for key in ['Rt','detRt','atan2_arguments']} for label in P['labels']}
-    rows=[];summaries=[];primitive_counts=Counter();angle_counts=Counter();statuses=Counter();new=0;reused=0
+    rows=[];summaries=[];primitive_counts=Counter();angle_counts=Counter();statuses=Counter();wrapper_actual=Counter();new=0;reused=0
     for label,R in zip(P['labels'],rays):
         record(dict(stage='coefficient_attempt',label=label))
         Rt,oms,weights=coefficients(R,grid);a=saved[label]
@@ -88,13 +88,16 @@ def main():
                     else:
                         lo,hi,p=got['lower'],got['upper'],got['point']
                         signed=(lo,hi,p) if sign>0 else (-hi,-lo,-p)
+                        if sign<0:wrapper_actual['cofactor_sign_negations']+=3
                 primitive_counts.update(got['counts'])
                 angle=None;term=None;u=None
                 if signed is not None and all(math.isfinite(z) for z in signed):
                     lo,hi,p=signed
+                    wrapper_actual['numerator_sign_negations']+=3;wrapper_actual['input_dyadic_conversions']+=4
                     angle=enclose(F.from_float(float(denominators[pair,node])),F.from_float(-hi),F.from_float(-lo),F.from_float(-p))
                     angle_counts.update(angle['counts'])
                     if angle['bound'] is not None:
+                        wrapper_actual['input_dyadic_conversions']+=1;wrapper_actual['max_term_diagnostic_comparisons']+=1
                         term=abs(F.from_float(float(weights[pair,node])))*angle['bound'];u=ceiling(term);units+=u
                         max_term=max(max_term,term);peak=max(peak,term.numerator.bit_length(),term.denominator.bit_length())
                 status=angle['status'] if angle else 'unknown_nonfinite_interval';statuses[status]+=1
@@ -103,7 +106,12 @@ def main():
                 rows.append(row);record(row)
         summary=dict(label=label,unknown=unknown,conditional_bound=serial(F(units,1<<BITS)) if not unknown else None,known_terms_bound=serial(F(units,1<<BITS)),max_term=serial(max_term),term_peak_bits=peak,rounding_slack_upper=serial(F(768,1<<BITS)))
         summaries.append(summary);record(dict(stage='cone_complete',**summary))
-    result=dict(complete=True,cases=len(rows),new_guard_calls=new,reused_guard_cases=reused,rows=rows,cones=summaries,statuses=dict(statuses),primitive_counts_once=dict(primitive_counts),angle_counts=dict(angle_counts),new_setup_3det_calls=128,new_setup_norm4_calls=128,new_setup_dot4_calls=32,new_setup_matrix4_products=8,grid_leggauss128_calls=1,dyadic_bits=BITS,contraction_named_per_bounded_term=dict(rational_abs=1,rational_mul=1,integer_shift=1,integer_divmod=1,comparison=1,integer_add=2),wrapper_named_counts=dict(numerator_sign_negations=3*len(rows),cofactor_sign_negations=3*sum(r['cofactor_sign']<0 for r in rows),input_dyadic_conversions=5*len(rows),max_term_diagnostic_comparisons=len(rows)),cost_qualifications='Tables retain selected named categories only; bit-length bookkeeping, validation, serialization, interpreter/control/memory and native setup internals not fully priced. Reused64 primitive categories counted once for an ideal total; actual new execution6080.',cpu_seconds=time.process_time()-start,mass_model_geometry_MC_calls=0,scope=P['scope'])
+    result=dict(complete=True,cases=len(rows),new_guard_calls=new,reused_guard_cases=reused,rows=rows,cones=summaries,statuses=dict(statuses),primitive_counts_once=dict(primitive_counts),angle_counts=dict(angle_counts),new_setup_3det_calls=128,new_setup_norm4_calls=128,new_setup_dot4_calls=32,new_setup_matrix4_products=8,grid_leggauss128_calls=1,dyadic_bits=BITS,contraction_named_per_bounded_term=dict(rational_abs=1,rational_mul=1,integer_shift=1,integer_divmod=1,comparison=1,integer_add=2),wrapper_actual_named_counts=dict(wrapper_actual),wrapper_all_row_allowances=dict(numerator_sign_negations=3*len(rows),cofactor_sign_negations=3*sum(r['cofactor_sign']<0 for r in rows),input_dyadic_conversions=5*len(rows),max_term_diagnostic_comparisons=len(rows)),cost_qualifications='Tables retain selected named categories only; bit-length bookkeeping, validation, serialization, interpreter/control/memory and native setup internals not fully priced. Reused64 primitive categories counted once for an ideal total; actual new execution6080.',cpu_seconds=time.process_time()-start,mass_model_geometry_MC_calls=0,scope=P['scope'])
     out.write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
     print(json.dumps({k:result[k] for k in ['cases','new_guard_calls','reused_guard_cases','statuses','cpu_seconds']}))
-if __name__=='__main__':main()
+if __name__=='__main__':
+    try:main()
+    except BaseException as error:
+        with (HERE/'weighted_failures.jsonl').open('a') as f:
+            f.write(json.dumps(dict(stage='fatal',type=type(error).__name__,message=str(error)))+'\n')
+        raise
