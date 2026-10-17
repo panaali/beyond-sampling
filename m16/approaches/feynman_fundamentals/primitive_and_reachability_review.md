@@ -128,3 +128,17 @@ comparisons use within-row differences. A moment-matched Gaussian can leave
 the rank chamber: scoring it against the original chamber label is a closure
 diagnostic, not Gaussian second-argmax accuracy. Distribution versus frozen/
 actual gates is a factorial approximation comparison, not causal attribution.
+
+Independent T28 numerical check:8192 iid normal inputs at fixed seed28103,
+DEV .02 copy0, assigned to actual observed top-two positions and Beta-CDF
+halves. Only model-free conditional means are shared with the author. Direct
+fixed-mask recurrence replaces their Jacobian maps, and unconditional sampling
+replaces their conditional rank sampler. Actual accuracy .6207275391; frozen
+accuracy .7302246094, paired bias .1094970703 with SE .0041663786. Recomputing
+last2 gates yields .6752929688, bias .0545654297 with SE .0043136990. Both
+corroborate the author's large high-noise biases; this is a finite closure
+failure with a partially helpful rescue, not a rejection of all gate-aware
+or conditional-distribution methods. No efficiency claim. The diagnostic uses
+81920 normal variates and262144 hidden-step vectors in.534333CPU after imports.
+Source/checkpoint hashes are asserted. Raw script/results are
+check_rank_gate_review.py and rank_gate_review_results.json.

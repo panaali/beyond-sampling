@@ -818,3 +818,17 @@ production additive integral at signed scales. Central-spike counterexample
 still gives negative mass despite exact fibers; this is representation error,
 not sign bookkeeping. Included T28 conditional rank law and T56 exact-lune
 normalization review. No production changes or estimator efficiency claim.
+
+## Cycle 35 protocol: independent T28 frozen-gate failure
+Use8192 iid normal input rows, fixed seed28103, DEV .02 copy0. Assign each row
+to its observed top-two positions and Beta(9,2) second-quantile half. Reuse
+only the pinned model-free moment table, derive mean gates directly, and
+propagate actual inputs through fixed-mask recurrences, not author Jacobian
+maps or conditional input sampler. Compare real network, frozen map and
+last-two-exact-gate rescue on paired rows with direct paired SE. This is
+explicit diagnostic sampling, not an estimator or efficiency demonstration.
+Cycle35 completed: independent iid/direct-mask diagnostic confirms frozen-gate
+bias+.10950(SE.00417), final-two-exact rescue+.05457(SE.00431) on DEV .02.
+This verifies the high-noise finite failure while preserving the helpful
+partial rescue and untested alternatives. .534CPU after imports, all81920
+normal inputs explicitly diagnostic, no production estimator claim.
