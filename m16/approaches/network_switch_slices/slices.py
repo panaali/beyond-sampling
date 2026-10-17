@@ -35,6 +35,18 @@ def clip(p, row, work):
     """Keep row[0]*z+row[1]*t+row[2]>=0. No epsilon deletion."""
     work['polygon_clips'] += 1; work['tested_vertices'] += len(p)
     if len(p) < 3: return np.empty((0,2))
+    if not hasattr(work,'halfspaces'): work.halfspaces={}
+    registry=work.halfspaces
+    if id(p) not in registry:
+        # Initial polygon only. Later cuts inherit the original inequalities,
+        # never infer a new feasible set from rounded/sliver output edges.
+        initial=p if signed_area(p)>0 else p[::-1]
+        rows=[]
+        for a,b in zip(initial,np.roll(initial,-1,axis=0)):
+            dz,dt=b-a;rows.append([-dt,dz,dt*a[0]-dz*a[1]])
+        registry[id(p)]=(p,np.asarray(rows,float))
+        work['initial_halfspaces'] += len(rows)
+    previous=registry[id(p)][1]
     v = p@row[:2]+row[2]; out = []
     for i, a in enumerate(p):
         j = (i+1) % len(p); b = p[j]
@@ -59,13 +71,30 @@ def clip(p, row, work):
         work['convexity_turn_tests'] += len(turns)
         work['negative_local_turns'] += int(np.sum(turns<0))
         work['maximum_negative_turn'] = max(work['maximum_negative_turn'],float(np.max(-turns)))
-    return out if signed!=0 else np.empty((0,2))
+    if signed!=0:
+        constraints=np.vstack([previous,row])
+        registry[id(out)]=(out,constraints)
+        work['stored_halfspace_rows'] += len(constraints)
+        return out
+    return np.empty((0,2))
 
 
 def vertical_mass(polygons, z, work):
     """Polygon interiors; half-open projected intervals avoid shared-edge doubles."""
     out = np.zeros(len(z))
     for p in polygons:
+        entry=getattr(work,'halfspaces',{}).get(id(p))
+        if entry is not None:
+            low=np.full(len(z),-np.inf);high=np.full(len(z),np.inf);valid=np.ones(len(z),bool)
+            for a,b,c in entry[1]:
+                if b>0: low=np.maximum(low,-(a*z+c)/b)
+                elif b<0: high=np.minimum(high,-(a*z+c)/b)
+                else: valid &= a*z+c>=0
+                work['vertical_halfspace_queries'] += len(z)
+            ids=np.flatnonzero(valid&(high>low))
+            out[ids] += ndtr(high[ids])-ndtr(low[ids])
+            work['cdf_calls'] += 2*len(ids)
+            continue
         loz, hiz = p[:,0].min(), p[:,0].max()
         ids = np.flatnonzero((z >= loz)&(z < hiz))
         if not len(ids): continue
