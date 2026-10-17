@@ -37,3 +37,13 @@ Incremental affine-state caching, native DD adjacency/bitsets, different batchin
 
 ## Failure modes
 Near-coincident floating roots, overflow/underflow, target ties on nongeneric planes, compiler arithmetic differences, insufficient warmup, compiler/build overhead dominating small workloads, or measuring a silently truncated integral as a speedup.
+
+## Full-recomputation checkpoint
+The21 frozen small fixtures match the independent Fraction/70-digit oracle at identical final double values; cap0/1 raise. Build .502CPU, controls .032CPU. The4-plane pilot agrees with legacy within1.23e-15 and completes within its20CPU gate.
+
+On the frozen32-plane cases, maximum absolute native/legacy difference is2.78e-15; both repeat exactly. Warm speedups are3.9568x originalH16,3.9569x small-noiseH16,4.1306x large-noiseH16, and12.0168xH2T10. NativeCPU is .092/.092/.092/.00399 versus legacy .364/.364/.380/.0480. The entire benchmark including preparation and one repeat uses3.675CPU,202MB. Thus the larger network has not met10x; the small one has. This first variant remains unchanged as the correctness/performance reference. Every model and source/build hash is retained.
+
+## Frozen prefix-cache follow-up
+The larger network uses8064/8056/8436 gate pieces over32 circles. Recomputing all10 recurrent coefficient steps at every piece is avoidable: cache both affine hidden coefficient vectors at each step and the next gate root per step. At the globally earliest next root, invalidate only its step and all later steps. Ties choose the earliest step. Without a finite lookahead, no earlier prefix gate can change before the chosen root; cached earlier roots remain candidates. Root==current is resolved by the right-side rule and excluded from future roots. Recompute readout each piece. This is a real arithmetic/work reduction in addition to native execution and must be labeled as such, not attributed solely to compilation.
+
+Freeze separate incremental source/library, retain full-recomputation source. Re-run the same21 exact controls, cap tests and32 fixed planes; require agreement with the full native outputs and matching gate-piece counts, then report actual coefficient-step savings and cold/warm cost. Do not increase batch size or choose favorable cases to meet10x. Alternatives: prefix reuse may dominate, or scalar readout/root/sort work may become the bottleneck; count the components before any further optimization. T55 independently reviews invalidation logic. DD profiling remains deferred until this bounded comparison closes.
