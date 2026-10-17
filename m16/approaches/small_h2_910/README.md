@@ -448,6 +448,46 @@ F'(b)=2 c_k (1+b²)^(-(k+1)/2) tCDF(b sqrt((k+1)/(1+b²)),df=k+1),
 where c_k=Gamma((k+1)/2)/(sqrt(pi) Gamma(k/2)). Then q1=F,q0=2(G-F).
 Integrate with absolute/relative tolerance1e-13, retain reported error and
 integrand counts, and check symmetry q0(-b)=q0(b), q1(-b)=1-2G(b)+q1(b).
-This supplies rank mass to numerical roundoff, not a floating-point certificate.
+This supplies a numerical 1D rank integral with an adaptive error estimate; special
+functions and adaptive integration remain numerical, not certified.
 The constant-readout terminal is exactly q, so its W is1; control tests propagation
 and initial rank weights without reconstructing any model gate geometry.
+
+## T50 range-control outcome: cubic proximity is not robust
+Completed in3.028CPU seconds. No new model terminal calls or random inputs;
+all model-specific terminal construction remains charged as above. The full
+comparison, including original values, is in `clamp_results.json`:
+
+| Grid | Original cubic W | Range-clamped cubic W | Change |
+|---|---:|---:|---:|
+| 5³ | .143721547 | .143087613 | -.000633933 |
+| 7³ | .155956271 | .152002636 | -.003953635 |
+| 9³ | .158339015 | .155353189 | -.002985826 |
+
+Root's independent reference remains .158952713, SE .000357062. Clamping grid9
+moves the estimate almost0.30 percentage points down, outside that reference's
+95% interval. [measured] The apparently good raw cubic result is sensitive to
+its invalid intermediate probabilities. [inferred] Range enforcement alone does
+not solve the bias. This neither proves the clamped version is the correct
+limit nor certifies the unclamped version; neither is selected as a solution.
+
+The clamped runs changed24993/66030/120090 scalar evaluations at grids5/7/9;
+summed absolute changes were706.799/928.966/1108.164. These unweighted totals
+measure implementation perturbation, not an accuracy error bound. Before
+clamping at grid9, values still ranged from-.0958721 to1.1081614. After clamping
+all queries were in[0,1]. Raw original-run extrema/counts remain in the results.
+Every constant-W control was .1 within5.6e-17; exact constant preservation thus
+still fails to diagnose the spatial error.
+
+The model-free numerical rank integral used714 integrand evaluations across21
+b values; maximum reported adaptive integration error8.09e-15, symmetry residual
+<=6.25e-16. Root independently checked the derivative by the chi-density tilt.
+Special functions and adaptive integration remain numerical: the JSON control
+key `exact_rank_constant_control` names the exactly known constant-readout
+answer1/T, not a certified quadrature claim. Rank quadrature and angular rules
+are generated once per resolution and shared between the two methods; duplicated
+row metadata must not be added twice. Reproduce `check_clamp.py` under the same
+single-thread/memory/flock command as the T59 check. Additional construction
+remains disallowed pending root review; existing data now support investigating
+the target coordinate or a different rank-conditioning representation rather
+than treating cubic grid agreement as sufficient evidence.
