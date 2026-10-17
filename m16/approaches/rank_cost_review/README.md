@@ -19,7 +19,8 @@ padding and compiler/hardware categories. If a relevant source path or loop
 bound cannot be justified, preserve it as opaque.
 
 Freeze dispatch controls on every observed Mx4 shape with zero, rank-one,
-rectangular diagonal and dyadic near-threshold matrices. Check both default
+rectangular diagonal and dyadic near-threshold matrices, plus the same
+diagonal scaled by2^500 and2^-500 to exercise both scaling directions. Check both default
 matrix_rank tolerance and explicit1e-12, which are the source's two calls.
 Compare baseline/interposed singular values/ranks bitwise and independently
 known diagonal/rank-one answers where applicable. Record LAPACK job/dimensions,
@@ -44,7 +45,7 @@ T144 determinant replacement, so neither is reimplemented here.
    as a bound limitation, not a proof that the implemented kernel is costly.
 
 ## Status
-Protocol frozen; local source/dispatch inventory next.
+Dispatch/control phase complete; internal iteration and numerical-cost envelope remain open.
 
 ## Results
 Pending. No complete portable/hardware cost or estimator win is claimed.
@@ -67,3 +68,27 @@ libraries/platforms, and reducing geometry calls. These require separate scope.
 Assuming exact upstream equivalence, counting full SVD when vectors are absent,
 ignoring workspace/scale/iteration failure paths, incomplete interception,
 mispricing padded kernels, and treating arithmetic as hardware instructions.
+
+Initial inventory pins NumPy2.5.4 and the same OpenBLAS binary as T150.
+Installed ILAVER reports LAPACK3.12.0. matrix_rank calls non-Hermitian
+svd(compute_uv=False); the double wrapper imports scipy_dgesdd_64_.
+Disassembly records separate workspace-query and execution call sites,
+with the NumPy14-argument ABI. Fixed interposition forwards those exact
+arguments, unchanged, to the installed binary. No envelope has yet been
+inferred from this dispatch observation. Public OpenBLAS0.3.34 source is
+pinned separately and exact installed-source equivalence remains unproved.
+
+The 114 frozen analytic cases (19 observed shapes times six matrices) have
+known ranks under both tolerances. Baseline and pass-through results agree
+bitwise for all singular values and exactly for both ranks. Each case calls
+SVD three times, each with one workspace query and one execution; all 684
+intercepted calls use JOBZ=N and return INFO=0. Large/small scaled diagonal
+controls exercise scaling without trained input replay. Baseline and spy CPU
+were 0.029987 and 0.034970 seconds. These are finite dispatch controls, not
+a bound on iteration counts for trained matrices. Compile the review-only
+spy with `cc -shared -fPIC -O2 spy.c -ldl -o spy.so`; the binary is not committed.
+
+Source inspection finds DBDSDC values-only dispatches through DLASDQ.
+The actual nested bidiagonal path and retry bounds must be checked before
+composing a cost envelope. Public source alone does not prove installed
+implementation identity. No full-cost gate is unblocked by this phase.
