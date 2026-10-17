@@ -3,7 +3,7 @@
 Truth: exact enumeration (arc_m43_repro/exact.py); noisy-copy truths are read from arc_m43_repro/results.json
 (same noisy_models draws). Sampling RMSE at equal ops is sqrt(mean p(1-p) / (ops/72)) (checked empirically in
 arc_m43_repro). Writes results.json and prints the README tables.
-usage: OMP_NUM_THREADS=1 python run_all.py
+usage: OMP_NUM_THREADS=1 python run_mech.py
 """
 import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))

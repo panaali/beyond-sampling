@@ -23,6 +23,8 @@ convex spherical polygons, Van Oosterom-Strackee = Girard).
 Refinement for the crossover boundary x1 = x2 ("resolve"): the step-3 gate planes that cross the true boundary arc
 inside a strip piece are resolved (the piece is split by them) and the active set is read on the arc in each
 sub-piece; gates that do not cross the arc are frozen at their value on the arc (first order in the band width).
+A lone active neuron (or none) is completed with the off neuron(s) closest in angle to switching on ("completion").
+Defaults = tier B of the README (anchor pairs for x0 = x1 and x0 = x2, arc-resolved crossover with completion).
 """
 import os
 import sys
