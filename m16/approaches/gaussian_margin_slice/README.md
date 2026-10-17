@@ -27,3 +27,6 @@ Integrating discarded-coordinate laws, weighted continuous symbolic states, alte
 
 ## Failure modes
 Confusing a regular conditional slice with a positive-probability full-input event, losing Gaussian normalization/Jacobian, tail cancellation, treating precision agreement as an enclosure, or using local bias signs to refute a particular global mean-field experiment. Continuous perturbations of transverse coordinates preserve strict cell/output structure, but no global mass is computed.
+
+### Frozen exact bias-sign check
+The CDF evaluations suggest opposite signs. Before implementing an additional certificate, freeze a rational-only check: the Gaussian exponent range on each interval is less than1/2, hence density max/min is less than2 by exp(t)<=1/(1-t). For crossing c, c^2>2(1-c)^2 bounds the first interval's integral of(lambda-c) times density strictly below zero. On[1/2,1], (1-c)^2>2(c-1/2)^2 bounds it strictly above zero. These rational inequalities certify the mean's side independently of transcendental evaluation. Since c is interior, correctness probability lies strictly between0 and1; both bias signs then follow rigorously. Numerical probability magnitudes remain precision-checked approximations.
