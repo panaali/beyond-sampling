@@ -188,3 +188,51 @@ explicitly, preserving partial results. Large aggregate numerator/denominator
 values are serialized in hexadecimal to avoid Python's decimal digit limit.
 This is exact topology for the real-arithmetic network with binary-rational
 weights; normalized cone masses remain numerical. No floating fallback is added.
+
+## H4T4 seed0 result
+The same exact code completed H4T4 in10.010CPU seconds, maximum RSS273076KiB.
+Gate counts by step are2,10,66,450. All exact cofactor, containment, complete
+incidence and rank checks passed; the normalized gate determinant sum is16
+exactly. Independent floating DD has the same gate/ray counts and incidence
+sets after permutation matching. Maximum L1 ray difference2.34e-15, gate-map
+coefficient difference7.11e-15. The exact pulling decomposition has3853 gate
+simplices and5058 correct simplices, versus5040 correct simplices in differently
+ordered floating DD. This ordering difference is retained, not treated as an
+accuracy discrepancy.
+
+| Floating mass on exact H4T4 geometry | Value | Quadrature-only bound |
+|---|---:|---:|
+| Accuracy, GL16 | .47701312599412177 | 1.7685e-6 |
+| Accuracy, GL20 | .47701312599411855 | 2.7048e-8 |
+| Gate partition, GL20 | 1.0 | 5.7885e-8 |
+| Constant-class0, GL20 | .24999999999999997 | 1.4471e-8 |
+
+The prior independent DD GL16 accuracy .47701312599404416 differs by less than
+8e-14. Both zero and identical nonzero readout rows again yield exactly identical
+integer correctness cones. Accuracy integration remains numerical; exact topology
+is for the real-arithmetic network with the binary-rational checkpoint weights,
+not a floating-point execution model.
+
+Gate construction cost.04294CPU, exact geometry plus audits5.46517CPU, tie-control
+geometry.61615CPU, independent DD comparison.06597CPU; GL16/20 accuracy plus
+partition/control integration cost2.35129CPU. Remaining time includes import,
+checkpoint conversion and serialization. Recorded operation counts, including
+controls:556719 integer dot products,16472 clips,14219 intersections,27406 exact
+rank calls,130240 integer determinants,727655 Bareiss updates,23344 cofactor ray
+certificates and89920 rational map products. Total mass quadrature nodes103757568.
+
+Geometry integer growth stayed moderate: rays306bits, plane normals134bits,
+rational map numerators132bits/denominators128bits, largest tracked Bareiss
+intermediate1573bits. Exact rational determinant accumulation is the growing
+cost: gate partition intermediate4979bits, correct-sum numerator/denominator
+149905bits. The final correct determinant sum is approximately7.47630309540539;
+its full exact hexadecimal numerator/denominator is retained in the results.
+This is a reference cost, not a unit-cost big-integer or efficiency-win claim.
+
+The8.85MB raw integer artifact is stored losslessly as `geometry_h4_t4.json.gz`;
+compressed size and separate post-run compression CPU are recorded in
+`results_h4_t4.json`. The reproduction script now writes the compressed artifact
+directly. Reproduce the previous command with `--hidden 4`. No noise sweep or
+higher-dimensional geometry was attempted. Both original-checkpoint topology
+references are ready for independent review; certification of floating cone
+mass evaluation remains a separate unresolved step.

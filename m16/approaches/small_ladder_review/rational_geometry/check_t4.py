@@ -2,6 +2,7 @@
 from fractions import Fraction
 import argparse
 import hashlib
+import gzip
 import importlib.util
 import json
 from pathlib import Path
@@ -148,8 +149,15 @@ def main():
                    [[[str(x.numerator), str(x.denominator)] for x in row] for row in model[2]]],
             gate_simplices=[serialize_simplex(s) for s in gate_simplices],
             correct_simplices=[serialize_simplex(s) for s in correct_simplices])
-        (HERE/f'geometry_{tag}.json').write_text(json.dumps(artifact, separators=(',', ':'))+'\n')
-        output['integer_artifact_bytes'] = (HERE/f'geometry_{tag}.json').stat().st_size
+        payload = (json.dumps(artifact, separators=(',', ':'))+'\n').encode()
+        artifact_path = HERE/f'geometry_{tag}.json'
+        output['integer_artifact_uncompressed_bytes'] = len(payload)
+        if H == 4:
+            artifact_path = artifact_path.with_suffix('.json.gz')
+            payload = gzip.compress(payload, mtime=0)
+        artifact_path.write_bytes(payload)
+        output['integer_artifact_path'] = artifact_path.name
+        output['integer_artifact_bytes'] = artifact_path.stat().st_size
         volume_path = ROOT/'m16/approaches/small_h4_4/stable_volume.py'
         volume = module('rational_reference_positive_mass', volume_path)
         output['mass_source_sha256'] = hashlib.sha256(volume_path.read_bytes()).hexdigest()
