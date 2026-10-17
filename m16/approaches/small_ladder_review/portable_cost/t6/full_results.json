@@ -1,0 +1,99 @@
+{
+  "sources": {
+    "integration.py": "ef740c8530779b7c84f0891614941108c4de8ccb65d5c7659fca7fc627f6ff73",
+    "triangle.py": "454a72f7657d4098efa1fca1a3c62065a5ee449c8418af3b9b3f79df5e7a45e9",
+    "jacobi.py": "63e7a3d63cd03fd6bc300c3e8f6cbb2a82f28a0230be8b4598ce4ff4463f6b45",
+    "geometry.py": "c3fef3d456bac527bb418fde36a3f60431f90c6a720bfef2526a5ba12ba861b8",
+    "full_run.py": "40bd60504cd3f242dc47b700a5c2071a0e4332ae93f2925b54412c1164b61230",
+    "projected_cache": "15ff556d1ef6168275d67a785eb7f2623a411cb8832816cf5cfc97060cd339c7",
+    "plan": "3126342f2705bf7db13483b603f423c0d9a036a02eb434b5628913850013ae81"
+  },
+  "done": 22669,
+  "total": 42012,
+  "cycles": [
+    {
+      "start": 0,
+      "end": 22669,
+      "cpu_seconds": 92.00024221000001,
+      "status": "checkpoint",
+      "cost": {
+        "known_arithmetic_upper_bound": 348047939449,
+        "parts": {
+          "resume_scalar_setup": 10000,
+          "triangle_engine_setup": 100,
+          "determinant_control": 11606528,
+          "determinants": 4004725,
+          "mass_prefactor": 226690,
+          "jacobi_setup_control": 3000,
+          "jacobi_coefficients": 36600,
+          "jacobi_sturm": 12240000,
+          "jacobi_bisection_control": 288000,
+          "jacobi_christoffel": 199200,
+          "jacobi_duffy": 2524800,
+          "triangle_analytic_upper_allowance": 343147410000,
+          "positive_radial_setup": 450647040,
+          "positive_bound_trials": 106922880,
+          "rule_newton": 58826,
+          "positive_duffy_setup": 62400,
+          "positive_nodes": 1473515200,
+          "positive_metadata": 88017000,
+          "outer_endpoint_and_weight_arithmetic": 2747899560,
+          "resume_per_cone_control_and_accumulation": 2266900
+        },
+        "black_box_kernels": [],
+        "events": {
+          "triangle_batches": 22669,
+          "triangles": 34292072,
+          "positive_fallback_calls": 880170,
+          "positive_quadrature_nodes": 14735152
+        },
+        "validation_kernel_calls": {}
+      }
+    }
+  ],
+  "partial_mass": 0.030797472010272425,
+  "outer_bound": 1.4918550338504407e-07,
+  "projection_bound": 1.6524237669115873e-12,
+  "inner_bound": 1.1566240382459207e-11,
+  "series_bound": 3.662188623013514e-25,
+  "roundoff_certified": false,
+  "floating_geometry_certified": false,
+  "preprocessing_operations": 875013555,
+  "author_reference_midpoint": 0.24815022292589073,
+  "author_reference_conditional_bound": 9.04235e-06,
+  "fixed_inner_budget": 1e-08,
+  "fixed_outer_plan": 1e-06,
+  "integration_operations": 348047939449,
+  "total_operations": 348922953004,
+  "operation_components": {
+    "resume_scalar_setup": 10000,
+    "triangle_engine_setup": 100,
+    "determinant_control": 11606528,
+    "determinants": 4004725,
+    "mass_prefactor": 226690,
+    "jacobi_setup_control": 3000,
+    "jacobi_coefficients": 36600,
+    "jacobi_sturm": 12240000,
+    "jacobi_bisection_control": 288000,
+    "jacobi_christoffel": 199200,
+    "jacobi_duffy": 2524800,
+    "triangle_analytic_upper_allowance": 343147410000,
+    "positive_radial_setup": 450647040,
+    "positive_bound_trials": 106922880,
+    "rule_newton": 58826,
+    "positive_duffy_setup": 62400,
+    "positive_nodes": 1473515200,
+    "positive_metadata": 88017000,
+    "outer_endpoint_and_weight_arithmetic": 2747899560,
+    "resume_per_cone_control_and_accumulation": 2266900
+  },
+  "events": {
+    "triangle_batches": 22669,
+    "triangles": 34292072,
+    "positive_fallback_calls": 880170,
+    "positive_quadrature_nodes": 14735152
+  },
+  "integration_cpu_seconds": 92.00024221000001,
+  "complete": false,
+  "conditional_error_bound": 1.4919872204919343e-07
+}
