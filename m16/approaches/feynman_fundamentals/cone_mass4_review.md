@@ -588,3 +588,31 @@ remain separate. Conditional single-case break-even524830209006.8 compares
 the actual doubled candidate with positive EXACT reference, not with its
 approximate-recipe reference. No complete-cost/sampling-win or candidate
 selection claim follows. Saved aggregate reviewer.008CPU, no mass replay.
+
+## T152 exact radial rescue of the32 finite-order omissions
+
+The reviewer recomputes exact original-ray Gram matrices and24-term
+Leibniz determinants for all32 cases. Thirteen acute bounds use
+min(diag(G))/4; nineteen KKT certificates have simplex weights summing to1,
+nonnegative weights, exact objective a, nonnegative gradient slack Gy-a,
+and complementary slackness. Positive-definite Gram matrices make these
+sufficient global minima. All selected orders and100-digit Chebyshev-tail
+values reproduce; no geometry, rays or quadrature tolerances were changed.
+
+The determinant-factor correction follows by splitting
+D_old*Q-D_exact*I = D_exact*(Q-I)+(D_old-D_exact)*Q. Positivity and total
+simplex weight1/6 imply Q(q^-2)<=1/(6a²), so the extra probability bound is
+|abs(d_old)-abs(d_exact)|/(12*pi²*a²). Separate analytic series remainder is
+added; all32 meet their fixed conditional target. General floating analytic,
+rule and geometry errors remain excluded. Maximum added determinant-factor
+bound is1.443e-17.
+
+Independent merging confirms all6315 previous values and bounds bitwise.
+All6347 now have returned values. Accuracy is .4770131254664665 versus
+reference .4770131259941193, difference-5.27652813925e-10; summed conditional
+bound1.60878969032e-8. The initial summary mistakenly called error-mass sum
+.5229868745335334 accuracy. Reviewer flagged it; the author preserved the
+bad report and corrected labels/complements without changing the archive.
+Extra kernel named work2038604 is verified; exact rational operations/bitwidth
+and MP selection costs remain separate rather than being declared free.
+No complete portable cost or full floating certificate follows. Review.120CPU.
