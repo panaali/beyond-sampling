@@ -7,7 +7,7 @@ Does the already reviewed fixed two-child representation rescue the global sourc
 Claim9a327180. Same unchanged rational bound, same selected binary/ideal GL constants, fixed22 archived children at6/10/16. Independently reconstruct all exact Gram entries and determinants; acute Gram nonnegativity implies q>=min(diagonal)/5 by sum(lambda_i²)>=1/5. Triangle inequality bounds two-child ideal functional discrepancies. No assertion actual rounded child geometry partitions original perfectly; inherited geometry qualifications remain separate.
 
 ## Status
-Bounded phase completed after T55 source gate; independent saved review pending. No mass/angle/model calls.
+Bounded phase completed after T55 source gate; independent saved review01ad5fab passes. No mass/angle/model calls.
 
 ## Results
 [measured] All66 child bounds and33 parent sums finite, all33 below1e-10. Maximum 9.9439901664181744e-14, minimum 2.6256698006223226e-28; all12 previously loose parent cases rescued by the fixed split representation. No unknowns. This is source-constant error only; ideal truncation and actual evaluation errors remain separate. Original unsplit failures remain immutable. Once-only command: `ulimit -v 2500000; ulimit -t 20; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python run.py`.

@@ -1,6 +1,6 @@
 # T11583 finite split-conditioning discriminator
 
-Claim9a327180; sourcee6990fbf; rawa42c6472. Independent source gate passed before execution; independent saved audit pending.
+Claim9a327180; sourcee6990fbf; rawa42c6472. Independent source gate passed before execution; independent saved audit01ad5fab passes.
 
 All66 child constant bounds and33 two-child parent sums are finite and below1e-10. Maximum9.943990166418174e-14, minimum2.6256698006223226e-28. The same fixed representation rescues all12 original loose constant bounds. Exact signed determinants/Gram matrices rebuilt from stored binary rays, including norm drift; acute lower min(diag)/5 verified exactly. No source constants regenerated and no mass/model/geometry/MC calls; .023875907CPU.
 
