@@ -46,11 +46,32 @@ checking the residual exact tail against B at every cut.
    preserve them, never clip or silently change covariance.
 
 ## Status
-Protocol frozen; implementation and controls next. T55 reviewed the tail
-bound and cautioned against interpreting GL's final node as interval omission.
+Bounded diagnostic complete; independent result review pending. T55 reviewed
+the bound and corrected-source logic before the fixture.
 
 ## Results
-Pending. This is source-error localization on one existing posthoc fixture.
+Exact-ray C has eigenvalues approximately4.02796e-8, .0996927, .445658,
+3.45465 (condition number8.57668e7), despite maximum pair correlation.94185.
+The residual integrand rises from.180752 at the last source node to.204920
+at t=1. Several conditional correlations become almost−1; the raw maximum
+pair threshold does not describe this multivariate conditioning.
+
+| Tail width | Absolute true residual-tail bound B | B / known rule error |
+| --- | ---: | ---: |
+| Last-node gap8.50026e-5 | 3.48783409e-5 | 72.6039 |
+| 2^-16 | 6.26198815e-6 | 13.0352 |
+| 2^-24 | 2.44617302e-8 | .0509204 |
+| 2^-32 | 9.55536463e-11 | .000198908 |
+
+The constant-tail replacement bound at the last node is5.02427323e-5,
+larger than the4.80391856e-7 known error. Therefore the frozen localization
+test is **inconclusive**, not proof of endpoint cause or irrelevance. The
+very narrow final2^-24 interval contributes at most5.1% of the known error
+in absolute true residual integral; this is not its quadrature-error share.
+
+Both80/100-digit calculations agree on recorded spectrum/tail quantities
+within1.60e-77. Floating displays are not directed certificates. This is
+one fixed posthoc fixture, with no new rule or whole-estimator result.
 
 ## Compute accounting
 One thread,2GB, review lock, <=20CPU per phase. Count every matrix inverse,
@@ -80,3 +101,14 @@ and failure are preserved in f2ec592. The correction subtracts the explicit
 base derivative and base tail from the independent block-product formula.
 The residual integrand, original task and tail-bound formula are unchanged;
 wording now distinguishes the full derivative from the residual integrand.
+
+Reproduction (one thread,2GB cap, review lock):
+```sh
+python m16/approaches/plackett_endpoint_review/endpoint.py controls
+python m16/approaches/plackett_endpoint_review/endpoint.py fixture
+```
+Controls used.010301CPU and8 inversions. The fixture used.062767CPU,
+two covariance inversions, two symmetric eigenproblems,34 transformed
+inversions/positive-definiteness checks,204 partial correlations and300
+arcsines. The initial failed control is retained; it used less than.14wall
+seconds including interpreter startup, but CPU was not separately captured.
