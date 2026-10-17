@@ -169,3 +169,34 @@ Full panel decisions must retain the failed canonicalization and separate
 finite approximation error from omitted-constraint effects.
 
 Reproduce with scale_diagnosis.py under the same one-thread review lock.
+
+## Independent first-cycle source review
+Codex small_h2_34 independently inspected adapter.py and the proxy ratio.
+The deferred call occurs after classification and before any child update or
+break, with identical state/indices/functions. Thus retained-mode constraint
+sets agree algebraically; floating reduction ordering is still a caveat.
+Omission can affect later gates/classes outside the sampled angle despite a
+currently correct piece, and the angular cap is not an error certificate.
+The ratio bias^2*C/(72*p*(1-p)) is correct for a fixed deterministic estimate
+versus sampling at the declared MAC proxy cost. It is not a noisy-ensemble
+MSE guarantee or complete scalar-FLOP measure. This review did not rerun the
+numerical panel. Source and algebra controls support the next bounded test.
+
+## Frozen broader discriminator
+After that independent review, test H=4,5,6, T=3, public seeds0..4, each original
+and its first relative-RMS sigma.02 copy from default_rng(0) restarted per
+model (30 fixed models). This is a common perturbation design across models,
+not independent noise-replicate inference. No best-seed selection or new
+training. Use the same four modes and full LOOK64 control, record that full
+trace reaches every clamp, compare each to separate polygon accuracy. Report
+all raw biases, proxy costs, operations per trace, and fixed-model sampling
+ratios using3*H*(H+2) MACs per sample. Preserve every failed or nonfinite case.
+
+This panel is a diagnostic step, NOT the full ladder re-pass: the original
+T95 panel's additional noise draws and groups remain untested. Pinned exact
+reference counters contain H4 literals in early map construction, so its
+validation cost proxy is incomplete for H5/H6; it is not charged as estimator
+cost or used to prove a speed advantage. Save each model before continuing;
+<=100CPU total this cycle, primary lock,2GB. If time bound approaches, report
+partial panel rather than select models. No parameter or scale repair chosen
+based on results; failed canonicalization is not used.
