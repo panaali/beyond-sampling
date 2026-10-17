@@ -1,0 +1,11 @@
+sigma 0.02 seeds [30, 31]: n=512 mean truth 0.9458 min 0.8675 pq 0.0509 (13s)
+A anchor pair, anchor strip          rms 0.0028 bias +0.0028 max 0.0060 ops 4448 ratio 0.0098 [0.0094,0.0101] per-seed [0.0028, 0.0029] 7.7 ms/model
+A2 anchor pair, all strips           rms 0.0007 bias +0.0006 max 0.0025 ops 8278 ratio 0.0010 [0.0010,0.0011] per-seed [0.0007, 0.0007] 14.0 ms/model
+B- default without completion        rms 0.0003 bias +0.0000 max 0.0008 ops 12602 ratio 0.0002 [0.0002,0.0003] per-seed [0.0003, 0.0003] 23.5 ms/model
+B default (A2 + resolved crossover)  rms 0.0003 bias +0.0002 max 0.0008 ops 13929 ratio 0.0002 [0.0002,0.0003] per-seed [0.0002, 0.0003] 23.8 ms/model
+C resolved everywhere                rms 0.0002 bias +0.0000 max 0.0007 ops 23139 ratio 0.0002 [0.0002,0.0002] per-seed [0.0002, 0.0002] 34.3 ms/model
+B eps=0.02                           rms 0.0003 bias +0.0002 max 0.0008 ops 13929 ratio 0.0002 [0.0002,0.0003] per-seed [0.0002, 0.0003] 20.3 ms/model
+B eps=0.1                            rms 0.0003 bias +0.0002 max 0.0008 ops 13929 ratio 0.0002 [0.0002,0.0003] per-seed [0.0002, 0.0003] 19.2 ms/model
+B eps=0.2                            rms 0.0003 bias +0.0002 max 0.0008 ops 13929 ratio 0.0002 [0.0002,0.0003] per-seed [0.0002, 0.0003] 21.2 ms/model
+plain sampling, n=193 samples (13896 ops): empirical rms 0.0163 vs formula 0.0162; 0.06 ms per estimate (vectorised numpy)
+done 98s
