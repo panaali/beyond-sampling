@@ -15,6 +15,8 @@ for vertices,B in cells:
  for value in x:h=np.maximum(wh@h+wi*value,0)
  max_affine_error=max(max_affine_error,float(np.max(np.abs(h-B@x))))
 report=dict(geometry=a.geometry,geometry_sha256=hashlib.sha256(Path(a.geometry).read_bytes()).hexdigest(),mass=a.mass,mass_sha256=hashlib.sha256(Path(a.mass).read_bytes()).hexdigest(),geometry_cpu=time.process_time()-start,counts=g.counts.copy(),correct_simplices=len(rays),gate_simplices=len(gate_rays),gate_determinant_sum=float(np.abs(np.linalg.det(gate_rays)).sum()),correct_determinant_sum=float(np.abs(np.linalg.det(rays)).sum()),max_affine_error=max_affine_error,rows=[])
+report['ray_l1_error']=float(np.max(np.abs(np.sum(np.abs(rays),axis=1)-1)))
+report['same_orthant_rays']=bool(np.all(np.min(rays,axis=2)*np.max(rays,axis=2)>=-1e-14))
 for n in (12,16,20):
  begin=time.process_time();values=np.array([vol.mass(r,n) for r in rays]);report['rows'].append(dict(order=n,accuracy=float(values[:,0].sum()),integration_only_bound=float(values[:,1].sum()),cpu_seconds=time.process_time()-begin,quadrature_nodes=len(rays)*n**3))
  (HERE/'cone_reference_t4.json').write_text(json.dumps(report,indent=2)+'\n');print(report['rows'][-1],flush=True)
