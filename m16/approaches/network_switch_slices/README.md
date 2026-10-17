@@ -19,10 +19,10 @@ Alternative1: network switching causes the observed irregularity; actual project
 Count every polygon clip, tested vertex, intersection, retained/split cell, affine coefficient operation, readout inequality, CDF/quantile evaluation, panel and quadrature node. Save cold CPU and source/checkpoint hashes. Python allocation/sorting and numerical-library internals remain named overhead; operation proxies are not a complete portable certificate. Independent walker calls and GL16/32 reference work are diagnostic, separately charged. A failed cap is an implementation-budget limit, not proof of mathematical failure.
 
 ## Status
-Protocol frozen; implementation pending.
+Bounded phase complete. Slice controls and full H2/H4T4 contractions are recorded below; results are mixed, with unresolved outer quadrature bias and unaudited complete cost. Independent handoff is pending final review artifact; no solved rung or method-wide negative is claimed.
 
 ## Results
-Pending; all failures and changes will be retained.
+Raw full estimates improve three of four tested errors; mass normalization independently improves three of four and worsens one. All implementation failures, remedies, costs and finite alternatives are retained below.
 
 ## Claims
 - [inferred, independently reviewed] In exact arithmetic projected polygon vertices suffice for the specified bounded two-dimensional slice topology.
@@ -106,3 +106,6 @@ Normalized errors H2 order3/5 are−.00492046/+.000173144, versus raw−.0035393
 The bounded alternatives here are complete: model-free versus actual-network topology; quantile versus natural Gaussian coordinate; endpoint truncation with explicit bound; low/high inner-rule consistency; floating orientation and retained-halfspace repairs; full outer orders3/5; model-independent partition normalization. Unexamined outer-coordinate representations, sparse mixed regularity, selective topology discovery and rigorous clipping remain open. No blind higher order or model sweep is run. Full-domain/noisy-model success and portable equal-compute competition are not established.
 
 The local estimator adapter will expose `est(model,budget,rng)` using fixed raw outer3/inner16 with diagnostic quadrature disabled. It returns a visibly PARTIAL FPE proxy assembled from recorded float-work categories; rational area/allocator/sort/library internals lack a portable bound. COST_REVIEWED=False prevents interpreting this as audited compute. The budget does not adapt this fixed recipe. Root/DRI owns registration and any later leaderboard decision.
+
+## Adapter validation
+The shared-style file loader successfully imports `estimator.py` and reproduces the frozen raw H2/order3 estimate .30419140238583786. `adapter_results.json` records 1.311669739 CPU seconds excluding torch import and the partial FPE proxy179337.9. `cost_reviewed` remains false: the proxy is not complete arithmetic or an equal-budget claim. The adapter uses no random model inputs. Noisy-model generalization and full common-harness competition remain untested.
