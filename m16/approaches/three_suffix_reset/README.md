@@ -157,7 +157,21 @@ Owen-T and72.42million CDF callbacks. It resolves the specific fixed-order
 precision concern on this model; it does not certify floating special-function
 or quadrature error. The initial completed integral costs4.881939CPU /70MB,
 48.26million Owen-T and96.51million CDF callbacks, including all three angular
-rules, generic controls and setup. Earlier failed run .170CPU is additional
+rules, generic controls and setup. Earlier failed run .364811CPU is additional
 (the precise failed-run count remains in its JSON). No callback ledger is a
 portable operation bound. T55 independently reviewed older-target combinatorics
 and radial Jacobian; final source/tail review is in progress.
+
+## Cost and unresolved-accuracy stopping rule
+No four-suffix enumeration is authorized by this phase. Even treating the
+resolved numerical contribution as exact, the remaining correctness can lie
+anywhere in a width.07525837 interval. Its minimax midpoint uncertainty is
+.03762919, vastly larger than useful sampling errors at millions of elementary
+operations. This statement concerns what the current partial information
+certifies, not actual bias or an impossibility theorem for improved reset methods.
+A further phase must first propose materially tighter residual correctness
+bounds or a much cheaper approximate closure; increased event coverage alone
+is insufficient to justify another dimension of integration. Generic readout
+support alone may constrain reachable labels, but its unconditional mass bound
+need not tighten a residual event this small. Independently verified rank-aware
+bounds or local residual approximations remain open, not rejected.
