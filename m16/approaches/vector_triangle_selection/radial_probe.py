@@ -5,6 +5,7 @@ import hashlib,itertools,json,math,sys,time
 import numpy as np
 SOURCE=Path('/workspace/work/recover-small_h2_56/m16/approaches/batched_triangle_fallback')
 assert hashlib.sha256((SOURCE/'batch.py').read_bytes()).hexdigest()=='c597c7f058992d8f34b6c5c5950ccbc586b168e84714f227c039f49adeb9390c'
+assert hashlib.sha256(Path('/workspace/clean-neurons/m16/approaches/small_ladder_review/portable_cost/t6/triangle.py').read_bytes()).hexdigest()=='454a72f7657d4098efa1fca1a3c62065a5ee449c8418af3b9b3f79df5e7a45e9'
 sys.path.insert(0,str(SOURCE))
 from batch import Grouped,Engine,EDGE
 from m16.approaches.small_ladder_review.portable_cost.accounting import Audit
@@ -21,6 +22,7 @@ def cases():
         out.extend(b[list(p)] for p in itertools.permutations(range(3)))
     out.extend([eye,np.stack([eye[0],eye[0],eye[1]]),np.tile(anchor,(3,1))])
     fixture=SOURCE.parent/'directed_chebyshev/t6_fixture.json'
+    assert hashlib.sha256(fixture.read_bytes()).hexdigest()=='736986404087b1d98e902d470d14ddc4e800b43e1437cad812a249fc5fc2b040'
     rays=np.array(json.loads(fixture.read_text())['rays'])
     for n in (4,8):
         y,rest,w=outer_rule(n,Audit())
