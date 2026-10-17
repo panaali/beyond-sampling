@@ -126,6 +126,8 @@ def clip(c, n, ops):
 def orthant(Rays, ops):
     """Gaussian mass of the simplicial cone spanned by the rows of Rays (d = 3 or 4)."""
     d = len(Rays)
+    if d == 5:
+        return _orth5(Rays, ops)
     B = np.linalg.inv(Rays.T)                       # rows: dual normals, cone = {B x >= 0}
     S = B @ B.T; dg = np.sqrt(np.diag(S)); C = S / np.outer(dg, dg)
     ops.add(d ** 3 + d * d * d + d * d)
@@ -487,3 +489,70 @@ def _cell_error(c, g, A, Wo, truth, ops):
         if q is None:
             break
     return err
+
+
+# ------------------------------------------------------------------------------------------- d = 5 (T185)
+THIN_DET5 = [1e-6]
+_DU5 = [None]
+_LOG5 = [None]
+
+
+def set_rules5(n_thin=6, n_log=128):
+    x, w = np.polynomial.legendre.leggauss(n_thin); x = (x + 1) / 2; w = w / 2
+    a, b, c, e = np.meshgrid(x, x, x, x, indexing="ij"); W = np.einsum("i,j,k,l->ijkl", w, w, w, w)
+    u1 = a; u2 = (1 - a) * b; u3 = (1 - a) * (1 - b) * c; u4 = (1 - a) * (1 - b) * (1 - c) * e
+    J = (1 - a) ** 3 * (1 - b) ** 2 * (1 - c)
+    _DU5[0] = (np.stack([1 - u1 - u2 - u3 - u4, u1, u2, u3, u4], -1).reshape(-1, 5), (W * J).ravel())
+    xg, wg = np.polynomial.legendre.leggauss(n_log); vg = 35.0 * (xg + 1); S = np.exp(-vg)
+    _LOG5[0] = (S, 1 - S, 35.0 * wg * S)
+
+
+set_rules5()
+_P5 = [(i, j) for i in range(5) for j in range(i + 1, 5)]
+
+
+def _orth5(Rays, ops):
+    """5-D simplicial-cone Gaussian mass. Plackett: P = 1/32 + sum asin(r_ij)/(16 pi) + sum_ij int_0^1 r_ij
+    sum_{kl in rest} asin(pc_kl.ij(t)) / (8 pi^2 sqrt(1 - t^2 r_ij^2)) dt, the conditional 3-D orthant in closed form;
+    same numerics as d = 4 (cofactor normals, atan2 angles, log nodes, Jacobi identity
+    c_kk c_ll - c_kl^2 = det(Rt) det(Rt[{i,j,m}])). Thin (|det| < THIN_DET5): mass = 3 |det R| / (8 pi^2)
+    int_simplex |R^T u|^-5 du."""
+    STATS["simplices"] += 1
+    dt = abs(np.linalg.det(Rays)); ops.add(5 ** 3)
+    if dt < THIN_DET5[0]:
+        U, W = _DU5[0]; q = np.sum((U @ Rays) ** 2, 1); ops.add(len(U) * 40)
+        return 3 * dt / (8 * math.pi ** 2) * float(np.sum(W / q ** 2.5))
+    N = np.empty((5, 5))
+    for i in range(5):
+        O = np.delete(Rays, i, 0)
+        n = np.array([(-1) ** q * np.linalg.det(np.delete(O, q, 1)) for q in range(5)])
+        N[i] = n * (1.0 if n @ Rays[i] > 0 else -1.0) / np.linalg.norm(n)
+    C = N @ N.T; ops.add(25 * 40 + 5 * 10 + 125)
+    asn, oma = {}, {}
+    for i, j in _P5:
+        dm, dp = np.linalg.norm(N[i] - N[j]), np.linalg.norm(N[i] + N[j])
+        asn[i, j] = math.pi / 2 - 2 * math.atan2(dm, dp); oma[i, j] = min(dm, dp) ** 2 / 2
+    p = 1 / 32 + sum(asn.values()) / (16 * math.pi); ops.add(10 * 24)
+    Ls, Lt, Lw = _LOG5[0]; K = len(Ls)
+    Rt = C[None] + Ls[:, None, None] * (np.eye(5) - C)[None]
+    # conditional corr of (k,l) given (i,j) only: cofactors of the 4x4 block Q = {i,j,k,l}, with
+    # c_kk c_ll - c_kl^2 = det(Rt_Q) (1 - t^2 r_ij^2)
+    dQ, cQ = {}, {}
+    for Q in itertools.combinations(range(5), 4):
+        RQ = Rt[:, list(Q)][:, :, list(Q)]; dQ[Q] = np.maximum(np.linalg.det(RQ), 0.0)
+        for a_, b_ in itertools.combinations(range(4), 2):
+            ra_, rb_ = [q for q in range(4) if q != a_], [q for q in range(4) if q != b_]
+            cQ[Q, Q[a_], Q[b_]] = (-1) ** (a_ + b_) * np.linalg.det(RQ[:, ra_][:, :, rb_])
+    ops.add(K * (5 * 40 + 30 * 14))
+    acc = 0.0
+    for i, j in _P5:
+        rest = [q for q in range(5) if q != i and q != j]
+        r = C[i, j]; ra = min(abs(r), 1.0)
+        om = (oma[i, j] + ra * Ls) * (1 + ra * Lt)
+        sa = 0.0
+        for k, l in itertools.combinations(rest, 2):
+            Q = tuple(sorted((i, j, k, l)))
+            sa = sa + np.arctan2(-cQ[Q, k, l], np.sqrt(dQ[Q] * om))
+        acc += float(np.sum(Lw * r * sa / np.sqrt(np.maximum(1e-300, om))))
+    ops.add(K * 10 * (3 * 20 + 12))
+    return p + acc / (8 * math.pi ** 2)
