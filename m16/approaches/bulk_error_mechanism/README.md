@@ -239,3 +239,12 @@ families before certification, as worker34's distinct T110 engine already does.
 Do not duplicate that engine or retire coarse correctness certificates based
 on this raw-gate control. Exact simultaneous rank/readout feasibility and
 cross-gate merging remain untested; none is claimed impossible.
+
+Independent T55 direct integer recurrence checks all450 saved constant-output
+classifications on4252 unique per-history input rays without importing the
+author finalmap/margin functions. All183 constant histories (including resets)
+and267 varying histories agree; positive sums of rays provide genuine input
+witnesses for each label0..3. Review CPU.236seconds, no geometry/mass rerun.
+Thus actual recurrence reachability is established for all four classes of
+this one checkpoint, while the original all-h LP alone did not establish it.
+The whole-correctness shortcut remains separately queued for independent review.
