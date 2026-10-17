@@ -78,6 +78,9 @@ T11588 bounded phase4cc6f14e independentlyd5fc9359 completes all32 idealGL nodes
 
 ## Backlog (highest priority first)
 
+| T11595 | **Blocked: verified full trained h3 pair coverage in T11593** (light) | **Exact per-sector h3 moments followed by unchanged one-step Gaussian closure** | Coordinated34/78, distinct from unconditional third-step mean/pair primitives. On the existing H16T4seed3 model, retain the34 exact early gate sectors; divide each saved raw h3 first/second moment by its exact sector mass to form conditional mean/covariance, then apply the unchanged historical T69 Gaussian closure only to step4. Contrast with global exact-h3 Gaussian reset and the old retained-h2 mixture using the same pinned8-block h4 reference. Done when a separately frozen source/cost-first pilot and complete retained-sector comparison are independently checked. Charge mass division, covariance assembly, reference reuse and closure work; expose finite precision/PSD failures, no silent clipping, regularization or closure change. No new sampled inputs/truth/checkpoint, covariance-at-step4/final-accuracy/scaling inference beyond the stated diagnostic. Publish claim and resource gate before implementation after full136-pair sector coverage passes; preserve all old failures. | third_step_pairs; third_step_means/trained; structured_prefix_mixture/trained.json; arc_cumulants_negative/recovery_review/closure_reference.npz |
+
+
 
 T11591 bounded handoff37d6e0aa independentlyb8bc15f6: all33 exact source-constant bounds finite;21 below1e-10,12 wide-chart bounds loose (245..1.66e71), not measured errors or family failure. No mass calls,.012CPU; actual floating map/kernel/determinant/assembly excluded. Reciprocal T11589 full99/66 audit41b84a50 passes source/reference/ledgers/pilot reuse without replay. Root/Claude INDEX registration requested; existing Ready T11583 now claims finite split-conditioning rescue.
 
