@@ -1656,3 +1656,13 @@ DRI handbook532d9130 section9 item4 requests shared evidence.154 own-folder comm
 All25 fixed100M references independently pass2500 block/hash/state chains, unique model/stream coverage, integer hits, pilot once,318 extra deterministic controls and resource accounting. No redraws. Forward619.695751504CPU, recorded630.019108551; independent beta inversion agrees with stored endpoints, max tail residual8.04912e-15. Bonferroni25-family nominal95% endpoints remain ordinary numerical, not outward certificates. Fresh60/50 comparison may execute only with this completed review and summary a90a507e pinned; original costs/estimates unchanged.
 
 T188 zero-prefix capture288fedad source gate passes: _finish return values are only added upstream, so stop at entry t=T-1 suppresses last-step cell/mass work without changing earlier recursion. Stack/depth/history/A guards, forbidden callbacks, deterministic lookahead counters,12CPU/5Mproxy/10000states and durable progress inspected. Fixed24+96 zero charts only; source imports still build unused rules, inherited proxy incomplete and trained frozen-gate correctness unproved. No trained capture authorized by this gate.
+
+### Fresh H5 fixed panel comparison
+
+All60 groups/50 individual exact integer-budget and fresh25-family confidence-box contractions independently pass.42group/35individual uppers below1;18/15 inconclusive, none has lower above1. Maxpoint1.7743356412061009; maxgroupupper2.8951980098953407. No all-panel win/rejection: upper-cost-allowance ratios above1 do not by themselves prove actual-cost failure. Original estimates/costs unchanged, ordinary numerical beta endpoints, no corrected-mask/native-runtime/universal claim.
+
+T184 H6zoo1/2 raw groups pass once:66901465/68719558 numeric,1962032/1998787integer; source215 group ratios.00349607176482/.000475874029888. No individual losses/topology differences. All raw bindings/sites checked, H6z3/4 and global pending.
+
+T188 zero capture saved120states/336finish entries independently passes chart ordering/truth/cone incidence diagnostics and exact zero A/state/history/depth bindings. Prefix source proxy20640 plus initialcone61224=81864; zero lookahead/mass calls. No source engine/geometry replay; finite cone diagnostics not exact coverage proof, source proxy/setup omissions retained. Trained four-parent captures require separate source gate.
+
+T193 source gate0b00b3d3/ad0a6f74 passes nine-row saved-only exact published ratios/headroom and pointwise/Bonferroni9 CP audit. Reconstructed hits/no raw ledger, sharedstream dependence, historical provenance gaps, conditional positive references and no hybrid-cost multiplier transfer remain explicit. No new truth/model/mass work authorized.
