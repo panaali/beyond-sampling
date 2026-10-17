@@ -1427,3 +1427,23 @@ and cells, model pins and every native site sum. The sixty author calls used
 totals are1,675,867 for85B and2,353,523 for112; integers remain separate.
 These controls support a separately frozen first64-copy pilot, not broad replay,
 historical byte identity, absent noisy counters or a complete native-cost claim.
+
+### Joint matrix angles and source-constant sensitivity controls
+
+`check_joint_angle_controls_review.py` independently checks exact leading
+minors, signed cofactors, Jacobi radicands, square-root/ratio containment and
+analytic angles for twelve unique controls: nine bounded, three unknown.
+Three initial JSON digit-limit failures are preserved; only those cases were
+retried, so accounting includes fifteen mathematical attempts. The target is
+the exact angle of a stored symmetric SPD matrix, not the source's rounded
+covariance or complete mass. Its atan2 denominator is
+sqrt(cof_kk*cof_ll-cof_kl^2), not sqrt(cof_kk*cof_ll).
+
+`check_node_perturbation_controls_review.py` verifies sixteen exact controls
+and the saved-only original11-by-three runner source. For the original4D
+Duffy integrand, the derivative sum is bounded by6*a^(-5/2)+40*M2*a^(-7/2).
+With nonnegative source weights of sum s, node displacement epsilon and
+one-dimensional L1 weight discrepancy delta, the exact-real sum perturbation
+is at most s^4*epsilon*L+delta*(s^3+s^2+s+1)*a^(-5/2). Exact isqrt bounds and
+pi>3 give conservative rational probability bounds. Source map/kernel,
+determinant and accumulation arithmetic remain excluded.
