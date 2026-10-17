@@ -9,7 +9,7 @@ Claim c67d6544 precedes this folder. Pins preserve the released T180 source and 
 Then inspect installed dispatch and derive narrowly scoped numerical envelopes. Existing 4x4 inverse and values-only SVD prices cannot transfer without shape/path verification. Coordinate the separate T156 rank and T11579 matmul owners. Cold replay is independently checked; no existing costly trained panel is repeated.
 
 ## Status
-Frozen capture source awaiting independent gate. No numerical result yet.
+Active: cold inputs and native call paths captured; inverse and several spectral numerical subsets independently reviewed. Full SVD/utility/native driver categories remain open. No full-cost claim.
 
 ## Results
 Pending. Capture command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/fibre_cold_native/capture.py` under the review lock, 2GB cap and 20CPU limit.
@@ -27,3 +27,5 @@ Hidden native branch work can invalidate a textbook count: capture dispatch befo
 Source or binary drift, unobserved calls, changed output bytes, unexpected model I/O, unsupported kernel paths or bounded CPU exhaustion stop the phase and are preserved. No target/cap relaxation or source replacement.
 
 Capture passed: same25 target names, fresh baseline/pass-through assigned values byte-identical, all6 SVD/48 inverse/6 rule inputs and outputs saved, zero model I/O or clipping. Research CPU .015986297, maximumRSS56840KiB. This reconstructs cold constants only; no trained geometry or mass runs. Next fixed phase captures the installed inverse kernel dispatch for these48 saved matrices plus six analytic controls; no new model inputs and no inverse price assumed.
+
+Independent bounded checkpoints: inverse3 7,968 numerical units for all48 calls (review1e7a6d49); visible six-rule wrapper6,910 numerical plus1,018 integer/control units (review4a6f9c80); all12 spectral outputs and child shapes preserved (reviews cb751402/300df19b). Installed DSTERF exclusive envelope274,568 differs from the source-only240,946; observed scalar helper subtotal2,424 is separate (reviewe61dffe3). No scaling occurred on these saved calls. Full SVD internal BLAS paths are frozen for six-call inspection in spectral/svd_kernels; remaining drivers/utilities/runtime are not declared free.
