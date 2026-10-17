@@ -123,3 +123,22 @@ remain required. The constant cases
 are correctness controls, not representative cost measurements. Proxy MSE
 ratios in pilot.json omit uncharged setup/special-function details and are
 not portable leaderboard results or rung passes.
+
+## Frozen scale-sensitivity discriminator
+Before any larger panel, investigate the observed Wo×1e8 discrepancy on the
+SAME original H4T3 model. Per-family comparison localizes it to the(1,2,0)
+negative arc, truth2; the reference changes445 to446 traces with unchanged81
+arc segments. Two competing explanations remain: incorrect geometric mass
+arithmetic versus finite-lookahead decisions changing under roundoff.
+
+Freeze controls at scales1e-8,1,1e8. First compute numerical exact polygon
+accuracy for each. Run the unmodified fast engine with LOOK64, checking every
+forward trace actually reaches its clamp (otherwise report incomplete and
+make no exact-trace claim). Retain original LOOK2 results. This isolates
+truncation decisions without changing gate-order predicates. Strong cheap
+rescue: canonicalize readout by dividing Wo by its positive max absolute
+entry (leave allzero unchanged), then rerun LOOK2 reference/omission/cap on
+all3 scales. This preserves the real-arithmetic classifier and first-index
+ties; it is not guaranteed bitwise invariant after floating rescaling.
+Record normalization costs and all outputs, no choice based on truth. Same
+source snapshots,<=18CPU review lock; no new models or numerical tolerance.
