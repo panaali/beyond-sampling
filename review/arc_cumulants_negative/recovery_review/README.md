@@ -11,13 +11,15 @@ Freeze analytic controls before evaluation: scalar Gaussian X with h=(X+,(-X)+) 
 Alternative explanations: finite estimator failures can remain valid despite a false mechanism theorem; exact-moment injection diagnoses a fixed endpoint but does not upper-bound all possible propagation/encoding choices; apparent fourth-order divergence can include MC-moment noise or numerical endpoint error. Saved outputs and source resolve what is actually measured before any new experiments.
 
 ## Status
-Read-only inventory found two scope problems; analytic controls and complete saved-output inventory next.
+Saved-output inventory and frozen analytic controls complete (d71d86b9); independent review requested. Exact-prefix discriminator is proposed, not yet executed.
 
 ## Results
 Preliminary source findings, not a new experiment: prior README claims rank(Cov h_t)<=td, which fails for nonlinear functions of td inputs. Low-dimensional piecewise-linear support is the valid distinct statement. The README also contains unfinished placeholders and claims “Dead (verified)” for untried variants. Saved noisy M16T4 cell-readout K4 reports+0.20pp, whereas its broad best-case prose says>=2.7pp; inventory must retain model-specific distinctions.
 
+See SCOPE_AUDIT.md for the corrected theorem, finite moment-information control, completed subset table and unverified alternatives. All42 unique printed failures remain preserved; no old model calculation repeated.
+
 ## Compute accounting
-One thread2GB; review processes<=20CPU, primary<=110CPU only if justified later. This phase uses deterministic analytic/rational controls and file analysis, not Gaussian model probes. No old3GB queue is resumed. Any later estimator/reference/source-dependent work gets a separately frozen scope and full count.
+One thread2GB; review processes<=20CPU, primary<=110CPU only if justified later. This phase uses deterministic analytic/rational controls and file analysis, not Gaussian model probes. The analytic control CPU clock returned0.0 at available process-time resolution; this is an unresolved sub-resolution duration, not free computational work. No old3GB queue is resumed. Any later estimator/reference/source-dependent work gets a separately frozen scope and full count.
 
 ## Claims
 [inferred] Deterministic latent dimension alone does not bound covariance rank after nonlinear maps. [inferred] A fixed approximate endpoint evaluated on estimated true moments is a diagnostic, not a universal accuracy ceiling. Existing empirical failures are preserved pending source/raw audit; no broad success or impossibility claim.
