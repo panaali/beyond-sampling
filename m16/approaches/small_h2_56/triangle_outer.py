@@ -26,19 +26,20 @@ def endpoints(v,y,rest):
  d=len(v);prefix=y@v[:,:d-3].T
  return prefix[:,None,:]+rest[:,None,None]*v[:,d-3:].T[None,:,:]
 
-def grouped_mass(rays,orders,bounds,deadline=None):
+def grouped_mass(rays,orders,bounds,deadline=None,inner_budget=None,total_cones=None):
  d=rays.shape[1];const=gamma(d/2)/(2*pi**(d/2));total=0.;inner=0.;series=0.;counts={};maxscreen=0.;start=time.process_time()
  keys=('triangles','analytic_triangles','positive_quadrature_fallbacks','quadrature_nodes','tangent_basis_constructions','great_circle_edges','great_circle_arctan2_calls','solid_angle_arctan2_calls','elementary_tan_calls','elementary_sin_calls','elementary_cos_calls','numerical_screen_rejections','bound_trials','bound_lgamma_calls','bound_exp_calls','bound_log_calls','legendre_rule_generations','legendre_rule_generation_nodes')
  for local_index,(v,n) in enumerate(zip(rays,orders)):
   if deadline is not None and time.process_time()>deadline:raise TimeoutError('triangle pilot CPU guard')
-  y,rest,w=rule(d,int(n));vv=endpoints(v,y,rest)
-  try:value,stats=signed_l1_triangles(vv,absolute_tolerance=1e-11)
+  y,rest,w=rule(d,int(n));vv=endpoints(v,y,rest);factor=const*abs(np.linalg.det(v))
+  tolerance=1e-11 if inner_budget is None else inner_budget/(total_cones*factor*w.sum())
+  try:value,stats=signed_l1_triangles(vv,absolute_tolerance=tolerance)
   except Exception:
    np.savez_compressed(Path(__file__).parent/"triangle_failure.npz",ray=v,order=int(n),local_index=local_index,endpoints=vv)
    raise
-  factor=const*abs(np.linalg.det(v));total+=factor*float(w@value)
+  total+=factor*float(w@value)
   inner+=factor*min(w.sum()*stats['maximum_quadrature_error_bound'],w.max()*stats['quadrature_error_bound'])
   series+=factor*min(w.sum()*stats['maximum_analytic_series_truncation_bound'],w.max()*stats['analytic_series_truncation_bound_sum'])
   maxscreen=max(maxscreen,stats['maximum_heuristic_relative_roundoff'])
   for k in keys:counts[k]=counts.get(k,0)+stats[k]
- return dict(estimate=total,conditional_outer_quadrature_bound=float(bounds.sum()),inner_positive_quadrature_bound=inner,inner_series_truncation_bound=series,primitive_counts=counts,maximum_heuristic_relative_roundoff=maxscreen,roundoff_certified=False,cpu_seconds=time.process_time()-start,source_sha256=SOURCE_SHA256,dependency_sha256=DEPENDENCY_SHA256)
+ return dict(estimate=total,conditional_outer_quadrature_bound=float(bounds.sum()),inner_positive_quadrature_bound=inner,inner_series_truncation_bound=series,primitive_counts=counts,maximum_heuristic_relative_roundoff=maxscreen,roundoff_certified=False,requested_total_inner_budget=inner_budget,cpu_seconds=time.process_time()-start,source_sha256=SOURCE_SHA256,dependency_sha256=DEPENDENCY_SHA256)
