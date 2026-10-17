@@ -6,7 +6,7 @@ HERE=Path(__file__).parent
 _libraries={}
 
 def walk(model,u,v,max_pieces=5000,engine='projective'):
-    if engine not in ('projective','incremental','stable'):raise ValueError('unknown engine')
+    if engine not in ('projective','incremental','stable','mixed'):raise ValueError('unknown engine')
     wi,wh,wo=(np.ascontiguousarray(a,dtype=np.float64) for a in model)
     u,v=(np.ascontiguousarray(a,dtype=np.float64) for a in (u,v))
     if u.ndim!=2 or v.shape!=u.shape or wi.ndim!=1:raise ValueError('plane/model shape')
