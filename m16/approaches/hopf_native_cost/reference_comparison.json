@@ -1,0 +1,111 @@
+{
+  "claim": "73cb0f00",
+  "reference": {
+    "cones": 6347,
+    "estimate": 0.4770131259941194,
+    "integration_only_bound": 3.157995918627031e-08,
+    "reference": 0.477013125994119,
+    "reference_difference": 3.885780586188048e-16,
+    "negative_count": 0,
+    "full_float_accuracy_certified": false,
+    "portable_cost_certified": false
+  },
+  "reference_sha256": "4961e5f0f9c61be75c1ea2b9dfd369a922a56785544d8a52cc55498bbc86c074",
+  "runner_sha256": "25aca6088034242d7c72238489a1acf30cbac85e425009a061927ba2249474a8",
+  "model_sha256": "086adb1db3b6e947f6315315ebc04deee650fd3ecd88b1a40a7f90417841515d",
+  "checkpoint_sha256": "83ddefeaee737c73613cdc786b01b3bb79c0007bd6c1e42a454302c4801dd146",
+  "reference_independent_review": "449a01e",
+  "rows": [
+    {
+      "level": "h8",
+      "sampler": "dense_original",
+      "per_sample_with_hit_aggregation": 193,
+      "per_batch_index_control": 8,
+      "candidate_conditional_source_budget": 3960665,
+      "sampling_draws": 20521,
+      "sampling_explicit_cost": 3960563,
+      "estimate": 0.4810975064800962,
+      "error": "0.00408438048597681291340677489642985165119171142578125",
+      "conditional_error_interval": [
+        "0.004084348906017626643093734218492195028882285612326086265966",
+        "0.004084412065935999183719815574367508273501137239236413734034"
+      ],
+      "matched_sampling_variance": "0.0000121568931155127805597823351628300641304275074061659642216418",
+      "conditional_point_mse_ratio": "1.37223909067201903246423463169206892342005213359811824685551",
+      "conditional_integration_only_ratio_range": [
+        "1.37221786277917520202534295583274381391330885435720895216713",
+        "1.37226031872919142430618943922636326963762125692665675668059"
+      ],
+      "note": "Actual zoo44 dense indicator count plus hit aggregation, final division and explicit loop/index controls; RNG and true labels free."
+    },
+    {
+      "level": "h8",
+      "sampler": "analytic_zero_state_optimized",
+      "per_sample_with_hit_aggregation": 161,
+      "per_batch_index_control": 7,
+      "candidate_conditional_source_budget": 3960665,
+      "sampling_draws": 24600,
+      "sampling_explicit_cost": 3960609,
+      "estimate": 0.4810975064800962,
+      "error": "0.00408438048597681291340677489642985165119171142578125",
+      "conditional_error_interval": [
+        "0.004084348906017626643093734218492195028882285612326086265966",
+        "0.004084412065935999183719815574367508273501137239236413734034"
+      ],
+      "matched_sampling_variance": "0.0000101411220985137304824102967429445425211586536374769004793622",
+      "conditional_point_mse_ratio": "1.64500178502663945220116816625042130091775656578693576690441",
+      "conditional_integration_only_ratio_range": [
+        "1.64497633762329857072381641798574620253727390561801765134795",
+        "1.64502723262697281019113397032155043287780726672168784242203"
+      ],
+      "note": "The optimized comparator is an explicitly derived first-zero-state implementation, not the unchanged zoo44 source."
+    },
+    {
+      "level": "h64",
+      "sampler": "dense_original",
+      "per_sample_with_hit_aggregation": 193,
+      "per_batch_index_control": 8,
+      "candidate_conditional_source_budget": 252465096,
+      "sampling_draws": 1308109,
+      "sampling_explicit_cost": 252465055,
+      "estimate": 0.47710001754048736,
+      "error": "0.00008689154636798424036214782972820103168487548828125",
+      "conditional_error_interval": [
+        "0.000086859966408797970049107151790544409375449674826086265966",
+        "0.000086923126327170510675188507665857653994301301736413734034"
+      ],
+      "matched_sampling_variance": "1.90711633069903020212607129739521512366708645443102793262879E-7",
+      "conditional_point_mse_ratio": "0.0395893040643836514713394058356966277630489939411491482166971",
+      "conditional_integration_only_ratio_range": [
+        "0.0395605323030532925457725803811055879498168105747235054406209",
+        "0.0396180862847067362539987636274610441072289421283702068060236"
+      ],
+      "note": "Actual zoo44 dense indicator count plus hit aggregation, final division and explicit loop/index controls; RNG and true labels free."
+    },
+    {
+      "level": "h64",
+      "sampler": "analytic_zero_state_optimized",
+      "per_sample_with_hit_aggregation": 161,
+      "per_batch_index_control": 7,
+      "candidate_conditional_source_budget": 252465096,
+      "sampling_draws": 1568106,
+      "sampling_explicit_cost": 252465082,
+      "estimate": 0.47710001754048736,
+      "error": "0.00008689154636798424036214782972820103168487548828125",
+      "conditional_error_interval": [
+        "0.000086859966408797970049107151790544409375449674826086265966",
+        "0.000086923126327170510675188507665857653994301301736413734034"
+      ],
+      "matched_sampling_variance": "1.59091033146635348546139929237204465782608369256881710670268E-7",
+      "conditional_point_mse_ratio": "0.0474579910689280405334082636289413926324210793543042867325981",
+      "conditional_integration_only_ratio_range": [
+        "0.0474235006926882135668979098309804145508022951933572639760680",
+        "0.0474924939829680411650045869547594489685571672736370528096407"
+      ],
+      "note": "The optimized comparator is an explicitly derived first-zero-state implementation, not the unchanged zoo44 source."
+    }
+  ],
+  "scope": "Single clean model; reference integration-only bound excludes floating geometry/kernel error. Budget is declared expression subset plus conditional source allowance, not full runtime. No noise-panel or rung claim.",
+  "saved_h128_reference_error_against_positive": "0.00015865237928625042229668906657025218009948730468750",
+  "old_h64_reference_error": "-0.00007176083291826618193454123684205114841461181640625"
+}

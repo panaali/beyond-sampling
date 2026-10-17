@@ -1,0 +1,43 @@
+{
+  "complete": false,
+  "claim": "7372744e",
+  "inventory_sha256": "716e856568909f2575cd5f9f3430cc3df6c74109402593e33b39588e0902b064",
+  "driver_sha256": "398fb9b358acb9f2053388dccb54929c42dc153ce245a69a018fb89c5638c90a",
+  "records": [
+    {
+      "seed": 0,
+      "url": "https://storage.googleapis.com/arc-ml-public/alg/zoo/2nd_argmax_4_3_268435456_0.pth",
+      "fetch_url": "https://storage.googleapis.com/arc-ml-public/alg/zoo/2nd_argmax_4_3_268435456_0.pth?generation=1765558193881969",
+      "path": "/workspace/work/recover-small_h4_4/review/margin_k28_native/checkpoints/k28_seed0.pth",
+      "head_headers": {
+        "content-length": "2149",
+        "last-modified": "Fri, 12 Dec 2025 16:49:53 GMT",
+        "etag": "\"e15563801e109c1e3d6c4d75f6739b49\"",
+        "x-goog-generation": "1765558193881969",
+        "x-goog-metageneration": "1",
+        "x-goog-hash": "crc32c=RNNZvg==",
+        "x-goog-stored-content-length": "2149"
+      },
+      "get_headers": {
+        "content-length": "2149",
+        "last-modified": "Fri, 12 Dec 2025 16:49:53 GMT",
+        "etag": "\"e15563801e109c1e3d6c4d75f6739b49\"",
+        "x-goog-generation": "1765558193881969",
+        "x-goog-metageneration": "1",
+        "x-goog-hash": "crc32c=RNNZvg==",
+        "x-goog-stored-content-length": "2149"
+      },
+      "bytes": 2149,
+      "sha256": "924339ae86d7b5716b30114068e3d24712a3492ce0dd04033e02620d1a6f6ca2",
+      "md5_base64": "4VVjgB4QnB49bE119nObSQ==",
+      "validated": false
+    }
+  ],
+  "historical_checkpoint_identity_verified": false,
+  "scope": "Current canonical objects only; prior bytes/per-copy identity were not saved. No evaluator/reference/model-forward call. Inherited proxy and TLS verification unchanged.",
+  "wall_seconds": 1.004801209001016,
+  "failure": {
+    "error": "AssertionError()",
+    "traceback": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h4_4/review/margin_k28_native/recover_checkpoints.py\", line 28, in main\n    for head in (h,g):assert 'md5='+r['md5_base64'] in [x.strip() for x in head['x-goog-hash'].split(',')]\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  }
+}
