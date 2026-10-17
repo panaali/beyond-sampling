@@ -18,3 +18,21 @@ One thread,2GB, <=20CPU review or <=110CPU primary phases. Capture import/tool/s
 
 ## Claims / failure modes
 [measured] Local binary links a pivoted linear-solve entrypoint. [speculative] A small fixed-dimension arithmetic envelope will provide useful headroom for the common budget. Dynamic-architecture kernels, compiler transformations and absent exact source may prevent a defensible complete bound; record this limitation rather than silently assigning a textbook formula. Determinant, SVD/rank and geometry call counts remain separate owners/scopes.
+
+## Results (bounded phase completed)
+
+The installed path and all11 fixed fixture outputs/exceptions are independently checked. GESV receives n=nrhs=lda=ldb=4 with identity RHS. Seven nonsingular controls also pass exact-rational inverse checks. Process-local kernel interception reproduces baseline values bitwise and restores all pointers. Pivot, singular, near-singular, subnormal and batch paths are preserved. No trained matrix or mass calculation was rerun.
+
+`DERIVATION.md` derives a188 floating-expression envelope:56 LU plus132 packed triangular solve/packing operations. `summarize.py` contracts saved kernel events and composes the T146/T153 inverse call censuses, pinned by file hash. Exact/recipe inverse subsets are500,062,328 /402,044,768 units. This is not a complete inverse or implementation cost, and it does not establish an MSE win. Source provenance records public upstream version versus installed binary qualification.
+
+Reproduce saved-data recount: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/inverse4_cost_review/summarize.py` (0.0024CPU). The original fixture runs used `fixtures.py baseline`, then `LD_PRELOAD=<folder>/spy.so fixtures.py instrumented`; `kernel_controls.py` performs the separate table wrapper check. Compile shared wrappers using `gcc -shared -fPIC -O2 <source>.c -ldl -o <target>.so`. Existing numerical results are preserved; no repeat is required for the count.
+
+Measured fixture CPU: baseline0.024936, GESV passthrough0.023848, kernel passthrough0.041183. Import/dispatch/source inspection is additional setup; these are not estimator timing claims. T55 independently checked all11 saved outputs, dimensions/events and count algebra without rerunning inverses; review commit pending.
+
+## Alternatives not ruled out
+
+A complete control/category upper bound, a separately evaluated replacement inverse, or another backend may change the total. Larger matrices and thread counts do not inherit188. Memory/allocation, comparison/abs, integer/control/index and wrapper work remain unpriced, as do other parent opaque categories. This bounded result is positive for identifying the FP subset, and incomplete for closing the common-budget gate.
+
+## Final status and claim scope
+
+Done for this bounded floating-expression audit; independent review passed (commit to follow). [measured] Installed dispatch and transparent fixture parity. [inferred, independently checked]188 fixed-path floating-expression envelope and composed category totals. [speculative] A full category envelope may still be comfortably below sampling break-even; no complete-cost or challenge-solved claim is made. Initial progress notes above preserve the chronology and are superseded by this final status.
