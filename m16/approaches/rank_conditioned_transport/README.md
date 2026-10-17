@@ -94,3 +94,35 @@ The experimental estimator.py exposes est(model,budget,rng). It fixes hidden17/t
 
 ## Failure modes
 No certified bound for grid interpolation or outer quadrature. The optional quantile transition also has unbounded quadrature error; the guarded analytic transition bounds only its numerical fallback in real arithmetic. Gate and moment arithmetic use floats. Rare conditional tails need stable CDF differences. Positive-mass output ties cannot be discarded. Truncation guarantees alone do not certify total accuracy. Only one LOCALPILOT T7 and one zoo T4 checkpoint were tested, not an independent noisy ensemble or a full shared benchmark. The original challenge remains open.
+
+## Spatial diagnosis protocol (T67 next phase, frozen before measurements)
+
+Design input: T63 `understand_m43/README.md` and independent R2
+`review/understand_m43/README.md`, read 2026-10-17. Their confirmed result is
+scoped to M4T3 seed0/noise; it is not evidence that this transport mesh works.
+T76 owns a separate H2 boundary-family estimator. We test only mesh placement.
+
+Hypothesis: terminal conditional probabilities have curvature/kinks where the
+accepted scalar interval endpoints meet the target, gate, or readout boundary.
+A rectangular mesh spreads those features. Alternative A: errors mostly arise
+at earlier hidden stages, so changing only terminal-stage placement will not
+help. Alternative B: the outer target rule or cancellation dominates, so a
+better local interpolation diagnostic need not improve full accuracy.
+
+Freeze this first test: H2T4 exact reference, analytic transitions, h17 and h33,
+q8 per sign half. Keep earlier stages and all node counts unchanged. At final
+hidden stage build a deterministic monitor using 32 quadratic-spaced bins per
+axis, nine quadratic-spaced points on the other axis, and q4 per sign half.
+For each nonfinal possible label/need flag, compare the analytic terminal at
+bin midpoint with its linear endpoint interpolant. Average absolute residuals
+with Beta weights and uniformly over the other coordinate, labels and flags.
+Assign half the bin allocation to the original quadratic prior and half to
+cube-root residual density; this is a frozen heuristic, not a proven optimal
+mesh. A reversed-monitor allocation is the negative control. Rebuild and charge
+all monitor intervals/CDFs inside every estimate; no free cross-run reuse.
+
+Report local monitor residuals and full error/CPU for all three meshes, then
+repeat q16 for every h33 mesh to distinguish target error/cancellation. No
+parameter selection from the exact reference, no new MC, no h129. Rectangular
+axes cannot conform to oblique boundary lines, and the monitor's uniform
+cross-axis weighting is not the reachable hidden-state law. Preserve failures.
