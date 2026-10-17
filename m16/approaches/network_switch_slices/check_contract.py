@@ -20,7 +20,11 @@ def main():
         st=torch.load(checkpoint,map_location='cpu',weights_only=True)
         model=(st['rnn.weight_ih_l0'].numpy().astype(float).ravel(),st['rnn.weight_hh_l0'].numpy().astype(float),st['linear.weight'].numpy().astype(float))
         for order in (3,5):
-            row=contract(model,order,16,32,deadline=start+105)
+            try: row=contract(model,order,16,32,deadline=start+105)
+            except Exception as error:
+                out['failure']=dict(H=H,outer_order=order,error=str(error),
+                                    total_cpu_at_failure=time.process_time()-start)
+                save();raise
             old=next(r for r in prior['cases'] if r['H']==H and r['order']==order)
             row.update(H=H,T=4,reference=truth[H],error_to_reference=row['estimate']-truth[H],
                        old_full_grid_estimate=old['full_grid_accuracy'],old_full_grid_bias=old['full_grid_bias'],
