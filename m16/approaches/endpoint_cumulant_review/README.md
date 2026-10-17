@@ -75,10 +75,11 @@ Controls, trained H2T3 reference, and gate/rank mixture rescue completed.
 Independent moment conversion review passed (T55 commit66efd3e): a distinct
 set-partition Mobius calculation matches all six conditional cumulant tensors
 through order4 to2.97e-16 scaled. This does not certify moment quadrature or
-the upstream endpoint implementation. Mixture support review requested.
+the upstream endpoint implementation. T55 mixture aggregation, corrected
+Gaussian endpoint source and support review are recorded in commitb9e52d5.
 At most18CPU on review lane or100CPU on primary lock, single thread,<2GB;
-no model sweep or large Monte Carlo. Next trained T3 phase requires its own
-frozen moment-integration protocol and cost after these controls.
+no model sweep or large Monte Carlo. Current T3 phases are complete; T4/T5
+extensions require their own frozen protocol and are not claimed done.
 
 ## Results
 Unmodified upstream code passes iid Gaussian symmetry to2.22e-16. On the
