@@ -403,7 +403,7 @@ def _gm_eval(V, s, ops):
     return (q ** (-T / 2)) @ w
 
 
-def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=40, chunk=4096):
+def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=60, chunk=4096, dmin=None):
     """Gaussian measure of simplicial cones (rows of V[i] = unit rays). Returns (p, err) per input simplex.
     Depth-first over a bounded work stack (memory stays O(chunk x maxdepth))."""
     S, T, _ = V.shape
@@ -432,7 +432,11 @@ def cone_measure(V, ops, rtol=1e-6, atol=1e-16, s=3, maxdepth=40, chunk=4096):
         det = np.abs(np.linalg.det(W)); ops.add(len(W) * (2 * T ** 3 // 3 + T), "measure")
         hi = _gm_eval(W, s, ops); lo = _gm_eval(W, s - 1, ops)
         val = cst * det * hi; err = cst * det * np.abs(hi - lo)
-        ok = (err <= rtol * val + atol) | (depth >= maxdepth)
+        ok = err <= rtol * val + atol
+        if dmin is not None:        # also split simplices wider than arccos(dmin) (near-antipodal rays)
+            G0 = np.einsum("sid,sjd->sij", W, W); ops.add(len(W) * 2 * T ** 3, "measure")
+            ok &= G0.min((1, 2)) >= dmin
+        ok |= depth >= maxdepth
         np.add.at(p, idx[ok], val[ok]); np.add.at(e, idx[ok], err[ok])
         if ok.all():
             continue
