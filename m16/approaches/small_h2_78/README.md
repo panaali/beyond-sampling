@@ -29,3 +29,19 @@ Each experimental cycle <=120 CPU seconds, one thread, process RSS below2GB. Num
 
 ## Failure modes
 Small numerical changes can alter positive-mass zero/tie behavior. Exact algebra alone does not certify floating-point integration. The no-reset remainder is non-negligible and cannot be discarded. Deterministic quadrature remains a separately classified numerical method; the exact prefix marginalization itself does not sample model inputs. Author checks do not constitute independent confirmation.
+
+### Recovery cycle 1 result
+`check_prefix.py` reproduced the broad base/noise bounds and checked the constructive prefix integrals. There are49 rank-partition cases, 126 independent Bernoulli-convolution integrals (maximum disagreement1.12e-16), and327,680 conditional validation inputs (maximum|z|2.57). Three trained models, base and relative noise0.0025/0.02 from seed1, retain output support{0,5,6,7} and the reset theorem. Their broad interval is exactly[1111/14336,31071/71680]. All3x65,536 model-input checks obeyed the reset predictions. Input/output scale checks1e-16 and1e16 retained the support and reset-ray winner. These are author checks; the root owns independent review.
+
+Reproduce from repository root:
+
+```
+flock /workspace/work/codex-compute.lock bash -c 'ulimit -v 2500000; OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /workspace/clean-neurons/.venv/bin/python m16/approaches/small_h2_78/check_prefix.py'
+```
+
+Saved `prefix_checks.json` includes checkpoint SHA256 and full counts. CPU1.052s, no analytic model-input samples; independent author validation used327,680 conditional inputs and196,608 full network inputs. Rational envelope operations and comparisons are reported separately; sorting/bit complexity remains uncharged, so there is no efficiency claim.
+
+### Cycle 2 protocol, frozen before implementation
+Constructively eliminate the final suffix input: split its scalar range at ReLU roots and readout crossings, then integrate the conditional rank law in v=Phi(x). Between fixed suffix CDF thresholds and1/2 that law is a polynomial of degree at most m+2. A fixed Gauss-Legendre rule of order ceil((m+3)/2) therefore evaluates the polynomial integral exactly in exact arithmetic; this model-free polynomial rule is distinct from approximating an RNN input integral. Validate against separate adaptive1-D integration on fixed suffixes, including predicted discarded indices and ties. Integrate only suffix lengths0..3 initially and report exact unresolved sign mass. Outer quadrature error must remain separately identified.
+
+Alternative1: the rank polynomial degree or breakpoint set is incomplete. Test explicit Bernoulli integration and deliberately mixed-sign suffixes. Alternative2: gate/logit intervals miss atoms or tiny decision regions. Test constant duplicate readouts, rescaling, and independent dense/adaptive scalar calculations before any full-model claim. Compute cap remains120CPU seconds per cycle, serial lock and memory limit unchanged.
