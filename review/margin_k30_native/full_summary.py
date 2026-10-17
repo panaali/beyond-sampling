@@ -21,6 +21,7 @@ def main():
  start=time.process_time();target=HERE/'full_summary.json';assert not target.exists()
  pins=json.loads((HERE/'provenance.json').read_text());assert pins['complete']
  for p,d in pins['pins'].items():assert sha(Path(p))==d
+ assert sha(HELPER)==json.loads((HERE/'pilot_summary.json').read_text())['helper_sha256']
  out=dict(complete=False,rows=0,groups=[],noise_groups=[],individual=[],files={},numeric=0,integer=0,legacy=0,research_cpu=0.,max_shard_cpu=0.,max_rss_kib=0,source_sha256=sha(Path(__file__)),helper_sha256=sha(HELPER),provenance_sha256=sha(HERE/'provenance.json'),pilot_gate_sha256=sha(HERE/'pilot_review.json'),scope='Original4096 missing-k30 noisy copies and RECIPE85B only. Named-source111 and historical72 budgets separate. Conditional bootstrap1000 RNG0; excludes saved-truth/geometry uncertainty and full runtime/native/control/memory/setup costs.')
  hashes=set();reuses=[];all_totals=Counter()
  for seed in range(1,5):
@@ -32,6 +33,7 @@ def main():
     assert d['complete'] and 'failure' not in d and (d['seed'],d['noise'],d['block'])==(seed,noise,block)
     assert d['provenance_sha256']==sha(HERE/'provenance.json') and d['sampler_numeric']==111 and d['sampler_legacy']==72
     expected=HERE/('pilot.py' if path.name=='pilot.json' else 'shard.py');assert d['driver_sha256']==sha(expected)
+    if path.name!='pilot.json':assert d['pilot_gate_sha256']==sha(HERE/'pilot_review.json')
     assert [r['copy'] for r in d['rows']]==list(range(64*block,64*(block+1)))
     archive=path.with_suffix('.jsonl.gz');assert sha(archive)==d['archive_sha256'];out['files'][str(path.relative_to(HERE))]=sha(path)
     with gzip.open(archive,'rt') as f:
