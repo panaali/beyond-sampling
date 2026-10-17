@@ -1418,3 +1418,12 @@ reconstructions,0.9049 CPU seconds including imports, zero evaluator/forward,
 reference or network calls. Current canonical provenance is established;
 historical byte identity is not. Original saved output/error parity remains a
 separate bounded evaluator gate, and H5 inherits neither H4 costs nor new truth.
+
+`check_k28_parity_controls_review.py` verifies the subsequent fifteen fixed
+models and both recipes: all thirty original estimate-minus-truth errors match
+exactly, as do baseline/traced outputs, STATS, grouped errors, ten clean costs
+and cells, model pins and every native site sum. The sixty author calls used
+8.6764 CPU seconds; review used0.0168 with no evaluator calls. Named numeric
+totals are1,675,867 for85B and2,353,523 for112; integers remain separate.
+These controls support a separately frozen first64-copy pilot, not broad replay,
+historical byte identity, absent noisy counters or a complete native-cost claim.
