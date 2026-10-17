@@ -42,3 +42,14 @@ ratios1.51215517/1.83946220. Thus the single-case comparison is inconclusive
 under that uncertainty and conditional cost convention, not a verified win
 or method failure. Numerical beta endpoints are not outward rounded.
 No new MC, h128 truth claim, broader panel or complete native/runtime result.
+
+### Remaining original panel (active)
+Continuation claim3f1c228b and source672fc54f independentlyabb3b5de freeze
+indices1..24 in seed/copy order. Each separate capped process first proves
+historical hex/legacy parity, then directly traces the unchanged source.
+The index0 pilot is reused once; no new truths, checkpoints, training, noise
+law or parameters. All partial failures would remain visible and stop launch.
+Full saved ledger contraction8c254166 independently source-gated, with
+independent reviewer reconstruction of native closure formulas still required.
+Comparison sourcea482a037 freezes all60 group and50 individual views before
+completion. Existing75-family truth boxes and native exclusions are retained.
