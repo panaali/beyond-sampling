@@ -68,3 +68,18 @@ coalescence, exact rank-aware regions and general bulk-error approximations.
 Confusing local derivative zero with globally forgotten input, all-h vs reachable
 hidden sets, non-strict first-index ties, overlapping category double counting,
 expensive mass evaluation, and uncertified numerical/roundoff error.
+
+## Readout reachability result
+All four H4T4 labels have exact nonnegative-state witnesses with positive
+margins (optima .30888146,4.57925045,2.97702237,1.09322867 in the stated
+first-index LP). Each optimum has a matching rational nonnegative dual bound.
+Thus the simple globally missing-readout explanation is falsified: it certifies
+zero irreducible error here. These witnesses need not be attainable by the
+actual recurrence; hidden reachability restrictions remain open.
+
+Zero/duplicate/componentwise-dominated controls allow only label0; identity
+readout allows every label. Full720 rational solve attempts cost .154739CPU
+including compressed artifact loading,56MB RSS. `readout.json` preserves all
+exact primal/dual coefficients and source hashes. Reproduce `python readout.py`
+under the review lock. Independent certificate review requested before any
+mechanism conclusion; no numerical tolerance defines reachability.
