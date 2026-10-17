@@ -285,3 +285,20 @@ same single-thread flock wrapper as `check_segment.py`, substituting
 `check_strata.py`. Saved output is `strata_results.json`. The first attempted
 command used an incorrect file location and exited before computation; the
 files were moved into the owned folder and the documented run then succeeded.
+
+## Cycle 7 protocol (frozen before implementation)
+Eliminate the last TWO simplex/Duffy coordinates via a weighted spherical
+triangle moment, as proposed by T48. For ambient dimension d the exponent must
+be d-3 and the spherical Jacobian must contain exactly one abs(det R), with no
+factor2. Alternative1: a Jacobian/coordinate convention is wrong; compare
+orthogonal unit endpoints against explicit sphere monomial moments for d3..6,
+and other fixed triangles against independent nested quadrature. Alternative2:
+QR/determinant or boundary recurrence is unstable near rank deficiency; expose
+conditioning, reject suspect analytic values, and use positive quadrature on
+the ORIGINAL affine triangle with a stated real-arithmetic error bound.
+
+Include exactly collinear and near-collinear endpoints, positive scaling,
+endpoint permutations, and count QR, condition estimates, solves, moment calls,
+fallback nodes and rule construction. This is a primitive check only: no
+trained integrations, no sampled model inputs, one bounded locked numeric run.
+T48 and root independently checked the measure and coefficient exponent.
