@@ -36,7 +36,7 @@ def controls(observed):
    result,rays=execute(model,mode,0,96,np.asarray(old['rays']) if observed else None)
    if observed:
     for key in ('legacy_geometry','stats','mass_callbacks'):assert result[key]==old['result'][key],(name,mode,key)
-    assert result['native']['gesdd'][0]>0
+    assert name=='zero' or result['native']['gesdd'][0]>0
    else:assert result['native']['gesdd'][0]==0
    rows.append(dict(name=name,result=result,rays=old['rays'] if observed else np.asarray(rays).tolist()))
  out=dict(rows=rows,cpu_seconds=time.process_time()-start)
@@ -52,7 +52,7 @@ def batch(mode,index):
  prior=HERE.parent/('plackett_cost_review' if mode=='exact' else 'recipe_cost_review')/f'geometry_{index}.json';old=json.loads(prior.read_text())
  for key in ('legacy_geometry','stats','mass_callbacks'):assert result[key]==old[key],key
  # Existing source ledger independently identifies one query plus execution per rank.
- old_rank=sum(x['count'] for x in old['native']['opaque'] if x['key'][1]=='np.linalg.matrix_rank')
+ old_rank=sum(x['count'] for x in old['native']['opaque_calls'] if x['key'][1]=='np.linalg.matrix_rank')
  assert result['native']['gesdd'][2]==result['native']['gesdd'][3]==old_rank
  result.update(batch=index,cpu_seconds=time.process_time()-start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,pins={str(k):v for k,v in PINS.items()},source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
  (HERE/f'{mode}_{index}.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:result[k] for k in ('mode','batch','cpu_seconds','mass_callbacks','stats','legacy_geometry')}))

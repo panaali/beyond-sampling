@@ -62,3 +62,10 @@ to exercise rank, while all cases retain exact ordered-ray/source parity.
 Source inspection also found the prior ledger key is opaque_calls, not
 opaque; fix this before any trained execution. These are control/adapter
 issues, not numerical estimator failures.
+
+Corrected toy control passes all four exact/recipe zero/rational geometries,
+with bitwise ordered-ray parity and unchanged legacy counts/cell statistics.
+The rational models exercise native rank; zero geometry is correctly allowed
+to bypass it. Baseline0.419806CPU, observed0.451832CPU; analytic controls
+0.0101045CPU. Native Q5+Q6 calls equal Q3 ITER increments in every control.
+Source-review gate remains before trained batches.
