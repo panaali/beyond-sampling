@@ -14,7 +14,7 @@ spec=importlib.util.spec_from_file_location('preserved_sign_engine',OLD/'engine.
 prior=importlib.util.module_from_spec(spec);spec.loader.exec_module(prior)
 sys.path.pop(0)
 
-def calculate(model,subdivisions=2,radial_order=2,order=16,collapse=False,limit=6.):
+def calculate(model,subdivisions=2,radial_order=2,order=16,collapse=False,limit=6.,seconds=100.):
     start=time.process_time();stats=defaultdict(float)
     distributions,dreport=atoms(model,subdivisions,radial_order)
     nodes,weights=leggauss(order);stats['legendre_rule_constructions']+=1
@@ -29,6 +29,7 @@ def calculate(model,subdivisions=2,radial_order=2,order=16,collapse=False,limit=
             stats['exact_atom_key_coordinates']+=len(state)
         values=[];sign_value=0.;sign_partition=0.
         for key,mass in unique.items():
+            if time.process_time()-start>seconds:raise TimeoutError('bounded mixture CPU')
             state=np.array(key)
             pieces=prior.landmark_pieces(prior.arrangement(model,state,limit,stats),stats)
             value=0.;partition=0.
@@ -44,7 +45,7 @@ def calculate(model,subdivisions=2,radial_order=2,order=16,collapse=False,limit=
             values.append(dict(state=list(key),weight=float(mass),estimate=value,partition_mass=partition))
         signs.append(dict(sign=sign,estimate=sign_value,partition_mass=sign_partition,components=values))
         stats['scored_components']+=len(unique)
-        if time.process_time()-start>100:raise TimeoutError('bounded mixture CPU')
+        if time.process_time()-start>seconds:raise TimeoutError('bounded mixture CPU')
     value=sum(row['estimate'] for row in signs)/2
     return value,dict(subdivisions=subdivisions,radial_order=radial_order,order=order,collapse=collapse,signs=signs,
         distribution=dreport,work=dict(stats),omitted_y_mass_bound=float(2*ndtr(-limit)),cpu_seconds=time.process_time()-start,

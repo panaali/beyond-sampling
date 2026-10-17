@@ -34,3 +34,6 @@ Explicit rank-conditioned state coupling, more history signs, non-tensor reachab
 
 ## Failure modes
 Rounded coincident gate angles, tiny angular panels, ill-conditioned moment matrices, steep atom-dependent suffix accuracy, missing state/rank coupling and component-count growth. No epsilon merging, negative-state clipping or normalization fitted from accuracy is allowed.
+
+## Primitive control checkpoint
+All16 distribution fixtures (four gate/support cases times angular2/4 and radial2/4) and three model controls pass in1.372302479CPU. Positive diagonal scaling commutes with atom construction to the frozen tolerance; conditional means/masses and Rayleigh moments pass; covariance loss is PSD. Collapsing atoms to their mean reproduces the old sign-mean surrogate, and zero-readout/Wh0 controls reproduce previous rank results. Exact duplicate states are coalesced within sign without any tolerance; this preserves origin mass and avoids identical arrangements. Source dictionary/matrix-library overhead remains named, not a portable arithmetic certificate. Proceed only to the frozen two-case factorial.
