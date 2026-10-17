@@ -11,7 +11,7 @@ Freeze12 synthetic integer-array fixtures: 4x4 identity selftranspose; dense C-o
 After dispatch gate, identify/preregister relevant installed small kernels before any operation-price claim. Do not erase triangle-copy memory or generic setup: state whether excluded by the numerical convention. Source matrix expressions and actual packed lanes are different objects. Strided inputs may require copies and lose the shared-pointer optimization; preserve that outcome rather than assume all products use SYRK.
 
 ## Status
-All12 dispatch/parity controls complete; independent raw review155b3b18 passes. Child paths reviewed0cfdfa39 and body arithmetic reviewed3ed60f55. Fixed replay applicability and replacement-only contraction are saved; independent final raw audit pending.
+All12 dispatch/parity controls complete; independent raw review155b3b18 passes. Child paths reviewed0cfdfa39 and body arithmetic reviewed3ed60f55. Fixed replay applicability independently reviewed e5265829 and replacement-only contraction independently reviewed721356a2. Bounded phase complete.
 
 ## Results
 All12 baseline/interposed products agree bitwise and with exact integer matrix products. Contiguous C/F selftranspose fixtures (three cases) dispatch SYRK. The strided selftranspose case is copied and dispatches GEMM with distinct pointers; all other independent/tall cases dispatch GEMM (nine total). Alpha1/beta0 and every dimension/transpose/leading dimension are saved. The six tall cases retain1000x4 by4x4 geometry, including leading dimension8 for the strided tall left matrix. No operation price has changed; actual child-kernel accounting remains open.
@@ -47,7 +47,7 @@ Frozen layout_applicability.py source passed independent review before execution
 
 ## Fixed replay contraction
 
-`contract.py` uses only saved evidence. It replaces the earlier matrix-expression terms, without adding them twice or changing the original parent summary. Independent source/body gates precede this contraction; final raw review remains pending.
+`contract.py` uses only saved evidence. It replaces the earlier matrix-expression terms, without adding them twice or changing the original parent summary. Independent source/body gates precede this contraction; final raw review721356a2 passes.
 
 | Category | Thin branch | Wide branch |
 |---|---:|---:|
