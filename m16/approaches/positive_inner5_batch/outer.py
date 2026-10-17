@@ -6,6 +6,12 @@ import numpy as np
 from primitive import integrate
 H=Path(__file__).resolve().parent
 
+def safe(x):
+    if isinstance(x,float) and not math.isfinite(x):return x.hex()
+    if isinstance(x,dict):return {k:safe(v) for k,v in x.items()}
+    if isinstance(x,list):return [safe(v) for v in x]
+    return x
+
 def construct(R,x,w):
     u,v,s=np.meshgrid(x,x,x,indexing='ij');u=u.ravel();v=v.ravel();s=s.ravel()
     wi,wj,wk=np.meshgrid(w,w,w,indexing='ij');wi=wi.ravel();wj=wj.ravel();wk=wk.ravel()
@@ -32,7 +38,7 @@ def scalar_construction(R,x,w):
 def main():
     out=H/'outer.json';progress=H/'outer_progress.jsonl';assert not out.exists() and not progress.exists()
     def record(r):
-        with progress.open('a') as f:f.write(json.dumps(r,allow_nan=False)+'\n')
+        with progress.open('a') as f:f.write(json.dumps(safe(r),allow_nan=False)+'\n')
     record(dict(stage='pins_attempt'));protocol=json.loads((H/'outer_protocol.json').read_text())
     for p,h in protocol['pins'].items():assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==h,p
     controls=json.loads((H/'controls.json').read_text());assert controls['all_pass'] and controls['cases']==30
