@@ -43,8 +43,8 @@ def ratio(rows, key, ops_key, truth="ref"):
 
 
 R87 = json.load(open(os.path.join(HERE, "..", "understand_m43", "run87.json"))) if (T, H) == (4, 4) else None
-out = {}
-for s in range(5):
+fn = os.path.join(HERE, f"ev_{tag}.json"); out = json.load(open(fn)) if os.path.exists(fn) else {}
+for s in (map(int, sys.argv[2].split(',')) if len(sys.argv) > 2 else range(5)):
     b = base(s); rows = []
     for i, m in enumerate([b] + noisy_copies(b, 4, 0.05, 50)):
         if R87 is None and T == 4:
@@ -55,12 +55,12 @@ for s in range(5):
         else:
             mc = mc_acc(m, 10_000_000, np.random.default_rng(100 + s if i == 0 else 7)); rec = None
         rows.append(score(m, mc, rec))
-    out[s] = dict(rows=rows, clean={k: ratio(rows[:1], k, k + "_ops") for k in ["recipe"] + [f"h{n}" for n in LEVELS]},
+    out[str(s)] = dict(rows=rows, clean={k: ratio(rows[:1], k, k + "_ops") for k in ["recipe"] + [f"h{n}" for n in LEVELS]},
                   noisy={k: ratio(rows[1:], k, k + "_ops") for k in ["recipe"] + [f"h{n}" for n in LEVELS]},
                   noisy_mc_truth={k: ratio(rows[1:], k, k + "_ops", "mc") for k in ["recipe", f"h{LEVELS[-1]}"]})
     zs = [q["z_ref_mc"] for q in rows]
-    print(f"s{s} acc {rows[0]['ref']:.4f} |z(ref-MC)|max {max(map(abs, zs)):.1f} | clean ratio recipe {out[s]['clean']['recipe']:.3g} "
-          + " ".join(f"h{n}:{out[s]['clean'][f'h{n}']:.2g}" for n in LEVELS) + f" | noisy recipe {out[s]['noisy']['recipe']:.3g} "
-          + " ".join(f"h{n}:{out[s]['noisy'][f'h{n}']:.2g}" for n in LEVELS)
+    print(f"s{s} acc {rows[0]['ref']:.4f} |z(ref-MC)|max {max(map(abs, zs)):.1f} | clean ratio recipe {out[str(s)]['clean']['recipe']:.3g} "
+          + " ".join(f"h{n}:{out[str(s)]['clean'][f'h{n}']:.2g}" for n in LEVELS) + f" | noisy recipe {out[str(s)]['noisy']['recipe']:.3g} "
+          + " ".join(f"h{n}:{out[str(s)]['noisy'][f'h{n}']:.2g}" for n in LEVELS)
           + f" | ops h{LEVELS[-1]} {rows[0][f'h{LEVELS[-1]}_ops']/1e6:.2f}M recipe {rows[0]['recipe_ops']/1e6:.2f}M", flush=True)
     json.dump(out, open(os.path.join(HERE, f"ev_{tag}.json"), "w"), indent=0, default=float)
