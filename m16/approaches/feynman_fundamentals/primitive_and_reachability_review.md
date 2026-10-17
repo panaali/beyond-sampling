@@ -249,3 +249,26 @@ On the allowed CDF half interval dG=2dq, so rank primitives are elementary
 polynomials; positive low-order Gauss integrates the E polynomial without
 near-one cancellation. These checks do not validate the deterministic
 conditional-mean history approximation itself.
+
+T76 positive rank primitive source review: sign_cycle/ranks.py independently
+integrates each regular omitted label. Between suffix extrema its probability
+density is G(q)q^(n-1); above the upper suffix value it is
+(1-G(q))q^(n-1)+(n-1)G(q)(1-q)q^(n-2). These are correct and positive. For
+m2/3, inner polynomial degree<=2 and resulting outer final-input rank weight
+degree<=3. Splitting at x=0 and x=y therefore makes two-point Gauss exact in
+real arithmetic. It avoids subtracting a small regular probability from a
+near-one partition. Empty intervals share consistent rank-tie ownership;
+nonempty continuous Gaussian ties are null. Finite CDF endpoint rounding is
+not enclosed. The80/query polynomial cost placeholder appears smaller than
+an eager expansion including nested evaluations; owner was asked to derive
+a conservative allowance or relabel it before using it as an upper bound.
+
+T20 uniform tube constant-readout source review: all-zero logits predict index0
+by first-index argmax. On either signed face half, error mass is therefore the
+radial interval integral times1[target_index!=0]. Summing the two symmetric
+halves gives the independent check_tube_constant.py formula, with no network
+walk needed. Original zero-margin logic that assigns no error to every tied
+candidate violates this ownership. The independently integrated replacement
+face rule need not equal true overall chance accuracy1/T at finite outer
+quadrature, so the reported remaining outer bias must remain visible. This
+is a concrete legacy tie defect, not proof that all tube approximations fail.

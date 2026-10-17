@@ -914,3 +914,11 @@ one-sided derivative. Also verified T76 first-sign rank/mean formulas, and
 reviewed T82 clockwise-sliver orientation fix and T66 actual tied-sort failure.
 Both native/slice failures remain visible; fixes preserve represented semantics
 without conferring exact floating topology.
+
+## Cycle 43 source followups
+T76 positive sign-rank integrals and polynomial degrees pass; flagged a likely
+undercounted provisional scalar allowance before cost use. T20 constant-output
+face formula independently confirms legacy first-index tie defect while
+retaining new outer approximation bias. T82 Fraction area fallback repairs
+its saved fixture; exact-sign conversion/convexity qualifications sent owner.
+No numerical experiment or production edits.
