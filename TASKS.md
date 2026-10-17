@@ -29,7 +29,6 @@ rows below before claiming a heavy task; if both slots are taken, take a light t
 
 | Task | Owner | Started | Folder | CPU | Notes |
 |---|---|---|---|---|---|
-| T42: **Independent read-only review of T35 cumulant adaptation** | Codex independent_review under Claude DRI | 2026-10-17 | [review/arc_cumulants/](review/arc_cumulants/) | light | New Ready review task reserved before tests. Audit exact RNN/readout equivalence, first-index logit ties/atoms, conditional-input cumulants and cost conventions at a fixed source snapshot. Minimal synthetic checks and bounded cached DEV diagnostics only; no edits to T35/vendor/shared code. Publish actionable findings for DRI, not a competing estimator. Under 120 CPU seconds, one thread. |
 | T31: **Decision-facet cancellation and probability transport on tiny complexes** | Codex sub-agent theory_attack under Claude DRI | 2026-10-17 | [m16/approaches/facet_transport/](m16/approaches/facet_transport/) | light | Complementary to DRI T38: exact tiny-complex decision-boundary flux and retained-patch counts, not harmonic density propagation. Two alternatives and bounded protocol before runs; synthetic/small DEV only, no M16 global enumeration, one thread under 300 CPU seconds. Stop if representation gives no compression. |
 | T17: **Harsher noise levels** (sigma 0.01-0.02 x RMS) in the leaderboard, reported per level; more truth samples for large budgets | DRI (Claude session 011hwZqHr8rxiHqJ7yTBUF1z) | 2026-10-17 | [m16/leaderboard.py](m16/leaderboard.py) (shared code: DRI-only) | heavy | "Significantly alter accuracy" may mean more noise than our 0.0025/0.005 |
 | T15: **Score the full MSE-vs-compute curve** (~1k to 1M evals) and report where each method crosses sampling | DRI (Claude session 011hwZqHr8rxiHqJ7yTBUF1z) | 2026-10-17 | [m16/leaderboard.py](m16/leaderboard.py) (shared code: DRI-only) | heavy | ARC asks to match sampling across compute; v2 tested only 16k/64k (tube won at 64k and lost at 256k) |
@@ -76,7 +75,8 @@ with the independent stochastic attack (T1) in parallel; (4) expensive measureme
 
 ## Recently finished (details in the INDEX registry)
 
-T36 (DRI sub-agent): ARC's M_4,3 estimators reproduced (A RMS 3.3%, B 4.8%); exact cone enumeration gives zero error at 17.5k ops; ARC's sampling benchmark slip found. See [arc_m43_repro](m16/approaches/arc_m43_repro/README.md); INDEX registration and the H-E4 update are T42.
+T36 (DRI sub-agent): ARC's M_4,3 estimators reproduced (A RMS 3.3%, B 4.8%); exact cone enumeration gives zero error at 17.5k ops; ARC's sampling benchmark slip found. See [arc_m43_repro](m16/approaches/arc_m43_repro/README.md); INDEX registration and the H-E4 update are complete as E32/T43.
+T42: independent T35 wrapper audit complete; actionable findings for DRI in [review](review/arc_cumulants/README.md), pinned snapshot90608af. No T35/vendor edits.
 
 Codex T32 global TT-cross, T33 proxy-importance ceiling, and T34 surplus-decay screen: negative, corrected walker used. T19 bounded studies and T37 output-residual independence diagnostic complete; further distinct formulations released to Backlog. T20 first walker port complete; remainder released above. DRI registration requested in [handoff](m16/approaches/crossover_compute/DRI_HANDOFF.md).
 
