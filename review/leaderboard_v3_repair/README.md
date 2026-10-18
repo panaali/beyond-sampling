@@ -15,7 +15,7 @@ Source findings: current `table()` and `report()` already iterate all budgets, w
 E44 k24 seed4 has 1,024 absolute-noise copies and mean-counter/72 uniform-budget scoring. T114 has 256 different copies (noise120/121), independent scalar counts/112 and own-model budgets. E44 saves truths/errors and only mean estimator cost; its per-copy cost/truth covariance is unavailable from these fields. Neither result should silently replace the other.
 
 Reproduction, only after the independent source gate is pinned in gate.json:
-`ulimit -v 2500000; ulimit -t 20; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python review/leaderboard_v3_repair/audit.py`
+`ulimit -v 2097152; ulimit -t 20; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python review/leaderboard_v3_repair/audit.py`
 The script refuses to overwrite its first results artifact and preserves partial failures. A failure requires a documented repair/gate rather than deleting the artifact.
 
 ## Compute accounting
@@ -32,3 +32,5 @@ A genuine failed determinism check could also have emitted False; no unknown is 
 
 ## Failure modes
 Archived intervals are copied and can be degenerate; they do not exhaust truth uncertainty. Pointwise/bootstrap success is not directive7 simultaneous rung validation. Class membership is DRI judgement, not inferred from identical outputs. Exact contractions of stored binary64 data do not make original model arithmetic exact. No full-cost or general method rejection follows.
+
+Source-gate harness correction: explicit fixed counts, source/manifest bindings, equal-length positive-cost rational inputs, immutable report paths, asserted field preservation and complete duplicate-key replacement inventory were added before any execution. Latest-record semantics remain the pinned author policy; duplicate records are not silently discarded in the audit.
