@@ -56,4 +56,46 @@ Files: `attr.py` (instrumented run, resumable per half), `ref.py`, `analyze.py` 
 `report.md` (pooled tables), `clocks.py` -> `clocks/`, `run34.sh`, `run5.sh`; records in `out/H8_T{T}_s{seed}.npz`.
 
 ## Results
-RESULTS_PLACEHOLDER
+### Phase 1: split attribution (`run34.sh`, `run5.sh`, then `python analyze.py; python report.py > report.md`)
+Identity: all 11 instrumented runs ((8,3), (8,4) seeds 0-4; (8,5) seed 0) reproduce the unmodified recipe's acc, ops,
+cells and resolved counts bit for bit (`analysis.json` "identical"; (8,5) reference = T185's run5/zoo0_recipe108.json:
+acc .8358034749864574, 2.177e11 ops, 114155 cells, 84491 resolved). Full tables: [report.md](report.md).
+
+**Resolved splits per model by driver rank** (mean over seeds; T5 = seed 0 only), growth per step in brackets:
+
+| T | rank 1 | rank 2 | rank 3 | rank 4 | rank 5 | all |
+|---|---|---|---|---|---|---|
+| 3 | 64.6 | 54.0 | 64.8 | - | - | 183 |
+| 4 | 1477 (x22.9) | 1146 (x21.2) | 1435 (x22.1) | 735 | - | 4793 (x26.1) |
+| 5 | 22433 (x15.2) | 18371 (x16.0) | 18623 (x13.0) | 18459 (x25.1) | 6605 | 84491 (x17.6) |
+
+**Decisive number: share of exact class-changing mass (absdE) from rank >= 4 drivers:** T3 0 (no such inputs),
+T4 **0.160** pooled (per seed .354/.029/.157/.083/.022), T5 **0.207** (seed 0). Their share of splits: 0.153 / 0.297,
+below the uniform-over-available-inputs baseline 0.257 / 0.406. Ranks 1-3 carry 84% (T4) / 79% (T5) of the mass;
+rank 3 alone 42% / 41%. Robust to the attribution choice: rank >= 4 share of absdE by fractional attribution .26 / .22
+(seed 0 at T4: .255), by gradient-magnitude driver .337 (T4 s0) / .189 (T5).
+
+By step (T5 s0): splits 2% / 8% / 26% / 65% at t = 1..4, absdE 36% / 19% / 26% / 20%; median split-cell mass
+2.9e-3 / 7.4e-5 / 2.3e-6 / 9.5e-8. **Size:** 56% of T5 splits sit in cells of mass < 1e-6 and carry 0.1% of absdE
+(T4: 19% / 0.0%); cells < 1e-4: 87% of splits, 4.9% of absdE. 94% of T5 splits (80% at T4, 68% at T3) have their own
+absdE < 1e-6, and those negligible splits are rank-mixed (rank >= 4 share .307 at T5, .155 at T4, the same as overall).
+**Age:** the newest input (index t) is the driver of 37-45% of splits but 66-89% of absdE (within step 1 at T4/T5: 97-99%).
+**Neurons:** splits are spread evenly (max neuron share 0.14-0.18 per model); absdE is concentrated (max 0.27-0.50),
+with no consistent relation to the sampled clock score (Spearman -0.48..+0.67 across models; the zoo (8,T) models have
+no clear clock/value separation: R^2_pos 0.1-0.6 for every neuron, `clocks/`).
+
+**Cumulative-shift log** (`attr.py 8 T s guard`, pure log, sampled candidate-point ratios): summed frozen shift >=
+|frozen margin| in 92/517 terminal tests at (8,3) (10% of resolved count) and 522/9041 at (8,4) (5.8%; 23% of the 2233
+tests with >= 2 frozen gates; 2.2% of resolved count). 18 (8,4) tests have a single frozen gate with ratio > 1 at
+another gate's test point (the per-gate test points are not exhaustive).
+
+**Verdict on H / (a) / (b) / (c) [measured, unverified]:** H is not favoured. Low-rank-driven splits are fewer than
+uniform, carry 16-21% of the class-changing mass, and removing all of them would still leave ranks 1-3 growing
+x13-23 per step. (a) is partly right for counts: split counts are near-even over ranks 1-3 (and grow alike), not over
+all ranks. (b) is favoured: growth is splits in ever thinner cells (median cell mass /30-/40 per step) driven by
+ranks 1-3, whose individual effects are mostly negligible. (c) is not supported: splits are not neuron-concentrated.
+**Separating tests not done:** direct tie-band geometry of the thin cells (distance to x_(1)=x_(2), x_(2)=x_(3) walls);
+literal removed-split replay (vs the fixed-piece intervention); seeds 1-4 at T5; H = 16.
+
+### Phase 2: budgeted refinement
+PHASE2_PLACEHOLDER
