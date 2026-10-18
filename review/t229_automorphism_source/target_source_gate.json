@@ -1,0 +1,50 @@
+{
+  "task": "T229 separate target source/provenance/resource gate",
+  "complete": true,
+  "pass_all": true,
+  "source_commit": "1b2dab3d",
+  "initial_source_commit": "1edff8b6",
+  "source_publication": "3ee8a323",
+  "delegation_commit": "c91bee80",
+  "pins": {
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/target.py": "2db6770524cf122c8491eb8ccf2de63278b311d540685717c6bf16b8de4edd45",
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/predicate.py": "262a7eb526839318b5270b00ddb0eb8f4703a5393c0f327cd545ae57baefec98",
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/PROOF.md": "25adbcf5948c51d90bb9ee088b33e928253384ab2e19f3a7ef807d9ec7deefeb",
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/TARGET_PROTOCOL.md": "72613edd3068fafb0bf83d49f4109ace426c37a2e9f7190991f1614ac206ac20",
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/control_protocol.json": "4f99699050419ae3074ead088e7de54578c64fd2e69a39357d096f96f13e0d9d",
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/controls_result.json": "5f00466a24b14f011fb65ca7abc1a024d18be372ad3fcc599daea390e76c4cfa",
+    "/workspace/work/recover-small_h2_34/review/target_prefix_recount/target_k2_result.json": "ff76bca3203395224055fcb2d72f9eb2a63f93fb7aa4363ec68b8ba28b3c60bb",
+    "/workspace/work/recover-small_h2_78/review/mechanism_claims_review/rebuild/pilot/weights.npz": "fea77e7cb6e6e23ba2dcba71466b1cd69ac31063f76a3a949fb5f7ea8ab63466",
+    "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t219_k2_saved_review.json": "c86bc90f1ba1870b9da41d08e6393ed2d95ed1691df98029cc607c570d1ab081",
+    "/workspace/work/recover-small_h2_34/review/weight_automorphism/target_protocol.json": "7574b9bb02282528ea2c4ad945046cca84a6b6e9599f5856760dd6dd22824e53",
+    "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t229_controls_saved_review.json": "aca6ecc767077527b49db79c78011a750f5d921ddb6d62c704f8d7e5186d82bb"
+  },
+  "required_control_review": {
+    "commit": "4e5eb0b9",
+    "publication": "c64c446a",
+    "path": "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t229_controls_saved_review.json",
+    "sha256": "aca6ecc767077527b49db79c78011a750f5d921ddb6d62c704f8d7e5186d82bb",
+    "complete": true,
+    "pass_all": true
+  },
+  "findings": {
+    "provenance": "All nine target protocol dependencies hash-match; T219 complete result and independent review bind archive fea77e7c, canonical checkpoint498bd9a8 and Wo payload098c8b07, shape10x16 float64. This is inherited checkpoint binding, not fresh checkpoint deserialization.",
+    "decode": "Sole Wo.npy member, exact three-entry archive membership, bounded member/header lengths, supported NPY1/2, explicit little-endian float64 C-order10x16 and exact1280-byte SHA. No NumPy/Torch/author loader.",
+    "exactness": "Finite binary64 values become exact dyadics through as_integer_ratio; stored float32-to-float64 preservation is inherited from completed prior provenance. Signed zero count is retained although exact-real coefficients identify signed zeros.",
+    "predicate": "Unchanged reviewed positive-ray predicate; preserves either identity-forced or inconclusive with all120 pair witnesses. No expected target result assertion.",
+    "durability": "New outputs only, atomic result file and fsynced progress;160 dyadics/payloadhex saved before predicate call and predicate result before status/count assertions. Six fixed progress events on success; failures retained.",
+    "prerequisites": "Both completed20-control saved review and THIS distinct target source gate must be hash-bound in immutable published target_gate.json. Published ancestry and all source/protocol hashes are checked.",
+    "resources": "Single review-lock run, one thread, externally set soft16/hard20CPU and <=2GiB; internal16CPU checks. Full process limit covers pre-main imports/hash checks; recorded in-main CPU excludes them."
+  },
+  "limitations": [
+    "No target archive decoding, predicate/author execution, network/geometry/RNG/mass calls in this source review. Archive bytes were hashed only.",
+    "The finite target output still requires independent saved dyadic/pair/status audit.",
+    "An identity certificate applies only to global positive-monomial unchanged-weight/logit automorphisms; common-logit shifts, argmax-only, reachable-domain, quotient and approximate alternatives remain open.",
+    "No full native cost, bit-cost, speed or computational impossibility implication."
+  ],
+  "archive_decodes": 0,
+  "predicate_calls": 0,
+  "author_imports": 0,
+  "model_calls": 0,
+  "rng_calls": 0
+}
