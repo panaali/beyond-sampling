@@ -14,7 +14,7 @@ bound could prune.
 Separating tests: (a) vs H: share of splits / class-changing mass by trigger rank vs the uniform share; (b): mass share
 with trigger rank <= 3, and splits by cell mass; (c): concentration of splits by neuron, and clock score vs share.
 
-**Status:** STATUS_PLACEHOLDER
+**Status:** done (negative, unverified): H is not favoured; mass-threshold pruning does not certify below sampling with slower growth.
 
 **Phase 2 (DRI request 2026-10-17): budgeted refinement.** Rule: a cell whose mass (bound) < tau is not refined; it
 takes the true network's class at its ray centroid and its mass bound goes into a certified bound B. Alternatives /
@@ -98,4 +98,77 @@ ranks 1-3, whose individual effects are mostly negligible. (c) is not supported:
 literal removed-split replay (vs the fixed-piece intervention); seeds 1-4 at T5; H = 16.
 
 ### Phase 2: budgeted refinement
-PHASE2_PLACEHOLDER
+`prune.py H T s tau cap|mass [oracle]`, grids `run3prune.sh` ((8,3)) and `runprune.sh` ((8,4), (8,5)), table `python prune_report.py > prune_report.md` ([prune_report.md](prune_report.md), all rows).
+Cost convention T196: estimator FLOPs = 2 x m43 ops (all pruning tests, centroid forwards and masses of wrong-centroid
+pruned cells charged); sampling charge 511 / 682 / 853 FLOPs per input at (8,3) / (8,4) / (8,5); SD = sqrt(p(1-p)/N)
+at the retained cost; ratio_B = B^2/SD^2 (B = certified pruning bound; recipe108's own error is not certified),
+ratio_act = (acc - exact)^2/SD^2. Exact references: (8,3) `exact3.py`, (8,4)/(8,5) estT_fix (T131/T185).
+Bound validity: `capcheck.py` -> [capcheck.txt](capcheck.txt), 834 controls (narrow simplices 1e-1..1e-15 in d = 3,4,5,
+repeated and antipodal rays, 519 recipe sub-cones), 0 violations. (An earlier cap version computed 1 - cos^2 and
+returned 0 on narrow cones (review T55, 2eef376c); all results here use the fixed version.)
+
+**Pooled (mean retained cells per model; max ratio over seeds):**
+
+| test | tau | T3 cells | T4 cells | T5 cells (s0) | x(3->4) | x(4->5) | max ratio_B T3 / T4 / T5 | max ratio_act T4 |
+|---|---|---|---|---|---|---|---|---|
+| none (recipe108) | - | 233 | 6276 | 114155 | 26.9 | 18.2 | - | .52 |
+P2ROWS
+
+**Decisive answer [measured, unverified]: no tau gives ratio_B < 1 with retained cells growing clearly slower than
+x13/step.** With the cheap outward cap test, ratio_B < 1 on all (8,4) seeds needs tau <= 1e-7, where 89-96% of cells
+are retained and growth T3 -> T4 is x27-28 (unpruned x27); B ~ n_pruned x (cap bound), so it only passes when almost
+nothing is pruned. Exact masses prune more (x23 at tau 1e-8 with ratio_B <= .011), but computing the mass of every
+tested cell costs 2.3x the FLOPs of the unpruned recipe. At tau scaled to SD/10 (T3 1e-4 -> T4 1e-5) ratio_B is
+1e3-6e3. The actual pruning error is far smaller than B (oracle: pruned mixed-correctness mass is ~1% of B for cap),
+i.e. the failure is certification, not bias: (p1) is not what happens at tau <= 1e-6, (p3) holds (the cap is
+10-100x loose), (p2) holds at T4 (most retained cells have moderate mass).
+
+## Compute accounting
+Deductive throughout (no random model inputs) except the labelled sampled diagnostics (DIAG test, `clocks.py`).
+Estimator ops (`m43.Ops`, multiply-add = 1) are reproduced exactly by the instrumented runs: (8,3) 3.6-4.0e5,
+(8,4) 6.3e8-1.07e9, (8,5) s0 2.18e11. Instrumentation (counterfactual subtrees, masses, DIAG) is uncharged and cost
+wall time: (8,4) ~90 s/model, (8,5) s0 2.9 h (vs ~25 s and ~1 h for the bare recipe here). Phase 2 FLOPs are in the
+tables (charged as above); oracle diagnostics uncharged. Total CPU about 7 h, one process at a time, single thread,
+`ulimit -v 2500000` (peak RSS ~330 MB).
+
+## Claims (all unverified; nobody marks their own claim confirmed)
+- [measured] The instrumented recipe108 is bit-identical to the unmodified one on 11 runs ((8,3)/(8,4) x 5 seeds,
+  (8,5) s0).
+- [measured] Splits whose driver input has rank >= 4 carry 16% (T4, 5 seeds; 2-35% per seed) and 21% (T5, s0) of the
+  exact fixed-piece class-changing mass, and are under-represented among splits relative to a uniform driver.
+- [measured] Split counts driven by ranks 1-3 alone grow x21-23 (T3 -> T4) and x13-16 (T4 -> T5) per model.
+- [inferred] A rank-conditioned bound that pruned all rank >= 4 splits could remove at most ~30% of T5 splits and would
+  leave >= x13/step growth: H as a remedy for the growth is not supported.
+- [measured] Most splits are individually negligible (own absdE < 1e-6: 68% / 80% / 94% at T3/T4/T5) and rank-mixed;
+  most sit in small cells (T5: 56% of splits in cells of mass < 1e-6, carrying 0.1% of absdE).
+- [measured] Mass-threshold pruning with an outward cap bound gives ratio_B < 1 only when it retains ~90%+ of cells
+  (T4); exact-mass pruning cuts cells but costs 2.3x FLOPs; no tau certifies below sampling with growth < x13/step.
+- [measured, sampled candidate points] the cumulative frozen-shift condition fails at 5.8% of (8,4) terminal tests.
+- [speculative] Splits are needed for exactness but individually negligible; a saving would need a joint (summed)
+  certificate over many small pieces, which a per-cell mass bound cannot provide.
+
+## Alternatives not ruled out
+- The driver definition (contrast attribution) may misassign: a gate's sign change could be "caused" by a low-rank
+  input entering through the running max. The fractional and gradient variants agree within ~0.1, but a causal
+  intervention (perturb one input within the cell) was not done.
+- The effect measure is a fixed-refined-piece intervention, not a literal removed-split replay; the latter could give
+  larger effects (merged cells re-split differently).
+- (b) was inferred from cell masses, not from direct distance to the tie walls; thin cells could be thin for another
+  reason (e.g. gate planes nearly parallel to chamber walls).
+- T5 rests on one seed; H = 8 only (H = 16 is T194's scope).
+- Phase 2: a tighter outward bound (e.g. interval-arithmetic exact mass, or the chamber-restricted cap) could change
+  the cap row; the exact-mass row bounds what any mass test can prune, but its cost could be lowered by caching
+  masses computed later anyway (not tried).
+
+## Failure modes
+Splits with no rays strictly on one side (degenerate gates) are not recorded (they are never resolved). The cap bound
+returns 1 for cones not within cos(theta) > 1e-6 of a half-space (never pruned). Thresholds on absdE (1e-13 "class-
+changing") are near float noise for tiny cells; shares by mass are insensitive to it.
+
+## Exhaustion checklist (rule 5: this is a negative (unverified) for H and for mass pruning)
+Tried: driver = argmax contrast / fractional contrast / gradient-magnitude; effects exact (fixed-piece) and sampled
+(DIAG); T = 3, 4 (5 seeds), 5 (seed 0); pruning by outward cap bound and by exact mass, tau 1e-4..1e-8, with oracle
+single-correctness bound at T3/T4. Not tried, and why: a literal removed-split replay (cost ~ one recipe per split);
+causal per-input perturbation; T5 seeds 1-4 (~3 h each); H = 16 (T194); joint pruning certificates (summed bounds over
+siblings, which the speculative claim above points to); pruning rules not based on mass (e.g. by absdE upper bounds).
+An independent re-check with different code (e.g. Codex lane h4's audit) is needed before "dead (verified)".
