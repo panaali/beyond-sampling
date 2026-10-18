@@ -30,4 +30,4 @@ No guarantee that floating ray archives cover true neural regions, no Gaussian-m
 
 ## Separately scoped implementation controls
 
-Renewed scope6cba7409, sourceb47fc62f independently38442eff, binding1fc5cceb and raw12dec3ed implement the span procedure only on fixed synthetic controls. All24 pairs plus9 guards pass (19 equal/5 unequal),880 exact synthetic function calls,0.47945922CPU. The former lower-dimensional unknown is now certified. Independent saved review remains pending; no trained application follows from these controls. See implementation/README.md for source/resource/accounting scope. The proof-only phase above had zero executions.
+Renewed scope6cba7409, sourceb47fc62f independently38442eff, binding1fc5cceb and raw12dec3ed implement the span procedure only on fixed synthetic controls. All24 pairs plus9 guards pass (19 equal/5 unequal),880 exact synthetic function calls,0.47945922CPU. The former lower-dimensional unknown is now certified. Independent saved reviewde2af8e6 passes; no trained application follows from these controls. See implementation/README.md for source/resource/accounting scope. The proof-only phase above had zero executions.
