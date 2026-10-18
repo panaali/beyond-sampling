@@ -1,0 +1,77 @@
+{
+  "complete": true,
+  "source_gate": "pass_fixed_six_controls_only",
+  "owner_source_commit": "52eea74f",
+  "reviewer_source_sha256": "e52ddd621d678b887e7cab6bd21f52dc911153c1e4f5302c2279112137bb3c86",
+  "author_protocol_sha256_before_gate": "ac960d6d628b421b71cd36978c5646cfafebfcc13bb4ab56d29630209bb87a14",
+  "pins_checked": {
+    "/workspace/work/recover-small_h2_910/review/evalH_stats_review/controls.py": "5bf2e82c168bf8de70e19bf008fa8c26745606843ad60ee609710997ae32e097",
+    "/workspace/work/recover-small_h2_910/review/evalH_stats_review/frozen/evalH.py": "c0fc385ef7ae7730bb3aa34dfad447bf0e2ef072ee689ac2dc1f82593ebda8ac",
+    "/workspace/work/recover-small_h2_910/review/evalH_stats_review/evalH_fixed.py": "5fda74383e7cc30306691212ba18906483a9aaab99dc7728733f41c88a7b49d3",
+    "/workspace/work/recover-small_h2_910/review/evalH_stats_review/evalH_stats.patch": "e03892dceb050c25c3b91d36f147064bca0a4233cb9cff61a1e207827362e207",
+    "/workspace/work/recover-small_h2_910/review/evalH_stats_review/inventory.json": "4ee3830789002641e5d1e4c4c7688baa418b6de2e55ce8095c7cfb9c6eeda925",
+    "m16/approaches/understand_m43/evalH.py": "c0fc385ef7ae7730bb3aa34dfad447bf0e2ef072ee689ac2dc1f82593ebda8ac",
+    "m16/approaches/understand_m43/est75.py": "426020c67a52678e5cccb20c552837fe2d233c3fe5e13557916034a3c46877d3",
+    "m16/approaches/understand_m43/reportH.py": "50b37a06ce6156cfa24a335b3a65b761b7081d7ba3356f4fe5c2d0296a5ae5c1"
+  },
+  "whole_file_restoration_exact": true,
+  "snapshot_immediately_before_rescale_branch": true,
+  "native_stats_sites": 9,
+  "cases": [
+    {
+      "name": "clean_only",
+      "N": 1,
+      "zero": false,
+      "changed_output": false
+    },
+    {
+      "name": "no_noisy_retest",
+      "N": 8,
+      "zero": false,
+      "changed_output": false
+    },
+    {
+      "name": "one_noisy_retest",
+      "N": 9,
+      "zero": false,
+      "changed_output": false
+    },
+    {
+      "name": "two_noisy_retests",
+      "N": 17,
+      "zero": false,
+      "changed_output": false
+    },
+    {
+      "name": "zero_counts",
+      "N": 1,
+      "zero": true,
+      "changed_output": false
+    },
+    {
+      "name": "nonzero_invariance_difference",
+      "N": 17,
+      "zero": false,
+      "changed_output": true
+    }
+  ],
+  "predicted_total_fake_model_rows_per_arm": 53,
+  "predicted_total_fake_estimator_calls_both_arms": 128,
+  "predicted_total_fake_truth_calls_both_arms": 106,
+  "predicted_rescale_calls_both_arms": 22,
+  "source_calls_executed": 0,
+  "real_model_truth_mass_random_calls": 0,
+  "resource_gate": "one 19/20 CPU review-lock run; external 2 GB and one thread",
+  "claims": [
+    "Only cells/cut/resolved reporting changes; original call order, outputs and Ops objects are preserved.",
+    "Native STATS are cumulative until caller reset; shallow dict copy suffices for integer values.",
+    "Unequal rescaled counts invalidate universal halving and noisy 9/8 correction."
+  ],
+  "limitations": [
+    "Controls are synthetic extracted-loop checks, not historical statistics reconstruction.",
+    "No actual estimator/model replay is authorized by this source gate.",
+    "Proposed shared source patch remains for DRI integration; this review changes no shared code.",
+    "Saved results require separate independent review."
+  ],
+  "cpu_seconds": 0.01597476099999999
+}
