@@ -13,6 +13,7 @@ def pins(x):
     assert x
     for p,h in x.items():assert sha(p)==h,p
 def q(x):
+    if isinstance(x,F):return x  # reviewer-generated physical coordinates
     assert type(x) in (str,int),type(x)
     return F(x)
 def rv(xs):return list(map(q,xs))
