@@ -43,13 +43,16 @@ d29e28bb into `data/hp1/subs/probe_v5_d29e28bb/`. The aggregates are in `results
 | v5a | `probe_v5/hp1_entry.py:est_v5a` → `v5.est` | same | same | inductive |
 | t286_rx | `cheap_frontier/hp2_entry.py:est` → `rx.est_rx(Q=8, stride=1, kgroups=3)` | 3731b9fe93159c8b1d643fdd107b451985841ec4 (branch claude/t286-cheap-frontier) | hp2_entry.py `eac842afeb65d4e2d91c3e83d38054c5cfaa34feb4be532b7d12fe6f61e5a724`; rx.py `c11623371060e3522736d2a9a36df5726ebf944da6617e2500c9f063ba4e1055`; cf.py `628c9a4e70af342c4d0ed68155075fbd17facd320323cd98b644c3b1bb119e9f`; rank_exact/rank_est.py `41c5b6eb0fa5d710b149b328b06bd62ddd1a6687b62642b414c0f215ec269401` | deductive (every step) |
 | t286_rx_ind | `cheap_frontier/hp2_entry.py:est_ind` → `rx.est_rx(Q=4, stride=16, kgroups=3)` | same | same | inductive (reference only) |
+| t286b_probe | `cheap_frontier/hp2_entry_b.py:est` → `probe.est_probe(version=1, iters=8, stride=1)` (selected post hoc on DEV2) | c131e933aa5ac53c72e8d6fc1cd17de54f21a6d0 (branch claude/t286-cheap-frontier) | hp2_entry_b.py `14d0a8c6141ecf05c5c6672290ccb0be7a8faa86216da5973fe92c12485628fe`; probe.py `d1ee7fcfe0ef34a5e49225b3eecd51d93dad9edb136eaf17e7c03993c97f5add`; cf.py `72fb793abe33a662a762d569e97c8bd2205f5817eb87156f1daf5096cfbd38d9`; m16/estimate.py `8d87f1bec58961db64f8acc45d8b6655c8c0d80fbfc29381a7a854e8d584398d` | deductive (every step), post hoc |
 
-No loader shim was needed. T286 runs from a `git archive` of `m16/` at its commit, so its relative imports
+No estimator code was changed. The one loader shim is `shim/alg_zoo.py`: t286b imports m16/common.py, which
+loads M_16,10 at import time via alg_zoo, and alg_zoo is not installed here. The shim returns HP1's bit-identical
+'orig' weights, which the estimator then rebinds per model (`probe._bind`). T286 runs from a `git archive` of `m16/` at its commit, so its relative imports
 (`../rank_exact`) resolve to the frozen code. Every entry point takes `(Wi, Wh, Wo)` float64 exactly as the panel stores it. The
 estimator files were not modified.
 
 ## Status
-Done on HP1 for v5q, v5a, the control and T286 (est, est_ind). HP2 (primary panel) is pending its delivery. Standing service: further submissions are scored the same way.
+Done on HP1 for v5q, v5a, the control and T286 (est, est_ind, probe-v1 est_b). HP2 (primary panel) is pending its delivery. Standing service: further submissions are scored the same way.
 
 ## Results (amendment 1 rule: fixed budget B, R_g = Σe/Σs; superseded as figure of merit by amendment 2 below)
 R_g [95% cluster CI]; bias and RMS error in percentage points; the cost column is the minimum charged C_m in FPE.
@@ -187,6 +190,23 @@ reference uses `... t286_rx_ind <same file> est_ind inductive 0`. Results: `resu
   had LB3 worst-group F ≈ 112. Pooled F is 33, and its break-even budget n* ≈ 790 FPE is 33x below its cost.
 - [measured] t286_rx_ind (inductive reference) fails both bars. Worst-group F is 34 (rel0.01), and its RMS is
   2.3–6.4 pp.
+
+### T286 probe-v1 (`hp2_entry_b.est`; deductive, selected post hoc on DEV2; fixed cost)
+Reproduce: `PYTHONPATH=shim python3 score.py t286b_probe <snapshot c131e933>/m16/approaches/cheap_frontier/hp2_entry_b.py est deductive 0`.
+The charged cost varies by model: 876–3960 FPE, mean 2786.
+| group | C_eff | F [95% CI] | RMS pp | bias pp | n* |
+|---|---|---|---|---|---|
+| clean | 3928 | 72.2 [35.4, 100.0] | 3.68 | +3.32 | 54 |
+| abs0.05 | 1568 | 4513.5 [4078.4, 4906.2] | 66.77 | +66.47 | 0 |
+| rel0.005 | 3491 | 1054.4 [239.4, 1784.0] | 23.00 | +18.17 | 3 |
+| rel0.01 | 3156 | 1737.6 [473.4, 3187.9] | 33.44 | +28.00 | 2 |
+| all | 2786 | 3137.0 [2641.0, 3698.5] | 44.21 | +36.18 | 1 |
+
+- [measured] t286b fails both bars. On clean models F = 72, close to the author's DEV2 F_max of 76.5 and LB3 seed
+  F of 77.6.
+- [measured] On the noisy copies t286b breaks down: bias +18 to +66 pp, F 1.1e3–4.5e3. The author's docstring
+  anticipated this for heavy-noise copies (rank-4+ and 1~2 errors are not modelled). Since HP1 is the robustness
+  panel, this is the expected failure, not a harness issue.
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
