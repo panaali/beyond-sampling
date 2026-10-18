@@ -5,8 +5,8 @@ an order-dependent mixer (two independent mixers h1, h2; distinct counts under b
 since 4 x 16 bits fit). Sets: all inputs; near-tie (min(g12, g23) < .1, top-3 gaps of x); error (argmax(Wo h_10) != p2).
 Per (k, set): distinct patterns D (lower bound on N_k), N_delta = patterns with the largest empirical masses covering
 1 - delta of the set's sample mass, exp(H) of the empirical pattern distribution, singletons f1 (Good-Turing missing
-mass ~ f1 / n). Distinct counting by sort + unique on GPU, the 'all' set split into P passes by the top hash bits so a
-pass holds ~n / P keys; per pass only count-of-counts and sum c log c are kept (host memory small).
+mass ~ f1 / n). Distinct counting by sort + unique on GPU, every set split into P passes by the top hash bits so a
+pass holds ~n / P keys per set; per pass only count-of-counts and sum c log c are kept (host memory small).
 usage: python census.py N [P] [seed] -> census.json"""
 import json, math, os, sys, time
 import numpy as np, torch as th
@@ -78,25 +78,25 @@ def tally(K, coc, sl):
 
 
 res = {}; t0 = time.time()
+SETS = ("all", "near", "err")
 for k in range(4, 11):
     out = {}
     for which in ((1, 2) if k == 10 else (1,)):                 # second mixer at k = 10 (most distinct): collision check
-        coc = {}; sl = 0.0; sub = {"near": [], "err": []}; nsub = {"near": 0, "err": 0}
-        for part in range(P):
-            buf = []
+        coc = {s: {} for s in SETS}; sl = {s: 0.0 for s in SETS}; ns = {s: 0 for s in SETS}
+        for part in range(P):                                   # every set is split by the top hash bits
+            buf = {s: [] for s in SETS}
             for W, near, err in batches():
-                h = keys(W, k, which)
-                sel = ((h >> 62) & 3) % P == part if P > 1 else th.ones_like(h, dtype=th.bool)
-                buf.append(h[sel])
-                if part == 0 and which == 1:
-                    sub["near"].append(h[near]); sub["err"].append(h[err])
-            sl = tally(th.cat(buf), coc, sl); del buf
-            if part == 0 and which == 1:
-                for s in ("near", "err"):
-                    Ks = th.cat(sub[s]); nsub[s] = len(Ks); c2 = {}; s2 = tally(Ks, c2, 0.0)
-                    out[s] = stats(c2, s2, nsub[s]); sub[s] = None
-        out["all" if which == 1 else "all_mixer2"] = stats(coc, sl, N)
+                h = keys(W, k, which); sel = ((h >> 61) & 7) % P == part
+                buf["all"].append(h[sel]); buf["near"].append(h[sel & near]); buf["err"].append(h[sel & err])
+            for s in SETS:
+                K = th.cat(buf[s]); buf[s] = None; ns[s] += len(K)
+                if len(K):
+                    sl[s] = tally(K, coc[s], sl[s])
+                del K
+            th.cuda.empty_cache() if DEV == "cuda" else None
+        for s in (SETS if which == 1 else ("all",)):
+            out[s if which == 1 else "all_mixer2"] = stats(coc[s], sl[s], ns[s])
     res[k] = out
-    print(k, json.dumps({s: dict(D=v["distinct"], f1=v["singletons"], expH=round(v["exp_entropy"]), Nd=v["N_delta"])
+    print(k, json.dumps({s: dict(D=v["distinct"], n=v["n"], f1=v["singletons"], expH=round(v["exp_entropy"]), Nd=v["N_delta"])
                          for s, v in out.items()}), "%.0fs" % (time.time() - t0), flush=True)
     json.dump(dict(N=N, seed=SEED, P=P, results=res), open(os.path.join(HERE, "census.json"), "w"), indent=1)
