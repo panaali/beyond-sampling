@@ -64,3 +64,25 @@ intervention discrepancy. Secondary saved review2766fa41, publishedac454434,
 checks all20 archives/key per-model and pooled aggregates/all52 raw pruning
 records. It does not independently recheck every nested analysis field, which
 our primary scalar-loop checker verifies against author data.
+
+## Final saved pruning contraction (8824b1de; independent final audit pending)
+The author tree has prune_report.py but no rendered prune_report.md. The initial
+supplement failed before ratio evaluation; original source/progress are retained.
+Independently source-gated raw-only recoveryb477e467 preserves51 nonzero-tau
+rows and10 pooled groups, with every frozen payload directly rehashed by the
+gate. It does not claim parity with a nonexistent rendered table.
+
+The sole T4 case, cap tau1e-6 seed0, retains5357 cells versus6182, with counted
+FLOPs1.689122728B versus1.773159660B. Its saved numerical-reference error is
+about-7.12e-8; under the author's continuous budget, the point squared-error
+ratio is5.51e-7 while reported B²/sampling variance is8.10. Thus even taking
+reported B as valid would not establish a sub-sampling guarantee on this case;
+actual B is already qualified by the finite cap defect, mass/geometry and
+retained-recipe limitations. This does not show actual failure of the pruned
+estimator. All thresholds and T3 cases remain in the raw result; no winner is
+selected. One T4 case and missing T5 pruning data do not establish scaling.
+
+Successful final raw contraction CPU0.003999576. The prior missing-file attempt
+has no separately recorded process-CPU value; it remained under20CPU and had
+no estimator calls. Historical source sampler500/666.6667 differs the later
+canonical T196511/682. All ratios above are explicitly the former convention.
