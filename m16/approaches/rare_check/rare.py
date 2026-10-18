@@ -68,6 +68,44 @@ def walk(model, X0, D, label):
 
 def est_E1(model, t0s=(1.0, 1.25, 1.5, 0.0)):
     """Variant B: one walk per triple per GL node; argmax = p3 intervals; full g12 mass."""
+    return est_B(model, t0s, ())[0:2]
+
+
+def est_B(model, t0s=(1.0, 1.25, 1.5, 0.0), ts=(0.5, 0.75)):
+    """Variant B for both families: per GL node, one walk with label p3 (E1) and one with label p2 (E2)."""
+    o1 = {t0: 0.0 for t0 in t0s}; o2 = {t: 0.0 for t in ts}; f1 = f2 = 0.0
+    for r in ("nb", "b"):
+        for v2, w in zip(*NODES[r]):
+            g12, v3, v4, m4, dm4 = node_point(v2)
+            X0, D = line23(v2, g12, v3, v4, m4, dm4)
+            if t0s:
+                ints, c = walk(model, X0, D, TRI[:, 2]); f1 += c + sum(2 * len(iv) for iv in ints) * F_PHI / FPE
+                for t0 in t0s:
+                    o1[t0] += w * phi(v2) * (1 - ndtr(v2)) * sum(mass23(v2, clip(iv, t0)) for iv in ints)
+            if ts:
+                ints, c = walk(model, X0, D, TRI[:, 1]); f2 += c
+                for t in ts:
+                    wr = [complement(iv, t) for iv in ints]; f2 += sum(2 * len(x) for x in wr) * F_PHI / FPE
+                    o2[t] += w * phi(v2) * (1 - ndtr(v2 + t)) * sum(mass23(v2, x) for x in wr)
+    return o1, f1, o2, f2
+
+
+def est_A(model, t0s=(1.0, 1.25, 1.5, 0.0), ts=(0.5, 0.75)):
+    """Variant A for both families: one walk per triple per region at T317e's region point."""
+    o1 = {t0: 0.0 for t0 in t0s}; f1 = 0.0
+    for tab in CE.TABLES:
+        r = "nb" if tab["name"].startswith("nb") else "b"
+        v2s, g12s, g23s = tab["point"]
+        X0, D = line23(v2s, g12s, v2s - g23s, tab["v4"], tab["m4"], tab["dm4"])
+        ints, c = walk(model, X0, D, TRI[:, 2]); f1 += c + G * sum(2 * len(iv) for iv in ints) * F_PHI / FPE
+        for t0 in t0s:
+            for v2, w in zip(*NODES[r]):
+                o1[t0] += w * phi(v2) * (1 - ndtr(v2)) * sum(mass23(v2, clip(iv, t0)) for iv in ints)
+    o2, f2 = est_E2(model, ts)
+    return o1, f1, o2, f2
+
+
+def _unused_old_E1(model, t0s=(1.0, 1.25, 1.5, 0.0)):
     out = {t0: 0.0 for t0 in t0s}; fpe = 0.0
     for r in ("nb", "b"):
         for v2, w in zip(*NODES[r]):

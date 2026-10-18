@@ -1,4 +1,4 @@
-# T349: independent check of T340's rare-event result on fresh DEV3 models
+# T350 (first filed as T349): independent check of T340's rare-event result on fresh DEV3 models
 
 ↑ [Approaches](../README.md) · [TASKS](../../../TASKS.md) · [INDEX](../../../INDEX.md) · T340 (claude/t286-cheap-frontier 620eb47b, rare_events/)
 
@@ -62,6 +62,24 @@ code as pre-registered either way.
    (E1) may sit elsewhere, and variant B loses more often than on the seeds.
 2. The metric favours estimators that are cheap relative to 1/p. If my implementation is costlier than T340's, it
    wins less often for the same accuracy. C is reported per case so that this can be separated.
+
+## Amendment (DRI, 2026-10-18 13:47; before any DEV3 model or truth exists)
+- **ID.** The task is **T350**. T349 was taken by T340c. The commits 606759a1 and b0eeade8 say T349.
+- **Scoring (replaces the metric above):**
+  - sampling's relative error is s = sqrt((1 − p)/(pC)) if pC ≥ 1, and s = 1 (the zero answer) if pC < 1;
+  - ours is r = |est/p − 1|;
+  - win if r < s − .05, loss if r > s + .05, tie otherwise. Ties are reported separately.
+- **Variants scored.**
+  - Each fixed variant (A, B) on all 30 DEV3 cases.
+  - The **family rule fixed in advance**: B for E1 and A for E2.
+  - For this, `rare.py` gains `est_A` (A for E1 too) and `est_B` (B for E2 too). The arithmetic of the original
+    estimators is unchanged.
+- **Go: the family rule wins ≥ 2/3 of the non-tied DEV3 cases.**
+- **Models and truths.** As T192 confirmed: dev3_s500..dev3_s505, 1e9 float64 inputs each, all events in one pass,
+  pushed under t349/ on claude/t192-gpu-cost-law. DEV3's own truths.json will be open on that branch. I will not read
+  it, or the t349 counts, before my DEV3 estimates are committed.
+- T340's handover message gave its pre-registration (c0564f03 + 716ea8b5) and its results at f9fae86e. I have still
+  not read `rare.py` on its branch.
 
 ## Calibration on T340's 3 models (done before any DEV3 truth; `python3 calib.py`, `results/calib.json`)
 These are my estimators against T192's GPU truths (t340/rare_mc.json @63d36d38). Each cell is est/truth, mine against
