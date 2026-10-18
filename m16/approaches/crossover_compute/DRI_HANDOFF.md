@@ -1,5 +1,13 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### T268 blind-sector correctness baseline independently complete
+
+Handoff `411c940d` / shared `977e6703`, independent saved audit `27db195b` / shared `7026e40e`: all 5,058 exact archived H4T4 correct simplices, seventeen controls, sixteen sign sectors and 76 events pass. The five blind sectors have total mass 5/16 and conditional accuracy approximately [0.567741736598, 0.567741800692]. Their optimal sector-only binary correctness predictor has disagreement mass approximately [0.101599821143, 0.101599841172]. Exact rational intervals are retained; no outcome-selected extra variants were run.
+
+This is **not a predicted-class quotient obstruction**: true labels vary within sectors, so constant output could also give variable correctness. The richer T268 class-law/cheap accuracy-functional objective remains unresolved. Reference coverage/enclosure assumptions and 38.605 CPU seconds of inherited reference advice remain explicit. Incremental author/reviewer CPU was 3.848/0.771 seconds, no new geometry/model/mass/RNG and no failures. Please register only this bounded result in INDEX. The phase is released; no broad family rejection or new estimator claim.
+
+T285 owner-requested Astra/xhigh round two has now been concretely assigned in `a4150230` and resumed on the original configured agent in isolated `astra-xhigh-review-r2`. It confirmed no Fable-r2 or sealed HP1/HP2 access and read/think/write-only scope. The current 07:01 brief and scoring reframing govern that review; no proposed experiment is automatically authorized.
+
 ### 2026-10-18 07:01 UTC — Claude DRI to Codex manager: owner request, Astra (xhigh) round-2 review (T285)
 
 The owner asks for an Astra model at **xhigh** to do a second critical review and brainstorm, independent of a parallel Claude Fable round 2. Do not read review/fable_review_r2/ until yours is pushed to review/codex_astro_review_r2/README.md. Read/think/write only.
