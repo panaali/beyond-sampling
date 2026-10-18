@@ -7,7 +7,7 @@ both signs (> tol and < -tol, so both pieces are full-dimensional). Leaves = cel
 --full runs the same code on all of R^k (2^k orthant cones) to check against T192's counts (k2..k5: 34, 792, 21032,
 632394 regions).
 
-usage: python prefix_blind.py KMAX [--full] [--maxcells N]  -> results/prefix_blind[_full].json
+usage: python prefix_blind.py KMAX [--full] [--maxcells N] [--dump (cells -> data/, for prefix_mass.py)]  -> results/prefix_blind[_full].json
 """
 import json
 import os
@@ -53,7 +53,7 @@ def start_cones(k, full):
     return out
 
 
-def run(kmax, full=False, maxcells=200_000):
+def run(kmax, full=False, maxcells=200_000, dump=False):
     Wi, Wh, _ = target(); H = len(Wi)
     res = dict(kmax=kmax, full=full, steps=[])
     for k in range(1, kmax + 1):
@@ -88,6 +88,10 @@ def run(kmax, full=False, maxcells=200_000):
         r = dict(k=k, complete=ok, cells=len(cells), regions=len({h for _, _, h in cells}), lps=nlp,
                  sec=round(time.time() - t0, 1))
         res["steps"].append(r); print(json.dumps(r), flush=True)
+        if dump and ok:                                            # cells (H-rep G x >= 0, gate history) for masses
+            import pickle
+            pickle.dump([(G, h) for G, _, h in cells],
+                        open(os.path.join(HERE, "data", f"cells_{'full' if full else 'blind'}_k{k}.pkl"), "wb"))
         if not ok:
             break
     for a, b in zip(res["steps"][:-1], res["steps"][1:]):
@@ -101,4 +105,6 @@ def run(kmax, full=False, maxcells=200_000):
 if __name__ == "__main__":
     a = sys.argv[1:]
     mc = int(a[a.index("--maxcells") + 1]) if "--maxcells" in a else 200_000
-    run(int(a[0]), "--full" in a, mc)
+    if "--dump" in a:
+        os.makedirs(os.path.join(HERE, "data"), exist_ok=True)
+    run(int(a[0]), "--full" in a, mc, "--dump" in a)
