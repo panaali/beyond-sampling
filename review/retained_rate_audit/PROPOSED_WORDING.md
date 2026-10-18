@@ -4,7 +4,7 @@ Do not edit historical numerical records. The following replacements concern int
 
 ## T271
 
-“Across the five retained models and five budgets, sci_tao's fitted RMSE exponents range from 0.47 to 0.73. Three historical regression intervals include 0.5; two exclude it on the high side. These finite-budget fits combine rule convergence, budget-dependent allocation and shared-scramble/reference effects. They do not establish an asymptotic exponent or rule out larger-budget improvement. Measured target MSE ratios range from 0.433 to 1.055 in the inherited cost convention; noisy-copy results are reported individually. These point ratios are not a current held-out six-group confidence-qualified pass.”
+“Across the five retained models and five budgets, sci_tao's fitted RMSE exponents range from 0.47 to 0.73. Three historical regression intervals include 0.5; two exclude it on the high side. These finite-budget fits combine rule convergence, budget-dependent allocation and shared-scramble/reference effects. They do not establish an asymptotic exponent or rule out larger-budget improvement. Measured target MSE ratios range from 0.433 to 1.055 in the inherited cost convention; noisy-copy results are reported individually. These historical point ratios are not a fresh held-out score under either the earlier six-group protocol or the new HP2 retrain-averaged cost-floor rule.”
 
 ## T277
 
