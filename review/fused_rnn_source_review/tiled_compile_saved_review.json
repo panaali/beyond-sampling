@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "scope": "Read-only saved compiler metadata/PTX binding only, delegated byh4; no compiler/device replay",
+  "rows": [
+    {
+      "B": 32,
+      "shared_bytes": 11776,
+      "below_48KiB": true,
+      "ptx_sha256": "08d03d97f68d0de4e351907c1a1a36e0125de7653cfc46d1c5b1d6bfdd5200c6",
+      "bytes": 100915
+    },
+    {
+      "B": 1024,
+      "shared_bytes": 12800,
+      "below_48KiB": true,
+      "ptx_sha256": "763cee57523f81c5b9f2562f3a5cbf691bddedcd4e932ee99e9a785c03e980aa",
+      "bytes": 102680
+    }
+  ],
+  "original_B1024_shared_bytes": 332800,
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/tiled_compile_results.json": "98d63a37982b7cb3f208e0ad4493a9b71fea21df1f9cd5993678e2ff9085d293",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/tiled_compile_B32.ptx": "08d03d97f68d0de4e351907c1a1a36e0125de7653cfc46d1c5b1d6bfdd5200c6",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/tiled_compile_B1024.ptx": "763cee57523f81c5b9f2562f3a5cbf691bddedcd4e932ee99e9a785c03e980aa",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_results.json": "1d40d3c5645b9bf6b490891fb7fb106de48316e4a211c6f8ff655499db2be79a"
+  },
+  "cpu_seconds": 0.000519261,
+  "compiler_calls": 0,
+  "gpu_launches": 0,
+  "limitations": [
+    "Cubin hashes are retained metadata only; cubin payload not archived here and not independently checked",
+    "Shared-memory size now below48KiB is necessary resource evidence, not hardware launch, occupancy or performance proof",
+    "Source explicit IEEE dots/fusionfalse retained; actual device numerical parity and graph lifecycle remain open"
+  ]
+}
