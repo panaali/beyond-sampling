@@ -1,0 +1,537 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "name": "constant",
+      "score": {
+        "train_mean": "2",
+        "means": {
+          "[\"12\", \"x\"]": "2",
+          "[\"12\", \"y\"]": "2"
+        },
+        "predictions": [
+          "2",
+          "2"
+        ],
+        "residuals": [
+          "0",
+          "0"
+        ],
+        "residual_mean": "0",
+        "mse": "0",
+        "baseline_mse": "0",
+        "centered_residual_variance": "0",
+        "ratio": null,
+        "unseen": []
+      },
+      "passed": true
+    },
+    {
+      "name": "allzero",
+      "score": {
+        "train_mean": "0",
+        "means": {
+          "[\"12\", \"ZERO\"]": "0"
+        },
+        "predictions": [
+          "0",
+          "0"
+        ],
+        "residuals": [
+          "0",
+          "0"
+        ],
+        "residual_mean": "0",
+        "mse": "0",
+        "baseline_mse": "0",
+        "centered_residual_variance": "0",
+        "ratio": null,
+        "unseen": []
+      },
+      "passed": true
+    },
+    {
+      "name": "independent_95pct",
+      "score": {
+        "train_mean": "1/2",
+        "means": {
+          "[\"12\", \"common\"]": "1/2",
+          "[\"12\", \"rare\"]": "1/2"
+        },
+        "predictions": [
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2",
+          "1/2"
+        ],
+        "residuals": [
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2",
+          "-1/2",
+          "1/2"
+        ],
+        "residual_mean": "0",
+        "mse": "1/4",
+        "baseline_mse": "1/4",
+        "centered_residual_variance": "1/4",
+        "ratio": "1",
+        "unseen": []
+      },
+      "positive_square_coverage": "19/20",
+      "passed": true
+    },
+    {
+      "name": "perfect",
+      "score": {
+        "train_mean": "1/2",
+        "means": {
+          "[\"12\", \"ZERO\"]": "0",
+          "[\"12\", \"positive\"]": "1"
+        },
+        "predictions": [
+          "0",
+          "1",
+          "0",
+          "1"
+        ],
+        "residuals": [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "residual_mean": "0",
+        "mse": "0",
+        "baseline_mse": "1/4",
+        "centered_residual_variance": "0",
+        "ratio": "0",
+        "unseen": []
+      },
+      "passed": true
+    },
+    {
+      "name": "unseen",
+      "score": {
+        "train_mean": "1",
+        "means": {
+          "[\"12\", \"x\"]": "1"
+        },
+        "predictions": [
+          "1"
+        ],
+        "residuals": [
+          "2"
+        ],
+        "residual_mean": "2",
+        "mse": "4",
+        "baseline_mse": "4",
+        "centered_residual_variance": "0",
+        "ratio": "1",
+        "unseen": [
+          [
+            "12",
+            0
+          ]
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "tied_cutoff",
+      "score": {
+        "train_mean": "1",
+        "means": {
+          "[\"12\", \"x\"]": "1",
+          "[\"23\", \"x\"]": "1"
+        },
+        "predictions": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "residuals": [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "residual_mean": "0",
+        "mse": "0",
+        "baseline_mse": "0",
+        "centered_residual_variance": "0",
+        "ratio": null,
+        "unseen": []
+      },
+      "tail": [
+        [
+          "12",
+          0
+        ],
+        [
+          "12",
+          1
+        ]
+      ],
+      "passed": true
+    },
+    {
+      "name": "kind_occupancy",
+      "score": {
+        "train_mean": "5/2",
+        "means": {
+          "[\"12\", \"x\"]": "1",
+          "[\"12\", \"y\"]": "3",
+          "[\"23\", \"x\"]": "4",
+          "[\"23\", \"y\"]": "5"
+        },
+        "predictions": [
+          "1",
+          "1",
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "residuals": [
+          "-1",
+          "0",
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        "residual_mean": "0",
+        "mse": "1/3",
+        "baseline_mse": "35/12",
+        "centered_residual_variance": "1/3",
+        "ratio": "4/35",
+        "unseen": []
+      },
+      "permuted": [
+        {
+          "kind": "12",
+          "index": 0,
+          "value": "0",
+          "label": "x",
+          "status": "complete"
+        },
+        {
+          "kind": "12",
+          "index": 1,
+          "value": "1",
+          "label": "x",
+          "status": "complete"
+        },
+        {
+          "kind": "12",
+          "index": 2,
+          "value": "2",
+          "label": "y",
+          "status": "complete"
+        },
+        {
+          "kind": "12",
+          "index": 3,
+          "value": "3",
+          "label": "x",
+          "status": "complete"
+        },
+        {
+          "kind": "23",
+          "index": 0,
+          "value": "4",
+          "label": "y",
+          "status": "complete"
+        },
+        {
+          "kind": "23",
+          "index": 1,
+          "value": "5",
+          "label": "x",
+          "status": "complete"
+        }
+      ],
+      "occupancy_preserved": true,
+      "passed": true
+    },
+    {
+      "name": "half_reselection",
+      "score": {
+        "train_mean": "13/4",
+        "means": {
+          "[\"12\", \"x\"]": "13/4",
+          "[\"23\", \"x\"]": "13/4"
+        },
+        "predictions": [
+          "13/4",
+          "13/4",
+          "13/4",
+          "13/4",
+          "13/4",
+          "13/4",
+          "13/4",
+          "13/4"
+        ],
+        "residuals": [
+          "-13/4",
+          "-5/4",
+          "27/4",
+          "-9/4",
+          "-13/4",
+          "-1/4",
+          "23/4",
+          "-9/4"
+        ],
+        "residual_mean": "0",
+        "mse": "223/16",
+        "baseline_mse": "223/16",
+        "centered_residual_variance": "223/16",
+        "ratio": "1",
+        "unseen": []
+      },
+      "tail": [
+        [
+          "12",
+          2
+        ],
+        [
+          "23",
+          2
+        ]
+      ],
+      "smaller": [
+        {
+          "kind": "12",
+          "index": 0,
+          "value": "0",
+          "label": "x",
+          "status": "complete"
+        },
+        {
+          "kind": "12",
+          "index": 1,
+          "value": "2",
+          "label": "x",
+          "status": "complete"
+        },
+        {
+          "kind": "23",
+          "index": 0,
+          "value": "0",
+          "label": "x",
+          "status": "complete"
+        },
+        {
+          "kind": "23",
+          "index": 1,
+          "value": "3",
+          "label": "x",
+          "status": "complete"
+        }
+      ],
+      "smaller_tail": [
+        [
+          "23",
+          1
+        ]
+      ],
+      "old_tail_intersection": [],
+      "passed": true
+    }
+  ],
+  "guards": [
+    {
+      "name": "empty",
+      "caught": {
+        "type": "ValueError",
+        "message": "nonempty list required"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "negative",
+      "caught": {
+        "type": "ValueError",
+        "message": "finite nonnegative exact value required"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "float_nan",
+      "caught": {
+        "type": "ValueError",
+        "message": "finite nonnegative exact value required"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "duplicate_identity",
+      "caught": {
+        "type": "ValueError",
+        "message": "duplicate identity"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "unknown_status",
+      "caught": {
+        "type": "ValueError",
+        "message": "unknown status retained, no success"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "missing_label",
+      "caught": {
+        "type": "ValueError",
+        "message": "label required"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "permutation_crosskind",
+      "caught": {
+        "type": "ValueError",
+        "message": "kind must be preserved"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "permutation_duplicate",
+      "caught": {
+        "type": "ValueError",
+        "message": "bijection required"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "tail_zero",
+      "caught": {
+        "type": "ValueError",
+        "message": "tail fraction"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    },
+    {
+      "name": "half_odd",
+      "caught": {
+        "type": "ValueError",
+        "message": "even contiguous kind indices required"
+      },
+      "unexpected_return_repr": null,
+      "passed": true
+    }
+  ],
+  "model_face_rng_calls": 0,
+  "cpu_seconds": 0.098147731,
+  "max_rss_kib": 55396,
+  "runtime": {
+    "executable": "/workspace/clean-neurons/.venv/bin/python",
+    "prefix": "/workspace/clean-neurons/.venv"
+  },
+  "gate": {
+    "clearance": true,
+    "scope_commit": "d273552b",
+    "protocol_sha256": "e11a646de31eef3b15f75303f5053c76f611877543ac8993dfac4aa16ede287d",
+    "source_review": {
+      "path": "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t230_synthetic_source_review.json",
+      "sha256": "8360288216274c1364eacffea77f60528529b0e90453bf23ef1383394df75110",
+      "publication": "ce44872c",
+      "commit": "e31abb65"
+    },
+    "pins": {
+      "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/primitive.py": "867c537c5d0d17d3b290f942a0f52461563930eb1aa4dfa63b29350aa2a405be",
+      "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/controls.py": "794bd420532f1e1d052619621322453cae51d273468a5f210f61a9c63fe7689e",
+      "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/fixtures.json": "76dbefe5b94dcefb6448ddae49de134590243ec199a9d4fcccbc162bd03be0ce",
+      "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/PROTOCOL.md": "5f6e73dd37a861fec5f8e8743784372195b9e6c330c793d66ad4034ea9ecdf42",
+      "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t230_design_review.json": "080a4ef81b6be6222943aafdf241e746e894a4b1ebc25f444f692a5fc4dfffdf",
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+      "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/protocol.json": "e11a646de31eef3b15f75303f5053c76f611877543ac8993dfac4aa16ede287d",
+      "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t230_synthetic_source_review.json": "8360288216274c1364eacffea77f60528529b0e90453bf23ef1383394df75110"
+    }
+  },
+  "protocol_sha256": "e11a646de31eef3b15f75303f5053c76f611877543ac8993dfac4aa16ede287d",
+  "pass_all": true
+}

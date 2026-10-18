@@ -1,0 +1,37 @@
+{
+  "task": "T233 independent written theorem/domain review",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": false,
+  "source_commit": "558eec16",
+  "source_publication": "92db9b1b",
+  "claim_and_delegation": "c1343d8a",
+  "pins": {
+    "/workspace/work/recover-small_h2_34/review/two_hinge_residual/PROOF.md": "d186c7b74c5dbd422a0be3e6f3be403bd2785b54900aa9459573269dc0b1964c",
+    "/workspace/work/recover-small_h2_34/review/two_hinge_residual/README.md": "357909804264295765aa328ac61bd97c0862dfc8a2d868dbe97ce33ade22808c"
+  },
+  "findings": {
+    "identity_and_boundary": "For a<0, residual b+\u2212b=(\u2212b)+; for a>=0, residual=b+. Thus stated same-sign interiors and explicit a=0 ownership are exact, including zero b.",
+    "opposite_slope_support": "With alpha beta<0, signs coincide exactly between roots u and v; conditional continuous endpoints have zero probability. r=|beta||X\u2212v| there, for either slope orientation. Equal roots give zero everywhere.",
+    "probability": "Conditional on full past-measurable H and independent fresh standard-normal X, interval probability is |Phi(u)\u2212Phi(v)|. No Gaussian state law or coordinate independence of H is used.",
+    "first_moment": "Use oriented integral from v to u of (x\u2212v)phi(x). The antiderivative \u2212phi(x)\u2212v Phi(x) gives phi(v)\u2212phi(u)\u2212v(Phi(u)\u2212Phi(v)); derivative with respect to u is (u\u2212v)phi(u), proving nonnegativity on either side.",
+    "positive_bounds": "Pointwise distance<=delta gives |beta|delta p; integrating triangular distance with phi<=1/sqrt(2pi) gives |beta|delta\u00b2/(2sqrt(2pi)). Fixed-v local limit follows density continuity.",
+    "raw_state_moment": "u\u2212v=(wj/beta\u2212wi/alpha) dot h. Tower expectation yields raw E[HH^T], including mean outer product; finite second moment suffices. Zero-state statement uses the explicitly bias-free linear offsets.",
+    "downstream": "The initial exact-minus-signed-surrogate difference is e_j r. Componentwise ReLU Lipschitz yields |Wh|^s e_j r for any identical future inputs and any signed initial surrogate; pair-margin coefficient is absolute row contrast times this bound.",
+    "scope": "Expected margin control alone is not classification control. Cost, actual pair rarity, state moments, numerical cancellation and first-index decisions remain separate prerequisites."
+  },
+  "excluded_cases": [
+    "Zero or same-sign fresh-input slopes need different conditional formulas.",
+    "Input rank/order conditioning can destroy the standard-normal fresh-input law.",
+    "Signed surrogate is not a valid nonnegative hidden state until corrected; it is only a mathematical intermediate.",
+    "Near-antipodal cosine does not bound threshold separation when slopes/offsets vary.",
+    "No claimed target pair, probability rarity, region-count reduction, operation win or ARC solution.",
+    "Naive difference of density/CDF terms is not a stable or certified numerical implementation."
+  ],
+  "author_calls": 0,
+  "model_calls": 0,
+  "numeric_library_calls": 0,
+  "target_array_reads": 0,
+  "mass_calls": 0,
+  "rng_calls": 0
+}
