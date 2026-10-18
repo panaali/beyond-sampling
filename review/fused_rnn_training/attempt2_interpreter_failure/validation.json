@@ -1,0 +1,41 @@
+{
+  "complete": false,
+  "pass_all": false,
+  "rows": [
+    {
+      "name": "initial",
+      "iteration": 0,
+      "K": 3,
+      "B": 32,
+      "step": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "status": "started"
+    }
+  ],
+  "kernel_calls": 0,
+  "torch_reference_calls": 1,
+  "kernel_attempts": 1,
+  "torch_reference_attempts": 1,
+  "interpreter_only": true,
+  "libdevice_shim": [
+    "__nv_pow=np.power(float64)",
+    "__nv_sqrt=np.sqrt(float64)"
+  ],
+  "torch": "2.14.1+cpu",
+  "triton": "3.8.0",
+  "limits": {
+    "cpu": [
+      105,
+      110
+    ],
+    "address_space": [
+      2147483648,
+      2147483648
+    ]
+  },
+  "cpu_seconds": 0.25085149500000004,
+  "failure": "Traceback (most recent call last):\n  File \"/workspace/work/t261-triton-deps/triton/runtime/interpreter.py\", line 1413, in __call__\n    self.fn(**args)\n  File \"/workspace/work/recover-small_h4_4/review/fused_rnn_training/fused_step.py\", line 70, in _step\n    decay=tl.maximum(libdevice.pow(floor64,2.0*step/n),floor64)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/t261-triton-deps/triton/language/core.py\", line 41, in wrapper\n    raise ValueError(\"Did you forget to add @triton.jit ? \"\nValueError: Did you forget to add @triton.jit ? (`_semantic` argument must be provided outside of JIT functions.)\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/workspace/work/recover-small_h4_4/review/fused_rnn_training/validate.py\", line 103, in main\n    workspace.step(params,m,v,steps,ns,warm,lr0,x,y,loss,acc);result['kernel_calls']+=1;save()\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/recover-small_h4_4/review/fused_rnn_training/fused_step.py\", line 103, in step\n    _step[(self.K,)](x,y,*params,*m,*v,steps,n_steps,warm,lr0,self.hidden,loss,acc,*self.grads,self.logits,\n  File \"/workspace/work/t261-triton-deps/triton/runtime/jit.py\", line 374, in <lambda>\n    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/t261-triton-deps/triton/runtime/interpreter.py\", line 1527, in run\n    return GridExecutor(fn, self.arg_names, grid, self.pre_run_hooks)(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/t261-triton-deps/triton/runtime/interpreter.py\", line 1417, in __call__\n    raise InterpreterError(repr(e)) from e\ntriton.runtime.errors.InterpreterError: ValueError('Did you forget to add @triton.jit ? (`_semantic` argument must be provided outside of JIT functions.)')\n"
+}
