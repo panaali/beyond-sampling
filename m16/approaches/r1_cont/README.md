@@ -1240,3 +1240,24 @@ reach at most 20/32 E2 cases within 2x on the failing fresh models, short of the
   hits, so the closure binds there and this fix does not address it.
 
 **The claim** is the T286 child's fresh test of the frozen code.
+
+## T366 development results and freeze (`t366.py`, `estimator_t366.py`, `results_t366_dev.json`, `t366.log`)
+Development is on T364's three models only, against T364's GPU truths:
+
+| model | t0 | truth | K3 (T364) est/truth | **graded g12 (T366) est/truth** | C (FPE) |
+|---|---|---|---|---|---|
+| orig | 1.75 | 3.93e-8 | .47 | **.68** | 2.23M |
+| orig | 2.0 | 6.83e-9 | .21 | **.24** | 2.23M |
+| dev3_s526 | 3.25 | 1.01e-9 | 1.20 | **1.14** | 1.45M |
+| dev3_s526 | 3.5 | 1.82e-10 | 1.12 | **1.14** | 1.45M |
+| dev3_s527 | 2.0 | 3.79e-8 | .025 | **.75** | 2.47M |
+| dev3_s527 | 2.25 | 8.18e-9 | .016 | **.72** | 2.47M |
+
+- **5/6 within 2x** (K3: 2/6). s527 moves from 40-60x low to .72-.75.
+- orig at t0 = 2.0 stays low (.24), as pre-registered. There the R1W closure keeps only 6% of the hits (T364), so the
+  closure binds, not g12.
+- Cost: ~2.5-4.3x K3's (13 g12 nodes against 3).
+
+**Frozen** (commit below): `estimator_t366.py` → `t366.est_e1(model, t0s)`. It requires `T340_SRC` = a checkout of
+claude/t286-cheap-frontier @620eb47b (read-only). The sha256s of every file in the code path are in
+`t366_freeze_sha256.txt`. Not run on dev3_s528-s531 (the T286 child's sealed fresh test).
