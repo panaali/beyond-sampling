@@ -7,10 +7,10 @@ What must the missing T192 arrays establish before lane34 can compare independen
 Source-only inspection of fixed T192 branch a5ab87572c0c633a10894bc822d9ff4b3c7d9593. manifest.json preserves ten original text files and Git blob/SHA256 identities; SOURCE.md traces the exporter, and ACCEPTANCE.md/schema.json specify data versus provenance prerequisites. No original code is imported. T55's distinct latest-evidence inventory d2c97d34/sharedf7d5e15e records293 tracked paths and zero NPZ/NPY artifacts.
 
 ## Status
-Source/provenance review prepared; independent review pending. T193 numerical work remains blocked. Expected exports are results/simplices/H8T5_zoo0.npz and H8T5_zoo2.npz, neither supplied in the pinned tree. This is not authorization to run the exporter or enumerate new geometry.
+Source/provenance review passes independently573a8cae/shared2d7dbb91. T193 numerical work remains blocked. Expected exports are results/simplices/H8T5_zoo0.npz and H8T5_zoo2.npz, neither supplied in the pinned tree. This is not authorization to run the exporter or enumerate new geometry.
 
 ## Results
-[inferred, review pending] Row-ray orientation and selected-index rule can be traced. However the NPZ schema alone omits model/source/runtime/rule bindings and local emission identifiers. An inherited T192_SLIVER value also changes the semantics of masses_each: with multiple thin rows, aggregate mass is placed in only the first thin output. This is a conditional source defect, not evidence that an actual export was generated incorrectly. See SOURCE.md.
+[inferred, independently reviewed] Row-ray orientation and selected-index rule can be traced. However the NPZ schema alone omits model/source/runtime/rule bindings and local emission identifiers. An inherited T192_SLIVER value also changes the semantics of masses_each: with multiple thin rows, aggregate mass is placed in only the first thin output. This is a conditional source defect, not evidence that an actual export was generated incorrectly. See SOURCE.md.
 
 ## Compute accounting
 Read/hash ten text blobs and one incidental m43_weights binary blob from Git; no binary decoding, source imports, model/geometry/mass/NumPy/Torch/Numba/RNG calls. No numerical mass or bound evaluations. No estimator cost claim.
