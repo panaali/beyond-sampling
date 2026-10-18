@@ -117,3 +117,21 @@ Region-by-region methods inherit >= x16/step.
   estimators (T189 handoff: "remain open, not dead");
 - whether the noise insensitivity of region counts holds beyond T = 4 (T192);
 - a genuinely independent region recount in exact arithmetic (T219, pending).
+
+## 6. Trained vs random weights (T232)
+**Measurement.** Exact prefix regions of the target vs 10 random draws of the same architecture (5 Frobenius-matched, 5
+row-norm-matched) and 2 structure-destroying controls (W_hh entries permuted within rows; random sign flips). The random draws
+grow x22-26 (k = 3) and x25-30 (k = 4) per step, the same law as the trained x23.3, x26.6. At k = 4 they have
+19,354-26,074 regions vs 21,032. At k = 2 every model has the generic maximum, 34. Training concentrates mass only at coarse
+resolution: N_1e-2 is 1.7-6x and the inverse-Simpson count 2-8x smaller for the target, N_1e-4 ~1.9x, and N_1e-6 0.8-1.7x
+[measured, unverified; T194 branch, m16/approaches/random_control/README.md, pre-registered at 1d6f4db9]. The trained
+M_16,10 is **generic in region count**: whatever training builds is in what the regions compute, not in how many there
+are [inferred].
+**Theory note** [literature; not tested here]. ARC's no-coincidence conjecture concerns exactly this contrast. For random
+networks no short explanation should exist; for trained ones a mechanistic explanation should make the accuracy cheaply
+estimable. Our data say the explanation cannot take the form "few linear regions". Worst-case impossibility for white-box
+deterministic estimation is out of reach with current tools: it ties to derandomizing circuit acceptance probability (CAPP)
+and circuit lower bounds (Impagliazzo-Kabanets-Wigderson; Williams). Unconditional lower bounds exist only for black-box
+query access, e.g. deterministic convex-body volume (Elekes; Bárány-Füredi). So the obstructions above are empirical
+statements about the methods tried, not theorems about M_16,10.
+
