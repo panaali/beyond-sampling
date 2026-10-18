@@ -64,3 +64,7 @@ Reject nonfinite/malformed inputs and negative actual hidden states. Overflow
 is preserved as failure. Source/runtime drift or an existing output directory
 rejects execution; durable attempts/results retain partial failures. Floating
 projection/readout/SSE behavior is finite evidence, not a full numerical proof.
+
+## Fixed controls completed
+
+The sole published-gate run passed all10 analytic fixtures and6 guards. It retained all11 input rows, including strict and tie-based agreement worsening, and exact coordinate SSE records. Research CPU 0.03863024300000001 seconds; no trained/model/fit/RNG calls. Raw `controls/results.json` and durable progress are immutable. Independent saved review remains pending; this does not authorize a trained application.
