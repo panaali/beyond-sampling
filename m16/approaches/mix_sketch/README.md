@@ -60,3 +60,64 @@ Labels: everything here is diagnostic sampling. Nothing is an estimator.
     The verdict uses the best of all five rules per unit (most generous). The rules `naive`, `future` and
     `future_gates` (Gaussian over all 18 dims) are kept.
 - **Scope note (DRI, 2026-10-18, before B4 ran):** the B4 checks moved to T310 in another child; not run here.
+
+## Method
+`mix.py` (own code; diagnostic sampling): the unit samplers (blind units from `../mf_verify/mfv.py`, which is
+exact; non-blind classes by permutation of sorted draws, checked). It computes the modal late gate pattern and the
+adjoint A, a numpy k-means++, the five merge/representation rules, and the exact push-forward. `summarize.py` ->
+`results/mix_summary.json`. Raw per-unit, per-rule, per-K P_hat: `results/mix.json`.
+Run: `python mix.py && python summarize.py` (about 49 CPU-min, single process, < 1 GB).
+
+## Status
+**Done: STOP** (pre-registered). Dead in the cheap regime, scoped to step-8 Gaussian-mixture state representations
+with readout-aware (adjoint) or naive merging, even with an exact push-forward through the last two steps.
+
+## Results (50 units: 25 blind + 25 non-blind classes on DEV2 #0/#5/#20/#40/#60)
+K* = the smallest ladder K that passes the 10% criterion. "best" = the best of the 5 rules per unit (most generous).
+
+| | blind (25) | non-blind classes (25) | all (50) |
+|---|---|---|---|
+| median K*, best rule | 16 | **> 128** | **> 128** |
+| pass at K <= 50, best rule | 56% | **4%** | 30% |
+| pass at K = 1, best rule | 28% | 0% | 14% |
+| post hoc "stable" K* (smallest K from which every larger rung passes), median | 50 | > 128 | > 128 |
+| median relative error (in min(P,1-P)) of the best rule at K = 1 / 8 / 50 / 128 | .31 / .15 / .10 / .06 | **4.0 / 2.5 / 1.7 / 1.4** | 1.2 / .81 / .49 / .38 |
+
+Per rule, median K* is > 128 for every single rule on every half. Pass at K <= 50 is .32-.40 on blind units and .00-.04
+on classes. The readout-aware merge (future, future_gates) is **no better than naive k-means**. Exact innovations
+(the _X rules) help by a few points. The pre-activation form (ReLU at step 8 exact) does not help.
+
+Signs [measured]: on the classes the mixture underestimates P(correct) on 25/25 units (median -.068 at K = 128,
+future_gates_X), against an error rate of only ~.05. Blind units: 80% under. The modal late gate pattern covers a median
+72% of a unit's draws, so the "likely late gates" adjoint misreads ~1/4 of the mass.
+
+## Claims
+1. [measured] A step-8 Gaussian-mixture state, even with exactly sampled component moments, exact innovations and an
+   exact push-forward through the last two steps, does not reproduce per-class P(correct) within 10% of the error
+   rate with <= 128 components on 24/25 non-blind classes. The median relative error is still 140% at K = 128.
+   By the pre-registered rule: **STOP**, B >= 720 x 50 = 36k components, cost >= 1e5 FPE.
+2. [measured] Merging along the readout adjoint (ARC's sketching rule as Fable B3 states it) gives no gain over
+   naive merging here.
+3. [inferred] The error rate of a non-blind class (~5%) lives in thin regions of the state law: near-tie
+   configurations whose h_8 sits near the late-gate walls. Any Gaussian component smears them, and the error
+   decays only like ~K^-0.2 (4.0 -> 1.4 over K = 1 -> 128). [speculative] Extrapolating, reaching 10% would need
+   K ~ 1e7 per class.
+4. [measured] Blind units are easier (P is mid-range, so 10% is a looser absolute bar). Even there only 56% pass at
+   K <= 50.
+
+## Alternatives not ruled out
+- Mixtures fitted by EM, or mixtures of *truncated* (rectified) Gaussians at step 8, rather than k-means Gaussians.
+  The truncated-piece closed form B3 describes would keep the rectification of h_8. My `pre_` rule keeps the last ReLU
+  exact and did not help, so I do not expect a large gain.
+- Representation at an earlier step (e.g. step 9, one exact step) was not tried. Step 8 was the brief's choice.
+- Clustering on the full late gate pattern (16 x 2 bits) as a categorical split was not tried. It is T295's branch
+  route, where N99 grows 47 -> 698 per step.
+- 50 units, not 100 (cap). The non-blind result (24/25 fail at K <= 128) leaves little room for unit-sampling noise.
+
+## Failure modes
+- Readout-adjoint merging needs one "likely" gate pattern. Units whose late gates vary (modal share ~.3-.7) have no
+  single adjoint, and the merge direction is wrong for the rest of the mass.
+
+## Compute accounting
+About 49 CPU-min (50 units x 5 rules x 9 K values; reference 2e5, state 6e4, push-forward 1.2e5 draws per (rule, K)).
+All diagnostic sampling.
