@@ -40,3 +40,9 @@ Bash user/system timing is retained separately from in-main CPU. Atomic result
 replacement and a progress log preserve failure; output directory/log are new
 and cannot be overwritten or silently resumed. Final independent saved review
 is required before handoff.
+
+Execution prerequisite hardening: gate.json must pin the checker, protocol,
+launcher and snapshot manifest, and explicitly name/hash the completed
+791b2d5f provenance review and forthcoming checker-source review. Both review
+artifacts must have complete/pass_all true. Every model summary must contain
+exactly the frozen six schemes. No numerical cases or tolerances changed.
