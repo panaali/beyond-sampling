@@ -52,6 +52,19 @@ Status of every claim: **[measured]** or **[inferred]**, and **verified** (indep
    Strict at 5.4k FPE would need RMS <= .37 pp, below the closure oracle floor (~.46 pp). The cost lane T326 found
    the family's floor at ~2.2k FPE (strict F ~1.9 at unchanged RMS; negative for knob cuts, unverified), so strict
    needs an estimate-preserving screen (T330) plus an error fix to ~.58 pp (T324 budget, T327 closure) [inferred; open].
+   **[Updated 2026-10-18 14:00 UTC]** Superseded in part by T317f and the lanes T324-T353 (§9 headline). The best
+   sampling-free estimator is now T317f, T317e plus a declared frozen-gate margin screen (T330 tier C1; T335): on
+   fresh sealed HP4, scored once, F 2.63 [1.93, 3.39] at C 3,302 FPE, RMS .749 pp, bias +.436 pp [measured,
+   unverified; T281, H-L1]. It is a lenient pass and a strict fail (the CI excludes 1). Plain sampling at equal
+   compute still has ~2.6x lower MSE, and T317f breaks down between .1% and .25% relative weight noise (T337). The
+   error budget (T324; product and tmax terms **verified** by T334) puts 66% of the MSE and +.59 pp of bias in the
+   walk approximations (the line-set product ~40%, tmax ~20%) and 34% in the closure [measured]. Apart from T330's
+   declared screen (T317f itself), no strict lane produced a frozen variant. T326, T330/T330b and T331 are negative on
+   cost. T327's spread-lows oracle GO did not survive as an estimator (T339: error sd .667 -> .455, but +.27 pp more
+   bias). The product fix is unaffordable or not derived (T333, T347), and T351 kept T317f [measured, unverified]. The
+   one new DEV2 GO, T353 (spread plus tilt, cost-only, 5,079 FPE, DEV2 F 2.60 vs T317f's 3.14), is a lenient-track
+   gain awaiting a pre-registered DEV3 check. Strict at ~5k FPE still needs RMS <= ~.38 pp, against its .609
+   [measured, unverified; inferred].
 
 ## 1. The question and the bar
 Estimate the accuracy of the 432-parameter 2nd-argmax RNN M_16,10 (`alg_zoo.example_2nd_argmax()`, accuracy
@@ -284,17 +297,39 @@ Source: `claude/t241-neuron-account@e3d0a0de`, m16/approaches/neuron_account/REA
   INDEX T269]. So the account cannot yet serve as an estimator [inferred].
 
 ## 9. The cheap regime (2026-10-18)
-**Headline [Updated 2026-10-18 12:00 UTC].** One deductive estimator (with declared approximations) now passes the
+**Headline [Updated 2026-10-18 14:00 UTC].** The best sampling-free estimator is now **T317f** (T335): the T317 family's
+T317e plus a declared frozen-gate margin screen (T330 tier C1). On the fresh sealed panel HP4 (100 retrains, scored
+once) it scores **F 2.63 [1.93, 3.39]** at C 3,302 FPE, RMS .749 pp, bias +.436 pp (T281 84466121) [measured,
+unverified]. That is a lenient pass and a **strict FAIL** (the CI excludes 1). Plain sampling at equal compute still
+has ~2.6x lower MSE (H-L1), and the family fails on weight-noised copies (T337). So it does not solve the challenge
+[measured]. No estimator of any class passes strict (T281) [measured, unverified]. Since 12:00 every strict lane has
+reported (strict-bar arithmetic below): only T330's declared screen produced a frozen variant (T317f itself), and
+none comes near strict. The one new development result is T353, a cost-only
+spread-plus-tilt arm that is GO on DEV2 (F 2.60 vs T317f's 3.14, at 5,079 FPE) and awaits a pre-registered DEV3 check
+[measured, unverified; development panel only].
+*[12:00 UTC headline, kept; superseded in part]* One deductive estimator (with declared approximations) now passes the
 lenient bar with its upper CI <= 10, on two sealed retrain panels: the T317 family, which computes R1W V1's estimates
 at less than half V1's cost (T281) [measured, unverified]. It fails strict; plain sampling at equal compute
 has about 5x lower MSE; and it fails on weight-noised copies. So it does not solve the challenge [measured]. No
 estimator of any class passes strict (T281) [measured, unverified].
+- **[Updated 2026-10-18 14:00 UTC] Best sampling-free: T317f** (T335; T218 branch @88453669, r1_cont/estimator_f.py
+  -> cont_f.est; §9.2 step 13). The C1 screen stops a walk once the frozen-gate affine margin stays positive to tmax.
+  Its declared error against T317e on DEV2 is RMS .077 pp (mean +.045, max .34). Self-contained, no random draws
+  (RNG-patched probe clean); C as executed 3,326 FPE on DEV2, where RMS is .827, bias +.489 and F 3.14 (T317e 4.78).
+  It was selected among ~6 DEV2 variants (forking-paths note in its README) and submitted once, to HP4 [measured].
+- **[Updated 2026-10-18 14:00 UTC] Sealed HP4** (T328 panel: seeds 300-399, mean truth .92265; T281 84466121)
+  [measured, unverified]: official C 3,302 FPE, **F 2.63 [1.93, 3.39]**, RMS .749 pp, bias +.436 pp, n* 1,255.
+  Sensitivities: screen-charge audit (+1.5% C) 2.67 [1.96, 3.45]; stacked x1.09 x1.04 (C 3,743) 2.98 [2.19, 3.85].
+  Secondary, on spent panels: HP3 3.22 [2.19, 4.42], HP2 4.41 [3.21, 5.66]. The HP4 plain-MC control gives .83-1.25,
+  with every CI covering 1. HP4 is now spent; HP5 (T336) is the reserve.
 - **Best deductive: the T317 family** (claude/t218-tie-tail-labels, r1_cont/README.md; §9.2 steps 8-12). Each step
   is cost-only or a model-free clean-up: T317 (continuity restarts plus an executed B2 prefix tree; estimates equal V1
   to 6.7e-16) -> T317b (G = 20 Gauss-Legendre nodes) -> T317c (telescoping merge of touching correct pieces before
   the Phi profile, model-free Phi tables) -> T317d (model-free tables precomputed once and listed, exact-law
   transverse points; estimates move <= .0115 pp) -> T317e (self-contained, no MC anywhere; estimates and FLOPs
   bitwise identical to T317d). T317e is the version to cite (INDEX T317) [measured].
+  *[Updated 2026-10-18 14:00 UTC]* T317f (above) adds one declared approximation to T317e. T317e remains the version
+  to cite for the estimates scored on HP2 and HP3.
 - **Sealed scores** (T281 scorer) [measured, unverified]. Fresh HP3 (T321; 100 retrains never used before): T317c
   **5.08 [3.42, 7.04]**, T317d **5.07 [3.41, 7.03]** (T317e has T317d's scores), at C ~5.4k FPE, RMS .805 pp, bias
   +.415 pp; sensitivity counts 5.05 and 5.29. HP2: T317c 6.72 [4.84, 8.73] at the official count of the frozen code
@@ -310,11 +345,15 @@ estimator of any class passes strict (T281) [measured, unverified].
   of ~5.4k FPE (5.3-6.8k under alternative FLOP conventions). Plain sampling at the same compute has about 5x LOWER
   MSE [...]. It does NOT match sampling, and it fails on weight-noised copies." Status: measured on two sealed panels
   (DRI 2026-10-18).
+  *[Updated 2026-10-18 14:00 UTC]* H-L1's 12:33 update carries the same reading to T317f on HP4 with ~2.6x in place of
+  ~5x: "Plain sampling at equal compute still has ~2.6x lower MSE; strict fails." T324's audit adds that the scheme is
+  sampling-free at runtime but not deductive in the strict Hilton sense (below) [measured].
 - **Red-team caveats** (review/candidate_redteam/README.md; as INDEX H-L1 and T281 state them) [measured unless
   marked].
   - *Scope:* retrains of the zoo config only; the 10x bar is a project convention, not ARC's ("match"; above).
   - *Selection:* ~30 DEV2 variants and 5 HP2 submissions in the lineage. HP3 scored the frozen T317c once, then
     T317d.
+    *[Updated 2026-10-18 14:00 UTC]* T317f: selected among ~6 further DEV2 variants; HP4 scored it once.
   - *Model-free MC:* T317c sets two model-free constants by seeded MC at import; T317d uses exact quadrature (HP3
     5.07), and T317e has no MC anywhere.
   - *Information, not the bar:* a panel-mean constant scores F ~13-14 under the 1k floor (HP3: the constant .920
@@ -330,11 +369,17 @@ estimator of any class passes strict (T281) [measured, unverified].
     [inferred, arithmetic].
   - *Independence:* the estimates were reproduced by a second implementation (T312, T320), but by the same agent
     both times; a check by a second, different agent is pending (T324). The cost recount agrees within ~9%.
+    *[Updated 2026-10-18 14:00 UTC]* Done. T324, a second agent, itemised the error and audited the scheme, and T334
+    (own code, pre-registered) reproduced its product and tmax terms; the DRI confirmed those two terms [measured].
   - *Justification [inferred, red-team]:* "deductive" describes the runtime, not the justification. The declared
     approximations were chosen and validated by sampling on DEV2, and no bound is derived from the weights for any
     of them. From T318's .72 pp walk-vs-closure error, roughly 80% of the .8 pp error and the whole bias come from
     them, and the two net biases partly cancel (-.16 from the closure, +.55 from the walk approximations), which is
     fragile. T324 measures this budget.
+    *[Updated 2026-10-18 14:00 UTC]* Measured (T324, 80 DEV2): the walk approximations carry 66% of the MSE and
+    +.59 pp of bias, the closure c 34% and -.15 pp (§9.2). The audit: sampling-free at runtime, but the scheme
+    (closure c, latest-position rule, tmax .5, K = 1 v4 node, blind rule) was selected and validated by MC on DEV2,
+    so it is not deductive in the strict Hilton sense [measured].
 - **Earlier best deductive: R1W V1** (T304, frozen by T306): the same estimates at 12.1k FPE. HP2 F 16.35 [11.77,
   21.24] as frozen; **14.92 [10.74, 19.38] official** under the written cost convention (T281 recount); 16.83 and
   13.51 [9.72, 17.55] under T313's counts. Every count fails lenient [measured]. Its estimates were reproduced within
@@ -361,9 +406,12 @@ estimator of any class passes strict (T281) [measured, unverified].
     *[Updated 2026-10-18 12:00 UTC]* Richer fitted functions of cheap per-class features (<= 4k FPE) reach at best
     .855 pp held out, about 2x the ~.43 that strict needs at 4k (T314) [measured, unverified; scoped to those feature
     families and learners].
+  - *[Updated 2026-10-18 14:00 UTC]* At T317f's 3.3k FPE strict allows ~.47 pp (at p(1-p) .074), against its HP4
+    RMS of .749. At T353's 5,079 FPE it allows ~.38 pp, against .609 on DEV2. The lanes that tried to close this gap
+    are in the strict-bar arithmetic below [inferred, arithmetic].
 - No impossibility proof exists (§9.4).
 
-*Strict-bar arithmetic [Updated 2026-10-18 12:15 UTC].* Taking the panel mean p(1-p) as .074
+*Strict-bar arithmetic [Updated 2026-10-18 14:00 UTC; first written 12:15 UTC].* Taking the panel mean p(1-p) as .074
 (TASKS T326), F = RMS^2 x max(C, 1k)/.074, with RMS as a fraction and C in FPE; F is linear in C at fixed RMS. At the
 T317 family's RMS of .80 pp, C = 1k FPE would give F ~.87 and C = 2k ~1.7. At the family's ~5.4k FPE, strict needs
 RMS <= .37 pp, below the closure oracle floor (~.46 pp; T307), so at today's cost even perfect integration of the
@@ -373,13 +421,49 @@ F 13.2 (742 FPE, RMS 3.13 pp), because dropping a line costs 1.35-3.1 pp and cap
 table: later-cell tangents 36.5%, B2 prefix tree 31.5%, later-cell readout 10.7%; with all three lines and no later
 cells the floor is ~2.2k FPE. Oracle floors: 92-95% of the non-blind later-cell cost comes after the last wrong
 piece, so an estimate-preserving cap would reach ~2.2k FPE, i.e. strict F ~1.9 at unchanged RMS [measured, oracle].
-So cost can buy ~2.5x, and strict needs both halves: **T330** (open) builds a deductive safe-to-tmax screen
-(go line: estimates within 1e-4 pp of T317e at C <= 3.0k FPE), and the error side must bring RMS to ~.58 pp at
+So cost can buy ~2.5x, and strict needs both halves. *The 12:15 plan:* **T330** builds a deductive safe-to-tmax
+screen (go line: estimates within 1e-4 pp of T317e at C <= 3.0k FPE), and the error side must bring RMS to ~.58 pp at
 2.2k, through **T324** (the error budget, attributing the +.41 pp bias, which is about a quarter of the MSE, to
 the declared approximations, plus a second-agent audit) and **T327** (closure: re-check of T319 plus two untried
 variants; go line oracle RMS <= .30 pp at <= 1.5k FPE added). **T329** (backlog) is a structurally cheaper
 geometry. A variant that passes is a new estimate variant, and HP2 and HP3 are spent, so it goes to the reserved
 fresh sealed panel HP4 (T328, being built).
+*Outcomes [Updated 2026-10-18 14:00 UTC]* (INDEX rows T324-T353; unverified unless marked; §9.2 rows):
+- *Cost, rigorous: negative.* T330's Tier A gate box fires on 0 rows. Tier B is exact, but its best schedule costs
+  5,525 FPE against T317e's 5,490; T330b (per-gate-pattern operator norms) costs 5,561. Rigorous certificates do not
+  pay; zonotopes are untried [measured].
+- *Cost, declared: the one gain.* T330's Tier C1 (a declared heuristic) brings C to 3,328 FPE on DEV2 at a declared
+  error of RMS .076 pp (DEV2 F 3.14 vs 4.78), short of its tier go line (C <= 2.5k). Frozen as T317f: HP4 F 2.63
+  [1.93, 3.39], strict fail [measured].
+- *Range: negative.* T331 (tmax raised to 1-2, with or without a zero-cost affine extension, and combined with C1):
+  GO = NO. The best MSE x C is 1.08 x T317e (tmax 1 plus extension, RMS .669) [measured].
+- *Error budget: done.* T324 puts 66% of the MSE and +.59 pp of bias in the walk approximations (product -.57 pp and
+  -40% of the MSE; tmax -.18 and -18%) and 34% and -.15 pp in the closure. T334 reproduces the product and tmax terms
+  (**verified**, DRI). With tmax, the blind rule and the product removed, RMS is .583; T332's fitted ceiling from T317e's
+  own per-row outputs is .577 [.46, .68]. So what this geometry measures is worth ~.58 pp even when fitted
+  [measured; reading inferred].
+- *Closure: oracle GO, estimator no.* T327 reproduced T319 (dead, **verified**, scoped) and stopped both untried
+  variants on the deployable closure ((a) .553 at +6.1k FPE, (b) .440 at +18k). Its arm B, one-pattern spread lows,
+  was GO as an oracle (floor .482 -> .343, reverse pattern .255, no added cost). Built into T317f (T339), it does not
+  freeze: s = -1 cuts the error sd .667 -> .455 but moves the estimates up +.27 pp (RMS .884, F 4.04), exposing the
+  walk approximations' positive bias. Post hoc, its variance alone gives F ~1.06 at 3.7k FPE [measured; post hoc
+  figure inferred]. T338 (lows chosen from W equal recency) and T341 (the running-max reading refuted) close the
+  obvious mechanism-led alternatives [measured].
+- *Product: unaffordable or not derived.* T333: no zero-cost rule works; the exact joint set J2 adds ~21k FPE at the
+  line-cell price, ~17x the ~1.2k strict allowance; the net overstatement (+.574 pp) lives in the L-band near both tie
+  walls. T347: the overstatement has mean +.568 but sd .275 per model, and the first-principles tilt formula misses its
+  go line (mean |error| .230 vs .1). As a post hoc correction it cuts bias +.439 -> -.013 and RMS .796 -> .667 at
+  ~1.4k FPE extra [measured]. A no-compute review note on T347 (DRI branch) [inferred]: no model-free derivation of the
+  offset exists; its sign is model-free, its magnitude is not, and its constancy is a corner/outside cancellation.
+- *Combination: a lenient gain only.* T351 (T317f plus spread plus tilt, four arms) keeps T317f by its pre-registered
+  rule; spread plus tilt has the family's best RMS (.609) but costs 6,543 FPE. **T353** reimplements that arm
+  cost-only: estimates bitwise equal on 80/80, C 5,079 FPE, DEV2 F 2.60 against T317f's 3.14 (MSE x C 1,883 vs 2,276;
+  go line 2,048). It is GO on DEV2 and frozen; its pre-registered, no-retune DEV3 check against T317f is **open**, and
+  only a confirmed check makes it the HP5 candidate [measured, unverified].
+So at ~5k FPE strict needs RMS <= ~.38 pp (T351), against the best DEV2 arm's .609 (bias +.413, sd .451). Even with the
+bias removed exactly, an sd of .451 at 5,079 FPE gives F ~1.4 [inferred, arithmetic]. Strict now needs a deductive
+removal of the walk approximations' positive bias (T339's reading) and a further cut in the model-to-model spread.
+T329 (a cheaper geometry) is still in the backlog.
 
 DRI, 2026-10-18: the cheap-regime results of T269-T300. Source: the INDEX registry, numbers checked against the child
 READMEs. A result is unverified unless marked **verified**; verdicts follow each task's pre-registered rule.
@@ -510,6 +594,35 @@ sealed panel (T321). All are unverified unless marked.
 | capped walks (T315; claude/t218-tie-tail-labels 7936af31) | D | c = 1 / 2 / 3 exact cells: 4.3k / 7.3k / 9.8k | bias -10.4 (c = 1), -5.3 (c = 3) | 1269 / 1678 / 903 | [measured] FAIL, far from the line. Near the tie the first gate cells are tiny (H-E15); there is no cheap middle between first-cell extrapolation and full walks |
 | cheap-feature information ceiling, richer learners (T314; claude/t241-neuron-account 5067f9d9) | I (fitted on 40 retrains; diagnostic) | features <= 4k (2,417) | held out: best .855 (per-class basis ridge); with probe v1 (~6.3k) .72 | - | [measured] INFORMATION-INFEASIBLE for cheap strict, scoped to these anchor-feature families and learners: ~2x the ~.43 pp strict needs at 4k |
 
+*Rows added [Updated 2026-10-18 14:00 UTC].* Same columns. Step 13 adds one declared approximation to T317e (the C1
+screen) and was scored on the fresh sealed panel HP4 (T328: 100 retrains, seeds 300-399). Step 14 is DEV2 only. The
+other rows are the strict-bar lanes (cost, error budget, product, closure), the noise curve and the rare-event pair.
+Sources: INDEX rows T317 (for T317f/T335), T324 (for T334 and addendum A) and T326-T353; branches as listed there,
+named here by their task suffix; sealed scores by T281. DEV2 unless marked; all unverified unless marked.
+
+| family (task) | class | cost (FPE) | RMS (pp) | F | verdict, status |
+|---|---|---|---|---|---|
+| **step 13:** T317e plus a declared frozen-gate margin screen, T330 tier C1 (T317f, T335; T218 branch @88453669, r1_cont/estimator_f.py -> cont_f.est) | D (declared approximations; the screen is one more) | DEV2 3,326 as executed | DEV2 .827 (bias +.489); declared error vs T317e RMS .077 (mean +.045, max .34) | DEV2 3.14 (T317e 4.78) | [measured] self-contained, no random draws (RNG-patched probe clean); selected among ~6 DEV2 variants (forking-paths note in its README). HP4's single pre-registered submission |
+| **step 13, fresh sealed:** T317f on HP4 (T281 84466121, scored once) | D | 3,302 official; +1.5% with the screen-charge audit; 3,743 stacked (x1.09 x1.04) | .749 (bias +.436); n* 1,255 | **2.63 [1.93, 3.39]**; audit 2.67 [1.96, 3.45]; stacked 2.98 [2.19, 3.85]; spent panels (secondary) HP3 3.22 [2.19, 4.42], HP2 4.41 [3.21, 5.66] | [measured] LENIENT PASS, strict FAIL (the CI excludes 1). HP4 plain-MC control .83-1.25, all CIs cover 1. Sampling at equal compute still has ~2.6x lower MSE (H-L1). HP4 is now spent |
+| cost-error frontier of the T317e family (T326; t218-tie-tail-labels 7f1259a9, cost table 50340c1b) | D | 80 pre-registered configs; best at <= 2k: 742 | 3.13 at 742 FPE; caps cost 2.3-14.5, dropping a line 1.35-3.1, tmax .3 1.03 | 13.2 at 742; none beats T317e (DEV2 strict F 4.68) | [measured] negative (unverified), scoped to this family's knobs. Cost table: later-cell tangents 36.5%, B2 prefix tree 31.5%, later-cell readout 10.7%. Structural floor ~2.2k FPE with all three lines and no later cells; an oracle cap keeps T317e's estimate at ~2.2k (strict F ~1.9 at unchanged RMS) |
+| rigorous safe-to-tmax screens (T330 tiers A and B, pre-registered 7f3b0fa0; T330b per-gate-pattern operator norms) | D (certified) | best C: Tier B 5,525, T330b 5,561, vs T317e 5,490 | exact (max \|d\| 0.0 pp) | - | [measured] negative (unverified). Tier A fires on 0 rows (beta ~1e8). Tier B stops 85-95% of non-blind rows eventually, but each try costs ~one later cell (~3.4k FLOPs) and succeeds ~25%; the norms skip only 0.3-5% more. The binding looseness is the free gates' full \|dz*\| at Delta .1-.5, not box vs norm. Zonotopes untried |
+| declared screens (T330 tier C, pre-registered e8e0c530) | D (declared heuristic) | C1 all lines 3,328; non-blind only 3,522 | declared error: C1 RMS .076 (mean +.045, max .34; one-signed +); C2 .018 | C1 3.14; non-blind only 3.32; C2 4.10 | [measured] C1 fires on 95.5-96.7% of post-last-wrong cells: the family's best DEV2 cost point. Tier-C go (C <= 2.5k) not met. Frozen as step 13 |
+| tmax upward (T331; review round 5, D1; pre-registered e8e0c530, e59484d6) | D (declared approximations) | tmax 1 +52% (the review expected +5-12%); tmax 2 +126%; tmax 1 + extension +53%; plus C1 3,854 | tmax 1 .731 (bias +.30); tmax .5 + extension bias -.40; tmax 1 + extension .669 (bias +.10); plus C1 1.034 (bias -.708) | MSE x C vs T317e: 1.28 / 1.11 / 1.08 / 1.19 (go <= .70 for the combination) | [measured] GO = NO (unverified). A frozen early cell is a good proxy inside the window, not beyond it: C1-stopped rows extend an early cell's margin past tmax and mark far-gap mass wrong |
+| information ceiling from T317e's own per-row outputs (T332; t241-neuron-account 282d43d4; review round 5 settling test) | I (fitted; diagnostic) | at the 2.2k oracle cost / at 5.4k | held out .577 [.46, .68] (offset only .646; raw T317e .817; GBT .611) | ridge 1.01 at 2.2k, 2.49 at 5.4k | [measured] NEITHER go nor stop. [inferred] What this geometry measures is worth ~.58 pp even when fitted, matching T324's path with tmax, blind and product removed (.583); going lower needs new measurements, not re-weighting |
+| per-approximation error budget of T317d (T324; t292-oracle-floor, budget_t317d/README.md, pre-registered e85fff85) and independent re-check (T334; own code, pre-registered 9ee95374) | D (audit; decomposition on exact-law inputs) | - | one at a time (Delta bias, Delta MSE): product -.57 / -40%; tmax -.18 / -18%; blind g12 -.07 / -9%; mu-lin +.02 / +2%; single transverse point +.27 / +25%. Cumulative .720 -> .685 -> .691 -> .583 -> .475 -> .463 (K = 1 v4 node off) | - | [measured] walk approximations 66% of the MSE and +.59 pp bias; closure c 34% and -.15 pp. Product and tmax terms **verified** (DRI; T334: product -.562 [-.623, -.502], -41% [-57%, -20%]; tmax -.183 [-.235, -.136], -20% [-33%, -1%]); the product's MSE share varies across models (20-57%). The K = 1 v4 node is a sixth declared approximation (bias +-.31 pp). Audit: sampling-free at runtime, scheme selected and validated by MC on DEV2 |
+| how to combine the two lines, oracle (T324 addendum A; review round 5, D3; pre-registered f37e8bfc; 10 DEV2 x 1e6) | D approx. (oracle) | - | residue vs closure c, model-level: product at one point .385; OR 6.84, L23 2.24, L12 4.65, AVG 3.41; product at half points (T306-B) .495; exact 2-D at one point .377; exact 2-D at half points (J2) .087 | - | [measured] STOP: only the exact 2-D set works. T306-B explained as cancellation: the product overstates by +.30-.34 pp and the single anchor understates by -.34; they cancel at one anchor (per class the residue is 4.9 pp), so fixing either alone makes it worse |
+| replacing the product (T333, addenda B1-B3; 10 DEV2) | D | J2 lower bound ~21k extra at the line-cell price (~155k at an honest 2-D price; ~49k with blind in 2-D); corner-only J1 +2.6k / 4.0k / 5.6k | J2 vs truth .583 (.470 with no cut and blind walked); J1 removes .08 / .28 / .53 pp | - | [measured] B1: no zero-cost rule works (ADD -65x, OR -182x, L23 -33x, L12 -81x). B2: J2's extra alone is ~17x the ~1.2k strict allowance, so strict is out of reach for closure c via J2 by arithmetic. B3: net overstatement +.574 pp (corr with 1-p .001; gross over-mass corr .62), in the L-band near both tie walls (66% / 91% / 101% of the net at delta .05 / .1 / .2), not the corner (14% / 49% / 92%). J1 go (>= .25 at <= +600) not met |
+| first-principles overstatement (T347; formula frozen 790de13d, t347/tilt.py) | D approx. | ~1.4k extra (4.3k crudely counted) | D = V1 - J1: mean +.568, sd .275 per model (range -.04 to 1.43; corr with 1-p .07); formula mean \|error\| .230 (go .1), corr .54; post hoc V1 - D_pred: bias +.439 -> -.013, RMS .796 -> .667 | - | [measured] NO GO on the pre-registered rule. T333's "model-constant" only means it does not track accuracy; the best constant leaves mean \|error\| .207. The post hoc correction takes ~70% of the oracle product-removal gain (J1 -.129 / .616). A no-compute review note (DRI branch) [inferred]: no model-free derivation of the offset exists; the sign is model-free, the magnitude is not, and the constancy is a corner/outside cancellation |
+| closure re-check and untried variants (T327; t286-cheap-frontier ca5c94d3, closure_floor/README.md; pre-registered ccdda646, addendum a61743c7; review round 5, arm B) | D approx. (oracle) | (a) +6.1k; (b) +18k; arm B no added cost | T319 reproduced: R0 hard .532 / smooth 1.329 / product 11.69; top-4 .416 / .662 / 5.87. Deployable R1W: hard .481, (a) cone-clipped J .553, (b) exact 1-D walk on the largest-\|J\| low .440. Arm B (mu + (-1)^j sigma): .482 -> .343 (bias -.15 -> -.04); reverse pattern .255 | projected MSE x C vs T317e: (a) 2.4x, (b) 4.0x; arm B .82x (bar .85), reverse .74x | [measured] T319 dead (**verified**, scoped, DRI); (a) and (b) STOP; arm B GO as an oracle projection by quadrature addition. The gain comes from breaking the lows' equality. R0 gets worse with the spread (.515 -> .62 / .58) |
+| spread-lows closure in the estimator (T317g attempt, T339; t286-cheap-frontier 886e31ac, cont_g.py; pre-registered 6e0c7533) | D approx. | s = +1 4,090; s = -1 3,748 (+12-23% over T317f) | s = +1 .911 (bias +.726, sd .550); s = -1 .884 (bias +.758, sd .455); T317f .827 (+.489, sd .667) | 4.68 / 4.04 vs T317f 3.14 | [measured] NO FREEZE by the pre-registered rule; s = 0 reproduces T317f bitwise. The spread cuts the model-to-model error sd .667 -> .455 (corr with truth .978 -> .991; each model moves against its own T317f error, corr -.73), but the estimates shift up +.27 pp: the mean-point closure's negative bias had been cancelling part of the walk approximations' ~+.6 pp. Post hoc, s = -1's variance alone gives F ~1.06 at 3.7k FPE. T327's projection (F ~3.8) did not hold |
+| lows chosen from W (T338; t241-neuron-account 95691e09, mech_closure/; pre-registered 1d49b429) | D approx. (oracle) | K = 2 at 3,659 nodes (1.3x); no budget 2.4x nodes | closure c .473; W-derived K = 2 .410; latest low .426; adjacency .423 (difference -.017 [-.051, +.017]); no budget .309; T327's spread .255 | - | [measured] NO GO: W-chosen lows equal simple recency. W ranks the earliest low positions most important, which the prefix tree cannot afford. Its running-max reading [speculative] is refuted by T341 |
+| order-statistic closure (T341; t241-neuron-account 3c76f604, lows_orderstat/; pre-registered b3342549) | D approx. (oracle) | - | spread s+ .333, s- .248 (reproduces T327); closure c .472; v5 at its true position .314; v5 at a fixed slot .483; true running max .359 (bias +.31); expected running-max profile .602 | - | [measured] NO GO; the running-max reading is REFUTED (best vs s-: +.066 [+.010, +.120]). v5 carries information only at its true position. s- has a parity-dependent bias (+.058 / -.044 by the parity of the latest free position); a sign-alternating, period-~2 recurrent mode is [speculative] |
+| combined arms (T317h attempt, T351; t292-oracle-floor, pre-registered 67e624b2) | D approx. | T317f 3,326; spread 3,748; tilt 6,124; spread + tilt 6,543 | .827 (bias +.489) / .884 (+.758) / .670 (+.038) / **.609** (+.413) | 3.14 / 4.04 / 3.79 / 3.35; MSE x C 2,276 / 2,931 / 2,750 / 2,426 | [measured] NO FREEZE: the pre-registered selection keeps T317f. The tilt fixes the bias, but its crossing pass as executed costs +2.8k FPE. Strict still needs RMS <= ~.38 at 5k |
+| **step 14 (DEV2 only):** spread + tilt reimplemented cost-only, reusing the walk's crossing-cell state (T353; t292-oracle-floor, pre-registered bfc15b92; frozen as t351/estimator_h2.py) | D approx. | 5,079 as executed (A3 6,542 in this count; reuse charge 5,976 FLOPs per wall row) | .609 (bias +.413, sd .451); estimates bitwise equal to arm A3 on 80/80 | 2.60 (T317f 3.14); MSE x C 1,883 (go line 2,048) | [measured] GO on DEV2 (unverified). Pre-registered no-retune DEV3 check against T317f next (T342 panel); if confirmed, the candidate for HP5's single submission. A lenient-track gain; strict needs RMS <= ~.38 at 5k |
+| noise breakdown curve of T317f (T337; pre-registered 4ff2753c; target + zoo0-4, 4 copies per level, 1e7 truths) | D approx. | - | relative sigma 0 / .001 / .0025 / .005: .85 (bias +.58) / 1.04 (+.75) / 2.19 (+1.63) / 3.86 (+2.94) | 0 3.3; .0005 3.1; .001 4.0; .0025 12.0; .005 32.4 | [measured] breakdown between .1% and .25% relative noise, tracking the accuracy drop (per-copy estimate error vs true error r = .81-.84); at .0025 the target is off +.28 pp, zoo1/zoo2 +3.3. Noise creates errors far from the tie faces: interior errors with both gaps >= tmax grow .09 -> .76 pp (about half the bias); rank-4+ errors .97 -> 3.2 pp. At .0025, tmax 6 cuts zoo0's error +1.60 -> +.93; C1 and blind g12 barely matter; the remaining ~+.9 pp is inferred to be closure and product |
+| rare-event estimates (T340; t286-cheap-frontier 620eb47b, rare_events/README.md; pre-registered c0564f03, addendum 716ea8b5) | D approx. | variant A 11-19k; variant B 0.21-0.32M | est/truth: E1 (rank-3 pick with g23 > t0) variant B seeds .64-.89, target .20-.29; variant A misses the islands (100x-1e14x low); E2 (wrong with both gaps >= t) variant A 6/6 within 3x | F uninformative for rare p (relative error used) | [measured] PARTIAL POSITIVE (unverified). Truths: GPU float64, target 1e10, seeds 1e9 samples. Equal compute (post hoc, executed C): variant A wins 5 / ties 7 / loses 3 of 15; B 5 / 3 / 7; the better variant per event family 10 / 3 / 2. No single estimator beats sampling in a majority of cases (the DRI's earlier "12 of 15" counted ties as wins; corrected). Independent check T350 and T340c (T349) pending |
+| certified rare-event bounds (T344; t218-tie-tail-labels 55368498, r1_cont/README 'T344') | D (certified) | - | - | - | [measured] feasibility negative (unverified), scoped to interval certificates and exact sub-cone enumeration. Interval propagation certifies boxes only <= 1e-4 wide around far-gap correct points, even in 3-D (v2, g12, g23), because \|Wh\| compounds over 10 steps; far-gap sub-cone enumeration projects to ~2e8 regions at step 10 (kill line 1e6). Only the trivial bound P(g23 > t0) (4.4e-2 / 1.7e-2 / 5.9e-3) is rigorous, 8,200-27,500x looser than the target's truths. A bound conditional on the declared closure was not pursued (not rigorous; could undershoot) |
+
 ### 9.3 The common failure
 Every cheap deductive approximation tried fails for one of four reasons [inferred from the rows above].
 
@@ -595,13 +708,26 @@ because it pays for the exact walks at ~5.4k FPE instead of avoiding them. Its r
   *[Updated 2026-10-18 12:00 UTC]* Now framed by the strict-bar arithmetic (§9 headline). At RMS .80 pp it needs C ~1k
   FPE, or at ~5.4k FPE it needs RMS <= .37 pp, below the closure floor. Running: T326 (cost), T327 (closure) and T324
   (error budget). These are open lanes, not results.
+  *[Updated 2026-10-18 14:00 UTC]* The lanes have reported (strict-bar arithmetic above): T326, T330/T330b and T331
+  are negative on cost (T330's declared C1 screen became T317f); T324/T334 itemise the error; T327 -> T339 and T333 ->
+  T347 -> T351 each fix part of it but expose or leave a positive bias, and none of these froze a variant [measured,
+  unverified]. Open: a deductive removal of the walk approximations' positive bias (~+.6 pp, T339's reading; +.41 pp
+  in T353's arm) and a further cut in the model-to-model spread: T353's sd .451 alone gives F ~1.4 at 5,079 FPE
+  [inferred, arithmetic]. T329 (a structurally cheaper geometry) is still in the backlog.
 - **[Updated 2026-10-18 12:00 UTC] H-L1's open items** (INDEX): the strict bar; noise robustness (HP1 noisy F 39-206;
   bias up to +6.6 pp at absolute sigma .05, red-team); the per-approximation error budget and an audit by a second,
   different agent (T324); est(M_16,10) against the truth, now reported (+.087 pp, one model; T281 1515eb10).
+  *[Updated 2026-10-18 14:00 UTC]* H-L1 now cites T317f (HP4 F 2.63 [1.93, 3.39]; sampling ~2.6x lower MSE). The error
+  budget and a second-agent audit are done (T324; product and tmax terms **verified** by T334). Noise robustness:
+  T317f breaks down between .1% and .25% relative noise, because noise creates errors far from the tie faces (T337)
+  [measured, unverified]. Still open: the strict bar.
 - **[Updated 2026-10-18 12:00 UTC] Candidate dossier** (T323): a draft is pushed (claude/t241-neuron-account
   4669ad5b) and awaits DRI review. The red-team advises against sharing it with ARC as a candidate solution, since it
   fails "match" by ~5x and fails on weight-noised copies; after the listed fixes it could serve as a progress note
   [inferred, red-team].
+  *[Updated 2026-10-18 14:00 UTC]* Done (T323): final v3, after the red-team and T324, framed as a progress note and
+  not a candidate solution (HP3 F 5.07 [3.41, 7.03] at 5.4k FPE; six declared approximations; sampling-free at runtime
+  but the scheme selected by DEV2 MC). Given to the owner 2026-10-18. It predates T317f.
 - **[Updated 2026-10-18 09:30] Proposed, not started:** T291 (Astra r2 C3, shared-innovation polynomial
   coefficients with explicit remainders), awaiting DRI prioritisation.
 - **[Updated 2026-10-18 09:30] Round-3 reviews** (T301). Fable round 3: pending publication. Astra round 3: not yet on
@@ -609,8 +735,23 @@ because it pays for the exact walks at ~5.4k FPE instead of avoiding them. Its r
   *[Updated 2026-10-18 12:00 UTC]* Fable rounds 3 and 4 are on the DRI branch claude/project-handoff-priorities-zpzfm8
   (review/fable_review_r3, review/fable_review_r4). Their ideas became T307-T310 and T317-T319. Astra round 3 is not
   yet on the shared branch.
+  *[Updated 2026-10-18 14:00 UTC]* Closed (T301): the second reviewer's round 3 was never delivered. Round 5 of the
+  first reviewer is on the DRI branch; its ideas became T326-T332 (T331 = r5 D1, addendum A = r5 D3, T327 arm B, T332
+  settling test).
 - **[Updated 2026-10-18 12:00 UTC] Untried variants added:** cone-clipped J and an exact 1-D treatment of the
   largest-|J| low (T319, now T327); EM or truncated-Gaussian mixtures, a step-9 representation (T309).
+  *[Updated 2026-10-18 14:00 UTC]* Also untried: zonotope certificates for the safe-to-tmax screen (T330); exact 2-D
+  correct sets at >= 2 anchors per region at an affordable price (addendum A, T333); a model-free derivation of the
+  tilt's magnitude (T347; the review note finds none); an exact 3-D polytope bound conditional on the declared closure
+  (T344; not rigorous); rare-event walks at several g12 quantiles or a 2-D walk (T340c, now T349); T340 on noisy
+  copies and more models.
+- **[Updated 2026-10-18 14:15 UTC] Rare events (T349 / T340c):** with g12 at exact-law Gauss nodes, the rare-event estimates close within 2x (K5 9/9 on E1, K3 6/6 on E2; probabilities 2e-7 to 4e-4) but cost 1.8-4.5M FPE; equal-compute wins only where p x C <~ 90 (4/3/8 of 15). The deductive cost does not scale with 1/p, so the rarer the event the larger the advantage [inferred]. Cost lever T354; independent check T350.
+- **[Updated 2026-10-18 14:00 UTC] Running checks** (TASKS): T353's pre-registered DEV3 check against T317f, on DEV3
+  (T342: 100 open retrains, seeds 500-599, truths published; being built); T343, an independent check of T339's
+  decomposition on DEV3 by a different agent; T350, an independent re-check of T340 on >= 6 DEV3 models; T349 (T340c),
+  transverse integration for T340's variant B. HP5 (T336, seeds 400-499) is the reserve for the next single sealed
+  submission. Proposed, low priority: T345 (a feed-forward architecture control), T346 (exact-methods brainstorm),
+  T352 (quantised-activation variants).
 
 **No impossibility proof exists.** Every negative above is scoped to the methods and settings tested, as both round-2
 reviews say (Fable r2 B, Astra r2 B). Their subjective odds of a strict cheap win on HP2 within three months are 15% and
@@ -621,6 +762,10 @@ bound over all designs [inferred].
 **[Updated 2026-10-18 12:00 UTC]** This still holds after T309-T325. The T317 family changed the deductive lenient
 verdict by cost alone, with unchanged estimates; the strict verdict rests on the same measured floors (§9 strict-bar
 arithmetic) [inferred].
+**[Updated 2026-10-18 14:00 UTC]** This still holds after T326-T353. T317f moved the lenient score with one more
+declared approximation; the strict verdict rests on measured floors and costs (T324, T333, T339, T351), not on a bound
+over designs [inferred]. T344's certificate negative is scoped to interval certificates and exact sub-cone
+enumeration.
 
 ### 9.5 Positive facts worth keeping
 - **Deductive errors on retrains are nearly constant offsets** (T286) [measured]. rank_exact is off by -1.39 pp on
