@@ -30,3 +30,62 @@ deductive or as a declared structural approximation (none inductive). Report:
 - the error against MC of R0 (integration) and against the truths (total).
 
 On a pass: freeze, and send to the T281 scorer for HP2. Cap: 2 hours.
+
+*Amendment before scoring on all 80 (after a 3-model smoke test showed 44-53k FPE):* the walked range is a parameter
+tmax. Beyond tmax the gap is **assumed correct**, a declared structural approximation (R0's errors sit at small
+gaps). Scanned tmax = 0.05-6.
+
+## Status
+Done (2026-10-18). **FAIL by the pre-registered line.** No design fits <= 4k FPE: the first cell alone of the four
+walked lines costs 4 x 2 FPE x 720 = 5,760 FPE. At any cost the best F on DEV2 is 20.6.
+
+## Results
+**Validation.** The model-free mass integral with full intervals gives 1 - 1.6e-15. walk_line is the T218/T272
+exact walk structure, with the correct set per piece in closed form.
+
+**Walk-length scan, 10 T297 DEV2 models** (`python scan.py`, `results_scan.json`). Integration error vs 1e7 MC of R0;
+per-class errors = estimator error mass minus MC error mass:
+
+| tmax | charged FPE | integration RMS (pp) | mean (pp) | nonblind class: mean / RMS (pp) | blind class: mean / RMS (pp) | total vs truth RMS (pp) |
+|---|---|---|---|---|---|---|
+| 0.25 | 22,604 | 0.62 | +0.48 | -0.46 / 0.61 | -0.02 / 0.08 | 0.96 |
+| 0.5 | 25,910 | **0.29** | +0.12 | -0.21 / 0.35 | +0.09 / 0.12 | 0.66 |
+| 1.0 | 32,564 | **0.28** | +0.01 | -0.11 / 0.32 | +0.10 / 0.13 | 0.60 |
+| 2.0 | 40,394 | 0.29 | -0.04 | -0.08 / 0.32 | +0.12 / 0.14 | 0.58 |
+| 6.0 | 46,691 | 0.29 | -0.05 | -0.07 / 0.31 | +0.12 / 0.14 | 0.57 |
+
+**All 80 retrains, lenient point F** (`python f80.py`, `results_f80.json`):
+
+| tmax | C (FPE) | bias (pp) | RMS (pp) | F [95% CI] |
+|---|---|---|---|---|
+| 0.05 | 10,033 | +3.23 | 3.85 | 205 [150, 267] |
+| 0.5 | 26,318 | +0.42 | 0.75 | **20.6** [15.0, 27.3] |
+| 1.0 | 33,333 | +0.28 | 0.67 | 20.7 [15.2, 27.2] |
+
+**Reading.**
+- **The integration is now accurate, with no cancellation.**
+  - At tmax >= 0.5, the integration RMS is 0.28-0.29 pp against the MC of R0. This is 4-10x better than T297's
+    Newton thresholds (1.16-2.75 pp).
+  - Per class: the nonblind class is off by -0.1 to -0.2 pp mean, the blind class by +0.1 pp. Both are small
+    individually, so the result no longer depends on omitted classes offsetting each other.
+  - The integration error is now at about R0's own closure floor (total 0.57-0.66 pp).
+- **The cost is the obstacle.**
+  - The exact walk from the tie point crosses about 7 gate cells within the first 0.25 of gap length (H-E15's
+    tie-wall fragmentation, now as cost). 4 lines x 720 triples cost 22-47k FPE.
+  - At those costs R0's ~0.5-0.6 pp floor alone gives F ≈ 15-20, so **no walk length passes the lenient bar**, even
+    without the 4k cap.
+  - Cheaper walks (tmax = 0.05, 10k FPE) put the tie bands outside the walked range and are much worse
+    (F 205).
+- **Comparison with T300 stage 0** (F 5.97 at 1.75k FPE): that design's low F came from its very low cost together
+  with error cancellation. A deductive, non-cancelling design needs ~15x the cost and lands at F ≈ 21.
+
+## Compute accounting
+Scans: 10 models x 7 settings plus 80 models x 3 settings, ~25 CPU-min.
+
+## Claims (unverified)
+- [measured] The exact segment-walk integral of R0 (all classes, declared structural approximations only) has
+  integration error 0.28-0.29 pp RMS vs MC of R0 at 26-33k FPE, with small per-class errors. Lenient F on all 80
+  DEV2 retrains is 20.6 [15.0, 27.3] at best. FAIL; no <= 4k design exists (5,760 FPE for the first cells alone).
+- [inferred] For R0-based estimators the tie-wall fragmentation sets the price of a deductive integral at
+  >= ~20k FPE. With R0's ~.5 pp floor this caps F at >= ~15 on retrains. A cheap pass needs either a closure better
+  than R0 or a way to cross the tie walls without walking their cells (e.g. sharing walks across triples).
