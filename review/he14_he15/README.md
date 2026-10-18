@@ -89,7 +89,7 @@ its numerical band by 0.8 pp** (direction and verdict reproduced).
 | target | 34 / 792 / 21,032 | x26.6 | 0.773 |
 | frob0-4 | 34 / 766-816 / 19,796-22,696 (median 21,496) | x25.8-27.8 | 0.37-0.61 |
 | row0-4 | 34 / 768-842 / 19,026-23,978 (median 23,190) | x24.8-28.9 | 0.35-0.80 |
-| mu, activity-matched (5 of 100; 0.763-0.785) | 34 / 748-820 / 18,018-21,862 (median 19,792) | x24.1-26.7 | 0.76-0.79 |
+| mu, activity-matched (5 of 100; 0.763-0.785) | 34 / 748-820 / 18,018-21,862 (median 19,792) | x23.8-26.7 | 0.76-0.79 |
 
 - (i) **passes**: exact.
 - (ii) **passes**:
