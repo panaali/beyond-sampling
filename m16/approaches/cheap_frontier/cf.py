@@ -76,5 +76,6 @@ def dev2_truths():
     for p in ("truths.json", "truths_provisional.json"):
         f = os.path.join(HERE, "ext", "dev2", p)
         if os.path.exists(f):
-            return json.load(open(f))
+            d = json.load(open(f))
+            return d.get("truths", d)
     raise FileNotFoundError("no DEV2 truths")

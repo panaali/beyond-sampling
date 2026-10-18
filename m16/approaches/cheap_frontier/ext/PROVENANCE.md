@@ -4,3 +4,4 @@ Copied inputs (not produced here):
   (T274b deductive root-cone baseline; paired bias approx - network on 400k samples per model, perfect integration).
 - dev2/: origin/claude/t192-gpu-cost-law 65ee4726 m16/approaches/gpu_cost_law/hp2/dev2/{manifest.json,weights.npz} (T284 DEV2, 80 open retrains; official truths not yet published).
 - probe_v5.py, t274b_cone_bias.py, t274b_frozen_bias.py: verbatim copies of probe_v5/v5.py and lenient_bb/{cone_bias,frozen_bias}.py at the commits above (imported for the DEV2 runs only).
+- dev2/truths.json: official T284 truths (1e8/model), origin/claude/t192-gpu-cost-law 93e1ebb7 (DRI cites 163cd62e). Provisional 4M truths kept for the cross-check.
