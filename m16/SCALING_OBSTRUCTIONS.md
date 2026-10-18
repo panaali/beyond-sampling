@@ -124,9 +124,8 @@ Region-by-region methods inherit >= x16/step.
 - a genuinely independent region recount in exact arithmetic (T219, pending).
 
 ## 6. Trained vs random weights (T232)
-**Measurement.** Exact prefix regions of the target vs 10 random draws of the same architecture (5 Frobenius-matched, 5
-row-norm-matched) and 2 structure-destroying controls (W_hh entries permuted within rows; random sign flips). The random draws
-grow x22-26 (k = 3) and x25-30 (k = 4) per step, the same law as the trained x23.3, x26.6. At k = 4 they have
+**Measurement.** Exact prefix regions of the target vs 10 random draws (5 Frobenius-, 5 row-norm-matched) and 2 scrambled
+controls (W_hh row-permuted; sign-flipped). The random draws grow x22-26 (k = 3) and x25-30 (k = 4) per step, the same law as the trained x23.3, x26.6. At k = 4 they have
 19,354-26,074 regions vs 21,032. At k = 2 every model has the generic maximum, 34. Training concentrates mass only at coarse
 resolution: N_1e-2 is 1.7-6x and the inverse-Simpson count 2-8x smaller for the target, N_1e-4 ~1.9x, and N_1e-6 0.8-1.7x
 [measured, unverified; T194 branch, m16/approaches/random_control/README.md, pre-registered at 1d6f4db9]. The trained
@@ -134,15 +133,13 @@ M_16,10 is **generic in region count**: whatever training builds is in what the 
 are [inferred].
 **Theory note** [literature; not tested here]. ARC's no-coincidence conjecture concerns exactly this contrast. For random
 networks no short explanation should exist; for trained ones a mechanistic explanation should make the accuracy cheaply
-estimable. Our data say the explanation cannot take the form "few linear regions". Worst-case impossibility for white-box
+estimable. Our data rule out "few linear regions" as that explanation. Worst-case impossibility for white-box
 deterministic estimation is out of reach with current tools: it ties to derandomizing circuit acceptance probability (CAPP)
 and circuit lower bounds (Impagliazzo-Kabanets-Wigderson; Williams). Unconditional lower bounds exist only for black-box
-query access, e.g. deterministic convex-body volume (Elekes; Bárány-Füredi). So the obstructions above are empirical
-statements about the methods tried, not theorems about M_16,10.
+query access, e.g. deterministic convex-body volume (Elekes; Bárány-Füredi). The obstructions above are empirical, not theorems.
 
 ## 7. Is the error part "shattered"? (T239)
-Owner's hypothesis: the correct part is simple, and the error part is shattered like a random network and makes the
-region counts. Pre-registered tests (T194 branch, m16/approaches/shatter_test/README.md, rules at 1cd671cc; unverified):
+Owner's hypothesis: the correct part is simple; the error part is shattered, random-like, and makes the counts. Pre-registered tests (T194 branch, m16/approaches/shatter_test/README.md, rules at 1cd671cc; unverified):
 - **Error vs correct coverage** (final exact leaves, zoo seed 0): at T = 4, the cells covering 99% of the error mass are
   1.17x (H = 8) and 0.75x (H = 16) those for 99% of the correct mass. So not more spread at T = 4 (rule: >= 3x; not supported).
   But from T = 3 to 4 the error coverage grows x24.9 / x44.3 vs x8.3 / x18.4 for correct, 2.4-3x faster [measured].
@@ -152,5 +149,5 @@ region counts. Pre-registered tests (T194 branch, m16/approaches/shatter_test/RE
   draws and 2 scrambled controls do not (1.3-6.6x). Near ties it is 2-11x *more* fragmented than random, and far from ties
   4-9x coarser [measured; supported].
 Verdict: the complexity sits at the tie walls, is created by training, and grows with T. It is not random-like:
-training *moves* regions from the bulk to the ties at about the same total count (T232). A method that wants to beat
-enumeration must treat the tie-wall layer, whose cell count grows fastest, without resolving it cell by cell [inferred].
+training *moves* regions from the bulk to the ties at about the same total count (T232). A method that beats enumeration must handle the
+fast-growing tie-wall layer without resolving it cell by cell [inferred].
