@@ -91,7 +91,7 @@ def _back(model, V, A, t_from, rel, fl, lower=True):
     return coef + const[:, None]             # constant c -> c * sum(lambda) = c on the simplex
 
 
-def crown(model, R, label, fl):
+def crown(model, R, label, fl, return_bounds=False):
     """-> status: +1 certified correct, -1 certified wrong, 0 unknown."""
     Wi, Wh, Wo = model
     H, T = Wh.shape[0], R.shape[1]
@@ -111,6 +111,8 @@ def crown(model, R, label, fl):
     AU, cU = pos * s[None] + neg * alpha[None], pos @ b
     lo = (_back(model, V, AL, T - 1, rel, fl, True) + cL[:, None]).min(1)
     hi = (_back(model, V, AU, T - 1, rel, fl, False) + cU[:, None]).max(1)
+    if return_bounds:
+        return lo, hi
     if (lo > 0).all():
         return 1
     if (hi < 0).any():
@@ -118,7 +120,7 @@ def crown(model, R, label, fl):
     return 0
 
 
-def ibp(model, R, label, fl):
+def ibp(model, R, label, fl, return_bounds=False):
     """Interval bounds from the box hull of the simplex (E19-style)."""
     Wi, Wh, Wo = model
     T = R.shape[1]
@@ -136,6 +138,8 @@ def ibp(model, R, label, fl):
     lo = np.maximum(C, 0) @ hl + np.minimum(C, 0) @ hu
     hi = np.maximum(C, 0) @ hu + np.minimum(C, 0) @ hl
     fl.add(4 * C.size)
+    if return_bounds:
+        return lo, hi
     if (lo > 0).all():
         return 1
     if (hi < 0).any():
@@ -219,7 +223,7 @@ class Tree:
                                     nd["kids"][0], nd["kids"][1])
 
 
-def crown_fwd(model, R, label, fl):
+def crown_fwd(model, R, label, fl, return_bounds=False):
     """Cheaper variant: intermediate bounds by one forward symbolic (DeepPoly-forward) pass, sharing the work of
     all neurons and steps; back-substitution only for the final margins."""
     Wi, Wh, Wo = model
@@ -247,6 +251,8 @@ def crown_fwd(model, R, label, fl):
     AU, cU = pos * s[None] + neg * alpha[None], pos @ b
     lo = (_back(model, R, AL, T - 1, rel, fl, True) + cL[:, None]).min(1)
     hi = (_back(model, R, AU, T - 1, rel, fl, False) + cU[:, None]).max(1)
+    if return_bounds:
+        return lo, hi
     if (lo > 0).all():
         return 1
     if (hi < 0).any():
