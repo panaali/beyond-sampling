@@ -10,7 +10,9 @@ usage: python estP.py H T seed mode [workers] [device] [eps]      (seed s, "s:no
 import json
 import multiprocessing as mp
 import os
+import queue
 import sys
+import threading
 import time
 
 import numpy as np
@@ -92,7 +94,19 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
     t0 = time.time(); tm = 0.0
     fo = open(log, "a") if log else None
     with mp.get_context("fork").Pool(workers, _init, (model, mode, eps)) as pool:
-        for i, R, ops, st, sec in pool.imap_unordered(_half, todo):
+        # bounded in-flight halves: finished halves wait in RAM (rays of ~2e5 6-D simplices each at T = 6) until the
+        # parent has integrated them, so at most 2 * workers results are outstanding
+        q = queue.Queue(); sem = threading.BoundedSemaphore(2 * workers)
+
+        def submit():
+            for i in todo:
+                sem.acquire(); pool.apply_async(_half, (i,), callback=q.put, error_callback=q.put)
+        threading.Thread(target=submit, daemon=True).start()
+        for _ in todo:
+            res = q.get(); sem.release()
+            if isinstance(res, BaseException):
+                raise res
+            i, R, ops, st, sec = res
             t1 = time.time(); err = 0.0; mops = 0; ns = 0
             nthin = 0
             for d, Rd in R.items():
