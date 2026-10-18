@@ -1,0 +1,73 @@
+{
+  "complete": true,
+  "owner_artifact_commit": "223d2c90",
+  "raw_sha256": "18009a959c787c1586ef6b2551a6e41637b69dc5496306802054bcb4c1dd86e3",
+  "certificates_sha256": "cbffe78943aaaae0d1185a709c2acf656c2c20040e1067d7f6d3266df7e60c7f",
+  "protocol_sha256": "055fe06e41570b4c91b563ab6bcf111e9a3f63734955b8c6accfcaf389ea2268",
+  "checker_sha256": "093c127cbe7d7f7b0fb8cd2bd6279a93d62d7edcca94b497ff1c1bc1567a565e",
+  "exact_kkt_and_independent_elimination_determinants": 64,
+  "saved_progress_records": 258,
+  "methods": {
+    "center_quadrature": 36,
+    "center_interval": 28
+  },
+  "known_candidate_counts": {
+    "arithmetic": 188383,
+    "comparison": 51313,
+    "sqrt": 5388,
+    "abs": 100,
+    "atan2": 1320,
+    "sin": 277,
+    "universal_constant_arithmetic": 6
+  },
+  "known_candidate_total": 246787,
+  "reference_kernel_arithmetic": 81788992,
+  "reference_rule_arithmetic": 589920,
+  "difference_l1": 1.8069174458088476e-12,
+  "maximum_absolute_difference": 3.7252495241824287e-13,
+  "candidate_bound_sum": 1.7869980547882853e-11,
+  "maximum_reference_bound": 1.4428071158872105e-20,
+  "recorded_construction_operations": {
+    "construct_float": 1024,
+    "mul": 18816,
+    "construct_Fraction": 49723,
+    "add": 7168,
+    "construct_int": 1763,
+    "bool": 2396,
+    "truediv": 10275,
+    "sub": 13440,
+    "compare_gt": 1216,
+    "compare_ge": 1024,
+    "compare_lt": 1891,
+    "compare_eq": 256,
+    "compare_le": 64,
+    "neg": 24
+  },
+  "recorded_validation_operations": {
+    "construct_float": 1024,
+    "mul": 11776,
+    "construct_Fraction": 19968,
+    "add": 7168,
+    "construct_int": 1600,
+    "neg": 768,
+    "construct_str": 704,
+    "compare_eq": 768,
+    "bool": 64,
+    "compare_lt": 384,
+    "compare_ge": 128,
+    "compare_gt": 256,
+    "compare_le": 64,
+    "sub": 256
+  },
+  "recorded_peak_rational_bits": 804,
+  "author_cpu": 0.9559600349999999,
+  "review_cpu": 0.067990263,
+  "mass_model_geometry_candidate_calls": 0,
+  "qualification": [
+    "64 fixed selected rays only; no full-model accuracy or sampling comparison.",
+    "KKT range and determinant certified for saved dyadic rays; saved Gaussian integrations not replayed.",
+    "Reference tail recomputed independently at110digits, remains ordinary-MP conditional, not directed interval.",
+    "Source kernel formulas reconstructed conditional on recorded all-analytic/sin branch census; full hardware costs and actual floating evaluation error excluded.",
+    "Exact construction/validation operation inventories conserved, not replayed per operation; big-integer internals unpriced."
+  ]
+}
