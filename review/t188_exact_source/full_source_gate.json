@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "source_only": true,
+  "source_gate": "pass fixed sixteen serial chunks and saved-only aggregation/comparison after publishing and pinning this gate",
+  "claim": "c4f94101",
+  "author_source": "cd9d287b",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/chunk.py": "ec3e403b336edfd4f0b23a350d66927038e99be79b8f92096c626e1d6ad21d16",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/analysis.py": "54a63db7d7ae54ff410fdc12fccb1ce995707b9e0bac5777b476ea3814177a2c",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/aggregate.py": "23763ed88844a6dded7795737adbbcb2431e0d80acdd9df41a0db6996686ffef",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/compare.py": "de2de62a13ec23d84052e61caad25a89e3f376a6e877948bf9435398142ba0fb",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/exact_common.py": "5e488269baf62e65b7c17033a96b4970c567d020eb4ec6d5f9d6910feeac39e6",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/pilot.py": "b926ee292bbf7a2da9109c9b3c202e4d9d95336807baf3b14fe3fe70be2b9555",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/FULL_PROTOCOL.md": "1c708128f7f601d5390527366787544fa331892530a511fdda128f95bd57220e",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/exact_count/full_protocol.json": "a24954beefe9853d473d2209a9b98f378e74b91f66ada88c901b9a738f9f4218"
+  },
+  "dependency_pins_checked": 38,
+  "author_imports_or_executions": 0,
+  "checks": [
+    "Analysis byte-identical to reviewed full_count analysis; exact observer unchanged from reviewed four-chart pilot.",
+    "Chunk literal differences restrict H4 to all96 new charts, H8 to92 excluding0,1,20,21 and assert zero lookahead/exact mode.",
+    "All16 fixed chunk parent lists partition new charts once; aggregator reuses H8 pilot only and never recipe H4 states.",
+    "Aggregator binds raw row index/history/parent/truth/depth/stored dyadics, checks exact/stored differences, all96 parent coverage and unique occurrence IDs; inherited costs separated.",
+    "Comparison preserves both mismatch sets and matches model checkpoints;450 history keys use original time-major encoding, first12 bits are first3 H4 masks.",
+    "Failure records/no overwrite and external20CPU/2GB, inner12CPU/5M/10000 states,17CPU analysis remain mandatory."
+  ],
+  "requirements": [
+    "Publish this source-gate artifact before any new chunk executes; pin its hash in full_protocol without changing numerical sources.",
+    "Stop on any chunk failure/cap; preserve partial records. Full saved independent audit required before scientific handoff."
+  ],
+  "limitations": [
+    "Floating TOL/HV enumeration, not exact-real partition coverage.",
+    "Depth3 prefix pieces are not final cells; global maps do not certify domain unions, label equivalence, mass or cost savings.",
+    "No author geometry/model/mass/reference calls in review."
+  ]
+}

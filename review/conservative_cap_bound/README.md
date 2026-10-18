@@ -10,19 +10,20 @@ integer upper sqrt and explicitly checked outward binary64 conversion. Fixed
 resource/domain fallbacks return1. THEORY.md and PROTOCOL.md freeze scope.
 
 ## Status
-Claim804f5456 pushed. Theory/source being frozen; no controls executed.
-Independent reviewer78 assigned. No estimator adoption or trained replay.
+Bounded phase complete; claim804f5456, raw88ff3af7, independent saved review
+7583ad1f published11e1da75. No estimator adoption or trained replay.
 
 ## Results
-Pending10 fixed analytic/domain controls. T198 historical result is reused as
+All10 fixed analytic/domain controls passed independent saved review. T198 historical result is reused as
 a pinned artifact; the defective cap is not rerun.
 
 ## Compute accounting
-Source/theory work only. Future single20CPU/2GB/one-thread control process.
+One fixed control process:0.003997934CPU. Independent saved audit:0.005737776CPU;
+no candidate replay. External20CPU/2GB/one-thread limits used.
 Expression/bit inventories are diagnostic, not full native or runtime costs.
 
 ## Claims
-[inferred, review pending] Exact rational containment plus conservative scalar
+[inferred, independently reviewed] Exact rational containment plus conservative scalar
 bounds can avoid T198's zero-underestimate. [speculative] A practical floating
 implementation or pruning use may follow; no such efficiency claim here.
 
@@ -37,7 +38,7 @@ subnormal conversion; masking resource fallback as a tight bound; claiming
 expression counts equal runtime or extrapolating analytic controls to models.
 
 ## First fixed-control checkpoint (88ff3af7)
-[measured, independent saved audit pending] All10 fixed fixtures passed in
+[measured, independently reviewed7583ad1f] All10 fixed fixtures passed in
 0.003997934CPU. The original narrow3 returns a positive rational upper bound
 5764607523034234881/23926103924128485737632800186396835844, outward binary64
 2.409338161078899e-19. Zero-axis and four fallback fixtures return1 with explicit
@@ -51,9 +52,14 @@ its remote publication follows the run, contrary to the reviewer's requested
 published-gate order. Sources and independent theorem/source gate were already
 published5c5f3896/d84f5236. Raw hashes and chronology are preserved; this is not
 silently described as full publication-order compliance and no rerun is used
-to rewrite that history. Independent saved review will distinguish numerical
+to rewrite that history. Independent saved review7583ad1f distinguishes numerical
 validity from this administrative ordering defect.
 
 Reproduction in fresh exclusive output paths: `python
 review/conservative_cap_bound/controls.py`, with gate.json and external20CPU,
 2GB,one-thread review lock. Existing results refuse overwrite.
+
+Saved checker source note: reviewer initially equated sum of nested fixture CPU
+timers with total process CPU. Before its sole execution, sourcea833fd21 changed
+this to finite nonnegative timers and sum<=total (rounding tolerance1e-15).
+The outer timer includes setup/progress overhead; no numerical record changed.
