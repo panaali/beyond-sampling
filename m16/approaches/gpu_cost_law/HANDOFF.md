@@ -1,6 +1,6 @@
 # HANDOFF: T270, T234 grid3, T284 HP2/DEV2, T196 (8,5) audit (live state; updated at every check-in)
 
-Last update: 2026-10-18 07:15 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
+Last update: 2026-10-18 07:30 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
 DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `send_message`). T281 scorer session:
 `session_01UvVWREPpEYpUGudpzkioKd`. Budget: T234 + T270 <= 115 Colab units combined.
 
@@ -16,15 +16,15 @@ DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `s
 | VM | hardware | runs | started |
 |---|---|---|---|
 | t192fu | A100 | T270 shard 0 (`/content/t270_shard0.log`) + grid3 (`/content/grid3.log`) | shard0 ~06:25, grid3 07:05 |
-| t192lb | A100 | T270 shard 1 (`/content/t270_shard1.log`) + DEV2 truths (`/content/dev2.log`) | shard1 ~06:50, dev2 07:12 |
+| t192lb | A100 | T270 shard 1 (`/content/t270_shard1.log`); GPU free for HP2 truths | shard1 ~06:50 |
 | t192aud | CPU | T196 (8,5) audit seeds 1-4 (`/content/audit_{1..4}.log`, marker `AUDIT2DONE` in `/content/audit_done`) | 07:15 |
 Stopped: t192t4 (07:05, queue finished); t192za was reclaimed ~06:20 (za pack lost, superseded by grid3).
 
 ## Local processes (this container; kill only these PIDs, never by pattern; AGENTS rule 9)
 - Keep-alive loops (`colab/keepalive.sh S`, log `/tmp/claude-0/keepalive_S.log`): t192fu PID 4508, t192lb PID 3449,
   t192aud PID 1560. Kill the VM's loop BEFORE `colab stop`, or it keeps re-execing.
-- Background syncs: PID 4156 (capacity_ceiling/sync.sh for t192lb/za/t4/ht every 9 min), PID 4549 (sync.sh t192fu
-  every 8 min). `capacity_ceiling/sync.sh S` pulls `/content/t234.tgz` (results only for grid3) into capacity_ceiling/.
+- Background sync: `capacity_ceiling/sync.sh t192fu` every 8 min (2 h loop started 07:20; restart when it ends).
+  `capacity_ceiling/sync.sh S` pulls `/content/t234.tgz` (results only for grid3) into capacity_ceiling/.
 A fresh session will not inherit these processes: restart a keep-alive per live VM with
 `cd m16/approaches/gpu_cost_law && nohup ./colab/keepalive.sh S >/dev/null 2>&1 &` (one per VM, check none is running).
 
@@ -38,6 +38,11 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 - **Early-stop rule (DRI):** stop both shards if the lower bound on g_1e-7 (= N6(1-1e-7)/N5(1-1e-7)) is >= 15; then
   spend the freed units raising grid3-style 2^34 runs to 100 seeds. Otherwise run to completion and report
   g_delta(5->6) for 1e-5, 1e-6, 1e-7, the mass-rank slope and leaf sums.
+- **OPEN ISSUE (07:25): k = 6 leaf masses sum below their root masses** (per-chunk deficit up to 4.35e-5, total 5.1e-5
+  over 520 subtrees; k = 5 was exact to 1.4e-9). Bounds at delta <= 1e-5 are invalid until fixed (processed + U <
+  1 - delta saturates them). Diagnosis: `python diag6.py results/prefix6/shard1_chunk0001.npz 2` (per-subtree leaf vs
+  root, local CPU) -> `results/prefix6/diag_shard1_chunk0001.json`. Reported to DRI. No early stop on these bounds.
+- Progress 07:23: shard 0 280/1906 at 3624 s (slowed by grid3: ~13:50 finish), shard 1 240/1905 at 2033 s (~11:20).
 - Progress 07:05: shard 0 200/1906 subtrees at 2475 s (~6.5 h/shard -> finish ~13:00 / ~13:20 UTC); shard 1 no chunk
   yet. Bounds after 4 chunks: g_1e-7 >= 3.5, g_1e-6 >= 4.7 (no early stop).
 
@@ -50,8 +55,8 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 - Analysis pending: per config mean, sd, top-5 mean, max with bootstrap CIs, plus error anatomy -> capacity_ceiling README.
 
 ## T284 panels (gpu_cost_law/hp2/)
-- DEV2 (OPEN): `hp2/dev2/weights.npz` (sha256 22d1c7c2...343bec), manifest pushed. Truths: `truth_panel.py dev2 1e8` on
-  t192lb -> remote `/content/cn/m16/approaches/gpu_cost_law/hp2/dev2/truths.json` (download, commit, send DRI).
+- DEV2 (OPEN): DONE. `hp2/dev2/weights.npz` (sha256 22d1c7c2...343bec), `truths.json` (sha256 582c21cf...a9785;
+  1e8/model; min .81355 max .96023 mean .92012 sd .03163), sent to DRI 07:27.
 - HP2 (SEALED): once grid3 state step >= 2^20 (~09:00 UTC): download state.pt, `python hp2/make_panel.py hp2 STATE_PT`
   (local), upload `hp2/weights.npz` + run `truth_panel.py hp2 1e8` on a GPU VM -> `hp2/sealed/truths.json` ONLY.
   Send the scorer (T281) path + weights/truth sha256; send DRI hashes + min/max/mean/sd. Never publish per-model truths.
@@ -62,5 +67,5 @@ Seed 0: charged 2.177e11, complete 2.685e11, ratio 1.23 (`results/audit85/audit_
 (`colab/q_audit2.sh`). When done: download `/content/audit_{1..4}.log` to `results/audit85/`, add to README, stop t192aud.
 
 ## Units
-304.80 at login; 248.60 at 07:00 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
+304.80 at login; 245.92 at 07:24 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
 ~100 of 115 at T270 completion. Stop each A100 as soon as its shard (and, on fu, grid3) is done and synced.
