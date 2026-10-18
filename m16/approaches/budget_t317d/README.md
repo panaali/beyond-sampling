@@ -200,3 +200,7 @@ J1/J2 get <= 0.60 x. Otherwise (nothing gets there): stop too, and report.
 product's, unmasking it. Predictions: (a) P2's bias exceeds P1's, on the side of "transverse off alone" (+.71 on 80
 models); (b) J2's bias is closer to 0 than J1's (with the product gone, refinement converges). If (b) fails, the
 hypothesis is wrong.
+- **Amendment A1 (before any addendum number).** V1's tmax cut and blind rule are not separable at an input's own
+  point (both lines then pass through x). So the target and every rule are evaluated with **no tmax cut and blind g12
+  walked** (the budget's path-2 state). T(x) = closure c (node v4, exact lows) at x. The rules use the estimator's
+  linearised line-23 closure (mu-lin on) unless marked "exact". The P1 residue is then V1's path-2 point minus E1.
