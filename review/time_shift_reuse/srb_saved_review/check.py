@@ -76,7 +76,7 @@ def check():
                 output=e['output'];inputs=e['inputs']
                 if k=='call':
                     total_calls+=1;fun=node.func;fname=fun.attr if isinstance(fun,ast.Attribute) else fun.id;fname='ndtr' if fname=='cdf' else fname
-                    assert e['name']==fname and set(e['kwargs'])=={q.arg for q in node.keywords}
+                    assert e['name']==('absolute' if fname=='abs' else fname) and set(e['kwargs'])=={q.arg for q in node.keywords}
                     call_shapes[json.dumps({z:e[z] for z in ('site','name','bound','inputs','kwargs','output')},sort_keys=True)]+=1
                     if fname in ('where','maximum','minimum'):assert output['shape']==broadcast([x['shape'] for x in inputs])
                     if fname in ('abs','isnan','isinf','ndtr'):assert output['shape']==inputs[0]['shape']
@@ -114,7 +114,7 @@ def check():
     assert progress==[json.loads(x) for x in (A/'progress.jsonl').read_text().splitlines()]
     return dict(pass_all=True,fixtures=6,pairs=21,author_Q_executions=42,event_count=total_events,call_count=total_calls,progress_records=len(progress),runs=reports,author_cpu_seconds=d['cpu_seconds'],reviewer_author_Q_numpy_scipy_model_mass_calls=0,scope='Saved parity and named expression ledger only; no independent numerical correctness or complete native cost claim')
 def main():
-    out=HERE/'results_v2.json';assert not out.exists();resource.setrlimit(resource.RLIMIT_CPU,(19,20));start=time.process_time();r=dict(complete=False,checker_sha256=sha(__file__),pins_sha256=sha(HERE/'pins.json'));out.write_text(json.dumps(r,indent=2)+'\n')
+    out=HERE/'results_v3.json';assert not out.exists();resource.setrlimit(resource.RLIMIT_CPU,(19,20));start=time.process_time();r=dict(complete=False,checker_sha256=sha(__file__),pins_sha256=sha(HERE/'pins.json'));out.write_text(json.dumps(r,indent=2)+'\n')
     try:r.update(check(),complete=True)
     except BaseException as e:r.update(failure=repr(e),traceback=traceback.format_exc());raise
     finally:r['review_cpu_seconds']=time.process_time()-start;out.write_text(json.dumps(r,indent=2)+'\n')
