@@ -269,6 +269,32 @@ N_delta and the mass held by regions below 1e-12.
 - In between: inconclusive, reported as such.
 Data: the T217 pieces (`eventword/*.npz`: per piece, gate-word id and exact mass), summed per gate word. No new enumeration.
 
+**Results** (`coverage.py` -> `coverage.json`; mass sums within 4.9e-11 of 1). N_delta (growth per step):
+
+| model | k | regions | N 1e-2 | N 1e-3 | N 1e-4 | N 1e-5 | N 1e-6 | mass (count) of regions < 1e-12 |
+|---|---|---|---|---|---|---|---|---|
+| target | 2 | 34 | 22 | 31 | 33 | 34 | 34 | 0.0e+00 (0) |
+| target | 3 | 792 (x23.3) | 201 (x9.1) | 388 (x12.5) | 527 (x16.0) | 634 (x18.6) | 708 (x20.8) | 0.0e+00 (0) |
+| target | 4 | 21032 (x26.6) | 1737 (x8.6) | 4018 (x10.4) | 7021 (x13.3) | 10233 (x16.1) | 13164 (x18.6) | 3.6e-10 (1783) |
+| zoo16_4 | 2 | 34 | 23 | 30 | 34 | 34 | 34 | 0.0e+00 (0) |
+| zoo16_4 | 3 | 870 (x25.6) | 244 (x10.6) | 430 (x14.3) | 604 (x17.8) | 720 (x21.2) | 796 (x23.4) | 0.0e+00 (0) |
+| zoo16_4 | 4 | 26742 (x30.7) | 3272 (x13.4) | 7007 (x16.3) | 11323 (x18.7) | 15556 (x21.6) | 19190 (x24.1) | 3.4e-10 (1577) |
+| zoo16_5 | 2 | 34 | 17 | 27 | 31 | 33 | 34 | 0.0e+00 (0) |
+| zoo16_5 | 3 | 824 (x24.2) | 168 (x9.9) | 325 (x12.0) | 490 (x15.8) | 628 (x19.0) | 709 (x20.9) | 1.7e-12 (2) |
+| zoo16_5 | 4 | 23956 (x29.1) | 1836 (x10.9) | 4273 (x13.1) | 7467 (x15.2) | 10982 (x17.5) | 14417 (x20.3) | 4.9e-10 (3041) |
+
+**Verdict.** N_1e-5 grows x18.6 then x16.1 per step on the target and x17.5-21.6 on the zoo models. Even N_1e-2 grows
+x8.6-13.4. By the letter of the rule this is *in between* (above 6x, below the count's x23-31), but it is far closer
+to "dead". Every N_delta grows at 50-80% of the count's rate in log terms, and the rate rises as delta shrinks.
+[speculative] Projecting the target from k = 4 at x16/step gives N_1e-5(10) ~ 1e4 x 16^6 ~ 2e11 regions, far above the
+1e7-1e9 a mass-ordered exact route needed. Even x10/step (N_1e-3) gives ~4e9. **Mass-ordered exact enumeration does not
+reopen the exact route for M_16,10** [inferred, from k <= 4]. This reconciles with T217's slow exp H(G) growth (x5):
+the entropy is set by the heavy bulk, while coverage to 1e-5 is set by a long tail of mid-mass regions that grows almost
+like the count. Regions below 1e-12 hold <= 4.9e-10 of the mass (1577-3041 regions at k = 4).
+Claims: [measured] the table; [inferred] the verdict. Alternatives: k = 5 (T192, numba) could bend the curve. k <= 4 is
+short, and the growth of N_1e-5 fell from x18.6 to x16.1 on the target. Coverage per *cell* rather than per region,
+or after merging regions with equal futures (T188), would differ. Compute: < 1 CPU-s (saved masses).
+
 ## Compute accounting
 Counted ops = `m43.Ops` inside the estimator (recipe or exact), as estT_fix; leaf-sum masses, region patterns and MC are
 diagnostic and excluded. Totals (CPU, single thread): (8,3)+(16,3) all runs < 1 min; (16,4) recipe 9 x 2.3-2.7 min
