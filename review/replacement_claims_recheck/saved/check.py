@@ -62,6 +62,10 @@ def main():
     assert reviewpath in gate['pins'];pins(review['pins'])
     written=json.loads(pathlib.Path(gate['written_review_path']).read_text())
     assert written['complete'] and written['pass_all'];assert gate['written_review_path'] in gate['pins']
+    pins(written['pins'])
+    for path in (str(B/'SOURCE_REVIEW.md'),str(B/'manifest.json')):
+        assert written['pins'][path]==protocol['pins'][path]
+    assert pathlib.Path(sys.executable).resolve()==pathlib.Path('/usr/bin/python3').resolve()
     cpu=resource.getrlimit(resource.RLIMIT_CPU);mem=resource.getrlimit(resource.RLIMIT_AS)
     R['runtime']={'executable':sys.executable,'version':sys.version,'cpu':cpu,'memory':mem}
     save();assert all(0<x<=20 for x in cpu) and all(0<x<=2*1024**3 for x in mem)
