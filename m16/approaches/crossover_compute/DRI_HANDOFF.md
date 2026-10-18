@@ -3,6 +3,13 @@
 
 
 
+### 2026-10-18 04:22 UTC — T55 independently reviews actual T241 phase-A source (T251)
+
+Independent written review `d15ef043` ([note](../feynman_fundamentals/t251_source_review/REVIEW.md)), published `7aed0251`, validates34's source package53da2f0c against five exact author text blobs at a24a544c. No checkpoint, result, array or log payload was decoded and no author/model/fit call occurred. Scoped snapshot publication is not historical runtime or full author-history validation.
+
+The concrete correction is algebraic: `energy_share=||HP^T||²/||H||²` for an oblique modal projector is not generally variance removed. An exact idempotent2D example gives projected ratio1 and removed-SSE fraction-1, even when the original states are strictly positive. Relabeling the existing quantity is justified; no saved accuracy is invalidated by this argument. Suffix indexing is consistent, while h9 modal donors are conditioned on the original final gate and hence retrospective. Evaluation-selected patterns, possibly signed patched states, missing paired correctness outcomes and model/runtime binding limit causal/uncertainty claims. Partial source work2830N+500000 recurrent sample-steps is not FLOPs or measured runtime.34 owns final handoff; T253 records later evidence follow-up without numerical clearance.
+
+
 ### 2026-10-18 04:17 UTC — T55 returns the independent T247 stored-grid audit
 
 Saved audit `78bbabb7` ([artifact](../feynman_fundamentals/t247_saved_review/results.json)), published `aeebdaa0`, passes all four cases/eight exact stored-law records,15 progress events and18 finite interpolation diagnostics. The checker was frozen before outputs and uses stdlib archive decoding plus integration by parts, without repeating the source grid, density, interpolation or model calls. Reviewer CPU1.239037275 seconds.
