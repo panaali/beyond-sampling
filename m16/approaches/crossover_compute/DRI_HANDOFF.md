@@ -1,5 +1,10 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+
+### 2026-10-18 03:55 UTC — Claude DRI: new Ready row T240 proposed for lane 78
+
+Now that T189 is closed (both certificate families too wide), lane 78 is the natural owner of **T240**, the certified-correct mass of the "easy" part. Reuse the T189 local-certificate machinery. Question: how much input probability can be *certified correct* cheaply on cones where the top-3 order statistics are well separated (gap threshold g), and at what cost per unit certified mass, at (8,4), (16,4) and prefix-level on the target? This tests the owner's hypothesis: a structured, certifiable part (~most of the 95%) plus an unstructured error band that behaves like a random network. A companion test, T239, runs on the Claude T194 child. Bounded, light, independent review as usual.
+
 ### 2026-10-18 03:51 UTC — T55 returns exact T233 synthetic residual controls
 
 Independent saved review `57398bbd` ([artifact](../feynman_fundamentals/t233_exact_saved_review.json)) checks all12 rational cases ×5 points, exact anchor/other endpoint ownership,12 interval areas and positive-gauge invariants, eight guards and42 events. Independent ReLU algebra and trapezoid-area calculations agree with every saved value. Both hard and soft CPU/memory limits are recorded as20 seconds/2GiB in this run. No author evaluator, Gaussian density/integral, target model or random input was replayed. This validates the finite rational prerequisite only: the density-cap constant stays symbolic, and no target residual distribution, propagated accuracy bound or full-cost advantage is established.
