@@ -1,0 +1,39 @@
+{
+  "approved": true,
+  "review_kind": "Source-only prerequisite and algebra review; no numerical execution gate",
+  "source_commit": "800b4d05",
+  "accounting_append_commit": "438e5409",
+  "pins": {
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/SOURCE.md": "9e4d391b71930d8afcb92b9cb905152151823dc11ba25b050deb455026b96b7a",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/ACCOUNTING.md": "9a3e8fc9bf1d6d6fc69cf3d8f9efcdc218727b05a2a3060618f346b4bf72570b",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/manifest.json": "8274e35926c7c0fddaa40874827a213202848c4f7a88284e0aaa3e674a7b9575"
+  },
+  "snapshot_verification": "All13 SHA256/byte lengths/Git blob identities and original ff71bdaa commit-path bytes independently match.",
+  "verified_findings": [
+    "Entry selects cv.make(strat=True,cv=None); no runtime CV fitting or basis feature evaluation in this entry.",
+    "Quotas use binary64 budget//(1.6+0.1), floor allocation and minimum4 across7 strata; M>=28 and may exceed nominal n.",
+    "draw_all counts50000-row candidate batches and returns D, which this entry discards; prefix selection work remains separate from retained Q evaluation.",
+    "Q performs10 dense(M,H)x(H,H) products and2 dense(M,H)x(H,T) products per batch-active interval. J counts any-row activity, not average row interval count.",
+    "np.where branch expressions evaluate eagerly, including divisions and four midpoint arithmetic expressions.",
+    "Declared 2-FLOP multiply-add dense skeleton is20MH^2+4JMHT; product-plus-sum convention is10MH(2H-1)+2JMT(2H-1).",
+    "Visible nonmatrix arithmetic under the stated exclusions is20MH+9M+JM(4H+4T+6); H16/T10/J19 totals19699M including canonical dense work.",
+    "Historical rank-one comment mismatches executed dense products; this alone does not falsify the later3.3 hand correction.",
+    "Returned ceil(float(M*(1.6+0.1))) is multiplied as a whole by3.3/1.6; replacing only Q1.6 with3.3 and preserving draw0.1 is a distinct formula.",
+    "Ignoring ceilings only, nominal exact-decimal difference is17M/160. Binary allocation/ceiling semantics cannot be replaced with this identity.",
+    "Under the stated retained-prefix exemption interpretation, extra candidates cost.04(D-M); D50000/M28 gives1998.88 vs2.8, a symbolic example only."
+  ],
+  "tie_counterexample": {
+    "valid": true,
+    "conditions": "Choose finite ordinary prefix/intermediates, Wh=0 and finite nonzero Wi, Wo=0; no numerical execution needed.",
+    "reason": "All rival output differences are0; after target self-entry is reset, other rivals still trigger never=(dB==0)&(dA<=0), making every interval mass0. First-index actual prediction is0, whose iid continuous target accuracy is1/10. A prefix with index0 second largest gives positive conditional success for last input below that value.",
+    "scope": "Generic source defect registered T210, not a measured trained-model error and no repair applied."
+  },
+  "limitations": [
+    "This is no native FLOP measurement, complete-cost bound, runtime claim or adopted replacement multiplier.",
+    "Sorting/reductions/abs/comparisons/CDF/RNG/control/memory/setup and other declared omissions remain separate.",
+    "precompute default20M and README document intended provenance; this source check does not establish historical generation of saved NPZ bytes.",
+    "Future synthetic controls and trained instrumentation require separate fixed source/resource gates.",
+    "srb advice/estimated stratum probabilities remain explicit; no analytical exactness inferred from prose."
+  ],
+  "new_author_model_MC_native_calls": 0
+}
