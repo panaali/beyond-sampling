@@ -1090,3 +1090,33 @@ accuracy criterion is est/truth within 2x.
   network picks p3) <= P(g23 > T_hi) is loose by orders of magnitude.
 - Combined with T354's segment start, the cost path from K3 is .78 (segment) → .53 (T_hi = 3.5) × K3. That is about
   1.2-1.35M FPE, at K3 accuracy.
+
+## T363 pre-registration (DRI; 2026-10-18, before running): which transverse term carries T340c's E2 deficit on fresh models?
+**Facts (T360, claude/t241-neuron-account 977f147a, rare_k/).**
+- T340c's K3 estimator is one-signed low on E2(t) = {wrong, g12 >= t, g23 >= t} on fresh DEV3 models (median ~.70).
+- Failing models: s508, s511, s512, s515, s517, s518, s519, s525. s505 fails too but has no t >= 1 truths, so it is
+  left out.
+- K5 does not help, so g12 quadrature is not the cause.
+
+**Method: an oracle MC chain.** It is an oracle (sampling), never an estimator.
+- **Sampler.** Exact samples of the top-3 conditional on g12 >= t and g23 >= t:
+  - v2 by grid inverse CDF of ∝ 90 φ(v2) (1 − Φ(v2 + t)) Φ(v2 − t)^8;
+  - v1 ~ N truncated to >= v2 + t;
+  - v3 = Φ⁻¹(Φ(v2 − t) U^{1/8});
+  - a uniform triple of positions.
+
+  Weight P(g12 >= t, g23 >= t) is exact by quadrature. P(E2) = weight × P(wrong | gaps, world).
+- **Worlds** differ only in how v4 and the 6 lows are set:
+  - **W0, the estimator's closure:** v4 = v3 − δ(v2), lows = μ(v4*) + μ'(v4*)(v4 − v4*), with v3* = v2 − E[g23 | v2]
+    and v4* = E[max of 7 | < v3*]. v4 sits at the latest free position. This is T340c's line closure, at continuous v2.
+  - **W1 = (a), the g23 transverse:** the closure re-anchored at the actual v3, i.e. v4 = E[max of 7 | < v3] and lows at
+    the exact μ(v4) (no fixed link, no linearisation).
+  - **W2 = (b), the exact v4 law:** v4 = the max of 7 iid N below v3 (sampled); lows at μ(v4).
+  - **W3 = (c), the exact lows (oracle):** v4 as W2, and the 6 lows iid N below v4 (sampled). v4 is still at the
+    latest free position.
+  - **W4, the truth:** the 7 values below v3 sampled iid and placed in a random permutation of the free positions.
+- **Checks:** W4 must match the GPU truth (T358's 1e9 counts) within MC error. W0 should be close to T360's K3
+  estimate; it differs only by v2 quadrature and the g12 rule.
+- **Runs:** 8 models × t ∈ {.5, .75, 1, 1.25} × 5 worlds, 1e6 conditional samples each, float64.
+- **Reported:** each world's P(E2) / truth. **The term carrying the deficit** is the step W_i → W_{i+1} that moves the
+  ratio most toward 1, including the position step W3 → W4.
