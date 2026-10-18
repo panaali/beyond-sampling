@@ -1,0 +1,13 @@
+# Proposed independent saved depth3 coverage check
+
+No new author computation or output is introduced here. The depth3 wrapper remains frozen; this is a proposed different-code saved-review check for T55 after that source-gated phase completes.
+
+For each saved depth2 parent, x0=s*u with u>0 and y=x1/u lies in its exact open slope interval (lo,hi). Project the homogeneous cone to u=1. Write a third-step preactivation as A0*x0+A1*x1+A2*x2. Dividing by u gives alpha+beta*y+gamma*z where alpha=s*A0, beta=A1, gamma=A2, z=x2/u. If every Wi_j is nonzero, every gamma=Wi_j*D² is nonzero. A neuron therefore gives a complete affine line z=m*y+b across the open strip, where m=-beta/gamma and b=-alpha/gamma. Check that nonzero premise against the saved weights; if it fails, handle vertical/constant forms separately or report this review route unsupported.
+
+Deduplicate identical lines using exact rational (m,b). Suppose there are L distinct lines. Parallel lines have no intersections. For every distinct intersection point strictly inside the open strip, let k_p be the number of distinct lines through it. The number of open arrangement regions is
+
+    L + 1 + sum_p (k_p - 1).
+
+Proof: begin with the empty connected strip, one region. Add distinct full lines one at a time. A new line with r distinct prior intersection points inside the strip is cut into r+1 open segments; every segment splits one existing convex region, so increases the count by r+1. At a point ultimately incident to k_p lines, its first incident line sees no earlier intersection there and each of the other k_p-1 sees exactly one. Summing over insertion order proves the formula. Intersections on either excluded strip boundary do not subdivide the interior and are omitted. Unbounded strip endpoints need no approximation. Coincident lines were already merged and cannot create extra regions; different gate orientations on that same line do not change this geometry count.
+
+Each arrangement cell has a distinct vector of strict neuron signs (allowing constrained relations on coincident lines), since a fixed sign vector is an intersection of halfplanes and hence convex. Therefore the arrangement-region count equals the number of third-step gate histories extending that fixed parent. Different parents have different earlier histories, so their counts add. Compare every parent count and independently verified saved child signs/maps, not only the global sum. This check is separate from witnesses and from the reviewed double-description completeness induction; it does not require calling the author or owned clipping routine. It says nothing about k4/k10 complexity or Gaussian masses.
