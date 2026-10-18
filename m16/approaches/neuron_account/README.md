@@ -23,7 +23,17 @@ Cases (by the true input): *x9max* (x9 is the max, 10.0%), *x9second* (10.0%), *
   at the final state only. Modes: for the 5 most common final gate patterns, eigen-decompose D_g W_hh and
   resample each mode's oblique coordinates (from left eigenvectors) from a donor input with the same final
   gate pattern, at h_10 (readout) or at h_9 (then step 10 run exactly).
-- Phase B, encoding: *running*.
+- **Phase B, encoding** (`encode.py`, `phaseB.py`, `reportB.py`): regress each pre-activation pre_t[j] on
+  interpretable variables, all positively homogeneous of degree 1 like the network (no intercepts). A family is
+  *cell x base*: inside each discrete cell (ages of the running top-k, number K of positive inputs) pre_t[j] is
+  linear in a base vector (x_t, running top-k values m1..m5, sums of the positive / negative parts of the
+  remaining inputs, clock phasors m_k cos/sin(theta a_k) with theta = 2 pi/8.42). Families in increasing size:
+  L (x_t, m1..m3) · C (+clock phasors) · A1 (cell = age of max) · A12 (ages of top-2) · A123 (ages of top-3,
+  base m1..m5) · A123K (+K, base + rest+/-) · A1234K · A1234K-all. Train 1M (seed 241021), held-out test 200k
+  (seed 241022). Also per gate pattern (gates of h_9, top 3) and in the mode basis of final pattern 64975.
+  After this run we added **comparator-hinge** families (`encode.HFAMILIES`, `HingeBank`): the base also gets
+  c_{k,s} = ReLU(F_{k,s}(x)) for the four comparators k in {1,6,7,8} at the previous 1, 3 or all steps s, where
+  F_{k,s} is the comparator's own A123K formula (held-out R^2 >= 0.999). These were scored in `phaseC2.py`.
 - Phase C, replacement: *pending*.
 - Phase D, residual: *pending*.
 
