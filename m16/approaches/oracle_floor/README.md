@@ -200,3 +200,39 @@ My operationalisation (fixed now):
   copies (45-89% accurate) are outside the target regime. The verdict uses all 30.
 - Label: R0 is a **declared structural approximation** (deductive under Hilton's "approximations are fine"). The
   oracle here is diagnostic sampling. Stage B's skeleton integral (if go) is exact reasoning.
+
+## Stage A results (2026-10-18)
+Reproduce: `python check_lb3.py` (all 30 reconstructed LB3 models match the LB3 truths, |z| <= 2.5, 0 mismatches);
+`PANEL=lb3 python oracle.py 20000 256`; `python r0_split.py lb3` and `python r0_split.py dev2`
+(-> results/r0_lb3.json, results/r0_dev2.json). Diagnostic sampling only; about 8 CPU-min.
+
+**Outcome: NO-GO** (pre-registered rule, all 30 LB3 models): (i) RMS 1.39 pp > .55 FAIL; (ii) group means orig +.04,
+seed +.17, s.0025 +.27, **s.005 +.55, s.01 +1.39, s.02 +2.51** pp FAIL; (iii) region means blind +.01, 2~3 +.28,
+1~2 +.04, tail +.64 against a limit of .69: pass. The retrain-like subset (orig + seeds + s.0025 + s.005, 18 models)
+has RMS .53 (pass) but fails (ii) on s.005 (+.55). The 5 zoo seeds alone have RMS .61, mean +.17 (seed1 +1.33).
+
+| region | DEV2 mean / RMS (pp) | LB3-30 mean / RMS | LB3 retrain-like mean / RMS |
+|---|---|---|---|
+| blind | +.04 / .05 | +.01 / .02 | +.01 / .02 |
+| 2~3 band | +.11 / .20 | +.28 / .33 | +.19 / .23 |
+| 1~2 band | +.01 / .10 | +.04 / .12 | -.02 / .09 |
+| soft tail | +.05 / .32 | +.64 / 1.01 | +.15 / .31 |
+| total | +.22 / .51 | +.98 / 1.39 | +.32 / .53 |
+
+Reading [measured unless marked]: R0's bias is **positive** (it overestimates accuracy) and grows with the soft-tail
+error. On LB3 it rises monotonically with the noise level. On DEV2 corr(R0 b, tail error) = .37, slope +.09 pp per
+pp of tail error, and the RMS on the weak half is .64 vs .33 on the strong half. [inferred] R0 misses part of the
+tail errors (where the low inputs, not the skeleton, decide), and that part is exactly what grows on weak or noisy
+models (ANAT-80). On DEV2 the regions do not cancel each other (every region mean <= .11 pp). The .51 pp there was
+small because DEV2's tail is small enough, not because of cross-region cancellation, but the 2~3 band (+.11 to +.28)
+is a second, systematic positive part on every panel.
+
+Claims: [measured] the R0 oracle floor does not reproduce on the LB3 panel (RMS 1.39 pp; noisy groups +.55 to
++2.5 pp); on retrains only (DEV2 80 + LB3 seeds 5) it is .51 / .61 pp with a positive bias that tracks the tail.
+[inferred] As a floor for a 1k-4k FPE estimator it leaves no room: the strict 1k bar is .86 pp *total* on retrains,
+and R0 alone uses .5-.6 of it before any integration error. Stage B not run (pre-registered).
+
+Alternatives not ruled out: an R0 variant with the low inputs at another point (e.g. conditional median, or two
+points per skeleton averaged) could shift the positive bias; not tried (it would be a new tuned closure, not this
+pre-registered check). The noisy groups are outside the HP2 retrain regime. A retrain-only rule would have been
+borderline (DEV2 .51, seeds .61, group means <= .28 on DEV2 trainers), but that rule was not pre-registered.

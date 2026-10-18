@@ -29,3 +29,16 @@ def forward(model, x):
     for t in range(x.shape[1]):
         h = np.maximum(h @ Wh.T + x[:, t:t + 1] * Wi[None], 0)
     return h @ Wo.T
+
+
+def lb3():
+    """LB3 test panel (m16/leaderboard.py models(), H=16, T=10): orig, seed0-4 (zoo weights from claude/t241-neuron-account
+    gap_formula/zoo16_10_weights.npz, alg_zoo not installed), noisy copies s{sigma}_{k} (leaderboard._noisy, seed 0)."""
+    base = target(); out = [("orig", base)]
+    z = np.load(os.path.join(DATA, "zoo16_10_weights.npz"))
+    out += [(f"seed{s}", (z[f"z{s}_Wi"], z[f"z{s}_Wh"], z[f"z{s}_Wo"])) for s in range(5)]
+    for sigma in (0.0025, 0.005, 0.01, 0.02):
+        rng = np.random.default_rng(0)
+        for k in range(6):
+            out.append((f"s{sigma}_{k}", tuple(W + sigma * np.sqrt((W ** 2).mean()) * rng.standard_normal(W.shape) for W in base)))
+    return out

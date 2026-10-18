@@ -3,7 +3,7 @@ stoch_margin/diag_cond.py (same construction, same eps=1e-6 finite-difference Ja
 point), run on the DEV2 retrains. Skeletons (top-3 positions+values) from the exact law, M low draws
 iid N(0,1)|<v3 each; paired truth q(S) vs lin q_lin(S) on the same draws. add/gauss/R0 of diag_cond are dropped
 (R0 is kept, it is free). Per-skeleton rows saved so the bias can be split by region / triple / x9 case.
-usage: python oracle.py [NS=20000] [M=256] [first] [last]"""
+usage: [PANEL=lb3] python oracle.py [NS=20000] [M=256] [first] [last]"""
 import json
 import os
 import sys
@@ -12,16 +12,17 @@ import time
 import numpy as np
 from scipy.stats import norm
 
-from panel import HERE, ROOT, dev2, target
+from panel import HERE, ROOT, dev2, lb3, target
 sys.path.insert(0, os.path.join(ROOT, "m16/approaches/stoch_margin"))
 import sm  # noqa: E402
 
 NS = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
 M = int(sys.argv[2]) if len(sys.argv) > 2 else 256
-models = [("target", target())] + dev2()
+PANEL = os.environ.get("PANEL", "dev2")
+models = lb3() if PANEL == "lb3" else [("target", target())] + dev2()
 lo = int(sys.argv[3]) if len(sys.argv) > 3 else 0
 hi = int(sys.argv[4]) if len(sys.argv) > 4 else len(models)
-OUT = os.path.join(HERE, "results/oracle"); os.makedirs(OUT, exist_ok=True)
+OUT = os.path.join(HERE, "results/oracle" + ("_lb3" if PANEL == "lb3" else "")); os.makedirs(OUT, exist_ok=True)
 CH = 200
 for k in range(lo, hi):
     name, model = models[k]
