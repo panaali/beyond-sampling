@@ -539,7 +539,7 @@ The lenient bar was reached instead by the walk family (see 3.5 and 3.8).
   - T326: cost cannot drop below about 2.2k FPE. The DRI corrected the child's arithmetic: at the current error that floor gives F ≈ 1.9, not about 6, because F scales linearly with cost.
   - Fable round 5 estimates the approach tops out at F ≈ 1.2–1.7 even if every fix works (about 5% odds).
   - T333: the exact two-dimensional combination would add ≥ 13–19k FPE.
-  - T339: the spread closure brought the model-to-model scatter near strict level (F ≈ 1.06 from variance alone) but exposed a bias of about +0.76 pp.
+  - T339: the spread closure brought the model-to-model scatter near strict level (F ≈ 1.06 from variance alone) but exposed a bias of about +0.76 pp. **Withdrawn 14:15:** an independent check on 100 fresh DEV3 models (T343) did not replicate the scatter reduction (sd ratio .912 vs .68 on DEV2); it was specific to the development models.
 
 <a id="q3-8"></a>
 ### 3.8 Do we pass the lenient bar?
