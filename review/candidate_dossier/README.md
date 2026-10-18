@@ -30,6 +30,61 @@ The positive result is the information content. A constant at the development me
 worth n* = 53 samples. This estimator is worth 1,069 on HP3, 20x more. On DEV2 its correlation
 with the truth is 0.98 (R² 0.94).
 
+## Addendum (2026-10-18, later the same day): T317f on the fresh panel HP4, T334, and T324's Addendum A
+This section adds results. The text above is unchanged, and T317e's HP3 score (F 5.07 [3.41, 7.03]) stays the earlier
+clean confirmation.
+
+**New headline number: on a never-used sealed panel (HP4), plain sampling has about 2.6x lower MSE at equal
+compute.**
+- **T317f** = T317e + T330's screen C1, a 7th declared approximation. At the walk start and at each gate flip, a row
+  stops walking if its frozen-gate (affine) margin is positive over the rest of the window, and it is then counted
+  correct to tmax.
+- The screen is a heuristic. Its error is measured on DEV2, not bounded: against T317e, RMS .077 pp, mean +.045 pp,
+  max .34 pp.
+- **Selection.** T317f was selected among about 6 DEV2 variants (forking-paths note in its README). It was then scored
+  once, on HP4, a fresh panel of 100 retrains that shares no seed with HP2/HP3. The scorer's run script refuses to
+  re-score a panel, and HP4 is now spent for claims.
+- Like T317e, it is sampling-free at runtime but not deductive in Hilton's strict sense (§2).
+
+HP4 scores (scorer `claude/hp1-scorer` 84466121; truths 1e8 per model, max SE 3.8e-5):
+
+| count | C (FPE) | F [95% CI] | RMS / bias (pp) | n* |
+|---|---|---|---|---|
+| **official, as executed** | **3,302** | **2.63 [1.93, 3.39]** | .749 / +.436 | 1,255 |
+| + the scorer's screen-charge audit | 3,352 | 2.67 [1.96, 3.45] | same | |
+| stacked (× 1.09 × 1.04) | 3,743 | 2.98 [2.19, 3.85] | same | |
+
+- The plain-MC control on HP4 scores 0.83–1.25, and all its CIs cover 1. The strict bar still fails.
+- Secondary panels, both already spent for claims: HP3 3.22 [2.19, 4.42]; HP2 4.41 [3.21, 5.66].
+- The gain over T317e is cost, not accuracy: about 40% fewer FPE at nearly the same RMS. The +0.44 pp bias remains.
+- Code: `claude/t218-tie-tail-labels` @88453669, `estimator_f.py` → `cont_f.est`. sha256: cont_f
+  `327dbb4a6ddcc2ad9ae4745ac0548ec121beee309461a2aaa1b67b47e955a1ab`, estimator_f
+  `3afa3912d03f5dbbecd28e33a208c29faed251f20241f12c4d9d5bf9c80a3855` (both recomputed with `git show | sha256sum`).
+
+**T334, an independent check of the two largest budget terms** (`../budget_check/`, my own code, 80 DEV2 models):
+
+| term switched off | Δbias (pp) | ΔMSE | T324 |
+|---|---|---|---|
+| line-set product | −.562 [−.623, −.502] | −41% [−57%, −20%] | −.57 / −40% |
+| tmax cut | −.183 [−.235, −.136] | −20% [−33%, −1%] | −.18 / −18% |
+
+Both are confirmed. The product's MSE share is uncertain across models (20–57%).
+
+**T324 Addendum A: no zero-cost combination rule exists** (Fable r5 D3; pre-registered f37e8bfc; 10 DEV2 models ×
+1e6 inputs). The residue is measured against closure c at the input's own point, as model-level RMS in pp:
+- the product at one point: .385;
+- every zero-cost rule is far worse: OR 6.84, line 23 alone 2.24, line 12 alone 4.65, average 3.41. The best, min,
+  equals AND, which is the product;
+- the product at the half points (T306-B): .495;
+- the exact 2-D set at one point: .377;
+- **the exact 2-D set at the half points: .087.**
+
+**The T306-B anomaly, explained.**
+- The product overstates accuracy by +.30 to +.34 pp, and the single anchor understates it by −.34 pp.
+- At one anchor the two cancel. Per class, the residue is 4.9 pp.
+- So fixing either one alone makes the estimate worse.
+- A real fix needs exact 2-D correct sets at ≥ 2 anchors per region. Its executed cost is being counted (T333).
+
 ## 1. The problem and ARC's bar
 **Model.** M_16,10 is AlgZoo's 1-layer ReLU RNN with hidden size 16, sequence length 10 and no biases. It outputs the
 position of the second-largest of 10 i.i.d. N(0,1) inputs. Its accuracy is 0.953 (`m16/truth.txt`: 0.95318).
