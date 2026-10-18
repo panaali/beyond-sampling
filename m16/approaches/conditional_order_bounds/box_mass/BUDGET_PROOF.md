@@ -1,0 +1,9 @@
+# Canonical common-budget comparison
+
+Claim9d1dd235 follows independently reviewed box result f29c1430 and DRI reply2418ee0a. No mass/model computation is repeated. T196 adopts c_s(H,T)=T(2H²+2H)+2HT+TH+3T−2 FLOPs per sample, including first-step recurrence, ReLU, readout, argmax, top-two label selection, comparison and accumulation; RNG is free. This is the adopted accounting convention, not an observed instruction count. It gives218 forH4T4 and682 forH8T4.
+
+At integer budget B, sampling can use N=floor(B/c_s) inputs, with Bernoulli standard deviation at most1/(2sqrt(N)), uniformly in unknown true accuracy. For exact certified interval-width lower endpoint w>0, N0=floor(1/(4w²))+1 is the smallest positive integer satisfying4N0w²>1. Thus B0=c_s*N0 is the smallest integer budget at which this uniform SD upper is strictly below w. AtB0−1 onlyN0−1 samples fit, preserving minimality even in equality cases.
+
+The current conditional certificate's width floor is independent of work spent re-evaluating it. Therefore the inequality holds at a common allowed budget even if the entire candidate certificate calculation is optimistically free. This is not a measurement of its implemented cost, nor proof it can execute at that budget. It is an information limitation of this unchanged certificate. A point estimator may be much more accurate than its certificate suggests: no actual-error/MSE lower bound, equal-compute victory/defeat, runtime claim or challenge impossibility follows. A stronger domain/rank/one-sided envelope changes the information and remains open.
+
+Two exact rational controls precede the two saved-model conversions. Exact squared inequalities avoid numerical square roots. Counts cover only the displayed bridge expression operations; validation, conversion, big-integer internals, cs setup/control/memory and prior certificate setup are separate/unpriced. This does not reopen native-cost or quadrature-certificate refinement.
