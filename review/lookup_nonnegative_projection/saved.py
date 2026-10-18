@@ -103,6 +103,12 @@ def main():
                 pred=result['projected_logits'].argmax(axis=1)
                 negative=z<0;mag=np.where(negative,-z,0.)
                 assert np.isfinite(mag).all()
+                unchanged=~negative.any(axis=1)
+                rec['unchanged_rows']=int(unchanged.sum())
+                rec['unchanged_readout_equal']=bool(np.array_equal(result['projected_logits'][unchanged],a['lookup_logits'][unchanged]))
+                rec['unchanged_label_changes']=int((pred[unchanged]!=a['lookup'][unchanged]).sum())
+                save()
+                assert rec['unchanged_readout_equal'] and rec['unchanged_label_changes']==0, 'unclipped readout drift'
                 nc=(a['lookup']==a['network']).astype(np.int64);pc=(pred==a['network']).astype(np.int64)
                 nt=(a['lookup']==a['truth']).astype(np.int64);pt=(pred==a['truth']).astype(np.int64)
                 np.add.at(task_pairs,(nt,pt),1);np.add.at(agree_pairs,(nc,pc),1)

@@ -21,6 +21,10 @@ paired2x2 correctness tables, full baseline/projected label confusion and all
 positive-bin/case/network-rank contexts. Save each projected hidden/logit and
 per-row SSE array before downstream assertions. Preserve any floating SSE
 increase; no truncation or theorem-based replacement of computed numbers.
+Rows without any negative hidden prediction must retain the saved baseline
+logits exactly under numeric equality (signed-zero differences allowed), and
+the same label. Persist this parity record before asserting it. A mismatch
+stops the phase rather than attributing changed readout arithmetic to clipping.
 Source counters cover only primitive expression categories (2H-1 dot convention),
 not validation, aggregation, native kernels, T196 cost or full diagnostic work.
 All research work including import/load/hash/save is inside the CPU timer.
