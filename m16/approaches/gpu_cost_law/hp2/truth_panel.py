@@ -1,12 +1,12 @@
 """T284: panel truths (as hp1/truth_hp1.py). float64 GPU MC, n samples per model, independent CUDA Philox stream per
-model (seed BASE + model index; dev2 2840000, hp2 2841000, hp3 2842000, hp4 2843000, hp5 2844000), no common random numbers.
-usage: python truth_panel.py dev2|hp2 [n] -> dev2/truths.json (open) | sealed/truths.json"""
+model (seed BASE + model index; dev2 2840000, hp2 2841000, hp3 2842000, hp4 2843000, hp5 2844000, dev3 2845000), no common random numbers.
+usage: python truth_panel.py dev2|hp2 [n] -> dev*/truths.json (open) | hp*/sealed/truths.json"""
 import hashlib, json, math, os, sys, time
 import numpy as np, torch as th
 HERE = os.path.dirname(os.path.abspath(__file__)); which = sys.argv[1]
 n = int(float(sys.argv[2])) if len(sys.argv) > 2 else 10 ** 8
-d = {"dev2": os.path.join(HERE, "dev2"), "hp2": HERE, "hp3": os.path.join(HERE, "..", "hp3"), "hp4": os.path.join(HERE, "..", "hp4"), "hp5": os.path.join(HERE, "..", "hp5")}[which]
-base = {"dev2": 2840000, "hp2": 2841000, "hp3": 2842000, "hp4": 2843000, "hp5": 2844000}[which]
+d = {"dev2": os.path.join(HERE, "dev2"), "hp2": HERE, "hp3": os.path.join(HERE, "..", "hp3"), "hp4": os.path.join(HERE, "..", "hp4"), "hp5": os.path.join(HERE, "..", "hp5"), "dev3": os.path.join(HERE, "..", "dev3")}[which]
+base = {"dev2": 2840000, "hp2": 2841000, "hp3": 2842000, "hp4": 2843000, "hp5": 2844000, "dev3": 2845000}[which]
 z = np.load(os.path.join(d, "weights.npz")); names = list(z["names"]); out = {}; t0 = time.time()
 for k, nm in enumerate(names):
     Wi, Wh, Wo = (th.as_tensor(z[a][k], dtype=th.float64, device="cuda") for a in ("Wi", "Wh", "Wo"))
@@ -18,7 +18,7 @@ for k, nm in enumerate(names):
             h = th.relu(h @ Wh.T + x[:, t:t + 1] * Wi[None])
         ok += int(((h @ Wo.T).argmax(1) == x.topk(2, 1).indices[:, 1]).sum()); done += m
     p = ok / n; out[str(nm)] = dict(acc=p, se=math.sqrt(p * (1 - p) / n), n=n, correct=ok, mc_seed=base + k)
-f = os.path.join(d, "truths.json") if which == "dev2" else os.path.join(d, "sealed", "truths.json")
+f = os.path.join(d, "truths.json") if which.startswith("dev") else os.path.join(d, "sealed", "truths.json")
 os.makedirs(os.path.dirname(f), exist_ok=True)
 json.dump(dict(panel=which.upper(), n_per_model=n, sec=time.time() - t0, truths=out), open(f, "w"), indent=1)
 a = np.array([v["acc"] for v in out.values()])

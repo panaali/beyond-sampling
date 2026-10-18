@@ -7,7 +7,8 @@
   hp3:  T321 fresh retrains (seeds 200-299, data ids 2000-2099) from capacity_ceiling/hp3_run.py -> ../hp3/ (SEALED)
   hp4:  T328 fresh retrains (seeds 300-399, data ids 3000-3099) from capacity_ceiling/hp4_run.py -> ../hp4/ (SEALED)
   hp5:  T336 fresh retrains (seeds 400-499, data ids 4000-4099) from capacity_ceiling/hp5_run.py -> ../hp5/ (SEALED)
-usage: python make_panel.py dev2 | python make_panel.py hp2|hp3|hp4|hp5 STATE_PT"""
+  dev3: T342 fresh retrains (seeds 500-599, data ids 5000-5099) from capacity_ceiling/dev3_run.py -> ../dev3/ (OPEN)
+usage: python make_panel.py dev2 | python make_panel.py hp2|hp3|hp4|hp5|dev3 STATE_PT"""
 import hashlib, json, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); CC = os.path.join(HERE, "..", "..", "capacity_ceiling")
@@ -38,7 +39,7 @@ Wo = np.stack([w[2] for w in W]).astype(np.float64)
 os.makedirs(out, exist_ok=True); np.savez(os.path.join(out, "weights.npz"), Wi=Wi, Wh=Wh, Wo=Wo, names=np.array(names))
 h = hashlib.sha256(Wi.tobytes() + Wh.tobytes() + Wo.tobytes()).hexdigest()
 json.dump(dict(panel=which.upper(), n_models=len(names), weights="weights.npz", weights_sha256=h, models=man,
-               truth=("truths.json (OPEN)" if which == "dev2" else "sealed/truths.json (SEALED)") +
+               truth=("truths.json (OPEN)" if which.startswith("dev") else "sealed/truths.json (SEALED)") +
                ": float64 MC, 1e8 per model, independent torch CUDA Philox stream per model"),
           open(os.path.join(out, "manifest.json"), "w"), indent=1)
 print(which, len(names), "models, weights sha256", h)
