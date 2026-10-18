@@ -17,21 +17,28 @@ existing construction ledgers remain visible for the latter. No production
 cost conclusion is authorized by this diagnostic.
 
 ## Status
-Claim2288e3a9 pushed; source/provenance and theorem being frozen. No new cap
-calls or saved-bound contraction yet. Independent gate required before run.
+Fixed64 phase c9a03d9d completed after shared immutablegate9d5faa2b;
+source/theory review1a1ea51f passed. Independent saved audit by78 is pending.
 
 ## Results
-Pending fixed64 bounded phase. Conditional numerical references are not full
-floating/geometry certificates. Every loose bound, fallback and mismatch will
-be retained, without selecting another subset or axis.
+All64 completed with no cap fallback or conditional-reference disagreement.
+Outward cap/stored-reference ratios: min80.30594, median6655.29544, max2.7774e7.
+Determinant/KKT upper ratios: min1.096624, median1.097814, max2.254136.
+At frozen thresholds1e-4 through1e-8, cap counts36/26/16/5/1 and determinant
+counts64/62/59/50/33. All indices/bounds remain in results.json. These descriptive
+ratios use conditional numerical references, not complete floating certificates.
+No extrapolation, threshold/axis change or production winner is selected.
 
 ## Compute accounting
-Source/theory work only so far. Planned64 cap calls,64 exact saved contractions,
-zero model/geometry/KKT-solve/mass/reference calls, <=20CPU/2GB review lock.
-Certificate construction is inherited evidence, not free production work.
+One process:0.750322521 recorded CPU, including loading and repeated durable
+serialization.64 cap calls take0.098152403CPU;64 saved exact determinant
+contractions0.000323590CPU. Cap ledger9472 macro steps, peak346 fraction bits;
+big-integer/control/native work excluded. Zero model/geometry/KKT-solve/mass/
+reference calls, under20CPU/2GB review lock. Prior certificate construction
+and validation inventories retained separately, not free production work.
 
 ## Claims
-[inferred, review pending] Both bounds enclose represented cone mass under the
+[inferred, independent source/theory review1a1ea51f] Both bounds enclose represented cone mass under the
 stated exact-ray/certificate assumptions. [speculative] One may be useful for
 pruning; practical tightness and implementation overhead remain unresolved.
 
@@ -45,3 +52,15 @@ Changing ray normalization without updating certificates; treating conditional
 references as exact; converting a bound downward; hiding fallback1; counting
 already-built exact certificates as free; confusing cone mass with total
 classification error or using per-cone thresholds as a global budget.
+
+## Interpretation and untried rescue
+This fixed cap is safe but loose relative to the saved references. The two
+bounds differ in both determinant-volume information and norm lower bound, so
+this comparison does not isolate a unique cause. Existing T130/T161 center-
+Cauchy bound can replace KKT with a positive-axis lower norm; T211 records a
+blocked exact/outward follow-up, not a newly invented theorem. No additional
+computation or revival of the frozen native-cost chain is authorized here.
+
+Command: `python review/cap_saved_utility/run.py`, one-thread review flock,
+external20CPU/2GB; outputs refuse overwrite. Source/protocol/reviewer gate was
+published before execution. All130 progress records and run1.log retained.
