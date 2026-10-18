@@ -33,3 +33,18 @@ cost is `v1b2.cost(model)`, instrumented under the written convention:
     instrumented 1,218 + 790 per cell.
   - The per-node combination is charged 4 per (triple, node, region) in both counts.
 - With B2 the expected HP2 C is ~10.9k FPE, so F ≈ 13.4: still above 10.
+
+## T281 scorer with v1b2.cost (claude/hp1-scorer 7dea5111; v1b2.py sha256 a09b395d…; estimates asserted identical)
+
+| cost count | HP2 C (FPE) | HP2 F [95% CI] |
+|---|---|---|
+| v1b2.cost (B2 sharing) | 10,962 | **13.51 [9.72, 17.55]** |
+| same count, B2 disabled (what frozen walk_line executes) | 13,656 | 16.83 [12.11, 21.86] |
+| scorer's own count under the written convention | ~12.1k | 14.92 |
+
+- HP1 clean: 7.46.
+- **Caveat (scorer's flag, which I agree with):** B2 is a saving that the frozen code does *not execute*. walk_line runs
+  every row through all T steps in the first cell. Charging B2 is legitimate only for an implementation that
+  actually evaluates the shared prefix tree once. That implementation was not written, so the 10,962 figure is a
+  cost *for a prefix-tree implementation*, not for the frozen code.
+- **The verdict is a lenient fail under every count.**
