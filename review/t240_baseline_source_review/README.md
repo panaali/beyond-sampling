@@ -7,6 +7,8 @@ Does the frozen baseline conservatively filter the previously reviewed H8 boxes 
 Read final source7d874a2f and protocol, independently derive the box predicates and interval contractions, then verify metadata with `python review/t240_baseline_source_review/check_metadata.py`. The script hashes compressed bytes without decoding archives or importing author modules. `bash -n` checks the fixed launcher syntax.
 
 ## Status
+**Material post-run correction:** see CORRECTION.md. The original gate missed v=2x coordinate scaling; intended physical-gap labeling is withdrawn. Original artifacts are preserved. No rerun is authorized by this correction.
+
 Source/resource gate passed. This authorizes only the fixed20736-box/81-archive saved contraction after publication and immutable execution-gate binding. Independent saved review remains assigned to recover_910.
 
 ## Results
