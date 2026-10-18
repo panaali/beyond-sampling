@@ -1,10 +1,12 @@
-# T228 bounded review handoff — final saved review pending
+# T228 bounded independently verified review handoff
 
 Claim574d9843; author snapshot/source9d480f7b; frozen checker84482fc7 and narrow
 gate repairf069893f; combined independent source/provenance/algebra/resource
 reviewbe07096b; immutable executiongateff4af35a/shared776ebd3c; raw result
-a29e4386/shared6a7107e0. All files and cited own history are published. Final
-independent saved-result review is explicitly assigned to T55 (dac1cd40).
+a29e4386/shared6a7107e0. All files and cited own history are published. Final independent saved review
+3db2d849/shared3677b343 passes all nine arrays using integer-scaled grouping,
+independent insertion-rank marginals and conditional-log entropy. Reviewer CPU
+0.644; no author/model/mass replay. DRI handoff54df8056 is published.
 
 The sole saved-only contraction passed all nine unsigned event tables (118,586
 finite positive pieces), six prefix summaries and three symmetry summary
@@ -40,6 +42,6 @@ No implementation or target call in this phase. Richer event labels,
 reachable-domain equivalences, output aggregation and numerical mass/geometry
 validation remain open; no general method-family exhaustion or ARC solution.
 
-DRI requested action after final saved audit: register scoped arithmetic/source
+DRI requested action after completed final saved audit: register scoped arithmetic/source
 verification and qualify T216/T217/T225 wording. Do not upgrade historical
 model/mass provenance, sign0 validation or full-cost/rung status.
