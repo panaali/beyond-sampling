@@ -72,3 +72,7 @@ The sole published-gate run passed all10 analytic fixtures and6 guards. It retai
 ## Independent controls and saved source
 
 Saved controls independently pass8c8f8474/sharedf4a8964d; reviewer-only signed-zero readout comparison correction remains documented. Source-only continuation11ca4ac3 freezes all192 original chunks in `saved.py` and `SAVED_PROTOCOL.md`. These are reused observed panels, not fresh validation. No saved application has run; separate published source/resource and execution gates remain required.
+
+## Fixed saved application completed
+
+Raw45ab5489/shared32e3aa0f completes all192 chunks/196608 rows in10.535777677 main-scope CPU,385 archive reads. All unchanged-row readout checks pass. Heldout network agreement improves by53/75 net observations while task correctness loses56/17; all paired losses and context records are retained. `SUMMARY.md` reports both measures and hidden SSE. Independent full saved audit is pending; no predictor adoption or generic conclusion.
