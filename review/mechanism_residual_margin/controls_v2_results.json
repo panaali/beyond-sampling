@@ -1,0 +1,1969 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "fixture": {
+        "name": "both_correct",
+        "h": [
+          1,
+          3,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          1,
+          4,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          -1,
+          -3,
+          -4
+        ],
+        "lookup_logits": [
+          -1,
+          -4,
+          -5
+        ],
+        "wo": [
+          [
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 0
+      },
+      "output": {
+        "network": [
+          0
+        ],
+        "lookup": [
+          0
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          0
+        ],
+        "terms": [
+          [
+            -0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          1.0
+        ],
+        "term_abs_sum": [
+          1.0
+        ],
+        "original_margin": [
+          2.0
+        ],
+        "lookup_margin": [
+          3.0
+        ],
+        "margin_delta": [
+          1.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          1
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "1"
+    },
+    {
+      "fixture": {
+        "name": "erased",
+        "h": [
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          3,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          1,
+          2,
+          0
+        ],
+        "lookup_logits": [
+          3,
+          2,
+          0
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 1
+      },
+      "output": {
+        "network": [
+          1
+        ],
+        "lookup": [
+          0
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          1
+        ],
+        "terms": [
+          [
+            2.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          2.0
+        ],
+        "term_abs_sum": [
+          2.0
+        ],
+        "original_margin": [
+          -1.0
+        ],
+        "lookup_margin": [
+          1.0
+        ],
+        "margin_delta": [
+          2.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          1
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "2",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "2"
+    },
+    {
+      "fixture": {
+        "name": "introduced",
+        "h": [
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          3,
+          1,
+          0
+        ],
+        "lookup_logits": [
+          0,
+          2,
+          0
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 2
+      },
+      "output": {
+        "network": [
+          0
+        ],
+        "lookup": [
+          1
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          2
+        ],
+        "terms": [
+          [
+            -3.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          -4.0
+        ],
+        "term_abs_sum": [
+          4.0
+        ],
+        "original_margin": [
+          2.0
+        ],
+        "lookup_margin": [
+          -2.0
+        ],
+        "margin_delta": [
+          -4.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          1
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "-3",
+        "-1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "-4"
+    },
+    {
+      "fixture": {
+        "name": "wrong_same",
+        "h": [
+          1,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          1,
+          3,
+          0
+        ],
+        "lookup_logits": [
+          0,
+          4,
+          0
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 3
+      },
+      "output": {
+        "network": [
+          1
+        ],
+        "lookup": [
+          1
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          3
+        ],
+        "terms": [
+          [
+            -1.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          -2.0
+        ],
+        "term_abs_sum": [
+          2.0
+        ],
+        "original_margin": [
+          -2.0
+        ],
+        "lookup_margin": [
+          -4.0
+        ],
+        "margin_delta": [
+          -2.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          1
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "-1",
+        "-1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "-2"
+    },
+    {
+      "fixture": {
+        "name": "wrong_different",
+        "h": [
+          1,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          0,
+          1,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          1,
+          3,
+          0
+        ],
+        "lookup_logits": [
+          0,
+          1,
+          4
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 4
+      },
+      "output": {
+        "network": [
+          1
+        ],
+        "lookup": [
+          2
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          4
+        ],
+        "terms": [
+          [
+            -1.0,
+            2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          1.0
+        ],
+        "term_abs_sum": [
+          3.0
+        ],
+        "original_margin": [
+          -2.0
+        ],
+        "lookup_margin": [
+          -1.0
+        ],
+        "margin_delta": [
+          1.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          1
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "-1",
+        "2",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "1"
+    },
+    {
+      "fixture": {
+        "name": "first_index_correct",
+        "h": [
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          2,
+          2,
+          0
+        ],
+        "lookup_logits": [
+          2,
+          2,
+          0
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 0
+      },
+      "output": {
+        "network": [
+          0
+        ],
+        "lookup": [
+          0
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          0
+        ],
+        "terms": [
+          [
+            0.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          0.0
+        ],
+        "term_abs_sum": [
+          0.0
+        ],
+        "original_margin": [
+          0.0
+        ],
+        "lookup_margin": [
+          0.0
+        ],
+        "margin_delta": [
+          0.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          2
+        ],
+        "lookup_max_ties": [
+          2
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "0"
+    },
+    {
+      "fixture": {
+        "name": "first_index_wrong",
+        "h": [
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          2,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          2,
+          2,
+          0
+        ],
+        "lookup_logits": [
+          2,
+          3,
+          0
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 1,
+        "transition": 1
+      },
+      "output": {
+        "network": [
+          0
+        ],
+        "lookup": [
+          1
+        ],
+        "competitor": [
+          0
+        ],
+        "transition": [
+          1
+        ],
+        "terms": [
+          [
+            -0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          1.0
+        ],
+        "term_abs_sum": [
+          1.0
+        ],
+        "original_margin": [
+          0.0
+        ],
+        "lookup_margin": [
+          1.0
+        ],
+        "margin_delta": [
+          1.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          2
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "1"
+    },
+    {
+      "fixture": {
+        "name": "positive_pair_not_correct",
+        "h": [
+          1,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          4,
+          3,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          1,
+          3,
+          0
+        ],
+        "lookup_logits": [
+          4,
+          3,
+          5
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 4
+      },
+      "output": {
+        "network": [
+          1
+        ],
+        "lookup": [
+          2
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          4
+        ],
+        "terms": [
+          [
+            3.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          3.0
+        ],
+        "term_abs_sum": [
+          3.0
+        ],
+        "original_margin": [
+          -2.0
+        ],
+        "lookup_margin": [
+          1.0
+        ],
+        "margin_delta": [
+          3.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          1
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "3",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "3"
+    },
+    {
+      "fixture": {
+        "name": "zero_sum",
+        "h": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          0,
+          0,
+          0
+        ],
+        "lookup_logits": [
+          0,
+          0,
+          0
+        ],
+        "wo": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 1,
+        "transition": 3
+      },
+      "output": {
+        "network": [
+          0
+        ],
+        "lookup": [
+          0
+        ],
+        "competitor": [
+          0
+        ],
+        "transition": [
+          3
+        ],
+        "terms": [
+          [
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          0.0
+        ],
+        "term_abs_sum": [
+          0.0
+        ],
+        "original_margin": [
+          0.0
+        ],
+        "lookup_margin": [
+          0.0
+        ],
+        "margin_delta": [
+          0.0
+        ],
+        "closure_residual": [
+          0.0
+        ],
+        "network_max_ties": [
+          3
+        ],
+        "lookup_max_ties": [
+          3
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "0"
+    },
+    {
+      "fixture": {
+        "name": "ordered_cancellation",
+        "h": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hh": [
+          9007199254740992,
+          1,
+          -9007199254740992,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "logits": [
+          0,
+          0,
+          -1
+        ],
+        "lookup_logits": [
+          1,
+          0,
+          -1
+        ],
+        "wo": [
+          [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "truth": 0,
+        "transition": 0
+      },
+      "output": {
+        "network": [
+          0
+        ],
+        "lookup": [
+          0
+        ],
+        "competitor": [
+          1
+        ],
+        "transition": [
+          0
+        ],
+        "terms": [
+          [
+            9007199254740992.0,
+            1.0,
+            -9007199254740992.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "term_sum": [
+          0.0
+        ],
+        "term_abs_sum": [
+          1.8014398509481984e+16
+        ],
+        "original_margin": [
+          0.0
+        ],
+        "lookup_margin": [
+          1.0
+        ],
+        "margin_delta": [
+          1.0
+        ],
+        "closure_residual": [
+          1.0
+        ],
+        "network_max_ties": [
+          2
+        ],
+        "lookup_max_ties": [
+          1
+        ],
+        "named_arithmetic": {
+          "subtractions": 36,
+          "multiplications": 16,
+          "additions": 30,
+          "absolute_values": 16
+        },
+        "count_scope": "Named residual/margin arithmetic only; validation, argmax, masking, array allocation, indices, predicates, reductions for tie counts and runtime excluded."
+      },
+      "exact_terms": [
+        "9007199254740992",
+        "1",
+        "-9007199254740992",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "exact_sum": "1"
+    }
+  ],
+  "guards": [
+    {
+      "name": "hidden_shape",
+      "rejected": true,
+      "error": "nonempty matching hidden matrices required"
+    },
+    {
+      "name": "truth_float",
+      "rejected": true,
+      "error": "integer truth indices required"
+    },
+    {
+      "name": "truth_range",
+      "rejected": true,
+      "error": "integer truth indices required"
+    },
+    {
+      "name": "nonfinite",
+      "rejected": true,
+      "error": "finite arrays required"
+    }
+  ],
+  "source_calls": 14,
+  "protocol_sha256": "d6c21c42d9b22627acea82f8346b521140efda859bd7cf5c037529de5c33c8bf",
+  "gate_sha256": "ed33771a702ab5db4ec6553b7f39b3f9cfaeba935c3094e414ec7e47c3689912",
+  "cpu_seconds": 0.112023062,
+  "maxrss_kib": 55000,
+  "runtime": {
+    "executable": "/workspace/clean-neurons/.venv/bin/python",
+    "resolved_executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+    "prefix": "/workspace/clean-neurons/.venv",
+    "numpy_version": "2.5.4",
+    "numpy_file": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/__init__.py"
+  }
+}
