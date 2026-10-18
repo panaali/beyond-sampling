@@ -20,6 +20,6 @@ while done < n:
     ok += int(((h @ Wo.T).argmax(1) == x.topk(2, 1).indices[:, 1]).sum()); done += m
 p = ok / n
 r = dict(H=H, T=T, model=name, n=n, correct=ok, acc=p, se=(p * (1 - p) / n) ** 0.5, seed=seed, sec=time.time() - t0)
-os.makedirs(os.path.join(HERE, "results", "mc"), exist_ok=True)
-json.dump(r, open(os.path.join(HERE, "results", "mc", f"H{H}T{T}_{name.replace(':', '_')}.json"), "w"), indent=1)
+sub = os.environ.get("MCDIR", "mc"); os.makedirs(os.path.join(HERE, "results", sub), exist_ok=True)
+json.dump(r, open(os.path.join(HERE, "results", sub, f"H{H}T{T}_{name.replace(':', '_')}.json"), "w"), indent=1)
 print(json.dumps(r))
