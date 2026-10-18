@@ -186,6 +186,37 @@ Alternatives: one seed per size. The oracle uses exact per-leaf error; a real bo
 solid-angle bound) will skip less. Leaf kinds come from mass-op counts (a wrong piece of zero mass is still computed).
 Compute: anatomy runs (8,4) 61/38 CPU-s, (16,4) 241/180 CPU-s (including the diagnostic leaf masses, not in ops).
 
+## T216: weight-symmetry quotient test on the target M_16,10 (2026-10-18; unverified) — negative (kill)
+**Method.** `symm.py`: for all 120 neuron pairs of `alg_zoo.example_2nd_argmax()`, cosines of incoming vectors
+u = [W_ih, W_hh row] and outgoing vectors v = [W_hh column, W_out column], with and without swapping the pair's own
+reads/targets (a permutation symmetry must permute both). Cosines are invariant to the per-neuron positive rescaling the
+bias-free model allows. `prefix.py`: T192's prefix region counter ported to single-process numpy on this folder's estT copy.
+It reproduces T192 exactly (target regions 34 / 792 / 21032 for k = 2 / 3 / 4; 894 cells at k = 3). `symm_model` projects the
+chosen neurons' incoming vectors onto their common (sign-aligned) principal direction, so their gates coincide or are
+exactly complementary; outgoing weights are kept. `symm_acc.py` and the inline variant run (`symm_variants.json`) give the
+accuracy change at T = 10 (paired MC, same inputs, 1e7 / 2e6 samples).
+
+**Results.** No permutation symmetry: max |cos| of outgoing columns is 0.84 (0.84 with the swap). One near-collinear
+incoming group: neurons {1, 6, 7, 8} have pairwise cos 0.985-0.991, and neuron 4 is antiparallel to them (cos -0.983 to
+-0.99991; pair (4,7) -0.99991). Their outgoing columns differ (|cos| <= 0.71). No dead neurons.
+
+| symmetrised set | acc change at T = 10 (pp) | prediction changed | regions k = 2 / 3 / 4 | growth per step |
+|---|---|---|---|---|
+| none (target) | 0 | 0 | 34 / 792 / 21032 | x23.3, x26.6 |
+| {1,6,7,8} + anti {4} | **-79.43 ± 0.01** (acc 0.953 -> 0.159) | 84% | 26 / 430 / 7880 | x16.5, x18.3 |
+| {7} + anti {4} (cos -0.99991) | **-8.87 ± 0.02** | 12% | 32 / 694 / 17100 | x21.7, x24.6 |
+| {6, 8} | -69.5 | 74% | 32 / 708 / 17734 | x22.1, x25.0 |
+| {1, 7} | -71.6 | 76% | 32 / 680 / 16054 | x21.3, x23.6 |
+
+**Verdict: kill.** The go criterion was growth < 8x/step at <= 0.05 pp. The best case keeps growth >= x16 per step and
+costs 79 pp; the mildest case costs 8.9 pp for a 19% region reduction. The near-collinear incoming rows are not a
+symmetry: the small orthogonal parts (|sin| ~ 0.01-0.17) carry function. [measured] all numbers above. [inferred]
+"brute force after exploiting symmetries" (ARC) does not refer to a neuron-level weight symmetry of M_16,10 visible in
+these cosines.
+Not tried: exact function-preserving merges (none exist: no exactly parallel rows); symmetries that mix more than 2
+neurons by a general linear map (not a permutation/sign); input-space symmetries (time reversal, x -> -x), which belong to
+the task, not the weights. Compute: < 1 CPU-min (prefix k = 4 counts 10-27 CPU-s each; MC 1e7 + 3 x 2e6 paired).
+
 ## Compute accounting
 Counted ops = `m43.Ops` inside the estimator (recipe or exact), as estT_fix; leaf-sum masses, region patterns and MC are
 diagnostic and excluded. Totals (CPU, single thread): (8,3)+(16,3) all runs < 1 min; (16,4) recipe 9 x 2.3-2.7 min
