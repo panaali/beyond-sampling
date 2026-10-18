@@ -3,10 +3,7 @@
 - Final units: 164.40 left (304.80 at login); T234 + T270 + side jobs since 03:22 = 118.2 (cap 122).
 - Done: T192 (README), T270 (README "T270" paragraph: 19,740,596 regions, g_N >= 31.2), T234 grid3 (../capacity_ceiling/
   README), HP2-HP5 sealed (hp*/sealed/), DEV2/DEV3 open, T340/T349/T358/T364/T366 truths (t3*/), T348 census (t348/).
-- Open: **T367** sealed deep-tail truths for session_01HPuYWfHz2C9jVqL15Q2rZ1: wait for its truth-blind (model, t0)
-  picks, run `t367/tail_g12.py` (= t364 sampler + g12 < .1 hit count) at 1e9 per pair, seeds 3671000 + pair index, on
-  local CPU (TAIL_DEV=cpu, ~20 min per 1e9) or a fresh Colab GPU; keep outputs out of git (t367/*.json ignored) and
-  send only to the requester until they say their estimates are committed.
+- T367 done 18:28 (t367/truths.json, released after the requester's estimates were committed). Nothing open.
 
 (Below: the live log kept during the run, now historical.)
 
