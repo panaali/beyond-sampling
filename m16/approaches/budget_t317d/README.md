@@ -407,3 +407,27 @@ bounded by a curve in the other gap. The product replaces it with its value at t
 - **Go:** mean |D_pred - D_m| <= .1 pp on both. Also reported: corr(D_pred, D_m), and the mean offset error |mean D_pred - mean D_m|
   (a panel-level secondary).
 Labels: D_pred is deductive given the walks (no sampling). D_m is diagnostic sampling. Cap 2 h.
+
+### T347 results on DEV2 (`python t347/run_dev2.py`, `t347/dev2.json`; formula frozen at 790de13d before the test)
+| | value |
+|---|---|
+| mean \|D_pred - D_m\| | **.230 pp**: **no go** (line .1; the best constant gives .207) |
+| corr(D_pred, D_m) | .54 |
+| mean D_pred / mean D_m | +.452 / +.568 (panel-level offset error .12) |
+| sd D_pred / sd D_m | .273 / .275 |
+| decomposition of D_pred (mean) | 2~3 wall + 1~2 wall; walls hit on ~49% of triple-lines; median tilts ~ +-.01 |
+
+- **Slopes do not cancel.** The prediction varies across models as much as the truth does (sd .27), and it tracks it
+  partly (corr .54). The overstatement is a property of each model's wall tilts, not of the order-statistic geometry
+  alone. The geometry supplies the weights: the exact density and the mismatch between g12* and E[g12 | wall].
+- **First order is not enough per model.** Most of the mass is near the corner (B3), where the tilt extrapolated from
+  the crossing at g12* = .53 (or g23* = .35) down to gaps ~.05 is unreliable. That is the same failure mode as ADD.
+- **Post hoc (not pre-registered), as an estimator correction:** V1 - D_pred moves the bias from +.439 to **-.013** and the
+  RMS from .796 to **.667** on the 80 DEV2 models. The oracle product removal (J1) gives -.129 / .616. So the deductive
+  correction recovers ~70% of the oracle's RMS gain.
+  - Cost: 2 crossing tangents per triple. As counted in tilt.py, 2 x 720 x 3 FPE = 4.3k FPE. Reusing the walk's cell
+    state at the crossing, one extra tangent is ~1 FPE (10 x 560 FLOPs + readout), so ~1.4k FPE.
+  - This is a lever for the lenient line and for bias, not the pre-registered go.
+- **DEV3:** the frozen formula is ready. `run_dev2.py` with DEV3's weights and budget.py's D_m (V1 - off_product) gives
+  the out-of-sample test. DEV3 does not exist yet (T342). The DEV2 go has already failed, so DEV3 mainly tests the
+  post-hoc correction out of sample.
