@@ -158,3 +158,41 @@ paradigm: R0, R1W, T317-T317f and its tilt/spread variants), on zoo-config retra
 ## Failure modes
 - The verdict depends on the cost convention (Directive 8). Under a convention that charges less for walk cells, the
   allowance grows (e.g. at 2.2k it is .357 pp).
+
+---
+
+## T361 (1): check of Fable r6's component decomposition against my own files
+Recomputed from `../results.json` (80 DEV2, paired 2e5) + `../results_e0.json` and `floors_dev3.json` (100 DEV3).
+Per-model differences along T324's path (pp; sd with ddof = 1):
+
+| term (path step) | mean | sd | RMS | Fable r6 (sd) |
+|---|---|---|---|---|
+| tmax cut (V1 - path1) | +.182 | .227 | .290 | .225 |
+| blind g12 (path1 - path2) | +.097 | .048 | .108 | .048 |
+| mu linearisation (path2 - path3) | -.018 | .072 | .074 | .072 |
+| line-set product (path3 - path4) | +.332 | .374 | .498 | .371 |
+| one transverse anchor (path4 - path5) | -.310 | .178 | .357 | .177 |
+| K = 1 v4 node (E1 - E0), DEV2 | +.309 | .174 | .354 | .173 |
+| K = 1 v4 node, DEV3 (100) | +.302 | .179 | .351 | .178 |
+| total V1 - E0 (DEV2) | +.593 | .449 | .742 | .446 |
+
+Also reproduced: corr(tmax, product) = -.64; tmax + product sd .288; V1 - path4 (anchor and node removed exactly) sd .312.
+**No disagreement.** The small sd differences are ddof (Fable uses ddof = 0).
+**Quantitative exhaustion argument:** four terms each have sd above the .147-.149 allowance at 3.3k FPE (tmax .23,
+product .37, anchor .18, node .17-.18). Their known exact fixes cost +1.4-2.9k, >= 21k, x2 walks and +1.3k / x2 respectively.
+Removing the anchor and node terms for free still leaves sd .31 from tmax + product. Integrating closure c to <= .15 pp
+within the cost allowance is not plausible on this evidence [inferred].
+
+## T361 (2): S2, homogeneous closure oracle floor. Pre-registered 2026-10-18 before any S2 number.
+**Closures** (top-3 exact; v4 at the triple's latest free position; the other 6 lows):
+- c (check): v4 = gauss_v4(v3, 1) node, lows = mu(v4) (= E1); and E0 (true v4, lows mu(v4)).
+- **c_h (mean lows):** v4 = v3 - d v1, lows = v4 - c v1, with d = (v3* - v4*)/v1* = .169777 and c = (v4* - mu(v4*))/v1* = .622476
+  (nb anchor exact-law values: v1* 1.547699, v3* .666073, v4* .403309, mu(v4*) -.560096; model-free).
+- **c_h (spread lows):** the same, with the low at absolute position j = v4 - (c - s (-1)^j sigma*/v1*) v1, s = -1 (T327/T339
+  pattern), sigma*/v1* = .438411 (sigma* = sd(N(0,1) | < v4*) = .678529).
+**Protocol:** paired MC as floors_dev3.py (2e5 exact-law inputs, seed 356000 + index) on **30 DEV3 models** (indices
+0, 3, ..., 87), against the 1e8 truths. Floor = RMS over models of (closure accuracy - truth), plus bias and sd.
+- Check: E0 and E1 on these models within .03 pp (per model, max) of floors_dev3.json.
+- **Kill if min(floor_h) > .45 pp. Go to stage 2 if <= .40** (stage 2 per Fable: walks' pointwise form under c_h vs E0_h,
+  kill if its sd > .30). Between: inconclusive, reported.
+Diagnostic sampling. Prediction on record (Fable): floor_h .6-1.0, kill.
