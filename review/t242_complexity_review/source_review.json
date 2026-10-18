@@ -1,0 +1,87 @@
+{
+  "task": "T242",
+  "reviewer": "recover_34",
+  "complete": true,
+  "pass_all": true,
+  "execution_authorized": false,
+  "execution_allowed": false,
+  "author_commits": [
+    "c338207e",
+    "991a5a66",
+    "86de6778"
+  ],
+  "review_scope": "written source/provenance and mathematical contract only",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/CONTRACT.md": "1eeb5ddc640c6538c56d26d61f198607d7470e726bf8f84ecde92f689b220aa5",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/README.md": "3302ade31bde246dfb22b62dce4320bb4a37d559d43cb15b03ee1470548a9998",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/SOURCE_REVIEW.md": "6df6f0c2cf97e7e6a357ced490e5ad4c97c6f7c012cb93c2ed30ecad97d82f9a",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/T239_DIRECTIVE.txt": "594785d81177fd905d055e9279eab6994802754680f9c32c5027713faf48d8e6",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/gpu_tree.txt": "741d7cd9197364349290683507aff9825d4d6253de600c74197b0ff31625f0f6",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/manifest.json": "aa01294e6263b85a001c63cc273015af5c3a626d08f9a18a98c8436b0f0b5caf",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/snapshot/anat_summary.py": "4157f7edea1c18e3d589f378e2cf810034d43f2ab5f55b83fffdf9794ab7f4ab",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/snapshot/anatomy.py": "1e9fdd1f06b207b4780e6bd487203ef1fc60d93f3e42a5eda8e4985df3d2edf2",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/snapshot/estP.py": "531e9ac1d6ddd715bd25d1822c82a84028371c6e303fd3efa3178a61cc316cd0",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/snapshot/estT.py": "a88f62c41a94af636399675e92ed0ce88f109808f66eff23fdbddb9a87ef2bad",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/snapshot/export_simplices.py": "ba5f0363e9f2006121b76424b79c80ebed0490077da55daa537ee15e8b14d3c9",
+    "/workspace/work/recover-small_h2_56/review/correct_error_complexity_contract/width_tree.txt": "8db3f19ad93a93fe2ddb642310d437b36d2b555010fdc97d32275b2eeb8c1454"
+  },
+  "source_checks": [
+    {
+      "path": "review/correct_error_complexity_contract/snapshot/anatomy.py",
+      "sha256": "1e9fdd1f06b207b4780e6bd487203ef1fc60d93f3e42a5eda8e4985df3d2edf2",
+      "blob": "16ba142c234d70520d06dcdeb1164cf81c075912",
+      "bytes": 3928
+    },
+    {
+      "path": "review/correct_error_complexity_contract/snapshot/anat_summary.py",
+      "sha256": "4157f7edea1c18e3d589f378e2cf810034d43f2ab5f55b83fffdf9794ab7f4ab",
+      "blob": "33bd47405437ff7ff67194aac9906d6055463171",
+      "bytes": 2648
+    },
+    {
+      "path": "review/correct_error_complexity_contract/snapshot/estT.py",
+      "sha256": "a88f62c41a94af636399675e92ed0ce88f109808f66eff23fdbddb9a87ef2bad",
+      "blob": "6bccfd1fee0e2e1377b7ac75344648318eafc5fc",
+      "bytes": 24482
+    },
+    {
+      "path": "review/correct_error_complexity_contract/snapshot/export_simplices.py",
+      "sha256": "ba5f0363e9f2006121b76424b79c80ebed0490077da55daa537ee15e8b14d3c9",
+      "blob": "59db3ba5da7623f688dc33329f86f7850303a4d8",
+      "bytes": 1758
+    },
+    {
+      "path": "review/correct_error_complexity_contract/snapshot/estP.py",
+      "sha256": "531e9ac1d6ddd715bd25d1822c82a84028371c6e303fd3efa3178a61cc316cd0",
+      "blob": "a82edb8b9c8050df77065c5d81abae0b0424bcbf",
+      "bytes": 11407
+    }
+  ],
+  "additional_text_bindings": {
+    "m16/approaches/gpu_cost_law/estG.py": {
+      "head": "3e5e09a12b326626e4a182b3ecde2e2d0bca882b",
+      "sha256": "2ec4ad544ac4265185e3b7cce1c6d76a06382f6c94035d138f326c6438bc4df8",
+      "bytes": 12331
+    },
+    "m16/approaches/gpu_cost_law/estT_base.py": {
+      "head": "3e5e09a12b326626e4a182b3ecde2e2d0bca882b",
+      "sha256": "a88f62c41a94af636399675e92ed0ce88f109808f66eff23fdbddb9a87ef2bad",
+      "bytes": 24482
+    }
+  },
+  "checks": [
+    "mixed activation-leaf versus output-region schema",
+    "conditional coverage and positive denominator",
+    "fixed-subset interval ratios and uncertain ordering",
+    "subdivision counterexample",
+    "gap intersection and blind law",
+    "selection and probabilistic joint coverage"
+  ],
+  "exclusions": [
+    "no author imports or calls",
+    "no archive/checkpoint decode",
+    "no numerical mass or geometry validation",
+    "no current/future T239 result validation",
+    "no experiment execution clearance"
+  ]
+}
