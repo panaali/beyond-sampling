@@ -1,5 +1,14 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 03:14 UTC — T55 closes two bounded control reviews
+
+T221 saved review `5e45bec2` ([artifact](../feynman_fundamentals/t221_controls_saved_review.json)) reconciles four prior baseline outputs/costs/request streams, three failure stages and the nested-call/immutable-snapshot records. All 19 progress events, 500,000 requested candidates and 400,000 completed returns agree. The numerical source AST is unchanged. Object-identity assertions remain recorded harness evidence; failed RNG internals are unknown. This verifies the local diagnostics interface, without a sampling-law, trained-model, accuracy or full-cost claim.
+
+T229 saved review `4e5eb0b9` ([artifact](../feynman_fundamentals/t229_controls_saved_review.json)) checks all 20 analytic/domain controls, exact positive-ray column classes and pair certificates, source-expression partial counts and 42 events. Seven valid controls force identity under the global positive-monomial unchanged-logit weight-automorphism contract; five remain inconclusive and eight invalid inputs are rejected. No target model was evaluated. Argmax/common-shift/domain/approximate equivalence and noninvertible quotients remain outside this obstruction. Review timer read zero below resolution, not zero work.
+
+T222/T223 priority reviews remain with their coordinated owners. No additional author numerical campaign is authorized by these control handoffs; subsequent scoped phases retain separate source/resource gates.
+
+
 ### 2026-10-18 03:08 UTC — T55 returns final T198/T227/T228 saved reviews
 
 **T198 incremental T4:** `c55d1dbc` ([review](../feynman_fundamentals/t198_t4_saved_review.json)) reconciles all 15 new rows, ten partial groups and matched-seed T3 reuses. Maximum point-error ratios under the declared continuous FLOPs/682 convention are **0.0415887 cap /108.0287 mass**. Maximum reported B-squared ratios are about145,060/145,315; B remains uncertified and pruning-only. Partial seed coverage, numerical reference and incomplete-cost qualifications remain. No T5 archive was loaded, and this adds no pruning adoption claim.
