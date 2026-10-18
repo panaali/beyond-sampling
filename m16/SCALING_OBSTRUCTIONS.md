@@ -52,12 +52,16 @@ T194@57bad7b width16_probe/README.md "T222", coverage.json]. At **k = 5** (T192@
 152,956 / 226,080. Growth k4 -> k5 is x6.4 / 8.4 / 10.6 / 12.7 / 14.9 / 17.2 (k3 -> k4: x6.0 / 8.6 / 10.4 / 13.3 / 16.1 /
 18.6). The inverse-Simpson effective count is 397 (x3.0, then x3.5) [measured, unverified]. k = 6: `[PENDING T192 k=6]`.
 
-*Precision scaling vs absolute size.* Per decade of delta at k = 5, N grows only x5.75 / 2.90 / 2.10 / 1.71 / 1.48,
-roughly delta^-0.2 at small delta, while sampling's cost grows as eps^-2. So a mass-ordered truncated enumeration with
-exactly known uncovered mass scales far better in precision than sampling, and would eventually win on MSE against compute
-[inferred]. The obstacle is the absolute constant: ~1e10 regions at T = 10 if the per-step growth keeps falling, ~2e11 at a
-constant x15-17. Each region needs d = 10 cone masses. At T192's measured pipeline throughput (`[PENDING T192
-throughput]`) that is far beyond our budget and cannot be demonstrated. Independent
+*Precision scaling vs absolute size.* Per decade of delta at k = 5, N grows x5.75 / 2.90 / 2.10 / 1.71 / 1.48, far
+below sampling's x100 per decade of eps (cost ~ eps^-2). But the factors **rise with k**: the deepest decade (1e-5 -> 1e-6)
+costs x1.12 / 1.29 / 1.48 at k = 3 / 4 / 5, and the first (1e-1 -> 1e-2) x3.05 / 4.39 / 5.75. The delta exponent drifts
+from ~0.05 to ~0.17, so it is not stable, and by k = 10 the deep decades may cost x3-5 each [inferred; T192@f02482d6
+k*_regionmass.npz; k = 3-4 factors also from T194 coverage.json]. So at the depths measured, precision is still much cheaper
+than for sampling, but the advantage shrinks with depth, and the absolute size dominates: ~1e10 regions at T = 10 if the
+per-step growth keeps falling, ~2e11 at a constant x15-17, each needing d = 10 cone masses. T192's measured throughput
+on the (16,5) run: geometry 4.2e6 counted ops/s per CPU core (3.2e7 on 11 workers); GPU masses ~7.7e9 counted ops/s
+(7.1e4 simplices/s, d = 5); wall time geometry-bound at T >= 5 [measured, unverified; T192]. That puts the target far
+beyond our budget, and it cannot be demonstrated. Independent
 replication (T218 child, LP + adaptive Plackett masses): `[PENDING T222 replication]`.
 
 **3.5 Structural savings found so far are constant factors.**
@@ -67,7 +71,7 @@ replication (T218 child, LP + adaptive Plackett masses): `[PENDING T222 replicat
 | truth-cone start (2T(T-1) cones instead of 4·T! chambers) | lossless; 0.67x / 0.76x ops at (8,4) / (16,4); chambers ~10% of log-growth | [measured, unverified] T192 §5; T194 "T206"; shared@ab532a27 review/chamber_split |
 | oracle skip of small-error leaves (bias <= 1 sampling SE) | <= 1.9x (8,4), 3.8x (16,4); 4.8x with truth start. An upper bound: a real method must bound each cell | [measured, unverified] T194 "T206" |
 | merging same-history leaves / same-future cells (T188) | exact merged cells 0.59-0.82x at T = 3-4 (T = 10 extrapolation 2-5x at H = 16); T188 counts with no savings claim | [measured, unverified] review/chamber_split; shared TASKS T188 handoffs b9a6b5df/3ee0667b |
-| budgeted pruning by cell mass (T195 phase 2) | `[PENDING T195]` | claude/t195-split-attribution |
+| budgeted pruning by cell mass (T195 phase 2), (8,4) 5 seeds, tau 1e-4..1e-8 | cap bound: bound^2 ratio < 1 on all seeds only at tau <= 1e-7, where 93-97% of cells are retained and T3 -> T4 growth stays x27-28. Exact-mass pruning: growth x20.7-23 but ratio_B >= 1.71 at 1e-7 and ~2.3x the FLOPs. No certified setting slows growth | [measured, unverified] claude/t195-split-attribution@5d58cd51, split_attribution/prune_report.md |
 | weight symmetry (T216) | none: no permutation symmetry; projecting the near-collinear incoming rows {1,6,7,8; 4 anti} costs 79 pp (8.9 pp for the closest pair) for <= 2.7x fewer regions, growth still >= x16/step | [measured, unverified] T194@ee01b49 "T216" |
 | event words record/2nd/low (T217) | modal gate word holds 21% of an event word's mass at k = 4 (go: 99%) | [measured, unverified; DRI: kill] T194@050bfaa "T217" |
 | mechanism-labelled tie tails (T218) | top-100 labels cover 2-4% of out-of-sample tail mass (below a random-label null) | [measured, unverified; kill] T218 README |
