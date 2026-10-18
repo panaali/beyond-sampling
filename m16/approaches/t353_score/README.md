@@ -13,3 +13,17 @@
   - C = FLOPs as executed / 5948 (mean and range);
   - F = MSE·max(C, 1000)/mean p(1-p).
 - **Verdict:** whether MSE x C(T353) < MSE x C(T317f).
+
+## Results (unverified; `dev3.json`, `dev3_summary.json`)
+All 5 source hashes match the freeze commit 29c15c68; cont_f = frozen T317f. The T317f estimates are identical to T343's
+independent DEV3 run (100/100).
+
+| arm (DEV3, 100) | RMS pp | bias pp | error sd pp | corr | C (FPE, range) | F | MSE x C (x1e4) |
+|---|---|---|---|---|---|---|---|
+| T317f | .721 | +.425 | .583 | .9775 | 3,307 [2,667, 4,216] | **2.49** | **1,720** |
+| T353 (estimator_h2) | **.673** | +.340 | .581 | .9784 | 5,056 [4,068, 6,924] | 3.32 | 2,288 |
+
+**Verdict: MSE x C(T353) = 2,288 > T317f's 1,720, so T353 does not beat T317f on DEV3.**
+- RMS improves .721 -> .673, all from the bias: +.425 -> +.340. The error sd is unchanged (.583 -> .581).
+- C as executed rises 53%.
+- On DEV2 the bias fell to ~+.04. On DEV3 it falls only .085 pp.
