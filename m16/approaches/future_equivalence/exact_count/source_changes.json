@@ -1,0 +1,26 @@
+{
+  "original": "capture/common.py",
+  "changes": [
+    [
+      "H=Path(__file__).resolve().parent",
+      "H=Path(__file__).resolve().parent.parent/'capture'"
+    ],
+    [
+      "E.MODE[0]='recipe108'",
+      "E.MODE[0]='exact'"
+    ],
+    [
+      "ops,False)",
+      "ops,True)"
+    ],
+    [
+      "owner.check();owner.finish_calls+=1;T=model[2].shape[0]",
+      "assert exact is True and E.MODE[0]=='exact'\n            owner.check();owner.finish_calls+=1;T=model[2].shape[0]"
+    ],
+    [
+      "assert returned==0.0 and not self.stack",
+      "assert returned==0.0 and not self.stack\n        assert self.lookahead_calls==0 and self.lookahead_points==0"
+    ]
+  ],
+  "pilot": "full_count/pilot.py: only exact_common import, title, and post-run exact/no-lookahead guards"
+}
