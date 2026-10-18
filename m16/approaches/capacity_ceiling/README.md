@@ -70,6 +70,10 @@ correlate only 0.11 (seed spread ~3 pp is data-order/rounding chaos, not init). 
 `codex_tiled_step.py`): torch vs fused 4.7e-7, torch vs Codex 1.7e-7, fused vs Codex 5.1e-7 after 3 steps;
 Codex 1.05 ms/step at 108 models (mildly contended). Logs: `results/cmp_*.log`, `results/codex_crosscheck.log`.
 
+**Where the target sits** [measured]: M_16,10 (example_2nd_argmax, acc .9531175 +- 3.9e-7, ../gpu_cost_law MC truth)
+is near the top of the 40 + 40 zoo-config retrains at 2^30 (fused: mean .9189, max .9589; trainer.py: mean .9214,
+max .9602), i.e. a lucky draw from the same training distribution rather than evidence of a different recipe.
+
 **H = 16, T = 2..10 table** (`results/ht_table.json`, 1e8 samples per model; T = 7, 9 trained with unchanged zoo code):
 mean accuracy .99991, .99945, .99780, .99022, .97998, .97648, .96676, .96726, .91211 for T = 2..10.
 
