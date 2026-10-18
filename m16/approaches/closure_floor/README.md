@@ -60,6 +60,24 @@ because the largest-|J| low carries only part of the low variation. My guess: no
 split. (2) Paired MC noise (~.03 pp) is small against the .30 line. (3) The oracle evaluates each variant at the true
 skeleton of every input; an estimator evaluates it at quadrature nodes, so a passing oracle is necessary, not sufficient.
 
+## Addendum pre-registration (DRI / Fable r5, 2026-10-18 12:13, while the main oracle was running; before any spread run)
+The main pre-registration above is unchanged.
+
+**(A) Decision in cost terms.** Report each variant as projected DEV2 MSE x C relative to T317e. T317e (= T317c estimates):
+DEV2 RMS .795 pp at C 5,435 FPE, so MSE x C = 3,435 pp^2 FPE. Projection, declared as such: a closure change from floor
+f0 to f1 moves T317e's MSE by (f1^2 - f0^2), with the rest (integration and the other declared approximations) unchanged,
+and C becomes 5,435 + added FPE. Decision: worthwhile only if the projected MSE x C <= .85 x 3,435 = 2,920.
+
+**(B) One-pattern spread lows (separate arm).** Hard verdict at a closure point where each free low at absolute position
+j in 0..9 is set to mu + (-1)^j sigma, with mu, sigma the mean and sd of N(0,1) | < U (one fixed, position-deterministic
+pattern; no extra cost because the lows still take one value per position pattern). Run for R1W (decides), plus R0 and
+top-4 (information). Same 80 DEV2 models, own seeds, 100k inputs per model, paired with the network, against the official
+truths. **Go: R1W spread floor <= .40 pp.** The reverse pattern mu - (-1)^j sigma is reported too, as a check that the
+gain is not a sign accident (it does not count for the go line).
+
+**Deviation, declared:** the main oracle runs at n = 100k inputs per model, not 200k (CPU budget). Paired MC s.e. of a
+closure error ~.05 pp, still small against the .30 / .40 lines.
+
 ## Method
 (after the runs)
 
