@@ -99,7 +99,8 @@ conditional-law Monte Carlo (T364).
   2x, median est/truth .99–1.06, for p ≈ 2e-7 to 2e-4.** The DRI registered this as H-R1, CONFIRMED (scoped).
   - Disclosure: I had seen those truths before (T350/T358). The design and K were fixed in advance.
 - **Deeper tails** (T364, T366; the T366 truths were sealed until after a frozen run). On fresh models the K-node walks
-  are **within 1.3x on 10/10 (model, threshold) pairs from p = 1.8e-10 to 7e-7.**
+  are **within ~1.4x on 10 (model, threshold) pairs from p = 1.8e-10 to 7e-7.** An independent implementation
+  (T368, my own frozen code) puts 10/10 within 2x and 8/10 within 1.3x.
   - Plain K3 runs at 0.36–0.47M FPE. Plain sampling at that cost expects .005–1.1 events, so it would usually
     return 0.
   - The graded-g12 variant costs 1.6–2.1M FPE.
