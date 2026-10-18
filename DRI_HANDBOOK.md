@@ -312,3 +312,7 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
    after a stated timeout, and run reviews that need no compute as sub-agents.
 
 **Owner directive (2026-10-18 17:27):** stop using Fable from now on (no Fable reviews or sub-agents).
+
+**Owner directive (2026-10-18 23:4x):** "You should not ever contact them. I will contact them when I deem it's the right time." The DRI and all agents never contact ARC and do not recommend contact; only the owner decides if and when.
+
+**Owner directive (2026-10-18 23:4x):** run lower-priority backlog ideas in parallel, each in its own child session (own sandbox). The CPU-slot rule applies per container.
