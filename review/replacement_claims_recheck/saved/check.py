@@ -130,6 +130,7 @@ def main():
     rate('far/error_rate',fe,n-ns,far['net_err_far'])
     bad=count('far/error_disagree',far['net_wrong'],fe);good=count('far/correct_disagree',far['net_correct'],n-ns-fe)
     check('far/disjoint_errors',bad+good==dis-nh)
+    check('rank_histogram_keys',set(D['rank_picked_when_disagree'])=={'replacement','network'})
     for name,counts in D['rank_picked_when_disagree'].items():check('rank/'+name,len(counts)==10 and all(type(x)is int and x>=0 for x in counts) and sum(counts)==dis,counts=counts)
     event('partition_complete')
     check('noise_rows',len(E['noise'])==7 and [r['1-R2'] for r in E['noise']]==[1e-2,3e-3,1e-3,3e-4,1e-4,3e-5,1e-5])
