@@ -15,8 +15,10 @@ reduced triangles using the positive-denominator trihedral atan2 formula.
 ## Status
 Sole producer run complete, raw `b1337926`, published `6d7f45c1`.
 Source/resource review `8c0b1de9` was published `c3109eac`; immutable execution
-gate `29acef0e` was published `887a06bc` before execution. Independent saved audit
-is assigned to recover_h4 by `40a8caf2` and remains pending. No failed producer
+gate `29acef0e` was published `887a06bc` before execution. Independent saved audit `e18bedc1` by recover_h4, assigned in `40a8caf2`, passes
+all 70 gates, 86 correct cones, 176 gate and 244 correct simplices, exact readout/
+rank/incidence/chain/scalar records and 1,536 progress events. Review CPU was
+0.25197 seconds with 64,436 KiB peak RSS; no author or atan2 calls. No failed producer
 attempt or completed rerun occurred.
 
 ## Results
@@ -54,7 +56,7 @@ Boundary work includes 740 exact determinants, 13,320 integer multiplications,
 coefficient additions and identity terms. All 1,536 progress events are retained.
 
 ## Claims
-[measured, pending independent saved audit] Identical-facet cancellation reduces
+[measured, independently saved-audited e18bedc1] Identical-facet cancellation reduces
 the fixed closed-angle call count, but its measured construction/recording cost
 exceeds the saved integration time. This run does not demonstrate a cold speedup.
 [inferred, source-reviewed] Exact chain orientation preserves integration under
