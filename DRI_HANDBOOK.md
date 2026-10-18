@@ -18,7 +18,7 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   only hint so far that cost can grow slower than the region count.
 - **Scaling verdict (E46, E48; unverified):** the recipe stays *accurate* as lists get longer ((8,4) passes on all
   5 seeds + noisy copies, MSE ratio <= 0.27; (8,5) seed 0 error 0.0002 pp, ratio 0.0097) but its *cost* explodes:
-  1.7e5 -> 8.7e8 -> 2.2e11 ops at H=8, T=3,4,5 (cells/regions 2.8 -> 5.4 -> 33). M_16,10 projects to >=1e17 ops
+  1.7e5 -> 8.7e8 -> 2.2e11 ops at H=8, T=3,4,5 (cells/regions 2.8 -> 5.4 -> 33). M_16,10 projects to >=1e17 ops [CORRECTED 2026-10-18: an extrapolation from two growth steps, ~6.5e16-4.7e17 (trend ~2e23), not a bound]
   (realistic trend ~1e23). An earlier "(8,4) fails" (E45) was a 4-D orthant-mass bug, fixed in
   `m16/approaches/estT_fix/`.
 - **T=4 small-H track (E47):** a fixed great-circle grid ("Hopf", exact along each circle) beats sampling at (4,4),
@@ -26,7 +26,7 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   ARC-mechanistic, and its margin shrinks with H. T111: the T=4 failure is about T, not undertraining.
 - **ARC's own position (public, 2026-08-17):** "not much closer to succeeding at the challenge". Their M_4,3
   estimators were 2.4-10x *worse* than sampling in MSE and they called that "roughly match" (E32). The private claim
-  that ARC cracked M_16,10 is doubtful on public evidence (H-E5).
+  that ARC cracked M_16,10 is doubtful on public evidence (H-E5). [UPDATED 2026-10-18: H-E5 is now "reported, unverified"; see section 10]
 
 ## 2. How the project is organised (keep this)
 
@@ -121,10 +121,10 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 | (4,3), n_seqs 2^20-2^29 | 32 | T75, fibre | pass (E44; review T114 open) |
 | (5,3), (6,3) | 45, 60 | RECIPE112; fibre F2L2 | pass (fibre confirmed R4; RECIPE112 review T113 open) |
 | (8,3) | 96 | RECIPE112; fibre | pass (unreviewed) |
-| (8,4) | 112 | RECIPE112 + multi-step certificate (estT recipe108) | pass after mass fix (E46, unreviewed); cost 6e8-1e9 ops |
-| (8,5) | 128 | same | accurate on seed 0, 2.2e11 ops (E48); other seeds not run |
+| (8,4) | 112 | RECIPE112 + multi-step certificate (estT recipe108) | pass after mass fix (E46, unreviewed); cost 6e8-1e9 ops. [RESTATED 2026-10-18 under T196 FLOPs: worst MSE ratio 0.52 as charged (2·ops), 0.36 after T192's op-completeness audit (estT = 1.37x ops); still pass, unverified] |
+| (8,5) | 128 | same | accurate on seed 0, 2.2e11 ops (E48); other seeds not run. [UPDATED 2026-10-18: **fail**: recipe108 loses on seed 2 (MSE ratio 3.4 in estT ops, ~4.6 in T196 FLOPs); T192 S2, unverified] |
 | (4,4), (5,4), (6,4) | 48-84 | Hopf circle grid | pass but **quadrature class** (E47) |
-| (16,10) target | 432 | all | **fail**: deductive methods 37x->4000x worse than sampling (LB3); recipe projects >=1e17 ops |
+| (16,10) target | 432 | all | **fail**: deductive methods 37x->4000x worse than sampling (LB3); recipe projects >=1e17 ops [CORRECTED 2026-10-18: an extrapolation from two growth steps, ~6.5e16-4.7e17 (trend ~2e23), not a bound] |
 
 ## 7. Theory notes (why this is hard, and what any solution must use)
 
@@ -187,3 +187,24 @@ cells or ops growing no faster than the region count along T, while still beatin
 5. Ask ARC (T41, needs owner approval) for the M_16,10 protocol if a candidate solution appears.
 6. The owner's working style that worked: climb one axis one step at a time; backtrack to the last success when a step
    fails; verify negatives before calling an idea dead; keep token use low (lean agents, scripts printing <=10 lines).
+
+## 10. 2026-10-18 update (new DRI)
+
+- **Main route: exact enumeration made cheaper by structure.** ARC's own stated plan for M_16,10 combines feature
+  analysis with "brute force after exploiting symmetries" ([lit/web_arc](lit/web_arc/README.md) S1). From T >= 4, exact enumeration costs only 1.2-1.5x
+  recipe108 with ~zero error (H-U5), and recipe108 fails (8,5) on seed 2 (H-U6). ARC's bar is deductive + MSE vs
+  sampling at equal compute; brute force is not excluded (QA #5). Structure to exploit: truth-cone start
+  ([chamber_split](review/chamber_split/README.md), 2-5x fewer cells at H=16), future-equivalent cells (T188),
+  time-shift reuse (T190), cost on noisy copies (T202).
+- **The recipe is now a diagnostic** (which splits matter, T195), not the method to scale; T170 is deprioritized.
+- **Protocol:** TASKS DRI directive 7 fixes the rung test (5 seeds + >= 8 noisy copies per seed at absolute sigma 0.05
+  and relative 0.005, 0.01; exact or >= 1e8 independent-stream MC truth; T196 FLOPs; every budget with a CI).
+- **Leaderboard caveats (repairs in T204):** LB3's summary takes the min over budgets (biased low; quote each budget
+  with its CI); `table()` demotes arc_cumulants to "sampling" because its rows were stored before it entered CLASS
+  (det_ok=False); srb's win rests on a hand-counted, uninstrumented cost factor 3.3/1.6 ≈ 2.06
+  (`control_variate/rb9.py:158-184`), without which its ratios are ~0.4-1.1.
+- **ARC:** H-E5 is now "reported, unverified": the owner's ARC contact says a newly joined ARC member has an M_16,10
+  solution and that ARC is waiting for a comparison. Owner ruling 2026-10-18: "Unless we have a candidate solution, we
+  should not contact ARC." The comparison package is T203; contact is T41.
+- **Read:** [QA_2026-10-18](review/dri_handover/QA_2026-10-18.md) (previous DRI's answers), the DRI directives at the
+  top of [TASKS.md](TASKS.md#in-progress), [T196 cost convention](review/cost_convention/README.md).
