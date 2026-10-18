@@ -44,7 +44,7 @@ Neither is independent exact arithmetic. Codex T219 independent integer recount:
 mass needs ~6 simplices at ~3e4 ops each (d = 4: 440x the d = 3 closed form; d = 5: 5.2e4-1.7e5) [measured, unverified;
 T194@45e1f6c "T206"; T192 §5]. 34-56% of leaves are fully correct and need no mass.
 
-**3.4 Mass does not concentrate fast enough.** The number of regions needed to cover 1 - 1e-5 of the prefix mass grows
+**3.4 Mass concentrates, but not fast enough for the absolute size.** The number of regions needed to cover 1 - 1e-5 of the prefix mass grows
 **x18.6 then x16.1** per step on the target (x17.5-21.6 on zoo (16,4)/(16,5)). Even N_1e-2 grows x8.6-13, at 65-93% of the
 count's log-rate. Projected N_1e-5 at k = 10 is ~2e11 [measured k <= 4, rule pre-registered; inferred beyond;
 T194@57bad7b width16_probe/README.md "T222", coverage.json]. At **k = 5** (T192@f02482d6, gpu_cost_law/results/prefix/k5_regionmass.npz; 632,394 regions, mass sum within
