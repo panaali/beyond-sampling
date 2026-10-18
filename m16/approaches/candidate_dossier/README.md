@@ -2,26 +2,30 @@
 
 ↑ [Approaches](../README.md) · [TASKS](../../../TASKS.md) · [INDEX](../../../INDEX.md)
 
-**Status: draft v2 (2026-10-18), revised after the red-team review (`review/candidate_redteam/README.md` on
+**Status: final draft v3 (2026-10-18), revised after the red-team review (`review/candidate_redteam/README.md` on
 `ccr-6a61f25c-wn80ii`).** This is a progress note, not a candidate solution: the estimator does not match sampling.
 Author: the T241 worker. **The same author also did both re-implementation checks (T312, T320).** "Confirmed" in the
 project INDEX (H-L1) is an internal label; read it as "verified internally: a second implementation and an
-independent scorer". Items still to come are marked **[pending]**: T324's per-approximation error budget and a
-second-agent audit.
+independent scorer". A different agent has since audited the method and measured its error budget (T324,
+`claude/t292-oracle-floor`, `m16/approaches/budget_t317d/`, pre-registered e85fff85). §2 uses its results.
 
 ## Headline
 
 > On 100 fresh retrains of AlgZoo's M_16,10 training recipe (sealed panel HP3, frozen code, scored once), a
 > sampling-free estimator estimates each model's accuracy with RMS error 0.80 pp (bias +0.41 pp) at a counted cost of
 > 5.4k forward-pass equivalents (5.4–7.0k under alternative FLOP conventions, §3). It works by exact piecewise-linear
-> ReLU-gate walks along the two gap directions of each position triple, combined under five declared approximations.
-> The validity of those approximations was established by Monte Carlo on 80 separate development retrains.
+> ReLU-gate walks along the two gap directions of each position triple, combined under six declared approximations.
+> **It is sampling-free at runtime, but not deductive in Hilton's strict sense.** The approximation scheme (the
+> closure, the latest-position rule for v4, the cut at gap 0.5, the single v4 node and the blind-g12 rule) was
+> selected and validated by Monte Carlo on 80 separate development retrains. The structural extrapolations it makes
+> are declared and are identical for every model, and nothing is fitted per model.
 >
 > **Plain sampling at the same compute would have about 5x lower MSE: F = 5.07, 95% CI 3.41–7.03.** The estimator is
 > worth n* ≈ 1,070 samples. On a second sealed panel (HP2), used for earlier submissions of the same lineage, F is 6.75
 > [4.86, 8.78]. **The estimator does not match sampling, and it fails on weight-noised copies (bias up to +6.6 pp).**
-> It uses no random inputs to the model. The scored version (T317d, and T317e, a bitwise-identical cleanup) computes its
-> model-free constants by deterministic quadrature and makes no random draws at all. Its predecessor T317c set them by a seeded Monte Carlo over the input law.
+> It uses no random inputs to the model. Its model-free constants come from deterministic quadrature (T317d). T317e,
+> the bitwise-identical cleanup to cite, makes no random draws at all. T317d still ran two unused seeded Monte Carlos
+> at import, and T317c used one to set its transverse points.
 
 The positive result is the information content. A constant at the development mean (0.920) scores F 18.9 [14.1, 24.2] on HP3 at the 1k-FPE floor and is
 worth n* = 53 samples. This estimator is worth 1,069 on HP3, 20x more. On DEV2 its correlation
@@ -84,20 +88,32 @@ error shrinks with accuracy (slope −0.067 pp per pp). On the 15 DEV2 models wi
 The code is `m16/approaches/r1_cont/` on branch `claude/t218-tie-tail-labels`. The entry point `est(model)` returns
 (estimate, FLOPs as executed).
 
-**"Sampling-free at runtime"** means no step feeds random inputs to the model. The approximation scheme itself was
-**selected and validated by Monte Carlo on the 80 development retrains (DEV2)**, and no bound for any approximation is
-derived from the weights. A first attempt at such a bound (T319) failed. Labels: **D** = exact up to float64. **A** =
-declared approximation, followed by how it was chosen.
+**Deductive status (audit by T324, a different agent).** In its words: "sampling-free at runtime; the approximation
+scheme was selected and validated by Monte Carlo on development retrains". "Deductive" in Hilton's stricter sense it
+is not.
+- No runtime step feeds random inputs to the model, and no constant is fitted per model.
+- The model is evaluated exactly along two lines per triple and region. Those verdicts are then extrapolated to a 3-D
+  region: every v2 in the region, every value of the other gap, gaps beyond 0.5, and blind g12. These extrapolations
+  are declared and identical for every model.
+- These choices were all made by Monte Carlo on DEV2: closure c, the latest-position rule, TMAX 0.5, the K = 1 v4
+  node and the blind rule. G = 20 is a numerical convergence check that moves estimates by ≤ 1.4e-6 pp.
+- No bound for any approximation is derived from the weights. T319's attempt failed.
+- The import-time Monte Carlo finding applies to T317d (two seeded draws it never reads), not to T317e.
+
+Labels: **D** = exact up to float64. **A** = declared approximation, followed by how it was chosen.
 
 1. **Order statistics [D].** With no biases only the sorted values v1 > v2 > … matter. The top-3 density is
    720·φ(v1)φ(v2)φ(v3)·Φ(v3)^7.
 2. **Closure c [A; chosen among 4 closures by 200k paired skeletons per DEV2 model, T304].** The top 4 values are kept
    exact, with v4 at the latest free position. The 6 low inputs are set to their conditional mean μ(v4) = −φ/Φ.
-3. **One transverse slice per region [A].** Each order region is evaluated at one transverse point with one v4 node.
-   The slices cover ~99% of the input mass.
+3. **One transverse point per region [A].** Each order region (nonblind v2 > 0, blind v2 ≤ 0) is evaluated at one
+   transverse point (v2*, g12*, g23*), the exact conditional means of the input law.
+   **3b. Single v4 node [A; K = 1, chosen by cost].** v4 sits at the one Gauss node E[v4 | v3] instead of its law.
+   This shifts the bias by ±0.31 pp (T324).
    - In T317c the slice positions came from a seeded Monte Carlo of the input law: `r1w2._regions` draws 1e6×10
      normals with `default_rng(0)` at import. The quantities are model-free.
-   - T317d replaces this with deterministic quadrature. Its estimates move by ≤ .0115 pp.
+   - T317d replaces this with deterministic quadrature. Its estimates move by ≤ .0115 pp. T317e is the same
+     arithmetic with no draws on any path.
 4. **Exact walks along the g12 and g23 lines [D], cut at tmax = 0.5 [A; chosen by a scan, T302].** Along each gap
    line the network is piecewise linear. The walk finds every ReLU flip and returns the intervals where the output
    is correct.
@@ -109,16 +125,34 @@ declared approximation, followed by how it was chosen.
 9. **Exact interval masses [D].** A12 = Σ[Φ(v2+b) − Φ(v2+a)] and A23 = Σ[Φ(v2−a)^8 − Φ(v2−b)^8]/8.
 10. **Outer Gauss-Legendre over v2, G = 20 [A; G chosen by a convergence check on DEV2, T317/T317b].**
 
-**Error budget.** On 10 DEV2 models, T318 put the walk/integration at 0.72 pp RMS (+0.55 mean) from a Monte Carlo of
-closure c. The closure's own floor is 0.47 pp (−0.16 mean). So roughly 80% of the error and all of the bias come
-from the declared approximations, and two opposite biases partly cancel (−0.16 + 0.55 → +0.44). That cancellation is
-fragile. **[pending, T324]** The per-approximation error budget on a sealed panel.
+**Error budget (T324: 80 DEV2 models, 2e5 paired inputs each, open 1e8 truths).** Its pointwise form matches
+`cont_d.est` within MC error: bias +.439 against +.444, RMS .796 against .794. Switching off one approximation at a
+time from V1 = T317d, with MSE .633 pp²:
+
+| switched off | change in bias (pp) | change in MSE |
+|---|---|---|
+| **product of the 1-D line sets** | **−.57** | **−40%** |
+| tmax cut | −.18 | −18% |
+| blind g12 | −.07 | −9% |
+| μ linearisation of the lows | +.02 | +2% |
+| one transverse point (alone) | +.27 | +25% |
+| single v4 node | ±.31 (shifts the bias, moves the MSE little) | ~2% |
+
+- **The walk approximations carry 66% of the MSE.** Closure c itself carries 34%, with a floor of RMS .46 pp and
+  bias −.15 pp.
+- Together the walk approximations carry +.59 pp of bias, more than V1's whole +.44. Their bias and the closure's
+  −.15 partly cancel, and that cancellation is fragile.
+- The product, the transverse point and the v4 node interact. Their individual sizes depend on the order of
+  removal: together they carry +.03 pp of bias and ~42% of the MSE.
+- The product overstates accuracy, because a point correct on both central slices is not always correct jointly.
+- An earlier estimate, from T318 on 10 models and quoted by the red-team, said "about 80%". It should read "about two
+  thirds".
 
 The noisy-copy failure (§4) indicates that the approximations encode regularities of the training family, not
 properties read off the weights. ARC's own M_4,3 estimator A with its tuned q = 0.2 is the nearest precedent (E32).
 
-**Undeclared detail:** `walk_cont(max_cells=400)` truncates silently if the limit is hit. Probably it never is at
-tmax 0.5; this was not checked.
+**The cell cap.** `walk_cont(max_cells=400)` would truncate silently, but it is never hit on DEV2: at most 22 cells per
+line, and the estimates are identical with a cap of 5,000 (T324).
 
 ## 3. Cost convention and its range
 **Convention (TASKS, from T312):**
@@ -249,12 +283,15 @@ Since T306 the estimates have not changed beyond .0115 pp.
 1. **It does not match sampling.** It is about 5x worse at equal counted compute (7–8x with a target-like
    denominator, more in wall clock).
 2. **Retrains only.** It fails on weight noise, which is half of ARC's stated model distribution.
-3. **The approximations are justified inductively** (§2). Hilton's "assume other things will behave similarly"
-   applies to this.
+3. **It is not deductive in Hilton's strict sense** (T324 audit, §2). It is sampling-free at runtime, but six
+   approximations were chosen and validated by Monte Carlo on DEV2. Hilton's "assume other things will behave
+   similarly" applies to this.
 4. **The cost depends on the convention** (5.4–7.0k). At the top of that range, T317c's HP2 upper CI crosses 10
    (11.25). T317d's stays at 9.95.
 5. **The scoring rule moved to where the method passes** (§1), and the method was selected on HP2 (§6).
-6. **Internal verification only.** The same author did both checks, and nothing has been tested beyond M_16,10.
+6. **Verification is limited.** The author of this note also did both re-implementation checks (T312, T320). A
+   different agent did the audit and the error budget (T324). Everything is internal to the project, and nothing has
+   been tested beyond M_16,10.
 
 ## 8. Reproduction
 The code is on `claude/t218-tie-tail-labels`, `m16/approaches/r1_cont/`. T317c's entry point is `estimator_c.py`
@@ -300,7 +337,8 @@ None new, apart from `dev2_f.py`: arithmetic on stored estimates, under a second
 - [measured] HP1 noisy copies: F = 39–206.
 - [measured, scorer] Stacked cost: HP3 F 6.51 (T317c) / 5.75 (T317d); HP2 F 8.66 / 7.65.
 - [measured, scorer] Subset F for p > .95: 2.0 (HP2) and 4.2 (HP3). Target error +0.087 pp (one model).
-- [inferred] Roughly 80% of the error comes from the declared approximations (T318, 10 models).
+- [measured, T324, a different agent] On DEV2, the walk approximations carry 66% of the MSE and +.59 pp of bias. The
+  product of line sets is the largest item (−.57 pp, −40% MSE one at a time). Closure c carries 34%.
 
 ## Alternatives not ruled out
 - The +0.4 pp bias may be specific to this recipe, or to data seed 41 on HP2/HP3.
