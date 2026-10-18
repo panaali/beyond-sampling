@@ -290,6 +290,39 @@ Readout (HP2):
   F was 11.95), t286_rx F 98, t286b_probe F 107. t286_rx_ind (inductive
   reference) is at 25.8.
 
+## Cost-convention re-score (TASKS Directive 8 cost convention, DRI 2026-10-18, from T312)
+The convention: charge every weight-dependent operation at T196 rates (multiply-add = 2; Φ etc. = 20). Charge the
+estimator's own forwards at their instrumented FLOPs, 5,760 = T(2H²+2H) + 2HT. Do not charge precomputed functions
+of the input law alone. The sampling side stays at 5,948 FLOPs per FPE.
+`cost_audit.py` reruns each frozen estimator unchanged and recounts its FLOPs. It asserts that every estimate and
+the old charged cost match the scorer's raw files. Its docstring lists the counting rules:
+- t306 walks: the code's own forward-equivalent count × 5,760. T312 reproduced the walk work to 0.3%.
+- t306 Φ at walk endpoints: 20 + shift 1 (+3 for the 8th power), plus difference and accumulation.
+- t306, not charged: the tail and full-line pieces and the density at the nodes, which are model-free tables.
+- t306 combination: 4 per (triple, node, region).
+- t300: 2 forwards per triple, plus 27 FLOPs per (triple, node): one weight-dependent Φ, its 8th power, and the
+  multiply-adds.
+- Note: both frozen codes already convert their forwards at 5,760 (`r0.FLOP_FWD`). The whole change is in the
+  Φ/GL charge: the old code charged model-free Φ and density evaluations, and a flat 40 per (triple, node,
+  region) for t306.
+Reproduce: `PANEL=hp2 PYTHONPATH=shim python3 cost_audit.py t306|t300` (and PANEL=hp1). Results:
+`results/[hp2_]<name>_conv2_F.json`.
+
+| entry | panel / group | C old → new (FPE) | F old [95% CI] | F new [95% CI] | verdict (new) |
+|---|---|---|---|---|---|
+| t306_r1w (deductive) | hp2 retrain | 13269 → 12110 | 16.35 [11.77, 21.24] | 14.92 [10.74, 19.38] | fail |
+| t306_r1w (deductive) | hp1 clean | 13056 → 11875 | 9.12 [1.13, 20.10] | 8.30 [1.03, 18.28] | lenient pass (point); upper CI > 10 → not a candidate (HP1 clean: robustness only) |
+| t300_r0 (inductive) | hp2 retrain | 1697 → 1551 | 9.72 [7.02, 12.97] | 8.89 [6.42, 11.86] | lenient pass (point); upper CI > 10 → not a candidate |
+| t300_r0 (inductive) | hp1 clean | 1697 → 1551 | 5.90 [3.86, 7.81] | 5.40 [3.53, 7.14] | lenient pass, upper CI ≤ 10 (HP1 clean: robustness only) |
+
+- [measured] Under the written convention, R1W V1 is charged 12.1k FPE on HP2, down from 13.3k (×0.91). Its HP2 F
+  goes from 16.35 to **14.92 [10.74, 19.38]**: still a lenient FAIL.
+  - T312's independent count is lower again (11.1k FPE on DEV2). That count charges the Φ work at one density
+    evaluation per node, not per endpoint, and would give HP2 F ≈ 13.6. That is still a fail, so the verdict does
+    not depend on how the Φ work is counted.
+- [measured] T300 is charged 1.55k FPE, down from 1.70k (×0.91). Its HP2 F goes from 9.72 to **8.89 [6.42, 11.86]**: a
+  point lenient pass, but the upper CI is still > 10, so it is still not a candidate.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
