@@ -85,6 +85,46 @@ Both are confirmed. The product's MSE share is uncertain across models (20–57%
 - So fixing either one alone makes the estimate worse.
 - A real fix needs exact 2-D correct sets at ≥ 2 anchors per region. Its executed cost is being counted (T333).
 
+## Addendum 2 (2026-10-18, evening): rare events, ARC's long-term goal
+Sources: INDEX rows H-R1, T340, T349, T350, T358, T359, T360, T363–T366 (ccr-6a61f25c-wn80ii). The estimates are
+sampling-free at runtime. The truths are GPU Monte Carlo (1e9 per model) or, for the deepest tails, exact
+conditional-law Monte Carlo (T364).
+
+**What works: far-gap rare errors** (E1 = "the model outputs the third-largest position, and the gap g23 exceeds t0").
+- The estimator walks the network's gates exactly along the g23 line, as in the candidate.
+- It does not pin g12 at its conditional mean. Instead it integrates g12 with a few Gauss nodes of its exact law
+  (T340c, K = 3).
+- T340c on 3 models: 8/9 within 2x (K = 5: 9/9).
+- **An independent re-implementation by a different agent (T360, my own code) on 6 fresh DEV3 retrains: 18/18 within
+  2x, median est/truth .99–1.06, for p ≈ 2e-7 to 2e-4.** The DRI registered this as H-R1, CONFIRMED (scoped).
+  - Disclosure: I had seen those truths before (T350/T358). The design and K were fixed in advance.
+- **Deeper tails** (T364, T366; the T366 truths were sealed until after a frozen run). On fresh models the K-node walks
+  are **within 1.3x on 10/10 (model, threshold) pairs from p = 1.8e-10 to 7e-7.**
+  - Plain K3 runs at 0.36–0.47M FPE. Plain sampling at that cost expects .005–1.1 events, so it would usually
+    return 0.
+  - The graded-g12 variant costs 1.6–2.1M FPE.
+
+**Limits, stated plainly.**
+- **Triple-tie-dominated models fail.** On some models the deepest islands are slivers where all three top values
+  nearly tie (g12 ≈ 0). There K3 is up to 60x low (T364: 2/6 within 2x). This includes **the target M_16,10 at
+  p ≲ 4e-8**: .47 and .21 at t0 = 1.75 and 2.0.
+  - A graded g12 rule clustered near 0 helps (5/6 on development models).
+  - The target's deepest point stays at .24, limited by the lows closure.
+  - T366's sealed fresh test (8/8 within 2x) does not discriminate, because its models are not triple-tie-dominated.
+- **The interior event E2 is one-signed low** ("wrong, with both gaps ≥ t").
+  - T360: 70/92 within 2x, median about .70, collapsing toward 0 on some models as t rises.
+  - T363: the lows closure (all 6 lows pinned at one value) carries 56% of that deficit.
+  - T365: a few fixed spread patterns of the lows raise it from 9 to 20 of 32 failing cases, but do not fix it. A
+    real fix needs 6-D quadrature of the lows, at about 10–100x the cost.
+- **Sampling wins at equal compute where p × C ≳ 90**, the number of events sampling expects at the estimator's cost.
+  At 1–2M FPE that is p ≳ 5e-5 to 1e-4. The deductive cost (~0.4–2M FPE) does not depend on p, while sampling's
+  cost to a given accuracy grows as 1/p. T360's counts were 21 win / 22 tie / 67 loss.
+- **Not tested on weight-noised copies**, the other half of ARC's model distribution.
+- **Sampling-free at runtime, but developed on DEV models.** The closure, the thresholds and the g12 rule were chosen
+  with Monte Carlo on development retrains, as for the candidate (§2).
+- **Scope.** E1 only, on zoo retrains, with p from about 2e-10 to 2e-4 outside triple-tie-dominated models. All of it
+  is unverified except H-R1.
+
 ## 1. The problem and ARC's bar
 **Model.** M_16,10 is AlgZoo's 1-layer ReLU RNN with hidden size 16, sequence length 10 and no biases. It outputs the
 position of the second-largest of 10 i.i.d. N(0,1) inputs. Its accuracy is 0.953 (`m16/truth.txt`: 0.95318).
