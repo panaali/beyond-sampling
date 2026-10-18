@@ -1,0 +1,25 @@
+# T256 fixed rational primitive controls
+
+Claim ba6ac722 authorizes preparation, followed by one bounded execution only after published source/resource clearance and an immutable published gate. The written theorem a17014a6 is a prerequisite, not execution clearance. No target, checkpoint, archived model, Gaussian CDF, RNG or probability-mass evaluation is in this scope.
+
+## Fixed cases and independent reference
+
+Twelve explicit fixtures in fixtures.py cover T3/T4, both signs, zero coefficients, rational coefficients/endpoints, two extrema at strictly interior clipping kinks, constant objectives, negative coordinates, empty domains, a touching-only point, zero-gap tied coordinates, and a predetermined coordinate permutation. Eight malformed calls must reject with ValueError. Equal endpoints are valid closed geometry; touching or rank ties do not establish positive probability or a target label.
+
+For each valid request, call the candidate in physical x, enumerate all feasible vertices independently using exact rational Gaussian elimination of all T-constraint subsets, and compare exact ranges. Store all systems counts, vertices, objectives, candidate breakpoints, endpoint completions and selected witnesses. No candidate function is imported by reference.py. In a bounded nonempty polytope, including lower-dimensional ones, at least one vertex has T independent active constraints.
+
+Two equivalent candidate calls per fixture test the coordinate interface: (1) v=2x boxes, coefficients a_v=a_x/2, gap_v=2gap_x, constant unchanged; (2) from_saved_v takes those v boxes/coefficients with the original physical gap, halves endpoints and doubles coefficients. Compare complete physical adapter outputs, and all transformed v candidate t/witness/value records. Nonzero objectives and exact expected ranges make the prior endpoint-only unit mistake falsifiable. No denominator/remainder is added by this affine-only primitive: in later enclosure integration both stay unchanged and need a separate source gate.
+
+Exactly 44 candidate attempts: 12 physical +12 v-domain +12 saved-v adapter +8 guards; 36 valid returns (three empty-domain returns), 12 independent vertex-reference calls, eight expected guard rejections. The reference enumerates small exact linear systems; report their total separately. No solve count is a FLOP or runtime estimate. 20 result rows and42 progress events (global start/end plus20 starts/ends). Calls are not repeated for validation. Candidate selected expression categories exclude comparisons, sorting, Fraction internals, validation, storage and runtime; do not compare them to sampling costs.
+
+## Failure durability and resource gate
+
+Publish primitive.py, fixtures.py, reference.py, run.py, launch.sh, this protocol and protocol.json before review. Independent h4 source review must be complete/pass_all/execution_authorized and directly bind all seven. gate.json must bind that completed review, the completed written theorem, all seven files, source-review commit/publication and execution-scope publication. Verify protocol, gate and reviewer pin maps separately, never merge away a conflict. All prerequisite pin checks precede candidate/reference imports or calls. Existing output files or run1.log reject the attempt.
+
+Run exactly `bash launch.sh`, holding /workspace/work/codex-review.lock. One thread; internal15 CPU seconds, external soft16/hard20 CPU seconds, 2 GiB address-space limit,25 wall seconds after lock. Internal timing starts inside main and excludes Python startup/top-level imports and the final serialization; external process limits and Bash timing cover the entire process. RSS is reported, not a substitute for address-space limit. Atomic results updates and append-only progress retain every returned candidate/reference before assertions and every attempted guard before invocation. A cap or exception is inconclusive and stops this phase; preserve temporary/raw/log artifacts. No automatic retry or tolerance adaptation. Source syntax parsing is preparation, not a numerical control run.
+
+## Decision and limitations
+
+A pass supports the exact finite primitive and adapters on these cases, together with the separately reviewed theorem. It does not demonstrate trained certificate improvement, Gaussian mass, full/native cost or full estimator accuracy. Dependent ReLU remainders may dominate; local slope changes can worsen later bounds, so any application preserves the old certificate fallback. A later partial-gap domain needs its own mass enclosure (T252); never attach the full box mass to a partial-domain certificate. All ordered pairs add their separate T(T-1) factor.
+
+Alternatives: wrong clipping formulas versus reference geometry are separated by exact vertex extrema; wrong units versus genuine tightening by the two coordinate pathways; no trained benefit despite correct primitive remains open for a later fixed matched domain phase. recover_910 independently audits saved controls after a separately frozen checker/source gate, without author reruns.

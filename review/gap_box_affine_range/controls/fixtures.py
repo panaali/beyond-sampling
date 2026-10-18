@@ -1,0 +1,24 @@
+"""Frozen exact controls; no generated/random inputs or numerical execution."""
+CASES=[
+ dict(name='separated',box=[[3,4],[1,2],[-2,-1]],coeff=[1,2,-1],constant=1,leader=0,second=1,gap=1,expected=[7,11]),
+ dict(name='overlap_rank',box=[[0,3]]*3,coeff=[-1,2,1],constant=0,leader=0,second=1,gap=1,expected=[-1,2]),
+ dict(name='interior_max_kink',box=[[1,4],[0,3],[-2,0]],coeff=[0,-1,2],constant=0,leader=0,second=1,gap=1,expected=[-7,-1],extremum_t=['max',1]),
+ dict(name='interior_min_kink',box=[[2,5],[-1,3],[-3,-1]],coeff=[2,-1,0],constant=0,leader=0,second=1,gap=1,expected=[3,11],extremum_t=['min',1]),
+ dict(name='mixed_four',box=[[2,6],[-1,4],[-4,0],[-3,1]],coeff=[-2,1,3,-1],constant=2,leader=0,second=1,gap='1/2'),
+ dict(name='zero_objective',box=[[2,6],[-1,4],[-4,0],[-3,1]],coeff=[0,0,0,0],constant=7,leader=0,second=1,gap='1/2',expected=[7,7]),
+ dict(name='negative_coordinates',box=[[-1,2],[-3,0],[-5,-2]],coeff=[1,-2,1],constant=-3,leader=0,second=1,gap='1/2'),
+ dict(name='rational_coefficients',box=[['1/3','7/3'],['-2/3','5/3'],['-5/3','1/3']],coeff=['-3/2','2/5','7/3'],constant='4/7',leader=0,second=1,gap='1/3'),
+ dict(name='empty_domain',box=[[0,1]]*3,coeff=[1,-1,2],constant=0,leader=0,second=1,gap=1,expected=None),
+ dict(name='touching_point',box=[[0,1]]*3,coeff=[2,-1,3],constant=1,leader=0,second=1,gap='1/2',expected=['5/2','5/2']),
+ dict(name='zero_gap_rank_tie',box=[[1,1],[1,1],[0,0]],coeff=[1,2,3],constant=0,leader=0,second=1,gap=0,expected=[3,3]),
+ dict(name='permuted_four',box=[[-3,1],[2,6],[-1,4],[-4,0]],coeff=[-1,-2,1,3],constant=2,leader=1,second=2,gap='1/2')]
+GUARDS=[
+ ('two_inputs',dict(box=[[0,1],[0,1]],coeff=[1,1])),
+ ('reversed',dict(box=[[1,0],[0,1],[0,1]])),
+ ('negative_gap',dict(gap=-1)),
+ ('same_label',dict(second=0)),
+ ('outside_label',dict(leader=3)),
+ ('float_coefficient',dict(coeff=[1.0,1,1])),
+ ('short_coefficients',dict(coeff=[1,1])),
+ ('boolean_label',dict(second=True))]
+BASE=dict(box=[[0,3],[0,3],[0,3]],coeff=[1,1,1],constant=0,leader=0,second=1,gap=0)
