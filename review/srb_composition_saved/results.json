@@ -1,0 +1,109 @@
+{
+  "complete": true,
+  "pins": {
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/results.json": "c726e2842f03d00872761ec91e399959c06c97e099b0f072076303a662b32842",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/progress.jsonl": "5309f1e458659b833a7aca0b7185f42876c0292524d10c290ceb211f9103303f",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/trees.json": "d8d592cf6c1bea31cd51c2c5bd8ef9db3e59712d474bc140c97c84ba7d7641cc",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/run.py": "6accbcf871a4f5f39ba70d99e130bb30fb5846df91258e5dfe4adc0188f0b51b",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/fixtures.json": "91da507e5443d37c111011f27ed3477d686a7a65b62b2532d68944f5ea83cfd7",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/protocol.json": "3e41aa73d3b6ab23c08a354c6cf58c2789c052396507959b1b548a640660e378",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/gate.json": "8edc81af9b34a2ec11331c10981d9ede5408477aca27e08ac7ec28523f1cbb36",
+    "/workspace/work/recover-small_h2_34/review/srb_cost_review/composition/PROTOCOL.md": "68c2848e1c873919270080699c2616c7856b9fae5631eaebd6ec9fa823d972d9",
+    "/workspace/work/recover-small_h4_4/review/srb_composition_saved/check.py": "37f99ae345a006325d9956982d4dd665c0b7675b4d90421b3c622959fc7e92b7"
+  },
+  "cases": [
+    {
+      "name": "minimum_quota",
+      "n": 0,
+      "quotas": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "kept": 28,
+      "drawn": 50000,
+      "raw_cost": 48,
+      "harness_charged_hex": "0x1.8bffffffffffep+6",
+      "hypothetical_Q_only": 96,
+      "nominal_extra_rule": "49972/25",
+      "nominal_reported_draw": "14/5",
+      "score_hex": "0x0.0p+0"
+    },
+    {
+      "name": "one_batch_1000",
+      "n": 588,
+      "quotas": [
+        19,
+        48,
+        56,
+        65,
+        89,
+        108,
+        199
+      ],
+      "kept": 584,
+      "drawn": 50000,
+      "raw_cost": 993,
+      "harness_charged_hex": "0x1.0001fffffffffp+11",
+      "hypothetical_Q_only": 1986,
+      "nominal_extra_rule": "49416/25",
+      "nominal_reported_draw": "292/5",
+      "score_hex": "0x0.0p+0"
+    },
+    {
+      "name": "two_batches_1000",
+      "n": 588,
+      "quotas": [
+        19,
+        48,
+        56,
+        65,
+        89,
+        108,
+        199
+      ],
+      "kept": 584,
+      "drawn": 100000,
+      "raw_cost": 993,
+      "harness_charged_hex": "0x1.0001fffffffffp+11",
+      "hypothetical_Q_only": 1986,
+      "nominal_extra_rule": "99416/25",
+      "nominal_reported_draw": "292/5",
+      "score_hex": "0x0.0p+0"
+    },
+    {
+      "name": "binary_floor_17",
+      "n": 9,
+      "quotas": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "kept": 28,
+      "drawn": 50000,
+      "raw_cost": 48,
+      "harness_charged_hex": "0x1.8bffffffffffep+6",
+      "hypothetical_Q_only": 96,
+      "nominal_extra_rule": "49972/25",
+      "nominal_reported_draw": "14/5",
+      "score_hex": "0x0.0p+0"
+    }
+  ],
+  "progress_records": 26,
+  "source_AST_parity": true,
+  "author_estimator_calls": 8,
+  "author_prototype_calls": 1,
+  "new_author_estimator_Q_RNG_calls": 0,
+  "author_cpu": 0.451354012,
+  "review_cpu": 0.100015065,
+  "scope": "Fixed deterministic API-stream parity/allocation/charge composition only. No Gaussian-law, Q accuracy, complete cost or historical ranking inference.",
+  "score_check": "Independent exact saved w*q sum with standard finite binary64 dot rounding enclosure; no Q replay."
+}
