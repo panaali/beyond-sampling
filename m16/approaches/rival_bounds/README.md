@@ -59,3 +59,69 @@ forward, for every neuron, an affine lower and an affine upper bound in lambda. 
   moot.
 - (b) The cost could pass with a different sharing (across sectors, or for steps before the first special position). That is
   untested here and would be a different construction.
+
+## Status
+**Stopped at gate 2** (pre-registered stop): negative (unverified) for this relaxation configuration. Stage 3 not run.
+
+## Results (unverified)
+**Step 1, exact rung** (`python m16/approaches/rival_bounds/step1.py` -> step1.json; checks `check1.py`).
+- The enclosures are valid: 0 bound violations on 1.9M sampled rival points.
+- The polytope masses agree with MC within 1σ (6 random d = 3, 4 cuts), and the sector masses sum to 1.
+
+| rung | bounds | [l, u] | width | truth | bound FLOPs | mass FLOPs | median (u-l)/median abs(m) on sampled points |
+|---|---|---|---|---|---|---|---|
+| H4T3 s0 | forward | [0.000002, 1.0] | 1.000 | 0.9846 (MC 1e7) | 22.0k | 49.6k | 10.6 |
+| H4T3 s0 | CROWN (T279) | [0.0155, 1.0] | 0.984 | | 31.6k | 50.0k | 5.8 |
+| H4T4 s0 | forward | [-0.00002, 1.00002] | 1.000 | 0.477013 (exact) | 78.4k | 861k | 514 |
+| H4T4 s0 | CROWN (T279) | [-0.00002, 1.00002] | 1.000 | | 129k | 881k | 229 |
+
+- No inner error cone has positive mass (no certified error anywhere).
+- The only information is a little certified-correct mass at H4T3: 2 sectors (forward) or 6 sectors (CROWN) of 12.
+- Rival-margin bounds are informative (lower > 0) at only 0.4–8% of rival points. Boole needs all rivals at once, so the sector
+  intervals stay ~[0, P(S)].
+
+**Gate 2 at (16,10)** (`python m16/approaches/rival_bounds/gate2.py /tmp/claude-0/dev2/weights.npz` -> gate2.json)
+
+| DEV2 model | bounds | cost (FPE, 180 sectors) | gate (<= 1k) | MC fraction with an inner cone | certified correct | median (u-l)/median abs(m) |
+|---|---|---|---|---|---|---|
+| fused_s0, fused_s1, torch_s0, torch_s1 | forward (shared) | **7,056** | **fail** | 0 | 0 | 0.8e6 – 2.7e6 |
+| same | CROWN (T279) | 32,247 | fail | 0 | 0 | 3.1e3 – 6.7e3 |
+
+## Claims
+- [measured] The shared forward construction costs 7,056 FPE at (16,10). That is 7x the 1k construction gate; the
+  pre-registered prediction was ~6.7k. So the pre-registered rule stops T289 before mass work.
+- [measured] The bounds are also vacuous at T=10: their width is ~1e6x (forward) and ~4e3x (CROWN) the typical margin on the
+  root sectors. No sampled point has a certified error or a certified-correct verdict.
+  - So even at 7–32x the cost cap, this configuration would return [0, 1].
+  - The cost failure is not the binding one.
+- [measured] Already at H4T4 both bounds are vacuous (interval width 1.000). The width/margin ratio grows ~50x per step
+  (T3 -> T4: 10.6 -> 514 for forward, 5.8 -> 229 for CROWN). This is the E19/T279 amplification.
+- [inferred] Any affine relaxation over a whole root sector, shared or per rival, fails on this RNN. Only sector splitting
+  could shrink the relaxation error, and T279 shows that at (16,4) 1e5 cones still certify only 65% of the mass at 2.8e10 FLOPs.
+
+## Alternatives not ruled out (exhaustion checklist)
+Tried:
+- shared forward affine bounds (DeepPoly-style chord / adaptive lower);
+- T279 CROWN as the tight reference;
+- Boole/Hunter upper and second-order Bonferroni lower;
+- exact masses at d <= 4.
+
+Not tried:
+- optimised lower slopes (alpha-CROWN);
+- tighter multi-neuron (PRIMA) relaxations;
+- input splitting before bounding (this becomes T279's tree);
+- bounds in other coordinates (e.g. order-statistic gaps rather than the lambda simplex);
+- certified masses at d = 10 (moot while the bounds are vacuous).
+
+The amplification factor (~1e6 at T=10 for forward) is far beyond what a few-x slope tightening can recover, so these are
+unlikely to change the verdict [inferred]. Independent re-check needed per Rule 5 before "dead (verified)".
+
+## Failure modes
+Relaxation error compounds multiplicatively through 10 recurrent steps of ~16 unstable neurons. Over a whole sector, every
+neuron is unstable, so chord relaxations compound.
+
+## Compute accounting
+- Step 1: 4 runs, < 2 CPU-min (masses dominate: 0.86M FLOPs at H4T4).
+- Gate 2: 4 models x 2 bound types x 180 sectors (forward 4.2e7 FLOPs, CROWN 1.9e8 FLOPs per model), plus 2,000 diagnostic
+  sample points per sector. About 3 CPU-min.
+- Vendored T279 tree.py SHA256 5d177abff957a14a1452ec769bfc955d56961d2fc33345a158600998fe0d9782 (44a3524a, unmodified).
