@@ -165,3 +165,51 @@ rewards being cheap, not being right, for rare p. The ratio is the measure.
 - GPU truths by T192.
 - Correction made during the work: my first walk copy omitted `act = go`. This only over-charged cost (zero-length
   pieces); the estimates were unchanged.
+
+## POST HOC (DRI request, not pre-registered): equal-compute comparison against plain sampling (`python compare.py`, `results/compare.txt`)
+Sampling at the run's own executed C (C inputs): typical relative error s = sqrt((1 - p) / (p C)) if p C >= 1, else 1
+(with < 1 expected event, sampling usually returns 0). Ours: r = |est - p| / p. A result is a tie when |r - s| < .05
+(both about equally wrong, e.g. A's ~0 answers against sampling's zero).
+
+| event | model | variant | p | C (FPE) | p C | sampling s | ours r | result |
+|---|---|---|---|---|---|---|---|---|
+| E1(1.0) | orig | A | 5.37e-06 | 18739 | 0.101 | 1.00 | 0.99 | tie |
+| E1(1.0) | orig | B | 5.37e-06 | 320784 | 1.72 | 0.76 | 0.73 | tie |
+| E1(1.0) | seed0 | A | 1.78e-04 | 10764 | 1.92 | 0.72 | 1.00 | loss |
+| E1(1.0) | seed0 | B | 1.78e-04 | 209565 | 37.3 | 0.16 | 0.11 | win |
+| E1(1.0) | seed3 | A | 1.65e-04 | 15692 | 2.59 | 0.62 | 1.00 | loss |
+| E1(1.0) | seed3 | B | 1.65e-04 | 292841 | 48.3 | 0.14 | 0.31 | loss |
+| E1(1.25) | orig | A | 1.09e-06 | 18739 | 0.0204 | 1.00 | 1.00 | tie |
+| E1(1.25) | orig | B | 1.09e-06 | 320784 | 0.348 | 1.00 | 0.80 | win |
+| E1(1.25) | seed0 | A | 6.16e-05 | 10764 | 0.663 | 1.00 | 1.00 | tie |
+| E1(1.25) | seed0 | B | 6.16e-05 | 209565 | 12.9 | 0.28 | 0.14 | win |
+| E1(1.25) | seed3 | A | 6.26e-05 | 15692 | 0.982 | 1.00 | 1.00 | tie |
+| E1(1.25) | seed3 | B | 6.26e-05 | 292841 | 18.3 | 0.23 | 0.27 | tie |
+| E1(1.5) | orig | A | 2.09e-07 | 18739 | 0.00392 | 1.00 | 1.00 | tie |
+| E1(1.5) | orig | B | 2.09e-07 | 320784 | 0.067 | 1.00 | 0.71 | win |
+| E1(1.5) | seed0 | A | 1.97e-05 | 10764 | 0.212 | 1.00 | 1.00 | tie |
+| E1(1.5) | seed0 | B | 1.97e-05 | 209565 | 4.13 | 0.49 | 0.35 | win |
+| E1(1.5) | seed3 | A | 2.19e-05 | 15692 | 0.343 | 1.00 | 0.99 | tie |
+| E1(1.5) | seed3 | B | 2.19e-05 | 292841 | 6.4 | 0.40 | 0.36 | tie |
+| E2(0.5) | orig | A | 9.38e-05 | 18739 | 1.76 | 0.75 | 0.11 | win |
+| E2(0.5) | orig | B | 9.38e-05 | 320784 | 30.1 | 0.18 | 1.31 | loss |
+| E2(0.5) | seed0 | A | 4.35e-04 | 10764 | 4.69 | 0.46 | 0.18 | win |
+| E2(0.5) | seed0 | B | 4.35e-04 | 209565 | 91.2 | 0.10 | 0.38 | loss |
+| E2(0.5) | seed3 | A | 1.74e-04 | 15692 | 2.73 | 0.61 | 0.39 | win |
+| E2(0.5) | seed3 | B | 1.74e-04 | 292841 | 50.9 | 0.14 | 0.89 | loss |
+| E2(0.75) | orig | A | 5.22e-06 | 18739 | 0.0979 | 1.00 | 1.25 | loss |
+| E2(0.75) | orig | B | 5.22e-06 | 320784 | 1.68 | 0.77 | 9.95 | loss |
+| E2(0.75) | seed0 | A | 6.40e-05 | 10764 | 0.689 | 1.00 | 0.29 | win |
+| E2(0.75) | seed0 | B | 6.40e-05 | 209565 | 13.4 | 0.27 | 1.06 | loss |
+| E2(0.75) | seed3 | A | 1.42e-05 | 15692 | 0.223 | 1.00 | 0.37 | win |
+| E2(0.75) | seed3 | B | 1.42e-05 | 292841 | 4.16 | 0.49 | 4.00 | loss |
+
+**Totals (15 (model, event) pairs per variant):**
+- A: win 5, tie 7, loss 3. Its wins are all E2; on E1 it ties the zero answer or loses.
+- B: win 5, tie 3, loss 7. Its wins are E1 on the seeds and on orig at t0 >= 1.25; it loses all six E2 pairs (it overshoots).
+- Taking the better variant per pair (itself a post hoc choice): win 10, tie 3, loss 2.
+
+The DRI's rough count (12 / 15, with approximate C) counted the ties as wins. With executed C and ties separated, the
+deductive estimate is clearly better than plain sampling in 5/15 pairs for either single fixed variant, and in 10/15 if
+the variant is picked per event family (A for interior errors, B for far-gap 2~3 islands). No single fixed estimator
+wins a majority.
