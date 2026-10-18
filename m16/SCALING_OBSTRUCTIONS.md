@@ -6,10 +6,30 @@ Status of every claim: **[measured]** or **[inferred]**, and **verified** (indep
 
 ## Executive summary (DRI, 2026-10-18)
 1. **Not solved.** No deterministic method we know beats sampling on M_16,10. The best deterministic number is ~1.1-1.3x better than sampling, on the clean target only, with a fixed node set (quadrature class) (§4).
+   **[Corrected 2026-10-18, T263]** That 1.1-1.3x is the MSE averaged over 16 random scrambles of the node set. Averaging
+   over random scrambles is randomized quasi-Monte Carlo (RQMC), which is sampling by ARC's definition; one fixed rule is
+   deterministic, but its error is a single draw from that spread. Fixed nodes are also *inductive* under ARC's definition
+   (a step that relies on chosen input points rather than being derived from the weights; TASKS Directive 8). The result
+   predates the Directive 7 panel. So it is quadrature-class evidence on the clean target, not a deductive win (§4).
 2. **Per-region methods cannot scale.** The target's exact prefix regions are 34 / 792 / 21,032 for k = 2-4, **confirmed by an independent exact-arithmetic recount**, then 632,394 at k=5 and ~2.3e7 at k=6, growing ~x23-30 per step. Covering all but 1e-5 of the probability needs ~x15-19 more regions per step (confirmed for k <= 4). Extrapolated to T=10: ~1e10-1e13 regions (§3.2-3.4).
+   **[Corrected 2026-10-18, T263]** Measured versus extrapolated. Measured and verified: region counts at k = 2-4, and
+   the coverage step k = 3 -> 4 (x16.1). Measured, unverified: the k = 5 count and the coverage step k = 4 -> 5 (x14.9).
+   The k = 2 -> 3 coverage factor (x18.6) is capped, because at k = 2 all 34 regions are needed. The k = 6 figure is an
+   estimate from a completion-censored sample, not a count (§3.4). Everything at T = 10 is a conditional extrapolation of
+   these 1-2 measured steps: it holds only if the per-step growth stays in the measured range for six more steps. The only
+   rigorous bound is N_10 >= 64 N_4 = 1.35M gate histories (T55). Read this item as: region-by-region methods look
+   infeasible for the target *if* the measured growth continues. T270 (complete k = 6 masses, running) tests the next step.
 3. **Training does not reduce the region count** (it matches norm-matched random weights); it *moves* regions from the bulk to the tie walls, where the trained net is finer than random (§6-7).
+   **[Corrected 2026-10-18, T263]** Scope: measured at k <= 4, on one trained network against 10 random draws and 2
+   scrambled controls (§6). It is not a law for larger k, and it does not isolate the causal effect of training.
 4. **Constant-factor savings** (cheaper start, pruning, merging, symmetry, event words, labelled tails, certificates) do not change the growth (§3.5).
+   **[Corrected 2026-10-18, T263]** Scope: this holds for the variants and models tested, mostly at T <= 5. One cited
+   ceiling, T206's oracle "at most 2-4x", is not an upper bound (§3.5).
 5. **What a solution must do:** describe the probability of the tie-wall band compactly without resolving its regions. That is untested ground (§5).
+   **[Corrected 2026-10-18, T263]** The band alone is not enough. Measured per input (T269, 2M samples per model), 14% of
+   the target's error lies outside the band (gap >= .05, not blind), and 19-63% on the 5 zoo seeds and 2 noisy copies
+   (§5). T239's tie-wall picture (§7) assigns each leaf's whole mass by the leaf's centre, so its stratum masses are not
+   the mass of inputs inside each gap band.
 
 ## 1. The question and the bar
 Estimate the accuracy of the 432-parameter 2nd-argmax RNN M_16,10 (`alg_zoo.example_2nd_argmax()`, accuracy
@@ -31,6 +51,11 @@ error is below that.
 - **(16,3) and (16,4)** (target width): the frozen recipe108 beats sampling on all 5 seeds + 4 noisy copies. Ratio <= 4e-5
   at (16,3) (1.7e6 ops); <= 0.017 (0.035 T196) at (16,4) (2.5-3.0e9 ops) [measured, unverified; T194@a594da1,
   width16_probe/README.md "Results"; audit T199 pending].
+- **[Corrected 2026-10-18, T263]** The rung wins above (T = 3 ladder, (8,4), (16,3), (16,4)) and the (8,5) panel in §3.1
+  predate Directive 7 (TASKS, DRI ruling 2026-10-18). Under it, a rung passes only if one frozen method beats sampling on
+  all 5 trained seeds and on >= 8 noisy copies per seed at each of ARC absolute sigma .05 and relative sigma .005 and .01,
+  with every model and budget reported with a CI. These panels were 5 seeds plus 4 noisy copies of seed 0 (relative sigma
+  .005 at (8,4), (16,3) and (16,4)). So they are evidence at the panel tested, not Directive 7 passes.
 
 ## 3. Where it breaks
 **3.1 The recipe stops winning at T = 5.** (8,5), 9 models, MSE ratio in estT ops / T196 FLOPs (estT ops x1.37 audited):
@@ -63,7 +88,13 @@ T194@57bad7b width16_probe/README.md "T222", coverage.json]. At **k = 5** (T192@
 152,956 / 226,080. Growth k4 -> k5 is x6.4 / 8.4 / 10.6 / 12.7 / 14.9 / 17.2 (k3 -> k4: x6.0 / 8.6 / 10.4 / 13.3 / 16.1 /
 18.6). The inverse-Simpson effective count is 397 (x3.0, then x3.5) [measured, unverified]. k = 6 (T192@2ea6766d README §11; capped random-subtree sample, 245 of 3,811 subtrees): 1,473,541 cells,
 estimated **2.3e7 cells (x30.6 over k = 5)**. The sample holds 1,459,727 distinct regions (a lower bound) and only 8.8% of the mass, so its N_delta is
-not meaningful. Growth stays ~x30 per step through k = 6 [inferred, unbiased subtree estimate; unverified].
+not meaningful. Growth stays ~x30 per step through k = 6 [inferred, ~~unbiased~~ subtree estimate; unverified].
+**[Corrected 2026-10-18, T263]** The estimate is not shown to be unbiased. Subtrees were dispatched in random order, but
+only those that finished before a wall-clock deadline were kept, so the 245 completed subtrees are selected by runtime
+(completion censoring). The 2.3e7 (22.9M) is therefore a censored, uncalibrated estimate; the direction and size of its
+bias are unknown, and the completed counts are only lower-bound evidence (T255,
+[t192_latest_evidence/HANDOFF.md](approaches/feynman_fundamentals/t192_latest_evidence/HANDOFF.md)). T270 (k = 6
+complete masses, running) will replace it.
 
 *Precision scaling vs absolute size.* Per decade of delta at k = 5, N grows x5.75 / 2.90 / 2.10 / 1.71 / 1.48, far
 below sampling's x100 per decade of eps (cost ~ eps^-2). But the factors **rise with k**: the deepest decade (1e-5 -> 1e-6)
@@ -88,13 +119,14 @@ evidence for the growth is thin in both directions. The verified coverage factor
 x16.1; 2 -> 3 is capped because N = regions at k = 2) plus the unverified 4 -> 5 (x14.9), falling ~8%/step, so six-step
 extrapolations are weak (3e10 to 2e11 at N_1e-5). The deciding numbers are g(5 -> 6) and g(6 -> 7) at delta ~1e-7. k = 6 full
 masses (2.3e7 regions, d = 6) are feasible on the GPU already used and were not computed [inferred; review A1].
+**[Update 2026-10-18, T263]** T270 is now computing them (running). The 2.3e7 here is the censored cell estimate above.
 
 **3.5 Structural savings found so far are constant factors.**
 
 | idea | saving | status, source |
 |---|---|---|
 | truth-cone start (2T(T-1) cones instead of 4·T! chambers) | lossless; 0.67x / 0.76x ops at (8,4) / (16,4); chambers ~10% of log-growth | [measured, unverified] T192 §5; T194 "T206"; shared@ab532a27 review/chamber_split |
-| oracle skip of small-error leaves (bias <= 1 sampling SE) | <= 1.9x (8,4), 3.8x (16,4); 4.8x with truth start. An upper bound for a *certified* method, which must bound each cell (but ARC's bar is empirical MSE, not a certificate; see §5) | [measured, unverified] T194 "T206" |
+| oracle skip of small-error leaves (bias <= 1 sampling SE) | <= 1.9x (8,4), 3.8x (16,4); 4.8x with truth start. ~~An upper bound for a *certified* method, which must bound each cell (but ARC's bar is empirical MSE, not a certificate; see §5)~~ **[Corrected 2026-10-18, T263]** Not an upper bound. The oracle drops leaves in order of their exact error, ignores what each leaf costs, and fixes the allowed bias at the full-cost SE. A cost-aware choice can skip more: with errors .1/.2, costs 1/100 and an allowance of .2, error-first skipping saves 1, but skipping the second leaf saves 100 (astro review A3). Read it as a heuristic ceiling under error-first ordering. (A certified method must also bound each cell's error without computing it, but ARC's bar is empirical MSE, not a certificate; see §5.) | [measured, unverified] T194 "T206" |
 | merging same-history leaves / same-future cells (T188) | exact merged cells 0.59-0.82x at T = 3-4 (T = 10 extrapolation 2-5x at H = 16); T188 counts with no savings claim | [measured, unverified] review/chamber_split; shared TASKS T188 handoffs b9a6b5df/3ee0667b |
 | budgeted pruning by cell mass (T195 phase 2), (8,4) 5 seeds, tau 1e-4..1e-8 | cap bound: bound^2 ratio < 1 on all seeds only at tau <= 1e-7, where 93-97% of cells are retained and T3 -> T4 growth stays x27-28. Exact-mass pruning: growth x20.7-23 but ratio_B >= 1.71 at 1e-7 and ~2.3x the FLOPs. No certified setting slows growth | [measured, unverified] claude/t195-split-attribution@5d58cd51, split_attribution/prune_report.md |
 | weight symmetry (T216) | none: no permutation symmetry; projecting the near-collinear incoming rows {1,6,7,8; 4 anti} costs 79 pp (8.9 pp for the closest pair) for <= 2.7x fewer regions, growth still >= x16/step | [measured, unverified] T194@ee01b49 "T216" |
@@ -110,6 +142,11 @@ concentration, the blind region's 60% of the face second moment, the 1.1-1.3x of
 sigma .01 copy the blind share is 8% and 65% of the tie-slicing tail sits at u > 0.5 (T218). At ARC's absolute sigma .05
 (its M_4,3 panel level) six copies of M_16,10 have accuracy **0.12-0.28** (2e5 samples each; T271 check), so the errors are bulk errors.
 No tie-band method addresses that regime [measured, unverified].
+**[Corrected 2026-10-18, T263] Noise scope.** The region-count result above includes absolute sigma .05, but only at T = 4.
+Leaderboard v3 (LB3), the source of the estimator ratios in §4, has noisy groups at *relative* sigma only (.0025 / .005 /
+.01 / .02 times each matrix's RMS; `SIGMAS` in [leaderboard.py](leaderboard.py)). Directive 7 (TASKS) also requires ARC's
+absolute sigma .05, where the copies' accuracy is .12-.28. No LB3 number speaks to that regime. The planned sealed panel
+HP1 (T276) includes it.
 
 **3.7 Region counts in earlier tables were understated.** The 2e5-sample lower bound missed up to 92% of regions:
 (8,5) zoo0 has 42,322 exact regions, against 3,433 sampled. Restated against exact counts, recipe cells/regions are 0.99 / 1.99 /
@@ -123,6 +160,11 @@ clean target only. Quadrature class, not mechanistic. On leaderboard v3 pooled o
 does not beat sampling at any budget (3.4-6.5; plain sci_tao 1.4-3.6, CIs reaching below 1 only at 1k and 256k). The
 summary's "sci_tao 0.03 @ 256k on orig" is one lucky run (0.99 / 1.56 over scrambles)
 [measured, unverified; T194@2809650d m16/approaches/tie_blind/README.md].
+**[Corrected 2026-10-18, T263]** Three qualifiers. (1) The 0.75 / 0.89 are averages over 16 random rule scrambles. That
+average is the MSE of RQMC (quasi-random nodes with a random scramble), which is sampling by ARC's definition. One fixed
+rule is deterministic, but its MSE is one draw from that spread (compare the 0.03 vs 0.99 / 1.56 above). (2) Fixed nodes
+are inductive under ARC's definition (TASKS Directive 8). (3) The result predates Directive 7, and LB3 has relative-sigma
+noisy groups only (§3.6). So this is quadrature-class evidence on the clean target, not a deductive or a Directive 7 win.
 
 ## 5. What a successful method must do, and what is untested
 **First, the regime** (review A3): the clean target and a noisy panel are different problems. Tie-band structure exists only
@@ -136,6 +178,12 @@ is within tie distance 0.05 or in the blind region, but **~14% is a soft tail** 
 2.13e-3 at (16,4) zoo0 (T239), and at T = 10 the far 80% of mass errs at 0.83%, i.e. 0.67 of 4.7 pp (T241). The gap-binned
 error rate decays smoothly, with no band edge. A band-only method that leaves the far part to a bound leaves ~0.67 pp, about 40x
 the sampling SE at 1e10 FLOPs.
+**[Corrected 2026-10-18, T263]** The T239 figure assigns each leaf's whole mass and error by the leaf's centre, which is
+not the mass of inputs actually inside a gap band (T254). A per-input check confirms the tail (T269,
+`claude/t241-neuron-account@8e1da8ac`, gap_formula/README.md, 2M fresh inputs per model; gap = min(M1 - M2, M2 - M3) of
+the top three input values, so these thresholds are in input units, not T239's angular distance). Non-blind inputs with
+gap >= .05 carry 14.1% of the target's error (0.66 pp), 19-45% on the 5 zoo seeds (1.0-5.4 pp) and 38-63% on the relative
+sigma .005 / .01 copies (4.1-15.2 pp). The weaker models differ from the target mostly in this tail [measured, unverified].
 **Design rule** (review A6): ARC scores empirical MSE on a panel, not certificates. Certified bounds have been 10-100x and more
 above the actual error (T195: cap tau 1e-5 at (8,5), bound ratio 6e6 vs actual 0.019). Uncertified truncation and pruning rules
 should be judged by their measured MSE. The answer must therefore come from a quantity that is smooth across
@@ -149,7 +197,10 @@ Region-by-region methods inherit >= x16/step.
 - symmetries beyond neuron permutation and sign: general linear maps mixing neurons, task symmetries such as time
   reversal (T216);
 - the coverage curve at k >= 5 (pending), per cell rather than per region, and after same-future merging (T222);
-- exact treatment of the all-negative orthant (1/1024, all gates start off) inside the blind region; fixed rather than
+- exact treatment of the all-negative orthant (1/1024, ~~all gates start off~~ **[Corrected 2026-10-18, T263]** not all
+  gates start off: the model has no biases and h_0 = 0, so h_1[j] = ReLU(Wi[j] x_0), and a negative x_0 switches on every
+  neuron j with negative input weight Wi[j]; [common.py](common.py), and T218 notes these neurons keep branching inside
+  the blind region) inside the blind region; fixed rather than
   pilot-based allocation; skipping the blind middle of R23 walks (T223);
 - certificates with rank/domain/reachable-state restrictions, other anchors, one-sided envelopes, and cancellation-aware point
   estimators (T189 handoff: "remain open, not dead");
@@ -184,6 +235,13 @@ Owner's hypothesis: the correct part is simple; the error part is shattered, ran
 - **Is the function simple on the correct part?** At (16,4) the fully correct leaves (72% of the mass) form 78 connected groups,
   and 10 groups hold 90% of that mass. But each group is 1.5k-4k linear pieces. Fully wrong leaves occur only near ties
   (d < .05) or in the blind region, and those strata hold 84% of the leaves, 36% of the mass and 76% of the error [measured].
+  **[Corrected 2026-10-18, T263]** The 84% / 36% / 76% are for the d < .02 and blind strata, as in the source table
+  (43,176 of 51,552 leaves, mass .359, error 1.62e-3 of 2.13e-3), not for all of d < .05 plus blind.
+- **[Corrected 2026-10-18, T263] Scope of all T239 strata.** Each leaf's tie distance is taken at its centre (the
+  normalized mean of its rays), and the leaf's whole mass and error are put in that stratum. That is not the mass of
+  inputs actually inside each gap band (T254), so "cells per unit mass" and stratum shares above are centre-assigned
+  proxies. The per-input check (T269, §5) finds 14% of the target's error at gap >= .05 outside the blind region, and
+  19-63% on other models.
 Verdict: a large coherent correct part and a thin, fragmented error layer at the tie walls, created by training and growing
 with T. It is not random-like: training *moves* regions from the bulk to the ties at about the same total count (T232). The
 correct part is coherent only as a union of many linear pieces, so certifying it needs a bound on a nonlinear map. A method that beats enumeration must handle the
@@ -193,7 +251,12 @@ fast-growing tie-wall layer without resolving it cell by cell [inferred].
 Source: `claude/t241-neuron-account@e3d0a0de`, m16/approaches/neuron_account/README.md. Independent review: `claude/t218-tie-tail-labels`, review/neuron_account/README.md. Core confirmed, details qualified.
 - **Causal roles.** Every neuron except n9 is individually necessary late. On-manifold conditional resampling at t=10 costs 48-54 pp (comparators), 24-35 (clocks), 27 (n2) and 18-26 (n3/n13/n15), while n4, n5 and n9 matter little at the last step [measured, unverified].
 - **Formulas.** Comparators, n4 and n2 fit at held-out R^2 >= .999 from hinge cells on the top-2 ages; clocks need the ages of the top 2-3 (.93-.99) [measured; reproduced by the review within .003].
-- **Replacing all 16 at t=10.** Agreement with the network is .955-.966 (implementation-dependent), against a pre-registered .99 target, which is missed. 99% agreement would need 1-R^2 ~1e-5 per neuron [measured, **confirmed** by independent review]. The accuracy match is not robust (+0.11 vs +0.82 pp).
+- **Replacing all 16 at t=10.** Agreement with the network is .955-.966 (implementation-dependent), against a pre-registered .99 target, which is missed. 99% agreement would need 1-R^2 ~1e-5 per neuron [measured, **confirmed** by independent review]. **[Corrected 2026-10-18, T263]** That figure holds *under i.i.d. errors*: i.i.d. Gaussian noise added to every neuron's true pre-activation (T241 README). Real formula errors are correlated and reach .955 agreement at a median 1-R^2 ~3e-3, so it is not a requirement for every kind of formula error. The accuracy match is not robust (+0.11 vs +0.82 pp).
 - **Recurrent variant.** Set h_t0 to the formulas, then run the true recurrence: agreement is 1.000 for t0<=2, >=.990 through t0=7, then .983/.978/.955 for t0=8/9/10 [measured, unverified]. The description is faithful except over the last 2-3 steps, where state errors reach the near-tie readout (the blind region degrades first).
 - **Where the disagreements are.** About 79-85% sit in the ~20% of mass near ties (gap < .05) or in the blind region [measured, **confirmed**].
 - **Reading.** Quantitatively, the mechanism is understood except exactly where accuracy is decided. This matches section 7 (complexity at the tie walls) [inferred].
+- **[Corrected 2026-10-18, T263] Fitted, not derived.** The formulas are fitted to sampled inputs of the target (1M
+  training inputs), so the account is inductive: its coefficients come from samples, not from the weights. They were
+  fitted and tested on the target only. A related fitted surrogate, T269's formula for P(error | gaps), failed to
+  transfer: fitted on the target, it is off by +0.4 to +19.5 pp on 5 zoo seeds and 2 noisy copies [measured, unverified;
+  INDEX T269]. So the account cannot yet serve as an estimator [inferred].

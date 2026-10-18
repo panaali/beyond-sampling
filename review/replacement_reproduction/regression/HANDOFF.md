@@ -1,0 +1,9 @@
+# T258 regression controls: numerical review complete, procedural deviation retained
+
+Frozen sourced9051464/shared99931062, independent910 source586e41e1/shared104cec02. Sole raw85503147/shared17df5204 independently checked by78e8656835/shared45011dc1 (`review/t258_regression_saved_78/HANDOFF.md`,results.json).
+
+All14 rows/30 events pass saved numerical reconstruction: five valid models, one intended singular pooled failure, eight guards.15 candidate linear attempts/14 returns;14 exact reference systems/74 Cramer determinant calls, independently checked with Gaussian elimination. Gram/regularizer matrices, coefficients, normalized equation residuals, seen/unseen fallback predictions, coefficient bit-preserving JSON codec and guard records agree. No owner fitter/model/checkpoint/RNG calls. Producer.785765125internalCPU, external.92wall/.82user/.10sys; reviewer.131665340CPU/56,760KiB.
+
+The owner execution gate was committed locally before execution but shared publication failed in a ref race, and the orchestration mistakenly launched before successful publication. This violates the publication-before-run requirement. PUBLICATION_DEVIATION.md and original gate/raw/progress/log retain the exact sequence. Independent numerical pass does not retroactively clear the launch: producer_protocol_complete=false and gate_publication_before_run=false. No work was repeated. Future publication/launch uses separate dependent calls with checked successful push result.
+
+These finite synthetic controls support the independent regression equations, pooled routing and artifact codec. They do not reproduce historical.955395 agreement or clear actual checkpoint-based fitting. The next separately scoped numerical decision is the fixed4096/1024/1024 resource pilot, preceded in the same gated process by exact owner-weight/T201 canonical binding and saved-library forward controls. No full replication, pilot draws or trained fits have occurred yet.
