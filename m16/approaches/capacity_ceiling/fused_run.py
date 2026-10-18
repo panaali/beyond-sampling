@@ -1,6 +1,7 @@
 """T234: train stacked models with the fused Triton kernel in chunks of CHUNK steps per launch, checkpoint all model
 states between chunks (resumable, metadata validated), then evaluate (evaluate.py, 1e8 paired samples).
-usage: python fused_run.py TAG --spec 'name:seed:log2n:lr_scale[:warmup]' ... [--data-seed 0] [--eval-n 1e8]
+usage: python fused_run.py TAG --spec 'name:seed:log2n:lr_scale[:warmup[:batch[:f_blind:f_tie:gap]]]' ...
+       (defaults: warm-up 2^14 = zoo, batch 1024, no hard cases) [--data-seed 0] [--eval-n 1e8]
 -> results/TAG.json, weights/TAG_<name>.npz, data/capacity_ceiling/TAG/state.pt"""
 import argparse
 import hashlib
@@ -23,15 +24,18 @@ ap.add_argument("--eval-n", type=float, default=1e8); ap.add_argument("--chunk",
 a = ap.parse_args()
 spec = []
 for s in a.spec:
-    f = s.split(":"); n_steps = int(2 ** float(f[2])) // 1024
+    f = s.split(":"); bs = int(f[5]) if len(f) > 5 else 1024; n_steps = int(2 ** float(f[2])) // bs
     spec.append(dict(name=f[0], seed=int(f[1]), n_train=int(2 ** float(f[2])), n_steps=n_steps, lr_scale=float(f[3]),
-                     warmup=int(f[4]) if len(f) > 4 else 2 ** 14))
+                     warmup=int(f[4]) if len(f) > 4 and f[4] else 2 ** 14, batch=bs,
+                     f_blind=float(f[6]) if len(f) > 6 else 0.0, f_tie=float(f[7]) if len(f) > 7 else 0.0,
+                     gap=float(f[8]) if len(f) > 8 else 0.05))
 M = len(spec); n_max = max(s["n_steps"] for s in spec)
 out_dir = os.path.join(HERE, "..", "..", "..", "data", "capacity_ceiling", a.tag); os.makedirs(out_dir, exist_ok=True)
 for d in ("results", "weights"):
     os.makedirs(os.path.join(HERE, d), exist_ok=True)
 ft = F.FusedTrainer([s["seed"] for s in spec], [s["n_train"] for s in spec], lr_scale=[s["lr_scale"] for s in spec],
-                    warmup=[s["warmup"] for s in spec], data_seed=a.data_seed)
+                    warmup=[s["warmup"] for s in spec], data_seed=a.data_seed, batch=[s["batch"] for s in spec],
+                    f_blind=[s["f_blind"] for s in spec], f_tie=[s["f_tie"] for s in spec], gap=[s["gap"] for s in spec])
 src = hashlib.sha256(b"".join(open(os.path.join(HERE, f), "rb").read() for f in ("fused.py", "fused_run.py"))).hexdigest()
 meta = dict(config=vars(a), spec=spec, src_hash=src)
 names = ["Wi", "Wh", "Wo"]
