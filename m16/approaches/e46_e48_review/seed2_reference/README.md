@@ -156,3 +156,33 @@ full-phase numerical calls. Reproduction after gate:
 under the stated primary flock, address-space and CPU limits; then
 `python full_summary.py` only after all rows exist. No current-source mass,
 geometry, model or MC replay is part of this phase.
+
+## Full reference result; independent saved audit pending
+
+The reviewed runner (source4f73c63f, review39230666) completed all37739 cones in
+one cycle. Rawc6ffbf6a is published741b0e58. All64 pilot candidate objects are
+reused exactly once;148 shards retain75478 attempt/result records. There are
+17450 center intervals,20131 center quadratures and158 exact KKT rescues, with
+no unresolved cases. The accuracy is0.9718521493066044, compared with the
+published exact0.9718521503808825 (difference−1.074278110912985e-9). Sum of the
+conditional integration bounds is1.299749811755022e-8. This is a reference for
+these stored floating cones; it does not certify clipping geometry, source
+floating arithmetic or an entire ARC rung.
+
+Full session14.978295529CPU (total process15.115323396CPU), peak53548KiB;
+saved summary1.031994512CPU. The original pilot and its independent GL32/exact
+certificate verification remain separate. Known floating-category total is
+156550352, including18050 canonical positive-rule setup; actual staged setup
+across pilot+full session is22892. All158 rescues reject the acute test and use
+exact KKT; recorded certificate construction0.523022527CPU, MP selection
+0.119825734CPU, largest retained exact numerator/denominator820/809bits. Exact
+operation inventories are saved per cone, not converted to floating FLOPs.
+Historical geometry proxy38450554 remains separate from this partial category
+ledger. Adapter cold imports, Legendre/native internals, validation/storage and
+other excluded categories are not free. Timer-resolution zeros are retained.
+
+The new T196 convention uses682 sampling FLOPs/input atH8T4 and separately
+requires complete estimator counting. Earlier512 and2000/3 diagnostic divisors
+in this research history are not current matched-cost claims. No historical
+mass correction is transferred to the current recipe. This phase establishes
+an independent representation for seed2 accuracy; full saved review is pending.
