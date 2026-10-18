@@ -7,7 +7,7 @@ Which exact identities, saved score conventions and qualifications in the blind-
 Independent read-only source/proof/manifest review under TASKS delegation c09b5d8b. The author is pinned at 2809650d; recover_910 owns the 18-file snapshot and the separately gated saved-data contraction. No imported author module or numerical replay is used. SOURCE_REVIEW.md records the reasoning; source_gate.json will bind the final checker and scope.
 
 ## Status
-Source reasoning complete; final saved-checker prerequisite hardening is pending before durable execution clearance. No saved contraction has been run by this reviewer.
+Source reasoning and final saved-checker gate complete after metadata hardening 0434255f. No saved contraction has been run by this reviewer. The sole saved run waits publication and immutable execution-gate binding.
 
 ## Results
 The event weight 11/1024 and rank-chart clipping algebra hold under the stated ideal continuous input law. They do not make the network's blind conditional error exact. The saved checker uses the right own-cost grouped baseline and only internal consistency for the 16-scramble aggregates. It does not reconstruct confidence intervals or missing per-scramble estimates.
