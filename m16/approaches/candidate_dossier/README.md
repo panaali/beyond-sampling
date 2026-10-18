@@ -234,7 +234,13 @@ Since T306 the estimates have not changed beyond .0115 pp.
 ## 8. Reproduction
 The code is on `claude/t218-tie-tail-labels`, `m16/approaches/r1_cont/`. T317c's entry point is `estimator_c.py`
 (sha256 `b3c88771…37ce`). The files are `cont.py` (`b71f203f…4d92`) and `cont_c.py`: `a0dc5f4a…f839` @1c742430 and
-`066b3f63…0211` @c70e22cd (official). For the T317d entry point and hash, see T322 / T281 29bef882.
+`066b3f63…0211` @c70e22cd (official). **T317d (scored version)** is frozen at 5b4d4806 with entry point `estimator_d.py`. Its sha256s match the scorer's
+README (claude/hp1-scorer 29bef882) and were checked with `git show | sha256sum`:
+- `estimator_d.py` `f4bd3d87e0e7218ef270b54f350b9aa7a86306fa2bff0f8de08eca9709b91057`
+- `cont_d.py` `306061a685406111ffefa66751198f4b82f6e515905b4ae28381608438f59f64`
+- `cont_c.py` `066b3f63…0211` and `cont.py` `b71f203f…4d92`, both as above.
+
+**T317e** (cleanup, bitwise-identical estimates): **[pending]** hash.
 
 **DEV2:**
 - Data: `claude/t192-gpu-cost-law`, `m16/approaches/gpu_cost_law/hp2/dev2/`; weights sha `22d1c7c2…`.
