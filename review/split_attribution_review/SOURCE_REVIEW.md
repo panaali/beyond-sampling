@@ -75,3 +75,9 @@ by `6000*flops(H,T)/flops(16,10)`, a continuous sampling count. This is not our
 previous explicit native/sampler count and not a verified full-runtime budget.
 The existing exact-labelled reference values are treated as saved numerical
 references; no new uncertainty or exact-real truth certificate is supplied.
+
+The later shared T196 board ruling explicitly lists sampler511 atH8T3 and682
+atH8T4. The frozen reporting formula instead gives500 and2000/3, respectively.
+Thus its `T196` docstring label does not make these ratios a reproduction of
+that later full-sampler convention. We audit the actual saved formula, disclose
+the distinction, and do not silently recalculate or certify full cost.
