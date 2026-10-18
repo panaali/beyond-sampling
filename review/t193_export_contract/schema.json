@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "task": "T215",
+  "executed_validator": false,
+  "expected_seed_ids": [
+    0,
+    2
+  ],
+  "source_commit": "a5ab87572c0c633a10894bc822d9ff4b3c7d9593",
+  "arrays": {
+    "rays": {
+      "shape": [
+        "K",
+        5,
+        5
+      ],
+      "orientation": "row generators",
+      "preserve_stored_bits": true
+    },
+    "absdet": {
+      "shape": [
+        "K"
+      ],
+      "interpretation": "floating diagnostic"
+    },
+    "mass_estT": {
+      "shape": [
+        "K"
+      ],
+      "interpretation": "baseline Torch rule; per-row semantics require environment check"
+    },
+    "mass_ref": {
+      "shape": [
+        "K"
+      ],
+      "interpretation": "same-source refined diagnostic, not independent truth"
+    },
+    "stride": {
+      "shape": [],
+      "type": "positive integer"
+    },
+    "total": {
+      "shape": [],
+      "type": "positive integer"
+    }
+  },
+  "coverage": "K=ceil(total/stride); index[j]=j*stride",
+  "numeric_rule": "preserve all entries and diagnostic failures; no clipping, renormalizing or favorable selection",
+  "provenance_required": [
+    "model weight/checkpoint binding",
+    "source and module hashes",
+    "initial T192_SLIVER/T192_RULES5/T192_FAST",
+    "mode/start/device/rule hashes",
+    "run completion and existing resource logs"
+  ],
+  "missing_arrays_block_numerical_work": true,
+  "new_capture_mass_model_calls": 0
+}
