@@ -13,11 +13,11 @@ sources and original proofs. No target data or Gaussian evaluation is involved.
 
 ## Status
 Sole fixed synthetic attempt complete in d5721b03 after source review 6a57dfe7
-and published execution gate a21d5ce2. Independent saved-output audit is active
-with recover_fundamentals; no further run is authorized.
+and published execution gate a21d5ce2. Independent saved-output audit 57398bbd (shared 2c6d9e96) passed; no further
+run is authorized by this completed phase.
 
 ## Results
-[measured, saved audit pending] All twelve five-point cases and eight guards
+[measured, independently checked] All twelve five-point cases and eight guards
 passed; 42 durable events. Interface counts: 120 point, 60 interval and 12 scale
 calls, plus eight rejected guard attempts. Main-scope CPU: 0.427782553 seconds.
 The runtime records CPU soft/hard [20,20] seconds and address-space soft/hard
