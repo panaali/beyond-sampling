@@ -69,5 +69,15 @@ on a v3 grid), with ok weighted by the node weights instead of the true value.
    the anchor's cone). Then one exact low per triple helps little whatever the selection, and (4) shows the ceiling.
 3. The anchor's Δ may rank positions poorly away from the anchor. Then (4) beats (2) only weakly, and (2) ≈ (1).
 
+**Amendment (DRI, 2026-10-18, from T327).** This was made while the 80-model run was in progress. I had seen the
+first model's numbers only, no aggregate.
+- T327 (claude/t286-cheap-frontier ca5c94d3) found that a fixed spread of the lows (μ + (−1)^j σ, hard verdict) lowers
+  the oracle floor of the deployable closure from .482 to .343 pp, and the reverse pattern to .255.
+- **The amended go line: S_mech counts only if its oracle floor is < .255 pp at ≤ 1.3x nodes.** The original
+  ≤ .40 line is reported as well.
+- Caveat on comparability: T327's .482 baseline is its own deployable closure. Mine is closure c with v4's true value
+  (T324 E0, .463). Floors are compared as reported, with this caveat.
+- I will also say whether the spread's gain has a mechanistic reading in the T241 account.
+
 ## Status
-Pre-registered; not run.
+Running.
