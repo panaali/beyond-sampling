@@ -54,4 +54,57 @@ upper bootstrap CI of the difference < 0. (iii) is reported for its information 
    parity decides whether it sits above or below μ. Report (s±) by the parity of the latest free position.
 
 ## Status
-Pre-registered; not run.
+**Done. NO GO, and the T338 running-max reading is REFUTED** (pre-registered reading 3). Unverified; the floors are
+diagnostic sampling.
+
+## Results
+To reproduce: `python3 os_mc.py` (80 DEV2 models × 500k inputs, ~9 CPU-min), then `python3 analyze.py`. Outputs are
+`results/os_all.json` and `results/summary.json`.
+
+| closure | oracle floor RMS (pp) | mean (pp) | RMS − (s−) [95% CI] | splits the tree? |
+|---|---|---|---|---|
+| (c) closure c | .472 | −.151 | +.224 [+.152, +.300] | no |
+| (i) v5 at its true position | .314 | +.029 | +.066 [+.010, +.120] | yes |
+| (ii) v5 at the second-latest position | .483 | −.187 | +.235 [+.162, +.312] | no |
+| (iii) true running max (records exact) | .359 | **+.315** | +.111 [+.055, +.168] | yes |
+| (iv) expected running-max profile | .602 | +.352 | +.354 [+.257, +.452] | no |
+| (s+) spread μ + (−1)^j σ | .333 | −.046 | +.085 [+.028, +.144] | no |
+| **(s−) spread μ − (−1)^j σ** | **.248** | −.019 | — | no |
+
+- **Calibration.** The re-implemented spread reproduces T327: .333 against .343 for (s+), .248 against .255 for (s−).
+  Closure c reproduces .472 (T338 .473, T327 .481).
+- **No go.** Neither realisable variant beats (s−). Both are worse even than closure c: v5 at a fixed position, .483,
+  and the expected running-max profile, .602.
+- **The running-max hypothesis does not explain the spread** (pre-registered reading 3).
+  - Imposing the true running max (iii) reaches .359, worse than the zero-cost spread (.248), with a large positive
+    bias (+.31 pp). It makes the model look more accurate than it is.
+  - So restoring a realistic running max is not what the spread does. The T338 [speculative] reading is refuted.
+- **v5 carries real information, but only at its true position.** (i) at .314 beats closure c by .16 pp, but moving v5
+  to a fixed slot (ii) removes the whole gain. Where the second-largest low sits matters, so it is not a cheap
+  order-statistic summary. It is still worse than (s−).
+- **Parity check (alternative 2).** The mean bias of (s−) differs by the parity of the latest free position: +.058
+  when even, −.044 when odd. (s+) shows no parity effect (−.048 / −.045). There is a parity component, but it is small
+  against the floors.
+- **What remains [speculative].** The spread's gain is not explained by any order statistic of the lows tested here.
+  Its orientation matters (.248 against .333), and the per-parity bias is asymmetric. Both point to a sign-alternating
+  response of the recurrence to the lows: T241's eigenmodes with a period of about 2. The response depends on the
+  pattern of deviations across time, not on their max.
+  - Cheapest test (not run): project the T241 period-2 mode onto each retrain's W. Check whether the (s−) and (s+)
+    gains across models correlate with that mode's magnitude.
+
+## Compute accounting
+`os_mc.py`: 80 models × 500k inputs × 8 forward passes (truth + 7 closures), plus a model-free 6 × 851 table for (iv).
+About 9 CPU-min, single thread, `ulimit -v 2500000`.
+
+## Claims
+- [measured] On 80 DEV2 models, the oracle closure floors are: closure c .472, v5-true .314, v5-fixed .483, true
+  running max .359, expected running-max profile .602, spread (s+) .333, spread (s−) .248.
+- [measured] No order-statistic closure beats the zero-cost reverse spread. The running-max explanation of the
+  spread's gain is refuted for this closure family.
+- [inferred] The position of v5 carries information that a fixed placement loses.
+
+## Alternatives not ruled out
+- Other order-statistic placements (v5 at the earliest free position, or at the parity-matched position) were not
+  tried.
+- (iii)'s non-record values sit at μ(running max). A spread around that running max was not tried.
+- The eigenmode reading is untested.
