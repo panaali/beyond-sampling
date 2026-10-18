@@ -53,7 +53,7 @@ loads M_16,10 at import time via alg_zoo, and alg_zoo is not installed here. The
 estimator files were not modified.
 
 ## Status
-Done on HP1 for v5q, v5a, the control and T286 (est, est_ind, probe-v1 est_b) and T300 r0. HP2 (primary panel) is pending its delivery. Standing service: further submissions are scored the same way.
+Done on HP1 for v5q, v5a, the control and T286 (est, est_ind, probe-v1 est_b) and T300 r0. HP2 (primary panel) scored for all seven entries. Standing service: further submissions are scored the same way.
 
 ## Results (amendment 1 rule: fixed budget B, R_g = Σe/Σs; superseded as figure of merit by amendment 2 below)
 R_g [95% cluster CI]; bias and RMS error in percentage points; the cost column is the minimum charged C_m in FPE.
@@ -224,6 +224,57 @@ The author charges 1.0e7 FLOPs. They divide by 5760 FLOPs/FPE (1752 FPE); this s
   the author's DEV2 retrain figure of 5.97.
 - [measured] On the HP1 noisy copies it fails: F 77–90, bias +7.7 to +9.5 pp. The author scoped the method to
   retrains, so its claim is decided on HP2. HP1 is the robustness readout only.
+
+## HP2 results: PRIMARY panel (T284 retrains; Directive 8 amendment 2)
+Panel: branch `claude/t192-gpu-cost-law` at aa9c000e, `m16/approaches/gpu_cost_law/hp2/`, copied to `data/hp2/`.
+- 100 fresh retrains, hp2_s100..s199 (zoo (16,10) defaults, fused trainer, data seed 41). These seeds are disjoint
+  from DEV2's seeds 0–39.
+- Hashes, checked on load:
+  - weights, array bytes: `039e3e694f0a4c606e7bb3f58c309d6bf492b43e744780f46f9dd5dfced19d7e` (file `41709001…ab12`);
+  - manifest.json: `1bf47b3f5217d23d3d1202cb3be12e062ea3be65e471be1032819b90aaa97ed6`;
+  - sealed/truths.json: `1a6a44f4126ed7aec8f808b8fd0b0690286d8af43f8986a06bb0c18b05a096b8` (1e8 MC per model, max SE
+    3.9e-5).
+- One group ('retrain'). The bootstrap uses one cluster per model (100 clusters; DRI ruling).
+- Point F decides both bars (strict ≤ 1, lenient ≤ 10). A 'candidate' claim to ARC additionally needs the upper CI to
+  hold here.
+Reproduce: `PANEL=hp2 PYTHONPATH=shim python3 score.py <name> <file> <func> <class> <budgets>`, with the same
+snapshots and entry points as above. Results: `results/hp2_<name>_F.json`.
+
+| entry | class | B | C_eff FPE | F [95% CI] | RMS pp | bias pp | n* | strict | lenient (point) | lenient upper CI ≤ 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| control | sampling | 1k | 1000 | 0.96 [0.72, 1.22] | 0.87 | -0.11 | 1047 | pass | pass | yes |
+| control | sampling | 4k | 4000 | 1.00 [0.74, 1.29] | 0.44 | +0.01 | 4011 | pass | pass | yes |
+| control | sampling | 16k | 16000 | 0.79 [0.58, 1.03] | 0.20 | -0.02 | 20255 | pass | pass | yes |
+| control | sampling | 64k | 64000 | 0.99 [0.68, 1.33] | 0.11 | -0.02 | 64379 | pass | pass | yes |
+| control | sampling | 256k | 256000 | 1.06 [0.79, 1.36] | 0.06 | -0.01 | 242419 | fail | pass | yes |
+| v5q | inductive | 1k | 1009 | 1.27 [0.92, 1.66] | 1.00 | +0.54 | 797 | fail | pass | yes |
+| v5q | inductive | 4k | 4035 | 1.06 [0.81, 1.34] | 0.46 | +0.23 | 3802 | fail | pass | yes |
+| v5q | inductive | 16k | 16140 | 1.48 [1.12, 1.87] | 0.27 | +0.16 | 10918 | fail | pass | yes |
+| v5q | inductive | 64k | 64560 | 3.53 [2.64, 4.51] | 0.21 | +0.12 | 18296 | fail | pass | yes |
+| v5q | inductive | 256k | 258238 | 10.47 [7.62, 13.73] | 0.18 | +0.09 | 24675 | fail | fail | no |
+| v5a | inductive | 1k | 1009 | 2.89 [2.21, 3.61] | 1.51 | +1.10 | 348 | fail | pass | yes |
+| v5a | inductive | 4k | 4035 | 5.33 [4.39, 6.26] | 1.02 | +0.84 | 757 | fail | pass | yes |
+| v5a | inductive | 16k | 16140 | 14.10 [12.13, 16.04] | 0.83 | +0.74 | 1145 | fail | fail | no |
+| v5a | inductive | 64k | 64560 | 53.06 [45.03, 61.46] | 0.81 | +0.72 | 1217 | fail | fail | no |
+| v5a | inductive | 256k | 258238 | 219.22 [188.25, 252.53] | 0.82 | +0.73 | 1178 | fail | fail | no |
+| t286_rx | deductive | fixed | 25779 | 98.01 [74.10, 122.83] | 1.74 | -1.26 | 263 | fail | fail | no |
+| t286_rx_ind | inductive | fixed | 1716 | 25.77 [19.13, 33.25] | 3.45 | -2.10 | 67 | fail | fail | no |
+| t286b_probe | deductive | fixed | 3910 | 106.97 [90.63, 122.97] | 4.66 | +3.97 | 37 | fail | fail | no |
+| t300_r0 | inductive | fixed | 1697 | 9.72 [7.02, 12.97] | 2.13 | +0.82 | 175 | fail | pass | no |
+
+Readout (HP2):
+- [measured] The control gives F 0.79–1.06 with every CI covering 1, so the harness holds on HP2.
+- [measured] **No entry reaches the strict bar.** The closest is v5q at 4k: F 1.06 [0.81, 1.34], i.e.
+  indistinguishable from sampling.
+- [measured] **v5q (inductive) passes the lenient bar at 1k–64k, with upper CI ≤ 10 throughout** (max upper 4.51
+  at 64k). It fails at 256k (F 10.5). It is a lenient candidate in its own class (inductive QMC), not a
+  mechanistic one.
+- [measured] **t300_r0 (inductive) passes the lenient bar on the point (F 9.72), but its upper CI is 12.97 > 10**.
+  So it is not a candidate under the DRI rule. HP2 F is worse than the author's DEV2 5.97: bias +0.82 pp, RMS
+  2.13 pp.
+- [measured] v5a (inductive) is lenient only at 1k and 4k (F 2.9 / 5.3; upper CI ≤ 10).
+- [measured] Every deductive entry fails both bars: t286_rx F 98, t286b_probe F 107. t286_rx_ind (inductive
+  reference) is at 25.8.
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
