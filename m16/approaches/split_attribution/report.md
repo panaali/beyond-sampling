@@ -48,3 +48,30 @@ splits with own absdE < 1e-6: 0.804 (their rank>=4 share 0.155); < 1e-8: 0.518
 
 neurons: seed 0: max neuron split share 0.14, max neuron absdE share 0.33, Spearman(clock score, absdE share) +0.60; seed 1: max neuron split share 0.17, max neuron absdE share 0.35, Spearman(clock score, absdE share) -0.31; seed 2: max neuron split share 0.14, max neuron absdE share 0.29, Spearman(clock score, absdE share) -0.24; seed 3: max neuron split share 0.14, max neuron absdE share 0.27, Spearman(clock score, absdE share) -0.19; seed 4: max neuron split share 0.14, max neuron absdE share 0.33, Spearman(clock score, absdE share) +0.33
 
+## T = 5 (1 seed(s): [0]), 84491 resolved splits, sum absdE 0.3187
+
+| driver rank | splits | share | exact class-changing share of splits | absdE share | minority-mass share | sampled err-change share |
+|---|---|---|---|---|---|---|
+| 1 | 22433 | 0.266 | 0.63 | 0.150 | 0.164 | 0.50 |
+| 2 | 18371 | 0.217 | 0.71 | 0.233 | 0.303 | 0.54 |
+| 3 | 18623 | 0.220 | 0.64 | 0.411 | 0.323 | 0.48 |
+| 4 | 18459 | 0.218 | 0.55 | 0.184 | 0.187 | 0.42 |
+| 5 | 6605 | 0.078 | 0.55 | 0.022 | 0.024 | 0.38 |
+
+rank >= 4: 0.297 of splits (uniform-over-available-inputs baseline 0.406); 0.207 of absdE pooled, per seed [0.207]
+
+| step t | splits | share | absdE share | median cell mass | rank>=4 share of splits | rank>=4 share of absdE (within step) | newest-driver share of splits / absdE (within step) |
+|---|---|---|---|---|---|---|---|
+| 1 | 1756 | 0.021 | 0.355 | 0.0029 | 0.355 | 0.380 | 0.567 / 0.995 |
+| 2 | 6450 | 0.076 | 0.191 | 7.4e-05 | 0.332 | 0.029 | 0.389 / 0.780 |
+| 3 | 21710 | 0.257 | 0.255 | 2.3e-06 | 0.304 | 0.166 | 0.398 / 0.542 |
+| 4 | 54575 | 0.646 | 0.199 | 9.5e-08 | 0.287 | 0.120 | 0.354 / 0.324 |
+
+newest input (index t) is the driver: 0.372 of splits, 0.705 of absdE
+
+cell-mass bucket [lo, hi): splits share / absdE share: [0,1e-08) 0.241 / 0.000; [1e-08,1e-06) 0.321 / 0.001; [1e-06,0.0001) 0.307 / 0.048; [0.0001,0.01) 0.130 / 0.951; [0.01,1.01) 0.000 / 0.000
+
+splits with own absdE < 1e-6: 0.936 (their rank>=4 share 0.307); < 1e-8: 0.776
+
+neurons: seed 0: max neuron split share 0.17, max neuron absdE share 0.29, Spearman(clock score, absdE share) +0.67
+

@@ -71,7 +71,7 @@ def summarise(meta, r):
 
 
 def main():
-    names = sys.argv[1:] or sorted(os.path.basename(f)[:-4] for f in glob.glob(os.path.join(HERE, "out", "*.npz")))
+    names = sys.argv[1:] or sorted(os.path.basename(f)[:-4] for f in glob.glob(os.path.join(HERE, "out", "*.npz")) if "guard" not in f)
     res = {}
     for nm in names:
         meta, r = load(nm); s = summarise(meta, r)
