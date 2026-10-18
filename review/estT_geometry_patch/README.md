@@ -11,6 +11,9 @@ those masses are underestimates: subtree 125 has leaf sum 0.0031237 against root
 
 Can a drop-in replacement of `mass(c, ops)` repair it without changing the exact k <= 5 results?
 
+## Status
+Done (proposal; unverified). Pass on V1 (absolute ~1e-9 reading) with patches A + B; V2 holds to the quadrature floor.
+
 ## Method
 `estT_geometry.py`. The cell's H-representation c.N is treated as authoritative.
 - **Non-simplicial cells:**
@@ -70,8 +73,8 @@ with Δ <= 4.5e-13.
 | subtree | estT leaf − root | patch A only | patch A + B | regions estT → A+B | A+B CPU |
 |---|---|---|---|---|---|
 | 125 | −4.35e-5 | ≈ −9.9e-7 (−4.352e-5 + 4.253e-5 recovered on 717 mismatched cells) | **−6.4e-11** (rel −2.0e-8) | 7659 → 8495 | 1730 s |
-| 2359 | (Δ_A = +9.31e-6 on 701 cells) | – | **−5.0e-12** (rel −5.9e-9) | → 8558 | see json |
-| 975 | (Δ_A = +2.25e-5 on 1375 cells) | – | (running) | | |
+| 2359 | (Δ_A = +9.31e-6 on 701 cells) | – | **−5.0e-12** (rel −5.9e-9) | 7712 leaves → 8558 regions | see json |
+| 975 | (Δ_A = +2.25e-5 on 1375 cells) | – | **−4.1e-11** (rel −3.0e-8) | 12402 leaves → 14569 regions | 2754 s |
 
 - **Patch A alone (masses)** leaves −9.9e-7 on 125. This matches the T192 child's MC estimate of 1.04e-6 of mass in gate
   histories the enumeration never produced. **Patch A is necessary but not sufficient.**
@@ -98,7 +101,7 @@ subtrees have 0–4 mismatches with |Δ| <= 4.5e-13.
 
 ## Claims
 - [measured] Patch A leaves k <= 5 masses unchanged to the quadrature floor (<= 5e-13 per subtree).
-- [measured] A + B closes the k = 6 leaf/root gap on the flagged subtrees, to 6e-11 (125) and 5e-12 (2359).
+- [measured] A + B closes the k = 6 leaf/root gap on the flagged subtrees, to 6e-11 (125), 5e-12 (2359) and 4e-11 (975).
 - [measured] A alone does not close it (125: −9.9e-7).
 - [inferred] The root cause is clip's combinatorial adjacency test on degenerate 6-D cells; it misses edges, so it misses
   vertices. This is not traced to a specific line.
