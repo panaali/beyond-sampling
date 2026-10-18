@@ -14,10 +14,25 @@ Source-unit defect found before checker execution or any archive decoding; see `
 Renewed scope 0abba9ac permits a diagnostic-only saved contraction at the actual physical gaps {0, 1/8, 1/4, 1/2}. `check.py` retains the original report keys and records physical keys separately. Physical gap 1 is untested. This diagnostic cannot turn the intended campaign into a pass. The independent checker and `scope.json` are frozen for source review before any archive or baseline result decoding.
 
 ## Results
-No numerical review result. A source-only cross-check proves the current positive-gap predicates use physical gaps {1/8, 1/4, 1/2}, while the frozen contract states {1/4, 1/2, 1}. This does not establish a failure of the underlying method.
+The sole diagnostic saved audit passed: all 81 archive pairs, 20,736 rows, 82,944 gap cases, 83 progress events, integer sums, original counters and source/model bindings. Review CPU 2.919142395 seconds, peak RSS 35,812 KiB. There was no numerical reviewer failure or rerun.
+
+| Actual physical gap | Preserved original report key | Selected correct mass (rounded) | Event probability enclosure (rounded) |
+|---|---|---|---|
+| 0 | 0 | 0.0682131361 | [1, 1] |
+| 1/8 | 1/4 | 0.0592013986 | [0.0994106276, 1] |
+| 1/4 | 1/2 | 0.0592013986 | [0.0994106276, 1] |
+| 1/2 | 1 | 0.0592013986 | [0.0994106276, 0.9588655668] |
+
+Exact rational lower/upper values are retained in `results.json`; the table is only a rounded display. Selected wrong mass is zero throughout. Physical gap 1 remains untested. The original intended-gap protocol remains failed despite successful diagnostic arithmetic; no broad method failure follows.
+
+Execution gate 7fad5121 was published at 5941777c after source review 216d37f1/shared52abd9c5. Exact command:
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 bash -c 'set -euo pipefail; set -o noclobber; flock /workspace/work/codex-review.lock bash -c "set -euo pipefail; ulimit -St 19; ulimit -Ht 20; ulimit -Sv 2097152; ulimit -Hv 2097152; timeout 25 /workspace/clean-neurons/.venv/bin/python review/t240_baseline_saved_review/check.py" > review/t240_baseline_saved_review/run1.log 2>&1'
+```
 
 ## Compute accounting
-Planned one saved-only review under 19 soft / 20 hard CPU seconds, 2 GiB address space and 25 seconds wall time after acquiring the shared review lock. Hashing, decompression and checking are reviewer work. No affine recurrence, network/model/checkpoint, Gaussian CDF, RNG, integration or fit calls are authorized. All prior source margins and probability bounds remain reviewed premises, not recalculated quantities.
+One saved-only review completed under 19 soft / 20 hard CPU seconds, 2 GiB address space and 25 seconds wall time after acquiring the shared review lock. Hashing, decompression and checking are reviewer work. Author recorded CPU 2.2023471100000003 seconds is preserved, not independently timed. No affine recurrence, network/model/checkpoint, Gaussian CDF, RNG, integration or fit calls occurred. All prior source margins and probability bounds remain reviewed premises, not recalculated quantities.
 
 ## Claims
 - [inferred] A saved contraction can check the baseline bookkeeping independently without repeating the scientific certificate construction.
