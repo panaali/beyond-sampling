@@ -1,0 +1,34 @@
+{
+  "clearance": true,
+  "scope": "Exactly18 fixed analytic controls, not target weights or enumeration",
+  "reviewer": "recover_910",
+  "source": [
+    "085b67b2",
+    "617c79c9"
+  ],
+  "claim": "abeaa86d",
+  "protocol_sha256": "b4f44d05adce47cb8465684f7476350c05c2b95942bfbb7ce841bed6fdbefb6a",
+  "pins": {
+    "CONTROL_PROTOCOL.md": "606c4c0c27ce57053f3e21ef415431b5c772d3c260a6114efe8e6d9b5b2e5348",
+    "PROOF.md": "2b98e492e94eac8e630adbe3521fac6b9a4a39de4460274423ebae1162a4d046",
+    "controls.py": "8402268497baf1eb2d2bf6a703e6595e33ee9db77702885c78523182e050b2a0",
+    "core.py": "4a994fbe609824e2a0e75995013d43f17d45056719badbb3a94cf221f05e3a69"
+  },
+  "checks": [
+    "Extrusion boundary rays and signed vertical rays exactly generate each first-gate halfcone; full dimension and pointedness follow from nonzero fresh coefficient.",
+    "Complete extreme-ray/normal representation supports adjacency iff common-active-normal rank d-2; exact crossing formula and positive-gcd-only normalization preserve directions.",
+    "One-sided clips omit only boundary-only sign branches; identically-zero forms remain OFF. Redundant normal omission on an uncut cone preserves representation.",
+    "Fraction-free elimination computes rank with exact integer row operations and positive normalization. Exact feasibility/extremality/full-rank witness checks support invariants but do not alone prove ray completeness; induction is explicitly separate.",
+    "Common-denominator recurrence uses Wi*D^depth in each fresh coordinate. Gates within one step share previous hidden map, so pivot-first ordering is valid.",
+    "Witness sums strictly satisfy each nonzero historical signed gate form, with coefficient-zero forms OFF. History convexity plus no artificial fan gives one cone per full-dimensional history.",
+    "Seven geometric controls have correct ray sets; five simple networks have2,4,8 histories. Two-neuron slope base has2,6 with slopes(-1,3),(-2,5), and scaling/reflection controls follow exact input homogeneity. Three rejection cases match API scope.",
+    "All18 attempts preserve row/ledger/traceback; no overwrite including temporary output. External20CPU/2GiB checks and internal16CPU bounds precede bounded work. No target/model/NumPy/geometry-library imports."
+  ],
+  "qualifications": [
+    "Named integer ledger is partial; peak retained bits exclude some intermediate products, and no native FLOP conversion is claimed.",
+    "Initial pin/resource preflight is before durable scientific attempt; failure there must retain launch log and must not be reported as an executed control.",
+    "Exact-real dyadic geometry is distinct from floating tolerance-based source counts; subsequent target provenance/planar independent comparison need separate scope.",
+    "Finite analytic controls do not prove arbitrary-input implementation correctness or T10 growth."
+  ],
+  "compute": "Read-only source/proof/JSON and hashing; no author imports or geometry/controls/model calls."
+}
