@@ -573,6 +573,43 @@ Readout:
   - report F with CI, RMS, bias and C;
   - also report HP2 and HP3 as secondary information (both are spent for claims).
 
+## HP4: T317f, the single pre-registered submission (DRI T335)
+- Entry: branch claude/t218-tie-tail-labels at 88453669 (`88453669bffd9bd5bf65e67e3a67f5cfde07efa2`),
+  `m16/approaches/r1_cont/estimator_f.py` → `cont_f.est`.
+- Hashes verified: cont_f.py `327dbb4a6ddcc2ad9ae4745ac0548ec121beee309461a2aaa1b67b47e955a1ab`; estimator_f.py
+  `3afa3912d03f5dbbecd28e33a208c29faed251f20241f12c4d9d5bf9c80a3855`.
+- Class, as given by the author: sampling-free at runtime, deductive plus declared approximations. Screen C1 is a
+  declared heuristic whose error is measured on DEV2, not bounded.
+- Self-contained: imports only numpy, scipy.special.ndtr and itertools; no MC.
+- Scored once on HP4 by `run_t317f.py`, which refuses to re-score a panel. The official cost is the code's
+  as-executed count.
+- Cost audit of the new screen: the code charges 6C+2 FLOPs per try. My itemization is about 8C+2, plus an uncharged
+  2C for the L update of screened rows, so I add 40 FLOPs per try. Tries are bounded by 2 × correct_interval
+  rows + 3 × 720 ('screen bound' row, +1.5% C).
+- Stacked: C × 1.09 × 1.04. T317f inherits T317e's import-time tables, so there is no per-call table term.
+
+| panel | cost count | C (FPE) | F [95% CI] | RMS pp | bias pp | n* |
+|---|---|---|---|---|---|---|
+| HP4 **primary (fresh)** | official, as executed | 3302 | 2.63 [1.93, 3.39] | 0.749 | +0.436 | 1255 |
+| HP4 **primary (fresh)** | + screen-charge bound | 3352 | 2.67 [1.96, 3.45] | 0.749 | +0.436 | 1255 |
+| HP4 **primary (fresh)** | stacked ×1.09×1.04 | 3743 | 2.98 [2.19, 3.85] | 0.749 | +0.436 | 1255 |
+| HP3 secondary (spent) | official, as executed | 3286 | 3.22 [2.19, 4.42] | 0.823 | +0.446 | 1022 |
+| HP3 secondary (spent) | + screen-charge bound | 3336 | 3.27 [2.22, 4.49] | 0.823 | +0.446 | 1022 |
+| HP3 secondary (spent) | stacked ×1.09×1.04 | 3725 | 3.65 [2.48, 5.01] | 0.823 | +0.446 | 1022 |
+| HP2 secondary (spent) | official, as executed | 3344 | 4.41 [3.21, 5.66] | 1.023 | +0.579 | 759 |
+| HP2 secondary (spent) | + screen-charge bound | 3396 | 4.47 [3.26, 5.75] | 1.023 | +0.579 | 759 |
+| HP2 secondary (spent) | stacked ×1.09×1.04 | 3791 | 4.99 [3.63, 6.42] | 1.023 | +0.579 | 759 |
+
+HP4 control (plain MC), F at 1k / 4k / 16k / 64k / 256k: 0.83 [0.62, 1.06] / 1.06 [0.77, 1.39] / 0.97 [0.73, 1.25] / 0.87 [0.64, 1.11] / 1.25 [0.92, 1.62].
+All five CIs cover 1, so the harness holds.
+
+- [measured] **On the fresh HP4 panel, T317f passes the lenient bar with upper CI ≤ 10: F = 2.63 [1.93, 3.39] at
+  3,302 FPE** (RMS 0.75 pp, bias +0.44 pp). The upper CI stays ≤ 3.85 under both cost sensitivities. The strict
+  bar (F ≤ 1) fails: the CI excludes 1.
+- [measured] On the spent secondary panels it scores HP3 3.22 [2.19, 4.42] and HP2 4.41 [3.21, 5.66], against T317e's
+  5.07 and 6.75. It has about 40% lower cost at nearly the same RMS.
+- [inferred] By the DRI's protocol this is T317f's first and only HP4 score; HP4 is now spent for claims.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
