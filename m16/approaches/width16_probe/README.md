@@ -82,6 +82,53 @@ separated). (b) The DRI reports that `understand_m43/evalH.py` records STATS aft
 cell counts. That fits H-U4's (8,3) "2.0" (496/238): half of it, 248/238 = 1.04, matches the 0.99 recipe108 value here.
 All H <= 8 baselines above were counted with this folder's code.
 
+## T205: cells/regions restated against exact region counts (2026-10-18; unverified)
+**Method.** `regions_exact.py H T name`: estT exact mode with `mass()` stubbed to 0 (exact splitting never uses masses),
+so only geometry is paid. Regions = distinct all-step gate patterns over the exact leaves, counted two ways: *certified*
+(forward every ray of the leaf; per step and neuron the gate is on iff the max pre-activation over the rays > 1e-9 x
+scale; a leaf with rays strictly on both sides of a gate is a violation) and *center* (the T194 mean-ray hook). Both
+agree on all 54 models counted ((4,5,6,8,16)x3, (8,4) and (16,4) x 9 models, (8,5) zoo0), with 0 violations.
+`recount112.py`: RECIPE112 (`understand_m43/est75.py`, imported unchanged) clean cells counted once per run.
+`restate.py` -> `restate.json` (table below). `mc.py` gives the sampled lower bounds.
+
+| source | (H,T) | published cells / regions = ratio | cells (corrected) | exact regions | lb2e5 (undercount) | **restated** |
+|---|---|---|---|---|---|---|
+| E43 H-U4 RECIPE112 | (4,3) | 310 / 66 = 4.72 | 155 | 63 | 58 (x1.09) | **2.44** |
+| E43 H-U4 RECIPE112 | (5,3) | 372 / 97 = 3.83 | 186 | 97 | 78 (x1.24) | **1.91** |
+| E43 H-U4 RECIPE112 | (6,3) | 370 / 134 = 2.76 | 185 | 134 | 106 (x1.27) | **1.38** |
+| E43 H-U4 RECIPE112 | (8,3) | 466 / 236 = 1.98 | 233 | 236 | 165 (x1.42) | **0.99** |
+| RECIPE112 = recipe108 cells | (16,3) | (T113 report: ~0.47) | 389 | 838 | 421 (x1.99) | **0.46** |
+| E45 T-trend | (8,3) | 466 / 165 = 2.82 | 233 | 236 | 165 (x1.42) | **0.99** |
+| E45/E46 recipe108 | (8,4) | 6276 / 1171 = 5.36 | 6276 | 3160 | 1171 (x2.70) | **1.99** |
+| E48 recipe108 | (8,5) zoo0 | 114155 / 3433 = 33.25 | 114155 | 42322 | 3433 (x12.3) | **2.70** |
+| T194 recipe108 | (16,4) | — | 24543 | 28212 | 4090 (x6.90) | **0.87** |
+
+Means over the 5 clean seeds ((8,5): zoo0 only). Two separate corrections:
+1. **Cells:** E43's clean_cells are doubled (evalH.py adds the rescale re-run of model 0 to STATS). The recount is exactly
+   half on 24/25 models; (4,3) zoo2 is 148 vs 297/2. RECIPE112 and recipe108 give **identical** cell counts at (8,3) and
+   (16,3) on all 10 models (recipe108 generalises RECIPE112 at T = 3). Their op counts differ: RECIPE112 4.7-5.9e5 at
+   (16,3), recipe108 1.6-1.9e6.
+2. **Regions:** E43's regions (`understand_ladder/exact3.count_regions`) are exact except at (4,3) zoo2, where 64 includes
+   11 zero-mass degenerate pieces (masses 4e-38..1e-32). There are 53 full-dimensional regions, as counted here. E45/E46/E48
+   used the 2e5-sample lower bound, which misses 8% ((4,3)) to 92% ((8,5)) of the regions.
+
+**Restated H-U4 / E45-E48.** Along H at T = 3, cells/regions is 2.44 -> 1.91 -> 1.38 -> 0.99 -> 0.46 for H = 4, 5, 6, 8, 16
+(published 4.8 -> 2.0): the fall along H holds, at about half the level. Along T at H = 8 it is 0.99 -> 1.99 -> 2.70
+(published 2.8 -> 5.4 -> 33). Regions grow x13.4 and then x13.4 per step, recipe cells x27 and then x18. So cells still outgrow regions,
+but by x2.0 and then x1.36 per step, not the published x1.9 and x6.2. "Cost grows FASTER than regions" (E45/E48) holds for
+**ops** (x250 from T = 4 to 5 at H = 8, because 5-D masses cost more per cell). It holds only weakly for cells.
+**Reconciling T113.** T113's (16,3) RECIPE112 recipe/exact ops ~2.06 is against `arc_m43_repro/exact.py`: mean 2.01
+here (`exactpy_T3.json`; 1.92-2.20 per seed). The T194 ratio of 1.27 is recipe108 against estT exact mode, which costs ~5x
+more than exact.py at T = 3.
+
+Claims (T205, unverified): [measured] the restated table above; [measured] certified = center pattern counts on all
+54 models; [measured] RECIPE112 and recipe108 cells are identical at T = 3; [inferred] the published per-step excess of cells over
+regions along T (x6.2 at T = 4->5) is mostly the lower bound's undercount.
+Alternatives: "region" = gate pattern (a pattern could be a non-convex union of convex pieces; true convex counts >=
+these). Regions of zero Gaussian mass are excluded by construction (exact leaves are full-dimensional), which is why
+(4,3) zoo2 differs from exact3. (8,5) is one seed. Compute: geometry-only exact runs, (8,5) zoo0 1.7e9 ops / 10.4
+CPU-min, all others < 80 CPU-s each; RECIPE112 recount and exact.py runs < 1 CPU-min.
+
 ## Compute accounting
 Counted ops = `m43.Ops` inside the estimator (recipe or exact), as estT_fix; leaf-sum masses, region patterns and MC are
 diagnostic and excluded. Totals (CPU, single thread): (8,3)+(16,3) all runs < 1 min; (16,4) recipe 9 x 2.3-2.7 min
