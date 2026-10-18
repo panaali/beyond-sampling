@@ -1,0 +1,119 @@
+{
+  "gate_sha256": "c7dce0e8322baf5e23c9dc218d22f39d2e4bebb620b035f9dbd242ed9b32b9ee",
+  "source_sha256": "c6dc6b2a472d0af015efae99f32feaed742521ae6ded777fdb69b3d4447c9a34",
+  "ast_sha256": "64567039c1370e2906f3240ff1797a9ca1746206261f8fb7fc56738c1ac5e2a1",
+  "controls": [
+    {
+      "name": "orthant2",
+      "rays": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "value": 0.25000000000000006,
+      "finite": true,
+      "source_ops": [
+        40
+      ],
+      "warnings": [],
+      "analytic_cap": 0.25,
+      "exact_cone_mass": 0.25
+    },
+    {
+      "name": "orthant3",
+      "rays": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "value": 0.21132486540518708,
+      "finite": true,
+      "source_ops": [
+        48
+      ],
+      "warnings": [],
+      "analytic_cap": 0.21132486540518708,
+      "exact_cone_mass": 0.125
+    },
+    {
+      "name": "narrow3",
+      "rays": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          9.313225746154785e-10,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          9.313225746154785e-10
+        ]
+      ],
+      "value": 0.0,
+      "finite": true,
+      "source_ops": [
+        48
+      ],
+      "warnings": [],
+      "e": "1/1073741824",
+      "determinant": "1/1152921504606846976",
+      "box_volume": "1/73786976294838206464",
+      "strict_mass_lower": "1/47813960639055157788672",
+      "below_strict_lower": true
+    },
+    {
+      "name": "zero_axis2",
+      "rays": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0
+        ]
+      ],
+      "value": 0.0,
+      "finite": true,
+      "source_ops": [
+        46
+      ],
+      "warnings": [
+        "invalid value encountered in divide"
+      ],
+      "zero_axis": true
+    }
+  ],
+  "cpu_seconds": 0.004005715000000021,
+  "scope": "four analytic cap calls only; no estimator, mass integration, geometry or model execution"
+}
