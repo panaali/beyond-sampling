@@ -1,6 +1,6 @@
 # T224 fixed saved-panel outcome
 
-Author raw45ab5489, shared32e3aa0f. Independent full saved audit pending. Original T201 results remain primary; this is a post-original-result descriptive comparison on reused data, with no fresh validation or new generalization CI.
+Author raw45ab5489, shared32e3aa0f. Independent full saved audit6948ad9f/shared0f6d99e7 passes all192 chunks/196608 rows, source/progress/labels/SSE/contexts and unchanged-row parity; no author calls. Original T201 results remain primary; this is a post-original-result descriptive comparison on reused data, with no fresh validation or new generalization CI.
 
 | Original panel | Negative rows | Hidden SSE reduction | Network agreement before -> after | Task accuracy before -> after | Agreement improved / worsened | Task improved / worsened |
 |---|---:|---:|---|---|---|---|

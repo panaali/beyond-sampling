@@ -22,10 +22,10 @@ argmax is preserved. The cancellation fixture preserves native readout rounding;
 it does not claim exact floating dot products or a universal error bound.
 
 ## Status
-Bounded controls and fixed saved application complete; full saved audit pending.
+Bounded controls and fixed saved application independently complete.
 Claim cce45a1b preceded implementation. h4 control/source gates405b4f81/0fd567dc
 and published immutable execution gates preceded both once-only runs. T55
-independently checked controls8c8f8474 and owns the separate full saved audit.
+independently checked controls8c8f8474 and full saved evidence6948ad9f.
 No further numerical continuation or predictor adoption is automatic.
 
 ## Results
@@ -61,7 +61,7 @@ compared to a T196 budget or an installed microkernel count.
 ## Claims
 [inferred] Coordinate projection weakly reduces exact hidden SSE under h>=0.
 [inferred] It need not improve either network agreement or task accuracy.
-[measured, full saved audit pending] The fixed projection slightly improves
+[measured, independently saved-checked] The fixed projection slightly improves
 network agreement but worsens task accuracy on both reused heldout panels.
 [speculative] Its fixed-panel comparison may distinguish a hidden-domain
 constraint error from other lookup approximation errors. No causal claim follows.
