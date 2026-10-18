@@ -33,3 +33,33 @@ Between the two: inconclusive. If it passes, publish est_blind(model) -> (contri
 **Amendment (before any number):** in case "none" (all inputs negative) the label is the *second*-largest negative, so that case
 is split by the ordered pair (a = largest, j = second largest), 90 pairs of weight 1/90 each, with role moments for "top", "label",
 "other". The total is 180 (case, label) units, so the cost estimate is ~1-1.5k FPE, above the ~100 FPE target, and is reported as measured.
+
+## Results (unverified; `blind.py` -> blind.json, blind.log)
+Clark vs exact MVN check on a random 9-D case: 0.054 vs 0.047. Cost: **2,759 FPE** per model, dominated by the frozen-map
+products (H^3 per step x 180 units). That is 28x the ~100 FPE target; it could be cut ~10x by sharing gate patterns across units.
+
+| panel | RMS (pred - sampled), pp | mean (pred - sampled) | fixed 8/9 RMS | pred sd across models | sampled sd | corr(pred, sampled) |
+|---|---|---|---|---|---|---|
+| DEV2 (80 retrains) | **0.234** | +0.162 | 0.265 | 0.064 | 0.139 | **-0.30** |
+| LB3 (30 models) | 0.120 | +0.083 | 0.123 | 0.033 | 0.078 | -0.07 |
+
+## Verdict (pre-registered rule): **inconclusive by the letter (0.15 < 0.234 <= 0.25), uninformative in substance**
+- The closure's prediction hardly varies across models (sd 0.06 pp vs the true 0.14 pp) and is *anti*-correlated with the truth
+  on DEV2 (-0.30). It is a slightly worse constant than "8/9" plus noise: even after removing its mean bias by an oracle shift, the
+  RMS is 0.169 pp, above the go line.
+- Mechanism [inferred]: with gates frozen at one canonical input per (case, label), the closure sees essentially the same affine
+  map for every model of the panel's architecture. The model-to-model variation in blind-region error (0.38-0.91 pp on DEV2) comes
+  from gate switching *inside* the case, which the frozen map does not see (T218: blind-region prefix regions still grow 12-19x per
+  step).
+- **Not published as a component** (the go line was not met). The sampled side (diagnostic) shows what is needed: a per-model blind
+  rate good to ~0.15 pp, i.e. relative accuracy ~20% of a 0.73 pp contribution.
+
+## Alternatives not ruled out
+- Gates per (case, label) *and* per sign-pattern-equivalent sub-cases (e.g. split the label's value into quantile bins: T282 showed
+  conditioning halves frozen-gate bias).
+- Second-order closure (account for gate switching probability per neuron and step by a Gaussian approximation of each
+  pre-activation, i.e. a mean-field ReLU, rather than frozen gates).
+- Exact region treatment inside a case is not small (T218), so it was not attempted.
+
+## Compute accounting
+110 models x (180 units, ~2.8k FPE) + diagnostic sampling 2.2e5 per model; ~15 CPU-min.
