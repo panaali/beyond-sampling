@@ -196,6 +196,18 @@ def _orthant(a, r):
         x += K                                                     # max(det, 0)
         x += 6 * K * (1 + 4 + 2 + 1 + 1 + 1 + 3 + 1)              # sign, om, sqrt(dR om), atan2, max, sqrt, W r apc /, sum
         return x + 3
+    if d == 5:                                                    # estT._orth5 (no inv/C prelude: own branch)
+        dt = abs(_det(R)); x = 0
+        if dt < B.THIN_DET5[0]:
+            n = len(B._DU5[0][0])
+            return n * (2 * 25 + 5 + 4 + 1 + 1 + 1) + 4            # U R, square, row-sum, q^2.5, W/q, sum, scale
+        K = len(B._LOG5[0][0])
+        x += 5 * (5 + 2 * 5 + 1 + 5 + 5)                          # cofactor normals (4x4 dets in linalg)
+        x += 2 * 125 + 10 * 6 + 12                                # C = N N^T, atan2 angles + oma, p
+        x += 25 + K * 50                                          # Rt
+        x += 5 * (K + 6 * K)                                      # clamp det, cofactor signs (dets in linalg)
+        x += 10 * K * (4 + 3 * 4 + 6)                             # om, 3 x (sqrt(dQ om), atan2, add), weight/sum
+        return x + 3
     raise ValueError(d)
 
 
