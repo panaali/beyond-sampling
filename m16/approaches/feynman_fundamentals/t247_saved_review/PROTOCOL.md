@@ -1,0 +1,9 @@
+# T247 independent saved audit preparation
+
+Assignment5e62f286, source/resource gate owned by h4, producer56. No author run or output exists when this checker is prepared. Execute only after the producer reports its sole completed run and immutable gate/source pins verify. One saved-only stdlib process under review lock,20 CPU seconds/2GiB; no NumPy/SciPy/author import or grid/exponential/CDF/RNG/interpolation call.
+
+Check all four cases/eight law records,15 events, runtime limits/version labels, all gate/source/protocol pins and source-extracted AST digest. Decode saved NPY float64 payloads directly with struct. Validate original archive byte-derived arrays are reused in final archive, source cumulative and scalar normalization expressions, trapezoid weights/cumulative/Z, and exact rational probabilities/reflections/flats. Mean uses integration by parts, E[X]=g_max-integral C(x)dx, independently of author's interval-mass mean formula. Do not recompute Gaussian density or library erf; only saved scalar diagnostic subtraction.
+
+Fixed finite interpolation probes receive monotonicity, exact bracket and real-linear interpolation checks at absolute tolerance2^-45. This is a separate finite arithmetic diagnostic, not bitwise NumPy replay or finite RNG/Sobol law. Exact stored-law assertions use exact rationals and the producer's frozen inequalities; no tolerance is added to those. No generic Gaussian centering, target accuracy or estimator cost inference.
+
+Output source/runtime records substantiate declared finite harness behavior only; they cannot independently certify exp/ndtr library results. Any review failure must be retained before correction, no producer rerun. Completed author files remain immutable. Any malformed input or unfinished source output blocks this audit rather than widening scope.
