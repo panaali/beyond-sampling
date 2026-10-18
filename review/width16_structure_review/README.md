@@ -13,7 +13,8 @@ reading only in this initial phase; no author imports or numerical calls.
 ## Status
 Source/provenance and checker independently reviewed be07096b. The sole saved
 contraction passed all nine arrays/118,586 pieces and280 comparisons in2.190CPU;
-independent saved-result review pending. See RESULTS.md. The task claim was published in TASKS-only574d9843.
+independent saved review3db2d849 passed all records with different contractions.
+See RESULTS.md/HANDOFF.md. The task claim was published in TASKS-only574d9843.
 
 ## Results
 [inferred, source-only] The pair scanner does not itself test all permutation
@@ -38,8 +39,8 @@ quadrature calls. Source counters and historical CPU are not independently
 measured runtime or complete cost.
 
 ## Claims
-All current scientific findings are [inferred] from pinned source/algebra and
-await independent review. Snapshot hashes are [measured] byte-provenance facts,
+Source/algebra findings are [inferred] and independently reviewedbe07096b;
+saved arithmetic is [measured] and independently reviewed3db2d849. Snapshot hashes are [measured] byte-provenance facts,
 not proof those exact bytes were executed historically. No rung, ARC solution,
 full cost, exact mass or method-family impossibility claim.
 
