@@ -95,3 +95,12 @@ supplement is frozen to cover the lone T4 point reference and all reported
 nonzero-threshold ratios; it awaits its independent gate. Final saved audit is
 pending. Source, cap evidence and contraction checkpoint are reachable in
 shared1707472b; cap saved review2eef376c is separately published.
+
+The final table supplement exposed a second reviewer bookkeeping error before
+any ratio contraction: the author tree contains prune_report.py but no rendered
+prune_report.md. The FileNotFoundError and original source are preserved in
+prune_tables_progress.jsonl/51ee90d8. Source-only git inventory confirms this
+absence. recover_tables.py freezes a narrower raw-only contraction, preserving
+all51 rows/10 pooled groups and exact-budget formulas, but explicitly making
+no table-text parity claim. It requires a new source gate and separate outputs;
+no comparison against missing data is fabricated.
