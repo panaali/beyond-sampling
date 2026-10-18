@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/work/recover-small_h2_910/review/t255_source_review/saved/check.py", line 107, in <module>
+    try:run(result)
+        ^^^^^^^^^^^
+  File "/workspace/work/recover-small_h2_910/review/t255_source_review/saved/check.py", line 37, in run
+    rr=read(v['path']);assert rr['complete'] is True and rr['pass_all'] is True;checkpins(rr['pins'])
+                                                                                ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/recover-small_h2_910/review/t255_source_review/saved/check.py", line 12, in checkpins
+    for p,h in v.items():assert sha(p)==h,p
+                                ^^^^^^^^^
+AssertionError: /workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t192_latest_evidence/README.md
