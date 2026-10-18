@@ -41,6 +41,9 @@ argmax, control exact Fraction checks, parsing, GCD, allocation and runtime
 overheads are outside that partial ledger and inside research CPU timing.
 The controls additionally compute original/lookup readouts; later saved-panel
 scope must explicitly count any reconstruction rather than call it free.
+Dense dot expressions use H products plus H-1 additions (2H-1), not T196's
+canonical dense2H convention. These partial category vectors cannot be silently
+compared to a T196 budget or an installed microkernel count.
 
 ## Claims
 [inferred] Coordinate projection weakly reduces exact hidden SSE under h>=0.
