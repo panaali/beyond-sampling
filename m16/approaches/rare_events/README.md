@@ -83,7 +83,7 @@ partial). Reported separately from E1.
 **Also reported (DRI question):** whether the uncut walks capture those interior islands on the clean models, i.e. the
 E2 ratio for variant B.
 
-## Results (`python run_est.py; python score.py`, `results/score.txt`)
+## Results, FIRST RUN (SUPERSEDED for A and B by the corrected run below: walk bug; kept for the record)
 **Truths:** T192's GPU MC (claude/t192-gpu-cost-law @63d36d38, `t340/rare_mc.json`; float64; orig 1e10, seeds 1e9)
 supersedes my CPU runs. My CPU orig run (1e9, independent numpy stream) agrees on E1: 5.40e-6 / 1.138e-6 / 2.16e-7 vs
 GPU 5.37e-6 / 1.086e-6 / 2.09e-7, within 1-1.7 s.e. The CPU seed and E2 runs are a cross-check, appended when done.
@@ -250,3 +250,59 @@ uncut walks estimate both rare-event families within a factor 2 at p from 2e-7 t
 
 **Remaining error.** E2 is one-signed high (+8 to +65%), E1 mostly high on the seeds, and orig E1(1.0) is not converged in
 K (1.73 -> 1.58). [speculative] The fixed v3-v4 link and the linearised mu(v4) are the next candidates.
+
+## CORRECTION: walk bug and the corrected results (2026-10-18)
+**Bug (found by the T218 child in its T340c runs; confirmed here).** When several pre-activations reach 0 at the same t,
+the continuity restart toggled only the argmin gate. This happens, for example, to every step-0 neuron when the input at
+position 0 crosses 0 (z = x_0 Wi). The others' roots equal t exactly, the strict > t filter dropped them, and their
+gates were never flipped. Along the uncut lines (to t = 6), v3, v4 and the lows cross 0, so this is common.
+- `check_walk.py` compares each walk's correct length with a dense forward (20k points per line, 30 rows per line).
+- Before the fix: orig nb-23 mean |error| 1.16, max 3.98 (in units of t).
+- **T317f's own walk on its [0, .5] window is exact** (0.0000 on all lines of orig and seed0, with and without screen
+  C1). The bug does not touch T317f, T317c-e or their HP scores.
+
+**Fix (`rare.py`, `walk3`).** At each restart, every step >= s* is re-gated from its value. A neuron whose |z| is at 0
+(tolerance 1e-9 relative) takes the sign of its new slope. Tangents are recomputed in order, and roots exclude neurons at
+0. The added work is charged (4H per re-gated step).
+- After the fix: all lines (A's region lines and B's node lines, orig / seed0 / seed3) match the dense forwards to grid
+  resolution (max .0005).
+- The pre-fix estimates are kept in `results/est_prefix_buggy.json`.
+
+**Truth cross-checks.** CPU (numpy, own seeds) against GPU (T192):
+- orig E1 at 1e9: within 1-1.7 s.e.
+- seeds E1 at 3e8: within ~1%.
+- E2 at 2e8: within 1.6 s.e.
+- GPU truths are used.
+
+### Corrected est / truth (A and B rerun; C3 / C5 are T340c's PRE-FIX numbers, pending their rerun)
+| event | orig A / B | seed0 A / B | seed3 A / B |
+|---|---|---|---|
+| E1(0.0) | 1 / **0.952** | 1.04 / **0.997** | 1.03 / **0.924** |
+| E1(1.0) | 0.0101 / **0.253** | 0 / **0.974** | 0.000383 / **0.693** |
+| E1(1.25) | 0.00152 / **0.174** | 0 / **1.03** | 2.97e-05 / **0.764** |
+| E1(1.5) | 0.000179 / **0.193** | 0 / **0.933** | 1.88e-06 / **0.73** |
+| E2(0.5) | 0.96 / **0.986** | 0.817 / **1.07** | 0.585 / **1.4** |
+| E2(0.75) | 0.942 / **0.953** | 0.714 / **1.22** | 1.23 / **3.4** |
+
+C (FPE, as executed): A 10.7-17.6k, B 0.21-0.31M.
+
+**Verdict (pre-registered lines, corrected run):**
+- **E1, variant B: PARTIAL (6/9 within 3x).**
+  - The seeds are .69-1.03 (seed0 .93-1.03).
+  - orig is .17-.25: 4-6x low and not improved by the fix.
+- **E1, variant A: FAIL (0/9).**
+- **E2, variant A: USEFUL (6/6 within 2x: .59-1.23).**
+- **E2, variant B: PARTIAL (5/6 within 2x).** orig .99 / .95, seed0 1.07 / 1.22, seed3 1.40 / 3.41.
+- Most of B's earlier E2 overshoot (2-11x) was the bug.
+- T340c (C3 / C5): verdict suspended until their post-fix numbers arrive. Their pre-fix numbers were computed with the
+  same bug.
+
+**Post hoc equal-compute comparison, corrected** (`results/compare.txt`; ties when |r - s| < .05):
+- A: win 6, tie 7, loss 2.
+- B: **win 9**, tie 3, loss 3.
+- Better variant per pair (post hoc): win 10, tie 4, loss 1.
+- B now beats plain sampling at its own cost on 9 of 15 (model, event) pairs: 5/9 of E1 (all of seed0, and orig at
+  t0 >= 1.25 where sampling sees < 1 event) and 4/6 of E2.
+
+**What still fails:** orig's far-gap 2~3 islands (E1). The closure keeps them (diagnostic), and B's single g12 point loses
+them. T340c's exact-law g12 nodes are the fix to check, once rerun on the corrected walk.

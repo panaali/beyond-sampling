@@ -43,20 +43,27 @@ def walk3(model, x0, d, k, k3, tmax, max_cells=5000):
             break
         tn = t[go]
         Z[go] += (tn - tref[go])[:, None, None] * DZ[go]; L[go] += (tn - tref[go])[:, None] * dL[go]; tref[go] = tn
-        jj = J[go, ss]; Gt[go, ss, jj] = ~Gt[go, ss, jj]
         for idx in range(len(go)):
+            # T340 fix (bug found by the T218 child): several pre-activations can reach 0 at the same t (e.g. every
+            # step-0 neuron when an input crosses 0). Re-gate every step >= s* from its value, with the sign of its
+            # new slope for the ones at 0, instead of toggling only the argmin gate.
             row, s0 = go[idx], ss[idx]
-            dh = np.where(Gt[row, s0], DZ[row, s0], 0.0)
-            for s in range(s0 + 1, T):
-                DZ[row, s] = Wh @ dh + d[row, s] * Wi
-                dh = np.where(Gt[row, s], DZ[row, s], 0.0)
+            dh = None
+            for s in range(s0, T):
+                if s > s0:
+                    DZ[row, s] = Wh @ dh + d[row, s] * Wi
+                z = Z[row, s]; dz = DZ[row, s]
+                near = np.abs(z) <= 1e-9 * (1.0 + np.abs(z).max())
+                Gt[row, s] = np.where(near, dz > 0, z > 0)
+                dh = np.where(Gt[row, s], dz, 0.0)
             with np.errstate(divide="ignore", invalid="ignore"):
                 r = tn[idx] - Z[row, s0:] / DZ[row, s0:]
-            r = np.where((r > tn[idx] + 1e-12 * (1 + abs(tn[idx]))) & np.isfinite(r), r, np.inf)
-            r[0, jj[idx]] = np.inf
+            nearall = np.abs(Z[row, s0:]) <= 1e-9 * (1.0 + np.abs(Z[row, s0:]).max(1, keepdims=True))
+            r = np.where((r > tn[idx] + 1e-12 * (1 + abs(tn[idx]))) & np.isfinite(r) & ~nearall, r, np.inf)
             R[row, s0:] = r.min(1); J[row, s0:] = r.argmin(1)
             dL[row] = Wo @ dh
-            flops += 2 * T * H + 1 + H + (T - 1 - s0) * G.F_TAN + (T - s0) * G.F_ROOT + G.F_LATER_READ
+            flops += (2 * T * H + 1 + H + (T - 1 - s0) * G.F_TAN + (T - s0) * G.F_ROOT + G.F_LATER_READ
+                      + (T - s0) * 4 * H)                        # re-gating: |z| test, max, select, compare per step
         act = go
     # charges: the target's correct_interval per cell is inside F_CELL / F_LATER_READ (T317 count); the k3 interval
     # is one extra F_CI per cell.
