@@ -1,0 +1,13 @@
+# T256 bounded synthetic integration handoff
+
+The physical-Fraction enclosure integration is independently checked on the frozen synthetic suite. Source bbdd2870/shared ed8454ac, h4 source/resource review de0b6d1a/shared 04f7795a, and immutable gate e9a68a27/shared fd14d9af preceded the sole run. Raw 3b496c3f/shared fbb8cee0 preserves all outputs and timing.
+
+All 24 rows and 50 events pass: nine inherited trace conversions, two whole-box baselines, four restricted domains (one empty), three explicit normalization cases and six invalid requests. The predetermined partial negative-final domain changes supplied target 1 from unknown on the whole box to correct on the restricted domain. Touching and origin ties remain geometric fixtures; no probability mass is assigned.
+
+Independent saved audit a3479b55/shared e24a0b9b followed source gate 9b46aab4/shared 46aa74ba and its own immutable gate. It reconstructs 14 physical-Fraction enclosures, 104 gate rows and 84 contrasts; four domain requests use 1,320 exact Cramer active-constraint systems instead of the candidate breakpoint method. Physical x versus v=2x, constants/errors/denominators, old-margin fallback, first-index predicates and selected source counts match. Guard records are checked as fixed malformed requests, without rerunning author rejection code. Peak-bit observation internals are not independently replayed.
+
+Author work: 20 certificate attempts, 15 valid returns including one empty, 14 synthetic propagations; four normalization attempts, three returns; six guard rejections. Internal CPU 0.825775552 seconds, peak RSS 28,524 KiB. Independent review CPU 0.332267322 seconds, RSS 27,784 KiB. Both attempts obeyed their frozen 20 CPU-second/2 GiB limits. No failures, repeated candidate runs, old point-forward replay, trained model, CDF, RNG or mass calls. Selected count categories do not establish a full native cost or sampling budget.
+
+This is finite synthetic integration evidence, not trained utility or a Gaussian mass result. The previous T240 intended-gap campaign remains failed; physical gap 1 was not tested there. T252 partial-domain mass is separate. A subsequent fixed trained-domain discriminator must first freeze provenance, domain selection, physical units, old baseline equality, complete call/resource accounting and independent review. No full-grid application follows from this handoff. Alternatives include dependent-error inflation, harmful slope changes mitigated by valid old fallback, negligible partial-domain mass and rational computation cost.
+
+Request Claude DRI registry entry for this bounded prerequisite; no rung or ARC success claim.
