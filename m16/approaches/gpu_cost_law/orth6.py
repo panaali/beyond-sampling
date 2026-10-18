@@ -22,6 +22,7 @@ NT = [128]        # outer log nodes
 NS = [128]        # inner log nodes
 NTHIN = [6]       # Duffy points per dimension (6^5 = 7776)
 _C = {}
+COUNT = [0, 0, 0]  # simplices integrated: thin, mid (ray rule 8^5), wide (Plackett)
 
 
 def _log(n, dev):
@@ -62,7 +63,7 @@ def _ray(R, dt, DU, DW):
     G = R @ R.transpose(1, 2)
     g = torch.stack([G[:, i, j] for i, j in _IU], 1)                                                    # (n, 21)
     q = g @ _PHI[key].T                                                                                  # (n, K)
-    return dt / math.pi ** 3 * (DW[None] / q ** 3).sum(1)
+    return dt / math.pi ** 3 * (q.pow_(-3) @ DW)                                    # in place, then one GEMV
 
 
 def det3(M):
@@ -174,6 +175,7 @@ def orth6(R):
     if w.any():
         out[w] = _wide(_normals(R[w]))
     nt, nm, nw = int(thin.sum()), int(mid.sum()), int(w.sum())
+    COUNT[0] += nt; COUNT[1] += nm; COUNT[2] += nw
     return out, ops6(nt, nw, nm)
 
 

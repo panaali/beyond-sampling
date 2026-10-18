@@ -23,6 +23,7 @@ import estT_base as B  # noqa: E402
 from m43 import Ops  # noqa: E402
 
 DEV = ["cpu"]
+THIN = [0]                           # simplices integrated by a thin rule (|det| < 1e-6), all d
 CHUNK = {4: 4096, 5: 1024, 6: 8192}           # simplices per batched call (memory ~ CHUNK * K * d^2 * 8 bytes * few)
 FLUSH = 200_000                      # simplices buffered per dimension before integration
 
@@ -128,7 +129,7 @@ def _orth4(R):
     S, Tt, W, DU, DW = _consts(4, dev)
     out = torch.empty(n, dtype=torch.float64, device=dev)
     dt = torch.linalg.det(R).abs()
-    thin = dt < B.THIN_DET
+    thin = dt < B.THIN_DET; THIN[0] += int(thin.sum())
     if thin.any():
         Rt_ = R[thin]; q = ((DU[None] @ Rt_) ** 2).sum(2)             # (m, 1000)
         out[thin] = dt[thin] / (2 * math.pi ** 2) * (DW[None] / q ** 2).sum(1)
@@ -162,7 +163,7 @@ def _orth5(R):
     S, Tt, W, DU, DW = _consts(5, dev)
     out = torch.empty(n, dtype=torch.float64, device=dev)
     dt = torch.linalg.det(R).abs()
-    thin = dt < B.THIN_DET5[0]
+    thin = dt < B.THIN_DET5[0]; THIN[0] += int(thin.sum())
     if thin.any():
         Rt_ = R[thin]; q = ((DU[None] @ Rt_) ** 2).sum(2)
         out[thin] = 3 * dt[thin] / (8 * math.pi ** 2) * (DW[None] / q ** 2.5).sum(1)
@@ -207,7 +208,8 @@ def _orth3(R):
 
 def _orth6(R):
     import orth6
-    return orth6.orth6(R)
+    n0 = orth6.COUNT[0]; out = orth6.orth6(R); THIN[0] += orth6.COUNT[0] - n0
+    return out
 
 
 def masses(R, d):

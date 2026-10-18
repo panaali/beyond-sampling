@@ -110,9 +110,11 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
             t1 = time.time(); err = 0.0; mops = 0; ns = 0
             nthin = 0
             for d, Rd in R.items():
-                ns += len(Rd); nthin += int((np.abs(np.linalg.det(Rd)) < 1e-6).sum())
-                if not nomass:
-                    m, o = estG.masses(Rd, d); err += m; mops += o
+                ns += len(Rd)
+                if nomass:
+                    nthin += int((np.abs(np.linalg.det(Rd)) < 1e-6).sum())
+                else:
+                    t0_ = estG.THIN[0]; m, o = estG.masses(Rd, d); err += m; mops += o; nthin += estG.THIN[0] - t0_
             tm += time.time() - t1
             r = dict(half=i, err=None if nomass else err, ops=ops + mops, ops_geometry=ops, simplices=ns, thin=nthin,
                      sec_geometry=sec, **st)
@@ -128,7 +130,7 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
         tot[k] = float(v.sum()) if not sample else float(v.mean() * nh)       # sample: estimated total
         if sample and len(v) > 1:
             tot[k + "_se"] = float(v.std(ddof=1) * nh / np.sqrt(len(v)) * np.sqrt(1 - len(v) / nh))
-    tot.update(sec_wall=time.time() - t0, sec_mass_parent=tm, workers=workers, device=device, resumed=nh - len(todo))
+    tot.update(sec_wall=time.time() - t0, sec_mass_parent=tm, workers=workers, device=device, resumed=len(idx) - len(todo))
     return tot
 
 
