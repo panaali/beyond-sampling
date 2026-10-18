@@ -102,3 +102,11 @@ Stage 1: 10 models x 720 triples x 20,000 R0 forwards = 1.44e8 forwards (diagnos
     triple. So this is lenient-bar evidence with an inductive step, not a mechanistic estimate.
   - The pass is on an open panel, with the design ladder seen on 10 of the 80 models. HP2 decides.
 - Stage 1's p1-sharing is not needed for this pass, and its sharing error (1.4-1.9 pp) would not lower F.
+
+## External scoring (T281 scorer, claude/hp1-scorer a26cc5da, README section T300)
+- Frozen hashes: estimator.py cbb7904b…, r0.py 0f05d047…, tb.py a2ae41b4….
+- HP1 robustness panel, cost 1.0e7 / 5948 = 1,697 FPE:
+  - **clean (6 models): F 5.9 [3.9, 7.8], bias +0.40 pp, RMS 1.60 pp.** Lenient pass, consistent with DEV2's 5.97.
+  - noisy copies (outside the declared retrain scope): F 77-90, bias +7.7 to +9.5 pp. **Fails**, as T296 predicts
+    for R0 across noise.
+- HP2 (sealed): pending.
