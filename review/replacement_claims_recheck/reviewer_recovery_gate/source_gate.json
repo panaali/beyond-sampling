@@ -1,0 +1,36 @@
+{
+  "task": "T258 independent saved reviewer recovery",
+  "assignment": "fe8eb14b",
+  "reviewed_source": "296d3941",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": true,
+  "scope": "One metadata-only repair recovery after published immutable gate; no author/model/array/fit/RNG replay",
+  "checks": [
+    "all recovery pins match",
+    "all non-main helper ASTs unchanged",
+    "manual main diff restricted to eight-record inventory, distinct names and prior CPU accounting",
+    "original failure has no count/check contractions",
+    "durability, 17 internal /20 soft-hard CPU /2GiB limits unchanged"
+  ],
+  "preserved_failure_cpu": 0.027959738999999997,
+  "pins": {
+    "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t258_source_review/saved/check_v2.py": "de75ef40ac7559874c0464a9810f14cf13737965796a43e616b3f8ae7104defb",
+    "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t258_source_review/saved/recovery.json": "e527519153d729ebb17c35242bd2d8930d8086da2993a9db8e2b4aa55fb8b653",
+    "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/t258_source_review/saved/RECOVERY.md": "0ce78b58eafbae3d534e9cf3aac32e5e3ce8c4bec4e6e9576dbb2cb45cf25a70"
+  },
+  "transitive_pin_count": 39,
+  "review_calls": {
+    "author": 0,
+    "score_contractions": 0,
+    "model": 0,
+    "array": 0,
+    "fit": 0,
+    "rng": 0
+  },
+  "limitations": [
+    "Reviewer historical mean-division compatibility assumption remains",
+    "No raw prediction or independent-seed reproduction",
+    "No second automatic retry or threshold change"
+  ]
+}

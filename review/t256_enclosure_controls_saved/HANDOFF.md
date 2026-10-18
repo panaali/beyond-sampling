@@ -1,0 +1,11 @@
+# Independent T256 enclosure integration saved audit
+
+**PASS**, sole attempt after published immutable gate95e95dd4/shared8061fa6e and independent checker source gate9b46aab4/shared46aa74ba. Author raw3b496c3f/sharedfbb8cee0 was byte-pinned without outcome decoding after reviewer source814bfde1+d0c09d2b froze.
+
+All24 records and50 events pass: nine inherited physical trace adapters, two whole-box baselines, four restricted domains including one empty, three normalization records and six invalid requests. The reviewer reconstructs14 exact physical-Fraction enclosures,104 gate rows and84 readout contrasts. Four restricted domains use1,320 active-constraint systems with independent Leibniz determinants/Cramer's rule, not the candidate breakpoint optimizer. All saved affine/error/direct intersections, slope choices, signed residuals, fallback margins, first-index statuses and selected count formulas match.
+
+The partial negative-final synthetic domain has supplied target1 certified correct while its whole-box baseline was unknown. The origin test remains a supplied-target tie test, not inferred task-rank ownership. Empty/touching cases retain their scope and receive no probability claim. Physical x versus inherited v=2x, constants, denominator ownership and all nine saved integer trace conversions agree exactly.
+
+Reviewer process CPU0.332267322 seconds, peak RSS27,784KiB; external19/20CPU and2GiB limits,25wall after lock. Shell timing real0.479/user0.448/sys0.031 includes launch overhead. Author recorded CPU0.825775552 is verified metadata, not independently timed. No failed numerical attempt, retry or tolerance change. A pre-run checker typing correction permitted reviewer-created Fraction coordinates; no outcomes were decoded beforehand.
+
+Zero author/candidate, trained model, point-forward, CDF, RNG or probability-integrator calls. Exact reviewer recurrence/vertex work is charged. Peak-bit internal observation ledgers are not independently replayed; selected source counts are incomplete runtime prices. No trained accuracy, Gaussian mass, cost win, sampling or rung claim follows. Original reviewed README and source pins remain unchanged; this file records final status.
