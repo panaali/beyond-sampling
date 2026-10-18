@@ -280,6 +280,23 @@ Reproduce: `PANEL=hp2 PYTHONPATH=shim python3 score.py t317_cont <snapshot>/m16/
   less cost at the same errors. Smaller errors would also do.
 - [measured] HP1: clean F 4.3 [0.5, 9.5]; noisy copies 44–211 (out of scope).
 
+### Official r1_cont-family cost (DRI ruling 2026-10-18)
+Ruling: my full count of `walk.correct_interval` is the official one, not the hand-entered constant. That count is
+229 FLOPs per row-call vs the code's 146, itemized in the `cost_t317.py` docstring. T317b's upper CI stands, so it is
+not a candidate; the CI method is fixed. Later submissions in this family must reproduce T317b's estimates to
+≤ 1e-12, or they count as a new variant.
+Reproduce: `PANEL=hp2 PYTHONPATH=shim python3 cost_t317.py t317b_cont <snapshot>/.../estimator_b.py`. The script
+asserts that every estimate and the code's own cost reproduce exactly.
+
+| entry | panel | C code → official (FPE) | F official [95% CI] | verdict |
+|---|---|---|---|---|
+| t317_cont (G=48) | HP2 | 7,765 → 7,880 | 9.71 [6.99, 12.61] | point lenient pass; not a candidate |
+| t317b_cont (G=20) | HP2 | 6,290 → 6,405 | **7.89 [5.68, 10.25]** | point lenient pass; NOT a candidate (upper CI > 10) |
+| t317_cont | HP1 clean | 7,679 | 5.36 [0.67, 11.82] | robustness only |
+| t317b_cont | HP1 clean | 6,276 | 4.38 [0.55, 9.66] | robustness only |
+
+These official numbers supersede the code-count numbers above (9.57 / 7.75).
+
 ## HP2 results: PRIMARY panel (T284 retrains; Directive 8 amendment 2)
 Panel: branch `claude/t192-gpu-cost-law` at aa9c000e, `m16/approaches/gpu_cost_law/hp2/`, copied to `data/hp2/`.
 - 100 fresh retrains, hp2_s100..s199 (zoo (16,10) defaults, fused trainer, data seed 41). These seeds are disjoint
@@ -317,8 +334,8 @@ snapshots and entry points as above. Results: `results/hp2_<name>_F.json`.
 | t286b_probe | deductive | fixed | 3910 | 106.97 [90.63, 122.97] | 4.66 | +3.97 | 37 | fail | fail | no |
 | t300_r0 | inductive | fixed | 1697 | 9.72 [7.02, 12.97] | 2.13 | +0.82 | 175 | fail | pass | no |
 | t306_r1w | deductive | fixed | 13269 | 16.35 [11.77, 21.24] | 0.99 | +0.53 | 812 | fail | fail | no |
-| t317_cont | deductive | fixed | 7765 | 9.57 [6.89, 12.43] | 0.99 | +0.53 | 812 | fail | pass | no |
-| t317b_cont | deductive | fixed | 6290 | 7.75 [5.58, 10.07] | 0.99 | +0.53 | 812 | fail | pass | no (10.07) |
+| t317_cont | deductive | fixed | 7765 (official 7880) | 9.57 [6.89, 12.43] (official 9.71 [6.99, 12.61]) | 0.99 | +0.53 | 812 | fail | pass | no |
+| t317b_cont | deductive | fixed | 6290 (official 6405) | 7.75 [5.58, 10.07] (official 7.89 [5.68, 10.25]) | 0.99 | +0.53 | 812 | fail | pass | no (10.07) |
 
 Readout (HP2):
 - [measured] The control gives F 0.79–1.06 with every CI covering 1, so the harness holds on HP2.
