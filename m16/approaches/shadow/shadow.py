@@ -9,7 +9,8 @@ from prefix import run as prefix_run          # T216 exact prefix-region enumera
 T = 10
 
 
-def normalise(m, iters=200):
+def normalise(m, iters=1):
+    """One pass (deviation, see README: the pre-registered 200-iteration fixed point diverged, W_ih underflowed to 1e-44)."""
     Wi, Wh, Wo = (W.copy() for W in m); Wo = Wo - Wo.mean(0, keepdims=True)
     for _ in range(iters):
         c = 1 / np.sqrt(Wi ** 2 + (Wh ** 2).sum(1)); Wi = c * Wi; Wh = c[:, None] * Wh / c[None, :]; Wo = Wo / c[None, :]

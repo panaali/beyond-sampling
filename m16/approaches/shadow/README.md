@@ -43,3 +43,11 @@ Also reported per (variant, k): the fraction meeting each condition alone.
   or destroys accuracy.
 - (b) Coarse grid rounding could kill units and still keep accuracy, if those units only matter on low-mass inputs.
 - (c) Region counts could fall only because rounding creates degenerate (parallel) gates, without fewer units.
+
+## Deviation (recorded 2026-10-18, after the first run crashed, before any summary was computed)
+The 200-iteration unit-norm rescaling does not converge. Its scales drift: on fused_s23, W_ih underflowed to ~1e-44, so grid
+rounding and the 12-decimal merge comparison became meaningless, and the merge check assertion fired. The function was preserved
+in exact arithmetic, not in floating point.
+- **Fix:** a single pass of the same rule, c_j = 1/||[W_ih[j], W_hh[j,:]]|| applied once. This is deterministic, with no drift.
+- The 23 models already done were discarded and everything was rerun. The first-run per-model lines (shadow_run1.log) are kept
+  for the record; they showed the same qualitative picture.
