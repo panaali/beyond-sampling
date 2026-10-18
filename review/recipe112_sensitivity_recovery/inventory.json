@@ -1,0 +1,385 @@
+{
+  "claim": "ddfc4012",
+  "scope": "Read-only AST/JSON metadata and hashing only, no source import/evaluation, model/noise construction, estimator/truth/mass/random/native calls",
+  "pins": {
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/sens.py": "ce2230c337851f046caf2af56eb0a7e47006701dad6e306d1ba22c8bb802a323",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/rec112.py": "9dd380e89e22c70b2b23385c39b24e2a160937a5e2f41c94f6437c2d6eb64add",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/mine.py": "8cdf588428c5c42c5af6d33808a5bcecd64d7fa8d4e1611ddd2c1fd7b77ddb97",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/semantics.py": "596d75d9331aa06b450e26b5d076010d4e8548d5a98df87bf355c8eeb906c177",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/semantics.json": "48ab46992fb4f882fc55f12955c156d1b06b092db611035e5d6199d7dac44dae",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/additional_evidence.json": "45799c3ae050ebb312e99ca3c304c48ab17c813a1d9f8cf980039e2ad1289876",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/dependencies.json": "6fc0f960c80a97009fdcab31302900ed10784771a38125b747574237303c13bb",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/checkpoint_manifest.json": "c75ee72f1aa07dc7a5b2e88399c3fa47801f8afacb45779a160ab5c28a15a04b",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/out/sens_H4.json": "e25920cf78c5f5d3b7602dd49dc91d1543c8f0b98021041fb884565a591cd18d",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/out/sens_H5.json": "076693e4ce1ba4ed8c23369a9500be9b268f32f937f7b9bd143263b9054e6f3f",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/out/sens_H6.json": "8343f276fc30ab53735fc1dc0afe3e7e25d1dba644994131c43871f5a6da648b",
+    "/workspace/work/integrate-reviewed-78/review/recipe112_recovery/snapshot/out/sens_H8.json": "779044bd0417f372f27962e0d0edf67b35dd7278590c57c981c9cc5b2ca43826"
+  },
+  "defaults": {
+    "eps": 0.1,
+    "lip": 1.0,
+    "tie": 1e-09,
+    "gtol": 1e-12,
+    "ctol": 1e-12,
+    "atol": 1e-09,
+    "dense": 0,
+    "joint": false
+  },
+  "variants": [
+    {
+      "name": "frozen",
+      "overrides": {},
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "eps0.02",
+      "overrides": {
+        "eps": 0.02
+      },
+      "effective": {
+        "eps": 0.02,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "eps0.05",
+      "overrides": {
+        "eps": 0.05
+      },
+      "effective": {
+        "eps": 0.05,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "eps0.2",
+      "overrides": {
+        "eps": 0.2
+      },
+      "effective": {
+        "eps": 0.2,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "eps0.5",
+      "overrides": {
+        "eps": 0.5
+      },
+      "effective": {
+        "eps": 0.5,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "no-flip-rule",
+      "overrides": {
+        "eps": 1000000000.0
+      },
+      "effective": {
+        "eps": 1000000000.0,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "lip0.5",
+      "overrides": {
+        "lip": 0.5
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 0.5,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "lip0.8",
+      "overrides": {
+        "lip": 0.8
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 0.8,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "lip1.25",
+      "overrides": {
+        "lip": 1.25
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.25,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "lip2",
+      "overrides": {
+        "lip": 2.0
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 2.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "lip4",
+      "overrides": {
+        "lip": 4.0
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 4.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "tol0",
+      "overrides": {
+        "gtol": 0.0,
+        "ctol": 0.0,
+        "tie": 0.0
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.0,
+        "tie": 0.0,
+        "gtol": 0.0,
+        "ctol": 0.0,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "tol1e-9",
+      "overrides": {
+        "gtol": 1e-09,
+        "ctol": 1e-09
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-09,
+        "ctol": 1e-09,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "tol1e-6",
+      "overrides": {
+        "gtol": 1e-06,
+        "ctol": 1e-06,
+        "tie": 1e-06
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.0,
+        "tie": 1e-06,
+        "gtol": 1e-06,
+        "ctol": 1e-06,
+        "atol": 1e-09,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "atol1e-6",
+      "overrides": {
+        "atol": 1e-06
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-06,
+        "dense": 0,
+        "joint": false
+      }
+    },
+    {
+      "name": "atol1e-12",
+      "overrides": {
+        "atol": 1e-12
+      },
+      "effective": {
+        "eps": 0.1,
+        "lip": 1.0,
+        "tie": 1e-09,
+        "gtol": 1e-12,
+        "ctol": 1e-12,
+        "atol": 1e-12,
+        "dense": 0,
+        "joint": false
+      }
+    }
+  ],
+  "historical_summary_coverage": [
+    {
+      "H": 4,
+      "variant_groups": 16,
+      "seed_groups": 80,
+      "saved_fields": [
+        "clean_err",
+        "max_abs",
+        "ops",
+        "ratio"
+      ],
+      "individual_model_rows_present": false
+    },
+    {
+      "H": 5,
+      "variant_groups": 16,
+      "seed_groups": 80,
+      "saved_fields": [
+        "clean_err",
+        "max_abs",
+        "ops",
+        "ratio"
+      ],
+      "individual_model_rows_present": false
+    },
+    {
+      "H": 6,
+      "variant_groups": 16,
+      "seed_groups": 80,
+      "saved_fields": [
+        "clean_err",
+        "max_abs",
+        "ops",
+        "ratio"
+      ],
+      "individual_model_rows_present": false
+    },
+    {
+      "H": 8,
+      "variant_groups": 16,
+      "seed_groups": 80,
+      "saved_fields": [
+        "clean_err",
+        "max_abs",
+        "ops",
+        "ratio"
+      ],
+      "individual_model_rows_present": false
+    }
+  ],
+  "planned_source_recipe_calls_if_entire_original_panel_replayed": 5440,
+  "unique_model_inputs_by_source_design": 340,
+  "already_reviewed_frozen_diagnostics": [
+    {
+      "H": 8,
+      "zoo": 2,
+      "noise_seed": 89,
+      "copy": 3,
+      "checkpoint": "/workspace/work/t45_weights/2nd_argmax_8_3_1073741824_2.pth",
+      "checkpoint_sha256": "e6b87e3b500c4889150a8cc877efe7609dcc90b4a9adc35f372fbedf1dde633d",
+      "recipe": 0.9654673957873317,
+      "float_reimplementation": 0.9654673957873317,
+      "original_wrapped": 0.9654674587938789,
+      "original_count": 330161,
+      "equality_repaired": 0.9654673957873317,
+      "equality_repaired_count": 326667,
+      "saved": {
+        "zoo": 2,
+        "charge": 160564,
+        "auto": 330161,
+        "diff": 6.300654720181598e-08
+      }
+    },
+    {
+      "H": 4,
+      "zoo": 1,
+      "noise_seed": 89,
+      "copy": 2,
+      "checkpoint": "/workspace/work/t114_checkpoints/2nd_argmax_4_3_1073741824_1.pth",
+      "checkpoint_sha256": "540ca26c0dbaa681453e3c437c2e321a4fe0c97f4a9ccdf8703bd98b9cd0ca56",
+      "recipe": 0.7560352941513306,
+      "float_reimplementation": 0.7560352941513315,
+      "original_wrapped": 0.7560352941513317,
+      "original_count": 137720,
+      "equality_repaired": 0.7560352941513317,
+      "equality_repaired_count": 137268,
+      "saved": {
+        "zoo": 1,
+        "charge": 70471,
+        "auto": 137720,
+        "diff": 1.1102230246251565e-15
+      }
+    }
+  ],
+  "reused_diagnostics_status": "Saved T113 diagnostics only; do not repeat frozen variant merely to recover provenance",
+  "new_numerical_calls": 0
+}
