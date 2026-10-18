@@ -7,9 +7,13 @@ Can the existing evidence be reported without selecting the best budget, confusi
 `manifest.json` pins fourteen source/data snapshots including the raw archive before the arc_cumulants classification addition. `audit.py` imports no author code. It checks five determinism metadata cases and an exact cost-covariance counterexample, inventories saved raw flags/history, exports every archived H16T10 row unchanged with separately labeled current DRI classification, and contracts the existing E44/T114 records with exact rational arithmetic. It does not regenerate bootstrap intervals or time methods. `PATCH_PROPOSAL.md` is an adoption proposal; the shared harness remains DRI-owned.
 
 ## Status
-Source frozen; execution awaits independent gate. No estimator, forward, truth, Monte Carlo, geometry, or native-cost calls are authorized in this phase.
+Fixed saved audit complete after independently published source gate ee41dae8. Results await independent saved verification; shared adoption remains DRI-only. No estimator, forward, truth, Monte Carlo, geometry, or native-cost calls occurred.
 
 ## Results
+
+The one gated run `cb980799` completed in0.699786896CPU seconds. All498 unique archived budget/group/method rows retain every original field;50 inherited intervals are degenerate, no negative ratios occur. Both raw snapshots have7,896 conflicting overwritten records, all explicitly inventoried under the original latest-key policy. All2,880 selected arc_cumulants records are identical to the pre-class snapshot and have legacy False; current DRI class is mechanistic, prior source class unreviewed. This establishes archival precedence, not runtime provenance or a fresh determinism pass.
+
+Exact saved-float contractions reproduce E44 .5883302365250083 (1024copies, mean proxy/72, archivedCI[.5129496132,.6614431228]) and T114 .7651127844230149 (256copies, own scalar/112, archivedCI[.5802543086,.9540812837]). On the T114 panel alone, uniform mean-cost scoring gives .7670187955711592, showing that allocation convention alone is small on this particular panel; cost-count and noise-panel differences remain distinct. Five metadata controls and the rational covariance control pass. The latter has identical errors/truths/mean cost but ratios1/10 versus3/26 under swapped cost vectors, versus1/7 uniform: E44 missing per-copy costs cannot be uniquely reconstructed.
 Source findings: current `table()` and `report()` already iterate all budgets, while `results/leaderboard_v3_summary.txt` displays one chosen budget per method/group. The summary generator is not present in the reviewed sources. `run()` initializes det=False for unreviewed/sampling methods and saves that same field when no test ran; `table()` subsequently demotes a current mechanistic/quadrature method if any historical record has False. Therefore False alone cannot distinguish absence of a test from a failed test.
 
 E44 k24 seed4 has 1,024 absolute-noise copies and mean-counter/72 uniform-budget scoring. T114 has 256 different copies (noise120/121), independent scalar counts/112 and own-model budgets. E44 saves truths/errors and only mean estimator cost; its per-copy cost/truth covariance is unavailable from these fields. Neither result should silently replace the other.
@@ -19,9 +23,10 @@ Reproduction, only after the independent source gate is pinned in gate.json:
 The script refuses to overwrite its first results artifact and preserves partial failures. A failure requires a documented repair/gate rather than deleting the artifact.
 
 ## Compute accounting
-Fourteen byte snapshots, source/JSON inspection and hash inventory only so far. Future audit is saved arithmetic under19/20CPU and2GB cap; no stochastic draws (including bootstrap), model evaluations or author imports. Archived CPU and precomputation figures are inherited evidence, not measured by this review. srb3.3/1.6 remains a hand-count multiplier, not instrumented here.
+Fourteen byte snapshots plus one saved arithmetic audit,0.699786896CPU under19/20CPU and2GiB cap; no stochastic draws (including bootstrap), model evaluations or author imports. Archived CPU and precomputation figures are inherited evidence, not measured by this review. srb3.3/1.6 remains a hand-count multiplier, not instrumented here.
 
 ## Claims
+- [measured] All498 exported rows preserve original fields;2,880 arc records exactly match the pre-class archive. No independent saved audit yet.
 - [inferred] Legacy False is ambiguous by the frozen run source. Explicit tested=False, tested-pass and tested-fail metadata would remove the ambiguity for future runs.
 - [inferred] Existing all-budget rows can be preserved without calling report(), whose timing helper would otherwise evaluate sampling models.
 - [inferred] Missing per-copy costs prevent a unique conversion of E44's uniform mean-cost ratio to T22's own-cost ratio; the frozen rational control tests this.
