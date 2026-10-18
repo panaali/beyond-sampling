@@ -57,6 +57,12 @@ def sum_into(dest,mm,n):
     dest[0]+=n*mm[0];dest[1]+=n*mm[1]
 def ratio(v,den): return [str(F(x,den)) for x in v]
 def cap(): assert time.process_time()-START<19,'19 CPU review cap'
+def save(out):
+    out['review_cpu']=time.process_time()-START
+    out['review_maxrss_kib']=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    temporary=HERE/'results.tmp'
+    temporary.write_text(json.dumps(out,indent=2,allow_nan=False)+'\n')
+    temporary.replace(HERE/'results.json')
 
 def run(out):
     scope=read(HERE/'scope.json');gate=read(HERE/'gate.json')
@@ -87,6 +93,7 @@ def run(out):
     for v in (p['pins'],ag['pins'],ar['pins']):pins(v)
     r=read(author/'output/results.json')
     assert r['complete'] is True and r['pass_all'] is True and r['rows']==20736 and len(r['chunks'])==81
+    assert set(r['gap_summaries'])=={'0','1/4','1/2','1'}
     assert r['protocol_sha256']==sha(author/'protocol.json') and r['gate_sha256']==sha(author/'gate.json')
     assert r['limits']==dict(cpu=[19,20],**{'as':[2*1024**3]*2})
     assert math.isfinite(r['cpu_seconds']) and r['cpu_seconds']>=0 and r['maxrss_kib']>0
@@ -160,6 +167,7 @@ def run(out):
                 elif outer:sum_into(z['boundary_box'],mm,12)
                 counts[str(g)][label]+=1
         out['checked_chunks'].append(dict(chunk=k,rows=256,original_sha256=sha(path),output_sha256=sha(dest)))
+        save(out)
         events.append(dict(stage='chunk_completed',chunk=k,rows=256*(k+1)))
     events.append(dict(stage='completed',rows=20736))
     assert [json.loads(s) for s in (author/'output/progress.jsonl').read_text().splitlines()]==events and len(events)==83
@@ -185,11 +193,10 @@ def run(out):
     cap();out.update(complete=True,pass_all=True,diagnostic_only=True,intended_campaign_passed=False,physical_gap_one_tested=False,rows=20736,gap_cases=82944,events=83,gap_summaries=summaries,raw_sums=sums,author_cpu=r['cpu_seconds'],author_maxrss_kib=r['maxrss_kib'],author_work_counts=r['work_counts'],input_pins=completed['pins'],zero_author_calls=True,limitation='Diagnostic contraction at physical gaps 0,1/8,1/4,1/2 only; original intended-gap protocol remains failed. Old probability intervals and affine margin enclosures remain premises; no recurrence, CDF, model, integration, RNG or author calls. Partial gap intersections remain unresolved. No full native cost or performance conclusion.')
 
 if __name__=='__main__':
-    result_path=HERE/'results.json';assert not result_path.exists(),'Preserve prior attempt'
+    result_path=HERE/'results.json';assert not result_path.exists() and not (HERE/'results.tmp').exists(),'Preserve prior attempt'
     result=dict(complete=False,pass_all=False)
-    result_path.write_text(json.dumps(result)+'\n')
+    save(result)
     try:run(result)
     except BaseException as e:result.update(complete=False,pass_all=False,error=repr(e),traceback=traceback.format_exc());raise
     finally:
-        result['review_cpu']=time.process_time()-START;result['review_maxrss_kib']=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        result_path.write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
+        save(result)
