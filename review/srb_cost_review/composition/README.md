@@ -7,7 +7,7 @@ Does the implemented quota/rejection/returned-charge composition preserve the st
 PROTOCOL.md freezes four deterministic API streams and unchanged extracted source. run.py observes return locals without modifying the mathematical statements; fixtures.json supplies all inputs. Protocol pins prior reviews, source, original-model advice and table bytes. A source/resource gate is required before execution.
 
 ## Status
-Completed one frozen run, raw4e5685df published49281e8c after independent source gatea8c1e552. All baseline/observed controls pass; independent saved audit byh4 pending. No automatic trained follow-up.
+Completed one frozen run, raw4e5685df published49281e8c after independent source gatea8c1e552. All baseline/observed controls pass; independent saved audit byh4 passes1f0aed36/shared08c33906. No automatic trained follow-up.
 
 ## Results
 See SUMMARY.md for four exact retained/drawn/charge rows. The same584 retained prefixes return raw charge993 whether the fixed stream requires50000 or100000 candidates. Original table and evaluator semantics remain unchanged.

@@ -1,6 +1,6 @@
 # Frozen SRB composition results
 
-The sole fixed run4e5685df completed after source gatea8c1e552; raw publication49281e8c. Independent saved audit remains pending. No new candidate calls were made for this summary.
+The sole fixed run4e5685df completed after source gatea8c1e552; raw publication49281e8c. Independent saved audit1f0aed36/shared08c33906 passes all four cases/eight arms, prototype and26 progress records in.100015065CPU without Q/estimator/RNG calls. No new candidate calls were made for this summary.
 
 | Control | Budget | n | Kept M | Drawn D | Raw charge | Harness charge hex |
 |---|---:|---:|---:|---:|---:|---|
