@@ -102,12 +102,21 @@ cell out of 12). The harness passes.
 | 256k | rel0.005 | 252 | [181, 298] | +1.174 | 1.308 | 258238 ✓ |
 | 256k | rel0.01 | 336 | [196, 468] | +1.479 | 1.627 | 258238 ✓ |
 
-**Bars (all four groups at one B; every run is cost-valid)**
-| method | 16k lenient / strict | 64k lenient / strict | 256k lenient / strict |
-|---|---|---|---|
-| control (sampling) | pass / fail | pass / fail | pass / fail |
-| v5q (inductive) | **pass** (max upper 3.18) / fail | **pass** (max upper 6.86) / fail | fail (3 groups > 10) / fail |
-| v5a (inductive) | fail (3 groups) / fail | fail / fail | fail / fail |
+**Bars (all four groups at one B; every run is cost-valid).** Strict bar as restated by the DRI (TASKS
+Directive 8, 2026-10-18): **strict** means the point R_g <= 1 in every group; **strict, significant** also needs the
+upper CI <= 1. The lenient bar is unchanged: upper CI <= 10 in every group.
+| method | B | lenient (upper <= 10) | strict (point R <= 1) | strict, significant (upper <= 1) |
+|---|---|---|---|---|
+| control (sampling) | 16k | pass | fail (clean 2.30, abs 1.16) | fail |
+| control (sampling) | 64k | pass | fail (clean 1.39, abs 1.09, rel.005 1.05) | fail |
+| control (sampling) | 256k | pass | fail (clean 1.59, abs 1.19, rel.005 1.24) | fail |
+| v5q (inductive) | 16k | **pass** (max upper 3.18) | fail (clean 1.72, rel.01 1.60) | fail |
+| v5q (inductive) | 64k | **pass** (max upper 6.86) | fail (all 4 groups 1.58–4.41) | fail |
+| v5q (inductive) | 256k | fail (3 groups > 10) | fail | fail |
+| v5a (inductive) | 16k / 64k / 256k | fail | fail | fail |
+
+Under the restated strict bar the control itself sits at R ≈ 1. It fails at each budget only by noise (the clean
+group has 6 models), so a method must be better than sampling to pass the strict bar reliably.
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
@@ -124,7 +133,9 @@ cell out of 12). The harness passes.
 - [measured] v5a fails the lenient bar at every B. It carries a +0.5 to +1.5 pp bias that does not shrink with B.
 - [measured] The harness control gives R ≈ 1 (0.83–2.30, every CI covers 1).
 - [measured] Truth-noise share of the sampling side: ≤ 0.26% (at 256k), so it is negligible.
-- [inferred] **The strict bar, as worded (upper CI ≤ 1), is not reachable even by plain sampling.** The control's
+- [measured] Under the restated strict bar (point R ≤ 1 in every group), no submission passes at any B.
+- [inferred] **The original strict bar (upper CI ≤ 1) was not reachable even by plain sampling.** (The DRI has since
+  restated it; it is kept here as "strict, significant".) The control's
   upper CIs are 1.12–5.78. With 6 clusters, a method exactly as good as sampling fails the strict bar in most groups,
   so a strict pass needs a ratio well below 1 (roughly < 0.3–0.5). The DRI may want to restate it, for example as
   point R ≤ 1, or as upper CI ≤ the control's upper CI.

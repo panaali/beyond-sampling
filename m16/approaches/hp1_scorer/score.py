@@ -128,12 +128,13 @@ def aggregate(name, label, path, func, budgets=BUDGETS):
         valid = all(r["cost_ok"] for r in res.values())
         out["budgets"][B] = dict(groups=res, valid=valid,
                                  lenient=valid and all(r["hi"] <= 10 for r in res.values()),
-                                 strict=valid and all(r["hi"] <= 1 for r in res.values()))
+                                 strict=valid and all(r["R"] <= 1 for r in res.values()),        # restated D8
+                                 strict_sig=valid and all(r["hi"] <= 1 for r in res.values()))
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
     json.dump(out, open(os.path.join(HERE, "results", f"{name}.json"), "w"), indent=1)
     print(f"\n{name} [{label}]  R [95% CI]  bias pp  rms pp  cost FPE(min)  SE^2 share")
     for B, d in out["budgets"].items():
-        print(f"B={B}: valid={d['valid']} lenient={d['lenient']} strict={d['strict']}")
+        print(f"B={B}: valid={d['valid']} lenient={d['lenient']} strict={d['strict']} strict_sig={d['strict_sig']}")
         for g, r in d["groups"].items():
             print(f"  {g:9s} {r['R']:8.3f} [{r['lo']:7.3f}, {r['hi']:7.3f}]  {r['bias_pp']:+.3f}  {r['rms_pp']:.3f}"
                   f"  {r['cost_min_fpe']:.0f} ok={r['cost_ok']}  {r['se2_share']:.4f}")
