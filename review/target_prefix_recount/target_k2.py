@@ -61,8 +61,14 @@ def main():
     p=json.loads(PROTOCOL.read_text());g=json.loads(GATE.read_text())
     assert g['clearance'] is True and g['protocol_sha256']==sha(PROTOCOL)
     for name,digest in {**p['pins'],**g['pins']}.items():assert sha(name)==digest,(name,'pin drift')
-    assert resource.getrlimit(resource.RLIMIT_CPU)[0]<=20
-    assert resource.getrlimit(resource.RLIMIT_AS)[0]<=2147483648
+    assert p['requires_independent_control_saved_review'] is True
+    prior_review=g['control_saved_review']
+    assert len(prior_review['commit'])>=8 and all(c in '0123456789abcdef' for c in prior_review['commit'])
+    assert g['pins'][prior_review['path']]==prior_review['sha256']==sha(prior_review['path'])
+    review=json.loads(Path(prior_review['path']).read_text())
+    assert review['complete'] is True and review['pass_all'] is True
+    assert 0<resource.getrlimit(resource.RLIMIT_CPU)[0]<=20
+    assert 0<resource.getrlimit(resource.RLIMIT_AS)[0]<=2147483648
     start=time.process_time();result=dict(status='running',protocol_sha256=sha(PROTOCOL),gate=g,
         model_calls=0,mass_calls=0,random_calls=0,checkpoint_decodes=0,
         resource_limits=dict(cpu=resource.getrlimit(resource.RLIMIT_CPU),address_space=resource.getrlimit(resource.RLIMIT_AS)))
