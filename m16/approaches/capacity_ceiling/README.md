@@ -57,6 +57,22 @@ evaluate.py from the saved weights).
 | trainer.py seed 4 | 0.94193 | 0.00613 | 0.03501 | 0.01452 | 0.00242 |
 All inside the zoo seed spread (0.880-0.949; M_16,10 0.95312). 5 seeds batched in one process: 1847 s on a T4.
 
+**Speed and the fused kernel** [measured]: profiling found 90% of each step in one cuBLAS weight-gradient GEMM (16x16
+output, batch-long reduction on one tile); a split-K backward (`trainer.RecMM`, grads equal to autograd within 6e-16 in
+float64) gave 61 -> 2.4 ms/step (12 models x batch 8192) and 9.4 -> 0.8 ms/step (12 x 1024) on an A100.
+`fused.py` (Triton; one program per model, in-kernel Philox data, labels, forward, BPTT, AdamW + zoo schedule, N steps
+per launch, per-model batch and hard-case mixture): vs autograd on identical inputs 1.3e-6 after 6 steps (B 1024),
+7.3e-6 after 5 (B 2048); in-kernel data P(<= 1 positive) .01069 vs 11/1024 (z -0.56, n 1.2e6), labels exact;
+one launch of 2000 steps bit-identical to 2000 launches. Uncontended A100: 0.635 ms/step at 108 models
+(0.0059 ms/model-step), linear beyond. **40-vs-40 validation** (2^30, seeds 0-39, same inits): fused mean .9189
+(sd .033) vs trainer.py .9214 (sd .030), Welch t -0.35, KS D .150 < .304: indistinguishable; same-seed outcomes
+correlate only 0.11 (seed spread ~3 pp is data-order/rounding chaos, not init). Codex T261 `tiled_step.py` (copy:
+`codex_tiled_step.py`): torch vs fused 4.7e-7, torch vs Codex 1.7e-7, fused vs Codex 5.1e-7 after 3 steps;
+Codex 1.05 ms/step at 108 models (mildly contended). Logs: `results/cmp_*.log`, `results/codex_crosscheck.log`.
+
+**H = 16, T = 2..10 table** (`results/ht_table.json`, 1e8 samples per model; T = 7, 9 trained with unchanged zoo code):
+mean accuracy .99991, .99945, .99780, .99022, .97998, .97648, .96676, .96726, .91211 for T = 2..10.
+
 ## Compute accounting
 (pending) Colab units per stage; wall time per run.
 
