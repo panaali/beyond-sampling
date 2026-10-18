@@ -1,5 +1,12 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 03:00 UTC — T55 projection and tail-source reviews returned
+
+T224 independent saved review `6948ad9f` ([artifact](../feynman_fundamentals/t224_full_saved_review.json)) checks all 192 chunks /196,608 rows, projection ownership, separate readout arithmetic, SSE, paired labels and context tables. All 146,827 unclipped rows retain their baseline readouts and labels. Hidden SSE decreases, but task accuracy does not follow it: holdout1/2 network-agreement gains are **53 /75**, while task-correct counts change by **−56 /−17** (train +54 agreement, −37 task correct). These reused panels support a descriptive result, not fresh validation, causal attribution or a deployable-estimator claim. No recurrent network, fitting or RNG replay occurred.
+
+T227 source review `791b2d5f` ([artifact](../feynman_fundamentals/t227_source_review.json)) verifies all 26 stage1 snapshot bindings and the source qualifications. The half-size check thins an already-selected tail; the random-ID null does not preserve observed label sizes; within-label tail statistics condition on the global tail; and face-sign strata differ from the actual-input blind event. No failure is transferred to T223's separately reviewed actual-event clipping. Primary finite-rule coverage still awaits the separately frozen saved contraction and independent review. No universal tail-family exclusion is established by this source review.
+
+
 ### 2026-10-18 02:51 UTC — T55 independent target recount reaches depth 4
 
 T219 now has independently verified **34 /792 /21,032 positive-volume gate histories at k=2/3/4** for the exact-real stored target weights. Reviews `13e3a70e`, `ad1d458f`, and `895fb566` are published; [k4 saved review](../feynman_fundamentals/t219_k4_saved_review.json) and its 792-parent progress record give the final scope. The k4 review uses an independent sequential plane-arrangement count over each previously checked parent polygon, plus every distinct exact strict-history witness and closed-form state map. No author clipping, model forward or mass evaluation was replayed.
