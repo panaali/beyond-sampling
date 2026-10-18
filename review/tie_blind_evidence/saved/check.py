@@ -22,8 +22,21 @@ def alarm(*_):raise TimeoutError('19 CPU-second independent audit limit')
 def main():
     p=json.loads((HERE/'protocol.json').read_text());g=json.loads((HERE/'gate.json').read_text())
     assert g.get('status')=='passed', 'Independent gate not bound'
+    assert isinstance(g.get('review_publication'),str) and g['review_publication'].strip()
+    assert isinstance(g.get('source_review'),str) and g['source_review'].strip()
+    review_path=pathlib.Path(g['source_review']).resolve()
+    assert review_path==pathlib.Path(p['source_review_path']).resolve()
+    pin_paths=[pathlib.Path(item['path']).resolve() for item in g['pins']]
+    assert len(pin_paths)==len(set(pin_paths))
+    mandatory={(HERE/'check.py').resolve(),(HERE/'protocol.json').resolve(),(ROOT/'manifest.json').resolve(),(ROOT/'SOURCE_FINDINGS.md').resolve(),review_path}
+    assert mandatory.issubset(set(pin_paths)), 'Incomplete execution gate pins'
     for item in g['pins']:
         path=pathlib.Path(item['path']);assert sha(path)==item['sha256']
+    review=json.loads(review_path.read_text())
+    assert review.get('status')=='passed' and review.get('source_review_complete') is True
+    assert isinstance(review.get('pins'),dict) and review['pins']
+    assert (mandatory-{review_path}).issubset({pathlib.Path(x).resolve() for x in review['pins']})
+    for path,digest in review['pins'].items():assert sha(pathlib.Path(path))==digest
     assert sha(HERE/'check.py')==p['checker_sha256'];assert sha(ROOT/'manifest.json')==p['manifest_sha256']
     manifest=json.loads((ROOT/'manifest.json').read_text());assert manifest['author_commit']==p['author_commit']
     for row in manifest['files']:
