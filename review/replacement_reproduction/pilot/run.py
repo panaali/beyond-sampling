@@ -122,7 +122,10 @@ def main():
   assert r['calls']['forward']==r['returns']['forward']==7 and r['forward_vectors']==7168 and r['calls']['normal_draw']==r['returns']['normal_draw']==3 and r['normal_values']==61440
   assert r['linear_attempts']==r['linear_returns']==sum(1+m['cells'] for m in r['models'])
   assert r['calls']==r['returns'] and r['calls']['archive']==168 and r['calls']['npz_load']==4 and r['calls']['scores']==12 and r['calls']['metrics']==6 and r['calls']['assemble']==6 and r['calls']['select']==1;r['qualification']='Fixed small resource pilot only, new coefficients/validation choices; no historical full reproduction, uncertainty/calibration or ARC cost claim.'
-  event('completed');assert r['events']==48;r['complete']=r['pass_all']=True;save()
+  event('completed');assert r['events']==48
+  r['solve_progress_sha256']=sha(OUT/'solve_progress.jsonl');r['active_final_hashes']={n:sha(OUT/n) for n in ['active_system.npz','active_solution.npz']}
+  r['solve_progress_rows']=sum(1 for _ in (OUT/'solve_progress.jsonl').open());assert r['solve_progress_rows']==2*r['linear_returns']
+  r['complete']=r['pass_all']=True;save()
  except BaseException:
   r.update(complete=False,pass_all=False,failure=traceback.format_exc());save();raise
 if __name__=='__main__':main()
