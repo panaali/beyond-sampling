@@ -558,3 +558,23 @@ Declared error d = est − est_T317e, per model.
   - if C1's saving carries over, C ≈ 3.5-4.5k at RMS ≈ .67-.70 would give lenient F ≈ 2.4-3.
 
 Forking paths: 5 variants on DEV2. The negative needs no selection correction.
+
+## T330b pre-registration (DRI; 2026-10-18, before any T330b run): rigorous screen with per-gate-pattern norms
+Tier B v2 (`screen_c`) plus three changes, all sound:
+1. **Fixed-off fix:** a gate proven off over the window has dh = 0 = dh*, so its deviation is 0. v2 used ez there,
+   which was sound but loose. v1 had it right.
+2. **Norm track:** ν_s >= ||δdh_s||₂ over the window, with
+   ν_s = min(||e_s||₂, ‖Wh[N_s, A_{s-1}]‖ · ν_{s-1} + ||dz*_s[F_s]||₂ + ...), where:
+   - A_{s-1} is the set of non-fixed-off neurons at s−1 (δdh is 0 elsewhere);
+   - N_s = fixed-on ∪ free at s;
+   - F_s are the free gates;
+   - ‖·‖ is the smaller of the Frobenius norm of that sub-matrix (from the precomputed Wh∘Wh, one H² matvec) and the
+     global σ_max(Wh) (once per model).
+3. **Per-neuron bound:** |δdz_s,i| <= min((|Wh| e_{s-1})_i, ‖Wh[i, A_{s-1}]‖₂ · ν_{s-1}). The row norms come from the
+   same Wh∘Wh matvec.
+
+All the extra work is charged: 2 more H² matvecs per step once the deviation is non-zero, plus H per step. Tried at
+every flip, and with the cheapest tier-B schedule (Δ <= .05, once per row).
+
+**Go (same as T330):** max |est − T317e| <= 1e-4 pp on all 80 DEV2 at C <= 3.0k FPE as executed.
+**Stop:** if, on 4 models, it fires no earlier than v2 (same or fewer later cells skipped), report without the full run.
