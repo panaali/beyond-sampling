@@ -1,0 +1,25 @@
+{
+  "bits":80,
+  "valid":[
+    {"name":"empty","e":[],"c":[],"O":"1","Q":"1","optimum":"0"},
+    {"name":"single_half","e":["1"],"c":["1"],"O":"2","Q":"3/8","optimum":"1/2"},
+    {"name":"full_equality","e":["1"],"c":["1"],"O":"2","Q":"1","optimum":"1"},
+    {"name":"zero_errors","e":["0","0"],"c":["1","2"],"O":"4","Q":"1","optimum":"3"},
+    {"name":"zero_cost_error","e":["2","1"],"c":["0","1"],"O":"2","Q":"3/8","optimum":"1/2"},
+    {"name":"ratio_tie","e":["1","2"],"c":["1","2"],"O":"4","Q":"3","optimum":"1"},
+    {"name":"unequal_cost","e":["1/10","1/5"],"c":["1","100"],"O":"102","Q":"2/25","optimum":"100","expected_method_saved":{"error_fixed":"0","error_self":"0","ratio_self":"100"}},
+    {"name":"nonmonotone","e":["9"],"c":["9"],"O":"10","Q":"100","optimum":"9","probe":{"saved":"5","error":"5","feasible":false}},
+    {"name":"no_removable_cost","e":["2"],"c":["0"],"O":"1","Q":"1","optimum":"0"},
+    {"name":"free_error_prefix","e":["0","1"],"c":["2","1"],"O":"4","Q":"3/8","optimum":"5/2"},
+    {"name":"scaled_error","e":["2"],"c":["1"],"O":"2","Q":"3/2","optimum":"1/2"},
+    {"name":"scaled_cost","e":["1"],"c":["2"],"O":"3","Q":"1/2","optimum":"1"}
+  ],
+  "guards":[
+    {"name":"negative_error","e":["-1"],"c":["1"],"O":"2","Q":"1"},
+    {"name":"negative_cost","e":["1"],"c":["-1"],"O":"2","Q":"1"},
+    {"name":"zero_fixed_cost","e":["1"],"c":["1"],"O":"1","Q":"1"},
+    {"name":"zero_threshold","e":["1"],"c":["1"],"O":"2","Q":"0"},
+    {"name":"nonfinite_rational","e":["NaN"],"c":["1"],"O":"2","Q":"1"},
+    {"name":"length_mismatch","e":["1","2"],"c":["1"],"O":"2","Q":"1"}
+  ]
+}
