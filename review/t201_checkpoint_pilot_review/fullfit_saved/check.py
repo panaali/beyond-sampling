@@ -11,7 +11,7 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def bh(a):return hashlib.sha256(a.tobytes()).hexdigest()
 def close(a,b,rtol=1e-10,floor=1e-12):assert abs(a-b)<=rtol*max(abs(a),abs(b),floor),(a,b)
 def load(meta):
-    path=Path(meta['path']);assert sha(path)==meta['sha256']
+    path=Path(meta['path']);assert path.parent==A/'fullfit';assert sha(path)==meta['sha256']
     with np.load(path,allow_pickle=False) as z:
         assert set(z.files)==set(meta['arrays']);arr={k:z[k].copy() for k in z.files}
     for k,v in arr.items():assert meta['arrays'][k]==dict(shape=list(v.shape),dtype=str(v.dtype),bytes_sha256=bh(v))
@@ -83,6 +83,7 @@ def check():
     p=read(A/'FULLFIT_PROTOCOL.json');gate=read(A/'fullfit_gate.json');d=read(A/'fullfit/results.json');pilot=read(A/'pilot/results.json')
     assert d['complete'] and gate['complete'] and d['protocol_sha256']==gate['protocol_sha256']==sha(A/'FULLFIT_PROTOCOL.json') and d['gate_sha256']==sha(A/'fullfit_gate.json')
     for path,h in {**p['pins'],**gate['pins']}.items():assert sha(path)==h,path
+    assert set(d['panels'])=={'train','holdout1','holdout2'}
     assert d['scope']==p['scope'] and d['runtime_versions']==dict(numpy=p['numpy_version'],scipy=p['scipy_version'],python=p['python_version'])
     assert p['seeds']==read(A/'PILOT_PROTOCOL.json')['seeds'] and len(set(p['seeds'].values()))==3
     coef=load(d['lookup_coefficients'])['coefficients'];q=load(d['separable_coefficients'])['coefficients']
@@ -138,6 +139,7 @@ def check():
         ties={key:int((np.sort(value,axis=1)[:,-1]==np.sort(value,axis=1)[:,-2]).sum()) for key,value in [('network',logits),('lookup',ll),('separable_case2',sl)]};assert ties==score['output_ties']
         wrong=network!=s['true'];blind=int((wrong&(s['positive_bin']<2)).sum());rank=1+(x>x[np.arange(len(x)),network,None]).sum(axis=1);third=int((wrong&(s['positive_bin']==2)&(s['case']<2)&(rank==3)).sum());errors=int(wrong.sum())
         assert score['disjoint_network_error_decomposition']==dict(total_errors=errors,blind_K_le_1_errors=blind,nonblind_case01_global_third_errors=third,other_nonblind_errors=errors-blind-third,denominator=65536)
+        assert len(score['blind_conditional_errors'])==2
         for k,row in enumerate(score['blind_conditional_errors']):
             at=s['positive_bin']==k;n=int(at.sum());e=int(wrong[at].sum());assert row['K']==k and row['n']==n and row['errors']==e and row['error_rate']==(e/n if n else None)
             if held:beta_count+=cp(row['interval'],e,n)
