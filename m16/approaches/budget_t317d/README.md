@@ -297,3 +297,19 @@ It replaces B2's 3-model census, which I stopped before it printed anything.
   conventions with J2 in place of product + transverse; (b) no cut and blind walked (Addendum A's J2: .526).
 - **Strict arithmetic (DRI):** at the closure-c floor, strict needs C <= ~3.45k FPE all-in. If J2's extra cells exceed
   ~1.2k FPE beyond C1's 3.3k, strict is out of reach for closure c by arithmetic.
+
+### Addendum B3 (DRI 12:51/12:52): where the product's overstatement lives, and a corner-only fix. Pre-registered 2026-10-18 before looking.
+- **Data:** the same 10 models and budget.py's paired 2e5 inputs, in V1's convention (tmax cut, blind rule). The
+  closure is the mean-point closure c (node v4, linearised lows on line 23), **not** T339's spread-lows closure. The
+  geometry of the product error may differ under spread lows.
+- **Product error per input:** D = P1 - J1 (one anchor), and also D2 = P2 - J2 (half anchors). Over = (D > 0) mass,
+  under = (D < 0) mass, net = their difference, all as pp of all inputs.
+- **Location:** by the input's own gaps. Delta grid {.025, .05, .1, .2, .5}. For each delta, the share of over / net mass
+  in the corner (g12 < delta and g23 < delta), and in the L-band (min(g12, g23) < delta).
+- **Model dependence:** per model, the over and net mass against 1 - p (truth), as an OLS slope and correlation. Is it
+  near-constant or does it scale?
+- **Corner fix:** C_delta = J1 inside the corner, P1 elsewhere (and the J2/P2 analogue). Bias removed = mean(P1 - C_delta)
+  in pp. Cost = the cells of the joint set inside the corner [0, delta]^2 per triple and nb anchor (blind region: the
+  product does not apply, since g12 is assumed correct), by the B2' census rule on a 50 x 50 grid over the corner,
+  priced at 0.54 FPE per cell beyond the first (the first cell is already paid by the lines).
+  - **Go:** some delta removes >= .25 pp of bias at <= +600 FPE.
