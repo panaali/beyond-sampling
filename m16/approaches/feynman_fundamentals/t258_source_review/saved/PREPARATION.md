@@ -1,0 +1,11 @@
+# T258 independent saved-summary audit preparation
+
+Assignment66bc9df5 accepted. Preparation reads producer source/protocol only; it has not decoded retained numerical records or producer results. Written review e0dee476 remains separate. Four retained JSON files and three logs are the source inventory; no archive, model, owner module, fitting, RNG or new inputs are permitted.
+
+Independent arithmetic will use the integer lattice: for a finite saved probability p and declared n<=10^6, test the few integers around exact floor(n*Fraction(p)) by correctly rounded Fraction(k,n). The product-rounding error under the stated division model is much less than one integer, so uniqueness can be established locally without the producer's adjacent-float midpoint construction. Compare the resulting unique count with every producer candidate/count and preserve any mismatch. This is compatibility conditional on the mean-division model, not recovered original predictions or authenticated runtime.
+
+Rebuild validation argmax with explicit first-index ties; verify evaluation-selected ordering independently from single-neuron metrics. Rebuild the five disjoint outcome counts and derive agreement, accuracy, paired gain and variance, case/near/far totals, all binned support/error/disagreement totals and rank histograms from source records. Check every reported count binding and producer result/progress coverage. Pairwise gain variance remains an algebraic diagnostic, with no new CI or seed-level inference. All16/final-step equality is retained-summary consistency, not raw-label equality.
+
+Validate publication/gate/input hashes and actual recorded resource limits before contracting. Any source repair or successful/failing producer outcome is retained and pinned separately. Freeze reviewer code and bounded resource protocol before its sole execution, then request independent source clearance. No execution follows merely from this preparation note.
+
+No score contraction has occurred. Missing coefficient/evaluation archives and independent-seed reproduction remain open. Printed log metrics and timings are outside arithmetic validation except the declared ten fit-step markers; v1 scores remain outside the producer's sample-dimension-only scope.
