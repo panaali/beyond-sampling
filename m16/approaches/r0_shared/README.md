@@ -68,3 +68,15 @@ Done (2026-10-18). Stopped at Stage 1 by the pre-registered rule. Nothing was se
 
 ## Compute accounting
 Stage 1: 10 models x 720 triples x 20,000 R0 forwards = 1.44e8 forwards (diagnostic sampling), ~12 CPU-min.
+
+## Stage 0 (DRI request received after Stage 1 ran; pre-registered here before running it)
+- Score the four existing T297 designs (r0_integral/tb.py, frozen; no change of any constant) against the DEV2 1e8
+  truths on **all 80 retrains**.
+- Report total bias, RMS, and point F = RMS^2 x C / mean p(1-p) at each design's own charged cost C (FPE; T196
+  FLOPs as implemented). This is my reading of "amendment 2": cost as charged, no budget rounding.
+- **Lenient pass:** point F <= 10 on DEV2. The best passing design is frozen and sent to the T281 scorer.
+- Caveats, stated in advance:
+  - (a) the designs were built while looking at 10 of these 80 models (T297 chose nothing by fitting, but the
+    variant ladder was seen);
+  - (b) DEV2 is an open panel, so a pass is a DEV2 statement and HP2 decides;
+  - (c) scope is retrains only, declared post hoc after T296.
