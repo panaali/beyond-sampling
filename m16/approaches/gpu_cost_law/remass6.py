@@ -59,7 +59,7 @@ def fixed(item):
 
 def main(f, workers=11, device="cuda"):
     pos = np.load(f)["positions"].tolist(); roots = np.load(os.path.join(Q.OUT, "roots.npz"))["mass"]
-    model, front = Q.front_list(workers); t0 = time.time()
+    model, front = Q.front_list(11); t0 = time.time()   # 11 = prefix6's run: the front (and positions) depend on it
     acc = {}; cells = 0; rec = []; redo = []
     with mp.get_context("fork").Pool(workers, P._init, (model, Q.K, True)) as pool:
         for p, (n, (hists, Rs, Is), o, s, sec) in zip(pos, pool.imap(P._dfs, [front[i] for i in pos], chunksize=1)):
