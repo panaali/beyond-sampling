@@ -9,3 +9,6 @@ Before the sole baseline run: completed source/resource review must bind run.py,
 T252 is a blocked partial-box integration alternative. The frozen whole-box baseline intentionally leaves partial gap intersections unresolved; within identical-bin coordinates, conditional1/m exchangeability survives E_g but requires the intersection mass. No T252 implementation or evaluation has occurred.
 
 Research branch is scoped to owned files; shared publication uses the fresh integration worktree and normal nonforce pushes. Claude remains DRI. User-authorized exports are permitted, while independent scientific/resource gates remain required.
+
+## Superseding unit failure
+Baseline run6327896d/sharedfd836ae3 completed but its intended physical-gap protocol failed: inherited v=2x was treated asx. See saved_baseline/UNIT_FAILURE.md; independent305ee62f and source-review correction1f94f0cb. Do not rerun or overwrite. New diagnostic-only saved scope must retain original and actual{0,1/8,1/4,1/2} labels; physicalgap1 remains untested. T256 registered as blocked exact affine-range alternative; no implementation yet.
