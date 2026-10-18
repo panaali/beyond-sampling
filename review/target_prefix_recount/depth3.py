@@ -35,6 +35,8 @@ def main():
     assert not OUT.exists(),'one frozen attempt; existing partial results prohibit restart'
     p=json.loads(PROTOCOL.read_text());g=json.loads(GATE.read_text())
     assert g['clearance'] is True and g['protocol_sha256']==sha(PROTOCOL)
+    assert p['requires_k2_saved_review'] is True and p['parents']==list(range(34))
+    assert p['input_depth']==2 and p['output_depth']==3
     for name,digest in {**p['pins'],**g['pins']}.items():assert sha(name)==digest,(name,'source/input drift')
     review=g['k2_saved_review'];assert len(review['commit'])>=8 and all(c in '0123456789abcdef' for c in review['commit'])
     assert g['pins'][review['path']]==review['sha256']==sha(review['path'])
