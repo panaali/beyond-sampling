@@ -169,6 +169,9 @@ noisy copies and ground truth.
    errors live at near-ties of the top order statistics and in the blind region. Those are properties of
    the input, so stratum probabilities are model-free and exact, and the estimate is unbiased for any weights.
    Evaluations go where errors are (Neyman allocation from a pilot on the original model only).
+   **[Corrected 2026-10-18, T263]** "Errors live at near-ties" is most, not all, of the error. Per input (T269), 14% of the
+   target's error lies at gap >= .05 outside the blind region, and 19-63% on the zoo seeds and noisy copies
+   ([SCALING_OBSTRUCTIONS](SCALING_OBSTRUCTIONS.md) §5).
 
 | sigma | compute-adjusted MSE gain over sampling (budgets 1k / 4k / 16k / 64k) |
 |---|---|
