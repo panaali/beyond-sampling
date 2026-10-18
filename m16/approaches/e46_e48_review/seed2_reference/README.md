@@ -91,3 +91,39 @@ execution clearance. pilot.py now explicitly refuses execution until a separate
 export_gate_clearance is recorded. No pilot mass evaluations occurred. Local
 integration preparation and read-only review can continue; user/DRI coordination
 must resolve the authorization conflict.
+
+## Authorization and publication gate resolved,2026-10-18
+
+The user explicitly authorized submitting/pushing our research and reviews. Root
+published the prepared evidence at68d6232d; c8fff4dd/ea2ef84d and original source
+commits are reachable. All22 pinned shared source/review files match exactly;
+published_prerequisites.json records hashes. TASKS-only reclaim896380bd was
+pushed after a routine concurrent-update rebase. The current pilot code differs
+from scientifically reviewedbb7500c2 only by its extra export assertion. The
+prior blocked status and reviewer record remain preserved. One frozen pilot is
+now cleared under the unchanged scientific/resource limits; no full replay or
+new variant is implied.
+
+## Fixed64 result; independent saved review pending
+
+One unchanged attempt completed all64 cases:28 center intervals and36 center
+quadratures, no exact-rescue calls or unresolved cases. Every64 exact KKT
+certificate passed the independently assembled Gram/slack/objective and24-term
+determinant checks before the first numerical evaluation. All258 progress
+records retained. Candidate-versus-fixedGL32 maximum absolute discrepancy is
+3.7252495241824287e-13; L1 difference1.8069174458088476e-12, against candidate
+conditional bound sum1.7869980547882853e-11. All reference bounds meet the same
+per-cone target; largest reference bound1.4428071158872105e-20. These remain
+conditional real-quadrature bounds, excluding source floating arithmetic and
+geometry. The selected cone probability sum is not a full-model accuracy.
+
+Pilot0.955960035CPU, total process1.101479766CPU, peak55992KiB. Exact certificate
+construction0.091443620CPU and independent validation0.155765521CPU are included;
+largest construction numerator804bits. Candidate known floating subset246787
+units includes4842 positive-rule setup units. Verification-only GL32 kernel
+81788992 units plus589920 rule setup and3 universal constant operations are
+separate, as are all exact/MP/native/integer/control/library internals. The saved
+reference setup CPU reports zero at timer resolution; it is not free work.
+No inference about full-corpus cost, accuracy, branch coverage or the300-unit
+primitive target follows. Full replay requires independent saved review and a
+separately published frozen phase; do not rerun this pilot.
