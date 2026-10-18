@@ -87,6 +87,8 @@ precisely as testing it on random examples does for the same effort.
 
 **16:20:** the smarter sampler (T362) was unbiased but only 1.2-4.7x better than plain random testing (needed 10x). The 'both gaps large' rare mistakes are underestimated because the simplified treatment of the smaller inputs erases their error islands (T363); spreading those inputs over a few patterns helped (9 -> 20 of 32 cases within 2x) but not enough (T365); a full fix would cost 10-100x more. The deep-rarity test (T364: chances around 1 in a billion, where random testing at our cost sees nothing) is pre-registered and being scored. The GPU census (T348) shows the effective number of network states growing ever more slowly per step (x5.1 down to x3.2); the decisive error-only counts are pending.
 
+**17:20:** the deep-rarity tests: T364 failed on the main network and one other (their deepest mistakes sit in thin three-way near-tie slivers), but a sealed fresh test (T366) passed 8/8 within 2x, and across the fresh networks the estimates are within 1.3x on 10/10 cases from 2 in 10 billion to 7 in 10 million, where random testing at the same cost expects 0.005 to 1 events. A fix for the near-tie slivers is being tested fairly (T367); an independent re-run with different code is set (T368). The GPU census (T348): error patterns grow ~4-6x per step, too fast to revive exact counting for rare events. The final exact count at 6 steps (T270): 19.7M regions.
+
 **4. Rare failures: the owner's priority (ARC's long-term goal).**
 - ARC ultimately wants to estimate the chance of rare bad behaviour. Random testing cannot see a one-in-a-million
   event with a few thousand tries, but a calculation's cost does not depend on how rare the event is.
