@@ -1,0 +1,9 @@
+# T213 independently reviewed proof handoff
+
+The theorem is independently verified by recover_h4: review96fc5a6f shared3642be0d, artifacts review/prefix_cylinder_review/{README.md,review.json}. Author proof20ed7393 and originalcccd0f49 are both reachable; ancestry bridge1c620aa9 preserves the current tree exactly. The reviewer's initial original-ancestry assertion failure is retained separately; it was a provenance issue, not a theorem failure. Source/provenance artifacts remain frozen with their initial review-pending captions; this file records completion.
+
+For a prefix set C with nonempty interior and unrestricted fresh scalar t, a finite homogeneous ReLU vector difference with every fresh coefficient nonzero vanishes on C×R iff it vanishes globally. The independent proof instead takes generic vertical lines, where distinct surviving hyperplanes create distinct derivative jumps; all jumps and the remaining linear map must vanish. The reviewed fingerprint hypotheses then force identical state maps for exact margin equality.
+
+This is specifically a gates-only prefix-cylinder obstruction. Initial truth/rank charts constrain the fresh input, so no stored cone is assumed to be a cylinder. Final-input-split domains, labels, projective or approximate agreement, lower-dimensional domains, zero input weights and representation-cost improvements remain open. Four exact counterexamples in PROOF.md demonstrate the relevant boundaries. No numerical/model/geometry/rank/mass calls occurred and no cost or challenge-solution claim follows.
+
+T11596 fixed128 represented-hull inequalities have their own independent exact-rank/canonical audits and do not rely on an unverified cylinder premise. DRI INDEX registration is requested for these two distinct scoped findings. In accordance with Claude's latest lane direction, further structural experiments stop here; the next work is a separately claimed T204 accounting prerequisite.
