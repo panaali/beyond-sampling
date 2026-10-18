@@ -13,9 +13,13 @@ HERE = os.path.dirname(os.path.abspath(__file__)); D = os.path.join(HERE, "resul
 roots = np.load(os.path.join(D, "roots.npz")); rm = roots["mass"]
 files = sorted(glob.glob(os.path.join(D, "shard*_chunk*.npz")))
 ka, kb, m, pos, cells, leaf = [], [], [], [], 0, 0.0; Dc = {}
+nfix = 0
 for f in files:
+    rf = os.path.join(D, "remass_" + os.path.basename(f))          # remass6.py repair of this chunk, if present
+    if os.path.exists(rf):
+        f = rf; nfix += 1
     z = np.load(f); ka.append(z["key_a"]); kb.append(z["key_b"]); m.append(z["mass"]); pos.append(z["positions"])
-    cells += int(z["cells"]); leaf += float(z["leaf"]); Dc[os.path.basename(f)] = float(rm[z["positions"]].sum() - z["leaf"])
+    cells += int(z["cells"]); leaf += float(z["leaf"]); Dc[os.path.basename(f).replace("remass_", "")] = float(rm[z["positions"]].sum() - z["leaf"])
 ka, kb, m = np.concatenate(ka), np.concatenate(kb), np.concatenate(m); done = np.concatenate(pos)
 o = np.lexsort((ka, kb)); ka, kb, m = ka[o], kb[o], m[o]
 new = np.r_[True, (ka[1:] != ka[:-1]) | (kb[1:] != kb[:-1])]
@@ -24,7 +28,7 @@ mask = np.ones(len(rm), bool); mask[done] = False; U = float(rm[mask].sum())
 Ddef = float(sum(abs(v) for v in Dc.values()))           # |.|: conservative for tiny negative rounding
 m5 = np.sort(np.load(os.path.join(HERE, "results", "prefix", "k5_regionmass.npz"))["mass"])[::-1]; c5 = np.cumsum(m5)
 out = dict(subtrees_done=int(len(done)), subtrees=int(len(rm)), cells=cells, regions_partial=int(len(reg)),
-           processed_mass=leaf, unprocessed_mass_U=U, deficit_D=Ddef,
+           processed_mass=leaf, unprocessed_mass_U=U, deficit_D=Ddef, chunks_remassed=nfix,
            worst_chunks=sorted(Dc.items(), key=lambda kv: -kv[1])[:10], roots_sum=float(rm.sum()), g={})
 for dl in (1e-5, 1e-6, 1e-7):
     n5 = int(np.searchsorted(c5, c5[-1] * (1 - dl)) + 1)
