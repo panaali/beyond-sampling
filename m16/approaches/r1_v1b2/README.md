@@ -22,3 +22,14 @@ cost is `v1b2.cost(model)`, instrumented under the written convention:
   **13.5**. That still fails the lenient bar, which needs C <= ~8.1k FPE at RMS .99. The T281 scorer recomputes the
   exact HP2 cost per sealed model with `v1b2.cost`.
 - **No new HP2 submission:** the estimates are identical to the already-scored V1.
+
+## T281 scorer re-count under the written convention, without B2 (claude/hp1-scorer 78a722c9, cost_audit.py)
+- R1W V1, HP2: C 13.3k -> **12.1k FPE**, F 16.35 -> **14.92 [10.74, 19.38]**. Still a lenient fail.
+- T300, HP2: C 1,697 -> 1,551 FPE, F 9.72 -> 8.89 [6.42, 11.86]. Point pass; the upper CI is > 10.
+- HP1 clean: R1W 8.30, T300 5.40.
+- **Differences from v1b2.cost:**
+  - B2 is not applied there (about -2.6k FPE of first-cell sharing).
+  - The scorer keeps 5,760 FLOPs per value+tangent forward-equivalent: 1,152 per step-evaluation, vs my
+    instrumented 1,218 + 790 per cell.
+  - The per-node combination is charged 4 per (triple, node, region) in both counts.
+- With B2 the expected HP2 C is ~10.9k FPE, so F ≈ 13.4: still above 10.
