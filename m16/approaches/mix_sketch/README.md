@@ -47,3 +47,15 @@ report the blind and non-blind halves separately.
   gradient). Stop if > 10%.
 - (2) corr over the 80 models of (E[<p, L>] - E[L_y]) with accuracy, p = softmax(L). Stop if |corr| < .5.
 Labels: everything here is diagnostic sampling. Nothing is an estimator.
+- **Amendment (2026-10-18, before any panel unit was run).** It was written after I looked at one development unit
+  that is not a panel unit by construction: DEV2 #0, class (3,7,1). There every rule was still at .82-.87 against
+  P = .956 with 128 components.
+  - (i) **Cap:** 50 units (the first 5 of each pre-registered draw per model: 25 blind + 25 classes), with 6e4 state
+    samples, 2e5 reference and 1.2e5 push-forward draws. At ~55 s per unit the 100-unit plan does not fit 1.5 h.
+  - (ii) **Two fairer rules added.** They draw the innovations x_8, x_9 exactly: resampled from the component's own
+    draws, with h_8 from the component's Gaussian regression on them, as B3's "scalar-innovation-exact" step requires.
+    - `future_gates_X` (state h_8);
+    - `pre_future_gates_X` (state = the step-7 pre-activation u_7, with h_8 = ReLU(u_7) applied exactly; this is the
+      truncated-pieces form before any re-merge).
+    The verdict uses the best of all five rules per unit (most generous). The rules `naive`, `future` and
+    `future_gates` (Gaussian over all 18 dims) are kept.
