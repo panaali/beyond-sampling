@@ -564,7 +564,14 @@ Readout:
   - manifest: `3c1bf7ac579d9b649fbd49cd6e6af192d18df54e6a5e35bef1c266a2b04ea009`;
   - truths: `3f2ab8f69728af1c764a6fb574a94c0dabb9bbdf1e651a692d0ca3c683db05c1` (100 models, max SE 3.8e-5).
 - No seeds and no identical weights shared with HP2 or HP3.
-- **No estimator has been run on HP4.** It is held for T326's frozen attempt, which will be its first submission.
+- **No estimator has been run on HP4.** DRI update (2026-10-18): HP4's single pre-registered submission is **T317f**
+  (TASKS T335): T317e plus T330's C1 screen. It supersedes the earlier T326 reservation; a later strict attempt gets a
+  fresh HP5.
+- Protocol for T317f:
+  - verify the hashes;
+  - score it once on HP4: the official as-executed count, plus the stacked-cost sensitivity C × 1.09 × 1.04;
+  - report F with CI, RMS, bias and C;
+  - also report HP2 and HP3 as secondary information (both are spent for claims).
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
