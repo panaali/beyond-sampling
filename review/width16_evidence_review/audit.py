@@ -63,7 +63,7 @@ def main():
    ex=resolved['exact']['raw'];rc=resolved['recipe108']['raw'];P=F(ex['acc']);Q=F(rc['acc']);d=Q-P
    assert 0<P<1 and 0<=Q<=1
    fpe=F(6000*2*T*width*(width+2),5760);N=F(rc['ops'])/fpe;ratio=d*d*N/(P*(1-P))
-   assert row['recipe_stopped']==rc['stopped'] is None
+   assert row['recipe_stopped']==rc.get('stopped') is None
    for k,rawk in [('exact','acc'),('exact_ops','ops'),('exact_cells','cells'),('exact_leafsum_minus_1','leafsum_minus_1'),('regions_exact','regions_exact')]:assert row[k]==ex[rawk];fieldschecked[k]+=1
    for k,rawk in [('est','acc'),('ops','ops'),('cells','cells')]:assert row[k]==rc[rawk];fieldschecked[k]+=1
    assert row['recipe_cpu']==rc.get('cpu',rc.get('sec'))
