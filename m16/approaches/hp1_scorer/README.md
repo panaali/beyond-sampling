@@ -329,6 +329,16 @@ These official numbers supersede the code-count numbers above (9.57 / 7.75).
      pre-registered them. The HP2 errors were never used for selection.
   3. HP1 noisy copies fail (F 39–206); the method is scoped to retrains.
 
+### T317c cost fix (@ c70e22cd; cont_c.py `066b3f6355d8d4d4e0c40e4444961a031648c76bc085f9632309842e75130211`; estimator_c.py unchanged)
+- `profile()` now masks before calling `ndtr`, so only weight-dependent Φ are evaluated and charged, and
+  correct_interval is charged at 229 in the code. The code's own cost is therefore the official count; no scorer
+  recount is needed.
+- Estimates: equal to T317b to ≤ 2.2e-16 on HP2 and HP1, asserted.
+- [measured] HP2: C 5489 FPE; **F = 6.76 [4.87, 8.79]**. The upper CI is ≤ 10.
+- [measured] HP1 clean: 3.78 [0.47, 8.33].
+- This brackets the earlier sensitivity: 6.72 (masked Φ uncharged) ≤ 6.76 (as executed now) ≤ 7.04 (every ndtr
+  charged).
+
 ## HP2 results: PRIMARY panel (T284 retrains; Directive 8 amendment 2)
 Panel: branch `claude/t192-gpu-cost-law` at aa9c000e, `m16/approaches/gpu_cost_law/hp2/`, copied to `data/hp2/`.
 - 100 fresh retrains, hp2_s100..s199 (zoo (16,10) defaults, fused trainer, data seed 41). These seeds are disjoint
