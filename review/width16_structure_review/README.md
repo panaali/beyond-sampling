@@ -11,8 +11,9 @@ numerical evidence, saved-array arithmetic and unavailable provenance. Source
 reading only in this initial phase; no author imports or numerical calls.
 
 ## Status
-Source/provenance review prepared; independent review pending. No saved-array
-contraction has run. The task claim was published in TASKS-only574d9843.
+Source/provenance and checker independently reviewed be07096b. The sole saved
+contraction passed all nine arrays/118,586 pieces and280 comparisons in2.190CPU;
+independent saved-result review pending. See RESULTS.md. The task claim was published in TASKS-only574d9843.
 
 ## Results
 [inferred, source-only] The pair scanner does not itself test all permutation
@@ -30,8 +31,9 @@ pinned scripts; do not import them (some execute models/MC at module import).
 A later saved-only checker will have its own frozen source/resource protocol.
 
 ## Compute accounting
-Only Git blob reads, hashing and source inspection so far. Zero checkpoint
-loads, array decodes, forward passes, model inputs, fit/RNG, geometry, mass or
+Source phase used only Git blob reads, hashing and inspection. Saved phase decoded
+nine archives and contracted their existing values in2.189840052CPU/61,024KiB.
+Zero checkpoint loads, forward passes, model inputs, fit/RNG, geometry, mass or
 quadrature calls. Source counters and historical CPU are not independently
 measured runtime or complete cost.
 
