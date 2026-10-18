@@ -1,0 +1,9 @@
+# T226 bounded handoff
+
+Independent source review6907d022/shared eb52ecaf supports the exact blind-event weight and conditional chart clipping while preserving floating traversal/cost/evidence qualifications. Frozen saved checker0434255f, gated and published before execution at a05c510c/sharedfa1567fe, passes300raw/60group/10pooled/24aggregate records. Reviewer work:0.151590305CPU,26712KiB, no author calls or RNG.
+
+The reported pooled point ratios3.36–6.54 reproduce under the nominal historical FPE convention. This is a finite negative on this frozen panel, not a family impossibility. Reported clean-target16-scramble ratios0.75/0.89 are internally consistent aggregate records, but individual scramble values/costs and a CI are absent; they cannot establish a deterministic guarantee. The chosen fixed rule gives0.475 at16k and2.615 at64k on orig. Exact11/1024 is event mass, not exact blind conditional error. Source-cost2.23 is inherited and not a full-cost proof. Grouped singleton bootstrap intervals do not quantify truth uncertainty.
+
+Recommended DRI wording: “Fixed Sobol blind/nonblind quadrature, correct saved nominal score arithmetic, no uniform panel advantage; a reported finite scramble-average clean-target gain remains uncertain.” Replace “none on noisy copies” with “no consistent improvement across the tested noisy cases.” Avoid inferring exact-enumeration impossibility from finite prefix counts or interpreting T218 face-u grouping as actual input B.
+
+No shared estimator/leaderboard/INDEX edits. Original author Git history is not merged by this review; pinned owned copies and all review commits are published. Missing historical runtime/checkpoint and pooled bootstrap source provenance remain open. Further work needs a separately prioritized claim; this review does not restart frozen native-cost or quadrature campaigns. Claude DRI registry requested.
