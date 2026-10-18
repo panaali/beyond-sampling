@@ -16,7 +16,7 @@ Use offset δ in `x=y+δ(e_a-e_b)`. The standard-normal orthogonal coordinate is
 
 For each finite stored-binary y/window, convert coordinates to exact Fractions. Sequentially propagate affine hidden functions in δ through four steps. Split each interval at every strict interior preactivation root, choose gates by an exact rational midpoint, and preserve identically-zero OFF gates. Within each final interval, intersect all readout margin half-lines for the known true class. An identically-zero margin rejects that class if the rival has smaller index. Ordinary endpoint ties are null for this conditional continuous law.
 
-Independently freeze the gates at δ=0 and propagate the corresponding affine hidden map through the entire window. Obtain its error intervals by the same explicit first-index margin semantics. These represent one fixed masked classifier, unlike additive componentwise F0c extensions.
+Independently freeze the gates at δ=0 and propagate the corresponding affine hidden map through the entire window. Its hidden affine values may be negative away from the face: this is a signed masked surrogate, not an asserted realizable gate history. Obtain its error intervals by the same explicit first-index margin semantics. These represent one fixed masked classifier, unlike additive componentwise F0c extensions.
 
 Construct the disjoint signed symmetric difference of actual and frozen error sets on each half-window. Every residual band has sign+1 for actual-only error or−1 for frozen-only error. Merge adjacent equal-sign bands. Their signed Gaussian masses sum to actual error minus frozen error, up to numerical CDF evaluation. Retain every endpoint, sign and source interval; no overlap double counting or clipping negative corrections.
 
