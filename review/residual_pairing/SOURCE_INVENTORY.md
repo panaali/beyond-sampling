@@ -1,0 +1,12 @@
+# Bounded text-source inventory
+
+All six source snapshots are exact Git bytes at e9ebe869, with SHA/size records in source_manifest.json. No producer import, checkpoint/NPZ/JSON scientific-result decode, geometry or model evaluation. This is a bounded inventory, not a repository-wide absence claim.
+
+- `ASTRA.md` C6 proposes fixed time reversal on signed residuals, paying for both evaluations and testing whether absolute-remainder savings survive cost. It does not supply a surrogate, paired partition or numerical result.
+- `per_input_exact.py` uses each input's actual recurrent gates (obtained by run(x)) to form an input-dependent affine map. It cannot supply those gates for free, and a map at x does not establish a region for Rx.
+- `cone_reference.py` builds floating geometry and conditional positive R4 mass rules, but its JSON writer retains aggregate model/partition/affine checks and rule summaries, not the complete cell/ray maps required to intersect a paired residual partition. Its numerical conventions and noise law are historical, not newly validated by this inventory. No replay authorized.
+- `FUTURE_HANDOFF.md` retains captured V/H cones but explicitly disclaims true-prefix feasibility/completeness after incoming recipe approximation. Exact map equality on represented histories is a different object from input-law pairing. These archives are not silently treated as exact full residual complexes.
+- `CLASS_REGION_HANDOFF.md` supplies rank-chart/first-index tie history and finite small-rung results; it does not establish a full paired correctness/surrogate complex or current common-cost comparison. Earlier numerical and geometry qualifications remain.
+- `CONTROL_VARIATE_README.md` describes surrogate means and last-step conditional sampling methods. Its historical gains, cost proxies, Gaussian quadrature statements and surrogate negatives are not revalidated here; no general family failure is imported. It reinforces that choosing S and knowing its expectation are nontrivial. Sampling conditional kernels is separate from a deductive paired-residual integral.
+
+Current missing decision inputs: a fixed deployable S with controlled mu_S, a complete feasible partition for both residuals or a direct certified integral, and all setup/discovery/query/refinement costs. These exact missing inputs must be frozen before claiming a small-rung numerical pairing test. A known constant surrogate can test the algebra but cannot by itself support a trained cancellation claim.
