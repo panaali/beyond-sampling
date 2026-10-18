@@ -557,6 +557,15 @@ Readout:
   - T317c keeps its candidate status on HP3 (upper CI 9.02) but loses it on HP2 (11.25);
   - T317d stays a candidate on both panels (HP3 7.97; HP2 9.95, a hair under 10).
 
+## HP4 (T328): received and sealed, reserved for lane T326
+- Panel: branch `claude/t192-gpu-cost-law` at 3e17bdfe, `m16/approaches/gpu_cost_law/hp4/`.
+- Hashes verified:
+  - weights, array bytes: `199f0cdbae0ff8f55c2b4fa6948c959e13807d5ccd42c598ca4581b3016dcadc` (file `23546aee…590e`);
+  - manifest: `3c1bf7ac579d9b649fbd49cd6e6af192d18df54e6a5e35bef1c266a2b04ea009`;
+  - truths: `3f2ab8f69728af1c764a6fb574a94c0dabb9bbdf1e651a692d0ca3c683db05c1` (100 models, max SE 3.8e-5).
+- No seeds and no identical weights shared with HP2 or HP3.
+- **No estimator has been run on HP4.** It is held for T326's frozen attempt, which will be its first submission.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,

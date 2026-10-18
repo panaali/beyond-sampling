@@ -29,7 +29,11 @@ PANELS = dict(hp1=dict(groups=("clean", "abs0.05", "rel0.005", "rel0.01"),
               hp3=dict(groups=("retrain",), cluster="name",          # T321, branch claude/t192-gpu-cost-law 689a6b32
                        sha=dict(weights="d45d805bc3b23e321d0f884f1b6f658d01cd11d3cc8aa147d1dd5da5a39f8425",
                                 manifest="ca332b6405fb48469f67b808fdc1c4e2562e4d6117fb6a2447685b2f14b8f9ad",
-                                truths="66b4f9067cc5d79ca55d6b20aa8dda00d82884b306a1ef9cf40da50c512138c2")))
+                                truths="66b4f9067cc5d79ca55d6b20aa8dda00d82884b306a1ef9cf40da50c512138c2")),
+              hp4=dict(groups=("retrain",), cluster="name",          # T328, claude/t192-gpu-cost-law 3e17bdfe; RESERVED for T326
+                       sha=dict(weights="199f0cdbae0ff8f55c2b4fa6948c959e13807d5ccd42c598ca4581b3016dcadc",
+                                manifest="3c1bf7ac579d9b649fbd49cd6e6af192d18df54e6a5e35bef1c266a2b04ea009",
+                                truths="3f2ab8f69728af1c764a6fb574a94c0dabb9bbdf1e651a692d0ca3c683db05c1")))
 GROUPS = PANELS[PANEL]["groups"]
 CLUSTER = PANELS[PANEL].get("cluster", "base")      # hp2: "name" (one cluster per retrain, DRI)
 RES_PREFIX = "" if PANEL == "hp1" else PANEL + "_"
