@@ -13,8 +13,8 @@ controls before the finite trained application, with independent gates.
 Primitive source91a5aad3 and immutable execution gateb2214bcb/sharedcf31cc74
 preceded the sole control run. All44 controls passed; independent saved reviewec1c0532 also passed all9
 physical-unit traces/153 exact points and probability/rank/crossover records. The fixed trained application completed all41472 boxes after sourcecb7b3951
-and immutable gate912de329/sharedf927fec1; final independent saved review is
-pending. No parameter changes or repeated cases occurred.
+and immutable gate912de329/sharedf927fec1; final independent saved reviewd311f709 passed all41472 saved rows plus128
+fixed recurrences. This bounded phase is complete; see HANDOFF.md. No parameter changes or repeated cases occurred.
 
 ## Results
 [measured] Nine synthetic certificate cases,153 independent exact-point
@@ -23,7 +23,7 @@ recurrences,9 scalar remainder cases,6 rank ownership cases,13 CDF endpoints,
 from this folder, once. Full results/progress and launcher limits are retained.
 No trained width or general performance conclusion follows from these controls.
 
-[measured, application saved review pending] The sole `bash application_launcher.sh`
+[measured, independently reviewed d311f709] The sole `bash application_launcher.sh`
 completed162 archives/all41472 boxes. H4T4 accuracy enclosure is approximately
 [0.07130927017,0.86639888627], abstention lower0.79508961610; H8T4 enclosure
 [0.06821313612,1], abstention lower0.93178686388. Exact fractions are retained.
