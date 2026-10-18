@@ -1373,3 +1373,20 @@ Each cell is P(E1) / truth:
 - Rows are walked in chunks to stay within 2 GB. Seeds are not applicable: no random draws.
 - **Amendment before any run:** the nodes are the first M = 2^k Sobol points shifted by half a cell, (u + .5/M) mod 1,
   instead of "points 1..M". Skipping the zero point breaks Sobol's balance; the shift keeps it and avoids u = 0 or 1.
+
+**T370 amendment (2026-10-18 ~23:55 UTC, DRI request; before any stage-1 scoring; no V1 job had finished).**
+Sobol nodes are deterministic but quasi-Monte Carlo over model inputs, which blurs the "deductive" label. So, under
+DRI option (b), the 3 variants are now:
+- **S14, a structured rule (new, cheapest, run first):**
+  - v4's position at **all 7 free positions** (exact weights 1/7);
+  - v4's value at the **1-node Gauss rule of v4 | v3** (the conditional mean, E[max of 7 | < v3]);
+  - the 6 lows at the **expected order statistics of 6 iid N | < v4**, in **2 arrangements** (descending and
+    ascending by position).
+
+  14 nodes, weight 1/14. Values and slopes come from model-free tables, linearised along the line at t_a as above.
+- **Q16 and Q32: "QMC-class cubature (deterministic nodes)"**, the Sobol rule above with M = 16 and 32. This label
+  goes on all Q results.
+- The old V3 (M = 64) is dropped.
+- **Freeze rule unchanged:** the cheapest variant that passes. The order of cost is S14 < Q16 < Q32. A variant runs
+  only if all cheaper ones failed, within the 60 CPU-h stage-1 stop.
+- The V1 (Q16) run that had started was stopped (own PIDs) before any job finished, so nothing was scored.

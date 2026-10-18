@@ -29,6 +29,18 @@ def sobol_nodes(M):
     return (qmc.Sobol(d=8, scramble=False).random_base2(k) + 0.5 / M) % 1.0
 
 
+# S14 (structured rule) model-free tables: E[max of 7 | < v3] on a v3 grid, and the expected order statistics of 6 iid
+# N | < v4 (descending) on a v4 grid, with their derivatives (np.gradient on the fine grid).
+_V3G = np.linspace(-9, 6, 3001); _EV4 = np.array([float(CE.gauss_v4(v, 1)[0][0]) for v in _V3G]); _DEV4 = np.gradient(_EV4, _V3G)
+_V4G = np.linspace(-10, 6, 3201); _uu = np.linspace(0, 1, 4001)[1:-1]; _OS = np.zeros((len(_V4G), 6))
+for _k in range(6):                                                    # k = 0: the largest of the 6
+    from scipy.special import betaln
+    _lf = (5 - _k) * np.log(_uu) + _k * np.log1p(-_uu) - betaln(6 - _k, _k + 1); _f = np.exp(_lf); _f /= _f.sum()
+    _OS[:, _k] = (ndtri(ndtr(_V4G)[:, None] * _uu[None]) * _f[None]).sum(1)
+_DOS = np.gradient(_OS, _V4G, axis=0)
+ARR2 = [np.arange(6), np.arange(6)[::-1]]                             # order statistics by position: descending / ascending
+
+
 def excess_g23(v2, ts, n=4001):
     """E[g23 - ts | g23 > ts, v2], with P(g23 > g | v2) = (Phi(v2 - g) / Phi(v2))^8."""
     g = np.linspace(ts, ts + 12, n); s = (ndtr(v2 - g) / ndtr(v2 - ts)) ** 8
@@ -45,6 +57,19 @@ def node_rows(v2, g12s, g12w, t_start, U, closure=None):
             m4 = float(G.mu(np.array([v4s]))[0]); dm4 = float(G.dmu(v4s)[0])
             x, dx = G.inputs(v2 + g12, v2, v2, v2 - delta, m4 + dm4 * (v2 - delta - v4s), 0.0, -1.0, -1.0, -dm4)
             xs.append(x); ds.append(dx); om.append(np.full(NT, wg)); continue
+        if closure == "S14":                                        # structured: 7 positions x 2 arrangements, 1/14 each
+            v4a = float(np.interp(v3a, _V3G, _EV4)); dv4 = -float(np.interp(v3a, _V3G, _DEV4))
+            osa = np.array([np.interp(v4a, _V4G, _OS[:, k]) for k in range(6)]); dos = np.array([np.interp(v4a, _V4G, _DOS[:, k]) for k in range(6)]) * dv4
+            for p in range(7):
+                for arr in ARR2:
+                    xa = np.zeros((NT, 10)); d = np.zeros((NT, 10))
+                    xa[r, TRI[:, 0]] = v2 + g12; xa[r, TRI[:, 1]] = v2; xa[r, TRI[:, 2]] = v3a; d[r, TRI[:, 2]] = -1.0
+                    xa[r, FREE[:, p]] = v4a; d[r, FREE[:, p]] = dv4
+                    lowpos = np.delete(FREE, p, axis=1)
+                    for i in range(6):
+                        xa[r, lowpos[:, i]] = osa[arr[i]]; d[r, lowpos[:, i]] = dos[arr[i]]
+                    xs.append(xa - ta * d); ds.append(d); om.append(np.full(NT, wg / 14))
+            continue
         for u in U:
             a = u[1] ** (1 / 7); v4a = ndtri(ndtr(v3a) * a); dv4 = -(pdf(v3a) * a / pdf(v4a))          # dv4/dt
             lows_a = ndtri(ndtr(v4a) * u[2:]); dl = pdf(v4a) * u[2:] / pdf(lows_a) * dv4               # dlow/dt
