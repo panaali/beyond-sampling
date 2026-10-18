@@ -100,7 +100,10 @@ def main():
         tx=[]
         for m1,m2,last in choices:tx.append([float(m1),float(m2),-5.,-6.,-7.,-8.,-9.,-10.,-11.,float(last)])
         ts=C.states(tx); wanted=[1,2,3,4,5,6,7,8,10]
-        pred=np.array([int(np.flatnonzero(ts['global_rank'][i]==r)[0]) for i,r in enumerate(wanted)])
+        independent_orders=[sorted(range(10),key=lambda j:(-row[j],j)) for row in tx]
+        for i,order in enumerate(independent_orders):
+            for rank,label in enumerate(order,1):assert ts['global_rank'][i,label]==rank
+        pred=np.array([order[r-1] for order,r in zip(independent_orders,wanted,strict=True)])
         tab=C.cross_tab(ts,pred); expected=np.zeros((3,3,10),dtype=int)
         for i,r in enumerate(wanted):expected[i//3,i%3,r-1]=1
         assert tab==dict(n=9,correct=1,table=expected.tolist())

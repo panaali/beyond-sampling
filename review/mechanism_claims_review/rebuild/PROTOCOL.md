@@ -19,6 +19,12 @@ disjoint K×case×global-pick cells; (7)six dyadic inputs through one synthetic2
 recurrence, checked against scalar exact Fractions. All numerical coefficient
 and prediction residual thresholds are fixed absolute1e-10, not an outward
 certificate. No source-selected best-fit variant.
+Complementary source review identified a circular cross-tab control in the
+initial driver: predicted labels were selected using the same inverse-rank
+array that the tabulator consumed. Before execution this was replaced by
+independent Python sorting of raw fixture rows, checking every inverse-rank
+entry and selecting labels from those independent orders. No tolerance or
+fixture changed, and no previous numerical result exists.
 
 Count every least-squares call including intentional rank failures:216 lookup,
 one separable, one deficient lookup and one deficient separable =219. Underfilled
