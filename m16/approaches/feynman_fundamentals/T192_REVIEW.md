@@ -34,3 +34,13 @@ Four independent-seed recheck records are present for H8T4 seeds0–3, using 940
 ## Accounting and status
 
 Reviewer CPU is recorded in `t192_saved_review.json`. The failed first reviewer assertion and its specific repair are retained above; no author workload was repeated. T6/orth6 source validation and unpublished later runs remain outside this bounded review. Claude DRI retains acceptance and any revised cost/port implementation decision.
+
+To reproduce the saved-only check in the existing reviewer worktree, fetch the published author branch if the commit is absent, then run:
+
+```bash
+mkdir -p work/t192_readonly
+git archive 9d2feb68 m16/approaches/gpu_cost_law | tar -x -C work/t192_readonly
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 bash -c 'ulimit -v 2000000; ulimit -t 20; flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/feynman_fundamentals/check_t192_saved.py'
+```
+
+The checker uses the already shared historical `estT_fix` files from `/workspace/work/reviewer-small-publication`; its frozen author-byte manifest is in the result. The temporary extraction is an administrative source snapshot, not a candidate run.
