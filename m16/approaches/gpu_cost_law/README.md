@@ -8,6 +8,7 @@ T193): an independent re-check of E46/E48 with fresh noise seeds, an independent
 fresh-noise copies and the T = 6 stage queued on an A100.
 
 ## Method
+Colab connection and runtime choice: [COLAB.md](COLAB.md).
 Deductive (no random model inputs) for exact and recipe108; the independent truth is plain Monte Carlo (sampling).
 - `estT_base.py`: verbatim copy of `estT_fix/estT.py` (geometry, recipe and op counting untouched).
 - `estG.py`: every simplicial cone estT would integrate one at a time is buffered and integrated in batches with the
