@@ -1185,3 +1185,32 @@ Cost reported as executed.
 
 **Forking paths.** Stage 1 selects among 4 arms on the same 8 models used by the gate, so the gate is optimistic.
 The DRI's planned independent fresh-model check (the T241 child) is the real test.
+
+## T365 results: STOP at stage 1 (pre-registered rule; `lows_screen.py`, `results_lows_screen.json`, `lows_screen.log`)
+Oracle screen on T363's 8 failing models × 4 t (32 E2 cases), 250k exact conditional samples per case:
+
+| arm | lines per row | within 2x | median ratio |
+|---|---|---|---|
+| W0, the current closure (T363) | 1 | 9/32 | .40 |
+| A1, T339 alternating ±σ (s = ±1) | 2 | 16/32 | .56 |
+| A2, order-statistic nodes × 4 arrangements | 4 | 15/32 | .51 |
+| **A3, A1 + v4 over 7 positions (exact 1/7)** | 14 | **20/32** | .64 |
+| A4, A2 + v4 over 7 positions | 28 | 17/32 | .59 |
+| (T363's W3: exact v4 law + iid lows, oracle only) | — | 28/32 | .88 |
+
+- **No arm reaches 24/32**, so per the selection rule the deductive stage is not built.
+- The spread closures help a lot: 9 → 16-20 within 2x. But they leave a one-signed low tail at high t on the collapsing
+  models, e.g. s512 at t = 1.25 is .03-.15 and s517 is .00-.08.
+- **Why they fall short of T363's W3** [inferred]. W3 combines the exact v4 law with *iid* lows. The deductive arms keep
+  W0's fixed v3-v4 link and use a handful of deterministic low patterns. The deep interior islands at t >= 1 need low
+  configurations that 2-4 fixed patterns do not contain. W3's random spread puts mass on them; a few nodes do not.
+- s519 at t = 1.25 overshoots (4.1-4.7) under every arm and under W4 too (T363), so that cell is likely MC-limited.
+
+**What it would take [inferred].**
+- A lows rule that integrates the 6-D low law with real quadrature, e.g. sparse grids or many order-statistic
+  arrangements, *together with* the exact v4 law varying along the line (segment-wise Gauss nodes for v4 | v3).
+- That is roughly 10-100x T340c's already 2-6M FPE, so at equal compute it would only matter at p far below these
+  events.
+
+Claim [measured, oracle; negative (unverified), scoped]: cheap deductive spread-lows closures (<= 28 lines per row)
+reach at most 20/32 E2 cases within 2x on the failing fresh models, short of the 24/32 go.
