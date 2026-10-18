@@ -7,7 +7,7 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def read(p):return json.loads(Path(p).read_text())
 
 def main():
-    assert not (OUT/'results.json').exists() and not (OUT/'progress.jsonl').exists()
+    assert not OUT.exists() or not any(OUT.iterdir()), 'Preexisting fullfit content: no automatic replay/recovery'
     OUT.mkdir(exist_ok=True);start=time.process_time()
     result=dict(complete=False,chunks=[],panels={},counts=dict(new_vectors=0,new_normal_values=0,forward_attempts=0,forward_completed=0,pilot_prefix_reuses=0,fit_batches_attempted=0,fit_batches_completed=0,binomial_requests=0,beta_ppf_calls=0))
     C=None
@@ -28,7 +28,7 @@ def main():
         gate=read(H/'fullfit_gate.json');proto=read(H/'FULLFIT_PROTOCOL.json')
         assert gate['complete'] and gate['protocol_sha256']==sha(H/'FULLFIT_PROTOCOL.json')
         for p,h in {**proto['pins'],**gate['pins']}.items():assert sha(p)==h,p
-        result.update(gate_sha256=sha(H/'fullfit_gate.json'),protocol_sha256=sha(H/'FULLFIT_PROTOCOL.json'))
+        result.update(gate_sha256=sha(H/'fullfit_gate.json'),protocol_sha256=sha(H/'FULLFIT_PROTOCOL.json'),timing_scope='Script process CPU starts inside main; excludes interpreter/top-level stdlib imports and final result/progress/stdout writes. External Bash timing and CPU limit cover the full Python process.')
         emit('started',gate_sha256=result['gate_sha256']);save()
         import numpy as np
         import scipy
