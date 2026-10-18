@@ -34,11 +34,14 @@ unverified; T192 §3; T194@45e1f6c width16_probe/README.md "T206"].
 
 **3.2 Exact enumeration is infeasible.** Gate-pattern regions of the target's first k steps: **34 / 792 / 21,032 /
 632,394** for k = 2..5, growth **x23.3, x26.6, x30.1** per step and rising. That extrapolates to ~1.5-3e13 regions at
-k = 10, and ~1000 CPU-years of geometry before masses [measured to k = 5, inferred beyond; T192 README §9, results/prefix/
-k2-k5.json; INDEX H-E13 "supported, unverified"]. Reproductions with different code: k = 2-4 by T194's numpy port
+k = 10, and ~1000 CPU-years of geometry before masses. k = 2-4 counts are [measured, **verified**]; k = 5 is [measured,
+unverified]; everything beyond is [inferred] (T192 README §9, results/prefix/k2-k5.json; INDEX H-E13). Reproductions with different code: k = 2-4 by T194's numpy port
 (identical; T194@ee01b49 width16_probe/prefix.py) and k = 2-3 by T218's LP counter (T218 tie_tail_labels/README.md).
-Neither is independent exact arithmetic. Codex T219 independent integer recount:
-`[PENDING T219]`. Zoo seed 0 grows alike: (16,3) 776 -> (16,4) 26,742 -> (16,5) 786,114 regions (x34.5, x29.4). The k <= 4 counts are T194's exact counts (T194@95ed88e width16_probe/regions/), and (16,5) is T192's (§8; zoo0 only). Region counts do not depend on the start (truth cones vs halves give identical regions, T192 §5). T192 §8's 838 / 28,200 are 5-seed means.
+Neither is independent exact arithmetic. **Independent check:** Codex T55 recounted k = 2/3/4 = 34 / 792 / 21,032 with a
+sequential plane-arrangement count in exact arithmetic over the stored weights (reviews 13e3a70e, ad1d458f, 895fb566;
+shared@619436ad m16/approaches/feynman_fundamentals/t219_k4_saved_review.json). The DRI marks k <= 4 CONFIRMED (H-E13).
+Caveat (T55): the only rigorous bound is N_10 >= 64 N_4 = 1.35M gate histories. The ~1e13 is an extrapolation of the
+measured growth, not a bound. Zoo seed 0 grows alike: (16,3) 776 -> (16,4) 26,742 -> (16,5) 786,114 regions (x34.5, x29.4). (k <= 4: T194@95ed88e width16_probe/regions/; k = 5: T192 §8. Regions are start-independent, T192 §5; §8's 838 / 28,200 are 5-seed means.)
 
 **3.3 Cost is cone masses.** Exact-mode ops are 95% (16,4) / 97% (8,4) cone-mass quadrature. A leaf that needs a
 mass needs ~6 simplices at ~3e4 ops each (d = 4: 440x the d = 3 closed form; d = 5: 5.2e4-1.7e5) [measured, unverified;
@@ -74,7 +77,7 @@ replication (T218 child, LP + adaptive Plackett masses): `[PENDING T222 replicat
 | budgeted pruning by cell mass (T195 phase 2), (8,4) 5 seeds, tau 1e-4..1e-8 | cap bound: bound^2 ratio < 1 on all seeds only at tau <= 1e-7, where 93-97% of cells are retained and T3 -> T4 growth stays x27-28. Exact-mass pruning: growth x20.7-23 but ratio_B >= 1.71 at 1e-7 and ~2.3x the FLOPs. No certified setting slows growth | [measured, unverified] claude/t195-split-attribution@5d58cd51, split_attribution/prune_report.md |
 | weight symmetry (T216) | none: no permutation symmetry; projecting the near-collinear incoming rows {1,6,7,8; 4 anti} costs 79 pp (8.9 pp for the closest pair) for <= 2.7x fewer regions, growth still >= x16/step | [measured, unverified] T194@ee01b49 "T216" |
 | event words record/2nd/low (T217) | modal gate word holds 21% of an event word's mass at k = 4 (go: 99%) | [measured, unverified; DRI: kill] T194@050bfaa "T217" |
-| mechanism-labelled tie tails (T218) | top-100 labels cover 2-4% of out-of-sample tail mass (below a random-label null) | [measured, unverified; kill] T218 README |
+| mechanism-labelled tie tails (T218) | top-100 labels cover 2-4% of out-of-sample tail mass. Codex review T227 (791b2d5f) caveats: the random-label null does not preserve label sizes, the half-size check thins an already-selected tail, and within-label stats condition on the global tail. So the kill holds only for the tested label families; there is no universal exclusion | [measured, reviewed with caveats; kill scoped] T218 README; T227 |
 | rank-coordinate certificate (T189): fixed zero-anchor / global-absolute-envelope Chernoff family | exact width floors .0853 (H4T4) / .0426 (H8T4 seed 0); sampling's maximal SD is smaller at every budget >= 7630 / 94116 FLOPs, even with the certificate free. A limitation of this family only, not an MSE lower bound | [measured, unverified] shared@8269963f TASKS T189 backlog row; conditional_order_bounds/box_mass/HANDOFF.md |
 | T189 local affine follow-up (same models) | reported, final saved review pending: enclosures [.071, .866] (H4T4) and [.068, 1] (H8T4), > 10x sampling SD at 1e7 FLOPs; crossover 8720 / 19778 FLOPs | [measured, unverified, review pending] shared@f18320b2, conditional_order_bounds/local_certificate/README.md |
 
