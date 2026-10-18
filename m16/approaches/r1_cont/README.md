@@ -1327,3 +1327,47 @@ Each cell is P(E1) / truth:
 - [inferred] The remaining failure mode of the rare-event estimator is the R1W closure: deterministic lows and v4 at
   the latest position. It biases low on E2 (T363) and high on these triple-tie E1 islands (s547). A closure with
   spread lows and v4 position nodes is the fix. T365 showed its cheap deductive forms reach only ~20/32 on E2.
+
+## T370 pre-registration (DRI, owner decision 2026-10-18 23:3x UTC; copied from the TASKS row on ccr-6a61f25c-wn80ii @65e801e0, before any run)
+**DRI pre-registration (verbatim in substance):**
+- Deductive: no random model inputs.
+- Keep the walk and the frozen T366 graded-g12 rule. Replace only the closure:
+  - **(a)** the lows integrated over their exact 6-D conditional law with real quadrature (a sparse grid or
+    order-statistic arrangements);
+  - **(b)** v4's position by segment-wise Gauss nodes for v4 | v3.
+- At most 3 variants, all listed. **The frozen variant is the cheapest that passes.**
+- **STAGE 1 (seen models only).** Cases: s547 E1 at t0 2.25 and 2.5 (T367 truths), and T363's 32 E2 cases. Controls:
+  s541 (2 pairs) and the T366/T368 non-triple-tie pairs.
+  - **Go:** s547 both within 2x **AND** E2 >= 24/32 within 2x **AND** no control that was within 2x falls outside.
+  - **STOP** (a scoped negative with an exhaustion checklist) if no variant passes, or if stage 1 exceeds 60 CPU-h.
+- **STAGE 2 (only after a freeze):** the T286 child selects 8 pairs truth-blind from the unused dev3_s548-563, with the
+  rule written before selection, mixing E1 and E2 at model-free thresholds. T192 computes sealed truths. **Go: >= 7/8
+  within 2x.**
+- Report FPE per point as executed, and the events plain MC expects at that cost.
+- Limits: <= 2 processes, <= 2 GB each, cap 100 CPU-h. Do not use Fable.
+
+**My specification (fixed before any run).**
+- **Closure replacement.** Each line row becomes M rows, one per **cubature node j**. A node is a point u_j of a
+  deterministic 8-D Sobol low-discrepancy set (unscrambled, model-free, equal weights 1/M) mapping:
+  - u_pos → v4's position, floor(7 u) among the 7 free positions (exact law: uniform);
+  - u_v4 → v4 = Φ⁻¹(Φ(v3) u^{1/7}) (exact law of the max of 7 iid N below v3);
+  - u_1..u_6 → lows_i = Φ⁻¹(Φ(v4) u_i) (exact law: iid N below v4), placed in the remaining 6 positions in
+    ascending order.
+- **Affine along the line, segment-wise.** Each walk starts at its segment start (the T354 restart). The node's v4 and
+  lows are linearised in t around the anchor t_a = t_start + E[g23 − t_start | g23 > t_start, v2] (model-free,
+  per v2 node): value plus slope from the chain rule, with dv3/dt = −1.
+  - This is (b)'s "segment-wise" treatment with one segment per walk, anchored where the event's mass is.
+  - The node's u values are fixed, so the walk remains exact for the affine line.
+  - The declared approximations are the cubature (M nodes) and the linearisation away from t_a.
+- **Variants:** **V1: M = 16; V2: M = 32; V3: M = 64**, run in increasing cost order. The first that passes the go is
+  frozen. V2 runs only if V1 fails, and V3 only if V2 fails, each within the 60 CPU-h stage-1 stop. Cost estimate:
+  V1 ≈ 27 CPU-h, V2 ≈ 2x, so V3 is likely unaffordable.
+- **Rest unchanged:**
+  - E1: the T366 graded g12 rule (13 nodes), the fixed walk, the segment start at t0, T_hi = 6.
+  - E2: T340c's K3 g12 nodes restricted to g12 >= t, the segment start at t, T_hi = 4 (declared bound 1.7e-9).
+- **Cases:**
+  - E2: T363's 8 models × t ∈ {.5, .75, 1, 1.25} (T358 truths).
+  - E1: s547 (2.25, 2.5).
+  - Controls (all within 2x under T366): s541 (1.75, 2.0; T367 truths), s526 (3.25, 3.5; T364) and s528-s531
+    (2.35, 2.75; T366 fresh truths).
+- Rows are walked in chunks to stay within 2 GB. Seeds are not applicable: no random draws.
