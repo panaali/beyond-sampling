@@ -856,3 +856,14 @@ certificates by interval propagation fail at ~1e-4 box widths in 10-D and in 3-D
 recurrent steps (the same mechanism as T330 tier A). Exact enumeration is infeasible in 10-D, at ~2e8 regions per
 event cone. In the closure's 3-D, exact enumeration is feasible but costs ~0.5 CPU-h per model, and the result would
 only be conditional.
+
+## T344 status: stopped, scoped feasibility negative (DRI ruling, option ii)
+- A bound conditional on the closure is not the rigorous statement that gives certificates their value, and it
+  could sit below the truth. Not run.
+- **Final record [measured probes; negative (unverified), scoped to this architecture and these methods]:**
+  - Interval certificates fail even in 3-D: certified half-width <= 1e-4. The compounding is in Wh, not in the input
+    dimension.
+  - Exact cone enumeration in the far-gap sub-cone grows too fast: the best triple projects to ~2e8 regions at step 10.
+  - **Only the trivial bound is rigorous.** P(E(t0)) <= P(g23 > t0) = 4.4e-2 / 1.7e-2 / 5.9e-3. Against T340's orig
+    1e9 truths (5.4e-6 / 1.14e-6 / 2.16e-7) that is **8,200 / 14,900 / 27,500x loose**.
+- T344 released.
