@@ -470,7 +470,11 @@ Reproduce: `bash run_hp3_t317c.sh` (log in `data/hp3/run.log`).
   (F ≤ 1) fails.
 - [measured] HP3 is better than HP2 (6.76 [4.87, 8.79]): RMS 0.81 vs 0.99 pp, bias +0.42 vs +0.53 pp. The HP2 result
   was therefore not a lucky draw.
-- [measured] The control is consistent with 1 at every budget, so the harness holds on HP3.
+- [measured] Control F is 0.97 / 1.07 / 0.75 / 0.85 / 0.72 at 1k–256k. Four CIs cover 1; the 256k CI [0.53, 0.96]
+  just excludes it. The deviations are on the low side: plain sampling did a bit better than its analytic variance
+  p(1−p)/n. That is noise in favour of sampling, not a harness error that could flatter T317c, because the sampling
+  reference in F is analytic. The mean over the five independent budgets is 0.87, about 2 sd low. On HP2 the same
+  check gave 0.79–1.06.
 - [inferred] By the DRI's rule this is the confirmation of the HP2 candidate. Confirmation itself is the DRI's call
   (AGENTS rule 4); this scorer reports it.
 
