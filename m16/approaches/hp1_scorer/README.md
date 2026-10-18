@@ -41,9 +41,9 @@ d29e28bb into `data/hp1/subs/probe_v5_d29e28bb/`. The aggregates are in `results
 |---|---|---|---|---|
 | v5q | `probe_v5/hp1_entry.py:est` → `v5.est_full` | d29e28bbc437ae02395e91741e3feefc50d2fa77 (branch claude/t241-neuron-account; unchanged at branch head 9e5d8a2a) | hp1_entry.py `81f8c07f963bd49669a18f0b769a6255164b5b2e3e28ffbd22fba235a43f113b`; v5.py `5c19b9674b632ca0746c870e3c68e12acaf8f8ddf1506eca3cf14c146fd73e1f` (unchanged since f7e14e83) | inductive (fixed-node QMC) |
 | v5a | `probe_v5/hp1_entry.py:est_v5a` → `v5.est` | same | same | inductive |
-
 | t286_rx | `cheap_frontier/hp2_entry.py:est` → `rx.est_rx(Q=8, stride=1, kgroups=3)` | 3731b9fe93159c8b1d643fdd107b451985841ec4 (branch claude/t286-cheap-frontier) | hp2_entry.py `eac842afeb65d4e2d91c3e83d38054c5cfaa34feb4be532b7d12fe6f61e5a724`; rx.py `c11623371060e3522736d2a9a36df5726ebf944da6617e2500c9f063ba4e1055`; cf.py `628c9a4e70af342c4d0ed68155075fbd17facd320323cd98b644c3b1bb119e9f`; rank_exact/rank_est.py `41c5b6eb0fa5d710b149b328b06bd62ddd1a6687b62642b414c0f215ec269401` | deductive (every step) |
 | t286_rx_ind | `cheap_frontier/hp2_entry.py:est_ind` → `rx.est_rx(Q=4, stride=16, kgroups=3)` | same | same | inductive (reference only) |
+
 No loader shim was needed. T286 runs from a `git archive` of `m16/` at its commit, so its relative imports
 (`../rank_exact`) resolve to the frozen code. Every entry point takes `(Wi, Wh, Wo)` float64 exactly as the panel stores it. The
 estimator files were not modified.
