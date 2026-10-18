@@ -13,7 +13,7 @@ bounded launch. `PROTOCOL.md` defines finite-law versus Gaussian qualifications.
 
 ## Status
 Fresh claim `213f4b30`; sole numerical run `81149d17` complete after independently
-published source and execution gates. Recover_78's saved audit remains pending.
+published source and execution gates. Independent saved audit `35ec8444`, shared `6906472a`, passes all fields and provenance.
 
 ## Results
 All 13 finite-law tables, six label cases and 12 guard rejections pass; 64 progress
@@ -30,7 +30,7 @@ Hypothetical single/paired prices test a formula; they are not measured runtimes
 ## Claims
 [inferred, prior independently reviewed] Pairing preserves bias only under the
 appropriate law and reduces absolute envelopes through opposite signs.
-[measured, pending independent saved audit] The fixed exact implementation matches
+[measured, independently saved-audited 35ec8444] The fixed exact implementation matches
 the declared finite controls. No claim about a trained surrogate follows.
 
 ## Alternatives not ruled out

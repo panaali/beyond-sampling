@@ -3,7 +3,8 @@
 Sole producer run `81149d17` passed all 13 finite-law tables, six label fixtures
 and 12 guards. The source/resource gate `e3456dfd`, shared `f223cbc0`, and immutable
 execution gate `9b98e185`, shared `3a23fa9a`, preceded execution. Independent saved
-audit is assigned to recover_78 and pending. No failure, retry or target call.
+audit `35ec8444`, shared `6906472a`, checks every exact field and provenance chain
+without author calls (0.03293 CPU seconds, 32,464 KiB). No failure, retry or target call.
 
 The 37 exact table rows give the following discriminators. Costs are fixed
 hypothetical prices; variance ratios compare floor-budget sample counts and are
