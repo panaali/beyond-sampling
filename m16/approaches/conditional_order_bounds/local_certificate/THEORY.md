@@ -85,15 +85,20 @@ with rational lower/upper bounds. Tail mass is bounded by1-(Phi(4)-Phi(-4))^4
 with opposite endpoints. The lower bound on total abstention is an actual
 lower bound on THIS algorithm's unresolved event mass. It is not a lower bound
 on classification error, MSE, or uncertainty of a stronger local method.
-An accuracy enclosure is [correct_lower,1-wrong_lower]; normalization and
+The abstention-mass lower bound is distinct from the reported accuracy-enclosure
+width1-correct_lower-wrong_lower, which also includes probability endpoint
+uncertainty. An accuracy enclosure is [correct_lower,1-wrong_lower]; normalization and
 independent partition conservation checks must pass.
 
 ## Frozen sampling comparison
 
 Use the existing T196 c_s=218/682 at H4/H8,T4. For N=floor(B/c_s), maximal
 Bernoulli sampling SD is1/(2sqrt(N)). For positive abstention lower bound w,
-width>10*SD iff N>25/w^2. Integer floor gives the exact smallest N and common
-budget beyond which the strict inequality holds. Also report the predeclared
+the comparison w>10/(2sqrt(N)) is equivalent to N>25/w^2. Because w is a
+lower bound and1/(2sqrt(N)) an upper bound, this is a sufficient condition
+for actual abstention mass>10 actual sampling SD, not an equivalence for
+those actual quantities. Integer floor gives the exact smallest N and common
+budget for this conservative crossover certificate. Also report the predeclared
 B=10^7 FLOP comparison by exact squared inequalities. Certificate construction
 is granted free for this information-width comparison, just as in the prior
 T189 bridge; feasibility/full-cost/MSE advantage is not asserted. Record all
