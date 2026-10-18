@@ -79,6 +79,16 @@ coverage result is not yet independently contracted here.
    require more than these finite records. Coarse labels, omitted features,
    different rank-aware conditioning and dedicated rules remain alternatives.
 
+10. **Runtime binding is incomplete.** The saved model JSON identifies names/T/n,
+    but carries no model-weight bytes, library versions or executed-source hash.
+    The frozen driver prints `err_est` and writes `err_note`, whereas the retained
+    run log prints `err` and the JSON omits `err_note`. This establishes a visible
+    logging/serialization version difference, not a model-result defect. The
+    blind launcher requests kmax10 and its log ends `Terminated` after completed
+    k4; the final JSON explicitly reduces kmax to4 and notes k5 stopped. Preserve
+    that incomplete continuation and unknown extra runtime, rather than calling
+    the whole original launch a completed k4-only experiment.
+
 ## Proposed next saved-only phase (not execution clearance)
 
 Bind all8 models/two rules; independently contract stored tail masses, deterministic
