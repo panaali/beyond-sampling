@@ -1,0 +1,13 @@
+# T267 independent saved audit
+
+The sole saved audit passes all eight literal controls, six saved guard records, 5,058 original simplices, 17,593 exact determinants, all incidence/anchor identities and 26,378 events. Independent Bareiss elimination and ordered barycentric moment contraction replace the producer determinant/moment implementation. No producer, model, geometry enumeration, density, mass, quadrature or RNG calls occurred; rule.npz was hash-only.
+
+There are 12,535 unique orthant-specific facets, 7,697 cancelled facets and 4,838 live facets. Of the latter, 1,782 anchor determinants vanish, leaving 3,056 integration terms versus 5,058 originals. Saved estimates are 0.47701312599411866 and 0.477013125994119 (difference 3.3306690738754696e-16). Independent exact-dyadic contraction verifies all saved scalar contributions and outward determinant totals. The combined ideal quadrature bound is 7.178565593589908e-8; the reduced representation has a larger individual ideal bound. Node ratio is 0.6041913799920917.
+
+The saved integration-only CPU ratio is 0.6196979641277808, but the boundary decode/construction/accounting/rule/integration subtotal is 3.444271777 seconds. That subtotal excludes imports, prerequisite checks, controls and some serialization, as well as inherited enumeration. It is not a complete runtime or sampling-budget comparison. Named node arithmetic categories are 1,578,096,000 versus 953,472,000, not complete native costs.
+
+Reviewer CPU is 2.164473889 seconds, peak RSS 180,804 KiB; external elapsed/user/system are 2.29/1.72/0.56 seconds. Author CPU is 4.858434603 seconds. Sole 19/20 CPU, 2 GiB, 25-second review-lock attempt; no failure or retry. Published immutable binding d5db4314/shared a917e29d preceded execution; source/resource gate 7e814bf3/shared da329863 and producer raw 0059948f/shared ea1c1c70 remain pinned.
+
+Limitations: this verifies saved exact-chain algebra and scalar quadrature provenance/contraction, not fresh quadrature values, floating evaluation certification or inherited network coverage/disjointness. Peak-bit internals were not independently replayed. H4T3 has no terminal archive in this scope and requires a separate capture. No whole-method or ladder success follows.
+
+Reproduction command (already executed once; do not overwrite artifacts): `flock /workspace/work/codex-review.lock` with one BLAS thread, CPU soft/hard 19/20, address space 2097152 KiB, `timeout 25 /workspace/clean-neurons/.venv/bin/python check.py`. The complete invocation is preserved in this phase's execution record; run1.log and results.json are immutable evidence.

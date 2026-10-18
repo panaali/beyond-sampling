@@ -129,6 +129,7 @@ def main(r):
  assert {str(a/n) for n in ('primitive.py','fixtures.py','run.py','PROTOCOL.md','protocol.json')}<=set(ar['pins'])
  assert resource.getrlimit(resource.RLIMIT_CPU)==(19,20) and resource.getrlimit(resource.RLIMIT_AS)==(2**31,)*2
  d=read(out/'results.json');assert d['complete'] is True and d['pass_all'] is True and d['controls_passed'] is True
+ assert d['runtime']['invoked']==p['invoked_python']
  assert d['runtime']['cpu_limit']==[110,110] and d['runtime']['as_limit']==[2**31]*2 and d['runtime']['resolved']==p['resolved_python']
  assert d['numpy']=={'version':p['numpy_version'],'path':p['numpy_path']}
  assert [d[k] for k in ('model_calls','geometry_enumerations','rng_calls')]==[0,0,0]
