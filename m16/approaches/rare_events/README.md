@@ -652,7 +652,7 @@ Selecting on disagreement guarantees that the two differ on these pairs; the tes
   - On dev3_s541, where every hit has g12 < .1, K3 is off by 3e4 to 3e5x (3.4e-13 against 1.1e-7). The fix gets
     1.25-1.35x there.
   - On s543 the fix is 1.09 / .90 against K3's .48 / .42.
-  - Median |log ratio|: fix .23, K3 .75.
+  - Median |log ratio|: fix .26, K3 .74.
 - **Where the fix fails:** dev3_s547, the model where triple-tie hits are 80% but not 100% of the total. Its graded g12
   rule over-weights there (2.1-2.4x).
 - **Cost:** the fix costs 3.4-4.4x K3 (1.9-2.2M vs .43-.61M FPE). At the fix's compute, plain sampling expects
