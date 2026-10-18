@@ -9,7 +9,7 @@ Claim050c6bc3 and delegated continuation0b5a07d5 precede code. source_manifest.j
 check_saved.py uses exact rational values of stored binary64 numbers, independently forms six label schemes, selects labels and contracts all eight models/two rules. The fixed absolute5e-12 comparison concerns historical display arithmetic only. It does not bound model/integration error. SOURCE_NOTES.md and PROTOCOL.md record exclusions.
 
 ## Status
-Saved contraction complete, raw abe4faab published12b483c4. Final independent saved-result review is pending; no DRI confirmation or shared-code adoption.
+Saved contraction complete, raw abe4faab published12b483c4. Independent saved-result review d077bc05 (shared a55c29be) passes all26,224 points,1,015 comparisons,36 cross-copy scores and58 events using integer-scaled masses. Bounded handoff complete; scientific confirmation remains Claude DRI.
 
 ## Results
 [measured saved-data contraction] All1,015 comparisons pass; largest difference1.5495937866205622e-13. All26,224 tail records have kind metadata. The 36 cross-copy scores, deterministic singleton controls and two prefix-summary ratio tables reconcile. Prefix feasibility/counts themselves are not independently recomputed here.
@@ -25,15 +25,15 @@ Saved contraction complete, raw abe4faab published12b483c4. Final independent sa
 | Noise .005 | .042951032614 | .908615662709 |
 | Noise .01 | .032759299508 | .944326326049 |
 
-[inferred, conditional on saved labels/weights] Target and both noisy copies satisfy the preregistered below70% rejection of the fixed fine-label test. Coarse labels cover at least90.86% on all eight records. This is finite fixed-rule tail coverage, not population probability or estimator accuracy. Ordered repeated flip entries are retained by the implementation; no relabelling was performed.
+[inferred, conditional on saved labels/weights] Target and both noisy copies satisfy the preregistered below70% rejection of the fixed fine-label test. Coarse labels cover at least90.86% on all eight records. This is finite fixed-rule tail coverage, not population probability or estimator accuracy. The reviewer checks138 repeated-flip lists and9,158 non-sorted lists; ordered entries are retained and no relabelling was performed.
 
 The exact command executed once was `bash review/tie_tail_evidence/launcher.sh` from the repository. Outputs are audit/results.json, audit/progress.jsonl and run1.log. The launcher refuses existing outputs; reproduction requires a separately approved fresh scope, not overwriting this record.
 
 ## Compute accounting
-One saved-only process,8.200249237 in-main CPU seconds; Bash whole-process user7.69/system.81/real8.53 seconds, peak121,768KiB. Limits17 internal/19 soft/20 hard CPU,2GiB, review lock. Zero author, neural forward, evaluator, random, fit, geometry, LP, or mass calls. Exact saved arithmetic is not a new estimator and no FLOP/speed comparison follows.
+One saved-only process,8.200249237 in-main CPU seconds; Bash whole-process user7.69/system.81/real8.53 seconds, peak121,768KiB. Limits17 internal/19 soft/20 hard CPU,2GiB, review lock. Zero author, neural forward, evaluator, random, fit, geometry, LP, or mass calls. Independent saved review used1.1307 CPU seconds without author/model/RNG replay. Exact saved arithmetic is not a new estimator and no FLOP/speed comparison follows.
 
 ## Claims
-[measured] Snapshot identity and saved deterministic arithmetic pass their respective checks; final independent result review remains pending.
+[measured] Snapshot identity and saved deterministic arithmetic pass independent reviews791b2d5f andd077bc05.
 [inferred] The tested fine labels fail their fixed criterion. The stronger claim that all mechanism families form an unusable continuum is not established.
 
 ## Alternatives not ruled out

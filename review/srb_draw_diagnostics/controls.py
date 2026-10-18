@@ -52,7 +52,22 @@ def main():
     try:
         p=read(HERE/'protocol.json');g=read(HERE/'execution_gate.json')
         assert g['clearance'] is True and g['protocol_sha256']==sha(HERE/'protocol.json')
-        for path,digest in {**p['pins'],**g['pins']}.items():assert sha(path)==digest,path
+        # Verify the frozen sets separately: execution metadata cannot override protocol pins.
+        for pins in (p['pins'],g['pins']):
+            for path,digest in pins.items():assert sha(path)==digest,path
+        required=[str(HERE/x) for x in ('adapter.py','controls.py','protocol.json','source_manifest.json')]
+        required += [p['prior_results'],p['prior_saved_review'],g['source_review']['path']]
+        assert all(path in g['pins'] for path in required)
+        sr=g['source_review']
+        assert len(sr['publication'])>=8 and all(c in '0123456789abcdef' for c in sr['publication'])
+        assert g['pins'][sr['path']]==sr['sha256']
+        reviewed=read(sr['path'])
+        assert reviewed['status']=='passed' and reviewed['source_review_complete'] is True
+        for path in (str(HERE/'adapter.py'),str(HERE/'controls.py'),str(HERE/'protocol.json')):
+            assert reviewed['pins'][path]==sha(path)
+        prior_review=read(p['prior_saved_review'])
+        assert prior_review['complete'] is True
+        assert prior_review['pins'][p['prior_saved_review_result_key']]==sha(p['prior_results'])
         manifest=read(HERE/'source_manifest.json')
         for path,digest in manifest['pins'].items():assert sha(path)==digest,path
         r['runtime']=dict(executable=sys.executable,prefix=sys.prefix,numpy_version=np.__version__,numpy_file=np.__file__)
