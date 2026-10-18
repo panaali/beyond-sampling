@@ -49,14 +49,17 @@ def _pattern(p):
     return np.packbits(np.concatenate(G)).tobytes()
 
 
-def _init(model, mode, eps):
-    _W.update(model=model, mode=mode, eps=eps, pat=set())
-    if mode == "exact":
-        ce0 = B._cell_error
+def _init(model, mode, eps, leafsum=False):
+    _W.update(model=model, mode=mode, eps=eps, pat=set(), leaf=None)
+    ce0 = B._cell_error
 
-        def ce(c, g, A, Wo, truth, ops):
-            _W["pat"].add(_pattern(c.R.mean(0))); return ce0(c, g, A, Wo, truth, ops)
-        B._cell_error = ce
+    def ce(c, g, A, Wo, truth, ops):
+        if mode == "exact":
+            _W["pat"].add(_pattern(c.R.mean(0)))
+        if leafsum:                                   # whole leaf cell into a separate collector (no ops charged)
+            main = estG.BUF[0]; estG.BUF[0] = _W["leaf"]; B.mass(c, Ops()); estG.BUF[0] = main
+        return ce0(c, g, A, Wo, truth, ops)
+    B._cell_error = ce
     T = model[2].shape[0]
     if T not in B._HALVES:
         B._HALVES[T] = B.halves(T)
@@ -68,7 +71,7 @@ def _half(i):
     for k in B.STATS:
         B.STATS[k] = 0
     exact = mode == "exact"; B.MODE[0] = mode
-    estG.BUF[0] = _collect(); o = Ops(); t0 = time.time(); _W["pat"] = set()
+    estG.BUF[0] = _collect(); o = Ops(); t0 = time.time(); _W["pat"] = set(); _W["leaf"] = _collect()
     h = B._HALVES[T][i]
     g1 = (h["sigma"] * Wi > 0).astype(float); o.add(len(Wi))
     A1 = np.outer(Wi, np.eye(T)[0])
@@ -76,7 +79,7 @@ def _half(i):
     assert e0 == 0.0
     R = {d: np.array(v) for d, v in estG.BUF[0].L.items()}
     st = {k: v for k, v in B.STATS.items() if k != "simplices"}
-    st["pat"] = _W["pat"]
+    st["pat"] = _W["pat"]; st["leaf"] = {d: np.array(v) for d, v in _W["leaf"].L.items()}
     return i, R, o.n, st, time.time() - t0
 
 
@@ -93,7 +96,7 @@ def load_model(H, T, name):
     return zoo(H, T, int(name))
 
 
-def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, nomass=False):
+def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, nomass=False, leafsum=False):
     estG.DEV[0] = device
     T = model[2].shape[0]
     if T not in B._HALVES:
@@ -109,7 +112,7 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
     todo = [i for i in idx if i not in done]
     t0 = time.time(); tm = 0.0; PAT = set()
     fo = open(log, "a") if log else None
-    with mp.get_context("fork").Pool(workers, _init, (model, mode, eps)) as pool:
+    with mp.get_context("fork").Pool(workers, _init, (model, mode, eps, leafsum)) as pool:
         # bounded in-flight halves: finished halves wait in RAM (rays of ~2e5 6-D simplices each at T = 6) until the
         # parent has integrated them, so at most 2 * workers results are outstanding
         q = queue.Queue(); sem = threading.BoundedSemaphore(2 * workers)
@@ -123,7 +126,10 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
             if isinstance(res, BaseException):
                 raise res
             i, R, ops, st, sec = res
-            PAT |= st.pop("pat")
+            PAT |= st.pop("pat"); LF = st.pop("leaf"); leaf = 0.0
+            if leafsum:
+                for d, Rd in LF.items():
+                    leaf += estG.masses(Rd, d)[0]
             t1 = time.time(); err = 0.0; mops = 0; ns = 0
             nthin = 0
             for d, Rd in R.items():
@@ -133,6 +139,8 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
                 else:
                     t0_ = estG.THIN[0]; m, o = estG.masses(Rd, d); err += m; mops += o; nthin += estG.THIN[0] - t0_
             tm += time.time() - t1
+            if leafsum:
+                st["leaf"] = leaf
             r = dict(half=i, err=None if nomass else err, ops=ops + mops, ops_geometry=ops, simplices=ns, thin=nthin,
                      sec_geometry=sec, **st)
             done[i] = r
@@ -149,6 +157,8 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
             tot[k + "_se"] = float(v.std(ddof=1) * nh / np.sqrt(len(v)) * np.sqrt(1 - len(v) / nh))
     if mode == "exact" and not sample and len(todo) == len(idx):
         tot["regions"] = len(PAT)                                   # (not available for resumed runs)
+    if leafsum and not sample:
+        tot["leafsum_minus_1"] = sum(done[i]["leaf"] for i in idx) - 1.0
     tot.update(sec_wall=time.time() - t0, sec_mass_parent=tm, workers=workers, device=device, resumed=len(idx) - len(todo))
     return tot
 
@@ -162,12 +172,13 @@ if __name__ == "__main__":
     ap.add_argument("--sample", type=float, default=None, help="fraction of halves (seeded random sample)")
     ap.add_argument("--sample-seed", type=int, default=0)
     ap.add_argument("--nomass", action="store_true", help="geometry only: count simplices, no mass values")
+    ap.add_argument("--leafsum", action="store_true", help="also integrate every leaf cell whole (sum must be 1)")
     a = ap.parse_args()
     out = os.path.join(HERE, "results", "runs"); os.makedirs(out, exist_ok=True)
     tag = f"H{a.H}T{a.T}_{a.name.replace(':', '_')}_{a.mode}" + ("_nomass" if a.nomass else "") + \
-        (f"_s{a.sample:g}_{a.sample_seed}" if a.sample else "")
+        (f"_s{a.sample:g}_{a.sample_seed}" if a.sample else "") + ("_leafsum" if a.leafsum else "")
     r = run(load_model(a.H, a.T, a.name), a.mode, a.workers, a.device, a.eps, os.path.join(out, tag + ".jsonl"),
-            (a.sample, a.sample_seed) if a.sample else None, a.nomass)
+            (a.sample, a.sample_seed) if a.sample else None, a.nomass, a.leafsum)
     r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"))
     json.dump(r, open(os.path.join(out, tag + ".json"), "w"), indent=1)
     print(tag, json.dumps(r))
