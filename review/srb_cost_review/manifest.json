@@ -1,0 +1,306 @@
+{
+  "claim": "ff71bdaa",
+  "shared_source_commit": "ff71bdaa6049ab5d433735a39247f0b41a790c07",
+  "files": [
+    {
+      "original_path": "m16/approaches/control_variate/estimator.py",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/estimator.py",
+      "git_blob": "574d110b4690202a57345a026af7ed8161888856",
+      "sha256": "2dcd9e7a5b7c54e302698e5513030fa764ec1f65fa768165a7e1362a9661b8e5",
+      "bytes": 760,
+      "definitions": [],
+      "imports": [
+        "import json, os, sys",
+        "import numpy as np",
+        "import cv"
+      ]
+    },
+    {
+      "original_path": "m16/approaches/control_variate/cv.py",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/cv.py",
+      "git_blob": "7a56f2133b33600bf8f8520de5663058a49e1c32",
+      "sha256": "70d3ff3c1b464cb99e043ad2294df1fc44091f0a541465d4fcc2a4d5777c15f7",
+      "bytes": 4681,
+      "definitions": [
+        {
+          "name": "pstratum",
+          "line": 21,
+          "end": 25
+        },
+        {
+          "name": "precompute",
+          "line": 31,
+          "end": 44
+        },
+        {
+          "name": "pc",
+          "line": 48,
+          "end": 52
+        },
+        {
+          "name": "draw",
+          "line": 55,
+          "end": 59
+        },
+        {
+          "name": "_cf_cv",
+          "line": 62,
+          "end": 75
+        },
+        {
+          "name": "draw_all",
+          "line": 78,
+          "end": 86
+        },
+        {
+          "name": "make",
+          "line": 94,
+          "end": 113
+        }
+      ],
+      "imports": [
+        "import os, sys",
+        "import numpy as np",
+        "from rb9 import Q, COST_Q",
+        "from basis9 import basis9"
+      ]
+    },
+    {
+      "original_path": "m16/approaches/control_variate/rb9.py",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/rb9.py",
+      "git_blob": "ca69ec46a0b95bc8aad52f38bebeb824872acd38",
+      "sha256": "487d864f7389c7539b6b5acad06853a3b25e4c2c6a76b49d15817a87ba734958",
+      "bytes": 3417,
+      "definitions": [
+        {
+          "name": "h9",
+          "line": 14,
+          "end": 19
+        },
+        {
+          "name": "Q",
+          "line": 22,
+          "end": 65
+        }
+      ],
+      "imports": [
+        "import numpy as np",
+        "from scipy.special import ndtr, stdtr"
+      ]
+    },
+    {
+      "original_path": "m16/approaches/control_variate/basis9.py",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/basis9.py",
+      "git_blob": "2a7fb93f0dc409ae11fe4c090b7354471a14ec9c",
+      "sha256": "334e841c6611cff0308a8fb27b66b3c1478bbd45394602e15445828e2bf84e23",
+      "bytes": 1276,
+      "definitions": [
+        {
+          "name": "onehot",
+          "line": 6,
+          "end": 7
+        },
+        {
+          "name": "basis9",
+          "line": 8,
+          "end": 23
+        }
+      ],
+      "imports": [
+        "import numpy as np",
+        "from scipy.special import ndtr"
+      ]
+    },
+    {
+      "original_path": "m16/approaches/control_variate/alloc.json",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/alloc.json",
+      "git_blob": "ffbbe289251c6f8c30e49a219e4ba03bb7fea8a2",
+      "sha256": "624973adb2cb0b53109757a43ca36b66743ea7c46d11ef9486159b7e45d14e2b",
+      "bytes": 349
+    },
+    {
+      "original_path": "m16/approaches/control_variate/precomp.npz",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/precomp.npz",
+      "git_blob": "30c3ac1925d96cf01278eee2776b0c4798eadd72",
+      "sha256": "591f602f9ac48700eff593221852a5202344a80c5a0aeef636f07fbe364ad918",
+      "bytes": 11124
+    },
+    {
+      "original_path": "m16/approaches/control_variate/pilot.py",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/pilot.py",
+      "git_blob": "fb54352c420ecb122177c42f6e5bf510ad6a5e11",
+      "sha256": "218fcf412e06caeddf0e7a98c3f114dc9afb0fe0c484f429e7dd4561440c3110",
+      "bytes": 882,
+      "definitions": [],
+      "imports": [
+        "import sys, json, numpy as np",
+        "from common import Wi, Wh, Wo",
+        "import cv"
+      ]
+    },
+    {
+      "original_path": "m16/approaches/control_variate/README.md",
+      "snapshot_path": "snapshot/m16/approaches/control_variate/README.md",
+      "git_blob": "e2616f0e2e3e1997c7549745d0c79bb36dbf2069",
+      "sha256": "7348a35225e7119a72f433aafc9310c3fde5cd8f4dff4e7f94463a14bb9718f4",
+      "bytes": 11111
+    },
+    {
+      "original_path": "m16/leaderboard.py",
+      "snapshot_path": "snapshot/m16/leaderboard.py",
+      "git_blob": "b269c9e0910fa29a71a8482dd7b8e09c36a28c00",
+      "sha256": "973a46f90e1c030715444cd77a5a18939cf619c8a8781121aac3756f7c075669",
+      "bytes": 21271,
+      "definitions": [
+        {
+          "name": "flops",
+          "line": 127,
+          "end": 128
+        },
+        {
+          "name": "fpe_flops",
+          "line": 131,
+          "end": 133
+        },
+        {
+          "name": "forward",
+          "line": 136,
+          "end": 141
+        },
+        {
+          "name": "correct",
+          "line": 144,
+          "end": 145
+        },
+        {
+          "name": "est_sampling",
+          "line": 148,
+          "end": 150
+        },
+        {
+          "name": "_zoo",
+          "line": 153,
+          "end": 157
+        },
+        {
+          "name": "_noisy",
+          "line": 160,
+          "end": 163
+        },
+        {
+          "name": "_base",
+          "line": 166,
+          "end": 172
+        },
+        {
+          "name": "models",
+          "line": 175,
+          "end": 187
+        },
+        {
+          "name": "group_of",
+          "line": 190,
+          "end": 191
+        },
+        {
+          "name": "truths_path",
+          "line": 194,
+          "end": 195
+        },
+        {
+          "name": "compute_truths",
+          "line": 198,
+          "end": 211
+        },
+        {
+          "name": "load_estimator",
+          "line": 215,
+          "end": 238
+        },
+        {
+          "name": "_charged",
+          "line": 241,
+          "end": 243
+        },
+        {
+          "name": "_seed",
+          "line": 246,
+          "end": 247
+        },
+        {
+          "name": "run",
+          "line": 250,
+          "end": 280
+        },
+        {
+          "name": "_sampling_sec_per_fpe",
+          "line": 287,
+          "end": 295
+        },
+        {
+          "name": "load_raw",
+          "line": 298,
+          "end": 308
+        },
+        {
+          "name": "table",
+          "line": 311,
+          "end": 345
+        },
+        {
+          "name": "report",
+          "line": 348,
+          "end": 366
+        },
+        {
+          "name": "main",
+          "line": 369,
+          "end": 389
+        }
+      ],
+      "imports": [
+        "import argparse",
+        "import importlib.util",
+        "import json",
+        "import os",
+        "import shutil",
+        "import sys",
+        "import time",
+        "import zlib",
+        "import numpy as np"
+      ]
+    },
+    {
+      "original_path": "review/estimator_audit/README.md",
+      "snapshot_path": "snapshot/review/estimator_audit/README.md",
+      "git_blob": "4d22c0d996cdaca53b853fbb42a5624b41bc5f2a",
+      "sha256": "c6af02a668f9151e2d34026aef4f57f3aa4c86dea7c7c6476bc4f7526f767ce7",
+      "bytes": 22212
+    },
+    {
+      "original_path": "review/cost_convention/README.md",
+      "snapshot_path": "snapshot/review/cost_convention/README.md",
+      "git_blob": "d979809b66c96b009b412a4c5ebcb13caa4a4cae",
+      "sha256": "a93f8f25c9ebf8797d93c49db72c86f27126686a111a684333d556065839baa6",
+      "bytes": 15599
+    },
+    {
+      "original_path": "review/leaderboard_v3_repair/SRB_CONTINUATION.md",
+      "snapshot_path": "snapshot/review/leaderboard_v3_repair/SRB_CONTINUATION.md",
+      "git_blob": "f2a9e781c37d70d53233565d40fe779dcc8acffd",
+      "sha256": "69b5c450893c1daf0dd1eeaa05a6d706d90101aada3d953d5ef8babcd8c40f4e",
+      "bytes": 2139
+    },
+    {
+      "original_path": "review/leaderboard_v3_repair/HANDOFF.md",
+      "snapshot_path": "snapshot/review/leaderboard_v3_repair/HANDOFF.md",
+      "git_blob": "930dcc1d82a1a199cfa070eee398a03feda9fcdd",
+      "sha256": "41afa1cea89c9c07f1c1f825594d67caca6862c296ee6afc771c5d6c95ad8568",
+      "bytes": 2633
+    }
+  ],
+  "author_imports": 0,
+  "model_evaluations": 0,
+  "numerical_experiments": 0,
+  "scope": "Source bytes, AST locations and explicitly stated algebra only; no cost measurements or runtime provenance proof."
+}
