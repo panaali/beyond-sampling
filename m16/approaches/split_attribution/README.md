@@ -40,8 +40,15 @@ gate k = neuron, step t = input index 1..T-1):
   downstream subtree with the gate true (the normal run) minus with gate k forced to its frozen value (counterfactual
   subtree). `absdE` = sum over pieces of |difference| (net `dE` also kept). This is the first-order change in the
   estimate if that single split were pruned (joint pruning is not additive). "Class-changing" = absdE > 1e-13.
+  **Label (review T55, 2eef376c):** this is a *fixed-refined-piece intervention* (the step-t pieces produced by all of
+  that cell's splits are kept; only gate k's value is overridden on its minority pieces), not the literal effect of
+  removing the split from the recipe (which would also change the later partition of the merged cell).
 - **masses**: Gaussian mass of the split cell and of its minority side (`estT.mass`).
 - **sampled DIAG** (T164 test, labelled sampled): 64 Dirichlet points + minority rays, true network vs gate k frozen.
+- **cumulative-shift log** (DRI request, `attr.py H T s guard`, pure log): at each terminal margin test with frozen
+  gates, max over the union of the per-gate candidate test points of sum_k (frozen shift_k) / |frozen margin|.
+  **Label:** these are sampled candidate-point ratios (a finite-point lower bound on violations), not measured extra
+  splits of a fixed recipe.
 - **clock labels** (`clocks.py`, sampled, diagnostic only): per neuron R^2 of final h_j on one-hot argmax position
   minus R^2 on top-3 values.
 

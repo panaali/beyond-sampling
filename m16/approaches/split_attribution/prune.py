@@ -22,11 +22,23 @@ CFG = dict(tau=0.0, test="cap", oracle=False)
 P = dict(n=0, mass=0.0, bound=0.0, err=0.0, oracle_err=0.0, oracle_single=0.0, wrong_centroid=0, by_step={})
 
 
+SIN_PAD = 1e-14          # absolute pad on sin(theta): covers rounding of u and of the perpendicular components
+BETA_REL = 1e-9
+MASS_PAD = 1e-15         # 'mass' test: absolute pad per pruned cell on estT.mass (d = 3 closed form has ~1e-17 noise)          # relative pad on scipy betainc (documented accuracy ~1e-14 relative)
+
+
 def cap_bound(c, ops):
-    d = c.R.shape[1]; u = c.R.sum(0); u /= np.linalg.norm(u); cs = float(np.min(c.R @ u)); ops.add(len(c.R) * (d + 1) + 2 * d + 30)
-    if cs <= 0:
+    """Outward upper bound on the Gaussian mass of the cone spanned by the rows of c.R (unit rays): the circular cone
+    around u = normalised ray sum with half-angle theta = max_r angle(u, r) contains every ray, hence (convex, theta <
+    pi/2) the cone. sin(theta_r) = |r - (r.u) u| (no 1 - cos^2 cancellation; a review found 1 - cs^2 = 0 on narrow
+    cones), padded by SIN_PAD; mass = 1/2 I_{sin^2 theta}((d-1)/2, 1/2), padded by BETA_REL. Returns 1 if the cap is
+    not within a half-space with margin (cos theta <= 1e-6)."""
+    d = c.R.shape[1]; u = c.R.sum(0); u /= np.linalg.norm(u); cs = c.R @ u
+    perp = np.linalg.norm(c.R - cs[:, None] * u[None, :], axis=1); ops.add(len(c.R) * (3 * d + 2) + 2 * d + 30)
+    if cs.min() <= 1e-6:
         return 1.0
-    return 0.5 * float(betainc((d - 1) / 2, 0.5, max(0.0, 1 - cs * cs)))
+    sn = min(1.0, float(perp.max()) + SIN_PAD)
+    return min(1.0, 0.5 * float(betainc((d - 1) / 2, 0.5, sn * sn)) * (1 + BETA_REL))
 
 
 def centroid_class(c, model, ops):
@@ -51,7 +63,7 @@ def try_prune(c, g, A, t, model, truth, n_true, eps, last):
         m = mb if CFG["test"] == "mass" else estT.mass(c, ops)
     else:
         m = 0.0
-    P["n"] += 1; P["bound"] += mb; P["err"] += m; P["wrong_centroid"] += int(wrong)
+    P["n"] += 1; P["bound"] += mb + (MASS_PAD if CFG["test"] == "mass" else 0.0); P["err"] += m; P["wrong_centroid"] += int(wrong)
     bs = P["by_step"].setdefault(t, [0, 0.0]); bs[0] += 1; bs[1] += mb
     if CFG["oracle"]:
         st = dict(STATS); mt = estT.mass(c, Ops())
