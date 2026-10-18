@@ -168,5 +168,27 @@ the .67 line.
 - Calibration: 3 models, about 12 CPU-min.
 - Truths: T192 GPU.
 
+## Check: simultaneous zero crossings (DRI, after the result)
+The T218 child found a bug in the continuity walk used by T340's variant B. When an input coordinate crosses 0, all
+16 step-0 pre-activations cross at the same t, and a strict root filter toggles only one gate.
+
+My T312 walk is not a continuity walk. In every cell it recomputes the whole forward pass and all gates at
+t + 1e-10, so simultaneous crossings are re-evaluated together.
+
+Dense check (`python3 dense_check.py`, `results/dense_check.json`):
+- For each of 60 random rows per line, I compared the walk's set length with a 50k-point forward grid on [0, 6].
+- Lines tested:
+  - E1/B at the GL nodes nearest v2 = 0 (where v3, v4 and the lows cross 0 early), and at two others, in both
+    regions;
+  - E2/A at both regions.
+- Models: dev3_s505 and T340's seed0.
+
+| model | max abs. length discrepancy | mean |
+|---|---|---|
+| dev3_s505 | 9.3e-5 | 1.1–2.0e-5 |
+| seed0 | 8.2e-5 | 1.1–1.6e-5 |
+
+This is at the grid's resolution (6/50k = 1.2e-4). **My walk does not have the bug, so the E1 and E2 numbers stand.**
+
 ## Status
 **Done. NO GO** on the fixed family rule. Unverified. Waiting for the DEV3 truths (requested from T192).
