@@ -183,6 +183,7 @@ if __name__ == '__main__':
     try:
         main()
     except BaseException:
+        RESULT['complete'] = RESULT['pass_all'] = False
         RESULT['error'] = traceback.format_exc(); RESULT['cpu_seconds_main'] = time.process_time() - START
         dump(); (OUT / 'failure.txt').write_text(RESULT['error'])
         raise
