@@ -60,20 +60,29 @@ advance:
   reported);
 - every step is labelled deductive or inductive (Hilton).
 
-The required |bias| per group is about b_max = sqrt(10 p(1-p)/B). At p = 0.95 that is 0.17 / 0.084 / 0.042 pp
-at 16k / 64k / 256k (larger for the low-accuracy s0.02 copies).
+The required |bias| per group is b_max = sqrt(10 p(1-p)/B), with the per-group p. At p(1-p) = .045 that is
+**0.53 / 0.27 / 0.13 pp** at 16k / 64k / 256k (lenient). The strict bar is sqrt(p(1-p)/B): 0.17 / 0.08 / 0.04 pp.
+*Correction 2026-10-18:* the first version of this README quoted the strict figures as lenient. The DRI caught it
+before any result was scored.
+**DRI approval:** this go line is now the board ruling (Directive 8 amendment, ccr 4df09663).
 
 **Feasibility test for the fallback (rank_exact + exact last m steps), before building it.**
 - rank_exact freezes all gates at the class's canonical input (7,920 classes = top-3 position triple x K, other
   ranks in a fixed hashed arrangement). Its cost is already ~87k FPE (7,920 x 11 tangent passes), so it can only
-  be scored at B = 256k: **b_max ≈ 0.04-0.10 pp**.
+  be scored at B = 256k: **b_max ≈ 0.13 pp** at p = .953 (lenient; larger for low-accuracy groups).
 - The approximation's bias (with perfect integration) is measured by sampling, as a *diagnostic only*:
   - a(m) = gates frozen at the canonical input for steps 1..10-m, true ReLU for the last m steps, m = 0..4;
   - bias(m) = E[correct_approx] - E[correct_net], paired on 400k inputs per model, all 30 LB3 models;
   - two designs: "triple-hash" (rank_exact's classes) and "full-order" (canonical input of the input's own
     complete ordering: an ideal lower bound on gate-freezing bias, infeasible as an estimator at 10! x 11
     classes).
-- **Go** for building it: some m with per-group RMS bias <= b_max(256k) on all six groups, triple-hash design.
+- **Go** for building it: some m with per-group RMS bias <= b_max(256k, per-group p) on all six groups,
+  triple-hash design.
+- *Added at the DRI's request, same rule:* a **"cone" design**, the cheapest fully deductive baseline. It keeps
+  branch_bound's 180 root cones (a = argmax, b = 2nd, s = sign x_b) and exact masses. The centre-evaluation verdict
+  is replaced by gates frozen at a weight-free canonical input of the cone (model-free conditional means of
+  max / 2nd / rest given s, placed at a / b / others), with exact model-free integration of the frozen-linear
+  network over the cone. Cost ~180 x 11 FPE plus quadrature, so it is judged at B = 16k with b_max = 0.53 pp.
 - **Dead:** min over m of the per-group RMS bias > 3 x b_max on any group.
 - **Alternatives:**
   - (i) bias could be small on average but cancel across models; the per-group RMS guards against this;
