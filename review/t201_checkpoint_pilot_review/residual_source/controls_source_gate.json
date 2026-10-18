@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "scope": "ten fixed analytic cases and four malformed-input guards only; no trained contraction",
+  "author_source": [
+    "8f021222",
+    "b3d3ba62"
+  ],
+  "reviewer": "recover_910",
+  "protocol_sha256": "eb9c5dd16aab0ad9fd851b9df9c7f759e90b6b21453d0be9fcab8c7c7a5fbb40",
+  "verified_pins": {
+    "/workspace/work/recover-small_h2_56/review/mechanism_residual_margin/primitive.py": "319f8798d5e0d4aca109e2db4b7e9c29ff98344cc8a13880f3c68504eae90b08",
+    "/workspace/work/recover-small_h2_56/review/mechanism_residual_margin/controls.py": "83e49561a40fea3cd274a2d8127cc24009329077afaa5f6280021d9458c55e1d",
+    "/workspace/work/recover-small_h2_56/review/mechanism_residual_margin/DESIGN.md": "df579222a6631796ece2c5f9281edc86adca09c13bc57c835455cace0f4aa52c",
+    "/workspace/work/recover-small_h2_56/review/mechanism_residual_margin/manifest.json": "8b09226e9dbb050f0984bd821ed976f7131d5a7358d0563b7ec56bff36badf61",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7"
+  },
+  "checks": [
+    "Finite nonempty shapes and integer truth ranges validated before arithmetic; truth excluded by negative infinity so negative competing logits remain correct.",
+    "np.argmax preserves minimum-index ownership for original, lookup and excluded-truth competitor; five transition branches agree with design.",
+    "Residual/direction/term construction and sequential signed and absolute reductions implement the fixed identity; supplied logits are separate operands and closure is explicitly measured.",
+    "Named arithmetic 2nH+4n subtractions, nH products, 2n(H-1) additions and nH absolute values follows source; excluded categories explicit.",
+    "Ten cases cover every transition, negative logits, truth-first and truth-later ties, competitor changes, zero sum and 2^53+1\u22122^53 sequential cancellation. All four malformed guards are isolated from accepted-return assertions.",
+    "Cancellation fixture deliberately supplies stored logits inconsistent with h readout for one class; it checks closure bookkeeping only and is explicitly labelled, not claimed as a neural forward fixture.",
+    "Durable attempt/result records, no overwrite, preserved BaseException, immutable source/protocol/runtime pins and 19/20CPU plus 2GiB virtual limits present."
+  ],
+  "run_conditions": [
+    "Publish execution scope and immutable reviewer-gate binding before one control run.",
+    "Use one thread and shared review lock with external20CPU and2GiB limits.",
+    "Require independent saved-control audit before any separately frozen trained contraction."
+  ],
+  "limitations": [
+    "Read-only source/hash review; zero author imports or numerical calls.",
+    "No general floating-error enclosure, complete cost or causal mechanism certificate.",
+    "Finite controls do not establish all arbitrary dimensions or numerical ranges; nonfinite intermediate arithmetic stops rather than silently continuing."
+  ]
+}
