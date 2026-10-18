@@ -127,3 +127,23 @@ and A+B.
 - **T306:** V1 / A / B / A+B on 80 (this section).
 
 In total about 30 variants have seen DEV2. HP2 is the only clean test.
+
+## T306 results (`python t306.py`, `results/t306.json`; all 80 DEV2 retrains; **development data**)
+
+| variant | C (FPE) | bias (pp) | RMS (pp) | point F [95% CI] |
+|---|---|---|---|---|
+| **V1** | 13,713 | +0.445 | 0.795 | **11.95 [8.68, 15.69]** |
+| A (capped blind g12 walk) | 16,118 | +0.428 | 0.785 | 13.71 [9.97, 18.0] |
+| B (two transverse points per region) | 28,350 | +0.780 | 0.983 | 37.8 [29.5, 47.3] |
+| A+B | 33,797 | +0.767 | 0.973 | 44.1 [34.4, 55.4] |
+
+(V1's FPE here is 1.7% above T304's 13,473, because the Gauss-Legendre work is charged per region in r1w2. The
+estimates are identical.)
+
+- **Pre-registered selection: V1** (lowest point F).
+- A lowers the error by 0.01 pp at +2.4k FPE.
+- **B makes it worse.** Splitting each region at its median v2 doubles the walks and *raises* the bias
+  (+.45 -> +.78 pp). The one-point closure of the boundary per region was not the main error source, and the
+  half-region transverse points are worse anchors for the outer v2 tails.
+- The winner is V1 itself, so the "winner" and "V1" HP2 submissions coincide. `estimator.py` (frozen) was sent to
+  the T281 scorer. **The claim is HP2's score alone.**
