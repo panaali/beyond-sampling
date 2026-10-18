@@ -149,8 +149,17 @@ class Trainer:
                {f"m{i}": t.cpu() for i, t in enumerate(self.m)} | {f"v{i}": t.cpu() for i, t in enumerate(self.v)} | \
                {"step": self.step_t.cpu()}
 
+    def reseed(self, data_seed, block):
+        """deterministic data stream: reseeded at every block boundary from (data_seed, block), so a resumed run
+        (checkpoints are taken at block boundaries) sees exactly the data of an uninterrupted run"""
+        seed = data_seed * 1000003 + block
+        if self.gen is not None:
+            self.gen.manual_seed(seed)
+        else:
+            th.cuda.manual_seed(seed)
+
     def load_state(self, st, data_seed):
-        """in-place restore (keeps the captured graph valid); data stream reseeded from (data_seed, step)"""
+        """in-place restore (keeps the captured graph valid)"""
         with th.no_grad():
             for i, t in enumerate(self.params):
                 t.copy_(st[f"p{i}"])
@@ -159,11 +168,6 @@ class Trainer:
             for i, t in enumerate(self.v):
                 t.copy_(st[f"v{i}"])
             self.step_t.copy_(st["step"])
-        seed = data_seed * 1000003 + int(st["step"])
-        if self.gen is not None:
-            self.gen.manual_seed(seed)
-        else:
-            th.cuda.manual_seed(seed)
 
     def weights(self):
         return [p.detach().cpu().double().numpy() for p in self.params]

@@ -36,18 +36,28 @@ tr = TR.Trainer(a.H, a.T, a.seeds, n_train, warmup=a.warmup, device=a.device, f_
 n_steps = n_train // 1024
 ckpt = {n_steps // 2 ** i for i in range(5)}
 curve = []; t0 = time.time(); lsum = th.zeros(K, device=a.device); asum = th.zeros(K, device=a.device); nlog = 0
+import hashlib  # noqa: E402
+BLOCK = 2 ** 18                                   # data reseed + state checkpoint interval (steps)
+src_hash = hashlib.sha256(b"".join(open(os.path.join(HERE, f), "rb").read() for f in ("trainer.py", "run.py"))).hexdigest()
+meta = dict(config=vars(a), seeds=a.seeds, src_hash=src_hash)
 state_f = os.path.join(out_dir, "state.pt"); start = 1
-if os.path.exists(state_f):                       # resume after a reclaimed runtime
-    st = th.load(state_f); tr.load_state(st, a.data_seed); start = int(st["step"]) + 1; curve = st["curve"]
+if os.path.exists(state_f):                       # resume after a reclaimed runtime (only at block boundaries)
+    st = th.load(state_f, weights_only=False)
+    if st.get("meta") != meta:
+        raise SystemExit(f"{a.tag}: checkpoint config/source/seeds differ from this run; refusing to resume")
+    tr.load_state(st, a.data_seed); start = int(st["step"]) + 1; curve = st["curve"]
     print(a.tag, "resumed at step", start - 1, flush=True)
+tr.reseed(a.data_seed, (start - 1) // BLOCK)
 for s in range(start, n_steps + 1):
     tr.step(); lsum += tr.loss; asum += tr.acc; nlog += 1
     if s % 2 ** 14 == 0 or s == n_steps:
         curve.append(dict(step=s, sec=time.time() - t0, loss=(lsum / nlog).tolist(), acc=(asum / nlog).tolist()))
         lsum.zero_(); asum.zero_(); nlog = 0
         print(a.tag, s, "%.0fs" % (time.time() - t0), ["%.4f" % v for v in curve[-1]["acc"]], flush=True)
-    if s % 2 ** 18 == 0 and s < n_steps:
-        th.save(tr.state() | {"curve": curve}, state_f + ".tmp"); os.replace(state_f + ".tmp", state_f)
+    if s % BLOCK == 0 or s == n_steps:
+        th.save(tr.state() | {"curve": curve, "meta": meta}, state_f + ".tmp"); os.replace(state_f + ".tmp", state_f)
+        if s % BLOCK == 0:
+            tr.reseed(a.data_seed, s // BLOCK)
     if s in ckpt:
         W = tr.weights()
         for k, seed in enumerate(a.seeds):
@@ -55,7 +65,7 @@ for s in range(start, n_steps + 1):
 wall = time.time() - t0
 W = tr.weights(); models = [(W[0][k], W[1][k], W[2][k]) for k in range(K)]
 ev = evaluate(models, int(a.eval_n), device=a.device)
-res = dict(config=vars(a), n_train=n_train, n_steps=n_steps, wall_sec=wall, curve=curve,
+res = dict(config=vars(a), src_hash=src_hash, n_train=n_train, n_steps=n_steps, wall_sec=wall, curve=curve,
            eval={str(seed): e for seed, e in zip(a.seeds, ev)})
 json.dump(res, open(os.path.join(HERE, "results", f"{a.tag}.json"), "w"), indent=1)
 os.makedirs(os.path.join(HERE, "weights"), exist_ok=True)              # final weights also kept in the repo folder

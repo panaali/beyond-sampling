@@ -35,6 +35,16 @@ the "training-outcome" errors (especially the blind region, <= 1 positive input,
   inputs (blind error rate 78%), 2-3 2.86%, 1-2 0.72%, other 0.27% (FINDINGS: 0.83% blind, 78%) [measured].
 - `run.py TAG --log2n N ...`: one configuration, K seeds -> `results/TAG.json`, weights in `data/capacity_ceiling/`.
 
+## Code revisions (T55 review, 2026-10-18 04:05 UTC)
+Fixed after Codex T55's source review: (1) error anatomy conditional on T >= 3 (T = 2 crashed); (2) deterministic data
+stream: reseeded from (data_seed, block) at every 2^18-step block, so a resume from a block-boundary checkpoint sees
+exactly the data of an uninterrupted run; checkpoints store config + source hash + seed list (validated on resume) and
+a final-state checkpoint is saved; (3) evaluation saves per-model integer correct counts and the pairwise discordance
+matrix (common inputs across models) for paired comparisons. **Runs started under the old code:** `a30` (seeds 0-4,
+2^30) and the zoo-code reproduction `zoo_code_seed0` (unchanged alg_zoo, unaffected): `a30` used one continuous data
+stream (no mid-run resume happened), and its final evaluation lacks the discordance matrix (re-evaluated with the new
+evaluate.py from the saved weights).
+
 ## Results
 (pending)
 

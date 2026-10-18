@@ -1,7 +1,9 @@
 """T234: accuracy and error anatomy of 2nd-argmax RNNs by plain MC on N(0, I_T) (float64 forward).
 
 Error classes (m16/FINDINGS.md section 3): blind = global 2nd-largest <= 0 (any error there); otherwise an error is
-'2-3' if the model picked the 3rd largest, '1-2' if it picked the largest, 'other' else.
+'2-3' if the model picked the 3rd largest (T >= 3 only), '1-2' if it picked the largest, 'other' else.
+All models see the same inputs (common random numbers): per-model integer correct counts and the pairwise discordance
+matrix disc[i][j] = #(model i correct, model j wrong) are returned for paired comparisons (T55 review).
 usage: evaluate(models [(Wi, Wh, Wo) numpy], n, seed, device) -> list of dicts."""
 import math
 
@@ -15,26 +17,31 @@ def evaluate(models, n=10 ** 8, seed=777, device="cuda", chunk=1 << 22):
     W = [[th.as_tensor(w, dtype=th.float64, device=device) for w in m] for m in models]
     g = th.Generator(device=device); g.manual_seed(seed)
     cnt = np.zeros((K, 6), np.int64)      # correct, blind_total, blind_err, err23, err12, err_other
+    disc = np.zeros((K, K), np.int64)
     done = 0
     while done < n:
         m = min(chunk, n - done)
         x = th.randn(m, T, generator=g, device=device, dtype=th.float64)
         order = x.argsort(-1)
-        lab = order[:, -2]; top = order[:, -1]; third = order[:, -3]
+        lab = order[:, -2]; top = order[:, -1]
+        third = order[:, -3] if T >= 3 else th.full_like(lab, -1)        # T = 2: no 3rd largest
         blind = x.gather(1, lab[:, None])[:, 0] <= 0
+        oks = []
         for k, (Wi, Wh, Wo) in enumerate(W):
             h = th.zeros(m, Wi.shape[0], dtype=th.float64, device=device)
             for t in range(T):
                 h = th.relu(h @ Wh.T + x[:, t:t + 1] * Wi[None])
-            pred = (h @ Wo.T).argmax(1); err = pred != lab
+            pred = (h @ Wo.T).argmax(1); err = pred != lab; oks.append(~err)
             cnt[k] += [int((~err).sum()), int(blind.sum()), int((err & blind).sum()),
                        int((err & ~blind & (pred == third)).sum()), int((err & ~blind & (pred == top)).sum()),
                        int((err & ~blind & (pred != third) & (pred != top)).sum())]
+        O = th.stack(oks).double()                                       # (K, m)
+        disc += (O @ (1 - O).T).round().long().cpu().numpy()
         done += m
     out = []
     for k in range(K):
         c = cnt[k]; p = c[0] / n
-        out.append(dict(n=n, seed=seed, acc=p, se=math.sqrt(p * (1 - p) / n), blind_share=c[1] / n,
+        out.append(dict(n=n, seed=seed, correct=int(c[0]), discordant_correct_vs=disc[k].tolist(), acc=p, se=math.sqrt(p * (1 - p) / n), blind_share=c[1] / n,
                         err_blind=c[2] / n, err_23=c[3] / n, err_12=c[4] / n, err_other=c[5] / n,
                         blind_error_rate=c[2] / max(c[1], 1)))
     return out
