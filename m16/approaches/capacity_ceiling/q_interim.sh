@@ -1,0 +1,1 @@
+cd /content/cn/m16/approaches/capacity_ceiling && cp /content/cn/data/capacity_ceiling/grid3/state.pt /content/g3_snap.pt && STATE_PT=/content/g3_snap.pt EVAL_DEV=cuda python interim_eval.py 1e7 > /content/interim.log 2>&1; echo "rc=$?" >> /content/interim.log

@@ -1,21 +1,23 @@
 """T234 interim: evaluate the FINISHED grid3 models in the synced state.pt (data/capacity_ceiling/grid3/state.pt) on CPU,
-float64, N samples per model (common random inputs across models: paired comparisons; se per model ~ sqrt(p(1-p)/N)).
+float64, N samples per model (EVAL_DEV=cuda for GPU; STATE_PT to override the path) (common random inputs across models: paired comparisons; se per model ~ sqrt(p(1-p)/N)).
 Only models with n_steps <= state step. Labelled INTERIM: the in-kernel 1e8 evaluation at grid3's end is the record.
 usage: python interim_eval.py [N] -> results/grid3_interim.json"""
 import json, os, sys
 import numpy as np, torch as th
 HERE = os.path.dirname(os.path.abspath(__file__)); N = int(float(sys.argv[1])) if len(sys.argv) > 1 else 10 ** 6
-st = th.load(os.path.join(HERE, "..", "..", "..", "data", "capacity_ceiling", "grid3", "state.pt"), weights_only=False)
+DEV = os.environ.get("EVAL_DEV", "cpu")
+st = th.load(os.environ.get("STATE_PT", os.path.join(HERE, "..", "..", "..", "data", "capacity_ceiling", "grid3", "state.pt")), weights_only=False)
 spec = st["meta"]["spec"]; idx = [k for k, sp in enumerate(spec) if sp["n_steps"] <= st["step"]]
-Wi = st["Wi"][idx].double().numpy(); Wh = st["Wh"][idx].double().numpy(); Wo = st["Wo"][idx][:, :10].double().numpy()
-rng = np.random.default_rng(20261018); ok = np.zeros(len(idx)); done = 0
+Wi = st["Wi"][idx].double().to(DEV); Wh = st["Wh"][idx].double().to(DEV); Wo = st["Wo"][idx][:, :10].double().to(DEV)
+g = th.Generator(device=DEV); g.manual_seed(20261018); ok = th.zeros(len(idx), dtype=th.float64, device=DEV); done = 0
+bs = 2000 if DEV == "cpu" else 50000
 while done < N:
-    m = min(2000, N - done); x = rng.standard_normal((m, 10)); y = np.argsort(x, 1)[:, -2]
-    h = np.zeros((len(idx), m, 16))
+    m = min(bs, N - done); x = th.randn(m, 10, generator=g, device=DEV, dtype=th.float64); y = x.topk(2, 1).indices[:, 1]
+    h = th.zeros(len(idx), m, 16, dtype=th.float64, device=DEV)
     for t in range(10):
-        h = np.maximum(np.einsum("kij,kmj->kmi", Wh, h) + x[None, :, t:t + 1] * Wi[:, None, :], 0)
-    ok += (np.einsum("kij,kmj->kmi", Wo, h).argmax(2) == y[None]).sum(1); done += m
-acc = ok / N; out = {"step": int(st["step"]), "N": N, "models": {spec[k]["name"]: float(a) for k, a in zip(idx, acc)}}
+        h = th.relu(th.einsum("kij,kmj->kmi", Wh, h) + x[None, :, t:t + 1] * Wi[:, None, :])
+    ok += (th.einsum("kij,kmj->kmi", Wo, h).argmax(2) == y[None]).sum(1); done += m
+acc = (ok / N).cpu().numpy(); out = {"step": int(st["step"]), "N": N, "models": {spec[k]["name"]: float(a) for k, a in zip(idx, acc)}}
 groups = {}
 for k, a in zip(idx, acc):
     groups.setdefault(spec[k]["name"].rsplit("_s", 1)[0], []).append(a)
