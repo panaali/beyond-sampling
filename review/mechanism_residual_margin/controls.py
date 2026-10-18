@@ -22,6 +22,8 @@ def cases():
         out.append(dict(name=name,h=h+[0]*13,hh=hh+[0]*13,logits=h,lookup_logits=hh,wo=w,truth=y,transition=t))
     out.append(dict(name='ordered_cancellation',h=[0]*16,hh=[2**53,1,-2**53]+[0]*13,
        logits=[0,0,-1],lookup_logits=[1,0,-1],wo=[[1,1,1]+[0]*13,[0]*16,[-1,-1,-1]+[0]*13],truth=0,transition=0))
+    # Preserve ten cases; first case exercises negative logits with a negative readout.
+    out[0].update(h=[1,3,4]+[0]*13,hh=[1,4,5]+[0]*13,logits=[-1,-3,-4],lookup_logits=[-1,-4,-5],wo=[[-int(i==j) for j in range(16)] for i in range(3)])
     # The last case supplies deliberate stored-logit/term-order discrepancy.
     return out
 
