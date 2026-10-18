@@ -598,3 +598,14 @@ committed only after that, in `results/t366_truth_{gpu,cpu}.json`:
 - Unverified.
 - Cost: K3 (T364) is 0.36-0.47M FPE on these models, against T366's 1.57-2.09M (about 4.5x). On non-triple-tie models
   the fix buys no accuracy for its cost.
+
+# T367 (discriminating test of the triple-tie fix): pre-registration (2026-10-18, before the pairs are known)
+- **Pairs:** 4 unused DEV3 models x 2 thresholds, where the triple-tie sliver dominates the hits. They are selected and
+  sealed by the T192 child, who sends me only the model ids and the thresholds. Event E1(t0) = {pick = p3, g23 > t0}.
+- **Estimators, both frozen and run unmodified:**
+  - (fix) claude/t218-tie-tail-labels @5b4a1250 `estimator_t366.est`, with the 7 sha256 checked as in T366;
+  - (K3) the T364 estimator, `deep.py` = @e433919d t340c / t354 / walkfix, T_hi = 6.
+- **Order:** run both, commit and push both sets of estimates with C, and only then ask T192 to unseal the truths.
+- **Go for the fix:** est / truth within 2x on >= 7/8, AND closer to the truth than K3 (smaller |log(est / truth)|) on
+  >= 6/8.
+- **Reported:** both estimators' est / truth, C, and the expected number of events plain MC sees at each C.
