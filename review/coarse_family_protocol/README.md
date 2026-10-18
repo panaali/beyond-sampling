@@ -12,10 +12,12 @@ actual smaller-rule tails and occupancy-preserving nulls, with explicit gates
 before any future computation. The label is outcome-derived and expensive.
 
 ## Status
-Source/protocol phase only, claimed1f396509. No numerical execution or array
-contraction. Independent design review is delegated to recover_fundamentals after910
-yielded before any artifact or run (boardb36d34ea). Full-target
-application remains blocked on data/provenance, DRI priority and separate gates.
+Written design phase independently passed990f7e7e/shared960ab406 after premise
+clarifications65e8a84f. New synthetic source preparation is separately scoped
+8610f317: `synthetic/` freezes8 exact table cases and10 guards in6a469188, with
+source/resource review pending. No numerical calls or target-array contraction.
+Full-target application remains blocked on data/provenance, DRI priority and
+separate gates. The design review explicitly authorizes no execution.
 
 ## Results
 No new numerical result. Independently reviewed T227 retains coarse L30
@@ -31,7 +33,7 @@ setup, labeling, probability estimation, rejected proposals and validation costs
 are explicit. No FLOP advantage or complete cost claim.
 
 ## Claims
-[inferred, review pending] Total variance and oracle allocation distinguish a
+[inferred, independently reviewed] Total variance and oracle allocation distinguish a
 useful partition from an implementable estimator. [speculative] A properly
 controlled coarse-family test may discriminate alternatives left open byT227.
 No new numerical success, method adoption or universal negative is claimed.
