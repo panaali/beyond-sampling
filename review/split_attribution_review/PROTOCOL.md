@@ -55,7 +55,7 @@ inside, and Gaussian mass is >e²/41472 using pi<4,euler_e<3. Save any zero or
 underestimated cap as a finite-rounding certificate failure, NOT a trained
 panel accuracy failure; its mass may be practically negligible. Exact positive
 hull determinant e² and rational box inclusion are independently checkable.
-4. Rays(1,0),(-1,1),(0,-1), whose sum is zero: source behavior must be saved
+4. Unit rays(1,0),(-1,0),(0,1),(0,-1), whose sum is zero: source behavior must be saved
 as a domain control; no claim that this nonpointed fixture occurs in source
 ordering chambers. Do not treat a NaN as a probability bound.
 For1/2 compare analytic values within5e-15;3/4 record outcomes rather than
