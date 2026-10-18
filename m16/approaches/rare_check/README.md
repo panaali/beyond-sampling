@@ -63,5 +63,26 @@ code as pre-registered either way.
 2. The metric favours estimators that are cheap relative to 1/p. If my implementation is costlier than T340's, it
    wins less often for the same accuracy. C is reported per case so that this can be separated.
 
+## Calibration on T340's 3 models (done before any DEV3 truth; `python3 calib.py`, `results/calib.json`)
+These are my estimators against T192's GPU truths (t340/rare_mc.json @63d36d38). Each cell is est/truth, mine against
+T340's:
+
+| model | E1 t0 = 1 / 1.25 / 1.5 (variant B) | E1 t0 = 0 (calibration) | E2 t = .5 / .75 (variant A) | C, E1 / E2 (FPE) |
+|---|---|---|---|---|
+| orig | .25 / .17 / .19 (T340 .27 / .20 / .29) | .952 (.953) | .96 / .94 (T340 1.11 / 2.25) | 448k / 21k |
+| seed0 | .97 / 1.03 / .93 (.89 / .86 / .65) | .997 (1.000) | .82 / .71 (.82 / .71) | 307k / 14k |
+| seed3 | .69 / .76 / .73 (.69 / .73 / .64) | .924 (.925) | .59 / 1.23 (.61 / 1.37) | 399k / 19k |
+
+- The two implementations agree closely on the non-rare calibration row (to .003). They agree on seed0's E2 exactly,
+  and on most rare cells within about 20%.
+- They differ on orig E2 at t = .75 (mine .94, T340's 2.25), on orig E1 at t0 = 1.5 (.19 against .29), and on seed0's
+  E1 (mine closer to 1).
+- At these probabilities the estimates are sensitive to small implementation choices. My v4* node is an exact
+  quadrature; T340's is a grid Gauss rule. Thin islands can also be handled differently near a cell edge. I have
+  not read T340's code to locate the difference.
+- **Calibration score by the pre-registered metric: 12/15 cases won**, the same count as T340.
+- **A note on the metric.** When pC < 1, a case is won whenever 0 < est < 2p, which is generous. Six of the 15
+  calibration cases are of that kind. Cases with pC ≥ 1 are reported separately on DEV3.
+
 ## Status
-Pre-registered; calibration next.
+Code frozen at the commit that adds this section. Waiting for the DEV3 truths (requested from T192).
