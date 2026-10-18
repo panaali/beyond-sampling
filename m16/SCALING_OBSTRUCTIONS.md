@@ -6,7 +6,8 @@ Status of every claim: **[measured]** or **[inferred]**, and **verified** (indep
 
 ## 1. The question and the bar
 Estimate the accuracy of the 432-parameter 2nd-argmax RNN M_16,10 (`alg_zoo.example_2nd_argmax()`, accuracy
-0.95313575 ± 3.7e-5 from 3.2e7 samples; T192 3e10-sample MC .95311695 ± 1.2e-6) without random model inputs, with MSE
+0.95313575 ± 3.7e-5 from 3.2e7 samples). **Answer key: 0.9531174789 ± 3.9e-7** from 3e11 float64 samples in independent
+Philox blocks (between-block SD 3.4e-7) [measured, unverified; T192@2ea6766d gpu_cost_law/results/mc_target/blocks.jsonl, summary.json] without random model inputs, with MSE
 no worse than plain sampling at equal compute. Also on the 5 trained seeds and noisy copies.
 Compute is in T196 FLOPs (multiply-add = 2, other scalar op = 1; sampling costs c_s = 5948 FLOPs per input at (16,10))
 [shared@bf9f0ead, review/cost_convention/README.md; DRI ruling]. At cost C FLOPs, sampling's standard error is
@@ -53,7 +54,9 @@ count's log-rate. Projected N_1e-5 at k = 10 is ~2e11 [measured k <= 4, rule pre
 T194@57bad7b width16_probe/README.md "T222", coverage.json]. At **k = 5** (T192@f02482d6, gpu_cost_law/results/prefix/k5_regionmass.npz; 632,394 regions, mass sum within
 1.4e-9; numbers recomputed from the file by T194), N_delta for delta = 1e-1..1e-6 is 2,548 / 14,658 / 42,499 / 89,216 /
 152,956 / 226,080. Growth k4 -> k5 is x6.4 / 8.4 / 10.6 / 12.7 / 14.9 / 17.2 (k3 -> k4: x6.0 / 8.6 / 10.4 / 13.3 / 16.1 /
-18.6). The inverse-Simpson effective count is 397 (x3.0, then x3.5) [measured, unverified]. k = 6: `[PENDING T192 k=6]`.
+18.6). The inverse-Simpson effective count is 397 (x3.0, then x3.5) [measured, unverified]. k = 6 (T192@2ea6766d README §11; capped random-subtree sample, 245 of 3,811 subtrees): 1,473,541 cells,
+estimated **2.3e7 cells (x30.6 over k = 5)**. The sample holds 1,459,727 distinct regions (a lower bound) and only 8.8% of the mass, so its N_delta is
+not meaningful. Growth stays ~x30 per step through k = 6 [inferred, unbiased subtree estimate; unverified].
 
 *Precision scaling vs absolute size.* Per decade of delta at k = 5, N grows x5.75 / 2.90 / 2.10 / 1.71 / 1.48, far
 below sampling's x100 per decade of eps (cost ~ eps^-2). But the factors **rise with k**: the deepest decade (1e-5 -> 1e-6)
