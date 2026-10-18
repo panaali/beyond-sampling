@@ -73,6 +73,18 @@ def run_one(spec):
     path = ROOT / spec['archive']
     row = {'key': spec['key'], 'archive_sha256': digest(path), 'report_sha256':digest(ROOT/spec['report']),
            'kind':spec['kind'], 'k':spec['k']}
+    row['status'] = 'started'
+    put(OUT/(spec['key']+'.json'), row)
+    try:
+        return run_one_body(spec, row, begin)
+    except BaseException as exc:
+        row['status']='failed'; row['error']=repr(exc);row['traceback']=traceback.format_exc()
+        row['cpu']=time.process_time()-begin
+        put(OUT/(spec['key']+'.json'),row)
+        raise
+
+def run_one_body(spec, row, begin):
+    path=ROOT/spec['archive']
     with np.load(path, allow_pickle=False) as z:
         row['keys'] = sorted(z.files)
         arrays = {key: z[key] for key in z.files}
@@ -93,6 +105,7 @@ def run_one(spec):
         assert int(g.min())==0
         count = int(g.max())+1
         row['dense_gate_ids'] = bool(np.array_equal(np.unique(g),np.arange(count)))
+        row['history_group_schema_valid'] = row['dense_gate_ids']
         row['regions'] = count
         row['reported_regions'] = report['regions']
         row['complete'] = None # Archive has no completeness field.
@@ -102,6 +115,7 @@ def run_one(spec):
         assert pats.dtype==np.dtype('uint8') and pats.shape==(len(m),2*spec['k'])
         assert complete.shape==() and complete.dtype==np.dtype('bool')
         row['unique_patterns'] = int(len(np.unique(pats,axis=0)))
+        row['history_group_schema_valid'] = row['unique_patterns']==len(m)
         row['regions'] = len(m); row['reported_regions'] = report['regions']
         row['complete'] = bool(complete)
         row['reported_complete'] = report['complete']
@@ -109,11 +123,17 @@ def run_one(spec):
         expected_counts = {ds:report['N_delta'][f'{float(ds):g}'] for ds in spec['deltas']}
     # Persist schema and adverse mass observations before arithmetic; no clipping or repair.
     put(OUT/(spec['key']+'_schema.json'), row)
-    if row['nonfinite'] or row['negative']:
-        row['arithmetic_skipped'] = 'Nonfinite or negative saved mass; no probability ranking asserted.'
+    if row['nonfinite'] or row['negative'] or not row['history_group_schema_valid']:
+        row['arithmetic_skipped'] = 'Nonfinite/negative saved mass or invalid history-group schema; no oracle history count asserted.'
+        row['status']='unresolved'
         row['cpu'] = time.process_time()-begin
         return row
     units, power = integer_masses(m)
+    if sum(units)<=0:
+        row['exact']={'valid_nonnegative_total':False}
+        row['arithmetic_skipped']='Zero total mass; normalized coverage and growth undefined.'
+        row['status']='unresolved';row['cpu']=time.process_time()-begin
+        return row
     if spec['kind']=='width':
         grouped = [0]*row['regions']
         for idx, val in zip(g.tolist(), units, strict=True): grouped[idx] += val
@@ -138,6 +158,7 @@ def run_one(spec):
         row['source_inverse_simpson'] = float(1/np.sum((fw/fw.sum())**2))
         row['reported_inverse_simpson'] = report['mass_eff_regions']
         row['inverse_simpson_discrepancy'] = row['source_inverse_simpson']-report['mass_eff_regions']
+    row['status']='complete'
     row['cpu'] = time.process_time()-begin
     return row
 
@@ -171,7 +192,10 @@ def main():
         for family, depths in [('target',[2,3,4]),('zoo16_4',[2,3,4]),('zoo16_5',[2,3,4]),('gpu',[3,4,5])]:
             for lo,hi in zip(depths,depths[1:]):
                 a,b=by[f'{family}_k{lo}'],by[f'{family}_k{hi}']
-                if 'exact' not in a or 'exact' not in b: continue
+                if not all(r.get('exact',{}).get('valid_nonnegative_total',False) for r in (a,b)):
+                    growth.append({'family':family,'k_from':lo,'k_to':hi,'status':'unresolved',
+                                   'reason':'At least one dataset lacks a valid nonnegative normalized history-mass summary.'})
+                    continue
                 curves={ds:rat(F(b['exact']['coverage'][ds]['decimal_delta']['N'],
                                       a['exact']['coverage'][ds]['decimal_delta']['N'])) for ds in a['exact']['coverage']}
                 growth.append({'family':family,'k_from':lo,'k_to':hi,'regions':rat(F(b['regions'],a['regions'])), 'coverage':curves})
