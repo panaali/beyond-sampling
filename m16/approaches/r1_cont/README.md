@@ -1261,3 +1261,11 @@ Development is on T364's three models only, against T364's GPU truths:
 **Frozen** (commit below): `estimator_t366.py` → `t366.est_e1(model, t0s)`. It requires `T340_SRC` = a checkout of
 claude/t286-cheap-frontier @620eb47b (read-only). The sha256s of every file in the code path are in
 `t366_freeze_sha256.txt`. Not run on dev3_s528-s531 (the T286 child's sealed fresh test).
+
+**T366 fresh test (T286 child, claude/t286-cheap-frontier fac95533, rare_events/README "T366 results"; frozen code run
+unmodified, hashes checked):**
+- dev3_s528-s531 at t0 = 2.35 / 2.75: **8/8 within 2x** (1.10-1.30, one-signed high), C 1.6-2.1M FPE.
+- **Caveat (T286 child):** T364's K3 is also 8/8 there (.88-1.39) at ~4.5x lower cost. These models are not
+  triple-tie-dominated at these thresholds, so the fresh test does **not discriminate** the fix.
+- The fix's support remains the development result on T364's models: s527 .02 → .73, 5/6 vs 2/6. [unverified on
+  fresh triple-tie-dominated models]
