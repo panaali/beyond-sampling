@@ -36,7 +36,7 @@ for model in d['models']:
  assert parentrows==model['parents'] and dict(obs)==model['combined_observer'] and obs['mass_or_final_calls']==obs['lookahead_calls']==obs['lookahead_points']==0
  assert dict(newformation)==model['new_formation_counts']
  assert model['new_chunk_cpu_seconds']==sum(x['cpu_seconds'] for path,x in sources.items() if not path.endswith('/pilot.json'))
- assert model['new_weight_decodes']==8*(width+width*width+3*width)
+ assert model['new_weight_decodes']==8*(width+width*width+4*width)
  for path,src in sources.items():
   assert src['new_initial_cones']==src['new_mass_reference_MC_calls']==0 and src['reused_initial_cones']==len(src['parents'])
   assert src['cpu_seconds']<20 and src['observer']['proxy']<=5000000 and len(src['states'])<=10000
