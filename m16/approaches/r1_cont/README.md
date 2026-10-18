@@ -221,3 +221,33 @@ Total: 266 scalars plus 43,200 input/direction entries. `cont_d.table_sizes()` p
 ## Failure modes
 - The noisy HP1 copies fail (F 39-228): the approximations are tuned to clean retrains.
 - Models whose errors sit beyond tmax = 0.5, or in the blind region, are mis-estimated by construction.
+
+## T326 (strict-bar lane A, cost): step 1, T317e's executed cost by component (`python cost_table.py`, `cost_table.log`, `results_cost_table.json`)
+The tally is an instrumented copy of cont_e's walk. It reproduces cont_e.est's charged FLOPs exactly (max diff 0.0)
+on all 80 DEV2 models. Mean C = 5,490 FPE.
+
+| component (summed over the 3 lines) | FPE | share |
+|---|---|---|
+| later cells: tangent recompute (steps > s*) | 2,004 | 36.5% |
+| B2 prefix tree (first-cell value + tangent + roots) | 1,729 | 31.5% |
+| later cells: readout + correct set (229) | 588 | 10.7% |
+| later cells: roots (steps >= s*) | 368 | 6.7% |
+| later cells: values at t* + gate toggle | 346 | 6.3% |
+| first-cell readout + correct set | 317 | 5.8% |
+| Φ profiles | 115 | 2.1% |
+| combination | 20 | 0.4% |
+| merges | 3 | 0.1% |
+| anchors, transverse points, closure (μ, v4 node), GL tables | 0 | model-free, precomputed |
+
+| line | FPE | share | prefix nodes / 7,200 row-steps | later cells (720 rows) |
+|---|---|---|---|---|
+| nb g23 | 2,203 | 40.1% | 2,815 | 2,584 |
+| nb g12 | 1,774 | 32.3% | 2,815 | 2,401 |
+| b g23 | 1,495 | 27.2% | 2,815 | 1,117 |
+
+Reading:
+- Each line costs ~680 FPE before any gate flip: a 576-FPE prefix tree plus a 106-FPE first-cell readout.
+- Later cells cost ~0.54 FPE each.
+- The strict go line (F <= .8 at C <= 2k) needs RMS <= .54 pp at 2k, or <= .77 pp at 1k. So cost cuts alone cannot
+  pass at T317e's RMS (.80 pp): even 1k FPE gives F .87. The cost lever has to be combined with an error cut, or
+  reach C ≈ 1k while holding RMS <= .77.

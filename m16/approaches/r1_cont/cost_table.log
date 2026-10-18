@@ -1,0 +1,53 @@
+max |tally - est flops| = 0.0; mean C = 5490.3 FPE
+
+by component (all lines):
+  later cells: tangents                           2004.4 FPE   36.5%
+  B2 prefix tree (first-cell steps)               1729.3 FPE   31.5%
+  later cells: readout + correct set               587.9 FPE   10.7%
+  later cells: roots                               368.4 FPE    6.7%
+  later cells: values + toggle                     345.7 FPE    6.3%
+  first-cell readout + correct set                 317.0 FPE    5.8%
+  Phi profile                                      115.3 FPE    2.1%
+  combination (I12 I23 dens . wts)                  19.5 FPE    0.4%
+  merge                                              2.8 FPE    0.1%
+
+by line:
+  b-23         1494.6 FPE   27.2%   rows 720, prefix nodes 2815, later cells 1117
+  nb-12        1773.7 FPE   32.3%   rows 720, prefix nodes 2815, later cells 2401
+  nb-23        2202.5 FPE   40.1%   rows 720, prefix nodes 2815, later cells 2584
+
+full:
+  b-23: #later cells                                              1117
+  b-23: #prefix nodes                                             2815
+  b-23: #rows                                                      720
+  b-23: B2 prefix tree (first-cell steps)                      3428670   10.5%
+  b-23: Phi profile                                             299077    0.9%
+  b-23: first-cell readout + correct set                        628560    1.9%
+  b-23: later-cell readout + correct set                        640213    2.0%
+  b-23: merge                                                     3675    0.0%
+  b-23: restart roots                                           517363    1.6%
+  b-23: restart tangents                                       2995853    9.2%
+  b-23: restart values + toggle                                 376530    1.2%
+  combination (I12 I23 dens . wts)                              115920    0.4%
+  nb-12: #later cells                                             2401
+  nb-12: #prefix nodes                                            2815
+  nb-12: #rows                                                     720
+  nb-12: B2 prefix tree (first-cell steps)                     3428670   10.5%
+  nb-12: Phi profile                                            180034    0.6%
+  nb-12: first-cell readout + correct set                       628560    1.9%
+  nb-12: later-cell readout + correct set                      1375759    4.2%
+  nb-12: merge                                                    6242    0.0%
+  nb-12: restart roots                                          683294    2.1%
+  nb-12: restart tangents                                      3438512   10.5%
+  nb-12: restart values + toggle                                809129    2.5%
+  nb-23: #later cells                                             2584
+  nb-23: #prefix nodes                                            2815
+  nb-23: #rows                                                     720
+  nb-23: B2 prefix tree (first-cell steps)                     3428670   10.5%
+  nb-23: Phi profile                                            206397    0.6%
+  nb-23: first-cell readout + correct set                       628560    1.9%
+  nb-23: later-cell readout + correct set                      1480682    4.5%
+  nb-23: merge                                                    6608    0.0%
+  nb-23: restart roots                                          990720    3.0%
+  nb-23: restart tangents                                      5487951   16.8%
+  nb-23: restart values + toggle                                870837    2.7%
