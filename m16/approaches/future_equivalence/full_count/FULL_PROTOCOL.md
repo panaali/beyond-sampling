@@ -1,0 +1,11 @@
+# T188 remaining-chart phase
+
+TASKS-only renewal2855cd5a follows independent pilot review08c57760. Exactly H4T4seed0 and H8T4seed0, remaining parents in ascending0..95 order excluding0,1,20,21. Fixed chunks of12 (last8), fresh one-thread process per chunk; process external20CPU/2GB, unchanged Observer12CPU/5M inherited-proxy/10000-state limits, exact analysis17CPU whole phase. First failure stops continuation; partial files/progress persist, no cap rescue in this scope. Each invocation releases the review lock. Full planned commands are chunk.py4 0..7 then chunk.py8 0..7, followed by saved-only aggregate.py under the same external cap. No initial chart generation, terminal/mass/reference calls or old capture reruns.
+
+H8 pilot and old H4 four-parent capture are reused exactly once. New analysis.py is pilot analyze with only two width8 guards generalized to len(Wi); recurrence and grouping are unchanged. H4 weights are decoded from its original exact model archive, checked exactly representable in binary64 and tied to the reviewed identifiability predicates. H8 loader unchanged. Every model/predicate/source/runtime/initial-chart/review pin is frozen before execution.
+
+Counts report all96 depth3 prefix pieces as denominator, never final cells. Global versus same-truth history/state groups, exact frozen-history versus stored-binary states, chart repeats versus distinct-history resets are separate. State counts equal global/projective future-margin-function counts by T11597 for each model, not correctness-domain or convex-merge savings. Original recipe histories need not be feasible exact network regions. Labels/domain-limited/approximate equivalence remain open.
+
+Aggregate only saved rows, verifies96 parents/model exactly once and stable occurrence IDs, no recurrence/geometry replay. New chunk setup/decodes/formation costs are separate from inherited H4 analysis (which also did canonicalization), H8 pilot, initial charts and predicate evidence. Counters exclude GCD/hash/control/native kernels and remain research accounting, not an estimator cost comparison or T196-complete total.
+
+No threshold/order/cap selection from these results. Preserve unknown/partial results and all scalar map differences. Independent full-source gate precedes chunks; independent full saved audit precedes any final conclusion or new phase.
