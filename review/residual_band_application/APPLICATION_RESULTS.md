@@ -1,8 +1,8 @@
-# T278 fixed numerical result — independent application audit pending
+# T278 fixed numerical result — independent application audit passed
 
 One run completed all2,718 face points,5,436 exact partitions and5,439 events. Internal CPU26.677619646s, maxRSS113,600KiB; external28.46wall/18.55user/8.34sys. Point records5,958,656bytes. The18-centre scheduling projection was41.401686173CPU (<75), so the frozen continuation proceeded. No failure, retry, node/order change or new reference/RNG occurred. Immutable gate309f44b5 was successfully shared48eabfc2 before a separate launch.
 
-The inherited H4T4 reference interval is [.4770130989463459,.4770131530418916]. All values below are finite single-model diagnostics; the application saved audit is pending. Composed kernel CPU excludes observer/catalogue/aggregation overhead and is not full runtime or FPE.
+The inherited H4T4 reference interval is [.4770130989463459,.4770131530418916]. All values below are finite single-model diagnostics; independent saved audit64e4bea9/sharedab0cd608 passes. Composed kernel CPU excludes observer/catalogue/aggregation overhead and is not full runtime or FPE.
 
 | Fixed rule | Method | Accuracy | Composed CPU | Absolute-error interval (approximately) | CPU × squared-error upper |
 |---|---|---:|---:|---:|---:|
@@ -23,6 +23,6 @@ The full window-mass diagnostic is1.0076550115331184 (GL3) and1.0036668170042893
 
 ## Negative scope and alternatives
 
-This is a finite implementation result, **unverified pending78 saved audit**, not a broad C1 impossibility or ARC pass/failure. Tried: exactlyGL3/5, oneH4T4 seed0, face-frozen zero/first/second/direct and actual-only integration. Not tried: higher rules or a different outer transformation (resource/fixed-scope limit), cheaper approximate discovery (different algorithm), other models/noise (separate scope), conditional residual-law construction (not implemented here), or rigorous outer/table enclosures. These remain open, and no outcome-based extra rule is run.
+This is a finite implementation result, independently checked by78 within the stated saved scope, not a broad C1 impossibility or ARC pass/failure. Tried: exactlyGL3/5, oneH4T4 seed0, face-frozen zero/first/second/direct and actual-only integration. Not tried: higher rules or a different outer transformation (resource/fixed-scope limit), cheaper approximate discovery (different algorithm), other models/noise (separate scope), conditional residual-law construction (not implemented here), or rigorous outer/table enclosures. These remain open, and no outcome-based extra rule is run.
 
-The archive preserves every point's exact intervals and signed residuals,64 predetermined full affine-cell records, the source and runtime pins, resource projection and progress. Independent review will contract all saved rows and reconstruct only those64 recurrences; direct Gaussian masses/table/reference and operation-bit internals retain their stated qualifications.
+The archive preserves every point's exact intervals and signed residuals,64 predetermined full affine-cell records, the source and runtime pins, resource projection and progress. Independent review contracted all saved rows and reconstructed those64 recurrences (5,808 feasible-mask attempts), using1.00345CPU; direct Gaussian masses/table/reference and operation-bit internals retain their stated qualifications.
