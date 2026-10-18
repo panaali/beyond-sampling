@@ -278,3 +278,14 @@ no T317g.**
    needs that bias fixed deductively; with it, s = -1 would sit near F ~1 on DEV2. [speculative] for HP panels.
 4. Forking paths: two patterns on 80 DEV2, one pre-registered selection (none chosen). The s = -1 decomposition is post
    hoc information, not a candidate.
+
+## T339 follow-up (DRI, information only): does the +.27 pp shift scale with the error mass? (`results/t339_shift.txt`)
+Regressions of shift_m = est_m(spread) - est_m(T317f) over the 80 DEV2 models (1 - p: mean 8.0, sd 3.1 pp):
+- **No scaling.** corr(shift, 1 - p) = -.03 (s = -1) and -.03 (s = +1). Affine fit +.30 pp - .004 (1 - p), R^2 .00.
+  A proportional fit (shift = b (1 - p)) explains nothing (R^2 < 0).
+- Adding T317f's own error explains most of the rest: shift = +.25 pp + .04 (1 - p) - .56 e_T317f, R^2 .59 (s = -1).
+- Fused and torch behave the same (+.31 / +.23 pp, corr with 1 - p -.08 / +.02).
+- [measured] So the shift is a near-constant additive offset (~+.25-.30 pp) plus a model-specific corrective part
+  (about -.56 x T317f's own error). [inferred] It is not multiplicative in the error mass. That points at a fixed
+  geometric effect of moving the lows off their common value (it removes a roughly constant amount of predicted error
+  per model, e.g. in a fixed region of the skeleton), not at a rescaling of each model's error set.
