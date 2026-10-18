@@ -101,6 +101,8 @@ precisely as testing it on random examples does for the same effort.
   on the far-gap islands and was 6-10x too low on one new network. Separately, a bug was found in the walks that run
   far along a line (they miss gates that all switch at once when an input crosses zero); the careful-version numbers
   are suspect until it is fixed and rerun. The main accuracy estimator (T317f) is believed unaffected; being checked.
+  The re-check's own code does not have this bug (dense check agrees), so its negative stands; what replicates on
+  fresh networks is the cheap version's win on the "both gaps large" mistakes.
 - **Running now:**
   - cutting that cost by walking only the part of each line where the event can happen (T354);
   - an independent re-check by a different agent on new networks (DEV3), with the rule fixed in advance (T350).
