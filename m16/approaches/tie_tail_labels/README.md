@@ -195,3 +195,38 @@ stopped for cost (estimated ~2.5M LPs, ~2 CPU-hours). Reproduce: `./run_blind.sh
   mass).
 - The blind prefix counter uses an LP tolerance of 1e-9: pieces thinner than that are merged (same as any finite
   precision count). It is validated only up to k=3 on the full space.
+
+---
+
+# Part 2: T222 independent replication — mass coverage of the target's prefix regions (DRI-assigned 2026-10-18)
+
+## Question
+T217 found that the mass-weighted exp-entropy of gate words grows only ~x5 per step, while the region count grows
+x25-30 per step. If the number of regions needed to cover 1 - delta of the Gaussian mass also grows slowly, then a
+mass-ordered, best-first exact enumeration with exactly known uncovered mass could reopen the exact route.
+
+## Pre-registration (written before computing any mass)
+- **Regions:** the same LP cone-splitter as Part 1 (`prefix_blind.py --full`, all 2^k orthant start cones), k = 2,
+  3, 4. Expect 34 / 792 / 21,032 regions (T192). Region = distinct gate history; its mass = the sum of its cells'
+  masses.
+- **Masses:** exact Gaussian mass of each polyhedral cone. Extreme rays come from the irredundant H-representation.
+  Each cone is triangulated into simplicial cones. A simplicial cone with ray matrix R has mass P(lambda >= 0) with
+  lambda ~ N(0, (R^T R)^-1):
+  - k=2: arcsin closed form;
+  - k=3: closed form 1/8 + sum asin(rho)/(4 pi);
+  - k=4: Plackett's identity, a 1-D integral along R(s) = (1-s) I + s C, with closed-form 2-D conditional orthant
+    probabilities, done by adaptive quadrature at tolerance ~1e-14.
+
+  Deterministic throughout. Validation: masses sum to 1 within 1e-9 at every k; the Plackett code matches the
+  closed form on k=3 cones; a sampling cross-check of per-region masses (1e6 samples) is diagnostic only.
+- **Metric:** N_delta(k) = the number of regions, sorted by decreasing mass, needed to cover 1 - delta, for
+  delta = 1e-2, 1e-3, 1e-4, 1e-5, 1e-6. Per-step growth g_delta(k) = N_delta(k) / N_delta(k-1).
+- **Decision lines** (on delta = 1e-5, growth from k=3 to k=4, the last and most informative step):
+  - **GO:** g <= 6x per step.
+  - **DEAD:** g >= ~20x per step (near the ~25x count growth).
+  - **Inconclusive** in between. Report the trend over k=2 to 3 to 4, and whether g rises with k.
+- **Alternatives to keep in mind:**
+  1. N_delta grows slowly at small k only because the regions are still few (saturation: N_delta <= count). Check
+     N_delta / count.
+  2. Slow growth at large delta but fast growth at small delta (a heavy tail of small regions), which would kill
+     exact enumeration even if exp-entropy grows slowly. Compare g across delta.
