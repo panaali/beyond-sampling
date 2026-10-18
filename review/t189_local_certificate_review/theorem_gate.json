@@ -1,0 +1,35 @@
+{
+  "status": "PASS_THEORY_ONLY",
+  "author_theory": [
+    "bf7a7c83",
+    "da225105"
+  ],
+  "delegation": "8dffa6b1",
+  "reviewer": "recover_910",
+  "pins": {
+    "m16/approaches/conditional_order_bounds/local_certificate/THEORY.md": "78706f51cd3c53b4ca9b337fadce9c8cb277e5f9b75373796ac8a411f8599019",
+    "m16/approaches/conditional_order_bounds/local_certificate/PLAN.md": "3f40c13537c777301e0901cc0ea4a0c3b180ef1c2c2788cea91fd70b9e93832a",
+    "m16/approaches/conditional_order_bounds/local_certificate/README.md": "40ea523c4b5da9628e9cba41a0353eebe869c48818d9c1ab4ff23e43c68909f6"
+  },
+  "derivation": [
+    "With v=2x and denominator S, multiplying integer Wh/D and adding Wi*v_t/(2D) produces the stated integer coefficient and signed interval remainder at denominator DS. Starting S=2 and updating2DS preserves integrality.",
+    "Intersecting two sound enclosures is sound despite correlated remainders. Empty intersection signals an implementation failure, not a mass exclusion.",
+    "For L<0<U, 2ReLU(z)-k*z is nonnegative and bounded by2U,max(-L,U),-2L for k=0,1,2 respectively. Adding this dependent remainder by interval addition is conservative; choosing among these three valid bounds remains valid.",
+    "Correctness needs positive lower margins against earlier classes and nonnegative lower margins against later ones. Wrongness follows from nonpositive upper margin against an earlier rival or negative upper margin against a later rival. These are whole-box sufficient conditions.",
+    "For the fixed bin assignment, the group containing descending rank2 is determined solely by occupancy. Its labeled coordinates are exchangeable under the iid truncated Gaussian conditional law, so each owns rank2 with probability1/m. The whole-box certificate restricts to that event without assuming output/rank independence.",
+    "Odd/even Taylor truncations of exp(-u) bound it below/above for u>=0 by signed Lagrange remainder. Positive integration and correctly directed normalizing-constant bounds preserve the CDF enclosure; negative arguments use reflection.",
+    "Outward80-bit CDF endpoints give product mass denominator2^320; division by1,2,3,4 is representable with common denominator12*2^320. Outside-cube tail is retained as abstention.",
+    "The algorithm unresolved event lower bound is distinct from the reported interval width1-correct_lower-wrong_lower and from actual classification error.",
+    "N>25/w^2 is equivalent to w>10/(2sqrtN), giving only a sufficient strict actual-width-versus-SD certificate. Smallest integer N is floor(25/w^2)+1; with integer sample charge c_s, smallest corresponding integer budget is c_s*N."
+  ],
+  "correction_preserved": "Initial iff wording conflated lower/upper proxies with actual width/SD; author da225105 explicitly corrected it without changing numerical design.",
+  "clearance": "Theory supports preparing a separately frozen primitive/control implementation; no controls or trained application executed or cleared.",
+  "remaining_checks": [
+    "Exact model schema/common denominator and all source/runtime pins",
+    "Independent pi/sqrt enclosure premise and directed rational arithmetic, including integrated Taylor degree convention",
+    "Stable/crossing gates, mixed-sign weights, first-index ties and bin ownership controls",
+    "Complete box/tail conservation and fixed panel resource scope",
+    "No inference of full FLOP cost, MSE, general local-method impossibility or targetT10 behavior"
+  ],
+  "compute": "Read-only text/source inspection and SHA256 hashes; zero author imports, model calls, RNG draws or scientific numerical evaluations."
+}
