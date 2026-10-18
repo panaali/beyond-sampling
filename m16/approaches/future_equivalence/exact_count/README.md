@@ -7,7 +7,7 @@ How many exact-mode depth3 pieces at H8T4 share the same global future margin ma
 Fixed four-parent pilot; two exact flags with unchanged geometry, source review first. PROTOCOL.md freezes scope; exact_common.py records stop observation, pilot.py groups exact histories/states using reviewed weight predicates.
 
 ## Status
-Full exact-mode census completed1027142e after shared independent source gate36cbf0c3/ff313d14. Pilot independently32b8689c passed. Full saved audit pending; no new geometry running.
+Full exact-mode census completed1027142e after shared independent source gate36cbf0c3/ff313d14. Pilot independently32b8689c passed. Full saved audit928d5e6a passes all3071 closed-column maps,192-parent coverage,16 chunks plus pilot once,groups/counts and saved comparisons; no new geometry running.
 
 ## Results
 All96 initial charts per model, stopped at depth3 before final input/readout:
@@ -29,7 +29,7 @@ Commands (outputs refuse overwrite): one-thread `flock /workspace/work/codex-rev
 New chunk in-script CPU1.396013064 H4/3.783344414 H8; inherited H8pilot.231858944 separately; saved aggregation1.071916962. Initial Python imports and final serialization excluded, so no matched runtime claim. Combined inherited source proxies938169/3433633, finish entries1252/2779. New exact state formation H4 28800mul+28800add; H8 383616+383616, plus inherited pilot27216+27216. Weight decodes288/832 plus H8pilot104. Initial96 charts/model and exact predicates reused; source imports, wrapper formation, Fraction/hash/GCD/control/native implementation remain distinct/unpriced. summary.json contracts recorded ledgers only.
 
 ## Claims
-[measured, full independent audit pending] Exact-mode prefix counts above. [inferred under reviewed fixed-weight predicates] These exact state counts are counts of global/common-positive-projective future-margin maps. [measured] Beyond repeated chart representations, only the H4 reset merges different histories. No measured geometric union, mass reduction, cost-MSE or asymptotic gain.
+[measured, independently audited928d5e6a] Exact-mode prefix counts above. [inferred under reviewed fixed-weight predicates] These exact state counts are counts of global/common-positive-projective future-margin maps. [measured] Beyond repeated chart representations, only the H4 reset merges different histories. No measured geometric union, mass reduction, cost-MSE or asymptotic gain.
 
 ## Alternatives not ruled out
 Domain-only or label-only equivalence, approximate certified pruning, changes of chart representation, and reuse of shared classifier planes may still help. The Claude child owns truth-chart reduction; this phase does not duplicate it. A finite absence of extra global matches does not exclude these alternatives.
