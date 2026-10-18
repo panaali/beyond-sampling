@@ -79,7 +79,64 @@ gain is not a sign accident (it does not count for the go line).
 closure error ~.05 pp, still small against the .30 / .40 lines.
 
 ## Method
-(after the runs)
+`oracle.py` (independent code, written without reading smooth_verdict/): per input, the closure point from the input's
+own skeleton; one forward pass with a 10-column forward-mode tangent gives the logit Jacobian A and, per input
+coordinate, the exact interval on which the closure point's gates do not change (`fwd_full`). Verdicts as
+pre-registered. (b)'s walk (`walk_1d`) re-evaluates the network at each cell along x_t* (one forward + a 1-column
+tangent), finds the next gate flip below, and adds the exact truncated-normal mass of the interval where all 9 rival
+margins are positive. Checked against 400-draw MC along the same lines on 2,000 points: mean difference 1e-4, max
+.057 (MC s.e. ~.025). `spread.py` is arm B. `score.py` adds (network sample - official truth) to the paired
+differences (`results/score.txt`); `results/cost_decision.txt` holds the addendum projection.
+
+## Results (80 DEV2, 100k inputs per model; network sample vs official truth RMS .105 pp)
+Reproduce: `python oracle.py 100000; python score.py; python spread.py 100000` (about 60 + 3 CPU-min).
+
+### Step 1: re-check of T319 (pre-registered criterion: hard floors within 10% of T319, smooth/hard ratio > .70)
+| closure | hard RMS (T319) | smooth, max rival (T319) | ratio | product over rivals (T319) |
+|---|---|---|---|---|
+| R0 | .532 (.527), +1% | 1.329 (1.326) | 2.50 | 11.69 (11.7) |
+| top-4 | .416 (.399), +4% | .662 (.657) | 1.59 | 5.87 (5.9) |
+
+**T319's failure reproduces** with independent code and draws: both criteria are met, and the smooth and product
+numbers agree with T319's to within 1-5%. The smooth verdict turns R0's mean from +.23 to -.98 pp (too many
+errors predicted in the non-blind region), as T319 describes.
+
+### Step 2: the two untried variants
+| closure:verdict | RMS pp | mean pp | blind mean | non-blind mean / RMS | +FPE per triple x 720 |
+|---|---|---|---|---|---|
+| R0 hard / (a) clip / (b) walk1d | .532 / .387 / .354 | +.23 / -.11 / +.10 | +.04 / +.05 / +.03 | +.18/.51, -.16/.41, +.06/.34 | 0 / 6.1k / 18.9k |
+| top-4 hard / (a) / (b) | .416 / **.195** / **.226** | +.31 / +.04 / +.13 | +.03 / +.03 / +.02 | +.27/.37, -.01/.17, +.10/.19 | 0 / 6.1k / 14.7k |
+| **R1W hard / (a) / (b)** | **.481 / .553 / .440** | -.14 / -.37 / -.23 | +.03 / +.04 / +.03 | -.18/.50, -.41/.59, -.27/.46 | 0 / 6.1k / 18.0k |
+| (a) product form, R0 / top-4 / R1W | 6.07 / 3.10 / 3.03 | -4.5 / -2.3 / -2.0 | | | 15.8k |
+
+(b) walks 9-12 cells per point on average (x 2 FPE as implemented).
+- **Go line: NOT met.** On R1W, the closure T317e uses, neither variant reaches .30. Both also miss the .40 stop line:
+  (a) is worse than hard (.553), and (b) gains 9% (.440). Both cost 6-18k FPE per model even at one point per triple,
+  against the 1.5k allowed. **Stop for (a) and (b) on R1W.**
+- Cone-clipping fixes the smooth verdict's failure where the closure keeps v4's true position: top-4 .416 -> .195 and
+  R0 .532 -> .387. It hurts R1W. In R1W, v4's value sits at a position that is not its own, so the first-order law
+  around that point is biased more (mean -.37 pp). This supports T319's cause (one gate pattern for switching lows):
+  clipping to the cone removes most of the soft-tail damage. The product form stays far too pessimistic in all three
+  closures (the rival margins are strongly dependent).
+
+### Arm B (addendum): one-pattern spread lows, hard verdict (`results/spread.txt`)
+| closure | mean lows | spread + (pre-registered) | spread - (check) |
+|---|---|---|---|
+| R0 | .515 (+.21) | .619 (+.48) | .577 (+.49) |
+| top-4 | .409 (+.31) | .254 (+.16) | .223 (+.12) |
+| **R1W** | .482 (-.15) | **.343 (-.04)** | .255 (-.02) |
+
+**Go (R1W floor .343 <= .40).** The reverse pattern is better still (.255), so the gain is not a sign accident of
+the chosen pattern. For R0 spreading hurts (.515 -> .58-.62).
+
+### Addendum decision in cost terms (`results/cost_decision.txt`; projection)
+T317e's DEV2 MSE x C is 3,435 pp^2 FPE, and the bar is .85 x 3,435 = 2,920.
+- Arm B spread+ on R1W: projected RMS .720, C unchanged at 5,435, MSE x C 2,815 = .82 x T317e. **It passes, narrowly**
+  (projected DEV2 F ~3.8 under the .074 convention).
+- Spread- (not pre-registered for the decision): .74 x.
+- (a) and (b): 2.4x and 4.0x WORSE than T317e (their added cost outweighs the gain).
+- The smooth verdict: 3.6x worse.
 
 ## Status
-Pre-registered; running.
+Done for the pre-registered steps. Unverified. Re-check pushed before smooth_verdict/ and Fable r5 were read; the
+comparison with T319's own code follows below.
