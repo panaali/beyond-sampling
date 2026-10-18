@@ -92,6 +92,15 @@ uses two time orientations, so 2 points per skeleton.
 - On LB3, an independent panel that includes noisy copies down to 57% accuracy (diagnostic only), the ordering holds:
   .38 vs R0 1.32 pp.
 
+## Context added after completion (DRI, T297)
+T297 (claude/t218-tie-tail-labels, `r0_integral/`) found that R0's error set is not a per-triple threshold set: its
+boundary also moves with v3 and g12. So a deterministic R0 integral needs >= 20–40k FPE, far outside the cheap
+regime. The DRI then stopped this line; its message arrived after these runs were complete.
+- Consequence: a better point closure helps only if it also keeps the integral cheap.
+- The winning variants here add an exact continuous input (top-4: dimension 4) and, for the post hoc best, 2 points
+  per skeleton. That makes the T297 integral costlier.
+- So these results lower the oracle bias floor but **do not rescue the R0 integration route** in the cheap regime.
+
 ## Claims
 - R1 [measured] R0's floor reproduces with independent, paired code: .515 vs T292 .51.
 - R2 [measured] Keeping the 4th value exact (b) beats R0 by 24% at the same slope. Pre-registered go: PASS.
