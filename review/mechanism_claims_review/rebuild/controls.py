@@ -43,6 +43,8 @@ def main():
 
         B=np.array([[[(k+1)*(j+1)+(h%5)-2 for h in range(16)] for j in range(3)] for k in range(216)],dtype=float)/16
         X=C.lookup_design(s)
+        expectedX=np.array([[x[n,(key//9)%9],x[n,key%9],x[n,9]] for n,key in enumerate(keys)])
+        assert np.array_equal(X,expectedX)
         y=np.array([[sum(F(float(X[n,j]))*F(float(B[slots[n],j,h])) for j in range(3)) for h in range(16)] for n in range(864)],dtype=float)
         st={k:v[train] for k,v in s.items()}; se={k:v[~train] for k,v in s.items()}
         got,meta=C.fit_lookup(st,y[train]); predictions=C.predict_lookup(se,got)
@@ -53,7 +55,13 @@ def main():
         emit('lookup_known_map',heldout_rows=216,lstsq_calls=216)
 
         D=C.separable_design(s); Q=np.array([[(j+1)*(h%4-1) for h in range(16)] for j in range(18)],dtype=float)/8
-        sy=D@Q; fitted,smeta=C.fit_separable(st,sy[train]);case2=(~train)&(s['case']==2)
+        expectedD=np.zeros_like(D);sy=np.zeros((len(x),16))
+        for n,key in enumerate(keys):
+            p1,p2=(key//9)%9,key%9;m1,m2=x[n,p1],x[n,p2]
+            expectedD[n,p2]=m2;expectedD[n,9+p1]=m1-m2
+            for h in range(16):sy[n,h]=float(F(float(m2))*F(float(Q[p2,h]))+F(float(m1-m2))*F(float(Q[9+p1,h])))
+        assert np.array_equal(D,expectedD)
+        fitted,smeta=C.fit_separable(st,sy[train]);case2=(~train)&(s['case']==2)
         cerror=float(np.max(np.abs(fitted-Q)));perror=float(np.max(np.abs(D[case2]@fitted-sy[case2])))
         assert cerror<1e-10 and perror<1e-10 and smeta['count']==216 and smeta['rank']==18
         rows.append(dict(name='separable_known_map',coefficient_max_error=cerror,heldout_max_error=perror,heldout_rows=72,meta=smeta))
