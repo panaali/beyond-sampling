@@ -2,12 +2,17 @@
 import numpy as np
 
 RCOND = 1e-12
+CALLS = dict(lstsq=0,forward_batches=0,forward_sequences=0)
 LEGAL_KEYS = np.array([(c*9+p1)*9+p2 for c in range(3) for p1 in range(9)
                        for p2 in range(9) if p1 != p2], dtype=np.int64)
 SLOT = np.full(243,-1,dtype=np.int64)
 SLOT[LEGAL_KEYS] = np.arange(216)
 
 class DomainError(ValueError): pass
+
+def solve(X,h):
+    CALLS['lstsq']+=1
+    return np.linalg.lstsq(X,h,rcond=RCOND)
 
 def inputs(x):
     x=np.asarray(x,dtype=np.float64)
@@ -55,7 +60,7 @@ def fit_lookup(s,h):
     coef=np.zeros((216,3,H)); singular=[]; ranks=[]
     for k in range(216):
         at=s['slot']==k
-        b,_,rank,sv=np.linalg.lstsq(X[at],h[at],rcond=RCOND)
+        b,_,rank,sv=solve(X[at],h[at])
         if rank!=3: raise DomainError(f'lookup_rank_deficient:{k}')
         coef[k]=b; ranks.append(int(rank)); singular.append(sv.tolist())
     return coef,dict(counts=counts.tolist(),ranks=ranks,singular_values=singular,rcond=RCOND)
@@ -66,7 +71,7 @@ def predict_lookup(s,coef):
 def fit_separable(s,h):
     X=separable_design(s); h=hidden(h,len(X)); mask=s['case']==2
     if mask.sum()<18: raise DomainError('separable_underfilled')
-    b,_,rank,sv=np.linalg.lstsq(X[mask],h[mask],rcond=RCOND)
+    b,_,rank,sv=solve(X[mask],h[mask])
     if rank!=18: raise DomainError('separable_rank_deficient')
     return b,dict(count=int(mask.sum()),rank=int(rank),singular_values=sv.tolist(),rcond=RCOND)
 
@@ -74,6 +79,7 @@ def forward_final(x,Wi,Wh):
     x=inputs(x); Wi=np.asarray(Wi,dtype=np.float64); Wh=np.asarray(Wh,dtype=np.float64)
     if Wi.ndim!=1 or Wh.shape!=(len(Wi),len(Wi)) or not np.isfinite(Wi).all() or not np.isfinite(Wh).all():
         raise DomainError('invalid_weights')
+    CALLS['forward_batches']+=1; CALLS['forward_sequences']+=len(x)
     h=np.zeros((len(x),len(Wi)))
     for t in range(10): h=np.maximum(h@Wh.T+x[:,t,None]*Wi[None,:],0)
     if not np.isfinite(h).all(): raise DomainError('nonfinite_hidden')

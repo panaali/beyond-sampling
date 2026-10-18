@@ -113,14 +113,15 @@ def main():
         rows.append(dict(name='six_dyadic_recurrence_inputs',inputs=fx.tolist(),Wi=Wi.tolist(),Wh=Wh.tolist(),outputs=actual.tolist(),exact_output_fractions=[[str(F(v)) for v in row] for row in expected]))
         emit('six_dyadic_recurrence_inputs',synthetic_forward_calls=1,sequences=6)
 
+        assert C.CALLS==dict(lstsq=219,forward_batches=1,forward_sequences=6)
         out=dict(complete=True,gate_sha256=sha(HERE/'controls_gate.json'),numpy_version=np.__version__,python=sys.version,
-                 rows=rows,lstsq_calls=219,synthetic_forward_batch_calls=1,synthetic_forward_sequences=6,
+                 rows=rows,actual_call_ledger=C.CALLS.copy(),lstsq_calls=219,synthetic_forward_batch_calls=1,synthetic_forward_sequences=6,
                  actual_checkpoint_model_calls=0,new_random_inputs=0,cpu_seconds=time.process_time()-start,
                  scope='Synthetic helper controls only; no trained fit, historical validation, accuracy or cost claim.')
         save_json(HERE/'controls_results.json',out);emit('completed',sha256=sha(HERE/'controls_results.json'))
         print(json.dumps({k:v for k,v in out.items() if k!='rows'}))
     except BaseException:
-        save_json(HERE/'controls_failure.json',dict(traceback=traceback.format_exc(),completed_rows=rows,cpu_seconds=time.process_time()-start))
+        save_json(HERE/'controls_failure.json',dict(traceback=traceback.format_exc(),completed_rows=rows,actual_call_ledger=C.CALLS.copy(),cpu_seconds=time.process_time()-start))
         emit('failed',completed=len(rows));raise
 
 if __name__=='__main__':main()
