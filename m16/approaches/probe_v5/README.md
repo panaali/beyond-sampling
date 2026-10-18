@@ -150,6 +150,40 @@ family is closed.
 v4 is off by up to −9 pp, while v5a stays within +1.7 pp. But v5a's remaining bias in the seed and s0.02 groups
 (1–1.7 pp) is still too large above 4k.
 
+## Amended rule (DRI, Directive 8 amendment, ccr 4df09663; applied after the panel, no rerun needed)
+A pass is now judged at one budget B in {16k, 64k, 256k} FPE, with charged cost >= B/2 and upper CI <= 10
+(lenient) or <= 1 (strict) in all six groups. The 4k go line above is superseded. From the same panel:
+- **v5a FAILS** at every allowed B: at 16k the upper CIs are seed 31.5 and s0.02 18.6.
+- **v5b FAILS** everywhere.
+- **v5q PASSES the lenient bar at B = 16k** (upper CIs: orig 1.16, seed 3.35, s0.0025 1.72, s0.005 2.27, s0.01
+  0.68, s0.02 0.55) **and at B = 64k** (max upper 7.49, s0.01). It fails at 256k (upper 13.9–32.9). It does not reach
+  the strict bar at any B: the uppers exceed 1 in 4 of 6 groups at 16k.
+- v5q is inductive QMC, so this is not a mechanistic pass.
+
+**Alpha** (slope of log RMS bias over the six budgets, per group; `results/alpha.txt`):
+- v5a: +0.02 to +0.08 (bias-limited, like v4);
+- v5b: −0.06 to +0.39;
+- v5q: +0.15 to +0.41, with an RMS bias floor of 0.15–0.3 pp from 64k up (seeds, s0.01, s0.02). That floor is the
+  design artefact noted above. It is why v5q fails at 256k, and it could be removed by randomising the node-to-triple
+  assignment (not done: frozen).
+
+**Scope change (DRI after T271).**
+- The s0.005_1 failure was diagnosed first (`diag.py`, within the 1-hour cap). It is structural and lies in the
+  configuration assumption: one threshold per triple at one canonical background. That breaks on noisy copies in
+  general. 107/720 triples have no threshold inside the probed range, a "picks rank >= 4" mode carries 2–11% of the
+  mass, and the blind rate is model-specific.
+- It is fixable only by abandoning the one-canonical-point-per-triple design (v5a's exact-law nodes). Even then the
+  remaining canonical part (ranks 4–10) leaves 0.7–1.3 pp of flat bias on the seed and s.01/s.02 groups. That is 2–10x
+  the amended lenient bias limit (.53 / .27 / .13 pp at 16k / 64k / 256k).
+- The deductive-threshold idea (analytic margins from each node's gate pattern instead of bisection) is what v5b does
+  for the lower ranks. It over-corrects by 0.9–2.1 pp, because the linearisation across gate changes over-states the
+  spread.
+- **Outcome 3 applies:** the probe's configuration assumption breaks on noisy copies in general, and the only variant
+  that passes drops the probe ingredient entirely.
+
+**HP1 submission.** `hp1_entry.py`: `est(model, budget) -> (estimate, cost_flops)` (= v5q) and `est_v5a`. v5.py is
+unchanged since the pre-registration commits. Neither assumes the target's accuracy regime. Not run on hp1/sealed.
+
 ## Compute accounting
 - FPE = 6000 FLOPs (T196, multiply-add = 2). v5a/v5q: 1 FPE per node. v5b: 3 FPE per node ×1.01 (forward + two
   reverse passes, which have the same FLOP count as a forward; margin algebra ≈ 40 FLOPs per rival).
