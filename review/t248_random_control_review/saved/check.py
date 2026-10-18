@@ -52,10 +52,17 @@ def main():
                 assert r['regions']<=r['cells']
                 assert all(math.isfinite(r[x]) and r[x]>=0 for x in ['cpu','cpu_total']) and r['cpu']<=r['cpu_total']
                 if k==2:
+                    assert all(math.isfinite(r[x]) and 0<=r[x]<=1 for x in ['acc_1e6','active_frac_T10'])
                     hits=Q(r['acc_1e6'])*1000000
                     candidates=[hits.numerator//hits.denominator,hits.numerator//hits.denominator+1]
                     possible=[n for n in candidates if n/1000000==r['acc_1e6']]
                     assert len(possible)==1 and possible[0]==v['reported_mean_compatible_hits']
+                if k==4:
+                    assert set(r['N'])=={'1e-02','1e-04','1e-06'}
+                    ns=[r['N'][delta] for delta in ['1e-02','1e-04','1e-06']]
+                    assert all(type(n) is int and 1<=n<=r['regions'] for n in ns) and ns==sorted(ns)
+                    assert math.isfinite(r['mass_sum_minus_1']) and r['mass_sum_minus_1']>-1
+                    assert math.isfinite(r['inv_simpson']) and r['inv_simpson']>0
                 raw[model,k]=r;report['raw_rows']+=1;save()
         summary=read(A/'summary.json');assert set(summary)==set(MODELS)
         for m in MODELS:
