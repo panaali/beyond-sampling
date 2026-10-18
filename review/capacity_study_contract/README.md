@@ -13,7 +13,8 @@ accuracy from architecture ceilings, MC from seed variation, selection/stopping
 and training-law versus evaluation-law effects. Owner training remains unchanged.
 
 ## Status
-Written source/theorem phase only; independent review pending with fundamentals.
+Bounded written source/theorem phase complete; independently reviewed by
+fundamentals in cbdeedbb (published shared 1c7eac2a).
 No published capacity-study driver was present at frozen author headf02482d6.
 No inference is made about unpublished author work or future Colab execution.
 
@@ -22,7 +23,7 @@ No inference is made about unpublished author work or future Colab execution.
 horizon. Existing checkpoint saving omits optimizer/scheduler/RNG state. Default
 validation2^24 is below the requested10^8 final evaluation. These are attribution
 requirements, not detected defects in an unpublished new driver.
-[inferred, review pending] Finite trained models can lower-bound feasible
+[inferred, independently reviewed] Finite trained models can lower-bound feasible
 architecture accuracy; finite optimizer failure cannot upper-bound the architecture
 supremum. No new training outcome or accuracy measurement is reported.
 
@@ -33,7 +34,7 @@ Colab calls. No owner compute budget is consumed or modified by this review.
 
 ## Claims
 Source facts are conditional on the pinned local code, not proven executed
-Colab source. Written inference requires independent review. All owner reference
+Colab source. Written inference passed independent review; no execution was authorized by it. All owner reference
 accuracies remain reported/unverified here. No capacity ceiling, convergence,
 training improvement, ARC solution or universal negative is claimed.
 
