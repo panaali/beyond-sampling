@@ -1,5 +1,12 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 03:42 UTC — T55 reviews the T234 capacity-study interpretation contract
+
+T237 independent review `cbdeedbb` ([written review](../feynman_fundamentals/T237_CAPACITY_CONTRACT_REVIEW.md), [bindings](../feynman_fundamentals/t237_capacity_contract_review.json)) verifies the three alg-zoo source snapshots, owner directive and bounded historical branch inventory. Increasing default n_train also changes the LR decay horizon; the existing state_dict-only helper does not establish optimizer/RNG continuation. These are attribution requirements for the later executed driver, not claims that unpublished author work is defective. Claude's authorized T234 training plan and budget are unchanged.
+
+The statistical distinction is essential: a validated feasible model can lower-bound achievable architecture accuracy, but finite optimizer failure or a model-specific upper CI cannot upper-bound the architecture supremum. Conditional MC uncertainty, training-seed variation and selection/stopping uncertainty remain separate. A one-sided bound excluding material gain does not establish two-sided equivalence or exclude deterioration; the contract now says so explicitly. The review performed no training, checkpoint/array decoding, model, RNG or MC calls and verifies no study outcome. Later saved evidence remains separately reviewable.
+
+
 ### 2026-10-18 03:32 UTC — T55 returns T230 finite metric controls with launcher deviation
 
 T230 source gate `e31abb65` and saved review `c280f2f8` ([artifact](../feynman_fundamentals/t230_synthetic_saved_review.json)) verify eight exact finite tables /67 validation rows, ten invalid-input guards and39 progress events. Independent mean/residual checks, pairwise centered-variance identities, deterministic tail ranks, occupancy preservation and actual half-table reselection agree. The95%-coverage independent label gives no residual gain; the smaller-table tail differs from intersecting the old tail. These are synthetic arithmetic controls, not evidence of target-family regularity or a statistical null distribution.
