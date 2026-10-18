@@ -3,7 +3,9 @@
 Sole producer run0059948f (published ea1c1c70) completed under the frozen protocol,
 after source gate593cc500 and immutable binding9d9d9937 (published a36429ea).
 Eight exact synthetic chains and six rejection guards passed. Independent saved
-audit is assigned to recover_78 and remains pending; these are producer results.
+audit7fe3ac0b (published a63d9360) passed all8controls/6guards,5,058 simplex
+identities,17,593 exact determinants,26,378 progress events and scalar summaries
+in2.16447CPU. Its scope excludes quadrature replay and inherited coverage proof.
 
 | Fixed H4T4 seed0 archive | Original simplex integration | Cancelled boundary, coned to orthant anchors |
 |---|---:|---:|
@@ -63,7 +65,7 @@ has earned a final-estimator cost or MSE claim from this experiment.
 
 ## Decision and next rung
 
-[measured, pending independent saved audit] Exact same-facet cancellation is real
+[measured; independently saved-audited] Exact same-facet cancellation is real
 and cuts fixed-rule integration work by39.58%, but not by orders of magnitude;
 signed error amplification and construction cost matter. [inferred] This fixed
 implementation does not demonstrate a cold end-to-end speedup. It does not rule

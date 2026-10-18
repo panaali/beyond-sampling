@@ -12,11 +12,15 @@ and fixed GL20 baseline/boundary integrals. See `PROTOCOL.md` for the chain theo
 known incomplete geometric matching, cost convention and resource contract.
 
 ## Status
-Source frozen for independent source/theorem/resource review. No controls, target
-payload decoding or integrations have run. Claim6a164605; combined scope9a292cb2.
+H4T4 bounded numerical phase complete, independently7fe3ac0b. Claim6a164605;
+combined scope9a292cb2. H4T3 requires a separately frozen exact capture and remains
+outstanding. No completed numerical calls will be repeated.
 
 ## Results
-Pending the sole gated numerical phase. No new result is claimed.
+See `RESULTS.md`:5,058 to3,056 integration terms,39.58% fewer fixed-rule nodes,
+42.02% greater absolute determinant weight. Difference3.33e-16 is diagnostic.
+Construction/recording2.518CPU exceeds0.469CPU saved integration in this run.
+Raw0059948f; independent saved7fe3ac0b.
 
 ## Compute accounting
 Full process CPU plus separate exact construction, facet matching, rule setup,
@@ -25,9 +29,11 @@ GL20 costs8000 nodes per term, with partial39-arithmetic-category node accountin
 Command: `bash review/facet_cancellation/launch.sh` only after published gate.
 
 ## Claims
-[inferred] Oriented chain cancellation can preserve weighted integration, subject
-to the stated exact chain and anchor conventions; independent review pending.
-[speculative] It may reduce weighted work on the archived H4T4 correctness union.
+[inferred, independently reviewed593cc500] Oriented chain cancellation preserves
+weighted integration under the stated exact chain/anchor conventions.
+[measured, independently saved-audited7fe3ac0b] The fixed H4T4 reduction saves
+integration nodes but raises signed error weight and does not demonstrate a cold
+end-to-end speedup. Other boundary schemes remain untested.
 
 ## Alternatives not ruled out
 Nonconforming triangulations and orthant-specific anchors can hide further exact
