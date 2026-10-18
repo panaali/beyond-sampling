@@ -171,6 +171,29 @@ then `python frontier.py dev2; python summary.py dev2` (`results/frontier_dev2.t
   estimates correlate .96 with the truth across the 80 models. A constant offset fitted on DEV2 would leave F ~40
   (rank_exact) and ~16 (probe v1); that offset is a tuned constant (advice) and is not part of any frozen entry.
 
+## Mean-field oracle (DRI request after T294; diagnostic, sampling)
+Question: how much of rank_exact's per-class bias would remain if each class's gates were closed by moment matching /
+switching probabilities instead of frozen at one pattern? `python meanfield_oracle.py 200000` (110 models: LB3 + DEV2,
+inputs from rank_exact's own law, 100k for moments + 100k paired evaluation per model), `python mf_summary.py`
+(`results/meanfield_summary.txt`). "gauss" gives each class's 9 rival logit margins their exact sampled mean and
+covariance and takes P(all > 0) under that Gaussian: the best any class-level Gaussian closure can do.
+
+| panel | network acc | frozen gates - net (mean/RMS pp) | Gaussian oracle - net | per-class RMS frozen / gauss / noise | corr with net, frozen / gauss |
+|---|---|---|---|---|---|
+| LB3 seeds | .917 | -1.08 / 1.83 | -11.9 / 12.0 | .097 / .160 / .055 | .83 / .92 |
+| LB3 s.02 | .634 | +3.42 / 3.49 | -3.37 / 3.52 | .123 / .134 / .077 | 1.00 / 1.00 |
+| DEV2 (80) | .923 | -0.87 / 1.34 | -10.95 / 11.13 | .092 / .151 / .054 | .95 / .78 |
+
+- Blind classes (K <= 1): frozen -0.02 pp, Gaussian +0.33 pp on DEV2. The blind region is too small to matter for
+  rank_exact either way.
+- Bulk classes: the exact-moment Gaussian margin law is 11 pp too pessimistic on retrains, against -0.84 pp for
+  frozen gates. The margins are far from Gaussian: they pile up near 0 at near-ties and have a hard edge where the
+  gates switch. **A class-level mean-field rank_exact is not worth building.** Even with perfect moments it is 8x worse
+  than frozen gates on DEV2 and tracks between-model variation less well (corr .78 vs .95).
+- Not ruled out: a closure conditioned on more than the class (e.g. on the top-3 values, as the observer does, or on
+  the sign of the near-tie gap), or mean-field only for the gates of the 7 lower ranks with the top-3 handled exactly.
+  These are different estimators and were not tried.
+
 ## Candidate for HP2 (frozen, `hp2_entry.py`)
 By the pre-registered rule the candidate is **rank_exact, Q=8, K pooled into 3 gate groups ({0-3}, {4-6}, {7-10}),
 all 720 triples**: `hp2_entry.est(model, budget) -> (estimate, cost_flops)`, deterministic, ~1.53e8 FLOPs = 25.8k
@@ -194,7 +217,7 @@ the canonical inputs, only the 2-3 rival logit rows). Both are untried here.
   SORM); LB3 rows their LB3 cost x 6000/5948. The T274b cone baseline is charged 180 x 11 FPE; its exact integration
   is not counted, so its F is a lower bound.
 - Not charged (model-free): order-statistic tables, Sobol points, quadrature grids, tie-level quantiles.
-- Diagnostics (not estimator compute): truth split 30 x 2M sequences (`diag_truth.py`), DEV2 provisional truths
+- Diagnostics (not estimator compute): mean-field oracle 110 x 200k (~15 min), truth split 30 x 2M sequences (`diag_truth.py`), DEV2 provisional truths
   80 x 4M (`dev2_truth.py`), T274b paired bias 80 x 200k x 3 on DEV2. Sweep CPU: LB3 about 25 min, DEV2 about 1 h, 1 core.
 
 ## Claims
@@ -211,6 +234,9 @@ the canonical inputs, only the 2-3 rival logit rows). Both are untried here.
    lighter groups (F 3-8) than expected, and rank_exact needed 26k FPE rather than ~1-3k for its best F_max.
 6. [measured] On DEV2 (80 retrains) every family's F is within ~20% of its LB3 seed-group F (except rank_exact 3
    groups: 131 vs 112, and reliability 17 vs 34); LB3 F_max, dominated by heavy-noise copies, mis-ranks methods.
+8. [measured] A class-level Gaussian (moment-matched) closure of rank_exact's margins, with oracle moments, is biased
+   -11 pp on DEV2 against -0.9 pp for frozen gates. Frozen gates are not the main limitation at class level; the
+   class is too coarse for any single-law summary.
 7. [measured] On DEV2 the best all-deductive setting is probe v1 (estimate.py), 3.9k FPE, F_max 76.5; the candidate
    rank_exact has 131. [speculative] HP2 F will be close to these DEV2 values.
 
