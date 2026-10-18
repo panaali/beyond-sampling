@@ -508,3 +508,26 @@ All on 80 DEV2, charged as executed, with RMS and bias reported separately.
 - **Stop:** C grows > 15%, or the bias moves by < .08 pp.
 - Selection among (i)-(v): minimum MSE × C. These are 5 variants on DEV2, so the selected value is optimistic
   (forking paths). Any HP4 claim belongs to the combined attempt.
+
+## T330 tier C results (`python run_tierc.py`, `results_tierc.json`, `run_tierc.log`; all 80 DEV2)
+Declared error d = est − est_T317e, per model.
+
+| config | C (FPE) | declared d: RMS / mean / max (pp) | fires on post-last-wrong cells (nb-g23 / nb-g12) | RMS vs truth | bias | lenient F | strict F |
+|---|---|---|---|---|---|---|---|
+| T317e | 5,490 | — | — | .794 | +.444 | 4.78 | 4.68 |
+| **C1, non-blind lines** | **3,522** | **.076** / +.045 / .336 | **96.7% / 95.5%** | .827 | +.489 | **3.32** | 3.25 |
+| C1, all 3 lines | 3,328 | .077 / +.045 / .336 | 96.7% / 95.5% | .827 | +.489 | **3.14** | 3.08 |
+| C2, non-blind | 4,676 | .018 / +.007 / .088 | 47.1% / 47.0% | .800 | +.451 | 4.13 | 4.05 |
+| C2, all 3 | 4,643 | .018 / +.007 / .088 | 47.1% / 47.0% | .800 | +.451 | 4.10 | 4.02 |
+
+- **Oracle pre-check (DRI go: declared RMS <= .10 pp and fires on >= 70%): C1 = GO** (.076 pp, 96%). **C2 = no**: it is
+  accurate (.018 pp) but fires on only 47%.
+- **Tier C go line (declared <= .1 pp at C <= 2.5k): NO.** C1 reaches 3.3-3.5k, as the oracle floor predicted (~2.9k
+  even for an ideal cap).
+- **The declared error is one-signed (+.045 pp mean):** the screen ignores later islands of wrong mass, which adds
+  to T317e's positive bias. MSE vs truth rises 8%, but C falls 36-39%, so **lenient F falls 4.78 → 3.14 (C1, all
+  lines).**
+- C1 is a declared, measured heuristic, not a deductive certificate. Its error on a new panel is not bounded: it is
+  measured on DEV2 here, with max .34 pp on one model.
+- [measured, DEV2, unverified] C1 is the best cost point of the T317 family so far: lenient F 3.14 on DEV2 (T317e
+  4.78).
