@@ -658,3 +658,18 @@ Selecting on disagreement guarantees that the two differ on these pairs; the tes
 - **Cost:** the fix costs 3.4-4.4x K3 (1.9-2.2M vs .43-.61M FPE). At the fix's compute, plain sampling expects
   .003-.68 events.
 - Unverified.
+
+# T369 (fresh test of the recalibrated triple-tie fix): pre-registration (2026-10-18, before the estimator is frozen)
+- **Estimator:** the T218 child's recalibrated graded rule, frozen by them on already-seen models only. Its commit and
+  sha256 are recorded here when received; it is run unmodified. K3 = the T364 estimator (@e433919d, T_hi 6) as the
+  comparator.
+- **Protocol:** identical to T367's truth-blind rule (a9a57359).
+  - Models: dev3_s548 ... dev3_s563 (16 unused DEV3 models).
+  - K3 on the grid t0 in {1.75, ..., 3.5}. The candidates are the t0s with a K3 estimate in [1e-9, 1e-8], else the 2
+    grid points nearest 3e-9.
+  - The fix runs on the candidates. Per model, keep the 2 pairs with the largest |log(fix / K3)|. The top 4 models by
+    mean disagreement give the **8 pairs**.
+  - Both estimators' outputs for all 16 models are committed and pushed **before** the pairs go to T192 for sealed
+    conditional-law truths (1e9 per pair on GPU, or CPU).
+- **Go: the fix within 2x of the truth on >= 7/8.** Also reported: K3's ratios, |log| comparison, both C, and the
+  expected number of events plain MC sees at the fix's C.
