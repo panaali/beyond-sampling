@@ -1,0 +1,214 @@
+
+== z6s0 (T=6, n=16384/kind, tail points=1639) top5% share 0.827/0.839, top1% 0.579/0.605
+  null singleton (in-sample top-L points): {10: 0.171, 30: 0.287, 100: 0.468}  null random labels (oos): {10: 0.012, 30: 0.028, 100: 0.069}
+  mech      labels A= 1180 A+B= 2070 | L10: in 0.177 oosAB 0.017 oosBA 0.000 half 0.240 AB 0.131 | L30: in 0.324 oosAB 0.074 oosBA 0.074 half 0.400 AB 0.260 | L100: in 0.521 oosAB 0.112 oosBA 0.150 half 0.608 AB 0.449 |
+            within-label top5% share: pooled 0.433, top labels [0.2] (pts [33])
+  pos       labels A=  117 A+B=  119 | L10: in 0.310 oosAB 0.200 oosBA 0.237 half 0.378 AB 0.297 | L30: in 0.644 oosAB 0.573 oosBA 0.500 half 0.703 AB 0.617 | L100: in 0.989 oosAB 0.975 oosBA 0.977 half 0.996 AB 0.987 |
+            within-label top5% share: pooled 0.433, top labels [0.6, 0.31, 0.82, 0.57, 0.33, 0.27, 0.23, 0.5, 0.22, 0.25] (pts [23, 36, 32, 36, 47, 73, 55, 28, 40, 34])
+  pos_flips labels A= 1046 A+B= 1843 | L10: in 0.183 oosAB 0.028 oosBA 0.026 half 0.213 AB 0.144 | L30: in 0.344 oosAB 0.110 oosBA 0.097 half 0.424 AB 0.283 | L100: in 0.560 oosAB 0.183 oosBA 0.270 half 0.664 AB 0.496 |
+            within-label top5% share: pooled 0.433, top labels [0.21, 0.25] (pts [43, 26])
+  nopos     labels A=  847 A+B= 1486 | L10: in 0.388 oosAB 0.258 oosBA 0.274 half 0.366 AB 0.351 | L30: in 0.513 oosAB 0.316 oosBA 0.346 half 0.564 AB 0.474 | L100: in 0.680 oosAB 0.356 oosBA 0.412 half 0.793 AB 0.626 |
+            within-label top5% share: pooled 0.433, top labels [0.43, 0.25, 0.17, 0.39, 0.33, 0.17] (pts [71, 191, 133, 29, 21, 24])
+  relpos    labels A= 1133 A+B= 1978 | L10: in 0.182 oosAB 0.022 oosBA 0.012 half 0.229 AB 0.142 | L30: in 0.331 oosAB 0.129 oosBA 0.087 half 0.413 AB 0.275 | L100: in 0.529 oosAB 0.170 oosBA 0.173 half 0.656 AB 0.461 |
+            within-label top5% share: pooled 0.433, top labels [0.2] (pts [33])
+  coarse    labels A=   63 A+B=   70 | L10: in 0.808 oosAB 0.810 oosBA 0.808 half 0.845 AB 0.809 | L30: in 0.979 oosAB 0.978 oosBA 0.977 half 0.983 AB 0.978 | L100: in 1.000 oosAB 0.998 oosBA 0.998 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.433, top labels [0.43, 0.27, 0.3, 0.33, 0.27, 0.2, 0.25, 0.29, 0.17, 0.31] (pts [71, 229, 39, 166, 98, 108, 191, 63, 133, 36])
+  comp kind: {'23': 0.8116, '12': 0.1884}
+  comp wt: {'tie': 0.5039, 'max': 0.3933, 'third': 0.0728, 'other': 0.03}
+  comp ub: {'0': 0.8999, '3': 0.0728, '1': 0.0177, '2': 0.0095}
+  comp nflips: {'0': 0.3042, '1': 0.232, '5': 0.1655, '2': 0.1496, '3': 0.0931, '4': 0.0556}
+  comp dist: {'1': 0.2838, '2': 0.2318, '3': 0.1854, '5': 0.1528, '4': 0.1462}
+  comp age: {'0': 0.2687, '4': 0.2206, '1': 0.1535, '5': 0.1434, '2': 0.1267, '3': 0.0871}
+  comp x9: {'below': 0.3981, 'pair': 0.363, 'max': 0.2022, 'third': 0.0366}
+  comp side: {'-': 0.6835, '+': 0.3165}
+  comp ncomp: {'1': 0.9069, '2': 0.0797, '3': 0.0134}
+  comp blind_npos<=1: 0.8999
+  comp flip_in_band(step,neuron)_top12: {'(5, 9)': 0.0649, '(4, 8)': 0.0619, '(4, 15)': 0.0522, '(2, 11)': 0.0482, '(1, 14)': 0.0452, '(4, 11)': 0.0451, '(3, 15)': 0.0425, '(4, 9)': 0.0387, '(5, 11)': 0.0386, '(5, 6)': 0.0383}
+
+== z6s1 (T=6, n=16384/kind, tail points=1639) top5% share 0.845/0.853, top1% 0.621/0.642
+  null singleton (in-sample top-L points): {10: 0.15, 30: 0.295, 100: 0.511}  null random labels (oos): {10: 0.012, 30: 0.015, 100: 0.067}
+  mech      labels A= 1164 A+B= 2083 | L10: in 0.158 oosAB 0.013 oosBA 0.021 half 0.233 AB 0.099 | L30: in 0.319 oosAB 0.054 oosBA 0.052 half 0.412 AB 0.217 | L100: in 0.557 oosAB 0.144 oosBA 0.157 half 0.671 AB 0.445 |
+            within-label top5% share: pooled 0.472, top labels [] (pts [])
+  pos       labels A=  120 A+B=  120 | L10: in 0.254 oosAB 0.206 oosBA 0.174 half 0.335 AB 0.242 | L30: in 0.575 oosAB 0.460 oosBA 0.415 half 0.653 AB 0.546 | L100: in 0.978 oosAB 0.958 oosBA 0.956 half 0.985 AB 0.974 |
+            within-label top5% share: pooled 0.472, top labels [0.68, 0.76, 0.38, 0.5, 0.44, 0.6, 0.7, 0.79, 0.49, 0.33] (pts [33, 24, 48, 28, 30, 27, 30, 30, 27, 20])
+  pos_flips labels A= 1043 A+B= 1862 | L10: in 0.166 oosAB 0.031 oosBA 0.028 half 0.217 AB 0.109 | L30: in 0.338 oosAB 0.089 oosBA 0.091 half 0.456 AB 0.244 | L100: in 0.600 oosAB 0.220 oosBA 0.249 half 0.715 AB 0.500 |
+            within-label top5% share: pooled 0.472, top labels [0.78, 0.41, 0.32] (pts [24, 23, 20])
+  nopos     labels A=  812 A+B= 1436 | L10: in 0.378 oosAB 0.308 oosBA 0.325 half 0.388 AB 0.350 | L30: in 0.558 oosAB 0.393 oosBA 0.382 half 0.586 AB 0.494 | L100: in 0.754 oosAB 0.459 oosBA 0.459 half 0.821 AB 0.688 |
+            within-label top5% share: pooled 0.472, top labels [0.37, 0.2, 0.24, 0.29, 0.13, 0.21] (pts [74, 298, 59, 22, 56, 24])
+  relpos    labels A= 1108 A+B= 1964 | L10: in 0.158 oosAB 0.013 oosBA 0.032 half 0.234 AB 0.103 | L30: in 0.321 oosAB 0.079 oosBA 0.061 half 0.442 AB 0.223 | L100: in 0.572 oosAB 0.183 oosBA 0.193 half 0.707 AB 0.462 |
+            within-label top5% share: pooled 0.472, top labels [] (pts [])
+  coarse    labels A=   60 A+B=   68 | L10: in 0.865 oosAB 0.846 oosBA 0.825 half 0.884 AB 0.859 | L30: in 0.984 oosAB 0.982 oosBA 0.980 half 0.989 AB 0.983 | L100: in 1.000 oosAB 0.998 oosBA 0.996 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.472, top labels [0.32, 0.37, 0.29, 0.36, 0.28, 0.28, 0.2, 0.27, 0.25, 0.21] (pts [82, 74, 27, 41, 113, 169, 298, 58, 152, 80])
+  comp kind: {'23': 0.8061, '12': 0.1939}
+  comp wt: {'max': 0.5438, 'tie': 0.401, 'third': 0.0299, 'other': 0.0252}
+  comp ub: {'0': 0.9488, '3': 0.0311, '1': 0.0149, '2': 0.0052}
+  comp nflips: {'1': 0.3258, '0': 0.2265, '2': 0.1675, '5': 0.128, '3': 0.0959, '4': 0.0563}
+  comp dist: {'1': 0.2995, '2': 0.2444, '3': 0.2128, '4': 0.1435, '5': 0.0998}
+  comp age: {'0': 0.2468, '2': 0.1785, '5': 0.1538, '4': 0.1445, '3': 0.1412, '1': 0.1353}
+  comp x9: {'below': 0.4652, 'pair': 0.3478, 'max': 0.1604, 'third': 0.0266}
+  comp side: {'-': 0.791, '+': 0.209}
+  comp ncomp: {'1': 0.851, '2': 0.1464, '3': 0.0026}
+  comp blind_npos<=1: 0.9488
+  comp flip_in_band(step,neuron)_top12: {'(5, 0)': 0.0998, '(3, 8)': 0.0984, '(5, 8)': 0.0772, '(1, 2)': 0.0765, '(4, 8)': 0.0634, '(5, 4)': 0.0627, '(2, 2)': 0.0597, '(2, 12)': 0.0566, '(4, 2)': 0.0472, '(5, 10)': 0.0447}
+
+== z6s2 (T=6, n=16384/kind, tail points=1639) top5% share 0.841/0.858, top1% 0.626/0.668
+  null singleton (in-sample top-L points): {10: 0.209, 30: 0.385, 100: 0.567}  null random labels (oos): {10: 0.01, 30: 0.017, 100: 0.081}
+  mech      labels A=  871 A+B= 1454 | L10: in 0.258 oosAB 0.127 oosBA 0.109 half 0.371 AB 0.252 | L30: in 0.448 oosAB 0.191 oosBA 0.178 half 0.536 AB 0.400 | L100: in 0.686 oosAB 0.308 oosBA 0.306 half 0.761 AB 0.623 |
+            within-label top5% share: pooled 0.536, top labels [0.25, 0.19, 0.21, 0.16] (pts [23, 33, 24, 20])
+  pos       labels A=  109 A+B=  117 | L10: in 0.436 oosAB 0.415 oosBA 0.374 half 0.516 AB 0.451 | L30: in 0.748 oosAB 0.707 oosBA 0.643 half 0.805 AB 0.732 | L100: in 0.998 oosAB 0.994 oosBA 0.990 half 1.000 AB 0.997 |
+            within-label top5% share: pooled 0.536, top labels [0.45, 0.46, 0.7, 0.73, 0.83, 0.26, 0.51, 0.54, 0.83, 0.21] (pts [61, 28, 63, 27, 24, 91, 28, 28, 24, 77])
+  pos_flips labels A=  748 A+B= 1241 | L10: in 0.270 oosAB 0.132 oosBA 0.159 half 0.349 AB 0.269 | L30: in 0.483 oosAB 0.232 oosBA 0.222 half 0.601 AB 0.436 | L100: in 0.727 oosAB 0.362 oosBA 0.365 half 0.795 AB 0.667 |
+            within-label top5% share: pooled 0.536, top labels [0.28, 0.4, 0.21, 0.2, 0.27, 0.34, 0.34, 0.16] (pts [20, 37, 56, 40, 43, 21, 22, 20])
+  nopos     labels A=  553 A+B=  906 | L10: in 0.470 oosAB 0.299 oosBA 0.360 half 0.470 AB 0.445 | L30: in 0.667 oosAB 0.422 oosBA 0.435 half 0.748 AB 0.629 | L100: in 0.850 oosAB 0.514 oosBA 0.555 half 0.906 AB 0.817 |
+            within-label top5% share: pooled 0.536, top labels [0.28, 0.39, 0.17, 0.42, 0.27, 0.3, 0.18] (pts [457, 51, 100, 40, 37, 25, 25])
+  relpos    labels A=  820 A+B= 1345 | L10: in 0.260 oosAB 0.128 oosBA 0.114 half 0.335 AB 0.254 | L30: in 0.458 oosAB 0.201 oosBA 0.197 half 0.573 AB 0.407 | L100: in 0.708 oosAB 0.343 oosBA 0.348 half 0.795 AB 0.651 |
+            within-label top5% share: pooled 0.536, top labels [0.22, 0.25, 0.19, 0.21, 0.16, 0.22, 0.22] (pts [37, 23, 33, 24, 20, 26, 28])
+  coarse    labels A=   65 A+B=   70 | L10: in 0.876 oosAB 0.866 oosBA 0.872 half 0.898 AB 0.873 | L30: in 0.987 oosAB 0.982 oosBA 0.979 half 0.987 AB 0.986 | L100: in 1.000 oosAB 0.998 oosBA 0.997 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.536, top labels [0.39, 0.28, 0.39, 0.43, 0.39, 0.3, 0.39, 0.39, 0.28, 0.17] (pts [30, 457, 29, 41, 51, 246, 93, 82, 44, 100])
+  comp kind: {'23': 0.9056, '12': 0.0944}
+  comp wt: {'max': 0.5129, 'tie': 0.4483, 'third': 0.0224, 'other': 0.0164}
+  comp ub: {'0': 0.9283, '3': 0.0481, '1': 0.0154, '2': 0.0082}
+  comp nflips: {'0': 0.307, '1': 0.2544, '2': 0.2021, '3': 0.1269, '5': 0.0962, '4': 0.0134}
+  comp dist: {'1': 0.2729, '3': 0.2242, '2': 0.2035, '4': 0.1878, '5': 0.1115}
+  comp age: {'4': 0.3032, '1': 0.2434, '0': 0.1808, '5': 0.12, '3': 0.0897, '2': 0.0629}
+  comp x9: {'below': 0.4985, 'pair': 0.3761, 'max': 0.119, 'third': 0.0064}
+  comp side: {'-': 0.775, '+': 0.225}
+  comp ncomp: {'1': 0.952, '2': 0.0469, '3': 0.001}
+  comp blind_npos<=1: 0.9283
+  comp flip_in_band(step,neuron)_top12: {'(5, 12)': 0.0933, '(5, 7)': 0.0875, '(1, 10)': 0.0809, '(5, 9)': 0.08, '(2, 7)': 0.0792, '(1, 8)': 0.0754, '(3, 9)': 0.0657, '(5, 13)': 0.0593, '(2, 8)': 0.0525, '(4, 14)': 0.0509}
+
+== z6s3 (T=6, n=16384/kind, tail points=1639) top5% share 0.897/0.909, top1% 0.713/0.751
+  null singleton (in-sample top-L points): {10: 0.216, 30: 0.365, 100: 0.581}  null random labels (oos): {10: 0.014, 30: 0.018, 100: 0.063}
+  mech      labels A= 1001 A+B= 1723 | L10: in 0.246 oosAB 0.083 oosBA 0.068 half 0.346 AB 0.242 | L30: in 0.412 oosAB 0.162 oosBA 0.091 half 0.512 AB 0.371 | L100: in 0.650 oosAB 0.241 oosBA 0.232 half 0.744 AB 0.579 |
+            within-label top5% share: pooled 0.544, top labels [0.44, 0.25, 0.2] (pts [20, 20, 20])
+  pos       labels A=  108 A+B=  113 | L10: in 0.416 oosAB 0.334 oosBA 0.297 half 0.529 AB 0.445 | L30: in 0.751 oosAB 0.735 oosBA 0.670 half 0.815 AB 0.763 | L100: in 0.998 oosAB 0.993 oosBA 0.993 half 1.000 AB 0.998 |
+            within-label top5% share: pooled 0.544, top labels [0.78, 0.83, 0.35, 0.46, 0.3, 0.62, 0.77, 0.29, 0.37, 0.7] (pts [28, 27, 51, 61, 58, 25, 47, 59, 38, 33])
+  pos_flips labels A=  875 A+B= 1517 | L10: in 0.252 oosAB 0.094 oosBA 0.086 half 0.284 AB 0.256 | L30: in 0.429 oosAB 0.227 oosBA 0.152 half 0.531 AB 0.401 | L100: in 0.687 oosAB 0.303 oosBA 0.296 half 0.783 AB 0.621 |
+            within-label top5% share: pooled 0.544, top labels [0.55, 0.72, 0.29, 0.4, 0.31, 0.36, 0.2, 0.39] (pts [23, 33, 28, 23, 26, 22, 20, 21])
+  nopos     labels A=  661 A+B= 1129 | L10: in 0.451 oosAB 0.309 oosBA 0.340 half 0.437 AB 0.458 | L30: in 0.602 oosAB 0.482 oosBA 0.400 half 0.672 AB 0.576 | L100: in 0.797 oosAB 0.545 oosBA 0.490 half 0.891 AB 0.747 |
+            within-label top5% share: pooled 0.544, top labels [0.44, 0.32, 0.33, 0.25, 0.14, 0.33] (pts [60, 403, 26, 105, 38, 21])
+  relpos    labels A=  955 A+B= 1631 | L10: in 0.258 oosAB 0.143 oosBA 0.090 half 0.373 AB 0.256 | L30: in 0.425 oosAB 0.168 oosBA 0.170 half 0.552 AB 0.385 | L100: in 0.664 oosAB 0.278 oosBA 0.274 half 0.797 AB 0.602 |
+            within-label top5% share: pooled 0.544, top labels [0.44, 0.2, 0.25] (pts [20, 34, 20])
+  coarse    labels A=   60 A+B=   69 | L10: in 0.862 oosAB 0.903 oosBA 0.862 half 0.890 AB 0.884 | L30: in 0.987 oosAB 0.989 oosBA 0.984 half 0.991 AB 0.988 | L100: in 1.000 oosAB 0.999 oosBA 0.999 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.544, top labels [0.44, 0.42, 0.5, 0.32, 0.34, 0.28, 0.47, 0.22, 0.32, 0.4] (pts [60, 131, 24, 403, 100, 180, 93, 35, 40, 26])
+  comp kind: {'23': 0.8049, '12': 0.1951}
+  comp wt: {'tie': 0.4963, 'max': 0.4242, 'third': 0.0641, 'other': 0.0153}
+  comp ub: {'0': 0.9385, '3': 0.0404, '1': 0.019, '2': 0.0021}
+  comp nflips: {'0': 0.2962, '1': 0.2205, '2': 0.1771, '5': 0.1471, '3': 0.0828, '4': 0.0763}
+  comp dist: {'2': 0.2575, '1': 0.2516, '3': 0.2157, '4': 0.1448, '5': 0.1304}
+  comp age: {'5': 0.2723, '0': 0.2521, '2': 0.143, '1': 0.1244, '4': 0.1227, '3': 0.0855}
+  comp x9: {'below': 0.4836, 'pair': 0.2994, 'max': 0.1796, 'third': 0.0374}
+  comp side: {'-': 0.6787, '+': 0.3213}
+  comp ncomp: {'1': 0.8342, '2': 0.1412, '3': 0.0242, '4': 0.0003}
+  comp blind_npos<=1: 0.9385
+  comp flip_in_band(step,neuron)_top12: {'(4, 7)': 0.1075, '(4, 8)': 0.0882, '(1, 2)': 0.0879, '(2, 13)': 0.0804, '(1, 11)': 0.0559, '(1, 9)': 0.051, '(5, 8)': 0.0485, '(3, 2)': 0.0468, '(1, 13)': 0.0464, '(5, 7)': 0.0414}
+
+== z6s4 (T=6, n=16384/kind, tail points=1639) top5% share 0.876/0.869, top1% 0.634/0.608
+  null singleton (in-sample top-L points): {10: 0.156, 30: 0.29, 100: 0.49}  null random labels (oos): {10: 0.012, 30: 0.017, 100: 0.057}
+  mech      labels A= 1135 A+B= 1974 | L10: in 0.180 oosAB 0.024 oosBA 0.018 half 0.234 AB 0.111 | L30: in 0.322 oosAB 0.048 oosBA 0.095 half 0.431 AB 0.231 | L100: in 0.550 oosAB 0.156 oosBA 0.186 half 0.644 AB 0.444 |
+            within-label top5% share: pooled 0.456, top labels [0.3] (pts [30])
+  pos       labels A=  118 A+B=  118 | L10: in 0.319 oosAB 0.250 oosBA 0.238 half 0.372 AB 0.300 | L30: in 0.647 oosAB 0.509 oosBA 0.521 half 0.734 AB 0.602 | L100: in 0.988 oosAB 0.981 oosBA 0.981 half 0.994 AB 0.987 |
+            within-label top5% share: pooled 0.456, top labels [0.5, 0.34, 0.61, 0.32, 0.26, 0.51, 0.41, 0.22, 0.2, 0.43] (pts [38, 50, 31, 97, 71, 31, 26, 38, 33, 30])
+  pos_flips labels A=  994 A+B= 1704 | L10: in 0.191 oosAB 0.037 oosBA 0.038 half 0.213 AB 0.129 | L30: in 0.353 oosAB 0.095 oosBA 0.135 half 0.481 AB 0.265 | L100: in 0.588 oosAB 0.215 oosBA 0.236 half 0.700 AB 0.490 |
+            within-label top5% share: pooled 0.456, top labels [0.27, 0.24, 0.27, 0.22] (pts [68, 26, 45, 28])
+  nopos     labels A=  764 A+B= 1320 | L10: in 0.370 oosAB 0.234 oosBA 0.297 half 0.329 AB 0.317 | L30: in 0.511 oosAB 0.311 oosBA 0.345 half 0.582 AB 0.445 | L100: in 0.719 oosAB 0.378 oosBA 0.434 half 0.816 AB 0.643 |
+            within-label top5% share: pooled 0.456, top labels [0.41, 0.25, 0.3, 0.31, 0.34, 0.12] (pts [44, 237, 130, 42, 33, 35])
+  relpos    labels A= 1063 A+B= 1851 | L10: in 0.183 oosAB 0.045 oosBA 0.035 half 0.265 AB 0.121 | L30: in 0.331 oosAB 0.090 oosBA 0.115 half 0.457 AB 0.248 | L100: in 0.577 oosAB 0.183 oosBA 0.243 half 0.691 AB 0.471 |
+            within-label top5% share: pooled 0.456, top labels [0.3, 0.2, 0.4] (pts [30, 20, 21])
+  coarse    labels A=   65 A+B=   73 | L10: in 0.783 oosAB 0.784 oosBA 0.783 half 0.786 AB 0.783 | L30: in 0.970 oosAB 0.979 oosBA 0.966 half 0.980 AB 0.975 | L100: in 1.000 oosAB 0.998 oosBA 0.994 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.456, top labels [0.41, 0.35, 0.41, 0.35, 0.42, 0.25, 0.19, 0.26, 0.32, 0.23] (pts [44, 49, 135, 180, 83, 237, 32, 102, 87, 20])
+  comp kind: {'23': 0.7954, '12': 0.2046}
+  comp wt: {'tie': 0.5447, 'max': 0.3689, 'third': 0.0514, 'other': 0.035}
+  comp ub: {'0': 0.9016, '3': 0.0591, '1': 0.0206, '2': 0.0187}
+  comp nflips: {'0': 0.291, '1': 0.2626, '2': 0.1787, '5': 0.1065, '3': 0.1029, '4': 0.0582}
+  comp dist: {'1': 0.2941, '3': 0.2372, '2': 0.205, '4': 0.1356, '5': 0.1281}
+  comp age: {'0': 0.3136, '4': 0.2264, '5': 0.1509, '3': 0.1354, '1': 0.0987, '2': 0.0751}
+  comp x9: {'below': 0.399, 'pair': 0.3666, 'max': 0.206, 'third': 0.0284}
+  comp side: {'-': 0.6742, '+': 0.3258}
+  comp ncomp: {'1': 0.8877, '2': 0.1112, '3': 0.0009, '4': 0.0001}
+  comp blind_npos<=1: 0.9016
+  comp flip_in_band(step,neuron)_top12: {'(4, 0)': 0.0617, '(5, 0)': 0.0536, '(5, 13)': 0.0523, '(5, 6)': 0.049, '(5, 11)': 0.0489, '(5, 3)': 0.047, '(4, 6)': 0.0463, '(5, 5)': 0.0462, '(3, 12)': 0.0451, '(5, 2)': 0.0395}
+
+== orig (T=10, n=16384/kind, tail points=1639) top5% share 0.866/0.870, top1% 0.678/0.680
+  null singleton (in-sample top-L points): {10: 0.15, 30: 0.296, 100: 0.537}  null random labels (oos): {10: 0.013, 30: 0.017, 100: 0.063}
+  mech      labels A= 1374 A+B= 2463 | L10: in 0.150 oosAB 0.008 oosBA 0.002 half 0.246 AB 0.106 | L30: in 0.296 oosAB 0.009 oosBA 0.015 half 0.412 AB 0.219 | L100: in 0.539 oosAB 0.023 oosBA 0.031 half 0.681 AB 0.416 |
+            within-label top5% share: pooled 0.491, top labels [] (pts [])
+  pos       labels A=  426 A+B=  498 | L10: in 0.200 oosAB 0.078 oosBA 0.060 half 0.296 AB 0.157 | L30: in 0.394 oosAB 0.180 oosBA 0.143 half 0.515 AB 0.322 | L100: in 0.714 oosAB 0.351 oosBA 0.393 half 0.827 AB 0.640 |
+            within-label top5% share: pooled 0.491, top labels [0.28, 0.3, 0.4, 0.53, 0.26, 0.29, 0.32] (pts [31, 26, 22, 26, 22, 21, 20])
+  pos_flips labels A= 1236 A+B= 2193 | L10: in 0.150 oosAB 0.008 oosBA 0.004 half 0.213 AB 0.107 | L30: in 0.297 oosAB 0.017 oosBA 0.025 half 0.441 AB 0.222 | L100: in 0.544 oosAB 0.062 oosBA 0.047 half 0.700 AB 0.427 |
+            within-label top5% share: pooled 0.491, top labels [] (pts [])
+  nopos     labels A=  917 A+B= 1670 | L10: in 0.278 oosAB 0.200 oosBA 0.175 half 0.315 AB 0.256 | L30: in 0.435 oosAB 0.216 oosBA 0.206 half 0.527 AB 0.378 | L100: in 0.671 oosAB 0.300 oosBA 0.249 half 0.794 AB 0.584 |
+            within-label top5% share: pooled 0.491, top labels [0.46, 0.22, 0.18, 0.29, 0.15, 0.17, 0.21] (pts [48, 34, 259, 20, 41, 29, 22])
+  relpos    labels A= 1325 A+B= 2369 | L10: in 0.152 oosAB 0.009 oosBA 0.003 half 0.244 AB 0.108 | L30: in 0.301 oosAB 0.013 oosBA 0.017 half 0.439 AB 0.223 | L100: in 0.545 oosAB 0.044 oosBA 0.047 half 0.714 AB 0.425 |
+            within-label top5% share: pooled 0.491, top labels [] (pts [])
+  coarse    labels A=   67 A+B=   81 | L10: in 0.737 oosAB 0.695 oosBA 0.671 half 0.755 AB 0.730 | L30: in 0.963 oosAB 0.953 oosBA 0.953 half 0.967 AB 0.958 | L100: in 1.000 oosAB 0.993 oosBA 0.998 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.491, top labels [0.33, 0.26, 0.46, 0.22, 0.36, 0.33, 0.42, 0.32, 0.27, 0.18] (pts [87, 29, 48, 34, 143, 20, 26, 32, 222, 259])
+  comp kind: {'23': 0.9371, '12': 0.0629}
+  comp wt: {'other': 0.4873, 'tie': 0.2728, 'max': 0.2054, 'third': 0.0345}
+  comp ub: {'0': 0.6846, '3': 0.2278, '1': 0.0512, '2': 0.0364}
+  comp nflips: {'5': 0.2739, '0': 0.1984, '1': 0.1851, '2': 0.1632, '3': 0.1154, '4': 0.0639}
+  comp dist: {'1': 0.2152, '2': 0.1924, '3': 0.1273, '4': 0.1246, '5': 0.1091, '6': 0.0754, '7': 0.0657, '9': 0.0553, '8': 0.0351}
+  comp age: {'0': 0.1954, '2': 0.1214, '4': 0.1118, '9': 0.1117, '3': 0.0928, '7': 0.0893, '8': 0.0871, '6': 0.0736, '1': 0.0708, '5': 0.0461}
+  comp x9: {'below': 0.5943, 'pair': 0.2348, 'max': 0.164, 'third': 0.0069}
+  comp side: {'-': 0.8626, '+': 0.1374}
+  comp ncomp: {'1': 0.9211, '2': 0.0714, '3': 0.0065, '4': 0.0009}
+  comp blind_npos<=1: 0.6846
+  comp flip_in_band(step,neuron)_top12: {'(7, 5)': 0.1237, '(9, 5)': 0.0783, '(6, 5)': 0.0738, '(8, 5)': 0.0685, '(5, 5)': 0.0531, '(5, 3)': 0.0521, '(9, 3)': 0.0467, '(7, 3)': 0.0405, '(4, 5)': 0.0395, '(9, 15)': 0.0389}
+
+== s005 (T=10, n=16384/kind, tail points=1639) top5% share 0.719/0.719, top1% 0.417/0.420
+  null singleton (in-sample top-L points): {10: 0.074, 30: 0.161, 100: 0.32}  null random labels (oos): {10: 0.011, 30: 0.017, 100: 0.044}
+  mech      labels A= 1388 A+B= 2588 | L10: in 0.075 oosAB 0.006 oosBA 0.000 half 0.126 AB 0.053 | L30: in 0.166 oosAB 0.007 oosBA 0.013 half 0.234 AB 0.115 | L100: in 0.339 oosAB 0.043 oosBA 0.041 half 0.472 AB 0.251 |
+            within-label top5% share: pooled 0.287, top labels [] (pts [])
+  pos       labels A=  381 A+B=  456 | L10: in 0.155 oosAB 0.120 oosBA 0.104 half 0.202 AB 0.145 | L30: in 0.345 oosAB 0.260 oosBA 0.273 half 0.402 AB 0.317 | L100: in 0.702 oosAB 0.541 oosBA 0.541 half 0.759 AB 0.650 |
+            within-label top5% share: pooled 0.287, top labels [0.36, 0.3, 0.31, 0.29, 0.32, 0.19, 0.4, 0.18, 0.17] (pts [20, 23, 23, 23, 21, 23, 21, 23, 20])
+  pos_flips labels A= 1314 A+B= 2410 | L10: in 0.076 oosAB 0.008 oosBA 0.000 half 0.112 AB 0.054 | L30: in 0.168 oosAB 0.009 oosBA 0.019 half 0.259 AB 0.120 | L100: in 0.350 oosAB 0.068 oosBA 0.053 half 0.481 AB 0.263 |
+            within-label top5% share: pooled 0.287, top labels [] (pts [])
+  nopos     labels A= 1109 A+B= 2038 | L10: in 0.167 oosAB 0.117 oosBA 0.125 half 0.177 AB 0.151 | L30: in 0.267 oosAB 0.139 oosBA 0.153 half 0.343 AB 0.231 | L100: in 0.459 oosAB 0.187 oosBA 0.186 half 0.588 AB 0.378 |
+            within-label top5% share: pooled 0.287, top labels [0.16, 0.24, 0.26, 0.34] (pts [140, 34, 24, 22])
+  relpos    labels A= 1345 A+B= 2495 | L10: in 0.075 oosAB 0.007 oosBA 0.000 half 0.124 AB 0.055 | L30: in 0.169 oosAB 0.019 oosBA 0.028 half 0.253 AB 0.122 | L100: in 0.352 oosAB 0.064 oosBA 0.059 half 0.506 AB 0.265 |
+            within-label top5% share: pooled 0.287, top labels [] (pts [])
+  coarse    labels A=   73 A+B=   77 | L10: in 0.556 oosAB 0.544 oosBA 0.540 half 0.593 AB 0.550 | L30: in 0.920 oosAB 0.909 oosBA 0.907 half 0.920 AB 0.914 | L100: in 1.000 oosAB 0.998 oosBA 0.997 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.287, top labels [0.24, 0.21, 0.15, 0.19, 0.2, 0.33, 0.41, 0.16, 0.15, 0.24] (pts [82, 172, 172, 78, 57, 41, 22, 140, 95, 34])
+  comp kind: {'23': 0.9306, '12': 0.0694}
+  comp wt: {'other': 0.3892, 'tie': 0.3331, 'max': 0.2702, 'third': 0.0075}
+  comp ub: {'3': 0.4277, '0': 0.3415, '2': 0.1174, '1': 0.1134}
+  comp nflips: {'5': 0.3708, '2': 0.1552, '0': 0.1447, '1': 0.1389, '3': 0.1058, '4': 0.0846}
+  comp dist: {'1': 0.2426, '2': 0.2066, '4': 0.1255, '3': 0.1111, '5': 0.0944, '6': 0.07, '7': 0.0668, '8': 0.0521, '9': 0.0309}
+  comp age: {'3': 0.1546, '4': 0.1524, '9': 0.1382, '2': 0.1323, '8': 0.1149, '5': 0.0911, '6': 0.0855, '0': 0.0635, '7': 0.0396, '1': 0.028}
+  comp x9: {'below': 0.7967, 'pair': 0.1424, 'max': 0.0568, 'third': 0.0041}
+  comp side: {'-': 0.8543, '+': 0.1457}
+  comp ncomp: {'1': 0.9457, '2': 0.0533, '3': 0.0011}
+  comp blind_npos<=1: 0.3415
+  comp flip_in_band(step,neuron)_top12: {'(7, 5)': 0.0686, '(5, 3)': 0.0648, '(9, 5)': 0.0642, '(8, 5)': 0.0521, '(5, 5)': 0.0513, '(6, 3)': 0.0488, '(6, 5)': 0.0466, '(5, 15)': 0.0458, '(8, 15)': 0.0388, '(4, 8)': 0.0383}
+
+== s010 (T=10, n=16384/kind, tail points=1639) top5% share 0.642/0.637, top1% 0.315/0.309
+  null singleton (in-sample top-L points): {10: 0.055, 30: 0.118, 100: 0.256}  null random labels (oos): {10: 0.006, 30: 0.015, 100: 0.036}
+  mech      labels A= 1517 A+B= 2860 | L10: in 0.058 oosAB 0.004 oosBA 0.007 half 0.090 AB 0.038 | L30: in 0.125 oosAB 0.012 oosBA 0.011 half 0.183 AB 0.082 | L100: in 0.274 oosAB 0.033 oosBA 0.028 half 0.385 AB 0.188 |
+            within-label top5% share: pooled 0.227, top labels [] (pts [])
+  pos       labels A=  331 A+B=  391 | L10: in 0.209 oosAB 0.213 oosBA 0.197 half 0.243 AB 0.211 | L30: in 0.391 oosAB 0.356 oosBA 0.361 half 0.441 AB 0.389 | L100: in 0.769 oosAB 0.732 oosBA 0.734 half 0.800 AB 0.755 |
+            within-label top5% share: pooled 0.227, top labels [0.22, 0.3, 0.31] (pts [23, 20, 23])
+  pos_flips labels A= 1466 A+B= 2712 | L10: in 0.058 oosAB 0.004 oosBA 0.007 half 0.082 AB 0.038 | L30: in 0.127 oosAB 0.017 oosBA 0.016 half 0.199 AB 0.085 | L100: in 0.279 oosAB 0.042 oosBA 0.036 half 0.394 AB 0.196 |
+            within-label top5% share: pooled 0.227, top labels [] (pts [])
+  nopos     labels A= 1335 A+B= 2450 | L10: in 0.078 oosAB 0.041 oosBA 0.041 half 0.084 AB 0.063 | L30: in 0.158 oosAB 0.060 oosBA 0.048 half 0.225 AB 0.118 | L100: in 0.323 oosAB 0.087 oosBA 0.087 half 0.447 AB 0.237 |
+            within-label top5% share: pooled 0.227, top labels [0.19, 0.28] (pts [32, 20])
+  relpos    labels A= 1474 A+B= 2761 | L10: in 0.058 oosAB 0.004 oosBA 0.007 half 0.089 AB 0.038 | L30: in 0.125 oosAB 0.014 oosBA 0.011 half 0.192 AB 0.083 | L100: in 0.277 oosAB 0.038 oosBA 0.036 half 0.403 AB 0.191 |
+            within-label top5% share: pooled 0.227, top labels [] (pts [])
+  coarse    labels A=   56 A+B=   62 | L10: in 0.748 oosAB 0.726 oosBA 0.732 half 0.743 AB 0.737 | L30: in 0.966 oosAB 0.944 oosBA 0.954 half 0.970 AB 0.960 | L100: in 1.000 oosAB 0.998 oosBA 0.998 half 1.000 AB 1.000 |
+            within-label top5% share: pooled 0.227, top labels [0.24, 0.21, 0.29, 0.21, 0.11, 0.19, 0.23, 0.15, 0.17, 0.16] (pts [311, 106, 94, 123, 157, 73, 58, 74, 58, 73])
+  comp kind: {'23': 0.9298, '12': 0.0702}
+  comp wt: {'max': 0.4938, 'other': 0.3111, 'tie': 0.1923, 'third': 0.0029}
+  comp ub: {'3': 0.6492, '2': 0.1483, '0': 0.1014, '1': 0.101}
+  comp nflips: {'5': 0.5083, '2': 0.1253, '4': 0.1134, '3': 0.1112, '1': 0.0923, '0': 0.0495}
+  comp dist: {'1': 0.2689, '2': 0.2006, '3': 0.1676, '4': 0.1228, '5': 0.1041, '6': 0.0585, '7': 0.0321, '8': 0.0228, '9': 0.0226}
+  comp age: {'3': 0.1842, '9': 0.1655, '4': 0.1581, '2': 0.158, '8': 0.1388, '5': 0.0837, '6': 0.0705, '1': 0.0162, '7': 0.0132, '0': 0.0117}
+  comp x9: {'below': 0.8713, 'pair': 0.111, 'max': 0.0115, 'third': 0.0063}
+  comp side: {'-': 0.8249, '+': 0.1751}
+  comp ncomp: {'1': 0.9317, '2': 0.068, '3': 0.0002}
+  comp blind_npos<=1: 0.1014
+  comp flip_in_band(step,neuron)_top12: {'(5, 3)': 0.1139, '(6, 15)': 0.0995, '(6, 3)': 0.0949, '(5, 15)': 0.0908, '(7, 15)': 0.0819, '(9, 5)': 0.0787, '(7, 3)': 0.0686, '(8, 15)': 0.0561, '(8, 5)': 0.0525, '(4, 15)': 0.051}
+
+cross-copy coverage (labels from orig rule A, evaluated on copy rule B):
+  mech      orig@10=0.008 orig@30=0.009 orig@100=0.023 s005@10=0.001 s005@30=0.001 s005@100=0.003 s010@10=0.000 s010@30=0.000 s010@100=0.000
+  pos       orig@10=0.078 orig@30=0.180 orig@100=0.351 s005@10=0.055 s005@30=0.131 s005@100=0.281 s010@10=0.040 s010@30=0.150 s010@100=0.256
+  relpos    orig@10=0.009 orig@30=0.013 orig@100=0.044 s005@10=0.001 s005@30=0.004 s005@100=0.016 s010@10=0.000 s010@30=0.000 s010@100=0.001
+  nopos     orig@10=0.200 orig@30=0.216 orig@100=0.300 s005@10=0.092 s005@30=0.098 s005@100=0.153 s010@10=0.010 s010@30=0.013 s010@100=0.029
