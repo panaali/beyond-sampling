@@ -1,6 +1,6 @@
 # Fixed six Q controls: bounded results
 
-All21 original/observed pairs (42 Q evaluations) preserve output bits and warning category/message multisets. Array arithmetic and both dense-operation conventions match the source formulas on every pair. Original syntax is restored exactly by stripping observer wrappers. Independent saved audit by recover_910 passes all21 pairs,9102 events/3385 call records and56 progress records; publication hash is pending.
+All21 original/observed pairs (42 Q evaluations) preserve output bits and warning category/message multisets. Array arithmetic and both dense-operation conventions match the source formulas on every pair. Original syntax is restored exactly by stripping observer wrappers. Independent saved audit by recover_910 passes all21 pairs,9102 events/3385 call records and56 progress records; review40ea5646 is shared at2270bf54.
 
 | Fixture | Batch rows | Active interval positions | Visible 2-MAC + array arithmetic per row |
 |---|---:|---:|---:|
