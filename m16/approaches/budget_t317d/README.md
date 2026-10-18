@@ -274,3 +274,26 @@ bounded by piecewise-linear curves. The same cut conventions as J1 apply.
   - the Gaussian mass of the correct polygon per GL v2 node: about 6 edges x 2 Phi x 20 FLOPs x G = 20.
   FPE = cells x per-cell FLOPs / 5948, compared with T317d's ~5.5k.
 Labels: diagnostic sampling (the census and B1). Cap 1.5 h.
+
+### Addendum B2' (DRI refinement, 12:24): J2's executed cost. Counting rule pre-registered 2026-10-18 before any count.
+It replaces B2's 3-model census, which I stopped before it printed anything.
+- **What is counted.** For each of the 10 models (0, 8, ..., 72), each of the 4 half anchors (nb1, nb2, b1, b2; exact-law
+  points as in Addendum A) and each of the 720 triples: the number of distinct full gate patterns (10 x 16 bits) of the
+  joint-set input (line-23 closure, as J2) on a 100 x 100 midpoint grid over (g12, g23) in [0, tmax]^2 = [0, .5]^2.
+  This is the walked window. Beyond it, V1's tmax convention applies.
+  - Convergence: one model (0) at 200 x 200.
+  - The count is a **lower bound** on the number of 2-D linear cells: cells smaller than the grid are missed, and a
+    pattern split into disconnected pieces counts once.
+- **Pricing.** Under the DRI's line-cell convention: 0.54 FPE per cell after the first, plus a first cell per
+  (triple, anchor) at 2.0 FPE (one value + tangent pass, without prefix sharing). Alternative (my B2 per-cell
+  convention for a 2-D cell): 4.39 FPE per cell. Both are reported. The 2-D price is the honest one for an
+  enumeration with two tangents, half-plane clipping and polygon masses; the line price is a floor.
+- **J2's C** = (sum of cells) x price + T317e's other costs (left unchanged). Two cases:
+  - (a) V1 convention: the blind region keeps its line-23 walks at the 2 b half anchors (g12 assumed correct), so it
+    has no 2-D cells;
+  - (b) blind walked in 2-D.
+  I also report the extra cost beyond T317e's lines (~5.5k) and T330-C1's 3.3k.
+- **J2's RMS vs truth**, closure c remaining, on the same 10 models (budget.py's paired inputs): (a) V1's tmax and blind
+  conventions with J2 in place of product + transverse; (b) no cut and blind walked (Addendum A's J2: .526).
+- **Strict arithmetic (DRI):** at the closure-c floor, strict needs C <= ~3.45k FPE all-in. If J2's extra cells exceed
+  ~1.2k FPE beyond C1's 3.3k, strict is out of reach for closure c by arithmetic.
