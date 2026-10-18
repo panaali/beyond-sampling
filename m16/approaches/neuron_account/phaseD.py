@@ -1,6 +1,6 @@
 """Phase D: where does the fully replaced model (all 16 neurons by formulas) disagree with the network?
 
-Reads data/t241/phaseC_eval.npz (eval inputs, network prediction ref, full-replacement prediction p_all).
+Reads data/t241/phaseC2_eval.npz (eval inputs, network prediction ref, full-replacement prediction p_all).
 Stratifies the disagreement by: network correct/wrong, case, blind region, the global 1st-2nd and 2nd-3rd gaps,
 and how common the input's full gate pattern is (counted on the same eval set).
 """
@@ -8,7 +8,7 @@ import json
 import numpy as np
 from nacommon import run, target, cases
 
-d = np.load("../../../data/t241/phaseC_eval.npz")
+d = np.load("../../../data/t241/phaseC2_eval.npz")
 x, ref, p = d["x"], d["ref"], d["p_all"]
 y = target(x)
 dis = p != ref
@@ -50,6 +50,14 @@ _, inv, cnt = np.unique(key, axis=0, return_inverse=True, return_counts=True)
 inv = inv.ravel()
 freq = cnt[inv]
 binned(freq.astype(float), [1, 2, 5, 20, 100, 1000, np.inf], "by_full_gate_pattern_count")
+for nm, msk in (("near", near), ("far", ~near)):
+    out[f"by_full_gate_pattern_count_{nm}"] = [
+        {"bin": [lo, hi], "share": float((msk & (freq >= lo) & (freq < hi)).mean()),
+         "disagree": float(dis[msk & (freq >= lo) & (freq < hi)].mean()),
+         "net_err": float((~net_ok)[msk & (freq >= lo) & (freq < hi)].mean())}
+        for lo, hi in ((1, 2), (2, 5), (5, 20), (20, 100), (100, np.inf))]
+out["far_disagree_given"] = {"net_correct": float(dis[~near & net_ok].mean()), "net_wrong": float(dis[~near & ~net_ok].mean()),
+                             "net_err_far": float((~net_ok)[~near].mean())}
 out["n_patterns"] = int(len(cnt))
 # what does the replaced model pick when it disagrees?
 r = np.argsort(np.argsort(-x, 1), 1)   # rank of each position

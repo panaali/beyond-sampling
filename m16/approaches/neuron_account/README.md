@@ -34,11 +34,24 @@ Cases (by the true input): *x9max* (x9 is the max, 10.0%), *x9second* (10.0%), *
   After this run we added **comparator-hinge** families (`encode.HFAMILIES`, `HingeBank`): the base also gets
   c_{k,s} = ReLU(F_{k,s}(x)) for the four comparators k in {1,6,7,8} at the previous 1, 3 or all steps s, where
   F_{k,s} is the comparator's own A123K formula (held-out R^2 >= 0.999). These were scored in `phaseC2.py`.
-- Phase C, replacement: *pending*.
-- Phase D, residual: *pending*.
+- **Phase C, replacement** (`phaseC.py` v1 without hinges, `phaseC2.py` v2 with hinges, `reportC.py`,
+  `phaseC_diag.py`): every neuron j at every step t gets a formula f_{j,t}(x) for its pre-activation, fit to the
+  ORIGINAL network. A replaced neuron's state is h_t[j] = ReLU(f_{j,t}(x)), computed from the true input; the
+  other neurons run the true recurrence on the partly replaced state. Formula = per (j, t) the family with the
+  best R^2 on a validation set ("best"); "best_noH" = same, hinge families excluded. Train 1M (seed 241031),
+  validation 200k (241032), evaluation 200k (241033), all disjoint; R^2 reported on the evaluation set.
+  We replace single neurons, single groups, groups cumulatively (n4, n2, n5/n9, comparators, n3/n13, clocks)
+  and neurons cumulatively (best first). Diagnostics: (1) i.i.d. Gaussian noise on the true pre_10 at
+  R^2 = 1 - eps for every neuron (how precise must a formula be?); (2) fit the 10 logits directly from the same
+  variables (is the limit the variables or the neuron split?).
+- **Phase D, residual** (`phaseD.py`): stratify the disagreements of the all-16 v2 replacement by network
+  correct/wrong, case, blind region, the global gaps m1-m2 and m2-m3, and how often the input's full 100-bit gate
+  pattern occurs in the evaluation set.
 
 ## Status
-Running. Phase A done (2026-10-18).
+Done (2026-10-18), all four phases. The pre-registered target was **not met**: with all 16 neurons replaced,
+agreement is 95.5% (target >= 99%) and accuracy is 0.11 +- 0.05 pp above the network's (target within 0.1 pp).
+All claims are unverified (no independent re-check yet).
 
 ## Results
 
@@ -112,10 +125,142 @@ Patterns 63951 (8.6%) and 62927 (6.0%) behave similarly (every mode resample cos
 65007 and 65519 the eigenbasis is badly conditioned: oblique mode projections have energy shares 3–120x the
 state energy, so their modal ablations are not interpretable (kept in `results/phaseA_modes.json`).
 
+### Phase B: encoding (pooled fits; train 1M, test 200k)
+Reproduce: `python3 phaseB.py 1000000 200000 && python3 reportB.py > results/phaseB_tables.md` (about 25
+CPU-min). The hinge families come from `phaseC2.py` (below); `results/phaseC_tables.md` has the combined
+table. Held-out R^2 at t = 10 (complete per-step tables in `results/phaseB_tables.md` and `results/phaseC_tables.md`):
+
+| family (size grows downward) | n0 | n1 | n2 | n3 | n4 | n5 | n6 | n7 | n8 | n9 | n10 | n11 | n12 | n13 | n14 | n15 | median |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| L: x_t, m1..m3 | .268 | .884 | .857 | .148 | .973 | -.015 | .918 | .967 | .857 | .084 | .212 | .224 | .250 | .424 | .374 | .177 | .321 |
+| C: + clock phasors | .680 | .949 | .924 | .238 | .981 | .142 | .972 | .980 | .918 | .178 | .835 | .734 | .682 | .487 | .730 | .556 | .732 |
+| A1: cell age1 | .873 | .990 | .986 | .314 | .998 | .248 | .993 | .998 | .987 | .322 | .825 | .796 | .816 | .582 | .877 | .659 | .849 |
+| A12: cell (age1, age2) | .971 | .998 | .996 | .732 | .999 | .461 | .999 | .999 | .998 | .480 | .942 | .933 | .950 | .814 | .960 | .879 | .955 |
+| A123K | .993 | .999 | .998 | .912 | 1.000 | .675 | .999 | 1.000 | .999 | .683 | .983 | .983 | .989 | .930 | .989 | .963 | .989 |
+| H1: A123K + comparator hinges, lag 1 | .994 | .999 | .999 | .923 | .999 | **.998** | .999 | .999 | .999 | **1.000** | .985 | .987 | .990 | .936 | .990 | .967 | .996 |
+| Hall: A123K + hinges, all lags | .997 | .996 | .997 | **.985** | .996 | .999 | .997 | .996 | .997 | 1.000 | .996 | .996 | .997 | **.988** | .997 | **.994** | .997 |
+| A12K-Hall | .994 | 1.000 | 1.000 | .969 | 1.000 | .999 | 1.000 | 1.000 | 1.000 | 1.000 | .997 | .997 | .997 | .978 | .997 | .988 | .998 |
+
+At t <= 3 every neuron is fit exactly (R^2 = 1.0000), because the cell then fixes the full order of the prefix.
+The smallest family reaching R^2 >= 0.99 at t=10: A1 for n1, n4, n6, n7; A12 for n2, n8; A123 for n0; H1 for n5,
+n9, n12, n14; H3 for n10, n11; Hall for n15; **none** for n3 (.985) and n13 (.988), which only clear 0.99 up to t = 6–9.
+
+Compact formulas at t=10 (pooled least squares, 400k train / 100k held out; `results/headline_formulas.txt`;
+M1, M2 = top two of x0..x8):
+- comparator n7: pre = −13.17 x9 + 10.93 M1 + 1.97 M2 (R^2 .986); n1, n6, n8 have the same form with
+  (−10.6, 7.8, 2.4), (−11.0, 7.7, 2.7), (−12.3, 7.8, 4.5), R^2 .87–.93. Gains on M1 and M2 differ by neuron, so
+  the four rectified comparators place x9 against different mixes of M1 and M2.
+- record detector n4: pre = 10.16 x9 − 8.52 M1 − 1.37 M2 (R^2 .992): an opposite-sign comparator, on when x9 is a
+  record.
+- **n9 is a delayed comparator**: pre_t = −5.00 n7_{t−1} − 1.08 n8_{t−1} − 0.36 n1_{t−1} − ... (R^2 .9999). n5 is a
+  weaker one (adding comparator hinges takes R^2 from .675 to .998). Both are on when the PREVIOUS input was close to
+  the running max (the comparators were near zero one step earlier).
+- clocks: m1 times a phasor of age1, plus m2 times a phasor of age2, explains .62–.81 (n0, n10–n12, n14); cells on
+  (age1, age2) reach .93–.97; ages of the top 3 reach .98–.99.
+- Fast neurons n3, n13, n15 need the comparator history at every lag (Hall) to reach .985–.994: they hold how far
+  each recent input fell below the running max, information that ranks and ages alone don't carry.
+
+Per gate pattern (gates of h_9, t=10; `results/phaseB_tables.md`): fitting within a pattern helps the small
+families (L: .51 within vs .45 pooled in 64975; .64 vs .04 in 65519) but not A12/A123K (within and pooled agree to
+.005). Plain linear in raw x0..x9 within a pattern reaches only .07–.72, so the final gate pattern alone does not fix
+the linear map: the earlier gates matter.
+
+Mode basis (final pattern 64975): the integrator and slow mode are linear in (x_t, m1..m3) (R^2 .99/.94); the
+**8.42 clock mode is m1 x U(age1)** (A1: .962/.951 for Re/Im; C phasor family .82/.85), quantifying H-M1; the
+4.32, 2.89, 8.37 and Nyquist modes need (age1, age2, age3) (.88–.95; A1234K up to .97; hinge families not tried here);
+the input-only mode is exactly linear (1.000).
+
+### Phase C: replacement test (v2; N = 1M train / 200k val / 200k eval)
+Reproduce: `python3 phaseC2.py 1000000 200000 200000 && python3 reportC.py > results/phaseC_tables.md` (about 30
+CPU-min, peak ~1.5 GB); `python3 phaseC_diag.py` (about 8 CPU-min). v1 without hinges: `python3 phaseC.py`.
+Network on this evaluation set: accuracy 0.95247.
+
+| replaced (cumulative) | agreement | accuracy | agree: x9max | x9second | x9below | blind |
+|---|---|---|---|---|---|---|
+| n4 | .9979 | .9519 | .994 | .993 | .999 | .996 |
+| + n2 | .9935 | .9523 | .989 | .989 | .994 | .981 |
+| + n5, n9 | .9793 | .9471 | .975 | .979 | .980 | .951 |
+| + comparators n1, 6, 7, 8 | .9608 | .9481 | .970 | .968 | .959 | .714 |
+| + n3, n13 | .9555 | .9479 | .957 | .958 | .955 | .611 |
+| + clocks = **all 16** | **.9554** | **.9536** | .953 | .960 | .955 | .542 |
+| all 16, without hinge families (v2 eval set) | .9425 | .9505 | .925 | .941 | .945 | .302 |
+
+Single-neuron replacement (others real): agreement .975–.998 (n4 .998, n9 .997, n2 .995; n12 .975, n0 .976,
+n10 .976, others .978–.983). Single groups: n4 .998, n2 .995, n5/n9 .981, n3/n13 .976, comparators .967, clocks .963.
+Adding neurons one at a time, best first, agreement falls steadily from .998 to .957 after 10 neurons and then
+stays at .953–.955 (`results/phaseC_tables.md`).
+All-16 accuracy minus network accuracy = 2.06% (replacement fixes a network error) − 1.95% (introduces one) =
++0.11 pp (paired s.e. about 0.045 pp).
+
+**How precise must a formula be?** Add i.i.d. Gaussian noise to the TRUE pre_10 of every neuron so that each has
+R^2 = 1 − eps:
+
+| 1 − R^2 | 1e-2 | 3e-3 | 1e-3 | 3e-4 | 1e-4 | 3e-5 | 1e-5 |
+|---|---|---|---|---|---|---|---|
+| agreement | .612 | .770 | .875 | .938 | .967 | .982 | **.990** |
+
+99% agreement from unstructured per-neuron errors needs R^2 ≈ 0.99999 for every neuron. Our formulas (1 − R^2
+1e-4 to 1.5e-2 at t=10, median 3e-3) do much better than noise of the same size (95.5% rather than ~75%), because their errors are
+correlated in directions the readout ignores. But neuron R^2 is a poor guide to behavioural fidelity.
+**Is the limit the variables or the neuron split?** Fitting the 10 logits directly from the same variables
+(Hall family at t=10) gives agreement .9664 (A12K-Hall .9593): only about 1 pp better than going neuron by neuron.
+So the variable set, not the decomposition into neurons, is what limits agreement.
+
+### Phase D: where the all-16 replacement disagrees (v2, 200k eval; `python3 phaseD.py`, results/phaseD.json)
+- Disagreement 4.46%. It falls on **52.9% of the network's errors** but only 2.0% of its correct answers: the
+  formulas reproduce the network's correct behaviour well and its errors poorly.
+- **Near ties and the blind region**: inputs with global m2 − m3 < 0.05, or m1 − m2 < 0.05, or blind make up
+  19.6% of the mass and **78.5% of disagreements** (rate 17.9% vs 1.19% elsewhere). By m2 − m3 bin
+  [0, .01), [.01, .02), [.02, .05), [.05, .1), [.1, .2), [.2, .5), [.5, inf): disagreement .307, .231, .138, .068,
+  .033, .015, .012. The network's error rate in each bin is about the same (.434, .272, .143, .062, .030, .014, .011).
+- Blind region (1.1% of the mass): 45.8% disagreement, 11.4% of all disagreements.
+- Far from ties (80.4% of the mass): disagreement 0.80% on network-correct inputs but 48% on its (rare, 0.83%)
+  errors there.
+- Rare gate patterns: inputs whose full gate pattern occurs once in the 200k disagree 5.4% of the time, against
+  0.8% for patterns seen >= 100 times. Within the far-from-ties set the trend remains (1.42% → 0.13%), and so does the
+  network's own error rate (1.08% → 0.09%).
+- When they disagree, both pick mostly the 2nd or 3rd largest (replacement: rank 2 46%, rank 3 31%, max 11%).
+- Link to T239 [inferred]: the residual is the network's error set. It is concentrated near ties, in the blind region
+  and in rare gate patterns, and its rate tracks the network's own error rate bin by bin. That fits the owner's
+  hypothesis that "the error part is the unstructured part". It does not prove it: richer variables might still
+  capture it.
+
+### Final per-neuron table
+Causal effect = accuracy drop (pp) when h_10[j] is resampled (Phase A; step of the peak effect in brackets).
+R^2 = held-out at t=10 for the validation-chosen family. Replacement = agreement when only that neuron is replaced
+at every step (v2). Confidence refers to the role label.
+
+| neuron | role | causal effect | encoding formula (t=10) | held-out R^2 | replacement agreement | confidence |
+|---|---|---|---|---|---|---|
+| n0 | clock (slow/integrator modes) | 42.5 (t10) | A123: (age1..3)-cell linear in m1..m5; ~ m1·U(age1) + m2·V(age2) (.66) | .9975 | .976 | medium |
+| n1 | x9 comparator | 64.0 (t10) | ReLU(−10.6 x9 + 7.8 M1 + 2.4 M2) (.90); A1 cell (.999) | .9991 | .979 | high |
+| n2 | running max | 28.3 (peak 50 at t5) | ≈ 12.9 m1 + 3.8 m2 + ... (.86); A12 (.9997) | .9997 | .995 | high |
+| n3 | fast mode (4.32/2.89/Nyquist), late-step | 22.5 (t10) | needs the comparator history at every lag (Hall) | .9854 | .978 | low |
+| n4 | record detector (x9 > M1) | 4.4 (peak 27 at t1) | ReLU(10.16 x9 − 8.52 M1 − 1.37 M2) (.992); A1 (.9996) | .9996 | .998 | high |
+| n5 | delayed comparator (weak) | 21.3 (t10) | linear in lag-1 comparators + m1, m2 (.946); H1 (.999) | .9992 | .983 | medium |
+| n6 | x9 comparator | 61.1 (t10) | ReLU(−11.0 x9 + 7.7 M1 + 2.7 M2) (.93); A1 (.9993) | .9993 | .983 | high |
+| n7 | x9 comparator (main) | 66.8 (t10) | ReLU(−13.17 x9 + 10.93 M1 + 1.97 M2) (.986); A1 (.9995) | .9995 | .982 | high |
+| n8 | x9 comparator (M2-weighted) | 65.2 (t10) | ReLU(−12.3 x9 + 7.8 M1 + 4.5 M2) (.87); A12 (.9989) | .9989 | .981 | high |
+| n9 | delayed comparator | 1.1 (peak 6.8 at t7) | ReLU(−5.00 n7_{t−1} − 1.08 n8_{t−1} − ...) (.9999) | .9999 | .997 | high (role); nearly inert causally |
+| n10 | clock (8.42 mode) | 42.1 (t10) | (age1..3, K)-cell + hinges lags 1–3 (H3) | .9969 | .976 | medium |
+| n11 | clock (8.42 mode) | 37.4 (t10) | H3 | .9968 | .983 | medium |
+| n12 | clock (integrator + 8.42 mode) | 43.7 (t10) | H1 | .9974 | .975 | medium |
+| n13 | fast mode (4.32/Nyquist) | 25.0 (t10) | Hall | .9876 | .980 | low |
+| n14 | clock + damped 8.37 mode | 38.5 (t10) | H1 | .9974 | .979 | medium |
+| n15 | fast mode (4.32), late-step | 31.0 (t10) | Hall | .9943 | .978 | low |
+
 ## Compute accounting
-Phase A: 480 single-step ablations x 200k inputs x (10−t) steps + 66 group/all-step runs; total about 1.5e8
-sequence-forwards (~1e11 FLOPs), ~5 CPU-minutes single-threaded. Modes: 5 patterns x ~9 modes x 2 sites on
-≤116k inputs, ~1 CPU-minute.
+Single-threaded, `ulimit -v 2500000`, at most 2 processes at once. Compute = exact float64 RNN forward passes
+(16x16 recurrence, about 600 FLOPs per step) plus least-squares cell fits (bincount normal equations).
+- Phase A: 480 single-step ablations x 200k inputs x (10−t) steps, plus 66 group/all-step runs: about 1.5e8
+  sequence forwards (~1e11 FLOPs), ~5 CPU-min. Modes: ~1 CPU-min.
+- Phase B: 1.2M forwards; 8 families x 10 steps of cell fits (largest 1M x 11 design): ~25 CPU-min.
+- Phase C: v1 ~20 CPU-min; v2 (12 families x 10 steps, 1M train, plus 3 x (16 + 6 + 6 + 16) replacement runs on
+  200k): ~30 CPU-min; diagnostics ~8 CPU-min. Phase D: ~1 CPU-min. Exploratory checks (n5/n9 hinges, lags,
+  headline formulas): ~10 CPU-min.
+- Total: about 1.7 CPU-hours. Input generation: ~5M Gaussian sequences overall.
+- Precision: the network runs in float64. The chosen formula values are stored as float32 (relative error 1e-7,
+  far below the fit errors of 1e-2 to 1e-3).
 
 ## Claims
 - A1 [measured] No neuron is redundant in the late steps except n9: resample-ablating any other single neuron at
@@ -130,8 +275,38 @@ sequence-forwards (~1e11 FLOPs), ~5 CPU-minutes single-threaded. Modes: 5 patter
   8.42 clock and the integrator cost 5–9 pp.
 - A5 [inferred] The single-neuron damage is mostly an off-manifold effect of incoherent states plus the
   readout's large-cancelling weights (FINDINGS §3), so ablation size measures sensitivity, not "amount of role".
+- B1 [measured] Comparators n1/6/7/8, n4 and n2 are encoded at held-out R^2 >= .999 by cells on the age of the max
+  (A1) or of the top 2 (A12), linear in (x_t, m1..m3). n7 ≈ ReLU(−13.17 x9 + 10.93 M1 + 1.97 M2) and
+  n4 ≈ ReLU(10.16 x9 − 8.52 M1 − 1.37 M2) alone reach .986/.992.
+- B2 [measured] n5 and n9 are delayed comparators. Order statistics give R^2 .68 at t=10; adding the previous
+  step's comparator values gives .998/.9999 (n9 ≈ −5.00 n7_{t−1} − 1.08 n8_{t−1} + small terms). This replaces the
+  FINDINGS label "fire after near-record x8" with a general mechanism that runs at every step.
+- B3 [measured] Clocks need cells on the ages of the top 2–3 (R^2 .93–.99). Phasors of the top-3 ages (family C) explain .68–.84.
+  The 8.42 mode coordinate itself is m1 x U(age1) at R^2 .96 (pattern 64975).
+- B4 [measured] n3, n13 and n15 are the least compressible neurons (best R^2 .985/.988/.994 at t=10). They need the
+  rectified comparator history at every lag.
+- C1 [measured] **Pre-registered target missed**: all 16 replaced gives agreement .9554 (target .99) and accuracy
+  .9536 vs .9525 (+0.11 +- 0.05 pp; target within 0.1 pp). Without hinge variables: .9425.
+- C2 [measured] Per-neuron R^2 is a poor proxy for behaviour. Each formula has R^2 >= .985, yet replacing a single
+  neuron costs 0.2–2.5 pp agreement. Unstructured noise needs 1 − R^2 ≈ 1e-5 on every neuron for 99% agreement.
+- C3 [measured] A direct fit of the logits from the same variables reaches only .966, so the variable set limits the
+  account, not the neuron decomposition.
+- D1 [measured] Replacement disagreements cover 53% of the network's errors and 2.0% of its correct answers. 78.5%
+  lie in the 19.6% of mass near a tie (gap < .05) or in the blind region. The disagreement rate tracks the network's
+  error rate across gap bins and gate-pattern rarity.
+- D2 [inferred] What the account misses is mostly the network's own error set. The formulas describe a "clean"
+  2nd-argmax algorithm (accuracy 95.4%, slightly above the network) and do not reproduce which near-tie inputs the
+  network gets wrong. This supports the T239 owner hypothesis but does not establish it.
 
 ## Alternatives not ruled out
+- Richer interpretable variables (hinges of other neurons, clock-gate history, products of gaps with ages)
+  might push agreement above 96.6%. Only comparator hinges were tried. The limit in C3 holds for these families only.
+- Family choice by validation R^2 optimises the wrong objective (pre-activation MSE, not margin). Fitting to
+  logit-margin loss, or nonlinear (e.g. ReLU-aware) fits, were not tried.
+- The fitted cells are lookup tables (up to ~2,900 cells x 44 coefficients per neuron and step at t=10). They are
+  interpretable in their variables but not compact: description length was not measured (compare H-A1).
+- The noise-injection ceiling assumes i.i.d. errors across neurons. Real formula errors are correlated, which is
+  why 95.5% is reached at 1 − R^2 ~ 3e-3.
 - Large drops from resampling a single coordinate may reflect off-distribution states (the 16 neurons are
   strongly correlated), not the neuron's own information content. Conditional resampling (donor matched on the
   hypothesised variables) is the stronger test; it is Phase C's job.
@@ -140,6 +315,15 @@ sequence-forwards (~1e11 FLOPs), ~5 CPU-minutes single-threaded. Modes: 5 patter
 
 ## Failure modes
 - Mode ablations are only meaningful in well-conditioned patterns (64975, 63951, 62927).
+- Replacement fidelity collapses in the blind region (agreement .54). There the network's output is a small
+  difference of near-zero states, and relative formula errors are largest.
+- Fixed-family replacements fail because early-step errors propagate: with A12 at all steps, replacing n4 alone gives
+  .880 agreement (v1, `results/phaseC.json`). Exactness at t <= 3 matters.
+- Memory: cell fits at 1M rows need chunked prediction (`CellLinear.predict`). The first v2 attempts ran out of
+  memory under the 2.5 GB cap, and the pooled fallback was switched from lstsq to normal equations; this only
+  affects cells unseen in training (0–0.22% of eval rows in Phase B).
 
 ## Proposed shared-code changes
-None so far.
+None. Follow-ups proposed for the board: (1) independent re-check of C1/C2/D1 with different code and seeds;
+(2) try margin-loss fits and hinges of the clock gates to see whether >= 99% agreement is reachable with
+interpretable variables; (3) measure description length of the fitted cell tables (link to H-A1).
