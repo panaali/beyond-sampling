@@ -82,3 +82,86 @@ partial). Reported separately from E1.
 
 **Also reported (DRI question):** whether the uncut walks capture those interior islands on the clean models, i.e. the
 E2 ratio for variant B.
+
+## Results (`python run_est.py; python score.py`, `results/score.txt`)
+**Truths:** T192's GPU MC (claude/t192-gpu-cost-law @63d36d38, `t340/rare_mc.json`; float64; orig 1e10, seeds 1e9)
+supersedes my CPU runs. My CPU orig run (1e9, independent numpy stream) agrees on E1: 5.40e-6 / 1.138e-6 / 2.16e-7 vs
+GPU 5.37e-6 / 1.086e-6 / 2.09e-7, within 1-1.7 s.e. The CPU seed and E2 runs are a cross-check, appended when done.
+
+**Calibration row (t0 = 0, not rare):** A 1.001 / 1.042 / 1.029 and B .953 / 1.000 / .925 (est/truth; orig / seed0 /
+seed3). Both get the ordinary 2~3 rank-3 picks right.
+
+### E1(t0): pick rank 3 and g23 > t0 (far-gap 2~3 islands); est / truth
+| model | truth t0 = 1 / 1.25 / 1.5 | A (C 11-19k FPE) | B (C 0.21-0.32M FPE) | events plain sampling sees at B's C |
+|---|---|---|---|---|
+| orig | 5.37e-6 / 1.09e-6 / 2.09e-7 | .010 / .002 / .0003 | **.27 / .20 / .29** | 1.7 / .35 / .07 |
+| seed0 | 1.78e-4 / 6.16e-5 / 1.97e-5 | ~1e-14 (sees nothing) | **.89 / .86 / .65** | 37 / 13 / 4 |
+| seed3 | 1.65e-4 / 6.26e-5 / 2.19e-5 | .002 / .005 / .014 | **.69 / .73 / .64** | 48 / 18 / 6 |
+
+- **A: FAIL (0/9 within 3x).** One transverse point per region puts the line23 walk where no far-gap island exists.
+- **B: PARTIAL by the pre-registered line (6/9 within 3x, all 6 seed pairs within 1.6x; orig 3.5-5x low).**
+  - It is a real rare-event estimate on the seeds: within 35% at p ~ 2e-5 to 2e-4, where plain sampling at B's own
+    cost sees 4-48 events.
+  - The orig model's islands are under-weighted 3.5-5x. The closure diagnostic (`results/diag_closure.json`) rules
+    out the closure: the R1W closure on sampled inputs gives 8.4e-6 against the network's 5.2e-6 at t0 = 1.
+  - So the walk's other declared approximations lose them, presumably g12 at its conditional mean (with full
+    g12 mass), the fixed v3 - v4 link and the linearised mu(v4) at large t.
+  - B is one-signed low on all 9 pairs.
+
+### E2(t): wrong (any pick) and g12 >= t and g23 >= t (T317's interior, T337's noise region); est / truth
+| model | truth t = .5 / .75 | A | B |
+|---|---|---|---|
+| orig | 9.38e-5 / 5.22e-6 | **1.11 / 2.25** | 2.31 / 10.95 |
+| seed0 | 4.35e-4 / 6.40e-5 | **.82 / .71** | 1.38 / 2.06 |
+| seed3 | 1.74e-4 / 1.42e-5 | **.61 / 1.37** | 1.89 / 5.00 |
+
+- **A: PARTIAL, nearly useful:** 6/6 within 3x and 5/6 within 2x (only orig at t = .75 is 2.25x).
+  - At A's own cost (11-19k FPE), plain sampling sees .1-5 events.
+  - A's F is .02-.42.
+- **B: partial (4/6 within 3x), but it OVER-estimates (1.4-11x).**
+  - Variant B's node-specific transverse points help the far-gap 2~3 islands (E1) and hurt the interior error set
+    (E2).
+  - So no single transverse design gets both.
+- **DRI's question (do uncut walks capture the interior islands on the clean models?):** to within a factor ~2 with
+  T317's own transverse point (A), yes. The interior error mass is visible to the walk once the tmax cut is removed.
+  - [inferred] The T337 noise failure therefore comes mostly from T317's tmax cut and screen C1 declaring this region
+    correct, which an uncut walk repairs at ~3-5x T317f's cost.
+  - [not tested] Whether it repairs the noisy copies themselves.
+
+**F (pre-registered as uninformative here):** F ~ r^2 p C. A's E1 rows have F < 3 while being 100-1e14x wrong, so F
+rewards being cheap, not being right, for rare p. The ratio is the measure.
+
+## Claims
+1. [measured] T317's exact walks, uncut and with per-node transverse points (B), estimate far-gap rank-3 error
+   islands at p ~ 2e-5 to 2e-4 within 35% on two zoo seeds. On the target M_16,10 (p ~ 2e-7 to 5e-6) they are 3.5-5x
+   low. Partial by the pre-registered line.
+2. [measured] With T317's own single transverse point (A) the same walks miss the far-gap islands entirely (0/9), but
+   get the interior error mass (both gaps >= t) within 2.25x on 6/6 pairs, at 11-19k FPE where sampling sees ~0.1-5
+   events.
+3. [measured] The point closure is not what loses the far-gap islands: on sampled inputs it reproduces their rate
+   within 1.6x (orig over).
+4. [inferred] The transverse-point approximations (the v2 / g12 / v4 placement of the walked line) decide rare-event
+   accuracy. The right placement differs between far-gap 2~3 islands and the interior error set.
+5. [speculative] A walk at several g12 quantiles per node, or a 2-D walk in (g12, g23), would close orig's E1 gap.
+   Untested.
+
+## Alternatives not ruled out
+- Three models only, two events, chosen thresholds; the seeds are LB3 seeds (seen before, not sealed).
+- The orig E1 deficit could also come from the g12-independence (full 1 - Phi(v2) mass) if far-gap rank-3 picks
+  need v1 close to v2. Not separated from the transverse-point placement.
+- B's cost (0.2-0.3M FPE) is far from cheap; A is cheap but only right on E2.
+
+## Failure modes
+- Rare islands sit at specific (v2, g12, v4, low) placements. A single transverse point per region can miss them by
+  orders of magnitude, and an F-style score would not show it.
+
+## Compute accounting
+- Estimator cost charged as executed (`rare.py`): T317's counts for walks, plus one extra correct_interval per cell
+  for the rank-3 interval, plus the Phi^8 profile terms. A 11-19k FPE, B 0.21-0.32M FPE.
+- Diagnostics:
+  - magnitude scan 3 x 2e7;
+  - closure diagnostic 3 x 2e7;
+  - CPU truth orig 1e9 (36 min), seeds 3e8, E2 2e8 per model.
+- GPU truths by T192.
+- Correction made during the work: my first walk copy omitted `act = go`. This only over-charged cost (zero-length
+  pieces); the estimates were unchanged.
