@@ -44,16 +44,18 @@ def check(aWh, aWoDk, z, dz, g, m, dm, delta, s_root=None):
     return bool(bound.min() > 0), f
 
 
-def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=np.inf):
+def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=np.inf, mode="B"):
+    """mode B: rigorous tier B; C1/C2: declared heuristic tier C (stop on the frozen-gate margin alone; C2 only after
+    the row's first wrong piece has ended)."""
     Wi, Wh, Wo = model; n = len(x0); pieces = []
     Z, DZ, G, R, J, nodes = E.first_cell(model, x0, d)
-    flops = nodes * E.F_STEP + n * E.F_CELL; st = dict(tried=0, stopped=0, prefiltered=0)
+    flops = nodes * E.F_STEP + n * E.F_CELL; st = dict(tried=0, stopped=0, prefiltered=0, restarts=0)
     if use:
         aWh = np.abs(Wh); aWoD = np.abs(Wo[:, None, :] - Wo[None, :, :]); flops += H * H + 2 * C * C * H
     tref = np.full(n, E.EPS)
     hT = np.where(G[:, -1], Z[:, -1], 0.0); dhT = np.where(G[:, -1], DZ[:, -1], 0.0)
     L = hT @ Wo.T; dL = dhT @ Wo.T
-    t = np.zeros(n); act = np.arange(n); it = 0; ntry = np.zeros(n)
+    t = np.zeros(n); act = np.arange(n); it = 0; ntry = np.zeros(n); seen_wrong = np.zeros(n, bool)
 
     def try_row(row, s_root):
         nonlocal flops
@@ -65,6 +67,10 @@ def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=n
         flops += F_PRE
         if (m + delta * np.minimum(0.0, dm)).min() <= 0:
             st["prefiltered"] += 1; return False
+        if mode == "C1" or (mode == "C2" and seen_wrong[row]):
+            st["tried"] += 1; return True
+        if mode == "C2":
+            return False
         st["tried"] += 1; ntry[row] += 1
         zt = Z[row] + (t[row] - tref[row]) * DZ[row]; flops += 2 * T * H
         s_, f = check(aWh, aWoD[kk], zt, DZ[row], G[row], m, dm, delta, s_root); flops += f
@@ -78,6 +84,7 @@ def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=n
         sstar = R[act].argmin(1); nxt = np.minimum(R[act, sstar], tmax)
         lo, hi = E.correct_interval(L[act], dL[act], tref[act], k[act], t[act], nxt)
         pieces.append((act.copy(), lo, hi))
+        seen_wrong[act[(hi - lo) < (nxt - t[act]) * (1 - 1e-12) - 1e-15]] = True
         t[act] = nxt
         keep = nxt < tmax; go = act[keep]; ss = sstar[keep]
         if not len(go):
@@ -101,7 +108,7 @@ def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=n
             r = np.where((r > tn[idx] + 1e-12 * (1 + abs(tn[idx]))) & np.isfinite(r), r, np.inf)
             r[0, jj[idx]] = np.inf
             R[row, s0_:] = r.min(1); J[row, s0_:] = r.argmin(1)
-            flops += (T - s0_) * E.F_ROOT + E.F_LATER_READ - 2 * C * H
+            flops += (T - s0_) * E.F_ROOT + E.F_LATER_READ - 2 * C * H; st["restarts"] += 1
         if (~alive).any():
             sr = go[~alive]; pieces.append((sr, t[sr].copy(), np.full(len(sr), tmax))); st["stopped"] += len(sr)
         go = go[alive]
@@ -109,7 +116,7 @@ def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=n
     return pieces, flops, st
 
 
-def est(model, budget=None, lines=("nb-23", "nb-12"), parts=False, dmax=np.inf, maxtry=np.inf):
+def est(model, budget=None, lines=("nb-23", "nb-12"), parts=False, dmax=np.inf, maxtry=np.inf, mode="B"):
     model = tuple(np.asarray(w, np.float64) for w in model)
     k = E.TRI[:, 1]; flops = 0.0; tot = np.zeros(NT); info = {}; prof = {}
     for tb in E.TABLES:
@@ -118,7 +125,7 @@ def est(model, budget=None, lines=("nb-23", "nb-12"), parts=False, dmax=np.inf, 
             if f"line{kind}" not in tb:
                 continue
             x, dx = tb[f"line{kind}"]; line = f"{tb['name']}-{kind}"
-            p, f, st = walk_screen(model, x, dx, k, TMAX, line in lines, dmax=dmax, maxtry=maxtry); flops += f
+            p, f, st = walk_screen(model, x, dx, k, TMAX, line in lines, dmax=dmax, maxtry=maxtry, mode=mode); flops += f
             R, A, B, ops = E.merge(p, NT, TMAX); flops += ops
             I[kind], f = E.profile(R, A, B, NT, nodes, kind, TMAX, tb["phi0"]); flops += f
             info[line] = st; prof[line] = I[kind]
