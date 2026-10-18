@@ -100,3 +100,5 @@ the random median (rule: <= 1/3).
 
 ## Compute accounting
 Final leaves (8,3)-(16,4) ~8 CPU-min; 13 prefix models at k = 4 ~25 CPU-min; analysis seconds. ~35 CPU-min total.
+
+Per-leaf dumps (16 MB) live in data/t239/ (git-ignored; `out` is a local symlink). Regenerate with `./drive.sh` (~35 CPU-min).
