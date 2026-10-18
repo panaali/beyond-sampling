@@ -26,5 +26,11 @@ A full historical restoration additionally requires individual seed86 values/tru
 ## Compute accounting
 Zero numerical algorithm/model/estimator/reference calls; only text/AST/JSON metadata inspection and hashing. Planned call counts are source-design arithmetic, not measured compute. No MSE, precision, runtime, cost-win or model-distribution conclusion.
 
-## Alternatives and failure modes
-Additional raw artifacts may exist elsewhere. Branch-dependent wrapper behavior may differ from the frozen control, and mean-cost aggregate summaries cannot reconstruct per-copy pairings. Do not silently substitute other noise seeds, treat aggregate ratios as corrected evidence, select variants by old corrupted performance, or relax tolerances after results. The published inventory is reviewable planning, not a new experiment.
+## Claims
+[measured, source metadata only] The pinned summaries have320 aggregate groups and the source defines5,440 recipe calls for a complete original panel. [inferred] These summaries cannot reconstruct missing individual estimates/truth/cost pairings. [speculative] Equality-only repair may restore variant parity, but that has not been tested here.
+
+## Alternatives not ruled out
+Additional raw artifacts may exist elsewhere. Branch-dependent wrapper behavior may differ from the frozen control, and mean-cost aggregate summaries cannot reconstruct per-copy pairings. 
+
+## Failure modes
+Do not silently substitute other noise seeds, treat aggregate ratios as corrected evidence, select variants by old corrupted performance, or relax tolerances after results. The published inventory is reviewable planning, not a new experiment.
