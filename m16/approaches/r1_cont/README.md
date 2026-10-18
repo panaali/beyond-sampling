@@ -436,3 +436,40 @@ included), a row may stop walking only if a rigorous bound proves that every poi
 **Forking paths.** The screen is exact by construction, so the estimate cannot be tuned. Any variant iterated on DEV2
 changes only the cost, which is deterministic. The cost is panel-dependent, though, so a sealed panel would see some
 cost shrinkage. No sealed scoring here: HP4 is reserved for the combined attempt.
+
+## T330 results: GO = NO (`screen.py`, `screen_b.py`, `screen_c.py`, `run_t330.py`, `results_t330.json`, `run_t330.log`)
+- **Tier A** (row-independent slope box over all gate patterns) **fires on 0 rows.** Its bound β_kj ≈ 4e7-2e8: |Wh|
+  compounds over 10 steps, so the box is useless.
+- **Tier B** (row-specific interval propagation; a gate is fixed when it provably cannot cross 0 in the window; v2
+  `screen_c` reuses the restart's exact tangents as the centre and propagates only a radius):
+  - **sound and exact**: max |est − T317e| = **0.0 pp**, and per-row line profiles are identical (max diff 0.0) on
+    all 80 DEV2;
+  - it stops 85-95% of rows on the non-blind lines eventually.
+  - **But it never pays.** Each try costs ~3.4k FLOPs, about a whole later cell, and succeeds ~25% of the time, mostly
+    when Δ = tmax − t is small and few cells remain. Rows needed ~4 tries per stop, and the stops land late: on
+    fused_s0's nb-g23, 2,025 cells were still walked, against the oracle's 297.
+
+| schedule (80 DEV2) | C (FPE) | max \|d\| | go (<= 1e-4 pp at <= 3.0k) |
+|---|---|---|---|
+| T317e (no screen) | 5,490 | — | — |
+| tier B, try at every flip | 7,787 | 0.0 | no |
+| tier B, only when Δ <= .05, at most once per row (cheapest of 10 schedules tried on 4 models) | 5,525 | 0.0 | no |
+
+The other schedules (on 4 models: Δ <= .5/.3/.2/.1/.05 × every flip/once) all cost more than the baseline.
+
+**Claim [measured; negative (unverified)]:** a box/interval "safe to tmax" bound, row-independent or row-specific, is
+exact but costs more than the cells it saves on T317e's lines. The deductive certificate is too loose at the window
+sizes where saving would matter.
+
+**Exhaustion checklist, variants NOT tried:**
+1. **Zonotope / affine arithmetic** (track correlations between neurons, not a box). It is tighter but costs
+   ~2H² × (number of noise symbols) per step, so it is unlikely to beat ~3.2k FLOPs per avoided cell.
+2. **Per-gate-pattern operator norms** (‖D Wh‖ over reachable patterns) in place of the |Wh| box. This could be much
+   tighter if few gates are free. Untested.
+3. **An amortised start-of-walk check over the B2 prefix tree** (one check per shared prefix). It costs ~300 FPE per
+   line, but only ~10% of rows pass at Δ = .5, so it would not pay.
+4. **Sub-window certification** (prove [t, t + h] and hop). The state at t + h is unknown without walking, so it
+   reduces to the walk itself.
+
+The oracle slack (92-95% of non-blind later cells after the last wrong piece) is real, but a cheap deductive
+certificate of it was not found.
