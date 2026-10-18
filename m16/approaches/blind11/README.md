@@ -29,3 +29,7 @@ Baseline: a fixed 8/9 error rate (FINDINGS' argued value).
 exactly from the case's distribution (2.2e5 per model; SE of c ~1e-3 pp), diagnostic only. Also the 30 LB3 models.
 **Go:** RMS over the 80 DEV2 models of (c_pred - c_sampled) <= 0.15 pp. **Stop (dead, scoped to this closure):** RMS > 0.25 pp.
 Between the two: inconclusive. If it passes, publish est_blind(model) -> (contribution, cost_flops).
+
+**Amendment (before any number):** in case "none" (all inputs negative) the label is the *second*-largest negative, so that case
+is split by the ordered pair (a = largest, j = second largest), 90 pairs of weight 1/90 each, with role moments for "top", "label",
+"other". The total is 180 (case, label) units, so the cost estimate is ~1-1.5k FPE, above the ~100 FPE target, and is reported as measured.
