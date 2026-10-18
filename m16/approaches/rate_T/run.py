@@ -5,7 +5,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.pat
 os.chdir(ROOT); sys.path[:0] = [os.path.join(ROOT, "m16"), os.path.join(ROOT, "m16", "approaches", "sci_tao")]
 import numpy as np
 from core import zoo
-TS, SEEDS, BUD = range(3, 11), (0, 1, 2), (4000, 16000, 64000, 256000, 1000000)
+TS, SEEDS, BUD = (3, 4, 5, 6, 8, 10), (0, 1, 2), (4000, 16000, 64000, 256000, 1000000)
 TF = os.path.join(HERE, "truths.json"); RF = os.path.join(HERE, "rows.jsonl")
 TR = json.load(open(TF)) if os.path.exists(TF) else {}
 

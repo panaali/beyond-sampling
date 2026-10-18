@@ -31,3 +31,6 @@ error is smallest. Neyman allocation changes with budget (pilot effect), so the 
 0.9994 / 0.998) that sci_tao's large-budget error falls below the 4e7-sample MC SE. For T = 3, 4 the truth is therefore T194's exact
 enumeration accuracy (width16_probe/res/H16_T{3,4}_zoo{s}_exact.json; leaf sums within 5e-10, validated against MC), with SE 0.
 MC truths are still computed and stored for all T.
+
+**Amendment 2 (2026-10-18, data-independent):** alg_zoo has no zoo model at T = 7 or 9 (it offers 2, 3, 4, 5, 6, 8, 10), so the
+T set is {3, 4, 5, 6, 8, 10}. The Spearman rule (rho <= -0.6) is applied over these 6 values.
