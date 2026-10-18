@@ -33,21 +33,23 @@ def ok(m, X, y):
     return (h @ Wo.T).argmax(1) == y
 
 
-z = np.load(sys.argv[1]); TR = json.load(open(sys.argv[2])); TR = TR.get("truths", TR); Q = json.load(open(sys.argv[3]))
-out = {}
-for i, n in enumerate(map(str, z["names"])):
-    m = (z["Wi"][i].astype(float), z["Wh"][i].astype(float), z["Wo"][i].astype(float))
-    X = np.random.default_rng(357 + i).standard_normal((N, T)); S = -np.sort(-X, 1); v3, v4 = S[:, 2], S[:, 3]
-    X0, y = closure(X, v4); X1, _ = closure(X, node(v3))
-    out[n] = dict(E0=float(ok(m, X0, y).mean()), E1=float(ok(m, X1, y).mean()), truth=TR[n]["acc"], T317f=Q[n]["T317f"]["est"])
-json.dump(out, open(os.path.join(HERE, "e0e1.json"), "w"), indent=1)
-def report(ns, tag):
-    t = np.array([out[n]["truth"] for n in ns]); r = {}
-    for k in ("E0", "E1", "T317f"):
-        e = np.array([out[n][k] for n in ns]) - t; r[k] = dict(bias=100 * e.mean(), sd=100 * e.std(), rms=100 * np.sqrt((e ** 2).mean()))
-    d = np.array([out[n]["T317f"] - out[n]["E0"] for n in ns]); c0 = np.array([out[n]["E0"] for n in ns]) - t
-    r["T317f-E0"] = dict(mean=100 * d.mean(), sd=100 * d.std(), rms=100 * np.sqrt((d ** 2).mean()), corr_with_E0err=float(np.corrcoef(d, c0)[0, 1]),
-                         quadrature_sd=100 * float(np.sqrt(d.var() + c0.var())))
-    print(tag, json.dumps({k: {a: round(b, 3) for a, b in v.items()} for k, v in r.items()})); return r
-names = list(out); summ = dict(all100=report(names, "all100"), first10=report(names[:10], "first10"))
-json.dump(summ, open(os.path.join(HERE, "e0e1_summary.json"), "w"), indent=1)
+if __name__ == "__main__":
+    z = np.load(sys.argv[1]); TR = json.load(open(sys.argv[2])); TR = TR.get("truths", TR); Q = json.load(open(sys.argv[3]))
+    out = {}
+    for i, n in enumerate(map(str, z["names"])):
+        m = (z["Wi"][i].astype(float), z["Wh"][i].astype(float), z["Wo"][i].astype(float))
+        X = np.random.default_rng(357 + i).standard_normal((N, T)); S = -np.sort(-X, 1); v3, v4 = S[:, 2], S[:, 3]
+        X0, y = closure(X, v4); X1, _ = closure(X, node(v3))
+        out[n] = dict(E0=float(ok(m, X0, y).mean()), E1=float(ok(m, X1, y).mean()), truth=TR[n]["acc"], T317f=Q[n]["T317f"]["est"])
+    json.dump(out, open(os.path.join(HERE, "e0e1.json"), "w"), indent=1)
+    def report(ns, tag):
+        t = np.array([out[n]["truth"] for n in ns]); r = {}
+        for k in ("E0", "E1", "T317f"):
+            e = np.array([out[n][k] for n in ns]) - t; r[k] = dict(bias=100 * e.mean(), sd=100 * e.std(), rms=100 * np.sqrt((e ** 2).mean()))
+        d = np.array([out[n]["T317f"] - out[n]["E0"] for n in ns]); c0 = np.array([out[n]["E0"] for n in ns]) - t
+        r["T317f-E0"] = dict(mean=100 * d.mean(), sd=100 * d.std(), rms=100 * np.sqrt((d ** 2).mean()), corr_with_E0err=float(np.corrcoef(d, c0)[0, 1]),
+                             quadrature_sd=100 * float(np.sqrt(d.var() + c0.var())))
+        print(tag, json.dumps({k: {a: round(b, 3) for a, b in v.items()} for k, v in r.items()})); return r
+    names = list(out); summ = dict(all100=report(names, "all100"), first10=report(names[:10], "first10"))
+    json.dump(summ, open(os.path.join(HERE, "e0e1_summary.json"), "w"), indent=1)
+

@@ -68,3 +68,41 @@ the 10 models.
 
 **Prediction (written now):** fail. A discontinuous verdict gives lattice rules little more than stratification, so I expect
 RMS ≈ .3–.45 pp.
+
+## Step 2 results (unverified; `python lattice.py DEV3/weights.npz` -> lattice.json)
+- **Lattice:** Korobov a = 523 (P2 minimiser), N = 3203. C = 3,289 FPE executed. E0 reference noise .020 pp.
+
+| scheme (10 DEV3 models) | RMS(est - E0) pp | mean pp | C FPE |
+|---|---|---|---|
+| **L (lattice quadrature of closure c)** | **.729** | +.018 | 3,289 |
+| plain MC, same N (control) | .533 | -.169 | 3,203 |
+| T317f (walks; step 1, first 10) | .849 | +.778 | 3,307 |
+| overturning line | <= .15 | abs <= .10 | <= 3.3k |
+
+**Verdict: no overturn.** RMS .73 is about 5x the .15 line. [measured]
+- The lattice is unbiased (mean +.02) but no better than MC; on these 10 models it was worse (.73 vs .53, expected MC .46).
+- At this budget it buys nothing over stratified sampling for a discontinuous 4-D verdict integrand. The prediction
+  (fail, .3–.45) was right in direction; the lattice did worse than predicted.
+
+## Claims
+1. [measured] T356's decomposition reproduces with independent code and seeds on all 100 DEV3 models: E0 .435, E1 .455,
+   T317f - E0 RMS .700, uncorrelated with the closure error (corr -.003).
+2. [measured] A non-walk deterministic quadrature of closure c (scheme L) at 3.3k FPE has integration RMS .73 against E0.
+   That is no closer to the strict line than T317f's walks: .73 vs .85 on the same 10 models, both ≈ 5x the line.
+3. [inferred] Any scheme that spends ~1 forward pass per point is bounded near the MC rate sqrt(p(1-p)/N) ≈ .46 pp at N ≈ 3.3k.
+   Unless it exploits structure (as the walks do), it cannot reach .15. Reaching .15 by points alone needs ~9x the budget
+   (~30k FPE).
+   - So the strict negative stands for this scheme too, scoped to closure c integrated by constructed-point quadrature or
+     gap-line walks at <= 3.3k FPE.
+
+## Alternatives not ruled out
+- Higher-order or smoothed quadrature: integrating a smoothed verdict (e.g. a softmax-probit margin) and correcting the
+  boundary is the T319 / T327 family, already dead (verified, scoped).
+- Lattice variants: other generators or a randomly shifted lattice average (stochastic) were not tried. Neither changes the
+  discontinuity argument.
+- Hybrid: walks for the smooth directions plus lattice points across triples. Untried.
+- Only 10 models (E0 noise .02, small).
+
+## Compute accounting
+- Step 1: 100 models x 2e5 x 2, about 6 CPU-min.
+- Step 2: 10 models x (3203 + 2e6 + 3203) forward passes, about 3 CPU-min.
