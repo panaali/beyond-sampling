@@ -81,6 +81,11 @@ two fit-helper batch attempts are separately recorded. Inputs are saved before
 each forward, arrays before scoring, and progress/failure records are durable.
 No automatic restart or partial replay; any interrupted continuation needs a
 separate recovery scope preserving successful work.
+Reject any preexisting content in the output directory before creating progress
+or generating inputs. The internal CPU timer begins inside main and therefore
+excludes interpreter/top-level standard-library imports and final result,
+progress and stdout writes. External Bash timing and the110CPU process limit
+include that overhead; no claim is made that the internal timer is total CPU.
 
 Total candidate inputs including the reused pilot are196608; this new process
 forwards195584 only. Prior library reference1024 remains separate; this process
