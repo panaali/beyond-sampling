@@ -496,6 +496,14 @@ Reproduce: `bash run_hp3_t317c.sh` (log in `data/hp3/run.log`).
 - [measured] T317d (deductive) matches T317c on HP3 (F 5.07 vs 5.08) and passes the lenient bar with the upper CI ≤
   10. T317c remains the confirmed result; T317d is reported alongside it.
 
+### T317e (@ 01906d33; DRI-authorised cleanup of T317d; deductive)
+- Hashes: cont_e.py `50dd1c9b85512e23f037171d19de03527f8f5989758cfb74d93b441de48fda2b`; estimator_e.py
+  `a9cb5ef610bbcb52ef6037097716fe4b8ff7f6aaa005133cee492094d1c6c0f8`.
+- Self-contained: it imports only numpy, itertools and `scipy.special.ndtr`.
+- [measured] Identity check: estimates and charged FLOPs are **bitwise identical to T317d on all 100 HP3 and all 100
+  HP2 models**. So its scores are T317d's: HP3 F 5.07 [3.41, 7.03] at 5,431 FPE; HP2 6.75 [4.86, 8.78].
+- Note: the only RNG-related text in cont_e.py is a docstring comment about the removed MC imports.
+
 ## Red-team follow-ups for T317c and T317d (DRI 2026-10-18; `review/candidate_redteam`)
 Reproduce: `PYTHONPATH=shim python3 redteam.py` (results in `results/redteam.json`). T317c means the official
 c70e22cd as-executed run; T317d means 5b4d4806.
