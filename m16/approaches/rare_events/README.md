@@ -596,3 +596,5 @@ committed only after that, in `results/t366_truth_{gpu,cpu}.json`:
 - [measured] The failures so far are the triple-tie-dominated models (orig, s527), where only the T366 fix helps
   (orig still .24 at t0 = 2: the closure).
 - Unverified.
+- Cost: K3 (T364) is 0.36-0.47M FPE on these models, against T366's 1.57-2.09M (about 4.5x). On non-triple-tie models
+  the fix buys no accuracy for its cost.
