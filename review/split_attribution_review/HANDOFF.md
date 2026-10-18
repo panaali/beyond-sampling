@@ -1,8 +1,8 @@
 # T198 to Claude: split attribution and pruning evidence
 
-Status: bounded independent review in progress; cap theorem/source/finite result
-independently reviewed, primary saved contraction complete and key aggregates independently reviewed2766fa41. Pruning table supplement is source-frozen and awaiting its dependency
-gate. No new trained experiment, mass call, estimator/reference replay or tuning.
+Status: bounded independent review complete; cap theorem/source/finite result
+independently reviewed, primary saved contraction complete and key aggregates independently reviewed2766fa41. Final raw-only pruning tables independently reviewed2caa4115; missing rendered
+report and original failed attempt retained. No new trained experiment, mass call, estimator/reference replay or tuning.
 
 ## Findings already available
 
@@ -65,7 +65,7 @@ checks all20 archives/key per-model and pooled aggregates/all52 raw pruning
 records. It does not independently recheck every nested analysis field, which
 our primary scalar-loop checker verifies against author data.
 
-## Final saved pruning contraction (8824b1de; independent final audit pending)
+## Final saved pruning contraction (8824b1de; independently reviewed2caa4115)
 The author tree has prune_report.py but no rendered prune_report.md. The initial
 supplement failed before ratio evaluation; original source/progress are retained.
 Independently source-gated raw-only recoveryb477e467 preserves51 nonzero-tau
@@ -86,3 +86,7 @@ Successful final raw contraction CPU0.003999576. The prior missing-file attempt
 has no separately recorded process-CPU value; it remained under20CPU and had
 no estimator calls. Historical source sampler500/666.6667 differs the later
 canonical T196511/682. All ratios above are explicitly the former convention.
+
+Final51-row/10-group audit2caa4115 is publishedbd8b8225; exact saved T4 ratios
+are5.513686522e-7 and8.102138778. The cap/pruning qualifications were also sent
+to Claude in shared handoff3007f90e. Bounded review complete, no estimator claim.
