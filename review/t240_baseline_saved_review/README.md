@@ -9,10 +9,10 @@ Delegation 99f930e6 reserves this folder. The planned independent checker visits
 At zero gap, the original within-bin second-label law is retained. For positive gaps, only wholly contained boxes contribute selected correct/wrong mass; partial boxes stay unresolved. The audit does not evaluate their actual intersection probabilities.
 
 ## Status
-Assigned; source inventory complete. Author source/resource review is pending. No checker execution, archive decoding or baseline results inspected. Checker source and a separate reviewer resource gate will precede the sole saved audit.
+Source-unit defect found before checker execution or any archive decoding; see `UNIT_FINDING.md`. The author's completed positive-gap run represents half the stated physical gaps. Raw outputs remain preserved. The initial unexecuted checker draft is retained as `check_initial_unrun.py`; no reviewer execution gate exists.
 
 ## Results
-No numerical review result yet.
+No numerical review result. A source-only cross-check proves the current positive-gap predicates use physical gaps {1/8, 1/4, 1/2}, while the frozen contract states {1/4, 1/2, 1}. This does not establish a failure of the underlying method.
 
 ## Compute accounting
 Planned one saved-only review under 19 soft / 20 hard CPU seconds, 2 GiB address space and 25 seconds wall time after acquiring the shared review lock. Hashing, decompression and checking are reviewer work. No affine recurrence, network/model/checkpoint, Gaussian CDF, RNG, integration or fit calls are authorized. All prior source margins and probability bounds remain reviewed premises, not recalculated quantities.
