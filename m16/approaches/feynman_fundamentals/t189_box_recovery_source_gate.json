@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "source_gate": "pass_decode_only_recovery_once",
+  "owner_source": "90fb5879",
+  "recovery_protocol_sha256_before_gate": "561f37855a12edf1ba9008e7ef7dfbb399dabd2c094894a1609e9f9be5877b51",
+  "pins": {
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/recover.py": "8adc0d01b8491490f66a3170f928e0d729b6828398ab6213f4b1e5a9871c65df",
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/run.py": "524fc040874843c66499df34b7b0ecc63f5d2fd3e97b7ae98179350cb3696208",
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/box.py": "cd466b0409a596dd052283eeed8b69b18abef2c6af6596861f82d25a43b272d7",
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/protocol.json": "956c7555e3839560fc20edfca84cc6118adf7582aba3617c2d7166eb6a3df239",
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/results.json": "918121e505a91915fc29555d8456e10164c81007ea31a076df6900ce11eef053",
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/progress.jsonl": "44851573e3bb002e02ce4a3582a64dd02d4bea45760682d2c5fb75d9f0abbef1",
+    "/workspace/work/recover-small_h2_78/m16/approaches/conditional_order_bounds/box_mass/run1.log": "3ad929e2dec191bcf939c335d5d6fd2f248b94d70b7b40a0ff28b6a1095ed344"
+  },
+  "same_model_loop_ast": true,
+  "reviewer_coverage_gap": "Prior source gate2af8ef71 missed that saved Fraction numerator/denominator are decimal strings. Initial failure preserved; no mathematical assertion failed.",
+  "checks": [
+    "Canonical decimal-string decoding via int with positive denominator; no changes to stored values, age mapping or predicates.",
+    "Requires exact initial TypeError, zero model output rows and nine completed controls, pins failed outputs/progress/log.",
+    "Reuses saved exact box mass and all nine successful controls; no repetition of Gaussian series or validation primitives.",
+    "Model/predicate loop AST identical to initial run; same two models/all72 rival checks.",
+    "Separate recovery outputs, failure progress and cumulative attempt CPU/accounting preserved."
+  ],
+  "author_code_executed": false,
+  "remaining_gate": "Independent saved control/interval/mass/model contraction after recovery; this gate is not a claim of model inequality outcomes.",
+  "resource": "One20CPU/2GB/one-thread review-lock recovery; no automatic retry."
+}
