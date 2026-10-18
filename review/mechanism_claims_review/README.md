@@ -16,8 +16,10 @@ for a rank-blind error calculation. No author source imports or model calls.
 Initial bounded source/derivation evidence independently reviewed: theorem
 dd64fb85 and metadata1d352ce1, both published. See HANDOFF.md.
 Historical fit drivers/raw data remain unrecovered in the stated search scope.
-The full T201 task is not complete: any rebuilt held-out fits or new cross-tab
-require a separately published fixed protocol and source/resource gate.
+The fixed reconstruction experiment has now completed under separately claimed
+and independently source-gated scope4226647e. Raw cd272a57/shared20a452be keeps
+all inputs, hidden/logit arrays and fitted coefficients. Independent saved
+audit is pending; see rebuild/FULLFIT_RESULTS.md and CHECKPOINT.md.
 
 EXACT_STATE_LIMIT.md additionally reuses independently reviewed T138 evidence
 under scopef7509964: varying omitted input1 around the old strict crossing
@@ -33,11 +35,18 @@ state.py and separable.py implement helpers without a frozen experiment split.
 [inferred, independently reviewed]11/1024 is exact;8/9 is not implied by architecture,
 and even a fully rank-blind idealization has different zero/one-positive rates.
 [source observation]the later ten-probe routine covers K=1 only, not the exact
-blind conditional law. No new accuracy result, significance test or rung pass.
+blind conditional law. The new frozen reconstruction has preliminary heldout lookup task scores near
+98%, but only about95.3% agreement with the original network; independent saved
+review is pending. No rung pass or deductive accuracy-estimator claim.
 
 ## Compute accounting
-Byte/hash/git searches and exact written algebra only; model forwards, fitting,
-new Gaussian inputs, quadrature, reference and native-cost calls all zero.
+Initial source phase used byte/hash/git searches and written algebra only.
+Subsequent independently gated synthetic controls,1024-input wiring pilot and
+fixed196608-input reconstruction have separate full ledgers in HANDOFF.md and
+rebuild/FULLFIT_RESULTS.md. Fullfit added195584 input vectors,191 forwardchunks
+and217OLS calls, reusing the pilot once;7.467979396 scriptCPU. No fresh reference,
+quadrature or native-cost calls. The initial zero-call statement is not a total
+for later phases.
 Source imports are deliberately avoided because common.py loads a model and
 arc_eval/estimate generate400,000 reference inputs at import.
 
