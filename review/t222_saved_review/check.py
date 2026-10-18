@@ -142,6 +142,11 @@ def main():
   reviewer=gate['source_review'];assert reviewer['commit'] and reviewer['path'] in gate['pins']
   same(gate['pins'][reviewer['path']],reviewer['sha256'],'reviewer pin')
   review=read(reviewer['path']);assert review['complete'] is True and review['pass_all'] is True
+  assert {str(HERE/'check.py'),str(HERE/'protocol.json')}<=set(review['pins'])
+  for path,h in review['pins'].items():same(sha(path),h,'source reviewer dependency')
+  required_inputs={str(OWNER/'saved'/n) for n in ['output/results.json','output/progress.jsonl','run1.log','gate.json']}
+  required_inputs.update(str(OWNER/'saved/output'/f'{key}{suffix}.json') for key in KEYS for suffix in ['', '_schema'])
+  assert required_inputs<=set(inputs['pins']), 'completed owner evidence coverage'
   for mapping in [own['pins'],gate['pins'],inputs['pins']]:
    assert mapping
    for path,h in mapping.items():same(sha(path),h,path)
