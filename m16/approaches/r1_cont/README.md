@@ -1295,3 +1295,35 @@ quadrature.
 - Then hand it over for the T286 child's fresh truth-blind test (dev3_s548+). Go: >= 7/8 within 2x.
 - **No tuning to truths.** The selection uses convergence only. Truths are reported for the development models but
   play no role in the choice.
+
+## T369 results: not quadrature, so no calibration is frozen (pre-registered rule; `t369.py`, `e1_oracle.py`, `results_t369_*.json`, `results_e1_oracle.json`)
+**Step 1, quadrature convergence on dev3_s547:**
+- R1 (frozen) 2.43 / 2.12 reproduces T367 exactly.
+- **R3 (twice the panels) 2.45 / 2.13**, a < 1% change.
+
+The graded rule is **converged**, so the overshoot is not quadrature. Also: R1 on s541 reproduces T367 (1.25 / 1.35).
+R2 on the rest is still running, for the record. R3 on the other models was stopped (own PID), because step 1 had
+already decided.
+
+**Step 2, the closure oracle on dev3_s547** (exact sampling given g23 > t0, stratified at g12 = .1; 2e6 per stratum).
+Each cell is P(E1) / truth:
+
+| t0 | W0 closure (= the estimator's world) | W2 exact v4 law | W3 exact lows | W4 truth sampler |
+|---|---|---|---|---|
+| 2.25 | **2.19** | 2.38 | 1.47 | 1.04 |
+| 2.5 | **2.48** | 2.82 | 1.57 | 1.04 |
+
+- **The closure world itself over-counts by 2.2-2.5x.** The deductive estimate (2.43 / 2.12) matches it, so the g12
+  rule integrates the closure world correctly.
+- Most of the excess sits in the **triple-tie stratum**. With g12 < .1, the closure world has 2.15e-8 against the
+  truth's 9.8e-9 at t0 2.25: pinning the lows at μ(v4) makes the sliver's error islands larger than they really are.
+- **The excess splits into two steps:**
+  - exact lows remove ~40% of it (→ 1.5x);
+  - v4's random position removes the rest (→ 1.04).
+
+  These are the same two closure terms T363 found for E2.
+- **Per the pre-registration, no calibration is frozen.** Re-weighting the sliver to fit s547's truth would be tuning
+  to the truth.
+- [inferred] The remaining failure mode of the rare-event estimator is the R1W closure: deterministic lows and v4 at
+  the latest position. It biases low on E2 (T363) and high on these triple-tie E1 islands (s547). A closure with
+  spread lows and v4 position nodes is the fix. T365 showed its cheap deductive forms reach only ~20/32 on E2.
