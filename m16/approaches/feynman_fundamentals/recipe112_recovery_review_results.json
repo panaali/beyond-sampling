@@ -1,0 +1,55 @@
+{
+  "raw_groups": 165,
+  "noisy_rows": 10720,
+  "core": [
+    {
+      "H": 4,
+      "models": 1280,
+      "worst_legacy_ratio": 0.0025781271117677543
+    },
+    {
+      "H": 5,
+      "models": 1280,
+      "worst_legacy_ratio": 0.012822386300132415
+    },
+    {
+      "H": 6,
+      "models": 1280,
+      "worst_legacy_ratio": 0.04224565949142658
+    },
+    {
+      "H": 8,
+      "models": 1280,
+      "worst_legacy_ratio": 0.09898579295452307
+    }
+  ],
+  "count_panel_value_mismatches": [
+    {
+      "H": 4,
+      "maximum_recorded_value_mismatch": 1.1102230246251565e-15
+    },
+    {
+      "H": 5,
+      "maximum_recorded_value_mismatch": 3.282151021632984e-06
+    },
+    {
+      "H": 6,
+      "maximum_recorded_value_mismatch": 1.2127939652550879e-08
+    },
+    {
+      "H": 8,
+      "maximum_recorded_value_mismatch": 6.300654720181598e-08
+    },
+    {
+      "H": 16,
+      "maximum_recorded_value_mismatch": 3.421518068869034e-09
+    }
+  ],
+  "numeric_zero_identity_bug_reproduced": true,
+  "h8_equality_only_value_restored": true,
+  "h8_original_count": 330161,
+  "h8_patched_count": 326667,
+  "analytic_truth_all_four": 0.3333333333333333,
+  "review_cpu": 0.10799328600000001,
+  "scope": "Independent raw arithmetic and tiny original-wrapper probe, no trained estimator rerun. Legacy ratios are historical conventions; counter transfer is unvalidated because wrapped execution changes values. Positive-volume tie failures do not alone invalidate all generic noisy-model truths."
+}

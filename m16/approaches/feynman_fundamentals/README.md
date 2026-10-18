@@ -1000,3 +1000,80 @@ measure/source change, T105 signed-event union and T20 separately frozen RMS
 proposal comparison as their implementations arrive. No already completed
 checks are automatically rerun. Broad method families remain open; only
 Claude DRI may confirm the scoped evidence.
+
+Recovery review update: all current T105 prefix/suffix certificates, T110
+bounded handoff, T114 comparator, T116 bulk/triangle phases, T117/T118,
+T119/T120/T121/T122/T123, T125 ambiguity and T126 acute-reference phases
+have bounded independent review notes and reproducible checks in this
+folder. Pending live requests are T127 middle-target terminal, T128 fast
+fibre inventory, arbitrary-ray positive mass bound implementation and
+T23 continued frozen panels. Parent integrates reviewer commits; no
+review alone self-confirms a leaderboard claim. The review lane remains
+one thread with short locked checks and no nested agents.
+
+Review update: T23 final90-cell convergence chain and invariant-family
+20% theorem; T124 scalar-power attribution/pilot; T130/T135 positive mass
+counts/moment rescue; T131 selected unchanged-ray analytic controls; and
+T133 fixed-panel/scaling evidence now have independent bounded review.
+T131 whole-corpus replay and independent leaf geometry audit remain live.
+Review does not mark claims confirmed; source/roundoff/cost limits remain
+explicit in the individual notes. Latest checks run with one thread and
+review lock; the longest current phase used14.906CPU.
+
+Current review status (2026-10-17): the prior pending phases above have
+advanced. Independent checks now cover T131 complete unchanged-ray gate/error
+mass, T134 all471 common-unit fibre cases, T136 leaf triangulation, T137
+fixed-rule precision attribution, T138 same-cell information ambiguity,
+T139 exact error witnesses, T140 doubled quadrature, T141 opposite conditional
+slice biases, T142 residual-tail diagnostic, T143 analytic inner integration,
+T144 determinant intervals, T145 recipe/numerical bias separation, T146
+explicit cost plus opaque calls, T147 joint-strip continuity and T151 held-out
+point semantics. `cone_mass4_review.md` and `gate_symbol_review.md` collect
+recent scoped conclusions with separate check/result files.
+
+Pending live requests are T148 combined held-out exact/recipe mass sums and
+T150 actual installed inverse cost envelope; a separately owned32-unresolved
+positive-cone bound discriminator is in preparation. No new input search,
+production integration or completed experiment is rerun by default. Counts
+are explicit source-operation conventions unless stated otherwise; opaque
+native kernels and complete hardware/runtime costs remain separate.
+
+All new numerical checks now enforce20CPU hard limits and use the review
+lock. A reviewer NPZ sort accidentally exceeded the intended budget before
+this guard was introduced; the interrupted failure is retained in
+`error_semantics_review_initial_failure.json`. Exact determinant signs and
+rational information witnesses do not certify floating cone geometry or
+estimator accuracy. Conditional quadrature bounds do not include roundoff.
+
+Review status continuation (2026-10-17): bounded checks now also cover T148
+heldout recipe/exact attribution, T150/T157 installed inverse categories,
+T152 exact32-cone rescue, T153 recipe visible costs, T154 cubic transform,
+T155/T159 local strip/face refinement, T156/T165 SVD dispatch and finite
+native census, T158 installed determinant categories, T160 preserved Schur
+failure, T161/T162 bounded representation pilots, T163 conditional dqds proof,
+T164 unbounded face projections, T109 full35,098-case positive-inner corpus,
+T108 simultaneous-freeze counterexamples and cumulative primitive, T80 scope and
+exact second-step means/covariance, T69 retained-sector and random-width
+diagnostics, T113 full5,152-row repaired-count evidence, T115 recovery/pilot
+provenance, T167 full30,726-ray held-out corpus, and T100 zero-clip/observer
+controls. Current dependencies include complete native-cost pricing, T172
+native recipe trace, T171 model-facing adapter import/tie qualification,
+T115 missing panels and T100 first noisy-case/reference completion. Parent
+integrates owned commits; only DRI may confirm scoped challenge claims.
+All failures and conditional/finite scope limits stay visible in the notes.
+
+
+Latest continuation (2026-10-17): T115 missing k30 panels, T171 import/tie and
+two-seed capture parity, T172 all1280 H8 native-source cost rows, and T100 first
+noisy fibre case plus fixed100M reference now have independent saved-data
+reviews. T178 Hopf root-mask defect is verified through an exact synthetic
+whole-circle counterexample; universal fibre continuity also fails at a
+rank-degenerate fibre. These are scoped counterexamples, not trained-panel
+refutations. T179 full ac321d97 replay reproduces aggregate accuracy but fails
+its preset percone threshold once, with a negative mass and raw-PC clipping.
+The newer cf9c17cb thin/atan2 kernel is a separate active review, not covered
+by the older result. Generic small-determinant accuracy lacks a q-min bound.
+Current queue: new DRI kernel controls, T176 recipe85b native traces, T181
+stable-moment pilot, and T180/T183 further common-unit cost work. Recent
+checks are source/raw-record reviews under20CPU, preserving all failures;
+no mass/Monte Carlo reruns unless explicitly needed for independence.

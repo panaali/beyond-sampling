@@ -1,0 +1,10 @@
+{
+  "source_sha256": "8000fb56bc16076ec84064eed10d21313e588a544273cc22d7de402a03bcb522",
+  "failure": "Reviewer demanded exact equality between a 220-digit sum and its 200-digit serialized diagnostic. Previously completed 190-digit agreement check passed.",
+  "repair": "Use the same 1e-190 relative-plus-absolute comparison for serialized diagnostic means; no source/candidate/reference rerun.",
+  "second_failure": {
+    "source_sha256": "c8157eb9ba2c65f6f8037a377bda262b020b056b08d12e8fc111f49e9b8472c5",
+    "failure": "Python compensated builtin sum differs from original sequential += CPU aggregation; counts and mean checks passed.",
+    "repair": "Reconstruct the original sequential floating addition order for timings."
+  }
+}

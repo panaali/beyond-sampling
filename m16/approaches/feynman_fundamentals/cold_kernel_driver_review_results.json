@@ -1,0 +1,34 @@
+{
+  "complete": true,
+  "svd_kernel_calls": {
+    "scal": 18,
+    "gemv_n": 6,
+    "axpy": 26,
+    "small_permit": 6,
+    "small_b0_nn": 6
+  },
+  "tiny_body_parts": {
+    "gemv": 100,
+    "axpy": 128,
+    "ger": 14,
+    "new_scale": 32,
+    "small_b0_nn": 576
+  },
+  "tiny_body_plus_scale": 850,
+  "extra_driver_calls": {
+    "dormbr": 60,
+    "droundup_lwork": 18,
+    "dlange": 6,
+    "dbdsdc": 6,
+    "dorm2r": 6,
+    "dormqr": 6,
+    "dlansy": 6
+  },
+  "ordinary_reflectors": 6,
+  "zero_norm_reflectors": 32,
+  "reflector_exclusive_native_categories": 146,
+  "kernel_capture_sha256": "74663fc10497e481a0a3f7bb93043e411a2dfe3cc700273efc6a018ee6baa5ea",
+  "driver_capture_sha256": "0aa9f577323fb5a06cc5e9c19ddc2eec4dd2a2c34461f95d339a10bda34f934f",
+  "new_native_calls": 0,
+  "scope": "Fixed saved dispatch/body evidence only. Tiny body 850 includes new internal beta scaling, not old public SCAL already charged in helper 2424. Reflector 146 uses observed no-rescale and fixed binding. Remaining driver prices, wrapper/control/memory and native reduction gaps are separate."
+}

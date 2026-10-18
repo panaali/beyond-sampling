@@ -1,0 +1,20 @@
+{
+  "small_nn_per_column": 72,
+  "small_nn_N4": 288,
+  "small_nn_N1000": 72000,
+  "packed_4x4_body": 160,
+  "symmetric_triangular_additions": 10,
+  "symmetric_guard_envelope": 11,
+  "symmetric_category_envelope": 181,
+  "pins": {
+    "small_b0_nn_disassembly.txt": "d73d546e5528f37281f714ade45353acbb5d65f0d80b1f0b87b6956ef1a492fe",
+    "dgemm_kernel_SKYLAKEX_disassembly.txt": "84062fec747de740b634bbfc4b4e9d7a3870d27c325e8efbdbc30b0307ffdcd5",
+    "syrk_kernel_L_disassembly.txt": "226c5aface02f329339d6ba3051deca7e554e175bb7e026928dad6f789fb967d",
+    "syrk_LT_disassembly.txt": "edeb8d2b408a9d2452b7b4a7aa2e3985922373600e3949e7c1f50f2c7435e9a7",
+    "dscal_k_SKYLAKEX_disassembly.txt": "9ae1f59abf01fc8726e9fa260ec5eeef1c31879a110a30c1e0c2ed8c701dd4ec",
+    "NN_PRICE.md": "07f400a739e4fdbe6e501446b637a31418be1bd946ae9fc9709bc94545bd4506",
+    "SYRK_PRICE.md": "9973c1e7108b0f2bb3e21bab70cd19e5e86e160afc2dd35eb7e1f1f7f113a793"
+  },
+  "review_cpu": 0.018813582999999995,
+  "scope": "Saved reached unmasked SIMD arithmetic bodies independently inspected/contracted, conditional on reviewed runtime target/shapes and branch/layout applicability. NN applies onlyM4K4 evenN4/1000; SYRK packedbody160+triangle10+guardupper11. No price for NT/ordinary fallback, no reduction/libm/control/memory/full-native claim; source array layout application remains separate."
+}

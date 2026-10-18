@@ -159,3 +159,67 @@ gives .007984888967696072 for C+, and .009743822453890811 for C-.
 Their sum .017728711421586885 differs from the fixed-rule result by
 about1.4e-16. CPU .0191 seconds. Adaptive error estimates are numerical,
 not certified bounds; this remains a partial event contribution.
+
+## Negative target sectors completing the signed event family
+
+For A<0,B>0,C>0,D<0, a negative selected A cannot be second largest:
+B,C are already larger. For A<0,B>0,C<0,D<0, selected A=-s requires
+all m ordinary prefix inputs below -s, B>kappa*s, and both negative
+partners below -s. The resulting integrand is
+phi(s)Q(s)^m Q(kappa*s)J(s), where
+J(s)=integral_s^infinity phi(r)Q(max(s,k*r))dr. At trained k0,
+J(s)=Q(s)^2. With kappa0 also, the integral is exactly
+1/[2^(m+4)(m+3)].
+
+The `negative_rank.py` source correctly keeps positive target sectors
+for ordinary prefix/B and negative sectors for prefix/A/C/D. The
+negative-prefix sector uses m-1 other ordinary values and the joint
+first-pair tail I(s); C uses Q(max(s,k*s)); D requires partner magnitude
+in(s,s/k), hence is zero for k>=1. These are unnormalized event masses.
+The split for J at s/k is correct, with its finite cutoff tail reported
+separately. No negative A/C/D can enter the positive-target sectors.
+
+`check_negative_target_review.py` independently uses scalar erfc and
+adaptive integration, without author functions. The selected trained
+negative-A contribution is .00010442263405448726, differing from the
+fixed rule by1.79e-17. Zero-threshold controls at m0/2/6 reproduce
+1/48,1/320,1/9216. CPU .000438 seconds. The completed eight signed
+events cover about .32226979, leaving about .67773021 unresolved;
+neither this contribution nor coverage is the full model accuracy.
+
+## Exact four-suffix ambiguity complement
+
+Independent check_complement_review.py rebuilds all25 saved nonzero affine
+gate/readout inequalities from the saved rational model, without importing
+author certificate functions. For suffix(-1,-1,+1,-1), initial h=(0,0)
+and(256,0) produce labels0 and6. Every rebuilt inequality agrees exactly;
+the common radius928873407584354211505/12871199735412830144098 keeps at
+least half of every center slack throughout the box. Separate direct
+Fraction recurrence at all32 state/vertex cases preserves both labels.
+
+With |x_i|<1.25, sqrt(2*pi)<3 and e<3 imply phi(x_i)>1/9.
+The exact positive mass lower bound(2*rho/9)^4 is6.614544537666294e-8.
+Thus uniform classification for every arbitrary nonnegative prior hidden
+state cannot cover this suffix box. This is not an accuracy obstruction
+under the actual prefix law, a practical coverage ceiling, or a negative
+about state-conditioned/longer-suffix integration. Actual reachable open
+prefix boxes are a separate proposed extension, not checked here.
+
+## Actual-prefix support extension
+
+Independent check_prefix_support_review.py verifies both six-input prefix
+centers reach the saved hidden states exactly, and recomputes the
+Lipschitz constants M=||Wh||infinity and L6=||Wi||infinity*sum(M^k,k0..5).
+Prefix perturbation epsilon changes gate step t by at mostM^(t+1)*L6*eps
+and readout margin by ||deltaWo||1*M^4*L6*eps. Together with the existing
+suffix half-slack bound all25 inequalities retain at least quarter slack.
+All8 gates per history are represented. Omitted tied readouts are checked
+identical on the whole stable final support, not merely at fixed h.
+
+The rank intervals independently certify unique second input index0 for
+both full boxes. Outputs remain0 and6, hence one box correct and one wrong.
+Exact factored Gaussian lower bounds have denominator powers3^20 and
+3^81411 respectively; positivity follows without trusting the high-precision
+probability calculation. This establishes actual open support dependence
+on the prefix. The second box is astronomically rare, so this gives no
+practical error floor or broad obstacle to probabilistic integration.

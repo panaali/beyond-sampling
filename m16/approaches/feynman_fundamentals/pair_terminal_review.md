@@ -49,3 +49,129 @@ values/errors raise, and final normalized values/errors are checked.
 This repairs the observed domain failure without claiming stable
 extreme-tail integration. The fixed36-control suite was retained by
 the owner; no duplicate full suite was run by this reviewer.
+
+## Rank support and full-cycle topology review
+
+The interpolation comparison uses low/high first-input transition
+operators followed by below/above terminal probabilities. Therefore
+need0=low[:,0] and need1=(low[:,1]+high[:,0])/2 are correct. Matching
+u to a chosen prefix input alone does not make both need flags
+reachable: the other observed prefix input fixes whether the one
+allowed exceeding input has already occurred. The owner retained the
+full extension table and added the four untied, rank-consistent probes;
+one still has local discrepancy about-.01637. Tied input fixtures are
+explicit diagnostics, not positive-probability population events.
+
+For a fixed polygon, moving cuts x=u,y=u change clipping topology only
+at vertex x/y coordinates or when their intersection(u,u) crosses a
+polygon edge. A diagonal-coincident edge needs its endpoint events,
+not an extra isolated crossing. The new complete union includes these,
+earlier target/interpolation switches and the common penultimate cache.
+This establishes real-arithmetic geometric branch completeness, not
+rounding or adaptive-quadrature certification.
+
+The few-ulp fallback uses separate endpoint extrema of the lower/upper
+affine bounds, not endpoint values of their CDF difference alone.
+Monotonicity then bounds the gap, while Gaussian density extrema occur
+at endpoints or zero. Its floating padding is explicitly heuristic.
+The wider-panel rescue maps x=a+(b-a)*t to[0,1], divides absolute
+tolerance by width, and multiplies the returned integral/error by width;
+these factors are correct. Both original QUADPACK failures remain
+visible and are not method-family negatives.
+
+Full h3 recursion source keeps the two-input terminal at stage2, then
+propagates steps1 and0. The remaining ordinary-input count
+T-t-int(label>=t) and target-insertion chronology are correct. A source
+branch initially routed every nonpenultimate label to the new cache
+although only labels0/1 were constructed. This is harmless on the
+frozen model where label3 is excluded, but was reported for a local
+`paired and label<2` guard before general interpretation. The full
+comparison remains bounded, with no h9 or accuracy claim implied.
+
+## Completed fixed h3 comparison
+
+`check_pair_full_review.py` independently contracts all four raw rows
+with60-digit Decimal arithmetic. At GL4 the new estimate is
+.30171233058385778 versus baseline .25658923510284402 and reference
+.30773074302392744. Absolute-error improvement is8.4975080, component
+L2 improvement6.7295328, and the descriptive error-squared-times-CPU
+improvement15.7013446. The penultimate-label contribution is exactly
+unchanged between arms, as required by the shared cache.
+
+GL2 toGL4 changes remain7.66825534042e-6 and7.20229103228e-6, both
+failing the frozen stability threshold. This is a scoped representation
+gain on one small-grid model, not convergence, a sampling comparison,
+or a certified portable-cost claim. Label1 error worsens locally while
+label0 improves strongly; unresolved prefix interpolation and outer
+integration remain open. No larger-grid or noisy sweep is implied.
+
+## T127 middle-target chronology and independent nontrivial control
+
+The new affine construction correctly propagates h -> x -> fixed u -> y.
+First-step gate roots partition x; middle target insertion creates further
+x-only roots; final gates/readouts are affine in(x,y) and use the reviewed
+polygon integrator. Stable zero-OFF and earlier-index readout ties remain
+as before. Conditional need0=P00/L^2 and need1=(P01+P10)/(2LU) follow from
+two exchangeable fresh truncated-Gaussian inputs. For actual preceding x0,
+need0 iff x0>u, otherwise need1, excluding separately annotated ties.
+
+Independent check_middle_target_review.py uses Wh=I,Wi=(1,-1), with default
+penultimate label2 winning iff h1>h2. After x and fixed u, the two hidden
+coordinates are a=max(max(x,0)+u,0),b=max(max(-x,0)-u,0). Final label2 wins
+iff y>(b-a)/2. A separately implemented scalar Gaussian integral splits
+these explicit affine boundaries and rank thresholds; at u=-1,0,1 it
+matches the polygon primitive within1.12e-16, .0074CPU. This tests a
+nontrivial default target, not a dominated zero-probability class.
+
+The old comparator transports actual stage1 states through StagePieces
+into the stage2 grid, then applies the penultimate cache. Its low[:,0]
+and(low[:,1]+high[:,0])/2 use the same rank mixture. Source/full-image
+support checks are valid because each ReLU coordinate achieves its maximum
+on an interval endpoint. These are fixed-state primitive/comparator checks;
+trained probe results and full outer behavior remain separate.
+
+The first T127 trained panel has six untied rank-consistent queries.
+Only x0=0,u=1,need1 shows the large-.1356406015 old-minus-pair difference;
+the other five agree at floating precision. This fixed-state result at
+an exactzero prefix alone cannot establish a population-weighted error.
+Other table branches include impossible rank requirements or input ties.
+A separately frozen x0=+/-1/4,u=1 continuation is pending to test whether
+the discrepancy persists away from zero; no full outer run is implied.
+
+T127's frozen nonzero continuation establishes an off-zero discrepancy:
+x0=+1/4,u=1,need1 gives pair.5961164155717624 versus interpolated
+.4604045332625662, difference-.13571188230919623. x0=-1/4 on the same rank
+branch agrees to1.12e-16. Both states are actual one-input prefixes and
+inside the old interpolation support; both have unique x0<u and need1.
+The separately implemented scalar continuation differs at most2.28e-11
+with no QUADPACK warnings, while swapped-axis pair differences are below
+5.56e-17. These are local numerical comparisons, not population-weighted
+bias or certified integration enclosures. A continuity/support diagnostic
+is a distinct next task; no new mesh or full engine was run in review.
+
+## T132 sufficient conditional continuity and branch localization
+
+For fixed target u and h before x,u,y, changing h by delta in infinity
+norm changes final preactivations by at mostM^3*delta, M=||Wh||infinity.
+Nonzero input slopes bound final-gate change bands by2M^3*delta/|Wi_i|.
+On unchanged final support, each nonconstant target-readout margin has
+slope s=deltaWo*(Wi masked by support); its change band has length at
+most2||deltaWo||1*M^3*delta/|s|. Identical restricted readouts have robust
+first-index ties; the empty support is handled by gate changes. The union
+bound, with conditional-y density below1/min(L,U), is uniform in x and
+therefore bounds side probabilities and their rank mixtures. Zero slopes
+without separate invariance proof return unknown, not discontinuity.
+
+Independent check_continuity_review.py reconstructs the true checkpoint's
+two gate and nine readout slopes exactly as Fractions. All are nonzero;
+M=130.47258614 and rational G=296266670.3860154 agree. Thus the value is
+Lipschitz in h under this sufficient criterion. The displayed coefficient
+G/min(L,U)=1.867361243e9 is far too loose for useful mesh-error control and
+is not outward-rounded. This excludes a true hidden-support jump for this
+fixed model/target, not sharp curvature or poor coarse interpolation.
+
+Independent saved-side arithmetic verifies that both need1 branches at
+prefix+1/4 contribute to the error: half contributions-.0616094691586
+and-.0741024131506 sum to-.1357118823092. The negative prefix branches
+agree at floating precision. No single-branch or population-bias conclusion
+is supported. Exact-side numerical quadrature remains separately scoped.

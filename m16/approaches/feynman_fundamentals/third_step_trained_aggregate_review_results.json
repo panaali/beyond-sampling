@@ -1,0 +1,57 @@
+{
+  "complete": true,
+  "cells": 544,
+  "sectors": 34,
+  "diagnostic": {
+    "inherited_gauss": {
+      "relative_to_exact": 3.8831457255717976,
+      "relative_to_saved_sample": 3.8908651435814554
+    },
+    "exact_h2_then_inherited_gauss": {
+      "relative_to_exact": 1.0633254411877349,
+      "relative_to_saved_sample": 1.0657421379409613
+    },
+    "retained_sector_gaussian": {
+      "relative_to_exact": 0.09070135748547796,
+      "relative_to_saved_sample": 0.09207794248544648
+    },
+    "exact_facet_h3": {
+      "relative_to_exact": 0.0,
+      "relative_to_saved_sample": 0.0026298435540493977
+    }
+  },
+  "counts": {
+    "facet_exact_named": {
+      "mul": 50592,
+      "add": 22848,
+      "sub": 8160
+    },
+    "facet_retained_result_bits": [
+      494,
+      462
+    ],
+    "network": {
+      "mul": 19008,
+      "add": 17412
+    },
+    "network_extra": {
+      "input_sign_multiplications": 32,
+      "input_positive_part_comparisons": 32,
+      "exact_slope_divisions": 32,
+      "exact_slope_negations": 32,
+      "activation_comparisons": 544,
+      "boundary_normal_negations": 68
+    },
+    "validation": {
+      "mul": 217600,
+      "add": 193120
+    }
+  },
+  "reference_evaluations": 222042,
+  "research_cpu": 11.542077496000001,
+  "review_cpu": 0.20767935399999998,
+  "result_sha256": "c943422e519c37d90a8b0d68e69dc163e857bd209c4d0bb67123269716e733dc",
+  "geometry_sha256": "3c4d7579579067ba763ad7f9ae10a92d696ef6d07f052db4f8a64774cd679a7f",
+  "new_author_facet_angular_or_forward_calls": 0,
+  "scope": "Exact stored weights, all saved cell/precision/reference checks, 16 mean sums, prior step3 baseline/sample diagnostics and counts independently contracted. Detailed sector/facet algebra is a separate reciprocal78 audit. Finite MP mean evidence only, no outward certificate/covariance/downstream accuracy/fullcost claim."
+}
