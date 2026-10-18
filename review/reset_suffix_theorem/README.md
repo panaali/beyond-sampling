@@ -12,11 +12,11 @@ polynomial zero sets yields the generic statement. This reuses the reviewed
 one-step output-fingerprint implication only conditionally.
 
 ## Status
-Claim25bf2dbd preceded files. Draft proof ready for independent review; no code,
+Claim25bf2dbd preceded files. Independent proof review3c14d1fa published97be92ae passes; no code,
 numerical sweep, trained/model/geometry/mass/cost/reference calls.
 
 ## Results
-[inferred, independent review pending] Reset equivalence implies map equality
+[inferred, independently reviewed3c14d1fa] Reset equivalence implies map equality
 for all weights; absent reset, equality lies in a proper polynomial exceptional
 set. Probability-one interpretation requires joint absolute continuity. The
 finite binary checkpoint and label/domain-restricted claims remain separate.
