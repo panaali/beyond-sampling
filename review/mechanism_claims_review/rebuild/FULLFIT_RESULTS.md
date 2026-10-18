@@ -1,6 +1,6 @@
-# Fixed reconstruction experiment — preliminary saved results
+# Fixed reconstruction experiment — independently checked saved results
 
-Independent saved audit is pending. This is a new frozen reconstruction experiment on the original checkpoint, not validation of the provenance of historical percentages and not an ARC estimator or cost result.
+Independent saved audit908f2a56 passes. This is a new frozen reconstruction experiment on the original checkpoint, not validation of the provenance of historical percentages and not an ARC estimator or cost result.
 
 | Panel | Original task accuracy | Lookup task accuracy | Lookup network agreement | Case2 separable task accuracy | Case2 separable network agreement |
 |---|---:|---:|---:|---:|---:|
@@ -22,4 +22,25 @@ The single run used `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1`
 
 ## Limits and alternatives
 
-[measured, pending saved review] The two heldouts reproduce the approximate98% task score for this newly fitted lookup. They do not establish98% network agreement, explain all network errors, validate historical splits or provide an estimator of network accuracy. Other feature sets, distributions, checkpoints and fit variability were not tested. Original network errors remain in every disjoint bucket; no method family is ruled out.
+[measured, independently checked saved scores] The two heldouts reproduce the approximate98% task score for this newly fitted lookup. They do not establish98% network agreement, explain all network errors, validate historical splits or provide an estimator of network accuracy. Other feature sets, distributions, checkpoints and fit variability were not tested. Original network errors remain in every disjoint bucket; no method family is ruled out.
+
+
+## Independent saved verification
+
+Reviewer908f2a56 independently reconstructed every saved label, state/count,
+three-term lookup and sparse two-term separable prediction, disjoint error
+table, hidden error sums and numerical interval. All191 chunks,196608 inputs,
+one pilot reuse,393 progress records,217 recorded OLS calls and34 beta calls
+reconcile. No reviewer RNN, refit, SVD, checkpoint or normal-draw call occurred.
+Fit ranks and terminal RNG advancement remain source-gated; neural hidden
+states were independently wired only on the earlier1024-input pilot.
+
+The first reviewer run failed a relative-to-nearzero-R2 criterion despite
+passing SSE/SST/MSE checks. That initial failure9ad3ae47 and original checker
+are preserved. Recovery97d65169, independently source-cleared e8b80edc before
+execution, checks exact R2/median derivation from stored binary64 sums while
+retaining independently accumulated fsum values and all old criterion failures.
+Maximum absolute R2 difference1.5216716775512396e-12; original criterion failures
+remain for separable neuron4 in train and holdout2. No author data or scientific
+source changed. Reviewer failed/recovery CPU0.807868393/2.251893928 seconds,
+combined3.059762321, excluding imports. This is reviewer work, not repeat fitting.

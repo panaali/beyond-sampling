@@ -13,8 +13,11 @@ latest doc/protocol4a52faf0 and unchanged numerical source b6838e47.
 
 Exactly191 chunks/217OLS completed; script7.467979396CPU,183504KiB peakRSS.
 No failures/adaptation/replays. All389 fullfit files and external run log are
-retained. Independent saved checker by910 is source-cleared; artifact pins and
-saved audit remain pending. Do not repeat any forward/fit or broaden scope.
+retained. Independent saved audit908f2a56 passes, including all predictions, scores and
+raw coverage. Preserved reviewer nearzero-R2 diagnostic failure9ad3ae47 was
+repaired only by exact stored-total derivation97d65169 under gatee8b80edc.
+Do not repeat any forward/fit or broaden scope. Bounded handoff complete;
+TASKS release and next distinct source/saved prefix-count claim pending.
 Holdout lookup task accuracy97.99194/97.97668%, network agreement95.30945/
 95.39337%. Case2 separable task90.12736/89.87822%, network agreement87.50785/
 87.32824%. These new results do not restore historical provenance or imply an
