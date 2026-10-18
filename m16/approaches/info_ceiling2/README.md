@@ -57,4 +57,52 @@ reported anyway.
    separately.
 
 ## Status
-Pre-registered.
+**Done. Verdict: INFORMATION-INFEASIBLE (scoped).** The best held-out RMS with <= 4k FPE of features (here 2.4k) is
+.855 pp, against the > .45 line. Unverified; diagnostic and inductive by construction.
+
+## Results
+Reproduce: `PYTHONPATH=<alg_zoo shim> python3 perclass.py` (85 models, ~3 CPU-min) and `python3 learn.py`
+(`results/learn.json`, `logs/learn.log`). Feature cost: 2,417 FPE per model (T300's estimator 1,697 + 720 median
+margins).
+
+| family | learner | inner-CV RMS (train 40) | **held-out RMS (45)** | torch (40) | seeds (5) | train fit | held-out mean err |
+|---|---|---|---|---|---|---|---|
+| **A (2.4k FPE)** | ridge, 3,600-dim per-class vectors | 1.725 | 1.767 | 1.862 | .593 | .331 | −.11 |
+| A | lasso, same | 1.488 | 2.376 | 2.508 | .687 | .523 | −.24 |
+| A | GBT, 24 aggregates | 1.101 | .942 | .991 | .374 | .226 | −.16 |
+| A | **per-class basis ridge (selected)** | **1.059** | **.855** | .874 | .677 | .719 | +.07 |
+| B (+probe-v1, ~6.3k) | ridge full | 1.721 | 1.763 | 1.858 | .592 | .330 | −.11 |
+| B | lasso full | 1.107 | .813 | .830 | .668 | .526 | +.08 |
+| B | GBT aggregates | .951 | **.723** | .761 | .258 | .061 | −.08 |
+| B | per-class basis ridge (selected) | .814 | .980 | 1.016 | .618 | .438 | +.16 |
+
+For reference, the T300 estimate used raw has held-out RMS 1.54. T308's 5-parameter linear fit on cheap summaries
+gave .72, and with rank_exact .477.
+
+**Readings:**
+- **Nothing in the <= 4k family comes near .43–.45.** The best is .855 (selected) or .942 (GBT). Adding probe-v1
+  (6.3k) brings the best to .72, the same as T308's linear fit. Richer learners do not extract more than the
+  5-parameter summaries.
+- **The high-dimensional learners overfit** (alternative 1): train RMS .33–.52 vs held-out 1.8–2.4. Forty training
+  models cannot support 3,600 dimensions. The low-dimensional per-class basis and GBT do best, as expected.
+- **The fused → torch shift is not the limit** (alternative 2). The torch RMS (.87) and inner-CV RMS on fused models
+  (1.06) are comparable; the 5 seeds are easier (.26–.68).
+
+## Claims
+- C1 [measured] With per-class anchor quantities costing ~2.4k FPE (T300's thresholds, tie margins and tangents,
+  median margins), no learner tried (ridge or lasso on 3,600 dims, GBT on aggregates, per-class basis ridge) predicts
+  held-out accuracy better than .855 pp RMS. Nested selection, 45 held-out models.
+- C2 [measured] Adding probe-v1 (~6.3k FPE) gives at best .72 pp, matching T308.
+- C3 [inferred, scoped] For evaluation-based designs that see a model only through these anchor quantities at <= 4k
+  FPE, the strict bar (~.43 pp at 4k) is **information-infeasible**: the information ceiling found here is about 2x
+  the needed error. This covers these feature families and learners, not every possible cheap design (e.g. anchors
+  at other skeletons, or other per-class probes).
+
+## Alternatives not ruled out
+- Other cheap per-class probes (different anchor skeletons, a second tangent direction) might carry information
+  that these do not. Untested.
+- With 40 training models, a learner that needs more data than that cannot be judged here. A larger panel (e.g. HP2's
+  100) could raise the ceiling for high-dimensional learners.
+
+## Compute accounting
+Features: ~2.4k FPE × 85 models (~3 CPU-min). Learners with nested CV: ~5 CPU-min.
