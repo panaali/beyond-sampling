@@ -68,3 +68,7 @@ projection/readout/SSE behavior is finite evidence, not a full numerical proof.
 ## Fixed controls completed
 
 The sole published-gate run passed all10 analytic fixtures and6 guards. It retained all11 input rows, including strict and tie-based agreement worsening, and exact coordinate SSE records. Research CPU 0.03863024300000001 seconds; no trained/model/fit/RNG calls. Raw `controls/results.json` and durable progress are immutable. Independent saved review remains pending; this does not authorize a trained application.
+
+## Independent controls and saved source
+
+Saved controls independently pass8c8f8474/sharedf4a8964d; reviewer-only signed-zero readout comparison correction remains documented. Source-only continuation11ca4ac3 freezes all192 original chunks in `saved.py` and `SAVED_PROTOCOL.md`. These are reused observed panels, not fresh validation. No saved application has run; separate published source/resource and execution gates remain required.
