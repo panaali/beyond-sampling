@@ -13,7 +13,11 @@ semantics; a numerical saved-only contraction requires a separately frozen
 scope and independent source/resource gate before execution.
 
 ## Status
-Source/provenance inventory in progress. Original stage1 is on the published
+Source/provenance inventory independently reviewed by T55 (791b2d5f, shared
+d7893326). All 26 Git-byte/SHA bindings and the two exact face-versus-input
+examples pass; numerical coverage is not covered by that review. The saved-only
+checker/protocol e7b2b358 is published at deb8bc0b and awaits its separate
+source/resource gate before one bounded run. Original stage1 is on the published
 child branch; the manifest distinguishes its ancestry from the shared review
 snapshot. No author/model/MC/RNG/LP/mass calls or numerical coverage contraction
 has been performed by this reviewer. T226 separately audits T223 blind integration;
@@ -33,7 +37,7 @@ zero neural forward/evaluator/random/fit/geometry/LP/mass calls. Historical
 author calls and CPU are distinct from reviewer work and still need inventory.
 
 ## Claims
-Source qualifications only; numerical primary coverage and saved-table
+Independently reviewed source qualifications only; numerical primary coverage and saved-table
 contractions remain unverified by this review. No DRI confirmation or shared
 source adoption. A finite label test cannot exclude every mechanism-aware rule.
 
