@@ -27,7 +27,9 @@ def main():
     for name,commit in [('results.json','c9a03d9d'),('progress.jsonl','c9a03d9d'),('gate.json','c5152b7b')]:
         assert subprocess.check_output(['git','show',f'{commit}:review/cap_saved_utility/{name}'],cwd=REPO)==(A/name).read_bytes()
     for c in ['c9a03d9d','c5152b7b','1a1ea51f','9a95a036']:
-        subprocess.run(['git','merge-base','--is-ancestor',c,'e18cbfaf'],cwd=REPO,check=True)
+        subprocess.run(['git','merge-base','--is-ancestor',c,'e35f8896'],cwd=REPO,check=True)
+    for c in ['c5152b7b','9d5faa2b']:
+        subprocess.run(['git','merge-base','--is-ancestor',c,'c9a03d9d'],cwd=REPO,check=True)
     # Import only our previously reviewed independent rational reconstruction.
     helper=Path(pin['own_helper'])
     spec=importlib.util.spec_from_file_location('own_t200_review',helper)
