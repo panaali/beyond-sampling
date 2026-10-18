@@ -12,7 +12,8 @@ partition dependence, mass uncertainty and gap-condition/provenance requirements
 Prior T231 total-prefix-coverage review is inherited, not rerun.
 
 ## Status
-Written source/proof review pending with recover_34. Owner T239 numerical work
+Bounded written/source review passed bfbdb873, published shared 7d414b2b,
+by recover_34. No numerical execution is authorized. Owner T239 numerical work
 is separate and unchanged. No NPZ/checkpoint/model or numerical calls here.
 
 ## Results
@@ -20,7 +21,7 @@ is separate and unchanged. No NPZ/checkpoint/model or numerical calls here.
 its `rays` field is a count. It does not save uniformly labelled output regions
 or gap intersections. Its wrong-kind tag uses a numerical tolerance. The selected
 GPU export is a strided H8T5 error-simplex subset, not a complete H16T5 corpus.
-[inferred, review pending] Conditional contribution coverage is meaningful for
+[inferred, independently reviewed] Conditional contribution coverage is meaningful for
 a fixed partition but does not establish intrinsic randomness or a complexity
 lower bound: arbitrary subdivision changes counts without changing labels.
 
