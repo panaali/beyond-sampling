@@ -903,3 +903,47 @@ g12 mass. T340c instead integrates g12 with a **K-node Gauss rule for the exact 
 - Hypothesis (T340's diagnostic): orig's ratio rises from .20-.29 toward 1.
 - Alternative: g12 is not the cause, and the ratio stays low. That would point to the fixed v3-v4 link or the lows
   (T340's alternative 1).
+
+## T349 (T340c) results (`python t340c.py gate|run K`, `score_t340c.py`, `results_t340c_*.json`, `t340c.log`)
+**Gate:** T340's variant B reproduces **bitwise** (E1, E2 and FLOPs) on orig, seed0 and seed3, from the pinned
+checkout @620eb47b. K = 1 equals B on E1 for every model, as expected (one Gauss node is the conditional mean).
+
+**Estimate / truth** (T340's T192 GPU truths, float64: orig 1e10, seeds 1e9):
+
+| model | variant | E1(0) | E1(1.0) | E1(1.25) | E1(1.5) | E2(.5) | E2(.75) | C (FPE) |
+|---|---|---|---|---|---|---|---|---|
+| orig | B (T340) | .95 | **.27** | **.20** | **.29** | 2.31 | **10.95** | 320,784 |
+| orig | **K = 3 (primary)** | 1.03 | 1.73 | 1.24 | .49 | 1.30 | 1.61 | 2,738,050 |
+| orig | K = 5 (check) | 1.05 | 1.58 | 1.02 | .84 | 1.29 | 1.65 | 4,528,646 |
+| seed0 | B | 1.00 | .89 | .86 | .65 | 1.38 | 2.06 | 209,565 |
+| seed0 | K = 3 | 1.08 | 1.24 | 1.27 | 1.10 | 1.20 | 1.52 | 1,828,935 |
+| seed0 | K = 5 | 1.10 | 1.25 | 1.23 | 1.02 | 1.21 | 1.53 | 3,034,830 |
+| seed3 | B | .93 | .69 | .73 | .64 | 1.89 | 5.00 | 292,841 |
+| seed3 | K = 3 | .98 | 1.04 | 1.06 | 1.02 | 1.08 | 1.41 | 2,475,913 |
+| seed3 | K = 5 | .99 | 1.00 | .98 | .92 | 1.12 | 1.41 | 4,094,011 |
+
+**Verdict against T340's pre-registered line** (E1, 9 pairs):
+- B: 6/9 within [1/2, 2], and the same 6/9 within [1/3, 3]. That is short of even "partial", which needs >= 6 of 9
+  within [1/3, 3] (my earlier "partial" for B was wrong).
+- **K = 3 (primary): 8/9 within [1/2, 2] and 9/9 within [1/3, 3], i.e. "partial".** orig E1(1.5) is .49.
+- K = 5: **9/9 within [1/2, 2]**, which would be "useful". But K = 5 was the convergence check, not the primary.
+  orig E1(1.0) is still moving (1.73 → 1.58), so K is not converged on orig.
+
+**Diagnosis confirmed.**
+- T340's diagnostic was that the transverse g12 point, not the closure, causes orig's 3.5-5x underestimate. g12
+  integration lifts orig from .20-.29 to .84-1.58.
+- **B's E2 overshoot (2-11x)** comes from evaluating the line at E[g12 | v2] while weighting it with g12 >= t. Putting
+  the g12 nodes on the restricted law fixes most of it already at K = 1 (.95-1.47). A residual one-signed +12-65%
+  remains, rising with t.
+
+**But the cost: F vs sampling at equal compute.** F = ((ratio − 1) p)² C / (p(1 − p)); sampling has F ≈ 1. At C = 2-4.5M
+FPE, sampling would itself see p·C ≈ 1-1,300 events.
+- F < 1 only where p·C <= ~90: orig E1(1.25 / 1.5), and seed0 and seed3 E1(1.5). There it is .00-.58.
+- Elsewhere F = 5-58, i.e. worse than sampling.
+- So the transverse integration makes the estimate *accurate*, but at ~9-14x B's cost it beats sampling only for the
+  rarest events. **The rare-event advantage needs the cost per line to drop, or p to be far smaller.**
+
+Claims [measured, open models, against T340's truths; unverified]:
+- g12 transverse integration fixes T340's orig underestimate and E2 overshoot. K = 3 is "partial", K = 5 is 9/9
+  within a factor of 2.
+- At these costs the method beats sampling at equal compute only on events with p·C ≲ 100.
