@@ -1214,3 +1214,29 @@ Oracle screen on T363's 8 failing models × 4 t (32 E2 cases), 250k exact condit
 
 Claim [measured, oracle; negative (unverified), scoped]: cheap deductive spread-lows closures (<= 28 lines per row)
 reach at most 20/32 E2 cases within 2x on the failing fresh models, short of the 24/32 go.
+
+## T366 pre-registration (DRI, shared with the T286 child; 2026-10-18, before any T366 estimate)
+**Split.** I own the estimator fix. The T286 child owns the events, the truths and the scoring.
+- Development uses T364's three models only: orig, dev3_s526 and dev3_s527. The events are T364's E1(t0) pairs (orig
+  1.75/2.0, s526 3.25/3.5, s527 2.0/2.25), scored against T364's GPU truths (claude/t286-cheap-frontier 4356839a,
+  rare_events/results/t364_truth_gpu.json).
+- After freezing, the T286 child runs a fresh test (dev3_s528-s530 plus one more), with thresholds from a model-free
+  rule.
+
+**The single primary fix: a graded g12 rule clustered at the triple tie.**
+- T364 found that the deep islands sit at g12 < .1 (93% of hits on orig and s527), a sliver that K3's 3 law-nodes
+  cannot resolve.
+- The rule replaces T340c's K-node law rule for g12 | v2 on [0, ∞) with a composite rule:
+  - **2-point Gauss-Legendre on each of [0, .01], [.01, .03], [.03, .07], [.07, .15] and [.15, .4]** (10 nodes), with
+    weights GL weight × φ(v2 + g) / (1 − Φ(v2));
+  - **plus the 3-node exact-law Gauss rule on [.4, ∞)**, weighted by its exact mass (1 − Φ(v2 + .4)) / (1 − Φ(v2)).
+
+  13 nodes in all. Everything else is T364's frozen estimator: the fixed walk, the T354 segment start, T_hi = 6 and
+  T317f's closure.
+- Cost charged as executed. It should be ~13/3 × K3's 0.5-0.6M FPE.
+
+**Development check (not the claim):** est/truth within 2x on the 6 T364 pairs, reported as is.
+- Expected: s527 improves strongly. orig may stay low, because T364 found the R1W closure keeps only 6% of orig's
+  hits, so the closure binds there and this fix does not address it.
+
+**The claim** is the T286 child's fresh test of the frozen code.
