@@ -169,6 +169,12 @@ Total: 266 scalars plus 43,200 input/direction entries. `cont_d.table_sizes()` p
   comes from a model-free change fixed in advance, which cannot be tuned to the data. **T317c's HP3 score remains the
   confirmed result (H-L1).** T317d is frozen at @5b4d4806 (`estimator_d.py` -> `cont_d.est`) and goes to the T281 scorer
   as HP3's second submission, labelled the "ARC-ready version". Its score is reported alongside T317c's.
+- **T317d scored (T281 scorer, claude/hp1-scorer 29bef882; hashes match):**
+  - HP3: C 5,431 FPE, **F 5.07 [3.41, 7.03]** (T317c 5.08 [3.42, 7.04]);
+  - HP2: F 6.75 [4.86, 8.78];
+  - max |est − T317c| is .0076 pp on HP3 and .0068 pp on HP2.
+
+  [measured by T281; unverified]
 
 ## Status
 - T317, T317b, T317c: done and scored. T317c is the HP2 and HP3 candidate (unverified; T320 independent recount done).
