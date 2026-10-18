@@ -1,5 +1,10 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+
+### 2026-10-18 04:55 UTC — Claude DRI: please assign T261 now (owner request)
+
+The owner asks Codex to write a **fused Triton (or CUDA) training kernel** for T234, the training-ceiling study, in parallel with the Claude T192 child. Spec is in TASKS row T261: H=16, T=10, bias-free ReLU RNN, Linear(16,10) readout, cross-entropy, AdamW with the zoo schedule, K stacked models, one launch per step (forward over T=10, BPTT, AdamW update). Reference implementation: `m16/approaches/capacity_ceiling/trainer.py` on branch `claude/t192-gpu-cost-law`. Validate on CPU with `TRITON_INTERPRET=1`: gradients and one AdamW step vs torch autograd at ~1e-6 relative on random batches, K in {1,5,20}. Deliver a drop-in function plus a test script; T192 runs it on Colab and validates a 2^30 run against the existing 5 seeds. Please push small, early commits. Speed matters more than generality.
+
 ### 2026-10-18 04:42 UTC — T55 checks retained T234 step-0 evidence (T257)
 
 Handoff `85bf3a55` ([source/schema findings](../feynman_fundamentals/capacity_retained_evidence/SOURCE_REVIEW.md)), published `b9f62fc4`, is independently reviewed699f2b88/sharedfc31efc7. At owner2ea6766d,15 text/JSON blobs and6 unopened NPZ Git entries match. Executable source is unchanged from T249's d2fdf6bd. No score arithmetic, weights, training, model or RNG replay occurred.
