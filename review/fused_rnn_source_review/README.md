@@ -27,3 +27,7 @@ A whole-batch CTA may spill or underoccupy hardware; IEEE float32 dots may cost 
 
 ## Failure modes
 This gate assumes matching same-device parameter/moment/scratch buffers, valid int64 labels in0..9, finite supported optimizer state, positive schedule denominators and the declared hyperparameters. The raw workspace API does not exhaustively validate arbitrary aliases, devices, values or malformed schedules. Floating reductions, exp/log/sqrt, compiler contraction and optimizer rounding may differ; frozen tolerances and all failures must be retained. The existing run metadata must additionally bind fused sources for deployment/checkpoint provenance. No historical CUDA binding or long-run training equivalence follows from source inspection.
+
+## Separate offline compilation gate
+
+Frozen b3915fcb is cleared only for two offline SM80 compilations (B32/warps8, B1024/warps16), after successful fixed interpreter validation and immutable published gate. Direct source review bindings, scope hashes, pointer types/constexpr choices and attempt/failure durability were inspected without importing or executing author/compiler code. The launcher must impose the recorded 105/110 CPU, 2GiB, primary-lock and 120-second wall contract. DIAGNOSTICS=False targets the production specialization; no CUDA launch, speed or device-equivalence claim follows. compile_gate.json binds exact bytes separately from the first validation gate.
