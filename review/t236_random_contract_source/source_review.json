@@ -1,0 +1,49 @@
+{
+  "task": "T236 independent written proof/domain/source inventory review",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": false,
+  "claim_and_delegation": "84f348a5",
+  "source_commit": "f20b54be",
+  "source_publication": "3228e8aa",
+  "pins": {
+    "/workspace/work/recover-small_h2_34/review/random_control_contract/PROOF.md": "a9c3f9586840934591b9acde4d189aef7114556f4c7c0b27f8419f3755d0533a",
+    "/workspace/work/recover-small_h2_34/review/random_control_contract/PROTOCOL_REVIEW.md": "c4fe625ab189cb318cef62cfd9de6ab960240e6c8f4e0b111d7f1a851797c82b",
+    "/workspace/work/recover-small_h2_34/review/random_control_contract/manifest.json": "a6ebf2ea4878164afc5639d5149ae6c602f88544348fafc8e504e2f587e3de04",
+    "/workspace/work/recover-small_h2_34/review/random_control_contract/snapshot/AUTHOR_README.md": "98f20107c0d8ee174940ad793ba9cfefb05d052fa2332b53813b309d64b07280"
+  },
+  "source_inventory": {
+    "author_revision": "1d6f4db95e90c1159ec0cb8d420344648dd0c7ca",
+    "author_folder": "m16/approaches/random_control",
+    "exact_tracked_paths": [
+      "m16/approaches/random_control/README.md"
+    ],
+    "snapshot_git_blob": "a464801774bb76d88c6ff8bf0f92957a20c142c9",
+    "snapshot_bytes": 3001,
+    "original_git_bytes_and_manifest_verified": true,
+    "absence_scope": "Only the pinned folder at the pinned revision, not later or other author work."
+  },
+  "findings": {
+    "global_scaling": "Induction gives h_prime_t(x)=a*b^(t-1)*h_t(z), z_t=x_t/b^(t-1). Every preactivation has the same positive factor. Invertible diagonal input scaling bijects full-dimensional complete gate histories, including zero ownership. Draw-dependent finite positive scales are allowed pointwise.",
+    "distribution_scope": "Recurrent rescaling changes the Gaussian input law under that map and may change input rank labels, masses, coverage and accuracy. Positive input-only scaling or whole-readout scaling preserves same-input labels. Independent row scaling is not the same operation.",
+    "generic_depth_two": "Fix w with nonzero entries and condition on it. On each first-input half, section u=1 leaves H scalar thresholds. When the active vector is nonzero and projections have independent continuous laws, thresholds are distinct almost surely, yielding H+1 histories. An inactive all-OFF half instead yields two, giving counts 2H+2 or H+3.",
+    "probabilities_and_rows": "Independent centered Gaussian input entries give mixed signs except probability 2^(1-H); H16 counts are 34 and19 with probabilities32767/32768 and1/32768. Independent spherical directions after Gaussian row normalization still have atom-free projections for H>=2 and positive target norms. Conditional independence from w and independence across rows are premises, not consequences of arbitrary normalization.",
+    "pointed_parent": "For any full-dimensional fixed gate history, choose one nonzero input-weight neuron at each time. Its signed preactivation normals form a triangular full-rank family. Their nonnegative inequalities imply a pointed closed history cone; the sum of all inward normals is positive at every nonzero cone point.",
+    "affine_section_bound": "After extrusion by one input, ell(past)=1 gives a convex section of dimension t. Past-origin points have lower dimension and cannot support a new full-dimensional history alone. At most H affine hyperplanes cut the section into sum_{j=0}^{min(t,H)} binomial(H,j) cells. Intersecting with a convex domain cannot disconnect an arrangement cell. Multiply parent bounds from at most two first-step histories. This is an upper bound, not a growth lower bound or higher-depth generic equality.",
+    "permutations": "Consistent hidden coordinate relabeling conjugates the recurrent matrix and adjusts input/readout matrices, preserving function and masses while permuting words. The actual preregistered within-row entry shuffles and entrywise sign flips are different perturbations.",
+    "protocol": "The snapshot specifies five Frobenius and five row-normalized draws plus two recurrent perturbations, optional cheap k5, k4 coverage and diagnostic accuracy. Distinct ensembles, runtime-selected depth inclusion, readout replacement, first-index zero-state ties, source completeness and numerical mass assumptions must remain separate. No author plan changed or numerical evidence accepted."
+  },
+  "alternatives_not_ruled_out": [
+    "Training can affect deeper counts and mass concentration despite generic depth-two saturation.",
+    "Global rescaling may change probability metrics without changing cardinality.",
+    "Aggregation across gate histories can avoid costs of enumerating each history.",
+    "Finite floating geometry, source implementation, RNG and completeness can differ from the ideal exact-real assumptions."
+  ],
+  "author_calls": 0,
+  "model_calls": 0,
+  "numeric_library_calls": 0,
+  "array_decodes": 0,
+  "mass_calls": 0,
+  "rng_calls": 0,
+  "training_calls": 0
+}
