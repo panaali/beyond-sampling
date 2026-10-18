@@ -25,7 +25,7 @@ An implementation that accidentally centers all results would make positive case
 
 ## Resources, provenance and durability
 
-One process only, using the exact launch.sh: codex-review.lock, one thread, 15 internal CPU seconds, 16 soft /20 hard CPU seconds, 2 GiB address-space soft/hard, 25 wall seconds after lock. Python invoked/resolved path and binary digest are frozen in protocol.json. Stdlib exact Fraction arithmetic only; no NumPy, model, checkpoint, RNG, Gaussian, DEV2, HP1/HP2 or source producer imports/calls. Matrix dimensions are at most 4. Calls and rational systems are retained; these are source call counts, not a native-FLOP or deployable fit cost.
+One process only, using the exact launch.sh: codex-review.lock, one thread, 15 internal CPU seconds, 16 soft /20 hard CPU seconds, 2 GiB address-space soft/hard, 25 wall seconds after lock. Python invoked/resolved path and binary digest are frozen in protocol.json. Stdlib exact Fraction arithmetic only; no NumPy, model, checkpoint, RNG, Gaussian, DEV2, HP1/HP2 or source producer imports/calls. Square linear systems are at most 4-by-4; the fixed query matrix has five rows. Calls and rational systems are retained; these are source call counts, not a native-FLOP or deployable fit cost.
 
 Before launch, publish the independent completed source/resource artifact, then a separate immutable gate.json binding every source/protocol file and that review. Verify the successful push before a separate launch tool call. Protocol and gate pin maps are checked independently, and every review pin is checked. The gate must name the published scope and source review. Source-stage metadata checks/AST parsing are allowed; no candidate/reference execution before this sequence.
 
