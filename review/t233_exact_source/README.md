@@ -42,8 +42,10 @@ before their repair; earlier source commits remain preserved.
 
 ## Status and exclusions
 
-Source/resource clearance pending those narrow guards. A completed source_gate
-artifact will name the final pins and exactly one allowed synthetic run. Actual
+Narrow a8b3624f repairs all three findings without changing formulas or fixtures.
+All dependencies/source ancestry were checked, including completed main/gauge
+proof artifacts added in c0b505c3. source_gate.json now clears exactly one frozen
+synthetic run after its immutable published binding. Actual
 soft/hard OS limits must be finite and <=20CPU/2GiB, internal17CPU; one thread,
 review lock, pinned Python, durable no-retry outcomes. Saved-output verification
 belongs independently to T55. No Gaussian constant/CDF, state closure, target

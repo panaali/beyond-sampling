@@ -1,0 +1,78 @@
+{
+  "task": "T233 exact rational scalar/conditional/gauge controls",
+  "reviewer": "Codex recover_34",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": true,
+  "source_versions_reviewed": [
+    "15e9990e",
+    "c0b505c3",
+    "a8b3624f"
+  ],
+  "claim_and_assignment": "291079cc",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/primitive.py": "66297a47d5fc7326ce2c64abec67c4e0554382635077b051d5b895c60ed2159f",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/controls.py": "81047669a99d25dc7d75e47c07c5b1311d03e430008e331b7a6f3d9b5000876a",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/fixtures.json": "59220793432e91dcf1e5e1a7b0825fbdaeedc2d78cc47db3c085fcf248e4ee36",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/PROTOCOL.md": "aded02bd5120cc3bd060ab9f6077364a9ab648289e747452a0ab23db672326cb",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_residual/PROOF.md": "d186c7b74c5dbd422a0be3e6f3be403bd2785b54900aa9459573269dc0b1964c",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_residual/GAUGE_COROLLARY.md": "40ab32fb23f4a1d0dd56aa6afd8c0d7287ef00bef73d520083bd049dffe80dd8",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_residual/HANDOFF.md": "74861068e5ef9bbaf032e2418ce9be6f8a6efa6e21eff1071e513e37321189f1",
+    "/workspace/work/recover-small_h2_56/review/t233_hinge_source/theorem_review.json": "c821e4af74656413a47e47b3872a340c1112504594ca18b2a894e83ec5fba497",
+    "/workspace/work/recover-small_h2_56/review/t233_hinge_source/gauge_review.json": "bce61b68d8f5aff4c895317025d51377ee6e44535aab8b43eb8d74081d8ca3e7",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/protocol.json": "aba133d41c4b1260f233a72a0b19f877d44d93ddd8578904ca38d6543bfef3ef"
+  },
+  "scope": {
+    "cases": 12,
+    "points_per_case": 5,
+    "point_calls": 120,
+    "interval_calls": 60,
+    "scale_calls": 12,
+    "guard_attempts": 8,
+    "nested_successful_conditional_calls": 84,
+    "expected_progress_events": 42,
+    "allowed_attempts": 1
+  },
+  "required_resources": {
+    "soft_cpu_seconds_max": 20,
+    "hard_cpu_seconds_max": 20,
+    "main_scope_cpu_seconds": 17,
+    "soft_and_hard_address_space_bytes_max": 2147483648,
+    "threads": 1,
+    "lock": "/workspace/work/codex-review.lock",
+    "python": "/workspace/clean-neurons/.venv/bin/python"
+  },
+  "pre_run_findings_resolved": {
+    "review_source_binding": "a8b3624f requires direct current primitive/driver/fixtures/protocol pins and rehashes every reviewer pin",
+    "atomic_snapshot": "a8b3624f flushes/fsyncs same-directory temporary then os.replace",
+    "late_failure_status": "a8b3624f resets complete/pass_all in catch-all, including final event timeout",
+    "return_durability": "c0b505c3 saves original/transformed point results individually before subsequent calls",
+    "prior_reviews": "c0b505c3 binds completed independent main/gauge review artifacts"
+  },
+  "checks": [
+    "Exact type guards reject bool/float and require opposite nonzero slopes only for conditional representation",
+    "Pointwise anchor-zero ownership and interval endpoint override match proof",
+    "Triangular area is exact Lebesgue integral; Gaussian density constant remains symbolic",
+    "Positive gauge roots/residual/weighted area identities correct",
+    "All frozen fixture root orders/orientations/narrow/wide/fractional/zero-margin domains checked statically",
+    "Source loop coverage and all runtime/status/durable no-retry guards checked",
+    "All dependency SHA pins and cited source/review ancestry checked"
+  ],
+  "before_run": [
+    "Publish this completed review and a separately immutable execution gate binding its SHA and publication",
+    "Launch set-e with finite soft/hard CPU and address-space limits, one-thread environment and review lock",
+    "Preserve partial/fatal/preflight/launcher outcomes; no retry or fixture change authorized"
+  ],
+  "review_execution": {
+    "author_imports": 0,
+    "candidate_calls": 0,
+    "gaussian_evaluations": 0,
+    "target_model_mass_rng_calls": 0
+  },
+  "exclusions": [
+    "No implementation of numerical Phi/phi or stable conditional expectation",
+    "No trained/closed-Gaussian-state, classifier, target-performance or efficiency conclusion",
+    "Counts are interface calls, not a complete primitive/native arithmetic census",
+    "Independent saved-output review remains T55 and is not supplied by this source gate"
+  ]
+}
