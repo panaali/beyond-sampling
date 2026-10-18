@@ -56,7 +56,7 @@ elif fam == "form":
         for na in (1, 2, 4, 8, 16):
             if ("form", n, na) in DONE:
                 continue
-            t0 = time.process_time(); e, c = R.estimate(ALL[n], dict(R.CFG, n_arr=na))
+            t0 = time.process_time(); res = R.estimate(ALL[n], dict(R.CFG, n_arr=na)); e, c = res[0], res[1]
             emit(fam=fam, model=n, knob=na, rep=0, est=e, err=e - truth(n), cost=float(c), cpu=time.process_time() - t0)
 elif fam == "enum":
     W = os.path.join(ROOT, "m16", "approaches", "width16_probe", "anatomy")
