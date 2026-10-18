@@ -1,0 +1,58 @@
+{
+  "complete": true,
+  "owner_artifact_commit": "21925681",
+  "raw_sha256": "675236a5d3f28b87643163b3dc79e473e8fde55148558578ffcac096edd5bfb9",
+  "initial_failure_sha256": "918121e505a91915fc29555d8456e10164c81007ea31a076df6900ce11eef053",
+  "recovery_protocol_sha256": "d5e3b324a676f8e0c3acc4ae3ffecc08cbb42cd7bfec76bbf7d69e2eb584e700",
+  "checker_sha256": "bfa326840471e6fae0b59fab6b81134d4ce75f71afb4e79efe44ff86e43117b2",
+  "independent_rational_cdf_controls": 5,
+  "predicate_controls": 4,
+  "exact_saved_pair_checks": 72,
+  "models": [
+    {
+      "name": "H4T4seed0",
+      "certified_boxes": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "width_lower_display": 0.08526780093644182,
+      "width_upper_display": 0.08526780093644182,
+      "max_Bernoulli_SE_sample_threshold": 35
+    },
+    {
+      "name": "H8T4seed0",
+      "certified_boxes": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "width_lower_display": 0.04263390046822091,
+      "width_upper_display": 0.04263390046822091,
+      "max_Bernoulli_SE_sample_threshold": 138
+    }
+  ],
+  "reused_controls_once": 9,
+  "candidate_forward_quadrature_calls_in_review": 0,
+  "author_total_attempt_cpu": 0.307063111,
+  "review_cpu": 0.019993405000000006,
+  "qualification": "This proves a lower bound on the width of this zero-anchor/global-absolute-L Chernoff family over disjoint top-two boxes. It does not lower-bound actual prediction error/MSE or exclude tighter conditional methods. Sampling thresholds compare width to maximal standard error, not matched computation."
+}
