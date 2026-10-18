@@ -1,0 +1,43 @@
+family        setting                                L   C(FPE)     Fmax | per group: bias / RMS pp / F
+                                                                                      fused            torch
+branch_bound  budget=1000                            I      182     46.5 |  +4.8/ 5.8/ 46.5  +4.0/ 5.3/ 39.7
+cone_enum     budget=1000                            D     1149    119.3 |  +8.1/ 8.8/119.3  +7.9/ 8.4/114.1
+probe_bisect  iters=12,stride=8,version=1            I      628     21.6 |  +3.3/ 4.0/ 21.6  +3.2/ 3.9/ 21.5
+probe_bisect  iters=8,stride=8,version=1             I      462     22.9 |  +3.5/ 4.1/ 22.9  +3.3/ 4.0/ 22.8
+probe_bisect  iters=8,stride=3,version=1             I     1309     30.4 |  +3.5/ 4.1/ 30.4  +3.4/ 3.9/ 27.9
+probe_bisect  iters=12,stride=3,version=1            I     1784     38.7 |  +3.4/ 4.0/ 38.7  +3.2/ 3.8/ 35.4
+probe_bisect  iters=4,stride=8,version=1             I      297     45.9 |  +5.4/ 5.8/ 45.9  +5.2/ 5.6/ 44.6
+probe_bisect  iters=4,stride=3,version=1             I      834     47.0 |  +5.4/ 5.9/ 47.0  +5.3/ 5.7/ 45.0
+probe_v5a     budget=1000                            I     1009      3.0 |  +1.0/ 1.4/  2.6  +1.1/ 1.5/  3.0
+probe_v5a     budget=4000                            I     4035      5.5 |  +0.8/ 1.0/  5.5  +0.8/ 1.0/  5.2
+probe_v5b     budget=1000                            I     1018      4.3 |  +0.3/ 1.8/  4.3  +0.2/ 1.5/  3.2
+probe_v5b     budget=4000                            I     4074      7.2 |  -0.7/ 1.1/  7.2  -0.4/ 0.8/  3.9
+probe_v5q     budget=1000                            I     1009      1.2 |  +0.6/ 0.9/  1.0  +0.5/ 0.9/  1.2
+probe_v5q     budget=4000                            I     4035      1.3 |  +0.2/ 0.5/  1.3  +0.2/ 0.4/  0.9
+propagation   budget=1000                            D     9440  34801.9 |-43.2/44.5/24891.9-48.4/50.8/34801.9
+rank_exact    Q=8,kgroups=3,stride=16                I     1790     16.9 |  -1.3/ 2.5/ 15.7  -1.2/ 2.6/ 16.9
+rank_exact    Q=8,kgroups=1,stride=16                I      695     24.2 |  -3.1/ 4.2/ 24.2  -2.8/ 3.9/ 21.5
+rank_exact    Q=4,kgroups=3,stride=16                I     1716     25.3 |  -2.2/ 3.3/ 25.3  -2.0/ 3.2/ 25.3
+rank_exact    Q=8,kgroups=3,stride=8                 I     3222     26.4 |  -1.5/ 2.5/ 26.4  -1.1/ 2.3/ 23.6
+rank_exact    Q=8,kgroups=1,stride=8                 I     1252     31.8 |  -3.3/ 4.3/ 31.8  -2.7/ 3.6/ 23.3
+rank_exact    Q=64,kgroups=3,stride=16               I     2826     32.3 |  -1.8/ 2.9/ 32.3  -1.6/ 2.7/ 27.8
+reliability   variant=L0_s4_m02_nosorm               I     2652     17.3 |  +1.2/ 1.9/ 13.0  +1.3/ 2.2/ 17.3
+reliability   variant=L0_nosorm                      I    15795     39.8 |  +1.1/ 1.4/ 39.8  +1.1/ 1.3/ 36.4
+reliability   variant=L0_s8                          I     4557     53.8 |  +1.4/ 2.9/ 53.8  +1.4/ 2.7/ 45.6
+reliability   variant=L0_s4                          I     8854     72.9 |  +1.8/ 2.4/ 66.6  +1.7/ 2.4/ 72.9
+reliability   variant=L0_s2                          I    17577     81.4 |  +1.5/ 1.8/ 80.6  +1.4/ 1.8/ 81.4
+reliability   variant=L0_m02                         I    23436    155.5 |  +2.0/ 2.2/155.5  +2.0/ 2.1/149.5
+t274b_cone    m=2                                    D     1980    312.6 |  -5.8/10.8/312.6  -6.4/10.6/310.2
+t274b_cone    m=1                                    D     1980    356.4 |  -5.7/11.5/356.4  -6.4/11.3/355.2
+t274b_cone    m=0                                    D     1980    359.8 |  -5.6/11.6/359.8  -6.2/11.3/355.5
+
+Pareto (C, Fmax), all labels:
+  branch_bound  budget=1000                            I C=     182 Fmax=   46.51
+  probe_bisect  iters=4,stride=8,version=1             I C=     297 Fmax=   45.92
+  probe_bisect  iters=8,stride=8,version=1             I C=     462 Fmax=   22.92
+  probe_bisect  iters=12,stride=8,version=1            I C=     628 Fmax=   21.59
+  probe_v5q     budget=1000                            I C=    1009 Fmax=    1.16
+Pareto (C, Fmax), deductive only:
+  cone_enum     budget=1000                            D C=    1149 Fmax=  119.31
+  probe_bisect  iters=4,stride=1,version=1             D C=    2504 Fmax=  108.54
+  probe_bisect  iters=8,stride=1,version=1             D C=    3931 Fmax=   76.53

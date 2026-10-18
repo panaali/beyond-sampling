@@ -83,3 +83,38 @@ probe {"iters": 8, "stride": 8, "version": 2} 4.4s
 probe {"iters": 12, "stride": 1, "version": 2} 43.0s
 probe {"iters": 12, "stride": 3, "version": 2} 15.3s
 probe {"iters": 12, "stride": 8, "version": 2} 6.5s
+probe {"iters": 8, "stride": 3, "version": 3} 73.9s
+probe {"iters": 8, "stride": 8, "version": 3} 30.1s
+probe {"iters": 12, "stride": 3, "version": 3} 104.1s
+probe {"iters": 12, "stride": 8, "version": 3} 40.2s
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/cheap_frontier/sweep.py", line 82, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/clean-neurons/m16/approaches/cheap_frontier/sweep.py", line 73, in main
+    e, c, parts = f(m, return_parts=True, **cfg, **kw)
+                  ~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/cheap_frontier/ext_fams.py", line 31, in lb_est
+    _cache[name] = L.load_estimator(name)[0]
+                   ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/user/clean-neurons/m16/leaderboard.py", line 229, in load_estimator
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+                                                 ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1218, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/clean-neurons/m16/approaches/cheap_frontier/m16/approaches/cone_enum/estimator.py'
+/home/user/clean-neurons/m16/approaches/cheap_frontier/ext/probe_v5.py:26: UserWarning: The balance properties of Sobol' points require n to be a power of 2.
+  u = qmc.Sobol(3, scramble=True, seed=seed).random(N)
+v5 {"budget": 1000, "which": "v5a"} 0.6s
+v5 {"budget": 4000, "which": "v5a"} 0.5s
+v5 {"budget": 1000, "which": "v5b"} 0.1s
+v5 {"budget": 4000, "which": "v5b"} 0.3s
+/home/user/clean-neurons/m16/approaches/cheap_frontier/ext/probe_v5.py:137: UserWarning: The balance properties of Sobol' points require n to be a power of 2.
+  u = np.clip(qmc.Sobol(10, scramble=True, seed=seed).random(N), 1e-12, 1 - 1e-12)
+v5 {"budget": 1000, "which": "v5q"} 0.1s
+v5 {"budget": 4000, "which": "v5q"} 0.4s
+tcone {"m": 0} 65.7s
+tcone {"m": 1} 64.8s
+tcone {"m": 2} 62.5s
+Terminated

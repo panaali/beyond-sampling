@@ -76,7 +76,9 @@ and installed editable, as in AGENTS.md. LB3 orig reproduces (0.9538 on 200k vs 
 reproduces 0.93274, observer v4 0.9467, reliability L0 0.97191 (all equal to their LB3 rows).
 
 ## Status
-LB3 done; DEV2 (T284, 80 open retrains) see below. Candidate frozen (`hp2_entry.py`). Unverified.
+Done (LB3 and DEV2). Candidate frozen (`hp2_entry.py`), forwarded by the DRI to the T281 scorer; post-hoc DEV2 entry
+`hp2_entry_b.py`. Scope notes from the DRI (2026-10-18): the observer moved to T292 (its LB3 rows stay; not run on
+DEV2), the frozen-witness rank_exact family is T287's. Unverified.
 
 ## Results (LB3, 30 models)
 Reproduce: `python sweep.py rx; python sweep.py rel; python sweep.py probe; python sweep.py obs; python frontier.py lb3;
@@ -133,6 +135,42 @@ all-deductive one is listed first). Entries: bias / RMS in pp, F.
 overhead of one-sequence forward passes (1 FPE each, counted). No under-count of weight-dependent work was found;
 the observer's own 10.5 FPE per anchor was raised to 11.5 after a FLOP count of `core.map_and_cone`.
 
+## Results (DEV2, 80 open retrains: 40 fused-kernel + 40 torch-trainer, T284)
+Truths: T284's official `truths.json` (1e8 per model, `ext/dev2/`); my provisional 4M truths agree (z sd 1.08).
+Reproduce: `python sweep.py FAM --models dev2` for FAM in rx rel probe v5 tcone, and `lb` run from the repo root
+(`python m16/approaches/cheap_frontier/sweep.py lb --models dev2`, the leaderboard loader uses repo-relative paths);
+then `python frontier.py dev2; python summary.py dev2` (`results/frontier_dev2.txt`, `results/summary_dev2.md`).
+
+| family | setting | label | C (FPE) | DEV2 F_max | fused bias/RMS, F | torch bias/RMS, F | LB3 seed F |
+|---|---|---|---|---|---|---|---|
+| **probe (estimate.py)** | **v1, iters 8, all triples** | **D** | **3,931** | **76.5** | +3.3/3.8, 76.5 | +3.2/3.6, 72.5 | 77.6 |
+| rank_exact (candidate) | Q=8, 3 groups, all triples | D | 25,779 | 131 | -1.6/1.9, 131 | -1.2/1.5, 85 | 112 |
+| rank_exact | Q=8, 1 group, all triples | D | 10,013 | 150 | -2.9/3.3, 150 | -2.5/2.9 | 149 |
+| cone_enum | 1k | D | 1,149 | 119 | +8.1/8.8, 119 | +7.9/8.4, 114 | 121 |
+| T274b root cones | m=2 (lower bound) | D | >=1,980 | >=313 | -5.8/10.8 | -6.4/10.6 | 729 |
+| propagation | 1k | D | 9,440 | 3.5e4 | -43/45 | -48/51 | 2.5e4 |
+| rank_exact | Q=8, 3 groups, stride 16 | I | 1,790 | 16.9 | -1.3/2.5, 15.7 | -1.2/2.6, 16.9 | 15.7 |
+| reliability | L0 stride x4, modes (0,2), no SORM | I | 2,652 | 17.3 | +1.2/1.9, 13.0 | +1.3/2.2, 17.3 | 33.5 |
+| probe (estimate.py) | v1, iters 12, stride 8 | I | 628 | 21.6 | +3.3/4.0 | +3.2/3.9 | 23.4 |
+| branch_bound | <= 64k | I | 182 | 46.5 | +4.8/5.8 | +4.0/5.3 | 48.3 |
+| probe_v5b | 1k | I | 1,018 | 4.3 | +0.3/1.8 | +0.2/1.5 | 1.8 |
+| probe_v5a | 1k | I | 1,009 | 3.0 | +1.0/1.4 | +1.1/1.5 | 1.8 |
+| probe_v5q | 1k | I | 1,009 | 1.2 | +0.6/0.9, 1.0 | +0.5/0.9, 1.2 | 0.1 |
+
+- All-deductive (C, F_max) frontier on DEV2: cone_enum (1.1k, 119) -> probe v1 iters 4 (2.5k, 109) -> **probe v1
+  iters 8 (3.9k, 76.5)**. Nothing all-deductive is within 7x of the lenient bar. Any label: branch_bound (0.18k, 47) ->
+  probe v1 stride 8 (0.3-0.6k, 46-22) -> probe_v5q 1k (1.0k, 1.2).
+- **The LB3 seed group predicts DEV2; the LB3 noise groups do not.** For every family the DEV2 F is close to the LB3
+  seed-group F (rank_exact 131 vs 112, probe v1 77 vs 78, cone_enum 119 vs 121, rank_exact stride 16 16.9 vs 15.7),
+  while F_max over the LB3 noise groups mis-ranks methods (probe v1: LB3 F_max 1042, set by rank-4+ errors that
+  retrained models barely make). The pre-registered rule (LB3 F_max) therefore picked rank_exact; on the scoring
+  distribution probe v1 is better by 1.7x in F. It is frozen post hoc as `hp2_entry_b.est` (selected on DEV2, so DEV2
+  is advice for it; HP2 is clean for both).
+- Retrains have one-signed errors: rank_exact (candidate) -1.39 pp mean, negative on 76/80 models, sd 1.06 pp around
+  that mean; probe v1 +3.28 pp, positive on 80/80, sd 1.73 pp (it does not model 1~2 flips or rank-4+ errors). Both
+  estimates correlate .96 with the truth across the 80 models. A constant offset fitted on DEV2 would leave F ~40
+  (rank_exact) and ~16 (probe v1); that offset is a tuned constant (advice) and is not part of any frozen entry.
+
 ## Candidate for HP2 (frozen, `hp2_entry.py`)
 By the pre-registered rule the candidate is **rank_exact, Q=8, K pooled into 3 gate groups ({0-3}, {4-6}, {7-10}),
 all 720 triples**: `hp2_entry.est(model, budget) -> (estimate, cost_flops)`, deterministic, ~1.53e8 FLOPs = 25.8k
@@ -171,7 +209,10 @@ the canonical inputs, only the 2-3 rival logit rows). Both are untried here.
    rank-4+ errors (up to 10.8 pp on s.02).
 5. [inferred] The pre-registered expectation held, except that the cheapest observer setting is far better on the four
    lighter groups (F 3-8) than expected, and rank_exact needed 26k FPE rather than ~1-3k for its best F_max.
-6. [speculative] On HP2 (retrains) the candidate's F will be close to its LB3 seed-group value (~100).
+6. [measured] On DEV2 (80 retrains) every family's F is within ~20% of its LB3 seed-group F (except rank_exact 3
+   groups: 131 vs 112, and reliability 17 vs 34); LB3 F_max, dominated by heavy-noise copies, mis-ranks methods.
+7. [measured] On DEV2 the best all-deductive setting is probe v1 (estimate.py), 3.9k FPE, F_max 76.5; the candidate
+   rank_exact has 131. [speculative] HP2 F will be close to these DEV2 values.
 
 ## Alternatives not ruled out
 - Settings were chosen on the LB3 test models (advice in leaderboard terms); only HP2 is a clean score.
