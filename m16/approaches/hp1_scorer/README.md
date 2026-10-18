@@ -610,6 +610,15 @@ All five CIs cover 1, so the harness holds.
   5.07 and 6.75. It has about 40% lower cost at nearly the same RMS.
 - [inferred] By the DRI's protocol this is T317f's first and only HP4 score; HP4 is now spent for claims.
 
+## HP5 (T336): received and sealed, reserved
+- Panel: branch `claude/t192-gpu-cost-law` at 1ca58880, `m16/approaches/gpu_cost_law/hp5/`.
+- Hashes verified:
+  - weights, array bytes: `2a375b738c765ae5b461d5f086e621ba743e3fa333a25a1dee8ea1ff8995fbba` (file `e6dac3fb…53a7b`);
+  - manifest: `44ab0968b10f83f808cbabb726677702c9d22a20b3ae0672d05d09dcba99aeb8`;
+  - truths: `b4a1d3f8cad75a3f1ffbdd94be9b3f8ac36566bd1fdc3f7e547d03772583e8e3` (100 models, seeds 400–499, max SE 4.0e-5).
+- No seeds and no identical weights shared with HP2, HP3 or HP4.
+- **Nothing has been run on HP5, not even the control.** It waits for the single submission the DRI names.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
