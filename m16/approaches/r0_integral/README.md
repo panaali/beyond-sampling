@@ -125,3 +125,22 @@ Done (2026-10-18). **DEAD for threshold designs (pre-registered):** no variant r
   per triple. For example, the 2nd-vs-3rd threshold may depend mainly on (p2, p3) and age. Not tried.
 - An exact per-triple 3-D decomposition into R0's linear pieces (R0 is piecewise linear in (v1, v2, v3) except
   through mu(v3)) would be exact, but would cost per piece.
+
+## Addendum (DRI, 2026-10-18): the tighter target, integration RMS <= .25 pp at <= 1.8k FPE
+- The DRI moved the go line after the main result above was known: R0's floor of ~.55 pp leaves room only for
+  C <= ~1.8k FPE.
+- Cheaper variants (`python tb_cheap.py`, `results/tb_cheap.json`): tau23 with 1 anchor and 1 Newton step, with or
+  without the tau12 root and the blind verdict.
+
+| variant | charged FPE | integration RMS (pp) | mean (pp) |
+|---|---|---|---|
+| tau23 only, blind assumed wrong | **1,752** | **1.40** | +0.49 |
+| tau23 + blind verdict | 2,472 | 1.53 | +0.79 |
+| tau23 + tau12, blind assumed wrong | 3,192 | 3.02 | -2.50 |
+| tau23 + tau12 + blind verdict (= (1,1,1) above) | 3,912 | 2.75 | -2.20 |
+
+- **No variant reaches .25 pp at any cost, so the 1.8k target fails too** (1.40 pp at 1.75k, 5.6x the line).
+- The curve is not monotone in cost. Dropping the tau12 root *lowers* the error, because the omitted
+  1st-vs-2nd errors cancel part of the tau23 overshoot. That is cancellation, not accuracy.
+- The ~290 FPE of fixed Gauss-Legendre work sets the floor of the cost axis. Below ~1k FPE only 1 evaluation per
+  triple is affordable, so even the tau23 root does not fit.

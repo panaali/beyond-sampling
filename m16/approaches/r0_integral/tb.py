@@ -81,12 +81,15 @@ def root12(model, tri, v2a, g23a, newton):
     return tau, evals
 
 
-def est(model, n23=1, newton=1, nblind=1, return_parts=False):
+def est(model, n23=1, newton=1, nblind=1, use12=True, return_parts=False):
     tri = r0.TRIPLES; n = len(tri); flops = 0.0
     A = anchors(n23); taus = []
     for a in A:
         t, e = root23(model, tri, a, MF["g12"], newton); taus.append(t); flops += e * n * r0.FLOP_FWD
-    t12, e = root12(model, tri, MF["q"](0.5), MF["g23"], newton); flops += e * n * r0.FLOP_FWD
+    if use12:
+        t12, e = root12(model, tri, MF["q"](0.5), MF["g23"], newton); flops += e * n * r0.FLOP_FWD
+    else:
+        t12 = np.zeros(n)                                       # cheap variant: no 1st-vs-2nd boundary
     # tau23(v2): piecewise-linear through the anchors (constant outside), at the GL nodes
     T23 = np.array([np.interp(V2N, A, [tt[i] for tt in taus]) if n23 > 1 else np.full(G_NODES, taus[0][i])
                     for i in range(n)])                                   # (720, G)
@@ -94,7 +97,8 @@ def est(model, n23=1, newton=1, nblind=1, return_parts=False):
     M = integrand @ V2W
     flops += n * G_NODES * (2 * FLOP_PHI + 12)
     # blind part: one verdict at the blind canonical skeleton (v1 > 0 >= v2), or two (also v1 <= 0)
-    cases = [("blind1", MF["P_b1"] + (MF["P_b0"] if nblind == 1 else 0.0))] + ([("blind0", MF["P_b0"])] if nblind == 2 else [])
+    cases = ([] if nblind == 0 else [("blind1", MF["P_b1"] + (MF["P_b0"] if nblind == 1 else 0.0))]) + \
+        ([("blind0", MF["P_b0"])] if nblind == 2 else [])                 # nblind = 0: blind assumed wrong
     B = np.zeros(n)
     for key, P in cases:
         v = MF[key]
