@@ -276,3 +276,56 @@ They are shared across lines, except for the line subset.
 **Forking paths.**
 - 80 configurations are selected on DEV2, so the selected DEV2 F is optimistic. A sealed HP4 is the only claim.
 - T317e's DEV2 numbers (RMS .79, bias +.44 pp) were known before this grid was chosen.
+
+## T326 step 2 results: DEV2 frontier (`python knobs.py`, `knobs.log`, `results_knobs.json`; ~3.5 CPU-min)
+- Check: (tmax .5, cap ∞, all lines) reproduces T317e bitwise on all 80 DEV2 (estimates and FLOPs).
+- Strict F = RMS² · max(C, 1k) / .074 (RMS as a fraction). T317e itself has strict F **4.68** at 5,490 FPE.
+
+**Pareto frontier (C, strict F) over the 80 configurations:**
+
+| C (FPE) | RMS pp | bias pp | strict F | lenient F | tmax | cap | lines |
+|---|---|---|---|---|---|---|---|
+| 740 | 3.92 | +3.10 | 20.8 | 15.7 | .1 | 0 | nb-g23 only |
+| 742 | 3.13 | +1.38 | 13.2 | 10.0 | .2 | 0 | nb-g23 only |
+| 2,868 | 1.72 | +1.24 | 11.4 | 11.6 | .2 | 4 | drop b-g23 |
+| 3,115 | 1.54 | +.65 | 9.9 | 10.1 | .3 | 4 | drop b-g23 |
+| 3,985 | 1.32 | +.66 | 9.4 | 9.6 | .2 | 4 | all |
+| 4,667 | 1.03 | +.71 | 6.7 | 6.8 | .3 | ∞ | all |
+| **5,490** | **.79** | **+.44** | **4.68** | **4.78** | .5 | ∞ | all (T317e) |
+
+- **Selected (min strict F at C <= 2k):** tmax .2, cap 0, nb-g23 only: C 742, RMS 3.13 pp, **strict F 13.2**.
+- **GO: NO.** The best point is 16x above the .8 go line, far outside the 25% band that would trigger the follow-up.
+- Every cut costs far more error than it saves in cost: **no configuration beats T317e on either F.**
+  - **Cap with a frozen extension:** at tmax .5 with all lines, RMS goes .79 → 2.31 (cap 4), 8.1 (cap 2), 14.5
+    (cap 0) pp, with bias turning strongly negative. Gates flip often inside the window, so a frozen cell
+    misclassifies.
+  - **Dropping lines:** drop b-g23 → 1.35 pp, drop nb-g12 → 2.42, nb-g23 only → 3.07 pp. Each line carries real error
+    mass.
+  - **tmax:** .3 → 1.03 pp, .2 → 1.42 pp. The gap beyond tmax is not negligible below .5.
+- **Structural floor:** with all 3 lines, even zero later cells costs ~2.2k FPE (3 × ~680 prefix tree + readout,
+  plus Φ). C <= 2k therefore forces dropping a line, and the cheapest drop already costs RMS >= 1.35 pp. Strict at 2k
+  needs <= .54 pp.
+
+**Claim [measured, DEV2; negative (unverified)]:** within the pre-registered knob space (tmax, cap with frozen extension,
+line subsets), the T317e family has no DEV2 point with strict F <= .8 at C <= 2k. The best is 13.2. Its cost cannot
+be traded for error: T317e's own point is the frontier's best.
+
+**Exhaustion checklist, variants NOT tried, and why:**
+1. **Per-triple margin or mass screens** (ANAT-80's ~44 triples). They act only on later cells (~3.3k FPE). The
+   prefix-tree floor (~2.2k with 3 lines) remains, so even a perfect screen leaves C ≈ 2.2-2.5k at RMS >= .79, i.e.
+   strict F >= 4.8 at best. It cannot reach the go line.
+2. **Cap with "rest of the window assumed correct"** instead of a frozen extension. Its bias would go positive rather
+   than negative, so it might be milder than the frozen cap. It is bounded below by the same ~2.2k floor, so the
+   same argument applies.
+3. **Per-line knobs.** The same floor argument applies: the prefix trees dominate below ~2.2k.
+4. **Cheaper prefix tree (sharing across lines).** The keys differ (different transverse values and directions), so
+   there is no exact sharing.
+5. **Closure order:** that is lane B's (T327) error route.
+6. **A bias correction** (+.44 pp of the .79 RMS): a DEV2-fitted offset is not deductive. Not done.
+
+Lane A's conclusion: at T317e's error the strict bar needs C ≈ 1k, but this family's deductive cost floor is ~2.2k
+with all lines. The strict route requires a structurally different, cheaper geometry, or the closure fix (T327) to
+cut RMS to ~.5 pp at the current cost.
+
+Forking paths: 80 configurations were selected on DEV2. The negative is robust to selection optimism, since that
+optimism only makes the best point look better.

@@ -1,0 +1,93 @@
+fused_s0 T317e reproduced: True 3
+fused_s1 T317e reproduced: True 5
+fused_s2 T317e reproduced: True 8
+fused_s3 T317e reproduced: True 10
+fused_s4 T317e reproduced: True 13
+fused_s5 T317e reproduced: True 15
+fused_s6 T317e reproduced: True 17
+fused_s7 T317e reproduced: True 20
+fused_s8 T317e reproduced: True 23
+fused_s9 T317e reproduced: True 25
+fused_s10 T317e reproduced: True 28
+fused_s11 T317e reproduced: True 30
+fused_s12 T317e reproduced: True 33
+fused_s13 T317e reproduced: True 36
+fused_s14 T317e reproduced: True 38
+fused_s15 T317e reproduced: True 41
+fused_s16 T317e reproduced: True 43
+fused_s17 T317e reproduced: True 46
+fused_s18 T317e reproduced: True 49
+fused_s19 T317e reproduced: True 51
+fused_s20 T317e reproduced: True 53
+fused_s21 T317e reproduced: True 55
+fused_s22 T317e reproduced: True 58
+fused_s23 T317e reproduced: True 60
+fused_s24 T317e reproduced: True 63
+fused_s25 T317e reproduced: True 66
+fused_s26 T317e reproduced: True 68
+fused_s27 T317e reproduced: True 70
+fused_s28 T317e reproduced: True 72
+fused_s29 T317e reproduced: True 75
+fused_s30 T317e reproduced: True 77
+fused_s31 T317e reproduced: True 80
+fused_s32 T317e reproduced: True 81
+fused_s33 T317e reproduced: True 83
+fused_s34 T317e reproduced: True 86
+fused_s35 T317e reproduced: True 88
+fused_s36 T317e reproduced: True 91
+fused_s37 T317e reproduced: True 94
+fused_s38 T317e reproduced: True 97
+fused_s39 T317e reproduced: True 99
+torch_s0 T317e reproduced: True 102
+torch_s1 T317e reproduced: True 104
+torch_s2 T317e reproduced: True 107
+torch_s3 T317e reproduced: True 109
+torch_s4 T317e reproduced: True 112
+torch_s5 T317e reproduced: True 114
+torch_s6 T317e reproduced: True 117
+torch_s7 T317e reproduced: True 120
+torch_s8 T317e reproduced: True 123
+torch_s9 T317e reproduced: True 125
+torch_s10 T317e reproduced: True 127
+torch_s11 T317e reproduced: True 129
+torch_s12 T317e reproduced: True 131
+torch_s13 T317e reproduced: True 133
+torch_s14 T317e reproduced: True 137
+torch_s15 T317e reproduced: True 139
+torch_s16 T317e reproduced: True 141
+torch_s17 T317e reproduced: True 144
+torch_s18 T317e reproduced: True 146
+torch_s19 T317e reproduced: True 149
+torch_s20 T317e reproduced: True 151
+torch_s21 T317e reproduced: True 154
+torch_s22 T317e reproduced: True 157
+torch_s23 T317e reproduced: True 159
+torch_s24 T317e reproduced: True 161
+torch_s25 T317e reproduced: True 164
+torch_s26 T317e reproduced: True 166
+torch_s27 T317e reproduced: True 169
+torch_s28 T317e reproduced: True 171
+torch_s29 T317e reproduced: True 173
+torch_s30 T317e reproduced: True 175
+torch_s31 T317e reproduced: True 178
+torch_s32 T317e reproduced: True 181
+torch_s33 T317e reproduced: True 184
+torch_s34 T317e reproduced: True 186
+torch_s35 T317e reproduced: True 188
+torch_s36 T317e reproduced: True 191
+torch_s37 T317e reproduced: True 194
+torch_s38 T317e reproduced: True 197
+torch_s39 T317e reproduced: True 199
+T317e reproduced on all 80: True
+
+Pareto frontier (C, strict F):
+  C     740  RMS 3.920  bias +3.098  F_strict 20.767  F_len 15.68  tmax 0.1 cap 0 nb23_only
+  C     742  RMS 3.128  bias +1.379  F_strict 13.221  F_len 10.01  tmax 0.2 cap 0 nb23_only
+  C    2868  RMS 1.715  bias +1.239  F_strict 11.393  F_len 11.63  tmax 0.2 cap 4 drop_b23
+  C    3115  RMS 1.536  bias +0.652  F_strict 9.925  F_len 10.13  tmax 0.3 cap 4 drop_b23
+  C    3985  RMS 1.324  bias +0.655  F_strict 9.443  F_len 9.64  tmax 0.2 cap 4 all
+  C    4667  RMS 1.030  bias +0.712  F_strict 6.695  F_len 6.83  tmax 0.3 cap None all
+  C    5490  RMS 0.794  bias +0.444  F_strict 4.682  F_len 4.78  tmax 0.5 cap None all
+
+selected (min strict F at C <= 2000): {'tmax': 0.2, 'cap': 0, 'subset': 'nb23_only', 'C': 742.1202505043713, 'rms_pp': 3.127885344037019, 'bias_pp': 1.3785427474880148, 'F_lenient': 10.012776245218815, 'F_strict': 13.221171250596727} 
+GO: False
