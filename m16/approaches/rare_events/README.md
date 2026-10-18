@@ -609,3 +609,19 @@ committed only after that, in `results/t366_truth_{gpu,cpu}.json`:
 - **Go for the fix:** est / truth within 2x on >= 7/8, AND closer to the truth than K3 (smaller |log(est / truth)|) on
   >= 6/8.
 - **Reported:** both estimators' est / truth, C, and the expected number of events plain MC sees at each C.
+
+## T367 change of plan (DRI, 17:01; truth-blind selection). Pre-registration addendum, before any run on these models
+This replaces T192's sealed selection. Both estimators are frozen as above.
+
+**Truth-blind selection rule:**
+1. Models: dev3_s532 ... dev3_s547 (16 unused DEV3 models).
+2. Per model, K3 on the grid t0 in {1.75, 2.0, ..., 3.5}. The candidate t0s are those with a K3 estimate in [1e-9, 1e-8].
+   If fewer than 2 qualify, take the 2 grid points nearest to 3e-9 in |log10|.
+3. The fix (@5b4a1250) is run on each model's candidate t0s. Disagreement d = |log(fix / K3)|.
+4. Per model, keep its 2 candidates with the largest d. Model score = the mean d of those 2. The 4 top-scoring models
+   give the **8 pairs**.
+5. Both estimators' outputs for all 16 models are committed and pushed **before** the pairs go to T192 for sealed
+   conditional-law truths (>= 1e9 conditional samples per pair). The truths are unsealed only after that commit.
+
+**Go for the fix:** within 2x on >= 7/8 AND closer to the truth than K3 (smaller |log(est / truth)|) on >= 6/8.
+Selecting on disagreement guarantees that the two differ on these pairs; the test is which one is right.
