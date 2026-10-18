@@ -137,3 +137,17 @@ and circuit lower bounds (Impagliazzo-Kabanets-Wigderson; Williams). Uncondition
 query access, e.g. deterministic convex-body volume (Elekes; Bárány-Füredi). So the obstructions above are empirical
 statements about the methods tried, not theorems about M_16,10.
 
+## 7. Is the error part "shattered"? (T239)
+Owner's hypothesis: the correct part is simple, and the error part is shattered like a random network and makes the
+region counts. Pre-registered tests (T194 branch, m16/approaches/shatter_test/README.md, rules at 1cd671cc; unverified):
+- **Error vs correct coverage** (final exact leaves, zoo seed 0): at T = 4, the cells covering 99% of the error mass are
+  1.17x (H = 8) and 0.75x (H = 16) those for 99% of the correct mass. So not more spread at T = 4 (rule: >= 3x; not supported).
+  But from T = 3 to 4 the error coverage grows x24.9 / x44.3 vs x8.3 / x18.4 for correct, 2.4-3x faster [measured].
+- **Where the cells are:** cells per unit mass are 26-27x higher within angular distance 0.05 of a class-changing tie than
+  beyond 0.1, at T = 4 (14-19x at T = 3) [measured; supported].
+- **Against random weights** (prefix k = 4): the trained net concentrates regions at ties (near/far 44x) while 10 random
+  draws and 2 scrambled controls do not (1.3-6.6x). Near ties it is 2-11x *more* fragmented than random, and far from ties
+  4-9x coarser [measured; supported].
+Verdict: the complexity sits at the tie walls, is created by training, and grows with T. It is not random-like:
+training *moves* regions from the bulk to the ties at about the same total count (T232). A method that wants to beat
+enumeration must treat the tie-wall layer, whose cell count grows fastest, without resolving it cell by cell [inferred].
