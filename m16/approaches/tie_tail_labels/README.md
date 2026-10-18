@@ -230,3 +230,67 @@ mass-ordered, best-first exact enumeration with exactly known uncovered mass cou
      N_delta / count.
   2. Slow growth at large delta but fast growth at small delta (a heavy tail of small regions), which would kill
      exact enumeration even if exp-entropy grows slowly. Compare g across delta.
+
+## Method (part 2)
+- `prefix_blind.py 4 --full --dump` (`run_full.sh`): the Part 1 LP cone-splitter on all 2^k orthant cones, cells
+  pickled to `data/` (git-ignored).
+- `prefix_mass.py` (`run_mass.sh`):
+  - extreme rays by batched cofactor null vectors of all (k-1)-row subsets;
+  - simplicial cones: fan for k=3, Delaunay of the section c.x = 1 for k=4;
+  - orthant probabilities from **robust facet-normal angles** (2 atan2(|a-b|, |a+b|), so asin(C_ij) = pi/2 -
+    theta_ij without cancellation): k=2 and k=3 in closed form, k=4 by Plackett's identity written per pair with
+    rho = sin(phi). Gauss-Legendre with 48 and 96 nodes; where the two disagree by > 1e-13, a composite
+    Gauss-Legendre graded geometrically toward the endpoint (45 levels x 12 nodes).
+- Checks:
+  - `check_orth4.py`: P4 vs a second Plackett path (from Y_4 decoupled), agreement 1e-16 on ordinary cones.
+  - Graded rule vs breakpoint-adaptive quad: <= 5e-14 on cones with rays 1e-2 to 1e-7 apart. Plain quad and Genz
+    (scipy mvn) are both off by up to 1e-8 there.
+  - P4(rho = 1/2) = 1/5 exactly.
+  - `check_mass_mc.py`: per-region masses vs 2e6 samples.
+- First attempt (plain asin of (R^T R)^-1 correlations) lost ~7e-10 per thin simplex and gave a negative region at
+  k=3. Replaced, and kept in the git history.
+
+## Results (part 2) — `results/prefix_mass.json`, `run_mass.log`
+
+| k | regions (T192) | mass sum - 1 | N_1e-2 | N_1e-3 | N_1e-4 | N_1e-5 | N_1e-6 | exp-entropy | N_1e-5 / regions |
+|---|---|---|---|---|---|---|---|---|---|
+| 2 | 34 (34) | -9e-16 | 22 | 31 | 33 | 34 | 34 | 12.3 | 1.00 |
+| 3 | 792 (792) | -3.5e-14 | 201 | 388 | 527 | 634 | 708 | 65.9 | 0.80 |
+| 4 | 21,032 (21,032) | -2.7e-10 | 1,737 | 4,018 | 7,021 | 10,233 | 13,165 | 301.7 | 0.49 |
+
+| step | g_1e-2 | g_1e-3 | g_1e-4 | **g_1e-5** | g_1e-6 | regions | exp-entropy |
+|---|---|---|---|---|---|---|---|
+| 2 -> 3 | 9.1 | 12.5 | 16.0 | 18.6 | 20.8 | 23.3 | 5.4 |
+| 3 -> 4 | 8.6 | 10.4 | 13.3 | **16.1** | 18.6 | 26.6 | 4.6 |
+
+The smallest k=4 region mass came out at -2.7e-11 (rounding). The k=4 mass sum is within the 1e-9 validation bound.
+Sampling check: k=3 z-scores over 212 regions with mass > 1e-4 have mean -0.02 and s.d. 1.01 (max 2.65), and no
+sampled gate word falls outside the exact regions. k=4: CHECK4.
+
+**Verdict (pre-registered lines): NOT GO.** g_1e-5(3->4) = 16.1x, far above the 6x go line. It sits between go and
+the ~20x dead line, so formally **inconclusive, leaning dead**.
+- **Exp-entropy replicates T217.** It grows x5.4 and then x4.6 per step. But N_delta grows 3-4x faster than
+  exp-entropy at every delta <= 1e-3. That is alternative 2: a heavy tail of small regions, so a slowly growing
+  effective number of regions does not mean a slowly growing covering set.
+- **Growth rises steeply as delta shrinks** (8.6x at 1e-2 up to 18.6x at 1e-6 at k=4). An exact method that must
+  know the uncovered mass to ~1e-5 pays close to the full count growth.
+- **Saturation (alternative 1) inflates nothing here; it deflates.** At k=2 every region is needed (N/regions = 1),
+  so g(2->3) is capped by the count, and g(3->4) is the cleaner number. The slight fall from 18.6 to 16.1 may be
+  partly this. N/regions falls from 0.80 to 0.49, so k=4 is the first unsaturated step.
+- [inferred] Extrapolation, not measured: at ~16x per step from k=4, N_1e-5(k=10) ~ 1e4 x 16^6 ~ 2e11 regions.
+  Even at 10x per step it would be ~1e10. Best-first exact enumeration does not look feasible on its own.
+- What would separate inconclusive from dead: g_1e-5 at k=5 (~632k regions). With this LP code that is ~30-40
+  CPU-hours; T192's geometry stack does it in ~0.5 CPU-hour, but its masses would be needed. If g(4->5) <= 10x,
+  the route is still alive for a hybrid method (exact top regions plus a bounded remainder). If ~16x or more, it
+  is dead.
+
+## Compute (part 2)
+- Enumeration: 414k LPs, about 21 CPU-min.
+- Masses: k=4 had 146,714 simplices, nearly all on the graded rule, 11 CPU-min for k = 2-4.
+- Checks: a few CPU-min. Single thread throughout.
+
+## Claims (part 2, unverified)
+- [measured] Region counts 34 / 792 / 21,032, identical to T192, with independent code.
+- [measured] Exact Gaussian region masses sum to 1 within 2.7e-10 (k <= 4).
+- [measured] N_1e-5 = 34 / 634 / 10,233. Growth 18.6x and 16.1x per step. Exp-entropy growth 5.4x and 4.6x.
+- [inferred] Mass-ordered exact enumeration of prefix regions does not escape the count growth at delta ~1e-5.
