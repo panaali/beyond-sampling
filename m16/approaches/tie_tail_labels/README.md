@@ -135,14 +135,27 @@ positions). On the target relpos gives 0.044 oos at L100, so relative positions 
   the number of pairs at each distance.
 
 ### Blind sub-test (`results/prefix_blind.json`)
-BLIND_RESULTS
+Exact activation regions of the target's k-step prefix, restricted to inputs with at most one positive x_i
+(i < k). For comparison, the unrestricted counts are T192's, which my counter reproduces at k=2 and 3.
+
+| k | blind regions | growth | full-space regions (T192) | growth |
+|---|---|---|---|---|
+| 1 | 2 | - | 2 | - |
+| 2 | 25 | 12.5x | 34 | 17x |
+| 3 | 406 | 16.2x | 792 | 23x |
+| 4 | 7,687 | **18.9x** | 21,032 | 26.6x |
+
+**No-go** (threshold <= 4x per step). Inside the blind region the prefix still branches 12-19x per step, and the
+growth rate is rising, approaching the full-space rate (~25x). Being blind to magnitude rank does not make the
+network's gating simple there: the negative inputs still drive the Wi<0 neurons through many gate patterns. k=5 was
+stopped for cost (estimated ~2.5M LPs, ~2 CPU-hours). Reproduce: `./run_blind.sh` (stop after k=4).
 
 ## Compute accounting
 - Unit: one forward pass of the length-T sequence. Walk cost is counted as in sci_tao (2(T - restart)/T per cell).
 - Tail runs: 8 models x 2 rules x 2^15 faces, about 1e6-1e7 pass-equivalents, plus tail re-walks (~3e5).
   Wall time ~2.5 min single thread.
 - blind_split: 8 x 2^15 faces, ~1 min.
-- Prefix LPs: BLIND_LPS LPs (k <= BLIND_K). The full-space validation at k <= 3 took 16k LPs.
+- Prefix LPs: 143k LPs (k <= 4, ~6.5 CPU-min). The full-space validation at k <= 3 took 16k LPs.
 - Total under 1 CPU-hour. No sampling-based inputs: deterministic Sobol rules over faces (quadrature class).
 
 ## Claims (all unverified; for the DRI)
@@ -157,6 +170,7 @@ BLIND_RESULTS
 - [measured] Leading labels are model-specific: orig's top-100 mech labels cover 0-0.3% of the copies' tails.
 - [inferred] A dedicated deterministic rule per mechanism family would at best re-stratify the face integral. With
   the heavy tail inside each family it would not beat sampling by more than the existing 1.3-1.7x class.
+- [measured] Blind sub-test no-go: blind-restricted prefix regions grow 12.5x, 16.2x, 18.9x per step (k=1..4).
 - [speculative] Removing the blind region exactly (an exact or analytic treatment of its 1.07% mass) could still
   cut the face second moment by up to ~2.5x on orig (60% of it). That is a variance reduction, not a mechanistic
   estimator, and it only helps on low-noise copies (8% on s0.01).
