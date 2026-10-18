@@ -4,6 +4,13 @@ Status of every claim: **[measured]** or **[inferred]**, and **verified** (indep
 **unverified**. Sources are `branch@commit, file`. Branches: shared = `ccr-6a61f25c-wn80ii`; T194 = `claude/t194-width16-probe`
 (this file); T192 = `claude/t192-gpu-cost-law@e5a40128`; T218 = `claude/t218-tie-tail-labels@8645f749`.
 
+## Executive summary (DRI, 2026-10-18)
+1. **Not solved.** No deterministic method we know beats sampling on M_16,10. The best deterministic number is ~1.1-1.3x better than sampling, on the clean target only, with a fixed node set (quadrature class) (§4).
+2. **Per-region methods cannot scale.** The target's exact prefix regions are 34 / 792 / 21,032 for k = 2-4, **confirmed by an independent exact-arithmetic recount**, then 632,394 at k=5 and ~2.3e7 at k=6, growing ~x23-30 per step. Covering all but 1e-5 of the probability needs ~x15-19 more regions per step (confirmed for k <= 4). Extrapolated to T=10: ~1e10-1e13 regions (§3.2-3.4).
+3. **Training does not reduce the region count** (it matches norm-matched random weights); it *moves* regions from the bulk to the tie walls, where the trained net is finer than random (§6-7).
+4. **Constant-factor savings** (cheaper start, pruning, merging, symmetry, event words, labelled tails, certificates) do not change the growth (§3.5).
+5. **What a solution must do:** describe the probability of the tie-wall band compactly without resolving its regions. That is untested ground (§5).
+
 ## 1. The question and the bar
 Estimate the accuracy of the 432-parameter 2nd-argmax RNN M_16,10 (`alg_zoo.example_2nd_argmax()`, accuracy
 0.95313575 ± 3.7e-5 from 3.2e7 samples). **Answer key: 0.9531174789 ± 3.9e-7** from 3e11 float64 samples in independent
@@ -72,12 +79,22 @@ replication (T218 child: LP cone-splitter + robust-angle masses; claude/t218-tie
 README.md Part 2) gives regions 34 / 792 / 21,032 and k = 4 N_delta 1,737 / 4,018 / 7,021 / 10,233 / 13,165 (T194: 13,164).
 The DRI marks the k <= 4 coverage CONFIRMED [measured, **verified**].
 
+*Which precision is required (review A1).* N_1e-5 is the wrong yardstick. A region-by-region method with N regions and
+d = 10 cone masses costs >= ~1e6 FLOPs per region (d = 5 is already 5e4-1.7e5 per simplex, ~6 simplices per leaf; §3.3). At
+N ~ 1e10 that is >= 1e16 FLOPs, where sampling's SE is ~1.6e-7. So the uncovered remainder must be bounded to ~1e-7, and the
+deep decades are the ones whose growth rises with k. An *exact* method meets "MSE <= sampling at its own cost" trivially,
+so the exact route is purely a feasibility question: the full count with a remainder < 1e-7, at d = 10 mass cost. The
+evidence for the growth is thin in both directions. The verified coverage factor is one unsaturated step (k = 3 -> 4,
+x16.1; 2 -> 3 is capped because N = regions at k = 2) plus the unverified 4 -> 5 (x14.9), falling ~8%/step, so six-step
+extrapolations are weak (3e10 to 2e11 at N_1e-5). The deciding numbers are g(5 -> 6) and g(6 -> 7) at delta ~1e-7. k = 6 full
+masses (2.3e7 regions, d = 6) are feasible on the GPU already used and were not computed [inferred; review A1].
+
 **3.5 Structural savings found so far are constant factors.**
 
 | idea | saving | status, source |
 |---|---|---|
 | truth-cone start (2T(T-1) cones instead of 4·T! chambers) | lossless; 0.67x / 0.76x ops at (8,4) / (16,4); chambers ~10% of log-growth | [measured, unverified] T192 §5; T194 "T206"; shared@ab532a27 review/chamber_split |
-| oracle skip of small-error leaves (bias <= 1 sampling SE) | <= 1.9x (8,4), 3.8x (16,4); 4.8x with truth start. An upper bound: a real method must bound each cell | [measured, unverified] T194 "T206" |
+| oracle skip of small-error leaves (bias <= 1 sampling SE) | <= 1.9x (8,4), 3.8x (16,4); 4.8x with truth start. An upper bound for a *certified* method, which must bound each cell (but ARC's bar is empirical MSE, not a certificate; see §5) | [measured, unverified] T194 "T206" |
 | merging same-history leaves / same-future cells (T188) | exact merged cells 0.59-0.82x at T = 3-4 (T = 10 extrapolation 2-5x at H = 16); T188 counts with no savings claim | [measured, unverified] review/chamber_split; shared TASKS T188 handoffs b9a6b5df/3ee0667b |
 | budgeted pruning by cell mass (T195 phase 2), (8,4) 5 seeds, tau 1e-4..1e-8 | cap bound: bound^2 ratio < 1 on all seeds only at tau <= 1e-7, where 93-97% of cells are retained and T3 -> T4 growth stays x27-28. Exact-mass pruning: growth x20.7-23 but ratio_B >= 1.71 at 1e-7 and ~2.3x the FLOPs. No certified setting slows growth | [measured, unverified] claude/t195-split-attribution@5d58cd51, split_attribution/prune_report.md |
 | weight symmetry (T216) | none: no permutation symmetry; projecting the near-collinear incoming rows {1,6,7,8; 4 anti} costs 79 pp (8.9 pp for the closest pair) for <= 2.7x fewer regions, growth still >= x16/step | [measured, unverified] T194@ee01b49 "T216" |
@@ -86,8 +103,13 @@ The DRI marks the k <= 4 coverage CONFIRMED [measured, **verified**].
 | rank-coordinate certificate (T189): fixed zero-anchor / global-absolute-envelope Chernoff family | exact width floors .0853 (H4T4) / .0426 (H8T4 seed 0); sampling's maximal SD is smaller at every budget >= 7630 / 94116 FLOPs, even with the certificate free. A limitation of this family only, not an MSE lower bound | [measured, unverified] shared@8269963f TASKS T189 backlog row; conditional_order_bounds/box_mass/HANDOFF.md |
 | T189 local affine follow-up (same models) | reported, final saved review pending: enclosures [.071, .866] (H4T4) and [.068, 1] (H8T4), > 10x sampling SD at 1e7 FLOPs; crossover 8720 / 19778 FLOPs | [measured, unverified, review pending] shared@f18320b2, conditional_order_bounds/local_certificate/README.md |
 
-**3.6 Noise does not change this.** At T = 4 the noisy copies (relative sigma .005-.02, ARC absolute .05) have 0.94-1.21x
-the clean regions and 0.94-1.33x the ops [measured, unverified; T192 §7]. Not tested at larger T.
+**3.6 Noise does not change the region count, but it changes where the error is.** At T = 4 the noisy copies (relative
+sigma .005-.02, ARC absolute .05) have 0.94-1.21x the clean regions and 0.94-1.33x the ops [measured, unverified; T192 §7;
+not tested at larger T]. Counts are the wrong invariant, though (review A3). Every exploitable structure found (tie-wall
+concentration, the blind region's 60% of the face second moment, the 1.1-1.3x of §4) is a clean-model fact. On the relative
+sigma .01 copy the blind share is 8% and 65% of the tie-slicing tail sits at u > 0.5 (T218). At ARC's absolute sigma .05
+(its M_4,3 panel level) six copies of M_16,10 have accuracy **0.12-0.28** (2e5 samples each; T271 check), so the errors are bulk errors.
+No tie-band method addresses that regime [measured, unverified].
 
 **3.7 Region counts in earlier tables were understated.** The 2e5-sample lower bound missed up to 92% of regions:
 (8,5) zoo0 has 42,322 exact regions, against 3,433 sampled. Restated against exact counts, recipe cells/regions are 0.99 / 1.99 /
@@ -103,9 +125,20 @@ summary's "sci_tao 0.03 @ 256k on orig" is one lucky run (0.99 / 1.56 over scram
 [measured, unverified; T194@2809650d m16/approaches/tie_blind/README.md].
 
 ## 5. What a successful method must do, and what is untested
-**Must** [inferred]: aggregate across regions rather than visit them. ~1e13 linear regions, and covering 1 - 1e-5 of the
-mass alone needs ~1e11. The error is not a few families but a continuum of rare tie-band events (T218), spread over many
-gate words per mechanism-level event word (T217). The answer must therefore come from a quantity that is smooth across
+**First, the regime** (review A3): the clean target and a noisy panel are different problems. Tie-band structure exists only
+on the clean model and at small relative noise. At ARC's absolute noise level the copies make bulk errors (accuracy 0.12-0.28).
+A method must state which regime it targets.
+
+**Must** [inferred]: aggregate across regions rather than visit them. ~1e13 linear regions, and an exact route needs the full
+count with a remainder < ~1e-7 (§3.4). The error is not a few families but a continuum of rare tie-band events (T218), spread
+over many gate words per mechanism-level event word (T217). It is also not confined to the band (review A2). ~86% of the error
+is within tie distance 0.05 or in the blind region, but **~14% is a soft tail** in mixed leaves far from ties: 3.1e-4 of
+2.13e-3 at (16,4) zoo0 (T239), and at T = 10 the far 80% of mass errs at 0.83%, i.e. 0.67 of 4.7 pp (T241). The gap-binned
+error rate decays smoothly, with no band edge. A band-only method that leaves the far part to a bound leaves ~0.67 pp, about 40x
+the sampling SE at 1e10 FLOPs.
+**Design rule** (review A6): ARC scores empirical MSE on a panel, not certificates. Certified bounds have been 10-100x and more
+above the actual error (T195: cap tau 1e-5 at (8,5), bound ratio 6e6 vs actual 0.019). Uncertified truncation and pruning rules
+should be judged by their measured MSE. The answer must therefore come from a quantity that is smooth across
 regions (a bound or an expansion in the order statistics, the clock phase or the margins) and be certified to ~16/sqrt(C).
 Region-by-region methods inherit >= x16/step.
 
@@ -155,3 +188,12 @@ Verdict: a large coherent correct part and a thin, fragmented error layer at the
 with T. It is not random-like: training *moves* regions from the bulk to the ties at about the same total count (T232). The
 correct part is coherent only as a union of many linear pieces, so certifying it needs a bound on a nonlinear map. A method that beats enumeration must handle the
 fast-growing tie-wall layer without resolving it cell by cell [inferred].
+
+## 8. How far the neuron-level account reaches (T241, added by the DRI 2026-10-18)
+Source: `claude/t241-neuron-account@e3d0a0de`, m16/approaches/neuron_account/README.md. Independent review: `claude/t218-tie-tail-labels`, review/neuron_account/README.md. Core confirmed, details qualified.
+- **Causal roles.** Every neuron except n9 is individually necessary late. On-manifold conditional resampling at t=10 costs 48-54 pp (comparators), 24-35 (clocks), 27 (n2) and 18-26 (n3/n13/n15), while n4, n5 and n9 matter little at the last step [measured, unverified].
+- **Formulas.** Comparators, n4 and n2 fit at held-out R^2 >= .999 from hinge cells on the top-2 ages; clocks need the ages of the top 2-3 (.93-.99) [measured; reproduced by the review within .003].
+- **Replacing all 16 at t=10.** Agreement with the network is .955-.966 (implementation-dependent), against a pre-registered .99 target, which is missed. 99% agreement would need 1-R^2 ~1e-5 per neuron [measured, **confirmed** by independent review]. The accuracy match is not robust (+0.11 vs +0.82 pp).
+- **Recurrent variant.** Set h_t0 to the formulas, then run the true recurrence: agreement is 1.000 for t0<=2, >=.990 through t0=7, then .983/.978/.955 for t0=8/9/10 [measured, unverified]. The description is faithful except over the last 2-3 steps, where state errors reach the near-tie readout (the blind region degrades first).
+- **Where the disagreements are.** About 79-85% sit in the ~20% of mass near ties (gap < .05) or in the blind region [measured, **confirmed**].
+- **Reading.** Quantitatively, the mechanism is understood except exactly where accuracy is decided. This matches section 7 (complexity at the tie walls) [inferred].
