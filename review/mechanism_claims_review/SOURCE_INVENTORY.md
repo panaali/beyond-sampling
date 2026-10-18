@@ -54,6 +54,13 @@ summary. Neither prose supplies a complete mutually exclusive table or counts.
 The marginal percentages cannot reconstruct the requested case-by-pick cross-tab;
 blind inputs can intersect each x9-case, so a new table must either include a
 separate blind axis or state an explicit precedence before summing categories.
+The displayed FINDINGS categories sum to about4.68%, close to its4.69% total;
+the shorter RESULTS list (.82+2.14+.52+.27) sums to3.75%, about.94 percentage
+points short of that total. These rounded prose contractions are not a recovered
+cross-tab, nor proof the underlying samples/partitions were identical. They
+motivate retaining the case0/1 contribution rather than silently dropping it.
+Also “head third” and “global third” can differ when x9 falls between the head's
+second and third values; the rebuilt table must define which ranking it uses.
 
 A future fixed holdout should retain joint integer counts indexed by K=0/1/>=2,
 x9 case0/1/2, and predicted GLOBAL rank1..10; this conserves every sample and
