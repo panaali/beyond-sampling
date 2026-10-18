@@ -1,0 +1,3 @@
+# Final T221 source gate
+
+Source b2cb6413 closes the prerequisite gap before execution: both pin maps are checked independently, the prior completed raw audit is bound, and the current passed source review plus publication is mandatory. No numerical AST or fixtures changed. source_gate.json records one fixed 4+3+1 control attempt, 20CPU/2GiB, after immutable gate publication. Static tree equality was checked without importing the author. Expected requested/returned candidate counts are 500000/400000 for these prescribed streams; this is no Gaussian cost claim. Independent saved review is still required.
