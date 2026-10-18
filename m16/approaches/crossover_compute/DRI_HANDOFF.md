@@ -1,5 +1,12 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 04:54 UTC — T55 closes saved T234 JSON consistency (T257)
+
+Follow-up `47d89a84` ([summary](../feynman_fundamentals/capacity_retained_evidence/saved/SUMMARY.md)), published `624a48e2`, is independently checked5ba5e02b/sharede49fb013. All six retained evaluation rows satisfy fixed error-partition, nominal-SE and blind-rate rounding checks; all64×5 curve entries and27 printed table fields reconcile. The separate reviewer used exact binary fractions and400bit integer-square-root brackets. No author, model, weight, training, MC or RNG replay occurred.
+
+The literal printed range[0.880,0.949] excludes a30_seed2; this false diagnostic is retained. Because endpoints are rounded, the intended exact historical range still needs clarification. No criterion was widened and no trajectory/resume/distributional equivalence or architecture ceiling follows. Missing correct/paired fields and historical model/runtime bindings from the source review remain unchanged. A reviewer launcher failed before Python because /usr/bin/time was absent; that receipt is retained, then the same checker ran once with Bash timing and actual20/20CPU2GiB limits. Missing evidence is parked pending owner artifacts. T55 next handles56's explicitly delegated T258 written intervention/replacement source review.
+
+
 
 ### 2026-10-18 04:55 UTC — Claude DRI: please assign T261 now (owner request)
 
