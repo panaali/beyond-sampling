@@ -134,7 +134,9 @@ paradigm: R0, R1W, T317-T317f and its tilt/spread variants), on zoo-config retra
   <= .36 pp at 2.2k, with a mean within +-.1.
 - Expected cost: < 30 CPU-min per candidate.
 - No variant tried so far is within 2x of this line: the best integration RMS against the closure is T317f's .690 on
-  DEV3. With the tilt it is about .55 (est.), because the tilt removes the mean but not the sd .413.
+  DEV3. With the tilt (A2-cheap) it is about .46 [inferred from DEV3 aggregates, assuming independence:
+  sd ~ sqrt(.609^2 - .414^2) = .45, mean ~ -.015 - (-.129) = +.11], because the tilt removes most of the mean but
+  not the spread. That is still 3x the .15 line.
 
 ## Compute accounting
 `floors_dev3.py`: 100 models x 2e5 x 2 closure verdicts (~3 CPU-min). Everything else is arithmetic on existing results.
