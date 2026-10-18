@@ -1,0 +1,9 @@
+# Proposed DRI adoption, not a shared-source patch
+
+1. Keep the existing all-budget table; replace best-budget summary consumption with the complete archived rows and intervals. Preserve tuned flags, negatives, precomputation disclosures and every recorded budget. A best-of-budget statistic, if separately desired, needs explicit selection correction and cannot be the headline rung evidence.
+2. On future runs, save `class_at_run`, `det_tested`, and `det_ok` separately. Initialize det_tested from the reviewed classification, preserve the two probe outputs/model/budget/source identity, and save a Boolean result only for an actual test. Keep actual failures visible. Choosing repetitions remains based on the actual test result, as before.
+3. On reports, expose classification and determinism evidence as separate fields. Legacy True is a recorded pass under the historical schema, not a new proof; legacy False is unknown unless additional provenance establishes a test. Do not automatically convert unknown to pass or change historical repetitions. A recorded tested failure should remain flagged explicitly for DRI review.
+4. E44 .58833 and T114 .76511 should be labeled as distinct panels/conventions, not reconciled by a global factor. Per-copy author costs or a separately authorized replay would be required to compute the missing own-model denominator on the E44 panel.
+5. Keep srb's 3.3/1.6 override explicitly hand-counted. Its requested direct instrumentation is an unmeasured continuation, requiring new source/resource scope; this saved-only phase supplies no substitute measurement.
+
+DRI decisions needed: approve the explicit metadata schema and unknown-state reporting policy; adopt the all-budget export; decide whether direct srb instrumentation remains a priority. No estimator or shared harness is modified by this proposal.
