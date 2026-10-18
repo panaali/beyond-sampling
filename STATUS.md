@@ -51,10 +51,17 @@ yet transfer to the other four (T75), and the ladder to bigger models is T73.
 
 **Correction (E46):** the (8,4) loss in E45 was a bug in the 4-D probability calculation; with it fixed the recipe
 **passes (8,4)** on all 5 seeds and noisy copies (MSE ratio <= 0.27). At (8,5) it is still accurate (error 0.0002 pp, seed 0) but costs 2.2e11 operations; the cost
-grows ~250-5000x per extra input, so **M_16,10 projects to >=1e17 operations (E48): the challenge remains unsolved**. Earlier text: the recipe at (8,4) appeared to lose to sampling (MSE ratio 3-48) and its cells grow faster than the number of
+grows ~250-5000x per extra input, so **M_16,10 projects to >=1e17 operations (E48): the challenge remains unsolved**. [CORRECTED 2026-10-18: an extrapolation from two growth steps, ~6.5e16-4.7e17 (trend ~2e23), not a bound] Earlier text: the recipe at (8,4) appeared to lose to sampling (MSE ratio 3-48) and its cells grow faster than the number of
 linear regions (cells/regions 2.8, 5.4, 33 for T=3,4,5). Projected cost for M_16,10 is >=1e15 operations, so it was not
 run. **The challenge remains unsolved**; the route needs a new idea that avoids following every gate switch (see
 [DRI_HANDBOOK.md](DRI_HANDBOOK.md) section 6).
+
+**Update (2026-10-18, new DRI).** The recipe fails at (8,5) on one of five seeds (T192, unverified), and from 4 inputs
+on, listing every region exactly costs only 1.2-1.5x as much with essentially no error, so the main route is now exact
+enumeration made cheaper by the network's structure ("brute force after exploiting symmetries", ARC's own phrase); the
+recipe is kept as a diagnostic. All costs are now counted in one unit (FLOPs, T196), and a rung counts only under one
+fixed protocol (TASKS directive 7). The owner reports, second-hand, that a new ARC member has a solution for M_16,10
+(unverified, H-E5); we will not contact ARC until we have a candidate solution of our own (T203, T41).
 
 **4. The question to ask ARC.** If they have solved the 10-step network, they must have a compact way to handle
 those rare wide patches. That is exactly where every approach here broke.
