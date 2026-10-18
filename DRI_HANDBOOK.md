@@ -138,7 +138,7 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   surely impossible under ARC's rules; ARC's bet (no-coincidence principle, Christiano-Neyman-Xu) is that *trained*
   networks have short explanations. Nothing rules out M_16,10, but its explanation may be long.
 - Region counts depend on the weights, not just (H,T). Upper bound prod_{t=1..T} sum_{j<=t} C(H,j) is useless:
-  825 vs 66 at (4,3); 1.3e36 vs ~1e7-1e8 at (16,10). Trained nets use a tiny fraction of possible regions because
+  825 vs 66 at (4,3); 1.3e36 vs ~1e7-1e8 at (16,10). [STRUCK 2026-10-18: refuted by T232 (H-E14), trained region counts equal norm-matched random nets; see review/fable_review A5] Trained nets use a tiny fraction of possible regions because
   their neurons switch in coordinated ways (running max, record alarm, clocks) — that coordination is the structure a
   solution must exploit.
 - Any per-gate-pattern method (enumeration, fibre tracing, cell splitting) pays at least the number of distinct gate
