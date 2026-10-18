@@ -32,3 +32,9 @@ results/progress/temp file. Check independent published gate, pinned sources and
 ancestry before execution. Exact22 progress records on success: start,18 array
 attempt/results, two table events, complete. Whole process preflight/import
 covered by external cap; internal timer starts after pinned preflight.
+
+Pre-run reviewer repair: immutable gate must contain both named roles source_provenance
+and checker_source_resource, each pinned completed/pass_all JSON review and published
+commit (one combined artifact may serve both). Gate pins must include this protocol,
+audit.py, manifest and protocol.json; protocol must pin all snapshot paths and source
+notes. Exactly21 progress records are asserted before the22nd completion event.
