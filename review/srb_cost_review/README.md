@@ -21,8 +21,9 @@ CONTROL_PLAN.md is a proposal, not an execution gate.
 Source/provenance and analytical prerequisite independently reviewed in
 bfad6901/8840bc29 (shared3152ba8b), including the historical table-provenance
 qualification. Six deterministic Q expression-parity controls are frozen in
-q_controls under claim1bf720bd; their separate source gate is pending, no calls
-yet. No claimed replacement multiplier or trained cost measurement.
+q_controls under claim1bf720bd. After sourcegatec3204e94, all21 paired
+evaluations pass output/warning/count parity; raw57b3679d and independent
+saved review40ea5646/shared2270bf54 complete this bounded phase. No claimed replacement multiplier or trained cost measurement.
 Existing T204 saved all-budget audit b4093511/e353e6e6 remains unchanged.
 
 ## Results
