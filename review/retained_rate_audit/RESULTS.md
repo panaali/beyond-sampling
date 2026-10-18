@@ -28,3 +28,7 @@ T271 target measured ratio range is0.4333455–1.0546753. Two noisy models have 
 ## Current scoring separation
 
 The 07:01 DRI reframing introduces retrain-averaged MSE with a 1k-FPE cost floor and sealed HP2 evaluation. This audit checks historical T271/T277 conventions only. It supplies no HP1/HP2 score, retrain-population claim or new cost-floor comparison; neither sealed panel was read.
+
+## Independent closure
+
+Independent saved review a772d16e/shared33fd7459 reproduces every required comparison and both predeclared denominator tables. Each of the four T3/T4 prefactor values matches its same length/budget exact-reference-denominator median; the original MC-convention mismatches remain unchanged. This is numerical compatibility with a convention difference, not proof of the absent generating script. See HANDOFF.md for the final scoped interpretation.
