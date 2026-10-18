@@ -25,3 +25,5 @@ Dependent neural remainders or slope changes can dominate, probability loss at p
 
 ## Failure modes
 No failure occurred in this fixed attempt. Zero-gap ties and touching-only feasibility do not imply a deterministic second-rank label or positive mass. The prior T240 unit failure is preserved elsewhere; physicalgap1 remains untested on its trained campaign. No whole-box mass can be attached to a partial-domain certificate. The original output and log are immutable; reproducing them requires a new reviewed scope, not overwriting this attempt.
+
+Independent saved audit65ac580f is now published and passes: all1494 systems reconstructed with Cramer/permutation determinants, all12 domains/8guards/42events/adapters/witnesses checked. ReviewerCPU0.267205654; no author calls. See HANDOFF.md for bounded closure and remaining limitations.
