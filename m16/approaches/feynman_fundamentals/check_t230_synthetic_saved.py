@@ -65,5 +65,10 @@ def main():
  for name in [c['name'] for c in f['cases']]+f['guards']:expected += [{'phase':'attempt','name':name},{'phase':'result','name':name,'passed':True}]
  expected += [{'phase':'complete'}];assert events==expected and len(events)==39
  out={'complete':True,'pass_all':True,'task':'T230 independent exact synthetic saved audit','pins':{str(B/n):sha(B/n) for n in ('primitive.py','controls.py','fixtures.json','protocol.json','gate.json','output/results.json','output/progress.jsonl')},'checker_sha256':sha(Path(__file__)),'cases':8,'guards':10,'validation_rows':row_count,'progress_events':39,'case_checks':case_stats,'review_cpu_seconds':time.process_time()-start,'author_cpu_seconds':r['cpu_seconds'],'new_author_model_rng_calls':0,'limitations':['Finite equally weighted synthetic metrics only; no target-family regularity, random-null law or iid estimator claim.','Guard errors are checked against source and saved exception records; no author primitive replay.','Undefined zero-baseline ratios and raw-versus-centered residual distinction retained.','No real Sobol prefix, label-generation cost or numerical-application clearance.']}
+ deviation=(B/'LAUNCHER_DEVIATION.md').read_text();assert 'ulimit -Hv 2097152' in deviation and 'ulimit -Ht 20' in deviation and 'Invalid argument' in deviation
+ out['pins'][str(B/'LAUNCHER_DEVIATION.md')]=sha(B/'LAUNCHER_DEVIATION.md');out['pins'][str(B/'run1.log')]=sha(B/'run1.log')
+ out['arithmetic_coverage_pass']=True;out['full_resource_protocol_compliance']=False
+ out['resource_deviation']='Author-preserved shell record: hard limits failed before soft limits were lowered; no errexit, so Python continued. Harness verifies soft limits only; actual hard-limit values unrecorded. No rerun, no full launcher-conformance claim.'
+ out['pass_all_scope']='All independent saved arithmetic, provenance, record and finite guard checks; resource protocol deviation is explicitly excluded from pass_all.'
  O.write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({'complete':True,'sha256':sha(O),'cpu':out['review_cpu_seconds']}))
 if __name__=='__main__':main()
