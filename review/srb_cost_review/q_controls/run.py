@@ -18,7 +18,7 @@ def invoke(env,model,x,ledger=None):
 def encode(a):return dict(shape=list(a.shape),dtype=str(a.dtype),hex=[float(v).hex() for v in a.ravel()],bytes_sha256=hashlib.sha256(a.tobytes()).hexdigest())
 def main():
     start=time.process_time();out=P/'results.json';progress=P/'progress.jsonl'
-    assert not out.exists() and not progress.exists()
+    assert not out.exists() and not progress.exists() and not (P/'trees.json').exists()
     result=dict(complete=False,rows=[],new_trained_model_checkpoint_MC_draw_calls=0)
     def log(x):
         with progress.open('a') as f:f.write(json.dumps(x,allow_nan=False)+'\n')
@@ -56,6 +56,8 @@ def main():
             if case['name']=='zero_readout_preserved_tie':
                 row['preserved_tie_defect']=all(float.fromhex(v)==0 for v in batch);assert row['preserved_tie_defect']
             log(dict(stage='fixture_completed',name=case['name']));save()
+        assert len(result['rows'])==6 and sum(len(r['runs']) for r in result['rows'])==21
+        assert [len(r['runs']) for r in result['rows']]==[3,3,4,3,4,4]
         result.update(complete=True,fixture_count=6,paired_evaluations=sum(len(r['runs']) for r in result['rows']),all_bit_parity=True,all_warning_parity=True,all_source_count_parity=True,complete_native_cost=False,full_accuracy_certificate=False)
         save();log(dict(stage='completed',results_sha256=sha(out)));print(json.dumps({k:result[k] for k in ('complete','fixture_count','paired_evaluations','cpu_seconds')}))
     except BaseException as e:
