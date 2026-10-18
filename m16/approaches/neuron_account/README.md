@@ -125,6 +125,47 @@ Patterns 63951 (8.6%) and 62927 (6.0%) behave similarly (every mode resample cos
 65007 and 65519 the eigenbasis is badly conditioned: oblique mode projections have energy shares 3–120x the
 state energy, so their modal ablations are not interpretable (kept in `results/phaseA_modes.json`).
 
+### Phase A, on-manifold check: conditional resampling (DRI request; `python3 phaseA_cond.py`, N = 400k, seed 241061, ~6 CPU-min)
+The donor is another input from the same stratum, so the patched state is a value the neuron really takes in that
+context. Strata: **S0** none (as above); **S1** same gate pattern of h_t + same x9 case + same age of the max;
+**S2** same (age1, age2) cell + same quintile bins of m1 and m2; **S3** = S1 and S2. Singleton strata keep
+their own value (<= 1.1% of rows). Accuracy drop in pp at t=10 (t=5 in `results/phaseA_cond.json`):
+
+| stratum | n0 | n1 | n2 | n3 | n4 | n5 | n6 | n7 | n8 | n9 | n10 | n11 | n12 | n13 | n14 | n15 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| S0 | 42.5 | 63.9 | 28.2 | 22.6 | 4.4 | 21.5 | 61.2 | 67.1 | 65.2 | 1.0 | 42.0 | 37.4 | 43.6 | 24.9 | 38.5 | 31.0 |
+| S1 | 30.5 | 50.0 | 27.2 | 18.5 | 0.3 | 9.5 | 48.1 | 54.0 | 51.0 | 0.2 | 27.7 | 24.2 | 35.1 | 23.5 | 30.7 | 26.3 |
+| S2 | 16.2 | 47.9 | 5.7 | 4.9 | 0.2 | 4.7 | 46.3 | 52.1 | 48.6 | 0.0 | 13.2 | 9.2 | 16.0 | 6.9 | 15.5 | 9.0 |
+| S3 | 15.3 | 46.9 | 5.4 | 4.3 | 0.1 | 4.2 | 45.1 | 50.9 | 47.4 | 0.1 | 12.6 | 8.7 | 14.5 | 5.9 | 14.5 | 8.6 |
+
+Modes of pattern 64975, donors inside the pattern (accuracy after resampling h_10's mode coordinates; pattern
+accuracy .958):
+
+| stratum | integrator | slow | 8.42 clock | **4.32** | Nyquist | 2.89 | **8.37 damped** | 0.231 | input-only |
+|---|---|---|---|---|---|---|---|---|---|
+| S0 | .904 | .842 | .864 | .491 | .823 | .552 | .385 | .807 | .836 |
+| S1 | .907 | .850 | .876 | .516 | .830 | .560 | .432 | .817 | .868 |
+| S3 | .951 | .932 | .936 | .857 | .943 | .890 | .841 | .865 | .913 |
+
+Reading:
+- Off-manifold damage is not the main story. With S1 donors, which share the gate pattern, x9 case and age of
+  the max, the effects stay large for every neuron except n4, n5 and n9. The 4.32 and 8.37 modes still drop
+  accuracy to .52 and .43.
+- What these neurons and modes carry is mostly position and magnitude information beyond the age of the max:
+  the age of the 2nd largest plus the sizes of m1 and m2. Matching on those as well (S2/S3) shrinks n2 from
+  27 to 5 pp, n3/n13/n15 from 18–26 to 4–9 pp, the clocks from 24–35 to 9–15 pp, and the 4.32 mode to .86.
+- The comparators keep 45–51 pp under S3. Their value depends on x9's exact size relative to M1 and M2, which no
+  stratum matches.
+- n4's final-step effect disappears once the x9 case is matched: its last-step role is the x9-is-the-max flag.
+
+**Flag for the ledger (H-M3):** H-M3 withdraws n3/n13 as causal "harmonics". Here, on-manifold (S1) resampling
+of n3 or n13 alone at t=10 costs 18.5 and 23.5 pp. Resampling the period-4.32 mode that loads mostly on n15, n13
+and n3 costs 44 pp in the dominant pattern (.958 → .516). So n3/n13 and the 4.32 mode **are causally important**;
+the withdrawal should not be read as "not causal". These checks do not test the specific *harmonic* reading,
+i.e. that they resolve higher spatial frequencies. They show the content is mostly (age2, m1, m2) information.
+The E29 pair-ablation ranking (n3/n13 near the least damaging pairs) is not contradicted: it used mean-ablation of
+a pair under different controls.
+
 ### Phase B: encoding (pooled fits; train 1M, test 200k)
 Reproduce: `python3 phaseB.py 1000000 200000 && python3 reportB.py > results/phaseB_tables.md` (about 25
 CPU-min). The hinge families come from `phaseC2.py` (below); `results/phaseC_tables.md` has the combined
@@ -273,7 +314,8 @@ Single-threaded, `ulimit -v 2500000`, at most 2 processes at once. Compute = exa
 - A4 [measured] In the dominant final pattern, the period-4.32 and damped period-8.37 modes (n3/n13/n14/n15)
   are the most damaging modes to resample (to .49 and .39) although they carry 6% and 4% of state energy; the
   8.42 clock and the integrator cost 5–9 pp.
-- A5 [inferred] The single-neuron damage is mostly an off-manifold effect of incoherent states plus the
+- A6 [measured] On-manifold (S1: same gate pattern, x9 case and age of max) resampling keeps most effects: comparators 48–54 pp, clocks 24–35, n3/n13/n15 18–26 pp; the 4.32/8.37 modes .52/.43. Matching age2 and m1/m2 bins too (S3) removes most of them, except the comparators' (45–51 pp). This contradicts reading H-M3's withdrawal as "n3/n13 not causal".
+- A5 [inferred, weakened by A6] The single-neuron damage is mostly an off-manifold effect of incoherent states plus the
   readout's large-cancelling weights (FINDINGS §3), so ablation size measures sensitivity, not "amount of role".
 - B1 [measured] Comparators n1/6/7/8, n4 and n2 are encoded at held-out R^2 >= .999 by cells on the age of the max
   (A1) or of the top 2 (A12), linear in (x_t, m1..m3). n7 ≈ ReLU(−13.17 x9 + 10.93 M1 + 1.97 M2) and
@@ -307,9 +349,7 @@ Single-threaded, `ulimit -v 2500000`, at most 2 processes at once. Compute = exa
   interpretable in their variables but not compact: description length was not measured (compare H-A1).
 - The noise-injection ceiling assumes i.i.d. errors across neurons. Real formula errors are correlated, which is
   why 95.5% is reached at 1 − R^2 ~ 3e-3.
-- Large drops from resampling a single coordinate may reflect off-distribution states (the 16 neurons are
-  strongly correlated), not the neuron's own information content. Conditional resampling (donor matched on the
-  hypothesised variables) is the stronger test; it is Phase C's job.
+- Conditional resampling only matches the listed strata. Donors still differ in earlier gates and in unmatched values (x9's exact size, m3, the rest of the inputs).
 - Oblique mode coordinates depend on the gate pattern; donor states from the same final pattern can still
   have different earlier gates.
 
