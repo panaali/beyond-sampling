@@ -21,7 +21,11 @@ SEED_IDX = {16_000: 0, 64_000: 1, 256_000: 2, 1_000: 3, 4_000: 4}   # control se
 PANELS = dict(hp1=dict(groups=("clean", "abs0.05", "rel0.005", "rel0.01"),
                        sha=dict(weights="9bad715dad33f2e403675ebd552dc5512a14e9a8019a636575e7a5a0735fbd4c",
                                 manifest="fe0974012be395454e60b182e3552c36d8ec24940c2ddaa1ebb620302988ca64",
-                                truths="b610b9a29eee87bda0891f52ea6016b40cb7948a2b0360787895cf04f4c8a509")))
+                                truths="b610b9a29eee87bda0891f52ea6016b40cb7948a2b0360787895cf04f4c8a509")),
+              hp2=dict(groups=("retrain",), cluster="name",          # T284, branch claude/t192-gpu-cost-law aa9c000e
+                       sha=dict(weights="039e3e694f0a4c606e7bb3f58c309d6bf492b43e744780f46f9dd5dfced19d7e",
+                                manifest="1bf47b3f5217d23d3d1202cb3be12e062ea3be65e471be1032819b90aaa97ed6",
+                                truths="1a6a44f4126ed7aec8f808b8fd0b0690286d8af43f8986a06bb0c18b05a096b8")))
 GROUPS = PANELS[PANEL]["groups"]
 CLUSTER = PANELS[PANEL].get("cluster", "base")      # hp2: "name" (one cluster per retrain, DRI)
 RES_PREFIX = "" if PANEL == "hp1" else PANEL + "_"
