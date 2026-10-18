@@ -615,3 +615,21 @@ the lenient-improvement track.
   beyond-tmax gap assumed correct (no extension), keeping the extension only for rows walked to tmax. It mixes two
   gap rules, and its bias sign is unclear (the walked rows get the extension's negative push). Not run; it would need
   its own pre-registration.
+
+## T330b results: GO = NO (`python run_t330b.py`, `results_t330b.json`, `run_t330b.log`; 80 DEV2)
+
+| schedule | C (FPE) | max \|d\| | per-row profiles |
+|---|---|---|---|
+| T317e | 5,490 | — | — |
+| v3 (norm track + fixed-off fix), every flip | 9,843 (v2: 7,787) | 0.0 | identical |
+| v3, Δ <= .05, once per row | 5,561 (v2: 5,525) | 0.0 | identical |
+
+- The per-gate-pattern norm track and the fixed-off fix are sound (exact on all 80) but barely tighter. On 4 models
+  they skip 0.3-5% more later cells than v2, while each try costs ~2x. **No schedule beats the baseline.**
+- Reason [inferred]: the binding looseness is not the |Wh| box versus the operator norm. It is the free gates, whose
+  full |dz*| enters the deviation at Δ of .1-.5. Every bound in this family pays for that.
+- Combined with T330's tiers A/B: **rigorous safe-to-tmax certificates of this kind do not pay on T317e** (negative,
+  unverified).
+  - Untried: zonotopes, judged too costly per step.
+  - C1 (declared, .076 pp) remains the practical screen. Making its error rigorous would need a bound on the free
+    gates' effect, which these tiers could not deliver cheaply.
