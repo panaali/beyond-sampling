@@ -12,11 +12,11 @@ manifest.json and snapshot/AUTHOR_README.md retain the read-only author source.
 
 ## Status
 Claim84f348a5 preceded all work. Proof/source inventory complete; independent
-written review assigned to recover_78, pending. No implementation or experiment.
+written revieweddbe662/shared5a13cd3d passes. Bounded phase complete; no implementation or experiment.
 Claude retains T232 numerical ownership; T234 review is a separate lane.
 
 ## Results
-[inferred, awaiting review] Global positive input/recurrent matrix scaling
+[inferred, independently reviewed] Global positive input/recurrent matrix scaling
 preserves full-dimensional prefix-history counts, while Gaussian masses and
 accuracy can change. [inferred] Generic H16 depth-two counts are34 with mixed
 input signs and19 with all signs equal. No random models or arrays were drawn,

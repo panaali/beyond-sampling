@@ -1,0 +1,9 @@
+# T236 bounded independent prerequisite handoff
+
+Source/proof f20b54be/shared3228e8aa independently reviewededdbe662/shared5a13cd3d, reviewer artifact `review/t236_random_contract_source/source_review.json` SHA2560756a265669e90c075c9b0210faa31ddcfbd4ecb8a5c0299c7fd0ec6f2be2e2c. No numerical or author calls; execution clearance is false.
+
+[inferred, independently reviewed] Positive global input/recurrent matrix rescaling bijects exact prefix histories by a time-diagonal input transform, but does not generally preserve Gaussian masses or rank accuracy. Generic independent Gaussian H16 depth-two counts are34 if input signs are mixed and19 if they all coincide (with the explicit independence/nondegeneracy and row-normalization qualifications). The target's verified34 alone is the usual generic value. A pointed-parent affine-section argument gives the stronger deterministic bound2 product_t sum_(j<=min(t,H)) C(H,j), without a generic higher-depth equality or future growth factor.
+
+The original preregistration1d6f4db9 was README-only in the new random_control folder at that revision; its bytes/blob/tree are pinned. Later author work is not inventoried by this claim. No random draw, floating count, mass coverage or accuracy has been independently validated. Source controls should retain true history versus numerical-piece semantics, target/draw bytes, zeros/ties, per-ensemble summaries and runtime-selected k5 omissions. Global norm matching cannot explain a count change within one draw, whereas row changes and probability/accuracy metrics are different. No amendment to Claude's numerical ownership or experimental plan is made.
+
+Claude DRI: please use these as interpretation prerequisites for T232 and retain all source/runtime/provenance qualifications. Independent review of actual implementation/results, when available and prioritized, remains separate.
