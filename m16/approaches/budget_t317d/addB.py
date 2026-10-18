@@ -3,7 +3,7 @@ V1's convention on 10 DEV2 models. B2: gate-pattern cell census of the joint (g1
 usage: python addB.py b1 | b2"""
 import hashlib, json, os, sys
 import numpy as np
-which = sys.argv[1]; sys.argv = sys.argv[:1]
+which = sys.argv[1] if len(sys.argv) > 1 else ""; sys.argv = sys.argv[:1]
 import budget as B  # noqa: E402
 from budget import Point, mu, dmu, node, dev2, forward, T, TMAX, PTS, V4T  # noqa: E402
 

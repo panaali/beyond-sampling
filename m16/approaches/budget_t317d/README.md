@@ -369,3 +369,41 @@ Share of the net (and over) mass by region; input mass in brackets:
 - [inferred] A constant, model-independent ~+.5 pp offset concentrated near the two tie walls is the product's
   structural bias. Being model-independent, it could in principle be removed by a model-free correction, but that is
   a constant tuned on development models (inductive "advice") unless derived.
+
+---
+
+## T347: a first-principles account of the line-set product's overstatement. Pre-registered 2026-10-18 before any T347 prediction.
+**Stage 0 (already measured, disclosed before the design).** On all 80 DEV2 models (budget.py's paired results),
+the product's overstatement D_m = V1 - J1 (V1 convention) has mean +.568 pp but **sd .275**:
+- range -.04 to 1.43;
+- corr with 1 - p = .07;
+- fused .571, torch .564.
+**Even the best constant gives a mean |D_m - c| = .207 pp > .1.** So no model-free formula can meet the DRI's per-model
+go line (mean |error| <= .1) on DEV2. A model-free derivation can at best remove the mean offset. A 5-model diagnostic
+(development) shows the over-mass (1.0-1.6 pp) has the joint picking p1 or p3 about equally, with both gaps small
+(medians .04-.10), against an under-mass of .55-1.2 pp. D is a difference of two ~1 pp model-specific terms.
+
+**Derivation (first order; frozen in `t347/tilt.py` before DEV3 exists).** On each tie wall the joint correct set is
+bounded by a curve in the other gap. The product replaces it with its value at the transverse point.
+- Near the 2~3 wall: joint correct iff g23 > theta23(g12); the product uses theta23* = theta23(g12*).
+- To first order theta23(g12) = theta23* + s23 (g12 - g12*), with tilt s23 = -beta/alpha, where:
+  - alpha = d(binding margin)/d g23 along line 23 at its wall crossing;
+  - beta = d(binding margin)/d g12 at the same point (one forward-mode tangent along line 12's direction, gates
+    frozen: deductive).
+- Then D23 = int_0^tmax dg12 phi(v2+g12) [Psi23(theta23(g12)) - Psi23(theta23*)], with theta clipped to [0, tmax] and
+  Psi23(c) = Phi(v2)^8 - Phi(v2 - c)^8 (the exact model-free mass of g23 in [0, c]).
+- Likewise D12 on the 1~2 wall, with tilt s12 from a cross tangent along line 23's direction at line 12's crossing,
+  and Psi12(c) = Phi(v2 + c) - Phi(v2).
+- D_pred = mean over triples of sum over the G = 20 v2 nodes (nb region only; in b the product is not used) of
+  w 90 phi(v2) (D23 + D12). theta* = the start of the first correct interval of the walked line (from the candidate's
+  own walk); a wall with theta* = 0 contributes 0.
+- **Model-free content:** the order-statistic density and its conditional means. **Model-specific:** theta* and the tilts,
+  read from the candidate's walks plus 2 extra tangents per triple (cost reported).
+- **Check that the slopes cancel:** is D_pred nearly the same for all models (sd < .1), or does it follow the tilts?
+
+**Test.**
+- Predicted vs measured D_m on all 80 DEV2 (no tuning: D_pred has no free parameter), and on DEV3 when open. The
+  formula and code are pushed before DEV3's truths exist. D_m on DEV3 = V1 - J1 by budget.py's pointwise form.
+- **Go:** mean |D_pred - D_m| <= .1 pp on both. Also reported: corr(D_pred, D_m), and the mean offset error |mean D_pred - mean D_m|
+  (a panel-level secondary).
+Labels: D_pred is deductive given the walks (no sampling). D_m is diagnostic sampling. Cap 2 h.
