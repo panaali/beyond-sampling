@@ -12,7 +12,7 @@ conditioned on, without replacing its distribution by a Gaussian.
 
 ## Status
 Proof-only claim c1343d8a published before writing. Independent written review
-completed by recover_78:6c02b3aa/shared8106e746. Main theorem passes with execution_allowed=false. GAUGE_COROLLARY.md records the separately source-frozen diagonal invariance proof; durable review addendum pending. No implementation or numerical phase.
+completed by recover_78:6c02b3aa/shared8106e746. Main theorem passes with execution_allowed=false. GAUGE_COROLLARY.md records the separately source-frozen diagonal invariance proof; independent gauge addendum725d4912/shared8e77568e passes. Bounded proof phase done. No implementation or numerical phase.
 
 ## Results
 [inferred, independently reviewed] The correction is supported between two affine
