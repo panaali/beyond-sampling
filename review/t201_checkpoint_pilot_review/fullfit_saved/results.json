@@ -1,0 +1,8 @@
+{
+  "complete": false,
+  "checker_sha256": "e063446bcebf1bcffc4277a846a3f6ed4e5d987a7fcb0d7e3d190222bccfc4f3",
+  "pins_sha256": "fd5cde927060bc94715229183e49ded8c636e9c0b590d44b82bd6c69b6767f80",
+  "failure": "AssertionError((0.00039342037818212994, 0.00039342037879153136))",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py\", line 158, in main\n    try:r.update(check(),complete=True)\n                 ^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py\", line 138, in check\n    metrics=dict(lookup=hidden_metrics(score['lookup_hidden'],h,lh),separable_case2=hidden_metrics(score['separable_case2_hidden'],h[mask],sh))\n                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py\", line 61, in hidden_metrics\n    else:close(a,b)\n         ^^^^^^^^^^\n  File \"/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py\", line 12, in close\n    def close(a,b,rtol=1e-10,floor=1e-12):assert abs(a-b)<=rtol*max(abs(a),abs(b),floor),(a,b)\n                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (0.00039342037818212994, 0.00039342037879153136)\n",
+  "review_cpu_seconds_excluding_imports": 0.8078683930000001
+}

@@ -61,3 +61,23 @@ Next eligible bounded scope is the separately claimed checkpoint wiring pilot
 in REBUILD_PLAN.md, using one fixed1024-input prefix, full retained arrays and
 an independent library recurrence. The full196608-input reconstruction remains
 separate, with no feature/seed/threshold selection from pilot performance.
+
+
+## Fixed checkpoint pilot, bounded handoff
+
+Pilot5c742488/shared6768f2c5 passed source/resource reviewf568e61c and
+independent saved review75da4bad. Exactly 1,024 distinct original-checkpoint
+inputs were evaluated once by the reviewed NumPy recurrence and once by the
+original library RNN in binary64. All predicted labels agree. Maximum hidden
+and logit differences are4.97379915032e-14 and2.96651592180e-13. Full arrays,
+model bytes, input-stream state and CPU RNG states are saved; no fits occurred.
+The script took0.849919784 CPU seconds. Independent saved review made no
+checkpoint/forward/random calls; it checks saved parity/provenance, not an
+exact-real recurrence or replay of terminal RNG advancement.
+
+The next proposed scope is the already planned fixed65,536-input training fit
+plus two independent65,536-input holdouts. It requires a fresh TASKS claim and
+source/resource gate. Reuse this pilot prefix once and forward only the other
+195,584 observations. Keep all fitted coefficients and raw inputs/hidden/logits
+for independent score reconstruction. No performance/feature/seed selection,
+no historical-rate confirmation and no accuracy-versus-cost rung inference.

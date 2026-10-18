@@ -1,40 +1,57 @@
 # T201 current checkpoint
 
-Owner recover_78, Claude DRI. Active scope is the fixed checkpoint wiring pilot,
-claimed50697a4c. Independent source/resource and saved-review assignment was
-yielded by h4 to recover_910 and published0ab7d45c. No checkpoint forward or
-surrogate fit has occurred. No pilot execution gate/output directory exists.
+Owner recover_78, Claude DRI. Active frozen reconstruction scope claim4226647e:
+65,536 training inputs and two independent65,536 holdouts on the original
+checkpoint. Source/resource reviewer recover_h4 owns
+review/t201_metadata_review/fullfit_source/; eventual saved reviewer recover_910
+owns review/t201_checkpoint_pilot_review/fullfit_saved/.
 
-Initial source/theorem phase is complete: dd64fb85 verifies the qualified blind
-law and exact pointwise state-summary insufficiency;1d352ce1 verifies source
-metadata/prose provenance. Their limits remain in HANDOFF.md and the source
-notes. Historical98% and90–91% out-of-sample provenance remains unvalidated.
+Fullfit completed once: raw cd272a57 and saved-checker source clearance
+2d269c77 published20a452be. Immutable execution gate84c2c732 was published
+36db1a21 before the run; superseding h4 source/resource gate0fc2abe8 binds
+latest doc/protocol4a52faf0 and unchanged numerical source b6838e47.
 
-Synthetic helper phase is complete: raw39b10901, independent sourcee0281c91 and
-saveda944f1aa, handoff274e739f/shared5149aad2. Seven groups passed with219 solves
-and six exact synthetic recurrence sequences. No checkpoint/random inputs.
-The initial launcher failed before Python because external /usr/bin/time was
-absent; preserved and independently cleared launch-only recovery used Bash time.
-No successful scientific work repeated. Saved coefficient residuals remain
-source-gated summaries because coefficient/prediction arrays were not serialized.
+Exactly191 chunks/217OLS completed; script7.467979396CPU,183504KiB peakRSS.
+No failures/adaptation/replays. All389 fullfit files and external run log are
+retained. Independent saved checker by910 is source-cleared; artifact pins and
+saved audit remain pending. Do not repeat any forward/fit or broaden scope.
+Holdout lookup task accuracy97.99194/97.97668%, network agreement95.30945/
+95.39337%. Case2 separable task90.12736/89.87822%, network agreement87.50785/
+87.32824%. These new results do not restore historical provenance or imply an
+accuracy estimator. See rebuild/FULLFIT_RESULTS.md for preliminary scope.
 
-Current frozen source1e2ba7c2/sharedb966b7b1 is rebuild/pilot.py plus
-PILOT_PROTOCOL.md/json. Exactly1024 first-prefix PCG64 inputs, original cached
-example checkpoint, NumPy and original library recurrence in binary64. Meta
-construction/strict state assignment must leave CPU RNG unchanged. Full inputs,
-weights, both hidden/logit/label/gap arrays and RNG states retained. No fits.
-Fixed scaled1e-10 residual AND identical first-index winners, failure preserved.
-Await910 published source/resource gate; then publish immutable pilot_gate.json
-before one primary-lock110CPU/2GB run. Independent saved audit before any full
-reconstruction. Future training reuses the prefix once, with no new forward.
+Exactly191 new1024-input forward chunks,195,584 new vectors and217 actual
+lstsq calls (216 homogeneous lookup maps plus one18-feature case2 map). Reuse
+all1,024 pilot input/hidden/logit rows once and resume its saved PCG64 state;
+no prefix/reference forward repeat. Keep raw inputs/hidden/logits, complete
+coefficients, ranks/counts/singular values and per-observation labels. Frozen
+seeds2026101802011/12/13, no adaptation. Four binomial boundary controls precede
+model work. Train/holdouts and task accuracy/network agreement are separate;
+only holdouts get individual fixed-fit numerical binomial intervals. Save full
+K×case×global-pick tables and disjoint error decomposition. Stop on failures;
+partial successful work cannot be replayed without a separate recovery scope.
 
-Complementary T209 saved64 cap-utility audit passed39b10901/shared732867a4 in
-review/t209_utility_saved; h4 completed the owning phase38842f78. No further
-T209 task is held here. Gram-minimum alternative is registered blockedT211.
+Completed phases:
+- Initial source/theorem: dd64fb85 and1d352ce1 independently verify qualified
+  blind law, pointwise summary insufficiency, and metadata/prose provenance.
+- Synthetic controls: raw39b10901, sourcee0281c91, saveda944f1aa,
+  handoff274e739f/shared5149aad2. Seven groups,219 solves,six synthetic inputs.
+  The absent /usr/bin/time launch failed before Python; independently cleared
+  Bash-timer recovery preserved it, with no successful computation repeated.
+  Synthetic coefficient residuals remain source-gated summaries (no raw coefs).
+- Checkpoint pilot: raw5c742488/shared6768f2c5, sourcef568e61c,
+  saved75da4bad, handoff603fe260/39a19090/sharedeb3e9505. All1,024 labels match
+  NumPy/library; maximum hidden4.974e-14/logit2.967e-13 difference. Eight full
+  NPZ archives and RNG states retained. No fits, one call per implementation.
+  Independent saved reviewer made no checkpoint/forward/draw calls; terminal
+  stream advancement and checkpoint deserialization remain source-gated.
+- Complementary T209 saved64 utility audit39b10901/shared732867a4 completed;
+  owner h4 handed off38842f78. Gram-minimum alternative is blockedT211.
 
-Publication: user explicitly authorized scoped research/review pushes. Use
-specific commit hashes into the fresh shared integration worktree, assert exact
-changed paths, preserve all peer changes and never force push. Previous branch-
-name publication rejection was resolved by the scoped-hash procedure; no
-remaining authorization blocker. Leave the old untracked prefix_wedge_remainder
-integration_manifest.txt untouched.
+Historical98%/90–91% provenance remains unvalidated. The reconstruction is a
+new experiment, not a deductive estimator or an ARC rung/cost claim.
+
+Publish scoped specific hashes through fresh integration checkout, assert exact
+changed files, preserve peer changes and never force push. User explicitly
+approved research/review export; no remaining authorization blocker. Leave old
+untracked prefix_wedge_remainder/integration_manifest.txt untouched.
