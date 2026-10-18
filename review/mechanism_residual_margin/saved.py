@@ -31,8 +31,9 @@ def main():
         save();emit('runtime_bound',runtime=r['runtime'])
         assert sys.executable==p['invoked_python'] and sys.prefix==p['venv_prefix']
         assert np.__version__==p['numpy_version'] and np.__file__==p['numpy_file']
-        old=read(DATA/'fullfit/results.json');assert old['complete']
         manifest=read(H/'manifest.json')
+        for path,digest in manifest['pins'].items():assert sha(ROOT/path)==digest,path
+        old=read(DATA/'fullfit/results.json');assert old['complete']
         def load(path,expected):
             assert sha(path)==expected,path
             r['counts']['archive_reads']+=1
