@@ -17,7 +17,7 @@ Quadrature class (fixed, model-independent node sets; `rng` ignored; passes the 
   of each segment is a closed-form t-interval. P(wrong) = Z23 E23[F_N] + Z12 E12[F_N] + P(B) E_B[1 wrong], exactly.
 - **The blind part cannot be computed exactly.** Inside B the target's prefix regions still grow 12-19x per step
   (T218 blind sub-test), so exact enumeration costs about as much as on the full space (T5/T222: infeasible). The only
-  free bound, [0, P(B)] = 1.07 pp, is about 30x the sampling SE at 64k. So B gets a third fixed stratum instead: a
+  free bound, [0, P(B)] = 1.07 pp, is about 13x the sampling SE at 64k. So B gets a third fixed stratum instead: a
   scrambled-Sobol rule mapped into its 11 equally likely orthants (half-normal magnitudes), one forward pass per node.
   Its per-node sd is P(B) sqrt(q(1-q)) ~ 0.0045 (q = 0.78 wrong in B on orig), against 0.21 for plain sampling.
 - `estimator.py`: sci_tao's allocation (25% pilot spread evenly, then Neyman by sd x weight / sqrt(cost)) over three strata
@@ -96,8 +96,8 @@ fpe_flops/c_s = 6000/5948 = 1.009 (`ratio_T196` in lb/table.json); no verdict ch
 | s0.02_0 | 3.41 / 1.88 | 3.10 / 3.38 |
 
 **Reading.**
-1. **No honest deterministic win on M_16,10.** Pooled over the 30 leaderboard models, every row of both methods is
-   above 1 except sci_tao at 1k and 256k, whose CIs (0.73-5.48, 0.63-2.29) straddle 1. tie_blind's pooled ratios are
+1. **No honest deterministic win on M_16,10.** Pooled over the 30 leaderboard models, every point estimate of both methods is
+   above 1; only sci_tao's 1k and 256k CIs (0.73-5.48, 0.63-2.29) reach below 1. tie_blind's pooled ratios are
    3.4-6.5. The headline sci_tao "0.03 @ 256k on orig" (leaderboard summary) is one deterministic run at the luckiest
    budget; the same rule gives 2.16 at 16k, and over 16 scrambles 0.99 (16k) and 1.56 (64k).
 2. **Splitting off B helps where T218 said it would**, on low-noise models. Over 16 scrambles, orig goes 0.99 -> 0.75 (16k)
@@ -116,7 +116,7 @@ run 30 models x 5 budgets ~2 min; validation MC 3.6e7 forward passes ~3 min; scr
 - [measured] The blind/non-blind split is exact (checks above); it reduces orig's R23 face second moment 2.5x.
 - [measured] Leaderboard v3 table above: tie_blind does not beat sampling pooled over 30 models at any budget (3.4-6.5); neither does sci_tao
   except CIs straddling 1 at 1k/256k.
-- [measured] Over 16 rule scrambles tie_blind beats sci_tao on orig and seed0 (1.2-1.75x) but not on sigma >= 0.005 copies.
+- [measured] Over 16 rule scrambles tie_blind beats sci_tao on orig and seed0 (1.15-1.75x) but not on sigma >= 0.005 copies.
 - [inferred] Removing the blind region is a variance reduction of at most ~1.5x on the clean target, not a change of class;
   the remaining non-blind tail (T218: top 5% = 72% of its second moment) still limits deterministic tie-slicing.
 
