@@ -1,0 +1,12 @@
+# Existing evidence and missing prerequisites
+
+Read-only inventory; no arrays or checkpoint coefficients were decoded.
+
+- T189 local_certificate/enclosure.py preserves exact affine input dependence plus dependent interval remainders and uses whole-box all-rival tie predicates. probability.py supplies directed rational CDF machinery. Application source loops20736boxes each on H4T4seed0 and H8T4seed0, with all candidates and tails retained. Primitive reviewec1c0532 and application reviewd311f709 are reusable source/evidence premises, not a new all-recurrence audit.
+- H8T4seed0 exact dyadic schema and checkpoint binding are recorded in T187 fading_influence/trained.json and the T189 protocol. The protocol file binds those artifacts; this phase has not loaded them. A future baseline can reuse existing certificates without reevaluating this model, after all immutable raw hashes are pinned.
+- H16T4 is NOT present in that two-model local-certificate application. Existing width16 eventword/mass tables are not a substitute for exact full Wi/Wh/Wo provenance. H16T4seed3 appears in the separate moment work, while the owner comparison may use seed0. Resolve the intended exact model/seed and all weight bytes in a separate source/provenance step before any candidate application. This is a local prerequisite status, not an assertion no H16T4 checkpoint exists anywhere.
+- Target T201 pilot and T219 prefix docs identify checkpoint498bd9a87c469e18e824a78e55c22843c7595776f1bfc2dfe07c36e5616218bb and archivefea77e7cb6e6e23ba2dcba71466b1cd69ac31063f76a3a949fb5f7ea8ab63466. T219 rebound recurrence coefficients and counted exact prefixes throughk4; it did not certify final accuracy or Gaussian mass. Its metadata/source may be reused read-only; no new decode occurred here.
+- T189 probability division by occupied-bin group size1/m is justified under the unconditioned box law. Adding a gap event changes that conditioning; T240's first route avoids this transfer by requiring a unique whole-box top/second label and whole-box gap containment.
+- The T189 named integer-expression ledger is partial. Its recorded32.128001035 internal application CPU and total41472enclosure calls are historical two-model research quantities, not a new H8-only cost measurement or complete FLOP budget. Saved filtering adds work even though no recurrence is called. No sampler-cost ratio will be inferred from this inventory.
+
+Only source/doc bytes are pinned in manifest.json. Raw data bindings, numerical source gates and precise execution controls remain future separate gates.
