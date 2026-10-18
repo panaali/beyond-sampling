@@ -309,43 +309,162 @@ Nothing is "confirmed" on its author's word alone.
 | H-E13 | Exact region-by-region enumeration (with exact cone masses) of M_16,10 is computationally infeasible | **prefix counts CONFIRMED for k<=4 (DRI 2026-10-18, independent T219/T55 exact-arithmetic recount: 34/792/21,032; reviews 13e3a70e, ad1d458f, 895fb566); k=5 masses spot-checked independently (200 regions, abs diff <=2.5e-13) and k=5 coverage recomputed independently (N_1e-5 152,952 vs 152,956; growth x14.9), claude/t218-tie-tail-labels e4ccb095; k=6 sampled estimate 2.29e7 cells (x30.6 over k=5, T192 2aad2d2, unverified; **[Corrected 2026-10-18, T263]** completion-censored: only subtrees finishing before a wall deadline were kept (T255), so the estimate is uncalibrated with unknown bias; T270 (k=6 complete masses, running) will replace it); mass coverage N_delta at k<=4 CONFIRMED (DRI 2026-10-18; independent LP cone-splitter + own robust-angle masses on claude/t218-tie-tail-labels reproduce T194/T192: k=4 N_1e-5 = 10,233, growth x16.1); infeasibility at T=10 inferred, unverified** | T192 S4 counts 34/792/21,032/632,394 for k=2..5, growth x23-30/step and rising; ~1e13 regions at k=10 by extrapolation; geometry alone ~1e3 CPU-years; mass coverage N_1e-5 34/634/10,233/152,956 (T222, T192 k=5); sampled region bounds undercount 3-12x (T205) | extrapolation from 4-5 points; the only rigorous bound is N10 >= 64*N4 = 1.35M histories (T55); excludes neither methods aggregating across regions nor minimal affine-map merging **T270 k=6 (2026-10-18, unverified):** shard 1 done (1,905/1,905 subtrees); union with shard 0 covers 2,905/3,811 subtrees (76%): N6 >= 15,483,505 distinct regions (exact lower bound), so g_N(5->6) >= 24.5 over N5 = 632,394; the full-N6 estimate is 19.7-21.0M (g_N ~31-33). Per-step growth keeps rising (x23, x27, x30, x31-33 for k = 2..6); cells ~23.1M. A geometry bug in estT's k>=6 cells (T316) undercounts masses AND regions: clip also skips real cuts (subtree 125: 8,495 regions with the T316 patch A+B vs 7,659 under estT, +11%; T194 child 5a063a50, unverified), and 68 of 73 chunks show a mass deficit > 1e-9. So g_N(5->6) >= 24.5 stays an exact lower bound (every enumerated region is real) and the 31-33 estimate is biased LOW by an unknown amount; a patch-B rerun costs ~35x (out of budget). g_delta at delta 1e-6/1e-7: open (remassing stopped by the DRI, since the decision does not depend on it). **DRI: the exact route is dead for the target in any regime where sampling's equal-compute precision is meaningful (scoped to region/coverage enumeration); the final N6 and g_delta are for the record.** **T270 closed 2026-10-18 12:13:** remass (= T316 patch A) validated on subtree 125 (residual -9.86e-7 = region loss, needs patch B); provisional 76%-coverage lower bounds g_1e-3..1e-7 >= 7.58 / 9.03 / 10.56 / 12.21 / 14.16 (gpu_cost_law/README 'T270'); g_N(5->6) >= 24.5 exact, estimate >= 31-33 biased low; delta 1e-6/1e-7 open. |
 | H-E5 | "Someone at ARC has cracked M_16,10" | **reported, unverified (2026-10-18)**; superseded status: "doubtful on public evidence (L10)" | **2026-10-18:** the project owner reports that their ARC contact says a newly joined ARC member has a solution for M_16,10 (method unknown to us, unpublished) and that ARC is waiting for us for a comparison (T203; owner ruling: no contact with ARC without a candidate solution, T41). Source of the original claim, per the previous DRI ([QA](review/dri_handover/QA_2026-10-18.md) #14): a private message relayed by the owner, never verified; ARC was not contacted. Earlier public evidence, which predates both: J. Hilton, LessWrong AlgZoo comments, 2026-08-17: progress "fairly marginal and we are not much closer to succeeding at the challenge", excluding "other research at ARC that doesn't pertain to these models specifically"; no M_16,10 estimator ever published | a private, unpublished result after 2026-08-17 is not ruled out; the 2026-10-18 report is second-hand, and its method, compute accounting, test panel and use of sampling are unknown, so it may not meet ARC's own bar **[2026-10-18]: Hilton talk (~2026-09, lit/web_log.md) calls the M_16,10 challenge "as yet completely open"; any ARC solution would postdate it.** |
 
-## 4b. State of Q4 (final synthesis, 2026-10-17; ~30 attempts, ~40 agents)
-Full plain-language status: [`STATUS.md`](STATUS.md).
-- **Not solved.** No deductive method beats sampling on M_16,10. Deductive attempts lose by 8x to >300x
-  (E10, E13, E14, E17, E19, E21; probe v2-v4). The best deductive bias is FORM/SORM per chamber, +0.15 pp at 2.5M evals.
-- **[CORRECTED 2026-10-17 by LB3, preliminary: with cost charged as implemented srb does not beat sampling on untuned groups; see LB3.]** Previously: **Best verified estimator (sampling-based): srb** (E12: exact last step + model-free near-tie strata). It is the only
-  method whose 95% CI is below 1 in every leaderboard group: MSE/sampling 0.42 / 0.45 / 0.50 / 0.61
-  (orig / seeds 0-4 / sigma 0.0025 / sigma 0.005), i.e. ~1.6-2.4x (LB2). Joint (E18), boundary (E11) and stratified (E9)
-  are close; tube (E15) and other deterministic quadratures (E24, E26) win on the original/noisy copies but
-  lose on the independently trained seeds.
-- **Where calculation does work (E25, H-E11):** deterministic tie-slicing beats sampling by 38-507x on short sequences
-  (T=3-4) and collapses at T~5-8 depending on hidden size (H=8: T=5; H=16: T=5-6; H=32: T=6-8). The collapse tracks a
-  heavy-tailed band integrand (rare wide multi-cell bands; H-E12), **not** cancellation (H-E9 refuted as root cause).
-  **[Corrected 2026-10-18, T263]** These wins are quadrature class: fixed Sobol nodes, which are inductive under ARC's
-  definition (TASKS Directive 8), and gains averaged over random rule scrambles are RQMC, i.e. sampling by ARC's
-  definition. They also predate the Directive 7 rung panel (5 seeds plus >= 8 noisy copies per seed at abs sigma .05 and
-  rel sigma .005/.01). See m16/SCALING_OBSTRUCTIONS.md §2 and §4.
-- **Why deterministic summaries fail:** the low inputs act as noise on the tie margin, so replacing them with typical
-  values always overestimates accuracy (H-E10, 60/60 models). Additive descriptions miss by 4% even as an oracle
-  (H-E8). The band width is learnable (an MLP reaches R^2 0.67) but not compact, and it is uncorrelated across seeds (E23).
-- **For the comparison with ARC's claimed solution:** the decisive question is how their method handles the rare, wide,
-  multi-linear-cell error bands at T=10. That is where every approach here broke.
+## 4b. State of Q4 (synthesis, 2026-10-18 14:00 UTC)
+Full plain-language status: [`STATUS.md`](STATUS.md). Owner questions and answers: [`OWNER_QA.md`](OWNER_QA.md).
+Scores use F = MSE x C_eff / mean p(1-p), C_eff = max(C, 1k FPE) (TASKS Directive 8, amendment 2). Strict bar:
+F <= 1. Lenient bar: F <= 10, and a candidate also needs the upper 95% CI <= 10 (a project convention, not ARC's).
+- **Not solved.** No method meets the strict bar on a sealed panel (T281). The cheap regime and its failures are
+  covered in [m16/SCALING_OBSTRUCTIONS.md](m16/SCALING_OBSTRUCTIONS.md) section 9.
+- **Best sampling-free estimator: T317f (T335; H-L1).** T317e plus T330's C1 frozen-gate margin screen, a declared
+  approximation.
+  - Fresh sealed HP4, scored once: C 3,302 FPE, **F 2.63 [1.93, 3.39]**, RMS .749 pp, bias +.436 pp, n* 1,255. This is
+    a lenient pass and a strict fail.
+  - Sensitivities: 2.67 [1.96, 3.45] under the screen-charge audit; 2.98 [2.19, 3.85] stacked (C 3,743). The plain-MC
+    control scored .83-1.25.
+  - Lineage on earlier panels: T317c HP3 5.08 [3.42, 7.04]; T317d HP3 5.07 [3.41, 7.03]; T317e is bitwise equal to
+    T317d.
+  - **Scope:** retrains only. The scheme was chosen among ~6 DEV2 variants.
+  - **Deductive status (T324 audit):** sampling-free at runtime, but the approximation scheme was selected and
+    validated by MC on DEV2, so it is not deductive in Hilton's strict sense.
+- **Error budget (T324; product and tmax terms confirmed by T334, independent code).**
+  - The line-set product carries ~40% of the MSE: Delta bias -.57 pp. T334: -.562 [-.623, -.502], Delta MSE -41%
+    [-57%, -20%], with a per-model share of 20-57%.
+  - The tmax cut carries ~20%: T324 -18%, T334 -20% [-33%, -1%].
+  - Blind g12 carries -9%. All walk approximations together carry 66%, and the closure c 34%.
+  - The product's overstatement (+.30-.34 pp) cancels the single anchor's understatement (-.34) at one anchor, so
+    fixing either alone makes the estimate worse (T324 Addendum A).
+- **Strict-bar lanes (80 DEV2; unverified unless noted).**
+  - T326 (cost floor): negative, scoped to the family's knobs. The floor is ~2.2k FPE, which gives strict F ~1.9 at
+    unchanged RMS.
+  - T330 / T330b (rigorous screens): exact, but they save nothing (C 5,525 / 5,561 vs 5,490). Tier C became T317f.
+  - T331 (tmax upward): GO = NO. Best RMS .669, at MSE x C 1.08x T317e.
+  - T327 (closure re-check): reproduced T319 (dead, verified, scoped). Its arm B, the one-pattern spread lows, cuts the
+    closure floor from .482 to .343 pp at no added cost.
+  - T339 (spread in the estimator): NO FREEZE. Error sd .667 -> .455 and corr .978 -> .991, but bias +.758 and RMS
+    .884. The walks' positive bias is the binding problem.
+  - T333 (exact joint set J2): ~21k FPE extra, ~17x the ~1.2k strict allowance, so it is **out of reach**. The
+    product's +.574 pp net offset lives in the L-band near both tie walls.
+  - T347 (tilt correction): NO GO on the pre-registered rule (.230 vs .1). Post hoc it gives bias -.013 and RMS .667.
+  - T351 (combinations): NO FREEZE; the selection keeps T317f. Spread+tilt has the best RMS (.609) but costs 6,543 FPE.
+  - **T353 (cost-only rewrite of spread+tilt): GO on DEV2 (unverified).** Estimates are bitwise equal to arm A3;
+    C 5,079 FPE, bias +.413, sd .451, RMS .609, F 2.60 (T317f 3.14). Frozen as `t351/estimator_h2.py`. A pre-registered
+    DEV3 check is pending; if it is confirmed, this is the HP5 candidate.
+  - Strict needs RMS <= ~.38 pp at ~5k FPE (T351).
+  - Why the spread works is open: T338 NO GO; T341 refuted the running-max reading.
+- **Noise (T337, unverified).** T317f breaks down **between .1% and .25% relative weight noise**: F 4.0 at .001,
+  12.0 at .0025, 32.4 at .005. The cause is errors far from the tie faces, which the geometry assumes correct.
+- **Rare events (owner priority; T340 partial positive, unverified).** Error probabilities of about 2e-7 to 4e-4 on
+  orig and two seeds, against GPU truths.
+  - Variant A (11-19k FPE) gets E2 within 3x in 6/6 cases but misses the E1 far-gap islands.
+  - Variant B (0.21-0.32M FPE) reaches E1 est/truth .64-.89 on the seeds and .20-.29 on orig.
+  - At equal compute (post hoc), each fixed variant beats sampling in 5/15 cases. The better variant per event family
+    (post hoc) wins 10, ties 3 and loses 2. No single estimator wins a majority.
+  - Open: T340c (T349) and the independent DEV3 check (T350).
+  - **T344:** certificates are infeasible as tried (scoped negative, unverified). The only rigorous bound is
+    8,200-27,500x loose.
+- **Exact route: dead (H-E13; DRI ruling, scoped to region/coverage enumeration).** Counts are confirmed to k = 4.
+  - T270: N6 >= 15,483,505 (exact lower bound), so the growth from k = 5 to k = 6 is at least 24.5x.
+  - The T316 geometry patch shows that estT undercounts at k >= 6, and the patched run is ~35x slower.
+  - The k = 10 figure (~1e13 regions) is an extrapolation.
+  - Exact computation as a component (exact 1-D walks) is alive.
+- **Panels.**
+  - HP4 (T328) is spent on T317f.
+  - HP5 (T336, seeds 400-499) is sealed with the scorer (14:08) as the reserve for one DRI-named submission.
+  - DEV3 (T342, seeds 500-599, truths published) is in preparation as an open development panel. DEV2 has been used
+    for ~40 variants.
+- **Earlier synthesis (2026-10-17), still valid with its corrections:**
+  - Deductive attempts lose by 8x to >300x (E10, E13, E14, E17, E19, E21; probe v2-v4), and LB3's mechanistic
+    estimators by 37x or more.
+  - srb does not beat sampling with cost charged as implemented (LB3).
+  - Tie-slicing quadrature beats sampling at T = 3-4 and collapses at T ~ 5-8 (H-E11). The collapse is in the
+    prefactor (T277, unverified). These wins are quadrature-class (fixed Sobol nodes) and so inductive under ARC's
+    definition (T263).
+  - Deterministic summaries of the low inputs overestimate accuracy (H-E10).
+  - Additive descriptions of the tie band miss by 4% even as an oracle (H-E8).
+- **For the comparison with ARC's reported solution (H-E5, unverified):** the decisive question is still how their
+  method handles the thin, heavily fragmented near-tie error regions at T = 10 (H-E12, H-E15). Whether to contact ARC
+  is the owner's decision. The DRI recommends at most a progress note (T323).
 
-## 5. Open questions / next steps
-**Done:** leaderboard v2 (LB2); reviewer R1 folded in; H-M2 null test (weakened); best estimator re-run
-independently (LB2); compute accounting incl. input generation (E18); orig truth fixed by pooling 28M samples.
+## 5. Open questions / next steps (2026-10-18 14:00 UTC)
+Claim work on [TASKS.md](TASKS.md) before starting.
 
-**Still open:**
-1. **Untried deductive direction (suggested by E23, E27):** a *stochastic* reduction that carries the low inputs as a
-   distribution and tracks the exact law of the residual tie margin; also symbols defined by rotating-neuron gate
-   switches rather than records.
-2. Explain the T~5 collapse mechanistically (why do bands become heavy-tailed?); repeat the E25 scan with several
-   training seeds per (H,T).
-3. Brute-force exact reference (needs more compute): reverse-search region enumeration plus exact cone masses at
-   ~1e9-1e10 eval-equivalents. Deciding experiment first: exact 10-D cone masses on a sample of regions.
-4. R1 follow-ups for the Qwen study: H2 with >=100 controls (top neurons projected out, or dense rotation) and 2-3
-   explainers per item; n-gram dedupe for judges; sweep the label constant budget; finish M_32,10 (E5).
-5. H-Q2 alternative (random directions dominated by massive-activation neurons) partly confirmed by R1; a full re-run is pending.
-6. Causal/orthogonal test for H-M3; check H-M1's phase clock across other common gate sets.
-7. Leaderboard v2's orig rows used the pre-fix truth (~0.025 pp low); re-score orig rows with the pooled truth.
-8. ARC protocol (H-E4): our sigma levels and accounting are our own choices; confirm against ARC's method when shared.
+**Done since the 2026-10-17 list:**
+- LB3.
+- The sealed panels HP1-HP4, the written cost convention (T196, T312) and the own-cost score (Directive 8).
+- The T317 lineage up to T317f, scored on HP4.
+- The error budget (T324, T334) and the strict-bar lanes T326-T353 (section 4b).
+- The noise curve (T337) and the first rare-event round (T340, T344).
+- The exact route, closed (H-E13, T270, T316).
+- A 300-billion-sample answer key, 95.31175% ± 0.00004 pp (T192).
+
+**In progress (TASKS.md), in priority order:**
+1. **Rare events, the owner's focus lane.**
+   - T340 keeps the events, truths and verdict.
+   - T349 (T340c) integrates g12 at exact-law Gauss nodes for variant B.
+   - T350 is the independent re-implementation on >= 6 DEV3 models. Its family rule and go line (better than sampling
+     in >= 2/3 of cases) are pre-registered.
+2. **T353 DEV3 check.** It is pre-registered, with no retuning against T317f. If it is confirmed, the DRI may name it
+   for HP5's single submission.
+3. **T343:** an independent check of T339's decomposition on DEV3 (the error sd and corr gain, and whether the +.27 pp
+   shift is roughly constant).
+4. **Panels:** T342 (DEV3); HP5 (T336) is sealed.
+5. **Standing:**
+   - T281, the sealed-panel scorer;
+   - T192, the GPU/compiled reference work;
+   - T234, the accuracy ceiling of the architecture (owner request; not estimator work);
+   - the long-running audit rows T19, T52 and T55, left to their holder.
+
+**Owner ideas on the backlog:**
+- **T352 (after the rare-event lane):** quantised-activation variants (binary, int4, int8; QAT), a reachable-state
+  census, an exact DP for the binary model, and discrete-input variants.
+- **T348 (reserved, low priority):** a GPU gate-pattern census for k = 7..10, as a diagnostic. It is queued behind the
+  T340 truths and DEV3.
+- **T345 (low):** a feed-forward control at the same task and parameter budget, to test whether depth is the
+  obstacle.
+- **T346 (low):** an exact-methods brainstorm. Step 1 is done
+  ([m16/approaches/exact_brainstorm](m16/approaches/exact_brainstorm/README.md)); step 2 is two independent reviews.
+
+**Open questions (Q4):**
+1. **Strict bar.** Can the walk approximations' positive bias (product +.30-.34, tmax +.18, blind +.07 pp; T339) be
+   removed deductively without J2's cost? The target is RMS <= ~.38 pp at ~5k FPE (T351).
+   - Untried: zonotope screens (T330) and a cheaper geometry (T329).
+2. **The spread closure.** Why does the alternating spread work (T341; a speculative period-2 mode)? And does its
+   gain hold on DEV3 (T343)?
+3. **Noise robustness.** The far-gap cut breaks first (T337). Errors far from the ties need a treatment, and this
+   overlaps with the rare-event islands.
+4. **Rare events.**
+   - Does the family rule hold on fresh models (T350)? Does T349 remove variant B's low bias on orig?
+   - Noisy copies and more models are untested (T340).
+   - A bound conditional on the declared closure was not pursued (T344; it would not be rigorous).
+5. **Exact methods not excluded by H-E13:** aggregation across regions (for example merging same-decision regions;
+   T346), finite-state variants (T352) and shallow architectures (T345).
+6. **Verification debts.**
+   - H-L1 is measured but not confirmed.
+   - T337, T340, T344, T347, T351 and T353 are unverified.
+   - The E1/E2 rare-event results rest on one agent's code until T350 reports.
+
+**ARC contact:** this is the owner's decision (ruling 2026-10-18 00:42: no contact without a candidate solution;
+T41/T203). The DRI recommends at most a progress note built on the T323 dossier. The reported ARC solution remains
+unverified (H-E5).
+
+**Carried over from the 2026-10-17 list (status updated):**
+1. **Stochastic reduction of the low inputs:** tried, with no pass.
+   - Mean-field: T294 inconclusive, T295 dead (verified via T299).
+   - Gaussian mixture: T309 STOP. EM and truncated-Gaussian mixtures are untried.
+   - Gaussian smoothing: T319 dead (verified via T327).
+2. **The T ~ 5 collapse:** E33 replicated the scan on 5 seeds (H-E11 confirmed). Neither kink density (T272) nor a
+   dimension factor (T277) explains it; the collapse is in the prefactor (unverified). Why the band integrand turns
+   heavy-tailed is still open.
+3. **Brute-force exact reference:** closed (H-E13). The 300-billion-sample answer key serves as the reference.
+4. **R1 follow-ups for the Q1 study:**
+   - H2 with >= 100 controls and 2-3 explainers per item;
+   - n-gram dedupe for judges;
+   - a sweep of the label constant budget;
+   - finishing M_32,10 (E5).
+5. **H-Q2 alternative** (random directions dominated by massive-activation neurons): a full re-run is pending.
+6. **H-M3 / H-M1:** H-M3 is partly addressed (T241: n3/n13 are causally used, not specially important). The H-M1 phase
+   clock was checked on 5 gate patterns, 3 with adequate support (E29). Other gate sets remain.
+7. **Leaderboard v2 orig rows:** superseded by LB3's 32M-sample per-model truths.
+8. **ARC protocol (H-E4):** our noise levels and accounting are still our own choices. Hilton's talk names seeds "or
+   maybe adding noise to the weights", with no level. Confirm against ARC's method when it is shared.
+
