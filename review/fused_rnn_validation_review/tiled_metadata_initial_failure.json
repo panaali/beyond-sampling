@@ -1,0 +1,10 @@
+{
+  "scope": "T261 tiled metadata review first check",
+  "error": "AssertionError at exact equality of last event CPU and final saved CPU",
+  "last_event_cpu": 2.6336055640000002,
+  "final_saved_cpu": 2.634479931,
+  "cause": "event() precedes save(), which reads process_time again; equality not a valid contract",
+  "correction": "monotone finite progress timestamps <= final saved CPU <90",
+  "author_calls": 0,
+  "author_changed": false
+}
