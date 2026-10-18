@@ -1,0 +1,9 @@
+# T258 independent regression saved audit
+
+Numerical saved audit PASS:14 records/30 events,14 independent exact normal-equation systems via Fraction Gaussian elimination, all candidate matrices/solve records, exact reference coefficients, residuals/predictions/routing/codec bits and8 malformed-argument rejection records check. Five valid fits and the zero-pooled first-solve singularity are retained. Producer15 solve attempts/14 returns and reference74 determinant calls reconcile. No producer/refit/model/CDF/RNG calls occurred in this audit.
+
+Source6f9b9e14/sharedaae000a9 was independently reviewed0d296fdc/shared4adf968a. Immutable input/execution bindinga0947da5 was published3724b658 BEFORE the review's sole run. Reviewer CPU0.131665340, RSS56,760KiB, external wall0.26s/user0.20s/system0.06s under19soft20hardCPU/2GiB/25wall reviewlock. No reviewer failures or reruns.
+
+The producer's procedural failure remains explicit: local gate9e959284 existed before execution but its shared publication failed in a ref race; orchestration launched anyway. Later raw85503147/shared17df5204 retains PUBLICATION_DEVIATION.md. `producer_gate_publication_before_run=false` and `producer_protocol_complete=false` remain in our result even though numerical assertions pass. No rerun or retrospective chronology repair.
+
+Limits: finite synthetic matrices only, fixed normalized coefficient/prediction tolerance1e-6 and exact equation-residual threshold5e-13; shared binary64 regularizer construction is separately checked from ideal decimal-rational systems. Malformed guards are saved evidence/source checks, not replayed rejection behavior. No general library/conditioning/codec guarantee, trained agreement, runtime pilot or full reproduction claim. A later model binding/resource pilot needs its own scope and clearance. Owner CPU.785765125 remains separately reported.
