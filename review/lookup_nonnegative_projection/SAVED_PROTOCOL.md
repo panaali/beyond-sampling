@@ -27,7 +27,10 @@ the same label. Persist this parity record before asserting it. A mismatch
 stops the phase rather than attributing changed readout arithmetic to clipping.
 Source counters cover only primitive expression categories (2H-1 dot convention),
 not validation, aggregation, native kernels, T196 cost or full diagnostic work.
-All research work including import/load/hash/save is inside the CPU timer.
+The internal main-scope CPU timer includes NumPy/primitive imports, data loads,
+hashing and intervening saves, but starts after top-level stdlib imports and
+output-directory creation. Its final stored value precedes final serialization.
+The external20CPU process limit covers those timing exclusions as well.
 
 One immutable attempt,17CPU soft/20CPU external hard,2GiB,one thread,review lock.
 Stop at the first parity/resource/finiteness failure. No automatic retries,
