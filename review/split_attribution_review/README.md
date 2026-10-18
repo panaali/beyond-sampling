@@ -68,3 +68,30 @@ Treating overlaps as a probability partition; labelling contrast drivers unique
 causes; exactness claims for numerical cone masses; ignoring retained-recipe
 error or wrong-centroid mass error; transferring an analytic defect to trained
 performance without evidence; missing provenance or partial-case coverage.
+
+## Saved contraction checkpoint (86549889)
+The reviewed recovery changes only handling of the two deliberately missing
+inventory entries and separate output filenames. It completed in1.007317CPU.
+All ten analysis.json objects, full/guard parity, selected pooled report lines
+and52 pruning records passed the frozen assertions. `manifest_files=121` in the
+raw result counts inventory entries:119 payload files and2 explicit missing
+path records. No payload was omitted from hash validation.
+
+H8T4's23,964 resolved splits have16.0428% of numerical absolute intervention
+effect attributed to contrast-driver rank4. Cells with reported mass<1e-4
+contain54.6278% of splits and0.729386% of this effect;80.4373% of splits have
+own effect<1e-6. These reproduce the saved descriptive finding, with the
+fixed-piece/numerical/driver qualifications in SOURCE_REVIEW.md.
+
+The cumulative guard exceeds one on522 logged H8T4 events;504 have every
+individual union-point ratio<=1. The other18 can exceed one at another gate's
+test point even though its own original test passed. These records are not an
+executed cumulative-guard repair, an extra-split count or a whole-cell proof.
+
+Reproduction: `python review/split_attribution_review/recover_saved.py` under
+saved_recovery_gate.json and the declared review lock/caps, with fresh output
+filenames. No evaluator or diagnostics are rerun. A saved-only pruning-table
+supplement is frozen to cover the lone T4 point reference and all reported
+nonzero-threshold ratios; it awaits its independent gate. Final saved audit is
+pending. Source, cap evidence and contraction checkpoint are reachable in
+shared1707472b; cap saved review2eef376c is separately published.
