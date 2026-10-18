@@ -83,3 +83,11 @@ exactly 0 (Phi(v2) is a model-free table), and the pieces ending at tmax merge w
 - The claim is HP2 alone.
 - Forking paths: the estimates are identical to the already-scored T317b, so this is a cost-only re-implementation
   with no new estimate variant.
+
+**Official count update (T281 scorer 379498b6, DRI ruling):**
+- correct_interval is **229 FLOPs** per row-call (itemised in hp1_scorer/cost_t317.py), not the 216 used in
+  cont_c.py. T317c's charged C is therefore low by 13 FLOPs per cell call, a few tenths of a percent. The 15% saving
+  and the projection are unaffected.
+- Official HP2 under 229: T317 C 7,880 FPE, F 9.71 [6.99, 12.61]; T317b C 6,405, F 7.89 [5.68, 10.25].
+- T317c's estimates reproduce T317b's (diff 0.0 on DEV2), satisfying the scorer's <= 1e-12 condition for r1_cont
+  submissions.
