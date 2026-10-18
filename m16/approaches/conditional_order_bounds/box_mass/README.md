@@ -35,3 +35,6 @@ Incorrect age/index mapping or pair lookup, adding omitted-rank conditioning,
 forgetting zero-allowance ties, double-counting boxes, or interpreting uncertainty
 width as actual estimator error. Source/control gates and independent saved audit
 are required. Scientific positive/negative claims stay scoped to fixed models.
+
+## Preserved first attempt, 2026-10-18
+Source gate2af8ef71 and protocol2708cc95 preceded the run. Four predicate and five CDF controls passed; the first saved-model rational decoding failed because Fraction requires integer components while T187 saves decimal strings. All controls, mass, failure, progress and 0.139998291 process CPU seconds are preserved in results.json/progress.jsonl/run1.log. No model inequalities were evaluated. recover.py freezes integer decoding only, retaining original source and reusing all completed controls/mass; independent recovery gate pending.

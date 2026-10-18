@@ -1,0 +1,220 @@
+{
+  "complete": false,
+  "control_rows": [
+    {
+      "kind": "predicate",
+      "name": "strict_pass",
+      "result": {
+        "largest": 2,
+        "second": 3,
+        "omitted": [
+          0,
+          1
+        ],
+        "L_by_input": [
+          "8",
+          "8",
+          "1",
+          "1"
+        ],
+        "anchor_margin_abs_upper": "3",
+        "allowance_mean_strict_lower": "4",
+        "positive_omitted_allowance": true,
+        "certified_vacuous": true,
+        "retained_to_threshold_ratio": "3/4"
+      },
+      "expected": true,
+      "passed": true
+    },
+    {
+      "kind": "predicate",
+      "name": "equality_pass",
+      "result": {
+        "largest": 2,
+        "second": 3,
+        "omitted": [
+          0,
+          1
+        ],
+        "L_by_input": [
+          "4",
+          "8",
+          "1",
+          "1"
+        ],
+        "anchor_margin_abs_upper": "3",
+        "allowance_mean_strict_lower": "3",
+        "positive_omitted_allowance": true,
+        "certified_vacuous": true,
+        "retained_to_threshold_ratio": "1"
+      },
+      "expected": true,
+      "passed": true
+    },
+    {
+      "kind": "predicate",
+      "name": "unresolved",
+      "result": {
+        "largest": 2,
+        "second": 3,
+        "omitted": [
+          0,
+          1
+        ],
+        "L_by_input": [
+          "4",
+          "4",
+          "1",
+          "1"
+        ],
+        "anchor_margin_abs_upper": "3",
+        "allowance_mean_strict_lower": "2",
+        "positive_omitted_allowance": true,
+        "certified_vacuous": false,
+        "retained_to_threshold_ratio": "3/2"
+      },
+      "expected": false,
+      "passed": true
+    },
+    {
+      "kind": "predicate",
+      "name": "zero_guard",
+      "result": {
+        "largest": 2,
+        "second": 3,
+        "omitted": [
+          0,
+          1
+        ],
+        "L_by_input": [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "anchor_margin_abs_upper": "0",
+        "allowance_mean_strict_lower": "0",
+        "positive_omitted_allowance": false,
+        "certified_vacuous": false,
+        "retained_to_threshold_ratio": null
+      },
+      "expected": false,
+      "passed": true
+    },
+    {
+      "kind": "cdf",
+      "x": "-2",
+      "enclosure": {
+        "lower": "43445397012950541914265017990606794025031683337351644819320644458726006468028233391661758943/1909676704816987556337393843524984964936225091430650812665456474319081635706865126100749218750",
+        "upper": "2673562893104648733185539592198951567252371411282763688730784056463896011589837613317572083/117518566450276157313070390370768305534536928703456744130593199036433819719633430215984843750",
+        "lower_float_display": 0.02275013194817921,
+        "upper_float_display": 0.02275013194817921
+      },
+      "reference120": "0.022750131948179207200282637166533437471776223701678433983666000130476290352775748348269152075789614922511537182",
+      "passed": true
+    },
+    {
+      "kind": "cdf",
+      "x": "-1",
+      "enclosure": {
+        "lower": "302980242529727312072861443057564204340225361920956489449735524689284565262588559954179635679/1909676704816987556337393843524984964936225091430650812665456474319081635706865126100749218750",
+        "upper": "18644938001829373050637627265080874113244637657328506601139525499947062914121565810379015667/117518566450276157313070390370768305534536928703456744130593199036433819719633430215984843750",
+        "lower_float_display": 0.15865525393145705,
+        "upper_float_display": 0.15865525393145705
+      },
+      "reference120": "0.15865525393145705141476745436796207752208703327339560901260554975700855801279517049911508159436067247172731241",
+      "passed": true
+    },
+    {
+      "kind": "cdf",
+      "x": "0",
+      "enclosure": {
+        "lower": "1/2",
+        "upper": "1/2",
+        "lower_float_display": 0.5,
+        "upper_float_display": 0.5
+      },
+      "reference120": "0.5",
+      "passed": true
+    },
+    {
+      "kind": "cdf",
+      "x": "1",
+      "enclosure": {
+        "lower": "98873628448446784262432763105687431421292291046128237529453673536486756805511864405605828083/117518566450276157313070390370768305534536928703456744130593199036433819719633430215984843750",
+        "upper": "1606696462287260244264532400467420760595999729509694323215720949629797070444276566146569583071/1909676704816987556337393843524984964936225091430650812665456474319081635706865126100749218750",
+        "lower_float_display": 0.8413447460685429,
+        "upper_float_display": 0.8413447460685429
+      },
+      "reference120": "0.84134474606854294858523254563203792247791296672660439098739445024299144198720482950088491840563932752827268759",
+      "passed": true
+    },
+    {
+      "kind": "cdf",
+      "x": "2",
+      "enclosure": {
+        "lower": "114845003557171508579884850778569353967284557292173980441862414979969923708043592602667271667/117518566450276157313070390370768305534536928703456744130593199036433819719633430215984843750",
+        "upper": "1866231307804037014423128825534378170911193408093299167846135829860355629238836892709087459807/1909676704816987556337393843524984964936225091430650812665456474319081635706865126100749218750",
+        "lower_float_display": 0.9772498680518208,
+        "upper_float_display": 0.9772498680518208
+      },
+      "reference120": "0.97724986805182079279971736283346656252822377629832156601633399986952370964722425165173084792421038507748846282",
+      "passed": true
+    }
+  ],
+  "models": [],
+  "protocol_sha256": "956c7555e3839560fc20edfca84cc6118adf7582aba3617c2d7166eb6a3df239",
+  "prior_and_import_cpu_seconds": 0.119299659,
+  "network_forwards": 0,
+  "checkpoint_loads": 0,
+  "reference_quadrature_calls": 0,
+  "random_draws": 0,
+  "work_cpu_seconds": 0.020698631999999995,
+  "process_cpu_seconds": 0.139998291,
+  "accounting": {
+    "named_exact_operations": {
+      "rational_add": 152,
+      "rational_mul": 320,
+      "rational_div": 209,
+      "sufficient_pair_comparisons": 8,
+      "gaussian_cdf_unique_calls": 5,
+      "rational_sub": 66,
+      "integrated_gaussian_series_terms": 66,
+      "atan_small_calls": 2,
+      "atan_series_terms": 128,
+      "interval_minmax_4": 14,
+      "rational_neg": 10,
+      "sqrt_isqrt_calls": 4
+    },
+    "max_observed_numerator_bits": 1483,
+    "max_observed_denominator_bits": 1480,
+    "scope": "Named rational expressions and interval operations only; Fraction normalization, comparisons, integer isqrt/shift/division internals and serialization are not scalar-unit priced."
+  },
+  "control_accounting": {
+    "named_exact_operations": {
+      "rational_add": 148,
+      "rational_mul": 296,
+      "rational_div": 207,
+      "sufficient_pair_comparisons": 8,
+      "gaussian_cdf_unique_calls": 5,
+      "rational_sub": 66,
+      "integrated_gaussian_series_terms": 66,
+      "atan_small_calls": 2,
+      "atan_series_terms": 128,
+      "interval_minmax_4": 8,
+      "rational_neg": 6,
+      "sqrt_isqrt_calls": 4
+    },
+    "max_observed_numerator_bits": 1483,
+    "max_observed_denominator_bits": 1480,
+    "scope": "Named rational expressions and interval operations only; Fraction normalization, comparisons, integer isqrt/shift/division internals and serialization are not scalar-unit priced."
+  },
+  "per_ordered_label_box_mass": {
+    "lower": "521645706011485498077311937905979944980649884119890281797084634893640380122523117576585838906498230610152191370657821499911293134249263627958421212185366643403694125510789075025362110010746968163285006039159494076070584387999788480665355685843087833669295352258324992718705027223334585696111502814426268349292935739740508929564832846826246324645814339998517750249551976701160948076749061416450452028670577278451712/24470935114197094305834568631347743586077471259339658585387670757202950528135836363178796391073923591890788737491358861122677081705455556817181539763371321447372274147600548212764728359701470468926910287731388608673188175352354453014124948649188343575470575319441400324698709941928210881351620346370344133787260626015594572064302816341110584565295710552268577155154874061291255250261559295164741761982440948486328125",
+    "upper": "1224779365680637365086961068278382556174807352316575425722570961849996800247106925523105450643985281052292816448725100276189490592301744973618612673299701949484180144138410849904420761516144782099923480713921537077175096402896007362152522460237742447550207617767037404265292474186407493943944492348909105160353982470914239724479083732191316419951442137869879442177655681445697313624062973556917204421970754579111870464/57455656284302751677020853154814961199135979007408273269215338978421494385309763417173290014241890845966171303803221502497474011661207218684864672775019244715327767688411941652600081267878632950093613560186949658984415222488833636500129455528894272509247073341831218226696765630513594602074366045551257476530810931068528596271750320868675025848420873098715302219445445766389726208771605801367333182133734226226806640625",
+    "lower_float_display": 0.021316950234110454,
+    "upper_float_display": 0.021316950234110454
+  },
+  "mass_domain": "Xi in[1,2], Xj in[0,1], all other Xk<=Xj; target j; disjoint over ordered i,j.",
+  "failure": "TypeError('both arguments should be Rational instances')"
+}
