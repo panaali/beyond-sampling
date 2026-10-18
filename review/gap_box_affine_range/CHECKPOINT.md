@@ -9,3 +9,5 @@ The previous T240 campaign remains failed under its intended physical labels. It
 Update: source/resource review74b958ac/shared54c8a7a7 passed; immutable gatee0dc6daf published427e6a20 preceded the sole `bash launch.sh` run. All20 rows/42events passed in0.566146957 internalCPU,44candidate attempts/12reference calls/1494linear systems; no model/CDF/RNG. Raw controls/output andrun1.log retained. Independent saved audit pending910 before bounded handoff; no application authorized.
 
 Final control checkpoint: independent Cramer audit65ac580f is published and complete; controls/HANDOFF.md closes this finite primitive phase. No trained or Gaussian application cleared. Renewed source preparation requires a fresh board update; all previous gate/source/raw histories remain intact.
+
+Written enclosure contract98f6f8e4 independently9492142b/shared74629c8f is now complete, execution=false. enclosure_contract/HANDOFF.md preserves this gate and the separate prospective-control scope; no implementation yet. Fifteen old T189 byte pins were inventoried without decoding numerical results.

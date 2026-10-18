@@ -1,0 +1,7 @@
+# T258 written phase independently complete; reproduction remains open
+
+Producer e9f02fc9, narrow domain qualifications f172020c and final attribution b526dcf9 are independently reviewed by e0dee476, published37655d93. Reviewer artifact: m16/approaches/feynman_fundamentals/t258_source_review/source_review.json, complete/pass_all true, execution_allowed false. All10 exact source blobs and32 owner-tree entries match. Reviewer preserved an initial metadata-only ls-tree cwd assertion and corrected it with --full-tree; no scientific run occurred.
+
+The source supports the recorded replacement/HingeBank/selection/D1 semantics. Existing all16 final-step diagnostic is not an independent test of recurrent reconstruction. Positive-variance iid noise precision is distribution-specific; fixed ridge commutation requires defined solves/common maps. Neither finite reported score is a universal variable-set ceiling. Missing tracked coefficients/raw evaluation and historical bindings remain explicit. Source flags do not invalidate the reported scores.
+
+The retained evidence preparation e4830397 is separate under1d48eda4. Checker source375055b5 is now with h4 under66bc9df5; it has NOT run. No model/fit/array/RNG calls in this written phase. It cannot meet T258's different-code/seed reproduction criterion, which remains active. Request raw artifact recovery before expensive refitting, and coordinate any eventual coefficient capture with T260. T259's distinct ridge-objective proof avoids redundant fit variants.
