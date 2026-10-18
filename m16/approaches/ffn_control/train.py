@@ -4,7 +4,7 @@ Recipe copied from alg_zoo.training.train (AdamW, weight decay .001, lr .04/sqrt
 exponential decay to .01x, batch 1024, cross-entropy on the 10 logits, bias=False). Only n_train is smaller by
 default (2**28 instead of 2**30) to fit a shared CPU.
 
-usage: python train.py ARCH SEED [LOG2_NTRAIN]     ARCH in {L1h22, L1h43, L2h13, L2h21}
+usage: python train.py ARCH SEED [LOG2_NTRAIN]     ARCH in {L1h22, L1h43, L2h13, L2h21} or D<depth>w<width>
 """
 import functools
 import json
@@ -14,6 +14,14 @@ import time
 import torch as th
 
 ARCHS = {"L1h22": [22], "L1h43": [43], "L2h13": [13, 13], "L2h21": [21, 21]}
+
+
+def widths_of(arch):
+    """Named control archs above, or ladder names D<depth>w<width> (equal widths), e.g. D2w32 = [32, 32]."""
+    if arch in ARCHS:
+        return ARCHS[arch]
+    d, w = arch[1:].split("w")
+    return [int(w)] * int(d)
 T = 10
 
 
@@ -33,7 +41,7 @@ def lr_mult(step, *, n_steps, warmup_steps, decay_min_mult):          # = alg_zo
 def main(arch, seed, log2n=28, batch=1024):
     th.manual_seed(seed)
     th.set_num_threads(1)
-    widths = ARCHS[arch]
+    widths = widths_of(arch)
     model = make(widths)
     n_params = sum(p.numel() for p in model.parameters())
     opt = th.optim.AdamW(model.parameters(), lr=0.04 / widths[0] ** 0.5, weight_decay=0.001)
@@ -53,7 +61,7 @@ def main(arch, seed, log2n=28, batch=1024):
             print(*log[-1], flush=True); run_loss = run_acc = 0.0
     W = [m.weight.detach().double().tolist() for m in model if isinstance(m, th.nn.Linear)]
     json.dump({"arch": arch, "widths": widths, "seed": seed, "n_params": n_params, "n_train": 2 ** log2n,
-               "weights": W, "log": log}, open(f"models/{arch}_s{seed}.json", "w"))
+               "weights": W, "log": log}, open(f"models/{arch}_s{seed}{'' if log2n == 30 else f'_n{log2n}'}.json", "w"))
 
 
 if __name__ == "__main__":

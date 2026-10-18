@@ -28,6 +28,14 @@ class MLP:
         self.W = [np.asarray(w, dtype=np.float64) for w in weights]
         macs = sum(w.size for w in self.W)
         self.fwd_flops = 2 * macs + sum(w.shape[0] for w in self.W[:-1])
+        # suffix[i]: FLOPs to update value+slope after pre-activation i flips its gate: a rank-1 update into the
+        # next layer (4 x its width), then a full value+slope recompute of every later layer.
+        suf = []
+        for l, w in enumerate(self.W[:-1]):
+            nxt = 4 * self.W[l + 1].shape[0]
+            later = sum(2 * (2 * v.size + v.shape[0]) for v in self.W[l + 2:])
+            suf += [nxt + later] * w.shape[0]
+        self.suffix = np.array(suf, dtype=float)
 
     def pre_and_logits(self, x, d):
         """x, d: (T,). Returns pre-activations, their slopes, logits, logit slopes (all at x, direction d)."""
@@ -51,6 +59,10 @@ class RNN:
         self.Wi, self.Wh, self.Wo = (np.asarray(a, dtype=np.float64) for a in (Wi, Wh, Wo))
         H = len(self.Wi)
         self.fwd_flops = 2 * (T * (H + H * H) + T * H) + T * H
+        # suffix for a gate flip at step t: rank-1 into step t+1 (4H), value+slope recompute of steps t+2..T-1
+        # (2 x (2H^2 + H) each) and of the readout from step t+1 on (rank-1 updates already counted).
+        step = 2 * (2 * H * H + 3 * H)
+        self.suffix = np.repeat([4 * H + max(T - 2 - t, 0) * step + 4 * T * H for t in range(T)], H).astype(float)
 
     def pre_and_logits(self, x, d):
         H = len(self.Wi)
@@ -87,9 +99,12 @@ def _target_breaks(b, d, lo, hi):
 def walk(model, b, d, lo, hi, cdf, max_pieces=100000):
     """Exact weight of {s in [lo, hi]: argmax logits(b + s d) == 2nd-argmax(b + s d)}.
 
-    Returns (mass, total flops, pieces, aux flops), aux = target breakpoints + envelope + erf work."""
+    Returns (mass, total flops, pieces, aux flops, incremental flops): total charges a full forward-with-slope per
+    piece (what this code does); incremental charges only the work after the gate that flipped (model.suffix, a
+    cost model, not implemented); aux = target breakpoints + envelope + erf work."""
     edges, tg, aux = _target_breaks(b, d, lo, hi)      # aux: FLOPs outside the per-piece forward-with-slope
     s, mass, pieces, eps, flops = lo, 0.0, 0, 1e-9, 0
+    suffix_flops, last_idx = 2.0 * model.fwd_flops, 0     # incremental cost model: one full forward-with-slope
     ti = 0
     while s < hi and pieces < max_pieces:
         sp = s + eps * max(1.0, abs(s))
@@ -99,8 +114,16 @@ def walk(model, b, d, lo, hi, cdf, max_pieces=100000):
         z, lg = z - dz * (sp - s), lg - dlg * (sp - s)
         with np.errstate(divide="ignore", invalid="ignore"):
             r = s - z / dz
-        r = r[(r > s + 1e-12 * max(1.0, abs(s))) & np.isfinite(r)]
-        nxt = min(hi, r.min()) if r.size else hi
+        keep = (r > s + 1e-12 * max(1.0, abs(s))) & np.isfinite(r)
+        r = r[keep]
+        if pieces > 1:
+            suffix_flops += model.suffix[last_idx]
+        if r.size:
+            i_min = int(np.argmin(r))
+            nxt = min(hi, r[i_min])
+            last_idx = int(np.flatnonzero(keep)[i_min])
+        else:
+            nxt = hi
         a = s
         while a < nxt:
             while edges[ti + 1] <= a:
@@ -124,7 +147,7 @@ def walk(model, b, d, lo, hi, cdf, max_pieces=100000):
                     tj += 1
             a = bnd
         s = nxt
-    return mass, flops + aux, pieces, aux
+    return mass, flops + aux, pieces, aux, suffix_flops + aux
 
 
 GAUSS = (-9.0, 9.0, ndtr)
@@ -141,6 +164,5 @@ def coord_walk(model, rng):
 
 def circle_walk(model, rng):
     u, v = rng.standard_normal(T), rng.standard_normal(T)
-    m1, f1, p1, a1 = walk(model, u, v, *CAUCHY)
-    m2, f2, p2, a2 = walk(model, -u, -v, *CAUCHY)
-    return 0.5 * (m1 + m2), f1 + f2, p1 + p2, a1 + a2
+    r1, r2 = walk(model, u, v, *CAUCHY), walk(model, -u, -v, *CAUCHY)
+    return (0.5 * (r1[0] + r2[0]),) + tuple(a + b for a, b in zip(r1[1:], r2[1:]))

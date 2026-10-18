@@ -3,7 +3,8 @@
 For an unbiased estimator that averages n iid walks of per-walk variance Var_m and mean cost c_m (FPE), at budget
 C (>= 1k FPE) n = C / c_m and MSE_m = Var_m c_m / C, so F = MSE C / p(1-p) does not depend on C. Plain sampling
 has Var = p(1-p), c = 1, F = 1. We also report F_floor, which charges each piece only the floor cost of any walk
-algorithm (one logit-vector update with slope, 4T FLOPs) plus envelope/erf work and 2 FPE per walk.
+algorithm (one logit-vector update with slope, 4T FLOPs) plus envelope/erf work and 2 FPE per walk, and F_incr,
+which charges each gate flip only the work after the flipped layer/step (walks.py model.suffix).
 
 usage: python score.py ARCH_PREFIX N_COORD N_CIRCLE      e.g. python score.py M16_10 3000 600
 writes results/walks_<ARCH_PREFIX>.json (per-model values) and prints F with a bootstrap CI over models.
@@ -37,6 +38,7 @@ def run(prefix, n_coord, n_circle):
             rec[kind] = {"n": n, "mean": float(v[:, 0].mean()), "var": float(v[:, 0].var(ddof=1)),
                          "cost_fpe": float(v[:, 1].mean() / m.fwd_flops), "pieces": float(v[:, 2].mean()),
                          "cost_floor_fpe": float(floor.mean() / m.fwd_flops),
+                         "cost_incr_fpe": float(v[:, 4].mean() / m.fwd_flops),
                          "z_vs_mc": float((v[:, 0].mean() - p) / np.sqrt(v[:, 0].var(ddof=1) / n + p * (1 - p) / 1e7))}
         out[name] = rec
         print(name, f"{time.time() - t0:.0f}s", json.dumps(rec), flush=True)
@@ -59,4 +61,5 @@ if __name__ == "__main__":
     prefix = sys.argv[1]
     out = run(prefix, int(sys.argv[2]), int(sys.argv[3]))
     for kind in ("coord", "circle"):
-        print(prefix, kind, "F", figure(out, kind), "F_floor", figure(out, kind, "cost_floor_fpe"))
+        print(prefix, kind, "F", figure(out, kind), "F_incr", figure(out, kind, "cost_incr_fpe"),
+              "F_floor", figure(out, kind, "cost_floor_fpe"))

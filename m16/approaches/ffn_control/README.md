@@ -66,6 +66,41 @@ our exact-walk tools reach on it, compared with the same tools on M_16,10?
   RNN should gain similarly under the same walks), (b) the MLP is cheaper to sample too, so the gain may vanish
   in F even if walks are cheaper in FLOPs. The cheapest separating test is the E1 run on both families.
 
+### Amendment A (2026-10-18 ~23:55 UTC, before any ladder run): owner retarget via the DRI
+
+The owner changed the target. The goal is now **the simplest all-inputs-at-once network that reaches >= .95
+accuracy** (M_16,10: .9531): fewest layers first, then fewest parameters. Then attempt the challenge on it: a
+deductive accuracy estimate whose MSE is no worse than sampling at equal FLOPs (F <= 1). The 12 runs above continue
+as cheap ladder points and as the original 432-parameter control.
+
+Step 1, simplicity ladder (bias-free ReLU MLPs, the same task, recipe and label as above; equal widths per layer):
+- Depth 1: widths 16, 32, 64, 128, 256, 512. Depth 2: widths 16, 24, 32, 64. Depth 3: widths 16, 24, 32.
+  Names `D<depth>w<width>` (`python train.py D2w32 SEED 28`).
+- Screen: seed 0 of every configuration at n_train = 2^28 (a quarter of the zoo's 2^30, for CPU). Seeds 1 and 2
+  (>= 3 seeds) for every configuration whose seed 0 reaches >= .94, and for the narrowest configuration of each
+  depth whose seed 0 reaches >= .95. The chosen configuration is retrained at 2^30 on 3 seeds to check
+  that the shorter schedule did not decide the outcome. If no depth-1 width up to 512 reaches .95, depth 1 is
+  reported as plateaued at the best width, with its accuracy curve.
+- Accuracy on 1e7 fresh inputs (seed 20261018) for each (depth, width, params, seed), with seed spread.
+- Region counts per configuration. Depth 1, bias-free: the regions are the chambers of a central arrangement of w
+  hyperplanes in R^10, exactly 2·sum_{i<10} C(w-1, i) in general position (5.6e4 at w = 16, 1.4e6 at w = 22, 6.3e7 at w = 32,
+  5.6e10 at w = 64, 3.8e13 at w = 128, 2.3e16 at w = 256). Deeper nets: this bound for layer 1, plus sample-based distinct gate
+  patterns per layer and mass-coverage counts N_delta from 1e7 inputs (`analyze.py regions`).
+- Selection: (a) simplest by depth, then parameters, reaching >= .95 on all seeds; (b) most tractable reaching
+  >= .95 on all seeds, judged by realised region / decision-cell counts and N_delta (lowest wins). Both reported.
+- Optional comparison only: a permutation-structured variant, if cheap.
+
+Step 2, on the chosen network(s): the pre-registered stage-2/3 analysis above (region counts vs the RNN's x23-33
+per step, exact-accuracy attempt, exact walks, F at C >= 1k FPE vs plain sampling, M_16,10 control with the same
+code), on 3 seeds plus 9 noised copies (sigma .05). Additional candidate methods named by the DRI: exact Gaussian
+structure of the first-layer pre-activations (jointly Gaussian with covariance W1 W1^T) and approximate
+permutation symmetry. A short mechanistic account of what the neurons compute is part of done.
+
+Cost accounting for walks (added before the scored panel): F is reported under three charges: `F` = the
+implemented algorithm (a full forward-with-slope per piece, 2 FPE), `F_incr` = an incremental cost model
+(after a gate flip, a rank-1 update plus recompute of only the later layers / steps; a model, not implemented),
+`F_floor` = 4T FLOPs per piece (a lower bound for any piece walk). `F` is the headline.
+
 ## Method
 Key files: `train.py` (training), `models/*.json` (weights). Further files are added as stages run.
 
