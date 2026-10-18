@@ -1,6 +1,16 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
 
+
+### 2026-10-18 04:02 UTC — T55 published T234 driver review (T246)
+
+Independent source review `cb7dd705` ([findings](../feynman_fundamentals/capacity_driver_review/SOURCE_REVIEW.md)) binds eleven exact Git blobs at author `3e5e09a1`. This supersedes T237's earlier absent-driver observation at its frozen head. No training, model evaluation, checkpoint decoding or author test was run.
+
+**Actionable:** the multi-T table includes T2 but evaluate.py unconditionally indexes `order[:, -3]`; a nonempty T2 batch cannot complete as written. Resume now retains AdamW moments (an improvement) but reseeds its data stream, lacks stored configuration/source/seed-list validation and saves only periodic pre-final state. These are source findings, not observed historical failures. New follow-up T249 records owner source fixes without authorizing reruns.
+
+Final MC uses common inputs across models and default seed777 across invocations, but does not preserve integer pairwise discordance counts. Best-seed/repeated-arm comparisons therefore retain selection and paired-uncertainty limitations; no architecture ceiling follows. **Correction:** a preliminary reviewer claim of an extra CUDA capture update was wrong and withdrawn: capture records device operations for replay. Peer56 independently agrees. The finite graph=False CPU test does not establish CUDA/runtime or bitwise-resume equivalence. Owner training authorization and budget are unchanged; no shared source was edited.
+
+
 ### 2026-10-18 03:55 UTC — Claude DRI: new Ready row T240 proposed for lane 78
 
 Now that T189 is closed (both certificate families too wide), lane 78 is the natural owner of **T240**, the certified-correct mass of the "easy" part. Reuse the T189 local-certificate machinery. Question: how much input probability can be *certified correct* cheaply on cones where the top-3 order statistics are well separated (gap threshold g), and at what cost per unit certified mass, at (8,4), (16,4) and prefix-level on the target? This tests the owner's hypothesis: a structured, certifiable part (~most of the 95%) plus an unstructured error band that behaves like a random network. A companion test, T239, runs on the Claude T194 child. Bounded, light, independent review as usual.

@@ -1,0 +1,52 @@
+{
+  "task": "T248 fixed saved scalar reconciliation",
+  "preparation_claim": "1b6baf0b",
+  "source_commit": "869c90c5",
+  "models": [
+    "target",
+    "frob0",
+    "frob1",
+    "frob2",
+    "frob3",
+    "frob4",
+    "row0",
+    "row1",
+    "row2",
+    "row3",
+    "row4",
+    "perm0",
+    "flip0"
+  ],
+  "steps": [
+    2,
+    3,
+    4
+  ],
+  "raw_rows": 39,
+  "summary_models": 13,
+  "run_count": 1,
+  "author_calls": 0,
+  "array_decodes": 0,
+  "source_review": "/workspace/work/recover-small_h2_78/review/t248_random_control_review/source_review.json",
+  "source_gate": "/workspace/work/recover-small_h2_78/review/t248_random_control_review/source_gate.json",
+  "limits": {
+    "internal_cpu": 16,
+    "process_hard_cpu": 20,
+    "address_bytes": 2147483648,
+    "wall_after_lock_seconds": 25,
+    "lock": "/workspace/work/codex-review.lock"
+  },
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/saved/check.py": "06467d606850acfd9dce32e2be4c9c00dd0ed3b615043fdd74acf382fcc7d11f",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/manifest.json": "1596a3622cd130b63c4f057989de95479efb40cb09b4928dbd34f52700143f0b",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/SOURCE_FINDINGS.md": "9f452ee6e7cc69b6f09d671936665892ba41da2156d9aa910b944e011420711c",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/README.md": "0a7d2e0d57ddbd2301d6079a2922363eab7dc0d5dd148de2430ba5863be18141"
+  },
+  "scope": "Exact Fraction ratios of stored scalar counts; reported masses/accuracy remain source-qualified. Partial log coverage retained. No decoding NPZ or estimator execution.",
+  "publication_note": "Gate stores prior execution-scope publication, not a self-referential own hash. Immutable gate commit is published before run and recorded in launch evidence.",
+  "prerun_corrections": [
+    "Reviewer caught final event guard failure retaining success flags; exception now sets complete/pass_all false while preserving raw data.",
+    "Publication field names prior execution-scope commit; own gate publication recorded externally.",
+    "CPU soft/hard resource checks explicitly reject unlimited negative values."
+  ]
+}
