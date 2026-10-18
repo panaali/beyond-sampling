@@ -13,19 +13,18 @@ independent scorer". A different agent has since audited the method and measured
 
 > On 100 fresh retrains of AlgZoo's M_16,10 training recipe (sealed panel HP3, frozen code, scored once), a
 > sampling-free estimator estimates each model's accuracy with RMS error 0.80 pp (bias +0.41 pp) at a counted cost of
-> 5.4k forward-pass equivalents (5.4–7.0k under alternative FLOP conventions, §3). It works by exact piecewise-linear
-> ReLU-gate walks along the two gap directions of each position triple, combined under six declared approximations.
+> 5.4k forward-pass equivalents (5.4–7.0k under alternative FLOP conventions, §3). It walks the ReLU gates exactly
+> along the two gap directions of each position triple, under six declared approximations.
 > **It is sampling-free at runtime, but not deductive in Hilton's strict sense.** The approximation scheme (the
 > closure, the latest-position rule for v4, the cut at gap 0.5, the single v4 node and the blind-g12 rule) was
-> selected and validated by Monte Carlo on 80 separate development retrains. The structural extrapolations it makes
-> are declared and are identical for every model, and nothing is fitted per model.
+> selected and validated by Monte Carlo on 80 separate development retrains. Its extrapolations are declared and the
+> same for every model; nothing is fitted per model.
 >
 > **Plain sampling at the same compute would have about 5x lower MSE: F = 5.07, 95% CI 3.41–7.03.** The estimator is
 > worth n* ≈ 1,070 samples. On a second sealed panel (HP2), used for earlier submissions of the same lineage, F is 6.75
 > [4.86, 8.78]. **The estimator does not match sampling, and it fails on weight-noised copies (bias up to +6.6 pp).**
-> It uses no random inputs to the model. Its model-free constants come from deterministic quadrature (T317d). T317e,
-> the bitwise-identical cleanup to cite, makes no random draws at all. T317d still ran two unused seeded Monte Carlos
-> at import, and T317c used one to set its transverse points.
+> The version to cite, T317e, makes no random draws at all. It is bitwise identical to the scored T317d, which still
+> ran two unused seeded Monte Carlos at import.
 
 The positive result is the information content. A constant at the development mean (0.920) scores F 18.9 [14.1, 24.2] on HP3 at the 1k-FPE floor and is
 worth n* = 53 samples. This estimator is worth 1,069 on HP3, 20x more. On DEV2 its correlation
@@ -41,10 +40,9 @@ whose quotes are approximate and taken from an auto-generated transcript.
   amount of computation relative to like mean squared error" [33:12]. Hilton calls it "as yet completely open" [33:00].
 - **Which models.** "taking a random seed or maybe adding noise to the weights" [33:22–33:31], with MSE averaged over
   "randomness over the weights" [35:29]. No noise level or seed list is given.
-- **What counts as mechanistic.** "deductive rather than inductive" [24:57]; "just like no sampling" [25:02]. One is
-  "not allowed to just like sample some inputs ... and assume ... other things will behave similarly" [25:05].
-  Regression on samples is "a little bit cheating" [17:52]. Approximations are acceptable: "roughly zero. I'm
-  ignoring some noise" [25:22].
+- **What counts as mechanistic.** "deductive rather than inductive" [24:57]; "not allowed to just like sample some
+  inputs ... and assume ... other things will behave similarly" [25:05]; regression on samples is "a little bit
+  cheating" [17:52]. Approximations are acceptable ("roughly zero. I'm ignoring some noise" [25:22]).
 - **Compute.** Only "amount of computation" is named.
 
 **What the bar is not.** The talk says "match". "Roughly match" and the factor of 10 are not ARC's. They are a project
@@ -67,22 +65,20 @@ convention taken from the 2.4–10x range of ARC's own M_4,3 estimators under on
 ARC's phrasing supports own-cost scoring. The 1k floor is our choice; the principled floor is ~80 FPE.
 
 **The denominator.** F uses the panel's p(1−p). The panels' mean accuracy is ~0.92 (p(1−p) ≈ 0.07), while M_16,10 is
-0.953 (0.045). At the same MSE, a target-like denominator gives F ≈ 7.7 (DEV2), 7.9 (HP3) and 10.5 (HP2). On DEV2 the
-error shrinks with accuracy (slope −0.067 pp per pp). On the 15 DEV2 models with p > 0.95, bias is +0.01 pp, RMS
-0.46 pp and F 2.7.
-- **On the sealed panels the slope holds** (scorer `claude/hp1-scorer` 1515eb10, "Red-team follow-ups"). Each subset
-  uses its own p(1−p):
+0.953 (0.045). At the same MSE, a target-like denominator gives F ≈ 7.7 (DEV2), 7.9 (HP3) and 10.5 (HP2). But the
+error shrinks with accuracy:
+- **By accuracy on the sealed panels** (scorer `claude/hp1-scorer` 1515eb10). Each subset uses its own p(1−p):
 
 | panel (T317c) | p > .95 | p < .90 | slope (pp per pp) |
 |---|---|---|---|
 | HP2 | 1.99 [1.13, 3.01] (n=23; bias +0.14, RMS 0.37 pp) | 9.41 [6.31, 12.89] (n=38) | −0.079 |
 | HP3 | 4.17 [1.31, 7.67] (n=22; bias +0.18, RMS 0.53 pp) | 6.90 [2.88, 12.13] (n=20) | −0.066 |
 
-  T317d matches within 0.03. The bias is concentrated in the low-accuracy models (+0.8 to +0.9 pp below 0.90).
+  T317d matches within 0.03. The bias sits in the low-accuracy models (+0.8 to +0.9 pp below 0.90).
 - **The target itself** (public weights and truth): T317c estimates 0.954049 against truth 0.953179, an error of
-  +0.087 pp. T317d's error is +0.084 pp. On this one model that is n* ≈ 59–63k, against C ≈ 5.8k: about 10x better
-  than sampling. **This is one model, and anecdotal.** ARC scores over a distribution of models, and the panel F
-  values carry the claim. The target sits in the high-accuracy range where the error is small.
+  +0.087 pp. T317d's error is +0.084 pp. On this one model n* ≈ 59–63k against C ≈ 5.8k, about 10x
+  better than sampling. **This is one model, and anecdotal.** ARC scores over a distribution of models, and the panel
+  F values carry the claim.
 
 ## 2. The method, step by step
 The code is `m16/approaches/r1_cont/` on branch `claude/t218-tie-tail-labels`. The entry point `est(model)` returns
@@ -91,14 +87,13 @@ The code is `m16/approaches/r1_cont/` on branch `claude/t218-tie-tail-labels`. T
 **Deductive status (audit by T324, a different agent).** In its words: "sampling-free at runtime; the approximation
 scheme was selected and validated by Monte Carlo on development retrains". "Deductive" in Hilton's stricter sense it
 is not.
-- No runtime step feeds random inputs to the model, and no constant is fitted per model.
-- The model is evaluated exactly along two lines per triple and region. Those verdicts are then extrapolated to a 3-D
-  region: every v2 in the region, every value of the other gap, gaps beyond 0.5, and blind g12. These extrapolations
-  are declared and identical for every model.
-- These choices were all made by Monte Carlo on DEV2: closure c, the latest-position rule, TMAX 0.5, the K = 1 v4
-  node and the blind rule. G = 20 is a numerical convergence check that moves estimates by ≤ 1.4e-6 pp.
-- No bound for any approximation is derived from the weights. T319's attempt failed.
-- The import-time Monte Carlo finding applies to T317d (two seeded draws it never reads), not to T317e.
+- No runtime step feeds random inputs to the model. Nothing is fitted per model.
+- Exact verdicts along two lines per triple and region are extrapolated to the whole 3-D region (every v2, every
+  value of the other gap, gaps > 0.5, blind g12). These extrapolations are declared and the same for every model.
+- These were chosen by Monte Carlo on DEV2: closure c, the latest-position rule, TMAX 0.5, K = 1 and the blind rule.
+- G = 20 is only a numerical setting.
+- No bound for any approximation is derived from the weights. T319's attempt at one failed.
+- The import-time Monte Carlo applies to T317d, not to T317e.
 
 Labels: **D** = exact up to float64. **A** = declared approximation, followed by how it was chosen.
 
@@ -144,12 +139,10 @@ time from V1 = T317d, with MSE .633 pp²:
   −.15 partly cancel, and that cancellation is fragile.
 - The product, the transverse point and the v4 node interact. Their individual sizes depend on the order of
   removal: together they carry +.03 pp of bias and ~42% of the MSE.
-- The product overstates accuracy, because a point correct on both central slices is not always correct jointly.
-- An earlier estimate, from T318 on 10 models and quoted by the red-team, said "about 80%". It should read "about two
-  thirds".
+- The product overstates accuracy: a point correct on both central slices need not be correct jointly.
 
-The noisy-copy failure (§4) indicates that the approximations encode regularities of the training family, not
-properties read off the weights. ARC's own M_4,3 estimator A with its tuned q = 0.2 is the nearest precedent (E32).
+The noisy-copy failure (§4) suggests the approximations encode regularities of the training family. The nearest
+precedent is ARC's M_4,3 estimator A, with its tuned q = 0.2 (E32).
 
 **The cell cap.** `walk_cont(max_cells=400)` would truncate silently, but it is never hit on DEV2: at most 22 cells per
 line, and the estimates are identical with a cap of 5,000 (T324).
@@ -294,23 +287,18 @@ Since T306 the estimates have not changed beyond .0115 pp.
    been tested beyond M_16,10.
 
 ## 8. Reproduction
-The code is on `claude/t218-tie-tail-labels`, `m16/approaches/r1_cont/`. T317c's entry point is `estimator_c.py`
-(sha256 `b3c88771…37ce`). The files are `cont.py` (`b71f203f…4d92`) and `cont_c.py`: `a0dc5f4a…f839` @1c742430 and
-`066b3f63…0211` @c70e22cd (official). **T317d (scored version)** is frozen at 5b4d4806 with entry point `estimator_d.py`. Its sha256s match the scorer's
-README (claude/hp1-scorer 29bef882) and were checked with `git show | sha256sum`:
-- `estimator_d.py` `f4bd3d87e0e7218ef270b54f350b9aa7a86306fa2bff0f8de08eca9709b91057`
-- `cont_d.py` `306061a685406111ffefa66751198f4b82f6e515905b4ae28381608438f59f64`
-- `cont_c.py` `066b3f63…0211` and `cont.py` `b71f203f…4d92`, both as above.
+The code is on branch `claude/t218-tie-tail-labels`, folder `m16/approaches/r1_cont/`. I recomputed the sha256s with
+`git show | sha256sum`; they match the scorer's README at 29bef882.
 
-**T317e, the version to cite** is at 01906d33 with entry point `estimator_e.py` → `cont_e.est`. INDEX registers it
-at 23782c82. I recomputed both sha256s with `git show | sha256sum`:
-- `estimator_e.py` `a9cb5ef610bbcb52ef6037097716fe4b8ff7f6aaa005133cee492094d1c6c0f8`
-- `cont_e.py` `50dd1c9b85512e23f037171d19de03527f8f5989758cfb74d93b441de48fda2b`
+| version | commit | entry point | sha256 |
+|---|---|---|---|
+| **T317e (cite this)** | 01906d33 (INDEX 23782c82) | `estimator_e.py` → `cont_e.est` | estimator_e `a9cb5ef610bbcb52ef6037097716fe4b8ff7f6aaa005133cee492094d1c6c0f8`; cont_e `50dd1c9b85512e23f037171d19de03527f8f5989758cfb74d93b441de48fda2b` |
+| T317d (scored) | 5b4d4806 | `estimator_d.py` | estimator_d `f4bd3d87e0e7218ef270b54f350b9aa7a86306fa2bff0f8de08eca9709b91057`; cont_d `306061a685406111ffefa66751198f4b82f6e515905b4ae28381608438f59f64` |
+| T317c | 1c742430 / c70e22cd | `estimator_c.py` (`b3c88771…37ce`) | cont_c `a0dc5f4a…f839` / `066b3f63…0211`; cont `b71f203f…4d92` |
 
-T317e is self-contained: it imports only numpy, `scipy.special.ndtr` and itertools. The dead imports that built
-seeded-MC tables are gone, and `est` runs with numpy's random generators patched to raise. Its estimates and FLOPs
-are bitwise identical to T317d's on DEV2, so T317d's sealed scores apply to it. The scorer is asserting that identity
-on HP2/HP3.
+T317e imports only numpy, `scipy.special.ndtr` and itertools, and its `est` runs with numpy's random generators
+patched to raise. Its estimates and FLOPs are bitwise identical to T317d's on DEV2, and the scorer is asserting the
+same on HP2/HP3.
 
 **DEV2:**
 - Data: `claude/t192-gpu-cost-law`, `m16/approaches/gpu_cost_law/hp2/dev2/`; weights sha `22d1c7c2…`.
@@ -332,13 +320,7 @@ bash run_hp3_t317c.sh                 # HP3
 None new, apart from `dev2_f.py`: arithmetic on stored estimates, under a second.
 
 ## Claims
-- [measured] HP3: F = 5.07 [3.41, 7.03] (T317d) and 5.08 (T317c), at about 5.4k FPE.
-- [measured] HP2: F = 6.75–6.76. DEV2: F = 4.78.
-- [measured] HP1 noisy copies: F = 39–206.
-- [measured, scorer] Stacked cost: HP3 F 6.51 (T317c) / 5.75 (T317d); HP2 F 8.66 / 7.65.
-- [measured, scorer] Subset F for p > .95: 2.0 (HP2) and 4.2 (HP3). Target error +0.087 pp (one model).
-- [measured, T324, a different agent] On DEV2, the walk approximations carry 66% of the MSE and +.59 pp of bias. The
-  product of line sets is the largest item (−.57 pp, −40% MSE one at a time). Closure c carries 34%.
+All the numbers in §2–§5 are [measured], each with its source. None is [inferred] except the wall-clock ratio (§3).
 
 ## Alternatives not ruled out
 - The +0.4 pp bias may be specific to this recipe, or to data seed 41 on HP2/HP3.
