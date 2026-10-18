@@ -90,8 +90,13 @@ precisely as testing it on random examples does for the same effort.
     but only 0.20-0.29 on the main network.
   - At equal effort, each version alone beats random testing in 5 of 15 cases. Using the better version for each
     kind of event wins 10, ties 3 and loses 2. That rule was chosen after seeing the results, so it is being re-tested.
+- **The fix worked for accuracy (T340c, board T349, 14:15, unverified).** Computing the off-line direction properly
+  puts the careful version within a factor of 2 of the truth in every case, including the main network, for chances
+  from 2 in 10 million to 4 in 10,000: the first time in the project. But it now costs 1.8-4.5 million runs, so it
+  beats random testing only for the rarest events (4 wins, 3 ties, 8 losses of 15). Its cost does not grow as events
+  get rarer, while random testing's does, so the rarer the failure, the bigger the advantage.
 - **Running now:**
-  - a fix for the careful version's shortfall (T340c, board task T349);
+  - cutting that cost by walking only the part of each line where the event can happen (T354);
   - an independent re-check by a different agent on new networks (DEV3), with the rule fixed in advance (T350).
 - **Guaranteed limits failed (T344, unverified).** The 10 steps blow up uncertainty, so proofs only work on tiny
   regions. The only guaranteed upper limit is 8,200-27,500 times too high.
@@ -233,6 +238,9 @@ geometry assumes correct: interior errors with both gaps >= tmax grow from .09 t
 - **Variant A** (T317's transverse point, 11-19k FPE): E2 within 3x in 6/6. It misses the E1 islands (100x-1e14x low).
 - **Variant B** (uncut walks, per-node transverse points, 0.21-0.32M FPE): E1 est/truth .64-.89 on the seeds and
   .20-.29 on orig. It is one-signed low, which the diagnostic blames on walk-line placement.
+- **T340c (T349, 14:15):** variant B with g12 at K exact-law Gauss nodes: K3 E1 8/9 within 2x (orig 1.73 / 1.24 / .49,
+  seeds 1.02-1.27), E2 6/6 within 2x (one-signed high); K5 9/9 E1 within 2x; C 1.8-4.5M FPE; equal compute 4 win /
+  3 tie / 8 loss of 15 (wins where pC <~ 90). Cost lever T354.
 - **Equal compute (post hoc, executed C):**
   - variant A wins 5, ties 7, loses 3 of 15;
   - variant B wins 5, ties 3, loses 7;
