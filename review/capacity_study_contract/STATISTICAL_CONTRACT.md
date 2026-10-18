@@ -45,9 +45,11 @@ The requested 'gain<.05 percentage points for two doublings' is an operational
 stop. Freeze whether gain means seed-average paired gain, best checkpoint gain,
 or all-seed gain, and whether the criterion uses point estimates or uncertainty.
 A small measured gain is not itself evidence of equivalence or of a permanent
-plateau. When an equivalence interpretation is intended, a one-sided bound for
+plateau. For a no-material-improvement interpretation, an upper one-sided bound for
 the relevant gain must fall below the threshold; an interval containing that
-threshold is inconclusive. Preserve every doubling and the actual stopping reason.
+threshold is inconclusive. This does not establish two-sided equivalence: a
+large deterioration can also satisfy it. Equivalence requires both confidence
+bounds to lie within a separately declared two-sided margin. Preserve every doubling and the actual stopping reason.
 
 Repeated checkpoint inspection, best-size selection, LR/schedule search and
 hard-case tuning use data to choose a candidate. Ordinary pointwise CIs do not
