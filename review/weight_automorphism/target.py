@@ -20,7 +20,9 @@ def main():
   assert g['pins'][q['path']]==q['sha256']==sha(q['path'])
   d=json.loads(Path(q['path']).read_text());assert d['complete'] is True and d['pass_all'] is True
   assert q['commit'] in g['published_commits']
- for path,h in {**p['pins'],**g['pins']}.items():assert sha(path)==h,(path,'pin')
+ assert {str(ROOT/x) for x in ('target.py','predicate.py','TARGET_PROTOCOL.md','target_protocol.json')}<=set(g['pins'])
+ for mapping in (p['pins'],g['pins']):
+  for path,h in mapping.items():assert sha(path)==h,(path,'pin')
  for commit in g['published_commits']:subprocess.run(['git','merge-base','--is-ancestor',commit,'origin/ccr-6a61f25c-wn80ii'],check=True)
  for kind,cap in ((resource.RLIMIT_CPU,20),(resource.RLIMIT_AS,2097152*1024)):
   soft,hard=resource.getrlimit(kind);assert 0<soft<=cap and 0<hard<=cap
