@@ -251,3 +251,28 @@ Reading:
 - The strict go line (F <= .8 at C <= 2k) needs RMS <= .54 pp at 2k, or <= .77 pp at 1k. So cost cuts alone cannot
   pass at T317e's RMS (.80 pp): even 1k FPE gives F .87. The cost lever has to be combined with an error cut, or
   reach C ≈ 1k while holding RMS <= .77.
+
+## T326 step 2 pre-registration (2026-10-18; written before any frontier run)
+**Knobs.** All are deductive, or declared approximations of the same kind as V1's "gap beyond tmax assumed correct".
+They are shared across lines, except for the line subset.
+- **tmax** ∈ {.5, .3, .2, .1}: the walk window. The gap beyond tmax is assumed correct, as in V1.
+- **cap** ∈ {∞, 4, 2, 1, 0}: the number of later cells followed per row. When a row hits the cap, the rest of its
+  window [t, tmax] uses the frozen last cell's affine logits (one correct_interval, 229 FLOPs, charged). cap = 0 means
+  the first cell, frozen to tmax.
+- **line subset** ∈ {all 3; drop nb-g12 (g12 assumed correct, as in the blind region); drop b-g23 (b g23 assumed
+  correct); nb-g23 only}.
+- Fixed: G = 20, closure c, exact-law transverse points (T317e).
+- The grid has 4 × 5 × 4 = **80 configurations**. Each is evaluated on all 80 DEV2 with charged FLOPs as executed.
+- Check: (tmax .5, cap ∞, all lines) must reproduce T317e bitwise.
+
+**Selection rule.**
+- Frontier: the Pareto set of (C, F) over the 80 configurations. Also reported: RMS, bias and the strict F, defined
+  as RMS² · max(C, 1k) / .074.
+- **Selected:** the configuration with minimum strict F among those with C <= 2,000 FPE.
+- **Go:** strict F <= 0.8 on DEV2. If met: freeze, then ask the DRI for HP4.
+- If not met: report the frontier and the shortfall. Margin or mass screens per triple, per-line knobs and closure
+  order are then the untried variants (a follow-up only if the frontier comes within ~25% of the go line).
+
+**Forking paths.**
+- 80 configurations are selected on DEV2, so the selected DEV2 F is optimistic. A sealed HP4 is the only claim.
+- T317e's DEV2 numbers (RMS .79, bias +.44 pp) were known before this grid was chosen.
