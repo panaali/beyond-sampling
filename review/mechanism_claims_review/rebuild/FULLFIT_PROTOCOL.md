@@ -89,7 +89,8 @@ include that overhead; no claim is made that the internal timer is total CPU.
 
 Total candidate inputs including the reused pilot are196608; this new process
 forwards195584 only. Prior library reference1024 remains separate; this process
-has zero library/reference forwards. The5948-unit canonical forward benchmark
-alone gives1169424384 units for the full candidate data, not a complete cost
-or sampling-comparison claim. Independent saved audit precedes conclusions;
+has zero library/reference forwards. The T1965948-unit canonical per-input sampling benchmark includes ranking
+and score accumulation; multiplying it by196608 gives1169424384 reference
+units, not this implementation's forward charge, a complete cost ledger or a
+sampling-comparison claim. Independent saved audit precedes conclusions;
 neither success nor failure establishes a general impossibility or ARC rung.
