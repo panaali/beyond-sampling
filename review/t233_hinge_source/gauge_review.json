@@ -1,0 +1,30 @@
+{
+  "task": "T233 independent gauge-corollary written addendum",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": false,
+  "source_commit": "99dfa103",
+  "source_publication": "e860abb6",
+  "claim_and_delegation": "c1343d8a",
+  "main_review_commit": "6c02b3aa",
+  "main_source_commit": "558eec16",
+  "pins": {
+    "/workspace/work/recover-small_h2_34/review/two_hinge_residual/GAUGE_COROLLARY.md": "40ab32fb23f4a1d0dd56aa6afd8c0d7287ef00bef73d520083bd049dffe80dd8",
+    "review/t233_hinge_source/theorem_review.json": "c821e4af74656413a47e47b3872a340c1112504594ca18b2a894e83ec5fba497"
+  },
+  "findings": {
+    "domain": "Fixed finite positive diagonal D; identical inputs and zero initial states. Conditioning H on h is equivalent to conditioning invertibly transformed H on D h; retain the main proof independent fresh-input premise.",
+    "state_and_roots": "Positive homogeneity proves h_prime=D h by induction. Each selected affine form, slope and offset scales by its positive diagonal entry, so both roots and all strict/zero gate ownership are unchanged.",
+    "residual": "The exact residual scales by D_j, including a=0 and b=0 boundary values. The opposite-slope disagreement event and its conditional probability therefore remain identical.",
+    "propagation": "Positive diagonal scaling commutes with entrywise absolute values. Induction gives abs(Wh_prime)^s=D abs(Wh)^s D^-1 for every nonnegative integer s, including s=0. The readout contrast scales on the right by D^-1, giving K_prime=K/D_j.",
+    "invariant_bound": "K_prime*r_prime=K*r pointwise, and conditional expected products agree. Since beta_prime=D_j*beta and both roots are fixed, the stated density-cap bound is invariant.",
+    "raw_moment": "With row-vector ell, ell_prime=ell D^-1 and E[H_prime H_prime^T]=D E[HH^T]D. Substitution cancels both diagonal factors in the quadratic form; the outer K*abs(beta) factor is invariant too. The finite-second-moment premise remains required.",
+    "scope": "This is a function-preserving reparameterization that changes weights, not the unchanged-weight automorphism predicate of T229. It establishes no smallness, numerical stability, cost saving, compression, or classification guarantee."
+  },
+  "author_calls": 0,
+  "model_calls": 0,
+  "numeric_library_calls": 0,
+  "target_array_reads": 0,
+  "mass_calls": 0,
+  "rng_calls": 0
+}

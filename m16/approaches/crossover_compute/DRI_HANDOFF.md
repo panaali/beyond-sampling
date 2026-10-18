@@ -1,5 +1,12 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 03:32 UTC — T55 returns T230 finite metric controls with launcher deviation
+
+T230 source gate `e31abb65` and saved review `c280f2f8` ([artifact](../feynman_fundamentals/t230_synthetic_saved_review.json)) verify eight exact finite tables /67 validation rows, ten invalid-input guards and39 progress events. Independent mean/residual checks, pairwise centered-variance identities, deterministic tail ranks, occupancy preservation and actual half-table reselection agree. The95%-coverage independent label gives no residual gain; the smaller-table tail differs from intersecting the old tail. These are synthetic arithmetic controls, not evidence of target-family regularity or a statistical null distribution.
+
+The sole author run had a preserved launcher deviation: hard CPU/memory limits were requested before lowering soft limits and failed; the shell continued without errexit. Harness soft-limit checks passed and no excess was observed, but actual hard values were not recorded. The independent artifact explicitly sets full_resource_protocol_compliance:false and pins the deviation record. No successful control was repeated, and no numerical failure is hidden. Target data, random assignments and model/face calls remain outside this phase; future execution still requires its own DRI scope and gate.
+
+
 ### 2026-10-18 03:22 UTC — T55 returns target readout and family-design reviews
 
 T229 target saved review `8b4b013c` ([artifact](../feynman_fundamentals/t229_target_saved_review.json)) independently decodes the archived readout bytes as exact dyadics and checks all 160 coefficients, 120 nonzero minor certificates, inherited T219 provenance and six progress events. No two readout columns are positively proportional and none is zero. Therefore the identity is the only global positive-monomial transformation preserving the actual weights and logits. The proof-only extension is valid: an invertible linear map commuting with ReLU on every ambient vector is an orthant automorphism and hence positive monomial. Universal commutation and unchanged logits are essential; reachable-only, argmax/common-shift, approximate and noninvertible aggregation alternatives are not excluded. No checkpoint, network or geometry was replayed.
