@@ -92,3 +92,17 @@ Mean bias (pp; positive = overestimate):
 
 ## Compute accounting
 E1: 4 designs x 30 models x <= 15,840 witness forward passes (seconds). Ideal diagnostics: 30 models x 400k x 15 settings (~35 CPU-min).
+
+### DEV2 (80 open retrains, ARC's scoring distribution; `dev2.py` -> dev2.json, dev2.log)
+Weights: T192 branch 611796bd gpu_cost_law/hp2/dev2/weights.npz (read from git; only the manifest is copied here). The panel's open
+truths.json had not landed, so the truths are **provisional 2e6-sample MC** per model (SE ~2e-4, subtracted). That is ample at
+pp-scale errors. Rescore when the open truths land.
+
+| design | cost (FPE) | RMS (pp, 80 models) | F |
+|---|---|---|---|
+| E1_D0 | 990 | 5.89 | 47.9 |
+| E1_D1 | 7,920 | 6.24 | 425 |
+| E1_D2 | 15,312 | 6.27 | 829 |
+| E1_D3 | 15,840 | 5.45 | 648 |
+
+Same picture as LB3: every witness-verdict design overestimates by 5-9 pp on the retrains, F >= 48. **No go on DEV2.**
