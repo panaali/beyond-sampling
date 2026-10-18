@@ -36,3 +36,28 @@ and scientific confirmation.
 Review accounting: T55 parent CPU.005255209; h4 parent CPU.013540271 (Git child
 overhead separate); neither reran author forward/search/fits. The investigator
 used read-only source/hash/history operations and written algebra only.
+
+
+## Synthetic implementation controls, bounded handoff
+
+Seven frozen synthetic groups completed in `rebuild/controls_results.json`
+(commit39b10901, shared732867a4). Independent source gatee0281c91 and saved
+audita944f1aa (shared186907c3) pass. All216 states, known homogeneous lookup
+and18-feature separable maps, domain/rank/tie guards, independent global-rank
+cross-tab and six exact recurrence examples are covered. Lookup heldout maximum
+residual is2.84217e-13; separable1.06581e-14 under the fixed1e-10 test threshold.
+There were219 least-squares calls, six synthetic sequences, zero actual
+checkpoint forwards and zero random inputs. Script CPU0.219838866 seconds.
+
+The first launcher failed before Python because external `/usr/bin/time` was
+absent. That exit127 and empty scientific coverage were preserved; independently
+cleared launch-only recovery used Bash timing with unchanged source and limits.
+No successful scientific work was repeated. The saved reviewer explicitly did
+not refit coefficients: residual maxima are source-gated author summaries;
+raw coefficients were not serialized. Exact synthetic oracles and saved metadata
+were independently reconstructed. No trained or historical performance follows.
+
+Next eligible bounded scope is the separately claimed checkpoint wiring pilot
+in REBUILD_PLAN.md, using one fixed1024-input prefix, full retained arrays and
+an independent library recurrence. The full196608-input reconstruction remains
+separate, with no feature/seed/threshold selection from pilot performance.
