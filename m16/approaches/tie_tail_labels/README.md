@@ -188,6 +188,27 @@ stopped for cost (estimated ~2.5M LPs, ~2 CPU-hours). Reproduce: `./run_blind.sh
   cannot be seen as families. With 2^18 faces some fine labels might stabilise, although the falling-with-n trend
   argues against it.
 
+## Independent review (T227, review/tie_tail_evidence on the shared branch)
+T227 re-derived all 1,015 saved comparisons (26,224 tail points, 36 cross-copy scores) from the stored records,
+with independent code and exact rational arithmetic. It confirms the primary fine-label L100 coverage of
+2.339 / 4.295 / 3.276% (target / s0.005 / s0.01). That supports the **fixed-rule negative**. It does not establish
+a population tail law or an impossibility for the estimator family. Caveats to carry with every use of Part 1:
+- **The half-size n-check thins an already-selected tail.** It is not an independent 2^13-face run. The
+  "falls with n" argument is therefore weaker than stated above.
+- **Random-label null:** assignments are uniform over K labels and do not preserve label occupancy. They were not
+  archived, and neither the half-sample RNG nor the null RNG was replayed (both are seeded `default_rng(0)` in
+  `analyse.py`, in a fixed order).
+- **Within-family moments condition on the global tail** (only tail points were stored). The within-label
+  "heavy inside" check (alternative 3) is therefore not a proper full-family regularity test. That test is open as
+  T230.
+- **Blind grouping:** the face value u <= 0 is not the same as "<= 1 positive input" along the whole fibre (the
+  segment moves x_a and x_b).
+- **Stored data:** flip lists are ordered and may repeat. No full-face arrays, weight or runtime hashes, exact
+  walk certificates or prefix history sets were stored.
+- **Precision:** walk, LP and tie handling are in floating point.
+- **Scope of the verdict:** the KILL applies to the pre-registered fixed fine-label rule. The coarse families
+  (L30 coverage 91-99%) are not excluded as a basis for dedicated rules. Whether they regularise is T230.
+
 ## Failure modes
 - Fine labels at this sample size are mostly singletons, so any labelling as fine as `mech` will look concentrated
   in sample. Only the out-of-sample and n-check numbers are informative.
