@@ -808,3 +808,14 @@ upper bound on these 1e-4..1e-6 events is not reachable with the exact-walk mach
   the first 3-4 steps.
 - (c) Certified bounds for smaller networks (H = 4-8), where the region count is manageable. This would say whether
   rigour at 1e-6 is possible at all for this architecture.
+
+## T344 option (b) pre-registration (DRI; 2026-10-18, before counting): region growth in the far-gap sub-cone
+- **Cone.** For a triple (p1, p2, p3), K = {x_p1 >= x_p2 >= x_p3 >= every low} ∩ the far-gap proxy
+  {g23 >= 2 g12, g23 >= 2 (x_p3 − x_l) for every low l}. The second set says the 2-3 gap dominates. It is a
+  conservative stand-in for g23 > t0, chosen to make K small and so to *favour* (b).
+- **Count.** The exact activation regions (gate histories) and cells of the first k steps inside K ∩ [−1,1]^10, for
+  k = 1..5, by LP cone splitting (T218's prefix_blind.py method; own copy `cone_count.py`).
+- **Where.** The target (orig) and zoo seed 0, triples (0,1,2), (3,6,9), (9,5,1), with a cap of 2e5 cells.
+- **Kill if** the mean per-step region growth over steps 2→5 is > 6x, **or** the projected step-10 total over the 720
+  triples is > 1e6 regions. The projection is the median triple's count at k = 5 × (its mean growth)^5 × 720.
+- If killed: option (a), a certificate rigorous *conditional on the declared closure*, in 3-D (v2, g12, g23).
