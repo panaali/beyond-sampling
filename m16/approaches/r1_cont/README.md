@@ -719,3 +719,43 @@ remainder.
 - H3: it is the C1 screen. Wrong islands later in the window grow under noise.
 
 The cheapest separation is (a) + (b) from the truth MC. S1 tests H3; S2 tests H1 within the line structure.
+
+## T337 results: T317f's noise breakdown (`python noise.py truths|switch .0025`, `results_noise*.json`, `noise.log`)
+Open models only: the target and zoo seeds 0-4, 4 copies per level, 1e7-sample truths. float32 and float64 predictions
+differ on <= 4e-6 of identical inputs.
+
+| rel σ | models | true acc mean (min) | C | bias pp | RMS pp | **F** | true error pp: in window / interior | errors predicting top-1 / top-3 / rank 4+ (pp) |
+|---|---|---|---|---|---|---|---|---|
+| 0 (clean bases) | 6 | 91.9 (88.0) | 3,365 | +.58 | .85 | **3.3** | 8.01 / .09 | 2.23 / 4.90 / .97 |
+| .0005 | 24 | 91.3 (85.9) | 3,402 | +.58 | .85 | **3.1** | 8.58 / .10 | 2.52 / 5.15 / 1.01 |
+| .001 | 24 | 89.4 (80.4) | 3,403 | +.75 | 1.04 | **4.0** | 10.40 / .18 | 3.60 / 5.66 / 1.32 |
+| **.0025** | 24 | 80.2 (55.9) | 3,625 | +1.63 | 2.19 | **12.0** | 19.07 / .76 | 8.76 / 7.84 / 3.23 |
+| .005 | 24 | 73.5 (43.5) | 3,725 | +2.94 | 3.86 | **32.4** | 25.26 / 1.25 | 11.50 / 9.59 / 5.42 |
+
+- **The breakdown lies between rel σ .001 (F 4.0) and .0025 (F 12.0).** It is driven by how far the copy's accuracy
+  falls. Per copy, the estimate's error correlates with the true error rate at r = .81-.84. Some bases are much more
+  fragile: at .0025, the mean error is +.28 pp for the target but +3.3 pp for zoo1 and zoo2.
+- **The bias is positive and comes from errors far from the tie faces:**
+  - **Interior errors** (both gaps >= tmax = .5, which T317f treats as correct) grow from .09 pp clean to .76 pp at
+    .0025: about half of that level's +1.63 pp bias. Per copy, they correlate with the estimate's error at r = .83-.84.
+  - **Errors predicting a rank-4+ position** (the closure's lows) grow from .97 to 3.2 pp, r = .73-.89 with the error.
+
+**Switch-offs at σ .0025, on 2 pre-chosen copies** (error vs truth, pp):
+
+| copy | T317f | S1 C1 off | S2 tmax 6 | S3 blind g12 walked |
+|---|---|---|---|---|
+| target #0 | +.38 | +.36 | +.34 | +.37 |
+| zoo0 #0 | +1.60 | +1.52 | **+.93** | +1.51 |
+
+- **Gap beyond tmax (S2) breaks first:** it removes ~40% of zoo0's error. C1 (S1, −.08) and blind g12 (S3, −.09) are
+  minor. The remaining +.93 pp belongs to the approximations not switched off here, the closure (lows at μ(v4)) and the
+  line-set product. That fits the rank-4+ errors growing and the interior errors, which no line sees even at tmax 6.
+- **Hypotheses:**
+  - **H1 (far-from-tie errors) supported:** both the beyond-tmax gap and the truly interior mass grow with noise.
+  - **H2 (closure/lows) partly supported:** rank-4+ errors grow and correlate. Its share is inferred from the
+    remainder only, since the switch-off was not run.
+  - **H3 (C1 screen) rejected:** C1 adds only ~.08 pp.
+- **Claim [measured, open models; unverified]:** T317f holds F <= 4 up to rel σ .001, then fails between .001 and .0025.
+  The failure is a positive bias from misclassified mass far from the tie faces: beyond tmax along the lines, in the
+  interior, and in predictions of low-ranked positions. All of these are regions the R1W geometry assumes correct.
+  Only 2 copies were switched off.
