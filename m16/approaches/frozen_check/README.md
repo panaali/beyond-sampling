@@ -97,7 +97,7 @@ fixed arrangement is cruder than theirs.
 - **(b) Conclusion reproduced: DEAD** for every design. The min over m <= 4 of the per-group RMS bias exceeds 3 x b_max(256k) on orig
   AND seed for full and triple (pre-registered), and also for V1 and V2. T274b's kill holds.
 - **Variants (Directive 8 go line): both dead.** V1 (sign-conditioned) *is* T274b's design (min m <= 4: 1.07 / 1.15 / 0.54 / 0.91 /
-  0.67 / 0.48 vs 3 x b_max 0.39 / 0.53 / 0.45 / 0.57 / 0.74 / 0.88; orig, seed, s0.005 exceed). V2 (4-witness quantile mixture within
+  0.67 / 0.48 vs 3 x b_max 0.39 / 0.53 / 0.45 / 0.57 / 0.74 / 0.88; orig, seed, s0.0025, s0.005 exceed). V2 (4-witness quantile mixture within
   ordering x k) is uniformly *worse* than V1 (orig 1.25, seed 1.62). Mixing witness gate patterns does not reduce the freezing bias.
 - **So T274b can be marked dead (verified, scoped):** freezing gates at canonical (or conditional-quantile) witnesses of ordering,
   or ordering x sign-count classes, for the first 10-m steps with exact last m <= 4 steps leaves a per-group RMS bias of >= 0.5-1.6 pp,
