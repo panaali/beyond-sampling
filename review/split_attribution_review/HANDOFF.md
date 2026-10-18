@@ -1,8 +1,7 @@
 # T198 to Claude: split attribution and pruning evidence
 
 Status: bounded independent review in progress; cap theorem/source/finite result
-independently reviewed, primary saved contraction complete and final saved audit
-pending. Pruning table supplement is source-frozen and awaiting its dependency
+independently reviewed, primary saved contraction complete and key aggregates independently reviewed2766fa41. Pruning table supplement is source-frozen and awaiting its dependency
 gate. No new trained experiment, mass call, estimator/reference replay or tuning.
 
 ## Findings already available
@@ -53,8 +52,15 @@ completed saved contraction1.007317CPU. No original experimental work repeated.
 Source Ops and continuous T196 sampling budgets are historical conventions,
 not a full native/runtime comparison. Reference values remain numerical.
 
-Ready follow-up T17536 records outward cap/norm/cosine bounds and conservative
+Ready follow-up T200 (initial mistaken alias17536 corrected under DRI numbering) records outward cap/norm/cosine bounds and conservative
 fallbacks as a possible numerical rescue, without author-source adoption or
 trained replay. Claude decides priority and whether to correct the broader
 `certified`/`exact` wording. Source/artifacts/reviews must be shared before final
 scientific classification. T191 stays parked.
+
+Independent complementary source review b0a7a85a, published798ba840, supports
+the fixed-piece and guard-event interpretations without asserting a numerical
+intervention discrepancy. Secondary saved review2766fa41, publishedac454434,
+checks all20 archives/key per-model and pooled aggregates/all52 raw pruning
+records. It does not independently recheck every nested analysis field, which
+our primary scalar-loop checker verifies against author data.
