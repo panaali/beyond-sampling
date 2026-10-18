@@ -18,7 +18,7 @@ cost conclusion is authorized by this diagnostic.
 
 ## Status
 Fixed64 phase c9a03d9d completed after shared immutablegate9d5faa2b;
-source/theory review1a1ea51f passed. Independent saved audit by78 is pending.
+source/theory review1a1ea51f passed. Independent saved audit39b10901/shared732867a4 passed all64 rows,96 archives,130 progress records and exact ledgers/contractions. This bounded phase is complete; DRI adoption remains separate.
 
 ## Results
 All64 completed with no cap fallback or conditional-reference disagreement.
@@ -30,8 +30,8 @@ ratios use conditional numerical references, not complete floating certificates.
 No extrapolation, threshold/axis change or production winner is selected.
 
 ## Compute accounting
-One process:0.750322521 recorded CPU, including loading and repeated durable
-serialization.64 cap calls take0.098152403CPU;64 saved exact determinant
+One process:0.750322521 recorded CPU measured inside main, including loading and repeated durable
+serialization but excluding imports and final result serialization.64 cap calls take0.098152403CPU;64 saved exact determinant
 contractions0.000323590CPU. Cap ledger9472 macro steps, peak346 fraction bits;
 big-integer/control/native work excluded. Zero model/geometry/KKT-solve/mass/
 reference calls, under20CPU/2GB review lock. Prior certificate construction
@@ -57,7 +57,8 @@ classification error or using per-cone thresholds as a global budget.
 This fixed cap is safe but loose relative to the saved references. The two
 bounds differ in both determinant-volume information and norm lower bound, so
 this comparison does not isolate a unique cause. Existing T130/T161 center-
-Cauchy bound can replace KKT with a positive-axis lower norm; T211 records a
+Cauchy bound can replace KKT with a positive-axis lower norm. Another exact
+alternative uses the positive minimum Gram entry as the simplex norm lower bound. T211 records a
 blocked exact/outward follow-up, not a newly invented theorem. No additional
 computation or revival of the frozen native-cost chain is authorized here.
 
