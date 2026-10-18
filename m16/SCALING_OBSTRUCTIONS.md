@@ -1,4 +1,4 @@
-# Scaling obstructions for deductive accuracy estimation of M_16,10 (2026-10-18)
+# Scaling obstructions for deductive accuracy estimation of M_16,10 (2026-10-18) — board task T225
 
 Status of every claim: **[measured]** or **[inferred]**, and **verified** (independently re-checked, DRI-confirmed) or
 **unverified**. Sources are `branch@commit, file`. Branches: shared = `ccr-6a61f25c-wn80ii@93b658db`;
