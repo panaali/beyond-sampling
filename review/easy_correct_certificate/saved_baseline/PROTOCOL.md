@@ -21,3 +21,5 @@ Proposed one17CPU internal,19soft/20hardCPU,2GiB address-space,25wall review-loc
 
 ## Alternatives and stopping
 Low selected mass may reflect boundary-cover loss, old network enclosure looseness, actual network error or the chosen unbounded tail. The decomposition separates the first two conservatively; it does not identify their true exact masses. Partial-box integration T252 and independently checked domain-restricted enclosures remain open. H16 requires independent full coefficient provenance; target prefix does not determine final correctness. No automatic expansion follows this fixed baseline.
+
+Pre-run provenance hardening: protocol and execution-gate pin maps are verified separately, never merged with overwriting. The completed T189 review run_scope hash and its direct original result/81 selected archive pins must agree with this protocol. Execution gate must record nonempty hexadecimal source-review commit, source-review publication and execution-scope publication. Metadata binding is not an old archive replay.

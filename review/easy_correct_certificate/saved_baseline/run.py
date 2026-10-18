@@ -3,7 +3,7 @@ from pathlib import Path
 from fractions import Fraction as F
 from math import prod
 from collections import Counter
-import gzip, hashlib, json, resource, time, traceback, sys
+import gzip, hashlib, json, resource, time, traceback, sys, re
 HERE=Path(__file__).resolve().parent
 B=[-8,-6,-4,-3,-2,-1,0,1,2,3,4,6,8]
 G=[0,1,2,4]  # quarters
@@ -61,12 +61,21 @@ def main():
         assert gate['complete'] and gate['execution_authorized'] and gate['protocol_sha256']==sha(HERE/'protocol.json')
         required={str(HERE/'run.py'),str(HERE/'launch.sh'),str(HERE/'PROTOCOL.md'),str(HERE/'protocol.json')}
         assert required<=set(gate['pins'])
-        for path,h in {**protocol['pins'],**gate['pins']}.items():assert sha(path)==h,path
+        for pin_map in (protocol['pins'],gate['pins']):
+            assert pin_map
+            for path,h in pin_map.items():assert sha(path)==h,path
+        for field in ('source_review_commit','source_review_publication','execution_scope_publication'):
+            assert isinstance(gate[field],str) and re.fullmatch(r'[0-9a-f]{7,40}',gate[field]),field
         reviewer=read(gate['source_review']);assert reviewer['complete'] and reviewer['pass_all'] and reviewer['execution_authorized']
         assert gate['source_review'] in gate['pins']
         for path,h in reviewer['pins'].items():assert sha(path)==h,path
         assert required<=set(reviewer['pins'])
         prior_review=read(protocol['prior_review']);assert prior_review['complete'] and prior_review['rows_verified']==41472 and prior_review['independent_affine_recurrences']==128
+        prior_scope=read(protocol['prior_review_scope']);assert prior_review['run_scope_sha256']==sha(protocol['prior_review_scope'])
+        source=Path(protocol['source'])
+        inherited_required={str(source/'application/results.json'),str(source/'application_protocol.json'),str(source/'application_gate.json'),str(source/'controls_results.json')} | {str(source/'application'/f'H8T4seed0_{k:03}.json.gz') for k in range(81)}
+        assert inherited_required<=set(prior_scope['pins']) and inherited_required<=set(protocol['pins'])
+        for path in inherited_required:assert prior_scope['pins'][path]==protocol['pins'][path],path
         toy_review=read(protocol['synthetic_review']);assert toy_review['complete'] and toy_review['pass_all'] and len(toy_review['rows'])==31
         limits={k:list(resource.getrlimit(v)) for k,v in [('cpu',resource.RLIMIT_CPU),('as',resource.RLIMIT_AS)]}
         assert limits['cpu']==[19,20] and limits['as']==[2*1024**3]*2
