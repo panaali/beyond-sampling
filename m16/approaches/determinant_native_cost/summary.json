@@ -1,0 +1,102 @@
+{
+  "complete": true,
+  "fixtures": 18,
+  "actual_matrix_calls": 19,
+  "observed_spy_totals": {
+    "getrf_calls": 19,
+    "m4": 19,
+    "n4": 19,
+    "lda4": 19,
+    "success": 17,
+    "singular": 2,
+    "invalid": 0,
+    "nontrivial_pivots": 4,
+    "negative_diagonal_success": 4,
+    "nonfinite_diagonal_success": 2,
+    "log_calls": 68,
+    "nonfinite_log_inputs": 2,
+    "exp_calls": 19,
+    "nonfinite_exp_inputs": 4
+  },
+  "lu_numeric_upper": {
+    "floating_arithmetic": 56,
+    "absolute_value": 40,
+    "floating_compare_or_max": 58
+  },
+  "wrapper_numeric_upper": {
+    "floating_arithmetic": 5,
+    "floating_negation": 8,
+    "floating_compare_or_max": 4,
+    "log": 4,
+    "exp": 1
+  },
+  "pivot_source_upper": {
+    "pivot_integer_compare": 4,
+    "pivot_integer_accumulation": 4,
+    "pivot_integer_remainder": 1,
+    "pivot_parity_boolean": 1,
+    "getrf_info_integer_compare": 1
+  },
+  "per_det_numeric_upper": 176,
+  "per_det_numeric_plus_pivot_source_upper": 187,
+  "compositions": {
+    "exact": {
+      "calls": 35098,
+      "source_sha256": "13f03e290891531fd2ea6e94393b677f1baa5df9a607d0857636468cef87447b",
+      "categories": {
+        "floating_arithmetic": 2140978,
+        "absolute_value": 1403920,
+        "floating_compare_or_max": 2176076,
+        "floating_negation": 280784,
+        "log": 140392,
+        "exp": 35098
+      },
+      "numeric_subset_upper": 6177248,
+      "pivot_source_categories": {
+        "pivot_integer_compare": 140392,
+        "pivot_integer_accumulation": 140392,
+        "pivot_integer_remainder": 35098,
+        "pivot_parity_boolean": 35098,
+        "getrf_info_integer_compare": 35098
+      },
+      "numeric_plus_pivot_source_subset_upper": 6563326,
+      "parent_visible": 553400768,
+      "parent_visible_plus_this_subset": 559964094
+    },
+    "recipe": {
+      "calls": 28000,
+      "source_sha256": "b6138be5b238e2191d09db3c4a46aa04f0d4c6c940cf4b3c86d2b8eef7ecc51c",
+      "categories": {
+        "floating_arithmetic": 1708000,
+        "absolute_value": 1120000,
+        "floating_compare_or_max": 1736000,
+        "floating_negation": 224000,
+        "log": 112000,
+        "exp": 28000
+      },
+      "numeric_subset_upper": 4928000,
+      "pivot_source_categories": {
+        "pivot_integer_compare": 112000,
+        "pivot_integer_accumulation": 112000,
+        "pivot_integer_remainder": 28000,
+        "pivot_parity_boolean": 28000,
+        "getrf_info_integer_compare": 28000
+      },
+      "numeric_plus_pivot_source_subset_upper": 5236000,
+      "parent_visible": 455976715,
+      "parent_visible_plus_this_subset": 461212715
+    }
+  },
+  "dependency_pins": {
+    "/workspace/work/recover-small_h2_34/m16/approaches/inverse4_cost_review/DERIVATION.md": "24467a2fa28879a756d0ea45b9e0e26d5253ce2baf273c5708a3a1423798d8a7",
+    "/workspace/work/recover-small_h2_34/m16/approaches/inverse4_cost_review/environment.json": "b7aae14e93467cdab8e54cb29b2ea88d80b424e09197303b55772b9a848288b0",
+    "/workspace/work/recover-small_h2_34/m16/approaches/inverse4_cost_review/dgetrf_single_disassembly.txt": "0948a8a4e227e52a02bc5f2797172cde1e2407fbc64e372183103e72557ec5a5",
+    "/workspace/work/recover-small_h2_34/m16/approaches/inverse_numeric_cost/DERIVATION.md": "d3366992f34e9be1b02ad2cc41603293b1ece04a374a24e93d219b6cf797cd70",
+    "/workspace/work/recover-small_h2_34/m16/approaches/inverse_numeric_cost/summary.json": "4dd373dd20944e2098f405c9087d3aee8159fb1219ee4484276f58be6e0c3755"
+  },
+  "controls_cpu": 0.06196874599999999,
+  "peak_rss_kib": 57340,
+  "no_trained_replay": true,
+  "complete_portable_cost": false,
+  "qualification": "Subset upper counts: elementary log/exp calls each one named unit, not their internal FLOPs. Loop/index/allocator/copy/interpreter/dispatch and libm internals excluded. This is neither a complete total upper bound nor a total lower bound. LU T157 review status must accompany handoff."
+}

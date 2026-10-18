@@ -1,0 +1,81 @@
+{
+  "scope": "1344 small ABI/branch controls, no model/rank/geometry replay",
+  "axpy": {
+    "count": 576,
+    "lengths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      15,
+      16,
+      17,
+      23
+    ],
+    "stride_pairs": "{1,3}x{1,3}",
+    "alphas": [
+      0,
+      0.25,
+      1,
+      -1,
+      "pi",
+      "1e-100"
+    ],
+    "patterns": [
+      "alternating dyadic",
+      "alternating with oddxzero"
+    ],
+    "reference": "exact Fraction product+sum rounded once per selected element; alpha0 skips"
+  },
+  "ger": {
+    "count": 432,
+    "m": [
+      1,
+      2,
+      3,
+      5,
+      7,
+      23
+    ],
+    "n": [
+      1,
+      2,
+      3
+    ],
+    "stride_pairs": "{1,3}x{1,3}",
+    "alphas": [
+      0,
+      -0.25,
+      1
+    ],
+    "patterns": [
+      "dyadic",
+      "alternating yzero"
+    ],
+    "reference": "round alpha*y then exact Fraction FMA for each update; alpha0 skips"
+  },
+  "gemv": {
+    "count": 336,
+    "T": "m1..23,n1..3",
+    "N": "m1..5,n1..3",
+    "incx": [
+      1,
+      3
+    ],
+    "incy": 1,
+    "alpha": 1,
+    "beta": 0,
+    "patterns": [
+      "full dyadic",
+      "even rowszero"
+    ],
+    "reference": "Exact dyadic dot product; starting yNaN must be overwritten by beta0 path; extra padding untouched"
+  },
+  "gate": "Independent source envelope and code review before execution; no bound relaxation on failures",
+  "limits": "one thread2GB20CPU review",
+  "source_sha256": "09b63805cb4662b792124cfb520bc7469942aad9e1ab14da9f5fcd3b3099fca2"
+}

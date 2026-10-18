@@ -1,0 +1,66 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000d3bc20 <scipy_iladlc_64_>:
+  d3bc20:	49 89 d0             	mov    %rdx,%r8
+  d3bc23:	48 8b 16             	mov    (%rsi),%rdx
+  d3bc26:	49 89 f9             	mov    %rdi,%r9
+  d3bc29:	48 85 d2             	test   %rdx,%rdx
+  d3bc2c:	74 74                	je     d3bca2 <scipy_iladlc_64_+0x82>
+  d3bc2e:	48 8b 01             	mov    (%rcx),%rax
+  d3bc31:	31 c9                	xor    %ecx,%ecx
+  d3bc33:	48 89 d7             	mov    %rdx,%rdi
+  d3bc36:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  d3bc3a:	48 85 c0             	test   %rax,%rax
+  d3bc3d:	48 0f 48 c1          	cmovs  %rcx,%rax
+  d3bc41:	48 0f af f8          	imul   %rax,%rdi
+  d3bc45:	48 89 c1             	mov    %rax,%rcx
+  d3bc48:	48 f7 d1             	not    %rcx
+  d3bc4b:	48 01 cf             	add    %rcx,%rdi
+  d3bc4e:	66 41 0f 2e 44 f8 08 	ucomisd 0x8(%r8,%rdi,8),%xmm0
+  d3bc55:	7a 4b                	jp     d3bca2 <scipy_iladlc_64_+0x82>
+  d3bc57:	75 49                	jne    d3bca2 <scipy_iladlc_64_+0x82>
+  d3bc59:	49 8b 31             	mov    (%r9),%rsi
+  d3bc5c:	48 8d 0c 37          	lea    (%rdi,%rsi,1),%rcx
+  d3bc60:	66 41 0f 2e 04 c8    	ucomisd (%r8,%rcx,8),%xmm0
+  d3bc66:	7a 3a                	jp     d3bca2 <scipy_iladlc_64_+0x82>
+  d3bc68:	75 38                	jne    d3bca2 <scipy_iladlc_64_+0x82>
+  d3bc6a:	48 85 d2             	test   %rdx,%rdx
+  d3bc6d:	7e 33                	jle    d3bca2 <scipy_iladlc_64_+0x82>
+  d3bc6f:	48 f7 d8             	neg    %rax
+  d3bc72:	49 8d 3c f8          	lea    (%r8,%rdi,8),%rdi
+  d3bc76:	48 8d 0c c5 00 00 00 	lea    0x0(,%rax,8),%rcx
+  d3bc7d:	00 
+  d3bc7e:	48 85 f6             	test   %rsi,%rsi
+  d3bc81:	7e 38                	jle    d3bcbb <scipy_iladlc_64_+0x9b>
+  d3bc83:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  d3bc87:	b8 01 00 00 00       	mov    $0x1,%eax
+  d3bc8c:	eb 0b                	jmp    d3bc99 <scipy_iladlc_64_+0x79>
+  d3bc8e:	66 90                	xchg   %ax,%ax
+  d3bc90:	48 83 c0 01          	add    $0x1,%rax
+  d3bc94:	48 39 c6             	cmp    %rax,%rsi
+  d3bc97:	7c 17                	jl     d3bcb0 <scipy_iladlc_64_+0x90>
+  d3bc99:	66 0f 2e 04 c7       	ucomisd (%rdi,%rax,8),%xmm0
+  d3bc9e:	7a 02                	jp     d3bca2 <scipy_iladlc_64_+0x82>
+  d3bca0:	74 ee                	je     d3bc90 <scipy_iladlc_64_+0x70>
+  d3bca2:	48 89 d0             	mov    %rdx,%rax
+  d3bca5:	c3                   	ret
+  d3bca6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  d3bcad:	00 00 00 
+  d3bcb0:	48 01 cf             	add    %rcx,%rdi
+  d3bcb3:	48 83 ea 01          	sub    $0x1,%rdx
+  d3bcb7:	75 ce                	jne    d3bc87 <scipy_iladlc_64_+0x67>
+  d3bcb9:	eb e7                	jmp    d3bca2 <scipy_iladlc_64_+0x82>
+  d3bcbb:	48 01 cf             	add    %rcx,%rdi
+  d3bcbe:	48 83 ea 01          	sub    $0x1,%rdx
+  d3bcc2:	75 ba                	jne    d3bc7e <scipy_iladlc_64_+0x5e>
+  d3bcc4:	eb dc                	jmp    d3bca2 <scipy_iladlc_64_+0x82>
+
+Disassembly of section .fini:

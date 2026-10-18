@@ -1,0 +1,81 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000011b0680 <scipy_ieeeck_64_>:
+ 11b0680:	f3 0f 10 02          	movss  (%rdx),%xmm0
+ 11b0684:	f3 0f 10 0e          	movss  (%rsi),%xmm1
+ 11b0688:	31 c0                	xor    %eax,%eax
+ 11b068a:	0f 28 d0             	movaps %xmm0,%xmm2
+ 11b068d:	f3 0f 5e d1          	divss  %xmm1,%xmm2
+ 11b0691:	0f 2f c2             	comiss %xmm2,%xmm0
+ 11b0694:	0f 83 c8 00 00 00    	jae    11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b069a:	0f 28 da             	movaps %xmm2,%xmm3
+ 11b069d:	0f 57 1d ec ca 20 00 	xorps  0x20caec(%rip),%xmm3        # 13bd190 <.annobin___pthread_atfork.end+0x240>
+ 11b06a4:	0f 2f d9             	comiss %xmm1,%xmm3
+ 11b06a7:	0f 83 b5 00 00 00    	jae    11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b06ad:	0f 28 d8             	movaps %xmm0,%xmm3
+ 11b06b0:	f3 0f 5c da          	subss  %xmm2,%xmm3
+ 11b06b4:	0f 28 d0             	movaps %xmm0,%xmm2
+ 11b06b7:	f3 0f 5e d3          	divss  %xmm3,%xmm2
+ 11b06bb:	0f 2e ca             	ucomiss %xmm2,%xmm1
+ 11b06be:	0f 8a 9c 00 00 00    	jp     11b0760 <scipy_ieeeck_64_+0xe0>
+ 11b06c4:	0f 85 96 00 00 00    	jne    11b0760 <scipy_ieeeck_64_+0xe0>
+ 11b06ca:	0f 28 d8             	movaps %xmm0,%xmm3
+ 11b06cd:	f3 0f 5e da          	divss  %xmm2,%xmm3
+ 11b06d1:	0f 2f d9             	comiss %xmm1,%xmm3
+ 11b06d4:	0f 83 88 00 00 00    	jae    11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b06da:	0f 28 e9             	movaps %xmm1,%xmm5
+ 11b06dd:	f3 0f 58 ea          	addss  %xmm2,%xmm5
+ 11b06e1:	0f 2e cd             	ucomiss %xmm5,%xmm1
+ 11b06e4:	7a 7a                	jp     11b0760 <scipy_ieeeck_64_+0xe0>
+ 11b06e6:	75 78                	jne    11b0760 <scipy_ieeeck_64_+0xe0>
+ 11b06e8:	0f 28 e0             	movaps %xmm0,%xmm4
+ 11b06eb:	f3 0f 5e e5          	divss  %xmm5,%xmm4
+ 11b06ef:	0f 2f c4             	comiss %xmm4,%xmm0
+ 11b06f2:	73 6e                	jae    11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b06f4:	f3 0f 59 dc          	mulss  %xmm4,%xmm3
+ 11b06f8:	0f 2f d9             	comiss %xmm1,%xmm3
+ 11b06fb:	73 65                	jae    11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b06fd:	f3 0f 59 e4          	mulss  %xmm4,%xmm4
+ 11b0701:	0f 2f c4             	comiss %xmm4,%xmm0
+ 11b0704:	73 5c                	jae    11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b0706:	48 83 3f 00          	cmpq   $0x0,(%rdi)
+ 11b070a:	b8 01 00 00 00       	mov    $0x1,%eax
+ 11b070f:	74 51                	je     11b0762 <scipy_ieeeck_64_+0xe2>
+ 11b0711:	0f 28 f4             	movaps %xmm4,%xmm6
+ 11b0714:	0f 28 c4             	movaps %xmm4,%xmm0
+ 11b0717:	0f 28 eb             	movaps %xmm3,%xmm5
+ 11b071a:	f3 0f 5e f3          	divss  %xmm3,%xmm6
+ 11b071e:	f3 0f 58 ec          	addss  %xmm4,%xmm5
+ 11b0722:	f3 0f 59 cc          	mulss  %xmm4,%xmm1
+ 11b0726:	f3 0f 59 d3          	mulss  %xmm3,%xmm2
+ 11b072a:	f3 0f 5e c4          	divss  %xmm4,%xmm0
+ 11b072e:	0f 2e f6             	ucomiss %xmm6,%xmm6
+ 11b0731:	0f 9b c0             	setnp  %al
+ 11b0734:	0f 2e ed             	ucomiss %xmm5,%xmm5
+ 11b0737:	0f 9b c2             	setnp  %dl
+ 11b073a:	09 d0                	or     %edx,%eax
+ 11b073c:	0f 2e c0             	ucomiss %xmm0,%xmm0
+ 11b073f:	0f 9b c2             	setnp  %dl
+ 11b0742:	09 d0                	or     %edx,%eax
+ 11b0744:	0f 2e c9             	ucomiss %xmm1,%xmm1
+ 11b0747:	0f 9b c2             	setnp  %dl
+ 11b074a:	09 d0                	or     %edx,%eax
+ 11b074c:	0f 2e d2             	ucomiss %xmm2,%xmm2
+ 11b074f:	0f 9b c2             	setnp  %dl
+ 11b0752:	09 d0                	or     %edx,%eax
+ 11b0754:	83 f0 01             	xor    $0x1,%eax
+ 11b0757:	0f b6 c0             	movzbl %al,%eax
+ 11b075a:	c3                   	ret
+ 11b075b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 11b0760:	31 c0                	xor    %eax,%eax
+ 11b0762:	c3                   	ret
+
+Disassembly of section .fini:

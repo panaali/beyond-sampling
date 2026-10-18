@@ -1,0 +1,488 @@
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .bolt.org.text:
+
+Disassembly of section .fini:
+
+Disassembly of section .text:
+
+00000000018ed500 <builtin_sum>:
+ 18ed500:	55                   	push   %rbp
+ 18ed501:	48 89 e5             	mov    %rsp,%rbp
+ 18ed504:	41 57                	push   %r15
+ 18ed506:	41 56                	push   %r14
+ 18ed508:	41 55                	push   %r13
+ 18ed50a:	41 54                	push   %r12
+ 18ed50c:	53                   	push   %rbx
+ 18ed50d:	48 83 ec 58          	sub    $0x58,%rsp
+ 18ed511:	48 85 c9             	test   %rcx,%rcx
+ 18ed514:	0f 85 62 21 2a 00    	jne    1b8f67c <builtin_sum.cold+0xbc>
+ 18ed51a:	48 89 d3             	mov    %rdx,%rbx
+ 18ed51d:	48 85 f6             	test   %rsi,%rsi
+ 18ed520:	0f 84 5d 21 2a 00    	je     1b8f683 <builtin_sum.cold+0xc3>
+ 18ed526:	48 8d 42 ff          	lea    -0x1(%rdx),%rax
+ 18ed52a:	48 89 d3             	mov    %rdx,%rbx
+ 18ed52d:	48 83 f8 02          	cmp    $0x2,%rax
+ 18ed531:	0f 83 4c 21 2a 00    	jae    1b8f683 <builtin_sum.cold+0xc3>
+ 18ed537:	48 8b 3e             	mov    (%rsi),%rdi
+ 18ed53a:	48 83 fa 01          	cmp    $0x1,%rdx
+ 18ed53e:	0f 85 80 21 2a 00    	jne    1b8f6c4 <builtin_sum.cold+0x104>
+ 18ed544:	e8 91 88 f1 ff       	call   1805dda <PyObject_GetIter>
+ 18ed549:	48 85 c0             	test   %rax,%rax
+ 18ed54c:	0f 84 c5 21 2a 00    	je     1b8f717 <builtin_sum.cold+0x157>
+ 18ed552:	49 89 c4             	mov    %rax,%r12
+ 18ed555:	b8 b8 89 54 01       	mov    $0x15489b8,%eax
+ 18ed55a:	48 8b 48 08          	mov    0x8(%rax),%rcx
+ 18ed55e:	48 81 f9 20 49 44 01 	cmp    $0x1444920,%rcx
+ 18ed565:	0f 85 0d 02 00 00    	jne    18ed778 <builtin_sum+0x278>
+ 18ed56b:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%rbp)
+ 18ed572:	48 8b 1d 4f 74 b5 ff 	mov    -0x4a8bb1(%rip),%rbx        # 14449c8 <PyLong_Type+0xa8>
+ 18ed579:	48 89 c7             	mov    %rax,%rdi
+ 18ed57c:	f7 c3 00 00 00 01    	test   $0x1000000,%ebx
+ 18ed582:	4c 89 65 c0          	mov    %r12,-0x40(%rbp)
+ 18ed586:	0f 84 4f 20 2a 00    	je     1b8f5db <builtin_sum.cold+0x1b>
+ 18ed58c:	48 8b 57 10          	mov    0x10(%rdi),%rdx
+ 18ed590:	48 83 fa 0f          	cmp    $0xf,%rdx
+ 18ed594:	0f 87 67 20 2a 00    	ja     1b8f601 <builtin_sum.cold+0x41>
+ 18ed59a:	8b 4f 18             	mov    0x18(%rdi),%ecx
+ 18ed59d:	83 e2 03             	and    $0x3,%edx
+ 18ed5a0:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+ 18ed5a6:	49 29 d5             	sub    %rdx,%r13
+ 18ed5a9:	4c 0f af e9          	imul   %rcx,%r13
+ 18ed5ad:	31 c9                	xor    %ecx,%ecx
+ 18ed5af:	f7 c3 00 00 00 01    	test   $0x1000000,%ebx
+ 18ed5b5:	0f 84 80 21 2a 00    	je     1b8f73b <builtin_sum.cold+0x17b>
+ 18ed5bb:	85 c9                	test   %ecx,%ecx
+ 18ed5bd:	75 0d                	jne    18ed5cc <builtin_sum+0xcc>
+ 18ed5bf:	48 8b 08             	mov    (%rax),%rcx
+ 18ed5c2:	85 c9                	test   %ecx,%ecx
+ 18ed5c4:	0f 89 f6 1f 2a 00    	jns    1b8f5c0 <builtin_sum.cold>
+ 18ed5ca:	31 c0                	xor    %eax,%eax
+ 18ed5cc:	49 8d 4d 05          	lea    0x5(%r13),%rcx
+ 18ed5d0:	48 89 4d a0          	mov    %rcx,-0x60(%rbp)
+ 18ed5d4:	4c 89 eb             	mov    %r13,%rbx
+ 18ed5d7:	48 f7 db             	neg    %rbx
+ 18ed5da:	49 0f 48 dd          	cmovs  %r13,%rbx
+ 18ed5de:	4c 89 e9             	mov    %r13,%rcx
+ 18ed5e1:	48 c1 e9 3e          	shr    $0x3e,%rcx
+ 18ed5e5:	83 e1 fe             	and    $0xfffffffe,%ecx
+ 18ed5e8:	48 89 4d b0          	mov    %rcx,-0x50(%rbp)
+ 18ed5ec:	4c 89 e9             	mov    %r13,%rcx
+ 18ed5ef:	48 c1 e1 05          	shl    $0x5,%rcx
+ 18ed5f3:	48 8d 89 b8 89 54 01 	lea    0x15489b8(%rcx),%rcx
+ 18ed5fa:	48 89 4d b8          	mov    %rcx,-0x48(%rbp)
+ 18ed5fe:	49 be 00 00 00 00 00 	movabs $0x8000000000000000,%r14
+ 18ed605:	00 00 80 
+ 18ed608:	4d 29 ee             	sub    %r13,%r14
+ 18ed60b:	4c 8b 65 c0          	mov    -0x40(%rbp),%r12
+ 18ed60f:	48 85 c0             	test   %rax,%rax
+ 18ed612:	0f 85 5c 01 00 00    	jne    18ed774 <builtin_sum+0x274>
+ 18ed618:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18ed61d:	4c 89 e7             	mov    %r12,%rdi
+ 18ed620:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+ 18ed626:	48 85 c0             	test   %rax,%rax
+ 18ed629:	75 6c                	jne    18ed697 <builtin_sum+0x197>
+ 18ed62b:	64 4c 8b 34 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%r14
+ 18ed632:	ff ff 
+ 18ed634:	49 8b 46 60          	mov    0x60(%r14),%rax
+ 18ed638:	48 85 c0             	test   %rax,%rax
+ 18ed63b:	0f 85 57 22 2a 00    	jne    1b8f898 <builtin_sum.cold+0x2d8>
+ 18ed641:	49 8b 04 24          	mov    (%r12),%rax
+ 18ed645:	85 c0                	test   %eax,%eax
+ 18ed647:	4c 8b 6d b8          	mov    -0x48(%rbp),%r13
+ 18ed64b:	78 14                	js     18ed661 <builtin_sum+0x161>
+ 18ed64d:	48 ff c8             	dec    %rax
+ 18ed650:	49 89 04 24          	mov    %rax,(%r12)
+ 18ed654:	75 0b                	jne    18ed661 <builtin_sum+0x161>
+ 18ed656:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18ed65b:	4c 89 e7             	mov    %r12,%rdi
+ 18ed65e:	ff 50 30             	call   *0x30(%rax)
+ 18ed661:	64 48 8b 04 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rax
+ 18ed668:	ff ff 
+ 18ed66a:	48 8b 48 60          	mov    0x60(%rax),%rcx
+ 18ed66e:	48 85 c9             	test   %rcx,%rcx
+ 18ed671:	0f 85 7c 21 2a 00    	jne    1b8f7f3 <builtin_sum.cold+0x233>
+ 18ed677:	48 81 7d a0 06 01 00 	cmpq   $0x106,-0x60(%rbp)
+ 18ed67e:	00 
+ 18ed67f:	0f 83 1b 05 00 00    	jae    18edba0 <builtin_sum+0x6a0>
+ 18ed685:	4c 89 e8             	mov    %r13,%rax
+ 18ed688:	48 83 c4 58          	add    $0x58,%rsp
+ 18ed68c:	5b                   	pop    %rbx
+ 18ed68d:	41 5c                	pop    %r12
+ 18ed68f:	41 5d                	pop    %r13
+ 18ed691:	41 5e                	pop    %r14
+ 18ed693:	41 5f                	pop    %r15
+ 18ed695:	5d                   	pop    %rbp
+ 18ed696:	c3                   	ret
+ 18ed697:	49 89 c7             	mov    %rax,%r15
+ 18ed69a:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 18ed69e:	48 3d 20 49 44 01    	cmp    $0x1444920,%rax
+ 18ed6a4:	75 5e                	jne    18ed704 <builtin_sum+0x204>
+ 18ed6a6:	49 8b 47 10          	mov    0x10(%r15),%rax
+ 18ed6aa:	48 83 f8 0f          	cmp    $0xf,%rax
+ 18ed6ae:	0f 87 9d 21 2a 00    	ja     1b8f851 <builtin_sum.cold+0x291>
+ 18ed6b4:	41 8b 4f 18          	mov    0x18(%r15),%ecx
+ 18ed6b8:	83 e0 03             	and    $0x3,%eax
+ 18ed6bb:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+ 18ed6c1:	49 29 c4             	sub    %rax,%r12
+ 18ed6c4:	4c 0f af e1          	imul   %rcx,%r12
+ 18ed6c8:	4d 85 ed             	test   %r13,%r13
+ 18ed6cb:	0f 88 e3 20 2a 00    	js     1b8f7b4 <builtin_sum.cold+0x1f4>
+ 18ed6d1:	4c 89 e8             	mov    %r13,%rax
+ 18ed6d4:	48 f7 d0             	not    %rax
+ 18ed6d7:	48 b9 00 00 00 00 00 	movabs $0x8000000000000000,%rcx
+ 18ed6de:	00 00 80 
+ 18ed6e1:	48 01 c8             	add    %rcx,%rax
+ 18ed6e4:	49 39 c4             	cmp    %rax,%r12
+ 18ed6e7:	7f 23                	jg     18ed70c <builtin_sum+0x20c>
+ 18ed6e9:	4d 01 ec             	add    %r13,%r12
+ 18ed6ec:	49 8b 0f             	mov    (%r15),%rcx
+ 18ed6ef:	b8 00 00 00 00       	mov    $0x0,%eax
+ 18ed6f4:	4d 89 e5             	mov    %r12,%r13
+ 18ed6f7:	85 c9                	test   %ecx,%ecx
+ 18ed6f9:	0f 88 cd fe ff ff    	js     18ed5cc <builtin_sum+0xcc>
+ 18ed6ff:	e9 74 04 00 00       	jmp    18edb78 <builtin_sum+0x678>
+ 18ed704:	48 3d 48 34 43 01    	cmp    $0x1433448,%rax
+ 18ed70a:	74 9a                	je     18ed6a6 <builtin_sum+0x1a6>
+ 18ed70c:	49 8d 45 05          	lea    0x5(%r13),%rax
+ 18ed710:	48 3d 06 01 00 00    	cmp    $0x106,%rax
+ 18ed716:	0f 83 47 7c 1d 00    	jae    1ac5363 <builtin_sum.warm+0x23>
+ 18ed71c:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+ 18ed720:	49 89 c4             	mov    %rax,%r12
+ 18ed723:	48 85 c0             	test   %rax,%rax
+ 18ed726:	0f 84 49 22 2a 00    	je     1b8f975 <builtin_sum.cold+0x3b5>
+ 18ed72c:	4c 89 e7             	mov    %r12,%rdi
+ 18ed72f:	4c 89 fe             	mov    %r15,%rsi
+ 18ed732:	e8 89 cc f1 ff       	call   180a3c0 <PyNumber_Add>
+ 18ed737:	49 8b 0c 24          	mov    (%r12),%rcx
+ 18ed73b:	85 c9                	test   %ecx,%ecx
+ 18ed73d:	0f 89 fd 7b 1d 00    	jns    1ac5340 <builtin_sum.warm>
+ 18ed743:	49 8b 0f             	mov    (%r15),%rcx
+ 18ed746:	85 c9                	test   %ecx,%ecx
+ 18ed748:	4c 8b 65 c0          	mov    -0x40(%rbp),%r12
+ 18ed74c:	78 18                	js     18ed766 <builtin_sum+0x266>
+ 18ed74e:	48 ff c9             	dec    %rcx
+ 18ed751:	49 89 0f             	mov    %rcx,(%r15)
+ 18ed754:	75 10                	jne    18ed766 <builtin_sum+0x266>
+ 18ed756:	49 8b 4f 08          	mov    0x8(%r15),%rcx
+ 18ed75a:	4c 89 ff             	mov    %r15,%rdi
+ 18ed75d:	49 89 c7             	mov    %rax,%r15
+ 18ed760:	ff 51 30             	call   *0x30(%rcx)
+ 18ed763:	4c 89 f8             	mov    %r15,%rax
+ 18ed766:	48 85 c0             	test   %rax,%rax
+ 18ed769:	0f 85 a0 fe ff ff    	jne    18ed60f <builtin_sum+0x10f>
+ 18ed76f:	e9 fb 20 2a 00       	jmp    1b8f86f <builtin_sum.cold+0x2af>
+ 18ed774:	48 8b 48 08          	mov    0x8(%rax),%rcx
+ 18ed778:	48 81 f9 00 21 44 01 	cmp    $0x1442100,%rcx
+ 18ed77f:	0f 84 e5 01 00 00    	je     18ed96a <builtin_sum+0x46a>
+ 18ed785:	49 89 c5             	mov    %rax,%r13
+ 18ed788:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18ed78d:	4c 89 e7             	mov    %r12,%rdi
+ 18ed790:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+ 18ed796:	48 85 c0             	test   %rax,%rax
+ 18ed799:	75 4a                	jne    18ed7e5 <builtin_sum+0x2e5>
+ 18ed79b:	64 48 8b 1c 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rbx
+ 18ed7a2:	ff ff 
+ 18ed7a4:	48 8b 43 60          	mov    0x60(%rbx),%rax
+ 18ed7a8:	48 85 c0             	test   %rax,%rax
+ 18ed7ab:	0f 85 40 21 2a 00    	jne    1b8f8f1 <builtin_sum.cold+0x331>
+ 18ed7b1:	64 48 8b 04 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rax
+ 18ed7b8:	ff ff 
+ 18ed7ba:	48 8b 40 60          	mov    0x60(%rax),%rax
+ 18ed7be:	48 85 c0             	test   %rax,%rax
+ 18ed7c1:	0f 85 6b 20 2a 00    	jne    1b8f832 <builtin_sum.cold+0x272>
+ 18ed7c7:	49 8b 04 24          	mov    (%r12),%rax
+ 18ed7cb:	85 c0                	test   %eax,%eax
+ 18ed7cd:	0f 88 b2 fe ff ff    	js     18ed685 <builtin_sum+0x185>
+ 18ed7d3:	48 ff c8             	dec    %rax
+ 18ed7d6:	49 89 04 24          	mov    %rax,(%r12)
+ 18ed7da:	0f 85 a5 fe ff ff    	jne    18ed685 <builtin_sum+0x185>
+ 18ed7e0:	e9 fe 1f 2a 00       	jmp    1b8f7e3 <builtin_sum.cold+0x223>
+ 18ed7e5:	49 89 c7             	mov    %rax,%r15
+ 18ed7e8:	4c 89 ef             	mov    %r13,%rdi
+ 18ed7eb:	48 89 c6             	mov    %rax,%rsi
+ 18ed7ee:	e8 cd cb f1 ff       	call   180a3c0 <PyNumber_Add>
+ 18ed7f3:	49 8b 4d 00          	mov    0x0(%r13),%rcx
+ 18ed7f7:	85 c9                	test   %ecx,%ecx
+ 18ed7f9:	78 19                	js     18ed814 <builtin_sum+0x314>
+ 18ed7fb:	48 ff c9             	dec    %rcx
+ 18ed7fe:	49 89 4d 00          	mov    %rcx,0x0(%r13)
+ 18ed802:	75 10                	jne    18ed814 <builtin_sum+0x314>
+ 18ed804:	49 8b 4d 08          	mov    0x8(%r13),%rcx
+ 18ed808:	4c 89 ef             	mov    %r13,%rdi
+ 18ed80b:	48 89 c3             	mov    %rax,%rbx
+ 18ed80e:	ff 51 30             	call   *0x30(%rcx)
+ 18ed811:	48 89 d8             	mov    %rbx,%rax
+ 18ed814:	49 8b 0f             	mov    (%r15),%rcx
+ 18ed817:	85 c9                	test   %ecx,%ecx
+ 18ed819:	78 18                	js     18ed833 <builtin_sum+0x333>
+ 18ed81b:	48 ff c9             	dec    %rcx
+ 18ed81e:	49 89 0f             	mov    %rcx,(%r15)
+ 18ed821:	75 10                	jne    18ed833 <builtin_sum+0x333>
+ 18ed823:	49 8b 4f 08          	mov    0x8(%r15),%rcx
+ 18ed827:	4c 89 ff             	mov    %r15,%rdi
+ 18ed82a:	48 89 c3             	mov    %rax,%rbx
+ 18ed82d:	ff 51 30             	call   *0x30(%rcx)
+ 18ed830:	48 89 d8             	mov    %rbx,%rax
+ 18ed833:	49 89 c5             	mov    %rax,%r13
+ 18ed836:	48 85 c0             	test   %rax,%rax
+ 18ed839:	0f 85 49 ff ff ff    	jne    18ed788 <builtin_sum+0x288>
+ 18ed83f:	e9 05 20 2a 00       	jmp    1b8f849 <builtin_sum.cold+0x289>
+ 18ed844:	f3 0f 7e 4d b8       	movq   -0x48(%rbp),%xmm1
+ 18ed849:	66 48 0f 7e c9       	movq   %xmm1,%rcx
+ 18ed84e:	48 ba ff ff ff ff ff 	movabs $0x7fffffffffffffff,%rdx
+ 18ed855:	ff ff 7f 
+ 18ed858:	48 21 ca             	and    %rcx,%rdx
+ 18ed85b:	48 b9 00 00 00 00 00 	movabs $0x7ff0000000000000,%rcx
+ 18ed862:	00 f0 7f 
+ 18ed865:	48 39 ca             	cmp    %rcx,%rdx
+ 18ed868:	40 0f 9f c6          	setg   %sil
+ 18ed86c:	40 0f 94 c7          	sete   %dil
+ 18ed870:	48 85 d2             	test   %rdx,%rdx
+ 18ed873:	0f 94 c1             	sete   %cl
+ 18ed876:	40 08 f9             	or     %dil,%cl
+ 18ed879:	40 08 f1             	or     %sil,%cl
+ 18ed87c:	49 89 c6             	mov    %rax,%r14
+ 18ed87f:	84 c9                	test   %cl,%cl
+ 18ed881:	0f 84 8c 22 2a 00    	je     1b8fb13 <builtin_sum.cold+0x553>
+ 18ed887:	e8 b4 23 f2 ff       	call   180fc40 <PyFloat_FromDouble>
+ 18ed88c:	48 85 c0             	test   %rax,%rax
+ 18ed88f:	0f 84 87 22 2a 00    	je     1b8fb1c <builtin_sum.cold+0x55c>
+ 18ed895:	49 89 c7             	mov    %rax,%r15
+ 18ed898:	48 89 c7             	mov    %rax,%rdi
+ 18ed89b:	4c 89 f6             	mov    %r14,%rsi
+ 18ed89e:	e8 1d cb f1 ff       	call   180a3c0 <PyNumber_Add>
+ 18ed8a3:	49 8b 0f             	mov    (%r15),%rcx
+ 18ed8a6:	85 c9                	test   %ecx,%ecx
+ 18ed8a8:	78 18                	js     18ed8c2 <builtin_sum+0x3c2>
+ 18ed8aa:	48 ff c9             	dec    %rcx
+ 18ed8ad:	49 89 0f             	mov    %rcx,(%r15)
+ 18ed8b0:	75 10                	jne    18ed8c2 <builtin_sum+0x3c2>
+ 18ed8b2:	49 8b 4f 08          	mov    0x8(%r15),%rcx
+ 18ed8b6:	4c 89 ff             	mov    %r15,%rdi
+ 18ed8b9:	48 89 c3             	mov    %rax,%rbx
+ 18ed8bc:	ff 51 30             	call   *0x30(%rcx)
+ 18ed8bf:	48 89 d8             	mov    %rbx,%rax
+ 18ed8c2:	49 8b 0e             	mov    (%r14),%rcx
+ 18ed8c5:	85 c9                	test   %ecx,%ecx
+ 18ed8c7:	78 18                	js     18ed8e1 <builtin_sum+0x3e1>
+ 18ed8c9:	48 ff c9             	dec    %rcx
+ 18ed8cc:	49 89 0e             	mov    %rcx,(%r14)
+ 18ed8cf:	75 10                	jne    18ed8e1 <builtin_sum+0x3e1>
+ 18ed8d1:	49 8b 4e 08          	mov    0x8(%r14),%rcx
+ 18ed8d5:	4c 89 f7             	mov    %r14,%rdi
+ 18ed8d8:	48 89 c3             	mov    %rax,%rbx
+ 18ed8db:	ff 51 30             	call   *0x30(%rcx)
+ 18ed8de:	48 89 d8             	mov    %rbx,%rax
+ 18ed8e1:	48 85 c0             	test   %rax,%rax
+ 18ed8e4:	0f 85 9b fe ff ff    	jne    18ed785 <builtin_sum+0x285>
+ 18ed8ea:	e9 20 1e 2a 00       	jmp    1b8f70f <builtin_sum.cold+0x14f>
+ 18ed8ef:	f6 81 ab 00 00 00 01 	testb  $0x1,0xab(%rcx)
+ 18ed8f6:	0f 84 48 ff ff ff    	je     18ed844 <builtin_sum+0x344>
+ 18ed8fc:	66 0f 29 45 c0       	movapd %xmm0,-0x40(%rbp)
+ 18ed901:	48 89 c3             	mov    %rax,%rbx
+ 18ed904:	48 89 c7             	mov    %rax,%rdi
+ 18ed907:	4c 89 f6             	mov    %r14,%rsi
+ 18ed90a:	e8 f1 90 0f 00       	call   19e6a00 <PyLong_AsLongAndOverflow>
+ 18ed90f:	83 7d d4 00          	cmpl   $0x0,-0x2c(%rbp)
+ 18ed913:	0f 85 29 22 2a 00    	jne    1b8fb42 <builtin_sum.cold+0x582>
+ 18ed919:	48 8b 0b             	mov    (%rbx),%rcx
+ 18ed91c:	85 c9                	test   %ecx,%ecx
+ 18ed91e:	66 0f 28 4d c0       	movapd -0x40(%rbp),%xmm1
+ 18ed923:	0f 89 5a 22 2a 00    	jns    1b8fb83 <builtin_sum.cold+0x5c3>
+ 18ed929:	0f 57 c0             	xorps  %xmm0,%xmm0
+ 18ed92c:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+ 18ed931:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+ 18ed935:	66 0f 29 4d c0       	movapd %xmm1,-0x40(%rbp)
+ 18ed93a:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18ed93f:	4c 89 e7             	mov    %r12,%rdi
+ 18ed942:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+ 18ed948:	66 0f 28 45 c0       	movapd -0x40(%rbp),%xmm0
+ 18ed94d:	48 85 c0             	test   %rax,%rax
+ 18ed950:	75 63                	jne    18ed9b5 <builtin_sum+0x4b5>
+ 18ed952:	66 0f 28 c8          	movapd %xmm0,%xmm1
+ 18ed956:	e9 29 01 00 00       	jmp    18eda84 <builtin_sum+0x584>
+ 18ed95b:	f2 0f 11 45 b8       	movsd  %xmm0,-0x48(%rbp)
+ 18ed960:	66 0f 28 4d c0       	movapd -0x40(%rbp),%xmm1
+ 18ed965:	e9 1a 01 00 00       	jmp    18eda84 <builtin_sum+0x584>
+ 18ed96a:	f2 0f 10 40 10       	movsd  0x10(%rax),%xmm0
+ 18ed96f:	66 0f 29 45 c0       	movapd %xmm0,-0x40(%rbp)
+ 18ed974:	48 8b 08             	mov    (%rax),%rcx
+ 18ed977:	85 c9                	test   %ecx,%ecx
+ 18ed979:	78 11                	js     18ed98c <builtin_sum+0x48c>
+ 18ed97b:	48 ff c9             	dec    %rcx
+ 18ed97e:	48 89 08             	mov    %rcx,(%rax)
+ 18ed981:	75 09                	jne    18ed98c <builtin_sum+0x48c>
+ 18ed983:	48 89 c7             	mov    %rax,%rdi
+ 18ed986:	ff 15 a4 47 b5 ff    	call   *-0x4ab85c(%rip)        # 1442130 <PyFloat_Type+0x30>
+ 18ed98c:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18ed991:	4c 89 e7             	mov    %r12,%rdi
+ 18ed994:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+ 18ed99a:	66 0f 57 c0          	xorpd  %xmm0,%xmm0
+ 18ed99e:	48 85 c0             	test   %rax,%rax
+ 18ed9a1:	74 b8                	je     18ed95b <builtin_sum+0x45b>
+ 18ed9a3:	f2 0f 11 45 b8       	movsd  %xmm0,-0x48(%rbp)
+ 18ed9a8:	4c 8d 75 d4          	lea    -0x2c(%rbp),%r14
+ 18ed9ac:	66 0f 28 4d c0       	movapd -0x40(%rbp),%xmm1
+ 18ed9b1:	66 0f 28 c1          	movapd %xmm1,%xmm0
+ 18ed9b5:	48 8b 48 08          	mov    0x8(%rax),%rcx
+ 18ed9b9:	48 81 f9 00 21 44 01 	cmp    $0x1442100,%rcx
+ 18ed9c0:	0f 85 29 ff ff ff    	jne    18ed8ef <builtin_sum+0x3ef>
+ 18ed9c6:	f2 0f 10 60 10       	movsd  0x10(%rax),%xmm4
+ 18ed9cb:	48 8b 08             	mov    (%rax),%rcx
+ 18ed9ce:	85 c9                	test   %ecx,%ecx
+ 18ed9d0:	78 3e                	js     18eda10 <builtin_sum+0x510>
+ 18ed9d2:	48 ff c9             	dec    %rcx
+ 18ed9d5:	48 89 08             	mov    %rcx,(%rax)
+ 18ed9d8:	75 36                	jne    18eda10 <builtin_sum+0x510>
+ 18ed9da:	64 48 8b 0c 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rcx
+ 18ed9e1:	ff ff 
+ 18ed9e3:	48 8b 49 10          	mov    0x10(%rcx),%rcx
+ 18ed9e7:	8b 91 90 14 04 00    	mov    0x41490(%rcx),%edx
+ 18ed9ed:	83 fa 64             	cmp    $0x64,%edx
+ 18ed9f0:	0f 8d f4 20 2a 00    	jge    1b8faea <builtin_sum.cold+0x52a>
+ 18ed9f6:	ff c2                	inc    %edx
+ 18ed9f8:	89 91 90 14 04 00    	mov    %edx,0x41490(%rcx)
+ 18ed9fe:	48 8b 91 98 14 04 00 	mov    0x41498(%rcx),%rdx
+ 18eda05:	48 89 50 08          	mov    %rdx,0x8(%rax)
+ 18eda09:	48 89 81 98 14 04 00 	mov    %rax,0x41498(%rcx)
+ 18eda10:	66 0f 28 e8          	movapd %xmm0,%xmm5
+ 18eda14:	f2 0f 58 ec          	addsd  %xmm4,%xmm5
+ 18eda18:	66 0f 29 6d c0       	movapd %xmm5,-0x40(%rbp)
+ 18eda1d:	66 0f 28 d0          	movapd %xmm0,%xmm2
+ 18eda21:	66 0f 28 1d a7 99 85 	movapd -0x7a6659(%rip),%xmm3        # 11473d0 <.LCPI1409_0>
+ 18eda28:	ff 
+ 18eda29:	66 0f 54 d3          	andpd  %xmm3,%xmm2
+ 18eda2d:	66 0f 28 cc          	movapd %xmm4,%xmm1
+ 18eda31:	66 0f 54 cb          	andpd  %xmm3,%xmm1
+ 18eda35:	f2 0f c2 ca 06       	cmpnlesd %xmm2,%xmm1
+ 18eda3a:	66 0f 28 d0          	movapd %xmm0,%xmm2
+ 18eda3e:	f2 0f 5c d5          	subsd  %xmm5,%xmm2
+ 18eda42:	f2 0f 58 d4          	addsd  %xmm4,%xmm2
+ 18eda46:	f2 0f 5c e5          	subsd  %xmm5,%xmm4
+ 18eda4a:	f2 0f 58 e0          	addsd  %xmm0,%xmm4
+ 18eda4e:	66 0f 54 e1          	andpd  %xmm1,%xmm4
+ 18eda52:	66 0f 55 ca          	andnpd %xmm2,%xmm1
+ 18eda56:	66 0f 56 cc          	orpd   %xmm4,%xmm1
+ 18eda5a:	f2 0f 10 45 b8       	movsd  -0x48(%rbp),%xmm0
+ 18eda5f:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+ 18eda63:	f2 0f 11 45 b8       	movsd  %xmm0,-0x48(%rbp)
+ 18eda68:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18eda6d:	4c 89 e7             	mov    %r12,%rdi
+ 18eda70:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+ 18eda76:	66 0f 28 4d c0       	movapd -0x40(%rbp),%xmm1
+ 18eda7b:	48 85 c0             	test   %rax,%rax
+ 18eda7e:	0f 85 2d ff ff ff    	jne    18ed9b1 <builtin_sum+0x4b1>
+ 18eda84:	64 48 8b 1c 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rbx
+ 18eda8b:	ff ff 
+ 18eda8d:	48 8b 43 60          	mov    0x60(%rbx),%rax
+ 18eda91:	48 85 c0             	test   %rax,%rax
+ 18eda94:	0f 85 b8 1f 2a 00    	jne    1b8fa52 <builtin_sum.cold+0x492>
+ 18eda9a:	f3 0f 7e 45 b8       	movq   -0x48(%rbp),%xmm0
+ 18eda9f:	66 48 0f 7e c0       	movq   %xmm0,%rax
+ 18edaa4:	48 b9 ff ff ff ff ff 	movabs $0x7fffffffffffffff,%rcx
+ 18edaab:	ff ff 7f 
+ 18edaae:	48 21 c1             	and    %rax,%rcx
+ 18edab1:	48 b8 00 00 00 00 00 	movabs $0x7ff0000000000000,%rax
+ 18edab8:	00 f0 7f 
+ 18edabb:	48 39 c1             	cmp    %rax,%rcx
+ 18edabe:	0f 9f c3             	setg   %bl
+ 18edac1:	41 0f 94 c7          	sete   %r15b
+ 18edac5:	48 85 c9             	test   %rcx,%rcx
+ 18edac8:	41 0f 94 c6          	sete   %r14b
+ 18edacc:	49 8b 04 24          	mov    (%r12),%rax
+ 18edad0:	85 c0                	test   %eax,%eax
+ 18edad2:	78 09                	js     18edadd <builtin_sum+0x5dd>
+ 18edad4:	48 ff c8             	dec    %rax
+ 18edad7:	49 89 04 24          	mov    %rax,(%r12)
+ 18edadb:	74 7c                	je     18edb59 <builtin_sum+0x659>
+ 18edadd:	64 48 8b 04 25 f8 ff 	mov    %fs:0xfffffffffffffff8,%rax
+ 18edae4:	ff ff 
+ 18edae6:	48 8b 48 60          	mov    0x60(%rax),%rcx
+ 18edaea:	48 85 c9             	test   %rcx,%rcx
+ 18edaed:	0f 85 4f 1f 2a 00    	jne    1b8fa42 <builtin_sum.cold+0x482>
+ 18edaf3:	45 08 fe             	or     %r15b,%r14b
+ 18edaf6:	41 08 de             	or     %bl,%r14b
+ 18edaf9:	75 04                	jne    18edaff <builtin_sum+0x5ff>
+ 18edafb:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+ 18edaff:	48 8b 40 10          	mov    0x10(%rax),%rax
+ 18edb03:	4c 8b a8 98 14 04 00 	mov    0x41498(%rax),%r13
+ 18edb0a:	4d 85 ed             	test   %r13,%r13
+ 18edb0d:	0f 84 fa 1e 2a 00    	je     1b8fa0d <builtin_sum.cold+0x44d>
+ 18edb13:	49 8b 4d 08          	mov    0x8(%r13),%rcx
+ 18edb17:	48 89 88 98 14 04 00 	mov    %rcx,0x41498(%rax)
+ 18edb1e:	ff 88 90 14 04 00    	decl   0x41490(%rax)
+ 18edb24:	49 c7 45 08 00 21 44 	movq   $0x1442100,0x8(%r13)
+ 18edb2b:	01 
+ 18edb2c:	f6 05 76 46 b5 ff 02 	testb  $0x2,-0x4ab98a(%rip)        # 14421a9 <PyFloat_Type+0xa9>
+ 18edb33:	0f 85 81 1f 2a 00    	jne    1b8faba <builtin_sum.cold+0x4fa>
+ 18edb39:	83 3d 84 ac c5 ff 00 	cmpl   $0x0,-0x3a537c(%rip)        # 15487c4 <_PyRuntime+0xad4>
+ 18edb40:	0f 85 8d 1f 2a 00    	jne    1b8fad3 <builtin_sum.cold+0x513>
+ 18edb46:	49 c7 45 00 01 00 00 	movq   $0x1,0x0(%r13)
+ 18edb4d:	00 
+ 18edb4e:	f2 41 0f 11 4d 10    	movsd  %xmm1,0x10(%r13)
+ 18edb54:	e9 2c fb ff ff       	jmp    18ed685 <builtin_sum+0x185>
+ 18edb59:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ 18edb5e:	4c 89 e7             	mov    %r12,%rdi
+ 18edb61:	66 0f 29 4d c0       	movapd %xmm1,-0x40(%rbp)
+ 18edb66:	ff 50 30             	call   *0x30(%rax)
+ 18edb69:	66 0f 28 4d c0       	movapd -0x40(%rbp),%xmm1
+ 18edb6e:	f3 0f 7e 45 b8       	movq   -0x48(%rbp),%xmm0
+ 18edb73:	e9 65 ff ff ff       	jmp    18edadd <builtin_sum+0x5dd>
+ 18edb78:	b8 00 00 00 00       	mov    $0x0,%eax
+ 18edb7d:	4d 89 e5             	mov    %r12,%r13
+ 18edb80:	48 ff c9             	dec    %rcx
+ 18edb83:	49 89 0f             	mov    %rcx,(%r15)
+ 18edb86:	0f 85 40 fa ff ff    	jne    18ed5cc <builtin_sum+0xcc>
+ 18edb8c:	49 8b 47 08          	mov    0x8(%r15),%rax
+ 18edb90:	4c 89 ff             	mov    %r15,%rdi
+ 18edb93:	ff 50 30             	call   *0x30(%rax)
+ 18edb96:	31 c0                	xor    %eax,%eax
+ 18edb98:	4d 89 e5             	mov    %r12,%r13
+ 18edb9b:	e9 2c fa ff ff       	jmp    18ed5cc <builtin_sum+0xcc>
+ 18edba0:	49 89 de             	mov    %rbx,%r14
+ 18edba3:	49 c1 ee 3c          	shr    $0x3c,%r14
+ 18edba7:	49 83 fe 01          	cmp    $0x1,%r14
+ 18edbab:	b8 03 00 00 00       	mov    $0x3,%eax
+ 18edbb0:	48 83 d8 00          	sbb    $0x0,%rax
+ 18edbb4:	48 81 fb 00 00 00 40 	cmp    $0x40000000,%rbx
+ 18edbbb:	41 bf 01 00 00 00    	mov    $0x1,%r15d
+ 18edbc1:	4c 0f 43 f8          	cmovae %rax,%r15
+ 18edbc5:	44 89 f8             	mov    %r15d,%eax
+ 18edbc8:	48 8d 34 85 18 00 00 	lea    0x18(,%rax,4),%rsi
+ 18edbcf:	00 
+ 18edbd0:	48 8b 3d c9 a1 c5 ff 	mov    -0x3a5e37(%rip),%rdi        # 1547da0 <_PyRuntime+0xb0>
+ 18edbd7:	ff 15 cb a1 c5 ff    	call   *-0x3a5e35(%rip)        # 1547da8 <_PyRuntime+0xb8>
+ 18edbdd:	48 85 c0             	test   %rax,%rax
+ 18edbe0:	0f 84 e7 1d 2a 00    	je     1b8f9cd <builtin_sum.cold+0x40d>
+ 18edbe6:	49 89 c5             	mov    %rax,%r13
+ 18edbe9:	49 c1 e7 03          	shl    $0x3,%r15
+ 18edbed:	4c 89 78 10          	mov    %r15,0x10(%rax)
+ 18edbf1:	48 c7 40 08 20 49 44 	movq   $0x1444920,0x8(%rax)
+ 18edbf8:	01 
+ 18edbf9:	f6 05 c9 6d b5 ff 02 	testb  $0x2,-0x4a9237(%rip)        # 14449c9 <PyLong_Type+0xa9>
+ 18edc00:	0f 85 d4 1d 2a 00    	jne    1b8f9da <builtin_sum.cold+0x41a>
+ 18edc06:	83 3d b7 ab c5 ff 00 	cmpl   $0x0,-0x3a5449(%rip)        # 15487c4 <_PyRuntime+0xad4>
+ 18edc0d:	0f 85 ed 1d 2a 00    	jne    1b8fa00 <builtin_sum.cold+0x440>
+ 18edc13:	49 c7 45 00 01 00 00 	movq   $0x1,0x0(%r13)
+ 18edc1a:	00 
+ 18edc1b:	4c 0b 7d b0          	or     -0x50(%rbp),%r15
+ 18edc1f:	4d 89 7d 10          	mov    %r15,0x10(%r13)
+ 18edc23:	89 d8                	mov    %ebx,%eax
+ 18edc25:	25 ff ff ff 3f       	and    $0x3fffffff,%eax
+ 18edc2a:	41 89 45 18          	mov    %eax,0x18(%r13)
+ 18edc2e:	48 c1 eb 1e          	shr    $0x1e,%rbx
+ 18edc32:	0f 84 4d fa ff ff    	je     18ed685 <builtin_sum+0x185>
+ 18edc38:	e9 d9 1b 2a 00       	jmp    1b8f816 <builtin_sum.cold+0x256>
+
+Disassembly of section .text.warm:
+
+Disassembly of section .text.cold:

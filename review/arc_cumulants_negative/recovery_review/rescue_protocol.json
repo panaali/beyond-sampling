@@ -1,0 +1,72 @@
+{
+  "task_scope": "0c20b0b5",
+  "weight_path": "/workspace/work/t45_weights/2nd_argmax_16_4_1073741824_3.pth",
+  "weight_sha256": "7470f434c29e2c3e8f992266ed962b6af89d8b981336c405ee488deb3058f91e",
+  "control_pairs": [
+    [
+      -2,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      -3,
+      4
+    ],
+    [
+      3,
+      -4
+    ],
+    [
+      0,
+      -2
+    ],
+    [
+      -100000000,
+      1
+    ],
+    [
+      100000000,
+      -1
+    ]
+  ],
+  "control_scales": [
+    0.5,
+    2
+  ],
+  "reference_precision_digits": 50,
+  "relative_tolerance": 2e-13,
+  "absolute_tolerance": 1e-14,
+  "trained_models": 1,
+  "trained_scope": "One historical model, per-step hidden mean/covariance only; no final accuracy or cost-competition claim.",
+  "reference_scope": "Exact-binary rational input coefficients plus independent50digit pairwise angular antiderivative; fresh fixed8block MC diagnostic at steps1..4.",
+  "source_sha256": "7116b42ddf1c9ea4e5ac3a689c37731e73e93618a62f4eed6dd53cdb37aa7d83",
+  "mc_samples": 262144,
+  "mc_blocks": 8,
+  "mc_block_size": 32768,
+  "mc_seed": 20261017080,
+  "continuation_steps": [
+    3,
+    4
+  ],
+  "methods": [
+    "inherited_gauss",
+    "exact_h2_then_inherited_gauss"
+  ],
+  "controls": [
+    "zero",
+    "zero_recurrent",
+    "identity",
+    "negative_identity",
+    "duplicates_opposites",
+    "mixed_rational"
+  ],
+  "moment_abs_tolerance": 1e-10,
+  "moment_rel_tolerance": 2e-12
+}

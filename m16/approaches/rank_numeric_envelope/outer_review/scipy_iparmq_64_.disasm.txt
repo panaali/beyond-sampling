@@ -1,0 +1,200 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000011b08d0 <scipy_iparmq_64_>:
+ 11b08d0:	41 54                	push   %r12
+ 11b08d2:	55                   	push   %rbp
+ 11b08d3:	53                   	push   %rbx
+ 11b08d4:	48 83 ec 20          	sub    $0x20,%rsp
+ 11b08d8:	48 8b 1f             	mov    (%rdi),%rbx
+ 11b08db:	48 89 d8             	mov    %rbx,%rax
+ 11b08de:	48 83 e0 fd          	and    $0xfffffffffffffffd,%rax
+ 11b08e2:	48 83 f8 0d          	cmp    $0xd,%rax
+ 11b08e6:	74 06                	je     11b08ee <scipy_iparmq_64_+0x1e>
+ 11b08e8:	48 83 fb 10          	cmp    $0x10,%rbx
+ 11b08ec:	75 16                	jne    11b0904 <scipy_iparmq_64_+0x34>
+ 11b08ee:	49 8b 29             	mov    (%r9),%rbp
+ 11b08f1:	49 2b 28             	sub    (%r8),%rbp
+ 11b08f4:	41 bc 02 00 00 00    	mov    $0x2,%r12d
+ 11b08fa:	48 83 c5 01          	add    $0x1,%rbp
+ 11b08fe:	48 83 fd 1d          	cmp    $0x1d,%rbp
+ 11b0902:	7f 3c                	jg     11b0940 <scipy_iparmq_64_+0x70>
+ 11b0904:	48 8d 43 f4          	lea    -0xc(%rbx),%rax
+ 11b0908:	48 83 f8 05          	cmp    $0x5,%rax
+ 11b090c:	0f 87 8e 02 00 00    	ja     11b0ba0 <scipy_iparmq_64_+0x2d0>
+ 11b0912:	48 8d 15 f7 83 22 00 	lea    0x2283f7(%rip),%rdx        # 13d8d10 <locu12.4+0x6230>
+ 11b0919:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+ 11b091d:	48 01 d0             	add    %rdx,%rax
+ 11b0920:	ff e0                	jmp    *%rax
+ 11b0922:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11b0928:	4c 89 e3             	mov    %r12,%rbx
+ 11b092b:	48 83 c4 20          	add    $0x20,%rsp
+ 11b092f:	48 89 d8             	mov    %rbx,%rax
+ 11b0932:	5b                   	pop    %rbx
+ 11b0933:	5d                   	pop    %rbp
+ 11b0934:	41 5c                	pop    %r12
+ 11b0936:	c3                   	ret
+ 11b0937:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+ 11b093e:	00 00 
+ 11b0940:	41 bc 04 00 00 00    	mov    $0x4,%r12d
+ 11b0946:	48 83 fd 3b          	cmp    $0x3b,%rbp
+ 11b094a:	7e b8                	jle    11b0904 <scipy_iparmq_64_+0x34>
+ 11b094c:	48 81 fd 95 00 00 00 	cmp    $0x95,%rbp
+ 11b0953:	0f 8e 17 02 00 00    	jle    11b0b70 <scipy_iparmq_64_+0x2a0>
+ 11b0959:	48 81 fd 4d 02 00 00 	cmp    $0x24d,%rbp
+ 11b0960:	0f 8f 4a 01 00 00    	jg     11b0ab0 <scipy_iparmq_64_+0x1e0>
+ 11b0966:	66 0f ef c0          	pxor   %xmm0,%xmm0
+ 11b096a:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+ 11b096f:	f3 48 0f 2a c5       	cvtsi2ss %rbp,%xmm0
+ 11b0974:	e8 27 97 ed fe       	call   8a0a0 <logf@plt>
+ 11b0979:	f3 0f 5e 05 c3 c6 20 	divss  0x20c6c3(%rip),%xmm0        # 13bd044 <.annobin___pthread_atfork.end+0xf4>
+ 11b0980:	00 
+ 11b0981:	e8 ca 6f ed fe       	call   87950 <lroundf@plt>
+ 11b0986:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+ 11b098b:	48 89 c1             	mov    %rax,%rcx
+ 11b098e:	48 89 e8             	mov    %rbp,%rax
+ 11b0991:	48 99                	cqto
+ 11b0993:	48 f7 f9             	idiv   %rcx
+ 11b0996:	ba 0a 00 00 00       	mov    $0xa,%edx
+ 11b099b:	48 39 d0             	cmp    %rdx,%rax
+ 11b099e:	48 0f 4d d0          	cmovge %rax,%rdx
+ 11b09a2:	49 89 d4             	mov    %rdx,%r12
+ 11b09a5:	49 83 e4 fe          	and    $0xfffffffffffffffe,%r12
+ 11b09a9:	e9 56 ff ff ff       	jmp    11b0904 <scipy_iparmq_64_+0x34>
+ 11b09ae:	66 90                	xchg   %ax,%ax
+ 11b09b0:	48 83 c4 20          	add    $0x20,%rsp
+ 11b09b4:	bb 4b 00 00 00       	mov    $0x4b,%ebx
+ 11b09b9:	48 89 d8             	mov    %rbx,%rax
+ 11b09bc:	5b                   	pop    %rbx
+ 11b09bd:	5d                   	pop    %rbp
+ 11b09be:	41 5c                	pop    %r12
+ 11b09c0:	c3                   	ret
+ 11b09c1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 11b09c8:	48 83 c4 20          	add    $0x20,%rsp
+ 11b09cc:	bb 0a 00 00 00       	mov    $0xa,%ebx
+ 11b09d1:	48 89 d8             	mov    %rbx,%rax
+ 11b09d4:	5b                   	pop    %rbx
+ 11b09d5:	5d                   	pop    %rbp
+ 11b09d6:	41 5c                	pop    %r12
+ 11b09d8:	c3                   	ret
+ 11b09d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 11b09e0:	4c 89 e3             	mov    %r12,%rbx
+ 11b09e3:	48 81 fd f4 01 00 00 	cmp    $0x1f4,%rbp
+ 11b09ea:	0f 8e 3b ff ff ff    	jle    11b092b <scipy_iparmq_64_+0x5b>
+ 11b09f0:	4b 8d 1c 64          	lea    (%r12,%r12,2),%rbx
+ 11b09f4:	48 d1 fb             	sar    $1,%rbx
+ 11b09f7:	e9 2f ff ff ff       	jmp    11b092b <scipy_iparmq_64_+0x5b>
+ 11b09fc:	0f 1f 40 00          	nopl   0x0(%rax)
+ 11b0a00:	48 83 7c 24 48 05    	cmpq   $0x5,0x48(%rsp)
+ 11b0a06:	0f 8e 1c 01 00 00    	jle    11b0b28 <scipy_iparmq_64_+0x258>
+ 11b0a0c:	8b 06                	mov    (%rsi),%eax
+ 11b0a0e:	89 44 24 1a          	mov    %eax,0x1a(%rsp)
+ 11b0a12:	0f b7 46 04          	movzwl 0x4(%rsi),%eax
+ 11b0a16:	66 89 44 24 1e       	mov    %ax,0x1e(%rsp)
+ 11b0a1b:	0f b6 44 24 1a       	movzbl 0x1a(%rsp),%eax
+ 11b0a20:	48 83 e8 61          	sub    $0x61,%rax
+ 11b0a24:	48 83 f8 19          	cmp    $0x19,%rax
+ 11b0a28:	77 2a                	ja     11b0a54 <scipy_iparmq_64_+0x184>
+ 11b0a2a:	48 8d 44 24 1a       	lea    0x1a(%rsp),%rax
+ 11b0a2f:	48 8d 74 24 1f       	lea    0x1f(%rsp),%rsi
+ 11b0a34:	0f b6 50 01          	movzbl 0x1(%rax),%edx
+ 11b0a38:	48 89 d1             	mov    %rdx,%rcx
+ 11b0a3b:	48 83 ea 61          	sub    $0x61,%rdx
+ 11b0a3f:	48 83 fa 19          	cmp    $0x19,%rdx
+ 11b0a43:	77 06                	ja     11b0a4b <scipy_iparmq_64_+0x17b>
+ 11b0a45:	83 e9 20             	sub    $0x20,%ecx
+ 11b0a48:	88 48 01             	mov    %cl,0x1(%rax)
+ 11b0a4b:	48 83 c0 01          	add    $0x1,%rax
+ 11b0a4f:	48 39 c6             	cmp    %rax,%rsi
+ 11b0a52:	75 e0                	jne    11b0a34 <scipy_iparmq_64_+0x164>
+ 11b0a54:	81 7c 24 1b 47 47 48 	cmpl   $0x52484747,0x1b(%rsp)
+ 11b0a5b:	52 
+ 11b0a5c:	0f 84 9e 00 00 00    	je     11b0b00 <scipy_iparmq_64_+0x230>
+ 11b0a62:	81 7c 24 1b 47 47 48 	cmpl   $0x44484747,0x1b(%rsp)
+ 11b0a69:	44 
+ 11b0a6a:	0f 84 10 01 00 00    	je     11b0b80 <scipy_iparmq_64_+0x2b0>
+ 11b0a70:	66 81 7c 24 1d 45 58 	cmpw   $0x5845,0x1d(%rsp)
+ 11b0a77:	74 67                	je     11b0ae0 <scipy_iparmq_64_+0x210>
+ 11b0a79:	81 7c 24 1b 48 53 45 	cmpl   $0x51455348,0x1b(%rsp)
+ 11b0a80:	51 
+ 11b0a81:	0f 84 09 01 00 00    	je     11b0b90 <scipy_iparmq_64_+0x2c0>
+ 11b0a87:	31 db                	xor    %ebx,%ebx
+ 11b0a89:	81 7c 24 1b 4c 41 51 	cmpl   $0x5251414c,0x1b(%rsp)
+ 11b0a90:	52 
+ 11b0a91:	0f 85 94 fe ff ff    	jne    11b092b <scipy_iparmq_64_+0x5b>
+ 11b0a97:	31 db                	xor    %ebx,%ebx
+ 11b0a99:	49 83 fc 0d          	cmp    $0xd,%r12
+ 11b0a9d:	0f 9f c3             	setg   %bl
+ 11b0aa0:	48 01 db             	add    %rbx,%rbx
+ 11b0aa3:	e9 83 fe ff ff       	jmp    11b092b <scipy_iparmq_64_+0x5b>
+ 11b0aa8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 11b0aaf:	00 
+ 11b0ab0:	41 bc 40 00 00 00    	mov    $0x40,%r12d
+ 11b0ab6:	48 81 fd b7 0b 00 00 	cmp    $0xbb7,%rbp
+ 11b0abd:	0f 8e 41 fe ff ff    	jle    11b0904 <scipy_iparmq_64_+0x34>
+ 11b0ac3:	48 81 fd 6f 17 00 00 	cmp    $0x176f,%rbp
+ 11b0aca:	41 bc 00 01 00 00    	mov    $0x100,%r12d
+ 11b0ad0:	b8 80 00 00 00       	mov    $0x80,%eax
+ 11b0ad5:	4c 0f 4e e0          	cmovle %rax,%r12
+ 11b0ad9:	e9 26 fe ff ff       	jmp    11b0904 <scipy_iparmq_64_+0x34>
+ 11b0ade:	66 90                	xchg   %ax,%ax
+ 11b0ae0:	80 7c 24 1f 43       	cmpb   $0x43,0x1f(%rsp)
+ 11b0ae5:	75 92                	jne    11b0a79 <scipy_iparmq_64_+0x1a9>
+ 11b0ae7:	31 db                	xor    %ebx,%ebx
+ 11b0ae9:	48 83 fd 0d          	cmp    $0xd,%rbp
+ 11b0aed:	0f 9f c3             	setg   %bl
+ 11b0af0:	48 01 db             	add    %rbx,%rbx
+ 11b0af3:	e9 33 fe ff ff       	jmp    11b092b <scipy_iparmq_64_+0x5b>
+ 11b0af8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 11b0aff:	00 
+ 11b0b00:	80 7c 24 1f 44       	cmpb   $0x44,0x1f(%rsp)
+ 11b0b05:	0f 85 57 ff ff ff    	jne    11b0a62 <scipy_iparmq_64_+0x192>
+ 11b0b0b:	31 db                	xor    %ebx,%ebx
+ 11b0b0d:	48 83 fd 0d          	cmp    $0xd,%rbp
+ 11b0b11:	0f 9f c3             	setg   %bl
+ 11b0b14:	48 83 c4 20          	add    $0x20,%rsp
+ 11b0b18:	48 83 c3 01          	add    $0x1,%rbx
+ 11b0b1c:	48 89 d8             	mov    %rbx,%rax
+ 11b0b1f:	5b                   	pop    %rbx
+ 11b0b20:	5d                   	pop    %rbp
+ 11b0b21:	41 5c                	pop    %r12
+ 11b0b23:	c3                   	ret
+ 11b0b24:	0f 1f 40 00          	nopl   0x0(%rax)
+ 11b0b28:	48 83 7c 24 48 00    	cmpq   $0x0,0x48(%rsp)
+ 11b0b2e:	48 8d 54 24 1a       	lea    0x1a(%rsp),%rdx
+ 11b0b33:	74 14                	je     11b0b49 <scipy_iparmq_64_+0x279>
+ 11b0b35:	31 c0                	xor    %eax,%eax
+ 11b0b37:	0f b6 0c 06          	movzbl (%rsi,%rax,1),%ecx
+ 11b0b3b:	88 0c 02             	mov    %cl,(%rdx,%rax,1)
+ 11b0b3e:	48 83 c0 01          	add    $0x1,%rax
+ 11b0b42:	48 3b 44 24 48       	cmp    0x48(%rsp),%rax
+ 11b0b47:	72 ee                	jb     11b0b37 <scipy_iparmq_64_+0x267>
+ 11b0b49:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+ 11b0b4e:	b8 06 00 00 00       	mov    $0x6,%eax
+ 11b0b53:	48 2b 44 24 48       	sub    0x48(%rsp),%rax
+ 11b0b58:	be 20 00 00 00       	mov    $0x20,%esi
+ 11b0b5d:	48 01 d7             	add    %rdx,%rdi
+ 11b0b60:	48 89 c2             	mov    %rax,%rdx
+ 11b0b63:	e8 a8 35 ed fe       	call   84110 <memset@plt>
+ 11b0b68:	e9 ae fe ff ff       	jmp    11b0a1b <scipy_iparmq_64_+0x14b>
+ 11b0b6d:	0f 1f 00             	nopl   (%rax)
+ 11b0b70:	41 bc 0a 00 00 00    	mov    $0xa,%r12d
+ 11b0b76:	e9 89 fd ff ff       	jmp    11b0904 <scipy_iparmq_64_+0x34>
+ 11b0b7b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 11b0b80:	80 7c 24 1f 33       	cmpb   $0x33,0x1f(%rsp)
+ 11b0b85:	0f 85 e5 fe ff ff    	jne    11b0a70 <scipy_iparmq_64_+0x1a0>
+ 11b0b8b:	e9 7b ff ff ff       	jmp    11b0b0b <scipy_iparmq_64_+0x23b>
+ 11b0b90:	80 7c 24 1f 52       	cmpb   $0x52,0x1f(%rsp)
+ 11b0b95:	0f 85 ec fe ff ff    	jne    11b0a87 <scipy_iparmq_64_+0x1b7>
+ 11b0b9b:	e9 f7 fe ff ff       	jmp    11b0a97 <scipy_iparmq_64_+0x1c7>
+ 11b0ba0:	48 83 cb ff          	or     $0xffffffffffffffff,%rbx
+ 11b0ba4:	e9 82 fd ff ff       	jmp    11b092b <scipy_iparmq_64_+0x5b>
+
+Disassembly of section .fini:

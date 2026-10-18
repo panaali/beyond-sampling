@@ -1,0 +1,11 @@
+# T11588 bounded node/weight handoff
+
+Claimba23ebd1 before implementation; sourcef9dbfd18, control/targetpinsa9b70311, resultsece8d48c. Independent theorem T55 and reciprocal source gate34 passed before execution. All13 exact arithmetic/root controls pass; fixed n6/10/16 yields all32 ideal root/weight enclosures, no unresolved cases, and64 moment inclusions. Independent d5fc9359 recomputes closed Rodrigues coefficients/endpoint signs, derivative-weight intervals and all distances/moments, without author bisection/source node regeneration; named operation ledger is source-reviewed, not replayed.
+
+Roots enclosed at dyadic160bits, weights rounded outward to128bits. Source binary maximum component error upper is approximately8.8776538547e-17 (nodes) and4.3638128949e-16 (weights). Exact rational upper intervals in results.json are authoritative; source floats outside narrow ideal enclosures are expected and do not imply a defect. Target .624518240CPU; controls .004002911CPU; retained reduced operand peak5134/5132bits. Three source leggauss entry calls, setup categories and unknown native work explicit. PRECOMPUTE_FLOPS null/unmeasured; fixed constants model-independent, no ranked estimator.
+
+This closes ideal node/weight identification and their source component distances only. Source Duffy construction/weights, integrand sensitivity, determinant/kernel floating evaluation, actual T5 geometry and total reference error remain unverified here. Moment inclusion is not an integral perturbation bound. No mass, tensor, model, geometry or MC replay occurred.
+
+Reciprocal T11589 review registered3a793c76, frozenef8dbaf2: all26 domains/statuses/ledgers and20 finite positive-integral references independently agree within2.92890e-59 relative, .127817710CPU. No author candidate rerun; unsupported/scaling outcomes preserved. See INNER5_REVIEW.md. Root/Claude registry requested for both scoped results.
+
+Useful distinct followup: propagate these fixed node/weight enclosures through source Duffy coordinates/weights and a justified integrand sensitivity bound on the already-fixed11 analytic controls, retaining determinant/source-kernel exclusions. This requires a fresh protocol/claim and no trained-corpus capture; T11584 remains DRI-blocked.

@@ -1,0 +1,66 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000034840 <DOUBLE_dot>:
+   34840:	53                   	push   %rbx
+   34841:	49 89 f2             	mov    %rsi,%r10
+   34844:	4c 89 c3             	mov    %r8,%rbx
+   34847:	48 83 ec 10          	sub    $0x10,%rsp
+   3484b:	48 85 f6             	test   %rsi,%rsi
+   3484e:	7e 06                	jle    34856 <DOUBLE_dot+0x16>
+   34850:	40 f6 c6 07          	test   $0x7,%sil
+   34854:	74 52                	je     348a8 <DOUBLE_dot+0x68>
+   34856:	31 f6                	xor    %esi,%esi
+   34858:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   3485c:	4d 85 c9             	test   %r9,%r9
+   3485f:	7e 3a                	jle    3489b <DOUBLE_dot+0x5b>
+   34861:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   34868:	00 00 00 00 
+   3486c:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   34873:	00 00 00 00 
+   34877:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   3487e:	00 00 
+   34880:	f2 0f 10 07          	movsd  (%rdi),%xmm0
+   34884:	f2 0f 59 02          	mulsd  (%rdx),%xmm0
+   34888:	48 83 c6 01          	add    $0x1,%rsi
+   3488c:	4c 01 d7             	add    %r10,%rdi
+   3488f:	48 01 ca             	add    %rcx,%rdx
+   34892:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   34896:	49 39 f1             	cmp    %rsi,%r9
+   34899:	75 e5                	jne    34880 <DOUBLE_dot+0x40>
+   3489b:	f2 0f 11 0b          	movsd  %xmm1,(%rbx)
+   3489f:	48 83 c4 10          	add    $0x10,%rsp
+   348a3:	5b                   	pop    %rbx
+   348a4:	c3                   	ret
+   348a5:	0f 1f 00             	nopl   (%rax)
+   348a8:	48 c1 fe 03          	sar    $0x3,%rsi
+   348ac:	48 85 c9             	test   %rcx,%rcx
+   348af:	7e a5                	jle    34856 <DOUBLE_dot+0x16>
+   348b1:	f6 c1 07             	test   $0x7,%cl
+   348b4:	75 a0                	jne    34856 <DOUBLE_dot+0x16>
+   348b6:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   348ba:	4d 85 c9             	test   %r9,%r9
+   348bd:	7e dc                	jle    3489b <DOUBLE_dot+0x5b>
+   348bf:	48 c1 f9 03          	sar    $0x3,%rcx
+   348c3:	f2 0f 11 4c 24 08    	movsd  %xmm1,0x8(%rsp)
+   348c9:	49 89 c8             	mov    %rcx,%r8
+   348cc:	48 89 d1             	mov    %rdx,%rcx
+   348cf:	48 89 f2             	mov    %rsi,%rdx
+   348d2:	48 89 fe             	mov    %rdi,%rsi
+   348d5:	4c 89 cf             	mov    %r9,%rdi
+   348d8:	e8 43 80 ff ff       	call   2c920 <scipy_cblas_ddot64_@plt>
+   348dd:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+   348e3:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   348e7:	f2 0f 11 0b          	movsd  %xmm1,(%rbx)
+   348eb:	48 83 c4 10          	add    $0x10,%rsp
+   348ef:	5b                   	pop    %rbx
+   348f0:	c3                   	ret
+
+Disassembly of section .fini:

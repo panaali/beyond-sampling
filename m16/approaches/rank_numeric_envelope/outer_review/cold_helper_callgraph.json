@@ -1,0 +1,312 @@
+{
+  "roots": [
+    "dsterf",
+    "dsytd2",
+    "dlatrd",
+    "dsytrd"
+  ],
+  "blas_boundaries": [
+    "daxpy",
+    "ddot",
+    "dgemv",
+    "dnrm2",
+    "dscal",
+    "dsymv",
+    "dsyr2",
+    "dsyr2k"
+  ],
+  "nodes": {
+    "dsterf": {
+      "calls": [
+        "__xerbla",
+        "scipy_dlae2_64_@plt",
+        "scipy_dlamch_64_@plt",
+        "scipy_dlanst_64_@plt",
+        "scipy_dlapy2_64_@plt",
+        "scipy_dlascl_64_@plt",
+        "scipy_dlasrt_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "091673817f4ef4101857e1a4de5d6e9631e7ef4919abc5392a39f33442312873",
+      "boundary": false
+    },
+    "dsytd2": {
+      "calls": [
+        "__xerbla",
+        "scipy_daxpy_64_@plt",
+        "scipy_ddot_64_@plt",
+        "scipy_dlarfg_64_@plt",
+        "scipy_dsymv_64_@plt",
+        "scipy_dsyr2_64_@plt",
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "bfcbbc987ea038721aaff83d7ba6004dd2919abbf58157136eed7f638160d51c",
+      "boundary": false
+    },
+    "dlatrd": {
+      "calls": [
+        "scipy_daxpy_64_@plt",
+        "scipy_ddot_64_@plt",
+        "scipy_dgemv_64_@plt",
+        "scipy_dlarfg_64_@plt",
+        "scipy_dscal_64_@plt",
+        "scipy_dsymv_64_@plt",
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "fffbd98cb3a5fea4350d98b7c10a34fca209268ff8458751893e52a3bc837325",
+      "boundary": false
+    },
+    "dsytrd": {
+      "calls": [
+        "__xerbla",
+        "scipy_dlatrd_64_@plt",
+        "scipy_dsyr2k_64_@plt",
+        "scipy_dsytd2_64_@plt",
+        "scipy_ilaenv_64_@plt",
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "4eec7562fbb9affa1cf4156633bd3ae3894abaf8cc1ca8f159c90fbec2e00778",
+      "boundary": false
+    },
+    "dlae2": {
+      "calls": [],
+      "indirect_instructions": [],
+      "disassembly_sha256": "0fdbdb3a14f413418a7c53c1e9ec58d87e66106c3647cbf979ba4e8595a3f301",
+      "boundary": false
+    },
+    "dlamch": {
+      "calls": [
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "1bfea905f07786fdc92aee8754e25e34f3a647764ba23123371a28e037c912c7",
+      "boundary": false
+    },
+    "dlanst": {
+      "calls": [
+        "scipy_disnan_64_@plt",
+        "scipy_dlassq_64_@plt",
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "1248f1550faa4949b483b544e1beb45f26553dc5fa3ea1ebf91680e198f50aa6",
+      "boundary": false
+    },
+    "dlapy2": {
+      "calls": [
+        "scipy_disnan_64_@plt",
+        "scipy_dlamch_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "e030bc378f6acb22caa19e639f2312f26825071fe3eb4ec23c62d65b5d5585f4",
+      "boundary": false
+    },
+    "dlascl": {
+      "calls": [
+        "__xerbla",
+        "scipy_disnan_64_@plt",
+        "scipy_dlamch_64_@plt",
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [
+        "119bb43:\tff e0                \tjmp    *%rax",
+        "119bf89:\tff e0                \tjmp    *%rax"
+      ],
+      "disassembly_sha256": "29fa3210782fb09fdeccb7828e39046b280b5f1e8c93f5d6f8ac8e16995c0e66",
+      "boundary": false
+    },
+    "dlasrt": {
+      "calls": [
+        "__xerbla",
+        "scipy_lsame_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "fa77bb3f0578e5ab79d1773c1ddd216fac6a50d5c10138d7852a66ed8d5eb9c1",
+      "boundary": false
+    },
+    "daxpy": {
+      "calls": [
+        "blas_level1_thread",
+        "scipy_daxpy_64_+0x6f"
+      ],
+      "indirect_instructions": [
+        "9eba3:\tff 90 88 03 00 00    \tcall   *0x388(%rax)"
+      ],
+      "disassembly_sha256": "69494a97c231dfcf67733a7500482692143ef68a897a491519831e79d8c6a5bd",
+      "boundary": true
+    },
+    "ddot": {
+      "calls": [],
+      "indirect_instructions": [
+        "9ee42:\tff a0 68 03 00 00    \tjmp    *0x368(%rax)",
+        "9ee69:\tff a0 68 03 00 00    \tjmp    *0x368(%rax)"
+      ],
+      "disassembly_sha256": "a7564a48c877538c6622821339c1ff57093f02b28b81cd1cb3d1958047908a24",
+      "boundary": true
+    },
+    "dlarfg": {
+      "calls": [
+        "scipy_dlamch_64_@plt",
+        "scipy_dlapy2_64_@plt",
+        "scipy_dnrm2_64_@plt",
+        "scipy_dscal_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "e614c5feb0f0ec6e79475623e1ef555a3be23a95db7e83c50fdc04068abb5ee2",
+      "boundary": false
+    },
+    "dsymv": {
+      "calls": [
+        "__xerbla",
+        "blas_memory_alloc",
+        "blas_memory_free",
+        "scipy_dsymv_64_+0x18d",
+        "scipy_dsymv_64_+0x221"
+      ],
+      "indirect_instructions": [
+        "a163c:\t41 ff 93 90 03 00 00 \tcall   *0x390(%r11)",
+        "a16e4:\tff 54 ec 40          \tcall   *0x40(%rsp,%rbp,8)",
+        "a1753:\tff 54 ec 50          \tcall   *0x50(%rsp,%rbp,8)"
+      ],
+      "disassembly_sha256": "e10fda49d917e75ad27612dead0075adae52361064b3946ba5ae7ca0ce96ae4a",
+      "boundary": true
+    },
+    "dsyr2": {
+      "calls": [
+        "__xerbla",
+        "blas_memory_alloc",
+        "blas_memory_free",
+        "scipy_dsyr2_64_+0x22a",
+        "scipy_dsyr2_64_+0x260",
+        "scipy_dsyr2_64_+0x320"
+      ],
+      "indirect_instructions": [
+        "a1c30:\t42 ff 14 f8          \tcall   *(%rax,%r15,8)",
+        "a1ca4:\t42 ff 14 f8          \tcall   *(%rax,%r15,8)",
+        "a1d1a:\tff 90 88 03 00 00    \tcall   *0x388(%rax)",
+        "a1d56:\tff 90 88 03 00 00    \tcall   *0x388(%rax)",
+        "a1dd9:\tff 90 88 03 00 00    \tcall   *0x388(%rax)",
+        "a1e19:\tff 90 88 03 00 00    \tcall   *0x388(%rax)"
+      ],
+      "disassembly_sha256": "f78edf9011f28680bc956ff69d75b6ba9ed48546dfd82b8b1cbbd6b37cfe64bb",
+      "boundary": true
+    },
+    "lsame": {
+      "calls": [],
+      "indirect_instructions": [],
+      "disassembly_sha256": "af0888fb4a6ac6d45fdb9be816468f2940c86896d20ae463f4f1a513716b3a7d",
+      "boundary": false
+    },
+    "dgemv": {
+      "calls": [
+        "__assert_fail@plt",
+        "__xerbla",
+        "blas_memory_alloc",
+        "blas_memory_free",
+        "gotoblas_corename",
+        "scipy_dgemv_64_+0x167",
+        "scipy_dgemv_64_+0x3a6",
+        "scipy_dgemv_64_+0x529",
+        "strcmp@plt"
+      ],
+      "indirect_instructions": [
+        "a0950:\tff 90 90 03 00 00    \tcall   *0x390(%rax)",
+        "a0ac3:\t42 ff 14 e0          \tcall   *(%rax,%r12,8)",
+        "a0bad:\t42 ff 54 e5 c0       \tcall   *-0x40(%rbp,%r12,8)"
+      ],
+      "disassembly_sha256": "057aa95252ba63640a3fc461259e8a26f9c974610b220e8243c3ee4fa2bbac20",
+      "boundary": true
+    },
+    "dscal": {
+      "calls": [
+        "blas_cpu_number",
+        "blas_level1_thread"
+      ],
+      "indirect_instructions": [
+        "9eda2:\tff 90 90 03 00 00    \tcall   *0x390(%rax)"
+      ],
+      "disassembly_sha256": "390eeb55e97ca030dbfb0dabe99f8ce78beda2c1e25eb4c3278b152c26c756c6",
+      "boundary": true
+    },
+    "dsyr2k": {
+      "calls": [
+        "__xerbla",
+        "blas_memory_alloc",
+        "blas_memory_free",
+        "syrk_thread"
+      ],
+      "indirect_instructions": [
+        "a88d6:\t41 ff 14 c2          \tcall   *(%r10,%rax,8)"
+      ],
+      "disassembly_sha256": "b79ebfee03ec81320e26ec8fa8e7ec610855d9ddbf4bdb668ccf3648ea119970",
+      "boundary": true
+    },
+    "ilaenv": {
+      "calls": [
+        "memcmp@plt",
+        "memset@plt",
+        "scipy_ieeeck_64_@plt",
+        "scipy_iparmq_64_@plt"
+      ],
+      "indirect_instructions": [
+        "11afbf9:\tff e0                \tjmp    *%rax"
+      ],
+      "disassembly_sha256": "e5f11e42fb8c2d1e822ddbfcb90f737866597b5367a4c792237a23a29e422adb",
+      "boundary": false
+    },
+    "disnan": {
+      "calls": [
+        "scipy_dlaisnan_64_@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "1307a8a22f7298113b1339f6a250fa5947555743eafafbb6f80e99c3c32070d1",
+      "boundary": false
+    },
+    "dlassq": {
+      "calls": [
+        "__la_xisnan_MOD_disnan@plt"
+      ],
+      "indirect_instructions": [],
+      "disassembly_sha256": "4aba7f633096fdfbfdf19b9b0383e1ae46bf582d8bc78c8aa77a8e7f9dd573d5",
+      "boundary": false
+    },
+    "dnrm2": {
+      "calls": [
+        "sqrt@plt"
+      ],
+      "indirect_instructions": [
+        "9ef31:\tff a0 48 03 00 00    \tjmp    *0x348(%rax)"
+      ],
+      "disassembly_sha256": "5009d60283d342c6fe8d16c4851f2f04caa7b5e5cf7c16cf0f4b08962e471379",
+      "boundary": true
+    },
+    "ieeeck": {
+      "calls": [],
+      "indirect_instructions": [],
+      "disassembly_sha256": "cf80d0aecfb5724ce38e1a86703e270ee03c11c4cda44079131b18cd061dff12",
+      "boundary": false
+    },
+    "iparmq": {
+      "calls": [
+        "logf@plt",
+        "lroundf@plt",
+        "memset@plt"
+      ],
+      "indirect_instructions": [
+        "11b0920:\tff e0                \tjmp    *%rax"
+      ],
+      "disassembly_sha256": "93ead7002fe8ea94e3434e0ab9caf84bd44364c3aec53eff61a71f2c23bf1b0a",
+      "boundary": false
+    },
+    "dlaisnan": {
+      "calls": [],
+      "indirect_instructions": [],
+      "disassembly_sha256": "7d8ed35686e9d1daabba99439b297d903bbac4fbb8af5445a91b23446f088c77",
+      "boundary": false
+    }
+  },
+  "qualification": "Direct calls only; BLAS ABI kernels, runtime/error handlers, and ordinary fixed binding remain premises. No numerical operation executed."
+}

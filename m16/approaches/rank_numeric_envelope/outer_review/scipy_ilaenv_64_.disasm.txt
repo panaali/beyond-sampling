@@ -1,0 +1,604 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000011afbd0 <scipy_ilaenv_64_>:
+ 11afbd0:	41 54                	push   %r12
+ 11afbd2:	55                   	push   %rbp
+ 11afbd3:	53                   	push   %rbx
+ 11afbd4:	48 83 ec 40          	sub    $0x40,%rsp
+ 11afbd8:	48 8b 2f             	mov    (%rdi),%rbp
+ 11afbdb:	48 83 fd 11          	cmp    $0x11,%rbp
+ 11afbdf:	0f 87 80 08 00 00    	ja     11b0465 <scipy_ilaenv_64_+0x895>
+ 11afbe5:	49 89 d2             	mov    %rdx,%r10
+ 11afbe8:	48 8d 15 d9 90 22 00 	lea    0x2290d9(%rip),%rdx        # 13d8cc8 <locu12.4+0x61e8>
+ 11afbef:	48 89 cb             	mov    %rcx,%rbx
+ 11afbf2:	48 63 04 aa          	movslq (%rdx,%rbp,4),%rax
+ 11afbf6:	48 01 d0             	add    %rdx,%rax
+ 11afbf9:	ff e0                	jmp    *%rax
+ 11afbfb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 11afc00:	48 83 ec 08          	sub    $0x8,%rsp
+ 11afc04:	4c 89 d2             	mov    %r10,%rdx
+ 11afc07:	ff 74 24 78          	push   0x78(%rsp)
+ 11afc0b:	ff 74 24 78          	push   0x78(%rsp)
+ 11afc0f:	ff 74 24 78          	push   0x78(%rsp)
+ 11afc13:	e8 f8 86 ed fe       	call   88310 <scipy_iparmq_64_@plt>
+ 11afc18:	48 83 c4 20          	add    $0x20,%rsp
+ 11afc1c:	48 89 c5             	mov    %rax,%rbp
+ 11afc1f:	48 83 c4 40          	add    $0x40,%rsp
+ 11afc23:	48 89 e8             	mov    %rbp,%rax
+ 11afc26:	5b                   	pop    %rbx
+ 11afc27:	5d                   	pop    %rbp
+ 11afc28:	41 5c                	pop    %r12
+ 11afc2a:	c3                   	ret
+ 11afc2b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 11afc30:	48 83 7c 24 68 0f    	cmpq   $0xf,0x68(%rsp)
+ 11afc36:	0f 8e 04 03 00 00    	jle    11aff40 <scipy_ilaenv_64_+0x370>
+ 11afc3c:	f3 0f 6f 06          	movdqu (%rsi),%xmm0
+ 11afc40:	0f 29 44 24 30       	movaps %xmm0,0x30(%rsp)
+ 11afc45:	0f b6 44 24 30       	movzbl 0x30(%rsp),%eax
+ 11afc4a:	48 89 c6             	mov    %rax,%rsi
+ 11afc4d:	48 83 e8 61          	sub    $0x61,%rax
+ 11afc51:	48 83 f8 19          	cmp    $0x19,%rax
+ 11afc55:	77 32                	ja     11afc89 <scipy_ilaenv_64_+0xb9>
+ 11afc57:	83 ee 20             	sub    $0x20,%esi
+ 11afc5a:	48 8d 44 24 30       	lea    0x30(%rsp),%rax
+ 11afc5f:	48 8d 7c 24 35       	lea    0x35(%rsp),%rdi
+ 11afc64:	40 88 74 24 30       	mov    %sil,0x30(%rsp)
+ 11afc69:	0f b6 50 01          	movzbl 0x1(%rax),%edx
+ 11afc6d:	48 89 d1             	mov    %rdx,%rcx
+ 11afc70:	48 83 ea 61          	sub    $0x61,%rdx
+ 11afc74:	48 83 fa 19          	cmp    $0x19,%rdx
+ 11afc78:	77 06                	ja     11afc80 <scipy_ilaenv_64_+0xb0>
+ 11afc7a:	83 e9 20             	sub    $0x20,%ecx
+ 11afc7d:	88 48 01             	mov    %cl,0x1(%rax)
+ 11afc80:	48 83 c0 01          	add    $0x1,%rax
+ 11afc84:	48 39 c7             	cmp    %rax,%rdi
+ 11afc87:	75 e0                	jne    11afc69 <scipy_ilaenv_64_+0x99>
+ 11afc89:	31 c9                	xor    %ecx,%ecx
+ 11afc8b:	40 80 fe 53          	cmp    $0x53,%sil
+ 11afc8f:	0f 94 c1             	sete   %cl
+ 11afc92:	31 d2                	xor    %edx,%edx
+ 11afc94:	40 80 fe 44          	cmp    $0x44,%sil
+ 11afc98:	0f 94 c2             	sete   %dl
+ 11afc9b:	31 c0                	xor    %eax,%eax
+ 11afc9d:	40 80 fe 43          	cmp    $0x43,%sil
+ 11afca1:	0f 94 c0             	sete   %al
+ 11afca4:	40 80 fe 5a          	cmp    $0x5a,%sil
+ 11afca8:	40 0f 94 c6          	sete   %sil
+ 11afcac:	40 0f b6 f6          	movzbl %sil,%esi
+ 11afcb0:	48 09 f0             	or     %rsi,%rax
+ 11afcb3:	48 09 d1             	or     %rdx,%rcx
+ 11afcb6:	0f 85 c4 00 00 00    	jne    11afd80 <scipy_ilaenv_64_+0x1b0>
+ 11afcbc:	48 85 c0             	test   %rax,%rax
+ 11afcbf:	0f 85 bb 00 00 00    	jne    11afd80 <scipy_ilaenv_64_+0x1b0>
+ 11afcc5:	bd 01 00 00 00       	mov    $0x1,%ebp
+ 11afcca:	e9 50 ff ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afccf:	90                   	nop
+ 11afcd0:	48 8d 15 d9 8f 22 00 	lea    0x228fd9(%rip),%rdx        # 13d8cb0 <locu12.4+0x61d0>
+ 11afcd7:	48 8d 35 d6 8f 22 00 	lea    0x228fd6(%rip),%rsi        # 13d8cb4 <locu12.4+0x61d4>
+ 11afcde:	48 8d 3d db 8f 22 00 	lea    0x228fdb(%rip),%rdi        # 13d8cc0 <locu12.4+0x61e0>
+ 11afce5:	e8 16 57 ed fe       	call   85400 <scipy_ieeeck_64_@plt>
+ 11afcea:	48 89 c5             	mov    %rax,%rbp
+ 11afced:	e9 2d ff ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afcf2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11afcf8:	bd 19 00 00 00       	mov    $0x19,%ebp
+ 11afcfd:	e9 1d ff ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afd02:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11afd08:	48 8d 15 a1 8f 22 00 	lea    0x228fa1(%rip),%rdx        # 13d8cb0 <locu12.4+0x61d0>
+ 11afd0f:	48 8d 35 9e 8f 22 00 	lea    0x228f9e(%rip),%rsi        # 13d8cb4 <locu12.4+0x61d4>
+ 11afd16:	48 8d 3d 9b 8f 22 00 	lea    0x228f9b(%rip),%rdi        # 13d8cb8 <locu12.4+0x61d8>
+ 11afd1d:	e8 de 56 ed fe       	call   85400 <scipy_ieeeck_64_@plt>
+ 11afd22:	48 89 c5             	mov    %rax,%rbp
+ 11afd25:	e9 f5 fe ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afd2a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11afd30:	48 8b 01             	mov    (%rcx),%rax
+ 11afd33:	49 8b 10             	mov    (%r8),%rdx
+ 11afd36:	66 0f ef c0          	pxor   %xmm0,%xmm0
+ 11afd3a:	48 39 d0             	cmp    %rdx,%rax
+ 11afd3d:	48 0f 4f c2          	cmovg  %rdx,%rax
+ 11afd41:	f3 48 0f 2a c0       	cvtsi2ss %rax,%xmm0
+ 11afd46:	f3 0f 59 05 c6 d3 20 	mulss  0x20d3c6(%rip),%xmm0        # 13bd114 <.annobin___pthread_atfork.end+0x1c4>
+ 11afd4d:	00 
+ 11afd4e:	f3 48 0f 2c e8       	cvttss2si %xmm0,%rbp
+ 11afd53:	e9 c7 fe ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afd58:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 11afd5f:	00 
+ 11afd60:	bd 32 00 00 00       	mov    $0x32,%ebp
+ 11afd65:	e9 b5 fe ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afd6a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11afd70:	bd 06 00 00 00       	mov    $0x6,%ebp
+ 11afd75:	e9 a5 fe ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afd7a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11afd80:	0f b7 74 24 33       	movzwl 0x33(%rsp),%esi
+ 11afd85:	0f b7 54 24 31       	movzwl 0x31(%rsp),%edx
+ 11afd8a:	66 89 74 24 2d       	mov    %si,0x2d(%rsp)
+ 11afd8f:	0f b6 74 24 35       	movzbl 0x35(%rsp),%esi
+ 11afd94:	40 88 74 24 2f       	mov    %sil,0x2f(%rsp)
+ 11afd99:	0f b7 74 24 2e       	movzwl 0x2e(%rsp),%esi
+ 11afd9e:	48 83 fd 02          	cmp    $0x2,%rbp
+ 11afda2:	0f 84 58 01 00 00    	je     11aff00 <scipy_ilaenv_64_+0x330>
+ 11afda8:	48 83 fd 03          	cmp    $0x3,%rbp
+ 11afdac:	0f 84 0e 02 00 00    	je     11affc0 <scipy_ilaenv_64_+0x3f0>
+ 11afdb2:	81 7c 24 31 4c 41 4f 	cmpl   $0x524f414c,0x31(%rsp)
+ 11afdb9:	52 
+ 11afdba:	0f 84 cd 02 00 00    	je     11b008d <scipy_ilaenv_64_+0x4bd>
+ 11afdc0:	81 7c 24 31 54 5a 52 	cmpl   $0x5a525a54,0x31(%rsp)
+ 11afdc7:	5a 
+ 11afdc8:	0f 84 3a 03 00 00    	je     11b0108 <scipy_ilaenv_64_+0x538>
+ 11afdce:	81 7c 24 31 4f 52 4d 	cmpl   $0x524d524f,0x31(%rsp)
+ 11afdd5:	52 
+ 11afdd6:	0f 84 ca 03 00 00    	je     11b01a6 <scipy_ilaenv_64_+0x5d6>
+ 11afddc:	81 7c 24 31 55 4e 4d 	cmpl   $0x524d4e55,0x31(%rsp)
+ 11afde3:	52 
+ 11afde4:	0f 84 18 04 00 00    	je     11b0202 <scipy_ilaenv_64_+0x632>
+ 11afdea:	66 81 fa 47 45       	cmp    $0x4547,%dx
+ 11afdef:	0f 85 e6 03 00 00    	jne    11b01db <scipy_ilaenv_64_+0x60b>
+ 11afdf5:	66 81 7c 24 2d 54 52 	cmpw   $0x5254,0x2d(%rsp)
+ 11afdfc:	0f 84 c3 04 00 00    	je     11b02c5 <scipy_ilaenv_64_+0x6f5>
+ 11afe02:	4c 8d 64 24 2d       	lea    0x2d(%rsp),%r12
+ 11afe07:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11afe0c:	4c 89 4c 24 18       	mov    %r9,0x18(%rsp)
+ 11afe11:	48 8d 35 02 f9 20 00 	lea    0x20f902(%rip),%rsi        # 13bf71a <.annobin___pthread_atfork.end+0x27ca>
+ 11afe18:	4c 89 e7             	mov    %r12,%rdi
+ 11afe1b:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+ 11afe20:	bd 20 00 00 00       	mov    $0x20,%ebp
+ 11afe25:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+ 11afe2a:	e8 f1 3a ed fe       	call   83920 <memcmp@plt>
+ 11afe2f:	85 c0                	test   %eax,%eax
+ 11afe31:	0f 84 e8 fd ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afe37:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11afe3c:	48 8d 35 78 f9 20 00 	lea    0x20f978(%rip),%rsi        # 13bf7bb <.annobin___pthread_atfork.end+0x286b>
+ 11afe43:	4c 89 e7             	mov    %r12,%rdi
+ 11afe46:	e8 d5 3a ed fe       	call   83920 <memcmp@plt>
+ 11afe4b:	85 c0                	test   %eax,%eax
+ 11afe4d:	0f 84 cc fd ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afe53:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11afe58:	48 8d 35 b4 f8 20 00 	lea    0x20f8b4(%rip),%rsi        # 13bf713 <.annobin___pthread_atfork.end+0x27c3>
+ 11afe5f:	4c 89 e7             	mov    %r12,%rdi
+ 11afe62:	e8 b9 3a ed fe       	call   83920 <memcmp@plt>
+ 11afe67:	85 c0                	test   %eax,%eax
+ 11afe69:	0f 84 b0 fd ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afe6f:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11afe74:	48 8d 35 f0 f8 20 00 	lea    0x20f8f0(%rip),%rsi        # 13bf76b <.annobin___pthread_atfork.end+0x281b>
+ 11afe7b:	4c 89 e7             	mov    %r12,%rdi
+ 11afe7e:	e8 9d 3a ed fe       	call   83920 <memcmp@plt>
+ 11afe83:	85 c0                	test   %eax,%eax
+ 11afe85:	0f 84 94 fd ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afe8b:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11afe90:	48 8d 35 b7 01 21 00 	lea    0x2101b7(%rip),%rsi        # 13c004e <.annobin___pthread_atfork.end+0x30fe>
+ 11afe97:	4c 89 e7             	mov    %r12,%rdi
+ 11afe9a:	e8 81 3a ed fe       	call   83920 <memcmp@plt>
+ 11afe9f:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+ 11afea4:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+ 11afea9:	85 c0                	test   %eax,%eax
+ 11afeab:	4c 8b 4c 24 18       	mov    0x18(%rsp),%r9
+ 11afeb0:	0f 85 e0 04 00 00    	jne    11b0396 <scipy_ilaenv_64_+0x7c6>
+ 11afeb6:	49 83 39 01          	cmpq   $0x1,(%r9)
+ 11afeba:	0f 85 05 fe ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11afec0:	48 8b 2b             	mov    (%rbx),%rbp
+ 11afec3:	49 8b 30             	mov    (%r8),%rsi
+ 11afec6:	48 89 e8             	mov    %rbp,%rax
+ 11afec9:	48 0f af c6          	imul   %rsi,%rax
+ 11afecd:	48 3d 00 00 02 00    	cmp    $0x20000,%rax
+ 11afed3:	0f 9e c0             	setle  %al
+ 11afed6:	48 81 fd 00 20 00 00 	cmp    $0x2000,%rbp
+ 11afedd:	0f 9e c2             	setle  %dl
+ 11afee0:	09 d0                	or     %edx,%eax
+ 11afee2:	84 c0                	test   %al,%al
+ 11afee4:	0f 85 35 fd ff ff    	jne    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afeea:	b8 00 80 00 00       	mov    $0x8000,%eax
+ 11afeef:	48 99                	cqto
+ 11afef1:	48 f7 fe             	idiv   %rsi
+ 11afef4:	48 89 c5             	mov    %rax,%rbp
+ 11afef7:	e9 23 fd ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11afefc:	0f 1f 40 00          	nopl   0x0(%rax)
+ 11aff00:	66 81 fa 47 45       	cmp    $0x4547,%dx
+ 11aff05:	74 29                	je     11aff30 <scipy_ilaenv_64_+0x360>
+ 11aff07:	66 81 fa 53 59       	cmp    $0x5953,%dx
+ 11aff0c:	75 22                	jne    11aff30 <scipy_ilaenv_64_+0x360>
+ 11aff0e:	66 81 7c 24 2d 54 52 	cmpw   $0x5254,0x2d(%rsp)
+ 11aff15:	75 19                	jne    11aff30 <scipy_ilaenv_64_+0x360>
+ 11aff17:	80 7c 24 2f 46       	cmpb   $0x46,0x2f(%rsp)
+ 11aff1c:	bd 08 00 00 00       	mov    $0x8,%ebp
+ 11aff21:	0f 84 f8 fc ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11aff27:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+ 11aff2e:	00 00 
+ 11aff30:	bd 02 00 00 00       	mov    $0x2,%ebp
+ 11aff35:	e9 e5 fc ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11aff3a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 11aff40:	48 8d 7c 24 30       	lea    0x30(%rsp),%rdi
+ 11aff45:	48 83 7c 24 68 08    	cmpq   $0x8,0x68(%rsp)
+ 11aff4b:	48 89 f0             	mov    %rsi,%rax
+ 11aff4e:	48 89 f9             	mov    %rdi,%rcx
+ 11aff51:	0f 83 d9 00 00 00    	jae    11b0030 <scipy_ilaenv_64_+0x460>
+ 11aff57:	31 d2                	xor    %edx,%edx
+ 11aff59:	f6 44 24 68 04       	testb  $0x4,0x68(%rsp)
+ 11aff5e:	74 09                	je     11aff69 <scipy_ilaenv_64_+0x399>
+ 11aff60:	8b 10                	mov    (%rax),%edx
+ 11aff62:	89 11                	mov    %edx,(%rcx)
+ 11aff64:	ba 04 00 00 00       	mov    $0x4,%edx
+ 11aff69:	f6 44 24 68 02       	testb  $0x2,0x68(%rsp)
+ 11aff6e:	74 0c                	je     11aff7c <scipy_ilaenv_64_+0x3ac>
+ 11aff70:	0f b7 34 10          	movzwl (%rax,%rdx,1),%esi
+ 11aff74:	66 89 34 11          	mov    %si,(%rcx,%rdx,1)
+ 11aff78:	48 83 c2 02          	add    $0x2,%rdx
+ 11aff7c:	f6 44 24 68 01       	testb  $0x1,0x68(%rsp)
+ 11aff81:	74 07                	je     11aff8a <scipy_ilaenv_64_+0x3ba>
+ 11aff83:	0f b6 04 10          	movzbl (%rax,%rdx,1),%eax
+ 11aff87:	88 04 11             	mov    %al,(%rcx,%rdx,1)
+ 11aff8a:	ba 10 00 00 00       	mov    $0x10,%edx
+ 11aff8f:	48 03 7c 24 68       	add    0x68(%rsp),%rdi
+ 11aff94:	48 2b 54 24 68       	sub    0x68(%rsp),%rdx
+ 11aff99:	be 20 00 00 00       	mov    $0x20,%esi
+ 11aff9e:	4c 89 4c 24 10       	mov    %r9,0x10(%rsp)
+ 11affa3:	4c 89 44 24 08       	mov    %r8,0x8(%rsp)
+ 11affa8:	e8 63 41 ed fe       	call   84110 <memset@plt>
+ 11affad:	4c 8b 44 24 08       	mov    0x8(%rsp),%r8
+ 11affb2:	4c 8b 4c 24 10       	mov    0x10(%rsp),%r9
+ 11affb7:	e9 89 fc ff ff       	jmp    11afc45 <scipy_ilaenv_64_+0x75>
+ 11affbc:	0f 1f 40 00          	nopl   0x0(%rax)
+ 11affc0:	66 81 fa 47 45       	cmp    $0x4547,%dx
+ 11affc5:	0f 85 8d 00 00 00    	jne    11b0058 <scipy_ilaenv_64_+0x488>
+ 11affcb:	66 81 7c 24 2d 51 52 	cmpw   $0x5251,0x2d(%rsp)
+ 11affd2:	0f 84 4f 01 00 00    	je     11b0127 <scipy_ilaenv_64_+0x557>
+ 11affd8:	66 81 7c 24 2d 52 51 	cmpw   $0x5152,0x2d(%rsp)
+ 11affdf:	0f 84 d6 01 00 00    	je     11b01bb <scipy_ilaenv_64_+0x5eb>
+ 11affe5:	66 81 7c 24 2d 4c 51 	cmpw   $0x514c,0x2d(%rsp)
+ 11affec:	0f 84 d9 01 00 00    	je     11b01cb <scipy_ilaenv_64_+0x5fb>
+ 11afff2:	66 81 7c 24 2d 51 4c 	cmpw   $0x4c51,0x2d(%rsp)
+ 11afff9:	0f 84 25 02 00 00    	je     11b0224 <scipy_ilaenv_64_+0x654>
+ 11affff:	66 81 7c 24 2d 48 52 	cmpw   $0x5248,0x2d(%rsp)
+ 11b0006:	0f 84 a9 02 00 00    	je     11b02b5 <scipy_ilaenv_64_+0x6e5>
+ 11b000c:	66 81 7c 24 2d 42 52 	cmpw   $0x5242,0x2d(%rsp)
+ 11b0013:	0f 84 bc 02 00 00    	je     11b02d5 <scipy_ilaenv_64_+0x705>
+ 11b0019:	b8 01 00 00 00       	mov    $0x1,%eax
+ 11b001e:	31 ed                	xor    %ebp,%ebp
+ 11b0020:	85 c0                	test   %eax,%eax
+ 11b0022:	40 0f 94 c5          	sete   %bpl
+ 11b0026:	48 c1 e5 07          	shl    $0x7,%rbp
+ 11b002a:	e9 f0 fb ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b002f:	90                   	nop
+ 11b0030:	48 8b 54 24 68       	mov    0x68(%rsp),%rdx
+ 11b0035:	31 c0                	xor    %eax,%eax
+ 11b0037:	48 83 e2 f8          	and    $0xfffffffffffffff8,%rdx
+ 11b003b:	48 8b 0c 06          	mov    (%rsi,%rax,1),%rcx
+ 11b003f:	48 89 0c 07          	mov    %rcx,(%rdi,%rax,1)
+ 11b0043:	48 83 c0 08          	add    $0x8,%rax
+ 11b0047:	48 39 d0             	cmp    %rdx,%rax
+ 11b004a:	72 ef                	jb     11b003b <scipy_ilaenv_64_+0x46b>
+ 11b004c:	48 8d 0c 07          	lea    (%rdi,%rax,1),%rcx
+ 11b0050:	48 01 f0             	add    %rsi,%rax
+ 11b0053:	e9 ff fe ff ff       	jmp    11aff57 <scipy_ilaenv_64_+0x387>
+ 11b0058:	66 81 fa 53 59       	cmp    $0x5953,%dx
+ 11b005d:	75 43                	jne    11b00a2 <scipy_ilaenv_64_+0x4d2>
+ 11b005f:	31 ed                	xor    %ebp,%ebp
+ 11b0061:	48 85 c9             	test   %rcx,%rcx
+ 11b0064:	0f 84 b5 fb ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b006a:	66 81 7c 24 2d 54 52 	cmpw   $0x5254,0x2d(%rsp)
+ 11b0071:	0f 84 9b 01 00 00    	je     11b0212 <scipy_ilaenv_64_+0x642>
+ 11b0077:	b8 01 00 00 00       	mov    $0x1,%eax
+ 11b007c:	31 ed                	xor    %ebp,%ebp
+ 11b007e:	85 c0                	test   %eax,%eax
+ 11b0080:	40 0f 94 c5          	sete   %bpl
+ 11b0084:	48 c1 e5 05          	shl    $0x5,%rbp
+ 11b0088:	e9 92 fb ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b008d:	80 7c 24 35 48       	cmpb   $0x48,0x35(%rsp)
+ 11b0092:	0f 85 28 fd ff ff    	jne    11afdc0 <scipy_ilaenv_64_+0x1f0>
+ 11b0098:	bd 20 00 00 00       	mov    $0x20,%ebp
+ 11b009d:	e9 7d fb ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b00a2:	48 85 c0             	test   %rax,%rax
+ 11b00a5:	0f 85 91 00 00 00    	jne    11b013c <scipy_ilaenv_64_+0x56c>
+ 11b00ab:	66 81 fa 4f 52       	cmp    $0x524f,%dx
+ 11b00b0:	0f 85 ac 00 00 00    	jne    11b0162 <scipy_ilaenv_64_+0x592>
+ 11b00b6:	31 ed                	xor    %ebp,%ebp
+ 11b00b8:	80 7c 24 2d 47       	cmpb   $0x47,0x2d(%rsp)
+ 11b00bd:	0f 85 5c fb ff ff    	jne    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b00c3:	66 81 fe 51 52       	cmp    $0x5251,%si
+ 11b00c8:	74 68                	je     11b0132 <scipy_ilaenv_64_+0x562>
+ 11b00ca:	66 81 fe 52 51       	cmp    $0x5152,%si
+ 11b00cf:	74 61                	je     11b0132 <scipy_ilaenv_64_+0x562>
+ 11b00d1:	66 81 fe 4c 51       	cmp    $0x514c,%si
+ 11b00d6:	74 5a                	je     11b0132 <scipy_ilaenv_64_+0x562>
+ 11b00d8:	66 81 fe 51 4c       	cmp    $0x4c51,%si
+ 11b00dd:	74 53                	je     11b0132 <scipy_ilaenv_64_+0x562>
+ 11b00df:	66 81 fe 48 52       	cmp    $0x5248,%si
+ 11b00e4:	74 4c                	je     11b0132 <scipy_ilaenv_64_+0x562>
+ 11b00e6:	66 81 fe 54 52       	cmp    $0x5254,%si
+ 11b00eb:	74 45                	je     11b0132 <scipy_ilaenv_64_+0x562>
+ 11b00ed:	31 ed                	xor    %ebp,%ebp
+ 11b00ef:	66 81 fe 42 52       	cmp    $0x5242,%si
+ 11b00f4:	40 0f 94 c5          	sete   %bpl
+ 11b00f8:	48 c1 e5 07          	shl    $0x7,%rbp
+ 11b00fc:	e9 1e fb ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b0101:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 11b0108:	80 7c 24 35 46       	cmpb   $0x46,0x35(%rsp)
+ 11b010d:	0f 85 bb fc ff ff    	jne    11afdce <scipy_ilaenv_64_+0x1fe>
+ 11b0113:	48 83 f9 01          	cmp    $0x1,%rcx
+ 11b0117:	48 19 ed             	sbb    %rbp,%rbp
+ 11b011a:	48 83 e5 e0          	and    $0xffffffffffffffe0,%rbp
+ 11b011e:	48 83 c5 40          	add    $0x40,%rbp
+ 11b0122:	e9 f8 fa ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b0127:	80 7c 24 2f 46       	cmpb   $0x46,0x2f(%rsp)
+ 11b012c:	0f 85 a6 fe ff ff    	jne    11affd8 <scipy_ilaenv_64_+0x408>
+ 11b0132:	bd 80 00 00 00       	mov    $0x80,%ebp
+ 11b0137:	e9 e3 fa ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b013c:	66 81 fa 48 45       	cmp    $0x4548,%dx
+ 11b0141:	0f 84 23 ff ff ff    	je     11b006a <scipy_ilaenv_64_+0x49a>
+ 11b0147:	48 85 c9             	test   %rcx,%rcx
+ 11b014a:	74 0b                	je     11b0157 <scipy_ilaenv_64_+0x587>
+ 11b014c:	66 81 fa 4f 52       	cmp    $0x524f,%dx
+ 11b0151:	0f 84 5f ff ff ff    	je     11b00b6 <scipy_ilaenv_64_+0x4e6>
+ 11b0157:	66 81 fa 55 4e       	cmp    $0x4e55,%dx
+ 11b015c:	0f 84 54 ff ff ff    	je     11b00b6 <scipy_ilaenv_64_+0x4e6>
+ 11b0162:	bd 80 00 00 00       	mov    $0x80,%ebp
+ 11b0167:	66 81 fa 47 47       	cmp    $0x4747,%dx
+ 11b016c:	0f 84 ad fa ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b0172:	31 ed                	xor    %ebp,%ebp
+ 11b0174:	66 81 fa 4c 41       	cmp    $0x414c,%dx
+ 11b0179:	0f 85 a0 fa ff ff    	jne    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b017f:	48 8d 7c 24 2d       	lea    0x2d(%rsp),%rdi
+ 11b0184:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b0189:	48 8d 35 a8 f9 20 00 	lea    0x20f9a8(%rip),%rsi        # 13bfb38 <.annobin___pthread_atfork.end+0x2be8>
+ 11b0190:	31 ed                	xor    %ebp,%ebp
+ 11b0192:	e8 89 37 ed fe       	call   83920 <memcmp@plt>
+ 11b0197:	85 c0                	test   %eax,%eax
+ 11b0199:	40 0f 94 c5          	sete   %bpl
+ 11b019d:	48 c1 e5 06          	shl    $0x6,%rbp
+ 11b01a1:	e9 79 fa ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b01a6:	80 7c 24 35 5a       	cmpb   $0x5a,0x35(%rsp)
+ 11b01ab:	0f 85 2b fc ff ff    	jne    11afddc <scipy_ilaenv_64_+0x20c>
+ 11b01b1:	bd 40 00 00 00       	mov    $0x40,%ebp
+ 11b01b6:	e9 64 fa ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b01bb:	80 7c 24 2f 46       	cmpb   $0x46,0x2f(%rsp)
+ 11b01c0:	0f 85 1f fe ff ff    	jne    11affe5 <scipy_ilaenv_64_+0x415>
+ 11b01c6:	e9 67 ff ff ff       	jmp    11b0132 <scipy_ilaenv_64_+0x562>
+ 11b01cb:	80 7c 24 2f 46       	cmpb   $0x46,0x2f(%rsp)
+ 11b01d0:	0f 85 1c fe ff ff    	jne    11afff2 <scipy_ilaenv_64_+0x422>
+ 11b01d6:	e9 57 ff ff ff       	jmp    11b0132 <scipy_ilaenv_64_+0x562>
+ 11b01db:	66 81 fa 50 4f       	cmp    $0x4f50,%dx
+ 11b01e0:	75 52                	jne    11b0234 <scipy_ilaenv_64_+0x664>
+ 11b01e2:	48 8d 7c 24 2d       	lea    0x2d(%rsp),%rdi
+ 11b01e7:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b01ec:	48 8d 35 aa f4 20 00 	lea    0x20f4aa(%rip),%rsi        # 13bf69d <.annobin___pthread_atfork.end+0x274d>
+ 11b01f3:	e8 28 37 ed fe       	call   83920 <memcmp@plt>
+ 11b01f8:	85 c0                	test   %eax,%eax
+ 11b01fa:	0f 85 c5 fa ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0200:	eb af                	jmp    11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b0202:	80 7c 24 35 5a       	cmpb   $0x5a,0x35(%rsp)
+ 11b0207:	0f 85 dd fb ff ff    	jne    11afdea <scipy_ilaenv_64_+0x21a>
+ 11b020d:	e9 86 fe ff ff       	jmp    11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0212:	31 c0                	xor    %eax,%eax
+ 11b0214:	80 7c 24 2f 44       	cmpb   $0x44,0x2f(%rsp)
+ 11b0219:	0f 85 58 fe ff ff    	jne    11b0077 <scipy_ilaenv_64_+0x4a7>
+ 11b021f:	e9 58 fe ff ff       	jmp    11b007c <scipy_ilaenv_64_+0x4ac>
+ 11b0224:	80 7c 24 2f 46       	cmpb   $0x46,0x2f(%rsp)
+ 11b0229:	0f 85 d0 fd ff ff    	jne    11affff <scipy_ilaenv_64_+0x42f>
+ 11b022f:	e9 fe fe ff ff       	jmp    11b0132 <scipy_ilaenv_64_+0x562>
+ 11b0234:	0f b6 6c 24 3a       	movzbl 0x3a(%rsp),%ebp
+ 11b0239:	66 81 fa 53 59       	cmp    $0x5953,%dx
+ 11b023e:	0f 85 a3 00 00 00    	jne    11b02e7 <scipy_ilaenv_64_+0x717>
+ 11b0244:	48 8d 5c 24 2d       	lea    0x2d(%rsp),%rbx
+ 11b0249:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b024e:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+ 11b0253:	48 8d 35 43 f4 20 00 	lea    0x20f443(%rip),%rsi        # 13bf69d <.annobin___pthread_atfork.end+0x274d>
+ 11b025a:	48 89 df             	mov    %rbx,%rdi
+ 11b025d:	e8 be 36 ed fe       	call   83920 <memcmp@plt>
+ 11b0262:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+ 11b0267:	85 c0                	test   %eax,%eax
+ 11b0269:	0f 84 13 01 00 00    	je     11b0382 <scipy_ilaenv_64_+0x7b2>
+ 11b026f:	48 85 c9             	test   %rcx,%rcx
+ 11b0272:	0f 84 4d fa ff ff    	je     11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0278:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b027d:	48 8d 35 5b f6 20 00 	lea    0x20f65b(%rip),%rsi        # 13bf8df <.annobin___pthread_atfork.end+0x298f>
+ 11b0284:	48 89 df             	mov    %rbx,%rdi
+ 11b0287:	e8 94 36 ed fe       	call   83920 <memcmp@plt>
+ 11b028c:	85 c0                	test   %eax,%eax
+ 11b028e:	0f 84 04 fe ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0294:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b0299:	48 8d 35 23 f6 20 00 	lea    0x20f623(%rip),%rsi        # 13bf8c3 <.annobin___pthread_atfork.end+0x2973>
+ 11b02a0:	48 89 df             	mov    %rbx,%rdi
+ 11b02a3:	e8 78 36 ed fe       	call   83920 <memcmp@plt>
+ 11b02a8:	85 c0                	test   %eax,%eax
+ 11b02aa:	0f 85 15 fa ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b02b0:	e9 fc fe ff ff       	jmp    11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b02b5:	80 7c 24 2f 44       	cmpb   $0x44,0x2f(%rsp)
+ 11b02ba:	0f 85 4c fd ff ff    	jne    11b000c <scipy_ilaenv_64_+0x43c>
+ 11b02c0:	e9 6d fe ff ff       	jmp    11b0132 <scipy_ilaenv_64_+0x562>
+ 11b02c5:	80 7c 24 2f 46       	cmpb   $0x46,0x2f(%rsp)
+ 11b02ca:	0f 85 32 fb ff ff    	jne    11afe02 <scipy_ilaenv_64_+0x232>
+ 11b02d0:	e9 dc fe ff ff       	jmp    11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b02d5:	31 c0                	xor    %eax,%eax
+ 11b02d7:	80 7c 24 2f 44       	cmpb   $0x44,0x2f(%rsp)
+ 11b02dc:	0f 85 37 fd ff ff    	jne    11b0019 <scipy_ilaenv_64_+0x449>
+ 11b02e2:	e9 37 fd ff ff       	jmp    11b001e <scipy_ilaenv_64_+0x44e>
+ 11b02e7:	48 85 c0             	test   %rax,%rax
+ 11b02ea:	75 6e                	jne    11b035a <scipy_ilaenv_64_+0x78a>
+ 11b02ec:	66 81 fa 4f 52       	cmp    $0x524f,%dx
+ 11b02f1:	0f 85 f7 00 00 00    	jne    11b03ee <scipy_ilaenv_64_+0x81e>
+ 11b02f7:	0f b6 44 24 2d       	movzbl 0x2d(%rsp),%eax
+ 11b02fc:	3c 47                	cmp    $0x47,%al
+ 11b02fe:	74 08                	je     11b0308 <scipy_ilaenv_64_+0x738>
+ 11b0300:	3c 4d                	cmp    $0x4d,%al
+ 11b0302:	0f 85 bd f9 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0308:	66 81 fe 51 52       	cmp    $0x5251,%si
+ 11b030d:	0f 84 85 fd ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0313:	66 81 fe 52 51       	cmp    $0x5152,%si
+ 11b0318:	0f 84 7a fd ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b031e:	66 81 fe 4c 51       	cmp    $0x514c,%si
+ 11b0323:	0f 84 6f fd ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0329:	66 81 fe 51 4c       	cmp    $0x4c51,%si
+ 11b032e:	0f 84 64 fd ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0334:	66 81 fe 48 52       	cmp    $0x5248,%si
+ 11b0339:	0f 84 59 fd ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b033f:	66 81 fe 54 52       	cmp    $0x5254,%si
+ 11b0344:	0f 84 4e fd ff ff    	je     11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b034a:	66 81 fe 42 52       	cmp    $0x5242,%si
+ 11b034f:	0f 85 70 f9 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0355:	e9 3e fd ff ff       	jmp    11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b035a:	66 81 fa 48 45       	cmp    $0x4548,%dx
+ 11b035f:	75 79                	jne    11b03da <scipy_ilaenv_64_+0x80a>
+ 11b0361:	48 8d 5c 24 2d       	lea    0x2d(%rsp),%rbx
+ 11b0366:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b036b:	48 8d 35 2b f3 20 00 	lea    0x20f32b(%rip),%rsi        # 13bf69d <.annobin___pthread_atfork.end+0x274d>
+ 11b0372:	48 89 df             	mov    %rbx,%rdi
+ 11b0375:	e8 a6 35 ed fe       	call   83920 <memcmp@plt>
+ 11b037a:	85 c0                	test   %eax,%eax
+ 11b037c:	0f 85 f6 fe ff ff    	jne    11b0278 <scipy_ilaenv_64_+0x6a8>
+ 11b0382:	40 80 fd 32          	cmp    $0x32,%bpl
+ 11b0386:	0f 85 25 fe ff ff    	jne    11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b038c:	bd c0 00 00 00       	mov    $0xc0,%ebp
+ 11b0391:	e9 89 f8 ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b0396:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b039b:	48 8d 35 d1 fc 20 00 	lea    0x20fcd1(%rip),%rsi        # 13c0073 <.annobin___pthread_atfork.end+0x3123>
+ 11b03a2:	4c 89 e7             	mov    %r12,%rdi
+ 11b03a5:	4c 89 4c 24 18       	mov    %r9,0x18(%rsp)
+ 11b03aa:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+ 11b03af:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+ 11b03b4:	e8 67 35 ed fe       	call   83920 <memcmp@plt>
+ 11b03b9:	85 c0                	test   %eax,%eax
+ 11b03bb:	0f 85 69 01 00 00    	jne    11b052a <scipy_ilaenv_64_+0x95a>
+ 11b03c1:	4c 8b 4c 24 18       	mov    0x18(%rsp),%r9
+ 11b03c6:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+ 11b03cb:	49 83 39 02          	cmpq   $0x2,(%r9)
+ 11b03cf:	0f 85 f0 f8 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b03d5:	e9 e6 fa ff ff       	jmp    11afec0 <scipy_ilaenv_64_+0x2f0>
+ 11b03da:	48 85 c9             	test   %rcx,%rcx
+ 11b03dd:	0f 85 a0 01 00 00    	jne    11b0583 <scipy_ilaenv_64_+0x9b3>
+ 11b03e3:	66 81 fa 55 4e       	cmp    $0x4e55,%dx
+ 11b03e8:	0f 84 09 ff ff ff    	je     11b02f7 <scipy_ilaenv_64_+0x727>
+ 11b03ee:	66 81 fa 47 42       	cmp    $0x4247,%dx
+ 11b03f3:	75 32                	jne    11b0427 <scipy_ilaenv_64_+0x857>
+ 11b03f5:	48 8d 7c 24 2d       	lea    0x2d(%rsp),%rdi
+ 11b03fa:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b03ff:	48 8d 35 97 f2 20 00 	lea    0x20f297(%rip),%rsi        # 13bf69d <.annobin___pthread_atfork.end+0x274d>
+ 11b0406:	e8 15 35 ed fe       	call   83920 <memcmp@plt>
+ 11b040b:	85 c0                	test   %eax,%eax
+ 11b040d:	0f 85 b2 f8 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0413:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+ 11b0418:	48 83 38 40          	cmpq   $0x40,(%rax)
+ 11b041c:	0f 8e a3 f8 ff ff    	jle    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0422:	e9 71 fc ff ff       	jmp    11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0427:	66 81 fa 50 42       	cmp    $0x4250,%dx
+ 11b042c:	75 40                	jne    11b046e <scipy_ilaenv_64_+0x89e>
+ 11b042e:	48 8d 7c 24 2d       	lea    0x2d(%rsp),%rdi
+ 11b0433:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b0438:	4c 89 44 24 08       	mov    %r8,0x8(%rsp)
+ 11b043d:	48 8d 35 59 f2 20 00 	lea    0x20f259(%rip),%rsi        # 13bf69d <.annobin___pthread_atfork.end+0x274d>
+ 11b0444:	e8 d7 34 ed fe       	call   83920 <memcmp@plt>
+ 11b0449:	85 c0                	test   %eax,%eax
+ 11b044b:	0f 85 74 f8 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0451:	4c 8b 44 24 08       	mov    0x8(%rsp),%r8
+ 11b0456:	49 83 38 40          	cmpq   $0x40,(%r8)
+ 11b045a:	0f 8e 65 f8 ff ff    	jle    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0460:	e9 33 fc ff ff       	jmp    11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b0465:	48 83 cd ff          	or     $0xffffffffffffffff,%rbp
+ 11b0469:	e9 b1 f7 ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b046e:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+ 11b0473:	66 81 fa 54 52       	cmp    $0x5254,%dx
+ 11b0478:	0f 85 43 01 00 00    	jne    11b05c1 <scipy_ilaenv_64_+0x9f1>
+ 11b047e:	48 8d 6c 24 2d       	lea    0x2d(%rsp),%rbp
+ 11b0483:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b0488:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+ 11b048d:	48 8d 35 67 f3 20 00 	lea    0x20f367(%rip),%rsi        # 13bf7fb <.annobin___pthread_atfork.end+0x28ab>
+ 11b0494:	48 89 ef             	mov    %rbp,%rdi
+ 11b0497:	e8 84 34 ed fe       	call   83920 <memcmp@plt>
+ 11b049c:	85 c0                	test   %eax,%eax
+ 11b049e:	0f 84 0d fd ff ff    	je     11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b04a4:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b04a9:	48 8d 35 51 f9 20 00 	lea    0x20f951(%rip),%rsi        # 13bfe01 <.annobin___pthread_atfork.end+0x2eb1>
+ 11b04b0:	48 89 ef             	mov    %rbp,%rdi
+ 11b04b3:	e8 68 34 ed fe       	call   83920 <memcmp@plt>
+ 11b04b8:	85 c0                	test   %eax,%eax
+ 11b04ba:	0f 84 f1 fc ff ff    	je     11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b04c0:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b04c5:	48 8d 35 5f f9 20 00 	lea    0x20f95f(%rip),%rsi        # 13bfe2b <.annobin___pthread_atfork.end+0x2edb>
+ 11b04cc:	48 89 ef             	mov    %rbp,%rdi
+ 11b04cf:	e8 4c 34 ed fe       	call   83920 <memcmp@plt>
+ 11b04d4:	85 c0                	test   %eax,%eax
+ 11b04d6:	0f 85 e9 f7 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b04dc:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+ 11b04e1:	48 8b 03             	mov    (%rbx),%rax
+ 11b04e4:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+ 11b04e9:	49 8b 10             	mov    (%r8),%rdx
+ 11b04ec:	48 39 d0             	cmp    %rdx,%rax
+ 11b04ef:	48 0f 4f c2          	cmovg  %rdx,%rax
+ 11b04f3:	48 85 c9             	test   %rcx,%rcx
+ 11b04f6:	0f 84 97 00 00 00    	je     11b0593 <scipy_ilaenv_64_+0x9c3>
+ 11b04fc:	48 c1 e0 04          	shl    $0x4,%rax
+ 11b0500:	b9 64 00 00 00       	mov    $0x64,%ecx
+ 11b0505:	48 99                	cqto
+ 11b0507:	48 f7 f9             	idiv   %rcx
+ 11b050a:	ba 30 00 00 00       	mov    $0x30,%edx
+ 11b050f:	48 39 d0             	cmp    %rdx,%rax
+ 11b0512:	48 0f 4d d0          	cmovge %rax,%rdx
+ 11b0516:	b8 f0 00 00 00       	mov    $0xf0,%eax
+ 11b051b:	48 89 d5             	mov    %rdx,%rbp
+ 11b051e:	48 39 c2             	cmp    %rax,%rdx
+ 11b0521:	48 0f 4f e8          	cmovg  %rax,%rbp
+ 11b0525:	e9 f5 f6 ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b052a:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b052f:	48 8d 35 9f f1 20 00 	lea    0x20f19f(%rip),%rsi        # 13bf6d5 <.annobin___pthread_atfork.end+0x2785>
+ 11b0536:	4c 89 e7             	mov    %r12,%rdi
+ 11b0539:	e8 e2 33 ed fe       	call   83920 <memcmp@plt>
+ 11b053e:	85 c0                	test   %eax,%eax
+ 11b0540:	0f 84 d9 f6 ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b0546:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b054b:	48 8d 35 06 f1 20 00 	lea    0x20f106(%rip),%rsi        # 13bf658 <.annobin___pthread_atfork.end+0x2708>
+ 11b0552:	4c 89 e7             	mov    %r12,%rdi
+ 11b0555:	e8 c6 33 ed fe       	call   83920 <memcmp@plt>
+ 11b055a:	85 c0                	test   %eax,%eax
+ 11b055c:	0f 84 bd f6 ff ff    	je     11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b0562:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b0567:	48 8d 35 8d f2 20 00 	lea    0x20f28d(%rip),%rsi        # 13bf7fb <.annobin___pthread_atfork.end+0x28ab>
+ 11b056e:	4c 89 e7             	mov    %r12,%rdi
+ 11b0571:	e8 aa 33 ed fe       	call   83920 <memcmp@plt>
+ 11b0576:	85 c0                	test   %eax,%eax
+ 11b0578:	0f 85 47 f7 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b057e:	e9 2e fc ff ff       	jmp    11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b0583:	66 81 fa 4f 52       	cmp    $0x524f,%dx
+ 11b0588:	0f 84 69 fd ff ff    	je     11b02f7 <scipy_ilaenv_64_+0x727>
+ 11b058e:	e9 50 fe ff ff       	jmp    11b03e3 <scipy_ilaenv_64_+0x813>
+ 11b0593:	48 c1 e0 03          	shl    $0x3,%rax
+ 11b0597:	b9 64 00 00 00       	mov    $0x64,%ecx
+ 11b059c:	48 99                	cqto
+ 11b059e:	48 f7 f9             	idiv   %rcx
+ 11b05a1:	ba 18 00 00 00       	mov    $0x18,%edx
+ 11b05a6:	48 39 d0             	cmp    %rdx,%rax
+ 11b05a9:	48 0f 4d d0          	cmovge %rax,%rdx
+ 11b05ad:	b8 50 00 00 00       	mov    $0x50,%eax
+ 11b05b2:	48 89 d5             	mov    %rdx,%rbp
+ 11b05b5:	48 39 c2             	cmp    %rax,%rdx
+ 11b05b8:	48 0f 4f e8          	cmovg  %rax,%rbp
+ 11b05bc:	e9 5e f6 ff ff       	jmp    11afc1f <scipy_ilaenv_64_+0x4f>
+ 11b05c1:	66 81 fa 4c 41       	cmp    $0x414c,%dx
+ 11b05c6:	75 42                	jne    11b060a <scipy_ilaenv_64_+0xa3a>
+ 11b05c8:	48 8d 5c 24 2d       	lea    0x2d(%rsp),%rbx
+ 11b05cd:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b05d2:	48 8d 35 f4 d5 20 00 	lea    0x20d5f4(%rip),%rsi        # 13bdbcd <.annobin___pthread_atfork.end+0xc7d>
+ 11b05d9:	48 89 df             	mov    %rbx,%rdi
+ 11b05dc:	e8 3f 33 ed fe       	call   83920 <memcmp@plt>
+ 11b05e1:	85 c0                	test   %eax,%eax
+ 11b05e3:	0f 84 c8 fb ff ff    	je     11b01b1 <scipy_ilaenv_64_+0x5e1>
+ 11b05e9:	ba 03 00 00 00       	mov    $0x3,%edx
+ 11b05ee:	48 8d 35 74 f5 20 00 	lea    0x20f574(%rip),%rsi        # 13bfb69 <.annobin___pthread_atfork.end+0x2c19>
+ 11b05f5:	48 89 df             	mov    %rbx,%rdi
+ 11b05f8:	e8 23 33 ed fe       	call   83920 <memcmp@plt>
+ 11b05fd:	85 c0                	test   %eax,%eax
+ 11b05ff:	0f 85 c0 f6 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0605:	e9 8e fa ff ff       	jmp    11b0098 <scipy_ilaenv_64_+0x4c8>
+ 11b060a:	48 85 c9             	test   %rcx,%rcx
+ 11b060d:	74 0b                	je     11b061a <scipy_ilaenv_64_+0xa4a>
+ 11b060f:	66 81 fa 53 54       	cmp    $0x5453,%dx
+ 11b0614:	0f 84 ab f6 ff ff    	je     11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b061a:	66 81 fa 47 47       	cmp    $0x4747,%dx
+ 11b061f:	0f 85 a0 f6 ff ff    	jne    11afcc5 <scipy_ilaenv_64_+0xf5>
+ 11b0625:	e9 6e fa ff ff       	jmp    11b0098 <scipy_ilaenv_64_+0x4c8>
+
+Disassembly of section .fini:
