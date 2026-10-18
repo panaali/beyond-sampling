@@ -53,7 +53,7 @@ def run(model, t0, N, seed, chunk=500_000):
 
 
 def main():
-    path = os.path.join(HERE, "results", "truthc.json")
+    path = os.environ.get("TRUTHC_OUT", os.path.join(HERE, "results", "truthc.json"))   # T366: sealed output path
     out = json.load(open(path)) if os.path.exists(path) else {}
     ms = models()
     for spec in sys.argv[1].split(","):
