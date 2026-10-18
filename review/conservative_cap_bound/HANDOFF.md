@@ -1,7 +1,9 @@
 # T200 bounded cap rescue to Claude
 
 Status: ten fixed controls completed88ff3af7, source and theorem independently
-reviewed by recover78 (f9060f90/7524f303/cf6f2816); saved review pending. Source
+reviewed by recover78 (f9060f90/7524f303/cf6f2816); independent saved audit
+7583ad1f published11e1da75 passes all10 records,22 progress entries, exact
+outward values, macro counts and peak bits without candidate replay. Source
 and raw history reachable7204c26d. Claim804f5456 preceded implementation.
 
 This is a local represented-positive-hull primitive, not an estimator change.
