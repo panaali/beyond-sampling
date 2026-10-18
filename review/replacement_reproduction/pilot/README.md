@@ -10,11 +10,11 @@ Can the independently implemented final-step replacement pipeline bind the origi
 
 ## Status
 
-One numerical run completed. Independent saved audit is pending; no further fits or full campaign are authorized by this result. Source review `104fa975`, published `d58d76b8`, preceded immutable execution gate `b802b79f`, published `31ab2d3c`. Only then was `bash launch.sh` invoked. Raw commit `8f3eb7fb` preserves the sole run.
+One numerical run completed and passed independent saved audit `03ac9a3a`, published `e8d0d7a9`. No further fits or full campaign are authorized by this result. Source review `104fa975`, published `d58d76b8`, preceded immutable execution gate `b802b79f`, published `31ab2d3c`. Only then was `bash launch.sh` invoked. Raw commit `8f3eb7fb` preserves the sole run.
 
 ## Results
 
-[measured, pending saved audit] All 21 fitted objects and 13,370 linear solves returned. Exact converted model weights matched the independently reviewed canonical payload. On the 1,024 old wiring inputs, maximum absolute hidden/logit differences were approximately 4.98e-14/2.97e-13; all first-index output labels agreed.
+[measured; independently checked] All 21 fitted objects and 13,370 linear solves returned. Exact converted model weights matched the independently reviewed canonical payload. On the 1,024 old wiring inputs, maximum absolute hidden/logit differences were approximately 4.98e-14/2.97e-13; all first-index output labels agreed.
 
 The independently held-out evaluation panel has 1,024 inputs. Original network correctness is 980/1,024. The all-twelve replacement agrees with the original on 924 and is correct on 945. The fixed no-hinge-eight replacement agrees on 975 and is correct on 1,003. These are separate targets: agreement with the original network and correctness against the input-order task. No confidence interval or historical full-reproduction criterion is applied to this small resource pilot.
 
@@ -28,7 +28,9 @@ Seven forward calls cover 7,168 input vectors, including the retained-reference 
 
 ## Claims
 
-- [measured, pending saved audit] This fixed pilot completed and retained deployable dependency data for all 21 fit objects.
+Independent review checked all 168 archives, 21 models, 13,370 systems, 48 events and 183 pins without producer calls, refits, forwards or RNG. Maximum scaled equation residual was 2.8488101582128154e-13. Review cost was 4.880841507 CPU seconds and 151,032 KiB peak RSS. Full recurrence and RNG advancement remain source-qualified; equation checks do not reproduce native solves or certify coefficient forward error.
+
+- [measured; independently checked] This fixed pilot completed and retained deployable dependency data for all 21 fit objects.
 - [inferred] The small pilot supports feasibility of this bounded implementation, not a runtime projection to one million training inputs. Cell counts, conditioning, observer overhead and retained-array sizes change with sample size.
 - [speculative] Larger training data may improve agreement; this pilot neither establishes nor rules out that outcome.
 
