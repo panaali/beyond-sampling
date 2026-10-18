@@ -1,0 +1,4 @@
+T284 HP2 consistency check (2026-10-18 10:12 UTC): grid3 state.pt at step 1,105,920 (>= 2^20, its 2^30 models finished)
+vs capacity_ceiling/hp2_run.py state.pt (100 models trained alone with fused_gid.py, data ids = grid3 indices):
+Wi, Wh, Wo bit-identical for all 100 models (torch.equal True, max diff 0.0). Independent runs on different VMs
+(grid3 on t192f2 packed with 1025 models; HP2 alone on t192lb).
