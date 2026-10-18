@@ -196,3 +196,20 @@ within the cost allowance is not plausible on this evidence [inferred].
 - **Kill if min(floor_h) > .45 pp. Go to stage 2 if <= .40** (stage 2 per Fable: walks' pointwise form under c_h vs E0_h,
   kill if its sd > .30). Between: inconclusive, reported.
 Diagnostic sampling. Prediction on record (Fable): floor_h .6-1.0, kill.
+
+### S2 result (`python exhaustion/s2.py`, `exhaustion/s2.json`; 30 DEV3 models, paired 2e5 inputs, ~4 CPU-min)
+- **Checks:** E0 and E1 reproduce floors_dev3.json exactly on these models (max diff 0.0).
+
+| closure (30 DEV3) | bias | sd | RMS = floor |
+|---|---|---|---|
+| E0 (closure c, true v4) | -.106 | .440 | .446 |
+| E1 (closure c, K = 1 node) | +.237 | .492 | .539 |
+| **c_h, mean lows** | +.437 | .635 | **.762** |
+| **c_h, spread lows (s = -1)** | +.991 | .448 | **1.085** |
+
+**Verdict (pre-registered): KILL** (min floor_h .762 > .45). This matches Fable's recorded prediction of .6-1.0.
+- The homogeneous closure removes the anchor and node terms by construction, but its floor is 1.7x closure c's.
+- Mis-scaled lows (lows proportional to v1, while the true lows are O(1) whatever the top-3 scale) create errors the
+  network does not make. In this case the spread pattern raises the bias instead of cutting the sd.
+- So the free 3-D -> 2-D reduction does not rescue the paradigm. This adds one more item to the tried list (section 1)
+  and closes Fable r6's S2.
