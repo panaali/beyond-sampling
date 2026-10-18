@@ -119,8 +119,8 @@ inside the pattern after resampling one mode at h_10:
   coordinates gives mean accuracy .452 (min .297, mean energy .070). A random 2-D subspace gives .304 (min .206,
   energy .158). The single readout-most-sensitive direction gives .587.
 - So mode resampling mainly measures how sensitive the readout is to *any* incoherent perturbation, consistent
-  with T241's own A5 caveat. Per unit energy, the 8.37 mode (13.5 pp per 1% energy... ~13.5x the energy-normalised
-  drop) stands out somewhat. The 4.32 mode (7.4) is at the level of a random 1-D direction (7.2).
+  with T241's own A5 caveat. Per unit energy (accuracy drop in pp per percentage point of energy share), the 8.37 mode (13.4) stands out
+  somewhat. The 4.32 mode (7.4) is at the level of a random 1-D direction (7.2).
 - Patterns 63951 and 65007 show the same pattern (random 2-D ~ .30; mode drops 15-70 pp). In 65007 the oblique
   projector energies are 1.4-44x the state energy, confirming T241's ill-conditioning caveat.
 
