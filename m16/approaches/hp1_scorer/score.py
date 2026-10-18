@@ -198,4 +198,4 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     bud = tuple(int(float(b)) for b in a[4].split(",")) if len(a) > 4 else BUDGETS
     run(a[0], a[1], a[2], a[3], bud)
-    aggregate_F(a[0], a[3])
+    aggregate_F(a[0], a[3], bud if len(a) > 4 and bud != (1_000, 4_000) else CURVE)

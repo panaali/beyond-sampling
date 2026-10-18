@@ -42,11 +42,14 @@ d29e28bb into `data/hp1/subs/probe_v5_d29e28bb/`. The aggregates are in `results
 | v5q | `probe_v5/hp1_entry.py:est` → `v5.est_full` | d29e28bbc437ae02395e91741e3feefc50d2fa77 (branch claude/t241-neuron-account; unchanged at branch head 9e5d8a2a) | hp1_entry.py `81f8c07f963bd49669a18f0b769a6255164b5b2e3e28ffbd22fba235a43f113b`; v5.py `5c19b9674b632ca0746c870e3c68e12acaf8f8ddf1506eca3cf14c146fd73e1f` (unchanged since f7e14e83) | inductive (fixed-node QMC) |
 | v5a | `probe_v5/hp1_entry.py:est_v5a` → `v5.est` | same | same | inductive |
 
-No loader shim was needed: the entry point takes `(Wi, Wh, Wo)` float64 exactly as the panel stores it. The
+| t286_rx | `cheap_frontier/hp2_entry.py:est` → `rx.est_rx(Q=8, stride=1, kgroups=3)` | 3731b9fe93159c8b1d643fdd107b451985841ec4 (branch claude/t286-cheap-frontier) | hp2_entry.py `eac842afeb65d4e2d91c3e83d38054c5cfaa34feb4be532b7d12fe6f61e5a724`; rx.py `c11623371060e3522736d2a9a36df5726ebf944da6617e2500c9f063ba4e1055`; cf.py `628c9a4e70af342c4d0ed68155075fbd17facd320323cd98b644c3b1bb119e9f`; rank_exact/rank_est.py `41c5b6eb0fa5d710b149b328b06bd62ddd1a6687b62642b414c0f215ec269401` | deductive (every step) |
+| t286_rx_ind | `cheap_frontier/hp2_entry.py:est_ind` → `rx.est_rx(Q=4, stride=16, kgroups=3)` | same | same | inductive (reference only) |
+No loader shim was needed. T286 runs from a `git archive` of `m16/` at its commit, so its relative imports
+(`../rank_exact`) resolve to the frozen code. Every entry point takes `(Wi, Wh, Wo)` float64 exactly as the panel stores it. The
 estimator files were not modified.
 
 ## Status
-Done for v5q, v5a and the control. Standing service: further submissions are scored the same way.
+Done on HP1 for v5q, v5a, the control and T286 (est, est_ind). HP2 (primary panel) is pending its delivery. Standing service: further submissions are scored the same way.
 
 ## Results (amendment 1 rule: fixed budget B, R_g = Σe/Σs; superseded as figure of merit by amendment 2 below)
 R_g [95% cluster CI]; bias and RMS error in percentage points; the cost column is the minimum charged C_m in FPE.
@@ -171,6 +174,19 @@ Readout:
 - [measured] v5q's break-even n* is 4.4k on clean at 1k, then 3.0–5.8k at 4k. At 16k it is 9–17k per group,
   roughly the budget itself. That is, v5q is about as good as sampling from 4k to 16k and not better. v5a's n* is
   0.7–3.8k.
+
+### T286 (fixed cost; the budget is ignored, so it is scored once, at its own cost)
+Reproduce: `python3 score.py t286_rx <snapshot>/m16/approaches/cheap_frontier/hp2_entry.py est deductive 0`. The
+reference uses `... t286_rx_ind <same file> est_ind inductive 0`. Results: `results/t286_rx*_F.json`.
+| entry | class | C_eff FPE | clean | abs0.05 | rel0.005 | rel0.01 | all | strict / lenient |
+|---|---|---|---|---|---|---|---|---|
+| t286_rx | deductive | 25779 | F 107.5 [22.1, 244.7]; RMS 1.75 pp; bias -1.38; n* 240 | F 19.4 [9.6, 35.6]; RMS 1.08 pp; bias +0.35; n* 1332 | F 34.5 [16.8, 53.2]; RMS 1.53 pp; bias +0.20; n* 747 | F 37.9 [20.3, 68.3]; RMS 1.73 pp; bias +0.40; n* 680 | F 32.7 [19.9, 47.5]; RMS 1.48 pp; bias +0.25; n* 788 | fail / fail |
+| t286_rx_ind | inductive | 1716 | F 12.1 [7.5, 17.1]; RMS 2.28 pp; bias -2.15; n* 142 | F 23.8 [19.4, 28.1]; RMS 4.64 pp; bias +0.80; n* 72 | F 29.5 [22.4, 36.8]; RMS 5.49 pp; bias +3.21; n* 58 | F 34.2 [13.8, 56.1]; RMS 6.36 pp; bias +3.03; n* 50 | F 29.4 [19.6, 40.0]; RMS 5.45 pp; bias +2.17; n* 58 | fail / fail |
+
+- [measured] t286_rx (deductive) fails both bars on HP1. Worst-group F is 108 (clean, bias −1.38 pp). The author
+  had LB3 worst-group F ≈ 112. Pooled F is 33, and its break-even budget n* ≈ 790 FPE is 33x below its cost.
+- [measured] t286_rx_ind (inductive reference) fails both bars. Worst-group F is 34 (rel0.01), and its RMS is
+  2.3–6.4 pp.
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
