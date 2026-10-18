@@ -30,3 +30,11 @@ The exception and nested controls test the added observer's lifecycle; they do
 not validate original Q accuracy. All four original-Q scores may be zero because
 the inherited toy deliberately has zero readout; this is interface parity only.
 Instrumentation introduces real unpriced diagnostic work, not a free estimator.
+
+Prerequisite repair before execution: the completed independent T204 saved review
+is pinned and must bind the identical prior raw-result bytes. Protocol and
+execution-gate pins are verified separately, never merged with overrides. The
+execution gate must include adapter, controls, protocol, manifest, prior result,
+prior review and published current source-review pins. The current review must
+be completed/passed and bind these exact source/protocol bytes. No numerical
+fixture or operation changed; no calls preceded this repair.
