@@ -61,3 +61,25 @@ C at each G. If one qualifies, freeze it as T317b and send it to the T281 scorer
     seeds).
   - HP1 clean 4.3; noisy copies fail.
   - This is the best deductive (deductive + declared approximations) HP2 score in the project so far.
+
+## T317c pre-registration (DRI, 2026-10-18; before any T317c run)
+Exact, cost-only savings that leave T317b's estimates unchanged to <= 1e-12 on all 80 DEV2. No change to G, the closure or
+any approximation. correct_interval is counted at the scorer's ~216 FLOPs, and every saving is actually executed.
+If the honest C falls by >= 3%: freeze and send to the scorer. Otherwise report the saving and stop.
+
+**Candidate (from a cost census before any T317c run, `fused_s8`):** walks 81.4%, Phi work 18.3%, combination 0.3% of
+C. Of 16,264 charged Phi endpoint evaluations, **13,116 are inner endpoints shared by consecutive cells' correct
+pieces** (cell k's piece ends at t*, exactly where cell k+1's piece starts, in the same float). Merging touching
+pieces telescopes the Phi (and Phi^8) differences exactly, up to rounding (~1e-16). A further 823 endpoints are at
+exactly 0 (Phi(v2) is a model-free table), and the pieces ending at tmax merge with the model-free tail.
+
+## T317c results (`python run_c.py`, `results_c.json`; all 80 DEV2)
+- **Estimates equal T317b: max |diff| = 0.0** (<= 1e-12).
+  - Merging is real: on fused_s8's nonblind g23 line, 4,769 pieces become 724 intervals.
+  - Per-node profile differences are 5.6e-17.
+- **Honest C:** T317b recounted (correct_interval 216) = 6,391 FPE; **T317c = 5,435 FPE (-15.0%)**. That clears
+  the >= 3% bar, so `estimator_c.py` is frozen and sent to the T281 scorer.
+- [inferred projection] HP2 F ≈ 7.75 x (5,435 / 6,290) ≈ 6.7, upper CI ≈ 10.07 x 0.86 ≈ 8.7, at unchanged HP2 errors.
+- The claim is HP2 alone.
+- Forking paths: the estimates are identical to the already-scored T317b, so this is a cost-only re-implementation
+  with no new estimate variant.
