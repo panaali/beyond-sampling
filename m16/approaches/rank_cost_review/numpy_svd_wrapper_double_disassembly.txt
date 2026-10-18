@@ -1,0 +1,695 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_umath_linalg.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000013f50 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2>:
+   13f50:	41 57                	push   %r15
+   13f52:	41 56                	push   %r14
+   13f54:	41 55                	push   %r13
+   13f56:	49 89 f5             	mov    %rsi,%r13
+   13f59:	41 54                	push   %r12
+   13f5b:	55                   	push   %rbp
+   13f5c:	48 89 d5             	mov    %rdx,%rbp
+   13f5f:	53                   	push   %rbx
+   13f60:	48 89 fb             	mov    %rdi,%rbx
+   13f63:	48 81 ec 38 02 00 00 	sub    $0x238,%rsp
+   13f6a:	4c 8d bc 24 c0 01 00 	lea    0x1c0(%rsp),%r15
+   13f71:	00 
+   13f72:	4c 89 ff             	mov    %r15,%rdi
+   13f75:	e8 26 1c 01 00       	call   25ba0 <npy_clear_floatstatus_barrier>
+   13f7a:	f3 41 0f 6f 45 08    	movdqu 0x8(%r13),%xmm0
+   13f80:	49 8b 55 08          	mov    0x8(%r13),%rdx
+   13f84:	c1 e8 03             	shr    $0x3,%eax
+   13f87:	83 e0 01             	and    $0x1,%eax
+   13f8a:	66 49 0f 7e c6       	movq   %xmm0,%r14
+   13f8f:	0f 29 44 24 10       	movaps %xmm0,0x10(%rsp)
+   13f94:	66 49 0f 3a 16 c4 01 	pextrq $0x1,%xmm0,%r12
+   13f9b:	89 44 24 58          	mov    %eax,0x58(%rsp)
+   13f9f:	49 8b 45 00          	mov    0x0(%r13),%rax
+   13fa3:	4d 0f af e6          	imul   %r14,%r12
+   13fa7:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+   13fac:	48 8b 45 00          	mov    0x0(%rbp),%rax
+   13fb0:	49 c1 e4 03          	shl    $0x3,%r12
+   13fb4:	48 89 44 24 50       	mov    %rax,0x50(%rsp)
+   13fb9:	48 8b 45 08          	mov    0x8(%rbp),%rax
+   13fbd:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   13fc2:	49 8b 45 10          	mov    0x10(%r13),%rax
+   13fc6:	48 39 d0             	cmp    %rdx,%rax
+   13fc9:	48 0f 4f c2          	cmovg  %rdx,%rax
+   13fcd:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+   13fd4:	00 
+   13fd5:	48 01 d0             	add    %rdx,%rax
+   13fd8:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+   13fdd:	49 8d 3c c4          	lea    (%r12,%rax,8),%rdi
+   13fe1:	e8 1a 03 ff ff       	call   4300 <PyMem_RawMalloc@plt>
+   13fe6:	49 89 c5             	mov    %rax,%r13
+   13fe9:	48 85 c0             	test   %rax,%rax
+   13fec:	0f 84 73 06 00 00    	je     14665 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x715>
+   13ff2:	4d 85 f6             	test   %r14,%r14
+   13ff5:	b8 01 00 00 00       	mov    $0x1,%eax
+   13ffa:	66 0f 6f 44 24 10    	movdqa 0x10(%rsp),%xmm0
+   14000:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+   14005:	4c 0f 4e f0          	cmovle %rax,%r14
+   14009:	4f 8d 4c 25 00       	lea    0x0(%r13,%r12,1),%r9
+   1400e:	48 8d 8c 24 60 01 00 	lea    0x160(%rsp),%rcx
+   14015:	00 
+   14016:	4c 89 ac 24 c0 01 00 	mov    %r13,0x1c0(%rsp)
+   1401d:	00 
+   1401e:	0f 11 84 24 f8 01 00 	movups %xmm0,0x1f8(%rsp)
+   14025:	00 
+   14026:	49 8d 04 11          	lea    (%r9,%rdx,1),%rax
+   1402a:	4c 8d 84 24 08 02 00 	lea    0x208(%rsp),%r8
+   14031:	00 
+   14032:	66 49 0f 6e c6       	movq   %r14,%xmm0
+   14037:	48 8d 94 24 00 02 00 	lea    0x200(%rsp),%rdx
+   1403e:	00 
+   1403f:	48 8d b4 24 f8 01 00 	lea    0x1f8(%rsp),%rsi
+   14046:	00 
+   14047:	48 89 8c 24 f0 00 00 	mov    %rcx,0xf0(%rsp)
+   1404e:	00 
+   1404f:	66 0f 6c c0          	punpcklqdq %xmm0,%xmm0
+   14053:	48 8d bc 24 28 02 00 	lea    0x228(%rsp),%rdi
+   1405a:	00 
+   1405b:	4c 8d 9c 24 90 01 00 	lea    0x190(%rsp),%r11
+   14062:	00 
+   14063:	4c 89 8c 24 c8 01 00 	mov    %r9,0x1c8(%rsp)
+   1406a:	00 
+   1406b:	0f 11 84 24 08 02 00 	movups %xmm0,0x208(%rsp)
+   14072:	00 
+   14073:	66 0f 6f 05 b5 61 01 	movdqa 0x161b5(%rip),%xmm0        # 2a230 <_ZN14numeric_limitsIfE3oneE+0x100>
+   1407a:	00 
+   1407b:	4c 89 9c 24 f8 00 00 	mov    %r11,0xf8(%rsp)
+   14082:	00 
+   14083:	48 89 84 24 d0 01 00 	mov    %rax,0x1d0(%rsp)
+   1408a:	00 
+   1408b:	48 89 84 24 d8 01 00 	mov    %rax,0x1d8(%rsp)
+   14092:	00 
+   14093:	48 89 84 24 f0 01 00 	mov    %rax,0x1f0(%rsp)
+   1409a:	00 
+   1409b:	48 89 8c 24 e0 01 00 	mov    %rcx,0x1e0(%rsp)
+   140a2:	00 
+   140a3:	4c 89 84 24 c8 00 00 	mov    %r8,0xc8(%rsp)
+   140aa:	00 
+   140ab:	48 89 94 24 c0 00 00 	mov    %rdx,0xc0(%rsp)
+   140b2:	00 
+   140b3:	48 89 b4 24 b8 00 00 	mov    %rsi,0xb8(%rsp)
+   140ba:	00 
+   140bb:	48 89 bc 24 e8 00 00 	mov    %rdi,0xe8(%rsp)
+   140c2:	00 
+   140c3:	0f 11 84 24 18 02 00 	movups %xmm0,0x218(%rsp)
+   140ca:	00 
+   140cb:	48 c7 84 24 e8 01 00 	movq   $0x0,0x1e8(%rsp)
+   140d2:	00 00 00 00 00 
+   140d7:	c6 84 24 28 02 00 00 	movb   $0x4e,0x228(%rsp)
+   140de:	4e 
+   140df:	41 53                	push   %r11
+   140e1:	50                   	push   %rax
+   140e2:	4c 8d 9c 24 30 02 00 	lea    0x230(%rsp),%r11
+   140e9:	00 
+   140ea:	4c 89 9c 24 f0 00 00 	mov    %r11,0xf0(%rsp)
+   140f1:	00 
+   140f2:	41 53                	push   %r11
+   140f4:	51                   	push   %rcx
+   140f5:	48 8d 8c 24 38 02 00 	lea    0x238(%rsp),%rcx
+   140fc:	00 
+   140fd:	48 89 8c 24 f8 00 00 	mov    %rcx,0xf8(%rsp)
+   14104:	00 
+   14105:	51                   	push   %rcx
+   14106:	50                   	push   %rax
+   14107:	48 8d 8c 24 40 02 00 	lea    0x240(%rsp),%rcx
+   1410e:	00 
+   1410f:	48 89 8c 24 00 01 00 	mov    %rcx,0x100(%rsp)
+   14116:	00 
+   14117:	51                   	push   %rcx
+   14118:	4c 89 e9             	mov    %r13,%rcx
+   1411b:	50                   	push   %rax
+   1411c:	e8 9f 00 ff ff       	call   41c0 <scipy_dgesdd_64_@plt>
+   14121:	48 8b 84 24 d0 01 00 	mov    0x1d0(%rsp),%rax
+   14128:	00 
+   14129:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+   14130:	00 
+   14131:	48 83 c4 40          	add    $0x40,%rsp
+   14135:	48 85 c0             	test   %rax,%rax
+   14138:	0f 85 3a 05 00 00    	jne    14678 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x728>
+   1413e:	f2 4c 0f 2c a4 24 60 	cvttsd2si 0x160(%rsp),%r12
+   14145:	01 00 00 
+   14148:	4d 85 e4             	test   %r12,%r12
+   1414b:	0f 84 c8 07 00 00    	je     14919 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x9c9>
+   14151:	4a 8d 3c e5 00 00 00 	lea    0x0(,%r12,8),%rdi
+   14158:	00 
+   14159:	e8 a2 01 ff ff       	call   4300 <PyMem_RawMalloc@plt>
+   1415e:	48 85 c0             	test   %rax,%rax
+   14161:	0f 84 fe 04 00 00    	je     14665 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x715>
+   14167:	48 8b 8c 24 f8 01 00 	mov    0x1f8(%rsp),%rcx
+   1416e:	00 
+   1416f:	48 89 84 24 e0 01 00 	mov    %rax,0x1e0(%rsp)
+   14176:	00 
+   14177:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1417b:	48 8b 84 24 00 02 00 	mov    0x200(%rsp),%rax
+   14182:	00 
+   14183:	48 8b 55 20          	mov    0x20(%rbp),%rdx
+   14187:	4c 89 a4 24 20 02 00 	mov    %r12,0x220(%rsp)
+   1418e:	00 
+   1418f:	48 c7 84 24 50 01 00 	movq   $0x0,0x150(%rsp)
+   14196:	00 00 00 00 00 
+   1419b:	48 39 c1             	cmp    %rax,%rcx
+   1419e:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+   141a3:	48 0f 4e c1          	cmovle %rcx,%rax
+   141a7:	48 89 94 24 a0 00 00 	mov    %rdx,0xa0(%rsp)
+   141ae:	00 
+   141af:	48 c7 84 24 b0 01 00 	movq   $0x0,0x1b0(%rsp)
+   141b6:	00 00 00 00 00 
+   141bb:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   141c0:	48 8b 45 10          	mov    0x10(%rbp),%rax
+   141c4:	0f 29 84 24 30 01 00 	movaps %xmm0,0x130(%rsp)
+   141cb:	00 
+   141cc:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+   141d3:	00 
+   141d4:	48 8b 45 18          	mov    0x18(%rbp),%rax
+   141d8:	0f 29 84 24 40 01 00 	movaps %xmm0,0x140(%rsp)
+   141df:	00 
+   141e0:	48 89 84 24 90 00 00 	mov    %rax,0x90(%rsp)
+   141e7:	00 
+   141e8:	0f b6 84 24 28 02 00 	movzbl 0x228(%rsp),%eax
+   141ef:	00 
+   141f0:	0f 29 84 24 60 01 00 	movaps %xmm0,0x160(%rsp)
+   141f7:	00 
+   141f8:	0f 29 84 24 70 01 00 	movaps %xmm0,0x170(%rsp)
+   141ff:	00 
+   14200:	0f 29 84 24 90 01 00 	movaps %xmm0,0x190(%rsp)
+   14207:	00 
+   14208:	0f 29 84 24 a0 01 00 	movaps %xmm0,0x1a0(%rsp)
+   1420f:	00 
+   14210:	3c 4e                	cmp    $0x4e,%al
+   14212:	0f 84 11 07 00 00    	je     14929 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x9d9>
+   14218:	48 89 4c 24 40       	mov    %rcx,0x40(%rsp)
+   1421d:	4c 8b 74 24 78       	mov    0x78(%rsp),%r14
+   14222:	3c 53                	cmp    $0x53,%al
+   14224:	75 0d                	jne    14233 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x2e3>
+   14226:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   1422b:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   14230:	49 89 c6             	mov    %rax,%r14
+   14233:	48 8b 45 28          	mov    0x28(%rbp),%rax
+   14237:	48 89 8c 24 50 01 00 	mov    %rcx,0x150(%rsp)
+   1423e:	00 
+   1423f:	4c 89 b4 24 b0 01 00 	mov    %r14,0x1b0(%rsp)
+   14246:	00 
+   14247:	48 89 84 24 98 00 00 	mov    %rax,0x98(%rsp)
+   1424e:	00 
+   1424f:	48 8b 45 30          	mov    0x30(%rbp),%rax
+   14253:	48 89 8c 24 a8 00 00 	mov    %rcx,0xa8(%rsp)
+   1425a:	00 
+   1425b:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+   14260:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   14265:	48 89 84 24 80 01 00 	mov    %rax,0x180(%rsp)
+   1426c:	00 
+   1426d:	48 8b 45 38          	mov    0x38(%rbp),%rax
+   14271:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+   14276:	48 8b 45 40          	mov    0x40(%rbp),%rax
+   1427a:	48 8b 6c 24 78       	mov    0x78(%rsp),%rbp
+   1427f:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+   14284:	48 83 7c 24 30 00    	cmpq   $0x0,0x30(%rsp)
+   1428a:	4c 8b ac 24 c0 01 00 	mov    0x1c0(%rsp),%r13
+   14291:	00 
+   14292:	0f 84 bb 03 00 00    	je     14653 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x703>
+   14298:	48 8d 04 cd 00 00 00 	lea    0x0(,%rcx,8),%rax
+   1429f:	00 
+   142a0:	4c 8b 23             	mov    (%rbx),%r12
+   142a3:	48 c7 44 24 28 00 00 	movq   $0x0,0x28(%rsp)
+   142aa:	00 00 
+   142ac:	48 89 84 24 b0 00 00 	mov    %rax,0xb0(%rsp)
+   142b3:	00 
+   142b4:	48 8d 84 24 28 01 00 	lea    0x128(%rsp),%rax
+   142bb:	00 
+   142bc:	48 83 7c 24 38 00    	cmpq   $0x0,0x38(%rsp)
+   142c2:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+   142c7:	44 8b 5c 24 58       	mov    0x58(%rsp),%r11d
+   142cc:	48 89 8c 24 88 00 00 	mov    %rcx,0x88(%rsp)
+   142d3:	00 
+   142d4:	4c 89 bc 24 00 01 00 	mov    %r15,0x100(%rsp)
+   142db:	00 
+   142dc:	4d 89 e7             	mov    %r12,%r15
+   142df:	4d 89 ec             	mov    %r13,%r12
+   142e2:	0f 94 84 24 0f 01 00 	sete   0x10f(%rsp)
+   142e9:	00 
+   142ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   142f0:	4d 85 e4             	test   %r12,%r12
+   142f3:	0f 84 2e 01 00 00    	je     14427 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x4d7>
+   142f9:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
+   14300:	00 
+   14301:	48 8b 54 24 78       	mov    0x78(%rsp),%rdx
+   14306:	48 c7 84 24 28 01 00 	movq   $0x1,0x128(%rsp)
+   1430d:	00 01 00 00 00 
+   14312:	48 89 84 24 18 01 00 	mov    %rax,0x118(%rsp)
+   14319:	00 
+   1431a:	48 8b 84 24 80 00 00 	mov    0x80(%rsp),%rax
+   14321:	00 
+   14322:	48 c1 e8 03          	shr    $0x3,%rax
+   14326:	48 89 84 24 20 01 00 	mov    %rax,0x120(%rsp)
+   1432d:	00 
+   1432e:	48 85 d2             	test   %rdx,%rdx
+   14331:	0f 8e f0 00 00 00    	jle    14427 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x4d7>
+   14337:	48 8b 8c 24 90 00 00 	mov    0x90(%rsp),%rcx
+   1433e:	00 
+   1433f:	45 31 ed             	xor    %r13d,%r13d
+   14342:	4c 89 74 24 58       	mov    %r14,0x58(%rsp)
+   14347:	4d 89 e6             	mov    %r12,%r14
+   1434a:	48 89 6c 24 60       	mov    %rbp,0x60(%rsp)
+   1434f:	49 89 d4             	mov    %rdx,%r12
+   14352:	4c 89 ed             	mov    %r13,%rbp
+   14355:	4c 8b ac 24 b0 00 00 	mov    0xb0(%rsp),%r13
+   1435c:	00 
+   1435d:	48 83 e1 f8          	and    $0xfffffffffffffff8,%rcx
+   14361:	48 89 5c 24 68       	mov    %rbx,0x68(%rsp)
+   14366:	4c 89 fb             	mov    %r15,%rbx
+   14369:	44 89 9c 24 08 01 00 	mov    %r11d,0x108(%rsp)
+   14370:	00 
+   14371:	49 89 cf             	mov    %rcx,%r15
+   14374:	eb 5e                	jmp    143d4 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x484>
+   14376:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1437d:	00 00 00 
+   14380:	48 8b 94 24 18 01 00 	mov    0x118(%rsp),%rdx
+   14387:	00 
+   14388:	0f 84 62 03 00 00    	je     146f0 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x7a0>
+   1438e:	48 83 ea 01          	sub    $0x1,%rdx
+   14392:	4c 8b 44 24 08       	mov    0x8(%rsp),%r8
+   14397:	4c 89 f1             	mov    %r14,%rcx
+   1439a:	48 8d b4 24 20 01 00 	lea    0x120(%rsp),%rsi
+   143a1:	00 
+   143a2:	48 0f af d0          	imul   %rax,%rdx
+   143a6:	48 8d bc 24 18 01 00 	lea    0x118(%rsp),%rdi
+   143ad:	00 
+   143ae:	48 8d 04 d3          	lea    (%rbx,%rdx,8),%rax
+   143b2:	48 89 f2             	mov    %rsi,%rdx
+   143b5:	48 89 c6             	mov    %rax,%rsi
+   143b8:	e8 03 02 ff ff       	call   45c0 <scipy_dcopy_64_@plt>
+   143bd:	48 83 c5 01          	add    $0x1,%rbp
+   143c1:	4c 01 fb             	add    %r15,%rbx
+   143c4:	4d 01 ee             	add    %r13,%r14
+   143c7:	49 39 ec             	cmp    %rbp,%r12
+   143ca:	74 3c                	je     14408 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x4b8>
+   143cc:	48 8b 84 24 20 01 00 	mov    0x120(%rsp),%rax
+   143d3:	00 
+   143d4:	48 85 c0             	test   %rax,%rax
+   143d7:	7e a7                	jle    14380 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x430>
+   143d9:	4c 8b 44 24 08       	mov    0x8(%rsp),%r8
+   143de:	4c 89 f1             	mov    %r14,%rcx
+   143e1:	48 89 de             	mov    %rbx,%rsi
+   143e4:	48 83 c5 01          	add    $0x1,%rbp
+   143e8:	48 8d 94 24 20 01 00 	lea    0x120(%rsp),%rdx
+   143ef:	00 
+   143f0:	48 8d bc 24 18 01 00 	lea    0x118(%rsp),%rdi
+   143f7:	00 
+   143f8:	4c 01 fb             	add    %r15,%rbx
+   143fb:	4d 01 ee             	add    %r13,%r14
+   143fe:	e8 bd 01 ff ff       	call   45c0 <scipy_dcopy_64_@plt>
+   14403:	49 39 ec             	cmp    %rbp,%r12
+   14406:	75 c4                	jne    143cc <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x47c>
+   14408:	4c 8b 74 24 58       	mov    0x58(%rsp),%r14
+   1440d:	44 8b 9c 24 08 01 00 	mov    0x108(%rsp),%r11d
+   14414:	00 
+   14415:	48 8b 6c 24 60       	mov    0x60(%rsp),%rbp
+   1441a:	48 8b 5c 24 68       	mov    0x68(%rsp),%rbx
+   1441f:	4c 8b a4 24 c0 01 00 	mov    0x1c0(%rsp),%r12
+   14426:	00 
+   14427:	48 8b b4 24 f8 01 00 	mov    0x1f8(%rsp),%rsi
+   1442e:	00 
+   1442f:	48 0f af b4 24 00 02 	imul   0x200(%rsp),%rsi
+   14436:	00 00 
+   14438:	48 85 f6             	test   %rsi,%rsi
+   1443b:	0f 84 d9 02 00 00    	je     1471a <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x7ca>
+   14441:	48 83 fe 01          	cmp    $0x1,%rsi
+   14445:	0f 84 c5 04 00 00    	je     14910 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x9c0>
+   1444b:	48 89 f2             	mov    %rsi,%rdx
+   1444e:	f2 0f 12 1d fa 5d 01 	movddup 0x15dfa(%rip),%xmm3        # 2a250 <_ZN14numeric_limitsIfE3oneE+0x120>
+   14455:	00 
+   14456:	4c 89 e0             	mov    %r12,%rax
+   14459:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1445d:	48 d1 ea             	shr    $1,%rdx
+   14460:	f2 0f 12 15 f0 5c 01 	movddup 0x15cf0(%rip),%xmm2        # 2a158 <_ZN14numeric_limitsIfE3oneE+0x28>
+   14467:	00 
+   14468:	48 c1 e2 04          	shl    $0x4,%rdx
+   1446c:	4c 01 e2             	add    %r12,%rdx
+   1446f:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14476:	00 00 00 00 
+   1447a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14480:	66 0f 10 00          	movupd (%rax),%xmm0
+   14484:	48 83 c0 10          	add    $0x10,%rax
+   14488:	66 0f 54 c3          	andpd  %xmm3,%xmm0
+   1448c:	66 0f c2 c2 06       	cmpnlepd %xmm2,%xmm0
+   14491:	66 0f fb c8          	psubq  %xmm0,%xmm1
+   14495:	48 39 d0             	cmp    %rdx,%rax
+   14498:	75 e6                	jne    14480 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x530>
+   1449a:	66 0f 6f c1          	movdqa %xmm1,%xmm0
+   1449e:	66 0f 73 d8 08       	psrldq $0x8,%xmm0
+   144a3:	66 0f d4 c8          	paddq  %xmm0,%xmm1
+   144a7:	66 48 0f 7e c8       	movq   %xmm1,%rax
+   144ac:	40 f6 c6 01          	test   $0x1,%sil
+   144b0:	74 22                	je     144d4 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x584>
+   144b2:	48 83 e6 fe          	and    $0xfffffffffffffffe,%rsi
+   144b6:	f2 41 0f 10 04 f4    	movsd  (%r12,%rsi,8),%xmm0
+   144bc:	f2 0f 10 25 94 5c 01 	movsd  0x15c94(%rip),%xmm4        # 2a158 <_ZN14numeric_limitsIfE3oneE+0x28>
+   144c3:	00 
+   144c4:	66 0f 54 05 84 5d 01 	andpd  0x15d84(%rip),%xmm0        # 2a250 <_ZN14numeric_limitsIfE3oneE+0x120>
+   144cb:	00 
+   144cc:	66 0f 2e e0          	ucomisd %xmm0,%xmm4
+   144d0:	48 83 d0 00          	adc    $0x0,%rax
+   144d4:	48 85 c0             	test   %rax,%rax
+   144d7:	0f 84 3d 02 00 00    	je     1471a <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x7ca>
+   144dd:	80 bc 24 28 02 00 00 	cmpb   $0x4e,0x228(%rsp)
+   144e4:	4e 
+   144e5:	48 8b 53 08          	mov    0x8(%rbx),%rdx
+   144e9:	0f 84 c3 02 00 00    	je     147b2 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x862>
+   144ef:	48 83 7c 24 40 00    	cmpq   $0x0,0x40(%rsp)
+   144f5:	7e 6b                	jle    14562 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x612>
+   144f7:	4c 8b 94 24 98 00 00 	mov    0x98(%rsp),%r10
+   144fe:	00 
+   144ff:	48 8b 84 24 a8 00 00 	mov    0xa8(%rsp),%rax
+   14506:	00 
+   14507:	49 83 e2 f8          	and    $0xfffffffffffffff8,%r10
+   1450b:	48 85 c0             	test   %rax,%rax
+   1450e:	7e 52                	jle    14562 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x612>
+   14510:	48 8b bc 24 a0 00 00 	mov    0xa0(%rsp),%rdi
+   14517:	00 
+   14518:	49 89 d1             	mov    %rdx,%r9
+   1451b:	45 31 c0             	xor    %r8d,%r8d
+   1451e:	89 c6                	mov    %eax,%esi
+   14520:	44 8b 5c 24 40       	mov    0x40(%rsp),%r11d
+   14525:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
+   14529:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14530:	4c 89 c9             	mov    %r9,%rcx
+   14533:	31 c0                	xor    %eax,%eax
+   14535:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1453c:	00 00 00 00 
+   14540:	f2 0f 10 05 38 b8 01 	movsd  0x1b838(%rip),%xmm0        # 2fd80 <_ZN14numeric_limitsIdE3nanE>
+   14547:	00 
+   14548:	83 c0 01             	add    $0x1,%eax
+   1454b:	f2 0f 11 01          	movsd  %xmm0,(%rcx)
+   1454f:	48 01 f9             	add    %rdi,%rcx
+   14552:	39 f0                	cmp    %esi,%eax
+   14554:	75 ea                	jne    14540 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x5f0>
+   14556:	41 83 c0 01          	add    $0x1,%r8d
+   1455a:	4d 01 d1             	add    %r10,%r9
+   1455d:	45 39 d8             	cmp    %r11d,%r8d
+   14560:	75 ce                	jne    14530 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x5e0>
+   14562:	4c 8b 44 24 70       	mov    0x70(%rsp),%r8
+   14567:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1456c:	31 c0                	xor    %eax,%eax
+   1456e:	48 8b 73 10          	mov    0x10(%rbx),%rsi
+   14572:	49 83 e0 f8          	and    $0xfffffffffffffff8,%r8
+   14576:	89 cf                	mov    %ecx,%edi
+   14578:	48 85 c9             	test   %rcx,%rcx
+   1457b:	7e 19                	jle    14596 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x646>
+   1457d:	0f 1f 00             	nopl   (%rax)
+   14580:	f2 0f 10 05 f8 b7 01 	movsd  0x1b7f8(%rip),%xmm0        # 2fd80 <_ZN14numeric_limitsIdE3nanE>
+   14587:	00 
+   14588:	83 c0 01             	add    $0x1,%eax
+   1458b:	f2 0f 11 06          	movsd  %xmm0,(%rsi)
+   1458f:	4c 01 c6             	add    %r8,%rsi
+   14592:	39 c7                	cmp    %eax,%edi
+   14594:	75 ea                	jne    14580 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x630>
+   14596:	48 85 ed             	test   %rbp,%rbp
+   14599:	7e 75                	jle    14610 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x6c0>
+   1459b:	4c 8b 54 24 10       	mov    0x10(%rsp),%r10
+   145a0:	49 83 e2 f8          	and    $0xfffffffffffffff8,%r10
+   145a4:	4d 85 f6             	test   %r14,%r14
+   145a7:	7e 67                	jle    14610 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x6c0>
+   145a9:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+   145ae:	4c 8b 4b 18          	mov    0x18(%rbx),%r9
+   145b2:	41 89 eb             	mov    %ebp,%r11d
+   145b5:	45 31 c0             	xor    %r8d,%r8d
+   145b8:	44 89 f6             	mov    %r14d,%esi
+   145bb:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
+   145bf:	4c 89 c9             	mov    %r9,%rcx
+   145c2:	31 c0                	xor    %eax,%eax
+   145c4:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   145cb:	00 00 00 00 
+   145cf:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   145d6:	00 00 00 00 
+   145da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   145e0:	f2 0f 10 05 98 b7 01 	movsd  0x1b798(%rip),%xmm0        # 2fd80 <_ZN14numeric_limitsIdE3nanE>
+   145e7:	00 
+   145e8:	83 c0 01             	add    $0x1,%eax
+   145eb:	f2 0f 11 01          	movsd  %xmm0,(%rcx)
+   145ef:	48 01 f9             	add    %rdi,%rcx
+   145f2:	39 c6                	cmp    %eax,%esi
+   145f4:	75 ea                	jne    145e0 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x690>
+   145f6:	41 83 c0 01          	add    $0x1,%r8d
+   145fa:	4d 01 d1             	add    %r10,%r9
+   145fd:	45 39 c3             	cmp    %r8d,%r11d
+   14600:	75 bd                	jne    145bf <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x66f>
+   14602:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14609:	00 00 00 00 
+   1460d:	0f 1f 00             	nopl   (%rax)
+   14610:	41 bb 01 00 00 00    	mov    $0x1,%r11d
+   14616:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
+   1461b:	4c 8b 7c 24 50       	mov    0x50(%rsp),%r15
+   14620:	4c 03 3b             	add    (%rbx),%r15
+   14623:	48 83 44 24 28 01    	addq   $0x1,0x28(%rsp)
+   14629:	48 01 c2             	add    %rax,%rdx
+   1462c:	4c 89 3b             	mov    %r15,(%rbx)
+   1462f:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+   14634:	48 89 53 08          	mov    %rdx,0x8(%rbx)
+   14638:	48 39 44 24 30       	cmp    %rax,0x30(%rsp)
+   1463d:	0f 85 ad fc ff ff    	jne    142f0 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x3a0>
+   14643:	44 89 5c 24 58       	mov    %r11d,0x58(%rsp)
+   14648:	4c 8b bc 24 00 01 00 	mov    0x100(%rsp),%r15
+   1464f:	00 
+   14650:	4d 89 e5             	mov    %r12,%r13
+   14653:	4c 89 ef             	mov    %r13,%rdi
+   14656:	e8 25 fe fe ff       	call   4480 <PyMem_RawFree@plt>
+   1465b:	48 8b bc 24 e0 01 00 	mov    0x1e0(%rsp),%rdi
+   14662:	00 
+   14663:	eb 3c                	jmp    146a1 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x751>
+   14665:	e8 e6 fe fe ff       	call   4550 <PyGILState_Ensure@plt>
+   1466a:	89 c3                	mov    %eax,%ebx
+   1466c:	e8 3f fb fe ff       	call   41b0 <PyErr_NoMemory@plt>
+   14671:	89 df                	mov    %ebx,%edi
+   14673:	e8 e8 fa fe ff       	call   4160 <PyGILState_Release@plt>
+   14678:	48 8b 05 61 a9 01 00 	mov    0x1a961(%rip),%rax        # 2efe0 <stderr@GLIBC_2.2.5>
+   1467f:	48 8d 15 63 57 01 00 	lea    0x15763(%rip),%rdx        # 29de9 <_fini+0x1919>
+   14686:	48 8d 35 67 57 01 00 	lea    0x15767(%rip),%rsi        # 29df4 <_fini+0x1924>
+   1468d:	48 8b 38             	mov    (%rax),%rdi
+   14690:	31 c0                	xor    %eax,%eax
+   14692:	e8 49 02 ff ff       	call   48e0 <fprintf@plt>
+   14697:	4c 89 ef             	mov    %r13,%rdi
+   1469a:	e8 e1 fd fe ff       	call   4480 <PyMem_RawFree@plt>
+   1469f:	31 ff                	xor    %edi,%edi
+   146a1:	e8 da fd fe ff       	call   4480 <PyMem_RawFree@plt>
+   146a6:	31 c0                	xor    %eax,%eax
+   146a8:	b9 0e 00 00 00       	mov    $0xe,%ecx
+   146ad:	4c 89 ff             	mov    %r15,%rdi
+   146b0:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+   146b3:	8b 44 24 58          	mov    0x58(%rsp),%eax
+   146b7:	89 84 24 90 01 00 00 	mov    %eax,0x190(%rsp)
+   146be:	85 c0                	test   %eax,%eax
+   146c0:	74 17                	je     146d9 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x789>
+   146c2:	e8 79 15 01 00       	call   25c40 <npy_set_floatstatus_invalid>
+   146c7:	48 81 c4 38 02 00 00 	add    $0x238,%rsp
+   146ce:	5b                   	pop    %rbx
+   146cf:	5d                   	pop    %rbp
+   146d0:	41 5c                	pop    %r12
+   146d2:	41 5d                	pop    %r13
+   146d4:	41 5e                	pop    %r14
+   146d6:	41 5f                	pop    %r15
+   146d8:	c3                   	ret
+   146d9:	48 8d bc 24 90 01 00 	lea    0x190(%rsp),%rdi
+   146e0:	00 
+   146e1:	e8 ba 14 01 00       	call   25ba0 <npy_clear_floatstatus_barrier>
+   146e6:	eb df                	jmp    146c7 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x777>
+   146e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   146ef:	00 
+   146f0:	31 c0                	xor    %eax,%eax
+   146f2:	48 85 d2             	test   %rdx,%rdx
+   146f5:	0f 8e c2 fc ff ff    	jle    143bd <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x46d>
+   146fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14700:	48 8b 13             	mov    (%rbx),%rdx
+   14703:	49 89 14 c6          	mov    %rdx,(%r14,%rax,8)
+   14707:	48 83 c0 01          	add    $0x1,%rax
+   1470b:	48 39 84 24 18 01 00 	cmp    %rax,0x118(%rsp)
+   14712:	00 
+   14713:	7f eb                	jg     14700 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x7b0>
+   14715:	e9 a3 fc ff ff       	jmp    143bd <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x46d>
+   1471a:	44 89 5c 24 58       	mov    %r11d,0x58(%rsp)
+   1471f:	4c 89 e1             	mov    %r12,%rcx
+   14722:	ff 74 24 08          	push   0x8(%rsp)
+   14726:	ff b4 24 f8 01 00 00 	push   0x1f8(%rsp)
+   1472d:	ff b4 24 f0 00 00 00 	push   0xf0(%rsp)
+   14734:	ff b4 24 f8 01 00 00 	push   0x1f8(%rsp)
+   1473b:	ff b4 24 f8 00 00 00 	push   0xf8(%rsp)
+   14742:	ff b4 24 00 02 00 00 	push   0x200(%rsp)
+   14749:	ff b4 24 00 01 00 00 	push   0x100(%rsp)
+   14750:	ff b4 24 08 02 00 00 	push   0x208(%rsp)
+   14757:	4c 8b 8c 24 08 02 00 	mov    0x208(%rsp),%r9
+   1475e:	00 
+   1475f:	4c 8b 84 24 08 01 00 	mov    0x108(%rsp),%r8
+   14766:	00 
+   14767:	48 8b 94 24 00 01 00 	mov    0x100(%rsp),%rdx
+   1476e:	00 
+   1476f:	48 8b b4 24 f8 00 00 	mov    0xf8(%rsp),%rsi
+   14776:	00 
+   14777:	48 8b bc 24 28 01 00 	mov    0x128(%rsp),%rdi
+   1477e:	00 
+   1477f:	e8 3c fa fe ff       	call   41c0 <scipy_dgesdd_64_@plt>
+   14784:	48 83 c4 40          	add    $0x40,%rsp
+   14788:	44 8b 5c 24 58       	mov    0x58(%rsp),%r11d
+   1478d:	48 83 bc 24 28 01 00 	cmpq   $0x0,0x128(%rsp)
+   14794:	00 00 
+   14796:	74 63                	je     147fb <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x8ab>
+   14798:	80 bc 24 28 02 00 00 	cmpb   $0x4e,0x228(%rsp)
+   1479f:	4e 
+   147a0:	4c 8b a4 24 c0 01 00 	mov    0x1c0(%rsp),%r12
+   147a7:	00 
+   147a8:	48 8b 53 08          	mov    0x8(%rbx),%rdx
+   147ac:	0f 85 3d fd ff ff    	jne    144ef <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x59f>
+   147b2:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   147b7:	48 85 c0             	test   %rax,%rax
+   147ba:	0f 8e 50 fe ff ff    	jle    14610 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x6c0>
+   147c0:	4c 8b 44 24 70       	mov    0x70(%rsp),%r8
+   147c5:	89 c7                	mov    %eax,%edi
+   147c7:	48 89 d6             	mov    %rdx,%rsi
+   147ca:	31 c0                	xor    %eax,%eax
+   147cc:	49 83 e0 f8          	and    $0xfffffffffffffff8,%r8
+   147d0:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   147d7:	00 00 00 00 
+   147db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   147e0:	f2 0f 10 05 98 b5 01 	movsd  0x1b598(%rip),%xmm0        # 2fd80 <_ZN14numeric_limitsIdE3nanE>
+   147e7:	00 
+   147e8:	83 c0 01             	add    $0x1,%eax
+   147eb:	f2 0f 11 06          	movsd  %xmm0,(%rsi)
+   147ef:	4c 01 c6             	add    %r8,%rsi
+   147f2:	39 c7                	cmp    %eax,%edi
+   147f4:	75 ea                	jne    147e0 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x890>
+   147f6:	e9 15 fe ff ff       	jmp    14610 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x6c0>
+   147fb:	0f b6 84 24 28 02 00 	movzbl 0x228(%rsp),%eax
+   14802:	00 
+   14803:	3c 4e                	cmp    $0x4e,%al
+   14805:	0f 84 78 01 00 00    	je     14983 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0xa33>
+   1480b:	3c 41                	cmp    $0x41,%al
+   1480d:	75 0e                	jne    1481d <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x8cd>
+   1480f:	80 bc 24 0f 01 00 00 	cmpb   $0x0,0x10f(%rsp)
+   14816:	00 
+   14817:	0f 85 c0 01 00 00    	jne    149dd <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0xa8d>
+   1481d:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+   14822:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+   14826:	48 8d 94 24 30 01 00 	lea    0x130(%rsp),%rdx
+   1482d:	00 
+   1482e:	44 89 5c 24 58       	mov    %r11d,0x58(%rsp)
+   14833:	48 8b b4 24 d0 01 00 	mov    0x1d0(%rsp),%rsi
+   1483a:	00 
+   1483b:	48 89 84 24 30 01 00 	mov    %rax,0x130(%rsp)
+   14842:	00 
+   14843:	48 8b 84 24 a8 00 00 	mov    0xa8(%rsp),%rax
+   1484a:	00 
+   1484b:	48 89 84 24 38 01 00 	mov    %rax,0x138(%rsp)
+   14852:	00 
+   14853:	48 8b 84 24 98 00 00 	mov    0x98(%rsp),%rax
+   1485a:	00 
+   1485b:	48 89 84 24 40 01 00 	mov    %rax,0x140(%rsp)
+   14862:	00 
+   14863:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   1486a:	00 
+   1486b:	48 89 84 24 48 01 00 	mov    %rax,0x148(%rsp)
+   14872:	00 
+   14873:	e8 98 0c ff ff       	call   5510 <_Z18delinearize_matrixIdEPvPT_S2_PK14linearize_data.isra.0>
+   14878:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   1487d:	48 8b 7b 10          	mov    0x10(%rbx),%rdi
+   14881:	48 c7 84 24 60 01 00 	movq   $0x1,0x160(%rsp)
+   14888:	00 01 00 00 00 
+   1488d:	48 8b 94 24 f0 00 00 	mov    0xf0(%rsp),%rdx
+   14894:	00 
+   14895:	48 8b b4 24 c8 01 00 	mov    0x1c8(%rsp),%rsi
+   1489c:	00 
+   1489d:	48 89 84 24 68 01 00 	mov    %rax,0x168(%rsp)
+   148a4:	00 
+   148a5:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+   148aa:	48 89 84 24 78 01 00 	mov    %rax,0x178(%rsp)
+   148b1:	00 
+   148b2:	e8 59 0c ff ff       	call   5510 <_Z18delinearize_matrixIdEPvPT_S2_PK14linearize_data.isra.0>
+   148b7:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+   148bc:	48 8b 94 24 f8 00 00 	mov    0xf8(%rsp),%rdx
+   148c3:	00 
+   148c4:	48 89 ac 24 90 01 00 	mov    %rbp,0x190(%rsp)
+   148cb:	00 
+   148cc:	48 8b 7b 18          	mov    0x18(%rbx),%rdi
+   148d0:	48 8b b4 24 d8 01 00 	mov    0x1d8(%rsp),%rsi
+   148d7:	00 
+   148d8:	4c 89 b4 24 98 01 00 	mov    %r14,0x198(%rsp)
+   148df:	00 
+   148e0:	48 89 84 24 a0 01 00 	mov    %rax,0x1a0(%rsp)
+   148e7:	00 
+   148e8:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+   148ed:	48 89 84 24 a8 01 00 	mov    %rax,0x1a8(%rsp)
+   148f4:	00 
+   148f5:	e8 16 0c ff ff       	call   5510 <_Z18delinearize_matrixIdEPvPT_S2_PK14linearize_data.isra.0>
+   148fa:	48 8b 53 08          	mov    0x8(%rbx),%rdx
+   148fe:	44 8b 5c 24 58       	mov    0x58(%rsp),%r11d
+   14903:	4c 8b a4 24 c0 01 00 	mov    0x1c0(%rsp),%r12
+   1490a:	00 
+   1490b:	e9 06 fd ff ff       	jmp    14616 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x6c6>
+   14910:	31 c0                	xor    %eax,%eax
+   14912:	31 f6                	xor    %esi,%esi
+   14914:	e9 9d fb ff ff       	jmp    144b6 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x566>
+   14919:	bf 08 00 00 00       	mov    $0x8,%edi
+   1491e:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   14924:	e9 30 f8 ff ff       	jmp    14159 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x209>
+   14929:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   1492e:	45 31 f6             	xor    %r14d,%r14d
+   14931:	31 ed                	xor    %ebp,%ebp
+   14933:	48 c7 44 24 20 00 00 	movq   $0x0,0x20(%rsp)
+   1493a:	00 00 
+   1493c:	48 c7 44 24 10 00 00 	movq   $0x0,0x10(%rsp)
+   14943:	00 00 
+   14945:	48 89 84 24 80 01 00 	mov    %rax,0x180(%rsp)
+   1494c:	00 
+   1494d:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   14954:	00 
+   14955:	48 c7 84 24 98 00 00 	movq   $0x0,0x98(%rsp)
+   1495c:	00 00 00 00 00 
+   14961:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+   14966:	48 c7 84 24 a0 00 00 	movq   $0x0,0xa0(%rsp)
+   1496d:	00 00 00 00 00 
+   14972:	48 c7 84 24 a8 00 00 	movq   $0x0,0xa8(%rsp)
+   14979:	00 00 00 00 00 
+   1497e:	e9 01 f9 ff ff       	jmp    14284 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x334>
+   14983:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   14988:	48 8b 94 24 f0 00 00 	mov    0xf0(%rsp),%rdx
+   1498f:	00 
+   14990:	44 89 5c 24 58       	mov    %r11d,0x58(%rsp)
+   14995:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+   14999:	48 8b b4 24 c8 01 00 	mov    0x1c8(%rsp),%rsi
+   149a0:	00 
+   149a1:	48 c7 84 24 60 01 00 	movq   $0x1,0x160(%rsp)
+   149a8:	00 01 00 00 00 
+   149ad:	48 89 84 24 68 01 00 	mov    %rax,0x168(%rsp)
+   149b4:	00 
+   149b5:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+   149ba:	48 89 84 24 78 01 00 	mov    %rax,0x178(%rsp)
+   149c1:	00 
+   149c2:	e8 49 0b ff ff       	call   5510 <_Z18delinearize_matrixIdEPvPT_S2_PK14linearize_data.isra.0>
+   149c7:	48 8b 53 08          	mov    0x8(%rbx),%rdx
+   149cb:	44 8b 5c 24 58       	mov    0x58(%rsp),%r11d
+   149d0:	4c 8b a4 24 c0 01 00 	mov    0x1c0(%rsp),%r12
+   149d7:	00 
+   149d8:	e9 39 fc ff ff       	jmp    14616 <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x6c6>
+   149dd:	48 8b b4 24 f8 01 00 	mov    0x1f8(%rsp),%rsi
+   149e4:	00 
+   149e5:	48 8b bc 24 d0 01 00 	mov    0x1d0(%rsp),%rdi
+   149ec:	00 
+   149ed:	44 89 5c 24 58       	mov    %r11d,0x58(%rsp)
+   149f2:	e8 69 02 ff ff       	call   4c60 <_Z15identity_matrixIdEvPT_m>
+   149f7:	48 8b b4 24 00 02 00 	mov    0x200(%rsp),%rsi
+   149fe:	00 
+   149ff:	48 8b bc 24 d8 01 00 	mov    0x1d8(%rsp),%rdi
+   14a06:	00 
+   14a07:	e8 54 02 ff ff       	call   4c60 <_Z15identity_matrixIdEvPT_m>
+   14a0c:	44 8b 5c 24 58       	mov    0x58(%rsp),%r11d
+   14a11:	e9 07 fe ff ff       	jmp    1481d <_Z11svd_wrapperIdEvcPPcPKlS3_.constprop.2+0x8cd>
+
+Disassembly of section .fini:

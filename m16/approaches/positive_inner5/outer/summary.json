@@ -1,0 +1,144 @@
+{
+  "complete": true,
+  "all99_numeric_rows_returned": true,
+  "rows": 99,
+  "reused_pilot_rows": 1,
+  "groups": [
+    {
+      "kind": "original",
+      "order": 6,
+      "parents": 11,
+      "absolute_pass": 3,
+      "relative_pass": 0,
+      "max_absolute_error": "0.0624999999999882157596118918352172115203219008527337470922835872955201688112305496293896431935888637646848957056710476485",
+      "worst_fixture": "wide48",
+      "inner_calls": 2376,
+      "named_counts": {
+        "arithmetic": 408727,
+        "comparison_boolean": 97438,
+        "abs": 28523,
+        "sqrt": 7128,
+        "finite_check": 26147
+      },
+      "named_total": 567963,
+      "opaque_det5_calls": 11,
+      "diagnostic_decimal_group_additions": 0
+    },
+    {
+      "kind": "original",
+      "order": 10,
+      "parents": 11,
+      "absolute_pass": 4,
+      "relative_pass": 5,
+      "max_absolute_error": "0.0624999999999690041739321970476325879461451686646808850761733757217595888162344713169926400197607387646848957056710476485",
+      "worst_fixture": "wide48",
+      "inner_calls": 11000,
+      "named_counts": {
+        "arithmetic": 1892055,
+        "comparison_boolean": 451022,
+        "abs": 132011,
+        "sqrt": 33000,
+        "finite_check": 121011
+      },
+      "named_total": 2629099,
+      "opaque_det5_calls": 11,
+      "diagnostic_decimal_group_additions": 0
+    },
+    {
+      "kind": "original",
+      "order": 16,
+      "parents": 11,
+      "absolute_pass": 6,
+      "relative_pass": 7,
+      "max_absolute_error": "0.0624999999999232628084512530244667075483244592538899180756248631774039716786086578328007454885107387646848957056710476485",
+      "worst_fixture": "wide48",
+      "inner_calls": 45056,
+      "named_counts": {
+        "arithmetic": 7749687,
+        "comparison_boolean": 1847318,
+        "abs": 540683,
+        "sqrt": 135168,
+        "finite_check": 495627
+      },
+      "named_total": 10768483,
+      "opaque_det5_calls": 11,
+      "diagnostic_decimal_group_additions": 0
+    },
+    {
+      "kind": "split",
+      "order": 6,
+      "parents": 11,
+      "absolute_pass": 3,
+      "relative_pass": 0,
+      "max_absolute_error": "0.0000610999653212806204622148206555386418129584349949276159516854811724664271190781552189583791357387646848957056710476485",
+      "worst_fixture": "wide48",
+      "inner_calls": 4752,
+      "named_counts": {
+        "arithmetic": 819182,
+        "comparison_boolean": 194876,
+        "abs": 57046,
+        "sqrt": 14256,
+        "finite_check": 52294
+      },
+      "named_total": 1137654,
+      "opaque_det5_calls": 22,
+      "diagnostic_decimal_group_additions": 11
+    },
+    {
+      "kind": "split",
+      "order": 10,
+      "parents": 11,
+      "absolute_pass": 4,
+      "relative_pass": 6,
+      "max_absolute_error": "1.001734577167179807647118192400186562110608965591884138430805205392640881670877148710991835679067792619291177202132E-7",
+      "worst_fixture": "wide35",
+      "inner_calls": 22000,
+      "named_counts": {
+        "arithmetic": 3792110,
+        "comparison_boolean": 902044,
+        "abs": 264022,
+        "sqrt": 66000,
+        "finite_check": 242022
+      },
+      "named_total": 5266198,
+      "opaque_det5_calls": 22,
+      "diagnostic_decimal_group_additions": 11
+    },
+    {
+      "kind": "split",
+      "order": 16,
+      "parents": 11,
+      "absolute_pass": 11,
+      "relative_pass": 11,
+      "max_absolute_error": "5.1885555077213169043554367662286033076031686231744405803734414162968585191212272409010279046716384264140111047E-12",
+      "worst_fixture": "wide22",
+      "inner_calls": 90112,
+      "named_counts": {
+        "arithmetic": 15532142,
+        "comparison_boolean": 3694636,
+        "abs": 1081366,
+        "sqrt": 270336,
+        "finite_check": 991254
+      },
+      "named_total": 21569734,
+      "opaque_det5_calls": 22,
+      "diagnostic_decimal_group_additions": 11
+    }
+  ],
+  "all_inner_calls": 175296,
+  "new_inner_calls": 171200,
+  "research_full_cpu": 8.462017636999999,
+  "prior_pilot_cpu": 0.175811203,
+  "mapping_arithmetic_canonical": 96,
+  "mapping_arithmetic_staged": 192,
+  "full_sha256": "fe93e00d6484ec8a9190d7c5cf1d2940117bccb1bcd5c80a1ac160f15b027381",
+  "review": "pending independent saved full audit",
+  "limitations": [
+    "no trained/model/rung claim",
+    "named primitive vs4D legacy proxy not full matched cost",
+    "opaque determinant/setup/runtime remain",
+    "Decimal parent sums diagnostic only",
+    "ideal exact-inner polynomial bound excludes actualFP",
+    "finite original wide failures fit independently checked fixed-chart theorem"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "arms": [
+    {
+      "arm": "original",
+      "value": 0.47710001754048736,
+      "legacy": 65934700,
+      "explicit_with_constant_setup": 148561137,
+      "conditional_source_with_constant_setup": 252465096,
+      "cpu_seconds": 13.824709331,
+      "maxrss_kib": 215464,
+      "model_sha256": "086adb1db3b6e947f6315315ebc04deee650fd3ecd88b1a40a7f90417841515d",
+      "closures_by_native": {
+        "np.lexsort": 8629307,
+        "np.searchsorted": 2750784,
+        "np.argsort": 92523868
+      },
+      "opaque_calls": 57344
+    },
+    {
+      "arm": "tile",
+      "value": 0.47710001754048736,
+      "legacy": 65934700,
+      "explicit_with_constant_setup": 148561137,
+      "conditional_source_with_constant_setup": 252465096,
+      "cpu_seconds": 14.181145579999999,
+      "maxrss_kib": 215468,
+      "model_sha256": "086adb1db3b6e947f6315315ebc04deee650fd3ecd88b1a40a7f90417841515d",
+      "closures_by_native": {
+        "np.lexsort": 8629307,
+        "np.searchsorted": 2750784,
+        "np.argsort": 92523868
+      },
+      "opaque_calls": 57344
+    }
+  ],
+  "archives": [
+    {
+      "path": "model_h64_original.json.gz",
+      "raw_sha256": "ceb33bb5d5de66d33f98792d5eb731b7aa470ab685ffb41d8fa1dde4b246fd63",
+      "compressed_sha256": "0116b148d914f44fcd3d8d470816323189a421776cb09eb66719f5826822d3d2",
+      "raw_bytes": 17193078,
+      "compressed_bytes": 275511
+    },
+    {
+      "path": "model_h64_tile.json.gz",
+      "raw_sha256": "4c2888d6b928e9faefb83d943981317ad81cd20cdeb64e0c254a444368f59728",
+      "compressed_sha256": "1a6500e5e97673a1d65501954725b58523efd8b91e6ff3e0ad126f910d93222f",
+      "raw_bytes": 17193008,
+      "compressed_bytes": 275612
+    }
+  ],
+  "scope": "One existing clean seed0 h64 case; no panel transfer. Source closure allowances are mixed-category and conditional on pinned native paths, not a complete runtime budget.",
+  "archive_cpu_seconds": 0.727906241
+}

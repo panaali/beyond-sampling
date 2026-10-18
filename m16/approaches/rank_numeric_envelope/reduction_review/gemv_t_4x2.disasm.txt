@@ -1,0 +1,49 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000a3fdc0 <dgemv_kernel_4x2>:
+  a3fdc0:	31 c0                	xor    %eax,%eax
+  a3fdc2:	66 45 0f 57 d2       	xorpd  %xmm10,%xmm10
+  a3fdc7:	66 45 0f 57 db       	xorpd  %xmm11,%xmm11
+  a3fdcc:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a3fdd3:	74 2b                	je     a3fe00 <dgemv_kernel_4x2+0x40>
+  a3fdd5:	44 0f 10 34 c1       	movups (%rcx,%rax,8),%xmm14
+  a3fdda:	44 0f 10 24 c6       	movups (%rsi,%rax,8),%xmm12
+  a3fddf:	44 0f 10 2c c2       	movups (%rdx,%rax,8),%xmm13
+  a3fde4:	66 45 0f 59 e6       	mulpd  %xmm14,%xmm12
+  a3fde9:	66 45 0f 59 ee       	mulpd  %xmm14,%xmm13
+  a3fdee:	48 83 c0 02          	add    $0x2,%rax
+  a3fdf2:	66 45 0f 58 d4       	addpd  %xmm12,%xmm10
+  a3fdf7:	48 83 ef 02          	sub    $0x2,%rdi
+  a3fdfb:	66 45 0f 58 dd       	addpd  %xmm13,%xmm11
+  a3fe00:	48 83 ff 00          	cmp    $0x0,%rdi
+  a3fe04:	74 53                	je     a3fe59 <dgemv_kernel_4x2+0x99>
+  a3fe06:	44 0f 10 34 c1       	movups (%rcx,%rax,8),%xmm14
+  a3fe0b:	44 0f 10 24 c6       	movups (%rsi,%rax,8),%xmm12
+  a3fe10:	44 0f 10 2c c2       	movups (%rdx,%rax,8),%xmm13
+  a3fe15:	66 45 0f 59 e6       	mulpd  %xmm14,%xmm12
+  a3fe1a:	66 45 0f 59 ee       	mulpd  %xmm14,%xmm13
+  a3fe1f:	66 45 0f 58 d4       	addpd  %xmm12,%xmm10
+  a3fe24:	66 45 0f 58 dd       	addpd  %xmm13,%xmm11
+  a3fe29:	44 0f 10 74 c1 10    	movups 0x10(%rcx,%rax,8),%xmm14
+  a3fe2f:	44 0f 10 64 c6 10    	movups 0x10(%rsi,%rax,8),%xmm12
+  a3fe35:	44 0f 10 6c c2 10    	movups 0x10(%rdx,%rax,8),%xmm13
+  a3fe3b:	66 45 0f 59 e6       	mulpd  %xmm14,%xmm12
+  a3fe40:	66 45 0f 59 ee       	mulpd  %xmm14,%xmm13
+  a3fe45:	66 45 0f 58 d4       	addpd  %xmm12,%xmm10
+  a3fe4a:	66 45 0f 58 dd       	addpd  %xmm13,%xmm11
+  a3fe4f:	48 83 c0 04          	add    $0x4,%rax
+  a3fe53:	48 83 ef 04          	sub    $0x4,%rdi
+  a3fe57:	75 ad                	jne    a3fe06 <dgemv_kernel_4x2+0x46>
+  a3fe59:	66 45 0f 7c d2       	haddpd %xmm10,%xmm10
+  a3fe5e:	66 45 0f 7c db       	haddpd %xmm11,%xmm11
+  a3fe63:	f2 45 0f 11 10       	movsd  %xmm10,(%r8)
+  a3fe68:	f2 45 0f 11 58 08    	movsd  %xmm11,0x8(%r8)
+  a3fe6e:	c5 f8 77             	vzeroupper
+  a3fe71:	c3                   	ret
+  a3fe72:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3fe79:	00 00 00 00 
+  a3fe7d:	0f 1f 00             	nopl   (%rax)

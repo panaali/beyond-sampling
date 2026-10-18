@@ -1,0 +1,91 @@
+{
+  "task_scope": "6023082d",
+  "pins": {
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dgelq2.f": "734265a20a4dfb0f53e3effcc14d673650daa2fdeca0f0abe3768d697af68317",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasq2.f": "43d06a5f5af11ad63118fe286b6b9cfffe24fd714e61aee22bbd97164555c932",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlas2.f": "2b0444fcdba6cd42b208bf0590805ec7c1e066be9280ebf8667b4d1fd6dea615",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dgesdd.f": "635f6dfddfa76cc4253d7ba32309c7cba7d2315119696f486796155c6cda5b51",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasq1.f": "dcc04e30769711aad6dfca03ff40c93288b92c80674ca8e2ff799bea0f390238",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dbdsdc.f": "3c9e4313f1aa50e09e99825b7531efa7f59927cd84c95ec0a3a964ecaa5be2f0",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dgeqr2.f": "f403a93cdcdbd7cb4cb01e6f7bbd529aa863aacf56cd151f663f1bb06e3c45da",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasq4.f": "95c718b85d4af144ca2e64cfc91394db53b1a06880f2b34116d8b4d8a4436650",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlascl.f": "ed3b4c67496d04841714e2c73fceeb635f1f4868aed0d0594f1b6f6fce85675e",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlarf.f": "75786700324de5195e8b3d3d598a734fa5fa2329df4ae544f5b419bb33bc8080",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dgebd2.f": "0e589277c139f8515774fd04bbda8c3ea4a69cdf2aaae8792ed197f1e7a8ef10",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlarfg.f": "d7be4bccab231b0b1bc1751504686396b721be045c1c2d66117b805f3f738a63",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlarf1f.f": "665f4ac6f083f50477750631d3bc2a372243f2ffa97c25c989aa96e704c9888a",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasdq.f": "cddb5ac41c7bf83e97daed823b8f5633bf369bd40b6c07b8be69dc77972778f8",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasq6.f": "32f8e1a79d01ab1afb7218a323553292f0959fc62f6e65318dfe70595567546e",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dbdsqr.f": "1d5dc6ad3df339a2cb1b0474ba93083d52f05e05e67a072dc6596df7581b667d",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasq3.f": "6a4a69b7db8c1e27217d43f678711d36e68bf2420488c75febed8c5f1f24172c",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/upstream_dlasq5.f": "00bb0a57834ee246a0d07609754df203a7865a0b0c325b528711a91428860a89",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_cost_review/environment.json": "354fdd28aa012c900b6204642fb9bceb2b7bf55aa44579027d405ed527fdfa23",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_runtime_census/summary.json": "7d24ae8871622b15b0c2bd2067f4204f2d8a32d808229ac40892a3e724cf9e67",
+    "/workspace/work/recover-small_h4_4/m16/approaches/rank_runtime_census/spy.c": "0ede5f5d08d25f6e060692d89aceff6a7420e106fd7a791c69bba473a4f4c122",
+    "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_umath_linalg.cpython-312-x86_64-linux-gnu.so": "2e075f582c3a25a21fe97a55931a0fdb22ceb84f4fce8203a5040d405ccf65ce",
+    "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96"
+  },
+  "first_kernel": "DLASQ5 only; no full-rank claim",
+  "cost_units": "one per floating +,-,*,/,negation and scalar numeric comparison/MIN. Integer indexing/loop control and memory are separate unpriced categories. No hardware instruction claim.",
+  "controls": {
+    "active_lengths": [
+      3,
+      4
+    ],
+    "i0": [
+      1,
+      2
+    ],
+    "pp": [
+      0,
+      1
+    ],
+    "tau": [
+      0,
+      0.125,
+      4,
+      8.673617379884035e-19
+    ],
+    "ieee": [
+      false,
+      true
+    ],
+    "sigma": 0.5,
+    "eps": 2.220446049250313e-16,
+    "initial_z": "z[j]=1+j/8 for j=0..4*n0-1"
+  },
+  "control_scope": "Source counted translation versus pinned installed Q5 outputs; finite controls do not prove whole-source build equivalence. Save all failures before assessing.",
+  "census_scope": "Use actual reviewed Q5 rows only; active-length m and ping-pong n semantics from pinned spy.c. No outer retry bound inferred.",
+  "absolute_tolerance": 1e-13,
+  "relative_tolerance": 2e-13,
+  "bitwise_parity_reported_separately": true,
+  "reflector_controls": {
+    "n": [
+      1,
+      2,
+      4,
+      24
+    ],
+    "incx": [
+      1,
+      3
+    ],
+    "alpha": [
+      0,
+      1,
+      -1,
+      1e-310,
+      -1e-310
+    ],
+    "x_patterns": [
+      "zero",
+      "positive",
+      "alternating",
+      "tiny_positive"
+    ],
+    "x_formula": "selected x_j=(1+j/8), signs alternate for alternating; times1e-310 for tiny; padding=-17",
+    "reference": "Native top-level DLARFG versus counted source with native child calls. Checks exclusive wrapper/control arithmetic only, not child correctness or child cost.",
+    "loop_bound": 20,
+    "child_pricing": "Unpriced; explicit call-length upper envelopes. SIGN counted as named unit, not an assertion about its internal implementation."
+  }
+}

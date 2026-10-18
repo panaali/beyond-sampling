@@ -1,0 +1,47 @@
+{
+  "index": 89,
+  "n": 1000000,
+  "target_n": 1000000,
+  "planned_total_n": 100000000,
+  "batch": 500000,
+  "seed_crc32": 3184932893,
+  "model_sha256": "ef22df10439aa5f65366a09e3cf1a42b3a8874bb1f7ee5eea68823bfaf52c9e9",
+  "source_pins": {
+    "/workspace/work/recover-small_h4_4/m16/arc_eval.py": "c1478af7ad5cdd9d88d1d467506cf715a028dc9acd3429d2ae83c01ec72ad786",
+    "/workspace/work/recover-small_h4_4/m16/approaches/fibre_t4_recovery/noise_reference.py": "632346d215851986005c81732286b88d88279ece287d92a0ad75d7f10b046ef3"
+  },
+  "rng_before": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 44750534308917284352997946242981891280,
+      "inc": 231547804617795667510427603814956111773
+    },
+    "has_uint32": 0,
+    "uinteger": 0
+  },
+  "complete": true,
+  "hits": 606286,
+  "batches": [
+    {
+      "n": 500000,
+      "hits": 302995
+    },
+    {
+      "n": 500000,
+      "hits": 303291
+    }
+  ],
+  "dtype": "float64",
+  "semantics": "shared arc_eval.forward with T=4; first-index numpy.argmax; original numpy.argsort second-largest truth",
+  "rng_after": {
+    "bit_generator": "PCG64",
+    "state": {
+      "state": 136427130743879926358018604979179041526,
+      "inc": 231547804617795667510427603814956111773
+    },
+    "has_uint32": 0,
+    "uinteger": 0
+  },
+  "cpu_seconds": 0.25003178800000025,
+  "max_rss_kib": 193464
+}

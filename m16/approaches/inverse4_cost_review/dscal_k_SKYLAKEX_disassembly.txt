@@ -1,0 +1,245 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a3df40 <dscal_k_SKYLAKEX>:
+  a3df40:	55                   	push   %rbp
+  a3df41:	c5 f9 28 c8          	vmovapd %xmm0,%xmm1
+  a3df45:	4d 89 c1             	mov    %r8,%r9
+  a3df48:	48 89 e5             	mov    %rsp,%rbp
+  a3df4b:	41 55                	push   %r13
+  a3df4d:	41 54                	push   %r12
+  a3df4f:	49 89 cc             	mov    %rcx,%r12
+  a3df52:	53                   	push   %rbx
+  a3df53:	48 89 fb             	mov    %rdi,%rbx
+  a3df56:	48 83 e4 c0          	and    $0xffffffffffffffc0,%rsp
+  a3df5a:	48 83 ec 40          	sub    $0x40,%rsp
+  a3df5e:	48 83 7d 20 01       	cmpq   $0x1,0x20(%rbp)
+  a3df63:	c5 fb 11 44 24 38    	vmovsd %xmm0,0x38(%rsp)
+  a3df69:	75 75                	jne    a3dfe0 <dscal_k_SKYLAKEX+0xa0>
+  a3df6b:	c5 f9 57 c0          	vxorpd %xmm0,%xmm0,%xmm0
+  a3df6f:	ba 00 00 00 00       	mov    $0x0,%edx
+  a3df74:	c5 f9 2e c8          	vucomisd %xmm0,%xmm1
+  a3df78:	0f 9b c0             	setnp  %al
+  a3df7b:	0f 45 c2             	cmovne %edx,%eax
+  a3df7e:	84 c0                	test   %al,%al
+  a3df80:	74 5e                	je     a3dfe0 <dscal_k_SKYLAKEX+0xa0>
+  a3df82:	49 89 fa             	mov    %rdi,%r10
+  a3df85:	49 83 e2 f8          	and    $0xfffffffffffffff8,%r10
+  a3df89:	49 83 f8 01          	cmp    $0x1,%r8
+  a3df8d:	0f 84 4d 01 00 00    	je     a3e0e0 <dscal_k_SKYLAKEX+0x1a0>
+  a3df93:	4d 85 d2             	test   %r10,%r10
+  a3df96:	0f 8f e4 01 00 00    	jg     a3e180 <dscal_k_SKYLAKEX+0x240>
+  a3df9c:	45 31 d2             	xor    %r10d,%r10d
+  a3df9f:	31 c0                	xor    %eax,%eax
+  a3dfa1:	4c 39 d3             	cmp    %r10,%rbx
+  a3dfa4:	7e 2d                	jle    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3dfa6:	c5 fb 10 4c 24 38    	vmovsd 0x38(%rsp),%xmm1
+  a3dfac:	49 c1 e1 03          	shl    $0x3,%r9
+  a3dfb0:	49 8d 04 c4          	lea    (%r12,%rax,8),%rax
+  a3dfb4:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3dfbb:	00 00 00 00 
+  a3dfbf:	90                   	nop
+  a3dfc0:	c5 f3 59 00          	vmulsd (%rax),%xmm1,%xmm0
+  a3dfc4:	49 ff c2             	inc    %r10
+  a3dfc7:	c5 fb 11 00          	vmovsd %xmm0,(%rax)
+  a3dfcb:	4c 01 c8             	add    %r9,%rax
+  a3dfce:	4c 39 d3             	cmp    %r10,%rbx
+  a3dfd1:	75 ed                	jne    a3dfc0 <dscal_k_SKYLAKEX+0x80>
+  a3dfd3:	48 8d 65 e8          	lea    -0x18(%rbp),%rsp
+  a3dfd7:	31 c0                	xor    %eax,%eax
+  a3dfd9:	5b                   	pop    %rbx
+  a3dfda:	41 5c                	pop    %r12
+  a3dfdc:	41 5d                	pop    %r13
+  a3dfde:	5d                   	pop    %rbp
+  a3dfdf:	c3                   	ret
+  a3dfe0:	49 83 f9 01          	cmp    $0x1,%r9
+  a3dfe4:	0f 84 96 00 00 00    	je     a3e080 <dscal_k_SKYLAKEX+0x140>
+  a3dfea:	c5 f9 57 c0          	vxorpd %xmm0,%xmm0,%xmm0
+  a3dfee:	c5 f9 2e c8          	vucomisd %xmm0,%xmm1
+  a3dff2:	0f 8a 28 01 00 00    	jp     a3e120 <dscal_k_SKYLAKEX+0x1e0>
+  a3dff8:	0f 85 22 01 00 00    	jne    a3e120 <dscal_k_SKYLAKEX+0x1e0>
+  a3dffe:	48 89 d8             	mov    %rbx,%rax
+  a3e001:	48 83 e0 fe          	and    $0xfffffffffffffffe,%rax
+  a3e005:	0f 8e 73 02 00 00    	jle    a3e27e <dscal_k_SKYLAKEX+0x33e>
+  a3e00b:	4c 89 ce             	mov    %r9,%rsi
+  a3e00e:	4b 8d 3c 09          	lea    (%r9,%r9,1),%rdi
+  a3e012:	4c 89 e2             	mov    %r12,%rdx
+  a3e015:	31 c9                	xor    %ecx,%ecx
+  a3e017:	48 c1 e6 04          	shl    $0x4,%rsi
+  a3e01b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a3e020:	48 83 c1 02          	add    $0x2,%rcx
+  a3e024:	48 c7 02 00 00 00 00 	movq   $0x0,(%rdx)
+  a3e02b:	4a c7 04 ca 00 00 00 	movq   $0x0,(%rdx,%r9,8)
+  a3e032:	00 
+  a3e033:	48 01 f2             	add    %rsi,%rdx
+  a3e036:	48 39 c8             	cmp    %rcx,%rax
+  a3e039:	7f e5                	jg     a3e020 <dscal_k_SKYLAKEX+0xe0>
+  a3e03b:	48 8d 50 ff          	lea    -0x1(%rax),%rdx
+  a3e03f:	48 d1 ea             	shr    $1,%rdx
+  a3e042:	48 ff c2             	inc    %rdx
+  a3e045:	48 0f af d7          	imul   %rdi,%rdx
+  a3e049:	48 39 c3             	cmp    %rax,%rbx
+  a3e04c:	7e 85                	jle    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e04e:	49 c1 e1 03          	shl    $0x3,%r9
+  a3e052:	49 8d 14 d4          	lea    (%r12,%rdx,8),%rdx
+  a3e056:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a3e05d:	00 00 00 
+  a3e060:	48 ff c0             	inc    %rax
+  a3e063:	48 c7 02 00 00 00 00 	movq   $0x0,(%rdx)
+  a3e06a:	4c 01 ca             	add    %r9,%rdx
+  a3e06d:	48 39 c3             	cmp    %rax,%rbx
+  a3e070:	75 ee                	jne    a3e060 <dscal_k_SKYLAKEX+0x120>
+  a3e072:	48 8d 65 e8          	lea    -0x18(%rbp),%rsp
+  a3e076:	31 c0                	xor    %eax,%eax
+  a3e078:	5b                   	pop    %rbx
+  a3e079:	41 5c                	pop    %r12
+  a3e07b:	41 5d                	pop    %r13
+  a3e07d:	5d                   	pop    %rbp
+  a3e07e:	c3                   	ret
+  a3e07f:	90                   	nop
+  a3e080:	49 89 dd             	mov    %rbx,%r13
+  a3e083:	c5 f9 57 c0          	vxorpd %xmm0,%xmm0,%xmm0
+  a3e087:	49 83 e5 f8          	and    $0xfffffffffffffff8,%r13
+  a3e08b:	c5 f9 2e c8          	vucomisd %xmm0,%xmm1
+  a3e08f:	0f 8a 0b 01 00 00    	jp     a3e1a0 <dscal_k_SKYLAKEX+0x260>
+  a3e095:	0f 85 05 01 00 00    	jne    a3e1a0 <dscal_k_SKYLAKEX+0x260>
+  a3e09b:	4d 85 ed             	test   %r13,%r13
+  a3e09e:	7e 12                	jle    a3e0b2 <dscal_k_SKYLAKEX+0x172>
+  a3e0a0:	4a 8d 14 ed 00 00 00 	lea    0x0(,%r13,8),%rdx
+  a3e0a7:	00 
+  a3e0a8:	31 f6                	xor    %esi,%esi
+  a3e0aa:	4c 89 e7             	mov    %r12,%rdi
+  a3e0ad:	e8 5e 60 64 ff       	call   84110 <memset@plt>
+  a3e0b2:	4c 39 eb             	cmp    %r13,%rbx
+  a3e0b5:	0f 8e 18 ff ff ff    	jle    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e0bb:	4c 29 eb             	sub    %r13,%rbx
+  a3e0be:	4b 8d 3c ec          	lea    (%r12,%r13,8),%rdi
+  a3e0c2:	31 f6                	xor    %esi,%esi
+  a3e0c4:	48 8d 14 dd 00 00 00 	lea    0x0(,%rbx,8),%rdx
+  a3e0cb:	00 
+  a3e0cc:	e8 3f 60 64 ff       	call   84110 <memset@plt>
+  a3e0d1:	e9 fd fe ff ff       	jmp    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e0d6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a3e0dd:	00 00 00 
+  a3e0e0:	4d 85 d2             	test   %r10,%r10
+  a3e0e3:	0f 8f f7 00 00 00    	jg     a3e1e0 <dscal_k_SKYLAKEX+0x2a0>
+  a3e0e9:	4c 39 d3             	cmp    %r10,%rbx
+  a3e0ec:	0f 8e e1 fe ff ff    	jle    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e0f2:	4b 8d 04 d4          	lea    (%r12,%r10,8),%rax
+  a3e0f6:	49 8d 14 dc          	lea    (%r12,%rbx,8),%rdx
+  a3e0fa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3e100:	c5 f3 59 00          	vmulsd (%rax),%xmm1,%xmm0
+  a3e104:	48 83 c0 08          	add    $0x8,%rax
+  a3e108:	c5 fb 11 40 f8       	vmovsd %xmm0,-0x8(%rax)
+  a3e10d:	48 39 c2             	cmp    %rax,%rdx
+  a3e110:	75 ee                	jne    a3e100 <dscal_k_SKYLAKEX+0x1c0>
+  a3e112:	48 8d 65 e8          	lea    -0x18(%rbp),%rsp
+  a3e116:	31 c0                	xor    %eax,%eax
+  a3e118:	5b                   	pop    %rbx
+  a3e119:	41 5c                	pop    %r12
+  a3e11b:	41 5d                	pop    %r13
+  a3e11d:	5d                   	pop    %rbp
+  a3e11e:	c3                   	ret
+  a3e11f:	90                   	nop
+  a3e120:	49 89 da             	mov    %rbx,%r10
+  a3e123:	49 83 e2 f8          	and    $0xfffffffffffffff8,%r10
+  a3e127:	0f 8f f3 00 00 00    	jg     a3e220 <dscal_k_SKYLAKEX+0x2e0>
+  a3e12d:	45 31 d2             	xor    %r10d,%r10d
+  a3e130:	31 c0                	xor    %eax,%eax
+  a3e132:	49 39 da             	cmp    %rbx,%r10
+  a3e135:	0f 8d 98 fe ff ff    	jge    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e13b:	c5 fb 10 4c 24 38    	vmovsd 0x38(%rsp),%xmm1
+  a3e141:	49 c1 e1 03          	shl    $0x3,%r9
+  a3e145:	49 8d 04 c4          	lea    (%r12,%rax,8),%rax
+  a3e149:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3e150:	00 00 00 00 
+  a3e154:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3e15b:	00 00 00 00 
+  a3e15f:	90                   	nop
+  a3e160:	c5 f3 59 00          	vmulsd (%rax),%xmm1,%xmm0
+  a3e164:	49 ff c2             	inc    %r10
+  a3e167:	c5 fb 11 00          	vmovsd %xmm0,(%rax)
+  a3e16b:	4c 01 c8             	add    %r9,%rax
+  a3e16e:	4c 39 d3             	cmp    %r10,%rbx
+  a3e171:	75 ed                	jne    a3e160 <dscal_k_SKYLAKEX+0x220>
+  a3e173:	48 8d 65 e8          	lea    -0x18(%rbp),%rsp
+  a3e177:	31 c0                	xor    %eax,%eax
+  a3e179:	5b                   	pop    %rbx
+  a3e17a:	41 5c                	pop    %r12
+  a3e17c:	41 5d                	pop    %r13
+  a3e17e:	5d                   	pop    %rbp
+  a3e17f:	c3                   	ret
+  a3e180:	48 8d 74 24 38       	lea    0x38(%rsp),%rsi
+  a3e185:	4c 89 c1             	mov    %r8,%rcx
+  a3e188:	4c 89 e2             	mov    %r12,%rdx
+  a3e18b:	4c 89 d7             	mov    %r10,%rdi
+  a3e18e:	e8 0d fd ff ff       	call   a3dea0 <dscal_kernel_inc_8>
+  a3e193:	4c 89 c8             	mov    %r9,%rax
+  a3e196:	49 0f af c2          	imul   %r10,%rax
+  a3e19a:	e9 02 fe ff ff       	jmp    a3dfa1 <dscal_k_SKYLAKEX+0x61>
+  a3e19f:	90                   	nop
+  a3e1a0:	4d 85 ed             	test   %r13,%r13
+  a3e1a3:	0f 8f 97 00 00 00    	jg     a3e240 <dscal_k_SKYLAKEX+0x300>
+  a3e1a9:	4c 39 eb             	cmp    %r13,%rbx
+  a3e1ac:	0f 8e 21 fe ff ff    	jle    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e1b2:	4b 8d 04 ec          	lea    (%r12,%r13,8),%rax
+  a3e1b6:	49 8d 14 dc          	lea    (%r12,%rbx,8),%rdx
+  a3e1ba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3e1c0:	c5 f3 59 00          	vmulsd (%rax),%xmm1,%xmm0
+  a3e1c4:	48 83 c0 08          	add    $0x8,%rax
+  a3e1c8:	c5 fb 11 40 f8       	vmovsd %xmm0,-0x8(%rax)
+  a3e1cd:	48 39 d0             	cmp    %rdx,%rax
+  a3e1d0:	75 ee                	jne    a3e1c0 <dscal_k_SKYLAKEX+0x280>
+  a3e1d2:	e9 fc fd ff ff       	jmp    a3dfd3 <dscal_k_SKYLAKEX+0x93>
+  a3e1d7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a3e1de:	00 00 
+  a3e1e0:	4a 8d 14 d5 f8 ff ff 	lea    -0x8(,%r10,8),%rdx
+  a3e1e7:	ff 
+  a3e1e8:	62 f2 fd 48 19 d1    	vbroadcastsd %xmm1,%zmm2
+  a3e1ee:	48 89 c8             	mov    %rcx,%rax
+  a3e1f1:	48 83 e2 c0          	and    $0xffffffffffffffc0,%rdx
+  a3e1f5:	48 8d 54 11 40       	lea    0x40(%rcx,%rdx,1),%rdx
+  a3e1fa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3e200:	62 f1 ed 48 59 00    	vmulpd (%rax),%zmm2,%zmm0
+  a3e206:	48 83 c0 40          	add    $0x40,%rax
+  a3e20a:	62 f1 fd 48 11 40 ff 	vmovupd %zmm0,-0x40(%rax)
+  a3e211:	48 39 c2             	cmp    %rax,%rdx
+  a3e214:	75 ea                	jne    a3e200 <dscal_k_SKYLAKEX+0x2c0>
+  a3e216:	c5 f8 77             	vzeroupper
+  a3e219:	e9 cb fe ff ff       	jmp    a3e0e9 <dscal_k_SKYLAKEX+0x1a9>
+  a3e21e:	66 90                	xchg   %ax,%ax
+  a3e220:	48 8d 74 24 38       	lea    0x38(%rsp),%rsi
+  a3e225:	4c 89 c9             	mov    %r9,%rcx
+  a3e228:	4c 89 e2             	mov    %r12,%rdx
+  a3e22b:	4c 89 d7             	mov    %r10,%rdi
+  a3e22e:	e8 6d fc ff ff       	call   a3dea0 <dscal_kernel_inc_8>
+  a3e233:	4c 89 c8             	mov    %r9,%rax
+  a3e236:	49 0f af c2          	imul   %r10,%rax
+  a3e23a:	e9 f3 fe ff ff       	jmp    a3e132 <dscal_k_SKYLAKEX+0x1f2>
+  a3e23f:	90                   	nop
+  a3e240:	62 f2 fd 48 19 d1    	vbroadcastsd %xmm1,%zmm2
+  a3e246:	4c 89 e0             	mov    %r12,%rax
+  a3e249:	4b 8d 14 ec          	lea    (%r12,%r13,8),%rdx
+  a3e24d:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3e254:	00 00 00 00 
+  a3e258:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  a3e25f:	00 
+  a3e260:	62 f1 ed 48 59 00    	vmulpd (%rax),%zmm2,%zmm0
+  a3e266:	48 83 c0 40          	add    $0x40,%rax
+  a3e26a:	62 f1 fd 48 11 40 ff 	vmovupd %zmm0,-0x40(%rax)
+  a3e271:	48 39 d0             	cmp    %rdx,%rax
+  a3e274:	75 ea                	jne    a3e260 <dscal_k_SKYLAKEX+0x320>
+  a3e276:	c5 f8 77             	vzeroupper
+  a3e279:	e9 2b ff ff ff       	jmp    a3e1a9 <dscal_k_SKYLAKEX+0x269>
+  a3e27e:	31 c0                	xor    %eax,%eax
+  a3e280:	31 d2                	xor    %edx,%edx
+  a3e282:	e9 c2 fd ff ff       	jmp    a3e049 <dscal_k_SKYLAKEX+0x109>
+
+Disassembly of section .fini:

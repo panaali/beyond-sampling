@@ -1,0 +1,13 @@
+# T180 saved outer-coverage census
+
+Claim4f3a8a12, sourcef5bb92ea; independent source gate passed before the single saved-data run. All48 components reconcile the prior independently reviewed source totals. Component12 native/memory calls were reconstructed from its preparation and144 raw cells exactly once because its summary does not store those fields; original summary and failed run are untouched. Research CPU3.194381075, peak112760KiB, zero estimator/model/mass/reference evaluations.
+
+Component numeric1,825,974,971 plus integer12,576,857 minus diagnostic159,150 gives1,838,392,678. Original cold/outer6,980 gives1,838,399,658. Previously independently reviewed additional cold295,652 yields unchanged qualified hybrid1,838,695,310. No new kernel price was added.
+
+The largest remaining named expression subsets are matrix857,804,265 and norm123,008,922. Clip n@v alone contributes372,547,950 matrix expression units. Wrapped calls show20,501,487 norm and183,552 explicit dot calls, all length3 to scalar. Row3 sum calls952,153 produce34,555,811 output elements; many matrix operations are binary AST sites, whose saved counts do not retain operand shapes/layouts. Source can constrain selected dimensions, but installed dispatch must be independently established.
+
+The descriptive call grouping is not a native cost model. By-name/group input/output element totals include only parseable integer shapes:17,185 heterogeneous input-shape keys, covering109,459 calls, are omitted from those element totals and explicitly counted separately. Per-call dtype, strides, layout, values and runtime targets were not saved. No automatic reuse of length4 norm/dot or4x4 matrix audits is valid.
+
+Promising next finite discriminator: establish source shape/layout and installed NumPy DOUBLE_dot/CBLAS/selected-kernel correspondence for length3 norm/dot and vector-matmul, using frozen controls and reviewed target guards. Recover56 owns the separate mass length4/128/1000 controls and has supplied source pointers; length3 remains untested and no substitute count is adopted. Larger matrix/GEMV and libm/reduction coverage remain separate. Full implementation/hardware cost and a matched sampling comparison remain unresolved; this census does not change prior estimates or ratios.
+
+Independent saved census review99e306d4 reproduces all48 component site/call records, prepare+144cells, diagnostic removal, grouped shapes and17,185 heterogeneous keys. No native price changes. Separately frozen90 dot3 controls (scopeeccf9588, source1bf03ecc, resultsb84c9a6a) now pass after source/ABI gate; independent saved/path-count review pending.

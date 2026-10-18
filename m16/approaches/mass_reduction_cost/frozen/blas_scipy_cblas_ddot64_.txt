@@ -1,0 +1,42 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000009fc30 <scipy_cblas_ddot64_>:
+   9fc30:	48 85 ff             	test   %rdi,%rdi
+   9fc33:	7e 5b                	jle    9fc90 <scipy_cblas_ddot64_+0x60>
+   9fc35:	48 85 d2             	test   %rdx,%rdx
+   9fc38:	78 36                	js     9fc70 <scipy_cblas_ddot64_+0x40>
+   9fc3a:	4d 85 c0             	test   %r8,%r8
+   9fc3d:	78 11                	js     9fc50 <scipy_cblas_ddot64_+0x20>
+   9fc3f:	48 8d 05 2a ab 51 01 	lea    0x151ab2a(%rip),%rax        # 15ba770 <gotoblas>
+   9fc46:	48 8b 00             	mov    (%rax),%rax
+   9fc49:	ff a0 68 03 00 00    	jmp    *0x368(%rax)
+   9fc4f:	90                   	nop
+   9fc50:	48 8d 47 ff          	lea    -0x1(%rdi),%rax
+   9fc54:	49 0f af c0          	imul   %r8,%rax
+   9fc58:	48 c1 e0 03          	shl    $0x3,%rax
+   9fc5c:	48 29 c1             	sub    %rax,%rcx
+   9fc5f:	48 8d 05 0a ab 51 01 	lea    0x151ab0a(%rip),%rax        # 15ba770 <gotoblas>
+   9fc66:	48 8b 00             	mov    (%rax),%rax
+   9fc69:	ff a0 68 03 00 00    	jmp    *0x368(%rax)
+   9fc6f:	90                   	nop
+   9fc70:	48 8d 47 ff          	lea    -0x1(%rdi),%rax
+   9fc74:	48 0f af c2          	imul   %rdx,%rax
+   9fc78:	48 c1 e0 03          	shl    $0x3,%rax
+   9fc7c:	48 29 c6             	sub    %rax,%rsi
+   9fc7f:	4d 85 c0             	test   %r8,%r8
+   9fc82:	79 bb                	jns    9fc3f <scipy_cblas_ddot64_+0xf>
+   9fc84:	eb ca                	jmp    9fc50 <scipy_cblas_ddot64_+0x20>
+   9fc86:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   9fc8d:	00 00 00 
+   9fc90:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   9fc94:	c3                   	ret
+
+Disassembly of section .fini:

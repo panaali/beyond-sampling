@@ -1,0 +1,58 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000009ef00 <scipy_dnrm2_64_>:
+   9ef00:	48 8b 3f             	mov    (%rdi),%rdi
+   9ef03:	48 85 ff             	test   %rdi,%rdi
+   9ef06:	7e 38                	jle    9ef40 <scipy_dnrm2_64_+0x40>
+   9ef08:	48 83 ff 01          	cmp    $0x1,%rdi
+   9ef0c:	74 72                	je     9ef80 <scipy_dnrm2_64_+0x80>
+   9ef0e:	48 8b 12             	mov    (%rdx),%rdx
+   9ef11:	48 85 d2             	test   %rdx,%rdx
+   9ef14:	74 32                	je     9ef48 <scipy_dnrm2_64_+0x48>
+   9ef16:	79 0f                	jns    9ef27 <scipy_dnrm2_64_+0x27>
+   9ef18:	48 8d 47 ff          	lea    -0x1(%rdi),%rax
+   9ef1c:	48 0f af c2          	imul   %rdx,%rax
+   9ef20:	48 c1 e0 03          	shl    $0x3,%rax
+   9ef24:	48 29 c6             	sub    %rax,%rsi
+   9ef27:	48 8d 05 42 b8 51 01 	lea    0x151b842(%rip),%rax        # 15ba770 <gotoblas>
+   9ef2e:	48 8b 00             	mov    (%rax),%rax
+   9ef31:	ff a0 48 03 00 00    	jmp    *0x348(%rax)
+   9ef37:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   9ef3e:	00 00 
+   9ef40:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   9ef44:	c3                   	ret
+   9ef45:	0f 1f 00             	nopl   (%rax)
+   9ef48:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   9ef4c:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   9ef50:	48 83 ec 18          	sub    $0x18,%rsp
+   9ef54:	f2 48 0f 2a c7       	cvtsi2sd %rdi,%xmm0
+   9ef59:	66 0f 2e c8          	ucomisd %xmm0,%xmm1
+   9ef5d:	77 2e                	ja     9ef8d <scipy_dnrm2_64_+0x8d>
+   9ef5f:	66 0f 28 c8          	movapd %xmm0,%xmm1
+   9ef63:	f2 0f 51 c9          	sqrtsd %xmm1,%xmm1
+   9ef67:	f2 0f 10 06          	movsd  (%rsi),%xmm0
+   9ef6b:	66 0f 54 05 2d e2 31 	andpd  0x131e22d(%rip),%xmm0        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+   9ef72:	01 
+   9ef73:	48 83 c4 18          	add    $0x18,%rsp
+   9ef77:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+   9ef7b:	c3                   	ret
+   9ef7c:	0f 1f 40 00          	nopl   0x0(%rax)
+   9ef80:	f2 0f 10 06          	movsd  (%rsi),%xmm0
+   9ef84:	66 0f 54 05 14 e2 31 	andpd  0x131e214(%rip),%xmm0        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+   9ef8b:	01 
+   9ef8c:	c3                   	ret
+   9ef8d:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+   9ef92:	e8 99 60 fe ff       	call   85030 <sqrt@plt>
+   9ef97:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+   9ef9c:	66 0f 28 c8          	movapd %xmm0,%xmm1
+   9efa0:	eb c5                	jmp    9ef67 <scipy_dnrm2_64_+0x67>
+
+Disassembly of section .fini:

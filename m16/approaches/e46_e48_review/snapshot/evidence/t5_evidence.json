@@ -1,0 +1,157 @@
+{
+  "scope": "Saved one-clean-model audit; numerical CP conditional on source-documented MC provenance; abstract legacy cost only",
+  "manifest_files_checked": 14,
+  "one_model": {
+    "estimate": {
+      "fraction": "4179017374932287/5000000000000000",
+      "float": 0.8358034749864574
+    },
+    "numerical_reference": {
+      "fraction": "835805733133753/1000000000000000",
+      "float": 0.835805733133753
+    },
+    "difference": {
+      "fraction": "-5645368239/2500000000000000",
+      "float": -2.2581472956e-06
+    },
+    "difference_percentage_points": {
+      "fraction": "-5645368239/25000000000000",
+      "float": -0.00022581472956
+    },
+    "legacy_sample_cost": {
+      "fraction": "2500/3",
+      "float": 833.3333333333334
+    },
+    "legacy_fractional_draws": {
+      "fraction": "653105239503/2500",
+      "float": 261242095.8012
+    },
+    "floor_draws": 261242095,
+    "nominal_ratio": {
+      "fraction": "2312731467763966374114235929207/238254356934900455851062734359375",
+      "float": 0.009706984995014746
+    },
+    "floor_ratio": {
+      "fraction": "740074067414745660854985644/76241394219168145872340074995",
+      "float": 0.00970698496524452
+    },
+    "recipe_to_exact_proxy_cost": {
+      "fraction": "217701746501/312312258369",
+      "float": 0.6970643664065957
+    },
+    "recipe_proxy_per_cell": {
+      "fraction": "217701746501/114155",
+      "float": 1907071.4949060488
+    },
+    "timing_ratio_with_leaf_diagnostic": {
+      "fraction": "2427764209429423/1748112679640452",
+      "float": 1.388791602340394
+    },
+    "acceptable_true_probability_interval": [
+      0.8357805538132457,
+      0.8358263935888468
+    ],
+    "numerical_reference_location_in_acceptance_interval": 2.0660455093857166e-05
+  },
+  "mc": {
+    "source_documented_N": 10000000,
+    "reconstructed_hits_not_saved_ledger": 8357964,
+    "value": {
+      "fraction": "2089491/2500000",
+      "float": 0.8357964
+    },
+    "se": 0.00011714980911083039,
+    "reference_z": 0.07966836500920223,
+    "recipe_z": 0.060392641790023405,
+    "cp95_numeric": [
+      0.8355666433910859,
+      0.8360259621732231
+    ],
+    "beta_tail_residuals": [
+      -6.25888230132432e-15,
+      -2.311573155111546e-11
+    ],
+    "raw_mc_point_ratio": {
+      "fraction": "272428881675862098426556604508869/2859182869730000000000000000000000",
+      "float": 0.09528207676397707
+    },
+    "ratio_interval": [
+      0,
+      106.64768283618658
+    ]
+  },
+  "validation": {
+    "rows": 60,
+    "actual_thin_branch_rows": 57,
+    "det_range": [
+      9.534919770685929e-13,
+      2.7646995644914465e-05
+    ],
+    "max_abs_columns": {
+      "log128": 2.123301534595612e-15,
+      "log64": 1.1840855518308047e-09,
+      "thin4": 5.710524076821082e-18,
+      "thin6": 1.3234889800848443e-23,
+      "thin10_vs_plackett": 3.047901843855128e-16
+    },
+    "max_relative_columns": {
+      "log128": 0.5322997416020672,
+      "log64": 149189.86910569106,
+      "thin4": 1.2926028334947385e-10,
+      "thin6": 6.753353569085709e-16,
+      "thin10_vs_plackett": 0.1242649122631546
+    },
+    "max_actual_thin_vs_pl256_abs": 3.047901843725881e-16,
+    "derived_series_minima": {
+      "pl256": 1.3426759704060487e-15,
+      "pl128": 2.0573820425084932e-15,
+      "pl64": -1.1517146125683553e-09,
+      "thin10": 1.5095234820664023e-15,
+      "thin6": 1.5095234820664029e-15
+    },
+    "derived_series_negative_counts": {
+      "pl256": 0,
+      "pl128": 0,
+      "pl64": 5,
+      "thin10": 0,
+      "thin6": 0
+    },
+    "halves_sum_minus_1": 7.527312106958561e-14,
+    "simplex_z": [
+      0.22162326843499097,
+      0.2551607394476319,
+      1.1746972181226558,
+      -0.5395604425361851,
+      0.405330257057579,
+      -1.1178818050144705
+    ],
+    "half_z_mixed_independent_numerator_and_se": [
+      1.1414075102318846,
+      -2.2227872561221886,
+      1.627384514312056
+    ]
+  },
+  "growth": {
+    "same_zoo0_T4_to_T5_cells": {
+      "fraction": "114155/6182",
+      "float": 18.465706890973795
+    },
+    "same_zoo0_T4_to_T5_proxy_ops": {
+      "fraction": "217701746501/886579830",
+      "float": 245.5523339629777
+    },
+    "assumed_13_5_growth_5_steps": {
+      "fraction": "14348907/32",
+      "float": 448403.34375
+    },
+    "assumption_based_T10_proxy_cost": {
+      "fraction": "3123782114280424407/32",
+      "float": 9.761819107126326e+16
+    },
+    "monotone_countersequence_after_T5_cost": 217701746501,
+    "interpretation": "Constant continuation matches all finite observations; disproves inference from observations alone, not any independently proved algorithm bound"
+  },
+  "audit_cpu_seconds_excludes_imports_serialization": 0.004005334999999999,
+  "model_or_mass_calls": 0,
+  "MC_draws": 0
+}

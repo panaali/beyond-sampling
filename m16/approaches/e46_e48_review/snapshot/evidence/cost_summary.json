@@ -1,0 +1,85 @@
+{
+  "sites": {
+    "thin_row4": {
+      "branch": "thin",
+      "multiplicity": 1000,
+      "old_per": 3,
+      "new_per": 4,
+      "copies": 17955,
+      "removed": 53865000,
+      "replacement": 71820000,
+      "delta": 17955000
+    },
+    "thin_sum1000": {
+      "branch": "thin",
+      "multiplicity": 1,
+      "old_per": 999,
+      "new_per": 1000,
+      "copies": 17955,
+      "removed": 17937045,
+      "replacement": 17955000,
+      "delta": 17955
+    },
+    "wide_norm4": {
+      "branch": "wide",
+      "multiplicity": 16,
+      "old_per": 8,
+      "new_per": 10,
+      "copies": 17143,
+      "removed": 2194304,
+      "replacement": 2742880,
+      "delta": 548576
+    },
+    "wide_sum128": {
+      "branch": "wide",
+      "multiplicity": 6,
+      "old_per": 127,
+      "new_per": 128,
+      "copies": 17143,
+      "removed": 13062966,
+      "replacement": 13165824,
+      "delta": 102858
+    },
+    "wide_python_sum6": {
+      "branch": "wide",
+      "multiplicity": 1,
+      "old_per": 5,
+      "new_per": 61,
+      "copies": 17143,
+      "removed": 85715,
+      "replacement": 1045723,
+      "delta": 960008
+    }
+  },
+  "branches": {
+    "thin": {
+      "copies": 17955,
+      "prior": 82686,
+      "delta": 1001,
+      "new_partial_hybrid": 83687
+    },
+    "wide": {
+      "copies": 17143,
+      "prior": 121771,
+      "delta": 94,
+      "new_partial_hybrid": 121865
+    }
+  },
+  "prior_partial_hybrid": 3572147383,
+  "removed_once": 87145030,
+  "replacement": 106729427,
+  "delta": 19584397,
+  "revised_partial_hybrid": 3591731780,
+  "model_free_constants_unchanged": 190197,
+  "new_model_mass_geometry_calls": 0,
+  "cpu_seconds": 0.0039955199999999885,
+  "pins": {
+    "frozen/prior_summary.json": "7c0c9d83322c822626042bde414f91e2b89e0773e97f741dd7427c561f1c2ffa",
+    "frozen/full_summary.json": "a1930c377509f822b58032efca9eba86e6c70609acf5ac67fc84e312faf1bd6c",
+    "controls.json": "310d3feed165071a0ea6fd85dde6b7b6b2eb82ed8c018ad910e3a18256ce978c",
+    "dispatch_offset0.jsonl": "988ed477b1ee1f2c73e5eeeec02e40aebcb7622a683dca88cc476439302afefe"
+  },
+  "complete_native_cost": false,
+  "sampling_ratio_not_computed": true,
+  "scope": "Conditional frozen layout/dispatch native numeric subset replacing only listed terms. Python exact-float packed abs lanes charged; generic control/index/memory/casts/runtime and unpriced libm/elementwise/orientation-dot/geometry/cold remain. Current metadata is not proof of historical binding; no complete native upper/lower or budget-comparable MSE."
+}

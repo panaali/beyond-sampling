@@ -15,6 +15,30 @@ def mass(lo,hi,stats):
     return .5*(math.erfc(-hi/SQRT2)-math.erfc(-lo/SQRT2))
 
 
+def tiny_integral(a,b,lower,upper,u,second,stats):
+    """Positive midpoint and range diagnostic on a few-ulp interval.
+
+    Endpoint range is a real-arithmetic enclosure; floating padding below is
+    explicitly heuristic, not an outward-rounded probability certificate.
+    """
+    width=b-a;mid=a+width/2
+    def bounds(x):
+        lo=lower[0]*x+lower[1];hi=upper[0]*x+upper[1]
+        return (max(lo,u),hi) if second else (lo,min(hi,u))
+    lm,hm=bounds(mid);value=width*math.exp(-mid*mid/2)/SQRT2PI*mass(lm,hm,stats)
+    la,ha=bounds(a);lb,hb=bounds(b)
+    maxabs=max(abs(a),abs(b));minabs=0. if a<=0<=b else min(abs(a),abs(b))
+    phimin=math.exp(-maxabs*maxabs/2)/SQRT2PI;phimax=math.exp(-minabs*minabs/2)/SQRT2PI
+    low=width*phimin*mass(max(la,lb),min(ha,hb),stats)
+    high=width*phimax*mass(min(la,lb),max(ha,hb),stats)
+    scale=1+abs(lower[0])*maxabs+abs(lower[1])+abs(upper[0])*maxabs+abs(upper[1])
+    padding=32*np.finfo(float).eps*width*phimax*scale
+    error=max(abs(value-low),abs(high-value))+padding
+    stats['tiny_interval_fallbacks']+=1;stats['tiny_interval_width_sum']+=width
+    stats['tiny_interval_error_sum']+=error
+    return value,error
+
+
 def vertical(constraints,limit,stats,swap=False):
     lo,hi=-limit,limit;lower=[(0.,-limit)];upper=[(0.,limit)]
     for raw,strict in constraints:
@@ -113,9 +137,17 @@ class PairTerminal:
                         if second:lo=max(lo,u)
                         else:hi=min(hi,u)
                         return math.exp(-x*x/2)/SQRT2PI*mass(lo,hi,self.stats)
-                    result=quad(integrand,a,b,epsabs=max(1e-300,tolerance*denominators[first,second]/max(1,4*len(pieces))),epsrel=tolerance,limit=100,full_output=1)
-                    if len(result)!=3:raise ArithmeticError('quadrature did not converge: '+str(result[3]))
-                    value,error,info=result
+                    if b-a<=8*np.finfo(float).eps*max(1.,abs(a),abs(b)):
+                        value,error=tiny_integral(a,b,lower,upper,u,second,self.stats)
+                        info={'last':0}
+                    else:
+                        width=b-a
+                        absolute=max(1e-300,tolerance*denominators[first,second]/max(1,4*len(pieces)))
+                        result=quad(lambda t: integrand(a+width*t),0.,1.,epsabs=absolute/width,epsrel=tolerance,limit=100,full_output=1)
+                        if len(result)!=3:raise ArithmeticError('quadrature did not converge: '+repr(dict(message=result[3],interval=[a,b],u=u,rank=[first,second],lower=lower,upper=upper,hidden=self.hidden.tolist(),label=self.label,quad_value=result[0],quad_error=result[1])))
+                        value,error,info=result
+                        value*=width;error*=width
+                        self.stats['unit_interval_quad_calls']+=1
                     if not np.isfinite(value) or not np.isfinite(error) or value<0 or error<0:raise ArithmeticError('invalid positive polygon mass or error')
                     raw[first,second]+=value;errors[first,second]+=error;self.stats['quad_calls']+=1
                     self.stats['quad_subintervals']+=info['last']

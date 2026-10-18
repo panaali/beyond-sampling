@@ -1,0 +1,23 @@
+{
+  "cases": 12,
+  "dispatch_counts": {
+    "syrk": 3,
+    "gemm": 9
+  },
+  "child_call_counts": {
+    "scal": 12,
+    "incopy": 4,
+    "oncopy": 172,
+    "beta": 5,
+    "gemm": 176,
+    "itcopy": 1,
+    "otcopy": 1,
+    "small_permit": 9,
+    "small_b0_nn": 5,
+    "small_b0_nt": 2
+  },
+  "exact_integer_products_reconstructed": true,
+  "strided_self_copy_changes_dispatch": true,
+  "review_cpu": 0.07599082800000001,
+  "scope": "Independent fixture bytes/layouts, integer products, passthrough parity and native call records checked. No mass/model replay or native kernel price; contiguous selftranspose observations do not establish all layout dispatch."
+}

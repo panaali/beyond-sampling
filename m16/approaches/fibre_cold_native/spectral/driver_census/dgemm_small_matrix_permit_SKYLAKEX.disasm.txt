@@ -1,0 +1,35 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000a7afa0 <dgemm_small_matrix_permit_SKYLAKEX>:
+  a7afa0:	c5 f0 57 c9          	vxorps %xmm1,%xmm1,%xmm1
+  a7afa4:	31 c0                	xor    %eax,%eax
+  a7afa6:	c4 e1 f3 2a c2       	vcvtsi2sd %rdx,%xmm1,%xmm0
+  a7afab:	c4 e1 f3 2a d1       	vcvtsi2sd %rcx,%xmm1,%xmm2
+  a7afb0:	c4 c1 f3 2a c8       	vcvtsi2sd %r8,%xmm1,%xmm1
+  a7afb5:	c5 fb 59 c2          	vmulsd %xmm2,%xmm0,%xmm0
+  a7afb9:	c5 fb 59 c1          	vmulsd %xmm1,%xmm0,%xmm0
+  a7afbd:	c5 f9 2f 05 23 24 94 	vcomisd 0x942423(%rip),%xmm0        # 13bd3e8 <.annobin___pthread_atfork.end+0x498>
+  a7afc4:	00 
+  a7afc5:	77 2e                	ja     a7aff5 <dgemm_small_matrix_permit_SKYLAKEX+0x55>
+  a7afc7:	85 ff                	test   %edi,%edi
+  a7afc9:	74 25                	je     a7aff0 <dgemm_small_matrix_permit_SKYLAKEX+0x50>
+  a7afcb:	85 f6                	test   %esi,%esi
+  a7afcd:	75 21                	jne    a7aff0 <dgemm_small_matrix_permit_SKYLAKEX+0x50>
+  a7afcf:	48 0f af d1          	imul   %rcx,%rdx
+  a7afd3:	48 81 fa b0 04 00 00 	cmp    $0x4b0,%rdx
+  a7afda:	0f 9f c0             	setg   %al
+  a7afdd:	49 83 f8 1f          	cmp    $0x1f,%r8
+  a7afe1:	0f 9e c2             	setle  %dl
+  a7afe4:	09 d0                	or     %edx,%eax
+  a7afe6:	83 f0 01             	xor    $0x1,%eax
+  a7afe9:	0f b6 c0             	movzbl %al,%eax
+  a7afec:	c3                   	ret
+  a7afed:	0f 1f 00             	nopl   (%rax)
+  a7aff0:	b8 01 00 00 00       	mov    $0x1,%eax
+  a7aff5:	c3                   	ret
+  a7aff6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a7affd:	00 00 00 

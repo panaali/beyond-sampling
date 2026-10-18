@@ -1,0 +1,140 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000ce1e10 <scipy_dgeqr2_64_>:
+  ce1e10:	41 57                	push   %r15
+  ce1e12:	49 89 d3             	mov    %rdx,%r11
+  ce1e15:	41 56                	push   %r14
+  ce1e17:	41 55                	push   %r13
+  ce1e19:	41 54                	push   %r12
+  ce1e1b:	55                   	push   %rbp
+  ce1e1c:	53                   	push   %rbx
+  ce1e1d:	48 83 ec 68          	sub    $0x68,%rsp
+  ce1e21:	48 8b 17             	mov    (%rdi),%rdx
+  ce1e24:	48 8b 9c 24 a0 00 00 	mov    0xa0(%rsp),%rbx
+  ce1e2b:	00 
+  ce1e2c:	4c 89 4c 24 40       	mov    %r9,0x40(%rsp)
+  ce1e31:	4c 8b 09             	mov    (%rcx),%r9
+  ce1e34:	48 c7 03 00 00 00 00 	movq   $0x0,(%rbx)
+  ce1e3b:	48 85 d2             	test   %rdx,%rdx
+  ce1e3e:	0f 88 a4 01 00 00    	js     ce1fe8 <scipy_dgeqr2_64_+0x1d8>
+  ce1e44:	48 89 c8             	mov    %rcx,%rax
+  ce1e47:	48 8b 0e             	mov    (%rsi),%rcx
+  ce1e4a:	48 85 c9             	test   %rcx,%rcx
+  ce1e4d:	0f 88 55 01 00 00    	js     ce1fa8 <scipy_dgeqr2_64_+0x198>
+  ce1e53:	48 85 d2             	test   %rdx,%rdx
+  ce1e56:	41 ba 01 00 00 00    	mov    $0x1,%r10d
+  ce1e5c:	4c 0f 4f d2          	cmovg  %rdx,%r10
+  ce1e60:	4d 39 d1             	cmp    %r10,%r9
+  ce1e63:	0f 8c 97 01 00 00    	jl     ce2000 <scipy_dgeqr2_64_+0x1f0>
+  ce1e69:	48 39 ca             	cmp    %rcx,%rdx
+  ce1e6c:	48 0f 4e ca          	cmovle %rdx,%rcx
+  ce1e70:	48 85 c9             	test   %rcx,%rcx
+  ce1e73:	0f 84 59 01 00 00    	je     ce1fd2 <scipy_dgeqr2_64_+0x1c2>
+  ce1e79:	4b 8d 1c cb          	lea    (%r11,%r9,8),%rbx
+  ce1e7d:	49 c7 c7 ff ff ff ff 	mov    $0xffffffffffffffff,%r15
+  ce1e84:	bd 01 00 00 00       	mov    $0x1,%ebp
+  ce1e89:	48 89 4c 24 20       	mov    %rcx,0x20(%rsp)
+  ce1e8e:	48 89 1c 24          	mov    %rbx,(%rsp)
+  ce1e92:	4c 89 f9             	mov    %r15,%rcx
+  ce1e95:	48 8d 5c 24 58       	lea    0x58(%rsp),%rbx
+  ce1e9a:	49 89 ec             	mov    %rbp,%r12
+  ce1e9d:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  ce1ea2:	4d 89 dd             	mov    %r11,%r13
+  ce1ea5:	4d 89 c7             	mov    %r8,%r15
+  ce1ea8:	48 89 cd             	mov    %rcx,%rbp
+  ce1eab:	4c 89 4c 24 18       	mov    %r9,0x18(%rsp)
+  ce1eb0:	4e 8d 34 cd 08 00 00 	lea    0x8(,%r9,8),%r14
+  ce1eb7:	00 
+  ce1eb8:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  ce1ebd:	48 89 74 24 28       	mov    %rsi,0x28(%rsp)
+  ce1ec2:	4c 89 5c 24 30       	mov    %r11,0x30(%rsp)
+  ce1ec7:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+  ce1ecc:	eb 2b                	jmp    ce1ef9 <scipy_dgeqr2_64_+0xe9>
+  ce1ece:	66 90                	xchg   %ax,%ax
+  ce1ed0:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  ce1ed5:	4c 01 34 24          	add    %r14,(%rsp)
+  ce1ed9:	4d 01 f5             	add    %r14,%r13
+  ce1edc:	49 83 c7 08          	add    $0x8,%r15
+  ce1ee0:	48 01 c5             	add    %rax,%rbp
+  ce1ee3:	48 39 5c 24 20       	cmp    %rbx,0x20(%rsp)
+  ce1ee8:	0f 8c e4 00 00 00    	jl     ce1fd2 <scipy_dgeqr2_64_+0x1c2>
+  ce1eee:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  ce1ef3:	49 89 dc             	mov    %rbx,%r12
+  ce1ef6:	48 8b 10             	mov    (%rax),%rdx
+  ce1ef9:	48 89 d0             	mov    %rdx,%rax
+  ce1efc:	49 8d 5c 24 01       	lea    0x1(%r12),%rbx
+  ce1f01:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  ce1f06:	4d 89 f8             	mov    %r15,%r8
+  ce1f09:	4c 29 e0             	sub    %r12,%rax
+  ce1f0c:	48 8d 0d c5 01 6f 00 	lea    0x6f01c5(%rip),%rcx        # 13d20d8 <locu12.4+0x1238>
+  ce1f13:	4c 89 ee             	mov    %r13,%rsi
+  ce1f16:	48 83 c0 01          	add    $0x1,%rax
+  ce1f1a:	48 39 d3             	cmp    %rdx,%rbx
+  ce1f1d:	48 0f 4e d3          	cmovle %rbx,%rdx
+  ce1f21:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+  ce1f26:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
+  ce1f2b:	48 01 ea             	add    %rbp,%rdx
+  ce1f2e:	48 8d 14 d0          	lea    (%rax,%rdx,8),%rdx
+  ce1f32:	e8 69 0d 3a ff       	call   82ca0 <scipy_dlarfg_64_@plt>
+  ce1f37:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  ce1f3c:	48 8b 10             	mov    (%rax),%rdx
+  ce1f3f:	4c 39 e2             	cmp    %r12,%rdx
+  ce1f42:	7e 8c                	jle    ce1ed0 <scipy_dgeqr2_64_+0xc0>
+  ce1f44:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  ce1f49:	4c 29 e2             	sub    %r12,%rdx
+  ce1f4c:	48 8d 74 24 50       	lea    0x50(%rsp),%rsi
+  ce1f51:	4d 89 f9             	mov    %r15,%r9
+  ce1f54:	48 89 54 24 58       	mov    %rdx,0x58(%rsp)
+  ce1f59:	4c 8d 05 78 01 6f 00 	lea    0x6f0178(%rip),%r8        # 13d20d8 <locu12.4+0x1238>
+  ce1f60:	48 8d 3d 79 c2 6d 00 	lea    0x6dc279(%rip),%rdi        # 13be1e0 <.annobin___pthread_atfork.end+0x1290>
+  ce1f67:	48 8b 00             	mov    (%rax),%rax
+  ce1f6a:	48 89 c1             	mov    %rax,%rcx
+  ce1f6d:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  ce1f72:	4c 29 e1             	sub    %r12,%rcx
+  ce1f75:	48 83 c1 01          	add    $0x1,%rcx
+  ce1f79:	48 89 4c 24 50       	mov    %rcx,0x50(%rsp)
+  ce1f7e:	4c 89 e9             	mov    %r13,%rcx
+  ce1f81:	6a 04                	push   $0x4
+  ce1f83:	ff 74 24 48          	push   0x48(%rsp)
+  ce1f87:	ff 74 24 58          	push   0x58(%rsp)
+  ce1f8b:	ff 74 24 18          	push   0x18(%rsp)
+  ce1f8f:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  ce1f94:	e8 17 43 3a ff       	call   862b0 <dlarf1f_@plt>
+  ce1f99:	48 83 c4 20          	add    $0x20,%rsp
+  ce1f9d:	e9 2e ff ff ff       	jmp    ce1ed0 <scipy_dgeqr2_64_+0xc0>
+  ce1fa2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  ce1fa8:	48 c7 c1 fe ff ff ff 	mov    $0xfffffffffffffffe,%rcx
+  ce1faf:	ba 02 00 00 00       	mov    $0x2,%edx
+  ce1fb4:	48 89 0b             	mov    %rcx,(%rbx)
+  ce1fb7:	48 8d 74 24 58       	lea    0x58(%rsp),%rsi
+  ce1fbc:	48 8d 3d d7 cd 6d 00 	lea    0x6dcdd7(%rip),%rdi        # 13bed9a <.annobin___pthread_atfork.end+0x1e4a>
+  ce1fc3:	48 89 54 24 58       	mov    %rdx,0x58(%rsp)
+  ce1fc8:	ba 06 00 00 00       	mov    $0x6,%edx
+  ce1fcd:	e8 fe 6f 73 ff       	call   418fd0 <__xerbla>
+  ce1fd2:	48 83 c4 68          	add    $0x68,%rsp
+  ce1fd6:	5b                   	pop    %rbx
+  ce1fd7:	5d                   	pop    %rbp
+  ce1fd8:	41 5c                	pop    %r12
+  ce1fda:	41 5d                	pop    %r13
+  ce1fdc:	41 5e                	pop    %r14
+  ce1fde:	41 5f                	pop    %r15
+  ce1fe0:	c3                   	ret
+  ce1fe1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  ce1fe8:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
+  ce1fef:	ba 01 00 00 00       	mov    $0x1,%edx
+  ce1ff4:	eb be                	jmp    ce1fb4 <scipy_dgeqr2_64_+0x1a4>
+  ce1ff6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  ce1ffd:	00 00 00 
+  ce2000:	48 c7 c1 fc ff ff ff 	mov    $0xfffffffffffffffc,%rcx
+  ce2007:	ba 04 00 00 00       	mov    $0x4,%edx
+  ce200c:	eb a6                	jmp    ce1fb4 <scipy_dgeqr2_64_+0x1a4>
+
+Disassembly of section .fini:

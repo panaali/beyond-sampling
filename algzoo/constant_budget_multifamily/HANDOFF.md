@@ -1,0 +1,13 @@
+# T23 bounded completion
+
+Claim8923ec6 preceded implementation. Separate phase scopes2e76267,93b3c28,368d5aa were pushed before their respective rescues. All90 fits now pass their original first-order gradient criterion. Full global optimality is not claimed. Source/theory review145d6db and independent final raw-artifact audit9f3681a validate the representations, exact25/14/3 rescue eligibility, all thresholds, coefficient dimensions,16 hashes,803 nonincreasing line steps and final arithmetic. The final audit did not independently rerun fitted gradients; its scope is source/raw-record verification.
+
+Final artifacts: final_summary.json, all results_H*.json, qr_H*.json, active_H*.json and correction_H32_seed2.json. Earlier failures remain in place and in summary.json/qr_summary.json/active_summary.json. Reproduction and exact protocols are in README and phase protocol files. Six H32 position-aware20-feature reconstructions exceed90% gap recovery on three source seeds; corresponding H16 fits miss. This is reconstruction from fitted examples, not deductive accuracy estimation or a qualitative neuron-legibility result.
+
+Rank-only has a stronger scoped result: any predictor invariant under first-nine permutations has population accuracy <=20% at T10 under iid continuous inputs. Exchangeability proves this, with independent T55 review and finite all-permutation controls T3..7. No position-aware family or ARC method is ruled out.
+
+Total recorded numerical CPU599.344223127 in bounded single-thread cycles,4,876,000 hidden sequence passes, plus9216 independent NumPy recurrence checks; interpreter/control overhead separately acknowledged. Fitted inference parameters remain exactlyK*H. Training-only QR/active solves do not add inference parameters; structural descriptions and precision remain additional information (T25 audit).
+
+Negative/exhaustion scope: original optimizer cap, QR partial failure, active-null-direction stalls and an unfinished step cap were individually preserved and resolved under later frozen training-only scopes. All tested final predictors are first-order stationary under the declared numerical criterion, not globally optimal. H16 failure is finite-family/fit evidence; other families, global optimization, more data and seeds remain untested. Rank-only's permutation-invariance ceiling is an exact restricted obstruction. No whole-method retirement or challenge-solved claim.
+
+Root/DRI registry requested; no self-confirmation. Ordered research chain after e6ff3a4 includes earlier completed triangle batching and this T23 folder only; use git rev-list --reverse e6ff3a4..HEAD, inspecting paths. Root integrates; research branch is not pushed wholesale.

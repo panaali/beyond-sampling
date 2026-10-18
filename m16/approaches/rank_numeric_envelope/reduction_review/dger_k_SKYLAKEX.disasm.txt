@@ -1,0 +1,79 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a41db0 <dger_k_SKYLAKEX>:
+  a41db0:	41 57                	push   %r15
+  a41db2:	41 56                	push   %r14
+  a41db4:	41 55                	push   %r13
+  a41db6:	49 89 cd             	mov    %rcx,%r13
+  a41db9:	41 54                	push   %r12
+  a41dbb:	49 89 fc             	mov    %rdi,%r12
+  a41dbe:	55                   	push   %rbp
+  a41dbf:	4c 89 cd             	mov    %r9,%rbp
+  a41dc2:	53                   	push   %rbx
+  a41dc3:	48 89 f3             	mov    %rsi,%rbx
+  a41dc6:	48 83 ec 28          	sub    $0x28,%rsp
+  a41dca:	4c 8b 74 24 68       	mov    0x68(%rsp),%r14
+  a41dcf:	c5 fb 11 44 24 08    	vmovsd %xmm0,0x8(%rsp)
+  a41dd5:	49 83 f8 01          	cmp    $0x1,%r8
+  a41dd9:	74 26                	je     a41e01 <dger_k_SKYLAKEX+0x51>
+  a41ddb:	4c 8d 3d 8e 89 b7 00 	lea    0xb7898e(%rip),%r15        # 15ba770 <gotoblas>
+  a41de2:	48 8b 4c 24 78       	mov    0x78(%rsp),%rcx
+  a41de7:	4c 89 c2             	mov    %r8,%rdx
+  a41dea:	4c 89 ee             	mov    %r13,%rsi
+  a41ded:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  a41df3:	49 8b 07             	mov    (%r15),%rax
+  a41df6:	ff 90 60 03 00 00    	call   *0x360(%rax)
+  a41dfc:	4c 8b 6c 24 78       	mov    0x78(%rsp),%r13
+  a41e01:	48 85 db             	test   %rbx,%rbx
+  a41e04:	7e 7f                	jle    a41e85 <dger_k_SKYLAKEX+0xd5>
+  a41e06:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+  a41e0b:	48 8b 4c 24 60       	mov    0x60(%rsp),%rcx
+  a41e10:	4c 89 64 24 10       	mov    %r12,0x10(%rsp)
+  a41e15:	4c 8d 3d 54 89 b7 00 	lea    0xb78954(%rip),%r15        # 15ba770 <gotoblas>
+  a41e1c:	4c 89 6c 24 18       	mov    %r13,0x18(%rsp)
+  a41e21:	49 89 ed             	mov    %rbp,%r13
+  a41e24:	48 c1 e0 03          	shl    $0x3,%rax
+  a41e28:	48 8d 14 cd 00 00 00 	lea    0x0(,%rcx,8),%rdx
+  a41e2f:	00 
+  a41e30:	49 89 d4             	mov    %rdx,%r12
+  a41e33:	48 89 c5             	mov    %rax,%rbp
+  a41e36:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a41e3d:	00 00 00 
+  a41e40:	c5 fb 10 4c 24 08    	vmovsd 0x8(%rsp),%xmm1
+  a41e46:	48 83 ec 08          	sub    $0x8,%rsp
+  a41e4a:	49 8b 07             	mov    (%r15),%rax
+  a41e4d:	4d 89 f1             	mov    %r14,%r9
+  a41e50:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  a41e56:	31 d2                	xor    %edx,%edx
+  a41e58:	31 f6                	xor    %esi,%esi
+  a41e5a:	49 01 ee             	add    %rbp,%r14
+  a41e5d:	c4 c1 73 59 45 00    	vmulsd 0x0(%r13),%xmm1,%xmm0
+  a41e63:	6a 00                	push   $0x0
+  a41e65:	4d 01 e5             	add    %r12,%r13
+  a41e68:	6a 00                	push   $0x0
+  a41e6a:	6a 01                	push   $0x1
+  a41e6c:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+  a41e71:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+  a41e76:	ff 90 88 03 00 00    	call   *0x388(%rax)
+  a41e7c:	48 83 c4 20          	add    $0x20,%rsp
+  a41e80:	48 ff cb             	dec    %rbx
+  a41e83:	75 bb                	jne    a41e40 <dger_k_SKYLAKEX+0x90>
+  a41e85:	48 83 c4 28          	add    $0x28,%rsp
+  a41e89:	31 c0                	xor    %eax,%eax
+  a41e8b:	5b                   	pop    %rbx
+  a41e8c:	5d                   	pop    %rbp
+  a41e8d:	41 5c                	pop    %r12
+  a41e8f:	41 5d                	pop    %r13
+  a41e91:	41 5e                	pop    %r14
+  a41e93:	41 5f                	pop    %r15
+  a41e95:	c3                   	ret
+
+Disassembly of section .fini:

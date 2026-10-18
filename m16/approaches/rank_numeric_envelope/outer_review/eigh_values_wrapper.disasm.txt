@@ -1,0 +1,430 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/linalg/_umath_linalg.cpython-312-x86_64-linux-gnu.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000008270 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0>:
+    8270:	41 57                	push   %r15
+    8272:	41 56                	push   %r14
+    8274:	41 55                	push   %r13
+    8276:	49 89 f5             	mov    %rsi,%r13
+    8279:	41 54                	push   %r12
+    827b:	49 89 d4             	mov    %rdx,%r12
+    827e:	55                   	push   %rbp
+    827f:	48 89 cd             	mov    %rcx,%rbp
+    8282:	53                   	push   %rbx
+    8283:	89 fb                	mov    %edi,%ebx
+    8285:	48 81 ec 98 01 00 00 	sub    $0x198,%rsp
+    828c:	48 8b 02             	mov    (%rdx),%rax
+    828f:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+    8294:	48 8d 84 24 30 01 00 	lea    0x130(%rsp),%rax
+    829b:	00 
+    829c:	48 89 c7             	mov    %rax,%rdi
+    829f:	48 89 84 24 88 00 00 	mov    %rax,0x88(%rsp)
+    82a6:	00 
+    82a7:	e8 f4 d8 01 00       	call   25ba0 <npy_clear_floatstatus_barrier>
+    82ac:	4d 8b 64 24 08       	mov    0x8(%r12),%r12
+    82b1:	c1 e8 03             	shr    $0x3,%eax
+    82b4:	49 8d 7c 24 01       	lea    0x1(%r12),%rdi
+    82b9:	41 89 c6             	mov    %eax,%r14d
+    82bc:	48 8b 45 00          	mov    0x0(%rbp),%rax
+    82c0:	49 0f af fc          	imul   %r12,%rdi
+    82c4:	41 83 e6 01          	and    $0x1,%r14d
+    82c8:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+    82cd:	48 8b 45 08          	mov    0x8(%rbp),%rax
+    82d1:	44 89 74 24 14       	mov    %r14d,0x14(%rsp)
+    82d6:	48 c1 e7 03          	shl    $0x3,%rdi
+    82da:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+    82df:	e8 1c c0 ff ff       	call   4300 <PyMem_RawMalloc@plt>
+    82e4:	49 89 c7             	mov    %rax,%r15
+    82e7:	48 85 c0             	test   %rax,%rax
+    82ea:	0f 84 60 05 00 00    	je     8850 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x5e0>
+    82f0:	4c 89 e0             	mov    %r12,%rax
+    82f3:	4c 89 a4 24 58 01 00 	mov    %r12,0x158(%rsp)
+    82fa:	00 
+    82fb:	48 8d 94 24 58 01 00 	lea    0x158(%rsp),%rdx
+    8302:	00 
+    8303:	4c 8d 84 24 80 01 00 	lea    0x180(%rsp),%r8
+    830a:	00 
+    830b:	49 0f af c4          	imul   %r12,%rax
+    830f:	4d 85 e4             	test   %r12,%r12
+    8312:	88 9c 24 79 01 00 00 	mov    %bl,0x179(%rsp)
+    8319:	48 8d b4 24 79 01 00 	lea    0x179(%rsp),%rsi
+    8320:	00 
+    8321:	48 8d 9c 24 d0 00 00 	lea    0xd0(%rsp),%rbx
+    8328:	00 
+    8329:	48 8d bc 24 78 01 00 	lea    0x178(%rsp),%rdi
+    8330:	00 
+    8331:	4c 89 bc 24 30 01 00 	mov    %r15,0x130(%rsp)
+    8338:	00 
+    8339:	48 c7 84 24 48 01 00 	movq   $0x0,0x148(%rsp)
+    8340:	00 00 00 00 00 
+    8345:	4d 8d 0c c7          	lea    (%r15,%rax,8),%r9
+    8349:	b8 01 00 00 00       	mov    $0x1,%eax
+    834e:	48 c7 84 24 68 01 00 	movq   $0x0,0x168(%rsp)
+    8355:	00 00 00 00 00 
+    835a:	4c 0f 4e e0          	cmovle %rax,%r12
+    835e:	48 8d 84 24 c8 00 00 	lea    0xc8(%rsp),%rax
+    8365:	00 
+    8366:	48 83 ec 08          	sub    $0x8,%rsp
+    836a:	4c 89 8c 24 40 01 00 	mov    %r9,0x140(%rsp)
+    8371:	00 
+    8372:	c6 84 24 80 01 00 00 	movb   $0x4e,0x180(%rsp)
+    8379:	4e 
+    837a:	4c 89 a4 24 88 01 00 	mov    %r12,0x188(%rsp)
+    8381:	00 
+    8382:	48 c7 84 24 68 01 00 	movq   $0xffffffffffffffff,0x168(%rsp)
+    8389:	00 ff ff ff ff 
+    838e:	48 c7 84 24 78 01 00 	movq   $0xffffffffffffffff,0x178(%rsp)
+    8395:	00 ff ff ff ff 
+    839a:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+    839f:	48 89 84 24 48 01 00 	mov    %rax,0x148(%rsp)
+    83a6:	00 
+    83a7:	48 89 9c 24 88 00 00 	mov    %rbx,0x88(%rsp)
+    83ae:	00 
+    83af:	48 89 9c 24 58 01 00 	mov    %rbx,0x158(%rsp)
+    83b6:	00 
+    83b7:	4c 89 44 24 78       	mov    %r8,0x78(%rsp)
+    83bc:	48 89 54 24 50       	mov    %rdx,0x50(%rsp)
+    83c1:	48 89 74 24 70       	mov    %rsi,0x70(%rsp)
+    83c6:	48 89 7c 24 68       	mov    %rdi,0x68(%rsp)
+    83cb:	48 8d 8c 24 08 01 00 	lea    0x108(%rsp),%rcx
+    83d2:	00 
+    83d3:	48 89 8c 24 98 00 00 	mov    %rcx,0x98(%rsp)
+    83da:	00 
+    83db:	51                   	push   %rcx
+    83dc:	48 8d 8c 24 80 01 00 	lea    0x180(%rsp),%rcx
+    83e3:	00 
+    83e4:	48 89 4c 24 68       	mov    %rcx,0x68(%rsp)
+    83e9:	51                   	push   %rcx
+    83ea:	4c 89 f9             	mov    %r15,%rcx
+    83ed:	53                   	push   %rbx
+    83ee:	48 8d 9c 24 80 01 00 	lea    0x180(%rsp),%rbx
+    83f5:	00 
+    83f6:	48 89 5c 24 70       	mov    %rbx,0x70(%rsp)
+    83fb:	53                   	push   %rbx
+    83fc:	50                   	push   %rax
+    83fd:	e8 3e c0 ff ff       	call   4440 <scipy_dsyevd_64_@plt>
+    8402:	48 8b 94 24 30 01 00 	mov    0x130(%rsp),%rdx
+    8409:	00 
+    840a:	48 83 c4 30          	add    $0x30,%rsp
+    840e:	48 85 d2             	test   %rdx,%rdx
+    8411:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+    8416:	74 56                	je     846e <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x1fe>
+    8418:	48 8b bc 24 88 00 00 	mov    0x88(%rsp),%rdi
+    841f:	00 
+    8420:	31 c0                	xor    %eax,%eax
+    8422:	b9 0b 00 00 00       	mov    $0xb,%ecx
+    8427:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    842a:	31 ff                	xor    %edi,%edi
+    842c:	e8 4f c0 ff ff       	call   4480 <PyMem_RawFree@plt>
+    8431:	4c 89 ff             	mov    %r15,%rdi
+    8434:	e8 47 c0 ff ff       	call   4480 <PyMem_RawFree@plt>
+    8439:	8b 44 24 14          	mov    0x14(%rsp),%eax
+    843d:	89 84 24 00 01 00 00 	mov    %eax,0x100(%rsp)
+    8444:	85 c0                	test   %eax,%eax
+    8446:	74 17                	je     845f <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x1ef>
+    8448:	e8 f3 d7 01 00       	call   25c40 <npy_set_floatstatus_invalid>
+    844d:	48 81 c4 98 01 00 00 	add    $0x198,%rsp
+    8454:	5b                   	pop    %rbx
+    8455:	5d                   	pop    %rbp
+    8456:	41 5c                	pop    %r12
+    8458:	41 5d                	pop    %r13
+    845a:	41 5e                	pop    %r14
+    845c:	41 5f                	pop    %r15
+    845e:	c3                   	ret
+    845f:	48 8d bc 24 00 01 00 	lea    0x100(%rsp),%rdi
+    8466:	00 
+    8467:	e8 34 d7 01 00       	call   25ba0 <npy_clear_floatstatus_barrier>
+    846c:	eb df                	jmp    844d <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x1dd>
+    846e:	f2 48 0f 2c 9c 24 c8 	cvttsd2si 0xc8(%rsp),%rbx
+    8475:	00 00 00 
+    8478:	4c 8b a4 24 d0 00 00 	mov    0xd0(%rsp),%r12
+    847f:	00 
+    8480:	49 8d 3c 1c          	lea    (%r12,%rbx,1),%rdi
+    8484:	48 c1 e7 03          	shl    $0x3,%rdi
+    8488:	e8 73 be ff ff       	call   4300 <PyMem_RawMalloc@plt>
+    848d:	48 85 c0             	test   %rax,%rax
+    8490:	0f 84 ba 03 00 00    	je     8850 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x5e0>
+    8496:	48 8b 7d 20          	mov    0x20(%rbp),%rdi
+    849a:	4c 89 a4 24 70 01 00 	mov    %r12,0x170(%rsp)
+    84a1:	00 
+    84a2:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    84a6:	4c 8b a4 24 58 01 00 	mov    0x158(%rsp),%r12
+    84ad:	00 
+    84ae:	48 89 84 24 40 01 00 	mov    %rax,0x140(%rsp)
+    84b5:	00 
+    84b6:	48 8d 04 d8          	lea    (%rax,%rbx,8),%rax
+    84ba:	80 bc 24 78 01 00 00 	cmpb   $0x56,0x178(%rsp)
+    84c1:	56 
+    84c2:	48 89 9c 24 60 01 00 	mov    %rbx,0x160(%rsp)
+    84c9:	00 
+    84ca:	48 89 84 24 50 01 00 	mov    %rax,0x150(%rsp)
+    84d1:	00 
+    84d2:	48 8b 5d 18          	mov    0x18(%rbp),%rbx
+    84d6:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+    84db:	48 8b 45 10          	mov    0x10(%rbp),%rax
+    84df:	48 c7 84 24 d0 00 00 	movq   $0x1,0xd0(%rsp)
+    84e6:	00 01 00 00 00 
+    84eb:	4c 89 a4 24 d8 00 00 	mov    %r12,0xd8(%rsp)
+    84f2:	00 
+    84f3:	48 c7 84 24 e0 00 00 	movq   $0x0,0xe0(%rsp)
+    84fa:	00 00 00 00 00 
+    84ff:	48 89 bc 24 e8 00 00 	mov    %rdi,0xe8(%rsp)
+    8506:	00 
+    8507:	4c 89 a4 24 f0 00 00 	mov    %r12,0xf0(%rsp)
+    850e:	00 
+    850f:	48 c7 84 24 20 01 00 	movq   $0x0,0x120(%rsp)
+    8516:	00 00 00 00 00 
+    851b:	0f 29 84 24 00 01 00 	movaps %xmm0,0x100(%rsp)
+    8522:	00 
+    8523:	0f 29 84 24 10 01 00 	movaps %xmm0,0x110(%rsp)
+    852a:	00 
+    852b:	0f 84 b6 03 00 00    	je     88e7 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x677>
+    8531:	48 c7 84 24 a0 00 00 	movq   $0x0,0xa0(%rsp)
+    8538:	00 00 00 00 00 
+    853d:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+    8542:	48 c7 84 24 a8 00 00 	movq   $0x0,0xa8(%rsp)
+    8549:	00 00 00 00 00 
+    854e:	48 83 7c 24 30 00    	cmpq   $0x0,0x30(%rsp)
+    8554:	0f 84 e3 01 00 00    	je     873d <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x4cd>
+    855a:	48 c1 e8 03          	shr    $0x3,%rax
+    855e:	4d 8b 75 00          	mov    0x0(%r13),%r14
+    8562:	4d 89 eb             	mov    %r13,%r11
+    8565:	48 83 e3 f8          	and    $0xfffffffffffffff8,%rbx
+    8569:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+    856e:	48 8d 84 24 c0 00 00 	lea    0xc0(%rsp),%rax
+    8575:	00 
+    8576:	4a 8d 2c e5 00 00 00 	lea    0x0(,%r12,8),%rbp
+    857d:	00 
+    857e:	48 c7 44 24 20 00 00 	movq   $0x0,0x20(%rsp)
+    8585:	00 00 
+    8587:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+    858c:	48 89 94 24 98 00 00 	mov    %rdx,0x98(%rsp)
+    8593:	00 
+    8594:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    859b:	00 00 00 00 
+    859f:	90                   	nop
+    85a0:	4c 8b bc 24 30 01 00 	mov    0x130(%rsp),%r15
+    85a7:	00 
+    85a8:	4d 85 ff             	test   %r15,%r15
+    85ab:	0f 84 c6 00 00 00    	je     8677 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x407>
+    85b1:	48 8b 7c 24 78       	mov    0x78(%rsp),%rdi
+    85b6:	4c 89 a4 24 b8 00 00 	mov    %r12,0xb8(%rsp)
+    85bd:	00 
+    85be:	48 c7 84 24 c8 00 00 	movq   $0x1,0xc8(%rsp)
+    85c5:	00 01 00 00 00 
+    85ca:	48 89 bc 24 c0 00 00 	mov    %rdi,0xc0(%rsp)
+    85d1:	00 
+    85d2:	48 89 f8             	mov    %rdi,%rax
+    85d5:	4d 85 e4             	test   %r12,%r12
+    85d8:	0f 8e 99 00 00 00    	jle    8677 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x407>
+    85de:	31 ff                	xor    %edi,%edi
+    85e0:	4d 89 fd             	mov    %r15,%r13
+    85e3:	4c 89 5c 24 28       	mov    %r11,0x28(%rsp)
+    85e8:	4d 89 f7             	mov    %r14,%r15
+    85eb:	49 89 fe             	mov    %rdi,%r14
+    85ee:	eb 4a                	jmp    863a <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x3ca>
+    85f0:	48 8b 94 24 b8 00 00 	mov    0xb8(%rsp),%rdx
+    85f7:	00 
+    85f8:	0f 84 72 01 00 00    	je     8770 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x500>
+    85fe:	48 83 ea 01          	sub    $0x1,%rdx
+    8602:	4c 8b 04 24          	mov    (%rsp),%r8
+    8606:	48 8d bc 24 b8 00 00 	lea    0xb8(%rsp),%rdi
+    860d:	00 
+    860e:	4c 89 e9             	mov    %r13,%rcx
+    8611:	48 0f af d0          	imul   %rax,%rdx
+    8615:	49 8d 34 d7          	lea    (%r15,%rdx,8),%rsi
+    8619:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+    861e:	e8 9d bf ff ff       	call   45c0 <scipy_dcopy_64_@plt>
+    8623:	49 83 c6 01          	add    $0x1,%r14
+    8627:	49 01 df             	add    %rbx,%r15
+    862a:	49 01 ed             	add    %rbp,%r13
+    862d:	4d 39 e6             	cmp    %r12,%r14
+    8630:	74 38                	je     866a <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x3fa>
+    8632:	48 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%rax
+    8639:	00 
+    863a:	48 85 c0             	test   %rax,%rax
+    863d:	7e b1                	jle    85f0 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x380>
+    863f:	4c 8b 04 24          	mov    (%rsp),%r8
+    8643:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+    8648:	4c 89 e9             	mov    %r13,%rcx
+    864b:	4c 89 fe             	mov    %r15,%rsi
+    864e:	48 8d bc 24 b8 00 00 	lea    0xb8(%rsp),%rdi
+    8655:	00 
+    8656:	49 83 c6 01          	add    $0x1,%r14
+    865a:	49 01 df             	add    %rbx,%r15
+    865d:	49 01 ed             	add    %rbp,%r13
+    8660:	e8 5b bf ff ff       	call   45c0 <scipy_dcopy_64_@plt>
+    8665:	4d 39 e6             	cmp    %r12,%r14
+    8668:	75 c8                	jne    8632 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x3c2>
+    866a:	4c 8b 5c 24 28       	mov    0x28(%rsp),%r11
+    866f:	4c 8b bc 24 30 01 00 	mov    0x130(%rsp),%r15
+    8676:	00 
+    8677:	4c 89 5c 24 28       	mov    %r11,0x28(%rsp)
+    867c:	48 83 ec 08          	sub    $0x8,%rsp
+    8680:	4c 89 f9             	mov    %r15,%rcx
+    8683:	ff 74 24 08          	push   0x8(%rsp)
+    8687:	ff 74 24 68          	push   0x68(%rsp)
+    868b:	ff b4 24 68 01 00 00 	push   0x168(%rsp)
+    8692:	ff 74 24 70          	push   0x70(%rsp)
+    8696:	ff b4 24 68 01 00 00 	push   0x168(%rsp)
+    869d:	48 8b bc 24 90 00 00 	mov    0x90(%rsp),%rdi
+    86a4:	00 
+    86a5:	4c 8b 8c 24 68 01 00 	mov    0x168(%rsp),%r9
+    86ac:	00 
+    86ad:	4c 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%r8
+    86b4:	00 
+    86b5:	48 8b 54 24 78       	mov    0x78(%rsp),%rdx
+    86ba:	48 8b b4 24 98 00 00 	mov    0x98(%rsp),%rsi
+    86c1:	00 
+    86c2:	e8 79 bd ff ff       	call   4440 <scipy_dsyevd_64_@plt>
+    86c7:	4c 8b 5c 24 58       	mov    0x58(%rsp),%r11
+    86cc:	48 83 c4 30          	add    $0x30,%rsp
+    86d0:	8b 84 24 c8 00 00 00 	mov    0xc8(%rsp),%eax
+    86d7:	49 8b 7b 08          	mov    0x8(%r11),%rdi
+    86db:	85 c0                	test   %eax,%eax
+    86dd:	0f 85 bd 00 00 00    	jne    87a0 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x530>
+    86e3:	48 8b 94 24 80 00 00 	mov    0x80(%rsp),%rdx
+    86ea:	00 
+    86eb:	48 8b b4 24 38 01 00 	mov    0x138(%rsp),%rsi
+    86f2:	00 
+    86f3:	e8 18 ce ff ff       	call   5510 <_Z18delinearize_matrixIdEPvPT_S2_PK14linearize_data.isra.0>
+    86f8:	80 bc 24 78 01 00 00 	cmpb   $0x56,0x178(%rsp)
+    86ff:	56 
+    8700:	4c 8b 5c 24 28       	mov    0x28(%rsp),%r11
+    8705:	0f 84 e6 00 00 00    	je     87f1 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x581>
+    870b:	49 8b 7b 08          	mov    0x8(%r11),%rdi
+    870f:	90                   	nop
+    8710:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+    8715:	4c 8b 74 24 38       	mov    0x38(%rsp),%r14
+    871a:	4d 03 33             	add    (%r11),%r14
+    871d:	48 83 44 24 20 01    	addq   $0x1,0x20(%rsp)
+    8723:	48 01 c7             	add    %rax,%rdi
+    8726:	4d 89 33             	mov    %r14,(%r11)
+    8729:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+    872e:	49 89 7b 08          	mov    %rdi,0x8(%r11)
+    8732:	48 39 44 24 30       	cmp    %rax,0x30(%rsp)
+    8737:	0f 85 63 fe ff ff    	jne    85a0 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x330>
+    873d:	48 8b bc 24 30 01 00 	mov    0x130(%rsp),%rdi
+    8744:	00 
+    8745:	e8 36 bd ff ff       	call   4480 <PyMem_RawFree@plt>
+    874a:	48 8b bc 24 40 01 00 	mov    0x140(%rsp),%rdi
+    8751:	00 
+    8752:	e8 29 bd ff ff       	call   4480 <PyMem_RawFree@plt>
+    8757:	48 8b bc 24 88 00 00 	mov    0x88(%rsp),%rdi
+    875e:	00 
+    875f:	b9 0b 00 00 00       	mov    $0xb,%ecx
+    8764:	31 c0                	xor    %eax,%eax
+    8766:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    8769:	e9 cb fc ff ff       	jmp    8439 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x1c9>
+    876e:	66 90                	xchg   %ax,%ax
+    8770:	31 c0                	xor    %eax,%eax
+    8772:	48 85 d2             	test   %rdx,%rdx
+    8775:	0f 8e a8 fe ff ff    	jle    8623 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x3b3>
+    877b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+    8780:	49 8b 17             	mov    (%r15),%rdx
+    8783:	49 89 54 c5 00       	mov    %rdx,0x0(%r13,%rax,8)
+    8788:	48 83 c0 01          	add    $0x1,%rax
+    878c:	48 3b 84 24 b8 00 00 	cmp    0xb8(%rsp),%rax
+    8793:	00 
+    8794:	7c ea                	jl     8780 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x510>
+    8796:	e9 88 fe ff ff       	jmp    8623 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x3b3>
+    879b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+    87a0:	4d 85 e4             	test   %r12,%r12
+    87a3:	7e 31                	jle    87d6 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x566>
+    87a5:	48 8b 74 24 18       	mov    0x18(%rsp),%rsi
+    87aa:	44 89 e1             	mov    %r12d,%ecx
+    87ad:	48 89 fa             	mov    %rdi,%rdx
+    87b0:	31 c0                	xor    %eax,%eax
+    87b2:	48 83 e6 f8          	and    $0xfffffffffffffff8,%rsi
+    87b6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    87bd:	00 00 00 
+    87c0:	f2 0f 10 05 b8 75 02 	movsd  0x275b8(%rip),%xmm0        # 2fd80 <_ZN14numeric_limitsIdE3nanE>
+    87c7:	00 
+    87c8:	83 c0 01             	add    $0x1,%eax
+    87cb:	f2 0f 11 02          	movsd  %xmm0,(%rdx)
+    87cf:	48 01 f2             	add    %rsi,%rdx
+    87d2:	39 c8                	cmp    %ecx,%eax
+    87d4:	75 ea                	jne    87c0 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x550>
+    87d6:	80 bc 24 78 01 00 00 	cmpb   $0x56,0x178(%rsp)
+    87dd:	56 
+    87de:	0f 84 8c 00 00 00    	je     8870 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x600>
+    87e4:	c7 44 24 14 01 00 00 	movl   $0x1,0x14(%rsp)
+    87eb:	00 
+    87ec:	e9 1f ff ff ff       	jmp    8710 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x4a0>
+    87f1:	48 8b 84 24 98 00 00 	mov    0x98(%rsp),%rax
+    87f8:	00 
+    87f9:	49 8b 7b 10          	mov    0x10(%r11),%rdi
+    87fd:	48 8b 94 24 90 00 00 	mov    0x90(%rsp),%rdx
+    8804:	00 
+    8805:	48 8b b4 24 30 01 00 	mov    0x130(%rsp),%rsi
+    880c:	00 
+    880d:	48 89 84 24 00 01 00 	mov    %rax,0x100(%rsp)
+    8814:	00 
+    8815:	48 89 84 24 08 01 00 	mov    %rax,0x108(%rsp)
+    881c:	00 
+    881d:	48 8b 84 24 a8 00 00 	mov    0xa8(%rsp),%rax
+    8824:	00 
+    8825:	48 89 84 24 10 01 00 	mov    %rax,0x110(%rsp)
+    882c:	00 
+    882d:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+    8834:	00 
+    8835:	48 89 84 24 18 01 00 	mov    %rax,0x118(%rsp)
+    883c:	00 
+    883d:	e8 ce cc ff ff       	call   5510 <_Z18delinearize_matrixIdEPvPT_S2_PK14linearize_data.isra.0>
+    8842:	4c 8b 5c 24 28       	mov    0x28(%rsp),%r11
+    8847:	49 8b 7b 08          	mov    0x8(%r11),%rdi
+    884b:	e9 c0 fe ff ff       	jmp    8710 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x4a0>
+    8850:	e8 fb bc ff ff       	call   4550 <PyGILState_Ensure@plt>
+    8855:	89 c3                	mov    %eax,%ebx
+    8857:	e8 54 b9 ff ff       	call   41b0 <PyErr_NoMemory@plt>
+    885c:	89 df                	mov    %ebx,%edi
+    885e:	e8 fd b8 ff ff       	call   4160 <PyGILState_Release@plt>
+    8863:	e9 b0 fb ff ff       	jmp    8418 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x1a8>
+    8868:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+    886f:	00 
+    8870:	48 8b 84 24 98 00 00 	mov    0x98(%rsp),%rax
+    8877:	00 
+    8878:	4d 8b 43 10          	mov    0x10(%r11),%r8
+    887c:	48 85 c0             	test   %rax,%rax
+    887f:	0f 8e 5f ff ff ff    	jle    87e4 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x574>
+    8885:	48 8b b4 24 a0 00 00 	mov    0xa0(%rsp),%rsi
+    888c:	00 
+    888d:	4c 8b 94 24 a8 00 00 	mov    0xa8(%rsp),%r10
+    8894:	00 
+    8895:	89 c1                	mov    %eax,%ecx
+    8897:	45 31 c9             	xor    %r9d,%r9d
+    889a:	48 83 e6 f8          	and    $0xfffffffffffffff8,%rsi
+    889e:	49 83 e2 f8          	and    $0xfffffffffffffff8,%r10
+    88a2:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    88a9:	00 00 00 00 
+    88ad:	0f 1f 00             	nopl   (%rax)
+    88b0:	4c 89 c2             	mov    %r8,%rdx
+    88b3:	31 c0                	xor    %eax,%eax
+    88b5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    88bc:	00 00 00 00 
+    88c0:	f2 0f 10 05 b8 74 02 	movsd  0x274b8(%rip),%xmm0        # 2fd80 <_ZN14numeric_limitsIdE3nanE>
+    88c7:	00 
+    88c8:	83 c0 01             	add    $0x1,%eax
+    88cb:	f2 0f 11 02          	movsd  %xmm0,(%rdx)
+    88cf:	48 01 f2             	add    %rsi,%rdx
+    88d2:	39 c8                	cmp    %ecx,%eax
+    88d4:	75 ea                	jne    88c0 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x650>
+    88d6:	41 83 c1 01          	add    $0x1,%r9d
+    88da:	4d 01 d0             	add    %r10,%r8
+    88dd:	41 39 c9             	cmp    %ecx,%r9d
+    88e0:	75 ce                	jne    88b0 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x640>
+    88e2:	e9 fd fe ff ff       	jmp    87e4 <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x574>
+    88e7:	48 8b 7d 28          	mov    0x28(%rbp),%rdi
+    88eb:	4c 89 a4 24 20 01 00 	mov    %r12,0x120(%rsp)
+    88f2:	00 
+    88f3:	4c 89 e2             	mov    %r12,%rdx
+    88f6:	48 89 bc 24 a0 00 00 	mov    %rdi,0xa0(%rsp)
+    88fd:	00 
+    88fe:	48 8b 7d 30          	mov    0x30(%rbp),%rdi
+    8902:	48 89 bc 24 a8 00 00 	mov    %rdi,0xa8(%rsp)
+    8909:	00 
+    890a:	e9 3f fc ff ff       	jmp    854e <_Z12eigh_wrapperIdEvccPPcPKlS3_.constprop.0+0x2de>
+    890f:	90                   	nop

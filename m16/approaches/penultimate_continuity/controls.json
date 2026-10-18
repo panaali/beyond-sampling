@@ -1,0 +1,347 @@
+{
+  "ordinary": {
+    "sufficient": true,
+    "state_independent": false,
+    "M": "1",
+    "G": "96/5",
+    "partial_G": "96/5",
+    "gates": [
+      {
+        "neuron": 0,
+        "slope": "1",
+        "coefficient": "2"
+      },
+      {
+        "neuron": 1,
+        "slope": "-2",
+        "coefficient": "1"
+      }
+    ],
+    "margins": [
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "2",
+        "coefficient": "3"
+      },
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "4",
+        "coefficient": "3/2"
+      },
+      {
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "2",
+        "coefficient": "3"
+      },
+      {
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "1",
+        "coefficient": "6"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "4",
+        "coefficient": "3/2"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "5",
+        "coefficient": "6/5"
+      }
+    ],
+    "unknown": []
+  },
+  "constant": {
+    "sufficient": true,
+    "state_independent": false,
+    "M": "1",
+    "G": "3",
+    "partial_G": "3",
+    "gates": [
+      {
+        "neuron": 0,
+        "slope": "1",
+        "coefficient": "2"
+      },
+      {
+        "neuron": 1,
+        "slope": "-2",
+        "coefficient": "1"
+      }
+    ],
+    "margins": [
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": true,
+        "target_wins_tie": false,
+        "coefficient": "0"
+      },
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": true,
+        "target_wins_tie": false,
+        "coefficient": "0"
+      },
+      {
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 0,
+        "permanent_tie": true,
+        "target_wins_tie": false,
+        "coefficient": "0"
+      },
+      {
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 1,
+        "permanent_tie": true,
+        "target_wins_tie": false,
+        "coefficient": "0"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": true,
+        "target_wins_tie": false,
+        "coefficient": "0"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": true,
+        "target_wins_tie": false,
+        "coefficient": "0"
+      }
+    ],
+    "unknown": []
+  },
+  "memoryless": {
+    "sufficient": true,
+    "state_independent": true,
+    "M": "0",
+    "G": "0",
+    "gates": [],
+    "margins": [],
+    "unknown": []
+  },
+  "degenerate": {
+    "sufficient": false,
+    "state_independent": false,
+    "M": "1",
+    "G": null,
+    "partial_G": "22",
+    "gates": [
+      {
+        "neuron": 0,
+        "slope": "1",
+        "coefficient": "2"
+      },
+      {
+        "neuron": 1,
+        "slope": "-1",
+        "coefficient": "2"
+      }
+    ],
+    "margins": [
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "-1",
+        "coefficient": "4"
+      },
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "-1",
+        "coefficient": "4"
+      },
+      {
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "1",
+        "coefficient": "4"
+      },
+      {
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "-1",
+        "coefficient": "4"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "-2",
+        "coefficient": "2"
+      }
+    ],
+    "unknown": [
+      {
+        "kind": "margin",
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 0,
+        "restricted_delta": [
+          "1",
+          "1"
+        ]
+      }
+    ]
+  },
+  "zero_gate": {
+    "sufficient": false,
+    "state_independent": false,
+    "M": "1",
+    "G": null,
+    "partial_G": "20",
+    "gates": [
+      {
+        "neuron": 1,
+        "slope": "1",
+        "coefficient": "2"
+      }
+    ],
+    "margins": [
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "-1",
+        "coefficient": "6"
+      },
+      {
+        "support": [
+          false,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "-2",
+        "coefficient": "3"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 0,
+        "permanent_tie": false,
+        "slope": "-1",
+        "coefficient": "6"
+      },
+      {
+        "support": [
+          true,
+          true
+        ],
+        "competitor": 1,
+        "permanent_tie": false,
+        "slope": "-2",
+        "coefficient": "3"
+      }
+    ],
+    "unknown": [
+      {
+        "kind": "gate",
+        "neuron": 0
+      },
+      {
+        "kind": "margin",
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 0,
+        "restricted_delta": [
+          "2",
+          "0"
+        ]
+      },
+      {
+        "kind": "margin",
+        "support": [
+          true,
+          false
+        ],
+        "competitor": 1,
+        "restricted_delta": [
+          "1",
+          "0"
+        ]
+      }
+    ]
+  },
+  "cpu_seconds": 0.00039800000000000946
+}

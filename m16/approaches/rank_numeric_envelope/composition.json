@@ -1,0 +1,45 @@
+{
+  "modes": {
+    "exact": {
+      "disjoint_other_components": {
+        "q5": 5949769,
+        "q4": 9358549,
+        "q3": 18381417,
+        "outer": 25958983,
+        "application": 10520049,
+        "blas": 26684096,
+        "driver": 72626763
+      },
+      "reflector_norm_helpers_conditional": 31689663,
+      "reflector_norm_helpers_generic": 230514579,
+      "conditional_named_subset": 201169289,
+      "generic_named_subset": 399994205
+    },
+    "recipe108": {
+      "disjoint_other_components": {
+        "q5": 4879642,
+        "q4": 7673352,
+        "q3": 15126366,
+        "outer": 23059486,
+        "application": 9590329,
+        "blas": 23948021,
+        "driver": 67303059
+      },
+      "reflector_norm_helpers_conditional": 29160578,
+      "reflector_norm_helpers_generic": 212199418,
+      "conditional_named_subset": 180740833,
+      "generic_named_subset": 363779673
+    }
+  },
+  "pins": {
+    "q5_summary.json": "84614d3c987155478244a020298b3736d831d0cb5eee81828a5a07a2af968a8a",
+    "shift_review/contraction.json": "fa965a976c962bb6a8702b390c84fa77b327d69d9896f0251bf12576b7b3236a",
+    "shift_review/parent_contraction.json": "f9076a05c3eb9a2e8d948c7ae2b9b7158ae7d6d233417d6431fa695dbc701eda",
+    "outer_review/contraction.json": "bc6adef9903af5fea80a7401cf5539850d2d2eacd226d462935e986a9bd46b22",
+    "reduction_review/contraction.json": "e2f4a2c4c785424c1442bb70428597dc0bb30294f818ef4602303556a19a3bf2",
+    "reduction_review/blas_contraction.json": "e89f24f482156e05e76e97538821cd560debb9b9b083a34801d1070132465b79",
+    "driver_review/contraction.json": "8b47d5e36454c95f7618b1287a4a125757d3766f8d2d12fdfd21e7a29fd57803",
+    "helper_review/contraction.json": "56fad109d710a69dacdcb672debfa2da664332c59e63eded8c6c0c2576ba211b"
+  },
+  "scope": "Disjoint previously reviewed named numeric source/native categories plus pending driver audit. Each component includes matching cold phase once. Conditional historical no-rescale binding and generic alternative separated. Larger cold eigensolver, integer/control/memory/casts/runtime and complete compiled lane correspondence unpriced. Neither a complete native cost nor an MSE multiplier."
+}

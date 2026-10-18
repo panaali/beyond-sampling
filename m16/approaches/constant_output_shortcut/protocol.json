@@ -1,0 +1,36 @@
+{
+  "claim": "be027783",
+  "contract": "Finite float64 bias-free scalar-input ReLU RNN, hidden initially zero, first-index output argmax; iid continuous inputs or exchangeable inputs with almost-surely distinct coordinates; length T>=2.",
+  "predicates": [
+    "Wi exactlyzero",
+    "Wo[0] coordinatewise>=every other readout row; includes identical readouts"
+  ],
+  "pins": {
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/adapter.py": "f33a99fce6a63df2e9e30eca9a74775fbce48b835fdf6668a4481acae2b59e98",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/controls.py": "2f2402bccdf60adf91de1fd439e77a8fd7fbc4b9a5c96b7b642bdf00cf9ebf56",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/controls.json": "32fa83bcbcc7f9c15d411952dbd7a66431b861814b9ab286f912bfdd42f3305b",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/capture_protocol.json": "cca558dd4fbbfbebbe7bff85cd7fac09cf9949e994e28f43c096574c57c86179",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/capture_seed0.json": "3e7f108c8699e154fb7d02e9580b06fd0cf00dd2c9790b8cd953f419eee5df6f",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_model_adapter/capture_seed1.json": "366ca730a84c19760f4d48f06ff0f5abd2b8f8404ec8f40071e570287fa6e71a"
+  },
+  "training_cases": [
+    {
+      "seed": 0,
+      "weights": "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_0.pth",
+      "reference_capture": "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_captured.npz",
+      "capture_metadata": "/workspace/work/recover-small_h2_910/m16/approaches/leaf_mass_review/error_capture.json",
+      "positive_values": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/values.npz",
+      "positive_summary": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/summary.json"
+    },
+    {
+      "seed": 1,
+      "weights": "/workspace/work/t45_weights/2nd_argmax_8_4_1073741824_1.pth",
+      "reference_capture": "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact/error_captured.npz",
+      "capture_metadata": "/workspace/work/recover-small_h2_910/m16/approaches/frozen_recipe_holdout/exact/error_capture.json",
+      "positive_values": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/values.npz",
+      "positive_summary": "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/summary.json"
+    }
+  ],
+  "no_geometry_or_mass_replay": true,
+  "scope": "Sufficient exact-weight constantfirst-label shortcut and unchanged fallback dispatch, not exhaustive constant-label recognition or total-return guarantee. All finite/weight predicates and named metadata checks counted; native/control/memory/shape internals remain outside fullcost."
+}

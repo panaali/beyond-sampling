@@ -1,0 +1,11 @@
+# T180 length3 native applicability gate
+
+TASKS scopeeccf9588 precedes implementation. Prior saved census1cf22c01 identifies length3 norm/dot calls; its independent saved audit and this source/ABI gate are required before execution. Reuse pinned NumPy/OpenBLAS source/binary evidence, not length4 tested applicability.
+
+Freeze90 controls:10 explicitly serialized patterns (zeros, signedzeros, ordinary, cancellation, pi/tiny, underflow, huge, subnormal, infinity, NaN), three layouts (contiguous, positive stride2, reversed) and three operations (np.linalg.norm, np.dot, vector@vector). The second dot operand is the fixed cyclic permutation of the first pattern. Baseline and passthrough use the same arrays; all outputs compare stored64bit encodings. No adaptive exclusions. No model or estimator imports/calls.
+
+The C passthrough replaces only selected gotoblas slot0x368 in this short-lived process, using the independently established five-argument long/doublepointer/long/doublepointer/long ABI. Original function executes unchanged. It records n/incx/incy before forwarding and detects a1024event cap. Checked readable mappings, unique offset0 ELF loadbase, pinned library hashes, expected targetoffset0xa3d7c0, writable slot, frozen round-to-nearest, pinned build/source hashes and finally restoration precede or protect mutation. Do not infer memory safety from an unchecked pointer or use min(start−fileoffset), which failed in an earlier independent lane and is not used here.
+
+Norm may copy a noncontiguous input before dot. A reversed dot may use a scalar fallback rather than the captured kernel. Record all paths; absence of an event is not an automatic free operation or failure. A later source/installed-instruction price must match each observed path and preserve the difference from historical layout applicability. Candidate contiguous dot7/norm8 numerical units is not adopted by this capture.
+
+Use one thread,2GB,20CPU review lock. Save partial failure and refuse existing results; preserve nonfinite patterns rather than dropping them. Imports/build/metadata and probe costs are research overhead, never production kernel costs. Integer/control/copy/conversion/runtime and hardware timing remain excluded. No new trained cost or sampling ratio follows from controls alone.

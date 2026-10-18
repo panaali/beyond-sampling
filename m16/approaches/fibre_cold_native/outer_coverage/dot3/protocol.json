@@ -1,0 +1,88 @@
+{
+  "task": "T180",
+  "claim": "eccf9588",
+  "patterns_hex": [
+    [
+      "0x0.0p+0",
+      "0x0.0p+0",
+      "0x0.0p+0"
+    ],
+    [
+      "-0x0.0p+0",
+      "0x0.0p+0",
+      "-0x0.0p+0"
+    ],
+    [
+      "0x1.0000000000000p+0",
+      "-0x1.0000000000000p+0",
+      "0x1.0000000000000p+1"
+    ],
+    [
+      "0x1.1c37937e08000p+53",
+      "0x1.0000000000000p+0",
+      "-0x1.1c37937e08000p+53"
+    ],
+    [
+      "0x1.921fb54442d18p+1",
+      "-0x1.921fb54442d18p+1",
+      "0x1.0000000000000p-52"
+    ],
+    [
+      "0x1.87e92154ef7acp-665",
+      "-0x1.87e92154ef7acp-665",
+      "0x1.87e92154ef7acp-664"
+    ],
+    [
+      "0x1.249ad2594c37dp+332",
+      "-0x1.249ad2594c37dp+332",
+      "0x1.0000000000000p+0"
+    ],
+    [
+      "0x0.0000000000001p-1022",
+      "-0x0.0p+0",
+      "0x0.0000000000001p-1022"
+    ],
+    [
+      "inf",
+      "0x1.0000000000000p+0",
+      "-0x1.0000000000000p+1"
+    ],
+    [
+      "nan",
+      "0x1.0000000000000p+0",
+      "0x1.0000000000000p+1"
+    ]
+  ],
+  "layouts": [
+    "contiguous",
+    "stride2",
+    "reversed"
+  ],
+  "operations": [
+    "norm",
+    "dot",
+    "matmul"
+  ],
+  "numpy_version": "2.5.4",
+  "blas_library": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+  "numpy_library": "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so",
+  "pins": {
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/numpy_DOUBLE_dot.txt": "07491d608ed1279576f48864d5d1dd0edce6ff2bb4322641b1b991f1aedbd85b",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/arraytypes.c.src": "382dc34bc41836700b065dec331559fd013a7a050b221bea79bd469a42ee88a9",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/blas_ddot_k_SKYLAKEX.txt": "10c33e4d8ba048aefe1da8b5f0fd725b9caef3c30fb99fcfaac37c52a907f29d",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/numpy_program_headers.txt": "166ef0516a5f1a81369736e4bdcffdeb717ee2eabf11a9ab923c4d6bd4572158",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/cblasfuncs.c": "58611e8419d45347b177cfceb6477bbafc4e28678b9ceb0511cb01c9b7972263",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/blas_scipy_cblas_ddot64_.txt": "41134fc7fb16276da72cc925f6da22fc1760a328ea3b35cd54844240f736ce17",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/upstream_matmul.c.src": "e7d2c972c026efe1f57c39830997a2f458635f7f0e2df03d60c1b4d3da228e90",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/blas_dot_compute.txt": "0187865571bc880f7cc9d04bc5304828354b06b0cb94553fb6bd00ddcfc4d1bc",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/frozen/numpy_linalg.py": "99ec3bec6f80194741a62407fbcea521a0690577105fe9f3096f156842de76a9",
+    "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96",
+    "/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so": "b185dfe64b07180bedc7c15fb2735b0d0f4f4e09eb9c15bd8e67f74568aebcbf",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/run.py": "20f729678e79e5dfda1ece527d2698236b5927f31950ddf1e83cdec035bd8573",
+    "/workspace/work/recover-small_h2_34/m16/approaches/fibre_cold_native/outer_coverage/dot3/spy.c": "242b461889444f1fb5e80fa68e61e23da38aeefe9566c8c3a65344d44be7db0e"
+  },
+  "max_cpu": 20,
+  "no_estimator_or_model_calls": true,
+  "control_count": 90,
+  "source_origin": "56 mass_reduction_cost frozen6bf1e55f;78 log_cofactor_cost matmul source; applicability not transferred"
+}

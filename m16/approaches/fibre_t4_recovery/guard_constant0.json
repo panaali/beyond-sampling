@@ -1,0 +1,81 @@
+{
+  "case": "constant0",
+  "model": [
+    [
+      1.0,
+      -1.0
+    ],
+    [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    [
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ]
+  ],
+  "rational_truth": "1/4",
+  "expected": 0.25,
+  "diagnostic_abs_tolerance": 1e-07,
+  "arms": [
+    {
+      "tier": "F2L3",
+      "estimate": 0.25000000026795277,
+      "error": 2.679527710824914e-10,
+      "passes_frozen_tolerance": true,
+      "legacy_ops": 15039396,
+      "stats": {
+        "traces": 576,
+        "pieces": 432
+      },
+      "cpu_seconds": 1.4795543709999999
+    },
+    {
+      "tier": "FX",
+      "estimate": 0.25000000026795277,
+      "error": 2.679527710824914e-10,
+      "passes_frozen_tolerance": true,
+      "legacy_ops": 15039396,
+      "stats": {
+        "traces": 576,
+        "pieces": 432
+      },
+      "cpu_seconds": 1.2398406389999999
+    }
+  ],
+  "complete": true,
+  "pins": {
+    "/workspace/work/admin-recover-h4-t67/m16/approaches/understand_ladder/fibre.py": "0c52b9003169ace25a5d86fc7082c5ee14dccb5c583966d0578832599584471d",
+    "/workspace/work/admin-recover-h4-t67/m16/approaches/arc_m43_repro/m43.py": "e4cca6147b5962b709f5d91b0749ed8a25a6f11fdef6b8346b8a16e292e11887",
+    "/workspace/work/recover-small_h4_4/m16/approaches/fibre_t4_recovery/analytic_controls.py": "2d60fe8f4ae2e8be80d446312d66267e88c40954e7fd94c5ecfdd5f168ab95a5"
+  },
+  "guard_counts": {
+    "calls": 14576,
+    "exact_zero": 0
+  },
+  "guard_scope": "exact component zero only; nonzero underflow not repaired",
+  "guard_sha256": "20c9a153245a183116d751038b090be0b40e71af52819b1f510c9aaff941195f",
+  "cpu_seconds": 2.722800905,
+  "max_rss_kib": 35164,
+  "tier_difference": 0.0
+}

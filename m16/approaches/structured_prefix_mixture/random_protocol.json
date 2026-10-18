@@ -1,0 +1,35 @@
+{
+  "task_scope": "a15a7b01",
+  "T": 4,
+  "widths": [
+    4,
+    8,
+    16,
+    32
+  ],
+  "model_seeds": [
+    0,
+    1,
+    2
+  ],
+  "input_dimensions": "1,H",
+  "reference_samples": 131072,
+  "reference_blocks": 8,
+  "reference_block_size": 16384,
+  "reference_seed_formula": "202610170690 + 1000*H + 10*d + model_seed",
+  "weight_generation": "default_rng(model_seed); Wi normal(H,d)*sqrt(2/d), Wh normal(H,H)*sqrt(2/H), Wo normal(H,H)*sqrt(1/H), in that order",
+  "original_source_path": "/workspace/work/admin-recover56-cumulant-review/m16/approaches/arc_cumulants/diag_width.py",
+  "original_source_sha256": "d38d029182434796c2a7f84e0f94a1c70def9111cf291d215ab1e8bf3509b34b",
+  "scalar_methods": [
+    "gauss",
+    "arc2",
+    "collapsed_h2",
+    "sector_mixture"
+  ],
+  "vector_methods": [
+    "gauss",
+    "arc2"
+  ],
+  "report": "Per-cell output-mean variance-normalised squared error, block variation,1/N reference-noise floor, component/call counts and CPU. Finite diagnostic, no K>2/asymptotic/competitive-cost or trained-ladder claim.",
+  "failure_policy": "Save every completed cell and failure. Four per-H processes capped110CPU, one thread2GB; no tuning/enlargement based on results."
+}

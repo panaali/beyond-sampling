@@ -1,0 +1,59 @@
+{
+  "complete": true,
+  "prices": {
+    "thin_DU": {
+      "old_scalar_expression": 28000,
+      "native_body": 72000
+    },
+    "selftranspose": {
+      "old_scalar_expression": 112,
+      "native_body": 170,
+      "selected_guard_envelope": 11,
+      "replacement": 181
+    }
+  },
+  "branches": {
+    "thin": {
+      "copies": 17955,
+      "old_hybrid": 38617,
+      "removed_scalar_matrix_terms": 28112,
+      "replacement_matrix_body": 72170,
+      "replacement_guard_envelope": 11,
+      "revised_hybrid": 82686,
+      "remaining_visible": 10039
+    },
+    "wide": {
+      "copies": 17143,
+      "old_hybrid": 121633,
+      "removed_scalar_matrix_terms": 224,
+      "replacement_matrix_body": 340,
+      "replacement_guard_envelope": 22,
+      "revised_hybrid": 121771,
+      "remaining_visible": 16879
+    }
+  },
+  "old_summary_sha256": "0247fc8993c739073fe7f1dde09922624ba744f7a859aa0d83f0de41d1f775d0",
+  "old_hybrid": 2778522754,
+  "removed_scalar_matrix_terms": 508590992,
+  "executed_matrix_body_subset": 1301640970,
+  "selected_matrix_guard_envelopes": 574651,
+  "revised_hybrid_subtotal": 3572147383,
+  "model_free_runtime_constants_unchanged": 190197,
+  "revised_hybrid_plus_those_constants": 3572337580,
+  "old_legacy_mass": 1064714168,
+  "body_over_legacy_exact_fraction": [
+    92974355,
+    76051012
+  ],
+  "source_sha256": "b8d3baf0d85d47bf4a7a204f82cdfc648de580b47baea5f42a4c77c49beb906a",
+  "full_census_review": "4cc3fe39",
+  "initial_hybrid_review": "26fd4e11",
+  "matrix_dispatch_review": "155b3b18",
+  "child_dispatch_review": "0cfdfa39",
+  "matrix_body_review": "3ed60f55",
+  "new_mass_model_matrix_inverse_MC_calls": 0,
+  "cpu_seconds": 0.00039454499999999615,
+  "complete_native_upper_or_lower": false,
+  "same_budget_comparison": false,
+  "scope": "Fixed saved C-layout replay and pinned one-thread backend only. Executed scalar lanes (FMA=2) differ from the inherited abstract proxy. Matrix-body subset is exact for the reviewed paths; revised hybrid still mixes remaining visible-expression terms with native category envelopes. Reduction/norm/libm/control/integer/memory/cold-setup/geometry and model-free dispatch gaps remain. No runtime, sampler, protocol-wide or estimator-family claim."
+}

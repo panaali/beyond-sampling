@@ -1,0 +1,511 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a5a8e0 <dtrsm_kernel_LT_SKYLAKEX>:
+  a5a8e0:	41 57                	push   %r15
+  a5a8e2:	4d 89 cf             	mov    %r9,%r15
+  a5a8e5:	41 56                	push   %r14
+  a5a8e7:	41 55                	push   %r13
+  a5a8e9:	41 54                	push   %r12
+  a5a8eb:	55                   	push   %rbp
+  a5a8ec:	53                   	push   %rbx
+  a5a8ed:	48 83 ec 78          	sub    $0x78,%rsp
+  a5a8f1:	48 8d 05 78 fe b5 00 	lea    0xb5fe78(%rip),%rax        # 15ba770 <gotoblas>
+  a5a8f8:	48 89 74 24 40       	mov    %rsi,0x40(%rsp)
+  a5a8fd:	48 d1 fe             	sar    $1,%rsi
+  a5a900:	48 89 54 24 20       	mov    %rdx,0x20(%rsp)
+  a5a905:	48 8b 00             	mov    (%rax),%rax
+  a5a908:	48 89 7c 24 30       	mov    %rdi,0x30(%rsp)
+  a5a90d:	48 89 4c 24 38       	mov    %rcx,0x38(%rsp)
+  a5a912:	4c 89 44 24 08       	mov    %r8,0x8(%rsp)
+  a5a917:	8b 90 00 03 00 00    	mov    0x300(%rax),%edx
+  a5a91d:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  a5a922:	48 85 f6             	test   %rsi,%rsi
+  a5a925:	0f 8e 60 02 00 00    	jle    a5ab8b <dtrsm_kernel_LT_SKYLAKEX+0x2ab>
+  a5a92b:	48 8b 84 24 b0 00 00 	mov    0xb0(%rsp),%rax
+  a5a932:	00 
+  a5a933:	48 c1 ff 04          	sar    $0x4,%rdi
+  a5a937:	48 89 74 24 58       	mov    %rsi,0x58(%rsp)
+  a5a93c:	48 89 7c 24 48       	mov    %rdi,0x48(%rsp)
+  a5a941:	4c 8d 24 c5 00 00 00 	lea    0x0(,%rax,8),%r12
+  a5a948:	00 
+  a5a949:	48 63 c2             	movslq %edx,%rax
+  a5a94c:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  a5a951:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  a5a956:	44 8b 90 fc 02 00 00 	mov    0x2fc(%rax),%r10d
+  a5a95d:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
+  a5a962:	48 85 c0             	test   %rax,%rax
+  a5a965:	0f 8e 6b 05 00 00    	jle    a5aed6 <dtrsm_kernel_LT_SKYLAKEX+0x5f6>
+  a5a96b:	48 89 44 24 50       	mov    %rax,0x50(%rsp)
+  a5a970:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  a5a975:	89 d1                	mov    %edx,%ecx
+  a5a977:	4c 89 fb             	mov    %r15,%rbx
+  a5a97a:	48 8b ac 24 b8 00 00 	mov    0xb8(%rsp),%rbp
+  a5a981:	00 
+  a5a982:	4c 89 7c 24 60       	mov    %r15,0x60(%rsp)
+  a5a987:	49 63 fa             	movslq %r10d,%rdi
+  a5a98a:	45 89 d1             	mov    %r10d,%r9d
+  a5a98d:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  a5a992:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  a5a997:	48 89 ea             	mov    %rbp,%rdx
+  a5a99a:	48 85 d2             	test   %rdx,%rdx
+  a5a99d:	7e 5e                	jle    a5a9fd <dtrsm_kernel_LT_SKYLAKEX+0x11d>
+  a5a99f:	48 83 ec 08          	sub    $0x8,%rsp
+  a5a9a3:	48 89 c6             	mov    %rax,%rsi
+  a5a9a6:	c5 fb 10 05 5a 2a 96 	vmovsd 0x962a5a(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  a5a9ad:	00 
+  a5a9ae:	49 89 d9             	mov    %rbx,%r9
+  a5a9b1:	ff b4 24 b8 00 00 00 	push   0xb8(%rsp)
+  a5a9b8:	48 8b 4c 24 20       	mov    0x20(%rsp),%rcx
+  a5a9bd:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  a5a9c2:	48 89 54 24 28       	mov    %rdx,0x28(%rsp)
+  a5a9c7:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  a5a9cc:	ff 90 c8 03 00 00    	call   *0x3c8(%rax)
+  a5a9d2:	48 8d 05 97 fd b5 00 	lea    0xb5fd97(%rip),%rax        # 15ba770 <gotoblas>
+  a5a9d9:	48 8b 00             	mov    (%rax),%rax
+  a5a9dc:	48 63 b8 fc 02 00 00 	movslq 0x2fc(%rax),%rdi
+  a5a9e3:	8b 88 00 03 00 00    	mov    0x300(%rax),%ecx
+  a5a9e9:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  a5a9ee:	41 5a                	pop    %r10
+  a5a9f0:	41 5b                	pop    %r11
+  a5a9f2:	49 89 f9             	mov    %rdi,%r9
+  a5a9f5:	48 63 c1             	movslq %ecx,%rax
+  a5a9f8:	48 8b 54 24 18       	mov    0x18(%rsp),%rdx
+  a5a9fd:	48 89 c6             	mov    %rax,%rsi
+  a5aa00:	49 89 f8             	mov    %rdi,%r8
+  a5aa03:	4c 8b 74 24 08       	mov    0x8(%rsp),%r14
+  a5aa08:	4c 8b 7c 24 10       	mov    0x10(%rsp),%r15
+  a5aa0d:	48 0f af f2          	imul   %rdx,%rsi
+  a5aa11:	4c 8d 2c fd 00 00 00 	lea    0x0(,%rdi,8),%r13
+  a5aa18:	00 
+  a5aa19:	4c 0f af c2          	imul   %rdx,%r8
+  a5aa1d:	49 8d 34 f6          	lea    (%r14,%rsi,8),%rsi
+  a5aa21:	4f 8d 1c c7          	lea    (%r15,%r8,8),%r11
+  a5aa25:	48 85 ff             	test   %rdi,%rdi
+  a5aa28:	0f 8e dd 00 00 00    	jle    a5ab0b <dtrsm_kernel_LT_SKYLAKEX+0x22b>
+  a5aa2e:	48 89 74 24 18       	mov    %rsi,0x18(%rsp)
+  a5aa33:	4d 8d 75 08          	lea    0x8(%r13),%r14
+  a5aa37:	4c 89 dd             	mov    %r11,%rbp
+  a5aa3a:	4c 8d 3c c5 00 00 00 	lea    0x0(,%rax,8),%r15
+  a5aa41:	00 
+  a5aa42:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  a5aa48:	45 31 d2             	xor    %r10d,%r10d
+  a5aa4b:	48 85 c0             	test   %rax,%rax
+  a5aa4e:	7f 1e                	jg     a5aa6e <dtrsm_kernel_LT_SKYLAKEX+0x18e>
+  a5aa50:	4d 01 eb             	add    %r13,%r11
+  a5aa53:	49 ff c2             	inc    %r10
+  a5aa56:	49 8d 70 01          	lea    0x1(%r8),%rsi
+  a5aa5a:	4c 01 f5             	add    %r14,%rbp
+  a5aa5d:	49 39 f8             	cmp    %rdi,%r8
+  a5aa60:	0f 84 a5 00 00 00    	je     a5ab0b <dtrsm_kernel_LT_SKYLAKEX+0x22b>
+  a5aa66:	49 89 f0             	mov    %rsi,%r8
+  a5aa69:	48 85 c0             	test   %rax,%rax
+  a5aa6c:	7e e2                	jle    a5aa50 <dtrsm_kernel_LT_SKYLAKEX+0x170>
+  a5aa6e:	48 8b 74 24 18       	mov    0x18(%rsp),%rsi
+  a5aa73:	c5 fb 10 55 00       	vmovsd 0x0(%rbp),%xmm2
+  a5aa78:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+  a5aa7d:	44 89 4c 24 68       	mov    %r9d,0x68(%rsp)
+  a5aa82:	89 4c 24 6c          	mov    %ecx,0x6c(%rsp)
+  a5aa86:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a5aa8d:	00 00 00 
+  a5aa90:	48 89 d9             	mov    %rbx,%rcx
+  a5aa93:	4e 8d 0c 3e          	lea    (%rsi,%r15,1),%r9
+  a5aa97:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a5aa9e:	00 00 
+  a5aaa0:	c4 a1 6b 59 04 d1    	vmulsd (%rcx,%r10,8),%xmm2,%xmm0
+  a5aaa6:	48 83 c6 08          	add    $0x8,%rsi
+  a5aaaa:	49 63 d0             	movslq %r8d,%rdx
+  a5aaad:	c5 fb 11 46 f8       	vmovsd %xmm0,-0x8(%rsi)
+  a5aab2:	c4 a1 7b 11 04 d1    	vmovsd %xmm0,(%rcx,%r10,8)
+  a5aab8:	4c 39 c7             	cmp    %r8,%rdi
+  a5aabb:	7e 1c                	jle    a5aad9 <dtrsm_kernel_LT_SKYLAKEX+0x1f9>
+  a5aabd:	0f 1f 00             	nopl   (%rax)
+  a5aac0:	c4 c1 7b 10 0c d3    	vmovsd (%r11,%rdx,8),%xmm1
+  a5aac6:	c4 e2 f9 ad 0c d1    	vfnmadd213sd (%rcx,%rdx,8),%xmm0,%xmm1
+  a5aacc:	c5 fb 11 0c d1       	vmovsd %xmm1,(%rcx,%rdx,8)
+  a5aad1:	48 ff c2             	inc    %rdx
+  a5aad4:	48 39 fa             	cmp    %rdi,%rdx
+  a5aad7:	75 e7                	jne    a5aac0 <dtrsm_kernel_LT_SKYLAKEX+0x1e0>
+  a5aad9:	4c 01 e1             	add    %r12,%rcx
+  a5aadc:	4c 39 ce             	cmp    %r9,%rsi
+  a5aadf:	75 bf                	jne    a5aaa0 <dtrsm_kernel_LT_SKYLAKEX+0x1c0>
+  a5aae1:	4d 01 eb             	add    %r13,%r11
+  a5aae4:	49 ff c2             	inc    %r10
+  a5aae7:	49 8d 50 01          	lea    0x1(%r8),%rdx
+  a5aaeb:	4c 01 f5             	add    %r14,%rbp
+  a5aaee:	49 39 f8             	cmp    %rdi,%r8
+  a5aaf1:	74 0a                	je     a5aafd <dtrsm_kernel_LT_SKYLAKEX+0x21d>
+  a5aaf3:	c5 fb 10 55 00       	vmovsd 0x0(%rbp),%xmm2
+  a5aaf8:	49 89 d0             	mov    %rdx,%r8
+  a5aafb:	eb 93                	jmp    a5aa90 <dtrsm_kernel_LT_SKYLAKEX+0x1b0>
+  a5aafd:	48 8b 54 24 18       	mov    0x18(%rsp),%rdx
+  a5ab02:	44 8b 4c 24 68       	mov    0x68(%rsp),%r9d
+  a5ab07:	8b 4c 24 6c          	mov    0x6c(%rsp),%ecx
+  a5ab0b:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+  a5ab10:	4c 01 eb             	add    %r13,%rbx
+  a5ab13:	48 01 fa             	add    %rdi,%rdx
+  a5ab16:	4c 8b 74 24 10       	mov    0x10(%rsp),%r14
+  a5ab1b:	48 0f af f7          	imul   %rdi,%rsi
+  a5ab1f:	48 ff 4c 24 50       	decq   0x50(%rsp)
+  a5ab24:	49 8d 34 f6          	lea    (%r14,%rsi,8),%rsi
+  a5ab28:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  a5ab2d:	0f 85 67 fe ff ff    	jne    a5a99a <dtrsm_kernel_LT_SKYLAKEX+0xba>
+  a5ab33:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  a5ab38:	4c 8b 7c 24 60       	mov    0x60(%rsp),%r15
+  a5ab3d:	48 89 d5             	mov    %rdx,%rbp
+  a5ab40:	45 89 ca             	mov    %r9d,%r10d
+  a5ab43:	89 ca                	mov    %ecx,%edx
+  a5ab45:	41 8d 4a ff          	lea    -0x1(%r10),%ecx
+  a5ab49:	48 63 c9             	movslq %ecx,%rcx
+  a5ab4c:	48 85 4c 24 30       	test   %rcx,0x30(%rsp)
+  a5ab51:	0f 85 c9 01 00 00    	jne    a5ad20 <dtrsm_kernel_LT_SKYLAKEX+0x440>
+  a5ab57:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  a5ab5c:	48 8b 4c 24 20       	mov    0x20(%rsp),%rcx
+  a5ab61:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  a5ab66:	48 0f af c8          	imul   %rax,%rcx
+  a5ab6a:	48 0f af 84 24 b0 00 	imul   0xb0(%rsp),%rax
+  a5ab71:	00 00 
+  a5ab73:	48 ff 4c 24 58       	decq   0x58(%rsp)
+  a5ab78:	48 8d 1c cb          	lea    (%rbx,%rcx,8),%rbx
+  a5ab7c:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  a5ab81:	4d 8d 3c c7          	lea    (%r15,%rax,8),%r15
+  a5ab85:	0f 85 c6 fd ff ff    	jne    a5a951 <dtrsm_kernel_LT_SKYLAKEX+0x71>
+  a5ab8b:	8d 42 ff             	lea    -0x1(%rdx),%eax
+  a5ab8e:	48 98                	cltq
+  a5ab90:	48 85 44 24 40       	test   %rax,0x40(%rsp)
+  a5ab95:	0f 84 55 03 00 00    	je     a5aef0 <dtrsm_kernel_LT_SKYLAKEX+0x610>
+  a5ab9b:	d1 fa                	sar    $1,%edx
+  a5ab9d:	4c 63 e2             	movslq %edx,%r12
+  a5aba0:	85 d2                	test   %edx,%edx
+  a5aba2:	0f 8e 48 03 00 00    	jle    a5aef0 <dtrsm_kernel_LT_SKYLAKEX+0x610>
+  a5aba8:	48 8b 84 24 b0 00 00 	mov    0xb0(%rsp),%rax
+  a5abaf:	00 
+  a5abb0:	4c 8d 34 c5 00 00 00 	lea    0x0(,%rax,8),%r14
+  a5abb7:	00 
+  a5abb8:	eb 09                	jmp    a5abc3 <dtrsm_kernel_LT_SKYLAKEX+0x2e3>
+  a5abba:	49 d1 fc             	sar    $1,%r12
+  a5abbd:	0f 84 2d 03 00 00    	je     a5aef0 <dtrsm_kernel_LT_SKYLAKEX+0x610>
+  a5abc3:	4c 85 64 24 40       	test   %r12,0x40(%rsp)
+  a5abc8:	74 f0                	je     a5abba <dtrsm_kernel_LT_SKYLAKEX+0x2da>
+  a5abca:	48 8d 05 9f fb b5 00 	lea    0xb5fb9f(%rip),%rax        # 15ba770 <gotoblas>
+  a5abd1:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
+  a5abd6:	4c 8b 10             	mov    (%rax),%r10
+  a5abd9:	48 c1 fb 04          	sar    $0x4,%rbx
+  a5abdd:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  a5abe2:	41 8b 82 fc 02 00 00 	mov    0x2fc(%r10),%eax
+  a5abe9:	48 85 db             	test   %rbx,%rbx
+  a5abec:	0f 8e af 04 00 00    	jle    a5b0a1 <dtrsm_kernel_LT_SKYLAKEX+0x7c1>
+  a5abf2:	4a 8d 1c e5 00 00 00 	lea    0x0(,%r12,8),%rbx
+  a5abf9:	00 
+  a5abfa:	4c 89 7c 24 10       	mov    %r15,0x10(%rsp)
+  a5abff:	48 8b 6c 24 38       	mov    0x38(%rsp),%rbp
+  a5ac04:	48 63 f8             	movslq %eax,%rdi
+  a5ac07:	48 89 5c 24 48       	mov    %rbx,0x48(%rsp)
+  a5ac0c:	48 8b 9c 24 b8 00 00 	mov    0xb8(%rsp),%rbx
+  a5ac13:	00 
+  a5ac14:	4d 89 fd             	mov    %r15,%r13
+  a5ac17:	48 85 db             	test   %rbx,%rbx
+  a5ac1a:	7e 43                	jle    a5ac5f <dtrsm_kernel_LT_SKYLAKEX+0x37f>
+  a5ac1c:	48 83 ec 08          	sub    $0x8,%rsp
+  a5ac20:	c5 fb 10 05 e0 27 96 	vmovsd 0x9627e0(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  a5ac27:	00 
+  a5ac28:	48 89 e9             	mov    %rbp,%rcx
+  a5ac2b:	4c 89 e6             	mov    %r12,%rsi
+  a5ac2e:	ff b4 24 b8 00 00 00 	push   0xb8(%rsp)
+  a5ac35:	48 89 da             	mov    %rbx,%rdx
+  a5ac38:	4c 8b 4c 24 20       	mov    0x20(%rsp),%r9
+  a5ac3d:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  a5ac42:	41 ff 92 c8 03 00 00 	call   *0x3c8(%r10)
+  a5ac49:	48 8d 05 20 fb b5 00 	lea    0xb5fb20(%rip),%rax        # 15ba770 <gotoblas>
+  a5ac50:	59                   	pop    %rcx
+  a5ac51:	5e                   	pop    %rsi
+  a5ac52:	4c 8b 10             	mov    (%rax),%r10
+  a5ac55:	49 63 ba fc 02 00 00 	movslq 0x2fc(%r10),%rdi
+  a5ac5c:	48 89 f8             	mov    %rdi,%rax
+  a5ac5f:	48 89 da             	mov    %rbx,%rdx
+  a5ac62:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  a5ac67:	4c 8d 3c fd 00 00 00 	lea    0x0(,%rdi,8),%r15
+  a5ac6e:	00 
+  a5ac6f:	49 0f af d4          	imul   %r12,%rdx
+  a5ac73:	4c 8d 04 d6          	lea    (%rsi,%rdx,8),%r8
+  a5ac77:	48 89 fa             	mov    %rdi,%rdx
+  a5ac7a:	48 0f af d3          	imul   %rbx,%rdx
+  a5ac7e:	48 8d 74 d5 00       	lea    0x0(%rbp,%rdx,8),%rsi
+  a5ac83:	48 85 ff             	test   %rdi,%rdi
+  a5ac86:	0f 8e 7f 02 00 00    	jle    a5af0b <dtrsm_kernel_LT_SKYLAKEX+0x62b>
+  a5ac8c:	48 89 6c 24 50       	mov    %rbp,0x50(%rsp)
+  a5ac91:	49 8d 57 08          	lea    0x8(%r15),%rdx
+  a5ac95:	41 b9 01 00 00 00    	mov    $0x1,%r9d
+  a5ac9b:	45 31 db             	xor    %r11d,%r11d
+  a5ac9e:	48 89 5c 24 58       	mov    %rbx,0x58(%rsp)
+  a5aca3:	48 89 54 24 28       	mov    %rdx,0x28(%rsp)
+  a5aca8:	48 89 f2             	mov    %rsi,%rdx
+  a5acab:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+  a5acb0:	c5 fb 10 12          	vmovsd (%rdx),%xmm2
+  a5acb4:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  a5acb9:	49 8d 2c 08          	lea    (%r8,%rcx,1),%rbp
+  a5acbd:	0f 1f 00             	nopl   (%rax)
+  a5acc0:	c4 a1 6b 59 0c db    	vmulsd (%rbx,%r11,8),%xmm2,%xmm1
+  a5acc6:	49 83 c0 08          	add    $0x8,%r8
+  a5acca:	4c 89 c9             	mov    %r9,%rcx
+  a5accd:	c4 c1 7b 11 48 f8    	vmovsd %xmm1,-0x8(%r8)
+  a5acd3:	c4 a1 7b 11 0c db    	vmovsd %xmm1,(%rbx,%r11,8)
+  a5acd9:	4c 39 cf             	cmp    %r9,%rdi
+  a5acdc:	7e 1a                	jle    a5acf8 <dtrsm_kernel_LT_SKYLAKEX+0x418>
+  a5acde:	66 90                	xchg   %ax,%ax
+  a5ace0:	c5 fb 10 04 ce       	vmovsd (%rsi,%rcx,8),%xmm0
+  a5ace5:	c4 e2 f1 ad 04 cb    	vfnmadd213sd (%rbx,%rcx,8),%xmm1,%xmm0
+  a5aceb:	c5 fb 11 04 cb       	vmovsd %xmm0,(%rbx,%rcx,8)
+  a5acf0:	48 ff c1             	inc    %rcx
+  a5acf3:	48 39 f9             	cmp    %rdi,%rcx
+  a5acf6:	75 e8                	jne    a5ace0 <dtrsm_kernel_LT_SKYLAKEX+0x400>
+  a5acf8:	4c 01 f3             	add    %r14,%rbx
+  a5acfb:	49 39 e8             	cmp    %rbp,%r8
+  a5acfe:	75 c0                	jne    a5acc0 <dtrsm_kernel_LT_SKYLAKEX+0x3e0>
+  a5ad00:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+  a5ad05:	4c 01 fe             	add    %r15,%rsi
+  a5ad08:	49 ff c3             	inc    %r11
+  a5ad0b:	49 8d 59 01          	lea    0x1(%r9),%rbx
+  a5ad0f:	48 01 ca             	add    %rcx,%rdx
+  a5ad12:	49 39 f9             	cmp    %rdi,%r9
+  a5ad15:	0f 84 e6 01 00 00    	je     a5af01 <dtrsm_kernel_LT_SKYLAKEX+0x621>
+  a5ad1b:	49 89 d9             	mov    %rbx,%r9
+  a5ad1e:	eb 8b                	jmp    a5acab <dtrsm_kernel_LT_SKYLAKEX+0x3cb>
+  a5ad20:	41 d1 fa             	sar    $1,%r10d
+  a5ad23:	4d 63 ea             	movslq %r10d,%r13
+  a5ad26:	45 85 d2             	test   %r10d,%r10d
+  a5ad29:	0f 8e 28 fe ff ff    	jle    a5ab57 <dtrsm_kernel_LT_SKYLAKEX+0x277>
+  a5ad2f:	4c 89 7c 24 50       	mov    %r15,0x50(%rsp)
+  a5ad34:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  a5ad39:	4c 85 6c 24 30       	test   %r13,0x30(%rsp)
+  a5ad3e:	0f 84 60 01 00 00    	je     a5aea4 <dtrsm_kernel_LT_SKYLAKEX+0x5c4>
+  a5ad44:	48 85 ed             	test   %rbp,%rbp
+  a5ad47:	7e 4e                	jle    a5ad97 <dtrsm_kernel_LT_SKYLAKEX+0x4b7>
+  a5ad49:	48 83 ec 08          	sub    $0x8,%rsp
+  a5ad4d:	c5 fb 10 05 b3 26 96 	vmovsd 0x9626b3(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  a5ad54:	00 
+  a5ad55:	49 89 d9             	mov    %rbx,%r9
+  a5ad58:	48 89 ea             	mov    %rbp,%rdx
+  a5ad5b:	ff b4 24 b8 00 00 00 	push   0xb8(%rsp)
+  a5ad62:	4c 89 ef             	mov    %r13,%rdi
+  a5ad65:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  a5ad6a:	48 8b 4c 24 20       	mov    0x20(%rsp),%rcx
+  a5ad6f:	48 8b 74 24 28       	mov    0x28(%rsp),%rsi
+  a5ad74:	ff 90 c8 03 00 00    	call   *0x3c8(%rax)
+  a5ad7a:	48 8d 05 ef f9 b5 00 	lea    0xb5f9ef(%rip),%rax        # 15ba770 <gotoblas>
+  a5ad81:	41 58                	pop    %r8
+  a5ad83:	41 59                	pop    %r9
+  a5ad85:	48 8b 00             	mov    (%rax),%rax
+  a5ad88:	48 63 b8 00 03 00 00 	movslq 0x300(%rax),%rdi
+  a5ad8f:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+  a5ad94:	48 89 fa             	mov    %rdi,%rdx
+  a5ad97:	4c 8b 4c 24 18       	mov    0x18(%rsp),%r9
+  a5ad9c:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  a5ada1:	48 89 ee             	mov    %rbp,%rsi
+  a5ada4:	4e 8d 3c ed 00 00 00 	lea    0x0(,%r13,8),%r15
+  a5adab:	00 
+  a5adac:	49 0f af f5          	imul   %r13,%rsi
+  a5adb0:	4d 8d 5f 08          	lea    0x8(%r15),%r11
+  a5adb4:	41 ba 01 00 00 00    	mov    $0x1,%r10d
+  a5adba:	4c 89 c9             	mov    %r9,%rcx
+  a5adbd:	48 0f af cd          	imul   %rbp,%rcx
+  a5adc1:	48 8d 0c cf          	lea    (%rdi,%rcx,8),%rcx
+  a5adc5:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  a5adca:	48 8d 3c f7          	lea    (%rdi,%rsi,8),%rdi
+  a5adce:	4a 8d 34 cd 00 00 00 	lea    0x0(,%r9,8),%rsi
+  a5add5:	00 
+  a5add6:	45 31 c9             	xor    %r9d,%r9d
+  a5add9:	48 89 74 24 28       	mov    %rsi,0x28(%rsp)
+  a5adde:	49 89 fe             	mov    %rdi,%r14
+  a5ade1:	48 83 7c 24 18 00    	cmpq   $0x0,0x18(%rsp)
+  a5ade7:	0f 8e cf 00 00 00    	jle    a5aebc <dtrsm_kernel_LT_SKYLAKEX+0x5dc>
+  a5aded:	48 89 6c 24 60       	mov    %rbp,0x60(%rsp)
+  a5adf2:	c4 c1 7b 10 16       	vmovsd (%r14),%xmm2
+  a5adf7:	4c 8b 44 24 28       	mov    0x28(%rsp),%r8
+  a5adfc:	48 89 de             	mov    %rbx,%rsi
+  a5adff:	4a 8d 2c 01          	lea    (%rcx,%r8,1),%rbp
+  a5ae03:	49 89 c8             	mov    %rcx,%r8
+  a5ae06:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a5ae0d:	00 00 00 
+  a5ae10:	c4 a1 6b 59 0c ce    	vmulsd (%rsi,%r9,8),%xmm2,%xmm1
+  a5ae16:	49 83 c0 08          	add    $0x8,%r8
+  a5ae1a:	49 63 ca             	movslq %r10d,%rcx
+  a5ae1d:	c4 c1 7b 11 48 f8    	vmovsd %xmm1,-0x8(%r8)
+  a5ae23:	c4 a1 7b 11 0c ce    	vmovsd %xmm1,(%rsi,%r9,8)
+  a5ae29:	4d 39 ea             	cmp    %r13,%r10
+  a5ae2c:	7d 2a                	jge    a5ae58 <dtrsm_kernel_LT_SKYLAKEX+0x578>
+  a5ae2e:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a5ae35:	00 00 00 00 
+  a5ae39:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  a5ae40:	c5 fb 10 04 cf       	vmovsd (%rdi,%rcx,8),%xmm0
+  a5ae45:	c4 e2 f1 ad 04 ce    	vfnmadd213sd (%rsi,%rcx,8),%xmm1,%xmm0
+  a5ae4b:	c5 fb 11 04 ce       	vmovsd %xmm0,(%rsi,%rcx,8)
+  a5ae50:	48 ff c1             	inc    %rcx
+  a5ae53:	49 39 cd             	cmp    %rcx,%r13
+  a5ae56:	75 e8                	jne    a5ae40 <dtrsm_kernel_LT_SKYLAKEX+0x560>
+  a5ae58:	4c 01 e6             	add    %r12,%rsi
+  a5ae5b:	49 39 e8             	cmp    %rbp,%r8
+  a5ae5e:	75 b0                	jne    a5ae10 <dtrsm_kernel_LT_SKYLAKEX+0x530>
+  a5ae60:	4c 89 c1             	mov    %r8,%rcx
+  a5ae63:	4c 01 ff             	add    %r15,%rdi
+  a5ae66:	49 ff c1             	inc    %r9
+  a5ae69:	4d 01 de             	add    %r11,%r14
+  a5ae6c:	49 8d 72 01          	lea    0x1(%r10),%rsi
+  a5ae70:	4d 39 d5             	cmp    %r10,%r13
+  a5ae73:	74 0d                	je     a5ae82 <dtrsm_kernel_LT_SKYLAKEX+0x5a2>
+  a5ae75:	c4 c1 7b 10 16       	vmovsd (%r14),%xmm2
+  a5ae7a:	49 89 f2             	mov    %rsi,%r10
+  a5ae7d:	e9 75 ff ff ff       	jmp    a5adf7 <dtrsm_kernel_LT_SKYLAKEX+0x517>
+  a5ae82:	48 8b 6c 24 60       	mov    0x60(%rsp),%rbp
+  a5ae87:	48 8b 4c 24 20       	mov    0x20(%rsp),%rcx
+  a5ae8c:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  a5ae91:	4c 01 fb             	add    %r15,%rbx
+  a5ae94:	4c 01 ed             	add    %r13,%rbp
+  a5ae97:	49 0f af cd          	imul   %r13,%rcx
+  a5ae9b:	48 8d 3c cf          	lea    (%rdi,%rcx,8),%rdi
+  a5ae9f:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  a5aea4:	49 d1 fd             	sar    $1,%r13
+  a5aea7:	0f 85 8c fe ff ff    	jne    a5ad39 <dtrsm_kernel_LT_SKYLAKEX+0x459>
+  a5aead:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  a5aeb2:	4c 8b 7c 24 50       	mov    0x50(%rsp),%r15
+  a5aeb7:	e9 9b fc ff ff       	jmp    a5ab57 <dtrsm_kernel_LT_SKYLAKEX+0x277>
+  a5aebc:	4c 01 ff             	add    %r15,%rdi
+  a5aebf:	49 ff c1             	inc    %r9
+  a5aec2:	49 8d 72 01          	lea    0x1(%r10),%rsi
+  a5aec6:	4d 01 de             	add    %r11,%r14
+  a5aec9:	4d 39 d5             	cmp    %r10,%r13
+  a5aecc:	74 b9                	je     a5ae87 <dtrsm_kernel_LT_SKYLAKEX+0x5a7>
+  a5aece:	49 89 f2             	mov    %rsi,%r10
+  a5aed1:	e9 0b ff ff ff       	jmp    a5ade1 <dtrsm_kernel_LT_SKYLAKEX+0x501>
+  a5aed6:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  a5aedb:	48 8b ac 24 b8 00 00 	mov    0xb8(%rsp),%rbp
+  a5aee2:	00 
+  a5aee3:	4c 89 fb             	mov    %r15,%rbx
+  a5aee6:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  a5aeeb:	e9 55 fc ff ff       	jmp    a5ab45 <dtrsm_kernel_LT_SKYLAKEX+0x265>
+  a5aef0:	48 83 c4 78          	add    $0x78,%rsp
+  a5aef4:	31 c0                	xor    %eax,%eax
+  a5aef6:	5b                   	pop    %rbx
+  a5aef7:	5d                   	pop    %rbp
+  a5aef8:	41 5c                	pop    %r12
+  a5aefa:	41 5d                	pop    %r13
+  a5aefc:	41 5e                	pop    %r14
+  a5aefe:	41 5f                	pop    %r15
+  a5af00:	c3                   	ret
+  a5af01:	48 8b 6c 24 50       	mov    0x50(%rsp),%rbp
+  a5af06:	48 8b 5c 24 58       	mov    0x58(%rsp),%rbx
+  a5af0b:	48 8b 54 24 20       	mov    0x20(%rsp),%rdx
+  a5af10:	4c 01 7c 24 10       	add    %r15,0x10(%rsp)
+  a5af15:	48 01 fb             	add    %rdi,%rbx
+  a5af18:	48 0f af d7          	imul   %rdi,%rdx
+  a5af1c:	48 ff 4c 24 18       	decq   0x18(%rsp)
+  a5af21:	48 8d 6c d5 00       	lea    0x0(%rbp,%rdx,8),%rbp
+  a5af26:	0f 85 eb fc ff ff    	jne    a5ac17 <dtrsm_kernel_LT_SKYLAKEX+0x337>
+  a5af2c:	4d 89 ef             	mov    %r13,%r15
+  a5af2f:	8d 50 ff             	lea    -0x1(%rax),%edx
+  a5af32:	48 63 d2             	movslq %edx,%rdx
+  a5af35:	48 85 54 24 30       	test   %rdx,0x30(%rsp)
+  a5af3a:	75 2c                	jne    a5af68 <dtrsm_kernel_LT_SKYLAKEX+0x688>
+  a5af3c:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  a5af41:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  a5af46:	49 0f af c4          	imul   %r12,%rax
+  a5af4a:	48 8d 04 c3          	lea    (%rbx,%rax,8),%rax
+  a5af4e:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  a5af53:	48 8b 84 24 b0 00 00 	mov    0xb0(%rsp),%rax
+  a5af5a:	00 
+  a5af5b:	49 0f af c4          	imul   %r12,%rax
+  a5af5f:	4d 8d 3c c7          	lea    (%r15,%rax,8),%r15
+  a5af63:	e9 52 fc ff ff       	jmp    a5abba <dtrsm_kernel_LT_SKYLAKEX+0x2da>
+  a5af68:	d1 f8                	sar    $1,%eax
+  a5af6a:	4c 63 e8             	movslq %eax,%r13
+  a5af6d:	85 c0                	test   %eax,%eax
+  a5af6f:	7e cb                	jle    a5af3c <dtrsm_kernel_LT_SKYLAKEX+0x65c>
+  a5af71:	4a 8d 04 e5 00 00 00 	lea    0x0(,%r12,8),%rax
+  a5af78:	00 
+  a5af79:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  a5af7e:	4c 85 6c 24 30       	test   %r13,0x30(%rsp)
+  a5af83:	0f 84 0a 01 00 00    	je     a5b093 <dtrsm_kernel_LT_SKYLAKEX+0x7b3>
+  a5af89:	48 85 db             	test   %rbx,%rbx
+  a5af8c:	7e 3b                	jle    a5afc9 <dtrsm_kernel_LT_SKYLAKEX+0x6e9>
+  a5af8e:	48 8d 05 db f7 b5 00 	lea    0xb5f7db(%rip),%rax        # 15ba770 <gotoblas>
+  a5af95:	48 83 ec 08          	sub    $0x8,%rsp
+  a5af99:	c5 fb 10 05 67 24 96 	vmovsd 0x962467(%rip),%xmm0        # 13bd408 <.annobin___pthread_atfork.end+0x4b8>
+  a5afa0:	00 
+  a5afa1:	48 89 da             	mov    %rbx,%rdx
+  a5afa4:	48 89 e9             	mov    %rbp,%rcx
+  a5afa7:	4c 89 e6             	mov    %r12,%rsi
+  a5afaa:	4c 89 ef             	mov    %r13,%rdi
+  a5afad:	48 8b 00             	mov    (%rax),%rax
+  a5afb0:	ff b4 24 b8 00 00 00 	push   0xb8(%rsp)
+  a5afb7:	4c 8b 4c 24 20       	mov    0x20(%rsp),%r9
+  a5afbc:	4c 8b 44 24 18       	mov    0x18(%rsp),%r8
+  a5afc1:	ff 90 c8 03 00 00    	call   *0x3c8(%rax)
+  a5afc7:	58                   	pop    %rax
+  a5afc8:	5a                   	pop    %rdx
+  a5afc9:	48 89 d8             	mov    %rbx,%rax
+  a5afcc:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  a5afd1:	4e 8d 0c ed 00 00 00 	lea    0x0(,%r13,8),%r9
+  a5afd8:	00 
+  a5afd9:	49 0f af c4          	imul   %r12,%rax
+  a5afdd:	48 8d 34 c7          	lea    (%rdi,%rax,8),%rsi
+  a5afe1:	48 89 d8             	mov    %rbx,%rax
+  a5afe4:	bf 01 00 00 00       	mov    $0x1,%edi
+  a5afe9:	49 0f af c5          	imul   %r13,%rax
+  a5afed:	48 8d 4c c5 00       	lea    0x0(%rbp,%rax,8),%rcx
+  a5aff2:	49 8d 41 08          	lea    0x8(%r9),%rax
+  a5aff6:	49 89 ca             	mov    %rcx,%r10
+  a5aff9:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  a5affe:	c4 c1 7b 10 12       	vmovsd (%r10),%xmm2
+  a5b003:	4c 8d 5f ff          	lea    -0x1(%rdi),%r11
+  a5b007:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+  a5b00c:	48 01 f2             	add    %rsi,%rdx
+  a5b00f:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+  a5b014:	c4 81 6b 59 0c d8    	vmulsd (%r8,%r11,8),%xmm2,%xmm1
+  a5b01a:	48 83 c6 08          	add    $0x8,%rsi
+  a5b01e:	48 89 fa             	mov    %rdi,%rdx
+  a5b021:	c5 fb 11 4e f8       	vmovsd %xmm1,-0x8(%rsi)
+  a5b026:	c4 81 7b 11 0c d8    	vmovsd %xmm1,(%r8,%r11,8)
+  a5b02c:	49 39 fd             	cmp    %rdi,%r13
+  a5b02f:	7e 28                	jle    a5b059 <dtrsm_kernel_LT_SKYLAKEX+0x779>
+  a5b031:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a5b038:	00 00 00 00 
+  a5b03c:	0f 1f 40 00          	nopl   0x0(%rax)
+  a5b040:	c5 fb 10 04 d1       	vmovsd (%rcx,%rdx,8),%xmm0
+  a5b045:	c4 c2 f1 ad 04 d0    	vfnmadd213sd (%r8,%rdx,8),%xmm1,%xmm0
+  a5b04b:	c4 c1 7b 11 04 d0    	vmovsd %xmm0,(%r8,%rdx,8)
+  a5b051:	48 ff c2             	inc    %rdx
+  a5b054:	49 39 d5             	cmp    %rdx,%r13
+  a5b057:	75 e7                	jne    a5b040 <dtrsm_kernel_LT_SKYLAKEX+0x760>
+  a5b059:	48 8b 54 24 18       	mov    0x18(%rsp),%rdx
+  a5b05e:	4d 01 f0             	add    %r14,%r8
+  a5b061:	48 39 d6             	cmp    %rdx,%rsi
+  a5b064:	75 ae                	jne    a5b014 <dtrsm_kernel_LT_SKYLAKEX+0x734>
+  a5b066:	4c 01 c9             	add    %r9,%rcx
+  a5b069:	48 8d 57 01          	lea    0x1(%rdi),%rdx
+  a5b06d:	49 01 c2             	add    %rax,%r10
+  a5b070:	49 39 fd             	cmp    %rdi,%r13
+  a5b073:	74 08                	je     a5b07d <dtrsm_kernel_LT_SKYLAKEX+0x79d>
+  a5b075:	48 89 d7             	mov    %rdx,%rdi
+  a5b078:	e9 7c ff ff ff       	jmp    a5aff9 <dtrsm_kernel_LT_SKYLAKEX+0x719>
+  a5b07d:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  a5b082:	4c 01 4c 24 10       	add    %r9,0x10(%rsp)
+  a5b087:	4c 01 eb             	add    %r13,%rbx
+  a5b08a:	49 0f af c5          	imul   %r13,%rax
+  a5b08e:	48 8d 6c c5 00       	lea    0x0(%rbp,%rax,8),%rbp
+  a5b093:	49 d1 fd             	sar    $1,%r13
+  a5b096:	0f 85 e2 fe ff ff    	jne    a5af7e <dtrsm_kernel_LT_SKYLAKEX+0x69e>
+  a5b09c:	e9 9b fe ff ff       	jmp    a5af3c <dtrsm_kernel_LT_SKYLAKEX+0x65c>
+  a5b0a1:	48 8b 9c 24 b8 00 00 	mov    0xb8(%rsp),%rbx
+  a5b0a8:	00 
+  a5b0a9:	48 8b 6c 24 38       	mov    0x38(%rsp),%rbp
+  a5b0ae:	4c 89 7c 24 10       	mov    %r15,0x10(%rsp)
+  a5b0b3:	e9 77 fe ff ff       	jmp    a5af2f <dtrsm_kernel_LT_SKYLAKEX+0x64f>
+
+Disassembly of section .fini:

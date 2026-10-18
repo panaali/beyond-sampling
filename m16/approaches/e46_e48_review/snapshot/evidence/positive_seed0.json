@@ -1,0 +1,50 @@
+{
+  "complete": true,
+  "error_simplices": 35098,
+  "gate_leaves": 8455,
+  "all_indices_once": true,
+  "source_error_mass": 0.024952664060133686,
+  "positive_error_mass": 0.02383919245339731,
+  "source_accuracy": 0.9750473359398664,
+  "positive_accuracy": 0.9761608075466027,
+  "source_minus_positive_error": 0.0011134716067363742,
+  "conditional_integration_bound": 1.0422166074433452e-10,
+  "source_negative_count": 2984,
+  "source_negative_sum": -0.0002925205562385668,
+  "positive_negative_count": 0,
+  "bound_misses": 0,
+  "order_counts": {
+    "20": 26037,
+    "32": 9061,
+    "48": 0
+  },
+  "replay_cpu": 81.39114827,
+  "capture_cpu": 14.991144678,
+  "source_partial_named_mass_ops": 204957048,
+  "unchanged_source_matches_prior": true,
+  "prior_source_sha256": "762ff4d694aedd0f8bf61f79891dff3ced6a604f965363d12a9440af295de41c",
+  "mc_diagnostics": [
+    {
+      "source": "numpy recorded4M",
+      "probability": 0.97606325,
+      "samples": 4000000,
+      "rounding_halfwidth": 0.0,
+      "plug_in_standard_error": 7.642607866336833e-05,
+      "reference_minus_mc": 9.75575466026779e-05,
+      "z_score": 1.2764955144746692,
+      "diagnostic_only": true
+    },
+    {
+      "source": "torch README rounded10M",
+      "probability": 0.97617,
+      "samples": 10000000,
+      "rounding_halfwidth": 5e-06,
+      "plug_in_standard_error": 4.8230831529219996e-05,
+      "reference_minus_mc": -9.192453397255385e-06,
+      "z_score": -0.19059288645451325,
+      "diagnostic_only": true
+    }
+  ],
+  "scope": "Integration bound conditional on captured floating geometry and arithmetic; no full roundoff/topology certificate, portable-cost claim or estimator competitiveness. MC comparisons diagnostic only; torch value rounded in existing README.",
+  "aggregation_cpu": 0.06217520200000001
+}

@@ -1,0 +1,75 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000001194b20 <scipy_dlapy2_64_>:
+ 1194b20:	41 54                	push   %r12
+ 1194b22:	55                   	push   %rbp
+ 1194b23:	48 89 fd             	mov    %rdi,%rbp
+ 1194b26:	53                   	push   %rbx
+ 1194b27:	48 89 f3             	mov    %rsi,%rbx
+ 1194b2a:	48 83 ec 10          	sub    $0x10,%rsp
+ 1194b2e:	e8 0d 28 ef fe       	call   87340 <scipy_disnan_64_@plt>
+ 1194b33:	48 89 df             	mov    %rbx,%rdi
+ 1194b36:	49 89 c4             	mov    %rax,%r12
+ 1194b39:	e8 02 28 ef fe       	call   87340 <scipy_disnan_64_@plt>
+ 1194b3e:	4d 85 e4             	test   %r12,%r12
+ 1194b41:	0f 85 a9 00 00 00    	jne    1194bf0 <scipy_dlapy2_64_+0xd0>
+ 1194b47:	48 85 c0             	test   %rax,%rax
+ 1194b4a:	74 34                	je     1194b80 <scipy_dlapy2_64_+0x60>
+ 1194b4c:	f2 0f 10 13          	movsd  (%rbx),%xmm2
+ 1194b50:	be 08 00 00 00       	mov    $0x8,%esi
+ 1194b55:	48 8d 3d b2 96 22 00 	lea    0x2296b2(%rip),%rdi        # 13be20e <.annobin___pthread_atfork.end+0x12be>
+ 1194b5c:	f2 0f 11 54 24 08    	movsd  %xmm2,0x8(%rsp)
+ 1194b62:	e8 a9 de ee fe       	call   82a10 <scipy_dlamch_64_@plt>
+ 1194b67:	f2 0f 10 54 24 08    	movsd  0x8(%rsp),%xmm2
+ 1194b6d:	48 83 c4 10          	add    $0x10,%rsp
+ 1194b71:	66 0f 28 c2          	movapd %xmm2,%xmm0
+ 1194b75:	5b                   	pop    %rbx
+ 1194b76:	5d                   	pop    %rbp
+ 1194b77:	41 5c                	pop    %r12
+ 1194b79:	c3                   	ret
+ 1194b7a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 1194b80:	be 08 00 00 00       	mov    $0x8,%esi
+ 1194b85:	48 8d 3d 82 96 22 00 	lea    0x229682(%rip),%rdi        # 13be20e <.annobin___pthread_atfork.end+0x12be>
+ 1194b8c:	e8 7f de ee fe       	call   82a10 <scipy_dlamch_64_@plt>
+ 1194b91:	f2 0f 10 4d 00       	movsd  0x0(%rbp),%xmm1
+ 1194b96:	f2 0f 10 1b          	movsd  (%rbx),%xmm3
+ 1194b9a:	f3 0f 7e 15 fe 85 22 	movq   0x2285fe(%rip),%xmm2        # 13bd1a0 <.annobin___pthread_atfork.end+0x250>
+ 1194ba1:	00 
+ 1194ba2:	66 0f 54 da          	andpd  %xmm2,%xmm3
+ 1194ba6:	66 0f 54 ca          	andpd  %xmm2,%xmm1
+ 1194baa:	66 0f 28 d1          	movapd %xmm1,%xmm2
+ 1194bae:	f2 0f 5d cb          	minsd  %xmm3,%xmm1
+ 1194bb2:	f2 0f 5f d3          	maxsd  %xmm3,%xmm2
+ 1194bb6:	66 0f ef db          	pxor   %xmm3,%xmm3
+ 1194bba:	66 0f 2e cb          	ucomisd %xmm3,%xmm1
+ 1194bbe:	7a 02                	jp     1194bc2 <scipy_dlapy2_64_+0xa2>
+ 1194bc0:	74 ab                	je     1194b6d <scipy_dlapy2_64_+0x4d>
+ 1194bc2:	66 0f 2f d0          	comisd %xmm0,%xmm2
+ 1194bc6:	77 a5                	ja     1194b6d <scipy_dlapy2_64_+0x4d>
+ 1194bc8:	f2 0f 5e ca          	divsd  %xmm2,%xmm1
+ 1194bcc:	f2 0f 59 c9          	mulsd  %xmm1,%xmm1
+ 1194bd0:	f2 0f 58 0d 18 88 22 	addsd  0x228818(%rip),%xmm1        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+ 1194bd7:	00 
+ 1194bd8:	48 83 c4 10          	add    $0x10,%rsp
+ 1194bdc:	5b                   	pop    %rbx
+ 1194bdd:	5d                   	pop    %rbp
+ 1194bde:	41 5c                	pop    %r12
+ 1194be0:	f2 0f 51 c9          	sqrtsd %xmm1,%xmm1
+ 1194be4:	f2 0f 59 d1          	mulsd  %xmm1,%xmm2
+ 1194be8:	66 0f 28 c2          	movapd %xmm2,%xmm0
+ 1194bec:	c3                   	ret
+ 1194bed:	0f 1f 00             	nopl   (%rax)
+ 1194bf0:	48 85 c0             	test   %rax,%rax
+ 1194bf3:	0f 85 53 ff ff ff    	jne    1194b4c <scipy_dlapy2_64_+0x2c>
+ 1194bf9:	f2 0f 10 55 00       	movsd  0x0(%rbp),%xmm2
+ 1194bfe:	e9 4d ff ff ff       	jmp    1194b50 <scipy_dlapy2_64_+0x30>
+
+Disassembly of section .fini:

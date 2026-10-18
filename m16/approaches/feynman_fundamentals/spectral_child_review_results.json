@@ -1,0 +1,431 @@
+{
+  "complete": true,
+  "outputs": 12,
+  "original_event_subsequences_unchanged": true,
+  "child_counts": {
+    "dgebrd": 30,
+    "dgelqf": 18,
+    "dorglq": 30,
+    "dgesdd": 12,
+    "dnrm2": 38,
+    "dlapy2": 91,
+    "dscal": 12,
+    "dlarfg": 50,
+    "dgemv": 6,
+    "daxpy": 12,
+    "dger": 6,
+    "dlarf1f": 12,
+    "dorgl2": 6,
+    "dgemm": 6,
+    "dsyevd": 12,
+    "dsytd2": 6,
+    "dsytrd": 6,
+    "dlanst": 6,
+    "dlae2": 6,
+    "dlasrt": 6,
+    "dsterf": 6
+  },
+  "legendre_shift_calls": [
+    11,
+    4,
+    4,
+    11,
+    21,
+    34
+  ],
+  "svd_child_shapes": [
+    [
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemv",
+        "args": [
+          1,
+          1,
+          4,
+          1
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "dger",
+        "args": [
+          1,
+          1,
+          1,
+          4
+        ]
+      },
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          4,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemm",
+        "args": [
+          1,
+          4,
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemv",
+        "args": [
+          2,
+          2,
+          4,
+          1
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          2,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          2,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "dger",
+        "args": [
+          2,
+          2,
+          1,
+          4
+        ]
+      },
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          4,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemm",
+        "args": [
+          1,
+          4,
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemv",
+        "args": [
+          3,
+          3,
+          4,
+          1
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          3,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          3,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "dger",
+        "args": [
+          3,
+          3,
+          1,
+          4
+        ]
+      },
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          4,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemm",
+        "args": [
+          1,
+          4,
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemv",
+        "args": [
+          2,
+          2,
+          4,
+          1
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          2,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          2,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "dger",
+        "args": [
+          2,
+          2,
+          1,
+          4
+        ]
+      },
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          4,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemm",
+        "args": [
+          1,
+          4,
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemv",
+        "args": [
+          3,
+          3,
+          4,
+          1
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          3,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          3,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "dger",
+        "args": [
+          3,
+          3,
+          1,
+          4
+        ]
+      },
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          4,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemm",
+        "args": [
+          1,
+          4,
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemv",
+        "args": [
+          3,
+          3,
+          4,
+          1
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          3,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "daxpy",
+        "args": [
+          3,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "function": "dger",
+        "args": [
+          3,
+          3,
+          1,
+          4
+        ]
+      },
+      {
+        "function": "dscal",
+        "args": [
+          3,
+          4,
+          0,
+          0
+        ]
+      },
+      {
+        "function": "dgemm",
+        "args": [
+          1,
+          4,
+          1,
+          0
+        ]
+      }
+    ]
+  ],
+  "capture_sha256": "5cdc1a7ea680f33606a9d55ea3d0077272741e75ef54accb1e5437520380b9cc",
+  "new_spectral_model_calls": 0,
+  "scope": "Finite saved child attribution with guarded current DSTERF input buffers. Zero observed scaling and fixed shapes do not price other routines or establish full native cost."
+}
