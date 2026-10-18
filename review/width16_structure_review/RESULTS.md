@@ -2,7 +2,9 @@
 
 One completed attempt under the published source gatebe07096b and execution
 gateff4af35a/shared776ebd3c. `results.json`, `progress.jsonl` and `run.log`
-preserve the original run. Independent saved-result review is pending.
+preserve the original run. Independent saved-result review3db2d849/shared3677b343 passed all records with
+integer-scaled aggregation, insertion-rank marginals and conditional-log entropy
+(max alternate entropy difference1.066e-14). No author numerical calls.
 
 All nine NPZ/JSON pairs pass:118,586 pieces, all finite and strictly positive;
 280 displayed arithmetic/event-marginal comparisons, maximum absolute discrepancy
