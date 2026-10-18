@@ -114,7 +114,11 @@ Region growth stays ~x30 per step through k = 6 [inferred: cells ~ regions].
   underestimate and the exact shortfall D is added to the unprocessed mass U): g_1e-3 >= 7.58, g_1e-4 >= 9.03,
   g_1e-5 >= 10.56, g_1e-6 >= 12.21, g_1e-7 >= 14.16 (N5 = 42,499 / 89,216 / 152,956 / 226,080 / 301,935). Upper bounds
   and delta = 1e-6, 1e-7 values: **open** (need the repaired masses and full coverage).
-- Final N6 at shard 0's end (~14:45) will be appended. Outputs: `results/prefix6/` (bounds.json, logs, roots.npz,
+- **Final (both shards complete, 16:45; all 3,811 subtrees): 23,802,036 cells, 19,740,596 distinct regions under estT
+  geometry -> g_N(5 -> 6) >= 31.2** (lower bound: the clip defect undercounts regions, +10-17% in defective subtrees).
+  Final provisional g_delta bounds (U = 0, D = 3.96e-4 total shortfall, unrepaired): g_1e-3 in [9.79, 12.24],
+  g_1e-4 >= 11.65, g_1e-5 >= 13.61, g_1e-6 >= 15.74, g_1e-7 >= 18.22 (N6 >= 415,932 / 1,039,764 / 2,082,464 / 3,557,854 /
+  5,500,702). Upper bounds below 1e-3 need the repaired masses (open). Outputs: `results/prefix6/` (bounds.json, logs, roots.npz,
   diagnosis jsons; chunk npz files git-ignored, ~4 MB each, on the Colab VMs and in this container).
 
 ## Compute accounting
