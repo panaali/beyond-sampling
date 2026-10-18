@@ -148,8 +148,12 @@ Hashes: weights `039e3e69…`, manifest `1bf47b3f…`, truths `1a6a44f4…`. Bia
 - Sensitivity: 5.05 under the T281 count at 1c742430; 5.29 with every ndtr charged.
 - The plain-MC control on the same panel scores about 1 (control runs 0.72–1.07).
 
-**T317d (T322)**, which removes the three documentation gaps (§2 steps 3 and 12), is the intended ARC-ready version.
-Its HP3 score will be added here when it is in.
+**T317d (T322), the ARC-ready version** (T281 29bef882). It removes the three documentation gaps: deterministic
+transverse points, and tables precomputed once and listed (§2 steps 3 and 12).
+- HP3: C 5,431 FPE, **F 5.07 [3.41, 7.03]**, RMS 0.804 pp, bias +0.414 pp. HP2: 6.75 [4.86, 8.78].
+- Its estimates are within .0076 pp of T317c's.
+- Its pre-registered DEV2 gate allowed at most .01 pp change per model. One DEV2 model moved .0115 pp, and the
+  DRI accepted the overshoot.
 
 **HP1: original model + 5 zoo seeds, clean and with noisy copies** (8 noisy copies per base model at each level; 1e8
 truths; 6-cluster bootstrap, seed 281). As executed (c70e22cd):
@@ -211,6 +215,7 @@ the cost. The other lineage (T319, smooth verdict) has no recorded result and no
 | T317b | 7.75 [5.58, 10.07]; official 7.89 [5.68, 10.25] |
 | T317c | 6.72 [4.84, 8.73]; as executed 6.76 [4.87, 8.79] |
 | HP3: T317c | 5.08 [3.42, 7.04] (T281, H-L1) |
+| T317d (T322) | HP2 6.75 [4.86, 8.78]; HP3 5.07 [3.41, 7.03] |
 
 **What this means for HP2.**
 - HP2 was scored three times on the same estimates (T317, T317b, T317c), each time with a lower cost. The T317c
