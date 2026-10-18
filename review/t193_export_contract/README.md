@@ -23,3 +23,5 @@ The actual exporter may have run with all intended environment defaults and comp
 
 ## Failure modes
 Importing estP executes geometry compilation/patching and incidental table loading; do not import it for a read-only inventory. Do not reinterpret rows as columns, renormalize stored rays, use the same-source refined mass as an independent truth, or silently extrapolate selected discrepancies to all simplices. Original T192 history is on its public author branch, not yet ancestor of the shared branch; pinned owned snapshots do not assert otherwise.
+
+Availability update after this fixed-source review: T55 reports newer T192branch2930bc92 now tracks H8T5_zoo0.npz (1770680bytes) and H8T5_zoo2.npz (1704578bytes). The absence finding applies only to a5ab8757. No arrays decoded or source/provenance contract satisfied by this report alone; no numerical unblock, and new DRI T219 priority remains.
