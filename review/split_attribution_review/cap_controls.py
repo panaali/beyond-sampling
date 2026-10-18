@@ -43,6 +43,11 @@ def run():
             elif i==2:
                 # Exact positive-hull box coordinates: alpha2=x2/e,alpha3=x3/e,
                 # alpha1=x1-alpha2-alpha3 >= 1-1/4-1/4 = 1/2.
+                stored=[[F(float(x)) for x in row] for row in R]
+                assert all(row[0]>0 for row in stored)
+                assert stored[0][1:]==[F(0),F(0)]
+                assert stored[1][1]/stored[1][0]==e and stored[1][2]==0
+                assert stored[2][2]/stored[2][0]==e and stored[2][1]==0
                 assert F(1)-F(1,4)-F(1,4)==F(1,2)
                 assert 4+2*(e/4)**2<6
                 lower=e*e/F(41472)
