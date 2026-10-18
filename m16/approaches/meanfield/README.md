@@ -52,5 +52,28 @@ be cut several-fold).
   half-normal, not Gaussian.
 - If either removes the ~2x compression without calibration, stage 1 would pass, and stage 2 (D0/D1 classes) becomes worth running.
 
+## T294b pre-registration (written 2026-10-18, before any T294b number was computed)
+Three closure variants of stage 1 (`mf2.py`), all else identical (same 180 units, role moments, Clark readout, no calibration):
+- **(a) exact bivariate ReLU second moments.** For i != j, cov(relu z_i, relu z_j) = E[relu z_i relu z_j] - E relu z_i E relu z_j
+  with the closed form for jointly Gaussian (z_i, z_j) (alpha = mu/s, rho = corr, r = sqrt(1 - rho^2)):
+  s_i s_j [(alpha_i alpha_j + rho) Phi2 + alpha_i phi(alpha_j) Phi((alpha_i - rho alpha_j)/r) + alpha_j phi(alpha_i)
+  Phi((alpha_j - rho alpha_i)/r) + r^2 phi2], Phi2 by 20-node Gauss-Legendre in theta = asin(rho) (|rho| clipped at 0.9999).
+  Checked against Monte Carlo before use. Stein cross-covariances and the diagonal stay as in stage 1 (already exact).
+- **(b) sign-fixed law of the current input.** At step t, x_t's own marginal law given the case (exact half-normal at the positive
+  position; the model-free role law, which is one-sided, elsewhere) is split into K = 16 equal-probability bins (model-free MC,
+  4e6 draws). In each bin x_t is Gaussian with the bin's mean and variance, the rest of the state is conditioned on it by
+  Gaussian regression, the ReLU step is applied in closed form, and the 16 results are collapsed back to one Gaussian state by
+  the law of total covariance. So no mass of x_t sits on the wrong sign (up to within-bin Gaussian tails). Cross terms first order.
+- **(c) both** (b's bins with (a)'s exact cross terms).
+**Reference:** T293 sampled contributions (blind11/blind.json, diagnostic). **Go line (each variant, DEV2 80 models, no
+calibration):** corr(pred, sampled) >= 0.7 AND RMS(pred - sampled) <= 0.15 pp. Stop: corr < 0.3. Else inconclusive.
+**Mechanism test (reported, not part of the rule):** OLS slope of pred on sampled (stage 1: corr x sd ratio = 0.26; ideal 1),
+the slope of sampled on pred (stage 1: ~2.07; ideal 1) and the sd ratio pred/sampled (stage 1: 0.35). Compression counts as
+removed if the sd ratio is in [0.75, 1.33] and the sampled-on-pred slope is in [0.75, 1.33].
+**Also reported:** LB3 (30) the same numbers; per-variant cost breakdown (covariance propagation, ReLU moments, Phi2, bins,
+Clark readout) in FPE; ideas to cut cost ~10x. The LB3-fitted calibration is not used in any scored number.
+**Stage 2** (D0 classes, top-2 positions x positive count, F under amendment 2) runs only if (c) passes, after its own
+pre-registration committed before running. Cap ~3 CPU-h for T294b.
+
 ## Compute accounting
 110 models x ~11.9k FPE (~1.2 CPU-s each); ~5 CPU-min total.
