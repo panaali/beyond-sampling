@@ -168,3 +168,35 @@ r0_integral/r0.py.
 
 ## Compute accounting
 ~25 CPU-min of diagnostic sampling (80 models x 2e5 inputs x ~25 forward evaluations), plus 80 `cont_d.est` calls.
+
+---
+
+## Addendum A (Fable r5 D3): combination rules for the 2-D residue. Pre-registered 2026-10-18, before any addendum number.
+Written after the main budget (above) was known. The T306-B mechanism hypothesis below is based on that budget's
+one-at-a-time result.
+
+**Target.** Per input x, T(x) = the closure-c verdict at x's own point (v2, g12, g23), with the K = 1 v4 node and exact
+lows along t, keeping V1's tmax cut and blind-g12 rule. The **residue** of a rule X is X - T. It isolates
+"transverse point + line-set product + mu linearisation", the approximations a combination rule can change.
+**Models:** the lineage's 10 DEV2 models (indices 0, 8, ..., 72), 1e6 exact-law inputs each (seed 324500 + index).
+**Rules** (all from verdicts on lines the estimator walks):
+- (i) **P1:** the product s23 * s12 at the one transverse point per region (= V1).
+- (ii) **P2:** the product at each half's own point (T306-B: v2 split at the region's median, exact-law points per
+  half). Costs 2x the walks.
+- (iii) zero-cost alternatives at the one point:
+  - **OR** (union: correct if either line says correct);
+  - **L23** (line 23 alone, g12 ignored);
+  - **L12** (line 12 alone);
+  - **AVG** ((s23 + s12) / 2).
+  (min = AND = P1 for 0/1 verdicts.)
+- (iv) **J1:** the exact 2-D set at the one point (joint verdict at (v2*, g12, g23), line-23 closure); **J2:** the same at
+  the half points.
+**Metrics:**
+- model-level residue: mean over x of X - T, per model; bias and RMS over the 10 models;
+- class-level residue: per (model, triple) mass difference, RMS over 7,200 classes (paired, MC SE reported).
+**Go:** some zero-cost rule (iii) has model-level residue RMS <= 0.60 x that of P1. **Stop:** no zero-cost rule does, and only
+J1/J2 get <= 0.60 x. Otherwise (nothing gets there): stop too, and report.
+**T306-B anomaly, hypothesis to test:** refining the transverse point removes an error of the opposite sign to the
+product's, unmasking it. Predictions: (a) P2's bias exceeds P1's, on the side of "transverse off alone" (+.71 on 80
+models); (b) J2's bias is closer to 0 than J1's (with the product gone, refinement converges). If (b) fails, the
+hypothesis is wrong.
