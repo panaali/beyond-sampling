@@ -1,0 +1,37 @@
+{
+  "task": "T278 independent saved control checker source/resource review",
+  "complete": true,
+  "pass_all": true,
+  "execution_authorized": true,
+  "reviewer": "recover_910",
+  "reviewed_source": "60e7153e",
+  "source_publication": "ef37c80b",
+  "pins": {
+    "/workspace/work/recover-small_h2_78/review/t278_controls_saved_78/check.py": "58af8f82b8567a2ee67ed0d6a6584f561fa9f6e496a079188a816403041e77bb",
+    "/workspace/work/recover-small_h2_78/review/t278_controls_saved_78/scope.json": "51e0da2b82499d093a36c56716a71c0bad086491b1f276eb5a7e5a9670c69b8c",
+    "/workspace/work/recover-small_h2_78/review/t278_controls_saved_78/README.md": "0771e67d8be751f912ebf1ac42cb31c844a86848f7be2de55bb3ce6e7a1d4aba"
+  },
+  "scope": "One saved-only 18-row/38-event audit after immutable completed-input and execution-gate publication. No author module, target, face or RNG calls.",
+  "findings": [
+    "Independent exhaustive mask inequalities agree with strict ON and zero OFF conventions up to null endpoints; continuity checks include shared boundaries.",
+    "Four fixtures and all seven probes are fixed, first-index ties are explicit, and signed differences follow independently accumulated endpoint jumps.",
+    "Independent 80-digit erf/exp formulas match delta-coordinate Taylor terms and global remainders; fixed 1e-14 diagnostic comparison does not replace producer 3e-15 bound checks.",
+    "Required direct gate pins, transitive producer pins, literal coverage, ordered events and atomic failure records are checked."
+  ],
+  "resources": {
+    "internal_cpu": 19,
+    "soft_hard_cpu": [
+      19,
+      20
+    ],
+    "address_space": 2147483648,
+    "wall_seconds": 25,
+    "lock": "/workspace/work/codex-review.lock"
+  },
+  "limits": [
+    "Named operation and peak-bit internals are metadata, not independently replayed.",
+    "Malformed-input guards are source and saved-reason checks only.",
+    "No real face-law, target-model, outer-quadrature or floating-error certification."
+  ],
+  "review_execution": "AST parse, text inspection and hash verification only; checker not imported or executed."
+}
