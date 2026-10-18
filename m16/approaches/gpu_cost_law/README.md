@@ -5,7 +5,7 @@ exact M_16,10 answer key (T5) reachable with the owner's Colab budget (~305 unit
 E46/E48 (fresh noise, own truth, own op count, MSE ratios), the T196 op-completeness audit, the T222 mass-coverage
 curve of the target's prefix regions, and a high-precision MC truth for M_16,10.
 
-**Status.** done (wind-down). Pending: (8,5) nominal FLOP audit (CPU runtime), final MC/k=6 numbers (see Results 10-11).
+**Status.** done (wind-down). (8,5) audit done; T270 final N6 pending (shard 0).
 **Verdict (unverified; DRI decision): T5 NO-GO.** Scope: region-by-region exact enumeration plus per-region cone
 masses (estT exact mode and its truth-cone variant) on M_16,10. Its prefixes have 34, 792, 21,032, 632,394 exact
 activation regions for k = 2..5 steps (growth x23, x27, x30 per step, increasing), so k = 10 projects to >= 1e13
@@ -78,7 +78,9 @@ sliver refinement (worst 3e-2), which a d = 10 mass method would also need.
 
 **Op completeness (T196).** Nominal audit, 9 (8,4) runs: complete / charged 1.36-1.39 (one (8,5) half: 1.38).
 Nominal only: LAPACK formulas (SVD values-only), scalar/incidence work at 1 op per element, numba SVD vectors and
-implementation overhead not priced. (8,5) seeds 0-4 audit: pending (`colab/q_audit.sh`).
+implementation overhead not priced. **(8,5) seeds 0-4, recipe108** (`python audit.py 8 5 SEED recipe108`, Colab CPU,
+`results/audit85/audit_*.log`): complete / charged = 1.23, 1.22, 1.18, 1.23, 1.27 (charged 2.18e11, 1.89e11, 2.53e11,
+2.97e11, 1.70e11 ops).
 
 **M_16,10 MC truth (`python mc_target.py 300`)**: float64 forward, 300 blocks of 1e9 samples, Philox seed
 20261018000 + block (all block counts in `results/mc_target/blocks.jsonl`; extendable to 1e12 by running more blocks):
