@@ -116,9 +116,9 @@ conditional-law Monte Carlo (T364).
   - T363: the lows closure (all 6 lows pinned at one value) carries 56% of that deficit.
   - T365: a few fixed spread patterns of the lows raise it from 9 to 20 of 32 failing cases, but do not fix it. A
     real fix needs 6-D quadrature of the lows, at about 10–100x the cost.
-- **At p ≳ 1e-5, sampling wins at equal compute.** The deductive cost (~0.4–2M FPE) does not depend on p, while
-  sampling's cost to a given accuracy grows as 1/p. T360's equal-compute comparison went 21 win / 22 tie / 67 loss.
-  The advantage exists only where sampling at that cost sees few or no events.
+- **Sampling wins at equal compute where p × C ≳ 90**, the number of events sampling expects at the estimator's cost.
+  At 1–2M FPE that is p ≳ 5e-5 to 1e-4. The deductive cost (~0.4–2M FPE) does not depend on p, while sampling's
+  cost to a given accuracy grows as 1/p. T360's counts were 21 win / 22 tie / 67 loss.
 - **Not tested on weight-noised copies**, the other half of ARC's model distribution.
 - **Sampling-free at runtime, but developed on DEV models.** The closure, the thresholds and the g12 rule were chosen
   with Monte Carlo on development retrains, as for the candidate (§2).
