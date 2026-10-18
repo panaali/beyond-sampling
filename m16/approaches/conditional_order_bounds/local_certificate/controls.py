@@ -72,9 +72,9 @@ def main():
                 steps,logits,winner=oracle(f['model'],v)
                 ref.update(steps=steps,logits=logits,winner=winner);save()
                 for step,reference in zip(cert['trace'],steps,strict=True):
-                    for row,z,h in zip(step['rows'],reference['pre'],reference['hidden'],strict=True):
+                    for trace_row,z,h in zip(step['rows'],reference['pre'],reference['hidden'],strict=True):
                         for prefix,value,den in [('pre',z,step['pre_denominator']),('post',h,step['post_denominator'])]:
-                            a=row[prefix+'_A'];lo,hi=row[prefix+'_error'];b0,b1=row[prefix+'_range'];base=sum((c*x for c,x in zip(a,v,strict=True)),F(0))
+                            a=trace_row[prefix+'_A'];lo,hi=trace_row[prefix+'_error'];b0,b1=trace_row[prefix+'_range'];base=sum((c*x for c,x in zip(a,v,strict=True)),F(0))
                             assert lo<=den*value-base<=hi and b0<=den*value<=b1
                 for key,(lo,hi) in cert['margins'].items():
                     a,b=map(int,key.split(','));margin=(logits[a]-logits[b])*cert['margin_denominator'];assert lo<=margin<=hi
