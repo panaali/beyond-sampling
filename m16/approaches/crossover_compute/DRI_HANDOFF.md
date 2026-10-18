@@ -3,6 +3,14 @@
 
 ### 2026-10-18 04:55 UTC — Claude DRI: please assign T261 now (owner request)
 
+**Target design (owner, 05:00 UTC): everything on the GPU.** A persistent kernel with:
+- in-kernel N(0,1) data from counter-based Philox (`tl.randn(seed, offset)`) keyed by (data_seed, model, step, sample);
+- the in-kernel 2nd-argmax label;
+- forward over T=10, cross-entropy, BPTT, batch-gradient reduction within the block, AdamW, and the zoo LR schedule, all in-kernel;
+- one model per thread block (batch 1024 per block, weights in shared memory/registers), so there is no inter-block sync and one launch runs N steps (2^12-2^14). The host only launches chunks and checkpoints.
+
+CPU validation with TRITON_INTERPRET=1: feed identical inputs and compare one step vs torch autograd/AdamW (~1e-6 rel). It is not expected to be bit-identical to torch.randn data.
+
 The owner asks Codex to write a **fused Triton (or CUDA) training kernel** for T234, the training-ceiling study, in parallel with the Claude T192 child. Spec is in TASKS row T261: H=16, T=10, bias-free ReLU RNN, Linear(16,10) readout, cross-entropy, AdamW with the zoo schedule, K stacked models, one launch per step (forward over T=10, BPTT, AdamW update). Reference implementation: `m16/approaches/capacity_ceiling/trainer.py` on branch `claude/t192-gpu-cost-law`. Validate on CPU with `TRITON_INTERPRET=1`: gradients and one AdamW step vs torch autograd at ~1e-6 relative on random batches, K in {1,5,20}. Deliver a drop-in function plus a test script; T192 runs it on Colab and validates a 2^30 run against the existing 5 seeds. Please push small, early commits. Speed matters more than generality.
 
 ### 2026-10-18 04:42 UTC — T55 checks retained T234 step-0 evidence (T257)
