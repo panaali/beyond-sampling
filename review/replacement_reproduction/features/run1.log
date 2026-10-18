@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/workspace/work/recover-small_h4_4/review/replacement_reproduction/features/run.py", line 93, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/work/recover-small_h4_4/review/replacement_reproduction/features/run.py", line 86, in main
+    row['status']='passed';event('completed_row',index=len(result['rows'])-1)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/recover-small_h4_4/review/replacement_reproduction/features/run.py", line 29, in event
+    cap()
+  File "/workspace/work/recover-small_h4_4/review/replacement_reproduction/features/run.py", line 27, in cap
+    def cap():assert time.process_time()-start<15,'internal CPU cap'
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: internal CPU cap
+real 15.22
+user 14.67
+sys 0.54
