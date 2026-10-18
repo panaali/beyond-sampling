@@ -12,18 +12,28 @@ polynomial integration and gauge invariance, plus eight malformed/domain guards.
 sources and original proofs. No target data or Gaussian evaluation is involved.
 
 ## Status
-Source/control preparation. Independent source/resource review pending with
-recover_34. No controls have run and no execution gate exists.
+Sole fixed synthetic attempt complete in d5721b03 after source review 6a57dfe7
+and published execution gate a21d5ce2. Independent saved-output audit is active
+with recover_fundamentals; no further run is authorized.
 
 ## Results
-None yet. The mathematical identity was independently reviewed in original T233;
-that does not certify this implementation. The irrational density maximum is
+[measured, saved audit pending] All twelve five-point cases and eight guards
+passed; 42 durable events. Interface counts: 120 point, 60 interval and 12 scale
+calls, plus eight rejected guard attempts. Main-scope CPU: 0.427782553 seconds.
+The runtime records CPU soft/hard [20,20] seconds and address-space soft/hard
+[2147483648,2147483648] bytes. Reproduction command (original run only; outputs
+refuse overwrite): `set -e; ulimit -v 2097152; ulimit -t 20;
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 flock
+/workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python
+review/two_hinge_exact_controls/controls.py`. The irrational density maximum is
 kept symbolic, not evaluated or counted as a computed Gaussian expectation.
 
 ## Compute accounting
-Source preparation only. Zero primitive/control/model/MC/RNG/quadrature calls.
-Future harness counts and main-scope CPU will be reported separately from whole
-process limits and unpriced exact arithmetic. No performance benefit claimed.
+Counts and measured main-scope CPU above include the synthetic phase. There
+were zero model/MC/RNG/quadrature/Gaussian calls. The 84 successful nested
+conditional calls are distinct from interface counts. Exact arithmetic, GCD,
+validation, snapshots and imports are not given a scalar/native cost model.
+External limits cover the whole process; no performance benefit claimed.
 
 ## Claims
 [inferred] Exact rational arithmetic avoids rounding in the tested identities.
