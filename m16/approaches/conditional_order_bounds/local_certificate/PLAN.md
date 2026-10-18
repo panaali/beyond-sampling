@@ -15,8 +15,10 @@ our unimplemented T220 source audit was released when that new directive arrived
    Preserve failures; obtain independent saved audit before trained application.
 4. Freeze both original models and all20736 boxes per model, lexical bin order,
    unchanged12-bin grid/dyadic slopes, fixed masks and integer model schema.
-   One <=110CPU primary-lock process with90CPU soft total guard,2GiB and one
+   One <=90CPU primary-lock process with75CPU soft total guard,2GiB and one
    thread; no adaptive refinement, early success selection or automatic retry.
+   The primitive20CPU plus application90CPU reserves sum to the claimed110CPU
+   author total; independent reviewer work is reported separately.
    Durable per-model/chunk coverage, exact aggregate mass numerators, class
    statuses and all source/model/premise pins. Store enough box records for
    independent saved reconstruction; do not claim a source-only review as a
