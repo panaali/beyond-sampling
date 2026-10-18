@@ -63,7 +63,9 @@ exact correctness certificate. If mass intervals are available, combine their
 uncertainty with coverage; aggregate normalization alone does not validate
 individual masses or cancellation in c_i=m_i-e_i. Bounds for individual pieces
 must also cover their partition/provenance assumptions. A confidence interval
-from MC is not a deterministic quadrature enclosure.
+from MC is not a deterministic quadrature enclosure. If the contribution bounds
+are probabilistic, joint coverage must account for every interval used and any
+data-dependent selection; pointwise intervals do not automatically survive sorting.
 
 For verified nonnegative class contributions a_i in [l_i,u_i], a fixed selected
 set S has conditional coverage at least
