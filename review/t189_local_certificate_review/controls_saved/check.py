@@ -20,6 +20,21 @@ def intersect(a,b):
 
 def decoded(a):return [F(q) for q in a]
 def compare_scaled(stored,physical,den):eq([F(q,den) for q in stored],list(physical))
+def expected_fixture(name):
+    signed=[[1,0],[0,1],[0,0],[-1,-1]];zero=[[0,0],[0,0]]
+    specs={
+      'zero_readout':([1],[[0]],[[0]]*4,[[-2,2]]*4,['correct','wrong','wrong','wrong'],1,False),
+      'identical_active':([1],[[0]],[[1]]*4,[[2,4]]*4,['correct','wrong','wrong','wrong'],1,True),
+      'negative_final':([1,-1],zero,signed,[[-2,2]]*3+[[-4,-2]],['wrong','correct','wrong','wrong'],1,False),
+      'positive_final':([1,-1],zero,signed,[[-2,2]]*3+[[2,4]],['correct','wrong','wrong','wrong'],1,False),
+      'crossing_final':([1,-1],zero,signed,[[-2,2]]*4,['unknown','unknown','wrong','wrong'],1,False),
+      'signed_recurrence':([1,-1],[[1,-1],[-1,1]],signed,[[-2,2]]*4,None,1,False),
+      'dense_denominator':([1,-2,3],[[1,-1,2],[-2,1,1],[3,0,-1]],[[1,0,-1],[0,1,1],[-1,2,0],[2,-1,1]],[[-4,-2],[0,2],[-2,2],[2,4]],None,2,False),
+      'all_stable':([1,2],[[1,1],[0,1]],[[1,0],[0,1],[1,1],[-1,-1]],[[2,4]]*4,['wrong','wrong','correct','wrong'],1,True),
+      'zero_input':([0],[[1]],[[0],[1],[-1],[0]],[[-2,2]]*4,['correct','wrong','wrong','wrong'],1,True)}
+    wi,wh,wo,box,status,D,stable=specs[name]
+    return dict(name=name,model=dict(wi=wi,wh=wh,wo=wo,D=D,H=len(wi),T=4),box=box,expected=status,stable=stable)
+
 def independent_certificate(f,cert):
     m=f['model'];H,T,D=m['H'],m['T'],m['D'];box=[tuple(map(F,q)) for q in f['box']]
     wi=[F(w,D) for w in m['wi']];wh=[[F(w,D) for w in r] for r in m['wh']]
@@ -128,6 +143,7 @@ def main():
         by={k:[q for q in rows if q['kind']==k] for k in ['network','remainder','rank','cdf','crossover','guard']}
         eq([len(by[k]) for k in by],[9,9,6,13,4,3]);eq([q['fixture']['name'] for q in by['network']],protocol['network_names'])
         for row in by['network']:
+            eq(row['fixture'],expected_fixture(row['fixture']['name']))
             weights=independent_certificate(row['fixture'],row['certificate']);direct_points(row,*weights);result['synthetic_point_reconstructions']+=17;save()
         for q,(L,U,width) in zip(by['remainder'],[(L,U,w) for L,U in [(-3,1),(-1,3),(-1,1)] for w in [0,2,17]],strict=True):
             eq((q['L'],q['U'],q['error_width']),(L,U,width));rs=[2*U,max(-L,U),-2*L];eq(q['remainders'],rs);eq(q['chosen'],min(range(3),key=lambda j:(j*width+rs[j],j)))
