@@ -1,0 +1,5 @@
+# T258 narrow inventory-metadata recovery
+
+First attempt aacb52d4 failed before score decoding: inventory contains eight records, seven present text payloads and explicit missing logs/phaseD.log. Original failure/checker/log remain immutable. Correct only the record-schema assertion to exact ordered eight names and seven-true/one-false statuses, then hash the seven payloads. No arithmetic, checks, counts, inputs or tolerance changes. Original producer is never rerun.
+
+Use distinct check_v2.py/recovery.json/gate_v2.json and output_v2/run2.log. Pin the original checker, original gate/scope/protocol and failure outputs, plus all prior inputs. Record prior failed CPU and new CPU separately and total. Same four reviewer events,237 counts/63 checks, rounding-model limits and midpoint endpoint exclusions. Once-only recovery needs published independent source gate and actual20/20CPU/2GiB hard+soft, internal17/review lock. Fail closed and preserve any second failure; no automatic retries. Original source/resource review remains historical, not retrospectively altered.
