@@ -84,12 +84,18 @@ def main():
                 est=env['make'](strat=True,cv=None,alloc=alloc);rng=Stream(prototypes,case['delayed']);records=[]
                 oldtrace=sys.gettrace();assert oldtrace is None
                 arm=dict(mode=mode);row['arms'].append(arm);save()
+                score=cost=None;ws=[]
                 try:
                     with warnings.catch_warnings(record=True) as ws:
                         warnings.simplefilter('always')
                         if mode=='observed':sys.settrace(lambda f,e,a:observe(f,e,a,records))
                         score,cost=est(model,case['budget'],rng)
-                finally:sys.settrace(oldtrace)
+                finally:
+                    sys.settrace(oldtrace)
+                    arm.update(requests=rng.requests,records=records,warnings=sorted((w.category.__name__,str(w.message)) for w in ws))
+                    if score is not None and cost is not None:arm.update(estimate_hex=float(score).hex(),cost=cost)
+                    if env.get('_pc') is not None:arm['cacheP']=array(env['_pc']['P'])
+                    save()
                 arm.update(estimate_hex=score.hex(),cost=cost,warnings=sorted((w.category.__name__,str(w.message)) for w in ws),requests=rng.requests,records=records,cacheP=array(env['_pc']['P']));save()
                 assert sys.gettrace() is oldtrace
                 assert len(rng.requests)==(2 if case['delayed'] else 1)

@@ -37,3 +37,8 @@ Immutable result/progress/tree filenames; per-arm durable saves. Independent
 source/resource gate published before run and independent saved review after.
 No trained checkpoint, random-law/correctness/variance inference, complete native
 or Gaussian generation cost, multiplier adoption or shared harness change.
+
+Pre-run durability review requires every arm to save requests, return records
+and caught warnings in finally after restoring the prior trace, even if the
+estimator raises. Any completed output/cache is saved there as well. The
+original unrun80363394 source remains in history; numerical bodies unchanged.
