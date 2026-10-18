@@ -106,3 +106,6 @@ exactly 0 (Phi(v2) is a model-free table), and the pieces ending at tmax merge w
   - Cost as executed: **5,488 FPE** on DEV2 (it also charges the a = tmax tail-start Phi calls that are actually
     made).
   - The fixed file goes to the scorer to confirm. The HP2 verdict holds under either count.
+  - **Scorer recount of c70e22cd on HP2 (claude/hp1-scorer 7dd19ff5):** estimates equal T317b to <= 2.2e-16;
+    C 5,489 FPE; **F 6.76 [4.87, 8.79]**; HP1 clean 3.78. [measured by T281; unverified]
+  - The family is frozen at the DRI's request (no further code changes). HP3 (T321) scores @1c742430 as frozen.
