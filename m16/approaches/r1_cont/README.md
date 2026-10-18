@@ -947,3 +947,24 @@ Claims [measured, open models, against T340's truths; unverified]:
 - g12 transverse integration fixes T340's orig underestimate and E2 overshoot. K = 3 is "partial", K = 5 is 9/9
   within a factor of 2.
 - At these costs the method beats sampling at equal compute only on events with p·C ≲ 100.
+
+## T354 pre-registration (DRI; 2026-10-18, before running): walk only the event's segment
+**Change to T340c (T349)**, nothing else changed. Each line's walk starts at the event's own threshold, from an
+exact restart state, instead of at the tie:
+- **E1** (g23 > t0, t0 ∈ {1, 1.25, 1.5}): one walk per row from t = 1.0 to TBIG = 6, covering all three t0.
+- **E2(t)** (t ∈ {.5, .75}): each family's walk starts at t.
+- **The restart state is exact.** A fresh first cell (prefix tree, values and tangents) is computed at the start
+  point x0 + t_start · d, and the walk proceeds as before on t' = t − t_start, with the pieces shifted back by t_start.
+  The cells beyond t_start are the same cells the full walk visits, so the estimates should equal K3's and K5's up
+  to rounding.
+- **Not reproduced:** the E1(0) calibration row, which needs the whole line.
+- **Screen for triples that cannot reach the event:** a cheap deductive certificate over Δ = 5 is not expected to
+  work (T330's tier B was too loose even at Δ <= .5). So none is used, unless a check on one model shows a rigorous
+  screen that fires. Reported either way.
+- Charges as executed: T340's walk3 charges, unchanged.
+
+**Pre-registered checks:**
+- Estimates within 5% of K3's and K5's on all 15 (model, event) pairs (expected ~1e-12).
+- **Go: C <= 1/5 of K3's** at unchanged accuracy.
+
+Reported: est/truth, C and the equal-compute F per (model, event), handed to T340's table.
