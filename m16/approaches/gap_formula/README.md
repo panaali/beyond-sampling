@@ -117,6 +117,45 @@ K=0 and K=3 identical to V2 within 1e-5. So adding K buys nothing over V2.
 
 Quadrature convergence (64 → 96 → 128 nodes per axis): estimates move by ≤ 1.2e-8 (V1) and ≤ 6.6e-6 (V2).
 
+### Gap-conditioned error profile and the soft tail (DRI / fable review A2, D4; `python3 profile.py`, `python3 tailcheck.py`)
+2M fresh inputs per model (seed 269300+i). Gap = min(g12, g23); "tail" = non-blind inputs with gap >= threshold.
+The full 2-D table P(err | g23 bin, g12 bin) and the g23-only version are in `results/profile.json`.
+
+| model | error % | P(err \| blind) | blind share of error | tail share of error (gap >= .05 / .1 / .2) | tail error, pp (>= .05 / .1 / .2) |
+|---|---|---|---|---|---|
+| target | 4.66 | 0.777 | 0.178 | 0.141 / 0.053 / 0.014 | 0.66 / 0.25 / 0.07 |
+| zoo0 | 9.00 | 0.545 | 0.065 | 0.295 / 0.131 / 0.046 | 2.65 / 1.18 / 0.42 |
+| zoo1 | 11.97 | 0.648 | 0.058 | 0.448 / 0.288 / 0.152 | 5.36 / 3.45 / 1.82 |
+| zoo2 | 5.12 | 0.792 | 0.166 | 0.188 / 0.078 / 0.023 | 0.96 / 0.40 / 0.12 |
+| zoo3 | 6.80 | 0.819 | 0.131 | 0.209 / 0.084 / 0.025 | 1.42 / 0.57 / 0.17 |
+| zoo4 | 11.02 | 0.666 | 0.065 | 0.372 / 0.202 / 0.086 | 4.10 / 2.23 / 0.95 |
+| noisy0.005 | 10.82 | 0.828 | 0.082 | 0.382 / 0.194 / 0.067 | 4.13 / 2.09 / 0.73 |
+| noisy0.01 | 24.19 | 0.849 | 0.038 | 0.627 / 0.435 / 0.231 | 15.16 / 10.51 / 5.59 |
+
+The target reproduces the review's estimate: 14.1% of the error (0.66 pp) sits at gap >= 0.05, non-blind. **The
+weaker models differ from the target mostly in the tail.** It holds 19–45% of the error for the zoo seeds and
+38–63% for the noisy copies, i.e. 1–15 pp. The near-tie and blind parts are much more alike across models. This is
+the direct reason the K=0 / LOO transfers fail: the tail is model-specific.
+
+**Does an own-model formula capture the tail?** V2 fit on 1M, scored on 1M held-out (seed 269400+i): error mass in
+pp, observed / predicted, per gap bin:
+
+| model | [0, .05) | [.05, .1) | [.1, .2) | >= .2 |
+|---|---|---|---|---|
+| target | 3.21 / 3.03 | 0.42 / 0.46 | 0.18 / 0.26 | 0.07 / 0.12 |
+| zoo0 | 5.76 / 5.21 | 1.49 / 1.43 | 0.75 / 1.04 | 0.41 / 0.72 |
+| zoo1 | 5.92 / 5.40 | 1.91 / 2.03 | 1.61 / 1.93 | 1.80 / 1.93 |
+| zoo2 | 3.32 / 3.16 | 0.57 / 0.58 | 0.28 / 0.35 | 0.12 / 0.19 |
+| zoo3 | 4.47 / 4.20 | 0.82 / 0.88 | 0.39 / 0.53 | 0.16 / 0.28 |
+| zoo4 | 6.19 / 5.73 | 1.90 / 1.88 | 1.28 / 1.51 | 0.95 / 1.18 |
+| noisy0.005 | 5.78 / 5.46 | 2.08 / 1.83 | 1.33 / 1.50 | 0.74 / 1.14 |
+| noisy0.01 | 8.05 / 7.80 | 4.65 / 4.27 | 4.94 / 4.97 | 5.59 / 6.27 |
+
+The logistic-in-log-gap shape is mis-specified. It under-predicts the near-tie bin by 0.18–0.55 pp and over-predicts
+the far tail (>= .1) by 0.05–0.4 pp on every model. The total matches only because the per-case intercepts force
+calibration. So even on its own model the formula does not *describe* the tail at the 5e-4 level; it trades errors
+between bins. **Added to the go/no-go: fail** (the tail is not captured bin by bin, and it is where models differ).
+
 **Verdict against the pre-registration:**
 - Own-fit |bias| < 5e-4 on every model with 20–41 parameters. This is the trivial pass predicted in advance: the
   fitted formula reproduces its own 1M-sample error rate (s.e. ~2e-4). It does not count.
@@ -140,10 +179,17 @@ Quadrature convergence (64 → 96 → 128 nodes per axis): estimates move by ≤
    constants per model, at the pp level.
 4. Quadrature limits? **No** (≤ 7e-6).
 
+## Inductive vs mechanistic (DRI note, after ARC's framing)
+Every Phase 1 estimate here is **inductive**: its coefficients are regressions fit on samples of a model (ARC: "a
+little bit cheating"). The quadrature is deductive, but that only makes the estimator a deterministic function of
+sampled coefficients. Only a Phase 2 formula whose coefficients are *derived from the weights* would count as
+mechanistic, for example via the exact margin algebra in each gate pattern or T241's neuron formulas. Phase 2 was not
+run (pre-registered stop), so **no mechanistic estimate exists from this task**.
+
 ## Compute accounting
 Forward passes only (no LP): truths 1.6e8 sequences; Phase 1 runs 8 models × 2M sequences per run, about 4 runs
 including two that ran out of memory. Logistic IRLS on ≤ 1M × 39 designs, quadrature on ≤ 128³ = 2.1M nodes per
-integral. Total about 1.3 CPU-hours, single thread, ≤ 2 processes. The estimator itself (given the formula) is
+integral. Total about 1.5 CPU-hours (incl. profile/tail check), single thread, ≤ 2 processes. The estimator itself (given the formula) is
 deductive: one 3-D quadrature, no random inputs. But in Phase 1 its coefficients come from samples of the scored
 model (sampling-based).
 
