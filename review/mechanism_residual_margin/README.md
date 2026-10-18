@@ -11,12 +11,12 @@ saved-data discriminator. All three existing panels remain separate. The
 source phase imports no author code and evaluates no model or fitted predictor.
 
 ## Status
-Source/proof inventory only. No controls or numerical contraction have run.
+Fourteen controls are independently checked; the fixed full saved-data contraction completed and awaits its independent saved audit.
 Reviewer recover_910 owns the complementary source gate. Execution requires a
 separately published bounded protocol and reviewed implementation.
 
 ## Results
-No new numerical results. The prior two heldouts have approximately 98% lookup
+New raw results are in SUMMARY.md: the lookup erases2240/2183 original heldout errors and introduces449/470. Full saved verification is pending. The prior two heldouts have approximately 98% lookup
 task accuracy but 95.3% agreement with the network. The source summary contains
 the true task label, so task accuracy is not a reconstruction fidelity measure.
 The original saved fit/results, failures and independent reviews are retained.
