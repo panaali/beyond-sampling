@@ -24,4 +24,4 @@ Meta/assignment failure, input ties, label mismatch and resource exhaustion woul
 
 Command from parent directory: `flock /workspace/work/codex-compute.lock bash -c 'ulimit -t 110; time -p /workspace/clean-neurons/.venv/bin/python pilot.py' > pilot_run1.log 2>&1`, with outer virtual cap and OPENBLAS/OMP/MKL threads1. Do not rerun.
 
-Independent review checked all eight archives, all 1,024 state/true/predicted labels and gaps, weight-conversion hashes, full RNG equality, counters and progress. Reviewer CPU was 0.019670135 seconds excluding imports; no checkpoint load, forward or random draw. Terminal RNG advancement and checkpoint deserialization were not independently replayed and remain source-gated premises.
+Independent review checked all eight archives, all 1,024 state/true/predicted labels and gaps, weight-conversion hashes, full RNG equality, counters and progress. Reviewer CPU was 0.01967131700000002 seconds excluding imports; no checkpoint load, forward or random draw. Terminal RNG advancement and checkpoint deserialization were not independently replayed and remain source-gated premises.
