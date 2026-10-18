@@ -83,6 +83,8 @@ precisely as testing it on random examples does for the same effort.
 
 **Since 14:35 (short):** the accurate rare-event estimator was rerun after the bug fix (within 2x in 14-15 of 15 cases on 3 networks; T340 final) and made about 2x cheaper by rigorous walk cuts (T359: ~1.2-1.35M runs); its independent fresh-network test is running (T360). Fable's round 6 found that the strict bar's remaining error splits into four independent pieces, each too big on its own, and a quick idea to remove two of them failed its test (T361). Fable's exact-methods brainstorm (T346) puts any exact route for the accuracy number below 1%; two ideas from it are being tested: a smarter sampler for rare events (T362, sampling-class) and the GPU census of how fast error patterns grow (T348).
 
+**Rare-event result confirmed (15:25, H-R1):** a different agent, with its own code, confirmed on 6 fresh networks that the accurate estimator gets the far-gap rare mistakes (chances 1 in 5,000 to 1 in 5 million) within 2x of the truth in 18 of 18 cases, without random testing. It is not yet good for the 'both gaps large' mistakes (one-signed low on some networks) and it is still more expensive than random testing at equal accuracy.
+
 **4. Rare failures: the owner's priority (ARC's long-term goal).**
 - ARC ultimately wants to estimate the chance of rare bad behaviour. Random testing cannot see a one-in-a-million
   event with a few thousand tries, but a calculation's cost does not depend on how rare the event is.
