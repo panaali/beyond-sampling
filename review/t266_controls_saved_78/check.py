@@ -2,6 +2,7 @@
 import copy,hashlib,json,os,pathlib,resource,sys,time
 from fractions import Fraction as F
 B=pathlib.Path(__file__).resolve().parent;P=pathlib.Path('/workspace/work/recover-small_h2_56/review/residual_pairing_controls');START=time.process_time();O=B/'output'
+OWNED=False
 R=dict(complete=False,pass_all=False,cases=[],labels=[],guards=[])
 def read(p):return json.loads(p.read_text())
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -50,7 +51,8 @@ def malformed(f,name):
     return a
 
 def main():
-    assert not O.exists();O.mkdir();save()
+    global OWNED
+    assert not O.exists();O.mkdir();OWNED=True;save()
     g=read(B/'gate.json');s=read(pathlib.Path(g['source_review']));inputs=read(B/'completed_inputs.json')
     assert all(s[k] is True for k in ('complete','pass_all','execution_authorized'))
     required={str(B/x) for x in ('check.py','PROTOCOL.md','launch.sh')}
@@ -60,12 +62,22 @@ def main():
     assert g['pins'][g['source_review']]==sha(pathlib.Path(g['source_review']))
     for pins in (s['pins'],g['pins'],inputs['pins']):
         for p,h in pins.items():assert sha(pathlib.Path(p))==h,p
+    assert sys.executable==inputs['invoked_python'] and str(pathlib.Path(sys.executable).resolve())==inputs['resolved_python']
     assert resource.getrlimit(resource.RLIMIT_CPU)==(19,20) and resource.getrlimit(resource.RLIMIT_AS)==(2**31,2**31)
     f=read(P/'fixtures.json');d=read(P/'output/results.json');events=[json.loads(l) for l in (P/'output/progress.jsonl').read_text().splitlines()]
     assert d['complete'] and d['pass_all'] and len(events)==64
     assert len(f['cases'])==len(d['cases'])==13 and len(f['labels'])==len(d['labels'])==6 and len(f['guards'])==len(d['guards'])==12
-    p=read(P/'protocol.json');assert d['runtime']['invoked']==p['python'] and d['runtime']['resolved']==p['resolved_python']
+    p=read(P/'protocol.json');pg=read(P/'gate.json');pr=read(pathlib.Path(pg['review_path']));prior=read(pathlib.Path(p['proof_review']))
+    assert all(pr[k] is True for k in ('complete','pass_all','execution_allowed')) and prior['complete'] is True and prior['pass_all'] is True
+    for pins in (p['pins'],pg['pins'],pr['pins'],prior['pins']):
+        assert pins
+        for path,h in pins.items():assert sha(pathlib.Path(path))==h,path
+    assert pg['pins'][pg['review_path']]==sha(pathlib.Path(pg['review_path']))
+    assert d['runtime']['invoked']==p['python'] and d['runtime']['resolved']==p['resolved_python']
     assert d['runtime']['cpu_limits']==[20,20] and d['runtime']['as_limits']==[2**31,2**31]
+    assert events[0]['data']=={'protocol_sha':sha(P/'protocol.json'),'gate_sha':sha(P/'gate.json')}
+    timestamps=[e['cpu'] for e in events]
+    assert all(type(t) in (int,float) and 0<=t<=d['cpu_seconds'] for t in timestamps) and timestamps==sorted(timestamps)
     kinds=['prerequisites_passed']
     for i,(case,row) in enumerate(zip(f['cases'],d['cases'])):
         assert row['index']==i and row['name']==case['name'] and row['input']==case and row['passed'] is True
@@ -84,6 +96,7 @@ def main():
         for i,x in enumerate(seq):
             name=x if type(x)==str else x['name']
             for e in events[index:index+2]:assert e['data']['index']==i and e['data']['name']==name
+            key='rejected' if category=='guard' else 'passed';assert events[index+1]['data'][key] is True
             index+=2
     assert (d['analyze_attempts'],d['analyze_returns'],d['label_attempts'],d['label_returns'])==(25,13,6,6)
     expected=dict(table_rows=37,paired_residual_lookups=37,exact_table_calls=13,label_calls=6,rejected_table_calls=12,model_calls=0,gaussian_calls=0,rng_calls=0)
@@ -95,5 +108,5 @@ if __name__=='__main__':
     try:main()
     except BaseException as e:
         R.update(complete=False,pass_all=False,failure={'type':type(e).__name__,'message':str(e)})
-        if O.exists():save()
+        if OWNED:save()
         raise
