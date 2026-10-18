@@ -1042,3 +1042,44 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 - **13:12:** "When should we have resolved T340? I think this is the part that we should focus. I mean, your answer to my last question, about questions regarding the network that our approach would be able to better answer than the sampling method. I asked many questions and you provided very informative answers. I would like to make sure that these are all written down, so it's easy for future agents to read them and find them. Could you make sure that all these points are captured somewhere, including the questions that I asked?" T340 was made top priority with T344 added (4.5), and this document was written.
 - **13:23:** "Add this small feed-forward network idea to the backlog. It's low priority." Done: backlog row **T345**, low priority (6.1).
 - **13:40:** "And exploring the ideas about clever exact methods. Or exact computation as a component. We need to discuss that with Fable and Astra. Write down any idea that you have regarding it. The whole thing is as step two, brainstorm. This is the new task at the back of the backlog with low priority." Done: backlog row **T346** (low priority) at the end of the backlog; the DRI's seed ideas A-J with kill tests are in [m16/approaches/exact_brainstorm/](m16/approaches/exact_brainstorm/README.md); step 2 is independent Fable and Astra reviews (6.2).
+- **13:58:** "Yes, please add the cheap way to test by retraining M1610 with binary and int for activations using quantization aware training. We can also consider the case that the inputs are also discrete, like int 4, int 8." Done: backlog row **T352** (after the rare-event lane); see 6.5.
+
+---
+
+## Addendum: questions from 13:30 to 13:58 UTC
+
+<a id="q6-3"></a>
+### 6.3 How much compute would exact enumeration of M_16,10 need? Could a 1 GW data center do it in 6 months?
+
+**Q** (13:31 UTC): "You keep telling me that the count for M1610 would be around 10 to the power of 13 regions ... How much is that work? And how much compute would be needed for the whole thing? ... Assume that we have a very large data center, like 1 gigawatt ... Would we be able to compute it in less than 6 months?"
+
+**A:** Probably yes; plausibly in days to weeks. Order-of-magnitude estimate:
+- Per region: an LP to find it, a split into correct/incorrect parts, and an exact Gaussian volume in 10-D (the expensive part). Measured at k = 6 (T316, subtree 125): ~6.5 ms/region/core with estT, ~0.2 s with the bug-fixed geometry; assume 10-100x more at 10-D.
+- Regions at T = 10: ~2e13 (growth stays x31) to ~4e13 (rising to x39) to ~1e14 (rising fast).
+- Total: ~3e12 to 8e14 core-seconds (~1e21-1e24 operations).
+- A 1 GW GPU site has ~5-7e5 GPUs and ~1e7 host CPU cores; a CPU-heavy site ~1e8 cores; 6 months is ~1.6e7 s. Central cases take hours to ~3 months; the worst corner (1e14 regions, robust geometry, 100x) ~6 years on 1e7 cores or ~8 months on 1e8 cores, unless the volume work moves to the GPUs. Embarrassingly parallel over subtrees, little memory.
+- Comparison: sampling reaches 0.1 pp with ~74,000 forward passes (~4e8 operations); exact needs ~1e12-1e16x more. A 1e12-sample Monte Carlo on a few GPUs already gives ~±3e-5 pp. Exact would add only a proof.
+- Correction (given at 13:52): strictly, ARC compares error at equal compute, and an exact answer has zero error, so brute force meets the letter of the bar at its own huge budget; it does not meet its point (a cheap mechanistic estimate).
+
+<a id="q6-4"></a>
+### 6.4 GPU brute-force counts: how long would they take?
+
+**Q** (13:36 UTC): "Yes, the GPU brute force counts. That is your idea. How long it would take."
+
+**A:** Exact counts at 7 steps with today's CPU-bound code would cost ~30x the 6-step run: ~500-700 A100-hours, ~3,000 Colab units (~10x the budget), or about a day on 30 VMs. A sampling census instead (>= 1e9 inputs, distinct gate patterns, mass coverage, restricted to near-tie and error inputs, k = 4..10) takes ~15-30 min of GPU and ~0 extra units. Queued as **T348**; validated at k = 4 against exact counts (394 / 1,699 vs 396 / 1,737). Caveat: at k >= 8 most patterns are singletons, so fine-delta counts are lower bounds with a Good-Turing missing-mass estimate.
+
+<a id="q6-5"></a>
+### 6.5 Would quantising the model (binary, FP4, FP8, int4, int8) let us solve the challenge?
+
+**Q** (13:50 UTC): "What do you think if we quantize this model? Would it help? ... binary model or FP4 or FP8 or int4 or int8 ... Assuming that ARC proposed such architectures, we want to know if we can solve the challenge."
+
+**A** [speculative, untested]:
+- **Weights only** (int8/FP8/int4/FP4/binary weights, real activations): little help. The network stays continuous piecewise-linear on Gaussian inputs, and the x23-33/step region growth comes from composing 10 steps. Integer weights make exact geometry cheap and robust. Accuracy cost: the model is very sensitive (0.25% relative noise costs points), so int8/FP8 post-training rounding costs accuracy, and int4/FP4/binary weights need quantisation-aware training (QAT), likely with lower accuracy at 432 parameters.
+- **Activations quantised** (finitely many hidden states): the big change. The RNN becomes a finite state machine; histories reaching the same state merge automatically (the "merge identical futures" idea built in). An exact forward dynamic programme over (state, input interval, label summary) costs about reachable states x intervals x steps. Binary activations: <= 65,536 states, ~17 input intervals each: likely solvable exactly at roughly the cost of sampling to 0.1 pp. int4: depends on how many states are reachable (unknown). int8/FP8: probably too many states unless the dynamics are very low-dimensional. Discrete inputs (int4/int8) make the whole problem finite and simpler.
+- **Would ARC accept it?** By the letter yes (an exact answer has zero error); by the spirit it is debatable: deductive and arguably mechanistic, but it sidesteps the hard part (real-valued states composing over many steps), which is what real models do.
+- Follow-up **T352** (owner, 13:58): QAT retraining with binary/int4/int8 activations, reachable-state census, exact DP for the binary model, and discrete-input (int4/int8) variants.
+
+<a id="q4-6"></a>
+### 4.6 Rare events: the first results (update to 4.3-4.5)
+
+T340 (13:43): on 3 models, rare error probabilities of 2e-7 to 4e-4. A cheap variant (11-19k FPE) estimates the "wrong with both gaps large" events within 3x in 6/6 cases; a careful variant (0.2-0.3M FPE) estimates the far-gap events at .64-.89 of the truth on the retrains and .20-.29 on the main model. Equal-compute comparison with executed costs (post hoc, ties separated): each fixed variant beats sampling in 5/15 cases; using each event family's better variant gives 10 wins, 3 ties, 2 losses. The DRI's first "12 of 15" counted ties as wins and was corrected. No single estimator wins a majority. An independent re-check on fresh DEV3 models (T350) fixes that family rule in advance. T344 (certified bounds): rigorous volume certificates fail for this architecture (certified boxes <= 1e-4 wide even in 3-D; sub-cone enumeration grows to ~2e8 regions), so only the trivial bound is rigorous (8,200-27,500x loose).
