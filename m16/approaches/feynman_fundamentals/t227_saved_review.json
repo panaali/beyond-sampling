@@ -1,0 +1,59 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "task": "T227 independent deterministic saved audit",
+  "raw_commit": "abe4faab",
+  "pins": {
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/audit/results.json": "77464a802517d9d49e5a738d591b320c7ad6dce7f7cd793da779e42c2cb08d12",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/audit/progress.jsonl": "84eac0598728f94fb233f3c3ffdcae1c17e2ff52318679bb04e575628fc09943",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/run1.log": "4b81d2969eb6f4f6e15440aa0864e3de9dbf697c5f2550c790242d44a735b0ec",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/gate.json": "f153a35a05dcc897e002e3b9c7986e68e1397576f76ff983f61c360d7770677c",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/protocol.json": "20f669a781f816e522b19fe06f8f28bb47405bc98baf2c178009e6c812b8fd28",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/source_manifest.json": "1a6f9b379e98281b01826c8a373189e1c456b243fc64cdbf5bd1c48fd7e0941e",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/check_saved.py": "f81c6489b315b2f967d4fe5b6281c83b51587d2d66d68a06629c65a829bc756b"
+  },
+  "checker_sha256": "6ae523c7f95607f9aa80b47fd98b1cba2214b86db58c54c31212f6bbf1fd167b",
+  "models": 8,
+  "rules": 16,
+  "schemes_per_model": 6,
+  "comparisons": 1015,
+  "cross_copy_scores": 36,
+  "progress_events": 58,
+  "totals": {
+    "points": 26224,
+    "missing": 0,
+    "duplicate_flip_lists": 138,
+    "ordered_not_sorted_lists": 9158
+  },
+  "max_historical_display_difference": "5583/36028797018963968",
+  "primary_mech_L100": {
+    "z6s0": 0.11228246675036649,
+    "z6s1": 0.14448502072604916,
+    "z6s2": 0.308254053544785,
+    "z6s3": 0.24118047289505223,
+    "z6s4": 0.15648327839064374,
+    "orig": 0.02338603338682446,
+    "s005": 0.042951032614471314,
+    "s010": 0.03275929950791952
+  },
+  "coarse_oos_L30": {
+    "z6s0": 0.9775268871930047,
+    "z6s1": 0.9817096380985909,
+    "z6s2": 0.9821166443963794,
+    "z6s3": 0.9889412630849103,
+    "z6s4": 0.9791534968407327,
+    "orig": 0.9526678891238638,
+    "s005": 0.9086156627087272,
+    "s010": 0.944326326048957
+  },
+  "review_cpu_seconds": 1.13072321,
+  "prior_checker_cpu_seconds": 8.200249237,
+  "new_author_model_rng_lp_mass_calls": 0,
+  "scope": "Exact saved contractions independently use integer-scaled dyadic masses, stable encounter-order selections, all deterministic metrics/within-tail/cross-copy/schema and progress. Frozen primary finite-rule test fails; high coarse-label coverage remains retained.",
+  "limitations": [
+    "No reconstruction of random half/null assignments, full-face arrays or original label/walk correctness.",
+    "Source face-sign versus actual-input-event distinction remains.",
+    "No population coverage CI, universal tail-family exclusion, model identity, exact prefix feasibility or integration/cost certificate.",
+    "Within-label statistics condition on global tail; coarse coverage alone does not prove efficient dedicated-family integration."
+  ]
+}
