@@ -49,6 +49,12 @@ for t in range(1, rv.T + 1):
     F["best_noH"][t] = np.stack([ev_pred[nh[j]][:, j] for j in range(rv.H)], 1)
     print("t", t, "min chosen eval R2", R2ev[choice[t], t, np.arange(rv.H)].min().round(4), round(time.time() - t0), flush=True)
 
+np.savez_compressed(os.path.join(rv.HERE, "data", "formulas_eval.npz"), best=F["best"], best_noH=F["best_noH"],
+                    choice=choice, R2va=R2va, R2ev=R2ev)
+for k in ("tr", "va"):
+    del X[k], PRE[k], HB[k]
+del ev_pred
+import gc; gc.collect()
 xe = X["ev"]; y = rv.answer(xe)
 _, he = rv.states(xe); ref = (he[:, rv.T] @ rv.Wo.T).argmax(1)
 
@@ -75,7 +81,8 @@ groups = [[4], [2], [5, 9], [1, 6, 7, 8], [3, 13], [0, 10, 11, 12, 14, 15]]
 S = []; out["cumulative"] = []
 for g in groups:
     S = S + g; out["cumulative"].append({"S": list(S), **met(run(S))})
-p_all = run(list(range(rv.H))); out["all16"] = met(p_all); out["all16_noH"] = met(run(list(range(rv.H)), "best_noH"))
+p_all = run(list(range(rv.H))); out["all16"] = met(p_all)
+out["all16_final_step_only"] = met((np.maximum(F["best"][rv.T].astype(float), 0) @ rv.Wo.T).argmax(1)); out["all16_noH"] = met(run(list(range(rv.H)), "best_noH"))
 # D1: disagreements near ties / blind
 s = -np.sort(-xe, 1); g12, g23 = s[:, 0] - s[:, 1], s[:, 1] - s[:, 2]; blind = (xe > 0).sum(1) <= 1
 near = (g12 < 0.05) | (g23 < 0.05) | blind; dis = p_all != ref
