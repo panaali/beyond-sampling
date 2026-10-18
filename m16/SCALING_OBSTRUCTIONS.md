@@ -26,8 +26,10 @@ error is below that.
   width16_probe/README.md "Results"; audit T199 pending].
 
 ## 3. Where it breaks
-**3.1 The recipe stops winning at T = 5.** (8,5) seed 2 loses (MSE ratio 3.4 estT ops, ~4.6 T196); the other 7 (8,5)
-models win [measured, unverified; T192 README §3]. (16,5) zoo0 loses (ratio ~35, error -3.2e-5 vs exact) [measured,
+**3.1 The recipe stops winning at T = 5.** (8,5), 9 models, MSE ratio in estT ops / T196 FLOPs (estT ops x1.37 audited):
+seed 0 0.0097/0.013, seed 1 0.0057/0.0076, **seed 2 3.4/4.6**, seed 3 1e-5/1.3e-5, seed 4 3e-7/4e-7; fresh-noise copies of
+seed 0: **1000 1.0/1.4**, 1001 0.0019/0.0026, 1002 0.0025/0.0034, 1003 0.027/0.036. Under T196 that is **7 wins, 2 losses**
+(seed 2 and copy 1000; copy 1000 ties in estT ops) [measured, unverified; T192@e5a40128, gpu_cost_law/results/summary.md]. (16,5) zoo0 loses (ratio ~35, error -3.2e-5 vs exact) [measured,
 unverified; T192@2930bc92]. From T = 4 the recipe saves only 1.2-1.6x ops over exact enumeration [measured,
 unverified; T192 §3; T194@45e1f6c width16_probe/README.md "T206"].
 
@@ -37,7 +39,7 @@ k = 10, and ~1000 CPU-years of geometry before masses [measured to k = 5, inferr
 k2-k5.json; INDEX H-E13 "supported, unverified"]. Reproductions with different code: k = 2-4 by T194's numpy port
 (identical counts; T194@ee01b49 width16_probe/prefix.py) and k = 2-3 by T218's LP counter (T218 tie_tail_labels/README.md).
 These share the estT geometry or the LP method, not an independent arithmetic. Codex T219 independent integer recount:
-`[PENDING T219]`. Zoo models grow alike: (16,3) 838 -> (16,4) 28,200 -> (16,5) 786,114 regions (x34, x28) [T192 §8].
+`[PENDING T219]`. Zoo seed 0 grows alike: (16,3) 776 -> (16,4) 26,742 -> (16,5) 786,114 regions (x34.5, x29.4). The k <= 4 counts are T194's exact counts (T194@95ed88e width16_probe/regions/), and (16,5) is T192's (§8; zoo0 only). Region counts do not depend on the start (truth cones vs halves give identical regions, T192 §5). T192 §8's 838 / 28,200 are 5-seed means.
 
 **3.3 Cost is cone masses.** Exact-mode ops are 95% (16,4) / 97% (8,4) cone-mass quadrature. A leaf that needs a
 mass needs ~6 simplices at ~3e4 ops each (d = 4: 440x the d = 3 closed form; d = 5: 5.2e4-1.7e5) [measured, unverified;
@@ -60,7 +62,8 @@ replication (T218 child, LP + adaptive Plackett masses): `[PENDING T222 replicat
 | weight symmetry (T216) | none: no permutation symmetry; projecting the near-collinear incoming rows {1,6,7,8; 4 anti} costs 79 pp (8.9 pp for the closest pair) for <= 2.7x fewer regions, growth still >= x16/step | [measured, unverified] T194@ee01b49 "T216" |
 | event words record/2nd/low (T217) | modal gate word holds 21% of an event word's mass at k = 4 (go: 99%) | [measured, unverified; DRI: kill] T194@050bfaa "T217" |
 | mechanism-labelled tie tails (T218) | top-100 labels cover 2-4% of out-of-sample tail mass (below a random-label null) | [measured, unverified; kill] T218 README |
-| local rank-conditioned certificate (T189) | sampling's SD is strictly smaller at every budget >= 7630 / 94116 FLOPs even with the certificate free (H4T4 / H8T4) | [measured, unverified] shared TASKS T189 row |
+| rank-coordinate certificate (T189): fixed zero-anchor / global-absolute-envelope Chernoff family | exact width floors .0853 (H4T4) / .0426 (H8T4 seed 0); sampling's maximal SD is smaller at every budget >= 7630 / 94116 FLOPs, even with the certificate free. A limitation of this family only, not an MSE lower bound | [measured, unverified] shared@8269963f TASKS T189 backlog row; conditional_order_bounds/box_mass/HANDOFF.md |
+| T189 local affine follow-up (same models) | reported, final saved review pending: enclosures [.071, .866] (H4T4) and [.068, 1] (H8T4), > 10x sampling SD at 1e7 FLOPs; crossover 8720 / 19778 FLOPs | [measured, unverified, review pending] shared@f18320b2, conditional_order_bounds/local_certificate/README.md |
 
 **3.6 Noise does not change this.** At T = 4 the noisy copies (relative sigma .005-.02, ARC absolute .05) have 0.94-1.21x
 the clean regions and 0.94-1.33x the ops [measured, unverified; T192 §7]. Not tested at larger T.
@@ -94,6 +97,7 @@ Any region-by-region method, exact or pruned, inherits growth of >= x16/step.
 - the coverage curve at k >= 5 (pending), per cell rather than per region, and after same-future merging (T222);
 - exact treatment of the all-negative orthant (1/1024, all gates start off) inside the blind region; fixed rather than
   pilot-based allocation; skipping the blind middle of R23 walks (T223);
-- certificates with other domains or anchors, and one-sided envelopes (T189);
+- certificates with rank/domain/reachable-state restrictions, other anchors, one-sided envelopes, and cancellation-aware point
+  estimators (T189 handoff: "remain open, not dead");
 - whether the noise insensitivity of region counts holds beyond T = 4 (T192);
 - a genuinely independent region recount in exact arithmetic (T219, pending).
