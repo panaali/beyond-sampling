@@ -58,26 +58,43 @@ def _children(c, g, A, t, ops):
     return [(c2, g2, At) for c2, g2 in B._margin_split(c, At, M["model"], t, 0, np.eye(k)[0], 0.1, ops, True)]
 
 
+class _Col:
+    """collects the simplices of leaf cells with their leaf index (masses mode)"""
+    def __init__(self):
+        self.R = []; self.I = []; self.cur = 0
+
+    def add(self, R):
+        self.R.append(R.copy()); self.I.append(self.cur)
+
+
 def _dfs(item):
     c, g, A, t, hist = item
     ops = Ops(); pats = set(); cells = 0; stack = [(c, g, A, t, hist)]; t0 = time.time()
+    hists = []; col = _Col(); estG.BUF[0] = col
     for key in B.STATS:
         B.STATS[key] = 0
     while stack:
         c, g, A, t, hist = stack.pop()
         if t == M["k"]:
-            cells += 1; pats.add(hist); continue
+            cells += 1; pats.add(hist)
+            if M.get("masses"):
+                col.cur = len(hists); hists.append(hist); B.mass(c, Ops())
+            continue
         for c2, g2, A2 in _children(c, g, A, t, ops):
             stack.append((c2, g2, A2, t + 1, hist + np.packbits(g2 > 0).tobytes()))
+    if M.get("masses"):
+        pats = (hists, np.array(col.R).reshape(-1, M["k"], M["k"]) if col.R else np.zeros((0, M["k"], M["k"])),
+                np.array(col.I, dtype=np.int64))
     return cells, pats, ops.n, dict(B.STATS), time.time() - t0
 
 
-def _init(model, k):
-    M.update(model=model, k=k)
+def _init(model, k, masses=False):
+    M.update(model=model, k=k, masses=masses)
 
 
-def run(k, workers=11, maxsec=None):
-    model = target(); _init(model, k)
+def run(k, workers=11, maxsec=None, masses=False, device="cpu"):
+    model = target(); _init(model, k, masses)
+    RM = {}; leafsum = 0.0
     t0 = time.time(); ops = Ops()
     front = [(c, g, A, 1, np.packbits(g > 0).tobytes()) for c, g, A in start_cells(k)]
     while front and front[0][3] < k and len(front) < 64 * workers:     # breadth-first until enough subtrees
@@ -88,8 +105,15 @@ def run(k, workers=11, maxsec=None):
         front = nxt
     perm = np.random.default_rng(0).permutation(len(front)); front = [front[i] for i in perm]   # random subtree order
     cells = 0; pats = set(); gops = ops.n; sec_geo = time.time() - t0; st = dict(cut=0, resolved=0); done = 0
-    with mp.get_context("fork").Pool(workers, _init, (model, k)) as pool:
+    with mp.get_context("fork").Pool(workers, _init, (model, k, masses)) as pool:
         for n, p, o, s, sec in pool.imap_unordered(_dfs, front, chunksize=1):
+            if masses:
+                import gmass
+                hists, Rs, Is = p
+                cm = gmass.grouped(Rs, Is, len(hists), device) if len(Rs) else np.zeros(len(hists))
+                for h, mv in zip(hists, cm):
+                    RM[h] = RM.get(h, 0.0) + float(mv)
+                leafsum += float(cm.sum()); p = set(hists)
             cells += n; pats |= p; gops += o; sec_geo += sec; done += 1
             for key in st:
                 st[key] += s.get(key, 0)
@@ -97,6 +121,15 @@ def run(k, workers=11, maxsec=None):
                 pool.terminate(); break
     r = dict(k=k, complete=done == len(front), subtrees=len(front), subtrees_done=done, cells=cells,
              regions=len(pats), ops_geometry=gops, sec_cpu=sec_geo, sec_wall=time.time() - t0, workers=workers, **st)
+    if masses:
+        r["leafsum_minus_1"] = leafsum - 1.0
+        m = np.sort(np.array(list(RM.values())))[::-1]; cum = np.cumsum(m)
+        r["N_delta"] = {f"{dl:g}": int(np.searchsorted(cum, cum[-1] * (1 - dl)) + 1) for dl in (1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6)}
+        r["mass_eff_regions"] = float(1.0 / np.sum((m / m.sum()) ** 2))       # inverse Simpson (effective count)
+        keys = list(RM)
+        np.savez_compressed(os.path.join(HERE, "results", "prefix", f"k{k}_regionmass.npz"),
+                            patterns=np.array([np.frombuffer(h, np.uint8) for h in keys]),
+                            mass=np.array([RM[h] for h in keys]), complete=r["complete"])
     if not r["complete"]:
         r["note"] = ("stopped at maxsec: cells/regions are lower bounds; subtrees were done in a seeded random order, "
                      "so cells_est = cells * subtrees / subtrees_done is an unbiased estimate of total cells")
@@ -106,8 +139,9 @@ def run(k, workers=11, maxsec=None):
 
 if __name__ == "__main__":
     k = int(sys.argv[1]); w = int(sys.argv[2]) if len(sys.argv) > 2 else 2
-    ms = float(sys.argv[3]) if len(sys.argv) > 3 else None
-    r = run(k, w, ms)
+    ms = float(sys.argv[3]) if len(sys.argv) > 3 and sys.argv[3] != "0" else None
+    masses = len(sys.argv) > 4 and sys.argv[4] == "masses"; dev = sys.argv[5] if len(sys.argv) > 5 else "cpu"
     os.makedirs(os.path.join(HERE, "results", "prefix"), exist_ok=True)
-    json.dump(r, open(os.path.join(HERE, "results", "prefix", f"k{k}.json"), "w"), indent=1)
+    r = run(k, w, ms, masses, dev)
+    json.dump(r, open(os.path.join(HERE, "results", "prefix", f"k{k}{'_masses' if masses else ''}.json"), "w"), indent=1)
     print(json.dumps(r))
