@@ -36,6 +36,8 @@ def main():
         th.set_num_threads(1);th.set_num_interop_threads(1)
         assert th.get_num_threads()==th.get_num_interop_threads()==1
         cap();result['import_cpu_seconds']=time.process_time()-start
+        result.update(checkpoint_sha256=sha(proto['checkpoint']),runtime_versions=dict(numpy=np.__version__,torch=th.__version__,python=sys.version),architecture_sha256=sha(proto['architecture']))
+        save()
         state=th.load(proto['checkpoint'],map_location='cpu',weights_only=True)
         expected={'rnn.weight_ih_l0':(16,1),'rnn.weight_hh_l0':(16,16),'linear.weight':(10,16)}
         assert set(state)==set(expected)
@@ -49,12 +51,15 @@ def main():
         spec=importlib.util.spec_from_file_location('pinned_algzoo_architecture',proto['architecture'])
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
         rng0=th.get_rng_state().clone()
+        archive('torch_rng_before.npz',before=rng0.numpy())
         with th.device('meta'):model=module.DistRNN(hidden_size=16,seq_len=10,bias=False)
         rng1=th.get_rng_state().clone()
+        archive('torch_rng_meta.npz',after_meta=rng1.numpy())
         model.load_state_dict(state,strict=True,assign=True)
         model=model.to(device='cpu',dtype=th.float64).eval()
         rng2=th.get_rng_state().clone()
         result['torch_rng_sha256']=[hashlib.sha256(v.numpy().tobytes()).hexdigest() for v in [rng0,rng1,rng2]]
+        archive('torch_rng_construction.npz',before=rng0.numpy(),after_meta=rng1.numpy(),after_assignment=rng2.numpy())
         assert th.equal(rng0,rng1) and th.equal(rng0,rng2)
         assert all(p.device.type=='cpu' and p.dtype==th.float64 for p in model.parameters())
         for k,v in model.state_dict().items():assert th.equal(v,state[k].to(th.float64)),k

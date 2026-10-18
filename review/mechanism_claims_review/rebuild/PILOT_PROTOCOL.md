@@ -36,6 +36,11 @@ Retain all1024 candidate/library hidden vectors, logits, first-index argmax
 labels, top-two gaps, true labels, input/model bytes and CPU RNG states.
 NPZ files are exclusive immutable archives; results/progress record each stage
 and failed attempt. Partial successful calls must not be silently rerun.
+Runtime/checkpoint provenance is saved before model loading/construction;
+full CPU RNG states are archived before construction, after meta construction
+and after assignment, before the equality guard. Thus an exception or RNG
+mismatch preserves every completed state's bytes, not just hashes. This
+durability hardening was identified in source review before any execution.
 
 For each of hidden states and logits, require maximum absolute difference
 <=1e-10 times max(1,maximum absolute reference value). Independently require
