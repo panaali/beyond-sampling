@@ -327,8 +327,9 @@ Reproduce: `PANEL=hp2 PYTHONPATH=shim python3 cost_audit.py t306|t300` (and PANE
 `cost_t313.py` applies `v1b2.cost(model)` to the unchanged per-model V1 estimates (asserted equal). It also applies
 the same count with B2 disabled, i.e. every row runs all T steps in its first cell, which is how the frozen
 `walk.walk_line` actually computes.
-B2 (first-cell prefix sharing) is a saving that the frozen code does not perform. Whether it may be charged is the
-DRI's call.
+**DRI ruling (2026-10-18):** cost is charged as implemented, as in LB3. B2 counts only once the code is re-frozen with
+the sharing actually performed. The **official R1W V1 HP2 number is therefore 14.92 [10.74, 19.38]** (the T281
+count under the written convention). The 13.51 is a projection for a V1-B2 that has not been built. Both fail.
 | cost count | HP2 C (FPE) | HP2 F [95% CI] | HP1 clean F |
 |---|---|---|---|
 | frozen as charged | 13,269 | 16.35 [11.77, 21.24] | 9.12 |
