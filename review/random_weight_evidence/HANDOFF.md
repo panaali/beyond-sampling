@@ -1,8 +1,8 @@
-# T248 bounded evidence reconciliation (independent saved audit pending)
+# T248 independently reviewed bounded evidence reconciliation
 
 Written source/provenance passed df45cd46/shared4d414068. Corrected scalar checker d31ccbfc passed source/resource review30f47848/shared23fab305. Execution scopee1bb7ed8 and immutable prerequisite gate6e25d893/sharede14fd8dd preceded sole raw14d9be72/shared6a65b639. No model, RNG, array, geometry or mass replay.
 
-The fixed scalar run checks all39 per-run result records, all13 summary rows and rounded README table rows. All29 available log rows agree; ten k2/k3 log rows are absent and explicitly retained as missing. Every source payload is byte-bound. Author review CPU .049263645; external soft16/hard20CPU and2GiB recorded, no retry or failure. Final independent saved arithmetic remains pending and these run results must not yet be called independently verified.
+The fixed scalar run checks all39 per-run result records, all13 summary rows and rounded README table rows. All29 available log rows agree; ten k2/k3 log rows are absent and explicitly retained as missing. Every source payload is byte-bound. Author review CPU .049263645; external soft16/hard20CPU and2GiB recorded, no retry or failure. Independent saved audit ffeac13b/shared0a0ecb37 verifies every retained raw/summary/table/group/event and available log record. Reviewer CPU .015676522, no author/array/model/RNG/mass calls. Reviewer artifact: review/t248_random_control_review/saved/output/results.json; source gates b1880617 then corrected b86700fc/shared60e08189.
 
 | Group | Median k4 growth | Ratio to trained growth | Median reported N1e-4 ratio to trained |
 |---|---:|---:|---:|
