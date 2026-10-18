@@ -100,3 +100,30 @@ CPU-min in all.
   +.45 pp, RMS .80 pp. Variants with more nodes or walks have higher F.
 - [inferred] The deductive R0-family route on retrains is within ~15% (in RMS) of the lenient line at ~13k FPE. Its
   limit is now the integration approximations, no longer cost or cancellation.
+
+---
+
+# T306: the last ~10% (pre-registered 2026-10-18, before any T306 run)
+**Refinements of R1W V1 (K = 1; everything else unchanged), exactly these:**
+- **A:** a cost-capped blind-region g12 walk. Walk length tmax_b12 = 0.10, at most 4 cells per line. Beyond the walked
+  range, g12 is assumed correct (declared, as for the other lines).
+- **B:** two transverse points per region. Each region's v2 range is split at its model-free median (nonblind:
+  v2 in (0, m_nb] and (m_nb, inf); blind: (-inf, m_b] and (m_b, 0]). Each half gets its own conditional-mean
+  transverse point (v2, g12, g23, and v4's K = 1 node given that v3), its own walks, and its own Gauss-Legendre mass
+  integral over its v2 half.
+- **A+B:** both.
+
+**Selection rule (fixed now):** the lowest point F on DEV2 (all 80, 1e8 truths, own charged cost) among V1, A, B
+and A+B.
+- The winner is frozen as `est(model, budget) -> (estimate, cost_flops)` and sent to the T281 scorer for HP2.
+- **V1 itself is also sent**, so HP2 shows whether the refinement helped.
+- **The claim is HP2's score alone.** DEV2 is development data and is reported as such.
+
+## Forking-paths note (every variant tried on DEV2 for the R0 family, by me)
+- **T297:** 7 threshold ladders (n23 x Newton x blind), plus 4 cheap variants (tb_cheap); 10 DEV2 models.
+- **T300:** stage 0, 4 frozen T297 designs on all 80 (the 1,752 one sent to HP2); stage 1, 3 sharing rules on 10.
+- **T302:** walk length tmax in {.25, .5, 1, 2, 6} on 10 models, and {.05, .5, 1} on all 80.
+- **T304:** 4 closures (floors) on 80; R1W V1 / V2 / V3 on 80.
+- **T306:** V1 / A / B / A+B on 80 (this section).
+
+In total about 30 variants have seen DEV2. HP2 is the only clean test.
