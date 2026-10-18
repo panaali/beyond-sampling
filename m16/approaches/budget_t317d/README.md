@@ -440,3 +440,37 @@ Labels: D_pred is deductive given the walks (no sampling). D_m is diagnostic sam
   is not changed in response.
 - Caveat: D is measured and predicted for the mean-point closure c (T317d), not T339's spread closure. Its offset under
   spread lows may differ; that needs its own D_m.
+
+---
+
+# T351 (T317h): T317f + T339 spread lows + T347 tilt correction. Pre-registered 2026-10-18, before any T351 run.
+**Sources (documented copies in `t351/`):**
+- `cont_f.py` = claude/t218-tie-tail-labels @88453669 m16/approaches/r1_cont/cont_f.py, sha256 327dbb4a6ddc... (matches
+  T339's record);
+- `cont_g.py` = claude/t286-cheap-frontier @886e31ac m16/approaches/closure_floor/cont_g.py, sha256 d34dde3699c6...;
+  verified: cont_g = cont_f + T339's `t339_diff.patch` exactly.
+**Declared addition (`t351/cont_h.py`, the only new code).** `est_h(model, spread, tilt)` runs cont_g's est loop
+unchanged (spread 0 = T317f, -1 = T339). If tilt is on, it adds T347's frozen tilt correction (t347/tilt.py, 790de13d),
+with three declared implementation changes:
+1. **Walks are not repeated.** theta* = the first correct start of each nb line, read from the estimator's own merged
+   intervals (cont_g walk_c1 with screen C1, so screened segments count as correct, as in the estimate).
+2. **Crossing slopes**, per nb line row with 0 < theta* < tmax: one value pass plus 2 tangents (along the line and along
+   the other line's direction) at theta* + 1e-9, gates frozen.
+   - Charged as executed: per step (2H^2 + 2H) + 2H + 2 x F_TAN, readout 3 x 2CH, margins/argmin 6C, tilt 4.
+   - That is ~17.8k FLOPs (~3.0 FPE) per wall row.
+3. **The g-rule is 8-point Gauss-Legendre** on [0, tmax] (40 in tilt.py), for cost.
+   - Per wall row and v2 node: NQ x (one ndtr + power for Psi + clip/tilt arithmetic), plus one Psi at theta*.
+   - Model-free weights (phi(v2 + g), the f23 density, Phi(v2)^8) are tables, uncharged.
+   - D_pred(NQ = 8) vs tilt.py (NQ = 40) is reported on DEV2 as a check.
+The estimate is est - mean over triples of sum_nodes w 90 phi(v2) (D23 + D12). The b region gets no correction.
+**Arms:** A0 = T317f (spread 0, no tilt); A1 = spread -1; A2 = T317f + tilt; A3 = spread -1 + tilt.
+**Checks before scoring:**
+- A0 equals cont_f.est bitwise (estimates and FLOPs) on all 80;
+- A1 equals T339's s = -1 row (RMS .884, bias +.758, C 3,748).
+**Selection (one freeze):** min over the 4 arms of DEV2 MSE x C. MSE = mean_m (est - truth)^2 in pp^2 over 80 DEV2 with
+the 1e8 truths; C = mean FPE as executed. F = mean e^2 x max(C, 1000) / mean p(1-p) is also reported, with bias, sd, RMS
+and C for each arm. The selected arm is frozen as `t351/estimator_h.py` (est(model, budget=None) -> (estimate, FLOPs)).
+**DEV3 check (pre-registered, no retuning):** the frozen arm and A0 (T317f) on DEV3, with its open truths. Report F for
+both; "beats T317f" iff F_h < F_T317f on DEV3. The DRI then decides on HP5.
+Labels: the estimator is sampling-free at runtime (deductive + declared approximations, as T317f); the tilt correction
+adds no fitted constant. Cap 2.5 h.
