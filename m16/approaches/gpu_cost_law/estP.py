@@ -215,9 +215,11 @@ if __name__ == "__main__":
     tag = f"H{a.H}T{a.T}_{a.name.replace(':', '_')}_{a.mode}" + ("_nomass" if a.nomass else "") + \
         (f"_s{a.sample:g}_{a.sample_seed}" if a.sample else "") + ("_leafsum" if a.leafsum else "") + \
         ("_truthstart" if a.start == "truth" else "") + \
-        ("_r5_" + os.environ["T192_RULES5"].replace(",", "_") if os.environ.get("T192_RULES5") else "")
+        ("_r5_" + os.environ["T192_RULES5"].replace(",", "_") if os.environ.get("T192_RULES5") else "") + \
+        ("_sl" + os.environ["T192_SLIVER"] if os.environ.get("T192_SLIVER") else "")
     r = run(load_model(a.H, a.T, a.name), a.mode, a.workers, a.device, a.eps, os.path.join(out, tag + ".jsonl"),
             (a.sample, a.sample_seed) if a.sample else None, a.nomass, a.leafsum, a.start)
-    r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"), start=a.start, rules5=os.environ.get("T192_RULES5", "6,128"))
+    r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"), start=a.start, rules5=os.environ.get("T192_RULES5", "6,128"),
+             sliver=os.environ.get("T192_SLIVER"), sliver_splits=estG.SPLITS[0])
     json.dump(r, open(os.path.join(out, tag + ".json"), "w"), indent=1)
     print(tag, json.dumps(r))
