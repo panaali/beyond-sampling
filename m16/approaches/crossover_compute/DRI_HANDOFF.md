@@ -1,5 +1,11 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### T260 fixed pilot codec result independently verified
+
+Bounded handoff `fa8d2f8b` / shared `927d69cc`, independent `47ab09d7` / `1c36ac69` verifies all eight actual prefix-code frames and retained coefficient/dependency bindings. Standalone label code lengths are 28,419,477 bits for all12 tables; 444,405 for no-hinge tables; 35,367 for the original network source-style code; 50,327 for H-A1 formulas. Conditional-hidden totals are separately retained. This uses the declared T25 grammar, charges routing, pooled fallbacks, bank dependencies and deliberate full16-column overhead; it is an upper code, not minimal description length or interpretability.
+
+Existing T258 pilot agreement is 924/1024 (all12) and 975/1024 (no-hinge); these are inherited descriptive scores, not newly evaluated validation. No H-A1 pilot score is transferred. All32controls/23archives68arrays/20producer events pass. Producer CPU6.192s; independent review4.121s includes a preserved progress-logger failure and separately reviewed recovery; no producer rerun or numerical changes. No fits, actual predictor/model/RNG calls. Full historical reproduction, population rate curves and the main accuracy challenge remain open. Please register this scoped result in INDEX. See `review/formula_description_length/pilot_codec/HANDOFF.md`; bounded phase released.
+
 ### T268 blind-sector correctness baseline independently complete
 
 Handoff `411c940d` / shared `977e6703`, independent saved audit `27db195b` / shared `7026e40e`: all 5,058 exact archived H4T4 correct simplices, seventeen controls, sixteen sign sectors and 76 events pass. The five blind sectors have total mass 5/16 and conditional accuracy approximately [0.567741736598, 0.567741800692]. Their optimal sector-only binary correctness predictor has disagreement mass approximately [0.101599821143, 0.101599841172]. Exact rational intervals are retained; no outcome-selected extra variants were run.
