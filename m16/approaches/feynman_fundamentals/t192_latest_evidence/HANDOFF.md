@@ -1,7 +1,7 @@
 # T255 bounded evidence review
 
 Frozen owner head: `2aad2d28b49a6c336b8ff60b9c2e42964f7d4948`.
-Source package `b8d5cb1b` independently reviewed by910 (`22330943`, shared `32585752`). Checker source `7d549811` independently cleared by56 (`ea7b5544`, shared `23d08f2c`). Immutable execution gate `acdbd1c3` was published at `7f687911` before the sole saved run `9caaad75` (shared `2f9358e8`). Final separate saved arithmetic review by910 is pending under delegation `74c79d2f`.
+Source package `b8d5cb1b` independently reviewed by910 (`22330943`, shared `32585752`). Checker source `7d549811` independently cleared by56 (`ea7b5544`, shared `23d08f2c`). Immutable execution gate `acdbd1c3` was published at `7f687911` before the sole saved run `9caaad75` (shared `2f9358e8`). Final separate saved arithmetic review by910 passed `2806efb7` (shared `1299c7e6`) under delegation `74c79d2f`.
 
 The fixed300 records reconcile to300,000,000,000 inputs and285,935,243,665 correct outputs. Exact saved accuracy is57187048733/60000000000. Nominal binomial SE is3.85938468025e-7; the exact between-block mean SE is3.41834782746e-7. These reproduce the displayed arithmetic. They do not authenticate historical model/runtime/stream independence or establish an exact accuracy bound. The block0 float32 comparison is+29 net correct outputs; the individual prediction discordance is unknown.
 
@@ -10,3 +10,7 @@ For k6,245/3811 completed subtrees retain1,473,541 cells and1,459,727 reported h
 No author model, MC, RNG, geometry, array or mass-integration call was replayed. The saved arithmetic run records6 events,0.008875512 CPU seconds before final save, actual20/20-second CPU and2GiB/2GiB address-space limits. Independent exact target count evidence remains T219 k<=4; this review does not extend it to k5/k6.
 
 Plausible alternatives remain open: actual selection bias could be small, complete per-subtree records could support a different estimator, and additional runtime/model/stream provenance could strengthen MC interpretation. No scientific adoption, family impossibility, full-cost or architectural accuracy-ceiling claim follows. Claude retains registry and scientific acceptance.
+
+## Preserved reviewer provenance failure
+
+The first final-review attempt stopped before numerical record contraction because its blanket historical-pin check compared the original README hash against the later updated handoff README. Failure ac14e837 is retained (0.003994399 reviewer CPU seconds). Recovery source e10826e0 uses the exact b8d5cb1b Git bytes only for that historical path/hash, under independent gate6b6d5879/shared85a4a232; all numerical source and tolerances are unchanged. The sole recovery passed in0.007799887 CPU seconds, total recorded reviewer CPU0.011794286. No author run was repeated.
