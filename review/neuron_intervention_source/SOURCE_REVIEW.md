@@ -82,7 +82,8 @@ An exact counterexample is
 
 Here P is the first eigen-coordinate projector, P^2=P. For centered states
 ±(0,1), E_P=1, while residuals are ±(-1,1), giving D_P=-1. These centered
-states can arise from nonnegative states (0,0) and (0,2). A recurrent matrix
+states can arise from nonnegative states (0,0) and (0,2), or from strictly
+positive active-coordinate states (1,1) and (1,3). A recurrent matrix
 R diag(1,2) R^-1 supplies a complete real eigensystem realizing this P.
 More generally replacing the top-right 1 by k gives E_P=k^2, so values above
 one are possible algebraically, not solely a floating-point failure.
