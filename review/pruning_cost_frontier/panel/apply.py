@@ -1,5 +1,5 @@
 """One fixed retained binary-value oracle; no NumPy, model or mass calls."""
-import ast, gzip, hashlib, json, math, resource, struct, time, traceback, zipfile
+import ast, gzip, hashlib, json, math, resource, struct, sys, time, traceback, zipfile
 from fractions import Fraction as F
 from pathlib import Path
 P=Path(__file__).resolve().parent
@@ -57,10 +57,14 @@ def main():
         assert g['source_review'] in g['pins'] and g['parity_review'] in g['pins']
         for pins in [p['pins'],g['pins']]:
             for f,h in pins.items():assert sha(f)==h,f
+        r['runtime']={'invoked':sys.executable,'resolved':str(Path(sys.executable).resolve())};save()
+        assert Path(sys.executable).resolve()==Path(p['runtime']).resolve()
+        assert r['runtime']['resolved'] in p['pins']
         rv=load(g['source_review']);assert all(rv[k] is True for k in ['complete','pass_all','execution_allowed'])
         assert all(f in rv['pins'] for f in required)
         for f,h in rv['pins'].items():assert sha(f)==h,f
         parity=load(g['parity_review']);assert parity['complete'] is True and parity['pass_all'] is True
+        for f,h in parity['pins'].items():assert sha(f)==h,f
         assert parity['pins'][str(P/'results.json')]==p['pins'][str(P/'results.json')]
         prior=load(P/'results.json');assert prior['complete'] is True and prior['pass_all'] is True
         r['limits']={'cpu':resource.getrlimit(resource.RLIMIT_CPU),'address_space':resource.getrlimit(resource.RLIMIT_AS)};save()
@@ -94,11 +98,11 @@ def main():
         save();event('validated')
         from primitive import frontier
         r['frontier_attempts']=1;save();event('frontier_attempt')
-        ans=frontier(e,c,O,Q,80);r['frontier_returns']=1;save();event('frontier_return')
+        ans=frontier(e,c,O,Q,80);r['frontier_returns']=1;save()
         # Preserve the complete returned oracle before any post-return comparisons.
         temp=P/'target_frontier.tmp'
         with gzip.open(temp,'wt',encoding='utf8',compresslevel=1) as f:json.dump(enc(ans),f,separators=(',',':'),allow_nan=False)
-        temp.replace(rawpath);r['raw_frontier_sha256']=sha(rawpath);save();event('raw_saved')
+        temp.replace(rawpath);r['raw_frontier_sha256']=sha(rawpath);save();event('frontier_return');event('raw_saved')
         methods={}
         for key,z in ans['methods'].items():
             best=z['best'];s=best['saved'];bias=best['error'];remaining=2*(O-s)
