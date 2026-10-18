@@ -1,6 +1,6 @@
 # Fixed retained-panel result — independent saved audit pending
 
-The one predeclared H16T4 zoo0 chamber panel contains 51,552 retained rows. All error and cost values pass the frozen validity checks. Raw3660020e was produced once after source reviewbd31c4b9/shared1a52d40f and immutablegated12629f0; one exact frontier call, seven progress events,3.64478324 main CPU seconds, actual20/20CPU and2GiB limits. No network, geometry, mass or RNG calls occurred.
+The one predeclared H16T4 zoo0 chamber panel contains 51,552 retained rows. All error and cost values pass the frozen validity checks. Raw3660020e was produced once after source reviewbd31c4b9/shared1a52d40f and immutablegated12629f0; one exact frontier call, seven progress events,3.64478324 main CPU seconds, actual20/20CPU and2GiB limits. No model forward, geometry, mass or RNG calls occurred.
 
 | Retained-value oracle | Remaining nominal FLOPs | Fraction of original |
 |---|---:|---:|
