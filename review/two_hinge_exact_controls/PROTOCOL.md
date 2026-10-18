@@ -30,7 +30,8 @@ are outside scope.
 Execution requires an independent source/resource review by recover_34, a
 published immutable gate binding that artifact and every frozen source/protocol
 pin, and explicit published execution scope. Gate review JSON must have
-complete/pass_all=true. Merely writing this protocol authorizes no run.
+complete/pass_all=true and include/verify direct primitive, driver, fixture and
+protocol pins. Merely writing this protocol authorizes no run.
 recover_fundamentals owns the later independent saved-output audit.
 
 One attempt only: external hard AND soft CPU <=20 seconds, address space <=2 GiB,
@@ -41,6 +42,9 @@ both actual limit pairs before assertions and requires each bound, then enforces
 hard-limit launcher deviation is not repeated. No retries or threshold relaxation
 are authorized here. Any zero-call runtime failure remains a new gated recovery.
 
+Result snapshots use a flushed/fsynced same-directory temporary and atomic
+replacement so interrupted serialization preserves the last complete snapshot.
+Fatal handling resets completion flags, including a late timer failure.
 Every case begins with durable progress. All returned records are saved BEFORE
 arithmetic assertions; fatal records preserve partial results. Existing outputs
 and progress are refused. Expected successful progress: attempt +24 case events
