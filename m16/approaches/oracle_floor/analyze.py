@@ -32,6 +32,9 @@ o = dict(rms_pp=float(np.sqrt(np.mean(b ** 2))), rms_noise_corrected_pp=float(np
 G1 = o["rms_pp"] <= .40 and abs(o["mean_pp"]) <= .25 and abs(o["slope_pp_per_pp"]) <= .05
 o["outcome"] = "G1" if G1 else ("DEAD" if o["rms_pp"] > .80 else "neither")
 out["oracle"] = o
+b0 = np.array([orc[n]["R0"]["bias_pp"] for n in names]); se0 = np.array([orc[n]["R0"]["se_pp"] for n in names])
+out["oracle_R0_not_preregistered"] = dict(rms_pp=float(np.sqrt(np.mean(b0 ** 2))), rms_noise_corrected_pp=float(np.sqrt(max(np.mean(b0 ** 2 - se0 ** 2), 0))),
+    mean_pp=float(b0.mean()), slope_pp_per_pp=slope(b0), mean_se_pp=float(se0.mean()), max_abs_pp=float(np.abs(b0).max()))
 
 # ---- 2. observer
 out["observer"] = {}
@@ -82,7 +85,7 @@ if all(n in ana for n in names):
     a["corr_lin_tail_bias_vs_tail_err"] = float(np.corrcoef(parts["tail"], E["tail"])[0, 1])
     a["lin_tail_bias_over_tail_err_mean"] = float(np.mean(parts["tail"] / E["tail"]))
     out["anat"] = a
-    rows = [dict(name=n, acc=truth[n], b_pp=b[i], b_se=se[i], **{f"b_{r}": parts[r][i] for r in REG},
+    rows = [dict(name=n, acc=truth[n], b_pp=b[i], b_se=se[i], R0_pp=b0[i], **{f"b_{r}": parts[r][i] for r in REG},
                  **{f"err_{r}": E[r][i] for r in REG}, tail02=tail2[i], gross=int(gross[i]),
                  **{f"obs{c}_e": 100 * (R("obs_" + c)[n]["est"] - truth[n]) for c in out["observer"]}) for i, n in enumerate(names)]
     json.dump(rows, open(os.path.join(HERE, "results/per_model.json"), "w"), indent=1)
