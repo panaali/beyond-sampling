@@ -49,3 +49,16 @@ occur or how difficult they are to infer from E. Under continuous exchangeable
 inputs the second-largest index is uniform, so exact accuracy is1/T without
 recovering any history. This does not rescue the trained target; it proves why
 low modal gate-word share alone cannot exclude output-preserving aggregation.
+
+## Full exact gate histories define convex cones
+
+For a fixed complete gate word, replace each ReLU by its prescribed diagonal
+0/1 mask. Every successive preactivation is then a linear form in the full
+input vector. The inputs realizing that word are precisely the intersection
+of its ON strict halfspaces and OFF non-strict halfspaces (with exact zero
+handling). This set is convex and homogeneous, possibly empty or lower-dimensional.
+An artificial initial fan can subdivide it into several pieces, but cannot
+make the exact full-word region itself a nonconvex union. Thus the original
+README's generic possibility of a nonconvex full-gate-pattern region is not a
+real-arithmetic property of this bias-free ReLU recurrence. Numerically assigned
+patterns or incomplete histories are separate cases and remain qualified.
