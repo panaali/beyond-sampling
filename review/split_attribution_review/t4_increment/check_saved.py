@@ -21,9 +21,17 @@ def main():
     assert not any(p.exists() for p in outputs)
     gate=read(ROOT/'execution_gate.json')
     assert gate['status']=='completed_source_review' and gate['review_publication']
+    bound={}
     for name,digest in gate['pins'].items():
-        path=Path(name);path=path if path.is_absolute() else ROOT/path
-        assert sha(path)==digest,name
+        path=Path(name);path=(path if path.is_absolute() else ROOT/path).resolve()
+        assert path not in bound and sha(path)==digest,name
+        bound[path]=digest
+    required=[ROOT/'check_saved.py',ROOT/'PROTOCOL.md',ROOT/'manifest.json',
+              Path(gate['source_review']),Path(gate['prior_T3_results']),Path(gate['prior_T3_review'])]
+    assert all(p.resolve() in bound for p in required)
+    reviewed=read(Path(gate['prior_T3_review']))
+    assert reviewed['complete'] is True and reviewed['pass_all'] is True
+    assert reviewed['pins']['saved_results.json']==sha(Path(gate['prior_T3_results']))
     with outputs[1].open('x') as log:
         def event(**kw):log.write(json.dumps(kw)+'\n');log.flush()
         event(phase='started',gate_sha256=sha(ROOT/'execution_gate.json'))
