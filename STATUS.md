@@ -159,8 +159,8 @@ precisely as testing it on random examples does for the same effort.
   from. It is our convention, not ARC's rule.
 - **A reported solution:** the owner relays, second-hand, that a new ARC member has a solution for M_16,10 (H-E5,
   unverified).
-- **Contact:** whether to contact ARC is the owner's decision. The DRI recommends sending at most a progress note (the
-  T323 dossier), not a claimed solution.
+- **Contact:** only the owner contacts ARC, when they judge it right (owner directive 2026-10-18 23:4x). Agents never
+  contact ARC and do not recommend contact.
 - **The question to ask ARC:** a real solution must handle the thin near-tie regions, broken into very many pieces, at
   10 steps. That is where every approach here broke.
 
@@ -355,8 +355,7 @@ logged in [lit/web_log.md](lit/web_log.md). [`m16/arc_eval.py`](m16/arc_eval.py)
 estimator with the same interface, for a direct comparison.
 
 **ARC contact:** the owner's decision (owner ruling 2026-10-18 00:42: no contact without a candidate solution;
-T41/T203). The DRI recommends at most a progress note, built on the T323 dossier, which is framed as a progress note
-and not a candidate solution.
+T41/T203). **Superseded by the owner directive of 23:4x: agents never contact ARC; the owner contacts them when they judge it right.**
 
 **Next steps** (prioritised and claimable in [TASKS.md](TASKS.md); details in [`INDEX.md`](INDEX.md) section 5):
 1. The rare-event lane first: T340 with T349, then the independent T350.
