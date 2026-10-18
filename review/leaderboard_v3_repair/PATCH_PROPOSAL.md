@@ -9,3 +9,5 @@
 DRI decisions needed: approve the explicit metadata schema and unknown-state reporting policy; adopt the all-budget export; decide whether direct srb instrumentation remains a priority. No estimator or shared harness is modified by this proposal.
 
 A successful two-RNG probe on the first model/smallest budget is only a recorded finite probe. It does not prove determinism on all inputs/models/budgets. The proposed metadata makes the scope observable rather than strengthening that test silently.
+
+Source inventory for the remaining srb phase: the frozen rb9.py is71 lines, so the historical `:158–176/:184` citations are stale for this snapshot. The claimed reason is still visible: its cost comment assumes rank-one gate-toggle updates, while Q actually recomputes `(D*a)@Wo.T` and `(D*w)@Wo.T` on each interval. This supports auditing the mismatch; it does not verify the numerical3.3 multiplier or all stratum/RNG/setup costs. A continuation must pin the actual estimator→cv.make→rb9.Q call path and its sampling comparator before any execution.
