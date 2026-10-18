@@ -1,6 +1,6 @@
 # HANDOFF: T270, T234 grid3, T284 HP2/DEV2, T196 (8,5) audit (live state; updated at every check-in)
 
-Last update: 2026-10-18 10:35 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
+Last update: 2026-10-18 12:15 UTC. **T270 closed** (README record); t192lb stopped 12:13. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
 DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `send_message`). T281 scorer session:
 `session_01UvVWREPpEYpUGudpzkioKd`. Budget: T234 + T270 <= 115 Colab units combined.
 
@@ -16,7 +16,7 @@ DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `s
 | VM | hardware | runs | started |
 |---|---|---|---|
 | t192f2 | A100 | T270 shard 0 resumed (`/content/t270_shard0.log`) + grid3 restarted (`/content/grid3.log`), job `colab/j_f2.sh` | 08:22 |
-| t192lb | A100 | T270 shard 1 (`/content/t270_shard1.log`); GPU free for HP2 truths | shard1 ~06:50 |
+| (t192lb) | A100 | stopped 12:13 (shard 1 done 11:22; HP2/HP3/HP4 trained there) | |
 | t192aud | CPU | T196 (8,5) audit seeds 1-4 (`/content/audit_{1..4}.log`, marker `AUDIT2DONE` in `/content/audit_done`) | 07:15 |
 Stopped: t192t4 (07:05, queue finished); **t192fu reclaimed 07:23-08:12 despite the keep-alive** (grid3 lost, shard 0 kept 7 chunks); t192za was reclaimed ~06:20 (za pack lost, superseded by grid3).
 
@@ -78,6 +78,8 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
   weights file sha256 41709001..., truths sha256 1a6a44f4...). Pending: bit-identity check vs grid3's copies at step >= 2^20. Original plan:: download state.pt, `python hp2/make_panel.py hp2 STATE_PT`
   (local), upload `hp2/weights.npz` + run `truth_panel.py hp2 1e8` on a GPU VM -> `hp2/sealed/truths.json` ONLY.
   Send the scorer (T281) path + weights/truth sha256; send DRI hashes + min/max/mean/sd. Never publish per-model truths.
+- HP3 (T321) delivered 11:20, HP4 (T328) delivered 12:12 (`capacity_ceiling/hp3_run.py`, `hp4_run.py`; data ids
+  2000-2099 / 3000-3099; truths sealed in `hp3/sealed/`, `hp4/sealed/`).
 - HP1 truths likewise stay only in `hp1/sealed/truths.json`.
 
 ## T196 (8,5) audit
@@ -85,5 +87,5 @@ Seed 0: charged 2.177e11, complete 2.685e11, ratio 1.23 (`results/audit85/audit_
 (`colab/q_audit2.sh`). When done: download `/content/audit_{1..4}.log` to `results/audit85/`, add to README, stop t192aud.
 
 ## Units
-304.80 at login; 216.09 at 10:27 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
+304.80 at login; 197.41 at 12:13 (one A100 left, 5.4 u/h) (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
 ~100 of 115 at T270 completion. Stop each A100 as soon as its shard (and, on fu, grid3) is done and synced.

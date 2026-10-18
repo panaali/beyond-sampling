@@ -103,7 +103,9 @@ Region growth stays ~x30 per step through k = 6 [inferred: cells ~ regions].
   vs .0031681 +- 5.6e-6 (`mc6.py`); six integration-rule variants agree to 1e-11 (`sx6.py`); the stored ray lists miss
   5-11 true vertices and estT's pulling triangulation drops further volume; qhull vertex enumeration + Delaunay
   reproduces the MC (4.455e-6 / 5.008e-6 / 6.657e-6 vs 4.43e-6 / 4.77e-6 / 6.57e-6, se ~2.2e-7) (`cx6.py`).
-  Mass repair `remass6.py` (= T316 patch A) written; not run at scale (DRI: decision does not depend on g_delta).
+  Mass repair `remass6.py` (= T316 patch A) validated on subtree 125: root .00316717447, estT leaf .00312366091,
+  repaired .00316618894 (residual -9.86e-7 = mass of regions clip never produced; MC 1.04e-6); control 81 unchanged
+  (`results/prefix6/remass_test125.log`). Not run at scale (DRI: the decision does not depend on g_delta).
 - **Provisional g_delta lower bounds** at 76% (`prefix6_bounds.py`; valid because every defective mass is an
   underestimate and the exact shortfall D is added to the unprocessed mass U): g_1e-3 >= 7.58, g_1e-4 >= 9.03,
   g_1e-5 >= 10.56, g_1e-6 >= 12.21, g_1e-7 >= 14.16 (N5 = 42,499 / 89,216 / 152,956 / 226,080 / 301,935). Upper bounds
