@@ -80,4 +80,79 @@ first model's numbers only, no aggregate.
 - I will also say whether the spread's gain has a mechanistic reading in the T241 account.
 
 ## Status
-Running.
+**Done. NO GO** on both the original (≤ .40) and the amended (< .255) line. W-derived selection does not beat
+recency. Unverified; the floors are diagnostic sampling.
+
+## Results
+To reproduce: `PYTHONPATH=<shim> python3 mc.py` (80 DEV2 models × 500k inputs, ~25 CPU-min), then `python3 analyze.py`.
+Outputs are `results/mc_all.json` and `results/summary.json`. The node counts use T317e's prefix rule on the K = 2
+expanded lines; the base is 2,815 and the budget 3,660.
+
+| variant | oracle floor RMS (pp) | mean (pp) | slope | max nodes per line | lows made exact per model |
+|---|---|---|---|---|---|
+| (0) closure c (baseline; T324 E0 .463, T304 .471, T327 R1W .481) | .473 | −.153 | −.013 | 2,815 | 0 |
+| (1) S_late: latest free low exact | .426 | −.088 | −.012 | 3,658 | 1,306 |
+| **(2) S_mech: W-derived, budget greedy** | **.410** | −.065 | −.014 | 3,659 | 630 |
+| (3) S_adj: lows next to p2/p3 | .423 | −.069 | −.005 | 3,631 | 812 |
+| (4) S_mech, no budget (best position per triple) | .309 | −.132 | −.008 | **6,813 (2.4x)** | 1,440 |
+| (1) at K = 2 nodes (realisable) | .422 | −.055 | −.014 | | |
+| (2) at K = 2 nodes (realisable) | .422 | +.014 | −.023 | | |
+
+The lows count is per model, over 720 triples × 2 regions.
+
+Paired bootstrap over models (10,000) for differences in RMS:
+- (2) − (1) = −.017 [−.051, +.017];
+- (2) − (0) = −.064 [−.099, −.025];
+- (2) − (3) = −.013 [−.048, +.022].
+
+- **No go.**
+  - On budget, the W-derived closure lowers the floor by .064 pp (.473 → .410). That misses both .40 and the amended
+    .255 (T327's zero-cost reverse spread pattern).
+  - It is not distinguishable from the model-free recency rule (1) or the adjacency rule (3), so the gain is
+    recency, not mechanism.
+  - At K = 2 nodes, the realisable version, (1) and (2) are equal (.422).
+- **Even without a budget the ceiling is .309.** One exact low per triple, at the position W ranks highest, at 2.4x the
+  nodes, is still worse than T327's zero-cost spread (.255). Alternative 2 holds: the floor is not in any single low
+  position.
+- **Where W says the lows matter.** Positions picked by the no-budget rule, summed over 80 models × 1,440:
+
+  | position | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+  |---|---|---|---|---|---|---|---|---|---|---|
+  | count | 24.1k | 18.9k | 14.9k | 11.9k | 9.4k | 7.4k | 6.1k | 5.8k | 7.2k | 9.6k |
+
+  The most-picked are the *earliest* positions, then a small recency bump at 8–9. The node budget forces the greedy
+  onto late positions (27k of 50k picks at position 9), because an early exact low duplicates almost the whole
+  prefix tree. The positions that matter most at the anchor are therefore the most expensive to treat exactly in
+  this tree.
+
+**A mechanistic reading of T327's spread gain** [speculative, consistent with the above]:
+- In the T241 account the late margins read the lows through order-statistic neurons: running max, leave-one-out max
+  and recency. They do not read any one low.
+- Closure c sets 6 lows to one value μ(v4). The max of the pooled lows then equals μ(v4), far below a typical
+  second-largest low (≈ μ + σ). The running-max and leave-one-out-max neurons see an unnaturally flat background.
+- A ± σ spread restores a realistic max and spread of the lows at every point in time, which those neurons respond
+  to. That would explain why a position-pattern change with no per-model selection beats any one-position exact
+  treatment. It would also explain why the earliest positions rank highest here: the running max is set early and
+  carried forward.
+- **Cheapest test (not run):** an oracle closure c where the lows keep their true *rank profile* (true second-max at
+  its true position, others at μ). Against T327's spread, this separates "max of the lows" from "alternation per se".
+
+## Compute accounting
+`mc.py`: per model, the allocation (720 × 7 × 2 × 2 anchor forward passes, plus node counts), then 500k inputs × 10
+closure evaluations. About 25 CPU-min in total, single thread, `ulimit -v 2500000`. Diagnostic sampling only;
+nothing here is an estimator.
+
+## Claims
+- [measured] W-derived exact lows under a 1.3x node budget lower closure c's oracle floor from .473 to .410 pp. This is
+  not distinguishable from latest-low (.426) or adjacency (.423) rules.
+- [measured] Without a budget, one exact low per triple reaches .309 pp at 2.4x the nodes. This is still above
+  T327's zero-cost spread (.255).
+- [inferred] W ranks early low positions highest for the anchor margin. The exact-low design cannot afford those
+  positions in a prefix tree.
+- [speculative] The spread's gain comes from restoring the lows' order statistics, which the max-type neurons read.
+
+## Alternatives not ruled out
+- Δ at one anchor may misrank positions away from the anchor (alternative 3). (4) uses the same Δ, so a better
+  ranking could lower (4) below .309.
+- More than one exact low per triple was not tested (the budget forbids it).
+- Combining with T327's spread (spread lows plus W-chosen exact lows) was not tested. That belongs with T339's design.
