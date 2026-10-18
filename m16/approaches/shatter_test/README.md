@@ -102,3 +102,48 @@ the random median (rule: <= 1/3).
 Final leaves (8,3)-(16,4) ~8 CPU-min; 13 prefix models at k = 4 ~25 CPU-min; analysis seconds. ~35 CPU-min total.
 
 Per-leaf dumps (16 MB) live in data/t239/ (git-ignored; `out` is a local symlink). Regenerate with `./drive.sh` (~35 CPU-min).
+
+
+## Follow-up (DRI, after T232): is the FUNCTION simple on the correct part? (`leaves2.py`, `analyze2.py` -> summary2.json)
+Not pre-registered (requested after the first results); descriptive. Leaves re-dumped with rays and the predicted class at
+every ray. A leaf has a single predicted class iff all its rays agree (exact: logits are linear on the leaf). Adjacent =
+sharing >= d-1 rays (face-to-face neighbours only, so adjacency counts are lower bounds; every leaf found >= 1 neighbour).
+
+**(a) Leaves fully correct / mixed / fully wrong, by tie-distance stratum** (mass, error mass), zoo seed 0, T = 4:
+
+| stratum | (8,4) c / m / w | mass | error | (16,4) c / m / w | mass | error |
+|---|---|---|---|---|---|---|
+| <.02 | 782 / 1,423 / 1,088 | 0.037 | 6.0e-03 | 11,733 / 8,028 / 4,910 | 0.037 | 7.8e-04 |
+| .02-.05 | 216 / 249 / 3 | 0.073 | 3.0e-03 | 2,376 / 424 / 0 | 0.069 | 2.0e-04 |
+| .05-.1 | 166 / 98 / 0 | 0.201 | 2.2e-03 | 1,273 / 224 / 0 | 0.158 | 1.6e-04 |
+| .1-.2 | 225 / 126 / 0 | 0.379 | 1.8e-03 | 1,792 / 204 / 0 | 0.303 | 1.3e-04 |
+| >=.2 | 198 / 7 / 0 | 0.061 | 5.1e-05 | 2,052 / 31 / 0 | 0.111 | 8.6e-06 |
+| blind | 1,278 / 1,682 / 914 | 0.249 | 1.1e-02 | 9,805 / 5,588 / 3,112 | 0.322 | 8.4e-04 |
+
+Fully wrong leaves occur only within d < .05 of a tie or in the blind region. Far from ties almost every leaf is fully
+correct (at (16,4), d >= .2: 2,052 correct, 31 mixed). The d < .02 and blind strata hold 84% of (16,4)'s leaves, 36% of its
+mass and 76% of its error.
+
+**(b) Adjacency and connected correct groups:**
+
+| model | leaves | touches another predicted class | touches an error leaf | correct leaves not touching error (cells / mass) | connected all-correct groups | groups for 90% of all-correct mass | largest group (cells, mass) |
+|---|---|---|---|---|---|---|---|
+| H8_T3 | 452 | 0.73 | 0.75 | 112 / 0.299 | 9 | 6 | 55 (0.159) |
+| H8_T4 | 8,455 | 0.86 | 0.95 | 462 / 0.010 | 53 | 11 | 227 (0.042) |
+| H16_T3 | 1,162 | 0.51 | 0.59 | 472 / 0.451 | 9 | 6 | 228 (0.162) |
+| H16_T4 | 51,552 | 0.68 | 0.74 | 13,385 / 0.418 | 78 | 10 | 1,480 (0.079) |
+
+"Touches another predicted class" includes correct neighbours across a tie wall, where the true label itself changes.
+"Touches an error leaf" (a mixed or wrong neighbour, or itself) is the relevant one.
+
+**Reading.**
+1. **The correct part is coarse at the level of groups:** at (16,4) the fully correct leaves (71.6% of the mass) form only 78
+   connected groups, and 10 of them hold 90% of that mass [measured].
+2. **But each group is thousands of linear pieces** (1.5k-4k leaves each at (16,4)), so the function on the correct part is
+   not simple in the linear-region sense. A certificate per group would have to cover a nonlinear function, not one linear map
+   [measured; inferred consequence].
+3. **The error sits in a thin layer:** fully wrong leaves only near ties or blind; 74% of (16,4)'s leaves touch an error leaf.
+   The leaves holding 42% of the mass are correct and do not touch any error [measured].
+So the owner's picture holds in this sense: there is a large, coherent correct part and a thin, highly fragmented error
+layer along the tie walls. But the correct part is coherent only as a union of many linear pieces. Treating it as "one
+certifiable piece" needs a bound on its nonlinear map, not a linear-region argument [inferred].
