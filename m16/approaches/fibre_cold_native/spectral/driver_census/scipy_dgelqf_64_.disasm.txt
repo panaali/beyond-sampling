@@ -1,0 +1,421 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000cda0f0 <scipy_dgelqf_64_>:
+  cda0f0:	41 57                	push   %r15
+  cda0f2:	49 89 f7             	mov    %rsi,%r15
+  cda0f5:	41 56                	push   %r14
+  cda0f7:	41 55                	push   %r13
+  cda0f9:	41 54                	push   %r12
+  cda0fb:	4c 8d 25 9e 7e 6f 00 	lea    0x6f7e9e(%rip),%r12        # 13d1fa0 <locu12.4+0x1100>
+  cda102:	55                   	push   %rbp
+  cda103:	48 8d 2d 25 4c 6e 00 	lea    0x6e4c25(%rip),%rbp        # 13bed2f <.annobin___pthread_atfork.end+0x1ddf>
+  cda10a:	53                   	push   %rbx
+  cda10b:	48 81 ec d0 00 00 00 	sub    $0xd0,%rsp
+  cda112:	4c 8b 29             	mov    (%rcx),%r13
+  cda115:	4c 8b 36             	mov    (%rsi),%r14
+  cda118:	48 8b 84 24 10 01 00 	mov    0x110(%rsp),%rax
+  cda11f:	00 
+  cda120:	48 89 54 24 20       	mov    %rdx,0x20(%rsp)
+  cda125:	48 8d 15 11 3d 6e 00 	lea    0x6e3d11(%rip),%rdx        # 13bde3d <.annobin___pthread_atfork.end+0xeed>
+  cda12c:	4c 89 44 24 40       	mov    %r8,0x40(%rsp)
+  cda131:	49 89 f0             	mov    %rsi,%r8
+  cda134:	48 89 ee             	mov    %rbp,%rsi
+  cda137:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+  cda13e:	48 8b 07             	mov    (%rdi),%rax
+  cda141:	4c 89 4c 24 10       	mov    %r9,0x10(%rsp)
+  cda146:	4d 89 e1             	mov    %r12,%r9
+  cda149:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+  cda14e:	48 89 f9             	mov    %rdi,%rcx
+  cda151:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  cda156:	6a 01                	push   $0x1
+  cda158:	6a 06                	push   $0x6
+  cda15a:	41 54                	push   %r12
+  cda15c:	48 89 7c 24 30       	mov    %rdi,0x30(%rsp)
+  cda161:	48 8d 3d 40 7e 6f 00 	lea    0x6f7e40(%rip),%rdi        # 13d1fa8 <locu12.4+0x1108>
+  cda168:	e8 83 c4 3a ff       	call   865f0 <scipy_ilaenv_64_@plt>
+  cda16d:	4c 8b 54 24 30       	mov    0x30(%rsp),%r10
+  cda172:	48 83 c4 20          	add    $0x20,%rsp
+  cda176:	4d 8b 1a             	mov    (%r10),%r11
+  cda179:	4d 85 db             	test   %r11,%r11
+  cda17c:	0f 88 c6 00 00 00    	js     cda248 <scipy_dgelqf_64_+0x158>
+  cda182:	49 8b 17             	mov    (%r15),%rdx
+  cda185:	48 85 d2             	test   %rdx,%rdx
+  cda188:	0f 88 9a 00 00 00    	js     cda228 <scipy_dgelqf_64_+0x138>
+  cda18e:	48 8b 0c 24          	mov    (%rsp),%rcx
+  cda192:	48 89 c3             	mov    %rax,%rbx
+  cda195:	4d 85 db             	test   %r11,%r11
+  cda198:	b8 01 00 00 00       	mov    $0x1,%eax
+  cda19d:	49 0f 4f c3          	cmovg  %r11,%rax
+  cda1a1:	48 39 01             	cmp    %rax,(%rcx)
+  cda1a4:	0f 8c b6 00 00 00    	jl     cda260 <scipy_dgelqf_64_+0x170>
+  cda1aa:	48 8b bc 24 00 01 00 	mov    0x100(%rsp),%rdi
+  cda1b1:	00 
+  cda1b2:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+  cda1b7:	48 8b 0f             	mov    (%rdi),%rcx
+  cda1ba:	4c 39 f6             	cmp    %r14,%rsi
+  cda1bd:	4c 0f 4e f6          	cmovle %rsi,%r14
+  cda1c1:	48 83 f9 ff          	cmp    $0xffffffffffffffff,%rcx
+  cda1c5:	0f 84 55 05 00 00    	je     cda720 <scipy_dgelqf_64_+0x630>
+  cda1cb:	48 85 c9             	test   %rcx,%rcx
+  cda1ce:	7e 12                	jle    cda1e2 <scipy_dgelqf_64_+0xf2>
+  cda1d0:	48 85 d2             	test   %rdx,%rdx
+  cda1d3:	0f 84 97 00 00 00    	je     cda270 <scipy_dgelqf_64_+0x180>
+  cda1d9:	48 39 c1             	cmp    %rax,%rcx
+  cda1dc:	0f 8d 8e 00 00 00    	jge    cda270 <scipy_dgelqf_64_+0x180>
+  cda1e2:	48 8b 84 24 08 01 00 	mov    0x108(%rsp),%rax
+  cda1e9:	00 
+  cda1ea:	48 c7 00 f9 ff ff ff 	movq   $0xfffffffffffffff9,(%rax)
+  cda1f1:	b8 07 00 00 00       	mov    $0x7,%eax
+  cda1f6:	48 8d b4 24 b8 00 00 	lea    0xb8(%rsp),%rsi
+  cda1fd:	00 
+  cda1fe:	ba 06 00 00 00       	mov    $0x6,%edx
+  cda203:	48 89 ef             	mov    %rbp,%rdi
+  cda206:	48 89 84 24 b8 00 00 	mov    %rax,0xb8(%rsp)
+  cda20d:	00 
+  cda20e:	e8 bd ed 73 ff       	call   418fd0 <__xerbla>
+  cda213:	48 81 c4 c8 00 00 00 	add    $0xc8,%rsp
+  cda21a:	5b                   	pop    %rbx
+  cda21b:	5d                   	pop    %rbp
+  cda21c:	41 5c                	pop    %r12
+  cda21e:	41 5d                	pop    %r13
+  cda220:	41 5e                	pop    %r14
+  cda222:	41 5f                	pop    %r15
+  cda224:	c3                   	ret
+  cda225:	0f 1f 00             	nopl   (%rax)
+  cda228:	48 c7 c2 fe ff ff ff 	mov    $0xfffffffffffffffe,%rdx
+  cda22f:	b8 02 00 00 00       	mov    $0x2,%eax
+  cda234:	48 8b 9c 24 08 01 00 	mov    0x108(%rsp),%rbx
+  cda23b:	00 
+  cda23c:	48 89 13             	mov    %rdx,(%rbx)
+  cda23f:	eb b5                	jmp    cda1f6 <scipy_dgelqf_64_+0x106>
+  cda241:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  cda248:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+  cda24f:	b8 01 00 00 00       	mov    $0x1,%eax
+  cda254:	eb de                	jmp    cda234 <scipy_dgelqf_64_+0x144>
+  cda256:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  cda25d:	00 00 00 
+  cda260:	48 c7 c2 fc ff ff ff 	mov    $0xfffffffffffffffc,%rdx
+  cda267:	b8 04 00 00 00       	mov    $0x4,%eax
+  cda26c:	eb c6                	jmp    cda234 <scipy_dgelqf_64_+0x144>
+  cda26e:	66 90                	xchg   %ax,%ax
+  cda270:	48 8b 84 24 08 01 00 	mov    0x108(%rsp),%rax
+  cda277:	00 
+  cda278:	48 8b 00             	mov    (%rax),%rax
+  cda27b:	48 85 c0             	test   %rax,%rax
+  cda27e:	0f 85 d4 04 00 00    	jne    cda758 <scipy_dgelqf_64_+0x668>
+  cda284:	4d 85 f6             	test   %r14,%r14
+  cda287:	0f 84 33 03 00 00    	je     cda5c0 <scipy_dgelqf_64_+0x4d0>
+  cda28d:	31 c0                	xor    %eax,%eax
+  cda28f:	4d 85 ed             	test   %r13,%r13
+  cda292:	49 0f 49 c5          	cmovns %r13,%rax
+  cda296:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+  cda29b:	48 83 fb 01          	cmp    $0x1,%rbx
+  cda29f:	0f 8e f3 02 00 00    	jle    cda598 <scipy_dgelqf_64_+0x4a8>
+  cda2a5:	49 39 de             	cmp    %rbx,%r14
+  cda2a8:	0f 8e ea 02 00 00    	jle    cda598 <scipy_dgelqf_64_+0x4a8>
+  cda2ae:	4c 89 5c 24 20       	mov    %r11,0x20(%rsp)
+  cda2b3:	48 83 ec 08          	sub    $0x8,%rsp
+  cda2b7:	4c 89 d1             	mov    %r10,%rcx
+  cda2ba:	4d 89 f8             	mov    %r15,%r8
+  cda2bd:	6a 01                	push   $0x1
+  cda2bf:	48 8d 15 77 3b 6e 00 	lea    0x6e3b77(%rip),%rdx        # 13bde3d <.annobin___pthread_atfork.end+0xeed>
+  cda2c6:	48 89 ee             	mov    %rbp,%rsi
+  cda2c9:	4c 8d 0d d0 7c 6f 00 	lea    0x6f7cd0(%rip),%r9        # 13d1fa0 <locu12.4+0x1100>
+  cda2d0:	6a 06                	push   $0x6
+  cda2d2:	48 8d 3d d7 7c 6f 00 	lea    0x6f7cd7(%rip),%rdi        # 13d1fb0 <locu12.4+0x1110>
+  cda2d9:	41 54                	push   %r12
+  cda2db:	4c 89 54 24 30       	mov    %r10,0x30(%rsp)
+  cda2e0:	e8 0b c3 3a ff       	call   865f0 <scipy_ilaenv_64_@plt>
+  cda2e5:	31 d2                	xor    %edx,%edx
+  cda2e7:	48 85 c0             	test   %rax,%rax
+  cda2ea:	48 0f 49 d0          	cmovns %rax,%rdx
+  cda2ee:	48 83 c4 20          	add    $0x20,%rsp
+  cda2f2:	4c 8b 54 24 10       	mov    0x10(%rsp),%r10
+  cda2f7:	4c 8b 5c 24 20       	mov    0x20(%rsp),%r11
+  cda2fc:	49 39 d6             	cmp    %rdx,%r14
+  cda2ff:	49 89 d5             	mov    %rdx,%r13
+  cda302:	0f 8e 68 03 00 00    	jle    cda670 <scipy_dgelqf_64_+0x580>
+  cda308:	49 8b 0a             	mov    (%r10),%rcx
+  cda30b:	48 8b 84 24 00 01 00 	mov    0x100(%rsp),%rax
+  cda312:	00 
+  cda313:	49 89 db             	mov    %rbx,%r11
+  cda316:	4c 0f af d9          	imul   %rcx,%r11
+  cda31a:	48 8b 00             	mov    (%rax),%rax
+  cda31d:	48 89 8c 24 a8 00 00 	mov    %rcx,0xa8(%rsp)
+  cda324:	00 
+  cda325:	4c 39 d8             	cmp    %r11,%rax
+  cda328:	0f 8c da 02 00 00    	jl     cda608 <scipy_dgelqf_64_+0x518>
+  cda32e:	4c 89 f0             	mov    %r14,%rax
+  cda331:	31 d2                	xor    %edx,%edx
+  cda333:	48 8b 7c 24 70       	mov    0x70(%rsp),%rdi
+  cda338:	4c 89 5c 24 78       	mov    %r11,0x78(%rsp)
+  cda33d:	4c 29 e8             	sub    %r13,%rax
+  cda340:	4d 89 f5             	mov    %r14,%r13
+  cda343:	4c 89 54 24 30       	mov    %r10,0x30(%rsp)
+  cda348:	48 8b 6c 24 18       	mov    0x18(%rsp),%rbp
+  cda34d:	48 83 e8 01          	sub    $0x1,%rax
+  cda351:	4c 89 b4 24 80 00 00 	mov    %r14,0x80(%rsp)
+  cda358:	00 
+  cda359:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+  cda35f:	48 f7 f3             	div    %rbx
+  cda362:	48 c7 44 24 40 ff ff 	movq   $0xffffffffffffffff,0x40(%rsp)
+  cda369:	ff ff 
+  cda36b:	48 8d 57 01          	lea    0x1(%rdi),%rdx
+  cda36f:	48 0f af d3          	imul   %rbx,%rdx
+  cda373:	48 8d 3c d5 00 00 00 	lea    0x0(,%rdx,8),%rdi
+  cda37a:	00 
+  cda37b:	48 29 da             	sub    %rbx,%rdx
+  cda37e:	48 89 7c 24 50       	mov    %rdi,0x50(%rsp)
+  cda383:	48 8d bc 24 b8 00 00 	lea    0xb8(%rsp),%rdi
+  cda38a:	00 
+  cda38b:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+  cda390:	48 8b 7c 24 38       	mov    0x38(%rsp),%rdi
+  cda395:	48 89 54 24 48       	mov    %rdx,0x48(%rsp)
+  cda39a:	48 83 ef 08          	sub    $0x8,%rdi
+  cda39e:	48 89 7c 24 58       	mov    %rdi,0x58(%rsp)
+  cda3a3:	48 8d bc 24 98 00 00 	lea    0x98(%rsp),%rdi
+  cda3aa:	00 
+  cda3ab:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  cda3b0:	48 8d bc 24 a0 00 00 	lea    0xa0(%rsp),%rdi
+  cda3b7:	00 
+  cda3b8:	48 89 7c 24 60       	mov    %rdi,0x60(%rsp)
+  cda3bd:	4c 89 ff             	mov    %r15,%rdi
+  cda3c0:	4d 89 ef             	mov    %r13,%r15
+  cda3c3:	49 89 fd             	mov    %rdi,%r13
+  cda3c6:	48 89 84 24 88 00 00 	mov    %rax,0x88(%rsp)
+  cda3cd:	00 
+  cda3ce:	49 89 c6             	mov    %rax,%r14
+  cda3d1:	eb 2b                	jmp    cda3fe <scipy_dgelqf_64_+0x30e>
+  cda3d3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  cda3d8:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+  cda3dd:	49 83 ee 01          	sub    $0x1,%r14
+  cda3e1:	49 01 dc             	add    %rbx,%r12
+  cda3e4:	49 29 df             	sub    %rbx,%r15
+  cda3e7:	48 8b 74 24 48       	mov    0x48(%rsp),%rsi
+  cda3ec:	48 01 74 24 40       	add    %rsi,0x40(%rsp)
+  cda3f1:	48 01 c5             	add    %rax,%rbp
+  cda3f4:	49 83 fe ff          	cmp    $0xffffffffffffffff,%r14
+  cda3f8:	0f 84 da 01 00 00    	je     cda5d8 <scipy_dgelqf_64_+0x4e8>
+  cda3fe:	49 39 df             	cmp    %rbx,%r15
+  cda401:	48 89 da             	mov    %rbx,%rdx
+  cda404:	48 8b 44 24 58       	mov    0x58(%rsp),%rax
+  cda409:	49 0f 4e d7          	cmovle %r15,%rdx
+  cda40d:	48 83 ec 08          	sub    $0x8,%rsp
+  cda411:	4e 8d 04 e0          	lea    (%rax,%r12,8),%r8
+  cda415:	48 89 94 24 a0 00 00 	mov    %rdx,0xa0(%rsp)
+  cda41c:	00 
+  cda41d:	49 8b 55 00          	mov    0x0(%r13),%rdx
+  cda421:	4c 29 e2             	sub    %r12,%rdx
+  cda424:	48 83 c2 01          	add    $0x1,%rdx
+  cda428:	48 89 94 24 c0 00 00 	mov    %rdx,0xc0(%rsp)
+  cda42f:	00 
+  cda430:	48 89 ea             	mov    %rbp,%rdx
+  cda433:	ff 74 24 68          	push   0x68(%rsp)
+  cda437:	4c 8b 4c 24 18       	mov    0x18(%rsp),%r9
+  cda43c:	48 8b 4c 24 10       	mov    0x10(%rsp),%rcx
+  cda441:	48 8b 74 24 38       	mov    0x38(%rsp),%rsi
+  cda446:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+  cda44b:	4c 89 44 24 20       	mov    %r8,0x20(%rsp)
+  cda450:	e8 5b c5 3a ff       	call   869b0 <scipy_dgelq2_64_@plt>
+  cda455:	48 8b 94 24 a8 00 00 	mov    0xa8(%rsp),%rdx
+  cda45c:	00 
+  cda45d:	59                   	pop    %rcx
+  cda45e:	5e                   	pop    %rsi
+  cda45f:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
+  cda464:	4c 01 e2             	add    %r12,%rdx
+  cda467:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+  cda46c:	48 3b 10             	cmp    (%rax),%rdx
+  cda46f:	0f 8f 63 ff ff ff    	jg     cda3d8 <scipy_dgelqf_64_+0x2e8>
+  cda475:	49 8b 55 00          	mov    0x0(%r13),%rdx
+  cda479:	48 83 ec 08          	sub    $0x8,%rsp
+  cda47d:	48 8d 35 f9 3d 6e 00 	lea    0x6e3df9(%rip),%rsi        # 13be27d <.annobin___pthread_atfork.end+0x132d>
+  cda484:	48 8d 3d dc 3d 6e 00 	lea    0x6e3ddc(%rip),%rdi        # 13be267 <.annobin___pthread_atfork.end+0x1317>
+  cda48b:	4c 29 e2             	sub    %r12,%rdx
+  cda48e:	48 83 c2 01          	add    $0x1,%rdx
+  cda492:	48 89 94 24 c0 00 00 	mov    %rdx,0xc0(%rsp)
+  cda499:	00 
+  cda49a:	6a 07                	push   $0x7
+  cda49c:	6a 07                	push   $0x7
+  cda49e:	4c 8d 9c 24 c0 00 00 	lea    0xc0(%rsp),%r11
+  cda4a5:	00 
+  cda4a6:	41 53                	push   %r11
+  cda4a8:	4c 89 9c 24 88 00 00 	mov    %r11,0x88(%rsp)
+  cda4af:	00 
+  cda4b0:	ff 74 24 28          	push   0x28(%rsp)
+  cda4b4:	41 50                	push   %r8
+  cda4b6:	49 89 e8             	mov    %rbp,%r8
+  cda4b9:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+  cda4be:	48 8b 54 24 58       	mov    0x58(%rsp),%rdx
+  cda4c3:	4c 8b 4c 24 30       	mov    0x30(%rsp),%r9
+  cda4c8:	e8 f3 96 3a ff       	call   83bc0 <scipy_dlarft_64_@plt>
+  cda4cd:	48 8b 74 24 60       	mov    0x60(%rsp),%rsi
+  cda4d2:	48 8b 94 24 c8 00 00 	mov    0xc8(%rsp),%rdx
+  cda4d9:	00 
+  cda4da:	48 8b 36             	mov    (%rsi),%rsi
+  cda4dd:	48 89 74 24 40       	mov    %rsi,0x40(%rsp)
+  cda4e2:	4c 29 e6             	sub    %r12,%rsi
+  cda4e5:	48 89 f1             	mov    %rsi,%rcx
+  cda4e8:	49 8b 75 00          	mov    0x0(%r13),%rsi
+  cda4ec:	48 29 d1             	sub    %rdx,%rcx
+  cda4ef:	48 83 c1 01          	add    $0x1,%rcx
+  cda4f3:	4c 29 e6             	sub    %r12,%rsi
+  cda4f6:	48 89 8c 24 e0 00 00 	mov    %rcx,0xe0(%rsp)
+  cda4fd:	00 
+  cda4fe:	48 89 f1             	mov    %rsi,%rcx
+  cda501:	48 83 c1 01          	add    $0x1,%rcx
+  cda505:	48 89 8c 24 e8 00 00 	mov    %rcx,0xe8(%rsp)
+  cda50c:	00 
+  cda50d:	48 83 c4 28          	add    $0x28,%rsp
+  cda511:	6a 07                	push   $0x7
+  cda513:	6a 07                	push   $0x7
+  cda515:	6a 0c                	push   $0xc
+  cda517:	6a 05                	push   $0x5
+  cda519:	4c 8b 9c 24 90 00 00 	mov    0x90(%rsp),%r11
+  cda520:	00 
+  cda521:	41 53                	push   %r11
+  cda523:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  cda528:	48 8d 0c d0          	lea    (%rax,%rdx,8),%rcx
+  cda52c:	4c 01 e2             	add    %r12,%rdx
+  cda52f:	51                   	push   %rcx
+  cda530:	48 8b 7c 24 38       	mov    0x38(%rsp),%rdi
+  cda535:	48 8d 0d 41 3d 6e 00 	lea    0x6e3d41(%rip),%rcx        # 13be27d <.annobin___pthread_atfork.end+0x132d>
+  cda53c:	57                   	push   %rdi
+  cda53d:	48 8b b4 24 80 00 00 	mov    0x80(%rsp),%rsi
+  cda544:	00 
+  cda545:	48 01 f2             	add    %rsi,%rdx
+  cda548:	48 8b 74 24 58       	mov    0x58(%rsp),%rsi
+  cda54d:	48 8d 14 d6          	lea    (%rsi,%rdx,8),%rdx
+  cda551:	48 8d 35 3d 3c 6e 00 	lea    0x6e3c3d(%rip),%rsi        # 13be195 <.annobin___pthread_atfork.end+0x1245>
+  cda558:	52                   	push   %rdx
+  cda559:	48 8d 15 07 3d 6e 00 	lea    0x6e3d07(%rip),%rdx        # 13be267 <.annobin___pthread_atfork.end+0x1317>
+  cda560:	41 53                	push   %r11
+  cda562:	50                   	push   %rax
+  cda563:	57                   	push   %rdi
+  cda564:	48 8d 3d 96 3c 6e 00 	lea    0x6e3c96(%rip),%rdi        # 13be201 <.annobin___pthread_atfork.end+0x12b1>
+  cda56b:	55                   	push   %rbp
+  cda56c:	ff b4 24 88 00 00 00 	push   0x88(%rsp)
+  cda573:	4c 8b 8c 24 98 00 00 	mov    0x98(%rsp),%r9
+  cda57a:	00 
+  cda57b:	4c 8d 84 24 20 01 00 	lea    0x120(%rsp),%r8
+  cda582:	00 
+  cda583:	e8 88 eb 3a ff       	call   89110 <scipy_dlarfb_64_@plt>
+  cda588:	48 83 c4 70          	add    $0x70,%rsp
+  cda58c:	e9 47 fe ff ff       	jmp    cda3d8 <scipy_dgelqf_64_+0x2e8>
+  cda591:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  cda598:	b8 01 00 00 00       	mov    $0x1,%eax
+  cda59d:	4c 39 f0             	cmp    %r14,%rax
+  cda5a0:	0f 8e 3a 01 00 00    	jle    cda6e0 <scipy_dgelqf_64_+0x5f0>
+  cda5a6:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  cda5aa:	f2 49 0f 2a c3       	cvtsi2sd %r11,%xmm0
+  cda5af:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  cda5b4:	f2 0f 11 00          	movsd  %xmm0,(%rax)
+  cda5b8:	e9 56 fc ff ff       	jmp    cda213 <scipy_dgelqf_64_+0x123>
+  cda5bd:	0f 1f 00             	nopl   (%rax)
+  cda5c0:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  cda5c5:	48 8b 1d 24 2e 6e 00 	mov    0x6e2e24(%rip),%rbx        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  cda5cc:	48 89 18             	mov    %rbx,(%rax)
+  cda5cf:	e9 3f fc ff ff       	jmp    cda213 <scipy_dgelqf_64_+0x123>
+  cda5d4:	0f 1f 40 00          	nopl   0x0(%rax)
+  cda5d8:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
+  cda5df:	00 
+  cda5e0:	4c 8b 5c 24 78       	mov    0x78(%rsp),%r11
+  cda5e5:	4d 89 ef             	mov    %r13,%r15
+  cda5e8:	4c 8b b4 24 80 00 00 	mov    0x80(%rsp),%r14
+  cda5ef:	00 
+  cda5f0:	4c 8b 54 24 30       	mov    0x30(%rsp),%r10
+  cda5f5:	48 83 c0 01          	add    $0x1,%rax
+  cda5f9:	48 0f af c3          	imul   %rbx,%rax
+  cda5fd:	48 83 c0 01          	add    $0x1,%rax
+  cda601:	eb 9a                	jmp    cda59d <scipy_dgelqf_64_+0x4ad>
+  cda603:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  cda608:	48 99                	cqto
+  cda60a:	4c 89 5c 24 20       	mov    %r11,0x20(%rsp)
+  cda60f:	48 83 ec 08          	sub    $0x8,%rsp
+  cda613:	4d 89 f8             	mov    %r15,%r8
+  cda616:	6a 01                	push   $0x1
+  cda618:	4c 8d 0d 81 79 6f 00 	lea    0x6f7981(%rip),%r9        # 13d1fa0 <locu12.4+0x1100>
+  cda61f:	48 89 ee             	mov    %rbp,%rsi
+  cda622:	48 8d 3d 8f 79 6f 00 	lea    0x6f798f(%rip),%rdi        # 13d1fb8 <locu12.4+0x1118>
+  cda629:	48 f7 f9             	idiv   %rcx
+  cda62c:	6a 06                	push   $0x6
+  cda62e:	41 54                	push   %r12
+  cda630:	4c 89 54 24 30       	mov    %r10,0x30(%rsp)
+  cda635:	4c 89 d1             	mov    %r10,%rcx
+  cda638:	48 8d 15 fe 37 6e 00 	lea    0x6e37fe(%rip),%rdx        # 13bde3d <.annobin___pthread_atfork.end+0xeed>
+  cda63f:	48 89 c3             	mov    %rax,%rbx
+  cda642:	e8 a9 bf 3a ff       	call   865f0 <scipy_ilaenv_64_@plt>
+  cda647:	ba 02 00 00 00       	mov    $0x2,%edx
+  cda64c:	48 39 d0             	cmp    %rdx,%rax
+  cda64f:	48 0f 4c c2          	cmovl  %rdx,%rax
+  cda653:	48 83 c4 20          	add    $0x20,%rsp
+  cda657:	4c 8b 54 24 10       	mov    0x10(%rsp),%r10
+  cda65c:	4c 8b 5c 24 20       	mov    0x20(%rsp),%r11
+  cda661:	48 39 c3             	cmp    %rax,%rbx
+  cda664:	7c 0a                	jl     cda670 <scipy_dgelqf_64_+0x580>
+  cda666:	49 39 de             	cmp    %rbx,%r14
+  cda669:	0f 8f bf fc ff ff    	jg     cda32e <scipy_dgelqf_64_+0x23e>
+  cda66f:	90                   	nop
+  cda670:	b8 01 00 00 00       	mov    $0x1,%eax
+  cda675:	49 8b 12             	mov    (%r10),%rdx
+  cda678:	4c 89 5c 24 10       	mov    %r11,0x10(%rsp)
+  cda67d:	48 8d b4 24 b8 00 00 	lea    0xb8(%rsp),%rsi
+  cda684:	00 
+  cda685:	48 8d bc 24 b0 00 00 	lea    0xb0(%rsp),%rdi
+  cda68c:	00 
+  cda68d:	48 83 ec 08          	sub    $0x8,%rsp
+  cda691:	48 29 c2             	sub    %rax,%rdx
+  cda694:	48 83 c2 01          	add    $0x1,%rdx
+  cda698:	48 89 94 24 b8 00 00 	mov    %rdx,0xb8(%rsp)
+  cda69f:	00 
+  cda6a0:	49 8b 17             	mov    (%r15),%rdx
+  cda6a3:	48 29 c2             	sub    %rax,%rdx
+  cda6a6:	48 8d 42 01          	lea    0x1(%rdx),%rax
+  cda6aa:	48 89 84 24 c0 00 00 	mov    %rax,0xc0(%rsp)
+  cda6b1:	00 
+  cda6b2:	48 8d 84 24 a8 00 00 	lea    0xa8(%rsp),%rax
+  cda6b9:	00 
+  cda6ba:	50                   	push   %rax
+  cda6bb:	4c 8b 4c 24 18       	mov    0x18(%rsp),%r9
+  cda6c0:	4c 8b 44 24 48       	mov    0x48(%rsp),%r8
+  cda6c5:	48 8b 4c 24 10       	mov    0x10(%rsp),%rcx
+  cda6ca:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  cda6cf:	e8 dc c2 3a ff       	call   869b0 <scipy_dgelq2_64_@plt>
+  cda6d4:	58                   	pop    %rax
+  cda6d5:	5a                   	pop    %rdx
+  cda6d6:	4c 8b 5c 24 10       	mov    0x10(%rsp),%r11
+  cda6db:	e9 c6 fe ff ff       	jmp    cda5a6 <scipy_dgelqf_64_+0x4b6>
+  cda6e0:	48 8b 5c 24 38       	mov    0x38(%rsp),%rbx
+  cda6e5:	48 8d 5c c3 f8       	lea    -0x8(%rbx,%rax,8),%rbx
+  cda6ea:	48 89 5c 24 38       	mov    %rbx,0x38(%rsp)
+  cda6ef:	48 8b 5c 24 70       	mov    0x70(%rsp),%rbx
+  cda6f4:	48 89 d9             	mov    %rbx,%rcx
+  cda6f7:	48 0f af d8          	imul   %rax,%rbx
+  cda6fb:	48 f7 d1             	not    %rcx
+  cda6fe:	48 89 da             	mov    %rbx,%rdx
+  cda701:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  cda706:	48 01 ca             	add    %rcx,%rdx
+  cda709:	48 01 c2             	add    %rax,%rdx
+  cda70c:	48 8d 1c d3          	lea    (%rbx,%rdx,8),%rbx
+  cda710:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  cda715:	e9 5b ff ff ff       	jmp    cda675 <scipy_dgelqf_64_+0x585>
+  cda71a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  cda720:	48 8b 84 24 08 01 00 	mov    0x108(%rsp),%rax
+  cda727:	00 
+  cda728:	48 8b 00             	mov    (%rax),%rax
+  cda72b:	48 85 c0             	test   %rax,%rax
+  cda72e:	75 28                	jne    cda758 <scipy_dgelqf_64_+0x668>
+  cda730:	f2 0f 10 05 b8 2c 6e 	movsd  0x6e2cb8(%rip),%xmm0        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  cda737:	00 
+  cda738:	4d 85 f6             	test   %r14,%r14
+  cda73b:	0f 84 6e fe ff ff    	je     cda5af <scipy_dgelqf_64_+0x4bf>
+  cda741:	49 0f af db          	imul   %r11,%rbx
+  cda745:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  cda749:	f2 48 0f 2a c3       	cvtsi2sd %rbx,%xmm0
+  cda74e:	e9 5c fe ff ff       	jmp    cda5af <scipy_dgelqf_64_+0x4bf>
+  cda753:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  cda758:	48 f7 d8             	neg    %rax
+  cda75b:	e9 96 fa ff ff       	jmp    cda1f6 <scipy_dgelqf_64_+0x106>

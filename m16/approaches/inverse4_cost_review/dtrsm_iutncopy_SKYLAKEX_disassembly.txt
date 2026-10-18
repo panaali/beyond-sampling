@@ -1,0 +1,401 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a76f80 <dtrsm_iutncopy_SKYLAKEX>:
+  a76f80:	41 57                	push   %r15
+  a76f82:	49 89 f2             	mov    %rsi,%r10
+  a76f85:	49 89 cf             	mov    %rcx,%r15
+  a76f88:	48 89 d6             	mov    %rdx,%rsi
+  a76f8b:	4c 89 d1             	mov    %r10,%rcx
+  a76f8e:	48 c1 f9 04          	sar    $0x4,%rcx
+  a76f92:	41 56                	push   %r14
+  a76f94:	41 55                	push   %r13
+  a76f96:	4d 89 cd             	mov    %r9,%r13
+  a76f99:	41 54                	push   %r12
+  a76f9b:	55                   	push   %rbp
+  a76f9c:	53                   	push   %rbx
+  a76f9d:	48 85 c9             	test   %rcx,%rcx
+  a76fa0:	0f 8e bd 05 00 00    	jle    a77563 <dtrsm_iutncopy_SKYLAKEX+0x5e3>
+  a76fa6:	4d 89 c4             	mov    %r8,%r12
+  a76fa9:	48 89 cd             	mov    %rcx,%rbp
+  a76fac:	4e 8d 1c fd 00 00 00 	lea    0x0(,%r15,8),%r11
+  a76fb3:	00 
+  a76fb4:	49 89 f9             	mov    %rdi,%r9
+  a76fb7:	49 f7 dc             	neg    %r12
+  a76fba:	48 c1 e5 04          	shl    $0x4,%rbp
+  a76fbe:	4d 29 c1             	sub    %r8,%r9
+  a76fc1:	49 c1 e4 03          	shl    $0x3,%r12
+  a76fc5:	4c 01 c5             	add    %r8,%rbp
+  a76fc8:	4a 8d 04 22          	lea    (%rdx,%r12,1),%rax
+  a76fcc:	48 85 ff             	test   %rdi,%rdi
+  a76fcf:	0f 8f dd 01 00 00    	jg     a771b2 <dtrsm_iutncopy_SKYLAKEX+0x232>
+  a76fd5:	49 83 c0 10          	add    $0x10,%r8
+  a76fd9:	49 83 e9 10          	sub    $0x10,%r9
+  a76fdd:	49 83 c4 80          	add    $0xffffffffffffff80,%r12
+  a76fe1:	49 39 e8             	cmp    %rbp,%r8
+  a76fe4:	75 e6                	jne    a76fcc <dtrsm_iutncopy_SKYLAKEX+0x4c>
+  a76fe6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a76fed:	00 00 00 
+  a76ff0:	48 c1 e1 07          	shl    $0x7,%rcx
+  a76ff4:	48 01 ce             	add    %rcx,%rsi
+  a76ff7:	4d 89 d6             	mov    %r10,%r14
+  a76ffa:	4d 89 d0             	mov    %r10,%r8
+  a76ffd:	41 83 e6 04          	and    $0x4,%r14d
+  a77001:	41 83 e0 02          	and    $0x2,%r8d
+  a77005:	41 f6 c2 08          	test   $0x8,%r10b
+  a77009:	0f 84 4e 03 00 00    	je     a7735d <dtrsm_iutncopy_SKYLAKEX+0x3dd>
+  a7700f:	48 8d 46 40          	lea    0x40(%rsi),%rax
+  a77013:	48 89 44 24 e0       	mov    %rax,-0x20(%rsp)
+  a77018:	48 8d 45 08          	lea    0x8(%rbp),%rax
+  a7701c:	48 89 44 24 d8       	mov    %rax,-0x28(%rsp)
+  a77021:	48 85 ff             	test   %rdi,%rdi
+  a77024:	0f 8e 7b 01 00 00    	jle    a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a7702a:	48 89 e9             	mov    %rbp,%rcx
+  a7702d:	4e 8d 1c fd 00 00 00 	lea    0x0(,%r15,8),%r11
+  a77034:	00 
+  a77035:	49 89 fc             	mov    %rdi,%r12
+  a77038:	4c 89 44 24 e8       	mov    %r8,-0x18(%rsp)
+  a7703d:	48 f7 d9             	neg    %rcx
+  a77040:	c5 fb 10 0d a8 63 94 	vmovsd 0x9463a8(%rip),%xmm1        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  a77047:	00 
+  a77048:	4d 8d 7b 08          	lea    0x8(%r11),%r15
+  a7704c:	49 29 ec             	sub    %rbp,%r12
+  a7704f:	4c 8d 0c cd 00 00 00 	lea    0x0(,%rcx,8),%r9
+  a77056:	00 
+  a77057:	48 89 f2             	mov    %rsi,%rdx
+  a7705a:	4c 89 e8             	mov    %r13,%rax
+  a7705d:	4a 8d 1c 0e          	lea    (%rsi,%r9,1),%rbx
+  a77061:	4d 01 e9             	add    %r13,%r9
+  a77064:	eb 72                	jmp    a770d8 <dtrsm_iutncopy_SKYLAKEX+0x158>
+  a77066:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  a7706d:	00 00 00 
+  a77070:	c5 fb 10 02          	vmovsd (%rdx),%xmm0
+  a77074:	c5 fb 11 00          	vmovsd %xmm0,(%rax)
+  a77078:	c5 fb 10 42 08       	vmovsd 0x8(%rdx),%xmm0
+  a7707d:	c5 fb 11 40 08       	vmovsd %xmm0,0x8(%rax)
+  a77082:	c5 fb 10 42 10       	vmovsd 0x10(%rdx),%xmm0
+  a77087:	c5 fb 11 40 10       	vmovsd %xmm0,0x10(%rax)
+  a7708c:	c5 fb 10 42 18       	vmovsd 0x18(%rdx),%xmm0
+  a77091:	c5 fb 11 40 18       	vmovsd %xmm0,0x18(%rax)
+  a77096:	c5 fb 10 42 20       	vmovsd 0x20(%rdx),%xmm0
+  a7709b:	c5 fb 11 40 20       	vmovsd %xmm0,0x20(%rax)
+  a770a0:	c5 fb 10 42 28       	vmovsd 0x28(%rdx),%xmm0
+  a770a5:	c5 fb 11 40 28       	vmovsd %xmm0,0x28(%rax)
+  a770aa:	c5 fb 10 42 30       	vmovsd 0x30(%rdx),%xmm0
+  a770af:	c5 fb 11 40 30       	vmovsd %xmm0,0x30(%rax)
+  a770b4:	c5 fb 10 42 38       	vmovsd 0x38(%rdx),%xmm0
+  a770b9:	c5 fb 11 40 38       	vmovsd %xmm0,0x38(%rax)
+  a770be:	48 ff c1             	inc    %rcx
+  a770c1:	48 83 c0 40          	add    $0x40,%rax
+  a770c5:	4c 01 da             	add    %r11,%rdx
+  a770c8:	4c 01 fb             	add    %r15,%rbx
+  a770cb:	49 83 c1 48          	add    $0x48,%r9
+  a770cf:	4c 39 e1             	cmp    %r12,%rcx
+  a770d2:	0f 84 4f 03 00 00    	je     a77427 <dtrsm_iutncopy_SKYLAKEX+0x4a7>
+  a770d8:	4c 8d 44 0d 00       	lea    0x0(%rbp,%rcx,1),%r8
+  a770dd:	4c 39 c5             	cmp    %r8,%rbp
+  a770e0:	7f dc                	jg     a770be <dtrsm_iutncopy_SKYLAKEX+0x13e>
+  a770e2:	48 83 f9 07          	cmp    $0x7,%rcx
+  a770e6:	7f 88                	jg     a77070 <dtrsm_iutncopy_SKYLAKEX+0xf0>
+  a770e8:	45 31 c0             	xor    %r8d,%r8d
+  a770eb:	48 85 c9             	test   %rcx,%rcx
+  a770ee:	7e 24                	jle    a77114 <dtrsm_iutncopy_SKYLAKEX+0x194>
+  a770f0:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a770f7:	00 00 00 00 
+  a770fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a77100:	c4 a1 7b 10 04 c2    	vmovsd (%rdx,%r8,8),%xmm0
+  a77106:	c4 a1 7b 11 04 c0    	vmovsd %xmm0,(%rax,%r8,8)
+  a7710c:	49 ff c0             	inc    %r8
+  a7710f:	49 39 c8             	cmp    %rcx,%r8
+  a77112:	75 ec                	jne    a77100 <dtrsm_iutncopy_SKYLAKEX+0x180>
+  a77114:	c5 f3 5e 03          	vdivsd (%rbx),%xmm1,%xmm0
+  a77118:	c4 c1 7b 11 01       	vmovsd %xmm0,(%r9)
+  a7711d:	eb 9f                	jmp    a770be <dtrsm_iutncopy_SKYLAKEX+0x13e>
+  a7711f:	48 89 f8             	mov    %rdi,%rax
+  a77122:	48 83 c5 04          	add    $0x4,%rbp
+  a77126:	48 c1 e0 05          	shl    $0x5,%rax
+  a7712a:	49 01 c5             	add    %rax,%r13
+  a7712d:	4d 85 c0             	test   %r8,%r8
+  a77130:	0f 84 7a 03 00 00    	je     a774b0 <dtrsm_iutncopy_SKYLAKEX+0x530>
+  a77136:	4c 8d 41 10          	lea    0x10(%rcx),%r8
+  a7713a:	48 89 e8             	mov    %rbp,%rax
+  a7713d:	49 89 fc             	mov    %rdi,%r12
+  a77140:	4d 8d 73 08          	lea    0x8(%r11),%r14
+  a77144:	4c 89 ea             	mov    %r13,%rdx
+  a77147:	48 f7 d8             	neg    %rax
+  a7714a:	49 29 ec             	sub    %rbp,%r12
+  a7714d:	48 8d 34 c5 00 00 00 	lea    0x0(,%rax,8),%rsi
+  a77154:	00 
+  a77155:	4c 8d 0c 31          	lea    (%rcx,%rsi,1),%r9
+  a77159:	4c 01 ee             	add    %r13,%rsi
+  a7715c:	0f 1f 40 00          	nopl   0x0(%rax)
+  a77160:	48 8d 1c 28          	lea    (%rax,%rbp,1),%rbx
+  a77164:	48 39 eb             	cmp    %rbp,%rbx
+  a77167:	7c 1c                	jl     a77185 <dtrsm_iutncopy_SKYLAKEX+0x205>
+  a77169:	48 83 f8 01          	cmp    $0x1,%rax
+  a7716d:	0f 8e db 02 00 00    	jle    a7744e <dtrsm_iutncopy_SKYLAKEX+0x4ce>
+  a77173:	c5 fb 10 01          	vmovsd (%rcx),%xmm0
+  a77177:	c5 fb 11 02          	vmovsd %xmm0,(%rdx)
+  a7717b:	c5 fb 10 41 08       	vmovsd 0x8(%rcx),%xmm0
+  a77180:	c5 fb 11 42 08       	vmovsd %xmm0,0x8(%rdx)
+  a77185:	48 ff c0             	inc    %rax
+  a77188:	48 83 c2 10          	add    $0x10,%rdx
+  a7718c:	4c 01 d9             	add    %r11,%rcx
+  a7718f:	4d 01 f1             	add    %r14,%r9
+  a77192:	48 83 c6 18          	add    $0x18,%rsi
+  a77196:	49 39 c4             	cmp    %rax,%r12
+  a77199:	75 c5                	jne    a77160 <dtrsm_iutncopy_SKYLAKEX+0x1e0>
+  a7719b:	41 83 e2 01          	and    $0x1,%r10d
+  a7719f:	0f 85 1a 03 00 00    	jne    a774bf <dtrsm_iutncopy_SKYLAKEX+0x53f>
+  a771a5:	5b                   	pop    %rbx
+  a771a6:	31 c0                	xor    %eax,%eax
+  a771a8:	5d                   	pop    %rbp
+  a771a9:	41 5c                	pop    %r12
+  a771ab:	41 5d                	pop    %r13
+  a771ad:	41 5e                	pop    %r14
+  a771af:	41 5f                	pop    %r15
+  a771b1:	c3                   	ret
+  a771b2:	48 89 4c 24 d8       	mov    %rcx,-0x28(%rsp)
+  a771b7:	48 89 c2             	mov    %rax,%rdx
+  a771ba:	49 89 fe             	mov    %rdi,%r14
+  a771bd:	c5 fb 10 0d 2b 62 94 	vmovsd 0x94622b(%rip),%xmm1        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  a771c4:	00 
+  a771c5:	48 89 7c 24 e0       	mov    %rdi,-0x20(%rsp)
+  a771ca:	4c 29 e0             	sub    %r12,%rax
+  a771cd:	49 8d 5b 08          	lea    0x8(%r11),%rbx
+  a771d1:	49 c1 e6 07          	shl    $0x7,%r14
+  a771d5:	4c 89 54 24 e8       	mov    %r10,-0x18(%rsp)
+  a771da:	48 89 74 24 f0       	mov    %rsi,-0x10(%rsp)
+  a771df:	4c 89 7c 24 f8       	mov    %r15,-0x8(%rsp)
+  a771e4:	49 89 d7             	mov    %rdx,%r15
+  a771e7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a771ee:	00 00 
+  a771f0:	4c 89 c1             	mov    %r8,%rcx
+  a771f3:	4e 8d 14 20          	lea    (%rax,%r12,1),%r10
+  a771f7:	4b 8d 7c 25 00       	lea    0x0(%r13,%r12,1),%rdi
+  a771fc:	4c 89 ea             	mov    %r13,%rdx
+  a771ff:	48 f7 d9             	neg    %rcx
+  a77202:	e9 c0 00 00 00       	jmp    a772c7 <dtrsm_iutncopy_SKYLAKEX+0x347>
+  a77207:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a7720e:	00 00 
+  a77210:	c5 fb 10 00          	vmovsd (%rax),%xmm0
+  a77214:	c5 fb 11 02          	vmovsd %xmm0,(%rdx)
+  a77218:	c5 fb 10 40 08       	vmovsd 0x8(%rax),%xmm0
+  a7721d:	c5 fb 11 42 08       	vmovsd %xmm0,0x8(%rdx)
+  a77222:	c5 fb 10 40 10       	vmovsd 0x10(%rax),%xmm0
+  a77227:	c5 fb 11 42 10       	vmovsd %xmm0,0x10(%rdx)
+  a7722c:	c5 fb 10 40 18       	vmovsd 0x18(%rax),%xmm0
+  a77231:	c5 fb 11 42 18       	vmovsd %xmm0,0x18(%rdx)
+  a77236:	c5 fb 10 40 20       	vmovsd 0x20(%rax),%xmm0
+  a7723b:	c5 fb 11 42 20       	vmovsd %xmm0,0x20(%rdx)
+  a77240:	c5 fb 10 40 28       	vmovsd 0x28(%rax),%xmm0
+  a77245:	c5 fb 11 42 28       	vmovsd %xmm0,0x28(%rdx)
+  a7724a:	c5 fb 10 40 30       	vmovsd 0x30(%rax),%xmm0
+  a7724f:	c5 fb 11 42 30       	vmovsd %xmm0,0x30(%rdx)
+  a77254:	c5 fb 10 40 38       	vmovsd 0x38(%rax),%xmm0
+  a77259:	c5 fb 11 42 38       	vmovsd %xmm0,0x38(%rdx)
+  a7725e:	c5 fb 10 40 40       	vmovsd 0x40(%rax),%xmm0
+  a77263:	c5 fb 11 42 40       	vmovsd %xmm0,0x40(%rdx)
+  a77268:	c5 fb 10 40 48       	vmovsd 0x48(%rax),%xmm0
+  a7726d:	c5 fb 11 42 48       	vmovsd %xmm0,0x48(%rdx)
+  a77272:	c5 fb 10 40 50       	vmovsd 0x50(%rax),%xmm0
+  a77277:	c5 fb 11 42 50       	vmovsd %xmm0,0x50(%rdx)
+  a7727c:	c5 fb 10 40 58       	vmovsd 0x58(%rax),%xmm0
+  a77281:	c5 fb 11 42 58       	vmovsd %xmm0,0x58(%rdx)
+  a77286:	c5 fb 10 40 60       	vmovsd 0x60(%rax),%xmm0
+  a7728b:	c5 fb 11 42 60       	vmovsd %xmm0,0x60(%rdx)
+  a77290:	c5 fb 10 40 68       	vmovsd 0x68(%rax),%xmm0
+  a77295:	c5 fb 11 42 68       	vmovsd %xmm0,0x68(%rdx)
+  a7729a:	c5 fb 10 40 70       	vmovsd 0x70(%rax),%xmm0
+  a7729f:	c5 fb 11 42 70       	vmovsd %xmm0,0x70(%rdx)
+  a772a4:	c5 fb 10 40 78       	vmovsd 0x78(%rax),%xmm0
+  a772a9:	c5 fb 11 42 78       	vmovsd %xmm0,0x78(%rdx)
+  a772ae:	48 ff c1             	inc    %rcx
+  a772b1:	48 83 ea 80          	sub    $0xffffffffffffff80,%rdx
+  a772b5:	4c 01 d8             	add    %r11,%rax
+  a772b8:	49 01 da             	add    %rbx,%r10
+  a772bb:	48 81 c7 88 00 00 00 	add    $0x88,%rdi
+  a772c2:	49 39 c9             	cmp    %rcx,%r9
+  a772c5:	74 59                	je     a77320 <dtrsm_iutncopy_SKYLAKEX+0x3a0>
+  a772c7:	4a 8d 34 01          	lea    (%rcx,%r8,1),%rsi
+  a772cb:	49 39 f0             	cmp    %rsi,%r8
+  a772ce:	7f de                	jg     a772ae <dtrsm_iutncopy_SKYLAKEX+0x32e>
+  a772d0:	48 83 f9 0f          	cmp    $0xf,%rcx
+  a772d4:	0f 8f 36 ff ff ff    	jg     a77210 <dtrsm_iutncopy_SKYLAKEX+0x290>
+  a772da:	31 f6                	xor    %esi,%esi
+  a772dc:	48 85 c9             	test   %rcx,%rcx
+  a772df:	7e 31                	jle    a77312 <dtrsm_iutncopy_SKYLAKEX+0x392>
+  a772e1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a772e8:	00 00 00 00 
+  a772ec:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a772f3:	00 00 00 00 
+  a772f7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a772fe:	00 00 
+  a77300:	c5 fb 10 04 f0       	vmovsd (%rax,%rsi,8),%xmm0
+  a77305:	c5 fb 11 04 f2       	vmovsd %xmm0,(%rdx,%rsi,8)
+  a7730a:	48 ff c6             	inc    %rsi
+  a7730d:	48 39 ce             	cmp    %rcx,%rsi
+  a77310:	75 ee                	jne    a77300 <dtrsm_iutncopy_SKYLAKEX+0x380>
+  a77312:	c4 c1 73 5e 02       	vdivsd (%r10),%xmm1,%xmm0
+  a77317:	c5 fb 11 07          	vmovsd %xmm0,(%rdi)
+  a7731b:	eb 91                	jmp    a772ae <dtrsm_iutncopy_SKYLAKEX+0x32e>
+  a7731d:	0f 1f 00             	nopl   (%rax)
+  a77320:	49 83 c0 10          	add    $0x10,%r8
+  a77324:	4d 01 f5             	add    %r14,%r13
+  a77327:	49 83 e9 10          	sub    $0x10,%r9
+  a7732b:	49 83 c4 80          	add    $0xffffffffffffff80,%r12
+  a7732f:	49 39 e8             	cmp    %rbp,%r8
+  a77332:	74 0b                	je     a7733f <dtrsm_iutncopy_SKYLAKEX+0x3bf>
+  a77334:	4c 89 f8             	mov    %r15,%rax
+  a77337:	4c 29 e0             	sub    %r12,%rax
+  a7733a:	e9 b1 fe ff ff       	jmp    a771f0 <dtrsm_iutncopy_SKYLAKEX+0x270>
+  a7733f:	48 8b 4c 24 d8       	mov    -0x28(%rsp),%rcx
+  a77344:	48 8b 7c 24 e0       	mov    -0x20(%rsp),%rdi
+  a77349:	4c 8b 54 24 e8       	mov    -0x18(%rsp),%r10
+  a7734e:	48 8b 74 24 f0       	mov    -0x10(%rsp),%rsi
+  a77353:	4c 8b 7c 24 f8       	mov    -0x8(%rsp),%r15
+  a77358:	e9 93 fc ff ff       	jmp    a76ff0 <dtrsm_iutncopy_SKYLAKEX+0x70>
+  a7735d:	4d 85 f6             	test   %r14,%r14
+  a77360:	0f 84 08 01 00 00    	je     a7746e <dtrsm_iutncopy_SKYLAKEX+0x4ee>
+  a77366:	48 8d 4e 20          	lea    0x20(%rsi),%rcx
+  a7736a:	48 85 ff             	test   %rdi,%rdi
+  a7736d:	0f 8e 32 fe ff ff    	jle    a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a77373:	4e 8d 1c fd 00 00 00 	lea    0x0(,%r15,8),%r11
+  a7737a:	00 
+  a7737b:	48 89 e8             	mov    %rbp,%rax
+  a7737e:	49 89 fe             	mov    %rdi,%r14
+  a77381:	c5 fb 10 0d 67 60 94 	vmovsd 0x946067(%rip),%xmm1        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  a77388:	00 
+  a77389:	4d 8d 7b 08          	lea    0x8(%r11),%r15
+  a7738d:	48 f7 d8             	neg    %rax
+  a77390:	49 29 ee             	sub    %rbp,%r14
+  a77393:	4c 89 ea             	mov    %r13,%rdx
+  a77396:	4c 8d 0c c5 00 00 00 	lea    0x0(,%rax,8),%r9
+  a7739d:	00 
+  a7739e:	4a 8d 1c 0e          	lea    (%rsi,%r9,1),%rbx
+  a773a2:	4d 01 e9             	add    %r13,%r9
+  a773a5:	eb 49                	jmp    a773f0 <dtrsm_iutncopy_SKYLAKEX+0x470>
+  a773a7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a773ae:	00 00 
+  a773b0:	c5 fb 10 06          	vmovsd (%rsi),%xmm0
+  a773b4:	c5 fb 11 02          	vmovsd %xmm0,(%rdx)
+  a773b8:	c5 fb 10 46 08       	vmovsd 0x8(%rsi),%xmm0
+  a773bd:	c5 fb 11 42 08       	vmovsd %xmm0,0x8(%rdx)
+  a773c2:	c5 fb 10 46 10       	vmovsd 0x10(%rsi),%xmm0
+  a773c7:	c5 fb 11 42 10       	vmovsd %xmm0,0x10(%rdx)
+  a773cc:	c5 fb 10 46 18       	vmovsd 0x18(%rsi),%xmm0
+  a773d1:	c5 fb 11 42 18       	vmovsd %xmm0,0x18(%rdx)
+  a773d6:	48 ff c0             	inc    %rax
+  a773d9:	48 83 c2 20          	add    $0x20,%rdx
+  a773dd:	4c 01 de             	add    %r11,%rsi
+  a773e0:	4c 01 fb             	add    %r15,%rbx
+  a773e3:	49 83 c1 28          	add    $0x28,%r9
+  a773e7:	49 39 c6             	cmp    %rax,%r14
+  a773ea:	0f 84 2f fd ff ff    	je     a7711f <dtrsm_iutncopy_SKYLAKEX+0x19f>
+  a773f0:	4c 8d 64 05 00       	lea    0x0(%rbp,%rax,1),%r12
+  a773f5:	49 39 ec             	cmp    %rbp,%r12
+  a773f8:	7c dc                	jl     a773d6 <dtrsm_iutncopy_SKYLAKEX+0x456>
+  a773fa:	48 83 f8 03          	cmp    $0x3,%rax
+  a773fe:	7f b0                	jg     a773b0 <dtrsm_iutncopy_SKYLAKEX+0x430>
+  a77400:	45 31 e4             	xor    %r12d,%r12d
+  a77403:	48 85 c0             	test   %rax,%rax
+  a77406:	7e 14                	jle    a7741c <dtrsm_iutncopy_SKYLAKEX+0x49c>
+  a77408:	c4 a1 7b 10 04 e6    	vmovsd (%rsi,%r12,8),%xmm0
+  a7740e:	c4 a1 7b 11 04 e2    	vmovsd %xmm0,(%rdx,%r12,8)
+  a77414:	49 ff c4             	inc    %r12
+  a77417:	4c 39 e0             	cmp    %r12,%rax
+  a7741a:	75 ec                	jne    a77408 <dtrsm_iutncopy_SKYLAKEX+0x488>
+  a7741c:	c5 f3 5e 03          	vdivsd (%rbx),%xmm1,%xmm0
+  a77420:	c4 c1 7b 11 01       	vmovsd %xmm0,(%r9)
+  a77425:	eb af                	jmp    a773d6 <dtrsm_iutncopy_SKYLAKEX+0x456>
+  a77427:	48 89 f8             	mov    %rdi,%rax
+  a7742a:	4c 8b 44 24 e8       	mov    -0x18(%rsp),%r8
+  a7742f:	48 c1 e0 06          	shl    $0x6,%rax
+  a77433:	49 01 c5             	add    %rax,%r13
+  a77436:	4d 85 f6             	test   %r14,%r14
+  a77439:	74 59                	je     a77494 <dtrsm_iutncopy_SKYLAKEX+0x514>
+  a7743b:	48 8d 4e 60          	lea    0x60(%rsi),%rcx
+  a7743f:	48 8b 6c 24 d8       	mov    -0x28(%rsp),%rbp
+  a77444:	48 8b 74 24 e0       	mov    -0x20(%rsp),%rsi
+  a77449:	e9 2d ff ff ff       	jmp    a7737b <dtrsm_iutncopy_SKYLAKEX+0x3fb>
+  a7744e:	75 08                	jne    a77458 <dtrsm_iutncopy_SKYLAKEX+0x4d8>
+  a77450:	c5 fb 10 01          	vmovsd (%rcx),%xmm0
+  a77454:	c5 fb 11 02          	vmovsd %xmm0,(%rdx)
+  a77458:	c5 fb 10 05 90 5f 94 	vmovsd 0x945f90(%rip),%xmm0        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  a7745f:	00 
+  a77460:	c4 c1 7b 5e 01       	vdivsd (%r9),%xmm0,%xmm0
+  a77465:	c5 fb 11 06          	vmovsd %xmm0,(%rsi)
+  a77469:	e9 17 fd ff ff       	jmp    a77185 <dtrsm_iutncopy_SKYLAKEX+0x205>
+  a7746e:	4d 85 c0             	test   %r8,%r8
+  a77471:	0f 84 b0 00 00 00    	je     a77527 <dtrsm_iutncopy_SKYLAKEX+0x5a7>
+  a77477:	4c 8d 46 10          	lea    0x10(%rsi),%r8
+  a7747b:	48 85 ff             	test   %rdi,%rdi
+  a7747e:	0f 8e 21 fd ff ff    	jle    a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a77484:	48 89 f1             	mov    %rsi,%rcx
+  a77487:	4e 8d 1c fd 00 00 00 	lea    0x0(,%r15,8),%r11
+  a7748e:	00 
+  a7748f:	e9 a6 fc ff ff       	jmp    a7713a <dtrsm_iutncopy_SKYLAKEX+0x1ba>
+  a77494:	4d 85 c0             	test   %r8,%r8
+  a77497:	0f 84 ad 00 00 00    	je     a7754a <dtrsm_iutncopy_SKYLAKEX+0x5ca>
+  a7749d:	48 8b 6c 24 d8       	mov    -0x28(%rsp),%rbp
+  a774a2:	48 8b 4c 24 e0       	mov    -0x20(%rsp),%rcx
+  a774a7:	4c 8d 46 50          	lea    0x50(%rsi),%r8
+  a774ab:	e9 8a fc ff ff       	jmp    a7713a <dtrsm_iutncopy_SKYLAKEX+0x1ba>
+  a774b0:	41 83 e2 01          	and    $0x1,%r10d
+  a774b4:	0f 84 eb fc ff ff    	je     a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a774ba:	49 89 c8             	mov    %rcx,%r8
+  a774bd:	eb 0e                	jmp    a774cd <dtrsm_iutncopy_SKYLAKEX+0x54d>
+  a774bf:	48 89 f8             	mov    %rdi,%rax
+  a774c2:	48 83 c5 02          	add    $0x2,%rbp
+  a774c6:	48 c1 e0 04          	shl    $0x4,%rax
+  a774ca:	49 01 c5             	add    %rax,%r13
+  a774cd:	48 89 ee             	mov    %rbp,%rsi
+  a774d0:	49 89 e9             	mov    %rbp,%r9
+  a774d3:	c5 fb 10 0d 15 5f 94 	vmovsd 0x945f15(%rip),%xmm1        # 13bd3f0 <.annobin___pthread_atfork.end+0x4a0>
+  a774da:	00 
+  a774db:	49 8d 4b 08          	lea    0x8(%r11),%rcx
+  a774df:	48 f7 de             	neg    %rsi
+  a774e2:	31 c0                	xor    %eax,%eax
+  a774e4:	49 c1 e1 04          	shl    $0x4,%r9
+  a774e8:	48 c1 e6 03          	shl    $0x3,%rsi
+  a774ec:	49 8d 14 30          	lea    (%r8,%rsi,1),%rdx
+  a774f0:	4c 01 ee             	add    %r13,%rsi
+  a774f3:	eb 1d                	jmp    a77512 <dtrsm_iutncopy_SKYLAKEX+0x592>
+  a774f5:	c5 f3 5e 02          	vdivsd (%rdx),%xmm1,%xmm0
+  a774f9:	c4 a1 7b 11 04 0e    	vmovsd %xmm0,(%rsi,%r9,1)
+  a774ff:	90                   	nop
+  a77500:	48 ff c0             	inc    %rax
+  a77503:	4d 01 d8             	add    %r11,%r8
+  a77506:	48 01 ca             	add    %rcx,%rdx
+  a77509:	48 39 c7             	cmp    %rax,%rdi
+  a7750c:	0f 84 93 fc ff ff    	je     a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a77512:	48 39 c5             	cmp    %rax,%rbp
+  a77515:	7f e9                	jg     a77500 <dtrsm_iutncopy_SKYLAKEX+0x580>
+  a77517:	74 dc                	je     a774f5 <dtrsm_iutncopy_SKYLAKEX+0x575>
+  a77519:	c4 c1 7b 10 00       	vmovsd (%r8),%xmm0
+  a7751e:	c4 c1 7b 11 44 c5 00 	vmovsd %xmm0,0x0(%r13,%rax,8)
+  a77525:	eb d9                	jmp    a77500 <dtrsm_iutncopy_SKYLAKEX+0x580>
+  a77527:	41 83 e2 01          	and    $0x1,%r10d
+  a7752b:	0f 84 74 fc ff ff    	je     a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a77531:	48 85 ff             	test   %rdi,%rdi
+  a77534:	0f 8e 6b fc ff ff    	jle    a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a7753a:	49 89 f0             	mov    %rsi,%r8
+  a7753d:	4e 8d 1c fd 00 00 00 	lea    0x0(,%r15,8),%r11
+  a77544:	00 
+  a77545:	e9 83 ff ff ff       	jmp    a774cd <dtrsm_iutncopy_SKYLAKEX+0x54d>
+  a7754a:	41 83 e2 01          	and    $0x1,%r10d
+  a7754e:	0f 84 51 fc ff ff    	je     a771a5 <dtrsm_iutncopy_SKYLAKEX+0x225>
+  a77554:	48 8b 6c 24 d8       	mov    -0x28(%rsp),%rbp
+  a77559:	4c 8b 44 24 e0       	mov    -0x20(%rsp),%r8
+  a7755e:	e9 6a ff ff ff       	jmp    a774cd <dtrsm_iutncopy_SKYLAKEX+0x54d>
+  a77563:	4c 89 c5             	mov    %r8,%rbp
+  a77566:	e9 8c fa ff ff       	jmp    a76ff7 <dtrsm_iutncopy_SKYLAKEX+0x77>
+
+Disassembly of section .fini:

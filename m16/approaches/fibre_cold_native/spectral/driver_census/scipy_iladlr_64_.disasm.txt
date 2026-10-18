@@ -1,0 +1,89 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000d3bb00 <scipy_iladlr_64_>:
+  d3bb00:	4c 8b 07             	mov    (%rdi),%r8
+  d3bb03:	4d 85 c0             	test   %r8,%r8
+  d3bb06:	0f 84 fc 00 00 00    	je     d3bc08 <scipy_iladlr_64_+0x108>
+  d3bb0c:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  d3bb10:	66 42 0f 2e 44 c2 f8 	ucomisd -0x8(%rdx,%r8,8),%xmm0
+  d3bb17:	48 89 d7             	mov    %rdx,%rdi
+  d3bb1a:	0f 8a e8 00 00 00    	jp     d3bc08 <scipy_iladlr_64_+0x108>
+  d3bb20:	0f 85 e2 00 00 00    	jne    d3bc08 <scipy_iladlr_64_+0x108>
+  d3bb26:	41 54                	push   %r12
+  d3bb28:	31 c0                	xor    %eax,%eax
+  d3bb2a:	55                   	push   %rbp
+  d3bb2b:	53                   	push   %rbx
+  d3bb2c:	4c 8b 19             	mov    (%rcx),%r11
+  d3bb2f:	48 8b 1e             	mov    (%rsi),%rbx
+  d3bb32:	4d 85 db             	test   %r11,%r11
+  d3bb35:	4c 0f 48 d8          	cmovs  %rax,%r11
+  d3bb39:	48 89 d8             	mov    %rbx,%rax
+  d3bb3c:	49 0f af c3          	imul   %r11,%rax
+  d3bb40:	4c 89 da             	mov    %r11,%rdx
+  d3bb43:	48 f7 d2             	not    %rdx
+  d3bb46:	4c 01 c0             	add    %r8,%rax
+  d3bb49:	48 01 d0             	add    %rdx,%rax
+  d3bb4c:	66 0f 2e 04 c7       	ucomisd (%rdi,%rax,8),%xmm0
+  d3bb51:	0f 8a a6 00 00 00    	jp     d3bbfd <scipy_iladlr_64_+0xfd>
+  d3bb57:	0f 85 a0 00 00 00    	jne    d3bbfd <scipy_iladlr_64_+0xfd>
+  d3bb5d:	48 85 db             	test   %rbx,%rbx
+  d3bb60:	0f 8e a6 00 00 00    	jle    d3bc0c <scipy_iladlr_64_+0x10c>
+  d3bb66:	4d 85 c0             	test   %r8,%r8
+  d3bb69:	b8 01 00 00 00       	mov    $0x1,%eax
+  d3bb6e:	be 01 00 00 00       	mov    $0x1,%esi
+  d3bb73:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
+  d3bb7a:	41 0f 9e c4          	setle  %r12b
+  d3bb7e:	48 83 c3 01          	add    $0x1,%rbx
+  d3bb82:	4d 85 c0             	test   %r8,%r8
+  d3bb85:	41 ba 01 00 00 00    	mov    $0x1,%r10d
+  d3bb8b:	49 0f 4f c0          	cmovg  %r8,%rax
+  d3bb8f:	45 31 c9             	xor    %r9d,%r9d
+  d3bb92:	48 8d 2c c7          	lea    (%rdi,%rax,8),%rbp
+  d3bb96:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  d3bb9d:	00 00 00 
+  d3bba0:	66 0f 2e 44 cd 00    	ucomisd 0x0(%rbp,%rcx,8),%xmm0
+  d3bba6:	4c 89 c2             	mov    %r8,%rdx
+  d3bba9:	0f 9a c0             	setp   %al
+  d3bbac:	0f 45 c6             	cmovne %esi,%eax
+  d3bbaf:	84 c0                	test   %al,%al
+  d3bbb1:	75 34                	jne    d3bbe7 <scipy_iladlr_64_+0xe7>
+  d3bbb3:	45 84 e4             	test   %r12b,%r12b
+  d3bbb6:	74 0d                	je     d3bbc5 <scipy_iladlr_64_+0xc5>
+  d3bbb8:	eb 2d                	jmp    d3bbe7 <scipy_iladlr_64_+0xe7>
+  d3bbba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  d3bbc0:	48 85 d2             	test   %rdx,%rdx
+  d3bbc3:	74 22                	je     d3bbe7 <scipy_iladlr_64_+0xe7>
+  d3bbc5:	48 83 ea 01          	sub    $0x1,%rdx
+  d3bbc9:	b8 01 00 00 00       	mov    $0x1,%eax
+  d3bbce:	48 85 d2             	test   %rdx,%rdx
+  d3bbd1:	48 0f 4f c2          	cmovg  %rdx,%rax
+  d3bbd5:	48 01 c8             	add    %rcx,%rax
+  d3bbd8:	66 0f 2e 04 c7       	ucomisd (%rdi,%rax,8),%xmm0
+  d3bbdd:	0f 9a c0             	setp   %al
+  d3bbe0:	0f 45 c6             	cmovne %esi,%eax
+  d3bbe3:	84 c0                	test   %al,%al
+  d3bbe5:	74 d9                	je     d3bbc0 <scipy_iladlr_64_+0xc0>
+  d3bbe7:	49 39 d1             	cmp    %rdx,%r9
+  d3bbea:	4c 0f 4c ca          	cmovl  %rdx,%r9
+  d3bbee:	49 83 c2 01          	add    $0x1,%r10
+  d3bbf2:	4c 01 d9             	add    %r11,%rcx
+  d3bbf5:	49 39 da             	cmp    %rbx,%r10
+  d3bbf8:	75 a6                	jne    d3bba0 <scipy_iladlr_64_+0xa0>
+  d3bbfa:	4d 89 c8             	mov    %r9,%r8
+  d3bbfd:	5b                   	pop    %rbx
+  d3bbfe:	4c 89 c0             	mov    %r8,%rax
+  d3bc01:	5d                   	pop    %rbp
+  d3bc02:	41 5c                	pop    %r12
+  d3bc04:	c3                   	ret
+  d3bc05:	0f 1f 00             	nopl   (%rax)
+  d3bc08:	4c 89 c0             	mov    %r8,%rax
+  d3bc0b:	c3                   	ret
+  d3bc0c:	45 31 c0             	xor    %r8d,%r8d
+  d3bc0f:	eb ec                	jmp    d3bbfd <scipy_iladlr_64_+0xfd>
+  d3bc11:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  d3bc18:	00 00 00 
+  d3bc1b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)

@@ -1,0 +1,7 @@
+# T171 bounded model-facing bridge
+
+Claims c3df8fef; source/control/import review a558c8a9. Pinned model-only prototype collects error rays, allocates1e-7/N, then uses unchanged positive selector. Original active-identical readout failure preserved (source1 vs true1/4), local exact-zero first-index guard passes six analytical models. Alloff remains unresolved at fixedorder32; Ready T177 records structural/subdivision rescues. Shared guard adoption is T174, DRI-only.
+
+Both existing trained checkpoints now reproduce every35098/30726 original ray bitwise, zero tie branch; actual new capture10.78/10.64CPU,164409/159194 guard units,4.49/3.93MB ray storage plus headers. Prior full positive values are composable after parity, with their complete recorded mass work charged; no trained mass rerun. Capture-only independent final review882efc72 passes all ordered arrays, source/hash/STATS, storage and known-cost composition.
+
+Seed0 visible composed subset185465029, plus13920 inverse numeric envelope;275897 rank calls and library/exact/control/storage costs remain unclosed. Seed1 source geometry census not inferred fromseed0. No general total-return, fullcost, floating certificate, arc_eval/noisy-rung or challenge claim. Initial110CPU lazyNPZ validation failure and import-side-effect defect are preserved, fixed and separately charged. Root integration chain: /workspace/work/recover34-unintegrated-phase-chain.txt.

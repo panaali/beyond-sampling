@@ -1,0 +1,58 @@
+{
+  "covered": 64,
+  "error_sum": 2.1760993462969725e-12,
+  "absolute_error_sum": 2.7492838876365684e-12,
+  "max_abs_error": 4.794558314229473e-13,
+  "bound_sum": 2.7722775515836375e-11,
+  "reference_bound_sum": 1.9649976226623344e-13,
+  "bounds_over_target": 0,
+  "comparison_failures": 0,
+  "modes": {
+    "center_interval": 29,
+    "center_quadrature": 34,
+    "exact_rescue": 1
+  },
+  "center_orders": {
+    "6": 7,
+    "3": 24,
+    "8": 2,
+    "4": 1
+  },
+  "rescue_rows": [
+    {
+      "index": 31197,
+      "value": 1.5746956335775664e-08,
+      "bound": 4.297081053792643e-14,
+      "error": 2.9688934935181754e-17,
+      "cpu": 0.006727765999999968,
+      "order": 12,
+      "stages": [
+        "acute_rejected",
+        "exact_kkt"
+      ],
+      "exact_inventory": {
+        "operations": {
+          "construct_float": 32,
+          "mul": 376,
+          "construct_Fraction": 943,
+          "add": 176,
+          "compare_ge": 19,
+          "construct_int": 28,
+          "bool": 41,
+          "truediv": 167,
+          "sub": 224,
+          "compare_lt": 32,
+          "compare_gt": 22,
+          "compare_eq": 4,
+          "compare_le": 1
+        },
+        "max_numerator_bits": 731,
+        "max_denominator_bits": 718,
+        "big_integer_internal_cost_unmeasured": true
+      }
+    }
+  ],
+  "float_named_total": 147062,
+  "cpu": 0.21776657,
+  "scope": "Fixed64 only; no full accuracy or cost extrapolation, full FP or portable-cost certificate."
+}

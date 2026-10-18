@@ -1,0 +1,233 @@
+{
+  "exact_generator_mapping": [
+    {
+      "id": "original/positive5orthant",
+      "pass": true,
+      "nonsymmetric": false
+    },
+    {
+      "id": "original/narrow2",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/wide2",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/narrow10",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/wide10",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/narrow22",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/wide22",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/narrow35",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/wide35",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/narrow48",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "original/wide48",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/positive5orthant/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/positive5orthant/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow2/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow2/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide2/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide2/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow10/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow10/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide10/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide10/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow22/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow22/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide22/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide22/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow35/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow35/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide35/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide35/1",
+      "pass": true,
+      "nonsymmetric": false
+    },
+    {
+      "id": "split/narrow48/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/narrow48/1",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide48/0",
+      "pass": true,
+      "nonsymmetric": true
+    },
+    {
+      "id": "split/wide48/1",
+      "pass": true,
+      "nonsymmetric": false
+    }
+  ],
+  "normalization": [
+    {
+      "order": 6,
+      "jacobian_integral": 0.04166666666666665,
+      "expected": 0.041666666666666664,
+      "pass": true
+    },
+    {
+      "order": 10,
+      "jacobian_integral": 0.041666666666666644,
+      "expected": 0.041666666666666664,
+      "pass": true
+    },
+    {
+      "order": 16,
+      "jacobian_integral": 0.04166666666666664,
+      "expected": 0.041666666666666664,
+      "pass": true
+    }
+  ],
+  "setup": {
+    "named_arithmetic": 96,
+    "universal_source_leggauss_generation_calls": 3,
+    "generation_status": "saved once; original source generation CPU/call metadata pinned, native generation unpriced",
+    "allocation_copy_decode_control": "unpriced"
+  },
+  "row": {
+    "id": "original/positive5orthant",
+    "fixture": "positive5orthant",
+    "kind": "original",
+    "order": 16,
+    "reference": "0.03125",
+    "inner_calls": 4096,
+    "intended_inner_calls": 4096,
+    "branches": {
+      "cross_or_endpoint": 4096
+    },
+    "construction_assembly_counts": {
+      "arithmetic": 253957,
+      "comparison_boolean": 2,
+      "abs": 1,
+      "sqrt": 0,
+      "finite_check": 1
+    },
+    "inner_counts": {
+      "arithmetic": 450560,
+      "comparison_boolean": 167936,
+      "abs": 49152,
+      "sqrt": 12288,
+      "finite_check": 45056
+    },
+    "opaque_native_calls": {
+      "det_float64_5x5": 1
+    },
+    "determinant_hex": "0x1.0000000000000p+0",
+    "cpu": 0.175811203,
+    "complete": true,
+    "value": 0.03125000000259411,
+    "value_hex": "0x1.000000005b45bp-5",
+    "finite_positive": true
+  },
+  "pass": true,
+  "normalization_check_cost": "diagnostic-only, separate from candidate named ledger",
+  "scope": "single analytic pilot; source floating and native setup remain uncertified"
+}

@@ -1,0 +1,50 @@
+{
+  "added_numeric_categories": {
+    "iamax_abs_lanes": 32,
+    "iamax_max_and_comparison_lanes": 44,
+    "lu_pivot_abs_lanes": 8,
+    "lu_pivot_comparisons": 8,
+    "scaling_zero_comparisons": 6,
+    "triangular_beta_comparisons": 4
+  },
+  "added_numeric_units": 102,
+  "combined_numeric_units": 290,
+  "parent_compositions": [
+    {
+      "label": "exact",
+      "parent_sha256": "13f03e290891531fd2ea6e94393b677f1baa5df9a607d0857636468cef87447b",
+      "calls": 2659906,
+      "floating_expression_upper": 500062328,
+      "numeric_guard_upper": 271310412,
+      "combined_numeric_upper": 771372740,
+      "visible_plus_inverse_numeric_subset": 1324773508,
+      "complete_cost": false
+    },
+    {
+      "label": "recipe",
+      "parent_sha256": "b6138be5b238e2191d09db3c4a46aa04f0d4c6c940cf4b3c86d2b8eef7ecc51c",
+      "calls": 2138536,
+      "floating_expression_upper": 402044768,
+      "numeric_guard_upper": 218130672,
+      "combined_numeric_upper": 620175440,
+      "visible_plus_inverse_numeric_subset": 1076152155,
+      "complete_cost": false
+    }
+  ],
+  "source_pins": {
+    "environment.json": "b7aae14e93467cdab8e54cb29b2ea88d80b424e09197303b55772b9a848288b0",
+    "runtime_dispatch.json": "3eea469a340c2bc708413cad13b25e6bc1bc15ebafe522fd938f59234c427fb2",
+    "kernel_spy.c": "0c8f2e4cddeddc0ba88c0b7488411e23d42df011d9f6c38fd305623f46dd6f79",
+    "idamax_k_SKYLAKEX_disassembly.txt": "4202c0c8527a205b5ba4a594e0fa77a907fefcbc8460022c450dc976a10a3d39",
+    "dgetf2_k_disassembly.txt": "b817ef1acb5b5eb85901e4bbe87f072828bf5ae1eea2df78ead19f8841d84060",
+    "dscal_k_SKYLAKEX_disassembly.txt": "9ae1f59abf01fc8726e9fa260ec5eeef1c31879a110a30c1e0c2ed8c701dd4ec",
+    "dtrsm_LNLU_disassembly.txt": "2fa9592c87349790c671cc288ecc4943309e8c3ad6e985a0761668d9c94a9353",
+    "dtrsm_LNUN_disassembly.txt": "37767207c37589674cf022a695c2307c00bc93e4569c630e9cf66b47d8046708",
+    "summary.json": "01bc1437e52c97d6818fe0e899475e8e35b4a87fdc27ac9157ffa1c5f3afec07"
+  },
+  "controls_sha256": "e0ec55890ff8f3b25710a5dd59f99a2310f0e412b54e020c2e9d2cae051104d8",
+  "cpu": 0.0006391379999999974,
+  "complete_category_audit": true,
+  "complete_cost": false,
+  "scope": "Conservative FP/absolute-value/comparison/max lanes only. Includes inactive packed lanes; excludes bitmask setup/shuffles, integer/index/control, copying/allocation/interpreter and IEEE side effects. Not a matched-budget proof."
+}

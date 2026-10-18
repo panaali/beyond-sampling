@@ -1,0 +1,726 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000a39c00 <idamax_k_SKYLAKEX>:
+  a39c00:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  a39c04:	48 31 c0             	xor    %rax,%rax
+  a39c07:	48 85 ff             	test   %rdi,%rdi
+  a39c0a:	0f 8e d8 0b 00 00    	jle    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39c10:	48 8d 14 d5 00 00 00 	lea    0x0(,%rdx,8),%rdx
+  a39c17:	00 
+  a39c18:	48 85 d2             	test   %rdx,%rdx
+  a39c1b:	0f 8e c7 0b 00 00    	jle    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39c21:	49 89 fb             	mov    %rdi,%r11
+  a39c24:	49 89 f2             	mov    %rsi,%r10
+  a39c27:	66 45 0f 74 ff       	pcmpeqb %xmm15,%xmm15
+  a39c2c:	66 41 0f 73 d7 01    	psrlq  $0x1,%xmm15
+  a39c32:	f2 0f 10 06          	movsd  (%rsi),%xmm0
+  a39c36:	48 01 d6             	add    %rdx,%rsi
+  a39c39:	48 ff cf             	dec    %rdi
+  a39c3c:	66 41 0f 54 c7       	andpd  %xmm15,%xmm0
+  a39c41:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+  a39c45:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  a39c49:	66 0f 28 d0          	movapd %xmm0,%xmm2
+  a39c4d:	66 0f 28 d8          	movapd %xmm0,%xmm3
+  a39c51:	48 83 fa 08          	cmp    $0x8,%rdx
+  a39c55:	0f 85 85 07 00 00    	jne    a3a3e0 <idamax_k_SKYLAKEX+0x7e0>
+  a39c5b:	48 83 ff 07          	cmp    $0x7,%rdi
+  a39c5f:	0f 8e b3 03 00 00    	jle    a3a018 <idamax_k_SKYLAKEX+0x418>
+  a39c65:	48 f7 c6 07 00 00 00 	test   $0x7,%rsi
+  a39c6c:	0f 85 a6 03 00 00    	jne    a3a018 <idamax_k_SKYLAKEX+0x418>
+  a39c72:	48 f7 c6 0f 00 00 00 	test   $0xf,%rsi
+  a39c79:	74 1d                	je     a39c98 <idamax_k_SKYLAKEX+0x98>
+  a39c7b:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a39c7f:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39c84:	66 0f 14 e4          	unpcklpd %xmm4,%xmm4
+  a39c88:	66 0f 5f dc          	maxpd  %xmm4,%xmm3
+  a39c8c:	48 ff cf             	dec    %rdi
+  a39c8f:	48 83 c6 08          	add    $0x8,%rsi
+  a39c93:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a39c98:	48 89 f9             	mov    %rdi,%rcx
+  a39c9b:	48 c1 f9 04          	sar    $0x4,%rcx
+  a39c9f:	0f 8e 8b 00 00 00    	jle    a39d30 <idamax_k_SKYLAKEX+0x130>
+  a39ca5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a39cac:	00 00 00 00 
+  a39cb0:	66 0f 28 26          	movapd (%rsi),%xmm4
+  a39cb4:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39cb9:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a39cbd:	66 0f 28 6e 10       	movapd 0x10(%rsi),%xmm5
+  a39cc2:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a39cc7:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a39ccb:	66 0f 28 76 20       	movapd 0x20(%rsi),%xmm6
+  a39cd0:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a39cd5:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a39cd9:	66 0f 28 7e 30       	movapd 0x30(%rsi),%xmm7
+  a39cde:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a39ce3:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a39ce7:	66 0f 28 66 40       	movapd 0x40(%rsi),%xmm4
+  a39cec:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39cf1:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a39cf5:	66 0f 28 6e 50       	movapd 0x50(%rsi),%xmm5
+  a39cfa:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a39cff:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a39d03:	66 0f 28 76 60       	movapd 0x60(%rsi),%xmm6
+  a39d08:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a39d0d:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a39d11:	66 0f 28 7e 70       	movapd 0x70(%rsi),%xmm7
+  a39d16:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a39d1b:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a39d1f:	48 81 c6 80 00 00 00 	add    $0x80,%rsi
+  a39d26:	48 ff c9             	dec    %rcx
+  a39d29:	7f 85                	jg     a39cb0 <idamax_k_SKYLAKEX+0xb0>
+  a39d2b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a39d30:	48 83 e7 0f          	and    $0xf,%rdi
+  a39d34:	0f 8e a6 00 00 00    	jle    a39de0 <idamax_k_SKYLAKEX+0x1e0>
+  a39d3a:	48 f7 c7 08 00 00 00 	test   $0x8,%rdi
+  a39d41:	74 3d                	je     a39d80 <idamax_k_SKYLAKEX+0x180>
+  a39d43:	66 0f 28 26          	movapd (%rsi),%xmm4
+  a39d47:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39d4c:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a39d50:	66 0f 28 6e 10       	movapd 0x10(%rsi),%xmm5
+  a39d55:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a39d5a:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a39d5e:	66 0f 28 76 20       	movapd 0x20(%rsi),%xmm6
+  a39d63:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a39d68:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a39d6c:	66 0f 28 7e 30       	movapd 0x30(%rsi),%xmm7
+  a39d71:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a39d76:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a39d7a:	48 83 c6 40          	add    $0x40,%rsi
+  a39d7e:	66 90                	xchg   %ax,%ax
+  a39d80:	48 f7 c7 04 00 00 00 	test   $0x4,%rdi
+  a39d87:	74 1f                	je     a39da8 <idamax_k_SKYLAKEX+0x1a8>
+  a39d89:	66 0f 28 26          	movapd (%rsi),%xmm4
+  a39d8d:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39d92:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a39d96:	66 0f 28 6e 10       	movapd 0x10(%rsi),%xmm5
+  a39d9b:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a39da0:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a39da4:	48 83 c6 20          	add    $0x20,%rsi
+  a39da8:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a39daf:	74 11                	je     a39dc2 <idamax_k_SKYLAKEX+0x1c2>
+  a39db1:	66 0f 28 36          	movapd (%rsi),%xmm6
+  a39db5:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a39dba:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a39dbe:	48 83 c6 10          	add    $0x10,%rsi
+  a39dc2:	48 f7 c7 01 00 00 00 	test   $0x1,%rdi
+  a39dc9:	74 15                	je     a39de0 <idamax_k_SKYLAKEX+0x1e0>
+  a39dcb:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a39dcf:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a39dd4:	66 0f 14 ff          	unpcklpd %xmm7,%xmm7
+  a39dd8:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a39ddc:	0f 1f 40 00          	nopl   0x0(%rax)
+  a39de0:	4c 89 d6             	mov    %r10,%rsi
+  a39de3:	4c 89 df             	mov    %r11,%rdi
+  a39de6:	66 0f 5f c1          	maxpd  %xmm1,%xmm0
+  a39dea:	66 0f 5f d3          	maxpd  %xmm3,%xmm2
+  a39dee:	66 0f 5f c2          	maxpd  %xmm2,%xmm0
+  a39df2:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  a39df6:	66 0f 15 c0          	unpckhpd %xmm0,%xmm0
+  a39dfa:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
+  a39dfe:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+  a39e02:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a39e08:	48 f7 c6 0f 00 00 00 	test   $0xf,%rsi
+  a39e0f:	74 1f                	je     a39e30 <idamax_k_SKYLAKEX+0x230>
+  a39e11:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a39e15:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a39e1a:	48 ff c0             	inc    %rax
+  a39e1d:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a39e21:	0f 84 c1 09 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39e27:	48 83 c6 08          	add    $0x8,%rsi
+  a39e2b:	48 ff cf             	dec    %rdi
+  a39e2e:	66 90                	xchg   %ax,%ax
+  a39e30:	48 89 f9             	mov    %rdi,%rcx
+  a39e33:	48 c1 f9 03          	sar    $0x3,%rcx
+  a39e37:	0f 8e 2b 01 00 00    	jle    a39f68 <idamax_k_SKYLAKEX+0x368>
+  a39e3d:	0f 1f 00             	nopl   (%rax)
+  a39e40:	66 0f 28 0e          	movapd (%rsi),%xmm1
+  a39e44:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a39e49:	66 0f c2 c8 00       	cmpeqpd %xmm0,%xmm1
+  a39e4e:	66 0f 28 5e 10       	movapd 0x10(%rsi),%xmm3
+  a39e53:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a39e58:	66 0f c2 d8 00       	cmpeqpd %xmm0,%xmm3
+  a39e5d:	66 0f 28 6e 20       	movapd 0x20(%rsi),%xmm5
+  a39e62:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a39e67:	66 0f c2 e8 00       	cmpeqpd %xmm0,%xmm5
+  a39e6c:	66 0f 28 7e 30       	movapd 0x30(%rsi),%xmm7
+  a39e71:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a39e76:	66 0f c2 f8 00       	cmpeqpd %xmm0,%xmm7
+  a39e7b:	66 0f 56 cb          	orpd   %xmm3,%xmm1
+  a39e7f:	66 0f 56 ef          	orpd   %xmm7,%xmm5
+  a39e83:	66 0f 56 cd          	orpd   %xmm5,%xmm1
+  a39e87:	66 44 0f 50 d9       	movmskpd %xmm1,%r11d
+  a39e8c:	49 f7 c3 03 00 00 00 	test   $0x3,%r11
+  a39e93:	75 1b                	jne    a39eb0 <idamax_k_SKYLAKEX+0x2b0>
+  a39e95:	48 83 c6 40          	add    $0x40,%rsi
+  a39e99:	48 83 c0 08          	add    $0x8,%rax
+  a39e9d:	48 ff c9             	dec    %rcx
+  a39ea0:	7f 9e                	jg     a39e40 <idamax_k_SKYLAKEX+0x240>
+  a39ea2:	e9 c1 00 00 00       	jmp    a39f68 <idamax_k_SKYLAKEX+0x368>
+  a39ea7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a39eae:	00 00 
+  a39eb0:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a39eb4:	f2 0f 10 56 08       	movsd  0x8(%rsi),%xmm2
+  a39eb9:	f2 0f 10 5e 10       	movsd  0x10(%rsi),%xmm3
+  a39ebe:	f2 0f 10 66 18       	movsd  0x18(%rsi),%xmm4
+  a39ec3:	f2 0f 10 6e 20       	movsd  0x20(%rsi),%xmm5
+  a39ec8:	f2 0f 10 76 28       	movsd  0x28(%rsi),%xmm6
+  a39ecd:	f2 0f 10 7e 30       	movsd  0x30(%rsi),%xmm7
+  a39ed2:	f2 44 0f 10 46 38    	movsd  0x38(%rsi),%xmm8
+  a39ed8:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a39edd:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a39ee2:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a39ee7:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39eec:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a39ef1:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a39ef6:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a39efb:	66 45 0f 54 c7       	andpd  %xmm15,%xmm8
+  a39f00:	48 83 c6 40          	add    $0x40,%rsi
+  a39f04:	48 ff c0             	inc    %rax
+  a39f07:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a39f0b:	0f 84 d7 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f11:	48 ff c0             	inc    %rax
+  a39f14:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a39f18:	0f 84 ca 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f1e:	48 ff c0             	inc    %rax
+  a39f21:	66 0f 2f d8          	comisd %xmm0,%xmm3
+  a39f25:	0f 84 bd 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f2b:	48 ff c0             	inc    %rax
+  a39f2e:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  a39f32:	0f 84 b0 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f38:	48 ff c0             	inc    %rax
+  a39f3b:	66 0f 2f e8          	comisd %xmm0,%xmm5
+  a39f3f:	0f 84 a3 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f45:	48 ff c0             	inc    %rax
+  a39f48:	66 0f 2f f0          	comisd %xmm0,%xmm6
+  a39f4c:	0f 84 96 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f52:	48 ff c0             	inc    %rax
+  a39f55:	66 0f 2f f8          	comisd %xmm0,%xmm7
+  a39f59:	0f 84 89 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f5f:	48 ff c0             	inc    %rax
+  a39f62:	e9 81 08 00 00       	jmp    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39f67:	90                   	nop
+  a39f68:	48 f7 c7 04 00 00 00 	test   $0x4,%rdi
+  a39f6f:	74 5f                	je     a39fd0 <idamax_k_SKYLAKEX+0x3d0>
+  a39f71:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a39f75:	f2 0f 10 56 08       	movsd  0x8(%rsi),%xmm2
+  a39f7a:	f2 0f 10 5e 10       	movsd  0x10(%rsi),%xmm3
+  a39f7f:	f2 0f 10 66 18       	movsd  0x18(%rsi),%xmm4
+  a39f84:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a39f89:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a39f8e:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a39f93:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a39f98:	48 83 c6 20          	add    $0x20,%rsi
+  a39f9c:	48 ff c0             	inc    %rax
+  a39f9f:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a39fa3:	0f 84 3f 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39fa9:	48 ff c0             	inc    %rax
+  a39fac:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a39fb0:	0f 84 32 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39fb6:	48 ff c0             	inc    %rax
+  a39fb9:	66 0f 2f d8          	comisd %xmm0,%xmm3
+  a39fbd:	0f 84 25 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39fc3:	48 ff c0             	inc    %rax
+  a39fc6:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  a39fca:	0f 84 18 08 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39fd0:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a39fd7:	74 37                	je     a3a010 <idamax_k_SKYLAKEX+0x410>
+  a39fd9:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a39fdd:	f2 0f 10 56 08       	movsd  0x8(%rsi),%xmm2
+  a39fe2:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a39fe7:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a39fec:	48 83 c6 10          	add    $0x10,%rsi
+  a39ff0:	48 ff c0             	inc    %rax
+  a39ff3:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a39ff7:	0f 84 eb 07 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a39ffd:	48 ff c0             	inc    %rax
+  a3a000:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a004:	0f 84 de 07 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a00a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3a010:	48 ff c0             	inc    %rax
+  a3a013:	e9 d0 07 00 00       	jmp    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a018:	48 89 f9             	mov    %rdi,%rcx
+  a3a01b:	48 c1 f9 04          	sar    $0x4,%rcx
+  a3a01f:	0f 8e bb 00 00 00    	jle    a3a0e0 <idamax_k_SKYLAKEX+0x4e0>
+  a3a025:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3a02c:	00 00 00 00 
+  a3a030:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a034:	66 0f 16 66 08       	movhpd 0x8(%rsi),%xmm4
+  a3a039:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a03e:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a042:	f2 0f 10 6e 10       	movsd  0x10(%rsi),%xmm5
+  a3a047:	66 0f 16 6e 18       	movhpd 0x18(%rsi),%xmm5
+  a3a04c:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a051:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a055:	f2 0f 10 76 20       	movsd  0x20(%rsi),%xmm6
+  a3a05a:	66 0f 16 76 28       	movhpd 0x28(%rsi),%xmm6
+  a3a05f:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a064:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a068:	f2 0f 10 7e 30       	movsd  0x30(%rsi),%xmm7
+  a3a06d:	66 0f 16 7e 38       	movhpd 0x38(%rsi),%xmm7
+  a3a072:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a077:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a07b:	f2 0f 10 66 40       	movsd  0x40(%rsi),%xmm4
+  a3a080:	66 0f 16 66 48       	movhpd 0x48(%rsi),%xmm4
+  a3a085:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a08a:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a08e:	f2 0f 10 6e 50       	movsd  0x50(%rsi),%xmm5
+  a3a093:	66 0f 16 6e 58       	movhpd 0x58(%rsi),%xmm5
+  a3a098:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a09d:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a0a1:	f2 0f 10 76 60       	movsd  0x60(%rsi),%xmm6
+  a3a0a6:	66 0f 16 76 68       	movhpd 0x68(%rsi),%xmm6
+  a3a0ab:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a0b0:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a0b4:	f2 0f 10 7e 70       	movsd  0x70(%rsi),%xmm7
+  a3a0b9:	66 0f 16 7e 78       	movhpd 0x78(%rsi),%xmm7
+  a3a0be:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a0c3:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a0c7:	48 81 c6 80 00 00 00 	add    $0x80,%rsi
+  a3a0ce:	48 ff c9             	dec    %rcx
+  a3a0d1:	0f 8f 59 ff ff ff    	jg     a3a030 <idamax_k_SKYLAKEX+0x430>
+  a3a0d7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  a3a0de:	00 00 
+  a3a0e0:	48 83 e7 0f          	and    $0xf,%rdi
+  a3a0e4:	0f 8e d6 00 00 00    	jle    a3a1c0 <idamax_k_SKYLAKEX+0x5c0>
+  a3a0ea:	48 f7 c7 08 00 00 00 	test   $0x8,%rdi
+  a3a0f1:	74 55                	je     a3a148 <idamax_k_SKYLAKEX+0x548>
+  a3a0f3:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a0f7:	66 0f 16 66 08       	movhpd 0x8(%rsi),%xmm4
+  a3a0fc:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a101:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a105:	f2 0f 10 6e 10       	movsd  0x10(%rsi),%xmm5
+  a3a10a:	66 0f 16 6e 18       	movhpd 0x18(%rsi),%xmm5
+  a3a10f:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a114:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a118:	f2 0f 10 76 20       	movsd  0x20(%rsi),%xmm6
+  a3a11d:	66 0f 16 76 28       	movhpd 0x28(%rsi),%xmm6
+  a3a122:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a127:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a12b:	f2 0f 10 7e 30       	movsd  0x30(%rsi),%xmm7
+  a3a130:	66 0f 16 7e 38       	movhpd 0x38(%rsi),%xmm7
+  a3a135:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a13a:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a13e:	48 83 c6 40          	add    $0x40,%rsi
+  a3a142:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3a148:	48 f7 c7 04 00 00 00 	test   $0x4,%rdi
+  a3a14f:	74 2f                	je     a3a180 <idamax_k_SKYLAKEX+0x580>
+  a3a151:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a155:	66 0f 16 66 08       	movhpd 0x8(%rsi),%xmm4
+  a3a15a:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a15f:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a163:	f2 0f 10 6e 10       	movsd  0x10(%rsi),%xmm5
+  a3a168:	66 0f 16 6e 18       	movhpd 0x18(%rsi),%xmm5
+  a3a16d:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a172:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a176:	48 83 c6 20          	add    $0x20,%rsi
+  a3a17a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3a180:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a3a187:	74 16                	je     a3a19f <idamax_k_SKYLAKEX+0x59f>
+  a3a189:	f2 0f 10 36          	movsd  (%rsi),%xmm6
+  a3a18d:	66 0f 16 76 08       	movhpd 0x8(%rsi),%xmm6
+  a3a192:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a197:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a19b:	48 83 c6 10          	add    $0x10,%rsi
+  a3a19f:	48 f7 c7 01 00 00 00 	test   $0x1,%rdi
+  a3a1a6:	74 18                	je     a3a1c0 <idamax_k_SKYLAKEX+0x5c0>
+  a3a1a8:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a1ac:	66 0f 14 ff          	unpcklpd %xmm7,%xmm7
+  a3a1b0:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a1b5:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a1b9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  a3a1c0:	4c 89 d6             	mov    %r10,%rsi
+  a3a1c3:	4c 89 df             	mov    %r11,%rdi
+  a3a1c6:	66 0f 5f c1          	maxpd  %xmm1,%xmm0
+  a3a1ca:	66 0f 5f d3          	maxpd  %xmm3,%xmm2
+  a3a1ce:	66 0f 5f c2          	maxpd  %xmm2,%xmm0
+  a3a1d2:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  a3a1d6:	66 0f 15 c0          	unpckhpd %xmm0,%xmm0
+  a3a1da:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
+  a3a1de:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+  a3a1e2:	48 89 f9             	mov    %rdi,%rcx
+  a3a1e5:	48 c1 f9 03          	sar    $0x3,%rcx
+  a3a1e9:	0f 8e 39 01 00 00    	jle    a3a328 <idamax_k_SKYLAKEX+0x728>
+  a3a1ef:	90                   	nop
+  a3a1f0:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a1f4:	66 0f 16 4e 08       	movhpd 0x8(%rsi),%xmm1
+  a3a1f9:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a1fe:	66 0f c2 c8 00       	cmpeqpd %xmm0,%xmm1
+  a3a203:	f2 0f 10 5e 10       	movsd  0x10(%rsi),%xmm3
+  a3a208:	66 0f 16 5e 18       	movhpd 0x18(%rsi),%xmm3
+  a3a20d:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a3a212:	66 0f c2 d8 00       	cmpeqpd %xmm0,%xmm3
+  a3a217:	f2 0f 10 6e 20       	movsd  0x20(%rsi),%xmm5
+  a3a21c:	66 0f 16 6e 28       	movhpd 0x28(%rsi),%xmm5
+  a3a221:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a226:	66 0f c2 e8 00       	cmpeqpd %xmm0,%xmm5
+  a3a22b:	f2 0f 10 7e 30       	movsd  0x30(%rsi),%xmm7
+  a3a230:	66 0f 16 7e 38       	movhpd 0x38(%rsi),%xmm7
+  a3a235:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a23a:	66 0f c2 f8 00       	cmpeqpd %xmm0,%xmm7
+  a3a23f:	66 0f 56 cb          	orpd   %xmm3,%xmm1
+  a3a243:	66 0f 56 ef          	orpd   %xmm7,%xmm5
+  a3a247:	66 0f 56 cd          	orpd   %xmm5,%xmm1
+  a3a24b:	66 44 0f 50 d9       	movmskpd %xmm1,%r11d
+  a3a250:	49 f7 c3 03 00 00 00 	test   $0x3,%r11
+  a3a257:	75 17                	jne    a3a270 <idamax_k_SKYLAKEX+0x670>
+  a3a259:	48 83 c6 40          	add    $0x40,%rsi
+  a3a25d:	48 83 c0 08          	add    $0x8,%rax
+  a3a261:	48 ff c9             	dec    %rcx
+  a3a264:	7f 8a                	jg     a3a1f0 <idamax_k_SKYLAKEX+0x5f0>
+  a3a266:	e9 bd 00 00 00       	jmp    a3a328 <idamax_k_SKYLAKEX+0x728>
+  a3a26b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a3a270:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a274:	f2 0f 10 56 08       	movsd  0x8(%rsi),%xmm2
+  a3a279:	f2 0f 10 5e 10       	movsd  0x10(%rsi),%xmm3
+  a3a27e:	f2 0f 10 66 18       	movsd  0x18(%rsi),%xmm4
+  a3a283:	f2 0f 10 6e 20       	movsd  0x20(%rsi),%xmm5
+  a3a288:	f2 0f 10 76 28       	movsd  0x28(%rsi),%xmm6
+  a3a28d:	f2 0f 10 7e 30       	movsd  0x30(%rsi),%xmm7
+  a3a292:	f2 44 0f 10 46 38    	movsd  0x38(%rsi),%xmm8
+  a3a298:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a29d:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a3a2a2:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a3a2a7:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a2ac:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a2b1:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a2b6:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a2bb:	66 45 0f 54 c7       	andpd  %xmm15,%xmm8
+  a3a2c0:	48 83 c6 40          	add    $0x40,%rsi
+  a3a2c4:	48 ff c0             	inc    %rax
+  a3a2c7:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a3a2cb:	0f 84 17 05 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a2d1:	48 ff c0             	inc    %rax
+  a3a2d4:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a2d8:	0f 84 0a 05 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a2de:	48 ff c0             	inc    %rax
+  a3a2e1:	66 0f 2f d8          	comisd %xmm0,%xmm3
+  a3a2e5:	0f 84 fd 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a2eb:	48 ff c0             	inc    %rax
+  a3a2ee:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  a3a2f2:	0f 84 f0 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a2f8:	48 ff c0             	inc    %rax
+  a3a2fb:	66 0f 2f e8          	comisd %xmm0,%xmm5
+  a3a2ff:	0f 84 e3 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a305:	48 ff c0             	inc    %rax
+  a3a308:	66 0f 2f f0          	comisd %xmm0,%xmm6
+  a3a30c:	0f 84 d6 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a312:	48 ff c0             	inc    %rax
+  a3a315:	66 0f 2f f8          	comisd %xmm0,%xmm7
+  a3a319:	0f 84 c9 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a31f:	48 ff c0             	inc    %rax
+  a3a322:	e9 c1 04 00 00       	jmp    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a327:	90                   	nop
+  a3a328:	48 f7 c7 04 00 00 00 	test   $0x4,%rdi
+  a3a32f:	74 5f                	je     a3a390 <idamax_k_SKYLAKEX+0x790>
+  a3a331:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a335:	f2 0f 10 56 08       	movsd  0x8(%rsi),%xmm2
+  a3a33a:	f2 0f 10 5e 10       	movsd  0x10(%rsi),%xmm3
+  a3a33f:	f2 0f 10 66 18       	movsd  0x18(%rsi),%xmm4
+  a3a344:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a349:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a3a34e:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a3a353:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a358:	48 83 c6 20          	add    $0x20,%rsi
+  a3a35c:	48 ff c0             	inc    %rax
+  a3a35f:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a3a363:	0f 84 7f 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a369:	48 ff c0             	inc    %rax
+  a3a36c:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a370:	0f 84 72 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a376:	48 ff c0             	inc    %rax
+  a3a379:	66 0f 2f d8          	comisd %xmm0,%xmm3
+  a3a37d:	0f 84 65 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a383:	48 ff c0             	inc    %rax
+  a3a386:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  a3a38a:	0f 84 58 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a390:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a3a397:	74 37                	je     a3a3d0 <idamax_k_SKYLAKEX+0x7d0>
+  a3a399:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a39d:	f2 0f 10 56 08       	movsd  0x8(%rsi),%xmm2
+  a3a3a2:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a3a7:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a3a3ac:	48 83 c6 10          	add    $0x10,%rsi
+  a3a3b0:	48 ff c0             	inc    %rax
+  a3a3b3:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a3a3b7:	0f 84 2b 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a3bd:	48 ff c0             	inc    %rax
+  a3a3c0:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a3c4:	0f 84 1e 04 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a3ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3a3d0:	48 ff c0             	inc    %rax
+  a3a3d3:	e9 10 04 00 00       	jmp    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a3d8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  a3a3df:	00 
+  a3a3e0:	48 89 f9             	mov    %rdi,%rcx
+  a3a3e3:	48 c1 f9 04          	sar    $0x4,%rcx
+  a3a3e7:	0f 8e d3 00 00 00    	jle    a3a4c0 <idamax_k_SKYLAKEX+0x8c0>
+  a3a3ed:	0f 1f 00             	nopl   (%rax)
+  a3a3f0:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a3f4:	48 01 d6             	add    %rdx,%rsi
+  a3a3f7:	66 0f 16 26          	movhpd (%rsi),%xmm4
+  a3a3fb:	48 01 d6             	add    %rdx,%rsi
+  a3a3fe:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a403:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a407:	f2 0f 10 2e          	movsd  (%rsi),%xmm5
+  a3a40b:	48 01 d6             	add    %rdx,%rsi
+  a3a40e:	66 0f 16 2e          	movhpd (%rsi),%xmm5
+  a3a412:	48 01 d6             	add    %rdx,%rsi
+  a3a415:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a41a:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a41e:	f2 0f 10 36          	movsd  (%rsi),%xmm6
+  a3a422:	48 01 d6             	add    %rdx,%rsi
+  a3a425:	66 0f 16 36          	movhpd (%rsi),%xmm6
+  a3a429:	48 01 d6             	add    %rdx,%rsi
+  a3a42c:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a431:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a435:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a439:	48 01 d6             	add    %rdx,%rsi
+  a3a43c:	66 0f 16 3e          	movhpd (%rsi),%xmm7
+  a3a440:	48 01 d6             	add    %rdx,%rsi
+  a3a443:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a448:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a44c:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a450:	48 01 d6             	add    %rdx,%rsi
+  a3a453:	66 0f 16 26          	movhpd (%rsi),%xmm4
+  a3a457:	48 01 d6             	add    %rdx,%rsi
+  a3a45a:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a45f:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a463:	f2 0f 10 2e          	movsd  (%rsi),%xmm5
+  a3a467:	48 01 d6             	add    %rdx,%rsi
+  a3a46a:	66 0f 16 2e          	movhpd (%rsi),%xmm5
+  a3a46e:	48 01 d6             	add    %rdx,%rsi
+  a3a471:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a476:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a47a:	f2 0f 10 36          	movsd  (%rsi),%xmm6
+  a3a47e:	48 01 d6             	add    %rdx,%rsi
+  a3a481:	66 0f 16 36          	movhpd (%rsi),%xmm6
+  a3a485:	48 01 d6             	add    %rdx,%rsi
+  a3a488:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a48d:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a491:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a495:	48 01 d6             	add    %rdx,%rsi
+  a3a498:	66 0f 16 3e          	movhpd (%rsi),%xmm7
+  a3a49c:	48 01 d6             	add    %rdx,%rsi
+  a3a49f:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a4a4:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a4a8:	48 ff c9             	dec    %rcx
+  a3a4ab:	0f 8f 3f ff ff ff    	jg     a3a3f0 <idamax_k_SKYLAKEX+0x7f0>
+  a3a4b1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  a3a4b8:	00 00 00 00 
+  a3a4bc:	0f 1f 40 00          	nopl   0x0(%rax)
+  a3a4c0:	48 83 e7 0f          	and    $0xf,%rdi
+  a3a4c4:	0f 8e f6 00 00 00    	jle    a3a5c0 <idamax_k_SKYLAKEX+0x9c0>
+  a3a4ca:	48 f7 c7 08 00 00 00 	test   $0x8,%rdi
+  a3a4d1:	74 5d                	je     a3a530 <idamax_k_SKYLAKEX+0x930>
+  a3a4d3:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a4d7:	48 01 d6             	add    %rdx,%rsi
+  a3a4da:	66 0f 16 26          	movhpd (%rsi),%xmm4
+  a3a4de:	48 01 d6             	add    %rdx,%rsi
+  a3a4e1:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a4e6:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a4ea:	f2 0f 10 2e          	movsd  (%rsi),%xmm5
+  a3a4ee:	48 01 d6             	add    %rdx,%rsi
+  a3a4f1:	66 0f 16 2e          	movhpd (%rsi),%xmm5
+  a3a4f5:	48 01 d6             	add    %rdx,%rsi
+  a3a4f8:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a4fd:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a501:	f2 0f 10 36          	movsd  (%rsi),%xmm6
+  a3a505:	48 01 d6             	add    %rdx,%rsi
+  a3a508:	66 0f 16 36          	movhpd (%rsi),%xmm6
+  a3a50c:	48 01 d6             	add    %rdx,%rsi
+  a3a50f:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a514:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a518:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a51c:	48 01 d6             	add    %rdx,%rsi
+  a3a51f:	66 0f 16 3e          	movhpd (%rsi),%xmm7
+  a3a523:	48 01 d6             	add    %rdx,%rsi
+  a3a526:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a52b:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a52f:	90                   	nop
+  a3a530:	48 f7 c7 04 00 00 00 	test   $0x4,%rdi
+  a3a537:	74 2f                	je     a3a568 <idamax_k_SKYLAKEX+0x968>
+  a3a539:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a53d:	48 01 d6             	add    %rdx,%rsi
+  a3a540:	66 0f 16 26          	movhpd (%rsi),%xmm4
+  a3a544:	48 01 d6             	add    %rdx,%rsi
+  a3a547:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a54c:	66 0f 5f c4          	maxpd  %xmm4,%xmm0
+  a3a550:	f2 0f 10 2e          	movsd  (%rsi),%xmm5
+  a3a554:	48 01 d6             	add    %rdx,%rsi
+  a3a557:	66 0f 16 2e          	movhpd (%rsi),%xmm5
+  a3a55b:	48 01 d6             	add    %rdx,%rsi
+  a3a55e:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a563:	66 0f 5f cd          	maxpd  %xmm5,%xmm1
+  a3a567:	90                   	nop
+  a3a568:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a3a56f:	74 17                	je     a3a588 <idamax_k_SKYLAKEX+0x988>
+  a3a571:	f2 0f 10 36          	movsd  (%rsi),%xmm6
+  a3a575:	48 01 d6             	add    %rdx,%rsi
+  a3a578:	66 0f 16 36          	movhpd (%rsi),%xmm6
+  a3a57c:	48 01 d6             	add    %rdx,%rsi
+  a3a57f:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a584:	66 0f 5f d6          	maxpd  %xmm6,%xmm2
+  a3a588:	48 f7 c7 01 00 00 00 	test   $0x1,%rdi
+  a3a58f:	74 2f                	je     a3a5c0 <idamax_k_SKYLAKEX+0x9c0>
+  a3a591:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a595:	66 0f 14 ff          	unpcklpd %xmm7,%xmm7
+  a3a599:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a59e:	66 0f 5f df          	maxpd  %xmm7,%xmm3
+  a3a5a2:	66 0f 5f c1          	maxpd  %xmm1,%xmm0
+  a3a5a6:	66 0f 5f d3          	maxpd  %xmm3,%xmm2
+  a3a5aa:	66 0f 5f c2          	maxpd  %xmm2,%xmm0
+  a3a5ae:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  a3a5b2:	66 0f 15 c0          	unpckhpd %xmm0,%xmm0
+  a3a5b6:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
+  a3a5ba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a3a5c0:	4c 89 d6             	mov    %r10,%rsi
+  a3a5c3:	4c 89 df             	mov    %r11,%rdi
+  a3a5c6:	66 0f 5f c1          	maxpd  %xmm1,%xmm0
+  a3a5ca:	66 0f 5f d3          	maxpd  %xmm3,%xmm2
+  a3a5ce:	66 0f 5f c2          	maxpd  %xmm2,%xmm0
+  a3a5d2:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  a3a5d6:	66 0f 15 c0          	unpckhpd %xmm0,%xmm0
+  a3a5da:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
+  a3a5de:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+  a3a5e2:	48 89 f9             	mov    %rdi,%rcx
+  a3a5e5:	48 c1 f9 03          	sar    $0x3,%rcx
+  a3a5e9:	0f 8e 59 01 00 00    	jle    a3a748 <idamax_k_SKYLAKEX+0xb48>
+  a3a5ef:	90                   	nop
+  a3a5f0:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a5f4:	48 01 d6             	add    %rdx,%rsi
+  a3a5f7:	66 0f 16 0e          	movhpd (%rsi),%xmm1
+  a3a5fb:	48 01 d6             	add    %rdx,%rsi
+  a3a5fe:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a603:	66 0f c2 c8 00       	cmpeqpd %xmm0,%xmm1
+  a3a608:	f2 0f 10 1e          	movsd  (%rsi),%xmm3
+  a3a60c:	48 01 d6             	add    %rdx,%rsi
+  a3a60f:	66 0f 16 1e          	movhpd (%rsi),%xmm3
+  a3a613:	48 01 d6             	add    %rdx,%rsi
+  a3a616:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a3a61b:	66 0f c2 d8 00       	cmpeqpd %xmm0,%xmm3
+  a3a620:	f2 0f 10 2e          	movsd  (%rsi),%xmm5
+  a3a624:	48 01 d6             	add    %rdx,%rsi
+  a3a627:	66 0f 16 2e          	movhpd (%rsi),%xmm5
+  a3a62b:	48 01 d6             	add    %rdx,%rsi
+  a3a62e:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a633:	66 0f c2 e8 00       	cmpeqpd %xmm0,%xmm5
+  a3a638:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a63c:	48 01 d6             	add    %rdx,%rsi
+  a3a63f:	66 0f 16 3e          	movhpd (%rsi),%xmm7
+  a3a643:	48 01 d6             	add    %rdx,%rsi
+  a3a646:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a64b:	66 0f c2 f8 00       	cmpeqpd %xmm0,%xmm7
+  a3a650:	66 0f 56 cb          	orpd   %xmm3,%xmm1
+  a3a654:	66 0f 56 ef          	orpd   %xmm7,%xmm5
+  a3a658:	66 0f 56 cd          	orpd   %xmm5,%xmm1
+  a3a65c:	66 44 0f 50 d9       	movmskpd %xmm1,%r11d
+  a3a661:	49 f7 c3 03 00 00 00 	test   $0x3,%r11
+  a3a668:	75 16                	jne    a3a680 <idamax_k_SKYLAKEX+0xa80>
+  a3a66a:	48 83 c0 08          	add    $0x8,%rax
+  a3a66e:	48 ff c9             	dec    %rcx
+  a3a671:	0f 8f 79 ff ff ff    	jg     a3a5f0 <idamax_k_SKYLAKEX+0x9f0>
+  a3a677:	e9 cc 00 00 00       	jmp    a3a748 <idamax_k_SKYLAKEX+0xb48>
+  a3a67c:	0f 1f 40 00          	nopl   0x0(%rax)
+  a3a680:	48 29 d6             	sub    %rdx,%rsi
+  a3a683:	f2 44 0f 10 06       	movsd  (%rsi),%xmm8
+  a3a688:	48 29 d6             	sub    %rdx,%rsi
+  a3a68b:	f2 0f 10 3e          	movsd  (%rsi),%xmm7
+  a3a68f:	48 29 d6             	sub    %rdx,%rsi
+  a3a692:	f2 0f 10 36          	movsd  (%rsi),%xmm6
+  a3a696:	48 29 d6             	sub    %rdx,%rsi
+  a3a699:	f2 0f 10 2e          	movsd  (%rsi),%xmm5
+  a3a69d:	48 29 d6             	sub    %rdx,%rsi
+  a3a6a0:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a6a4:	48 29 d6             	sub    %rdx,%rsi
+  a3a6a7:	f2 0f 10 1e          	movsd  (%rsi),%xmm3
+  a3a6ab:	48 29 d6             	sub    %rdx,%rsi
+  a3a6ae:	f2 0f 10 16          	movsd  (%rsi),%xmm2
+  a3a6b2:	48 29 d6             	sub    %rdx,%rsi
+  a3a6b5:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a6b9:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a6be:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a3a6c3:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a3a6c8:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a6cd:	66 41 0f 54 ef       	andpd  %xmm15,%xmm5
+  a3a6d2:	66 41 0f 54 f7       	andpd  %xmm15,%xmm6
+  a3a6d7:	66 41 0f 54 ff       	andpd  %xmm15,%xmm7
+  a3a6dc:	66 45 0f 54 c7       	andpd  %xmm15,%xmm8
+  a3a6e1:	48 83 c6 40          	add    $0x40,%rsi
+  a3a6e5:	48 ff c0             	inc    %rax
+  a3a6e8:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a3a6ec:	0f 84 f6 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a6f2:	48 ff c0             	inc    %rax
+  a3a6f5:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a6f9:	0f 84 e9 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a6ff:	48 ff c0             	inc    %rax
+  a3a702:	66 0f 2f d8          	comisd %xmm0,%xmm3
+  a3a706:	0f 84 dc 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a70c:	48 ff c0             	inc    %rax
+  a3a70f:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  a3a713:	0f 84 cf 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a719:	48 ff c0             	inc    %rax
+  a3a71c:	66 0f 2f e8          	comisd %xmm0,%xmm5
+  a3a720:	0f 84 c2 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a726:	48 ff c0             	inc    %rax
+  a3a729:	66 0f 2f f0          	comisd %xmm0,%xmm6
+  a3a72d:	0f 84 b5 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a733:	48 ff c0             	inc    %rax
+  a3a736:	66 0f 2f f8          	comisd %xmm0,%xmm7
+  a3a73a:	0f 84 a8 00 00 00    	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a740:	48 ff c0             	inc    %rax
+  a3a743:	e9 a0 00 00 00       	jmp    a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a748:	48 f7 c7 04 00 00 00 	test   $0x4,%rdi
+  a3a74f:	74 57                	je     a3a7a8 <idamax_k_SKYLAKEX+0xba8>
+  a3a751:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a755:	48 01 d6             	add    %rdx,%rsi
+  a3a758:	f2 0f 10 16          	movsd  (%rsi),%xmm2
+  a3a75c:	48 01 d6             	add    %rdx,%rsi
+  a3a75f:	f2 0f 10 1e          	movsd  (%rsi),%xmm3
+  a3a763:	48 01 d6             	add    %rdx,%rsi
+  a3a766:	f2 0f 10 26          	movsd  (%rsi),%xmm4
+  a3a76a:	48 01 d6             	add    %rdx,%rsi
+  a3a76d:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a772:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a3a777:	66 41 0f 54 df       	andpd  %xmm15,%xmm3
+  a3a77c:	66 41 0f 54 e7       	andpd  %xmm15,%xmm4
+  a3a781:	48 ff c0             	inc    %rax
+  a3a784:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a3a788:	74 5e                	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a78a:	48 ff c0             	inc    %rax
+  a3a78d:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a791:	74 55                	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a793:	48 ff c0             	inc    %rax
+  a3a796:	66 0f 2f d8          	comisd %xmm0,%xmm3
+  a3a79a:	74 4c                	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a79c:	48 ff c0             	inc    %rax
+  a3a79f:	66 0f 2f e0          	comisd %xmm0,%xmm4
+  a3a7a3:	74 43                	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a7a5:	0f 1f 00             	nopl   (%rax)
+  a3a7a8:	48 f7 c7 02 00 00 00 	test   $0x2,%rdi
+  a3a7af:	74 2f                	je     a3a7e0 <idamax_k_SKYLAKEX+0xbe0>
+  a3a7b1:	f2 0f 10 0e          	movsd  (%rsi),%xmm1
+  a3a7b5:	48 01 d6             	add    %rdx,%rsi
+  a3a7b8:	f2 0f 10 16          	movsd  (%rsi),%xmm2
+  a3a7bc:	48 01 d6             	add    %rdx,%rsi
+  a3a7bf:	66 41 0f 54 cf       	andpd  %xmm15,%xmm1
+  a3a7c4:	66 41 0f 54 d7       	andpd  %xmm15,%xmm2
+  a3a7c9:	48 ff c0             	inc    %rax
+  a3a7cc:	66 0f 2f c8          	comisd %xmm0,%xmm1
+  a3a7d0:	74 16                	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a7d2:	48 ff c0             	inc    %rax
+  a3a7d5:	66 0f 2f d0          	comisd %xmm0,%xmm2
+  a3a7d9:	74 0d                	je     a3a7e8 <idamax_k_SKYLAKEX+0xbe8>
+  a3a7db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a3a7e0:	48 ff c0             	inc    %rax
+  a3a7e3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  a3a7e8:	c3                   	ret
+
+Disassembly of section .fini:

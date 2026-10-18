@@ -1,0 +1,25 @@
+{
+  "N": 30726,
+  "aggregate_target": 1e-07,
+  "phase_claim": "14983b7b",
+  "independent_pilot_review": "2827c813",
+  "indices": "all consecutive0..30725; 256-index shards;64 prior pilot rows reused exactly once",
+  "rules": "Same selector/orders2,3,4,6,8,12,16,20,24,32; no retuning; stop explicit failures; finite unresolved preserved",
+  "pilot_pins": {
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/pilot.py": "f0860abfb87f90c50e6316c52e31503043f799bd91a45a5a8a651b9f75ad9f60",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/pilot.json": "89a2af94255043783a7ba33f909839d52943ea859524fded373da1cea9032973",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_holdout/protocol.json": "53fc6e1d56d5948db62500505f5c29e9198b4055076b00ac0e47790481f366d8",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/run.py": "ef5fb6b687946508d4381dbdb1738cbeae86928fcc506e2849de40d944dae816",
+    "/workspace/work/recover-small_h2_34/m16/approaches/positive_h8_full/summarize.py": "e3a010269b416e62d58a3ad6be7fa9c6157f47fd1f76a6064c04154dac71b84e"
+  },
+  "alternatives": [
+    {
+      "explanation": "Seed0 favorable conditioning may not transfer",
+      "test": "Full original seed1 rays with unchanged selector and strict target"
+    },
+    {
+      "explanation": "Pilot sparse easy cases understate setup/cost or unresolved fraction",
+      "test": "All30726 with exact rescue and complete known-category ledger, no extrapolation"
+    }
+  ]
+}

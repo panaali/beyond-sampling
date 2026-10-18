@@ -1,0 +1,9 @@
+{
+  "failure": "TypeError: Object of type bool is not JSON serializable",
+  "cause": "numpy bool in control pass field; all measurements computed but write failed before assertion",
+  "command": "python -m m16.approaches.analytic_inner_mass.controls",
+  "source_commit": "1a7697e",
+  "wall_seconds": 0.2367,
+  "numerical_change": false,
+  "repair": "Serialize numpy scalar via item; rerun identical frozen controls"
+}

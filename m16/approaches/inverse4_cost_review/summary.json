@@ -1,0 +1,228 @@
+{
+  "per_inverse_envelope": 188,
+  "lu": 56,
+  "packed_solves": 132,
+  "rows": [
+    {
+      "name": "identity",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "diagonal",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "reverse_permutation",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "dense",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "row_pivot",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "scaled_dense",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "near_singular",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 188
+    },
+    {
+      "name": "zero",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 0,
+        "lu_reciprocal_upper": 4,
+        "triangular": 0,
+        "upper_pack_reciprocal": 0
+      },
+      "floating_expression_upper": 50
+    },
+    {
+      "name": "duplicate_row",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 6,
+        "lu_reciprocal_upper": 4,
+        "triangular": 0,
+        "upper_pack_reciprocal": 0
+      },
+      "floating_expression_upper": 56
+    },
+    {
+      "name": "subnormal_diagonal",
+      "categories": {
+        "dot_and_outer_subtraction": 14,
+        "gemv": 32,
+        "scal": 3,
+        "lu_reciprocal_upper": 4,
+        "triangular": 128,
+        "upper_pack_reciprocal": 4
+      },
+      "floating_expression_upper": 185
+    },
+    {
+      "name": "batch",
+      "categories": {
+        "dot_and_outer_subtraction": 28,
+        "gemv": 64,
+        "scal": 12,
+        "lu_reciprocal_upper": 8,
+        "triangular": 256,
+        "upper_pack_reciprocal": 8
+      },
+      "floating_expression_upper": 376
+    }
+  ],
+  "parent_compositions": [
+    {
+      "label": "exact",
+      "parent_path": "/workspace/work/recover-small_h4_4/m16/approaches/plackett_cost_review/summary.json",
+      "parent_sha256": "13f03e290891531fd2ea6e94393b677f1baa5df9a607d0857636468cef87447b",
+      "inverse_sites": [
+        {
+          "key": [
+            "from_normals:L56:np.linalg.inv(N)",
+            "np.linalg.inv",
+            "(4, 4)",
+            "(4, 4)",
+            "{}"
+          ],
+          "count": 48
+        },
+        {
+          "key": [
+            "orthant:L115:np.linalg.inv(Rays.T)",
+            "np.linalg.inv",
+            "(4, 4)",
+            "(4, 4)",
+            "{}"
+          ],
+          "count": 35098
+        },
+        {
+          "key": [
+            "orthant:L133:np.linalg.inv(Rt)",
+            "np.linalg.inv",
+            "(4, 4)",
+            "(4, 4)",
+            "{}"
+          ],
+          "count": 2624760
+        }
+      ],
+      "inverse_calls": 2659906,
+      "inverse_floating_expression_upper": 500062328,
+      "parent_visible_explicit": 553400768,
+      "visible_plus_inverse_fp_subset": 1053463096,
+      "complete_cost": false
+    },
+    {
+      "label": "recipe",
+      "parent_path": "/workspace/work/recover-small_h4_4/m16/approaches/recipe_cost_review/summary.json",
+      "parent_sha256": "b6138be5b238e2191d09db3c4a46aa04f0d4c6c940cf4b3c86d2b8eef7ecc51c",
+      "inverse_sites": [
+        {
+          "key": [
+            "from_normals:L56:np.linalg.inv(N)",
+            "np.linalg.inv",
+            "(4, 4)",
+            "(4, 4)",
+            "{}"
+          ],
+          "count": 48
+        },
+        {
+          "key": [
+            "orthant:L115:np.linalg.inv(Rays.T)",
+            "np.linalg.inv",
+            "(4, 4)",
+            "(4, 4)",
+            "{}"
+          ],
+          "count": 28000
+        },
+        {
+          "key": [
+            "orthant:L133:np.linalg.inv(Rt)",
+            "np.linalg.inv",
+            "(4, 4)",
+            "(4, 4)",
+            "{}"
+          ],
+          "count": 2110488
+        }
+      ],
+      "inverse_calls": 2138536,
+      "inverse_floating_expression_upper": 402044768,
+      "parent_visible_explicit": 455976715,
+      "visible_plus_inverse_fp_subset": 858021483,
+      "complete_cost": false
+    }
+  ],
+  "controls_sha256": "3c37acde6e2f60b011f96f2b332447f7c0237ac82eb2a0899af01028fb0f673b",
+  "cpu": 0.002392341000000006,
+  "scope": "FP expression envelope only: FMA=2, division=1; abs, comparisons, integer/control, allocation/copy, wrapper/runtime excluded; no full-cost/MSE claim"
+}

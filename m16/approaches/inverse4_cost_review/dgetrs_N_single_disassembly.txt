@@ -1,0 +1,82 @@
+
+/workspace/clean-neurons/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000438200 <dgetrs_N_single>:
+  438200:	41 56                	push   %r14
+  438202:	49 89 ce             	mov    %rcx,%r14
+  438205:	45 31 c9             	xor    %r9d,%r9d
+  438208:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  43820c:	41 55                	push   %r13
+  43820e:	49 89 d5             	mov    %rdx,%r13
+  438211:	41 54                	push   %r12
+  438213:	49 89 f4             	mov    %rsi,%r12
+  438216:	be 01 00 00 00       	mov    $0x1,%esi
+  43821b:	55                   	push   %rbp
+  43821c:	4c 89 c5             	mov    %r8,%rbp
+  43821f:	53                   	push   %rbx
+  438220:	48 89 fb             	mov    %rdi,%rbx
+  438223:	48 8b 4f 08          	mov    0x8(%rdi),%rcx
+  438227:	48 8b 57 30          	mov    0x30(%rdi),%rdx
+  43822b:	48 8b 7f 38          	mov    0x38(%rdi),%rdi
+  43822f:	48 83 ec 08          	sub    $0x8,%rsp
+  438233:	6a 01                	push   $0x1
+  438235:	ff 73 10             	push   0x10(%rbx)
+  438238:	6a 00                	push   $0x0
+  43823a:	4c 8b 43 50          	mov    0x50(%rbx),%r8
+  43823e:	e8 fd 2c ff ff       	call   42af40 <dlaswp_plus>
+  438243:	48 83 c4 20          	add    $0x20,%rsp
+  438247:	48 83 7b 38 01       	cmpq   $0x1,0x38(%rbx)
+  43824c:	74 42                	je     438290 <dgetrs_N_single+0x90>
+  43824e:	49 89 e8             	mov    %rbp,%r8
+  438251:	4c 89 f1             	mov    %r14,%rcx
+  438254:	4c 89 ea             	mov    %r13,%rdx
+  438257:	4c 89 e6             	mov    %r12,%rsi
+  43825a:	48 89 df             	mov    %rbx,%rdi
+  43825d:	45 31 c9             	xor    %r9d,%r9d
+  438260:	e8 ab d5 db ff       	call   1f5810 <dtrsm_LNLU>
+  438265:	49 89 e8             	mov    %rbp,%r8
+  438268:	4c 89 f1             	mov    %r14,%rcx
+  43826b:	4c 89 ea             	mov    %r13,%rdx
+  43826e:	4c 89 e6             	mov    %r12,%rsi
+  438271:	48 89 df             	mov    %rbx,%rdi
+  438274:	45 31 c9             	xor    %r9d,%r9d
+  438277:	e8 e4 d0 db ff       	call   1f5360 <dtrsm_LNUN>
+  43827c:	5b                   	pop    %rbx
+  43827d:	31 c0                	xor    %eax,%eax
+  43827f:	5d                   	pop    %rbp
+  438280:	41 5c                	pop    %r12
+  438282:	41 5d                	pop    %r13
+  438284:	41 5e                	pop    %r14
+  438286:	c3                   	ret
+  438287:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  43828e:	00 00 
+  438290:	48 8b 4b 08          	mov    0x8(%rbx),%rcx
+  438294:	48 8b 33             	mov    (%rbx),%rsi
+  438297:	49 89 e9             	mov    %rbp,%r9
+  43829a:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  4382a0:	48 8b 53 48          	mov    0x48(%rbx),%rdx
+  4382a4:	48 8b 7b 30          	mov    0x30(%rbx),%rdi
+  4382a8:	e8 03 8e cd ff       	call   1110b0 <dtrsv_NLU>
+  4382ad:	48 8b 4b 08          	mov    0x8(%rbx),%rcx
+  4382b1:	48 8b 53 48          	mov    0x48(%rbx),%rdx
+  4382b5:	49 89 e9             	mov    %rbp,%r9
+  4382b8:	48 8b 33             	mov    (%rbx),%rsi
+  4382bb:	48 8b 7b 30          	mov    0x30(%rbx),%rdi
+  4382bf:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  4382c5:	e8 76 8b cd ff       	call   110e40 <dtrsv_NUN>
+  4382ca:	5b                   	pop    %rbx
+  4382cb:	31 c0                	xor    %eax,%eax
+  4382cd:	5d                   	pop    %rbp
+  4382ce:	41 5c                	pop    %r12
+  4382d0:	41 5d                	pop    %r13
+  4382d2:	41 5e                	pop    %r14
+  4382d4:	c3                   	ret
+
+Disassembly of section .fini:

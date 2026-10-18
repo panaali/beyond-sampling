@@ -1,0 +1,7 @@
+# Fixed reflector-exclusive candidate native price
+
+Existing independently reviewed parent-child binding proves both initial and rescale DNRM2 calls use the observed symbol. In every saved full SVD there are two DLARFG calls: N4 with one DNRM2 and N1 with none. Each eigenreduction has N>1 count equal to its DNRM2 count, all TAU exactlyzero. Thus no reflector rescale branch occurred on these fixed calls. This does not assert a general no-rescale theorem. Six original input rows have two entries ±0.7071067811865475 and zeros, consistent with the recorded ordinary path.
+
+Installed dlarfg.dism witnesses: initial UCOMISD d3e908 costs1. Normal path SAFMIN divide d3e991 costs1, packed abs d3e999 costs2, COMISD d3e9a1 costs1. Sign construction d3e9d4/9dd/9e5 costs6 packed lanes; beta signflip d3e9ed costs2. The compiler additionally flips the intermediate TAU numerator at d3e9ff, costing2 lanes, which was absent from the source's primitive count. Remaining d3e9fb subtraction, d3ea03 division, d3ea07 addition, d3ea1a division cost4. Total19 exclusive units per ordinary N4,114 for six. The32 N>1 zero-norm eigenreflectors cost only their initial comparison,32. N<=1 returns before numeric work. Total146 exclusive, children already priced in helper2424. This explicitly differs from the source-only10 per ordinary reflector.
+
+Copies, constants, zeroing XORs, integer/control and other driver work excluded. No general reflector price or full implementation-cost claim. Candidate awaits independent source/count review.
