@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_check.py", line 40, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_check.py", line 34, in main
+    kernel=triton.compile(ASTSource(_step,signature,constexpr),target=GPUTarget('cuda',80,32),options={'num_warps':warps,'enable_fp_fusion':False})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/t261-triton-deps/triton/compiler/compiler.py", line 251, in compile
+    fn_cache_manager = get_cache_manager(hash)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/t261-triton-deps/triton/runtime/cache.py", line 260, in get_cache_manager
+    return cls(_base32(key))
+           ^^^^^^^^^^^^^^^^^
+  File "/workspace/work/t261-triton-deps/triton/runtime/cache.py", line 55, in __init__
+    os.makedirs(self.cache_dir, exist_ok=True)
+  File "<frozen os>", line 215, in makedirs
+  File "<frozen os>", line 215, in makedirs
+  File "<frozen os>", line 225, in makedirs
+OSError: [Errno 30] Read-only file system: '/home/agent/.triton'
+real 1.94
+user 1.71
+sys 0.23
