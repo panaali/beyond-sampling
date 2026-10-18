@@ -15,7 +15,7 @@ changes status. Rules for contributors are in [`AGENTS.md`](AGENTS.md).
 | Q1 | Is Cammarata's "Neural Networks Are Already Clean" right that most MLP neurons have one main job? | Answered at small scale (Qwen3-0.6B). See [`RESULTS.md`](RESULTS.md) |
 | Q2 | Hilton/ARC: does per-neuron legibility add up to understanding? (AlgZoo models) | Answered for the 432-param model under one protocol. See E4 |
 | Q3 | How does the 432-param AlgZoo RNN (M_16,10) compute the 2nd argmax? | Mostly answered. See [`m16/FINDINGS.md`](m16/FINDINGS.md) |
-| Q4 | ARC challenge: a *mechanistic* (deductive) estimate of M_16,10's accuracy matching sampling in MSE vs compute, on noisy-weight copies | **Open, not solved** (about 30 attempts; see section 4b and [`STATUS.md`](STATUS.md)) |
+| Q4 | ARC challenge: a *mechanistic* (deductive) estimate of M_16,10's accuracy matching sampling in MSE vs compute, over a distribution of models (retrains or noisy-weight copies) | **Open, not solved** (strict bar). Best sampling-free estimator T317f: fresh sealed HP4 F 2.63 [1.93, 3.39], a lenient pass on retrains; fails on noisy copies; T353 pending. Rare-event estimation (T340) is a partial positive. See section 4b, [`STATUS.md`](STATUS.md) and [`OWNER_QA.md`](OWNER_QA.md) |
 
 **Success criteria for Q4 (re-centred on ARC's stated intent: "a scalable, algorithmic approach to producing
 mechanistic estimates"; hand analysis is "a warm-up"):**
