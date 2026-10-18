@@ -26,22 +26,23 @@ TOL = 1e-10
 
 
 def rays(G, k):
+    """Extreme rays of the pointed cone {G x >= 0}: null vectors of all (k-1)-row subsets (cofactors, batched),
+    kept if feasible and the subset has rank k-1; duplicates merged."""
     G = G / np.linalg.norm(G, axis=1, keepdims=True)
+    S = np.array(list(itertools.combinations(range(len(G)), k - 1)))
+    A = G[S]                                                   # (nsub, k-1, k)
+    if k == 2:
+        V = np.stack([-A[:, 0, 1], A[:, 0, 0]], 1)
+    else:
+        V = np.stack([(-1) ** j * np.linalg.det(np.delete(A, j, axis=2)) for j in range(k)], 1)
+    nv = np.linalg.norm(V, axis=1); ok = nv > 1e-9
+    V = V[ok] / nv[ok, None]
+    V = np.concatenate([V, -V])
+    V = V[(V @ G.T >= -TOL).all(1)]
     out = []
-    for S in itertools.combinations(range(len(G)), k - 1):
-        A = G[list(S)]
-        if k == 2:
-            r = np.array([-A[0, 1], A[0, 0]])
-        else:
-            _, sv, Vt = np.linalg.svd(A)
-            if sv[-1] < 1e-9:                     # rows not independent
-                continue
-            r = Vt[-1]
-        for sg in (1.0, -1.0):
-            v = sg * r
-            if (G @ v >= -TOL).all():
-                if not any(np.abs(v - w).max() < 1e-9 for w in out):
-                    out.append(v)
+    for v in V:
+        if not any(np.abs(v - w).max() < 1e-9 for w in out):
+            out.append(v)
     return np.array(out)
 
 
@@ -113,18 +114,25 @@ def orth4(C, TH, n=48):
         return tot
     p1, p2 = gl(n), gl(2 * n)
     bad = np.flatnonzero(np.abs(p1 - p2) > 1e-13)
-    for q in bad:                                            # adaptive fallback, per pair
-        tot = 1 / 16
-        for (i, j), (k, l) in PAIRS:
-            if i > j:
-                continue
-            phi = np.pi / 2 - TH[q, i, j]; c = C[q, i, j]
-            if c == 0:
-                continue
-            f = lambda ph: _cond(C[q:q + 1], np.clip(np.array([np.sin(ph) / c]), 0, 1), i, j, k, l)[0]
-            tot += quad(f, 0, phi, epsabs=1e-16, epsrel=1e-13, limit=1000)[0] / (2 * np.pi)
-        p2[q] = tot
+    if len(bad):                                             # composite GL, graded geometrically toward phi_ij
+        p2[bad] = graded(C[bad], TH[bad])
     return p2, len(bad), float(np.abs(p1 - p2).max()) if len(C) else 0.0
+
+
+def graded(C, TH, levels=45, nn=12):
+    t, w = np.polynomial.legendre.leggauss(nn); t = 0.5 * (t + 1); w = 0.5 * w
+    edges = np.concatenate([[0.0], 1 - 0.5 ** np.arange(1, levels + 1), [1.0]])
+    tot = np.full(len(C), 1 / 16)
+    for (i, j), (k, l) in PAIRS:
+        if i > j:
+            continue
+        phi = np.pi / 2 - TH[:, i, j]; c = C[:, i, j]; acc = np.zeros(len(C))
+        for lo, hi in zip(edges[:-1], edges[1:]):
+            for ti, wi in zip(lo + (hi - lo) * t, (hi - lo) * w):
+                s = np.where(c != 0, np.sin(phi * ti) / np.where(c == 0, 1, c), ti)
+                acc += wi * _cond(C, np.clip(s, 0, 1), i, j, k, l)
+        tot += phi * acc / (2 * np.pi)
+    return tot
 
 
 def cone_masses(cells, k):
