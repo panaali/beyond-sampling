@@ -531,3 +531,30 @@ Declared error d = est − est_T317e, per model.
   measured on DEV2 here, with max .34 pp on one model.
 - [measured, DEV2, unverified] C1 is the best cost point of the T317 family so far: lenient F 3.14 on DEV2 (T317e
   4.78).
+
+## T331 results: GO = NO (`python t331.py`, `results_t331.json`, `t331.log`; all 80 DEV2; T317e reproduced bitwise)
+
+| variant | C (FPE) | C growth | RMS pp | bias pp | MSE × C / T317e's | stop rule |
+|---|---|---|---|---|---|---|
+| T317e (tmax .5) | 5,490 | — | .794 | +.444 | 1.00 | — |
+| (i) tmax 1 | 8,329 | **+52%** | .731 | +.304 | 1.28 | C > +15% |
+| (ii) tmax 2 | 12,416 | +126% | .696 | +.219 | 1.74 | C > +15% |
+| (iii) tmax .5 + affine extension | 5,553 | +1.1% | .834 | **−.396** | 1.11 | — (bias moves −.84) |
+| (iv) tmax 1 + extension | 8,388 | +53% | **.669** | **+.104** | 1.08 | C > +15% |
+| (v) tmax 2 + extension | 12,463 | +127% | .693 | +.211 | 1.73 | C > +15% |
+
+- **No variant meets the go line** (MSE × C <= .80 × T317e's).
+- **The error moves as T302 and T324 said.**
+  - tmax 1 cuts the bias by .14 pp and the MSE by 15%. With the extension it reaches the best RMS so far, .669 pp,
+    with bias +.10.
+  - **But the cells beyond .5 are not cheap in this implementation:** tmax 1 costs +52% (Fable projected +5-12%).
+    Each row averages ~2.9 more later cells between .5 and 1.
+- **The zero-cost extension overshoots.** At tmax .5 it flips the bias from +.44 to −.40 pp. The frozen last cell
+  marks too much of the far gap wrong, because gates flip back beyond .5 (H-E15's coarse cells still flip). So it is
+  not a free bias fix on its own.
+- [inferred, not pre-registered; a follow-up candidate] **(iv) combined with tier C1** may be worth testing:
+  - (iv) has the right error (RMS .669, bias +.10);
+  - C1 removes ~96% of the post-last-wrong-piece cells, and the extra .5-1 cells are mostly such cells;
+  - if C1's saving carries over, C ≈ 3.5-4.5k at RMS ≈ .67-.70 would give lenient F ≈ 2.4-3.
+
+Forking paths: 5 variants on DEV2. The negative needs no selection correction.
