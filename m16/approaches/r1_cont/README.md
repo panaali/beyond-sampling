@@ -1120,3 +1120,41 @@ accuracy criterion is est/truth within 2x.
 - **Runs:** 8 models × t ∈ {.5, .75, 1, 1.25} × 5 worlds, 1e6 conditional samples each, float64.
 - **Reported:** each world's P(E2) / truth. **The term carrying the deficit** is the step W_i → W_{i+1} that moves the
   ratio most toward 1, including the position step W3 → W4.
+
+## T363 results (`python e2_oracle.py`, `results_e2_oracle.json`, `e2_oracle.log`; 8 models × 4 t, 1e6 conditional samples each)
+**Checks pass.** Across all 32 cases:
+- W0 (the closure, sampled) reproduces T360's deductive K3: median ratio .40 vs K3's .41, case by case within MC error.
+- W4 (the truth, sampled) reproduces the T192 GPU truth: median 1.00, 31/32 within 2x. The exception is s519 at
+  t = 1.25 (4.7), where both MCs are thin.
+- Some t >= 1 cells have W0 relative s.e. .1-1.0, because the closure world's conditional error rate is tiny there.
+
+**Ratio to truth, per world** (median over 32 cases; count within 2x):
+
+| world | W0 closure (= K3) | W1 (a) g23 transverse | W2 (b) exact v4 law | **W3 (c) exact lows** | W4 v4 position random (= truth) |
+|---|---|---|---|---|---|
+| median ratio | .40 | .47 | .55 | **.88** | 1.00 |
+| within 2x | 9/32 | 11/32 | 12/32 | **28/32** | 31/32 |
+
+**Attribution** (log-ratio moves per step, 31 cases):
+
+| step | mean log-move | share of total \|move\| | largest step in |
+|---|---|---|---|
+| (a) closure anchored at the actual v3 (g23 transverse) | +.12 | 11% | 3 cases |
+| (b) exact v4 law (vs the fixed v3-v4 link) | +.15 | 12% | 1 |
+| **(c) exact lows (iid below v4, vs all six at μ(v4))** | **+.34** | **56%** | **22** |
+| (d) v4 at a random free position (vs the latest) | +.20 | 21% | 5 |
+
+- **The lows closure carries the E2 deficit.** Interior errors (both gaps >= t) need the 6 low inputs to *spread*.
+  Pinning them all at their conditional mean μ(v4) removes most of those error islands. On s515, s517, s518 and s525
+  the ratio collapses toward 0 as t rises (W0-W2 .00-.17 at t = 1.25), and only W3 restores it.
+- **Secondary:**
+  - v4's position (d) is worth ~21% (s515, s517, s518).
+  - On s512 the g23 transverse plus the exact v4 law carry most of the move (W0 .07 → W2 1.01 at t = 1.25).
+  - The overshoot model s508 is *amplified* by (b), to 5.7x, and fixed only by (c).
+- This is the closure lane's "spread lows" problem (T327/T339), here showing up on the rare interior event.
+  g12/g23 quadrature cannot fix it (K5 is unchanged). A deductive fix needs a lows closure with spread, e.g. a few
+  order-statistic nodes for the 6 lows, or T339's spread closure, carried along the line.
+
+Claims [measured, oracle MC on 8 open DEV3 models; unverified]: the dominant term in T340c's E2 deficit is the
+deterministic lows closure (56% of the log-error; the largest step in 22/32 cases). v4's position comes next (21%).
+The g23 transverse and the v4 law contribute ~12% each.
