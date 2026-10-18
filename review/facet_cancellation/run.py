@@ -14,7 +14,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 OUT = HERE/'output'
 START = time.process_time()
-from primitive import Work, reduce_chain, dyadic_totals, pair
+from primitive import Work, reduce_chain, dyadic_totals, pair, archived_integer
 from fixtures import fixtures
 
 
@@ -124,6 +124,7 @@ def main():
         save()
 
         phase = 'saved_complex'
+        clock = time.process_time()
         event('archive_decode_attempt', {'path':p['archive']})
         payload = json.loads(gzip.decompress(Path(p['archive']).read_bytes()))
         assert payload['checkpoint_sha256'] == p['checkpoint_sha256']
@@ -131,12 +132,14 @@ def main():
         # Decoded model metadata are retained only for provenance; no recurrence or weights operation.
         result['input'] = {'checkpoint_sha256': payload['checkpoint_sha256'],
                            'correct_simplices':5058,'gate_simplices':3853,'archive_sha':sha(p['archive'])}
-        rows = [{'rays':[[int(x) for x in ray] for ray in row['integer_rays']],
+        rows = [{'rays':[[archived_integer(x) for x in ray] for ray in row['integer_rays']],
                  'expected_det':row['normalized_absolute_determinant']} for row in payload['correct_simplices']]
+        result['archive_decode_conversion_cpu'] = time.process_time()-clock
         clock = time.process_time()
         ans = reduce_chain(rows,4,Work(),event)
         atomic(OUT/'chain.json.gz',ans,True)  # returned chain durable before cap/assertions
         result['chain_cpu'] = time.process_time()-clock
+        clock = time.process_time()
         original_totals,reduced_totals = dyadic_totals(ans['originals']),dyadic_totals(ans['terms'])
         result['chain'] = {'archive_sha':sha(OUT/'chain.json.gz'),'source_simplices':len(rows),
                            'unique_facets':len(ans['facets']),
@@ -145,6 +148,7 @@ def main():
                            'zero_anchor_terms':sum(x['coefficient']!=0 and int(x['signed_det'][0])==0 for x in ans['facets']),
                            'integration_terms':len(ans['terms']), 'counts':ans['counts'],
                            'original_totals':original_totals,'reduced_totals':reduced_totals}
+        result['dyadic_accounting_cpu'] = time.process_time()-clock
         save()
         event('chain_result',result['chain'])
         assert max(int(original_totals['signed_lower_units']),int(reduced_totals['signed_lower_units'])) <= min(int(original_totals['signed_upper_units']),int(reduced_totals['signed_upper_units']))
@@ -195,7 +199,8 @@ def main():
         result['comparison']={'boundary_minus_baseline':c['value']-b['value'],
                               'combined_ideal_bound':b['ideal_truncation_bound_float']+c['ideal_truncation_bound_float'],
                               'node_ratio':c['nodes']/b['nodes'],'integration_cpu_ratio':c['cpu_seconds']/b['cpu_seconds'],
-                              'cold_boundary_cpu':result['chain_cpu']+result['rule']['setup_cpu']+c['cpu_seconds'],
+                              'cold_boundary_components_cpu':result['archive_decode_conversion_cpu']+result['chain_cpu']+result['dyadic_accounting_cpu']+result['rule']['setup_cpu']+c['cpu_seconds'],
+                              'component_timer_excludes_imports_prerequisites_controls_and_some_serialization':True,
                               'inherited_enumeration_not_included_in_incremental_timer':True,
                               'floating_evaluation_certified':False}
         result['pass_all']=True

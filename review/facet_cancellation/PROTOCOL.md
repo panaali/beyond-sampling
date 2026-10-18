@@ -82,8 +82,11 @@ is in CPU but excluded from the partial counters.
 Inherited enumeration and certification are not free: pinned original results save
 gate enumeration0.042940864CPU and geometry/exact audit5.465172562CPU, with the
 original integer operation ledger. These historical timings are not a matched
-speed benchmark. Cold boundary work includes all newly measured chain construction,
-matching, rule setup and integration, with inherited discovery separately reported.
+speed benchmark. Cold boundary component timers include archive decode/conversion,
+chain construction/matching, dyadic TV/accounting, rule setup and integration, with
+inherited discovery separately reported. This component sum excludes imports,
+prerequisite checks, controls and some metadata serialization; full process CPU is
+also retained and must not be replaced by the component sum as a full cold cost.
 Original integrals evaluated here are validation/comparator work; report them too.
 
 Alternative explanations and cheapest discriminators: (1) low cancellation may
@@ -101,7 +104,9 @@ artifact, then immutable gate.json before one run. Required review pins are prim
 fixtures, driver, this document and protocol; verify all protocol/gate/reviewer pins
 separately. Explicit hexadecimal review/publication citations are required. Runtime
 invoked executable, resolved binary, NumPy version/path and binary sources are pinned.
-All inputs finite exact integers; reject unexpected values, never clamp or repair.
+All inputs finite exact integers; archived rays/determinant pairs must be canonical
+decimal strings and determinant numerator/denominator strictly positive. Reject
+unexpected values, never truncate floats, clamp or repair.
 
 One primary lock, one BLAS/OpenMP thread, soft AND hard CPU110s, address-space2GiB,
 100s internal CPU, timeout120s AFTER acquiring the lock. Hard stop may leave an
