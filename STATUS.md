@@ -1,19 +1,21 @@
-# Project status (2026-10-17)
+# Project status (2026-10-18 14:00 UTC)
 
-↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md)
+↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [Owner Q&A](OWNER_QA.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md)
 
-The registry, hypothesis ledger and every number with its source are in [`INDEX.md`](INDEX.md). This page summarises them.
+This page summarises [`INDEX.md`](INDEX.md), which holds the registry, the hypothesis ledger and every number with its
+source. Each claim below cites its INDEX row (T-, E- or H- number). "(unverified)" means no second agent has checked it
+yet. Nothing here is confirmed unless the ledger says so. Most result folders live on the child sessions' branches,
+not on this branch; each INDEX row names the branch and commit.
 
 ## In plain words
 
-**Update 2026-10-18 (new DRI; details in [m16/SCALING_OBSTRUCTIONS.md](m16/SCALING_OBSTRUCTIONS.md)).**
-- **Exact counting does not scale to the target.** Tonight we measured why. The network's input space is cut into linear pieces whose number multiplies ~25-30x per extra input (independently confirmed for the first 4 inputs). That is roughly 1e13 pieces for all 10, far more work than just testing it.
-- **The cheaper rescue ideas all saved only small constant factors:** merging, pruning, symmetry, grouping by input pattern, and labelling the rare error cases.
-- **Training doesn't reduce the number of pieces** (a random network has as many). Instead it moves them onto the "tie walls" where the 2nd and 3rd largest numbers are close: that is where all the difficulty sits.
-- **The best deterministic estimate** beats plain testing only ~1.1-1.3x, and only on the clean model.
-- **A precise answer key now exists:** accuracy 95.31175% ± 0.00004 points (300 billion samples).
-- **The challenge remains unsolved.** Any real solution would have to describe the tie-wall band compactly without cutting it into pieces.
-
+**In one paragraph.** ARC's challenge is still unsolved. ARC asks for a way to calculate this network's accuracy from
+its weights, without trying random examples, that is at least as precise as random testing for the same amount of
+work. Our best calculation is about 2.6 times worse than random testing in squared error at equal effort (it is too high
+by about 0.44 points, and its typical error is about 0.75 points). That passes the project's own "within 10 times" bar but not ARC's "match" bar,
+and it works only on freshly retrained networks, not on networks with noise added to the weights. Since 13:13 UTC
+today the owner's priority is rare failures, which is ARC's long-term goal. There the first results are mixed and still
+being checked. Counting the network's pieces exactly is ruled out.
 
 **What we set out to check.** A Goodfire essay ("Neural Networks Are Already Clean") claims most neurons in big
 language models have one clear job and that interpretability may soon be solved. ARC's Jacob Hilton replied that
@@ -27,102 +29,311 @@ precisely as testing it on random examples does for the same effort.
   directions "one job".
 - Our pre-registered test, after independent review, is *inconclusive*: the test was too small to decide.
 
-**2. How the 432-number network works: about 80% understood.**
+**2. How the 432-number network works: mostly understood, but not precisely enough to calculate with.**
 - Parts: a "highest so far" tracker, a "new record" alarm, checkers comparing the newest number with the high score,
-  and rotating "clocks" whose angle records how long ago the biggest number arrived (measured 42.7 degrees per step,
-  predicted 42.8).
-- Its mistakes come from two situations: near-ties among the top numbers, and inputs that are almost all negative.
+  and rotating "clocks" whose angle records how long ago the biggest number arrived (measured 41.47-41.71 degrees per
+  step on two seeds, against 42.75 from the weights; H-M1).
+- Its mistakes come from two situations: near-ties between the 2nd and 3rd largest numbers, and inputs that are almost
+  all negative.
+- A neuron-by-neuron account was checked by a second agent (T241, core confirmed). But swapping all 16 neurons for our
+  formulas agrees with the real network on only about 95.5-96.6% of inputs (.9554 and .9659 in two implementations),
+  and its accuracy is off by +0.11 to +0.82 points. A calculation needs far more precision than that, and so far no
+  estimator has been improved by the neuron-level story (T338, T341; [Owner Q&A 4.2](OWNER_QA.md#q4-2)).
 - Some prettier claims (a neat "harmonic" clock series, "all 16 neurons confirmed") were weakened or withdrawn by our
   own checks.
 
-**3. ARC's challenge: not solved.**
-- About 30 different attempts (literature-inspired, cross-disciplinary, "think like Feynman/Tao/Laplace/Poincare"),
-  all scored independently on one leaderboard.
-- **Every pure calculation loses** to plain testing on the 10-step network, by 8x to over 300x.
-- **Best working method ("srb", smart testing):** about 1.6-2.4x more efficient than plain testing, and the only one
-  that wins on every group of test networks, including independently trained ones. It still tests examples, so it does
-  not count as ARC's kind of solution.
-- **New map of where calculation works:** on short sequences (3-4 numbers), pure calculation beats testing by up to
-  ~500x. Around 5-8 numbers (depending on network width) it collapses, because mistakes stop being neat thin strips
-  and become rare, wide, irregular patches.
+**3. ARC's challenge: not solved. Our best calculation is about 2.6 times short.**
+- **How it works.** For each of the 720 ways to place the top three numbers among the ten positions, it follows the
+  network exactly, switch by switch, along the two directions in which the top numbers come close to tying. It then
+  adds up the probability of the wrong stretches. Seven simplifications are declared in advance, for example "cases
+  with a large gap are assumed correct" and "the two directions are treated as independent"
+  ([Owner Q&A 3.9](OWNER_QA.md#q3-9)). It never runs random examples.
+- **Score (T317f, T335).** It was scored once on 100 freshly trained copies that nobody had looked at (the sealed
+  panel HP4, run by the independent scorer). Typical error 0.75 points, overestimate 0.44 points, about 3,300 model runs
+  per network. Random testing at the same effort has about 2.6 times smaller squared error, and it reaches our accuracy
+  with about 1,255 runs. Result: it passes our lenient bar (within 10 times) and fails ARC's strict bar (match).
+- **Limits.**
+  - It works only on retrained networks. With noise added to the weights it breaks down between 0.1% and 0.25%
+    relative noise (T337, unverified), because noise creates mistakes far from the near-ties, where the method assumes
+    the network is right.
+  - No random examples are used when it runs. But its simplifications were chosen by checking them against random
+    testing on 80 development networks, so it is not "deductive" in Hilton's strict sense (second-agent audit, T324).
+- **Why it is stuck.** A second agent split the error into parts (T324; the two biggest parts were re-measured by
+  another agent with its own code, T334). Treating the two directions as independent causes about 40% of the squared
+  error, and assuming large-gap cases are correct about 20%. Summarising the 7 smaller numbers by one value causes 34%.
+  Every repair so far either costs as much as it saves or swaps one error for another:
+  - cheaper settings: none helps, and there is a floor of about 2,200 runs (T326);
+  - proofs that a walk can stop early: exact, but they save almost nothing. A declared early-stop rule is what made
+    T317f (T330, T330b);
+  - walking further: more accurate, but too costly (T331);
+  - spreading out the 7 smaller numbers instead of using one value: its errors vary much less from network to network,
+    but all its estimates move up, so it is too high by 0.76 points overall (T327, T339);
+  - handling the two directions jointly and exactly: about 17 times the whole budget that ARC's bar allows (T333);
+  - a formula for how much "independent" overstates accuracy: it removes most of the overstatement, but it missed its
+    pre-registered accuracy line (T347);
+  - combining the last two ideas: the pre-registered choice kept T317f. The combination had the smallest error (0.61
+    points) but cost about 2,800 extra runs (T351).
+- **Newest result (T353, unverified).** A cheaper rewrite of that combination gives the same estimates at 5,079 runs. On
+  the 80 development networks it scores 2.60, against T317f's 3.14 on the same networks (lower is better; 1 means
+  "matches random testing"). Next it is checked on fresh development networks (DEV3). If it holds, it becomes the
+  single submission for the last sealed panel (HP5). Even then, ARC's bar needs a typical error of about 0.38 points at
+  that cost (T351).
 
-**ARC's public position (found 2026-10-17, see [lit/web_arc](lit/web_arc/README.md)):** on 2026-08-17 Jacob Hilton wrote that
-their progress on AlgZoo is "fairly marginal and we are not much closer to succeeding at the challenge". ARC's only
-published estimators (for a 32-parameter model) were, by our reproduction (E32), 2.4x (B) and ~10x (A) worse than
-sampling in MSE at ARC's own operation counts, which ARC called "roughly match" (A is ~1.4x when operations are counted
-as implemented, as our leaderboard does). So the private claim that ARC has cracked M_16,10 is doubtful on public
-evidence (H-E5), and ARC's demonstrated bar is an MSE ratio of roughly 2-10, not our 1.
+**4. Rare failures: the owner's priority (ARC's long-term goal).**
+- ARC ultimately wants to estimate the chance of rare bad behaviour. Random testing cannot see a one-in-a-million
+  event with a few thousand tries, but a calculation's cost does not depend on how rare the event is.
+- **First test (T340, partial positive, unverified).** On 3 networks we looked at rare kinds of mistakes with true
+  chances between about 2 in 10 million and 4 in 10,000 (measured with 1-10 billion GPU tests).
+  - A cheap version (11,000-19,000 runs) gets "wrong even though both gaps are large" within a factor of 3 in all 6
+    cases. But it misses the "far-from-tie islands" completely.
+  - A careful version (210,000-320,000 runs) finds the islands at 0.64-0.89 of the truth on the retrained networks,
+    but only 0.20-0.29 on the main network.
+  - At equal effort, each version alone beats random testing in 5 of 15 cases. Using the better version for each
+    kind of event wins 10, ties 3 and loses 2. That rule was chosen after seeing the results, so it is being re-tested.
+- **Running now:**
+  - a fix for the careful version's shortfall (T340c, board task T349);
+  - an independent re-check by a different agent on new networks (DEV3), with the rule fixed in advance (T350).
+- **Guaranteed limits failed (T344, unverified).** The 10 steps blow up uncertainty, so proofs only work on tiny
+  regions. The only guaranteed upper limit is 8,200-27,500 times too high.
 
-**First positive (2026-10-17, E36, independently confirmed by R2):** for the 32-parameter M_4,3, an accuracy estimate
-derived from the network's mechanism (no sampling, no region listing, nothing fitted) beats random sampling ~50x in
-squared error under ARC's protocol, where ARC's own estimators were 2.4-10x worse. Scope: one training seed; it does not
-yet transfer to the other four (T75), and the ladder to bigger models is T73.
+**5. Counting the pieces exactly is ruled out (H-E13).**
+- With every switch fixed, the network is a simple linear function. But the number of such pieces multiplies by about
+  23-33 per step: at least 15.5 million after 6 of the 10 steps (T270, an exact lower bound). A geometry bug (T316)
+  means the true count is higher. Extrapolated, about 10 trillion (1e13) pieces at 10 steps.
+- A data-centre-scale run might finish, but at roughly a trillion (1e12) to 1e16 times the work of random testing (an
+  order-of-magnitude estimate, [Owner Q&A 6.3](OWNER_QA.md#q6-3)). That would meet the letter of ARC's challenge, not
+  its point.
+- Exact calculation as one *part* of a method is alive: T317f is exact along its chosen lines.
 
-**Correction (E46):** the (8,4) loss in E45 was a bug in the 4-D probability calculation; with it fixed the recipe
-**passes (8,4)** on all 5 seeds and noisy copies (MSE ratio <= 0.27). At (8,5) it is still accurate (error 0.0002 pp, seed 0) but costs 2.2e11 operations; the cost
-grows ~250-5000x per extra input, so **M_16,10 projects to >=1e17 operations (E48): the challenge remains unsolved**. [CORRECTED 2026-10-18: an extrapolation from two growth steps, ~6.5e16-4.7e17 (trend ~2e23), not a bound] Earlier text: the recipe at (8,4) appeared to lose to sampling (MSE ratio 3-48) and its cells grow faster than the number of
-linear regions (cells/regions 2.8, 5.4, 33 for T=3,4,5). Projected cost for M_16,10 is >=1e15 operations, so it was not
-run. **The challenge remains unsolved**; the route needs a new idea that avoids following every gate switch (see
-[DRI_HANDBOOK.md](DRI_HANDBOOK.md) section 6).
+**6. New test panels.**
+- HP4 is used up (T317f).
+- HP5 is sealed with the scorer as the reserve for one more sealed submission (T336, 14:08; nothing scored yet).
+- DEV3 is being prepared as a fresh open development set (T342), so that new ideas are checked on networks not used to
+  design them. The 80 networks of DEV2 have been reused for about 40 variants.
 
-**Update (2026-10-18, new DRI).** The recipe fails at (8,5) on one of five seeds (T192, unverified), and from 4 inputs
-on, listing every region exactly costs only 1.2-1.5x as much with essentially no error, so the main route is now exact
-enumeration made cheaper by the network's structure ("brute force after exploiting symmetries", ARC's own phrase); the
-recipe is kept as a diagnostic. All costs are now counted in one unit (FLOPs, T196), and a rung counts only under one
-fixed protocol (TASKS directive 7). The owner reports, second-hand, that a new ARC member has a solution for M_16,10
-(unverified, H-E5); we will not contact ARC until we have a candidate solution of our own (T203, T41).
+**7. The owner's ideas on the backlog** (not started):
+- **T345:** a small feed-forward network on the same task, to test whether the 10-step depth is what makes this hard
+  (low priority).
+- **T346:** a brainstorm of cleverer exact methods, with two independent outside reviewers (low priority). Step 1, the
+  DRI's seed ideas with kill tests, is in [m16/approaches/exact_brainstorm](m16/approaches/exact_brainstorm/README.md).
+- **T348:** a GPU count of how fast the relevant pieces grow up to 10 steps, as a diagnostic. It is reserved, but
+  queued behind the rare-event answer keys and DEV3.
+- **T352:** versions of the network with coarse activations (on/off, or a few levels; possibly also coarse inputs).
+  These turn it into a finite machine that an exact calculation might handle cheaply. Planned after the rare-event
+  work. Whether ARC would count that is debatable ([Owner Q&A 6.5](OWNER_QA.md#q6-5)).
 
-**4. The question to ask ARC.** If they have solved the 10-step network, they must have a compact way to handle
-those rare wide patches. That is exactly where every approach here broke.
+**8. ARC.**
+- **Public position:** on 2026-08-17 Hilton wrote that progress on AlgZoo is "fairly marginal". His talk from about
+  2026-09 calls the M_16,10 challenge "as yet completely open" ([lit/web_log.md](lit/web_log.md),
+  [lit/web_arc](lit/web_arc/README.md)).
+- **Their own bar:** ARC's published estimators for its small 32-number network were 2.4 to about 10 times worse than
+  sampling by our reproduction (E32), and ARC called that "roughly match". That range is where our lenient bar comes
+  from. It is our convention, not ARC's rule.
+- **A reported solution:** the owner relays, second-hand, that a new ARC member has a solution for M_16,10 (H-E5,
+  unverified).
+- **Contact:** whether to contact ARC is the owner's decision. The DRI recommends sending at most a progress note (the
+  T323 dossier), not a claimed solution.
+- **The question to ask ARC:** a real solution must handle the thin near-tie regions, broken into very many pieces, at
+  10 steps. That is where every approach here broke.
+
+**A precise answer key exists:** the network's accuracy is 95.31175% ± 0.00004 points (300 billion samples, T192).
+
+**How we got here.**
+- 2026-10-17: about 30 estimator attempts were scored on shared leaderboards, and every pure calculation lost on the
+  10-step network. For ARC's 32-number network (M_4,3), a calculation built from the mechanism beat sampling about 50
+  times in squared error (E36, confirmed, scoped).
+- Overnight to 2026-10-18 morning: a step-by-step "ladder" toward the full network passed (8 neurons, 4 steps) and then
+  failed on one seed at 5 steps (E46, T192, unverified). Exact counting was tested and ruled out.
+- 2026-10-18 morning: the scoring moved to each method's own cost and to sealed panels of retrained networks.
+- 2026-10-18 midday: the T317 family reached the lenient bar (HP2, then HP3 at 5.07-5.08). T317f followed at 2.63 on HP4.
 
 ## Technical summary
 
 | Question | Verdict | Where |
 |---|---|---|
-| Q1 Essay's "one main job" claim (Qwen3-0.6B) | H1 61% A (borderline); H2 underpowered: **inconclusive** (pre-registered rule mechanically says "refuted"); H3 passes but is inflated by token overlap; LLM-free one-job proxy shows no neuron/random difference | [`RESULTS.md`](RESULTS.md), ledger H-Q1..Q4 |
-| Q2 Legible vs understood (AlgZoo) | M_4,3 control passes; M_16,10: 14/16 neurons legible, 5-constant labels rebuild 54% (driven by the constant limit) | [`RESULTS.md`](RESULTS.md), H-A1/A2 |
+| Q1 Essay's "one main job" claim (0.6B-parameter open language model) | H1 61% A (borderline); H2 underpowered: **inconclusive** (pre-registered rule mechanically says "refuted"); H3 passes but is inflated by token overlap; LLM-free one-job proxy shows no neuron/random difference | [`RESULTS.md`](RESULTS.md), ledger H-Q1..Q4 |
+| Q2 Legible vs understood (AlgZoo) | M_4,3 control passes; M_16,10: 14/16 neurons legible, 5-constant labels rebuild 54% (driven by the constant limit); per-neuron account core confirmed (T241), all-16 replacement accuracy match not robust (+0.11 vs +0.82 pp) | [`RESULTS.md`](RESULTS.md), H-A1/A2, T241 |
 | Q3 Mechanism of M_16,10 | running max / record detector / comparators / damped rotating modes (phase = time since max); error anatomy exact; Fourier/harmonic reading weakened | [`m16/FINDINGS.md`](m16/FINDINGS.md), H-M1..M8 |
-| Q4 ARC challenge | **open**; best verified estimator srb (sampling) | [`INDEX.md`](INDEX.md) section 4b |
+| Q4 ARC challenge | **open**: strict bar unmet. Best sampling-free estimator T317f, HP4 F 2.63 [1.93, 3.39] (lenient pass, strict fail, retrains only); rare-event lane partial positive (unverified) | [`INDEX.md`](INDEX.md) section 4b, H-L1 |
 
-**Leaderboard v3 (final, 2026-10-17; supersedes the v2 table below):** compute charged as implemented, results on models an
-estimator was tuned on excluded, 30 test models up to harsh noise, 32M-sample truths. **Every mechanistic (no-sampling) estimator
-loses on M_16,10, by 37x to >4000x.** Fixed-node quadrature (sci_tao, sci_feynman) beats sampling on the seeds and mild noise
-(MSE ratio 0.07-0.46) but not at harsh noise; srb no longer beats sampling. Summary: [results/leaderboard_v3_summary.txt](results/leaderboard_v3_summary.txt).
+Score used below: **F** = MSE x C_eff / mean p(1-p), with C_eff = max(C, 1k FPE) and FPE = forward-pass equivalents
+(TASKS Directive 8, amendment 2). Plain sampling scores F = 1. **Strict bar:** F <= 1 (ARC's "match"). **Lenient
+bar:** F <= 10, and a "candidate" also needs the upper 95% CI <= 10 (a project convention taken from E32's 2.4-10x).
 
-**Leaderboard v2** ([`m16/leaderboard.py`](m16/leaderboard.py); 18 models: original, 5 trained seeds, 12 noisy copies; 24 repeats; 95% CIs).
-MSE relative to plain sampling at 64k model evaluations (below 1 is better):
+### Q4 scoreboard: the T317 family on sealed retrain panels (scored by the independent scorer, T281)
 
-| Method | Original | Seeds 0-4 | sigma 0.0025 | sigma 0.005 | Type |
+| Version | Change | Panel | C (FPE) | F [95% CI] | Notes |
 |---|---|---|---|---|---|
-| srb (`control_variate/`) | **0.42** | **0.45** | **0.50** | **0.61** | sampling |
-| joint (`tie_lines/`) | 0.34 | 0.72 [0.48,1.01] | 0.51 | 0.53 | sampling |
-| boundary | 0.61 | 0.68 | 0.52 | 0.68 | sampling |
-| stratified | 0.62 | 0.61 | 0.54 | 0.72 | sampling |
-| tube | 0.14 (single value) | **1.23** | 0.46 | 0.75 | deterministic quadrature |
-| plain sampling (calibration) | 1.06 | 1.15 | 1.13 | 0.90 | - |
+| R1W V1 (T304) | exact walks + declared closure | HP2 | 12.1k (written convention) | 14.92 [10.74, 19.38] | fail |
+| T317 | continuity restarts + executed prefix tree, G=48; estimates = V1 to 6.7e-16 | HP2 | 7,880 | 9.71 [6.99, 12.61] | point pass, not a candidate |
+| T317b | G=20 | HP2 | 6,405 | 7.89 [5.68, 10.25] | point pass, not a candidate |
+| T317c @c70e22cd | exact cost-only savings | HP2 / **HP3** | 5,489 / 5,427 | 6.76 [4.87, 8.79] / **5.08 [3.42, 7.04]** | HP3 fresh, scored once: RMS .805 pp, bias +.415 pp |
+| T317d | model-free tables precomputed; exact-law transverse points | HP3 / HP2 | 5,431 | 5.07 [3.41, 7.03] / 6.75 [4.86, 8.78] | |
+| T317e (T325) | self-contained clean-up | = T317d | 5,490 (DEV2) | = T317d | bitwise identical to T317d; no random draws |
+| **T317f (T335)** | T317e + T330's C1 frozen-gate margin screen (declared) | **HP4** | **3,302** | **2.63 [1.93, 3.39]** | fresh, scored once: RMS .749 pp, bias +.436 pp, n* 1,255. Lenient pass, strict fail |
 
-**Deductive attempts (all fail vs sampling):** probe v2-v4, observer (E21), propagation (E13), cone enumeration (E14),
-rank orderings (E10), FORM/SORM (E17, best bias +0.15 pp), branch-and-bound (E19, certified nothing),
-Laplace/Feynman/Tao/Poincare scientists (E24-E27).
+- **T317f sensitivities and checks:** screen-charge audit F 2.67 [1.96, 3.45]; stacked counts C 3,743, F 2.98
+  [2.19, 3.85]; HP4 plain-MC control .83-1.25 (every CI covers 1). Secondary scores on spent panels: HP3 3.22 [2.19,
+  4.42], HP2 4.41 [3.21, 5.66]. DEV2: RMS .827, bias +.489, F 3.14. It was chosen among ~6 DEV2 variants (forking-paths
+  note in its README).
+- **Deductive status (T324 audit, second agent):** sampling-free at runtime (RNG-patched runs are clean), but the
+  approximation scheme was selected and validated by MC on DEV2, so it is **not deductive in Hilton's strict sense**.
+- **Verification:** R1W V1 and T317c were re-implemented by another agent (T312, T320; the same agent did both):
+  T317c's estimates agree within .0077 pp, and the cost has ~9% latitude. H-L1 is recorded as *measured on sealed panels*, not confirmed.
+- **Scope:** retrains of the zoo configuration only. T317c on HP1's noisy copies scored F 39-206. The lenient bar is a
+  project convention.
 
-**Key facts established** (ledger IDs):
-- H-M7: 1e7+ linear regions (Chao1 lower bound 3.8M, still rising).
-- H-E7: gate pieces (~1.4 deg) are much finer than the correct/wrong pattern (5-20 deg), so exact path integration wastes compute.
-- H-E8: even an oracle additive description of the tie band misses by 4%.
-- H-E9 (refuted as root cause): margin cancellation is real but does not track failure.
-- H-E10: deterministic summaries of the low inputs always overestimate accuracy (Jensen-type, 60/60).
-- H-E11: calculation beats sampling up to T~4-5, collapsing as the band integrand turns heavy-tailed.
+### What limits it: the error budget (T324; product and tmax terms confirmed by T334)
+
+Removing one approximation at a time from V1 (Delta bias, Delta MSE), 80 DEV2:
+
+| Approximation | T324 | T334 (independent code) |
+|---|---|---|
+| line-set product | -.57 pp, **-40%** | -.562 [-.623, -.502], -41% [-57%, -20%]; share across models 20-57% |
+| tmax .5 cut | -.18 pp, **-18%** | -.183 [-.235, -.136], -20% [-33%, -1%] |
+| blind g12 | -.07 pp, -9% | |
+| mu-linearisation | +.02 pp, +2% | |
+| single transverse point (alone) | +.27 pp, +25% (interacts with the product) | |
+
+The walk approximations carry 66% of the MSE and the **closure c 34%**. The product overstates accuracy by +.30-.34
+pp, and the single anchor understates it by -.34, so the two cancel at one anchor (Addendum A).
+
+### Strict-bar lanes since T317e (80 DEV2 unless noted; all unverified unless noted)
+
+| Lane | Idea | Outcome |
+|---|---|---|
+| T326 | cost-error frontier over 80 knob configs | **negative**, scoped to the family's knobs. None beats T317e. The structural floor is ~2.2k FPE; an ideal cap there would give strict F ~1.9 at unchanged RMS (DRI correction) |
+| T330 / T330b | rigorous safe-to-tmax screens (interval propagation, per-gate-pattern operator norms) | **negative**: exact, but best C 5,525 / 5,561 vs 5,490. Tier C (a declared heuristic) became T317f. Zonotopes untried |
+| T331 | raise tmax (exact walk beyond .5; affine extension) | **GO = NO**: best RMS .669 (tmax 1 + extension) at C +53%, MSE x C 1.08x T317e; with C1: RMS 1.034, bias -.708 |
+| T327 | closure re-check and untried variants (oracle) | T319 reproduced (T319 **dead, verified, scoped**). Arm B (one-pattern spread lows): **GO**, closure floor .482 -> .343 pp at no added cost (reverse pattern .255) |
+| T339 | spread closure in the estimator (T317g) | **NO FREEZE**. For s=-1, error sd .667 -> .455 and corr with truth .978 -> .991, but bias +.758 (T317f +.489), RMS .884, F 4.04: the closure's negative bias had been cancelling part of the walks' positive bias |
+| T333 | replace the product | No zero-cost rule works. The exact joint set J2 adds ~21k FPE, ~17x the ~1.2k strict allowance: **out of reach by arithmetic**. The net overstatement (+.574 pp) does not track accuracy and lives in the L-band near both tie walls |
+| T347 | first-principles tilt correction of the product | **NO GO** on the pre-registered rule (mean abs error .230 vs go .1). Post hoc: bias +.439 -> -.013, RMS .796 -> .667 at ~1.4k FPE extra (4.3k crudely counted) |
+| T351 | T317f + spread + tilt, four arms | **NO FREEZE**: the selection keeps T317f. Spread+tilt has the family's best RMS (.609) but costs 6,543 FPE |
+| **T353** | cost-only rewrite of spread+tilt (reuse the crossing-cell state) | **GO on DEV2 (unverified)**: estimates bitwise equal to arm A3; C 5,079 FPE; bias +.413, sd .451, RMS .609; F 2.60 (T317f 3.14). Frozen as `t351/estimator_h2.py`. A pre-registered DEV3 check is pending; if it is confirmed, it is the candidate for HP5 |
+| T338 / T341 | why the spread works | weight-chosen lows no better than recency (NO GO); the running-max reading is **refuted**. The reason is open |
+| T314 / T332 | information ceilings (inductive diagnostics) | best <= 4k-FPE features .855 pp; ridge on T317e's own outputs .577 pp [.46, .68] |
+
+Strict needs RMS <= ~.38 pp at ~5k FPE (T351). T343 (DEV3) independently re-checks the T339 decomposition.
+
+### Noise robustness (T337, unverified)
+
+| Relative sigma | 0 | .0005 | .001 | .0025 | .005 |
+|---|---|---|---|---|---|
+| T317f F | 3.3 | 3.1 | 4.0 | 12.0 | 32.4 |
+
+The breakdown sits **between .1% and .25% relative noise**. Noise creates errors far from the tie faces, which the
+geometry assumes correct: interior errors with both gaps >= tmax grow from .09 to .76 pp, and rank-4+ picks from .97 to
+3.2 pp.
+
+### Rare events (owner priority; T340 partial positive, unverified)
+
+- **Truths:** GPU float64 (orig 1e10, seeds 1e9); an independent CPU run agrees within 1-1.7 s.e.
+- **Events:** E1(t0) = rank-3 pick with g23 > t0 (far-gap islands); E2(t) = wrong with g12, g23 >= t.
+- **Variant A** (T317's transverse point, 11-19k FPE): E2 within 3x in 6/6. It misses the E1 islands (100x-1e14x low).
+- **Variant B** (uncut walks, per-node transverse points, 0.21-0.32M FPE): E1 est/truth .64-.89 on the seeds and
+  .20-.29 on orig. It is one-signed low, which the diagnostic blames on walk-line placement.
+- **Equal compute (post hoc, executed C):**
+  - variant A wins 5, ties 7, loses 3 of 15;
+  - variant B wins 5, ties 3, loses 7;
+  - the better variant per event family wins 10, ties 3, loses 2;
+  - no single estimator wins a majority. The DRI's earlier "12 of 15" was corrected.
+- **Open:**
+  - T349 (T340c): g12 at exact-law Gauss nodes for variant B.
+  - T350: independent re-implementation on >= 6 DEV3 models, with the family rule and a go line of >= 2/3 of cases
+    pre-registered.
+- **T344 (certified upper bounds): scoped feasibility negative (unverified).**
+  - Interval certificates hold only on boxes <= 1e-4 wide, even in 3-D.
+  - Far-gap sub-cone enumeration projects to ~2e8 regions at step 10.
+  - The only rigorous bound, P(g23 > t0), is 8,200-27,500x looser than the target's truths.
+  - Not pursued: a bound conditional on the declared closure.
+
+### Exact route: dead (H-E13; DRI ruling, scoped to region/coverage enumeration)
+
+- **Prefix counts** 34 / 792 / 21,032 for k = 2..4 (confirmed); 632,394 at k = 5.
+- **T270:** N6 >= 15,483,505 (exact lower bound), so g_N(5->6) >= 24.5. The estimate of 31-33 is biased low.
+- **T316:** a geometry bug in estT's k >= 6 cells undercounts both masses and regions (subtree 125: 7,659 -> 8,495 with
+  the patch). The patched run is ~35x slower.
+- **Mass coverage** still grows >= 7.58-14.16x per step (provisional lower bounds, delta 1e-3..1e-7).
+- **Extrapolation:** ~1e13 regions at k = 10. This is an extrapolation, not a proof.
+- **Datacentre estimate:** exact enumeration at datacentre scale would cost roughly 1e12-1e16x sampling's compute
+  ([Owner Q&A 6.3](OWNER_QA.md#q6-3)).
+
+### Panels
+
+| Panel | Row | Contents | State |
+|---|---|---|---|
+| HP1 | T276 | 150 models: orig + zoo seeds 0-4, 8 noisy copies each at abs sigma .05, rel .005, rel .01 | sealed; used |
+| HP2 | T284 | 100 retrains, seeds 100-199 | sealed; used by the lineage (5 submissions) |
+| HP3 | T321 | 100 fresh retrains, seeds 200-299 | sealed; T317c scored once, then T317d (cost-only) |
+| HP4 | T328 | 100 retrains, seeds 300-399 (mean truth .92265, sd .03184) | sealed; scored once (T317f); **spent** |
+| HP5 | T336 | 100 retrains, seeds 400-499 | **sealed 14:08; reserve** for one submission named by the DRI |
+| DEV2 | T284 | 80 open retrains | ~40 variants so far (forking paths) |
+| DEV3 | T342 | 100 open retrains, seeds 500-599, truths published | **in preparation**; used by T343, T350, T353 |
+
+Truths are >= 1e8-sample float64 MC per model on an independent stream. Sealed truths are held only by the T281
+scorer.
+
+### Earlier results (2026-10-17 and overnight), kept for the record
+
+- **Leaderboard v3** ([results/leaderboard_v3_summary.txt](results/leaderboard_v3_summary.txt), LB3): every
+  mechanistic estimator loses on M_16,10 by 37x or more (rank_exact 37-450, cone_enum 56-750, observer/reliability
+  190-1100, propagation >4000). Fixed-node quadrature (sci_tao, sci_feynman) wins on low-noise groups but not at harsh
+  noise, and it is inductive under ARC's definition. srb no longer beats sampling (0.78-1.97). Leaderboard v2
+  ([`m16/leaderboard.py`](m16/leaderboard.py)) is superseded.
+- **Cheap frontier (T286):** at their cheapest settings, no earlier deductive estimator came within 7x of the lenient
+  bar.
+- **Small models:** for M_4,3 a mechanism-derived estimator beats sampling (MSE ratio 0.019, E36; H-U1 confirmed,
+  scoped). The ladder passed (8,4) (E46) and failed (8,5) on seed 2 (T192, unverified). E48's cost projection for
+  M_16,10 is an extrapolation (~6.5e16-4.7e17 ops), not a bound.
+- **Length scan (H-E11, confirmed):** tie-slicing quadrature beats sampling by 10^2-10^3x at T = 3-4 and collapses
+  from T ~ 5-6. T277 locates the collapse in the prefactor (unverified). These wins are quadrature-class (fixed Sobol
+  nodes), not deductive (T263).
+
+### Key facts established (ledger IDs)
+- H-M7: 1e7+ linear regions (Chao1 lower bound 3.8M, still rising). H-E13: exact enumeration is infeasible (see
+  above).
+- H-E14 (confirmed, k <= 4): training does not reduce the region count. H-E15 (confirmed, k <= 4, T <= 4): training
+  concentrates the regions at the tie walls.
+- H-E7: gate pieces are much finer than the correct/wrong pattern. H-E8: even an oracle additive description of the
+  tie band misses by 4%.
+- H-E9 (refuted as root cause): margin cancellation is real but does not track failure. H-E10: deterministic summaries
+  of the low inputs overestimate accuracy (60/60).
 - H-E12: the rare wide multi-cell bands are the crux.
+- H-L1: the best sampling-free estimator (see the scoreboard).
+- H-E5: the reported ARC solution is unverified.
 
-**Corrections made along the way** (from the independent review R1 and later checks): Qwen verdict softened to
-inconclusive; random-direction control found to be neuron-dominated; one-job proxy null result added; stratified gains
-corrected to 2.1/1.8/1.4x (and lower with generation cost); "harmonic series" weakened; "all 16 neurons confirmed"
-corrected to 13 in groups; tube's high-budget gain not confirmed (bias floor); orig ground truth fixed by pooling 28M
-samples; a "62x" efficiency figure retracted as an arithmetic error.
+### Corrections made along the way
+- **Q1 study (R1):** the verdict softened to inconclusive; the random-direction control was neuron-dominated; the
+  one-job proxy null was added.
+- **Estimators:** stratified gains corrected to 2.1/1.8/1.4x; tube's high-budget gain not confirmed (bias floor).
+- **Mechanism:** "harmonic series" weakened; "all 16 neurons confirmed" corrected to 13 in groups; the mode-based
+  "most damaging" flag withdrawn (T241).
+- **Truths:** the original model's truth fixed by pooling 28M samples; a "62x" figure retracted as an arithmetic error.
+- **2026-10-18:**
+  - E48's ">=1e17" restated as an extrapolation.
+  - The k = 6 count found completion-censored, and quadrature wins reclassified as inductive (T263).
+  - The cost convention written down after T312 found a charging discrepancy.
+  - T320 found ~9% cost latitude.
+  - T326's child F 4.8/6.3 corrected to ~1.9 (F scales linearly in C).
+  - T340's "12 of 15" corrected to 10 wins / 3 ties / 2 losses for the post hoc family rule.
 
-**Independence:** until 2026-10-17 no ARC AlgZoo material published after January 2026 was read. On 2026-10-17 the project owner relaxed this rule (ARC's M_16,10 solution is reported to be unpublished); every later ARC source read is logged in [lit/web_log.md](lit/web_log.md). The claim that ARC has solved
-M_16,10 (relayed privately) is unverified. [`m16/arc_eval.py`](m16/arc_eval.py) and [`m16/leaderboard.py`](m16/leaderboard.py) can score any estimator with the
-same interface for a direct comparison.
+**Independence:** until 2026-10-17 no ARC AlgZoo material published after January 2026 was read. On 2026-10-17 the
+project owner relaxed this rule (ARC's M_16,10 solution is reported to be unpublished). Every later ARC source read is
+logged in [lit/web_log.md](lit/web_log.md). [`m16/arc_eval.py`](m16/arc_eval.py) and the T281 scorer can score any
+estimator with the same interface, for a direct comparison.
 
-**Next steps** (prioritized and claimable in [TASKS.md](TASKS.md)): [`INDEX.md`](INDEX.md) section 5 (top: a stochastic reduction tracking the exact law of the tie margin; explaining
-the T~5 collapse; an optional brute-force exact reference with more compute).
+**ARC contact:** the owner's decision (owner ruling 2026-10-18 00:42: no contact without a candidate solution;
+T41/T203). The DRI recommends at most a progress note, built on the T323 dossier, which is framed as a progress note
+and not a candidate solution.
+
+**Next steps** (prioritised and claimable in [TASKS.md](TASKS.md); details in [`INDEX.md`](INDEX.md) section 5):
+1. The rare-event lane first: T340 with T349, then the independent T350.
+2. The T353 DEV3 check, which decides the HP5 submission.
+3. T343.
+4. Building the DEV3 panel (T342; HP5 is sealed).
+5. Then the owner's backlog ideas: T352, T348, T345, T346.
+
+Background reading: [m16/SCALING_OBSTRUCTIONS.md](m16/SCALING_OBSTRUCTIONS.md) (section 9 covers the cheap regime),
+[DRI_HANDBOOK.md](DRI_HANDBOOK.md), and [OWNER_QA.md](OWNER_QA.md) (every owner question, with answers and later
+updates).
