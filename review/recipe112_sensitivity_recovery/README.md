@@ -34,3 +34,17 @@ Additional raw artifacts may exist elsewhere. Branch-dependent wrapper behavior 
 
 ## Failure modes
 Do not silently substitute other noise seeds, treat aggregate ratios as corrected evidence, select variants by old corrupted performance, or relax tolerances after results. The published inventory is reviewable planning, not a new experiment.
+# Independent inventory handoff
+
+The bounded source/metadata phase passes independent reviewer h4 checks
+d7564cfd/3ad3dd98, published4d277d17. All12 source/data hashes,16 variant
+settings,320 aggregate groups,5440 source recipe calls and340 source model
+slots reconcile. The historical design additionally makes340 truth calls and
+four sampler-counter setups; those were not included in the recipe count.
+Noise86 panel semantics and noise89 diagnostic provenance remain distinct.
+The single saved-only review took.008005CPU and imported no author module.
+No estimator, model, noise, truth or native-cost replay occurred. This completes
+the source inventory, not numerical sensitivity validation. Historical variant
+outcomes and cost-sensitive negative conclusions remain unvalidated; any repair
+phase needs its own DRI-prioritized fixed scope and independent gates.
+
