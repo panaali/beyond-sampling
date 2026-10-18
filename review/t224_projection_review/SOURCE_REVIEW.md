@@ -21,3 +21,7 @@ The phase is ten analytic calls plus six guard calls only. No original model, fi
 ## Pre-execution issue retained
 
 The initial runner computes successful projection and original/lookup readouts, then performs exact Fraction assertions **before** saving that row. An assertion failure would therefore discard the completed numeric outputs, retaining only progress/traceback. The reviewer requested a narrow durability correction: save a pending raw row immediately, retain partial exact records, then assert and mark completion. No numerical or fixture change, extra control or rerun is requested. Source/resource clearance remains pending that frozen correction and explicit ledger-convention wording. The author must separately publish the numerical execution scope and immutable gate before the sole invocation.
+
+## Resolution before execution
+
+Author `119b6d01`, published `5c8b943d`, saves the projection dictionary immediately as a pending row, then saves original/baseline logits and labels, then saves each exact Fraction record before asserting its identity. The primitive and all fixtures are unchanged. README now explicitly distinguishes mathematical2H-1 dot expressions from canonical T196 dense2H. Source/protocol hashes, exact committed bytes, interpreter identity dependency and ten-plus-six AST fixture coverage were checked with stdlib metadata operations only. No author module was imported or called. `source_gate.json` provides the bounded clearance; the initial issue remains part of the record.
