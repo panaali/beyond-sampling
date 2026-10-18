@@ -1,0 +1,8 @@
+{
+  "scope": "Reviewer-only saved arithmetic; author artifacts unchanged",
+  "initial_failure": "AssertionError comparing cancellation fixture second-row residual; Python integer normalization introduced binary floating division",
+  "diagnosis": "Saved author residual is exact 2^-80; reviewer converted integer rows implicitly to floats and obtained zero",
+  "correction": "Convert every saved ray component to Fraction before elimination",
+  "corrected_result": "rank_witness_saved_review.json",
+  "author_candidate_geometry_model_calls": 0
+}
