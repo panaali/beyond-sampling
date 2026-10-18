@@ -819,3 +819,40 @@ upper bound on these 1e-4..1e-6 events is not reachable with the exact-walk mach
 - **Kill if** the mean per-step region growth over steps 2→5 is > 6x, **or** the projected step-10 total over the 720
   triples is > 1e6 regions. The projection is the median triple's count at k = 5 × (its mean growth)^5 × 720.
 - If killed: option (a), a certificate rigorous *conditional on the declared closure*, in 3-D (v2, g12, g23).
+
+## T344 results so far: option (b) killed; option (a) blocked at the planned method (`cone_count.py`, `cone_count.log`, `results_cone_count.json`)
+**(b) Region growth in the far-gap sub-cone** (pre-registered kill line: mean growth > 6x over steps 2→5, or a
+projected step-10 total > 1e6):
+
+| triple (orig) | k = 1..5 regions | growth 2→3, 3→4, 4→5 |
+|---|---|---|
+| (0,1,2) | 2, 16, 113, 288, 630 | 7.1, 2.6, 2.2 |
+| (3,6,9) | 2, 34, 792, 4,082, 13,067 | 23.3, 5.2, 3.2 |
+| (9,5,1) | 2, 20, 212, 3,994, (stopped) | 10.6, 18.8, — |
+
+- **KILLED.** Even the most favourable triple projects to 630 × 3.4^5 × 720 ≈ 2e8 regions at step 10, against the
+  1e6 line. Growth slows once the top values have been read (2-3x per step) but never approaches 1.
+- The run was stopped at seed0 (its own PID, checked) because the verdict was already clear.
+
+**(a) Certificate conditional on the declared closure, in 3-D (v2, g12, g23).**
+- **Interval propagation in 3-D:** around far-gap points (g23 in [1, 2]), the certified half-width is again
+  **<= 1e-4** (median). The 3-D reduction does not help IBP: the compounding is in Wh, not in the input dimension.
+- **The exact alternative is feasible in principle.** Under the closure, x is affine in (v2, g12, g23), so the
+  network is piecewise linear in 3-D, and a fixed gate pattern is one convex polytope. The certificate would:
+  1. enumerate the cells by grid probing;
+  2. take each cell's polytope by half-space intersection;
+  3. for each cell, run an event LP (argmax = p3 somewhere in it?), and charge an event-feasible cell's sub-polytope
+     its volume × the max density over its bounding box;
+  4. certify coverage by the volume sum, with any uncovered volume charged at the max density.
+- **Measured cell counts** on the nb domain [0,6] × [0,6] × [1,6]: 21-126 / 34-162 / 65-210 distinct cells per triple
+  at 20³ / 40³ / 80³ grids, so ~200-500 at saturation. That is ~4e5 cells per model.
+  [inferred] ~0.5 CPU-h per model at ~5 ms per cell, **over this task's budget for 3 models.**
+- **Caveat:** a closure-conditional bound is not a bound on the true probability. If far-gap rank-3 picks arise
+  through the lows (T340's alternative 1), the closure removes them, and the conditional bound could sit *below* the
+  truth.
+
+**Feasibility statement [measured probes; negative (unverified), scoped].** On this architecture, rigorous volume
+certificates by interval propagation fail at ~1e-4 box widths in 10-D and in 3-D alike, because |Wh| compounds over 10
+recurrent steps (the same mechanism as T330 tier A). Exact enumeration is infeasible in 10-D, at ~2e8 regions per
+event cone. In the closure's 3-D, exact enumeration is feasible but costs ~0.5 CPU-h per model, and the result would
+only be conditional.
