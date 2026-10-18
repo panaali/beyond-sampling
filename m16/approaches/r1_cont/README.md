@@ -633,3 +633,46 @@ the lenient-improvement track.
   - Untried: zonotopes, judged too costly per step.
   - C1 (declared, .076 pp) remains the practical screen. Making its error rigorous would need a bound on the free
     gates' effect, which these tiers could not deliver cheaply.
+
+## T335: T317f frozen, the HP4 submission (`cont_f.py`, `estimator_f.py`, `run_f.py`, `results_f.json`)
+**What:** T317e plus screen C1 on all three lines, at tmax .5. This is exactly the configuration that gave DEV2
+lenient F 3.14 at 3,328 FPE (T330 tier C, `C1_all`).
+- One self-contained file. T317e's functions are copied verbatim; `walk_c1` and `est` are added.
+- Imports: numpy, scipy.special.ndtr, itertools. **No Monte Carlo anywhere.**
+- The model-free tables are T317e's, precomputed once at import (`TABLES`, listed above under T317d and printed by
+  `table_sizes()`).
+- Class: **sampling-free at runtime** (no random draws), a deductive structure plus declared approximations.
+
+**Declared approximations:**
+- R1W V1's, as audited by T320:
+  - closure c (top-4 kept, with one Gauss node for v4 at the latest free position, moving with v3);
+  - μ linearised;
+  - blind g12 assumed correct;
+  - the gap beyond tmax assumed correct;
+  - product of line sets.
+
+  The DRI counts these as six (T320's list itemises seven).
+- **Plus C1:** a row stops walking when its current cell's frozen-gate margin is positive over [t, tmax], and the
+  rest of its window is taken as correct. Measured on DEV2 against T317e: declared error RMS .077 pp, mean +.045 pp,
+  max .34 pp. It is not bounded: later flips can create wrong islands.
+
+**Gate (`python run_f.py`):**
+- A fresh subprocess with numpy's RNGs patched to raise imports estimator_f and calls est. No error is raised, and
+  none of the development modules or scipy.stats is loaded.
+- On all 80 DEV2, estimates are **bitwise equal** to the T330 C1_all run (results_tierc.json) and to screen_c live.
+- FLOPs equal screen_c's minus exactly 3 × (H² + 2C²H) = **1.74 FPE**. screen_c charged that for tier-B tables (|Wh|,
+  |Wo_k − Wo_j|) that C1 mode never uses; cont_f does not compute them, so it charges as executed.
+- **DEV2 (development):** C **3,326 FPE**, RMS .827 pp, bias +.489 pp, **lenient F 3.14**, strict F 3.08.
+
+**Forking-paths note.** Everything below was evaluated on the same 80 DEV2 models before choosing T317f:
+- T326: 80 knob configurations (tmax ↓, cap, line subsets).
+- T330:
+  - tier A;
+  - tier B v1/v2 with 10 try schedules;
+  - tier B with the norm track (T330b), 2 schedules;
+  - tier C: C1/C2 × {non-blind, all lines} (4 configurations).
+- T331: 5 variants (tmax 1/2, extension, both).
+- The T331+C1 combination: 1.
+- The choice of C1_all is the minimum-F point among the 4 tier-C configurations, and among all exact-or-declared
+  variants. Its declared error is one-signed and was measured on these same models, so the DEV2 F is optimistic.
+  **HP4 (sealed, single pre-registered submission) is the only claim.**
