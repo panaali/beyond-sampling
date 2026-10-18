@@ -3,7 +3,7 @@
 ↑ [Approaches](../README.md) · [TASKS](../../../TASKS.md) · [INDEX](../../../INDEX.md) · [T312](../r1w_repro/README.md) · [T320](../t317c_confirm/README.md)
 
 ## Question
-T324 (claude/t292-oracle-feature, `budget_t317d/`) measured each approximation of T317d/T317e by switching it off.
+T324 (claude/t292-oracle-floor, `budget_t317d/`) measured each approximation of T317d/T317e by switching it off.
 One at a time, from V1 (= T317e), it found:
 - **product of the two 1-D line sets** off: Δbias −.57 pp, ΔMSE −40%;
 - **tmax cut** off: Δbias −.18 pp, ΔMSE −18%.
@@ -56,4 +56,57 @@ The transverse constants (v2*, g12*, g23*, v4* = μ(v3*), δ, μ(v4*), μ'(v4*))
 2. If my pointwise form fails its check, the Δs mean nothing, and I stop.
 
 ## Status
-Pre-registered; not run.
+**Done. Both terms are CONFIRMED** (pre-registration 9ee95374). Unverified beyond this check.
+
+**Deviation from the pre-registration (stated before any Δ was computed).** The pre-registration described v4* as
+μ(v3*). T317e's declared node is in fact the K = 1 Gauss node of the law of v4 (the maximum of 7 normals below v3),
+computed on a left-Riemann grid. I re-derived it, and the exact mean differs from T317e's grid value by 8e-5. I used
+T317e's grid rule so as to reproduce the estimator as declared. All the other constants match `cont_e.TABLES` to
+≤ 3e-10.
+
+## Results
+To reproduce: `PYTHONPATH=<shim> python3 pointwise.py` (80 models, ~2 CPU-min), then `python3 analyze.py`. Outputs are
+`results/pointwise_all.json` and `results/summary.json`. N = 2e5 inputs per model, paired across variants.
+
+**The check passed.** The pointwise V1 against `cont_e.est`: max |z| 2.64, RMS difference .059 pp against a mean MC SE of
+.058 pp.
+
+| variant | bias (pp) | RMS (pp) |
+|---|---|---|
+| V1 (= T317e, pointwise) | +.446 | .794 |
+| (a) product off | −.116 | .611 |
+| (b) tmax off | +.263 | .710 |
+
+| term | **Δbias (pp)** [95% CI] | **ΔMSE / MSE(V1)** [95% CI] | T324 | verdict |
+|---|---|---|---|---|
+| line-set product | **−.562** [−.623, −.502] | **−41%** [−57%, −20%] | −.57 / −40% | **CONFIRMED** |
+| tmax cut | **−.183** [−.235, −.136] | **−20%** [−33%, −1%] | −.18 / −18% | **CONFIRMED** |
+
+- **Both of T324's values reproduce, with independent code and independent inputs.** I used different seeds and did
+  not read T324's code. The point estimates agree within .01 pp of bias and 2 points of MSE share.
+- The MSE shares are less certain than the biases. The product's 95% CI is 20–57% of the MSE: it is the largest item,
+  but "40%" carries about ±18 points across models. Anything built on the 40% (T333) should allow for that range.
+- My product-off rule leaves region b unchanged (blind rule kept) and uses the single remaining line when only one gap
+  is < tmax. T324's README describes the same rules ("beyond tmax in one gap, the other line alone; in region b, g12
+  is free"), so the two measure the same thing.
+
+## Compute accounting
+`pointwise.py`: 80 models × 2e5 inputs × 4 forward passes (s23, s12, joint, and the uncut lines reuse the raw
+verdicts), plus one `cont_e.est` per model. About 2 CPU-min, single thread, `ulimit -v 2500000`. Diagnostic sampling;
+it is not part of any estimator.
+
+## Claims
+- [measured] Switching off the product of line sets moves the bias by −.56 pp [−.62, −.50] and the MSE by −41%
+  [−57%, −20%] (80 DEV2 models). This confirms T324.
+- [measured] Switching off the tmax cut moves the bias by −.18 pp [−.24, −.14] and the MSE by −20% [−33%, −1%]. This
+  confirms T324.
+
+## Alternatives not ruled out
+- Both checks share the definition of "switch off" given in T324's README. A different exact counterpart, such as the
+  joint verdict at the input's own v2 rather than at v2*, would measure a different quantity. That is T324's
+  "transverse" term, which I did not check.
+- DEV2 only. The sealed panels were not used.
+
+## Failure modes
+- The pointwise form relies on the exactness of the walks. Any rounding difference at a gate tie would show up in the
+  check. It passed at z ≤ 2.64.
