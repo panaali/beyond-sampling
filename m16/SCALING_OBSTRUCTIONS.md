@@ -47,7 +47,17 @@ T194@45e1f6c "T206"; T192 §5]. 34-56% of leaves are fully correct and need no m
 **3.4 Mass does not concentrate fast enough.** The number of regions needed to cover 1 - 1e-5 of the prefix mass grows
 **x18.6 then x16.1** per step on the target (x17.5-21.6 on zoo (16,4)/(16,5)). Even N_1e-2 grows x8.6-13, at 65-93% of the
 count's log-rate. Projected N_1e-5 at k = 10 is ~2e11 [measured k <= 4, rule pre-registered; inferred beyond;
-T194@57bad7b width16_probe/README.md "T222", coverage.json]. T192 k = 5 coverage: `[PENDING T192 k=5]`. Independent
+T194@57bad7b width16_probe/README.md "T222", coverage.json]. At **k = 5** (T192@f02482d6, gpu_cost_law/results/prefix/k5_regionmass.npz; 632,394 regions, mass sum within
+1.4e-9; numbers recomputed from the file by T194), N_delta for delta = 1e-1..1e-6 is 2,548 / 14,658 / 42,499 / 89,216 /
+152,956 / 226,080. Growth k4 -> k5 is x6.4 / 8.4 / 10.6 / 12.7 / 14.9 / 17.2 (k3 -> k4: x6.0 / 8.6 / 10.4 / 13.3 / 16.1 /
+18.6). The inverse-Simpson effective count is 397 (x3.0, then x3.5) [measured, unverified]. k = 6: `[PENDING T192 k=6]`.
+
+*Precision scaling vs absolute size.* Per decade of delta at k = 5, N grows only x5.75 / 2.90 / 2.10 / 1.71 / 1.48,
+roughly delta^-0.2 at small delta, while sampling's cost grows as eps^-2. So a mass-ordered truncated enumeration with
+exactly known uncovered mass scales far better in precision than sampling, and would eventually win on MSE against compute
+[inferred]. The obstacle is the absolute constant: ~1e10 regions at T = 10 if the per-step growth keeps falling, ~2e11 at a
+constant x15-17. Each region needs d = 10 cone masses. At T192's measured pipeline throughput (`[PENDING T192
+throughput]`) that is far beyond our budget and cannot be demonstrated. Independent
 replication (T218 child, LP + adaptive Plackett masses): `[PENDING T222 replication]`.
 
 **3.5 Structural savings found so far are constant factors.**
