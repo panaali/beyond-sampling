@@ -1,0 +1,5 @@
+# Preserved first validation attempt: dependency race before science
+
+Published gate7d71f71f preceded launch1. The process failed while rehashing completed reviewer dependencies, before any reference/kernel attempt (both counters0, no rows). Raw JSON/log/source/gate remain in attempt1_metadata_failure/. Reviewer56 independently reported a transient local append to its pinned README while preparing a separate compile note, then restored exact original bytes. A fresh hash-only check confirms all original gate and both reviewer pin maps now match. No kernel, input, tolerance or validation source changed. This is a metadata publication race, not a numerical failure or successful validation.
+
+Request explicit launch-only recovery clearance: unchanged fixed8 comparisons, original validate.py/validation_gate.json/manifest/PROTOCOL; write new validation_run2.log and fresh validation.json. Preserve first attempt permanently; no completed scientific call is repeated. Use same105/110CPU2GiB primarylock and120wall limits. Reviewer56 keeps new compile notes in a separate unpinned file. No automatic retry or adoption.

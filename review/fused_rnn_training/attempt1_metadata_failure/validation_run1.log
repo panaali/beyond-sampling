@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/work/recover-small_h4_4/review/fused_rnn_training/validate.py", line 120, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/work/recover-small_h4_4/review/fused_rnn_training/validate.py", line 78, in main
+    for f,h in review['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+real 1.82
+user 1.35
+sys 0.45

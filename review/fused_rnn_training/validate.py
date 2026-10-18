@@ -3,7 +3,7 @@ No GPU or throughput inference. Explicit NumPy libdevice interpreter shim only.
 """
 import os
 os.environ['TRITON_INTERPRET']='1'
-import hashlib,json,math,time,traceback
+import hashlib,json,math,time,traceback,resource
 from pathlib import Path
 import numpy as np
 import torch
@@ -55,7 +55,7 @@ def metrics(got,ref):
 def main():
     output=P/'validation.json';progress=P/'validation_progress.jsonl'
     assert not output.exists() and not progress.exists(),'refuse overwrite'
-    result={'complete':False,'pass_all':False,'rows':[],'kernel_calls':0,'torch_reference_calls':0,'interpreter_only':True,'libdevice_shim':['__nv_pow=np.power(float64)','__nv_sqrt=np.sqrt(float64)'],'torch':torch.__version__,'triton':triton.__version__}
+    result={'complete':False,'pass_all':False,'rows':[],'kernel_calls':0,'torch_reference_calls':0,'kernel_attempts':0,'torch_reference_attempts':0,'interpreter_only':True,'libdevice_shim':['__nv_pow=np.power(float64)','__nv_sqrt=np.sqrt(float64)'],'torch':torch.__version__,'triton':triton.__version__}
     start=time.process_time()
     def save():
         result['cpu_seconds']=time.process_time()-start
@@ -64,7 +64,20 @@ def main():
         with progress.open('a') as f:f.write(json.dumps({'event':name,'cpu_seconds':time.process_time()-start})+'\n')
     try:
         gate=json.loads((P/'validation_gate.json').read_text());assert gate['ready']
+        mandatory=[str(P/f) for f in ('validate.py','fused_step.py','PROTOCOL.md','manifest.json','trainer_snapshot.py','launch.sh')]
+        reviewer_paths=['/workspace/work/recover-small_h2_56/review/fused_rnn_source_review/source_gate.json','/workspace/work/recover-small_h2_910/review/fused_rnn_validation_review/source_gate.json']
+        assert all(f in gate['pins'] for f in mandatory+reviewer_paths)
+        for key in ('source_publication','kernel_review_publication','validation_review_publication'):
+            assert isinstance(gate[key],str) and 8<=len(gate[key])<=40 and all(c in '0123456789abcdef' for c in gate[key])
         for f,h in gate['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h
+        for path in reviewer_paths:
+            review=json.loads(Path(path).read_text());assert review['complete'] and review['pass_all'] and review['execution_allowed']
+            required=[str(P/'fused_step.py'),str(P/'PROTOCOL.md'),str(P/'manifest.json')]
+            if 'validation_review' in path:required += [str(P/'validate.py'),str(P/'launch.sh')]
+            assert all(f in review['pins'] for f in required)
+            for f,h in review['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h
+        limits={'cpu':resource.getrlimit(resource.RLIMIT_CPU),'address_space':resource.getrlimit(resource.RLIMIT_AS)}
+        result['limits']=limits;save();assert limits['cpu']==(105,110) and limits['address_space']==(2**31,2**31)
         torch.set_num_threads(1);torch.backends.cuda.matmul.allow_tf32=False
         install_libdevice_shim()
         from fused_step import FusedWorkspace
@@ -83,8 +96,11 @@ def main():
                 x=torch.randn((K,B,10),generator=gen);y=x.argsort(-1)[...,-2].contiguous()
                 row={'name':name,'iteration':iteration,'K':K,'B':B,'step':steps.tolist(),'status':'started'};result['rows'].append(row);save()
                 before=[p.clone() for p in params+m+v];previous=steps.clone()
-                expected=reference(params,m,v,steps,ns,warm,lr0,x,y);result['torch_reference_calls']+=1
-                workspace.step(params,m,v,steps,ns,warm,lr0,x,y,loss,acc);result['kernel_calls']+=1
+                assert time.process_time()-start<90
+                result['torch_reference_attempts']+=1;save()
+                expected=reference(params,m,v,steps,ns,warm,lr0,x,y);result['torch_reference_calls']+=1;save()
+                result['kernel_attempts']+=1;save()
+                workspace.step(params,m,v,steps,ns,warm,lr0,x,y,loss,acc);result['kernel_calls']+=1;save()
                 comparisons={}
                 for family,got,ref in [('params',params,expected[0]),('m',m,expected[1]),('v',v,expected[2]),('grad',workspace.grads,expected[3])]:
                     comparisons[family]=[metrics(a,b) for a,b in zip(got,ref)]
@@ -96,6 +112,8 @@ def main():
                 assert all(c['pass'] for values in comparisons.values() for c in values),name
                 row['status']='passed';save()
             event('complete_'+name)
+        assert len(result['rows'])==result['kernel_calls']==result['torch_reference_calls']==result['kernel_attempts']==result['torch_reference_attempts']==8
+        assert all(row['status']=='passed' for row in result['rows']) and time.process_time()-start<90
         result['complete']=result['pass_all']=True;save()
     except BaseException:
         result['complete']=result['pass_all']=False;result['failure']=traceback.format_exc();save();raise
