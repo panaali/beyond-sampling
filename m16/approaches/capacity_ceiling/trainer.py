@@ -31,13 +31,33 @@ def lr_mult(step, n_steps, warmup, floor=0.01):
     return w * d
 
 
+class RecMM(th.autograd.Function):
+    """y = h @ W^T for stacked models (h (K,B,H), W (K,O,H)). Backward computes grad_W = sum_b g_b^T h_b with the
+    batch split into chunks (split-K): one cuBLAS GEMM per model with a 16x16 output and a B-long reduction runs on a
+    single tile (90% of the step at B = 8192); chunked it runs K * B/CH small GEMMs in parallel, then sums."""
+    CH = 128
+
+    @staticmethod
+    def forward(ctx, h, W):
+        ctx.save_for_backward(h, W)
+        return th.bmm(h, W.transpose(1, 2))
+
+    @staticmethod
+    def backward(ctx, g):
+        h, W = ctx.saved_tensors
+        gh = th.bmm(g, W)
+        K, B, H = h.shape; O = g.shape[2]; c = RecMM.CH if B % RecMM.CH == 0 else B
+        gW = th.bmm(g.reshape(K * (B // c), c, O).transpose(1, 2), h.reshape(K * (B // c), c, H))
+        return gh, gW.reshape(K, B // c, O, H).sum(1)
+
+
 def forward(Wi, Wh, Wo, x):
     """x (K, B, T) -> logits (K, B, T); h_t = relu(Wh h_{t-1} + Wi x_t), h_0 = 0 (nn.RNN, no bias)."""
     K, B, T = x.shape
     h = th.zeros(K, B, Wi.shape[1], dtype=x.dtype, device=x.device)
     for t in range(T):
-        h = th.relu(th.bmm(h, Wh.transpose(1, 2)) + x[:, :, t:t + 1] * Wi[:, None, :])
-    return th.bmm(h, Wo.transpose(1, 2))
+        h = th.relu(RecMM.apply(h, Wh) + x[:, :, t:t + 1] * Wi[:, None, :])
+    return RecMM.apply(h, Wo)
 
 
 def sample(K, B, T, gen, device, f_blind=0.0, f_tie=0.0, gap=0.05):

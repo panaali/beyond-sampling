@@ -3,7 +3,8 @@ large-batch RECIPE VARIANTS (batch 8192 / 16384, lr scaled by sqrt(B/1024) or B/
 the zoo, zoo schedule otherwise). Deterministic data (reseeded per 2^18-step block), resumable state with validated
 metadata, final-state checkpoint, per-model weights, 1e8-sample paired evaluation.
 
-usage: python run_multi.py TAG --batch 8192 --spec 'name:seed:log2n:lr_scale' ... [--device cuda] [--eval-n 1e8]
+usage: python run_multi.py TAG --batch 8192 --spec 'name:seed:log2n:lr_scale[:warmup_steps]' ... [--device cuda]
+(warm-up default = 1/64 of the run; zoo settings = fixed 16384 steps)
 -> results/TAG.json, weights/TAG_<name>.npz, data/capacity_ceiling/TAG/"""
 import argparse
 import hashlib
@@ -31,10 +32,10 @@ a = ap.parse_args()
 
 spec = []
 for s in a.spec:
-    name, seed, log2n, lrs = s.split(":")
+    f = s.split(":"); name, seed, log2n, lrs = f[:4]
     n_train = int(2 ** float(log2n)); n_steps = n_train // a.batch
-    spec.append(dict(name=name, seed=int(seed), n_train=n_train, n_steps=n_steps, lr_scale=float(lrs),
-                     warmup=max(1, n_steps // 64)))                  # zoo: 2^14 of 2^20 steps = 1/64 of the run
+    warm = int(f[4]) if len(f) > 4 else max(1, n_steps // 64)       # zoo: 2^14 of 2^20 steps = 1/64 of the run
+    spec.append(dict(name=name, seed=int(seed), n_train=n_train, n_steps=n_steps, lr_scale=float(lrs), warmup=warm))
 K = len(spec); n_max = max(s["n_steps"] for s in spec)
 out_dir = os.path.join(HERE, "..", "..", "..", "data", "capacity_ceiling", a.tag); os.makedirs(out_dir, exist_ok=True)
 for d in ("results", "weights"):
