@@ -1,6 +1,6 @@
 # Project index: clean-neurons
 
-↑ [Project README](README.md) · [TASKS](TASKS.md) · [STATUS](STATUS.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md) · [Literature](lit/README.md)
+↑ [Project README](README.md) · [TASKS](TASKS.md) · [Owner Q&A](OWNER_QA.md) · [STATUS](STATUS.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md) · [Literature](lit/README.md)
 
 **DRI:** the main Claude session on branch `ccr-6a61f25c-wn80ii` (with the user).
 **Start here for a summary:** [STATUS.md](STATUS.md). **What is in progress / backlog:** [TASKS.md](TASKS.md) (claim tasks there before starting).
