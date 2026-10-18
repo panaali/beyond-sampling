@@ -90,3 +90,30 @@ planning arithmetic, not a complete measured cost or challenge budget.
 One thread,2GB,primary flock, at most110CPU per process with a frozen total
 reserve; stop on any cap/failure. A source-first pilot may show a smaller total
 reserve is adequate. No repeated trial to achieve a desired score.
+
+## Proposed checkpoint pilot after the synthetic saved audit
+
+This remains planning only. Use exactly the first1024 observations of the
+predeclared training stream, with its generator/version/seed and all three
+eventual stream seeds frozen before execution. Save the input array, generator
+state after the prefix, final hidden arrays, logits, labels and byte hashes.
+Later training must reuse that prefix once and resume its generator state,
+without regenerating or forwarding those observations again.
+
+Compare the reviewed NumPy final-state recurrence with the installed AlgZoo
+RNN implementation using the same stored weights converted to binary64,
+zero initial hidden state and its unchanged linear readout. Pin the model
+architecture/loader bytes, tensor ordering and dtype conversion. A hook may
+capture the library's final hidden state without a second reference forward.
+Any model initialization or RNG use must be explicit and separate from the
+fixed input stream. No surrogate fit or model/noise selection occurs here.
+
+Before running, freeze a scaled absolute residual threshold of1e-10 times
+max(1,maximum absolute reference value), separately for hidden states and
+logits, and also require identical first-index argmax labels. Save every label
+and the top-two readout gaps; preserve a mismatch even if residuals are small,
+with no tolerance relaxation or resampling. This is a finite wiring check,
+not a floating correctness certificate or historical-rate validation.
+The independent saved audit must clear this pilot before any full held-out
+continuation. All observations and reference calls enter research accounting;
+the proposed196608 distinct-input total includes this1024-input prefix.
