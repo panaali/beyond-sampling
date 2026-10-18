@@ -18,11 +18,11 @@ Actual and frozen error intervals are constructed independently, then matched in
 
 ## Resource and durability contract
 
-One process: primary flock, one BLAS thread, 90 internal / 105 soft / 110 hard CPU seconds, 2 GiB address-space limit, 120 seconds wall after obtaining the lock. Raw point records have a 128 MiB cap; exact partition retains the inherited 10,000-piece cap per layer.
+One process: the shared heavy-work flock at `/workspace/work/codex-compute.lock`, one BLAS thread, 90 internal / 105 soft / 110 hard CPU seconds, 2 GiB address-space limit, 120 seconds wall after obtaining the lock. Raw point records have a 128 MiB cap; exact partition retains the inherited 10,000-piece cap per layer.
 
 First process the 18 common centre points. At that point project CPU as elapsed + (elapsed - model/reference load CPU - table CPU)*2700/18. Stop and preserve the attempt if this exceeds 75 CPU seconds. This is a predeclared scheduling discriminator, not a bound on other nodes or an outcome selection. No separate rerun of the centre points and no automatic continuation after a cap.
 
-Started metadata, call counters and active-point stages are durable before calls; exact half records are saved before parity assertions. Every completed point is appended once. Catalogue/membership is saved once to avoid repeated large serialization. Success has 2,718 point-start/completion pairs plus started, formula-parity-completed and completed: 5,439 events. All failures remain in the output directory; no overwrite or automatic retry.
+Started metadata, call counters and active-point stages are durable before calls; returned actual/frozen partition cells are atomically preserved in separate active artifacts before the next call, and every returned half-error/matching/formula result is saved before later calls; exact half records are saved before parity assertions. Every completed point is appended once. Catalogue/membership is saved once to avoid repeated large serialization. Success has 2,718 point-start/completion pairs plus started, formula-parity-completed and completed: 5,439 events. All failures remain in the output directory; no overwrite or automatic retry.
 
 All points retain y, exact widths/error sets/signed bands, formulas, partial operation ledgers and phase timings. Exactly 64 preselected indices floor(j*2717/63), j=0..63, additionally retain full actual/frozen affine cells. This permits a bounded independent recurrence sample plus exhaustive saved contraction; it does not imply exhaustive independent recurrence verification. The active failure snapshot may retain extra partial fields.
 

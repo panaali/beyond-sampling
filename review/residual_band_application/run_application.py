@@ -18,6 +18,8 @@ def main():
     def save():
         result['cpu_seconds']=time.process_time()-started;result['maxrss_kib']=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         tmp=OUT/'results.tmp';tmp.write_text(json.dumps(encode(result),indent=2,allow_nan=False)+'\n');tmp.replace(OUT/'results.json')
+    def snapshot(name,value):
+        tmp=OUT/(name+'.tmp');tmp.write_text(json.dumps(encode(value),separators=(',',':'),allow_nan=False)+'\n');tmp.replace(OUT/(name+'.json'))
     def cap():
         if time.process_time()-started>=90:raise RuntimeError('internal CPU cap')
         if result['raw_bytes']>128*2**20:raise RuntimeError('raw128MiB cap')
@@ -53,13 +55,12 @@ def main():
         from application_math import evaluate
         result['pins']=g['pins'];result['runtime']={'python':sys.version,'numpy':np.__version__};event('started')
         # Formula parity uses only completed synthetic bands, before target loading.
-        parity=[]
+        parity=[];result['synthetic_formula_parity']=parity
         for row in controls['rows']:
             if row['kind']!='gaussian':continue
-            a,b,sign=row['band'];a=F(*map(int,a['q']));b=F(*map(int,b['q']));checks={}
+            a,b,sign=row['band'];a=F(*map(int,a['q']));b=F(*map(int,b['q']));checks={};parity.append(checks);save()
             for mode in ['first','second','direct']:
-                value,_=evaluate([(a,b,sign)],mode);checks[mode]=value.hex();assert value.hex()==row['value'][mode].hex()
-            parity.append(checks)
+                value,_=evaluate([(a,b,sign)],mode);checks[mode]=value.hex();save();assert value.hex()==row['value'][mode].hex()
         assert len(parity)==4;result['synthetic_formula_parity']=parity;event('formula_parity_completed')
         t=time.process_time();artifact=json.loads(gzip.decompress(Path(p['model_archive']).read_bytes()))
         def dec(pair):return F(*map(int,pair))
@@ -106,25 +107,29 @@ def main():
             max_window_difference=max(max_window_difference,abs(math.sqrt(2)*float(window)-float(tau[0])))
             direction=[F(int(j==a)-int(j==b)) for j in range(4)];ledger=Ledger();result['active_point'].update(y=y,window_delta=window,phase='actual_partition',ledger=ledger.counts);result['model_partition_calls']+=1;save()
             (cells,layers),actual_cpu=timed('actual_partition',partition,model,y,direction,-window,window,ledger)
+            snapshot('active_actual_partition',{'index':idx,'cells':cells,'layers':layers,'cpu':actual_cpu,'ledger':ledger.counts})
             result['active_point'].update(phase='frozen_partition',actual_layers=layers);result['model_partition_calls']+=1;save();(fcells,flayers),frozen_cpu=timed('frozen_partition',partition,model,y,direction,-window,window,ledger,frozen=True)
+            snapshot('active_frozen_partition',{'index':idx,'cells':fcells,'layers':flayers,'cpu':frozen_cpu,'ledger':ledger.counts})
             raw={'index':idx,**item,'y':y,'window_delta':window,'source_tau_z':float(tau[0]),'layers':layers,'frozen_layers':flayers,'halves':[],'cpu':{'face':face_cpu,'actual_partition':actual_cpu,'frozen_partition':frozen_cpu}}
             if idx in full_ids:raw['cells']=cells;raw['frozen_cells']=fcells
             def save_active():
-                tmp=OUT/'active_point.tmp';tmp.write_text(json.dumps(encode(raw),separators=(',',':'),allow_nan=False)+'\n');tmp.replace(OUT/'active_point.json')
+                snapshot('active_point',raw)
             save_active();result['active_point']['phase']='half_intervals';save()
             summary={'cpu':raw['cpu'],'halves':[]}
             for side,lo,hi,truth in [('negative',-window,F(0),b if kind=='23' else a),('positive',F(0),window,a if kind=='23' else b)]:
-                actual,ae_cpu=timed('actual_errors',errors,cells,truth,lo,hi,ledger);frozen,fe_cpu=timed('frozen_errors',errors,fcells,truth,lo,hi,ledger)
-                bands,match_cpu=timed('matching',signed_difference,actual,frozen,ledger)
-                t=time.process_time();actual_mass=math.fsum(mass(l,r) for l,r in actual);am_cpu=time.process_time()-t
-                t=time.process_time();frozen_mass=math.fsum(mass(l,r) for l,r in frozen);fm_cpu=time.process_time()-t
-                values={};times={};details={}
+                partial={'side':side,'truth':truth};raw['pending_half']=partial;save_active()
+                actual,ae_cpu=timed('actual_errors',errors,cells,truth,lo,hi,ledger);partial.update(actual_errors=actual,actual_errors_cpu=ae_cpu);save_active()
+                frozen,fe_cpu=timed('frozen_errors',errors,fcells,truth,lo,hi,ledger);partial.update(frozen_errors=frozen,frozen_errors_cpu=fe_cpu);save_active()
+                bands,match_cpu=timed('matching',signed_difference,actual,frozen,ledger);partial.update(bands=bands,matching_cpu=match_cpu);save_active()
+                t=time.process_time();actual_mass=math.fsum(mass(l,r) for l,r in actual);am_cpu=time.process_time()-t;partial.update(actual_mass=actual_mass,actual_mass_cpu=am_cpu);save_active()
+                t=time.process_time();frozen_mass=math.fsum(mass(l,r) for l,r in frozen);fm_cpu=time.process_time()-t;partial.update(frozen_mass=frozen_mass,frozen_mass_cpu=fm_cpu);save_active()
+                values={};times={};details={};partial.update(correction=values,times=times,terms=details)
                 for mode in ['first','second','direct']:
-                    (value,terms),dt=timed(mode,evaluate,bands,mode);values[mode]=value;times[mode]=dt;details[mode]=terms
+                    (value,terms),dt=timed(mode,evaluate,bands,mode);values[mode]=value;times[mode]=dt;details[mode]=terms;save_active()
                 gap=abs((actual_mass-frozen_mass)-values['direct'])
                 d=[float(r-l) for l,r,s in bands];bound1=math.exp(-.5)/math.sqrt(2*math.pi)*math.fsum(v*v for v in d);bound2=math.fsum(abs(v)**3 for v in d)/(3*math.sqrt(math.pi))
                 h={'side':side,'truth':truth,'actual_errors':actual,'frozen_errors':frozen,'bands':bands,'window_mass':mass(lo,hi),'actual_mass':actual_mass,'frozen_mass':frozen_mass,'correction':values,'terms':details,'bound1':bound1,'bound2':bound2,'parity_error':gap,'cpu':{'actual_errors':ae_cpu,'frozen_errors':fe_cpu,'matching':match_cpu,'actual_mass':am_cpu,'frozen_mass':fm_cpu,**times}}
-                raw['halves'].append(h);save_active();assert gap<=3e-13,'direct signed-band parity'
+                raw['halves'].append(h);raw.pop('pending_half');save_active();assert gap<=3e-13,'direct signed-band parity'
                 summary['halves'].append({k:h[k] for k in ['truth','window_mass','actual_mass','frozen_mass','correction','bound1','bound2','cpu']})
             raw['ledger']=ledger.counts;raw['returned_bit_max']=[ledger.max_returned_num_bits,ledger.max_returned_den_bits]
             line=json.dumps(encode(raw),separators=(',',':'),allow_nan=False)+'\n';result['raw_bytes']+=len(line.encode());cap()
@@ -158,7 +163,7 @@ def main():
             result['summary'].append({'order':order,'strata':sums,'totals':total,'metrics':metrics});save()
         assert result['points']==2718 and result['source_face_calls']==2718 and result['model_partition_calls']==5436
         result['points_sha256']=sha(OUT/'points.jsonl');result['qualification']='Fixed single-model CPU diagnostic; no FPE/ARC/HP1 claim. Outer/table/float errors separate;64 full-cell records, no assumed exhaustive independent recurrence review.'
-        event('completed');result['complete']=result['pass_all']=True;save()
+        event('completed');assert result['events']==5439;result['complete']=result['pass_all']=True;save()
     except BaseException:result['failure']=traceback.format_exc();save();raise
 
 if __name__=='__main__':main()
