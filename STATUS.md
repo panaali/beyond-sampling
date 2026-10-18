@@ -6,6 +6,15 @@ The registry, hypothesis ledger and every number with its source are in [`INDEX.
 
 ## In plain words
 
+**Update 2026-10-18 (new DRI; details in [m16/SCALING_OBSTRUCTIONS.md](m16/SCALING_OBSTRUCTIONS.md)).**
+- **Exact counting does not scale to the target.** Tonight we measured why. The network's input space is cut into linear pieces whose number multiplies ~25-30x per extra input (independently confirmed for the first 4 inputs). That is roughly 1e13 pieces for all 10, far more work than just testing it.
+- **The cheaper rescue ideas all saved only small constant factors:** merging, pruning, symmetry, grouping by input pattern, and labelling the rare error cases.
+- **Training doesn't reduce the number of pieces** (a random network has as many). Instead it moves them onto the "tie walls" where the 2nd and 3rd largest numbers are close: that is where all the difficulty sits.
+- **The best deterministic estimate** beats plain testing only ~1.1-1.3x, and only on the clean model.
+- **A precise answer key now exists:** accuracy 95.31175% ± 0.00004 points (300 billion samples).
+- **The challenge remains unsolved.** Any real solution would have to describe the tie-wall band compactly without cutting it into pieces.
+
+
 **What we set out to check.** A Goodfire essay ("Neural Networks Are Already Clean") claims most neurons in big
 language models have one clear job and that interpretability may soon be solved. ARC's Jacob Hilton replied that
 naming what neurons do is not the same as understanding a network, and pointed to a 432-number network that ARC
