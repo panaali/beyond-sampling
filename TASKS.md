@@ -241,6 +241,8 @@ add a Backlog row describing it instead of editing.
 
 ## Recently finished (details in the INDEX registry)
 
+**DRI-assigned "T221" mass coverage curve done (unverified), 2026-10-18 — ID collides with the SRB T221 row; DRI to renumber:** width16_probe README (branch claude/t194-width16-probe 57bad7b), rule pre-registered at 3dc58f0. Regions needed to cover 1-1e-5 of exact prefix mass grow x18.6 then x16.1 per step on M_16,10 (zoo (16,4)/(16,5) x17.5-21.6), vs the count's x23-31; even N_1e-2 grows x8.6-13. Not <=6x: mass-ordered exact enumeration does not reopen the exact route (projected N_1e-5(k=10) ~2e11).
+
 **T217 done, KILL for D1 (unverified; claude/t194-width16-probe 050bfaa):** the modal gate word holds only 33.9/23.7/20.6% of event-word mass at k=2/3/4 (go >=99%); exp H(G|E) = 6.2/13.9/26.0. Side result: mass-weighted exp H(G) grows x5.4, x4.6/step vs regions x23-27, so most regions carry negligible mass (led to T222).
 
 **T216 (D3) done: kill (unverified), 2026-10-18:** width16_probe README (branch claude/t194-width16-probe 050bfaa). No permutation symmetry in M_16,10 (outgoing |cos| <= 0.84); incoming rows of neurons 1,6,7,8 near-collinear (cos .985-.991) with 4 antiparallel (4,7 at -.99991), but symmetrising costs 79 pp (all) / 8.9 pp (pair 4,7) for k=4 regions 7880 / 17100 (growth still >= x16/step). Prefix port reproduces T192 34/792/21032.
