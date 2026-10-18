@@ -1,0 +1,137 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "author_result_commit": "94ca93af",
+  "pins": {
+    "controls_v2_results.json": "951d68985bcec09b55c2cd943389d65a9f2e272b894973cf4b06eca1046d8deb",
+    "controls_v2_progress.jsonl": "0c876a00c921ff37f34ef3c343a839730011d642229140199887069af99e542f",
+    "controls_v2_protocol.json": "d6c21c42d9b22627acea82f8346b521140efda859bd7cf5c037529de5c33c8bf",
+    "controls_v2_gate.json": "ed33771a702ab5db4ec6553b7f39b3f9cfaeba935c3094e414ec7e47c3689912",
+    "controls_results.json": "d6ade8c7590bdc722f41c7803ade1fccf7b517fb972b76d7b5c5b4c2c313768e",
+    "controls_progress.jsonl": "560f9ac187472c8723b9197d07eff117b196391410c0da0cb42448c6ed41e4c0"
+  },
+  "checker_sha256": "1086fa424b7b0f143c44ff80e63c3e407f9b88030e8946fd2fd0abe2365e0fd4",
+  "cases": 10,
+  "guards": 4,
+  "new_author_calls": 0,
+  "rows": [
+    {
+      "name": "both_correct",
+      "network": 0,
+      "lookup": 0,
+      "competitor": 1,
+      "transition": 0,
+      "exact_sum": "1",
+      "sequential_sum": 1.0,
+      "closure": 0.0
+    },
+    {
+      "name": "erased",
+      "network": 1,
+      "lookup": 0,
+      "competitor": 1,
+      "transition": 1,
+      "exact_sum": "2",
+      "sequential_sum": 2.0,
+      "closure": 0.0
+    },
+    {
+      "name": "introduced",
+      "network": 0,
+      "lookup": 1,
+      "competitor": 1,
+      "transition": 2,
+      "exact_sum": "-4",
+      "sequential_sum": -4.0,
+      "closure": 0.0
+    },
+    {
+      "name": "wrong_same",
+      "network": 1,
+      "lookup": 1,
+      "competitor": 1,
+      "transition": 3,
+      "exact_sum": "-2",
+      "sequential_sum": -2.0,
+      "closure": 0.0
+    },
+    {
+      "name": "wrong_different",
+      "network": 1,
+      "lookup": 2,
+      "competitor": 1,
+      "transition": 4,
+      "exact_sum": "1",
+      "sequential_sum": 1.0,
+      "closure": 0.0
+    },
+    {
+      "name": "first_index_correct",
+      "network": 0,
+      "lookup": 0,
+      "competitor": 1,
+      "transition": 0,
+      "exact_sum": "0",
+      "sequential_sum": 0.0,
+      "closure": 0.0
+    },
+    {
+      "name": "first_index_wrong",
+      "network": 0,
+      "lookup": 1,
+      "competitor": 0,
+      "transition": 1,
+      "exact_sum": "1",
+      "sequential_sum": 1.0,
+      "closure": 0.0
+    },
+    {
+      "name": "positive_pair_not_correct",
+      "network": 1,
+      "lookup": 2,
+      "competitor": 1,
+      "transition": 4,
+      "exact_sum": "3",
+      "sequential_sum": 3.0,
+      "closure": 0.0
+    },
+    {
+      "name": "zero_sum",
+      "network": 0,
+      "lookup": 0,
+      "competitor": 0,
+      "transition": 3,
+      "exact_sum": "0",
+      "sequential_sum": 0.0,
+      "closure": 0.0
+    },
+    {
+      "name": "ordered_cancellation",
+      "network": 0,
+      "lookup": 0,
+      "competitor": 1,
+      "transition": 0,
+      "exact_sum": "1",
+      "sequential_sum": 0.0,
+      "closure": 1.0
+    }
+  ],
+  "named_arithmetic": {
+    "subtractions": 360,
+    "multiplications": 160,
+    "additions": 300,
+    "absolute_values": 160
+  },
+  "transition_counts": {
+    "0": 3,
+    "1": 2,
+    "2": 1,
+    "3": 2,
+    "4": 2
+  },
+  "prior_zero_call_failure_cpu": 0.06823987399999999,
+  "successful_control_cpu": 0.112023062,
+  "total_author_recorded_cpu": 0.18026293599999998,
+  "review_cpu": 0.03599705800000001,
+  "scope": "Independent saved analytic labels/competitor/exact terms/sequential floating sums/ties/counts/progress/runtime pins. Guard outcomes verified without replay. Cancellation supplied logits are bookkeeping-only and deliberately not a network-consistent fixture. No trained contraction, causal attribution, estimator or total-cost claim."
+}
