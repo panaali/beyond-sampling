@@ -6,11 +6,19 @@ checkpoint. Source/resource reviewer recover_h4 owns
 review/t201_metadata_review/fullfit_source/; eventual saved reviewer recover_910
 owns review/t201_checkpoint_pilot_review/fullfit_saved/.
 
-Frozen source2c0b8311/sharedcfa6bbf1: rebuild/fullfit.py and
-FULLFIT_PROTOCOL.md/json. No execution, fullfit_gate.json or fullfit outputs
-exist yet. Await published independent source/resource clearance, then publish
-an immutable execution gate before one primary-lock110CPU process (90CPU soft
-TOTAL guard, one thread, declared2GiB RSS/2500000KiB virtual shell cap).
+Fullfit completed once: raw cd272a57 and saved-checker source clearance
+2d269c77 published20a452be. Immutable execution gate84c2c732 was published
+36db1a21 before the run; superseding h4 source/resource gate0fc2abe8 binds
+latest doc/protocol4a52faf0 and unchanged numerical source b6838e47.
+
+Exactly191 chunks/217OLS completed; script7.467979396CPU,183504KiB peakRSS.
+No failures/adaptation/replays. All389 fullfit files and external run log are
+retained. Independent saved checker by910 is source-cleared; artifact pins and
+saved audit remain pending. Do not repeat any forward/fit or broaden scope.
+Holdout lookup task accuracy97.99194/97.97668%, network agreement95.30945/
+95.39337%. Case2 separable task90.12736/89.87822%, network agreement87.50785/
+87.32824%. These new results do not restore historical provenance or imply an
+accuracy estimator. See rebuild/FULLFIT_RESULTS.md for preliminary scope.
 
 Exactly191 new1024-input forward chunks,195,584 new vectors and217 actual
 lstsq calls (216 homogeneous lookup maps plus one18-feature case2 map). Reuse
