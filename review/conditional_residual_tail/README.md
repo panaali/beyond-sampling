@@ -11,11 +11,11 @@ deterministic winner-gap union bound. `manifest.json` pins reviewed predecessors
 Single replacement and shared subsequent inputs are explicit.
 
 ## Status
-Proof-only artifact awaiting independent written review by recover_34, after
-his owner-priority review queue. No numerical execution is requested.
+Bounded proof-only phase passed independent written review 50c6a8dd, published
+shared c15f2eff. No numerical execution is authorized.
 
 ## Results
-[inferred, review pending] Exact conditional tail and cubic density bound;
+[inferred, independently reviewed] Exact conditional tail and cubic density bound;
 small-band relative variance can diverge while absolute residual moments shrink.
 A margin-gap plus tail bound needs no independence, but the gap distribution
 remains unknown. No trained performance result is reported.
