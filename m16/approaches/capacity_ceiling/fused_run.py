@@ -21,6 +21,7 @@ from evaluate import evaluate  # noqa: E402
 ap = argparse.ArgumentParser()
 ap.add_argument("tag"); ap.add_argument("--spec", nargs="+", required=True); ap.add_argument("--data-seed", type=int, default=0)
 ap.add_argument("--eval-n", type=float, default=1e8); ap.add_argument("--chunk", type=int, default=4096)
+ap.add_argument("--eval", default="torch", choices=["torch", "kernel"], help="kernel: in-kernel float32 MC (fused._eval)")
 a = ap.parse_args()
 spec = []
 for s in a.spec:
@@ -61,7 +62,14 @@ wall = time.time() - t0
 W = ft.weights()
 for k, sp in enumerate(spec):
     np.savez(os.path.join(HERE, "weights", f"{a.tag}_{sp['name']}.npz"), Wi=W[0][k], Wh=W[1][k], Wo=W[2][k])
-ev = evaluate([(W[0][k], W[1][k], W[2][k]) for k in range(M)], int(a.eval_n))
+if a.eval == "kernel":                          # independent Philox stream per model (key = (777, model index))
+    import math
+    c = F.evaluate_fused(ft.Wi, ft.Wh, ft.Wo, int(a.eval_n)).cpu().numpy(); n_ev = (int(a.eval_n) // 128) * 128
+    ev = [dict(n=n_ev, correct=int(r[0]), acc=r[0] / n_ev, se=math.sqrt(r[0] / n_ev * (1 - r[0] / n_ev) / n_ev),
+               blind_share=r[1] / n_ev, err_blind=r[2] / n_ev, err_23=r[3] / n_ev, err_12=r[4] / n_ev, err_other=r[5] / n_ev,
+               eval="in-kernel float32, independent stream per model") for r in c]
+else:
+    ev = evaluate([(W[0][k], W[1][k], W[2][k]) for k in range(M)], int(a.eval_n))
 json.dump(dict(meta=meta, wall_sec=wall, ms_per_step=1e3 * wall / max(1, n_max - s0), curve=curve,
                eval={sp["name"]: e for sp, e in zip(spec, ev)}, note="fused Triton kernel (in-kernel Philox data)"),
           open(os.path.join(HERE, "results", f"{a.tag}.json"), "w"), indent=1)

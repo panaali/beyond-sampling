@@ -31,7 +31,8 @@ def _train(Wi, Wh, Wo, mWi, mWh, mWo, vWi, vWh, vWo, lr0, nsteps, warm, bsz, fbl
     nbl = (tl.load(fbl + mdl) * Bm.to(tl.float32) + 0.5).to(tl.int32)      # hard-case counts per batch
     nti = (tl.load(fti + mdl) * Bm.to(tl.float32) + 0.5).to(tl.int32)
     gp = tl.load(gap + mdl)
-    for it in range(n_iter):
+    n_eff = tl.minimum(n_iter, tl.maximum(tl.load(nsteps + mdl) - start, 0))   # finished models exit early
+    for it in range(n_eff):
         step = start + it
         wi = tl.load(Wi + pi); wh = tl.load(Wh + pw); whT = tl.load(Wh + pwT); wo = tl.load(Wo + pw); woT = tl.load(Wo + pwT)
         gwi = tl.zeros([16], tl.float32); gwh = tl.zeros([16, 16], tl.float32); gwo = tl.zeros([16, 16], tl.float32)
@@ -117,6 +118,47 @@ def _train(Wi, Wh, Wo, mWi, mWh, mWo, vWi, vWh, vWo, lr0, nsteps, warm, bsz, fbl
         tl.store(lossacc + mdl * 2, tl.load(lossacc + mdl * 2) + lsum / Bm.to(tl.float32))
         tl.store(lossacc + mdl * 2 + 1, tl.load(lossacc + mdl * 2 + 1) + csum / Bm.to(tl.float32))
         tl.debug_barrier()
+
+
+@triton.jit
+def _eval(Wi, Wh, Wo, cnt, n_tiles, eval_seed, BB: tl.constexpr):
+    """forward-only MC evaluation on fresh Philox N(0, I_10) inputs (key = (eval_seed, model)); per model int64 counts:
+    correct, blind-region inputs, blind errors, 2-3 errors (picked 3rd largest), 1-2 errors (picked max), other errors"""
+    mdl = tl.program_id(0)
+    r = tl.arange(0, 16); rb = tl.arange(0, BB)
+    pi = mdl * 16 + r; pwT = mdl * 256 + r[None, :] * 16 + r[:, None]
+    wi = tl.load(Wi + pi); whT = tl.load(Wh + pwT); woT = tl.load(Wo + pwT)
+    c0 = tl.zeros([BB], tl.int64); c1 = tl.zeros([BB], tl.int64); c2 = tl.zeros([BB], tl.int64)
+    c3 = tl.zeros([BB], tl.int64); c4 = tl.zeros([BB], tl.int64); c5 = tl.zeros([BB], tl.int64)
+    key = eval_seed * 4096 + mdl
+    for tile in range(n_tiles):
+        off = (tile * BB + rb[:, None]) * 16 + r[None, :]
+        x = tl.randn(key, off)
+        x = tl.where(r[None, :] < T, x, float("-inf"))
+        i1 = tl.argmax(x, axis=1); y = tl.where(r[None, :] == i1[:, None], float("-inf"), x)
+        lab = tl.argmax(y, axis=1); v2 = tl.max(y, axis=1); y = tl.where(r[None, :] == lab[:, None], float("-inf"), y)
+        i3 = tl.argmax(y, axis=1)
+        xz = tl.where(r[None, :] < T, x, 0.0)
+        h = tl.zeros([BB, 16], tl.float32)
+        for t in tl.static_range(T):
+            xt = tl.sum(tl.where(r[None, :] == t, xz, 0.0), axis=1)
+            h = tl.maximum(tl.dot(h, whT, input_precision="ieee") + xt[:, None] * wi[None, :], 0.0)
+        lg = tl.where(r[None, :] < T, tl.dot(h, woT, input_precision="ieee"), float("-inf"))
+        pred = tl.argmax(lg, axis=1)
+        ok = pred == lab; blind = v2 <= 0.0; err = ~ok
+        c0 += ok.to(tl.int64); c1 += blind.to(tl.int64); c2 += (err & blind).to(tl.int64)
+        c3 += (err & ~blind & (pred == i3)).to(tl.int64); c4 += (err & ~blind & (pred == i1)).to(tl.int64)
+        c5 += (err & ~blind & (pred != i3) & (pred != i1)).to(tl.int64)
+    tl.store(cnt + mdl * 6 + 0, tl.sum(c0, axis=0)); tl.store(cnt + mdl * 6 + 1, tl.sum(c1, axis=0))
+    tl.store(cnt + mdl * 6 + 2, tl.sum(c2, axis=0)); tl.store(cnt + mdl * 6 + 3, tl.sum(c3, axis=0))
+    tl.store(cnt + mdl * 6 + 4, tl.sum(c4, axis=0)); tl.store(cnt + mdl * 6 + 5, tl.sum(c5, axis=0))
+
+
+def evaluate_fused(Wi, Wh, Wo16, n, eval_seed=777, BB=128):
+    """in-kernel evaluation (float32 forward, exact ieee dots) of stacked models; returns (M, 6) int64 counts"""
+    M = Wi.shape[0]; cnt = th.zeros(M, 6, dtype=th.int64, device=Wi.device)
+    _eval[(M,)](Wi, Wh, Wo16, cnt, n // BB, eval_seed, BB=BB, num_warps=4)
+    return cnt
 
 
 class FusedTrainer:
