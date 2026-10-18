@@ -129,6 +129,63 @@ these). Regions of zero Gaussian mass are excluded by construction (exact leaves
 (4,3) zoo2 differs from exact3. (8,5) is one seed. Compute: geometry-only exact runs, (8,5) zoo0 1.7e9 ops / 10.4
 CPU-min, all others < 80 CPU-s each; RECIPE112 recount and exact.py runs < 1 CPU-min.
 
+## T206: exact-mode cost anatomy at (8,4) and (16,4) zoo0 (2026-10-18; unverified)
+**Method.** `anatomy.py H T name [chamber|truth]` runs estT exact mode unchanged. Instrumentation only wraps `mass()`
+(its ops go to a separate counter and still count in the total) and `_cell_error` (per leaf: exact error mass, mass ops,
+simplices, kind, and the leaf's own mass with a throwaway counter, so the leaf sum can be checked). Leaf kinds: *correct* = no
+clip leaves a wrong piece, so no mass is computed; *wrong* = the whole leaf is wrong; *mixed* = the rest. The `truth` start
+replaces the 4·T! half-chambers by the 2T(T-1) truth cones {x_i > x_j > rest} x sign(x0) (review/chamber_split, T192).
+`orthbench.py`: orthant ops per simplex by d. `anat_summary.py` -> `anatomy_summary.json`. (8,3) and (16,3) are included
+for the d = 3 contrast.
+
+| zoo0 | start | ops | mass share | leaves: correct / mixed / wrong | error in mixed / wrong | simplices per mass-leaf | mass ops / simplex |
+|---|---|---|---|---|---|---|---|
+| (8,3) | chamber | 3.5e5 | 9% | 289 / 137 / 26 | 6.5e-4 / 5.7e-7 | 1.7 | 116 |
+| (16,3) | chamber | 1.24e6 | 7% | 795 / 224 / 143 | 6.1e-4 / 3.7e-6 | 1.8 | 125 |
+| (8,4) | chamber | 1.10e9 | **97%** | 2865 / 3802 / 1788 | 2.3e-2 / 6.4e-4 | 6.3 | 30536 |
+| (8,4) | truth | 7.35e8 (0.67x) | 98% | 1300 / 2622 / 953 (0.58x leaves) | 2.3e-2 / 5.4e-4 | 6.6 | 30562 |
+| (16,4) | chamber | 4.19e9 | **95%** | 29031 / 14524 / 7997 | 2.1e-3 / 2.5e-5 | 5.8 | 30389 |
+| (16,4) | truth | 3.17e9 (0.76x) | 95% | 19511 / 12102 / 4924 (0.71x leaves) | 2.1e-3 / 2.3e-5 | 5.8 | 30401 |
+
+Orthant ops per simplex (`orthbench.py`, 120 random cones per d): d = 3 69; d = 4 30144-30536; d = 5 51965 (173060 on
+thin cones, below the det threshold). In runs a d = 3 "simplex" costs ~120 including the pulling triangulation.
+
+**Error-mass distribution (cells with nonzero error).** (8,4): 5590 cells, median 4.6e-8, 90% quantile 5.6e-6. (16,4):
+22521 cells, median 2.2e-10, 90% quantile 5.1e-8. Share of total error (and of mass ops) in cells with error below:
+
+| zoo0, chamber | < 1e-8 | < 1e-7 | < 1e-6 | oracle skip at 1 SE |
+|---|---|---|---|---|
+| (8,4) | 0.017% of error (20% of mass ops) | 0.24% (44%) | 2.1% (69%) | SE 8.5e-5: skip 75% of leaves = 49% of mass ops -> 5.8e8 ops (1.9x) |
+| (16,4) | 0.80% (74%) | 5.4% (90%) | 23% (98%) | SE 2.5e-5: skip 93% of leaves = 78% of mass ops -> 1.1e9 ops (3.8x) |
+| (16,4) truth start | 0.65% (69%) | 4.8% (87%) | 23% (97%) | SE 2.8e-5: 76% of mass ops -> 8.8e8 ops (4.8x vs chamber exact) |
+
+"Oracle skip": sort leaves by their exact error and drop the smallest while the dropped error sums to <= the sampling
+SE at the same cost (T196 units: 2·ops FLOPs vs c_s(H,T) per input; the bias is then <= 1 SE). It is an upper bound on what
+a *certified* per-cell bound could skip, since a real method must bound each cell's error without computing it. It
+is also conservative in one way: after skipping, the cost and hence the allowed SE change. At T = 3 the whole error
+(6.5e-4) is below 1 SE at that tiny cost, so the T = 3 skip figures are meaningless and not shown.
+Checks: leaf masses sum to 1 within 1.1e-10 on all 8 runs. The truth start gives the same accuracy (differences
+<= 1.5e-12) and reproduces T192 S3's (8,4) 0.58x leaves / 0.67x ops.
+
+**Reading.**
+1. From T = 4 exact cost is almost all cone masses (95-97%): ~6 simplices per leaf that needs a mass, at ~3e4 ops
+   each (d = 4 Plackett quadrature, 440x the d = 3 closed form). Geometry is 2-5%.
+2. 56% (16,4) / 34% (8,4) of leaves are fully correct and cost no mass. Almost all error sits in mixed leaves, which also
+   take most mass ops. Fully wrong leaves carry ~1-3% of the error.
+3. Mass work concentrates in negligible cells, more so at H = 16: cells with error < 1e-8 take 74% of the mass ops but
+   0.8% of the error. With a certified per-cell error bound, at most 49% (8,4) to 78% (16,4) of the mass ops could be skipped
+   at 1 SE of bias (x1.9 / x3.8; x4.8 combined with the truth start at (16,4)). This is a constant factor, not a change in
+   the growth law: cells still grow ~x13-34 per step.
+4. Cheaper per-simplex masses are the other lever: a d = 4 mass costs 440x a d = 3 one. Quadrature order could
+   follow the precision needed (1e-8 absolute is enough for most cells) instead of being fixed at full accuracy.
+
+Claims (T206, unverified): [measured] the two tables above; [measured] truth-cone start is lossless on these 4 models;
+[inferred] a certified per-cell error bound could save at most ~2-4x at (8,4)/(16,4); [speculative] precision-adaptive
+quadrature could cut the per-simplex cost by a larger factor (not tested).
+Alternatives: one seed per size. The oracle uses exact per-leaf error; a real bound (e.g. leaf mass <= cap, or a
+solid-angle bound) will skip less. Leaf kinds come from mass-op counts (a wrong piece of zero mass is still computed).
+Compute: anatomy runs (8,4) 61/38 CPU-s, (16,4) 241/180 CPU-s (including the diagnostic leaf masses, not in ops).
+
 ## Compute accounting
 Counted ops = `m43.Ops` inside the estimator (recipe or exact), as estT_fix; leaf-sum masses, region patterns and MC are
 diagnostic and excluded. Totals (CPU, single thread): (8,3)+(16,3) all runs < 1 min; (16,4) recipe 9 x 2.3-2.7 min
