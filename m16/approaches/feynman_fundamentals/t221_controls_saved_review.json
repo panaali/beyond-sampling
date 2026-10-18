@@ -1,0 +1,37 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "task": "T221 independent saved interface/lifecycle controls",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/controls/results.json": "58008d947e16aef04442cf9d3d409ac00e1ba4ed5ca11e0e0b405a37397145cd",
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/controls/progress.jsonl": "3ab8658bf8c14d45854234c65c462c9ee1b20301cec2772c23a220b5af089a39",
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/protocol.json": "fb434d87653bb7f0f9ca82420c376901f3de8401482bed2da882f4dacb7840ed",
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/execution_gate.json": "295bcea8543a7cdf5ff6ccca89a877609930e720deb9e870a63b7c69f1aa92dc",
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/source_manifest.json": "418d3f49e4308db5250cda83f6d307e3891cfe0480a7e1f0d5d6f96e107aa977",
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/adapter.py": "86417db4af8ea40773f4e42faffdc0fa345698114270747b77838641f5c6ea4f",
+    "/workspace/work/recover-small_h2_56/review/srb_draw_diagnostics/controls.py": "9b6dd336fb5d6ae78af3ff7e492e613e87f564cd325771e4e683198725825cc0"
+  },
+  "checker_sha256": "8cca48c2abc63b4810bac9d203aa5b0a67e6b0f0f42093e2a66027dda7354039",
+  "success_baseline_rows": 4,
+  "synthetic_failure_rows": 3,
+  "nested_lifecycle_rows": 1,
+  "snapshots": 8,
+  "original_Q_calls": 4,
+  "synthetic_Q_calls": 2,
+  "progress_events": 19,
+  "requested_candidates": 500000,
+  "completed_candidates": 400000,
+  "requested_shapes": 10,
+  "completed_shapes": 8,
+  "numeric_ast_sha256": "5a3a4ab83d26f6c3d8c2d1447564bd61b98d8fe0834026da49928214b564661c",
+  "review_cpu_seconds": 0.07199436599999999,
+  "prior_control_cpu_seconds": 0.343629783,
+  "new_author_estimator_rng_calls": 0,
+  "scope": "Saved original baseline bits/cost/requests/warnings reused once, exact request/return/failure accounting and nested rejection/immutable-snapshot records; original numerical AST unchanged.",
+  "limitations": [
+    "Cache object identity and historical object immutability are runtime assertions recorded by the gated harness, not reconstructible object identities from JSON. Frozen dataclass and per-call copies checked in source.",
+    "Failed RNG internals and partial arrays before return are unknown; only requested shapes/completed returns are counted.",
+    "Zero-readout original outputs are interface parity, not Q accuracy evidence.",
+    "No Gaussian sampling-law, trained-model, runtime-speed or full-cost/multiplier claim."
+  ]
+}
