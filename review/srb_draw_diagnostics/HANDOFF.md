@@ -14,8 +14,10 @@ eight outer calls plus one rejected nested attempt, originalQ4/syntheticQ2,
 Gaussian-law RNG, model fitting or native-cost run. README gives exact command,
 resource/timing scope and all caveats.
 
-Independent saved review is assigned to recover_fundamentals and pending as of
-this author handoff. No self-confirmation, cost-policy correction, estimator
+Independent saved review5e45bec2 is complete and published5161614d: all four
+baselines, three failures, nested records,19events and AST/pins agree. Review
+CPU.071994366, no author calls; runtime object identity remains source/harness
+evidence rather than reconstructible JSON identity. No self-confirmation, cost-policy correction, estimator
 advantage, historical draw reconstruction or production adoption is claimed.
 The frozen outputs and original source remain unchanged. This completes the
 authorized bounded author phase; further work is review/correction only unless
