@@ -59,3 +59,4 @@ Labels: everything here is diagnostic sampling. Nothing is an estimator.
       truncated-pieces form before any re-merge).
     The verdict uses the best of all five rules per unit (most generous). The rules `naive`, `future` and
     `future_gates` (Gaussian over all 18 dims) are kept.
+- **Scope note (DRI, 2026-10-18, before B4 ran):** the B4 checks moved to T310 in another child; not run here.
