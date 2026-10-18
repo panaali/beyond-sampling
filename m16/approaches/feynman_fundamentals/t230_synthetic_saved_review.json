@@ -1,0 +1,92 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "task": "T230 independent exact synthetic saved audit",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/primitive.py": "867c537c5d0d17d3b290f942a0f52461563930eb1aa4dfa63b29350aa2a405be",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/controls.py": "794bd420532f1e1d052619621322453cae51d273468a5f210f61a9c63fe7689e",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/fixtures.json": "76dbefe5b94dcefb6448ddae49de134590243ec199a9d4fcccbc162bd03be0ce",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/protocol.json": "e11a646de31eef3b15f75303f5053c76f611877543ac8993dfac4aa16ede287d",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/gate.json": "ef53250b79b3a0ed2af51b61cf34774693bd748bd0307fda3f88a7573ef57cbb",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/output/results.json": "92f03a2ddfd76fc2420324739d97cbc170059e86702a01730704b18f1a574be1",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/output/progress.jsonl": "44bf6d34a38e6db3ade95d53c5c26d74b2c32984a7f8fd98d7fd1791001948e4",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/LAUNCHER_DEVIATION.md": "fd918e8d5e5d8a3ef08e446e27903c4a636a1fd33938df9df1bd945a88b29737",
+    "/workspace/work/recover-small_h2_56/review/coarse_family_protocol/synthetic/run1.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "checker_sha256": "d40ea8dc1d127520c04f37f5d348f59d90ac40acd32e4e3b16b7c8f9509bc3b4",
+  "cases": 8,
+  "guards": 10,
+  "validation_rows": 67,
+  "progress_events": 39,
+  "case_checks": [
+    {
+      "name": "constant",
+      "validation_rows": 2,
+      "mse": "0",
+      "baseline_mse": "0",
+      "centered_residual_variance": "0"
+    },
+    {
+      "name": "allzero",
+      "validation_rows": 2,
+      "mse": "0",
+      "baseline_mse": "0",
+      "centered_residual_variance": "0"
+    },
+    {
+      "name": "independent_95pct",
+      "validation_rows": 40,
+      "mse": "1/4",
+      "baseline_mse": "1/4",
+      "centered_residual_variance": "1/4"
+    },
+    {
+      "name": "perfect",
+      "validation_rows": 4,
+      "mse": "0",
+      "baseline_mse": "1/4",
+      "centered_residual_variance": "0"
+    },
+    {
+      "name": "unseen",
+      "validation_rows": 1,
+      "mse": "4",
+      "baseline_mse": "4",
+      "centered_residual_variance": "0"
+    },
+    {
+      "name": "tied_cutoff",
+      "validation_rows": 4,
+      "mse": "0",
+      "baseline_mse": "0",
+      "centered_residual_variance": "0"
+    },
+    {
+      "name": "kind_occupancy",
+      "validation_rows": 6,
+      "mse": "1/3",
+      "baseline_mse": "35/12",
+      "centered_residual_variance": "1/3"
+    },
+    {
+      "name": "half_reselection",
+      "validation_rows": 8,
+      "mse": "223/16",
+      "baseline_mse": "223/16",
+      "centered_residual_variance": "223/16"
+    }
+  ],
+  "review_cpu_seconds": 0.068183279,
+  "author_cpu_seconds": 0.098147731,
+  "new_author_model_rng_calls": 0,
+  "limitations": [
+    "Finite equally weighted synthetic metrics only; no target-family regularity, random-null law or iid estimator claim.",
+    "Guard errors are checked against source and saved exception records; no author primitive replay.",
+    "Undefined zero-baseline ratios and raw-versus-centered residual distinction retained.",
+    "No real Sobol prefix, label-generation cost or numerical-application clearance."
+  ],
+  "arithmetic_coverage_pass": true,
+  "full_resource_protocol_compliance": false,
+  "resource_deviation": "Author-preserved shell record: hard limits failed before soft limits were lowered; no errexit, so Python continued. Harness verifies soft limits only; actual hard-limit values unrecorded. No rerun, no full launcher-conformance claim.",
+  "pass_all_scope": "All independent saved arithmetic, provenance, record and finite guard checks; resource protocol deviation is explicitly excluded from pass_all."
+}
