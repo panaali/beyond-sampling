@@ -8,6 +8,7 @@ independent ones.
 
 | Date read | Agent | URL | Published | Relevant content | Used by |
 |---|---|---|---|---|---|
+| 2026-10-18 | Claude DRI (relayed by the project owner) | No URL: private report from the owner's ARC contact, second-hand | 2026-10-18 | A newly joined ARC member reportedly has a solution for M_16,10 (method unknown, unpublished); ARC is said to be waiting for us for a comparison. Unverified; no ARC material read; ARC not contacted (owner ruling 2026-10-18: no contact without a candidate solution) | INDEX H-E5; TASKS T203, T41 |
 | 2026-10-16 | Codex literature_protocol | https://www.alignment.org/ | Rolling page, search snippet on read date | Homepage snippet showed June 2026 white-box contest and recent random-MLP work titles. Snippet only. | None; exposure only |
 | 2026-10-16 | Codex literature_protocol | https://www.alignment.org/blog/a-mikes-eye-view-of-arcs-research/ | 2026-06-09 | Search snippet described mechanistic models and rare-behavior estimation. Full page not opened. | None; exposure only |
 | 2026-10-17 | Claude T22b (lit/web_methods) | https://www.alignment.org/blog/mechanistic-estimation-for-wide-random-mlps/ | 2026-05-07 | Cumulant propagation beats sampling for wide random ReLU MLPs (depth 4, width 256, up to 100x fewer FLOPs); asymptotic in width; trained nets and depth~width open. No AlgZoo content | lit/web_methods #3 (proposed proxy, T35) |
