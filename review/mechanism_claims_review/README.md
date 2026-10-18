@@ -13,7 +13,8 @@ derives the exact sign-region probability and the additional assumptions needed
 for a rank-blind error calculation. No author source imports or model calls.
 
 ## Status
-Initial bounded source/derivation evidence prepared; independent review pending.
+Initial bounded source/derivation evidence independently reviewed: theorem
+dd64fb85 and metadata1d352ce1, both published. See HANDOFF.md.
 Historical fit drivers/raw data remain unrecovered in the stated search scope.
 The full T201 task is not complete: any rebuilt held-out fits or new cross-tab
 require a separately published fixed protocol and source/resource gate.
@@ -21,15 +22,15 @@ require a separately published fixed protocol and source/resource gate.
 EXACT_STATE_LIMIT.md additionally reuses independently reviewed T138 evidence
 under scopef7509964: varying omitted input1 around the old strict crossing
 preserves (state,m1,m2,x9) but changes the unique network winner. This is a
-theoretical implication of pinned existing certificates, pending independent
-review, with no new numerical evaluation. Approximate lookup quality remains
+theoretical implication of pinned existing certificates, independently reviewed
+in dd64fb85, with no new numerical evaluation. Approximate lookup quality remains
 open; no probability or practical error lower bound is claimed.
 
 ## Results and claims
-[inferred, review pending]216=3*9*8 states determine the true answer exactly,
+[inferred, independently reviewed]216=3*9*8 states determine the true answer exactly,
 which alone does not establish a faithful network model. [source observation]
 state.py and separable.py implement helpers without a frozen experiment split.
-[inferred, review pending]11/1024 is exact;8/9 is not implied by architecture,
+[inferred, independently reviewed]11/1024 is exact;8/9 is not implied by architecture,
 and even a fully rank-blind idealization has different zero/one-positive rates.
 [source observation]the later ten-probe routine covers K=1 only, not the exact
 blind conditional law. No new accuracy result, significance test or rung pass.
