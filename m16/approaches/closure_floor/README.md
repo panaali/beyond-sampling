@@ -194,3 +194,38 @@ Done. Unverified. The re-check was pushed (1d53520f) before smooth_verdict/ and 
 - First-order laws of the lows through one gate pattern overstate the spread of the margin (T292, T319, here),
   unless they are clipped to the cone, and even clipped they fail when the closure moves v4 off its position (R1W).
 - Exact 1-D walks are accurate but cost ~10-12 cells per point. A per-triple deployment already exceeds the budget.
+
+# T339: T317f with the one-pattern spread closure (build; DRI lane decision 2026-10-18)
+
+## Pre-registration (written before any T339 code ran)
+**Base:** frozen T317f, copied verbatim from claude/t218-tie-tail-labels @88453669 (`cont_f_t317f.py` sha256
+327dbb4a..., `estimator_f_t317f.py` 3afa3912..., both checked). **Only change:** the closure's low pattern. In T317f
+the 6 lows (`LOWS`, every free position except the latest, which holds v4) share one value, low = mu(v4) linearised
+along the walk (`low`, `dlow` in `inputs`). In T317g the low at absolute position j becomes
+
+    low_j = low + s * (-1)^j * sigma,   dlow_j = dlow + s * (-1)^j * dsigma,
+
+with sigma = sd(N(0,1) | < v4) and its derivative linearised along the walk exactly as T317f linearises mu:
+sigma4 + dsigma4 (v4 - v4*) on the 2~3 line (v4 moves, d4 = -1), and the constant sigma4 on the 1~2 line (v4 fixed).
+Here sigma^2(v) = 1 + v mu - mu^2 and dsigma/dv = (mu + v mu' - 2 mu mu') / (2 sigma), all model-free constants per
+region, computed once at import. Nothing else changes: G, TMAX, screen C1, the walk, merge, profile, FLOP charges, and
+the v4 node.
+
+**Candidates:** s = +1 (pattern mu + (-1)^j sigma) and s = -1 (mu - (-1)^j sigma). **Selection rule:** the one with the
+lower DEV2 MSE x C (MSE vs the official truths over all 80 models, C = mean FLOPs as executed / 5948), with one freeze.
+It becomes T317g only if its MSE x C is below T317f's. DEV2 is development; HP5 is the claim.
+
+**Checks (before the selection):**
+1. s = 0 reproduces T317f bitwise (estimates and FLOPs) on all 80 DEV2.
+2. B2 prefix tree: count the first-cell nodes per line for s = 0 and s = +-1 (expected unchanged, 2,815 per line, since
+   at a given step all triples with a low there share one value, whatever the pattern).
+3. C as executed for s = +-1 vs T317f (expected nearly equal; walks can cross a different number of cells, which is
+   charged as executed).
+
+**Report:** RMS, bias, C and F = RMS^2 max(C, 1k) / mean p(1-p) on 80 DEV2 for T317f (reproduced; DRI quotes F 3.14,
+C 3,326) and both patterns.
+**Expected (from the T327 oracle):** closure floor .48 -> .34 (s=+1) or .26 (s=-1), so RMS ~.83 -> ~.75 / ~.72 at the
+same C, and F ~3.14 -> ~2.6 / ~2.4. The +.49 pp bias (from the other declared approximations) remains; the oracle
+closure bias moved -.15 -> -.04 / -.02, so the total bias may rise by about +.1.
+**Alternatives:** the gain could fail to carry over, because the walk integrates the closure along gap lines at
+quadrature nodes, not at each input's true skeleton; that is what this run tests.
