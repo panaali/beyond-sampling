@@ -34,3 +34,42 @@ MC truths are still computed and stored for all T.
 
 **Amendment 2 (2026-10-18, data-independent):** alg_zoo has no zoo model at T = 7 or 9 (it offers 2, 3, 4, 5, 6, 8, 10), so the
 T set is {3, 4, 5, 6, 8, 10}. The Spearman rule (rho <= -0.6) is applied over these 6 values.
+
+## Results (unverified; `run.py`, `fit.py` -> fit.json / fit.out, `prefactor.json`, `enum.json`)
+720 sci_tao runs: 6 T x 3 seeds x 5 budgets x 8 scrambles. Truths: exact at T = 3, 4; 4e7-sample MC at T = 5-10.
+
+| T | pooled alpha_rmse [95% CI] | per-seed alpha | median MSE ratio @16k | @256k |
+|---|---|---|---|---|
+| 3 | 0.64 [0.50, 0.77] | [0.66, 0.55, 0.67] | 0.000981 | 0.000993 |
+| 4 | 0.64 [0.57, 0.70] | [0.66, 0.76, 0.57] | 0.03 | 0.019 |
+| 5 | 0.49 [0.39, 0.58] | [0.39, 0.87, 0.63] | 0.254 | 0.221 |
+| 6 | 0.61 [0.50, 0.73] | [0.64, 0.6, 0.65] | 1.69 | 0.323 |
+| 8 | 0.56 [0.49, 0.63] | [0.48, 0.55, 0.62] | 1.08 | 0.654 |
+| 10 | 0.67 [0.54, 0.79] | [0.68, 0.72, 0.48] | 2.49 | 0.782 |
+
+Spearman rho(T, alpha) = **0.03**; fit alpha = 0.5 + s/(T-1): s = 0.32 [0.05, 0.60]. That fit forces the
+intercept to 0.5; the data are flat at ~0.6 instead.
+Mass-truncated exact enumeration (zoo seed 0, saved T206 leaves): alpha_bias 1.07 [0.59, 1.55] at T = 3 and 1.40 [0.72, 2.07] at T = 4.
+These are finite methods that converge to exactness, so they do not test the hypothesis. MSE ratio at T = 3 is <= 0.01 at every
+truncation from 1/64 of the leaves.
+
+## Verdict (pre-registered rule): **refuted**
+alpha(3) = 0.64 < 0.75 and rho = 0.03 > -0.2. sci_tao's convergence rate does **not** depend on T: it is ~0.5-0.67 (the RQMC regime,
+slightly better than sampling's 0.5) at every T from 3 to 10. The H-E11 collapse is a **prefactor** collapse. At equal budget
+sci_tao's MSE ratio to sampling rises ~1000x from T = 3 (~1e-3) to T = 6-10 (~0.3-2.5), at an unchanged rate. The dimension
+factor N^(-s/d) predicts a falling exponent and is not what happens. What grows with T is the integrand's variance relative to
+p(1-p): more and wider error bands per face, which matches the heavy tails of H-E12 and T218 [inferred].
+Side observation: on these zoo seed models sci_tao's ratio at 256k is < 1 at every T (0.78 at T = 10). On the target it is ~1
+(T271). So the clean zoo seeds are slightly easier than the target at T = 10 [measured, 3 seeds].
+
+## Alternatives not ruled out
+- 8 scrambles per point: per-point MSE is uncertain to ~±50%, and the per-seed alphas scatter (0.39-0.87 at T = 5).
+- The pilot-based Neyman allocation changes with budget, so alpha mixes rule convergence and allocation; a fixed-allocation run
+  would isolate the rule.
+- Budgets 4k-1M only. An asymptotic rate change beyond 1M (e.g. once all kinks are resolved) is not excluded.
+- Truth MC SE (1.6-5e-5 at T >= 5) is subtracted; points with MSE <= 0 after correction were dropped (none at T >= 5 with
+  this budget range, per fit.json).
+
+## Compute accounting
+Truths 4e7 x 18 models (T >= 5; ~1 CPU-h with T = 3, 4 MC kept for reference); sci_tao 720 runs (~50 CPU-min). ~2 CPU-h total,
+single thread.

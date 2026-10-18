@@ -5,3 +5,39 @@
 4 1 done
 4 2 done
 5 0 done
+5 1 done
+5 2 done
+6 0 done
+6 1 done
+6 2 done
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/rate_T/run.py", line 31, in <module>
+    m = zoo(16, T, s); tr = dict(TR[f"T{T}_s{s}"])
+  File "/home/user/clean-neurons/m16/approaches/sci_tao/core.py", line 183, in zoo
+    m = zoo_2nd_argmax(H, T, seed=seed)
+  File "/home/user/alignment-research-center/alg-zoo/alg_zoo/zoo.py", line 34, in zoo_2nd_argmax
+    check_prop_in("seq_len", seq_len, [2, 3, 4, 5, 6, 8, 10])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/alignment-research-center/alg-zoo/alg_zoo/zoo.py", line 9, in check_prop_in
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: No zoo model with seq_len 7, please choose one of: 2, 3, 4, 5, 6, 8, 10
+3 0 done
+3 1 done
+3 2 done
+4 0 done
+4 1 done
+4 2 done
+5 0 done
+5 1 done
+5 2 done
+6 0 done
+6 1 done
+6 2 done
+8 0 done
+8 1 done
+8 2 done
+10 0 done
+10 1 done
+10 2 done
