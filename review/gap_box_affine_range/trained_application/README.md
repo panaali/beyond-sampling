@@ -7,16 +7,16 @@ Does restricted affine ranging improve four predetermined trained-domain certifi
 The eight-call runner implements the independently reviewed corrected preparation: four new whole-box certificates for parity and four gap-restricted certificates with old-margin fallback. Source, data and review pins are checked before decoding. PROTOCOL.md freezes cases, cost categories, resource limits, failure retention and exclusions.
 
 ## Status
-Source preparation only; no model manifest or selected archive decode and no candidate call. Published independent source/resource gate and immutable execution binding are required.
+Sole fixed run completed after source/resource review9d589585/shared e6223c73, conditional scope d08c1ee7 and immutable gate5cb7c24a published6f89d387. Independent saved audit remains pending910; no expansion follows automatically.
 
 ## Results
-None. Source syntax parsed without imports; enclosure.py and range_primitive.py match independently checked synthetic source byte-for-byte.
+[measured, independent saved check pending] All8 calls/18events completed and all four whole-box six-margin/four-status baseline checks pass. Restricted target statuses change unknown to correct on rotations0,1,3; rotation2 remains unknown. All24 raw contrast widths narrow. The valid old fallback is retained separately. These are four fixed domains, not a probability or full-grid result.
 
 ## Compute accounting
-Zero numerical calls in preparation. Proposed eight trained certificate recurrences, one manifest/four archive decodes and all setup/trace accounting are explicit. No model work is treated as free preprocessing. Named counts remain partial prices.
+Sole run:8 trained certificate recurrences (4wholebox/4restricted),1manifest/4archive decodes,1024archived rows decoded and4selected,32physical endpoint conversions,48old-margin rational values. InternalCPU3.257120523 seconds, peakRSS43980KiB; Bash real3.62/user3.26/sys0.18 seconds. Actual16/20CPU and2GiB address-space limits. Full traces and per-call source ledgers retained; named counts remain partial prices. No old candidate/checkpoint/CDF/RNG/mass/direct-point-forward calls.
 
 ## Claims
-[inferred] Reviewed exact source supports the stated domain enclosure; trained parity and utility remain unmeasured. No mass, accuracy, cost-win or rung claim.
+[inferred] Reviewed exact source supports the stated domain enclosure; finite trained parity passes and three selected target labels become certified; independent saved reconstruction is still pending. No mass, accuracy, cost-win or rung claim.
 
 ## Alternatives not ruled out
 Dependent remainders, slope changes, negligible domain mass and rational arithmetic cost can erase gains. Every unchanged or worse raw interval will be retained separately from fallback.
