@@ -27,8 +27,9 @@ Do the two rows hold up under different code and a different enumeration algorit
   tie_tail_labels/prefix_blind.py).
 - Masses: rays, then simplicial cones, then robust-angle orthant probabilities (`tie_tail_labels/prefix_mass.py`,
   validated in T222). They must sum to 1 within 1e-9.
-- Error mass of a final leaf = leaf mass - mass of (leaf ∩ {logit_target >= logit_j for all j}). The latter is
-  obtained by further dd splits.
+- *Amended before any run:* per-leaf error masses (T239 part 1) are not needed for H-E15's criteria and are
+  dropped. To bound compute, H-E15 prefix masses use the target + frob0-2 + row0-2 (the counts for H-E14 use all
+  draws).
 
 **Models (my own draws, my own seeds).**
 - target `example_2nd_argmax`;
