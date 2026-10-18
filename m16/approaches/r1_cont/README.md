@@ -55,4 +55,9 @@ C at each G. If one qualifies, freeze it as T317b and send it to the T281 scorer
 - HP1: clean 5.3; noisy 52-228 (outside scope).
 - Scorer's cost audit: the counting matches the executed loops. Counting every comparison and boolean op puts
   correct_interval at ~216 FLOPs, not 146: +1.2% C, F ≈ 9.69. np.unique keying is treated as uncharged bookkeeping.
-- T317b (G = 20): HP2 score pending.
+- **T317b (G = 20), HP2 (claude/hp1-scorer d956eee4): C = 6,290 FPE, F = 7.75 [5.58, 10.07].**
+  - Estimates are within 1.4e-6 pp of V1.
+  - **Point lenient pass. The upper CI is 10.07, just above 10**, robustly (10.05-10.16 across 20 bootstrap
+    seeds).
+  - HP1 clean 4.3; noisy copies fail.
+  - This is the best deductive (deductive + declared approximations) HP2 score in the project so far.
