@@ -26,3 +26,8 @@ exists (T192's k5 masses are prefix regions without labels), so T = 5 is not pos
 - Otherwise **mixed**, reported with which part failed.
 **Alternatives.** Scramble count (8) limits each MSE to roughly ±50%. Truth SE limits the large-budget points at small T, where the
 error is smallest. Neyman allocation changes with budget (pilot effect), so the "rate" also includes allocation effects.
+
+**Amendment (2026-10-18, before any sci_tao row was computed):** at T = 3, 4 the zoo models' error is so small (accuracy
+0.9994 / 0.998) that sci_tao's large-budget error falls below the 4e7-sample MC SE. For T = 3, 4 the truth is therefore T194's exact
+enumeration accuracy (width16_probe/res/H16_T{3,4}_zoo{s}_exact.json; leaf sums within 5e-10, validated against MC), with SE 0.
+MC truths are still computed and stored for all T.
