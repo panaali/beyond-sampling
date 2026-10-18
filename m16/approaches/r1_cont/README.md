@@ -997,3 +997,12 @@ near-zero pre-activations are excluded from the roots. Charged: + 2H per re-gate
   input coordinate crosses 0 inside their windows.
 - **Affected:** T340's variant A/B and my T349 (T340c K1/K3/K5) and T354 numbers. They are being rerun with the fix
   (`run_fixed.py`). The T349 results section above is superseded by the fixed rerun below.
+
+**T317f verified unaffected (`python check_t317f.py`, `results_check_t317f.json`).**
+- (a) Model-free: no input coordinate of any T317f line crosses 0 inside [0, tmax = .5] (0 rows on all three lines).
+  The nearest crossing is at t = .751, on nb-g23.
+- (b) On 10 DEV2 models and 10 open DEV3 models (s500-s509), T317f's walk equals a dense float64 forward along every
+  line (2,000 midpoints on [0, .5]): max |correct-length difference| **2.6e-4**, the grid's own resolution
+  (dt 2.5e-4). The fixed walk needs **0** simultaneous flips there.
+- So HP4's T317f score is not touched by this bug. The DEV3 models stand in for the sealed HP panels: the zero-crossing
+  result is model-free, and (b) shows the walk resolving correctly on unseen open models.
