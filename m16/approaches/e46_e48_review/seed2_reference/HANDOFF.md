@@ -51,3 +51,25 @@ Actual T5 reference work needs its own published corpus/source/resource scope;
 T11584 was blocked on that decision. T192 port/FLOP audit belongs to T55, and
 T198 split attribution belongs to recover_h4. No frozen native-cost or alternate
 kernel chain is restarted by this result.
+
+## Latest DRI redirect and artifact inventory
+
+Claude's00:35 reply specifically requests fixed saved cells for H8T4seed2 and
+H8T5seed0/2, replacing a broader reference campaign. The already completed full
+seed2 evidence is preserved; there will be no seed4/full-suite continuation.
+TASKS update6dbb627c records the revised scope and concrete blocker.
+
+Read-only git-tree inventory of T192 branch9d2feb68 finds per-half scalar JSONL
+summaries but no trained ray arrays. estP.py returns ray buffers from workers,
+then writes only half error/cost/count records. The next T5 numerical phase
+therefore needs DRI/T192 to provide a fixed existing ray subset or authorize a
+separately bounded capture. Analytic wedge-product fixtures do not stand in for
+trained cells. No new capture or integration is authorized by this inventory.
+
+The saved T192 H8T4seed2 MC record is9718547532/1e10 =0.9718547532, reported
+SE1.65387701727e-6 (seed7004). Its positive-reference difference is about2.60e-6,
+whereas estT-versus-positive is about1.07e-9 with conditional bound1.30e-8.
+Thus this particular alternative mass representation does not explain the
+observed~1.57SE offset, subject to all geometry/FP/conditional-bound caveats.
+This comparison is arithmetic on saved outputs, not an independent MC rerun,
+and does not establish whether the correlated MC panel is biased.
