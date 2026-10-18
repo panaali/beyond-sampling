@@ -23,6 +23,7 @@ PANELS = dict(hp1=dict(groups=("clean", "abs0.05", "rel0.005", "rel0.01"),
                                 manifest="fe0974012be395454e60b182e3552c36d8ec24940c2ddaa1ebb620302988ca64",
                                 truths="b610b9a29eee87bda0891f52ea6016b40cb7948a2b0360787895cf04f4c8a509")))
 GROUPS = PANELS[PANEL]["groups"]
+CLUSTER = PANELS[PANEL].get("cluster", "base")      # hp2: "name" (one cluster per retrain, DRI)
 RES_PREFIX = "" if PANEL == "hp1" else PANEL + "_"
 NBOOT, BOOT_SEED = 10_000, 281
 SHA = PANELS[PANEL]["sha"]
@@ -106,8 +107,8 @@ def run(name, path, func, label, budgets=BUDGETS):
 def aggregate(name, label, path, func, budgets=BUDGETS):
     names, man, models, tr = load_panel()
     rows = {(r["k"], r["B"]): r for r in map(json.loads, open(os.path.join(D, f"raw_{name}.jsonl")))}
-    kind = [m["kind"] for m in man]
-    base = [m["base"] for m in man]
+    kind = [m.get("kind", GROUPS[0]) for m in man]
+    base = [m[CLUSTER] if CLUSTER in m else m["name"] for m in man]
     rng = np.random.default_rng(BOOT_SEED)
     out = dict(name=name, label=label, file=path, func=func, budgets={})
     for B in budgets:
@@ -153,8 +154,8 @@ def aggregate_F(name, label, budgets=CURVE):
     F_se: same with the truth-MC term removed from the MSE (mean SE^2 subtracted)."""
     names, man, models, tr = load_panel()
     rows = {(r["k"], r["B"]): r for r in map(json.loads, open(os.path.join(D, f"raw_{name}.jsonl")))}
-    kind = [m["kind"] for m in man]
-    base = [m["base"] for m in man]
+    kind = [m.get("kind", GROUPS[0]) for m in man]
+    base = [m[CLUSTER] if CLUSTER in m else m["name"] for m in man]
     rng = np.random.default_rng(BOOT_SEED)
     out = dict(name=name, label=label, rule="Directive 8 amendment 2", budgets={})
     for B in budgets:

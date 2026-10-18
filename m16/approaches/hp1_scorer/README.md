@@ -123,8 +123,9 @@ Rule (TASKS Directive 8, amendment 2, ccr 576003ba): C = group-mean charged FLOP
 F = MSE · C_eff / mean p(1−p), where MSE = mean (est − p)². The amendment writes this as mean(e_m²), with e_m the
 signed error, which is consistent with its 'RMS <~ .84 pp at 1k'. The break-even budget is n* = mean p(1−p) / MSE.
 The 95% CI is the 6-cluster bootstrap over base models (10 000 resamples). **Strict** means point F ≤ 1 in every
-group. **Lenient** means F ≤ 10 in every group, reported both on the point (the amendment's wording) and on the
-upper CI (the earlier wording).
+group. **Lenient** means point F ≤ 10 in every group. DRI ruling (2026-10-18): the point F is binding for both bars,
+and the CI is always reported. The upper-CI reading is shown for information only. A 'candidate' claim to ARC also
+needs the upper CI to hold on HP2 (one cluster per retrain).
 Removing the truth-MC term (mean SE²) from the MSE changes F by at most 0.003, so it is negligible. Budgets 1k and
 4k were added; every run has cost ≥ B/2. 'all' pools the 150 models and is informational only.
 Reproduce: `python3 score.py <name> <file> <func> <class> 1000,4000` (this also prints F for all five budgets).
