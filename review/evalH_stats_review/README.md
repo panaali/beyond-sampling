@@ -13,7 +13,7 @@ synthetic extracted-loop controls exercise unequal rescaled counts and confirm
 unchanged values/ops/invariance checks; no estimator/model imports or calls.
 
 ## Status
-Source/provenance inventory and patch prepared and published throughbf295e9d. Six frozen synthetic controls52eea74f remain UNEXECUTED: independent source gate pending. Other agents report automatic approval blocked their research exports; their reviewers paused under the DRI evidence gate. No rerouting of blocked uploads. Local native-H4 provenance checkpoint5aaa3e87 is unpushed.
+User publication authorization received; prior checkpoints and independent source gatea2465c24 are now shared. Claim6928abad resumes only six frozen synthetic controls, with the durable gate pinned in protocol.json. Controls remain unexecuted at this protocol checkpoint; no historical panel reconstruction or shared source adoption is included.
 
 ## Results
 The source appends rows AFTER its every-eighth rescale evaluation, using
