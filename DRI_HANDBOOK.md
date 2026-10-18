@@ -4,14 +4,26 @@
 
 Written by the outgoing DRI (Claude) on 2026-10-17 so that the next DRI (Claude, Codex or human) can pick up the
 project without the chat history. Read this, then STATUS.md, then TASKS.md.
+Updated by the 2026-10-18 DRI: section 10 (00:46), the struck claim in section 7 (05:15), and section 11 plus the
+corrections marked "2026-10-18 pm" (afternoon). Then read [OWNER_QA.md](OWNER_QA.md) for the owner's questions and
+directives.
 
 ## 1. The goal, and where it stands
 
 - **Challenge (ARC, AlgZoo):** compute the accuracy of the 432-parameter 2nd-argmax RNN M_16,10
   (`alg_zoo.example_2nd_argmax()`, accuracy 0.95313575 for x ~ N(0, I_10)) *mechanistically* (no random or
   pseudorandom inputs), with MSE at least as good as plain sampling at equal compute. Must also work on the 5
-  trained seeds and on noisy weight copies.
+  trained seeds and on noisy weight copies. [UPDATED 2026-10-18 pm: the 300-billion-sample answer key (T192) is
+  0.9531175 +- 0.0000004; the figure above and the 20M-sample 0.95317945 in `m16/truth.txt` agree with it within their
+  sampling error.]
 - **Status:** not solved. Every deductive estimator on M_16,10 loses by 37x to >4000x (leaderboard v3, LB3).
+  [UPDATED 2026-10-18 pm: still unsolved at the strict bar, but the gap on retrains is now ~2.6x. The sampling-free
+  walk estimator T317f scores F 2.63 [1.93, 3.39] on the fresh sealed panel HP4 at 3.3k FPE (RMS .75 pp, bias
+  +.44 pp): lenient pass, strict fail. Scope: zoo-config retrains only; not deductive in Hilton's strict sense, because
+  its approximation scheme was selected by MC on DEV2 (T324); it breaks down between 0.1% and 0.25% relative weight
+  noise (T337). On the fresh open panel DEV3 it scores F 2.49. A continuity-walk bug for long lines (found 14:18)
+  makes T340 variant B, T349 and T354 suspect; T317f's short window is believed unaffected, verification pending.
+  See section 11 and H-L1.]
 - **What works:** an understanding-based recipe (RECIPE112, `m16/approaches/understand_m43/est75.py`) beats sampling
   on every trained seed and noisy copy of M_4,3 (independently confirmed, H-U1/H-U2) and of (H,T) = (5,3), (6,3),
   (8,3) (E43, review T113 unfinished). Cells visited / linear regions fell 4.8 -> 2.0 from H=4 to 8 (H-U4) — the
@@ -40,6 +52,8 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 | `m16/approaches/<name>/` | One folder per attempt, README with the AGENTS.md sections |
 | `review/<name>/` | Independent reviews (never edit the reviewed folder) |
 | `lit/` | Literature scans; `lit/web_log.md` logs every post-Jan-2026 ARC source read |
+| [OWNER_QA.md](OWNER_QA.md) | Every owner question with the DRI's answer and later updates; owner directives verbatim (its section 8) [ADDED 2026-10-18 pm] |
+| Panels HP1-HP5 (sealed), DEV2/DEV3 (open) | Built by the T192 child (`gpu_cost_law/` on `claude/t192-gpu-cost-law`); sealed truths are read only by the scorer T281 (`claude/hp1-scorer`) [ADDED 2026-10-18 pm] |
 
 ## 3. Process lessons (what made it work)
 
@@ -79,10 +93,12 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 
 - **Mechanism of M_16,10 (FINDINGS):** running max, record detector, comparators, damped rotating modes (phase =
   time since max). Errors: near-ties of the top order statistics plus a "blind" all-negative region.
-- **Why deductive methods fail on M_16,10:** >1e7 linear regions (H-M7); the error mass sits in rare, wide,
-  irregular tie bands (H-E11/H-E12, heavy tails from T~5); deterministic summaries of low inputs are Jensen-biased
-  (H-E10); ARC's cumulant propagation breaks because a scalar input per step makes hidden units perfectly
-  correlated (E35); harmonic projection leaks ~1/D across the tie wall (E34).
+- **Why deductive methods fail on M_16,10:** >1e7 linear regions (H-M7) [UPDATED 2026-10-18 pm: exact prefix counts
+  34 / 792 / 21,032 / 632,394 at k = 2..5 (confirmed to k = 4), >= 15.5M at k = 6, growth x23-33 per step, ~1e13
+  regions at T = 10 by extrapolation; region-by-region enumeration and coverage are dead for the target (H-E13)];
+  the error mass sits in rare, wide, irregular tie bands (H-E11/H-E12, heavy tails from T~5); deterministic
+  summaries of low inputs are Jensen-biased (H-E10); ARC's cumulant propagation breaks because a scalar input per
+  step makes hidden units perfectly correlated (E35); harmonic projection leaks ~1/D across the tie wall (E34).
 - **What made the small-model recipe work (E36-E43):** the model has no biases, so correctness depends only on
   x/|x| and errors are unions of cones; organise by true boundaries x_i = x_j (half-chambers), follow gates step by
   step, resolve only gates whose switch could change the answer (impact / Lipschitz margin bound through the
@@ -92,7 +108,9 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
   multi-step version T108); 4-D cone masses cost ~300x 3-D (T109); exact boundary tracing at T=3 costs ≥ the region
   count (E39) — any gap can only open along T.
 - **Quadrature (fixed Sobol tie slicing) wins at short T and on mild noise** (sci_tao, sci_feynman) but ARC would
-  likely not count it as mechanistic.
+  likely not count it as mechanistic. [UPDATED 2026-10-18 pm: under Hilton's definition fixed nodes are inductive and
+  gains averaged over rule scrambles are RQMC, i.e. sampling (T263; INDEX 4b). The best honest deterministic number on
+  the clean target is ~1.1-1.3x (T223, quadrature class).]
 
 ## 5. Operational pitfalls (each cost hours)
 
@@ -124,7 +142,7 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 | (8,4) | 112 | RECIPE112 + multi-step certificate (estT recipe108) | pass after mass fix (E46, unreviewed); cost 6e8-1e9 ops. [RESTATED 2026-10-18 under T196 FLOPs: worst MSE ratio 0.52 as charged (2·ops), 0.36 after T192's op-completeness audit (estT = 1.37x ops); still pass, unverified] |
 | (8,5) | 128 | same | accurate on seed 0, 2.2e11 ops (E48); other seeds not run. [UPDATED 2026-10-18: **fail**: recipe108 loses on seed 2 (MSE ratio 3.4 in estT ops, ~4.6 in T196 FLOPs); T192 S2, unverified] |
 | (4,4), (5,4), (6,4) | 48-84 | Hopf circle grid | pass but **quadrature class** (E47) |
-| (16,10) target | 432 | all | **fail**: deductive methods 37x->4000x worse than sampling (LB3); recipe projects >=1e17 ops [CORRECTED 2026-10-18: an extrapolation from two growth steps, ~6.5e16-4.7e17 (trend ~2e23), not a bound] |
+| (16,10) target | 432 | all | **fail**: deductive methods 37x->4000x worse than sampling (LB3); recipe projects >=1e17 ops [CORRECTED 2026-10-18: an extrapolation from two growth steps, ~6.5e16-4.7e17 (trend ~2e23), not a bound]. [UPDATED 2026-10-18 pm: on zoo-config retrains (not the target model or its noisy copies), sampling-free T317f has F 2.63 on sealed HP4: lenient pass, strict fail (section 11)] |
 
 ## 7. Theory notes (why this is hard, and what any solution must use)
 
@@ -147,10 +165,20 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 - Compute is not the main blocker for a single exact answer (a GPU could plausibly do ~1e17 branchy ops in hours-days),
   but (a) the real trend is ~1e23, (b) irregular geometry runs at 1-5% of GPU peak, (c) at 1e17 ops sampling is precise
   to ~5e-6 pp so the method must be essentially exact, and (d) brute force at that scale is not what ARC is asking for.
+  [CORRECTED 2026-10-18 pm: "a GPU in hours-days" does not hold for exact region enumeration. With ~2e13-1e14 regions
+  at T = 10 (H-E13), 6.5 ms-0.2 s per region per core measured at k = 6, and x10-100 more at 10-D, the estimate is
+  ~1e21-1e24 operations: hours to months on a 1 GW site (years in the worst corner), ~1e12-1e16x the compute sampling
+  needs for 0.1 pp (OWNER_QA 6.3). The 1e17 figure was the recipe's projection. Point (d) stands.]
 
 ## 8. Ideas to try next (brainstorm, prioritised; board rows T187-T193)
 
 All aim at the one isolated failure: gate histories multiply with every extra time step.
+[UPDATED 2026-10-18 pm: outcomes (bounded phases, unverified). None showed sub-region growth along T. T187: the weight
+bounds grow along T, and the oldest input's sensitivity exceeds the newest's in 97/384 (H4) and 175/384 (H8)
+witnesses, so no safe merge. T188: one exact reset (all gates off), no other future-equivalent distinct states.
+T189: closed for now after a bounded certificate phase. T190: no strict saving in cold counts. T191: parked. T192:
+done (the GPU port reproduces E46/E48; the (8,5) recipe fails on seed 2; it then produced the H-E13 counts). T193:
+blocked on saved T5 rays. The exact route itself is dead (H-E13; section 10).]
 1. **Fading memory (T187).** The rotating modes are damped, so inputs far in the past may barely affect the final
    answer. Bound, from the weights, the influence of step t on the final logit margin (products of |Wh| restricted to
    active patterns, or exact per-cell Jacobians); merge cells that differ only in steps whose influence is below the
@@ -178,7 +206,8 @@ cells or ops growing no faster than the region count along T, while still beatin
 ## 9. How to continue
 
 1. Take the priority queue at the top of TASKS.md (ideas 1-2 first: they are cheap measurements that decide whether the
-   current recipe can be rescued).
+   current recipe can be rescued). [SUPERSEDED 2026-10-18 pm: ideas 1-2 did not rescue the recipe (section 8); take
+   the In-progress table and the DRI directives in TASKS.md, and section 11.]
 2. Finish open reviews before new claims: T113 (E43), T114 (E44), T80 (E35), T57 (E34), and the E46-E48 check.
 3. Keep the leaderboard honest: any new estimator for M_16,10 goes through `m16/leaderboard.py` v3; class it
    (mechanistic / quadrature / sampling) before reporting.
@@ -196,15 +225,88 @@ cells or ops growing no faster than the region count along T, while still beatin
   sampling at equal compute; brute force is not excluded (QA #5). Structure to exploit: truth-cone start
   ([chamber_split](review/chamber_split/README.md), 2-5x fewer cells at H=16), future-equivalent cells (T188),
   time-shift reuse (T190), cost on noisy copies (T202).
+  [CORRECTED 2026-10-18 pm: this route is dead for region-by-region enumeration and mass coverage (H-E13; DRI ruling
+  after T270: x23-33 regions per step, >= 15.5M regions at k = 6; coverage still grows by a provisional >= 7.6x per
+  step at delta = 1e-3, T222/T270). T188 and T190 found no saving in their bounded phases. Since the 07:03
+  reframing the working route has been the cheap regime: own-cost F, sealed retrain panels, and exact 1-D walks
+  combined under declared approximations (T286 -> T317 lineage). Since 13:12 the owner's top priority is rare events
+  (T340). Exact computation survives as a component (the walks); cleverer exact methods are backlog T346/T352. TASKS
+  DRI Directive 6 still names the old route and should be updated.]
 - **The recipe is now a diagnostic** (which splits matter, T195), not the method to scale; T170 is deprioritized.
 - **Protocol:** TASKS DRI directive 7 fixes the rung test (5 seeds + >= 8 noisy copies per seed at absolute sigma 0.05
   and relative 0.005, 0.01; exact or >= 1e8 independent-stream MC truth; T196 FLOPs; every budget with a CI).
+  [UPDATED 2026-10-18 pm: estimator claims are now scored under Directive 8 amendment 2 by the independent scorer
+  T281 on sealed retrain panels (HP2-HP5; HP1 is the noisy robustness panel). F = mean(e^2) x max(C, 1k FPE) /
+  mean p(1-p); strict F <= 1, lenient F <= 10 with the upper CI <= 10 for a candidate. The written cost convention is
+  in the same directive. Directive 7 still governs small-model rungs.]
 - **Leaderboard caveats (repairs in T204):** LB3's summary takes the min over budgets (biased low; quote each budget
   with its CI); `table()` demotes arc_cumulants to "sampling" because its rows were stored before it entered CLASS
   (det_ok=False); srb's win rests on a hand-counted, uninstrumented cost factor 3.3/1.6 ≈ 2.06
   (`control_variate/rb9.py:158-184`), without which its ratios are ~0.4-1.1.
 - **ARC:** H-E5 is now "reported, unverified": the owner's ARC contact says a newly joined ARC member has an M_16,10
   solution and that ARC is waiting for a comparison. Owner ruling 2026-10-18: "Unless we have a candidate solution, we
-  should not contact ARC." The comparison package is T203; contact is T41.
+  should not contact ARC." The comparison package is T203; contact is T41. [UPDATED 2026-10-18 pm: the T323 dossier
+  was given to the owner as a progress note, not a candidate solution; the DRI recommends no contact yet.]
 - **Read:** [QA_2026-10-18](review/dri_handover/QA_2026-10-18.md) (previous DRI's answers), the DRI directives at the
   top of [TASKS.md](TASKS.md#in-progress), [T196 cost convention](review/cost_convention/README.md).
+
+## 11. Lessons, 2026-10-18 (afternoon)
+
+The cheap-regime lineage (T286 -> T317f), the sealed panels and the first rare-event round taught these. Numbers are
+from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
+
+1. **A sealed panel is single-use for claims.** HP2 took five submissions of the walk lineage (R1W -> T317), so its
+   later scores are forking-path numbers. HP3 (T321) and HP4 (T328) were each built for one pre-registered submission
+   (T317c, T317f) and are spent; HP5 (T336, sealed, nothing scored) is the reserve. Build the next reserve before the
+   current one is needed (a panel costs up to ~3 GPU units and some hours). Keep an OPEN development panel as well:
+   DEV2 has served ~40 variants, so a DEV2 winner is a selected number (forking paths). DEV3 (T342, seeds 500-599,
+   truths published) is for checking a development result before it is named for a sealed panel (T343, T350 and T353
+   do this). Its first uses paid off at once: T339's DEV2 variance cut (T343), T353's DEV2 gain (T355) and T340's
+   rare-event wins (T350) all failed to replicate on DEV3, while T317f held (DEV3 F 2.49).
+2. **Recheck every F before acting on it.** F = MSE x max(C, 1k FPE) / mean p(1-p) is linear in C at fixed RMS. A
+   child's "F 6.3 at 2.2k FPE" (T326) was 1.9 at the same RMS (.79 pp); the DRI and Fable r5 both caught it, and the
+   slip had made the cost lane look ~3x less valuable. Recompute F from (RMS, C, mean p(1-p)) whenever a cost or an
+   error changes, and quote a projected F only with its inputs.
+3. **Post hoc counts inflate easily: pre-register the scoring.** The DRI's first T340 summary said "12 of 15 cases beat
+   sampling" (approximate C, ties counted as wins). With each run's executed C and ties (|diff| < .05) kept apart, it
+   became 10 win / 3 tie / 2 loss for the better variant per event family, and 5/15 wins for each fixed variant. Even
+   the corrected count moves with the implementation: T350's own code gets 12 / 1 / 2 under the same rule on the same
+   3 models (calibration, ab2ec444). Write down in advance the variant or family rule, the tie band, the cost charged,
+   and the zero-answer rule for rare p: sampling's relative error is sqrt((1-p)/(pC)) only when pC >= 1; when pC < 1
+   the answer 0 (relative error 1) beats sampling, so F is uninformative there and est/truth plus relative error are
+   the measures. T350 fixed all of these before opening the DEV3 truths, and on 6 fresh models the family rule went
+   11 win / 6 tie / 13 loss: no go (E2 by variant A held; E1 by variant B did not). T350's own walk was then
+   verified exact, so the negative is not an artefact of the long-line walk bug found at 14:18.
+4. **Task IDs still collide when two agents reserve in parallel.** At 13:44 a child reserved T349 (T340c); a minute
+   later the DRI reserved T349 for the T340 check. The first push won and the check became T350 (c2b08a3e). Pull just
+   before taking max+1, push at once, and on a rejected push re-take the number instead of rebasing the duplicate.
+5. **Independent re-checks paid off.** T334 (second agent, own code) confirmed T324's two largest error-budget terms
+   (line-set product: bias -.56 pp, MSE -41%; tmax: -.18 pp, -20%). T327 reproduced T319's smoothed-closure negative
+   with independent code, so the DRI could mark it dead (verified, scoped). T312 re-implemented R1W V1 from its README
+   (80 DEV2 within .012 pp), and T320's recount found ~9% latitude in the FLOP count. Each was a light task, and each
+   either upgraded a claim or found a gap. Pair every claim that changes priorities with a check by a different agent.
+6. **Exact cost cuts have reached the floor; approximations trade 1:1.** Cuts that keep the estimates identical (B2
+   prefix sharing, continuity restarts, merging touching pieces) took the walk from ~12-13k to ~5.4k FPE; T317f's
+   declared margin screen then reached 3.3k. The 3-line geometry's label combinatorics alone cost 2.05k FPE, and the
+   oracle exact-estimate floor is ~2.2k (T326). Every declared approximation removed so far cost at least as much in C
+   as it saved in MSE (Fable r5: V2 C x2 for MSE x.86; tmax .5 -> 1 C x1.27 for MSE x.80), so MSE x C does not
+   improve. New components still arrive with slack until they are folded into the walk: T353 cut the spread+tilt arm
+   from 6,542 to 5,079 FPE with bitwise-identical estimates (DEV2 F 2.60 vs T317f 3.14), though on DEV3 it does not
+   beat T317f (F 3.32 vs 2.49; T355). Strict
+   (F <= 1) needs a new representation, not tuning [inferred]; Fable r5 put the lineage's odds at ~5%.
+7. **Track bias and variance separately, and check the split out of sample.** On DEV2, T339's spread-lows closure
+   cut the model-to-model error sd (.667 -> .455; corr with truth .978 -> .991), yet RMS rose (.827 -> .884): the
+   estimates shifted up +.27 pp, because the mean-point closure's negative bias had been cancelling part of the walk
+   approximations' ~+.6 pp positive bias. A closure that lowers variance can expose bias that was cancelling. On fresh
+   DEV3 (T343, another agent) the bias shift (+.22) and the corr gain replicated but the variance cut did not (sd ratio
+   .912 [.76, 1.11] vs .68), so the "variance-only F ~1.06" reading was withdrawn. Report bias, error sd and corr for
+   every arm, not only RMS or F. (T351's tilt then removed the bias, +.49 -> +.04 pp, at +2.8k FPE as executed.)
+8. **Owner Q&A lives in [OWNER_QA.md](OWNER_QA.md).** Every owner question gets an entry with its time, the answer as
+   given and a "Later updates" note when a result changes it. Directives are recorded verbatim in its section 8, each
+   with a one-line note of what was done. Update it in the same commit as the board change a directive causes (T345,
+   T346, T352).
+9. **Do not let a lane wait on a silent agent.** The Codex lanes, including the Astra reviews, have been silent since
+   about 08:30; Astra round 3 never arrived (T301 closed). The Fable reviews ran as no-compute DRI sub-agents (five
+   rounds, 05:16-12:13) and supplied many of the tested designs (round 3: T305-T309; round 4: T317-T319, including
+   the continuity-restart saving behind T317; round 5: T326-T332). Give a silent lane's Ready rows to child sessions
+   after a stated timeout, and run reviews that need no compute as sub-agents.
