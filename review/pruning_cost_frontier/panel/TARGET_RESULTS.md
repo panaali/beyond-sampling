@@ -1,4 +1,4 @@
-# Fixed retained-panel result — independent saved audit pending
+# Fixed retained-panel result — independently audited
 
 The one predeclared H16T4 zoo0 chamber panel contains 51,552 retained rows. All error and cost values pass the frozen validity checks. Raw3660020e was produced once after source reviewbd31c4b9/shared1a52d40f and immutablegated12629f0; one exact frontier call, seven progress events,3.64478324 main CPU seconds, actual20/20CPU and2GiB limits. No model forward, geometry, mass or RNG calls occurred.
 
@@ -18,10 +18,10 @@ The ratio selection's removed numerical error is approximately5.8484693e-5; its 
 
 ## Interpretation and limits
 
-[measured, independent audit pending] Cost-aware ordering plus the self-consistent threshold improves substantially on the former error-first fixed-threshold heuristic on this fixed panel. The earlier heuristic is not an upper bound on possible pruning savings.
+[measured, independently audited] Cost-aware ordering plus the self-consistent threshold improves substantially on the former error-first fixed-threshold heuristic on this fixed panel. The earlier heuristic is not an upper bound on possible pruning savings.
 
 [inferred, conditional on the reviewed model] The fractional relaxation narrowly brackets the optimal integer subset for these retained numerical values. It excludes stronger savings only within the stated fixed-cost, whole-row removal, one-SE retained-value model. It does not exclude different representations, earlier geometric pruning, better certificates, other estimators or other models.
 
 The oracle needs all original numerical errors and costs. Neither that advice nor selection work is free deployment work. There are no certified per-row mass intervals, new checkpoint-byte reconstruction, historical native/runtime binding, new true-accuracy reference or H16T10/noise extrapolation. Model identity is the original artifact label and collector provenance. This saved calculation is not a new estimator leaderboard result; strict/lenient MSE bars remain untested.
 
-Full exact inputs, sorted identities, all prefix/breakpoint records and eighty boundary decisions are in target_frontier.json.gz. Summary/provenance are target_results.json and target_gate.json. T55 owns the separately gated independent saved audit; no further target call is planned.
+Full exact inputs, sorted identities, all prefix/breakpoint records and eighty boundary decisions are in target_frontier.json.gz. Summary/provenance are target_results.json and target_gate.json. Independent saved audit4b8e6bc4/sharede8873c78 verifies all51,552 rows,22,521 positive costs,22,522 breakpoints,all methods and80 decisions without helper/model/mass replay;2.773304452reviewCPU. No further target call is planned.

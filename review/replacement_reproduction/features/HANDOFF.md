@@ -1,0 +1,11 @@
+# T258 fixed helper controls: independently complete
+
+Source887a4b04/shared9c3570f5; independent source25918659/shared87d2096c. Raw first attempt1e11ccd5/sharedbfd73d30 and six-guard continuationef7c3b21/shareddbbb4b98 are jointly reviewed by78 at0427df32/shared4537395f (`review/t258_synthetic_saved_78/HANDOFF.md`, results.json).
+
+All120 prefix/family batches (12 fixed inputs), four validation selections, four float32/ReLU/readout assemblies and ten invalid-domain guards pass. Saved candidate/reference feature matrices agree numerically exactly, including the clock family. Independent scalar review checks16,344 feature values and192 integer-rounded binary32 endpoint values; clock discrepancy0. Ten pinned NumPy quicksort calls are shared with the numerical environment, so library tie ordering is not independently proved. Synthetic hinge values test order/storage/promotion, not fitted-bank precision.
+
+The first run exhausted its15CPU limit while repeatedly serializing the full growing record. All128 comparison pairs and four guards had completed; original132rows264events and completefalse remain unchanged. The fourth guard's completion event and original final event remain absent. A separately source-reviewed, published-gate continuation executed only the remaining six guards, saving6rows14events. There were no repeated comparison pairs or rejected guards. Two progress streams are explicit, not a reconstructed successful original run.
+
+Producer internal CPU15.052463465+.147710392=15.200173857. External first15.22wall/14.67user/.54sys, continuation.27wall/.22user/.05sys. Independent review.211989152CPU,56,660KiB. All source/gates/raw/logs are retained. No model/checkpoint/network/RNG/fit calls occurred.
+
+This completes only helper encoding, family selection and endpoint assembly controls. Regression equations/pooled fallback/serialization, model binding and forward wiring, bounded resource pilot, and full independent reproduction remain separate prerequisites. Historical.955395 agreement is not reproduced by this synthetic suite. Next active phase prepares tiny rational cell-regression controls under renewed64322775 scope; no model/resource-pilot execution is authorized by this handoff.
