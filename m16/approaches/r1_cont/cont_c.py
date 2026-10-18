@@ -17,7 +17,7 @@ import cont  # noqa: E402
 from cont import r0, W, r1w, r1w2, H, T, C, F_STEP, F_TAN, F_ROOT  # noqa: E402
 
 DEDUCTIVE = True
-F_CI = 216                                    # correct_interval (scorer's honest count)
+F_CI = 229                                    # correct_interval (official count, T281 scorer 379498b6)
 F_CELL = 2 * 2 * C * H + F_CI + 4             # first-cell readout + correct set + bookkeeping
 F_LATER_READ = 2 * C + 2 * C * H + F_CI + 4
 F_PHI = 20
@@ -59,16 +59,19 @@ def profile(R, A, B, n, nodes, kind, tmax, phi0):
     """Sum over merged intervals; Phi at model-free arguments (a = 0 -> phi0 table; b = inf; a = tmax) is not charged."""
     out = np.zeros((n, len(nodes))); f = 0.0
     a0 = A == 0.0; binf = B >= W.INF - 1e-12; atm = A == tmax
+    # evaluate Phi only where the argument is weight-dependent (masked BEFORE the ndtr call: savings as executed)
+    Pa = np.empty((len(R), len(nodes))); Pb = np.empty((len(R), len(nodes)))
+    ia = np.flatnonzero(~a0); ib = np.flatnonzero(~binf)
     if kind == "12":
-        Pa = np.where(a0[:, None], phi0["p"][None], ndtr(nodes[None] + A[:, None]))
-        Pb = np.where(binf[:, None], 1.0, ndtr(nodes[None] + np.where(binf, 0, B)[:, None]))
+        Pa[a0] = phi0["p"][None]; Pa[ia] = ndtr(nodes[None] + A[ia, None])
+        Pb[binf] = 1.0; Pb[ib] = ndtr(nodes[None] + B[ib, None])
         val = Pb - Pa
     else:
-        Pa = np.where(a0[:, None], phi0["m8"][None], ndtr(nodes[None] - A[:, None]) ** 8)
-        Pb = np.where(binf[:, None], 0.0, ndtr(nodes[None] - np.where(binf, 0, B)[:, None]) ** 8)
+        Pa[a0] = phi0["m8"][None]; Pa[ia] = ndtr(nodes[None] - A[ia, None]) ** 8
+        Pb[binf] = 0.0; Pb[ib] = ndtr(nodes[None] - B[ib, None]) ** 8
         val = Pa - Pb
     np.add.at(out, R, val)
-    nphi = ((~a0) & (~atm)).sum() + (~binf).sum()
+    nphi = len(ia) + len(ib)              # Phi calls actually made (a = tmax tail starts are evaluated, so charged)
     f += len(nodes) * (nphi * (F_PHI + (3 if kind == "23" else 0)) + 2 * len(R))
     return out, f
 

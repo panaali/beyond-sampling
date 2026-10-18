@@ -91,3 +91,18 @@ exactly 0 (Phi(v2) is a model-free table), and the pieces ending at tmax merge w
 - Official HP2 under 229: T317 C 7,880 FPE, F 9.71 [6.99, 12.61]; T317b C 6,405, F 7.89 [5.68, 10.25].
 - T317c's estimates reproduce T317b's (diff 0.0 on DEV2), satisfying the scorer's <= 1e-12 condition for r1_cont
   submissions.
+
+## T317c claim: sealed HP2 (T281 scorer, claude/hp1-scorer 9b4e41df; hashes match)
+- Estimates equal T317b to <= 2.2e-16 (asserted).
+- Official cost (correct_interval 229): **C = 5,455 FPE**.
+- **HP2: F = 6.72 [4.84, 8.73]. Point lenient pass with the upper CI <= 10: the first candidate under the fixed rule.**
+- HP1: clean 3.75; noisy copies 39-206 (outside scope).
+- **Scorer's literal-execution note:** the frozen profile() computed ndtr everywhere and then masked it with
+  np.where, so the model-free-table saving was accounted, not fully executed. Charging those calls gives 5,713 FPE
+  and **F 7.04 [5.07, 9.14]**, the same verdict.
+- **Fix (after scoring; estimates unchanged):** profile() now evaluates Phi only at weight-dependent arguments,
+  masking before the ndtr call, and correct_interval is set to 229.
+  - Max |est - T317b| = 0.0 on all 80 DEV2.
+  - Cost as executed: **5,488 FPE** on DEV2 (it also charges the a = tmax tail-start Phi calls that are actually
+    made).
+  - The fixed file goes to the scorer to confirm. The HP2 verdict holds under either count.
