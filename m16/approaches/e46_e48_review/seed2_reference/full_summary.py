@@ -10,6 +10,8 @@ def main():
     for row in rows:
         c=row['candidate'];methods[c.get('method',c['mode'])]+=1
         known.update(c['center']['setup_selection_counts']);known.update(c.get('repeated_determinant_counts',{}));known.update(c.get('kernel_counts',{}))
+        # M.one omits top-level kernel counts if a rescue evaluates then misses its series target.
+        if 'kernel_counts' not in c and 'kernel_counts' in c.get('rescue',{}):known.update(c['rescue']['kernel_counts'])
         if c['mode']!='returned':unresolved.append(row['index'])
         if 'rescue' in c:rescues.append(dict(index=row['index'],exact_inventory=c['rescue']['exact_operation_inventory'],stages=[{k:s[k] for k in ('method','certificate_cpu','selection_cpu') if k in s} for s in c['rescue']['stages']]))
         if c.get('order') is not None:orders[c['order']]+=1
