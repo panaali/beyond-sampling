@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/r1_cont/t369.py", line 34, in <module>
+    t0 = time.time(); r, f = X.est_e1(m, PAIRS[nm])
+                             ~~~~~~~~^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/r1_cont/t366.py", line 61, in est_e1
+    pieces, _, f = S.walk_seg(model, x, dx, k, k3, t_start, tmax); flops += f
+                   ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/r1_cont/t354.py", line 20, in walk_seg
+    p, pc, f, it, nc = rare.walk3(model, x + t_start * dx, dx, k, k3, tmax - t_start)
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/r1_cont/t366.py", line 19, in <lambda>
+    rare.walk3 = lambda model, x0, d, k, k3, tmax, max_cells=5000: WF.walk3_fixed(G, model, x0, d, k, k3, tmax, max_cells)[:5]
+                                                                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/r1_cont/walkfix.py", line 32, in walk3_fixed
+    Z[go] += (tn - tref[go])[:, None, None] * DZ[go]; L[go] += (tn - tref[go])[:, None] * dL[go]; tref[go] = tn
+                                              ~~^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 400. MiB for an array with shape (327304, 10, 16) and data type float64
