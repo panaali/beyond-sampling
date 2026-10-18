@@ -204,3 +204,41 @@ hypothesis is wrong.
   point (both lines then pass through x). So the target and every rule are evaluated with **no tmax cut and blind g12
   walked** (the budget's path-2 state). T(x) = closure c (node v4, exact lows) at x. The rules use the estimator's
   linearised line-23 closure (mu-lin on) unless marked "exact". The P1 residue is then V1's path-2 point minus E1.
+
+### Addendum A results (`python addendum.py`, `addendum.json`, `addendum.log`; 10 DEV2 models x 1e6 inputs, ~25 CPU-min)
+Residue = rule - T (T = closure c at x's own point; no tmax cut, blind walked). Model-level stats are over 10 models; class
+level is the per (model, triple) mass difference (about 1,390 inputs per class, so the class-level MC noise is ~.6-.9 pp).
+
+| rule | cost | residue bias | **residue RMS** | ratio to P1 | class-level RMS | vs truth: bias / RMS |
+|---|---|---|---|---|---|---|
+| (i) P1: product at one point (V1) | 1x | -.045 | **.385** | 1.00 | 4.9 | +.109 / .600 |
+| (iii) OR (union) | 1x | +6.53 | 6.84 | 17.7 | 9.0 | |
+| (iii) L23 (line 23 alone) | 1x | +2.00 | 2.24 | 5.8 | 5.4 | |
+| (iii) L12 (line 12 alone) | 1x | +4.49 | 4.65 | 12.1 | 7.2 | |
+| (iii) AVG | 1x | +3.24 | 3.41 | 8.9 | 4.9 | |
+| (ii) P2: product at the half points (T306-B) | 2x walks | **+.334** | .495 | 1.28 | 3.6 | +.489 / .741 |
+| (ii) OR2 | 2x | +6.54 | 6.82 | 17.7 | 8.9 | |
+| (iv) J1: exact 2-D set at one point | 2-D | -.345 | .377 | .98 | 2.0 | -.191 / .602 |
+| (iv) J1, exact closure | 2-D | -.308 | .343 | .89 | 1.7 | |
+| (iv) **J2: exact 2-D set at the half points** | 2-D, 2x | -.008 | **.087** | **.23** | 1.0 | +.147 / .526 |
+| target T (closure c) | | 0 | 0 | | | +.154 / .474 |
+
+**Verdict (pre-registered): STOP, only the exact 2-D set works.** Every zero-cost rule is 6-18x *worse* than the
+product. min = AND is the product itself. The two line verdicts carry separate error sets, and anything looser than
+their intersection counts the other line's errors as correct. Only J2 (exact 2-D sets, two anchors per region) cuts
+the residue by >= 40% (by 77%). J1 alone does not at model level (.98), although it is 2.5x better per class.
+
+**T306-B anomaly explained (both pre-registered predictions hold) [measured]:**
+- (a) P2's bias exceeds P1's: -.045 -> +.334 (a shift of +.38; T306-B saw +.45 -> +.78, +.33).
+- (b) With the product gone, refining the anchor converges: J1 -.345 -> J2 -.008.
+- So the residue is two errors of opposite sign that cancel at one anchor:
+  - **the product overstates accuracy by about +.30-.34 pp** (P1 - J1 = +.30; P2 - J2 = +.34);
+  - **the single anchor understates it by about -.34 pp** (J1 - J2 = -.34).
+- Refining only the anchor (T306-B) removes the negative part and exposes the product's positive part. The rise is
+  what a two-error system does, not non-convergence.
+- **The residue's model-level RMS (.385) is small because of this cancellation.** Per class it is 4.9 pp (J2: 1.0).
+
+**Reading for the decision.** The "nearly free" fix does not exist among combination rules. Removing the residue needs
+the exact 2-D correct set (a 2-D cell enumeration per triple, not a line walk) at >= 2 anchors per region. At the
+paradigm's ~1:1 cost trade that doubles-plus the walk cost. Removing one of the two cancelling errors alone makes the
+estimator worse.
