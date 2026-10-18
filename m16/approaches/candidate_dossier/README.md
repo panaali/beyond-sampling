@@ -6,7 +6,8 @@
 `ccr-6a61f25c-wn80ii`).** This is a progress note, not a candidate solution: the estimator does not match sampling.
 Author: the T241 worker. **The same author also did both re-implementation checks (T312, T320).** "Confirmed" in the
 project INDEX (H-L1) is an internal label; read it as "verified internally: a second implementation and an
-independent scorer". Items still to come are marked **[pending]**.
+independent scorer". Items still to come are marked **[pending]**: T324's per-approximation error budget and a
+second-agent audit.
 
 ## Headline
 
@@ -19,8 +20,8 @@ independent scorer". Items still to come are marked **[pending]**.
 > **Plain sampling at the same compute would have about 5x lower MSE: F = 5.07, 95% CI 3.41–7.03.** The estimator is
 > worth n* ≈ 1,070 samples. On a second sealed panel (HP2), used for earlier submissions of the same lineage, F is 6.75
 > [4.86, 8.78]. **The estimator does not match sampling, and it fails on weight-noised copies (bias up to +6.6 pp).**
-> It uses no random inputs to the model. The scored version (T317d) computes its model-free constants by deterministic
-> quadrature. Its predecessor T317c set them by a seeded Monte Carlo over the input law.
+> It uses no random inputs to the model. The scored version (T317d, and T317e, a bitwise-identical cleanup) computes its
+> model-free constants by deterministic quadrature and makes no random draws at all. Its predecessor T317c set them by a seeded Monte Carlo over the input law.
 
 The positive result is the information content. A constant at the development mean (0.920) scores F 18.9 [14.1, 24.2] on HP3 at the 1k-FPE floor and is
 worth n* = 53 samples. This estimator is worth 1,069 on HP3, 20x more. On DEV2 its correlation
@@ -264,7 +265,15 @@ README (claude/hp1-scorer 29bef882) and were checked with `git show | sha256sum`
 - `cont_d.py` `306061a685406111ffefa66751198f4b82f6e515905b4ae28381608438f59f64`
 - `cont_c.py` `066b3f63…0211` and `cont.py` `b71f203f…4d92`, both as above.
 
-**T317e** (cleanup, bitwise-identical estimates): **[pending]** hash.
+**T317e, the version to cite** is at 01906d33 with entry point `estimator_e.py` → `cont_e.est`. INDEX registers it
+at 23782c82. I recomputed both sha256s with `git show | sha256sum`:
+- `estimator_e.py` `a9cb5ef610bbcb52ef6037097716fe4b8ff7f6aaa005133cee492094d1c6c0f8`
+- `cont_e.py` `50dd1c9b85512e23f037171d19de03527f8f5989758cfb74d93b441de48fda2b`
+
+T317e is self-contained: it imports only numpy, `scipy.special.ndtr` and itertools. The dead imports that built
+seeded-MC tables are gone, and `est` runs with numpy's random generators patched to raise. Its estimates and FLOPs
+are bitwise identical to T317d's on DEV2, so T317d's sealed scores apply to it. The scorer is asserting that identity
+on HP2/HP3.
 
 **DEV2:**
 - Data: `claude/t192-gpu-cost-law`, `m16/approaches/gpu_cost_law/hp2/dev2/`; weights sha `22d1c7c2…`.
