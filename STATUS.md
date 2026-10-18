@@ -95,6 +95,12 @@ precisely as testing it on random examples does for the same effort.
   from 2 in 10 million to 4 in 10,000: the first time in the project. But it now costs 1.8-4.5 million runs, so it
   beats random testing only for the rarest events (4 wins, 3 ties, 8 losses of 15). Its cost does not grow as events
   get rarer, while random testing's does, so the rarer the failure, the bigger the advantage.
+- **The independent re-check on fresh networks failed (T350, 14:18, unverified).** With the rule fixed in advance, the
+  combined approach won 11, tied 6 and lost 13 cases on 6 new networks, below the two-thirds line. The cheap version
+  still beats random testing on the "both gaps large" mistakes (7 of 9 decided cases), but the careful version loses
+  on the far-gap islands and was 6-10x too low on one new network. Separately, a bug was found in the walks that run
+  far along a line (they miss gates that all switch at once when an input crosses zero); the careful-version numbers
+  are suspect until it is fixed and rerun. The main accuracy estimator (T317f) is believed unaffected; being checked.
 - **Running now:**
   - cutting that cost by walking only the part of each line where the event can happen (T354);
   - an independent re-check by a different agent on new networks (DEV3), with the rule fixed in advance (T350).
