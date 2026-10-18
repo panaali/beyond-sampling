@@ -67,6 +67,16 @@ def main():
         assert diff<=TOL,(where,str(value),saved,str(diff))
     try:
         protocol=read(HERE/'protocol.json');gate=read(HERE/'gate.json');assert gate['complete'];same(gate['protocol_sha256'],sha(HERE/'protocol.json'),'protocol')
+        required={str(HERE/name) for name in ['check_saved.py','protocol.json','launcher.sh','source_manifest.json']}
+        assert required <= set(gate['pins']), 'gate missing mandatory execution/source pins'
+        same(set(gate['reviews']),{'source_provenance','checker_source'},'review prerequisites')
+        for kind,item in gate['reviews'].items():
+            assert item['commit'] and item['path'] in gate['pins']
+            same(item['sha256'],gate['pins'][item['path']],kind+' pin')
+            review=read(item['path']);assert review['complete'] is True and review['pass_all'] is True
+            if kind=='source_provenance':
+                same(item['commit'],'791b2d5f','provenance review commit')
+                same(item['sha256'],'1b38d809c2e81a964b53d2d3e216efe1c2bfbf8fc1bf49dfc9a0229d5adb45ed','provenance review bytes')
         for path,h in {**protocol['pins'],**gate['pins']}.items():same(sha(path),h,path)
         manifest=read(HERE/'source_manifest.json')
         for entry in manifest['files']:same(sha(HERE.parents[1]/entry['local_path']),entry['sha256'],entry['local_path'])
@@ -99,6 +109,7 @@ def main():
                     retained.append(p)
                 tails[name][key]=retained
                 model['rules'].append(dict(rule=key,total_points=1639,retained=len(retained),missing_kind=len(missing),missing_g2=str(sumq(missing)),max_saved_Fcheck=str(max(checks)),retained_duplicate_flip_lists=duplicates,retained_non_sorted_flip_lists=unordered,total_tail_g2=str(total)))
+            same(set(s['schemes']),set(SCHEMES),'exact summary scheme coverage')
             same(s['ntail'],len(tails[name]['700']),'ntail');compare(blind[name]['err'],s['err'][0],f'{name}/blind-error-summary');compare(blind[name]['top5_all'],s['top5'][0],f'{name}/blind-top5-summary')
             for scheme in SCHEMES:
                 cap();r['current']=dict(model=name,scheme=scheme,stage='deterministic contraction')
