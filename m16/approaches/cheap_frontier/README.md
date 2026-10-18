@@ -234,11 +234,11 @@ the canonical inputs, only the 2-3 rival logit rows). Both are untried here.
    lighter groups (F 3-8) than expected, and rank_exact needed 26k FPE rather than ~1-3k for its best F_max.
 6. [measured] On DEV2 (80 retrains) every family's F is within ~20% of its LB3 seed-group F (except rank_exact 3
    groups: 131 vs 112, and reliability 17 vs 34); LB3 F_max, dominated by heavy-noise copies, mis-ranks methods.
+7. [measured] On DEV2 the best all-deductive setting is probe v1 (estimate.py), 3.9k FPE, F_max 76.5; the candidate
+   rank_exact has 131. [speculative] HP2 F will be close to these DEV2 values.
 8. [measured] A class-level Gaussian (moment-matched) closure of rank_exact's margins, with oracle moments, is biased
    -11 pp on DEV2 against -0.9 pp for frozen gates. Frozen gates are not the main limitation at class level; the
    class is too coarse for any single-law summary.
-7. [measured] On DEV2 the best all-deductive setting is probe v1 (estimate.py), 3.9k FPE, F_max 76.5; the candidate
-   rank_exact has 131. [speculative] HP2 F will be close to these DEV2 values.
 
 ## Alternatives not ruled out
 - Settings were chosen on the LB3 test models (advice in leaderboard terms); only HP2 is a clean score.
