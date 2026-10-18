@@ -285,9 +285,9 @@ Data: the T217 pieces (`eventword/*.npz`: per piece, gate-word id and exact mass
 
 **Verdict.** N_1e-5 grows x18.6 then x16.1 per step on the target and x17.5-21.6 on the zoo models. Even N_1e-2 grows
 x8.6-13.4. By the letter of the rule this is *in between* (above 6x, below the count's x23-31), but it is far closer
-to "dead". Every N_delta grows at 50-80% of the count's rate in log terms, and the rate rises as delta shrinks.
+to "dead". At k = 4 every N_delta grows at 65-93% of the count's log-rate, and the rate rises as delta shrinks.
 [speculative] Projecting the target from k = 4 at x16/step gives N_1e-5(10) ~ 1e4 x 16^6 ~ 2e11 regions, far above the
-1e7-1e9 a mass-ordered exact route needed. Even x10/step (N_1e-3) gives ~4e9. **Mass-ordered exact enumeration does not
+1e7-1e9 a mass-ordered exact route needed. Even N_1e-3 at x10.4/step gives ~5e9. **Mass-ordered exact enumeration does not
 reopen the exact route for M_16,10** [inferred, from k <= 4]. This reconciles with T217's slow exp H(G) growth (x5):
 the entropy is set by the heavy bulk, while coverage to 1e-5 is set by a long tail of mid-mass regions that grows almost
 like the count. Regions below 1e-12 hold <= 4.9e-10 of the mass (1577-3041 regions at k = 4).
