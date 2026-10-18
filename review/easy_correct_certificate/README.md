@@ -7,6 +7,8 @@ How much Gaussian input probability can a bounded verified method certify correc
 Written prerequisite independently reviewed f219b2a4; synthetic controls independently complete1bed6e05. Initial claimf0e38a58 and reviewer delegationba46c4f3 remain the provenance. THEORY.md defines absolute-gap events, conservative inner/outer box ownership, network tie predicates, mass accounting and target-prefix limits. PLAN.md separates inherited saved filtering from a stronger domain-restricted certificate. SOURCE_INVENTORY.md records reusable evidence and missing model/cost gates. No execution is cleared by this phase.
 
 ## Results
+The first saved H8 baseline completed but **failed its intended physical-gap protocol**: inherited coordinates are v=2x, so its positive rows test gaps1/8,1/4,1/2 rather than1/4,1/2,1. Original raw6327896d is preserved; see saved_baseline/UNIT_FAILURE.md and independent305ee62f/h4 correction1f94f0cb. No rerun has occurred, physicalgap1 is untested, and a separately scoped diagnostic-only saved review is pending. This does not invalidate the unit-free synthetic ownership controls.
+
 The31 rational synthetic controls passed once (bc358242) and independent saved review1bed6e05 passed all31 cases/64 events. See controls/HANDOFF.md. Written probability and box theory passed f219b2a4; the original invalid lower-bound ceiling was corrected in dc183c14 and preserved in REVIEW_CORRECTIONS.md. Existing T189's finite local negative is preserved with its original scope. Filtering an existing certificate cannot enlarge its event; improvement needs genuinely stronger bounds or a new partition, not renamed old results.
 
 ## Compute accounting
