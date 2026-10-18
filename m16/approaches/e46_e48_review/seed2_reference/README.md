@@ -91,3 +91,15 @@ execution clearance. pilot.py now explicitly refuses execution until a separate
 export_gate_clearance is recorded. No pilot mass evaluations occurred. Local
 integration preparation and read-only review can continue; user/DRI coordination
 must resolve the authorization conflict.
+
+## Authorization and publication gate resolved,2026-10-18
+
+The user explicitly authorized submitting/pushing our research and reviews. Root
+published the prepared evidence at68d6232d; c8fff4dd/ea2ef84d and original source
+commits are reachable. All22 pinned shared source/review files match exactly;
+published_prerequisites.json records hashes. TASKS-only reclaim896380bd was
+pushed after a routine concurrent-update rebase. The current pilot code differs
+from scientifically reviewedbb7500c2 only by its extra export assertion. The
+prior blocked status and reviewer record remain preserved. One frozen pilot is
+now cleared under the unchanged scientific/resource limits; no full replay or
+new variant is implied.
