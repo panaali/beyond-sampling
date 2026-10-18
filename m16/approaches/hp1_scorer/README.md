@@ -478,6 +478,24 @@ Reproduce: `bash run_hp3_t317c.sh` (log in `data/hp3/run.log`).
 - [inferred] By the DRI's rule this is the confirmation of the HP2 candidate. Confirmation itself is the DRI's call
   (AGENTS rule 4); this scorer reports it.
 
+### T317d, the "ARC-ready version" (@ 5b4d4806; HP3's second submission, released by the DRI)
+- Hashes: estimator_d.py `f4bd3d87e0e7218ef270b54f350b9aa7a86306fa2bff0f8de08eca9709b91057`; cont_d.py
+  `306061a685406111ffefa66751198f4b82f6e515905b4ae28381608438f59f64`; cont_c.py `066b3f63…` (= c70e22cd);
+  cont.py `b71f203f…`.
+- Changes vs T317c:
+  - the model-free tables are built once at import, uncharged;
+  - the transverse points are exact-law by deterministic quadrature, instead of seeded MC.
+- The walk, merge, profile and all charges are cont_c's, so the cost is as executed and official.
+- Estimates differ from T317c by at most 0.0076 pp on HP3 (RMS 0.0031 pp) and 0.0068 pp on HP2.
+
+| panel | C (FPE) | F [95% CI] | RMS pp | bias pp | T317c official on the same panel |
+|---|---|---|---|---|---|
+| HP3 | 5431 | **5.07 [3.41, 7.03]** | 0.804 | +0.414 | 5.08 [3.42, 7.04] |
+| HP2 | 5491 | 6.75 [4.86, 8.78] | 0.988 | +0.526 | 6.76 [4.87, 8.79] |
+
+- [measured] T317d (deductive) matches T317c on HP3 (F 5.07 vs 5.08) and passes the lenient bar with the upper CI ≤
+  10. T317c remains the confirmed result; T317d is reported alongside it.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
