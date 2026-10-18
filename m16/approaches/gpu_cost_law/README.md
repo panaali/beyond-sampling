@@ -80,10 +80,16 @@ sliver refinement (worst 3e-2), which a d = 10 mass method would also need.
 Nominal only: LAPACK formulas (SVD values-only), scalar/incidence work at 1 op per element, numba SVD vectors and
 implementation overhead not priced. (8,5) seeds 0-4 audit: pending (`colab/q_audit.sh`).
 
-**M_16,10 MC truth (`python mc_target.py n_blocks`)**: float64 forward, 1e9-sample blocks, Philox seed
-20261018000 + block (all block counts in `results/mc_target/blocks.jsonl`; extendable). 172 blocks (1.72e11):
-acc 0.953117554 +- 5.1e-7, vs leaderboard_truths orig .95313575 +- 3.7e-5 (z -0.49) and m16/truth.txt .95317945
-(2e7, z -1.31). float32 forward on block 0: +29 correct of 1e9 (2.9e-8).
+**M_16,10 MC truth (`python mc_target.py 300`)**: float64 forward, 300 blocks of 1e9 samples, Philox seed
+20261018000 + block (all block counts in `results/mc_target/blocks.jsonl`; extendable to 1e12 by running more blocks):
+**acc 0.9531174789 +- 3.9e-7** (3e11 samples; between-block SD of the mean 3.4e-7, consistent with binomial), vs
+leaderboard_truths orig .95313575 +- 3.7e-5 (z -0.49) and m16/truth.txt .95317945 (2e7 samples, z -1.31).
+float32 forward on block 0: +29 correct of 1e9 (2.9e-8).
+
+**M_16,10 prefix k = 6 (capped 40 min, seeded random subtree sample, with masses)**: 245 of 3,811 subtrees:
+1,473,541 cells -> **estimated 2.3e7 cells at k = 6 (x30.6 over k = 5)** [inferred, unbiased subtree estimate];
+1,459,727 distinct regions in the sample (lower bound) covering 8.8% of the mass, so its N(delta) is not meaningful.
+Region growth stays ~x30 per step through k = 6 [inferred: cells ~ regions].
 
 ## Compute accounting
 Colab units: 304.80 at login (2026-10-17 23:06 UTC) -> 282.58 at 03:22 UTC (22.2 spent): A100 5.3 u/h, L4 1.5 u/h,
@@ -103,7 +109,7 @@ L4, ~03:10 A100); work lost ~4 units. Ops = estT's m43.Ops counter (+ `orth6.ops
 - [speculative] An exact route needs a method whose cost grows slower than the region count (history merging).
 
 ## Alternatives not ruled out
-- Prefix growth might slow after k = 5 (k = 6 is the only further point; capped sample, see Results).
+- Prefix growth might slow after k = 6 (k = 6 is a capped-sample estimate).
 - T = 4 noise insensitivity may not hold at larger T; orth6 calibrated on (8,6) zoo0 only.
 - Audit pricing is nominal; the real implementation cost is higher.
 - (16,5) recipe compared against the truth-start exact value (the halves-start exact run was lost to a reclaim).
