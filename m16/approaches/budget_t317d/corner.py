@@ -44,7 +44,7 @@ for tag in ("1", "2"):
                                   over_share=float(np.mean([out[n][f"corner{tag}_{d}"]["over"] for n in names]) / over.mean()),
                                   band_net_share=float(np.mean([out[n][f"corner{tag}_{d}"]["band_net"] for n in names]) / net.mean()),
                                   bias_removed_pp=float(np.mean([out[n][f"corner{tag}_{d}"]["net"] for n in names])),
-                                  input_mass=float(np.mean([out[n][f"corner{tag}_{d}"]["mass"] for n in names]))} for d in DEL})
+                                  input_mass=float(np.mean([out[n][f"corner{tag}_{d}"]["mass"] for n in names]))) for d in DEL})
 S["go"] = [d for d in DEL if S["1"]["corner"][d]["bias_removed_pp"] >= .25 and cost[d]["extra_fpe_mean"] <= 600]
 json.dump(dict(per_model=out, summary=S), open(os.path.join(B.HERE, "corner.json"), "w"), indent=1)
 print(json.dumps(S, indent=1))

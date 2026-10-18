@@ -313,3 +313,59 @@ It replaces B2's 3-model census, which I stopped before it printed anything.
   product does not apply, since g12 is assumed correct), by the B2' census rule on a 50 x 50 grid over the corner,
   priced at 0.54 FPE per cell beyond the first (the first cell is already paid by the lines).
   - **Go:** some delta removes >= .25 pp of bias at <= +600 FPE.
+
+### Addendum B results (T333)
+**B1 (`python addB.py b1`, `addB1.json`; 10 DEV2 models; V1 convention, vs truth). No go.**
+
+| rule | bias | RMS | MSE | recovery of the product's MSE share |
+|---|---|---|---|---|
+| P1 = V1 | +.341 | .729 | .531 | 0 |
+| J1 (joint set at v2*) | -.233 | .660 | .436 | 1 |
+| **ADD** (additive margins from the crossing) | -2.49 | 2.59 | 6.70 | **-65** |
+| OR | +3.96 | 4.23 | 17.9 | -182 |
+| L23 | +1.62 | 1.92 | 3.68 | -33 |
+| L12 | +2.68 | 2.88 | 8.27 | -81 |
+
+ADD over-predicts errors: first-order margins in each gap extrapolate across the gate kinks of the other line, the same
+failure as T292's lin and T319's smoothing. It agrees with J1 on 95.4-95.8% of inputs, no better than P1 (95-96%).
+On these 10 models the product's MSE share is small (.531 -> .436). On all 80 it is 40% one at a time.
+
+**B2' (`python addB2p.py census | rms`, `addB2p_census.json`, `addB2p_rms.json`): J2's executed cost.**
+Gate-pattern census on 100 x 100 over [0, .5]^2, per triple and half anchor, 10 models. These are lower bounds: the
+200 x 200 grid on model 0 adds +5%.
+
+| | cells per model, mean (min-max) | per triple per anchor | at 0.54 FPE per later cell + 2.0 per first | at the 2-D price 4.39 FPE per cell |
+|---|---|---|---|---|
+| nb anchors (V1 convention; b keeps its lines) | 35.4k (17.9k-61.3k) | 24.6 | **~21k FPE** | ~155k FPE |
+| nb + b anchors (blind walked in 2-D) | 83.2k (36.4k-110.8k) | 28.9 | ~49k FPE | ~365k FPE |
+
+J2's error vs truth (closure c remaining; budget.py's paired 2e5 inputs, 10 models): V1 convention bias +.214 / RMS
+**.583**; no cut and blind walked +.124 / .470. Against the DRI's strict arithmetic (C <= ~3.45k all-in, <= ~1.2k extra beyond
+C1's 3.3k), **J2's extra cells alone are >= 21k FPE even at the line-cell price, 17x over.** Strict is out of reach for
+closure c via exact 2-D sets by arithmetic.
+
+**B3 (`python corner.py`, `corner.json`): where the product's overstatement lives (mean-point closure c, not T339's
+spread lows).**
+- Product error D = P1 - J1, in V1's convention: net **+.574 pp** (sd .31), gross over 1.43 pp, under .86 pp.
+- **Model dependence:** the net is **constant across models** (corr with 1 - p = .001, slope .00), consistent with
+  T339's constant offset. The gross over mass scales with the error (corr .62, slope .077).
+
+Share of the net (and over) mass by region; input mass in brackets:
+
+| delta | corner g12, g23 < delta | L-band min(g12, g23) < delta | bias removed by the corner fix | corner fix extra FPE (0.54/cell, mean / max) |
+|---|---|---|---|---|
+| .025 | 2% (3%) [.2%] | 33% | .010 | 1,511 / 3,893 |
+| .05 | 14% (13%) [.8%] | 66% | .081 | 2,575 / 4,407 |
+| .1 | 49% (39%) [3%] | 91% | .283 | 4,047 / 6,382 |
+| .2 | 92% (74%) [10.5%] | 101% | .528 | 5,599 / 8,724 |
+| .5 | 100% | 100% | .574 | 7,910 / 13,694 |
+
+**The corner hypothesis fails:**
+- The overstatement lives in the **L-band along both axes** (one gap small, the other up to ~.2), not in the corner
+  of both gaps small.
+- The corner fix's cost is dominated by cell density near the ties. The cheapest delta that removes >= .25 pp (.1)
+  costs ~4.0k FPE extra, even at the line price.
+- **Go (>= .25 pp at <= +600 FPE): not met.** The half-anchor version (D2 = P2 - J2) is the same (.258 pp at delta .1).
+- [inferred] A constant, model-independent ~+.5 pp offset concentrated near the two tie walls is the product's
+  structural bias. Being model-independent, it could in principle be removed by a model-free correction, but that is
+  a constant tuned on development models (inductive "advice") unless derived.

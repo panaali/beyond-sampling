@@ -2,7 +2,7 @@
 models; (2) J2's error vs truth in V1's convention. usage: python addB2p.py census | rms"""
 import itertools, json, os, sys
 import numpy as np
-which = sys.argv[1]; sys.argv = sys.argv[:1]
+which = sys.argv[1] if len(sys.argv) > 1 else ""; sys.argv = sys.argv[:1]
 import budget as B  # noqa: E402
 import addendum as A  # noqa: E402
 from budget import Point, mu, dmu, node, dev2, forward, T, TMAX  # noqa: E402
