@@ -11,7 +11,7 @@ The following choices must be fixed before a target calibration has an unambiguo
 | Component | Literal E32 A | Target prerequisite |
 |---|---|---|
 | Prefix surrogate | Four structural H2 wedges | Explicit H16T10 rank/position partition and prefix affine-map construction |
-| Final gates |16? No: exactly four marginal probabilities, shared q=.2 | Sixteen marginals with defined conditional law; keep latent q=.2 or explicitly designate a new approximation |
+| Final gates |Four marginal probabilities, shared q=.2 | Sixteen marginals with defined conditional law; keep latent q=.2 or explicitly designate a new approximation |
 | Probability computation | Exact 3D solid-angle formula | A specified 10D cone-probability algorithm, precision/error status and complete cost; fixed quadrature is not exact integration |
 | Sparse rank coverage | Hand-derived14+4 regions | Defined weighting and treatment of omitted orderings, not one unlabelled arrangement per top-three triple |
 | Budget | Historical ARC/producer counts | One stated64kFPE budget and actual cost between32k and64k; no arbitrary cost padding or underbudget pass |
