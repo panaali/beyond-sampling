@@ -923,8 +923,8 @@ checkout @620eb47b. K = 1 equals B on E1 for every model, as expected (one Gauss
 | seed3 | K = 5 | .99 | 1.00 | .98 | .92 | 1.12 | 1.41 | 4,094,011 |
 
 **Verdict against T340's pre-registered line** (E1, 9 pairs):
-- B: 6/9 within [1/2, 2], and the same 6/9 within [1/3, 3]. That is short of even "partial", which needs >= 6 of 9
-  within [1/3, 3] (my earlier "partial" for B was wrong).
+- B: 6/9 within [1/2, 2], and the same 6/9 within [1/3, 3]. That meets T340's "partial" rule (>= 6 of 9 within
+  [1/3, 3]), as T340's owner confirmed. My first write-up here wrongly said it fell short.
 - **K = 3 (primary): 8/9 within [1/2, 2] and 9/9 within [1/3, 3], i.e. "partial".** orig E1(1.5) is .49.
 - K = 5: **9/9 within [1/2, 2]**, which would be "useful". But K = 5 was the convergence check, not the primary.
   orig E1(1.0) is still moving (1.73 → 1.58), so K is not converged on orig.
@@ -968,3 +968,6 @@ exact restart state, instead of at the tie:
 - **Go: C <= 1/5 of K3's** at unchanged accuracy.
 
 Reported: est/truth, C and the equal-compute F per (model, event), handed to T340's table.
+
+**T340's scoring of T349 (claude/t286-cheap-frontier @643c9fbf, rare_events/README.md "T340c"):** my numbers reproduce
+exactly. For K3: E1 partial (8/9 within 2x; the miss is orig t0 = 1.5 at .49), **E2 useful (6/6 within 2x)**.
