@@ -5,7 +5,8 @@
         state.pt (re-trained alone, bit-identical data ids) or grid3's state.pt once its step >= 2^20 -> SEALED
         panel hp2/weights.npz, hp2/manifest.json (truths only in hp2/sealed/truths.json).
   hp3:  T321 fresh retrains (seeds 200-299, data ids 2000-2099) from capacity_ceiling/hp3_run.py -> ../hp3/ (SEALED)
-usage: python make_panel.py dev2 | python make_panel.py hp2|hp3 STATE_PT"""
+  hp4:  T328 fresh retrains (seeds 300-399, data ids 3000-3099) from capacity_ceiling/hp4_run.py -> ../hp4/ (SEALED)
+usage: python make_panel.py dev2 | python make_panel.py hp2|hp3|hp4 STATE_PT"""
 import hashlib, json, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); CC = os.path.join(HERE, "..", "..", "capacity_ceiling")

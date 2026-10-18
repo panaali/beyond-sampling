@@ -1,12 +1,12 @@
 """T284: panel truths (as hp1/truth_hp1.py). float64 GPU MC, n samples per model, independent CUDA Philox stream per
-model (seed BASE + model index; dev2 2840000, hp2 2841000, hp3 2842000), no common random numbers.
+model (seed BASE + model index; dev2 2840000, hp2 2841000, hp3 2842000, hp4 2843000), no common random numbers.
 usage: python truth_panel.py dev2|hp2 [n] -> dev2/truths.json (open) | sealed/truths.json"""
 import hashlib, json, math, os, sys, time
 import numpy as np, torch as th
 HERE = os.path.dirname(os.path.abspath(__file__)); which = sys.argv[1]
 n = int(float(sys.argv[2])) if len(sys.argv) > 2 else 10 ** 8
-d = {"dev2": os.path.join(HERE, "dev2"), "hp2": HERE, "hp3": os.path.join(HERE, "..", "hp3")}[which]
-base = {"dev2": 2840000, "hp2": 2841000, "hp3": 2842000}[which]
+d = {"dev2": os.path.join(HERE, "dev2"), "hp2": HERE, "hp3": os.path.join(HERE, "..", "hp3"), "hp4": os.path.join(HERE, "..", "hp4")}[which]
+base = {"dev2": 2840000, "hp2": 2841000, "hp3": 2842000, "hp4": 2843000}[which]
 z = np.load(os.path.join(d, "weights.npz")); names = list(z["names"]); out = {}; t0 = time.time()
 for k, nm in enumerate(names):
     Wi, Wh, Wo = (th.as_tensor(z[a][k], dtype=th.float64, device="cuda") for a in ("Wi", "Wh", "Wo"))
