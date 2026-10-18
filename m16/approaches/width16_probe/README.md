@@ -258,7 +258,7 @@ Alternatives: richer event words (adding values of the top-2 gap, age of the max
 modal share; only sign(x_0) was tried. k = 5 was not run (target 632k regions: too slow in pure numpy here; T192's
 numba code could). Compute: masses k = 4 127-173 CPU-s per model (1.37 pieces per leaf at k = 4); all runs < 8 CPU-min.
 
-## T221: mass coverage curve of exact prefix regions (pre-registered 2026-10-18, before computing; unverified)
+## T222 (DRI-assigned; first called T221): mass coverage curve of exact prefix regions (pre-registered 2026-10-18, before computing; unverified)
 **Rule (written before any number was computed).** For the target M_16,10 prefixes k = 2, 3, 4 and zoo (16,4) and (16,5)
 seed 0 at the same k, sort the exact prefix regions (distinct gate words) by exact Gaussian mass, and let N_delta(k) be the
 smallest number of regions covering 1 - delta of the mass, for delta = 1e-2 ... 1e-6. Also report the per-step growth of

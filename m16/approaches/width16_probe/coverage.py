@@ -1,4 +1,4 @@
-"""T221: mass coverage curve of exact prefix regions. Region mass = sum of the exact masses of the T217 pieces
+"""T222: mass coverage curve of exact prefix regions. Region mass = sum of the exact masses of the T217 pieces
 (eventword/<model>_k{k}.npz) with the same gate word. N_delta = number of heaviest regions covering 1 - delta.
 -> coverage.json"""
 import json, os
