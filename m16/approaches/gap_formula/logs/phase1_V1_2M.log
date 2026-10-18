@@ -1,0 +1,36 @@
+mass {64: 0.9892577516586076, 96: 0.9892577516586114, 128: 0.9892577516586171} 0.9892578125
+data target 0.046828
+data zoo0 0.0901035
+data zoo1 0.119603
+data zoo2 0.0513385
+data zoo3 0.068088
+data zoo4 0.110386
+data noisy0.005 0.108076
+data noisy0.01 0.2425185
+V1 target {'own_fit_bias': np.float64(-8.8e-05), 'truth': 0.953117, 'cv_est': np.float64(0.953195), 'cv_bias': np.float64(7.7e-05), 'var_ratio_cv_vs_sampling': 0.715427, 'heldout_sample_acc': 0.953157, 'n_params': 20}
+V1 zoo0 {'own_fit_bias': np.float64(1.9e-05), 'truth': 0.909925, 'cv_est': np.float64(0.909974), 'cv_bias': np.float64(5e-05), 'var_ratio_cv_vs_sampling': 0.805326, 'heldout_sample_acc': 0.910005, 'n_params': 20}
+V1 zoo1 {'own_fit_bias': np.float64(0.000106), 'truth': 0.880246, 'cv_est': np.float64(0.880179), 'cv_bias': np.float64(-6.7e-05), 'var_ratio_cv_vs_sampling': 0.814079, 'heldout_sample_acc': 0.880248, 'n_params': 20}
+V1 zoo2 {'own_fit_bias': np.float64(-7.2e-05), 'truth': 0.948546, 'cv_est': np.float64(0.948674), 'cv_bias': np.float64(0.000128), 'var_ratio_cv_vs_sampling': 0.721405, 'heldout_sample_acc': 0.948731, 'n_params': 20}
+V1 zoo3 {'own_fit_bias': np.float64(-4.9e-05), 'truth': 0.932086, 'cv_est': np.float64(0.931654), 'cv_bias': np.float64(-0.000432), 'var_ratio_cv_vs_sampling': 0.726268, 'heldout_sample_acc': 0.931789, 'n_params': 20}
+V1 zoo4 {'own_fit_bias': np.float64(4.9e-05), 'truth': 0.889564, 'cv_est': np.float64(0.889192), 'cv_bias': np.float64(-0.000372), 'var_ratio_cv_vs_sampling': 0.803765, 'heldout_sample_acc': 0.889333, 'n_params': 20}
+V1 noisy0.005 {'own_fit_bias': np.float64(-3.2e-05), 'truth': 0.891852, 'cv_est': np.float64(0.89191), 'cv_bias': np.float64(5.7e-05), 'var_ratio_cv_vs_sampling': 0.78801, 'heldout_sample_acc': 0.891811, 'n_params': 20}
+V1 noisy0.01 {'own_fit_bias': np.float64(-0.000417), 'truth': 0.757822, 'cv_est': np.float64(0.758088), 'cv_bias': np.float64(0.000266), 'var_ratio_cv_vs_sampling': 0.868216, 'heldout_sample_acc': 0.758093, 'n_params': 20}
+V1 zoo0 K0 0.04311  K3 -0.00005
+V1 zoo1 K0 0.07278  K3 0.00012
+V1 zoo2 K0 0.00448  K3 -0.00005
+V1 zoo3 K0 0.02094  K3 -0.00001
+V1 zoo4 K0 0.06347  K3 0.00007
+V1 noisy0.005 K0 0.06118  K3 -0.00003
+V1 noisy0.01 K0 0.19521  K3 0.21129
+V1 zoo0 LOO 0.00246
+V1 zoo1 LOO 0.03965
+V1 zoo2 LOO -0.04578
+V1 zoo3 LOO -0.02512
+V1 zoo4 LOO 0.02800
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/gap_formula/phase1.py", line 136, in <module>
+    w = logistic(design(fam, Vm), err[m].astype(float))
+                 ~~~~~~^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/gap_formula/phase1.py", line 39, in design
+    X = np.zeros((len(F), 3 * F.shape[1]))
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 453. MiB for an array with shape (1978634, 30) and data type float64

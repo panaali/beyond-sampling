@@ -56,13 +56,117 @@ Phase 1 "passes" only if (a) gives |bias| < 5e-4 on most transfer models, or (b)
 4. The quadrature, not the formula, limits the estimate (sharp near-tie features). Test: node doubling.
 
 ## Method
-*Filled in after the runs.*
+- `gfcommon.py`: the scored models (target, zoo seeds 0–4 exported from ARC's public `2nd_argmax_16_10_2^30_s.pth`
+  into `zoo16_10_weights.npz`, two noisy copies built exactly like `arc_eval.noisy_models`), an exact float64
+  forward pass, and the summaries.
+- `truths.py`: truths from 2e7 fresh samples per model (s.e. 5–10e-5; the pre-registered 1e8 was cut for CPU). For
+  the target we score against the answer key 0.9531174789; our 2e7 estimate is 0.953037 ± 4.7e-5.
+- `phase1.py [families]`: per model, 1M fit + 1M held-out inputs (pre-registered 2M each, cut to fit in 2.5 GB).
+  - Logistic fits with per-case blocks:
+    - V1: [1, z23, z12, z23², z12², z23·z12] with z = log gap;
+    - V2: scale-free [1, a, b, q, a², b², q², ab, aq, bq] with a = log(g23/M2), b = log(g12/M1), q = log(M2/M1);
+    - V3: V2 + [K=2, K=3, min(K,8)/8].
+  - Two blind error rates (K = 0, 1) times their exact masses 1/1024, 10/1024.
+  - Integration: Gauss–Legendre in (M2 on (0, 6), log g23, log g12 on (−18, 2.5)), with 64/96/128 nodes per axis
+    and K summed exactly for V3. The quadrature reproduces the non-blind mass 1 − 11/1024 to 6e-8, and E[M1·1{M2>0}]
+    matches Monte Carlo (1.5311 vs 1.5307 ± 0.0007).
+  - The CV estimate is ∫f dLaw − mean_heldout(err − f). Its variance ratio is var(err − f)/var(err) on held-out data.
+- `report.py` -> `results/phase1_tables.md`.
 
 ## Status
-Pre-registered; running.
+**Done; Phase 1 fails its pre-registered criteria, so Phase 2 is not run.** Unverified (no independent check).
 
 ## Results
+Reproduce: `python3 truths.py` (~17 CPU-min), `python3 phase1.py V1 V2` (~15 CPU-min), `python3 phase1.py V3`,
+`python3 report.py`. Bias = estimate − truth.
+- **own-fit**: formula fit on 1M samples of the same model;
+- **CV var ratio**: control-variate variance relative to plain sampling at equal sample count;
+- **K=0**: target formula applied unchanged;
+- **K=3**: target formula with 3 per-case intercepts refit on 1M samples of the scored model;
+- **LOO**: fit pooled on the other four zoo seeds.
+
+**V1** (20 parameters incl. 2 blind rates)
+
+| model | truth | own-fit bias | CV var ratio | K=0 transfer bias | K=3 refit bias | LOO bias |
+|---|---|---|---|---|---|---|
+| target | 0.95312 | -0.00013 | 0.714 | – | – | – |
+| zoo0 | 0.90992 | +0.00006 | 0.808 | +0.04307 | -0.00005 | +0.00245 |
+| zoo1 | 0.88025 | +0.00006 | 0.814 | +0.07275 | +0.00015 | +0.03963 |
+| zoo2 | 0.94855 | +0.00002 | 0.721 | +0.00445 | +0.00003 | -0.04579 |
+| zoo3 | 0.93209 | -0.00014 | 0.726 | +0.02090 | -0.00013 | -0.02515 |
+| zoo4 | 0.88956 | +0.00012 | 0.805 | +0.06343 | +0.00020 | +0.02798 |
+| noisy0.005 | 0.89185 | -0.00012 | 0.787 | +0.06114 | -0.00012 | – |
+| noisy0.01 | 0.75782 | -0.00027 | 0.869 | +0.19517 | +0.21140 | – |
+
+**V2** (32 parameters incl. 2 blind rates)
+
+| model | truth | own-fit bias | CV var ratio | K=0 transfer bias | K=3 refit bias | LOO bias |
+|---|---|---|---|---|---|---|
+| target | 0.95312 | -0.00011 | 0.693 | – | – | – |
+| zoo0 | 0.90992 | +0.00002 | 0.788 | +0.04308 | -0.00008 | +0.00250 |
+| zoo1 | 0.88025 | +0.00007 | 0.804 | +0.07276 | +0.00015 | +0.03968 |
+| zoo2 | 0.94855 | +0.00008 | 0.707 | +0.00446 | +0.00007 | -0.04575 |
+| zoo3 | 0.93209 | -0.00018 | 0.695 | +0.02092 | -0.00018 | -0.02510 |
+| zoo4 | 0.88956 | +0.00015 | 0.782 | +0.06344 | +0.00023 | +0.02805 |
+| noisy0.005 | 0.89185 | -0.00014 | 0.766 | +0.06115 | -0.00019 | – |
+| noisy0.01 | 0.75782 | -0.00024 | 0.857 | +0.19518 | -0.00040 | – |
+
+**V3** (41 parameters; from `logs/phase1_V3.log`, whose JSON was lost when the LOO step ran out of memory):
+own-fit bias −1.2e-4 (target) and |bias| ≤ 2.5e-4 elsewhere; CV variance ratio .694 (target), .695–.856 elsewhere;
+K=0 and K=3 identical to V2 within 1e-5. So adding K buys nothing over V2.
+
+Quadrature convergence (64 → 96 → 128 nodes per axis): estimates move by ≤ 1.2e-8 (V1) and ≤ 6.6e-6 (V2).
+
+**Verdict against the pre-registration:**
+- Own-fit |bias| < 5e-4 on every model with 20–41 parameters. This is the trivial pass predicted in advance: the
+  fitted formula reproduces its own 1M-sample error rate (s.e. ~2e-4). It does not count.
+- **(a) Transfer fails by 1–3 orders of magnitude.**
+  - K=0 errors are +0.4 to +19.5 pp. The target formula predicts the target's ~95% accuracy for every model.
+  - LOO errors are 0.25–4.6 pp. They equal (mean accuracy of the other four seeds) − (this seed's accuracy), so the
+    formula carries no model-specific information.
+  - The truths themselves span 0.758–0.953.
+- **(b) Variance reduction is small.** The CV variance ratio is .69–.87 (V1: .71–.87; V2/V3: .69–.86), i.e. a 1.15–1.45x
+  gain, against the pre-registered >= 4x. At 1e9 FLOPs this moves sampling's s.e. from ~5e-4 to ~4.2e-4.
+- The K=3 refits have |bias| ≤ 4e-4, except V1 on noisy0.01, where the offset-intercept refit diverged (+21 pp). But
+  they need 1M samples of the scored model, i.e. they are sampling estimators with a fitted shape.
+
+**Alternatives (pre-registered) — outcomes:**
+1. Blind region dominates? **No.** Blind mass × error rate is at most 11/1024 ≈ 1.07 pp per model, far below the
+   transfer errors (up to 19.5 pp).
+2. Dependence on low inputs (V3 vs V2)? **No gain** from K (variance ratio .694 vs .693). The V-conditional variance
+   that limits (b) is not removed by the positive-count summary. Other low-input summaries (m4, sum of the rest)
+   were not tried.
+3. Model-specific constants set the error rate? **Supported** [measured]: the same functional form needs different
+   constants per model, at the pp level.
+4. Quadrature limits? **No** (≤ 7e-6).
+
 ## Compute accounting
+Forward passes only (no LP): truths 1.6e8 sequences; Phase 1 runs 8 models × 2M sequences per run, about 4 runs
+including two that ran out of memory. Logistic IRLS on ≤ 1M × 39 designs, quadrature on ≤ 128³ = 2.1M nodes per
+integral. Total about 1.3 CPU-hours, single thread, ≤ 2 processes. The estimator itself (given the formula) is
+deductive: one 3-D quadrature, no random inputs. But in Phase 1 its coefficients come from samples of the scored
+model (sampling-based).
+
 ## Claims
+- G1 [measured] Exact integration of a calibrated logistic P(err | V) over the order-statistic law reproduces each
+  model's accuracy to sampling precision (|bias| ≤ 2.7e-4 with 1M fit samples). Quadrature error ≤ 7e-6.
+- G2 [measured] A formula fit on one model does not transfer: errors are 0.4–19.5 pp to zoo seeds and noisy copies,
+  and 0.25–4.6 pp leave-one-out across zoo seeds. Gaps, values, positions and K are not enough to carry the
+  model-specific error rate.
+- G3 [measured] As a control variate, P(err | V2) reduces variance by only 1.15–1.45x. Most of the error variance is
+  not explained by (gaps, top-3 values, positions, K).
+- G4 [inferred] The Phase 2 route (coefficients from the weights) would need P(err | V) to be predictable from the
+  weights to a precision that a whole-formula refit on 1M samples just reaches. Given G3, even a perfect weight-
+  derived P(err | V) would leave the estimator's variance at ~70% of sampling if used as a control variate. As a
+  pure deductive estimate it would need the model-specific constants that G2 shows matter at the pp level.
+
 ## Alternatives not ruled out
+- Richer V (m4, the rest of the order statistics, ages beyond the per-case blocks, T241 comparator-gain terms)
+  might raise R² well above 0.3. The ceiling E[Var(err | V)]/Var(err) was not measured nonparametrically.
+- The transfer test fits the shape on one model or a pool. A shape *parameterised by the weights* (Phase 2) is
+  exactly what was not tried.
+- The noisy-copy truths are at 2e7 samples (s.e. ≤ 1e-4), fine at the pp scale of the failures.
+
 ## Failure modes
+- Logistic refit with a large fixed offset can diverge (V1 noisy0.01 K=3).
+- Memory: designs above 1M × 30 needed chunking under the 2.5 GB cap; V3's LOO JSON was lost to an OOM.
