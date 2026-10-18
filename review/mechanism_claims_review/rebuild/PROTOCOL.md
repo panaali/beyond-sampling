@@ -20,10 +20,11 @@ recurrence, checked against scalar exact Fractions. All numerical coefficient
 and prediction residual thresholds are fixed absolute1e-10, not an outward
 certificate. No source-selected best-fit variant.
 
-Count every least-squares call including intentional rank failures; no source
-FLOP/native price is inferred. The initial constant220 is provisional until
-independent source review; actual driver topology must be reconciled before
-execution. Matrix-rank and model-free input-generation work is not a model
+Count every least-squares call including intentional rank failures:216 lookup,
+one separable, one deficient lookup and one deficient separable =219. Underfilled
+checks return before linalg. Initial source67705ba8 had a provisional220; corrected
+before source gate/execution. No source FLOP/native price is inferred.
+Matrix-rank and model-free input-generation work is not a model
 forward. Future original-model work needs a separate checkpoint pilot and scope.
 
 Exactly one process after source/protocol hash pins and independent source gate

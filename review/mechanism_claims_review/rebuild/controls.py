@@ -67,7 +67,6 @@ def main():
         rejects('input_tie',lambda:C.states(np.ones((1,10))),'input_tie_preserve_and_stop_no_resampling')
         rejects('input_nonfinite',lambda:C.states(np.full((1,10),np.inf)),'finite_nonempty_N_by_10_required')
         rejects('lookup_underfilled',lambda:C.fit_lookup(se,y[~train]),'lookup_state_underfilled')
-        deficient={k:np.repeat(v[:1],3,axis=0) for k,v in s.items()}
         # Preserve all216 legal keys/counts, make only state0's three features identical.
         broken={k:v.copy() for k,v in st.items()}
         for name in ('m1','m2','x9'):broken[name][:3]=broken[name][0]
@@ -115,7 +114,7 @@ def main():
         emit('six_dyadic_recurrence_inputs',synthetic_forward_calls=1,sequences=6)
 
         out=dict(complete=True,gate_sha256=sha(HERE/'controls_gate.json'),numpy_version=np.__version__,python=sys.version,
-                 rows=rows,lstsq_calls=220,synthetic_forward_batch_calls=1,synthetic_forward_sequences=6,
+                 rows=rows,lstsq_calls=219,synthetic_forward_batch_calls=1,synthetic_forward_sequences=6,
                  actual_checkpoint_model_calls=0,new_random_inputs=0,cpu_seconds=time.process_time()-start,
                  scope='Synthetic helper controls only; no trained fit, historical validation, accuracy or cost claim.')
         save_json(HERE/'controls_results.json',out);emit('completed',sha256=sha(HERE/'controls_results.json'))
