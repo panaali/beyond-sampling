@@ -1,0 +1,53 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "task": "T227 fixed saved contraction source/resource gate",
+  "source_commit": "fe130a60",
+  "initial_source": "e7b2b358",
+  "pins": {
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/check_saved.py": "f81c6489b315b2f967d4fe5b6281c83b51587d2d66d68a06629c65a829bc756b",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/protocol.json": "20f669a781f816e522b19fe06f8f28bb47405bc98baf2c178009e6c812b8fd28",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/PROTOCOL.md": "e1c04fdf8742a5a703468b1ff945a9e51f920a4eb3b0b38f0cdc51e70c3b09a3",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/launcher.sh": "eb6329df154b9e56a97b493fa15372888661c69b2b054d7ab5c8724b5470f242",
+    "/workspace/work/recover-small_h2_78/review/tie_tail_evidence/source_manifest.json": "1a6f9b379e98281b01826c8a373189e1c456b243fc64cdbf5bd1c48fd7e0941e"
+  },
+  "prior_source_review_sha256": "1b38d809c2e81a964b53d2d3e216efe1c2bfbf8fc1bf49dfc9a0229d5adb45ed",
+  "checker_sha256": "e5a329dd02906cc30d69f8f395460b880cb4e2050e0be9adf4e5d4f6ddec4a0d",
+  "approved_scope": {
+    "models": 8,
+    "rules_per_model": 2,
+    "tail_rows_per_rule": 1639,
+    "schemes": 6,
+    "L": [
+      10,
+      30,
+      100
+    ],
+    "within_statistics": 48,
+    "cross_copy_scores": 36,
+    "author_calls": 0,
+    "attempts": 1,
+    "internal_cpu_seconds": 17,
+    "soft_cpu_seconds": 19,
+    "hard_cpu_seconds": 20,
+    "address_space_bytes": 2147483648,
+    "review_lock": true
+  },
+  "findings": [
+    "Exact Fraction of each stored finite binary64 value is used for group sums, deterministic selections, ratios and prefix-summary arithmetic.",
+    "Stable exact ties use first encounter order, matching the source dictionary/order convention; any disagreement caused by historical rounding must fail, not induce retuning.",
+    "Top1 uses floor(.01*32768)=327 and top5 ceil(.05*32768)=1639.",
+    "All retained and missing-kind point counts/mass, duplicate/ordered flip diagnostics and fixed six schemes are retained.",
+    "Within-label statistics remain conditioned on the selected global tail.",
+    "Fixed absolute 5e-12 compares saved display/summation consistency only; no integration or model error bound.",
+    "Half-tail and random-label assignments are absent and not regenerated; complete all-face masses and labels/walks are not independently certified.",
+    "Atomic partial result and progress preserve failure; immutable audit directory, launcher log and completed/pinned prerequisite checks precede the sole run."
+  ],
+  "required_gate": "Publish immutable gate with both complete/pass_all source review artifacts and mandatory checker/protocol/launcher/manifest hashes before execution.",
+  "limitations": [
+    "Finite-rule kill is the original orig/s005/s010 mech L100 threshold only.",
+    "No population CI, model identity, exact walk/LP, complete-cost or method-family impossibility claim.",
+    "Saved results require independent review after completion; source clearance is not a result."
+  ],
+  "review_cpu_seconds": 0.01595442900000002
+}
