@@ -1,0 +1,20 @@
+fused_s0 err 11.63 pp {'identity': np.float64(-0.023), 'shift_start': np.float64(-1.417), 'shift_end': np.float64(4.042), 'share_last': np.float64(-0.035), 'share_p1': np.float64(-2.563), 'age_cap3': np.float64(-3.698), 'pos_cap3': np.float64(-6.708)} 9s
+fused_s8 err 7.66 pp {'identity': np.float64(0.002), 'shift_start': np.float64(-1.018), 'shift_end': np.float64(3.806), 'share_last': np.float64(-0.666), 'share_p1': np.float64(-0.367), 'age_cap3': np.float64(-1.362), 'pos_cap3': np.float64(-1.12)} 9s
+fused_s16 err 9.54 pp {'identity': np.float64(0.049), 'shift_start': np.float64(-2.868), 'shift_end': np.float64(8.944), 'share_last': np.float64(-0.293), 'share_p1': np.float64(-3.37), 'age_cap3': np.float64(-1.806), 'pos_cap3': np.float64(-2.824)} 9s
+fused_s24 err 5.38 pp {'identity': np.float64(0.009), 'shift_start': np.float64(-0.742), 'shift_end': np.float64(1.736), 'share_last': np.float64(-0.547), 'share_p1': np.float64(0.408), 'age_cap3': np.float64(0.191), 'pos_cap3': np.float64(0.026)} 7s
+fused_s32 err 5.16 pp {'identity': np.float64(0.009), 'shift_start': np.float64(-0.051), 'shift_end': np.float64(1.024), 'share_last': np.float64(0.227), 'share_p1': np.float64(-0.3), 'age_cap3': np.float64(-0.86), 'pos_cap3': np.float64(-0.887)} 9s
+torch_s0 err 4.61 pp {'identity': np.float64(0.004), 'shift_start': np.float64(-0.178), 'shift_end': np.float64(0.249), 'share_last': np.float64(-0.133), 'share_p1': np.float64(0.94), 'age_cap3': np.float64(-0.794), 'pos_cap3': np.float64(-1.498)} 8s
+torch_s8 err 6.02 pp {'identity': np.float64(0.016), 'shift_start': np.float64(-0.531), 'shift_end': np.float64(2.33), 'share_last': np.float64(1.271), 'share_p1': np.float64(-0.127), 'age_cap3': np.float64(-0.271), 'pos_cap3': np.float64(-1.357)} 8s
+torch_s16 err 10.34 pp {'identity': np.float64(-0.051), 'shift_start': np.float64(-2.107), 'shift_end': np.float64(5.176), 'share_last': np.float64(-1.12), 'share_p1': np.float64(-1.553), 'age_cap3': np.float64(0.99), 'pos_cap3': np.float64(0.524)} 8s
+torch_s24 err 11.60 pp {'identity': np.float64(0.024), 'shift_start': np.float64(-0.618), 'shift_end': np.float64(2.627), 'share_last': np.float64(-0.828), 'share_p1': np.float64(-1.019), 'age_cap3': np.float64(-1.645), 'pos_cap3': np.float64(-1.101)} 8s
+torch_s32 err 7.89 pp {'identity': np.float64(-0.04), 'shift_start': np.float64(-0.843), 'shift_end': np.float64(1.634), 'share_last': np.float64(0.539), 'share_p1': np.float64(0.186), 'age_cap3': np.float64(5.151), 'pos_cap3': np.float64(-2.532)} 7s
+
+scheme: groups, reduction, RMS err pp over models
+  identity: groups 720 reduction 1.0x RMS 0.029 mean -0.000
+  shift_start: groups 216 reduction 3.3x RMS 1.329 mean -1.037
+  shift_end: groups 216 reduction 3.3x RMS 3.959 mean +3.157
+  share_last: groups 90 reduction 8.0x RMS 0.689 mean -0.158
+  share_p1: groups 90 reduction 8.0x RMS 1.507 mean -0.777
+  age_cap3: groups 34 reduction 21.2x RMS 2.247 mean -0.410
+  pos_cap3: groups 34 reduction 21.2x RMS 2.588 mean -1.748
+ANOVA (mean over models, share of raw variance): {'p1_alone': np.float64(0.083), 'p2_alone': np.float64(0.044), 'p3_alone': np.float64(0.044), 'main_all': np.float64(0.182), 'main+pairs': np.float64(0.508), 'signal_share': np.float64(0.997)}
