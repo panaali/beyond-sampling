@@ -12,11 +12,13 @@ published source/resource gate and immutable execution binding precede the sole
 bounded launch. `PROTOCOL.md` defines finite-law versus Gaussian qualifications.
 
 ## Status
-Fresh claim `213f4b30`; source preparation only, no numerical calls yet. T55 owns
-source/resource review; recover_78 owns independent saved audit after the run.
+Fresh claim `213f4b30`; sole numerical run `81149d17` complete after independently
+published source and execution gates. Independent saved audit `35ec8444`, shared `6906472a`, passes all fields and provenance.
 
 ## Results
-Pending. No empirical performance, trained cancellation or Gaussian-law conclusion.
+All 13 finite-law tables, six label cases and 12 guard rejections pass; 64 progress
+events retained, 0.05839 CPU seconds. See `RESULTS.md`. No empirical performance,
+trained cancellation or Gaussian-law conclusion.
 
 ## Compute accounting
 Planned command: `bash review/residual_pairing_controls/launch.sh`, once after gate.
@@ -28,7 +30,8 @@ Hypothetical single/paired prices test a formula; they are not measured runtimes
 ## Claims
 [inferred, prior independently reviewed] Pairing preserves bias only under the
 appropriate law and reduces absolute envelopes through opposite signs.
-[unmeasured] No claim yet about this implementation or any trained surrogate.
+[measured, independently saved-audited 35ec8444] The fixed exact implementation matches
+the declared finite controls. No claim about a trained surrogate follows.
 
 ## Alternatives not ruled out
 Other surrogates, involutions and paired partitions may help. Constant optimistic
