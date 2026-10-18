@@ -1,6 +1,6 @@
 # Task board
 
-↑ [Project README](README.md) · [STATUS](STATUS.md) · [INDEX (registry + ledger)](INDEX.md) · [Rules (AGENTS.md)](AGENTS.md)
+↑ [Project README](README.md) · [STATUS](STATUS.md) · [Owner Q&A](OWNER_QA.md) · [INDEX (registry + ledger)](INDEX.md) · [Rules (AGENTS.md)](AGENTS.md)
 
 **Read this before starting any work.** It is the single place that says what is being worked on right now and
 what is waiting. Finished work lives in the [INDEX registry](INDEX.md#3-experiment-registry); claims and their status live

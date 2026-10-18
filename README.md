@@ -34,6 +34,8 @@ An independent test of two claims about neural-network interpretability:
 
 Top-level scripts belong to the Qwen study pipeline: [collect.py](collect.py) (activations) →
 [build_items.py](build_items.py) (blinded packets) → [analyze.py](analyze.py) (pre-registered scoring);
+
+**Owner Q&A:** every question the project owner asked the DRI, with answers and later updates, is in [OWNER_QA.md](OWNER_QA.md). Read it after TASKS.md and INDEX.md.
 [population.py](population.py) (LLM-free statistics).
 
 ## Reproduce
