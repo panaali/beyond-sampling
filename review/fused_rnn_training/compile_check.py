@@ -18,10 +18,12 @@ def main():
         for f,h in gate['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h
         review=json.loads(Path(gate['review']).read_text());assert review['complete'] and review['pass_all'] and review['execution_allowed']
         assert gate['review'] in gate['pins']
+        assert all(str(P/f) in review['pins'] for f in ('compile_check.py','compile_scope.json','fused_step.py'))
         for f,h in review['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h
         validation=json.loads((P/'validation.json').read_text());assert validation['complete'] and validation['pass_all']
         assert resource.getrlimit(resource.RLIMIT_CPU)==(105,110) and resource.getrlimit(resource.RLIMIT_AS)==(2**31,2**31)
         import triton
+        result['triton']={'version':triton.__version__,'module':triton.__file__};save()
         from triton.compiler import ASTSource
         from triton.backends.compiler import GPUTarget
         from fused_step import _step
