@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "source_gate": true,
+  "reviewer": "recover_34 (author of original control data; gate only, independent saved execution by h4)",
+  "assignment": "06db3cf1",
+  "source_commit": "9b8cded6",
+  "raw_publication": "49281e8c",
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/srb_composition_saved/check.py": "37f99ae345a006325d9956982d4dd665c0b7675b4d90421b3c622959fc7e92b7",
+    "/workspace/work/recover-small_h4_4/review/srb_composition_saved/pins.json": "3f2b595a667d1e4451e679c1520835e909c10adf6fdad10c840b55e0eb6ac2a7"
+  },
+  "verified_pins": 9,
+  "new_candidate_estimator_Q_RNG_calls": 0,
+  "scope": "One saved-only20CPU review-lock run; no author evaluator/Q/RNG calls, independent final result remains h4.",
+  "findings": [
+    "AST reconstruction binds unchanged functions and actual charge override to pinned source.",
+    "Deterministic cycle-byte/stratum/count reconstruction and kept arrays/weights use saved fixture constants, not original author functions.",
+    "Fraction-to-float roundings reproduce fixed coefficient/product/ceil/charge operations. Exact-rational quotient floor is checked only for these fixed four budgets, not a general replacement for Python float floor division.",
+    "Saved output/cost/warning parity plus q-vector hash and conservative dot-rounding bound do not certify Q accuracy.",
+    "Raw/protocol/gate hashes, progress sequence and eight-call/one-prototype coverage verified by checker; immutable failure file preserves first failed audit.",
+    "Prototype exact gap ratios are safely inside their bins (not boundary cases); source numerical stratum labels are retained in saved bytes."
+  ],
+  "limitations": [
+    "No historical source binding beyond pinned snapshot, Gaussian-law validation, complete cost or classification inference.",
+    "Original experiment author reviewed checker source, not executing or self-certifying independent saved audit."
+  ]
+}
