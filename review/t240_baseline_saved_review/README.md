@@ -11,6 +11,8 @@ At zero gap, the original within-bin second-label law is retained. For positive 
 ## Status
 Source-unit defect found before checker execution or any archive decoding; see `UNIT_FINDING.md`. The author's completed positive-gap run represents half the stated physical gaps. Raw outputs remain preserved. The initial unexecuted checker draft is retained as `check_initial_unrun.py`; no reviewer execution gate exists.
 
+Renewed scope 0abba9ac permits a diagnostic-only saved contraction at the actual physical gaps {0, 1/8, 1/4, 1/2}. `check.py` retains the original report keys and records physical keys separately. Physical gap 1 is untested. This diagnostic cannot turn the intended campaign into a pass. The independent checker and `scope.json` are frozen for source review before any archive or baseline result decoding.
+
 ## Results
 No numerical review result. A source-only cross-check proves the current positive-gap predicates use physical gaps {1/8, 1/4, 1/2}, while the frozen contract states {1/4, 1/2, 1}. This does not establish a failure of the underlying method.
 
