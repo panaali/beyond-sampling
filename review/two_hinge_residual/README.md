@@ -12,10 +12,10 @@ conditioned on, without replacing its distribution by a Gaussian.
 
 ## Status
 Proof-only claim c1343d8a published before writing. Independent written review
-assigned to recover_78; pending. No implementation or numerical phase.
+completed by recover_78:6c02b3aa/shared8106e746. Main theorem passes with execution_allowed=false. GAUGE_COROLLARY.md records the separately source-frozen diagonal invariance proof; durable review addendum pending. No implementation or numerical phase.
 
 ## Results
-[inferred, awaiting review] The correction is supported between two affine
+[inferred, independently reviewed] The correction is supported between two affine
 thresholds and has a triangular Gaussian first moment. A density-cap bound is
 quadratic in threshold separation. No target-neuron rarity or algorithmic gain
 has been measured. No reproduction command exists because no experiment ran.
