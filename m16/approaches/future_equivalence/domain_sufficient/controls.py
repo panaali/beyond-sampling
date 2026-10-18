@@ -1,7 +1,7 @@
 """Sixteen frozen exact domain pairs and four rejection guards."""
 from pathlib import Path
 from fractions import Fraction as F
-import json,hashlib,time
+import json,hashlib,time,sys
 from primitive import certify,pack
 from canonical import direct,from_key
 H=Path(__file__).resolve().parent
@@ -44,6 +44,7 @@ def main():
     result=dict(complete=False,protocol_sha256=hashlib.sha256((H/'protocol.json').read_bytes()).hexdigest());record(dict(stage='phase_attempt',protocol_sha256=result['protocol_sha256']));start=time.process_time()
     try:
         for f,sha in p['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==sha,f
+        assert str(Path(sys.executable).resolve())==p['runtime_python']
         rows=[];calls=0
         for c in fixtures():
             record(dict(stage='case_attempt',id=c['id']));answer=certify(c['a'],c['b'],c['rays_a'],c['rays_b']);checks=[]
