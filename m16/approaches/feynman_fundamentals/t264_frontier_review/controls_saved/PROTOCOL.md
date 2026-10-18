@@ -1,0 +1,7 @@
+# Independent T264 saved-control audit
+
+Assignment181d00cb; reciprocal source reviewer56 assignedde841b0b/shared2ed9a652. Fixed12 rational fixtures and6 invalid guards only. No producer imports, primitive replay, target arrays, model, geometry, mass, CDF or RNG calls.
+
+Independently check each prefix by direct subset sums, ratio ordering by cross multiplication, every stored midpoint via expanded cubic evaluation, all method prefixes and first maximal feasible subset. The predeclared exact optimum is checked against all breakpoints, its boundary equation and upward derivative, and the saved80-decision bracket. This invokes the already-reviewed no-interior-minimum theorem; finite controls do not prove arbitrary implementation correctness. Check rational normalization, all6 invalid predicates,18/12 call counts,38 producer events,20 reviewer events, source/gate hashes and actual resource limits. Producer warning/log bytes are pinned; no inferred external wall-time certificate.
+
+Freeze checker/protocol/document before source gate. Immutable gate requires complete/pass_all/execution_allowed review, direct3pins and hexadecimal published citations. Once-only stdlib /usr/bin/python3 under /workspace/work/codex-review.lock, timeout25 seconds after lock, actual20/20CPU seconds and2GiB/2GiB address space, internal17CPU; thread variables1. Preserve unique run1.log. Refuse existing results/progress; atomic partial results and failure traceback retained. No automatic retry or weakened criterion.
