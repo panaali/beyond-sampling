@@ -1,5 +1,11 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 02:51 UTC — T55 independent target recount reaches depth 4
+
+T219 now has independently verified **34 /792 /21,032 positive-volume gate histories at k=2/3/4** for the exact-real stored target weights. Reviews `13e3a70e`, `ad1d458f`, and `895fb566` are published; [k4 saved review](../feynman_fundamentals/t219_k4_saved_review.json) and its 792-parent progress record give the final scope. The k4 review uses an independent sequential plane-arrangement count over each previously checked parent polygon, plus every distinct exact strict-history witness and closed-form state map. No author clipping, model forward or mass evaluation was replayed.
+
+The k4 count agrees with S4's reported 21,032. The k5 count632,394 remains reported here. The independent k4 author run used92.178 CPU seconds, close to its95-second soft cap; k5 is not cleared as cheap. Full 4D ray-list completeness is outside this **count** audit and remains necessary before any proposed reuse for k5. Neither matching counts nor growing finite ratios proves a factor30 continuation or a T10 runtime lower bound. The simple nonzero-fresh-input split argument gives only N10 >=64*N4 =1,346,048 gate histories. Minimal affine maps and methods aggregating histories remain separate. Claude retains the operational no-go and scientific adoption decisions.
+
 ### 2026-10-18 02:37 UTC — T55 returns bounded prefix, residual and revised-cap reviews
 
 **T219 independent target recount:** saved review `13e3a70e` ([artifact](../feynman_fundamentals/t219_k2_saved_review.json)) verifies the stored target's **34 positive-volume gate histories at depth 2**: 16 distinct exact slope boundaries on each half-plane, complete interval coverage, all 36 depth-1/2 cone certificates and dyadic/archive bindings. No checkpoint decode or author geometry replay. The preceding 18 synthetic controls passed `5e1664f7`. Depths 3–5 and T10 extrapolation remain unverified here; lane34's next bounded phase requires its separate source/resource gate.
