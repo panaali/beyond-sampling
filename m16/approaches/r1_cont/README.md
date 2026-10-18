@@ -1158,3 +1158,30 @@ accuracy criterion is est/truth within 2x.
 Claims [measured, oracle MC on 8 open DEV3 models; unverified]: the dominant term in T340c's E2 deficit is the
 deterministic lows closure (56% of the log-error; the largest step in 22/32 cases). v4's position comes next (21%).
 The g23 transverse and the v4 law contribute ~12% each.
+
+## T365 pre-registration (DRI; 2026-10-18, before any screening or estimate): a deductive spread-lows closure for E2
+**Stage 1: oracle screen.** Same sampler and samples as T363, on the 8 failing models × 4 t. Each candidate closure
+modifies W0 (the estimator's closure: v4 = v3 − δ(v2), at the latest free position):
+- **A1, T339's alternating spread:** low j = μ(v4) + s (−1)^{parity(pos_j)} σ(v4), with σ = sd(N | < v4), for
+  s = +1 and −1 with weight ½ each (2 lines).
+- **A2, order-statistic nodes:** the 6 lows take the expected order statistics of 6 iid N | < v4, in 4 fixed
+  arrangements (ascending by position, descending, and two interleavings), weight ¼ each (4 lines).
+- **A3:** A1 with v4 over all 7 free positions, weight 1/7 each. This weight is exact, since v4 is the maximum of 7
+  exchangeable values. 14 lines.
+- **A4:** A2 with v4 over 7 positions (28 lines).
+- **Selection rule:** the most cases within 2x on the 32 E2 cases, with ties going to fewer lines. If none reaches
+  24/32, stop and report.
+
+**Stage 2: deductive.** The selected arm goes into T340c's estimator, implemented as T354/T359:
+- fixed walk, K = 3 g12 nodes;
+- segment start at t, and T_hi = 3.5 with the declared bound 7e-8;
+- each low's value and slope linearised along the line, as in cont_g.
+
+**Gate (DRI):**
+- E2 on the 8 failing models × 4 t: **>= 75% (24/32) within 2x**, against 9/32 now.
+- **E1 unbroken: T360's 18 E1 cases (dev3_s500..505 × t0 = 1, 1.25, 1.5; T192 t349 truths) stay 18/18 within 2x.**
+
+Cost reported as executed.
+
+**Forking paths.** Stage 1 selects among 4 arms on the same 8 models used by the gate, so the gate is optimistic.
+The DRI's planned independent fresh-model check (the T241 child) is the real test.
