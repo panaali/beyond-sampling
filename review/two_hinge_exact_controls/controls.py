@@ -1,6 +1,7 @@
 """Once-only frozen synthetic checks. Run only after published independent gate."""
 import hashlib
 import json
+import os
 import resource
 import sys
 import time
@@ -37,7 +38,12 @@ def main():
 
     def save():
         report['cpu_seconds'] = time.process_time() - start
-        result.write_text(json.dumps(encode(report), indent=2) + '\n')
+        temporary = result.with_suffix('.json.tmp')
+        with temporary.open('w') as f:
+            f.write(json.dumps(encode(report), indent=2) + '\n')
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(temporary, result)
 
     def event(kind, **kw):
         with progress.open('a') as f:
@@ -64,6 +70,10 @@ def main():
         review = json.loads(Path(g['review_path']).read_text())
         assert digest(g['review_path']) == g['review_sha256']
         assert review['complete'] is True and review['pass_all'] is True
+        required = {str(HERE / n) for n in ('primitive.py','controls.py','fixtures.json','protocol.json')}
+        assert required <= set(review['pins'])
+        for path, sha in review['pins'].items():
+            assert digest(path) == sha, path
         report['protocol_sha256'] = digest(HERE / 'protocol.json')
         report['gate_sha256'] = digest(HERE / 'gate.json')
         from primitive import point, conditional, interval_point, scale
@@ -144,6 +154,7 @@ def main():
         save()
         event('complete')
     except BaseException as exc:
+        report['complete'] = report['pass_all'] = False
         report['failure'] = {'type': type(exc).__name__, 'message': str(exc)}
         save()
         with progress.open('a') as f:
