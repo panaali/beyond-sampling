@@ -4,12 +4,12 @@ C = 10 logits (every arithmetic, comparison and boolean op):
   c = (L_k - L) - (dL_k - dL) tc : 40 | e : 10 | root = -c/e : 20 | lb/ub masks : 20 |
   bad0 (e==0, c<0, |c|, |L|, max, 1+, *1e-12, <=, jj<k, &, |, &) : 102 | lb.max, ub.min, maximum, minimum : 22 |
   ok (>, any, ~, &) : 13 | final where x2 : 2                                   = 229 FLOPs per row-call.
-usage: PANEL=hp1|hp2 python cost_t317.py <name> <estimator file>"""
+usage: PANEL=hp1|hp2 [CI_CODE=146|216] python cost_t317.py <name> <estimator file>"""
 import json, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import score  # noqa: E402
-CI_FULL, CI_CODE = 229, 146
+CI_FULL, CI_CODE = 229, int(os.environ.get("CI_CODE", 146))   # constant charged by the submission
 name, path = sys.argv[1], sys.argv[2]
 est = score.load_sub(path, "est")
 import walk as W  # noqa: E402

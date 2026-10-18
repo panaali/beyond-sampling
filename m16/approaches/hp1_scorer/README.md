@@ -48,6 +48,7 @@ d29e28bb into `data/hp1/subs/probe_v5_d29e28bb/`. The aggregates are in `results
 | t306_r1w | `r1_walk/estimator.py:est` → `r1w2.est` (R1W V1) | 684a22b96e8f3dec5ae3a63b5d163aecd1334e3e (branch claude/t218-tie-tail-labels) | estimator.py `81e30b6af4e675ecc89b85c9cef94b1d915a6ba2ed392ddc9151d9115f02cb93`; r1w2.py `3078021594b2959579601df20dee9a41be53de2e131c21127e585430571867e2`; r1w.py `3f7297f2e92f5daed0f20d21728f60389e567f29a9a98bbe85761f562a7d919e`; r0_walk/walk.py `06d7ec1987a303a651fb57d2bcdb5637f0ebf5ec23463deea78dfc158e77ce46`; r0.py `0f05d047…499b` | deductive (DEDUCTIVE=True; declared approximations) |
 | t317_cont | `r1_cont/estimator.py:est` → `cont.est(G=48)` (R1W V1 estimates; continuity restarts + executed B2 prefix tree; cost as executed) | f599890226bdbada6776a75c22f392bb30592f09 (branch claude/t218-tie-tail-labels) | estimator.py `9e48b579479eed16ccf4220d182b2b33b8b638a7fdc3bdb5bf4ca3c8e617184d`; cont.py `b71f203f5caec913193a9c6c045b76b35a43b63edcd7c27148a081ffcc084d92`; v1b2.py `a09b395d…6cdc` (others unchanged since 6a496515) | deductive |
 | t317b_cont | `r1_cont/estimator_b.py:est` → `cont.est(G=20)` (T317 with 20 GL nodes; G chosen by the DRI's pre-registered rule on DEV2) | 0f933fba3a129a5b70a6101ea82573c78daf9906 (branch claude/t218-tie-tail-labels) | estimator_b.py `b210bf09fbf71f57b28a87b7b8ac0992ef85949f4a84900fec397f39334289a6`; cont.py `b71f203f…4d92` (unchanged) | deductive |
+| t317c_cont | `r1_cont/estimator_c.py:est` → `cont_c.est(G=20)` (T317b + merged touching pieces + model-free Φ(0)/tail tables; cost-only) | 1c7424306d20eebd909a9a4ae32882127fca3d4c (branch claude/t218-tie-tail-labels) | estimator_c.py `b3c88771b66c6cfc5d35854fe6b2e5caf005d79b442666f5fefb73aba21337ce`; cont_c.py `a0dc5f4aa0189dbe4b4fc7a6d24d3cdba3e244dbf612937f633c3064e3eaf839`; cont.py `b71f203f…4d92` (unchanged) | deductive |
 
 No estimator code was changed. The one loader shim is `shim/alg_zoo.py`: t286b imports m16/common.py, which
 loads M_16,10 at import time via alg_zoo, and alg_zoo is not installed here. The shim returns HP1's bit-identical
@@ -297,6 +298,37 @@ asserts that every estimate and the code's own cost reproduce exactly.
 
 These official numbers supersede the code-count numbers above (9.57 / 7.75).
 
+### T317c (`r1_cont/estimator_c.py`, @ 1c742430; deductive; cost-only change from T317b)
+- Estimates: equal to T317b to ≤ 2.2e-16 on every HP2 and HP1 model. This is asserted, and it meets the DRI's
+  ≤ 1e-12 family gate, so the per-model errors are T317b's (= R1W V1's).
+- Cost: the code's executed count, with correct_interval at 216, raised to the official 229 by
+  `CI_CODE=216 cost_t317.py`. HP2 mean is **5,455 FPE** (code: 5,437).
+- What changed, as executed:
+  - touching correct pieces are merged, so inner endpoints are telescoped away;
+  - endpoints at 0 and pieces reaching tmax use model-free tables.
+- Charging caveat: in `cont_c.profile` the masked Φ are still evaluated by `np.where` and then discarded. If every
+  executed `ndtr` call is charged (2 per merged interval per node), C rises to 5,713 FPE and F to
+  **7.04 [5.07, 9.14]**. That is still a candidate, so the verdict does not depend on this.
+
+| panel / group | C_eff | F [95% CI] | RMS pp | bias pp |
+|---|---|---|---|---|
+| HP2 retrain | 5455 | 6.72 [4.84, 8.73] | 0.99 | +0.53 |
+| HP1 clean | 5373 | 3.8 [0.5, 8.3] | 0.72 | +0.49 |
+| HP1 abs0.05 | 6733 | 206.1 [174.1, 239.5] | 6.89 | +6.64 |
+| HP1 rel0.005 | 5461 | 39.3 [12.4, 63.8] | 3.55 | +2.88 |
+| HP1 rel0.01 | 5580 | 55.4 [25.6, 83.4] | 4.49 | +3.55 |
+
+- [measured] **T317c passes the lenient bar on HP2 with its upper CI ≤ 10: F = 6.72 [4.84, 8.73] at
+  5,455 FPE.** It is the first deductive entry to meet the DRI's candidate condition. The strict bar fails.
+- [inferred] Caveats for the DRI's confirmation:
+  1. The FLOP count is coded by hand per operation, not measured automatically. I checked it by reading the loops
+     and by two sensitivity counts: correct_interval at 229, and all executed Φ charged. Both keep the upper CI
+     ≤ 10.
+  2. This family has been scored on HP2 three times (T317, T317b, T317c) with identical estimates. Only the cost
+     accounting changed, and the T317c savings were written after T317b's near miss (10.07), although the DRI had
+     pre-registered them. The HP2 errors were never used for selection.
+  3. HP1 noisy copies fail (F 39–206); the method is scoped to retrains.
+
 ## HP2 results: PRIMARY panel (T284 retrains; Directive 8 amendment 2)
 Panel: branch `claude/t192-gpu-cost-law` at aa9c000e, `m16/approaches/gpu_cost_law/hp2/`, copied to `data/hp2/`.
 - 100 fresh retrains, hp2_s100..s199 (zoo (16,10) defaults, fused trainer, data seed 41). These seeds are disjoint
@@ -336,6 +368,7 @@ snapshots and entry points as above. Results: `results/hp2_<name>_F.json`.
 | t306_r1w | deductive | fixed | 13269 | 16.35 [11.77, 21.24] | 0.99 | +0.53 | 812 | fail | fail | no |
 | t317_cont | deductive | fixed | 7765 (official 7880) | 9.57 [6.89, 12.43] (official 9.71 [6.99, 12.61]) | 0.99 | +0.53 | 812 | fail | pass | no |
 | t317b_cont | deductive | fixed | 6290 (official 6405) | 7.75 [5.58, 10.07] (official 7.89 [5.68, 10.25]) | 0.99 | +0.53 | 812 | fail | pass | no (10.07) |
+| t317c_cont (official cost) | deductive | fixed | 5455 | 6.72 [4.84, 8.73] | 0.99 | +0.53 | 812 | fail | pass | **yes** |
 
 Readout (HP2):
 - [measured] The control gives F 0.79–1.06 with every CI covering 1, so the harness holds on HP2.
