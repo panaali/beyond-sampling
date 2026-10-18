@@ -79,6 +79,8 @@ precisely as testing it on random examples does for the same effort.
   single submission for the last sealed panel (HP5). Even then, ARC's bar needs a typical error of about 0.38 points at
   that cost (T351).
 
+**Strict bar, verdict (14:35):** for our whole approach (simplified closure + exact walks along the tie directions + declared combination), the strict bar is now marked **dead (verified), scoped**: a written checklist of ~27 variants (T356) was independently re-checked by another agent with its own code (T357). The sharper finding: the simplified closure itself would be good enough if integrated perfectly (F .89 at our cost); what fails is the integration accuracy, which would need to be ~4.6x better at no extra cost. Not a proof; other approaches remain open.
+
 **4. Rare failures: the owner's priority (ARC's long-term goal).**
 - ARC ultimately wants to estimate the chance of rare bad behaviour. Random testing cannot see a one-in-a-million
   event with a few thousand tries, but a calculation's cost does not depend on how rare the event is.
