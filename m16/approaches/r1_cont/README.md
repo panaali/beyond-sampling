@@ -176,9 +176,26 @@ Total: 266 scalars plus 43,200 input/direction entries. `cont_d.table_sizes()` p
 
   [measured by T281; unverified]
 
+## T317e: final cleanup, no Monte Carlo anywhere (DRI-authorised after the red-team review; `cont_e.py`, `estimator_e.py`)
+- **What changed:** T317d's code path is now one self-contained file. Functions are copied verbatim from r0, r1w,
+  walk, cont, cont_c and cont_d, so the arithmetic is unchanged. Two imports are removed:
+  - the dead imports of `walk.py` and `r1w2.py`, which each built a seeded MC table at import (walk.TP, r1w2.REG)
+    that was never read;
+  - `scipy.stats`, which itself draws random numbers at import to build docstring examples. `norm.pdf` is replaced
+    by scipy's own formula exp(-x²/2)/√(2π), bitwise equal on 2e6 points.
+- **Imports:** only numpy, scipy.special.ndtr and itertools.
+- **Gate (`python run_e.py`, `results_e.json`):**
+  - A fresh subprocess patches numpy's random generators to raise, then imports estimator_e and calls est. No error
+    is raised, and none of walk / r1w2 / r1w / cont / cont_c / cont_d / r0 / v1b2 / scipy.stats is loaded.
+  - On all 80 DEV2, estimates **and** FLOPs are **bitwise identical** to T317d (max diff 0.0 / 0.0). C = 5,490 FPE as
+    executed, unchanged.
+- **Frozen** (hashes in the commit message). Its HP2/HP3 scores are T317d's, since the estimates and costs are
+  identical.
+
 ## Status
 - T317, T317b, T317c: done and scored. T317c is the HP2 and HP3 candidate (unverified; T320 independent recount done).
-- T317d: frozen @5b4d4806 after the DRI accepted the narrow gate overshoot; sent to T281 for HP3 (second submission).
+- T317d: frozen @5b4d4806 after the DRI accepted the narrow gate overshoot; scored HP3 F 5.07, HP2 6.75.
+- T317e: T317d with no MC anywhere, bitwise identical; frozen. Done.
 
 ## Compute accounting
 - Charged per model, as executed, under Directive 8:
