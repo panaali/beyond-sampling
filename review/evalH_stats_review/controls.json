@@ -1,0 +1,3617 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "case": {
+        "name": "clean_only",
+        "N": 1,
+        "zero": false,
+        "changed_output": false
+      },
+      "old": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 6,
+            "cut": 12,
+            "resolved": 3
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 12,
+          "resolved": 3,
+          "cells": 6
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          }
+        ]
+      },
+      "fixed": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 1,
+            "cut": 3,
+            "resolved": 0
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 12,
+          "resolved": 3,
+          "cells": 6
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          }
+        ]
+      },
+      "rescale_calls": 1,
+      "all_checks_pass": true
+    },
+    {
+      "case": {
+        "name": "no_noisy_retest",
+        "N": 8,
+        "zero": false,
+        "changed_output": false
+      },
+      "old": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 6,
+            "cut": 12,
+            "resolved": 3
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ]
+        ],
+        "final_stats": {
+          "cut": 17,
+          "resolved": 7,
+          "cells": 8
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          }
+        ]
+      },
+      "fixed": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 1,
+            "cut": 3,
+            "resolved": 0
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ]
+        ],
+        "final_stats": {
+          "cut": 17,
+          "resolved": 7,
+          "cells": 8
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          }
+        ]
+      },
+      "rescale_calls": 1,
+      "all_checks_pass": true
+    },
+    {
+      "case": {
+        "name": "one_noisy_retest",
+        "N": 9,
+        "zero": false,
+        "changed_output": false
+      },
+      "old": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 6,
+            "cut": 12,
+            "resolved": 3
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          },
+          {
+            "truth": 0.3125,
+            "est": 0.5625,
+            "ops": 208,
+            "exact_ops": 108,
+            "leaves": 58,
+            "cells": 30,
+            "cut": 60,
+            "resolved": 27
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ],
+          [
+            "truth",
+            8
+          ],
+          [
+            "est",
+            8,
+            false
+          ],
+          [
+            "rescale",
+            8
+          ],
+          [
+            "est",
+            8,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 60,
+          "resolved": 27,
+          "cells": 30
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          },
+          {
+            "i": 8,
+            "rescaled": false,
+            "stats": {
+              "cells": 9,
+              "cut": 19,
+              "resolved": 8
+            },
+            "cost": 208,
+            "value": 0.5625
+          }
+        ]
+      },
+      "fixed": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 1,
+            "cut": 3,
+            "resolved": 0
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          },
+          {
+            "truth": 0.3125,
+            "est": 0.5625,
+            "ops": 208,
+            "exact_ops": 108,
+            "leaves": 58,
+            "cells": 9,
+            "cut": 19,
+            "resolved": 8
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ],
+          [
+            "truth",
+            8
+          ],
+          [
+            "est",
+            8,
+            false
+          ],
+          [
+            "rescale",
+            8
+          ],
+          [
+            "est",
+            8,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 60,
+          "resolved": 27,
+          "cells": 30
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          },
+          {
+            "i": 8,
+            "rescaled": false,
+            "stats": {
+              "cells": 9,
+              "cut": 19,
+              "resolved": 8
+            },
+            "cost": 208,
+            "value": 0.5625
+          }
+        ]
+      },
+      "rescale_calls": 2,
+      "all_checks_pass": true
+    },
+    {
+      "case": {
+        "name": "two_noisy_retests",
+        "N": 17,
+        "zero": false,
+        "changed_output": false
+      },
+      "old": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 6,
+            "cut": 12,
+            "resolved": 3
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          },
+          {
+            "truth": 0.3125,
+            "est": 0.5625,
+            "ops": 208,
+            "exact_ops": 108,
+            "leaves": 58,
+            "cells": 30,
+            "cut": 60,
+            "resolved": 27
+          },
+          {
+            "truth": 0.3203125,
+            "est": 0.5703125,
+            "ops": 209,
+            "exact_ops": 109,
+            "leaves": 59,
+            "cells": 10,
+            "cut": 21,
+            "resolved": 9
+          },
+          {
+            "truth": 0.328125,
+            "est": 0.578125,
+            "ops": 210,
+            "exact_ops": 110,
+            "leaves": 60,
+            "cells": 11,
+            "cut": 23,
+            "resolved": 10
+          },
+          {
+            "truth": 0.3359375,
+            "est": 0.5859375,
+            "ops": 211,
+            "exact_ops": 111,
+            "leaves": 61,
+            "cells": 12,
+            "cut": 25,
+            "resolved": 11
+          },
+          {
+            "truth": 0.34375,
+            "est": 0.59375,
+            "ops": 212,
+            "exact_ops": 112,
+            "leaves": 62,
+            "cells": 13,
+            "cut": 27,
+            "resolved": 12
+          },
+          {
+            "truth": 0.3515625,
+            "est": 0.6015625,
+            "ops": 213,
+            "exact_ops": 113,
+            "leaves": 63,
+            "cells": 14,
+            "cut": 29,
+            "resolved": 13
+          },
+          {
+            "truth": 0.359375,
+            "est": 0.609375,
+            "ops": 214,
+            "exact_ops": 114,
+            "leaves": 64,
+            "cells": 15,
+            "cut": 31,
+            "resolved": 14
+          },
+          {
+            "truth": 0.3671875,
+            "est": 0.6171875,
+            "ops": 215,
+            "exact_ops": 115,
+            "leaves": 65,
+            "cells": 16,
+            "cut": 33,
+            "resolved": 15
+          },
+          {
+            "truth": 0.375,
+            "est": 0.625,
+            "ops": 216,
+            "exact_ops": 116,
+            "leaves": 66,
+            "cells": 54,
+            "cut": 108,
+            "resolved": 51
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ],
+          [
+            "truth",
+            8
+          ],
+          [
+            "est",
+            8,
+            false
+          ],
+          [
+            "rescale",
+            8
+          ],
+          [
+            "est",
+            8,
+            true
+          ],
+          [
+            "truth",
+            9
+          ],
+          [
+            "est",
+            9,
+            false
+          ],
+          [
+            "truth",
+            10
+          ],
+          [
+            "est",
+            10,
+            false
+          ],
+          [
+            "truth",
+            11
+          ],
+          [
+            "est",
+            11,
+            false
+          ],
+          [
+            "truth",
+            12
+          ],
+          [
+            "est",
+            12,
+            false
+          ],
+          [
+            "truth",
+            13
+          ],
+          [
+            "est",
+            13,
+            false
+          ],
+          [
+            "truth",
+            14
+          ],
+          [
+            "est",
+            14,
+            false
+          ],
+          [
+            "truth",
+            15
+          ],
+          [
+            "est",
+            15,
+            false
+          ],
+          [
+            "truth",
+            16
+          ],
+          [
+            "est",
+            16,
+            false
+          ],
+          [
+            "rescale",
+            16
+          ],
+          [
+            "est",
+            16,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 108,
+          "resolved": 51,
+          "cells": 54
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          },
+          {
+            "i": 8,
+            "rescaled": false,
+            "stats": {
+              "cells": 9,
+              "cut": 19,
+              "resolved": 8
+            },
+            "cost": 208,
+            "value": 0.5625
+          },
+          {
+            "i": 9,
+            "rescaled": false,
+            "stats": {
+              "cells": 10,
+              "cut": 21,
+              "resolved": 9
+            },
+            "cost": 209,
+            "value": 0.5703125
+          },
+          {
+            "i": 10,
+            "rescaled": false,
+            "stats": {
+              "cells": 11,
+              "cut": 23,
+              "resolved": 10
+            },
+            "cost": 210,
+            "value": 0.578125
+          },
+          {
+            "i": 11,
+            "rescaled": false,
+            "stats": {
+              "cells": 12,
+              "cut": 25,
+              "resolved": 11
+            },
+            "cost": 211,
+            "value": 0.5859375
+          },
+          {
+            "i": 12,
+            "rescaled": false,
+            "stats": {
+              "cells": 13,
+              "cut": 27,
+              "resolved": 12
+            },
+            "cost": 212,
+            "value": 0.59375
+          },
+          {
+            "i": 13,
+            "rescaled": false,
+            "stats": {
+              "cells": 14,
+              "cut": 29,
+              "resolved": 13
+            },
+            "cost": 213,
+            "value": 0.6015625
+          },
+          {
+            "i": 14,
+            "rescaled": false,
+            "stats": {
+              "cells": 15,
+              "cut": 31,
+              "resolved": 14
+            },
+            "cost": 214,
+            "value": 0.609375
+          },
+          {
+            "i": 15,
+            "rescaled": false,
+            "stats": {
+              "cells": 16,
+              "cut": 33,
+              "resolved": 15
+            },
+            "cost": 215,
+            "value": 0.6171875
+          },
+          {
+            "i": 16,
+            "rescaled": false,
+            "stats": {
+              "cells": 17,
+              "cut": 35,
+              "resolved": 16
+            },
+            "cost": 216,
+            "value": 0.625
+          }
+        ]
+      },
+      "fixed": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 1,
+            "cut": 3,
+            "resolved": 0
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          },
+          {
+            "truth": 0.3125,
+            "est": 0.5625,
+            "ops": 208,
+            "exact_ops": 108,
+            "leaves": 58,
+            "cells": 9,
+            "cut": 19,
+            "resolved": 8
+          },
+          {
+            "truth": 0.3203125,
+            "est": 0.5703125,
+            "ops": 209,
+            "exact_ops": 109,
+            "leaves": 59,
+            "cells": 10,
+            "cut": 21,
+            "resolved": 9
+          },
+          {
+            "truth": 0.328125,
+            "est": 0.578125,
+            "ops": 210,
+            "exact_ops": 110,
+            "leaves": 60,
+            "cells": 11,
+            "cut": 23,
+            "resolved": 10
+          },
+          {
+            "truth": 0.3359375,
+            "est": 0.5859375,
+            "ops": 211,
+            "exact_ops": 111,
+            "leaves": 61,
+            "cells": 12,
+            "cut": 25,
+            "resolved": 11
+          },
+          {
+            "truth": 0.34375,
+            "est": 0.59375,
+            "ops": 212,
+            "exact_ops": 112,
+            "leaves": 62,
+            "cells": 13,
+            "cut": 27,
+            "resolved": 12
+          },
+          {
+            "truth": 0.3515625,
+            "est": 0.6015625,
+            "ops": 213,
+            "exact_ops": 113,
+            "leaves": 63,
+            "cells": 14,
+            "cut": 29,
+            "resolved": 13
+          },
+          {
+            "truth": 0.359375,
+            "est": 0.609375,
+            "ops": 214,
+            "exact_ops": 114,
+            "leaves": 64,
+            "cells": 15,
+            "cut": 31,
+            "resolved": 14
+          },
+          {
+            "truth": 0.3671875,
+            "est": 0.6171875,
+            "ops": 215,
+            "exact_ops": 115,
+            "leaves": 65,
+            "cells": 16,
+            "cut": 33,
+            "resolved": 15
+          },
+          {
+            "truth": 0.375,
+            "est": 0.625,
+            "ops": 216,
+            "exact_ops": 116,
+            "leaves": 66,
+            "cells": 17,
+            "cut": 35,
+            "resolved": 16
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ],
+          [
+            "truth",
+            8
+          ],
+          [
+            "est",
+            8,
+            false
+          ],
+          [
+            "rescale",
+            8
+          ],
+          [
+            "est",
+            8,
+            true
+          ],
+          [
+            "truth",
+            9
+          ],
+          [
+            "est",
+            9,
+            false
+          ],
+          [
+            "truth",
+            10
+          ],
+          [
+            "est",
+            10,
+            false
+          ],
+          [
+            "truth",
+            11
+          ],
+          [
+            "est",
+            11,
+            false
+          ],
+          [
+            "truth",
+            12
+          ],
+          [
+            "est",
+            12,
+            false
+          ],
+          [
+            "truth",
+            13
+          ],
+          [
+            "est",
+            13,
+            false
+          ],
+          [
+            "truth",
+            14
+          ],
+          [
+            "est",
+            14,
+            false
+          ],
+          [
+            "truth",
+            15
+          ],
+          [
+            "est",
+            15,
+            false
+          ],
+          [
+            "truth",
+            16
+          ],
+          [
+            "est",
+            16,
+            false
+          ],
+          [
+            "rescale",
+            16
+          ],
+          [
+            "est",
+            16,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 108,
+          "resolved": 51,
+          "cells": 54
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          },
+          {
+            "i": 8,
+            "rescaled": false,
+            "stats": {
+              "cells": 9,
+              "cut": 19,
+              "resolved": 8
+            },
+            "cost": 208,
+            "value": 0.5625
+          },
+          {
+            "i": 9,
+            "rescaled": false,
+            "stats": {
+              "cells": 10,
+              "cut": 21,
+              "resolved": 9
+            },
+            "cost": 209,
+            "value": 0.5703125
+          },
+          {
+            "i": 10,
+            "rescaled": false,
+            "stats": {
+              "cells": 11,
+              "cut": 23,
+              "resolved": 10
+            },
+            "cost": 210,
+            "value": 0.578125
+          },
+          {
+            "i": 11,
+            "rescaled": false,
+            "stats": {
+              "cells": 12,
+              "cut": 25,
+              "resolved": 11
+            },
+            "cost": 211,
+            "value": 0.5859375
+          },
+          {
+            "i": 12,
+            "rescaled": false,
+            "stats": {
+              "cells": 13,
+              "cut": 27,
+              "resolved": 12
+            },
+            "cost": 212,
+            "value": 0.59375
+          },
+          {
+            "i": 13,
+            "rescaled": false,
+            "stats": {
+              "cells": 14,
+              "cut": 29,
+              "resolved": 13
+            },
+            "cost": 213,
+            "value": 0.6015625
+          },
+          {
+            "i": 14,
+            "rescaled": false,
+            "stats": {
+              "cells": 15,
+              "cut": 31,
+              "resolved": 14
+            },
+            "cost": 214,
+            "value": 0.609375
+          },
+          {
+            "i": 15,
+            "rescaled": false,
+            "stats": {
+              "cells": 16,
+              "cut": 33,
+              "resolved": 15
+            },
+            "cost": 215,
+            "value": 0.6171875
+          },
+          {
+            "i": 16,
+            "rescaled": false,
+            "stats": {
+              "cells": 17,
+              "cut": 35,
+              "resolved": 16
+            },
+            "cost": 216,
+            "value": 0.625
+          }
+        ]
+      },
+      "rescale_calls": 3,
+      "all_checks_pass": true
+    },
+    {
+      "case": {
+        "name": "zero_counts",
+        "N": 1,
+        "zero": true,
+        "changed_output": false
+      },
+      "old": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 0,
+            "cut": 0,
+            "resolved": 0
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 0,
+          "resolved": 0,
+          "cells": 0
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 0,
+              "cut": 0,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          }
+        ]
+      },
+      "fixed": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 0,
+            "cut": 0,
+            "resolved": 0
+          }
+        ],
+        "inv": 0.0,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 0,
+          "resolved": 0,
+          "cells": 0
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 0,
+              "cut": 0,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          }
+        ]
+      },
+      "rescale_calls": 1,
+      "all_checks_pass": true
+    },
+    {
+      "case": {
+        "name": "nonzero_invariance_difference",
+        "N": 17,
+        "zero": false,
+        "changed_output": true
+      },
+      "old": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 6,
+            "cut": 12,
+            "resolved": 3
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          },
+          {
+            "truth": 0.3125,
+            "est": 0.5625,
+            "ops": 208,
+            "exact_ops": 108,
+            "leaves": 58,
+            "cells": 30,
+            "cut": 60,
+            "resolved": 27
+          },
+          {
+            "truth": 0.3203125,
+            "est": 0.5703125,
+            "ops": 209,
+            "exact_ops": 109,
+            "leaves": 59,
+            "cells": 10,
+            "cut": 21,
+            "resolved": 9
+          },
+          {
+            "truth": 0.328125,
+            "est": 0.578125,
+            "ops": 210,
+            "exact_ops": 110,
+            "leaves": 60,
+            "cells": 11,
+            "cut": 23,
+            "resolved": 10
+          },
+          {
+            "truth": 0.3359375,
+            "est": 0.5859375,
+            "ops": 211,
+            "exact_ops": 111,
+            "leaves": 61,
+            "cells": 12,
+            "cut": 25,
+            "resolved": 11
+          },
+          {
+            "truth": 0.34375,
+            "est": 0.59375,
+            "ops": 212,
+            "exact_ops": 112,
+            "leaves": 62,
+            "cells": 13,
+            "cut": 27,
+            "resolved": 12
+          },
+          {
+            "truth": 0.3515625,
+            "est": 0.6015625,
+            "ops": 213,
+            "exact_ops": 113,
+            "leaves": 63,
+            "cells": 14,
+            "cut": 29,
+            "resolved": 13
+          },
+          {
+            "truth": 0.359375,
+            "est": 0.609375,
+            "ops": 214,
+            "exact_ops": 114,
+            "leaves": 64,
+            "cells": 15,
+            "cut": 31,
+            "resolved": 14
+          },
+          {
+            "truth": 0.3671875,
+            "est": 0.6171875,
+            "ops": 215,
+            "exact_ops": 115,
+            "leaves": 65,
+            "cells": 16,
+            "cut": 33,
+            "resolved": 15
+          },
+          {
+            "truth": 0.375,
+            "est": 0.625,
+            "ops": 216,
+            "exact_ops": 116,
+            "leaves": 66,
+            "cells": 54,
+            "cut": 108,
+            "resolved": 51
+          }
+        ],
+        "inv": 0.0009765625,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ],
+          [
+            "truth",
+            8
+          ],
+          [
+            "est",
+            8,
+            false
+          ],
+          [
+            "rescale",
+            8
+          ],
+          [
+            "est",
+            8,
+            true
+          ],
+          [
+            "truth",
+            9
+          ],
+          [
+            "est",
+            9,
+            false
+          ],
+          [
+            "truth",
+            10
+          ],
+          [
+            "est",
+            10,
+            false
+          ],
+          [
+            "truth",
+            11
+          ],
+          [
+            "est",
+            11,
+            false
+          ],
+          [
+            "truth",
+            12
+          ],
+          [
+            "est",
+            12,
+            false
+          ],
+          [
+            "truth",
+            13
+          ],
+          [
+            "est",
+            13,
+            false
+          ],
+          [
+            "truth",
+            14
+          ],
+          [
+            "est",
+            14,
+            false
+          ],
+          [
+            "truth",
+            15
+          ],
+          [
+            "est",
+            15,
+            false
+          ],
+          [
+            "truth",
+            16
+          ],
+          [
+            "est",
+            16,
+            false
+          ],
+          [
+            "rescale",
+            16
+          ],
+          [
+            "est",
+            16,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 108,
+          "resolved": 51,
+          "cells": 54
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          },
+          {
+            "i": 8,
+            "rescaled": false,
+            "stats": {
+              "cells": 9,
+              "cut": 19,
+              "resolved": 8
+            },
+            "cost": 208,
+            "value": 0.5625
+          },
+          {
+            "i": 9,
+            "rescaled": false,
+            "stats": {
+              "cells": 10,
+              "cut": 21,
+              "resolved": 9
+            },
+            "cost": 209,
+            "value": 0.5703125
+          },
+          {
+            "i": 10,
+            "rescaled": false,
+            "stats": {
+              "cells": 11,
+              "cut": 23,
+              "resolved": 10
+            },
+            "cost": 210,
+            "value": 0.578125
+          },
+          {
+            "i": 11,
+            "rescaled": false,
+            "stats": {
+              "cells": 12,
+              "cut": 25,
+              "resolved": 11
+            },
+            "cost": 211,
+            "value": 0.5859375
+          },
+          {
+            "i": 12,
+            "rescaled": false,
+            "stats": {
+              "cells": 13,
+              "cut": 27,
+              "resolved": 12
+            },
+            "cost": 212,
+            "value": 0.59375
+          },
+          {
+            "i": 13,
+            "rescaled": false,
+            "stats": {
+              "cells": 14,
+              "cut": 29,
+              "resolved": 13
+            },
+            "cost": 213,
+            "value": 0.6015625
+          },
+          {
+            "i": 14,
+            "rescaled": false,
+            "stats": {
+              "cells": 15,
+              "cut": 31,
+              "resolved": 14
+            },
+            "cost": 214,
+            "value": 0.609375
+          },
+          {
+            "i": 15,
+            "rescaled": false,
+            "stats": {
+              "cells": 16,
+              "cut": 33,
+              "resolved": 15
+            },
+            "cost": 215,
+            "value": 0.6171875
+          },
+          {
+            "i": 16,
+            "rescaled": false,
+            "stats": {
+              "cells": 17,
+              "cut": 35,
+              "resolved": 16
+            },
+            "cost": 216,
+            "value": 0.625
+          }
+        ]
+      },
+      "fixed": {
+        "rows": [
+          {
+            "truth": 0.25,
+            "est": 0.5,
+            "ops": 200,
+            "exact_ops": 100,
+            "leaves": 50,
+            "cells": 1,
+            "cut": 3,
+            "resolved": 0
+          },
+          {
+            "truth": 0.2578125,
+            "est": 0.5078125,
+            "ops": 201,
+            "exact_ops": 101,
+            "leaves": 51,
+            "cells": 2,
+            "cut": 5,
+            "resolved": 1
+          },
+          {
+            "truth": 0.265625,
+            "est": 0.515625,
+            "ops": 202,
+            "exact_ops": 102,
+            "leaves": 52,
+            "cells": 3,
+            "cut": 7,
+            "resolved": 2
+          },
+          {
+            "truth": 0.2734375,
+            "est": 0.5234375,
+            "ops": 203,
+            "exact_ops": 103,
+            "leaves": 53,
+            "cells": 4,
+            "cut": 9,
+            "resolved": 3
+          },
+          {
+            "truth": 0.28125,
+            "est": 0.53125,
+            "ops": 204,
+            "exact_ops": 104,
+            "leaves": 54,
+            "cells": 5,
+            "cut": 11,
+            "resolved": 4
+          },
+          {
+            "truth": 0.2890625,
+            "est": 0.5390625,
+            "ops": 205,
+            "exact_ops": 105,
+            "leaves": 55,
+            "cells": 6,
+            "cut": 13,
+            "resolved": 5
+          },
+          {
+            "truth": 0.296875,
+            "est": 0.546875,
+            "ops": 206,
+            "exact_ops": 106,
+            "leaves": 56,
+            "cells": 7,
+            "cut": 15,
+            "resolved": 6
+          },
+          {
+            "truth": 0.3046875,
+            "est": 0.5546875,
+            "ops": 207,
+            "exact_ops": 107,
+            "leaves": 57,
+            "cells": 8,
+            "cut": 17,
+            "resolved": 7
+          },
+          {
+            "truth": 0.3125,
+            "est": 0.5625,
+            "ops": 208,
+            "exact_ops": 108,
+            "leaves": 58,
+            "cells": 9,
+            "cut": 19,
+            "resolved": 8
+          },
+          {
+            "truth": 0.3203125,
+            "est": 0.5703125,
+            "ops": 209,
+            "exact_ops": 109,
+            "leaves": 59,
+            "cells": 10,
+            "cut": 21,
+            "resolved": 9
+          },
+          {
+            "truth": 0.328125,
+            "est": 0.578125,
+            "ops": 210,
+            "exact_ops": 110,
+            "leaves": 60,
+            "cells": 11,
+            "cut": 23,
+            "resolved": 10
+          },
+          {
+            "truth": 0.3359375,
+            "est": 0.5859375,
+            "ops": 211,
+            "exact_ops": 111,
+            "leaves": 61,
+            "cells": 12,
+            "cut": 25,
+            "resolved": 11
+          },
+          {
+            "truth": 0.34375,
+            "est": 0.59375,
+            "ops": 212,
+            "exact_ops": 112,
+            "leaves": 62,
+            "cells": 13,
+            "cut": 27,
+            "resolved": 12
+          },
+          {
+            "truth": 0.3515625,
+            "est": 0.6015625,
+            "ops": 213,
+            "exact_ops": 113,
+            "leaves": 63,
+            "cells": 14,
+            "cut": 29,
+            "resolved": 13
+          },
+          {
+            "truth": 0.359375,
+            "est": 0.609375,
+            "ops": 214,
+            "exact_ops": 114,
+            "leaves": 64,
+            "cells": 15,
+            "cut": 31,
+            "resolved": 14
+          },
+          {
+            "truth": 0.3671875,
+            "est": 0.6171875,
+            "ops": 215,
+            "exact_ops": 115,
+            "leaves": 65,
+            "cells": 16,
+            "cut": 33,
+            "resolved": 15
+          },
+          {
+            "truth": 0.375,
+            "est": 0.625,
+            "ops": 216,
+            "exact_ops": 116,
+            "leaves": 66,
+            "cells": 17,
+            "cut": 35,
+            "resolved": 16
+          }
+        ],
+        "inv": 0.0009765625,
+        "events": [
+          [
+            "truth",
+            0
+          ],
+          [
+            "est",
+            0,
+            false
+          ],
+          [
+            "rescale",
+            0
+          ],
+          [
+            "est",
+            0,
+            true
+          ],
+          [
+            "truth",
+            1
+          ],
+          [
+            "est",
+            1,
+            false
+          ],
+          [
+            "truth",
+            2
+          ],
+          [
+            "est",
+            2,
+            false
+          ],
+          [
+            "truth",
+            3
+          ],
+          [
+            "est",
+            3,
+            false
+          ],
+          [
+            "truth",
+            4
+          ],
+          [
+            "est",
+            4,
+            false
+          ],
+          [
+            "truth",
+            5
+          ],
+          [
+            "est",
+            5,
+            false
+          ],
+          [
+            "truth",
+            6
+          ],
+          [
+            "est",
+            6,
+            false
+          ],
+          [
+            "truth",
+            7
+          ],
+          [
+            "est",
+            7,
+            false
+          ],
+          [
+            "truth",
+            8
+          ],
+          [
+            "est",
+            8,
+            false
+          ],
+          [
+            "rescale",
+            8
+          ],
+          [
+            "est",
+            8,
+            true
+          ],
+          [
+            "truth",
+            9
+          ],
+          [
+            "est",
+            9,
+            false
+          ],
+          [
+            "truth",
+            10
+          ],
+          [
+            "est",
+            10,
+            false
+          ],
+          [
+            "truth",
+            11
+          ],
+          [
+            "est",
+            11,
+            false
+          ],
+          [
+            "truth",
+            12
+          ],
+          [
+            "est",
+            12,
+            false
+          ],
+          [
+            "truth",
+            13
+          ],
+          [
+            "est",
+            13,
+            false
+          ],
+          [
+            "truth",
+            14
+          ],
+          [
+            "est",
+            14,
+            false
+          ],
+          [
+            "truth",
+            15
+          ],
+          [
+            "est",
+            15,
+            false
+          ],
+          [
+            "truth",
+            16
+          ],
+          [
+            "est",
+            16,
+            false
+          ],
+          [
+            "rescale",
+            16
+          ],
+          [
+            "est",
+            16,
+            true
+          ]
+        ],
+        "final_stats": {
+          "cut": 108,
+          "resolved": 51,
+          "cells": 54
+        },
+        "inputs": [
+          {
+            "i": 0,
+            "rescaled": false,
+            "stats": {
+              "cells": 1,
+              "cut": 3,
+              "resolved": 0
+            },
+            "cost": 200,
+            "value": 0.5
+          },
+          {
+            "i": 1,
+            "rescaled": false,
+            "stats": {
+              "cells": 2,
+              "cut": 5,
+              "resolved": 1
+            },
+            "cost": 201,
+            "value": 0.5078125
+          },
+          {
+            "i": 2,
+            "rescaled": false,
+            "stats": {
+              "cells": 3,
+              "cut": 7,
+              "resolved": 2
+            },
+            "cost": 202,
+            "value": 0.515625
+          },
+          {
+            "i": 3,
+            "rescaled": false,
+            "stats": {
+              "cells": 4,
+              "cut": 9,
+              "resolved": 3
+            },
+            "cost": 203,
+            "value": 0.5234375
+          },
+          {
+            "i": 4,
+            "rescaled": false,
+            "stats": {
+              "cells": 5,
+              "cut": 11,
+              "resolved": 4
+            },
+            "cost": 204,
+            "value": 0.53125
+          },
+          {
+            "i": 5,
+            "rescaled": false,
+            "stats": {
+              "cells": 6,
+              "cut": 13,
+              "resolved": 5
+            },
+            "cost": 205,
+            "value": 0.5390625
+          },
+          {
+            "i": 6,
+            "rescaled": false,
+            "stats": {
+              "cells": 7,
+              "cut": 15,
+              "resolved": 6
+            },
+            "cost": 206,
+            "value": 0.546875
+          },
+          {
+            "i": 7,
+            "rescaled": false,
+            "stats": {
+              "cells": 8,
+              "cut": 17,
+              "resolved": 7
+            },
+            "cost": 207,
+            "value": 0.5546875
+          },
+          {
+            "i": 8,
+            "rescaled": false,
+            "stats": {
+              "cells": 9,
+              "cut": 19,
+              "resolved": 8
+            },
+            "cost": 208,
+            "value": 0.5625
+          },
+          {
+            "i": 9,
+            "rescaled": false,
+            "stats": {
+              "cells": 10,
+              "cut": 21,
+              "resolved": 9
+            },
+            "cost": 209,
+            "value": 0.5703125
+          },
+          {
+            "i": 10,
+            "rescaled": false,
+            "stats": {
+              "cells": 11,
+              "cut": 23,
+              "resolved": 10
+            },
+            "cost": 210,
+            "value": 0.578125
+          },
+          {
+            "i": 11,
+            "rescaled": false,
+            "stats": {
+              "cells": 12,
+              "cut": 25,
+              "resolved": 11
+            },
+            "cost": 211,
+            "value": 0.5859375
+          },
+          {
+            "i": 12,
+            "rescaled": false,
+            "stats": {
+              "cells": 13,
+              "cut": 27,
+              "resolved": 12
+            },
+            "cost": 212,
+            "value": 0.59375
+          },
+          {
+            "i": 13,
+            "rescaled": false,
+            "stats": {
+              "cells": 14,
+              "cut": 29,
+              "resolved": 13
+            },
+            "cost": 213,
+            "value": 0.6015625
+          },
+          {
+            "i": 14,
+            "rescaled": false,
+            "stats": {
+              "cells": 15,
+              "cut": 31,
+              "resolved": 14
+            },
+            "cost": 214,
+            "value": 0.609375
+          },
+          {
+            "i": 15,
+            "rescaled": false,
+            "stats": {
+              "cells": 16,
+              "cut": 33,
+              "resolved": 15
+            },
+            "cost": 215,
+            "value": 0.6171875
+          },
+          {
+            "i": 16,
+            "rescaled": false,
+            "stats": {
+              "cells": 17,
+              "cut": 35,
+              "resolved": 16
+            },
+            "cost": 216,
+            "value": 0.625
+          }
+        ]
+      },
+      "rescale_calls": 3,
+      "all_checks_pass": true
+    }
+  ],
+  "new_real_model_estimator_mass_MC_calls": 0,
+  "active": null,
+  "protocol_sha256": "a0ae8714c4afe67b9ec0356748ab094902314fb511475961c5d824af3d953ebe",
+  "source_sha256": "5bf2e82c168bf8de70e19bf008fa8c26745606843ad60ee609710997ae32e097",
+  "scope": "Extracted real reporting-loop code with deterministic fake providers only; source patch preserves calls/estimates/ops/invariance but isolates permodel statistics. No real network, mass/truth evaluator, random or checkpoint call.",
+  "cpu_seconds": 0.016294550000000005
+}
