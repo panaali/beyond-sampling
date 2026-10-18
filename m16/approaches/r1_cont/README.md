@@ -189,6 +189,7 @@ Total: 266 scalars plus 43,200 input/direction entries. `cont_d.table_sizes()` p
     is raised, and none of walk / r1w2 / r1w / cont / cont_c / cont_d / r0 / v1b2 / scipy.stats is loaded.
   - On all 80 DEV2, estimates **and** FLOPs are **bitwise identical** to T317d (max diff 0.0 / 0.0). C = 5,490 FPE as
     executed, unchanged.
+- **Scorer identity check (T281, claude/hp1-scorer e8102588):** hashes match. Estimates and charged FLOPs are bitwise identical to T317d on all 100 HP3 and 100 HP2 models, so the scores are T317d's: HP3 F 5.07 [3.41, 7.03] at 5,431 FPE; HP2 6.75 [4.86, 8.78]. [measured by T281]
 - **Frozen** (hashes in the commit message). Its HP2/HP3 scores are T317d's, since the estimates and costs are
   identical.
 
