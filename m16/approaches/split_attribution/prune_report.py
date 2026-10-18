@@ -1,4 +1,5 @@
-"""T195 phase 2 table from prune/*.json. Cost convention (T196): estimator FLOPs = 2 x m43 ops, N = FLOPs / fpe_flops.
+"""T195 phase 2 table from prune/*.json. Cost convention (T196): estimator FLOPs = 2 x m43 ops, N = FLOPs / S_T with the
+T196 sampling charge S = 511 / 682 / 853 FLOPs per input at (8,3) / (8,4) / (8,5) (review/cost_convention/README.md).
 SD = sqrt(p(1-p)/N) at the retained cost; ratio_act = (acc - exact)^2 / SD^2; ratio_B = B^2 / SD^2 (pruning bound only;
 recipe108's own error is not certified). usage: python prune_report.py > prune_report.md"""
 import glob, json, os
@@ -8,6 +9,7 @@ EX = {3: {int(k): v for k, v in json.load(open(os.path.join(HERE, "ref", "exact_
 sm = json.load(open(os.path.join(HERE, "..", "estT_fix", "summary.json")))
 EX[4] = {s: sm[f"zoo{s}"]["exact"] for s in range(5)}
 EX[5] = {0: json.load(open(os.path.join(HERE, "..", "estT_fix", "run5", "zoo0_exact.json")))["acc"]}
+S_T = {3: 511.0, 4: 682.0, 5: 853.0}
 REF = {}
 for f in glob.glob(os.path.join(HERE, "ref", "H8_T*_s*.json")):
     b = os.path.basename(f)[:-5]; REF[(int(b[4]), int(b[-1]))] = json.load(open(f))
@@ -19,7 +21,7 @@ agg = {}
 for r in rows:
     if r["tau"] == 0:
         continue
-    T, s = r["T"], r["seed"]; p = EX[T][s]; sd = (p * (1 - p) / r["N"]) ** .5; e = r["acc"] - p; ref = REF[(T, s)]
+    T, s = r["T"], r["seed"]; p = EX[T][s]; sd = (p * (1 - p) / (r["flops"] / S_T[T])) ** .5; e = r["acc"] - p; ref = REF[(T, s)]
     ra, rb = e * e / sd / sd, r["bound"] ** 2 / sd / sd
     bo = r.get("bound_oracle_uncertain")
     print(f"| {T} | {r['test']} | {r['tau']:g} | {s} | {r['retained_cells']} ({ref['cells']}) | {r['flops']:.3g} ({2 * ref['ops']:.3g}) | {r['pruned']} | "
