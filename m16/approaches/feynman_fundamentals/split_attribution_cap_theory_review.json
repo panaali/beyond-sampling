@@ -1,0 +1,20 @@
+{
+  "complete": true,
+  "scope": "theory review only; implementation execution gate remains separate",
+  "protocol_sha256": "c7e555a9e278ed058c5d6f029e30a91ba89641976b52aa94660b827b518df5d4",
+  "frozen_prune_sha256": "c6dc6b2a472d0af015efae99f32feaed742521ae6ded777fdb69b3d4447c9a34",
+  "theory_pass": true,
+  "arguments": [
+    "For exact unit generators and nonzero u, c=min(u dot r)>0 implies u dot sum(alpha r)>=c sum alpha>=c norm(sum alpha r). The represented positive hull lies in the spherical cap.",
+    "The cap mass is .5 I_(1-c^2)((d-1)/2,.5); d2 orthant equals1/4 and d3 orthant upper(1-1/sqrt3)/2 exceeds1/8. Undefined sum direction must not be silently accepted as an upper bound; c<=0 fallback1 is safe.",
+    "For e=2^-30 the positive box x1 in[1,2],x2,x3 in[e/8,e/4] lies strictly in the narrow positive hull; volume e^2/64 and density>1/648 yield mass>e^2/41472. Source-floating normalized directions must be independently bound to these exact directions."
+  ],
+  "budget_qualifications": [
+    "Mass bounds require represented-hull coverage of the relevant cells and proper partition/multiplicity accounting.",
+    "Ideal replacement of a classifier label changes error by at most cell mass; sum of genuine upper bounds bounds ideal total replacement discrepancy.",
+    "Actual wrong-centroid path uses estT.mass; its floating numerical error, retained recipe error and floating accumulation of P.bound are not certified by exact cap containment.",
+    "Single-split counterfactual differences need not add to joint pruning error.",
+    "Four analytic controls are appropriate finite discriminators, not a universal numerical failure or trained-panel accuracy claim."
+  ],
+  "author_code_executed": false
+}
