@@ -1,0 +1,33 @@
+# r1_cont (T317): R1W V1 with continuity restarts + executed B2 prefix tree (cost only; estimates = V1)
+
+↑ [r1_walk (V1)](../r1_walk/README.md) · [r1_v1b2 (T313)](../r1_v1b2/README.md) · Fable round 4 D1 (branch
+claude/project-handoff-priorities-zpzfm8, `review/fable_review_r4/README.md`) · [TASKS](../../../TASKS.md)
+
+## Pre-registered steps (DRI, 2026-10-18; written here before the 80-model runs)
+1. Implement continuity restarts and the B2 prefix tree, both executed (`cont.py`).
+2. Assert max |est - V1| <= 1e-9 on all 80 DEV2 at G = 48. Stop if this fails.
+3. G ruling: G = 16 is allowed only if max |est(G=16) - est(G=48)| <= 1e-4 pp (1e-6 absolute) on DEV2, checked
+   before any HP2 run. Otherwise G = 48.
+4. Instrument FLOPs (Directive 8). Stop if C > 8.1k FPE (at 5,948 FLOPs/FPE).
+5. Freeze, and send to the T281 scorer (HP2).
+
+## Method (`cont.py`)
+- **Continuity restart.** At a gate flip t* = (s*, j*), the values z_t(t*) at all steps follow from the current
+  cell's affine form. Exactly one gate toggles, and only the tangents of steps > s* are recomputed (560 FLOPs per
+  step). Cached per-step root minima of the steps < s* stay valid (their affine pieces are unchanged), so only the
+  roots of steps >= s* are recomputed.
+- **B2.** The first cell is executed as a prefix tree over (input, tangent) prefixes across the 720 triples.
+- The FLOPs are counted as executed (formulas in the docstring).
+
+## Results (`python run80.py`, `results.json`; all 80 DEV2)
+- **Step 2, passed:** max |est - V1| = **6.7e-16** (<= 1e-9).
+- **Step 3: G = 16 not allowed.** Max |est(G=16) - est(G=48)| = 2.5e-6 (2.5e-4 pp), above the 1e-6 (1e-4 pp)
+  ruling, so **G = 48**. For information only: C(G=16) = 6,082 FPE.
+- **Step 4, passed:** **C = 7,775 FPE** (mean, 5,948 FLOPs/FPE) <= 8.1k. Frozen V1 was charged 13.3k; T313's
+  charged-only B2 count gave 10.96k.
+- DEV2 (development): RMS .795 pp, F = 6.78.
+- [inferred projection] HP2 at V1's HP2 RMS (.99 pp) and C = 7.78k gives F ≈ 16.35 x 7.78 / 13.3 ≈ 9.6.
+- **Step 5:** `estimator.py` frozen and sent to the T281 scorer. **The claim is HP2's score alone.**
+
+Forking paths: the estimates are identical to the already-scored V1, so this adds no new estimate variant. It is a
+cost re-implementation, and an HP2 re-run under the executed cost.
