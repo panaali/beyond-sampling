@@ -462,7 +462,7 @@ seeds 0-4.
 - Sanity: the error from F matches the truths. Target 4.670% vs the answer key's 4.688% (rule spread s.e.
   ~0.01 pp); s0.005 10.816% vs 10.817%; s0.01 24.205% vs 24.226%.
 
-### (1) Kink density — **rate account via kink density NOT SUPPORTED** ()
+### (1) Kink density — **rate account via kink density NOT SUPPORTED** (`kinks_analysis.out`)
 
 | T | 3 | 4 | 5 | 6 | 8 | 10 | target |
 |---|---|---|---|---|---|---|---|
