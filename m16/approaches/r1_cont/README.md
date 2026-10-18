@@ -109,3 +109,87 @@ exactly 0 (Phi(v2) is a model-free table), and the pieces ending at tmax merge w
   - **Scorer recount of c70e22cd on HP2 (claude/hp1-scorer 7dd19ff5):** estimates equal T317b to <= 2.2e-16;
     C 5,489 FPE; **F 6.76 [4.87, 8.79]**; HP1 clean 3.78. [measured by T281; unverified]
   - The family is frozen at the DRI's request (no further code changes). HP3 (T321) scores @1c742430 as frozen.
+
+## T322 / T317d pre-registration (DRI, 2026-10-18; before any T317d run)
+Close T320's three convention gaps, with no other change:
+1. Precompute every model-free table once, outside est.
+2. List the tables with their sizes here.
+3. Replace the seeded model-free MC transverse points with their exact-law values.
+
+**Gate:** estimates within **.01 pp** of T317c on all 80 DEV2, cost as executed. No HP3 submission until the DRI says
+so, after T317c's HP3 score.
+
+**T317c on HP3 (T281 scorer, claude/hp1-scorer 67e57f00; fresh panel, seeds 200-299):**
+- c70e22cd as executed, 5,427 FPE: **F 5.08 [3.42, 7.04]**, RMS 0.81 pp, bias +0.42 pp;
+- 1c742430 at the official count: 5.05;
+- every-ndtr sensitivity: 5.29 [3.56, 7.33].
+
+Lenient pass with the upper CI <= 10 under every count. [measured by T281; unverified]
+
+## T317d method (`cont_d.py`, `estimator_d.py`)
+- **(1) Tables.** `cont_d.TABLES` is built once at import. `est` only reads it: the walk, the merge, the Phi profile
+  and all FLOP charges are cont_c's functions, called unchanged.
+- **(3) Exact-law transverse points.** For the top 3 of 10 iid N(0,1), given v2 in the region (lo, hi]:
+  - v2 has density 90 φ(v2) (1 − Φ(v2)) Φ(v2)^8;
+  - E[v1 − v2 | v2] = φ/(1 − Φ) − v2, in closed form;
+  - E[v2 − v3 | v2] = ∫_{−∞}^{v2} (Φ(v)/Φ(v2))^8 dv.
+
+  These are integrated on a deterministic trapezoid grid (`exact_points`, 2 × 400,001 nodes, lo a node). The points
+  agree with nested scipy `quad` to <= 2.5e-10 and with a 4x finer grid to <= 2.4e-10.
+- **Points:** nb (v2*, g12*, g23*) = (1.013713, .533986, .347640); b = (−.136559, .851440, .129593). The old MC
+  points were off by up to 2.2e-3 (b region).
+- **v4 node:** still `r1w.gauss_v4(v3*, 1)`, a deterministic model-free 40,000-point rule, now evaluated once.
+- `r1w2.REG` (the seeded MC) is still computed at import because cont.py imports r1w2. T317d never reads it except
+  in the `points="mc"` equality check.
+
+**Model-free tables (per region, G = 20; all float64, identical for every model, uncharged):**
+
+| table | size per region | regions | role |
+|---|---|---|---|
+| GL nodes, weights | 20 + 20 | nb, b | v2 quadrature |
+| Φ(nodes), Φ(nodes)^8 | 20 + 20 | nb, b | profile endpoints at exactly 0 |
+| 1 − Φ(nodes) | 20 | nb, b | blind I12 (g12 assumed correct) |
+| 90 φ(nodes) | 20 | nb, b | v2 density |
+| transverse point (v2*, g12*, g23*) | 3 | nb, b | exact law (above) |
+| v4 node, μ(v4), μ'(v4) | 3 | nb, b | closure c |
+| line-23 inputs x, dx | 720 × 10 + 720 × 10 | nb, b | 720 triple lines along g23 |
+| line-12 inputs x, dx | 720 × 10 + 720 × 10 | nb only | 720 triple lines along g12 |
+
+Total: 266 scalars plus 43,200 input/direction entries. `cont_d.table_sizes()` prints this list.
+
+## T317d results (`python run_d.py`, `results_d.json`, `run_d.log`; all 80 DEV2, ~1 CPU-min)
+- **Refactor check:** cont_d with T317c's MC points equals cont_c exactly, in estimates and FLOPs (max diff 0.0 / 0.0).
+- **Exact points vs T317c:** max |diff| **.0115 pp** (torch_s19); the next largest is .0076. The mean is −.0009 pp and
+  the RMS .0035 pp. **One model of 80 exceeds .01 pp, so the pre-registered gate FAILS, narrowly.** T320's
+  "<= .008 pp" was measured on 10 models.
+- Cost as executed: C 5,490 FPE (T317c 5,488). The points move a few walk cells.
+- DEV2 (development only): RMS .7944 pp vs .7950, bias +.444 pp both, F 4.78 both.
+- Not frozen and not submitted. No variant tuning (forking paths); the gate result goes to the DRI for a ruling.
+
+## Status
+- T317, T317b, T317c: done and scored. T317c is the HP2 and HP3 candidate (unverified; T320 independent recount done).
+- T317d: implemented; the gate failed by .0015 pp on one model; awaiting a DRI ruling.
+
+## Compute accounting
+- Charged per model, as executed, under Directive 8:
+  - walks: tangent recomputes, roots, B2 prefix cells, correct_interval 229;
+  - merge comparisons;
+  - Φ at weight-dependent arguments, 20 each (+3 for the ^8);
+  - the combination.
+- Uncharged: model-free tables (listed above), indexing and np.unique keys.
+- Development compute: each 80-model DEV2 run takes ~1-2 CPU-min. The family total is well under 1 CPU-hour.
+
+## Claims
+- [measured] T317c/T317d estimates are deterministic, with no random model inputs (deductive + declared
+  approximations of R1W V1).
+- [measured, T281 scorer; unverified] T317c: HP2 F 6.72 [4.84, 8.73] (as executed 6.76); HP3 F 5.08 [3.42, 7.04].
+- [measured] T317d moves estimates by <= .0115 pp, at unchanged cost and DEV2 F.
+
+## Alternatives not ruled out
+- The candidate's margin rests on the R1W V1 approximations: closure c, a single v4 node, the blind g12 assumed
+  correct, and the gap beyond tmax assumed correct. A panel with different retrain statistics could break them.
+- The cost depends on the implementation: T320's independent count was +8.9% with a direction-testing root rule.
+
+## Failure modes
+- The noisy HP1 copies fail (F 39-228): the approximations are tuned to clean retrains.
+- Models whose errors sit beyond tmax = 0.5, or in the blind region, are mis-estimated by construction.
