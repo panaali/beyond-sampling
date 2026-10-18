@@ -354,3 +354,48 @@ if its deficit > 1e-13. "Ideal cap" follows a row only up to its last cell that 
 - [inferred] Even a perfect screen leaves T317e's estimates at ~2.2k FPE, so strict F ≈ 6.3 at the current error.
   The strict bar needs the error route (T324/T327) or a different geometry. The cost lever alone can reach at most
   ~2.5x (5.5k → 2.2k).
+
+## T326 note for T329: where the ~2.2k floor comes from (`python tree_note.py`, `results_tree_note.json`)
+(DRI arithmetic correction: at 5.5k FPE, strict needs RMS <= .37 pp, not ~.5; .5 gives F ≈ 1.9. The T326 text above
+that says "~.5 pp at the current cost" should be read with this correction.)
+
+**The tree is pure combinatorics.**
+- Per line, the B2 tree has **4, 13, 34, 73, 136, 229, 358, 528, 720, 720 distinct prefix states at steps 1-10 (2,815
+  in total)**. The count is identical for all three lines and all models.
+- It equals the number of distinct placements of the three labelled top values (1, 2, 3) in a length-s prefix. v4
+  adds no split, because its position (the latest free one) is fixed by the triple. Lows add none either: they share
+  one value.
+- The input values never add splits.
+- Steps 9-10 alone hold **1,440 nodes (51%)**, since every triple's prefix is distinct once 9 positions are fixed.
+- Floor accounting:
+  - prefix trees: 3 lines × 2,815 nodes × 1,218 FLOPs = **1,729 FPE**;
+  - per-row first-cell readout + correct set: 3 × 720 × 873 FLOPs = **317 FPE**;
+  - kept later cells (oracle ideal cap, ~700) + Φ (~115) bring the exact-estimate floor to ~2.2k (floors.py).
+
+**Error mass is diffuse (oracle; the deficit is attributed per row as in floors.py, the node mass sums the rows
+through it).**
+
+| line | line deficit | nodes with mass > 1e-4 / 1e-5 / 1e-6 (abs. accuracy) | prune rows with deficit < 1e-4: nodes kept, deficit dropped | < 1e-5 | < 1e-6 |
+|---|---|---|---|---|---|
+| nb g23 | 4.66 pp | 843 / 1,514 / 1,622 | 802, **.86 pp** | 1,512, .016 pp | 1,622, .0002 pp |
+| nb g12 | 1.65 pp | 300 / 1,127 / 1,557 | 233, **.78 pp** | 1,098, .059 pp | 1,556, .0008 pp |
+| b g23 | .72 pp | 66 / 1,948 / 2,210 | 0, **.72 pp** (no row reaches 1e-4) | 1,928, .038 pp | 2,208, .0008 pp |
+
+- "> 1e-4 of the error mass", read as absolute accuracy 1e-4 (.01 pp per row): 843 + 300 + 66 = 1,209 nodes carry it
+  (≈ 250 FPE of tree). Pruning the rest, however, drops .72-.86 pp per line, more than the whole RMS budget.
+- Read as relative (1e-4 of a ~1-5 pp line deficit ≈ 1e-6 absolute), ~1,550-2,200 nodes per line are needed. So the
+  mass is spread over most of the tree: no small subtree carries it. b-g23 is the extreme case, with its .72 pp spread
+  thinly over 565 rows.
+
+**Homogeneity and linearity:**
+- **Positive homogeneity** (no biases: h(c·x) = c·h(x), and likewise the tangent). This could share only the all-low
+  prefixes across lines, since their values differ non-proportionally elsewhere. There are only **6 all-low nodes per
+  line** (18 of 8,445), so it is negligible.
+- **Linearity at fixed gates.** Within the first cell, a node's state is linear in (v1, v2, v3, v4, low), i.e. 5 basis
+  vectors per gate history. Sharing across the 3 lines would need 5 basis matvecs to replace 3 line matvecs, which is
+  worse. It pays only with >= 5 value-variants per role string: more lines, or the K > 1 v4 nodes or GL-in-v2 lines of
+  a richer closure.
+- **For T329:** the cost is set by the 720 × 3 distinct leaves × ~10 steps. A cheaper geometry has to reduce the
+  number of *distinct inputs*, not share their computation. For example: fewer triples per line (merging positions
+  with a deductive symmetry bound), fewer lines, or a backward / readout-side decomposition that does not enumerate
+  full prefixes. Mass pruning cannot do it: the mass is diffuse.
