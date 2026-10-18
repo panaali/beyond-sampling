@@ -44,3 +44,24 @@ native internals. Track branch masks and actual batch dimensions without
 substituting a new algorithm. Complete cost is still unknown until an agreed
 accounting scope covers these categories. No native-kernel chain is reopened by
 this source inventory.
+
+## Manual visible-arithmetic cross-check (not yet instrumented)
+
+Under a narrow real-arithmetic convention excluding abs, comparisons, reductions,
+sorting, selection, special-function internals and scalar/index/control work,
+non-matrix arithmetic in radial=False Q is `20MH+9M` before the interval loop:
+nine input products/additions give18MH, breakpoint negation/division2MH,
+and input negation for argsort9M. Each active batch interval adds
+`M(4H+4T+6)`: four eager midpoint expressions, four H-sized gate/logit-map
+products/additions, four T-sized margin/ratio expressions, and two final mass
+subtraction/accumulation expressions. Both branches of np.where expressions
+are evaluated, even on rows where their values are discarded.
+
+Consequently H16,T10,J19 gives19699M visible real arithmetic including the
+canonical dense skeleton, before the explicitly excluded categories. This is
+close to3.3*6000=19800M. It is an important alternative to a premature negative:
+the erroneous rank-one comment explains why1.6 is unsupported, but does not
+itself falsify the later3.3 hand correction. A declared-category trace is still
+needed, including skipped batch intervals, preserved warnings and the external
+allocation/candidate-charge composition. This hand derivation is source-only,
+not a measured native/FLOP total or replacement multiplier.
