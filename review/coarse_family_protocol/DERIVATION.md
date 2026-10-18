@@ -23,8 +23,12 @@ probability estimate introduces its own uncertainty/cost, not a free constant.
 
 For exact conditional iid sampling within each family, with n_l>0, estimator
 2 sum p_l average(X|L=l) has variance4 sum p_l^2 v_l/n_l. If each conditional draw
-costs c_l>0, an ideal continuous allocation of budget B gives lower variance
-4(sum p_l sqrt(v_l c_l))^2/B (Cauchy-Schwarz). Integer allocations, setup,
+costs c_l>0, an ideal continuous allocation of budget B has oracle variance
+lower bound/infimum
+4(sum p_l sqrt(v_l c_l))^2/B (Cauchy-Schwarz). It is attained by the
+proportional allocation only in the admissible positive-variance interior;
+zero-variance families with mandatory positive minimum allocations can make
+the bound unattainable. Integer allocations, setup,
 probability estimation, rejection, and pilot costs still count. This is only an
 oracle benchmark when conditional sampling or p_l is unavailable. Rejection
 using an outcome-derived label can require the full network/fibre computation
