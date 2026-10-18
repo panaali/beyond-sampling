@@ -1,0 +1,131 @@
+{
+  "snapshot/results/a30.json": {
+    "config": {
+      "tag": "str",
+      "H": "int",
+      "T": "int",
+      "seeds": {
+        "type": "list",
+        "length": 5,
+        "member_schemas": [
+          "int"
+        ]
+      },
+      "log2n": "float",
+      "lr_scale": "float",
+      "warmup": "int",
+      "floor": "float",
+      "f_blind": "float",
+      "f_tie": "float",
+      "gap": "float",
+      "eval_n": "float",
+      "device": "str",
+      "data_seed": "int"
+    },
+    "n_train": "int",
+    "n_steps": "int",
+    "wall_sec": "float",
+    "curve": {
+      "type": "list",
+      "length": 64,
+      "member_schemas": [
+        {
+          "acc": {
+            "length": 5,
+            "member_schemas": [
+              "float"
+            ],
+            "type": "list"
+          },
+          "loss": {
+            "length": 5,
+            "member_schemas": [
+              "float"
+            ],
+            "type": "list"
+          },
+          "sec": "float",
+          "step": "int"
+        }
+      ]
+    },
+    "eval": {
+      "0": {
+        "n": "int",
+        "seed": "int",
+        "acc": "float",
+        "se": "float",
+        "blind_share": "float",
+        "err_blind": "float",
+        "err_23": "float",
+        "err_12": "float",
+        "err_other": "float",
+        "blind_error_rate": "float"
+      },
+      "1": {
+        "n": "int",
+        "seed": "int",
+        "acc": "float",
+        "se": "float",
+        "blind_share": "float",
+        "err_blind": "float",
+        "err_23": "float",
+        "err_12": "float",
+        "err_other": "float",
+        "blind_error_rate": "float"
+      },
+      "2": {
+        "n": "int",
+        "seed": "int",
+        "acc": "float",
+        "se": "float",
+        "blind_share": "float",
+        "err_blind": "float",
+        "err_23": "float",
+        "err_12": "float",
+        "err_other": "float",
+        "blind_error_rate": "float"
+      },
+      "3": {
+        "n": "int",
+        "seed": "int",
+        "acc": "float",
+        "se": "float",
+        "blind_share": "float",
+        "err_blind": "float",
+        "err_23": "float",
+        "err_12": "float",
+        "err_other": "float",
+        "blind_error_rate": "float"
+      },
+      "4": {
+        "n": "int",
+        "seed": "int",
+        "acc": "float",
+        "se": "float",
+        "blind_share": "float",
+        "err_blind": "float",
+        "err_23": "float",
+        "err_12": "float",
+        "err_other": "float",
+        "blind_error_rate": "float"
+      }
+    }
+  },
+  "snapshot/results/zoo_code_seed0.json": {
+    "seed": "int",
+    "wall_sec": "float",
+    "eval": {
+      "n": "int",
+      "seed": "int",
+      "acc": "float",
+      "se": "float",
+      "blind_share": "float",
+      "err_blind": "float",
+      "err_23": "float",
+      "err_12": "float",
+      "err_other": "float",
+      "blind_error_rate": "float"
+    }
+  }
+}
