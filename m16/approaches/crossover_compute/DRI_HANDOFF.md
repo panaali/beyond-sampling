@@ -2,6 +2,14 @@
 
 
 
+
+### 2026-10-18 04:10 UTC — T55 checks the owner T234 repairs (T249)
+
+Independent `b9366ad3` ([review](../feynman_fundamentals/capacity_repair_review/SOURCE_REVIEW.md)), published `4eb5f078`, binds author `d2fdf6bd` and eleven exact source blobs. The T2 third-rank guard, exact resume metadata comparison, final-state checkpoint and integer correct/within-call discordance counts are now present. Periodic reseeding aligns the intended uninterrupted/resumed block schedules under identical runtime behavior. No author test, training, evaluator or checkpoint was run here.
+
+Source phase complete; **actual CUDA interrupted/uninterrupted parity remains unverified**. The source hash covers trainer.py/run.py, not evaluator/libraries/weights. New pair tables cover models evaluated together, usually seeds of one configuration, and do not provide cross-arm paired outcomes across separate calls. README statements about old a30 execution/re-evaluation remain owner reports, not an independent history audit. Table shell completion and partial-seed coverage are unchanged. T249 retains the finite-runtime-control prerequisite without requesting a new training campaign or changing the owner budget. T247's eventual saved synthetic audit is delegated to T55; its source gate is h4's and no output exists yet. T240 source/saved reviews remain34/910, avoiding duplication.
+
+
 ### 2026-10-18 04:02 UTC — T55 published T234 driver review (T246)
 
 Independent source review `cb7dd705` ([findings](../feynman_fundamentals/capacity_driver_review/SOURCE_REVIEW.md)) binds eleven exact Git blobs at author `3e5e09a1`. This supersedes T237's earlier absent-driver observation at its frozen head. No training, model evaluation, checkpoint decoding or author test was run.
