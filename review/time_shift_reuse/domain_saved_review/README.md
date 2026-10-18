@@ -7,10 +7,10 @@ Do the fixed64 saved distinct-state comparisons reproduce from the pinned raw ce
 Delegated TASKS publication12c8b9bb; T55 yielded this saved review. `check.py` imports no author code. It reconstructs exact state representatives, uses triangular-block pair-index inversion, binds raw rays/maps/models, computes WhM, signs, canonical and projective keys, and closed-form named operation counts. It checks all134 progress records. Peak-bit internals are excluded.
 
 ## Status
-Frozen checker before once-only execution; author result cd04347e is unchanged.
+Complete independent saved audit; author result cd04347e is unchanged.
 
 ## Results
-Pending. Command: `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 bash -c 'ulimit -v 2097152; ulimit -t 20; flock /workspace/work/codex-review.lock /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 review/time_shift_reuse/domain_saved_review/check.py'`.
+All64 pairs/128 domains and134 progress records pass. H4 uses39 unique selected states, H8 uses52. Both preserve32 unknown pairs each. Review1.142085841CPU, peak160624KiB; no author calls. The checker reconstructed every canonical/projective record and named count; peak-bit internals remain excluded. Command: `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 bash -c 'ulimit -v 2097152; ulimit -t 20; flock /workspace/work/codex-review.lock /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 review/time_shift_reuse/domain_saved_review/check.py'`.
 
 ## Compute accounting
 Only JSON reads, SHA256 and exact rational saved-record reconstruction. Internal19/20CPU, external20CPU/2GiB. Zero author calls, geometry, forward, random, reference or mass evaluations.

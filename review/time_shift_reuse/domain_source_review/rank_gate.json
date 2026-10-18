@@ -1,0 +1,29 @@
+{
+  "pass_source": true,
+  "reviewer": "recover_910",
+  "assignment": "8a079bed TASKS reciprocal source reviewer",
+  "source": "bd118ed9 shared14a7aa0c",
+  "protocol_sha256": "6562ecd7b4712bb468322e75779c36c429d97c3a4219db242f58e384118bed72",
+  "verified_pins": {
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/domain_sufficient/rank_witness/primitive.py": "0e823654384e0c8a84cdb09605873e37424ece40d8915e10a81a56015b0e5df2",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/domain_sufficient/rank_witness/controls.py": "937abba6654a294a7ff491fdd0fa6d38fef6aa12295fd5a90140b3e218a692d2",
+    "/workspace/work/recover-small_h2_56/m16/approaches/future_equivalence/domain_sufficient/rank_witness/README.md": "6ffb0b2244afba59d5d1aafbda309ceaed1351ca03a877324e7b2f08b3e1fe8a",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7"
+  },
+  "checks": [
+    "Exact incremental row independence works even with nonmonotone pivot columns: each later basis row is zero at all earlier pivots.",
+    "Selected indices identify original rays; separate24-term Leibniz determinant is nonzero for the four selected rows.",
+    "Eight expected ranks and determinants:0,1,4,4,4,4,4,3; thin2^-200,cancellation2^-80,pivot double-swap determinant+1.",
+    "Four malformed guards isolate expected ValueError/OverflowError; successful unexpected return cannot pass.",
+    "All input rows decode before early stop; named determinant72mul12add12sub, elimination and decode counts explicitly scoped.",
+    "Durable phase/fixture attempts and failures, no overwrite, source/runtime pins; internal17CPU and external20CPU/2GiB review lock."
+  ],
+  "clearance": "Fixed eight rank controls plus four guards only, after pinning this published gate. No128 application clearance; separate source/control gates required.",
+  "exclusions": [
+    "No author imports or numerical/control calls by reviewer",
+    "No original geometry/true-history or labels/probability/runtime inference",
+    "Rank-deficient cases remain unknown",
+    "README .venv command must resolve to pinned runtime executable; otherwise use pinned absolute executable"
+  ],
+  "review_method": "read-only source and SHA256 inventory"
+}
