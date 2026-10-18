@@ -68,3 +68,9 @@ for controls or saved contraction. Use one thread and2GB, immutable gates,
 refuse overwrite, preserve started/completed/failure artifacts. Commit/publish
 bounded results and obtain independent saved audit. No wider replay follows
 without a fresh scope and resource gate.
+
+The ideal sum of cap bounds controls classification replacement only on correctly
+covered represented domains, with a disjoint partition or explicit multiplicity
+accounting and genuine mass upper bounds. It does not certify the returned
+numerical estimate: wrong-centroid contributions use numerical estT.mass,
+retained recipe error is separate, and accumulation is not outward rounded.
