@@ -348,3 +348,78 @@ claude/t192-gpu-cost-law), copied to `data/t192/`.
 - [measured] T192's exact k=4 and k=5 masses agree with independent code: k=4 all regions <= 7.7e-11; k=5 200
   spot checks <= 2.5e-13 absolute. N_1e-5(5) = 152,952, g(4->5) = 14.9x.
 - [inferred] Mass-ordered exact enumeration of prefix regions does not escape the count growth at delta ~1e-5.
+
+---
+
+# Part 3: T272 — kink density of the band integrand, and the integrated in-band-flip effect (DRI-assigned 2026-10-18)
+
+From the Fable review (`review/fable_review/README.md` on the shared branch: A4, C7, D3, D5).
+
+## Pre-registration (written 2026-10-18, before any measurement)
+
+### (1) Kink density
+**Hypothesis (Fable A4).** Fixed-node face rules lose at large T because the integrand has kinks. Their density
+caps the rate at about N^(-s/d) with s ~ 1. Heavy tails are not the primitive cause.
+
+**Integrand.** The function actually integrated by the sci_tao rule: g(U) = F(face_points(U)) on the unit cube.
+The configuration coordinate U_0 is held fixed along each path.
+
+**Kink = a change of the band's combinatorial signature.** F is analytic while the following stay fixed:
+- the gate patterns of the cells that carry misclassified mass;
+- the wrong class in each piece;
+- the constraint that bounds each wrong piece: a logit crossing (pair), a gate flip (step, neuron), the tie
+  t = 0, or the window edge ±tau (and which term of the min defines tau).
+
+The vectorised walk hashes this signature per point. A signature change between neighbouring grid points counts as
+one kink (C0 or a jump). The jump size is |Delta F| at the change minus the local linear trend. A change counts as a
+discontinuity if |jump| > 10 x |local slope| x h.
+
+**Paths.**
+- Per model and kind (R23, R12): 40 random straight lines in U_1..U_{T-1}, clipped to the cube, each sampled at
+  2,000 points.
+- Kink density = kinks per unit U-length.
+- Resolution check: 8,000 points on 10 paths of the target.
+
+**Models.** The 30 well-trained H=16 zoo models of E33 (T = 3, 4, 5, 6, 8, 10; seeds 0-4, `alg_zoo.zoo_2nd_argmax`),
+plus the target. E33's per-model Sobol gains and tail shares (`ht_seeds/table.json`) are the comparison.
+
+**Decision.**
+- The *kink account is supported* if both hold:
+  - (a) kink density rises at least 10x from T=3 to T=10 (geometric mean over seeds);
+  - (b) within fixed T (T = 4, 5, 6, 8 pooled after centring log values per T), Spearman rho(log kink density,
+    log gain) <= -0.4, and it predicts at least as well as tail share does on the same models
+    (|rho_kink| >= |rho_tail| - 0.1).
+- *Not supported* if |rho_kink| < 0.2.
+- Otherwise *inconclusive*.
+
+**Alternatives.**
+- (i) Kink density and tail share both rise with T and cannot be separated across T. Only the within-T test can
+  separate them.
+- (ii) Kinks might be dense but harmless if the jump sizes are tiny. Report the jump distribution and the
+  F-weighted kink density.
+
+### (2) Integrated in-band-flip effect E[F] - E[F0]
+**Definitions.**
+- **F0a (primary, "frozen at the tie"):** gates frozen at the face point y (t = 0, the band's entry from the tie
+  side). Logits are then exactly linear along the whole window, and the misclassified mass has a closed form (one
+  forward pass plus tangent per face). This is the cheap, smooth candidate.
+- **F0c (secondary, literal "frozen at band entry"):** exact walk. Each misclassified component is replaced by
+  the frozen-linear continuation of the logits of its entry cell (the end nearer t = 0), extended away from 0
+  within the window. So in-band gate flips are ignored, but components that start beyond a flip are kept.
+
+**Measurement.**
+- Bias = Z23 E23[F - F0] + Z12 E12[F - F0], paired on the same Sobol points.
+- F0a: 8 rule seeds x 2^14 faces per kind. F0c: 4 rule seeds x 2^13 faces. s.e. across rules.
+- Also reported: the absolute error of 1 - E[F0] against the truths. Target: answer key 0.9531174789 (3e11
+  samples). Copies: leaderboard 32M truths (s0.005_0: 0.8918315; s0.01_0: 0.7577379).
+
+**Models.** Target and noisy copies sigma 0.005, 0.01 (seed 0, first copy; decisive). Secondary: zoo (16,10)
+seeds 0-4.
+
+**Decision (Fable C7 / DRI).**
+- **Go** if |E[F] - E[F0a]| < 0.02 pp on all three decisive models (beyond 2 s.e.).
+- **Kill** if it is > 0.1 pp on any of them.
+- Otherwise inconclusive.
+- F0c is reported but does not decide. It is not cheaper than F, so it is no estimator candidate.
+- **Prior:** E24's per-point linear-response ratios (0.95-3.7x) and T218's in-band flip inventory (27% of the
+  target's tail mass has >= 5 flips) both predict failure, around 0.3 pp.
