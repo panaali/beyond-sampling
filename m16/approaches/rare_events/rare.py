@@ -29,16 +29,17 @@ def walk3(model, x0, d, k, k3, tmax, max_cells=5000):
     hT = np.where(Gt[:, -1], Z[:, -1], 0.0); dhT = np.where(Gt[:, -1], DZ[:, -1], 0.0)
     L = hT @ Wo.T; dL = dhT @ Wo.T
     t = np.zeros(n); act = np.arange(n); it = 0; ncell = 0
+    tm = np.broadcast_to(np.asarray(tmax, float), (n,))         # per-row window end (T362); scalar for A/B
     while len(act) and it < max_cells:
         it += 1
-        sstar = R[act].argmin(1); nxt = np.minimum(R[act, sstar], tmax)
+        sstar = R[act].argmin(1); nxt = np.minimum(R[act, sstar], tm[act])
         lo, hi = G.correct_interval(L[act], dL[act], tref[act], k3[act], t[act], nxt)
         flops += len(act) * G.F_CI; ncell += len(act)
         pieces.append((act.copy(), lo, hi))
         lo, hi = G.correct_interval(L[act], dL[act], tref[act], k[act], t[act], nxt)   # target: charged in F_CELL / F_LATER_READ
         pieces_c.append((act.copy(), lo, hi))
         t[act] = nxt
-        go = act[nxt < tmax]; ss = sstar[nxt < tmax]
+        go = act[nxt < tm[act]]; ss = sstar[nxt < tm[act]]
         if not len(go):
             break
         tn = t[go]

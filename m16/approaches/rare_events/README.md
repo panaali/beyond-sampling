@@ -398,3 +398,38 @@ the (e_p2 - e_p3) direction, which is not tried here. Both are unbiased; the var
 **Go (DRI):** G >= 10 for an event AND the mean within 2 s.e. of the GPU truth. Reported per event.
 **Expected:** Fable predicts 10-50x. My guess: E1 >= 10 (the walk resolves thin far-gap islands exactly), and E2 lower
 (its wrong set is broader along v3, and g12 is not integrated).
+
+## T362 results (SAMPLING-CLASS; `python cmc.py 10000`, `results/cmc.json`, `results/cmc.txt`)
+**Validation:** on 40 lines per event (seed0), Z from the walk against a dense 40k-point evaluation along v3:
+- E2: max difference 8e-16;
+- E1: max 2.4e-6, at the dense grid's resolution for thin islands.
+
+**Pre-registered run (orig, 1e4 walked lines per event):**
+
+| event | truth (GPU) | estimate +- s.e. | z | inputs drawn | lines with Z > 0 | FPE per line | C (FPE) | gain G vs plain MC |
+|---|---|---|---|---|---|---|---|---|
+| E1(1.0) | 5.37e-6 | 1.66e-5 +- 7.2e-6 | +1.56 | 61,700 | 7 | 8.49 | 84,900 | **1.2** |
+| E2(.5) | 9.38e-5 | 1.14e-4 +- 2.6e-5 | +.78 | 45,545 | 701 | 7.31 | 73,050 | **2.0** |
+
+**Verdict: NO GO for both events.** The means are within 2 s.e. (unbiased, as expected), but G = 1.2 and 2.0 against the
+>= 10 go line.
+
+**Post hoc precision check** (1e5 lines, fresh seeds; `results/cmc_1e5.txt`):
+- E1: est 4.49e-6 +- 1.15e-6 (z -.77), 24 hit lines, **G = 4.7**.
+- E2: 9.94e-5 +- 7.2e-6 (z +.79), **G = 2.5**.
+- The 1e4-line E1 gain rested on 7 hits. The better estimate is ~5x, still below 10.
+
+**Why (measured quantities):**
+- G ~ 1 / (c_eff x mbar).
+- The walk costs c = 7.3-8.6 FPE per line (9-11 cells, about 3x Fable's assumed 3 FPE). The model-free screen walks
+  only 16-22% of drawn inputs, so the cost per drawn input is 1.4-1.6 FPE.
+- E1: the v3 line rarely hits a far-gap island (24 of 1e5 lines). When it does, it carries a large share of that
+  line's admissible mass (mean Z | hit ~ .15). The rarity of E1 sits in the transverse coordinates, which the v3 line
+  does not integrate: Rao-Blackwellising the coordinate along which the island is wide buys little.
+- E2: 7% of lines hit, but with small conditional mass (~.007 | hit).
+- [inferred] A line direction or coordinate across which the island is thin (e.g. g12 for E2, or the transverse
+  direction that carries E1's rarity) would gain more. So would importance sampling of the transverse coordinates
+  toward the island (the exact walks give the needed proposals). Neither is tried.
+
+**Labels:** sampling-class throughout; unbiased; no closure, no declared approximation (the walk is exact, validated
+against dense forwards).
