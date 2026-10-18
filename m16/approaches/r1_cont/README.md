@@ -759,3 +759,52 @@ differ on <= 4e-6 of identical inputs.
   The failure is a positive bias from misclassified mass far from the tie faces: beyond tmax along the lines, in the
   interior, and in predictions of low-ranked positions. All of these are regions the R1W geometry assumes correct.
   Only 2 copies were switched off.
+
+## T344: rigorous upper bounds on T340's rare events, a feasibility finding before building (2026-10-18)
+**Events (T340's README, claude/t286-cheap-frontier):** E(t0) = {the network outputs the position of the 3rd-largest
+input AND g23 > t0}, t0 ∈ {1, 1.25, 1.5}, on orig (the target), zoo seed 0 and zoo seed 3. T340's 2e7 magnitude scan
+gives 2.5e-7 to 1.8e-4; its 1e9 truths are pending.
+
+**What a rigorous upper bound must do.** Cover all of R^10 under N(0, I). Every region where E is not excluded is
+charged its full Gaussian mass. The lows are 7 free coordinates, and no closure is allowed, since a closure is
+itself a declared approximation.
+
+**Probe 1: volume certificates by interval propagation.**
+- Around 40 MC points per model that are correct and have g23 > 1, I searched for the largest uniform input box
+  (half-width r in all 10 coordinates) on which interval propagation proves "the rank-3 position is not the argmax".
+  The quantity is the margin L_j − L_p3 > 0 for the centre's argmax j.
+- **Median certified r: <= 1e-4 on all three models** (p90 1e-4). |Wh| compounds over 10 steps (the same failure as
+  T330 tier A).
+- Covering the far-gap region (P(g23 > 1) = .044) to a 1e-6 remainder with 10-D boxes that small is out of reach by
+  many orders of magnitude.
+- [inferred, from T311] Linear relaxations (CROWN) are tighter, but certify only along 1-D lines at 2-3 FPE per line.
+  For 10-D volumes the curse of dimension remains.
+
+**Probe 2: exact linear-region (cone) enumeration.**
+- The network has no biases, so every activation region is a polyhedral cone. The event inside one is an LP
+  feasibility question, and g23 > t0 enters through the radial χ10 law.
+- That would give an exact, rigorous method. But T218 measured the region tree's growth at **12-19x per step**
+  (blind prefix), i.e. ~1e10-1e12 regions over 10 steps. Infeasible.
+
+**The only rigorous bound computed so far: the trivial one, P(E(t0)) <= P(g23 > t0)** (exact, model-free):
+
+| t0 | P(g23 > t0) | ratio to T340's scan: orig / seed0 / seed3 |
+|---|---|---|
+| 1.0 | 4.44e-2 | 10,100 / 247 / 278 |
+| 1.25 | 1.69e-2 | 18,800 / 273 / 268 |
+| 1.5 | 5.95e-3 | 23,800 / 297 / 259 |
+
+**Conclusion [measured probes, inferred feasibility; negative (unverified), scoped].** A useful rigorous, declared-free
+upper bound on these 1e-4..1e-6 events is not reachable with the exact-walk machinery in this budget:
+- the walks resolve only 1-D lines, not volumes;
+- the volume certificates available (interval propagation) certify ~1e-4 boxes;
+- exact cone enumeration explodes.
+
+**What could work, as follow-up candidates:**
+- (a) A *conditional* certificate: rigorous given a declared closure of the lows. It reduces to 3-D (v2, g12, g23),
+  where box or line certification is plausible. It is not declared-free.
+- (b) Cone enumeration restricted by symmetry or pruning to the event's neighbourhood, if the growth there is much
+  lower than T218's blind-prefix growth. Untested; the cheapest test is to count regions on the g23 > 1 sub-cone for
+  the first 3-4 steps.
+- (c) Certified bounds for smaller networks (H = 4-8), where the region count is manageable. This would say whether
+  rigour at 1e-6 is possible at all for this architecture.
