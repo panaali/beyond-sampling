@@ -1,0 +1,20 @@
+{
+  "status": "PASS_SOURCE_ONLY",
+  "reviewer_source": "e708070e",
+  "reviewer_sha256": "cbd7026f3e65808751343b3b696dbb16f7020b2ce0200181b43e4c8e872a28e2",
+  "assignment": "5c6d2cb4",
+  "scope": "One saved-only AST/JSON metadata check <=20CPU/2GB review lock; no author imports or model/recipe/truth calls.",
+  "checks": [
+    "AST literal defaults and overrides, no eval or imports",
+    "16 variants and320 aggregate groups,5440 source recipe calls/340 source model slots",
+    "340 source exact_acc calls and4 sampler setups additionally supported by read-only sens.py loop inspection",
+    "noise86 source versus89 saved diagnostic distinction",
+    "all original metadata source hashes, key coverage and finite aggregates",
+    "no numerical sensitivity validation inferred; no historical checkpoint identity proof"
+  ],
+  "limitations": [
+    "No durable failure artifact in checker itself; preserve command traceback/output if any assertion fails, do not silent retry.",
+    "Source slot/call counts are designed historical protocol counts, not a new execution census.",
+    "No automatic numerical continuation authorization."
+  ]
+}
