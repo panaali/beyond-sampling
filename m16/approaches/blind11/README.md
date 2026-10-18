@@ -48,7 +48,7 @@ products (H^3 per step x 180 units). That is 28x the ~100 FPE target; it could b
   on DEV2 (-0.30). It is a slightly worse constant than "8/9" plus noise: even after removing its mean bias by an oracle shift, the
   RMS is 0.169 pp, above the go line.
 - Mechanism [inferred]: with gates frozen at one canonical input per (case, label), the closure sees essentially the same affine
-  map for every model of the panel's architecture. The model-to-model variation in blind-region error (0.38-0.91 pp on DEV2) comes
+  map for every model of the panel's architecture. The model-to-model variation in blind-region error (0.34-0.97 pp on DEV2) comes
   from gate switching *inside* the case, which the frozen map does not see (T218: blind-region prefix regions still grow 12-19x per
   step).
 - **Not published as a component** (the go line was not met). The sampled side (diagnostic) shows what is needed: a per-model blind
