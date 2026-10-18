@@ -7,7 +7,7 @@ What does the new capped-k6 estimate and300-block numerical reference establish?
 Freeze20 exact text/JSON blobs at2aad2d28 plus whole-folder Git metadata. Inspect source/schema and write a finite counterexample to the completion-sampling inference. No author imports or binary payloads. SOURCE_REVIEW.md separates scalar inventory from a future saved arithmetic audit.
 
 ## Status
-Source/theorem review 22330943 and checker source/resource review ea7b5544 passed and were published before immutable gate acdbd1c3/shared7f687911. The sole fixed saved arithmetic run 9caaad75 passed. Final independently coded arithmetic review is delegated to910 under74c79d2f and remains pending.
+Source/theorem review 22330943 and checker source/resource review ea7b5544 passed and were published before immutable gate acdbd1c3/shared7f687911. The sole fixed saved arithmetic run 9caaad75 passed. Final independently coded review2806efb7/shared1299c7e6 passes all300 records and6 events using integer raw moments and Decimal100 roots.
 
 ## Results
 [inferred] Randomized dispatch with unordered completion and a wall deadline is not generally unbiased sampling. Partial cells/history/mass and descriptive extrapolation remain separate. MC row schema can support a saved arithmetic check but does not bind historical model/runtime or full stream identity. Saved arithmetic reproduces all300 integer records: N=300000000000, K=285935243665, accuracy=57187048733/60000000000 (about0.9531174788833). Nominal binomial SE=3.85938468025e-7; exact between-block mean SE=3.41834782746e-7. The float32 net correct-count difference in block0 is+29, with individual prediction discordance unknown.
@@ -33,3 +33,7 @@ Executed once after gate publication; output is immutable and rerunning this com
 ```sh
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 bash -c 'set -e; ulimit -Sv 2097152; ulimit -Hv 2097152; ulimit -St 20; ulimit -Ht 20; flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python m16/approaches/feynman_fundamentals/t192_latest_evidence/saved_check.py'
 ```
+
+## Preserved reviewer provenance failure
+
+The first final-review attempt stopped before numerical record contraction because its blanket historical-pin check compared the original README hash against the later updated handoff README. Failure ac14e837 is retained (0.003994399 reviewer CPU seconds). Recovery source e10826e0 uses the exact b8d5cb1b Git bytes only for that historical path/hash, under independent gate6b6d5879/shared85a4a232; all numerical source and tolerances are unchanged. The sole recovery passed in0.007799887 CPU seconds, total recorded reviewer CPU0.011794286. No author run was repeated.
