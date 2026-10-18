@@ -10,7 +10,7 @@
 
 5. **Coincident/zero forms.** Repeated same-sign affine forms cannot produce independent flips; a form identically zero on L×R is fixed OFF. Neither creates extra chambers. Opposite forms can produce a new word on their common zero set, which remains boundary-only unless both forms vanish identically.
 
-6. **The positive image matters.** If the nonnegative-state assumption is dropped, take h=x in R, with next forms x+u and x−u on the full plane. There are four open words, exceeding B(2,1)=3. No single positive h-section covers both signs. This is outside the ReLU hidden-state theorem and prevents extending it to arbitrary signed linear states without a different bound.
+6. **The positive image matters.** If the nonnegative-state assumption is dropped, use the same hidden width H=2: C=R, A x=(x,0), W=[[1,0],[1,0]], and w=(1,−1). The image rank is one and the next forms are x+u and x−u on the full input plane. There are four open words, exceeding B(2,1)=3. No single positive h-section covers both signs. This is outside the ReLU hidden-state theorem and prevents extending it to arbitrary signed linear states without a different bound.
 
 7. **Parent dimension matters.** For A=I in R² but C a single nonnegative ray, the matrix rank is two while dim span A(C) is one. Such C is not a full-dimensional parent in R² and contributes no ambient positive-volume history. Relative-domain counting requires identifying the relative input/image dimension; it cannot silently reuse full-dimensional completeness or probability claims.
 
