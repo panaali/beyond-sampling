@@ -7,9 +7,17 @@ def read(p):return json.loads(Path(p).read_text())
 def save(p,d):
     with Path(p).open('x') as f:json.dump(d,f,indent=2,allow_nan=False);f.write('\n')
 def main():
-    assert not (H/'results.json').exists() and not (H/'progress.jsonl').exists()
+    assert not any((H/n).exists() for n in ['results.json','progress.jsonl','failure.json']) and not list(H.glob('row_*.json'))
     gate=read(H/'gate.json')
     for p,h in gate['pins'].items():assert sha(p)==h,p
+    assert gate['complete'] is True
+    for name in ['t204_saved_review','t210_source_review']:
+        r=gate[name];assert r['complete'] is True and r['commit'] and r['shared_commit']
+        assert gate['pins'][r['artifact']]==r['sha256']==sha(r['artifact'])
+    prior=read(gate['t204_saved_review']['artifact']);assert prior['complete'] is True and prior['pass_all'] is True
+    proto=read(H/'protocol.json');assert proto['original_saved_review']=='40ea5646'
+    priorpins=read(proto['original_review_pins']);assert sha(proto['original_review_pins'])==prior['pins_sha256']
+    assert priorpins['pins'][proto['original_results']]==sha(proto['original_results'])
     start=time.process_time();rows=[];calls={'original_Q_batches':0,'repaired_Q_batches':0,'original_conditional_prefixes':0,'repaired_conditional_prefixes':0}
     def emit(stage,**d):
         with (H/'progress.jsonl').open('a') as f:f.write(json.dumps(dict(stage=stage,**d))+'\n');f.flush()
