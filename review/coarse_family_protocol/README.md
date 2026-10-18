@@ -13,7 +13,8 @@ before any future computation. The label is outcome-derived and expensive.
 
 ## Status
 Source/protocol phase only, claimed1f396509. No numerical execution or array
-contraction. Independent design review is delegated to910 afterT231. Full-target
+contraction. Independent design review is delegated to recover_fundamentals after910
+yielded before any artifact or run (boardb36d34ea). Full-target
 application remains blocked on data/provenance, DRI priority and separate gates.
 
 ## Results

@@ -21,10 +21,18 @@ without an analysis: using its empirical proportions makes this expression
 algebraically equal to2 average(X), eliminating the proposed gain. An independent
 probability estimate introduces its own uncertainty/cost, not a free constant.
 
-For exact conditional iid sampling within each family, with n_l>0, estimator
-2 sum p_l average(X|L=l) has variance4 sum p_l^2 v_l/n_l. If each conditional draw
-costs c_l>0, an ideal continuous allocation of budget B gives lower variance
-4(sum p_l sqrt(v_l c_l))^2/B (Cauchy-Schwarz). Integer allocations, setup,
+For exact conditional iid sampling within each positive-probability family
+(p_l>0), using independent sample sets across strata and n_l>0, estimator
+2 sum p_l average(X|L=l) has variance4 sum p_l^2 v_l/n_l; these sums
+exclude p_l=0 families, whose conditional moments need not be defined. If each conditional draw
+costs c_l>0, an ideal continuous allocation of budget B has oracle variance
+lower bound/infimum
+4(sum p_l sqrt(v_l c_l))^2/B (Cauchy-Schwarz). It is attained by the
+proportional allocation when all variances are positive and that allocation
+is admissible; if all variances are zero, every feasible allocation attains
+zero. Mixed
+zero-variance families with mandatory positive minimum allocations can make
+the bound unattainable. Integer allocations, setup,
 probability estimation, rejection, and pilot costs still count. This is only an
 oracle benchmark when conditional sampling or p_l is unavailable. Rejection
 using an outcome-derived label can require the full network/fibre computation

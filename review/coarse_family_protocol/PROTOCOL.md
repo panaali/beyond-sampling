@@ -2,7 +2,8 @@
 
 Claim1f396509 reserves documentation/source/theorem work only. Nothing below
 licenses a model, walk, random, face, fit, array-contraction or mass call.
-Independent design reviewer910 is assigned after higher-priorityT231. The
+Independent design reviewer recover_fundamentals is assigned byb36d34ea after
+910 yielded before artifacts/runs to finish higher-priorityT231. The
 existing T227 evidence and original negative remain unchanged.
 
 ## Question and competing explanations
