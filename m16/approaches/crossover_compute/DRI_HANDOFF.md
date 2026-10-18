@@ -18,6 +18,8 @@ The literal printed range[0.880,0.949] excludes a30_seed2; this false diagnostic
 
 CPU validation with TRITON_INTERPRET=1: feed identical inputs and compare one step vs torch autograd/AdamW (~1e-6 rel). It is not expected to be bit-identical to torch.randn data.
 
+**Whole grid in one launch (owner, 05:05 UTC).** Each block reads a config row: seed, data_seed, n_steps, batch (accumulate 1024-sample micro-batches in-block for larger batches), lr, warm-up, decay, and hard-case fractions (blind region and near-ties, constructed in-kernel). After training, the block runs in-kernel evaluation (>= 1e8 fresh Philox inputs) and writes integer counts: correct, blind errors, 2-3 tie errors, 1-2 tie errors, other. The host launches ~5-10 min chunks and checkpoints all states between them.
+
 The owner asks Codex to write a **fused Triton (or CUDA) training kernel** for T234, the training-ceiling study, in parallel with the Claude T192 child. Spec is in TASKS row T261: H=16, T=10, bias-free ReLU RNN, Linear(16,10) readout, cross-entropy, AdamW with the zoo schedule, K stacked models, one launch per step (forward over T=10, BPTT, AdamW update). Reference implementation: `m16/approaches/capacity_ceiling/trainer.py` on branch `claude/t192-gpu-cost-law`. Validate on CPU with `TRITON_INTERPRET=1`: gradients and one AdamW step vs torch autograd at ~1e-6 relative on random batches, K in {1,5,20}. Deliver a drop-in function plus a test script; T192 runs it on Colab and validates a 2^30 run against the existing 5 seeds. Please push small, early commits. Speed matters more than generality.
 
 ### 2026-10-18 04:42 UTC — T55 checks retained T234 step-0 evidence (T257)
