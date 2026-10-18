@@ -1,6 +1,6 @@
 # HANDOFF: T270, T234 grid3, T284 HP2/DEV2, T196 (8,5) audit (live state; updated at every check-in)
 
-Last update: 2026-10-18 09:10 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
+Last update: 2026-10-18 10:35 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
 DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `send_message`). T281 scorer session:
 `session_01UvVWREPpEYpUGudpzkioKd`. Budget: T234 + T270 <= 115 Colab units combined.
 
@@ -41,7 +41,17 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 - **Early-stop rule (DRI):** stop both shards if the lower bound on g_1e-7 (= N6(1-1e-7)/N5(1-1e-7)) is >= 15; then
   spend the freed units raising grid3-style 2^34 runs to 100 seeds. Otherwise run to completion and report
   g_delta(5->6) for 1e-5, 1e-6, 1e-7, the mass-rank slope and leaf sums.
-- **OPEN ISSUE (07:25): k = 6 leaf masses sum below their root masses** (per-chunk deficit up to 4.35e-5, total 5.1e-5
+- **ROOT CAUSE (10:15, cx6.py):** estT geometry defect in some k = 6 cells: stored rays miss true vertices and the pulling
+  triangulation drops volume -> masses are UNDERestimates; integration rules are fine (sx6.py); roots verified by MC
+  (mc6.py). Fix: `remass6.py CHUNK [workers] cuda` (pass 1 estT; short subtrees re-walked with qhull rays + Delaunay)
+  -> `results/prefix6/remass_<chunk>.npz`, used by prefix6_bounds.py in place of the chunk; bounds use U + D (D = exact
+  per-chunk shortfall, `worst_chunks` in bounds.json) and are PROVISIONAL. DRI plan: validate on one chunk (leaf =
+  root to ~1e-9), remass in descending D until D << 1e-7; report g_N(5->6) at shard 1's end. estT bug = backlog T316
+  (propose a patch, don't edit estT). Test running 10:20: `/content/remass_test.log` on t192f2 (positions 125, 81).
+- **Memory:** shard 0's main process on t192f2 grew ~20 GB/h (33 GB at 10:26); watchdog `colab/wd_shard0.sh` (job on
+  t192f2) kills + restarts it right after a chunk is written when RSS > 22 GB (log lines `WD ...`; the old wrapper's
+  `T270DONE` after a kill is bogus; real end = `T270DONE_REAL`). Shard 1 on t192lb is fine (11.6 GB).
+- (history) **OPEN ISSUE (07:25): k = 6 leaf masses sum below their root masses** (per-chunk deficit up to 4.35e-5, total 5.1e-5
   over 520 subtrees; k = 5 was exact to 1.4e-9). Bounds at delta <= 1e-5 are invalid until fixed (processed + U <
   1 - delta saturates them). Diagnosis: `python diag6.py results/prefix6/shard1_chunk0001.npz 2` (per-subtree leaf vs
   root; ran on t192f2 with `DIAG_DEV=cuda`, local RAM too small) -> `/content/diag6.log` on t192f2. **Found 09:00:** the
@@ -71,9 +81,9 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 - HP1 truths likewise stay only in `hp1/sealed/truths.json`.
 
 ## T196 (8,5) audit
-Seed 0: charged 2.177e11, complete 2.685e11, ratio 1.23 (`results/audit85/audit_0.log`). Seeds 1-4 relaunched 07:15
+Seed 0: charged 2.177e11, complete 2.685e11, ratio 1.23 (`results/audit85/audit_0.log`). Seed 1: ratio 1.22 (`audit_1.log`). Seeds 2-4 running; relaunched 07:15
 (`colab/q_audit2.sh`). When done: download `/content/audit_{1..4}.log` to `results/audit85/`, add to README, stop t192aud.
 
 ## Units
-304.80 at login; 232.11 at 08:58 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
+304.80 at login; 216.09 at 10:27 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
 ~100 of 115 at T270 completion. Stop each A100 as soon as its shard (and, on fu, grid3) is done and synced.
