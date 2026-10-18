@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py", line 162, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py", line 158, in main
+    try:r.update(check(),complete=True)
+                 ^^^^^^^
+  File "/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py", line 138, in check
+    metrics=dict(lookup=hidden_metrics(score['lookup_hidden'],h,lh),separable_case2=hidden_metrics(score['separable_case2_hidden'],h[mask],sh))
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py", line 61, in hidden_metrics
+    else:close(a,b)
+         ^^^^^^^^^^
+  File "/workspace/work/recover-small_h2_910/review/t201_checkpoint_pilot_review/fullfit_saved/check.py", line 12, in close
+    def close(a,b,rtol=1e-10,floor=1e-12):assert abs(a-b)<=rtol*max(abs(a),abs(b),floor),(a,b)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (0.00039342037818212994, 0.00039342037879153136)
