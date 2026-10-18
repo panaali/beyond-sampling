@@ -502,3 +502,27 @@ driver, and most of it is avoidable:
 - beta needs only one tangent with the cell's gates (~1 FPE).
 At that count A3's C is ~5.1k, MSE x C ~1.9k (< A0's 2.28k) and F ~2.6. Strict (F <= 1 at ~5k) needs RMS <= ~.38, so
 this still does not reach strict.
+
+---
+
+# T353: cost-only reimplementation of A3 (spread + tilt) reusing the walk's crossing-cell state. Pre-registered 2026-10-18 before any run.
+**Change (`t351/cont_h2.py`).** The nb walks use a copy of cont_g.walk_c1 that also records, for each row, the state of
+the cell where its first correct piece starts: gates G, dL, and L at theta*. This applies to screened pieces too.
+- alpha = dL_k - dL_rival is taken from that state (free).
+- beta = one tangent through the recorded gates along the other line's direction, plus its readout.
+- The rival is the argmin of the margins at theta* (L affine from the cell).
+- The g-rule, the integral and everything else are A3's code, unchanged.
+**Charges as executed** (per wall row):
+- L(theta*) affine: 2C;
+- margins + argmin: 3C;
+- alpha: 1;
+- cross tangent: T x F_TAN + 2CH;
+- beta and tilt: 5;
+- the g-rule: 4,880 (as A3).
+The recording itself is a copy, not arithmetic (uncharged, stated).
+**Equality:** the target is estimates bitwise equal to A3 on all 80 DEV2. Declared now: if not bitwise (A3 recomputes a fresh
+forward at theta* + 1e-9, while the reuse uses the walk's affine state, so floats may differ ~1e-15), the gate is
+**max |est - A3| <= 1e-9** absolute. Both the max difference and the count of bitwise-equal models are reported. Stop if the gate fails.
+**Go line:** DEV2 MSE x C <= .90 x T317f's 2,276 = 2,048 (A3's MSE is unchanged, so this is a cost test).
+**If go: DEV3 check (pre-registered, no retuning).** T353 vs T317f on the same DEV3 models (the full 100 from the T192 child,
+with open truths). Report F, MSE x C, bias, sd and RMS for both. "Confirms" iff MSE x C(T353) < MSE x C(T317f) on DEV3.
