@@ -10,7 +10,7 @@ Byte-identical independent check.py from the original saved audit, new scope/pin
 Passed all eight identities and112 metric records, including11 exact-zero-reference records and all recorded equality flags. Completion is summary-level, not independent reconstruction from tensors.
 
 ## Results
-Maximum absolute error2.384185791015625e-7, relativeL2 error3.932716175697898e-7. Exact retained result contains authoritative final digits/CPU. Both remain below frozen2e-6/1e-6 limits; no tolerance change. Original whole-batch failures and its separate successful parity remain preserved.
+Maximum absolute error2.384185791015625e-7, relativeL2 error3.932716176130984e-7. Exact retained result contains authoritative final digits/CPU. Both remain below frozen2e-6/1e-6 limits; no tolerance change. Original whole-batch failures and its separate successful parity remain preserved.
 
 ## Compute accounting
 One saved-only audit; actual20/20CPU and2GiB. No model, gradient, optimizer, compiler or RNG execution. Reproduction command is the original saved_metrics/check.py command with tiled_saved_metrics path; completed outputs refuse overwrite.
