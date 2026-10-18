@@ -876,3 +876,30 @@ claude/t192-gpu-cost-law @63d36d38). The ratio is bound / truth:
 | orig | 8,278x | 15,566x | 28,448x |
 | seed0 | 250x | 274x | 302x |
 | seed3 | 269x | 270x | 272x |
+
+## T349 ("T340c") pre-registration (2026-10-18, before running; split agreed with T340's owner)
+**Scope.** A sub-task of T340.
+- T340 owns the events E1(t0) = {pick = p3, g23 > t0} and E2(t) = {wrong, g12 >= t, g23 >= t}, the truths (T192 GPU)
+  and the verdict.
+- T349 delivers estimates and C only.
+- T340's code is used **read-only from a pinned checkout** (claude/t286-cheap-frontier @620eb47b, rare.py + cont_g.py),
+  outside the repo tree.
+
+**Step 1 (gate).** Reproduce T340's variant B bitwise (E1, E2 and FLOPs) on orig, seed0 and seed3 by calling
+rare.est(variant="B").
+
+**Step 2: T340c.** Identical to B except for g12. B pins g12 = E[g12 | v2] at each v2 node and weights it with the full
+g12 mass. T340c instead integrates g12 with a **K-node Gauss rule for the exact law of g12 | v2**, whose density is
+φ(v2 + g) / (1 − Φ(v2)) for g >= 0 (Stieltjes on a fine model-free grid, as r1w.gauss_v4).
+- One line23 walk per (triple, v2 node, g12 node), with weight ω_k.
+- For E2(t), the rule is for g12 | v2 restricted to g12 >= t, with total weight 1 − Φ(v2 + t), as in B. These are
+  separate walks per t.
+- Everything else is B unchanged: v3* = v2 − E[g23 | v2], v4 at its Gauss node, the v3-v4 link, μ(v4) linearised.
+- **Primary: K = 3. Convergence check: K = 5.** K = 1 reproduces B's g12 for E1, up to the Stieltjes grid (~1e-10).
+- Cost charged as executed with B's charges. It is about 3K × B's walks.
+
+**Reported:** per (model, event), the estimate, the ratio to the truth and C, in est.json's shape for T340's table.
+- Go (T340's own line): ratio within [1/2, 2] on all 9 E1 pairs.
+- Hypothesis (T340's diagnostic): orig's ratio rises from .20-.29 toward 1.
+- Alternative: g12 is not the cause, and the ratio stays low. That would point to the fixed v3-v4 link or the lows
+  (T340's alternative 1).
