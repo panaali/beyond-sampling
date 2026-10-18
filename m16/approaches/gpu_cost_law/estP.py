@@ -49,8 +49,9 @@ def _pattern(p):
     return np.packbits(np.concatenate(G)).tobytes()
 
 
-def _init(model, mode, eps, leafsum=False):
+def _init(model, mode, eps, leafsum=False, start="halves"):
     _W.update(model=model, mode=mode, eps=eps, pat=set(), leaf=None)
+    set_start(model[2].shape[0], start)
     ce0 = B._cell_error
 
     def ce(c, g, A, Wo, truth, ops):
@@ -83,6 +84,25 @@ def _half(i):
     return i, R, o.n, st, time.time() - t0
 
 
+def truth_cones(T):
+    """T200/DRI start for EXACT mode: the 2 T (T-1) simplicial truth cones {x_i > x_j > x_k for all other k} x sign(x0)
+    (truth = j, the 2nd largest), instead of the 4 T! ordering half-chambers. Only the sign(x0) cut is needed (step-1
+    gate planes are x0 = 0; from_normals needs a pointed cone). Same dict format as estT.halves."""
+    E = np.eye(T); out = []
+    for sigma in (1.0, -1.0):
+        for i in range(T):
+            for j in range(T):
+                if i == j:
+                    continue
+                N = [E[i] - E[j]] + [E[j] - E[k] for k in range(T) if k not in (i, j)] + [sigma * E[0]]
+                out.append(dict(sigma=sigma, perm=(i, j), truth=j, n_true=E[i] - E[j], cone=B.Cone.from_normals(N)))
+    return out
+
+
+def set_start(T, start):
+    B._HALVES[T] = B.halves(T) if start == "halves" else truth_cones(T)
+
+
 def load_model(H, T, name):
     from zoo44 import zoo
     if "fresh" in name:                       # T193: fresh noise seed, one copy, sigma as estT_fix
@@ -96,11 +116,12 @@ def load_model(H, T, name):
     return zoo(H, T, int(name))
 
 
-def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, nomass=False, leafsum=False):
+def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, nomass=False, leafsum=False,
+        start="halves"):
+    assert start == "halves" or mode == "exact", "truth-cone start is for exact mode only (recipe108 untouched)"
     estG.DEV[0] = device
     T = model[2].shape[0]
-    if T not in B._HALVES:
-        B._HALVES[T] = B.halves(T)
+    set_start(T, start)
     nh = len(B._HALVES[T])
     done = {}
     if log and os.path.exists(log):
@@ -112,7 +133,7 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
     todo = [i for i in idx if i not in done]
     t0 = time.time(); tm = 0.0; PAT = set()
     fo = open(log, "a") if log else None
-    with mp.get_context("fork").Pool(workers, _init, (model, mode, eps, leafsum)) as pool:
+    with mp.get_context("fork").Pool(workers, _init, (model, mode, eps, leafsum, start)) as pool:
         # bounded in-flight halves: finished halves wait in RAM (rays of ~2e5 6-D simplices each at T = 6) until the
         # parent has integrated them, so at most 2 * workers results are outstanding
         q = queue.Queue(); sem = threading.BoundedSemaphore(2 * workers)
@@ -173,12 +194,14 @@ if __name__ == "__main__":
     ap.add_argument("--sample-seed", type=int, default=0)
     ap.add_argument("--nomass", action="store_true", help="geometry only: count simplices, no mass values")
     ap.add_argument("--leafsum", action="store_true", help="also integrate every leaf cell whole (sum must be 1)")
+    ap.add_argument("--start", default="halves", choices=["halves", "truth"], help="exact mode start cones")
     a = ap.parse_args()
     out = os.path.join(HERE, "results", "runs"); os.makedirs(out, exist_ok=True)
     tag = f"H{a.H}T{a.T}_{a.name.replace(':', '_')}_{a.mode}" + ("_nomass" if a.nomass else "") + \
-        (f"_s{a.sample:g}_{a.sample_seed}" if a.sample else "") + ("_leafsum" if a.leafsum else "")
+        (f"_s{a.sample:g}_{a.sample_seed}" if a.sample else "") + ("_leafsum" if a.leafsum else "") + \
+        ("_truthstart" if a.start == "truth" else "")
     r = run(load_model(a.H, a.T, a.name), a.mode, a.workers, a.device, a.eps, os.path.join(out, tag + ".jsonl"),
-            (a.sample, a.sample_seed) if a.sample else None, a.nomass, a.leafsum)
-    r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"))
+            (a.sample, a.sample_seed) if a.sample else None, a.nomass, a.leafsum, a.start)
+    r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"), start=a.start)
     json.dump(r, open(os.path.join(out, tag + ".json"), "w"), indent=1)
     print(tag, json.dumps(r))
