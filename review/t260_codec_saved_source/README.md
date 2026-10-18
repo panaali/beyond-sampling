@@ -15,7 +15,7 @@ PASS, source_gate.json clears one fixed95internal105/110CPU2GiB120wall primary-l
 saved audit only after completed-input/gate publication. No numerical audit here.
 
 ## Compute accounting
-Five Git text comparisons,21 transitive source hashes and two AST parses. No
+Five Git text comparisons,20 transitive source hashes and two AST parses. No
 producer/codec/array/predictor/fit/RNG calls. Runtime will be separately retained.
 
 ## Claims
