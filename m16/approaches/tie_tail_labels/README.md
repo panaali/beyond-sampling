@@ -423,3 +423,80 @@ seeds 0-4.
 - F0c is reported but does not decide. It is not cheaper than F, so it is no estimator candidate.
 - **Prior:** E24's per-point linear-response ratios (0.95-3.7x) and T218's in-band flip inventory (27% of the
   target's tail mass has >= 5 flips) both predict failure, around 0.3 pp.
+
+## Method (part 3)
+- `kinks.py` (`run_kinks.sh`) -> `results/kinks_2000.json`, `results/kinks_8000.json`:
+  - `walk_sig` is core.walk_mass plus a 64-bit signature hash. Its mass is identical to walk_mass (max
+    difference 0.0 on 4096 faces x 3 models).
+  - Paths: random lines in U_1..U_{T-1} with the configuration fixed, 40 per kind and model, 2,000 points each.
+  - Jump test: |Delta F - mean slope x h| > 10 x |slope| x h.
+- `analyse_kinks.py` -> `kinks_analysis.out`, `results/kinks_analysis.json`: joins E33's per-model gains and
+  tail shares (`ht_seeds/table.json`).
+- `f0.py` (`run_f0.sh`) -> `results/f0_*.json`:
+  - F and F0a (`kinks.F0_frozen`): vectorised, 8 Sobol rules (seeds 700-707) x 2^14 faces per kind.
+  - F and F0c: scalar walk, 4 rules (800-803) x 2^13. Scalar vs vectorised F agree to <= 1.6e-13.
+
+## Results (part 3)
+
+### (2) Integrated in-band-flip effect — **KILL** (decisive models orig, s0.005, s0.01; secondary zoo (16,10) seeds 0-4)
+
+| model | error from F (%) | **E[F] - E[F0a] (pp)** | E[F] - E[F0c] (pp) | error from F0a (%) | error from F0c (%) |
+|---|---|---|---|---|---|
+| orig | 4.670 | -10.35 ± 0.03 | -1.93 ± 0.04 | 15.02 | 6.64 |
+| s005 | 10.816 | -10.60 ± 0.05 | -1.84 ± 0.03 | 21.42 | 12.69 |
+| s010 | 24.205 | -6.84 ± 0.05 | +0.61 ± 0.04 | 31.04 | 23.62 |
+| z10s0 | 9.024 | -2.48 ± 0.02 | -1.47 ± 0.04 | 11.50 | 10.44 |
+| z10s1 | 12.017 | -6.93 ± 0.04 | -3.92 ± 0.06 | 18.94 | 15.94 |
+| z10s2 | 5.161 | -20.80 ± 0.05 | -9.90 ± 0.09 | 25.96 | 15.07 |
+| z10s3 | 6.780 | -7.69 ± 0.02 | -2.86 ± 0.03 | 14.47 | 9.65 |
+| z10s4 | 11.060 | -3.16 ± 0.02 | -1.55 ± 0.05 | 14.22 | 12.62 |
+
+- **The bias is 7-21 pp for F0a and 0.6-10 pp for F0c, against the 0.02 pp go line.** It is negative (frozen gates
+  *over*-count errors) on every model except s0.01 under F0c.
+- Frozen-at-the-tie linear logits extrapolated over the window misclassify far from the band. F0a overshoots by
+  2-7x even at T=3 (smoke test: E[F0a] / E[F] = 1.9 for R23 and 6.8 for R12 at (16,3) seed 0).
+- Freezing only inside each misclassified component (F0c) is closer but still wrong by about 2 pp on the target.
+  In-band gate flips *end* the bands: the gates that flip inside a band are what stop the frozen map's error from
+  continuing.
+- The prior (~0.3 pp) was optimistic. The integrated effect is about an order of magnitude larger.
+- Sanity: the error from F matches the truths. Target 4.670% vs the answer key's 4.688% (rule spread s.e.
+  ~0.01 pp); s0.005 10.816% vs 10.817%; s0.01 24.205% vs 24.226%.
+
+### (1) Kink density — **rate account via kink density NOT SUPPORTED** ()
+
+| T | 3 | 4 | 5 | 6 | 8 | 10 | target |
+|---|---|---|---|---|---|---|---|
+| kinks per unit U-length (geo-mean, 5 seeds) | 21.8 | 42.2 | 53.4 | 57.6 | 50.0 | 52.1 | 64.1 |
+| discontinuities per unit length | 0.28 | 0.07 | 0.06 | 0.06 | 0.03 | ~0.03 (one seed 0) | 0.08 |
+| F-weighted kinks per unit length | 0.007 | 0.038 | 0.17 | 0.43 | 0.58 | 0.86 | - |
+| E33 Sobol gain (geo-mean) | 1260 | 75 | 9.4 | 3.4 | 2.7 | 1.6 | - |
+| E33 tail share | .22 | .30 | .42 | .60 | .61 | .46 | - |
+
+- **(a) fails.** Kink density rises only 2.4x from T=3 to T=10 (criterion >= 10x). It saturates at ~50-58 per
+  unit from T=5, while the gain falls another 6x.
+- **(b) fails.** Within fixed T (T = 4, 5, 6, 8; n = 20; log values centred per T), Spearman rho(kink density,
+  gain) = **+0.20** (p = .39), the wrong sign. The pre-registered within-T tail rho on the same 20 models is -0.21
+  (p = .37). E33's -0.55 pooled all H.
+- **Discontinuities:** jumps are rare (<= 0.3 per unit) and become *rarer* with T. Within T, their density
+  correlates with gain at rho = -0.51 (p = .02), but across T they move the opposite way to the collapse.
+- **F-weighted kinks** rise 120x and track the collapse across T. That is because the error itself (F) grows, and
+  within T the rho is +0.23.
+- Resolution: 8,000 vs 2,000 points (10 paths, target and two zoo models) give densities within ±25% with no
+  systematic increase, so counts are not resolution-limited.
+- [inferred] What this does **not** test: Fable's N^(-s/d) argument has a second factor, the dimension d = T-1
+  (2 at T=3, 9 at T=10). With a constant kink density and s ~ 1, the rate still degrades with d. The data refute
+  "kink density grows with T" as the mechanism, not the dimension-driven rate account. Separating d from
+  integrand structure needs fixed-T models that differ in effective dimension, e.g. E25's H-dependence at fixed T
+  (gain varies 3-264x at T=5 with the same d), which already argues that d alone is not it either.
+
+## Claims (part 3, unverified)
+- [measured] |E[F] - E[F0a]| = 6.8-10.6 pp on the target and copies (2.5-21 pp on zoo (16,10)). F0c = 0.6-1.9 pp
+  on the target and copies. **KILL** for in-band-flip freezing as an approximate band identity.
+- [measured] Kink density of the face integrand rises 2.4x from T=3 to T=10 and saturates by T=5. Within T it
+  does not predict the Sobol gain (rho +0.20). Not supported as the cause of the H-E11 collapse.
+- [inferred] The collapse is not explained by more kinks per unit length. Dimension (d = T-1) and integrand
+  magnitude structure (tails, H-E12) remain candidates.
+
+## Compute (part 3)
+Kink scan: 31 models x 2 kinds x 40 x 2,000 walks, ~4 CPU-min, plus the resolution check. F0: 8 models, ~40
+CPU-min (scalar F0c dominates). Total ~45 CPU-min.
