@@ -45,7 +45,9 @@ a descriptive coverage question without inheriting a cost-saving claim.
 ## T192 availability is corpus-specific
 
 The frozen GPU tree has run summaries and a separate `export_simplices.py`.
-That export explicitly keeps every STRIDE-th emitted H8T5 error simplex and
+The pinned estP.py routes _cell_error output simplices into the returned mass
+collector; optional full-leaf diagnostics use a separate collector. That export
+calls the default without leafsum, keeps every STRIDE-th H8T5 error simplex and
 saves its rays and two numerical mass evaluations, with total/stride metadata.
 It is not a complete collection of correct and wrong activation leaves, nor a
 random sample with known probabilistic coverage weights. It cannot substitute
