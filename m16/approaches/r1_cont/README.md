@@ -402,3 +402,37 @@ through it).**
   number of *distinct inputs*, not share their computation. For example: fewer triples per line (merging positions
   with a deductive symmetry bound), fewer lines, or a backward / readout-side decomposition that does not enumerate
   full prefixes. Mass pruning cannot do it: the mass is diffuse.
+
+## T330 pre-registration (DRI, 2026-10-18; written before any T330 code is run)
+**Goal.** A deductive "safely correct to tmax" screen on T317e's walks. At the start of each cell (the first cell
+included), a row may stop walking only if a rigorous bound proves that every point of its remaining segment
+[t_c, tmax] is classified correctly, whatever gate flips happen there. The row then gets one correct piece
+[t_c, tmax]. The screen must never cut a cell that holds a wrong piece.
+
+**Bound family (sound by construction):**
+- **Tier A (per model and line, row-independent; computed once):**
+  - Box on the tangent dh_s over all gate patterns: b_0 = 0, b_s = |Wh| b_{s-1} + δ_s |Wi|, where δ_s = max over the
+    line's rows of |d_s|.
+  - Margin slopes: for target k and competitor j, |dm_kj/dt| <= β_kj = |Wo_k − Wo_j| · b_T at every t. This is valid
+    across flips, because the logits are continuous and piecewise linear.
+  - Safe iff min over j≠k of [m_kj(t_c) − (tmax − t_c) β_kj] > 0, with m_kj(t_c) = L_k(t_c) − L_j(t_c). A strict
+    inequality makes numpy's first-index tie rule irrelevant.
+- **Tier B (row-specific; used only if tier A fires too rarely to meet the go line):** the same interval propagation
+  per row, from the row's own z(t_c), dz(t_c). A gate is fixed when |z_s,i(t_c)| > Δ · sup|dz_s,i| over the box, so
+  that it cannot cross zero in the window, and free otherwise. This is sound by induction over the steps.
+- Charges as executed:
+  - tier A: ~12k FLOPs per line;
+  - each tier-A check: 4C + 2 = 42 FLOPs;
+  - a tier-B check: its interval matvecs (≈ 2 × 2H² per step), charged in full.
+- Lines: the non-blind ones first (nb-g23, nb-g12). b-g23 is screened too only if it pays. Everything else is
+  T317e's code unchanged.
+
+**Go line (DRI):** max |est − T317e| <= **1e-4 pp** on all 80 DEV2, at **C <= 3.0k FPE** as executed.
+
+**Checks:**
+1. For every screened row, the per-row line profile equals T317e's to <= 1e-12.
+2. An independent soundness audit runs T317e's full walk and asserts that no screened segment contains a wrong piece.
+
+**Forking paths.** The screen is exact by construction, so the estimate cannot be tuned. Any variant iterated on DEV2
+changes only the cost, which is deterministic. The cost is panel-dependent, though, so a sealed panel would see some
+cost shrinkage. No sealed scoring here: HP4 is reserved for the combined attempt.
