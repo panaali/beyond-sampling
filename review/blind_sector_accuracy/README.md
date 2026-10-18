@@ -19,7 +19,7 @@ Planned17 controls,5,058 target rows,20chunks,76events,5,066 orthant attempts an
 [inferred] Exact interval propagation can certify sector-level nonconstant correctness conditional on inherited archive coverage and numerical enclosures. [speculative] Such sectors may or may not support a useful richer conditional law. Neither is a cheap accuracy-estimator claim.
 
 ## Alternatives not ruled out
-A compact conditional probability may exist even if pointwise correctness is nonconstant. Finer summaries, other models and predictive-class quotients remain open. This oracle aggregation cannot establish their construction cost.
+A compact conditional probability may exist even if pointwise correctness is nonconstant. Varying true labels can make correctness nonconstant even when the network output is constant, so this is not a predicted-class quotient obstruction; the richer C8/T268 class-law objective remains open. Finer summaries, other models and predictive-class quotients remain open. This oracle aggregation cannot establish their construction cost.
 
 ## Failure modes
 Mismatched row provenance, mixed-sign/degenerate cones, malformed enclosures, reference assumptions and resource failure. All attempted controls, partial rows and failures remain intact. No clipping hides invalid intervals; physical intersections and original sums are both retained.

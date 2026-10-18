@@ -29,7 +29,8 @@ def main():
     try:
         save();protocol=read(P/'protocol.json');gate=read(P/'gate.json');review=read(protocol['source_review'])
         assert gate['ready'] is True and all(review[k] is True for k in ['complete','pass_all','execution_authorized'])
-        for k in ['source_publication','review_publication','execution_publication']:assert type(gate[k])is str and len(gate[k])>=8
+        for k in ['source_publication','review_publication','execution_publication']:
+            value=gate[k];assert type(value)is str and 8<=len(value)<=40 and all(c in '0123456789abcdef' for c in value)
         own={str(P/n) for n in ['sector.py','fixtures.py','run.py','launch.sh','PROTOCOL.md','protocol.json']}
         assert own<=set(review['pins']) and own|set(protocol['pins'])|{protocol['source_review']}<=set(gate['pins'])
         for pins in [protocol['pins'],gate['pins'],review['pins']]:
@@ -72,18 +73,18 @@ def main():
                     assert det==F(*map(int,item['normalized_absolute_determinant']))
                     qlo,qhi=bound['quadrature'];err=bound['truncation_upper'];assert all(type(v)is float and math.isfinite(v) for v in [qlo,qhi,err]) and 0<=qlo<=qhi and err>=0
                     low=F.from_float(qlo)-F.from_float(err);high=F.from_float(qhi)+F.from_float(err);rawlo+=low;rawhi+=high
-                    cl,cu=max(F(0),low),min(p,high);assert cl<=cu
+                    cl,cu=max(F(0),low),min(p,high);active.update(raw_interval=[low,high],physical_interval=[cl,cu],phase='interval_check');atomic('active',active);assert cl<=cu
                     row={'index':i,'sector':key,'normalized_determinant':det,'raw_interval':[low,high],'physical_interval':[cl,cu]};active.update(phase='completed',value=row);atomic('active',active)
                     stream.write(json.dumps(enc(row),separators=(',',':'))+'\n');stream.flush();totals[key]['count']+=1;totals[key]['lower']+=cl;totals[key]['upper']+=cu;r['rows']+=1
             r['chunks'].append({'index':chunk,'first':first,'rows':min(256,5058-first),'path':file.name,'sha256':sha(file)});event('chunk_completed',index=chunk)
         r['contraction_cpu']=time.process_time()-contraction_start
         # Exact summation of stored outward component endpoints fits inside the broader historical floating sum.
-        reflo,refhi=map(F.from_float,ref['accuracy']['probability_interval']);assert reflo<=rawlo<=rawhi<=refhi
-        r['raw_global_interval']=[rawlo,rawhi];sectors=[]
+        reflo,refhi=map(F.from_float,ref['accuracy']['probability_interval']);r['raw_global_interval']=[rawlo,rawhi];r['reference_global_exact']=[reflo,refhi];save();assert reflo<=rawlo<=rawhi<=refhi
+        sectors=[];r['sectors']=sectors
         for key in range(16):
-            t=totals[key];lo=max(F(0),t['lower']);hi=min(p,t['upper']);r['law_attempts']+=1;law=binary_law(lo,hi)
-            sectors.append({'sector':key,'positive_positions':[j for j in range(4) if key&(1<<j)],'simplex_count':t['count'],'unclipped_sum':[t['lower'],t['upper']],'sector_mass':p,**law})
-        blind=[x for x in sectors if x['sector'] in [0,1,2,4,8]];mass=5*p;correct=[sum(x['correct'][i] for x in blind) for i in range(2)];loss=[sum(x['best_binary_loss'][i] for x in blind) for i in range(2)]
+            t=totals[key];lo=max(F(0),t['lower']);hi=min(p,t['upper']);r['active_sector']={'sector':key,'unclipped_sum':[t['lower'],t['upper']],'prospective_interval':[lo,hi]};r['law_attempts']+=1;save();law=binary_law(lo,hi);r['active_sector']['returned_law']=law;save()
+            sectors.append({'sector':key,'positive_positions':[j for j in range(4) if key&(1<<j)],'simplex_count':t['count'],'unclipped_sum':[t['lower'],t['upper']],'sector_mass':p,**law});save()
+        r.pop('active_sector',None);blind=[x for x in sectors if x['sector'] in [0,1,2,4,8]];mass=5*p;correct=[sum(x['correct'][i] for x in blind) for i in range(2)];loss=[sum(x['best_binary_loss'][i] for x in blind) for i in range(2)]
         r.update(sectors=sectors,blind={'sector_ids':[0,1,2,4,8],'mass':mass,'correct':correct,'error':[mass-correct[1],mass-correct[0]],'conditional_accuracy':[x/mass for x in correct],'best_binary_loss':loss,'nonconstant_sector_ids':[x['sector'] for x in blind if x['strictly_nonconstant']]});save()
         assert r['rows']==5058 and len(r['chunks'])==20 and r['orthant_attempts']==5066 and r['law_attempts']==25
         event('completed');assert r['events']==76;r['complete']=r['pass_all']=True;save()
