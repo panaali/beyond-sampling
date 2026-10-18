@@ -1,9 +1,8 @@
 """Independent saved scalar audit. No producer imports, arrays, fit/scipy calls or RNG."""
 import collections, hashlib, json, math, os, pathlib, resource, sys, time
 from fractions import Fraction as F
-import mpmath as mp
 B=pathlib.Path(__file__).resolve().parent
-START=time.process_time();mp.mp.dps=60
+START=time.process_time();OWNED=False;mp=None
 R={'complete':False,'pass_all':False,'comparisons':[],'groups':{},'limitations':['finite regression CIs, not asymptotic rate evidence','reference and cost provenance source qualified','no model/array/RNG/producer replay']}
 OUT=B/'output'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -187,17 +186,23 @@ def t277():
     R['prefactor_note']='Numeric matches do not reconstruct an absent producing script; all raw fields retained.'
 
 def main():
-    assert sys.executable=='/workspace/clean-neurons/.venv/bin/python'
-    assert not OUT.exists(),'immutable output exists';OUT.mkdir();save()
+    global OWNED,mp
+    assert not OUT.exists(),'immutable output exists';OUT.mkdir();OWNED=True;save()
     gate=load(B/'execution_gate.json');assert gate['execution_authorized'] is True and gate['scope']=='T283 retained scalar audit'
     assert gate['pins'][gate['source_review']]==sha(pathlib.Path(gate['source_review']))
     review=load(gate['source_review']);assert all(review[k] is True for k in ('complete','pass_all','execution_authorized'))
     assert len(gate['publication'])>=8 and all(c in '0123456789abcdef' for c in gate['publication'])
-    mandatory={str(B/n) for n in ('check.py','PROTOCOL.md','launch.sh','manifest.json')}
+    mandatory={str(B/n) for n in ('check.py','PROTOCOL.md','launch.sh','manifest.json','runtime.json')}
     assert mandatory<=set(gate['pins']) and mandatory<=set(review['pins'])
     for pins in (gate['pins'],review['pins']):
         assert pins
         for p,h in pins.items():assert sha(pathlib.Path(p))==h,(p,'pin')
+    runtime=load(B/'runtime.json')
+    assert sys.executable==runtime['invoked_python'] and str(pathlib.Path(sys.executable).resolve())==runtime['resolved_python'] and sys.version==runtime['python_version']
+    for p,h in runtime['pins'].items():assert sha(pathlib.Path(p))==h,p
+    import mpmath as numerical
+    mp=numerical;assert mp.__version__==runtime['mpmath_version'] and str(pathlib.Path(mp.__file__).resolve().parent)==runtime['mpmath_root'];mp.mp.dps=60
+    R['runtime']=runtime
     manifest=load(B/'manifest.json');assert manifest['complete']
     for row in manifest['records']:
         p=B/row['local'];assert sha(p)==row['sha256'] and p.stat().st_size==row['bytes']
@@ -208,5 +213,5 @@ if __name__=='__main__':
     try:main()
     except BaseException as e:
         R['complete']=False;R['pass_all']=False;R['failure']={'type':type(e).__name__,'message':str(e)}
-        if OUT.exists():save()
+        if OWNED:save()
         raise
