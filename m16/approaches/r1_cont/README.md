@@ -313,7 +313,9 @@ be traded for error: T317e's own point is the frontier's best.
 **Exhaustion checklist, variants NOT tried, and why:**
 1. **Per-triple margin or mass screens** (ANAT-80's ~44 triples). They act only on later cells (~3.3k FPE). The
    prefix-tree floor (~2.2k with 3 lines) remains, so even a perfect screen leaves C ≈ 2.2-2.5k at RMS >= .79, i.e.
-   strict F >= 4.8 at best. It cannot reach the go line.
+   strict F >= ~1.86 at best (corrected by the DRI; I first wrote 4.8). F is linear in C at fixed RMS:
+   .0079² × 2,200 / .074 = 1.86. It cannot reach the .8 go line alone, but it is worth ~2.5x and is half of the strict
+   route (see T330).
 2. **Cap with "rest of the window assumed correct"** instead of a frozen extension. Its bias would go positive rather
    than negative, so it might be milder than the frozen cap. It is bounded below by the same ~2.2k floor, so the
    same argument applies.
@@ -344,16 +346,17 @@ if its deficit > 1e-13. "Ideal cap" follows a row only up to its last cell that 
 
 - **At q = 100% with the ideal cap, the estimate is unchanged (exact).** Its cost is about 1,130 (prefix) + 700
   (later cells) + ~190 (first-cell readout of the kept rows) + ~115 (Φ) + 20, i.e. **≈ 2.2k FPE**. That is the floor
-  for *any* screen that preserves T317e's estimates. At RMS .79 it gives strict F ≈ 6.3.
+  for *any* screen that preserves T317e's estimates. At RMS .79 it gives strict F ≈ **1.86** (corrected by the DRI; I
+  first wrote 6.3).
 - **The two big items behave differently:**
   - **The tangent recompute is mostly unnecessary:** on the non-blind lines, 92-95% of later cells come *after* the
     row's last wrong piece. A deductive "row is now safely correct to tmax" screen could in principle recover most of
     the 2.0k FPE of tangents.
   - **The prefix tree is not:** restricting to the mass-carrying rows saves only ~40% on the non-blind lines and ~20%
     on b-g23. ~1.1k FPE of prefix tree remains even for an oracle.
-- [inferred] Even a perfect screen leaves T317e's estimates at ~2.2k FPE, so strict F ≈ 6.3 at the current error.
-  The strict bar needs the error route (T324/T327) or a different geometry. The cost lever alone can reach at most
-  ~2.5x (5.5k → 2.2k).
+- [inferred] Even a perfect screen leaves T317e's estimates at ~2.2k FPE, so strict F ≈ 1.86 at the current error
+  (corrected; I first wrote 6.3). The cost lever is worth ~2.5x (5.5k → 2.2k). Combined with a bias fix to RMS ≈ .58 pp
+  (T324), it would give F ≈ 1.0. That is the strict route's other half: T330.
 
 ## T326 note for T329: where the ~2.2k floor comes from (`python tree_note.py`, `results_tree_note.json`)
 (DRI arithmetic correction: at 5.5k FPE, strict needs RMS <= .37 pp, not ~.5; .5 gives F ≈ 1.9. The T326 text above
