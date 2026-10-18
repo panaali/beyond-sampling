@@ -41,8 +41,11 @@ LB3 raw rows (`lb3_raw_snapshot.jsonl`) and truths (`lb3_truths.json`), copied f
     to the region with no argument from the weights.
 
   So branch_bound at <= 64k is inductive in the decisive step.
-- **sci_tao already passes the lenient bar** (`python rescore.py sci_tao`): ratio 0.01-2.9 at every budget and
-  group, upper CI <= 5.5. It is the same class (fixed Sobol nodes, inductive by the same test). So
+- **sci_tao already passes the lenient bar** (`python rescore.py sci_tao 2.23`, with its v3 cost factor 2.23):
+  - its charged cost is about 2.2 x B, so it meets the B/2 floor;
+  - upper CI <= 8.9 (16k), <= 8.0 (64k), <= 5.2 (256k) on all six groups;
+  - it fails only at 1k/4k on s0.02 (12.3 / 10.3).
+  - *Correction:* a first version quoted ratios without the cost factor (0.01-2.9). It is the same class (fixed Sobol nodes, inductive by the same test). So
   "branch_bound is the only non-sampling row near 10x" holds only if inductive quadrature rows are excluded, and
   then branch_bound is excluded too.
 - **The v3 lenient bar is degenerate for cheap estimators.** v3 scores each run at its own charged cost C, and
@@ -150,8 +153,9 @@ attempts are:
 - **rank_exact (m = 0):** bias 0.48-3.5 pp, 4-14x over b_max(256k).
 - **rank_exact + 6 exact last steps:** 0.22-0.65 pp, 1.5-5x over, and not cheap.
 
-The inductive quadrature row sci_tao already passes the lenient bar under the old scoring, and needs a re-check
-under the cost floor (its charged cost is about the budget, so probably fine).
+The inductive quadrature row sci_tao **passes the approved go line at 16k, 64k and 256k** (charged cost ~2.2 x B;
+max upper CI 8.9 / 8.0 / 5.2). It is inductive (fixed Sobol nodes) by Hilton's test, so it is lenient-bar
+evidence of the quadrature class only.
 
 ## Compute accounting
 - Re-scoring: seconds.
