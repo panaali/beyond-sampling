@@ -9,3 +9,5 @@ Task-board delegation9f66c544 assigns T55 source gate and78 saved application au
 After source gate: publish TASKS-only conditional execution scope, create/publish immutable application_gate.json, inspect successful push before separate launch. One90internal105/110CPU2GiB120wall process under codex-compute.lock. Never repeat completed centre points automatically or change fixed rules based on accuracy. Preserve all outputs.
 
 Preparation-only shell typo `/ workspace/...` failed before interpreter execution; corrected metadata-only probe identified NumPy2.5.4/SciPy1.18.1. No target/model/face calls occurred in that failed command.
+
+Application sole run now complete:2718points/5439events,26.677619646CPU; immutablegate309f44b5 published48eabfc2 before separate launch. Raw/result publication follows;78 independent checker68b85a6c source-gatedfe91284c/shared4f40a2c3. No application rerun or expanded rule authorized.
