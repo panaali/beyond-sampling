@@ -1,0 +1,64 @@
+{
+  "complete": true,
+  "source_artifact_commit": "608013fa",
+  "pilot_sha256": "f5b16108024c4255bfbc09497bd4acacfe35f1b269c62fdbca2ca56fec9faca8",
+  "protocol_sha256": "9ddddc21b17463ad91e1ced5160a804f539721688549d9673ff945eb390c6247",
+  "checker_sha256": "613d7c96292dcf8325b11c0ae5f6bf9dabf342e04b412e67f05b8757981cf94e",
+  "exact_coefficient_rows": 84,
+  "summary": {
+    "prefix_pieces": 84,
+    "group_counts": {
+      "global_history": 42,
+      "same_truth_history": 48,
+      "global_exact_state": 42,
+      "same_truth_exact_state": 48,
+      "global_stored_state": 42,
+      "same_truth_stored_state": 48
+    },
+    "reset_group_counts": {
+      "global_exact_state": 0,
+      "same_truth_exact_state": 0,
+      "global_stored_state": 0,
+      "same_truth_stored_state": 0
+    },
+    "stored_maps_equal_exact": 0,
+    "max_map_difference": [
+      "47932721",
+      "18889465931478580854784"
+    ]
+  },
+  "formation_counts": {
+    "mul": 27216,
+    "add": 27216
+  },
+  "recorded_observer": {
+    "proxy": 129693,
+    "finish_calls": 108,
+    "lookahead_calls": 0,
+    "lookahead_points": 0,
+    "states": 84,
+    "mass_or_final_calls": 0,
+    "cpu_seconds": 0.06799038300000002,
+    "stats": {
+      "cells": 0,
+      "cut": 62,
+      "resolved": 80,
+      "simplices": 0
+    }
+  },
+  "source_change_conservation": true,
+  "comparison_sha256": "328121a9080760b69968cb88ce968d549fe44c5099cc44c1b159375a7d71fa73",
+  "recipe_comparison_checked": true,
+  "saved_event_count": 263,
+  "author_cpu": 0.23185894399999998,
+  "review_cpu": 0.12397806299999999,
+  "new_forward_geometry_mass_calls": 0,
+  "limitations": [
+    "Four fixed parents only; prefix pieces are not terminal cells or probability weights.",
+    "Exact states refer to frozen histories; no proof of floating exact-mode domain feasibility or clipping coverage.",
+    "Identifiability premise reuses independent T11597 exact weight review; no new canonicalization run.",
+    "Proxy totals conserved from parents; internal observer finish/lookahead counts not independently regenerated.",
+    "Stored binary states differ from exact states in all84; equality-class counts agree, not map identity.",
+    "Counted formation excludes comparisons/GCD/memory/integer internals and capture setup; no full cost or speed claim."
+  ]
+}
