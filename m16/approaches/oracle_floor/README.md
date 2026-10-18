@@ -176,3 +176,27 @@ blind 1%. (tail >= .1 alone: 36%; >= .2: 17%.)
 - Backlog: **R0-floor check** on a second panel (HP1/DEV seeds) + region split; if <= .5 pp holds, design a
   deterministic boundary-finding skeleton integral for R0 (cost per triple?) and see if it fits 4k FPE.
 - Fable r2 odds: G1 failed -> per Fable E, cheap-regime deductive odds < 3%; C1 not funded; spend on T203 accounting.
+
+---
+
+# T296: the R0 point closure (follow-up of T292 Claims 4)
+
+## Stage A pre-registration (written 2026-10-18, before any LB3 R0 data)
+DRI brief (verbatim): "Reproduce R0's oracle floor on a second panel: the LB3 models (orig, seeds 0-4, the noisy
+groups). HP1/HP2 stay sealed. Split the bias by region (blind / 2~3 / 1~2 / tail), and check it is not lucky
+cancellation as E31's was. Go if RMS <= .55 pp, no group mean beyond +-.3 pp, and every region's |bias| <= half the
+total RMS. Also report the per-region RMS on DEV2, so we know which part the cancellation would have to come from."
+
+My operationalisation (fixed now):
+- Panel: all 30 LB3 test models (m16/leaderboard.py `models()`): orig, seed0-4, s{.0025,.005,.01,.02}_{0..5}
+  (noise seed 0), truths from results/leaderboard_truths.json (4e6 samples). Seeds come from the T241 branch's
+  zoo16_10_weights.npz (alg_zoo is not installed). Each one is checked against the LB3 truth with 2e6 samples (must be
+  within 4 SE), and so is every noisy copy.
+- R0 bias b_m = mean over 20k skeletons of [R0 correct] - q(S), with q(S) from 256 low draws (oracle.py, unchanged).
+- **Go** iff all three hold over the 30 models: (i) RMS_m(b_m) <= .55 pp; (ii) for each of the 6 groups (orig as a
+  group of 1, seed, 4 noise levels), |mean b| <= .30 pp; (iii) for each region r, |mean_m b_{m,r}| <= RMS_m(b_m)/2.
+  Secondary (no gate): per-region RMS_m(b_{m,r}) on LB3 and DEV2; the same three tests restricted to the
+  retrain-like subset (orig, seeds, s.0025, s.005; 18 models) are reported separately, because the s.01/.02
+  copies (45-89% accurate) are outside the target regime. The verdict uses all 30.
+- Label: R0 is a **declared structural approximation** (deductive under Hilton's "approximations are fine"). The
+  oracle here is diagnostic sampling. Stage B's skeleton integral (if go) is exact reasoning.
