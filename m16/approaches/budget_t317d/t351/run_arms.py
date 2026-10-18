@@ -14,7 +14,7 @@ for name, m in dev2():
     ef, ff = cont_f.est(m)
     for a, (sp, tl) in ARMS.items():
         e, f, info = cont_h.est_h(m, sp, tl, parts=True); r[a] = dict(est=e, C=f / 5948, D=info.get("D", 0.0))
-    chk["a0_bitwise"] &= (r["A0_T317f"]["est"] == ef) and (abs(r["A0_T317f"]["C"] * 5948 - ff) == 0)
+    chk["a0_bitwise"] = bool(chk["a0_bitwise"] and r["A0_T317f"]["est"] == ef and abs(r["A0_T317f"]["C"] * 5948 - ff) == 0)
     chk["d8_vs_d40"].append(100 * r["A2_tilt"]["D"] - tilt.D_pred(m)[0])
     rows[name] = r
     print(name, {a: (round(100 * (r[a]["est"] - r["truth"]), 3), round(r[a]["C"])) for a in ARMS}, flush=True)

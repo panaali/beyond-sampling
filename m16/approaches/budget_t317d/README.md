@@ -474,3 +474,31 @@ and C for each arm. The selected arm is frozen as `t351/estimator_h.py` (est(mod
 both; "beats T317f" iff F_h < F_T317f on DEV3. The DRI then decides on HP5.
 Labels: the estimator is sampling-free at runtime (deductive + declared approximations, as T317f); the tilt correction
 adds no fitted constant. Cap 2.5 h.
+
+## T351 results (`python t351/run_arms.py`, `t351/arms_dev2.json`, `t351/arms.log`; all 80 DEV2, 1e8 truths)
+**Checks:**
+- A0 = cont_f.est **bitwise** in estimates and FLOPs on all 80 (re-verified on raw values; the in-script flag was a
+  false negative from the FPE round trip);
+- A1 reproduces T339's s = -1 row (RMS .884, bias +.758, C 3,748);
+- tilt NQ = 8 vs tilt.py NQ = 40: max |diff| .0025 pp.
+
+| arm | bias | sd | RMS | C (FPE, executed) | MSE x C | F |
+|---|---|---|---|---|---|---|
+| **A0 T317f** | +.489 | .671 | .827 | **3,326** | **2,276** | **3.14** |
+| A1 + spread (s = -1) | +.758 | .458 | .884 | 3,748 | 2,931 | 4.04 |
+| A2 + tilt | **+.038** | .673 | .670 | 6,124 | 2,750 | 3.79 |
+| A3 + spread + tilt | +.413 | **.451** | **.609** | 6,543 | 2,426 | 3.35 |
+
+**Selection (pre-registered, min DEV2 MSE x C): A0 = T317f.** So T317h = T317f: nothing new is frozen, and the DEV3
+"beats T317f" check is moot by construction (it would compare T317f with itself).
+- The tilt correction does what T347 found: bias +.49 -> +.04, and with spread the best RMS of the family, .609.
+- But as executed it costs +2.8k FPE: ~355 wall rows per line x (3.0 FPE crossing pass + 0.82 FPE g-rule).
+  C nearly doubles, and MSE x C does not fall.
+- The spread's extra +.27 pp bias (T339) is only partly removed by the tilt: A3 still has +.41.
+
+**Not pre-registered; for the DRI to decide on (needs its own pre-registration).** The crossing pass is the cost
+driver, and most of it is avoidable:
+- the walk already holds the crossing cell's gate pattern and dL, so alpha is free;
+- beta needs only one tangent with the cell's gates (~1 FPE).
+At that count A3's C is ~5.1k, MSE x C ~1.9k (< A0's 2.28k) and F ~2.6. Strict (F <= 1 at ~5k) needs RMS <= ~.38, so
+this still does not reach strict.
