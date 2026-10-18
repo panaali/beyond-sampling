@@ -1269,3 +1269,29 @@ unmodified, hashes checked):**
   triple-tie-dominated at these thresholds, so the fresh test does **not discriminate** the fix.
 - The fix's support remains the development result on T364's models: s527 .02 → .73, 5/6 vs 2/6. [unverified on
   fresh triple-tie-dominated models]
+
+## T369 pre-registration (DRI; 2026-10-18, before any T369 run): calibrate the graded g12 rule
+**Facts (T367, claude/t286-cheap-frontier e8ab4fe5):**
+- The frozen fix is 6/8 within 2x.
+- Both misses are dev3_s547 (2.43 / 2.12; K3 1.03 / 1.25), where 80% of the hits have g12 < .1.
+- The rule's weights sum to 1 (to 1e-6), so there is no mass double counting.
+
+**Step 1: quadrature convergence (separates "quadrature" from "closure").** Development models only, all already
+seen: s547 (t0 2.25, 2.5), s541 (1.75, 2.0), s546 (2.5) and s543 (2.5).
+- **R1:** the frozen rule.
+- **R2:** the same panels with 4-pt Gauss-Legendre.
+- **R3:** finer panels, 2-pt GL each, on [0, .005, .01, .02, .03, .05, .07, .1, .15, .25, .4], plus the 3-node law
+  rule beyond.
+
+**Step 2, if the estimates move by <= 20% from R1 to R2 and R3:** the rule is converged and the s547 overshoot is not
+quadrature.
+- Then run an oracle check (T363's sampler style, given g23 > t0) on s547: the hit rate in the closure world vs the
+  truth world, split at g12 < .1 vs >= .1. This locates a closure artifact in the sliver.
+- No calibration is frozen in that case. It is reported as a closure limitation, not tuned away.
+
+**If quadrature-limited (estimates move > 20%):**
+- **Selection:** freeze the cheapest rule whose estimates change by <= 10% on a further refinement (R2 → R3 or
+  R3 → R4 with 4-pt on the R3 panels), checked on the development pairs.
+- Then hand it over for the T286 child's fresh truth-blind test (dev3_s548+). Go: >= 7/8 within 2x.
+- **No tuning to truths.** The selection uses convergence only. Truths are reported for the development models but
+  play no role in the choice.
