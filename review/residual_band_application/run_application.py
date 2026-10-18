@@ -103,6 +103,7 @@ def main():
         for idx,item in enumerate(catalogue):
             result['active_point']={'index':idx,**item,'phase':'face'};event('point_started',index=idx);kind=item['kind'];ci=item['config'];a,b,top=map(int,configs[kind][ci]);U=np.array([[(ci+.5)/len(configs[kind])]+[float.fromhex(x) for x in item['unit_hex']]],dtype=np.float64)
             result['source_face_calls']+=1;save();(fy,fa,fb,tau),face_cpu=timed('face_points',face.face_points,4,kind,U)
+            snapshot('active_face',{'index':idx,'U_hex':[[float(v).hex() for v in r] for r in U],'y_hex':[[float(v).hex() for v in r] for r in fy],'a':[int(v) for v in fa],'b':[int(v) for v in fb],'tau_hex':[float(v).hex() for v in tau],'cpu':face_cpu})
             y=[F.from_float(float(v)) for v in fy[0]];assert fa[0]==a and fb[0]==b and y[a]==y[b]
             low=max(y[j] for j in range(4) if j not in (a,b) and j!=top) if kind=='23' else max(y[j] for j in range(4) if j not in (a,b))
             window=min((y[top]-y[a])/3,y[a]-low) if kind=='23' else (y[a]-low)/3
