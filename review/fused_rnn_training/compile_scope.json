@@ -1,0 +1,16 @@
+{
+  "task": "T261",
+  "scope": "Two offline CUDA SM80 compilations only, B32/1024 warps8/16; no device launch or throughput claim. Requires completed fixed interpreter validation first.",
+  "resources": {
+    "soft_cpu": 105,
+    "hard_cpu": 110,
+    "address_space": 2147483648,
+    "post_lock_wall": 120,
+    "lock": "/workspace/work/codex-compute.lock"
+  },
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_check.py": "79d28b3d0bb12fd2d3dceb64496d20ea9551f1347e21056bd68063037f1dae09",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/fused_step.py": "647adc15f2d5f746c8459672b378fd246d653c0e391111863a09ed38a10dbf09"
+  },
+  "failure_policy": "retain failed attempt and compiler traceback; no hardware equivalence from compile success"
+}
