@@ -673,3 +673,10 @@ Selecting on disagreement guarantees that the two differ on these pairs; the tes
     conditional-law truths (1e9 per pair on GPU, or CPU).
 - **Go: the fix within 2x of the truth on >= 7/8.** Also reported: K3's ratios, |log| comparison, both C, and the
   expected number of events plain MC sees at the fix's C.
+- **T369 status (18:43): not run.** The T218 child made no new freeze (T369 results in their README,
+  claude/t218-tie-tail-labels). The graded rule is converged on s547. A closure oracle there attributes the 2.1-2.4x
+  overshoot to the R1W closure itself:
+  - the closure world over-counts the triple-tie sliver 2.2-2.5x;
+  - exact lows bring it to 1.5x;
+  - v4's random position brings it to 1.04x.
+  So there is nothing to fresh-test. dev3_s548+ remain unused.
