@@ -1,0 +1,1 @@
+mkdir -p /content/t364 && cd /content/t364 && cp /content/tail_mc.py . && cp /content/t364_weights.npz weights.npz && python tail_mc.py weights.npz orig:1.0:1e9 orig:1.75:1e9 orig:2.0:1e9 dev3_s526:3.25:1e8 dev3_s526:3.5:1e8 dev3_s527:2.0:1e9 dev3_s527:2.25:1e9 > /content/t364.log 2>&1; echo "rc=$?" >> /content/t364.log
