@@ -1,0 +1,3 @@
+# Preserved written-review correction
+
+Reviewer34 identified a valid issue in frozen3776d1b3 THEORY section4: its displayed original certified-correct LOWER bound was described alongside a numerical ceiling. A subset event bounds true mass by its parent's true mass, not by a lower bound on that parent. The correction removes the numerical ceiling and requires the stored original upper endpoint plus provenance before any such numerical inference. No saved archive or model was decoded; no experiment or tolerance changed. The original text remains in Git history. Other proposed identities remain under independent review.
