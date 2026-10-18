@@ -23,14 +23,16 @@ def total(rows,key):return SUM(float(r[key]) for r in rows)
 def grouped(rows):return dict(n=len(rows),n_cls=sum(r['absdE']>1e-13 for r in rows),absdE=total(rows,'absdE'),dE=total(rows,'dE'),m_min=total(rows,'m_min'),s_err=sum(r['s_err']==1 for r in rows))
 def archive(path,T,guard=False):
     with np.load(path,allow_pickle=False) as z:
-        assert set(z.files)==KEYS|{'meta'}|({'guard'} if guard else set()),str(path)
-        meta=json.loads(str(z['meta']));n=len(z['t']); out=[]
+        assert KEYS|{'meta'} <= set(z.files) <= KEYS|{'meta','guard'},str(path)
+        assert not guard or 'guard' in z.files
+        arrays={k:z[k] for k in KEYS}
+        meta=json.loads(str(z['meta']));n=len(arrays['t']); out=[]
         assert n==meta['resolved']
         for k in KEYS:
-            a=z[k];assert a.shape==((n,T) if k in {'perm','a','con','mag'} else (n,)),(path,k,a.shape)
+            a=arrays[k];assert a.shape==((n,T) if k in {'perm','a','con','mag'} else (n,)),(path,k,a.shape)
             assert np.isnan(a).all() if guard and k in {'m_cell','m_min'} else np.isfinite(a).all(),(path,k)
         for j in range(n):
-            r={k:z[k][j].tolist() for k in KEYS};perm=r['perm'];assert sorted(perm)==list(range(T))
+            r={k:arrays[k][j].tolist() for k in KEYS};perm=r['perm'];assert sorted(perm)==list(range(T))
             for k in ['t','k','frozen','sigma','truth','nrays','npieces','s_cls','s_err']:assert r[k]==int(r[k]),(path,k)
             assert 1<=r['t']<T and 0<=r['k']<8 and 0<=r['truth']<T and r['truth']==perm[1]
             ranks={input_index:rank for rank,input_index in enumerate(perm,1)}
