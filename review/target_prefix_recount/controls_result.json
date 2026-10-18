@@ -1,0 +1,6920 @@
+{
+  "cpu_seconds": 0.087718203,
+  "gate": {
+    "clearance": true,
+    "protocol_sha256": "b4f44d05adce47cb8465684f7476350c05c2b95942bfbb7ce841bed6fdbefb6a",
+    "review_artifact": "/workspace/work/recover-small_h2_910/review/time_shift_reuse/t219_source_review/source_gate.json",
+    "review_commit": "e706d182",
+    "review_sha256": "313835a36b18f623f4ec4b20e16ac87dfbd75cc15eb69a34b5efa4ba0c582a43",
+    "review_shared": "522a8b61"
+  },
+  "mass_calls": 0,
+  "max_rss_kib": 25820,
+  "model_calls": 0,
+  "protocol_sha256": "b4f44d05adce47cb8465684f7476350c05c2b95942bfbb7ce841bed6fdbefb6a",
+  "random_calls": 0,
+  "resource_limits": {
+    "address_space": [
+      2147483648,
+      2147483648
+    ],
+    "cpu": [
+      20,
+      20
+    ]
+  },
+  "rows": [
+    {
+      "case": {
+        "expected_rays": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ]
+          ]
+        ],
+        "form": [
+          1,
+          1,
+          -1
+        ],
+        "id": "clip_cross",
+        "kind": "clip"
+      },
+      "certificates": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          3
+        ]
+      ],
+      "children": [
+        {
+          "normals": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              -1
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "normals": [
+            [
+              -1,
+              -1,
+              1
+            ],
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        }
+      ],
+      "counts": {
+        "add": 171,
+        "clips": 1,
+        "gcd": 102,
+        "integer_div": 102,
+        "lifts": 0,
+        "mul": 222,
+        "rank_calls": 13,
+        "sub": 33
+      },
+      "expected_rays": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "id": "clip_cross",
+      "input_cone": {
+        "normals": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "rays": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "max_bits": 2,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "expected_rays": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          null
+        ],
+        "form": [
+          1,
+          0,
+          0
+        ],
+        "id": "clip_positive_boundary",
+        "kind": "clip"
+      },
+      "certificates": [
+        [
+          1,
+          1,
+          1
+        ],
+        null
+      ],
+      "children": [
+        {
+          "normals": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        null
+      ],
+      "counts": {
+        "add": 54,
+        "clips": 1,
+        "gcd": 24,
+        "integer_div": 24,
+        "lifts": 0,
+        "mul": 45,
+        "rank_calls": 5,
+        "sub": 0
+      },
+      "expected_rays": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        null
+      ],
+      "id": "clip_positive_boundary",
+      "input_cone": {
+        "normals": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "rays": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "max_bits": 1,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "expected_rays": [
+          null,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "form": [
+          -1,
+          0,
+          0
+        ],
+        "id": "clip_negative_boundary",
+        "kind": "clip"
+      },
+      "certificates": [
+        null,
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "children": [
+        null,
+        {
+          "normals": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "counts": {
+        "add": 54,
+        "clips": 1,
+        "gcd": 24,
+        "integer_div": 24,
+        "lifts": 0,
+        "mul": 45,
+        "rank_calls": 5,
+        "sub": 0
+      },
+      "expected_rays": [
+        null,
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "id": "clip_negative_boundary",
+      "input_cone": {
+        "normals": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "rays": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "max_bits": 1,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "expected_rays": [
+          null,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "form": [
+          0,
+          0,
+          0
+        ],
+        "id": "clip_zero",
+        "kind": "clip"
+      },
+      "certificates": [
+        null,
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "children": [
+        null,
+        {
+          "normals": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "counts": {
+        "add": 45,
+        "clips": 1,
+        "gcd": 21,
+        "integer_div": 21,
+        "lifts": 0,
+        "mul": 36,
+        "rank_calls": 5,
+        "sub": 0
+      },
+      "expected_rays": [
+        null,
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "id": "clip_zero",
+      "input_cone": {
+        "normals": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "rays": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "max_bits": 1,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "expected_rays": [
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          null
+        ],
+        "form": [
+          1,
+          1,
+          1
+        ],
+        "id": "clip_strict_positive",
+        "kind": "clip"
+      },
+      "certificates": [
+        [
+          1,
+          1,
+          1
+        ],
+        null
+      ],
+      "children": [
+        {
+          "normals": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        null
+      ],
+      "counts": {
+        "add": 54,
+        "clips": 1,
+        "gcd": 24,
+        "integer_div": 24,
+        "lifts": 0,
+        "mul": 45,
+        "rank_calls": 5,
+        "sub": 0
+      },
+      "expected_rays": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        null
+      ],
+      "id": "clip_strict_positive",
+      "input_cone": {
+        "normals": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "rays": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "max_bits": 1,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "expected_rays": [
+          [
+            [
+              3,
+              -2
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              3,
+              -2
+            ],
+            [
+              0,
+              -1
+            ]
+          ]
+        ],
+        "form": [
+          2,
+          3
+        ],
+        "id": "lift_3",
+        "kind": "lift"
+      },
+      "certificates": [
+        [
+          3,
+          -1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "children": [
+        {
+          "normals": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              -2
+            ]
+          ]
+        },
+        {
+          "normals": [
+            [
+              -2,
+              -3
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              -1
+            ],
+            [
+              3,
+              -2
+            ]
+          ]
+        }
+      ],
+      "counts": {
+        "add": 33,
+        "clips": 0,
+        "gcd": 26,
+        "integer_div": 26,
+        "lifts": 1,
+        "mul": 35,
+        "rank_calls": 8,
+        "sub": 4
+      },
+      "expected_rays": [
+        [
+          [
+            3,
+            -2
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            3,
+            -2
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
+      ],
+      "id": "lift_3",
+      "input_cone": {
+        "normals": [
+          [
+            1
+          ]
+        ],
+        "rays": [
+          [
+            1
+          ]
+        ]
+      },
+      "max_bits": 3,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "expected_rays": [
+          [
+            [
+              3,
+              2
+            ],
+            [
+              0,
+              -1
+            ]
+          ],
+          [
+            [
+              3,
+              2
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "form": [
+          2,
+          -3
+        ],
+        "id": "lift_-3",
+        "kind": "lift"
+      },
+      "certificates": [
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "children": [
+        {
+          "normals": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              -3
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              -1
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        },
+        {
+          "normals": [
+            [
+              -2,
+              3
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "rays": [
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        }
+      ],
+      "counts": {
+        "add": 33,
+        "clips": 0,
+        "gcd": 26,
+        "integer_div": 26,
+        "lifts": 1,
+        "mul": 35,
+        "rank_calls": 8,
+        "sub": 4
+      },
+      "expected_rays": [
+        [
+          [
+            3,
+            2
+          ],
+          [
+            0,
+            -1
+          ]
+        ],
+        [
+          [
+            3,
+            2
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "id": "lift_-3",
+      "input_cone": {
+        "normals": [
+          [
+            1
+          ]
+        ],
+        "rays": [
+          [
+            1
+          ]
+        ]
+      },
+      "max_bits": 3,
+      "rays_pass": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "counts": [
+          2,
+          4,
+          8
+        ],
+        "id": "single_zero",
+        "kind": "network",
+        "wh": [
+          [
+            0
+          ]
+        ],
+        "wi": [
+          1
+        ]
+      },
+      "counts": {
+        "add": 774,
+        "clips": 0,
+        "gcd": 214,
+        "integer_div": 214,
+        "lifts": 6,
+        "mul": 752,
+        "rank_calls": 62,
+        "sub": 0
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 1,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 1,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 4,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 4,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 4
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 3,
+              "witness": [
+                -1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -1,
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -1,
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 8,
+          "count_pass": true,
+          "depth": 3,
+          "expected_count": 8,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 8
+        }
+      ],
+      "id": "single_zero",
+      "max_bits": 1,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 2,
+        "counts": [
+          2,
+          4,
+          8
+        ],
+        "id": "single_dyadic",
+        "kind": "network",
+        "wh": [
+          [
+            3
+          ]
+        ],
+        "wi": [
+          -2
+        ]
+      },
+      "counts": {
+        "add": 774,
+        "clips": 0,
+        "gcd": 272,
+        "integer_div": 272,
+        "lifts": 6,
+        "mul": 868,
+        "rank_calls": 62,
+        "sub": 58
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 1,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 1,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -2
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1,
+                2
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 4,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 4,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -6,
+                  -4
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -3,
+                  -2
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -2,
+                  3
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "rays": [
+                [
+                  -2,
+                  3
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  -4
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 4
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 3,
+              "witness": [
+                -2,
+                1,
+                2
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -2,
+                1,
+                4
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -2,
+                4,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -2,
+                4,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                -2,
+                2
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                -2,
+                4
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 8,
+          "count_pass": true,
+          "depth": 3,
+          "expected_count": 8,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -18,
+                  -12,
+                  -8
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -9,
+                  -6,
+                  -4
+                ],
+                [
+                  -3,
+                  -2,
+                  0
+                ],
+                [
+                  -1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -2,
+                  3,
+                  0
+                ],
+                [
+                  0,
+                  -2,
+                  3
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -3,
+                  -2,
+                  0
+                ],
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  9,
+                  6,
+                  4
+                ]
+              ],
+              "rays": [
+                [
+                  -2,
+                  3,
+                  0
+                ],
+                [
+                  0,
+                  -2,
+                  3
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  -8
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  3,
+                  2,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -2,
+                  3,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1
+                ],
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  3,
+                  2,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -2,
+                  3,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  -12,
+                  -8
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -3,
+                  -2
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -2,
+                  3
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -2,
+                  3
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  -8
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0
+                ],
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 8
+        }
+      ],
+      "id": "single_dyadic",
+      "max_bits": 6,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "counts": [
+          2,
+          4,
+          8
+        ],
+        "id": "opposite_input",
+        "kind": "network",
+        "wh": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wi": [
+          1,
+          -1
+        ]
+      },
+      "counts": {
+        "add": 1456,
+        "clips": 12,
+        "gcd": 246,
+        "integer_div": 246,
+        "lifts": 6,
+        "mul": 1474,
+        "rank_calls": 62,
+        "sub": 0
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 4,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 4,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 4
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 8,
+          "count_pass": true,
+          "depth": 3,
+          "expected_count": 8,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 8
+        }
+      ],
+      "id": "opposite_input",
+      "max_bits": 1,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "counts": [
+          2,
+          4,
+          8
+        ],
+        "id": "cancelling_rows",
+        "kind": "network",
+        "wh": [
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            -1
+          ]
+        ],
+        "wi": [
+          1,
+          1
+        ]
+      },
+      "counts": {
+        "add": 1456,
+        "clips": 12,
+        "gcd": 246,
+        "integer_div": 246,
+        "lifts": 6,
+        "mul": 1474,
+        "rank_calls": 62,
+        "sub": 0
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1
+                ],
+                [
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 4,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 4,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 4
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                -1,
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                -1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 6,
+              "witness": [
+                1,
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 8,
+          "count_pass": true,
+          "depth": 3,
+          "expected_count": 8,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 8
+        }
+      ],
+      "id": "cancelling_rows",
+      "max_bits": 1,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "counts": [
+          2,
+          4,
+          8
+        ],
+        "id": "late_pivot",
+        "kind": "network",
+        "wh": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wi": [
+          0,
+          1
+        ]
+      },
+      "counts": {
+        "add": 1350,
+        "clips": 12,
+        "gcd": 230,
+        "integer_div": 230,
+        "lifts": 6,
+        "mul": 1368,
+        "rank_calls": 62,
+        "sub": 0
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 1,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 1
+            },
+            {
+              "strict_forms": 1,
+              "witness": [
+                1
+              ],
+              "zero_forms": 1
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1,
+                1
+              ],
+              "zero_forms": 2
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1,
+                -1
+              ],
+              "zero_forms": 2
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 1
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                1,
+                -1
+              ],
+              "zero_forms": 1
+            }
+          ],
+          "count": 4,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 4,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 4
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                1,
+                1
+              ],
+              "zero_forms": 2
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                1,
+                -1
+              ],
+              "zero_forms": 2
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -1,
+                -1,
+                1
+              ],
+              "zero_forms": 3
+            },
+            {
+              "strict_forms": 3,
+              "witness": [
+                -1,
+                -1,
+                -1
+              ],
+              "zero_forms": 3
+            },
+            {
+              "strict_forms": 5,
+              "witness": [
+                1,
+                1,
+                1
+              ],
+              "zero_forms": 1
+            },
+            {
+              "strict_forms": 5,
+              "witness": [
+                1,
+                1,
+                -1
+              ],
+              "zero_forms": 1
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -1,
+                1
+              ],
+              "zero_forms": 2
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -1,
+                -1
+              ],
+              "zero_forms": 2
+            }
+          ],
+          "count": 8,
+          "count_pass": true,
+          "depth": 3,
+          "expected_count": 8,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  0,
+                  0
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 8
+        }
+      ],
+      "id": "late_pivot",
+      "max_bits": 1,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "counts": [
+          2,
+          6
+        ],
+        "id": "slope_base",
+        "kind": "network",
+        "wh": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "wi": [
+          1,
+          -1
+        ]
+      },
+      "counts": {
+        "add": 468,
+        "clips": 4,
+        "gcd": 126,
+        "integer_div": 126,
+        "lifts": 2,
+        "mul": 546,
+        "rank_calls": 32,
+        "sub": 32
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1
+                ],
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 4,
+              "witness": [
+                -2,
+                3
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                6
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                -3
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                4
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -2
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 6,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 6,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -2,
+                  1
+                ],
+                [
+                  -5,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -5,
+                  -1
+                ],
+                [
+                  -2,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  -2
+                ],
+                [
+                  -1,
+                  5
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  -2,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -2,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  5
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -5,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  2,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  -2
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  1,
+                  -1
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -3,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3,
+                  -1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  -1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 6
+        }
+      ],
+      "id": "slope_base",
+      "max_bits": 4,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "base": "slope_base",
+        "counts": [
+          2,
+          6
+        ],
+        "id": "input_scale2",
+        "invariance": "input_scale2",
+        "kind": "network",
+        "wh": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "wi": [
+          2,
+          -2
+        ]
+      },
+      "counts": {
+        "add": 468,
+        "clips": 4,
+        "gcd": 126,
+        "integer_div": 126,
+        "lifts": 2,
+        "mul": 546,
+        "rank_calls": 32,
+        "sub": 32
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  -2
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  2
+                ],
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 4,
+              "witness": [
+                -2,
+                3
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                6
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                -3
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                4
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -2
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 6,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 6,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -4,
+                  2
+                ],
+                [
+                  -10,
+                  -2
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -5,
+                  -1
+                ],
+                [
+                  -2,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  -2
+                ],
+                [
+                  -1,
+                  5
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  -4,
+                  2
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -2,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  5
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -10,
+                  -2
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  2,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  -2
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  6,
+                  -2
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  1,
+                  -1
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -3,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  6,
+                  -2
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  -1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 6
+        }
+      ],
+      "id": "input_scale2",
+      "invariance_checks": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "max_bits": 5,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "base": "slope_base",
+        "counts": [
+          2,
+          6
+        ],
+        "id": "input_reflection",
+        "invariance": "input_reflection",
+        "kind": "network",
+        "wh": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "wi": [
+          -1,
+          1
+        ]
+      },
+      "counts": {
+        "add": 468,
+        "clips": 4,
+        "gcd": 126,
+        "integer_div": 126,
+        "lifts": 2,
+        "mul": 546,
+        "rank_calls": 32,
+        "sub": 32
+      },
+      "depths": [
+        {
+          "certificates": [
+            {
+              "strict_forms": 2,
+              "witness": [
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 2,
+              "witness": [
+                1
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 2,
+          "count_pass": true,
+          "depth": 1,
+          "expected_count": 2,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -1
+                ],
+                [
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 2
+        },
+        {
+          "certificates": [
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                -1
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                -4
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                -1,
+                2
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                2,
+                -3
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                -6
+              ],
+              "zero_forms": 0
+            },
+            {
+              "strict_forms": 4,
+              "witness": [
+                1,
+                3
+              ],
+              "zero_forms": 0
+            }
+          ],
+          "count": 6,
+          "count_pass": true,
+          "depth": 2,
+          "expected_count": 6,
+          "states": [
+            {
+              "hidden": [
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  -3,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -3,
+                  1
+                ],
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  -3
+                ],
+                [
+                  -1,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  -1,
+                  0
+                ],
+                [
+                  3,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  -3
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -3,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  -1,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  2,
+                  -1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  -1
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "rays": [
+                [
+                  1,
+                  -5
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  2,
+                  -1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "normals": [
+                [
+                  -5,
+                  -1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  -1
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  -5
+                ]
+              ]
+            },
+            {
+              "hidden": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5,
+                  1
+                ]
+              ],
+              "history": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "normals": [
+                [
+                  -2,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              "rays": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            }
+          ],
+          "unique_histories": 6
+        }
+      ],
+      "id": "input_reflection",
+      "invariance_checks": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "max_bits": 4,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "id": "zero_input",
+        "kind": "invalid",
+        "wh": [
+          [
+            1
+          ]
+        ],
+        "wi": [
+          0
+        ]
+      },
+      "counts": {
+        "add": 0,
+        "clips": 0,
+        "gcd": 0,
+        "integer_div": 0,
+        "lifts": 0,
+        "mul": 0,
+        "rank_calls": 0,
+        "sub": 0
+      },
+      "exception": "AssertionError()",
+      "id": "zero_input",
+      "max_bits": 0,
+      "rejected": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 0,
+        "id": "zero_denominator",
+        "kind": "invalid",
+        "wh": [
+          [
+            1
+          ]
+        ],
+        "wi": [
+          1
+        ]
+      },
+      "counts": {
+        "add": 0,
+        "clips": 0,
+        "gcd": 0,
+        "integer_div": 0,
+        "lifts": 0,
+        "mul": 0,
+        "rank_calls": 0,
+        "sub": 0
+      },
+      "exception": "AssertionError()",
+      "id": "zero_denominator",
+      "max_bits": 0,
+      "rejected": true,
+      "status": "pass"
+    },
+    {
+      "case": {
+        "D": 1,
+        "id": "bad_shape",
+        "kind": "invalid",
+        "wh": [
+          [
+            1
+          ]
+        ],
+        "wi": [
+          1,
+          2
+        ]
+      },
+      "counts": {
+        "add": 0,
+        "clips": 0,
+        "gcd": 0,
+        "integer_div": 0,
+        "lifts": 0,
+        "mul": 0,
+        "rank_calls": 0,
+        "sub": 0
+      },
+      "exception": "AssertionError()",
+      "id": "bad_shape",
+      "max_bits": 0,
+      "rejected": true,
+      "status": "pass"
+    }
+  ],
+  "status": "complete"
+}
