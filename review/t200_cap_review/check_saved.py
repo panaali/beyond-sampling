@@ -119,7 +119,11 @@ def main():
         expected=math.nextafter(nearest,math.inf) if changed else nearest
         assert outward.hex()==expected.hex() and saved['conversion']==dict(fallback=None,nextafter=changed)
         checked.append(dict(name=name,bound=str(bound),peak_bits=expected_peak,macro_steps=sum(counts.values())))
-    assert math.isclose(sum(r['cpu_seconds'] for r in result['rows']),result['cpu_seconds'],rel_tol=0,abs_tol=1e-15)
+    # Per-bound timers exclude progress/setup overhead included in the total.
+    # A source-review correction before execution; do not force equality.
+    times=[r['cpu_seconds'] for r in result['rows']]
+    assert all(math.isfinite(t) and t>=0 for t in [*times,result['cpu_seconds']])
+    assert sum(times)<=result['cpu_seconds']+1e-15
     return dict(status='PASS_SAVED_ONLY',rows=checked,controls=10,progress_records=22,
                 author_cpu_seconds=result['cpu_seconds'],review_cpu_seconds=time.process_time()-start,
                 pins={str(p):sha(p) for p in [AUTHOR/'results.json',AUTHOR/'progress.jsonl',AUTHOR/'gate.json',HERE/'source_gate.json',Path(__file__)]},
