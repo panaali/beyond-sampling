@@ -79,8 +79,8 @@ diag_cond_orig: -0.453). Observer (1,1,2) on the target gives err23 3.69%, err12
 | models with \|b\| <= .40 / > .80 | 8 / 59 | |
 
 Bias by region (pp, mean / RMS over models): blind +.002 / .01; 2~3 band -.52 / .73; 1~2 band -.31 / .41;
-**soft tail -2.54 / 3.66**. The failure names its part: **the soft tail** (77% of the RMS^2 budget comes from the tail
-part alone), with both bands also over .4 RMS on their own. The bias is continuous, not a few outliers (sorted
+**soft tail -2.54 / 3.66**. The failure names its part: **the soft tail** (the tail part alone has RMS^2 = 59% of the total;
+parts covary), with both bands also over .4 RMS on their own. The bias is continuous, not a few outliers (sorted
 values in the per-model table). It is **not** mainly a weak-model effect: fused_s33 and torch_s19 (acc .959/.960,
 tail error .3-.4 pp) have b = -8.8 / -10.7 pp. The target (-.45) sits at the good end, so E31's small aggregate on
 3 models was a lucky draw, as Fable r2 B "against (2)" suspected.
