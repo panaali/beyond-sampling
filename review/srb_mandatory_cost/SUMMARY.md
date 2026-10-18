@@ -1,6 +1,6 @@
 # Fixed six-budget conditional accounting result
 
-Source/theorem gate0da05327 and driver gate1ae9600a were shared before binding47f447d3 and sole run54502cb1. Independent saved audit is pending. All four integer batch-boundary controls pass; six source-declared budgets are retained. No source estimator/Q/draw_all/model/RNG/native/reference calls.
+Source/theorem gate0da05327 and driver gate1ae9600a were shared before binding47f447d3 and sole run54502cb1. Independent saved audit363b20d4/shared293cbdde passes all six budgets/four controls/22 progress records and23 pins via independent integer nearest-even rounding and dimension-derived floors. ReviewerCPU .031990211, no author calls. All four integer batch-boundary controls pass; six source-declared budgets are retained. No source estimator/Q/draw_all/model/RNG/native/reference calls.
 
 | Source budget | Kept M | Minimum generated D | Reported FPE | Dense-only FPE floor | Rule5 extra floor | Combined conditional floor | Status |
 |---:|---:|---:|---:|---:|---:|---:|---|
