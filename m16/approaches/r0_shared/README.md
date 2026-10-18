@@ -34,3 +34,37 @@ truths.
 **Go line (DRI):** lenient point F <= 10 at <= 4k FPE on DEV2, with F = RMS^2 x C_eff / mean p(1-p). With mean
 p(1-p) = .0725 and C = 4k, that means total RMS <~ 1.3 pp. On a go: freeze est(model, budget) -> (estimate,
 cost_flops) and send it to the T281 scorer for HP2.
+
+## Results: Stage 1 — **STOP** (pre-registered) (`python stage1.py 20000`, `results/stage1.json`)
+Per-triple R0 error masses from 20,000 common value draws per triple (14.4M R0 forwards per model, 10 DEV2 models):
+
+| model | R0 error | sharing error S-mid (pp) | S-two (pp) | S-orc (oracle) (pp) | within-class s.d. of E over p1 (pp) |
+|---|---|---|---|---|---|
+| fused_s0 | 11.6% | -3.07 | -3.14 | -0.38 | 10.0 |
+| fused_s8 | 7.6% | -0.99 | -0.53 | -0.09 | 4.8 |
+| fused_s16 | 9.5% | -2.20 | -2.02 | -0.30 | 8.4 |
+| fused_s24 | 5.4% | -1.03 | -0.61 | -0.41 | 4.6 |
+| fused_s32 | 5.1% | -0.91 | -0.55 | -0.21 | 3.5 |
+| torch_s0 | 4.6% | -0.22 | -0.32 | -0.19 | 3.2 |
+| torch_s8 | 6.0% | -0.45 | -1.03 | -0.27 | 4.3 |
+| torch_s16 | 10.4% | -2.57 | -1.25 | -0.64 | 8.2 |
+| torch_s24 | 11.7% | -2.97 | -1.40 | -0.74 | 9.0 |
+| torch_s32 | 7.9% | -1.53 | -0.10 | -0.04 | 5.6 |
+| **RMS** | | **1.87** | **1.40** | 0.39 | |
+
+- **Both rules exceed .8 pp, so the stage stops.** Stage 2 was not built.
+- The max's position matters too much to share. Within a (p2, p3) class, R0's per-triple error mass varies by
+  3-10 pp (s.d. across the 8 p1 values). Per-class absolute sharing errors are 1.5-6.5 pp.
+- The sign is consistently negative: the middle/quartile representatives have *less* error than the class mean.
+  The class mean is pulled up by extreme max positions, consistent with the clock: how long ago the max arrived
+  matters.
+- Even the oracle (the best single p1 per class and model, chosen with the answer) leaves 0.39 pp, close to half
+  the stop line before any integration error.
+- [inferred] A shared-boundary design would have to share along a coordinate that R0's error does not depend on.
+  p1 is not one. Sharing across p3 or the low positions was not tested.
+
+## Status
+Done (2026-10-18). Stopped at Stage 1 by the pre-registered rule. Nothing was sent to the T281 scorer.
+
+## Compute accounting
+Stage 1: 10 models x 720 triples x 20,000 R0 forwards = 1.44e8 forwards (diagnostic sampling), ~12 CPU-min.
