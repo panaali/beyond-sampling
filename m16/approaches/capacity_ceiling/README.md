@@ -77,6 +77,26 @@ max .9602), i.e. a lucky draw from the same training distribution rather than ev
 **H = 16, T = 2..10 table** (`results/ht_table.json`, 1e8 samples per model; T = 7, 9 trained with unchanged zoo code):
 mean accuracy .99991, .99945, .99780, .99022, .97998, .97648, .96676, .96726, .91211 for T = 2..10.
 
+**Data axis, zoo settings, trainer.py, seeds 0-4** (`run.py a31 --log2n 31`, `a32 --log2n 32`; 1e8 samples):
+| n_train | seeds 0-4 | mean | max |
+|---|---|---|---|
+| 2^30 (a30) | .9104 .9043 .9495 .9307 .9419 | .9274 | .9495 |
+| 2^31 (a31) | .9477 .9279 .9268 .9309 .9547 | .9376 | .9547 |
+| 2^32 (a32) | .9705 .9636 .9548 .9280 .9559 | .9545 | .9705 |
+More data at zoo settings raises the mean (5 seeds each; seed spread ~3 pp, so mean differences of ~1 pp are within
+noise; the 100-seed grid3 decides). The za pack (2^31-2^33 at batch 1024, data seed 7) was lost when Colab reclaimed
+its L4 (~06:20, last archive had only the 2^31 weights, not evaluated); grid3 supersedes it.
+
+**Large-batch RECIPE VARIANT** (`run_multi.py lb8192 --batch 8192`, `lb16384 --batch 16384`, warm-up 1/64 of the run,
+LR x sqrt(B/1024) or x B/1024; seeds 0-2; 1e8 samples):
+| batch, n_train | sqrt LR | linear LR |
+|---|---|---|
+| 8192, 2^32 | .9599 .9112 .9617 | .9601 .9642 .9290 |
+| 8192, 2^33 | **.9693** .9658 .9590 | .9511 .8571 .9536 |
+| 16384, 2^34 | .9602 .9359 .9459 | .5141 .9388 .9125 |
+Best .9693 (above the target's .9531); linear LR scaling is unstable (one .514 collapse at B 16384). 3 seeds per cell:
+no ranking between cells is claimed. Wall: 5515 s (12 models) / 5439 s (6 models) on an A100.
+
 ## Compute accounting
 (pending) Colab units per stage; wall time per run.
 
