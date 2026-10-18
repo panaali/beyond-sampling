@@ -7,7 +7,7 @@ Can the existing evidence be reported without selecting the best budget, confusi
 `manifest.json` pins fourteen source/data snapshots including the raw archive before the arc_cumulants classification addition. `audit.py` imports no author code. It checks five determinism metadata cases and an exact cost-covariance counterexample, inventories saved raw flags/history, exports every archived H16T10 row unchanged with separately labeled current DRI classification, and contracts the existing E44/T114 records with exact rational arithmetic. It does not regenerate bootstrap intervals or time methods. `PATCH_PROPOSAL.md` is an adoption proposal; the shared harness remains DRI-owned.
 
 ## Status
-Fixed saved audit complete after independently published source gate ee41dae8. Results await independent saved verification; shared adoption remains DRI-only. No estimator, forward, truth, Monte Carlo, geometry, or native-cost calls occurred.
+Fixed saved audit complete after independently published source gate ee41dae8. Independent saved verification e353e6e6 (shared44b10f30) passes all records/contractions; shared adoption remains DRI-only. No estimator, forward, truth, Monte Carlo, geometry, or native-cost calls occurred.
 
 ## Results
 
@@ -26,7 +26,7 @@ The script refuses to overwrite its first results artifact and preserves partial
 Fourteen byte snapshots plus one saved arithmetic audit,0.699786896CPU under19/20CPU and2GiB cap; no stochastic draws (including bootstrap), model evaluations or author imports. Archived CPU and precomputation figures are inherited evidence, not measured by this review. srb3.3/1.6 remains a hand-count multiplier, not instrumented here.
 
 ## Claims
-- [measured] All498 exported rows preserve original fields;2,880 arc records exactly match the pre-class archive. No independent saved audit yet.
+- [measured] All498 exported rows preserve original fields;2,880 arc records exactly match the pre-class archive. Independently verified e353e6e6.
 - [inferred] Legacy False is ambiguous by the frozen run source. Explicit tested=False, tested-pass and tested-fail metadata would remove the ambiguity for future runs.
 - [inferred] Existing all-budget rows can be preserved without calling report(), whose timing helper would otherwise evaluate sampling models.
 - [inferred] Missing per-copy costs prevent a unique conversion of E44's uniform mean-cost ratio to T22's own-cost ratio; the frozen rational control tests this.
@@ -39,3 +39,5 @@ A genuine failed determinism check could also have emitted False; no unknown is 
 Archived intervals are copied and can be degenerate; they do not exhaust truth uncertainty. Pointwise/bootstrap success is not directive7 simultaneous rung validation. Class membership is DRI judgement, not inferred from identical outputs. Exact contractions of stored binary64 data do not make original model arithmetic exact. No full-cost or general method rejection follows.
 
 Source-gate harness correction: explicit fixed counts, source/manifest bindings, equal-length positive-cost rational inputs, immutable report paths, asserted field preservation and complete duplicate-key replacement inventory were added before any execution. Latest-record semantics remain the pinned author policy; duplicate records are not silently discarded in the audit.
+
+Independent saved audit e353e6e6 checks all498 original fields/table rows, both7,896 replacement inventories, five metadata/one exact covariance controls, E44/T114 contractions and inherited CIs in0.673951434CPU without author calls. The later source-only srb addendum is distinct from this executed/checker scope.

@@ -1,6 +1,6 @@
-# T204 bounded handoff (independent saved review pending)
+# T204 independently reviewed bounded handoff
 
-Claim38736606; source66c38c90, harness repair130f0a21; independent source gateee41dae8/publication13b4d86d; binding338d47e7; rawcb980799; narrativee8e09794. Shared publicationc0bb3bd0. Complete source/saved artifacts stay in this owned folder; no shared harness changes.
+Claim38736606; source66c38c90, harness repair130f0a21; independent source gateee41dae8/publication13b4d86d; binding338d47e7; rawcb980799; narrativee8e09794. Shared publicationc0bb3bd0. Independent saved reviewe353e6e6/publication44b10f30 verifies every scoped record and contraction; reviewer0.673951434CPU, no author calls. Complete source/saved artifacts stay in this owned folder; no shared harness changes.
 
 - All498 archived H16T10 method/group/budget rows copied with every original field and a separately labeled current DRI class. Fifty archived CIs are degenerate; no bootstrap/truth rerun or new confidence claim. JSON retains precompute/timing/advice fields even where compact Markdown omits columns.
 - Current table/report already loop budgets. The separate best-budget summary should not substitute for all-budget evidence. Its producer was not located; no assertion that the current table silently minimizes.
