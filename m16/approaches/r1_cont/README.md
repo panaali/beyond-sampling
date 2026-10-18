@@ -47,3 +47,12 @@ C at each G. If one qualifies, freeze it as T317b and send it to the T281 scorer
 **Chosen: G = 20** (the smallest qualifying), frozen as `estimator_b.py` (T317b) and sent to the T281 scorer.
 - [inferred projection] HP2 F ≈ 16.35 x 6.29 / 13.3 ≈ 7.7, at unchanged HP2 errors (they move by <= 1.4e-6 pp).
 - The claim is HP2's score alone.
+
+## T317 claim: sealed HP2 (T281 scorer, claude/hp1-scorer bbf321c8; hashes match)
+- Estimates asserted identical to V1 on HP2 (max |diff| 6.7e-16).
+- **HP2: C = 7,765 FPE** (range 5.7k-10.8k), **F = 9.57 [6.89, 12.43]**, bias +0.53 pp, RMS 0.99 pp.
+  **Point lenient pass. The upper CI is > 10**, so it is not a candidate under the CI condition.
+- HP1: clean 5.3; noisy 52-228 (outside scope).
+- Scorer's cost audit: the counting matches the executed loops. Counting every comparison and boolean op puts
+  correct_interval at ~216 FLOPs, not 146: +1.2% C, F ≈ 9.69. np.unique keying is treated as uncharged bookkeeping.
+- T317b (G = 20): HP2 score pending.
