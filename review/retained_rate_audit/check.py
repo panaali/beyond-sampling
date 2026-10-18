@@ -190,7 +190,8 @@ def main():
     assert sys.executable=='/workspace/clean-neurons/.venv/bin/python'
     assert not OUT.exists(),'immutable output exists';OUT.mkdir();save()
     gate=load(B/'execution_gate.json');assert gate['execution_authorized'] is True and gate['scope']=='T283 retained scalar audit'
-    review=load(gate['source_review']);assert review['complete'] and review['pass_all'] and review['execution_authorized']
+    assert gate['pins'][gate['source_review']]==sha(pathlib.Path(gate['source_review']))
+    review=load(gate['source_review']);assert all(review[k] is True for k in ('complete','pass_all','execution_authorized'))
     assert len(gate['publication'])>=8 and all(c in '0123456789abcdef' for c in gate['publication'])
     mandatory={str(B/n) for n in ('check.py','PROTOCOL.md','launch.sh','manifest.json')}
     assert mandatory<=set(gate['pins']) and mandatory<=set(review['pins'])
