@@ -559,3 +559,40 @@ sha256 62c95203...
 - the plain C4 / K3 baseline (T364's estimator) on the same pairs;
 - C;
 - the expected number of events plain sampling sees at C.
+
+## T366 results: GO (8/8 within 2x; go needed >= 7/8), but not discriminating
+**Unsealing.** The frozen estimator arrived first: claude/t218-tie-tail-labels @5b4a1250, all seven sha256 checked
+(estimator_t366 6bd6822e, t366 997a1b60, t340c 7e6a749d, t354 abed36c8, walkfix 8e21b6a1; rare.py@620eb47b 09f89a8b,
+cont_g.py@620eb47b d34dde36). It was run unmodified (`run_t366.py`, T340_SRC = a 620eb47b export). The truths were
+committed only after that, in `results/t366_truth_{gpu,cpu}.json`:
+- T192 GPU: 1e9 conditional samples per pair, seeds 3640000 + i;
+- my CPU run: 1e8 per pair;
+- they agree within |z| <= 1.2 on all 8 pairs.
+
+`results/t366_score.txt` (GPU truths):
+
+| model | t0 | truth | T366 est / truth | K3 (T364 estimator) est / truth | T366 C (FPE) | events plain MC sees at C |
+|---|---|---|---|---|---|---|
+| dev3_s528 | 2.35 | 3.68e-8 | 1.26 | 1.39 | 1.94M | .07 |
+| dev3_s528 | 2.75 | 2.72e-9 | 1.30 | 1.31 | 1.94M | .005 |
+| dev3_s529 | 2.35 | 1.43e-7 | 1.22 | 1.09 | 2.09M | .30 |
+| dev3_s529 | 2.75 | 1.16e-8 | 1.15 | .88 | 2.09M | .024 |
+| dev3_s530 | 2.35 | 7.16e-7 | 1.17 | 1.23 | 1.57M | 1.1 |
+| dev3_s530 | 2.75 | 7.02e-8 | 1.23 | 1.23 | 1.57M | .11 |
+| dev3_s531 | 2.35 | 2.43e-7 | 1.11 | 1.13 | 1.64M | .40 |
+| dev3_s531 | 2.75 | 1.91e-8 | 1.10 | 1.23 | 1.64M | .031 |
+
+**Verdict.**
+- **GO by the pre-registered line.** All 8 are within 2x, in fact within 1.10-1.30, one-signed high, at p from 2.7e-9
+  to 7.2e-7. At the estimator's own compute, plain sampling expects .005-1.1 events.
+- **Caveats (stated plainly):**
+  1. T364's plain K3 is also 8/8 within 2x on these pairs (.88-1.39). These four fresh models are not
+     triple-tie-dominated at these thresholds, so this test does not discriminate the T366 fix from K3. The fix's
+     evidence remains the T218 child's dev result on T364's models (5/6 vs K3 2/6; dev, not fresh).
+  2. The model-free threshold rule (fixed factor f = 1e-4) missed the target range. The true p is 2.7e-9 to 7.2e-7,
+     not ~1e-8 / 1e-9: the conditional rates here are 3e-4 to 7.5e-3. Only s528 t0 = 2.75 reached ~1e-9.
+- [measured] Together with T364 (s526 at 1.8e-10 to 1e-9 within 1.2x), the K-node walk estimates fresh-model deep tails
+  within 1.3x on 10 of 12 fresh pairs (s526 and s528-531) at 1e-10 to 7e-7.
+- [measured] The failures so far are the triple-tie-dominated models (orig, s527), where only the T366 fix helps
+  (orig still .24 at t0 = 2: the closure).
+- Unverified.
