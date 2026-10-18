@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import os
+import re
 from pathlib import Path
 import resource
 import sys
@@ -123,11 +124,15 @@ def main():
     for pins in (p['pins'], gate['pins']):
         for path, sha in pins.items():
             assert digest(path) == sha, path
-    assert gate['execution_allowed'] is True and gate['source_review_commit'] != 'pending'
+    assert gate['execution_allowed'] is True
+    for key in ['source_review_commit', 'source_review_publication']:
+        assert re.fullmatch(r'[0-9a-f]{7,40}', gate[key]), key
     review = json.loads(Path(gate['source_review_path']).read_text())
     assert digest(gate['source_review_path']) == gate['source_review_sha256']
     assert review['complete'] and review['pass_all'] and review['execution_allowed']
     required = [HERE/'control.py', HERE/'protocol.json', HERE/'frozen/core.py', HERE/'PROTOCOL.md']
+    for path in required + [Path(gate['source_review_path'])]:
+        assert gate['pins'][str(path)] == digest(path)
     for path in required:
         assert review['pins'][str(path)] == digest(path)
     for path, sha in review['pins'].items():
