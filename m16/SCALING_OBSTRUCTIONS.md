@@ -450,10 +450,9 @@ bias grows with this tail (T296).
   alpha-CROWN, multi-neuron relaxations (T279, T289); lin over several anchors (T292).
   *[Updated 2026-10-18 09:30]* Added: a better boundary representation along v2/g12 (T307); accuracy-for-cost trades
   in R1W (T311); skew readouts (T295, T299); a deductive route to T308's predictor without rank_exact's cost (T308).
-- **[Updated 2026-10-18 09:30] Lenient for a deductive estimator on HP2.** R1W V1 is 1.5x above the bar (official count; 1.35-1.7x
-  across counts). It needs
-  either ~20% less RMS from the boundary representation along v2/g12 (T307), or C <= ~8.1k FPE at its RMS of .99 pp
-  (T307, T311). The known cost levers are marginal: dropping the blind g23 line plus B2 gives ~8.7k FPE and a
+- **[Updated 2026-10-18 09:30] Lenient for a deductive estimator on HP2.** R1W V1 is 1.5x above the bar (official
+  count; 1.35-1.7x across counts). It needs either ~20% less RMS from the boundary representation along v2/g12
+  (T307), or C <= ~8.1k FPE at its RMS of .99 pp (T307, T311). The known cost levers are marginal: dropping the blind g23 line plus B2 gives ~8.7k FPE and a
   projected HP2 F ~10.7 (T311) [inferred]. Any new variant is a new HP2 submission and goes in the forking-paths note
   (~30 DEV2 variants so far across T297-T306).
 - **[Updated 2026-10-18 09:30] The B2 recount** (T313). Done: HP2 F 13.51 [9.72, 17.55] with B2 (T281 recount)
