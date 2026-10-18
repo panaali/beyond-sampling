@@ -1,0 +1,26 @@
+n1 [pooled linear] pre_10 = -11.62*x9 + 6.88*m1 + 2.26*m2 + 1.44*m3   held-out R2=0.8842
+n2 [pooled linear] pre_10 = -1.86*x9 + 12.94*m1 + 3.76*m2 + 2.17*m3   held-out R2=0.8590
+n4 [pooled linear] pre_10 = 11.17*x9 + -7.54*m1 + -1.86*m2 + -0.82*m3   held-out R2=0.9732
+n6 [pooled linear] pre_10 = -12.08*x9 + 6.81*m1 + 2.56*m2 + 1.54*m3   held-out R2=0.9189
+n7 [pooled linear] pre_10 = -14.49*x9 + 9.66*m1 + 2.55*m2 + 1.12*m3   held-out R2=0.9674
+n8 [pooled linear] pre_10 = -13.56*x9 + 6.82*m1 + 4.29*m2 + 1.50*m3   held-out R2=0.8590
+n1 [x9 vs top-2 of x0..x8] pre_10 = -10.57*x9 + 7.77*M1(x0..x8) + 2.35*M2(x0..x8)   held-out R2=0.8985
+n6 [x9 vs top-2 of x0..x8] pre_10 = -11.00*x9 + 7.72*M1(x0..x8) + 2.71*M2(x0..x8)   held-out R2=0.9329
+n7 [x9 vs top-2 of x0..x8] pre_10 = -13.17*x9 + 10.93*M1(x0..x8) + 1.97*M2(x0..x8)   held-out R2=0.9864
+n8 [x9 vs top-2 of x0..x8] pre_10 = -12.31*x9 + 7.75*M1(x0..x8) + 4.49*M2(x0..x8)   held-out R2=0.8713
+n4 [x9 vs top-2 of x0..x8] pre_10 = 10.16*x9 + -8.52*M1(x0..x8) + -1.37*M2(x0..x8)   held-out R2=0.9924
+n1 [with record hinges] pre_10 = -10.58*x9 + 7.77*M1 + 2.34*M2 + 0.12*relu(x9-M1) + -0.02*relu(x9-M2)   held-out R2=0.8985
+n4 [with record hinges] pre_10 = 10.17*x9 + -8.51*M1 + -1.39*M2 + 0.04*relu(x9-M1) + -0.09*relu(x9-M2)   held-out R2=0.9924
+n6 [with record hinges] pre_10 = -11.00*x9 + 7.71*M1 + 2.71*M2 + -0.02*relu(x9-M1) + 0.05*relu(x9-M2)   held-out R2=0.9329
+n7 [with record hinges] pre_10 = -13.19*x9 + 10.91*M1 + 1.99*M2 + -0.07*relu(x9-M1) + 0.12*relu(x9-M2)   held-out R2=0.9864
+n8 [with record hinges] pre_10 = -12.32*x9 + 7.75*M1 + 4.49*M2 + 0.08*relu(x9-M1) + -0.00*relu(x9-M2)   held-out R2=0.8713
+n5 [delayed comparators] pre_10 = -0.11*n1(t-1) + -0.38*n6(t-1) + -0.74*n7(t-1) + -0.28*n8(t-1) + -0.89*x9 + 13.00*m1 + -6.70*m2   held-out R2=0.9463
+n9 [delayed comparators] pre_10 = -0.36*n1(t-1) + -0.14*n6(t-1) + -5.00*n7(t-1) + -1.08*n8(t-1) + -0.34*x9 + 1.54*m1 + -0.42*m2   held-out R2=0.9999
+n0 [2 phasors] pre_10 = 11.60*m1 + -0.83*m1cos(th a1) + -5.83*m1sin(th a1) + -7.20*m2 + 1.04*m2cos(th a2) + -0.98*m2sin(th a2)   held-out R2=0.6615
+n10 [2 phasors] pre_10 = 10.25*m1 + -0.87*m1cos(th a1) + 7.60*m1sin(th a1) + -5.31*m2 + 0.92*m2cos(th a2) + 3.71*m2sin(th a2)   held-out R2=0.8083
+n11 [2 phasors] pre_10 = 9.63*m1 + 3.58*m1cos(th a1) + 4.83*m1sin(th a1) + -5.32*m2 + 2.44*m2cos(th a2) + 2.46*m2sin(th a2)   held-out R2=0.6876
+n12 [2 phasors] pre_10 = 12.88*m1 + 6.50*m1cos(th a1) + -1.96*m1sin(th a1) + -5.25*m2 + 4.24*m2cos(th a2) + 0.36*m2sin(th a2)   held-out R2=0.6229
+n14 [2 phasors] pre_10 = 12.11*m1 + -2.01*m1cos(th a1) + -4.92*m1sin(th a1) + -3.59*m2 + -0.97*m2cos(th a2) + -1.22*m2sin(th a2)   held-out R2=0.6879
+n15 [2 phasors] pre_10 = 6.86*m1 + 3.24*m1cos(th a1) + -3.71*m1sin(th a1) + -0.48*m2 + 2.62*m2cos(th a2) + -1.76*m2sin(th a2)   held-out R2=0.5023
+n3 [2 phasors] pre_10 = 2.57*m1 + 0.90*m1cos(th a1) + -0.59*m1sin(th a1) + 1.54*m2 + 1.26*m2cos(th a2) + -0.32*m2sin(th a2)   held-out R2=0.1904
+n13 [2 phasors] pre_10 = 5.66*m1 + -1.09*m1cos(th a1) + -0.09*m1sin(th a1) + 1.06*m2 + 0.53*m2cos(th a2) + -0.19*m2sin(th a2)   held-out R2=0.4720
