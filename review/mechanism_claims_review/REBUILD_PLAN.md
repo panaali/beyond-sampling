@@ -29,6 +29,9 @@ Chunk forward computation at1024; retain chunk RNG/input hashes and model bytes.
 Do not tune features, model, seeds, sample sizes, regularization or tolerances
 after seeing test scores. No resampling if a training state lacks full design
 rank: preserve incomplete/unknown status and stop dependent scoring.
+Save all216 legal-state counts, design ranks and singular values within the243
+encoded slots. Freeze the numerical rcond/rank threshold before any run; never
+silently merge rare states or change the fit after seeing a deficient design.
 
 Lookup: in each of216 states fit a homogeneous least-squares map from exactly
 (m1,m2,x9) to the16-dimensional final hidden state. No intercept, ridge, clipping
@@ -49,6 +52,9 @@ with the network, task accuracy, and original network accuracy. Case2-restricted
 and whole-input denominators must never be confused. A direct state-to-true-label
 decoder should verify100% on strict inputs; it is an identity control showing
 why task accuracy alone is not network reconstruction.
+Overall metrics weight observations by actual test counts, not equal-weight
+state averages. The explicit zero-variance R2 status and all per-state counts
+must be saved, so a missing/degenerate state cannot silently disappear.
 
 Save every integer cell of K-category(0,1,>=2) × x9-case(0,1,2) × predicted
 GLOBAL rank(1..10). Save correctness and true/predicted labels sufficiently to
@@ -56,6 +62,11 @@ check conservation. All rows belong to exactly one cell; blind mass is not added
 again to overlapping x9 buckets. Report the case0/1 third-rank error contribution
 and blind-first disjoint decomposition explicitly, rather than reverse-engineer
 the old.96% prose number. Report e0/e1 sample counts and uncertainty.
+Pin input sorting/tie semantics and count any ties among generated binary64
+inputs; continuous mathematical probability zero does not guarantee their
+absence in a finite digital sample. Preserve first-index readout ties. Any
+unexpected input tie follows a predeclared exclusion-or-ownership convention
+and remains in the accounting, never a silent resample.
 
 Binomial intervals describe fixed-model/fixed-trained-surrogate evaluation
 uncertainty; they do not include training-set variability or validate historical
