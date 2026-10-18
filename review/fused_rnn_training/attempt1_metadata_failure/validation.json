@@ -1,0 +1,18 @@
+{
+  "complete": false,
+  "pass_all": false,
+  "rows": [],
+  "kernel_calls": 0,
+  "torch_reference_calls": 0,
+  "kernel_attempts": 0,
+  "torch_reference_attempts": 0,
+  "interpreter_only": true,
+  "libdevice_shim": [
+    "__nv_pow=np.power(float64)",
+    "__nv_sqrt=np.sqrt(float64)"
+  ],
+  "torch": "2.14.1+cpu",
+  "triton": "3.8.0",
+  "failure": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h4_4/review/fused_rnn_training/validate.py\", line 78, in main\n    for f,h in review['pins'].items():assert hashlib.sha256(Path(f).read_bytes()).hexdigest()==h\n                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "cpu_seconds": 0.0
+}
