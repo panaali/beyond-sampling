@@ -1371,3 +1371,5 @@ Each cell is P(E1) / truth:
   - Controls (all within 2x under T366): s541 (1.75, 2.0; T367 truths), s526 (3.25, 3.5; T364) and s528-s531
     (2.35, 2.75; T366 fresh truths).
 - Rows are walked in chunks to stay within 2 GB. Seeds are not applicable: no random draws.
+- **Amendment before any run:** the nodes are the first M = 2^k Sobol points shifted by half a cell, (u + .5/M) mod 1,
+  instead of "points 1..M". Skipping the zero point breaks Sobol's balance; the shift keeps it and avoids u = 0 or 1.
