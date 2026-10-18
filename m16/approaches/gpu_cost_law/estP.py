@@ -40,8 +40,23 @@ def _collect():
     return Col()
 
 
+def _pattern(p):
+    """gate pattern of all steps at point p (T194 convention: exact-mode leaves have every gate resolved, so distinct
+    leaf patterns = activation regions met by the enumeration). Diagnostic, no ops."""
+    Wi, Wh, _ = _W["model"]; h = np.zeros(len(Wi)); G = []
+    for t in range(len(p)):
+        h = np.maximum(Wh @ h + p[t] * Wi, 0); G.append(h > 0)
+    return np.packbits(np.concatenate(G)).tobytes()
+
+
 def _init(model, mode, eps):
-    _W.update(model=model, mode=mode, eps=eps)
+    _W.update(model=model, mode=mode, eps=eps, pat=set())
+    if mode == "exact":
+        ce0 = B._cell_error
+
+        def ce(c, g, A, Wo, truth, ops):
+            _W["pat"].add(_pattern(c.R.mean(0))); return ce0(c, g, A, Wo, truth, ops)
+        B._cell_error = ce
     T = model[2].shape[0]
     if T not in B._HALVES:
         B._HALVES[T] = B.halves(T)
@@ -53,7 +68,7 @@ def _half(i):
     for k in B.STATS:
         B.STATS[k] = 0
     exact = mode == "exact"; B.MODE[0] = mode
-    estG.BUF[0] = _collect(); o = Ops(); t0 = time.time()
+    estG.BUF[0] = _collect(); o = Ops(); t0 = time.time(); _W["pat"] = set()
     h = B._HALVES[T][i]
     g1 = (h["sigma"] * Wi > 0).astype(float); o.add(len(Wi))
     A1 = np.outer(Wi, np.eye(T)[0])
@@ -61,6 +76,7 @@ def _half(i):
     assert e0 == 0.0
     R = {d: np.array(v) for d, v in estG.BUF[0].L.items()}
     st = {k: v for k, v in B.STATS.items() if k != "simplices"}
+    st["pat"] = _W["pat"]
     return i, R, o.n, st, time.time() - t0
 
 
@@ -91,7 +107,7 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
     if sample:                                  # (frac, seed): simple random sample of halves, for cost estimates
         idx = sorted(np.random.default_rng(sample[1]).choice(nh, max(1, round(sample[0] * nh)), replace=False).tolist())
     todo = [i for i in idx if i not in done]
-    t0 = time.time(); tm = 0.0
+    t0 = time.time(); tm = 0.0; PAT = set()
     fo = open(log, "a") if log else None
     with mp.get_context("fork").Pool(workers, _init, (model, mode, eps)) as pool:
         # bounded in-flight halves: finished halves wait in RAM (rays of ~2e5 6-D simplices each at T = 6) until the
@@ -107,6 +123,7 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
             if isinstance(res, BaseException):
                 raise res
             i, R, ops, st, sec = res
+            PAT |= st.pop("pat")
             t1 = time.time(); err = 0.0; mops = 0; ns = 0
             nthin = 0
             for d, Rd in R.items():
@@ -130,6 +147,8 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
         tot[k] = float(v.sum()) if not sample else float(v.mean() * nh)       # sample: estimated total
         if sample and len(v) > 1:
             tot[k + "_se"] = float(v.std(ddof=1) * nh / np.sqrt(len(v)) * np.sqrt(1 - len(v) / nh))
+    if mode == "exact" and not sample and len(todo) == len(idx):
+        tot["regions"] = len(PAT)                                   # (not available for resumed runs)
     tot.update(sec_wall=time.time() - t0, sec_mass_parent=tm, workers=workers, device=device, resumed=len(idx) - len(todo))
     return tot
 
