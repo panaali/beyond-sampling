@@ -473,3 +473,38 @@ sizes where saving would matter.
 
 The oracle slack (92-95% of non-blind later cells after the last wrong piece) is real, but a cheap deductive
 certificate of it was not found.
+
+## T330 tier C + T331 pre-registration (DRI, after Fable r5 D1/D2; 2026-10-18, before running either)
+Source: review/fable_review_r5/README.md (internal review, DRI branch claude/project-handoff-priorities-zpzfm8).
+
+**T330 tier C: a declared heuristic screen (its error is measured, not bounded).** At the walk start or a gate flip
+(after the restart's exact tangent and dL), with Δ = tmax − t: stop the row if the current cell's affine margin is
+positive over the whole remaining window, i.e. min over j≠k of [m_kj(t) + Δ · min(0, dm_kj)] > 0 (frozen gates). It
+then gets a correct piece [t, tmax].
+- **C1 (DRI wording):** the first such cell, the walk start included.
+- **C2 (Fable's wording):** the same, but only after the row's first wrong piece has ended. Rows that have not yet
+  had a wrong piece are not screened.
+- Cost: 2C + 4C + 2 per try, charged. Tier A's firing rate is 0 rows (measured above).
+- **Oracle pre-check (DRI):** the error mass the screen ignores is est_C − est_T317e per model.
+  - Go if its RMS over the 80 DEV2 is <= .10 pp **and** the screen skips >= 70% of the post-last-wrong-piece later
+    cells. That fraction is (later cells, T317e − later cells, screen) / (later cells, T317e − oracle ideal-cap
+    cells), on the non-blind lines.
+  - Stop if the RMS is >= .25 pp.
+- **Tier C go line (DRI):** declared error <= .1 pp at C <= 2.5k FPE.
+  - Note: even the oracle ideal cap on all three lines gives ≈ 5,490 − (1,358 + 1,005 + 243) ≈ 2.9k FPE, so C <= 2.5k
+    is probably out of reach. Reported regardless.
+- Lines: the non-blind ones, plus b-g23 as a second configuration.
+
+**T331: tmax upward (Fable D1).** T317e (exact points, G = 20, closure c) at:
+- (i) tmax 1;
+- (ii) tmax 2;
+- (iii) tmax .5 with a **zero-cost affine extension**: the last walked cell's correct set is solved on [t, ∞) instead of
+  [t, tmax], in the same single correct_interval call. The beyond-tmax gap is then wrong past the frozen cell's root,
+  instead of assumed correct.
+- For information: (iv) tmax 1 + extension, (v) tmax 2 + extension.
+
+All on 80 DEV2, charged as executed, with RMS and bias reported separately.
+- **Go:** DEV2 MSE × C <= .80 × T317e's.
+- **Stop:** C grows > 15%, or the bias moves by < .08 pp.
+- Selection among (i)-(v): minimum MSE × C. These are 5 variants on DEV2, so the selected value is optimistic
+  (forking paths). Any HP4 claim belongs to the combined attempt.
