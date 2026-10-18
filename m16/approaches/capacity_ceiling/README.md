@@ -45,8 +45,17 @@ matrix (common inputs across models) for paired comparisons. **Runs started unde
 stream (no mid-run resume happened), and its final evaluation lacks the discordance matrix (re-evaluated with the new
 evaluate.py from the saved weights).
 
-## Results
-(pending)
+## Results ([measured], unverified)
+**Step 0, reproduction (2^30, zoo defaults; 1e8-sample float64 MC, SE ~3e-5):**
+| model | acc | blind | 2-3 | 1-2 | other |
+|---|---|---|---|---|---|
+| zoo code unchanged, seed 0 (`repro_zoo.py 0`, 2608 s on T4) | 0.91000 | 0.00585 | | | |
+| trainer.py seed 0 (`run.py a30 --log2n 30`) | 0.91037 | 0.00585 | 0.05122 | 0.02734 | 0.00522 |
+| trainer.py seed 1 | 0.90432 | 0.00662 | 0.06507 | 0.01798 | 0.00602 |
+| trainer.py seed 2 | 0.94946 | 0.00755 | 0.02692 | 0.01454 | 0.00154 |
+| trainer.py seed 3 | 0.93072 | 0.00717 | 0.03973 | 0.01911 | 0.00327 |
+| trainer.py seed 4 | 0.94193 | 0.00613 | 0.03501 | 0.01452 | 0.00242 |
+All inside the zoo seed spread (0.880-0.949; M_16,10 0.95312). 5 seeds batched in one process: 1847 s on a T4.
 
 ## Compute accounting
 (pending) Colab units per stage; wall time per run.
@@ -59,3 +68,5 @@ evaluate.py from the saved weights).
 
 ## Failure modes
 - Colab reclaims runtimes without notice: checkpoints every n/2^i and per-run result files (see ../gpu_cost_law/COLAB.md).
+  After the DRI memo (CLI >= 0.7.3 has no keep-alive ping) every session is held by a blocking `colab exec` loop
+  (`../gpu_cost_law/colab/keepalive.sh`) since 03:45 UTC: no reclaim so far (04:24).
