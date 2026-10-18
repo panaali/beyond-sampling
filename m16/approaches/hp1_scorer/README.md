@@ -45,6 +45,7 @@ d29e28bb into `data/hp1/subs/probe_v5_d29e28bb/`. The aggregates are in `results
 | t286_rx_ind | `cheap_frontier/hp2_entry.py:est_ind` → `rx.est_rx(Q=4, stride=16, kgroups=3)` | same | same | inductive (reference only) |
 | t286b_probe | `cheap_frontier/hp2_entry_b.py:est` → `probe.est_probe(version=1, iters=8, stride=1)` (selected post hoc on DEV2) | c131e933aa5ac53c72e8d6fc1cd17de54f21a6d0 (branch claude/t286-cheap-frontier) | hp2_entry_b.py `14d0a8c6141ecf05c5c6672290ccb0be7a8faa86216da5973fe92c12485628fe`; probe.py `d1ee7fcfe0ef34a5e49225b3eecd51d93dad9edb136eaf17e7c03993c97f5add`; cf.py `72fb793abe33a662a762d569e97c8bd2205f5817eb87156f1daf5096cfbd38d9`; m16/estimate.py `8d87f1bec58961db64f8acc45d8b6655c8c0d80fbfc29381a7a854e8d584398d` | deductive (every step), post hoc |
 | t300_r0 | `r0_shared/estimator.py:est` → `r0_integral/tb.est(n23=1, newton=1, nblind=0, use12=False)` | 8df9793bcccb67ca8c412261006eceb5bd4777b3 (branch claude/t218-tie-tail-labels) | estimator.py `cbb7904b7717834ce677991be359232c6e6066e74cc7b0315a2caa9a992d1771`; r0.py `0f05d047789bde235f2e76c6f374f62a65eed8cfe8f81a39ddaa09f64207499b`; tb.py `a2ae41b436bb6a057b7588f3a44efc8f900d73461293a3fa08788ab26407526a` | inductive (one inductive step; DEDUCTIVE=False); author scope: lenient bar, retrains |
+| t306_r1w | `r1_walk/estimator.py:est` → `r1w2.est` (R1W V1) | 684a22b96e8f3dec5ae3a63b5d163aecd1334e3e (branch claude/t218-tie-tail-labels) | estimator.py `81e30b6af4e675ecc89b85c9cef94b1d915a6ba2ed392ddc9151d9115f02cb93`; r1w2.py `3078021594b2959579601df20dee9a41be53de2e131c21127e585430571867e2`; r1w.py `3f7297f2e92f5daed0f20d21728f60389e567f29a9a98bbe85761f562a7d919e`; r0_walk/walk.py `06d7ec1987a303a651fb57d2bcdb5637f0ebf5ec23463deea78dfc158e77ce46`; r0.py `0f05d047…499b` | deductive (DEDUCTIVE=True; declared approximations) |
 
 No estimator code was changed. The one loader shim is `shim/alg_zoo.py`: t286b imports m16/common.py, which
 loads M_16,10 at import time via alg_zoo, and alg_zoo is not installed here. The shim returns HP1's bit-identical
@@ -225,6 +226,17 @@ The author charges 1.0e7 FLOPs. They divide by 5760 FLOPs/FPE (1752 FPE); this s
 - [measured] On the HP1 noisy copies it fails: F 77–90, bias +7.7 to +9.5 pp. The author scoped the method to
   retrains, so its claim is decided on HP2. HP1 is the robustness readout only.
 
+### T306 R1W V1 on HP1 (`r1_walk/estimator.py:est`; deductive; fixed cost)
+| group | C_eff | F [95% CI] | RMS pp | bias pp |
+|---|---|---|---|---|
+| clean | 13056 | 9.1 [1.1, 20.1] | 0.72 | +0.49 |
+| abs0.05 | 13888 | 425.1 [359.0, 493.9] | 6.89 | +6.64 |
+| rel0.005 | 12875 | 92.7 [29.2, 150.4] | 3.55 | +2.88 |
+| rel0.01 | 12840 | 127.4 [58.8, 191.9] | 4.49 | +3.55 |
+| all | 13195 | 195.2 [149.0, 234.4] | 5.07 | +4.20 |
+
+- [measured] On HP1, t306 has F 9.1 on the 6 clean models (CI up to 20). On the noisy copies it fails: F 93–425.
+
 ## HP2 results: PRIMARY panel (T284 retrains; Directive 8 amendment 2)
 Panel: branch `claude/t192-gpu-cost-law` at aa9c000e, `m16/approaches/gpu_cost_law/hp2/`, copied to `data/hp2/`.
 - 100 fresh retrains, hp2_s100..s199 (zoo (16,10) defaults, fused trainer, data seed 41). These seeds are disjoint
@@ -261,6 +273,7 @@ snapshots and entry points as above. Results: `results/hp2_<name>_F.json`.
 | t286_rx_ind | inductive | fixed | 1716 | 25.77 [19.13, 33.25] | 3.45 | -2.10 | 67 | fail | fail | no |
 | t286b_probe | deductive | fixed | 3910 | 106.97 [90.63, 122.97] | 4.66 | +3.97 | 37 | fail | fail | no |
 | t300_r0 | inductive | fixed | 1697 | 9.72 [7.02, 12.97] | 2.13 | +0.82 | 175 | fail | pass | no |
+| t306_r1w | deductive | fixed | 13269 | 16.35 [11.77, 21.24] | 0.99 | +0.53 | 812 | fail | fail | no |
 
 Readout (HP2):
 - [measured] The control gives F 0.79–1.06 with every CI covering 1, so the harness holds on HP2.
@@ -273,7 +286,8 @@ Readout (HP2):
   So it is not a candidate under the DRI rule. HP2 F is worse than the author's DEV2 5.97: bias +0.82 pp, RMS
   2.13 pp.
 - [measured] v5a (inductive) is lenient only at 1k and 4k (F 2.9 / 5.3; upper CI ≤ 10).
-- [measured] Every deductive entry fails both bars: t286_rx F 98, t286b_probe F 107. t286_rx_ind (inductive
+- [measured] Every deductive entry fails both bars: t306_r1w F 16.3 [11.8, 21.2] (the best deductive entry; its DEV2
+  F was 11.95), t286_rx F 98, t286b_probe F 107. t286_rx_ind (inductive
   reference) is at 25.8.
 
 ## Compute accounting
