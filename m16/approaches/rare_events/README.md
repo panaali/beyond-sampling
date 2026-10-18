@@ -213,3 +213,40 @@ The DRI's rough count (12 / 15, with approximate C) counted the ties as wins. Wi
 deductive estimate is clearly better than plain sampling in 5/15 pairs for either single fixed variant, and in 10/15 if
 the variant is picked per event family (A for interior errors, B for far-gap 2~3 islands). No single fixed estimator
 wins a majority.
+
+## T340c (T218 child, T349 lane; claude/t218-tie-tail-labels @6c651118, r1_cont/ "T349 (T340c)"; pre-registered there)
+Variant B with g12 integrated at K exact-law Gauss nodes for g12 | v2 (restricted to g12 >= t for E2) instead of its
+conditional mean. K = 3 is their primary; K = 5 is a convergence check. Their gate: B reproduces bitwise from @620eb47b.
+I copied their result files (`results/t340c_K3.json`, `t340c_K5.json`) and scored them with my `score.py` and the GPU
+truths. The numbers reproduce their message.
+
+| est / truth | E1 t0 = 1 / 1.25 / 1.5 | E2 t = .5 / .75 | C (FPE) |
+|---|---|---|---|
+| orig, C3 | 1.73 / 1.24 / .49 | 1.30 / 1.61 | 2.74M |
+| seed0, C3 | 1.24 / 1.27 / 1.10 | 1.20 / 1.52 | 1.83M |
+| seed3, C3 | 1.04 / 1.06 / 1.02 | 1.08 / 1.41 | 2.48M |
+| orig, C5 (check) | 1.58 / 1.02 / .84 | 1.29 / 1.65 | 4.53M |
+| seed0, C5 | 1.25 / 1.23 / 1.03 | 1.21 / 1.53 | 3.03M |
+| seed3, C5 | 1.00 / .98 / .92 | 1.12 / 1.41 | 4.09M |
+
+**Verdict on my pre-registered lines (T340c's primary is K = 3):**
+- **E1: partial.** 8/9 are within 2x and 9/9 within 3x. The one miss is orig at t0 = 1.5 (.49, just outside 1/2).
+  K = 5 gets 9/9 within 2x, but it is the check, not the primary.
+- **E2: useful.** 6/6 are within 2x (1.08-1.61), one-signed high.
+- (B, for the record, is partial on E1 by my line: 6/9 within 3x meets the >= 6 condition.)
+
+**Interpretation.** The transverse g12 placement was the missing piece. With g12 integrated at 3-5 exact-law nodes, the
+uncut walks estimate both rare-event families within a factor 2 at p from 2e-7 to 4e-4, on the target and two seeds.
+- [measured] This is the first deductive estimate in the project that gets probabilities of order 1e-6 to 1e-7 right
+  within 2x.
+- **Cost is the catch:** 1.8-4.5M FPE (9-14x B).
+  - At that compute, plain sampling sees 15-1,300 events for most pairs.
+  - So on the post hoc equal-compute table, C3 wins 4, ties 3 and loses 8 of 15 (C5: 3 / 3 / 9).
+  - Its wins are where p C <~ 90: orig E1 at 1.25 and 1.5, and the seeds at 1.5.
+- For truly rare events (p C << 1 at the method's cost) the deductive route wins. At p >~ 1e-5 and millions of FPE,
+  sampling is better.
+- [inferred] The cost scales with walks, not with 1/p, so the advantage grows as p falls. That is ARC's regime, but the
+  constant (~2-4M FPE per model for 3 models' events) must come down for the moderate-p cases.
+
+**Remaining error.** E2 is one-signed high (+8 to +65%), E1 mostly high on the seeds, and orig E1(1.0) is not converged in
+K (1.73 -> 1.58). [speculative] The fixed v3-v4 link and the linearised mu(v4) are the next candidates.
