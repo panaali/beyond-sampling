@@ -11,12 +11,13 @@ certificates. `controls.py` freezes20 analytic/API cases before execution.
 
 ## Status
 Claim903f13f6 published. All20 controls completed9335fac5 after independent
-source gateb1bcf15e and saved review4e5eb0b9. Target source1b2dab3d is separately
-frozen/published; no target predicate has run, independent source gate pending.
+source gateb1bcf15e and saved review4e5eb0b9. Target source1b2dab3d independently gated19153f92. Sole target resulte88938a0
+is complete/published. Independent saved target review8b4b013c/sharedc4d8609b passes. This bounded task is done.
 
 ## Results
 [measured]12 valid/8 invalid controls pass once in0.02808157CPU; see
-CONTROL_RESULTS.md. [inferred] Pairwise nonzero, non-positive-proportional
+CONTROL_RESULTS.md. [measured] All120 target readout pairs have exact nonzero
+minors, no zero columns; see TARGET_RESULTS.md. [inferred] Pairwise nonzero, non-positive-proportional
 readout columns suffice to rule out every nonidentity global positive-monomial
 weight automorphism. This exact algebra is independent of approximate cosines.
 
@@ -26,8 +27,8 @@ forward, geometry, mass, RNG or fit calls. Exact Fraction preparation is charged
 research CPU; partial counts are not portable/native cost.
 
 ## Claims
-The theorem is [inferred], pending independent review. No target conclusion,
-ARC solution, broad function-equivalence exclusion or runtime benefit.
+The theorem is [inferred] and independently reviewed; target exact certificate independently verified8b4b013c. No ARC
+solution, broad function-equivalence exclusion or runtime benefit.
 
 ## Alternatives not ruled out
 Argmax-only/common-shift invariances, reachable-domain equivalences, noninvertible
