@@ -3,7 +3,9 @@
 Raw author commit `6d2db5f4` is published. The immutable gate `89c208e1` was
 published through `9bff1348` before execution, following h4 review `006ca7d5`
 (shared `2b83e21d`) and board execution scope `e136bc00`. Independent saved
-review is pending; these are author observations until that review completes.
+review `78bbabb7` (shared `aeebdaa0`) passes all four cases, eight laws,15events
+and18 finite probes using an integration-by-parts mean contraction and stdlib
+archive parsing; no author or numerical-library replay. Reviewer CPU1.239037275s.
 
 All four frozen cases passed without changing thresholds or rerunning. Three
 2-interval synthetic controls retain the original and alternative central masses:

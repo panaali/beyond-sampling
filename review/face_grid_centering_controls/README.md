@@ -14,7 +14,7 @@ array contractions, finite interpolation probes and all scope/resource limits.
 
 ## Status
 Sole gated four-case phase complete in `6d2db5f4`; all fixed controls passed.
-h4 source review `006ca7d5` is complete; T55 independent saved review is pending.
+h4 source review `006ca7d5` is complete; T55 independent saved review `78bbabb7` (shared `aeebdaa0`) passes.
 No trained phase authorized.
 
 ## Results
@@ -38,7 +38,7 @@ No cost or speed advantage claimed.
 
 ## Claims
 [inferred] T238 establishes bias only under its formal symmetric-real premises.
-[measured, author; independent saved review pending] The original stored-law
+[measured, independently checked saved arithmetic] The original stored-law
 central gap is2.82095e-5 and the local alternative meets frozen centering checks.
 Separate normalization and finite-input-law limitations remain.
 
