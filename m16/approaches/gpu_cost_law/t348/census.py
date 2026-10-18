@@ -7,6 +7,7 @@ Per (k, set): distinct patterns D (lower bound on N_k), N_delta = patterns with 
 1 - delta of the set's sample mass, exp(H) of the empirical pattern distribution, singletons f1 (Good-Turing missing
 mass ~ f1 / n). Distinct counting by sort + unique on GPU, every set split into P passes by the top hash bits so a
 pass holds ~n / P keys per set; per pass only count-of-counts and sum c log c are kept (host memory small).
+Also backward (suffix) patterns, steps 11-k..10, for k = 7..10 (all and error inputs; T346 extension).
 usage: python census.py N [P] [seed] -> census.json"""
 import json, math, os, sys, time
 import numpy as np, torch as th
@@ -39,17 +40,24 @@ def batches():
         yield th.stack(W, 1), near, err; done += m
 
 
-def keys(W, k, which):
-    if k <= 4:                                                  # exact: 16 k bits
+def keys(W, k, which, suffix=False):
+    """prefix pattern (steps 1..k) or, with suffix, backward pattern (steps 11-k..10)"""
+    ts = range(10 - k, 10) if suffix else range(k)
+    if k <= 4 and not suffix:                                   # exact: 16 k bits
         h = th.zeros(len(W), dtype=th.int64, device=DEV)
-        for t in range(k):
+        for t in ts:
             h = h | (W[:, t] << (16 * t))
         return h
     c, m = (C1, M1) if which == 1 else (C2, M2)
     h = th.full((len(W),), c, dtype=th.int64, device=DEV)
-    for t in range(k):
+    for t in ts:
         h = mix(h, W[:, t] + (t << 16), c, m)
     return h
+
+
+def part_of(h):
+    """partition index from a re-mixed key (raw exact keys have very skewed top bits)"""
+    return ((mix(h, th.zeros_like(h), C2, M2) >> 58) & 63) % P
 
 
 def stats(cnt_of_cnt, slogc, n):
@@ -78,25 +86,29 @@ def tally(K, coc, sl):
 
 
 res = {}; t0 = time.time()
-SETS = ("all", "near", "err")
+JOBS = []                                                       # (label, k, mixer, suffix, sets)
 for k in range(4, 11):
-    out = {}
-    for which in ((1, 2) if k == 10 else (1,)):                 # second mixer at k = 10 (most distinct): collision check
-        coc = {s: {} for s in SETS}; sl = {s: 0.0 for s in SETS}; ns = {s: 0 for s in SETS}
-        for part in range(P):                                   # every set is split by the top hash bits
-            buf = {s: [] for s in SETS}
-            for W, near, err in batches():
-                h = keys(W, k, which); sel = ((h >> 61) & 7) % P == part
-                buf["all"].append(h[sel]); buf["near"].append(h[sel & near]); buf["err"].append(h[sel & err])
+    JOBS.append((f"prefix_k{k}", k, 1, False, ("all", "near", "err")))
+    if k == 10:
+        JOBS.append((f"prefix_k{k}_mixer2", k, 2, False, ("all",)))
+    if k >= 7:
+        JOBS.append((f"suffix_k{k}", k, 1, True, ("all", "err")))
+for label, k, which, suf, SETS in JOBS:
+    coc = {s: {} for s in SETS}; sl = {s: 0.0 for s in SETS}; ns = {s: 0 for s in SETS}
+    for part in range(P):
+        buf = {s: [] for s in SETS}
+        for W, near, err in batches():
+            h = keys(W, k, which, suf); sel = part_of(h) == part
             for s in SETS:
-                K = th.cat(buf[s]); buf[s] = None; ns[s] += len(K)
-                if len(K):
-                    sl[s] = tally(K, coc[s], sl[s])
-                del K
-            th.cuda.empty_cache() if DEV == "cuda" else None
-        for s in (SETS if which == 1 else ("all",)):
-            out[s if which == 1 else "all_mixer2"] = stats(coc[s], sl[s], ns[s])
-    res[k] = out
-    print(k, json.dumps({s: dict(D=v["distinct"], n=v["n"], f1=v["singletons"], expH=round(v["exp_entropy"]), Nd=v["N_delta"])
-                         for s, v in out.items()}), "%.0fs" % (time.time() - t0), flush=True)
+                buf[s].append(h[sel] if s == "all" else h[sel & (near if s == "near" else err)])
+        for s in SETS:
+            K = th.cat(buf[s]); buf[s] = None; ns[s] += len(K)
+            if len(K):
+                sl[s] = tally(K, coc[s], sl[s])
+            del K
+        if DEV == "cuda":
+            th.cuda.empty_cache()
+    res[label] = {s: stats(coc[s], sl[s], ns[s]) for s in SETS}
+    print(label, json.dumps({s: dict(D=v["distinct"], n=v["n"], f1=v["singletons"], expH=round(v["exp_entropy"]), Nd=v["N_delta"])
+                             for s, v in res[label].items()}), "%.0fs" % (time.time() - t0), flush=True)
     json.dump(dict(N=N, seed=SEED, P=P, results=res), open(os.path.join(HERE, "census.json"), "w"), indent=1)
