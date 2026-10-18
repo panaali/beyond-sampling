@@ -4,7 +4,7 @@
 What do the newly published T4 pruning rows add to the completed T3 review?
 
 ## Method
-Claim `844d982d` published `32885a27` before implementation. Pin author `e2caf90e` and 21 payloads in `manifest.json`. Git blob identity checks retain the 51 completed T3 rows and five source/reference inputs unchanged. Review only the 15 new T4 JSON records and their fixed point-reference arithmetic after an independent checker gate; do not rerun the author estimator.
+Claim `844d982d` published `32885a27` before implementation. Pin author `e2caf90e` and 22 payloads (including the historical sampling-cost source) in `manifest.json`. Git blob identity checks retain the 51 completed T3 rows and five source/reference inputs unchanged. Review only the 15 new T4 JSON records and their fixed point-reference arithmetic after an independent checker gate; do not rerun the author estimator.
 
 ## Status
 Source/provenance inventory complete; saved arithmetic checker and independent gate pending. This is a partial T4 corpus, not a completed five-seed rung. The source cap and report are byte-identical to the completed revised-cap phase, so its proof and numerical limitations continue unchanged.
