@@ -7,3 +7,5 @@
 5. Keep srb's 3.3/1.6 override explicitly hand-counted. Its requested direct instrumentation is an unmeasured continuation, requiring new source/resource scope; this saved-only phase supplies no substitute measurement.
 
 DRI decisions needed: approve the explicit metadata schema and unknown-state reporting policy; adopt the all-budget export; decide whether direct srb instrumentation remains a priority. No estimator or shared harness is modified by this proposal.
+
+A successful two-RNG probe on the first model/smallest budget is only a recorded finite probe. It does not prove determinism on all inputs/models/budgets. The proposed metadata makes the scope observable rather than strengthening that test silently.

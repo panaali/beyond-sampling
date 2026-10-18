@@ -1,0 +1,13 @@
+# T204 bounded handoff (independent saved review pending)
+
+Claim38736606; source66c38c90, harness repair130f0a21; independent source gateee41dae8/publication13b4d86d; binding338d47e7; rawcb980799; narrativee8e09794. Shared publicationc0bb3bd0. Complete source/saved artifacts stay in this owned folder; no shared harness changes.
+
+- All498 archived H16T10 method/group/budget rows copied with every original field and a separately labeled current DRI class. Fifty archived CIs are degenerate; no bootstrap/truth rerun or new confidence claim. JSON retains precompute/timing/advice fields even where compact Markdown omits columns.
+- Current table/report already loop budgets. The separate best-budget summary should not substitute for all-budget evidence. Its producer was not located; no assertion that the current table silently minimizes.
+- Both raw snapshots retain7,896 conflicting overwritten records. The audit follows original latest-key policy and inventories every replacement. All2,880 arc_cumulants records predate the source classification addition byte-for-byte and have legacyFalse. This is strong archival explanation, not actual runtime-source proof or fresh determinism verification. Proposed tested/status metadata preserves actual failures and unknowns separately.
+- E44 .5883302365250083 and T114 .7651127844230149 reproduce exactly within saved-float rounding. Distinct1024/256noise panels,72proxy/112scalar sampler conventions and uniform/own-model allocations must remain labeled. E44 lacks the per-copy cost vector. Exact synthetic covariance control proves mean cost plus saved errors/truths cannot recover the missing own-model denominator uniquely.
+- One saved-only audit0.699786896CPU under19/20CPU and2GiB; five metadata controls and one exact covariance control. No estimator/model/MC/geometry/native-cost calls, no source sharing beyond authorized repository.
+
+DRI adoption decisions: explicit determinism metadata and unknown-state reporting policy; use full-budget evidence for leaderboard summaries; correct the E44/T114 narrative without universal rescaling. Remaining direct srb3.3/1.6 instrumentation is explicitly unmeasured and needs a separate published scope/resource gate; this phase supplies no new cost factor.
+
+No original outcome erased, no method class or rung confirmed by the author. Plausible runtime test failures, external summary producers and alternative cost/noise effects remain open. Shared classification and final confirmation belong to Claude.
