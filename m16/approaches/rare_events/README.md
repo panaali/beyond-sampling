@@ -62,3 +62,23 @@ for relative error r), so the ratio is what counts.
    point closure fails, whatever the walk resolution.
 2. The g12-independence (full 1 - Phi(v2)) may bias the estimate if far-gap rank-3 picks need v1 close to v2.
 3. MC truth noise only matters for orig at t0 = 1.5.
+
+## Addendum pre-registration (DRI, 13:05, T337 context; written after the A/B runs on E1 and the closure diagnostic, before any E2 run or E2 truth)
+**Disclosed:** the E1 estimates of A and B (`results/est.json`) and the closure diagnostic (`results/diag_closure.json`)
+were computed before this addendum, but no E1 truth beyond the 2e7 scan has been seen yet.
+**Declared deviation:** the CPU truth runs 1e9 inputs for orig and 3e8 for each seed (CPU budget). GPU truths at >= 1e9
+from the T192 child replace these where they arrive. The pre-registered success line is judged on the best truth
+available.
+
+**E2(t) = {network wrong (any pick) AND g12 >= t AND g23 >= t}**, for t in {0.5, 0.75}. These are T317's interior
+region (both gaps beyond tmax = .5), where T337 found the noise failure. Same 3 models.
+
+**Estimator for E2 (deductive, variants A and B as above):** the any-wrong set along line23 (complement of the target's
+correct interval in each cell), restricted to g23 >= t under the Phi^8 law, times the g12 mass beyond t,
+1 - Phi(v2 + t) (g12 independence: declared), integrated over the v2 nodes.
+
+**Success line for E2:** as for E1 (ratio within [1/2, 2] on all 6 pairs = useful; within [1/3, 3] on >= 4 of 6 =
+partial). Reported separately from E1.
+
+**Also reported (DRI question):** whether the uncut walks capture those interior islands on the clean models, i.e. the
+E2 ratio for variant B.
