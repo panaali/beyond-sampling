@@ -433,3 +433,49 @@ the (e_p2 - e_p3) direction, which is not tried here. Both are unbiased; the var
 
 **Labels:** sampling-class throughout; unbiased; no closure, no declared approximation (the walk is exact, validated
 against dense forwards).
+
+# T364: deep-tail rare events (p ~ 1e-8 to 1e-10), the regime sampling cannot reach
+
+## Pre-registration (2026-10-18, before any T364 truth)
+**Seen before writing this (disclosed):** only K3 estimates on a t0 grid (`results/deep_grid_6.0.json`, no truth), used
+by the threshold rule below.
+
+**Estimator (deductive; frozen code, not mine):** the T218 child's K3 = T340c with the simultaneous-flip fix
+(`walkfix.walk3_fixed`) and the T354 segment start, `t354.est_seg(model, K=3, t0s, tmax)`, from
+claude/t218-tie-tail-labels @e433919d r1_cont/{t340c,t354,walkfix}.py. It runs from a read-only copy through `deep.py`;
+cost as executed.
+- **T_hi = 6 is primary.** T359's cut (T_hi = 3.5) has a declared tail bound of 7e-8, which is larger than every target
+  p here, and s526's thresholds reach 3.5. So the cut is reported only as a secondary arm, for t0 < 3.5.
+- Check: orig E1(1.0) gives 9.510e-6, the same as T340c's K3 (1.77 x 5.367e-6).
+
+**Models:**
+- the target M_16,10 (orig);
+- the first two DEV3 models not used by any rare-event task so far (T350 / T358 / T360 used dev3_s500..525):
+  **dev3_s526, dev3_s527** (T342 weights sha256 62c95203...).
+
+**Events:** E1(t0) = {pick = p3 AND g23 > t0}. Rule: per model, the two t0 on the grid {1.75, 2, ..., 3.5} whose K3
+estimate is closest to 1e-9 in |log10|. This gives:
+- orig t0 = 2.0 (est 1.41e-9) and 1.75 (1.85e-8);
+- s526 t0 = 3.25 (1.21e-9) and 3.5 (2.04e-10);
+- s527 t0 = 2.0 (9.55e-10) and 2.25 (1.28e-10).
+
+**Truth: conditional-law MC (exact, unbiased; sampling, used for truth only).**
+- Draw from the exact law of x given g23 > t0:
+  - v2 by inverse CDF of 90 phi(v2) (1 - Phi(v2)) Phi(v2 - t0)^8 on a fine grid;
+  - v1 ~ N(0,1) truncated to > v2;
+  - v3 = Phi^-1(Phi(v2 - t0) U^(1/8));
+  - the 7 lows i.i.d. N(0,1) | < v3;
+  - a uniform random assignment of the 10 values to positions.
+- p = P(g23 > t0) (exact quadrature) x the conditional frequency of pick = p3.
+- This is plain MC on the event's own gap region: no closure, no walk, independent of the estimator. Its variance
+  equals plain MC with 1 / P(g23 > t0) (1.7e3 to 1.4e7) times more samples.
+- **Validation before any deep truth:** the same sampler at t0 = 1.0 and 1.5 on orig must agree with the GPU truths
+  (5.367e-6, 2.09e-7) within 2 s.e.
+- N per pair, fixed now (aim >= 400 events at the estimate): orig 1.75: 1e8; orig 2.0: 3e8; s526 3.25 and 3.5:
+  1e7 each; s527 2.0: 3e8; s527 2.25: 6e8. If a pair sees < 100 events, it is extended 4x (declared).
+- Cross-check: the same sampler on GPU by T192, if available.
+
+**Go (DRI): est / truth within 2x on >= 5 of 6.**
+
+**Reported:** est / truth with the truth's s.e., C (FPE), and the expected number of events plain sampling sees at C
+(p C).
