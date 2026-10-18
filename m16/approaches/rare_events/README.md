@@ -625,3 +625,36 @@ This replaces T192's sealed selection. Both estimators are frozen as above.
 
 **Go for the fix:** within 2x on >= 7/8 AND closer to the truth than K3 (smaller |log(est / truth)|) on >= 6/8.
 Selecting on disagreement guarantees that the two differ on these pairs; the test is which one is right.
+
+## T367 results: NO GO by the pre-registered line, narrowly; the fix is far better than K3 overall
+**Order:** both estimators' outputs (all 16 models) were committed at 8c636b20 **before** the truths were requested.
+- Truths: T192 GPU, conditional-law MC (`t367/tail_g12.py`), float64, 1e9 per pair, seeds 3671000 + i;
+  `results/t367_truth_gpu.json`.
+- Score: `results/t367_score.txt`.
+
+| pair | truth | share of hits with g12 < .1 | fix est / truth | K3 est / truth | fix closer? | C fix / K3 (FPE) | events plain MC sees at the fix's C |
+|---|---|---|---|---|---|---|---|
+| s541 t0 = 1.75 | 3.54e-7 | 1.00 | **1.25** | 3.7e-5 | yes | 1.91M / .43M | .68 |
+| s541 t0 = 2.0 | 1.14e-7 | 1.00 | **1.35** | 2.9e-6 | yes | 1.91M / .43M | .22 |
+| s543 t0 = 2.5 | 3.00e-8 | .29 | **.90** | .42 | yes | 2.20M / .61M | .066 |
+| s543 t0 = 2.75 | 5.49e-9 | .30 | **1.09** | .48 | yes | 2.20M / .61M | .012 |
+| s546 t0 = 2.5 | 6.80e-9 | .35 | .55 | 1.21 | no | 2.12M / .58M | .014 |
+| s546 t0 = 2.75 | 1.33e-9 | .31 | **1.08** | 2.11 | yes | 2.12M / .58M | .003 |
+| s547 t0 = 2.25 | 1.23e-8 | .79 | 2.43 | 1.03 | no | 2.08M / .55M | .026 |
+| s547 t0 = 2.5 | 1.65e-9 | .80 | 2.12 | 1.25 | no | 2.08M / .55M | .003 |
+
+**Verdict.**
+- **The pre-registered line is missed narrowly.** The fix is within 2x on **6/8** (7 needed) and closer than K3 on
+  **5/8** (6 needed).
+- Both misses of the 2x line are dev3_s547, where the fix over-estimates 2.1-2.4x and K3 is within 1.25x.
+- **Overall the fix is decisively better:**
+  - K3 is within 2x on only 3/8 pairs.
+  - On dev3_s541, where every hit has g12 < .1, K3 is off by 3e4 to 3e5x (3.4e-13 against 1.1e-7). The fix gets
+    1.25-1.35x there.
+  - On s543 the fix is 1.09 / .90 against K3's .48 / .42.
+  - Median |log ratio|: fix .23, K3 .75.
+- **Where the fix fails:** dev3_s547, the model where triple-tie hits are 80% but not 100% of the total. Its graded g12
+  rule over-weights there (2.1-2.4x).
+- **Cost:** the fix costs 3.4-4.4x K3 (1.9-2.2M vs .43-.61M FPE). At the fix's compute, plain sampling expects
+  .003-.68 events.
+- Unverified.
