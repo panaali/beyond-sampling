@@ -20,6 +20,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import cont_e as E  # noqa: E402
+import t331 as T331  # noqa: E402
 from cont_e import H, T, C, NT, TMAX  # noqa: E402
 
 F_PRE = 4 * C + 2
@@ -44,7 +45,7 @@ def check(aWh, aWoDk, z, dz, g, m, dm, delta, s_root=None):
     return bool(bound.min() > 0), f
 
 
-def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=np.inf, mode="B"):
+def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=np.inf, mode="B", ext=False):
     """mode B: rigorous tier B; C1/C2: declared heuristic tier C (stop on the frozen-gate margin alone; C2 only after
     the row's first wrong piece has ended)."""
     Wi, Wh, Wo = model; n = len(x0); pieces = []
@@ -75,14 +76,22 @@ def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=n
         zt = Z[row] + (t[row] - tref[row]) * DZ[row]; flops += 2 * T * H
         s_, f = check(aWh, aWoD[kk], zt, DZ[row], G[row], m, dm, delta, s_root); flops += f
         return s_
+    def stop_piece(sr):
+        nonlocal flops
+        if not ext:
+            return (sr, t[sr].copy(), np.full(len(sr), tmax))
+        lo_, hi_ = E.correct_interval(L[sr], dL[sr], tref[sr], k[sr], t[sr], np.full(len(sr), E.INF))
+        flops += len(sr) * E.F_CI
+        return (sr, lo_, hi_)
     if use:
         s0 = np.array([try_row(r_, None) for r_ in act])
         if s0.any():
-            sr = act[s0]; pieces.append((sr, t[sr].copy(), np.full(len(sr), tmax))); act = act[~s0]; st["stopped"] += len(sr)
+            sr = act[s0]; pieces.append(stop_piece(sr)); act = act[~s0]; st["stopped"] += len(sr)
     while len(act) and it < max_cells:
         it += 1
         sstar = R[act].argmin(1); nxt = np.minimum(R[act, sstar], tmax)
-        lo, hi = E.correct_interval(L[act], dL[act], tref[act], k[act], t[act], nxt)
+        lo, hi = E.correct_interval(L[act], dL[act], tref[act], k[act], t[act],
+                                    np.where(nxt >= tmax, E.INF, nxt) if ext else nxt)
         pieces.append((act.copy(), lo, hi))
         seen_wrong[act[(hi - lo) < (nxt - t[act]) * (1 - 1e-12) - 1e-15]] = True
         t[act] = nxt
@@ -110,13 +119,14 @@ def walk_screen(model, x0, d, k, tmax, use, max_cells=400, dmax=np.inf, maxtry=n
             R[row, s0_:] = r.min(1); J[row, s0_:] = r.argmin(1)
             flops += (T - s0_) * E.F_ROOT + E.F_LATER_READ - 2 * C * H; st["restarts"] += 1
         if (~alive).any():
-            sr = go[~alive]; pieces.append((sr, t[sr].copy(), np.full(len(sr), tmax))); st["stopped"] += len(sr)
+            sr = go[~alive]; pieces.append(stop_piece(sr)); st["stopped"] += len(sr)
         go = go[alive]
         act = go
     return pieces, flops, st
 
 
-def est(model, budget=None, lines=("nb-23", "nb-12"), parts=False, dmax=np.inf, maxtry=np.inf, mode="B"):
+def est(model, budget=None, lines=("nb-23", "nb-12"), parts=False, dmax=np.inf, maxtry=np.inf, mode="B", tmax=TMAX,
+        ext=False):
     model = tuple(np.asarray(w, np.float64) for w in model)
     k = E.TRI[:, 1]; flops = 0.0; tot = np.zeros(NT); info = {}; prof = {}
     for tb in E.TABLES:
@@ -125,9 +135,10 @@ def est(model, budget=None, lines=("nb-23", "nb-12"), parts=False, dmax=np.inf, 
             if f"line{kind}" not in tb:
                 continue
             x, dx = tb[f"line{kind}"]; line = f"{tb['name']}-{kind}"
-            p, f, st = walk_screen(model, x, dx, k, TMAX, line in lines, dmax=dmax, maxtry=maxtry, mode=mode); flops += f
-            R, A, B, ops = E.merge(p, NT, TMAX); flops += ops
-            I[kind], f = E.profile(R, A, B, NT, nodes, kind, TMAX, tb["phi0"]); flops += f
+            p, f, st = walk_screen(model, x, dx, k, tmax, line in lines, dmax=dmax, maxtry=maxtry, mode=mode, ext=ext)
+            flops += f
+            R, A, B, ops = T331.merge_ext(p, NT) if ext else E.merge(p, NT, tmax); flops += ops
+            I[kind], f = E.profile(R, A, B, NT, nodes, kind, tmax, tb["phi0"]); flops += f
             info[line] = st; prof[line] = I[kind]
         I12 = I["12"] if "12" in I else np.repeat(tb["blind12"][None], NT, 0)
         tot += (I12 * I["23"] * tb["dens"][None]) @ tb["wts"]
