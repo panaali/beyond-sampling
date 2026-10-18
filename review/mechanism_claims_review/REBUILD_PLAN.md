@@ -84,9 +84,10 @@ before the full continuation. Preserve all failures and successful pilot reuse.
 At most196608 distinct input forwards in the full proposed design, including
 any pilot reused from that design. Whole hidden-state arrays are unnecessary;
 final states and sufficient regression/score records suffice. The canonical
-5948-FLOP forward benchmark would contribute1,169,424,384 scalar units alone,
-excluding fitting, scoring, generation, serialization and controls; this is
-planning arithmetic, not a complete measured cost or challenge budget.
+T196 canonical per-input sampling benchmark is5948 units, including ranking
+and score accumulation. Multiplying by196608 gives1,169,424,384 reference units;
+this is planning scale, not this implementation's forward charge or a complete
+measured cost. Fitting, generation, serialization and controls remain separate.
 One thread,2GB,primary flock, at most110CPU per process with a frozen total
 reserve; stop on any cap/failure. A source-first pilot may show a smaller total
 reserve is adequate. No repeated trial to achieve a desired score.
