@@ -1,0 +1,93 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "raw_commit": "06ff0de6",
+  "pins": {
+    "controls/results.json": "ad5be29df2e56ec18d441c163dfcd402f4057b0228bc594b3f11f08def399ca0",
+    "controls/progress.jsonl": "74bf96c50bf61f6bca70d650f317f2b40de6bbc657a9488aa3ecea600865a8a4",
+    "protocol.json": "697c93c78a705a09e28dd250fcb0ecfdfe3d22f2ab2e482003132cc73f95fadf",
+    "execution_gate.json": "6fcb15901a74639a4b2db5482a02e1a67a3d1e36838e121d7b5f354c5aaae2ce",
+    "primitive.py": "626fc22c78841ee1f23a0d2ff7f8dd3638ed4eff09f77e005c1a3f149f095cc5",
+    "controls.py": "7e6b414ef75c95988c718a3f49f2c4c2b5718a03723398ce2045ba39efb79ece"
+  },
+  "checker_sha256": "e30314ca3e41be50520611b4ab9c47f9539aab3e9864d107cecefd5c36b9538f",
+  "readout_signed_zero_differences": 1,
+  "reviewer_correction_sha256": "1def7db60944a4a4dd83ea9a10d0efacd8f1d6133169c9882fef6e1b23213030",
+  "fixtures": 10,
+  "rows": 11,
+  "coordinates": 24,
+  "guards": 6,
+  "progress_events": 35,
+  "exact_sse_drop": [
+    [
+      "8",
+      "1"
+    ],
+    [
+      "4",
+      "1"
+    ],
+    [
+      "37",
+      "4"
+    ],
+    [
+      "0",
+      "1"
+    ],
+    [
+      "0",
+      "1"
+    ],
+    [
+      "0",
+      "1"
+    ],
+    [
+      "4",
+      "1"
+    ],
+    [
+      "4",
+      "1"
+    ],
+    [
+      "3",
+      "1"
+    ],
+    [
+      "16",
+      "1"
+    ],
+    [
+      "3",
+      "1"
+    ]
+  ],
+  "partial_counts": {
+    "comparisons": 24,
+    "subtractions": 48,
+    "multiplications": 96,
+    "additions": 52
+  },
+  "task_improvements": [
+    [
+      "improves",
+      0
+    ]
+  ],
+  "task_regressions": [
+    [
+      "worsens_strict",
+      0
+    ],
+    [
+      "worsens_tie",
+      0
+    ]
+  ],
+  "review_cpu": 0.05033046000000001,
+  "author_cpu": 0.03863024300000001,
+  "new_author_calls": 0,
+  "scope": "Fixed synthetic saved-array projection, exact coordinate SSE reduction identity, independent scalar stored-float readout/first-index labels (readout zero signs treated equivalent), partial expression counts and progress/pins pass. Recorded guards checked without invalid-path replay. Hidden SSE monotonicity does not imply classification improvement: both strict and tied worsening fixtures retained. Cancellation readout uses its actual binary64 fold, not an exact-real dot claim. No trained panel, runtime/full-cost or deployable estimator conclusion."
+}
