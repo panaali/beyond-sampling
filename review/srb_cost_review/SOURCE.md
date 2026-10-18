@@ -9,9 +9,11 @@
    division semantics must be preserved, not replaced by rational floor in a
    numerical parity test. Seven quotas are max(4,floor(alloc_h*n)); M=sum quotas
    need not equal n, and small budgets can be exceeded because M>=28.
-3. `pc()` lazily loads all precomp.npz arrays once per module. Reusable model-free
-   tables were generated with20M Gaussian prefixes; they are finite estimated
-   stratum probabilities/feature means, not exact analytic probabilities merely
+3. `pc()` lazily loads all precomp.npz arrays once per module. The precompute default
+   and README describe20M Gaussian prefixes as the intended table-generation
+   procedure. The stored file is pinned, but its historical generation/runtime
+   is not independently authenticated here. Under that procedure probabilities
+   and feature means are finite estimates, not exact analytic values merely
    because a docstring says exact. alloc.json is original-model pilot advice.
 4. `draw_all` uses batches of50000 nine-dimensional prefixes, computes pstratum
    for every candidate and retains only unmet quotas. The stopping condition is
@@ -34,7 +36,8 @@
    measurement and cannot recover discarded candidate or interval activity.
 8. `leaderboard.correct` uses first-index argmax; target uses sorted second
    largest input. In Q, a competing row with identical logit has dA=dB=0 and
-   `never=True`, regardless of index. For Wo=0 all competitors trigger never,
+   `never=True`, regardless of index. For Wo=0 and finite ordinary intermediates (e.g. finite Wi, Wh=0),
+   all competitors trigger never,
    hence every interval contributes zero. For continuous independent inputs,
    actual first-index prediction0 has accuracy1/10. At a fixed prefix where
    input0 is the second largest, target0 remains correct when the last input is
