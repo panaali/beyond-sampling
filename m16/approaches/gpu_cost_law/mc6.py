@@ -27,12 +27,13 @@ while done < N:
         else:
             cnt[i] += 1
     done += m
-p = cnt / N; se = np.sqrt(np.maximum(cm, 1e-300) / N); z = (p - cm) / se
+p = cnt / N; cmz = np.nan_to_num(cm); se = np.sqrt(np.maximum(np.maximum(cmz, p), 1e-300) / N); z = (p - cmz) / se
 big = np.argsort(-np.abs(z))[:15]
 r = dict(pos=pos, n=N, seed=seed, cells=n, regions=len(hists), root_mass=root, leaf_sum=float(cm.sum()),
          root_mc=nroot / N, root_mc_se=float(np.sqrt(nroot) / N), leaf_mc_sum=float(cnt.sum() / N),
          unmatched_mc=float(sum(unm.values()) / N), unmatched_patterns=len(unm),
-         chi2_per_region=float(np.mean(z ** 2)), worst=[dict(i=int(i), mass=float(cm[i]), mc=float(p[i]), z=float(z[i]))
+         n_zero_or_nan=int((~(cm > 0)).sum()), mc_in_zero_or_nan=float(cnt[~(cm > 0)].sum() / N),
+         mass_nan=int(np.isnan(cm).sum()), chi2_per_region=float(np.mean(z ** 2)), worst=[dict(i=int(i), mass=float(cm[i]), mc=float(p[i]), z=float(z[i]))
                                                          for i in big], sec=time.time() - t0)
 json.dump(r, open(os.path.join(Q.OUT, f"mc6_{pos}.json"), "w"), indent=1)
 print({k: v for k, v in r.items() if k != "worst"}); print(r["worst"][:5])

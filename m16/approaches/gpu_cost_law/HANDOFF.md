@@ -1,6 +1,6 @@
 # HANDOFF: T270, T234 grid3, T284 HP2/DEV2, T196 (8,5) audit (live state; updated at every check-in)
 
-Last update: 2026-10-18 08:25 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
+Last update: 2026-10-18 09:10 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
 DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `send_message`). T281 scorer session:
 `session_01UvVWREPpEYpUGudpzkioKd`. Budget: T234 + T270 <= 115 Colab units combined.
 
@@ -44,7 +44,11 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 - **OPEN ISSUE (07:25): k = 6 leaf masses sum below their root masses** (per-chunk deficit up to 4.35e-5, total 5.1e-5
   over 520 subtrees; k = 5 was exact to 1.4e-9). Bounds at delta <= 1e-5 are invalid until fixed (processed + U <
   1 - delta saturates them). Diagnosis: `python diag6.py results/prefix6/shard1_chunk0001.npz 2` (per-subtree leaf vs
-  root, local CPU) -> `results/prefix6/diag_shard1_chunk0001.json`. Reported to DRI. No early stop on these bounds.
+  root; ran on t192f2 with `DIAG_DEV=cuda`, local RAM too small) -> `/content/diag6.log` on t192f2. **Found 09:00:** the
+  chunk's deficit is one subtree, position 125 (leaf 0.0031237 vs root 0.0031672, -4.35e-5 = 1.4%), with a region of mass
+  exactly 0; 12 other subtrees agree to ~1e-10. Independent MC of that subtree: `mc6.py 125 1e8` on t192f2
+  (`/content/mc6_125.log`, json `results/prefix6/mc6_125.json` there): unmatched_mc > 0 = lost geometry; MC mass in the
+  zero-mass region = mass rule failure. DRI pre-approved: if masses must be recomputed, stop shard 0, keep region counts.
 - Progress 07:23: shard 0 280/1906 at 3624 s (slowed by grid3: ~13:50 finish), shard 1 240/1905 at 2033 s (~11:20).
 - Progress 07:05: shard 0 200/1906 subtrees at 2475 s (~6.5 h/shard -> finish ~13:00 / ~13:20 UTC); shard 1 no chunk
   yet. Bounds after 4 chunks: g_1e-7 >= 3.5, g_1e-6 >= 4.7 (no early stop).
@@ -60,7 +64,8 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 ## T284 panels (gpu_cost_law/hp2/)
 - DEV2 (OPEN): DONE. `hp2/dev2/weights.npz` (sha256 22d1c7c2...343bec), `truths.json` (sha256 582c21cf...a9785;
   1e8/model; min .81355 max .96023 mean .92012 sd .03163), sent to DRI 07:27.
-- HP2 (SEALED): once grid3 state step >= 2^20 (~10:15 UTC after the restart): download state.pt, `python hp2/make_panel.py hp2 STATE_PT`
+- HP2 (SEALED): DONE 08:47 (`capacity_ceiling/hp2_run.py` + `fused_gid.py`, grid3 data ids; delivered to the scorer;
+  weights file sha256 41709001..., truths sha256 1a6a44f4...). Pending: bit-identity check vs grid3's copies at step >= 2^20. Original plan:: download state.pt, `python hp2/make_panel.py hp2 STATE_PT`
   (local), upload `hp2/weights.npz` + run `truth_panel.py hp2 1e8` on a GPU VM -> `hp2/sealed/truths.json` ONLY.
   Send the scorer (T281) path + weights/truth sha256; send DRI hashes + min/max/mean/sd. Never publish per-model truths.
 - HP1 truths likewise stay only in `hp1/sealed/truths.json`.
@@ -70,5 +75,5 @@ Seed 0: charged 2.177e11, complete 2.685e11, ratio 1.23 (`results/audit85/audit_
 (`colab/q_audit2.sh`). When done: download `/content/audit_{1..4}.log` to `results/audit85/`, add to README, stop t192aud.
 
 ## Units
-304.80 at login; 245.92 at 07:24 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
+304.80 at login; 232.11 at 08:58 (~10.7 u/h now: 2 A100 at 5.3 + CPU 0.08). T234 + T270 spend so far ~34; projected
 ~100 of 115 at T270 completion. Stop each A100 as soon as its shard (and, on fu, grid3) is done and synced.
