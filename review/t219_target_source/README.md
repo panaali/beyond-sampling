@@ -41,3 +41,7 @@ aggregation. Later dimensions and noisy weights remain separate scopes.
 Preflight/source drift, incomplete control review, resource exhaustion and
 planar/cone disagreement all stop the author run. Finite witness validation
 alone does not establish ray completeness; the reviewed induction is required.
+
+## Fixed depth-three wrapper continuation
+
+Assignment1f1beed5; sourcef4b5d2e1 and saved k2 prerequisite13e3a70e reviewed in `depth3_source_gate.json`. All eight pins and published ancestry pass. One fixed34-parent extension is cleared only after this gate is published and bound, under the110CPU/2GiB primary-lock whole-phase cap. No author calls were made. Full saved verification remains separate; hard/soft interruption is incomplete evidence and cannot be resumed automatically.
