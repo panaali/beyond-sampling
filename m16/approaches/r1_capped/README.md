@@ -32,3 +32,39 @@ models.
 
 **Forking paths:** this would be the third R1W-family HP2 submission (T300 stage 0, T306 V1; T313 was a cost
 re-count, not a submission). Across T297-T315, about 33 variants have seen DEV2.
+
+## Results (`python f80.py`, `results.json`; all 80 DEV2, development)
+**Validation.** Uncapped (c = 400), CAP reproduces the exact walk `r1w.est(K=1, blind12=True)` to **0.0** (fused_s8).
+So the executed prefix tree (B2) and the bookkeeping are exact; only the cap changes anything.
+
+| c | C (FPE at 5,948) | bias (pp) | RMS (pp) | point F [95% CI] |
+|---|---|---|---|---|
+| 1 | 4,343 | -10.44 | 14.56 | 1,269 [863, 1,707] |
+| 2 | 7,317 | -8.96 | 12.90 | 1,678 [1,132, 2,223] |
+| 3 | 9,818 | -5.30 | 8.17 | 903 [593, 1,230] |
+
+- **FAIL**, far from the go line. The pre-registered selection would pick c = 3 (F 903), so nothing is sent to HP2.
+- **Per-region diagnosis** (correct-mass difference against the uncapped walk):
+
+  | model | c | nonblind | blind |
+  |---|---|---|---|
+  | fused_s8 | 1 | -3.93 pp | -0.01 pp |
+  | fused_s8 | 3 | -2.69 pp | -0.02 pp |
+  | torch_s24 | 1 | -1.86 pp | -0.04 pp |
+  | torch_s24 | 3 | -0.18 pp | -0.00 pp |
+
+  The failure is entirely in the nonblind lines, and on other models it is much larger (RMS 8-15 pp).
+- **Why:** near the tie the first gate cells are tiny (H-E15's tie fragmentation). The affine margin of an early
+  cell, extended over the 0.5 walk range, crosses into the wrong class, while the true margin, after its later gate
+  flips, does not. "No further gate change" is a bad declared approximation exactly where the walk starts. The
+  error is systematically one-signed (bias always negative), so it is not noise.
+- Contrast with T300's Newton threshold, which also extrapolates from the first cell. Its sign convention (tau = 0
+  when the margin is positive at the tie, clipped at 3) avoided this collapse but leaned on cancellation. Here,
+  with all classes, the plain extrapolation fails outright.
+
+## Status
+Done (2026-10-18). FAIL, no HP2 submission (the family stays at two HP2 submissions). Forking paths: 3 more
+variants (c = 1, 2, 3) have now seen DEV2, about 36 in total.
+
+## Compute accounting
+3 variants x 80 models, plus the validation: ~30 CPU-min.
