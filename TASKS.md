@@ -51,6 +51,8 @@ side axis: task (argmax / 2nd-argmax / argmedian). Missing sizes (H=7, 9-15; T=7
    bulk errors (ARC's protocol includes copies whose accuracy drops to 0.45-0.77 even for M_16,10), so off-regime rungs
    ((4,4), (5,4), ...) are climbed in parallel as their own track (T116), one step at a time.
 
+**Owner directive (2026-10-18 17:27): do not use Fable (reviews or sub-agents) from now on.** Past Fable reviews remain in the record.
+
 ## In progress
 
 

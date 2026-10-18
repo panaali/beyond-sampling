@@ -310,3 +310,5 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
    rounds, 05:16-12:13) and supplied many of the tested designs (round 3: T305-T309; round 4: T317-T319, including
    the continuity-restart saving behind T317; round 5: T326-T332). Give a silent lane's Ready rows to child sessions
    after a stated timeout, and run reviews that need no compute as sub-agents.
+
+**Owner directive (2026-10-18 17:27):** stop using Fable from now on (no Fable reviews or sub-agents).
