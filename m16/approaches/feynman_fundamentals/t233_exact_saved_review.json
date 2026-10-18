@@ -1,0 +1,127 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "task": "T233 independent saved rational residual controls",
+  "execution_scope": "3d372553",
+  "pins": {
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/primitive.py": "66297a47d5fc7326ce2c64abec67c4e0554382635077b051d5b895c60ed2159f",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/controls.py": "81047669a99d25dc7d75e47c07c5b1311d03e430008e331b7a6f3d9b5000876a",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/fixtures.json": "59220793432e91dcf1e5e1a7b0825fbdaeedc2d78cc47db3c085fcf248e4ee36",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/PROTOCOL.md": "aded02bd5120cc3bd060ab9f6077364a9ab648289e747452a0ab23db672326cb",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/protocol.json": "aba133d41c4b1260f233a72a0b19f877d44d93ddd8578904ca38d6543bfef3ef",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/gate.json": "29185b532561ae0031d76ca5c89ad1dbcf3f516120263a35a1f44f0752fb170f",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/output/results.json": "ee16d7b134b4eeb4f91f2327d9d0ea02b097de2d38aa6c5528904f975e9dfb40",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/output/progress.jsonl": "bebf0a08c6f1d1a2ee4f8d8e4903f0e84b1b70fd44807b16ca79307f2cff8469"
+  },
+  "dependency_pins": {
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/primitive.py": "66297a47d5fc7326ce2c64abec67c4e0554382635077b051d5b895c60ed2159f",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/controls.py": "81047669a99d25dc7d75e47c07c5b1311d03e430008e331b7a6f3d9b5000876a",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/fixtures.json": "59220793432e91dcf1e5e1a7b0825fbdaeedc2d78cc47db3c085fcf248e4ee36",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_exact_controls/PROTOCOL.md": "aded02bd5120cc3bd060ab9f6077364a9ab648289e747452a0ab23db672326cb",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_residual/PROOF.md": "d186c7b74c5dbd422a0be3e6f3be403bd2785b54900aa9459573269dc0b1964c",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_residual/GAUGE_COROLLARY.md": "40ab32fb23f4a1d0dd56aa6afd8c0d7287ef00bef73d520083bd049dffe80dd8",
+    "/workspace/work/recover-small_h2_56/review/two_hinge_residual/HANDOFF.md": "74861068e5ef9bbaf032e2418ce9be6f8a6efa6e21eff1071e513e37321189f1",
+    "/workspace/work/recover-small_h2_56/review/t233_hinge_source/theorem_review.json": "c821e4af74656413a47e47b3872a340c1112504594ca18b2a894e83ec5fba497",
+    "/workspace/work/recover-small_h2_56/review/t233_hinge_source/gauge_review.json": "bce61b68d8f5aff4c895317025d51377ee6e44535aab8b43eb8d74081d8ca3e7"
+  },
+  "checker_sha256": "112d8f13143291d0895a3178f33dbb59411c93a09b1a87ded1808f7b92a786c8",
+  "cases": 12,
+  "guards": 8,
+  "point_classification": {
+    "points": 60,
+    "strict_interior": 10,
+    "anchor_endpoint": 12,
+    "other_endpoint": 10,
+    "outside": 28,
+    "nonzero_residual": 16
+  },
+  "area_checks": [
+    {
+      "name": "positive_anchor_endpoint",
+      "area": "1",
+      "weighted_area": "7"
+    },
+    {
+      "name": "negative_anchor_endpoint",
+      "area": "1",
+      "weighted_area": "5"
+    },
+    {
+      "name": "reverse_threshold_order",
+      "area": "1",
+      "weighted_area": "3"
+    },
+    {
+      "name": "reverse_positive_endpoint",
+      "area": "1",
+      "weighted_area": "11"
+    },
+    {
+      "name": "identical_threshold",
+      "area": "0",
+      "weighted_area": "0"
+    },
+    {
+      "name": "zero_intercepts",
+      "area": "0",
+      "weighted_area": "0"
+    },
+    {
+      "name": "narrow_dyadic_gap",
+      "area": "1/2417851639229258349412352",
+      "weighted_area": "1/2417851639229258349412352"
+    },
+    {
+      "name": "wide_interval",
+      "area": "20000",
+      "weighted_area": "40000"
+    },
+    {
+      "name": "small_slopes",
+      "area": "274877906944",
+      "weighted_area": "1099511627776"
+    },
+    {
+      "name": "fractional_thresholds",
+      "area": "961/90",
+      "weighted_area": "961/20"
+    },
+    {
+      "name": "both_negative_thresholds",
+      "area": "3/2",
+      "weighted_area": "0"
+    },
+    {
+      "name": "zero_intercept_beta",
+      "area": "22",
+      "weighted_area": "286"
+    }
+  ],
+  "author_top_level_calls": {
+    "point": 120,
+    "interval_point": 60,
+    "scale": 12,
+    "guard_attempts": 8
+  },
+  "progress_events": 42,
+  "resource_limits": {
+    "cpu": [
+      20,
+      20
+    ],
+    "address_space": [
+      2147483648,
+      2147483648
+    ]
+  },
+  "resource_protocol_limits_recorded": true,
+  "review_cpu_seconds": 0.003992555999999994,
+  "author_main_cpu_seconds": 0.427782553,
+  "new_author_model_rng_gaussian_calls": 0,
+  "limitations": [
+    "Exact finite rational identities/intervals/area and positive-coordinate scaling only; no Gaussian density or conditional integral evaluated.",
+    "Density maximum constant remains symbolic; no numerical outward probability certificate claimed.",
+    "Top-level author call ledger counts only named wrapper calls, not complete recursive arithmetic or bit costs.",
+    "No target residual distribution, propagated error, accuracy, runtime advantage or cost claim."
+  ]
+}
