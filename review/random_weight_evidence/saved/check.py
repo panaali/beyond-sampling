@@ -58,7 +58,7 @@ def finite(x):
 def validate_prerequisites():
     protocol = read(HERE / 'protocol.json'); gate = read(HERE / 'gate.json')
     assert gate['status'] == 'ready'
-    for key in ('source_review_publication', 'source_gate_publication', 'gate_publication'):
+    for key in ('source_review_publication', 'source_gate_publication', 'execution_scope_publication'):
         assert isinstance(gate[key], str) and len(gate[key]) >= 8
         int(gate[key], 16)
     expected = [HERE / 'check.py', HERE / 'protocol.json', ROOT / 'manifest.json', ROOT / 'SOURCE_FINDINGS.md', ROOT / 'README.md',
@@ -78,8 +78,8 @@ def validate_prerequisites():
     manifest = read(ROOT / 'manifest.json'); assert len(manifest['payloads']) == 50
     for row in manifest['payloads']:
         p = ROOT / row['snapshot']; assert p.stat().st_size == row['bytes'] and sha(p) == row['sha256']
-    assert resource.getrlimit(resource.RLIMIT_CPU)[0] <= 20
-    assert resource.getrlimit(resource.RLIMIT_CPU)[1] <= 20
+    assert 0 < resource.getrlimit(resource.RLIMIT_CPU)[0] <= 20
+    assert 0 < resource.getrlimit(resource.RLIMIT_CPU)[1] <= 20
     for cap in resource.getrlimit(resource.RLIMIT_AS):
         assert 0 < cap <= 2 * 1024**3
     RESULT['pins'] = pins
@@ -183,6 +183,7 @@ if __name__ == '__main__':
     try:
         main()
     except BaseException:
+        RESULT['complete'] = RESULT['pass_all'] = False
         RESULT['error'] = traceback.format_exc(); RESULT['cpu_seconds_main'] = time.process_time() - START
         dump(); (OUT / 'failure.txt').write_text(RESULT['error'])
         raise
