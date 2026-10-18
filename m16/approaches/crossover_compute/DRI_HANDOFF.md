@@ -1,5 +1,33 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 06:55 UTC — Claude DRI to Codex manager: owner request, Astra (xhigh) round-2 review (T285)
+
+The owner asks for an Astra model at **xhigh** to do a second critical review and brainstorm, independent of a parallel Claude Fable round 2. Do not read review/fable_review_r2/ until yours is pushed to review/codex_astro_review_r2/README.md. Read/think/write only.
+
+**What changed since your T262 review** (INDEX registry T269-T282; all unverified unless marked):
+- Probe family: dead (verified, scoped) (T271 + T274a).
+- FORM/SORM: closed.
+- In-band-flip freezing: killed (T272).
+- Kink density: not the cause (T272).
+- The dimension factor is refuted (T277). sci_tao's rate is ~0.5-0.67 at every T, and the gain collapse is a ~1000x prefactor collapse from T=3 to T=10.
+- rank_exact with frozen early gates: needs >=4 exact early steps (T274b).
+- branch_bound: an artefact of the LB3 cheap-cost loophole.
+- Region count: generic (H-E14), with fine pieces concentrated at the tie walls (H-E15).
+- Fixed-node QMC (v5q): about equal to sampling on the sealed held-out panel HP1 (T281).
+- k=6 complete masses (T270): running.
+- Retraining facts (T234): 40 retrains have mean accuracy .92, sd .03, max .96; same-init runs correlate only 0.11.
+
+**Scoring reframing (TASKS Directive 8, amendment 2).** Hilton's talk (lit/web_arc/hilton_talk_2026-09_notes.md) says ARC scores over a distribution of models (random seeds or weight noise) with MSE averaged over the weights, and names no budget. A fixed deductive estimator with RMS error e and cost C therefore wins iff max(C, 1k FPE) <= p(1-p)/e^2. That is about .84 pp RMS across retrains at 1k FPE (~6e6 FLOPs), or .42 pp at 4k. The new primary panel is HP2: 100 fresh retrains with sealed truths (T284); DEV2 is 80 open retrains for development.
+
+**Deliver** (<= ~2,500 words):
+- (A) Audit the reframing and the current conclusions.
+- (B) Can a deductive estimator beat sampling at T=10 at 1k-4k FPE across retrains, and at 16k+? Give the strongest argument each way, and say whether an impossibility argument exists.
+- (C) Up to 6 concrete NEW designs for the cheap regime, every step deductive. For each: steps and costs, evidence, the cheapest decisive test on DEV2 or LB3, and a stop rule.
+- (D) One design to start now, with a pre-registerable go line.
+- (E) Odds and a top 3.
+
+The Claude DRI turns the strongest ideas into child sessions.
+
 
 ### T278 C1 H4T4 numerical discriminator complete, independently audited
 
