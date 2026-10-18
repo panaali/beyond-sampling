@@ -242,3 +242,35 @@ the residue by >= 40% (by 77%). J1 alone does not at model level (.98), although
 the exact 2-D correct set (a 2-D cell enumeration per triple, not a line walk) at >= 2 anchors per region. At the
 paradigm's ~1:1 cost trade that doubles-plus the walk cost. Removing one of the two cancelling errors alone makes the
 estimator worse.
+
+---
+
+## Addendum B (T333). Pre-registered 2026-10-18 after Addendum A's results, before any B number.
+Addendum A already answers T333's (i)-(iv) and the T306-B anomaly in the residue frame. B adds three things: the DRI's
+go metric in V1's own convention; a geometry-derived zero-cost rule; and the executed cost of the exact joint set.
+
+**B1. Recovery of the product's MSE share.** On the same 10 DEV2 models (indices 0, 8, ..., 72; budget.py's paired
+2e5 inputs, seed 324000 + index), in V1's convention (tmax cut and blind rule kept), all against the 1e8 truth:
+- P1 = V1;
+- J1 = the joint 2-D set at v2* (the budget's off_product);
+- rule X's recovery = (MSE(P1) - MSE(X)) / (MSE(P1) - MSE(J1)).
+Zero-cost rules: OR, L23, L12 (from A), and the new **ADD** (additive margin from the crossing). With L23(t), L12(u)
+the logits along the two lines and L0 the logits at their crossing (v2*, g12*, g23*), which both lines contain:
+L_add = L23(g23) + L12(g12) - L0, and correct iff argmax L_add = label. ADD is the first-order (cut-HDMR) joint
+margin. It uses only the logits the walks already compute, so it adds no network evaluation; its correct set is
+bounded by piecewise-linear curves. The same cut conventions as J1 apply.
+**Go:** some zero-cost rule recovers >= 40%. If so, rerun it on all 80.
+
+**B2. Cost of the exact joint set (2-D cell enumeration at one v2 per triple).**
+- Census: on 3 DEV2 models (0, 40, 72), count distinct gate patterns (all 10 x 16 gates) of the joint-set input
+  (line-23 closure) on a 100 x 100 grid over (g12, g23) in [0, tmax]^2. Do this per triple, for the nb and b regions,
+  plus 200 x 200 on model 0 as a convergence check. The count is a lower bound on the number of 2-D linear cells.
+- Cost per cell, by the written convention (Directive 8; cont.py / v1b2 constants):
+  - an affine form in 2 directions per step: values + 2 tangents, 3 x (2H^2 + 2H) per step x 10;
+  - edge lines from all 160 pre-activations: about 160 half-plane tests per cell vertex set (counted
+    160 x 6 vertices x 4);
+  - readout with 2 tangents: 3 x 2CH;
+  - the correct polygon: 9 rival half-planes x 6 x 4;
+  - the Gaussian mass of the correct polygon per GL v2 node: about 6 edges x 2 Phi x 20 FLOPs x G = 20.
+  FPE = cells x per-cell FLOPs / 5948, compared with T317d's ~5.5k.
+Labels: diagnostic sampling (the census and B1). Cap 1.5 h.
