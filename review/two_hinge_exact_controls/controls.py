@@ -82,14 +82,19 @@ def main():
             save()
             for x in xs:
                 ap, bp = a*x+c, b*x+d
-                original = point(ap,bp)
-                transformed = point(di*ap,dj*bp)
-                q, ir = interval_point(a,b,c,d,x)
-                report['calls']['point'] += 2
-                report['calls']['interval_point'] += 1
-                rec = {'x': x, 'a': ap, 'b': bp, 'original': original,
-                       'scaled': transformed, 'interval': q, 'interval_residual': ir}
+                rec = {'x': x, 'a': ap, 'b': bp}
                 row['points'].append(rec)
+                original = point(ap,bp)
+                report['calls']['point'] += 1
+                rec['original'] = original
+                save()
+                transformed = point(di*ap,dj*bp)
+                report['calls']['point'] += 1
+                rec['scaled'] = transformed
+                save()
+                q, ir = interval_point(a,b,c,d,x)
+                report['calls']['interval_point'] += 1
+                rec.update({'interval': q, 'interval_residual': ir})
                 save()  # retain every returned value before independent assertions
                 reference = max(bp,F(0)) - (bp if ap < 0 else F(0))
                 assert original['residual'] == reference >= 0
