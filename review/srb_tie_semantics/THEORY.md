@@ -1,0 +1,11 @@
+# First-index ownership of affine conditional output ties
+
+On each valid final-gate/rank interval, logit j is A_j+B_j*y and the target t is constant. First-index argmax equals t iff target-minus-j is strictly positive for every j<t and nonnegative for every j>t. Self is exempt. If dB_j is nonzero, the strict/weak distinction affects a singleton y only; both Gaussian and radial Student conditional laws have densities, so its probability is zero. If dB_j=0, then dA_j<0 forbids either order, dA_j>0 permits either, and dA_j=0 forbids exactly j<t. Thus the local constant-margin impossibility test must be
+
+`(dB == 0) & ((dA < 0) | ((dA == 0) & (j < tgt)))`.
+
+The original self override dA_t=1,dB_t=0 remains. Original source instead uses dA<=0 for every competitor and discards positive-length winning intervals where the target ties only later labels. Proposed change affects this test alone. The gate/rank roots, threshold1e-12, CDF, numerical arithmetic and input-rank tie policy are unchanged. This establishes real-arithmetic tie ownership on correctly represented affine pieces, not correctness of every finite-precision piece construction.
+
+For zero readout all logits are identically zero and prediction is always0. For a strict nine-input prefix, with top labels q1,q2 and values m1>m2, correctness is y<m2 if q2=0, y>m1 if q1=0, and nowhere otherwise. The two alternatives are disjoint. Gaussian conditional probability is therefore Phi(m2) or1-Phi(m1) or0. In radial mode first normalize the prefix; replace Phi(z) by F_t9(3z). Across independent continuous ten inputs the true target index is exchangeable, so unconditional zero-readout accuracy is1/10. That unconditional identity is a theorem, not a new integration or MC result.
+
+Two possible confounders must remain separate. First, the original cutoff for tiny Wi can omit a real gate: controls here use exact0 or ordinary unit slopes and do not certify near-cutoff geometry. Second, source prefix argsort has no explicit tie policy: strict-prefix controls avoid this ambiguity; finite conditional output ties are the object of this task. New model input sampling, trained error changes, historical leaderboard repair, native cost and deductive challenge status are outside this phase.
