@@ -153,7 +153,23 @@ items, explainers, judges, analysis.
 
 ## Amendments
 
-(none yet)
+**Amendment 1 (2026-10-18, after the pilot, before the main collection; no text or agent involved).** The pilot
+(first 512 windows, 30,720 tokens) gave the following median top-1 shares: `G` 0.232, `S` 0.175, `M` **0.115**,
+`PX` 0.196, `SX` 0.161 (top-5 shares 0.59, 0.51, 0.40, 0.54, 0.49). None reached the pre-registered 0.10 bar,
+so per the rule I stopped before collecting. Changes:
+
+- **New candidates.** Three are added: `MX5`, `MX10`, `MX20` = `M` with the top 5%, 10% or 20% of neurons by
+  `max|a_i| / sd_i` (the most kurtotic) projected out. They are scored on the same pilot with the same seed-10
+  directions.
+- **New selection rule.** Candidates are taken in order of how much they remove: `S`, `M`, `PX`, `SX`, `MX5`,
+  `MX10`, `MX20`. The first one with median top-1 share <= 0.10 is used. If none passes, the candidate with the
+  lowest share is used, provided it is <= 0.15 (the post-hoc validity bar). Otherwise I stop. Order of
+  intrusiveness is preferred over lowest share because projecting out more neurons builds the control from a
+  less typical set of neurons.
+- **New confound check (secondary, H2r-c).** An `MX` control is made only of the less kurtotic neurons. If those
+  neurons are themselves less "clean", that alone would lower the control's A-rate. So I also report
+  Delta for the subset of sampled neurons that the chosen construction does *not* project out in their layer.
+  This needs no new agent calls.
 
 ## Results
 

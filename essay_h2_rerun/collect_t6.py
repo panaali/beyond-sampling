@@ -80,10 +80,19 @@ def candidates(stats, seed):
         px[L, np.argsort(-mx[L, :, 0])[:d_mlp // 100]] = 0
         sx[L, np.argsort(-(mx[L, :, 0] / sd[L, :, 0]))[:d_mlp // 20]] = 0
     out["PX"], out["SX"] = px, sx
+    # amendment 1 (README): max-normalised with the most kurtotic neurons (top q by max/sd) projected out
+    for q in (5, 10, 20):
+        mxq = g / mx
+        for L in range(n_layers):
+            mxq[L, np.argsort(-(mx[L, :, 0] / sd[L, :, 0]))[:d_mlp * q // 100]] = 0
+        out[f"MX{q}"] = mxq
     return {k: v / np.linalg.norm(v, axis=1, keepdims=True) for k, v in out.items()}
 
 
 def pilot():
+    if os.path.exists(f"{OUT}/pilot.json"):  # amendment 1: reuse the stats, add only new candidates
+        old = json.load(open(f"{OUT}/pilot.json"))
+        return pilot_pass2(old["stats"], old["n_tokens"], old["table"])
     s1 = np.zeros((n_layers, d_mlp)); s2 = np.zeros((n_layers, d_mlp)); mx = np.zeros((n_layers, d_mlp)); n = 0
     for b in range(0, N_PILOT, BS):
         forward(slice(b, b + BS))
@@ -93,7 +102,11 @@ def pilot():
         n += BS * (CTX - SKIP)
     sd = np.sqrt(s2 / n - (s1 / n) ** 2)
     stats = {"sd": sd.tolist(), "absmax": mx.tolist()}
-    cands = candidates(stats, 10)
+    pilot_pass2(stats, n, {})
+
+
+def pilot_pass2(stats, n, table):
+    cands = {k: v for k, v in candidates(stats, 10).items() if k not in table}
     # second pilot pass: top-TOPK positions per (candidate, layer, direction, pole) and their neuron shares
     best = {k: [[[[] for _ in range(2)] for _ in range(N_CAND)] for _ in range(n_layers)] for k in cands}
     for b in range(0, N_PILOT, BS):
@@ -111,7 +124,6 @@ def pilot():
                         sh5 = np.sort(c, 1)[:, -5:].sum(1) / v[top]
                         lst = best[k][L][j][si] + list(zip(v[top].tolist(), sh1.tolist(), sh5.tolist()))
                         best[k][L][j][si] = sorted(lst, reverse=True)[:TOPK]
-    table = {}
     for k in cands:
         e = np.array([x for L in best[k] for j in L for p in j for x in p])
         per_unit = np.array([[np.median([x[1] for x in p]), np.median([x[2] for x in p])]
