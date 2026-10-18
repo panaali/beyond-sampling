@@ -1,0 +1,7 @@
+# T261 immutable dependency publication race
+
+The source reviewer recover_56 caused a metadata-only first-launch failure by briefly appending an offline-compile section to README.md, which was already pinned by the published kernel source gate c4022e34. The append was committed locally as7552691f. Exact original bytes were restored immediately in989ee5bf and the compile note moved to separate COMPILE_REVIEW.md before the compile-review publication22885e4e. This transient local mutation was nevertheless visible to the concurrently starting owner's validator.
+
+Owner preserved the failed launch in1f547a61 under review/fused_rnn_training/attempt1_metadata_failure/. Its validation.json records complete=false/pass_all=false, zero kernel/reference attempts and calls, and no rows; the exception is a reviewer-dependency hash assertion. The saved internal CPU field is0.0, not evidence of zero whole-process work. No numerical parity result exists from that launch.
+
+All original gate dependencies were rehashed after restoration and match. The numerical kernel, validator, fixtures and tolerances were unchanged. Any launch-only recovery must retain this failure, use a distinct log/output chronology, and receive recover_910's separate recovery gate. No completed numerical evaluation should be repeated. This note does not itself authorize a retry. Subsequent review additions must use new files rather than mutate any pinned original dependency.
