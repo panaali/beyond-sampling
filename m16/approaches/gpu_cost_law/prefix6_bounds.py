@@ -30,7 +30,7 @@ m5 = np.sort(np.load(os.path.join(HERE, "results", "prefix", "k5_regionmass.npz"
 out = dict(subtrees_done=int(len(done)), subtrees=int(len(rm)), cells=cells, regions_partial=int(len(reg)),
            processed_mass=leaf, unprocessed_mass_U=U, deficit_D=Ddef, chunks_remassed=nfix,
            worst_chunks=sorted(Dc.items(), key=lambda kv: -kv[1])[:10], roots_sum=float(rm.sum()), g={})
-for dl in (1e-5, 1e-6, 1e-7):
+for dl in (1e-3, 1e-4, 1e-5, 1e-6, 1e-7):
     n5 = int(np.searchsorted(c5, c5[-1] * (1 - dl)) + 1)
     lb = int(np.searchsorted(cum, 1 - dl - U - Ddef) + 1) if 1 - dl - U - Ddef > 0 else 0
     ub = int(np.searchsorted(cum, 1 - dl) + 1) if cum[-1] >= 1 - dl else None
