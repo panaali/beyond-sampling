@@ -91,6 +91,26 @@ float32 forward on block 0: +29 correct of 1e9 (2.9e-8).
 1,459,727 distinct regions in the sample (lower bound) covering 8.8% of the mass, so its N(delta) is not meaningful.
 Region growth stays ~x30 per step through k = 6 [inferred: cells ~ regions].
 
+**T270: all k = 6 prefix regions of M_16,10 (`prefix6.py`, 2 shards on A100 VMs, 2026-10-18; closed by the DRI)**
+[measured unless tagged; unverified]. Shard 1 (seeded-random half, 1,905 of 3,811 subtrees): 11,546,560 cells,
+10,501,283 distinct regions. Union with shard 0 at 76% (2,905 subtrees): 17,880,097 cells, 15,483,505 regions
+(regions overlap across subtrees: the same gate history occurs in cells of different start cones).
+- **g_N(5 -> 6) >= 24.5** (15,483,505 / 632,394; exact lower bound). Estimate ~31-33 from the 50% / 76% points
+  [inferred], **biased low**: the geometry defect below also makes clip skip real cuts (T194 child, T316: subtree 125
+  has 8,495 regions with patched geometry vs 7,659 under estT). Above the DRI's pre-registered dead line of 12.
+- **Geometry defect (estT, k = 6; backlog T316)**: leaf masses summed below their exact root masses (total deficit D
+  2.86e-4 at 76%, 68 of 73 chunks > 1e-9). Diagnosis on subtree 125: root mass vs 1e8-sample MC in the root cone .0031672
+  vs .0031681 +- 5.6e-6 (`mc6.py`); six integration-rule variants agree to 1e-11 (`sx6.py`); the stored ray lists miss
+  5-11 true vertices and estT's pulling triangulation drops further volume; qhull vertex enumeration + Delaunay
+  reproduces the MC (4.455e-6 / 5.008e-6 / 6.657e-6 vs 4.43e-6 / 4.77e-6 / 6.57e-6, se ~2.2e-7) (`cx6.py`).
+  Mass repair `remass6.py` (= T316 patch A) written; not run at scale (DRI: decision does not depend on g_delta).
+- **Provisional g_delta lower bounds** at 76% (`prefix6_bounds.py`; valid because every defective mass is an
+  underestimate and the exact shortfall D is added to the unprocessed mass U): g_1e-3 >= 7.58, g_1e-4 >= 9.03,
+  g_1e-5 >= 10.56, g_1e-6 >= 12.21, g_1e-7 >= 14.16 (N5 = 42,499 / 89,216 / 152,956 / 226,080 / 301,935). Upper bounds
+  and delta = 1e-6, 1e-7 values: **open** (need the repaired masses and full coverage).
+- Final N6 at shard 0's end (~14:45) will be appended. Outputs: `results/prefix6/` (bounds.json, logs, roots.npz,
+  diagnosis jsons; chunk npz files git-ignored, ~4 MB each, on the Colab VMs and in this container).
+
 ## Compute accounting
 Colab units: 304.80 at login (2026-10-17 23:06 UTC) -> 282.58 at 03:22 UTC (22.2 spent): A100 5.3 u/h, L4 1.5 u/h,
 CPU 0.08 u/h. Four GPU runtimes were reclaimed by Colab without notice (01:10-01:28 both, ~02:10 L4, ~02:40 prefix
@@ -107,6 +127,7 @@ L4, ~03:10 A100); work lost ~4 units. Ops = estT's m43.Ops counter (+ `orth6.ops
 - [inferred] Region-by-region exact enumeration of M_16,10 needs >= 1e13 regions (>= 2e11 with mass-ordered
   truncation at 1e-6): out of reach by >= 4 orders of magnitude (T5 no-go, scoped as above).
 - [speculative] An exact route needs a method whose cost grows slower than the region count (history merging).
+- [measured] M_16,10 k = 6 regions >= 15,483,505 (g_N(5->6) >= 24.5); estT loses vertices / volume in some k = 6 cells.
 
 ## Alternatives not ruled out
 - Prefix growth might slow after k = 6 (k = 6 is a capped-sample estimate).
