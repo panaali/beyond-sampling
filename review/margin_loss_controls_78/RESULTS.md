@@ -16,3 +16,7 @@ The separating examples also passed: unmatched regularization changes the query 
 - Zero trained-data/model/checkpoint/forward/RNG/Gaussian/DEV2/HP1/HP2 calls. Exact solve counts are partial research accounting, not native-FLOP or inference-cost estimates.
 
 These are finite numerical implementation controls for an independently reviewed exact theorem. They do not measure network agreement, establish a 99% ceiling, rule out weighted/top-rival/nonquadratic losses, or authorize a trained comparison. The independently coded saved arithmetic audit remains a separate prerequisite for the bounded handoff.
+
+## Independent closure
+
+That prerequisite is now complete: f225f8ac / handoff aea22635 / shared 7382d7af reconstructs all 17 full rows, 36 systems, 35 unique solutions, the expected singularity and both 36-event logs. Independent permutation determinants/Cramer solutions and pair-Laplacian/Kronecker systems replace the author's elimination and expanded pair features. Reviewer CPU 0.168621204 seconds, RSS 21,884 KiB; one run with no failures or retries. See HANDOFF.md and final_review.json. The original pending-audit paragraph above is preserved as chronology, not current status.
