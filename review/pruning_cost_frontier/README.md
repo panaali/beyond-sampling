@@ -4,7 +4,7 @@
 Does the old error-sorted leaf-skipping heuristic bound optimal savings under its own source-cost convention?
 
 ## Method
-Freeze one H16T4 zoo0 chamber panel and the original collector/summary/cost source. CONTRACT.md develops an exact retained-value fractional relaxation and feasible discrete comparators with geometry charged and the sampling threshold recomputed at remaining cost. manifest.json binds four text snapshots and three metadata-only retained artifacts. No author imports or payload decoding.
+Freeze one H16T4 zoo0 chamber panel and the original collector/summary/cost source. CONTRACT.md develops an exact retained-value fractional relaxation and feasible discrete comparators with outside-mass work charged and the sampling threshold recomputed at remaining cost. manifest.json binds four text snapshots and three metadata-only retained artifacts. No author imports or payload decoding.
 
 ## Status
 Source/design preparation; independent written review pending. No numerical execution clearance. T261 urgent review support retains priority.

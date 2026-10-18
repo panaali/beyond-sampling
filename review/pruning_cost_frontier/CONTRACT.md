@@ -10,7 +10,7 @@ Can the published T206 error-sorted skip result support its claimed upper bound 
 
 ## Conditional model and units
 
-For n retained rows, let e_i>=0 be their stored numerical error contributions, c_i>=0 their stored named mass-operation costs, O the original total named ops, M=sum_i c_i, and G=O−M>0. G remains charged for every selection: geometry, clipping/readout and other counted work are not removed. Stored costs are source-category proxies, not a complete native-operation or runtime ledger. No extrapolation to H16T10 follows.
+For n retained rows, let e_i>=0 be their stored numerical error contributions, c_i>=0 their stored named mass-operation costs, O the original total named ops, M=sum_i c_i, and G=O−M>0. G remains charged for every selection: outside-mass geometry, clipping/readout and other counted work are not removed. The wrapped mass() includes its own pulling-triangulation face scans/rank tests, so c_i includes that internal geometry; it is not purely quadrature arithmetic. Stored costs are source-category proxies, not a complete native-operation or runtime ledger. No extrapolation to H16T10 follows.
 
 Let p in(0,1) be the stored original accuracy; v=p(1−p). The original sampler convention is c_s=flops(H,T)+TH+3T−2, with flops=T(2H²+2H)+2HT. For H16,T4 this is2378 named FLOPs/input. The estimator convention is two FLOPs per stored Ops unit. For subset S, saved ops s(S)=sum c_i, removed error E(S)=sum e_i, and remaining nominal FLOPs C(S)=2(O−s(S)). The descriptive one-SE condition is
 
@@ -42,7 +42,7 @@ The resulting cost lower bound is2(O−s_upper), always at least2G. The best ind
 
 ## Frozen next protocol proposal, not execution clearance
 
-1. Independently validate schema/finite values, exact nonnegative costs/errors, sum of mass costs, nonnegative fixed G, row count, stored total-error/accuracy relations and source provenance. Preserve negative/cancellation rows; do not clamp, drop or reinterpret them to force eligibility. If strict assumptions fail, stop and write a separate revised proposal.
+1. Independently validate schema/finite values, exact nonnegative costs/errors, sum of mass costs, strictly positive fixed G (stop otherwise), row count, stored total-error/accuracy relations and source provenance. Preserve negative/cancellation rows; do not clamp, drop or reinterpret them to force eligibility. If strict assumptions fail, stop and write a separate revised proposal.
 2. Retain original ascending-error fixed-threshold prefix, a self-consistent ascending-error prefix scan, and exact error/cost-ratio prefix scan. Evaluate all prefixes under their own remaining cost, not first crossing only. Use index tie-breaks. These are concrete feasible integer selections, not proofs of integer optimality.
 3. Compute the fractional bound above with exact comparisons and a predetermined bisection precision. Retain selected row identities, fractional segment endpoints, all breakpoint decisions and construction/selection work separately. No new masses, regions or model calls.
 4. Before application, freeze synthetic controls covering unequal-cost counterexample, zero-error costs, ratio ties, endpoint equality, nonmonotone feasibility, no-positive-mass-cost, invalid negative/NaN inputs and resource/failure durability. Source and saved-control review must precede the one fixed retained panel.
