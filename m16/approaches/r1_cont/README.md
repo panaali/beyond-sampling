@@ -683,3 +683,39 @@ lenient F 3.14 at 3,328 FPE (T330 tier C, `C1_all`).
 - **The scorer flagged my undercount.** safe() charges 4C + 2 for its margins but executes ~6C + 2 (m, dm, min(0, dm),
   × Δ, +, min). The L update of rows screened at a flip (2C) is also uncharged. Together that is <= +1.5% of C, giving
   **F ≈ 2.67**, the conservative figure. The frozen code is left unchanged.
+
+## T337 pre-registration (DRI, owner's question; 2026-10-18, before any T337 run): T317f's noise breakdown curve
+**Models (open only; no sealed truths).**
+- Bases: the target M_16,10 and zoo seeds 0-4 (6 bases).
+- Copies: W + σ · RMS(W) · N(0,1) per matrix (m16/arc_eval.py:noisy_models' formula), at relative σ ∈ {.0005, .001,
+  .0025, .005}. 4 copies per base and level (96 noisy models, plus 6 clean). Seed default_rng(337000 + 100·base +
+  10·level).
+- **Truths:** 1e7 inputs per model, float32 forward in 250k chunks, MC SE <= .01 pp. float32 vs float64 agreement is
+  checked on 1e6 inputs of 2 models.
+
+**Estimator:** T317f exactly (estimator_f.est).
+
+**Per level:** bias, RMS and lenient F = MSE · C / mean p(1−p) over the 24 copies, with the clean bases as level 0.
+
+**Where the error lives (from the truth MC, all models):** the misclassified mass split by:
+- (a) **in window**: g12 < tmax or g23 < tmax (tmax = .5, the region the lines cover) vs **interior** (both gaps >= .5;
+  T317f treats this as correct);
+- (b) the predicted rank (top-1, top-3, other);
+- (c) the v2 sign (blind region v2 <= 0).
+
+**Switch-offs** at the first level with F > 10, on 2 pre-chosen copies (copy 0 of the target and copy 0 of zoo
+seed 0), one at a time from T317f:
+- S1: C1 off (= T317e);
+- S2: tmax .5 → 6 (removes "gap beyond tmax assumed correct");
+- S3: blind g12 walked (removes "blind g12 assumed correct").
+
+The line-set product and closure c cannot be switched off in this code within the budget. Their joint share is the
+remainder.
+
+**Hypotheses, written before running:**
+- H1: the breakdown is interior error. Noise creates misclassifications far from both ties, which the lines never
+  see, so the bias goes positive.
+- H2: the breakdown is a closure failure. The low positions matter: errors predict a rank-4+ position.
+- H3: it is the C1 screen. Wrong islands later in the window grow under noise.
+
+The cheapest separation is (a) + (b) from the truth MC. S1 tests H3; S2 tests H1 within the line structure.
