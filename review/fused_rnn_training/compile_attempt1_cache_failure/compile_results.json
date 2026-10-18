@@ -1,0 +1,19 @@
+{
+  "complete": false,
+  "pass_all": false,
+  "rows": [
+    {
+      "B": 32,
+      "warps": 8,
+      "arch": 80,
+      "status": "started"
+    }
+  ],
+  "gpu_launches": 0,
+  "triton": {
+    "version": "3.8.0",
+    "module": "/workspace/work/t261-triton-deps/triton/__init__.py"
+  },
+  "cpu_seconds": 1.458675541,
+  "failure": "Traceback (most recent call last):\n  File \"/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_check.py\", line 34, in main\n    kernel=triton.compile(ASTSource(_step,signature,constexpr),target=GPUTarget('cuda',80,32),options={'num_warps':warps,'enable_fp_fusion':False})\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/t261-triton-deps/triton/compiler/compiler.py\", line 251, in compile\n    fn_cache_manager = get_cache_manager(hash)\n                       ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/t261-triton-deps/triton/runtime/cache.py\", line 260, in get_cache_manager\n    return cls(_base32(key))\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/t261-triton-deps/triton/runtime/cache.py\", line 55, in __init__\n    os.makedirs(self.cache_dir, exist_ok=True)\n  File \"<frozen os>\", line 215, in makedirs\n  File \"<frozen os>\", line 215, in makedirs\n  File \"<frozen os>\", line 225, in makedirs\nOSError: [Errno 30] Read-only file system: '/home/agent/.triton'\n"
+}

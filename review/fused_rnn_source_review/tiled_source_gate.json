@@ -1,0 +1,39 @@
+{
+  "task": "T261",
+  "reviewer": "recover_56",
+  "source_commit": "94abdc35",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": true,
+  "reviewer_numerical_calls": 0,
+  "resources": {
+    "cpu": [
+      105,
+      110
+    ],
+    "address_space": 2147483648,
+    "wall": 120,
+    "lock": "primary",
+    "threads": 1
+  },
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/tiled_step.py": "8e23974ce4598e9a4a7c7e6076b74d81dad9f6936fc0281883c851bad535cadf",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/TILED_PROTOCOL.md": "3080c9c976490d43060dbed66f97f0110b1981535a3fc5de88d7c7b3981e52e2",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/tiled_manifest.json": "4edf95fd85d230e319e0968b7eafa1018263217f61dded3621ccf7fa1fc666b0"
+  },
+  "scope": "Exactly fixed six configurations/eight interpreter pairs on serial BB32 tiled candidate. Separate910 harness gate plus published immutable owner execution gate required.",
+  "checks": [
+    "All tiled manifest source hashes pass; kernel AST parses",
+    "Adam and adapter function ASTs exactly unchanged",
+    "Full batch partition by block*32+arange32; padded masks and fullB normalization retained",
+    "All tiles use unchanged weights; gradients/loss/accuracy accumulate before one optimizer update and one counter increment",
+    "Per-tile scratch uses fullbatch permodel offsets; barrier precedes backward loads and different tiles do not overwrite same active slots",
+    "Gradient diagnostic totals stored after loop; logit diagnostics stored for each tile"
+  ],
+  "limitations": [
+    "New reduction order requires new parity; original success does not transfer",
+    "Finite interpreter/libdevice shim does not validate CUDA numerical results",
+    "Original B1024 shared-memory excess remains preserved; new resource footprint must be measured",
+    "No graph lifecycle/throughput/long-run training claim"
+  ]
+}
