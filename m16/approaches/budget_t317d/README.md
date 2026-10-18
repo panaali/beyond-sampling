@@ -541,3 +541,27 @@ with open truths). Report F, MSE x C, bias, sd and RMS for both. "Confirms" iff 
 - Secondary: per-model mean |error| .228 (DEV2 .230), corr .56 (DEV2 .54), measured sd .317.
 - So the frozen tilt formula carries the panel-mean offset out of sample, with no DEV2 tuning. Per model it explains ~30% of
   the variance (corr^2), as on DEV2.
+
+### T353 DEV3 check (pre-registered, frozen code; `python t351/run_dev3.py`, `t351/t353_dev3.json`; DEV3 @e2322a6b weights, truths @8134ab47 sha256 abcb7d6d...)
+| DEV3, 100 models | bias | sd | RMS | C | MSE x C | F |
+|---|---|---|---|---|---|---|
+| T317f | +.425 | .586 | .721 | 3,307 | **1,720** | **2.50** |
+| T353 (frozen) | +.340 | .584 | .673 | 5,056 | 2,288 | 3.32 |
+
+- **Pre-registered verdict: does NOT confirm** (MSE x C 2,288 >= 1,720). T353 is not proposed for HP5.
+- T317f's DEV3 numbers reproduce T343's independent ones (RMS .721, bias +.425).
+- Cause: the spread's variance cut does not replicate (sd .584 vs .586; T343's sd ratio .91). The spread also adds bias,
+  which the tilt partly cancels. So T353 pays +1.75k FPE for a 7% RMS gain.
+
+**Post hoc (DRI request, not pre-registered; decision rule unchanged): tilt-only with reuse, A2-cheap = cont_h2.est(spread=0)**
+(`t351/posthoc_a2cheap.py`, `t351/posthoc_a2cheap.json`):
+
+| | bias | sd | RMS | C | MSE x C | F |
+|---|---|---|---|---|---|---|
+| DEV2 | +.038 | .673 | .670 | 4,659 | 2,092 (T317f 2,276) | 2.89 (3.14) |
+| DEV3 | **-.015** | .609 | **.606** | 4,643 | **1,703** (T317f 1,720) | **2.47** (2.50) |
+
+- The tilt correction removes the bias on fresh models too: DEV3 bias +.425 -> -.015, RMS .721 -> .606. That matches the T347
+  DEV3 result (panel error -.063).
+- At +1.34k FPE its MSE x C only ties T317f on DEV3 (-1%; -8% on DEV2). It is not a submission candidate under MSE x C.
+  It is the family's lowest-bias, lowest-RMS deductive variant on DEV3.
