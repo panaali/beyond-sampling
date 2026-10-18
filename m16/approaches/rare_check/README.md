@@ -102,5 +102,17 @@ T340's:
 - **A note on the metric.** When pC < 1, a case is won whenever 0 < est < 2p, which is generous. Six of the 15
   calibration cases are of that kind. Cases with pC ≥ 1 are reported separately on DEV3.
 
+**Calibration under the amended scoring** (`python3 run_all.py <t340 weights> results/calib_est.json`, then
+`python3 score.py results/calib_est.json <t340 rare_mc.json> results/calib_score.json`), on 15 cases:
+
+| scored | win | tie | loss | win share of non-tied |
+|---|---|---|---|---|
+| fixed A | 6 | 6 | 3 | .67 |
+| fixed B | 8 | 3 | 4 | .67 |
+| **family rule (B for E1, A for E2)** | **12** | 1 | 2 | **.86** |
+
+For comparison, T286's scoring of T340's own estimates gave fixed variants 5/15 each, and the family rule 10 wins, 3
+ties, 2 losses.
+
 ## Status
 Code frozen at the commit that adds this section. Waiting for the DEV3 truths (requested from T192).
