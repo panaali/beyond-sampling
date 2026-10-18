@@ -1,0 +1,11 @@
+# Six fixed source-budget contractions
+
+Preparation scope22262e91 precedes run.py. The proof/provenance source phase e38b37b5 is unchanged. Use the complete frozen source CURVE_BUDGETS exactly once, preserving their order1000,4000,16000,64000,256000,1000000. Before them, four fixed integer batch-boundary controls M1/50000/50001/100000 check50000/50000/100000/100000; no RNG or model fixtures.
+
+Read pinned files as text/JSON and parse constants using AST/literal_eval, never execute/import author modules. Python scalar binary64 products of finite allocation coefficients by exactly representable n reproduce the float64 array product's numerical expression; floor/ceil on those finite values reproduce the source integer quotas/cost. This is source-expression arithmetic under pinned IEEE binary64 premises, not a proof of historical binary dispatch. Retain source Python // and a separate exact-Fraction quotient-floor diagnostic without requiring them equal at every possible budget.
+
+Compute actual binary c=1.6+.1 and factor3.3/1.6 in source order; save all hex products, seven quotas, rawceil and finalroundedcharge. Check each float product against exact-rational rounding. Compare the exact rational value of the returned float to the exact policy bound7040M/6000+(Dmin-M)/25. Preserve dense-only and classic-dot alternatives and all inconclusive budgets. Do not call an inconclusive row sufficient or transfer results to unobserved candidate streams/prefix ties/historical source.
+
+Execution requires completed source theorem AND driver gates, both published/pinned before first attempt. Strict one17CPU internal/20CPU external,2GiB review-lock run; use pinned absolute interpreter, one numerical thread. Refuse existing outputs/progress; attempt before each row, result immediately; fatal exception saved with partial durable progress. No automatic retry. Independent saved arithmetic review is required before handoff or any accounting claim beyond the stated premises.
+
+This runs no NumPy, author functions, estimator/Q/draw_all/h9, models, RNG, native tracer, geometry, CDF or reference computation. Reading an existing allocation is source provenance, not new fitting or an assertion that original-model advice is free. Existing preprocessing/advice charges remain separate. No shared leaderboard/cost code changes are authorized.
