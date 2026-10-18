@@ -127,3 +127,32 @@ reference setup CPU reports zero at timer resolution; it is not free work.
 No inference about full-corpus cost, accuracy, branch coverage or the300-unit
 primitive target follows. Full replay requires independent saved review and a
 separately published frozen phase; do not rerun this pilot.
+
+## Published independent pilot review and full-reference scope
+
+T55 review b5bb78d0, published through8118fbd9, independently verified all64
+stored dyadic KKT certificates, elimination determinants,110-digit tail
+contractions,258 progress records and saved numerical/category aggregates.
+No candidate or reference integration was repeated. This supersedes only the
+pending-review status above, preserving the original chronology and limitations.
+
+TASKS-only316d0a47 separately claims the full37739-ray reference phase.
+full_run.py retains the unchanged selector, finite orders and exact rescue;
+64 pilot candidate objects are reused bitwise once. It records every attempted
+new cone before evaluation in256-index JSONL shards. A failing session, explicit
+failure, malformed result or unmatched attempt blocks continuation. Each clean
+95CPU-soft/110CPU-hard primary-lock cycle is committed and published before
+continuation. full_summary.py contracts saved records without numerical calls.
+Canonical rule construction is counted once per order, staged session work
+separately; exact/MP setup, validation, storage/capture and native internals are
+not included in the named floating subset. Full accuracy is omitted if any
+finite-order case remains unresolved. Published exact accuracy is only a
+comparison diagnostic, not the independent reference. No fullcost, rung,
+source-floating or geometry correctness certificate follows.
+
+Frozen source e3f1c205 awaits its independent execution gate. There have been no
+full-phase numerical calls. Reproduction after gate:
+`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python full_run.py`,
+under the stated primary flock, address-space and CPU limits; then
+`python full_summary.py` only after all rows exist. No current-source mass,
+geometry, model or MC replay is part of this phase.
