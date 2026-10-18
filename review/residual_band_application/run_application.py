@@ -67,7 +67,10 @@ def main():
         model=([dec(v) for v in artifact['model'][0]],[[dec(v) for v in r] for r in artifact['model'][1]],[[dec(v) for v in r] for r in artifact['model'][2]])
         assert len(model[0])==4 and len(model[1])==4 and len(model[2])==4 and all(len(r)==4 for r in model[1]+model[2])
         result['model']={'weights':model,'checkpoint_sha256':artifact['checkpoint_sha256']};del artifact
-        reference=read(p['reference']);assert reference['complete'];reflo,refhi=reference['accuracy']['probability_interval'];assert 0<reflo<refhi<1
+        reference=read(p['reference']);assert reference['complete'] and reference['H']==4 and reference['T']==4
+        assert reference['exact_artifact_sha256']==p['pins'][p['model_archive']]
+        reflo,refhi=reference['accuracy']['probability_interval'];assert 0<reflo<refhi<1
+        assert [reflo.hex(),refhi.hex()]==reference['accuracy']['probability_interval_hex']
         result['reference_interval']=[reflo,refhi];result['reference_scope']='Reused exact-geometry/conditional numerical enclosure, not recomputed.'
         model_cpu=time.process_time()-t;result['model_and_reference_load_cpu']=model_cpu;save()
         t=time.process_time();spec=importlib.util.spec_from_file_location('frozen_t278_face',p['face_source']);face=importlib.util.module_from_spec(spec);spec.loader.exec_module(face)
@@ -100,6 +103,7 @@ def main():
         for idx,item in enumerate(catalogue):
             result['active_point']={'index':idx,**item,'phase':'face'};event('point_started',index=idx);kind=item['kind'];ci=item['config'];a,b,top=map(int,configs[kind][ci]);U=np.array([[(ci+.5)/len(configs[kind])]+[float.fromhex(x) for x in item['unit_hex']]],dtype=np.float64)
             result['source_face_calls']+=1;save();(fy,fa,fb,tau),face_cpu=timed('face_points',face.face_points,4,kind,U)
+            snapshot('active_face',{'index':idx,'U_hex':[[float(v).hex() for v in r] for r in U],'y_hex':[[float(v).hex() for v in r] for r in fy],'a':[int(v) for v in fa],'b':[int(v) for v in fb],'tau_hex':[float(v).hex() for v in tau],'cpu':face_cpu})
             y=[F.from_float(float(v)) for v in fy[0]];assert fa[0]==a and fb[0]==b and y[a]==y[b]
             low=max(y[j] for j in range(4) if j not in (a,b) and j!=top) if kind=='23' else max(y[j] for j in range(4) if j not in (a,b))
             window=min((y[top]-y[a])/3,y[a]-low) if kind=='23' else (y[a]-low)/3
