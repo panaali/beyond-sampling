@@ -8,7 +8,7 @@ import prefix6 as Q, prefix as P, gmass  # noqa: E402
 
 def one(item):
     n, (hists, Rs, Is), o, s, sec = P._dfs(item)
-    cm = gmass.grouped(Rs, Is, len(hists), "cpu") if len(Rs) else np.zeros(len(hists))
+    cm = gmass.grouped(Rs, Is, len(hists), "cpu", chunk=1024, tb=512) if len(Rs) else np.zeros(len(hists))
     return n, len(hists), len(Rs), float(cm.sum()), float(cm.min()) if len(cm) else 0.0
 
 
@@ -16,9 +16,10 @@ if __name__ == "__main__":
     f = sys.argv[1]; w = int(sys.argv[2]) if len(sys.argv) > 2 else 2
     pos = np.load(f)["positions"].tolist(); roots = np.load(os.path.join(Q.OUT, "roots.npz"))["mass"]
     model, front = Q.front_list(11); out = []
+    pos = sorted(pos, key=lambda i: -roots[i])                       # largest root mass first
     with mp.get_context("fork").Pool(w, P._init, (model, Q.K, True)) as pool:
         for p, (n, nr, ns, leaf, mn) in zip(pos, pool.imap(one, [front[i] for i in pos])):
             out.append(dict(pos=p, cells=n, regions=nr, simplices=ns, root=float(roots[p]), leaf=leaf,
                             diff=leaf - float(roots[p]), min_region=mn))
             print(json.dumps(out[-1]), flush=True)
-    json.dump(out, open(os.path.join(Q.OUT, "diag_" + os.path.basename(f).replace(".npz", ".json")), "w"), indent=1)
+            json.dump(out, open(os.path.join(Q.OUT, "diag_" + os.path.basename(f).replace(".npz", ".json")), "w"), indent=1)

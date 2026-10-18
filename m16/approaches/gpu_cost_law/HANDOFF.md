@@ -1,6 +1,6 @@
 # HANDOFF: T270, T234 grid3, T284 HP2/DEV2, T196 (8,5) audit (live state; updated at every check-in)
 
-Last update: 2026-10-18 07:30 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
+Last update: 2026-10-18 08:25 UTC. Branch `claude/t192-gpu-cost-law` (never push to the shared branch; DRI/root merge).
 DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `send_message`). T281 scorer session:
 `session_01UvVWREPpEYpUGudpzkioKd`. Budget: T234 + T270 <= 115 Colab units combined.
 
@@ -15,15 +15,18 @@ DRI: session `session_01CD3g9Cvc3qk3pM11eyXXzj` (reply via claude-code-remote `s
 
 | VM | hardware | runs | started |
 |---|---|---|---|
-| t192fu | A100 | T270 shard 0 (`/content/t270_shard0.log`) + grid3 (`/content/grid3.log`) | shard0 ~06:25, grid3 07:05 |
+| t192f2 | A100 | T270 shard 0 resumed (`/content/t270_shard0.log`) + grid3 restarted (`/content/grid3.log`), job `colab/j_f2.sh` | 08:22 |
 | t192lb | A100 | T270 shard 1 (`/content/t270_shard1.log`); GPU free for HP2 truths | shard1 ~06:50 |
 | t192aud | CPU | T196 (8,5) audit seeds 1-4 (`/content/audit_{1..4}.log`, marker `AUDIT2DONE` in `/content/audit_done`) | 07:15 |
-Stopped: t192t4 (07:05, queue finished); t192za was reclaimed ~06:20 (za pack lost, superseded by grid3).
+Stopped: t192t4 (07:05, queue finished); **t192fu reclaimed 07:23-08:12 despite the keep-alive** (grid3 lost, shard 0 kept 7 chunks); t192za was reclaimed ~06:20 (za pack lost, superseded by grid3).
 
 ## Local processes (this container; kill only these PIDs, never by pattern; AGENTS rule 9)
-- Keep-alive loops (`colab/keepalive.sh S`, log `/tmp/claude-0/keepalive_S.log`): t192fu PID 4508, t192lb PID 3449,
+- Keep-alive loops (`colab/keepalive.sh S`, log `/tmp/claude-0/keepalive_S.log`): t192f2 (started 08:22), t192lb PID 3449,
   t192aud PID 1560. Kill the VM's loop BEFORE `colab stop`, or it keeps re-execing.
-- Background sync: `capacity_ceiling/sync.sh t192fu` every 8 min (2 h loop started 07:20; restart when it ends).
+- Background sync: `colab/sync_f2.sh` (2 h loop from 08:25; restart when it ends): every 8 min pulls grid3's
+  `state.pt` to `data/capacity_ceiling/grid3/state.pt` and T270 chunks from t192f2 + t192lb. **If t192f2 is reclaimed:**
+  new A100 (`colab/newsession.sh NAME A100`), upload chunks (tar) + state.pt to `/content/cn/data/capacity_ceiling/grid3/`,
+  rerun `colab/j_f2.sh`-style job (prefix6 resumes from chunks; fused_run resumes from state.pt).
   `capacity_ceiling/sync.sh S` pulls `/content/t234.tgz` (results only for grid3) into capacity_ceiling/.
 A fresh session will not inherit these processes: restart a keep-alive per live VM with
 `cd m16/approaches/gpu_cost_law && nohup ./colab/keepalive.sh S >/dev/null 2>&1 &` (one per VM, check none is running).
@@ -50,14 +53,14 @@ A fresh session will not inherit these processes: restart a keep-alive per live 
 - `capacity_ceiling/q_grid3.sh` (uploaded as a job on t192fu): `fused_run.py grid3 --data-seed 41 --eval kernel
   --eval-n 1e8 --chunk 8192`, seeds 100-199 x {2^30..2^33 zoo, 2^31 lr x0.5 / x2 / warm-up x4 / 3 hard-case mixes},
   2^34 x seeds 100-124 (contingency because T270 runs long). Checkpoint `/content/cn/data/capacity_ceiling/grid3/state.pt`
-  (step count in `st["step"]`; 07:09: step 24,576, ~6 ms/step). Expected end ~12:15 UTC (critical path: 2^34 = 16.7M
+  (step count in `st["step"]`; ~6.2 ms/step). Restarted 08:24 on t192f2; expected end ~13:30 UTC (critical path: 2^34 = 16.7M
   steps). Output `results/grid3.json`, `weights/grid3_*.npz`, `/content/grid3.done`; archive `/content/t234.tgz`.
 - Analysis pending: per config mean, sd, top-5 mean, max with bootstrap CIs, plus error anatomy -> capacity_ceiling README.
 
 ## T284 panels (gpu_cost_law/hp2/)
 - DEV2 (OPEN): DONE. `hp2/dev2/weights.npz` (sha256 22d1c7c2...343bec), `truths.json` (sha256 582c21cf...a9785;
   1e8/model; min .81355 max .96023 mean .92012 sd .03163), sent to DRI 07:27.
-- HP2 (SEALED): once grid3 state step >= 2^20 (~09:00 UTC): download state.pt, `python hp2/make_panel.py hp2 STATE_PT`
+- HP2 (SEALED): once grid3 state step >= 2^20 (~10:15 UTC after the restart): download state.pt, `python hp2/make_panel.py hp2 STATE_PT`
   (local), upload `hp2/weights.npz` + run `truth_panel.py hp2 1e8` on a GPU VM -> `hp2/sealed/truths.json` ONLY.
   Send the scorer (T281) path + weights/truth sha256; send DRI hashes + min/max/mean/sd. Never publish per-model truths.
 - HP1 truths likewise stay only in `hp1/sealed/truths.json`.

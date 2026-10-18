@@ -51,7 +51,7 @@ def _wide(R, d):
     return (estG._orth4 if d == 4 else estG._orth5)(R)[0]
 
 
-def grouped(R, gid, ngroups, device="cpu", thr=0.6, chunk=4096):
+def grouped(R, gid, ngroups, device="cpu", thr=0.6, chunk=4096, tb=8192):
     """R (n, d, d) numpy unit rays (rows), gid (n,) int -> (ngroups,) float64 summed masses."""
     d = R.shape[1]; out = torch.zeros(ngroups, dtype=torch.float64, device=device)
     old = estG.SLIVER[0]; estG.SLIVER[0] = None
@@ -64,8 +64,8 @@ def grouped(R, gid, ngroups, device="cpu", thr=0.6, chunk=4096):
                 out.index_add_(0, g[~thin], _wide(r[~thin], d))
             if thin.any():
                 P, I = sliver_split_ids(r[thin], g[thin], thr)
-                for b in range(0, len(P), 8192):
-                    out.index_add_(0, I[b:b + 8192], _thin_rule(P[b:b + 8192], d))
+                for b in range(0, len(P), tb):
+                    out.index_add_(0, I[b:b + tb], _thin_rule(P[b:b + tb], d))
     finally:
         estG.SLIVER[0] = old
     return out.cpu().numpy()
