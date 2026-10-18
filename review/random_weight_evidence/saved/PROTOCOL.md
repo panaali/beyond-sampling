@@ -1,0 +1,7 @@
+# Fixed scalar reconciliation
+
+Preparation claim1b6baf0b. Exactly39 saved scalar per-run JSONs,13 summary rows and rounded README table, and every available log row. No missing log row is fabricated. Four groups remain separate: frob5,row5,random10,all12 non-targets; only random10 uses the preregistered descriptive decision rule. Counts/ratios are exact rational; reported mass/accuracy quantities remain aggregate-only. No coverage minimality, individual mass positivity/error, model identity or source-native cost verification is possible from these scalars.
+
+A completed independent source review and separate execution gate must be published and pinned before execution. Mandatory gate pins cover checker/protocol/manifest/findings/README and both reviewer artifacts; every review pin is rehashed. All50 frozen payload bytes checked, including the unopened import-time NPZ. No author imports, arrays, RNG, model, geometry, mass or MC calls.
+
+One process under review lock, one thread, internal16CPU guard, external soft16/hard20CPU,2GiB,25seconds wall timeout after lock. Exclusive immutable launcher log. Empty output required. Raw per-row record saved before assertions; failures remain durable. Main timing excludes interpreter/startup and final serialization; external process limits cover them. Prerequisite failures also persist; no silent retry or relaxed parity. Expected progress80 records (global start/end plus two per each39 rows). Any discrepancy requires saved investigation before a separately gated recovery.
