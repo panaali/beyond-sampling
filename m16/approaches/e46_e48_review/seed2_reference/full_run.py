@@ -64,6 +64,11 @@ def main():
     D.mkdir(exist_ok=True)
     prior,sessions=read_rows(proto,tol,saved)
     if len(prior)==proto['N']:print('All rows already complete; no numerical calls');return
+    spent=pilot['process_cpu']+sum(s['process_cpu'] for s in sessions)
+    if spent+proto['hard_cpu']>proto['phase_cpu_envelope']:
+        stop=D/'phase_budget_stop.json'
+        if not stop.exists():write(stop,dict(reason='Total research CPU reservation exhausted',recorded_process_cpu=spent,reservation=proto['hard_cpu'],envelope=proto['phase_cpu_envelope'],rows_preserved=len(prior)))
+        print('Phase CPU reservation exhausted; partial evidence preserved');return
     session_path=D/f'session_{len(sessions):03}.json';assert not session_path.exists()
     state=dict(status='running',protocol_sha256=sha(P/'full_protocol.json'),first_index=len(prior),rows_added=0,
                geometry_evaluations=0,model_evaluations=0,source_mass_evaluations=0,reference_evaluations=0)

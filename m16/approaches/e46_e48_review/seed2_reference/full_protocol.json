@@ -34,8 +34,8 @@
     "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/seed2_capture_saved_review.json": "f5e61e069b8ac3376c11bac5f5ebd140cc948a6e65316d61a873562744cf6a80",
     "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/published_prerequisites.json": "f1b203961054a5d2e9ca9422658b8f85dd78d66735e39a7b0105f75903c8e915",
     "/workspace/work/feynman_fundamentals/m16/approaches/feynman_fundamentals/seed2_pilot_source_review_pending_export.json": "206aebb38f566a7ea056f04ced336538e232490add8eb2691a31b5d527b624a5",
-    "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/full_run.py": "5a1cffcfc7ca3fadf1401f5e21512c38a38ef8701045cfb0163f1ebf9e75c51c",
-    "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/full_summary.py": "e6c54f4c04990d6927f87cd53721847a00926adb145ffb629c5d12383b1a2e25",
+    "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/full_run.py": "044430fdce91172734fcc985f19c3c844253a435540c3a8b162c8bf483167ee6",
+    "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/full_summary.py": "3955b6c665d19a5e7c7e974274ff5b060446d87b165e373d827cc94b4a3a6b3e",
     "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/pilot.json": "18009a959c787c1586ef6b2551a6e41637b69dc5496306802054bcb4c1dd86e3",
     "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/pilot_certificates.json": "cbffe78943aaaae0d1185a709c2acf656c2c20040e1067d7f6d3266df7e60c7f",
     "/workspace/work/recover-small_h2_34/m16/approaches/e46_e48_review/seed2_reference/pilot_protocol.json": "055fe06e41570b4c91b563ab6bcf111e9a3f63734955b8c6accfcaf389ea2268",
@@ -54,5 +54,7 @@
     "Positive method or stored geometry/FP could be biased: pilot independent exact certificates+GL32 reviewed, full saved audit required; no full FP certificate."
   ],
   "limits": "One thread,2GB,primary lock,95CPUsoft/110CPUhard per invocation; every completed cycle committed/published before continuation.",
-  "pilot_reference_cost": "All fixed64 certificate+GL32 verification retained separately, never repeated or charged as candidate calls."
+  "pilot_reference_cost": "All fixed64 certificate+GL32 verification retained separately, never repeated or charged as candidate calls.",
+  "phase_cpu_envelope": 900,
+  "phase_reservation": "Recorded pilot total process CPU plus completed session process CPU; reserve110 before creating any new session, preserve partial stop if unavailable. Fixed source/saved reviews and publication work reported separately."
 }
