@@ -1,8 +1,8 @@
 """T284: retrain panels (ARC scores over randomness in the weights = fresh retrains, zoo (16,10) config).
   dev2: the 80 models of the T234 40-vs-40 kernel check (2^30 zoo config, seeds 0-39, data seed 21; fused kernel and
         trainer.py), weights and truths OPEN -> dev2/weights.npz, dev2/manifest.json.
-  hp2:  grid3's 2^30 zoo-config models, seeds 100-199 (fused kernel, data seed 41), read from grid3's state.pt once its
-        step count >= 2^20 (those models are finished: the kernel stops updating a model after its n_steps) -> SEALED
+  hp2:  grid3's 2^30 zoo-config models, seeds 100-199 (fused kernel, data seed 41), from capacity_ceiling/hp2_run.py's
+        state.pt (re-trained alone, bit-identical data ids) or grid3's state.pt once its step >= 2^20 -> SEALED
         panel hp2/weights.npz, hp2/manifest.json (truths only in hp2/sealed/truths.json).
 usage: python make_panel.py dev2 | python make_panel.py hp2 STATE_PT"""
 import hashlib, json, os, sys
@@ -24,9 +24,10 @@ else:
     for k, sp in enumerate(spec):
         if sp["name"].startswith("zoo_n30_s") and sp["n_train"] == 2 ** 30:
             assert sp["n_steps"] <= st["step"]
-            names.append(f"hp2_s{sp['seed']}"); W.append(tuple(st[a][k].double().numpy() for a in ("Wi", "Wh", "Wo")))
+            names.append(f"hp2_s{sp['seed']}"); W.append((st["Wi"][k].double().numpy(), st["Wh"][k].double().numpy(),
+                                                       st["Wo"][k][:10].double().numpy()))   # Wo padded to 16 rows
             man.append(dict(name=names[-1], trainer="fused.py (Triton)", seed=sp["seed"], n_train=2 ** 30, data_seed=41,
-                            config="zoo (16,10) defaults", grid3_index=k))
+                            config="zoo (16,10) defaults", grid3_index=sp.get("grid3_index", k)))
     assert len(names) == 100, len(names)
 Wi = np.stack([w[0] for w in W]).astype(np.float64); Wh = np.stack([w[1] for w in W]).astype(np.float64)
 Wo = np.stack([w[2] for w in W]).astype(np.float64)
