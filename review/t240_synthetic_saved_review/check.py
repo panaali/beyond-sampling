@@ -187,6 +187,7 @@ def run(out):
     for (label, kind, args), row in zip(cases, r['rows'], strict=True):
         assert time.process_time()-START < 19
         assert row['label'] == label and row['args'] == args and row['status'] == 'passed'
+        assert json.dumps(row['args'], sort_keys=True) == json.dumps(args, sort_keys=True), 'Preserve float-versus-integer guard input types'
         if kind == 'guard': checked = guard_check(label, args, row)
         else: checked = {'box':box_check,'margin':margin_check,'mass':mass_check}[kind](args,row['result'],row['expected'])
         out['rows'].append(dict(label=label,kind=kind,checked=checked)); counts[kind] += 1
