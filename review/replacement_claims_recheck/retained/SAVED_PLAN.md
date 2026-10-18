@@ -1,0 +1,12 @@
+# Proposed fixed saved-summary check (not execution clearance)
+
+Inputs: the four frozen JSON files and three logs in inventory.json; source snapshots and completed T258 written review. No source imports, NPZ/checkpoint access, new data, model, fitting or RNG calls.
+
+1. Validate complete shapes, finite/status fields and literal N/sample-seed correspondence in pinned sources/logs. Preserve discrepancies before assertions.
+2. For C2, independently select first maximal validation family for each step/neuron and compare the recorded family names; validate all16 union and evaluation-ranked ordering. Reconcile all16 cumulative and per-neuron endpoint metrics without claiming new predictions.
+3. For unconditional Boolean means on known N, enumerate integer candidates whose correctly rounded binary64 k/N matches the saved float (not merely rounding N*p). Recover a unique count only when the candidate is unique. Otherwise retain an interval/unknown. Source output NumPy's integer Boolean mean is assumed to use the same final correctly rounded division in this conditional compatibility check; the raw execution is not proven.
+4. Reconcile D's five outcomes, disagreement count, two accuracies, paired task-gain count and C2 endpoint. Derive paired variance from +1/-1/0 correctness transitions only. No new confidence claim or training uncertainty quantification.
+5. Reconcile gap-bin, near-union and case supports and disagreements using unique integer compatibility where denominators are known/recovered. Do not add blind to the three exclusive x9-rank cases. For conditional near/far pattern tables, use their source-defined denominator; preserve ambiguous supports. Rank-picked totals must each equal total disagreements.
+6. Compare owner printed decimals with retained summaries at their stated rounding precision. Seven noise rows are a finite iid-error diagnostic; do not infer realized R-squared or monotonicity beyond saved outcomes. The direct-fit metrics belong to their separate panel.
+
+Freeze source, output schema, pins, explicit tolerance/rounding rules and resources before running. At most one 17CPU internal/20CPU soft+hard/2GiB review-lock process after independent published source gate; no automatic rerun, immutable initial outputs and atomic durable failures. Final independent saved review required. This checks retained arithmetic, not T258's independent-code/different-seed 0.5pp reproduction objective, which stays open.
