@@ -165,10 +165,14 @@ Total: 266 scalars plus 43,200 input/direction entries. `cont_d.table_sizes()` p
 - Cost as executed: C 5,490 FPE (T317c 5,488). The points move a few walk cells.
 - DEV2 (development only): RMS .7944 pp vs .7950, bias +.444 pp both, F 4.78 both.
 - Not frozen and not submitted. No variant tuning (forking paths); the gate result goes to the DRI for a ruling.
+- **DRI ruling (2026-10-18): option (a), accepted with the overshoot noted.** The .0115 pp overshoot (vs .01 pp, one model)
+  comes from a model-free change fixed in advance, which cannot be tuned to the data. **T317c's HP3 score remains the
+  confirmed result (H-L1).** T317d is frozen at @5b4d4806 (`estimator_d.py` -> `cont_d.est`) and goes to the T281 scorer
+  as HP3's second submission, labelled the "ARC-ready version". Its score is reported alongside T317c's.
 
 ## Status
 - T317, T317b, T317c: done and scored. T317c is the HP2 and HP3 candidate (unverified; T320 independent recount done).
-- T317d: implemented; the gate failed by .0015 pp on one model; awaiting a DRI ruling.
+- T317d: frozen @5b4d4806 after the DRI accepted the narrow gate overshoot; sent to T281 for HP3 (second submission).
 
 ## Compute accounting
 - Charged per model, as executed, under Directive 8:
