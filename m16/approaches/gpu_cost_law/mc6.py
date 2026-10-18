@@ -1,7 +1,8 @@
 """T270 diagnosis (DRI checks a + b): for one k = 6 subtree, independent MC of the root cell and of every leaf region.
 Samples x ~ N(0, I_6) (prefix inputs x_0..x_5), forward M_16,10, gate history = packbits(h_t > 0) for t = 1..6 (the
-enumeration's region key). Root MC = samples whose history starts with the root's history; leaf MC = per region;
-'unmatched' = samples inside the root whose full history is not an enumerated region (lost geometry).
+enumeration's region key). Root MC = samples inside the root cell's cone (x . N >= 0 for its inward normals; a history
+prefix alone is NOT unique: the same history occurs in cells of other start cones); leaf MC = per region (histories are
+unique within one root cell); 'unmatched' = samples inside the root whose full history is not an enumerated region.
 usage: python mc6.py POS [n_samples] [seed] -> results/prefix6/mc6_<pos>.json"""
 import json, os, sys, time
 import numpy as np
@@ -13,13 +14,14 @@ model, front = Q.front_list(11); P._init(model, Q.K, True); item = front[pos]; t
 n, (hists, Rs, Is), o, s, sec = P._dfs(item)
 cm = gmass.grouped(Rs, Is, len(hists), os.environ.get("DIAG_DEV", "cpu"), chunk=1024, tb=512); root = float(np.load(os.path.join(Q.OUT, "roots.npz"))["mass"][pos])
 rh = np.frombuffer(item[4], np.uint8); L = len(rh); idx = {h: i for i, h in enumerate(hists)}
-Wi, Wh, _ = model; rng = np.random.default_rng(seed); cnt = np.zeros(len(hists), np.int64); nroot = 0; unm = {}
+Wi, Wh, _ = model; rng = np.random.default_rng(seed); cnt = np.zeros(len(hists), np.int64); nroot = 0; unm = {}; pre_ok = 0
 done = 0
 while done < N:
     m = min(10 ** 6, N - done); x = rng.standard_normal((m, Q.K)); h = np.zeros((m, 16)); H = []
     for t in range(Q.K):
         h = np.maximum(h @ Wh.T + x[:, t:t + 1] * Wi[None], 0); H.append(np.packbits(h > 0, axis=1))
-    H = np.concatenate(H, 1); sel = (H[:, :L] == rh).all(1); nroot += int(sel.sum())
+    H = np.concatenate(H, 1); sel = (x @ item[0].N.T >= 0).all(1); nroot += int(sel.sum())
+    pre_ok += int((H[sel][:, :L] == rh).all(1).sum())
     for row in H[sel]:
         b = row.tobytes(); i = idx.get(b)
         if i is None:
@@ -30,7 +32,7 @@ while done < N:
 p = cnt / N; cmz = np.nan_to_num(cm); se = np.sqrt(np.maximum(np.maximum(cmz, p), 1e-300) / N); z = (p - cmz) / se
 big = np.argsort(-np.abs(z))[:15]
 r = dict(pos=pos, n=N, seed=seed, cells=n, regions=len(hists), root_mass=root, leaf_sum=float(cm.sum()),
-         root_mc=nroot / N, root_mc_se=float(np.sqrt(nroot) / N), leaf_mc_sum=float(cnt.sum() / N),
+         root_mc=nroot / N, root_mc_prefix_ok=pre_ok / N, root_mc_se=float(np.sqrt(nroot) / N), leaf_mc_sum=float(cnt.sum() / N),
          unmatched_mc=float(sum(unm.values()) / N), unmatched_patterns=len(unm),
          n_zero_or_nan=int((~(cm > 0)).sum()), mc_in_zero_or_nan=float(cnt[~(cm > 0)].sum() / N),
          mass_nan=int(np.isnan(cm).sum()), chi2_per_region=float(np.mean(z ** 2)), worst=[dict(i=int(i), mass=float(cm[i]), mc=float(p[i]), z=float(z[i]))
