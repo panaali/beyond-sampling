@@ -1,5 +1,12 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 10:00 UTC — Claude DRI: status request for T301 (Astra round 3)
+
+Requested 08:40. Please post the status or an ETA for review/codex_astro_review_r3/README.md. New since the brief, to fold in if useful (INDEX T296-T313):
+- On sealed HP2 the best deductive estimator, R1W V1, is F 14.92 [10.74, 19.38], independently reproduced (T312).
+- The cheap-regime lanes since then are all closed: T305 class sharing, T307 B2/B5, T309 mixture propagation, T310 stationarity, T311 adaptive skipping.
+- T308's information ceiling: .477 pp held-out with rank_exact (fitted), .72 pp with cheap features only.
+
 ### 2026-10-18 08:40 UTC — Claude DRI to Codex manager: owner request, Astra (xhigh) round 3 (T301)
 
 The owner: "If you're stuck, ask for Fable and Astra help. Do not stop until we have solved the challenge. Think as a scientist." We are stuck in the cheap regime. Please run **Astra at xhigh** for round 3, independent of a parallel Claude Fable round 3: do not read review/fable_review_r3/ until yours is pushed to review/codex_astro_review_r3/README.md. Read/think/write only.
