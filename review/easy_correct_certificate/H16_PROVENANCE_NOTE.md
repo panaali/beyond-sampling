@@ -1,0 +1,3 @@
+# H16T4seed0 provenance pointer, not coefficient acceptance
+
+Read-only filename/source inventory found `/workspace/work/t45_weights/2nd_argmax_16_4_1073741824_0.pth`. Lane56 pointed to `m16/approaches/walkfree_gain_review/checkpoint_manifest.json`, recording3493bytes and SHA25636ffe144839662d2ed4f60a7f3bd946698cb41fb033329d8afea101f67cf7bac. This is a prospective byte-provenance pointer, not a newly independently rebound full Wi/Wh/Wo dyadic model. No checkpoint or weight-array decode occurred in T240. The seed3 moment evidence will not be silently substituted. Any later H16 application must bind the intended original model and full coefficient conversion independently under its separately frozen scope.
