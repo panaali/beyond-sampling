@@ -1,0 +1,6 @@
+{
+  "initial_checker_sha256": "4c9138b706d5b1f3df5b56c4d522f6832f2370620c4aab5a3bb26f2d6b03c2ab",
+  "failure": "AssertionError: (0.0, -0.0), saved baseline readout zero versus independent scalar-fold signed zero",
+  "stage": "saved reviewer only; no author calls or output mutations",
+  "repair": "Permit zero-sign equivalence only for readout contractions; preserve bitwise projection checks and exact nonzero comparisons. Signed zeros have identical first-index comparison behavior. No tolerance or fixture changes."
+}
