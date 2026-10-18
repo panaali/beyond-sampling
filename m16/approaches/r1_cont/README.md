@@ -596,3 +596,22 @@ error is (estimate) − (the same variant without C1), i.e. tmax 1 + extension, 
 **Arithmetic note (DRI):** at C ≈ 4k, strict needs RMS <= .43 pp. That is below the closure-c floor (.463 pp,
 T324/T304), even with every walk approximation removed. So strict hinges on the closure lane (T327). This stack is
 the lenient-improvement track.
+
+## T331+C1 combination results: GO = NO (`python run_combo.py`, `results_combo.json`, `run_combo.log`; 80 DEV2)
+
+| variant | C (FPE) | RMS pp | bias pp | MSE × C / T317e's | C1 declared error vs (iv): RMS / mean / max |
+|---|---|---|---|---|---|
+| T317e | 5,490 | .794 | +.444 | 1.00 | — |
+| (iv) tmax 1 + extension | 8,388 | .669 | +.104 | 1.08 | — |
+| **combo (iv) + C1 on all lines** | 3,854 | 1.034 | **−.708** | **1.19** | .888 / **−.811** / 1.75 pp |
+
+- **The go line (<= .70) is missed. The error comes from the combination's definition, as pre-registered:**
+  - A C1-stopped row's piece is its *current* (early) cell's correct set on [t, ∞).
+  - That cell's affine margin is positive on [t, tmax = 1], but its root beyond 1 comes far sooner than the root of
+    the cell the full walk would reach at t ≈ 1. Far-gap mass is wrongly marked wrong: declared −.81 pp mean.
+- So C1 and the extension do not compose as defined. A frozen early cell is a good proxy *inside* the window
+  (C1's +.045 pp) but not beyond it.
+- [speculative; not pre-registered] One alternative would give C1-stopped rows [t, tmax] correct and then the
+  beyond-tmax gap assumed correct (no extension), keeping the extension only for rows walked to tmax. It mixes two
+  gap rules, and its bias sign is unclear (the walked rows get the extension's negative push). Not run; it would need
+  its own pre-registration.
