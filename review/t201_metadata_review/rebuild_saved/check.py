@@ -59,6 +59,7 @@ def main():
     assert r['result']==dict(n=9,correct=correct,table=tab) and correct==1
     r=rows[6];assert r['Wi']==[1.,-1.] and r['Wh']==[[.5,-.25],[.25,.5]]
     assert len(r['inputs'])==len(r['outputs'])==len(r['exact_output_fractions'])==6
+    assert r['inputs']==[[1.]*10,[-1.]*10,[(-1.)**j for j in range(10)],[j/8-.5 for j in range(10)],[0.]*10,[1024.,-1024.]*5]
     for seq,out,text in zip(r['inputs'],r['outputs'],r['exact_output_fractions'],strict=True):
         assert len(seq)==10;h=[F(0),F(0)]
         for x in seq:
