@@ -1,10 +1,13 @@
 # T201: what the blind-region argument proves
 
-Assume ten independent continuous centered Gaussian inputs and let K count
+Assume ten iid N(0,1) inputs and let K count
 strictly positive values. Signs are independent fair bits, so
 P(K=0)=1/1024, P(K=1)=10/1024 and P(K<=1)=11/1024.
 The second largest is nonpositive exactly on K<=1, except null zero/tie sets.
 This is an input-distribution fact, independent of every network weight.
+The sign-mass identity alone would also hold for independent centered Gaussians
+with unequal variances. The uniform target-label arguments below additionally
+use the iid/exchangeable assumption; sign symmetry alone is insufficient.
 
 The conditional error is a separate, model-dependent quantity. Write e0 and
 e1 for the error probabilities conditional on K=0 and K=1. Then the blind
