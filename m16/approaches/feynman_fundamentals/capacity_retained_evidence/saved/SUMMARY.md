@@ -1,6 +1,6 @@
 # T257 saved JSON consistency
 
-Source444750e9 was independently cleared02c2a32a/sharedbcbd1b38. Gate516ee0da was published57c9cd84 before sole run9f04b70c/shared6dbe21d0. Final separate saved review by34 remains pending under6d054702.
+Source444750e9 was independently cleared02c2a32a/sharedbcbd1b38. Gate516ee0da was published57c9cd84 before sole run9f04b70c/shared6dbe21d0. Final separate saved review5ba5e02b/sharede49fb013 passes under6d054702: independent exact sums and400bit integer-square-root SE brackets agree.
 
 All six retained evaluation rows satisfy the fixed error-partition, nominal-SE and blind-rate rounding checks. All64 curve records/five models (320 loss/accuracy pairs) have the expected step sequence through the reported training endpoint. All27 nonblank README numerical entries agree with retained records under their fixed displayed-decimal allowance. Six progress events and actual20/20-second CPU,2GiB/2GiB limits are saved; main audit CPU0.052878738 seconds before final event/save. No failure or rerun occurred.
 
@@ -17,3 +17,7 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 bash -c 'set -e; ulim
 ```
 
 After final saved handoff, missing paired/runtime/model bindings stay parked until actual owner evidence arrives. No automatic binary/model/training continuation is authorized.
+
+## Final reviewer resource record
+
+All11 reviewer events passed; internal CPU0.009571598 seconds. A launcher preflight failed127 because /usr/bin/time was absent, before Python or output creation. Receipt7aa51ba1/shared41cfe91f was published before the sole numerical attempt with Bash built-in time; source and gate unchanged. Recorded Bash real/user/sys=.131/.109/.013 seconds are separate timing fields. Actual CPU/AS soft-hard limits were20/20seconds and2GiB/2GiB. No numerical rerun occurred.
