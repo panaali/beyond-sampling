@@ -7,10 +7,10 @@ Can exact future-margin equality on a finite positive hull be decided completely
 Restrict the functions to an exact basis of the cone's span, replace fixed-sign hinges by their linear/zero restrictions, and canonicalize the remainder. `PROOF.md` shows that any surviving mixed-sign hyperplane crosses the relative interior and has an isolatable gradient jump. `EDGE_CASES.md` covers zero span, lower dimension, rank one, lineality, touching hyperplanes, vector outputs and nonconvex unions.
 
 ## Status
-Proof frozen after claim06d554c8; independent theorem review pending. No implementation or numerical execution. Distinct from h4 T207 generic reset theorem,56 T11596 sufficient controls, and paused T190 cache claims.
+Proof frozen after claim06d554c8; independent theorem review3d46e08f (sharedd4e754b2) passes all statements and nine edge cases. No implementation or numerical execution. Distinct from h4 T207 generic reset theorem,56 T11596 sufficient controls, and paused T190 cache claims.
 
 ## Results
-[inferred, awaiting independent review] For finite exact represented cones and homogeneous vector ReLU-plus-linear functions, zero canonical remainder **after span restriction** is necessary and sufficient for equality on the entire cone. Both-domain tests decide equality on the union without convexifying it. Mathematical full-dimensional specialization also applies to the old sufficient algebra, but code/application claims require their own verification.
+[inferred, independently reviewed3d46e08f] For finite exact represented cones and homogeneous vector ReLU-plus-linear functions, zero canonical remainder **after span restriction** is necessary and sufficient for equality on the entire cone. Both-domain tests decide equality on the union without convexifying it. Mathematical full-dimensional specialization also applies to the old sufficient algebra, but code/application claims require their own verification.
 
 Reproduction: read `PROOF.md` and substitute the nine identities in `EDGE_CASES.md`. No executable experiment is supplied or authorized by this phase.
 
