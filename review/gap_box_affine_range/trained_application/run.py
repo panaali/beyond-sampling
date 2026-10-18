@@ -37,7 +37,7 @@ def main():
     def finish(row):row['status']='passed';save();event('completed_case',kind_of_call=row['kind'],name=row['name'])
     try:
         save();p=read(HERE/'protocol.json');gate=read(HERE/'gate.json')
-        direct=[HERE/n for n in ('run.py','enclosure.py','range_primitive.py','launch.sh','PROTOCOL.md','protocol.json')]
+        direct=[HERE/n for n in ('run.py','enclosure.py','range_primitive.py','launch.sh','PROTOCOL.md','README.md','protocol.json')]
         req=direct+[Path(p[k]) for k in ('selection','provenance','written_review','synthetic_review','synthetic_scope','prior_review','prior_scope','source_review')]
         assert gate['ready'] is True and all(str(x) in gate['pins'] for x in req)
         assert all(hexid(gate[k]) for k in ('source_review_commit','source_review_publication','execution_scope_publication'))
