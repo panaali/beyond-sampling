@@ -680,3 +680,25 @@ Selecting on disagreement guarantees that the two differ on these pairs; the tes
   - exact lows bring it to 1.5x;
   - v4's random position brings it to 1.04x.
   So there is nothing to fresh-test. dev3_s548+ remain unused.
+
+# T370 stage 2 (fresh test of the T218 child's closure fix): selection rule, pre-registered 2026-10-18 23:40,
+# before any estimate on these models
+This runs only if the T218 child freezes a T370 variant. Until then dev3_s548 ... dev3_s563 stay unused.
+- **Candidate pairs (model-free thresholds):** 16 models dev3_s548-563 x 4 events. That is E1(t0) =
+  {pick = p3, g23 > t0} at t0 in {2.35, 2.75} (P(g23 > t0) = 9.28e-5, 9.38e-6, as in T366), and E2(t) =
+  {pick != p2, g12 >= t, g23 >= t} at t in {1.25, 1.5} (P(both gaps >= t) = 5.90e-4, 7.26e-5, exact quadrature).
+- **Estimates (truth-blind):**
+  - the frozen T370 variant, run unmodified with its hashes checked;
+  - the comparator, T364's K3 (@e433919d, T_hi 6; E2 via its t2s output).
+  Both run on all 64 candidates.
+- **Selection:**
+  - disagreement d = |log(T370 / K3)| per candidate;
+  - take the 4 E1 and the 4 E2 candidates with the largest d, at most 2 pairs per model;
+  - ties broken by model name.
+  This gives **8 pairs** (4 E1, 4 E2).
+- **Order:** all 64 x 2 estimates committed and pushed, then the 8 pairs go to T192 for sealed conditional-law truths.
+  E1 uses the T364 sampler. E2 uses its analogue, conditioned on both gaps >= t: v2 by inverse CDF of
+  90 phi(v2)(1 - Phi(v2 + t)) Phi(v2 - t)^8, v1 > v2 + t, v3 < v2 - t, lows | < v3. 1e9 per pair.
+- **Go: the T370 variant within 2x of the truth on >= 7/8.**
+- Also reported: K3's ratios, both C, and the expected number of events plain sampling sees at C.
+- No Fable involvement.
