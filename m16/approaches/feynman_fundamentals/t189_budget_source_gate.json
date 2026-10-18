@@ -1,0 +1,20 @@
+{
+  "source_commit": "e631ddff",
+  "pins": {
+    "budget.py": "abc3ee535563e68e7030a6b170eacbaeb794d1921e375256648004bbb893b5b4",
+    "budget_protocol.json": "b345b1d33d8157bdfcc2a2c8c4731c85015b0e6ef6306d8629b8b64ed94f99d4",
+    "BUDGET_PROOF.md": "fe88755b1bb91bedc1d060a0bcc06fa9b659eb668415e1648c70a6d8643c72db"
+  },
+  "source_gate": "pass fixed two rational controls and two saved budget conversions once; <=20CPU review lock",
+  "proof": "For positive width w, strict 1/(2sqrt(N))<w iff N>1/(4w\u00b2). Smallest integer N=floor(1/(4w\u00b2))+1; smallest integer B with floor(B/c)>=N is cN. Monotonicity extends to larger budgets.",
+  "sampler_costs": {
+    "H4T4": 218,
+    "H8T4": 682
+  },
+  "qualifications": [
+    "Protocol sampling count, not measured native instructions.",
+    "Certificate-width floor is not actual estimation-error or MSE lower bound.",
+    "No candidate compute-cost or runtime feasibility assertion; free candidate is an optimistic comparison."
+  ],
+  "prior_saved_review": "f29c1430"
+}
