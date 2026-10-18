@@ -74,6 +74,14 @@ Leaf masses sum to 1 within 5.2e-10 on all 36 exact runs (`leafsum_minus_1` in `
 5. Projection [speculative]: if ops grow ~x1700 per step from (16,4), M_16,10 needs ~3e9 x 1700^6 ~ 7e28 ops; even at the
    region growth (x34/step) and 1.2e5 ops/cell, ~4e18. Out of reach either way.
 
+**Side by side with other reports (DRI note, 2026-10-17; not re-checked).** (a) A Codex T113 review reportedly ran
+RECIPE112 at (16,3) and got cells/regions ~0.47 and recipe/exact ops ~2.06; its artifacts are on no git ref. Here
+(recipe108, not RECIPE112): cells/regions 0.46 (clean mean, 0.42-0.54), recipe/exact ops 1.27 (1.24-1.34). The
+cells/regions agree; the ops ratios differ, perhaps because the recipe variant or the op counting differs (not
+separated). (b) The DRI reports that `understand_m43/evalH.py` records STATS after the rescale re-run, which doubles E43's
+cell counts. That fits H-U4's (8,3) "2.0" (496/238): half of it, 248/238 = 1.04, matches the 0.99 recipe108 value here.
+All H <= 8 baselines above were counted with this folder's code.
+
 ## Compute accounting
 Counted ops = `m43.Ops` inside the estimator (recipe or exact), as estT_fix; leaf-sum masses, region patterns and MC are
 diagnostic and excluded. Totals (CPU, single thread): (8,3)+(16,3) all runs < 1 min; (16,4) recipe 9 x 2.3-2.7 min
