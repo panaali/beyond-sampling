@@ -138,13 +138,11 @@ Hashes: weights `039e3e69…`, manifest `1bf47b3f…`, truths `1a6a44f4…`. Bia
 - n* = 812, the number of samples that would give the same RMS.
 
 **HP3: 100 fresh retrains** (seeds 200–299, max SE 4.0e-5; scored once, T321).
-- **Provisional: recorded only in the HP2 scorer's README. There is no INDEX row yet, and the second submission
-  T322/T317d is pending.**
+- **Registered (T281, 67e57f00): INDEX H-L1, CONFIRMED by the DRI (scoped to retrains; see that row for scope and
+  limits).** HP3 is a fresh panel never used before; the code was frozen before it was scored.
 - As executed (c70e22cd): C 5,427, **F 5.08 [3.42, 7.04]**, RMS 0.805 pp, bias +0.415 pp.
 - Sensitivity: 5.05 under the T281 count at 1c742430; 5.29 with every ndtr charged.
-- Controls run on the same panel scored 0.72–1.07.
-- The DRI's request asked for HP3 as a placeholder until T281 reports. This number should be read as that report's
-  provisional form and replaced when it is registered.
+- The plain-MC control on the same panel scores about 1 (control runs 0.72–1.07).
 
 **HP1: original model + 5 zoo seeds, clean and with noisy copies** (8 noisy copies per base model at each level; 1e8
 truths; 6-cluster bootstrap, seed 281). As executed (c70e22cd):
@@ -158,7 +156,7 @@ truths; 6-cluster bootstrap, seed 281). As executed (c70e22cd):
 
 ## 5. Comparison with sampling and with the inductive reference
 **Sampling.** At equal cost (about 5.5k forward passes) plain Monte Carlo has an MSE 6.76 times smaller on HP2 (5.1
-times on the provisional HP3). Put the other way: the estimator's error matches what about 812 samples give, and it
+times on HP3). Put the other way: the estimator's error matches what about 812 samples give, and it
 costs about 5,489 sample-equivalents. **It is about 6.7x worse than sampling, not better.** What it offers instead is
 a deterministic estimate with no random model inputs, built from steps that can each be checked.
 
@@ -205,7 +203,7 @@ the cost. The other lineage (T319, smooth verdict) has no recorded result and no
 | T317 | 9.57 [6.89, 12.43]; official 9.71 [6.99, 12.61] |
 | T317b | 7.75 [5.58, 10.07]; official 7.89 [5.68, 10.25] |
 | T317c | 6.72 [4.84, 8.73]; as executed 6.76 [4.87, 8.79] |
-| HP3: T317c | 5.08 [3.42, 7.04] (provisional) |
+| HP3: T317c | 5.08 [3.42, 7.04] (T281, H-L1) |
 
 **What this means for HP2.**
 - HP2 was scored three times on the same estimates (T317, T317b, T317c), each time with a lower cost. The T317c
@@ -263,7 +261,7 @@ Writing this document took no new compute. All numbers come from the cited runs.
 ## Claims
 - [measured] On 100 sealed retrains (HP2), the as-executed T317c estimator has F = 6.76 [4.87, 8.79] at C = 5,489 FPE.
   It passes the project's lenient bar and fails the strict bar.
-- [measured, provisional] On 100 fresh retrains (HP3), F = 5.08 [3.42, 7.04].
+- [measured; DRI-confirmed as H-L1, scoped] On 100 fresh retrains (HP3), F = 5.08 [3.42, 7.04].
 - [measured] On noisy copies (HP1), F = 39–206. It fails.
 - [measured] Two independent re-implementations (T312, T320) reproduce the estimates within .012 pp and the cost
   within 0.1–9% depending on the root rule.
@@ -271,8 +269,8 @@ Writing this document took no new compute. All numbers come from the cited runs.
 - [inferred] The lenient verdict holds across the 5.3–5.7k FPE cost latitude.
 
 ## Alternatives not ruled out
-- The HP2 pass could depend on cost engineering tuned to HP2's pass/fail (§6). HP3 argues against this but is
-  provisional.
+- The HP2 pass could depend on cost engineering tuned to HP2's pass/fail (§6). HP3, a fresh panel scored once on
+  frozen code (F 5.08), argues against this.
 - The +0.4–0.5 pp bias could be a property of this training recipe. Retrains from a different recipe were not tested.
 - How the error splits among the declared approximations (closure, product set, blind g12) is unmeasured on HP2.
 
