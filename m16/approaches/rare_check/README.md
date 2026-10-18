@@ -114,5 +114,59 @@ T340's:
 For comparison, T286's scoring of T340's own estimates gave fixed variants 5/15 each, and the family rule 10 wins, 3
 ties, 2 losses.
 
+## DEV3 result
+**Order of steps.**
+- Estimates frozen: b736a5d0 (`results/dev3_est.json`, sha256 e4d20068…7b50), before any DEV3 truth was read.
+- Truths: T192 GPU MC, claude/t192-gpu-cost-law @12e28ebb, t349/rare_mc.json, 1e9 float64 inputs per model.
+- Scoring: `python3 score.py results/dev3_est.json <t349 rare_mc.json> results/dev3_score.json` (log in
+  `logs/dev3_score.log`).
+
+**Verdict: NO GO.** The family rule wins **11**, ties 6 and loses **13** of 30 cases: .46 of the non-tied cases, against
+the .67 line.
+
+| scored | win | tie | loss | win share of non-tied |
+|---|---|---|---|---|
+| fixed A | 10 | 10 | 10 | .50 |
+| fixed B | 4 | 6 | 20 | .17 |
+| **family rule** | **11** | 6 | **13** | **.46** |
+| family, E1 (B) | 4 | 3 | 11 | .27 |
+| family, E2 (A) | 7 | 3 | 2 | .78 |
+| family, cases with pC ≥ 1 | 9 | 6 | 12 | .43 |
+
+**What breaks.**
+- **E1 (variant B) loses on cost, not because it is unusable as an estimate.** Its est/truth on the far-gap islands
+  is .50–1.14 on five models, and 14/18 cases are within 2x.
+  - But B costs 0.3–0.45M FPE. At that cost sampling sees 15–160 events, so its relative error is 8–25%. B's 20–50%
+    bias then loses.
+  - On dev3_s505, B is 6–10x low (ratio .11–.16). Claim (i) of T340, "B within ~1.6x on retrains", fails on 1 of 6
+    fresh models (and is .50–.53 on dev3_s503).
+- **E2 (variant A) holds up.** Its ratios are .21–2.14, with 8/12 within 2x and 11/12 within 3x. It wins 7 of 9
+  non-tied cases at 14–21k FPE.
+  - Claim (ii) of T340, "A within ~2x on the interior error set", holds on 8/12 cases. The misses are on dev3_s505
+    (.35, .21) and dev3_s500 at t = .75 (2.14).
+- **Calibration row (E1 at t0 = 0, not rare).** B's ratios are .84–.98, against .92–1.00 on T340's models.
+
+**Comparison with the calibration on T340's 3 models** (family rule 12 wins / 1 tie / 2 losses; T340's own 10 / 3 / 2):
+- the fresh models reverse the E1 result;
+- the E2 result survives.
+
+## Claims
+- [measured] On 6 fresh DEV3 retrains, the pre-declared family rule beats sampling (or the zero answer) at equal
+  compute in 11 of 24 non-tied cases. This is no go against the 2/3 line, and T340's ~12/15 does not replicate.
+- [measured] Variant A on the interior error set (E2) beats sampling in 7 of 9 non-tied cases, at 14–21k FPE, within
+  3x in 11/12.
+- [measured] Variant B on the far-gap islands (E1) is within 2x in 14/18 cases, but too costly to beat sampling. It
+  is 6–10x low on one model.
+
+## Alternatives not ruled out
+- My implementation differs from T340's on some rare cells by more than 20% (calibration). T340's own code on DEV3
+  could score differently. This check tests the method, not T340's code.
+- Six models: the E1 failure rests mainly on cost, and on one model (dev3_s505) for accuracy.
+
+## Compute accounting
+- Estimates: 6 models × (A ~14–21k FPE + B ~0.3–0.45M FPE as charged). About 25 CPU-min in total, single thread.
+- Calibration: 3 models, about 12 CPU-min.
+- Truths: T192 GPU.
+
 ## Status
-Code frozen at the commit that adds this section. Waiting for the DEV3 truths (requested from T192).
+**Done. NO GO** on the fixed family rule. Unverified. Waiting for the DEV3 truths (requested from T192).
