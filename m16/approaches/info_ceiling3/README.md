@@ -71,4 +71,61 @@ For each row and line type:
    T281 subset F). A GO would therefore be followed by an ablation by feature group before any mechanism is claimed.
 
 ## Status
-Pre-registered; not run.
+**Done. Verdict: NEITHER** (held-out RMS .577 pp, between the .50 go line and the .62 stop line). The
+pre-registration is commit f6d36aee. Unverified; diagnostic and inductive by construction.
+
+## Results
+To reproduce:
+- `PYTHONPATH=<alg_zoo shim> python3 features.py` takes 85 models, ~2 CPU-min, and asserts every per-row total equals
+  `cont_e.est` bitwise.
+- `python3 learn.py` writes `results/learn.json`.
+- `python3 ci.py` writes `results/ci.json`. It gives a 10,000-resample bootstrap over the 45 test models, and F with
+  the test mean p(1−p) = .0724.
+
+| predictor | inner-CV RMS (train 40) | **held-out RMS (45)** [95% CI] | torch (40) | seeds (5) | train | held-out mean err | F at 2.2k | F at 5.4k |
+|---|---|---|---|---|---|---|---|---|
+| raw T317e | — | .817 [.67, .95] | .821 | .786 | .767 | +.53 | 2.03 | 5.01 |
+| offset only | .688 | .646 [.55, .74] | .654 | .580 | .673 | +.16 | 1.27 | 3.13 |
+| **ridge, 30 features (primary; alpha 10)** | .618 | **.577 [.46, .68]** | .589 | .464 | .430 | +.14 | **1.01** | 2.49 |
+| GBT, 30 features (secondary; 50 trees) | .672 | .611 | .627 | .458 | .266 | +.18 | 1.17 | 2.88 |
+
+- **Re-weighting T317e's per-row outputs gains .07 pp over a fitted offset** (.646 → .577).
+  - At the oracle cost of 2.2k FPE that is F ≈ 1.0, exactly at the strict line. At T317e's actual 5.4k it is F ≈ 2.5.
+  - The CI [.46, .68] spans both the go and stop lines, so 45 test models cannot separate them.
+- The offset alone gives .646 held-out and .688 in inner CV, close to Fable's ~.69.
+  - A held-out mean error of +.14 to +.16 pp remains after fitting the offset on fused models. The bias moves between
+    kernels (fused → torch), which is alternative 2.
+- The largest standardized ridge coefficients (pp per sd) are:
+  - slope_23nb +.25;
+  - def_12nb by p3 age: 5–9 −.22 and 2–4 +.20;
+  - def_23nb p2age0–1 +.17;
+  - def_23nb p3age2–4 +.13.
+
+  The opposite signs within one deficit family suggest the fit trades bins against each other rather than reading
+  one mechanism. No ablation was run, because the result is not a GO (pre-registered).
+
+## Compute accounting
+- Features: 85 × (T317e's run + one extra `first_cell` pass per line for the tie readout), ~2 CPU-min, single
+  thread, `ulimit -v 2500000`.
+- Learners and bootstrap: seconds.
+- Feature cost per model: T317e's own ~5.4k FPE plus the tie readout. The readout repeats the first cell's prefix
+  pass already counted in the walk, about ≤ 1.2k FPE if charged separately (not measured).
+
+## Claims
+- [measured] On 45 held-out models, a nested-CV ridge on 30 re-weightings of T317e's per-row outputs, with T317e's
+  estimate as offset, reaches RMS .577 pp [.46, .68]. The pre-registered verdict is **neither** (.50 < .577 < .62).
+- [measured] A fitted offset alone reaches .646 pp. Raw T317e is at .817.
+- [inferred] Even fitted, the information in this geometry's outputs puts F at about 1.0 at the 2.2k-FPE oracle
+  cost and about 2.5 at the realised cost. Strict is not reached at any realised cost of the paradigm. The test
+  cannot close strict at the oracle cost either, because the CI is too wide.
+- [speculative] A deductive mechanism behind this re-weighting would gain at most ~.07 pp over a de-biasing offset.
+  That is small next to the .38 pp spread between the training and held-out residual means and the closure floor
+  (.47).
+
+## Alternatives not ruled out
+- **Training set size.** 40 training models may be too few for 30 features (train .43 against held-out .58). More
+  fused retrains would sharpen the ceiling. HP2/HP3 are sealed and not usable for fitting.
+- **Feature choice.** Other per-row aggregations could carry more, such as finer age bins, per-(p2, p3) deficits, or
+  margins scaled by slope. The pre-registered 30 are one family.
+- **Kernel shift.** This is the fused → torch shift. The seeds-only RMS (.46, 5 models) is below the go line, but
+  n = 5.
