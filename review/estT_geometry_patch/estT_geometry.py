@@ -76,3 +76,43 @@ def apply_estG(estG, B):
         estG.BUF[0].add(s); return 0.0
     B.mass = estG._tri_mass = make_mass(orig, push)
     return orig
+
+
+# ------------------------------------------------------------------ part B: clip on a repaired V-representation (optional)
+TOL_INC = 1e-10
+STATS_B = dict(clip_checked=0, clip_rebuilt=0, clip_qhull_fail=0)
+
+
+def rays(c):
+    """independent unit rays of {N x >= 0} (qhull on the slice), or None"""
+    S = simplices(c)
+    if S is None:
+        return None
+    return np.unique(np.round(S.reshape(-1, S.shape[-1]), 12), axis=0)
+
+
+def rebuild(c, R):
+    """Cone with rays R and NUMERIC incidence (|n_i . r| <= TOL_INC), same normals"""
+    Nu = c.N / np.linalg.norm(c.N, axis=1, keepdims=True)
+    return type(c)(R, c.N.copy(), np.abs(R @ Nu.T) <= TOL_INC)
+
+
+def apply_clip(B):
+    """B.clip <- check the cell's rays against qhull first; if the counts differ, clip the rebuilt cell instead"""
+    orig = B.clip
+
+    def clip(c, n, ops):
+        d = c.R.shape[1]
+        if len(c.R) > d:
+            STATS_B["clip_checked"] += 1
+            try:
+                R = rays(c)
+            except Exception:  # noqa: BLE001
+                R = None
+            if R is None:
+                STATS_B["clip_qhull_fail"] += 1
+            elif len(R) != len(c.R):
+                STATS_B["clip_rebuilt"] += 1; c = rebuild(c, R)
+        return orig(c, n, ops)
+    B.clip = clip
+    return orig
