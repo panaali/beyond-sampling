@@ -11,7 +11,7 @@ rational Gaussian CDF enclosures. run.py freezes four predicate/five CDF control
 then every72 pair check on H4/H8 T4 seed0, with no network calls.
 
 ## Status
-Frozen run and decode-only recovery completed; independent saved-result review pending. Source gates2af8ef71/39230666 and recovery pin065c4302 are published.
+Frozen run and decode-only recovery completed; independent saved-result review passed f29c1430. Source gates2af8ef71/39230666 and recovery pin065c4302 are published.
 
 ## Results
 [measured] All72 exact pair inequalities completed. H4T4seed0 certifies4 disjoint boxes, probability at least0.08526780093644182 (display); H8T4seed0 certifies2, at least0.04263390046822091. Exact outward rational endpoints are in recovery_results.json. Remaining boxes are unresolved by this sufficient predicate.
@@ -44,4 +44,6 @@ are required. Scientific positive/negative claims stay scoped to fixed models.
 Source gate2af8ef71 and protocol2708cc95 preceded the run. Four predicate and five CDF controls passed; the first saved-model rational decoding failed because Fraction requires integer components while T187 saves decimal strings. All controls, mass, failure, progress and 0.139998291 process CPU seconds are preserved in results.json/progress.jsonl/run1.log. No model inequalities were evaluated. recover.py freezes integer decoding only, retaining original source and reusing all completed controls/mass; independent recovery gate pending.
 
 ## Recovery accounting
-Recovery processCPU0.167064820; first attempt0.139998291; combined about0.307063111 including separate startup imports. No neural forwards, checkpoint loads, random inputs or reference quadrature. Original and recovery named rational categories remain separate, as does reused T187 setup; no native scalar/runtime-equivalent price. The original decoder and failed artifacts remain unchanged. Independent saved audit pending; mathematical result scope is fixed zero-anchor/global-envelope conditional bounds only.
+Recovery processCPU0.167064820; first attempt0.139998291; combined about0.307063111 including separate startup imports. No neural forwards, checkpoint loads, random inputs or reference quadrature. Original and recovery named rational categories remain separate, as does reused T187 setup; no native scalar/runtime-equivalent price. The original decoder and failed artifacts remain unchanged. Independent saved audit f29c1430 passes; mathematical result scope is fixed zero-anchor/global-envelope conditional bounds only.
+
+Independent reviewer f29c1430 reconstructed exact Gaussian bounds with separate rational series/Machin/sqrt checks, all72 original pair predicates and minimal35/138 thresholds, nine-control reuse and both-attempt accounting. Reviewer/source coverage gap on the original string decoder remains preserved. No model or integration rerun.
