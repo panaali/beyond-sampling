@@ -1,0 +1,16 @@
+# Proposed next finite integration controls — not execution scope
+
+This planning note makes the next discriminator concrete while the written contract is reviewed. It does not authorize implementation, decoding old numerical records or execution; a separate renewed claim/source/resource gate is required.
+
+Use all nine existing T189 synthetic network fixtures listed literally in local_certificate/controls.py. A new exact physical-Fraction whole-box path should reproduce every saved integer-affine trace after the stated positive-denominator and v=2x conversion, and all final normalized margins/statuses. Reuse immutable saved references; do not call the old candidate or regenerate its153 point forwards. These old records need explicit source/data pins and independent provenance before reuse. Keep their complete source-gated limitations.
+
+For a new restricted-domain discriminator, use the existing purely synthetic last-input network wi=(1,-1), Wh=0, and readout rows (1,0),(0,1),(0,0),(-1,-1). Its output is (ReLU(x3),ReLU(-x3),0,-abs(x3)). There is no recurrent-memory ambiguity in this analytic control. Declare physical coordinates, leader0/second1, and the following four domains before outcomes:
+
+1. Box [1,2] × [-1,0] × [-1,1] × [-1,1], physical gap1/2. Feasible second coordinate t lies in[-1/2,0]; x3 lies in[-1,-1/2]. Therefore network winner1 is unique on this domain. The whole box admits both signs of x3 and is unknown for target1 under this enclosure. The domain has positive volume, but no Gaussian mass is calculated. This is an analytic expected tightening, not a trained prediction.
+2. The same box at physical gap2 is empty (second-coordinate lower bound1 exceeds upper bound0). Preserve empty before recurrence; no invented label, margin or mass.
+3. The same box at physical gap1 has t=0, x2=x3=-1 and x0 in[1,2]. It is a feasible lower-dimensional set, network winner1; do not assign positive continuous-input mass.
+4. The singleton box x=(0,0,0,0), physical gap0, leader0/second1. All logits tie and network first-index winner0; the supplied-target1 status is wrong, while labeling j=1 as the true task target from these closed rank constraints alone remains unsupported. This checks separate rank and output tie ownership.
+
+The first three cases share one new whole-box baseline; the singleton uses a second. A possible final fixed count is nine inherited baseline-parity calls, two new whole-box baselines and four restricted requests, with one empty request doing no recurrence (15 candidate requests,14 propagations), zero old candidate calls and zero direct point forwards/CDF/model-library/random calls. These counts are a proposal to freeze in the later protocol, not an actual ledger. Report old/new/fallback margins separately; synthetic analytic predictions do not establish probabilistic utility.
+
+Three additional representation-only controls may be warranted: nonzero constant and error, positive nonunit denominator, and a half-integer v gap. Such controls must be explicitly added and counted before source freeze, not chosen after a mismatch. The existing T256 affine controls already test fractional coordinate/objective conversions; they do not by themselves cover normalization of a complete neural trace.
