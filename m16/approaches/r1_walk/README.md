@@ -31,3 +31,32 @@ truth). b and a are checks against T298 (.389, .515).
 by a 3-node Gauss rule on its exact conditional law given v3 (numerical integration of a 1-D conditional law, not
 sampling). Plus the DRI's cost cuts. **Go:** lenient point F <= 10 on all 80 DEV2 at own cost. Every step deductive
 or declared.
+
+## Stage A result (`python floors.py 200000`, `results/floors.json`; 80 DEV2, paired, 200k skeletons each)
+
+| closure | RMS floor (pp) | mean (pp) |
+|---|---|---|
+| a: R0 (T298: .515) | .510 | +.215 |
+| b: top-4, true position (T298: .389) | .390 | +.284 |
+| **c: top-4, v4 at the latest free position** | **.471** | -.156 |
+| d: top-4, v4 at the earliest free position | .557 | +.365 |
+
+min(c, d) = .471 < .48, so **Stage A passes (barely)**. The checks a and b reproduce T298.
+**Hard bound:** with floor .471, F <= 10 needs C <= 32.7k FPE even with zero integration error.
+
+## Stage B pre-registration (2026-10-18, after Stage A, before building Stage B)
+**Cost diagnosis** (T302 at tmax .5, one model): the walk costs are nonblind g23 3.9k, nonblind g12 3.5k, blind g23
+2.3k and **blind g12 14.7k**. Near v2 ≈ 0 the inputs straddle zero, and the gates flip constantly.
+
+**Estimator R1W.** The T302 walk structure, with closure c:
+- v4 at the latest free position of the triple;
+- v4's value by a K-node Gauss rule for its exact conditional law given v3 (density 7 phi(v) Phi(v)^6 / Phi(v3)^7 on
+  v < v3; nodes from the moments of that law; numerical integration of a 1-D conditional law, not sampling);
+- along the g23 line, v4 moves with v3 (v4 = v3 - delta_node; declared), and the 6 lows are mu(v4) linearised
+  (declared);
+- **in the blind region the g12 walk is dropped** (g12 assumed correct; declared);
+- walk length tmax = .5 (T302's best).
+
+**Variants (fixed now):** **V1** K = 1 (primary); V2 K = 2; V3 K = 2 with the blind g12 walk kept.
+**Go:** V1 lenient point F <= 10 on all 80 DEV2 at its own cost. V2 and V3 are reported. If V1 fails and V2 or V3
+passes, that is reported as a secondary pass (a 3-way selection on one panel).
