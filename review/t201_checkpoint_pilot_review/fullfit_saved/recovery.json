@@ -1,0 +1,7 @@
+{
+  "failure": "results.json",
+  "failed_checker": "05a34918",
+  "cause": "Relative tolerance on nearzero derived R2 amplifies harmless differences in independently accumulated SSE/SST; first absolute difference6.094014182917842e-13.",
+  "repair": "Keep frozen1e-10 relative SSE/SST/MSE checks. Require each author R2 exactly1\u2212storedSSE/storedSST and median from those exact stored-derived values. Record every independent-fsum R2 and failed original relative criterion instead of silently dropping them.",
+  "scope": "One saved-only recovery after published peer source gate; no author,fit,SVD,RNN,reference or normal draws;19/20CPU2GiB; prior CPU retained and cumulative reported."
+}

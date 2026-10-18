@@ -56,14 +56,14 @@ def hidden_metrics(saved,h,pred):
     for field,vals in [('sse',sse),('sst',sst),('mse',[v/n for v in sse])]:
         assert len(saved[field])==K
         for a,b in zip(saved[field],vals,strict=True):close(a,b)
-    for a,b in zip(saved['r2'],r2,strict=True):
-        if b is None:assert a is None
-        else:close(a,b)
-    ordered=sorted(v for v in r2 if v is not None)
-    med=None if not ordered else (ordered[(len(ordered)-1)//2]+ordered[len(ordered)//2])/2
-    if med is None:assert saved['median_r2'] is None
-    else:close(saved['median_r2'],med)
-    return dict(median_r2=med,maximum_neuron_mse=max(sse)/n)
+    derived=[None if v==0 else 1-e/v for e,v in zip(saved['sse'],saved['sst'],strict=True)]
+    assert saved['r2']==derived # exact documented binary64 formula, no new tolerance
+    ordered=sorted(v for v in derived if v is not None)
+    med=None if not ordered else ordered[len(ordered)//2] if len(ordered)%2 else (ordered[len(ordered)//2-1]+ordered[len(ordered)//2])/2
+    assert saved['median_r2']==med
+    diffs=[abs(a-b) for a,b in zip(derived,r2,strict=True) if a is not None]
+    original_failures=[j for j,(a,b) in enumerate(zip(derived,r2,strict=True)) if a is not None and abs(a-b)>1e-10*max(abs(a),abs(b),1e-12)]
+    return dict(median_r2=med,maximum_neuron_mse=max(sse)/n,independent_fsum_r2=r2,maximum_r2_absolute_difference=max(diffs,default=0),original_relative_r2_criterion_failures=original_failures)
 def classify(saved,x,s,pred,network,heldout):
     n=len(x);correct=int((pred==s['true']).sum());agree=int((pred==network).sum());ranks=1+(x>x[np.arange(n),pred,None]).sum(axis=1)
     keys=(s['positive_bin']*3+s['case'])*10+ranks-1;table=np.bincount(keys,minlength=90).reshape(3,3,10)
@@ -154,9 +154,9 @@ def check():
     assert d['cpu_seconds']<90 and d['maxrss_kib']<2*1024*1024
     return dict(pass_all=True,panels=reports,chunks=191,pilot_reuses=1,observations=196608,progress_records=len(events),maximum_scaled_normal_equation_residual=max(stationarity),beta_calls_reproduced=beta_count,author_cpu_seconds=d['cpu_seconds'],reviewer_refits_SVD_RNN_reference_normal_draws=0,limitations=['Saved singular values checked structurally, not independently factorized','Normal-equation residual is a numerical diagnostic, not outward optimum/rank certificate','Terminal RNG advances and neural hidden states not rerun','Prediction/scoring reconstruction is reviewer work, not a new trained fit','Individual fixed-fit CIs are numerical, not simultaneous or training-variability bounds','No historical provenance or ARC cost/rung claim'])
 def main():
-    out=HERE/'results.json';assert not out.exists();resource.setrlimit(resource.RLIMIT_CPU,(19,20));start=time.process_time();r=dict(complete=False,checker_sha256=sha(__file__),pins_sha256=sha(HERE/'pins.json'));out.write_text(json.dumps(r,indent=2)+'\n')
+    out=HERE/'results_v2.json';assert not out.exists();resource.setrlimit(resource.RLIMIT_CPU,(19,20));start=time.process_time();r=dict(complete=False,checker_sha256=sha(__file__),pins_sha256=sha(HERE/'pins.json'));out.write_text(json.dumps(r,indent=2)+'\n')
     try:r.update(check(),complete=True)
     except BaseException as e:r.update(failure=repr(e),traceback=traceback.format_exc());raise
-    finally:r['review_cpu_seconds_excluding_imports']=time.process_time()-start;out.write_text(json.dumps(r,indent=2)+'\n')
+    finally:r['review_cpu_seconds_excluding_imports']=time.process_time()-start;r['prior_review_cpu_seconds_excluding_imports']=read(HERE/'results.json')['review_cpu_seconds_excluding_imports'];r['total_review_cpu_seconds_excluding_imports']=r['review_cpu_seconds_excluding_imports']+r['prior_review_cpu_seconds_excluding_imports'];out.write_text(json.dumps(r,indent=2)+'\n')
     print(json.dumps({k:r[k] for k in ('complete','chunks','observations','review_cpu_seconds_excluding_imports')}))
 if __name__=='__main__':main()
