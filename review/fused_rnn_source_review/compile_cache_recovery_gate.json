@@ -1,0 +1,29 @@
+{
+  "task": "T261",
+  "reviewer": "recover_56",
+  "source_commit": "3064ee1b",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": true,
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_check.py": "02a37d19a346bb103a18639704abd208d7b1937c5e285fabd74d390e2a5fcb27",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_scope.json": "1c94784fd723594bdb642e8d4c85bdb2099470bbb155cde6eb047c667231ba4d",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/fused_step.py": "647adc15f2d5f746c8459672b378fd246d653c0e391111863a09ed38a10dbf09",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_recovery_launch.sh": "bd6bd76c5302f366ecf68f429c22abf5df7f9ab9633653dc1b3227b49a27fbf7",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_attempt1_cache_failure/compile_results.json": "055a6f8be9f5b170047c8461029c06f3d653018a028061456c39d0f49fc1a97b",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/compile_attempt1_cache_failure/compile_run1.log": "3694c338c255b91d8a548281b2940cfa9fa1a67ee1819b88227432b85595cad7"
+  },
+  "scope": "One unchanged two-configuration offline SM80 compile attempt after readonly default-cache failure; new workspace cache directory and distinct run2 log only. No GPU launches.",
+  "checks": [
+    "Original compile driver/scope/kernel hashes identical to approved compile_gate",
+    "Failure records one entered compile call at B32, failure during cache directory creation before code generation; preserve 1.458675541 internal CPU",
+    "Launcher uses workspace TRITON_CACHE_DIR, same interpreter/dependencies/threads and 105/110CPU2GiB120wall primary lock",
+    "Noclobber separate run2 log; result refuses existing destination; prior output retained in immutable failure folder"
+  ],
+  "requirements": [
+    "Owner binds this published review in immutable new execution gate before invocation",
+    "No source, fixture, target, warp, precision or tolerance change",
+    "Retain compiler failures and no automatic retries"
+  ],
+  "reviewer_compiler_or_numerical_calls": 0
+}
