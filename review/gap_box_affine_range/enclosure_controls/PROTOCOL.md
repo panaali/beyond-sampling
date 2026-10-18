@@ -1,0 +1,27 @@
+# T256 frozen tiny enclosure integration controls
+
+Claim92e7fa7d renews source preparation after written contract98f6f8e4 independently9492142b and primitive65ac580f. No execution until separate published h4 source/resource review plus immutable published gate.910 independently audits saved records after a separately frozen checker. This phase has no trained models/checkpoints, CDF, RNG, probability mass or full grid.
+
+## Fixed cases and representation
+
+The owned enclosure.py implements exact physical-Fraction affine/error/direct-range propagation and optional old-margin intersection. range_primitive.py is a byte-identical owned copy of the reviewed T256 primitive. It is not a new range algorithm. The old integer ledger is not reused: selected dot/range/slope/fallback categories and observed Fraction numerator/denominator bit lengths are reported separately, with incomplete full-cost qualifications.
+
+Nine literal T189 synthetic fixtures in fixtures.py are bound to the already reviewed controls_results.json and its ec1c0532 review/run_scope. New whole-box calls convert physical box x=v/2 and compare ALL saved per-step affine coefficients as2A/S, errors/ranges asE/S andB/S, slope k/2, residual r/S_post, positive margin denominator and first-index statuses. Every new trace and old binding is retained. No old candidate is imported/called; no153 old point forwards are recomputed. Parsing the original44-row JSON retains its immutable bytes but only the9 network records are used; other probability results are not recalculated or adopted as a new result.
+
+Two new whole-box baselines use the explicit signed-final synthetic network from the existing fixtures, on [1,2]×[-1,0]×[-1,1]^2 and on the origin singleton. Four fixed restricted requests use leader0/second1: the first box at physicalg1/2,2,1 and the origin atg0. Their analytic expectations were declared in the separately published prospective plan0ef40090 before outcomes. Atg1/2, t lies[-1/2,0], x3 lies[-1,-1/2], and logits are(0,-x3,0,x3), giving target1 correct despite the old wholebox unknown. Atg2 domainempty; atg1 domain touches only t0,x2=x3=-1; atorigin all logitstie with output0. The g0 supplied-target1 result is distinct from task-rank tie ownership. Retain old/new/fallback intervals and all raw traces; the empty request returns without propagation. No positive Gaussian mass is assigned, including for a positive-volume synthetic domain.
+
+Three literal normalization cases exercise nonzero positive/negative constants, mixed coefficients, additive errors, direct ranges and denominators4,3,8. These are representation-only checks; they do not assert that the bias-free synthetic RNN produces nonzero affine constants. Six malformed requests reject: model denominator0, Boolean dimension, reversed box, float weight numerator, equal domain labels and normalization denominator0. Closed zero-width boxes are VALID in this geometric primitive.
+
+Exactly24 rows and50progress events:9 inherited+2baseline+4domain+3normalization+6guard.20 certificate attempts total:15 valid returns (14 propagated,1 empty) plus5 invalid attempts.4 normalization attempts:3 valid+1 guard. No direct point forward, trained model, CDF, RNG, old candidate or new mass calls. New synthetic certificate propagation itself is work, not free merely because no model library is used. Every attempted call is counted before invocation.
+
+## Prerequisites and failure durability
+
+All seven source/protocol/launcher files must be directly pinned by completed source review with complete/pass_all/execution_authorized true, then by gate.json together with that review, the written contract, primitive saved review, old saved review/run_scope/results and all protocol dependencies. Validate protocol/gate/reviewer pin maps separately. The old review's scope_sha256 must bind run_scope.json, whose15 pins are all verified, including the precise inherited raw results. No candidate imports or numerical payload decoding occurs until these gates pass.
+
+One `bash launch.sh` attempt, /workspace/work/codex-review.lock, one thread, internal15CPU/soft16/hard20CPU,2GiB address-space,25wall after lock. Reject every preexisting output artifact and run1.log. Each running row/call and each returned certificate/normalization is atomically saved before assertions. Errors remain complete=false/pass_all=false with traceback. A cap or failure stops this fixed phase; no automatic retry, changed tolerance or dropped fixture. Exact comparisons have no float tolerance. CPU inside main excludes process startup/top-level imports/final serialization; external limits/Bash timing cover the whole process. RSS is metadata, not the address-space cap.
+
+Source syntax parsing and byte-hash metadata preparation are not candidate execution. No control has run at freeze. Later saved audit must independently check fixed fixture/trace/unit/fallback/analytic/guard/count provenance; named counter and peak-bit limitations must be stated.
+
+## Decision scope and alternatives
+
+Pass supports finite wiring plus the independently reviewed exact-real enclosure theorem. The predetermined synthetic partial-domain tightening distinguishes correct range integration from wholebox filtering; it does not show that trained hidden dependencies are similarly simple. ReLU slope changes can worsen raw downstream intervals; old fallback is retained and charged. A probability contribution from a partial box still requires T252 mass integration. No full-cost/sampling/rung or broad method conclusion follows.
