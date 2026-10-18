@@ -44,6 +44,7 @@ d29e28bb into `data/hp1/subs/probe_v5_d29e28bb/`. The aggregates are in `results
 | t286_rx | `cheap_frontier/hp2_entry.py:est` → `rx.est_rx(Q=8, stride=1, kgroups=3)` | 3731b9fe93159c8b1d643fdd107b451985841ec4 (branch claude/t286-cheap-frontier) | hp2_entry.py `eac842afeb65d4e2d91c3e83d38054c5cfaa34feb4be532b7d12fe6f61e5a724`; rx.py `c11623371060e3522736d2a9a36df5726ebf944da6617e2500c9f063ba4e1055`; cf.py `628c9a4e70af342c4d0ed68155075fbd17facd320323cd98b644c3b1bb119e9f`; rank_exact/rank_est.py `41c5b6eb0fa5d710b149b328b06bd62ddd1a6687b62642b414c0f215ec269401` | deductive (every step) |
 | t286_rx_ind | `cheap_frontier/hp2_entry.py:est_ind` → `rx.est_rx(Q=4, stride=16, kgroups=3)` | same | same | inductive (reference only) |
 | t286b_probe | `cheap_frontier/hp2_entry_b.py:est` → `probe.est_probe(version=1, iters=8, stride=1)` (selected post hoc on DEV2) | c131e933aa5ac53c72e8d6fc1cd17de54f21a6d0 (branch claude/t286-cheap-frontier) | hp2_entry_b.py `14d0a8c6141ecf05c5c6672290ccb0be7a8faa86216da5973fe92c12485628fe`; probe.py `d1ee7fcfe0ef34a5e49225b3eecd51d93dad9edb136eaf17e7c03993c97f5add`; cf.py `72fb793abe33a662a762d569e97c8bd2205f5817eb87156f1daf5096cfbd38d9`; m16/estimate.py `8d87f1bec58961db64f8acc45d8b6655c8c0d80fbfc29381a7a854e8d584398d` | deductive (every step), post hoc |
+| t300_r0 | `r0_shared/estimator.py:est` → `r0_integral/tb.est(n23=1, newton=1, nblind=0, use12=False)` | 8df9793bcccb67ca8c412261006eceb5bd4777b3 (branch claude/t218-tie-tail-labels) | estimator.py `cbb7904b7717834ce677991be359232c6e6066e74cc7b0315a2caa9a992d1771`; r0.py `0f05d047789bde235f2e76c6f374f62a65eed8cfe8f81a39ddaa09f64207499b`; tb.py `a2ae41b436bb6a057b7588f3a44efc8f900d73461293a3fa08788ab26407526a` | inductive (one inductive step; DEDUCTIVE=False); author scope: lenient bar, retrains |
 
 No estimator code was changed. The one loader shim is `shim/alg_zoo.py`: t286b imports m16/common.py, which
 loads M_16,10 at import time via alg_zoo, and alg_zoo is not installed here. The shim returns HP1's bit-identical
@@ -52,7 +53,7 @@ loads M_16,10 at import time via alg_zoo, and alg_zoo is not installed here. The
 estimator files were not modified.
 
 ## Status
-Done on HP1 for v5q, v5a, the control and T286 (est, est_ind, probe-v1 est_b). HP2 (primary panel) is pending its delivery. Standing service: further submissions are scored the same way.
+Done on HP1 for v5q, v5a, the control and T286 (est, est_ind, probe-v1 est_b) and T300 r0. HP2 (primary panel) is pending its delivery. Standing service: further submissions are scored the same way.
 
 ## Results (amendment 1 rule: fixed budget B, R_g = Σe/Σs; superseded as figure of merit by amendment 2 below)
 R_g [95% cluster CI]; bias and RMS error in percentage points; the cost column is the minimum charged C_m in FPE.
@@ -207,6 +208,22 @@ The charged cost varies by model: 876–3960 FPE, mean 2786.
 - [measured] On the noisy copies t286b breaks down: bias +18 to +66 pp, F 1.1e3–4.5e3. The author's docstring
   anticipated this for heavy-noise copies (rank-4+ and 1~2 errors are not modelled). Since HP1 is the robustness
   panel, this is the expected failure, not a harness issue.
+
+### T300 R0 closure + one-anchor Newton boundary (`r0_shared/estimator.py:est`; inductive; fixed cost)
+Reproduce: `python3 score.py t300_r0 <snapshot 8df9793b>/m16/approaches/r0_shared/estimator.py est inductive 0`.
+The author charges 1.0e7 FLOPs. They divide by 5760 FLOPs/FPE (1752 FPE); this scorer divides by 5948 (1697 FPE).
+| group | C_eff | F [95% CI] | RMS pp | bias pp | n* |
+|---|---|---|---|---|---|
+| clean | 1697 | 5.9 [3.9, 7.8] | 1.60 | +0.40 | 287 |
+| abs0.05 | 1697 | 77.2 [49.3, 106.3] | 8.40 | +7.65 | 22 |
+| rel0.005 | 1697 | 89.6 [43.7, 119.6] | 9.62 | +8.08 | 19 |
+| rel0.01 | 1697 | 87.7 [59.5, 107.3] | 10.24 | +9.48 | 19 |
+| all | 1697 | 83.9 [73.1, 93.1] | 9.27 | +8.09 | 20 |
+
+- [measured] On the 6 clean HP1 models t300 gets F = 5.9 [3.9, 7.8], under the lenient bar. This is consistent with
+  the author's DEV2 retrain figure of 5.97.
+- [measured] On the HP1 noisy copies it fails: F 77–90, bias +7.7 to +9.5 pp. The author scoped the method to
+  retrains, so its claim is decided on HP2. HP1 is the robustness readout only.
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
