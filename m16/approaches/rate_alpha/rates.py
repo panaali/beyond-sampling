@@ -24,6 +24,7 @@ def load(path, name):
 
 
 fam = sys.argv[1]
+DONE = {(r["fam"], r["model"], r["knob"]) for r in map(json.loads, open(OUT))} if os.path.exists(OUT) else set()   # resume
 if fam == "sci_tao":
     ST = load("m16/approaches/sci_tao/estimator.py", "st")
     for n in MODELS:
@@ -34,9 +35,13 @@ if fam == "sci_tao":
 elif fam == "probe":
     import common, estimate as E
     for n in MODELS:
+        if ("probe_v4", n, 16) in DONE:
+            continue
         Wi, Wh, Wo = ALL[n]
         E.run = lambda x, Wi=Wi, Wh=Wh: common.run(x, Wi, Wh); E.Wo = Wo
         for s in (1, 2, 4, 8, 16):                    # v2: its own arrangement averaging
+            if ("probe_v2", n, s) in DONE:
+                continue
             t0 = time.process_time(); a, ev, _ = E.estimate_accuracy_v2(seeds=tuple(range(s)))
             emit(fam="probe_v2", model=n, knob=s, rep=0, est=a, err=a - truth(n), cost=float(ev), cpu=time.process_time() - t0)
         per = []
@@ -49,6 +54,8 @@ elif fam == "form":
     R = load("m16/approaches/reliability/estimator.py", "rel")
     for n in MODELS:
         for na in (1, 2, 4, 8, 16):
+            if ("form", n, na) in DONE:
+                continue
             t0 = time.process_time(); e, c = R.estimate(ALL[n], dict(R.CFG, n_arr=na))
             emit(fam=fam, model=n, knob=na, rep=0, est=e, err=e - truth(n), cost=float(c), cpu=time.process_time() - t0)
 elif fam == "enum":
