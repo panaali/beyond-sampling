@@ -109,4 +109,9 @@ Stage 1: 10 models x 720 triples x 20,000 R0 forwards = 1.44e8 forwards (diagnos
   - **clean (6 models): F 5.9 [3.9, 7.8], bias +0.40 pp, RMS 1.60 pp.** Lenient pass, consistent with DEV2's 5.97.
   - noisy copies (outside the declared retrain scope): F 77-90, bias +7.7 to +9.5 pp. **Fails**, as T296 predicts
     for R0 across noise.
-- HP2 (sealed): pending.
+- **HP2 (sealed, 100 retrains; claude/hp1-scorer 8917f0a9, "HP2 results"):** point F **9.72 [7.02, 12.97]** at C =
+  1,697 FPE. Bias +0.82 pp, RMS 2.13 pp, n* = 175 FPE.
+  - **Point lenient: pass** (<= 10). **Upper CI 12.97 > 10**, so it does not meet the DRI's candidate condition.
+  - Worse than DEV2's 5.97 [4.28, 7.78], mostly from the larger bias.
+  - This is consistent with the cancellation caveat: on a fresh panel the omitted error classes offset each other
+    less well.
