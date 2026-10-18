@@ -1051,3 +1051,21 @@ loses on F almost everywhere else.
 **A cheaper next step (not pre-registered; for the DRI):** end each walk at T_hi. The dropped mass is rigorously
 bounded by P(g23 > T_hi), which is model-free: 2.0e-6 at 3, 7.0e-8 at 3.5, **1.7e-9 at 4** (< 1% of the rarest event,
 orig E1(1.5) = 2.1e-7). The saving depends on the cell share beyond t = 4, which is unmeasured.
+
+## T359 pre-registration (DRI; 2026-10-18, before the full runs): a T_hi cut with a rigorous model-free bound
+**Probe (orig only, already run; disclosed):** fixed-walk S3 with tmax = 4.
+- C 1.464M FPE vs 1.971M with tmax 6, i.e. **26% of the cost lies beyond t = 4.** That is 0.575x K3's 2.547M.
+- Estimates move by < 1e-4 relative (E1(1.0): 9.5098e-6 vs 9.5098e-6).
+
+**Arms:** S3 (fixed walk, K = 3, segment start) with the walk ended at T_hi. The dropped mass of every event is bounded
+by P(g23 > T_hi) (model-free, exact quadrature), which is **added as a declared upper bound** (reported, not added to
+the estimate).
+- **(a) T_hi = 4:** bound 1.67e-9, < 1% of every event's truth.
+- **(b) T_hi = 3.5:** bound 7.04e-8. That is 1.3% of orig E1(1.0), 6.5% of E1(1.25) and 34% of E1(1.5), and smaller
+  elsewhere.
+
+Run on orig, seed0 and seed3.
+
+**Go (DRI):** every estimate moves by <= its bound vs the T_hi = 6 walk, **and C <= .5 x K3's**. The primary
+accuracy criterion is est/truth within 2x.
+**Expected from the probe:** (a) gives ~.57x K3 (a miss); (b) is near .5x.
