@@ -229,3 +229,52 @@ same C, and F ~3.14 -> ~2.6 / ~2.4. The +.49 pp bias (from the other declared ap
 closure bias moved -.15 -> -.04 / -.02, so the total bias may rise by about +.1.
 **Alternatives:** the gain could fail to carry over, because the walk integrates the closure along gap lines at
 quadrature nodes, not at each input's true skeleton; that is what this run tests.
+
+## T339 results (`python run_g.py`, `results/t339.json`, `results/t339.txt`, `results/t339_diag.txt`; all 80 DEV2)
+Code: `cont_g.py` is `cont_f_t317f.py` plus the low pattern (the full diff is `t339_diff.patch`, 73 lines: `sigma`,
+`dsigma`, the pattern in `inputs`, the two sigma constants per region in `_tables`, and a node-count hook for the
+check). Cost: under 1 CPU-min.
+
+**Checks.**
+1. s = 0 reproduces frozen T317f **bitwise** (estimates and FLOPs) on all 80. This is the copy check.
+2. **The B2 prefix tree stays at 2,815 nodes per line** for both signs (all 3 lines, all 80 models). Fable's claim
+   holds.
+3. **C as executed does NOT stay unchanged.** The tree is the same, but the later cells are not: the walks cross more
+   cells and screen C1 retires fewer rows, so C rises 12-23%.
+
+| low pattern | RMS pp | bias pp | error sd around mean | corr(est, truth) | C (FPE, range) | F | DEV2 MSE x C |
+|---|---|---|---|---|---|---|---|
+| T317f (s = 0) | .827 | +.489 | .667 | .978 | 3,326 [2,646, 4,131] | **3.14** | **2,276** |
+| s = +1: mu + (-1)^j sigma | .911 | +.726 | .550 | .985 | 4,090 [2,846, 5,515] | 4.68 | 3,395 |
+| s = -1: mu - (-1)^j sigma | .884 | +.758 | .455 | .991 | 3,748 [2,758, 5,008] | 4.04 | 2,931 |
+
+**Selection (pre-registered): neither pattern beats T317f's MSE x C (2,931 > 2,276), so nothing is frozen and there is
+no T317g.**
+
+**What happened.**
+- The spread closure moves every estimate by +.24 / +.27 pp on average (sd .54 / .46), and the move is
+  anti-correlated with T317f's own per-model error (-.60 / -.73).
+- So it corrects the model-to-model part of the error: error sd .667 -> .550 / .455 pp, corr with the truth
+  .978 -> .985 / .991.
+- But it adds to the bias. T317f's other declared approximations are biased +.6 or so, and R1W's closure bias (-.14,
+  the T327 oracle) was partly cancelling them. The spread removes that cancellation, as T327's oracle (closure bias
+  -.15 -> -.04) said it would, and here the shift is larger (+.25 rather than +.1).
+- With 12% more cost on top, MSE x C is 1.29x worse.
+
+**What it would take.** At s = -1, the variance part alone would give F = .455^2 x 3,748 / mean p(1-p) ~ 1.06 if the
++.76 pp bias were removed. That is near the strict bar.
+- The bias must come out deductively: by fixing the approximation that causes it (Fable r5's "approximation term",
+  T324), not by a fitted offset, which would be advice.
+- So spread lows are worth combining with a bias fix, not alone.
+- This is a measured decomposition on DEV2 (development), not a claim.
+
+## T339 claims
+1. [measured] T317f plus one-pattern spread lows keeps the prefix tree at 2,815 nodes per line, but C as executed rises
+   12-23% (more later cells, fewer C1 retirements).
+2. [measured] Neither sign beats T317f on DEV2 MSE x C (2,931 / 3,395 vs 2,276): RMS .884 / .911 vs .827, because the
+   bias rises +.27 / +.24 pp.
+3. [measured] The spread corrects the model-to-model error: sd .667 -> .455 pp at s = -1, corr .991. [inferred] A
+   closure that removes the R1W mean-point bias exposes the other approximations' positive bias. The strict route
+   needs that bias fixed deductively; with it, s = -1 would sit near F ~1 on DEV2. [speculative] for HP panels.
+4. Forking paths: two patterns on 80 DEV2, one pre-registered selection (none chosen). The s = -1 decomposition is post
+   hoc information, not a candidate.

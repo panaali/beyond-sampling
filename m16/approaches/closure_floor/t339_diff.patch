@@ -1,0 +1,73 @@
+1c1,9
+< """T317f (T335): T317e plus the declared screen C1 on all three lines, as one self-contained file with no Monte Carlo
+---
+> """T317g (T339): T317f (cont_f.py @88453669, sha256 327dbb4a...) with ONE change, the closure's low pattern.
+> In T317f the 6 lows share one value mu(v4) (linearised along the walk). Here the low at absolute position j is
+> mu(v4) + SPREAD * (-1)^j * sigma(v4), with sigma = sd(N(0,1) | < v4) linearised along the walk the same way as mu
+> (model-free constants per region, computed once at import). SPREAD = 0 is T317f exactly. Everything else (G, TMAX,
+> screen C1, walk, merge, profile, FLOP charges) is T317f's code, unchanged. Self-contained; no Monte Carlo.
+> est(model, budget=None) -> (estimate, FLOPs as executed under Directive 8).
+> 
+> T317f's docstring follows.
+> T317f (T335): T317e plus the declared screen C1 on all three lines, as one self-contained file with no Monte Carlo
+17a26
+> SPREAD = 0.0                                  # T339 low pattern sign: +1, -1, or 0 (= T317f); set at freeze
+74c83,98
+< def inputs(v1, v2, v3, v4, low, d1, d3, d4, dlow):
+---
+> def sigma(v):
+>     """sd of N(0,1) | < v: sqrt(1 + v mu - mu^2)."""
+>     v = np.atleast_1d(v); m = mu(v)
+>     return np.sqrt(np.maximum(1 + v * m - m * m, 0.0))
+> 
+> 
+> def dsigma(v):
+>     v = np.atleast_1d(v); m = mu(v); dm = dmu(v)
+>     return (m + v * dm - 2 * m * dm) / (2 * sigma(v))
+> 
+> 
+> PAR = (-1.0) ** np.arange(10)                 # (-1)^j by absolute position j
+> 
+> 
+> def inputs(v1, v2, v3, v4, low, d1, d3, d4, dlow, sig=0.0, dsig=0.0, spread=0.0):
+>     """T317f's inputs; T339: the low at position j gets + spread (-1)^j sig (slope + spread (-1)^j dsig)."""
+80c104,105
+<         x[r, LOWS[:, j]] = low; dx[r, LOWS[:, j]] = dlow
+---
+>         pj = PAR[LOWS[:, j]] * spread
+>         x[r, LOWS[:, j]] = low + pj * sig; dx[r, LOWS[:, j]] = dlow + pj * dsig
+235c260,261
+< def _tables():
+---
+> def _tables(spread=None):
+>     spread = SPREAD if spread is None else spread
+241a268
+>         s4 = float(sigma(v4s)[0]); ds4 = float(dsigma(v4s)[0])
+244c271,272
+<         t["line23"] = inputs(v2s + g12s, v2s, v2s, v2s - delta, m4 + dm4 * (v2s - delta - v4s), 0.0, -1.0, -1.0, -dm4)
+---
+>         t["line23"] = inputs(v2s + g12s, v2s, v2s, v2s - delta, m4 + dm4 * (v2s - delta - v4s), 0.0, -1.0, -1.0, -dm4,
+>                              sig=s4 + ds4 * (v2s - delta - v4s), dsig=-ds4, spread=spread)
+246c274
+<             t["line12"] = inputs(v2s, v2s, v3s, v4s, m4, 1.0, 0.0, 0.0, 0.0)
+---
+>             t["line12"] = inputs(v2s, v2s, v3s, v4s, m4, 1.0, 0.0, 0.0, 0.0, sig=s4, dsig=0.0, spread=spread)
+272c300
+< def walk_c1(model, x0, d, k, tmax, max_cells=400):
+---
+> def walk_c1(model, x0, d, k, tmax, max_cells=400, stats=None, tag=""):
+275a304,305
+>     if stats is not None:                     # T339 diagnostic only: prefix-tree node count per line
+>         stats[tag] = nodes
+328c358
+< def est(model, budget=None):
+---
+> def est(model, budget=None, tables=None, stats=None):
+331c361
+<     for t in TABLES:
+---
+>     for t in (TABLES if tables is None else tables):
+337c367
+<             p, f = walk_c1(model, x, dx, k, TMAX); flops += f
+---
+>             p, f = walk_c1(model, x, dx, k, TMAX, stats=stats, tag=f"{t['name']}-{kind}"); flops += f
