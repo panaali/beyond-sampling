@@ -1,0 +1,157 @@
+{
+  "complete": true,
+  "assignment": "754e7160",
+  "snapshot_commit": "cf62f4ab",
+  "checked_snapshots": [
+    {
+      "path": "m16/state.py",
+      "sha256": "cc1ac15424b7573e49ba76511f148f05e83e7c53334d1900582fad71033c1a43",
+      "git_blob": "1318821fb337bf1b27d8b02bd2bf9e42dc2e6067"
+    },
+    {
+      "path": "m16/separable.py",
+      "sha256": "a1e4d81922d8041a9cd5b6d24313499865d9e9d5a72812026a29a71e9428514c",
+      "git_blob": "7218963f0ea47befe1dae298cd03803cecee7a86"
+    },
+    {
+      "path": "m16/features.py",
+      "sha256": "9c07b02930648903b33c04d836b461378710e9e2d80cb53b2451c9254ecfff74",
+      "git_blob": "fd0712b3939e7ff29a2d07c5a2cd541fd5d1db91"
+    },
+    {
+      "path": "m16/common.py",
+      "sha256": "18324c8bd8e57a28c8ccf13c5937319d8f607f9c23907e71ca8047592fb27c73",
+      "git_blob": "239cf9d377804669706ca028093355e0e34dbe99"
+    },
+    {
+      "path": "m16/frozen.py",
+      "sha256": "b1593226b5eb86243011dc0bdef888a96a2a2fa1a7ae5b8015a5f629f4b97075",
+      "git_blob": "147e14f42efa70cd01afc884e7275641570b42ae"
+    },
+    {
+      "path": "m16/exact.py",
+      "sha256": "f753e3366c80fdab2cdab6dfa274f704aba4f33145cdc72f43b7d305e5824c2f",
+      "git_blob": "b4c7dd75211bc626c077ae376c70da1f6774a58e"
+    },
+    {
+      "path": "m16/estimate.py",
+      "sha256": "8d87f1bec58961db64f8acc45d8b6655c8c0d80fbfc29381a7a854e8d584398d",
+      "git_blob": "63a9d90c1c95da61955edbe3de6139ff2a16fe58"
+    },
+    {
+      "path": "m16/arc_eval.py",
+      "sha256": "c1478af7ad5cdd9d88d1d467506cf715a028dc9acd3429d2ae83c01ec72ad786",
+      "git_blob": "60c70f9aa8d93403dac49165f279d252cffbe3d9"
+    },
+    {
+      "path": "m16/FINDINGS.md",
+      "sha256": "20cbb02d6021a012069f915d1f759f73a1c6337260510011253169ead0ceb4da",
+      "git_blob": "3f98a8a70123d3aabe1f874c32bce73ebe1a25fc"
+    },
+    {
+      "path": "m16/README.md",
+      "sha256": "a4433cc44bdbae8b7dac5cf8002715c33c626820a0534c9d858d9a0b402a1faf",
+      "git_blob": "ff194beb1351f82dc52eb69d3824502e668d820a"
+    },
+    {
+      "path": "RESULTS.md",
+      "sha256": "8ea89bec238474636722c79ed14670e6fe3587b250a866e5535435c059a9704f",
+      "git_blob": "5b6e16f522a4b34347776c565c6cf5cfd2f24b8d"
+    },
+    {
+      "path": "results/algzoo_16_10.json",
+      "sha256": "d06e53d09a7ad5d1a1177eceb9fa1b318638a19a6e9d30c5e4544b0c962b056f",
+      "git_blob": "f0ef6f43d4f1db439d5545fc922d5829cff5e9d9"
+    },
+    {
+      "path": "review/dri_handover/QA_2026-10-18.md",
+      "sha256": "0caa1cdf5c5ca2166bc1eb38188051f1531256baca2a1dfa8eaa318398d100bd",
+      "git_blob": "7c91322c84b3ac6aa5aa3fdcef2596eaf501493f"
+    }
+  ],
+  "function_inventory": {
+    "m16/state.py": [
+      "discrete_state"
+    ],
+    "m16/separable.py": [
+      "design",
+      "fit"
+    ],
+    "m16/features.py": [
+      "loo_max",
+      "prefix_max",
+      "dictionary"
+    ],
+    "m16/common.py": [
+      "standardized",
+      "run",
+      "sample",
+      "target",
+      "model_acc"
+    ],
+    "m16/frozen.py": [
+      "gates",
+      "run_frozen",
+      "canonical"
+    ],
+    "m16/exact.py": [
+      "contribution_map",
+      "logit_map"
+    ],
+    "m16/estimate.py": [
+      "canonical_input",
+      "flip_threshold",
+      "threshold_general",
+      "estimate_accuracy",
+      "threshold_top",
+      "estimate_accuracy_v2",
+      "threshold_with_spread",
+      "estimate_accuracy_v3",
+      "threshold_second_order",
+      "_shift",
+      "threshold_rank4",
+      "estimate_accuracy_v4"
+    ],
+    "m16/arc_eval.py": [
+      "forward",
+      "true_acc",
+      "noisy_models",
+      "est_sampling",
+      "_canon",
+      "_bisect",
+      "est_probe",
+      "_set",
+      "_blind_probe",
+      "evaluate"
+    ]
+  },
+  "origin_changed_files": {
+    "6cc72d88": [
+      "m16/frozen.py",
+      "m16/state.py"
+    ],
+    "0c2ec2e1": [
+      "m16/exact.py",
+      "m16/modes.py",
+      "m16/separable.py"
+    ],
+    "dd8b65b9": [
+      "m16/FINDINGS.md"
+    ]
+  },
+  "prose_sums_percent": [
+    "117/25",
+    "15/4"
+  ],
+  "prose_gap_percent": "47/50",
+  "pins": {
+    "/workspace/work/recover-small_h2_78/review/mechanism_claims_review/pins.json": "134f13bf1ea9b1cc69fcb48e0921d25ee81058aafa78a71e3a87bb83cdacfc0d",
+    "/workspace/work/recover-small_h2_78/review/mechanism_claims_review/SOURCE_INVENTORY.md": "05a2203c3407965d15abf7bcca2f399389d4d44c55fc7cd4c790e77c8bb8d8a9",
+    "/workspace/work/recover-small_h2_78/review/mechanism_claims_review/README.md": "ba0070f03b62321112c56cca0ba01930f03a5d63747e96d3e6003ce3ea16a264",
+    "/workspace/work/recover-small_h4_4/review/t201_metadata_review/check_saved.py": "2dc3e2b8a73d1578f6a5758c02fda9eaf88eaa945c496b796eba02bda0081bd6"
+  },
+  "cpu_seconds": 0.013540271000000006,
+  "author_imports": 0,
+  "model_fit_random_truth_calls": 0,
+  "scope": "Thirteen snapshot/helper/cited-origin metadata and rounded prose only. No global absence assertion, fit/test validation, blind/crossing theorem review, numeric reconstruction or replay gate."
+}
