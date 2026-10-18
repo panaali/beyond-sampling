@@ -32,6 +32,10 @@ def main():
         p=read(HERE/'application_protocol.json');g=read(HERE/'application_gate.json')
         assert g['complete'] and g['protocol_sha256']==sha(HERE/'application_protocol.json')
         for path,h in {**p['pins'],**g['pins']}.items():assert sha(path)==h,path
+        review=read(p['primitive_saved_review']);review_scope=read(p['primitive_saved_scope'])
+        assert review['complete'] and review['rows']==44 and review['synthetic_point_reconstructions']==153
+        assert review['scope_sha256']==sha(p['primitive_saved_scope'])
+        for path,h in review_scope['pins'].items():assert sha(path)==h,path
         controls=read(HERE/'controls_results.json');assert controls['complete'] and len(controls['rows'])==44
         assert all(row['passed'] for row in controls['rows'])
         assert controls['synthetic_exact_forwards']==153 and controls['candidate_certification_attempts']==12
