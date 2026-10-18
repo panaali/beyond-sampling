@@ -867,3 +867,12 @@ only be conditional.
   - **Only the trivial bound is rigorous.** P(E(t0)) <= P(g23 > t0) = 4.4e-2 / 1.7e-2 / 5.9e-3. Against T340's orig
     1e9 truths (5.4e-6 / 1.14e-6 / 2.16e-7) that is **8,200 / 14,900 / 27,500x loose**.
 - T344 released.
+
+**Tightness of the trivial rigorous bound against T340's final truths** (T192 GPU float64: orig 1e10, seeds 1e9;
+claude/t192-gpu-cost-law @63d36d38). The ratio is bound / truth:
+
+| model | t0 = 1.0 | 1.25 | 1.5 |
+|---|---|---|---|
+| orig | 8,278x | 15,566x | 28,448x |
+| seed0 | 250x | 274x | 302x |
+| seed3 | 269x | 270x | 272x |
