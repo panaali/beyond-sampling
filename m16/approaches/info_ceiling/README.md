@@ -51,4 +51,59 @@ close cheap strict for evaluation-based designs (scoped to these summaries). In 
 3. Overfitting by subset selection: guarded by train-only LOO selection.
 
 ## Status
-Pre-registered.
+**Done. Pre-registered GO:** held-out RMS .477 pp, under the .6 line. But the selected predictor uses rank_exact
+(25.8k FPE). Restricted to cheap features (post hoc), the RMS is .72 pp: neither go nor stop. All claims unverified;
+diagnostic and inductive by construction.
+
+## Results
+Reproduce:
+- `PYTHONPATH=<alg_zoo shim> python3 features.py` (85 models, about 3 CPU-min) -> `results/features.json`;
+- `python3 fit.py` -> `results/fit.json`;
+- `python3 cheap_only.py` (exploratory).
+
+The anchor is v1 = 1.62, v2 = 0.96, v3 = 0.62 (T300's model-free medians); σ_low = .70.
+
+| predictor | features | params | train LOO RMS | train fit | **held-out RMS (45)** | torch_s (40) | LB3 seeds (5) | held-out mean err |
+|---|---|---|---|---|---|---|---|---|
+| **selected (pre-registered rule)** | F4 Φ(−m/8), F8 low-flip, F9 rank_exact, F10 probe-v1 | 5 | .523 | .474 | **.477** | .473 | .513 | +.07 |
+| pre-specified two estimators | F9, F10 | 3 | .630 | .595 | .631 | .617 | .736 | +.15 |
+| best single feature | F10 probe-v1 | 2 | .871 | .833 | .848 | .870 | .645 | +.06 |
+| cheap only (post hoc, no rank_exact) | F1 T300, F4, F10 | 4 | .754 | .690 | .720 | .746 | .466 | +.06 |
+| raw, unfitted: T300 / rank_exact / probe-v1 | – | 0 | | | 1.54 / 1.58 / 3.67 | | | +.35 / −1.25 / +3.28 |
+
+The other single features have held-out RMS 1.34–3.12 pp. The full table is in `logs/fit.log`.
+
+**Correlation of the rank_exact and probe-v1 errors** (85 models): **−.26**. They are not strongly anti-correlated, so
+the two alone give .63 (Fable predicted reaching .43 needs ρ <= −.8). The anchor margin features add the rest.
+
+**Verdict against the pre-registration:**
+- **GO** (.477 <= .6).
+- No sign of overfitting: train LOO .523 ≈ test .477, and the selection used the training models only.
+- The trainer split (fused → torch) does not hurt (alternative 1): torch .47, seeds .51.
+
+**Scope and cost of the information (important for a deductive follow-up):**
+- F9 rank_exact costs 25.8k FPE; F10 probe-v1 ~3.9k FPE.
+- F1 (T300 thresholds) ~1.8k FPE; F2–F6 (one anchor verdict / margin per class) 720 FPE.
+- F7/F8 (7 low tangents per class) ~5k FPE.
+- Without rank_exact the best is .72 pp at about 6.4k FPE (F1, F4, F10). That lies between the lines, so the
+  information within the cheap regime is **not** shown to reach .6 pp.
+- What reaches .48 pp is a mix that includes a 25.8k-FPE estimator.
+
+## Claims
+- I1 [measured] A <= 5-parameter linear combination of four universal summaries (anchor margin spread, low-flip
+  probability, rank_exact, probe-v1), fitted on 40 fused retrains, predicts the accuracy of 40 torch retrains and the
+  5 LB3 seeds with RMS .477 pp. Pre-registered go.
+- I2 [measured] The two opposite-sign estimators alone give .63 pp; their errors correlate −.26.
+- I3 [measured, post hoc] With features costing <= ~6.4k FPE only (no rank_exact), the best is .72 pp.
+- I4 [inferred] The model-specific accuracy information is largely present in a few evaluations per class plus one
+  costlier estimator. A deductive derivation of the 5 coefficients is worth funding **only** if rank_exact's cost can
+  be cut, or its information obtained from cheaper anchor quantities.
+
+## Alternatives not ruled out
+- The coefficients are fitted (inductive). Whether they are stable across trainers is supported (fused → torch),
+  but not across noise families (LB3 noisy copies were not tested).
+- Other summary choices (scales, margin cutoffs) were fixed in advance and not tuned. Tuning would overfit.
+
+## Compute accounting
+Features: T300 `tb.est` (~1.8k FPE) + 720 × (1 + 7 tangents + 1 tie) evaluations per model, 85 models, about 3 CPU-min.
+rank_exact and probe-v1 values were read from T286's stored rows (not recomputed). Fits are negligible.
