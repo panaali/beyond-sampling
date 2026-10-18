@@ -4,14 +4,14 @@ from collections import Counter
 import json,hashlib,time,resource,warnings,sys,platform
 import numpy as np
 import scipy
-from trace import load,Ledger
+from trace import load,Ledger,LEDGER_NAME
 P=Path(__file__).resolve().parent
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def write(p,x):
     t=p.with_suffix('.tmp');t.write_text(json.dumps(x,indent=2,allow_nan=False)+'\n');t.replace(p)
 def invoke(env,model,x,ledger=None):
-    if ledger is not None:env['L']=ledger
+    if ledger is not None:env[LEDGER_NAME]=ledger
     with warnings.catch_warnings(record=True) as ws:
         warnings.simplefilter('always');value=env['Q'](model,x,radial=False)
     return value,sorted((w.category.__name__,str(w.message)) for w in ws)

@@ -25,3 +25,8 @@ Source gate and all pins published before execution. Refuse existing results or
 progress, preserve original output before observed run and all partial failures.
 No retries, parameter tuning, new trained case or full multiplier inference.
 Independent saved review is required. cv allocation/draw controls are deferred.
+
+Pre-run review caught an observer name collision with original Q local L.
+The original unrun5a2cb195 source is preserved. The observer now uses a unique
+name checked against every original Name, argument and function/class binding;
+the original lower-endpoint L is unchanged. No failed numerical attempt occurred.
