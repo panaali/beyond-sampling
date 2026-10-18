@@ -1006,3 +1006,48 @@ near-zero pre-activations are excluded from the roots. Charged: + 2H per re-gate
   (dt 2.5e-4). The fixed walk needs **0** simultaneous flips there.
 - So HP4's T317f score is not touched by this bug. The DEV3 models stand in for the sealed HP panels: the zero-crossing
   result is model-free, and (b) shows the walk resolving correctly on unseen open models.
+
+## T354 results, and the fixed-walk reruns of B / T340c (`run_fixed.py`, `score_fixed.py`, `results_fixed_*.json`)
+All rows use the fixed walk. Each cell is estimate / truth, with F vs sampling at equal compute in brackets
+(F = (est − p)² · max(C, 1k) / (p(1 − p)); sampling has F ≈ 1).
+
+| model | variant | C (FPE) | E1(1.0) | E1(1.25) | E1(1.5) | E2(.5) | E2(.75) |
+|---|---|---|---|---|---|---|---|
+| orig | B (fixed) | 297k | .25 (.89) | .17 (.22) | .19 (.04) | .99 (.01) | .95 (.00) |
+| orig | **K3** | 2.55M | 1.77 (8.2) | 1.24 (.15) | .48 (.14) | 1.03 (.19) | 1.01 (.00) |
+| orig | K5 | 4.22M | 1.60 (8.2) | 1.01 (.00) | .78 (.04) | 1.02 (.14) | 1.03 (.02) |
+| orig | **S3 (T354)** | 1.97M | 1.77 (6.3) | 1.24 (.12) | .48 (.11) | 1.03 (.15) | 1.01 (.00) |
+| seed0 | B (fixed) | 201k | .97 (.02) | 1.03 (.01) | .93 (.02) | 1.07 (.45) | 1.22 (.63) |
+| seed0 | K3 | 1.76M | 1.32 (32) | 1.44 (21) | 1.43 (6.3) | .97 (.59) | .98 (.05) |
+| seed0 | K5 | 2.92M | 1.34 (59) | 1.40 (29) | 1.33 (6.4) | .98 (.45) | .99 (.02) |
+| seed0 | S3 | 1.40M | 1.32 (26) | 1.44 (17) | 1.43 (5.0) | .97 (.47) | .98 (.04) |
+| seed3 | B (fixed) | 265k | .69 (4.1) | .76 (.92) | .73 (.42) | 1.40 (7.4) | 3.40 (22) |
+| seed3 | K3 | 2.24M | 1.05 (1.0) | 1.10 (1.3) | 1.10 (.51) | .73 (27) | .55 (6.3) |
+| seed3 | K5 | 3.70M | 1.02 (.15) | 1.01 (.02) | 1.01 (.00) | .78 (30) | .55 (11) |
+| seed3 | S3 | 1.76M | 1.05 (.82) | 1.10 (1.0) | 1.10 (.40) | .73 (22) | .55 (5.0) |
+
+Pass counts:
+- **Fixed K3:** E1 8/9 within 2x, 9/9 within 3x; E2 6/6 within 2x.
+- **Fixed K5:** E1 9/9 within 2x; E2 6/6.
+- **Fixed B:** E1 6/9 within 2x and 6/9 within 3x; E2 5/6.
+
+**T354 verdict: the go line is missed.**
+- The segment walk is exact: **S3 = fixed K3 to every printed digit.**
+- But **C falls only to 0.77-0.80 × K3's**, against the go line of 1/5. Most of each line's cells lie *beyond* t0,
+  across the coarse far region up to t = 6. The dense near-tie cells skipped are only ~20-23% of the cost.
+- S5's result will follow; it is expected to be the same ratio vs K5.
+
+**What the fix changed:**
+- **The bug mainly inflated E2.** Fixed K3/K5 E2 is ~1.0 on orig and seed0 (was 1.2-1.65). On seed3 it is now *low*
+  (.55-.78).
+- E1 hardly moved on orig and seed3. It moved up somewhat on seed0 (1.1-1.27 → 1.32-1.44).
+- **Fixed B is far better than the buggy B:** E2 .95-1.40 except seed3 E2(.75) at 3.4; E1 on seed0 is 0.93-1.03.
+  B's remaining failure is orig E1 (.17-.25) and seed3. **At equal compute B wins (F < 1) on 10 of 15 pairs**, because
+  it is 7-14x cheaper than K3.
+
+**Equal-compute reading:** the transverse integration buys accuracy where B is badly biased (orig E1), but its cost
+loses on F almost everywhere else.
+
+**A cheaper next step (not pre-registered; for the DRI):** end each walk at T_hi. The dropped mass is rigorously
+bounded by P(g23 > T_hi), which is model-free: 2.0e-6 at 3, 7.0e-8 at 3.5, **1.7e-9 at 4** (< 1% of the rarest event,
+orig E1(1.5) = 2.1e-7). The saving depends on the cell share beyond t = 4, which is unmeasured.
