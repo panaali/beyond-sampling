@@ -8,6 +8,7 @@ from scipy.special import ndtr, ndtri
 from scipy.stats import norm
 
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 500_000
+EXPLORE = len(sys.argv) > 2 and sys.argv[2] == "explore"
 z = np.load("/home/user/dl/dev2/weights.npz", allow_pickle=True)
 assert hashlib.sha256(z["Wi"].tobytes() + z["Wh"].tobytes() + z["Wo"].tobytes()).hexdigest().startswith("22d1c7c2")
 names = [str(n) for n in z["names"]]
@@ -51,6 +52,18 @@ def closures(x):
     last = free[:, -1]
     xe[r, last] = x[r, last]
     out["e_R0_latest"] = [xe]
+    if EXPLORE:                                   # post hoc combinations (not pre-registered)
+        free4 = np.sort(o[:, 4:], 1)
+        xf = np.where(low4, mu4[:, None], x)
+        xf[r, free4[:, -1]] = x[r, free4[:, -1]]
+        out["x_top4_latest"] = [xf]
+        sp4 = ndtri(ndtr(v[:, 3])[:, None] * (np.arange(6, 0, -1) / 7)[None])
+        x4d, x4a = x.copy(), x.copy()
+        x4d[r[:, None], free4] = sp4
+        x4a[r[:, None], free4] = sp4[:, ::-1]
+        out["x_top4_spread"] = [x4d, x4a]
+        for cn in ("a_R0", "b_top4", "c_median", "dprime_spread", "e_R0_latest"):
+            out.pop(cn)
     target = o[:, 1]
     g12, g23 = v[:, 0] - v[:, 1], v[:, 1] - v[:, 2]
     reg = np.where(v[:, 1] <= 0, 0, np.where(np.minimum(g12, g23) >= .05, 3, np.where(g23 <= g12, 1, 2)))
@@ -83,4 +96,4 @@ for k, name in enumerate(names):
         res[name][cn] = {"bias_pp": 100 * m, "se_pp": 100 * np.sqrt((s["d2"] / N - m * m) / N),
                          **{f"{r_}_pp": 100 * s[r_] / N for r_ in REG}}
     print(k, name, " ".join(f"{cn}:{res[name][cn]['bias_pp']:+.3f}" for cn in sums), "%.0fs" % (time.time() - t0), flush=True)
-    json.dump(res, open("results/biases.json", "w"), indent=1)
+    json.dump(res, open("results/biases_explore.json" if EXPLORE else "results/biases.json", "w"), indent=1)
