@@ -1,0 +1,53 @@
+{
+  "approved": true,
+  "review_kind": "Independent source and frozen byte inventory only; author controls not executed",
+  "source_commit": "130f0a21",
+  "initial_source_commit": "66c38c90",
+  "pins": {
+    "/workspace/work/recover-small_h2_910/review/leaderboard_v3_repair/audit.py": "9bbe4dfb3679e1752e75767ddaa5ed29f118d6b3dcccf3ebb60ecbb7dcf3e88b",
+    "/workspace/work/recover-small_h2_910/review/leaderboard_v3_repair/protocol.json": "389494c2bba56a248d6e5fd54e21118f8beb77dab00dec34b1479db275458a5e",
+    "/workspace/work/recover-small_h2_910/review/leaderboard_v3_repair/manifest.json": "df7ae3e019792d2ce3fd5cb2bcc21edb6f76b001d46255b87f404fa1349e4554",
+    "/workspace/work/recover-small_h2_910/review/leaderboard_v3_repair/PATCH_PROPOSAL.md": "76f0f7aba09a5f3f31a186f90f073824b9af341b4f64a2cd6bc0d7ec7bd8879c"
+  },
+  "snapshot_count": 14,
+  "snapshot_checks": [
+    "Every SHA256, byte length and Git blob identity independently checked."
+  ],
+  "raw_inventory": {
+    "current_selected_keys": 28020,
+    "pre_class_selected_keys": 25140,
+    "overwritten_records_each": 7896,
+    "conflicting_overwrites_each": 7896,
+    "policy": "Latest key matches historical loader; new audit explicitly preserves replacement inventory."
+  },
+  "cleared_scope": {
+    "determinism_controls": 5,
+    "rational_covariance_controls": 1,
+    "all_budget_rows": 498,
+    "E44_copies": 1024,
+    "T114_copies": 256,
+    "CPU_soft_hard": [
+      19,
+      20
+    ],
+    "memory_GiB": 2,
+    "runs": 1
+  },
+  "source_findings": [
+    "table/report already iterate every budget; separate saved summary chooses budgets.",
+    "run initializes det from class and may never execute determinism probes; legacy False cannot distinguish untested from failed.",
+    "Five metadata controls preserve actual tested failure, legacy pass and unknown distinctions.",
+    "Exact covariance control values 1/10, 3/26 and 1/7 follow the same pooled denominator formula.",
+    "E44 uses archived mean cost/72; T114 uses own cost/(sample_ops-3), with distinct panels and no global conversion.",
+    "All 498 original fields preserved by copy and asserted; added classification is separate.",
+    "Runtime hashes, fixed counts, strict vector lengths/positive costs and immutable outputs enforced after narrow repairs.",
+    "No author imports, model/MC/bootstrap/native-cost execution or shared harness mutation."
+  ],
+  "limitations": [
+    "Source gate only; completed saved output requires independent verification.",
+    "Legacy True is historical recorded evidence, not a new determinism proof; False remains ambiguous.",
+    "Prior archive presence does not identify runtime source or validate scientific classifications.",
+    "Archived intervals/truth/cost conventions retained; no simultaneous rung validation or full-cost certificate.",
+    "srb multipliers remain uninstrumented; proposal adoption belongs to Claude DRI."
+  ]
+}
