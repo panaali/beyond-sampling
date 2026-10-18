@@ -1,0 +1,67 @@
+{
+  "complete": true,
+  "independent_expected_records": true,
+  "controls_sha256": "a265e9974f151be7817a8c87a3de91e8cc22e854f69d6e68c226b2cd481834c9",
+  "protocol_sha256": "a0ae8714c4afe67b9ec0356748ab094902314fb511475961c5d824af3d953ebe",
+  "checker_sha256": "97462a83cc6107648a90eb02b0883a8df506ab0ae857cd4f1ee74a220822ef47",
+  "source_gate_sha256": "d889b5d14bc7fe2d40ac5a0acb2fcc413b25f69eed0d47739897f969dfd807fc",
+  "details": [
+    {
+      "case": "clean_only",
+      "rows": 1,
+      "rescale_calls_per_arm": 1,
+      "changed_stat_rows": 1,
+      "all_records_exact": true
+    },
+    {
+      "case": "no_noisy_retest",
+      "rows": 8,
+      "rescale_calls_per_arm": 1,
+      "changed_stat_rows": 1,
+      "all_records_exact": true
+    },
+    {
+      "case": "one_noisy_retest",
+      "rows": 9,
+      "rescale_calls_per_arm": 2,
+      "changed_stat_rows": 2,
+      "all_records_exact": true
+    },
+    {
+      "case": "two_noisy_retests",
+      "rows": 17,
+      "rescale_calls_per_arm": 3,
+      "changed_stat_rows": 3,
+      "all_records_exact": true
+    },
+    {
+      "case": "zero_counts",
+      "rows": 1,
+      "rescale_calls_per_arm": 1,
+      "changed_stat_rows": 0,
+      "all_records_exact": true
+    },
+    {
+      "case": "nonzero_invariance_difference",
+      "rows": 17,
+      "rescale_calls_per_arm": 3,
+      "changed_stat_rows": 3,
+      "all_records_exact": true
+    }
+  ],
+  "totals": {
+    "row_pairs": 53,
+    "fake_estimator_calls": 128,
+    "fake_truth_calls": 106,
+    "fake_rescale_calls": 22
+  },
+  "author_cpu_seconds": 0.016294550000000005,
+  "review_cpu_seconds": 0.0039980039999999994,
+  "author_or_estimator_calls_in_review": 0,
+  "conclusion": "All six saved synthetic reporting controls match independently reconstructed records exactly. Snapshot isolates original per-model statistics and preserves calls/values/ops/invariance.",
+  "limitations": [
+    "No historical full-table statistics recovered by these controls.",
+    "No model replay, native-cost claim, corrected scaling law, or shared-source integration implied.",
+    "Historical clean297 excludes blanket halving; noisy correction requires actual selected-rescale counts."
+  ]
+}
