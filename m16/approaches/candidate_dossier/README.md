@@ -6,6 +6,8 @@
 independent re-implementations T312 (R1W V1) and T320 (T317c).** Every number below cites its source. Numbers marked
 [inferred] were not measured directly.
 
+"Roughly match" is our phrase, not ARC's: the talk says "match" (§1).
+
 ## Question
 Does the project's best deductive estimator of the accuracy of an AlgZoo RNN meet ARC's stated bar, and how far
 short of it does it fall?
@@ -121,7 +123,9 @@ F and its 95% CI come from a bootstrap with one cluster per model (10,000 resamp
 identical to T317b and to R1W V1 within 1.4e-6 pp.
 - Bias +0.445 pp; RMS 0.795 pp.
 - C is 5,435 FPE (1c742430) or 5,488 FPE (c70e22cd).
-- DEV2 F is not recorded for T317c. Scaling T317's DEV2 F (6.78 at 7,775 FPE) gives **about 4.7–4.8** [inferred].
+- Mean p(1−p) = 0.0725, so n* = 1,147. **DEV2 F = 4.78 [3.53, 6.08]** at C = 5,488 (as executed) and 4.74 [3.54,
+  6.01] at 5,435 (cluster bootstrap, 10,000 resamples). Reproduce with `dev2_f.py`; the T317c estimates are
+  `est_c` in `r1_cont/results_d.json`.
 - DEV2 was used for every design choice, so this score is not an honest test.
 
 **HP2: 100 sealed retrains** (hp2_s100..s199, fused trainer, data seed 41, 1e8-sample truths with max SE 3.9e-5).
@@ -143,6 +147,9 @@ Hashes: weights `039e3e69…`, manifest `1bf47b3f…`, truths `1a6a44f4…`. Bia
 - As executed (c70e22cd): C 5,427, **F 5.08 [3.42, 7.04]**, RMS 0.805 pp, bias +0.415 pp.
 - Sensitivity: 5.05 under the T281 count at 1c742430; 5.29 with every ndtr charged.
 - The plain-MC control on the same panel scores about 1 (control runs 0.72–1.07).
+
+**T317d (T322)**, which removes the three documentation gaps (§2 steps 3 and 12), is the intended ARC-ready version.
+Its HP3 score will be added here when it is in.
 
 **HP1: original model + 5 zoo seeds, clean and with noisy copies** (8 noisy copies per base model at each level; 1e8
 truths; 6-cluster bootstrap, seed 281). As executed (c70e22cd):
@@ -265,10 +272,12 @@ Writing this document took no new compute. All numbers come from the cited runs.
 - [measured] On noisy copies (HP1), F = 39–206. It fails.
 - [measured] Two independent re-implementations (T312, T320) reproduce the estimates within .012 pp and the cost
   within 0.1–9% depending on the root rule.
-- [inferred] DEV2 F is about 4.7–4.8.
+- [measured] DEV2 F = 4.78 [3.53, 6.08] at 5,488 FPE (development panel, not a test).
 - [inferred] The lenient verdict holds across the 5.3–5.7k FPE cost latitude.
 
 ## Alternatives not ruled out
+- **Open item:** the error budget per declared approximation (closure, product set, blind g12, quadrature) has not
+  been measured on any sealed panel.
 - The HP2 pass could depend on cost engineering tuned to HP2's pass/fail (§6). HP3, a fresh panel scored once on
   frozen code (F 5.08), argues against this.
 - The +0.4–0.5 pp bias could be a property of this training recipe. Retrains from a different recipe were not tested.
