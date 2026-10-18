@@ -9,6 +9,15 @@ def pair(x):
     return [str(x.numerator), str(x.denominator)]
 
 
+def archived_integer(text):
+    if type(text) is not str:
+        raise ValueError('archived integer must be a decimal string')
+    value = int(text)
+    if str(value) != text:
+        raise ValueError('noncanonical archived integer')
+    return value
+
+
 class Work:
     def __init__(self):
         self.counts = Counter()
@@ -69,8 +78,13 @@ def reduce_chain(simplices, d, work, emit=lambda *args: None):
             raise ValueError('degenerate simplex')
         norm = prod(sum(abs(x) for x in r) for r in rays)
         exact = F(abs(det), norm)
-        if raw['expected_det'] is not None and exact != F(*map(int, raw['expected_det'])):
-            raise ValueError('archived normalized determinant mismatch')
+        if raw['expected_det'] is not None:
+            saved = raw['expected_det']
+            if not isinstance(saved, (list, tuple)) or len(saved) != 2:
+                raise ValueError('archived determinant pair')
+            numerator, denominator = map(archived_integer, saved)
+            if numerator <= 0 or denominator <= 0 or exact != F(numerator, denominator):
+                raise ValueError('archived normalized determinant mismatch')
         orientation = 1 if det > 0 else -1
         expanded = F(0)
         ids = []
