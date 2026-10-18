@@ -51,5 +51,70 @@ DRI's new primary criterion: est/truth within 2x.
 2. T340c reports a residual one-signed E2 overshoot rising with t (+12–65%). At t = 1–1.25 on 20 models it may
    exceed 1.5x in the median.
 
+## Results
+To reproduce: `python3 run.py` (estimates, ~35 CPU-min), then `python3 score.py` (`results/score.json`,
+`logs/score.log`). The truths are T192 GPU: t349 @12e28ebb and t358 @f86b0f40.
+
+**Check: K = 1 reproduces my T350 variant B on E1** (relative difference ~1e-5, from the Stieltjes grid), on seed0.
+
+**Calibration on T340's 3 models** (my K3, against T340c's pre-fix K3 numbers):
+- orig E1: 1.77 / 1.24 / .48, against T340c's 1.73 / 1.24 / .49.
+- orig E2: 1.03 / 1.01 (after the walk fix), against T340c's pre-fix 1.30 / 1.61.
+- seed0 E1: 1.32 / 1.44 / 1.43; E2: .97 / .98.
+
+These agree with T340c on E1. My E2 matches T340c's post-fix report (E2 6/6 within 2x).
+
+**Verdict: GO at K = 3, exactly on the line.**
+- 88/110 = **80%** within 2x.
+- Medians: all .76, E1 1.03, E2 .73. All lie in [2/3, 1.5], but E2's is close to the lower edge.
+- K = 5 is the same: 80%, medians .76 / 1.09 / .72.
+
+| event | n | within 2x (K3) | median est/truth (K3) | median (K5) |
+|---|---|---|---|---|
+| E1, t0 = 1 | 6 | 6 | .99 | 1.09 |
+| E1, t0 = 1.25 | 6 | 6 | 1.05 | 1.11 |
+| E1, t0 = 1.5 | 6 | 6 | 1.06 | 1.14 |
+| E2, t = .5 | 26 | 25 | .74 | .73 |
+| E2, t = .75 | 26 | 19 | .69 | .70 |
+| E2, t = 1.0 | 20 | 13 | .70 | .71 |
+| E2, t = 1.25 | 20 | 13 | .69 | .70 |
+
+- **E1, the far-gap islands, is clean: 18/18 within 2x, unbiased (medians .99–1.06).** This fixes T350's E1 failure,
+  where variant B on dev3_s505 was 6–10x low. g12 integration is what closes it, as T340c found.
+- **E2, the interior error set, is one-signed low.**
+  - 79% of E2 cases are below 1; 70/92 are within 2x.
+  - The 22 misses sit in 9 models. On 7 of them the ratio collapses as t rises (dev3_s515: .39 / .20 / .07 / .01;
+    s512 and s518 fall to .07 and .03 at t = 1.25). Two models over-estimate (s508 3.0 / 4.3; s519 2.6).
+  - This is the same pattern as variant A in T358, at roughly 250x A's cost. g12 integration does not reach the
+    deeper interior islands on these models.
+  - Alternative 2's predicted overshoot did not appear. The sign is the opposite.
+- **K = 5 does not change anything**, so this is not quadrature error in g12. The residual lies elsewhere: the
+  single v3* per v2 node, the v3–v4 link, or the lows.
+
+**Secondary: the equal-compute comparison** (T350's rule, at executed C):
+- K3 wins 21, ties 22, loses 67 (share .24). K5 wins 16, ties 18, loses 76.
+- Executed C is 1.0–1.5M FPE for the three E1 events together, and 3.7–6.7M FPE for the four E2 thresholds together.
+- Each case is charged its family's total, which is conservative. Charging a quarter of C_E2 per threshold would
+  not change the sign: at these costs sampling sees tens to thousands of events.
+- **The accurate estimator is not competitive with sampling at equal compute, except at the rarest p.**
+
+## Claims
+- [measured] On 26 fresh DEV3 models, my implementation of T340c (K = 3) is within 2x on 88/110 (model, event)
+  cases. It passes the DRI's go line exactly (≥ 80%; medians .76 / 1.03 / .73 within [2/3, 1.5]).
+- [measured] E1 (far-gap rank-3 islands, p ~ 1e-6 to 2e-4): 18/18 within 2x, median about 1.
+- [measured] E2 (interior errors with both gaps ≥ t): 70/92 within 2x, one-signed low (median .69–.74). On 7 models
+  it collapses toward 0 as t rises. K = 5 does not fix it.
+- [measured] At 1–7M FPE it loses to sampling at equal compute in most cases (21 win / 22 tie / 67 loss).
+
+## Alternatives not ruled out
+- The E2 deficit may come from the node-specific v3* (one g23 transverse point per v2 node) and not from g12.
+  Integrating g23 (v3) at Gauss nodes too was not tried.
+- Six models for E1 is a small sample: 18/18 has a 95% lower bound of about 85% within 2x.
+
+## Compute accounting
+`run.py`: 29 models × (K3 + K5), about 35 CPU-min in total, single thread, `ulimit -v 2500000`. Estimator costs are
+as charged above.
+
 ## Status
-Pre-registered.
+**Done. GO at K = 3, exactly on the 80% line.** E1 is clean. E2 is one-signed low and fails on about a quarter of
+models at t ≥ .75. The method is not competitive at equal compute. Unverified.
