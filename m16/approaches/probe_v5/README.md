@@ -71,6 +71,13 @@ So a pass is lenient-bar evidence **with the inductive caveat**. v5a is in effec
 3. v5b's gain on DEV comes from noisy copies only; the seeds have no DEV analogue. Expect it to transfer badly to
    the seed group.
 
+## Addendum pre-registration (after the v5a/v5b panel, before any v5q run)
+v5a and v5b both FAIL the go line (Results). To test alternative 2, a third frozen method is added as a **control**:
+- **probe_v5q = `v5.est_full`**: the same triple-balanced design, but all 10 order statistics come from a 10-D
+  scrambled Sobol point (seed 274) by the exact Rényi transform. No canonical values.
+- It is fixed-node QMC: inductive in every step except the exact law. It is a lenient-bar control, not a probe method.
+- Expected: bias ~0 and ratio <= ~1 at every budget. Go line as before (4k, upper CI <= 10 in all six groups).
+
 ## Method
 *(after the run)*
 

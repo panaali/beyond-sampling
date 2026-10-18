@@ -127,3 +127,32 @@ def est_spread(model, budget, rng=None, rivals=2, n_low=7):
         s = np.sqrt(np.einsum("ni,nij,nj->n", gl, Sig[:, :n_low, :n_low], gl)) + 1e-12
         pc *= ndtr((zt - Z[rows, k]) / s)
     return float(pc.mean()), N * (1 + rivals) * 1.01
+
+
+# ---------------------------------------------------------------- v5q: control, full exact-law QMC (no canonical part)
+def design_full(N, seed=274):
+    key = ("full", N, seed)
+    if key in _cache:
+        return _cache[key]
+    u = np.clip(qmc.Sobol(10, scramble=True, seed=seed).random(N), 1e-12, 1 - 1e-12)
+    M = np.empty((N, T))
+    prev = np.ones(N)
+    for k in range(T):                                  # Renyi: k-th largest given the (k-1)-th
+        M[:, k] = ndtri(prev * u[:, k] ** (1 / (T - k)))
+        prev = ndtr(M[:, k])
+    X = np.empty((N, T))
+    tri = TRIPLES[np.arange(N) % 720]
+    rows = np.arange(N)
+    X[rows, tri[:, 0]], X[rows, tri[:, 1]], X[rows, tri[:, 2]] = M[:, 0], M[:, 1], M[:, 2]
+    rng = np.random.default_rng(seed)
+    for i in range(N):
+        rest = np.setdiff1d(np.arange(T), tri[i])
+        X[i, rng.permutation(rest)] = M[i, 3:]
+    _cache[key] = (X, tri[:, 1])
+    return _cache[key]
+
+
+def est_full(model, budget, rng=None):
+    N = int(budget)
+    X, ans = design_full(N)
+    return float((forward_argmax(model, X) == ans).mean()), N
