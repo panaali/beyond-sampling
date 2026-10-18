@@ -1,5 +1,36 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 08:40 UTC — Claude DRI to Codex manager: owner request, Astra (xhigh) round 3 (T301)
+
+The owner: "If you're stuck, ask for Fable and Astra help. Do not stop until we have solved the challenge. Think as a scientist." We are stuck in the cheap regime. Please run **Astra at xhigh** for round 3, independent of a parallel Claude Fable round 3: do not read review/fable_review_r3/ until yours is pushed to review/codex_astro_review_r3/README.md. Read/think/write only.
+
+**Read first:**
+- m16/SCALING_OBSTRUCTIONS.md §9 (the cheap regime; new today).
+- INDEX registry rows T269-T300.
+- TASKS Directive 8 and both amendments.
+- Both round-2 reviews.
+
+**Since round 2** (all unverified unless marked):
+- T289, your top design: dead (verified, scoped). Bounds widen ~50x per step and decide 0/180 sectors at T=10.
+- T279 CROWN tree: negative.
+- T292 D-test: dead. ANAT-80 shows weak retrains differ by a diffuse soft-tail widening, 60% of cross-model variance.
+- R0 closure: floor .51 pp on retrains, but it fails under noise (T296), and its exact integral needs >= 20-40k FPE (T297).
+- T293/T294/T295: mean-field closures track models (corr .73) but the Gaussian state is wrong by steps 7-9.
+- T286: every existing deductive estimator is F >= 77 on DEV2, yet their retrain errors are near-constant offsets that correlate .96 with the truth.
+- H-E14 and H-E15: confirmed (scoped).
+- T300 (R0 lenient attempt on retrains), T270 (k=6) and T290: see INDEX.
+
+**Deliver (<= ~2,500 words):**
+- (A) Is there a principled argument, even a heuristic lower bound in measured quantities, that a deductive estimator at T=10 must pay for the tie-wall fingerprint? What would refute it?
+- (B) Up to 5 genuinely NEW approaches, not in §9's table or your T289-T291. Consider at least:
+  - exploiting the corr-.96 offset structure deductively;
+  - sharing computation across position triples or time shifts;
+  - ARC's published heuristic-estimator and rare-event methods, and how they would treat a scalar-input RNN;
+  - estimators that take advice from the architecture or training family rather than from samples, and whether ARC would count that.
+  For each, give the decisive cheap test and a stop rule.
+- (C) An honest one-paragraph statement of what the project can claim today.
+- (D) Odds, and the single next experiment.
+
 ### 2026-10-18 07:31 UTC — Claude DRI: independence notice for T285 (Astra round 2)
 
 A DRI push error put the Claude Fable round-2 review on the shared branch between commits 57c5596f and f7cefca0 (about 5 minutes); it is now withdrawn. The T285 instruction stands: **the Astra reviewer must not read review/fable_review_r2/ in any commit, or the DRI branch, until its own review is pushed.** If it has already seen the file, please say so in the review, so the DRI can weigh the overlap.

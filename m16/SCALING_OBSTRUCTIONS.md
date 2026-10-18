@@ -30,6 +30,14 @@ Status of every claim: **[measured]** or **[inferred]**, and **verified** (indep
    the target's error lies outside the band (gap >= .05, not blind), and 19-63% on the 5 zoo seeds and 2 noisy copies
    (§5). T239's tie-wall picture (§7) assigns each leaf's whole mass by the leaf's centre, so its stratum masses are not
    the mass of inputs inside each gap band.
+6. **[Added 2026-10-18] The cheap regime (§9).** Scored at its own cost over a panel of models, as ARC frames the
+   challenge, no deductive estimator comes within 7x of the lenient bar on 80 retrains (best F 76.5 at 3.9k FPE, T286)
+   [measured, unverified]. The cheap approximations fail for four reasons: frozen gates erase the model-specific signal,
+   Gaussian closures break by steps 7-9, relaxation bounds widen ~50x per step, and exact branching grows 5-19x per step
+   [inferred]. Kept: deductive errors on retrains are near-constant offsets (corr .96 with the truth), and R0's oracle
+   floor is .51 pp, but its integral needs >= 20-40k FPE (T297), which closes the R0 route in the cheap regime
+   [measured, unverified]. Open: R0 variants (T298, T300), the shadow screen (T290), k = 6 masses (T270). No
+   impossibility proof exists.
 
 ## 1. The question and the bar
 Estimate the accuracy of the 432-parameter 2nd-argmax RNN M_16,10 (`alg_zoo.example_2nd_argmax()`, accuracy
@@ -260,3 +268,118 @@ Source: `claude/t241-neuron-account@e3d0a0de`, m16/approaches/neuron_account/REA
   fitted and tested on the target only. A related fitted surrogate, T269's formula for P(error | gaps), failed to
   transfer: fitted on the target, it is off by +0.4 to +19.5 pp on 5 zoo seeds and 2 noisy copies [measured, unverified;
   INDEX T269]. So the account cannot yet serve as an estimator [inferred].
+
+## 9. The cheap regime (2026-10-18)
+DRI, 2026-10-18: the cheap-regime results of T269-T300. Source: the INDEX registry, numbers checked against the child
+READMEs. A result is unverified unless marked **verified**; verdicts follow each task's pre-registered rule.
+
+*Terms.* **FPE**: one sampled forward pass, 5,948 FLOPs (T196). **RMS**: root-mean-square error over a panel's models,
+in percentage points (pp). **Deductive**: every step is derived from the weights. **Inductive**: some step averages the
+network's outputs over sampled or chosen inputs; fixed quadrature nodes count (Directive 8). **Frozen gates**: one ReLU
+on/off pattern for a whole class of inputs. **Soft tail**: inputs whose top-3 gaps are all >= .05 (T269).
+
+### 9.1 Why the cheap regime
+ARC asks for an estimate that matches random sampling in MSE per unit of computation, over a distribution of models: "a
+random seed or maybe adding noise to the weights". It names no budget (Hilton talk, ~Sept 2026, approximate transcript;
+[notes](../lit/web_arc/hilton_talk_2026-09_notes.md); a post-January-2026 ARC source, logged in lit/web_log.md). So a
+frozen estimator is one (cost, MSE) point, compared with sampling at the same cost [inferred].
+
+Our score (TASKS Directive 8, amendment 2) is the own-cost figure of merit
+F = mean(e_m^2) x C_eff / mean(p_m(1-p_m)), where e_m is the error on model m, p_m its accuracy, C the charged cost in
+FPE and C_eff = max(C, 1k FPE). Strict: F <= 1; lenient: F <= 10. Equivalently, the estimator wins iff
+C_eff <= n* = mean p(1-p) / RMS^2. At p ~ .92 the strict bar allows an RMS of about .85 pp at 1k FPE, .43 at 4k and .21
+at 16k. Earlier deductive work aimed at 16k-256k FPE (allowance .05-.2 pp).
+
+Two choices are ours, not ARC's: the 1k floor (a constant at the panel mean has RMS ~3 pp, so the principled "beat the
+prior" floor is ~80 FPE; Fable r2 A1; this section uses 1k), and the comparator and confidence rule, to be frozen before
+any claim (Astra r2 A1, A6).
+
+*Panels.* **LB3** (development): the target, 5 zoo seeds and 24 copies at relative sigma .0025-.02. **DEV2** (T284): 80
+open retrains of the zoo config, 1e8-sample truths. **HP1** (T276): 150 sealed models, the target and 5 seeds plus 8
+copies of each at absolute sigma .05 and relative .005 and .01, scored only by T281. **HP2** (T284, being built): >= 100
+sealed retrains, the primary panel. LB3's seed group predicts DEV2's F within ~20%; its heavy-noise groups mis-rank
+methods (T286) [measured].
+
+### 9.2 Results
+D = all steps deductive ("approx." = with a declared approximation); I = some step inductive. DEV2 unless marked; costs
+as implemented. "Oracle" = the bias left by perfect integration, measured by diagnostic sampling. Every row is
+[measured].
+
+| family (task) | class | cost (FPE) | RMS (pp) | F | verdict, status |
+|---|---|---|---|---|---|
+| best deductive settings (T286): probe v1 / cone_enum / rank_exact Q=8 | D | 3.9k / 1.1k / 25.8k | 3.6-3.8 / 8.4-8.8 / 1.5-1.9 | 76.5 / 119 / 131 | none within 7x of lenient |
+| frozen witness, classes D0-D3 (T287) | I (verdict at the witness) | 990-15.8k | 5.5-6.3 | 47.9-829 | NO GO; overestimates by +3.3 to +10.2 pp (LB3) |
+| frozen gates + exact last m <= 4 steps (T274b) | D | perfect integration | best m: .44-1.11 per LB3 group | - | dead (**verified**, scoped, T282) |
+| 180 root cones, model-free gates (T274b) | D | >= 2.0k | 10.6-10.8 | >= 313 | negative |
+| lin low-input closure, oracle (T292) | D approx. | - | 4.77 | - | DEAD by rule; 2 models reproduced independently |
+| observer E21 v4 (T292) | D | 123k-880k | 1.18-.63 | 238-476 | G2 (F <= 3) fails |
+| R0 point closure, oracle (T292, T296) | D approx. | integral: next row | .51; LB3 seeds .61; all LB3 1.39 | - | NO-GO on LB3; retrain-only scope open |
+| R0 skeleton integral, threshold designs (T297) | D | 3.9k-23k | integration error 2.75 at 3.9k, >= 1.16 up to 23k | - | DEAD for threshold designs |
+| BLIND-11 (T293) | D | 2.8k | .234 of the blind part (fixed 8/9 rate: .265) | component | uninformative: corr -.30 with the truth |
+| mean-field closure, blind part (T294, T294b) | D | 11.9k-392k | .19-.23 of the blind part | component | inconclusive; readout negative (T295); T299 re-check running |
+| relaxation bounds (T289, T279) | D (certified) | 632-32k at T = 10 | vacuous: 0/180 sectors decided | - | T289 dead (**verified**, scoped, by T279's code); T279 negative |
+| convergence rates (T271, T277) | D and I | 4k-1M | - | - | probe, FORM/SORM alpha ~0: closed; sci_tao (I) .47-.73; H-E11's gain falls through the prefactor, not the rate |
+| HP1 held out (T281): rank_exact Q=8 | D | 25.8k | 1.1-1.8 | 19-108 (pooled 32.7) | fails both bars (sealed truths) |
+| HP1 held out (T281): v5q / v5a | I | 1k-256k | - | v5q at 4k: .70-1.35 | strict nowhere; lenient v5q 1k-64k, v5a 1k-4k |
+| inductive references (T286): v5q / v5a / rank_exact stride 16 / reliability L0 | I | 1.0k / 1.0k / 1.8k / 2.7k | .9 / 1.4-1.5 / 2.5-2.6 / 1.9-2.2 | 1.2 / 3.0 / 16.9 / 17.3 | v5q ~ sampling (it is fixed-node QMC) |
+
+### 9.3 The common failure
+Every cheap deductive approximation tried fails for one of four reasons [inferred from the rows above].
+
+1. **Frozen gates erase the model-specific signal.** Frozen at one input per class, every model of this architecture
+   gives nearly the same map; models differ through gates switching inside each class. BLIND-11 predicts a spread of .06
+   pp across models against a true .14 (T293). A canonical witness is a typical, well-separated input, classified
+   correctly even when its class has many errors; finer classes do not help (T287). Exact last steps do not rescue
+   frozen early ones (T274b, **verified** by T282).
+2. **Gaussian state and readout break by steps 7-9.** Margins pile up near 0 at near-ties and have hard edges where
+   gates switch, so their law is a mixture. Fed the exact sampled moments, a class-level Gaussian readout is still off
+   by -10.95 pp on DEV2, against -.87 for frozen gates (T286's oracle). Per blind unit, the exact Gaussian orthant
+   passes 36% of units, and a mean-field state plus exact last m = 0-3 steps 16-30%: the state is already wrong by steps
+   7-9 (T295).
+3. **Relaxation bounds widen ~50x per step.** Width over margin grows 10.6 -> 514 (forward) and 5.8 -> 229 (CROWN) from
+   T = 3 to 4 at H = 4 (T289). A sound CROWN tree at (16,4) leaves .35 of the mass uncertified at 1e5 cones (T279).
+4. **Exact branching grows 5-19x per step.** The regions needed to cover all but 1e-5 of the prefix mass grow x15-19 per
+   step (H-E13, **verified** for k <= 4); a branch mixture over the last steps grows ~5-10x per step (T295). T287 reaches
+   F <= 10 only with 4 exact first and 4 exact last steps: the region problem again. R0's error set needs its boundary
+   resolved in 3-D per triple, >= 20-40k FPE (T297). T270 measures the next step.
+
+*Why the same four* [inferred]. H-E15 (**confirmed**, scoped k <= 4, T <= 4): training puts the finest pieces of the
+function at the tie walls, 37-44x finer near ties than far, against 1.3-6.6x for random weights. Each approximation
+fails on those pieces: frozen gates miss the switching, Gaussians miss the hard edges, relaxations must shrink toward
+every tie face (T279), and exact methods must resolve every piece. ANAT-80 (T292) [measured]: weak retrains differ by a
+diffuse, model-specific widening of the soft tail (2.48 +- 1.94 pp), which carries 60% of the cross-model error
+variance. In the weaker half, half of a model's excess tail error is spread over a median of 44 triples. Gross-error
+triples carry 13% of the variance and the blind region 1%. So the model-specific signal is not in a few places, and R0's
+bias grows with this tail (T296).
+
+### 9.4 What remains open
+- **R0 variants** (T298, T300; running, retrain-only scope). T297 closed the threshold integral, and with T296 the R0
+  route in the cheap regime. T298 must beat R0's .51 pp floor by >= 20%. T300 shares R0's boundary across the max's
+  position (90 classes, ~4k FPE) and aims only at the lenient bar.
+- **Coarsened shadow network** (T290, running): can rounding and merging shrink the network at <= .4 pp accuracy change?
+- **k = 6 complete masses** (T270, running): coverage growth g_1e-7 >= 12 ends the exact route; <= 7 and falling keeps
+  it alive, at its own large cost.
+- **Codex lanes** (TASKS). T267 (facet cancellation): bounded H4T3/H4T4 phase done, construction costs more than it
+  saves, no general negative. T273 (ARC estimator A calibration): blocked on a DRI target definition. T283: an
+  independent audit reproduces the T271/T277 rows; they establish neither equal rates nor prefactor-only causation.
+- **Untried variants** (from the READMEs): value-dependent gates or exact comparator splits within a class (T286);
+  weight-derived witnesses, finer classes (T274b, T287); sub-case conditioning (T293); Gaussian-mixture states (T295);
+  alpha-CROWN, multi-neuron relaxations (T279, T289); lin over several anchors (T292).
+
+**No impossibility proof exists.** Every negative above is scoped to the methods and settings tested, as both round-2
+reviews say (Fable r2 B, Astra r2 B). Their subjective odds of a strict cheap win on HP2 within three months are 15% and
+30% [speculative].
+
+### 9.5 Positive facts worth keeping
+- **Deductive errors on retrains are nearly constant offsets** (T286) [measured]. rank_exact is off by -1.39 pp on
+  average (76/80 models negative, sd 1.06), probe v1 by +3.28 pp (80/80 positive, sd 1.73), and both correlate .96 with
+  the truth. A DEV2-fitted constant would give F ~40 / ~16, but it is advice and not allowed, and the residual spread
+  still exceeds the 1k allowance. The methods rank the models; a weight-derived offset is missing [inferred].
+- **R0's oracle floor on retrains is .51 pp** (DEV2: mean +.22, slope -.05 pp per pp; LB3 seeds .61; T292, T296)
+  [measured]. It was not pre-registered in T292, and T296's retrain-only scope is post hoc. It would fit the strict 1k
+  allowance with a cheap integral, but T297 finds none below 20-40k FPE, where the strict allowance is ~.2 pp
+  [inferred]. It fails on noisy copies (1.39 pp on all of LB3).
+- **The mean-field closure tracks between-model variation** of the blind-region contribution (corr .73 on DEV2, .80 on
+  LB3; frozen gates -.30), but its response is compressed about 2x (predicted sd .049 vs true .139 pp) (T294)
+  [measured]. A post hoc calibration fitted on LB3 transfers to DEV2 (RMS .138 pp), so the compression is systematic
+  (advice, not counted).
