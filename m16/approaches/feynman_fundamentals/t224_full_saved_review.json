@@ -1,0 +1,176 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "task": "T224 independent full saved projection audit",
+  "raw_commit": "45ab5489",
+  "delegation": "ad8043fd",
+  "pins": {
+    "saved/results.json": "ed1e7d1266b1ce0c67ce426f3234036b6a02249d387cc84578dd9995452bbe0f",
+    "saved/progress.jsonl": "179a6acec31fcc05effc7412c746ce78cfdd13f1873d000da186db603e52e9fb",
+    "saved_protocol.json": "2deea870364f28b24ed51a093313bc6ba17cf76f2f2dd516371868768ad8f11e",
+    "saved_gate.json": "67d99daf16206fb02dfe77a7f705d25d7b3a88191380ba56d1ec488c1284ba2b",
+    "saved.py": "d30f2f9846772d23ee4cfe176a58a95f999816b938efd37178647ef6588fa06c",
+    "primitive.py": "626fc22c78841ee1f23a0d2ff7f8dd3638ed4eff09f77e005c1a3f149f095cc5"
+  },
+  "prior_review_sha256": "3e3624b8241a4a764b5d7c667c61c2be382455a30f58fd7e32b3692a94d43913",
+  "checker_sha256": "950e4e468bc0eec1ceebb8e2b26198b06ea7bbff17fc33b5c6add93df98485bc",
+  "rows": 196608,
+  "chunks": 192,
+  "coordinates": 3145728,
+  "progress_events": 390,
+  "unchanged_rows": 146827,
+  "panels": {
+    "train": {
+      "totals": {
+        "rows": 65536,
+        "negative_rows": 16516,
+        "negative_coordinates": 23892,
+        "max_negative_magnitude": 10.868328503226481,
+        "negative_l1": 5080.952619956118,
+        "negative_l2_squared": 6892.833363427469,
+        "sse_before": 4005102.444391561,
+        "sse_after": 3996253.0816166075,
+        "sse_increase_rows": 0,
+        "max_sse_increase": 0.0,
+        "projected_tie_rows": 0,
+        "network_task_correct": 62436,
+        "baseline_task_correct": 64204,
+        "projected_task_correct": 64167,
+        "baseline_network_agree": 62491,
+        "projected_network_agree": 62545,
+        "changed_label_rows": 347
+      },
+      "task_pairs": [
+        [
+          1228,
+          104
+        ],
+        [
+          141,
+          64063
+        ]
+      ],
+      "network_agreement_pairs": [
+        [
+          2900,
+          145
+        ],
+        [
+          91,
+          62400
+        ]
+      ],
+      "task_net_gain": -37,
+      "agreement_net_gain": 54
+    },
+    "holdout1": {
+      "totals": {
+        "rows": 65536,
+        "negative_rows": 16695,
+        "negative_coordinates": 24099,
+        "max_negative_magnitude": 12.089240390082416,
+        "negative_l1": 5423.149419147413,
+        "negative_l2_squared": 8537.157390960254,
+        "sse_before": 4111406.8037454826,
+        "sse_after": 4100589.851970244,
+        "sse_increase_rows": 0,
+        "max_sse_increase": 0.0,
+        "projected_tie_rows": 0,
+        "network_task_correct": 62429,
+        "baseline_task_correct": 64220,
+        "projected_task_correct": 64164,
+        "baseline_network_agree": 62462,
+        "projected_network_agree": 62515,
+        "changed_label_rows": 373
+      },
+      "task_pairs": [
+        [
+          1212,
+          104
+        ],
+        [
+          160,
+          64060
+        ]
+      ],
+      "network_agreement_pairs": [
+        [
+          2917,
+          157
+        ],
+        [
+          104,
+          62358
+        ]
+      ],
+      "task_net_gain": -56,
+      "agreement_net_gain": 53
+    },
+    "holdout2": {
+      "totals": {
+        "rows": 65536,
+        "negative_rows": 16570,
+        "negative_coordinates": 24183,
+        "max_negative_magnitude": 9.491830351691634,
+        "negative_l1": 5461.662207777649,
+        "negative_l2_squared": 7612.363687530931,
+        "sse_before": 4069807.726956609,
+        "sse_after": 4060049.2920312253,
+        "sse_increase_rows": 0,
+        "max_sse_increase": 0.0,
+        "projected_tie_rows": 0,
+        "network_task_correct": 62497,
+        "baseline_task_correct": 64210,
+        "projected_task_correct": 64193,
+        "baseline_network_agree": 62517,
+        "projected_network_agree": 62592,
+        "changed_label_rows": 391
+      },
+      "task_pairs": [
+        [
+          1194,
+          132
+        ],
+        [
+          149,
+          64061
+        ]
+      ],
+      "network_agreement_pairs": [
+        [
+          2840,
+          179
+        ],
+        [
+          104,
+          62413
+        ]
+      ],
+      "task_net_gain": -17,
+      "agreement_net_gain": 75
+    }
+  },
+  "named_expression_counts": {
+    "comparisons": 3145728,
+    "subtractions": 6291456,
+    "multiplications": 37748736,
+    "additions": 35389440
+  },
+  "max_consistency_differences": {
+    "readout": 1.9895196601282805e-13,
+    "row_sse": 4.547473508864641e-13,
+    "aggregate": 1.862645149230957e-09
+  },
+  "independent_column_readout_byte_equal_chunks": 0,
+  "author_cpu_seconds": 10.535777677,
+  "review_cpu_seconds": 3.610495233,
+  "author_model_fit_rng_calls": 0,
+  "scope": "All saved array/pin/coverage bindings, projection ownership, separate readout column contraction, SSE fsum consistency, exact first-index saved labels, paired/context tables and clipping sums. Exact coordinate monotonicity follows from h>=0 and z^2-2zh>=0 for z<0; no task-accuracy monotonicity.",
+  "limitations": [
+    "Existing panels were reused after original results, not fresh validation.",
+    "Readout and SSE consistency uses standard rounding bounds, not exact-real equality of rounded computations.",
+    "No recurrent network, fit or candidate function rerun.",
+    "Named expression categories are partial, not a full cost or T196 comparison.",
+    "All task regressions and label changes remain retained."
+  ]
+}
