@@ -531,3 +531,31 @@ estimate is closest to 1e-9 in |log10|. This gives:
 - K3 runs as executed, ~0.5-0.6M FPE per model, covering all 8 grid thresholds in one walk.
 - Truths ~10-20 GPU-min (T192) plus ~45 CPU-min (mine).
 - Diagnostics ~15 CPU-min.
+
+# T366 (fresh test of the T218 child's triple-tie fix): pre-registration (2026-10-18, before any T366 truth or estimate)
+**Roles.** The T218 child develops and freezes the estimator on T364's three models only (orig, dev3_s526, dev3_s527).
+I own this test. Nothing below has been run, and no estimate exists for these models.
+
+**Models (fresh):** dev3_s528, dev3_s529, dev3_s530, and dev3_s531 (the next unused DEV3 model). T342 weights,
+sha256 62c95203...
+
+**Thresholds (model-free rule, avoiding T364's selection effect):**
+- Rule: p ~ P(g23 > t0) x f, with a fixed factor f = 1e-4 (the log-centre of the conditional rates seen in T364:
+  1.2e-5 to 2.6e-3).
+- Targets: P(g23 > t0) = 1e-4 and 1e-5, i.e. p ~ 1e-8 and ~ 1e-9.
+- Exact quadrature gives t0 = 2.336 and 2.739, rounded to **t0 = 2.35** (P = 9.28e-5) **and 2.75** (P = 9.38e-6),
+  the same for every model.
+- **Events:** E1(t0) = {pick = p3, g23 > t0}, 4 models x 2 thresholds = **8 pairs**.
+
+**Truth (conditional-law MC, the adopted standard):**
+- `truthc.py` (CPU, own seeds), N = 1e8 conditional samples per pair; a pair with < 100 hits is extended 4x (declared).
+- Plus a T192 GPU cross-check at 1e9 per pair, if available.
+- The truths are computed but **not shared or committed** until the T218 child's estimator is frozen (commit hash and
+  file hashes received). The values are then committed with the scores.
+
+**Estimator:** the T218 child's frozen fix, run as delivered (their commit, unmodified), cost as executed.
+
+**Go: est / truth within 2x on >= 5/6 of the pairs, i.e. >= 7 of 8.** Also reported:
+- the plain C4 / K3 baseline (T364's estimator) on the same pairs;
+- C;
+- the expected number of events plain sampling sees at C.
