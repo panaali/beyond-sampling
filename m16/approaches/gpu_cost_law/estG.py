@@ -23,6 +23,31 @@ import estT_base as B  # noqa: E402
 from m43 import Ops  # noqa: E402
 
 DEV = ["cpu"]
+SLIVER = [float(os.environ["T192_SLIVER"])] if os.environ.get("T192_SLIVER") else [None]
+SPLITS = [0]                         # sliver bisections performed (ops: 4 d each)
+
+
+def sliver_split(R, thr, maxlev=24):
+    """Thin-rule accuracy fix (T192): the ray-space Duffy rule is not converged on SLIVER cones (tiny det but two rays
+    far apart). Bisect such a simplicial cone through the normalised midpoint m of its widest ray pair (a, b): the
+    cones with m replacing r_a and with m replacing r_b partition it exactly. Repeat until every pair has
+    cos >= thr. R (n, d, d) torch rows = unit rays; returns the refined (N, d, d) set (non-slivers unchanged)."""
+    out = []
+    for _ in range(maxlev):
+        G = R @ R.transpose(1, 2)
+        n, d, _ = R.shape
+        flat = G.reshape(n, -1).clone(); flat[:, ::d + 1] = 2.0
+        mn, arg = flat.min(1)
+        bad = mn < thr
+        out.append(R[~bad])
+        if not bad.any():
+            return torch.cat(out)
+        Rb = R[bad]; ab = arg[bad]; a = ab // d; b = ab % d; k = torch.arange(len(Rb), device=R.device)
+        m = Rb[k, a] + Rb[k, b]; m = m / torch.linalg.norm(m, dim=1, keepdim=True)
+        c1 = Rb.clone(); c1[k, a] = m
+        c2 = Rb.clone(); c2[k, b] = m
+        R = torch.cat([c1, c2]); SPLITS[0] += len(Rb)
+    return torch.cat(out + [R])
 THIN = [0]                           # simplices integrated by a thin rule (|det| < 1e-6), all d
 CHUNK = {4: 4096, 5: 1024, 6: 8192}           # simplices per batched call (memory ~ CHUNK * K * d^2 * 8 bytes * few)
 FLUSH = 200_000                      # simplices buffered per dimension before integration
@@ -131,8 +156,12 @@ def _orth4(R):
     dt = torch.linalg.det(R).abs()
     thin = dt < B.THIN_DET; THIN[0] += int(thin.sum())
     if thin.any():
-        Rt_ = R[thin]; q = ((DU[None] @ Rt_) ** 2).sum(2)             # (m, 1000)
-        out[thin] = dt[thin] / (2 * math.pi ** 2) * (DW[None] / q ** 2).sum(1)
+        Rt_ = R[thin]
+        if SLIVER[0] is None:
+            q = ((DU[None] @ Rt_) ** 2).sum(2)                             # (m, 1000)
+            out[thin] = dt[thin] / (2 * math.pi ** 2) * (DW[None] / q ** 2).sum(1)
+        else:
+            out[thin] = 0.0; out[torch.nonzero(thin).flatten()[0]] = _thin_split(Rt_, DU, DW, 4)
     w = ~thin
     if w.any():
         N = _cofactor_normals(R[w]); C = N @ N.transpose(1, 2)
@@ -165,8 +194,12 @@ def _orth5(R):
     dt = torch.linalg.det(R).abs()
     thin = dt < B.THIN_DET5[0]; THIN[0] += int(thin.sum())
     if thin.any():
-        Rt_ = R[thin]; q = ((DU[None] @ Rt_) ** 2).sum(2)
-        out[thin] = 3 * dt[thin] / (8 * math.pi ** 2) * (DW[None] / q ** 2.5).sum(1)
+        Rt_ = R[thin]
+        if SLIVER[0] is None:
+            q = ((DU[None] @ Rt_) ** 2).sum(2)
+            out[thin] = 3 * dt[thin] / (8 * math.pi ** 2) * (DW[None] / q ** 2.5).sum(1)
+        else:
+            out[thin] = 0.0; out[torch.nonzero(thin).flatten()[0]] = _thin_split(Rt_, DU, DW, 5)
     w = ~thin
     if w.any():
         N = _cofactor_normals(R[w]); C = N @ N.transpose(1, 2)
@@ -197,6 +230,17 @@ def _orth5(R):
     K = len(S)
     ops = 125 * n + int(thin.sum()) * len(DU) * 40 + int(w.sum()) * (1175 + 240 + K * (200 + 420) + K * 10 * 72)
     return out, ops
+
+
+def _thin_split(R, DU, DW, d):
+    """summed thin-rule mass after sliver bisection (only the SUM is used by masses(); per-simplex values are not)."""
+    Rs = sliver_split(R, SLIVER[0])
+    tot = 0.0
+    for a in range(0, len(Rs), 8192):
+        r = Rs[a:a + 8192]; dt = torch.linalg.det(r).abs(); q = ((DU[None] @ r) ** 2).sum(2)
+        c = 1 / (2 * math.pi ** 2) if d == 4 else 3 / (8 * math.pi ** 2)
+        tot = tot + (c * dt * (DW[None] / q ** (d / 2)).sum(1)).sum()
+    return tot
 
 
 def _orth3(R):

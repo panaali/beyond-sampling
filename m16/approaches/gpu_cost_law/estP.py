@@ -51,6 +51,8 @@ def _pattern(p):
 
 def _init(model, mode, eps, leafsum=False, start="halves"):
     _W.update(model=model, mode=mode, eps=eps, pat=set(), leaf=None)
+    if os.environ.get("T192_RULES5"):                 # "n_thin,n_log" for the 5-D masses (estT default 6,128)
+        B.set_rules5(*[int(v) for v in os.environ["T192_RULES5"].split(",")])
     set_start(model[2].shape[0], start)
     ce0 = B._cell_error
 
@@ -104,7 +106,18 @@ def set_start(T, start):
 
 
 def load_model(H, T, name):
+    """name: seed s | "s:noisy<i>" (_noisy(zoo s, 4, .005, 7)[i]) | "s:fresh<k>" (_noisy(zoo s, 1, .005, k)[0]) |
+    "s:rel<sigma>_<i>" (relative noise, leaderboard convention sigma x matrix RMS, rng seed 5000, copy i) |
+    "s:abs<sigma>_<i>" (absolute noise sigma, ARC convention, rng seed 6000, copy i)."""
     from zoo44 import zoo
+    if ":rel" in name or ":abs" in name:
+        s, rest = name.split(":"); kind, rest = rest[:3], rest[3:]; sig, i = rest.split("_")
+        base = zoo(H, T, int(s)); rng = np.random.default_rng((5000 if kind == "rel" else 6000) + 0)
+        out = []
+        for _ in range(int(i) + 1):
+            out = [W + float(sig) * (np.sqrt((W ** 2).mean()) if kind == "rel" else 1.0) * rng.standard_normal(W.shape)
+                   for W in base]
+        return tuple(out)
     if "fresh" in name:                       # T193: fresh noise seed, one copy, sigma as estT_fix
         from leaderboard import _noisy
         s, k = name.split(":fresh")
@@ -122,6 +135,8 @@ def run(model, mode, workers=2, device="cpu", eps=0.1, log=None, sample=None, no
     estG.DEV[0] = device
     T = model[2].shape[0]
     set_start(T, start)
+    if os.environ.get("T192_RULES5"):
+        B.set_rules5(*[int(v) for v in os.environ["T192_RULES5"].split(",")])
     nh = len(B._HALVES[T])
     done = {}
     if log and os.path.exists(log):
@@ -199,9 +214,10 @@ if __name__ == "__main__":
     out = os.path.join(HERE, "results", "runs"); os.makedirs(out, exist_ok=True)
     tag = f"H{a.H}T{a.T}_{a.name.replace(':', '_')}_{a.mode}" + ("_nomass" if a.nomass else "") + \
         (f"_s{a.sample:g}_{a.sample_seed}" if a.sample else "") + ("_leafsum" if a.leafsum else "") + \
-        ("_truthstart" if a.start == "truth" else "")
+        ("_truthstart" if a.start == "truth" else "") + \
+        ("_r5_" + os.environ["T192_RULES5"].replace(",", "_") if os.environ.get("T192_RULES5") else "")
     r = run(load_model(a.H, a.T, a.name), a.mode, a.workers, a.device, a.eps, os.path.join(out, tag + ".jsonl"),
             (a.sample, a.sample_seed) if a.sample else None, a.nomass, a.leafsum, a.start)
-    r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"), start=a.start)
+    r.update(H=a.H, T=a.T, model=a.name, mode=a.mode, eps=a.eps, fast=os.environ.get("T192_FAST", "1"), start=a.start, rules5=os.environ.get("T192_RULES5", "6,128"))
     json.dump(r, open(os.path.join(out, tag + ".json"), "w"), indent=1)
     print(tag, json.dumps(r))

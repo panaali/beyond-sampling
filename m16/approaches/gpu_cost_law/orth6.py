@@ -168,7 +168,15 @@ def orth6(R):
     out = torch.empty(n, dtype=torch.float64, device=dev)
     dt = torch.linalg.det(R).abs()
     thin = dt < THIN6[0]; w = dt >= WIDE6[0]; mid = ~thin & ~w
-    if thin.any():
+    import estG
+    if estG.SLIVER[0] is not None and (thin | mid).any():   # sliver bisection, then the 6^5 rule on every piece
+        sm = thin | mid; Rs = estG.sliver_split(R[sm], estG.SLIVER[0])
+        tot = 0.0
+        for a in range(0, len(Rs), 8192):
+            r = Rs[a:a + 8192]; tot = tot + _ray(r, torch.linalg.det(r).abs(), DU, DW).sum()
+        out[sm] = 0.0; out[torch.nonzero(sm).flatten()[0]] = tot
+        thin = sm; mid = torch.zeros_like(sm)
+    if thin.any() and estG.SLIVER[0] is None:
         out[thin] = _ray(R[thin], dt[thin], DU, DW)
     if mid.any():
         out[mid] = _ray(R[mid], dt[mid], DM, WM)
