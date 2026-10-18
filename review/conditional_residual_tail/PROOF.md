@@ -47,6 +47,10 @@ selection problem; the displayed fixed-threshold CDF expression then does not
 automatically give the selected event's probability. No numerical subtraction
 of nearby CDF values is claimed stable or certified here.
 
+For 0<=eta<B*delta, the trimmed interval has length delta-eta/B, so its tail
+is also bounded above by min(1, (delta-eta/B)/sqrt(2*pi)). This density-cap
+bound can be loose and still requires the state-dependent thresholds.
+
 ## 3. Conditional second moment and cubic density bound
 
 Let phi and Phi be the standard normal density and CDF. Direct integration gives
@@ -78,6 +82,12 @@ Provided the directional absolute third moment is finite,
 Knowing only the past covariance does not supply this third moment. If it is
 unavailable or infinite, this bound does not become a usable finite quantity.
 It also does not make integrating over H inexpensive.
+
+There is a separate weaker second-moment alternative: the first bound with
+P(r>0|h)<=1 gives E[r^2]<=beta^2*E[(ell H)^2], when that raw second moment is
+finite. Raw second moment includes the mean contribution; covariance alone
+without the mean is insufficient to reconstruct it. The cubic bound's premise
+does not exclude this alternative or prove that all moment-based bounds fail.
 
 For eta>0, a looser alternative to the exact tail is Markov:
 
