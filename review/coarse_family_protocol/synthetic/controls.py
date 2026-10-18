@@ -18,7 +18,7 @@ def main():
     assert not OUT.exists(),'preserve all prior attempts'
     assert 0<resource.getrlimit(resource.RLIMIT_CPU)[0]<=20
     assert 0<resource.getrlimit(resource.RLIMIT_AS)[0]<=2147483648
-    OUT.mkdir();start=time.process_time();r=dict(complete=False,cases=[],guards=[],scientific_input_calls=0)
+    OUT.mkdir();start=time.process_time();r=dict(complete=False,cases=[],guards=[],model_face_rng_calls=0)
     def save():
         r.update(cpu_seconds=time.process_time()-start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         p=OUT/'results.tmp';p.write_text(json.dumps(pack(r),indent=2,allow_nan=False)+'\n')
