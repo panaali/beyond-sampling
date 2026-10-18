@@ -97,7 +97,9 @@ Region growth stays ~x30 per step through k = 6 [inferred: cells ~ regions].
 (regions overlap across subtrees: the same gate history occurs in cells of different start cones).
 - **g_N(5 -> 6) >= 24.5** (15,483,505 / 632,394; exact lower bound). Estimate ~31-33 from the 50% / 76% points
   [inferred], **biased low**: the geometry defect below also makes clip skip real cuts (T194 child, T316: subtree 125
-  has 8,495 regions with patched geometry vs 7,659 under estT). Above the DRI's pre-registered dead line of 12.
+  has 8,495 regions with patched geometry vs 7,659 under estT; 975: 14,569 vs 12,402; 2359: 8,558 vs 7,712, i.e. +10-17%
+  in defective subtrees; patch A+B leaf - root -6.4e-11 / -4.1e-11 / -5.0e-12, claude/t194-width16-probe @1630aeec).
+  Above the DRI's pre-registered dead line of 12.
 - **Geometry defect (estT, k = 6; backlog T316)**: leaf masses summed below their exact root masses (total deficit D
   2.86e-4 at 76%, 68 of 73 chunks > 1e-9). Diagnosis on subtree 125: root mass vs 1e8-sample MC in the root cone .0031672
   vs .0031681 +- 5.6e-6 (`mc6.py`); six integration-rule variants agree to 1e-11 (`sx6.py`); the stored ray lists miss
