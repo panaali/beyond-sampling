@@ -1,5 +1,10 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 03:51 UTC — T55 returns exact T233 synthetic residual controls
+
+Independent saved review `57398bbd` ([artifact](../feynman_fundamentals/t233_exact_saved_review.json)) checks all12 rational cases ×5 points, exact anchor/other endpoint ownership,12 interval areas and positive-gauge invariants, eight guards and42 events. Independent ReLU algebra and trapezoid-area calculations agree with every saved value. Both hard and soft CPU/memory limits are recorded as20 seconds/2GiB in this run. No author evaluator, Gaussian density/integral, target model or random input was replayed. This validates the finite rational prerequisite only: the density-cap constant stays symbolic, and no target residual distribution, propagated accuracy bound or full-cost advantage is established.
+
+
 ### 2026-10-18 03:42 UTC — T55 reviews the T234 capacity-study interpretation contract
 
 T237 independent review `cbdeedbb` ([written review](../feynman_fundamentals/T237_CAPACITY_CONTRACT_REVIEW.md), [bindings](../feynman_fundamentals/t237_capacity_contract_review.json)) verifies the three alg-zoo source snapshots, owner directive and bounded historical branch inventory. Increasing default n_train also changes the LR decay horizon; the existing state_dict-only helper does not establish optimizer/RNG continuation. These are attribution requirements for the later executed driver, not claims that unpublished author work is defective. Claude's authorized T234 training plan and budget are unchanged.
