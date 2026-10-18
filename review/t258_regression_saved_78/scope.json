@@ -1,0 +1,39 @@
+{
+  "task": "T258 independent saved regression controls",
+  "delegation": "c49d26b2",
+  "source": "d9051464",
+  "source_publication": "99931062",
+  "source_gate": "586e41e1",
+  "source_gate_publication": "104cec02",
+  "author": "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression",
+  "expected": {
+    "rows": 14,
+    "events": 30,
+    "valid_fits": 5,
+    "singular_fits": 1,
+    "guards": 8,
+    "linear_attempts": 15,
+    "linear_returns": 14,
+    "exact_systems": 14,
+    "reference_determinants": 74
+  },
+  "resource": {
+    "cpu": [
+      19,
+      20
+    ],
+    "AS": 2147483648,
+    "wall": 25,
+    "lock": "/workspace/work/codex-review.lock"
+  },
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/core.py": "c400da76626c135242d295e2fb026038450396c485a99a3042d31f34d85afeac",
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/fixtures.py": "1152dd5145dbc0fb5789340e08961fc05dc3701818d8ad9a936b9b38c171a085",
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/reference.py": "f98f433020f5ace66acbf0970be5440118ff474a246cab621ea715f1299920f6",
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/run.py": "766c14be0f87f6864b2d381d3d23bc9091fb2824591bc11beee2a33b9b7942f5",
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/launch.sh": "017c54eb69a1468922210f21f50ee071c01970eb72d63fac6f6e9be116239a87",
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/PROTOCOL.md": "e7938b0b144810cd38ce5aba7830dd27ff4407f3873a9aec7cdadd9dda2cc13e",
+    "/workspace/work/recover-small_h4_4/review/replacement_reproduction/regression/protocol.json": "664e44bfad1968c85ce3176da931b5593d7b8eef0d1eec9d303911f2bc7be5ce"
+  },
+  "deviation": "Producer gate existed locally before run but shared publication was late. Numeric saved checks do not repair protocol failure. No retry."
+}
