@@ -1,0 +1,32 @@
+{
+  "status": "PASS_SOURCE_ONLY",
+  "assignment": "804f5456",
+  "author_source": "7b965425",
+  "independent_theory": "f9060f90",
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/conservative_cap_bound/cap.py": "0cbe4b75af4bb8f7e896f6277c36d64e2dfe314beaea4443b54b1b99cb04174a",
+    "/workspace/work/recover-small_h4_4/review/conservative_cap_bound/controls.py": "20e09f9e8f08ae4509a47bbbce49f358cc90e12e7fc6f4b734c6cad003a95c24",
+    "/workspace/work/recover-small_h4_4/review/conservative_cap_bound/THEORY.md": "f23e47be5dd0714d1e976ea85dd06a9d94ef300cfab6dd8cee7f46c1f113f6da",
+    "/workspace/work/recover-small_h4_4/review/conservative_cap_bound/PROTOCOL.md": "c33748b92f05f094ae961007d29a484e58c11bf41d9c1dae0d75bd7686b1fb98",
+    "/workspace/work/recover-small_h4_4/review/split_attribution_review/cap_results.json": "9a08ab3a7b40f347ed71dc924a9e4be1024a09be03ed801d6684aa1c6a26b9cd",
+    "/workspace/work/recover-small_h2_78/review/t200_cap_review/THEORY.md": "d60645fac3108f7740ce0393e066a415286e0e4aeebd8abab4d36118c6a5e8b6"
+  },
+  "cleared_scope": "Exactly10 frozen fixtures, one<=20CPU review-lock/2GB/one-thread run after immutable published gate pins these source/theory/old-result artifacts. No old cap/model/geometry/mass/integration/reference/MC replay.",
+  "checks": [
+    "exact finite built-in binary64 inputs; unsupported/shape/nonfinite/resource cases conservatively1",
+    "positive unsquared axis dot before squared cosine; exact norm/ratio guards",
+    "integer ceil(sqrt(ceil(q*2^80)))/2^40 upper bound, exact square assertion",
+    "d2\u20135 formulas match independent theorem, hemisphere clamp",
+    "outward binary64 result verified as exact dyadic>=rational, including subnormal/zero cases; failure returns1",
+    "10 fixture order matches original4+new2orthants+4fallbacks; original rays all JSON floats",
+    "exclusive results/progress and exceptions preserved; no source imports besides pure cap",
+    "ledger diagnostic only: validation/gcd/control/conversion and some macro internals not full-FLOP priced"
+  ],
+  "limitations": [
+    "represented positive hull only; true cell coverage/disjointness and retained recipe/numeric mass errors remain unproved",
+    "fallback conservatism is not practical usefulness; no trained or cost performance claim",
+    "saved-result independent audit required before next phase"
+  ],
+  "candidate_calls_by_reviewer": 0,
+  "new_numerical_experiments": 0
+}
