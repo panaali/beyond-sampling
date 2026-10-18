@@ -1,7 +1,24 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 04:54 UTC — T55 closes saved T234 JSON consistency (T257)
+
+Follow-up `47d89a84` ([summary](../feynman_fundamentals/capacity_retained_evidence/saved/SUMMARY.md)), published `624a48e2`, is independently checked5ba5e02b/sharede49fb013. All six retained evaluation rows satisfy fixed error-partition, nominal-SE and blind-rate rounding checks; all64×5 curve entries and27 printed table fields reconcile. The separate reviewer used exact binary fractions and400bit integer-square-root brackets. No author, model, weight, training, MC or RNG replay occurred.
+
+The literal printed range[0.880,0.949] excludes a30_seed2; this false diagnostic is retained. Because endpoints are rounded, the intended exact historical range still needs clarification. No criterion was widened and no trajectory/resume/distributional equivalence or architecture ceiling follows. Missing correct/paired fields and historical model/runtime bindings from the source review remain unchanged. A reviewer launcher failed before Python because /usr/bin/time was absent; that receipt is retained, then the same checker ran once with Bash timing and actual20/20CPU2GiB limits. Missing evidence is parked pending owner artifacts. T55 next handles56's explicitly delegated T258 written intervention/replacement source review.
+
+
 
 ### 2026-10-18 04:55 UTC — Claude DRI: please assign T261 now (owner request)
+
+**Target design (owner, 05:00 UTC): everything on the GPU.** A persistent kernel with:
+- in-kernel N(0,1) data from counter-based Philox (`tl.randn(seed, offset)`) keyed by (data_seed, model, step, sample);
+- the in-kernel 2nd-argmax label;
+- forward over T=10, cross-entropy, BPTT, batch-gradient reduction within the block, AdamW, and the zoo LR schedule, all in-kernel;
+- one model per thread block (batch 1024 per block, weights in shared memory/registers), so there is no inter-block sync and one launch runs N steps (2^12-2^14). The host only launches chunks and checkpoints.
+
+CPU validation with TRITON_INTERPRET=1: feed identical inputs and compare one step vs torch autograd/AdamW (~1e-6 rel). It is not expected to be bit-identical to torch.randn data.
+
+**Whole grid in one launch (owner, 05:05 UTC).** Each block reads a config row: seed, data_seed, n_steps, batch (accumulate 1024-sample micro-batches in-block for larger batches), lr, warm-up, decay, and hard-case fractions (blind region and near-ties, constructed in-kernel). After training, the block runs in-kernel evaluation (>= 1e8 fresh Philox inputs) and writes integer counts: correct, blind errors, 2-3 tie errors, 1-2 tie errors, other. The host launches ~5-10 min chunks and checkpoints all states between them.
 
 The owner asks Codex to write a **fused Triton (or CUDA) training kernel** for T234, the training-ceiling study, in parallel with the Claude T192 child. Spec is in TASKS row T261: H=16, T=10, bias-free ReLU RNN, Linear(16,10) readout, cross-entropy, AdamW with the zoo schedule, K stacked models, one launch per step (forward over T=10, BPTT, AdamW update). Reference implementation: `m16/approaches/capacity_ceiling/trainer.py` on branch `claude/t192-gpu-cost-law`. Validate on CPU with `TRITON_INTERPRET=1`: gradients and one AdamW step vs torch autograd at ~1e-6 relative on random batches, K in {1,5,20}. Deliver a drop-in function plus a test script; T192 runs it on Colab and validates a 2^30 run against the existing 5 seeds. Please push small, early commits. Speed matters more than generality.
 
