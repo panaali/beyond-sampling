@@ -352,3 +352,49 @@ no longer used.
   The rest of the error (C3 high by 24-77% on orig E1 at t0 <= 1.25 and on seed0 E1; seed3 E2 .55-.78) is from the
   other declared approximations (v3 - v4 link, linearised mu(v4), g12-g23 factorisation).
 - Unverified: T349 (T241 child) re-checks independently on DEV3.
+
+# T362: conditional Monte Carlo along exact gap lines (SAMPLING-CLASS; Fable T346 idea L)
+
+## Pre-registration (2026-10-18, before any T362 code)
+**Class: SAMPLING (random model inputs). Not deductive.** It is the variance-reduction comparator for ARC's
+low-probability goal.
+
+**Estimator (unbiased Rao-Blackwellisation).**
+1. Draw x ~ N(0, I_10) and sort it: v1 > v2 > v3 > v4 > ..., at positions p1, p2, p3, ...
+2. Given all values except v3 (and the positions), v3 has the exact conditional law phi(v) / (Phi(v2) - Phi(v4)) on
+   (v4, v2), at position p3. So for any event f(x),
+
+       E[f] = E[ Z ],   Z = int_{v4}^{v2} f(x with x_p3 = v) phi(v) dv / (Phi(v2) - Phi(v4)).
+
+3. Z is computed exactly by walking the network along x_p3 from v2 down to v4 with `rare.walk3` (the corrected walk,
+   T340), the other 9 inputs at their sampled values. In each gate cell:
+   - E1: the exact interval where p3 is the argmax;
+   - E2: the complement of the interval where p2 is the argmax.
+   It is intersected with the event's gap constraint and integrated under phi.
+4. Events:
+   - E1(1.0) = {pick = p3, v2 - v3 > 1}, so the line is restricted to v in (v4, v2 - 1).
+   - E2(.5) = {pick != p2, v1 - v2 >= .5, v2 - v3 >= .5}, so the line is restricted to v in (v4, v2 - .5), with
+     g12 >= .5 as a factor fixed by the sample.
+5. Model-free screen (no model call): lines whose admissible interval is empty (v2 - v4 <= t0, or g12 < .5 for E2)
+   have Z = 0 exactly and are not walked. The estimate is sum Z / N_drawn over all drawn inputs.
+
+**Line direction (declared).** This is the e_p3 line, moving v3 alone with its exact conditional law. Fable's sketch uses
+the (e_p2 - e_p3) direction, which is not tried here. Both are unbiased; the variance can differ.
+
+**Run (pre-registered).**
+- Model: orig (M_16,10).
+- Events: E1(1.0) (truth 5.367e-6) and E2(.5) (9.378e-5), GPU truths from T192.
+- **1e4 walked lines per event** (draw inputs until 1e4 pass the screen). Seeds 362000 / 362001.
+
+**Reported:**
+- mean;
+- s.e. from the per-input variance;
+- the number of drawn inputs;
+- per-line cost (walk3's executed FLOPs / 5948, with input generation uncharged as in LB3);
+- total C;
+- variance gain G = [p (1 - p) / C] / Var(estimate), against plain MC at the same C (1 FPE per input). It uses the
+  per-input sample variance; the truth p is the GPU value.
+
+**Go (DRI):** G >= 10 for an event AND the mean within 2 s.e. of the GPU truth. Reported per event.
+**Expected:** Fable predicts 10-50x. My guess: E1 >= 10 (the walk resolves thin far-gap islands exactly), and E2 lower
+(its wrong set is broader along v3, and g12 is not integrated).
