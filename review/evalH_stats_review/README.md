@@ -13,9 +13,14 @@ synthetic extracted-loop controls exercise unequal rescaled counts and confirm
 unchanged values/ops/invariance checks; no estimator/model imports or calls.
 
 ## Status
-User publication authorization received; prior checkpoints and independent source gatea2465c24 are now shared. Claim6928abad resumes only six frozen synthetic controls, with the durable gate pinned in protocol.json. Controls remain unexecuted at this protocol checkpoint; no historical panel reconstruction or shared source adoption is included.
+Bounded source/controls phase complete. Published claim6928abad and protocol de00d243 followed independent source gatea2465c24; six frozen synthetic controls212252f5 pass, independently audited6c3bdd74. Shared evaluator adoption and historical-table reconstruction remain separate DRI decisions. No actual model/evaluator/truth/random call was made.
 
 ## Results
+Six fixed extracted-loop cases pass. Each original row retains cumulative original-plus-rescaled counts when selected; each repaired row retains only original counts. All estimates, truths, original operation counts, exact operation counts, leaves, rescale invariance values, call ordering and final STATS remain identical. Independent review reconstructs every saved row/event without invoking author code.
+
+Reproduction (one immutable attempt, already executed):
+`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python review/evalH_stats_review/controls.py`, with external `ulimit -v 2500000`. The runner deliberately rejects an existing controls.json; inspect saved evidence instead of overwriting it.
+
 The source appends rows AFTER its every-eighth rescale evaluation, using
 cumulative E75.STATS. H4 seed2 has historical clean_cells297, proving that
 original/rescaled integer cell counts cannot always be equal. Halving every
@@ -28,10 +33,10 @@ silently replace missing native statistics.
 ## Compute accounting
 Read-only source/JSON/header inventory and source transformation only. No model,
 checkpoint load, geometry, mass, truth, Monte Carlo or native recount calls.
-Fixed controls require independent source gate and capped review process.
+Fixed controls ran once under review lock,19/20CPU cap and external2GB/one thread:0.016294550CPU. Independent source and saved reviews used0.015974761 and0.003998CPU separately. The53 synthetic row pairs involved128 fake estimator calls,106 fake truth calls and22 fake rescale calls; none is a model forward or probability evaluation.
 
 ## Claims
-[inferred, independent review pending] The reporting bug leaves saved estimate,
+[inferred, independently source/control reviewed] The reporting bug leaves saved estimate,
 truth and the original Ops object unchanged, but contaminates cells/cut/resolved.
 [measured source inventory] Exact original percopy statistics are absent from
 the historical aggregate summaries. Broader artifact search remains open.
