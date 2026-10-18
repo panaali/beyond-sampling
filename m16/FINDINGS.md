@@ -355,7 +355,7 @@ set at >= 2 anchors per region works.
   reproduced T319 with independent code: Gaussian-smoothed closures are dead (**verified**, scoped).
 - **Built into the estimator (T339): no freeze [measured].** With s = -1: RMS .884, bias +.758, F 4.04 at 3,748 FPE,
   against T317f's .827 / +.489 / 3.14. The decomposition is the finding. **The spread cuts the model-to-model error sd
-  from .667 to .455** (corr with truth .978 -> .991; each model moves against its own T317f error, corr -.73), as the
+  from .667 to .455** (corr with truth .978 -> .991; each model moves against its own T317f error, corr -.73), as the **[T343, 14:15: does NOT replicate on fresh DEV3: sd ratio .912 [.76, 1.11] vs DEV2 .68; the variance cut was DEV2-specific]**
   oracle said. **But it exposes bias:** the estimates move up +.27 pp, because the mean-point closure's negative bias
   had been cancelling part of the walk approximations' ~+.6 pp. Post hoc, the variance alone would give F ~1.06 at 3.7k
   FPE [inferred, information only]. **[Corrected 2026-10-18 afternoon]** T327's projection (DEV2 F ~3.8) did not hold
