@@ -9,7 +9,7 @@ Read only published saved output after source/resource clearance. Independent fr
 Recontract128-bit outward determinant totals and ideal real-rule bounds. Every saved integral is checked for chain ownership, float conversion, scalar contribution algebra and declared finite range. Sum binary64 contributions as exact dyadic rationals and round once, independently of the producer fsum. Check all progress events, fixed8000-node work and named39-category node cost; preserve observed setup, matching, accounting and integration timers separately. Rule.npz is hash-only: no quadrature/density replay or numerical integration certification.
 
 ## Status
-Explicit delegatione250f30e; prepared before output decoding against dbdc40d3/shared598b98c8. Initial source repairs for canonical archived strings and partial component timers incorporated before freeze. No saved checker execution or payload decode. Final producer review/gate and complete outputs are prerequisites, not assumed results.
+Explicit delegatione250f30e; prepared before output decoding against dbdc40d3/shared598b98c8. Initial source repairs for canonical archived strings and partial component timers incorporated before freeze. No saved checker execution or payload decode. The owner headline was received after initial freeze; an invoked-executable equality assertion was added during source review before execution. Final producer review/gate and complete outputs are prerequisites, not assumed results.
 
 ## Results
 Pending one bounded saved audit. Counts describe identical-facet matching within orthants, not all geometric cancellations. H4T3 has no retained terminal complex in the owner's bounded inventory and is outside this phase.
