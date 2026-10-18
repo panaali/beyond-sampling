@@ -152,7 +152,7 @@ def mass(R, fl):
 
 class Tree:
     def __init__(self, model, bound="crown"):
-        self.model, self.bound = model, (crown if bound == "crown" else ibp)
+        self.model, self.bound = model, {"crown": crown, "ibp": ibp, "crown_fwd": crown_fwd}[bound]
         self.fl = Flops()
         self.nodes = []                       # dict(R, label, mass, status, kids, split)
         self.heap = []
@@ -162,8 +162,12 @@ class Tree:
         self.root_key = {key: i for i, (_, _, key) in enumerate(roots(model[2].shape[0]))}
 
     def _add(self, R, label, m=None):
+        f0 = self.fl.n
         m = mass(R, self.fl) if m is None else m
+        f1 = self.fl.n
         st = self.bound(self.model, R, label, self.fl)
+        self.flops_mass = getattr(self, "flops_mass", 0.0) + (f1 - f0)
+        self.flops_bound = getattr(self, "flops_bound", 0.0) + (self.fl.n - f1)
         idx = len(self.nodes)
         self.nodes.append(dict(R=R, label=label, mass=m, status=st, kids=None, split=None))
         self.mass[st] += m
@@ -213,3 +217,38 @@ class Tree:
                 a, b = nd["split"]
                 cur[sel] = np.where(lam[:, a] * np.linalg.norm(nd["R"][b]) >= lam[:, b] * np.linalg.norm(nd["R"][a]),
                                     nd["kids"][0], nd["kids"][1])
+
+
+def crown_fwd(model, R, label, fl):
+    """Cheaper variant: intermediate bounds by one forward symbolic (DeepPoly-forward) pass, sharing the work of
+    all neurons and steps; back-substitution only for the final margins."""
+    Wi, Wh, Wo = model
+    H, T = Wh.shape[0], R.shape[1]
+    d = R.shape[0]
+    Wp, Wn = np.maximum(Wh, 0), np.minimum(Wh, 0)
+    hL, hU = np.zeros((H, d)), np.zeros((H, d))
+    rel = []
+    for t in range(T):
+        xin = np.outer(Wi, R[:, t])
+        zL = fl.mm(Wp, hL) + fl.mm(Wn, hU) + xin
+        zU = fl.mm(Wp, hU) + fl.mm(Wn, hL) + xin
+        fl.add(4 * H * d)
+        lo, hi = zL.min(1), zU.max(1)
+        alpha, s, b = _relax(lo, hi)
+        rel.append((alpha, s, b))
+        hL = alpha[:, None] * zL
+        hU = s[:, None] * zU + b[:, None]
+        fl.add(4 * H * d)
+    riv = [k for k in range(Wo.shape[0]) if k != label]
+    C = Wo[label][None] - Wo[riv]
+    alpha, s, b = rel[T - 1]
+    pos, neg = np.maximum(C, 0), np.minimum(C, 0)
+    AL, cL = pos * alpha[None] + neg * s[None], neg @ b
+    AU, cU = pos * s[None] + neg * alpha[None], pos @ b
+    lo = (_back(model, R, AL, T - 1, rel, fl, True) + cL[:, None]).min(1)
+    hi = (_back(model, R, AU, T - 1, rel, fl, False) + cU[:, None]).max(1)
+    if (lo > 0).all():
+        return 1
+    if (hi < 0).any():
+        return -1
+    return 0
