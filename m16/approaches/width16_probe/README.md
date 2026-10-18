@@ -217,6 +217,47 @@ Not tried: exact function-preserving merges (none exist: no exactly parallel row
 neurons by a general linear map (not a permutation/sign); input-space symmetries (time reversal, x -> -x), which belong to
 the task, not the weights. Compute: < 1 CPU-min (prefix k = 4 counts 10-27 CPU-s each; MC 1e7 + 3 x 2e6 paired).
 
+## T217: modal event-word branching on exact prefix leaves (2026-10-18; unverified) — modal test fails
+**Method.** `eventword.py model k`: exact prefix leaves (`prefix.run`, the T192 start, estT exact geometry) of the
+target M_16,10 and of zoo_2nd_argmax(16,4,0) and (16,5,0) (first k steps), each split by every order plane x_i = x_j.
+Each piece then has one ordering and so one event word: for t >= 1, x_t is a new record R, a new 2nd S or low L.
+Exact piece masses come from estT.mass (d = k), giving the joint law p(event word, gate word) of the first k steps. Reported:
+B|E = exp H(G | E) (mass-weighted branching given the event word); B = exp H(G) unconditional; the modal share
+= sum over e of max over g of p(e, g); n99 = mass-weighted number of gate words needed to cover 99% of each event word's mass.
+Variant "|E,s0": the event word plus sign(x_0). Step factors (in brackets) use B = 2 at k = 1 (gate word = sign(x_0)).
+
+| model | k | regions | B\|E (step) | B\|E,s0 | B (step) | modal share | modal, +s0 | n99 | mass sum - 1 |
+|---|---|---|---|---|---|---|---|---|---|
+| target | 2 | 34 | 6.23 (x3.11) | 3.55 | 12.3 (x6.13) | 33.9% | 49.5% | 11.5 | -4e-14 |
+| target | 3 | 792 | 13.90 (x2.23) | 8.58 | 65.9 (x5.38) | 23.7% | 31.4% | 44.8 | -2e-13 |
+| target | 4 | 21032 | 26.03 (x1.87) | 16.82 | 301.7 (x4.58) | 20.6% | 25.3% | 138.6 | 3e-11 |
+| zoo16_4 | 2 | 34 | 5.39 (x2.70) | 3.07 | 10.8 (x5.38) | 36.9% | 58.8% | 12.0 | -5e-14 |
+| zoo16_4 | 3 | 870 | 13.02 (x2.41) | 8.04 | 76.0 (x7.06) | 26.7% | 35.9% | 46.3 | -2e-13 |
+| zoo16_4 | 4 | 26742 | 45.07 (x3.46) | 29.12 | 655.2 (x8.62) | 13.5% | 17.8% | 241.3 | 4e-11 |
+| zoo16_5 | 2 | 34 | 5.51 (x2.76) | 3.14 | 10.4 (x5.22) | 37.7% | 56.5% | 10.0 | -5e-13 |
+| zoo16_5 | 3 | 824 | 10.85 (x1.97) | 6.70 | 55.4 (x5.31) | 28.3% | 40.0% | 35.8 | -3e-12 |
+| zoo16_5 | 4 | 23956 | 29.77 (x2.74) | 19.24 | 422.3 (x7.62) | 17.5% | 23.2% | 144.8 | 3e-11 |
+
+**Reading.**
+1. **Not mass-irrelevant (modal test fails).** At k = 4 the most likely gate word holds only 21% (target), 13% and 18%
+   (zoo) of each event word's mass (go: >= 99%). Covering 99% needs ~140-240 gate words per event word, and this grows
+   x3-4 per step. Adding sign(x_0) changes little (25%).
+2. **The mass-weighted growth is far slower than the region growth.** exp H(G) grows x5.4 then x4.6 per step on the target,
+   while regions grow x23 then x27. Given the event word, branching grows x3.1, x2.2, x1.9 per step (<= 3 from k = 3; zoo
+   (16,4) x3.5 at k = 4). Most regions carry negligible mass, as T206 found per cell.
+3. **Against the go/kill lines.** Go needed branching <= 3/step AND modal >= 99%. The per-step factor passes from k = 3
+   on, but the modal share fails by a wide margin, so this is no go. Kill was "branching >= 8": the per-step factor is < 8,
+   but the cumulative B|E at k = 4 is 26-45. Which reading counts is for the DRI to decide.
+4. [speculative] If the step factor of B|E keeps falling (3.1, 2.2, 1.9), exp H(G | E) at k = 10 is ~1e3-1e4 per event
+   word. That is an entropy (typical-set) count, not a certified cover: the error mass sits in the low-mass tail
+   (T206: cells with error < 1e-8 hold 0.8% of the error), and the cover size grows like n99 (x3/step), not like B|E.
+
+Claims: [measured] the table (mass sums within 4e-11 of 1; target regions reproduce T192 34/792/21032; zoo16_4 k = 4 = the 26742 exact regions of T194); [inferred]
+event words explain the mass but not the count of gate words, since the modal share keeps falling (x0.7 then x0.87 per step on the target).
+Alternatives: richer event words (adding values of the top-2 gap, age of the max, or the sign of every input) may raise the
+modal share; only sign(x_0) was tried. k = 5 was not run (target 632k regions: too slow in pure numpy here; T192's
+numba code could). Compute: masses k = 4 127-173 CPU-s per model (1.37 pieces per leaf at k = 4); all runs < 8 CPU-min.
+
 ## Compute accounting
 Counted ops = `m43.Ops` inside the estimator (recipe or exact), as estT_fix; leaf-sum masses, region patterns and MC are
 diagnostic and excluded. Totals (CPU, single thread): (8,3)+(16,3) all runs < 1 min; (16,4) recipe 9 x 2.3-2.7 min

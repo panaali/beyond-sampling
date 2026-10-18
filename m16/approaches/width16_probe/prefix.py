@@ -1,7 +1,7 @@
 """T216/T217: exact gate-pattern regions of the prefixes of M_16,10 (k = first k steps, a bias-free ReLU map of R^k).
 Port of T192's gpu_cost_law/prefix.py (same start: the k+1 cones of a regular-simplex fan of R^k, each cut by x_0 = 0;
 then estT exact `_margin_split` at steps 2..k), single process, pure numpy (this folder's estT copy), plus an optional
-per-leaf record (rays + gate history) for T217. Models: target | sym (symmetrised by symm_model in this file).
+per-leaf record (leaf cone + gate history) for T217. Models: target | sym (symmetrised by symm_model in this file).
 usage: python prefix.py model k [save]   -> prefix/<model>_k{k}.json (+ .npz leaves when save)"""
 import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -53,7 +53,7 @@ def run(model, k, save=False):
         if t == k:
             cells += 1; pats.add(hist)
             if save:
-                leaves.append((c.R.copy(), hist))
+                leaves.append((c, hist))
             continue
         At = Wh @ (g[:, None] * A) + np.outer(Wi, E[t]); ops.add(len(Wi) * int(g.sum()) * t)
         for c2, g2 in estT._margin_split(c, At, model, t, 0, E[0], 0.1, ops, True):
@@ -68,5 +68,5 @@ if __name__ == "__main__":
     os.makedirs(os.path.join(HERE, "prefix"), exist_ok=True); fn = os.path.join(HERE, "prefix", f"{name}_k{k}")
     json.dump(r, open(fn + ".json", "w"), indent=1)
     if save:
-        np.savez_compressed(fn + ".npz", rays=np.array([l[0] for l in leaves], dtype=object), hist=np.array([l[1] for l in leaves], dtype=object))
+        np.savez_compressed(fn + ".npz", rays=np.array([l[0].R for l in leaves], dtype=object), hist=np.array([l[1] for l in leaves], dtype=object))
     print(name, r, flush=True)
