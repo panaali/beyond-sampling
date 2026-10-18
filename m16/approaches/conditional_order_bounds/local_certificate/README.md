@@ -10,8 +10,11 @@ second-label partition of fixed Gaussian input boxes. PLAN.md stages primitive
 controls before the finite trained application, with independent gates.
 
 ## Status
-Source/theory planning only, claimffd7494a. No implementation or numerical
-execution. The earlier global-certificate floors and failures remain unchanged.
+Claimffd7494a; theory independently reviewedeb5d8565. Exact primitives and the
+fixed44-control driver are implemented and published through2712c26c, awaiting
+the final source/resource gate. No numerical execution yet. The earlier global
+certificate floors and failures remain unchanged. APPLICATION_PLAN.md freezes
+the later41472-box record layout; that application is not implemented or cleared.
 
 ## Results
 None yet. This is one frozen local variant, not a general local-method exclusion.
@@ -22,7 +25,7 @@ fits, masses, geometry and numerical primitive calls are zero so far. Proposed
 exact-integer operation counts are not complete compiled/native FLOP prices.
 
 ## Claims
-[inferred, awaiting independent review] The stated local enclosure and Gaussian
+[inferred, independently reviewed theorem] The stated local enclosure and Gaussian
 rank-ownership construction yield a valid uncertainty interval if implemented
 with their exact predicates. No trained performance or cost claim.
 
