@@ -1,0 +1,9 @@
+# Frozen T240 synthetic ownership controls
+
+Source preparation claim5f77a542 follows written reviewf219b2a4, including the preserved lower-bound ceiling correction. This phase contains no trained data, Gaussian CDF, network recurrence, hidden-state certificate, target draw or numerical integration.
+
+Freeze31 controls:12 positive-width rational boxes (six coordinate permutations of one separated3D box, overlapping g0, impossible gap, boundary-only gap, negative separated inputs, adjacent g0 with boundary outer pairs, four inputs); six supplied margin-interval first-index cases; four synthetic probability bookkeeping cases; nine malformed/domain guards. Expected values/statuses are literal in run.py before any run. Every feasible outer pair saves its rational second-coordinate interval and a direct witness; inner pairs are checked at every Cartesian vertex. These checks are validation work, not extra network calls. Boundary-only intersections remain in the outer cover.
+
+Independent reviewer34 source/resource gate, then immutable published gate binding all mandatory sources plus reviewer artifact. Saved reviewer910 is accepted pending explicit board assignment before the numerical phase. Exactly one15internal/16soft20hard CPU2GiB review-lock run,25wall after lock and one thread; no automatic retry. Launcher sets soft before hard limits and uses errexit; output and log cannot be overwritten. Empty output required. Raw arguments/results precede expected-status assertions, exceptions preserve failure and clear success, atomic result replacement,64 progress events. Serialization and process startup are covered externally; internal CPU begins in main.
+
+Future saved H8 gap stratification and any stronger restricted-domain network certificate are separate scopes. Passing these controls does not evaluate the mass of an actual Gaussian gap event, prove a trained certificate, or certify full computational cost.

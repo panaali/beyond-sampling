@@ -1,0 +1,5 @@
+# T248 independent saved scalar audit
+
+Explicit review assignment6d83b06e; owner sole run14d9be72/shared6a65b639 under gate6e25d893 publishede14fd8dd. Review exactly39 raw row bindings,13 summary/table models, four separate groups, available log rows/missing keys,80 events, source/resource metadata and exact rational statistics. Independently reconstruct mean-compatible hit candidates using exact binary rational bounds, growth/count medians and threshold categories. No owner checker import, model, array, probability integration, RNG or estimator calls. Report aggregate consistency only; unsaved mass minima/order/integration and original runtime model identity remain unverified.
+
+One17internal/19soft20hardCPU2GiB review-lock run,25wall afterlock, one thread, exclusive log, immutable output. Source gate and complete owner artifacts pinned before execution; gate must itself be published. Failure stays durable and clears success, no automatic retry or tolerance changes. Pure metadata/hash reads before execution do not contract saved statistics. Any apparent data defect is preserved before a separate recovery.
