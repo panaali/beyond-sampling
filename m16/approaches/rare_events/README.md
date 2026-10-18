@@ -306,3 +306,49 @@ C (FPE, as executed): A 10.7-17.6k, B 0.21-0.31M.
 
 **What still fails:** orig's far-gap 2~3 islands (E1). The closure keeps them (diagnostic), and B's single g12 point loses
 them. T340c's exact-law g12 nodes are the fix to check, once rerun on the corrected walk.
+
+## T340c POST-FIX (T218 child, claude/t218-tie-tail-labels @fe7197b1, r1_cont/ "T354 results"), scored here
+Their rows are copied into `results/t340c_fixed_B_C3_S3.json` (their B is relabelled B218) and
+`results/t340c_results_fixed_C5_S5.json`, and scored with my `score.py` on the GPU truths. The pre-fix T340c files are
+no longer used.
+- **Independent check of the fix:** their fixed B (B218, own code) gives estimates equal to my corrected B on all 15
+  pairs to the printed precision. Their C is ~3.5% lower (counting differences).
+- S3 (their segment walk) gives estimates identical to C3 at .77-.80x its cost.
+
+| est / truth: E1 t0 = 1 / 1.25 / 1.5; E2 t = .5 / .75 | orig | seed0 | seed3 | C (FPE) orig / seed0 / seed3 |
+|---|---|---|---|---|
+| B (mine, corrected) | .25 / .17 / .19; .99 / .95 | .97 / 1.03 / .93; 1.07 / 1.22 | .69 / .76 / .73; 1.40 / 3.40 | .31M / .21M / .27M |
+| C3 = S3 (g12 at 3 exact-law nodes) | 1.77 / 1.24 / .48; 1.03 / 1.01 | 1.32 / 1.44 / 1.43; .97 / .98 | 1.05 / 1.10 / 1.10; .73 / .55 | S3: 1.97M / 1.40M / 1.76M |
+| C5 (convergence check) | 1.60 / 1.01 / .78; 1.02 / 1.03 | 1.34 / 1.40 / 1.33; .98 / .99 | 1.02 / 1.01 / 1.01; .78 / .55 | 4.22M / 2.92M / 3.70M |
+
+**Final verdict (pre-registered lines; T340c's primary is K = 3):**
+
+| variant | E1 (far-gap 2~3 islands) | E2 (interior errors) |
+|---|---|---|
+| A (T317's transverse point) | FAIL (0/9) | **USEFUL** (6/6 within 2x) |
+| B (node transverse points) | PARTIAL (6/9 within 3x; orig 4-6x low) | PARTIAL (5/6 within 2x) |
+| C3 / S3 (+ exact-law g12 nodes) | PARTIAL (8/9 within 2x, 9/9 within 3x; miss: orig t0 = 1.5 at .48) | **USEFUL** (6/6 within 2x) |
+| C5 (check only) | 9/9 within 2x | 6/6 within 2x |
+
+**Post hoc equal-compute comparison** (`results/compare.txt`; ties when |r - s| < .05). Win / tie / loss of 15:
+
+| variant | win | tie | loss |
+|---|---|---|---|
+| A | 6 | 7 | 2 |
+| **B** | **9** | 3 | 3 |
+| C3 | 4 | 5 | 6 |
+| S3 | 5 | 4 | 6 |
+| C5 | 6 | 3 | 6 |
+| best per pair (post hoc) | 11 | 2 | 2 |
+
+**Reading:**
+- [measured] With exact gate walks (no tmax cut) and the transverse integration done exactly in g12 (3-5 nodes),
+  deductive estimates of error probabilities from 2e-7 to 4e-4 come within a factor of 2 on 14 of 15 pairs (C3), or
+  15 of 15 (C5). That covers the target and two zoo seeds and both event families.
+- Accuracy costs compute: B is 7-14x cheaper and wins more pairs against sampling at equal compute (9/15), because
+  sampling at C3's ~2M FPE already sees 15-1,300 events on most pairs.
+- The deductive estimate pays where events are rare at the method's own cost: orig E1 and the seeds' t0 = 1.5.
+- [inferred] The remaining structure: B's single g12 point loses orig's far-gap islands; exact g12 nodes recover them.
+  The rest of the error (C3 high by 24-77% on orig E1 at t0 <= 1.25 and on seed0 E1; seed3 E2 .55-.78) is from the
+  other declared approximations (v3 - v4 link, linearised mu(v4), g12-g23 factorisation).
+- Unverified: T349 (T241 child) re-checks independently on DEV3.

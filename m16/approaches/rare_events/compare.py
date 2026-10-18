@@ -19,7 +19,7 @@ for r in rows:
     res = "tie" if abs(ours - s) < 0.05 else ("win" if ours < s else "loss")     # tie: both ~equally wrong (e.g. ~0 answers)
     out.append(dict(r, sampling_rel=s, ours_rel=ours, result=res))
     print(f"{r['event']:10s} {r['model']:6s} {r['variant']:3s} {p:9.2e} {C:8.0f} {pc:8.3g} {s:16.2f} {ours:7.2f} {res}")
-for v in ("A", "B", "C3", "C5"):
+for v in ("A", "B", "B218", "C3", "S3", "C5"):
     w = [o for o in out if o["variant"] == v]
     print(f"variant {v}: win {sum(o['result'] == 'win' for o in w)} / tie {sum(o['result'] == 'tie' for o in w)} / loss {sum(o['result'] == 'loss' for o in w)} of {len(w)}")
 best = {}

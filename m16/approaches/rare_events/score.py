@@ -8,7 +8,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 R = lambda f: json.load(open(os.path.join(HERE, "results", f))) if os.path.exists(os.path.join(HERE, "results", f)) else {}
-est = {**R("est.json"), **R("t340c_K3.json"), **R("t340c_K5.json")};   # T340c (T218 child, 6c651118) as variants C3, C5
+est = {**R("est.json"), **R("t340c_fixed_B_C3_S3.json"), **R("t340c_results_fixed_C5_S5.json")}   # T340c POST-FIX (T218 child, fe7197b1): B218, C3, S3, C5
 t1 = R("truth.json"); t2 = R("truth2.json"); tg = R("truth_gpu.json")
 
 
@@ -33,8 +33,8 @@ for ev, ts, key in (("E1", ("0.0", "1.0", "1.25", "1.5"), "est"), ("E2", ("0.5",
             if tr is None:
                 continue
             p = tr[0] / tr[1]; se = np.sqrt(tr[0]) / tr[1]
-            for v in ("A", "B", "C3", "C5"):
-                if f"{model}:{v}" not in est:
+            for v in ("A", "B", "B218", "C3", "S3", "C5"):
+                if f"{model}:{v}" not in est or t not in est[f"{model}:{v}"].get(key, {}):
                     continue
                 e = est[f"{model}:{v}"][key][t]; C = est[f"{model}:{v}"]["C"]
                 F = (e - p) ** 2 * max(C, 1000) / (p * (1 - p))
@@ -42,7 +42,7 @@ for ev, ts, key in (("E1", ("0.0", "1.0", "1.25", "1.5"), "est"), ("E2", ("0.5",
                                  est=e, ratio=e / p, C=C, F=F, pC=p * C))
                 print(f"{ev}({t}):".ljust(10) + f" {model:6s} {v:3s} {p:10.3e} ({tr[0]:>7d}/{tr[1]:.0e}) {e:10.3e} {e / p:7.3f} {C:8.0f} {F:10.3g} {p * C:8.3g}")
 json.dump(rows, open(os.path.join(HERE, "results", "score.json"), "w"), indent=1)
-for v in ("A", "B", "C3", "C5"):
+for v in ("A", "B", "B218", "C3", "S3", "C5"):
     for ev in ("E1", "E2"):
         rr = [r for r in rows if r["variant"] == v and r["event"].startswith(ev) and r["event"] not in ("E1(0.0)",)]
         if rr:
