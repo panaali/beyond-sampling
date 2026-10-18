@@ -4,17 +4,17 @@
 How much Gaussian input probability can a bounded verified method certify correct on separated top-three rank events, and what work does that require?
 
 ## Method and status
-Active written theory/source/protocol prerequisite, claimf0e38a58 and reviewer delegationba46c4f3. THEORY.md defines absolute-gap events, conservative inner/outer box ownership, network tie predicates, mass accounting and target-prefix limits. PLAN.md separates inherited saved filtering from a stronger domain-restricted certificate. SOURCE_INVENTORY.md records reusable evidence and missing model/cost gates. No execution is cleared by this phase.
+Written prerequisite independently reviewed f219b2a4; synthetic controls independently complete1bed6e05. Initial claimf0e38a58 and reviewer delegationba46c4f3 remain the provenance. THEORY.md defines absolute-gap events, conservative inner/outer box ownership, network tie predicates, mass accounting and target-prefix limits. PLAN.md separates inherited saved filtering from a stronger domain-restricted certificate. SOURCE_INVENTORY.md records reusable evidence and missing model/cost gates. No execution is cleared by this phase.
 
 ## Results
-No new numerical result. The proposed exact probability formula and box predicates await independent written review. Existing T189's finite local negative is preserved with its original scope. Filtering an existing certificate cannot enlarge its event; improvement needs genuinely stronger bounds or a new partition, not renamed old results.
+The31 rational synthetic controls passed once (bc358242) and independent saved review1bed6e05 passed all31 cases/64 events. See controls/HANDOFF.md. Written probability and box theory passed f219b2a4; the original invalid lower-bound ceiling was corrected in dc183c14 and preserved in REVIEW_CORRECTIONS.md. Existing T189's finite local negative is preserved with its original scope. Filtering an existing certificate cannot enlarge its event; improvement needs genuinely stronger bounds or a new partition, not renamed old results.
 
 ## Compute accounting
-Source/document inspection, hashes and Git metadata only. Zero arrays/checkpoints decoded, model/certificate/CDF/mass/geometry/RNG/fit calls. Future work must account probability setup, model binding, all attempted certificates and integer complexity; historical partial counters are not complete FLOPs.
+Synthetic rational controls used0.083639321 internal CPU; independent saved audit0.004007638 CPU. Launcher/import overhead is retained separately. Zero trained arrays/checkpoints decoded or model/CDF/RNG/fit calls in T240. Future work must account probability setup, model binding, all attempted certificates and integer complexity; historical partial counters are not complete FLOPs.
 
 ## Claims
-[inferred, pending review] Exact labeled gap polyhedra and conservative box mass brackets can distinguish coverage loss from network-bound loss.
-[inferred, pending review] Prefix information alone does not certify final target correctness.
+[inferred, independently reviewed] Exact labeled gap polyhedra and conservative box mass brackets can distinguish coverage loss from network-bound loss.
+[inferred, independently reviewed] Prefix information alone does not certify final target correctness.
 [speculative] Restricting affine ranges to rank/gap domains may certify more easy mass per cost; no performance claim yet.
 
 ## Alternatives not ruled out
