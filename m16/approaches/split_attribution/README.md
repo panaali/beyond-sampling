@@ -112,7 +112,16 @@ returned 0 on narrow cones (review T55, 2eef376c); all results here use the fixe
 | test | tau | T3 cells | T4 cells | T5 cells (s0) | x(3->4) | x(4->5) | max ratio_B T3 / T4 / T5 | max ratio_act T4 |
 |---|---|---|---|---|---|---|---|---|
 | none (recipe108) | - | 233 | 6276 | 114155 | 26.9 | 18.2 | - | .52 |
-P2ROWS
+| cap | 1e-4 | 159 | 3498 | - | 22.0 | - | 2.7 / 1.6e5 / - | .25 |
+| cap | 1e-5 | 168 | 4269 | 78917 | 25.4 | 18.5 | .045 / 3.8e3 / 6.4e6 | .40 |
+| cap | 1e-6 | 184 | 5135 | 89186 | 27.9 | 17.4 | 7e-4 / 40 / 7.5e4 | .47 |
+| cap | 1e-7 | 207 | 5808 | 99988 | 28.0 | 17.2 | 6e-6 / .13 / 410 | .51 |
+| cap | 1e-8 | 226 | 6103 | - | 27.1 | - | 9e-9 / 3e-4 / - | .52 |
+| mass | 1e-4 | 110 | 686 | - | 6.2 | - | 13 / 1.9e5 / - | 258 |
+| mass | 1e-5 | 142 | 1519 | - | 10.7 | - | .048 / 5.6e3 / - | 1.7 |
+| mass | 1e-6 | 165 | 2606 | - | 15.8 | - | 5e-4 / 116 / - | .69 |
+| mass | 1e-7 | 184 | 3808 | - | 20.7 | - | 7e-6 / 1.7 / - | .98 |
+| mass | 1e-8 | 211 | 4923 | - | 23.3 | - | 6e-8 / .011 / - | 1.14 |
 
 **Decisive answer [measured, unverified]: no tau gives ratio_B < 1 with retained cells growing clearly slower than
 x13/step.** With the cheap outward cap test, ratio_B < 1 on all (8,4) seeds needs tau <= 1e-7, where 89-96% of cells
@@ -120,6 +129,11 @@ are retained and growth T3 -> T4 is x27-28 (unpruned x27); B ~ n_pruned x (cap b
 nothing is pruned. Exact masses prune more (x23 at tau 1e-8 with ratio_B <= .011), but computing the mass of every
 tested cell costs 2.3x the FLOPs of the unpruned recipe. At tau scaled to SD/10 (T3 1e-4 -> T4 1e-5) ratio_B is
 1e3-6e3. The actual pruning error is far smaller than B (oracle: pruned mixed-correctness mass is ~1% of B for cap),
+(8,5) s0 (cap, 1e-5/1e-6/1e-7): retained 78917 / 89186 / 99988 of 114155 cells (FLOPs -9% / -5% / -2%), growth
+T4 -> T5 x17-18.5 (unpruned x18.2), ratio_B 6.4e6 / 7.5e4 / 410 against SD 1.7e-5 (ratio_act .018-.019, the recipe
+itself stays accurate); ratio_B < 1 at T5 would need tau ~ 1e-9 or below, i.e. essentially no pruning.
+At fixed tau the certified bound worsens along T because SD shrinks (6e-4 / 1e-4 / 1.7e-5) while the number of tiny
+cells grows. The actual pruning error stays far below B (oracle: pruned mixed-correctness mass ~1% of B for cap),
 i.e. the failure is certification, not bias: (p1) is not what happens at tau <= 1e-6, (p3) holds (the cap is
 10-100x loose), (p2) holds at T4 (most retained cells have moderate mass).
 
@@ -128,7 +142,7 @@ Deductive throughout (no random model inputs) except the labelled sampled diagno
 Estimator ops (`m43.Ops`, multiply-add = 1) are reproduced exactly by the instrumented runs: (8,3) 3.6-4.0e5,
 (8,4) 6.3e8-1.07e9, (8,5) s0 2.18e11. Instrumentation (counterfactual subtrees, masses, DIAG) is uncharged and cost
 wall time: (8,4) ~90 s/model, (8,5) s0 2.9 h (vs ~25 s and ~1 h for the bare recipe here). Phase 2 FLOPs are in the
-tables (charged as above); oracle diagnostics uncharged. Total CPU about 7 h, one process at a time, single thread,
+tables (charged as above); oracle diagnostics uncharged. Total CPU about 7.5 h ((8,5) attribution 2.9 h, (8,5) pruning 1.5 h, (8,4) grid 0.8 h, rest < 1 h), one process at a time, single thread,
 `ulimit -v 2500000` (peak RSS ~330 MB).
 
 ## Claims (all unverified; nobody marks their own claim confirmed)
