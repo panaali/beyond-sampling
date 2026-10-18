@@ -1,0 +1,37 @@
+{
+  "complete": true,
+  "pass_all": true,
+  "source_commit": "25633ca0",
+  "author_branch_commit": "a5ab87572c0c633a10894bc822d9ff4b3c7d9593",
+  "checked_text_snapshots": [
+    "m16/approaches/gpu_cost_law/export_simplices.py",
+    "m16/approaches/gpu_cost_law/estP.py",
+    "m16/approaches/gpu_cost_law/estG.py",
+    "m16/approaches/gpu_cost_law/estT_base.py",
+    "m16/approaches/gpu_cost_law/geomfast.py",
+    "m16/approaches/gpu_cost_law/README.md",
+    "m16/approaches/gpu_cost_law/colab/q_a100.sh",
+    "m16/approaches/gpu_cost_law/colab/ql4c.sh",
+    "m16/approaches/understand_m43/zoo44.py",
+    "m16/approaches/arc_m43_repro/m43.py"
+  ],
+  "ancillary_binary_hashed_not_decoded": "m16/approaches/arc_m43_repro/m43_weights.npz",
+  "pins": {
+    "SOURCE.md": "6498a63cb86df2176e77662b022044c81755cdd0b4c2a665b6a8fb7453e832cb",
+    "ACCEPTANCE.md": "dc2411459767ef503740b680e40c2e0a4040193254df6a0e924b489f1accb055",
+    "schema.json": "200ccc8c06c3d65f150f61200ae2a3948d6d232683fc6cdd6fb7d124cd4c464b",
+    "manifest.json": "12a05cc604805bcf60dd2ba73c6467c27a1f5ab62ae18f307207eeb24f997481"
+  },
+  "checker_sha256": "7daa5cd0c6d1374ff3bcde44c721bfd179869de3b3526e07f40f71967612f9c1",
+  "review_cpu": 0.004637601000000005,
+  "new_author_import_model_geometry_mass_calls": 0,
+  "findings": [
+    "Error-simplex selection is global emission indices0,stride,...; K=ceil(total/stride) only for positive stride and completed source execution. Per-half ownership is not saved.",
+    "Rays are row generators; exact stored binary entries must be preserved. Floating unit normalization and absdet are not exact certificates.",
+    "Model naming alone does not bind checkpoint bytes; fast geometry/rules/device/environment/source versions affect provenance.",
+    "Conditional SLIVER hazard verified by source: masses_each forwards batched _orth5; non-None SLIVER zeros thin entries and puts summed _thin_split result in the first thin row. Per-parent semantics are not preserved in general. Actual occurrence remains unknown without run environment/payload.",
+    "Reference singleton loop avoids cross-parent aggregation but shares numerical family; maxlev24 does not certify threshold attainment.",
+    "Source writes archive at end and does not itself establish local resource/durable-run protocol."
+  ],
+  "disposition": "Source-derived acceptance contract passes. No exporter execution, regenerated data, or T193 numerical work authorized. Actual arrays remain missing; incomplete metadata must remain explicit. Original author branch ancestry remains separate from owned snapshot parity."
+}
