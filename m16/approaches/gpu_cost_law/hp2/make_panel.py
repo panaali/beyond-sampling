@@ -6,7 +6,8 @@
         panel hp2/weights.npz, hp2/manifest.json (truths only in hp2/sealed/truths.json).
   hp3:  T321 fresh retrains (seeds 200-299, data ids 2000-2099) from capacity_ceiling/hp3_run.py -> ../hp3/ (SEALED)
   hp4:  T328 fresh retrains (seeds 300-399, data ids 3000-3099) from capacity_ceiling/hp4_run.py -> ../hp4/ (SEALED)
-usage: python make_panel.py dev2 | python make_panel.py hp2|hp3|hp4 STATE_PT"""
+  hp5:  T336 fresh retrains (seeds 400-499, data ids 4000-4099) from capacity_ceiling/hp5_run.py -> ../hp5/ (SEALED)
+usage: python make_panel.py dev2 | python make_panel.py hp2|hp3|hp4|hp5 STATE_PT"""
 import hashlib, json, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); CC = os.path.join(HERE, "..", "..", "capacity_ceiling")
