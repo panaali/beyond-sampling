@@ -1,0 +1,1365 @@
+{
+  "cases": [
+    {
+      "name": "antisymmetric",
+      "rows": [
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "0",
+          "1"
+        ],
+        "absolute_residual": [
+          "1",
+          "1"
+        ],
+        "absolute_paired": [
+          "0",
+          "1"
+        ],
+        "variance": [
+          "1",
+          "1"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "0",
+          "1"
+        ],
+        "rho": [
+          "-1",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "constant_positive",
+      "rows": [
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "1",
+            "2"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "1",
+            "2"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "1",
+          "2"
+        ],
+        "absolute_residual": [
+          "1",
+          "2"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "0",
+          "1"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": null,
+        "rho": null
+      }
+    },
+    {
+      "name": "optimistic_one_sided",
+      "rows": [
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "-1",
+          "2"
+        ],
+        "absolute_residual": [
+          "1",
+          "2"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "1",
+          "4"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "0",
+          "1"
+        ],
+        "rho": [
+          "-1",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "pessimistic_one_sided",
+      "rows": [
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "1",
+          "2"
+        ],
+        "absolute_residual": [
+          "1",
+          "2"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "1",
+          "4"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "0",
+          "1"
+        ],
+        "rho": [
+          "-1",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "symmetric_variable",
+      "rows": [
+        {
+          "x": [
+            -2,
+            2
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            2,
+            -2
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "0",
+          "1"
+        ],
+        "absolute_residual": [
+          "1",
+          "1"
+        ],
+        "absolute_paired": [
+          "1",
+          "1"
+        ],
+        "variance": [
+          "1",
+          "1"
+        ],
+        "variance_paired": [
+          "1",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "2",
+          "1"
+        ],
+        "rho": [
+          "1",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "zero_covariance",
+      "rows": [
+        {
+          "x": [
+            -2,
+            2
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            2,
+            -2
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "0",
+          "1"
+        ],
+        "absolute_residual": [
+          "1",
+          "2"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "1",
+          "2"
+        ],
+        "variance_paired": [
+          "1",
+          "4"
+        ],
+        "budget_variance_ratio": [
+          "1",
+          "1"
+        ],
+        "rho": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "unequal_orbit_weights",
+      "rows": [
+        {
+          "x": [
+            -2,
+            2
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "6"
+          ]
+        },
+        {
+          "x": [
+            2,
+            -2
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "6"
+          ]
+        },
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "3"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "3"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "2",
+          "3"
+        ],
+        "absolute_residual": [
+          "1",
+          "1"
+        ],
+        "absolute_paired": [
+          "2",
+          "3"
+        ],
+        "variance": [
+          "5",
+          "9"
+        ],
+        "variance_paired": [
+          "2",
+          "9"
+        ],
+        "budget_variance_ratio": [
+          "4",
+          "5"
+        ],
+        "rho": [
+          "-1",
+          "5"
+        ]
+      }
+    },
+    {
+      "name": "noninvariant_conditional_law",
+      "rows": [
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "3",
+            "4"
+          ]
+        }
+      ],
+      "require_invariant": false,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "-1",
+          "2"
+        ],
+        "absolute_residual": [
+          "1",
+          "1"
+        ],
+        "absolute_paired": [
+          "0",
+          "1"
+        ],
+        "variance": [
+          "3",
+          "4"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "0",
+          "1"
+        ],
+        "rho": null,
+        "paired_mean": [
+          "0",
+          "1"
+        ],
+        "surrogate_plus_pair": [
+          "3",
+          "4"
+        ],
+        "accuracy": [
+          "1",
+          "4"
+        ],
+        "invariant": false
+      }
+    },
+    {
+      "name": "positive_mass_fixed_point",
+      "rows": [
+        {
+          "x": [
+            0,
+            0
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "1",
+          "2"
+        ],
+        "absolute_residual": [
+          "1",
+          "1"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "3",
+          "4"
+        ],
+        "variance_paired": [
+          "1",
+          "4"
+        ],
+        "budget_variance_ratio": [
+          "2",
+          "3"
+        ],
+        "rho": [
+          "-1",
+          "3"
+        ],
+        "half_domain_mass": [
+          "1",
+          "4"
+        ],
+        "half_domain_integral": [
+          "0",
+          "1"
+        ],
+        "fixed_point_mass": [
+          "1",
+          "2"
+        ]
+      }
+    },
+    {
+      "name": "endpoint_tied_nonfixed",
+      "rows": [
+        {
+          "x": [
+            0,
+            -1,
+            1,
+            0
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            0,
+            1,
+            -1,
+            0
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "0",
+          "1"
+        ],
+        "absolute_residual": [
+          "1",
+          "1"
+        ],
+        "absolute_paired": [
+          "0",
+          "1"
+        ],
+        "variance": [
+          "1",
+          "1"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "0",
+          "1"
+        ],
+        "rho": [
+          "-1",
+          "1"
+        ],
+        "half_domain_mass": [
+          "0",
+          "1"
+        ],
+        "fixed_point_mass": [
+          "0",
+          "1"
+        ],
+        "endpoint_tie_mass": [
+          "1",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "paired_cost_three",
+      "rows": [
+        {
+          "x": [
+            -2,
+            2
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            2,
+            -2
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "3",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "0",
+          "1"
+        ],
+        "absolute_residual": [
+          "1",
+          "2"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "1",
+          "2"
+        ],
+        "variance_paired": [
+          "1",
+          "4"
+        ],
+        "budget_variance_ratio": [
+          "3",
+          "2"
+        ],
+        "rho": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "floor_budget_five",
+      "rows": [
+        {
+          "x": [
+            -2,
+            2
+          ],
+          "correct": 1,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            2,
+            -2
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "0",
+            "1"
+          ],
+          "weight": [
+            "1",
+            "4"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "5",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "0",
+          "1"
+        ],
+        "absolute_residual": [
+          "1",
+          "2"
+        ],
+        "absolute_paired": [
+          "1",
+          "2"
+        ],
+        "variance": [
+          "1",
+          "2"
+        ],
+        "variance_paired": [
+          "1",
+          "4"
+        ],
+        "budget_variance_ratio": [
+          "5",
+          "4"
+        ],
+        "rho": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "unequal_fractional_residuals",
+      "rows": [
+        {
+          "x": [
+            -1,
+            1
+          ],
+          "correct": 1,
+          "surrogate": [
+            "1",
+            "2"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "x": [
+            1,
+            -1
+          ],
+          "correct": 0,
+          "surrogate": [
+            "1",
+            "4"
+          ],
+          "weight": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "require_invariant": true,
+      "single_cost": [
+        "1",
+        "1"
+      ],
+      "paired_cost": [
+        "2",
+        "1"
+      ],
+      "budget": [
+        "12",
+        "1"
+      ],
+      "expected": {
+        "residual_mean": [
+          "1",
+          "8"
+        ],
+        "absolute_residual": [
+          "3",
+          "8"
+        ],
+        "absolute_paired": [
+          "1",
+          "8"
+        ],
+        "variance": [
+          "9",
+          "64"
+        ],
+        "variance_paired": [
+          "0",
+          "1"
+        ],
+        "budget_variance_ratio": [
+          "0",
+          "1"
+        ],
+        "rho": [
+          "-1",
+          "1"
+        ],
+        "cancellation": [
+          "1",
+          "4"
+        ]
+      }
+    }
+  ],
+  "labels": [
+    {
+      "name": "strict_four",
+      "x": [
+        3,
+        1,
+        4,
+        2
+      ],
+      "logits": [
+        0,
+        0,
+        -1,
+        -2
+      ],
+      "expected": {
+        "truth": 0,
+        "reversed_truth": 3,
+        "mapped_truth": 3,
+        "relabeling_holds": true,
+        "strict_ranks": true,
+        "first_index_winner": 0
+      }
+    },
+    {
+      "name": "strict_three",
+      "x": [
+        -1,
+        2,
+        0
+      ],
+      "logits": [
+        -1,
+        -1,
+        -2
+      ],
+      "expected": {
+        "truth": 2,
+        "reversed_truth": 0,
+        "mapped_truth": 0,
+        "relabeling_holds": true,
+        "strict_ranks": true,
+        "first_index_winner": 0
+      }
+    },
+    {
+      "name": "all_tied_four",
+      "x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "logits": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": {
+        "truth": 1,
+        "reversed_truth": 1,
+        "mapped_truth": 2,
+        "relabeling_holds": false,
+        "strict_ranks": false,
+        "first_index_winner": 0
+      }
+    },
+    {
+      "name": "all_tied_three_exception",
+      "x": [
+        0,
+        0,
+        0
+      ],
+      "logits": [
+        -2,
+        1,
+        1
+      ],
+      "expected": {
+        "truth": 1,
+        "reversed_truth": 1,
+        "mapped_truth": 1,
+        "relabeling_holds": true,
+        "strict_ranks": false,
+        "first_index_winner": 1
+      }
+    },
+    {
+      "name": "two_maxima",
+      "x": [
+        2,
+        2,
+        0
+      ],
+      "logits": [
+        -1,
+        -2,
+        -1
+      ],
+      "expected": {
+        "truth": 1,
+        "reversed_truth": 2,
+        "mapped_truth": 1,
+        "relabeling_holds": false,
+        "strict_ranks": false,
+        "first_index_winner": 0
+      }
+    },
+    {
+      "name": "palindromic_maxima",
+      "x": [
+        2,
+        1,
+        2
+      ],
+      "logits": [
+        1,
+        2,
+        2
+      ],
+      "expected": {
+        "truth": 2,
+        "reversed_truth": 2,
+        "mapped_truth": 0,
+        "relabeling_holds": false,
+        "strict_ranks": false,
+        "first_index_winner": 1
+      }
+    }
+  ],
+  "guards": [
+    "duplicate_state",
+    "unnormalized_weights",
+    "zero_weight",
+    "negative_weight",
+    "not_reversal_closed",
+    "surrogate_above_one",
+    "nonbinary_correct",
+    "boolean_correct",
+    "zero_denominator",
+    "zero_cost",
+    "insufficient_budget",
+    "strict_noninvariant"
+  ]
+}

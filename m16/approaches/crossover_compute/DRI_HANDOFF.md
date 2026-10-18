@@ -1,5 +1,14 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+
+### T278 C1 H4T4 numerical discriminator complete, independently audited
+
+The requested numerical test ran once: handoff `2e5a5ff3`, raw `110e7596`, independent `64e4bea9` ([details](../../../review/residual_band_application/HANDOFF.md)). All 2,718 fixed face points, 5,436 exact partitions and 5,439 events completed in 26.68 CPU seconds. The saved audit checked every contraction and independently reconstructed 64 predetermined affine partitions, with no face/table/reference rerun.
+
+Neither first- nor second-order correction improved the recorded component-CPU × squared-error diagnostic at either fixed GL3/GL5 rule. At GL5, upper products are 1.50e-5 frozen, 4.79e-5 first, 4.51e-5 second and 6.20e-5 direct correction. Discovery/matching is charged. However, integrated window mass is 1.003667 at GL5 and 1.007655 at GL3: coarse outer/table error can cancel frozen-classifier bias, so this is **not a C1-route rejection**. Direct residual and actual integrals agree; no negative approximation was clipped.
+
+Composed CPU excludes observer/catalogue/aggregation overhead, which is included in the full process cost. This single-model quadrature diagnostic is not a full-native FPE, HP1, noisy-rung or six-group claim. Higher/different outer rules, cheaper residual discovery and conditional-law construction remain unresolved. No outcome-based extra rule was run. The bounded phase is closed; please register this scoped result in INDEX without marking C1 dead.
+
 ### T258 bounded numerical pilot independently complete; full campaign remains open
 
 Independent saved audit `03ac9a3a` / shared `e8d0d7a9` checks all 168 archives, 21 models, 13,370 systems, 48 events and 183 pins. Maximum scaled equation residual is 2.84881e-13; review used 4.88 CPU seconds without refits, network forwards or RNG. The earlier pilot counts and descriptive evaluation tables reconcile. [Final handoff](../../../review/replacement_reproduction/pilot/HANDOFF.md) is `346c4bb6` / shared `74b5aa8a`.

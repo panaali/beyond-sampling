@@ -2,7 +2,7 @@
 
 ## Question
 Can exact oriented internal-facet cancellation lower weighted Gaussian integration
-work on an existing H4T4 correctness complex?
+work on fixed H4T3 and H4T4 correctness complexes?
 
 ## Method
 `primitive.py` constructs an exact signed boundary chain and cones surviving facets
@@ -10,17 +10,24 @@ to fixed orthant anchors. `fixtures.py` freezes eight analytic chains and six gu
 `run.py` runs those controls followed by the full archived5058-simplex H4T4 complex
 and fixed GL20 baseline/boundary integrals. See `PROTOCOL.md` for the chain theorem,
 known incomplete geometric matching, cost convention and resource contract.
+`h4t3/` adds a separately scoped new exact capture from existing weights and
+closed trihedral-angle integration, with six fresh analytic controls.
 
 ## Status
 H4T4 bounded numerical phase complete, independently7fe3ac0b. Claim6a164605;
-combined scope9a292cb2. H4T3 requires a separately frozen exact capture and remains
-outstanding. No completed numerical calls will be repeated.
+combined scope9a292cb2. H4T3 bounded numerical phase is complete (`b1337926`), independently
+saved-audited `e18bedc1`. No completed numerical calls will be repeated.
 
 ## Results
 See `RESULTS.md`:5,058 to3,056 integration terms,39.58% fewer fixed-rule nodes,
 42.02% greater absolute determinant weight. Difference3.33e-16 is diagnostic.
 Construction/recording2.518CPU exceeds0.469CPU saved integration in this run.
 Raw0059948f; independent saved7fe3ac0b.
+
+H4T3: 244 to 200 closed-angle calls, 18.03% fewer. Numerical totals differ
+1.11e-16; construction/recording0.037CPU exceeds0.00377CPU saved integration.
+See `h4t3/README.md` for the raw result and audit qualifications. See
+`COMPARISON.md` for the two fixed rungs.
 
 ## Compute accounting
 Full process CPU plus separate exact construction, facet matching, rule setup,
