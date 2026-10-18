@@ -11,8 +11,8 @@ controls before the finite trained application, with independent gates.
 
 ## Status
 Primitive source91a5aad3 and immutable execution gateb2214bcb/sharedcf31cc74
-preceded the sole control run. All44 controls passed; independent saved review
-is pending. The trained application remains blocked and has not run. Its source
+preceded the sole control run. All44 controls passed; independent saved reviewec1c0532 also passed all9
+physical-unit traces/153 exact points and probability/rank/crossover records. The trained application remains blocked and has not run. Its source
 is being prepared against APPLICATION_PLAN.md, without parameter changes.
 
 ## Results
@@ -32,7 +32,7 @@ not complete native prices. Application reserve remains90CPU, separately gated.
 
 ## Claims
 [inferred, independently reviewed theorem] Exact local affine remainders and
-rank ownership support the stated bounds. [measured, saved review pending]
+rank ownership support the stated bounds. [measured, independently reviewed]
 All fixed synthetic checks pass. No trained performance/cost or ARC claim.
 
 ## Alternatives not ruled out
