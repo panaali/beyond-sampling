@@ -1,0 +1,15 @@
+{
+  "complete": true,
+  "reviewer_checker": "2072c1f7",
+  "shared_checker": "e78f4158",
+  "checker_sha256": "64b7372abc08a7a0776f97dec5f76374293e073f18517e431b251a17eab3a986",
+  "scope": "Pin published completed pilot evidence then one saved-only20CPU/2GB review-lock audit. No checkpoint deserialization, author imports, forwards, solves or normal draws.",
+  "checks": [
+    "All eight archive contents/byte hashes and source/gate/model conversion hashes bound.",
+    "Independent Python sorting reconstructs head states, true second index, first-index logit labels and gap arrays.",
+    "Scalar residual maxima and reference-scaled tolerance contractions reproduce the frozen comparison without a forward.",
+    "Full CPU RNG equality and exact source-gated call/progress accounting conserved.",
+    "PCG64 initialization is not a draw; terminal advancement is explicitly not reproduced. Source-gated checkpoint conversion hash is checked without independent deserialization.",
+    "Ordinary source-gated finite parity does not imply exact-real, historical-rate or heldout reconstruction performance."
+  ]
+}
