@@ -85,6 +85,8 @@ precisely as testing it on random examples does for the same effort.
 
 **Rare-event result confirmed (15:25, H-R1):** a different agent, with its own code, confirmed on 6 fresh networks that the accurate estimator gets the far-gap rare mistakes (chances 1 in 5,000 to 1 in 5 million) within 2x of the truth in 18 of 18 cases, without random testing. It is not yet good for the 'both gaps large' mistakes (one-signed low on some networks) and it is still more expensive than random testing at equal accuracy.
 
+**16:20:** the smarter sampler (T362) was unbiased but only 1.2-4.7x better than plain random testing (needed 10x). The 'both gaps large' rare mistakes are underestimated because the simplified treatment of the smaller inputs erases their error islands (T363); spreading those inputs over a few patterns helped (9 -> 20 of 32 cases within 2x) but not enough (T365); a full fix would cost 10-100x more. The deep-rarity test (T364: chances around 1 in a billion, where random testing at our cost sees nothing) is pre-registered and being scored. The GPU census (T348) shows the effective number of network states growing ever more slowly per step (x5.1 down to x3.2); the decisive error-only counts are pending.
+
 **4. Rare failures: the owner's priority (ARC's long-term goal).**
 - ARC ultimately wants to estimate the chance of rare bad behaviour. Random testing cannot see a one-in-a-million
   event with a few thousand tries, but a calculation's cost does not depend on how rare the event is.
