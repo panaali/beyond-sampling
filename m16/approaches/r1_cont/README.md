@@ -676,3 +676,10 @@ lenient F 3.14 at 3,328 FPE (T330 tier C, `C1_all`).
 - The choice of C1_all is the minimum-F point among the 4 tier-C configurations, and among all exact-or-declared
   variants. Its declared error is one-signed and was measured on these same models, so the DEV2 F is optimistic.
   **HP4 (sealed, single pre-registered submission) is the only claim.**
+
+## T317f on sealed HP4 (T281 scorer, claude/hp1-scorer 84466121; hashes match; scored once)
+- **HP4: C 3,302 FPE, F = 2.63 [1.93, 3.39]**, RMS .75 pp, bias +.44 pp. [measured by T281; unverified]
+- Secondary (panels already spent): HP3 3.22 [2.19, 4.42]; HP2 4.41 [3.21, 5.66].
+- **The scorer flagged my undercount.** safe() charges 4C + 2 for its margins but executes ~6C + 2 (m, dm, min(0, dm),
+  × Δ, +, min). The L update of rows screened at a flip (2C) is also uncharged. Together that is <= +1.5% of C, giving
+  **F ≈ 2.67**, the conservative figure. The frozen code is left unchanged.
