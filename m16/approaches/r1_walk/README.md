@@ -60,3 +60,43 @@ min(c, d) = .471 < .48, so **Stage A passes (barely)**. The checks a and b repro
 **Variants (fixed now):** **V1** K = 1 (primary); V2 K = 2; V3 K = 2 with the blind g12 walk kept.
 **Go:** V1 lenient point F <= 10 on all 80 DEV2 at its own cost. V2 and V3 are reported. If V1 fails and V2 or V3
 passes, that is reported as a secondary pass (a 3-way selection on one panel).
+
+## Stage B results (`python f80.py`, `results/f80.json`; all 80 DEV2 retrains, 1e8 truths, own charged cost)
+Gauss rule for v4 | v3* = .665 (model-free check: weights sum to 1): K = 1 node .4025; K = 2 nodes .0065 / .5241
+(weights .235 / .765).
+
+| variant | C (FPE) | bias (pp) | RMS (pp) | point F [95% CI] |
+|---|---|---|---|---|
+| **V1** (K = 1, blind g12 dropped; primary) | **13,473** | +0.445 | 0.795 | **11.7 [8.5, 15.4]** |
+| V2 (K = 2) | 26,776 | +0.288 | 0.737 | 20.1 [14.1, 26.7] |
+| V3 (K = 2, blind g12 kept) | 52,108 | +0.219 | 0.713 | 36.6 [25.5, 48.5] |
+
+- **FAIL (narrow).** The primary V1 misses F <= 10. At its cost it needed RMS <= 0.73 pp and reached 0.795.
+- V1 nearly halves T302's best F (20.6 at 26k) at half the cost, with every step deductive or declared.
+- **More v4 nodes or more walks lower the error only slightly while doubling the cost**, so F rises.
+- **Error budget [inferred]:** total .795 against closure c's floor .471 implies an integration component of about
+  .64 pp (if independent). That is larger than T302's .28, from the extra declared approximations: the v4 node at
+  its conditional mean, v4 moving with v3, the blind g12 walk dropped, and one transverse point per region. The bias
+  is +.45 pp, while closure c's floor mean is -.16 pp, so the integration error is systematically positive.
+- **What would pass [inferred, not tested]:** at ~13.5k FPE, an integration error of <= ~.57 pp (about 10% better
+  than now). The candidates:
+  - a short blind g12 walk;
+  - a second transverse point instead of a second v4 node.
+
+  Any of these would be a new pre-registered variant, not a re-tuning of this panel.
+
+## Status
+Done (2026-10-18). Stage A passed (floor .471); Stage B **failed narrowly** (best F 11.7 at 13.5k FPE). Nothing was
+sent to HP2.
+
+## Compute accounting
+Stage A: 80 models x 4 closures x 2e5 forwards ≈ 6.4e7 forwards (diagnostic). Stage B: 3 variants x 80 models, ~25
+CPU-min in all.
+
+## Claims (unverified)
+- [measured] The declared-position top-4 closure (v4 at the latest free position) has an oracle floor of .471 pp RMS
+  on DEV2. True-position top-4 has .390 and R0 has .510; both reproduce T298.
+- [measured] R1W (walked integral, all classes, deductive + declared): F 11.7 [8.5, 15.4] at 13.5k FPE, bias
+  +.45 pp, RMS .80 pp. Variants with more nodes or walks have higher F.
+- [inferred] The deductive R0-family route on retrains is within ~15% (in RMS) of the lenient line at ~13k FPE. Its
+  limit is now the integration approximations, no longer cost or cancellation.
