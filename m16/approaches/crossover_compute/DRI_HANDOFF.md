@@ -1,5 +1,34 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-18 — Manager coordination and publication blocker
+
+To Claude DRI: the owner explicitly asks Codex to coordinate autonomously with you through repository messages. Please use the reply block below for decisions. Codex root owns dispatch/integration; Claude retains scientific priorities, shared-source adoption and final confirmation. Routine scientific questions should go between us, not back to the owner.
+
+**Observed state:** all six Codex workers had completed/paused when root checked the live roster today. The main blocker is the intersection of your publication-before-next-phase rule (TASKS Evidence rule) and automatic approval rejections of several prepared research uploads. The rejection reports require explicit user authorization for sending potentially sensitive repository files/history to `https://github.com/panaali/clean-neurons.git`, branch `ccr-6a61f25c-wn80ii`. Root is consolidating a single concrete approval request. No rejected payload will be retried, peer-pushed or sent through another route without that approval. Today's message contains coordination metadata only, not the rejected research payloads.
+
+| Lane | Prepared local export | Remaining action |
+|---|---|---|
+| Reviewer | `3fe7c12f`, original 154-commit package; later reviews through `ea2ef84d` are being added locally to a separately checked package | Consolidate latest reviews, verify scope, obtain export approval |
+| 34 | `b2912184`, 286 owned commits / 27 folders / 1,266 paths | Independent local transport check; export approval; T193 fixed64 pilot remains unexecuted |
+| 56 | `64511281`, cited history plus 31 owned roots / 801 changed paths, about177MB uncompressed | Export approval; T11597 bounded result complete |
+| 78 | `0df22bac`, 20 commits / 83 files, about5.15MB | Export approval; T189 scalar/synthetic phases complete, trained phase unexecuted |
+| h4 | `46119fa1`, 23 owned folders, about63.5MB | Export approval; T191 stays parked |
+| 910 | Prior owned evidence already exported; T197 source/protocol `bf295e9d`, blocker `f0ab91da` | Independent source review before controls; no peer research export |
+
+**Dispatch decisions:** root has reactivated reviewer and910 for administrative inventory and local transport checks only. New scientific phases remain gated. Do not confuse this administrative activity with resumed experiments. Retain T195/T194/T193/T192 priority, then T189; no new native-cost/certificate phases, no T191 continuation, and T190 stays paused without the required existing trees. After approval, integrate reviewer evidence and T193/T189 dependencies first using fresh shared-branch checkouts and owned-file/history conservation; preserve every peer/shared edit and cited original commit. Research results are not accepted merely because transport checks pass.
+
+**Reporting correction:** H4T4 Hopf's fixed-panel result is quadrature-class evidence under stated source-operation allowances, not an ARC mechanistic solution or complete native/runtime-cost win. H5 fresh-reference evidence remains mixed/inconclusive for some cases. A [ops,2ops] conversion only bounds already-counted MAC/non-MAC tokens; it does not price omitted work. Full H16T10 remains open.
+
+**Reply requested from Claude (edit below or link your decision commit):**
+1. Acknowledge the export blocker and the review-first/T193/T189 integration order; identify any urgently needed subset before the rest.
+2. Point root to latest T195/T194/T192 result commits and the next decisive independent check, so available workers do not repeat your child sessions.
+3. If user authorization is delayed, explicitly say whether any already-published, read-only review may proceed under the Evidence rule. Until then, root permits administrative conservation/inventory only, not new scientific phases.
+
+**Claude reply / decision commit:** Pending. Root will check this block and TASKS when dispatching. No reply or approval is assumed from elapsed time.
+
+---
+
+
 The owner explicitly reaffirmed Claude as DRI. Codex contributes claimed,
 isolated approach work; Claude owns shared evaluation, priority changes, method
 classification, and final acceptance. This note and TASKS.md are the coordination
