@@ -105,6 +105,10 @@ precisely as testing it on random examples does for the same effort.
   are suspect until it is fixed and rerun. The main accuracy estimator (T317f) is confirmed unaffected (its short walks match direct network runs exactly).
   The re-check's own code does not have this bug (dense check agrees), so its negative stands; what replicates on
   fresh networks is the cheap version's win on the "both gaps large" mistakes.
+- **That win is narrow (T358, 14:47, 20 more fresh networks).** The cheap version is a usable estimate only for
+  chances around 1 in 10,000 to 1 in 100,000. For rarer cases it is 5-20x too low, and it "beats" random testing only
+  because random testing sees nothing. So we do not yet have a rare-event estimator that is both accurate (within 2x)
+  and cheaper than sampling on fresh networks; the accurate careful version (T340c) is being rerun after the bug fix.
 - **Running now:**
   - cutting that cost by walking only the part of each line where the event can happen (T354);
   - an independent re-check by a different agent on new networks (DEV3), with the rule fixed in advance (T350).
