@@ -5,7 +5,8 @@ This is explicitly a NEW exact geometry capture: no terminal H4T3 complex was fo
 in the bounded inventory. It is not a hidden rerun of an old artifact. One fixed
 archive `arc_m43_repro/m43_weights.npz`, originally labeled H4T3 seed0, supplies
 Wi(4),Wh(4,4),Wo(3,4). Read it once with allow_pickle=False, require finite floating
-arrays and exact shapes, convert each stored scalar exactly to a dyadic Fraction.
+arrays with itemsize<=8 (binary16/32/64) and exact shapes, convert each stored scalar
+exactly to a dyadic Fraction through Python binary64. Extended floats are rejected.
 Archive bytes are authoritative here; historical checkpoint identity is inherited
 from the archive's source claim, not revalidated through a fresh checkpoint load.
 
@@ -26,7 +27,11 @@ tie logic, exact certificates, orthants and triangulations. Preserve gate affine
 maps, all cone constraints/tight incidences/rays, model dyadics, gate/correct simplices
 and original work ledger. Gate triangulation is validation/discovery overhead and
 is charged, not silently excluded from the end-to-end total. Require full gate
-normalized determinant sum8 and positive correctness sum below8. These checks are
+normalized determinant sum8 and positive correctness sum below8. The correctness
+sum is computed exactly but saved as an outward128-bit dyadic bracket with exact
+numerator/denominator bit lengths, avoiding a potentially huge decimal Fraction
+serialization (the inherited H4T4 accumulator reached149,905bits). Individual
+simplex determinants remain fully exact and saved. These checks are
 not an independent completeness/disjointness proof: exact splitting/triangulation
 semantics of the inherited source remain prerequisites. Containment certificates
 alone do not establish those global properties.

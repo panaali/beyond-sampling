@@ -80,7 +80,7 @@ def main():
             assert set(data.files)=={'Wi','Wh','Wo'}
             arrays=tuple(np.array(data[n],copy=True) for n in ('Wi','Wh','Wo'))
         assert [a.shape for a in arrays]==[(4,),(4,4),(3,4)]
-        assert all(a.dtype.kind=='f' and np.all(np.isfinite(a)) for a in arrays)
+        assert all(a.dtype.kind=='f' and a.dtype.itemsize<=8 and np.all(np.isfinite(a)) for a in arrays)
         model=source.dyadic_model(arrays)
         encoded=[[[str(x.numerator),str(x.denominator)] for x in model[0]],
                  [[[str(x.numerator),str(x.denominator)] for x in row] for row in model[1]],
@@ -121,9 +121,14 @@ def main():
         result['classification_triangulation_recording_cpu']=time.process_time()-clock
         gate_total=sum((F(*map(int,x['expected_det'])) for x in gate_simplices),F())
         correct_total=sum((F(*map(int,x['expected_det'])) for x in correct_simplices),F())
+        scaled=correct_total*(1<<128)
+        correct_bracket={'bits':128,'lower_units':str(scaled.numerator//scaled.denominator),
+                         'upper_units':str(-((-scaled.numerator)//scaled.denominator)),
+                         'exact_numerator_bits':correct_total.numerator.bit_length(),
+                         'exact_denominator_bits':correct_total.denominator.bit_length()}
         result['capture']={'stages':stages,'gate_cells':len(cells),'gate_simplices':len(gate_simplices),
                            'correct_cones':len(correct_cones),'correct_simplices':len(correct_simplices),
-                           'gate_det_total':primitive.pair(gate_total),'correct_det_total':primitive.pair(correct_total),'sha':sha(OUT/'capture.json.gz')}
+                           'gate_det_total':primitive.pair(gate_total),'correct_det_bracket':correct_bracket,'sha':sha(OUT/'capture.json.gz')}
         save();assert gate_total==8 and 0<correct_total<8
 
         phase='chain';event('chain_attempt',{'simplices':len(correct_simplices)});clock=time.process_time()
