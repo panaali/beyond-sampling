@@ -31,3 +31,19 @@ claude/project-handoff-priorities-zpzfm8, `review/fable_review_r4/README.md`) ·
 
 Forking paths: the estimates are identical to the already-scored V1, so this adds no new estimate variant. It is a
 cost re-implementation, and an HP2 re-run under the executed cost.
+
+## T317b pre-registration (DRI, 2026-10-18, before running)
+Choose the smallest G in {20, 24, 32} with max |est(G) - est(48)| <= 1e-4 pp (1e-6 absolute) on all 80 DEV2, and report
+C at each G. If one qualifies, freeze it as T317b and send it to the T281 scorer.
+
+## T317b results (`python gscan.py`, `results_g.json`)
+
+| G | max |est(G) - est(48)| | C (FPE) | qualifies (<= 1e-4 pp) |
+|---|---|---|---|
+| 20 | 1.4e-6 pp | **6,293** | yes |
+| 24 | 2.0e-9 pp | 6,505 | yes |
+| 32 | 1.7e-13 pp | 6,928 | yes |
+
+**Chosen: G = 20** (the smallest qualifying), frozen as `estimator_b.py` (T317b) and sent to the T281 scorer.
+- [inferred projection] HP2 F ≈ 16.35 x 6.29 / 13.3 ≈ 7.7, at unchanged HP2 errors (they move by <= 1.4e-6 pp).
+- The claim is HP2's score alone.
