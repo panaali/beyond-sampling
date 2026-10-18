@@ -1043,6 +1043,7 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 - **13:23:** "Add this small feed-forward network idea to the backlog. It's low priority." Done: backlog row **T345**, low priority (6.1).
 - **13:40:** "And exploring the ideas about clever exact methods. Or exact computation as a component. We need to discuss that with Fable and Astra. Write down any idea that you have regarding it. The whole thing is as step two, brainstorm. This is the new task at the back of the backlog with low priority." Done: backlog row **T346** (low priority) at the end of the backlog; the DRI's seed ideas A-J with kill tests are in [m16/approaches/exact_brainstorm/](m16/approaches/exact_brainstorm/README.md); step 2 is independent Fable and Astra reviews (6.2).
 - **13:58:** "Yes, please add the cheap way to test by retraining M1610 with binary and int for activations using quantization aware training. We can also consider the case that the inputs are also discrete, like int 4, int 8." Done: backlog row **T352** (after the rare-event lane); see 6.5.
+- **23:3x (after the DRI listed options A-D with costs):** "C" — run T370 (fix the rare-event closure; CPU, est. 10-100 CPU-hours plus <= 3 Colab units, with a stop rule after stage 1 on seen models) and T352 (quantised variants; est. 5-20 Colab units, cap 20) in parallel. Done: both reserved and assigned (TASKS In progress). The ARC progress note stays undecided; no contact.
 
 ---
 
