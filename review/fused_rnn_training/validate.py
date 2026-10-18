@@ -21,6 +21,11 @@ def install_libdevice_shim():
         if symbol=='__nv_sqrt':return interpreter.TensorHandle(np.sqrt(argList[0].data),retType)
         return original(self,libName,libPath,symbol,argList,retType,isPure)
     interpreter.InterpreterBuilder.create_extern_elementwise=dispatch
+    from triton.language.extra.cuda import libdevice
+    original_pow,original_sqrt=libdevice.pow,libdevice.sqrt
+    # Interpreter patches tl but does not traverse the separate libdevice module.
+    libdevice.pow=lambda a,b:original_pow(a,b,_semantic=interpreter.interpreter_semantic)
+    libdevice.sqrt=lambda a:original_sqrt(a,_semantic=interpreter.interpreter_semantic)
     return original
 
 
@@ -65,7 +70,7 @@ def main():
     try:
         gate=json.loads((P/'validation_gate.json').read_text());assert gate['ready']
         mandatory=[str(P/f) for f in ('validate.py','fused_step.py','PROTOCOL.md','manifest.json','trainer_snapshot.py','launch.sh')]
-        reviewer_paths=['/workspace/work/recover-small_h2_56/review/fused_rnn_source_review/source_gate.json','/workspace/work/recover-small_h2_910/review/fused_rnn_validation_review/source_gate.json']
+        reviewer_paths=['/workspace/work/recover-small_h2_56/review/fused_rnn_source_review/interpreter_repair_gate.json','/workspace/work/recover-small_h2_910/review/fused_rnn_validation_review/interpreter_repair_gate.json']
         assert all(f in gate['pins'] for f in mandatory+reviewer_paths)
         for key in ('source_publication','kernel_review_publication','validation_review_publication'):
             assert isinstance(gate[key],str) and 8<=len(gate[key])<=40 and all(c in '0123456789abcdef' for c in gate[key])

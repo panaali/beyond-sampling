@@ -1,0 +1,5 @@
+# Preserved first kernel interpreter failure
+
+Attempt2 failed at libdevice.pow before optimizer writes because the Triton interpreter only automatically injects semantic arguments into tl functions. One Torch reference completed; one kernel was attempted and none completed. Its model-local forward/backward work is charged as an incomplete kernel attempt, not zero compute. All source/raw/log/gate bytes are retained in attempt2_interpreter_failure/. No changed tolerance, input or kernel was selected after a numerical discrepancy; no comparison result existed yet.
+
+validate.py now injects interpreter_semantic explicitly into just the two existing libdevice wrappers before the same NumPy pow/sqrt builder shim. This is CPU interpreter compatibility only, not validation of GPU libdevice. Immutable new kernel/harness review artifacts and new execution gate must precede the fixed eight comparisons via interpreter_recovery_launch.sh and validation_run3.log. No automatic retry after this repair.

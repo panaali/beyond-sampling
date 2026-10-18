@@ -1,0 +1,54 @@
+{
+  "task": "T261 explicit CPU libdevice semantic-injection recovery source gate",
+  "complete": true,
+  "pass_all": true,
+  "execution_allowed": true,
+  "source_commit": "a0b7acd8",
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/INTERPRETER_RECOVERY.md": "6d048a2d191d1e4ed19280a26b861c1dd209225c348257aa39c0e1010e72329b",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/PROTOCOL.md": "2bd826ca272badcaf81e2c15502ec671764aabd8496322d0fbb9186eb6d39deb",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/PROTOCOL.md": "edded19bfb8a87126c4dfa8b92c6eb1857f26eaa7faea5172d90db92ffd96264",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/fused_step.py": "647adc15f2d5f746c8459672b378fd246d653c0e391111863a09ed38a10dbf09",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/manifest.json": "6820c880fb4ec2327cd2fc38ce089fb2deea94f503e37c5ee62090cb10c07528",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/validate.py": "e547888ab6f4dece725a0e7d01305ff9e3394f86aa7b8a6426d69742a4874a40",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/validation.json": "040e9217b29ecb80ab624de06a5f7b8b68cc444a7e53ed8b1307f047e1c863d0",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/validation_gate.json": "cd1ef0e32a03b9ab8908dc6da93f24491e92749e1bba6e2339996b5770360e4e",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/validation_progress.jsonl": "ec9256216bfa974842378c95d3c8e969fc87f2952dc621e741c3f20f7c0bbaad",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/attempt2_interpreter_failure/validation_run2.log": "79ac9c8c0fb010cbd60c8689e55d60626a2794ea7a12eefcf3f0b0fecfc950da",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/fused_step.py": "647adc15f2d5f746c8459672b378fd246d653c0e391111863a09ed38a10dbf09",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/interpreter_recovery_launch.sh": "25d7a44e46011ff738112fa07eab9be34a52c920e942efaab5c91ef9c79f4f1a",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/launch.sh": "50afb8445d191941d8b398c4b662f9fa636903d239f40fb5201e6794dd898388",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/manifest.json": "95490a5433ee2d28301a0258b66d0f7b40becaf57c1bd2e57c63729a9ef2dc92",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/trainer_snapshot.py": "d4919b24588d403fe195327419d49c28fe345eca3ec2486bd6f062d2fe8e67f2",
+    "/workspace/work/recover-small_h4_4/review/fused_rnn_training/validate.py": "dffc60806d576c585839de0c637e83a67d8b354124aa7d98ec58d0143d0d99c0",
+    "/workspace/work/t261-triton-deps/triton/language/core.py": "b4966729f21f0db6f20fa4cb9b2b5402c5735e1424ffba05dbd8f480dedee790",
+    "/workspace/work/t261-triton-deps/triton/language/extra/cuda/libdevice.py": "27b2a5d1e8db008bacefe6019f63922bbd65926de90bb1b527ee597477d2f365",
+    "/workspace/work/t261-triton-deps/triton/runtime/interpreter.py": "a17550ad6c58a2d903b64cc2eb8b89aeedc02f3b3f263b0a5a7bab43ef3d2435"
+  },
+  "checks": [
+    "Kernel byte-identical to preserved failed attempt.",
+    "Reference and metrics ASTs identical; six configurations/eight calls unchanged.",
+    "Only semantic injection for original libdevice.pow/sqrt reaches previously declared double NumPy symbol dispatch; installed Triton source confirms interpreter_semantic and _semantic wrapper contract.",
+    "New reviewer artifact paths keep old reviews immutable.",
+    "Launcher only run1-to-run3 log-name substitution; original105/110CPU2GiB and120wall caps retained.",
+    "Failed attempt2 records one completed reference and one attempted/zero completed kernel; no numeric comparison existed."
+  ],
+  "authorization": "One unchanged fixed eight-call CPU-interpreter recovery after both renewed reviews and immutable gate publication. No further automatic retry.",
+  "prior_accounting": {
+    "attempt1_internal_cpu": 0.0,
+    "attempt1_external_user": 1.35,
+    "attempt1_external_system": 0.45,
+    "attempt2_internal_cpu": 0.25085149500000004,
+    "attempt2_external_user": 1.57,
+    "attempt2_external_system": 0.22,
+    "completed_reference_calls_before_recovery": 1,
+    "kernel_attempts_before_recovery": 1,
+    "completed_kernel_calls_before_recovery": 0,
+    "interpretation": "Partial kernel work and repeated first reference are charged; not zero compute."
+  },
+  "limitations": [
+    "Test-only interpreter shim; no CUDA libdevice, compilation or speed parity.",
+    "Local-update sequence and summary-only retention remain unchanged.",
+    "No reviewer scientific calls; actual recovery remains an author run."
+  ]
+}
