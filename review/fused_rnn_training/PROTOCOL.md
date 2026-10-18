@@ -13,3 +13,5 @@ Run only after56 kernel/adapter and910 harness reviews, published source and imm
 Two plausible blockers remain: a single large batch CTA may spill/underoccupy GPU; IEEE scalar matrix arithmetic may be slower despite fewer launches. Cheapest discriminators are actual GPU compile/profile and fixed-batch CUDA parity before integrating any long run. If full fusion is slower, a separately scoped two-stage batch reduction or persistent batched design remains open; no impossible claim.
 
 Validation retains per-tensor error summaries, not full tensors; eventual independent saved review can audit summaries and source semantics but cannot reconstruct every tensor from these outputs. Kernel/reference attempts are saved before invocation and completed calls separately. Final coverage requires all8 pairs and rows.
+
+The three-step sequence compares each local update from the current fused state to Torch; it is not an independently evolving Torch trajectory or a drift bound. Longer independent trajectories and device graphs remain separate GPU acceptance tests.
