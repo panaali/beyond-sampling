@@ -329,3 +329,28 @@ cut RMS to ~.5 pp at the current cost.
 
 Forking paths: 80 configurations were selected on DEV2. The negative is robust to selection optimism, since that
 optimism only makes the best point look better.
+
+## T326, DRI follow-up: ORACLE floors of the two big items (`python floors.py`, `floors.log`, `results_floors.json`)
+These are oracle lower bounds, not estimators: rows and cells are selected using the walk's own outcome. A row's
+"deficit" on a line is the estimate with that line assumed correct, minus the actual estimate. A row "carries mass"
+if its deficit > 1e-13. "Ideal cap" follows a row only up to its last cell that holds a wrong piece. Means over the
+80 DEV2 models, in FPE:
+
+| line | rows carrying error | prefix tree: all 720 → those rows (q = 100%) → 90% → 50% of deficit | later cells: full → ideal cap | of which tangents |
+|---|---|---|---|---|
+| nb g23 | 373 | 576 → 335 → 212 → 81 | 1,485 → 127 | 923 → 75 |
+| nb g12 | 373 | 576 → 331 → 191 → 54 | 1,060 → 55 | 578 → 25 |
+| b g23 | 565 | 576 → 465 → 381 → 211 | 762 → 519 | 504 → 344 |
+
+- **At q = 100% with the ideal cap, the estimate is unchanged (exact).** Its cost is about 1,130 (prefix) + 700
+  (later cells) + ~190 (first-cell readout of the kept rows) + ~115 (Φ) + 20, i.e. **≈ 2.2k FPE**. That is the floor
+  for *any* screen that preserves T317e's estimates. At RMS .79 it gives strict F ≈ 6.3.
+- **The two big items behave differently:**
+  - **The tangent recompute is mostly unnecessary:** on the non-blind lines, 92-95% of later cells come *after* the
+    row's last wrong piece. A deductive "row is now safely correct to tmax" screen could in principle recover most of
+    the 2.0k FPE of tangents.
+  - **The prefix tree is not:** restricting to the mass-carrying rows saves only ~40% on the non-blind lines and ~20%
+    on b-g23. ~1.1k FPE of prefix tree remains even for an oracle.
+- [inferred] Even a perfect screen leaves T317e's estimates at ~2.2k FPE, so strict F ≈ 6.3 at the current error.
+  The strict bar needs the error route (T324/T327) or a different geometry. The cost lever alone can reach at most
+  ~2.5x (5.5k → 2.2k).
