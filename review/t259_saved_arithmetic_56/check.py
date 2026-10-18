@@ -72,6 +72,7 @@ def main():
         required=[str(root/f) for f in ['output/results.json','output/progress.jsonl','run1.log','gate.json']]
         assert all(f in done['pins'] for f in required)
         raw=read(root/'output/results.json');assert raw['complete'] is raw['pass_all'] is True
+        assert type(raw['cpu_seconds']) in (int,float) and math.isfinite(raw['cpu_seconds']) and raw['cpu_seconds']>=0
         assert raw['protocol_sha256']==sha(root/'protocol.json') and raw['gate_sha256']==sha(root/'gate.json')
         assert raw['runtime']==dict(invoked=pp['invoked_python'],resolved=pp['resolved_python'],version=sys.version,cpu_limits=[16,20],address_space_limits=[2**31,2**31])
         assert pp['invoked_python']==sys.executable and pp['resolved_python']==p['resolved_python'] and pp['python_sha256']==p['python_sha256']
@@ -83,7 +84,7 @@ def main():
         times=[e['cpu_seconds'] for e in events];assert all(type(t) in (int,float) and math.isfinite(t) and t>=0 for t in times) and times==sorted(times) and times[-1]<=raw['cpu_seconds']<16
         assert events[0]['protocol_sha256']==raw['protocol_sha256'] and events[0]['gate_sha256']==raw['gate_sha256']
         assert {k:events[-1][k] for k in ['cases','solve_attempts','solve_returns']}==dict(cases=17,solve_attempts=36,solve_returns=35)
-        assert raw['max_rss_kib']<2097152
+        assert type(raw['max_rss_kib']) is int and 0<raw['max_rss_kib']<2097152
         event('started')
         cases=inventory();assert len(cases)==17
         for ix,(f,stored) in enumerate(zip(cases,raw['rows'],strict=True)):
