@@ -1,0 +1,15 @@
+# Fixed34-parent exact depth3 phase
+
+Source preparation authorized in board03c7d765. Execution waits for the independent saved target-k2 review plus a separate published wrapper source/resource gate. Both bind exact artifacts/citations in depth3_gate.json. This phase reuses all34 target-k2 states exactly once, preserving the prior denominator/weights and immutable core.py; no checkpoint redecoding, NumPy/Torch, author geometry, mass, accuracy sampling or random draws.
+
+For each saved parent, extend by exactly one recurrent step using the reviewed exact extrusion/edge algorithm. Save all child rays/constraints/hidden maps/full histories before certificate validation, then certify every child with the unchanged exact complete-state witness checks. The exact algebraic witness recurrence is charged certificate work; framework_forward_calls=0 does not mean no recurrence arithmetic. Check parent-history ownership and uniqueness both per parent and globally. The prior34 count fixes coverage, while the author's792 depth3 count is only a reported comparison; any difference is retained rather than asserted away.
+
+One primary-lock invocation, one thread,95CPU soft and110CPU hard,2GiB address space. This110CPU cap is the entire authorized numerical phase, not a per-resume allowance. Existing output directory rejects restart, including incomplete attempts. Each parent attempt and atomic gzip state record precede its work; every completed/failed parent has a distinct archive, ledger and digest. A hard interruption can leave an unmatched attempt or running archive; that is incomplete evidence and requires a new reviewed recovery proposal, never a successful skip. Soft/resource/algorithm failures retain all available state/certificates and stop. No automatic batching/retry/continuation beyond these34 parents.
+
+Protocol/file hashes and resource preflight precede the internal process timer but are covered by the external cap. All parsing, exact arithmetic, validation, gzip/JSON serialization and hashing after that point are included in research timing; final save time is printed in the launcher log. Named core integer operations are partial algorithm counters, not T196 FLOPs, total big-integer complexity or native costs. Preparation, comparisons, hashing, powers and uninstrumented internals remain explicit exclusions. No runtime forecast or T10 growth inference follows from one depth.
+
+Two checks distinguish plausible mistakes: mismatched target bytes are blocked by independently saved-reviewed k2 provenance; missing/spurious topology is addressed by the complete-ray induction and separately reconstructed saved constraints, ray sets and gate words. Parent-level witnesses do not prove completeness alone. Deeper k4/k5 require their own frozen resource decisions after this result and independent saved review.
+
+After gate publication only:
+
+    flock /workspace/work/codex-compute.lock bash -c 'ulimit -t 110; ulimit -v 2097152; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; /workspace/clean-neurons/.venv/bin/python review/target_prefix_recount/depth3.py'
