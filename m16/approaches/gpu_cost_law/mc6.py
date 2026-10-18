@@ -11,7 +11,7 @@ pos = int(sys.argv[1]); N = int(float(sys.argv[2])) if len(sys.argv) > 2 else 10
 seed = int(sys.argv[3]) if len(sys.argv) > 3 else 2700000 + pos
 model, front = Q.front_list(11); P._init(model, Q.K, True); item = front[pos]; t0 = time.time()
 n, (hists, Rs, Is), o, s, sec = P._dfs(item)
-cm = gmass.grouped(Rs, Is, len(hists), "cpu"); root = float(np.load(os.path.join(Q.OUT, "roots.npz"))["mass"][pos])
+cm = gmass.grouped(Rs, Is, len(hists), os.environ.get("DIAG_DEV", "cpu"), chunk=1024, tb=512); root = float(np.load(os.path.join(Q.OUT, "roots.npz"))["mass"][pos])
 rh = np.frombuffer(item[4], np.uint8); L = len(rh); idx = {h: i for i, h in enumerate(hists)}
 Wi, Wh, _ = model; rng = np.random.default_rng(seed); cnt = np.zeros(len(hists), np.int64); nroot = 0; unm = {}
 done = 0

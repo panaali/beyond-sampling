@@ -4,11 +4,12 @@ import json, multiprocessing as mp, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import prefix6 as Q, prefix as P, gmass  # noqa: E402
+DEV = os.environ.get("DIAG_DEV", "cpu")
 
 
 def one(item):
     n, (hists, Rs, Is), o, s, sec = P._dfs(item)
-    cm = gmass.grouped(Rs, Is, len(hists), "cpu", chunk=1024, tb=512) if len(Rs) else np.zeros(len(hists))
+    cm = gmass.grouped(Rs, Is, len(hists), DEV, chunk=1024, tb=512) if len(Rs) else np.zeros(len(hists))
     return n, len(hists), len(Rs), float(cm.sum()), float(cm.min()) if len(cm) else 0.0
 
 
