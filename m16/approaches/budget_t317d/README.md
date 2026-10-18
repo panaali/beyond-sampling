@@ -526,3 +526,11 @@ forward at theta* + 1e-9, while the reuse uses the walk's affine state, so float
 **Go line:** DEV2 MSE x C <= .90 x T317f's 2,276 = 2,048 (A3's MSE is unchanged, so this is a cost test).
 **If go: DEV3 check (pre-registered, no retuning).** T353 vs T317f on the same DEV3 models (the full 100 from the T192 child,
 with open truths). Report F, MSE x C, bias, sd and RMS for both. "Confirms" iff MSE x C(T353) < MSE x C(T317f) on DEV3.
+
+## T353 results (`python t351/run_t353.py`, `t351/t353_dev2.json`, `t351/t353.log`; all 80 DEV2)
+- **Gate: bitwise equal to A3 on 80/80** (max |diff| 0.0). The recorded crossing theta* matched the merged first start on
+  every wall row.
+- **C as executed: 5,079 FPE** (A3 6,542; T317f 3,326). Reuse charge: 5,976 FLOPs per wall row, plus the g-rule 4,880.
+- **DEV2: bias +.413, sd .451, RMS .609, MSE x C 1,883, F 2.60** (T317f: +.489 / .671 / .827 / 2,276 / 3.14).
+- **Go (MSE x C <= 2,048): PASSED.** Frozen as `t351/estimator_h2.py` (with cont_h2.py, cont_h.py, cont_g.py, cont_f.py; sha256
+  listed in the commit message). Next is the pre-registered DEV3 check against T317f, which waits for the full panel from T342.
