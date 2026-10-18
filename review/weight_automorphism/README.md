@@ -12,7 +12,7 @@ certificates. `controls.py` freezes20 analytic/API cases before execution.
 ## Status
 Claim903f13f6 published. All20 controls completed9335fac5 after independent
 source gateb1bcf15e and saved review4e5eb0b9. Target source1b2dab3d independently gated19153f92. Sole target resulte88938a0
-is complete/published, with independent saved certificate review pending.
+is complete/published. Independent saved target review8b4b013c/sharedc4d8609b passes. This bounded task is done.
 
 ## Results
 [measured]12 valid/8 invalid controls pass once in0.02808157CPU; see
@@ -27,7 +27,7 @@ forward, geometry, mass, RNG or fit calls. Exact Fraction preparation is charged
 research CPU; partial counts are not portable/native cost.
 
 ## Claims
-The theorem is [inferred], pending independent review. Target identity-only obstruction awaits independent saved review. No ARC
+The theorem is [inferred] and independently reviewed; target exact certificate independently verified8b4b013c. No ARC
 solution, broad function-equivalence exclusion or runtime benefit.
 
 ## Alternatives not ruled out
