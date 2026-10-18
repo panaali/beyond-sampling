@@ -12,7 +12,7 @@ independent scorer". Items still to come are marked **[pending]**.
 
 > On 100 fresh retrains of AlgZoo's M_16,10 training recipe (sealed panel HP3, frozen code, scored once), a
 > sampling-free estimator estimates each model's accuracy with RMS error 0.80 pp (bias +0.41 pp) at a counted cost of
-> 5.4k forward-pass equivalents (5.3–6.8k under alternative FLOP conventions, §3). It works by exact piecewise-linear
+> 5.4k forward-pass equivalents (5.4–7.0k under alternative FLOP conventions, §3). It works by exact piecewise-linear
 > ReLU-gate walks along the two gap directions of each position triple, combined under five declared approximations.
 > The validity of those approximations was established by Monte Carlo on 80 separate development retrains.
 >
@@ -22,8 +22,8 @@ independent scorer". Items still to come are marked **[pending]**.
 > It uses no random inputs to the model. The scored version (T317d) computes its model-free constants by deterministic
 > quadrature. Its predecessor T317c set them by a seeded Monte Carlo over the input law.
 
-The positive result is the information content. A constant at the panel mean is worth n* ≈ 73 samples (F ≈ 13–14
-under the project's 1k-FPE floor). This estimator is worth 1,070–1,150 samples, 11–16x more. On DEV2 its correlation
+The positive result is the information content. A constant at the development mean (0.920) scores F 18.9 [14.1, 24.2] on HP3 at the 1k-FPE floor and is
+worth n* = 53 samples. This estimator is worth 1,069 on HP3, 20x more. On DEV2 its correlation
 with the truth is 0.98 (R² 0.94).
 
 ## 1. The problem and ARC's bar
@@ -65,8 +65,19 @@ ARC's phrasing supports own-cost scoring. The 1k floor is our choice; the princi
 0.953 (0.045). At the same MSE, a target-like denominator gives F ≈ 7.7 (DEV2), 7.9 (HP3) and 10.5 (HP2). On DEV2 the
 error shrinks with accuracy (slope −0.067 pp per pp). On the 15 DEV2 models with p > 0.95, bias is +0.01 pp, RMS
 0.46 pp and F 2.7.
-- **[pending, scorer]** HP2/HP3 F on the p > 0.94 subset, and the slope of error against p.
-- **[pending, scorer]** est(M_16,10) against `truth.txt`.
+- **On the sealed panels the slope holds** (scorer `claude/hp1-scorer` 1515eb10, "Red-team follow-ups"). Each subset
+  uses its own p(1−p):
+
+| panel (T317c) | p > .95 | p < .90 | slope (pp per pp) |
+|---|---|---|---|
+| HP2 | 1.99 [1.13, 3.01] (n=23; bias +0.14, RMS 0.37 pp) | 9.41 [6.31, 12.89] (n=38) | −0.079 |
+| HP3 | 4.17 [1.31, 7.67] (n=22; bias +0.18, RMS 0.53 pp) | 6.90 [2.88, 12.13] (n=20) | −0.066 |
+
+  T317d matches within 0.03. The bias is concentrated in the low-accuracy models (+0.8 to +0.9 pp below 0.90).
+- **The target itself** (public weights and truth): T317c estimates 0.954049 against truth 0.953179, an error of
+  +0.087 pp. T317d's error is +0.084 pp. On this one model that is n* ≈ 59–63k, against C ≈ 5.8k: about 10x better
+  than sampling. **This is one model, and anecdotal.** ARC scores over a distribution of models, and the panel F
+  values carry the claim. The target sits in the high-accuracy range where the error is small.
 
 ## 2. The method, step by step
 The code is `m16/approaches/r1_cont/` on branch `claude/t218-tie-tail-labels`. The entry point `est(model)` returns
@@ -121,18 +132,21 @@ tmax 0.5; this was not checked.
 |---|---|---|
 | T317c as executed (c70e22cd), official | 5,489 | 5,427 |
 | T317d, official | — | 5,431 |
-| + every executed Φ charged | +4% | |
-| + T320's root rule (direction-testing roots) | +9% | |
-| + per-call tables T317c recomputed (~700 FPE) | +13% | |
-| all stacked | ≈ 6.8k | ≈ 6.8k |
+| stacking: × 1.09 (T320's root rule) × 1.04 (every Φ), and for T317c + 807 FPE of per-call tables | | |
+| T317c stacked | 7,030 | 6,960 |
+| T317d stacked (tables built at import, so no per-call term) | 6,225 | 6,156 |
 
 T320's count used the root rule it pre-registered; with the rule equivalent to T317c's, the two counts agree within
 0.1%.
 
-**Effect of the stacked count:**
-- HP3: F ≈ 6.4, upper CI ≈ 8.9. Still under 10.
-- HP2: F ≈ 8.5, upper CI ≈ 11. **It would lose "candidate" on HP2**, so any such label rests on HP3.
-- **[pending, scorer]** The stacked range scored officially.
+**Effect of the stacked count** (scored by the scorer at 1515eb10):
+
+| panel | T317c | T317d |
+|---|---|---|
+| HP3 | 6.51 [4.38, 9.02] | 5.75 [3.86, 7.97] |
+| HP2 | 8.66 [6.23, 11.25], **upper CI over 10** | 7.65 [5.51, 9.95] (just under 10) |
+
+The 1.04 factor is conservative for c70e22cd, which already masks its Φ calls.
 
 **T317d's precomputation** uses a 2 × 800k-point trapezoid grid. That is ~1e8 FLOPs ≈ 20k FPE, once per run. It is
 model-free and uncharged, but if it were charged per model it would dwarf C. A quadrature cheap enough to charge in
@@ -178,7 +192,16 @@ definition it is **inductive**. It is shown so the contrast is explicit.
 - At 4k FPE, v5q's HP1 F is 0.70 / 1.35 / 1.15 / 1.25 (clean / abs .05 / rel .005 / rel .01). Its DEV2 F is 1.2.
 - v5q roughly matches sampling on every panel, noisy copies included. The sampling-free estimator is ~5x worse on
   retrains and 10–200x worse on noisy copies.
-- **[pending, scorer]** The constant and v5q baselines on HP3, and the constant baseline on HP2.
+- **HP3 baselines at the 1k floor** (scorer 1515eb10):
+
+| estimator | class | F [95% CI] | n* |
+|---|---|---|---|
+| constant 0.920 | none | 18.9 [14.1, 24.2] | 53 |
+| v5q, 1k | inductive | 0.99 [0.71, 1.29] | 1,018 |
+| v5q, 4k | inductive | 0.87 [0.66, 1.09] | 4,644 |
+| T317c | sampling-free | 5.08 [3.42, 7.04] | 1,069 |
+
+  At about 1k FPE, v5q reaches the information T317c needs 5.4k FPE to reach.
 
 ## 6. Forking paths and selection
 **DEV2 variants** (r1_walk/README.md:122–129 and the task READMEs), about 30 estimate variants in all:
@@ -227,7 +250,8 @@ Since T306 the estimates have not changed beyond .0115 pp.
 2. **Retrains only.** It fails on weight noise, which is half of ARC's stated model distribution.
 3. **The approximations are justified inductively** (§2). Hilton's "assume other things will behave similarly"
    applies to this.
-4. **The cost depends on the convention** (5.3–6.8k). HP2 loses "candidate" at the top of that range.
+4. **The cost depends on the convention** (5.4–7.0k). At the top of that range, T317c's HP2 upper CI crosses 10
+   (11.25). T317d's stays at 9.95.
 5. **The scoring rule moved to where the method passes** (§1), and the method was selected on HP2 (§6).
 6. **Internal verification only.** The same author did both checks, and nothing has been tested beyond M_16,10.
 
@@ -265,13 +289,14 @@ None new, apart from `dev2_f.py`: arithmetic on stored estimates, under a second
 - [measured] HP3: F = 5.07 [3.41, 7.03] (T317d) and 5.08 (T317c), at about 5.4k FPE.
 - [measured] HP2: F = 6.75–6.76. DEV2: F = 4.78.
 - [measured] HP1 noisy copies: F = 39–206.
-- [inferred, red-team arithmetic] With the stacked cost of 6.8k: HP3 F ≈ 6.4 and HP2 F ≈ 8.5.
+- [measured, scorer] Stacked cost: HP3 F 6.51 (T317c) / 5.75 (T317d); HP2 F 8.66 / 7.65.
+- [measured, scorer] Subset F for p > .95: 2.0 (HP2) and 4.2 (HP3). Target error +0.087 pp (one model).
 - [inferred] Roughly 80% of the error comes from the declared approximations (T318, 10 models).
 
 ## Alternatives not ruled out
 - The +0.4 pp bias may be specific to this recipe, or to data seed 41 on HP2/HP3.
-- The error-versus-accuracy slope may make the target easier than the panel. This is unknown until the subset F and
-  est(target) come in.
+- The small error on the target (+0.087 pp) may be luck on one model. Its accuracy range is where the panels' errors
+  are also small (p > .95: F 2–4), which is consistent with the target being easier, but this does not establish it.
 
 ## Failure modes
 - Weight noise.
