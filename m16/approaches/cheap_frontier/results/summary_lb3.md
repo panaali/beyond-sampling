@@ -1,0 +1,28 @@
+| family | setting | label | C (FPE) | F_max | orig bias/RMS pp, F | seed bias/RMS pp, F | s0.0025 bias/RMS pp, F | s0.005 bias/RMS pp, F | s0.01 bias/RMS pp, F | s0.02 bias/RMS pp, F |
+|---|---|---|---|---|---|---|---|---|---|---|
+| branch_bound | budget=1000 | I | 182 | 104.8 | +3.6/3.6, 29.2 | +5.9/6.2, 48.3 | +3.0/4.2, 29.0 | +0.0/8.0, 71.0 | -2.3/12.7, 104.8 | -9.0/10.8, 52.8 |
+| cone_enum | budget=1000 | D | 1152 | 759.2 | +4.7/4.7, 56.7 | +8.8/9.2, 121.0 | +6.4/6.5, 79.7 | +10.2/10.8, 148.6 | +20.1/21.5, 349.2 | +36.6/38.1, 759.2 |
+| observer | nq=6,q=1,rbins=3,stride=1 | D | 51677 | 267.8 | -0.7/0.7, 59.3 | -0.1/0.9, 50.2 | -0.3/0.5, 21.1 | +0.1/0.6, 21.3 | +0.1/1.5, 73.1 | +0.7/3.4, 267.8 |
+| observer | nq=8,q=1,rbins=3,stride=24 | I | 2276 | 58.2 | -0.8/0.8, 3.4 | -0.4/1.0, 3.1 | -0.9/1.2, 5.9 | -1.4/1.8, 8.0 | -3.0/5.1, 37.6 | -3.4/7.5, 58.2 |
+| probe_bisect | iters=8,stride=1,version=2 | D | 7473 | 361.3 | +1.1/1.1, 20.7 | -1.2/3.2, 99.7 | +0.3/2.5, 84.0 | +0.4/3.6, 108.1 | +2.5/3.7, 65.5 | +9.5/10.8, 361.3 |
+| probe_bisect | iters=8,stride=8,version=2 | I | 930 | 85.9 | +0.9/0.9, 1.8 | -3.5/7.0, 61.7 | -0.3/3.2, 17.6 | +0.5/3.4, 12.7 | +2.8/4.0, 10.5 | +12.2/13.8, 85.9 |
+| probe_v5a | budget=1000 | I | 1009 | 4.6 | -0.1/0.1, 0.0 | +0.8/1.2, 1.8 | -0.6/0.7, 0.8 | -0.7/1.5, 2.4 | -1.0/2.0, 2.7 | -1.5/3.2, 4.6 |
+| probe_v5b | budget=4000 | I | 4074 | 8.9 | -0.9/0.9, 7.9 | -1.2/1.3, 8.9 | -1.1/1.1, 8.3 | -1.1/1.2, 6.7 | -1.5/1.6, 6.5 | -2.1/2.2, 8.9 |
+| probe_v5q | budget=4000 | I | 4035 | 1.3 | +0.2/0.2, 0.5 | +0.1/0.4, 0.7 | -0.0/0.2, 0.2 | -0.3/0.5, 1.1 | -0.4/0.5, 0.7 | -0.7/0.9, 1.3 |
+| propagation | budget=1000 | D | 10443 | 67724.8 | -53.7/53.7, 67724.8 | -45.6/46.3, 24540.2 | -49.5/49.6, 43423.3 | -48.7/49.0, 28364.1 | -42.4/43.0, 13030.8 | -29.4/30.5, 4519.8 |
+| rank_exact | Q=8,kgroups=3,stride=1 | D | 25779 | 112.2 | -1.1/1.1, 67.2 | -1.4/1.9, 112.2 | -0.6/0.7, 21.7 | +0.5/1.0, 30.2 | +1.9/2.2, 83.5 | +3.0/3.1, 111.0 |
+| rank_exact | Q=4,kgroups=3,stride=16 | I | 1716 | 16.7 | -1.0/1.0, 3.9 | -2.4/2.5, 13.0 | +0.0/1.4, 5.4 | +0.9/2.3, 9.8 | +2.5/3.9, 16.7 | +3.0/4.2, 14.0 |
+| reliability | variant=L0_s4_m02_nosorm | I | 2652 | 106.4 | +1.7/1.7, 16.2 | +2.1/3.2, 33.5 | +1.5/2.1, 19.1 | +1.2/3.6, 39.0 | +0.2/6.5, 71.6 | +3.5/9.4, 106.4 |
+| t274b_cone | m=2 | D | 1980 | 729.4 | -3.0/3.0, 39.8 | -12.8/17.1, 729.4 | -2.0/2.1, 14.9 | -0.3/1.6, 5.8 | +2.9/3.8, 18.1 | +5.3/5.7, 29.0 |
+
+Pareto set in (C, F_max), all labels: branch_bound [budget=1000] C=182 F_max=104.8; rank_exact [Q=4,kgroups=1,stride=16] C=621 F_max=35.2; probe_v5a [budget=1000] C=1009 F_max=4.6; probe_v5q [budget=4000] C=4035 F_max=1.3
+
+Pareto set in (C, F_max), all-deductive: cone_enum [budget=1000] C=1152 F_max=759.2; t274b_cone [m=2] C=1980 F_max=729.4; probe_bisect [iters=4,stride=1,version=2] C=4802 F_max=381.9; probe_bisect [iters=8,stride=1,version=2] C=7473 F_max=361.3; rank_exact [Q=4,kgroups=1,stride=1] C=8948 F_max=173.5; rank_exact [Q=8,kgroups=1,stride=1] C=10013 F_max=149.0; rank_exact [Q=8,kgroups=3,stride=1] C=25779 F_max=112.2
+
+Per-group Pareto sets in (C, RMS), all labels:
+- orig: branch_bound [budget=1000] C=182 RMS=3.61 F=29.2; probe_bisect [iters=4,stride=8,version=1] C=297 RMS=3.34 F=25.0; probe_bisect [iters=8,stride=8,version=1] C=462 RMS=1.58 F=5.6; rank_exact [Q=4,kgroups=1,stride=16] C=621 RMS=0.81 F=1.5; rank_exact [Q=8,kgroups=1,stride=16] C=695 RMS=0.34 F=0.3; probe_v5a [budget=1000] C=1009 RMS=0.11 F=0.0; rank_exact [Q=8,kgroups=1,stride=8] C=1252 RMS=0.05 F=0.0; rank_exact [Q=8,kgroups=3,stride=8] C=3222 RMS=0.04 F=0.0; rank_exact [Q=64,kgroups=3,stride=8] C=5086 RMS=0.01 F=0.0
+- seed: branch_bound [budget=1000] C=182 RMS=6.20 F=48.3; probe_bisect [iters=8,stride=8,version=1] C=462 RMS=4.46 F=24.9; probe_bisect [iters=12,stride=8,version=1] C=627 RMS=4.31 F=23.4; probe_v5q [budget=1000] C=1009 RMS=0.33 F=0.1
+- s0.0025: branch_bound [budget=1000] C=182 RMS=4.16 F=29.0; probe_bisect [iters=8,stride=8,version=1] C=462 RMS=2.54 F=10.9; rank_exact [Q=4,kgroups=1,stride=16] C=621 RMS=1.27 F=2.7; rank_exact [Q=8,kgroups=1,stride=16] C=695 RMS=1.22 F=2.5; probe_v5q [budget=1000] C=1009 RMS=0.50 F=0.4; probe_v5a [budget=4000] C=4035 RMS=0.14 F=0.1
+- s0.005: branch_bound [budget=1000] C=182 RMS=8.02 F=71.0; probe_bisect [iters=4,stride=8,version=1] C=297 RMS=7.25 F=58.1; probe_bisect [iters=8,stride=8,version=1] C=462 RMS=5.47 F=33.1; probe_bisect [iters=4,stride=8,version=2] C=598 RMS=5.14 F=29.2; rank_exact [Q=4,kgroups=1,stride=16] C=621 RMS=2.39 F=6.3; rank_exact [Q=16,kgroups=1,stride=16] C=843 RMS=1.94 F=4.1; probe_v5a [budget=1000] C=1009 RMS=1.47 F=2.4; observer [nq=6,q=1,rbins=3,stride=24] C=2163 RMS=1.13 F=3.1; probe_v5a [budget=4000] C=4035 RMS=0.28 F=0.4
+- s0.01: branch_bound [budget=1000] C=182 RMS=12.72 F=104.8; probe_bisect [iters=4,stride=8,version=2] C=598 RMS=6.98 F=31.6; rank_exact [Q=4,kgroups=1,stride=16] C=621 RMS=4.22 F=11.5; rank_exact [Q=8,kgroups=1,stride=16] C=695 RMS=4.08 F=10.8; rank_exact [Q=16,kgroups=1,stride=16] C=843 RMS=2.41 F=3.8; probe_v5a [budget=1000] C=1009 RMS=2.02 F=2.7; rank_exact [Q=16,kgroups=1,stride=4] C=3036 RMS=1.55 F=4.7; probe_v5a [budget=4000] C=4035 RMS=0.41 F=0.4
+- s0.02: branch_bound [budget=1000] C=182 RMS=10.82 F=52.8; rank_exact [Q=4,kgroups=1,stride=16] C=621 RMS=4.71 F=10.0; rank_exact [Q=8,kgroups=1,stride=16] C=695 RMS=4.49 F=9.1; rank_exact [Q=16,kgroups=1,stride=16] C=843 RMS=3.72 F=6.2; probe_v5a [budget=1000] C=1009 RMS=3.19 F=4.6; rank_exact [Q=16,kgroups=1,stride=4] C=3036 RMS=2.74 F=10.3; probe_v5q [budget=4000] C=4035 RMS=0.86 F=1.3
