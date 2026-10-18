@@ -12,3 +12,5 @@ Research branch is scoped to owned files; shared publication uses the fresh inte
 
 ## Superseding unit failure
 Baseline run6327896d/sharedfd836ae3 completed but its intended physical-gap protocol failed: inherited v=2x was treated asx. See saved_baseline/UNIT_FAILURE.md; independent305ee62f and source-review correction1f94f0cb. Do not rerun or overwrite. New diagnostic-only saved scope must retain original and actual{0,1/8,1/4,1/2} labels; physicalgap1 remains untested. T256 registered as blocked exact affine-range alternative; no implementation yet.
+
+Diagnostic-only review b381f518/shared6d401f85 is now complete. All81 pairs/20736 rows checked under actual units, intended_campaign_passed=false and gap1 untested. See saved_baseline/HANDOFF.md. No further baseline run is authorized. Next planned fresh task T256 written affine-range prerequisite, after board ownership check/push.

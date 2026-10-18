@@ -1,0 +1,13 @@
+# T240 saved baseline handoff — independent diagnostic complete
+
+The intended physical-gap campaign FAILED its unit contract. Raw6327896d/sharedfd836ae3 and original source/gate are preserved. T189 uses v=2x; source labels0,1/4,1/2,1 actually represent physical gaps0,1/8,1/4,1/2. Independent unit finding305ee62f and source-gate correction1f94f0cb document both author and source-review omissions. Physicalgap1 remains untested. No candidate retry occurred.
+
+The separate diagnostic scope0abba9ac checks every original row under the actual physical interpretation, retaining old keys. Reviewer source0e477c0e was gated216d37f1/shared52abd9c5; independent saved review b381f518/shared6d401f85 passes all81 archive pairs/20736 rows/82944 gap cases/83 events, exact statuses, sums, pins and counters. The reviewer used2.919142395CPU and35,812KiB RSS. This is not a repaired intended campaign, and no new gap value is evaluated.
+
+Displayed raw diagnostic values: selected-correct mass0.06821313612455596 at g0;0.05920139860267904 at each actual positive gap1/8,1/4,1/2. Inner positive-gap event mass lower0.09941062755987495; inner network-unknown0.04020922895719592. Outer event bounds remain1,1,0.958865566775811, respectively, so no precise actual-gap mass or conditional-accuracy point follows. Original exact rational endpoints remain authoritative; rounded displays are not outward certificates.
+
+The sole saved contraction decoded81 archives/20736 boxes once,2.202347110 internalCPU, whole user2.25/system0.13/wall2.39seconds. It did not recompute any neural recurrence or Gaussian CDF. Selected-work counters and inherited original certification/setup accounting are retained separately; no full-FLOP, speed or MSE conclusion. Independent diagnostic audit used2.919142395CPU, recorded separately from author cost.
+
+Alternatives remain open: T252 partial-gap probability integration; T256 exact affine ranges on labeled-gap box intersections; later intended physicalgap1 check with predetermined parity controls; stronger correlated/recursive bounds and other partitions. Further filtering cannot enlarge the original certified event, but changing the range domain can change the certificate. No numerical lower bound is used as a ceiling, no broad local-certificate negative is asserted, and the finite result does not test the entire owner hypothesis.
+
+After completed diagnostic review, T256 may be claimed for written proof/source controls only. Its O(T²) per fixed ordered-pair range argument must treat physical units, zero coefficients, empty and touching domains and all-pairs cost explicitly; probability integration and trained application remain separate.
