@@ -131,6 +131,10 @@ class Trainer:
             self.step_t.zero_()
         self.gen.manual_seed(self.gen.initial_seed())
         self.graph = th.cuda.CUDAGraph()
+        if hasattr(self.graph, "register_generator_state"):          # custom generator must be registered (torch>=2.4)
+            self.graph.register_generator_state(self.gen)
+        else:                                                         # fallback: graph-safe default CUDA generator
+            th.cuda.manual_seed(self.gen.initial_seed()); self.gen = None
         with th.cuda.graph(self.graph):
             self._step_body()
 
@@ -139,6 +143,27 @@ class Trainer:
             self.graph.replay()
         else:
             self._step_body()
+
+    def state(self):
+        return {f"p{i}": t.detach().cpu() for i, t in enumerate(self.params)} | \
+               {f"m{i}": t.cpu() for i, t in enumerate(self.m)} | {f"v{i}": t.cpu() for i, t in enumerate(self.v)} | \
+               {"step": self.step_t.cpu()}
+
+    def load_state(self, st, data_seed):
+        """in-place restore (keeps the captured graph valid); data stream reseeded from (data_seed, step)"""
+        with th.no_grad():
+            for i, t in enumerate(self.params):
+                t.copy_(st[f"p{i}"])
+            for i, t in enumerate(self.m):
+                t.copy_(st[f"m{i}"])
+            for i, t in enumerate(self.v):
+                t.copy_(st[f"v{i}"])
+            self.step_t.copy_(st["step"])
+        seed = data_seed * 1000003 + int(st["step"])
+        if self.gen is not None:
+            self.gen.manual_seed(seed)
+        else:
+            th.cuda.manual_seed(seed)
 
     def weights(self):
         return [p.detach().cpu().double().numpy() for p in self.params]

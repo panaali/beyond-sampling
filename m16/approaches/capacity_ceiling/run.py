@@ -36,12 +36,18 @@ tr = TR.Trainer(a.H, a.T, a.seeds, n_train, warmup=a.warmup, device=a.device, f_
 n_steps = n_train // 1024
 ckpt = {n_steps // 2 ** i for i in range(5)}
 curve = []; t0 = time.time(); lsum = th.zeros(K, device=a.device); asum = th.zeros(K, device=a.device); nlog = 0
-for s in range(1, n_steps + 1):
+state_f = os.path.join(out_dir, "state.pt"); start = 1
+if os.path.exists(state_f):                       # resume after a reclaimed runtime
+    st = th.load(state_f); tr.load_state(st, a.data_seed); start = int(st["step"]) + 1; curve = st["curve"]
+    print(a.tag, "resumed at step", start - 1, flush=True)
+for s in range(start, n_steps + 1):
     tr.step(); lsum += tr.loss; asum += tr.acc; nlog += 1
     if s % 2 ** 14 == 0 or s == n_steps:
         curve.append(dict(step=s, sec=time.time() - t0, loss=(lsum / nlog).tolist(), acc=(asum / nlog).tolist()))
         lsum.zero_(); asum.zero_(); nlog = 0
         print(a.tag, s, "%.0fs" % (time.time() - t0), ["%.4f" % v for v in curve[-1]["acc"]], flush=True)
+    if s % 2 ** 18 == 0 and s < n_steps:
+        th.save(tr.state() | {"curve": curve}, state_f + ".tmp"); os.replace(state_f + ".tmp", state_f)
     if s in ckpt:
         W = tr.weights()
         for k, seed in enumerate(a.seeds):
@@ -52,6 +58,9 @@ ev = evaluate(models, int(a.eval_n), device=a.device)
 res = dict(config=vars(a), n_train=n_train, n_steps=n_steps, wall_sec=wall, curve=curve,
            eval={str(seed): e for seed, e in zip(a.seeds, ev)})
 json.dump(res, open(os.path.join(HERE, "results", f"{a.tag}.json"), "w"), indent=1)
+os.makedirs(os.path.join(HERE, "weights"), exist_ok=True)              # final weights also kept in the repo folder
+for k, seed in enumerate(a.seeds):
+    np.savez(os.path.join(HERE, "weights", f"{a.tag}_seed{seed}.npz"), Wi=W[0][k], Wh=W[1][k], Wo=W[2][k])
 for seed, e in zip(a.seeds, ev):
     print(a.tag, "seed", seed, "acc %.5f +- %.5f  blind %.4f  2-3 %.4f  1-2 %.4f  other %.4f" % (
         e["acc"], e["se"], e["err_blind"], e["err_23"], e["err_12"], e["err_other"]))
