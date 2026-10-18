@@ -29,3 +29,4 @@ truths.json), region split (blind / 2~3 / 1~2 / tail, as T292) and per-model SE.
 line (mean offset halved; stop < 10% cut). Labels: the closure is a declared structural approximation; the Phi
 smoothing and J are deductive (exact local map, model-free s); the oracle is diagnostic sampling.
 Cap 1 h.
+- **Amendment (before any panel data):** 100k inputs per model, not 250k, to fit the 1 h cap (~45 s/model at 250k). Per-model SE is ~.07 pp, and noise-corrected RMS is also reported.
