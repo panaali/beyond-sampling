@@ -77,20 +77,24 @@ def main():
             event(phase='attempt', name=name)
             h,z,w = (np.asarray(x,dtype=np.float64) for x in (h0,z0,w0))
             out = project(h,z,w)
+            row=dict(name=name, hidden=h.tolist(), lookup=z.tolist(), wo=w.tolist(), truth=truth,
+                     expected_labels=expected, status='pending', exact_sse=[],
+                     **{k:v.tolist() if isinstance(v,np.ndarray) else v for k,v in out.items()})
+            result['rows'].append(row); save()
             actual, baseline = h@w.T, z@w.T
             labels = [a.argmax(axis=1).tolist() for a in (actual,baseline,out['projected_logits'])]
-            exact = []
+            row.update(labels=labels, actual_logits=actual.tolist(), baseline_logits=baseline.tolist()); save()
+            exact = row['exact_sse']
             for hr,zr,pr in zip(h,z,out['projected'], strict=True):
                 old = sum((frac(a)-frac(b))**2 for a,b in zip(zr,hr,strict=True))
                 new = sum((frac(a)-frac(b))**2 for a,b in zip(pr,hr,strict=True))
                 coordinate_drop = [frac(a)**2-2*frac(a)*frac(b) if a<0 else F(0) for a,b in zip(zr,hr,strict=True)]
-                assert all(x>=0 for x in coordinate_drop) and old-new == sum(coordinate_drop)
                 exact.append(dict(before=ratio(old),after=ratio(new),drop=[ratio(x) for x in coordinate_drop]))
-            row=dict(name=name, hidden=h.tolist(), lookup=z.tolist(), wo=w.tolist(), truth=truth,
-                     expected_labels=expected, labels=labels, actual_logits=actual.tolist(), baseline_logits=baseline.tolist(),
-                     exact_sse=exact, **{k:v.tolist() if isinstance(v,np.ndarray) else v for k,v in out.items()})
+                save()
+                assert all(x>=0 for x in coordinate_drop) and old-new == sum(coordinate_drop)
             row['passed']=labels==expected and all(F(*map(int,x['after']))<=F(*map(int,x['before'])) for x in exact)
-            result['rows'].append(row); save(); event(phase='result',name=name,passed=row['passed'])
+            row['status']='complete' if row['passed'] else 'failure'
+            save(); event(phase='result',name=name,passed=row['passed'])
             assert row['passed'], name
         for name,h,z,w,exc in gs:
             event(phase='attempt',name=name)
