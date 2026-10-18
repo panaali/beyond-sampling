@@ -1,0 +1,3472 @@
+{
+  "status": "complete",
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/prefix_mass_coverage_review/saved/check.py": "827b058657fa4e970f5562642449250142137ecb864b91c0278b3277d2cfe536",
+    "/workspace/work/recover-small_h4_4/review/prefix_mass_coverage_review/saved/protocol.json": "62552b384265716210a8d87e66de02e714a2b5cb3faca07dabfcde31f13bd01c",
+    "/workspace/work/recover-small_h4_4/review/prefix_mass_coverage_review/saved/PROTOCOL.md": "9a9eac87700bf1770c8ab4aaaa1edf4822105e6013aadfd4a8c6decb6bfef9fe",
+    "/workspace/work/recover-small_h4_4/review/prefix_mass_coverage_review/manifest.json": "bdea71f5e01024d43b7ac1ce8a867669957e4abd7c298c0fc3aac4f7473c7f9e",
+    "/workspace/work/recover-small_h4_4/review/prefix_mass_coverage_review/SOURCE_REVIEW.md": "9a30a169618e118dba15b3f88e4a5b39dfd3f417a5217a2e41f9e3fdea76362d",
+    "/workspace/work/recover-small_h4_4/review/prefix_mass_coverage_review/THEORY.md": "197bf89423335d23ed2521edc611f2130255fb1dfd277b0fa911846e24c37b83",
+    "/workspace/work/recover-small_h2_910/review/t222_source_review/source_review.json": "8ae67a021830873ce6b8e81986e10b6143d252227c832e92e3957a2c879a8c2e",
+    "/workspace/work/recover-small_h2_910/review/t222_source_review/manifest_review.json": "0085c96d3985e98a73a3a99bc06869806f6c7d974c191053d9d5d360e9146b4f",
+    "/workspace/work/recover-small_h2_910/review/t222_source_review/CHECKER_REVIEW.md": "d9ec7151430c9a758be1ce04a0146f58754a169933fcd374deda5ae5156ee5bd",
+    "/workspace/work/recover-small_h2_910/review/t222_source_review/source_gate.json": "2808eff65842249fe6ff498c615cd4ffc9a78d2d7c5583127f19711a2cc6219b"
+  },
+  "protocol_sha256": "62552b384265716210a8d87e66de02e714a2b5cb3faca07dabfcde31f13bd01c",
+  "manifest_sha256": "bdea71f5e01024d43b7ac1ce8a867669957e4abd7c298c0fc3aac4f7473c7f9e",
+  "rows": [
+    {
+      "key": "target_k2",
+      "archive_sha256": "2e8e27693e422b49c269db85f01756cbef05daec7f407d0b43e70f6a929729e8",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 2,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            38
+          ],
+          "dtype": "<U1"
+        },
+        "gate": {
+          "shape": [
+            38
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            38
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 38,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 34,
+      "reported_regions": 34,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "18014398509481313",
+          "denominator": "18014398509481984",
+          "float": 0.9999999999999627
+        },
+        "total_minus_one": {
+          "numerator": "-671",
+          "denominator": "18014398509481984",
+          "float": -3.7247982476174e-14
+        },
+        "minimum": {
+          "numerator": "2215913770319",
+          "denominator": "36028797018963968",
+          "float": 6.150396220980237e-05
+        },
+        "maximum": {
+          "numerator": "8637159444913969",
+          "denominator": "36028797018963968",
+          "float": 0.23972933207755312
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "649037107316805102920712592407938",
+          "denominator": "73836315701754663444279340371783",
+          "float": 8.790215236882156
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 22,
+              "reported_N": 22,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "22423018472118403253466730359",
+                "denominator": "81129638414603659780439039541248",
+                "float": 0.00027638504140161643
+              },
+              "selected_excess_relative_total": {
+                "numerator": "125100890211272821046813487241",
+                "denominator": "81129638414603659780439039541248",
+                "float": 0.0015419875233753557
+              }
+            },
+            "decimal_delta": {
+              "N": 22,
+              "reported_N": 22,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "497891027786837",
+                "denominator": "1801439850948131300",
+                "float": 0.0002763850414016253
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2777797774273163",
+                "denominator": "1801439850948131300",
+                "float": 0.0015419875233753468
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 31,
+              "reported_N": 31,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "3300912560982092299984156235",
+                "denominator": "162259276829207319560878079082496",
+                "float": 2.034344430399874e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "66298024109741077222184995253",
+                "denominator": "162259276829207319560878079082496",
+                "float": 0.00040859311963731845
+              }
+            },
+            "decimal_delta": {
+              "N": 31,
+              "reported_N": 31,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "366474912747687",
+                "denominator": "18014398509481313000",
+                "float": 2.0343444303999626e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "7360559285378813",
+                "denominator": "18014398509481313000",
+                "float": 0.00040859311963731753
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 33,
+              "reported_N": 33,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "16850726096513687",
+                "denominator": "180143985094813130000",
+                "float": 9.35403204700109e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "6934829657886313",
+                "denominator": "180143985094813130000",
+                "float": 3.849603779019534e-05
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 33,
+              "reported_N": 33,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "7588892376919026853110938671",
+                "denominator": "81129638414603659780439039541248",
+                "float": 9.354032047002191e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "3123169626312572834247279569",
+                "denominator": "81129638414603659780439039541248",
+                "float": 3.849603779018433e-05
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "92781290006468687",
+                "denominator": "1801439850948131300000",
+                "float": 5.1503962209804657e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1",
+                "denominator": "100000",
+                "float": 1e-05
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "8356995662009110525889334013",
+                "denominator": "162259276829207319560878079082496",
+                "float": 5.1503962209850166e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "90071992547",
+                "denominator": "9007199254740992",
+                "float": 9.99999999995449e-06
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "9817329153459926066371086409",
+                "denominator": "162259276829207319560878079082496",
+                "float": 6.05039622097759e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "9007199255",
+                "denominator": "9007199254740992",
+                "float": 1.0000000000287557e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1089942486650018687",
+                "denominator": "18014398509481313000000",
+                "float": 6.050396220980466e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1",
+                "denominator": "1000000",
+                "float": 1e-06
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 22,
+        "0.001": 31,
+        "0.0001": 33,
+        "0.00001": 34,
+        "0.000001": 34
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999999629,
+      "reported_sum_minus_one": -3.708144902248023e-14,
+      "source_sum_minus_one": -3.708144902248023e-14,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.008008186
+    },
+    {
+      "key": "target_k3",
+      "archive_sha256": "3aabeb77619c860d059a6e8bbff24df68c883c0e8733fdff2bdaf391d962ab64",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 3,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            1020
+          ],
+          "dtype": "<U2"
+        },
+        "gate": {
+          "shape": [
+            1020
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            1020
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 1020,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 792,
+      "reported_regions": 792,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "72057594037913629",
+          "denominator": "72057594037927936",
+          "float": 0.9999999999998015
+        },
+        "total_minus_one": {
+          "numerator": "-14307",
+          "denominator": "72057594037927936",
+          "float": -1.9854951016640143e-13
+        },
+        "minimum": {
+          "numerator": "1611057",
+          "denominator": "72057594037927936",
+          "float": 2.2357907192294135e-11
+        },
+        "maximum": {
+          "numerator": "5944870835651967",
+          "denominator": "72057594037927936",
+          "float": 0.08250165600204261
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "5192296858532765772534695263949641",
+          "denominator": "140209923198647659339182171303199",
+          "float": 37.03230655918971
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 201,
+              "reported_N": 201,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "551883270734922683201062747",
+                "denominator": "324518553658362293783287230889984",
+                "float": 1.7006216270639464e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "37433662150693923344977524901",
+                "denominator": "324518553658362293783287230889984",
+                "float": 0.00011535137738257734
+              }
+            },
+            "decimal_delta": {
+              "N": 201,
+              "reported_N": 201,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "12254270281571",
+                "denominator": "7205759403791362900",
+                "float": 1.7006216270728282e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "831194272314729",
+                "denominator": "7205759403791362900",
+                "float": 0.00011535137738256846
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 388,
+              "reported_N": 388,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "7835208681904292814344939487",
+                "denominator": "649037107316724587566574461779968",
+                "float": 1.2072050416804255e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1127264257755307888911587361",
+                "denominator": "649037107316724587566574461779968",
+                "float": 1.736825591399064e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 388,
+              "reported_N": 388,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "869882908139371",
+                "denominator": "72057594037913629000",
+                "float": 1.2072050416805143e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "125151473379629",
+                "denominator": "72057594037913629000",
+                "float": 1.7368255913981758e-06
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 527,
+              "reported_N": 527,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "482577919326371",
+                "denominator": "720575940379136290000",
+                "float": 6.69711396514931e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "750975956673629",
+                "denominator": "720575940379136290000",
+                "float": 1.0421884975489155e-06
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 527,
+              "reported_N": 527,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "217333773769121428230516531",
+                "denominator": "324518553658362293783287230889984",
+                "float": 6.697113965259444e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "338209503860381674653733069",
+                "denominator": "324518553658362293783287230889984",
+                "float": 1.0421884975379022e-06
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 634,
+              "reported_N": 634,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1156300879286371",
+                "denominator": "7205759403791362900000",
+                "float": 1.604689824472872e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "694861099513629",
+                "denominator": "7205759403791362900000",
+                "float": 9.643134894956703e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 634,
+              "reported_N": 634,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "104150324211183395195135561",
+                "denominator": "649037107316724587566574461779968",
+                "float": 1.604689824927975e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "62587523747338805126814135",
+                "denominator": "649037107316724587566574461779968",
+                "float": 9.643134890405677e-08
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 708,
+              "reported_N": 708,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "15614571501069427020095845",
+                "denominator": "649037107316724587566574461779968",
+                "float": 2.4058056658152906e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "5876519577730523944754843",
+                "denominator": "649037107316724587566574461779968",
+                "float": 9.054212018825039e-09
+              }
+            },
+            "decimal_delta": {
+              "N": 708,
+              "reported_N": 708,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1733565682086371",
+                "denominator": "72057594037913629000000",
+                "float": 2.405805668690857e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "652424731913629",
+                "denominator": "72057594037913629000000",
+                "float": 9.054211990069373e-09
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 201,
+        "0.001": 388,
+        "0.0001": 527,
+        "0.00001": 634,
+        "0.000001": 708
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999998015,
+      "reported_sum_minus_one": -1.98507876802978e-13,
+      "source_sum_minus_one": -1.98507876802978e-13,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.0018524390000000113
+    },
+    {
+      "key": "target_k4",
+      "archive_sha256": "ff5de1e6cba2b405e70d3498e6fcc51e4657cd9cb1a74100eeb6b668bb973519",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 4,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            33432
+          ],
+          "dtype": "<U3"
+        },
+        "gate": {
+          "shape": [
+            33432
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            33432
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 33432,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 21032,
+      "reported_regions": 21032,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "5316911983275465319528286525609624515",
+          "denominator": "5316911983139663491615228241121378304",
+          "float": 1.0000000000255416
+        },
+        "total_minus_one": {
+          "numerator": "135801827913058284488246211",
+          "denominator": "5316911983139663491615228241121378304",
+          "float": 2.5541485046902473e-11
+        },
+        "minimum": {
+          "numerator": "4493797086851195",
+          "denominator": "5316911983139663491615228241121378304",
+          "float": 8.451892942936372e-22
+        },
+        "maximum": {
+          "numerator": "11395399630879015",
+          "denominator": "288230376151711744",
+          "float": 0.03953573451564654
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "28269553037898242005677622213205318921748126916130079028539962799288985225",
+          "denominator": "252039131619042941403665587315456041348573189423177091189105852492662873",
+          "float": 112.1633488272276
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 1737,
+              "reported_N": 1737,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "54208052735295475977118900322555273752028647877",
+                "denominator": "23945242826641110473434653811708582957956319349309440",
+                "float": 2.2638339117189668e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "238098327987392165722035544527161983051278577211",
+                "denominator": "23945242826641110473434653811708582957956319349309440",
+                "float": 9.943450133756322e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 1737,
+              "reported_N": 1737,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "240732113068223407632339667362837",
+                "denominator": "106338239665509306390565730512192490300",
+                "float": 2.2638339117278488e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1057368983424475891131708697631723",
+                "denominator": "106338239665509306390565730512192490300",
+                "float": 9.94345013374744e-06
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 4018,
+              "reported_N": 4018,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4374168078198975051756091710370215504232883341",
+                "denominator": "9578097130656444189373861524683433183182527739723776",
+                "float": 4.5668445605950825e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "19834920435140270206117598803258519911541033279",
+                "denominator": "47890485653282220946869307623417165915912638698618880",
+                "float": 4.1417246379043277e-07
+              }
+            },
+            "decimal_delta": {
+              "N": 4018,
+              "reported_N": 4018,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "485630211400631907162554196642097",
+                "denominator": "1063382396655093063905657305121924903000",
+                "float": 4.566844560603964e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "440423707173070664527867347908303",
+                "denominator": "1063382396655093063905657305121924903000",
+                "float": 4.141724637895446e-07
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 7021,
+              "reported_N": 7021,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "110375216847835347580441205569097",
+                "denominator": "10633823966550930639056573051219249030000",
+                "float": 1.0379635509768122e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "648689870534323145662811989182903",
+                "denominator": "10633823966550930639056573051219249030000",
+                "float": 6.100250225834093e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 7021,
+              "reported_N": 7021,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "248542892997143316101436065265392370082910957",
+                "denominator": "23945242826641110473434653811708582957956319349309440",
+                "float": 1.0379635520781535e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1460719729344977671518532585366766576490507539",
+                "denominator": "23945242826641110473434653811708582957956319349309440",
+                "float": 6.100250224732752e-08
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 10233,
+              "reported_N": 10233,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "750312047620730587800851872055097",
+                "denominator": "106338239665509306390565730512192490300000",
+                "float": 7.055900586476357e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "38908745442337696191110547144903",
+                "denominator": "106338239665509306390565730512192490300000",
+                "float": 3.658960837110576e-10
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 10233,
+              "reported_N": 10233,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "337910507987140172692548487893780311361671703",
+                "denominator": "47890485653282220946869307623417165915912638698618880",
+                "float": 7.0559006319866195e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "17522938968047993128294169011522063324720617",
+                "denominator": "47890485653282220946869307623417165915912638698618880",
+                "float": 3.6589603820079535e-10
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 13164,
+              "reported_N": 13164,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "39771509676463300067951216630311768323526011",
+                "denominator": "47890485653282220946869307623417165915912638698618880",
+                "float": 8.304678713095807e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1270289820261464418897940876297465551385221",
+                "denominator": "47890485653282220946869307623417165915912638698618880",
+                "float": 2.652488908669908e-11
+              }
+            },
+            "decimal_delta": {
+              "N": 13164,
+              "reported_N": 13164,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "883104945916502771123000894675097",
+                "denominator": "1063382396655093063905657305121924903000000",
+                "float": 8.304679000652452e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "28206069549757139085204724524903",
+                "denominator": "1063382396655093063905657305121924903000000",
+                "float": 2.6524860331034563e-11
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 1737,
+        "0.001": 4018,
+        "0.0001": 7021,
+        "0.00001": 10233,
+        "0.000001": 13164
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 1.0000000000255416,
+      "reported_sum_minus_one": 2.5541568859921426e-11,
+      "source_sum_minus_one": 2.5541568859921426e-11,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.03426610900000002
+    },
+    {
+      "key": "zoo16_4_k2",
+      "archive_sha256": "92047d73f992dc88f8ec8b35c5b06282b5e98c9a59bacc2b2686187669a075d2",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 2,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            38
+          ],
+          "dtype": "<U1"
+        },
+        "gate": {
+          "shape": [
+            38
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            38
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 38,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 34,
+      "reported_regions": 34,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "36028797018962081",
+          "denominator": "36028797018963968",
+          "float": 0.9999999999999476
+        },
+        "total_minus_one": {
+          "numerator": "-1887",
+          "denominator": "36028797018963968",
+          "float": -5.237477118669176e-14
+        },
+        "minimum": {
+          "numerator": "1421243595879",
+          "denominator": "9007199254740992",
+          "float": 0.0001577897363745917
+        },
+        "maximum": {
+          "numerator": "4435782966629285",
+          "denominator": "18014398509481984",
+          "float": 0.24623541908959573
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "1298074214633570934452674515850561",
+          "denominator": "163845765521958079136194552682413",
+          "float": 7.922537457701995
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 23,
+              "reported_N": 23,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "168842992998212266063098827319",
+                "denominator": "162259276829204865099081162162176",
+                "float": 0.001040575283568763
+              },
+              "selected_excess_relative_total": {
+                "numerator": "175548799420075051406089235913",
+                "denominator": "162259276829204865099081162162176",
+                "float": 0.0010819030064139804
+              }
+            },
+            "decimal_delta": {
+              "N": 23,
+              "reported_N": 23,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "3749067567464819",
+                "denominator": "3602879701896208100",
+                "float": 0.001040575283568772
+              },
+              "selected_excess_relative_total": {
+                "numerator": "3897966381229381",
+                "denominator": "3602879701896208100",
+                "float": 0.0010819030064139715
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 30,
+              "reported_N": 30,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "161822658265448093244206459403",
+                "denominator": "324518553658409730198162324324352",
+                "float": 0.0004986545651740567
+              },
+              "selected_excess_relative_total": {
+                "numerator": "29164691324225890373197518325",
+                "denominator": "324518553658409730198162324324352",
+                "float": 8.987064374422434e-05
+              }
+            },
+            "decimal_delta": {
+              "N": 30,
+              "reported_N": 30,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "17965924111234919",
+                "denominator": "36028797018962081000",
+                "float": 0.0004986545651740576
+              },
+              "selected_excess_relative_total": {
+                "numerator": "3237931181424081",
+                "denominator": "36028797018962081000",
+                "float": 8.987064374422345e-05
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "20820946816197919",
+                "denominator": "360287970189620810000",
+                "float": 5.778973637459997e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1",
+                "denominator": "10000",
+                "float": 0.0001
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "9376920832294773336151168239",
+                "denominator": "162259276829204865099081162162176",
+                "float": 5.7789736374610985e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "450359962737",
+                "denominator": "4503599627370496",
+                "float": 9.999999999998899e-05
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "532468641332637919",
+                "denominator": "3602879701896208100000",
+                "float": 0.00014778973637459997
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1",
+                "denominator": "100000",
+                "float": 1e-05
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "47960511493857617257946677565",
+                "denominator": "324518553658409730198162324324352",
+                "float": 0.00014778973637464548
+              },
+              "selected_excess_relative_total": {
+                "numerator": "90071992547",
+                "denominator": "9007199254740992",
+                "float": 9.99999999995449e-06
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "50881178476759204158597838217",
+                "denominator": "324518553658409730198162324324352",
+                "float": 0.00015678973637457122
+              },
+              "selected_excess_relative_total": {
+                "numerator": "9007199255",
+                "denominator": "9007199254740992",
+                "float": 1.0000000000287557e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "5648945586497037919",
+                "denominator": "36028797018962081000000",
+                "float": 0.00015678973637459997
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1",
+                "denominator": "1000000",
+                "float": 1e-06
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 23,
+        "0.001": 30,
+        "0.0001": 34,
+        "0.00001": 34,
+        "0.000001": 34
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999999476,
+      "reported_sum_minus_one": -5.240252676230739e-14,
+      "source_sum_minus_one": -5.240252676230739e-14,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.0
+    },
+    {
+      "key": "zoo16_4_k3",
+      "archive_sha256": "ed955b30dbd2274883ce0bc0b616f9106e711ad3dd0a9cf617f5977b7716242c",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 3,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            1132
+          ],
+          "dtype": "<U2"
+        },
+        "gate": {
+          "shape": [
+            1132
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            1132
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 1132,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 870,
+      "reported_regions": 870,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "36028797018957709",
+          "denominator": "36028797018963968",
+          "float": 0.9999999999998263
+        },
+        "total_minus_one": {
+          "numerator": "-6259",
+          "denominator": "36028797018963968",
+          "float": -1.7372214777822137e-13
+        },
+        "minimum": {
+          "numerator": "541365",
+          "denominator": "72057594037927936",
+          "float": 7.512948596577473e-12
+        },
+        "maximum": {
+          "numerator": "5055444407493081",
+          "denominator": "72057594037927936",
+          "float": 0.07015838476139126
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "1298074214633255898651540730528681",
+          "denominator": "30387009728932523219182395577114",
+          "float": 42.71806361378542
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 244,
+              "reported_N": 244,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4427312378762815776299302507",
+                "denominator": "162259276829185175361510298353664",
+                "float": 2.728541914693463e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "13992502368679075085842497941",
+                "denominator": "162259276829185175361510298353664",
+                "float": 8.623545378800972e-05
+              }
+            },
+            "decimal_delta": {
+              "N": 244,
+              "reported_N": 244,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "98306082802241",
+                "denominator": "3602879701895770900",
+                "float": 2.7285419146943513e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "310695966036559",
+                "denominator": "3602879701895770900",
+                "float": 8.623545378800085e-05
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 430,
+              "reported_N": 430,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "348924702532972726474588079",
+                "denominator": "324518553658370350723020596707328",
+                "float": 1.0752072527116444e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "3555660103068233460670447697",
+                "denominator": "324518553658370350723020596707328",
+                "float": 1.0956723623301289e-05
+              }
+            },
+            "decimal_delta": {
+              "N": 430,
+              "reported_N": 430,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "38738423861291",
+                "denominator": "36028797018957709000",
+                "float": 1.0752072527125325e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "394757571416709",
+                "denominator": "36028797018957709000",
+                "float": 1.0956723623300401e-05
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 604,
+              "reported_N": 604,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "111048447232291",
+                "denominator": "360287970189577090000",
+                "float": 3.082213574154566e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "434255470527709",
+                "denominator": "360287970189577090000",
+                "float": 1.2053010548734434e-06
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 604,
+              "reported_N": 604,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "50011774559328821878263491",
+                "denominator": "162259276829185175361510298353664",
+                "float": 3.0822135742646996e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "195571277523431937705177405",
+                "denominator": "162259276829185175361510298353664",
+                "float": 1.20530105486243e-06
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 720,
+              "reported_N": 720,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "744853865642291",
+                "denominator": "3602879701895770900000",
+                "float": 2.0673847790431698e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "110656859107709",
+                "denominator": "3602879701895770900000",
+                "float": 3.0713448203525456e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 720,
+              "reported_N": 720,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "67090471849810829290620409",
+                "denominator": "324518553658370350723020596707328",
+                "float": 2.0673847794982724e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "9967083774100430103919111",
+                "denominator": "324518553658370350723020596707328",
+                "float": 3.0713448158015196e-08
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 796,
+              "reported_N": 796,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "7677151347982825316535893",
+                "denominator": "324518553658370350723020596707328",
+                "float": 2.3657049069880837e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "3293169470315960198377899",
+                "denominator": "324518553658370350723020596707328",
+                "float": 1.0147861911719139e-08
+              }
+            },
+            "decimal_delta": {
+              "N": 796,
+              "reported_N": 796,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "852335020042291",
+                "denominator": "36028797018957709000000",
+                "float": 2.3657049098636504e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "365615255957709",
+                "denominator": "36028797018957709000000",
+                "float": 1.0147861882963474e-08
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 244,
+        "0.001": 430,
+        "0.0001": 604,
+        "0.00001": 720,
+        "0.000001": 796
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999998263,
+      "reported_sum_minus_one": -1.73749903353837e-13,
+      "source_sum_minus_one": -1.73749903353837e-13,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.0005864709999999773
+    },
+    {
+      "key": "zoo16_4_k4",
+      "archive_sha256": "003311253900188c362e56742c01811eb313715d3dc8daa31ae401c41497ebb0",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 4,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            43504
+          ],
+          "dtype": "<U3"
+        },
+        "gate": {
+          "shape": [
+            43504
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            43504
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 43504,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 26742,
+      "reported_regions": 26742,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "5444517870932519958826554875230024104189",
+          "denominator": "5444517870735015415413993718908291383296",
+          "float": 1.0000000000362759
+        },
+        "total_minus_one": {
+          "numerator": "197504543412561156321732720893",
+          "denominator": "5444517870735015415413993718908291383296",
+          "float": 3.6275855475500136e-11
+        },
+        "minimum": {
+          "numerator": "6242326257144199",
+          "denominator": "664613997892457936451903530140172288",
+          "float": 9.392408641616179e-21
+        },
+        "maximum": {
+          "numerator": "37408819443081073",
+          "denominator": "2305843009213693952",
+          "float": 0.01622348932412259
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "29642774846903580060795277971060852791327092312581148522546762831257951927347721",
+          "denominator": "107484760756384644722270602337810100706535412522040461589563366854163209677321",
+          "float": 275.7858382742205
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 3272,
+              "reported_N": 3272,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "64241831250243887242893951108552531307864739492731",
+                "denominator": "24519928654743703121850342808446371369879812548008607744",
+                "float": 2.619984427965106e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "110490225610616407323074498506670051014981654465669",
+                "denominator": "24519928654743703121850342808446371369879812548008607744",
+                "float": 4.506139767631038e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 3272,
+              "reported_N": 3272,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1426455203966929107422673170966333911",
+                "denominator": "544451787093251995882655487523002410418900",
+                "float": 2.6199844279739878e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2453375849373853925433346339264706089",
+                "denominator": "544451787093251995882655487523002410418900",
+                "float": 4.506139767622156e-06
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 7007,
+              "reported_N": 7007,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "12685484142104213616302178291848349726742650436991",
+                "denominator": "49039857309487406243700685616892742739759625096017215488",
+                "float": 2.5867701983810704e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "14921919299136873176712794807457226062631588971137",
+                "denominator": "49039857309487406243700685616892742739759625096017215488",
+                "float": 3.042814583444971e-07
+              }
+            },
+            "decimal_delta": {
+              "N": 7007,
+              "reported_N": 7007,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1408371657312975617689603075213140811",
+                "denominator": "5444517870932519958826554875230024104189000",
+                "float": 2.5867701983899526e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1656665837745187834089725625628843189",
+                "denominator": "5444517870932519958826554875230024104189000",
+                "float": 3.042814583436089e-07
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 11323,
+              "reported_N": 11323,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "659792985964764456559813738088505811",
+                "denominator": "54445178709325199588265548752300241041890000",
+                "float": 1.2118483245087727e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2150439014289377890368615643625414189",
+                "denominator": "54445178709325199588265548752300241041890000",
+                "float": 3.9497326765520516e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 11323,
+              "reported_N": 11323,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "297144344843306096781616612572042643222786350163",
+                "denominator": "24519928654743703121850342808446371369879812548008607744",
+                "float": 1.211848325610114e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "968471634073613812618177175642981967268745700269",
+                "denominator": "24519928654743703121850342808446371369879812548008607744",
+                "float": 3.94973267545071e-08
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 15556,
+              "reported_N": 15556,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "671206178408918897721418066194531937",
+                "denominator": "181483929031083998627551829174334136806300000",
+                "float": 3.69843314497537e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1136864514900481900042190213525204189",
+                "denominator": "544451787093251995882655487523002410418900000",
+                "float": 2.0880903357302478e-09
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 15556,
+              "reported_N": 15556,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "60456878643362557994763934549159455126742429667",
+                "denominator": "16346619103162468747900228538964247579919875032005738496",
+                "float": 3.6984331904856323e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "102399649881714233996597979916482450466297950295",
+                "denominator": "49039857309487406243700685616892742739759625096017215488",
+                "float": 2.0880902902199856e-09
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 19190,
+              "reported_N": 19190,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "32220584480272919934636535707350159706568097093",
+                "denominator": "49039857309487406243700685616892742739759625096017215488",
+                "float": 6.570285120719432e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "4137700385912818880814537932864147484817916603",
+                "denominator": "49039857309487406243700685616892742739759625096017215488",
+                "float": 8.437423379517718e-11
+              }
+            },
+            "decimal_delta": {
+              "N": 19190,
+              "reported_N": 19190,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "3577203632248627212977994416564895811",
+                "denominator": "5444517870932519958826554875230024104189000000",
+                "float": 6.570285408276077e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "459376867183351374626588507723104189",
+                "denominator": "5444517870932519958826554875230024104189000000",
+                "float": 8.437420503951267e-11
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 3272,
+        "0.001": 7007,
+        "0.0001": 11323,
+        "0.00001": 15556,
+        "0.000001": 19190
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 1.0000000000362759,
+      "reported_sum_minus_one": 3.6275871195812215e-11,
+      "source_sum_minus_one": 3.6275871195812215e-11,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.05598724900000002
+    },
+    {
+      "key": "zoo16_5_k2",
+      "archive_sha256": "7e051aad37d124be453f60361a4be3bd446ea63c84e7b5f7bc73a63e88f042b1",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 2,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            38
+          ],
+          "dtype": "<U1"
+        },
+        "gate": {
+          "shape": [
+            38
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            38
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 38,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 34,
+      "reported_regions": 34,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "18014398509473815",
+          "denominator": "18014398509481984",
+          "float": 0.9999999999995466
+        },
+        "total_minus_one": {
+          "numerator": "-8169",
+          "denominator": "18014398509481984",
+          "float": -4.534705944081452e-13
+        },
+        "minimum": {
+          "numerator": "167257041091",
+          "denominator": "18014398509481984",
+          "float": 9.284630902495206e-06
+        },
+        "maximum": {
+          "numerator": "8879871197892035",
+          "denominator": "36028797018963968",
+          "float": 0.24646593649013768
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "324518553658132407540308170654225",
+          "denominator": "41025288654987177937315955828784",
+          "float": 7.910207686465182
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 17,
+              "reported_N": 17,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "87595943376886564265092438097",
+                "denominator": "81129638414569891790433015562240",
+                "float": 0.0010797033622814152
+              },
+              "selected_excess_relative_total": {
+                "numerator": "63378165333529216578104338351",
+                "denominator": "81129638414569891790433015562240",
+                "float": 0.0007811962011918356
+              }
+            },
+            "decimal_delta": {
+              "N": 17,
+              "reported_N": 17,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "389004132803127",
+                "denominator": "360287970189476300",
+                "float": 0.001079703362281424
+              },
+              "selected_excess_relative_total": {
+                "numerator": "281455593647133",
+                "denominator": "360287970189476300",
+                "float": 0.0007811962011918267
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 27,
+              "reported_N": 27,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "6940508404825502679232988381",
+                "denominator": "162259276829139783580866031124480",
+                "float": 4.277418549161851e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "45733393459459349100160301859",
+                "denominator": "162259276829139783580866031124480",
+                "float": 0.0002818537981505794
+              }
+            },
+            "decimal_delta": {
+              "N": 27,
+              "reported_N": 27,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "154110244672837",
+                "denominator": "3602879701894763000",
+                "float": 4.27741854916194e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1015485328258663",
+                "denominator": "3602879701894763000",
+                "float": 0.0002818537981505785
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 31,
+              "reported_N": 31,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "2129836530643237",
+                "denominator": "36028797018947630000",
+                "float": 5.911483887522392e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "610121088122763",
+                "denominator": "36028797018947630000",
+                "float": 1.693426199608882e-05
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 31,
+              "reported_N": 31,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4795965502883369583430967769",
+                "denominator": "81129638414569891790433015562240",
+                "float": 5.911483887523493e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1373870552559384985671196199",
+                "denominator": "81129638414569891790433015562240",
+                "float": 1.6934261996077805e-05
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 33,
+              "reported_N": 33,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "9029865038545237",
+                "denominator": "360287970189476300000",
+                "float": 2.506291018763799e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "257738880074763",
+                "denominator": "360287970189476300000",
+                "float": 7.153690975005841e-07
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 33,
+              "reported_N": 33,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4066689682287204347551749019",
+                "denominator": "162259276829139783580866031124480",
+                "float": 2.5062910187683498e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "116075272418974698065554533",
+                "denominator": "162259276829139783580866031124480",
+                "float": 7.153690974550738e-07
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1344258219031233018596094447",
+                "denominator": "162259276829139783580866031124480",
+                "float": 8.28463090247066e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "9007199255",
+                "denominator": "9007199254740992",
+                "float": 1.0000000000287557e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 34,
+              "reported_N": 34,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "29848528516305237",
+                "denominator": "3602879701894763000000",
+                "float": 8.284630902499416e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1",
+                "denominator": "1000000",
+                "float": 1e-06
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 17,
+        "0.001": 27,
+        "0.0001": 31,
+        "0.00001": 33,
+        "0.000001": 34
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999995466,
+      "reported_sum_minus_one": -4.5341508325691393e-13,
+      "source_sum_minus_one": -4.5341508325691393e-13,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.0
+    },
+    {
+      "key": "zoo16_5_k3",
+      "archive_sha256": "d124d796adb3d1879bbb5972998af1b9386663bc5111621bf943de24b67346fa",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 3,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            1066
+          ],
+          "dtype": "<U2"
+        },
+        "gate": {
+          "shape": [
+            1066
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            1066
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 1066,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 824,
+      "reported_regions": 824,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "72057594037739685",
+          "denominator": "72057594037927936",
+          "float": 0.9999999999973875
+        },
+        "total_minus_one": {
+          "numerator": "-188251",
+          "denominator": "72057594037927936",
+          "float": -2.6125074326088793e-12
+        },
+        "minimum": {
+          "numerator": "7027",
+          "denominator": "9007199254740992",
+          "float": 7.801537194040975e-13
+        },
+        "maximum": {
+          "numerator": "181697637024861",
+          "denominator": "2251799813685248",
+          "float": 0.080689960057994
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "1038459371701539560052012764779845",
+          "denominator": "31114306214475129969638825806951",
+          "float": 33.37562356503463
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 168,
+              "reported_N": 168,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "36033305476797690162204080531",
+                "denominator": "324518553657578919649703897333760",
+                "float": 0.0001110361952211177
+              },
+              "selected_excess_relative_total": {
+                "numerator": "10077842216855539671077258861",
+                "denominator": "324518553657578919649703897333760",
+                "float": 3.105474896048421e-05
+              }
+            },
+            "decimal_delta": {
+              "N": 168,
+              "reported_N": 168,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "160020021574783",
+                "denominator": "1441151880754793700",
+                "float": 0.00011103619522112658
+              },
+              "selected_excess_relative_total": {
+                "numerator": "44754609870757",
+                "denominator": "1441151880754793700",
+                "float": 3.1054748960475335e-05
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 325,
+              "reported_N": 325,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "2778172677469210769061259837",
+                "denominator": "216345702438385946433135931555840",
+                "float": 1.2841358280552945e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "330893529974775361488453961",
+                "denominator": "649037107315157839299407794667520",
+                "float": 5.098222062272642e-07
+              }
+            },
+            "decimal_delta": {
+              "N": 325,
+              "reported_N": 325,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "61687825458221",
+                "denominator": "4803839602515979000",
+                "float": 1.2841358280553833e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "7347312313537",
+                "denominator": "14411518807547937000",
+                "float": 5.09822206226376e-07
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 490,
+              "reported_N": 490,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "198874501640063",
+                "denominator": "144115188075479370000",
+                "float": 1.3799690670764263e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "6423888355979",
+                "denominator": "48038396025159790000",
+                "float": 1.3372403925839928e-07
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 490,
+              "reported_N": 490,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "447825565743414467872340779",
+                "denominator": "324518553657578919649703897333760",
+                "float": 1.3799690670874399e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2893062120387398811732187",
+                "denominator": "21634570243838594643313593155584",
+                "float": 1.3372403924738587e-07
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 628,
+              "reported_N": 628,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "43865769624021",
+                "denominator": "480383960251597900000",
+                "float": 9.131397643053402e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "132275879527937",
+                "denominator": "1441151880754793700000",
+                "float": 9.178482940927668e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 628,
+              "reported_N": 628,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "19755386383152049451595579",
+                "denominator": "216345702438385946433135931555840",
+                "float": 9.131397647604428e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "59571760145674320406157903",
+                "denominator": "649037107315157839299407794667520",
+                "float": 9.178482936376642e-08
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 709,
+              "reported_N": 709,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1847926827652663108095277",
+                "denominator": "649037107315157839299407794667520",
+                "float": 2.847182089937658e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "5058374628394683712788215",
+                "denominator": "129807421463031567859881558933504",
+                "float": 3.8968300667117715e-08
+              }
+            },
+            "decimal_delta": {
+              "N": 709,
+              "reported_N": 709,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "41032218652063",
+                "denominator": "14411518807547937000000",
+                "float": 2.8471821186933227e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "561592397547937",
+                "denominator": "14411518807547937000000",
+                "float": 3.896830063836205e-08
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 168,
+        "0.001": 325,
+        "0.0001": 490,
+        "0.00001": 628,
+        "0.000001": 709
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999973874,
+      "reported_sum_minus_one": -2.6125768215479184e-12,
+      "source_sum_minus_one": -2.6125768215479184e-12,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.002189119000000017
+    },
+    {
+      "key": "zoo16_5_k4",
+      "archive_sha256": "e52510abad9cff3321d2094778e665758416b319167aaf33c26b78ddb0494916",
+      "report_sha256": "85a357e23998879aea8a07bdeb026607088aa03e60d3f5091ffedfcc563ccea0",
+      "kind": "width",
+      "k": 4,
+      "status": "complete",
+      "keys": [
+        "event",
+        "gate",
+        "mass"
+      ],
+      "arrays": {
+        "event": {
+          "shape": [
+            38318
+          ],
+          "dtype": "<U3"
+        },
+        "gate": {
+          "shape": [
+            38318
+          ],
+          "dtype": "int64"
+        },
+        "mass": {
+          "shape": [
+            38318
+          ],
+          "dtype": "float64"
+        }
+      },
+      "mass_count": 38318,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "dense_gate_ids": true,
+      "history_group_schema_valid": true,
+      "regions": 23956,
+      "reported_regions": 23956,
+      "complete": null,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "170141183464969177056771380633433264429",
+          "denominator": "170141183460469231731687303715884105728",
+          "float": 1.0000000000264484
+        },
+        "total_minus_one": {
+          "numerator": "4499945325084076917549158701",
+          "denominator": "170141183460469231731687303715884105728",
+          "float": 2.6448301543227472e-11
+        },
+        "minimum": {
+          "numerator": "1188801315372013",
+          "denominator": "170141183460469231731687303715884105728",
+          "float": 6.98714615234953e-24
+        },
+        "maximum": {
+          "numerator": "23868351872047301",
+          "denominator": "1152921504606846976",
+          "float": 0.02070249516265771
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "9649340770286766967382472445294154395596385321659057128772061508393145565347",
+          "denominator": "47674899553485317358032377901027216561726635999210994100834041477472455459",
+          "float": 202.3987645629207
+        },
+        "coverage": {
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 1836,
+              "reported_N": 1836,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "6552641984813060675234380200627745288812995040203",
+                "denominator": "766247770453210381268409767867830642851001258720886784",
+                "float": 8.551596803912902e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2938576722066900802936334742344608085104439307317",
+                "denominator": "766247770453210381268409767867830642851001258720886784",
+                "float": 3.835021562710491e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 1836,
+              "reported_N": 1836,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "145497880073450021555747179562656871",
+                "denominator": "17014118346496917705677138063343326442900",
+                "float": 8.551596803921783e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "65249510729172736214159477602655129",
+                "denominator": "17014118346496917705677138063343326442900",
+                "float": 3.83502156270161e-06
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 4273,
+              "reported_N": 4273,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "91758736382623248216350003722793772470748771461",
+                "denominator": "510831846968806920845606511911887095234000839147257856",
+                "float": 1.7962610774387827e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "938501350445891305261188487007241039948479144561",
+                "denominator": "1532495540906420762536819535735661285702002517441773568",
+                "float": 6.124007055125254e-07
+              }
+            },
+            "decimal_delta": {
+              "N": 4273,
+              "reported_N": 4273,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "10187266184300209696958289791358857",
+                "denominator": "56713727821656392352257126877811088143000",
+                "float": 1.7962610774476644e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "104194580790532029345548529607555429",
+                "denominator": "170141183464969177056771380633433264429000",
+                "float": 6.124007055116372e-07
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 7467,
+              "reported_N": 7467,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "32263306479964675465211967289105571",
+                "denominator": "1701411834649691770567713806334332644290000",
+                "float": 1.896266725252176e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "84878345540700300478623405459694429",
+                "denominator": "1701411834649691770567713806334332644290000",
+                "float": 4.988700784379822e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 7467,
+              "reported_N": 7467,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "14530101512529904839453037158046982854614937379",
+                "denominator": "766247770453210381268409767867830642851001258720886784",
+                "float": 1.8962667263535173e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "38225808526453204706513887700771904641339003101",
+                "denominator": "766247770453210381268409767867830642851001258720886784",
+                "float": 4.9887007832784815e-08
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 10982,
+              "reported_N": 10982,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "43476287596046357903425772536035571",
+                "denominator": "17014118346496917705677138063343326442900000",
+                "float": 2.5553065231262958e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "64275925439366041104155462254364429",
+                "denominator": "17014118346496917705677138063343326442900000",
+                "float": 3.7777993622925505e-09
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 10982,
+              "reported_N": 10982,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "3915995922084411821515397111777009881973824793",
+                "denominator": "1532495540906420762536819535735661285702002517441773568",
+                "float": 2.555306568636558e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "5789460607408179816134326315362143724940255975",
+                "denominator": "1532495540906420762536819535735661285702002517441773568",
+                "float": 3.777799316782288e-09
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 14417,
+              "reported_N": 14417,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4637267169533254480012787639889042466099445",
+                "denominator": "1532495540906420762536819535735661285702002517441773568",
+                "float": 3.02595801798579e-12
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1103793071288765396375549721160060783306518283",
+                "denominator": "1532495540906420762536819535735661285702002517441773568",
+                "float": 7.202585859635899e-10
+              }
+            },
+            "decimal_delta": {
+              "N": 14417,
+              "reported_N": 14417,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "514844970818206945611872211735571",
+                "denominator": "170141183464969177056771380633433264429000000",
+                "float": 3.0259867736503065e-12
+              },
+              "selected_excess_relative_total": {
+                "numerator": "122545643324127623228304918572264429",
+                "denominator": "170141183464969177056771380633433264429000000",
+                "float": 7.202585572079253e-10
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.01": 1836,
+        "0.001": 4273,
+        "0.0001": 7467,
+        "0.00001": 10982,
+        "0.000001": 14417
+      },
+      "source_arithmetic_matches": {
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 1.0000000000264484,
+      "reported_sum_minus_one": 2.6448399026435254e-11,
+      "source_sum_minus_one": 2.6448399026435254e-11,
+      "reported_sum_discrepancy": 0.0,
+      "cpu": 0.04222999999999999
+    },
+    {
+      "key": "gpu_k3",
+      "archive_sha256": "db8c29408c9dfbcdabac941a150c2061e24375d04801b8a0c9cd9c36094e2efc",
+      "report_sha256": "0940f5a0a6502c5fa8044cd368a74210abce3947ef0ce5e70ae798e340f00afd",
+      "kind": "gpu",
+      "k": 3,
+      "status": "complete",
+      "keys": [
+        "complete",
+        "mass",
+        "patterns"
+      ],
+      "arrays": {
+        "patterns": {
+          "shape": [
+            792,
+            6
+          ],
+          "dtype": "uint8"
+        },
+        "mass": {
+          "shape": [
+            792
+          ],
+          "dtype": "float64"
+        },
+        "complete": {
+          "shape": [],
+          "dtype": "bool"
+        }
+      },
+      "mass_count": 792,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "unique_patterns": 792,
+      "history_group_schema_valid": true,
+      "regions": 792,
+      "reported_regions": 792,
+      "complete": true,
+      "reported_complete": true,
+      "subtrees": 894,
+      "subtrees_done": 894,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "72057594037921299",
+          "denominator": "72057594037927936",
+          "float": 0.9999999999999079
+        },
+        "total_minus_one": {
+          "numerator": "-6637",
+          "denominator": "72057594037927936",
+          "float": -9.210687768046455e-14
+        },
+        "minimum": {
+          "numerator": "1611047",
+          "denominator": "72057594037927936",
+          "float": 2.2357768414416057e-11
+        },
+        "maximum": {
+          "numerator": "185777213614119",
+          "denominator": "2251799813685248",
+          "float": 0.0825016560020404
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "5192296858533871136027236917847401",
+          "denominator": "140209923198646234467816534663091",
+          "float": 37.03230655919798
+        },
+        "coverage": {
+          "0.1": {
+            "decimal_delta": {
+              "N": 66,
+              "reported_N": 66,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "482979620389307",
+                "denominator": "240191980126404330",
+                "float": 0.002010806606178659
+              },
+              "selected_excess_relative_total": {
+                "numerator": "70793985924683",
+                "denominator": "240191980126404330",
+                "float": 0.00029473917441967334
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 66,
+              "reported_N": 66,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "435029367682570127324451665341",
+                "denominator": "216345702438931224261619441729536",
+                "float": 0.002010806606178681
+              },
+              "selected_excess_relative_total": {
+                "numerator": "63765553726090095660875942467",
+                "denominator": "216345702438931224261619441729536",
+                "float": 0.00029473917441965116
+              }
+            }
+          },
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 201,
+              "reported_N": 201,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "551883285854857712172028661",
+                "denominator": "324518553658396836392429162594304",
+                "float": 1.7006216736556624e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "12477887378578705967530632281",
+                "denominator": "108172851219465612130809720864768",
+                "float": 0.00011535137733647276
+              }
+            },
+            "decimal_delta": {
+              "N": 201,
+              "reported_N": 201,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "12254270617301",
+                "denominator": "7205759403792129900",
+                "float": 1.7006216736645442e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "277064757327533",
+                "denominator": "2401919801264043300",
+                "float": 0.00011535137733646389
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 388,
+              "reported_N": 388,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "7835208530343123330572331569",
+                "denominator": "649037107316793672784858325188608",
+                "float": 1.2072050183286014e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "375754803108494857312978757",
+                "denominator": "216345702438931224261619441729536",
+                "float": 1.7368258249297126e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 388,
+              "reported_N": 388,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "869882891312701",
+                "denominator": "72057594037921299000",
+                "float": 1.2072050183286902e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "41717163402433",
+                "denominator": "24019198012640433000",
+                "float": 1.7368258249288245e-06
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 527,
+              "reported_N": 527,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "53619771493189",
+                "denominator": "80063993375468110000",
+                "float": 6.697114299774396e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "750975932501299",
+                "denominator": "720575940379212990000",
+                "float": 1.0421884640029579e-06
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 527,
+              "reported_N": 527,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "24148198292038829837106677",
+                "denominator": "36057617073155204043603240288256",
+                "float": 6.69711429988453e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "338209492974132036586066531",
+                "denominator": "324518553658396836392429162594304",
+                "float": 1.0421884639919445e-06
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 634,
+              "reported_N": 634,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1156301193878701",
+                "denominator": "7205759403792129900000",
+                "float": 1.6046902610572614e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "694860785021299",
+                "denominator": "7205759403792129900000",
+                "float": 9.643130530497853e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 634,
+              "reported_N": 634,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "104150352547141398427460903",
+                "denominator": "649037107316793672784858325188608",
+                "float": 1.604690261512364e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "62587495420388001149229785",
+                "denominator": "649037107316793672784858325188608",
+                "float": 9.643130525946827e-08
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 708,
+              "reported_N": 708,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "15614589542420449048016971",
+                "denominator": "649037107316793672784858325188608",
+                "float": 2.405808445525288e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "5876501572408298935797685",
+                "denominator": "649037107316793672784858325188608",
+                "float": 9.05418427723269e-09
+              }
+            },
+            "decimal_delta": {
+              "N": 708,
+              "reported_N": 708,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1733567685078701",
+                "denominator": "72057594037921299000000",
+                "float": 2.4058084484008546e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "652422732921299",
+                "denominator": "72057594037921299000000",
+                "float": 9.054184248477024e-09
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.1": 66,
+        "0.01": 201,
+        "0.001": 388,
+        "0.0001": 527,
+        "0.00001": 634,
+        "0.000001": 708
+      },
+      "source_arithmetic_matches": {
+        "0.1": true,
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 0.9999999999999079,
+      "reported_sum_minus_one": -9.203748874142548e-14,
+      "source_sum_minus_one": -9.214851104388799e-14,
+      "reported_sum_discrepancy": -1.1102230246251565e-16,
+      "source_inverse_simpson": 37.03230655919798,
+      "reported_inverse_simpson": 37.03230655919798,
+      "inverse_simpson_discrepancy": 0.0,
+      "cpu": 0.001111338999999989
+    },
+    {
+      "key": "gpu_k4",
+      "archive_sha256": "94abea4792a59588d48940ef806157e43dc1756b718c531c669ccb8a319d7164",
+      "report_sha256": "d64bf24c03e8352e6c1552bd3179bf026aa0f97deec6f9891cd1f35a99a66494",
+      "kind": "gpu",
+      "k": 4,
+      "status": "complete",
+      "keys": [
+        "complete",
+        "mass",
+        "patterns"
+      ],
+      "arrays": {
+        "patterns": {
+          "shape": [
+            21032,
+            8
+          ],
+          "dtype": "uint8"
+        },
+        "mass": {
+          "shape": [
+            21032
+          ],
+          "dtype": "float64"
+        },
+        "complete": {
+          "shape": [],
+          "dtype": "bool"
+        }
+      },
+      "mass_count": 21032,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "unique_patterns": 21032,
+      "history_group_schema_valid": true,
+      "regions": 21032,
+      "reported_regions": 21032,
+      "complete": true,
+      "reported_complete": true,
+      "subtrees": 2226,
+      "subtrees_done": 2226,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "10633823966482659804441034582940708817",
+          "denominator": "10633823966279326983230456482242756608",
+          "float": 1.0000000000191214
+        },
+        "total_minus_one": {
+          "numerator": "203332821210578100697952209",
+          "denominator": "10633823966279326983230456482242756608",
+          "float": 1.912132661358342e-11
+        },
+        "minimum": {
+          "numerator": "8987594173726673",
+          "denominator": "10633823966279326983230456482242756608",
+          "float": 8.451892942959207e-22
+        },
+        "maximum": {
+          "numerator": "2848849907719787",
+          "denominator": "72057594037927936",
+          "float": 0.039535734515647
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "113078212150141007948012854050642506097397496469818268700663552066381539489",
+          "denominator": "1008156526475508415039778729592536160716351307586167072877887984360794273",
+          "float": 112.16334882586119
+        },
+        "coverage": {
+          "0.1": {
+            "decimal_delta": {
+              "N": 396,
+              "reported_N": 396,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "13088705687090456271967246407396953",
+                "denominator": "106338239664826598044410345829407088170",
+                "float": 0.00012308559675564947
+              },
+              "selected_excess_relative_total": {
+                "numerator": "18044374959223311951975263017406887",
+                "denominator": "106338239664826598044410345829407088170",
+                "float": 0.00016968848662624451
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 396,
+              "reported_N": 396,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "11789258011030660901580449964662645106254882641501",
+                "denominator": "95780971305949512883068991636264124680396024225726464",
+                "float": 0.00012308559675567167
+              },
+              "selected_excess_relative_total": {
+                "numerator": "16252928068496196567509270792715027362549078059427",
+                "denominator": "95780971305949512883068991636264124680396024225726464",
+                "float": 0.00016968848662622232
+              }
+            }
+          },
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 1737,
+              "reported_N": 1737,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "36138651371110436562216506339030573896282941741",
+                "denominator": "15963495217658252147178165272710687446732670704287744",
+                "float": 2.263830751246453e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "476196807344256255922933285264646519284091290745",
+                "denominator": "47890485652974756441534495818132062340198012112863232",
+                "float": 9.943453294562213e-06
+              }
+            },
+            "decimal_delta": {
+              "N": 1737,
+              "reported_N": 1737,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "802439256625314032018039444466161",
+                "denominator": "354460798882755326814701152764690293900",
+                "float": 2.2638307512553344e-06
+              },
+              "selected_excess_relative_total": {
+                "numerator": "10573693195322218029469895725302317",
+                "denominator": "1063382396648265980444103458294070881700",
+                "float": 9.943453294553331e-06
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 4018,
+              "reported_N": 4018,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "43741610517094114323059479803317333021063020315",
+                "denominator": "95780971305949512883068991636264124680396024225726464",
+                "float": 4.5668372246270036e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "13223303719756158198385814135541404235477232375",
+                "denominator": "31926990435316504294356330545421374893465341408575488",
+                "float": 4.1417319764436704e-07
+              }
+            },
+            "decimal_delta": {
+              "N": 4018,
+              "reported_N": 4018,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4856294313035823252943250625452183",
+                "denominator": "10633823966482659804441034582940708817000",
+                "float": 4.5668372246358853e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1468081625125328286082825724955939",
+                "denominator": "3544607988827553268147011527646902939000",
+                "float": 4.1417319764347887e-07
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 7021,
+              "reported_N": 7021,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1103764321198129487333179982341183",
+                "denominator": "106338239664826598044410345829407088170000",
+                "float": 1.0379749793462309e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2162295516834026625540917843112939",
+                "denominator": "35446079888275532681470115276469029390000",
+                "float": 6.100238795515572e-08
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 7021,
+              "reported_N": 7021,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "497091259092712110557343203873736534941481151",
+                "denominator": "47890485652974756441534495818132062340198012112863232",
+                "float": 1.0379749804475723e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "973811328212049080904061937913656677876286059",
+                "denominator": "15963495217658252147178165272710687446732670704287744",
+                "float": 6.10023879441423e-08
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 10233,
+              "reported_N": 10233,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "2501040180603014827416253744597061",
+                "denominator": "354460798882755326814701152764690293900000",
+                "float": 7.055900648213236e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "129695796273882091384860981802939",
+                "denominator": "354460798882755326814701152764690293900000",
+                "float": 3.6589602202183564e-10
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 10233,
+              "reported_N": 10233,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "225273673961053218671790722066884756058108047",
+                "denominator": "31926990435316504294356330545421374893465341408575488",
+                "float": 7.0559006937234985e-09
+              },
+              "selected_excess_relative_total": {
+                "numerator": "11681957342405796226591925329662941031337841",
+                "denominator": "31926990435316504294356330545421374893465341408575488",
+                "float": 3.658959765115734e-10
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 13164,
+              "reported_N": 13164,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "79543019967748060337855877401955844692131897",
+                "denominator": "95780971305949512883068991636264124680396024225726464",
+                "float": 8.30467877733948e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "846859675233821228027426823247174487064557",
+                "denominator": "31926990435316504294356330545421374893465341408575488",
+                "float": 2.6524882667833767e-11
+              }
+            },
+            "decimal_delta": {
+              "N": 13164,
+              "reported_N": 13164,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "8831049527423921824253641780291183",
+                "denominator": "10633823966482659804441034582940708817000000",
+                "float": 8.304679064896125e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "94020209079558909357533507902939",
+                "denominator": "3544607988827553268147011527646902939000000",
+                "float": 2.652485391216925e-11
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.1": 396,
+        "0.01": 1737,
+        "0.001": 4018,
+        "0.0001": 7021,
+        "0.00001": 10233,
+        "0.000001": 13164
+      },
+      "source_arithmetic_matches": {
+        "0.1": true,
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 1.0000000000191214,
+      "reported_sum_minus_one": 1.9120705019304296e-11,
+      "source_sum_minus_one": 1.912137115311907e-11,
+      "reported_sum_discrepancy": 6.661338147750939e-16,
+      "source_inverse_simpson": 112.16334882586122,
+      "reported_inverse_simpson": 112.16334882586122,
+      "inverse_simpson_discrepancy": 0.0,
+      "cpu": 0.04765736599999998
+    },
+    {
+      "key": "gpu_k5",
+      "archive_sha256": "712b29009d4f07fcbc391512f3adf2a355420645b5d8f7e0c3a91da9cf5ab146",
+      "report_sha256": "3e71438a2679addede835c14a5b584c8afc00f4e481c8d474ad37f5c20307286",
+      "kind": "gpu",
+      "k": 5,
+      "status": "complete",
+      "keys": [
+        "complete",
+        "mass",
+        "patterns"
+      ],
+      "arrays": {
+        "patterns": {
+          "shape": [
+            632394,
+            10
+          ],
+          "dtype": "uint8"
+        },
+        "mass": {
+          "shape": [
+            632394
+          ],
+          "dtype": "float64"
+        },
+        "complete": {
+          "shape": [],
+          "dtype": "bool"
+        }
+      },
+      "mass_count": 632394,
+      "nonfinite": 0,
+      "negative": 0,
+      "zero": 0,
+      "unique_patterns": 632394,
+      "history_group_schema_valid": true,
+      "regions": 632394,
+      "reported_regions": 632394,
+      "complete": true,
+      "reported_complete": true,
+      "subtrees": 3018,
+      "subtrees_done": 3018,
+      "exact": {
+        "valid_nonnegative_total": true,
+        "total": {
+          "numerator": "730750819656830859458677131827839981412085855615",
+          "denominator": "730750818665451459101842416358141509827966271488",
+          "float": 1.0000000013566586
+        },
+        "total_minus_one": {
+          "numerator": "991379400356834715469698471584119584127",
+          "denominator": "730750818665451459101842416358141509827966271488",
+          "float": 1.3566586243000883e-09
+        },
+        "minimum": {
+          "numerator": "180784895458049",
+          "denominator": "5846006549323611672814739330865132078623730171904",
+          "float": 3.0924511276670735e-35
+        },
+        "maximum": {
+          "numerator": "1290367130024693",
+          "denominator": "72057594037927936",
+          "float": 0.017907441224661216
+        },
+        "zero_count": 0,
+        "inverse_simpson": {
+          "numerator": "5695965444577388143138466127112048395203311919473668963289574606428795051362084682964764021634400",
+          "denominator": "14352405995692738961199108620971125460225520057019770532533853655070100141529387594493431278131",
+          "float": 396.8648494396541
+        },
+        "coverage": {
+          "0.1": {
+            "decimal_delta": {
+              "N": 2548,
+              "reported_N": 2548,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "12056840325024579397948497006415886898389017",
+                "denominator": "487167213104553906305784754551893320941390570410",
+                "float": 2.4748874720427846e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "20373335252700840456567319638595798281084853",
+                "denominator": "1461501639313661718917354263655679962824171711230",
+                "float": 1.3940001642603971e-05
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 2548,
+              "reported_N": 2548,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "54299181595094982376803497642558109664803213626496335299473",
+                "denominator": "2194006079404791988226509972612861340757896129595294677844623360",
+                "float": 2.474887472045005e-05
+              },
+              "selected_excess_relative_total": {
+                "numerator": "18350669010442308975327274967734888434583321201963245505193",
+                "denominator": "1316403647642875192935905983567716804454737677757176806706774016",
+                "float": 1.3940001642581767e-05
+              }
+            }
+          },
+          "0.01": {
+            "rounded_one_minus_binary_delta": {
+              "N": 14658,
+              "reported_N": 14658,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "220567416285801231259265026057573909161111481070029059413",
+                "denominator": "658201823821437596467952991783858402227368838878588403353387008",
+                "float": 3.3510605456122007e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "2862694009285405474898585124914207512581031349311948715351",
+                "denominator": "3291009119107187982339764958919292011136844194392942016766935040",
+                "float": 8.69852955637516e-07
+              }
+            },
+            "decimal_delta": {
+              "N": 14658,
+              "reported_N": 14658,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "4897580480981372504179375780469636896613177",
+                "denominator": "14615016393136617189173542636556799628241717112300",
+                "float": 3.3510605457010185e-07
+              },
+              "selected_excess_relative_total": {
+                "numerator": "12712915206130827892538057224562299773164743",
+                "denominator": "14615016393136617189173542636556799628241717112300",
+                "float": 8.698529556286342e-07
+              }
+            }
+          },
+          "0.001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 42499,
+              "reported_N": 42499,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "8751359568737659395193604443210546027747253005720080475",
+                "denominator": "438801215880958397645301994522572268151579225919058935568924672",
+                "float": 1.9943790609531492e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "275753301751745159432330960086820150458726522004203686571",
+                "denominator": "6582018238214375964679529917838584022273688388785884033533870080",
+                "float": 4.1894946469573104e-08
+              }
+            },
+            "decimal_delta": {
+              "N": 42499,
+              "reported_N": 42499,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "971596089041892115387405178623134042335959",
+                "denominator": "48716721310455390630578475455189332094139057041000",
+                "float": 1.9943790610419672e-08
+              },
+              "selected_excess_relative_total": {
+                "numerator": "6122953294294112344677312469690704985849723",
+                "denominator": "146150163931366171891735426365567996282417171123000",
+                "float": 4.1894946468684924e-08
+              }
+            }
+          },
+          "0.0001": {
+            "decimal_delta": {
+              "N": 89216,
+              "reported_N": 89216,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "610240951272028762305849179591227456234877",
+                "denominator": "1461501639313661718917354263655679962824171711230000",
+                "float": 4.1754380211205583e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1784510690682677872599331683718925653767041",
+                "denominator": "487167213104553906305784754551893320941390570410000",
+                "float": 3.6630352837387954e-09
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 89216,
+              "reported_N": 89216,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1374140496622703525446998425872673679667554222647496433",
+                "denominator": "3291009119107187982339764958919292011136844194392942016766935040",
+                "float": 4.1754381312546824e-10
+              },
+              "selected_excess_relative_total": {
+                "numerator": "803672165743368074526879935956547371286319535281880833",
+                "denominator": "219400607940479198822650997261286134075789612959529467784462336",
+                "float": 3.663035272725383e-09
+              }
+            }
+          },
+          "0.00001": {
+            "decimal_delta": {
+              "N": 152956,
+              "reported_N": 152956,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "1326893511989385288080716774436437032408877",
+                "denominator": "14615016393136617189173542636556799628241717112300000",
+                "float": 9.078973819095476e-11
+              },
+              "selected_excess_relative_total": {
+                "numerator": "1157307005606752824817120843545162438157041",
+                "denominator": "4871672131045539063057847545518933209413905704100000",
+                "float": 2.3755847570931997e-10
+              }
+            },
+            "rounded_one_minus_binary_delta": {
+              "N": 152956,
+              "reported_N": 152956,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "597580012164948428725868199594663298510885934787057763",
+                "denominator": "6582018238214375964679529917838584022273688388785884033533870080",
+                "float": 9.078978370121698e-11
+              },
+              "selected_excess_relative_total": {
+                "numerator": "104240928014118331355663498089018599772560366324740499",
+                "denominator": "438801215880958397645301994522572268151579225919058935568924672",
+                "float": 2.3755843019905775e-10
+              }
+            }
+          },
+          "0.000001": {
+            "rounded_one_minus_binary_delta": {
+              "N": 226080,
+              "reported_N": 226080,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "762487052716951525169235514723480201222858196040185",
+                "denominator": "438801215880958397645301994522572268151579225919058935568924672",
+                "float": 1.7376593890838382e-12
+              },
+              "selected_excess_relative_total": {
+                "numerator": "38099940776687576514926695078514515249366384751923733",
+                "denominator": "1316403647642875192935905983567716804454737677757176806706774016",
+                "float": 2.894244546109283e-11
+              }
+            },
+            "decimal_delta": {
+              "N": 226080,
+              "reported_N": 226080,
+              "matches_reported": true,
+              "previous_shortfall_relative_total": {
+                "numerator": "84654469072187843847637984628168405942959",
+                "denominator": "48716721310455390630578475455189332094139057041000000",
+                "float": 1.7376881447483543e-12
+              },
+              "selected_excess_relative_total": {
+                "numerator": "4229938946068258707149084079535717246171123",
+                "denominator": "146150163931366171891735426365567996282417171123000000",
+                "float": 2.8942416705428313e-11
+              }
+            }
+          }
+        }
+      },
+      "source_arithmetic_counts": {
+        "0.1": 2548,
+        "0.01": 14658,
+        "0.001": 42499,
+        "0.0001": 89216,
+        "0.00001": 152956,
+        "0.000001": 226080
+      },
+      "source_arithmetic_matches": {
+        "0.1": true,
+        "0.01": true,
+        "0.001": true,
+        "0.0001": true,
+        "0.00001": true,
+        "0.000001": true
+      },
+      "source_sorted_sum": 1.0000000013566588,
+      "reported_sum_minus_one": 1.3566585632673878e-09,
+      "source_sum_minus_one": 1.3566587853119927e-09,
+      "reported_sum_discrepancy": 2.220446049250313e-16,
+      "source_inverse_simpson": 396.8648494396543,
+      "reported_inverse_simpson": 396.8648494396542,
+      "inverse_simpson_discrepancy": 5.684341886080802e-14,
+      "cpu": 2.167718625
+    }
+  ],
+  "scope": "Exact saved binary-mass contraction and separate source-report arithmetic only; no independent mass accuracy, true partition completeness, historical identity, certified probability coverage, cost or future-growth conclusion. No author imports, model, RNG, geometry or mass calls.",
+  "growth": [
+    {
+      "family": "target",
+      "k_from": 2,
+      "k_to": 3,
+      "regions": {
+        "numerator": "396",
+        "denominator": "17",
+        "float": 23.294117647058822
+      },
+      "coverage": {
+        "0.01": {
+          "numerator": "201",
+          "denominator": "22",
+          "float": 9.136363636363637
+        },
+        "0.001": {
+          "numerator": "388",
+          "denominator": "31",
+          "float": 12.516129032258064
+        },
+        "0.0001": {
+          "numerator": "527",
+          "denominator": "33",
+          "float": 15.969696969696969
+        },
+        "0.00001": {
+          "numerator": "317",
+          "denominator": "17",
+          "float": 18.647058823529413
+        },
+        "0.000001": {
+          "numerator": "354",
+          "denominator": "17",
+          "float": 20.823529411764707
+        }
+      }
+    },
+    {
+      "family": "target",
+      "k_from": 3,
+      "k_to": 4,
+      "regions": {
+        "numerator": "239",
+        "denominator": "9",
+        "float": 26.555555555555557
+      },
+      "coverage": {
+        "0.01": {
+          "numerator": "579",
+          "denominator": "67",
+          "float": 8.64179104477612
+        },
+        "0.001": {
+          "numerator": "2009",
+          "denominator": "194",
+          "float": 10.355670103092784
+        },
+        "0.0001": {
+          "numerator": "413",
+          "denominator": "31",
+          "float": 13.32258064516129
+        },
+        "0.00001": {
+          "numerator": "10233",
+          "denominator": "634",
+          "float": 16.1403785488959
+        },
+        "0.000001": {
+          "numerator": "1097",
+          "denominator": "59",
+          "float": 18.593220338983052
+        }
+      }
+    },
+    {
+      "family": "zoo16_4",
+      "k_from": 2,
+      "k_to": 3,
+      "regions": {
+        "numerator": "435",
+        "denominator": "17",
+        "float": 25.58823529411765
+      },
+      "coverage": {
+        "0.01": {
+          "numerator": "244",
+          "denominator": "23",
+          "float": 10.608695652173912
+        },
+        "0.001": {
+          "numerator": "43",
+          "denominator": "3",
+          "float": 14.333333333333334
+        },
+        "0.0001": {
+          "numerator": "302",
+          "denominator": "17",
+          "float": 17.764705882352942
+        },
+        "0.00001": {
+          "numerator": "360",
+          "denominator": "17",
+          "float": 21.176470588235293
+        },
+        "0.000001": {
+          "numerator": "398",
+          "denominator": "17",
+          "float": 23.41176470588235
+        }
+      }
+    },
+    {
+      "family": "zoo16_4",
+      "k_from": 3,
+      "k_to": 4,
+      "regions": {
+        "numerator": "4457",
+        "denominator": "145",
+        "float": 30.73793103448276
+      },
+      "coverage": {
+        "0.01": {
+          "numerator": "818",
+          "denominator": "61",
+          "float": 13.40983606557377
+        },
+        "0.001": {
+          "numerator": "7007",
+          "denominator": "430",
+          "float": 16.295348837209303
+        },
+        "0.0001": {
+          "numerator": "11323",
+          "denominator": "604",
+          "float": 18.746688741721854
+        },
+        "0.00001": {
+          "numerator": "3889",
+          "denominator": "180",
+          "float": 21.605555555555554
+        },
+        "0.000001": {
+          "numerator": "9595",
+          "denominator": "398",
+          "float": 24.108040201005025
+        }
+      }
+    },
+    {
+      "family": "zoo16_5",
+      "k_from": 2,
+      "k_to": 3,
+      "regions": {
+        "numerator": "412",
+        "denominator": "17",
+        "float": 24.235294117647058
+      },
+      "coverage": {
+        "0.01": {
+          "numerator": "168",
+          "denominator": "17",
+          "float": 9.882352941176471
+        },
+        "0.001": {
+          "numerator": "325",
+          "denominator": "27",
+          "float": 12.037037037037036
+        },
+        "0.0001": {
+          "numerator": "490",
+          "denominator": "31",
+          "float": 15.806451612903226
+        },
+        "0.00001": {
+          "numerator": "628",
+          "denominator": "33",
+          "float": 19.03030303030303
+        },
+        "0.000001": {
+          "numerator": "709",
+          "denominator": "34",
+          "float": 20.852941176470587
+        }
+      }
+    },
+    {
+      "family": "zoo16_5",
+      "k_from": 3,
+      "k_to": 4,
+      "regions": {
+        "numerator": "5989",
+        "denominator": "206",
+        "float": 29.07281553398058
+      },
+      "coverage": {
+        "0.01": {
+          "numerator": "153",
+          "denominator": "14",
+          "float": 10.928571428571429
+        },
+        "0.001": {
+          "numerator": "4273",
+          "denominator": "325",
+          "float": 13.147692307692308
+        },
+        "0.0001": {
+          "numerator": "7467",
+          "denominator": "490",
+          "float": 15.238775510204082
+        },
+        "0.00001": {
+          "numerator": "5491",
+          "denominator": "314",
+          "float": 17.487261146496817
+        },
+        "0.000001": {
+          "numerator": "14417",
+          "denominator": "709",
+          "float": 20.334273624823695
+        }
+      }
+    },
+    {
+      "family": "gpu",
+      "k_from": 3,
+      "k_to": 4,
+      "regions": {
+        "numerator": "239",
+        "denominator": "9",
+        "float": 26.555555555555557
+      },
+      "coverage": {
+        "0.1": {
+          "numerator": "6",
+          "denominator": "1",
+          "float": 6.0
+        },
+        "0.01": {
+          "numerator": "579",
+          "denominator": "67",
+          "float": 8.64179104477612
+        },
+        "0.001": {
+          "numerator": "2009",
+          "denominator": "194",
+          "float": 10.355670103092784
+        },
+        "0.0001": {
+          "numerator": "413",
+          "denominator": "31",
+          "float": 13.32258064516129
+        },
+        "0.00001": {
+          "numerator": "10233",
+          "denominator": "634",
+          "float": 16.1403785488959
+        },
+        "0.000001": {
+          "numerator": "1097",
+          "denominator": "59",
+          "float": 18.593220338983052
+        }
+      }
+    },
+    {
+      "family": "gpu",
+      "k_from": 4,
+      "k_to": 5,
+      "regions": {
+        "numerator": "1323",
+        "denominator": "44",
+        "float": 30.068181818181817
+      },
+      "coverage": {
+        "0.1": {
+          "numerator": "637",
+          "denominator": "99",
+          "float": 6.434343434343434
+        },
+        "0.01": {
+          "numerator": "4886",
+          "denominator": "579",
+          "float": 8.438687392055268
+        },
+        "0.001": {
+          "numerator": "42499",
+          "denominator": "4018",
+          "float": 10.57715281234445
+        },
+        "0.0001": {
+          "numerator": "5248",
+          "denominator": "413",
+          "float": 12.707021791767554
+        },
+        "0.00001": {
+          "numerator": "152956",
+          "denominator": "10233",
+          "float": 14.947327274504055
+        },
+        "0.000001": {
+          "numerator": "18840",
+          "denominator": "1097",
+          "float": 17.17411121239745
+        }
+      }
+    }
+  ],
+  "cpu": 2.4129555639999998,
+  "report_count_discrepancies": 0,
+  "adverse_mass_datasets": []
+}
