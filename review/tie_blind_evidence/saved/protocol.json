@@ -1,0 +1,22 @@
+{
+  "task": "T226 saved-only arithmetic",
+  "author_commit": "2809650d82170d9fe82542c332580d6c257f0997",
+  "manifest_sha256": "844edd09a1feecece68324430d2d5b6797a5674f54892cb0e8d2c485d88b7045",
+  "checker_sha256": "0123e691cd73f6626434fff6176a959ee7845e9a6b552210ff351d424af46a18",
+  "counts": {
+    "raw": 300,
+    "grouped": 60,
+    "pooled": 10,
+    "scramble_aggregates": 24
+  },
+  "tolerance": "absolute1e-12 + relative1e-10 on derived scalar quantities; exact rational saved-float contraction retained",
+  "resources": "one19CPUsoft/20CPUhard review-lock attempt,2GiB virtual,one thread; import setup excluded from internal timer",
+  "prohibitions": [
+    "No author imports",
+    "No model/estimator/fit/geometry/MC",
+    "No bootstrap/RNG",
+    "No rerun or overwrite",
+    "No reconstruction of unavailable per-scramble data"
+  ],
+  "review_required": true
+}
