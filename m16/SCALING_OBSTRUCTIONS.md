@@ -155,6 +155,10 @@ Owner's hypothesis: the correct part is simple; the error part is shattered, ran
 - **Against random weights** (prefix k = 4): the trained net concentrates regions at ties (near/far 44x) while 10 random
   draws and 2 scrambled controls do not (1.3-6.6x). Near ties it is 2-11x *more* fragmented than random, and far from ties
   4-9x coarser [measured; supported].
-Verdict: the complexity sits at the tie walls, is created by training, and grows with T. It is not random-like:
-training *moves* regions from the bulk to the ties at about the same total count (T232). A method that beats enumeration must handle the
+- **Is the function simple on the correct part?** At (16,4) the fully correct leaves (72% of the mass) form 78 connected groups,
+  and 10 groups hold 90% of that mass. But each group is 1.5k-4k linear pieces. Fully wrong leaves occur only near ties
+  (d < .05) or in the blind region, and those strata hold 84% of the leaves, 36% of the mass and 76% of the error [measured].
+Verdict: a large coherent correct part and a thin, fragmented error layer at the tie walls, created by training and growing
+with T. It is not random-like: training *moves* regions from the bulk to the ties at about the same total count (T232). The
+correct part is coherent only as a union of many linear pieces, so certifying it needs a bound on a nonlinear map. A method that beats enumeration must handle the
 fast-growing tie-wall layer without resolving it cell by cell [inferred].
