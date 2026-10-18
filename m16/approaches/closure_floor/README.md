@@ -138,5 +138,59 @@ T317e's DEV2 MSE x C is 3,435 pp^2 FPE, and the bar is .85 x 3,435 = 2,920.
 - The smooth verdict: 3.6x worse.
 
 ## Status
-Done for the pre-registered steps. Unverified. Re-check pushed before smooth_verdict/ and Fable r5 were read; the
-comparison with T319's own code follows below.
+Done. Unverified. The re-check was pushed (1d53520f) before smooth_verdict/ and Fable r5 §2 were read.
+
+## Comparison with T319's own write-up (read after the re-check was pushed)
+- **Definitions are identical:** mu and s^2 of N | < v3 (v4); the binding rival i* at the closure point; J =
+  (A_j - A_i*) on the lows; the product over 9 rivals; paired oracle; 100k inputs per model. T319 computes A by
+  forward mode, as I do. The only difference is seeds and code.
+- **Agreement:**
+  - R0 hard .532 vs .527, smooth 1.329 vs 1.326, product 11.69 vs 11.69;
+  - top-4 hard .416 vs .399, smooth .662 vs .657, product 5.87 vs 5.88;
+  - means within .01-.02 pp.
+- **Independent check of T319's key failure: reproduced** (AGENTS rule 5). Together with T319's own exhaustion list,
+  its two untried variants are now tried: cone-clipped J fixes the smoothing on R0 and top-4 but not on R1W, and the
+  1-D walk gains 9% on R1W at 18k FPE. The Gaussian-smoothed closure family is negative for the deployable closure
+  (R1W), scoped to these four forms (smooth, product, cone-clipped, 1-D largest low) at first order.
+
+## Compute accounting
+- Diagnostic sampling only; no estimator was built.
+- `oracle.py`: 80 x 1e5 inputs, 3 closures; per input, a closure forward with 10-column tangents and a 1-D walk of
+  ~10-12 cells. About 60 CPU-min.
+- `spread.py`: 80 x 1e5 x 9 forward passes, ~3 CPU-min.
+- Cost model for deployment: per pre-registration, at one point per triple (720 per model). Smooth +1.5 FPE, clip
+  +8.5, product +13.5, walk +1.5 + 2 per cell; the spread pattern adds nothing (Fable r5: the prefix tree keeps its
+  2,815 nodes, not re-verified here).
+
+## Claims
+1. [measured] T319's negative reproduces with independent code. The Gaussian-smoothed verdict Phi(m/(s||J||)) is 1.6-2.5x
+   worse than the hard verdict (R0, top-4), and the product over rivals is 11-14x worse.
+2. [measured] Cone-clipping J removes most of that damage where the closure keeps v4's position: top-4 .416 -> .195,
+   R0 .532 -> .387. On R1W, the closure T317e uses, it makes things worse (.481 -> .553) and costs ~6k FPE.
+3. [measured] Exact 1-D treatment of the largest-|J| low gives R1W .440 (-9%), top-4 .226, R0 .354, at ~15-19k FPE
+   added. It fails both the go and the stop line on R1W, and the cost decision by 4x.
+4. [measured] One position-deterministic spread pattern of the lows lowers R1W's floor .482 -> .343 (go <= .40), with
+   bias -.15 -> -.04, at no added cost. The opposite pattern gives .255. Projected T317e MSE x C .82 x today
+   (bar .85 x): a narrow pass.
+5. [inferred] Spreading helps closures that keep v4 (top-4, R1W) and hurts R0. With v4 pinned, the spread lows mimic
+   the true lows' variation, which the mean point removes. In R0 one value is shared by all 7 lows, and the pattern
+   is a large deterministic shift.
+6. [speculative] Since both signs help R1W and the reverse pattern helps more, the gain is from breaking the lows'
+   equality, and the best single pattern is not yet known.
+
+## Alternatives not ruled out
+- The cost projection assumes the closure error adds in quadrature with T317e's other error terms and is unchanged by
+  the walk integration. A real T317e run with the spread closure is the test (it changes the estimates, so it counts
+  as a new variant).
+- spread- beat spread+, but choosing it now is post hoc (forking paths). Only spread+ was pre-registered for the
+  decision.
+- 100k inputs per model: paired s.e. ~.05 pp, small against the lines. LB3 seeds and HP panels not run.
+- (a)'s 64-node quantile rule and (b)'s lower cut at -8 are approximations (both checked: the walk matches MC, and the
+  mass below -8 is < 1e-15).
+- Not tried: second-order or two-low exact treatments; clipping in R1W with v4's own interval; spread patterns other
+  than (-1)^j.
+
+## Failure modes
+- First-order laws of the lows through one gate pattern overstate the spread of the margin (T292, T319, here),
+  unless they are clipped to the cone, and even clipped they fail when the closure moves v4 off its position (R1W).
+- Exact 1-D walks are accurate but cost ~10-12 cells per point. A per-triple deployment already exceeds the budget.
