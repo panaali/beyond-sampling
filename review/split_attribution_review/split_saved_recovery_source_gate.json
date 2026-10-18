@@ -1,0 +1,25 @@
+{
+  "complete": true,
+  "source_gate": "pass_single_saved_recovery_only",
+  "pins": {
+    "recover_saved.py": "5fa00dc9074b4663e5aa58d096ab89403562c03ddfc4b3924600c3e36fd32105",
+    "saved_audit.py": "61e18d2675425a2e9b66fc1a9dc02f4db1c89cf67515c3d37b90f3a94233063b",
+    "saved_progress.jsonl": "2f3f631bfc40982d951d589dc3d48ea3cf60c1efd42adaca5efb92afc5ddffa2",
+    "manifest.json": "ddd181820badf55f6786f4c79c035cee394d8f4d83741e6d5d5a855248d8dad6"
+  },
+  "initial_failure": "Manifest deliberately includes two missing-path records; original checker accessed frozen unconditionally before any archive contraction.",
+  "reviewer_coverage_gap": "Prior04a535df source gate also missed these two explicit manifest variants; preserved here.",
+  "repair": "Exact two missing records asserted, remaining hashes checked; only output/gate filenames differ. Original checker/source/failure retained.",
+  "missing_records": [
+    {
+      "original": "m16/approaches/understand_m43/m43.py",
+      "missing": true
+    },
+    {
+      "original": "m16/approaches/bulk44/zoo44.py",
+      "missing": true
+    }
+  ],
+  "remaining_qualifications": "Same fixed arithmetic-only scope and1e-11 tolerance. Does not establish exact masses, complete prose/table coverage or fullcost. T4 ratio supplement separate.",
+  "resource": "One20CPU/2GB/one-thread review-lock retry; no automatic retry, no author/estimator calls."
+}
