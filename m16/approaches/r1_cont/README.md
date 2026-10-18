@@ -971,3 +971,29 @@ Reported: est/truth, C and the equal-compute F per (model, event), handed to T34
 
 **T340's scoring of T349 (claude/t286-cheap-frontier @643c9fbf, rare_events/README.md "T340c"):** my numbers reproduce
 exactly. For K3: E1 partial (8/9 within 2x; the miss is orig t0 = 1.5 at .49), **E2 useful (6/6 within 2x)**.
+
+## T354 bug note: simultaneous gate flips in the continuity walk (`walkfix.py`)
+**Found while gating T354.** The segment walk's estimates differed from T349's by up to 37% (E2) where they should
+have matched to rounding. A dense check (52-60k forwards per line on 200-300 random rows) showed that **the walk itself
+was wrong**:
+- **Original walk** (T340's walk3, which descends from my cont.walk_cont): per-row correct length off by up to 5.3 (orig)
+  and 5.5 (seed0), mean .13-.36.
+- **Fixed walk:** <= 1e-4 (grid resolution).
+
+**Cause.** At a flip t*, the walk toggles only the argmin gate (s*, j*). When several pre-activations hit 0 at the same
+t*, the others have roots exactly at t*. The strict "root > t*" filter drops them, and their gates are never flipped.
+- The main case: every step-0 neuron (z = x_0 Wi) crosses 0 together when the input coordinate x_0 crosses 0. The
+  same holds for any step s whose input coordinate crosses 0 while h_{s−1} = 0.
+- Along T340's per-node lines (t to 6, v2 nodes near 0), input coordinates such as v3 = v2 − t do cross 0. The 200
+  validation rows needed ~4,700-5,200 extra simultaneous flips.
+
+**Fix.** At each restart, re-gate every step s >= s* from the values: gate = z > 0 if |z| > tol, otherwise dz > 0
+(tol = 1e-9 (1 + max|z_s|)). Tangents are then recomputed from s* with the new gates, roots from s* as before, and
+near-zero pre-activations are excluded from the roots. Charged: + 2H per re-gated step.
+
+**Scope.**
+- **The T317 lineage (T317c/d/e/f, tmax .5) is unaffected.** On 10 DEV2 models, its lines have **0** simultaneous flips,
+  and its pieces are identical under the fixed walk. That fits with their exact equality to V1's fresh forwards: no
+  input coordinate crosses 0 inside their windows.
+- **Affected:** T340's variant A/B and my T349 (T340c K1/K3/K5) and T354 numbers. They are being rerun with the fix
+  (`run_fixed.py`). The T349 results section above is superseded by the fixed rerun below.
