@@ -81,3 +81,37 @@ source/resource gate. Reuse this pilot prefix once and forward only the other
 195,584 observations. Keep all fitted coefficients and raw inputs/hidden/logits
 for independent score reconstruction. No performance/feature/seed selection,
 no historical-rate confirmation and no accuracy-versus-cost rung inference.
+
+
+## Fixed train and two independent holdouts — bounded final handoff
+
+Claim4226647e completed once, rawcd272a57/shared20a452be. Source/resource
+review0fc2abe8 and immutable gate84c2c732/shared36db1a21 preceded execution.
+Independent saved audit908f2a56 passes all191 new chunks,196608 total inputs,
+217 homogeneous OLS calls, one pilot-prefix reuse and all labels/tables/scores.
+Full raw arrays and coefficients are retained in rebuild/fullfit/. Runtime
+7.467979396 scriptCPU,183504KiB peakRSS. Reviewer conditioning failure and
+narrow derived-metric recovery are both retained, not an author rerun.
+
+Holdout lookup task accuracy97.99194/97.97668%, but original-network agreement
+95.30945/95.39337%. Case2 separable taskaccuracy90.12736/89.87822%, network
+agreement87.50785/87.32824%. Lookup median hiddenR2=.944880/.945461, separable
+=.733556/.734950. These newly fitted heldout results reproduce approximate
+98%/90% task scores with explicit provenance, but do not validate historical
+experiments or establish faithful network-output reconstruction at those rates.
+The summary already determines the true task label exactly.
+
+Disjoint original-network errors on holdout1:3107=566 blindK<=1+448 nonblind
+case0/1 global-third+2093 other. Holdout2:3039=516+488+2035. Thus the retained
+cross-tab now conserves all errors on each common sample without adding
+possibly overlapping rounded historical prose buckets. K0/K1 conditional
+rates and individual numerical binomial intervals remain in raw results;
+small K0 denominators70/52 prevent a precise constant-law conclusion.
+
+All alternatives remain scoped: other features/checkpoints/distributions,
+training variability, exact conditional integration and historical source
+recovery are untested. This is not a deductive estimator, population-wide
+error certificate, cost advantage, rung pass or solution of M16T10. No further
+reconstruction sweep is automatic. DRI owns shared narrative/INDEX adoption.
+Next priority is independent saved/source review of T192's target prefix
+region counts and extrapolation, separately claimed before implementation.

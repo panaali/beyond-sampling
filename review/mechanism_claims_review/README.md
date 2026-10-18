@@ -19,7 +19,7 @@ Historical fit drivers/raw data remain unrecovered in the stated search scope.
 The fixed reconstruction experiment has now completed under separately claimed
 and independently source-gated scope4226647e. Raw cd272a57/shared20a452be keeps
 all inputs, hidden/logit arrays and fitted coefficients. Independent saved
-audit is pending; see rebuild/FULLFIT_RESULTS.md and CHECKPOINT.md.
+audit908f2a56 passes; see rebuild/FULLFIT_RESULTS.md and CHECKPOINT.md.
 
 EXACT_STATE_LIMIT.md additionally reuses independently reviewed T138 evidence
 under scopef7509964: varying omitted input1 around the old strict crossing
@@ -37,7 +37,7 @@ and even a fully rank-blind idealization has different zero/one-positive rates.
 [source observation]the later ten-probe routine covers K=1 only, not the exact
 blind conditional law. The new frozen reconstruction has preliminary heldout lookup task scores near
 98%, but only about95.3% agreement with the original network; independent saved
-review is pending. No rung pass or deductive accuracy-estimator claim.
+review908f2a56 passes. No rung pass or deductive accuracy-estimator claim.
 
 ## Compute accounting
 Initial source phase used byte/hash/git searches and written algebra only.
