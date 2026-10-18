@@ -41,13 +41,13 @@ def oracle(model,v):
 
 def main():
     out=HERE/'controls_results.json';progress=HERE/'controls_progress.jsonl'
-    assert not out.exists() and not progress.exists();sys.set_int_max_str_digits(0)
+    assert not out.exists() and not progress.exists() and not (HERE/'controls_results.tmp').exists();sys.set_int_max_str_digits(0)
     start=time.process_time();r=dict(complete=False,rows=[],candidate_certification_attempts=0,synthetic_exact_forwards=0,trained_forwards=0,checkpoint_loads=0,random_draws=0)
     def emit(stage,**kw):
         with progress.open('a') as f:f.write(json.dumps(pack(dict(stage=stage,**kw)),allow_nan=False)+'\n')
     def save():
         r['cpu_seconds']=time.process_time()-start;r['maxrss_kib']=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        out.write_text(json.dumps(pack(r),indent=2,allow_nan=False)+'\n')
+        tmp=HERE/'controls_results.tmp';tmp.write_text(json.dumps(pack(r),indent=2,allow_nan=False)+'\n');tmp.replace(out)
     def cap():assert time.process_time()-start<15,'15CPU primitive soft cap; preserve failure'
     try:
         p=read(HERE/'controls_protocol.json');g=read(HERE/'controls_gate.json')
@@ -59,14 +59,18 @@ def main():
         import mpmath as mp
         ledger=Ledger();fs=fixtures();assert [f['name'] for f in fs]==p['network_names']
         for f in fs:
-            cap();emit('network_attempt',name=f['name']);r['candidate_certification_attempts']+=1;save()
+            cap();emit('network_attempt',name=f['name']);r['candidate_certification_attempts']+=1
+            row=dict(kind='network',fixture=f,certificate=None,exact_points=[],passed=False);r['rows'].append(row);save()
             cert=certify(f['model'],f['box'],ledger,retain_trace=True)
+            row['certificate']=cert;r['enclosure_accounting']=ledger.report();save()
             if f['expected'] is not None:assert cert['statuses']==f['expected']
             if f['stable']:assert all(row['post_error']==[0,0] for step in cert['trace'] for row in step['rows'])
             pts=[list(map(F,q)) for q in product(*f['box'])]+[[F(a+b,2) for a,b in f['box']]];assert len(pts)==17
-            refs=[]
+            refs=row['exact_points']
             for v in pts:
-                r['synthetic_exact_forwards']+=1;steps,logits,winner=oracle(f['model'],v)
+                ref=dict(v=v,complete=False);refs.append(ref);r['synthetic_exact_forwards']+=1;save()
+                steps,logits,winner=oracle(f['model'],v)
+                ref.update(steps=steps,logits=logits,winner=winner);save()
                 for step,reference in zip(cert['trace'],steps,strict=True):
                     for row,z,h in zip(step['rows'],reference['pre'],reference['hidden'],strict=True):
                         for prefix,value,den in [('pre',z,step['pre_denominator']),('post',h,step['post_denominator'])]:
@@ -77,8 +81,8 @@ def main():
                 for j,status in enumerate(cert['statuses']):
                     if status=='correct':assert winner==j
                     elif status=='wrong':assert winner!=j
-                refs.append(dict(v=v,steps=steps,logits=logits,winner=winner))
-            row=dict(kind='network',fixture=f,certificate=cert,exact_points=refs,passed=True);r['rows'].append(row);emit('network_complete',name=f['name']);save()
+                ref['complete']=True;save()
+            row['passed']=True;emit('network_complete',name=f['name']);save()
         for L,U in [(-3,1),(-1,3),(-1,1)]:
             for width in [0,2,17]:
                 cap();rs=[remainder(L,U,k) for k in range(3)];k=min(range(3),key=lambda j:(j*width+rs[j],j))
@@ -111,10 +115,11 @@ def main():
             elif label=='bad_box':b[0]=[1,1]
             else:m['H']=True
             r['candidate_certification_attempts']+=1
+            row=dict(kind='guard',name=label,passed=False);r['rows'].append(row);emit('guard_attempt',name=label);save()
             try:certify(m,b)
             except AssertionError:pass
             else:raise AssertionError('domain guard failed: '+label)
-            r['rows'].append(dict(kind='guard',name=label,passed=True));emit('guard_complete',name=label);save()
+            row['passed']=True;emit('guard_complete',name=label);save()
         assert len(r['rows'])==44 and r['synthetic_exact_forwards']==153 and r['candidate_certification_attempts']==12
         cap();r.update(complete=True,enclosure_accounting=ledger.report(),probability_accounting=accounting());save();emit('completed',results_sha256=sha(out))
         print(json.dumps(dict(complete=True,rows=len(r['rows']),cpu=r['cpu_seconds'],synthetic_forwards=r['synthetic_exact_forwards'])))
