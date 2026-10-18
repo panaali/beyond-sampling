@@ -1,0 +1,44 @@
+{
+  "approved": true,
+  "review_kind": "Independent proof-only mathematical review; no author-code or numerical execution",
+  "source_commit": "a106a345",
+  "claim": "06d554c8",
+  "protocol_sha256": "1d9032a352535b568b969027f35eff352e622483d66044ef70932388841c3780",
+  "pins": {
+    "/workspace/work/recover-small_h2_910/review/cone_domain_equivalence/PROOF.md": "d2b8575a61088de1cdc4cca5055cf44ae687bdb9bff5646afe7c0b738ae9b907",
+    "/workspace/work/recover-small_h2_910/review/cone_domain_equivalence/EDGE_CASES.md": "59223b0039b9e97c4932102213f1364f43f7d3ac3ab1b4789bb26f5f425f68b2",
+    "/workspace/work/recover-small_h2_910/review/cone_domain_equivalence/README.md": "33a661965b7487d146c36d5e04f5e8c524763de5863c5177e7968f9a5804d6f3"
+  },
+  "conclusion": "After exact restriction to span(C), generator-sign elimination and oriented hyperplane canonicalization, the zero canonical representation is necessary and sufficient for homogeneous vector linear-plus-ReLU equality on the finite positive hull C.",
+  "necessity_checks": [
+    "Independent generator coordinates place a coordinate orthant in D, so D has nonempty interior in its own span even with ambient rank deficiency or lineality.",
+    "A mixed generator-sign form has positive and negative interior points after adding sufficiently small positive multiples of an interior vector; their interior segment crosses its hyperplane.",
+    "Normalization identifies exactly the same unoriented hyperplane; negative orientation adds the required linear residue.",
+    "For d>=2 distinct retained hyperplanes intersect a fixed one only in proper subspaces; finitely many cannot cover its relatively open interior crossing.",
+    "For d=1 all normalized nonzero rows coincide, and mixed signs force D=R, so the origin provides the needed two-sided crossing.",
+    "On an isolated crossing ball the two Jacobians differ by c_u outer u; zero function on both open sides forces every component of c_u to vanish.",
+    "Once hinges vanish, a linear matrix zero on an open subset of the span must be zero.",
+    "d=0 follows homogeneity; continuity extends relative-interior equality to all boundaries of the finite convex cone."
+  ],
+  "edge_case_review": {
+    "cases": 9,
+    "passed_by_written_algebra": true,
+    "details": [
+      "Zero span and transverse ambient linear forms behave correctly under restriction.",
+      "Supporting forms are linear or zero on the cone; retain no spurious crossing.",
+      "Rank-one ReLU(z)-ReLU(-z)-z cancellation uses the negative-orientation residue.",
+      "Half-plane lineality leaves mixed x1 crossings visible while eliminating one-sided x2.",
+      "Vector jump test is componentwise.",
+      "Two rays (2,1),(-1,-2) give zero individually for ReLU(x1)+ReLU(x2)-ReLU(x1+x2), but their sum gives1.",
+      "Different positive margins need not change labels; ambient forms can coincide after span restriction."
+    ]
+  },
+  "scope_limits": [
+    "Exact represented finite cones and homogeneous functions only; not feasibility/completeness of neural gate regions.",
+    "Two domains require separate tests; their union is not replaced by its conic hull.",
+    "Equality of all output0-relative margins preserves first-index ties; converse label equivalence is not claimed.",
+    "Existing ambient sufficient implementation remains sufficient-only unless full dimensionality and exact implementation correspondence are established.",
+    "No code, trained result, probability, approximate/projective equivalence or runtime-saving upgrade follows automatically."
+  ],
+  "new_model_geometry_numerical_calls": 0
+}
