@@ -446,6 +446,34 @@ count under the written convention). The 13.51 is a projection for a V1-B2 that 
 - [measured] B2 is the entire T313 saving. T313's per-step count (1,218 FLOPs per step-evaluation, including the
   gate-flip roots) is higher than the 2 × 576 that the forward-equivalent count uses.
 
+## HP3 confirmation (T321; fresh sealed panel of 100 retrains, seeds 200–299)
+Panel: branch `claude/t192-gpu-cost-law` at 689a6b32, `m16/approaches/gpu_cost_law/hp3/`.
+- Hashes:
+  - weights, array bytes: `d45d805bc3b23e321d0f884f1b6f658d01cd11d3cc8aa147d1dd5da5a39f8425` (file `376ab958…ddfd`);
+  - manifest: `ca332b6405fb48469f67b808fdc1c4e2562e4d6117fb6a2447685b2f14b8f9ad`;
+  - sealed/truths.json: `66b4f9067cc5d79ca55d6b20aa8dda00d82884b306a1ef9cf40da50c512138c2` (1e8 MC per model, max SE 4.0e-5).
+- Disjoint from HP2: no shared seeds and no identical weights. One cluster per model.
+- Protocol (DRI ruling): HP3 is reserved for T317c. It is run exactly as frozen at 1c742430, plus the cost-only
+  c70e22cd. c70e22cd's as-executed count is the official cost; 1c742430 with the T281 official count and with the
+  every-ndtr count are sensitivity checks. The estimates of the two commits are asserted identical: max |diff| = 0.0.
+Reproduce: `bash run_hp3_t317c.sh` (log in `data/hp3/run.log`).
+
+| | C (FPE) | F [95% CI] | RMS pp | bias pp |
+|---|---|---|---|---|
+| **T317c official (c70e22cd, as executed)** | 5427 | **5.08 [3.42, 7.04]** | 0.805 | +0.415 |
+| sensitivity: 1c742430, T281 official count (correct_interval 229) | 5394 | 5.05 [3.39, 6.99] | | |
+| sensitivity: 1c742430, every executed ndtr charged | 5652 | 5.29 [3.56, 7.33] | | |
+| control (plain MC), B = 1k / 4k / 16k / 64k / 256k | B | 0.97 / 1.07 / 0.75 / 0.85 / 0.72 | | |
+
+- [measured] **On the fresh HP3 panel, T317c (deductive) passes the lenient bar with upper CI ≤ 10: F = 5.08
+  [3.42, 7.04] at 5427 FPE.** All three cost counts agree (upper CI ≤ 7.33). The strict bar
+  (F ≤ 1) fails.
+- [measured] HP3 is better than HP2 (6.76 [4.87, 8.79]): RMS 0.81 vs 0.99 pp, bias +0.42 vs +0.53 pp. The HP2 result
+  was therefore not a lucky draw.
+- [measured] The control is consistent with 1 at every budget, so the harness holds on HP3.
+- [inferred] By the DRI's rule this is the confirmation of the HP2 candidate. Confirmation itself is the DRI's call
+  (AGENTS rule 4); this scorer reports it.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
