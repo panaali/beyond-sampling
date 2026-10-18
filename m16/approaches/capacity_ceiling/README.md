@@ -5,7 +5,7 @@ Linear(16, 10) readout, 2nd-argmax, x ~ N(0, I_10))? Does accuracy saturate with
 the "training-outcome" errors (especially the blind region, <= 1 positive input, P = 11/1024, where M_16,10 errs
 ~0.83% of all inputs) disappear with the right data?
 
-**Status.** running (owner-requested via DRI; budget <= 60 Colab units; status to DRI at 30 units).
+**Status.** done (2026-10-18 18:23 UTC); all Colab runtimes stopped. Unverified (no independent check yet).
 
 ## Plan and stop rules (written before any training run)
 0. Reproduce: one zoo (16,10) seed with the unchanged `alg_zoo.training.train` (2^30, defaults) and the same seed with
@@ -97,14 +97,60 @@ LR x sqrt(B/1024) or x B/1024; seeds 0-2; 1e8 samples):
 Best .9693 (above the target's .9531); linear LR scaling is unstable (one .514 collapse at B 16384). 3 seeds per cell:
 no ranking between cells is claimed. Wall: 5515 s (12 models) / 5439 s (6 models) on an A100.
 
+**Grid3: main T234 grid** (`q_grid3.sh` -> `fused_run.py grid3 --data-seed 41 --eval kernel`; 1,025 models, seeds
+100-199 (2^34: 100-124), fused kernel; evaluation in-kernel float32, 1e8 samples per model on an independent Philox
+stream, se ~2e-5/model; `results/grid3.json`, `results/grid3_summary.json` via `python grid3_analysis.py`; weights in
+`weights/grid3_weights.tgz`; full training curves in data/, not in git). Restarted once after a Colab reclaim (08:24);
+models are bit-identical to HP2's separate retrains for the 2^30 arm (`../gpu_cost_law/hp2/check_vs_grid3.txt`).
+Interim float64 1e7-sample evaluation of the same models agreed (e.g. 2^30 mean .91110 vs .9111).
+
+| config (zoo defaults unless noted) | n | mean [95% CI] | sd | median | top-5 | max | share > .9531 | blind | 2-3 | 1-2 | other |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2^30 | 100 | .9111 [.9038, .9188] | .040 | .9126 | .9675 | .9720 | .21 | .0072 | .0528 | .0215 | .0074 |
+| 2^31 | 100 | .9363 [.9307, .9420] | .028 | .9424 | .9730 | .9785 | .33 | .0068 | .0386 | .0142 | .0041 |
+| 2^32 | 100 | .9384 [.9321, .9440] | .031 | .9479 | .9749 | .9796 | .41 | .0067 | .0370 | .0137 | .0042 |
+| 2^33 | 100 | .9444 [.9388, .9497] | .028 | .9545 | .9760 | .9822 | .53 | .0066 | .0333 | .0125 | .0032 |
+| 2^34 | 25 | .9519 [.9403, .9622] | .029 | .9618 | .9734 | .9770 | .80 | .0065 | .0295 | .0096 | .0025 |
+| 2^31, lr x2 | 100 | .9465 [.9415, .9510] | .025 | .9544 | .9734 | .9773 | .52 | .0072 | .0316 | .0117 | .0030 |
+| 2^31, warm-up x4 | 100 | .9250 [.9183, .9315] | .035 | .9285 | .9692 | .9708 | .28 | .0068 | .0453 | .0174 | .0055 |
+| 2^31, lr x0.5 | 100 | .9113 [.9045, .9182] | .035 | .9154 | .9641 | .9665 | .13 | .0067 | .0539 | .0214 | .0066 |
+| 2^31, 20% near-tie inputs | 100 | .9307 [.9240, .9372] | .033 | .9366 | .9706 | .9721 | .33 | .0074 | .0401 | .0168 | .0050 |
+| 2^31, 20% blind inputs | 100 | .9058 [.8981, .9131] | .038 | .9120 | .9568 | .9600 | .05 | .0021 | .0603 | .0228 | .0091 |
+| 2^31, 20% blind + 20% tie | 100 | .9060 [.8983, .9134] | .040 | .9120 | .9628 | .9646 | .07 | .0022 | .0573 | .0237 | .0109 |
+(error columns: mean error rate by class; blind = inputs with <= 1 positive coordinate.)
+
+**Does accuracy saturate with more data?** [measured, unverified] Not at 2^34 for the typical model: mean .911 ->
+.936 -> .938 -> .944 -> .952 and median .913 -> .942 -> .948 -> .955 -> .962 per doubling 2^30 -> 2^34 (largest step
+2^30 -> 2^31; afterwards ~+0.6-0.8 pp per doubling; 2^34 has 25 seeds, CI +-1.1 pp). The best models do saturate:
+max .972 / .979 / .980 / .982 / .977 and top-5 mean .968 -> .976, i.e. a ceiling near .98 for this architecture and
+recipe. More data mostly shrinks the 2-3 and 1-2 confusions (2-3 errors .053 -> .030); the blind-input error rate
+stays ~.0065-.0074 in every zoo config [measured]; training on 20% blind inputs cuts it to .002 but costs ~3 pp of mean
+accuracy. Doubling the learning rate at 2^31 gives the 2^33 mean at half the data. M_16,10 (.9531) sits at the
+53rd-80th percentile of 2^33-2^34 retrains and well below the ~.98 ceiling.
+
 ## Compute accounting
-(pending) Colab units per stage; wall time per run.
+Colab units (owner's account): 304.80 at login (2026-10-17 23:06 UTC) -> 164.40 at the end (2026-10-18 18:23 UTC):
+140.4 units total. T192 phase (to 03:22): 22.2. T234 + T270 + side jobs (HP2-HP5, DEV2-DEV3, T340/T349/T358/T364/T366
+truths, T348 census) since 03:22: 118.2 (DRI cap 115, raised to 122 for the 2^34 arm). A100 5.3 u/h, L4 1.5 u/h,
+T4 ~0.35 u/h, CPU 0.08 u/h. Lost to reclaims: za pack (L4, ~06:20), t192fu (grid3 ~1 h + T270 chunks, 07:23-08:12).
+Grid3 wall: ~10 h on one shared A100 (08:24-18:20). Training compute is model-steps: grid3 3.1e9 model-steps of batch
+1024 (fused kernel 0.0059 ms/model-step uncontended).
 
 ## Claims
-(pending)
+- [measured] The fused Triton trainer reproduces the zoo training distribution (40-vs-40 vs trainer.py, KS D .150 <
+  .304; trainer.py seed 0 reproduces unchanged zoo code .91037 vs .91000) and is bit-identical between packed and alone
+  runs with the same data ids (HP2 vs grid3, 100/100).
+- [measured] Mean accuracy rises with data through 2^34 (.911 -> .952); the best-model ceiling is ~.98 from 2^31 on.
+- [measured] Doubling the zoo learning rate at 2^31 raises the mean by 1.0 pp (CIs disjoint from 2^31 zoo); hard-case
+  mixes (20% blind) lower it.
+- [inferred] M_16,10 is a typical-to-good draw of the zoo recipe, not a ceiling model.
 
 ## Alternatives not ruled out
-(pending)
+- Seeds 100-199 share data seed 41 across configs (data stream differs by data id), so config differences are
+  paired only through seeds/inits; seed-to-seed chaos (~3 pp sd) dominates single comparisons.
+- The 2^34 arm has 25 seeds; its mean is within the 2^33 CI's upper half; more seeds would firm up the slope.
+- Large-batch / other optimizers were sampled only lightly (3 seeds per cell); the ~.98 ceiling is for this recipe.
+- Evaluation is float32 in-kernel for grid3 (float64 1e7 interim agreed); M_16,10 truth is float64.
 
 ## Failure modes
 - Colab reclaims runtimes without notice: checkpoints every n/2^i and per-run result files (see ../gpu_cost_law/COLAB.md).
