@@ -1,0 +1,5 @@
+# T265 symbolic last-input source/resource review
+
+The frozen b2ef4583 implementation and ten analytic expressions pass independent source reasoning. The line partition includes gate, readout and rank roots, retains permanent readout ties, and sums Gaussian interval terms symbolically. Every open-cell representative and boundary is checked by a separate exact scalar recurrence in the future run. The single reachable control's three-prefix-step state and labels are valid; other supplied-state examples retain their extension-only qualification.
+
+All seven source files match their Git blobs. Completed written-review and protocol dependency hashes, Python AST syntax and shell syntax were checked without importing author code or evaluating fixtures. source_gate.json clears only the fixed ten+six synthetic suite after publication and immutable execution binding, under15internal/16soft20hardCPU,2GiB and25seconds after review lock. No actual Gaussian/CDF, trained or cost claim is established. Independent saved audit remains required.
