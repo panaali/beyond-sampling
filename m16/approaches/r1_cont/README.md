@@ -578,3 +578,21 @@ every flip, and with the cheapest tier-B schedule (Δ <= .05, once per row).
 
 **Go (same as T330):** max |est − T317e| <= 1e-4 pp on all 80 DEV2 at C <= 3.0k FPE as executed.
 **Stop:** if, on 4 models, it fires no earlier than v2 (same or fewer later cells skipped), report without the full run.
+
+## T331+C1 combination pre-registration (DRI; 2026-10-18, before running)
+**Variant "T317f-candidate":** T317e with three changes.
+- **tmax 1.**
+- **Zero-cost affine extension:** the last walked cell's correct set is solved on [t, ∞).
+- **Tier C1 on all 3 lines:** stop a row at the walk start or at a flip when the frozen-gate margin is positive over
+  [t, tmax]. The stopped row's piece is its current cell's correct set on [t, ∞), from one correct_interval call
+  (229 FLOPs, charged). That set contains [t, tmax], since its margin is positive there.
+
+Run on 80 DEV2, charged as executed. Reported separately: bias, RMS vs truth, C, and C1's declared error. The declared
+error is (estimate) − (the same variant without C1), i.e. tmax 1 + extension, T331 (iv).
+- **Go:** DEV2 MSE × C <= **.70** × T317e's.
+- One variant, pre-registered, so there is no selection within this run. The idea came from T331 and tier C results on
+  the same DEV2, so the forking-paths path is: T326 → T330 → T331 → this.
+
+**Arithmetic note (DRI):** at C ≈ 4k, strict needs RMS <= .43 pp. That is below the closure-c floor (.463 pp,
+T324/T304), even with every walk approximation removed. So strict hinges on the closure lane (T327). This stack is
+the lenient-improvement track.
