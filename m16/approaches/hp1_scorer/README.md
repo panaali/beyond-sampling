@@ -496,6 +496,58 @@ Reproduce: `bash run_hp3_t317c.sh` (log in `data/hp3/run.log`).
 - [measured] T317d (deductive) matches T317c on HP3 (F 5.07 vs 5.08) and passes the lenient bar with the upper CI ≤
   10. T317c remains the confirmed result; T317d is reported alongside it.
 
+## Red-team follow-ups for T317c and T317d (DRI 2026-10-18; `review/candidate_redteam`)
+Reproduce: `PYTHONPATH=shim python3 redteam.py` (results in `results/redteam.json`). T317c means the official
+c70e22cd as-executed run; T317d means 5b4d4806.
+
+**(a) Target M_16,10 vs `m16/truth.txt` (0.95317945, n = 2e7; HP1 'orig' weights).** This model and its truth are
+public.
+| | est | error | n* = p(1−p)/err² | C (FPE) |
+|---|---|---|---|---|
+| T317c | 0.954049 | +0.0869 pp | 59,086 | 5,760 |
+| T317d | 0.954023 | +0.0844 pp | 62,677 | 5,754 |
+
+The target error is +0.087 pp (truth.txt SE ≈ 0.005 pp), i.e. n* ≈ 60k FPE: 10× its cost on this one model. A single
+model is anecdotal; the panel numbers carry the claim.
+
+**(b) Subsets by true accuracy.** Each subset uses its own mean p(1−p). n = number of models in the subset.
+| panel | entry | all (n=100) | p > .95 | p < .90 | slope d(err)/dp |
+|---|---|---|---|---|---|
+| HP2 | T317c | 6.76 [4.87, 8.79] | 1.99 [1.13, 3.01] (n=23; RMS 0.37, bias +0.14 pp) | 9.41 [6.31, 12.89] (n=38; RMS 1.39, bias +0.91 pp) | -0.079 |
+| HP2 | T317d | 6.75 [4.86, 8.78] | 1.99 [1.13, 3.01] (n=23; RMS 0.37, bias +0.14 pp) | 9.38 [6.29, 12.86] (n=38; RMS 1.39, bias +0.90 pp) | -0.078 |
+| HP3 | T317c | 5.08 [3.42, 7.04] | 4.17 [1.31, 7.67] (n=22; RMS 0.53, bias +0.18 pp) | 6.90 [2.88, 12.13] (n=20; RMS 1.21, bias +0.84 pp) | -0.066 |
+| HP3 | T317d | 5.07 [3.41, 7.03] | 4.19 [1.31, 7.70] (n=22; RMS 0.53, bias +0.18 pp) | 6.89 [2.87, 12.12] (n=20; RMS 1.21, bias +0.84 pp) | -0.065 |
+
+**(c) HP3 context baselines at the 1k-FPE floor.**
+| estimator | class | C_eff | F [95% CI] | RMS pp | n* |
+|---|---|---|---|---|---|
+| constant 0.920 (DEV2 mean) | none | 1000 (floor) | 18.88 [14.08, 24.16] | 3.61 | 53 |
+| v5q, B = 1k | inductive QMC | 1009 | 0.99 [0.71, 1.29] | 0.82 | 1018 |
+| v5q, B = 4k | inductive QMC | 4035 | 0.87 [0.66, 1.09] | 0.39 | 4644 |
+| T317c (official) | deductive | 5427 | 5.08 [3.42, 7.04] | 0.80 | 1069 |
+
+**(d) Stacked cost latitude.** C × 1.09 (implementation) × 1.04 (ndtr), plus, for T317c only, its per-call model-free
+table recomputation. I verified that recomputation: `r1w.gauss_v4` builds a 40,000-point grid per region in every
+call, about 59 FLOPs per point × 2 regions, plus a small leggauss/Φ part; total 4.8e+06 FLOPs = **807 FPE**, in line with the red-team's ~700. T317d builds its tables at import, so it has
+no per-call term. Note: c70e22cd already masks its ndtr calls, so the ×1.04 is conservative for it.
+| panel | entry | stacked C (FPE) | F [95% CI] | upper CI ≤ 10? |
+|---|---|---|---|---|
+| HP2 | T317c | 7030 | 8.66 [6.23, 11.25] | no |
+| HP2 | T317d | 6225 | 7.65 [5.51, 9.95] | yes |
+| HP3 | T317c | 6960 | 6.51 [4.38, 9.02] | yes |
+| HP3 | T317d | 6156 | 5.75 [3.86, 7.97] | yes |
+
+Readout:
+- [measured] (a) On the target, both estimates are within 0.09 pp of truth.txt.
+- [measured] (b) The error shrinks with accuracy (slope −0.07 to −0.08 pp per pp).
+  - p > .95 subset: F 2.0 on HP2 (n = 23) and 4.2 on HP3 (n = 22). Bias is ≤ +0.18 pp.
+  - p < .90 subset: F 9.4 (HP2) and 6.9 (HP3), with upper CIs > 10. The bias is +0.8 to +0.9 pp there.
+- [measured] (c) The constant 0.920 scores F 18.9 [14.1, 24.2] at the 1k floor, n* = 53. T317c has n* = 1,069, i.e.
+  20× the constant's information. v5q (inductive) is F ≈ 1 at 1k–4k.
+- [measured] (d) Under the stacked conventions:
+  - T317c keeps its candidate status on HP3 (upper CI 9.02) but loses it on HP2 (11.25);
+  - T317d stays a candidate on both panels (HP3 7.97; HP2 9.95, a hair under 10).
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
