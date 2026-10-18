@@ -1,6 +1,6 @@
 # T231 bounded source and saved coverage handoff
 
-Status: sole fixed contraction complete; independent saved review pending. Source/proof01535485 and checker gate9ea5b748/shared38bf06cc independently passed. Immutable execution1996ffc5 was published83ac540c before the sole run. Raw6894efaf/sharedf4ee3e19 contains every outcome and26 progress events. Preserve pre-run reviewer repairs16dc26ae and initial source1a8be167; no failed numerical attempt or rerun occurred.
+Status: bounded phase complete. Independent saved review718c217a/shared228df33f passes all92 pins,51 payloads,12 archives/772,804 masses,126 exact threshold minimalities,eight growth records and26 progress events using a separate stdlib IEEE-bit decoder and ascending omitted-mass sweep. Reviewer CPU2.331250254/maxRSS243292KiB; no author/NumPy/model/mass calls, failure or retry. Source-report NumPy kernels remain source-qualified, rather than independently executed by the reviewer. Source/proof01535485 and checker gate9ea5b748/shared38bf06cc independently passed. Immutable execution1996ffc5 was published83ac540c before the sole run. Raw6894efaf/sharedf4ee3e19 contains every outcome and26 progress events. Preserve pre-run reviewer repairs16dc26ae and initial source1a8be167; no failed numerical attempt or rerun occurred.
 
 ## What the stored numbers support
 
