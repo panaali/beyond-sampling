@@ -2,7 +2,7 @@
 from pathlib import Path
 from fractions import Fraction as F
 from itertools import product, permutations
-from math import factorial,isqrt
+from math import factorial,isqrt,isfinite
 import hashlib,json,time,resource,traceback
 HERE=Path(__file__).resolve().parent
 
@@ -136,6 +136,8 @@ def main():
         for name,d in p['pins'].items():eq(sha(name),d)
         result['scope_sha256']=sha(HERE/'run_scope.json');save()
         source=Path(p['author_directory']);r=read(source/'controls_results.json');assert r['complete']
+        assert type(r['cpu_seconds']) in (int,float) and isfinite(r['cpu_seconds']) and r['cpu_seconds']>=0
+        assert type(r['maxrss_kib']) is int and r['maxrss_kib']>0
         protocol=read(source/'controls_protocol.json');eq(r['protocol_sha256'],sha(source/'controls_protocol.json'))
         eq(r['gate_sha256'],sha(source/'controls_gate.json'))
         for name,d in protocol['pins'].items():eq(sha(name),d)
@@ -147,6 +149,8 @@ def main():
             weights=independent_certificate(row['fixture'],row['certificate']);direct_points(row,*weights);result['synthetic_point_reconstructions']+=17;save()
         for q,(L,U,width) in zip(by['remainder'],[(L,U,w) for L,U in [(-3,1),(-1,3),(-1,1)] for w in [0,2,17]],strict=True):
             eq((q['L'],q['U'],q['error_width']),(L,U,width));rs=[2*U,max(-L,U),-2*L];eq(q['remainders'],rs);eq(q['chosen'],min(range(3),key=lambda j:(j*width+rs[j],j)))
+        expected_rank_bins=[[0,0,0,0],[0,1,2,3],[3,3,2,1],[3,3,3,0],[3,2,2,1],[3,2,2,2]]
+        eq([q['bin_ids'] for q in by['rank']],expected_rank_bins)
         for q in by['rank']:
             bins=q['bin_ids'];second=sorted(bins,reverse=True)[1];group=[i for i,b in enumerate(bins) if b==second];eq(q['group'],group)
             counts=[0]*4;total=0
