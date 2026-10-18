@@ -1,4 +1,4 @@
-# T201 saved residual-margin results (independent full audit pending)
+# T201 independently checked saved residual-margin results
 
 The fixed lookup frequently removes errors made by the original network. All original labels were reproduced during the diagnostic; no fit, recurrent forward or input was regenerated. These are measurements on the already fitted original checkpoint, not a deductive estimator or causal intervention.
 
@@ -8,7 +8,7 @@ The fixed lookup frequently removes errors made by the original network. All ori
 | holdout1 | 61980 | 2240 | 449 | 482 | 385 |
 | holdout2 | 62027 | 2183 | 470 | 490 | 366 |
 
-Every row sums to65536. Network errors are columns2+4+5; lookup errors are columns3+4+5. Agreement is columns1+4. All five counts independently reconcile the previously published task/representation totals.
+Every row sums to65536. Network errors are columns2+4+5; lookup errors are columns3+4+5. Agreement is columns1+4. All five counts reconcile the previously published task/representation totals.
 - holdout1: 2240/3107 (72.095269%) of original errors are erased; 449 previously correct rows become lookup errors.
 - holdout2: 2183/3039 (71.832840%) of original errors are erased; 470 previously correct rows become lookup errors.
 
@@ -43,7 +43,7 @@ The run completed in9.660255768 scriptCPU seconds with peak RSS55516KiB. It made
 
 Partial expression counts: lookup/readout40,894,464 multiplications +35,782,656 additions; residual/margin7,077,888 subtractions +3,145,728 multiplications +5,898,240 additions +3,145,728 absolute values. Selection, validation, decoding, BLAS implementation, reductions/assembly and serialization have no complete native charge here. This is diagnostic work, not a new estimator cost. Inherited fitting/input/forward construction remains separate.
 
-Controls used0.180262936 recorded authorCPU across the preserved zero-call environment failure and completed fourteen-control recovery. Their independent saved audit4459a768 passed. Full source gatee706d182 was published and bound inbd0e9e3a/sharedf2d339e1 before the sole trained-data diagnostic. Author raw88d44ff9 is published/shared31698ad9. T55 full saved review is assigned by9082bb7e and pending.
+Controls used0.180262936 recorded authorCPU across the preserved zero-call environment failure and completed fourteen-control recovery. Their independent saved audit4459a768 passed. Full source gatee706d182 was published and bound inbd0e9e3a/sharedf2d339e1 before the sole trained-data diagnostic. Author raw88d44ff9 is published/shared31698ad9. T55 full saved review aba9dd68/shared89a9bf91 passes all192 chunks,196608 rows,3145728 terms and390 progress records in1.999815382CPU, with no recurrent forward/refit. Independent column-product reconstruction and fsum aggregates agree within explicitly retained rounding allowances.
 
 Command: one-thread `flock /workspace/work/codex-review.lock /workspace/clean-neurons/.venv/bin/python review/mechanism_residual_margin/saved.py`, under external `ulimit -v 2097152; ulimit -t 20`, internal19CPU hard policy and17CPU soft stop. Existing output prevents replay. No failure or cap extension occurred in this phase.
 
