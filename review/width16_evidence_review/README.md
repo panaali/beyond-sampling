@@ -7,7 +7,7 @@ Do the saved width-16 results support their reported counts, ratios and exact-re
 Pin author branch976ed92d and byte-copy its82 source/result/dependency files into this review's frozen tree, with SHA256 and Git blob provenance. Do not import or execute author code. Independently contract all32 summary rows and55 local result files, preserving nine H8T4 recipe fallbacks from estT_fix/rescore. Separate source arithmetic, finite numerical evidence and missing correctness/completeness certificates.
 
 ## Status
-Fixed source gateec20f79b independently passes; gate bounde52837b9, saved checker98b06227 completed once with all32 summary rows/55 local result files/nine fallback recipes/four synthetic controls passing. Independent final saved-result audit is pending. No author evaluator/model/mass/MC calls. Original author folder/history integration remains separate from the owned byte-pinned snapshot; runtime/checkpoint provenance remains unproved.
+Fixed source gateec20f79b independently passes; gate bounde52837b9, saved checker98b06227 completed once with all32 summary rows/55 local result files/nine fallback recipes/four synthetic controls passing. Independent final saved-result audit4333ad5f passes all32 rows,source bindings,nine fallbacks,four controls and group contractions. No author evaluator/model/mass/MC calls. Original author folder/history integration remains separate from the owned byte-pinned snapshot; runtime/checkpoint provenance remains unproved.
 
 ## Results
 The reported source arithmetic reproduces across all32 summary rows. H16T4 clean five models: recipe cells per recorded floating activation pattern0.799854–0.958394; recipe/exact operation-counter ratio0.600065–0.708905. Zoo0 has25378 recipe cells,26742 recorded patterns, ratio0.94899409169, operation ratio0.70890450530, and signed accuracy difference−1.4804007715e−6 versus the same-source exact-mode value. Conditional T196 2*ops restatement gives maximum ratio0.03199110 atH16T4 and0.52327349 atH8T4; neither number establishes complete FLOP counting or independent reference accuracy.
@@ -29,7 +29,7 @@ Executed command (immutable results.json prevents overwrite): `OPENBLAS_NUM_THRE
 
 ## Claims
 [measured source inventory] Reporting code and snapshot provenance are available.
-[measured, final independent saved audit pending] Frozen source arithmetic reproduces; generic center-rounding collision occurs in the four-control panel.
+[measured, independently verified4333ad5f] Frozen source arithmetic reproduces; generic center-rounding collision occurs in the four-control panel.
 [inferred, independently source reviewed] Trained numerical counts need the qualifications above.
 [speculative] Floating-center degeneracy could affect a trained count; no such occurrence has been established.
 
