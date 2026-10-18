@@ -1,0 +1,223 @@
+{
+  "rows": [
+    {
+      "name": "memoryless",
+      "result": {
+        "found": false,
+        "stats": {
+          "candidate_words": 16,
+          "affine_steps": 448,
+          "affine_scalar_products": 8960,
+          "histories": 112,
+          "readout_affine_products": 4480,
+          "state_pair_tests": 336
+        },
+        "cpu_seconds": 0.03949802400000002
+      }
+    },
+    {
+      "name": "constant",
+      "result": {
+        "found": false,
+        "stats": {
+          "candidate_words": 16,
+          "affine_steps": 448,
+          "affine_scalar_products": 8960,
+          "histories": 112,
+          "readout_affine_products": 4480,
+          "state_pair_tests": 336
+        },
+        "cpu_seconds": 0.04190845200000001
+      }
+    },
+    {
+      "name": "duplicate",
+      "result": {
+        "found": false,
+        "stats": {
+          "candidate_words": 16,
+          "affine_steps": 448,
+          "affine_scalar_products": 8960,
+          "histories": 112,
+          "readout_affine_products": 4480,
+          "state_pair_tests": 336
+        },
+        "cpu_seconds": 0.039844769
+      }
+    },
+    {
+      "name": "memory",
+      "result": {
+        "found": true,
+        "word": [
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ],
+        "radius": "1/4",
+        "histories": [
+          {
+            "initial_hidden": [
+              "0",
+              "0"
+            ],
+            "label": 0,
+            "stable": true,
+            "constraints": [],
+            "gates": [
+              [
+                false,
+                false
+              ],
+              [
+                false,
+                false
+              ],
+              [
+                false,
+                false
+              ],
+              [
+                false,
+                false
+              ]
+            ]
+          },
+          {
+            "initial_hidden": [
+              "0",
+              "1"
+            ],
+            "label": 1,
+            "stable": true,
+            "constraints": [
+              {
+                "kind": "gate",
+                "step": 0,
+                "neuron": 1,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "slack": "1"
+              },
+              {
+                "kind": "gate",
+                "step": 1,
+                "neuron": 1,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "slack": "1"
+              },
+              {
+                "kind": "gate",
+                "step": 2,
+                "neuron": 1,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "slack": "1"
+              },
+              {
+                "kind": "gate",
+                "step": 3,
+                "neuron": 1,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "slack": "1"
+              },
+              {
+                "kind": "readout",
+                "competitor": 0,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "slack": "1"
+              },
+              {
+                "kind": "readout",
+                "competitor": 2,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "2"
+                ],
+                "slack": "2"
+              },
+              {
+                "kind": "readout",
+                "competitor": 3,
+                "normal": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "slack": "1"
+              }
+            ],
+            "gates": [
+              [
+                false,
+                true
+              ],
+              [
+                false,
+                true
+              ],
+              [
+                false,
+                true
+              ],
+              [
+                false,
+                true
+              ]
+            ]
+          }
+        ],
+        "density_integer_K": 1,
+        "exact_gaussian_mass_lower_bound": "1/104976",
+        "stats": {
+          "candidate_words": 1,
+          "affine_steps": 28,
+          "affine_scalar_products": 560,
+          "histories": 7,
+          "readout_affine_products": 280,
+          "state_pair_tests": 4
+        },
+        "cpu_seconds": 0.0026545299999999883,
+        "validation": {
+          "direct_vertex_recurrences": 32,
+          "minimum_exact_margin": "1"
+        }
+      }
+    }
+  ],
+  "cpu_seconds": 0.12624542699999997
+}
