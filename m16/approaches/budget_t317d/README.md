@@ -534,3 +534,10 @@ with open truths). Report F, MSE x C, bias, sd and RMS for both. "Confirms" iff 
 - **DEV2: bias +.413, sd .451, RMS .609, MSE x C 1,883, F 2.60** (T317f: +.489 / .671 / .827 / 2,276 / 3.14).
 - **Go (MSE x C <= 2,048): PASSED.** Frozen as `t351/estimator_h2.py` (with cont_h2.py, cont_h.py, cont_g.py, cont_f.py; sha256
   listed in the commit message). Next is the pre-registered DEV3 check against T317f, which waits for the full panel from T342.
+
+### T347 DEV3 result (`python t347/run_panel.py ... dev3_weights.npz t347/dev3.json`; formula frozen at 790de13d; DEV3 = claude/t192-gpu-cost-law @e2322a6b, array sha256 4a4406d4..., 100 models; truths not needed)
+- **Amended primary go: PASSED.** Panel mean D_pred +.440 vs measured D_m +.503 (SE .032): panel error **-.063** (line +-.1).
+  DEV2 had -.116.
+- Secondary: per-model mean |error| .228 (DEV2 .230), corr .56 (DEV2 .54), measured sd .317.
+- So the frozen tilt formula carries the panel-mean offset out of sample, with no DEV2 tuning. Per model it explains ~30% of
+  the variance (corr^2), as on DEV2.
