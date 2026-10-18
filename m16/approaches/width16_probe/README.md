@@ -20,7 +20,8 @@ copies of seed 0 with the estT_fix convention `leaderboard._noisy(zoo(H,T,0), 4,
 - `mc.py H T names` -> `mc.json`: 1e7 MC (rng 2026, as estT_fix) and sampled region lower bounds (2e5 and 2e6 inputs,
   rng 5, as final3/run_regions). `mc2.py` -> `mc2.json`: a second 2e7 MC (rng 7) for 4 models.
 - `summary.py` -> `summary.json`: per-model table. Ratio = err^2 / (p(1-p)/N), N = recipe ops / fpe_flops(H,T)
-  (estT_fix convention). (8,4) recipe108 numbers are read from `estT_fix/rescore/` (same code); its exact runs (for the
+  (estT_fix convention, kept for comparability); `ratio_T196` restates it under the T196 ruling
+  (estimator 2 x ops FLOPs vs c_s(H,T) sampling FLOPs per input): x1.96 at H = 8, x2.02 at H = 16. (8,4) recipe108 numbers are read from `estT_fix/rescore/` (same code); its exact runs (for the
   region counts) were redone here and reproduce estT_fix's exact accuracies and op counts digit for digit.
 - (8,3) was run here too so that the H comparison uses recipe108 cells (H-U4's 2.0 used RECIPE112/est75 cells).
 
@@ -32,12 +33,12 @@ cost ~7 CPU-min.
 Means over the 5 clean seeds; "all 9" = 5 seeds + 4 noisy copies. Regions = exact count (above); lb2e5 = the sampled
 lower bound used in earlier tables. Reproduce: `./drive.sh H T names...`, `python mc.py H T names...`, `python summary.py`.
 
-| (H,T) | recipe ops | exact ops | recipe cells | exact cells | regions (exact) | lb2e5 | **cells/regions** | recipe/exact cells | max \|err\| pp (all 9) | max MSE ratio (all 9) |
-|---|---|---|---|---|---|---|---|---|---|---|
-| (8,3) | 3.9e5 | 3.5e5 | 233 | 452 | 236 | 165 | **0.99** | 0.52 | 0.011 | 6e-4 |
-| (16,3) | 1.7e6 | 1.3e6 | 389 | 1244 | 838 | 421 | **0.46** | 0.31 | 0.0033 | 4e-5 |
-| (8,4) | 8.7e8 | 1.14e9 | 6276 | 9411 | 3160 | 1171 | **1.99** | 0.67 | 0.0073 | 0.27 |
-| (16,4) | 2.9e9 | 4.5e9 | 24543 | 53912 | 28212 | 4090 | **0.87** | 0.46 | 0.0020 | 0.017 |
+| (H,T) | recipe ops | exact ops | recipe cells | exact cells | regions (exact) | lb2e5 | **cells/regions** | recipe/exact cells | max \|err\| pp (all 9) | max MSE ratio (all 9) | same, T196 units |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| (8,3) | 3.9e5 | 3.5e5 | 233 | 452 | 236 | 165 | **0.99** | 0.52 | 0.011 | 6e-4 | 0.0012 |
+| (16,3) | 1.7e6 | 1.3e6 | 389 | 1244 | 838 | 421 | **0.46** | 0.31 | 0.0033 | 4e-5 | 9e-5 |
+| (8,4) | 8.7e8 | 1.14e9 | 6276 | 9411 | 3160 | 1171 | **1.99** | 0.67 | 0.0073 | 0.27 | 0.52 |
+| (16,4) | 2.9e9 | 4.5e9 | 24543 | 53912 | 28212 | 4090 | **0.87** | 0.46 | 0.0020 | 0.017 | 0.035 |
 
 Per model (16,·) (exact acc; z vs 1e7 MC; recipe err pp; MSE ratio; recipe ops; recipe cells; exact regions):
 
@@ -81,7 +82,7 @@ region sampling 2.2e6 x 36 (all minutes). Max estimator ops per model 4.8e9 (exa
 
 ## Claims (all unverified)
 - [measured] recipe108 (frozen) beats sampling at equal ops on all 5 seeds + 4 noisy copies at (16,3) (ratio <= 4e-5)
-  and (16,4) (ratio <= 0.017), against exact enumeration that matches 1e7 MC (|z| <= 2.98, fresh 2e7 MC |z| <= 1.99).
+  and (16,4) (ratio <= 0.017; <= 0.035 in T196 units), against exact enumeration that matches 1e7 MC (|z| <= 2.98, fresh 2e7 MC |z| <= 1.99).
 - [measured] cells/regions (recipe108 cells / exact gate-pattern count) falls with H at fixed T: 0.99 -> 0.46 (T=3),
   1.99 -> 0.87 (T=4), from H = 8 to 16.
 - [measured] Along T at H = 16 recipe cells grow faster than regions (x63 vs x34) and ops x1700 per step, as at H = 8:

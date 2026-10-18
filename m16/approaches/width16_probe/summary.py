@@ -1,8 +1,9 @@
 """T194 summary -> summary.json and table rows. Ratio = (recipe - exact)^2 / (p(1-p)/N), N = recipe ops / fpe_flops(H,T)
-(estT_fix convention). z = (exact - MC1e7, rng 2026) / se; z2 vs 2e7 MC rng 7 (mc2.py). (8,4) recipe/exact numbers from estT_fix/rescore (same code)."""
+(estT_fix convention); ratio_T196 = T196 ruling (2*ops FLOPs vs c_s FLOPs per input). z = (exact - MC1e7, rng 2026) / se; z2 vs 2e7 MC rng 7 (mc2.py). (8,4) recipe/exact numbers from estT_fix/rescore (same code)."""
 import json, os, sys, glob
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, "..", ".."))
-from leaderboard import fpe_flops
+from leaderboard import fpe_flops, flops
+c_s = lambda H, T: flops(H, T) + T * H + 3 * T - 2   # T196 sampling FLOPs per input (review/cost_convention)
 mc = json.load(open(os.path.join(HERE, "mc.json"))); out = {}
 mc2 = json.load(open(os.path.join(HERE, "mc2.json")))
 
@@ -30,7 +31,8 @@ for k, v in sorted(mc.items()):
         row.update(recipe_stopped=rc.get("stopped"), ops=rc["ops"], cells=rc["cells"], recipe_cpu=rc.get("cpu", rc.get("sec")))
         if rc.get("acc") is not None and "exact" in row:
             row.update(est=rc["acc"], err_pp=100 * (rc["acc"] - p),
-                       ratio=(rc["acc"] - p) ** 2 / (p * (1 - p) / (rc["ops"] / fpe_flops(H, T))))
+                       ratio=(rc["acc"] - p) ** 2 / (p * (1 - p) / (rc["ops"] / fpe_flops(H, T))),
+                       ratio_T196=(rc["acc"] - p) ** 2 / (p * (1 - p) / (2 * rc["ops"] / c_s(H, T))))   # kappa = 2
         reg = row.get("regions_exact") or v["regions_lb_2e6"]
         row.update(cells_per_region=rc["cells"] / reg, cells_per_region_lb2e5=rc["cells"] / v["regions_lb_2e5"])
     out[k] = row
