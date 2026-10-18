@@ -1069,3 +1069,24 @@ Run on orig, seed0 and seed3.
 **Go (DRI):** every estimate moves by <= its bound vs the T_hi = 6 walk, **and C <= .5 x K3's**. The primary
 accuracy criterion is est/truth within 2x.
 **Expected from the probe:** (a) gives ~.57x K3 (a miss); (b) is near .5x.
+
+## T359 results: GO = NO, narrowly (`thi_probe.py`, `results_thi_probe_*.json`, `results_t359.json`, `thi_runs.log`)
+
+| model | T_hi | C / K3's C | max \|est − est(T_hi = 6)\| | declared bound P(g23 > T_hi) |
+|---|---|---|---|---|
+| orig | 3.5 | **.505** | 4e-19 | 7.0e-8 |
+| orig | 4.0 | .575 | 2e-18 | 1.7e-9 |
+| seed0 | 3.5 | .531 | 1.6e-10 | 7.0e-8 |
+| seed0 | 4.0 | .595 | 2e-12 | 1.7e-9 |
+| seed3 | 3.5 | .529 | 2.3e-10 | 7.0e-8 |
+| seed3 | 4.0 | .602 | 5e-12 | 1.7e-9 |
+
+- **Estimates:** they move by far less than the bound everywhere (the go condition's first half holds). Est/truth is
+  therefore unchanged from fixed K3: E1 8/9 within 2x, E2 6/6.
+- **Cost:** **C is .505-.53 × K3 at T_hi = 3.5** and .575-.60 × K3 at T_hi = 4. The pre-registered C <= .5 × K3 is
+  **missed by 1-6%**.
+- **The bound is very conservative.** The walks find essentially no event mass beyond t = 3.5 (the moves are <= 2e-10,
+  against a bound of 7e-8). A tighter rigorous tail bound would allow a lower T_hi. For example, P(g23 > T_hi AND the
+  network picks p3) <= P(g23 > T_hi) is loose by orders of magnitude.
+- Combined with T354's segment start, the cost path from K3 is .78 (segment) → .53 (T_hi = 3.5) × K3. That is about
+  1.2-1.35M FPE, at K3 accuracy.
