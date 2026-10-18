@@ -70,6 +70,9 @@ def main():
     try:
         for path,sha in p['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==sha,path
         assert p['parents']==[0,1,20,21]
+        assert str(Path(sys.executable).resolve())==p['runtime']['python_executable']
+        assert np.__version__==p['runtime']['numpy_version']
+        assert str(Path(np._core._multiarray_umath.__file__).resolve())==p['runtime']['numpy_extension']
         tick=time.process_time();weights,model,checkpoint=model_from_archive(p['model_archive'])
         assert checkpoint==p['checkpoint_sha256']
         reviewed=json.loads(Path(p['predicate_review']).read_text());assert reviewed['complete']
