@@ -65,7 +65,9 @@ per-step growth keeps falling, ~2e11 at a constant x15-17, each needing d = 10 c
 on the (16,5) run: geometry 4.2e6 counted ops/s per CPU core (3.2e7 on 11 workers); GPU masses ~7.7e9 counted ops/s
 (7.1e4 simplices/s, d = 5); wall time geometry-bound at T >= 5 [measured, unverified; T192]. That puts the target far
 beyond our budget, and it cannot be demonstrated. Independent
-replication (T218 child, LP + adaptive Plackett masses): `[PENDING T222 replication]`.
+replication (T218 child: LP cone-splitter + robust-angle masses; claude/t218-tie-tail-labels@a498f53d, tie_tail_labels/
+README.md Part 2) gives regions 34 / 792 / 21,032 and k = 4 N_delta 1,737 / 4,018 / 7,021 / 10,233 / 13,165 (T194: 13,164).
+The DRI marks the k <= 4 coverage CONFIRMED [measured, **verified**].
 
 **3.5 Structural savings found so far are constant factors.**
 
