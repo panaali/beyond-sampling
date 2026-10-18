@@ -13,11 +13,13 @@ array contractions, finite interpolation probes and all scope/resource limits.
 `protocol.json` binds source/runtime and completed predecessor evidence.
 
 ## Status
-Source/protocol preparation. No grid or scientific control has run. Independent
-h4 source gate and T55 saved review are required; no trained phase authorized.
+Sole gated four-case phase complete in `6d2db5f4`; all fixed controls passed.
+h4 source review `006ca7d5` is complete; T55 independent saved review `78bbabb7` (shared `aeebdaa0`) passes.
+No trained phase authorized.
 
 ## Results
-None yet. After a published execution gate, sole command (no automatic rerun):
+See [RESULTS.md](RESULTS.md) and immutable `output/` for all four controls.
+Historical sole execution command (do not rerun completed work):
 
 ```sh
 set -e
@@ -36,9 +38,9 @@ No cost or speed advantage claimed.
 
 ## Claims
 [inferred] T238 establishes bias only under its formal symmetric-real premises.
-[speculative] The actual stored source has the corresponding positive central
-gap and a local trapezoidal correction meets frozen centering tolerances.
-No measured result until one gated run and independent saved review.
+[measured, independently checked saved arithmetic] The original stored-law
+central gap is2.82095e-5 and the local alternative meets frozen centering checks.
+Separate normalization and finite-input-law limitations remain.
 
 ## Alternatives not ruled out
 Actual grid/ordinate/cumulative rounding; tail plateaus; finite latent endpoint
