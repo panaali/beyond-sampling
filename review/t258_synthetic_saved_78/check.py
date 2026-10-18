@@ -136,12 +136,27 @@ def main(r):
     assert resource.getrlimit(resource.RLIMIT_CPU)==(19,20) and resource.getrlimit(resource.RLIMIT_AS)==(2**31,)*2
     import numpy as np
     assert np.__version__==p['runtime']['numpy_version']=='2.5.4' and str(Path(np.__file__).resolve())==p['runtime']['numpy_init']
-    d=read(a/'output/results.json');assert d['complete'] is True and d['pass_all'] is True
+    con=a/'continuation';cp=read(con/'protocol.json');cg=read(con/'gate.json');cr=read(cp['review'])
+    crequired={str(con/n) for n in ('run.py','launch.sh','PROTOCOL.md','protocol.json','gate.json','output/results.json','output/progress.jsonl','run1.log')}|{cp['review'],str(a/'ATTEMPT1.md')}
+    assert crequired<=set(completed['pins']) and cg['ready'] is True
+    assert cr['complete'] is True and cr['pass_all'] is True and cr['execution_authorized'] is True
+    for v in (cp['pins'],cg['pins'],cr['pins']):verify(v)
+    d=read(a/'output/results.json');nd=read(con/'output/results.json')
+    assert d['complete'] is False and d['pass_all'] is False and 'internal CPU cap' in d['failure']
+    assert nd['complete'] is True and nd['pass_all'] is True and nd['pins']==cg['pins']
+    assert nd['limits']=={'cpu':[16,20],'AS':[2**31]*2}
+    assert math.isfinite(nd['cpu_seconds']) and 0<=nd['cpu_seconds']<15 and type(nd['maxrss_kib'])is int and nd['maxrss_kib']>0
+    assert [nd[k] for k in ('guard_attempts','events','candidate_pairs_repeated','reference_calls','fit_calls','model_calls','rng_calls')]==[6,14,0,0,0,0,0]
+    assert nd['prior_cpu_seconds']==d['cpu_seconds'] and nd['prior_rows']==132 and nd['prior_events']==264
+    assert nd['prior_missing_events']==['completed_row index131','original completed']
+    assert nd['reuse']=={'candidate_pairs':128,'guards':4,'source':str(a/'output/results.json')}
+    assert nd['combined_coverage']=={'candidate_attempts':128,'candidate_completed':128,'reference_attempts':128,'reference_completed':128,'guard_attempts':10,'rows':138,'old_events':264,'new_events':14,'old_complete':False,'qualification':'Two distinct progress streams; historical missing events are not reconstructed.'}
+    assert len(d['rows'])==132 and len(nd['rows'])==6
+    all_rows=d['rows']+nd['rows'];assert len(all_rows)==138
     assert d['pins']==ag['pins'] and d['protocol_pins']==p['pins'] and d['limits']=={'cpu':[16,20],'AS':[2**31]*2}
-    assert math.isfinite(d['cpu_seconds']) and 0<=d['cpu_seconds']<15 and type(d['maxrss_kib'])is int and d['maxrss_kib']>0
+    assert math.isfinite(d['cpu_seconds']) and 15<=d['cpu_seconds']<20 and type(d['maxrss_kib'])is int and d['maxrss_kib']>0
     for k in ('candidate_attempts','candidate_completed','reference_attempts','reference_completed'):assert d[k]==128
-    assert [d[k] for k in ('guard_attempts','events','network_calls','fit_calls','rng_calls')]==[10,278,0,0,0]
-    assert len(d['rows'])==138
+    assert [d[k] for k in ('guard_attempts','events','network_calls','fit_calls','rng_calls')]==[4,264,0,0,0]
     tree=ast.parse(Path(p['owner_encode']).read_text());nodes=[]
     for n in tree.body:
         if isinstance(n,ast.FunctionDef) and n.name in {'prefix_stats','_get','_age','base_vector','cell_index','design','design_h'}:nodes.append(n)
@@ -152,7 +167,7 @@ def main(r):
     for t in range(1,11):
         order=np.argsort(-np.array(x,dtype=np.float64)[:,:t],axis=1,kind='quicksort').tolist();r['shared_quicksort_calls']+=1
         for f in range(12):
-            cap();ix=(t-1)*12+f;row=d['rows'][ix]
+            cap();ix=(t-1)*12+f;row=all_rows[ix]
             assert row['kind']=='features' and row['t']==t and row['family']==f and row['status']=='passed'
             expected=[design(xx,hh,ii,t,f) for xx,hh,ii in zip(x,h,order,strict=True)]
             ec=[a for a,b in expected];ev=[b for a,b in expected]
@@ -169,14 +184,14 @@ def main(r):
             assert delta<=4e-15 if f==1 else exact
             r['feature_values']+=sum(1 for _ in flat(ev));r['rows'].append({'kind':'features','t':t,'family':f,'columns':len(ev[0]),'passed':True});save(r)
     for off,(label,scores) in enumerate(selections(),120):
-        cap();row=d['rows'][off];assert row['kind']=='selection' and row['label']==label and row['status']=='passed';array(row['scores'],'float64',scores)
+        cap();row=all_rows[off];assert row['kind']=='selection' and row['label']==label and row['status']=='passed';array(row['scores'],'float64',scores)
         expected=[[max(range(stop),key=lambda k:scores[k][j]) for j in range(16)] for stop in (12,8)]
         for side in ('candidate','reference'):
             assert len(row[side])==2
             for got,want in zip(row[side],expected,strict=True):array(got,'int64',want)
         r['rows'].append({'kind':'selection','label':label,'passed':True});save(r)
     for off,label in enumerate(('zero','signed','readout_tie','float32_boundary'),124):
-        cap();row=d['rows'][off];assert row['kind']=='endpoint' and row['label']==label and row['status']=='passed'
+        cap();row=all_rows[off];assert row['kind']=='endpoint' and row['label']==label and row['status']=='passed'
         a0,c,w=endpoints(label);array(row['inputs']['predictions'],'float64',a0);array(row['inputs']['choices'],'int64',c);array(row['inputs']['readout'],'float64',w)
         chosen=[[binary32(a0[c[j]][i][j]) for j in range(16)] for i in range(3)];r['endpoint_scalar_casts']+=48
         hidden=[[max(0.,z) for z in row] for row in chosen]
@@ -188,15 +203,21 @@ def main(r):
         r['rows'].append({'kind':'endpoint','label':label,'predictions':predictions,'passed':True});save(r)
     labels=['x_dtype','x_shape','x_infinite','t_zero','t_boolean','family_range','hinge_shape','hinge_dtype','score_nonfinite','choice_range']
     for off,label in enumerate(labels,128):
-        cap();row=d['rows'][off];args,reason=guard_expected(label,x,h)
+        cap();row=all_rows[off];args,reason=guard_expected(label,x,h)
         assert row['kind']=='guard' and row['label']==label and row['status']=='passed' and row['rejection']==reason
         # JSON comparison retains True versus 1 in malformed domain records.
         assert json.dumps(row['arguments'],sort_keys=True)==json.dumps(args,sort_keys=True)
         r['rows'].append({'kind':'guard','label':label,'passed':True});save(r)
     events=[{'event':'started'}]
-    for i in range(138):events.extend([{'event':'started_row','index':i},{'event':'completed_row','index':i}])
-    events.append({'event':'completed'});assert [json.loads(s) for s in (a/'output/progress.jsonl').read_text().splitlines()]==events
-    cap();r.update(complete=True,pass_all=True,total_rows=138,events=278,author_cpu=d['cpu_seconds'],author_calls=0,model_fit_rng_calls=0,scope_sha256=sha(P/'scope.json'),input_pins=completed['pins'])
+    for i in range(132):
+        events.append({'event':'started_row','index':i})
+        if i<131:events.append({'event':'completed_row','index':i})
+    assert len(events)==264 and [json.loads(s) for s in (a/'output/progress.jsonl').read_text().splitlines()]==events
+    new_events=[{'event':'started'}]
+    for i in range(6):new_events.extend([{'event':'started_row','index':i},{'event':'completed_row','index':i}])
+    new_events.append({'event':'completed'})
+    assert len(new_events)==14 and [json.loads(s) for s in (con/'output/progress.jsonl').read_text().splitlines()]==new_events
+    cap();r.update(complete=True,pass_all=True,total_rows=138,events=278,progress_streams={'original':264,'continuation':14,'original_complete':False,'original_missing_events':['completed_row index131','original completed']},author_cpu_attempt1=d['cpu_seconds'],author_cpu_continuation=nd['cpu_seconds'],author_cpu_total=d['cpu_seconds']+nd['cpu_seconds'],author_calls=0,model_fit_rng_calls=0,scope_sha256=sha(P/'scope.json'),input_pins=completed['pins'])
 
 if __name__=='__main__':
     assert not (P/'results.json').exists() and not (P/'results.tmp').exists()
