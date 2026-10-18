@@ -7,16 +7,16 @@ Do the retained T271/T277 scalar outputs reproduce their reported fits and finit
 Byte snapshots from ac8669e0/e3033f5a and original preregistrations/amendments; independent exact-moment and high-precision scalar regression contraction. See PROTOCOL.md. No author imports or scientific replay. Source cost units, reference labels and correlated rule seeds remain qualified.
 
 ## Status
-Preparing one numerical saved audit, execution blocked on independent source/resource gate and immutable publication. Numerical row payloads have not been decoded during preparation.
+Sole bounded numerical audit complete, pending independent saved review. All raw evidence is retained; no replay or retry.
 
 ## Results
-Pending. Source inspection identifies shared scramble seeds, budget-dependent allocation, a pooled coverage predicate that does not itself enforce all three seeds, and README prose stronger than the finite regression test. Actual completeness and arithmetic await the fixed run.
+All1,009 rows and1,186 required comparisons pass. T277 finite-rule refutation reproduces; T271 has two CI prose contradictions, and four T3/T4 separate prefactor entries remain unmatched under fit.py’s convention. See RESULTS.md for exact values and scope.
 
 ## Compute accounting
-Preparation: Git/text/hash transport only. Planned saved contraction <=20 CPU seconds/2 GiB; zero forward, fit-producer, geometry, MC or RNG calls. No sealed HP1 reads.
+Preparation: Git/text/hash transport only. Actual internal saved contraction0.439285972 CPU seconds,61820KiB RSS under19/20CPU2GiB; zero forward, fit-producer, geometry, MC or RNG calls. No sealed HP1 reads.
 
 ## Claims
-[inferred, source] Regression slope CIs across five budgets do not prove dimension independence or asymptotic equality. [measured] No numerical audit result yet.
+[inferred, source] Regression slope CIs across five budgets do not prove dimension independence or asymptotic equality. [measured, pending independent saved review] Required fit arithmetic and complete row coverage reproduce; this does not validate all aggregate/prose claims.
 
 ## Alternatives not ruled out
 1. Finite-budget allocation or shared reference noise changes measured slopes; inspect corrected/uncorrected retained moments without new experiments.
