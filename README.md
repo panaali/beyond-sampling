@@ -12,6 +12,7 @@ An independent test of two claims about neural-network interpretability:
 |---|---|
 | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | **How this project was run and what was learned** (process, technical and operational lessons; how to continue). Read first if you take over as DRI |
 | [TASKS.md](TASKS.md) | **Task board: what is in progress (and who holds it) and the prioritized backlog. Claim a task here before starting work** |
+| [OWNER_QA.md](OWNER_QA.md) | **Every question the project owner asked the DRI (2026-10-17/18), with the answers and later updates**, plus the owner's standing directives verbatim. Read after TASKS.md and INDEX.md |
 | [STATUS.md](STATUS.md) | **Current status**, in plain words plus a technical summary |
 | [INDEX.md](INDEX.md) | Single source of truth: questions, repo map, **experiment registry** (E1-E27, LB2, R1), **hypothesis ledger** (every claim with its status and evidence), synthesis, open questions |
 | [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study, with review corrections |
@@ -35,7 +36,6 @@ An independent test of two claims about neural-network interpretability:
 Top-level scripts belong to the Qwen study pipeline: [collect.py](collect.py) (activations) →
 [build_items.py](build_items.py) (blinded packets) → [analyze.py](analyze.py) (pre-registered scoring);
 
-**Owner Q&A:** every question the project owner asked the DRI, with answers and later updates, is in [OWNER_QA.md](OWNER_QA.md). Read it after TASKS.md and INDEX.md.
 [population.py](population.py) (LLM-free statistics).
 
 ## Reproduce
