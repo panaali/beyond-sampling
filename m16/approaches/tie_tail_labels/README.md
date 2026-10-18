@@ -286,7 +286,7 @@ mass-ordered, best-first exact enumeration with exactly known uncovered mass cou
 
 The smallest k=4 region mass came out at -2.7e-11 (rounding). The k=4 mass sum is within the 1e-9 validation bound.
 Sampling check: k=3 z-scores over 212 regions with mass > 1e-4 have mean -0.02 and s.d. 1.01 (max 2.65), and no
-sampled gate word falls outside the exact regions. k=4: CHECK4.
+sampled gate word falls outside the exact regions. k=4: 694 regions with mass > 1e-4, z mean -0.03, s.d. 0.96, max 3.36; no sampled word falls outside the exact regions (`check_mass_mc.out`).
 
 **Verdict (pre-registered lines): NOT GO.** g_1e-5(3->4) = 16.1x, far above the 6x go line. It sits between go and
 the ~20x dead line, so formally **inconclusive, leaning dead**.
@@ -305,13 +305,46 @@ the ~20x dead line, so formally **inconclusive, leaning dead**.
   the route is still alive for a hybrid method (exact top regions plus a bounded remainder). If ~16x or more, it
   is dead.
 
+### k=5 from T192's exact masses, independently checked (`compare_t192.py` -> `results/compare_t192.json`)
+The DRI told me not to run k=5 with LPs. Instead I used T192's `results/prefix/k{4,5}_regionmass.npz` (branch
+claude/t192-gpu-cost-law), copied to `data/t192/`.
+- **k=4 one-to-one:** all 21,032 gate patterns match mine. Max |mass difference| = 7.7e-11. N_delta is identical
+  except at delta = 1e-6 (13,164 vs 13,165). T192's k=4 sum - 1 = 1.9e-11 (mine: -2.7e-10).
+- **k=5 coverage** (T192 masses, my sorting and coverage code): 632,394 regions, sum - 1 = 1.4e-9.
+  - N_delta = 14,658 / 42,499 / 89,215 / **152,952** / 226,035.
+  - The DRI quoted 152,956. A 4-region difference, presumably a cumulative-sum or threshold convention.
+  - Exp-entropy 1,545.6.
+- **k=5 spot check of 200 region masses** (100 uniform over regions, 100 mass-weighted), recomputed here.
+  - Method: my k=4 cells lifted to R^5, split at step 5 by LP, then a generic 5-D Plackett rule. The conditional
+    3-D orthant is in closed form, on the same robust-angle, graded-mesh scheme.
+  - `orth5` checks: rho = 1/2 gives 1/6 to 1e-16, and a block-diagonal 2+3 product to 6e-17.
+  - Agreement: max |difference| 2.5e-13 over all 200. Relative difference <= 4.7e-8 for masses >= 1e-6 and
+    <= 1.3e-5 for masses 1e-10 to 1e-8. Below 1e-10 (68 regions) the relative difference reaches 6.5, but only
+    because the absolute difference is <= 3.5e-15 (floating-point floor). That is irrelevant to N_delta for
+    delta >= 1e-6.
+
+| step | g_1e-2 | g_1e-3 | g_1e-4 | **g_1e-5** | g_1e-6 | regions | exp-entropy |
+|---|---|---|---|---|---|---|---|
+| 4 -> 5 | 8.4 | 10.6 | 12.7 | **14.9** | 17.2 | 30.1 | 5.1 |
+
+**Final part 2 verdict: NOT GO; inconclusive by the pre-registered lines, leaning dead.**
+- g_1e-5 = 18.6 / 16.1 / 14.9 per step: always between the 6x go line and the ~20x dead line, falling ~8% per
+  step.
+- The gap to exp-entropy widens: N_1e-5 / exp-entropy = 9.6 / 34 / 99 at k = 3 / 4 / 5.
+- [inferred, extrapolation] If g keeps falling 8% per step, then N_1e-5(k=10) ~ 1.5e5 x (13.7 x 12.6 x 11.6 x
+  10.7 x 9.8) ~ 3e10 regions. A mass-ordered exact enumeration to delta = 1e-5 is not feasible at T=10.
+- Only a far faster fall in g (to <= 6x by k~7), or a method that bounds the uncovered remainder without
+  enumerating it, would reopen the route.
+
 ## Compute (part 2)
 - Enumeration: 414k LPs, about 21 CPU-min.
 - Masses: k=4 had 146,714 simplices, nearly all on the graded rule, 11 CPU-min for k = 2-4.
-- Checks: a few CPU-min. Single thread throughout.
+- Checks: sampling about 15 CPU-min; T192 comparison (k=4 masses recomputed, plus 200 k=5 regions) about 40 CPU-min. Single thread throughout.
 
 ## Claims (part 2, unverified)
 - [measured] Region counts 34 / 792 / 21,032, identical to T192, with independent code.
 - [measured] Exact Gaussian region masses sum to 1 within 2.7e-10 (k <= 4).
 - [measured] N_1e-5 = 34 / 634 / 10,233. Growth 18.6x and 16.1x per step. Exp-entropy growth 5.4x and 4.6x.
+- [measured] T192's exact k=4 and k=5 masses agree with independent code: k=4 all regions <= 7.7e-11; k=5 200
+  spot checks <= 2.5e-13 absolute. N_1e-5(5) = 152,952, g(4->5) = 14.9x.
 - [inferred] Mass-ordered exact enumeration of prefix regions does not escape the count growth at delta ~1e-5.
