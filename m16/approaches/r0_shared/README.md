@@ -80,3 +80,25 @@ Stage 1: 10 models x 720 triples x 20,000 R0 forwards = 1.44e8 forwards (diagnos
     variant ladder was seen);
   - (b) DEV2 is an open panel, so a pass is a DEV2 statement and HP2 decides;
   - (c) scope is retrains only, declared post hoc after T296.
+
+## Results: Stage 0 — **lenient pass on DEV2** (`python stage0.py`, `results/stage0.json`; all 80 retrains, 1e8 truths)
+
+| design (T297 variant) | charged C (FPE) | bias (pp) | RMS (pp) | point F [95% bootstrap CI] | lenient RMS limit at C |
+|---|---|---|---|---|---|
+| tau23 only, blind assumed wrong | 1,752 | +0.21 | 1.57 | **5.97 [4.28, 7.78]** | 2.03 |
+| tau23 + blind verdict | 2,472 | +0.60 | 1.69 | 9.68 [7.00, 12.49] | 1.71 |
+| tau23 + tau12, blind assumed wrong | 3,192 | -3.42 | 4.44 | 86.8 [55, 123] | 1.51 |
+| tau23 + tau12 + blind verdict | 3,912 | -3.03 | 4.16 | 93.4 [57, 136] | 1.36 |
+
+- **The 1,752-FPE design passes the lenient bar on DEV2**, with its whole CI below 10. It is frozen as
+  `estimator.py` (`est(model, budget) -> (estimate, charged FLOPs)`; deterministic; no constants fitted) and sent
+  to the T281 scorer for HP2.
+- **Strict bar:** fails (F = 6, not <= 1).
+- **Read with care:**
+  - Its accuracy partly comes from cancellation. Ignoring the 1st-vs-2nd boundary offsets the tau23 overshoot
+    (T297 addendum), and blind skeletons are counted wrong. Adding those error classes back makes it *worse*
+    (F 87-93).
+  - One step is inductive under Hilton's test: the threshold measured at one anchor is applied to the whole
+    triple. So this is lenient-bar evidence with an inductive step, not a mechanistic estimate.
+  - The pass is on an open panel, with the design ladder seen on 10 of the 80 models. HP2 decides.
+- Stage 1's p1-sharing is not needed for this pass, and its sharing error (1.4-1.9 pp) would not lower F.
