@@ -323,6 +323,23 @@ Reproduce: `PANEL=hp2 PYTHONPATH=shim python3 cost_audit.py t306|t300` (and PANE
 - [measured] T300 is charged 1.55k FPE, down from 1.70k (×0.91). Its HP2 F goes from 9.72 to **8.89 [6.42, 11.86]**: a
   point lenient pass, but the upper CI is still > 10, so it is still not a candidate.
 
+### T313 instrumented cost for R1W V1 (r1_v1b2/v1b2.py @ 6a496515, sha256 `a09b395d…6cdc`)
+`cost_t313.py` applies `v1b2.cost(model)` to the unchanged per-model V1 estimates (asserted equal). It also applies
+the same count with B2 disabled, i.e. every row runs all T steps in its first cell, which is how the frozen
+`walk.walk_line` actually computes.
+B2 (first-cell prefix sharing) is a saving that the frozen code does not perform. Whether it may be charged is the
+DRI's call.
+| cost count | HP2 C (FPE) | HP2 F [95% CI] | HP1 clean F |
+|---|---|---|---|
+| frozen as charged | 13,269 | 16.35 [11.77, 21.24] | 9.12 |
+| T281 count (written convention) | 12,110 | 14.92 [10.74, 19.38] | 8.30 |
+| T313 instrumented, no B2 (as implemented) | 13,656 | 16.83 [12.11, 21.86] | 9.35 |
+| T313 instrumented + B2 sharing | 10,962 | 13.51 [9.72, 17.55] | 7.46 |
+
+- [measured] R1W V1 fails the lenient bar on HP2 under every count (point F 13.5–16.8).
+- [measured] B2 is the entire T313 saving. T313's per-step count (1,218 FLOPs per step-evaluation, including the
+  gate-flip roots) is higher than the 2 × 576 that the forward-equivalent count uses.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
