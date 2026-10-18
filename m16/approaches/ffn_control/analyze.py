@@ -24,27 +24,42 @@ def load(path):
     return walks.MLP(json.load(open(path))["weights"])
 
 
-def panel():
-    """{name: model}: per architecture the 3 seeds plus 9 noisy copies (sigma .05 x RMS per matrix); M_16,10 + 9 copies."""
+SIGMA = 0.001   # relative weight noise (x RMS of each matrix); Amendment B: .05 destroys M_16,10 (acc .26-.45)
+
+
+def _noised(ws, rng):
+    return [m + SIGMA * np.sqrt((m ** 2).mean()) * rng.standard_normal(m.shape) for m in ws]
+
+
+def panel(prefixes=None):
+    """{name: model}. MLP arch (or ladder config): its trained seeds plus 3 noised copies per seed.
+    M16_10: the target, zoo retrains 0-4, and 6 noised copies of the target. Amendment B (2026-10-19)."""
     sys.path.insert(0, os.path.join(HERE, "../.."))
-    import common as c
     out = {}
-    for arch in ["L1h22", "L2h13", "L1h43", "L2h21"]:
-        paths = sorted(glob.glob(f"{HERE}/models/{arch}_s*.json"))
-        if not paths:
+    arches = sorted({os.path.basename(p).split("_s")[0] for p in glob.glob(f"{HERE}/models/*.json")})
+    for arch in arches:
+        if prefixes is not None and arch not in prefixes:
             continue
-        base = [json.load(open(p))["weights"] for p in paths]
-        for p, w in zip(paths, base):
-            out[os.path.basename(p)[:-5]] = walks.MLP(w)
+        paths = sorted(glob.glob(f"{HERE}/models/{arch}_s*.json"))
         rng = np.random.default_rng(345)
-        for i in range(9):
-            w = [np.asarray(m) for m in base[i % len(base)]]
-            out[f"{arch}_n{i}"] = walks.MLP([m + .05 * np.sqrt((m ** 2).mean()) * rng.standard_normal(m.shape) for m in w])
-    out["M16_10"] = walks.RNN(c.Wi, c.Wh, c.Wo)
-    rng = np.random.default_rng(345)
-    for i in range(9):
-        out[f"M16_10_n{i}"] = walks.RNN(*(m + .05 * np.sqrt((m ** 2).mean()) * rng.standard_normal(m.shape)
-                                         for m in (c.Wi, c.Wh, c.Wo)))
+        for p in paths:
+            w = [np.asarray(m) for m in json.load(open(p))["weights"]]
+            tag = os.path.basename(p)[:-5]
+            out[tag] = walks.MLP(w)
+            for i in range(3):
+                out[f"{tag}_c{i}"] = walks.MLP(_noised(w, rng))
+    if prefixes is None or "M16_10" in prefixes:
+        import common as c
+        from alg_zoo import zoo_2nd_argmax
+        out["M16_10"] = walks.RNN(c.Wi, c.Wh, c.Wo)
+        for sd in range(5):
+            m = zoo_2nd_argmax(16, 10, seed=sd)
+            out[f"M16_10_zoo{sd}"] = walks.RNN(m.rnn.weight_ih_l0.detach().numpy()[:, 0].astype(np.float64),
+                                               m.rnn.weight_hh_l0.detach().numpy().astype(np.float64),
+                                               m.linear.weight.detach().numpy().astype(np.float64))
+        rng = np.random.default_rng(345)
+        for i in range(6):
+            out[f"M16_10_c{i}"] = walks.RNN(*_noised([c.Wi, c.Wh, c.Wo], rng))
     return out
 
 
@@ -131,7 +146,7 @@ def main():
             res[name] = {"layer1_exact_general_position": int(2 * sum(comb(h - 1, i, exact=True) for i in range(T))),
                          "per_layer": per_layer}
             print(name, res[name], flush=True)
-        m, rng, allkeys = panel()["M16_10"], np.random.default_rng(20261019), [[] for _ in range(T)]
+        m, rng, allkeys = panel(["M16_10"])["M16_10"], np.random.default_rng(20261019), [[] for _ in range(T)]
         cells = []
         for _ in range(n // CHUNK):
             x = rng.standard_normal((CHUNK, T))
@@ -149,7 +164,7 @@ def main():
         json.dump(res, open(f"{HERE}/results/regions.json", "w"), indent=1)
     elif cmd == "truth":
         name, n = sys.argv[2], int(float(sys.argv[3]))
-        a = accuracy(panel()[name], n, 777)
+        a = accuracy(panel([name.split("_s")[0].split("_zoo")[0].split("_c")[0]])[name], n, 777)
         json.dump({"name": name, "n": n, "acc": a, "se": (a * (1 - a) / n) ** .5},
                   open(f"{HERE}/results/truth_{name}.json", "w"))
         print(name, a)

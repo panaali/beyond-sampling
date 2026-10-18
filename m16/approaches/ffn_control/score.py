@@ -24,8 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def run(prefix, n_coord, n_circle):
-    models = {k: v for k, v in analyze.panel().items()
-              if k == prefix or k.startswith(prefix + "_s") or k.startswith(prefix + "_n")}
+    models = analyze.panel([prefix])
     out = {}
     for name, m in models.items():
         t0 = time.time()

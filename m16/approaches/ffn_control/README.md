@@ -101,6 +101,17 @@ implemented algorithm (a full forward-with-slope per piece, 2 FPE), `F_incr` = a
 (after a gate flip, a rank-1 update plus recompute of only the later layers / steps; a model, not implemented),
 `F_floor` = 4T FLOPs per piece (a lower bound for any piece walk). `F` is the headline.
 
+### Amendment B (2026-10-19 ~00:10 UTC, before any scored panel result): the scoring panel
+
+The pre-registered panel (9 copies with noise sigma .05 x RMS per matrix) is replaced. At that sigma M_16,10's
+copies collapse to accuracy .26-.45 (measured with `m16/arc_eval.py`'s own `noisy_models`, 6 copies), far from the
+regime the project scores in (sealed retrain panels; T337 breakdown already at relative .0025). The only panel
+model scored before the change was M_16,10 itself and one copy (log kept in data/, not used). New panel
+(`analyze.panel`), with relative noise sigma = .001:
+- each MLP configuration: its trained seeds plus 3 noised copies per seed (12 models for 3 seeds);
+- M_16,10 control: the target, alg_zoo retrains `zoo_2nd_argmax(16, 10, seed=0..4)` (accuracies .88-.95), and 6
+  noised copies of the target (12 models).
+
 ## Method
 Key files: `train.py` (training), `models/*.json` (weights). Further files are added as stages run.
 
