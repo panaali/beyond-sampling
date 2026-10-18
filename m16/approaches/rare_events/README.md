@@ -479,3 +479,55 @@ estimate is closest to 1e-9 in |log10|. This gives:
 
 **Reported:** est / truth with the truth's s.e., C (FPE), and the expected number of events plain sampling sees at C
 (p C).
+
+## T364 results: FAIL (2/6 within 2x; go needed >= 5/6)
+**Truths:** T192 GPU, conditional-law MC (claude/t192-gpu-cost-law @efa9a5fc, `t364/tail_mc.json`, copied to
+`results/t364_truth_gpu.json`), 1e8-1e9 conditional samples per pair, float64.
+- Its validation pair orig t0 = 1.0 gives 5.389e-6 against T340's plain-MC 5.367e-6 (z .8).
+- My CPU run of the same sampler (`truthc.py`, own seeds and code) agrees on every pair finished so far:
+  - s526 3.25: 1.009e-9 vs 1.010e-9;
+  - s526 3.5: 1.799e-10 vs 1.816e-10;
+  - orig 1.75: 4.04e-8 vs 3.93e-8;
+  - orig 2.0: 6.81e-9 vs 6.83e-9;
+  - s527 2.0: 3.74e-8 vs 3.79e-8.
+
+`results/t364_score.txt`:
+
+| model | t0 | truth (GPU) | K3 estimate (T_hi 6) | est / truth | T_hi 3.5 arm | C (FPE) | events plain MC sees at C |
+|---|---|---|---|---|---|---|---|
+| orig | 1.75 | 3.93e-8 | 1.85e-8 | .47 | .47 | 514k | .020 |
+| orig | 2.0 | 6.83e-9 | 1.41e-9 | **.21** | .21 | 514k | .0035 |
+| dev3_s526 | 3.25 | 1.01e-9 | 1.21e-9 | **1.20** | 1.00 | 489k | .0005 |
+| dev3_s526 | 3.5 | 1.82e-10 | 2.04e-10 | **1.12** | - | 489k | .0001 |
+| dev3_s527 | 2.0 | 3.79e-8 | 9.55e-10 | **.025** | .025 | 604k | .023 |
+| dev3_s527 | 2.25 | 8.18e-9 | 1.28e-10 | **.016** | .016 | 604k | .005 |
+
+**The go line is not met:** 2/6 are within 2x (both s526 pairs). Every miss is low, by up to 60x.
+- The thresholds were chosen from the estimator, which was far off, so the true p of the s527 and orig events is ~1e-8,
+  not ~1e-9.
+- On s526 the estimator is right at 2e-10 to 1e-9, where plain sampling at the same compute expects 1e-4 to 5e-4 events.
+
+**Why (diagnostic, `diag_deep.py`, `results/diag_deep.json`; conditional samples given g23 > t0).** Of the hits:
+
+| model, t0 | hits | g12 quantiles 10 / 50 / 90% | share with g12 < .1 | hit kept: R1W closure / lows at mu(v4) / v1 at E[v1 / v2] |
+|---|---|---|---|---|
+| dev3_s527, 2.0 | 682 | .012 / .034 / .090 | 93% | .62 / .83 / .004 |
+| orig, 2.0 | 361 | .012 / .048 / .095 | 93% | .06 / .58 / .000 |
+| dev3_s526, 3.25 | 2,497 | .015 / .089 / .27 | 54% | .95 / .95 / .59 |
+
+- **The deep-tail error islands are triple-tie configurations:** v1 within ~.05 of v2 (a near 1~2 tie), with v3 far below.
+  At t0 >= 2 the network picks the rank-3 input almost only there.
+- K3 integrates g12 with 3 Gauss nodes of its conditional law, and cannot resolve that thin sliver at g12 ~ 0. Moving v1
+  to its conditional mean removes 99.6-100% of the hits on the failing models, against 41% on s526, where K3 works.
+- On orig, the R1W closure also loses most of them (6% kept). On s527 it keeps 62%.
+- [inferred] So the failure is the transverse g12 integration (first) and, for the target, the closure. It is not the
+  walk, which stays exact.
+- Fixes, untried:
+  - g12 resolved near 0: nodes clustered at 0, or a second exact walk along g12, i.e. a 2-D treatment of (g12, g23)
+    at large g23;
+  - for orig, the real lows / v4 (the closure).
+
+**Compute:**
+- K3 runs as executed, ~0.5-0.6M FPE per model, covering all 8 grid thresholds in one walk.
+- Truths ~10-20 GPU-min (T192) plus ~45 CPU-min (mine).
+- Diagnostics ~15 CPU-min.
