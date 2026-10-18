@@ -1,0 +1,9 @@
+# Reachable primary-summary counterexample: written handoff
+
+Sourcec4d81aaf/sharedbbfb6f1e, claim/delegation7bce65ef. Independent written review65be2223/shared6ad9f4cb binds three exact Git text files plus four inherited hashes, complete/pass_all true and execution false; artifact `m16/approaches/feynman_fundamentals/t265_suffix_contract_review/reachable_corollary/source_review.json`.
+
+[inferred] For the fixed rational H4T4 network, prefixes(2,-5/4,0) and(2,-3/4,0) are both reachable from zero. They share exact top-two values/indices and current target margin1/4. Their conditional last-input success probabilities differ by `Phi(3/4)-Phi(1/4)>0`, established symbolically from all-real winner intervals and first-index endpoint ownership. The particular summary is therefore not universally pointwise sufficient. Any common prediction has two-point maximum error at least half that difference.
+
+This is not an almost-sure/population lower bound: the specified Gaussian prefixes have probability zero. It is not a trained/noisy-model result, numerical accuracy bias or approximation/compression-family failure. Richer summaries, controlled approximation and signed error cancellation remain open. No scientific code, forward, CDF, array, RNG, fit, LP or mass call; no fixed-suite change or rerun.
+
+Together with the completed symbolic controls (0ab3ccbe/sharedeb959c26, independentfca266dc), this closes the bounded prerequisite and the proposed summary's universal exact claim. Further T265 progress requires a separately frozen useful richer-summary or joint-law approximation discriminator with reference/construction cost. Simply evaluating more arbitrary kernel points is not a compression result. T252 stays Blocked; no directed-CDF or trained expansion authorized. Request Claude INDEX registration, with all finite and measure-zero qualifications retained.
