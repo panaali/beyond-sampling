@@ -1,0 +1,62 @@
+{
+  "task": "T248 fixed saved-scalar checker source/resource gate",
+  "status": "passed",
+  "complete": true,
+  "pass_all": true,
+  "execution_authorized": true,
+  "source_commit": "d31ccbfc",
+  "initial_source": "abfed080",
+  "written_source_review": "df45cd46",
+  "preparation_scope": "1b6baf0b",
+  "pins": {
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/saved/check.py": "06467d606850acfd9dce32e2be4c9c00dd0ed3b615043fdd74acf382fcc7d11f",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/saved/protocol.json": "47d28ccc054fedef15ee4834f33adecff59a4180176a452bba038cbe7595ff99",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/saved/PROTOCOL.md": "4966d12bb084cec3ce5db481ad4b41021fd6fa022daadd88824857ff0df8ef8d",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/manifest.json": "1596a3622cd130b63c4f057989de95479efb40cb09b4928dbd34f52700143f0b",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/SOURCE_FINDINGS.md": "9f452ee6e7cc69b6f09d671936665892ba41da2156d9aa910b944e011420711c",
+    "/workspace/work/recover-small_h4_4/review/random_weight_evidence/README.md": "0a7d2e0d57ddbd2301d6079a2922363eab7dc0d5dd148de2430ba5863be18141",
+    "/workspace/work/recover-small_h2_78/review/t248_random_control_review/source_review.json": "60cc309418cc9f2f633fcad8936577b458e30f829460cf1dddd838dbc90dc6f2"
+  },
+  "cleared_scope": {
+    "runs": 1,
+    "raw_json_rows": 39,
+    "summary_models": 13,
+    "rounded_table_rows": 13,
+    "groups": [
+      "frob5",
+      "row5",
+      "random10",
+      "nontarget12_including_controls"
+    ],
+    "expected_progress_events": 80,
+    "partial_log": "Check every available unique log row; report absent log keys without fabrication.",
+    "limits": "One thread, review flock,16 internal and16 soft/20 hard process CPU,2GiB address limit,25 wall seconds after lock, exclusive log and empty output. Publish immutable execution gate before launch."
+  },
+  "source_checks": [
+    "Exact file coverage, row identity/types/ranges, count-vs-cell consistency, reported mean-compatible integer hits only.",
+    "Complete summary dictionaries and rounded table parity; any mismatch fails without changing tolerances.",
+    "Fraction count growth and medians, per-ensemble versus preregistered pooled random10 and all12 control-inclusive ranges.",
+    "Fixed strong/within30percent comparisons are descriptive only; no statistical equivalence or chance baseline.",
+    "Every mandatory reviewer/source/payload pin checked; immutable publication is external launch evidence, not a self-hash.",
+    "Raw rows retained before validation; atomic aggregate replacement; empty-output refusal; exception now resets success flags including a late CPU-guard failure.",
+    "Final progress count is source-derived80; resource implementation/external launch must be independently retained in saved evidence."
+  ],
+  "prerun_repairs": [
+    "Final guarded event previously could leave complete/pass_all true on exception; d31ccbfc preserves failure and resets flags.",
+    "Author corrected unlimited CPU guard and removed self-referential publication field; no arithmetic/case/tolerance change."
+  ],
+  "limitations": [
+    "No author or estimator imports, NPZ decode, random draws, model, geometry, integration or MC calls.",
+    "Reported mass statistics remain aggregate-only; no per-history positivity/order/minimality or mass-error proof.",
+    "No complete native/FLOP cost, execution identity, target accuracy certificate, generic growth or universal training-effect result.",
+    "A failed or capped sole attempt is preserved; no automatic retry or relaxed parity."
+  ],
+  "reviewer_calls": {
+    "checker_execution": 0,
+    "author_imports": 0,
+    "array_decodes": 0,
+    "model_calls": 0,
+    "rng_calls": 0,
+    "mass_calls": 0
+  }
+}
