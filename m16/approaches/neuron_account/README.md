@@ -158,7 +158,7 @@ Reading:
   stratum matches.
 - n4's final-step effect disappears once the x9 case is matched: its last-step role is the x9-is-the-max flag.
 
-**Flag for the ledger (H-M3):** H-M3 withdraws n3/n13 as causal "harmonics". Here, on-manifold (S1) resampling
+**Flag for the ledger (H-M3; mode part withdrawn after review, see Review corrections (d)):** H-M3 withdraws n3/n13 as causal "harmonics". Here, on-manifold (S1) resampling
 of n3 or n13 alone at t=10 costs 18.5 and 23.5 pp. Resampling the period-4.32 mode that loads mostly on n15, n13
 and n3 costs 44 pp in the dominant pattern (.958 → .516). So n3/n13 and the 4.32 mode **are causally important**;
 the withdrawal should not be read as "not causal". These checks do not test the specific *harmonic* reading,
@@ -290,6 +290,48 @@ at every step (v2). Confidence refers to the role label.
 | n14 | clock + damped 8.37 mode | 38.5 (t10) | H1 | .9974 | .979 | medium |
 | n15 | fast mode (4.32), late-step | 31.0 (t10) | Hall | .9943 | .978 | low |
 
+## Review corrections (independent review, branch claude/t218-tie-tail-labels, `review/neuron_account/README.md`)
+An independent replication (own code, Philox RNG, same sizes) confirms the core findings: single-neuron
+replacement costs, held-out R^2, D1, the mode table and the noise curve all reproduce to within 0.003. It found no
+reuse of inputs between train, validation and eval. Corrections, adopted here:
+
+- **(a) The all-16 number depends on the implementation.** Agreement is .9554 here and .9659 in the review
+  (.9425 vs .9602 without hinges). With 200k eval rows the s.e. is ~0.04 pp, so this is an implementation effect
+  (pooled fallback, ridge in sparse cells, float32 order), not sampling. Read C1 as "about 95.5–96.6%, target 99%
+  missed". **The accuracy match is not robust**: +0.11 pp here, +0.82 pp in the review. The "within 0.1 pp" near-miss
+  should not be quoted. The robust statement is that the formula model is at least as accurate as the network
+  (consistent with D2).
+- **(b) Framing.** With all 16 neurons replaced, every state is a function of x, so the all-16 number tests **only
+  the t=10 formulas**. `best` all-16 = `best_final_step_only` = .955395. Earlier-step formulas enter only the
+  partial replacements. **Recurrent variant, done** (`python3 phaseC3.py`, ~20 CPU-min, `results/phaseC3.json`):
+  set the whole state h_{t0} = ReLU(f_{t0}(x)) from the formulas, then run the TRUE recurrence for t0+1..10.
+
+  | t0 | ≤2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+  |---|---|---|---|---|---|---|---|---|---|
+  | agreement | 1.0000 | .9995 | .9985 | .9966 | .9939 | **.9900** | .9832 | .9778 | .9554 |
+  | accuracy | .9525 | .9524 | .9526 | .9529 | .9535 | .9547 | .9562 | .9570 | .9536 |
+  | relative state error | <1e-6 | .0025 | .0049 | .0097 | .0129 | .0152 | .0173 | .0201 | .0287 |
+  | agreement, blind | 1.000 | .991 | .984 | .967 | .938 | .905 | .841 | .784 | .542 |
+
+  [measured] The formula states are a ≥ 99% faithful substitute for the network's internal state up to t0 = 7.
+  The pre-registered agreement level holds through step 7 and fails over the last 2–3 steps, where state errors
+  of 1.7–2.9% reach the near-tie readout. The blind region degrades first.
+- **(c) n9 is trivial; n5 is overstated.** n9's fitted coefficients are just its row of W_hh (−5.03 n7, −1.09 n8,
+  −0.36 n1, ...). "n9 is a delayed comparator" is correct but can be read off the weights; it is not a fitted
+  discovery. For n5, with exact weights, the comparator columns explain R^2 .67 at t=2 but only .36 at t=10, and
+  least squares on the true lag-1 comparators plus x_t gives .73. The .998 of H1 needs the A123K cells and base as
+  well. So n5 is **only partly** a delayed comparator: they are a large minority of its input, not its definition.
+  B2 is corrected accordingly.
+- **(d) Modes.** The **most damaging mode is the damped period-8.37 mode** (.39), not the 4.32 mode (.49), and the
+  same holds at h_9. Mode damage is **not specific**: resampling a random 1-D subspace of the active coordinates
+  gives mean accuracy .45, and a random 2-D subspace .30 (the modes are 1–2-D). Mode resampling therefore mostly
+  measures the readout's sensitivity to any incoherent perturbation (A5). Per unit energy the 8.37 mode stands out
+  somewhat; the 4.32 mode is at random-direction level.
+  - Consequence for the H-M3 flag above: its mode part is **withdrawn**. The conditional-resampling evidence
+    (n3 / n13 cost 18.5 / 23.5 pp under S1) says n3/n13 are causally used, but every neuron except n4/n5/n9 costs
+    24–54 pp under S1. So they are used, not specially important. H-M3's withdrawal as a *specific* causal harmonic
+    stands.
+
 ## Compute accounting
 Single-threaded, `ulimit -v 2500000`, at most 2 processes at once. Compute = exact float64 RNN forward passes
 (16x16 recurrence, about 600 FLOPs per step) plus least-squares cell fits (bincount normal equations).
@@ -311,7 +353,7 @@ Single-threaded, `ulimit -v 2500000`, at most 2 processes at once. Compute = exa
   from t=2 onward (so not only "after a near-record x8").
 - A3 [measured] Case selectivity holds for the comparators (mean final ablation: x9second .000 vs x9max .840)
   and for n4 at the final step (x9max loses 36 pp, others <= 7), not for the clocks, n2, n3/n13, n5 (all cases hit).
-- A4 [measured] In the dominant final pattern, the period-4.32 and damped period-8.37 modes (n3/n13/n14/n15)
+- A4 [measured; Review (d): 8.37 most damaging, and not specific vs random subspaces] In the dominant final pattern, the period-4.32 and damped period-8.37 modes (n3/n13/n14/n15)
   are the most damaging modes to resample (to .49 and .39) although they carry 6% and 4% of state energy; the
   8.42 clock and the integrator cost 5–9 pp.
 - A6 [measured] On-manifold (S1: same gate pattern, x9 case and age of max) resampling keeps most effects: comparators 48–54 pp, clocks 24–35, n3/n13/n15 18–26 pp; the 4.32/8.37 modes .52/.43. Matching age2 and m1/m2 bins too (S3) removes most of them, except the comparators' (45–51 pp). This contradicts reading H-M3's withdrawal as "n3/n13 not causal".
@@ -320,14 +362,14 @@ Single-threaded, `ulimit -v 2500000`, at most 2 processes at once. Compute = exa
 - B1 [measured] Comparators n1/6/7/8, n4 and n2 are encoded at held-out R^2 >= .999 by cells on the age of the max
   (A1) or of the top 2 (A12), linear in (x_t, m1..m3). n7 ≈ ReLU(−13.17 x9 + 10.93 M1 + 1.97 M2) and
   n4 ≈ ReLU(10.16 x9 − 8.52 M1 − 1.37 M2) alone reach .986/.992.
-- B2 [measured] n5 and n9 are delayed comparators. Order statistics give R^2 .68 at t=10; adding the previous
+- B2 [measured; corrected in Review (c)] n9 is a delayed comparator (its W_hh row); n5 only partly. Order statistics give R^2 .68 at t=10; adding the previous
   step's comparator values gives .998/.9999 (n9 ≈ −5.00 n7_{t−1} − 1.08 n8_{t−1} + small terms). This replaces the
   FINDINGS label "fire after near-record x8" with a general mechanism that runs at every step.
 - B3 [measured] Clocks need cells on the ages of the top 2–3 (R^2 .93–.99). Phasors of the top-3 ages (family C) explain .68–.84.
   The 8.42 mode coordinate itself is m1 x U(age1) at R^2 .96 (pattern 64975).
 - B4 [measured] n3, n13 and n15 are the least compressible neurons (best R^2 .985/.988/.994 at t=10). They need the
   rectified comparator history at every lag.
-- C1 [measured] **Pre-registered target missed**: all 16 replaced gives agreement .9554 (target .99) and accuracy
+- C1 [measured; Review (a),(b): implementation-dependent .955–.966, t=10 formulas only; recurrent injection keeps >= .99 up to t0 = 7] **Pre-registered target missed**: all 16 replaced gives agreement .9554 (target .99) and accuracy
   .9536 vs .9525 (+0.11 +- 0.05 pp; target within 0.1 pp). Without hinge variables: .9425.
 - C2 [measured] Per-neuron R^2 is a poor proxy for behaviour. Each formula has R^2 >= .985, yet replacing a single
   neuron costs 0.2–2.5 pp agreement. Unstructured noise needs 1 − R^2 ≈ 1e-5 on every neuron for 99% agreement.
