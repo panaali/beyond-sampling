@@ -431,3 +431,12 @@ Labels: D_pred is deductive given the walks (no sampling). D_m is diagnostic sam
 - **DEV3:** the frozen formula is ready. `run_dev2.py` with DEV3's weights and budget.py's D_m (V1 - off_product) gives
   the out-of-sample test. DEV3 does not exist yet (T342). The DEV2 go has already failed, so DEV3 mainly tests the
   post-hoc correction out of sample.
+
+**T347 amendment (DRI 13:44; written before DEV3 exists, after the DEV2 results above).**
+- **Primary go:** the frozen formula (790de13d, unchanged) predicts DEV3's *panel mean* overstatement within +-.1 pp:
+  |mean D_pred - mean D_m| <= .1 on DEV3, with no DEV2 tuning.
+- Secondary, reported only: the per-model mean |error| and corr (the share of the sd explained).
+- **Disclosure:** on DEV2 the same panel-level quantity is .116 (pred .452 vs meas .568), just outside +-.1. The formula
+  is not changed in response.
+- Caveat: D is measured and predicted for the mean-point closure c (T317d), not T339's spread closure. Its offset under
+  spread lows may differ; that needs its own D_m.
