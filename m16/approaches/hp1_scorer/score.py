@@ -12,16 +12,20 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-D = os.path.join(ROOT, "data", "hp1")
+PANEL = os.environ.get("PANEL", "hp1")             # hp1 (robustness panel) | hp2 (primary, T284; hashes on arrival)
+D = os.path.join(ROOT, "data", PANEL)
 FPE = 5948.0                                   # FLOPs per plain-sampling forward at (16,10), T196 convention
 BUDGETS = (16_000, 64_000, 256_000)
 CURVE = (1_000, 4_000, 16_000, 64_000, 256_000)          # Directive 8 amendment 2
 SEED_IDX = {16_000: 0, 64_000: 1, 256_000: 2, 1_000: 3, 4_000: 4}   # control seed slot per budget (stable)
-GROUPS = ("clean", "abs0.05", "rel0.005", "rel0.01")
+PANELS = dict(hp1=dict(groups=("clean", "abs0.05", "rel0.005", "rel0.01"),
+                       sha=dict(weights="9bad715dad33f2e403675ebd552dc5512a14e9a8019a636575e7a5a0735fbd4c",
+                                manifest="fe0974012be395454e60b182e3552c36d8ec24940c2ddaa1ebb620302988ca64",
+                                truths="b610b9a29eee87bda0891f52ea6016b40cb7948a2b0360787895cf04f4c8a509")))
+GROUPS = PANELS[PANEL]["groups"]
+RES_PREFIX = "" if PANEL == "hp1" else PANEL + "_"
 NBOOT, BOOT_SEED = 10_000, 281
-SHA = dict(weights="9bad715dad33f2e403675ebd552dc5512a14e9a8019a636575e7a5a0735fbd4c",
-           manifest="fe0974012be395454e60b182e3552c36d8ec24940c2ddaa1ebb620302988ca64",
-           truths="b610b9a29eee87bda0891f52ea6016b40cb7948a2b0360787895cf04f4c8a509")
+SHA = PANELS[PANEL]["sha"]
 
 
 def sha_file(p):
@@ -133,7 +137,7 @@ def aggregate(name, label, path, func, budgets=BUDGETS):
                                  strict=valid and all(r["R"] <= 1 for r in res.values()),        # restated D8
                                  strict_sig=valid and all(r["hi"] <= 1 for r in res.values()))
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    json.dump(out, open(os.path.join(HERE, "results", f"{name}.json"), "w"), indent=1)
+    json.dump(out, open(os.path.join(HERE, "results", RES_PREFIX + f"{name}.json"), "w"), indent=1)
     print(f"\n{name} [{label}]  R [95% CI]  bias pp  rms pp  cost FPE(min)  SE^2 share")
     for B, d in out["budgets"].items():
         print(f"B={B}: valid={d['valid']} lenient={d['lenient']} strict={d['strict']} strict_sig={d['strict_sig']}")
@@ -179,7 +183,7 @@ def aggregate_F(name, label, budgets=CURVE):
         out["budgets"][B] = dict(groups=res, valid=valid, strict=valid and all(r["F"] <= 1 for r in grp),
                                  lenient=valid and all(r["F"] <= 10 for r in grp))
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    json.dump(out, open(os.path.join(HERE, "results", f"{name}_F.json"), "w"), indent=1)
+    json.dump(out, open(os.path.join(HERE, "results", RES_PREFIX + f"{name}_F.json"), "w"), indent=1)
     print(f"\n{name} [{label}]  F [95% CI]  F_se  rms pp  bias pp  n*  C_eff")
     for B, d in out["budgets"].items():
         print(f"B={B}: valid={d['valid']} strict={d['strict']} lenient={d['lenient']}")
