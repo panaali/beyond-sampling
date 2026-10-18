@@ -11,7 +11,9 @@ import rare  # noqa: E402
 ms = cf.lb3_models(); out = {}
 for name in ("orig", "seed0", "seed3"):
     for v in ("A", "B"):
-        r, f, info = rare.est(ms[name], variant=v)
-        out[f"{name}:{v}"] = dict(est={str(k): x for k, x in r.items()}, C=f / cf.FPE, info=info)
-        print(name, v, {k: f"{x:.3e}" for k, x in r.items()}, f"C {f / cf.FPE:.0f}", flush=True)
+        r, r2, f, info = rare.est(ms[name], variant=v)
+        out[f"{name}:{v}"] = dict(est={str(k): x for k, x in r.items()}, est2={str(k): x for k, x in r2.items()},
+                                  C=f / cf.FPE, info=info)
+        print(name, v, "E1", {k: f"{x:.3e}" for k, x in r.items()}, "E2", {k: f"{x:.3e}" for k, x in r2.items()},
+              f"C {f / cf.FPE:.0f}", flush=True)
 json.dump(out, open(os.path.join(HERE, "results", "est.json"), "w"), indent=1)

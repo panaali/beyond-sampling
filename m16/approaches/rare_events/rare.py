@@ -22,7 +22,7 @@ T, H, C, NT, TRI = G.T, G.H, G.C, G.NT, G.TRI
 def walk3(model, x0, d, k, k3, tmax, max_cells=5000):
     """G.walk_cont's loop (T317 continuity restarts, prefix-tree first cell), collecting per cell the interval where k3
     is the argmax. Charges: walk_counted's (honest correct_interval count) + one extra correct_interval per cell."""
-    Wi, Wh, Wo = model; n = len(x0); pieces = []
+    Wi, Wh, Wo = model; n = len(x0); pieces = []; pieces_c = []
     Z, DZ, Gt, R, J, nodes = G.first_cell(model, x0, d)
     flops = nodes * G.F_STEP + n * G.F_CELL
     tref = np.full(n, G.EPS)
@@ -35,6 +35,8 @@ def walk3(model, x0, d, k, k3, tmax, max_cells=5000):
         lo, hi = G.correct_interval(L[act], dL[act], tref[act], k3[act], t[act], nxt)
         flops += len(act) * G.F_CI; ncell += len(act)
         pieces.append((act.copy(), lo, hi))
+        lo, hi = G.correct_interval(L[act], dL[act], tref[act], k[act], t[act], nxt)   # target: charged in F_CELL / F_LATER_READ
+        pieces_c.append((act.copy(), lo, hi))
         t[act] = nxt
         go = act[nxt < tmax]; ss = sstar[nxt < tmax]
         if not len(go):
@@ -56,10 +58,9 @@ def walk3(model, x0, d, k, k3, tmax, max_cells=5000):
             dL[row] = Wo @ dh
             flops += 2 * T * H + 1 + H + (T - 1 - s0) * G.F_TAN + (T - s0) * G.F_ROOT + G.F_LATER_READ
         act = go
-    # the main correct_interval of each later cell (for the target) is not needed here; F_LATER_READ includes one
-    # correct_interval, which this walk replaces by the k3 interval, so the k3 call above double-counts it: keep the
-    # charge (conservative).
-    return pieces, flops, it, ncell
+    # charges: the target's correct_interval per cell is inside F_CELL / F_LATER_READ (T317 count); the k3 interval
+    # is one extra F_CI per cell.
+    return pieces, pieces_c, flops, it, ncell
 
 
 def mass(pieces, nrow, node_of_row, nodes, t0):
@@ -104,9 +105,10 @@ def _node_lines():
 NODE_LINES = _node_lines()                    # model-free, once at import
 
 
-def est(model, t0s=(0.0, 1.0, 1.25, 1.5), variant="A", tmax=TBIG):
+def est(model, t0s=(0.0, 1.0, 1.25, 1.5), variant="A", tmax=TBIG, t2s=(0.5, 0.75)):
+    """-> ({t0: E1 estimate}, {t: E2 estimate}, FLOPs, info)"""
     model = tuple(np.asarray(w, np.float64) for w in model)
-    res = {t0: 0.0 for t0 in t0s}; flops = 0.0; info = {}
+    res = {t0: 0.0 for t0 in t0s}; res2 = {t: 0.0 for t in t2s}; flops = 0.0; info = {}
     for ri, tab in enumerate(G.TABLES):
         nodes, wts = tab["nodes"], tab["wts"]; wgt = tab["dens"] * tab["blind12"]          # 90 phi(v2) (1 - Phi(v2))
         if variant == "A":
@@ -114,10 +116,19 @@ def est(model, t0s=(0.0, 1.0, 1.25, 1.5), variant="A", tmax=TBIG):
         else:
             x, dx = NODE_LINES[ri]; k = np.tile(TRI[:, 1], len(nodes)); k3 = np.tile(TRI[:, 2], len(nodes))
             nrow = len(x); node_of_row = np.repeat(np.arange(len(nodes)), NT)
-        pieces, f, it, ncell = walk3(model, x, dx, k, k3, tmax); flops += f
+        pieces, pieces_c, f, it, ncell = walk3(model, x, dx, k, k3, tmax); flops += f
         info[tab["name"]] = dict(iters=it, cells_per_row=ncell / nrow)
         for t0 in t0s:
             W, f = mass(pieces, nrow, node_of_row, nodes, t0); flops += f
             res[t0] += float((W * wgt[None]).sum(0) @ wts) / NT if variant == "A" else float(W.sum(0) * wgt @ wts) / NT
             flops += nrow * len(nodes) * 2
-    return res, flops, info
+        for t2 in t2s:            # E2: any-wrong on line23 beyond t2 (complement of the correct set), g12 mass beyond t2
+            Cm, f = mass(pieces_c, nrow, node_of_row, nodes, t2); flops += f
+            tot = ndtr(nodes - t2) ** 8 - ndtr(nodes - tmax) ** 8            # P(g23 in [t2, tmax]) x Phi(v2)^8, model-free
+            W = (tot[None] - Cm) if node_of_row is None else None
+            if node_of_row is not None:
+                W = np.zeros_like(Cm); jj = np.repeat(np.arange(len(nodes)), NT); W[np.arange(nrow), jj] = tot[jj] - Cm[np.arange(nrow), jj]
+            w2 = tab["dens"] * ndtr(-(nodes + t2))                                 # 90 phi(v2) (1 - Phi(v2 + t2))
+            res2[t2] += float((W * w2[None]).sum(0) @ wts) / NT
+            flops += nrow * len(nodes) * 3
+    return res, res2, flops, info
