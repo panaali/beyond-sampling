@@ -294,8 +294,7 @@ add a Backlog row describing it instead of editing.
 
 
 | T174 | **Ready: DRI shared adoption after reviewed local guard** | **Preserve first-index ownership for active identical estT readout rows** | H2T4 Wi=(1,-1),Wh=0,Wo=ones gives logits all abs(x3), true accuracy1/4, but pinned exact estT returns1 with zero error cones. T171 audit ea345925 verifies independently of mass. For exact-zero truth-minus-competitor coefficient margin, earlier competitor owns whole remaining cone and later competitor loses tie; generic near-zero predicates remain separate. Done when independently reviewed local guard/controls adopted by DRI with charged checks and existing trained no-tie parity | positive_model_adapter; leaf_mass_review/estT_snapshot.py; related T60 |
-
-
+| T346 | **Proposed, LOW priority (owner, 2026-10-18); step 2 = brainstorm** (none) | **Clever exact methods and exact computation as a component: brainstorm with Fable and Astra** | Region-by-region enumeration is dead (H-E13), but the owner asked to explore what that verdict does not exclude. Step 1 done: the DRI's seed ideas A-J with kill tests in m16/approaches/exact_brainstorm/README.md (boundary-only enumeration, future-equivalence merging, backward decomposition, exact-early/declared-late splits, sub-cone enumeration, exact low-dimensional slices, exact truncated models, affine-map structure, GPU trend counts, exact sensitivities). Step 2: Fable and Astra each write an independent review (neither reads the other's until pushed) that ranks the ideas, adds their own, and gives one pre-registerable kill test per idea. Done when both reviews exist and the DRI has turned at most two ideas into Ready rows | m16/approaches/exact_brainstorm/; OWNER_QA.md §6.2; INDEX H-E13, T270, T316, T324/T333, T344 |
 
 ## Recently finished (details in the INDEX registry)
 
