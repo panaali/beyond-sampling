@@ -147,3 +147,19 @@ estimates are identical.)
   half-region transverse points are worse anchors for the outer v2 tails.
 - The winner is V1 itself, so the "winner" and "V1" HP2 submissions coincide. `estimator.py` (frozen) was sent to
   the T281 scorer. **The claim is HP2's score alone.**
+
+## T306 claim: sealed HP2 score (T281 scorer, claude/hp1-scorer 55a00546)
+Frozen hashes: estimator.py sha256 81e30b6a…, r1w2.py 30780215…. Cost C = 7.9e7 FLOPs / 5948 = 13.3k FPE.
+
+| panel | F [95% CI] | bias (pp) | RMS (pp) |
+|---|---|---|---|
+| **HP2 (100 retrains, sealed)** | **16.35 [11.77, 21.24]** | +0.53 | 0.99 |
+| HP1 clean (6) | 9.1 [1.1, 20.1] | | |
+| HP1 noisy copies (outside scope) | 93-425 | +2.9 to +6.6 | |
+| DEV2 (development) | 11.95 [8.68, 15.69] | +0.45 | 0.80 |
+
+- **The claim: R1W V1 fails the lenient bar on HP2 (F 16.4) and the strict bar.**
+- It is the best fully deductive entry scored so far on HP2 (the scorer lists t286_rx 98, t286b 107).
+- To pass at this cost it would need RMS <= 0.78 pp, i.e. ~21% lower error, or the same error at <= 8.1k FPE.
+- The DEV2-to-HP2 degradation (RMS .80 -> .99) is the expected winner's-curse and forking-paths effect: ~30
+  variants saw DEV2.
