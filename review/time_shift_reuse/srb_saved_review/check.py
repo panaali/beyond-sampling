@@ -51,7 +51,7 @@ def check():
     for f in funcs:
         for n in ast.walk(f):
             k=kind(n)
-            if k:sites[f'{f.name}:{n.lineno}:{n.col_offset}']=(k,n)
+            if k:sites.setdefault((f'{f.name}:{n.lineno}:{n.col_offset}',k),[]).append(n)
     assert len(fixtures)==len(d['rows'])==6 and d['complete'] and d['paired_evaluations']==21 and d['fixture_count']==6
     assert d['all_bit_parity'] and d['all_warning_parity'] and d['all_source_count_parity']
     assert not d['complete_native_cost'] and not d['full_accuracy_certificate'] and d['new_trained_model_checkpoint_MC_draw_calls']==0 and d['scope']==p['scope']
@@ -72,7 +72,7 @@ def check():
             for k,it in enumerate(intervals):assert it['k']==k and len(it['mask'])==M and all(type(x)is bool for x in it['mask']) and it['active']==any(it['mask'])
             J=sum(x['active'] for x in intervals);counts=Counter();frequency=Counter();call_shapes=Counter()
             for e in ledger['events']:
-                total_events+=1;site=e['site'];k,node=sites[site];assert e['kind']==k;frequency[site]+=1
+                total_events+=1;site=e['site'];k=e['kind'];nodes=sites[(site,k)];node=nodes[0];frequency[(site,k)]+=1
                 output=e['output'];inputs=e['inputs']
                 if k=='call':
                     total_calls+=1;fun=node.func;fname=fun.attr if isinstance(fun,ast.Attribute) else fun.id;fname='ndtr' if fname=='cdf' else fname
@@ -96,10 +96,11 @@ def check():
                 else:
                     if k not in ('Not',):assert output['shape']==broadcast([x['shape'] for x in inputs])
                     counts[cat+('_array' if output['shape'] else '_scalar')]+=units
-            for site,(k,node) in sites.items():
+            for (site,k),nodes in sites.items():
                 fn,line,_=site.split(':');line=int(line)
                 expected=9 if fn=='h9' and line==18 else (1 if fn=='h9' else (0 if line in (30,31) else (19 if line in (46,47,48) else J if 50<=line<=64 else 1)))
-                assert frequency[site]==expected,(site,frequency[site],expected)
+                expected*=len(nodes)
+                assert frequency[(site,k)]==expected,(site,k,frequency[(site,k)],expected)
             assert dict(counts)==ledger['counts']
             formulas=dict(float_array=320*M+9*M+J*M*110,dense_2mac=5120*M+640*J*M,dense_dot_expression=4960*M+620*J*M)
             assert run['expected_source_counts']==formulas and all(counts[k]==v for k,v in formulas.items())
@@ -113,7 +114,7 @@ def check():
     assert progress==[json.loads(x) for x in (A/'progress.jsonl').read_text().splitlines()]
     return dict(pass_all=True,fixtures=6,pairs=21,author_Q_executions=42,event_count=total_events,call_count=total_calls,progress_records=len(progress),runs=reports,author_cpu_seconds=d['cpu_seconds'],reviewer_author_Q_numpy_scipy_model_mass_calls=0,scope='Saved parity and named expression ledger only; no independent numerical correctness or complete native cost claim')
 def main():
-    out=HERE/'results.json';assert not out.exists();resource.setrlimit(resource.RLIMIT_CPU,(19,20));start=time.process_time();r=dict(complete=False,checker_sha256=sha(__file__),pins_sha256=sha(HERE/'pins.json'));out.write_text(json.dumps(r,indent=2)+'\n')
+    out=HERE/'results_v2.json';assert not out.exists();resource.setrlimit(resource.RLIMIT_CPU,(19,20));start=time.process_time();r=dict(complete=False,checker_sha256=sha(__file__),pins_sha256=sha(HERE/'pins.json'));out.write_text(json.dumps(r,indent=2)+'\n')
     try:r.update(check(),complete=True)
     except BaseException as e:r.update(failure=repr(e),traceback=traceback.format_exc());raise
     finally:r['review_cpu_seconds']=time.process_time()-start;out.write_text(json.dumps(r,indent=2)+'\n')
