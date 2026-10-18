@@ -48,7 +48,7 @@ estimator files were not modified.
 ## Status
 Done for v5q, v5a and the control. Standing service: further submissions are scored the same way.
 
-## Results
+## Results (amendment 1 rule: fixed budget B, R_g = Σe/Σs; superseded as figure of merit by amendment 2 below)
 R_g [95% cluster CI]; bias and RMS error in percentage points; the cost column is the minimum charged C_m in FPE.
 
 **Control (plain MC, sampling)**
@@ -117,6 +117,59 @@ upper CI <= 1. The lenient bar is unchanged: upper CI <= 10 in every group.
 
 Under the restated strict bar the control itself sits at R ≈ 1. It fails at each budget only by noise (the clean
 group has 6 models), so a method must be better than sampling to pass the strict bar reliably.
+
+## Results under Directive 8 amendment 2 (own-cost figure of merit)
+Rule (TASKS Directive 8, amendment 2, ccr 576003ba): C = group-mean charged FLOPs / 5948 and C_eff = max(C, 1000).
+F = MSE · C_eff / mean p(1−p), where MSE = mean (est − p)². The amendment writes this as mean(e_m²), with e_m the
+signed error, which is consistent with its 'RMS <~ .84 pp at 1k'. The break-even budget is n* = mean p(1−p) / MSE.
+The 95% CI is the 6-cluster bootstrap over base models (10 000 resamples). **Strict** means point F ≤ 1 in every
+group. **Lenient** means F ≤ 10 in every group, reported both on the point (the amendment's wording) and on the
+upper CI (the earlier wording).
+Removing the truth-MC term (mean SE²) from the MSE changes F by at most 0.003, so it is negligible. Budgets 1k and
+4k were added; every run has cost ≥ B/2. 'all' pools the 150 models and is informational only.
+Reproduce: `python3 score.py <name> <file> <func> <class> 1000,4000` (this also prints F for all five budgets).
+Results: `results/<name>_F.json`.
+
+**control (sampling)**: F [95% CI]; RMS pp; n*
+| B | C_eff | clean | abs0.05 | rel0.005 | rel0.01 | all | strict (point ≤1) | lenient point / upper |
+|---|---|---|---|---|---|---|---|---|
+| 1k | 1000 | 0.94 [0.24, 1.84]; 0.83; 1062 | 1.16 [0.85, 1.48]; 1.34; 862 | 0.97 [0.59, 1.36]; 1.31; 1026 | 1.15 [0.93, 1.41]; 1.53; 871 | 1.09 [0.98, 1.20]; 1.38; 916 | fail | pass / pass |
+| 4k | 4000 | 0.77 [0.18, 1.28]; 0.38; 5202 | 0.90 [0.51, 1.33]; 0.59; 4467 | 0.94 [0.76, 1.11]; 0.64; 4259 | 0.95 [0.67, 1.31]; 0.70; 4200 | 0.93 [0.75, 1.12]; 0.63; 4307 | pass | pass / pass |
+| 16k | 16000 | 2.30 [0.16, 5.93]; 0.33; 6971 | 1.16 [1.02, 1.29]; 0.34; 13779 | 0.83 [0.54, 1.12]; 0.30; 19202 | 0.93 [0.60, 1.33]; 0.34; 17122 | 0.99 [0.75, 1.23]; 0.33; 16167 | fail | pass / pass |
+| 64k | 64000 | 1.39 [0.61, 2.76]; 0.13; 46041 | 1.09 [0.78, 1.39]; 0.16; 58925 | 1.05 [0.57, 1.64]; 0.17; 60680 | 0.95 [0.71, 1.23]; 0.17; 67031 | 1.03 [0.82, 1.29]; 0.17; 62017 | fail | pass / pass |
+| 256k | 256000 | 1.59 [0.41, 2.74]; 0.07; 160847 | 1.19 [0.96, 1.44]; 0.08; 215416 | 1.24 [0.81, 1.58]; 0.09; 205910 | 0.98 [0.77, 1.26]; 0.09; 262316 | 1.13 [0.96, 1.28]; 0.09; 225866 | fail | pass / pass |
+
+**v5q (inductive)**: F [95% CI]; RMS pp; n*
+| B | C_eff | clean | abs0.05 | rel0.005 | rel0.01 | all | strict (point ≤1) | lenient point / upper |
+|---|---|---|---|---|---|---|---|---|
+| 1k | 1009 | 0.23 [0.06, 0.51]; 0.41; 4370 | 2.54 [1.00, 4.55]; 1.97; 397 | 1.91 [0.96, 2.93]; 1.82; 528 | 3.25 [1.95, 4.32]; 2.56; 310 | 2.56 [1.98, 3.16]; 2.10; 394 | fail | pass / pass |
+| 4k | 4035 | 0.70 [0.30, 1.03]; 0.36; 5785 | 1.35 [0.82, 2.03]; 0.72; 2999 | 1.15 [0.80, 1.38]; 0.71; 3524 | 1.25 [0.66, 1.78]; 0.79; 3226 | 1.23 [1.04, 1.47]; 0.73; 3269 | fail | pass / pass |
+| 16k | 16140 | 1.72 [0.71, 3.22]; 0.28; 9375 | 0.92 [0.63, 1.21]; 0.30; 17468 | 0.99 [0.78, 1.28]; 0.33; 16251 | 1.60 [0.80, 2.43]; 0.45; 10104 | 1.21 [0.86, 1.57]; 0.36; 13316 | fail | pass / pass |
+| 64k | 64560 | 1.60 [0.33, 3.69]; 0.14; 40371 | 1.58 [1.10, 2.03]; 0.19; 40858 | 3.31 [1.79, 5.17]; 0.30; 19507 | 4.41 [1.93, 6.84]; 0.37; 14627 | 3.20 [1.88, 4.61]; 0.29; 20176 | fail | pass / pass |
+| 256k | 258238 | 6.75 [1.72, 13.61]; 0.14; 38278 | 5.49 [3.42, 7.60]; 0.18; 47066 | 10.38 [5.56, 16.73]; 0.27; 24877 | 13.37 [6.62, 19.65]; 0.32; 19321 | 10.04 [6.30, 13.97]; 0.26; 25724 | fail | fail / fail |
+
+**v5a (inductive)**: F [95% CI]; RMS pp; n*
+| B | C_eff | clean | abs0.05 | rel0.005 | rel0.01 | all | strict (point ≤1) | lenient point / upper |
+|---|---|---|---|---|---|---|---|---|
+| 1k | 1009 | 1.59 [0.12, 3.84]; 1.08; 634 | 2.19 [1.15, 3.91]; 1.84; 460 | 2.54 [1.12, 4.14]; 2.10; 397 | 4.25 [1.93, 6.82]; 2.92; 238 | 3.06 [1.99, 4.06]; 2.30; 329 | fail | pass / pass |
+| 4k | 4035 | 6.03 [0.80, 11.67]; 1.05; 669 | 1.17 [0.71, 1.72]; 0.67; 3457 | 3.87 [2.15, 5.23]; 1.30; 1044 | 5.35 [1.78, 8.82]; 1.64; 754 | 3.69 [1.78, 5.61]; 1.26; 1094 | fail | pass / fail |
+| 16k | 16140 | 18.01 [6.37, 29.32]; 0.91; 896 | 4.70 [2.81, 6.65]; 0.67; 3436 | 15.87 [11.55, 20.12]; 1.31; 1017 | 19.43 [10.57, 27.37]; 1.56; 831 | 14.05 [9.75, 18.48]; 1.23; 1149 | fail | fail / fail |
+| 64k | 64560 | 40.54 [13.44, 71.77]; 0.68; 1592 | 17.37 [10.33, 23.95]; 0.65; 3717 | 62.18 [44.33, 73.39]; 1.30; 1038 | 85.14 [49.66, 117.92]; 1.64; 758 | 57.61 [43.78, 70.55]; 1.24; 1121 | fail | fail / fail |
+| 256k | 258238 | 154.39 [67.95, 251.18]; 0.66; 1673 | 68.19 [39.86, 101.80]; 0.64; 3787 | 252.30 [181.01, 298.56]; 1.31; 1024 | 336.83 [197.01, 470.26]; 1.63; 767 | 229.70 [167.63, 287.55]; 1.24; 1124 | fail | fail / fail |
+
+Readout:
+- [measured] No submission passes the strict bar (point F ≤ 1 in all four groups) at any B.
+  - v5q's best point is 4k: F = 0.70 / 1.35 / 1.15 / 1.25 (clean / abs / rel.005 / rel.01), 1.23 pooled.
+  - v5q at 16k is 1.72 / 0.92 / 0.99 / 1.60. Its F rises from 64k on, when the RMS reaches its floor of
+    about 0.13–0.37 pp.
+  - The plain-MC control is ≈ 1 everywhere: pooled F 0.93–1.13. It 'passes' strict at 4k only by noise.
+- [measured] Lenient, v5q: on the point it passes at 1k–64k and fails at 256k (rel.005 10.4, rel.01 13.4). On the
+  upper CI it also passes at 1k–64k (max upper 4.55 / 2.03 / 3.22 / 6.84).
+- [measured] Lenient, v5a: on the point it passes at 1k and 4k (max 4.25 / 6.03). On the upper CI it passes only at
+  1k (max 6.82; clean's upper CI at 4k is 11.7). It fails at ≥ 16k on both readings.
+- [measured] v5q's break-even n* is 4.4k on clean at 1k, then 3.0–5.8k at 4k. At 16k it is 9–17k per group,
+  roughly the budget itself. That is, v5q is about as good as sampling from 4k to 16k and not better. v5a's n* is
+  0.7–3.8k.
 
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,

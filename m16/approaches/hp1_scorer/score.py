@@ -15,6 +15,8 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 D = os.path.join(ROOT, "data", "hp1")
 FPE = 5948.0                                   # FLOPs per plain-sampling forward at (16,10), T196 convention
 BUDGETS = (16_000, 64_000, 256_000)
+CURVE = (1_000, 4_000, 16_000, 64_000, 256_000)          # Directive 8 amendment 2
+SEED_IDX = {16_000: 0, 64_000: 1, 256_000: 2, 1_000: 3, 4_000: 4}   # control seed slot per budget (stable)
 GROUPS = ("clean", "abs0.05", "rel0.005", "rel0.01")
 NBOOT, BOOT_SEED = 10_000, 281
 SHA = dict(weights="9bad715dad33f2e403675ebd552dc5512a14e9a8019a636575e7a5a0735fbd4c",
@@ -87,7 +89,7 @@ def run(name, path, func, label, budgets=BUDGETS):
                 if (k, B) in done:
                     continue
                 if state is not None:
-                    state["seed"] = 2810000 + 1000 * budgets.index(B) + k
+                    state["seed"] = 2810000 + 1000 * SEED_IDX[B] + k
                 t = time.process_time()
                 e, c = est(models[k], B)
                 f.write(json.dumps(dict(k=k, name=nm, B=B, est=float(e), cost=float(c),
@@ -141,7 +143,54 @@ def aggregate(name, label, path, func, budgets=BUDGETS):
     return out
 
 
+def aggregate_F(name, label, budgets=CURVE):
+    """Amendment 2 figure of merit, per group: F = MSE * C_eff / mean p(1-p), C_eff = max(C, 1000 FPE) with C the
+    group-mean charged cost; break-even n* = mean p(1-p) / MSE. 95% CI: cluster bootstrap over base models.
+    F_se: same with the truth-MC term removed from the MSE (mean SE^2 subtracted)."""
+    names, man, models, tr = load_panel()
+    rows = {(r["k"], r["B"]): r for r in map(json.loads, open(os.path.join(D, f"raw_{name}.jsonl")))}
+    kind = [m["kind"] for m in man]
+    base = [m["base"] for m in man]
+    rng = np.random.default_rng(BOOT_SEED)
+    out = dict(name=name, label=label, rule="Directive 8 amendment 2", budgets={})
+    for B in budgets:
+        res = {}
+        for g in GROUPS + ("all",):
+            ks = [k for k in range(len(names)) if g == "all" or kind[k] == g]
+            p = np.array([tr[names[k]]["acc"] for k in ks]); se = np.array([tr[names[k]]["se"] for k in ks])
+            est = np.array([rows[k, B]["est"] for k in ks]); cost = np.array([rows[k, B]["cost"] for k in ks])
+            C = cost.mean() / FPE
+            Ce = max(C, 1000.0)
+            e2, pq = (est - p) ** 2, p * (1 - p)
+            mse = e2.mean()
+            bases = sorted(set(base[k] for k in ks))
+            cl = np.array([bases.index(base[k]) for k in ks])
+            nb = len(bases)
+            E, Q, N = np.bincount(cl, e2, nb), np.bincount(cl, pq, nb), np.bincount(cl, None, nb)
+            idx = rng.integers(0, nb, (NBOOT, nb))
+            Fb = E[idx].sum(1) / Q[idx].sum(1) * Ce          # mean/mean: the counts cancel
+            res[g] = dict(n=len(ks), C=float(C), C_eff=float(Ce), F=float(mse * Ce / pq.mean()),
+                          lo=float(np.percentile(Fb, 2.5)), hi=float(np.percentile(Fb, 97.5)),
+                          F_se=float((mse - (se ** 2).mean()) * Ce / pq.mean()),
+                          rms_pp=float(100 * np.sqrt(mse)), bias_pp=float(100 * (est - p).mean()),
+                          n_star=float(pq.mean() / mse), cost_ok=bool((cost >= 0.5 * B * FPE).all()))
+        grp = [res[g] for g in GROUPS]
+        valid = all(r["cost_ok"] for r in grp)
+        out["budgets"][B] = dict(groups=res, valid=valid, strict=valid and all(r["F"] <= 1 for r in grp),
+                                 lenient=valid and all(r["F"] <= 10 for r in grp))
+    os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
+    json.dump(out, open(os.path.join(HERE, "results", f"{name}_F.json"), "w"), indent=1)
+    print(f"\n{name} [{label}]  F [95% CI]  F_se  rms pp  bias pp  n*  C_eff")
+    for B, d in out["budgets"].items():
+        print(f"B={B}: valid={d['valid']} strict={d['strict']} lenient={d['lenient']}")
+        for g, r in d["groups"].items():
+            print(f"  {g:9s} {r['F']:8.3f} [{r['lo']:7.3f}, {r['hi']:7.3f}] {r['F_se']:8.3f}  {r['rms_pp']:.3f}"
+                  f"  {r['bias_pp']:+.3f}  {r['n_star']:9.0f}  {r['C_eff']:.0f}")
+    return out
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     bud = tuple(int(float(b)) for b in a[4].split(",")) if len(a) > 4 else BUDGETS
     run(a[0], a[1], a[2], a[3], bud)
+    aggregate_F(a[0], a[3])
