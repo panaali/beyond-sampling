@@ -28,7 +28,9 @@ exclude p_l=0 families, whose conditional moments need not be defined. If each c
 costs c_l>0, an ideal continuous allocation of budget B has oracle variance
 lower bound/infimum
 4(sum p_l sqrt(v_l c_l))^2/B (Cauchy-Schwarz). It is attained by the
-proportional allocation only in the admissible positive-variance interior;
+proportional allocation when all variances are positive and that allocation
+is admissible; if all variances are zero, every feasible allocation attains
+zero. Mixed
 zero-variance families with mandatory positive minimum allocations can make
 the bound unattainable. Integer allocations, setup,
 probability estimation, rejection, and pilot costs still count. This is only an
