@@ -10,17 +10,19 @@ exact positive-ray canonicalization and explicit2x2-minor/proportionality
 certificates. `controls.py` freezes20 analytic/API cases before execution.
 
 ## Status
-Claim903f13f6 published; source/control preparation only. No control or target
-predicate has run. Independent source gate and saved control review required.
+Claim903f13f6 published. All20 controls completed9335fac5 after independent
+source gateb1bcf15e and saved review4e5eb0b9. Target source1b2dab3d is separately
+frozen/published; no target predicate has run, independent source gate pending.
 
 ## Results
-No numerical results. [inferred] Pairwise nonzero, non-positive-proportional
+[measured]12 valid/8 invalid controls pass once in0.02808157CPU; see
+CONTROL_RESULTS.md. [inferred] Pairwise nonzero, non-positive-proportional
 readout columns suffice to rule out every nonidentity global positive-monomial
 weight automorphism. This exact algebra is independent of approximate cosines.
 
 ## Compute accounting
-No model/target/archive, forward, geometry, mass, RNG or fit calls. Planned
-control phase is capped20CPU/2GiB. Exact Fraction preparation is charged as
+Control phase0.02808157CPU/25,300KiB under16soft20hardCPU/2GiB. No target/archive,
+forward, geometry, mass, RNG or fit calls. Exact Fraction preparation is charged as
 research CPU; partial counts are not portable/native cost.
 
 ## Claims

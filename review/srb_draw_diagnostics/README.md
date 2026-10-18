@@ -11,7 +11,7 @@ kept rows, original source drawn value and reported cost. Immutable snapshots
 reset per call while preserving the estimator's original precompute cache.
 
 ## Status
-Bounded controls complete, raw79910a7a. Independent saved audit is pending;
+Bounded controls complete, raw79910a7a. Independent saved audit5e45bec2 passed and was published5161614d;
 source/resource review0aef2c76 (label correctionb9f05786) was publishede9a4db86,
 and execution manifestd93a0cbf was published2cac96b0 before the sole run.
 Task scope and independent saved reviewer were published13593efa.
@@ -52,7 +52,7 @@ research overhead; unchanged returned charges are not validated full costs.
 
 ## Claims
 [measured] Fixed deterministic interface and failure/lifecycle controls pass;
-independent saved review is pending. These controls measure no accuracy advantage.
+independent saved review5e45bec2 verifies all records. These controls measure no accuracy advantage.
 [inferred] Unmodified numerical AST and forwarding wrappers preserve the fixed
 ordinary ndarray RNG API under successful diagnostic metadata operations.
 No pricing correction, historical draw-count reconstruction, production adoption
