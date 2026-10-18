@@ -102,6 +102,16 @@ def source_tables():
 def main():
  assert not OUT.exists() and not PROGRESS.exists() and not OUT.with_suffix('.tmp').exists()
  protocol=json.loads(PINS.read_text());gate=json.loads(GATE.read_text());assert gate['complete'] and gate['execution_allowed'] and gate['protocol_sha256']==sha(PINS)
+ required={'audit.py','protocol.json','manifest.json','PROTOCOL.md'}
+ assert required<={str(Path(p).relative_to(ROOT)) for p in gate['pins'] if Path(p).is_relative_to(ROOT)}
+ assert {'audit.py','manifest.json','PROTOCOL.md','SOURCE_NOTES.md'}<=set(protocol['pins'])
+ manifest=json.loads((ROOT/'manifest.json').read_text())
+ assert {r['snapshot'] for r in manifest['files']}<=set(protocol['pins'])
+ assert set(gate['reviews'])=={'source_provenance','checker_source_resource'}
+ for role,review in gate['reviews'].items():
+  path=Path(review['path']);assert gate['pins'].get(str(path))==review['sha256']==sha(path)
+  artifact=json.loads(path.read_text());assert artifact['complete'] is True and artifact['pass_all'] is True
+  assert review['commit'] in gate['published_commits']
  for rel,h in protocol['pins'].items():assert sha(ROOT/rel)==h,(rel,'pin')
  for path,h in gate['pins'].items():assert sha(Path(path))==h,(path,'gate pin')
  for commit in gate['published_commits']:subprocess.run(['git','merge-base','--is-ancestor',commit,'origin/ccr-6a61f25c-wn80ii'],check=True)
@@ -121,6 +131,7 @@ def main():
     assert time.process_time()-start<17,'soft CPU cap'
   event({'phase':'tables_attempt'});out['tables']=source_tables();save(out);event({'phase':'tables_result','pass':out['tables']['arithmetic_pass']});assert out['tables']['arithmetic_pass']
   assert len(out['arrays'])==9
+  assert len(PROGRESS.read_text().splitlines())==21
   out['complete']=out['pass_all']=True;out['cpu_seconds']=time.process_time()-start;out['max_rss_kib']=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
   save(out);event({'phase':'complete','cpu_seconds':out['cpu_seconds']})
  except BaseException as ex:
