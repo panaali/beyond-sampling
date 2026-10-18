@@ -1,14 +1,13 @@
 # Scaling obstructions for deductive accuracy estimation of M_16,10 (2026-10-18) — board task T225
 
 Status of every claim: **[measured]** or **[inferred]**, and **verified** (independently re-checked, DRI-confirmed) or
-**unverified**. Sources are `branch@commit, file`. Branches: shared = `ccr-6a61f25c-wn80ii@93b658db`;
-T194 = `claude/t194-width16-probe` (this file's branch); T192 = `claude/t192-gpu-cost-law@e5a40128`;
-T218 = `claude/t218-tie-tail-labels@8645f749`. Placeholders `[PENDING ...]` are for the DRI to fill.
+**unverified**. Sources are `branch@commit, file`. Branches: shared = `ccr-6a61f25c-wn80ii`; T194 = `claude/t194-width16-probe`
+(this file); T192 = `claude/t192-gpu-cost-law@e5a40128`; T218 = `claude/t218-tie-tail-labels@8645f749`.
 
 ## 1. The question and the bar
 Estimate the accuracy of the 432-parameter 2nd-argmax RNN M_16,10 (`alg_zoo.example_2nd_argmax()`, accuracy
 0.95313575 ± 3.7e-5 from 3.2e7 samples; T192 3e10-sample MC .95311695 ± 1.2e-6) without random model inputs, with MSE
-no worse than plain sampling at equal compute. It should also hold on the 5 trained seeds and on noisy weight copies.
+no worse than plain sampling at equal compute. Also on the 5 trained seeds and noisy copies.
 Compute is in T196 FLOPs (multiply-add = 2, other scalar op = 1; sampling costs c_s = 5948 FLOPs per input at (16,10))
 [shared@bf9f0ead, review/cost_convention/README.md; DRI ruling]. At cost C FLOPs, sampling's standard error is
 sqrt(p(1-p) c_s / C) ≈ **16/sqrt(C)**: 1.6e-4 at 1e10 FLOPs, 5e-6 at 1e13. A method beats sampling only if its
@@ -17,7 +16,7 @@ error is below that.
 ## 2. What works
 - **M_4,3 (32 params):** a mechanism-derived estimator (E36) and one frozen generic recipe (E37) beat sampling on all 5
   trained seeds under ARC's noise protocol (MSE ratios 0.0002-0.25) [measured, **verified** (scoped): H-U1/H-U2, INDEX].
-  Cost is about that of exact enumeration there.
+  Cost ≈ exact enumeration there.
 - **T = 3 ladder (H = 4..8)** and **(8,4)**: recipe108 (resolve-by-impact plus a multi-step margin certificate) passes.
   (8,4): MSE ratio <= 0.27 on 9 models, <= 0.36 under the T196 op audit [measured, unverified: shared, estT_fix/README.md
   E46; T192 README §3-4].
@@ -37,8 +36,8 @@ unverified; T192 §3; T194@45e1f6c width16_probe/README.md "T206"].
 632,394** for k = 2..5, growth **x23.3, x26.6, x30.1** per step and rising. That extrapolates to ~1.5-3e13 regions at
 k = 10, and ~1000 CPU-years of geometry before masses [measured to k = 5, inferred beyond; T192 README §9, results/prefix/
 k2-k5.json; INDEX H-E13 "supported, unverified"]. Reproductions with different code: k = 2-4 by T194's numpy port
-(identical counts; T194@ee01b49 width16_probe/prefix.py) and k = 2-3 by T218's LP counter (T218 tie_tail_labels/README.md).
-These share the estT geometry or the LP method, not an independent arithmetic. Codex T219 independent integer recount:
+(identical; T194@ee01b49 width16_probe/prefix.py) and k = 2-3 by T218's LP counter (T218 tie_tail_labels/README.md).
+Neither is independent exact arithmetic. Codex T219 independent integer recount:
 `[PENDING T219]`. Zoo seed 0 grows alike: (16,3) 776 -> (16,4) 26,742 -> (16,5) 786,114 regions (x34.5, x29.4). The k <= 4 counts are T194's exact counts (T194@95ed88e width16_probe/regions/), and (16,5) is T192's (§8; zoo0 only). Region counts do not depend on the start (truth cones vs halves give identical regions, T192 §5). T192 §8's 838 / 28,200 are 5-seed means.
 
 **3.3 Cost is cone masses.** Exact-mode ops are 95% (16,4) / 97% (8,4) cone-mass quadrature. A leaf that needs a
@@ -71,14 +70,14 @@ the clean regions and 0.94-1.33x the ops [measured, unverified; T192 §7]. Not t
 **3.7 Region counts in earlier tables were understated.** The 2e5-sample lower bound missed up to 92% of regions:
 (8,5) zoo0 has 42,322 exact regions, against 3,433 sampled. Restated against exact counts, recipe cells/regions are 0.99 / 1.99 /
 2.70 along T at H = 8 (published 2.8 / 5.4 / 33) and 2.44 -> 0.46 along H at T = 3 [measured, unverified;
-T194@95ed88e "T205"]. The fall along H is real but does not change the per-step growth along T.
+T194@95ed88e "T205"].
 
 ## 4. The best deterministic number
 sci_tao's tie-slicing with the blind region (<= 1 positive input, P = 11/1024) split off exactly. Over 16 independent rule
 scrambles on the target: MSE ratio **0.75 (16k FPE) / 0.89 (64k)**, i.e. **1.1-1.3x better than sampling**, on the
-clean target only. It is quadrature class (fixed Sobol node sets), not mechanistic. On leaderboard v3 pooled over 30 models it
+clean target only. Quadrature class, not mechanistic. On leaderboard v3 pooled over 30 models it
 does not beat sampling at any budget (3.4-6.5; plain sci_tao 1.4-3.6, CIs reaching below 1 only at 1k and 256k). The
-earlier "sci_tao 0.03 @ 256k on orig" is a single lucky deterministic run (2.16 at 16k; 0.99 / 1.56 over scrambles)
+summary's "sci_tao 0.03 @ 256k on orig" is one lucky run (0.99 / 1.56 over scrambles)
 [measured, unverified; T194@2809650d m16/approaches/tie_blind/README.md].
 
 ## 5. What a successful method must do, and what is untested
@@ -86,7 +85,7 @@ earlier "sci_tao 0.03 @ 256k on orig" is a single lucky deterministic run (2.16 
 mass alone needs ~1e11. The error is not a few families but a continuum of rare tie-band events (T218), spread over many
 gate words per mechanism-level event word (T217). The answer must therefore come from a quantity that is smooth across
 regions (a bound or an expansion in the order statistics, the clock phase or the margins) and be certified to ~16/sqrt(C).
-Any region-by-region method, exact or pruned, inherits growth of >= x16/step.
+Region-by-region methods inherit >= x16/step.
 
 **Not ruled out** (from the READMEs' "alternatives" sections):
 - precision-matched cone masses: quadrature order set by each cell's needed precision (T206; deprioritized as T212);
