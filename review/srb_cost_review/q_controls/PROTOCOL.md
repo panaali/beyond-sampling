@@ -25,3 +25,13 @@ Source gate and all pins published before execution. Refuse existing results or
 progress, preserve original output before observed run and all partial failures.
 No retries, parameter tuning, new trained case or full multiplier inference.
 Independent saved review is required. cv allocation/draw controls are deferred.
+
+Pre-run review caught an observer name collision with original Q local L.
+The original unrun5a2cb195 source is preserved. The observer now uses a unique
+name checked against every original Name, argument and function/class binding;
+the original lower-endpoint L is unchanged. No failed numerical attempt occurred.
+
+Additional pre-run checks: stripping only observer wrappers/interval logging
+must reproduce the full original function AST exactly; refuse prior trees.json
+as well as result/progress; final coverage asserts six fixtures/21 pairs
+(42 Q executions), with per-fixture3/3/4/3/4/4 pairs.

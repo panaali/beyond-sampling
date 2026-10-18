@@ -18,8 +18,11 @@ CONTROL_PLAN.md is a proposal, not an execution gate.
 
 ## Status
 
-Source/provenance and analytical prerequisite prepared; independent review
-pending. No claimed replacement multiplier or trained cost measurement.
+Source/provenance and analytical prerequisite independently reviewed in
+bfad6901/8840bc29 (shared3152ba8b), including the historical table-provenance
+qualification. Six deterministic Q expression-parity controls are frozen in
+q_controls under claim1bf720bd; their separate source gate is pending, no calls
+yet. No claimed replacement multiplier or trained cost measurement.
 Existing T204 saved all-budget audit b4093511/e353e6e6 remains unchanged.
 
 ## Results
@@ -42,7 +45,7 @@ extra-candidate0.04FPE rule.
 also needs a tie qualification: all zero readout rows force the implementation
 to return zero, although first-index argmax chooses label0 and has positive
 accuracy. The cost audit must preserve this behavior in parity controls rather
-than silently repair it. Shared repair is a separate backlog item.
+than silently repair it. Shared repair is separate Ready T210 (published1d54c97a).
 
 ## Compute accounting
 

@@ -3,6 +3,7 @@ import ast,operator
 from collections import Counter
 import numpy as np
 from scipy.special import ndtr,stdtr
+LEDGER_NAME='_srb_observer_ledger'
 OPS={'Add':operator.add,'Sub':operator.sub,'Mult':operator.mul,'Div':operator.truediv,'MatMult':operator.matmul,'BitAnd':operator.and_,'BitOr':operator.or_,'FloorDiv':operator.floordiv}
 UNARY={'USub':operator.neg,'UAdd':operator.pos,'Invert':operator.invert,'Not':operator.not_}
 CMP={'Gt':operator.gt,'Lt':operator.lt,'GtE':operator.ge,'LtE':operator.le,'Eq':operator.eq,'NotEq':operator.ne}
@@ -47,7 +48,7 @@ class Observe(ast.NodeTransformer):
         old=self.function;self.function=node.name;node=self.generic_visit(node);self.function=old;return node
     def site(self,node):return f'{self.function}:{node.lineno}:{node.col_offset}'
     def call(self,node,method,args):
-        return ast.copy_location(ast.Call(ast.Attribute(ast.Name('L',ast.Load()),method,ast.Load()),[ast.Constant(self.site(node)),*args],[]),node)
+        return ast.copy_location(ast.Call(ast.Attribute(ast.Name(LEDGER_NAME,ast.Load()),method,ast.Load()),[ast.Constant(self.site(node)),*args],[]),node)
     def visit_BinOp(self,node):
         kind=type(node.op).__name__;assert kind in OPS,kind
         return self.call(node,'binary',[ast.Constant(kind),self.visit(node.left),self.visit(node.right)])
@@ -68,15 +69,39 @@ class Observe(ast.NodeTransformer):
     def visit_Assign(self,node):
         out=self.generic_visit(node)
         if self.function=='Q' and any(isinstance(t,ast.Name) and t.id=='ok' for t in node.targets):
-            extra=ast.Expr(ast.Call(ast.Attribute(ast.Name('L',ast.Load()),'interval',ast.Load()),[ast.Name('k',ast.Load()),ast.Name('ok',ast.Load())],[]))
+            extra=ast.Expr(ast.Call(ast.Attribute(ast.Name(LEDGER_NAME,ast.Load()),'interval',ast.Load()),[ast.Name('k',ast.Load()),ast.Name('ok',ast.Load())],[]))
             return [out,ast.copy_location(extra,node)]
         return out
+
+class StripObserver(ast.NodeTransformer):
+    def observer(self,node,name=None):
+        return isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and isinstance(node.func.value,ast.Name) and node.func.value.id==LEDGER_NAME and (name is None or node.func.attr==name)
+    def visit_Expr(self,node):
+        if self.observer(node.value,'interval'):return None
+        return self.generic_visit(node)
+    def visit_Call(self,node):
+        if not self.observer(node):return self.generic_visit(node)
+        kind=node.func.attr;a=node.args
+        if kind=='call':out=ast.Call(self.visit(a[1]),[self.visit(x) for x in a[2:]],[ast.keyword(k.arg,self.visit(k.value)) for k in node.keywords])
+        elif kind=='binary':out=ast.BinOp(self.visit(a[2]),getattr(ast,a[1].value)(),self.visit(a[3]))
+        elif kind=='unary':out=ast.UnaryOp(getattr(ast,a[1].value)(),self.visit(a[2]))
+        elif kind=='compare':out=ast.Compare(self.visit(a[2]),[getattr(ast,a[1].value)()],[self.visit(a[3])])
+        elif kind=='aug_rhs':out=self.visit(a[3])
+        else:raise AssertionError(kind)
+        return ast.copy_location(out,node)
 
 def load(source,traced=False):
     parsed=ast.parse(source);nodes=[n for n in parsed.body if isinstance(n,ast.FunctionDef) and n.name in ('h9','Q')]
     assert [n.name for n in nodes]==['h9','Q']
     tree=ast.Module(body=nodes,type_ignores=[])
-    if traced:tree=Observe().visit(tree)
+    bindings={n.id for n in ast.walk(tree) if isinstance(n,ast.Name)} | {n.arg for n in ast.walk(tree) if isinstance(n,ast.arg)} | {n.name for n in ast.walk(tree) if isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef,ast.ClassDef))}
+    assert LEDGER_NAME not in bindings, 'observer name collides with original source'
+    if traced:
+        import copy
+        before=ast.dump(tree,include_attributes=False)
+        tree=Observe().visit(tree)
+        restored=StripObserver().visit(copy.deepcopy(tree))
+        assert ast.dump(restored,include_attributes=False)==before, 'observer changes original AST after stripping'
     ast.fix_missing_locations(tree)
     env=dict(np=np,ndtr=ndtr,stdtr=stdtr,T=10)
     exec(compile(tree,'<pinned-rb9-trace>' if traced else '<pinned-rb9-original>','exec'),env)
