@@ -1,4 +1,4 @@
-# Project status (2026-10-18 14:00 UTC)
+# Project status (2026-10-18 14:00 UTC; dated updates to 18:50)
 
 ↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [Owner Q&A](OWNER_QA.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md)
 
@@ -14,8 +14,7 @@ its weights, without trying random examples, that is at least as precise as rand
 work. Our best calculation is about 2.6 times worse than random testing in squared error at equal effort (it is too high
 by about 0.44 points, and its typical error is about 0.75 points). That passes the project's own "within 10 times" bar but not ARC's "match" bar,
 and it works only on freshly retrained networks, not on networks with noise added to the weights. Since 13:13 UTC
-today the owner's priority is rare failures, which is ARC's long-term goal. There the first results are mixed and still
-being checked. Counting the network's pieces exactly is ruled out.
+today the owner's priority is rare failures, which is ARC's long-term goal. There we have one confirmed positive result (H-R1): for one kind of rare mistake (far from ties) our calculation lands within 2x of the truth for chances down to 1 in 5 million, and within about 1.4x down to 2 in 10 billion on ordinary networks, where random testing at the same cost sees nothing. It still fails on networks whose rarest mistakes are three-way near-ties, and it is not cheaper than random testing for common events. Counting the network's pieces exactly is ruled out.
 
 **What we set out to check.** A Goodfire essay ("Neural Networks Are Already Clean") claims most neurons in big
 language models have one clear job and that interpretability may soon be solved. ARC's Jacob Hilton replied that
@@ -88,6 +87,8 @@ precisely as testing it on random examples does for the same effort.
 **16:20:** the smarter sampler (T362) was unbiased but only 1.2-4.7x better than plain random testing (needed 10x). The 'both gaps large' rare mistakes are underestimated because the simplified treatment of the smaller inputs erases their error islands (T363); spreading those inputs over a few patterns helped (9 -> 20 of 32 cases within 2x) but not enough (T365); a full fix would cost 10-100x more. The deep-rarity test (T364: chances around 1 in a billion, where random testing at our cost sees nothing) is pre-registered and being scored. The GPU census (T348) shows the effective number of network states growing ever more slowly per step (x5.1 down to x3.2); the decisive error-only counts are pending.
 
 **17:20:** the deep-rarity tests: T364 failed on the main network and one other (their deepest mistakes sit in thin three-way near-tie slivers), but a sealed fresh test (T366) passed 8/8 within 2x, and across the fresh networks the estimates are within 1.3x on 10/10 cases from 2 in 10 billion to 7 in 10 million, where random testing at the same cost expects 0.005 to 1 events. A fix for the near-tie slivers is being tested fairly (T367); an independent re-run with different code is set (T368). The GPU census (T348): error patterns grow ~4-6x per step, too fast to revive exact counting for rare events. The final exact count at 6 steps (T270): 19.7M regions.
+
+**18:50 (end of day):** the fair test of the near-tie fix (T367) narrowly missed its pre-set bar (6 of 8 within 2x; 7 needed), but the plain method missed by up to ~300,000x on a network whose rarest mistakes are all three-way near-ties, and the fix got that network right. An independent re-run with different code (T368) confirmed the deep-rarity result on ordinary networks: 10 of 10 within 2x (stated as 'within about 1.4x'). The follow-up (T369) found that the fix's overshoot on the one bad network (2.1-2.4x) is not a tuning problem: it comes from the simplified treatment of the smaller inputs (they are pinned to one value, and one input's position is fixed). Letting them vary in a check brings the estimate to 1.04x of the truth. A proper fix (T370, backlog) would cost 10-100x more per estimate. Training ceiling (T234, final): typical retrains keep improving with more data (mean .911 to .952 from 2^30 to 2^34 sequences); the best reach ~.98; M_16,10 (.953) is typical, not at the ceiling. On the owner's instruction, Fable is no longer used. Nothing is running tonight. Next eligible work: T370 (rare events, costly), T352 (quantised variants), T345 and T346 (low priority).
 
 **4. Rare failures: the owner's priority (ARC's long-term goal).**
 - ARC ultimately wants to estimate the chance of rare bad behaviour. Random testing cannot see a one-in-a-million
