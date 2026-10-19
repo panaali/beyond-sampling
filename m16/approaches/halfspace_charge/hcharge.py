@@ -136,7 +136,8 @@ def opt_lambda(lo, hi, A, b, m, steps=int(os.environ.get("LSTEPS", 30))):
         opt.zero_grad(); v = logmass(lam); v.sum().backward(); opt.step()
         with th.no_grad():
             lam.clamp_(min=0)
-    al = lam.detach() / sc
+    al = th.nan_to_num(lam.detach() / sc, nan=0.0, posinf=0.0)       # any lambda >= 0 is valid; fall back to 0
+    al = th.where(th.isfinite(al).all(1, keepdim=True), al, th.zeros_like(al))
     return (al[:, :, None] * A).sum(1), (al * b).sum(1)
 
 
@@ -152,6 +153,7 @@ def hcharge(lo, hi, A, b, chunk=256):
         lt = log_rect_bound(l, h, alpha, beta, re, ge)
         tail = tail_bound(l, h, m, ge)
         u = (th.exp(lu) * area).sum((1, 2)) + tail
+        lt = th.where(th.isnan(lt), lu, lt)                              # a NaN tilted cell falls back to the untilted bound
         t = (th.exp(th.minimum(lt, lu)) * area).sum((1, 2)) + tail
         outs_t.append(t * (1 + REL)); outs_u.append(u * (1 + REL))
     return th.cat(outs_t), th.cat(outs_u)
