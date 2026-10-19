@@ -78,25 +78,144 @@ exact great-circle walks (random and fixed Halton sets) against plain sampling a
   at depth 1); for k < 10 the generic walk stays above 1 and so does Halton.
 
 ## Method
-Key files: `train.py` (training), `ladder.py` (scheduler + 1e7 accuracy), `cwalks.py` (chunked-RNN walk model class
-+ validation), `score.py` (panel, truths, random and Halton F), `patterns.py` (gate patterns), `ref/` (T345 code
-copied unchanged, hashes in `ref/SHA256SUMS`).
+Key files:
+- `train.py`: chunked RNN training (alg_zoo recipe), `models/k{K}h{H}_s{S}.json`.
+- `ladder.py`: the pre-registered ladder scheduler; 1e7-sample accuracies in `results/acc.json`.
+- `cwalks.py`: chunked-RNN model class for T345's generic exact walk; `python cwalks.py` runs the validation
+  (k = 10 class vs `walks.MLP` and `fast1` on T345's D1w128_s0: max |diff| 6.4e-9 over 20 circles; k = 1 class vs
+  `walks.RNN`: identical values and piece counts on 20 lines).
+- `ref/walks.py`, `ref/fast1.py`: T345's code, copied unchanged (`ref/SHA256SUMS`, asserted at import).
+- `score.py`: panel (3 seeds + 3 copies at relative sigma .001), 1e8 truths, gate patterns, random-circle F with
+  direct checks, fixed-Halton F; `results/score_k{K}h{H}.json`.
+- `summarize.py`: `results/summary_table.md`, `results/F_vs_k.png`.
+
+Class: random great circles are **sampling-class** (random inputs; only the integral along each circle is exact).
+Fixed Halton sets are **deterministic QMC-class quadrature** (no random calls; same circles for every model), like
+T10 / T387; ARC acceptance unknown. Nothing here is deductive in ARC's sense.
 
 ## Status
-Pre-registered; training not started.
+Done (all pre-registered items run). One post-hoc check added (k1h32, matched accuracy; marked).
 
 ## Results
-(none yet)
+
+### Step 1: width ladder (2^30 samples, accuracy on 1e7 fresh inputs, SE ~3-5e-5; `results/acc.json`)
+
+| k | steps | H = 16 | 24 | 32 | 48 | 64 | 128 | 192 | simplest passing | params |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 10 | .884 | **.985 / .989 / .990** | .994 / .994 / .988 | | | | | **H = 24** | 840 |
+| 2 | 5 | .761 | .887 | .937 | **.973 / .970 / .971** | | | | **H = 48** | 2,880 |
+| 5 | 2 | .510 | .605 | .693 | .846 | .918 | **.971 / .977 / .982** | .985 (s0) | **H = 128** | 18,304 |
+| 10 | 1 | .304 | .369 | .416 | .551 | .606 | **.988 / .988 / .990** | .994 (s0) | **H = 128** | 2,560 (W_hh unused) |
+
+Single values are seed 0 (a failing seed 0 fails the rung). Rungs above the passing one were speculative runs.
+Reproduce: `python ladder.py 4 1` (or `python train.py K H SEED`). k = 10 agrees with T345's independent 2^30 D1w128
+retrains (.990 x 3). k = 1 at H = 16 (M_16,10's size) reaches .884 here, in line with T234's zoo-config mean .911 at 2^30
+(M_16,10's .953 is a good seed). The ladder has no rung between 64 and 128, so the k = 5 / k = 10 thresholds are coarse
+(T345: D1w96 passes on 2 of 3 seeds).
+
+### Step 2: gate patterns and F (12-model panels, 1e8 truths; `results/summary_table.md`, `results/F_vs_k.png`)
+
+F = MSE x cost / p(1-p), cost in forward passes (FPE) of the net being estimated; plain sampling = 1. 95% bootstrap CI
+over the 12 models. Random circles: 1,000 per model. Halton: 5 fixed sets (seeds 1-5) per budget, n circles per set.
+
+| k | H | FPE | panel acc | distinct gate patterns in 1e7 (3 seeds; seen once) | pieces / circle | generic cost / circle | **F random, generic (implemented)** | F direct 4k / 16k | F_incr (cost model) | F_floor | Halton generic, 5 sets, C = 4k | C = 16k |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 24 | 11,568 | .981 | 4.3-6.0M (79-84%) | 371 | 770 | **14.7 [12.3, 17.5]** | 14.3 / 14.2 | 5.8 [4.9, 6.9] | .14 | 26, 10, 5.7, 1.5, 1.3 (n = 5) | 22, 2.4, 6.3, 15, 5.1 (n = 21) |
+| 2 | 48 | 20,592 | .968 | 6.9-7.4M (87-88%) | 438 | 893 | **14.3 [13.4, 15.3]** | 14.7 / 14.2 | 4.7 [4.3, 5.0] | .09 | 17, 17, 1.5, 2.3, 2.1 (n = 4) | 45, 4.3, 3.4, 16, 1.6 (n = 18) |
+| 5 | 128 | 38,144 | .973 | 9.98-9.99M (~100%) | 460 | 932 | **11.6 [10.4, 13.0]** | 12.0 / 11.8 | .54 [.48, .61] | .05 | 43, 1.3, 4.1, 5.2, 1.8 (n = 4) | 9.2, 4.3, 19, 1.4, 4.5 (n = 17) |
+| 10 | 128 | 5,248 | .985 | 9.90-9.92M (99%) | 259 | 543 | **4.0 [3.2, 5.0]** | 3.8 / 3.9 | .09 [.07, .11] | .08 | 12, 2.4, .93, 1.5, 1.1 (n = 7) | 1.8, .93, 1.9, 1.4, 1.1 (n = 29) |
+| 10, `fast1` (implemented incremental) | 128 | 5,248 | | | | 17.2 (s0) | **.126 [.100, .159]** | | | | **.059, .041, .026, .083, .054** (n = 232) | **.070, .061, .24, .044, .19** (n = 930) |
+| post-hoc: 1 | 32 | K1H32_FPE | K1H32_ACC | K1H32_PAT | K1H32_PIECES | K1H32_COST | **K1H32_F** | K1H32_DIR | K1H32_INCR | K1H32_FLOOR | K1H32_H4 | K1H32_H16 |
+
+Reproduce: `python score.py 1 24 1000`, `python score.py 2 48 1000`, `python score.py 5 128 1000`,
+`python score.py 10 128 1000` (post-hoc: `python score.py 1 32 1000`), then `python summarize.py`. Every model's
+random-walk mean agrees with its 1e8 truth (max |z| 2.01 over 48 models). The direct incremental check at 16k for k = 10 is not
+computable (one estimate needs ~1,290 circles > 1,000 drawn).
+
+Decomposition (generic walk): F = (Var per circle / p(1-p)) x (cost per circle). Variance per circle relative to one
+sample: .019 (k=1), .016 (k=2), .0125 (k=5), .0073 (k=10), i.e. a circle is worth 50-140 samples at every k. The
+generic walk charges 2 FPE per piece, so its cost tracks pieces per circle (371-460 for k <= 5, 259 at k = 10), not the
+architecture. Per-seed F on k = 10: 2.4, 2.6, 9.7 (seed 2's walk variance is 4x the others'; heavy-tailed circles).
+
+![F vs k](results/F_vs_k.png)
+
+### Reading: depth versus width
+
+1. **Width needed rises with k (H1 holds):** 24 -> 48 -> 128 -> 128 units. In parameters the deep end is cheapest
+   (840 vs 2,560 for the all-at-once net), and k = 5 is the most expensive (18,304) because it pays for a 128 x 128
+   recurrent matrix and still needs the all-at-once width.
+2. **Fragmentation does not decrease with width.** Every passing net puts most inputs in their own gate pattern;
+   the wide nets (k = 5, 10) are the most fragmented (~99-100% of 1e7 patterns seen once vs 79-88% for k = 1, 2).
+   Region-by-region methods get no easier at any k.
+3. **Under one fixed implementation (the generic piece walk), difficulty barely moves from k = 1 to k = 5 (F 14.7,
+   14.3, 11.6) and falls ~3.5x at k = 10 (4.0).** All stay above sampling. So the number of steps does not by itself
+   make the walk worse: the circles are equally informative (variance reduction 50-140x at every k) and the piece
+   counts are similar.
+4. **What depth costs is propagation.** Under the incremental cost model (after a gate flip, update only what lies
+   downstream), F falls steeply with k: 5.8, 4.7, .54, .09. A flip at step t must be pushed through every later
+   step (an H x H matrix each), which costs ~a forward pass when there are 5-10 steps, but only a 10 x H rank-1
+   update when there is one step. Only at k = 10 is this realised by code: `fast1` (closed-form crossing angles,
+   rank-1 logit updates) gives F .126, matching T345's .104 on independent retrains.
+5. **Deterministic Halton sets:** with `fast1` at k = 10 all 5 sets are far below sampling at both budgets (F .026-.24;
+   C = 16k sets are no better than 4k, consistent with QMC error not improving much from 232 to 930 circles in 20
+   dimensions at this panel). With the generic walk, no k keeps all 5 sets below 1 (k = 10 comes closest: .93-1.9 at
+   16k). For k <= 5 a budget of 4k FPE buys only 4-5 circles, so a deterministic set is a handful of circles and its
+   error is large and erratic (1.3-45).
+6. **Answer [inferred]: the challenge gets easier toward width, and the gain is concentrated at the last step,
+   k = 5 -> 10.** The deep end is not hard because it has more regions or because circles carry less information,
+   but because each gate flip must be propagated through the remaining recurrent steps. Between k = 1 and k = 5 the
+   implemented F hardly changes; the cost-model F improves 10x at k = 5 (two steps), but no implemented walk realises
+   it there. Matched-accuracy check (post-hoc, k1h32, acc K1H32_ACC vs k = 10's .985): K1H32_READING.
 
 ## Compute accounting
-Training (model construction) is not counted in F. Walk costs are charged in FLOPs and converted to FPE of the net
-being estimated (above). Truths: 1e8 forward passes per panel model.
+- Training (model construction, not counted in F): 2^30 samples per run, one thread, 25-60 min (k = 1-10 at
+  H <= 48) to ~1 h (H = 128-192). 31 completed runs; 3 speculative runs (k2h64_s0, k5h192_s1, k5h192_s2) stopped early once their k was decided.
+- Truths: 1e8 forward passes per panel model (12 per config), seed 392003; truth SE ~1.1-1.7e-5 (F floor C / 1e8 <= 1.6e-4).
+- Walks: charged in FLOPs and converted to FPE of the net being estimated: generic = 2 FPE per piece + target /
+  envelope / erf work (erf, atan = 20 FLOPs); F_incr = T345's incremental cost model (per flip at step t: 4H for the
+  rank-1 update into step t+1, 2(2H^2 + 3H) per later step, 4 x 10 x H for the readout; a flip at the last step costs
+  4 x 10); F_floor = 2 FPE + 40 FLOPs per piece + aux; `fast1` as T345 (event-driven count).
+- FPE convention: W_hh h_0 is skipped (h_0 = 0). Under T345's convention (which charges it) k = 1 H = 24 would be
+  12,720 FPE instead of 11,568, so k = 1's F would be ~9% lower; this does not change any reading.
+- Scoring wall time: 7-14 min of walks per model (1,000 circles) plus truths and Halton sets; ~1.5-4 h per config on one core, alongside training.
 
 ## Claims
-(none yet)
+- [measured] Simplest config reaching >= .95 on all 3 seeds (2^30, 1e7 inputs): H = 24 (k = 1), 48 (k = 2), 128 (k = 5),
+  128 (k = 10), on the pre-registered rungs.
+- [measured] Distinct gate patterns in 1e7 inputs: 4.3-6.0M (k = 1), 6.9-7.4M (k = 2), ~1e7 (k = 5, 10).
+- [measured] Random great circles, generic implemented walk: F 14.7 / 14.3 / 11.6 / 4.0 for k = 1 / 2 / 5 / 10; direct
+  budget checks at 4k and 16k agree within 5%.
+- [measured] k = 10 with `fast1`: F .126 [.100, .159] (random, sampling-class); fixed Halton sets .026-.083 (4k) and
+  .044-.24 (16k), all 5 below 1 at both budgets (deterministic QMC-class).
+- [measured] No k < 10 has any fixed Halton set family with all 5 sets below 1 (generic walk).
+- [model, not implemented] Incremental-cost F: 5.8 / 4.7 / .54 / .09.
+- [inferred] The depth penalty is the per-flip propagation cost through later steps, not region count or per-circle
+  information.
+- [speculative] An implemented incremental walk for k = 5 (two steps) would reach F < 1; for k = 1, 2 even a perfect
+  incremental implementation stays near 5 (F_incr), so beating sampling there needs fewer pieces, not cheaper pieces.
 
 ## Alternatives not ruled out
-(to be filled)
+- **Accuracy, not depth.** T345 saw F fall as accuracy rose. Here panel accuracies are .968-.985 and k = 1 (.981) is
+  close to k = 10 (.985), so accuracy cannot explain the 3.5x (generic) / 60x (incremental) gap between them; the
+  post-hoc k1h32 panel (acc K1H32_ACC) tests this directly (above). Not tested: k = 5 / 10 nets at lower accuracy.
+- **FPE normalisation.** F is per FPE of each net, so wide recurrent nets (k = 5: 38k FLOPs per forward) make sampling
+  expensive and favour walks under the incremental model. In absolute FLOPs per circle (generic): 8.9M, 18.4M,
+  35.5M, 2.9M for k = 1, 2, 5, 10. The challenge is defined per FPE, so the F values stand; the comparison "per FLOP"
+  would rank k = 5 worse.
+- **Implementation, not architecture.** The generic walk is a fixed piece-by-piece implementation; a cleverer walk
+  for the RNN (T393's compiled walk) could lower k = 1-5. F_floor (.05-.14 at every k) shows no architectural floor
+  above sampling for piece walks.
+- **Coarse ladder.** No rung between 64 and 128; a k = 5 or 10 net at H ~96 may pass on some seeds and would have
+  different F.
+- **Panel.** 3 seeds + near-identical copies (sigma .001); per-seed F varies 2-4x (k = 10: 2.4 to 9.7). Halton sets'
+  errors are shared by the 4 near-identical models of each seed, so the 5-set spread is the honest uncertainty.
+- Only one task (2nd-argmax), one recipe, consecutive chunking (other assignments of positions to steps not tried).
 
 ## Failure modes
-(to be filled)
+- Generic walk: eps-offset evaluation at piece starts; degenerate ties could misassign a sliver (as T345); Cauchy lines
+  truncated at |t| = 1e8.
+- For k <= 5 at C = 4k FPE a fixed set has only 4-5 circles: the deterministic estimator is then dominated by which
+  few circles were chosen, and per-set F swings 1.3-45.
+- Gate-pattern counts use 64-bit hashes (collisions negligible at 1e7) and undercount realised regions.
+- Heavy-tailed per-circle values (k = 10 seed 2) make F estimates from 1,000 circles noisy (CI over models captures
+  only part of it).

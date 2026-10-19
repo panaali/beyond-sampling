@@ -37,7 +37,7 @@ def main():
     print("|" + "---|" * 14)
     print("\n".join(rows))
     ks = sorted(pts)
-    fig, ax = plt.subplots(figsize=(6.4, 4.2))
+    fig, ax = plt.subplots(figsize=(9, 4.2))
     for key, lab, mk in (("F", "random circles, generic walk (implemented)", "o"), ("F_incr", "random circles, incremental cost model", "s"),
                          ("F_floor", "random circles, floor cost", "^")):
         y = [pts[k][0][key][0] for k in ks]
@@ -57,7 +57,7 @@ def main():
     ax.set_xscale("log"); ax.set_yscale("log"); ax.set_xticks(ks); ax.set_xticklabels([str(k) for k in ks])
     ax.set_xlabel("k (inputs per step; 10/k steps)"); ax.set_ylabel("F (MSE x cost / p(1-p); sampling = 1)")
     ax.set_title("T392: walk F vs plain sampling, simplest >= .95 config per k", fontsize=9)
-    ax.legend(fontsize=6.5); fig.tight_layout(); fig.savefig(f"{HERE}/results/F_vs_k.png", dpi=130)
+    ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(1.01, 1)); fig.tight_layout(); fig.savefig(f"{HERE}/results/F_vs_k.png", dpi=130)
 
 
 if __name__ == "__main__":
