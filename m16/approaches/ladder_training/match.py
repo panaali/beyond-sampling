@@ -51,10 +51,18 @@ for (H, T), refs in {**REPRO, **NEW}.items():
     zb = np.array([r["bnd1"] for r in zoo]); blo, bhi = widen(zb.min(), zb.max(), 0.05)
     bm = float(np.median([r["bnd1"] for r in ours])); m3 = blo <= bm <= bhi
     ok = m1 and m2 and m3
-    out[f"{H}_{T}"] = dict(acc=a.tolist(), zoo_acc=za.tolist(), R=[lo, hi], M1=m1, M2=bool(m2), M3=bool(m3), match=ok,
+    out[f"{H}_{T}"] = dict(acc=a.tolist(), zoo_acc=za.tolist(), R=[lo, hi], M1=m1, M2=bool(m2), M3=bool(m3), match=bool(ok),
                            bnd1_median=bm, bnd1_window=[blo, bhi])
     yn = lambda b: "yes" if b else "**no**"
     print(f"| ({H},{T}) | {'zoo' if (H, T) in REPRO else 'zoo ' + '+'.join(map(str, refs))} | {' '.join('%.4f' % x for x in a)} | "
           f"{za.min():.4f}-{za.max():.4f} | {lo:.4f}-{hi:.4f} | {yn(m1)} | {' '.join(r['n_store'] for r in ours)} | {zs} | {yn(m2)} | "
           f"{bm:.3f} | {max(blo, 0):.3f}-{min(bhi, 1):.3f} | {yn(m3)} | {yn(ok)} |")
 json.dump(out, open(os.path.join(HERE, "match.json"), "w"), indent=1)
+
+# paired by seed (same initial weights; different data stream), reported, not scored
+print("\n| size | seed | zoo acc | our acc | diff | zoo n_store | our n_store |\n|---|---|---|---|---|---|---|")
+for H, T in REPRO:
+    for s in range(5):
+        z, o = res.get(f"zoo_{H}_{T}_30_{s}"), res.get(f"ours_{H}_{T}_{TAG}_{s}")
+        if z and o:
+            print(f"| ({H},{T}) | {s} | {z['acc']:.4f} | {o['acc']:.4f} | {o['acc'] - z['acc']:+.4f} | {z['n_store']} | {o['n_store']} |")

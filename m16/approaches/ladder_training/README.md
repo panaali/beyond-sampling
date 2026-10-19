@@ -102,7 +102,39 @@ Running (2026-10-19): training queue with 2 workers (`queue2.sh jobs.txt`).
 
 ## Results
 
-Pending.
+### T86 reproduction: (4,3) and (5,3) MATCH the zoo (pre-registered M1-M3) [measured]
+
+Command: `bash queue2.sh jobs.txt` (2 workers) -> `python evaluate.py --no-zoo` -> `python match.py 30s`.
+Accuracy on 2^23 N(0,1) samples (s.e. <= 1e-4); zoo rows in results.json from the same evaluate.py.
+
+| size | our acc seeds 0-4 | zoo acc range | R | M1 | our n_store | zoo mode | M2 | our bnd1 median | M3 | match |
+|---|---|---|---|---|---|---|---|---|---|---|
+| (4,3) | 0.9860 0.8922 0.7594 0.9038 0.9449 | 0.7590-0.9846 | 0.646-1.097 | yes | 2/2 2/2 2/2 1/3 2/2 | 2/2 | yes | 0.213 | yes | **yes** |
+| (5,3) | 0.9992 0.9988 0.9987 0.9970 0.9988 | 0.9420-0.9991 | 0.913-1.028 | yes | 2/3 x5 | 2/3 | yes | 1.000 | yes | **yes** |
+
+Paired by seed (same initial weights as the zoo, bitwise; different data stream: CPU vs CUDA RNG). Reported, not
+scored. **9 of 10 seeds land on essentially the zoo's own weights**: relative L2 distance of all weights
+0.001-0.005, max |dw| 0.014-0.096, accuracy difference <= 0.0015, same n_store. The exception is (5,3) seed 0:
+ours reaches 0.9992 with the 2/3 storage pattern, the zoo's 0.9420 with 1/4 (rel. weight distance 1.17, a different
+basin). So which basin a seed falls into is mostly fixed by the initialisation; the data stream decides it only
+occasionally (1 of 10 here).
+
+| size | seed | zoo acc | our acc | diff | zoo n_store | our n_store | rel. weight distance |
+|---|---|---|---|---|---|---|---|
+| (4,3) | 0 | 0.9846 | 0.9860 | +0.0015 | 2/2 | 2/2 | 0.001 |
+| (4,3) | 1 | 0.8928 | 0.8922 | -0.0006 | 2/2 | 2/2 | 0.005 |
+| (4,3) | 2 | 0.7590 | 0.7594 | +0.0004 | 2/2 | 2/2 | 0.003 |
+| (4,3) | 3 | 0.9043 | 0.9038 | -0.0005 | 1/3 | 1/3 | 0.002 |
+| (4,3) | 4 | 0.9452 | 0.9449 | -0.0003 | 2/2 | 2/2 | 0.002 |
+| (5,3) | 0 | 0.9420 | 0.9992 | +0.0573 | 1/4 | 2/3 | 1.171 |
+| (5,3) | 1 | 0.9991 | 0.9988 | -0.0003 | 2/3 | 2/3 | 0.003 |
+| (5,3) | 2 | 0.9987 | 0.9987 | -0.0000 | 2/3 | 2/3 | 0.001 |
+| (5,3) | 3 | 0.9968 | 0.9970 | +0.0002 | 2/3 | 2/3 | 0.002 |
+| (5,3) | 4 | 0.9987 | 0.9988 | +0.0001 | 2/3 | 2/3 | 0.002 |
+
+Wall time 1360-1690 s per model (one thread, 2 jobs in parallel).
+
+New rungs (7,3), (4,7) and the T111 (4,4) models: training.
 
 ## Compute accounting
 
@@ -111,7 +143,10 @@ model. T111: estT ops (its own counter, `m43.Ops`) for exact and recipe; 1e7-sam
 
 ## Claims
 
-None yet.
+- [measured] alg_zoo's training code, unchanged, at the zoo's settings on CPU reproduces the zoo's (4,3) and (5,3)
+  models: all pre-registered match tests pass, and 9/10 seeds converge to within 0.5% (rel. L2) of the zoo weights.
+- [inferred] Models we train at missing sizes with the same code are zoo-like models (same pipeline, same
+  per-seed basins), not a different training regime.
 
 ## Alternatives not ruled out
 
