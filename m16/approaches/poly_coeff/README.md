@@ -267,3 +267,44 @@ such, but it is a STOP.
 r <= 8). (ii) The function is close to a low-rank state-space model (16 units, mostly linear regimes): a moderate
 rank already classifies well (GO). (iii) An ALS artefact (local minimum, underfit). Separating test: train vs test
 L2 and the trend in r; if r = 8 does not improve on r = 4 while train L2 stays high, suspect (iii) and report it.
+
+## T375 Results (run as pre-registered; nothing changed after c5c5a46e)
+
+**Verdict: STOP.** Negative (unverified), scoped to TT with bases H/P, n = 8 per input, r <= 8, L2 ALS fit. Reproduce:
+`for b in H P; do for m in fused_s0 fused_s1 torch_s0 torch_s1; do python tt.py $m $b 1 2 4 8; done; done`
+(about 2 CPU-h; under 2 GB per process). torch_s1 at r = 8 was re-run after a container restart. Seeds are fixed, so
+the run is identical to the one that was lost. Raw rows: `tt_log_{H,P}.txt`, `tt_<model>_<basis>.json`.
+
+[measured, diagnostic MC: 1e5 fit inputs, 1e6 fresh evaluation inputs]. Argmax accuracy of the best TT fit of the
+TRUE logits, gap to the truth in pp, and test / train relative L2 error of the logits:
+
+| model (truth) | basis | r=1 | r=2 | r=4 | r=8 |
+|---|---|---|---|---|---|
+| fused_s0 (.872) | H | .159 (-71.3) | .198 (-67.4) | .287 (-58.5) | .382 (-49.0); L2 .46 / .36 |
+| | P | .159 (-71.3) | .200 (-67.2) | .288 (-58.4) | **.404 (-46.8)**; L2 .37 / .36 |
+| fused_s1 (.951) | H | .159 (-79.3) | .187 (-76.5) | .233 (-71.9) | .328 (-62.3); L2 .40 / .35 |
+| | P | .158 (-79.3) | .190 (-76.1) | .246 (-70.5) | .349 (-60.3); L2 .34 / .34 |
+| torch_s0 (.959) | H | .157 (-80.2) | .186 (-77.3) | .202 (-75.7) | .327 (-63.2); L2 .48 / .42 |
+| | P | .157 (-80.2) | .192 (-76.7) | .252 (-70.7) | .357 (-60.2); L2 .43 / .42 |
+| torch_s1 (.944) | H | .157 (-78.7) | .224 (-72.0) | .255 (-68.8) | .352 (-59.2); L2 .46 / .35 |
+| | P | .156 (-78.8) | .223 (-72.1) | .261 (-68.3) | .384 (-56.0); L2 .35 / .35 |
+
+- The gate needs max gap <= 1 pp at some r <= 8. The best configuration (P, r = 8) has a max gap of **60.3 pp**
+  (best single model 46.8 pp). STOP by a factor of about 50.
+- At r = 8 the compressed fit is no better than T291's total-degree-5 polynomial: the logit relative L2 error is
+  .34-.43 here and .28-.37 there.
+- Alternative (iii), an ALS artefact: H overfits at r = 8 (test L2 is .05-.11 above train), so H's r = 8 row
+  understates that class somewhat. P shows no overfit, and every model and basis improves steadily with r. So the
+  fits are not stuck, they are simply far from the target. Alternative (i), separable bases cannot place the oblique
+  ReLU walls, fits the data; (ii) is refuted at r <= 8.
+- [speculative] The gap shrinks by about 8-12 pp per doubling of r. Extrapolated, 1 pp needs r in the hundreds or
+  more, and the propagation cost ~ r^3 would be far above the cheap regime.
+
+**Claims.** [measured] No TT of rank <= 8 in either basis classifies within 46 pp of the truth on any of the four
+models. [inferred] The cost-plausible TT class (C_TT <= ~1.1k FPE propagation at r = 8) is dead for the strict bar
+on these models, whatever the propagation or ledger. Not covered: other input orderings (for example by gap or rank
+coordinates), bases with oblique kinks, losses tuned for classification, ranks > 8, other compressed formats
+(hierarchical Tucker, CP). Some of these change the representation (sorted coordinates) rather than compress it.
+
+**Compute accounting.** Diagnostics only, no estimator was run: 1.1e6 true-model evaluations per (model, basis)
+plus the ALS work, about 2 CPU-h in all.
