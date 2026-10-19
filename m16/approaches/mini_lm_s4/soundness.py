@@ -10,7 +10,7 @@ import numpy as np
 import torch
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "mini_lm"))
-from load import load
+from s4load import load_any as load
 from langs import model_input
 import cert, bab
 
@@ -50,7 +50,8 @@ def main():
     for name in sys.argv[2:]:
         model, lang = load(name)
         P = cert.Params(model)
-        meta = json.load(open(os.path.join(HERE, "..", "mini_lm", "models", name + ".json")))
+        mp = os.path.join(HERE, "..", "mini_lm", "models", name + ".json")
+        meta = json.load(open(mp)) if os.path.exists(mp) else None
         ref = np.load(os.path.join(HERE, "data", f"ref_{name}.npz"))
         out = dict(name=name, K0=K0, taus={})
         T = lang.T_small if lang.name == "dyck2" else lang.n_small + 2
@@ -58,7 +59,7 @@ def main():
         if lang.name == "dyck2":
             multi, fpe = bab.run_multi(P, lang, T, TAUS, K0, fpe_flops=model.flops(T))
         for j, tau in enumerate(TAUS):
-            truth = meta["small_exact"][f"B{tau}"]
+            truth = meta["small_exact"][f"B{tau}"] if meta else float(ref[f"B{tau}"])   # S1: ref.py's exact B
             rb = ref["y"][ref["max_ill"] > tau]
             if lang.name == "dyck2":
                 res = multi[j]

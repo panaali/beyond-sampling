@@ -72,6 +72,13 @@ class Params:
         self.cfg = dict(model.cfg)
         self.sd = {k: v.detach().double() for k, v in model.state_dict().items()}
         self.arch = self.cfg["arch"]
+        if self.arch == "s1":   # S1 (T444) per-layer attention types, tie tolerance and sparsemax beta
+            self.types = self.cfg["attn"].split(",")
+            self.tol = self.cfg.get("tol", HARD_TIE)
+            self.betas = [float(getattr(b, "beta", 1.0)) for b in model.blocks]
+        elif self.arch != "rnn":
+            self.types = [self.arch] * self.cfg["layers"]
+            self.tol, self.betas = HARD_TIE, [1.0] * self.cfg["layers"]
         self.TE = None   # optional per-(node, position, slot) token embeddings [N, T, S, d] (concrete fast path)
 
 
@@ -90,7 +97,7 @@ def _res_lin(P, rest, W, b, T):
 
 
 def _attn(P, l, rest, allowed, T):
-    sd, pre, attn = P.sd, f"blocks.{l}.", P.arch
+    sd, pre, attn = P.sd, f"blocks.{l}.", P.types[l]
     d = P.cfg["d"]
     N, _, V = allowed.shape
     vc, vr = _res_lin(P, rest, sd[pre + "v.weight"], None, T)       # [N|1, T, V, d]
@@ -140,11 +147,27 @@ def _attn(P, l, rest, allowed, T):
     vlo_j = torch.where(Ed, (vc - vr)[:, :, :, None], vlo_j)
     vhi_j = torch.where(Ed, (vc + vr)[:, :, :, None], vhi_j)
     FLOPS[0] += 2 * N * T * V * T * d
-    if attn == "hard":
+    if attn in ("hard", "sparsemax"):
         best_lo = slo.masked_fill(~M, -BIG).amax(-1, keepdim=True)
-        cand = (shi >= best_lo - HARD_TIE - HARD_ETA) & M
+        if attn == "hard":
+            cand = (shi >= best_lo - P.tol - HARD_ETA) & M
+        else:
+            # sparsemax(beta s): weight_j = beta s_j - t > 0 needs beta s_j > beta max_l s_l - 1; the output is a
+            # convex combination of the support values
+            beta = P.betas[l]
+            cand = (beta * shi > beta * best_lo - 1 - HARD_ETA) & M
         olo = torch.where(cand[..., None], vlo_j, BIG).amin(-2)
         ohi = torch.where(cand[..., None], vhi_j, -BIG).amax(-2)
+        if attn == "sparsemax":
+            # rows whose scores are points: exact sparsemax weights (continuous in the scores, so no tie issue)
+            pt = ((sr_ == 0) | ~M).all(-1)                                   # [N, T, V]
+            if pt.any():
+                from_s1 = _sparsemax(P.betas[l] * sc_.masked_fill(~M, float("-inf")))
+                vcj, vrj = (vlo_j + vhi_j) / 2, (vhi_j - vlo_j) / 2
+                ec = (from_s1[..., None] * vcj).sum(-2)
+                er = (from_s1[..., None] * vrj).sum(-2)
+                olo = torch.where(pt[..., None], torch.maximum(olo, ec - er), olo)
+                ohi = torch.where(pt[..., None], torch.minimum(ohi, ec + er), ohi)
         return (olo + ohi) / 2, _infl((olo + ohi) / 2, (ohi - olo) / 2)
     if attn == "softmax":
         Mx = shi.masked_fill(~M, -BIG).amax(-1, keepdim=True)
@@ -165,11 +188,23 @@ def _attn(P, l, rest, allowed, T):
     raise ValueError(attn)
 
 
+def _sparsemax(z):
+    """Sparsemax over the last axis (Martins & Astudillo 2016), as in mini_lm_s1/s1models.py."""
+    zs, _ = torch.sort(z, dim=-1, descending=True)
+    rng = torch.arange(1, z.shape[-1] + 1, dtype=z.dtype)
+    zs_f = torch.where(torch.isfinite(zs), zs, torch.zeros_like(zs))
+    cs = zs_f.cumsum(-1)
+    support = (1 + rng * zs > cs) & torch.isfinite(zs)
+    k = support.sum(-1, keepdim=True).clamp(min=1)
+    tau = (cs.gather(-1, k - 1) - 1) / k.to(z.dtype)
+    return torch.clamp(z - tau, min=0).nan_to_num(0.0)
+
+
 def logit_box_tf(P, allowed):
     N, T, V = allowed.shape
     sd = P.sd
     rest = None
-    for l in range(P.cfg["layers"]):
+    for l in range(len(P.types)):
         pre = f"blocks.{l}."
         ac, ar = _attn(P, l, rest, allowed, T)
         oc, orr = lin(ac, ar, sd[pre + "o.weight"], sd[pre + "o.bias"])

@@ -6,7 +6,7 @@ import numpy as np
 import torch
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "mini_lm"))
-from load import load
+from s4load import load_any as load
 from metrics import per_sequence, TAUS
 
 torch.set_num_threads(2)

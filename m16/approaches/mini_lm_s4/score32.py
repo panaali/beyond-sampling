@@ -7,7 +7,7 @@ import torch
 from scipy.stats import beta
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "mini_lm"))
-from load import load
+from s4load import load_any as load
 from metrics import sampled
 import cert, bab
 
@@ -27,7 +27,7 @@ def main():
         out_path = os.path.join(HERE, "data", f"score32_{name}.json")
         if os.path.exists(out_path):
             continue
-        model, lang = load(name, models_dir=mdir)
+        model, lang = load(name, models_dir=None if mdir == "-" else mdir)
         P = cert.Params(model)
         seed = int(name.rsplit("_s", 1)[1])
         out = dict(name=name, T=T, amax=AMAX, fpe_flops=model.flops(T), bab={}, sampling={})
