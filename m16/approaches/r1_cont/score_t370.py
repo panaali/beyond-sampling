@@ -16,9 +16,9 @@ for k, r in e2.items():
     nm, t = k.split("|"); p = t358[nm]["counts"][tag[float(t)]] / t358[nm]["n"]; out["E2"][k] = dict(ratio=r["est"] / p, C=r["C"])
 def tr(nm, t):
     for src in (t367, t364, t366):
-        key = f"{nm}@{float(t):g}"
-        if key in src and isinstance(src[key], dict) and "p" in src[key]:
-            return src[key]["p"]
+        for key in (f"{nm}@{float(t):g}", f"{nm}@{float(t)}"):                      # truth files use "2.0" or "2"
+            if key in src and isinstance(src[key], dict) and "p" in src[key]:
+                return src[key]["p"]
 for nm, r in e1.items():
     for t, v in r["est"].items():
         p = tr(nm, t); out["E1"][f"{nm}|{t}"] = dict(ratio=v / p if p else None, C=r["C"])
