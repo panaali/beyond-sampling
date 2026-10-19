@@ -77,6 +77,11 @@ k meeting the design P condition (k = 200 if none), status "fallback_noacc"; it 
 Smoke checks: verify.py on T402's frozen M_16,10 edit (3e7 draws, 4e6 inputs) gives ratio .054 +- .012 (T402 .059), largest-input
 picks +9.3% (T402 +9.3%), random min / median .16 / 1.03 (T410 .165 / .80).
 
+### Amendment A2 (2026-10-19 18:5x, after a container restart killed the first runs during the t0 scan; no gradient, edit or truth yet)
+Implementation only, for resumability: every stage is memoised on disk (data/t425/ckpt). The 2e7-line gradient is 10 blocks of
+2e6 lines, the Hessian accuracy sums 4 blocks, and verification runs in blocks of 1e7 draws / inputs with per-block seeds; N_E and
+N_R are rounded up to whole blocks (more draws than pre-registered, never fewer). Rules, sizes and criteria are unchanged.
+
 ## Status
 Pre-registered; running *(filled later)*.
 

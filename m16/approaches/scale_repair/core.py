@@ -103,6 +103,35 @@ def acc_plain(models, N, seed_, chunk=100_000):
     mu = d1 / N; return c / N, mu, np.sqrt(np.maximum(d2 / N - mu ** 2, 0) / N)
 
 
+CK = os.path.join(ROOT, "data", "t425", "ckpt")
+
+
+def memo(key, fn):
+    """Disk memo (resumability after container restarts): results are deterministic given their seeds."""
+    import pickle
+    p = os.path.join(CK, key + ".pkl"); os.makedirs(os.path.dirname(p), exist_ok=True)
+    if os.path.exists(p):
+        return pickle.load(open(p, "rb"))
+    r = fn(); pickle.dump(r, open(p + ".tmp", "wb")); os.replace(p + ".tmp", p); return r
+
+
+def e1_blocks(key, model, t0, n, seed_, grad=True, nb=10):
+    """e1 in nb memoised blocks of n/nb lines (seeds seed_*100 + b); pooled mean and s.e."""
+    os_ = [memo(f"{key}_b{b}", lambda b=b: e1(model, t0, n // nb, seed_ * 100 + b, grad)) for b in range(nb)]
+    out = dict(P=float(np.mean([o["P"] for o in os_])), se=float(np.sqrt(sum(o["se"] ** 2 for o in os_)) / nb), n=n,
+               flops=sum(o["flops"] for o in os_), p_gap=os_[0]["p_gap"])
+    if grad:
+        out.update(grad=np.mean([o["grad"] for o in os_], 0), grad_se=np.sqrt(sum(o["grad_se"] ** 2 for o in os_)) / nb)
+    return out
+
+
+def acc_blocks(key, models, N, seed_, nb=4):
+    """acc_plain in nb memoised blocks (seeds seed_*100 + b); pooled."""
+    rs = [memo(f"{key}_b{b}", lambda b=b: acc_plain(models, N // nb, seed_ * 100 + b)) for b in range(nb)]
+    a = np.mean([r[0] for r in rs], 0); mu = np.mean([r[1] for r in rs], 0); se = np.sqrt(sum(r[2] ** 2 for r in rs)) / nb
+    return a, mu, se
+
+
 def fpe_flops(T, H):
     """FLOPs of one plain forward pass (the FPE unit for this model)."""
     return T * (2 * H * H + 3 * H) + 2 * T * H

@@ -27,7 +27,7 @@ def scan_t0(model, tag, log):
     """Smallest-first scan; stop once the design P falls below 1e-9. Pick the in-range t0 nearest 1e-8 in log10."""
     rows = []
     for i, t0 in enumerate(T0_GRID):
-        o = core.e1(model, t0, N_SCAN, core.seed(tag, 0) + 100 * i, grad=False); rows.append(dict(t0=t0, P=o["P"], se=o["se"]))
+        o = core.memo(f"{tag}/scan_{t0}", lambda: core.e1(model, t0, N_SCAN, core.seed(tag, 0) + 100 * i, grad=False)); rows.append(dict(t0=t0, P=o["P"], se=o["se"]))
         print("scan", t0, "%.3e +- %.1e" % (o["P"], o["se"]), flush=True)
         if o["P"] < 1e-9:
             break
@@ -38,7 +38,7 @@ def scan_t0(model, tag, log):
     return best["t0"]
 
 
-def hessian(w, S, shp, N, sd):
+def hessian(w, S, shp, N, sd, key):
     k = len(S); keys = [(0, 0, 0, 0)]
     for a in range(k):
         keys += [(a, 1, a, 0), (a, -1, a, 0)]
@@ -52,7 +52,7 @@ def hessian(w, S, shp, N, sd):
         if sb:
             v[S[b]] += sb * H_STEP
         models.append(rnn.unflat(v, shp))
-    acc, _, _ = core.acc_plain(models, N, sd); A = dict(zip(keys, acc)); a0 = A[keys[0]]; Hm = np.zeros((k, k)); h = H_STEP
+    acc, _, _ = core.acc_blocks(key, models, N, sd); A = dict(zip(keys, acc)); a0 = A[keys[0]]; Hm = np.zeros((k, k)); h = H_STEP
     for a in range(k):
         Hm[a, a] = (A[(a, 1, a, 0)] - 2 * a0 + A[(a, -1, a, 0)]) / h ** 2
         for b in range(a + 1, k):
@@ -65,7 +65,7 @@ def try_K(K, w, g, gs, P0, t0, shp, tag, log):
     rec = dict(K=K, n_resolved=int(len(ok)), S=S.tolist())
     if len(S) < K:
         rec["skipped"] = "fewer than K resolved entries"; log["K"].append(rec); return None
-    t = time.time(); Hm, nf = hessian(w, S, shp, int((2_000_000 if K <= 12 else 1_000_000) / _F), core.seed(tag, 3) + K)
+    t = time.time(); Hm, nf = hessian(w, S, shp, int((2_000_000 if K <= 12 else 1_000_000) / _F), core.seed(tag, 3) + K, f"{tag}/hess_K{K}")
     lam, V = np.linalg.eigh(-Hm); lc = np.maximum(lam, .05 * lam.max()); gE = g[S]; d = -(V / lc) @ V.T @ gE; d /= np.linalg.norm(d)
     rec.update(eig_negH=lam.tolist(), d=d.tolist(), pred_dlogP_per_eps=float(gE @ d / P0), hess_fwd=nf, hess_sec=time.time() - t)
     base = rnn.unflat(w, shp); cache = {}; flE = 0.0; nA = 0
@@ -74,7 +74,8 @@ def try_K(K, w, g, gs, P0, t0, shp, tag, log):
         nonlocal flE, nA
         if k not in cache:
             v = w.copy(); v[S] += k * GRID_EPS * d; m = rnn.unflat(v, shp)
-            p = core.e1(m, t0, N_CAND, core.seed(tag, 4), grad=False); _, mu, se = core.acc_plain([base, m], N_ACC, core.seed(tag, 5))
+            p = core.memo(f"{tag}/cand_K{K}_k{k}_E", lambda: core.e1(m, t0, N_CAND, core.seed(tag, 4), grad=False))
+            _, mu, se = core.memo(f"{tag}/cand_K{K}_k{k}_A", lambda: core.acc_plain([base, m], N_ACC, core.seed(tag, 5)))
             flE += p["flops"]; nA += 2 * N_ACC
             cache[k] = dict(k=k, eps=k * GRID_EPS, P=p["P"], P_se=p["se"], ratio=p["P"] / P0, dacc=float(mu[1]), dacc_se=float(se[1]),
                             Pok=bool(p["P"] <= P0 / 20), Aok=bool(mu[1] >= -2e-4))
@@ -103,7 +104,7 @@ def main(tag):
     out = os.path.join(core.HERE, "results", tag); os.makedirs(out, exist_ok=True)
     H, T, _, _ = core.parse(tag); shp = core.shapes(T, H); model = core.load(tag); w = rnn.flat(model); t = time.time()
     log = dict(tag=tag, H=H, T=T, K=[]); t0 = scan_t0(model, tag, log); save(os.path.join(out, "design.json"), log)
-    G = core.e1(model, t0, N_GRAD, core.seed(tag, 1)); g, gs, P0 = G["grad"], G["grad_se"], G["P"]
+    G = core.e1_blocks(f"{tag}/grad", model, t0, N_GRAD, core.seed(tag, 1)); g, gs, P0 = G["grad"], G["grad_se"], G["P"]
     log.update(P0=P0, P0_se=G["se"], grad_flops=G["flops"], dlogP_norm=float(np.linalg.norm(g) / P0)); save(os.path.join(out, "design.json"), log)
     print(tag, "t0", t0, "P0 %.3e +- %.1e" % (P0, G["se"]), flush=True)
     recs = {}

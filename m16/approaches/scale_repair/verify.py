@@ -13,6 +13,8 @@ import numpy as np
 from scipy.special import ndtr, ndtri
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from core import memo  # noqa: E402  (disk memo only; no sampler/forward code from core)
 G2 = np.linspace(-8.0, 9.0, 1_700_001)
 N_R_EDITS = 10; N_CAP = int(float(os.environ.get("T425_NCAP", 3e8)))      # env overrides: smoke tests only
 N_ACC = int(float(os.environ.get("T425_NACC", 1e8))); N_ACC_R = min(N_ACC, 10_000_000)
@@ -66,32 +68,42 @@ def main(tag):
         u = rng.standard_normal(len(S)); v = wb.copy(); v[S] += eps * u / np.linalg.norm(u); R.append(v)
     models = [mk(wb, H, T), mk(we, H, T)] + [mk(v, H, T) for v in R]
     C = Cond(T, t0); q = E["P0_design"] / C.pg                                               # design base P0 / p_gap
-    N_E = int(min(N_CAP, np.ceil(1000 / q / 1e6) * 1e6)); N_R = int(min(N_E, np.ceil(300 / q / 1e6) * 1e6))
-    t = time.time(); rng = np.random.default_rng(sd + 1); n = 0; ch = 200_000
-    hits = np.zeros(len(models)); both = 0; hits_r = np.zeros(len(models)); both_r = np.zeros(len(models)); ranks = np.zeros((2, T), int)
-    while n < N_E:
-        m = min(ch, N_E - n); x = C.draw(rng, m); rk = np.argsort(np.argsort(-x, 1), 1)          # rk[i, pos] = rank (0 = largest)
-        use = models if n < N_R else models[:2]; P = pick(use, x); r3 = np.argsort(-x, 1)[:, 2]
-        hit = P == r3[None]; hits[:len(use)] += hit.sum(1); both += int((hit[0] & hit[1]).sum())
-        if n < N_R:
-            hits_r += hit.sum(1); both_r += (hit & hit[0]).sum(1)
-        for j in (0, 1):
-            np.add.at(ranks[j], rk[np.arange(m), P[j]], 1)
-        n += m
-        if n % (50 * ch) == 0 or n == N_E:
-            print(tag, "E1", n, hits[:2], "%.0fs" % (time.time() - t), flush=True)
+    BLK = min(int(1e7), N_CAP)                                     # memoised blocks (resumable); N rounded up to whole blocks
+    N_E = int(min(N_CAP, np.ceil(1000 / q / BLK) * BLK)); N_R = int(min(N_E, np.ceil(300 / q / BLK) * BLK))
+    t = time.time(); ch = 200_000; key = f"{tag}/verify_{E['sha256_w_edit'][:12]}"
+
+    def e1_block(b):
+        rng = np.random.default_rng([sd + 1, b]); n = 0; L = len(models) if b * BLK < N_R else 2
+        hits = np.zeros(L); hits_r = np.zeros(L); both_r = np.zeros(L); ranks = np.zeros((2, T), int)
+        while n < BLK:
+            m = min(ch, BLK - n); x = C.draw(rng, m); rk = np.argsort(np.argsort(-x, 1), 1)      # rk[i, pos] = rank (0 = largest)
+            P = pick(models[:L], x); r3 = np.argsort(-x, 1)[:, 2]; hit = P == r3[None]
+            hits += hit.sum(1); both_r += (hit & hit[0]).sum(1)
+            for j in (0, 1):
+                np.add.at(ranks[j], rk[np.arange(m), P[j]], 1)
+            n += m
+        print(tag, "E1 block", b, hits[:2], "%.0fs" % (time.time() - t), flush=True)
+        return hits, both_r, ranks
+
+    nbE = N_E // BLK; hits = np.zeros(len(models)); both = 0; hits_r = np.zeros(len(models)); both_r = np.zeros(len(models)); ranks = np.zeros((2, T), int)
+    for b in range(nbE):
+        h, br, rk = memo(f"{key}_E{b}", lambda b=b: e1_block(b)); hits[:2] += h[:2]; both += br[1]; ranks += rk
+        if len(h) == len(models):
+            hits_r += h; both_r += br
     rE = hits[1] / hits[0]; rEse = ratio_se(hits[0], hits[1], both, N_E)
     rr = [dict(ratio=float(hits_r[i] / hits_r[0]) if hits_r[0] else None, ratio_se=ratio_se(hits_r[0], hits_r[i], both_r[i], N_R)) for i in range(2, len(models))]
-    # accuracy (paired)
-    rng = np.random.default_rng(sd + 2); n = 0; ok = np.zeros(len(models)); d1 = np.zeros(len(models)); d2 = np.zeros(len(models)); nr = 0
-    while n < N_ACC:
-        m = min(ch, N_ACC - n); x = rng.standard_normal((m, T)); tgt = np.argsort(-x, 1)[:, 1]
-        use = models if n < N_ACC_R else models[:2]; c = (pick(use, x) == tgt[None]).astype(float); k = len(use)
-        ok[:k] += c.sum(1); dd = c - c[0]; d1[:k] += dd.sum(1); d2[:k] += (dd ** 2).sum(1); n += m
-        if n <= N_ACC_R:
-            nr = n
-        if n % (100 * ch) == 0:
-            print(tag, "acc", n, "%.0fs" % (time.time() - t), flush=True)
+
+    def acc_block(b):                                              # accuracy (paired); random edits in block 0 (first 1e7)
+        rng = np.random.default_rng([sd + 2, b]); n = 0; L = len(models) if b == 0 else 2; ok = np.zeros(L); d1 = np.zeros(L); d2 = np.zeros(L)
+        while n < BLK:
+            m = min(ch, BLK - n); x = rng.standard_normal((m, T)); tgt = np.argsort(-x, 1)[:, 1]
+            c = (pick(models[:L], x) == tgt[None]).astype(float); ok += c.sum(1); dd = c - c[0]; d1 += dd.sum(1); d2 += (dd ** 2).sum(1); n += m
+        print(tag, "acc block", b, "%.0fs" % (time.time() - t), flush=True)
+        return ok, d1, d2
+
+    ok = np.zeros(len(models)); d1 = np.zeros(len(models)); d2 = np.zeros(len(models)); nr = BLK
+    for b in range(N_ACC // BLK):
+        o, x1, x2 = memo(f"{key}_A{b}", lambda b=b: acc_block(b)); k = len(o); ok[:k] += o; d1[:k] += x1; d2[:k] += x2
     dacc = d1[1] / N_ACC; dacc_se = np.sqrt(max(d2[1] / N_ACC - dacc ** 2, 0) / N_ACC)
     for i, r in enumerate(rr):
         mu = d1[2 + i] / nr; r.update(dacc=float(mu), dacc_se=float(np.sqrt(max(d2[2 + i] / nr - mu ** 2, 0) / nr)))
@@ -109,7 +121,7 @@ def main(tag):
                random_ratio_median=float(np.median([r["ratio"] for r in rr if r["ratio"] is not None])),
                random_dacc_median=float(np.median([r["dacc"] for r in rr])), conversion=conv,
                holds=dict(a_ratio=a_ok, b_acc=b_ok, c_random=c_ok, all=a_ok and b_ok and c_ok),
-               fwd=float(N_E * 2 + N_R * N_R_EDITS + N_ACC * 2 + N_ACC_R * N_R_EDITS), sec=time.time() - t)
+               fwd=float(N_E * 2 + N_R * N_R_EDITS + N_ACC * 2 + BLK * N_R_EDITS), sec=time.time() - t)
     json.dump(res, open(os.path.join(out, "verify.json"), "w"), indent=1, default=float)
     print(tag, "ratio %.3f +- %.3f dacc %.4f pp holds %s" % (rE, rEse, 100 * dacc, res["holds"]), flush=True)
 
