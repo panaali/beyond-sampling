@@ -1,0 +1,62 @@
+T405 pooled over 36 directions: resolved 35; T5/gl20 passes 17/35 (49%) -> NO-GO; K3 reference 14/35
+F_g pooled (sum e^2 / sum V): plain sampling 4.1, conditional-law sampling 4.78e+04 (strict <= 1, lenient <= 10)
+
+dev3_s529 E1(2.35): truth P 1.4327e-07 +- 8.1e-10 (N 2e+07); T5/P 1.235, K3/P 1.087; cost T5 1.67e+06 + 1.46e+05 FPE = 3.86x the K3 walk (4.7e+05); F_P(T5) 1.44e-02
+  dir | truth dlogP (lvl, z) | T5 dlogP  ratio pass | K3 dlogP  ratio pass
+    0 |      0.83 (3,   11.3) |     3.62   4.38 n |     0.08   0.09 n
+    1 |      7.84 (2,   77.6) |    17.39   2.22 n |    -1.42  -0.18 n
+    2 |     -6.32 (3,  -65.2) |   -12.82   2.03 n |    -0.48   0.08 n
+    3 |      7.54 (2,   85.9) |    10.86   1.44 Y |     1.67   0.22 n
+    4 |     14.52 (2,  118.4) |    19.28   1.33 Y |     2.06   0.14 n
+  top |     57.68 (1,   73.7) |    45.15   0.78 Y |    32.14   0.56 Y
+  pass T5 3/6 resolved, K3 1/6; F_g(T5) vs plain CRN-FD sampling at equal FPE 0.00211, vs conditional-law sampling 22.8
+
+dev3_s529 E1(2.75): truth P 1.1658e-08 +- 7.4e-11 (N 2e+07); T5/P 1.135, K3/P 0.873; cost T5 1.66e+06 + 1.42e+05 FPE = 4.33x the K3 walk (4.16e+05); F_P(T5) 3.82e-04
+  dir | truth dlogP (lvl, z) | T5 dlogP  ratio pass | K3 dlogP  ratio pass
+    0 |     -3.66 (1,  -32.7) |     2.55  -0.70 n |    -2.99   0.82 Y
+    1 |      0.47 (1,    5.2) |    -3.50  -7.50 n |     3.17   6.77 n
+    2 |     -9.90 (2,  -73.7) |   -14.91   1.51 Y |    -1.26   0.13 n
+    3 |      7.74 (3,   78.7) |     9.21   1.19 Y |     0.33   0.04 n
+    4 |     15.87 (3,  139.1) |    16.96   1.07 Y |    -0.31  -0.02 n
+  top |     43.80 (1,   63.7) |    20.24   0.46 n |    26.58   0.61 Y
+  pass T5 3/6 resolved, K3 2/6; F_g(T5) vs plain CRN-FD sampling at equal FPE 0.000505, vs conditional-law sampling 53.8
+
+dev3_s530 E1(2.35): truth P 7.1447e-07 +- 1.8e-09 (N 2e+07); T5/P 1.157, K3/P 1.236; cost T5 7.45e+05 + 1.16e+04 FPE = 2.12x the K3 walk (3.56e+05); F_P(T5) 1.33e-02
+  dir | truth dlogP (lvl, z) | T5 dlogP  ratio pass | K3 dlogP  ratio pass
+    0 |     14.73 (0,  234.8) |   147.59  10.02 n |    19.72   1.34 Y
+    1 |    -11.03 (2, -132.2) |  -125.58  11.39 n |    -2.92   0.26 n
+    2 |     12.34 (0,  246.8) |    84.83   6.88 n |    15.46   1.25 Y
+    3 |     -6.81 (0, -104.6) |   -31.45   4.62 n |   -22.87   3.36 n
+    4 |     -0.02 (0,   -0.6) |   105.63 -4857.66 - |     9.20 -422.85 -
+  top |    242.64 (0,  218.1) |  2573.25  10.61 n |   528.85   2.18 n
+  pass T5 0/5 resolved, K3 2/5; F_g(T5) vs plain CRN-FD sampling at equal FPE 7.63, vs conditional-law sampling 8.24e+04
+
+dev3_s530 E1(2.75): truth P 7.0301e-08 +- 1.8e-10 (N 2e+07); T5/P 1.269, K3/P 1.227; cost T5 7.34e+05 + 9.45e+03 FPE = 2.32x the K3 walk (3.21e+05); F_P(T5) 3.79e-03
+  dir | truth dlogP (lvl, z) | T5 dlogP  ratio pass | K3 dlogP  ratio pass
+    0 |      7.31 (0,  136.6) |    10.56   1.44 Y |    18.09   2.48 n
+    1 |     -5.85 (0,  -98.9) |    -1.73   0.30 n |   -24.52   4.19 n
+    2 |     11.89 (1,  160.3) |     3.21   0.27 n |     9.72   0.82 Y
+    3 |    -17.50 (0, -198.5) |  -122.86   7.02 n |   -31.43   1.80 Y
+    4 |      0.69 (0,   16.6) |   -28.17 -40.70 n |   -15.18 -21.94 n
+  top |    262.32 (0,  218.5) |  1212.38   4.62 n |   572.69   2.18 n
+  pass T5 1/6 resolved, K3 2/6; F_g(T5) vs plain CRN-FD sampling at equal FPE 0.109, vs conditional-law sampling 1.16e+04
+
+dev3_s531 E1(2.35): truth P 2.4148e-07 +- 1.1e-09 (N 2e+07); T5/P 1.109, K3/P 1.143; cost T5 1e+06 + 3.59e+04 FPE = 2.78x the K3 walk (3.73e+05); F_P(T5) 2.95e-03
+  dir | truth dlogP (lvl, z) | T5 dlogP  ratio pass | K3 dlogP  ratio pass
+    0 |     -6.89 (0,  -51.5) |    -7.72   1.12 Y |    24.56  -3.56 n
+    1 |     -4.40 (0,  -25.2) |    -1.04   0.24 n |   -26.25   5.97 n
+    2 |      3.60 (0,   28.4) |    -0.28  -0.08 n |   -19.92  -5.54 n
+    3 |    -24.26 (0, -124.1) |   -33.02   1.36 Y |   -45.12   1.86 Y
+    4 |     28.53 (0,  131.8) |    38.80   1.36 Y |    46.52   1.63 Y
+  top |    283.92 (0,   87.8) |   372.81   1.31 Y |   730.37   2.57 n
+  pass T5 4/6 resolved, K3 2/6; F_g(T5) vs plain CRN-FD sampling at equal FPE 0.00184, vs conditional-law sampling 19.8
+
+dev3_s531 E1(2.75): truth P 1.9218e-08 +- 9.5e-11 (N 2e+07); T5/P 1.058, K3/P 1.225; cost T5 9.91e+05 + 3.28e+04 FPE = 3.04x the K3 walk (3.37e+05); F_P(T5) 6.54e-05
+  dir | truth dlogP (lvl, z) | T5 dlogP  ratio pass | K3 dlogP  ratio pass
+    0 |     -8.63 (0,  -71.0) |    -6.37   0.74 Y |   -19.73   2.29 n
+    1 |     25.99 (1,  103.6) |    23.09   0.89 Y |    20.88   0.80 Y
+    2 |     18.86 (0,  130.2) |    17.66   0.94 Y |    18.49   0.98 Y
+    3 |     19.04 (0,  107.6) |    17.79   0.93 Y |    23.90   1.26 Y
+    4 |     17.22 (1,  108.8) |    13.52   0.79 Y |    12.32   0.72 Y
+  top |    327.77 (0,  107.1) |   303.43   0.93 Y |   538.87   1.64 Y
+  pass T5 6/6 resolved, K3 5/6; F_g(T5) vs plain CRN-FD sampling at equal FPE 1.57e-05, vs conditional-law sampling 1.67

@@ -76,4 +76,83 @@ artefact (curvature at the chosen ladder level): the whole ladder is reported, a
 serves as a negative control: if K3 also "passes" broadly, the test does not discriminate.
 
 ## Status
-Pre-registered; running.
+**Done.** Pre-registered verdict: **NO-GO** (T5/gl20 passes 17/35 resolved directions, 49%; go needs >= 80%).
+
+## Results
+All from `python score.py` (-> `results/score.txt`, `results/score.json`) on `results/case_*.json`
+(`python make_cases.py dev3_s529,dev3_s530,dev3_s531`) and `results/truth_*.json` (`python truth.py <model> <t0> 2e7`).
+Values are d log P per unit step along u, (g . u) / P_truth; truth = CRN FD at the A1-selected level, N = 2e7.
+
+| case | truth P (± s.e.) | T5/P | K3/P | T5 cost / K3 walk | T5 pass | K3 pass | T5 top: pred / truth |
+|---|---|---|---|---|---|---|---|
+| s529 E1(2.35) | 1.433e-7 ± 8e-10 | 1.24 | 1.09 | 3.86x | 3/6 | 1/6 | 45.2 / 57.7 ✓ |
+| s529 E1(2.75) | 1.166e-8 ± 7e-11 | 1.14 | .87 | 4.33x | 3/6 | 2/6 | 20.2 / 43.8 ✗ (.46) |
+| s530 E1(2.35) | 7.145e-7 ± 2e-9 | 1.16 | 1.24 | 2.12x | **0/5** | 2/5 | 2573 / 243 ✗ (10.6) |
+| s530 E1(2.75) | 7.030e-8 ± 2e-10 | 1.27 | 1.23 | 2.32x | **1/6** | 2/6 | 1212 / 262 ✗ (4.6) |
+| s531 E1(2.35) | 2.415e-7 ± 1e-9 | 1.11 | 1.14 | 2.78x | 4/6 | 2/6 | 373 / 284 ✓ |
+| s531 E1(2.75) | 1.922e-8 ± 1e-10 | 1.06 | 1.23 | 3.04x | 6/6 | 5/6 | 303 / 328 ✓ |
+| **pooled** | | 1.06-1.27 | .87-1.24 | 2.1-4.3x | **17/35 NO-GO** | 14/35 | 3/6 top |
+
+- 35 of 36 directions resolved (|z| 5-247; the unresolved one is s530/2.35 dir 4, truth ~0). Per model: s529 6/12,
+  s530 1/11, s531 10/12. Random directions alone: 14/29. Per-direction table: `results/score.txt`.
+- The truths are not the failure [measured]. P agrees with T366's GPU truths (1.43e-7, 1.16e-8, 7.16e-7, 7.02e-8,
+  2.43e-7, 1.91e-8) within 0.1-1.3%. On s530 the FD ladder is flat over a 100x range of steps (top: 243 / 247 / 248 /
+  254 / 248, s.e. 1-11), so the selected truth is not curvature-biased there. T5 overshoots by 5-11x.
+- **Diagnostic (post hoc, not pre-registered; `python diag_fd.py`, `results/diag_fd.log`) [measured].** The central
+  FD of the frozen T5 *value* along s530 / 2.35 top: steps 1e-5 / 1e-4 / 7e-4 / 3e-3 give 1485 / 428 / 323 / 210
+  (truth 243, analytic T5 2573). s530 / 2.75 dir 3: steps 1e-5 to 1e-2 give -113 / -72 / -38 / -25 (truth -17.5,
+  analytic -123). T5's value tracks P (1.16-1.27x), and its slope over a finite step approaches the truth. The
+  pointwise derivative does not. This is the aliasing signature T372 found for K3 along g23, now with lines along
+  g12 on this model.
+- Value: T5 est / truth 1.06-1.27 (all high, as T386 saw); K3 .87-1.24.
+
+**Cost** (executed FPE; walk + endpoint backward): T5 0.76M-1.81M FPE, **2.1-4.3x the K3 walk** (0.32-0.47M). T386
+reported 2.8-3.7x. Truths: 2e7 draws x 61 forwards per case (1.2e9 forward passes per case, 7.3e9 in total).
+
+**F against both bars (pre-registered definitions).**
+| | s529/2.35 | s529/2.75 | s530/2.35 | s530/2.75 | s531/2.35 | s531/2.75 | pooled |
+|---|---|---|---|---|---|---|---|
+| F_g vs plain CRN-FD sampling at equal FPE | .0021 | .0005 | 7.6 | .11 | .0018 | 1.6e-5 | **4.1** (strict fail, lenient pass) |
+| F_g vs conditional-law sampling | 23 | 54 | 8.2e4 | 1.2e4 | 20 | 1.7 | **4.8e4** (both fail) |
+| F_P (value) vs plain sampling | .014 | 3.8e-4 | .013 | .0038 | .0030 | 6.5e-5 | degenerate (P C << 1) |
+
+Against plain sampling, which sees almost no flips at T5's cost, T5 wins on 5/6 cases. The pooled ratio of 4.1
+comes from s530. Against sampling that uses the model-free exact law of g23 > t0, a baseline anyone could build,
+T5 loses by 1.7x to 8e4x.
+
+## Compute accounting
+FPE = 5948 FLOPs. Estimators as counted by the frozen code: T5 0.76-1.81M FPE per case (all 432 derivatives);
+K3 0.32-0.47M. Truth: 7.3e9 RNN forward passes (6 cases x 2e7 draws x 61 weight sets) plus the 1e7-draw sampler
+check; about 14 CPU-min per case. Diagnostic: 16 T5 value runs on s530. Model-free tables (v2 inverse-CDF grid, 2e5
+cells) are not charged.
+
+## Claims
+- [measured] **Pre-registered: NO-GO.** The frozen T5/gl20 gradient (T386, sha256-asserted, unchanged) passes
+  T372's go line on 17/35 resolved directions on 3 fresh DEV3 models x 2 thresholds (go >= 80%). T386's 10/12 does
+  not replicate as a general property of the rule. Scope: E1, P 1.2e-8 to 7.1e-7, non-triple-tie models, T5/gl20 only
+  (T8/mid20x4 not tested).
+- [measured] The failure is model-dependent. s531 passes 10/12 and s529 6/12. s530 passes 1/11, with ratios
+  4.6-11 on the top direction, although T5's value there is within 1.27x.
+- [measured, post hoc] On s530, T5's value differences approach the truth as the step grows while its pointwise
+  slope is 5-10x too large: the transversal lines alias too.
+- [inferred] T386's claim that the g12 orientation removes aliasing holds on the models used to develop it (s526,
+  s528) and on s531. It is not a property of the rule: whether lines along g12 cross the islands transversally
+  depends on each model's island geometry.
+- [measured] K3's own gradient (negative control) passes 14/35, so this test does discriminate. T5 does somewhat
+  better than K3 (17 vs 14) but far from 80%.
+
+## Alternatives not ruled out
+- The truth for single directions at level >= 1 on s529 (where P moves 2-40x at the largest step) might carry some
+  curvature, but the A1 rule picks levels with P changes <= 50%, and s530 (the main failure) has a flat ladder.
+- A finer T config (T8/mid20x4) or an adaptive rule might pass. Not tested: this re-check freezes T5/gl20 as asked.
+- The s530 failure was diagnosed on two directions only. Which endpoints dominate (near-tangent |dm/dg12|) was not
+  isolated.
+- These models were used for value estimation in T366/T368. They were not chosen by gradient behaviour (no
+  gradient had been computed on them), but they are not a random draw from DEV3.
+
+## Failure modes
+- A deterministic fixed-line boundary gradient can alias in any line orientation. Its value and finite-step slope
+  can be fine while the pointwise derivative is 5-10x off (s530). Before trusting such a gradient on a new model,
+  compare it with a finite difference of its own value at a step comparable to the line spacing (`diag_fd.py`).
+- T's value is one-signed high (1.06-1.27x, closure bias), so even a de-aliased T gradient runs about 1.1-1.3x
+  high.
