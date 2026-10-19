@@ -457,3 +457,14 @@ masses.
   3. Soundness of each prune: float LPs; T400's exact verifier is pending on `certs/`.
   4. The mass of the surviving step-10 regions (T400's mass_upper). The bound is only useful if their summed
      event mass is close to the truth at t0 = 2.5 (truth worker running).
+- **[Update] Exact verification (T400, independent code, unverified by the DRI).** All 5,983 pruning certificates in
+  `certs/cert_d0.333_1-8-2_k{2..6}.npz` verify, with 0 failures. That is 2 / 40 / 398 / 2,030 / 3,513 cells at
+  k = 2..6; my earlier note of 5,476 was a miscount.
+  - Method: Neumaier-Shcherbina safe dual bounds, with every bound LP re-solved independently.
+  - Cost: 590 s in total.
+  - Controls: the verifier rejects all 47 bench cells with a found event point, and confirms 717/717 float prunes on
+    a bench sample.
+  - Code: claude/t400-bound-rigour @ 1b013590.
+  - So open item 3 (soundness) is closed for (1,8,2) k <= 6. **Mass (item 4) is the weak side.** T400's cheap
+    rigorous bound is median 365x MC at k = 4; the exact-marginalisation bound (M5) is 6.9x but costs 25 s per cell.
+- Worker B: (2,1,9), a triple with no event hits, is pruned completely by k = 3, with survivors 1 / 1 / 0.
