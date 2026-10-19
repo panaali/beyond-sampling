@@ -1,0 +1,177 @@
+{
+ "16000": {
+  "cost": 16974.54117647059,
+  "cpu_s": 0.37316318400000004,
+  "sampling_s_per_fpe": 8.224130000000002e-07,
+  "time_ratio": 26.730727540108706,
+  "walk": {
+   "calls": 20,
+   "iters": 683,
+   "rowcells": 11708,
+   "faces": 1596,
+   "walk_s": 0.2957580740000001
+  },
+  "profile_total_s": 0.38791575399999983,
+  "profile_top_tottime": [
+   [
+    0.2729,
+    "walk.py:walk"
+   ],
+   [
+    0.0317,
+    "hom.py:<lambda>"
+   ],
+   [
+    0.029,
+    "~:<method 'reduce' of 'numpy.ufunc' objects>"
+   ],
+   [
+    0.0055,
+    "~:<method 'copy' of 'numpy.ndarray' objects>"
+   ],
+   [
+    0.0041,
+    "_ufunc_config.py:__enter__"
+   ],
+   [
+    0.004,
+    "~:<method 'any' of 'numpy.ndarray' objects>"
+   ],
+   [
+    0.004,
+    "multiarray.py:where"
+   ],
+   [
+    0.0032,
+    "_methods.py:_any"
+   ],
+   [
+    0.0024,
+    "~:<method 'min' of 'numpy.ndarray' objects>"
+   ],
+   [
+    0.0024,
+    "~:<built-in method numpy.arange>"
+   ],
+   [
+    0.002,
+    "_ufunc_config.py:__exit__"
+   ],
+   [
+    0.0019,
+    "_methods.py:_amin"
+   ]
+  ]
+ },
+ "64000": {
+  "cost": 64031.09411764706,
+  "cpu_s": 0.6687184640000003,
+  "sampling_s_per_fpe": 1.0342081953124994e-06,
+  "time_ratio": 10.098210442623834,
+  "walk": {
+   "calls": 30,
+   "iters": 1158,
+   "rowcells": 44174,
+   "faces": 5644,
+   "walk_s": 0.6227912629999999
+  },
+  "profile_total_s": 0.8038911710000004,
+  "profile_top_tottime": [
+   [
+    0.56,
+    "walk.py:walk"
+   ],
+   [
+    0.075,
+    "~:<method 'reduce' of 'numpy.ufunc' objects>"
+   ],
+   [
+    0.0692,
+    "hom.py:<lambda>"
+   ],
+   [
+    0.012,
+    "~:<method 'copy' of 'numpy.ndarray' objects>"
+   ],
+   [
+    0.0071,
+    "_ufunc_config.py:__enter__"
+   ],
+   [
+    0.0068,
+    "~:<method 'any' of 'numpy.ndarray' objects>"
+   ],
+   [
+    0.0065,
+    "multiarray.py:where"
+   ],
+   [
+    0.0061,
+    "~:<method 'min' of 'numpy.ndarray' objects>"
+   ],
+   [
+    0.0054,
+    "_methods.py:_any"
+   ],
+   [
+    0.0045,
+    "_qmc.py:_random"
+   ],
+   [
+    0.0043,
+    "~:<built-in method numpy.arange>"
+   ],
+   [
+    0.0033,
+    "_ufunc_config.py:__exit__"
+   ]
+  ]
+ },
+ "large_batch": {
+  "strata": {
+   "230": {
+    "faces": 65536,
+    "rowcells": 283359,
+    "fpe": 407941.8352941177,
+    "cpu_s": 3.625420160999999,
+    "s_per_fpe": 8.887100677934014e-06,
+    "iters": 23
+   },
+   "231": {
+    "faces": 65536,
+    "rowcells": 750258,
+    "fpe": 1169323.5647058827,
+    "cpu_s": 5.819386229999999,
+    "s_per_fpe": 4.976711669591415e-06,
+    "iters": 85
+   },
+   "232": {
+    "faces": 65536,
+    "rowcells": 539164,
+    "fpe": 829229.705882353,
+    "cpu_s": 5.093807582000002,
+    "s_per_fpe": 6.142818504771085e-06,
+    "iters": 55
+   },
+   "120": {
+    "faces": 65536,
+    "rowcells": 954143,
+    "fpe": 1341173.011764706,
+    "cpu_s": 7.937690273000001,
+    "s_per_fpe": 5.918468537146929e-06,
+    "iters": 88
+   },
+   "122": {
+    "faces": 65536,
+    "rowcells": 658435,
+    "fpe": 869568.8941176471,
+    "cpu_s": 5.719969108000001,
+    "s_per_fpe": 6.577936661136048e-06,
+    "iters": 53
+   }
+  },
+  "s_per_fpe": 6.106741603724474e-06,
+  "sampling_s_per_fpe": 7.122671394348026e-07,
+  "time_ratio_vectorised": 8.57366747056489
+ }
+}
