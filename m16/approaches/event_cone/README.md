@@ -504,3 +504,30 @@ masses.
   pruning. A per-triple certificate is feasible for early triples such as (1,8,2), pending the k = 10 mass cost.
 - Untried: an abstraction of the reachable hidden state after the low-only steps, with a sound charge for its
   preimage mass.
+
+## T398b progress, k = 9, and the (1,2,0) side measurement (2026-10-19) [measured]
+- (1,8,2), k = 9: **13,040 survivors** from 77,857 children, ×4.26 over k = 8. Growth jumps at the step that reads
+  p2 = 8. 801 line-walk event prefixes, 0 pruned. k = 10 is running.
+  - The k <= 6 projection (1.3e4 at k = 10) is already exceeded at k = 9.
+- (1,2,0) at DELTA 1/3, a no-hit triple whose three positions are all read by step 3: survivors 2 / 11 / 35 / 168 /
+  973 / **3,609** at k = 1..6 (×3.7 at 5->6).
+  - So "two positions read early" is necessary for pruning, not sufficient. This triple has no line-walk event
+    points, yet it keeps growing.
+- Worker sample (DELTA 1/3, per-triple caps 0.6-1.5 CPU-h). "Censored" means the run was stopped before k = 6.
+
+  | triple | survivors by k | status |
+  |---|---|---|
+  | (2,1,9) | 1 / 1 / 0 | pruned completely by k = 3 |
+  | (1,9,3) | 371 at k = 6 | complete |
+  | (8,4,0) | 509 at k = 6 | complete |
+  | (9,0,1) | 912 at k = 6 | complete |
+  | (1,9,7) | 1,239 at k = 5 | censored |
+  | (2,4,3) | 671 at k = 5 | censored |
+  | (3,7,8), (5,7,6) | 2 / 34 / 792, nothing pruned | censored at k = 3 |
+  | (4,6,2) | 290 at k = 3 | censored |
+  | (4,9,2) | 277 at k = 3 | censored |
+  | (2,9,7) | 220 at k = 3 | censored |
+  | (6,9,1) | 82 at k = 3 | censored |
+  | (8,4,7), (4,9,5) | 34 at k = 2 | censored |
+
+  Details are in the workers' logs and json files in this folder.
