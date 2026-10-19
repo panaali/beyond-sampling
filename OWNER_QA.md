@@ -993,6 +993,12 @@ the tasks, then one session per task. The owner also passed on another agent's l
   question (accuracy on the fixed input distribution is).
 - *Plan:* T419 screens candidate tasks on the exact architecture and recipe; then one session per selected task applies the
   transferable methods against both bars.
+- *Follow-up (owner, 14:2x): tasks that return a PAIR of positions, trained with a multi-label loss.* DRI: yes, as a second
+  tier. Keep the same 10 output units (no extra parameters), train with sigmoid/BCE or a listwise top-2 loss, read out the
+  top-2 logits, and score exact set match. The walk code adapts, because the decision boundary becomes the 2nd-vs-3rd logit
+  crossing (still piecewise linear). Prefer genuinely 2-D pairs (two largest, closest pair |x_i - x_j|); 'adjacent pair' is one
+  position. At most 2 of T419's 5 picks may be pair tasks, so that at least 3 keep M_16,10's single-position readout and ARC's
+  accuracy metric.
 
 ## 7. Status timeline
 
