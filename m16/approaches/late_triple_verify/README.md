@@ -76,6 +76,13 @@ triple (E3 or E4; for E4 counted in boxes + domains).
 - A re-check mismatch in E1 could be a T414 bug or an auto_LiRPA option difference (e.g. lower-slope rule); checked by
   comparing on single-unstable-neuron cases if it happens.
 
+**Deviation D1 (2026-10-19, written before its run; SECONDARY, not used for the kill decision).** Mid-run, E2 gave an
+alpha-CROWN covering estimate below 1e9 (ideal 2.9e5, halved 1.5e8), while E3's near-exact mass sat flat at ~2.8e-8
+with pruning almost stopped. This is pre-registered alternative 3 (search vs bounds). One secondary run:
+E3's search with the pop order switched to the near-exact box mass (`--order quad`), everything else unchanged, 2 CPU-h,
+`lbab.py 3,7,8 OUT 7200 --stages crown,alpha --K 256 --order quad`. Reported: the near-exact curve, pruned fraction and
+projection. The radial charge stays the rigorous figure.
+
 ## Method
 - `net.py`: model, coordinates, slab sampler, charges. `lbab.py`: BaB with library bounds.
 - Other scripts are added with their results.

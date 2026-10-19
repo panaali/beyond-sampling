@@ -98,7 +98,7 @@ def run(a):
     res = []                                                       # reservoir of pruned boxes (soundness check)
     rng = np.random.default_rng(418)
     while len(LO) and time.process_time() - t0 < a.sec:
-        k = min(a.K, len(LO)); idx = th.topk(CH, k).indices; keep = th.ones(len(LO), dtype=th.bool); keep[idx] = False
+        k = min(a.K, len(LO)); idx = th.topk(QM if a.order == "quad" else CH, k).indices; keep = th.ones(len(LO), dtype=th.bool); keep[idx] = False
         blo, bhi, d = LO[idx], HI[idx], SD[idx]; LO, HI, CH, QM, SD = LO[keep], HI[keep], CH[keep], QM[keep], SD[keep]
         ar = th.arange(k); mid = (blo[ar, d] + bhi[ar, d]) / 2
         h1 = bhi.clone(); h1[ar, d] = mid; l2 = blo.clone(); l2[ar, d] = mid
@@ -128,7 +128,7 @@ def run(a):
             curve.append(row)
             print(" ".join("%s %s" % (k_, ("%.3e" % v) if isinstance(v, float) else v) for k_, v in row.items()), flush=True)
     out = dict(tri=tri, stages=stages, K=a.K, alpha_iter=a.alpha_iter, abc_timeout=a.abc_timeout, abc_mode=a.abc_mode,
-               resume=a.resume, tail=TAIL, final=curve[-1] if curve else None, abc_status=st["abc_status"], curve=curve)
+               resume=a.resume, order=a.order, tail=TAIL, final=curve[-1] if curve else None, abc_status=st["abc_status"], curve=curve)
     json.dump(out, open(a.out, "w"), indent=1)
     th.save(dict(lo=LO, hi=HI, sd=SD, ch=CH, qm=QM,
                  pruned_lo=th.cat([r[0] for r in res]) if res else None, pruned_hi=th.cat([r[1] for r in res]) if res else None),
@@ -142,4 +142,5 @@ if __name__ == "__main__":
     ap.add_argument("--alpha-iter", type=int, default=20); ap.add_argument("--resume", default="")
     ap.add_argument("--abc-timeout", type=float, default=2.0); ap.add_argument("--abc-mode", default="mixed")
     ap.add_argument("--log-sec", type=float, default=60)
+    ap.add_argument("--order", default="radial", help="radial (pre-registered) or quad (deviation D1: near-exact mass)")
     run(ap.parse_args())
