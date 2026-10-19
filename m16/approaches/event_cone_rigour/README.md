@@ -291,6 +291,17 @@ futile (the C_true curve).
   - M2 alone is useless here: 1e2-1e5x, and vacuous on one shard.
   - Even an exact k = 6 charge would cost C_true(6) = 2.5e-8, above the target.
 
+
+### T398's option (c), event-projection cuts: float pre-test [measured; `python cut_test.py 1,8,2 6 2.5 2e8`]
+- **Method.** For each of the 781 k = 6 survivors, I computed homogeneous cuts ±x_i <= β g23 with
+  β = max over the event-aware LP relaxation of ±x_i/g23 (a Charnes–Cooper LP).
+- **Result.** The cuts keep **3,628 of 3,629** MC slab points in the survivors (C_true 2.52e-8 → 2.519e-8).
+- **Reading** [inferred]. The relaxation's projection onto x is essentially the whole cell, since the triangle
+  relaxation of 4 remaining steps is loose. So these cuts cannot shrink the charge.
+- **Not tried:**
+  - other directions (e.g. the LP's own extreme directions);
+  - cuts on split leaves (stage-3 style), which give tighter projections.
+
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
