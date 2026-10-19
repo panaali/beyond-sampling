@@ -62,6 +62,14 @@ def simplex_vols(Z, S, n, signs=None):
     return out
 
 
+def tree_sum(xs):
+    """Exact sum by pairwise reduction (sequential summation of rationals with growing denominators is quadratic)."""
+    xs = list(xs) or [fmpq(0)]
+    while len(xs) > 1:
+        xs = [xs[i] + xs[i + 1] if i + 1 < len(xs) else xs[i] for i in range(0, len(xs), 2)]
+    return xs[0]
+
+
 def _parity(seq):
     """+1 / -1: sign of the permutation sorting seq (distinct items)."""
     p = 1; a = list(seq)
@@ -199,7 +207,7 @@ def check_cell(A_full, b_full, A_kept, V, inc, S, vlo, vhi, n, ridge_max=300_000
         if not (fmpq(*float(l).as_integer_ratio()) <= v <= fmpq(*float(h).as_integer_ratio())):
             enc += 1
     out["enclosure_fail"] = enc
-    tot = sum(vols, fmpq(0))
+    tot = tree_sum(vols)
     lv = lasserre_volume(W, I, n)
     out["vol_equal"] = tot == lv
     out["vol_float"] = float(tot)

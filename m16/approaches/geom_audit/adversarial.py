@@ -190,10 +190,11 @@ def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else 420
     rng = np.random.default_rng(seed)
     start = int(sys.argv[2]) if len(sys.argv) > 2 else 0     # resume: skip the first `start` cases
+    stop = int(sys.argv[3]) if len(sys.argv) > 3 else 10 ** 9
     path = os.path.join(HERE, "results_c_%d.jsonl" % seed)
     with open(path, "a" if start else "w") as fh:
         for ci, (label, A, b) in enumerate(families(rng)):
-            if ci < start:
+            if ci < start or ci >= stop:
                 continue
             t = time.perf_counter()
             try:
