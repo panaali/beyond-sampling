@@ -18,10 +18,17 @@ if len(sys.argv) > 2:
     plan = [p for p in plan if p[1] in sys.argv[2].split(",")]
 model, _ = load(name)
 lang = Dyck2(L=15)
+import os
+done = set()
+if os.path.exists(f"{DATA}/score15.jsonl"):
+    for l in open(f"{DATA}/score15.jsonl"):
+        r = json.loads(l); done.add((r["model"], round(r["tau"], 6), r["budget"], r["method"], r["rep"]))
 out = open(f"{DATA}/score15.jsonl", "a")
 for tau, truth, target in points(name):
     for budget, meth, reps in plan:
         for r in range(reps):
+            if (name, round(tau, 6), budget, meth, r) in done:
+                continue
             seed = zlib.crc32(f"{name}|{tau:.6f}|{budget:.0e}|{meth}|{r}".encode())
             t0 = time.time()
             e, c = METHODS[meth](model, lang, 15, tau, budget, np.random.default_rng(seed))

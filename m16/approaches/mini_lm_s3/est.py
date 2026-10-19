@@ -52,6 +52,8 @@ def phi_at(model, lang, y, t, chunk=8192):
 
 def phi_all(model, lang, y, chunk=8192):
     """(N, L) p_illegal at every position for full sequences y (N, L)."""
+    if len(y) > 50000:  # memory
+        return np.concatenate([phi_all(model, lang, y[i:i + 50000], chunk) for i in range(0, len(y), 50000)])
     lg = torch.from_numpy(logits_of(model, lang, y, chunk=chunk))
     p = torch.softmax(lg, -1).numpy()
     dep, top, _ = stack_info(y)
@@ -307,7 +309,10 @@ class Twist:
         p = np.exp(lg); p /= p.sum(1, keepdims=True)
         return (1 - self.alpha) * p + self.alpha * w.law(), F
 
-    def run(self, N, L, rng):
+    def run(self, N, L, rng, keep_features=True):
+        if not keep_features and N > 50000:  # memory: sample in chunks (same law)
+            parts = [self.run(min(50000, N - i), L, rng, False) for i in range(0, N, 50000)]
+            return (np.concatenate([p[0] for p in parts]), np.concatenate([p[1] for p in parts]), None, None, None)
         w = Walk(N, L)
         llr = np.zeros(N)
         Fs, As = [], []
@@ -317,16 +322,19 @@ class Twist:
             a = (u > p[:, 0]).astype(np.int64) + (u > p[:, 0] + p[:, 1])
             pl = w.law()
             llr += np.log(pl[np.arange(N), a]) - np.log(p[np.arange(N), a])
-            Fs.append(F); As.append(a)
+            if keep_features:
+                Fs.append(F.astype(np.float32)); As.append(a.astype(np.int8))
             w.step(a)
         p = w.law(); u = rng.random(N)
         w.step((u > p[:, 0]).astype(np.int64) + (u > p[:, 0] + p[:, 1]))
+        if not keep_features:
+            return w.y, llr, None, None, None
         return w.y, llr, np.stack(Fs, 1), np.stack(As, 1), w
 
     def fit(self, Fs, As, wts, masks, iters=60, l2=1e-2):
         th = torch.tensor(self.th, requires_grad=True)
-        F = torch.from_numpy(Fs.reshape(-1, Fs.shape[-1]))
-        A = torch.from_numpy(As.reshape(-1))
+        F = torch.from_numpy(Fs.reshape(-1, Fs.shape[-1]).astype(np.float64))
+        A = torch.from_numpy(As.reshape(-1).astype(np.int64))
         W = torch.from_numpy(np.repeat(wts / wts.sum(), Fs.shape[1]))
         M = torch.from_numpy(masks.reshape(-1, 3))
         opt = torch.optim.LBFGS([th], max_iter=iters, line_search_fn="strong_wolfe")
@@ -369,6 +377,8 @@ def ce_is(model, lang, L, tau, budget, rng, rho=0.1, alpha=0.05, frac_final=0.5,
         el = [k[4] >= g if g < tau else k[4] > tau for k in keep]
         if sum(e.sum() for e in el) < 5:
             continue
+        keep = [tuple(a[e] for a in k) for k, e in zip(keep, el)]  # memory: non-elites can never re-enter
+        el = [np.ones(len(k[4]), bool) for k in keep]
         lw = np.concatenate([k[3][e] for k, e in zip(keep, el)])
         wts = np.exp(lw - lw.max())
         tw.fit(np.concatenate([k[0][e] for k, e in zip(keep, el)]), np.concatenate([k[1][e] for k, e in zip(keep, el)]),
@@ -378,7 +388,7 @@ def ce_is(model, lang, L, tau, budget, rng, rho=0.1, alpha=0.05, frac_final=0.5,
             if at_tau > n_refine:
                 break
     n_fin = max(500, int(budget - spent))
-    y, llr, _, _, _ = tw.run(n_fin, L, rng)
+    y, llr, _, _, _ = tw.run(n_fin, L, rng, keep_features=False)
     S, Z = sc(y)
     spent += n_fin
     est = float((np.exp(llr) * Z * (S > tau)).mean())
@@ -398,50 +408,63 @@ def replay(prefixes, L):
     return w
 
 
-def toprisk(model, lang, L, tau, budget, rng, f_ce=0.3, f_head=0.35, ce_kw=None):
+def _key(pre):
+    k = 1
+    for tok in pre:
+        k = (k << 2) | int(tok)
+    return k
+
+
+def _unkey(k):
+    out = []
+    while k > 1:
+        out.append(k & 3); k >>= 2
+    return tuple(reversed(out))
+
+
+def toprisk(model, lang, L, tau, budget, rng, f_ce=0.3, f_head=0.35, ce_kw=None, max_nodes=3_000_000):
     """(1) CE stages (f_ce of the budget) fit a twisted law Q ~ P(. | event). (2) Deductive head: best-first
     expansion of the prefix tree by log Q(prefix); every child is evaluated, a child whose running max exceeds
     tau is closed with its exact language mass P(prefix). (3) Sampled tail: fresh paths from Q; a path counts
     LR x 1[event] only if it leaves the expanded tree through an unclosed frontier node (paths through closed
-    or exhausted nodes are already counted exactly). Unbiased; head deductive, tail sampling-based."""
+    or exhausted nodes are already counted exactly). Unbiased; head deductive, tail sampling-based.
+    Memory: prefixes are integer keys; the head stops at max_nodes stored nodes (unspent head budget -> tail)."""
     ce_kw = ce_kw or {}
     _, spent, tw = _ce_fit(model, lang, L, tau, f_ce * budget, rng, **ce_kw)
     cost = Cost(model, L)
     cost.total = spent
-    lq2, l1q, lh = math.log(Q / 2), math.log(1 - Q), math.log(.5)
     root_phi = phi_at(model, lang, np.zeros((1, 0), np.int64), 0)[0]
     cost.add(0)
     if root_phi > tau:
         return 1.0, cost.total
     exact = 0.0
     expanded = set()
-    heap = [(0.0, 0, (), 0.0, root_phi)]  # (-logQ, id, prefix, logP, runmax)
+    heap = [(0.0, 0, 1, 0.0, root_phi)]  # (-logQ, id, key, logP, runmax)
     cnt = 1
     head_end = cost.total + f_head * budget
-    while heap and cost.total < head_end:
+    while heap and cost.total < head_end and len(expanded) + len(heap) < max_nodes:
         batch = [heapq.heappop(heap) for _ in range(min(len(heap), 512))]
         bylen = {}
         for it in batch:
-            bylen.setdefault(len(it[2]), []).append(it)
+            pre = _unkey(it[2])
+            bylen.setdefault(len(pre), []).append((it, pre))
         for t, items in bylen.items():
-            w = replay([it[2] for it in items], L)
+            w = replay([pre for _, pre in items], L)
             pq, _ = tw.probs(w)
             pl = w.law()
-            kids, klp, klq, krm = [], [], [], []
-            for j, (nq, _, pre, lp, rm) in enumerate(items):
-                expanded.add(pre)
+            kids, kk, klp, klq, krm = [], [], [], [], []
+            for j, ((nq, _, key, lp, rm), pre) in enumerate(items):
+                expanded.add(key)
                 top = int(w.top()[j]); d = int(w.d[j])
-                acts = (0, 1, 2) if d > 0 else (0, 1)
-                for a in acts:
+                for a in ((0, 1, 2) if d > 0 else (0, 1)):
                     tok = top if a == 0 else (1 - top if a == 1 else 2 + top)
-                    kids.append(pre + (tok,)); klp.append(lp + math.log(pl[j, a])); klq.append(-nq + math.log(pq[j, a]))
-                    krm.append(rm)
+                    kids.append(pre + (tok,)); kk.append((key << 2) | tok)
+                    klp.append(lp + math.log(pl[j, a])); klq.append(-nq + math.log(pq[j, a])); krm.append(rm)
             if t + 1 > L - 1:
                 continue
-            Y = np.array(kids, np.int64)
-            ph = phi_at(model, lang, Y, t + 1)
+            ph = phi_at(model, lang, np.array(kids, np.int64), t + 1)
             cost.add(t + 1, len(kids))
-            for k, lp, lq, rm, p in zip(kids, klp, klq, krm, ph):
+            for k, lp, lq, rm, p in zip(kk, klp, klq, krm, ph):
                 r = max(rm, p)
                 if r > tau:
                     exact += math.exp(lp)
@@ -450,19 +473,23 @@ def toprisk(model, lang, L, tau, budget, rng, f_ce=0.3, f_head=0.35, ce_kw=None)
                     heapq.heappush(heap, (-lq, cnt, k, lp, r))
                 else:
                     expanded.add(k)  # exhausted leaf: no event, resolved
+    del heap
     n_fin = max(500, int(budget - cost.total))
-    y, llr, _, _, _ = tw.run(n_fin, L, rng)
+    y, llr, _, _, _ = tw.run(n_fin, L, rng, keep_features=False)
     S = phi_all(model, lang, y)
     cost.total += n_fin
     unc = np.zeros(n_fin, bool)
     for i in range(n_fin):
-        row = tuple(y[i, :L - 1].tolist())
-        t = 0
-        while t <= L - 1 and row[:t] in expanded:
-            t += 1
+        row = y[i, :L - 1].tolist()
+        t, k = 0, 1
+        while t <= L - 1 and k in expanded:
+            if t == L - 1:
+                t += 1
+                break
+            k = (k << 2) | row[t]; t += 1
         if t > L - 1:
             continue  # every prefix resolved in the head: exhausted path without event
-        # row[:t] is an evaluated child of an expanded node (t >= 1): closed iff its running max > tau
+        # prefix row[:t] is an evaluated child of an expanded node (t >= 1): closed iff its running max > tau
         unc[i] = t == 0 or S[i, :t + 1].max() <= tau
     S = S[:, :L].max(1)
     return exact + float((np.exp(llr) * (S > tau) * unc).mean()), cost.total
