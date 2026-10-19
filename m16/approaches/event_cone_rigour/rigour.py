@@ -1006,11 +1006,42 @@ def _E_simplex_exp(mu, t, upper):
     return E.upper() if upper else E.lower()
 
 
+def _E_exp(tv, upper):
+    """Rigorous bound on E_unif over a simplex of exp(-u), u affine with vertex values tv (arb balls):
+    E = n! h[t_0..t_n] (-1)^n, h = exp(-t) (Hermite-Genocchi). Upper: knots replaced by lower endpoints and moved
+    down to separate them (E decreases in every knot); lower: upper endpoints moved up. Falls back to
+    exp(-min t) / exp(-max t) when the arb ball is not tight."""
+    n = len(tv) - 1
+    pts = [x.lower() if upper else x.upper() for x in tv]
+    lo_ = min(pts, key=float); hi_ = max(pts, key=float)
+    trivial = (-lo_).exp() if upper else (-hi_).exp()
+    if n == 0:
+        return trivial
+    eps = arb(fmpq(1, 10 ** 9)) * (1 + (hi_ - lo_))
+    order = sorted(range(len(pts)), key=lambda i: float(pts[i]))
+    T = [None] * len(pts)
+    for r, i in enumerate(order):
+        T[r] = pts[i] - r * eps if upper else pts[i] + r * eps
+    dd = [(-x).exp() for x in T]
+    for lev in range(1, n + 1):
+        dd = [(dd[i + 1] - dd[i]) / (T[i + lev] - T[i]) for i in range(len(dd) - 1)]
+    E = dd[0] * math.factorial(n) * (-1) ** n
+    if not E.is_finite() or float(E.rad()) > 1e-6 * abs(float(E.mid())) or float(E.mid()) <= 0:
+        return trivial
+    return E.upper() if upper else E.lower()
+
+
+def _logPhi(x):
+    return ((-x) / arb(2).sqrt()).erfc().log() - arb(2).log()
+
+
 def _bounds_tangent(Ys, Ms, vol, d, zg, mlow, ip3, c0):
-    """Per-simplex bounds for M5 with the exact identity s(y) = s_c + tau(y) + |m(y) - m_c|^2,
-    tau = 2 m_c.(m - m_c) affine: upper uses s >= s_c + tau, lower uses s <= s_c + tau + R^2 (R^2 = max vertex
-    |M_i - m_c|^2). The tau-dependence is integrated exactly over the simplex (divided differences); z = g23 is
-    binned with lambda = z^2/2 bounded per bin; the last (unbounded) bin uses the s_min bound."""
+    """Per-simplex bounds for M5t. Exact identity s(y) = s_c + tau(y) + |m(y) - m_c|^2, tau = 2 m_c.(m - m_c)
+    affine; upper uses s >= s_c + tau, lower uses s <= s_c + tau + R^2 (R^2 = max vertex |M_i - m_c|^2).
+    Phi(z y_p3)^mlow: upper by the tangent of the concave log Phi at x0 = z_mid y_p3(c), lower by its chord over
+    the simplex x bin; both are exp-linear in y. The exp-linear part is integrated exactly over the simplex
+    (_E_exp); z = g23 is binned with lambda = z^2/2 bounded per bin; the last (unbounded) bin uses the
+    s_min / s_max bounds."""
     Pf = np.array([[float(v) for v in p] for p in Ms])
     rho = 1e3
     beta, _ = nnls(np.vstack([Pf.T, rho * np.ones(len(Ms))]), np.r_[np.zeros(Pf.shape[1]), rho])
@@ -1021,36 +1052,63 @@ def _bounds_tangent(Ys, Ms, vol, d, zg, mlow, ip3, c0):
     mc = [sum(bq[i] * Ms[i][k] for i in range(len(Ms))) for k in range(len(Ms[0]))]
     sc = sq(mc)
     tau = [2 * sum(a * (b - c) for a, b, c in zip(mc, M, mc)) for M in Ms]
-    tmin = min(tau); tsh = [x - tmin for x in tau]
+    tmin = min(tau); tsh = [arb(x - tmin) for x in tau]
     R2 = max(sq([b - c for b, c in zip(M, mc)]) for M in Ms)
     smin = max(min_sq_lower(Ms), fmpq(1, 2)); smax = max(sq(p) for p in Ms)
-    yp_hi = max(y[ip3] for y in Ys); yp_lo = min(y[ip3] for y in Ys)
+    yp = [y[ip3] for y in Ys]; ypA = [arb(v) for v in yp]
+    yp_hi = max(yp); yp_lo = min(yp); ypc = sum(bq[i] * yp[i] for i in range(len(yp)))
+    neg = arb(max(fmpq(0), -yp_lo))
     hi = arb(0); lo = arb(0)
     for a, bb in zip(zg[:-1], zg[1:]):
-        if mlow:
-            zt = (bb if yp_hi >= 0 else a)
-            sup_phi = arb(1) if zt is None else (-(arb(zt) * arb(yp_hi)) / arb(2).sqrt()).erfc() / 2
-            zl = (a if yp_lo >= 0 else bb)
-            inf_phi = arb(0) if zl is None and yp_lo < 0 else (-(arb(zl) * arb(yp_lo)) / arb(2).sqrt()).erfc() / 2
-            sup_phi, inf_phi = _ipow(sup_phi, mlow), _ipow(inf_phi, mlow)
-        else:
-            sup_phi = inf_phi = arb(1)
         if bb is None:
+            if mlow:
+                sup_phi = arb(1) if yp_hi >= 0 else _ipow((-(arb(a) * arb(yp_hi)) / arb(2).sqrt()).erfc() / 2, mlow)
+                inf_phi = arb(0) if yp_lo < 0 else _ipow((-(arb(a) * arb(yp_lo)) / arb(2).sqrt()).erfc() / 2, mlow)
+            else:
+                sup_phi = inf_phi = arb(1)
             hi += _G_arb(d, smin, a, bb) * sup_phi
             lo += _G_arb(d, smax, a, bb) * inf_phi
             continue
-        llo = arb(a) ** 2 / 2; lhi = arb(bb) ** 2 / 2
-        # upper: e^{-lam tau} <= e^{-lam_x tmin} e^{-lam_lo (tau - tmin)}
+        A_, B_ = arb(a), arb(bb)
+        llo = A_ ** 2 / 2; lhi = B_ ** 2 / 2
         lx = lhi if tmin < 0 else llo
-        Eu = (-lx * arb(tmin)).exp() * _E_simplex_exp(llo, tsh, True)
-        hi += _G_arb(d, sc, a, bb) * Eu * sup_phi
         ly = llo if tmin < 0 else lhi
-        El = (-ly * arb(tmin)).exp() * _E_simplex_exp(lhi, tsh, False)
-        lo += _G_arb(d, sc + R2, a, bb) * El * inf_phi
+        if mlow:
+            x0 = (A_ + B_) / 2 * arb(ypc)
+            lp0 = _logPhi(x0)
+            r0 = (-(x0 * x0) / 2).exp() / (2 * arb.pi()).sqrt() / lp0.exp()
+            cu = mlow * (lp0 - r0 * x0 + r0 * (B_ - A_) * neg)
+            uu = [llo * t - mlow * r0 * B_ * y for t, y in zip(tsh, ypA)]
+            xl = min(a * yp_lo, bb * yp_lo); xh = max(a * yp_hi, bb * yp_hi)
+            lxl = _logPhi(arb(xl))
+            if xh > xl:
+                bet = (_logPhi(arb(xh)) - lxl) / (arb(xh) - arb(xl))
+            else:
+                bet = arb(0)
+            cl = mlow * (lxl - bet * arb(xl) - bet * (B_ - A_) * neg)
+            ul = [lhi * t - mlow * bet * A_ * y for t, y in zip(tsh, ypA)]
+        else:
+            cu = cl = arb(0)
+            uu = [llo * t for t in tsh]; ul = [lhi * t for t in tsh]
+        Eu = (-lx * arb(tmin) + cu).exp() * _E_exp(uu, True)
+        El = (-ly * arb(tmin) + cl).exp() * _E_exp(ul, False)
+        if mlow:                                          # also the constant sup/inf of Phi^m; keep the better
+            zt = bb if yp_hi >= 0 else a
+            sup_phi = _ipow((-(arb(zt) * arb(yp_hi)) / arb(2).sqrt()).erfc() / 2, mlow)
+            zl = a if yp_lo >= 0 else bb
+            inf_phi = _ipow((-(arb(zl) * arb(yp_lo)) / arb(2).sqrt()).erfc() / 2, mlow)
+            Eu2 = (-lx * arb(tmin)).exp() * sup_phi * _E_exp([llo * t for t in tsh], True)
+            El2 = (-ly * arb(tmin)).exp() * inf_phi * _E_exp([lhi * t for t in tsh], False)
+            if not Eu.is_finite() or float(Eu2.upper()) < float(Eu.upper()):
+                Eu = Eu2
+            if not El.is_finite() or float(El2.lower()) > float(El.lower()):
+                El = El2
+        hi += _G_arb(d, sc, a, bb) * Eu
+        lo += _G_arb(d, sc + R2, a, bb) * El
     return c0 * vol * lo, c0 * vol * hi
 
 
-def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False, tangent=False, zratio=fmpq(27, 25)):
+def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False, tangent=False, zratio=fmpq(27, 25), norm=NORM):
     """Method M5 (k < 10, event ignored): rigorous [lb, ub] on gamma(cell ∩ N_I ∩ {g23 >= t0}).
     The cell's gate rows involve x_0..x_{k-1} only. With I = {0..k-1} ∪ tri, the m lows outside I enter only
     through x_l <= x_p3, i.e. a factor Phi(x_p3)^m (exact). N is kept for the coordinates in I (dropping it
@@ -1083,7 +1141,7 @@ def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info
             return (0.0, 0.0, {}) if return_info else (0.0, 0.0)
     for i in range(n):                                     # N on I: |m_j| <= NORM
         ee = [zero] * n; ee[i] = one
-        add(ee, fmpq(-NORM) - (1 if i == ip3 else 0)); add([-v for v in ee], fmpq(-NORM) + (1 if i == ip3 else 0))
+        add(ee, fmpq(-norm) - (1 if i == ip3 else 0)); add([-v for v in ee], fmpq(-norm) + (1 if i == ip3 else 0))
     A = [list(c) for c in out]; b = [out[c] for c in out]
     keep = irredundant(A, b)
     Af, bf = A, b
