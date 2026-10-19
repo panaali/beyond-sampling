@@ -92,6 +92,8 @@ Step 1, simplicity ladder (bias-free ReLU MLPs, the same task, recipe and label 
 - Added rungs (2026-10-19 ~00:40, after seeing seed-0 screens D2w32 .855, D3w24 .863, D3w32 .961, D2w64 .93 at 3/4 of
   training): D2w128 and D3w28 (seed 0), to bracket the narrowest depth-2 and depth-3 widths. Seeds 1-2 of D3w32
   started per the rule above.
+- Added rungs (2026-10-19 ~01:30): D3w32 seed 1 reached only .926 (seed 0 .961), D2w64 seed 0 .932, so D3w48, D3w64
+  and D4w32 (seed 0) are added.
 
 Step 2, on the chosen network(s): the pre-registered stage-2/3 analysis above (region counts vs the RNN's x23-33
 per step, exact-accuracy attempt, exact walks, F at C >= 1k FPE vs plain sampling, M_16,10 control with the same
