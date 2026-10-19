@@ -425,3 +425,10 @@ masses.
     `certs/` (git-ignored if large).
 - Side measurement: (1,2,0) to k = 5 at DELTA = 1/3. The T398 side run at DELTA 0.1 was stopped at k = 4 (326
   survivors) to free the core.
+- **Scope (DRI condition, written before T398b's result was read).** A bound from this lane covers **t0 = 2.5
+  only** (DELTA = 1/3).
+  - For t0 = 2.0 (the T402 threshold), DELTA can be at most 2.0/7.5 = 0.267, so pruning is weaker and node counts
+    are higher.
+  - Its node count will be projected separately from a DELTA = 0.267 run (or interpolated between the 0.1 and 1/3
+    runs, labelled as such).
+  - Nobody should read a 2.5 bound as covering 2.0.
