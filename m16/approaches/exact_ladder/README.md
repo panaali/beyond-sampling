@@ -88,7 +88,7 @@ SUMMARY_TABLE
 | 3 | 838 | 305 | 511 | 666 | 0 (closed form) | 0 (z rms 0.93) | far below | yes / yes |
 | 4 | 28,212 | 18,524 | 96,845 | 3.9e5; 5.6-6.6e5 | <= 7e-8 | <= 2e-8 (z rms 1.10) | far below | **no** / yes |
 | 5 | T5_CELLS | T5_WRONG | T5_SIMP | T5_FPE | T5_ERR | T5_RATIO | far below | **no / no** |
-| 6 (extrap.) | T6_CELLS | T6_WRONG | T6_SIMP | T6_FPE | - | - | - | no / no |
+| 6 (extrap., seed0) | 2.4e7 (exact step-5 prefix 722,698) | 3.6e7 | 4.3e9 | 1.4e10 (enumeration + triangulation alone 1.5e9) | - | - | - | no / no |
 
 ### 1. Exactness checks (measured)
 
@@ -248,6 +248,126 @@ deterministic QMC-class quadrature (DRI ruling for T10). The hybrid as a whole i
 - (c) The exact part is too expensive only because the implementation is naive (triangulation and proxy masses are
   over half the cost at τ = 1e-2). Bound: even with a free exact part, the variance factor is ≥ 0.80 for τ ≥ 1e-3.
   So the gain is capped at 1.25x on that DEV model.
+
+## T46 results (2026-10-19)
+
+### 5. T = 6 row, reconciled with T270 [measured extrapolation + comparison]
+
+- **Our T=6 seed0 numbers** (`extrap.jsonl`, `extrap6.py 6 seed0 200 20`).
+  - The step 1-5 prefix is exact: 2 / 34 / 818 / 23,172 / 722,698 cells.
+  - Step 6 is extrapolated from a systematic 1/200 subsample of the step-5 cells: 2.40e7 final gate cells (growth
+    x33.3 over step 5), 3.6e7 wrong pieces, 4.3e9 simplices.
+  - Cost: 1.42e10 FPE (5.1e13 FLOPs). Of that, 1.54e9 FPE is enumeration + outcome split + triangulation, and the
+    rest is measure, extrapolated from a 1/4000 subsample.
+  - That is 2.2e5x the 64k budget, and enumeration alone is 2.4e4x.
+  - In CPU time with the present Python, about 35-40 h per model. Not run.
+- **T270** (M_16,10's first 6 steps, a different model; INDEX H-E13): 23,802,036 cells and 19,740,596 distinct k=6
+  regions. These are lower bounds, because of the clip defect T316.
+  - Growth over k=5: x31.2 (T270) against our x33.3.
+  - Step-5 counts: 632,394 (M_16,10 prefix) against 722,698 (our T6 seed0) and 786,114 (our T5 seed0).
+  - **The two agree in order of magnitude and growth factor.** Our cell count (2.40e7) sits at T270's cell count
+    (2.38e7) and 22% above its region count, which T270 itself marks as biased low.
+- **Caveat found now.** The same extrapolation's wrong-mass estimate is 0.0025, but T6 seed0's 4M truth is 1 - 0.97807
+  = 0.0219, which is 9x larger.
+  - The 1/4000 measure subsample misses the few heavy cells that carry most of the error mass. At T=5 the hybrid
+    diagnostics show that the 4-13 heaviest cells hold up to 40% of the wrong mass on DEV models.
+  - So the extrapolated measure FLOPs (1.27e10 of the 1.42e10 FPE) are uncertain by an unknown factor. The count and
+    enumeration figures (1/200 systematic over cells, validated to 1-2% at T=5) are not affected by this.
+  - Safe statement: the exact T=6 cost is ≥ 1.5e9 FPE per model, best estimate about 1.4e10.
+
+### 6. Hybrid (exact cells above τ + frozen T10 walk on the rest): **FAIL, as predicted** (unverified)
+
+Commands: `python score_hybrid.py 5`, `python score_hybrid.py 6` (raw rows `score_T*.jsonl`), then
+`python analyze_hybrid.py T` (tables `hybrid_T*.txt` / `.json`). Settings: τ = 1e-2, 17 fixed rule seeds, B = 16k
+and 64k.
+
+**Arm A (within budget): no admissible threshold** at T = 5, 6 or 10, for B = 16k or 64k (DEV diagnostics,
+`diag_T*_dev*.log`).
+
+| T | τ | DEV model | cells in E | exact cost (FPE) |
+|---|---|---|---|---|
+| 5 | 3e-2 | both DEV models | 0 | 1.0e4 |
+| 5 | 1e-2 | dev_s0.0025_0 | 13 | 8.9e4 |
+| 5 | 1e-2 | dev_s0.02_0 | 4 | 6.1e4 |
+| 6 | 1e-2 | dev_s0.0025_0 | 0 | 1.1e5 |
+| 10 | 1e-2 | dev_s0.0025_0 | 0 | 1.1e4 (no prefix cell ≥ 1e-2 beyond step 5) |
+
+At no T and budget does any τ give a non-empty E for ≤ B/4. **T = 10 is declared infeasible under the
+pre-registered rule** (E is empty at τ = 1e-2), so it is not scored.
+
+**Arm B (τ = 1e-2, over budget).** All MSE figures are means over 17 rule seeds.
+- "hyb/samp" is the MSE ratio vs sampling at the hybrid's executed cost.
+- "walk/samp" is the frozen walk alone with its budget set to the hybrid's executed cost.
+- "hyb/walk" is the ratio of their MSEs at equal cost.
+
+T = 5. Truths are exact for seeds 0-2 and 4M for the rest. Tables are rerun when the exact queue finishes; the
+4M truth se is 5-9e-5, below the rmse values.
+
+| B | group | n | mean cost | exact part FPE | cells in E | share of wrong mass in E | hyb/samp | walk/samp | **hyb/walk** |
+|---|---|---|---|---|---|---|---|---|---|
+| 16k | seeds | 5 | 5.3e4 | 3.7e4 | 4.0 | 0.025 | 0.36 | 0.12 | **3.0** |
+| 16k | s0.0025 | 6 | 9.0e4 | 7.4e4 | 10.8 | 0.11 | 0.54 | 0.08 | 6.8 |
+| 16k | s0.005 | 6 | 9.0e4 | 7.4e4 | 11.8 | 0.11 | 0.92 | 0.14 | 6.4 |
+| 16k | s0.01 | 6 | 8.6e4 | 7.0e4 | 8.2 | 0.07 | 2.37 | 0.26 | 9.2 |
+| 16k | s0.02 | 6 | 7.1e4 | 5.5e4 | 4.2 | 0.04 | 4.69 | 0.58 | 8.0 |
+| 64k | seeds | 5 | 1.0e5 | 3.7e4 | 4.0 | 0.025 | 0.17 | 0.075 | **2.2** |
+| 64k | s0.0025 | 6 | 1.4e5 | 7.4e4 | 10.8 | 0.11 | 0.23 | 0.08 | 2.8 |
+| 64k | s0.005 | 6 | 1.4e5 | 7.4e4 | 11.8 | 0.11 | 0.33 | 0.08 | 4.2 |
+| 64k | s0.01 | 6 | 1.3e5 | 7.0e4 | 8.2 | 0.07 | 0.72 | 0.24 | 3.0 |
+| 64k | s0.02 | 6 | 1.2e5 | 5.5e4 | 4.2 | 0.04 | 1.14 | 0.50 | 2.3 |
+
+Per-seed hyb/samp at T=5: 0.15 / 0.33 / 0.68 / 0.32 / 0.55 at 16k, and 0.09 / 0.11 / 0.17 / 0.12 / 0.32 at 64k.
+
+T = 6, first 7 models: seeds and 2 s0.0025 copies (the 4M truths from T10). The rest are running; the raw file
+grows.
+- The exact part costs 0.76e5-4.5e6 FPE for 0-3 cells (seed0: 3 cells, 1.19e6 FPE; s0.0025_1: 2 cells, 4.5e6 FPE).
+- Seed group hyb/samp is 3.3 (16k) and 1.18 (64k). Per seed at 16k: 18.0 / 10.4 / 1.12 / 1.63 / 2.24, so the hybrid
+  **loses to sampling**.
+- hyb/walk is 14.0 (16k) and 5.0 (64k).
+
+**Verdict.**
+- The pre-registered "helps" condition (hyb/walk < 1 at both budgets and both T) fails everywhere, by 2.2-9.2x at
+  T=5 and 5-40x at T=6.
+- Against sampling, the T=5 hybrid still wins on all 5 seeds, only because the walk part beats sampling. At T=6 it
+  loses on 5/5 seeds at 16k and on 2/5 at 64k.
+
+**Which part carries the error.**
+- **Exact part (deductive):** the a-posteriori bound is ≤ 1e-3 x the wrong mass in E; the maximum over the T5 rows is
+  3.0e-6 absolute (`exact_err` in `score_T5.jsonl`). Its share of the squared error is < 1e-3.
+- **Walk part (QMC-class quadrature):** carries all of the error.
+- **Why the hybrid loses.** The extra FPE spent on the exact part buys almost no variance reduction.
+  - The cells above τ hold 2.5% (seeds) to 11% (s0.0025) of the wrong mass at T=5.
+  - On DEV, they remove 0-4% of the walk's variance×cost at τ = 1e-2, and at most 20% even at τ = 1e-3 (cost
+    3e5 FPE).
+  - The same FPE spent on more walk nodes cuts the walk's MSE in proportion.
+  - Expected hyb/walk ≈ (B + c_exact)/B: 3.3 (seeds, 16k) and 1.6 (64k). Measured 3.0 and 2.2.
+  - In the noisy groups, hyb/walk exceeds the cost ratio (e.g. 9.2 against 5.4 for s0.01 at 16k). [speculative]
+    Masking adds discontinuities along the walk (E-cell boundaries are not tie boundaries), raising the integrand's
+    CV. Measured on DEV: variance ratio 1.002 at dev_s0.02_0 τ = 1e-2. Not separated from rule-seed noise; not
+    pursued.
+
+**Class labels.** The exact part is deductive / mechanistic. The walk part is deterministic QMC-class quadrature (DRI
+ruling T10). The hybrid as a whole is quadrature-class.
+
+### Exhaustion checklist (rule 5) for the hybrid negative ("negative (unverified)")
+
+Scope: E = full gate cells above a proxy-mass threshold, the frozen T10 walk on the complement, T = 5 and 6.
+
+Tried:
+- the τ grid 1e-1 … 3e-4 on DEV (cost and variance);
+- exact pruning masses (rtol 1e-6) vs one-shot GM7 vs GM3 proxies (cost 5e5 → 4e4 → 9e3 FPE at T=4, τ = 1e-2);
+- wrong-piece rtol 1e-6 vs 1e-3;
+- arm B scored on 29 + 7 test models with 17 rules.
+
+Not tried:
+- **Selecting E by error contribution or walk variance instead of mass** (alternative b). This is the obvious next
+  variant: backlog.
+- **Prefix-level E** (exact treatment of whole subtrees of a step-k cell, integrating the outcome over the remaining
+  steps by the walk).
+- **A compiled exact part.** It does not change FLOPs; the FLOP cost itself is over budget.
+- **Cheaper triangulation**: about half the exact cost at τ = 1e-2 is proxy triangulation and proxy measure.
+  - Bound: even a free exact part gives a variance factor ≥ 0.80 for τ ≥ 1e-3, so the gain is ≤ 1.25x on DEV T=5.
+  - That cap holds for mass-selected E regardless of implementation.
 
 ## Compute accounting
 
