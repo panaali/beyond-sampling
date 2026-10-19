@@ -95,7 +95,7 @@ class LPEngine:
                 va.zero_(); ya.zero_(); na = 0
         return best, ybest.double()
 
-    def solve_ipm(self, K, b, lb, ub, c, iters=None, chunk=4096):
+    def solve_ipm(self, K, b, lb, ub, c, iters=None, chunk=1024):
         """same contract as solve(), by a batched primal-dual interior-point method (infeasible start, Mehrotra
         predictor-corrector, normal equations by batched Cholesky; float64). Fixed variables (lb == ub) and empty rows
         are masked out. Returns (N, Q) certified lower bounds and the duals y (N, Q, R)."""

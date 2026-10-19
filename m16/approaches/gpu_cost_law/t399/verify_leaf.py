@@ -39,7 +39,7 @@ while opened and n < MAXL:
         lg = relax2.Wo @ h; p1, p2, p3 = tri; lows = [j for j in range(10) if j not in tri]
         print("exact leaf after", n, "leaves; LP margin %.6f" % -negm, "x", np.round(x, 4))
         print("argmax", int(lg.argmax()), "p3", p3, "true margin %.6f" % (lg[p3] - np.delete(lg, p3).max()),
-              "order ok", x[p1] >= x[p2] >= x[p3], "gap23 %.4f" % (x[p2] - x[p3]), "p3>=lows", bool(np.all(x[p3] >= x[lows])),
+              "order ok", x[p1] >= x[p2] >= x[p3], "gap23 %.4f" % (x[p2] - x[p3]), "gap23/|x|inf %.4f" % ((x[p2] - x[p3]) / np.abs(x).max()), "p3>=lows", bool(np.all(x[p3] >= x[lows])),
               "G x >= 0", bool(np.all(G @ x >= -1e-9)))
         break
     n += 1
