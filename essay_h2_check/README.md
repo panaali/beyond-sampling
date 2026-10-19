@@ -78,8 +78,8 @@ rose from 0.114 (pilot) to 0.163 (final). T383 removes that gap:
 (sum of values above 20% of the pole max) / (sum of positive values).
 - Pass 1 also builds per-neuron log-binned histograms (160 bins, 1e-4 to 1e4), giving an approximate texture for
   every neuron pole.
-- **Pool:** per layer, excluding the plain neurons and taking each neuron's higher-texture pole, the 48 highest
-  approximate textures plus 16 spread evenly over the rest's ranks (64 per layer). Pass 2 stores them.
+- **Pool** (as amended, see Amendment 1): per layer, excluding the plain neurons, 64 eligible neuron poles spread over
+  approximate texture 0.10-0.60. Pass 2 stores them.
 - **Matching rule:** per layer, an optimal 1:1 assignment (Hungarian, minimum total |texture difference|, exact
   textures from the stored activations) of the 11 controls to 11 distinct pool neurons.
 - **Balance check (before agents):** pass if |median texture(matched) - median texture(controls)| <= 0.03 and at
@@ -156,11 +156,20 @@ towards 50%, so the realised Delta is slightly smaller, most visibly at tau = 0.
 
 ## Status
 
-Pre-registered; collection not started.
+Pre-registered (072a5e78), amended once before collection; pass 1 (stats) running.
 
 ## Amendments
 
-(none yet)
+**Amendment 1 (2026-10-19, after the code smoke test, before any collection).** The smoke test (48 windows, output
+discarded) showed that "highest approximate texture" favours degenerate poles that fire on a handful of tokens, all
+near their max (texture ~1.0). Such a pool would hold few neurons near the controls' expected texture (~0.3 in T6).
+The pool rule (step 3) is replaced by:
+- **Eligible poles** have at least 100 tokens above 20% of the pole max (approximate, from new count histograms
+  in pass 1).
+- Per layer, excluding plain neurons, each neuron contributes its higher-texture eligible pole.
+- **Pool:** for 64 targets evenly spaced over texture 0.10-0.60, take the nearest unused eligible pole (64 per layer).
+
+The matching rule, balance check and everything else are unchanged.
 
 ## Results
 

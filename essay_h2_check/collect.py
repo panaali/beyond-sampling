@@ -26,7 +26,8 @@ N_WIN = int(os.environ.get("T383_NWIN", 18750))
 OUT = os.environ.get("T383_OUT", "data/t383")
 PARQUET = "data/pile10k/data/train-00000-of-00001-4746b8785c874cc7.parquet"
 NL, DM = 28, 3072
-N_PLAIN, N_POOL_TOP, N_POOL_SPREAD, N_DIR, N_SEL = 11, 48, 16, 19, 8  # dirs 0-7 select, 8-18 are items
+N_PLAIN, N_POOL, N_DIR, N_SEL = 11, 64, 19, 8  # dirs 0-7 select, 8-18 are items
+POOL_RANGE, MIN_ABOVE = (0.10, 0.60), 100  # amendment 1: pool targets, min tokens above 20% of the pole max
 CONSTR = ["Mf", "Rf", "Rp"]  # pre-registered order (README)
 EDGES = np.geomspace(1e-4, 1e4, 161)  # 160 log bins for the texture histograms
 NB = len(EDGES) - 1
@@ -70,7 +71,8 @@ def stats():
     else:
         st = {"done": np.array(0), "mpos": np.zeros((NL, DM)), "mneg": np.zeros((NL, DM)),
               "spos": np.zeros((NL, DM)), "sneg": np.zeros((NL, DM)),
-              "hpos": np.zeros((NL, DM, NB)), "hneg": np.zeros((NL, DM, NB))}
+              "hpos": np.zeros((NL, DM, NB)), "hneg": np.zeros((NL, DM, NB)),
+              "cpos": np.zeros((NL, DM, NB)), "cneg": np.zeros((NL, DM, NB))}
     edges = torch.tensor(EDGES[1:-1], dtype=torch.float32)
     off = (torch.arange(DM) * NB)[None, :]
     start = int(st["done"])
@@ -79,13 +81,14 @@ def stats():
             model(torch.tensor(tokens[b:b + BS], dtype=torch.long))
             for L in range(NL):
                 h = acts[L][:, SKIP:].reshape(-1, DM)
-                for v, mk, sk, hk in ((h.clamp(min=0), "mpos", "spos", "hpos"),
-                                      ((-h).clamp(min=0), "mneg", "sneg", "hneg")):
+                for v, mk, sk, hk, ck_ in ((h.clamp(min=0), "mpos", "spos", "hpos", "cpos"),
+                                           ((-h).clamp(min=0), "mneg", "sneg", "hneg", "cneg")):
                     st[mk][L] = np.maximum(st[mk][L], v.max(0).values.numpy())
                     st[sk][L] += v.sum(0, dtype=torch.float64).numpy()
                     idx = (torch.bucketize(v, edges) + off).reshape(-1)
                     st[hk][L] += torch.bincount(idx, weights=v.reshape(-1).double(), minlength=DM * NB
                                                 ).reshape(DM, NB).numpy()
+                    st[ck_][L] += torch.bincount(idx, minlength=DM * NB).reshape(DM, NB).numpy()
         end = min(b + BS, len(tokens))
         if (b // BS) % 100 == 99 or end == len(tokens):
             st["done"] = np.array(end)
@@ -96,35 +99,42 @@ def stats():
 
 
 def approx_texture(st):
-    """Approximate fraction of positive-pole mass above 20% of the pole max, from the histograms. (2, NL, DM)."""
-    out = np.zeros((2, NL, DM))
+    """Approximate fraction of pole mass above 20% of the pole max, and approximate number of tokens above it,
+    from the histograms. Two arrays of shape (2, NL, DM); index 0 = positive pole, 1 = negative pole."""
+    out, cnt = np.zeros((2, NL, DM)), np.zeros((2, NL, DM))
     lo, hi = EDGES[:-1], EDGES[1:]
-    for si, (mk, sk, hk) in enumerate((("mpos", "spos", "hpos"), ("mneg", "sneg", "hneg"))):
+    for si, (mk, sk, hk, ck_) in enumerate((("mpos", "spos", "hpos", "cpos"), ("mneg", "sneg", "hneg", "cneg"))):
         th = 0.2 * st[mk][..., None]
         frac = np.clip((hi - th) / (hi - lo), 0, 1)  # share of each bin above the threshold (linear approx)
         out[si] = (st[hk] * frac).sum(-1) / np.maximum(st[sk], 1e-12)
-    return out
+        cnt[si] = (st[ck_] * frac).sum(-1)
+    return out, cnt
 
 
 def units():
     """Pre-registered unit draw (README). Returns per-layer lists of (kind, neuron_or_-1, sign, extra)."""
     st = dict(np.load(f"{OUT}/stats.npz"))
-    tex = approx_texture(st)
+    tex, cnt = approx_texture(st)
     mpos, mneg = st["mpos"], st["mneg"]
     amax = np.maximum(mpos, mneg)
     alive = amax > 1e-6
     rng = np.random.default_rng(383)
     plain = [(rng.choice(np.flatnonzero(alive[L]), N_PLAIN, replace=False), rng.choice([1, -1], N_PLAIN))
              for L in range(NL)]
-    pool = []
+    pool = []  # amendment 1: eligible poles only, spread over a fixed texture range (README)
     for L in range(NL):
         cand = np.setdiff1d(np.flatnonzero(alive[L]), plain[L][0])
-        best = np.where(tex[0, L, cand] >= tex[1, L, cand], 1, -1)  # one pole per neuron: the higher-texture one
-        t = np.where(best == 1, tex[0, L, cand], tex[1, L, cand])
-        order = np.argsort(-t, kind="stable")
-        top, rest = order[:N_POOL_TOP], order[N_POOL_TOP:]
-        spread = rest[np.round(np.linspace(0, len(rest) - 1, N_POOL_SPREAD)).astype(int)]
-        sel = np.concatenate([top, spread])
+        ok = cnt[:, L, cand] >= MIN_ABOVE
+        t2 = np.where(ok, tex[:, L, cand], -np.inf)
+        best = np.where(t2[0] >= t2[1], 1, -1)  # one pole per neuron: the higher-texture eligible one
+        t = np.where(best == 1, t2[0], t2[1])
+        free = np.isfinite(t)
+        sel = []
+        for target in np.linspace(*POOL_RANGE, N_POOL):
+            k = np.flatnonzero(free)[np.argmin(np.abs(t[free] - target))]
+            sel.append(k)
+            free[k] = False
+        sel = np.array(sel)
         pool.append((cand[sel], best[sel], t[sel]))
     dirs, dsign = np.zeros((NL, DM, len(CONSTR) * N_DIR), np.float32), np.zeros((NL, len(CONSTR) * N_DIR), int)
     for ci, c in enumerate(CONSTR):
