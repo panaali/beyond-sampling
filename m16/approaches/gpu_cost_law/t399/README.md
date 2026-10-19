@@ -63,8 +63,10 @@ witnesses (node 120: margin +0.32 at gap23 = 0.1), and 8 were censored.
 
 **Projection [inferred]:** the IPM is fp64 and compute-bound (batched 107 x 107 Cholesky plus K^T D K). A100 fp64
 is ~38x a T4, so ~100 nodes/s or ~1 leaf every 10 ms, which is ~5.3 units/h. The 24 bench nodes average 44 leaves (1 at the root,
-18-69 when splitting closes them, 29-161 to a witness, 256 censored). At the T398 projection of ~2e6 nodes for
-(1,8,2) that is ~1e8 leaves, ~200-300 A100-h, ~1,000-1,500 units, for one triple: not affordable for 720 triples. GPU only pays if the leaf
+18-69 when splitting closes them, 29-161 to a witness, 256 censored). At the T398 projection of ~5e4 step-10 nodes for
+(1,8,2) (2.1e6 summed over its 41-triple sample) that is ~2e6 leaves, ~6 A100-h, ~30 units, per triple, i.e. ~4,000 A100-h
+for 720 triples: not affordable. The T398 lead agrees (08:46): no full-LP GPU pruner; T399 is parked at ~0.3 units
+pending a yes/no on the CROWN-intermediate + LP-leaf design. GPU only pays if the leaf
 cost falls ~100x, e.g. by CROWN-style back-substitution for intermediate bounds with LP only at the final check,
 or by re-using the parent's duals as warm starts. That redesign is not done.
 
