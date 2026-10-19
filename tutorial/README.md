@@ -166,7 +166,7 @@ The theory section adds two standard references not in our notes (Valiant 1979; 
 
 ## Coverage checklist (v11, INDEX at ccr-6a61f25c-wn80ii d33a9b04)
 Every INDEX section-3 registry row and section-4 ledger row (333; the four Q-rows of section 1 excluded). "body" = the
-ID appears in the page's prose, cards, tables or lane boxes; "register" = one plain line in section 15, from
+ID appears in the page's prose, cards, tables or lane boxes; "register" = one plain line in section 15, from `data/findings.json`
  (drafted by helper agents from the row text; every number checked to appear in its row). To diff a
 later INDEX: re-extract the IDs from sections 3-4 and look for IDs missing from this table.
 New in v11: section 1a (most interesting findings, with why each matters), 1d (how far it scales: OWNER_QA 4.17, 4.18),
