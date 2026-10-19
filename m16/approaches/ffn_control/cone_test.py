@@ -19,7 +19,9 @@ def check(m, seed=0, n=200_000, n_perm=20, n_cones=50, per_cone=20_000):
     W1 = m.W[0]
     U = W1 / np.linalg.norm(W1, axis=1)[:, None]
     srt = np.sort(np.abs(U), 1)[:, ::-1]
-    pair = srt[:, 1] > .6                       # two dominant entries of opposite sign: relu(~ x_a - x_b)
+    # comparator relu(~ x_a - x_b): two dominant entries of OPPOSITE sign (sign check added after T394 found that
+    # the unsigned rule also counted same-sign "both low" units)
+    pair = (srt[:, 1] > .6) & (U.max(1) > .6) & (U.min(1) < -.6)
     A, B = np.argmax(U, 1), np.argmin(U, 1)
     rng = np.random.default_rng(seed)
     x = rng.standard_normal((n, 10))

@@ -180,7 +180,7 @@ running). Step 2: F reported for every candidate and for M_16,10; a deductive es
 | 1 | 16 / 32 | 320 / 640 | see acc.json | | | no |
 | 1 | 64 | 1,280 | .606 | | | no |
 | 1 | 96 | 1,920 | .790 | | | no |
-| 1 | **128** | **2,560** | **.965** | **.954** | **.965** | **yes (simplest)** |
+| 1 | **128** | **2,560** | **.965** | **.954** | **.965** | yes on these 3 seeds, but seed luck (T394: 3 of 6 fresh seeds .939-.95) |
 | 2 | 24 | 1,056 | .825 | | | no |
 | 2 | 32 | 1,664 | .855 | | | no |
 | 2 | 64 | 5,376 | .932 | | | no |
@@ -204,8 +204,10 @@ running). Step 2: F reported for every candidate and for M_16,10; a deductive es
 
 M_16,10: .9531 with 432 parameters. Reproduce: `python train.py D1w128 0 28` (or `... 30`), `python analyze.py acc`.
 
-- **Simplest by depth, then parameters:** D1w128, one hidden layer of 128, 2,560 parameters (5.9x M_16,10), under
-  both schedules (at 2^30 D1w96 passes on 2 of 3 seeds only). The longer schedule matters (.965 -> .990 for D1w128;
+- **Simplest by depth, then parameters:** D1w128, one hidden layer of 128, 2,560 parameters (5.9x M_16,10). This is
+  decided by the 2^30 ladder (.990 on all 3 seeds; D1w96 passes on 2 of 3 seeds only). **[Corrected 2026-10-19 after
+  T394]** At 2^28 "all seeds >= .95" was seed luck: T394's independent retrain found 3 of 6 fresh D1w128 seeds at
+  .939-.95. The longer schedule matters (.965 -> .990 for D1w128;
   D1w96 .79 -> .97), so deeper configs that failed at 2^28 might pass at 2^30; only depth 1 was retrained.
   Depth 1 jumps from .79 at width 96 to .95-.965 at 128. No depth-2 or depth-3 net with fewer parameters passes on
   all seeds (D3w28/D3w32 pass on some seeds only: SGD lands in worse minima on others).
@@ -296,8 +298,9 @@ acc .990; random circles F .104) `python score_fixed.py D1w128@30` gives Halton 
 - The per-set bootstrap CIs over models (in the JSON) understate the uncertainty: a fixed set's error is shared by
   the 12 near-identical panel models (|mean error| / RMS error .8-.98 for most sets), so each set is close to one
   draw. The spread across the 5 sets of a family is the honest measure.
-- Halton keeps F < 1 on all 5 sets (mean .15, about 2x better than random circles); Sobol on all 5 (mean .30, no
-  better than random at n = 232 in 20 dimensions).
+- Halton keeps F < 1 on all 5 sets (mean .15); Sobol on all 5 (mean .30). **[Corrected 2026-10-19 after T394]**
+  T394 replicated "fixed sets keep F < 1" (10/10 sets) but not "Halton ~2x better than random circles"; with 5
+  correlated sets per family, the family means do not separate Halton, Sobol and random circles.
 - The cyclic-symmetric design fails: 23 base points are too few, and the shifts add no balance the net can use
   (consistent with the cone test: the net is not near-equivariant).
 - **Pre-registration defect:** Korobov a = 89 has multiplicative order 4 mod 233, so its 20 lattice coordinates take
@@ -314,9 +317,11 @@ acc .990; random circles F .104) `python score_fixed.py D1w128@30` gives Halton 
    Gaussian masses have no closed form on top of that).
 2. **Rank-order cones (DRI's idea, `python cone_test.py D1w128_s0_n28 D1w128_s1_n28 D1w128_s2_n28`):** if all
    first-layer units were exact comparators the net would be linear on each of the 10! ordering cones, where the
-   label is constant. Measured on the 3 D1w128 seeds: comparator gates disagree with [x_a > x_b] on 2.7-5.3% of
-   (unit, input) pairs and on at least one unit for 89-99% of inputs (their small extra weights shift the gate near
-   ties); permutation agreement of decisions .93-.95 vs accuracy .95-.97 (no more equivariant than accuracy
+   label is constant. Measured on the 3 D1w128 seeds (comparator = two dominant entries of opposite sign; the first
+   version of this test had no sign check and counted "both low" units, **corrected 2026-10-19 after T394**): 76-77
+   comparators, all near-exact (gate disagrees with [x_a > x_b] on .12-.23% of (unit, input) pairs; 8-15% of inputs
+   have at least one such disagreement); the other 51-52 units are "both low" detectors whose gates are not fixed on
+   a cone; permutation agreement of decisions .93-.95 vs accuracy .95-.97 (no more equivariant than accuracy
    forces); 1.3-1.7k gate subregions per cone (median of 50 cones, 20k samples each; lower bound), so ~5e9 pieces.
    Not tried: an idealised comparator net plus a bounded correction.
 3. **Tie-band control variate** (model-free surrogate 1[gap23 > a, gap12 > b] scaled by range): per-sample
@@ -331,10 +336,12 @@ acc .990; random circles F .104) `python score_fixed.py D1w128@30` gives Halton 
 Measured on the 3 D1w128 seeds (logit effects in units of the unit's input norm):
 - Every first-layer row sums to ~0 (|sum| / norm <= .015 on every net trained here): the nets learn near-invariance
   to adding a constant to all inputs, which the task has exactly.
-- 84-94 of 128 units are pairwise comparators relu(x_a - x_b) (all 45 pairs covered). Each pushes the loser's
-  logit down by 27-34 per unit of gap, the winner's down by 5-6, and the other logits up by ~2.
-- The other 34-44 units are "both low" detectors relu(-.67 x_a - .57 x_b + .15 sum of the rest), lowering the two
-  low inputs' logits by 7-8.
+- **[Corrected 2026-10-19 after T394: sign-checked classification]** 76-77 of 128 units (2^30 retrains: 77-79) are
+  pairwise comparators relu(x_a - x_b), all 45 unordered pairs covered. Each pushes the loser's logit down by 30-37
+  per unit of gap (2^30: 72-79), the winner's down by 6-7 (12-13), and the other logits up by ~2 (~4).
+- The other 51-52 units (2^30: 49-50, plus 2 unclassified on one seed) are "both low" detectors
+  relu(-.67 x_a - .57 x_b + .15 sum of the rest), lowering the two low inputs' logits by ~7 (~11).
+- (The first version of this account used an unsigned rule and reported 84-94 comparators; T394 found the error.)
 - So logit_i ~ -28 (total amount by which other inputs beat i) - 5 (total amount by which i beats others) + ...:
   an input loses heavily for every input above it and mildly for every input below, so the max is penalised by
   its total lead and the 2nd largest wins unless its gap structure is atypical [inferred from these averages].
@@ -351,14 +358,15 @@ Measured on the 3 D1w128 seeds (logit effects in units of the unit's input norm)
 - Truths: 1e7-sample MC per panel model (seeds 4242 and 4343).
 
 ## Claims
-- [measured] The simplest bias-free ReLU MLP reaching >= .95 on all 3 seeds (2^28 samples) is one hidden layer of
-  128 (2,560 params); widths <= 96 at depth 1, <= 64 at depth 2 and <= 32 at depth 3 fail on at least one seed.
+- [measured] The simplest bias-free ReLU MLP reaching >= .95 on all 3 seeds at the zoo's 2^30 schedule is one
+  hidden layer of 128 (2,560 params; .990 x3); depth-1 widths <= 96 fail on at least one seed. At 2^28 D1w128's
+  pass was seed luck (T394); widths <= 64 at depth 2 and <= 32 at depth 3 fail at 2^28 (not retrained at 2^30).
 - [measured] At ~432 parameters MLPs reach only .36-.69.
 - [measured] Realised region counts of every >= .95 MLP are at least those of M_16,10 (sampled lower bounds).
 - [measured] Exact great-circle walks (sampling-class) give F .280 [.253, .306] on the D1w128 panel (direct check
   .267) vs 15.4 [12.5, 18.3] on the M_16,10 panel; deeper MLPs 3.8-5.9.
-- [measured] The rank-order cone route fails its two preconditions on D1w128 (comparators not exact; ~1.3k+
-  subregions per cone; not near-equivariant).
+- [measured] The rank-order cone route fails on D1w128: the comparators are near-exact (corrected after T394), but
+  the ~51 "both low" units give ~1.3k+ subregions per cone and the net is not near-equivariant.
 - [inferred] The gain comes from depth (rank-1 flips with closed-form crossing angles), not from fewer regions.
 - [speculative] A deductive estimator for D1w128 is reachable by deriving a deterministic set of great circles
   from the mechanism; untested.
