@@ -63,8 +63,7 @@ class Algebra:
         """Truncated product. `active` (int) restricts to indices using only variables < active
         (shared innovation: at step t only x_1..x_t exist). Returns (coeffs, flops)."""
         I, J, K, W = self.product_table() if active is None else self.active_table(active)
-        out = np.zeros(self.M)
-        np.add.at(out, K, W * p[I] * q[J])
+        out = np.bincount(K, weights=W * p[I] * q[J], minlength=self.M)
         return out, 3 * len(W)          # 2 mults + 1 add per structure constant
 
     def active_table(self, t):
@@ -81,6 +80,24 @@ class Algebra:
 
     def var_(self, p):
         return float((p[1:] ** 2 * self.norm2[1:]).sum())
+
+    def basis(self, x):
+        """He_alpha(x) for all alpha: (N, M) (diagnostics only)."""
+        N = len(x)
+        He = np.ones((self.n, self.d + 1, N))
+        for i in range(self.n):
+            if self.d >= 1:
+                He[i, 1] = x[:, i]
+            for k in range(2, self.d + 1):
+                He[i, k] = x[:, i] * He[i, k - 1] - (k - 1) * He[i, k - 2]
+        B = np.empty((N, self.M))
+        for j, a in enumerate(self.idx):
+            v = np.ones(N)
+            for i, ai in enumerate(a):
+                if ai:
+                    v = v * He[i, ai]
+            B[:, j] = v
+        return B
 
     def eval(self, p, x):
         """Evaluate at points x (N, n) (diagnostics only)."""

@@ -100,12 +100,127 @@ Verdict: PASS only if G1-G3 all pass. Otherwise a scoped negative with the exhau
 
 ## Method
 
-(Filled in after the run.)
+Everything above the pre-registration line was run as written; no configuration was changed after the pre-registration
+commit (67e44f70).
+
+- `herm.py`: the truncated multivariate Hermite algebra (model-free structure constants; shared-innovation restriction
+  of each product to the active inputs x_1..x_t).
+- `run.py`: `propagate` (deductive, FLOPs counted as executed), the endpoint cost itemisation, the diagnostic MC
+  (`diag`: surrogate accuracy s_m, per-step relative L2 error, Cantelli width) and D1 (`oracle_floor`). It uses
+  `arc_eval.forward` for every true-model evaluation, through a stub `common` module (see the pre-registration).
+- `floor.py`: D1 driver; `summarize.py`: the gate statistics and tables below from the saved JSON.
 
 ## Status
 
-Pre-registered; not run.
+**Done. Verdict: STOP (screen fails) at G1 and at G2, by wide margins; G3 not reached.** Negative (unverified),
+scoped below.
 
-## Results / Compute accounting / Claims / Alternatives not ruled out / Failure modes
+## Results
 
-(After the run.)
+Four DEV2 models (fused_s0, fused_s1, torch_s0, torch_s1; truths .8720 / .9515 / .9591 / .9438). Reproduce:
+`python run.py 3 8 2 8; python run.py 4 4; for m in fused_s0 fused_s1 torch_s0 torch_s1; do python floor.py $m 1 2 3 4 5; done;
+python summarize.py` (about 25 CPU-min in all; each process under 2 GB).
+
+**G1, cost / rank cap: STOP** [measured]. Config S's propagation executes at **C_prop = 3,496 FPE** (all 160
+neuron-steps straddle zero, so every one needs the 7 truncated products). The cheapest sound endpoint I could write
+(conditional first and second moments of all 90 margins on the 10 regions {x_j is 2nd largest}, via model-free Gram
+tables) costs another **2,856 FPE**, so C >= **6,352 FPE > 4,000**. And that endpoint is vacuous anyway: the Cantelli
+union bound from the surrogate's own conditional moments, ignoring every propagation remainder, gives a lower bound
+on accuracy of **0.0** on all four models (the interval is [0, 1]).
+
+**G2, necessary width: STOP** [measured, diagnostic MC 2e6 inputs per model, SE ~.03 pp]. The surrogate's exact
+accuracy s_m (its argmax rule against the true rank, integrated by MC as a stand-in for exact integration):
+
+| config | C_prop / C_end FPE | s_m (fused_s0, fused_s1, torch_s0, torch_s1) | RMS(s - p) | G2 statistic (STOP if > 1) | point F if s were the estimate (C_prop only) |
+|---|---|---|---|---|---|
+| S2: d=2, k=8 | 321 / 171 | .170 .184 .144 .179 | 76.3 pp | 9,321 | 9,321 (C_eff 1k) |
+| **S: d=3, k=8** | **3,496 / 2,856** | **.274 .256 .251 .269** | **67.1 pp** | **7,193** | **25,149** |
+| S4: d=4, k=4 (over cap) | 20,216 / 34,062 | .245 .100 .228 .220 | 73.8 pp | 8,700 | 175,883 |
+
+Per-step relative L2 error of the propagated hidden state (D2, S): .17-.18 at step 1 (the univariate floor for
+ReLU(w x_1) at degree 3 is .15), then .16-.31 to step 10. S4 diverges on fused_s1 (relative L2 1e1 at step 5, 7e10 at
+step 10: the k = 4 interpolant composed in the truncated algebra is unstable there).
+
+**D1, the oracle floor of the representation class** [measured, diagnostic; Hermite coefficients by MC averages over
+4e6 inputs, accuracy on 1e6 fresh inputs; cross-checked on torch_s1 at d = 3 with different code (monomial basis,
+least squares, fresh seed): .2135 vs .2131]. Accuracy of the argmax of the L2-OPTIMAL degree-d polynomial of the
+TRUE logits (relative L2 error of the logits in brackets):
+
+| model (truth) | d=1 | d=2 | d=3 | d=4 | d=5 |
+|---|---|---|---|---|---|
+| fused_s0 (.872) | .154 (.66) | .136 (.52) | .259 (.39) | .301 (.34) | .397 (.30) |
+| fused_s1 (.951) | .212 (.66) | .141 (.54) | .223 (.44) | .268 (.37) | .336 (.33) |
+| torch_s0 (.959) | .211 (.69) | .137 (.58) | .246 (.48) | .310 (.41) | .389 (.37) |
+| torch_s1 (.944) | .155 (.58) | .126 (.47) | .213 (.37) | .279 (.31) | .362 (.28) |
+
+So the best possible degree-3 coefficient representation is 61-74 pp off, and the propagated surrogate at d = 3 is
+about as good as that optimum (s .25-.27 vs floor .21-.26): the loss is in the representation class, not in the
+propagation (alternative A1, not A2).
+
+## Compute accounting
+
+- Charged (as executed, per model): the propagation, i.e. linear mixing (2 H^2 M_active per step), means and sds of
+  the pre-activations, Chebyshev coefficients O(k^2), and 3 FLOPs per structure constant of each truncated product.
+  S: 3,496 FPE. The endpoint step was not executed (G1 stop); its itemised cost (2,856 FPE for S) is a count.
+- Not charged (model-free, built once): the product structure tables (nnz 1,496 / 21,956 / 369,501 at d = 2 / 3 / 4),
+  Chebyshev nodes, the cone Gram tables (counted only).
+- Diagnostics (not compute of any estimator): 2e6 MC inputs per model per config for s_m and D2, 5e6 per model per
+  degree for D1, 3e5 + 3e5 for the cross-check. Wall clock ~25 CPU-min.
+
+## Claims
+
+1. [measured] Config S (d = 3, k = 8, full tensor) costs 3,496 FPE to propagate, and with the cheapest sound endpoint
+   it is >= 6,352 FPE: over the 4k cap (G1 STOP).
+2. [measured] S's surrogate is 67 pp RMS off on the four models; the necessary-width statistic is 7,193 against a
+   STOP line of 1 (G2 STOP). Even ignoring all propagation remainders, the Cantelli endpoint bound is vacuous.
+3. [measured] The L2-optimal degree-d Hermite representation of the true logits has argmax accuracy .13-.40 for
+   d = 1..5 on all four models (truths .87-.96); its logit relative L2 error falls only from ~.65 (d = 1) to ~.32
+   (d = 5).
+4. [inferred] Therefore no estimator of the form "degree-d (d <= 5) polynomial surrogate of the hidden states, any
+   propagation rule, exact indicator integration, sound ledger" can reach the strict bar on these models: a sound
+   interval around such a surrogate has half-width >= (floor gap)/2 >= 20 pp, and the allowance is .43 pp. This
+   assumes the surrogate is no better than the L2-optimal projection at classifying, which is not proved (see below).
+5. [speculative] Extrapolating the logit relative L2 error (~d^-0.6) to the few-percent level that the argmax would
+   need puts d in the hundreds, where M(d) = C(10+d, d) is astronomically large; tensor compression would have to do
+   all the work.
+
+## Alternatives not ruled out (exhaustion checklist, AGENTS rule 5)
+
+Tried: total-degree Hermite, full tensor, d = 2, 3, 4 propagated (k = 8, 8, 4; Chebyshev ReLU on mu +- 4 sd, truncated
+algebra), the oracle projection at d = 1..5, Cantelli endpoint, on four DEV2 models. Not tried, with reasons:
+
+- **Non-L2-optimal or weighted polynomials.** The L2-optimal projection minimises logit error, not classification
+  error; a polynomial fitted to the tie bands could classify better. Not tried: no deductive way to build it from the
+  weights was proposed, and a 60-70 pp gap leaves little room.
+- **Tensor-compressed representations of higher degree** (TT/CP in the 10 inputs with per-input degree >> 5). The
+  floor above covers total degree <= 5 only; a low-rank high-degree function is outside it. This is the main open
+  variant of C3, but it would need per-input degree large enough to resolve the ReLU kinks (claim 5) and a sound
+  remainder for the compression.
+- **Other bases**: piecewise polynomials / splines on gate cells (that is the cell-enumeration family, not C3),
+  polynomials in sorted or gap coordinates (a different representation; the decision walls are linear there).
+- **Larger ReLU degree k or wider domain at d = 3**: cannot change the outcome, since the propagated surrogate is
+  already at the d = 3 oracle floor.
+- **Other models/panels**: only four DEV2 models (pre-registered); the floor pattern is the same on all four, both
+  kernels.
+
+Other explanations of the result: (i) a bug making polynomial classification look worse than it is: the cross-check
+with independent code reproduces D1, the harness's forward reproduces the published truths to <= .03 pp, and the
+algebra matches exact products to 1e-14; (ii) MC noise in the D1 coefficients: noise energy M/N <= 3003/4e6 = .08% of
+the logit variance, far below the measured 9-50% residual.
+
+## Failure modes
+
+- The total-degree polynomial representation smooths the ~10 layers of ReLU kinks; the argmax margins live in thin
+  tie bands that a global L2 approximation does not resolve (A1). This is the harmonic-sphere warning (E34) in a
+  different basis.
+- The truncated algebra is unstable for low k at d = 4 (fused_s1 diverges).
+- Moment-based indicator bounds (Cantelli) are vacuous at accuracy-level precision even with exact moments.
+- Costs: the full tensor at d = 4 already costs 20k FPE to propagate and 34k for second moments, so a higher degree
+  is impossible in the cheap regime without compression.
+
+## Proposed next step (for the DRI)
+
+Do not fund more total-degree C3 work. If anything, the only open C3 variant is a compressed high-degree
+representation (above); its own cheap gate is the same D1 test in that class: the argmax accuracy of the best
+rank-r, per-input-degree-D TT fit of the true logits (diagnostic MC) must be within ~1 pp of the truth before any
+propagation or ledger is built.
