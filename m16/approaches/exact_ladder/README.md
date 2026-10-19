@@ -57,7 +57,8 @@ Files:
 
 ## Status
 
-Done (2026-10-17).
+Resumed 2026-10-19 (T46): T=5 noisy copies running, T=6 row, hybrid. See the pre-registration below.
+Earlier state, done 2026-10-17:
 - T=2, 3, 4: exact on all 29 leaderboard models.
 - T=5: exact on seeds 0-4. The noisy copies were not run, because each takes about 1 CPU-h in Python.
 - T=6: cost and count extrapolated from an exact prefix plus a 1/200 subsample of the last step.
@@ -138,6 +139,115 @@ GROWTH
 - **Outcome merging.** See "outcome cells" below.
 
 OUTCOME
+
+## T46 resumed (2026-10-19): pre-registration
+
+Written and pushed before any hybrid scoring run. Owner: Claude child session_01TMitKtdYqK5kpQMNPriApx, branch
+`claude/t46-exact-ladder`.
+
+### (1) T = 5 row
+
+- Code unchanged (`cones.py`, `ladder.py`, `estimator.py` as of 2026-10-17). It is deterministic and no choice
+  depends on its outcome, so the run on the remaining models was started at 05:2x, before this push:
+  `queue6.sh` -> `run_list.py` -> `estimator.est`, which logs `est_info.jsonl`.
+- Already in `est_info.jsonl`: seed0 and seed1. The 10-17 Status line said "seeds 0-4", but only seeds 0 and 1 were
+  logged. Now running: seeds 2-4, then the 24 noisy copies, on 1 core (about 1 CPU-h each).
+- Profile at T=4 (cProfile, seed0): 50% of wall time is Python overhead in `clip`, 30% triangulation; the measure,
+  which is 86-95% of the FLOPs, is vectorised. A compiled port would change wall time only, not the charged FLOPs, so
+  it is not built unless the queue is too slow. If it is built, it must reproduce seeds 0 and 1 (accuracy within
+  1e-12, identical cell, piece and simplex counts).
+- The row reports gate cells, wrong pieces, simplices, cost in FPE, the summed a-posteriori error bound, the MSE-ratio
+  bound err² / (p(1-p)/cost), and z against the leaderboard truths (`summarize.py`).
+
+### (2) T = 6
+
+- No new exact run (about 35 CPU-h per model in Python). The row gives the 1/200-subsample extrapolation already in
+  `extrap.jsonl` (validated at T=5 within 1-2% on counts), set against T270's exact k = 6 prefix count for M_16,10
+  (19,740,596 distinct regions, 23.8M cells, lower bounds). These are different models, so the comparison checks the
+  order of magnitude and the growth factor, not equality.
+
+### (3) Hybrid: exact high-mass cells + frozen T10 walk on the rest
+
+Identity (exact for ANY set E of full gate cells):
+P(wrong) = P(wrong, x in E) + P(wrong, x not in E).
+
+- **E(τ)**: the full T-step gate cells reached by a depth-first enumeration that prunes every prefix cell whose
+  proxy mass is < τ. The proxy is one Grundmann-Möller degree-3 rule per simplex of the cell's pulling
+  triangulation, with no refinement. The proxy only decides membership in E, so it cannot bias the estimate. All
+  enumeration and proxy FLOPs are charged.
+- **Exact part** (deductive): the cells in E are outcome-split, and their wrong pieces are measured with
+  `cone_measure` at rtol = 1e-3 (a-posteriori bound reported). Code: `hybrid.exact_part`.
+- **Walk part** (deterministic QMC-class quadrature):
+  - `frozen_t10/` holds byte copies of T10's estimator, core, walk and hom at `a5063c7d`. `frozen_check.py` asserts
+    T379's pre-registered sha256 for each file.
+  - The estimator runs unchanged, with budget B - c_exact. Its `W.walk` is replaced by `mwalk.walk`, which is the
+    frozen walk plus one change: a linear piece whose gate pattern is in E gets no mass (2TH FLOPs per piece charged
+    for the lookup).
+  - `test_hybrid.py` checks that `mwalk` with E empty equals the frozen walk bitwise (T = 3, 4, 5, all strata), and
+    that `exact_part(τ=0)` reproduces `exact_acc` (T = 3).
+- **Cost** is everything as executed: c_exact + the walk's own cost.
+
+**DEV diagnostics already run** (`diag_hybrid.py`, DEV models only, cost and variance only; logs `diag_T*_dev*.log`):
+
+- T = 5, dev_s0.0025_0, with the final settings:
+
+  | τ | cells in E | mass of E | wrong mass in E | exact cost (FPE) | walk variance×cost ratio |
+  |---|---|---|---|---|---|
+  | 1e-1 | 0 | 0 | 0 | 360 | 1 |
+  | 3e-2 | 0 | 0 | 0 | 1.0e4 | 1 |
+  | 1e-2 | 13 | 0.18 | 3.7e-3 | 8.9e4 | 0.957 |
+  | 3e-3 | 74 | 0.51 | 8.1e-3 | 1.9e5 | 0.83 |
+  | 1e-3 | 133 | 0.61 | 8.9e-3 | 3.0e5 | 0.80 |
+
+  The model's total wrong mass is about 0.0226. So E captures up to 40% of the wrong mass but only 4-20% of the
+  walk's variance, because the walk already integrates the bulk errors of large cells with little variance.
+- T = 5, dev_s0.02_0 (total wrong mass about 0.223): at τ = 1e-2, E holds 4 cells with mass 0.048 and wrong mass
+  0.0105. The variance ratio is 1.002 and the exact cost 6.1e4 FPE. At τ = 3e-2 and 1e-1, E is empty.
+- T = 6 and T = 10 (dev_s0.0025_0): running at push time; the rules below apply unchanged.
+
+**Arm A (within budget).**
+- τ_{T,B} is the smallest τ in {1e-1, 3e-2, 1e-2, 3e-3, 1e-3} for which, on both dev_s0.0025_0 and dev_s0.02_0,
+  E is non-empty and the exact cost is ≤ B/4.
+- If no τ qualifies, arm A is recorded as **"no admissible threshold"**: within the budget the hybrid is the walk
+  alone plus overhead. That cell is a negative by construction and is not scored.
+- From the DEV table this already holds at T = 5 for B = 16k and 64k: a non-empty E costs ≥ 6e4 FPE.
+
+**Arm B (best shot, over budget; scored).**
+- τ = 1e-2 is fixed for T = 5 and 6. The walk gets the full nominal budget B, and the total cost is c_exact + walk
+  cost, as executed.
+- It is compared (i) with sampling at that total cost (leaderboard formula) and (ii) with the frozen walk alone, with
+  budget set to the hybrid's executed total cost. Comparison (ii) is the real question: is the extra FPE better spent
+  on exact cells or on more walk nodes?
+- Models: the 29 leaderboard test models at T = 5 and at T = 6, at B = 16k and 64k.
+- Truths:
+  - T = 5: our exact values where the step-(1) queue has finished, else the leaderboard 4M truths. Each row is marked
+    with the truth it used.
+  - T = 6: the 4M truths from T10's branch (`truths_H16_T6_from_t10.json`, copied).
+- Rule seeds: T10's RULE_SEED plus 16 alternatives (RULE_SEED + 1000 i, i = 1..16), all fixed now. Per-model MSE is
+  the mean over rules of (est - truth)² - se². The group MSE ratio is the leaderboard formula. The exact part does
+  not depend on the rule seed, so it is computed once per model; its cost is charged to every call.
+- **The hybrid "helps" only if**, at both budgets and both T, the seed-group MSE of arm B is below that of the walk
+  alone at equal executed cost, and also below sampling (ratio < 1) on all 5 seeds. Otherwise the verdict is FAIL for
+  this hybrid. The scope is a mass-threshold E, a GM3 proxy, the frozen T10 walk, and T = 5, 6.
+- **Prediction: FAIL.** On DEV the variance factor at τ = 1e-2 is 0.96-1.00 at a cost of 6e4-9e4 FPE, so at equal
+  cost the walk alone should win by about 1.5-2.4x.
+- T = 10: scored (M_16,10 leaderboard, orig + seeds + noisy, 4M truths) only if the DEV diagnostic at τ = 1e-2 gives a
+  non-empty E for ≤ 1e6 FPE. Otherwise it is declared infeasible.
+
+**Which part carries the error.** We report the exact part's error bound next to the walk part's rms error over the
+rule seeds, and the share of the wrong mass inside E.
+
+**Classes.** The exact part is deductive (mechanistic: enumeration and exact cone measure). The walk part is
+deterministic QMC-class quadrature (DRI ruling for T10). The hybrid as a whole is quadrature-class.
+
+**Alternatives to keep in mind (rule 3).**
+- (a) The variance sits in many small near-tie cells, so no mass threshold can help. Test: the variance ratio vs τ
+  curve; a small threshold that removes most of the variance would refute this.
+- (b) The thresholded set is the wrong set, and an error-mass or variance-weighted selection would work. That is not
+  tested here; it becomes a backlog item if arm B fails.
+- (c) The exact part is too expensive only because the implementation is naive (triangulation and proxy masses are
+  over half the cost at τ = 1e-2). Bound: even with a free exact part, the variance factor is ≥ 0.80 for τ ≥ 1e-3.
+  So the gain is capped at 1.25x on that DEV model.
 
 ## Compute accounting
 
