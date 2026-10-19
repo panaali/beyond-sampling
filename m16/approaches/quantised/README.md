@@ -68,6 +68,12 @@ int4 hashed). Skipped if the projected spend would pass the 20-unit cap. Also (D
 the discrete-input cells (label convention in training and evaluation: 2nd-largest of the DISCRETISED inputs, ties
 broken by the lower index).
 
+**Deviation 1 (2026-10-19 05:55 UTC, before these census runs).** The census of int8 (continuous inputs), int4 x int4
+inputs and int4 x int8 inputs uses 2.5e8 inputs (not >= 1e9): at 1e9 the int8 run ran out of T4 memory with 32 partitions
+(nearly every key distinct), more partitions would cost ~3 h (> 3 units), and the int4 census at 1e9 already shows
+864,652,487 distinct states at step 10 (86% of inputs), i.e. these high-precision variants have effectively
+per-input states; 2.5e8 suffices to show that. Binary (3 cells) and int4 (continuous) used 1e9.
+
 **Done when** each variant has accuracy, state counts and DP cost vs sampling, or a scoped negative saying which variant
 breaks and why. Heavy CPU slot requested from the DRI only if the DP needs one.
 
