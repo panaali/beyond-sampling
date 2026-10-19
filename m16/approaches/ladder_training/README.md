@@ -115,7 +115,7 @@ Zoo (4,4) 2^30 reference: accuracy 0.477-0.602, mean 0.556.
 
 ## Status
 
-Done (2026-10-19): T86 reproduction matches; (7,3) matches; (4,7) fails M2 on one seed; T111 FAIL, undertraining inconclusive at H=4. T428 (estT exact-mode check) running.
+Done (2026-10-19): T86 reproduction matches; (7,3) matches; (4,7) fails M2 on one seed; T111 FAIL, undertraining inconclusive at H=4. T428 done (estT exact mode: 12-node 'wide' orthant rule leaves ~1e-4 errors; 128 nodes fixes it).
 
 ## Results
 
@@ -240,6 +240,40 @@ failing seed fails by >= 0.1 pp or on its noisy copies (whose truth is MC). Note
   T87 item 3) fails in every copy (-0.5 to -0.75 pp).
 
 
+
+## T428: is estT's "exact" mode exact? Not quite: its 12-node orthant rule leaves ~1e-4 errors at T = 4 [measured]
+
+Question (from T111): estT exact read ~2e-4 low against MC on one (4,4) model. Script [t428.py](t428.py) imports
+`understand_m43/estT.py` unchanged and only swaps its quadrature table `estT._RULES` at run time.
+
+1. **Scan** (`python t428.py scan`): exact mode (default rules) vs 1e8-sample MC on all 20 (4,4) models of T87/T111
+   (zoo 0-4, 30sL2 0-4, 31s 0-4, 30s 42/20/40/10/44): differences -1.9e-4 .. +2.4e-4, both signs, **rms z 2.39**,
+   max |z| 4.79 (expected ~1 for an exact method). [t428_scan.json](t428_scan.json)
+2. **Convergence** (`python t428.py rules 30s 40 N`): seed 40 gives 0.5611105 with the default rules and 0.5612259
+   with N = 128, 256, 512 and 1024 nodes (identical to 7 digits). [t428_rules.json](t428_rules.json)
+3. **Which rule** (`python t428.py which 30s 40`): refining only the 'wide' rule (12 Gauss-Legendre nodes, graded
+   p = 2, used when every |rho| <= 0.95) gives 0.5612274; refining only the 'thin' rule (48 nodes) gives 0.5611090.
+   **The error is in the 12-node 'wide' rule.** [t428_which.json](t428_which.json)
+4. **Fix check** (`python t428.py fine`, both rules 128 nodes, p = 3): against the SAME 1e8 MC draws, **rms z
+   2.39 -> 1.21**, mean z +0.02, max |z| 2.54 (1 of 20 above 2), shifts -1.4e-4 .. +1.8e-4. Cost 73 s per (4,4)
+   model on one core (default ~60 s). [t428_fine.json](t428_fine.json)
+
+**Effect on earlier results** (recipe errors re-scored against the 128-node truth): no rung verdict changes.
+Two near-misses become clean passes, 31s seed 0 (1.14 -> 0.75) and 30s seed 10 (1.10 -> 0.80), but both still fail
+on their noisy copies (33, 15), whose truth is MC. All other clean ratios change by < 15% (zoo T87: 459/71/76/7.9/76
+-> 466/71/75/7.0/76). The T87 claim "exact mode passes (error <= 1e-4 vs 1e7 MC)" stands at the 1e-4 level but not
+below it. The recipe mode uses the same orthant rule, so part of its error (~1e-4) is this quadrature bias too.
+
+**Proposed fix for shared estT.py (not applied; AGENTS rule 1):** in `_RULES`, replace `"wide": _rule(12, 2)` by a
+finer rule, e.g. `_rule(32, 3)` or larger, chosen by a convergence test on these 20 models; or select the node count
+from the conditioning of `Rt` instead of max |rho|. Any result that used estT exact as truth at T >= 4 with a
+tolerance below ~2e-4 should be re-checked (E46-E48 / T192 used a port of the same orthant code; whether its port
+kept the 12-node rule was not checked here).
+
+Alternatives not ruled out: the 128-node rule is converged on one model (seed 40); on the other 19 only agreement
+with MC (rms z 1.21) supports it. MC resolution here is ~5e-5 (1 s.e.), so residual errors below ~5e-5 are not
+excluded. Compute: scan 20 x (exact ~60 s + 1e8 MC ~6 min); rules 73-549 s; fine 20 x 73 s; all single-core.
+
 ## Compute accounting
 
 Training: CPU wall time per model in each npz (`wall_seconds`), single thread. Evaluation: 2^23 forward passes per
@@ -252,6 +286,8 @@ model. T111: estT ops (its own counter, `m43.Ops`) for exact and recipe; 1e7-sam
 - [measured] (7,3) seeds 0-4 match their zoo neighbours (M1-M3); (4,7) fails M2 (seed 3, 0/4 storage basin).
 - [measured] T111: T87's recipe fails (4,4) on lr x2, 2x data and best-of-45-seed models; no (4,4) model above
   0.603 was found, so undertraining vs T is inconclusive at H = 4.
+- [measured] T428: estT exact mode at T = 4 has quadrature errors up to ~2.4e-4 (rms z 2.39 vs 1e8 MC on 20
+  models) from its 12-node 'wide' orthant rule; with 128 nodes rms z is 1.21. No rung verdict changes.
 - [inferred] Models we train at missing sizes with the same code are zoo-like models (same pipeline, same
   per-seed basins), not a different training regime.
 
