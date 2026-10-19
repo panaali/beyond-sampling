@@ -1428,6 +1428,7 @@ A point with fewer hits is either re-drawn with more samples or excluded by this
   - s529 (2.35, 2.75): 1.03, 1.06
   - s530 (2.35, 2.75): 0.96, 0.97
   - s531 (2.35, 2.75): 1.02, 1.02
+- **E2 (complete, 10-19 23:xx):** 28 of 32 within 2x (scorer go = True). At the moment of the go it stood at 25 of 29.
 - **E2:** 25 of 29 within 2x when the go was reached. That already clears the 24/32 line. The last 3 cases at t = .5 (s518, s519, s525) are being run for completeness and cannot change the verdict.
   - All 4 misses are at t = 1.25: s508 0.48, s511 0.43, s515 0.24 and s519 2.91. The s519 truth there rests on 1 hit.
   - Every case at t = 1.0, .75 and .5 run so far is within 2x.
