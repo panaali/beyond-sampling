@@ -88,7 +88,7 @@ sliver). At both thresholds the 30-point cap was reached.
 | F counting every IS draw as one pass | 0.050 | 2.0e-5 |
 | strict F <= 1 / lenient F <= 10 | pass / pass | pass / pass |
 | comparator: T400's prefiltered MC, network passes only (F = P(g23 >= t0)) | 5.9e-3 (IS 4.4x worse) | 4.1e-5 (IS 4.0x better) |
-| same, counting a draw + sort at its measured 0.19 FPE | ~0.19 (IS 7x better) | ~0.19 (IS ~1.9e4x better) |
+| same, charging each MC draw + sort its measured 0.19 FPE (vs IS charged a full pass per draw) | ~0.19 (IS 3.8x better) | ~0.19 (IS ~1e4x better) |
 | IS hits by triple | (9,3,2) 1501, (3,9,2) 115, (8,1,2) 33, (1,8,2) 11, (2,9,3) 6, (9,2,3) 4, (0,9,7) 1 | (9,3,2) 2244, (3,9,2) 135, (8,1,2) 6, (1,8,2) 2 |
 | MC hits by triple | (9,3,2) 499, (8,1,2) 122, (0,9,7) 66, (9,0,7) 63, (1,8,2) 32, (3,9,2) 21, ... | all 17 on (9,3,2) (T400) |
 
