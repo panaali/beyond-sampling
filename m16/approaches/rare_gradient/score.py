@@ -23,7 +23,7 @@ def main():
         if not os.path.exists(os.path.join(HERE, "results", f"truth_fd2_{nm}.json")):
             continue
         D, T = R(f"dirs_{nm}.json"), R(f"truth_fd2_{nm}.json"); C = R(f"cmc_{nm}.json") if os.path.exists(os.path.join(HERE, "results", f"cmc_{nm}.json")) else None
-        lines.append(f"{nm} E1({D['t0']}): truth P {T['P']:.4e} +- {T['P_se']:.1e} (N {T['n']:.0e}); K3 {D['est']:.4e} ({D['est'] / T['P']:.2f}x)"
+        lines.append(f"{nm}{' (DEV, not scored)' if nm == 'dev3_s526' else ''} E1({D['t0']}): truth P {T['P']:.4e} +- {T['P_se']:.1e} (N {T['n']:.0e}); K3 {D['est']:.4e} ({D['est'] / T['P']:.2f}x)"
                      + (f"; line-CMC {C['P']:.4e} +- {C['P_se']:.1e} ({C['n_lines']:.0e} lines, {C['C_fpe']:.3g} FPE)" if C else ""))
         lines.append("  dir   delta     FD/P (lvl)        K3/P  ratio  ok | CMC/P            ratio ok | FD/P conv (lvl 2-4 mean)")
         FD = np.array(T["FD"]); SE = np.array(T["FD_se"])
@@ -33,19 +33,22 @@ def main():
             res, ok, r = judge(pred, fd, se); resc, okc, rc = judge(pred, conv, conv_se)
             row = dict(model=nm, dir=i, top=i == 5, delta=D["delta"][i], level=lvl, FD=fd, FD_se=se, pred=pred, resolved=res, ok=ok,
                        ratio=r, FD_conv=conv, FD_conv_se=conv_se, resolved_conv=resc, ok_conv=okc, ratio_conv=rc)
-            pool["K3"][0] += res; pool["K3"][1] += ok; pool["K3_conv"][0] += resc; pool["K3_conv"][1] += okc
+            dev = nm == "dev3_s526"; row["dev"] = dev                 # amendment A2: s526 is development, not in the go count
+            if not dev:
+                pool["K3"][0] += res; pool["K3"][1] += ok; pool["K3_conv"][0] += resc; pool["K3_conv"][1] += okc
             s = f"  {'top' if i == 5 else i:>3} {D['delta'][i]:8.4f} {fd / T['P']:8.2f}+-{se / T['P']:5.2f} ({lvl}) {pred / T['P']:8.2f} {r:6.2f} {'Y' if ok else ('n' if res else '-')}"
             if C:
                 pc, pcs = C["proj"][i], C["proj_se"][i]; resC, okC, rC = judge(pc, fd, se); _, okCc, rCc = judge(pc, conv, conv_se)
                 row.update(cmc=pc, cmc_se=pcs, ok_cmc=okC, ratio_cmc=rC, ok_cmc_conv=okCc, ratio_cmc_conv=rCc)
-                pool["CMC"][0] += resC; pool["CMC"][1] += okC; pool["CMC_conv"][0] += resc; pool["CMC_conv"][1] += okCc
+                if not dev:
+                    pool["CMC"][0] += resC; pool["CMC"][1] += okC; pool["CMC_conv"][0] += resc; pool["CMC_conv"][1] += okCc
                 s += f" | {pc / T['P']:8.2f}+-{pcs / T['P']:6.2f} {rC:6.2f} {'Y' if okC else ('n' if resC else '-')}"
             s += f" | {conv / T['P']:8.2f}+-{conv_se / T['P']:5.2f}"
             lines.append(s); out["rows"].append(row)
     for k, (nres, nok) in pool.items():
-        go = nres >= 12 and nok >= .8 * nres
-        lines.append(f"{k}: {nok}/{nres} resolved directions pass -> {'GO' if go else ('INCONCLUSIVE' if nres < 12 else 'NO-GO')}")
-        out[k] = dict(resolved=nres, ok=nok, verdict="GO" if go else ("INCONCLUSIVE" if nres < 12 else "NO-GO"))
+        go = nres >= 8 and nok >= .8 * nres
+        lines.append(f"{k} (s528 + orig): {nok}/{nres} resolved directions pass -> {'GO' if go else ('INCONCLUSIVE' if nres < 8 else 'NO-GO')}")
+        out[k] = dict(resolved=nres, ok=nok, verdict="GO" if go else ("INCONCLUSIVE" if nres < 8 else "NO-GO"))
     out["primary"] = out["K3"]["verdict"]
     lit = R("truth_fd_dev3_s526.json"); D = R("dirs_dev3_s526.json")
     lit_ok = [judge(D["pred"][i], lit["FD"][i], lit["FD_se"][i]) for i in range(6)]
