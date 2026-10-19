@@ -139,7 +139,7 @@ per-model table with s.e., fallback shares and cylinder-violation rates; paired 
 4. **Clocks vs random gates:** D3 beats R3 by > 2 s.e. on 4/18, R3 never beats D3. Mean |bias| 0.310 vs 0.350:
    a small, not decisive, advantage for the clocks. D5 (5 clocks) is the best variant (mean |bias| 0.195, sign
    9 +/9 -), but still max 0.681.
-5. **X3 is no longer much worse than D3 on most models** (equal within s.e. on the 12 noisy copies): once lows
+5. **X3 is no longer much worse than D3 on most models** (within ~0.03 pp on 11 of the 12 noisy copies): once lows
    are consistent with whichever symbol is used, the true symbol adds little on those models. On zoo seeds
    0/3/4 and s0.005_4, X3 goes strongly negative.
 6. Fallback: 40-71% of low slots are served at L0 (finest cell), 3-13% fall back to V1.
