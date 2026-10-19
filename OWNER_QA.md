@@ -1002,6 +1002,20 @@ the tasks, then one session per task. The owner also passed on another agent's l
 - *Follow-up (owner, 14:3x): 10 tasks instead of 5, one session each.* T419's pick rule is now 10 tasks >= .90, at least 6
   outside the k-th-largest family, at most 3 pair-output.
 
+<a id="q6-7"></a>
+### 6.7 Do our positive results hold for larger networks (more neurons H, more steps T, or both)? (owner, 10-19 14:4x)
+
+**Request (owner, condensed):** most results are for ARC's M_16,10 (16 neurons, 10 steps). Scale up H, T or both, and see how far
+the positive and near-positive results keep holding.
+
+**Answer (DRI):** one lead session (T421) trains a grid of 2nd-largest RNNs with the zoo recipe beyond (16,10) (H up to 64 and
+T up to 20, several seeds per point, reusing T392's H = 24 / 32 models where they match); then one session per method measures
+where it stops holding, each against a pre-registered criterion: walk quadrature (H-E16: F <= 1 / <= 10), the rare-event
+estimators (H-R1 and the graded rule: within 2x), locate and repair (H-R2, H-R3: a >= 10x cut at <= .05 pp), certified pruning
+(survivor growth per step), and the safe-use rating (T401). Prediction [inferred]: the generic methods degrade with T faster
+than with H, because each extra step multiplies the gate flips along a line; T392's chunked RNNs already show walks losing
+at k = 1-2 inputs per step.
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
