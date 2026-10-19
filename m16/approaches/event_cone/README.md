@@ -63,7 +63,140 @@ points) validate the enumeration: **every sampled 6-step prefix must be among th
 a bug).
 
 ## Method
-(to be filled in after running)
+- `cone_count.py`: T344's LP cone splitter (the verbatim copy is `cone_count_t344.py`), changed only as listed in its
+  header: the true ordering cone O, the pre-registered triples, an interior-point speed-up (one LP per neuron
+  instead of two), the cap, and (post-launch, memory only) last-step cells keep only their history.
+- `event_pass.py`: event-point search with T340's e_p3 line walk (post-hoc, below).
+- `analyze.py`: summary helper. Logs are in `logs/`, raw counts in `results_*.json`.
+- Run as `cd m16/approaches/event_cone; ulimit -v 2500000; python cone_count.py KMAX i,j,... [--events]`.
 
 ## Status
-Pre-registered; not yet run.
+**Done: STOP** (scoped negative, unverified). Post-hoc diagnostic on the event-carrying triples: see below.
+
+## Results
+
+### Checks (all passed, except the affine box at 1e4, explained)
+- **Speed-up == T344's two-LP rule** [measured]: identical counts for k <= 4 on (1,2,0) and (4,1,3): 2/20/83/822
+  and 2/20/212/1,676 (`logs/val_fast.log`, `logs/val_slow.log`).
+- **t0 does not change the counts** [measured]. On the affine K with box [-1e4, 1e4]^10, the k = 3 counts are 82 and 209,
+  against 83 and 212 on O. The missing regions are exactly those whose max g23 over the unit box is below
+  1.5/1e4: 4.8e-5 for one, and 1.4e-5, 2.6e-5, 5.6e-5 for the others. With box 1e6 the affine counts equal O's
+  (83, 212; `logs/val_aff1e6.log`).
+  So the 1e4-box check failed as pre-registered, and the failure is the predicted scale artefact, not a
+  discrepancy. The k = 4 affine check at box 1e6 was not run.
+- **All-late triples equal the full space** [measured]. (9,7,8) and (8,9,6) give 34 / 792 / 21,032 at k = 2..4, the
+  confirmed full-space N_k of H-E13. This is forced: when the three positions are all >= k, the cone's projection
+  onto x_0..x_{k-1} is all of R^k.
+  More generally, count_k depends only on the order that the cone induces on positions 0..k-1. Three triples
+  confirm this: (2,8,7), (2,8,5) and (5,2,7) all give 34 / 414 / 5,616 / 129,116.
+- **Enumeration completeness** [measured]: on (1,2,0), every 6-step gate prefix of 2e6 proposal samples in K is among
+  the 161,705 enumerated regions (0 missing; also 0 missing at k = 3).
+
+### Counts table (orig, true event cone, regions = cells)
+
+| triple | k=2 | k=3 | k=4 | k=5 | k=6 | growth 4->5 | growth 5->6 |
+|---|---|---|---|---|---|---|---|
+| (1,2,0) | 20 | 83 | 822 | 12,434 | **161,705** | 15.1 | **13.0** |
+| (9,7,8) | 34 | 792 | 21,032 | = N5 = 632,394 * | = N6 >= 19,740,596 * | 30.1 | >= 31.2 * |
+| (8,9,6) | 34 | 792 | 21,032 | = N5 * | = N6 * | 30.1 | >= 31.2 * |
+| (2,8,7) | 34 | 414 | 5,616 | 129,116 | censored | 23.0 | - |
+| (5,2,7) | 34 | 414 | 5,616 | 129,116 | censored | 23.0 | - |
+| (2,8,5) | 34 | 414 | 5,616 | 129,116 | censored | 23.0 | - |
+| (1,7,8) | 20 | 212 | 3,994 | 77,688 | censored | 19.5 | - |
+| (1,0,8) | 20 | 158 | 1,985 | 29,133 | censored | 14.7 | - |
+| (4,1,3) | 20 | 212 | 1,676 | 27,637 | censored | 16.5 | - |
+| (0,4,2) | 16 | 131 | 1,599 | 11,986 | censored | 7.5 | - |
+
+`*` Not enumerated to the cap here. By the projection identity above (verified at k = 2..4), they equal the
+full-space counts: N5 = 632,394 (T192, recomputed independently, H-E13) and N6 >= 19,740,596 (T270 final, an exact
+lower bound, unverified). The first launch of these two triples was stopped at k = 5. It was heading to the 2e5 cap
+at 1.2 GB per process (`logs/run*_killed.log`), which would only have returned ">= 2e5", a weaker figure than the
+known one.
+"censored": the k = 6 step was not run. The pre-registered 8 CPU-h budget ran out after a container restart killed
+the first k = 6 launch (`logs/runB.log` holds (5,2,7) to k = 5).
+
+### Projection and verdict
+- **Pre-registered rule with lower bounds** [measured counts, projection inferred]. Each censored triple contributes
+  at least count_5. The all-late triples contribute N6 x (N6/N5)^4 >= 1.87e13 each. So
+  **N10 >= 72 x (4.6e9 + 2 x 1.87e13 + ...) = 2.7e15**, against the GO line 2e8.
+  - Without the all-late triples (that is, without T270's number), (1,2,0) alone gives 72 x 161,705 x 13.0^4
+    = **3.3e11**. Its unscaled term, 4.6e9, already exceeds 2e8.
+- **Heterogeneity** [inferred; the surrogate is not pre-registered]. With growth 5->6 taken equal to growth 4->5 for the
+  censored triples (on the two triples where both are measured, 15.1 vs 13.0 and 30.1 vs 31.2), the per-triple terms
+  run from 2.8e8 for (0,4,2) to 1.9e13 for the all-late triples. **max/median = 36** (median 5.2e11), against the
+  line 10. Both GO conditions fail.
+- **Verdict: STOP** (the pre-registered "STOP (lower bound)" case). The brainstorm predicted N10 ~ 1e9-1e10; the
+  measured lower bound is 5-6 orders above that. The prediction made in the pre-registration (sum >= N6, so growth
+  5->6 must be < 1.8 for GO) holds: the measured growth 5->6 is 13-31.
+- **Event-feasible fraction at k = 6** [measured, lower bound]: **0** on (1,2,0), the only triple with a complete
+  k = 6. The pre-registered proposal found no event points in 2e6 samples. The post-hoc line walk (below) also
+  finds none on any of the 10 random triples. The fraction is unbounded above by this test; an exact value needs
+  the full 10-step enumeration.
+
+### Why the true cone is so much larger than T344's proxy [inferred]
+- T344's proxy (g23 >= 2 g12, and g23 >= 2 x every low gap) is a strict sub-cone, and it pins the lows near x_p3.
+- With no biases, the true event cone has the same regions as the plain ordering cone, which leaves the 7 lows'
+  order free.
+- The growth that T344 saw fall to 2-3x per step in the proxy stays at 7.5-31x per step here: the lows' unread
+  ordering keeps fragmenting the regions.
+
+EVENTDIAG
+
+## Compute accounting
+- Model evaluations are LP solves (HiGHS via scipy), not forward passes. Each cell-step solves 16-32 LPs in 10
+  variables.
+- CPU time: about 8 CPU-h in all.
+  - Validation: about 0.1 CPU-h.
+  - First launch, killed at k = 5: 1.4 CPU-h.
+  - Second launch: (1,2,0) took 0.82 CPU-h (k = 6 alone 46 min). (2,8,7) and (5,2,7) were lost in the container restart.
+  - k = 5 runs of the 7 censored and 2 event triples: about 3.4 CPU-h.
+  - Post-hoc k = 6 diagnostic: EVENTCPU.
+- Forward passes: about 1e8 line-walk and proposal points in the event checks (numpy float64).
+
+## Claims
+1. [measured] Exact region counts inside the true event cone, k = 2..6, as tabulated (k = 6 only for (1,2,0)).
+2. [measured] The count is independent of t0. Equivalently, it equals the ordering-cone count; this also holds
+   numerically up to the box artefact. [inferred, proved in the pre-registration] It holds for every t0 > 0.
+3. [measured on 5 triples; proved] count_k depends only on the order that the cone induces on positions 0..k-1.
+   Triples whose positions are all >= k reproduce the full-space N_k.
+4. [inferred] Projected N10 >= 2.7e15 by the pre-registered rule, or >= 3.3e11 without using T270's number.
+   The heterogeneity is about 36x.
+5. [measured] Far-gap rank-3 events at t0 = 1.5 concentrate on a few position triples (post-hoc, below).
+
+## Alternatives not ruled out
+- **Extrapolation.** Growth could fall sharply after k = 6. It does in T344's proxy, once the top values are read.
+  Here, though, k = 6 growth is 13x even for (1,2,0), whose top three are all read by step 3. A collapse to < 1.8x per
+  step at k >= 7 would sit badly with T348's probability-weighted census, which shows x3.6-5 growth per step
+  through k = 8 in the full space. That is not a strict bound on region-count growth. Not excluded by a count.
+- **Censored triples.** Their k = 6 counts are not measured; the verdict does not depend on them (claim 4).
+- **T270's N6** is from estT's geometry (T316 defect, undercounts) and unverified. It enters only the all-late terms,
+  and only as a lower bound.
+- **Region merging.** Regions with the same affine map, or the same eventual decision, could be merged. That is a
+  different method (H-E13's untried list) and is not tested here.
+
+## Failure modes
+- The LP tolerance (1e-9) decides thin slivers. It was not varied here; T344's choice was kept.
+- Memory: about 6 KB per stored cell. 2e5 stored cells approach the 2 GB-per-process limit.
+- The pre-registered proposal does not reach the event at all on orig, so the event-fraction measurement needs the
+  line walk.
+
+## Exhaustion checklist (AGENTS rule 5)
+Tried:
+- (a) T344's proxy cone (T344, killed against the 1e6 line).
+- (b) The true event cone, 10 random triples, k <= 6 (this test).
+- (c) The t0-scaled affine cone with a large box (equal counts).
+- (d) Event-carrying triples only (post-hoc diagnostic, below).
+
+Not tried, with why:
+- (i) Region merging by affine map, or by decision, across histories: a different method, H-E13's open line.
+- (ii) Enumerating backwards from the decision (cone_enum's C idea): T346 idea C, judged by T348's census
+  (backward branching about 4.5k at j = 1); not in this budget.
+- (iii) Coarser certificates on the non-event triples: whole-triple LP infeasibility at the level of the cone, not of
+  each region. For a certificate, each of the ~714 other triples must be shown to carry no event mass (or a bounded
+  one). The event is "logit_p3 >= every other logit at step 10", which is not linear on the cone. So a cone-level LP
+  cannot decide it, and the only exact route is an LP per step-10 region (~30 FPE each) over that triple's regions,
+  i.e. the same 1e11-1e15 count. A Lipschitz or interval argument fails at <= 1e-4 widths (T344).
+- (iv) A different t0: the counts are t0-independent (claim 2), so no t0 helps the count. Only the event mass changes.
+- (v) Other models (zoo seeds): not run. The full-space growth is similar (H-E13), and claim 3 makes the all-late
+  triples equal to N_k for any model.
+- (vi) Tighter LP tolerance: not run. It can only add slivers, i.e. raise the counts.
