@@ -16,7 +16,7 @@ import lcmc  # noqa: E402
 import rnn  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__)); RES = os.path.join(HERE, "results")
-SH = [(16,), (16, 16), (10, 16)]; T0 = 2.0; K = 12; GRID = 0.0025; BUDGET = 0.05
+SH = [(16,), (16, 16), (10, 16)]; T0 = 2.0; K = 12; GRID = 0.00025; BUDGET = 0.05     # GRID: amendment R3 (was .0025)
 W_ORIG = np.array(json.load(open(os.path.join(HERE, "..", "results", "dirs_orig.json")))["w"])
 
 
@@ -66,6 +66,37 @@ def select(r):
     print("S", S.tolist(), "pred dlogP/deps %.1f  dacc/deps %.4f" % (gE @ d / G["P"], gA @ d))
 
 
+def hess(r):
+    """Amendment R3: accuracy Hessian on S by paired plain MC, and the direction d = -M^-1 g_E (M = -H, clipped)."""
+    D = J(f"dir_r{r}.json"); G = J(f"gE_r{r}.json"); w = np.array(G["w"]); S = np.array(D["S"]); k = len(S); h = 0.005
+    keys = [(0, 0, 0, 0)]
+    for a in range(k):
+        keys += [(a, 1, a, 0), (a, -1, a, 0)]
+        for b in range(a + 1, k):
+            keys += [(a, sa, b, sb) for sa in (1, -1) for sb in (1, -1)]
+    models = []
+    for a, sa, b, sb in keys:
+        v = w.copy()
+        if sa:
+            v[S[a]] += sa * h
+        if sb:
+            v[S[b]] += sb * h
+        models.append(rnn.unflat(v, SH))
+    acc, _, _ = acc_plain(models, 2_000_000, 402005 + 10 * (r - 1)); A = dict(zip(keys, acc)); a0 = A[(0, 0, 0, 0)]
+    H = np.zeros((k, k))
+    for a in range(k):
+        H[a, a] = (A[(a, 1, a, 0)] - 2 * a0 + A[(a, -1, a, 0)]) / h ** 2
+        for b in range(a + 1, k):
+            H[a, b] = H[b, a] = (A[(a, 1, b, 1)] - A[(a, 1, b, -1)] - A[(a, -1, b, 1)] + A[(a, -1, b, -1)]) / (4 * h * h)
+    lam, V = np.linalg.eigh(-H); lc = np.maximum(lam, .05 * lam.max()); Minv = (V / lc) @ V.T
+    gE = np.array(D["gE"]); d = -Minv @ gE; d /= np.linalg.norm(d); d_old = np.array(D["d"])
+    J(f"dir_r{r}_proj.json", D)
+    D.update(d=d.tolist(), H=H.tolist(), eig_negH=lam.tolist(), pred_dlogP_per_eps=float(gE @ d / G["P"]),
+             pred_dacc_quad_per_eps2=float(d @ H @ d / 2), old_pred_dacc_quad_per_eps2=float(d_old @ H @ d_old / 2), direction="R3 Hessian")
+    J(f"dir_r{r}.json", D)
+    print("eig(-H)", np.round(lam, 1), "pred dlogP/deps %.1f; dacc ~ %.1f eps^2 (old direction %.1f eps^2)" % (gE @ d / G["P"], d @ H @ d / 2, d_old @ H @ d_old / 2))
+
+
 def search(r):
     D = J(f"dir_r{r}.json"); G = J(f"gE_r{r}.json"); w, used = start(r); S = np.array(D["S"]); d = np.array(D["d"])
     P0 = J("gE_r1.json")["P"]; left = BUDGET - used; cache = {}
@@ -82,7 +113,7 @@ def search(r):
         cache[kgrid] = row; print(row, flush=True)
         J(f"search_r{r}.json", dict(round=r, rows=sorted(cache.values(), key=lambda q: q["k"])))
         return row
-    kmax = int(round(left / GRID)); ks = [k for k in (1, 2, 4, 8, 16) if k <= kmax] + [kmax]; hit = None; lo = 0
+    kmax = int(round(left / GRID)); ks = [k for k in (1, 2, 4, 8, 16, 32) if k <= min(kmax, 40)] + [min(kmax, 40)]; hit = None; lo = 0
     for k in ks:
         if evaluate(k)["ok"]:
             hit = k; break
@@ -105,4 +136,4 @@ def search(r):
 
 
 if __name__ == "__main__":
-    {"grad": grad, "select": select, "search": search}[sys.argv[1]](int(sys.argv[2]))
+    {"grad": grad, "select": select, "hess": hess, "search": search}[sys.argv[1]](int(sys.argv[2]))

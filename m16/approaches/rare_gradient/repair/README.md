@@ -72,8 +72,19 @@ The line-CMC accuracy gradient is too noisy for the projection (check `test_lcmc
 weights of S is instead a paired central FD of plain-MC accuracy: h = 0.01 per weight, N = 1e7 inputs, seed 402002.
 Processes run with OMP_NUM_THREADS = 1 (the CPU rule).
 
+### Amendment R3 (2026-10-19, after the first two design candidates; design estimates only, no truths)
+Design result: along the R2 direction (first-order accuracy gradient projected out), eps = .0025 gives design
+P ratio .032 but design accuracy drop .078 pp; eps = .005: .0072 and .43 pp. The trained weights sit at an accuracy
+maximum, so the loss is second order (~eps^2.5) and a first-order projection cannot control it. Change:
+- Accuracy Hessian on S, H (12 x 12), by paired plain MC: four-point central differences for off-diagonals, three-point
+  for diagonals, h = .005, N = 2e6 inputs, seed 402005 (accuracy is not rare: sampling is the right tool).
+- Direction d proportional to -M^-1 g_E,S with M = -H symmetrised, eigenvalues clipped below at .05 x the largest:
+  the step that minimises the predicted second-order accuracy loss for a given first-order fall of P.
+- Grid eps = .00025 x {1, ..., 40} (to .01), same doubling + bisection; qualification unchanged (design P <= P0/20,
+  design accuracy drop <= .02 pp); rounds and the .05 budget unchanged. S is unchanged.
+
 ## Status
-Pre-registered (R1, R2); design not started.
+Pre-registered (R1-R3); design in progress.
 
 ## Results
 (none yet)
