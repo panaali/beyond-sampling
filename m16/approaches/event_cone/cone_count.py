@@ -8,6 +8,8 @@ pre-registration):
     of a neuron's hyperplane is non-empty, so only the other side's LP is solved. Decisions are the same as T344's
     two-LP rule (hi <= TOL -> off; lo >= -TOL -> on; else split); validated against fast=False for k <= 4.
  4. Cap on regions (= cells: histories are distinct by construction), as in T344.
+ 5. (post-launch, memory only) cells of the last step keep only their history; the event check uses the last
+    COMPLETE step's region set.
 usage: python cone_count.py KMAX i0,i1,...  (indices into TRIPLES) [--slow] [--affine BOX]"""
 import json
 import os
@@ -92,7 +94,7 @@ def split_fast(G, xi, c):
 
 
 def count(tri, kmax, maxregions=200_000, fast=True, affine_box=None, return_cells=False):
-    Wi, Wh, _ = model(); H = len(Wi); res = []
+    Wi, Wh, _ = model(); H = len(Wi); res = []; last_complete = (0, set())
     G0, b0 = cone(tri, affine=affine_box is not None)
     box = affine_box or 1.0
     cells = [(G0, b0, interior(tri), np.zeros((H, D)), b"")]
@@ -117,10 +119,15 @@ def count(tri, kmax, maxregions=200_000, fast=True, affine_box=None, return_cell
                         nxt.append((np.vstack([Gp, -Z[j]]), np.append(bp, 0.), xneg, g + [0]))
                 pieces = nxt
             for Gp, bp, xp, g in pieces:
-                g = np.array(g, float)
-                new.append((Gp, bp, xp, g[:, None] * Z, hist + np.packbits(g > 0).tobytes()))
+                g = np.array(g, float); hb = hist + np.packbits(g > 0).tobytes()
+                if t == kmax - 1:                                  # last step: keep only the history (memory)
+                    new.append((None, None, None, None, hb))
+                else:
+                    new.append((Gp, bp, xp, g[:, None] * Z, hb))
             if len(new) > maxregions:
                 ok = False; break
+        if ok:
+            last_complete = (t + 1, {c[4] for c in new})
         cells = new
         hs = {c[4] for c in cells}
         res.append(dict(k=t + 1, complete=ok, cells=len(cells), regions=len(hs), sec=round(time.time() - t0, 1)))
@@ -129,7 +136,7 @@ def count(tri, kmax, maxregions=200_000, fast=True, affine_box=None, return_cell
             break
     if return_cells:
         return res, cells
-    return res, {c[4] for c in cells}
+    return res, last_complete
 
 
 def prefixes(x, k):
@@ -173,9 +180,9 @@ if __name__ == "__main__":
     out = {}; path = os.path.join(HERE, f"results_{tag}.json")
     for i in idx:
         tri = TRIPLES[i]; t1 = time.time()
-        res, regs = count(tri, kmax, fast=fast, affine_box=abox)
+        res, (klast, regs) = count(tri, kmax, fast=fast, affine_box=abox)
         out[str(tri)] = dict(counts=res, cpu_sec=round(time.time() - t1, 1))
         if "--events" in sys.argv:
-            out[str(tri)]["events"] = ev = event_check(tri, regs, res[-1]["k"])
+            out[str(tri)]["events"] = ev = event_check(tri, regs, klast); ev["k"] = klast
             print(tri, ev, flush=True)
         json.dump(out, open(path, "w"), indent=1)
