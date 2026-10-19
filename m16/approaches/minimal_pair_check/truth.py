@@ -3,6 +3,7 @@ usage: python truth.py   (from this folder; 1e8 samples per clean model, 1e7 per
 import json
 import os
 import sys
+import zlib
 
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
     os.environ.setdefault(_v, "1")
@@ -49,11 +50,11 @@ if __name__ == "__main__":
     out_path = "truths.json"
     out = json.load(open(out_path)) if os.path.exists(out_path) else {}
     names = sys.argv[1:] or None
-    for i, (name, m) in enumerate(M.all_models().items()):
+    for name, m in M.all_models().items():
         if (names and name not in names) or name in out:
             continue
         clean = "/" not in name
-        out[name] = truth(m, 100_000_000 if clean else 10_000_000, seed=20_000 + i)
+        out[name] = truth(m, 100_000_000 if clean else 10_000_000, seed=zlib.crc32(name.encode()))
         if clean:
             out[name]["torch_agree"] = check_torch(int(name[1:]))
         print(name, out[name], flush=True)

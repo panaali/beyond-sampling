@@ -30,6 +30,8 @@ def all_models():
     """name -> weights; clean models are 'f<seed>', noisy copies 'f<seed>/s<sigma>_<k>'."""
     ms = {}
     for s in SEEDS:
+        if not os.path.exists(f"{ROOT}/data/t379_models/2nd_argmax_16_5_{2 ** 30}_{s}.pth"):
+            continue                             # not trained yet
         b = load(s); ms[f"f{s}"] = b
         for k, m in noisy(b, s).items():
             ms[f"f{s}/{k}"] = m
