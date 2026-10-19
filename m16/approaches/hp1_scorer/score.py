@@ -17,7 +17,7 @@ D = os.path.join(ROOT, "data", PANEL)
 FPE = 5948.0                                   # FLOPs per plain-sampling forward at (16,10), T196 convention
 BUDGETS = (16_000, 64_000, 256_000)
 CURVE = (1_000, 4_000, 16_000, 64_000, 256_000)          # Directive 8 amendment 2
-SEED_IDX = {16_000: 0, 64_000: 1, 256_000: 2, 1_000: 3, 4_000: 4}   # control seed slot per budget (stable)
+SEED_IDX = {16_000: 0, 64_000: 1, 256_000: 2, 1_000: 3, 4_000: 4, 1_000_000: 5, 4_000_000: 6, 10_000_000: 7}  # control seed slot (stable)
 PANELS = dict(hp1=dict(groups=("clean", "abs0.05", "rel0.005", "rel0.01"),
                        sha=dict(weights="9bad715dad33f2e403675ebd552dc5512a14e9a8019a636575e7a5a0735fbd4c",
                                 manifest="fe0974012be395454e60b182e3552c36d8ec24940c2ddaa1ebb620302988ca64",

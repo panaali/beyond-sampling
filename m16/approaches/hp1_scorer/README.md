@@ -619,6 +619,28 @@ All five CIs cover 1, so the harness holds.
 - No seeds and no identical weights shared with HP2, HP3 or HP4.
 - **Nothing has been run on HP5, not even the control.** It waits for the single submission the DRI names.
 
+## T431: sealed HP5 run of the frozen T10 walk-quadrature recipe (DRI pre-registration, TASKS T431 @ 791153c9)
+**Protocol, written before any HP5 output:**
+- Code: T429's frozen recipes and T429's own runner `score.py` (`afcb43325500`), from `claude/t429-walk-budget`
+  at 79ecae63. Frozen-file sha256[:12] match T429's pre-registered values:
+  - estimator.py `fb7902e12240`, walk.py `a38258f586b4`, hom.py `a91f019fca21`, core.py `48dbba49ab13`;
+  - walk_nb.py `bbc6cc992c7c`, isg/estimator.py `0bb493e6b480`, pos/table.npz `e772b13f333a`.
+  - The swaps are T429's: lazy Sobol (bitwise) and T393's compiled walk (repro mode).
+- **Gate, in this container:** T429's runner reproduces T429's saved DEV3 T10 rows bitwise, estimates and costs, on
+  5 models at 16k and 2 models at 4e6 FPE (DEV3 from claude/t192-gpu-cost-law 8134ab47; weights 62c952037e8c,
+  truths abcb7d6d264a).
+- **Primary (decisive):** the T10 recipe at B = 4e6 FPE, one deterministic run per HP5 model. `run_t431.py`
+  (resumable; no re-runs).
+- **Secondary (not decisive):** T10 at 1e6 and 1e7; T391 isg at 1e6.
+- **Control:** plain MC at 1e6 and 4e6 (n = B iid inputs, fixed seed per model; `score.py control`).
+- **Score:** cost ≥ B/2; one cluster per model; 10,000-resample bootstrap, seed 281.
+  - **Primary F (truth variance subtracted, as T429):** F = (Σe − ΣSE²) / Σ p(1−p)/C.
+  - Also reported: the conservative raw F = Σe / Σ p(1−p)/C, and the T281 ratio Σe / Σ(p(1−p)/C + SE²).
+  - Truths: the HP5 sealed 1e8 MC. Their variance is about 7e-10, vs a sampling MSE of about 1.8e-8 at 4e6, so it
+    is subtracted. Its share of the raw squared error is reported.
+- **Bars:** strict passes if the CI upper < 1; lenient passes if the CI upper < 10 (the T431 wording). The point F
+  is reported as well.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
