@@ -2,7 +2,7 @@
 estT.py is imported UNCHANGED; the diagnostic variant only swaps its quadrature table (estT._RULES) at run time.
 
 usage: OMP_NUM_THREADS=1 python t428.py scan            -> t428_scan.json  (exact, default rules, + 1e8 MC per model)
-       OMP_NUM_THREADS=1 python t428.py rules NAME SEED  -> t428_rules.json (exact with default vs 512-node rules)
+       OMP_NUM_THREADS=1 python t428.py rules NAME SEED [N=512] -> t428_rules.json (exact, default vs N-node rules)
 Models: zoo (4,4) seeds 0-4, ours 30sL2 0-4, 31s 0-4, 30s 42/20/40/10/44 (= every (4,4) model of T87/T111)."""
 import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,7 +56,7 @@ def rules(name, s, n=512):
         p1, ops1, sec = exact(m)
     finally:
         estT._RULES.update(saved)
-    res[f"{name}_{s}"] = dict(default=p0, fine=p1, nodes=n, shift=p1 - p0, sec_fine=sec)
+    res[f"{name}_{s}_{n}"] = dict(default=p0, fine=p1, nodes=n, shift=p1 - p0, sec_fine=sec)
     print(f"{name}_{s}: default {p0:.7f} {n}-node {p1:.7f} shift {p1 - p0:+.2e}", flush=True)
     json.dump(res, open(fn, "w"), indent=1)
 
@@ -65,4 +65,4 @@ if __name__ == "__main__":
     if sys.argv[1] == "scan":
         scan()
     else:
-        rules(sys.argv[2], int(sys.argv[3]))
+        rules(sys.argv[2], int(sys.argv[3]), *map(int, sys.argv[4:5]))
