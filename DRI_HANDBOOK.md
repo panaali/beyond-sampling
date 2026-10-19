@@ -335,7 +335,7 @@ Decisions waiting on the next DRI, in order:
 4. **Walk quadrature:** T434 (noisy copies, target) and T442 (rule seeds, lattices) decide H-E17's scope.
 5. **Rare events:** T456 (IS v4, fresh panel).
 6. Spawns can fail silently (lesson 11): confirm each new session claims its row.
-7. Tutorial: final update published as v10 (22:42) at https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX, claude/t374-tutorial a266fe1c; it predates T456 (22:37). Update again only on the owner's request.
+7. Tutorial: v11 published (22:49) at https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX, claude/t374-tutorial 6c3b431c: covers all 333 INDEX registry and ledger rows (checklist in tutorial/README.md), plus a most-interesting-findings section and a scale / cost section (OWNER_QA 4.17, 4.18); v11.1 adding 4.19 was requested. Update again only on the owner's request; diff against the checklist.
 
 **Owner directives** are recorded once, verbatim, in [OWNER_QA.md section 8](OWNER_QA.md#directives); the ones that bind agents (no Fable, never contact ARC, parallel child sessions, CPU-first, tutorial paused) are one-liners in [AGENTS.md "Standing rules"](AGENTS.md#standing-rules). Record a new directive there only, never by copying it here or into TASKS.md.
 
