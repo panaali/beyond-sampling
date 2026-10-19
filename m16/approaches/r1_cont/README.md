@@ -1414,3 +1414,6 @@ s508 25, s511 26, s512 144, s515 4, s517 14, s518 65, s519 **1**, s525 870. At t
 - **s515 t = 1.25 (S14 0.01, i.e. 0.04 expected hits against 4 observed):** this is a real miss.
 The pre-registered rule counts every case as scored, so the S14 verdict stands as FAIL. With s519 removed, S14 would still have 8 misses out of 27 run, and its E2 would still
 fall short. This is reported for the DRI's ruling on stage-2 case selection (a minimum hit count for the truth).
+
+**T370 stage-2 rule (DRI, 2026-10-19 13:52Z, adopted before any stage-2 pair is selected):** every scored stage-2 pair needs >= 50 truth hits.
+A point with fewer hits is either re-drawn with more samples or excluded by this rule. That decision is made before any estimate is seen, never after.
