@@ -32,11 +32,14 @@ def main():
         idx = [int(v) for v in sys.argv[sys.argv.index("--parents") + 1].split(",")]
     ch = {k: 0 for k in range(kf + 1, km + 1)}; sv = {k: 0 for k in range(kf + 1, km + 1)}
     surv, ck, cst, cstart, cleaves = [], [], [], [], []
-    log = open(os.path.join(HERE, "logs", f"{tag}.log"), "w"); t0 = time.time()
+    log = open(os.path.join(HERE, "logs", f"{tag}.log"), "w"); t0 = time.time(); last = [t0]
 
     def dfs(cell, k):
         for c in step([cell], k, Wi, Wh, 16):
             ch[k + 1] += 1; lv = []
+            if time.time() - last[0] > 300:                        # heartbeat inside a parent's subtree
+                last[0] = time.time()
+                print(json.dumps(dict(heartbeat=True, children=ch, survivors=sv, sec=round(last[0] - t0))), file=log, flush=True)
             sg = relax2.prune_stage(c[0], c[3], k + 1, tri, cert=lv)
             if sg >= 0:
                 ck.append(k + 1); cst.append(sg); cstart.append(len(cleaves))
