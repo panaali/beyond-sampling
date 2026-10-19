@@ -19,6 +19,7 @@ import t370 as Z  # noqa: E402
 
 M = 16
 MODELS = [f"dev3_s{i}" for i in range(548, 564)]
+MODELS_E1 = MODELS[12:]                                  # split with T286 (22:20Z): it runs Q16 E1 on s548-559
 E1T = (2.35, 2.75)
 E2T = (1.25, 1.5)
 
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     z = np.load(os.path.join(HERE, "..", "..", "..", "data", "dev3", "weights.npz")); names = [str(s) for s in z["names"]]
     mod = lambda nm: tuple(z[k][names.index(nm)].astype(float) for k in ("Wi", "Wh", "Wo"))
     fn = os.path.join(HERE, f"results_t370_s2_{part}.json"); out = json.load(open(fn)) if os.path.exists(fn) else {}
-    jobs = [(nm, None) for nm in MODELS] if part == "e1" else [(nm, t) for t in E2T for nm in MODELS]
+    jobs = [(nm, None) for nm in MODELS_E1] if part == "e1" else [(nm, t) for t in E2T for nm in MODELS]
     for nm, t in jobs:
         key = nm if t is None else f"{nm}|{t}"
         if key in out:
