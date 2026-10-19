@@ -1,6 +1,7 @@
 """Score the frozen estimators at L = 15 against exact truths. Appends to data/t446/score15.jsonl.
 usage: python score15.py MODEL [budgets] [methods]"""
 import json
+import os
 import sys
 import time
 import zlib
@@ -14,11 +15,12 @@ from taus import points
 name = sys.argv[1]
 plan = [(1e5, "ce", 5), (1e5, "top", 5), (1e5, "ams", 3), (1e5, "amsl", 3), (1e5, "amsce", 3),
         (1e4, "ce", 3), (1e4, "top", 3), (1e6, "ce", 3), (1e6, "top", 3)]
+if os.environ.get("S3_PLAN") == "sealed":  # pre-registered sealed MLP1 test: 1e5 only
+    plan = [(1e5, "ce", 3), (1e5, "top", 3)]
 if len(sys.argv) > 2:
     plan = [p for p in plan if p[1] in sys.argv[2].split(",")]
 model, _ = load(name)
 lang = Dyck2(L=15)
-import os
 done = set()
 if os.path.exists(f"{DATA}/score15.jsonl"):
     for l in open(f"{DATA}/score15.jsonl"):

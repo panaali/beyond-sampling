@@ -87,6 +87,23 @@ estimated from the weights by `ce` with the event "some position with dist >= k 
 per-sequence count as the IS integrand (1e5 FPE per k). Check: the exact L = 15 r(k) (stronger than the
 spec's conditional MC). **Pass if** within 2x at >= 4 of 6 k, on >= 4 of the 6 s0 models.
 
+### Addendum A (2026-10-19 23:2x, before any MLP1 model was scored or its truth computed): sealed tests on MLP1
+
+MLP1: claude/t433-mini-lm 5f043812 (merged here), `models_mlp1/`. Per the DRI, seeds 100-109 are S2's; S3 uses
+only the held-out **seeds 110-119** (60 models). Code frozen at the commit of this addendum (est.py as of
+ebd59776 plus the s3lib loader for MLP1).
+- **Sealed L = 15 (exact truths).** All 60 models: `exact15.py`, the same tau rule (`taus.py`), `S3_PLAN=sealed
+  score15.py`: `ce` and `top` at 1e5 FPE, 3 replicates each. Same bars (F_rel strict / lenient per architecture
+  group, 10 models x up to 2 taus each) and within-2x share (>= 80% passes). This is the primary transfer test of
+  the estimators on fresh models.
+- **L = 32 (plain-MC truths).** 12 models: seeds 110 and 111 of each architecture. Truth: 4e7 fresh plain-MC
+  samples per model (`mc32.py`, seed 1, = 400x the 1e5 budget, 40x the 1e6 budget). tau: the grid tau whose MC
+  B is closest in log10 to 5e-6 among those with >= 100 MC events and B <= 1e-5 (one point per model; the truth
+  carries about 10% binomial error, reported). `score32.py`: `ce` and `top` at 1e5 FPE (5 replicates; primary),
+  `amsce` at 1e5 (3), `ce` and `top` at 1e6 (3; secondary, truth only 40x the budget). Same bars and within-2x.
+  Deeper L = 32 tails (B < 1e-6) cannot be checked by MC at this compute; any estimate there is unvalidated.
+- Locate / repair / rate stay at L = 15 on the baselines (sections (ii)-(iv)).
+
 ## Question
 
 Do the project's rare-event results on M_16,10 (estimating rare failures, locating and repairing them with a small

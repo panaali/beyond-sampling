@@ -9,8 +9,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 HARNESS = os.path.join(HERE, "..", "mini_lm")
 sys.path.insert(0, HARNESS)
 from langs import Dyck2, model_input  # noqa: E402
-from load import load, names  # noqa: E402
+from load import load as _load, names  # noqa: E402
 from metrics import logits_of  # noqa: E402
+
+MODELS = os.environ.get("S3_MODELS")  # e.g. ../mini_lm/models_mlp1 for the MLP1 panel
+
+
+def load(name):
+    if MODELS or int(name.rsplit("_s", 1)[1]) >= 100:  # MLP1 seeds are 100-119
+        return _load(name, models_dir=MODELS or os.path.join(HARNESS, "models_mlp1"))
+    return _load(name)
+
 
 DATA = os.path.join(HERE, "..", "..", "..", "data", "t446")
 os.makedirs(DATA, exist_ok=True)
