@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/event_cone/truth_t398/truth.py", line 97, in <module>
+    main(float(a[0]), int(a[1]), int(a[2]), float(a[3]), float(a[4]) if len(a) > 4 else 0.10)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/event_cone/truth_t398/truth.py", line 83, in main
+    sumZ2=float((Z ** 2).sum()), n_nonzero=int(len(nz)), flops=fl, cells=int(cells),
+                 ~~^^~~
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 654. MiB for an array with shape (85780152,) and data type float64
