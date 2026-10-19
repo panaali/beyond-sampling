@@ -149,5 +149,78 @@ FLOPs, where sampling at equal cost has se ~2e-3; x256: exact at 1e11-3e11 FLOPs
 inputs the uniform-panel DP at M = 64 (1e11 FLOPs) has error ~7e-5 (Richardson estimate from M = 32/64; z vs MC +-0)
 vs sampling se 1.1e-4 at equal FLOPs: about break-even; exactness needs breakpoint panels (~1e14 FLOPs).
 
-## Compute accounting / Claims / Alternatives not ruled out / Failure modes
-(to be completed)
+**(3) Census of reachable hidden states** (`qcensus.py CKPT NAME N P`, `census_<name>.json`; x ~ N(0, I) float32
+CUDA Philox seed 3521000 + model index, discretised for grid cells; distinct state codes per step by sort + unique in
+P hash partitions; keys exact for binary and int4 H = 16, hashed to 64 bits otherwise, with a second mixer at step 10
+as a collision check: equal counts in every run). Distinct states at steps 1 / 2 / 3 / 5 / 10, singletons and exp(H)
+at step 10:
+
+| model (seed 0) | N | t=1 | t=2 | t=3 | t=5 | t=10 | singletons t=10 | exp(H) t=10 |
+|---|---|---|---|---|---|---|---|---|
+| binary ht1 | 1e9 | 3 | 12 | 51 | 335 | 3,755 | 102 | 566 |
+| binary ht1, x int4 | 1e9 | 2 | 13 | 53 | 173 | 1,734 | 70 | 64.5 |
+| binary ht1, x int8 | 1e9 | 2 | 9 | 22 | 76 | 2,241 | 108 | 138 |
+| int4 | 1e9 | 135 | 8,410 | 343,297 | 84,905,953 | 864,652,487 | 807,341,446 | 7.28e8 |
+| int4, x int4 | 2.5e8 | 16 | 200 | 2,628 | 309,519 | 126,757,342 | 90,669,587 | 7.15e7 |
+| int4, x int8 | 2.5e8 | 80 | 5,066 | 292,966 | 64,822,143 | 241,483,012 | 235,126,678 | 2.37e8 |
+| int8 | 2.5e8 | 935 | 484,535 | 54,345,744 | 249,956,530 | 250,000,000 | 250,000,000 | 2.5e8 |
+| int4, H = 64 | 2.5e8 | H64_T1 | H64_T2 | H64_T3 | H64_T5 | H64_T10 | H64_F1 | H64_EH |
+
+Sampled binary counts (3,755 continuous) are below the exact closures (4,487-11,966) because many reachable states
+have tiny mass. int4 / int8 states at step 10 are close to one per input.
+
+**Width ladder (amendment 2)** (`q_h32.sh`, `q_h64.sh`; `qat_h32_eval.json`, `qat_h64_eval.json`; 1e8 float64 inputs
+per model, seeds 0-2):
+
+| H | binary ht1 | int4 LSQ |
+|---|---|---|
+| 16 | .299 (5 seeds, above) | .724 (5 seeds, above) |
+| 32 | .3631 / .3419 / .3906 | .9020 / .8868 / .9029 |
+| 64 | .4786 / .5212 / .4319 | .9515 / .9552 / .9548 (mean .9538) |
+
+First width with mean accuracy >= .95: int4 at H = 64; binary none up to H = 64. The H = 64 int4 census (row above,
+2.5e8 inputs per Deviation 2) gives its reachable states.
+
+**Deviation 2 (2026-10-19 07:05 UTC, after the 1e9 run failed, before its rerun).** The int4 H = 64 census at 1e9
+inputs ran out of T4 memory (64 partitions, 11 step buffers of near-unique hashed keys); it was rerun at 2.5e8, the same
+reduction as Deviation 1 for the other high-cardinality variants.
+
+## Compute accounting
+- Colab: T4 runtimes only (~1.07 units/h). Balance 164.37 before T352, 151.69 at 07:00 UTC 2026-10-19 with one T4
+  still running the last census; final spend UNITS_FINAL units of the 20-unit cap. Runs: main QAT grid (32 models,
+  2^30 inputs each, stacked) ~2.7 h; STE fallbacks ht3 / tanh' ~1.3 h each; width ladder H = 32 and H = 64 ~1.8 h each
+  (in parallel on one T4); 1e8 float64 evaluations of every model; census 7 + 1 runs (72 s - 46 min each); the rest is
+  idle keepalive and setup.
+- Model FLOPs: training 2^30 inputs x (forward + backward ~3x forward) per model; forward ~2 x 10 x (16 x 16 + 16)
+  FLOPs per input at H = 16. Evaluation 1e8 inputs per model. Census 1e9 or 2.5e8 forwards per model.
+- DP: FLOP counts in the DP table (closure + DP), counted as multiply-adds x 2, CPU (local, <= 2 GB).
+
+## Claims
+- [measured] At H = 16 with the zoo recipe: QAT accuracy float .906, int8 .899, int4 .724, binary .30 (best of three
+  STEs); PTQ of M_16,10 keeps int8 (.928) but not int4 (.342) or binary (.163).
+- [measured] Binary nets have few reachable states (closure 4.5k-12k continuous, 1.1k-8.8k discrete), and their exact
+  DP is exact on discrete inputs at 1.7e8-3.3e11 FLOPs, agreeing with 1e8-sample MC within 1.2 se.
+- [measured] int4 and int8 nets have close to one state per input at step 10 (86% distinct at 1e9 for int4, 100% at
+  2.5e8 for int8).
+- [measured] The width ladder reaches >= .95 only for int4 at H = 64; binary stays at or below .52 up to H = 64.
+- [inferred] No quantised variant tested is both >= .95 accurate and exactly solvable by state enumeration: the
+  accurate ones have per-input states, and the solvable ones (binary) are inaccurate.
+- [inferred] On discrete inputs the exact DP beats sampling at equal FLOPs by orders of magnitude (x16 grid); on
+  continuous inputs the uniform-panel DP is only break-even with sampling at M = 64.
+
+## Alternatives not ruled out
+- Binary accuracy may be limited by the training recipe (STE, lr, schedule, 2^30 inputs, initialisation) rather
+  than by capacity. Three STEs agree, but no recipe search, longer training or distillation from M_16,10 was tried.
+- int4 at H = 16 might reach higher accuracy with per-neuron scales, a learned zero point or longer training.
+- The int4 H = 64 net may have a small "effective" state set under a coarser equivalence (states that give the same
+  output for all futures). The census counts raw codes, which is an upper bound on the DP state count after such a
+  minimisation. Minimisation was not tried.
+- The census uses float32 forwards; rare float32/float64 threshold disagreements are ignored (they affect a few codes,
+  not the order of magnitude).
+
+## Failure modes
+- The census needs memory proportional to the number of distinct keys per partition; near-unique variants needed
+  input reduction (Deviations 1-2), so their counts are lower bounds on the count at 1e9.
+- The continuous-input DP is not exact with uniform panels (error ~1/M); exact breakpoint panels cost ~1e14 FLOPs.
+- Hashed keys (int4 H > 16, int8) can collide; the second mixer agreed in every run, but that is evidence, not proof.
+- Discrete-input results depend on the tie convention (lower index); the int4 grid has a 58% tie rate.

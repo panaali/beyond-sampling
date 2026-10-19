@@ -22,10 +22,11 @@ DELTA, EPS, TBIG = 0.1, 1e-7, 1e3
 
 
 class LPEngine:
-    def __init__(self, Wi, Wh, Wo, device="cuda", iters=400, dtype=th.float32, restart=100, restart_avg=True, ruiz=10, omega=1.0):
+    def __init__(self, Wi, Wh, Wo, device="cuda", iters=400, dtype=th.float32, restart=100, restart_avg=True, ruiz=10, omega=1.0, ipm_iters=25, solver="ipm"):
         f = lambda a: th.as_tensor(a, dtype=th.float64, device=device)
         self.Wi, self.Wh, self.Wo = f(Wi), f(Wh), f(Wo); self.dev, self.iters, self.dt = device, iters, dtype
         self.restart, self.restart_avg, self.ruiz, self.omega = restart, restart_avg, ruiz, omega
+        self.ipm_iters = ipm_iters; self.lp = self.solve_ipm if solver == "ipm" else self.solve
 
     # ---------------------------------------------------------------- LP construction (float64)
     def zrows(self, A, k):
@@ -94,6 +95,76 @@ class LPEngine:
                 va.zero_(); ya.zero_(); na = 0
         return best, ybest.double()
 
+    def solve_ipm(self, K, b, lb, ub, c, iters=None, chunk=4096):
+        """same contract as solve(), by a batched primal-dual interior-point method (infeasible start, Mehrotra
+        predictor-corrector, normal equations by batched Cholesky; float64). Fixed variables (lb == ub) and empty rows
+        are masked out. Returns (N, Q) certified lower bounds and the duals y (N, Q, R)."""
+        N, Q, nv = c.shape; R = K.shape[1]; iters = iters or self.ipm_iters
+        out_v = th.empty(N, Q, dtype=th.float64, device=self.dev); out_y = th.empty(N, Q, R, dtype=th.float64, device=self.dev)
+        idx = th.arange(N * Q, device=self.dev)
+        for s0 in range(0, N * Q, chunk):
+            ii = idx[s0:s0 + chunk]; n_, q_ = ii // Q, ii % Q
+            y = self._ipm(K[n_], b[n_], lb[n_], ub[n_], c[n_, q_], iters)
+            val = self.certify(K[n_], b[n_], lb[n_], ub[n_], c[n_, q_][:, None], y[:, None])[:, 0]
+            out_v.view(-1)[ii] = val; out_y.view(-1, R)[ii] = y
+        return out_v, out_y
+
+    @staticmethod
+    def _ipm(K, b, l, u, c, iters):
+        B, R, nv = K.shape; f64 = th.float64
+        fixed = (u - l) <= 0; free = (~fixed).to(f64); rows = ((K.abs().sum(2) > 0) | (b != 0)).to(f64)
+        scale = c.abs().amax(1, keepdim=True).clamp_min(1e-12); c = c / scale    # objective scaling (undone by certify)
+        v = th.where(fixed, l, (l + u) / 2); p = th.where(fixed, th.ones_like(v), v - l); q = th.where(fixed, th.ones_like(v), u - v)
+        w = (K @ v[..., None])[..., 0] - b; w = w.abs().clamp_min(1); y = rows.clone(); zl = free.clone(); zu = free.clone()
+        I = th.eye(nv, dtype=f64, device=K.device)
+        Kt = K.transpose(1, 2)
+        m_tot = rows.sum(1) + 2 * free.sum(1)
+        best = th.full((B,), -math.inf, dtype=f64, device=K.device); ybest = th.zeros_like(y)
+        for it in range(iters):
+            rp = (b - (K @ v[..., None])[..., 0] + w) * rows                    # K v - w = b
+            rd = (c - (Kt @ y[..., None])[..., 0] - zl + zu) * free
+            pl, pu = p, q                                                       # p = v - l, q = u - v (1 on fixed)
+            Dy = y / w * rows; Dz = (zl / pl + zu / pu) * free + (1 - free)
+            M = Kt @ (Dy[..., None] * K) * free[:, :, None] * free[:, None, :] + th.diag_embed(Dz) + 1e-12 * I
+            Lc, _ = th.linalg.cholesky_ex(M)
+
+            def direction(sw, szl, szu):                                        # complementarity targets
+                rhs = (-rd + (Kt @ (Dy * (rp + sw / y.clamp_min(1e-300)))[..., None])[..., 0] + szl / pl - szu / pu) * free
+                dv = th.cholesky_solve(rhs[..., None], Lc)[..., 0] * free
+                dy = Dy * (rp - (K @ dv[..., None])[..., 0] + sw / y.clamp_min(1e-300)) * rows
+                dw = (sw - w * dy) / y.clamp_min(1e-300) * rows
+                dzl = (szl - zl * dv) / pl * free; dzu = (szu + zu * dv) / pu * free
+                return dv, dy, dw, dzl, dzu
+
+            def steplen(x, dx):
+                r = th.where(dx < 0, -x / dx.clamp_max(-1e-300), th.full_like(x, math.inf))
+                return r.amin(1)
+
+            gap = ((w * y * rows).sum(1) + ((pl * zl + pu * zu) * free).sum(1)) / m_tot
+            # predictor (affine)
+            dv, dy, dw, dzl, dzu = direction(-w * y, -pl * zl, -pu * zu)
+            ap = th.minimum(th.minimum(steplen(w, dw), steplen(pl * free + (1 - free), dv * free)), steplen(pu * free + (1 - free), -dv * free)).clamp_max(1)
+            ad = th.minimum(th.minimum(steplen(y + (1 - rows), dy), steplen(zl + (1 - free), dzl)), steplen(zu + (1 - free), dzu)).clamp_max(1)
+            gaff = (((w + ap[:, None] * dw) * (y + ad[:, None] * dy) * rows).sum(1) + (((pl + ap[:, None] * dv) * (zl + ad[:, None] * dzl)
+                    + (pu - ap[:, None] * dv) * (zu + ad[:, None] * dzu)) * free).sum(1)) / m_tot
+            sg = ((gaff / gap.clamp_min(1e-300)).clamp(0, 1)) ** 3; mu = (sg * gap)[:, None]
+            # corrector
+            dv2, dy2, dw2, dzl2, dzu2 = direction(mu - w * y - dw * dy, mu - pl * zl - dv * dzl, mu - pu * zu + dv * dzu)
+            ap = 0.99 * th.minimum(th.minimum(steplen(w, dw2), steplen(pl * free + (1 - free), dv2 * free)), steplen(pu * free + (1 - free), -dv2 * free)).clamp_max(1 / 0.99)
+            ad = 0.99 * th.minimum(th.minimum(steplen(y + (1 - rows), dy2), steplen(zl + (1 - free), dzl2)), steplen(zu + (1 - free), dzu2)).clamp_max(1 / 0.99)
+            ap = ap.clamp_max(1)[:, None]; ad = ad.clamp_max(1)[:, None]
+            ok = th.stack([t.isfinite().all(1) for t in (dv2, dy2, dw2, dzl2, dzu2)]).all(0) & ap[:, 0].isfinite() & ad[:, 0].isfinite()
+            ok = ok[:, None]; ap = th.where(ok, ap, 0.); ad = th.where(ok, ad, 0.)
+            dv2, dy2, dw2, dzl2, dzu2 = (th.where(ok, t, 0.) for t in (dv2, dy2, dw2, dzl2, dzu2))
+            v = v + ap * dv2; w = (w + ap * dw2 * rows).clamp_min(1e-300); p = (p + ap * dv2 * free).clamp_min(1e-300)
+            q = (q - ap * dv2 * free).clamp_min(1e-300)
+            y = (y + ad * dy2).clamp_min(0); zl = (zl + ad * dzl2).clamp_min(1e-300); zu = (zu + ad * dzu2).clamp_min(1e-300)
+            if it % 5 == 4 or it == iters - 1:
+                yy = y * rows * scale
+                val = LPEngine.certify(K, b, l, u, (c * scale)[:, None], yy[:, None])[:, 0]
+                better = val > best; best = th.where(better, val, best); ybest = th.where(better[:, None], yy, ybest)
+        return ybest
+
     @staticmethod
     def certify(K, b, lb, ub, c, y):
         r = c - th.bmm(y, K)
@@ -106,12 +177,12 @@ class LPEngine:
         for s in range(nb):                                              # forward pass, no event
             K, b, lb, ub = self.build(G, Z, L, lo, hi, phase, s, self.p3)
             c = th.cat([Z[s], -Z[s]], 1)
-            val, _ = self.solve(K, b, lb, ub, c)
+            val, _ = self.lp(K, b, lb, ub, c)
             lo[:, s] = th.maximum(lo[:, s], val[:, :H]); hi[:, s] = th.minimum(hi[:, s], -val[:, H:])
         if event_tighten and nb:                                         # one Jacobi pass with the event (relax2 stage 2)
             K, b, lb, ub = self.build(G, Z, L, lo, hi, phase, nb, self.p3); lb[:, -1] = -EPS
             c = th.cat([th.cat([Z[s], -Z[s]], 1) for s in range(nb)], 1)
-            val, _ = self.solve(K, b, lb, ub, c); val = val.view(N, nb, 2 * H)
+            val, _ = self.lp(K, b, lb, ub, c); val = val.view(N, nb, 2 * H)
             lo2 = th.maximum(lo[:, :nb], val[..., :H]); hi2 = th.minimum(hi[:, :nb], -val[..., H:])
             lo[:, :nb], hi[:, :nb] = lo2, hi2
         return Z, L, lo, hi
@@ -120,7 +191,7 @@ class LPEngine:
         """certified upper bound on the relaxation's max (L_p3 - max_j L_j) (+inf-safe: empty -> very negative)."""
         K, b, lb, ub = self.build(G, Z, L, lo, hi, phase, len(Z), self.p3)
         c = th.zeros(G.shape[0], 1, K.shape[2], dtype=th.float64, device=self.dev); c[..., -1] = -1
-        val, y = self.solve(K, b, lb, ub, c)
+        val, y = self.lp(K, b, lb, ub, c)
         return -val[:, 0], y[:, 0]
 
     def prune(self, G, A, k, tri, phase=None, event_tighten=True):
