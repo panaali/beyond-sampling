@@ -210,6 +210,12 @@ be shown to carry no event mass.
    and 6 hold 89% (post-hoc, unweighted).
 6. [measured lower bounds; inferred reading] Inside the event triples, the distinct event prefixes number in the
    hundreds and grow x1.9-3.4 from k = 5 to 6, while the cone's regions grow >= x3-9 and number >= 2e5.
+   **[Caveat added 2026-10-19 (T398)]** The line-walk counts are lower bounds only.
+   - Hit-and-run finds event points in 47 of 273 benchmark cells at k = 4, against 35 found by the line walk.
+   - T399's exact branch and bound finds witnesses in 4 of 9 probe-negative cells (unverified), on the normalisation
+     boundary g23 = 0.1 ||x||_inf.
+   - So the event-FEASIBLE set is much larger, and the "slow growth" reading holds at most for the mass-carrying
+     part of the event.
 
 ## Proposed backlog item (for the DRI; not added to TASKS.md by me)
 **Event-guided branch and bound for a certified upper bound on the far-gap event.**
