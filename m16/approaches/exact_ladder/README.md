@@ -318,18 +318,30 @@ T = 5. Truths are exact for seeds 0-2 and 4M for the rest. Tables are rerun when
 
 Per-seed hyb/samp at T=5: 0.15 / 0.33 / 0.68 / 0.32 / 0.55 at 16k, and 0.09 / 0.11 / 0.17 / 0.12 / 0.32 at 64k.
 
-T = 6, first 7 models: seeds and 2 s0.0025 copies (the 4M truths from T10). The rest are running; the raw file
-grows.
-- The exact part costs 0.76e5-4.5e6 FPE for 0-3 cells (seed0: 3 cells, 1.19e6 FPE; s0.0025_1: 2 cells, 4.5e6 FPE).
-- Seed group hyb/samp is 3.3 (16k) and 1.18 (64k). Per seed at 16k: 18.0 / 10.4 / 1.12 / 1.63 / 2.24, so the hybrid
-  **loses to sampling**.
-- hyb/walk is 14.0 (16k) and 5.0 (64k).
+T = 6, all 29 models. Truths are the 4M values from T10's branch.
+
+| B | group | n | mean cost | exact part FPE | cells in E | share of wrong mass in E | hyb/samp | walk/samp | **hyb/walk** |
+|---|---|---|---|---|---|---|---|---|---|
+| 16k | seeds | 5 | 4.2e5 | 4.0e5 | 1.0 | 0.008 | 3.34 | 0.24 | **14.0** |
+| 16k | s0.0025 | 6 | 1.2e6 | 1.2e6 | 1.0 | 0.009 | 17.3 | 0.52 | 33.4 |
+| 16k | s0.005 | 6 | 1.2e6 | 1.2e6 | 0.2 | 0.004 | 6.56 | 0.86 | 7.6 |
+| 16k | s0.01 | 6 | 4.5e4 | 2.9e4 | 0 | 0 | 4.84 | 1.73 | 2.8 |
+| 16k | s0.02 | 6 | 2.4e4 | 7.8e3 | 0 | 0 | 4.49 | 2.90 | 1.5 |
+| 64k | seeds | 5 | 4.6e5 | 4.0e5 | 1.0 | 0.008 | 1.18 | 0.24 | **5.0** |
+| 64k | s0.0025 | 6 | 1.3e6 | 1.2e6 | 1.0 | 0.009 | 3.92 | 0.47 | 8.4 |
+| 64k | s0.005 | 6 | 1.3e6 | 1.2e6 | 0.2 | 0.004 | 2.23 | 0.79 | 2.8 |
+| 64k | s0.01 | 6 | 9.3e4 | 2.9e4 | 0 | 0 | 2.48 | 1.56 | 1.6 |
+| 64k | s0.02 | 6 | 7.2e4 | 7.8e3 | 0 | 0 | 2.21 | 1.78 | 1.2 |
+
+Per-seed hyb/samp at T=6: 18.0 / 10.4 / 1.12 / 1.63 / 2.24 at 16k, and 7.18 / 1.86 / 0.68 / 0.69 / 0.70 at 64k.
+- The exact part costs 4e3-4.5e6 FPE and finds 0-3 cells (seed0: 3 cells, 1.19e6 FPE).
+- Where E is empty (most noisy copies), hyb/walk is just the cost of the wasted pruning, (B + c)/B.
 
 **Verdict.**
 - The pre-registered "helps" condition (hyb/walk < 1 at both budgets and both T) fails everywhere, by 2.2-9.2x at
-  T=5 and 5-40x at T=6.
+  T=5 and 1.2-33x at T=6.
 - Against sampling, the T=5 hybrid still wins on all 5 seeds, only because the walk part beats sampling. At T=6 it
-  loses on 5/5 seeds at 16k and on 2/5 at 64k.
+  loses on 5/5 seeds at 16k and on 2/5 at 64k, and on every noisy group at both budgets.
 
 **Which part carries the error.**
 - **Exact part (deductive):** the a-posteriori bound is ≤ 1e-3 x the wrong mass in E; the maximum over the T5 rows is
