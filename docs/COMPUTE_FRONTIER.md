@@ -135,6 +135,16 @@ mass 5.6e-8, so all must be certified, to ~1e-12 each for a total near 1e-9 ([T3
 - **Verdict: METHOD-LIMITED:** each fix adds more C than it removes MSE. Compute per estimate is negligible.
   Confidence: high.
 
+## 11. Weight-derived bound on the walk quadrature's node-set error (T449)
+- **Why stopped:** pre-registered NO-GO (u) (branch `claude/t449-walk-bound`, `m16/approaches/walk_bound/`). Lipschitz x
+  transport and Koksma-Hlawka / sphere-Sobolev bounds are infinite: the walk integrand has creases and unbounded
+  switch-point sensitivity where lines graze boundaries. Cell enclosures are finite, but even oracle-tight ones are
+  >= 330x the actual error (2e-4 at 1e6 FPE) at 8e13 cells, and their width falls only as cells^-0.07 (dimension 9).
+- **Compute to finish:** 10x at 1e6 FPE needs ~2e29-6e39 cells ‡, each >= 1 exact walk (~8 FPE ≈ 5e4 FLOPs), so
+  >= 1e34 FLOPs ‡ (~3e21 CPU-h, ~$1e20 today, ÷2-3 in 5 years). An LP enclosure per cell (T398) costs 100-1000x more.
+- **Verdict: METHOD-LIMITED** (rate N^{-1/9}; more compute does not help). The only route is crease-aware cells, which
+  is item 1's exact-region problem. Agent effort to re-open: none useful. Confidence: high.
+
 ## Summary
 
 | # | approach | verdict | compute needed | $ today | $ in 5 yr | extra agent effort ‡ | confidence |
@@ -152,6 +162,7 @@ mass 5.6e-8, so all must be certified, to ~1e-12 each for a total near 1e-9 ([T3
 | 8 | Walk quadrature, T = 10 | COMPUTE (revised by T429) | strict bar from ~1e6 FPE per model | ~0.1-1 per 100-model panel | less | done; HP5 test T431 | medium |
 | 9 | Interval certificates (T344) | METHOD | ~2e42 boxes | n/a | n/a | 0 | high |
 | 10 | T317 strict bar (H-S1) | METHOD | J2 +21k FPE vs 1.2k allowance | ~0 | ~0 | new paradigm | high |
+| 11 | Walk node-set error bound (T449) | METHOD | >= 1e29 cells, >= 1e34 FLOPs for 10x at 1e6 FPE ‡ | >= 1e20 | ÷2-3 | 0 | high |
 
 **Reference point:** the sampling-class bound in hand (P <= 4.2e-10 at confidence 1 - 1e-6, 1.1e11 draws, [T400][reg])
 cost ~6.5e14 FLOPs, ~$5 ‡. A deterministic all-triple certificate (4b) costs ~1e5-1e8x more.
