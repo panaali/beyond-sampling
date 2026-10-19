@@ -135,5 +135,33 @@ def search(r):
     print("round", r, "qualified" if hit is not None else "NOT qualified", "best eps %.4f" % (best * GRID))
 
 
+def bracket(r):
+    """Note R4: smallest k in (8, 16) meeting the P condition (bisection; P monotone), then the accuracy check there."""
+    S0 = J(f"search_r{r}.json"); rows = {q["k"]: q for q in S0["rows"]}; D = J(f"dir_r{r}.json"); w, used = start(r)
+    S = np.array(D["S"]); d = np.array(D["d"]); P0 = J("gE_r1.json")["P"]
+    def ev(k):
+        if k not in rows:
+            v = w.copy(); v[S] += k * GRID * d; t = time.time()
+            p = lcmc.e1(rnn.unflat(v, SH), T0, 5_000_000, 402003, grad=False)
+            a, mu, se = acc_plain([rnn.unflat(W_ORIG, SH), rnn.unflat(v, SH)], 10_000_000, 402004)
+            rows[k] = dict(k=k, eps=k * GRID, P=p["P"], P_se=p["se"], ratio=p["P"] / P0, dacc=float(mu[1]), dacc_se=float(se[1]),
+                           ok=bool(p["P"] <= P0 / 20 and mu[1] >= -2e-4), C_fpe=p["C_fpe"], sec=time.time() - t)
+            print(rows[k], flush=True); S0["rows"] = sorted(rows.values(), key=lambda q: q["k"]); J(f"search_r{r}.json", S0)
+        return rows[k]
+    lo, hi = 8, 16
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if ev(mid)["P"] <= P0 / 20:
+            hi = mid
+        else:
+            lo = mid
+    q = ev(hi); S0["rows"] = sorted(rows.values(), key=lambda q: q["k"])
+    if q["ok"]:
+        S0.update(qualified=True, best_k=hi, best_eps=hi * GRID, best_w=(lambda v: (v.__setitem__(S, v[S] + hi * GRID * d), v)[1])(w.copy()).tolist(),
+                  used_norm=used + hi * GRID)
+    S0["note_R4"] = dict(smallest_P_k=hi, acc_ok_there=q["ok"]); J(f"search_r{r}.json", S0)
+    print("R4: smallest P-qualifying k", hi, "qualified" if q["ok"] else "fails accuracy -> R1 fallback (round 2 from k = 8)")
+
+
 if __name__ == "__main__":
-    {"grad": grad, "select": select, "hess": hess, "search": search}[sys.argv[1]](int(sys.argv[2]))
+    {"grad": grad, "select": select, "hess": hess, "search": search, "bracket": bracket}[sys.argv[1]](int(sys.argv[2]))

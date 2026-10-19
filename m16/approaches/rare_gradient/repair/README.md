@@ -83,8 +83,16 @@ maximum, so the loss is second order (~eps^2.5) and a first-order projection can
 - Grid eps = .00025 x {1, ..., 40} (to .01), same doubling + bisection; qualification unchanged (design P <= P0/20,
   design accuracy drop <= .02 pp); rounds and the .05 budget unchanged. S is unchanged.
 
+### Note R4 (2026-10-19, implementation of the R1 search; rule unchanged)
+R1's doubling + bisection assumed qualification is monotone in eps. It is not (the P condition needs a large eps, the
+accuracy condition a small one): eps = .002 fails on P (design ratio .11), .004 on accuracy (-.039 pp), and the
+search fell back without looking in between. Per the rule ("the smallest qualifying grid eps"), the bracket is now
+searched: bisection on the P condition alone between k = 8 and k = 16 (P is monotone along the path in the design
+rows), then the accuracy condition is checked at the smallest P-qualifying k. If it fails there, no grid point
+qualifies (accuracy only gets worse at larger eps) and the R1 fallback (round 2 from the best point, k = 8) applies.
+
 ## Status
-Pre-registered (R1-R3); design in progress.
+Pre-registered (R1-R3, note R4); design in progress.
 
 ## Results
 (none yet)
