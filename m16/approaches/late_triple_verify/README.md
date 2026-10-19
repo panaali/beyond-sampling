@@ -12,7 +12,7 @@ verdict?
 - **Pre-registered line: KILL (unverified)** on E3, E4 and E5.
 - **Secondary D3 and D2 (unverified) put the cause in T414's split rule, not in the bounds.** With alpha-CROWN, a
   widest-dimension split and pop order by near-exact mass, the near-exact mass falls with slope -1.13 and projects 1.6e6
-  boxes to reach 1e-10 on (3,7,8). The rigorous radial charge still projects 1.6e10, because that charge is loose on
+  boxes to reach 1e-10 on (3,7,8), and 2.4e7 boxes on (9,8,2) (slope -0.73). The rigorous radial charge still projects 1.6e10, because that charge is loose on
   wide boxes.
 - So the late-triple failure is NOT verified dead. It is scoped to T414's margin-steered split.
 
@@ -176,7 +176,7 @@ changes the verdict.
 |---|---|---|---|---|---|---|---|---|
 | D1 | (3,7,8) | quad order, margin split | 1.38e5 | 0.5% | 1.07e-4 | 2.81e-8, stall | 3.8e14 | stall |
 | D3 | (3,7,8) | quad order, **widest split** | 1.37e5 | 29.6% | 3.85e-7 (slope -.71) | **1.61e-9 (2.9%)** (slope -1.13, 12.6x per decade) | 1.6e10 | **1.6e6** |
-| D3 | (9,8,2) | as above | PENDING_D3_982 | | | | | |
+| D3 | (9,8,2) | as above | 1.46e5 | 24.4% | 8.17e-7 (slope -.39) | **4.17e-9 (7.5%)** (slope -.73, 5.1x per decade) | 1.8e15 | **2.4e7** |
 
 D2 dyadic-leaf estimate: leaves of the widest-split tree at the coarsest certified box around exact slab points.
 
@@ -209,6 +209,7 @@ rigorous radial charge is 1e2-1e7x looser than the box mass on wide boxes, so it
 CPU only, one thread per process, <= 2 GB each, at most 2 heavy processes (one ~3-min overlap of D2 with two runs).
 - T414 re-run 600 s; E1 ~1.1 CPU-h (abcrown parts 1,556 s + 1,797 s);
 - E2 ~1.6 CPU-h; E3, E4, E5, D1, D3 x2: 2 CPU-h each;
+- D2 on (9,8,2) ~0.25 CPU-h;
 - D2 / D2b ~0.3 CPU-h; soundness ~0.3 CPU-h.
 - Total ~16 CPU-h. No GPU, no Colab.
 
@@ -228,8 +229,10 @@ Model evaluations:
   cubes 1.35x (median) / 1.9x (p10). Beta-CROWN ReLU splitting adds nothing within 10 s. Input-split BaB adds 1.2x
   width at ~4,400 domains per cube. Mixed input + ReLU splitting crashes in this alpha-beta-CROWN version.
 - [measured, secondary] With a widest-dimension split and mass order, alpha-CROWN BaB brings (3,7,8)'s near-exact mass
-  to 1.6e-9 in 1.37e5 boxes (slope -1.13), projecting 1.6e6 boxes to 1e-10.
-- [measured, secondary] Dyadic-leaf estimates for (3,7,8): ~1.25e5 leaves with alpha-CROWN, ~4e7 with CROWN.
+  to 1.6e-9 in 1.37e5 boxes (slope -1.13), projecting 1.6e6 boxes to 1e-10. On (9,8,2): 4.2e-9 in 1.46e5 boxes (slope -.73),
+  projecting 2.4e7.
+- [measured, secondary] Dyadic-leaf estimates: (3,7,8) ~1.25e5 leaves with alpha-CROWN, ~4e7 with CROWN;
+  (9,8,2) ~4.3e5 with alpha-CROWN, ~1.2e9 with CROWN (so plain CROWN is borderline even with an ideal split).
 - [inferred] The late-triple obstruction in T414 is mainly the split heuristic, not CROWN looseness per se; T414's
   1e14-1e15 projections come from a search that cannot reach certifiable boxes.
 - [inferred] A certified bound needs a rigorous box-mass bound much tighter than the radial charge, e.g. interval
