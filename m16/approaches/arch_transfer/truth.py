@@ -1,6 +1,6 @@
 """Plain-MC accuracy of a T432 model, float64 torch forward (equal to netnp to ~1e-13).
 
-usage: python truth.py TAG SEED  -> appends to truths.jsonl: acc_1e7 (inputs default_rng([432, 10]), 10 x 1e6) and
+usage: python truth.py TAG SEED  -> truths/<TAG>_s<SEED>.json: acc_1e7 (inputs default_rng([432, 10]), 10 x 1e6) and
 truth (1e8 inputs, default_rng([432, 11]), 100 x 1e6), each with its s.e.
 """
 import json
@@ -30,7 +30,7 @@ def model(tag, seed):
     return m.eval()
 
 
-def acc(m, key, nchunk, chunk=1_000_000, sub=250_000):
+def acc(m, key, nchunk, chunk=1_000_000, sub=50_000):
     rng = np.random.default_rng(key); ok = 0
     with th.no_grad():
         for _ in range(nchunk):
@@ -48,6 +48,6 @@ if __name__ == "__main__":
     a7, s7 = acc(m, [432, 10], 10)
     a8, s8 = acc(m, [432, 11], 100)
     r = {"tag": tag, "seed": seed, "acc_1e7": a7, "se_1e7": s7, "truth": a8, "se": s8}
-    with open(os.path.join(HERE, "truths.jsonl"), "a") as f:
-        f.write(json.dumps(r) + "\n")
+    os.makedirs(os.path.join(HERE, "truths"), exist_ok=True)
+    json.dump(r, open(os.path.join(HERE, "truths", f"{tag}_s{seed}.json"), "w"))
     print(json.dumps(r))

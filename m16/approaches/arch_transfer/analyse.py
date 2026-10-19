@@ -12,8 +12,8 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TR = {}
-for l in open(os.path.join(HERE, "truths.jsonl")):
-    r = json.loads(l); TR[(r["tag"], r["seed"])] = r
+for f in glob.glob(os.path.join(HERE, "truths", "*.json")):
+    r = json.load(open(f)); TR[(r["tag"], r["seed"])] = r
 
 
 def F_of(rows):
@@ -24,9 +24,9 @@ def F_of(rows):
 
 def main():
     out = []
-    for f in sorted(glob.glob(os.path.join(HERE, "runs", "m1_*.jsonl"))):
-        rows = [json.loads(l) for l in open(f)]
-        tag = rows[0]["tag"]
+    allrows = [json.load(open(f)) for f in glob.glob(os.path.join(HERE, "runs", "m1_*.json"))]
+    for tag in sorted({r["tag"] for r in allrows}):
+        rows = [r for r in allrows if r["tag"] == tag]
         for B in sorted({r["budget"] for r in rows}):
             rb = [r for r in rows if r["budget"] == B and (r["tag"], r["seed"]) in TR]
             seeds = sorted({r["seed"] for r in rb})

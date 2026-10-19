@@ -23,6 +23,9 @@ sys.path.insert(0, HERE)
 import truth  # noqa: E402
 
 OUT = os.path.join(HERE, "repair")
+SC = float(os.environ.get("T432_SCALE", "1"))      # smoke tests only; every reported run uses 1
+NP, ND, NS = int(1e7 * SC), int(1e6 * SC), int(1e7 * SC)          # pilot, design-gradient, step-search draws
+NV, NA, NC = int(2e8 * SC), int(1e8 * SC), int(2e7 * SC)          # verification: slab, accuracy, controls
 T0_GRID = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5]
 _grid = np.linspace(-8, 5, 400_001)
 
@@ -67,7 +70,7 @@ def set_edit(m, base, idx, delta):
             flat[names[j]][i - off[j]] += float(dv)
 
 
-def count_events(models, t0, n, seed, chunk=250_000):
+def count_events(models, t0, n, seed, chunk=50_000):
     """paired: per model, per 1e6-block sums of w 1_E; also P(g23 > t0) is the integral of G (not needed)."""
     rng = np.random.default_rng(seed); out = np.zeros((len(models), int(np.ceil(n / 1e6))))
     with th.no_grad():
@@ -80,7 +83,7 @@ def count_events(models, t0, n, seed, chunk=250_000):
     return out                                              # P = out.sum(1) / n
 
 
-def acc_blocks(models, n, seed, chunk=250_000):
+def acc_blocks(models, n, seed, chunk=50_000):
     rng = np.random.default_rng(seed); out = np.zeros((len(models), int(np.ceil(n / 1e6))))
     with th.no_grad():
         for i in range(0, n, chunk):
@@ -97,12 +100,12 @@ def design(tag, seed):
     for t0 in T0_GRID:
         rng = np.random.default_rng(432000 + int(100 * t0)); n_ev = 0; s = 0.0
         with th.no_grad():
-            for _ in range(40):
-                X, w, p3 = slab(t0, 250_000, rng)
+            for _ in range(NP // 50_000):
+                X, w, p3 = slab(t0, 50_000, rng)
                 e = m(th.tensor(X)).argmax(-1).numpy() == p3
                 n_ev += int(e.sum()); s += (w * e).sum()
-        pilot[t0] = (s / 1e7, n_ev)
-        if s / 1e7 <= 1e-6 and n_ev >= 50:
+        pilot[t0] = (s / NP, n_ev)
+        if s / NP <= 1e-6 and n_ev >= 50:
             break
     ok = [t for t in pilot if pilot[t][0] <= 1e-6 and pilot[t][1] >= 50]
     if ok:
@@ -112,15 +115,15 @@ def design(tag, seed):
         t0 = min(cand, key=lambda t: pilot[t][0]) if cand else max(pilot, key=lambda t: pilot[t][1]); flag = "t0 rule fallback"
     log.update(pilot={str(k): v for k, v in pilot.items()}, t0=t0, t0_flag=flag)
     # locate: gradient of the smoothed event probability on 1e6 design draws
-    rng = np.random.default_rng(432100); X, w, p3 = slab(t0, 1_000_000, rng)
+    rng = np.random.default_rng(432100); X, w, p3 = slab(t0, ND, rng)
     with th.no_grad():
-        L = th.cat([m(th.tensor(X[i:i + 250_000])) for i in range(0, len(X), 250_000)])
+        L = th.cat([m(th.tensor(X[i:i + 50_000])) for i in range(0, len(X), 50_000)])
         Lp = L[th.arange(len(L)), th.tensor(p3)]; Lo = L.clone(); Lo[th.arange(len(L)), th.tensor(p3)] = -th.inf
         marg = Lp - Lo.max(-1).values
     tau = 0.05 * marg.abs().median().item(); log["tau"] = tau
     m.zero_grad()
-    for i in range(0, len(X), 250_000):
-        x = th.tensor(X[i:i + 250_000]); pp = th.tensor(p3[i:i + 250_000]); ww = th.tensor(w[i:i + 250_000])
+    for i in range(0, len(X), 20_000):
+        x = th.tensor(X[i:i + 20_000]); pp = th.tensor(p3[i:i + 20_000]); ww = th.tensor(w[i:i + 20_000])
         L = m(x); Lp = L[th.arange(len(L)), pp]; Lo = L.masked_fill(Fn_onehot(pp, L), -th.inf)
         (ww * th.sigmoid((Lp - Lo.max(-1).values) / tau)).sum().div(len(X)).backward()
     g = th.cat([v.grad.view(-1) for _, v in m.named_parameters()]).numpy()
@@ -132,7 +135,7 @@ def design(tag, seed):
     # accuracy curvature: Hessian of the CE loss restricted to S on 2^17 inputs
     xh = th.tensor(np.random.default_rng(432101).standard_normal((2 ** 17, 10))); yh = xh.argsort(-1)[..., -2]
     pnames = [k for k, _ in m.named_parameters()]
-    def loss_of(delta):
+    def loss_of(delta, xh, yh):
         p = {k: v.clone() for k, v in base.items()}
         flat = {k: p[k].view(-1) for k in p}
         for j, i in enumerate(S):
@@ -140,21 +143,22 @@ def design(tag, seed):
             flat[names[jj]] = flat[names[jj]].index_add(0, th.tensor([int(i - off[jj])]), delta[j:j + 1])
         p = {k: flat[k].view(base[k].shape) for k in p}
         return th.nn.functional.cross_entropy(th.func.functional_call(m, p, (xh,)), yh)
-    Hs = th.autograd.functional.hessian(loss_of, th.zeros(12, dtype=th.float64)).numpy()
+    Hs = sum(th.autograd.functional.hessian(lambda dl: loss_of(dl, xh[i:i + 8192], yh[i:i + 8192]),
+                                            th.zeros(12, dtype=th.float64)).numpy() for i in range(0, len(xh), 8192)) / 16
     lam = 1e-3 * np.trace(Hs) / 12
     d = -np.linalg.solve(Hs + lam * np.eye(12), g[S]); d /= np.linalg.norm(d)
     log.update(H_eig=np.linalg.eigvalsh(Hs).tolist(), lam=lam, direction=d.tolist())
     set_edit(m, base, S, np.zeros(12))
     # step search on design draws (CRN)
-    P0 = count_events([m], t0, 10_000_000, 432102).sum() / 1e7
-    A0 = acc_blocks([m], 10_000_000, 432103).sum() / 1e7
+    P0 = count_events([m], t0, NS, 432102).sum() / NS
+    A0 = acc_blocks([m], NS, 432103).sum() / NS
     log.update(P0_design=P0, A0_design=A0)
     tried = {}
     def evaluate(eps):
         if eps not in tried:
             set_edit(m, base, S, eps * d)
-            P = count_events([m], t0, 10_000_000, 432102).sum() / 1e7
-            A = acc_blocks([m], 10_000_000, 432103).sum() / 1e7
+            P = count_events([m], t0, NS, 432102).sum() / NS
+            A = acc_blocks([m], NS, 432103).sum() / NS
             tried[eps] = (P, A)
         P, A = tried[eps]
         return P <= P0 / 20 and A - A0 >= -2e-4
@@ -174,7 +178,7 @@ def design(tag, seed):
         eps = min(okA, key=lambda e: tried[e][0]) if okA else min(tried); eflag = "no eps met both design limits"
     log.update(eps=eps, eps_flag=eflag, tried={str(k): v for k, v in sorted(tried.items())},
                delta=(eps * d).tolist(), wall=time.time() - t_start,
-               design_fpe=1e7 * len(pilot) + 4e6 + 2 ** 17 * 12 * 4 + 2e7 * (len(tried) + 1))  # fwd-equivalents (bwd ~ 2 fwd)
+               design_fpe=NP * len(pilot) + 4 * ND + 2 ** 17 * 12 * 4 + 2 * NS * (len(tried) + 1))  # fwd-equivalents (bwd ~ 2 fwd)
     os.makedirs(OUT, exist_ok=True)
     json.dump(log, open(os.path.join(OUT, f"{tag}_s{seed}_design.json"), "w"), indent=1)
     print(json.dumps({k: log[k] for k in ("t0", "t0_flag", "P0_design", "eps", "eps_flag")}), tried.get(eps))
@@ -195,28 +199,29 @@ def verify(tag, seed):
     t_start = time.time()
     # targeted: 2e8 slab draws, 1e8 inputs (paired with base); controls: first 2e7 of each (same draws)
     allm = [base_m, edited(delta)] + [edited(r) for r in rand]
-    ev_head = count_events(allm, t0, 20_000_000, 432200)
-    ac_head = acc_blocks(allm, 20_000_000, 432201)
-    ev_tail = count_events(allm[:2], t0, 180_000_000, 432210)
-    ac_tail = acc_blocks(allm[:2], 80_000_000, 432211)
+    ev_head = count_events(allm, t0, NC, 432200)
+    ac_head = acc_blocks(allm, NC, 432201)
+    ev_tail = count_events(allm[:2], t0, NV - NC, 432210)
+    ac_tail = acc_blocks(allm[:2], NA - NC, 432211)
     ev = np.concatenate([ev_head[:2], ev_tail], 1); ac = np.concatenate([ac_head[:2], ac_tail], 1)
     def ratio_jk(e0, e1):
         r = e1.sum() / e0.sum(); B = len(e0)
         jk = np.array([(e1.sum() - e1[i]) / (e0.sum() - e0[i]) for i in range(B)])
         return r, float(np.sqrt((B - 1) / B * ((jk - jk.mean()) ** 2).sum()))
     r, rse = ratio_jk(ev[0], ev[1])
-    dA = (ac[1] - ac[0]).sum() / 1e8; dse = float(np.std(ac[1] - ac[0], ddof=1) * np.sqrt(ac.shape[1]) / 1e8)
-    res = {"tag": tag, "seed": seed, "t0": t0, "P_base": ev[0].sum() / 2e8, "ratio": r, "ratio_se": rse,
+    dA = (ac[1] - ac[0]).sum() / NA; dse = float(np.std(ac[1] - ac[0], ddof=1) * np.sqrt(ac.shape[1]) / NA)
+    res = {"tag": tag, "seed": seed, "t0": t0, "P_base": ev[0].sum() / NV, "ratio": r, "ratio_se": rse,
            "ratio_hi95": r + 1.96 * rse, "dacc": dA, "dacc_se": dse, "norm": nrm}
     res["success"] = bool(r <= 0.1 and r + 1.96 * rse <= 0.15 and dA >= -5e-4)
     ctrl = []
     for k in range(20):
-        rk = ev_head[k + 2].sum() / ev_head[0].sum(); dk = (ac_head[k + 2] - ac_head[0]).sum() / 2e7
+        rk = ev_head[k + 2].sum() / ev_head[0].sum(); dk = (ac_head[k + 2] - ac_head[0]).sum() / NC
         ctrl.append({"ratio": rk, "dacc": dk, "success": bool(rk <= 0.1 and dk >= -5e-4)})
     res["controls"] = ctrl; res["n_ctrl_success"] = sum(c["success"] for c in ctrl)
     res["ctrl_min_ratio"] = min(c["ratio"] for c in ctrl)
     res["targeting_matters"] = bool(res["n_ctrl_success"] <= 2 and r < res["ctrl_min_ratio"])
     res["wall"] = time.time() - t_start
+    res["verify_fpe"] = len(allm) * 2 * NC + 2 * (NV + NA - 2 * NC)
     json.dump(res, open(os.path.join(OUT, f"{tag}_s{seed}_verify.json"), "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "controls"}))
 

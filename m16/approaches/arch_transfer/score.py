@@ -1,6 +1,6 @@
 """M1: the frozen T10 walk-quadrature recipe (T429 frozen/estimator.py fb7902e12240) with the generic walk.
 
-usage: python score.py TAG SEED BUDGET RULE [OUT.jsonl]     (RULE r -> rule_seed 31415 + 1000 r)
+usage: python score.py TAG SEED BUDGET RULE     (RULE r -> rule_seed 31415 + 1000 r) -> runs/m1_<TAG>_s<SEED>_b<BUDGET>_r<RULE>.json
 Execution-only changes to the frozen recipe, applied to its source text at import (hash checked first):
   * the model argument is a walkgen.Net (T = 10) and its walk is walkgen.walk (exact or numerical by net.mode);
   * C.sobol is T429's lazy rule (bitwise the same points, generated on demand; T429 gate).
@@ -70,14 +70,10 @@ def run(tag, seed, budget, rule):
 
 if __name__ == "__main__":
     tag, seed, budget, rule = sys.argv[1], int(sys.argv[2]), int(float(sys.argv[3])), int(sys.argv[4])
-    out = sys.argv[5] if len(sys.argv) > 5 else os.path.join(HERE, "runs", f"m1_{tag}.jsonl")
+    out = os.path.join(HERE, "runs", f"m1_{tag}_s{seed}_b{budget}_r{rule}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     if os.path.exists(out):
-        for l in open(out):
-            r = json.loads(l)
-            if (r["seed"], r["budget"], r["rule"]) == (seed, budget, rule):
-                print("done already"); sys.exit(0)
+        print("done already"); sys.exit(0)
     r = run(tag, seed, budget, rule)
-    with open(out, "a") as f:
-        f.write(json.dumps(r) + "\n")
+    json.dump(r, open(out, "w"))
     print(json.dumps(r))

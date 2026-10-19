@@ -1,7 +1,7 @@
 """Per-model line diagnostics on 2,000 fixed tie-face segments (1,000 per face, Sobol seed 99, Gaussian window):
 mean cells per line (fragmentation, M4 proxy), the walk's cost per line (FPE), and, for non-PL walks, the
 line-integral error vs a reference numerical walk (G = 1024 nodes, 30 bisections).
-usage: python lines.py TAG SEED  -> appends to results/lines.jsonl
+usage: python lines.py TAG SEED  -> results/lines/<TAG>_s<SEED>.json
 """
 import json
 import os
@@ -31,7 +31,6 @@ if __name__ == "__main__":
             r[f"ref_absdiff_{k}"] = float(np.abs(m - mr).mean()); r[f"ref_meandiff_{k}"] = float((m - mr).mean())
             r[f"ref_mass_{k}"] = float(mr.mean())
     r["wall"] = time.time() - t0
-    os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    with open(os.path.join(HERE, "results", "lines.jsonl"), "a") as f:
-        f.write(json.dumps(r) + "\n")
+    os.makedirs(os.path.join(HERE, "results", "lines"), exist_ok=True)
+    json.dump(r, open(os.path.join(HERE, "results", "lines", f"{tag}_s{seed}.json"), "w"))
     print(json.dumps(r))
