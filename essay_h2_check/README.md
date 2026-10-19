@@ -156,7 +156,12 @@ towards 50%, so the realised Delta is slightly smaller, most visibly at tau = 0.
 
 ## Status
 
-Pre-registered (072a5e78), amended once before collection; pass 1 (stats) running.
+**Done (2026-10-19). Pre-registered verdict: SUPPORTED (plain); texture question open.**
+- **H2c supports.** Neurons beat dense controls that pass the gate by +44.6 pp, CI +36.3 to +52.9.
+- **H2m is inconclusive.** Texture-matched neurons beat the same controls by +37.0 pp, CI +28.7 to +45.5. The lower
+  bound falls 1.3 pp short of the +30 bar.
+
+This is unverified. Nobody confirms their own claim (AGENTS rule 4); the DRI decides.
 
 ## Amendments
 
@@ -173,22 +178,155 @@ The matching rule, balance check and everything else are unchanged.
 
 ## Results
 
-(pending)
+**Reproduce:**
+- From the committed keys: `python essay_h2_check/score.py essay_h2_check/keys` gives [summary.json](summary.json)
+  (2,000-resample bootstrap; about 90 s).
+- Full pipeline:
+  1. `collect.py stats`
+  2. `collect.py main`
+  3. `build.py select` (writes [choice.json](choice.json))
+  4. `build.py explain`
+  5. 88 explainer sub-agents
+  6. `build.py judge`
+  7. 82 judge sub-agents
+  8. `score.py`
+
+  Prompts are [EXPLAINER_PROMPT.md](EXPLAINER_PROMPT.md) and [JUDGE_PROMPT.md](JUDGE_PROMPT.md); packets are in
+  `explain/` and `judge/`, outputs in `explain_out/` and `judge_out/`.
+
+**Gate and balance, checked before any agent call** ([choice.json](choice.json)):
+
+| check | value | bar | result |
+|---|---|---|---|
+| selection half: median top-1 share, `Mf` / `Rf` / `Rp` | 0.106 / 0.064 / 0.057 | first <= 0.13 in order | **`Mf` chosen** |
+| final 308 controls: median top-1 share (re-forwarded, 12 strongest shown examples) | **0.104** (top-5: 0.37; 87% of items <= 0.15) | <= 0.15 | **pass** (T6: 0.163) |
+| re-forwarded vs stored projection, worst relative error | 0.05% | - | consistent |
+| texture median, matched vs controls | 0.488 vs 0.487 (gap 0.001) | gap <= 0.03 | **pass** |
+| pairs within the 0.05 caliper | 301/308 (98%) | >= 80% | **pass** |
+| `flat20` median (visible texture, not matched on) | plain 0.54, matched 0.77, controls 0.76 | - | matched also balanced |
+
+The selected `Mf` is T6's `M` construction with full-corpus maxima instead of pilot maxima. That alone moves the
+final share from T6's 0.163 to 0.104. This supports T6's own diagnosis that the pilot maxima caused the gate miss.
+
+**Explainer categories** (2 explainers per item; CIs from a two-way bootstrap over items and explainer calls):
+
+| arm | n | A-rate (95% CI) | A | B | C | D | A vs not-A agreement (kappa) |
+|---|---|---|---|---|---|---|---|
+| plain neurons | 308 | **65.3%** (59.1-71.2) | 65.3 | 15.1 | 16.9 | 2.8 | 0.88 (0.74) |
+| texture-matched neurons | 308 | **57.6%** (51.3-63.9) | 57.6 | 6.7 | 26.6 | 9.1 | 0.91 (0.82) |
+| dense controls (`Mf`) | 308 | **20.6%** (15.3-26.3) | 20.6 | 8.1 | 56.8 | 14.4 | 0.90 (0.69) |
+
+**Hypotheses:**
+- **H2c (primary).** Delta = A(plain) - A(control) = **+44.6 pp, CI +36.3 to +52.9**: **supports**. This is T6's
+  +43.8 pp almost exactly, now with controls that pass the gate.
+- **H2m.** Delta = A(matched) - A(control) = **+37.0 pp, CI +28.7 to +45.5**: **inconclusive**. The CI contains +30.
+  - The paired version gives the same picture: all 308 pairs +37.0 (CI +28.0 to +46.2); the 301 within-caliper pairs
+    +36.2 (CI +26.9 to +44.8).
+  - **H2-0:** both contrasts exclude 0 by a wide margin.
+- **Texture effect among neurons.** A(plain) - A(matched) = +7.6 pp, CI -1.3 to +16.6. Matching texture removes
+  about a sixth of the gap at most; the rest remains.
+- **H1.** A(plain) = 65.3%: **supports** (>= 60%), as in E1 (61%) and T6 (65%).
+- **H3** (lexical-free, binding): **passes** for plain and for matched neurons.
+
+  | arm | top vs random | mid vs random | matched - mismatched |
+  |---|---|---|---|
+  | plain | 0.886 (0.874-0.898) | 0.733 (0.717-0.750) | +0.333 |
+  | matched | 0.860 (0.843-0.874) | 0.720 (0.703-0.740) | +0.307 |
+  | controls (descriptive) | 0.762 | 0.549 | +0.210 |
+  | bar | >= 0.85 | >= 0.70 | >= +0.15 |
+
+  - Mismatched explanations score top vs random 0.553.
+  - All-snippet values are higher (plain 0.914 / 0.765).
+  - 33% of held-out top snippets have their marked token verbatim in the explanation.
+- **Pre-registered overall verdict: SUPPORTED (plain); texture question open** (decision table, H2c supports and
+  H2m inconclusive).
+
+**Exploratory** (not part of the verdict):
+- Within neurons (plain + matched), the logistic slope of A on texture is -0.17 per SD (SD 0.22): a weak decline.
+- Within controls, correlation(texture, A-score) = -0.32. Denser controls are rated less clean, so texture matters
+  *within* an arm. At equal texture, neurons still beat controls by about 37 pp.
+
+### Deviations from T6's protocol (complete list)
+
+1. **Arms:**
+   - 308 plain neurons drawn uniformly from all live neurons (seed 383). T6: 280 from E1's seed-0 pool of 32 per layer.
+   - New: 308 texture-matched neurons.
+   - 308 `Mf` dense controls (T6: 280 `MX5`).
+   - No Gaussian (E1-style) arm.
+2. **Control construction:** max-normalised Gaussian with **full-corpus** maxima. It was chosen on a held-out
+   selection half, and the 0.15 gate was checked on the final items before any agent call. T6 used pilot maxima and
+   checked the gate after the agents.
+3. **Packing:** 21 items per explainer packet (T6: 14) and 24 per judge packet (T6: 20), to fit three arms under the
+   200-call cap. 120 mismatched judge items.
+4. **Judge prompt:** "followed by 12 numbered text snippets" became "up to 12 numbered text snippets (some items have
+   fewer; give one rating per snippet)". 27 items had fewer than 4 held-out mid snippets. T6 made the same change.
+5. **Re-runs:** one explainer call (r1_p04) omitted an item and was re-run once in full, per the rule. The failed
+   output is kept in `explain_failed/`.
+6. **Blinding audit:** I checked all 171 agent transcripts.
+   - Every agent read only its own packet and wrote only its own output file.
+   - One explainer (r1_p03) used `sed` and a one-line `python3 -c` on its own output file to fix a JSON quoting
+     error, which breaks "do not run code". It read nothing else.
+   - Keys stayed in git-ignored `data/t383/keys/` until all calls were done; they are now copied to `keys/`.
+7. **Code:** collection, item building, scoring and the power simulation are new code written for T383. The
+   corpus-window definition, packet format and prompts follow E1/T6 by design.
+8. **Amendment 1** (pool rule), made before collection.
 
 ## Compute accounting
 
-(pending)
+- **Model forward passes** (Qwen3-0.6B fp32, CPU, 4 threads):
+  - pass 1: 18,750 windows of 64 tokens (about 75 min);
+  - pass 2: 18,750 windows (about 65 min);
+  - gate re-forward: about 3,400 windows;
+  - smoke tests: 2 x 48 windows.
+
+  In all, about 41,000 window-forwards, about 2.5 h wall time. Peak RSS was about 4.1 GB in one process (the waived
+  limit).
+- **Storage:** 9.5 GB in `data/t383/` (132 units x 28 layers x 1.2M tokens, float16, plus window-max records).
+- **Sub-agent calls: 171 of the ~200 cap.**
+  - 89 explainer calls (88 + 1 re-run), about 95k tokens each.
+  - 82 judge calls, about 71k tokens each.
+  - Default model; no Fable.
+- **Analysis:** two-way bootstrap with 2,000 resamples; H3 bootstrap with 500 resamples over judge items; about 1.5 CPU-min.
 
 ## Claims
 
-(pending)
+- [measured] With controls that pass the pre-registered density gate (median top-1 share 0.104 <= 0.15, measured on
+  the final items before any agent call), neurons are rated "one main job" 65.3% of the time against 20.6% for dense
+  controls. Delta = +44.6 pp, CI +36.3 to +52.9, above the 30-pp bar. H2c **supports**.
+- [measured] Neurons matched to the controls on texture (median mass above 20% of max 0.488 vs 0.487) are rated A
+  57.6%. Delta vs controls = +37.0 pp, CI +28.7 to +45.5. H2m is **inconclusive** against the 30-pp bar; it is far
+  above 0.
+- [measured] Texture explains little of the gap: A(plain) - A(matched) = +7.6 pp, CI -1.3 to +16.6.
+- [measured] H1 supports (65.3%). H3 passes for plain and matched neurons (lexical-free top/mid AUROC 0.89/0.73 and
+  0.86/0.72).
+- [inferred] T6's gate miss came from pilot-estimated neuron maxima. With full-corpus maxima the same `M`-type
+  construction passes, and the contrast is unchanged (+44.6 vs +43.8).
+- [inferred] T6's "texture, not jobs" alternative is mostly ruled out. At equal activation texture, neurons are still
+  rated A about 37 pp more often than random dense directions. Whether that matched margin exceeds the 30-pp bar is
+  not settled at this sample size.
+- [speculative] The matched margin's point estimate (+37) suggests a design about 1.5 times this size would resolve
+  H2m. That is not pre-registered here.
 
 ## Alternatives not ruled out
 
-(pending; see pre-registration)
+- **Other texture features.** Matching was on mass above 20% of max; `flat20` turned out balanced too. Other visible
+  cues remain unmatched: top-token diversity (controls 0.013 vs neurons 0.025 top-token share) and the variety of
+  contexts among top examples. A control with mixed jobs will naturally show more varied tokens, so this cue is
+  partly the effect being measured.
+- **Matched neurons are a selected set.** They are the dense, high-texture neurons (eligible poles with at least 100
+  tokens above 20% of max). They are rated A less often than plain neurons and get more D ratings (9% vs 3%). They may
+  differ from typical neurons in ways besides texture.
+- **Construction family.** All controls are max-normalised Gaussian mixtures. PCA, ICA or SAE directions were not
+  tested.
+- **Same-family raters.** All explainers and judges are Claude models, like the essay's tools.
+- **Scale.** 0.6B only.
+- **Bigger packets** (21 vs 14 items) might change how explainers calibrate their ratings. All three arms share the
+  same packets, so the contrasts are less exposed than the levels.
 
 ## Failure modes
 
-- The fp32 model process needs about 4 GB. This is above the 2 GB rule, waived by the DRI for this one process in
-  this container; only one model process runs at a time.
-- Stored activations take about 9 GB in `data/t383/`.
+- Memory: the fp32 model process needs about 4 GB (above the 2 GB rule, waived for this container). The first
+  launch, under `ulimit -v 8000000`, failed at model load; it ran with `ulimit -v 30000000`. Memmaps over the 9.5 GB
+  stores also exceed a tight `ulimit -v`.
+- `select` needs the full window-max records. If pass 2 is interrupted, it resumes from `winmax.npz`.
+- If no construction passes the gate on the final items, the pipeline stops before any agent call, by design.

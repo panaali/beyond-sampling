@@ -3,7 +3,7 @@ other file in the repository (in particular nothing under data/, study/, or essa
 run code.
 
 The file has several items (IDs like J0042). Each item gives an explanation of what one unit of a language
-model responds to, followed by 12 numbered text snippets. Each snippet has one token marked [[like this]].
+model responds to, followed by up to 12 numbered text snippets (some items have fewer; give one rating per snippet). Each snippet has one token marked [[like this]].
 Using only the explanation, predict how strongly the unit fires on the marked token:
 3 = strong (near its maximum), 2 = moderate, 1 = weak, 0 = not at all.
 Judge each snippet on its own. Some explanations may not fit any of their snippets, and the mix of
