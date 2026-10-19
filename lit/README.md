@@ -16,6 +16,7 @@ material from 2026 was read.
 | [domain_neuroscience.md](domain_neuroscience.md) | Threshold-linear networks, ideal-observer analysis, time cells | observer (E21) |
 | [domain_physics.md](domain_physics.md) | Perturbation resummation, Rhee-Glynn debiasing, multilevel MC | debiased_series (E20) |
 | [domain_engineering_finance_cs.md](domain_engineering_finance_cs.md) | Directional simulation, digital-option smoothing, probabilistic verification | great_circle (E22) |
+| [novelty_review.md](novelty_review.md) | Novelty of our 7 positive / near-positive results vs prior work, with recommended phrasing (2026-10-19) | H-E16, H-A3, H-R1, H-R2, H-R3, T401, T398/T400, T317f |
 
 Experiment IDs refer to the [INDEX registry](../INDEX.md#3-experiment-registry); folders are indexed in
 [m16/approaches/README.md](../m16/approaches/README.md).

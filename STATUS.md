@@ -1,50 +1,49 @@
-# Project status (as of 2026-10-19 06:45 UTC)
+# Project status (as of 2026-10-19 18:30 UTC)
 
 ↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [Owner Q&A](OWNER_QA.md) · [Status history](docs/archive/STATUS_history.md)
 
-One page, plain words. Every number comes from the [INDEX](INDEX.md) row named after it; INDEX is the only place
-where numbers and claim status are kept. "(unverified)" means no second agent has checked it. Older dated updates and
-the long technical summary are in [docs/archive/STATUS_history.md](docs/archive/STATUS_history.md).
+One page, plain words. Every number comes from the [INDEX](INDEX.md) row named in brackets; INDEX is the only place
+where numbers and claim status are kept. "(unverified)" means no second agent has checked it. Older dated updates are in
+[docs/archive/STATUS_history.md](docs/archive/STATUS_history.md); ID prefixes are explained in the [README](README.md#id-prefixes-and-names).
 
-**The essay question (Goodfire, "Neural Networks Are Already Clean"): answered on our test.** Blinded explainers rate
-about 65% of Qwen3-0.6B neurons as having "one main job" against about 21% of properly mixed random directions,
-above the 30-point bar set in advance (H-Q5, confirmed, scoped; T6, T383). Part of the gap may be activation texture.
-Readable neurons are still not enough to calculate what a network does (T24, T377; [Owner Q&A 4.2](OWNER_QA.md#q4-2)).
+**What the project is.** A tiny network (16 neurons) reads 10 random numbers and points to the second-largest; it is right
+about 95% of the time. ARC's challenge: work out how often it is right from its weights alone, about as precisely as random
+testing with the same computing (ARC: "competitive with sampling"; [Q&A 4.13](OWNER_QA.md#q4-13)). Behind it is a safety goal: predicting failures too rare for testing to catch.
 
-**How M_16,10 works: mostly understood, not precisely enough to calculate with.** A running-max tracker, a record
-alarm, comparators and rotating "clocks" (H-M1..M8, [m16/FINDINGS.md](m16/FINDINGS.md)); the per-neuron account is
-core-confirmed (T241), but no estimator has yet been improved by it (T338, T341).
+**Readable neurons.** In a larger language model, about 65% of neurons look like they have one main job, against about
+21% of random directions (H-Q5, confirmed); readable parts alone were not enough to calculate behaviour.
 
-**ARC's challenge (estimate M_16,10's accuracy from its weights, at least as precisely as sampling at equal compute):
-open.**
-- Best sampling-free calculation with declared approximations: T317f, F 2.63 on the sealed panel HP4: lenient bar
-  (F <= 10) passed, strict bar (F <= 1) failed, retrained networks only, breaks under weight noise (H-L1, T337). The
-  strict bar is dead (verified) for that whole approach, scoped to it (H-S1; T356, T357).
-- Fixed-line walk quadratures sit at or just below the sampling line at 10 steps on 100 M_16,10 retrains (T10 recipe
-  via T380, T389, T391), none confidently below it, so no sealed HP5 run yet; E33 tie-slicing loses at executed cost
-  (T397). Whether ARC counts fixed-line averaging is unknown ([Owner Q&A 4.7, 4.8](OWNER_QA.md#q4-7)).
-  At 16 neurons and 5 steps a fixed-directions walk beats sampling (H-E16, confirmed, scoped; T379).
-- Exact region counting is ruled out for the target (H-E13; T270); exact computation survives as a component.
+**The main challenge: open.** The best weight-based calculation has about 2.6x random testing's error (lenient pass,
+strict fail; H-L1, T317f). Exact tracing along lines through input space beats random testing on a 5-step version
+(H-E16, confirmed) and on a network that sees all numbers at once (H-A3, confirmed), but only ties at the full 10 steps;
+with more computing per model it does beat random testing at the full 10 steps: on the sealed, never-used panel the
+error is about half of random testing's at the same compute (H-E17, confirmed; T431). This is a quadrature-type method
+(no random numbers when run, but no weight-derived error bound), so whether ARC counts it is unknown. On wider networks
+(24 and 32 neurons) the same method beats random testing 2-6x even at small budgets (T423, interim).
 
-**Rare failures (the owner's priority; ARC's long-term goal).** For far-from-tie rare mistakes on ordinary networks
-the estimator lands within about 2x of the truth, deep into the tail (H-R1, confirmed, scoped). Its failure mode, three-way
-near ties, is partly fixed: the graded rule recovers 16/16 earlier misses on noised copies (T388; blind check T403) and
-rates the target M_16,10 for gaps up to 1.5, but is far too low from gap 2 on (T407; closure fix T370).
-**Bridge-style uses:** safe-use ratings work on two retrains and partly on the target (T401, T407); the weights driving
-the rarest error are located (H-R2, confirmed), and a 12-weight edit makes that error ~17x rarer for -.011 pp accuracy,
-while random edits of the same size fail 40/40 (H-R3, confirmed, scoped; T402, T410); it partly turns the rare mistake
-into a common near-tie one, so a repair of all far-gap errors is running (T411). A sampling-free rare-event gradient is
-still open (T386, T405 negative).
-**Guaranteed upper bound** (T398, T400, T412): every pruning certificate re-verifies exactly, and the rigorous mass bound
-is now fast (~100-500x, T412; audit T417) and tight in 10-D. But stepping through the network in time cannot prune the
-240 'late' input orderings (T398), so a bound over all inputs needs a different split; an input-space test is running
-(T414). A sampling-class bound says P <= 1.7e-9 at confidence 1 - 1e-6 for the gap >= 2.5 event (1 hit in 1e10
-draws; 1e11 running).
+**Rare mistakes (ARC's long-term goal).**
+- *Estimating:* within about 2x down to one in 10 billion on ordinary networks (H-R1, confirmed); about 80% right in a
+  blind test on near-equal inputs, without knowing where it fails (T403); noise in the weights does not hurt (T388, T404).
+  On the challenge network the deepest estimates are still too low; an improved approximation fixes most of it (T370).
+- *Rating safe use* ("if the top numbers differ by at least X, the error rate is Y"): works on some networks, partly on
+  the challenge network (T401, T407); on a wider network it works for the rarer conditions instead (T427, interim).
+- *Locating and repairing:* the responsible weights are found (H-R2) and a 12-weight edit makes the mistake about 17x
+  rarer with almost no accuracy cost while random edits fail (H-R3, confirmed). Removing all such mistakes by small edits
+  is not possible: training already optimised the common mistakes, so repairs convert rare into common ones (T411).
+- *Guaranteeing an upper limit:* the true rate of the studied mistake is about 1.6 in 10 billion, at most 4.2 in 10
+  billion with very high confidence (sampling-based, T400). For one section of inputs a mathematical guarantee gives at most 1.4 in 100
+  billion (T416, provisional): all ~260k safety certificates verify exactly (T400), the fast rigorous calculator is confirmed (H-C1), the
+  geometry is under audit (T420). The section holding all observed mistakes is much costlier to split (T398, interim).
+  The late input sections looked blocked (T398, T414), but a library re-check found the blocker was the splitting rule, not the bounds; a better rule projects about 2e6-2e7 pieces per section (T418), and a rigorous version runs (T455).
 
-**Running now** (owners in [TASKS.md](TASKS.md#in-progress)): closure fix (T370), blind tie check (T403), certified
-bound (T398 per-triple, T400/T416 masses, T414 input split, T415 fast geometry, T417 audit, 1e11-draw sampling bound),
-all-far-gap repair (T411), noisy-copy follow-ups (T404), chunked-input RNN (T392), ladder (T86/T111, T46). A sealed HP5
-run happens only for a frozen candidate whose DEV3 confidence bound is below 1; none yet.
+**Ideas that did not work** (each in INDEX): rounded-value networks (T352), mixing exact regions with tracing (T46),
+listing mistake patterns (T413), enumerating regions (T373, T390), a GPU checker (T399), algebraic rewrites (T291, T3),
+longer training of a small test rung (T111), a deductive method for the all-at-once network (T408).
 
-**Standing rules** that shape the work (no ARC contact, no Fable, CPU-first, tutorial paused) are in
-[AGENTS.md](AGENTS.md#standing-rules).
+**Running now** (owners in [TASKS.md](TASKS.md#in-progress)): transfer to about 10 other tasks (T419: 24 of 29 candidates
+passed the quick screen), larger networks with five method tests (T421, T423-T427), the guarantee work (T398, T400/T416,
+T418, T420), more-compute test for tracing (T429), the approximation fix (T370), and ladders (T86, T46, T392).
+
+**Documents:** novelty versus prior work in [lit/novelty_review.md](lit/novelty_review.md); what more money or compute
+would solve in [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md). **Standing rules** (no ARC contact, no Fable,
+CPU-first, tutorial paused, one home per fact) are in [AGENTS.md](AGENTS.md#standing-rules).

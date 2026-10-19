@@ -4,7 +4,7 @@ An independent test of two claims about neural-network interpretability:
 
 1. Goodfire's essay *"Neural Networks Are Already Clean"* (Cammarata, Oct 2026): most MLP neurons have one main job.
 2. ARC's AlgZoo challenge (Hilton): legible neurons are not understanding. Calculate the accuracy of a 432-parameter
-   RNN from its mechanism, at least as precisely as random sampling at equal compute.
+   RNN from its mechanism, about as precisely as random sampling at equal compute ("competitive with sampling").
 
 ## Start here
 
@@ -25,6 +25,18 @@ New agents: read [AGENTS.md](AGENTS.md) (rules, standing owner rules), then [TAS
 | [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study |
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before data was collected |
 | [docs/archive/](docs/archive/) | History: old status updates, finished and superseded board text, later-update notes from the Q&A |
+
+## ID prefixes and names
+
+- **T** (T402): a task on the board ([TASKS.md](TASKS.md)); its result is registered once in [INDEX.md](INDEX.md).
+- **E** (E33): an experiment in the INDEX registry under the older numbering.
+- **H-xN** (H-R3): a claim in the INDEX hypothesis ledger, with its status. The letter is the topic: R rare events,
+  E estimators, A other architectures, Q the essay question, M mechanism, S strict bar, L lenient bar, C certification tools.
+- **Q** (Q4): a top-level research question (INDEX section 1). **L** numbers are reserved by the ID rule but unused.
+- **E1, E2:** the two rare-mistake types (E1: answering with the 3rd-largest input while the 2nd and 3rd differ by at least t0; E2: the interior near-gap mistake).
+- **K3, S14, Q16, M5t, T5/gl20 and similar:** names of method variants inside one task, chosen by its author (not board IDs).
+- **DEV3, HP4, HP5:** panels of retrained models; DEV3 is open for development, HP panels are sealed and scored once.
+- **F:** our error divided by plain sampling's error at the same compute; strict bar F <= 1, lenient bar F <= 10.
 
 ## Folders
 

@@ -672,6 +672,8 @@ Off-target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (all-at-once network
 ---
 
 <a id="q4-9"></a>
+**Update (10-19 18:2x):** the strict bar is now met on a sealed panel by the frozen walk quadrature at T = 10 at budgets >= 1e6 FPE ([INDEX H-E17](INDEX.md#4-hypothesis-ledger), T431); it is a deterministic quadrature-class (inductive under ARC's definition) estimator, so the ARC-acceptance question of 4.7 still applies.
+
 ### 4.9 What is ARC's ultimate goal, and how does our work relate to it? (owner, 10-19 06:5x)
 
 **Q (owner, verbatim):** "What do you think is the ultimate goal of Arc?"
@@ -710,6 +712,46 @@ Off-target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (all-at-once network
 | **Reinforce** the weak member | A targeted repair: change the few weights that drive the rare failure and check the failure becomes rarer without hurting accuracy | We know which weights drive the rarest far-gap error (n6/n7 balance, T372; intervention check T385). The repair itself is the next experiment (T402) |
 
 The point, as with the bridge: sampling cannot find or rate a one-in-a-billion failure, but a calculation from the weights can, because its cost does not depend on how rare the failure is. Limits: one network, one kind of rare mistake, estimates (not yet guarantees), and the three-way near-tie blind spot. Two demonstrations are set up to make the analogy concrete: **T401** (a safe-use rating chart computed from the weights) and **T402** (a targeted repair verified by independent truths).
+
+<a id="q4-11"></a>
+### 4.11 Are our results all negative, or are some positive? (owner, 10-19 13:5x)
+
+**Answer (DRI):** not all negative. Ledger status is in [INDEX](INDEX.md#4-hypothesis-ledger); in short:
+- *Positive, independently confirmed:* locating the weights behind a rare failure (H-R2) and repairing it ~17x with a
+  12-weight edit while random edits fail (H-R3); rare-error estimates within ~2x deep into the tail on ordinary networks
+  (H-R1); walk quadrature beating sampling at T = 5 (H-E16) and on the all-at-once network (H-A3); the fast rigorous mass
+  bound (H-C1); the essay question (H-Q5).
+- *Positive, not yet independent:* the graded rule's blind check (T403), noisy-copy rare events (T388, T404), safe-use
+  ratings on two retrains (T401), every pruning certificate re-verifying exactly (T400), and early scale-study data where
+  walks beat sampling on wider networks (T423, interim).
+- *Negatives that still teach something:* repairing all far-gap errors is blocked because training has optimised the
+  common error (T411); a certificate over all inputs is blocked by 'late' orderings (T398, T414).
+- *Bottom line:* ARC's main challenge (deductive accuracy at T = 10 beating sampling) is not solved; on ARC's long-term goal
+  (rare bad behaviour) we can estimate, locate and repair a rare failure from the weights, but not yet guarantee a bound
+  over all inputs.
+
+<a id="q4-12"></a>
+### 4.12 What do T, Q, E, H and the other letters mean? (owner, 10-19 14:0x)
+
+**Answer:** see [README.md "ID prefixes and names"](README.md#id-prefixes-and-names) (the one place they are defined).
+
+<a id="q4-13"></a>
+### 4.13 Do we have a solution ARC might accept? Must it beat sampling? (owner, 10-19 19:4x)
+
+**Q (owner, verbatim):** "So that we have a solution that Arc might accept for the challenge. If so, what's the solution? And I don't think that they said we have to beat sampling. I think they said it should almost match."
+
+**A (DRI):** The owner is right about the bar. ARC asks for an estimate "competitive with sampling (in MSE vs compute)" (launch thread, [lit/web_log.md](lit/web_log.md)) and called its own M_4,3 estimators, about 2x worse in error (4x in compute), a rough match ([3.10](#q3-10)). Our strict bar (F <= 1) is stricter than ARC's; the lenient bar (F <= 10) is the top of what we measured for ARC's own estimators. The open question is ARC's other condition, "mechanistic" (no sampling), not the bar. Two candidates, numbers in INDEX:
+- **Walk quadrature** (H-E16, H-E17, T429, T431): a fixed set of evenly spread lines through input space, the same for every model. Along each line the exact points where neurons switch are computed from the weights, the exact probability of the correct stretches is added up, and the lines are averaged. At T = 10 it roughly matches sampling at small budgets and beats it from about 1e6 FPE (sealed panel). Doubt: the average over lines stands in for the whole input space without a weight-derived error bound, close to the step Hilton excludes ([4.7](#q4-7)). Noisy copies and other line sets are being checked (T434, T442).
+- **Gap-direction walks with five declared approximations** (H-L1, T317f): about 2.6x sampling's squared error on a sealed panel, inside ARC's own "rough match" example. Doubt: the approximations were chosen against sampled truths on development models, and weight-noised copies are a weak spot ([3.9](#q3-9)).
+
+Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived bound on the variation between lines would make the first one clearly deductive.
+
+<a id="q4-14"></a>
+### 4.14 Is anyone working on the weight-derived bound between lines? (owner, 10-19 20:4x)
+
+**Q (owner, verbatim):** "Are we working on any solution to bound from the weights how much the answer varies from line to line to make method one clearly reasoning from the weights? Or we have tried and failed and we are not working on it anymore?"
+
+**A (DRI):** Neither. It was never tried directly; the literature review lists it as open. Related rigorous attempts point to difficulty: interval and Lipschitz-type bounds blow up over 10 steps (E19, T344), and the certified bound works for one top-3 ordering but not the whole input space (T398, T416). Tested as a pre-registered kill test: **NO-GO**, confirmed by an independent re-check for budgets up to 1e10 FPE (INDEX T449, T451). Every bound tried is infinite or hundreds of times looser than the actual error, because the per-line answer has creases and jumps where lines graze region boundaries; closing it would need cells at the scale of the exact regions (~1e13-1e14), far beyond any budget comparable to sampling. So the walk method stays quadrature-class unless ARC accepts it as is.
 
 ## 5. Compute, GPU and process
 
@@ -969,6 +1011,117 @@ Fixed at 05:05:
 - Follow-up **T352** (owner, 13:58): QAT retraining with binary/int4/int8 activations, reachable-state census, exact DP for the binary model, and discrete-input (int4/int8) variants.
 
 <a id="status"></a>
+<a id="q6-6"></a>
+### 6.6 Which of our positive results would transfer to the same architecture trained on a different task? (owner, 10-19 14:1x)
+
+**Question (owner, condensed):** which positive or near-positive methods (lenient bar passed, or matching sampling) would
+apply to a network of the same size and input trained for another task? Find about 5 tasks (some completely different from
+"n-th largest") that the exact M_16,10 architecture learns to 90-95%, then test which methods carry over; one session screens
+the tasks, then one session per task. The owner also passed on another agent's list (2nd-smallest, 3rd-largest, largest adjacent
+|difference|, 2nd-largest |x|, largest adjacent pair sum).
+
+**Answer (DRI, inferred until T419 and its follow-ups run):**
+- *Likely to transfer (generic, no task-specific mechanism):* exact 1-D walk quadrature (H-E16: beats sampling at T = 5, ties
+  at T = 10), weight-gradient locate and Hessian-guided repair of a rare failure (H-R2, H-R3), and the certified pruning + rigorous
+  mass machinery (T398, T400, T412). Whether each wins depends on the task: how fragmented the regions are along lines, and
+  whether the task's rare events can be pruned early (T398's late-triple obstruction is specific to rank tasks).
+- *Partly transferable:* the rare-event exact walks (H-R1) are built around rank events (the line along x_p3); rank tasks reuse
+  them directly, other tasks need the event and the walk line redefined.
+- *Not transferable as is:* T317f (the lenient-bar pass) is derived from M_16,10's specific mechanism, so each new task needs its
+  mechanism worked out again; that is itself the most interesting test.
+- *On the proposed list:* keep the architecture exact, so every task must output a POSITION (one of 10 classes) from N(0,1)
+  inputs; value-output tasks need a different head. '2nd-smallest' is 2nd-largest on -x for symmetric inputs, so it is a free
+  control, not a new algorithm. Ties have probability 0 for continuous inputs. Longer-sequence generalisation is not ARC's
+  question (accuracy on the fixed input distribution is).
+- *Plan:* T419 screens candidate tasks on the exact architecture and recipe; then one session per selected task applies the
+  transferable methods against both bars.
+- *Follow-up (owner, 14:2x): tasks that return a PAIR of positions, trained with a multi-label loss.* DRI: yes, as a second
+  tier. Keep the same 10 output units (no extra parameters), train with sigmoid/BCE or a listwise top-2 loss, read out the
+  top-2 logits, and score exact set match. The walk code adapts, because the decision boundary becomes the 2nd-vs-3rd logit
+  crossing (still piecewise linear). Prefer genuinely 2-D pairs (two largest, closest pair |x_i - x_j|); 'adjacent pair' is one
+  position. At most 2 of T419's 5 picks may be pair tasks, so that at least 3 keep M_16,10's single-position readout and ARC's
+  accuracy metric.
+- *Follow-up (owner, 14:3x): 10 tasks instead of 5, one session each.* T419's pick rule is now 10 tasks >= .90, at least 6
+  outside the k-th-largest family, at most 3 pair-output.
+
+<a id="q6-7"></a>
+### 6.7 Do our positive results hold for larger networks (more neurons H, more steps T, or both)? (owner, 10-19 14:4x)
+
+**Request (owner, condensed):** most results are for ARC's M_16,10 (16 neurons, 10 steps). Scale up H, T or both, and see how far
+the positive and near-positive results keep holding.
+
+**Answer (DRI):** one lead session (T421) trains a grid of 2nd-largest RNNs with the zoo recipe beyond (16,10) (H up to 64 and
+T up to 20, several seeds per point, reusing T392's H = 24 / 32 models where they match); then one session per method measures
+where it stops holding, each against a pre-registered criterion: walk quadrature (H-E16: F <= 1 / <= 10), the rare-event
+estimators (H-R1 and the graded rule: within 2x), locate and repair (H-R2, H-R3: a >= 10x cut at <= .05 pp), certified pruning
+(survivor growth per step), and the safe-use rating (T401). Prediction [inferred]: the generic methods degrade with T faster
+than with H, because each extra step multiplies the gate flips along a line; T392's chunked RNNs already show walks losing
+at k = 1-2 inputs per step.
+
+<a id="q6-8"></a>
+### 6.8 How novel are our positive results, and how should we describe them? Are we rediscovering adversarial-robustness work? (owner, 10-19 14:5x; follow-ups 18:3x, 18:5x)
+
+**Answer (DRI, from two literature passes; full verdicts, citations, phrasing and a ranked "methods to try next" list are
+in [lit/novelty_review.md](lit/novelty_review.md), the one place they are kept):** partly yes. The verification
+literature already has the main ingredients, so most of our results are known methods combined or applied; few parts are
+new. Specifically: the certified-bound pipeline is an application of probabilistic branch and bound (Boetius, Leue &
+Sutter, ICML 2025) and region enumeration with probabilities (ProbStar / StarV, Tran et al.; Kofnov et al., ICML 2025, the
+closest prior to our rigorous mass bound, in 1-3 dimensions without floating-point rigour); the likely-new part is the
+outward-rounded Gaussian mass of 10-D polytope cells. The walks are line sampling / preintegration made exact per line
+(ExactLine, Sotoudeh & Thakur); the great-circle step is the same primitive as LIN-ESS (Gessner et al. 2020). The rare-event
+walks are new mainly in being sampling-free near 1e-10 without enumerating all regions. The rare-to-common conversion of
+repairs is a known kind of trade-off, newly measured here. The T431 strict pass is likely new as a result, not as a method,
+and is QMC-class. Nothing found makes ARC's accuracy estimate deductive. Do not claim a "first certified rare-event
+probability for a neural network". The ranked untried methods became backlog rows T436-T442.
+
+<a id="q6-9"></a>
+### 6.9 Educated guess: which positive results will hold for larger networks and other problems? (owner, 10-19 15:0x)
+
+**Answer (DRI, a guess, before the scale and transfer data; ranked most to least likely):** (1) locate and repair
+(H-R2, H-R3), which is generic, and the finding that training optimises common errors (T411); (2) rare-event estimation
+within ~2x for errors far from decision boundaries (H-R1), worse where errors sit in thin near-tie slivers; (3) the
+safe-use rating (T401), which inherits (2); (4) walk quadrature beating sampling, expected to hold for shallow networks and
+to fade with more steps and neurons; (5) full certificates only for small networks or 'early' slices (T398); (6) the
+mechanism-derived calculation (T317f) needs a new mechanism for each network; (7) the sampling-class bound always holds but
+costs grow as 1/p. **Early correction:** the first scale-study points contradict guess (4) for H: at T = 10 the frozen walk
+beats sampling at H = 24 and 32 (T423, interim), so the guess is kept here only as the record of what was predicted.
+
+<a id="q6-10"></a>
+### 6.10 Do our methods apply to more modern architectures? Which class of architectures keeps at least one of them? (owner, 10-19 17:1x)
+
+**Request (owner, condensed):** change the network structure to something more modern (ideally more accurate) while
+keeping weights and neurons affordable, and find the class of architectures for which at least one positive or
+near-positive method still applies (softmax or other neuron types may break some of them).
+
+**Answer (DRI, [inferred] until T432 runs):** each method needs a different property. *Exact line walks and the
+certified bound* need the network to be piecewise linear along any line (ReLU, leaky ReLU, maxout, hard-tanh /
+hard-sigmoid gates, max-pooling, residual connections, linear state-space recurrences); products such as attention scores
+make it piecewise polynomial, so line walks stay exact with polynomial roots but the polytope mass machinery does not;
+softmax, sigmoid, tanh, GELU and layer norm need numerical integration along lines (no longer exact) and CROWN-style
+linear bounds for certificates. The exact radial integral also needs no biases (positive homogeneity). *Locating and
+repairing a rare failure* only needs gradients, so it should apply to any differentiable architecture. *The rare-event
+estimators* are tied to the task's event, not the architecture. Plan: T432 maps methods x architecture features, trains
+4-6 affordable modern candidates on the same task (bias ReLU RNN, stacked ReLU RNN, gated RNN with hard and smooth gates,
+a linear state-space model with ReLU readout, a tiny transformer with ReLU vs softmax attention, a 1-D conv net) and tests
+which methods carry over against both bars.
+
+<a id="q6-11"></a>
+### 6.11 Would our methods apply to a mini language model (next-token prediction), possibly with a modified mini self-attention? (owner, 10-19 17:2x)
+
+**Request (owner, condensed):** train a small language model on a mini language and test whether any of our methods
+apply; it may have a mini self-attention layer, changed if needed (from the literature or our own ideas) so that at
+least one, ideally many, of our positive methods apply; split the work into parallel streams via a lead.
+
+**Answer (DRI, [inferred] until T433 runs):** two changes matter. (1) *Inputs become discrete tokens*, so the input
+distribution is over sequences, not Gaussian vectors; exact enumeration is possible for short contexts (T352 found exact
+dynamic programming beats sampling by orders of magnitude on discrete inputs), so the language must make V^L large enough
+that sampling is the real baseline. (2) *Softmax attention* is not piecewise linear; variants that keep our exact tools are
+hardmax (argmax) attention, ReLU or linear attention (piecewise polynomial), and position-only attention (linear mixing).
+Locate and repair (gradients) and the safe-use rating should transfer directly to a rare bad output such as an
+ungrammatical token. Plan: a lead (T433) builds the shared language, data and training harness and proposes parallel
+streams; the DRI spawns one session per stream (attention variants, estimators for discrete inputs, rare bad outputs,
+certified bounds).
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
@@ -1023,3 +1176,6 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 - <a id="d-1019-065x"></a> **10-19 06:5x:** "Why anything would I tell you, you update in 3 files? I think you should just update in 1 file and have reference in the others. Do a bit of cleanup. It seems there are many duplicates and the repo is a bit unorganized, or like the docs are not organized as we like." Done: task **T396** (one source of truth per kind of information; plan in [docs/CLEANUP_PLAN.md](docs/CLEANUP_PLAN.md)). From now on a directive is recorded only here, with a one-line standing rule in [AGENTS.md](AGENTS.md#standing-rules) when it binds agents.
 - <a id="d-1019-070x"></a> **10-19 07:0x:** "I think guaranteed upper bound on rare mistake is super important. We need to give it more resources. If GPU helps it, let it run its work on GPU. If we need more number of CPUs than 4, I think the collab agent can get more CPUs. I might be wrong, but we can check. And we can also spawn multiple sessions all helping this one, and they can all communicate using the tools that is available. Basically, it would be nested sessions, I guess. So the session can spawn multiple nests at once, so we can go faster, or we can spend more compute. Also, 210 million doesn't seem unreachable. What do you think? Even for that many pieces, if we can give exact or guaranteed results, I think that would be fantastic. Am I missing something?" Done: the certified-bound lane is the top compute priority: T398 (lead: tighter bounds, choice of a rarer threshold, shard plan), T399 (GPU batched bound propagation on Colab, before T395), T400 (rigorous per-region mass bounds and exact-arithmetic verification of pruning certificates); worker sessions to shard the 720 position triples once the per-node cost is measured. Answer and caveats in the DRI reply (missing pieces: the 679 no-hit triples, per-region mass bounds, exact verification, and choosing a rarer event where the certificate matters).
 - <a id="d-1019-071x"></a> **10-19 07:1x:** owner asked to document the answer on ARC's ultimate goal and proposed the bridge-engineering framing (verbatim in [4.10](#q4-10)). Done: [4.9](#q4-9) and [4.10](#q4-10); demonstrations **T401** (safe-use rating) and **T402** (targeted repair).
+- <a id="d-1019-152x"></a> **10-19 15:2x:** "For some of our work, we abandoned them because we said we don't have enough compute, or it's just too much compute. Keep in mind that this is preliminary work, and we want to be very explicit and do a rough estimation about the compute needed for some of these, even if the method as is would not work and require more agent tokens on it. We can also do a rough estimation of how much token might be required for solving that problem. So at the end of the day, when we are publishing, we want to say, okay, we think that there are these options that we haven't explored because lack of compute. But for example, if we have like these large cluster, or like if we had like, I don't know, $10 billion to buy this much compute or this much tokens, we could have solved it. So we want to write those down because it's a safety case, and sometimes safety problems are so important that it makes sense to pour in a lot of money, and 5 years from now, you know that the compute is gonna be much cheaper, and each chip would have a much higher compute capability, and also in terms of the tokens, the agents are gonna be way smarter than what they are right now. So although the problem might not be solvable just right now, given the resources that we have, it might be solvable using more compute later down the road. So we just want to like write them down if we have some idea of if we are given a lot of more tokens and a lot of compute, are we gonna be able to solve it or not." Done: [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md) written (10 approaches; summary table; what $1M / $100M / $10B would settle) (per approach: compute and agent effort needed, cost today and in 5 years, compute- vs method-limited); standing rule added to AGENTS.md.
+- <a id="d-1019-144x"></a> **10-19 14:4x:** "It's okay if we spend a little bit of GPU time for it, but it's better to use free sandbox vCPUs, and it's okay if we parallelize." Done: passed to the scale study (T421, GPU cap 15 units) and the task screen (T419, cap 10); consistent with the CPU-first standing rule.
+- <a id="d-1019-163x"></a> **10-19 16:3x:** "Great explanations, great findings. Just make sure that everything that we have discussed is properly documented. And as we discussed, no duplication in documentation." Done: Q&A 4.11, 4.12, 6.9; README ID glossary; INDEX rows for the running tasks' interim results (T86, T392, T419, T421, T423, T427) and updates to T370 and T398; STATUS rewritten in place in plain words.

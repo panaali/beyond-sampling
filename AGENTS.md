@@ -37,6 +37,7 @@ is recorded there only, plus one line here if it binds agents.
 - **Report every estimator against both bars**: strict F <= 1 and lenient F <= 10, as defined in [docs/PROTOCOLS.md](docs/PROTOCOLS.md) Directive 8. ([10-18 05:19](OWNER_QA.md#d-0519))
 - **Tutorial updates are paused** until the owner asks for one final update. ([10-19 06:4x](OWNER_QA.md#d-1019-064x))
 - **Record each fact once and link to it** (this table and section). ([10-19 06:5x](OWNER_QA.md#d-1019-065x))
+- **When an approach stops for compute or budget, record a rough estimate** of the compute (FLOPs / CPU-h / GPU-h, cost today and in ~5 years) and the agent effort that would finish it, and whether more compute would actually help, in [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md). ([10-19 15:2x](OWNER_QA.md#d-1019-152x))
 
 ## Rules
 

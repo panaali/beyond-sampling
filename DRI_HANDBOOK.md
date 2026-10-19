@@ -313,6 +313,14 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
    rounds, 05:16-12:13) and supplied many of the tested designs (round 3: T305-T309; round 4: T317-T319, including
    the continuity-restart saving behind T317; round 5: T326-T332). Give a silent lane's Ready rows to child sessions
    after a stated timeout, and run reviews that need no compute as sub-agents.
+10. **Idle sessions lose their running jobs (10-19).** A cloud container is reclaimed once its session goes idle, and
+   background processes die with it; two T398 workers lost (9,3,2) runs this way. Every long run needs a background-Bash
+   waiter (`while kill -0 <pid>; do sleep 120; done`, re-armed before it times out), checkpoints with `--resume`
+   (T398: every 5 parents), and a send_later self check-in that restarts dead PIDs and pushes checkpoints. Put this in
+   every compute-heavy spawn prompt.
+11. **Check that a spawned session started.** At 19:18 three spawns (T436, T437, T442) stayed PENDING: sandbox
+   allocation failed with `rate_limited`, and nothing retried it. A few minutes after spawning, confirm that the row is
+   claimed (or that get_session leaves PENDING); if not, read list_events, archive the session and spawn again.
 
 **Owner directives** are recorded once, verbatim, in [OWNER_QA.md section 8](OWNER_QA.md#directives); the ones that bind agents (no Fable, never contact ARC, parallel child sessions, CPU-first, tutorial paused) are one-liners in [AGENTS.md "Standing rules"](AGENTS.md#standing-rules). Record a new directive there only, never by copying it here or into TASKS.md.
 
