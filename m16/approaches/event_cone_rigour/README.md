@@ -306,6 +306,21 @@ futile (the C_true curve).
   - other directions (e.g. the LP's own extreme directions);
   - cuts on split leaves (stage-3 style), which give tighter projections.
 
+
+### T412: float-vectorised M5t (merged from claude/t412-m5t-fast @ f61b1f22; details in T412_README.md)
+- `m5t_fast.bounds_batch` / `mass_cell_fast` is a drop-in for `mass_cell(..., tangent=True)`.
+- It passed its pre-registered line:
+  - soundness: 0 violations against arb on all 218,214 bench simplices, and end-to-end ub >= MC - 4 s.e. on
+    55/55 cells;
+  - speed: 113-125x per simplex;
+  - tightness: fast hi <= 1.01 × arb hi on 100% of simplices.
+- 10-D region 3 (t0 = 1.5):
+  - bounds take 0.75 s against 412 s in arb;
+  - ub = 4.63e-11, i.e. 5.1x MC (the arb version is looser);
+  - the exact geometry (vertex enumeration + triangulation) now dominates, at 33 s;
+  - a budget of 1e5 simplices gives ub = 3.59e-11 (4.0x MC) in 22 s.
+- One stated assumption, A1: libm/scipy special-function accuracy, measured with >= 130x margin.
+
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
