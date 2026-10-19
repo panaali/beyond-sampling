@@ -69,7 +69,8 @@ def families(rng):
             for s in (1, -1):
                 r = [0] * n; r[i] = -s; r[-1] = -1; A.append(r); b.append(-1)
         out.append(("pyramid", A, b))
-    for n in range(3, 8):                                  # random 0/1 polytopes (very degenerate)
+    for n in range(3, 7):                                  # random 0/1 polytopes (very degenerate; n = 7 stalls
+        # in the reference's Poly.edges, which enumerates C(|T|, n - 1) row subsets at a degenerate vertex)
         for _ in range(3):
             pts = {tuple(int(x) for x in rng.integers(0, 2, n)) for _ in range(3 * n)}
             try:
