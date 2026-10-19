@@ -9,7 +9,7 @@ TAUS = (0.5, 0.9, 0.99)
 
 
 @torch.no_grad()
-def logits_of(model, lang, y, chunk=32768):
+def logits_of(model, lang, y, chunk=8192):
     model.eval()
     x = model_input(y, lang.BOS)
     out = []
