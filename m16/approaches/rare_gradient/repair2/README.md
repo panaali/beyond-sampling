@@ -69,4 +69,72 @@ design estimates (`wonly.py`) to measure that, and, per rule 4, the best accurac
 eps .004, lowest design f) is frozen and verified against both bars.
 
 ## Status
-Design failed the T411 bar (round 1); frozen fallback point being verified.
+**Done. T411 bar: NO-GO (scoped negative, measured).** No edit found or possible near the trained weights on these 16
+weights: P(W(2.0)) has a local minimum ~x.97 along the best direction. The frozen fallback point passes **T402's bar**
+(E1(2.0) x.034, accuracy +.016 pp, no event up > 2x) but raises W by 12%.
+
+## Results
+Design: `python design2.py grad 1 && python design2.py hess 1 && python design2.py search 1`; diagnostics `wonly.py`,
+`check_dW.py`, `path_W.py`; verification `python verify.py ...` (results/ver.log, seeds 411101-411109).
+
+**Design.** P_W(2.0) = 1.397e-5 +- 2e-8 (v1 lines; 99.95% largest-input picks). |d log P_W / dW| = 118 (all 432),
+92 on S, against ~950 for E1(2.0). S (16): Wh[n7<-n14], Wh[n7<-n2], Wh[n1<-n14], Wh[n2<-n10], Wh[n7<-n0],
+Wh[n1<-n2], Wh[n2<-n11], Wh[n6<-n2], Wh[n1<-n0], Wh[n6<-n10], Wh[n2<-n2], Wh[n2<-n7] (top |g_W|) + Wh[n12<-n10],
+Wh[n12<-n2], Wh[n11<-n2], Wh[n6<-n7] (T402's top |g_E|). Combined direction rows (design ratios):
+
+| eps | P_W | P_E | d acc (pp) |
+|---|---|---|---|
+| .001 | 1.024 | .66 | +.024 |
+| .002 | 1.053 | .30 | +.033 |
+| **.004 (frozen fallback)** | **1.127** | **.024** | **+.014** |
+| .008 / .016 / .05 | 1.31 / 2.50 / 6.62 | .009 / .007 / .001 | -.20 / -1.67 / -10.8 |
+
+**Why it fails [measured].** Along the pure-W second-order direction (`wonly.py`, `path_W.py`, paired plain conditional
+MC 1e7): the v1-line slope is right (d log P_W / d eps: line -47.9, paired FD -48.6 +- 1.3 at h = .00025, -46.9 +- .7
+at .001), but P_W turns at once: ratios .980 / .974 / .999 / 1.065 / 1.242 / 1.818 at eps .0005 / .001 / .002 /
+.003 / .005 / .01, while E1 and the accuracy get worse (eps .01: P_E x18, accuracy -1.19 pp). So the trained network
+sits within ~3% of a local minimum of P(W(2.0)) in this 16-weight subspace. Second-order bound (accuracy Hessian):
+a 5x cut of W costs ~7-12 pp of accuracy.
+
+**Verification of the frozen fallback point (eps .004, 12 of 16 weights move by up to .0022) [measured]:**
+
+| event | N | base | edit | ratio |
+|---|---|---|---|---|
+| **W(2.0)** | 3e8 | 1.399e-5 | 1.571e-5 | **1.123 +- .0002** (T411 bar .2: FAIL) |
+| **E1(2.0)** | 3e8 | 7.05e-9 | 2.39e-10 | **.034 +- .003** (T402 bar .1: PASS) |
+| accuracy | 1e9 | .95311 | .95327 | **+.0158 +- .0003 pp** (both bars: PASS) |
+| E1(1.0 / 1.25 / 1.5 / 1.75 / 2.25) | 2e7 (1e8) | | | .41 / .28 / .15 / .060 / .016 |
+| W(1.0 / 1.25 / 1.5 / 1.75 / 2.25) | 2e7 (1e8) | | | 1.056 / 1.071 / 1.087 / 1.105 / 1.139 |
+| E2(.5 / .75) | 2e7 | | | .996 / .969 |
+
+Pick split at g23 > 2 (3e8 draws): rank-3..7 picks 3661/766/113/17/2 -> 124/36/6/0/0; largest-input picks
+7,261,446 -> 8,161,061 (+12.4%). Design vs verification: P_E .024 vs .034, P_W 1.127 vs 1.123, accuracy +.014 vs
++.016 pp.
+
+## Compute accounting
+Design: g_W 3.9e7 FPE (2e6 v1 lines), g_E reused from T402 (2.1e8), Hessian 1e6 x 529 forward passes, 9 candidates
+x (1e6 v1 lines + 5e6 v3 lines + 2e7 accuracy passes). Diagnostics ~4e8 passes. Verification ~3.1e9 forward passes
+(not part of the method). Single-threaded, <= 2 processes.
+
+## Claims
+- [measured] On M_16,10, P(any wrong pick, g23 > 2) cannot be cut 5x (nor even 5%) by small edits of the 16 most
+  relevant weights: along the best second-order direction it has a local minimum at ~x.97. **T411 bar: NO-GO**,
+  scoped to this subspace, L2 <= .05, the line-CMC gradient + accuracy Hessian method. Not a proof for all 432 weights
+  or for large edits.
+- [inferred] The contrast with T402 is the finding: the common near-tie error (W, mostly largest-input picks) is
+  already at a training optimum, while the rare far-gap error E1 is not (training never sees it), so only the rare
+  error has a large exploitable gradient. Repairing the rare error by small edits necessarily moves mass into the
+  common near-tie error (T402 +9.3%, this point +12.4%), which is optimised and cannot absorb a downward push.
+- [measured] The fallback point passes T402's bar more strongly than T402's own edit (E1(2.0) x.034 vs x.059, accuracy
+  +.016 pp vs -.012 pp), at the price of more conversion (W +12.3% vs +9.3%).
+
+## Alternatives not ruled out
+- Larger edits, all 432 weights, or retraining with E1 examples could find a different basin where W is lower; this
+  work only shows there is no nearby one in this subspace.
+- A different objective weighting (e.g. log P_W alone with an E1 constraint) gives the pure-W path above, which
+  already fails; constraint-based schemes would not do better than that path's minimum.
+- The v1-line P_W had a ~0.5% low bias at W(1.0) (tool check); irrelevant at the scale of these effects.
+
+## Failure modes
+- Two targets on very different log scales: a sum of log-gradients is dominated by the rarer one.
+- First-order predictions for a common, already-optimised error hold only for eps <~ .001.
