@@ -746,6 +746,13 @@ The point, as with the bridge: sampling cannot find or rate a one-in-a-billion f
 
 Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived bound on the variation between lines would make the first one clearly deductive.
 
+<a id="q4-14"></a>
+### 4.14 Is anyone working on the weight-derived bound between lines? (owner, 10-19 20:4x)
+
+**Q (owner, verbatim):** "Are we working on any solution to bound from the weights how much the answer varies from line to line to make method one clearly reasoning from the weights? Or we have tried and failed and we are not working on it anymore?"
+
+**A (DRI):** Neither. It was never tried directly; the literature review lists it as open. Related rigorous attempts point to difficulty: interval and Lipschitz-type bounds blow up over 10 steps (E19, T344), and the certified bound works for one top-3 ordering but not the whole input space (T398, T416). Started as a pre-registered kill test, T449 (TASKS).
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
