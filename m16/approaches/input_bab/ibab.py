@@ -18,6 +18,7 @@ else:
     from common import Wi as Wi0, Wh as Wh0, Wo as Wo0  # noqa: E402
 D, H, T = 10, 16, 10
 T0, U = 2.5, 4.0
+CHARGE = os.environ.get("CHARGE", "radial")                          # "quad" = deviation D1
 TAIL = 2 * 0.5 * math.erfc(U * T0 / math.sqrt(2)) + 8 * 0.5 * math.erfc(U * T0 / 2)   # Phi(-U t0) and Phi(-U t0 / sqrt 2)
 dt = th.float64
 Wi, Wh, Wo = (th.as_tensor(np.asarray(w, float), dtype=dt) for w in (Wi0, Wh0, Wo0))
@@ -50,6 +51,9 @@ def charge(lo, hi, P, q, pair):
     fl, dl = F(lo[:, 0]); fh, dh = F(hi[:, 0]); fa, da = F(a_)
     inner = fa + da.clamp(max=0) * (b_ - a_)                         # tangent at a_ lower-bounds F on [a_, b_]
     m = th.where(dl >= 0, fl, th.where(dh <= 0, fh, inner)).clamp_min(0.5)   # monotone cases exact; |y|^2 >= 1/2 always
+    if CHARGE == "quad":                                              # deviation D1 (secondary): near-exact box mass
+        import qcharge
+        return qcharge.qmass(lo, hi, T0, m)
     w = m * T0 ** 2 / 2
     gam = 24 * th.exp(-w) * (1 + w + w ** 2 / 2 + w ** 3 / 6 + w ** 4 / 24)
     return (hi - lo).prod(1) * 16 * (2 * math.pi) ** -5 * m ** -5 * gam

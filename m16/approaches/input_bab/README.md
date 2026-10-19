@@ -82,3 +82,12 @@ test.
   open boxes with a sampled event point.
 - A slow curve may be the split heuristic rather than the method. Check: widest-dimension splitting on one triple
   (reported as secondary, not used for the kill decision).
+
+**Deviation D1 (2026-10-19 ~10:40 UTC, written before its run; SECONDARY, not used for the kill decision).** A 10-min
+trial on (3,7,8) and its diagnostics, made while the pre-registered runs started, showed the radial max-density charge
+is 1e2-1e5x looser than the box's exact slab mass (u-MC). It also showed two u_l dimensions never get split, because
+their margin coefficients are tiny. Pre-registered alternative 3 (heuristic or charge, not method) therefore gets one
+secondary run: the same search with the charge replaced by a near-exact box mass. For fixed (u_r, g), u_a and the
+u_l integrate to Phi differences exactly, leaving a 2-D integral over (u_r, g), evaluated by composite Gauss-Legendre
+(`qcharge.py`; float, not a certificate). Checks: root box 5.59752e-8 vs the independent slab integral 5.59749e-8;
+random boxes agree with u-MC within ~1-3%. Run: `CHARGE=quad python ibab.py 3,7,8 OUT 3600 1024`.
