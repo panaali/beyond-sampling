@@ -21,8 +21,10 @@ def main():
     core.set_model(tag); core.DELTA = t0 / 7.5; T = core.D
     kmax = int(sys.argv[sys.argv.index("--kmax") + 1]) if "--kmax" in sys.argv else T
     name = f"{tag}_{'-'.join(map(str, tri))}"
-    mcf = os.path.join(HERE, "results", f"mc_{tag}_{t0:g}_0.json")
-    hx = np.array([x for x in json.load(open(mcf))["hit_x"] if tuple(np.argsort(-np.array(x))[:3]) == tri]) if os.path.exists(mcf) else np.zeros((0, T))
+    import glob
+    hx = [x for f in sorted(glob.glob(os.path.join(HERE, "results", f"mc_{tag}_{t0:g}_*.json"))) for x in json.load(open(f))["hit_x"]
+          if tuple(np.argsort(-np.array(x))[:3]) == tri]
+    hx = np.array(hx) if hx else np.zeros((0, T))
     hs = core.run(hx) if len(hx) else None
     out = dict(tag=tag, H=core.H, T=T, t0=t0, delta=core.DELTA, depth=core.DEPTH, tri=tri, cap_sec=cap, mc_hits=len(hx), steps=[])
     cells = [(core.cone(tri), core.interior(tri), np.zeros((core.H, T)), b"")]
