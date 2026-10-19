@@ -66,8 +66,14 @@ Design P estimates use 5e6 lines per candidate (not 2e7; one candidate costs ~10
 candidate. The eps search is doubling (0.0025, .005, .01, .02, .04, then .05) followed by bisection on the 0.0025 grid,
 which finds the smallest qualifying grid eps if qualification is monotone in eps (assumed; reported).
 
+### Amendment R2 (2026-10-19, after the tool check only; no design run yet)
+The line-CMC accuracy gradient is too noisy for the projection (check `test_lcmc.py`: along a test direction
+0.000 +- ~0.06 from 2e5 lines vs a paired plain-MC FD of 0.020 +- 0.0035). Accuracy is not rare, so g_A on the 12
+weights of S is instead a paired central FD of plain-MC accuracy: h = 0.01 per weight, N = 1e7 inputs, seed 402002.
+Processes run with OMP_NUM_THREADS = 1 (the CPU rule).
+
 ## Status
-Pre-registered (R1); design not started.
+Pre-registered (R1, R2); design not started.
 
 ## Results
 (none yet)
