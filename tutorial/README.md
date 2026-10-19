@@ -25,7 +25,8 @@ from the simplest version of the problem along every dimension we tried up to AR
   `branch`). `status` text drives the chip colour: starts with "in progress" = purple dashed box; "negative" = red;
   "confirmed" = green; anything else (e.g. "inconclusive (unverified)") = amber; finished lanes get a solid box.
   Where a lane appears: inline one-line notes via `<div data-lane="Txxx">` in `src/page.html` (sections 5, 9, 10, 12),
-  and a full box for every lane in section 14 (order = key order in the JSON). Then `python3 tutorial/tools/build.py`
+  and a full box for every lane in section 14, under the heading given by its `group` field (groups and lanes in
+  key order of the JSON). Then `python3 tutorial/tools/build.py`
   and re-publish.
 - **Weights / panels:** `python tutorial/tools/export_data.py --cache <dir> --dev3 <dev3 truths.json> --grid3 <grid3_summary.json>`
   with the two JSONs from `git show origin/claude/t192-gpu-cost-law:m16/approaches/gpu_cost_law/dev3/truths.json`
@@ -46,7 +47,7 @@ from the simplest version of the problem along every dimension we tried up to AR
   section.
 
 ## Status
-Draft 2 (after fresh-eyes review round 1), 2026-10-19. Stays open for status updates from the DRI.
+Version 5 (T382 prose, T384 fact-check, three review rounds), 2026-10-19. Stays open for status updates from the DRI.
 
 ## Review rounds
 **Round 1 (00:35, fresh-context general-purpose agent, 40 items).** Applied: plain-language result cards and a
@@ -110,6 +111,25 @@ Not applied in round 2, and why:
   later round.
 - (21) A diagram of the T317 walk geometry and the per-walk cost: not added this round (Fig 11 shows one walk).
 - (27, part) Splitting section 2 further: the T382 rewrite already restructured it.
+
+**T384 fact-check (04:10).** Took `src/page.html` and `REVIEW_RESPONSE_T384.md` from the shared branch (17 adopted
+findings, see that file). Checked against v4 (0039119b): status chips and CSS identical; script differs only by the five
+declared display strings and one comment; the ID change (T337 -> H-E4 · T337) and three claim-label rewordings are
+declared; changed numbers are the documented corrections (spot-checked 11/1,024, 44,700 runs, 3,743/F 2.98, 44.1/37.2
+against sources).
+
+**Round 3 (04:20, fresh-context agent, 15 items, short round).** Applied: Christiano named in the no-coincidence box
+with the plain takeaway first; section 13 no longer points to representation lanes that are closed; T372 split into
+the failed deterministic gradient and the sampling-class n6/n7 finding, plus a T373 sentence; T10 lane updated to
+confirmed via T379/H-E16; growth rates unified (x23-31; effective 5.1 -> 3.6); the two fixed-grid T = 10 results told
+apart (E33 1.6x on zoo models vs T10 recipe .97 on DEV3); Figure 13 now plots the independent K3 re-run (T368, ten
+ratios 0.88-1.39 from rare_deep/results/deep.json) instead of the graded rule; rare-event card says "within 2x" is
+accuracy, not a win over sampling; E1/E2 renamed in section 12; feed-forward prose now states the measured outcome
+(as many pieces as the RNN) and defines the circle walk; float baseline and FP4/FP8 explained; section 9 jargon
+(leaf, assigned mass) moved into a parenthesis; scoring paragraph split (E32 accounting into a note; C defined
+plainly); legend explains pass/done/inconclusive/scoped; lane text de-shouted; section 14 grouped by theme via a new
+`group` field in status.json; Figure 2 lines clipped to the axes.
+Not applied: moving 4b after section 5 and a static face diagram in 4c (structural; the 4c text points to Figure 11).
 
 ## Results
 Not a research result. Every number in the page cites its INDEX row and status. Numbers computed by this folder:
