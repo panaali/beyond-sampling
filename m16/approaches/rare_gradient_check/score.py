@@ -40,7 +40,7 @@ def main():
         L.append("|---|---|---|---|---|---|---|---|---|")
         rows = []
         for a, row in enumerate(T["rows"]):
-            t, ts = row["truth"], row["truth_se"]; res = bool(np.isfinite(t) and abs(t) > 3 * ts)
+            t, ts = np.float64(row["truth"]), np.float64(row["truth_se"]); res = bool(np.isfinite(t) and abs(t) > 3 * ts)
             r = dict(model=nm, name=row["name"], truth=t, truth_se=ts, eps=T["ladder"][row["pick"]], resolved=res,
                      ladder=[(lv["eps"], lv["dlog"], lv["se"]) for lv in row["levels"]])
             if e1 is not None:
