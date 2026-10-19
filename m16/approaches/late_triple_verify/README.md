@@ -184,7 +184,8 @@ D2 dyadic-leaf estimate: leaves of the widest-split tree at the coarsest certifi
 |---|---|---|---|---|---|---|
 | (3,7,8) | C | 5,000 | 39 | 3.8e7 +- 0.9e7 | 4.0e7 | 80% |
 | (3,7,8) | A | 1,000 | 29 | 1.25e5 +- 0.3e5 | 1.7e5 | 55% |
-| (9,8,2) | C / A | PENDING_D2_982 | | | | |
+| (9,8,2) | C | 5,000 | 32 | 1.2e9 +- 0.5e9 | 1.2e9 | |
+| (9,8,2) | A | 1,000 | 29 | 4.3e5 +- 2.1e5 | 4.8e5 | 70% |
 
 Soundness (`soundcheck.py`, reference forward on raw x at random g > 0; the run rows are reservoirs of pruned boxes):
 
