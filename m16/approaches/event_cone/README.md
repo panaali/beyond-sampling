@@ -330,7 +330,7 @@ prefixes come from 276,120 line-walk event points.
   2.5 CPU-h short of finishing, because it cannot change the verdict.
 - **Side measurement, triples with no event hits** [measured]:
   - (1,2,0): survivors 2 / 19 / 77 / 358 at k = 1..4, against 822 regions at k = 4 (44% survive).
-  - (4,1,3): 2 / 19 / 100 at k = 1..3.
+  - (4,1,3): 2 / 19 / 100 / 508 at k = 1..4, against 1,676 regions at k = 4 (30% survive).
   - The relaxation does not tell the 679 no-hit triples apart from event triples. A certificate would have to carry
     all of them at survivor rates similar to (1,8,2).
 
