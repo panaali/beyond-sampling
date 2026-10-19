@@ -1,0 +1,50 @@
+{
+ "name": "control",
+ "label": "sampling",
+ "file": "control",
+ "func": "est",
+ "budgets": {
+  "1000000": {
+   "groups": {
+    "retrain": {
+     "n": 100,
+     "R": 0.8079918925652231,
+     "R_noSE": 0.8160718114908754,
+     "lo": 0.6011200357443495,
+     "hi": 1.0379171994399246,
+     "bias_pp": 0.0004067300000001328,
+     "rms_pp": 0.024637111112912495,
+     "se2_share": 0.009900990099009901,
+     "cost_ok": true,
+     "cost_min_fpe": 1000000.0,
+     "cost_max_fpe": 1000000.0
+    }
+   },
+   "valid": true,
+   "lenient": true,
+   "strict": true,
+   "strict_sig": false
+  },
+  "4000000": {
+   "groups": {
+    "retrain": {
+     "n": 100,
+     "R": 1.0146868125067432,
+     "R_noSE": 1.055274285007013,
+     "lo": 0.7203077986404146,
+     "hi": 1.3666004754641787,
+     "bias_pp": -0.0018955199999998176,
+     "rms_pp": 0.014008069111766178,
+     "se2_share": 0.03846153846153847,
+     "cost_ok": true,
+     "cost_min_fpe": 4000000.0,
+     "cost_max_fpe": 4000000.0
+    }
+   },
+   "valid": true,
+   "lenient": true,
+   "strict": false,
+   "strict_sig": false
+  }
+ }
+}

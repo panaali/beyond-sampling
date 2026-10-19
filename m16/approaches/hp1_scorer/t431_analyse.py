@@ -17,8 +17,11 @@ def ci(x):
     return [float(np.percentile(x, 2.5)), float(np.percentile(x, 97.5))]
 
 
-def summarise(est, cost, B, label):
-    C = cost / FPE; e = (est - p) ** 2; s0 = pq / C
+def summarise(est, cost, B, label, unit_fpe=False):
+    """unit_fpe: the T429 recipes return cost in their own FPE (T(2H^2+2H) = 5,440 FLOPs per unit), used as charged
+    (as T429; conservative vs FLOPs/5948). The control returns FLOPs (/5948)."""
+    C = cost if unit_fpe else cost / FPE
+    cost = C * FPE; e = (est - p) ** 2; s0 = pq / C
     Fsub = (e - se2)[idx].sum(1) / s0[idx].sum(1); Fraw = e[idx].sum(1) / s0[idx].sum(1)
     R281 = e[idx].sum(1) / (s0 + se2)[idx].sum(1)
     F = float((e - se2).sum() / s0.sum())
@@ -46,8 +49,11 @@ for lab, fn, B in (("T10 4e6 (PRIMARY)", "raw_t431_t10_4000000.jsonl", 4_000_000
                    ("T10 1e6", "raw_t431_t10_1000000.jsonl", 1_000_000),
                    ("T10 1e7", "raw_t431_t10_10000000.jsonl", 10_000_000),
                    ("isg 1e6", "raw_t431_isg_1000000.jsonl", 1_000_000)):
-    if os.path.exists(os.path.join(score.D, fn)):
-        out[lab] = summarise(*load(fn), B, lab)
+    f_ = os.path.join(score.D, fn)
+    if os.path.exists(f_) and sum(1 for _ in open(f_)) == len(p):          # complete runs only
+        out[lab] = summarise(*load(fn), B, lab, unit_fpe=True)
+        e_, c_ = load(fn)
+        out[lab + " [C in FLOPs/5948]"] = summarise(e_, c_ * 5440 / FPE, B, lab + " sensitivity", unit_fpe=True)
 for B in (1_000_000, 4_000_000):
     out[f"control {B:.0e}"] = summarise(*load("raw_control.jsonl", B), B, f"plain MC control {B:.0e}")
 json.dump(out, open(os.path.join(HERE, "results", "hp5_t431.json"), "w"), indent=1)
