@@ -33,13 +33,18 @@ def main():
         t1 = time.time(); keep = []; nch = 0; st = []; cst, cstart, cleaves = [], [], []; censored = False; npar = 0
         for cell in cells:
             for c in core.children(cell, t):
+                tc = time.time()
                 nch += 1; lv = []
                 sg = core.prune_stage(c[0], c[2], t + 1, tri, cert=lv); st.append(sg)
                 if sg < 0:
                     keep.append(c)
                 else:
                     cst.append(sg); cstart.append(len(cleaves)); cleaves.extend(core.gates_of(c[3], t + 1, f) for f in lv)
-            npar += 1
+                if time.time() - tc > 60:
+                    print(dict(k=t + 1, child=nch, stage=sg, sec=round(time.time() - tc, 1)), flush=True)
+                if time.time() - t_start > cap:                    # cap also inside a parent (large H, T)
+                    censored = True; break
+            npar += not censored
             if time.time() - t_start > cap or len(keep) > MAXSURV:
                 censored = True; break
         st = np.array(st); kept = {c[3] for c in keep}
