@@ -1,6 +1,6 @@
 """Accuracy of a 2nd-argmax RNN by plain Monte Carlo on 1e7 N(0,1) inputs (T421).
 
-The inputs are common to every model with the same T: np.random.default_rng([421, T]), 10 chunks of 1e6, so accuracies at
+The inputs are common to every model with the same T: np.random.default_rng([421, T]), drawn in sequential chunks, so accuracies at
 one grid point are paired. Forward pass in float64 numpy, h_0 = 0, h_t = relu(Wh h + Wi x_t), logits = Wo h_T.
 
 usage: python evaluate.py weights/m_<H>_<T>_<stream><seed>.npz   -> prints JSON {acc, se, n}
