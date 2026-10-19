@@ -1392,3 +1392,17 @@ DRI option (b), the 3 variants are now:
 - The V1 (Q16) run that had started was stopped (own PIDs) before any job finished, so nothing was scored.
 
 **T370 status 2026-10-19 04:13Z.** A second container restart (sometime after 01:54; uptime reset) killed the S14 runs again; dev3_s547 E1 was lost a second time. Partial S14 E2 is 3/5 within 2x (s508: .99/.75/.19/.05; s511 t=.5: .83); the high-t collapse on s508 is the likely failure. Relaunched with `T370_ORDER=hi` (scheduling only: the E2 cases run with t = 1.25 first, then 1.0, ...), so the verdict is reached as soon as more than 8 cases fail. Stage-1 CPU so far is ≈ 1.7 CPU-h of finished cases plus ≤ ~6 CPU-h of work lost to the restarts (estimate, ≤ ~8 CPU-h, far below the 60 CPU-h cap).
+
+### T370 stage-1 verdict for S14 (structured 7-position x 2-arrangement rule): FAIL [measured, unverified]
+
+The go line needs s547 both within 2x AND E2 >= 24/32 within 2x AND no control that was within 2x falling outside.
+- s547 E1: 1.02 (t0 2.25), 0.87 (t0 2.5), both within 2x. Under the R1W closure these were 2.19 / 2.48.
+- Controls so far: 6/6 within 2x (s541 1.05/1.00, s526 1.07/1.06, s528 1.06/1.02). s529-s531 were not run (stopped once the verdict was decided).
+- E2: 9 misses out of 28 run, so at most 23/32. The go fails. The misses were: s508 t=1.0 .19 and 1.25 .05; s512 1.25 .42;
+  s515 at 1.25 .01, at 1.0 .08, at .75 .26 and at .5 .498; s519 1.25 2.88; s525 .75 .48. The 9th miss, s515 t=.5 at 0.498, is borderline:
+  the truth has 27,983 MC hits (relative se .6%), so it is within noise of the 0.5 line. Even so, the pre-registered rule counts it as a miss.
+- Pattern: S14 undershoots at high t, worst on s515 (1.25: 0.01). S14 still uses a point closure for the lows (the expected
+  order statistics given v4), so the lows' spread is not integrated. This fits T363, which attributes 56% of the E2 deficit to the lows closure [inferred].
+- Not run: E2 s517/s518/s519/s525 at t=.5 (they cannot change the verdict), plus the controls s529-s531.
+- Per the pre-registration and amendment, the next variant is Q16: 16 deterministic Sobol nodes over the exact 8-D law of (v4 position/value, lows). It is labelled
+  **QMC-class cubature (deterministic nodes)**. It runs with high-t E2 cases first.
