@@ -257,8 +257,8 @@ forward FLOPs (M_16,10 5,920; D1w128 5,248; D3w32 5,472; D4w32 7,552; D3w64 19,1
 | D1w128@30 (2^30 retrains, acc .990) | `fast1.py` | **0.104 [0.091, 0.115]**; direct .103 | | | 256 | |
 | D1w96 (1 seed + 3 copies) | `fast1.py` | 0.87 [0.84, 0.90] | | | | |
 | D1w64 (1 seed + 3 copies) | `fast1.py` | 1.08 [1.04, 1.12] | | | | |
-| L1h43 (2 seeds + copies, acc .51) | `fast1.py` | 1.19 [1.17, 1.22] | | | | |
-| L1h22 (2 seeds + copies, acc .36) | `fast1.py` | 2.32 [2.27, 2.36] | | | | |
+| L1h43 (1 seed + 3 copies, acc .51) | `fast1.py` | 1.19 [1.17, 1.22] | | | | |
+| L1h22 (1 seed + 3 copies, acc .36) | `fast1.py` | 2.32 [2.27, 2.36] | | | | |
 
 Reproduce: `python score.py M16_10 3000 600`, `python score.py D3w32 1000 400`, `python score.py D3w64 600 200`,
 `python score.py D4w32 600 300`, `python score.py D1w128 300 200`, `python score_fast1.py D1w128 3000 40`,
