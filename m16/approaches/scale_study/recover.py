@@ -15,10 +15,11 @@ from train import DATA
 H, T, seed = map(int, sys.argv[1:4])
 run_dir = os.path.join(DATA, "runs", f"{H}_{T}_{seed}")
 stem = f"2nd_argmax_{H}_{T}_{2**30}_{seed}"
-train_log = [json.loads(l) for l in open(os.path.join(run_dir, f"train_{stem}.jsonl"))]
-assert train_log[-1]["step"] == 2**20, "training did not finish"
+# the log is append-only, so a relaunch into the same run dir leaves the finished run's final line in place
+final = [r for r in map(json.loads, open(os.path.join(run_dir, f"train_{stem}.jsonl"))) if r["step"] == 2**20]
+assert final and os.path.exists(os.path.join(run_dir, f"{stem}.pth")), "training did not finish"
 val = [json.loads(l) for l in open(os.path.join(run_dir, f"val_{stem}.jsonl"))]
 save_model(f"m_{H}_{T}_cpu{seed}", th.load(os.path.join(run_dir, f"{stem}.pth")), H=H, T=T, seed=seed, stream="cpu",
            provenance={"source": "T421 train.py (alg_zoo.training.train, defaults except n_val=2^20); re-saved by recover.py",
-                       "torch": th.__version__, "wall_seconds": train_log[-1]["seconds"], "threads": 1,
+                       "torch": th.__version__, "wall_seconds": final[0]["seconds"], "threads": 1,
                        "val_acc_2^20": float(np.mean([v["accuracy"] for v in val]))})
