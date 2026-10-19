@@ -2,7 +2,7 @@
 
 usage:
   python analyze.py acc                 # accuracy of every models/*.json on 1e7 inputs (seed 20261018) -> results/acc.json
-  python analyze.py regions             # region statistics from 1e7 inputs (seed 20261019)  -> results/regions.json
+  python analyze.py regions [NAMES]     # region statistics from 1e7 inputs (seed 20261019)  -> results/regions[_NAMES].json
   python analyze.py truth NAME N        # reference accuracy of panel model NAME on N inputs (seed 777) -> results/truth_NAME.json
 """
 import glob
@@ -71,13 +71,16 @@ def accuracy(model, n, seed):
     return ok / n
 
 
+_HASH = np.random.default_rng(64).integers(1, 2 ** 63, size=1024, dtype=np.int64).astype(np.uint64) * np.uint64(2) + np.uint64(1)
+
+
 def patterns(model, x):
     """Per-layer cumulative gate patterns as hashable int64 keys (layer 1, layers 1-2, ...)."""
     keys, h, acc = [], x, np.zeros(len(x), dtype=np.uint64)
     for w in model.W[:-1]:
         z = h @ w.T
         g = z > 0
-        bits = (g.astype(np.uint64) << np.arange(g.shape[1], dtype=np.uint64)).sum(1, dtype=np.uint64)
+        bits = (g.astype(np.uint64) * _HASH[:g.shape[1]]).sum(1, dtype=np.uint64)   # random 64-bit hash (any width)
         acc = acc * np.uint64(1_000_003) ^ bits ^ (acc >> np.uint64(29))
         keys.append(acc.copy())
         h = np.where(g, z, 0)
@@ -123,7 +126,11 @@ def main():
         json.dump(res, open(f"{HERE}/results/acc.json", "w"), indent=1)
     elif cmd == "regions":
         res, n = {}, 10_000_000
+        names = sys.argv[2].split(",") if len(sys.argv) > 2 else None   # optional subset, e.g. D3w32_s0_n28,M16_10
+        out_path = f"{HERE}/results/regions{'' if names is None else '_' + sys.argv[2].replace(',', '+')}.json"
         for p in sorted(glob.glob(f"{HERE}/models/*.json")):
+            if names is not None and os.path.basename(p)[:-5] not in names:
+                continue
             m = load(p)
             per_layer = None
             rng = np.random.default_rng(20261019)
@@ -143,9 +150,15 @@ def main():
             per_layer.append({"decision_cells_in_1e7": int(len(cnt)), **coverage(cnt, n)})
             h = m.W[0].shape[0]
             name = os.path.basename(p)[:-5]
-            res[name] = {"layer1_exact_general_position": int(2 * sum(comb(h - 1, i, exact=True) for i in range(T))),
+            contains_one = bool(np.abs(m.W[0].sum(1)).max() < 1e-3 * np.abs(m.W[0]).max())
+            d_eff = T - 1 if contains_one else T
+            res[name] = {"layer1_general_position_bound": int(2 * sum(comb(h - 1, i, exact=True) for i in range(d_eff))),
+                         "layer1_rows_sum_to_zero": contains_one, "layer1_effective_dim": d_eff,
                          "per_layer": per_layer}
             print(name, res[name], flush=True)
+        if names is not None and "M16_10" not in names:
+            json.dump(res, open(out_path, "w"), indent=1)
+            return
         m, rng, allkeys = panel(["M16_10"])["M16_10"], np.random.default_rng(20261019), [[] for _ in range(T)]
         cells = []
         for _ in range(n // CHUNK):
@@ -161,7 +174,7 @@ def main():
         _, cnt = np.unique(np.concatenate(cells), return_counts=True)
         res["M16_10"]["per_step"].append({"decision_cells_in_1e7": int(len(cnt)), **coverage(cnt, n)})
         print("M16_10", res["M16_10"], flush=True)
-        json.dump(res, open(f"{HERE}/results/regions.json", "w"), indent=1)
+        json.dump(res, open(out_path, "w"), indent=1)
     elif cmd == "truth":
         name, n = sys.argv[2], int(float(sys.argv[3]))
         a = accuracy(panel([name.split("_s")[0].split("_zoo")[0].split("_c")[0]])[name], n, 777)
