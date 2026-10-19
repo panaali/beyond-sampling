@@ -120,9 +120,8 @@ mass 5.6e-8, so all must be certified, to ~1e-12 each for a total near 1e-9 ([T3
   T10's gain law, gain = (1 - err)/(err·CV²·c), is a per-line variance identity ([T10][reg]). ‡ For a discontinuous
   integrand over ~9 effective dimensions, low-discrepancy rules gain at best ~B^(-1/9) in F, consistent with x.84 per
   4x; if that held, F .97 → .5 needs ~1e7 FPE per model, testable for ~$10 on a 100-model panel with 1e9-sample truths.
-- **Verdict: METHOD-LIMITED** at 16k-256k; the lever is CV² and c (integrand and walk), not compute. A pass at 1e7 FPE
-  would need a DRI budget ruling (ARC names none) and ARC acceptance of the class ([OWNER_QA 4.7](../OWNER_QA.md#q4-7)).
-  Agent ‡: 1-2 agent-days for the test. Confidence: medium.
+- **Measured (T429, 10-19 16:5x, unverified):** F FALLS with budget for both frozen recipes on DEV3 (100 models, 1e8 truths): T391 recipe .86 / .88 / .79 / .60 / .43 / .20 and T10 recipe 1.15 / .97 / .84 / .59 / .47 / .36 at 16k / 64k / 256k / 1e6 / 4e6 / 1e7 FPE; slope about x.75 per 4x budget. Strict bar (CI upper < 1) holds from 1e6 FPE on for both ([T429][reg]).
+- **Verdict: COMPUTE-LIMITED (revised; was METHOD-LIMITED).** More compute per model does help: the strict bar is met at ~1e6 FPE per model, about $1e-3-1e-2 of CPU per model. Open: ARC acceptance of the class ([OWNER_QA 4.7](../OWNER_QA.md#q4-7)) and the sealed HP5 test (T431).
 
 ## 9. Interval certificates (T344)
 - **Why stopped:** boxes certify only up to 1e-4 wide (|Wh| compounds over 10 steps); the best rigorous bound was
@@ -150,7 +149,7 @@ mass 5.6e-8, so all must be certified, to ~1e-12 each for a total near 1e-9 ([T3
 | 5 | Quantised exact DP (T352) | METHOD | >= item 1; int4-input corner 7e15 FLOPs | ~10 (corner) | ~2 | 3-10 d | medium |
 | 6 | All-at-once MLP (T345, T408) | BOTH | 3.8e13 pieces ‡; 1e8-1e10 CPU-h | 2e6-5e8 | 7e5-2e8 | 5-15 d | medium |
 | 7 | Error-pattern hybrid (T413) | BOTH (≈ METHOD) | >= 1e10 FPE/model for R ≈ .3 | 0.5-800/model | ÷2-3 | 3-5 d | medium-low |
-| 8 | Walk quadrature, T = 10 | METHOD | F ~flat in B; test at 1e7 FPE | ~10 (test) | ~5 | 1-2 d | medium |
+| 8 | Walk quadrature, T = 10 | COMPUTE (revised by T429) | strict bar from ~1e6 FPE per model | ~0.1-1 per 100-model panel | less | done; HP5 test T431 | medium |
 | 9 | Interval certificates (T344) | METHOD | ~2e42 boxes | n/a | n/a | 0 | high |
 | 10 | T317 strict bar (H-S1) | METHOD | J2 +21k FPE vs 1.2k allowance | ~0 | ~0 | new paradigm | high |
 

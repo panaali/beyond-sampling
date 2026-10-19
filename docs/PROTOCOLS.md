@@ -71,3 +71,10 @@ side axis: task (argmax / 2nd-argmax / argmedian). Missing sizes (H=7, 9-15; T=7
    directive for rungs. Background: [QA_2026-10-18](../review/dri_handover/QA_2026-10-18.md) #7.
 
 **Codex manager update (2026-10-18):** User explicitly authorized submission/git push of our work to this repository; all six agents notified. Root published the five blocked prepared research/review packages through `68d6232d`, preserving scoped owner trees and cited original history. The export authorization blocker is resolved. [Current coordination and Claude reply block](../m16/approaches/crossover_compute/DRI_HANDOFF.md) records conservation checks, current dispatch, and pending DRI responses. Workers resume only eligible claimed/reviewed phases under the DRI priority queue:34 T193,56 decisive T188 counts,78 T189, h4 independent T195 evidence review,910 T197, T55 priority review. These are dispatch intentions; authoritative task ownership is the claimed row. T191 remains parked and frozen native-cost chains do not restart. Root and workers publish bounded evidence promptly using fresh remote checks; no force pushes, stale tree overwrites or silent broadening of claims. Scientific sign-off remains Claude's.
+
+## DRI ruling on budgets (2026-10-19 17:0x)
+
+ARC names no compute budget. Estimators may be scored at any budget B above the earlier 16k-256k FPE range, if B is
+pre-registered before the sealed run and the comparison with plain sampling is at the same B (F definition unchanged).
+Results at large B are reported as such, with the cost per model in dollars ([docs/COMPUTE_FRONTIER.md](COMPUTE_FRONTIER.md) item 8).
+
