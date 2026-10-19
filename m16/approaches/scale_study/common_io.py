@@ -15,6 +15,8 @@ def save_model(tag, sd, *, H, T, seed, stream, provenance):
     """sd: alg_zoo DistRNN state_dict (rnn.weight_ih_l0 (H,1), rnn.weight_hh_l0 (H,H), linear.weight (T,H))."""
     sd = {k: v.detach().cpu().float() for k, v in sd.items()}
     assert sd["rnn.weight_hh_l0"].shape == (H, H) and sd["linear.weight"].shape == (T, H)
+    for d in ("weights", "results/models"):
+        os.makedirs(os.path.join(HERE, d), exist_ok=True)
     pth = os.path.join(HERE, "weights", f"{tag}.pth")
     th.save(sd, pth)
     Wi = sd["rnn.weight_ih_l0"].numpy()[:, 0].astype(np.float64)
