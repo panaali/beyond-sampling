@@ -603,3 +603,10 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
   number of triples sharing a prefix, not the N_b growth.
 - Tighter multi-neuron relaxations for late triples.
 - A different event decomposition than by position triple.
+
+## Amendment (2026-10-19, before running): T398b on (9,3,2) and (3,9,2)
+- Same pre-registered setting as T398b: t0 = 2.5, DELTA = 1/3, relax2 depth 6, `bnb.py` to k = 9, then `k10_stream.py` for k = 10.
+- Why: T400's 1.1e11-draw MC found 17 events at t0 = 2.5, all on (9,3,2) and none on (1,8,2).
+- Soundness test (could fail): every one of the 17 hits must lie in a (9,3,2) k = 10 survivor. A hit inside a pruned
+  cell refutes a certificate.
+- The k = 10 files go to T400 for verification and charging.
