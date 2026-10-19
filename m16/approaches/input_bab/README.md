@@ -7,7 +7,8 @@ T398's forward-in-time neuron splitting cannot prune? Splitting input coordinate
 method uses CROWN bounds of the event margin over the unrolled 10-step net, and charges surviving boxes an exact
 Gaussian-mass upper bound.
 
-**Status.** PRE-REGISTERED 2026-10-19 (this section was written and pushed before any T414 run). Owner: Claude
+**Status.** DONE 2026-10-19: **KILL by the pre-registered line (unverified)**. Pre-registered 2026-10-19 (the
+pre-registration section was written and pushed, 7c106fb9, before any T414 run). Owner: Claude
 session_016BGedpds19gq95yjWmDMn5 (T192 child). DRI session_01CD3g9Cvc3qk3pM11eyXXzj. CPU first; Colab only if
 CPU-bound, cap 10 units. Code lives on branch `claude/t192-gpu-cost-law`, the only branch this session pushes to (the
 DRI named `claude/t414-input-bab`; the DRI or root can merge the folder from here).
@@ -91,3 +92,50 @@ secondary run: the same search with the charge replaced by a near-exact box mass
 u_l integrate to Phi differences exactly, leaving a 2-D integral over (u_r, g), evaluated by composite Gauss-Legendre
 (`qcharge.py`; float, not a certificate). Checks: root box 5.59752e-8 vs the independent slab integral 5.59749e-8;
 random boxes agree with u-MC within ~1-3%. Run: `CHARGE=quad python ibab.py 3,7,8 OUT 3600 1024`.
+
+## Method
+- `ibab.py`: the search (u-boxes, batched float64 CROWN, best-first by charge, split dimension stored per box).
+- `validate_ab.py`: validation (a) and (c).
+- `diagnose.py`: (b) plus the pre-registered alternative checks.
+- `pretest_w.py`: the T398 lead's certified-width pre-test.
+- `qcharge.py`: deviation D1.
+
+Two implementation fixes were made before any pre-registered run (trial only):
+- The lower bound m of |y|^2 is the exact 1-D convex minimum over u_r. The first per-coordinate version gave m = 0
+  (an infinite charge) and was 1e5x looser.
+- The parent's split dimension is cached.
+
+Runs: `python ibab.py 3,7,8 t414_378.json 7200 1024` and `python ibab.py 9,8,2 t414_982.json 7200 1024` (1 thread
+each); data in data/t414_*.json (not in git; curves copied below).
+
+## Results ([measured], unverified)
+**Validation.**
+- (a) PASS. The radial formula, with its Jacobian, matches direct x-sampling of the slab in the root box at
+  t0 = 0.3 / 1.0 (3.22e-4 vs 3.15e-4 +- 0.08e-4; 6.8e-5 vs 6.1e-5 +- 0.4e-5). The root charge at 2.5 is 864 >= 5.6e-8.
+  Charge >= exact box mass on 20 random boxes, at 50-1e7x the mass: the bound is loose.
+- (b) PASS. 997,559 uniform points in 3,793 pruned boxes from the trial: 0 events.
+- (c) PASS. CROWN lower bounds <= the sampled minimum on all 30 random boxes.
+- The triple's slab mass, by an independent 2-D integral, is 5.59749e-8 (the DRI's 5.6e-8).
+
+**Pre-registered runs (2 CPU-h each, ~1,250-1,300 boxes/s on one core):**
+
+| triple | boxes evaluated | pruned | open | total charge | log-log slope (last decade) | projected boxes to 1e-10 |
+|---|---|---|---|---|---|---|
+| (3,7,8) | 9.02e6 | 5.1e5 (5.7%) | 4.0e6 | 8.70e-7 | -0.49 | 1.1e15 |
+| (9,8,2) | 8.89e6 | 1.04e6 (11.7%) | 3.4e6 | 6.42e-7 | -0.54 | 1.0e14 |
+
+The charge curves have no stall (more than 2x over the last decade). But the total charge is still 11-16x the
+triple's whole slab mass, and the projection is 1e5-1e6 times beyond the 1e9 kill line. **KILL on both triples.**
+
+**T398 lead's pre-test** (certified u-cube half-width around exact slab samples; 400 points per triple, 0 events):
+- (3,7,8): median w .103, p10 .053, min .026. Covering estimate for 99.8% of slab mass: 2.5e8 boxes with ideal
+  centred cubes, 1.3e11 with w halved (a dyadic partition).
+- (9,8,2): median w .083, p10 .043. Covering estimate: 2.4e9 / 1.2e12.
+
+**Pre-registered alternatives** (top 200 open boxes by charge, 10-min trial on (3,7,8)):
+- No box contains a sampled event point. The open mass is not true event mass.
+- CROWN looseness, sampled minimum minus lower bound: median 176, p10 86, p90 397 margin units. 88/200 boxes are
+  prunable in principle, with a sampled best-spec minimum > 0.
+- The charge is spread thin: the top 200 of 4.7e5 open boxes hold 2.2e-9 of 2.6e-6.
+- Two u_l dimensions (lows at positions 0 and 1) are never split. Their margin coefficients are tiny, but they inflate
+  the max-density charge.
