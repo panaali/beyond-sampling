@@ -58,6 +58,29 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
 - Order of work: the diagnostics (e70e219a) and the estimator were committed before the leaderboard scoring
   (a5063c7d); the pre-registration (1b4143e1) came before any run.
 
+## T11 pre-registration: the frozen recipe, UNCHANGED, at H=16, T=6 (written 2026-10-19, before any T=6 truth or run)
+- **Estimator:** `estimator.py` as of commit 8b5fdc73. No new strata, advice or tuning. If it fails, that is the result.
+- **Primary (verdict):** run `python m16/leaderboard.py truths --H 16 --T 6` (4M per model), then
+  `python m16/leaderboard.py run minimal_pair --H 16 --T 6` (16k, 64k; zoo seeds 0-4 + 24 noisy copies of the best-of-5
+  seed). Pass = the T10 criterion: per-seed MSE ratio < 1 on each of seeds 0-4 at both budgets (single deterministic
+  run per model), and seed-group CI upper bound < 1 at 64k. Noisy-copy groups are reported, not part of pass.
+- **Secondary (gain estimate, not the verdict):** `python mse_study.py 6 32 16000,64000` restricted to the frozen and
+  plain variants, against own 48M-sample truths (`truths.py 6 48000000 0,1,2,3,4`).
+- **Prediction from the law** gain = (1-err)/(err CV^2 c):
+  - D5 measured iid plain-rule gains at T=6 of 0.9 / 0.6 / 1.5 / 1.2 / 0.8 (seeds 0-4; err 1.5-3.0%, CV 1.96-2.42,
+    c 9-13).
+  - At T=5 the frozen 32-rule gain was 3.0-4.8x (median 3.7) the D5 iid gain at 64k, and 1.5-3.4x (median 2.6) at 16k.
+  - Assuming the same multiplier, the **predicted frozen gains at T=6** are:
+    - 64k: 3.3 / 2.2 / 5.6 / 4.4 / 3.0;
+    - 16k: 2.3 / 1.6 / 3.9 / 3.1 / 2.1.
+    Uncertainty about x0.6-1.4 from the multiplier spread; the multiplier may shrink if the Sobol benefit keeps
+    falling (ht_seeds).
+  - A single run with true gain G has a per-seed ratio ~ chi2_1/G, so P(ratio < 1) = P(chi2_1 < G). With the gains
+    above, **P(all 10 seed x budget checks pass) is about 0.35-0.4**. Predicted verdict: **FAIL the strict per-seed
+    criterion more likely than not; seed-group 64k CI upper bound < 1 likely (gain ~3).**
+  - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
+    multiplier) does not transfer from T=5 to T=6.
+
 ## Pre-registration (written 2026-10-18, before any diagnostic or scored run; commit 1b4143e1)
 Unchanged text: see `git show 1b4143e1:m16/approaches/minimal_pair/README.md`. Summary:
 - diagnostics D1-D4;
