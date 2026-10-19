@@ -37,6 +37,27 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
    the whole <=1-positive region's variance would give only 15-38x (iid), and oracle config x sign x u strata give
    only 2-3x over the kind split.
 
+## Class: deductive in the "no random model inputs" sense (AGENTS rule 6), quadrature in the leaderboard taxonomy
+- **No random model inputs.** `est` ignores `rng`. The nodes are fixed scrambled-Sobol point sets: five rules,
+  seeds `RULE_SEED + 101 j` with RULE_SEED = 31415, chosen in advance and identical for every model. The pilot and
+  Neyman stages are deterministic functions of the model's own walk results.
+  - Determinism check [measured]: the leaderboard ran each of 116 (model, budget) cells with 24 different rngs, and
+    every cell gave exactly 1 distinct estimate (`lb_raw_minimal_pair.jsonl`).
+- **What "32 rule seeds" means.** It is a robustness study over 32 alternative fixed rules, as in ht_seeds. The
+  spread of their errors is a quadrature-error estimate; the frozen entry uses one rule. **"iid"** appears only in
+  diagnostics (D2/D5 use iid faces to measure the integrand's variance); the estimator does not use it.
+- **Honest scope.** By the leaderboard's taxonomy (T14) this is **quadrature**, not mechanistic: an average of exact
+  1-D integrals over a fixed, model-independent node set. Replacing the nodes by random points would give a
+  variance-reduced Monte Carlo, the same class as sci_tao and tube. It therefore meets T10's "deductive"
+  criterion as AGENTS rule 6 defines it, but it is **not** a mechanistic solution in ARC's sense.
+  - A mechanistic version would replace the 3-4-D face average with an analytic or enumerated treatment of the
+    face integrand. Example: exact cone masses per linear region in the all-negative orthant, which carries 33-56% of
+    the sqrt-variance.
+  - Expected loss: unknown. The variance bounds in D2 cap even a perfect treatment of that region at 15-38x iid
+    gain.
+- Order of work: the diagnostics (e70e219a) and the estimator were committed before the leaderboard scoring
+  (a5063c7d); the pre-registration (1b4143e1) came before any run.
+
 ## Pre-registration (written 2026-10-18, before any diagnostic or scored run; commit 1b4143e1)
 Unchanged text: see `git show 1b4143e1:m16/approaches/minimal_pair/README.md`. Summary:
 - diagnostics D1-D4;
