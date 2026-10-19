@@ -14,6 +14,7 @@ Rows are walked in chunks (as rare_noise/t388_chunked.py) to stay under 2 GB; li
 result equals the unchunked run up to summation order (checked at (16, 10) by validate.py).
   est_k3(model, t0s)      -> ({t0: est}, FLOPs)   H-R1 / T364 K3: T340c lines (3 exact-law g12 nodes), T_hi = 6
   est_graded(model, t0s)  -> ({t0: est}, FLOPs)   estimator_t366: graded g12 rule (10 GL nodes on [0, .4] + 3 beyond)"""
+import os
 from itertools import permutations
 
 import numpy as np
@@ -248,7 +249,7 @@ class Law:
         """t366.est_e1 (rule 'graded') / t354.est_seg's E1 branch at K = 3 (rule 'k3'), rows walked in chunks."""
         model = tuple(np.asarray(w, np.float64) for w in model); H = model[1].shape[0]; T = self.T
         assert model[2].shape == (T, H)
-        ch = ch or int(min(40_000, max(2_000, 4e8 / (T * H * 20))))
+        ch = ch or int(os.environ.get("T424_CH", 0)) or int(min(40_000, max(2_000, 4e8 / (T * H * 20))))   # row chunk (memory only)
         res = {t0: 0.0 for t0 in t0s}; flops = 0.0; t_start = min(t0s); trunc = 0
         for ri, tab in enumerate(self.TABLES):
             nodes, wts = tab["nodes"], tab["wts"]; x, dx, om, nn = self.lines(rule)[ri]; nrow = len(x)
