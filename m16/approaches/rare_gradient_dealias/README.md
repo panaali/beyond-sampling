@@ -88,8 +88,20 @@ passes among the configs with (b). Break ties by the higher cos with T372's s526
 (b) either, freeze the finest T config. Scoring, go line, models and directions are unchanged. Exactly one config
 is scored.
 
+### Freeze (2026-10-19, before any s528 or orig run)
+`python dev_score.py --freeze` -> `results/dev_s526.txt`, `results/frozen.json`. 26 configs ran (all 9 T, 17 of 25 A).
+The 8 remaining A configs (M 2-16 with qmid3x2 / x4 / x8 and mid20x2/gauss3) were stopped. Every one of them costs
+more than the pick, so none could change it. **The A1 rule freezes `mid20x1 / qmid3x1` (family A, 1.0x the K3 walk:
+5/6 s526 passes, cos .996 to A's finest).** This config is the gating one and is scored exactly as pre-registered.
+Caveat, written before scoring: on s526 the pick looks like luck rather than convergence. Its 2x-lines neighbour
+mid20x2/qmid3x1 passes 1/6, and cos >= .95 turned out to be a weak criterion, because every config has cos >= .91
+(one dominant gradient direction). **Secondary, declared now and not gating:** `T5 / gl20`, the cheapest T config
+meeting (a)+(b), and `T8 / mid20x4`, the converged T. The converged T separates residual aliasing from closure
+bias. On s526 the two families' finest configs agree: d log P along the 6 directions is 21.4, 1.3, -1.5, 17.4,
+-43.5, 333.6 (A, 128x the lines) vs 21.2, 1.5, -1.7, 17.2, -42.6, 328.4 (T); values are per truth P.
+
 ## Status
-Pre-registered (A1 amendment); s526 development running.
+Frozen; scoring on s528 + orig running.
 
 ## Results
 (none yet)
