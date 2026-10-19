@@ -34,7 +34,7 @@ def run(W, act, s, grid, N, P, seed):
     Wi, Wh = W[0], W[1]; res = {t: dict(coc={}, sl=0.0, n=0) for t in range(1, 11)}
     res["t10_mixer2"] = dict(coc={}, sl=0.0, n=0)
     for part in range(P):
-        buf = {t: [] for t in res}; g = th.Generator(device=DEV); g.manual_seed(seed); done = 0
+        buf = {t: [] for t in res}; cbuf = {t: [] for t in res}; g = th.Generator(device=DEV); g.manual_seed(seed); done = 0
         while done < N:
             m = min(B, N - done); x = disc(th.randn(m, 10, generator=g, device=DEV), grid)
             h = th.zeros(m, 16, device=DEV)
@@ -43,20 +43,23 @@ def run(W, act, s, grid, N, P, seed):
                 k = (u > 0).long() if act == 1 else th.clamp(th.round(u / s), 0, LV[act]).long()
                 h = k.float() if act == 1 else k.float() * s
                 kk = keys(k, act); sel = (mix(kk, th.zeros_like(kk), M2) >> 59) & (P - 1)
-                buf[t].append(kk[sel == part])
+                u_, c_ = th.unique(kk[sel == part], return_counts=True)       # per-batch dedupe (low-cardinality steps)
+                buf[t].append(u_); cbuf[t].append(c_)
                 if t == 10:
                     k2 = keys(k, act, 2) if act == 3 else kk
-                    buf["t10_mixer2"].append(k2[((mix(k2, th.zeros_like(k2), M2) >> 59) & (P - 1)) == part])
+                    u_, c_ = th.unique(k2[((mix(k2, th.zeros_like(k2), M2) >> 59) & (P - 1)) == part], return_counts=True)
+                    buf["t10_mixer2"].append(u_); cbuf["t10_mixer2"].append(c_)
             done += m
         for t in res:
-            K = th.cat(buf[t]); buf[t] = None
+            K = th.cat(buf[t]); CN = th.cat(cbuf[t]); buf[t] = None; cbuf[t] = None
             if len(K):
-                K, _ = th.sort(K); _, c = th.unique_consecutive(K, return_counts=True)
+                K, o = th.sort(K); CN = CN[o]; uk, inv = th.unique_consecutive(K, return_inverse=True)
+                c = th.zeros(len(uk), dtype=CN.dtype, device=K.device).index_add_(0, inv, CN)
                 cc, nc = th.unique(c, return_counts=True)
                 for a_, b_ in zip(cc.tolist(), nc.tolist()):
                     res[t]["coc"][a_] = res[t]["coc"].get(a_, 0) + b_
-                res[t]["sl"] += float((c.double() * c.double().log()).sum()); res[t]["n"] += len(K)
-            del K
+                res[t]["sl"] += float((c.double() * c.double().log()).sum()); res[t]["n"] += int(CN.sum())
+            del K, CN
         if DEV == "cuda":
             th.cuda.empty_cache()
     out = {}

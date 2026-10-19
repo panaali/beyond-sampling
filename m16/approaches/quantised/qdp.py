@@ -148,7 +148,7 @@ def main():
     T_ = tables(levels, table, Wo); U, idx = T_[0], T_[1]; print(name, "reachable per step", counts, "union", len(U), flush=True)
     out = dict(model=name, spec=sp, reachable=counts, union=len(U), max_intervals=T_[6], closure_sec=time.time() - t0, runs=[])
     if sp["grid"] == 0:
-        for MM, nn in ((M, n), (2 * M, n), (0, 5)) if M > 0 else ((0, 5), (0, 6)):
+        for MM, nn in ((M, n), (2 * M, n), (4 * M, n)) if M > 0 else ((0, 5), (0, 6)):
             t1 = time.time(); P, fl = dp_cont(T_[2:6], Wi, Wh, U, idx, MM, nn)
             out["runs"].append(dict(M=MM, n=nn, P=P, flops=fl, sec=time.time() - t1)); print(name, out["runs"][-1], flush=True)
     else:
