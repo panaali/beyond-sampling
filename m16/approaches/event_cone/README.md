@@ -572,7 +572,8 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
    - Pending as T416. This is the lane's remaining deliverable: a rigorous **per-triple** upper bound for (1,8,2).
 
 **What does not work** [measured on samples; inferred in general]:
-5. **All-triple certificate at t0 = 2.5: negative (scoped, unverified).**
+5. **All-triple certificate at t0 = 2.5: negative (unverified), scoped to forward neuron splitting and input-space
+   CROWN, pending T418's independent re-check with library verifiers (alpha-CROWN, alpha-beta-CROWN).**
    - Late triples cannot be pruned before their high positions are read, so they carry the full-space region
      counts N_b: (3,7,8) and (5,7,6) give 2 / 34 / 792 with nothing pruned.
    - Root relaxations bound the margin at +435 to +961.
