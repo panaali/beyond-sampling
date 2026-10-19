@@ -155,21 +155,26 @@ def ridge_check(Z, S, inc, n):
 def check_cell(A_full, b_full, A_kept, V, inc, S, vlo, vhi, n, ridge_max=300_000):
     """All independent checks; returns dict of results (ok flags and counts)."""
     out = {}
-    W, I = cdd_vertices(A_full, b_full)
+    # cdd on the kept rows; every dropped row is then checked exactly at every cdd vertex, so conv(W) satisfies
+    # it and {A_kept y >= b_kept} = {A_full y >= b_full} (bounded); incidences are taken on the kept rows
+    kept_set = {tuple(r) for r in A_kept}
+    b_kept = [None] * len(A_kept); krow = {tuple(r): k for k, r in enumerate(A_kept)}
+    for r, bi in zip(A_full, b_full):
+        if tuple(r) in krow:
+            b_kept[krow[tuple(r)]] = bi
+    W, I = cdd_vertices(A_kept, b_kept)
+    out["dropped_rows"] = sum(tuple(r) not in kept_set for r in A_full)
+    out["dropped_ok"] = all(sum((a * w for a, w in zip(r, v)), fmpq(0)) >= bi
+                            for r, bi in zip(A_full, b_full) if tuple(r) not in kept_set for v in W)
     pos = {tuple(v): j for j, v in enumerate(V)}
     out["cdd_nV"] = len(W)
     out["vset_ok"] = len(W) == len(V) and all(tuple(w) in pos for w in W)
     # incidences of V against the kept rows: exact slacks (fmpq) recomputed here, and cdd's (full rows) agree
-    keyrow = {}
-    for i, (r, bi) in enumerate(zip(A_full, b_full)):
-        keyrow.setdefault(tuple(r), []).append(i)
-    kept_full = [keyrow[tuple(r)][0] for r in A_kept]
     inc_ok = True
     if out["vset_ok"]:
         for w, s in zip(W, I):
             j = pos[tuple(w)]
-            mine = frozenset(k for k, fi in enumerate(kept_full) if fi in s)
-            if mine != inc[j]:
+            if s != inc[j]:
                 inc_ok = False; break
     out["inc_ok"] = inc_ok and out["vset_ok"]
     Z = homog(V)
@@ -190,6 +195,6 @@ def check_cell(A_full, b_full, A_kept, V, inc, S, vlo, vhi, n, ridge_max=300_000
         out["ridge_ok"] = rc is None
         if rc is not None:
             out["ridge_fail"] = repr(rc)[:300]
-    out["ok"] = (out["vset_ok"] and out["inc_ok"] and out["vol_pos_ok"] and enc == 0 and out["vol_equal"]
+    out["ok"] = (out["vset_ok"] and out["dropped_ok"] and out["inc_ok"] and out["vol_pos_ok"] and enc == 0 and out["vol_equal"]
                  and out.get("ridge_ok", True))
     return out

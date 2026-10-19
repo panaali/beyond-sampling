@@ -59,7 +59,8 @@ def families(rng):
     out = []
     for n in range(2, 10):
         out.append(("cube", *box(n)))
-    for n in range(2, 9):                                  # cross-polytope: every vertex has 2^(n-1) tight rows
+    for n in range(2, 7):                                  # cross-polytope (n >= 7: the reference's
+        # degenerate-edge search enumerates C(2^(n-1), n-1) row subsets per vertex; infeasible): every vertex has 2^(n-1) tight rows
         A = [list(s) for s in itertools.product([-1, 1], repeat=n)]
         out.append(("cross", [[-x for x in r] for r in A], [-1] * len(A)))
     for n in range(3, 10):                                 # pyramid over a cube: apex has 2(n-1) tight rows
