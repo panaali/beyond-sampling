@@ -67,14 +67,34 @@ def run_case(kind, idx):
         a, b = geo_f[j], geo_r[j]
         if not (np.array_equal(a, b) if isinstance(a, np.ndarray) else a == b):
             mism.append(nm)
+    res.update(geometry_ok=not mism, vertices=len(V), simplices=len(S))
+    print("geometry", res, flush=True)
+    del V, inc, S, M, cap
     for t0 in t0s:
-        mf = F.mass_cell_fast(tri, g, k, t0, budget=bud, geom=geo_f, **kw)
-        mr = F.mass_cell_fast(tri, g, k, t0, budget=bud, geom=geo_r, **kw)
+        if len(geo_f[5]) >= bud:                        # no refinement: mass_cell_fast = the outward sums (chunked)
+            mf, mr = _mass_chunked(geo_f, t0), _mass_chunked(geo_r, t0)
+        else:
+            mf = F.mass_cell_fast(tri, g, k, t0, budget=bud, geom=geo_f, **kw)
+            mr = F.mass_cell_fast(tri, g, k, t0, budget=bud, geom=geo_r, **kw)
         if mf != mr:
             mism.append(f"mass_{t0}")
         res[f"ub_{t0}"] = mr[1]
-    res.update(ok=not mism, mismatches=mism, vertices=len(V), simplices=len(S))
+    res.update(ok=not mism, mismatches=mism)
     return res
+
+
+def _mass_chunked(geo, t0, chunk=50000):
+    """mass_cell_fast's (lb, ub) for a cell whose root triangulation already meets the budget (no refinement)."""
+    import math
+    d, mlow, jp3, Mvl, Mvh, S, vlo, vhi, nV = geo
+    P = F.Params(d, mlow, jp3, t0)
+    los, his = [], []
+    for a in range(0, len(S), chunk):
+        s = S[a:a + chunk]
+        lo, hi = F.bounds_batch(Mvl[s], Mvh[s], vlo[a:a + chunk], vhi[a:a + chunk], P)
+        los.append(lo); his.append(hi)
+    lo = np.concatenate(los); hi = np.concatenate(his)
+    return max(0.0, float(F.dn(math.fsum(lo)))), float(F.up(math.fsum(hi)))
 
 
 def cases(kind):
