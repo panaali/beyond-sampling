@@ -89,6 +89,9 @@ Step 1, simplicity ladder (bias-free ReLU MLPs, the same task, recipe and label 
 - Selection: (a) simplest by depth, then parameters, reaching >= .95 on all seeds; (b) most tractable reaching
   >= .95 on all seeds, judged by realised region / decision-cell counts and N_delta (lowest wins). Both reported.
 - Optional comparison only: a permutation-structured variant, if cheap.
+- Added rungs (2026-10-19 ~00:40, after seeing seed-0 screens D2w32 .855, D3w24 .863, D3w32 .961, D2w64 .93 at 3/4 of
+  training): D2w128 and D3w28 (seed 0), to bracket the narrowest depth-2 and depth-3 widths. Seeds 1-2 of D3w32
+  started per the rule above.
 
 Step 2, on the chosen network(s): the pre-registered stage-2/3 analysis above (region counts vs the RNN's x23-33
 per step, exact-accuracy attempt, exact walks, F at C >= 1k FPE vs plain sampling, M_16,10 control with the same
