@@ -762,6 +762,13 @@ Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived 
 - **Most novel:** the floating-point-rigorous Gaussian mass of 10-D polytope cells (outward-rounded M5t and its fast version, H-C1). It turns the known probabilistic branch-and-bound pipeline into a certificate near 1e-11 (T416). The closest prior work, Kofnov et al. 2025, computes such masses in low dimension without rigour. Runner-up: sampling-free rare-failure estimates near 1e-10 from exact line walks, without enumerating regions (H-R1).
 - **Biggest:** the sealed strict pass at ARC's full size. Fixed-node line walks have about half the error of random testing at equal compute on 100 never-used retrains (H-E17, T431). It is new as a result, not as a method (line sampling + QMC + ExactLine), and it stays quadrature-class (no weight-derived bound: T449, T451). For ARC's long-term goal, the biggest open bet is a guarantee over all inputs, which T418 reopened (T455).
 
+<a id="q4-16"></a>
+### 4.16 Which part is the biggest contribution to AI safety? (owner, 10-19 22:4x)
+
+**Q (owner, verbatim):** "I was about to ask which part of our work is the biggest contribution to the AI safety."
+
+**A (DRI):** The rare-failure work, end to end, on a real trained network: estimate failures too rare for testing (within about 2x near 1e-10, H-R1), locate and repair them with a small targeted edit (H-R3), and prove an upper limit from the weights (T416 for one input section; all inputs may be feasible, T418 / T455). The guarantee is the part a safety case most needs, because testing can never give it. The most transferable lesson is T411: training sits at a balance point, so repairing rare failures by small edits turns some into common ones, a trade-off we measured rather than assumed.
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
