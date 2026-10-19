@@ -214,3 +214,32 @@ the model.
   at another (dev3_s528).
 - The T_hi = 3.5 bound (7.04e-8) is not small next to truths of ~1-2.5e-7 (orig family at t0 1.5). Measured dropped
   mass is negligible, but the rigorous bound is loose there.
+
+---
+
+# T388: the graded-g12 rule (T366) on T371's misses
+
+## T388 pre-registration (2026-10-19, pushed before any T388 estimate is computed)
+
+**Question.** T371's 16 noisy misses are all low, all at sigma <= .005, and all on points where >= 65% of the truth's
+hits have g12 < .1. Does T366's graded g12 rule (10 Gauss-Legendre nodes clustered on g12 in [0, .4] plus a 3-node law
+rule beyond), the known fix for the triple-tie sliver, recover them without breaking the points K3 already gets?
+
+**Estimator.** `estimator_t366.est(model, (1.0, 1.25, 1.5))` from claude/t218-tie-tail-labels @5b4a1250, run
+unmodified (its frozen settings: fixed walk, T354 segment start, T_hi = 6). All 7 sha256 in `t366_freeze_sha256.txt`
+asserted at import (`est_t388.py`). Deductive. Run on all 52 models of T371's panel (one call gives the 3 t0).
+
+**Truths.** T371's, unchanged (`results/truth_*.json`; already known to me, so this is a check of a frozen
+estimator on known truths, not a blind test; no setting is chosen by me).
+
+**Sets (fixed by T371's scoring, `results/score.json`).** Misses: the 16 noisy (copy, t0) points with K3 outside
+[1/2, 2]. Control: the 128 noisy points with K3 inside.
+
+**Go (DRI, fixed now).** >= 12 / 16 misses within 2x AND <= 6 / 128 former hits outside 2x. Reported by the truth's tie
+share (< 50%, 50-80%, >= 80%), because T367/T369 found the graded rule over-estimates where triple-tie hits are a
+large but partial share (s547, 80%: 2.43 / 2.12; traced to the R1W closure). The 12 clean points and the cost
+(FPE, vs K3's) are reported. Scoring: `score_t388.py` (written before any estimate).
+
+**Expectations / alternatives.** (a) If the misses are g12 quadrature (T364's diagnosis), the rule lifts them toward 1.
+(b) If they are partly the closure (lows pinned at mu(v4), fixed v4 position; T369), orig-family misses (tie 65-92%)
+may stay low or overshoot as s547 did. (c) The control may go high where tie shares are 50-80% (T367's s547 pattern).
