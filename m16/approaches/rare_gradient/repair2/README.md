@@ -59,5 +59,14 @@ truths are independent.
 (1.27x, z = 2.1). Possible small bias at the 1-2 s.e. level, not resolved; acceptable for a design tool with 2x margins
 (the verification is independent).
 
+### Deviation D1 (2026-10-19, after the round-1 design rows; before any truth)
+Round 1 did not qualify: the combined direction lowers design P_E fast (x.024 at eps .004) but RAISES design P_W
+(predicted d log P_W / d eps = +17.7; rows x1.13 at .004 ... x6.6 at .05). The E1 log-gradient (~950) dominates W's
+(~120). Second-order bound on S (16 weights; 12 + 4, two overlap): the cheapest direction for a 5x cut of P_W costs
+c^2 / (2 g' M^-1 g) = 7-12 pp of accuracy (M clipped at .05 x max or floored at .5), vs .02 pp allowed: unreachable by
+> 300x, so re-linearised rounds 2-3 cannot qualify on this set. They are skipped. The pure-W direction is evaluated with
+design estimates (`wonly.py`) to measure that, and, per rule 4, the best accuracy-feasible round-1 point (k = 16,
+eps .004, lowest design f) is frozen and verified against both bars.
+
 ## Status
-Pre-registered; design in progress.
+Design failed the T411 bar (round 1); frozen fallback point being verified.
