@@ -23,7 +23,8 @@ class Net:
     def __init__(self, kind, w, mode=None):
         self.kind, self.w = kind, w
         self.mode = N.MODE[kind] if mode is None else mode
-        self.homog = N.HOMOG[kind]
+        # positive homogeneity needs the kind to be bias-free by construction AND no bias arrays (rnn kind with biases)
+        self.homog = N.HOMOG[kind] and not any(k in w for k in ("bh", "bi", "bo"))
         self.fpe = N.forward(kind, w, np.zeros((1, 10)))[1]
 
     def logits_tp(self, y, d, tc, D):
