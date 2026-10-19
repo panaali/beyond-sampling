@@ -11,6 +11,10 @@ import time
 import numpy as np
 
 import m5t_fast as F
+try:
+    import geom_fast as GF                      # T415 (identical outputs, faster); fallback: m5t_fast's geometry
+except Exception:
+    GF = None
 import rigour as R
 
 f, t0, i0, i1 = sys.argv[1], float(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
@@ -35,7 +39,9 @@ for i in range(i0, min(i1, len(c["gates"]))):
     if rec["m2"] >= CAP:
         t = time.time()
         try:
-            lb, ub, info = F.mass_cell_fast(tri, g, 10, t0, budget=B, norm=norm, event=True, return_info=True)
+            gm = GF.cell_geometry_fast(tri, g, 10, norm=norm, event=True) if GF is not None else None
+            lb, ub, info = F.mass_cell_fast(tri, g, 10, t0, budget=B, norm=norm, event=True, return_info=True,
+                                            **({} if gm is None else dict(geom=gm)))
             rec.update(ub=min(rec["m2"], ub), lb=lb, tier=2, vertices=info.get("vertices"), simplices=info.get("simplices"))
         except Exception as e:
             rec["err_m5t"] = repr(e)
