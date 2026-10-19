@@ -96,7 +96,7 @@ threads; per-model JSON in `results/`), then `python summarize.py` (all six k x 
 1. **Pass line not met.** D3 k4 V1 is within 0.08 pp on only 7 of 18 models (max |bias| 0.606 pp, seed1).
    Condition 2 holds, but only just: D3 beats the shuffled-symbol control X3 by > 2 s.e. on exactly 12/18.
    **No PARTIAL either:** none of the 30 other D5/W3/D3 configurations is within 0.08 pp on all 18 (the best
-   max |bias| over the grid is 0.414 pp, D3 k5 V1). `none` reproduces E27's orig numbers (+0.10 / +0.09 pp at
+   max |bias| over the grid is 0.385 pp, W3 k5 V2). `none` reproduces E27's orig numbers (+0.10 / +0.09 pp at
    k = 4 / 5 V1), and on the 4 shared noisy copies it agrees within ~0.05 pp. E27 used the same seed 7, so the
    samples are E27's for those models.
 2. **The symbols trade E27's positive bias for a model-dependent sign.** E27's reduction (`none`) is
