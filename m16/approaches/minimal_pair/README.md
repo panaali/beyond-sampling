@@ -81,6 +81,43 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T380 pre-registration: lower-CV integrand (written 2026-10-19, after development, before any scoring)
+**Development (leaderboard DEV models at T=4/T=5 only; no test model, no T=6, no M_16,10 used):**
+- **D6, linear proxy** (`proxy.py`, `d6_proxy.py`): linearise at the tie point, ~2 FPE vs ~13. A control variate
+  with nested two-phase sampling.
+  - Correlation with the exact integrand: 0.85-0.99 in the all-negative stratum, but 0.0-0.5 in the large strata
+    (the window spans many linear pieces).
+  - Predicted two-phase gain 0.94-1.08x (1.36x on one sigma=0.02 copy). **Rejected.**
+- **D7, near/far split** (`d7_split.py`): split each segment at |s| = delta and integrate each part on its own nodes.
+  - Predicted gain 1.3-2.0x (T=4), 1.3-1.5x (T=5), best at delta = 0.03 at both T. **Chosen form, delta = 0.03.**
+- **D8, executed spread check** (`d8_dev_spread.py`, 16 rules, 6 DEV models per T): var x cost ratio frozen/cv is
+  - T=4: 0.75-3.26 (16k), 0.67-3.93 (64k);
+  - T=5: 0.81-4.57 (16k), 0.29-1.31 (64k).
+  So **the executed split does not reliably lower the effective CV**. It loses at 64k on the heavily noised T=5
+  copies; [inferred] the pilot sees near-zero far mass and the Neyman stage starves the far parts.
+
+**Frozen:** `cv/estimator.py` (minimal_pair/cv), delta = 0.03, RULE_SEED 27182, as of this commit. No further changes.
+sha256[:12] of the files it runs: 8ab7b655cd38 cv/estimator.py;fb7902e12240 estimator.py;a38258f586b4 walk.py;a91f019fca21 hom.py;48dbba49ab13 core.py;
+
+**Scoring:**
+1. `leaderboard.py run minimal_pair/cv --H 16 --T 6`, with the T10 recipe's T=6 rows as the comparator.
+2. `leaderboard.py run minimal_pair/cv minimal_pair --H 16 --T 10`, on orig, seeds and noisy copies.
+3. DEV3 (100 open M_16,10 retrains, truths 1e8; `score_dev3.py`): both recipes, one deterministic run per model at
+   16k and 64k, MSE ratio vs sampling at equal executed cost.
+
+**Effective CV:** the law gives CV_eff^2 ∝ var x cost, so the cv/frozen ratio of MSE x cost is the measured CV²
+reduction. It is reported per group.
+
+**Predictions** (from D8, not optimistic): cv/frozen MSE-gain ratio
+- T=6 seeds: ~0.9 (plausible range 0.5-1.5);
+- M_16,10 / DEV3 (bulk-heavier errors, acc .85-.97): ~0.6 at 64k, ~1 at 16k.
+
+**Law check:** predicted absolute gain of the T10 recipe on DEV3 = (1-err)/(err CV² c) with err ~7.5%, CV ~1.4-2.0
+and c ~6-10 (D5 at T=10) gives **0.3-0.9x**, i.e. both recipes are expected to LOSE to sampling on M_16,10.
+
+**Pass (for T380's lever):** cv beats the T10 recipe (MSE x cost lower) on the T=6 seed group AND on DEV3 at both
+budgets. Predicted: FAIL.
+
 ## T11 results: H=16, T=6, frozen recipe unchanged (2026-10-19)
 **Verdict: FAIL of the pre-registered strict criterion (as predicted, P(pass) ~0.35-0.4).** Seed 4 at 16k has per-seed
 ratio 1.31 (1.30 against own 48M truth); the other 9 seed x budget checks pass.

@@ -14,7 +14,8 @@ import numpy as np
 from scipy.special import ndtr
 
 
-def walk(model, y, a, b, tau, kind, cdf=ndtr, eps=1e-10, max_cells=4000):
+def walk(model, y, a, b, tau, kind, cdf=ndtr, eps=1e-10, max_cells=4000, lo=None):
+    """Integrates s in [lo, tau] (default lo = -tau). T380 added lo; with lo=None the result is unchanged."""
     Wi, Wh, Wo = model
     n, T = y.shape; H = Wh.shape[0]
     rows = np.arange(n)
@@ -23,7 +24,7 @@ def walk(model, y, a, b, tau, kind, cdf=ndtr, eps=1e-10, max_cells=4000):
     tneg = b if kind == "23" else a
     step_f = 2 * H * H + 2 * H                 # FLOPs of one recurrent step (one sequence), the FPE unit / T
     upd_f = 6 * H                              # FLOPs of the linear update + gate-change test of one step (done for ALL T steps of every cell)
-    t = -tau.copy()
+    t = -tau.copy() if lo is None else np.asarray(lo, float).copy()
     mass = np.zeros(n); cost = np.zeros(n); cells = np.zeros(n, int)
     Z = np.zeros((n, T, H)); DZ = np.zeros((n, T, H)); TC = np.full(n, np.nan)
     act = np.nonzero(t < tau)[0]
