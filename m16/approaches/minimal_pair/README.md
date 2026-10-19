@@ -81,6 +81,42 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T397 results (2026-10-19): E33's tie-slicing loses to sampling on DEV3. Not an HP5 candidate, as predicted.
+Reproduce: `python e33/score_e33.py dev3; python e33/score_e33.py lb; python e33/report.py` (`e33/report.log`,
+raw `e33/scores_*.json`).
+
+**Same panel, DEV3 (100 open M_16,10 retrains, 1e8 truths).** MSE ratio vs sampling at executed cost [95% cluster
+bootstrap CI]; one deterministic run per model:
+
+| recipe | 16k | 64k |
+|---|---|---|
+| E33 / H-E11 tie-slicing (ht_seeds, unchanged) | **2.28 [1.61, 3.00]** (executed 19.1k; claimed 8.2k) | **1.45 [1.03, 1.91]** (executed 75.6k; claimed 32.3k) |
+| T10 recipe (minimal_pair) | 1.15 [0.76, 1.62] | 0.97 [0.65, 1.38] |
+| T380 cv (near/far split) | 1.90 [1.42, 2.44] | 0.99 [0.67, 1.41] |
+| T389 pos (per-cell table rules) | 0.74 [0.51, 1.01] | 1.22 [0.84, 1.69] |
+| T391 isg (global rule, table IS) | 0.86 [0.66, 1.08] | 0.88 [0.62, 1.17] |
+
+- No recipe has a DEV3 CI upper < 1 at any budget, so none qualifies for HP5 under the DRI rule.
+- Closest: T389 pos at 16k (upper 1.006) and T391 isg at 16k (1.078).
+
+E33 on the M_16,10 leaderboard models (executed cost):
+- seeds: 0.36 [0.07, 0.72] (16k), 1.15 [0.26, 2.20] (64k);
+- noisy groups: 2.35-3.32 (16k), 0.20-7.56 (64k);
+- orig: 7.0 (16k) and 0.23 (64k), a single squared error each.
+
+Executed cost is 2.3-2.5x E33's claimed cost (the full-sequence recompute per cell; cf. the leaderboard's measured
+2.23).
+
+CPU per call: E33 0.15 s (16k) and 0.37 s (64k). It is the fastest of the five per call because its walk is a few
+large vectorised batches, but it does more arithmetic per FPE-equivalent of accuracy.
+
+**Reading:**
+- [measured] E33's ~1.6x on the five zoo T=10 seeds does not carry over to DEV3: at executed cost it loses
+  (1.45-2.28).
+- [measured] On the same panel, the T10-lineage recipes (honest walk, radial integrand, sign strata, priors) improve
+  the MSE ratio by 1.5-3x over E33, but none is confidently below sampling.
+- [inferred] H-E11's T=10 gain was a claimed-cost figure on 5 favourable models.
+
 ## T397 pre-registration: E33's tie-slicing (H-E11 recipe, unchanged) on DEV3 and the M_16,10 leaderboard models (written 2026-10-19, before any T397 run)
 - **Code:** `ht_seeds/est.py` est_faces + `ht_seeds/core.py`, unchanged. sha256 asserted in `e33/score_e33.py`:
   core a78a45c1fae0..., est b6154cad9a73.... Rule seed 700 (E33's first rule); equal faces per kind, no allocation
