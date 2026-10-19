@@ -143,13 +143,14 @@ def build(tag):
         "hgru32": lambda: GRU(32, hard=True),
         "sgru32": lambda: GRU(32, hard=False),
         "ssm": lambda: SSM(),
+        "ssmB": lambda: SSM(),                    # A1 fallback retrain of ssm at lr_base 0.012
         "conv": lambda: Conv(),
         "tfrelu": lambda: TF(relu_attn=True),
         "tfsoft": lambda: TF(relu_attn=False),
     }[tag]()
 
 
-WIDTH = {"rnn16": 16, "rnnb32": 32, "rnn2r32": 32, "hgru32": 32, "sgru32": 32, "ssm": 32, "conv": 32,
+WIDTH = {"rnn16": 16, "rnnb32": 32, "rnn2r32": 32, "hgru32": 32, "sgru32": 32, "ssm": 32, "ssmB": 32, "conv": 32,
          "tfrelu": 32, "tfsoft": 32}
 
 

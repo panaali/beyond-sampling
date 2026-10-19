@@ -179,20 +179,10 @@ not (the quadrature error per line adds bias). M3: success on >= 5 of 8 candidat
 - **Added reference rows:** M_16,10 (`m16`) is also run through M1 and M3 (repair) by the same code, as a check that
   the generic pipeline reproduces the known results (T429 / T402).
 
-## Status
-Pre-registered; running.
-
-## Results
-*(filled later)*
-
-## Compute accounting
-*(filled later)*
-
-## Claims
-*(filled later)*
-
-## Alternatives not ruled out
-*(filled later)*
-
-## Failure modes
-*(filled later)*
+### Record A2 (2026-10-19 23:3x): fallback triggered for ssm; one bug fixed
+- ssm (lr_base 0.04 from the screen) ended at 2^20 validation accuracy .765 / .759 / .756 (< .80), so by A1 it is
+  retrained, all 3 seeds, at lr_base 0.012 under the tag `ssmB` (same architecture). Both sets are evaluated and reported.
+- Bug fixed (walkgen.Net): the radial (homogeneous) integrand was switched on by network kind, so rnnb32 (an `rnn` with
+  biases) was scored with it; those M1 rows were deleted unanalysed beyond a first table that showed the error
+  (estimates ~.9903 vs truth ~.9968) and are rerun with the Gaussian window, as pre-registered. No other candidate
+  was affected (all other biased kinds were already non-homogeneous).

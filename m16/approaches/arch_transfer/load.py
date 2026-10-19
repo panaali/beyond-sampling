@@ -6,7 +6,7 @@ import numpy as np
 import torch as th
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-KIND = {"rnnb32": "rnn", "rnn2r32": "rnn2r", "hgru32": "hgru", "sgru32": "sgru", "ssm": "ssm", "conv": "conv",
+KIND = {"rnnb32": "rnn", "rnn2r32": "rnn2r", "hgru32": "hgru", "sgru32": "sgru", "ssm": "ssm", "ssmB": "ssm", "conv": "conv",
         "tfrelu": "tfrelu", "tfsoft": "tfsoft", "rnn32": "rnn", "m16": "rnn"}
 
 
