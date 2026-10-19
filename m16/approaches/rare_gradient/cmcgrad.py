@@ -31,7 +31,11 @@ def draw(c, t0, rng, n):
 
 def main(nm, nlines, chunk=20_000):
     D = json.load(open(os.path.join(HERE, "results", f"dirs_{nm}.json"))); t0 = D["t0"]
-    model = rnn.unflat(np.array(D["w"]), [(16,), (16, 16), (10, 16)]); U = np.array(D["dirs"]); P_ = U.shape[1]
+    model = rnn.unflat(np.array(D["w"]), [(16,), (16, 16), (10, 16)]); P_ = len(D["w"]); w = np.array(D["w"])
+    A = np.zeros((16, P_)); A[np.arange(16), np.arange(16)] = w[:16]                     # neuron i's incoming weights x w
+    for i in range(16):
+        A[i, 16 + 16 * i:16 + 16 * (i + 1)] = w[16 + 16 * i:16 + 16 * (i + 1)]
+    U = np.vstack([np.array(D["dirs"]), A]); ND = len(D["dirs"])        # rows ND.. give sum_{w into i} w dP/dw (s.e. per neuron)
     f = TCC.dens(t0); c = np.concatenate([[0.0], np.cumsum((f[1:] + f[:-1]) / 2 * np.diff(TCC.GRID))]); c /= c[-1]
     pg = TCC.p_gap(t0); rng = np.random.default_rng(SEED[nm])
     sZ = sZ2 = 0.0; sg = np.zeros(P_); sg2 = np.zeros(P_); sp = np.zeros(len(U)); sp2 = np.zeros(len(U))
@@ -53,7 +57,8 @@ def main(nm, nlines, chunk=20_000):
         pr = Gl @ U.T; sp += pr.sum(0); sp2 += (pr ** 2).sum(0); nz += int((Z > 0).sum()); n += m
         se = lambda s, s2: np.sqrt(np.maximum(s2 / n - (s / n) ** 2, 0) / n)
         out = dict(model=nm, t0=t0, n_lines=n, p_gap=pg, P=pg * sZ / n, P_se=pg * se(sZ, sZ2), frac_nonzero=nz / n,
-                   grad=(pg * sg / n).tolist(), grad_se=(pg * se(sg, sg2)).tolist(), proj=(pg * sp / n).tolist(), proj_se=(pg * se(sp, sp2)).tolist(),
+                   grad=(pg * sg / n).tolist(), grad_se=(pg * se(sg, sg2)).tolist(), proj=(pg * sp / n)[:ND].tolist(), proj_se=(pg * se(sp, sp2))[:ND].tolist(),
+                   neuron_elast=(sp[ND:] / sZ).tolist(), neuron_elast_se=(pg * se(sp, sp2)[ND:] / (pg * sZ / n)).tolist(),
                    n_end=n_end, C_fpe=flops / 5948.0, sec=time.time() - t)
         json.dump(out, open(os.path.join(HERE, "results", f"cmc_{nm}.json"), "w"))
         print(nm, n, "P %.4e +- %.1e" % (out["P"], out["P_se"]), "proj/P", np.round(np.array(out["proj"]) / out["P"], 3),
