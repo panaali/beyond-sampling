@@ -267,6 +267,30 @@ The slab mass P(top three at (1,8,2), g23 >= 2.5, N) is 5.6e-8.
   bound. That is more than 25x the target truth (< 1e-9 over all 720 triples).
 - So the charge depth must be close to k = 10, where the event rows apply. This is T398's point.
 
+
+### Two-tier charging, (1,8,2) k = 6, t0 = 2.5 [measured; pre-registration 3; workers W1-W4]
+Six of the 8 shards were completed. Shards 98-196 and 490-588 were stopped once k = 6 charging was known to be
+futile (the C_true curve).
+
+| shard | Σub, M2 (tier i) | Σub, tiered (tier ii) | MC truth of the same cells | refined (200 / 2k / 8k) | CPU-h |
+|---|---|---|---|---|---|
+| 0-98 | 3.5e-5 | 2.4e-9 | 2.2e-10 | 49 / 7 / 7 | 0.59 |
+| 196-294 | 2.0e-5 | 4.2e-8 | 2.7e-9 | 60 / 7 / 4 | 0.28 |
+| 294-392 | 8.1e-6 | 4.2e-8 | 1.6e-9 | 48 / 4 / 3 | 0.19 |
+| 392-490 | 1.2e-5 | 6.0e-7 | 2.0e-8 | 67 / 6 / 6 | 0.52 |
+| 588-686 | 4.0 (vacuous) | 1.4e-16 | 0 | 17 / 2 / 2 | 0.11 |
+| 686-781 | 9.4e-15 | 8.0e-25 | 0 | 61 / 9 / 9 | 0.52 |
+| **6 shards** | | **6.9e-7** | **2.5e-8** | | **2.2** |
+
+- **Tightness.** The tiered Σub is about 28x the MC truth. Cells with >= 30 MC hits (15 cells, all at the top
+  tier): ub/MC median 13.5, p90 26, max 31.
+- **Soundness.** No violation.
+- **Reading** [inferred]:
+  - At k = 6 the reduced dimension is 7, and M5t's 8,000-simplex budget leaves 10-30x on the dominant cells,
+    against 1.5x at k = 4 (dimension 5).
+  - M2 alone is useless here: 1e2-1e5x, and vacuous on one shard.
+  - Even an exact k = 6 charge would cost C_true(6) = 2.5e-8, above the target.
+
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
