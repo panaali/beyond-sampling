@@ -854,6 +854,13 @@ So the sampling-class safety tools cost about 1e-8 to 1e-6 of a GW-month: one 8-
   - the routing variant's quality at scale.
 - A staged path: the S5 ladder (T448) first, then a 1e7-1e8 synthetic-language rung for ~$10-100, then 1e9 on real text (backlog T457).
 
+<a id="q4-20"></a>
+### 4.20 How novel was our work, in simple terms? (owner, 10-19 23:0x)
+
+**Q (owner, verbatim):** "simply and concisely. Describe what were the novel contribution of our work and what we found related to it in the literature. So I want to know how much novel it was. be concise and talk in simple terms"
+
+**A (DRI):** The plain-language summary of [lit/novelty_review.md](lit/novelty_review.md) section 3 (the verdict table is the source). Overall: mostly known ideas applied to a new target. Likely new are the rigorous 10-D region volumes, the sampling-free rare-failure estimates near 1e-10, and the sealed result itself ([4.15](#q4-15)). The focused-sampling estimator (T436-T456) applies Bai et al. 2020 and Hesterberg 1995. No outside reviewer has checked these verdicts.
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
