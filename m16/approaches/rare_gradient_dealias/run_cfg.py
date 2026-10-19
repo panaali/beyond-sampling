@@ -1,5 +1,6 @@
 """T386: run one or more line-rule configs on one model; save est, grad, cost, directional derivatives.
 usage: python run_cfg.py <model> <cfg>[,<cfg>...]   cfg = "<v2spec>/<g12spec>", g12spec = gauss3 | qmid3x<Mg>
+(family A), or "T<Kt>/<v2spec>" (family T, transversal.py)
 -> results/cfg_<model>_<v2spec>_<g12spec>.json"""
 import json
 import os
@@ -10,6 +11,7 @@ import numpy as np
 
 import common
 import dealias
+import transversal
 
 
 def g12spec(s):
@@ -22,7 +24,8 @@ def main(nm, cfgs):
         v2s, gs = cfg.split("/"); path = os.path.join(common.HERE, "results", f"cfg_{nm}_{v2s}_{gs}.json")
         if os.path.exists(path):
             continue
-        t = time.time(); r = dealias.est_grad(m, t0, v2s, g12spec(gs))
+        t = time.time()
+        r = transversal.est_grad(m, t0, int(v2s[1:]), gs) if v2s.startswith("T") else dealias.est_grad(m, t0, v2s, g12spec(gs))
         out = dict(model=nm, t0=t0, v2=v2s, g12=gs, est=r["est"], grad=r["grad"].tolist(), pred=(U @ r["grad"]).tolist(),
                    C_walk=r["C_walk"], C_grad=r["C_grad"], n_end=r["n_end"], sec=time.time() - t)
         json.dump(out, open(path, "w")); print(nm, cfg, f"est {r['est']:.4e}", "pred/P", np.round(U @ r["grad"] / r["est"], 1),
