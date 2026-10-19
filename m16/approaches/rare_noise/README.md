@@ -259,7 +259,7 @@ Rows are independent, so only the summation order changes.
 
 | set | n | K3 within 2x | **graded within 2x** | K3 median | graded median |
 |---|---|---|---|---|---|
-| T371's misses (go: >= 12) | 16 | 0 | **16** | .21 | .89 |
+| T371's misses (go: >= 12) | 16 | 0 | **16** | .18 | .89 |
 | T371's hits (go: <= 6 broken) | 128 | 128 | **127 (1 broken)** | 1.03 | 1.05 |
 | all noisy | 144 | 128 | **143** | 1.02 | 1.04 |
 | truth tie share < 50% | 107 | 107 | 107 | 1.03 | 1.05 |
@@ -270,7 +270,7 @@ Rows are independent, so only the summation order changes.
 - **Misses, K3 -> graded:** dev3_s528 copies .002-.37 -> .82-1.06 (12/12, e.g. @.001#2 t0 1.5 .0015 -> .99). orig
   copies .38-.47 -> .52-.88 (4/4; 2 of them only just inside, .52 and .57).
 - **The one broken hit:** orig@.005#0, t0 1.5 (tie share 57%): .79 -> .36.
-- **No overshoot anywhere** (max graded ratio 1.66, clean orig t0 1.0). T367's s547 pattern (2.1-2.4x high at a large
+- **No overshoot anywhere** (max graded ratio 1.72, orig@.001#1 t0 1.0). T367's s547 pattern (2.1-2.4x high at a large
   but partial tie share) does not appear on this panel.
 - Clean dev3_s528 .08 / .08 / .20 -> .82 / 1.02 / 1.08; clean orig t0 1.5 .47 -> 1.05.
 - **Cost:** 2.17-3.96M FPE per model (3 thresholds), median 7.1x K3's here. Part of that is the frozen settings: the
