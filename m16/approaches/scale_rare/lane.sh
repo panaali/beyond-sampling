@@ -11,7 +11,7 @@ for pass in k3 graded; do for tag in "$@"; do
   T424_ONLY=$pass $PY est_run.py $tag && push "$tag $pass estimate (sealed)" || echo "FAILED $tag $pass"
 done; done
 for tag in "$@"; do
-  for t0 in $($PY -c "import models as M, thresholds as T; r=M.by_tag('$tag'); print(*T.choose(r['T'], r['acc']))"); do
+  for t0 in $($PY -c "import models as M, thresholds as T; r=M.by_tag('$tag'); print(*['%g' % x for x in T.choose(r['T'], r['acc'])])"); do
     $PY truth.py $tag $t0 && cp "$T424_TRUTH_DIR/$tag@$t0.json" results/truth/ && push "$tag@$t0 truth" || echo "FAILED truth $tag $t0"
   done
 done
