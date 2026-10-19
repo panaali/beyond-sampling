@@ -81,6 +81,35 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T391 pre-registration: one global rule per stratum, importance-weighted by T389's table (written 2026-10-19, before DEV3)
+Class: deterministic quadrature, ARC acceptance unknown (OWNER_QA 4.7).
+
+**Development** (DEV2 models 40-79 only, which the table was not fitted on):
+- `d12_dev2.py`, one run per model, MSE ratio vs sampling:
+  - frozen T10 recipe: 0.577 [0.381, 0.810] (16k), 0.872 [0.440, 1.397] (64k);
+  - isg: 0.811 [0.456, 1.245] (16k), 0.960 [0.591, 1.470] (64k).
+  Single-run panels are too noisy to compare the two.
+- `d13_dev2_spread.py`, 16 rules x 6 models, var x cost ratio frozen/isg:
+  - 16k: 0.42-2.27, geometric mean ≈ 1.2;
+  - 64k: 0.38-2.66, geometric mean ≈ 1.3.
+  This is a real but modest gain, consistent with D10's held-out 1.25x.
+- Wall time (d12): ~1.0 s/call at 16k and ~2.2 s/call at 64k for both recipes. Plain sampling at those budgets takes
+  ~0.01-0.04 s.
+
+**Frozen:** `isg/estimator.py` (name minimal_pair/isg) with `pos/table.npz`, RULE_SEED 14142, as of this commit; no
+changes after. sha256[:12]: 0bb493e6b480 isg/estimator.py;e772b13f333a pos/table.npz;fb7902e12240 estimator.py;a38258f586b4 walk.py;a91f019fca21 hom.py;48dbba49ab13 core.py;
+
+**Scoring:**
+1. Go test: `python score_dev3.py isg 16000,64000 dev3_scores_isg.json` (100 DEV3 retrains, 1e8 truths). **Go = CI
+   upper < 1 at BOTH 16k and 64k**; otherwise STOP.
+2. `python m16/leaderboard.py run minimal_pair/isg --H 16 --T 10`.
+3. Wall time per call is reported. HP5 (seeds 400-499) is NOT touched. If go passes, I tell the DRI first.
+
+**Prediction:** the T10 recipe's DEV3 values divided by 1.2 / 1.3:
+- 16k ≈ 0.96 (CI upper ≈ 1.35);
+- 64k ≈ 0.75 (CI upper ≈ 1.06).
+**Predicted: STOP** (go needs both budgets).
+
 ## T389 results (2026-10-19): **STOP**. The go test fails.
 Go = DEV3 MSE ratio CI upper < 1 at 64k. **Measured: 1.215 [0.837, 1.694] at 64k (STOP).** At 16k: 0.738 [0.508, 1.006].
 Prediction was 0.78 (64k) / 0.92 (16k), with STOP predicted.
