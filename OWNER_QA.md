@@ -825,6 +825,35 @@ Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived 
 
 So the sampling-class safety tools cost about 1e-8 to 1e-6 of a GW-month: one 8-GPU node for hours to days. The bottleneck at that scale is method, not compute: defining the input distribution, and finding every failure region in a huge discrete input space (honest error bars took three iterations even in 10-D). Exact and certified methods do not reach a billion parameters at any budget we can foresee.
 
+<a id="q4-19"></a>
+### 4.19 Our methods on a 1e9-parameter transformer language model built to suit them (owner, 10-19 23:0x)
+
+**Q (owner, verbatim):** "It would be very interesting if we could apply our methods to a billion-parameter model that is built for language modeling using a transformer and self-attention, which we think our method would be able to handle. I would like to hear your numbers."
+
+**A (DRI; educated estimates; nothing here is measured at this scale).** The model is the scaled-up T444 design: decoder-only, ReLU MLPs, piecewise-linear routing (sparsemax or positional / hard attention), no LayerNorm. It is piecewise linear in its embeddings, so the exact machinery applies in principle. Its quality at 1e9 parameters is untested; T444 is a 1e4-parameter result.
+- Assumptions: H100-class GPU at ~4e14 effective FLOP/s and $2-5 per hour; 100-token inputs, ~2e11 FLOPs per forward pass.
+- 1 GW-month is ~1e27 FLOPs, ~$1-1.5B, ~7e5 MWh.
+
+| Step | Compute | Cost | Time on one 8-GPU node |
+|---|---|---|---|
+| Train it (20e9 tokens, 6ND, 2-3x slowdown for sparsemax kernels) | ~3e20 FLOPs | $1,000-5,000 | 1-3 days |
+| Rare-failure estimate with error bars, per failure type (T456 recipe; discrete search over token sequences instead of MIQP) | ~3e18 | $5-50 | under an hour |
+| Brute-force check of that estimate (rates >= 1e-6) | 2e19-2e20 | $50-500 | hours |
+| Safe-use rating, ~6 conditions | ~2e19 | $50-300 | hours |
+| Locate and repair (rare-event gradient from IS samples; Hessian-vector products on ~1e4 candidate weights; paired check) | ~1e19 | $100-2,000 | hours to a day |
+| Exact prefix-tree head (the S2 / T445 analogue of exact walks): depth 2 (1e9 prefixes) | ~2e20 | $300-700 | ~1 day |
+| Same at depth 3 (3e13 prefixes) | ~6e24 | $2-5M (~0.005 GW-month) | months on a large cluster |
+| Local certificates (one prompt, a few token edits; IBP / CROWN, known methods) | GPU-minutes to hours each | $1-10 per prompt | - |
+| Global certified bound over all prompts | V^L inputs; cells grow per layer as in T398 | not reachable even at 1 GW-month | - |
+
+**Totals:**
+- A full study (train, 100 failure types estimated and checked, 10 repairs, ratings, a depth-2 exact head) is ~$5,000-50,000. That is ~25 MWh, about 3e-5 of a GW-month.
+- The method risks matter more than the money:
+  - defining the prompt distribution and what counts as a bad output;
+  - finding every failure region in a discrete input space, which honest error bars depend on (it took three versions at 10-D);
+  - the routing variant's quality at scale.
+- A staged path: the S5 ladder (T448) first, then a 1e7-1e8 synthetic-language rung for ~$10-100, then 1e9 on real text (backlog T457).
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
