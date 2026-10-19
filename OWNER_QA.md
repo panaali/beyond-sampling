@@ -671,6 +671,46 @@ Off-target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (all-at-once network
 
 ---
 
+<a id="q4-9"></a>
+### 4.9 What is ARC's ultimate goal, and how does our work relate to it? (owner, 10-19 06:5x)
+
+**Q (owner, verbatim):** "What do you think is the ultimate goal of Arc?"
+
+**A (DRI; a reading of ARC's published work and the sources logged in [lit/web_log.md](lit/web_log.md), not a statement from ARC):**
+
+*Short version.* ARC wants to make powerful AI safe in situations we cannot test: to know from a model's weights what it will do, including rare catastrophic behaviour that never shows up in testing.
+
+*The problem.* Testing (sampling) only checks behaviour you can trigger. The failures that matter most for safety are the ones you won't see in testing: extremely rare, or appearing only in situations that have not happened yet (a model deceiving its overseers, or taking a harmful action when it "thinks" it won't be caught).
+
+*Their approach.* "Mechanistic explanations": structured arguments built from the weights that predict a model's behaviour without running it on samples, found automatically and general, not hand-written analyses a human reads. They want these explanations for three things:
+1. **Low-probability estimation**: estimate the chance of rare bad outputs (even one in a billion), so models can be trained or certified against them before deployment.
+2. **Mechanistic anomaly detection**: notice when a model gives its normal-looking output for an unusual internal reason (the camera shows the diamond because the sensor was tampered with, not because the diamond is there); their route to Eliciting Latent Knowledge.
+3. **Arguments that hold even when humans cannot follow them**: their theory work (heuristic arguments, the no-coincidence conjecture, the matching-sampling principle).
+
+*Where AlgZoo fits.* A minimum bar, not the goal: if explanations cannot match random testing at estimating a 432-parameter network's accuracy, they will not work on large language models. Hilton: tiny models are "maybe like 10%" of ARC's work; they want "general schemes" rather than one-off analyses.
+
+*How our work maps onto this.*
+- Low-probability estimation: our closest match. We estimate rare-mistake probabilities from the weights far beyond what testing can see, for one kind of mistake (H-R1, confirmed, scoped).
+- Anomaly detection: a small step. We can name which internal mechanism drives a rare failure (the n6/n7 comparator balance, T372; check T385 running), the "why", not just "how often".
+- The minimum bar (matching random testing on accuracy): not cleared; our best methods tie it at 10 steps (T380, T389, T391, T397).
+
+*Judgment.* ARC would likely value a general, automatic method that works passably on many models more than a perfect hand analysis of M_16,10, so future work should favour methods that transfer (the rare-event walk, the comparator analysis) over more tuning on this one network.
+
+<a id="q4-10"></a>
+### 4.10 The engineering view: a safe-use rating and repairs for failures too rare to test (owner, 10-19 07:1x)
+
+**Owner (verbatim):** "I recall one time you mentioned that an engineer, when they build a bridge, they don't test it to know when it breaks in what like rare circumstance, but they know the physics and they can simulate and they can figure where that can happen and they can patch it basically. Or they can say that we should not allow cars to with I don't know this weight to pass this bridge under these conditions or things like that. So basically either they they would say that when it's safe to use it and when it's not safe to use it, or they would try to make it more safe. So I think maybe based on the experiments that we have done, we can say that something similar could be done using our methods, especially for the cases that are too rare that the sampling won't be able to catch it or find it."
+
+**A (DRI).** Yes. A bridge engineer does three things without testing the bridge to failure, and our methods already do a small version of each for M_16,10's rare mistakes:
+
+| Engineer | Our analogue | What we have |
+|---|---|---|
+| **Locate** where the structure can fail (stress analysis) | Find where in input space the network errs, from the weights | Errors live at near-ties of the 2nd and 3rd largest inputs and in mostly-negative inputs (H-E15, T218); the rarest far-gap errors sit on ~6 of 720 position triples (T373); three-way near-tie slivers are the failure mode of the estimator itself (T364, T367) |
+| **Rate** the safe load ("no trucks over 10 t when icy") | A safe-use rating: the error probability under stated input conditions, including conditions too rare to test | The estimator gives P(error and g23 >= t) within ~2x deep into the tail (H-R1), i.e. "when the 2nd and 3rd largest differ by at least t, the error chance is about p"; it flags where it cannot be trusted (three-way near-ties). A guaranteed version is in progress (T398-T400) |
+| **Reinforce** the weak member | A targeted repair: change the few weights that drive the rare failure and check the failure becomes rarer without hurting accuracy | We know which weights drive the rarest far-gap error (n6/n7 balance, T372; intervention check T385). The repair itself is the next experiment (T402) |
+
+The point, as with the bridge: sampling cannot find or rate a one-in-a-billion failure, but a calculation from the weights can, because its cost does not depend on how rare the failure is. Limits: one network, one kind of rare mistake, estimates (not yet guarantees), and the three-way near-tie blind spot. Two demonstrations are set up to make the analogy concrete: **T401** (a safe-use rating chart computed from the weights) and **T402** (a targeted repair verified by independent truths).
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
@@ -982,3 +1022,4 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 - <a id="d-1019-064x"></a> **10-19 06:4x:** "No need to update the tutorial for now. I'll ask you when we have everything we wanted, and we'll do one final update." Done: T374 paused at v7 (pending edits committed to its branch, not published); check-ins no longer send tutorial updates.
 - <a id="d-1019-065x"></a> **10-19 06:5x:** "Why anything would I tell you, you update in 3 files? I think you should just update in 1 file and have reference in the others. Do a bit of cleanup. It seems there are many duplicates and the repo is a bit unorganized, or like the docs are not organized as we like." Done: task **T396** (one source of truth per kind of information; plan in [docs/CLEANUP_PLAN.md](docs/CLEANUP_PLAN.md)). From now on a directive is recorded only here, with a one-line standing rule in [AGENTS.md](AGENTS.md#standing-rules) when it binds agents.
 - <a id="d-1019-070x"></a> **10-19 07:0x:** "I think guaranteed upper bound on rare mistake is super important. We need to give it more resources. If GPU helps it, let it run its work on GPU. If we need more number of CPUs than 4, I think the collab agent can get more CPUs. I might be wrong, but we can check. And we can also spawn multiple sessions all helping this one, and they can all communicate using the tools that is available. Basically, it would be nested sessions, I guess. So the session can spawn multiple nests at once, so we can go faster, or we can spend more compute. Also, 210 million doesn't seem unreachable. What do you think? Even for that many pieces, if we can give exact or guaranteed results, I think that would be fantastic. Am I missing something?" Done: the certified-bound lane is the top compute priority: T398 (lead: tighter bounds, choice of a rarer threshold, shard plan), T399 (GPU batched bound propagation on Colab, before T395), T400 (rigorous per-region mass bounds and exact-arithmetic verification of pruning certificates); worker sessions to shard the 720 position triples once the per-node cost is measured. Answer and caveats in the DRI reply (missing pieces: the 679 no-hit triples, per-region mass bounds, exact verification, and choosing a rarer event where the certificate matters).
+- <a id="d-1019-071x"></a> **10-19 07:1x:** owner asked to document the answer on ARC's ultimate goal and proposed the bridge-engineering framing (verbatim in [4.10](#q4-10)). Done: [4.9](#q4-9) and [4.10](#q4-10); demonstrations **T401** (safe-use rating) and **T402** (targeted repair).
