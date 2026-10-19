@@ -1,0 +1,590 @@
+{
+ "T5:zoo:16000": {
+  "mse_ratio_ci95": [
+   0.03707279080256237,
+   0.16338645947103764
+  ],
+  "models": [
+   "z0",
+   "z1",
+   "z2",
+   "z3",
+   "z4"
+  ],
+  "mse_walk": 5.1183252003976386e-08,
+  "mse_samp_same_cost": 5.894062108572649e-07,
+  "mse_ratio": 0.0868386709558636,
+  "cost": 16421.54588235294,
+  "n_eq": 189104.06736532523,
+  "pairs": {
+   "fast|compiled_rng": {
+    "desc": "pre-registered: compiled walk, face maps timed  vs  compiled sampler, RNG timed",
+    "t_walk_est": 0.029285009800150873,
+    "t_in_walk": 0.019390170799852058,
+    "samp_s_per_fpe": 5.258243228913745e-07,
+    "t_samp_same_budget": 0.010262927999792736,
+    "time_ratio_same_fpe": 3.3914909644280775,
+    "R_equal_mse": 0.2945125679097544,
+    "R_ci95": [
+     0.12573203503302263,
+     0.5541237010059185
+    ]
+   },
+   "fast_pre|compiled_pre": {
+    "desc": "model-free part precomputed on both sides",
+    "t_walk_est": 0.019760722600040026,
+    "t_in_walk": 0.01745565679957508,
+    "samp_s_per_fpe": 4.897458856583172e-07,
+    "t_samp_same_budget": 0.007086611399972753,
+    "time_ratio_same_fpe": 2.4570725910127744,
+    "R_equal_mse": 0.21336891824562954,
+    "R_ci95": [
+     0.09109053815332648,
+     0.4014523913089061
+    ]
+   },
+   "fastfm|compiled_rng": {
+    "desc": "exploratory: reassociation/FMA walk vs compiled sampler, RNG timed",
+    "t_walk_est": 0.021137711200208287,
+    "t_in_walk": 0.011329662000389363,
+    "samp_s_per_fpe": 5.258243228913745e-07,
+    "t_samp_same_budget": 0.010262927999792736,
+    "time_ratio_same_fpe": 2.4479539885223893,
+    "R_equal_mse": 0.21257707092438966,
+    "R_ci95": [
+     0.0907524861107887,
+     0.3999625351326783
+    ]
+   },
+   "fastfm_pre|compiledfm_pre": {
+    "desc": "exploratory: both fastmath, precomputed",
+    "t_walk_est": 0.013639796000279602,
+    "t_in_walk": 0.01167202719989291,
+    "samp_s_per_fpe": 4.3595080661800593e-07,
+    "t_samp_same_budget": 0.006714685800034204,
+    "time_ratio_same_fpe": 1.9052692196976255,
+    "R_equal_mse": 0.1654510468516571,
+    "R_ci95": [
+     0.07063364720441132,
+     0.3112951921455416
+    ]
+   },
+   "repro|compiled_rng": {
+    "desc": "scipy CDF walk vs compiled sampler",
+    "t_walk_est": 0.03906939920016157,
+    "t_in_walk": 0.02909745760007354,
+    "samp_s_per_fpe": 5.258243228913745e-07,
+    "t_samp_same_budget": 0.010262927999792736,
+    "time_ratio_same_fpe": 4.524619089330095,
+    "R_equal_mse": 0.39291190829895534,
+    "R_ci95": [
+     0.16774025696001488,
+     0.7392614934607148
+    ]
+   },
+   "numpy|numpy": {
+    "desc": "frozen numpy walk vs numpy sampler (T379's setting)",
+    "t_walk_est": 0.5492078393999691,
+    "t_in_walk": 0.0,
+    "samp_s_per_fpe": 8.659656560898801e-07,
+    "t_samp_same_budget": 0.013615370599836751,
+    "time_ratio_same_fpe": 38.62086719905736,
+    "R_equal_mse": 3.3537847787290476,
+    "R_ci95": [
+     1.4317833302841965,
+     6.310126753355112
+    ]
+   }
+  }
+ },
+ "T5:zoo:64000": {
+  "mse_ratio_ci95": [
+   0.0076785093725968605,
+   0.1617191980525574
+  ],
+  "models": [
+   "z0",
+   "z1",
+   "z2",
+   "z3",
+   "z4"
+  ],
+  "mse_walk": 9.369698188081568e-09,
+  "mse_samp_same_cost": 1.5173899722911807e-07,
+  "mse_ratio": 0.061748781520770214,
+  "cost": 63786.90588235294,
+  "n_eq": 1033006.7138393195,
+  "pairs": {
+   "fast|compiled_rng": {
+    "desc": "pre-registered: compiled walk, face maps timed  vs  compiled sampler, RNG timed",
+    "t_walk_est": 0.0883639609997772,
+    "t_in_walk": 0.07146317819897377,
+    "samp_s_per_fpe": 5.258243228913745e-07,
+    "t_samp_same_budget": 0.03491055119975499,
+    "time_ratio_same_fpe": 2.634528904443232,
+    "R_equal_mse": 0.16267894973061925,
+    "R_ci95": [
+     0.020229254885144696,
+     0.42605390167284213
+    ]
+   },
+   "fast_pre|compiled_pre": {
+    "desc": "model-free part precomputed on both sides",
+    "t_walk_est": 0.06511809659987193,
+    "t_in_walk": 0.06159740200091619,
+    "samp_s_per_fpe": 4.897458856583172e-07,
+    "t_samp_same_budget": 0.03046663200002513,
+    "time_ratio_same_fpe": 2.0844878360869314,
+    "R_equal_mse": 0.12871458397323504,
+    "R_ci95": [
+     0.016005759386457652,
+     0.3371017012022893
+    ]
+   },
+   "fastfm|compiled_rng": {
+    "desc": "exploratory: reassociation/FMA walk vs compiled sampler, RNG timed",
+    "t_walk_est": 0.052758143000028214,
+    "t_in_walk": 0.03705665739980759,
+    "samp_s_per_fpe": 5.258243228913745e-07,
+    "t_samp_same_budget": 0.03491055119975499,
+    "time_ratio_same_fpe": 1.5729586033232954,
+    "R_equal_mse": 0.09712827713782604,
+    "R_ci95": [
+     0.012077977378324792,
+     0.2543776038993141
+    ]
+   },
+   "fastfm_pre|compiledfm_pre": {
+    "desc": "exploratory: both fastmath, precomputed",
+    "t_walk_est": 0.03706244239983789,
+    "t_in_walk": 0.034283098801461166,
+    "samp_s_per_fpe": 4.3595080661800593e-07,
+    "t_samp_same_budget": 0.02556266260035045,
+    "time_ratio_same_fpe": 1.33280009158187,
+    "R_equal_mse": 0.08229878166595143,
+    "R_ci95": [
+     0.010233917995009343,
+     0.2155393619749951
+    ]
+   },
+   "repro|compiled_rng": {
+    "desc": "scipy CDF walk vs compiled sampler",
+    "t_walk_est": 0.11894758560010814,
+    "t_in_walk": 0.1014553901995896,
+    "samp_s_per_fpe": 5.258243228913745e-07,
+    "t_samp_same_budget": 0.03491055119975499,
+    "time_ratio_same_fpe": 3.5463649301326656,
+    "R_equal_mse": 0.21898371326368352,
+    "R_ci95": [
+     0.027230796354672484,
+     0.5735152925027684
+    ]
+   },
+   "numpy|numpy": {
+    "desc": "frozen numpy walk vs numpy sampler (T379's setting)",
+    "t_walk_est": 0.9882914829999209,
+    "t_in_walk": 0.0,
+    "samp_s_per_fpe": 8.659656560898801e-07,
+    "t_samp_same_budget": 0.05308051960000739,
+    "time_ratio_same_fpe": 17.89175110457364,
+    "R_equal_mse": 1.104793829980317,
+    "R_ci95": [
+     0.13738197854863893,
+     2.8934396403876073
+    ]
+   }
+  }
+ },
+ "T5:fresh:16000": {
+  "mse_ratio_ci95": [
+   0.007351098394829619,
+   0.09476497509167386
+  ],
+  "models": [
+   "f100",
+   "f101",
+   "f102",
+   "f103",
+   "f104"
+  ],
+  "mse_walk": 2.3647557381333818e-08,
+  "mse_samp_same_cost": 5.096253784047931e-07,
+  "mse_ratio": 0.046401844145506174,
+  "cost": 16490.289411764705,
+  "n_eq": 355380.0439494326,
+  "pairs": {
+   "fast|compiled_rng": {
+    "desc": "pre-registered: compiled walk, face maps timed  vs  compiled sampler, RNG timed",
+    "t_walk_est": 0.027006896799866807,
+    "t_in_walk": 0.017925755600481354,
+    "samp_s_per_fpe": 5.224922218322394e-07,
+    "t_samp_same_budget": 0.008783639200191828,
+    "time_ratio_same_fpe": 3.1344877542353373,
+    "R_equal_mse": 0.14544601224802575,
+    "R_ci95": [
+     0.023041927898772484,
+     0.2970396539552685
+    ]
+   },
+   "fast_pre|compiled_pre": {
+    "desc": "model-free part precomputed on both sides",
+    "t_walk_est": 0.02002498999972886,
+    "t_in_walk": 0.017944058199100256,
+    "samp_s_per_fpe": 4.492252712250469e-07,
+    "t_samp_same_budget": 0.00778300460005994,
+    "time_ratio_same_fpe": 2.7032104057003647,
+    "R_equal_mse": 0.1254339479378188,
+    "R_ci95": [
+     0.019871565674230676,
+     0.2561696667637487
+    ]
+   },
+   "fastfm|compiled_rng": {
+    "desc": "exploratory: reassociation/FMA walk vs compiled sampler, RNG timed",
+    "t_walk_est": 0.01887584980013344,
+    "t_in_walk": 0.010463191599592392,
+    "samp_s_per_fpe": 5.224922218322394e-07,
+    "t_samp_same_budget": 0.008783639200191828,
+    "time_ratio_same_fpe": 2.190778173729149,
+    "R_equal_mse": 0.1016561473747566,
+    "R_ci95": [
+     0.01610462591632811,
+     0.20760903906482558
+    ]
+   },
+   "fastfm_pre|compiledfm_pre": {
+    "desc": "exploratory: both fastmath, precomputed",
+    "t_walk_est": 0.011068734000036783,
+    "t_in_walk": 0.009345626400317997,
+    "samp_s_per_fpe": 3.9261055622095974e-07,
+    "t_samp_same_budget": 0.0065258004000497746,
+    "time_ratio_same_fpe": 1.7096519288243102,
+    "R_equal_mse": 0.07933100234436964,
+    "R_ci95": [
+     0.012567819549697748,
+     0.16201512245046792
+    ]
+   },
+   "repro|compiled_rng": {
+    "desc": "scipy CDF walk vs compiled sampler",
+    "t_walk_est": 0.03670095180004864,
+    "t_in_walk": 0.027954332801346026,
+    "samp_s_per_fpe": 5.224922218322394e-07,
+    "t_samp_same_budget": 0.008783639200191828,
+    "time_ratio_same_fpe": 4.259603938894645,
+    "R_equal_mse": 0.19765347809417347,
+    "R_ci95": [
+     0.03131276767781835,
+     0.40366126116974693
+    ]
+   },
+   "numpy|numpy": {
+    "desc": "frozen numpy walk vs numpy sampler (T379's setting)",
+    "t_walk_est": 0.5024732193998716,
+    "t_in_walk": 0.0,
+    "samp_s_per_fpe": 8.015976421357069e-07,
+    "t_samp_same_budget": 0.012625286199909169,
+    "time_ratio_same_fpe": 38.01265561303942,
+    "R_equal_mse": 1.7638573213130555,
+    "R_ci95": [
+     0.2794347716602252,
+     3.6022683623380574
+    ]
+   }
+  }
+ },
+ "T5:fresh:64000": {
+  "mse_ratio_ci95": [
+   0.00879399477917655,
+   0.07847478863639186
+  ],
+  "models": [
+   "f100",
+   "f101",
+   "f102",
+   "f103",
+   "f104"
+  ],
+  "mse_walk": 5.149972278375761e-09,
+  "mse_samp_same_cost": 1.3177809173969645e-07,
+  "mse_ratio": 0.03908064087427059,
+  "cost": 63772.89176470587,
+  "n_eq": 1631828.1977482063,
+  "pairs": {
+   "fast|compiled_rng": {
+    "desc": "pre-registered: compiled walk, face maps timed  vs  compiled sampler, RNG timed",
+    "t_walk_est": 0.07563784239991947,
+    "t_in_walk": 0.06092189780138142,
+    "samp_s_per_fpe": 5.224922218322394e-07,
+    "t_samp_same_budget": 0.0308773946000656,
+    "time_ratio_same_fpe": 2.2699860688501206,
+    "R_equal_mse": 0.08871251034632885,
+    "R_ci95": [
+     0.019962245638271463,
+     0.17813667696056726
+    ]
+   },
+   "fast_pre|compiled_pre": {
+    "desc": "model-free part precomputed on both sides",
+    "t_walk_est": 0.06337980680000328,
+    "t_in_walk": 0.06020225820138876,
+    "samp_s_per_fpe": 4.492252712250469e-07,
+    "t_samp_same_budget": 0.027778388400292897,
+    "time_ratio_same_fpe": 2.212333629348761,
+    "R_equal_mse": 0.08645941606265062,
+    "R_ci95": [
+     0.019455250386289716,
+     0.17361241395632573
+    ]
+   },
+   "fastfm|compiled_rng": {
+    "desc": "exploratory: reassociation/FMA walk vs compiled sampler, RNG timed",
+    "t_walk_est": 0.04997503599988704,
+    "t_in_walk": 0.035237923399108695,
+    "samp_s_per_fpe": 5.224922218322394e-07,
+    "t_samp_same_budget": 0.0308773946000656,
+    "time_ratio_same_fpe": 1.4998132140023555,
+    "R_equal_mse": 0.0586136615949116,
+    "R_ci95": [
+     0.013189349573676717,
+     0.1176975249629024
+    ]
+   },
+   "fastfm_pre|compiledfm_pre": {
+    "desc": "exploratory: both fastmath, precomputed",
+    "t_walk_est": 0.037752143200305,
+    "t_in_walk": 0.03492541459800123,
+    "samp_s_per_fpe": 3.9261055622095974e-07,
+    "t_samp_same_budget": 0.026417574800143485,
+    "time_ratio_same_fpe": 1.5077992705863248,
+    "R_equal_mse": 0.05892576180427131,
+    "R_ci95": [
+     0.013259578913582351,
+     0.11832422906536766
+    ]
+   },
+   "repro|compiled_rng": {
+    "desc": "scipy CDF walk vs compiled sampler",
+    "t_walk_est": 0.1174449875996288,
+    "t_in_walk": 0.10034148219983763,
+    "samp_s_per_fpe": 5.224922218322394e-07,
+    "t_samp_same_budget": 0.0308773946000656,
+    "time_ratio_same_fpe": 3.5246706839923876,
+    "R_equal_mse": 0.13774638920117618,
+    "R_ci95": [
+     0.030995935593345698,
+     0.27659778693918935
+    ]
+   },
+   "numpy|numpy": {
+    "desc": "frozen numpy walk vs numpy sampler (T379's setting)",
+    "t_walk_est": 0.9108337818001019,
+    "t_in_walk": 0.0,
+    "samp_s_per_fpe": 8.015976421357069e-07,
+    "t_samp_same_budget": 0.051813582600152584,
+    "time_ratio_same_fpe": 17.81749264803863,
+    "R_equal_mse": 0.6963190314579543,
+    "R_ci95": [
+     0.1566869373248683,
+     1.3982239695852974
+    ]
+   }
+  }
+ },
+ "T10:zoo:16000": {
+  "mse_ratio_ci95": [
+   0.10269005693043912,
+   2.491445986361475
+  ],
+  "models": [
+   "z0",
+   "z1",
+   "z2",
+   "z3",
+   "z4"
+  ],
+  "mse_walk": 5.288504831545413e-06,
+  "mse_samp_same_cost": 4.997207547838073e-06,
+  "mse_ratio": 1.0582920122726067,
+  "cost": 15917.729411764705,
+  "n_eq": 15040.961499447129,
+  "pairs": {
+   "fast|compiled_rng": {
+    "desc": "pre-registered: compiled walk, face maps timed  vs  compiled sampler, RNG timed",
+    "t_walk_est": 0.04770530519981549,
+    "t_in_walk": 0.0321215302001292,
+    "samp_s_per_fpe": 1.0244249752044966e-06,
+    "t_samp_same_budget": 0.016623861600237433,
+    "time_ratio_same_fpe": 2.92553570553511,
+    "R_equal_mse": 3.0960710687861113,
+    "R_ci95": [
+     0.3004234281534328,
+     7.288814191512635
+    ]
+   },
+   "fast_pre|compiled_pre": {
+    "desc": "model-free part precomputed on both sides",
+    "t_walk_est": 0.03308052940010384,
+    "t_in_walk": 0.030361190398980397,
+    "samp_s_per_fpe": 8.828633260724028e-07,
+    "t_samp_same_budget": 0.01481407479968766,
+    "time_ratio_same_fpe": 2.353953375803553,
+    "R_equal_mse": 2.4911700548750377,
+    "R_ci95": [
+     0.2417276061728662,
+     5.864747690227806
+    ]
+   },
+   "fastfm|compiled_rng": {
+    "desc": "exploratory: reassociation/FMA walk vs compiled sampler, RNG timed",
+    "t_walk_est": 0.03262385359976179,
+    "t_in_walk": 0.018142092000744015,
+    "samp_s_per_fpe": 1.0244249752044966e-06,
+    "t_samp_same_budget": 0.016623861600237433,
+    "time_ratio_same_fpe": 2.0006632000044804,
+    "R_equal_mse": 2.117285883812494,
+    "R_ci95": [
+     0.20544821790709458,
+     4.984544299712267
+    ]
+   },
+   "fastfm_pre|compiledfm_pre": {
+    "desc": "exploratory: both fastmath, precomputed",
+    "t_walk_est": 0.022512690000075962,
+    "t_in_walk": 0.02024999840068631,
+    "samp_s_per_fpe": 8.043349262236432e-07,
+    "t_samp_same_budget": 0.011746994600071049,
+    "time_ratio_same_fpe": 1.7583662774547297,
+    "R_equal_mse": 1.8608649860798585,
+    "R_ci95": [
+     0.1805667331363905,
+     4.380874604517954
+    ]
+   },
+   "repro|compiled_rng": {
+    "desc": "scipy CDF walk vs compiled sampler",
+    "t_walk_est": 0.05666916059999494,
+    "t_in_walk": 0.04137167699955171,
+    "samp_s_per_fpe": 1.0244249752044966e-06,
+    "t_samp_same_budget": 0.016623861600237433,
+    "time_ratio_same_fpe": 3.4752456156308136,
+    "R_equal_mse": 3.677824675707488,
+    "R_ci95": [
+     0.3568731701163872,
+     8.658386740683703
+    ]
+   },
+   "numpy|numpy": {
+    "desc": "frozen numpy walk vs numpy sampler (T379's setting)",
+    "t_walk_est": 0.6551283287997649,
+    "t_in_walk": 0.0,
+    "samp_s_per_fpe": 1.615642003440984e-06,
+    "t_samp_same_budget": 0.027106023600026674,
+    "time_ratio_same_fpe": 25.474174897982664,
+    "R_equal_mse": 26.9591158137704,
+    "R_ci95": [
+     2.615944470529803,
+     63.467530805449144
+    ]
+   }
+  }
+ },
+ "T10:zoo:64000": {
+  "mse_ratio_ci95": [
+   0.18082166196553745,
+   0.642147265992417
+  ],
+  "models": [
+   "z0",
+   "z1",
+   "z2",
+   "z3",
+   "z4"
+  ],
+  "mse_walk": 4.6902576761096175e-07,
+  "mse_samp_same_cost": 1.2425790912954487e-06,
+  "mse_ratio": 0.37746149995327843,
+  "cost": 64015.4,
+  "n_eq": 169594.51495827714,
+  "pairs": {
+   "fast|compiled_rng": {
+    "desc": "pre-registered: compiled walk, face maps timed  vs  compiled sampler, RNG timed",
+    "t_walk_est": 0.14626550720022352,
+    "t_in_walk": 0.11899640500050737,
+    "samp_s_per_fpe": 1.0244249752044966e-06,
+    "t_samp_same_budget": 0.06388560220020736,
+    "time_ratio_same_fpe": 2.2303719780113034,
+    "R_equal_mse": 0.8418795522739071,
+    "R_ci95": [
+     0.403299567865367,
+     1.4322272678260577
+    ]
+   },
+   "fast_pre|compiled_pre": {
+    "desc": "model-free part precomputed on both sides",
+    "t_walk_est": 0.13252953280007204,
+    "t_in_walk": 0.12815787920026195,
+    "samp_s_per_fpe": 8.828633260724028e-07,
+    "t_samp_same_budget": 0.05350798780000332,
+    "time_ratio_same_fpe": 2.344956154311253,
+    "R_equal_mse": 0.8851306673309969,
+    "R_ci95": [
+     0.42401886905887604,
+     1.5058071833630633
+    ]
+   },
+   "fastfm|compiled_rng": {
+    "desc": "exploratory: reassociation/FMA walk vs compiled sampler, RNG timed",
+    "t_walk_est": 0.09811073380005837,
+    "t_in_walk": 0.07055044899825588,
+    "samp_s_per_fpe": 1.0244249752044966e-06,
+    "t_samp_same_budget": 0.06388560220020736,
+    "time_ratio_same_fpe": 1.4960699593392734,
+    "R_equal_mse": 0.5647088108872425,
+    "R_ci95": [
+     0.27052185646444143,
+     0.9606972341231009
+    ]
+   },
+   "fastfm_pre|compiledfm_pre": {
+    "desc": "exploratory: both fastmath, precomputed",
+    "t_walk_est": 0.07172101340001973,
+    "t_in_walk": 0.06791515079876262,
+    "samp_s_per_fpe": 8.043349262236432e-07,
+    "t_samp_same_budget": 0.047572399400087305,
+    "time_ratio_same_fpe": 1.3929163194549046,
+    "R_equal_mse": 0.5257722832508482,
+    "R_ci95": [
+     0.25186944386275534,
+     0.8944574062941871
+    ]
+   },
+   "repro|compiled_rng": {
+    "desc": "scipy CDF walk vs compiled sampler",
+    "t_walk_est": 0.19001551540004585,
+    "t_in_walk": 0.1606587333997595,
+    "samp_s_per_fpe": 1.0244249752044966e-06,
+    "t_samp_same_budget": 0.06388560220020736,
+    "time_ratio_same_fpe": 2.8975066579127815,
+    "R_equal_mse": 1.0936972092203694,
+    "R_ci95": [
+     0.5239319694399991,
+     1.8606259785735182
+    ]
+   },
+   "numpy|numpy": {
+    "desc": "frozen numpy walk vs numpy sampler (T379's setting)",
+    "t_walk_est": 1.488109496799916,
+    "t_in_walk": 0.0,
+    "samp_s_per_fpe": 1.615642003440984e-06,
+    "t_samp_same_budget": 0.10137445679993107,
+    "time_ratio_same_fpe": 14.388161016497605,
+    "R_equal_mse": 5.430976838856472,
+    "R_ci95": [
+     2.6016911876308537,
+     9.239318259402612
+    ]
+   }
+  }
+ }
+}
