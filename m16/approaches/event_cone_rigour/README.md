@@ -259,7 +259,9 @@ The MC is an importance sampler with 1e7 points per region; relative s.e. 16-72%
 | M2 (orthant/tilt) | 365 | 5,000 | 4.7e4 | 12 | 27 ms (p90 43 ms) | 5.6e-4 (vs 2.2e-7) |
 | M5 (exact marginal, 4,000 simplices) | 6.9 | 20 | 23 | 3.3 | 25 s (p90 28 s) | (27 scored cells) |
 
-On the same 27 cells M2 has median 365. The M5 lower bounds are ≤ 0.49 of MC: rigorous [lb, ub] brackets of width 7-70x.
+| **M5t** (exact per-simplex integrals, 2,000 simplices; pre-registration 2) | **1.55** | **2.07** | **2.93** | 1.20 | 23 s (p90 25 s) | Σ ub 3.9e-7 vs Σ MC 2.2e-7; rigorous lb/MC median 0.50 |
+
+**M5t passes its pre-registered line** at t0 = 2.25 (median <= 3, p90 <= 10, <= 30 s), with no soundness violation (`python a_m5.py 2.25 2000 t`). On the same 27 cells M2 has median 365. The M5 lower bounds are ≤ 0.49 of MC: rigorous [lb, ub] brackets of width 7-70x.
 
 No ub fell below its MC value minus 4 s.e. on any scored cell or region.
 
