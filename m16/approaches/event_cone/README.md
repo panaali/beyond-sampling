@@ -303,3 +303,62 @@ survivors. Starting at k = 1, up to k = 6.
 mass (computed exactly, or bounded by the region mass) + 1e-49. Every pruned branch must be proved event-free, which
 needs the Farkas rays verified exactly. It is exact (rather than a bound) only if each surviving region's event
 polytope mass is integrated exactly. An "estimate" (survivors only on the 41 triples with hits) is not a certificate.
+
+## T390 results (2026-10-19)
+**Kill test on (1,8,2)** [measured; `bnb.py`, `relax.py`, `logs/bnb_182.log`, `results_bnb_1-8-2.json`]. Event
+prefixes come from 276,120 line-walk event points.
+
+| k | children tested | survivors | pruned by the g23 normalisation | pruned by the relaxation | event prefixes (pruned) |
+|---|---|---|---|---|---|
+| 1 | 2 | 2 | 0 | 0 | 2 (0) |
+| 2 | 20 | 19 | 1 | 0 | 10 (0) |
+| 3 | 80 | 55 | 25 | 0 | 11 (0) |
+| 4 | 780 | 273 | 490 | 17 | 35 (0) |
+| 5 | 4,224 | 1,511 | 2,538 | 175 | 61 (0) |
+| 6 | 19,501 | **7,689** | 11,054 | 758 | 188 (0) |
+
+- **Validation passed:** no event prefix was pruned at any k.
+- Pruned fraction of all k = 6 regions: >= 1 - 7,689 / 2e5 = **96.2%**. Most of it is the normalisation, which
+  removes cells where g23 can only be tiny relative to ||x||_inf. The triangle relaxation of the remaining 4-9
+  steps adds only 3.9% at k = 6 (758 / 19,501).
+- Survivors grow x5.0, x5.5 and x5.1 (k = 4->5->6). The event prefixes grow x1.7-3.1. The ratio of survivors to
+  event prefixes widens from 7.8 to 25 to 41 (k = 4, 5, 6).
+- **Projection:** N10 = 41 x 7,689 x 5.09^4 = **2.1e8 > 1e7. Verdict: STOP** (scoped negative, unverified).
+  (1,8,2)'s own term, 5.2e6, is already half the line. Using the max over triples, adding (3,9,2) could only raise
+  it.
+- (3,9,2): 2 / 34 / 414 / 3,132 survivors at k = 1..4, with no event prefix pruned. It was stopped at k = 5, about
+  2.5 CPU-h short of finishing, because it cannot change the verdict.
+- **Side measurement, triples with no event hits** [measured]:
+  - (1,2,0): survivors 2 / 19 / 77 / 358 at k = 1..4, against 822 regions at k = 4 (44% survive).
+  - (4,1,3): 2 / 19 / 100 at k = 1..3.
+  - The relaxation does not tell the 679 no-hit triples apart from event triples. A certificate would have to carry
+    all of them at survivor rates similar to (1,8,2).
+
+**What the method would certify** (answering the DRI): the pruning is sound in exact arithmetic, but the LPs here are
+floating point. A certificate would also need each pruned cell's Farkas ray verified exactly. With that it gives a
+rigorous **upper bound**:
+
+  P(E) <= the sum of event masses over surviving step-10 regions, over all 720 triples, + 1e-49.
+
+It is exact only if every surviving region's event polytope mass is integrated exactly. Restricted to the 41 event
+triples it is an estimate, not a certificate. As measured, neither version comes in under 1e7 regions.
+
+**Why it fails [inferred].** The triangle relaxation over 4 or more remaining steps is loose. |Wh| compounds the
+relaxation gap step by step, as with T344's interval bounds. So it proves infeasibility only near the end, or where
+the cell itself forbids the event. The useful pruning (96%) comes from the geometry of g23, not from the dynamics.
+
+**Alternatives not ruled out / not tried.**
+- Tighter relaxations: split some unstable neurons (partial branching, as in BaB-style verifiers); multi-neuron or
+  PRIMA-style constraints; bounds from the event constraint propagated backwards.
+- A lower prune threshold: compute the triangle bounds with the event constraint already in the LP.
+- Pruning only from k >= 7, where fewer steps remain.
+- A larger DELTA: with g23 >= 1.5 and ||x||_inf <= 7.5 at DELTA = 0.2, the excluded mass is about 20 Phi(-7.5)
+  = 6e-13, still far below the event's 2.2e-7. It would prune more by geometry. **Not tried. This is the cheapest
+  rescue to test**, but the normalisation prunes only cells where g23 is tiny relative to ||x||_inf, so it cannot touch
+  the survivors that carry most of the growth.
+- Each of these trades LP cost per cell for pruning. At about 0.2 s per cell for k = 6, 2.1e8 cells is 1.2e7 CPU-s,
+  so a 20x tighter relaxation would be needed to reach the line.
+
+**Compute (T390):** (1,8,2) 1.18 CPU-h; (3,9,2) about 0.8 CPU-h (stopped); side triples about 0.2 CPU-h. Total about
+2.2 CPU-h of the 6 CPU-h cap. Cost is dominated by the relaxation LPs: 16 neurons x 2 bound LPs x the remaining
+steps, at about 1-3 ms each.
