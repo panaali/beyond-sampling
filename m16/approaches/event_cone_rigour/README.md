@@ -168,7 +168,7 @@ proved event-free. Two parts are not yet rigorous:
 
 ## Status
 Running. The verifier (b) and the proof (c) are done. The mass bound (a) is rigorous but not yet tight enough
-to be useful: the best options are 7-30x at 10-25 s per cell, or 12-5,000x at 30 ms.
+to be useful: the best options are M5 at 3-23x (median 6.9) for 25 s per k = 4 cell, or M2 at 12-5e4x (median 365) for 30 ms.
 
 ## Results
 
@@ -177,7 +177,18 @@ to be useful: the best options are 7-30x at 10-25 s per cell, or 12-5,000x at 30
 - At T398's t0 = 2.5 with DELTA = 1/3, the bound is 20 Φ(-7.5) = 6.4e-13.
 
 ### (b) Verifier (T398 benchmark (1,8,2), k = 4 → 5; `python b_bench.py <dir with relax2.py, cone_count.py> 46 0`)
-B1_B2_B3_PLACEHOLDER
+| test | result |
+|---|---|
+| B1 (47 cells containing a probe event point, event-aware) | **0 / 47 verified** (must be 0) |
+| B2 (all 717 float-pruned k = 5 children of the first 46 survivors) | **717 / 717 verified**. By stage: 0: 668/668, 1: 21/21, 2: 26/26, 3: 2/2 (36 and 30 leaves) |
+| B3 cost, stage 0 | median 5.3 ms (float 3.5 ms) |
+| B3 cost, stages 1-2 | 0.6-0.8 s (float 0.5-0.6 s) |
+| B3 cost, stage 3 | 1.2-1.3 s per cell (float 0.9 s) |
+
+Not run: the deliberately falsified certificates of B1 (pre-registered). The verifier takes no bounds from the
+certificate, so there is nothing to falsify. Instead, B1 holds cells that are known to be event-feasible.
+
+T398's certificate set (DELTA = 1/3, 5,476 pruned cells of (1,8,2), k = 2..6) is reported below.
 
 ### (a) Mass bounds: tightness against MC, and cost
 
@@ -202,7 +213,9 @@ The MC is an importance sampler with 1e7 points per region; relative s.e. 16-72%
 | method | ub/MC median | p90 | max | min | cost per cell | Σ ub over 273 cells |
 |---|---|---|---|---|---|---|
 | M2 (orthant/tilt) | 365 | 5,000 | 4.7e4 | 12 | 27 ms (p90 43 ms) | 5.6e-4 (vs 2.2e-7) |
-M5_PLACEHOLDER
+| M5 (exact marginal, 4,000 simplices) | 6.9 | 20 | 23 | 3.3 | 25 s (p90 28 s) | (27 scored cells) |
+
+On the same 27 cells M2 has median 365. The M5 lower bounds are ≤ 0.49 of MC: rigorous [lb, ub] brackets of width 7-70x.
 
 No ub fell below its MC value minus 4 s.e. on any scored cell or region.
 
