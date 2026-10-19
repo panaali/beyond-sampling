@@ -37,6 +37,8 @@ POSTHOC = {"G32": graded(32), "G48": graded(48), "G64": graded(64), "P4_32": gra
            "P5_32": graded(32, 5), "P5_48": graded(48, 5), "L48": logrule(48), "L64": logrule(64), "L96": logrule(96)}
 if os.environ.get("T450_POSTHOC"):                    # post hoc (added after every pre-registered rule failed)
     RULES.update({k: POSTHOC[k] for k in os.environ["T450_POSTHOC"].split(",")})
+if os.environ.get("T450_ONLY"):                       # (8,5): G24 (primary) + chosen post-hoc rules only (runtime)
+    RULES = {k: {**RULES, **POSTHOC}[k] for k in os.environ["T450_ONLY"].split(",")}
 REF = (estT._LOG_S, estT._LOG_T, estT._LOG_W)
 REF5 = estT._LOG5[0]
 assert np.array_equal(REF[0], logrule(128)[0]) and np.array_equal(REF5[2], logrule(128)[2])
