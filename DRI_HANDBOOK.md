@@ -7,6 +7,9 @@ project without the chat history. Read this, then STATUS.md, then TASKS.md.
 Updated by the 2026-10-18 DRI: section 10 (00:46), the struck claim in section 7 (05:15), and section 11 plus the
 corrections marked "2026-10-18 pm" (afternoon). Then read [OWNER_QA.md](OWNER_QA.md) for the owner's questions and
 directives.
+Note (T396, 2026-10-19): the DRI directives 1-8 and the ladder protocol that used to sit at the top of TASKS.md are now
+in [docs/PROTOCOLS.md](docs/PROTOCOLS.md); "TASKS Directive N" below means those. Finished board text is in
+[docs/archive/TASKS_history.md](docs/archive/TASKS_history.md).
 
 ## 1. The goal, and where it stands
 
@@ -301,8 +304,8 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
    DEV3 (T343, another agent) the bias shift (+.22) and the corr gain replicated but the variance cut did not (sd ratio
    .912 [.76, 1.11] vs .68), so the "variance-only F ~1.06" reading was withdrawn. Report bias, error sd and corr for
    every arm, not only RMS or F. (T351's tilt then removed the bias, +.49 -> +.04 pp, at +2.8k FPE as executed.)
-8. **Owner Q&A lives in [OWNER_QA.md](OWNER_QA.md).** Every owner question gets an entry with its time, the answer as
-   given and a "Later updates" note when a result changes it. Directives are recorded verbatim in its section 8, each
+8. **Owner Q&A lives in [OWNER_QA.md](OWNER_QA.md).** Every owner question gets an entry with its time and the answer as
+   given; when a result changes it, add a one-line "Later updates" pointer to the INDEX rows (T396: results live only in INDEX). Directives are recorded verbatim in its section 8, each
    with a one-line note of what was done. Update it in the same commit as the board change a directive causes (T345,
    T346, T352).
 9. **Do not let a lane wait on a silent agent.** The Codex lanes, including the Astra reviews, have been silent since
@@ -311,14 +314,6 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
    the continuity-restart saving behind T317; round 5: T326-T332). Give a silent lane's Ready rows to child sessions
    after a stated timeout, and run reviews that need no compute as sub-agents.
 
-**Owner directive (2026-10-18 17:27):** stop using Fable from now on (no Fable reviews or sub-agents).
+**Owner directives** are recorded once, verbatim, in [OWNER_QA.md section 8](OWNER_QA.md#directives); the ones that bind agents (no Fable, never contact ARC, parallel child sessions, CPU-first, tutorial paused) are one-liners in [AGENTS.md "Standing rules"](AGENTS.md#standing-rules). Record a new directive there only, never by copying it here or into TASKS.md.
 
-**Owner directive (2026-10-18 23:4x):** "You should not ever contact them. I will contact them when I deem it's the right time." The DRI and all agents never contact ARC and do not recommend contact; only the owner decides if and when.
-
-**Owner directive (2026-10-18 23:4x):** run lower-priority backlog ideas in parallel, each in its own child session (own sandbox). The CPU-slot rule applies per container.
-
-**Owner directive (2026-10-19 06:0x):** vCPU time is essentially free; the cost is tokens (and some GPU). Run every helpful remaining experiment in its own session, preferring CPU-heavy work; keep sessions lean on tokens.
-
-**Owner directive (2026-10-19 06:4x):** no tutorial updates until the owner asks for one final update (supersedes the batched-update rule below for now).
-
-**Owner directive (2026-10-19 00:1x):** keep the interactive explainer (T374, session_01XkxtNU1pcq7TYNKYqvPhSg) current: after registering notable results, send T374 one batched update so it re-publishes to the same Artifact URL; ask for a final pass when all lanes are done. If the session is gone, start a new one from claude/t374-tutorial (tutorial/README.md has the URL and rebuild steps).
+**Tutorial update procedure (DRI process, from the 10-19 00:1x tutorial request; paused by the owner at [10-19 06:4x](OWNER_QA.md#d-1019-064x)):** keep the interactive explainer (T374, session_01XkxtNU1pcq7TYNKYqvPhSg) current: after registering notable results, send T374 one batched update so it re-publishes to the same Artifact URL; ask for a final pass when all lanes are done. If the session is gone, start a new one from claude/t374-tutorial (tutorial/README.md has the URL and rebuild steps).
