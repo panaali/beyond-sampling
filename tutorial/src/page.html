@@ -131,6 +131,9 @@ ol.refs { font-size: .92rem; padding-left: 1.4rem; }
 ol.refs li { margin: .35rem 0; }
 .toc { font-family: var(--display); font-size: .92rem; columns: 2 14rem; column-gap: 2rem; margin: 1rem 0; padding: 0; list-style: none; }
 .interesting li { margin: .55rem 0; }
+details.reg { border-top: 1px solid var(--rule); padding: .5rem 0; }
+details.reg summary { font-family: var(--display); font-weight: 650; cursor: pointer; }
+details.reg li { margin: .45rem 0; font-size: .95rem; line-height: 1.5; }
 .toc li { break-inside: avoid; margin: .15rem 0; }
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
@@ -171,6 +174,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <li><a href="#interesting">1a. The most interesting findings</a></li>
   <li><a href="#candidates">1b. Which methods pass which bar</a></li>
   <li><a href="#novelty">1c. What is new here</a></li>
+  <li><a href="#scale">1d. How far does this scale?</a></li>
   <li><a href="#challenge">2. The challenge in one picture</a></li>
   <li><a href="#theory">3. Why this is hard in principle</a></li>
   <li><a href="#simplest">4. The simplest case: two numbers, then three</a></li>
@@ -184,6 +188,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <li><a href="#rare">12. Rare mistakes</a></li>
   <li><a href="#solved">13. What would count as solving it</a></li>
   <li><a href="#lanes">14. Work in progress and recent results</a></li>
+  <li><a href="#register">15. Every other finding, by theme</a></li>
   <li><a href="#glossary">Glossary, references and data</a></li>
 </ul>
 
@@ -256,7 +261,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <li><b>Exactness-friendly attention keeps up with softmax.</b> In a mini language model, attention built from piecewise-linear routing matches softmax accuracy on a bracket language <span class="id">T444</span> <span class="st st-unv">pass (unverified)</span>. <i>Why it matters:</i> our exact tools need piecewise-linear parts; this is a first sign they need not cost accuracy in transformer-like models.</li>
   <li><b>Honest negatives.</b> The gap-direction family cannot reach the strict bar <span class="id">H-S1</span> <span class="st st-dead">dead (verified), scoped</span>; listing the most common mistake patterns cannot replace sampling, since the error mass is spread thin (the top 10<sup>4</sup> patterns carry .27 of it) <span class="id">T413</span> <span class="st st-neg">negative (unverified)</span>; rounding activations does not make exact calculation cheap <span class="id">T352</span> <span class="st st-neg">negative (unverified)</span>; and a re-check of a buggy calculator changed no verdicts <span class="id">T443</span>. <i>Why it matters:</i> they close tempting routes with measurements.</li>
   <li><b>Novelty and the safety contribution.</b> Most tools apply known work; the most novel part is the rigorous 10-D Gaussian masses, and the biggest result is the sealed strict pass (section 1c, OWNER_QA 4.15). The biggest contribution to AI safety is the rare-failure work end to end on a real trained network: estimate (H-R1), locate and repair (H-R3), and prove an upper limit (T416) <span class="id">OWNER_QA 4.16</span> <span class="claim">judgment</span>.</li>
-  <li><b>How far it scales, and what it costs.</b> Estimates, not measurements <span class="id">OWNER_QA 4.17</span> <span class="claim">estimate</span>: focused sampling to about 10<sup>8</sup>–10<sup>9</sup> parameters, repair to 10<sup>6</sup>–10<sup>8</sup>, line walks to 10<sup>5</sup>–10<sup>6</sup> with inputs of up to ~20–50 dimensions, certified bounds to ~10–20 inputs and about 10<sup>3</sup> unrolled ReLUs. Reproducing our results is cheap: the sealed accuracy estimate is about 4×10<sup>6</sup> runs (under a minute on one core); a rare-failure estimate near 10<sup>−10</sup> takes minutes; the certified bound for the section with the mistakes about 4×10<sup>3</sup> CPU-hours ($40–200). The main cost was agent time, not compute.</li>
+  <li><b>How far it scales, and what it costs.</b> The sampling-class safety tools would apply to a billion-parameter model for a few GPU-hours per failure type; the exact and certified methods would not, at any budget we can foresee (section 1d) <span class="id">OWNER_QA 4.17, 4.18</span> <span class="claim">estimate</span>.</li>
 </ol>
 
 <h3 id="candidates">Which methods pass which bar</h3>
@@ -273,6 +278,32 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 
 <h3 id="novelty">What is new here</h3>
 <p>Most of our tools apply known verification and line-sampling work: probabilistic branch and bound (Boetius et al. 2025), region enumeration with Gaussian masses (Kofnov et al. 2025), exact line restriction (ExactLine), safe LP bounds, dominating-point importance sampling (Bai, Huang, Lam and Zhao 2020). What we did not find elsewhere: outward-rounded, floating-point-rigorous Gaussian masses of 10-dimensional polytope cells <span class="id">H-C1</span> <span class="st st-conf">confirmed, scoped</span>; a rigorous bound near 10<sup>−11</sup> on an unrolled RNN (T416, provisional); deterministic rare-event estimates near 10<sup>−10</sup> without enumerating regions (H-R1); and a sealed equal-compute win over sampling for this model class (H-E17), new as a result rather than as a method <span class="id">lit/novelty_review.md · OWNER_QA 4.15</span>. These "not found elsewhere" claims rest on targeted searches and are unverified.</p>
+
+<h3 id="scale">1d. How far does this scale?</h3>
+<p>Educated estimates by the project's coordinator, not measurements, except where a record is named <span class="id">OWNER_QA 4.17, 4.18</span> <span class="claim">estimate</span>. One run of M<sub>16,10</sub> is about 6×10<sup>3</sup> operations; a billion-parameter model reading about 100 tokens is about 2×10<sup>11</sup>.</p>
+<div class="tbl wide" style="max-width:64rem"><table>
+  <thead><tr><th>Method</th><th>Practical size (confidence)</th><th>On a 1e9-parameter model</th><th>Main limit</th></tr></thead>
+  <tbody>
+    <tr><td>Focused-sampling rare-failure estimates (T436–T456)</td><td>1e8–1e9 parameters (medium-low)</td><td>yes, if the input distribution is defined (e.g. a prompt generator): ~1e7 passes + ~1e6 gradient steps, ~$5–30 per failure type</td><td>finding every failure region in a huge input space; honest error bars took three iterations even in 10-D</td></tr>
+    <tr><td>Locate and repair (H-R3)</td><td>1e6–1e8 (medium-low)</td><td>yes, with Hessian approximations: GPU-hours to days, $100–10,000</td><td>rare-to-common conversion (T411)</td></tr>
+    <tr><td>Safe-use rating (T401)</td><td>as the rare-failure estimate (low)</td><td>yes: $100s–1,000s</td><td>a per-network trust flag</td></tr>
+    <tr><td>Line walks for accuracy (H-E17)</td><td>1e5–1e6, inputs up to ~20–50 dimensions (low)</td><td>no as is: softmax, GELU and LayerNorm are not piecewise linear, and tokens are not lines</td><td>pieces per line grow with size; wider nets helped so far (T423)</td></tr>
+    <tr><td>Certified upper bound (T416, T418)</td><td>~10–20 inputs, a few hundred to ~1e3 unrolled ReLUs (medium)</td><td>no: a 1-GW month (~1e27 operations, ~$1–1.5 billion) buys only ~150–200 more unrolled neurons</td><td>cells grow ~5–10× per 16-neuron step (T398)</td></tr>
+  </tbody>
+</table></div>
+<div class="tbl"><table>
+  <thead><tr><th>Reproducing our M<sub>16,10</sub> results</th><th>Compute</th><th>Cost today</th><th>Time</th></tr></thead>
+  <tbody>
+    <tr><td>Accuracy estimate beating sampling, one model (T431)</td><td>~4e6 runs</td><td>&lt; $0.001</td><td>under a minute, one core</td></tr>
+    <tr><td>Same on a 100-model panel with 1e8-sample answer keys</td><td>a few CPU-hours</td><td>&lt; $1</td><td>an hour on a laptop</td></tr>
+    <tr><td>One rare-failure estimate near 1e-10 (T456)</td><td>~3–5e6 runs; answer key 1–10 CPU-h</td><td>&lt; $1</td><td>minutes (+ hours for the key)</td></tr>
+    <tr><td>Targeted repair and its check (T402, T410)</td><td>~1 CPU-h</td><td>&lt; $1</td><td>about an hour</td></tr>
+    <tr><td>Certified bound, one easy input section (T416)</td><td>130–260 CPU-h</td><td>$3–13</td><td>a day on a few machines</td></tr>
+    <tr><td>Certified bound, the section with the mistakes (T398, T400)</td><td>~4e3 CPU-h</td><td>$40–200</td><td>~5 days on 32 processes</td></tr>
+    <tr><td>Certified bound over all inputs (if T455 works)</td><td>~1e4–1e5 CPU-h (low confidence)</td><td>$100–5,000</td><td>2–8 weeks on ~64 cores</td></tr>
+  </tbody>
+</table></div>
+<p class="note">So the sampling-class safety tools cost about 10<sup>−8</sup> to 10<sup>−6</sup> of a gigawatt-month at the billion-parameter scale: one 8-GPU node for hours to days. There the bottleneck is method, not compute. The exact and certified methods do not reach a billion parameters at any budget we can foresee. In this project the main cost was agent time, not compute.</p>
 
 <p>Here is the path to these results, in one paragraph. On a smaller AlgZoo network with 32 weights (M<sub>4,3</sub>), a calculation derived from the network's mechanism beat random testing by about 50 times <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. As we moved toward the full network, that advantage shrank at every step. At 10 steps, the gap-direction walks are 2.6× worse than random testing, and the fixed-line walks only tie it at small budgets; with about a million runs per network they pull ahead (section 5). Most of this tutorial explains why the problem gets harder with every step, and where the remaining doubt lies.</p>
 
@@ -617,6 +648,10 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <p>These projects are running now or have finished since this page was first written. Each box comes from <code>tutorial/data/status.json</code> and is current as of the time in the footer; the page is rebuilt when new results arrive.</p>
 <div id="lanes-all"></div>
 
+<h2 id="register">15. Every other finding, by theme</h2>
+<p>The project's index lists 333 experiments and claims. The sections above explain the most important ones; every remaining row is here as one plain line, grouped by theme, with its status in the index's own words. These lines were drafted from each row's text and checked so that every number in a line appears in its row; the row in <code>INDEX.md</code> is the authority.</p>
+<div id="register-list"></div>
+
 <h2 id="glossary">Glossary</h2>
 <dl class="gloss">
   <dt>Percentage point (pp)</dt><dd>One hundredth of accuracy. An increase from 95.3% to 95.8% is +0.5 points.</dd>
@@ -667,6 +702,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <script type="application/json" id="d-weights">__WEIGHTS__</script>
 <script type="application/json" id="d-panels">__PANELS__</script>
 <script type="application/json" id="d-status">__STATUS__</script>
+<script type="application/json" id="d-findings">__FINDINGS__</script>
 <script>
 "use strict";
 const $ = (id) => document.getElementById(id);
@@ -1065,12 +1101,17 @@ function laneHTML(id) { const l = STATUS.lanes[id]; if (!l) return ""; const st 
   return `<div class="lane${st.startsWith("in progress") ? "" : " done"}" id="lane-${id}"><div class="lt"><span class="id">${id}</span>${l.title}<span class="st ${cls}">${l.status}</span></div>${l.what ? `<p>${l.what}</p>` : ""}<p class="lat"><b>Latest:</b> ${l.latest}</p></div>`; }
 function laneMini(id) { const l = STATUS.lanes[id]; if (!l) return ""; const st = l.status, cls = st.startsWith("negative") ? "st-neg" : st.startsWith("confirmed") ? "st-conf" : st.startsWith("in progress") ? "st-prog" : "st-unv";
   return `<p class="lane-mini"><span class="st ${cls}">${st}</span> <b>${l.title}</b> <span class="id">${id}</span>${st.startsWith("in progress") ? "" : " · " + l.latest} <a href="#lane-${id}">details</a></p>`; }
+function register() { const F = JSON.parse($("d-findings").textContent).rows, G = {};
+  for (const r of F) (G[r.theme] ||= []).push(r);
+  const cls = (st) => { const t = st.toLowerCase(); return /dead/.test(t) ? "st-dead" : /refuted|negative|fail|kill|no.go|stop|withdrawn/.test(t) ? "st-neg" : /confirmed/.test(t) ? "st-conf" : /running|in progress|pending/.test(t) ? "st-prog" : "st-unv"; };
+  const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  $("register-list").innerHTML = Object.entries(G).map(([g, rs]) => `<details class="reg"><summary>${g} <span class="readout">(${rs.length})</span></summary><ul>` + rs.map((r) => `<li><span class="id">${esc(r.id)}</span> <span class="st ${cls(r.status)}">${esc(r.status)}</span> ${esc(r.line)}</li>`).join("") + `</ul></details>`).join(""); }
 function lanes() { document.querySelectorAll("[data-lane]").forEach((d) => (d.innerHTML = laneMini(d.dataset.lane))); const groups = {}; for (const id in STATUS.lanes) (groups[STATUS.lanes[id].group || "Other"] ||= []).push(id);
   $("lanes-all").innerHTML = Object.entries(groups).map(([g, ids]) => `<h3>${g}</h3>` + ids.map(laneHTML).join("")).join(""); $("status-stamp").textContent = "lane status as of " + STATUS.updated; }
 
 /* ---------- boot ---------- */
 function drawAll() { denChart(); liveDraw(); smpUpdate(); slDraw(); htCharts(); regChart(); dcUpdate(); nzDraw(); seedCharts(); wkDraw(); budChart(); rrDraw(); }
-lanes(); denChart(); liveRandom(); smpUpdate(); slNew(); htCharts(); regChart(); dcUpdate(); nzDraw(); seedCharts(); wkNew(); budChart(); rrDraw();
+lanes(); register(); denChart(); liveRandom(); smpUpdate(); slNew(); htCharts(); regChart(); dcUpdate(); nzDraw(); seedCharts(); wkNew(); budChart(); rrDraw();
 $("rr-run").click();
 setTimeout(() => $("nz-run").click(), 600);
 let lastScheme = css("--paper");

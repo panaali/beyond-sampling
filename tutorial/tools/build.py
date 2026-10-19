@@ -17,7 +17,7 @@ def load(name):
 
 def main():
     page = open(os.path.join(ROOT, "src", "page.html")).read()
-    for key, name in [("__WEIGHTS__", "weights.json"), ("__PANELS__", "panels.json"), ("__STATUS__", "status.json")]:
+    for key, name in [("__WEIGHTS__", "weights.json"), ("__PANELS__", "panels.json"), ("__STATUS__", "status.json"), ("__FINDINGS__", "findings.json")]:
         page = page.replace(key, load(name))
     open(os.path.join(ROOT, "artifact.html"), "w").write(page)
     head, _, rest = page.partition("<article>")
