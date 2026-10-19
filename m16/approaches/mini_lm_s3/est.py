@@ -343,11 +343,14 @@ class Twist:
 
 
 def ce_is(model, lang, L, tau, budget, rng, rho=0.1, alpha=0.05, frac_final=0.5, n_stages=10, n_refine=2,
-          return_twist=False):
+          return_twist=False, score=None, return_samples=False):
     """Cumulative cross-entropy method: each stage samples from the current twisted law, raises the level to the
     (1 - rho) quantile of the scores (capped at tau), and refits on the elites of ALL stages so far (weights =
     likelihood ratio x 1[score >= level]); after the level reaches tau, n_refine more stages at tau. The final
-    estimate uses fresh samples only. Charged for every sample (CE stages too)."""
+    estimate uses fresh samples only. Charged for every sample (CE stages too).
+    Optional (added after the freeze, default unchanged): score(y) -> (S, Z) replaces (max_t p_illegal, 1) by a
+    custom CE score S and integrand Z (estimate = mean LR x Z x 1[S > tau]); return_samples returns (y, LR)."""
+    sc = score or (lambda yy: (phi_all(model, lang, yy)[:, :L].max(1), 1.0))
     nf = Walk(1, L).features().shape[1]
     tw = Twist(nf, alpha)
     n_stage = max(500, int(budget * (1 - frac_final) / n_stages))
@@ -356,7 +359,7 @@ def ce_is(model, lang, L, tau, budget, rng, rho=0.1, alpha=0.05, frac_final=0.5,
     g, at_tau = -1.0, 0
     for it in range(n_stages):
         y, llr, Fs, As, w = tw.run(n_stage, L, rng)
-        S = phi_all(model, lang, y)[:, :L].max(1)
+        S = sc(y)[0]
         spent += n_stage
         dep, _, _ = stack_info(y)
         masks = np.ones((n_stage, L - 1, 3), bool); masks[:, :, 2] = dep[:, :L - 1] > 0
@@ -376,9 +379,11 @@ def ce_is(model, lang, L, tau, budget, rng, rho=0.1, alpha=0.05, frac_final=0.5,
                 break
     n_fin = max(500, int(budget - spent))
     y, llr, _, _, _ = tw.run(n_fin, L, rng)
-    S = phi_all(model, lang, y)[:, :L].max(1)
+    S, Z = sc(y)
     spent += n_fin
-    est = float((np.exp(llr) * (S > tau)).mean())
+    est = float((np.exp(llr) * Z * (S > tau)).mean())
+    if return_samples:
+        return est, spent, tw, y, np.exp(llr)
     return (est, spent, tw) if return_twist else (est, spent)
 
 
