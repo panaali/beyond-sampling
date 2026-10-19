@@ -1,0 +1,45 @@
+validation at 1M FPE (frozen rule): z = (est - truth) / sqrt(p(1-p)/1e6); cap hits
+  m_16_10_cpu0   acc 0.88362  z  +0.30  cap 0  cells/line 3.6  max 50
+  m_16_10_zoo0   acc 0.90996  z  +0.09  cap 0  cells/line 3.9  max 43
+  m_16_10_zoo1   acc 0.88018  z  -0.05  cap 0  cells/line 4.9  max 64
+  m_16_10_zoo2   acc 0.94851  z  -0.46  cap 0  cells/line 8.0  max 111
+  m_16_10_zoo3   acc 0.93210  z  +0.42  cap 0  cells/line 6.1  max 71
+  m_16_10_zoo4   acc 0.88963  z  -0.03  cap 0  cells/line 3.5  max 38
+  m_24_10_cpu0   acc 0.98546  z  +0.29  cap 0  cells/line 9.9  max 91
+  m_24_10_cpu1   acc 0.98878  z  +0.32  cap 0  cells/line 9.0  max 84
+  m_24_10_cpu2   acc 0.99008  z  -0.20  cap 0  cells/line 8.0  max 82
+  m_32_10_cpu0   acc 0.99381  z  -0.39  cap 0  cells/line 14.3  max 160
+  m_32_10_cpu1   acc 0.99368  z  +0.70  cap 0  cells/line 17.4  max 153
+  m_32_10_cpu2   acc 0.98810  z  +0.10  cap 0  cells/line 14.0  max 135
+  m_32_10_zoo0   acc 0.99442  z  +0.33  cap 0  cells/line 15.2  max 167
+  m_32_10_zoo1   acc 0.99332  z  +0.40  cap 0  cells/line 15.8  max 159
+  m_32_10_zoo2   acc 0.99142  z  -0.18  cap 0  cells/line 17.0  max 143
+  m_32_10_zoo3   acc 0.99274  z  +0.34  cap 0  cells/line 16.0  max 153
+  m_32_10_zoo4   acc 0.99077  z  +0.45  cap 0  cells/line 18.1  max 181
+
+F = MSE_walk / MSE_MC at equal FPE, frozen rule seed, panel = all registered models (95% bootstrap CI)
+  H   T  n   1-acc | 4k: F [lo, hi] strict/lenient | 16k: F [lo, hi] strict/lenient | 64k: F [lo, hi] strict/lenient
+ 16  10  6  0.0927 |   1.18 [ 0.48,   1.84] incon/holds |   1.01 [ 0.16,   2.21] incon/holds |   0.33 [ 0.19,   0.53] holds/holds
+ 24  10  3  0.0119 |   0.27 [ 0.01,   0.52] holds/holds |   0.29 [ 0.12,   0.64] holds/holds |   0.17 [ 0.07,   0.38] holds/holds
+ 32  10  8  0.0077 |   0.41 [ 0.08,   0.97] holds/holds |   0.33 [ 0.14,   0.54] holds/holds |   0.49 [ 0.24,   0.71] holds/holds
+
+secondary: F over 8 alternative rule seeds (median [min, max]); per stream; lines per call; cells per line
+  (16,10)  4k  alt med 0.84 [0.28, 1.95]  streams cpu 0.50, zoo 1.36  lines 566  cells/line 4.9
+  (16,10) 16k  alt med 1.07 [0.28, 2.22]  streams cpu 0.80, zoo 1.07  lines 2259  cells/line 5.1
+  (16,10) 64k  alt med 1.05 [0.15, 2.85]  streams cpu 0.20, zoo 0.37  lines 9125  cells/line 5.0
+  (24,10)  4k  alt med 0.26 [0.02, 0.88]  streams cpu 0.27  lines 448  cells/line 6.9
+  (24,10) 16k  alt med 0.21 [0.03, 0.42]  streams cpu 0.29  lines 1548  cells/line 8.3
+  (24,10) 64k  alt med 0.10 [0.04, 0.26]  streams cpu 0.17  lines 5754  cells/line 9.0
+  (32,10)  4k  alt med 0.25 [0.05, 0.57]  streams cpu 0.17, zoo 0.57  lines 215  cells/line 17.9
+  (32,10) 16k  alt med 0.29 [0.20, 0.99]  streams cpu 0.25, zoo 0.38  lines 957  cells/line 16.0
+  (32,10) 64k  alt med 0.28 [0.14, 0.86]  streams cpu 0.67, zoo 0.37  lines 3788  cells/line 16.1
+
+first grid point (in H at fixed T, and in T at fixed H) where a bar no longer holds
+  strict   4k  in H (per T): {10: 16}   in T (per H): {16: 10, 24: None, 32: None}
+  strict  16k  in H (per T): {10: 16}   in T (per H): {16: 10, 24: None, 32: None}
+  strict  64k  in H (per T): {10: None}   in T (per H): {16: None, 24: None, 32: None}
+  lenient  4k  in H (per T): {10: None}   in T (per H): {16: None, 24: None, 32: None}
+  lenient 16k  in H (per T): {10: None}   in T (per H): {16: None, 24: None, 32: None}
+  lenient 64k  in H (per T): {10: None}   in T (per H): {16: None, 24: None, 32: None}
+
+scaling fit: not enough grid points varying both H and T (pre-registered: descriptive only)
