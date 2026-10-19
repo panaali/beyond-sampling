@@ -26,6 +26,7 @@ TOL = 1e-9
 D = 10
 T0 = 1.5
 TRIPLES = ((1, 2, 0), (9, 7, 8), (8, 9, 6), (2, 8, 7), (5, 2, 7), (2, 8, 5), (1, 7, 8), (1, 0, 8), (4, 1, 3), (0, 4, 2))
+TRIPLES += ((1, 8, 2), (9, 0, 7))  # indices 10, 11: supplementary, NOT pre-registered (event-carrying triples, README)
 
 
 def model():
