@@ -839,3 +839,16 @@ the wrapper walks the same rows in chunks of 4 v2 nodes; the walks are per row, 
 **Cost:** 3.13M FPE for the whole grid.
 
 Unverified.
+
+# T370-diag: S14 closure (T218 stage 1) on the target M_16,10, E1. DIAGNOSTIC, NOT A GO
+**Pre-registered expectation (one line, before running):** S14 removes the closure's error, so the target's E1 deficit at
+t = 2.0 / 2.5 / 3.0 (graded rule .22 / .03 / .001) should shrink a lot: I expect within 2x at 2.0 and 1.5, but still
+> 2x low at 2.5 and 3.0, where the graded g12 rule's resolution at the deepest triple ties may bind.
+
+**Setup:**
+- claude/t218-tie-tail-labels @87028552 `t370.est_e1(model, t0s, None, closure="S14")`, unchanged;
+- t370.py sha256 155ce0f6..., plus the T366 freeze files (asserted);
+- T340_SRC = 620eb47b export; OMP_NUM_THREADS = 1; ulimit -v 2.5 GB.
+- Two calls, because S14 anchors its lines at min(t0s), so a joint call would change the 2.0+ estimates: (2.0, 2.5, 3.0)
+  as specified, and (1.5,) as the control.
+- Checks: T401's conditional-law MC for orig (`results/t401_mc.json`).
