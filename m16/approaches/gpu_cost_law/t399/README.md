@@ -51,7 +51,7 @@ The T398 lead's decision is that boundary witnesses are charged, not pruned, so 
 witnesses (node 120: margin +0.32 at gap23 = 0.1), and 8 were censored.
 
 **GPU dry run** (T4, float64 IPM, root bounds without splitting; `q_t399bench2.sh` -> `gpu_bench.py`, `gpu_bench.json`):
-- Agreement with T390's exact LP (local benchmark, all 862 children of (1,8,2) at k = 1..4, DELTA = 0.1): 533 / 533
+- Agreement with T390's exact LP (local benchmark, all 882 children of (1,8,2) at k = 1..4, DELTA = 0.1): 533 / 533
   identical prune decisions, 0 GPU-only, 0 T390-only, 0 of 58 event prefixes pruned.
 - Versus bab_cpu's exact root margins (26 nodes, DELTA = 1/3): GPU >= exact on every node (gap 0 to 0.05). Two
   exactly-empty nodes (163, 256) get finite GPU bounds (-0.58, -1.70), which still prune.
@@ -62,8 +62,9 @@ witnesses (node 120: margin +0.32 at gap23 = 0.1), and 8 were censored.
   nodes/s. Event-aware tightening doubles the cost (1.33 nodes/s).
 
 **Projection [inferred]:** the IPM is fp64 and compute-bound (batched 107 x 107 Cholesky plus K^T D K). A100 fp64
-is ~38x a T4, so ~100 nodes/s or ~1 leaf every 10 ms, which is ~5.3 units/h. At ~128 leaves per hard node and ~1e6 nodes per
-triple that is ~1e8 leaves, ~280 A100-h, per triple: not affordable for 720 triples. GPU only pays if the leaf
+is ~38x a T4, so ~100 nodes/s or ~1 leaf every 10 ms, which is ~5.3 units/h. The 24 bench nodes average 44 leaves (1 at the root,
+18-69 when splitting closes them, 29-161 to a witness, 256 censored). At the T398 projection of ~2e6 nodes for
+(1,8,2) that is ~1e8 leaves, ~200-300 A100-h, ~1,000-1,500 units, for one triple: not affordable for 720 triples. GPU only pays if the leaf
 cost falls ~100x, e.g. by CROWN-style back-substitution for intermediate bounds with LP only at the final check,
 or by re-using the parent's duals as warm starts. That redesign is not done.
 
