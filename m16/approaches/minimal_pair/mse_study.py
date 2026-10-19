@@ -6,6 +6,8 @@ import core as C, estimator as E
 T = int(sys.argv[1]); R = int(sys.argv[2]); budgets = [int(b) for b in sys.argv[3].split(",")]
 V = {"plain": dict(radial=False, stratify=False), "radial": dict(radial=True, stratify=False),
      "strata": dict(radial=False, stratify=True), "frozen": dict()}
+if len(sys.argv) > 4:
+    V = {k: V[k] for k in sys.argv[4].split(",")}
 out = {}
 for s in range(5):
     m = C.zoo(16, T, s)
