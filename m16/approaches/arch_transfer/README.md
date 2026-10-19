@@ -153,6 +153,18 @@ not (the quadrature error per line adds bias). M3: success on >= 5 of 8 candidat
 ## Method (code)
 *(filled later)*
 
+### Record R1 (2026-10-19, before any screen or panel run): length and threads
+- Loop check passed: `train.py` and `alg_zoo.training.train` give bit-identical DistRNN weights after 2^18 samples
+  (H = 16, seed 3; max |dW| = 0).
+- Single-thread step times (ms, batch 1024): rnnb32 7.3, rnn2r32 13.2, hgru32 57.3, sgru32 52.1, ssm 20.2, conv 26.4,
+  tfrelu 57.3, tfsoft 67.2. By the pre-registered rule (<= 8 h at 2^30): **2^30** for rnnb32, rnn2r32, ssm, conv;
+  **2^28** for hgru32, sgru32, tfrelu, tfsoft (same schedule shape, 4x fewer steps).
+- Threads per run (2 runs per container, rule 8): 2 for conv, tfrelu, tfsoft (measured 1.4-1.8x faster per step),
+  1 otherwise. Thread count can change float reduction order; it is recorded in each model's json.
+- Parameter counts: rnnb32 1,450; rnn2r32 3,424; hgru32 / sgru32 3,690; ssm 7,904; conv 11,392; tfrelu / tfsoft 17,729.
+- Scripts: `archs.py` (models), `train.py` (recipe), `job.sh` / `arch.sh` (screen, pick, panel; commit per model),
+  `launch.sh` / `wait.sh` / `setup.sh` (helper containers).
+
 ## Status
 Pre-registered; running.
 
