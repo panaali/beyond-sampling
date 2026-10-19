@@ -1417,3 +1417,29 @@ fall short. This is reported for the DRI's ruling on stage-2 case selection (a m
 
 **T370 stage-2 rule (DRI, 2026-10-19 13:52Z, adopted before any stage-2 pair is selected):** every scored stage-2 pair needs >= 50 truth hits.
 A point with fewer hits is either re-drawn with more samples or excluded by this rule. That decision is made before any estimate is seen, never after.
+
+### T370 stage-1 verdict for Q16 (16 deterministic Sobol nodes, QMC-class cubature): PASS — FROZEN [measured, unverified]
+
+- **s547 E1:** 0.79 at t0 2.25 and 0.70 at t0 2.5. Both are within 2x. Under the R1W closure they were 2.19 and 2.48; under S14 they were 1.02 and 0.87.
+- **Controls:** 12 of 12 within 2x (each pair: t0 low, t0 high).
+  - s541 (1.75, 2.0): 0.90, 0.89
+  - s526 (3.25, 3.5): 1.03, 1.02
+  - s528 (2.35, 2.75): 0.84, 0.85
+  - s529 (2.35, 2.75): 1.03, 1.06
+  - s530 (2.35, 2.75): 0.96, 0.97
+  - s531 (2.35, 2.75): 1.02, 1.02
+- **E2:** 25 of 29 within 2x when the go was reached. That already clears the 24/32 line. The last 3 cases at t = .5 (s518, s519, s525) are being run for completeness and cannot change the verdict.
+  - All 4 misses are at t = 1.25: s508 0.48, s511 0.43, s515 0.24 and s519 2.91. The s519 truth there rests on 1 hit.
+  - Every case at t = 1.0, .75 and .5 run so far is within 2x.
+- **Cost, as executed.** FPE = FLOPs / 5948.
+  - E1: 2.8e7 to 4.6e7 FPE per model, covering both t0 values in one walk.
+  - E2: 9.3e6 FPE per case on average.
+  - CPU time: Q16 used 20.7 CPU-h and S14 used 12.7 CPU-h, plus about 4 h lost to container restarts. Stage 1 total is about 37 CPU-h, under the 60 CPU-h cap.
+- **Frozen at this commit.** Hashes are in `t370_q16_freeze_sha256.txt`. The entry points are:
+  - `t370.est_e1(model, t0s, 16)` and `t370.est_e2(model, t, 16)` (closure=None, M=16).
+  - T340_SRC is pinned to claude/t286-cheap-frontier @620eb47b.
+- **Label: QMC-class cubature (deterministic nodes).** The nodes are a fixed, unscrambled Sobol set (half-cell shifted) over the model-free exact law. No random model inputs are drawn, but in kind this is a quasi-Monte Carlo rule, not a structured quadrature.
+- **Alternatives not ruled out.**
+  - 16 nodes may simply be lucky on these 8 + 7 models. The Q16 vs S14 swings on single cases (for example s511 1.25: 0.95 under S14, 0.43 under Q16) show node-level variance.
+  - Q32 was not run. Under the pre-registration, the cheapest passing variant is the one frozen.
+- **Next:** stage 2. The DRI and T286 select 8 fresh pairs truth-blind from dev3_s548-563, each with >= 50 truth hits. T192 computes the sealed truths. The go line is >= 7/8 within 2x.
