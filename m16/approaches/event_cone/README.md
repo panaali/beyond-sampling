@@ -610,3 +610,11 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
 - Soundness test (could fail): every one of the 17 hits must lie in a (9,3,2) k = 10 survivor. A hit inside a pruned
   cell refutes a certificate.
 - The k = 10 files go to T400 for verification and charging.
+- **Side check, truth estimator vs the MC hits** [measured; `walk_test.py`, `logs/walk_test_hits.log`].
+  - On all 17 of T400's MC hits (top three (9,3,2), g23 2.50-2.84), the truth worker's conditional walk (the same
+    code path) covers the hit's own point.
+  - It gives Z(x_hit) = 0.012-0.64 (median 0.20); 0 of 17 have Z = 0. So the walk does not miss (9,3,2) mass on
+    these lines.
+  - The 6.6e-11 vs 1.55e-10 gap (~2 sigma) is consistent with chance for a heavy-tailed estimator with 8 nonzero
+    lines. Its s.e. is unreliable at that count.
+  - The plain MC (1.55e-10 +- 0.37e-10) is the reference.
