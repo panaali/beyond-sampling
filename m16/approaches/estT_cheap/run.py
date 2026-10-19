@@ -73,7 +73,11 @@ def orth_wrap(Rays, ops):
 if __name__ == "__main__":
     H, T, s, mode = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]
     sub = sys.argv[sys.argv.index("--sub") + 1] if "--sub" in sys.argv else None
-    m = zoo(H, T, s)
+    WZ = os.path.join(HERE, "zoo_weights.npz")          # alg_zoo weights exported for workers without alg_zoo
+    if os.path.exists(WZ):
+        z = np.load(WZ); m = tuple(z[f"H{H}T{T}_{s}_{k}"] for k in ("Wi", "Wh", "Wo"))
+    else:
+        m = zoo(H, T, s)
     os.makedirs(os.path.join(HERE, "runs"), exist_ok=True)
     out = os.path.join(HERE, "runs", f"H{H}T{T}_{s}_{mode}" + (f"_sub-{sub}" if sub else "") + ".json")
     if sub:
