@@ -29,6 +29,7 @@ if __name__ == "__main__":
     mod = lambda nm: tuple(z[k][names.index(nm)].astype(float) for k in ("Wi", "Wh", "Wo"))
     fn = os.path.join(HERE, f"results_t370_s2_{part}.json"); out = json.load(open(fn)) if os.path.exists(fn) else {}
     jobs = [(nm, None) for nm in MODELS_E1] if part == "e1" else [(nm, t) for t in E2T for nm in MODELS]
+    done = 0
     for nm, t in jobs:
         key = nm if t is None else f"{nm}|{t}"
         if key in out:
@@ -40,5 +41,6 @@ if __name__ == "__main__":
             e, f = Z.est_e2(mod(nm), t, M); rec = dict(est=e)
         rec.update(C=f / 5948, sec=time.time() - t0); out[key] = rec; json.dump(out, open(fn, "w"), indent=1)
         print(key, rec, flush=True)
-        if os.environ.get("T370_ONE"):
+        done += 1
+        if os.environ.get("T370_ONE") or done >= int(os.environ.get("T370_N", "1000000")):        # jobs per call
             break
