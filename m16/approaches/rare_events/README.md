@@ -882,3 +882,14 @@ S14 on M_16,10, E1, one call at t0 = (2.0, 2.5, 3.0); checks from T401's conditi
   further off, still low). Cost 43.7M FPE (8,521 CPU-s) for this one threshold. [measured]
 - [inferred] S14 is low at every t tested (.80 / .54 / .37 / .23), and the ratio falls steadily with t. This points to
   a systematic low bias that grows with depth, not one that only appears in the deep tail. Diagnostic only, not a go.
+
+# T370 stage 2: execution (Q16 frozen 2026-10-19 at claude/t218-tie-tail-labels @6441c0c5; started before any estimate)
+- **Frozen variant:** Q16 = `t370.est_e1(model, (2.35, 2.75), 16)` (one call for both t0) and `t370.est_e2(model, t, 16)`.
+  All six r1_cont hashes in `t370_q16_freeze_sha256.txt` match, as do the T340_SRC files (rare.py 09f89a8b, cont_g.py
+  d34dde36, the 620eb47b export). They are asserted at run time by `stage2_est.py`.
+- **Comparator:** K3 exactly as in T364 / T401 (`stage2_est.py k3`).
+- **Split for wall time** (about 35 CPU-h serial, 1 heavy process per session):
+  - here: K3 on all 16 models, then Q16 E1 on dev3_s548-559;
+  - the T218 child (own sandbox, same frozen code): Q16 E1 on dev3_s560-563 and Q16 E2 on all 16 models.
+  - The child's outputs (estimate + as-executed FLOPs + hashes) are copied into `results/t370s2/` unchanged.
+- The selection (`select_t370.py`) runs only when all 64 x 2 estimates are committed. Then the 8 pairs go to T192.
