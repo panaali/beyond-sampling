@@ -898,7 +898,7 @@ def _orthant_float(Af, bf, S):
     return np.exp(-k / 2 * np.log(2 * np.pi) - 0.5 * np.linalg.slogdet(Sig)[1] - c @ mu / 2 + lM.sum())
 
 
-def cell_rows_exact(tri, gates, k, t0, event=False, norm=True):
+def cell_rows_exact(tri, gates, k, t0, event=False, norm=True, normv=NORM):
     """Exact (a, b) rows, a.x >= b: cell gates of steps 1..k, ordering, g23 >= t0, optionally N and the event."""
     g = np.array(gates).copy(); g[k:] = -1
     if event:
@@ -912,7 +912,7 @@ def cell_rows_exact(tri, gates, k, t0, event=False, norm=True):
     if norm:
         for j in range(D):
             for s in (1, -1):
-                a = [NORM * v for v in gg]; a[j] -= s
+                a = [normv * v for v in gg]; a[j] -= s
                 full.append((a, zero))
     full.append((gg, fmpq(*float(t0).as_integer_ratio())))
     out = {}
@@ -928,13 +928,13 @@ def cell_rows_exact(tri, gates, k, t0, event=False, norm=True):
     return [list(kk) for kk in out], [out[kk] for kk in out]
 
 
-def mass_upper(tri, gates, k, t0=1.5, kmax=10, event=None, return_info=False):
+def mass_upper(tri, gates, k, t0=1.5, kmax=10, event=None, return_info=False, norm=NORM):
     """Cheap rigorous upper bound on gamma(cell ∩ N ∩ {g23 >= t0}) (k < 10, event ignored) or, for k = 10,
     on gamma(region ∩ N ∩ E(t0)) (event=True default). Method M2: P(A_S X >= b_S) for a row subset S
     (|S| <= 10) chosen greedily in float; the bound for the chosen S is computed exactly (fmpq + arb)."""
     if event is None:
         event = (k == D)
-    er = cell_rows_exact(tri, gates, k, t0, event=event)
+    er = cell_rows_exact(tri, gates, k, t0, event=event, normv=norm)
     if er is None:
         return (0.0, {}) if return_info else 0.0
     A, b = er

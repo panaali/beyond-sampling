@@ -169,6 +169,23 @@ proved event-free. Two parts are not yet rigorous:
 - **Label.** This bound is **probabilistic**: it holds with probability >= 1 - 1e-6 over the MC seed. It is a
   different class from a deterministic certificate.
 
+## Pre-registration 3 (2026-10-19 ~08:40; two-tier charging, DRI request; before any tiered number is scored)
+- **Tier (i).** M2 (`mass_upper`, with N_delta = {g23 >= delta ||x||_inf}) on every survivor of a slice
+  (tri, k).
+- **Tier (ii).**
+  - Repeatedly take the cell with the largest current ub and move it to the next M5t budget: 200, then 2,000,
+    then 8,000 simplices. Its ub becomes min(old, new).
+  - Stop when the largest remaining cell is < 1% of Σub, or the slice's CPU budget is spent: 2 CPU-h per shard
+    for (1,8,2), k = 6.
+- Every tier is rigorous, so Σub is a guaranteed bound on Σ_cells γ(cell ∩ N_delta ∩ {g23 >= t0}) at every
+  stage.
+- **Report** for (1,8,2), k = 6, t0 = 2.5, delta = 1/3:
+  - Σub after tier (i), and after tier (ii);
+  - the number of cells refined at each budget;
+  - CPU-h;
+  - a projection to 720 slices (scaled by survivor counts).
+- **Comparison, not a pass line:** the truth for the same quantity, by plain MC (`mc_cells.py` at k = 6).
+
 ## Method
 - `rigour.py` (library).
   - `exact_rows`: exact fmpq constraints from the gate pattern.
