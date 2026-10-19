@@ -83,6 +83,15 @@ E3's search with the pop order switched to the near-exact box mass (`--order qua
 `lbab.py 3,7,8 OUT 7200 --stages crown,alpha --K 256 --order quad`. Reported: the near-exact curve, pruned fraction and
 projection. The radial charge stays the rigorous figure.
 
+**Deviation D2 (2026-10-19, written before its run; SECONDARY).** E3 and D1 (40k boxes so far) both sit flat at
+~2.8e-8, while E2's covering estimates under alpha-CROWN are 3e5-1.5e8. A flat curve over one decade cannot tell a real
+stall from a tree that has not yet reached certifiable box sizes. `dyadic.py` separates the two. For 200 exact slab
+points it finds the coarsest box of a fixed bisection tree (widest dim, midpoint) containing the point that the bounder
+certifies, using binary search on depth, which assumes monotone certification. Leaves of an ideal-order BaB ~
+E_slab[1 / (vol p_u)] over 99.8% of the mass; nodes <= 2x. Run with alpha-CROWN and with CROWN:
+`dyadic.py 3,7,8 OUT 200 alpha-CROWN` and `... CROWN`. If the alpha estimate is < 1e9, the late-triple failure is a
+search/compute failure, not a bound failure, and is reported as such (not GO by the pre-registered line).
+
 ## Method
 - `net.py`: model, coordinates, slab sampler, charges. `lbab.py`: BaB with library bounds.
 - Other scripts are added with their results.
