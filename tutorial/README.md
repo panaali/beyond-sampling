@@ -33,6 +33,18 @@ from the simplest version of the problem along every dimension we tried up to AR
   from `https://storage.googleapis.com/arc-ml-public/alg/...` into `<dir>`).
 - Other numbers are typed into `src/page.html` next to their INDEX IDs; edit them there.
 
+## For the prose rewrite (T382)
+- Edit **only** `tutorial/src/page.html` (prose: headings, paragraphs, captions, table text, glossary).
+- **Never change** numbers, INDEX IDs (`<span class="id">`), status chips (`<span class="st ...">`, `<span class="claim">`),
+  or what a claim says (its scope and strength). Keep element `id`s, the `data-lane` divs and the `__WEIGHTS__` /
+  `__PANELS__` / `__STATUS__` placeholders as they are; JavaScript strings that draw chart labels may be reworded only
+  if the numbers in them stay identical.
+- Rebuild with `python3 tutorial/tools/build.py` (writes `index.html` and `artifact.html`); open `index.html` in a
+  browser to check. **Do not publish**; T374 checks numbers and labels, runs a review round and re-publishes.
+- Lane text lives in `data/status.json`; T374 keeps updating it during T382, so do not edit it (merge conflicts).
+- Published version at handover: Artifact version 1792370500-2c1e = `artifact.html` at the commit that added this
+  section.
+
 ## Status
 Draft 2 (after fresh-eyes review round 1), 2026-10-19. Stays open for status updates from the DRI.
 
