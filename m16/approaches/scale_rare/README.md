@@ -115,3 +115,14 @@ keep the 4e9 cap. Working checkpoints are written to $T424_TRUTH_DIR while runni
 - Compute: estimates for (48,15) cpu0/cpu2 and (24,20) cpu0, (48,20) cpu1 run in two helper child sessions
   (session_01MZEJpmKX74mMcRhsQWANLc, session_016vCqHwUFu6Ku1PrzaZHdXw) with this branch's code unchanged (hashes asserted);
   they push only results/est/. Truths for those points run only after their estimates are pushed.
+
+### Amendment 3 (2026-10-19 23:15, before any estimate at the new points; flagged)
+- The T421 grid is final (registry claude/t421-scale-study @75b6f749): 13 kept points (H 16-64 x T 10/15/20; (16,15) and
+  (16,20) screened). **Scope = the primary panel (cpu seeds 0-2) of all 15 points** (screened ones flagged), as the
+  pre-registration said; (16,10) cpu 1-2 landed before its scoring, so its primary panel is cpu 0-2 (the zoo models
+  become supplementary), per the original rule.
+- Added at the DRI's request (post hoc, descriptive): a comparison at matched error rate, the points with err ~.05-.10
+  ((16,10), (24,15), (24,20), (32,20)) against those with err .003-.016.
+- Compute: lanes (`lane.sh`: K3 pass, graded pass, then truths; push after each step) in helper sessions C/D/E
+  (session_019M2wC3jPNCrAqFHayA9Fib, session_01MwKq6qC3cNHBfA7TCnBvFZ, session_011emt8ac7niRjYG15QPVUzU) and A/B.
+  Graded at H = 64 / T = 20 may not finish; any unfinished estimator is recorded in docs/COMPUTE_FRONTIER.md.
