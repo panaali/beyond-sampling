@@ -487,3 +487,20 @@ masses.
   - So charging at k = 6 costs >= 2.5e-8, against a target of ~1e-9.
   - The charge must be made at k = 10 with the event rows, or after cutting each cell to the projection of its
     event relaxation (T400 option (c), in progress).
+
+## The late-triple obstruction (2026-10-19) [measured on 3 triples; inferred in general; unverified]
+- Worker B's **(3,7,8)**: survivors 2 / 34 / 792 at k = 1..3, the full-space N_k with nothing pruned. It was censored
+  in k = 4 at the 1.5 CPU-h cap.
+- Root relaxations (k = 0, DELTA 1/3, event-aware) bound the margin at **+659 (9,7,8), +435 (3,7,8), +961 (8,9,6)**,
+  against a truth <= 0. Branch and bound from the root is hopeless.
+- **General reason.** Until the triple's high positions are read, the normalisation and the event relaxation are
+  both satisfiable. So a triple with second-smallest position b keeps about all N_b full-space regions through
+  step b.
+  - There are 6 b (9-b) such triples: 108 at b = 6 (N6 ~ 2e7 each), 84 at b = 7 and 48 at b = 8. Forward enumeration
+    over them needs >= 1e9-1e12 regions.
+- **Charging them unresolved fails.** Every triple carries the same slab mass, 5.6e-8 = P(g23 >= 2.5)/720. So one
+  uncertified triple costs 56x the 1e-9 target.
+- **Reading.** A certified bound over all 720 triples at t0 = 2.5 is out of reach for forward enumeration with LP
+  pruning. A per-triple certificate is feasible for early triples such as (1,8,2), pending the k = 10 mass cost.
+- Untried: an abstraction of the reachable hidden state after the low-only steps, with a sound charge for its
+  preimage mass.
