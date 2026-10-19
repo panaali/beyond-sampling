@@ -138,7 +138,7 @@ Discrepancies are reported, not reconciled silently.
 ## Status
 
 Done (2026-10-19). All 9 investigators and 36 judge calls completed. No judgments were missing or invalid, and
-no run was excluded. Independent rescoring: see the section below. Results are supported, not confirmed
+no run was excluded. Independent rescoring matches (see *Independent rescoring result*). Results are supported, not confirmed
 (rule 4); the DRI decides registration.
 
 ## Results
@@ -200,6 +200,20 @@ python algzoo/constant_budget_blind/analyze.py                             # lab
 cd algzoo/constant_budget_blind && python sensitivity.py                   # wfpn exclusion
 ```
 
+### Independent rescoring result
+
+A separate sub-agent wrote its own scorer and judge-statistics code ([independent/](independent/REPORT.md):
+`recon_check.py`, `judge_check.py`, `compare.py`). It did not read the shared scorer, my analysis scripts or
+`results/` until after saving its own numbers. It used a different held-out seed (77123, 200,000 sequences).
+- Reconstruction: G_8 = 0.588, G_16 = 0.336, G_32 = 0.823; every gap recovered is within 0.0043 of mine, and
+  the per-run R² ≥ 0.8 counts are identical.
+- Judge statistics (S matched, S control, D, legibility, role κ = 0.906) are identical. The judge files are
+  complete, with no duplicate, extra or invalid lines.
+- Verdicts are identical: reconstruction mixed, labels hold, overall **mixed/inconclusive**.
+
+This checks the arithmetic and the seed robustness of the scoring. It does not re-run any investigator or
+judge, so it does not independently replicate the labels.
+
 ### Audit
 
 All 9 runs delivered complete `labels.py` files: no declared count above 5 constants, none of the banned
@@ -216,7 +230,7 @@ shorter-prefix states, which the rules allow. Self-reported file lists show no r
 | Investigators | 9 | 23–39 (total 292) | 115k–148k (total 1.17M) | 13–28 min each, run concurrently |
 | Role judges | 12 | 3 | ~55k | ~20 s |
 | Pair judges | 24 | 3 | ~57k | ~20–25 s |
-| Independent rescorer | 1 | see below | see below | see below |
+| Independent rescorer | 1 | 11 | 72k | 2.2 min |
 
 **Total: 46 sub-agent calls** (cap 200). 4 further launches were refused by the harness's concurrency limit
 and never ran; I re-launched them later. No Fable. Scoring: 9 shared-scorer runs × (200,000 hidden + 200,000
