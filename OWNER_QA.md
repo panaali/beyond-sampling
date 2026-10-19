@@ -1041,21 +1041,20 @@ than with H, because each extra step multiplies the gate flips along a line; T39
 at k = 1-2 inputs per step.
 
 <a id="q6-8"></a>
-### 6.8 How novel are our positive results, and how should we describe them? (owner, 10-19 14:5x)
+### 6.8 How novel are our positive results, and how should we describe them? Are we rediscovering adversarial-robustness work? (owner, 10-19 14:5x; follow-ups 18:3x, 18:5x)
 
-**Answer (DRI, from a literature sub-agent; full table, citations and phrasing in [lit/novelty_review.md](lit/novelty_review.md)):**
-none of the 7 positive or near-positive results was found reported exactly. Six are known methods combined or applied in a new
-way ("known + novel aspect"); the great-circle walk on the 1-layer MLP (H-A3) is a straight application of known methods.
-Confidence is modest (most sources read at abstract level). Phrase each as "method X (cite) + what is new here", using the
-review's sentences: the walks are line sampling / preintegration (Koutsourelakis et al. 2004) made exact per line
-(ExactLine / SyReNN, Sotoudeh & Thakur); the rare-event walks are line sampling made deterministic (claimed as the first
-sampling-free network error-probability estimates to ~1e-10); locate and repair is reliability sensitivity analysis applied
-to weights (new: the intervention-checked attribution, the repair vs a random control, and the rare-to-common conversion
-finding, low confidence); the safe-use rating is fragility-curve style; the certificate parts follow probabilistic
-branch-and-bound verification (Boetius et al., ICML 2025), with exactly re-verified LP certificates and rigorous Gaussian
-polytope masses believed new in this setting (no complete certificate yet); T317f is in the style of ARC's M_4,3 estimators,
-claimed as the first such estimate for M_16,10-class models. Note: several teams in ARC's 2026 white-box contest also used
-fixed spherical point sets on bias-free networks (they evaluate points; none integrates exactly along lines).
+**Answer (DRI, from two literature passes; full verdicts, citations, phrasing and a ranked "methods to try next" list are
+in [lit/novelty_review.md](lit/novelty_review.md), the one place they are kept):** partly yes. The verification
+literature already has the main ingredients, so most of our results are known methods combined or applied; few parts are
+new. Specifically: the certified-bound pipeline is an application of probabilistic branch and bound (Boetius, Leue &
+Sutter, ICML 2025) and region enumeration with probabilities (ProbStar / StarV, Tran et al.; Kofnov et al., ICML 2025, the
+closest prior to our rigorous mass bound, in 1-3 dimensions without floating-point rigour); the likely-new part is the
+outward-rounded Gaussian mass of 10-D polytope cells. The walks are line sampling / preintegration made exact per line
+(ExactLine, Sotoudeh & Thakur); the great-circle step is the same primitive as LIN-ESS (Gessner et al. 2020). The rare-event
+walks are new mainly in being sampling-free near 1e-10 without enumerating all regions. The rare-to-common conversion of
+repairs is a known kind of trade-off, newly measured here. The T431 strict pass is likely new as a result, not as a method,
+and is QMC-class. Nothing found makes ARC's accuracy estimate deductive. Do not claim a "first certified rare-event
+probability for a neural network". The ranked untried methods became backlog rows T436-T442.
 
 <a id="q6-9"></a>
 ### 6.9 Educated guess: which positive results will hold for larger networks and other problems? (owner, 10-19 15:0x)
