@@ -85,9 +85,12 @@ class Relax:
         p2, p3 = tri[1], tri[2]
         pad = lambda M: np.hstack([M, np.zeros((len(M), self.nv - D))])  # noqa: E731
         self.base = [pad(G)]; self.ebase = [pad(EG)]
+        p1 = tri[0]; e = np.eye(self.nv)
+        order = [e[p1] - e[p2]] + [e[p3] - e[l] for l in range(D) if l not in tri]   # ordering cone (exact)
+        self.base.append(np.array(order)); self.ebase.append(np.zeros((len(order), self.nv)))
         r = np.zeros(self.nv); r[p2], r[p3] = 1, -1
         self.base.append(r[None]); self.ebase.append(np.zeros((1, self.nv)))
-        self.bbase = np.r_[np.zeros(len(G)), DELTA]
+        self.bbase = np.r_[np.zeros(len(G) + len(order)), DELTA]
         self.Z, self.EZ = [], []
         prev = np.zeros((H, self.nv)); prev[:, :D] = A
         eprev = np.zeros((H, self.nv)); eprev[:, :D] = EA
