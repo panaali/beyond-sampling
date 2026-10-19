@@ -1390,3 +1390,5 @@ DRI option (b), the 3 variants are now:
 - **Freeze rule unchanged:** the cheapest variant that passes. The order of cost is S14 < Q16 < Q32. A variant runs
   only if all cheaper ones failed, within the 60 CPU-h stage-1 stop.
 - The V1 (Q16) run that had started was stopped (own PIDs) before any job finished, so nothing was scored.
+
+**T370 status 2026-10-19 04:13Z.** A second container restart (sometime after 01:54; uptime reset) killed the S14 runs again; dev3_s547 E1 was lost a second time. Partial S14 E2 is 3/5 within 2x (s508: .99/.75/.19/.05; s511 t=.5: .83); the high-t collapse on s508 is the likely failure. Relaunched with `T370_ORDER=hi` (scheduling only: the E2 cases run with t = 1.25 first, then 1.0, ...), so the verdict is reached as soon as more than 8 cases fail. Stage-1 CPU so far is ≈ 1.7 CPU-h of finished cases plus ≤ ~6 CPU-h of work lost to the restarts (estimate, ≤ ~8 CPU-h, far below the 60 CPU-h cap).

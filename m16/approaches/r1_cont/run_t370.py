@@ -22,6 +22,8 @@ if __name__ == "__main__":
     mod = lambda nm: (z["Wi"][names.index(nm)].astype(float), z["Wh"][names.index(nm)].astype(float), z["Wo"][names.index(nm)].astype(float))
     fn = os.path.join(HERE, f"results_t370_{var}_{part}.json"); out = json.load(open(fn)) if os.path.exists(fn) else {}
     jobs = [(nm, None) for nm in E1] if part == "e1" else [(nm, t) for nm in E2M for t in E2T]
+    if part == "e2" and os.environ.get("T370_ORDER") == "hi":                     # scheduling only: high t first
+        jobs = [(nm, t) for t in E2T[::-1] for nm in E2M]
     for nm, t in jobs:
         key = nm if t is None else f"{nm}|{t}"
         if key in out:
