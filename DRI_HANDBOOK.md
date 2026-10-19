@@ -319,4 +319,6 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
 
 **Owner directive (2026-10-19 06:0x):** vCPU time is essentially free; the cost is tokens (and some GPU). Run every helpful remaining experiment in its own session, preferring CPU-heavy work; keep sessions lean on tokens.
 
+**Owner directive (2026-10-19 06:4x):** no tutorial updates until the owner asks for one final update (supersedes the batched-update rule below for now).
+
 **Owner directive (2026-10-19 00:1x):** keep the interactive explainer (T374, session_01XkxtNU1pcq7TYNKYqvPhSg) current: after registering notable results, send T374 one batched update so it re-publishes to the same Artifact URL; ask for a final pass when all lanes are done. If the session is gone, start a new one from claude/t374-tutorial (tutorial/README.md has the URL and rebuild steps).
