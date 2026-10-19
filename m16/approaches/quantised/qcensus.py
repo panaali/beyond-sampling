@@ -9,7 +9,7 @@ import json, math, os, sys, time
 import torch as th
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from qeval import disc  # noqa: E402
-DEV = os.environ.get("QDEV", "cuda"); B = 1 << 22 if DEV == "cuda" else 1 << 16
+DEV = os.environ.get("QDEV", "cuda"); B = 1 << 20 if DEV == "cuda" else 1 << 16
 M1, M2 = -7046029254386353131, -4658895280553007687
 LV = {1: 1, 2: 15, 3: 255}
 
