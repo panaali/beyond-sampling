@@ -137,6 +137,38 @@ proved event-free. Two parts are not yet rigorous:
 4. **DELTA is a parameter.** T398 uses DELTA = 1/3 at t0 = 2.5. The part-(c) bound is then
    20 Φ(-t0/DELTA) = 20 Φ(-7.5) = 6.4e-13.
 
+## Pre-registration 2 (2026-10-19 ~08:30, after the DRI's call; pushed before any M5-tangent or probabilistic number is scored)
+
+### (1) Headline, deterministic: M5 with exact per-simplex integrals ("M5t")
+- **Method.** M5 as before, with each (simplex, z-bin) bound replaced as follows.
+  - The exact identity s = s_c + τ + |m - m_c|², with τ affine, is integrated exactly over the simplex
+    (divided differences / Hermite–Genocchi, in arb).
+  - The upper bound drops |m - m_c|². The lower bound replaces it by its vertex maximum.
+  - The low-order factor Φ(z y_p3)^m is bounded by the tangent (upper) or the chord (lower) of the concave
+    log Φ, which makes it exp-linear in y as well.
+- **Test set.** The k = 4 benchmark cells of (1,8,2), scored against the plain MC of `mc_cells.py`:
+  - t0 = 2.25: the existing 2e8-draw MC, cells with >= 30 hits;
+  - t0 = 2.5: a new MC with 1e9 draws, same rule.
+- **Targets.**
+  - Pass line: median ub/MC <= 3 and p90 <= 10, at <= 30 CPU-s per cell (median).
+  - Soundness: lb <= MC + 4 s.e. and ub >= MC - 4 s.e. on every scored cell.
+- **Deliverable for T398 (i).** M5t on all k = 6 survivors of (1,8,2) at t0 = 2.5, DELTA = 1/3:
+  - Σ ub, Σ lb, and time per cell;
+  - sharded by the DRI if it needs more than 2 processes.
+
+### (2) Secondary, probabilistic (sampling-class; reported separately, never merged with (1))
+- **Statement.**
+  - For a verified prune set, the survivors' union S is decidable by a forward pass, so
+    P(E) <= P(S ∩ far gap ∩ N) + loss(N) exactly.
+  - The first term is estimated by plain MC: sorted draws with g23 >= t0, as in `mc_cells.py`, counting the
+    draws whose gate prefix is a survivor.
+  - The reported bound is the one-sided **Clopper–Pearson upper bound at confidence 1 - 1e-6** on that
+    probability, times the exactly known prior factor P(g23 >= t0)/720.
+  - P(g23 >= t0) also comes from the same draws. It enters through a joint Clopper–Pearson on the final count,
+    so the prior is not used separately.
+- **Label.** This bound is **probabilistic**: it holds with probability >= 1 - 1e-6 over the MC seed. It is a
+  different class from a deterministic certificate.
+
 ## Method
 - `rigour.py` (library).
   - `exact_rows`: exact fmpq constraints from the gate pattern.

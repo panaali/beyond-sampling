@@ -979,7 +979,78 @@ def _G_arb(d, s, a, b):
     return (2 / s) ** h / 2 * (up(a) - up(b))
 
 
-def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False):
+def _E_simplex_exp(mu, t, upper):
+    """Rigorous bound on E_unif over a simplex of exp(-mu tau), tau affine with vertex values t (fmpq, >= 0),
+    mu >= 0 (arb): E = n! h[t_0..t_n] / (-mu)^n, h(t) = exp(-mu t) (Hermite-Genocchi), in arb. Equal knots are
+    separated (down for an upper bound, up for a lower bound; E is monotone in each knot). Falls back to the
+    trivial bound (1, or exp(-mu max t)) if the arb ball is not tight."""
+    n = len(t) - 1
+    ts = sorted(t)
+    eps = fmpq(1, 10 ** 12) * (1 + max(ts) - min(ts))
+    for i in range(1, len(ts)):
+        if ts[i] <= ts[i - 1]:
+            ts[i] = ts[i - 1] + eps
+    if upper:                                            # shifting knots up lowers E: undo by shifting all down
+        shift = ts[-1] - max(t)
+        ts = [x - shift for x in ts]
+    trivial = arb(1) if upper else (-mu * arb(max(t))).exp()
+    if mu == 0 or n == 0:
+        return trivial
+    T = [arb(x) for x in ts]
+    dd = [(-mu * x).exp() for x in T]
+    for lev in range(1, n + 1):
+        dd = [(dd[i + 1] - dd[i]) / (T[i + lev] - T[i]) for i in range(len(dd) - 1)]
+    E = dd[0] * math.factorial(n) / (-mu) ** n
+    if not E.is_finite() or float(E.rad()) > 1e-6 * abs(float(E.mid())) or float(E.mid()) <= 0:
+        return trivial
+    return E.upper() if upper else E.lower()
+
+
+def _bounds_tangent(Ys, Ms, vol, d, zg, mlow, ip3, c0):
+    """Per-simplex bounds for M5 with the exact identity s(y) = s_c + tau(y) + |m(y) - m_c|^2,
+    tau = 2 m_c.(m - m_c) affine: upper uses s >= s_c + tau, lower uses s <= s_c + tau + R^2 (R^2 = max vertex
+    |M_i - m_c|^2). The tau-dependence is integrated exactly over the simplex (divided differences); z = g23 is
+    binned with lambda = z^2/2 bounded per bin; the last (unbounded) bin uses the s_min bound."""
+    Pf = np.array([[float(v) for v in p] for p in Ms])
+    rho = 1e3
+    beta, _ = nnls(np.vstack([Pf.T, rho * np.ones(len(Ms))]), np.r_[np.zeros(Pf.shape[1]), rho])
+    bq = [q(v) for v in beta]; tot = sum(bq)
+    if tot == 0:
+        bq = [fmpq(1, len(Ms))] * len(Ms); tot = fmpq(1)
+    bq = [v / tot for v in bq]
+    mc = [sum(bq[i] * Ms[i][k] for i in range(len(Ms))) for k in range(len(Ms[0]))]
+    sc = sq(mc)
+    tau = [2 * sum(a * (b - c) for a, b, c in zip(mc, M, mc)) for M in Ms]
+    tmin = min(tau); tsh = [x - tmin for x in tau]
+    R2 = max(sq([b - c for b, c in zip(M, mc)]) for M in Ms)
+    smin = max(min_sq_lower(Ms), fmpq(1, 2)); smax = max(sq(p) for p in Ms)
+    yp_hi = max(y[ip3] for y in Ys); yp_lo = min(y[ip3] for y in Ys)
+    hi = arb(0); lo = arb(0)
+    for a, bb in zip(zg[:-1], zg[1:]):
+        if mlow:
+            zt = (bb if yp_hi >= 0 else a)
+            sup_phi = arb(1) if zt is None else (-(arb(zt) * arb(yp_hi)) / arb(2).sqrt()).erfc() / 2
+            zl = (a if yp_lo >= 0 else bb)
+            inf_phi = arb(0) if zl is None and yp_lo < 0 else (-(arb(zl) * arb(yp_lo)) / arb(2).sqrt()).erfc() / 2
+            sup_phi, inf_phi = _ipow(sup_phi, mlow), _ipow(inf_phi, mlow)
+        else:
+            sup_phi = inf_phi = arb(1)
+        if bb is None:
+            hi += _G_arb(d, smin, a, bb) * sup_phi
+            lo += _G_arb(d, smax, a, bb) * inf_phi
+            continue
+        llo = arb(a) ** 2 / 2; lhi = arb(bb) ** 2 / 2
+        # upper: e^{-lam tau} <= e^{-lam_x tmin} e^{-lam_lo (tau - tmin)}
+        lx = lhi if tmin < 0 else llo
+        Eu = (-lx * arb(tmin)).exp() * _E_simplex_exp(llo, tsh, True)
+        hi += _G_arb(d, sc, a, bb) * Eu * sup_phi
+        ly = llo if tmin < 0 else lhi
+        El = (-ly * arb(tmin)).exp() * _E_simplex_exp(lhi, tsh, False)
+        lo += _G_arb(d, sc + R2, a, bb) * El * inf_phi
+    return c0 * vol * lo, c0 * vol * hi
+
+
+def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False, tangent=False, zratio=fmpq(27, 25)):
     """Method M5 (k < 10, event ignored): rigorous [lb, ub] on gamma(cell ∩ N_I ∩ {g23 >= t0}).
     The cell's gate rows involve x_0..x_{k-1} only. With I = {0..k-1} ∪ tri, the m lows outside I enter only
     through x_l <= x_p3, i.e. a factor Phi(x_p3)^m (exact). N is kept for the coordinates in I (dropping it
@@ -1037,10 +1108,12 @@ def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info
         return [x[j] for j in I]
     M = [mvec(v) for v in V]
     t0q = fmpq(*float(t0).as_integer_ratio())
-    zg = [t0q * fmpq(27, 25) ** i for i in range(zbins)] + [None]
+    zg = [t0q * zratio ** i for i in range(zbins)] + [None]
     c0 = (2 * arb.pi()) ** (-arb(d) / 2)
 
     def bounds(Ys, Ms, vol):
+        if tangent:
+            return _bounds_tangent(Ys, Ms, vol, d, zg, mlow, ip3, c0)
         smin = min_sq_lower(Ms); smax = max(sq(p) for p in Ms)
         yp_hi = max(y[ip3] for y in Ys); yp_lo = min(y[ip3] for y in Ys)
         hi = arb(0); lo = arb(0)
@@ -1075,5 +1148,5 @@ def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info
             lo2, hi2 = bounds(Yc, Mc, vol / 2); tl += lo2; th += hi2; cnt += 1
             hq.heappush(heap, (-float((hi2 - lo2).upper()), cnt, Yc, Mc, vol / 2, lo2, hi2))
     ub = float(np.nextafter(float(th.upper()), np.inf)); lb = max(0.0, float(np.nextafter(float(tl.lower()), -np.inf)))
-    info = dict(d=d, mlow=mlow, vertices=len(V), simplices0=len(S), simplices=len(heap), tl=str(tl), th=str(th))
+    info = dict(d=d, mlow=mlow, vertices=len(V), simplices0=len(S), simplices=len(heap), tl=str(tl), th=str(th), heap=heap if return_info == "diag" else None)
     return (lb, ub, info) if return_info else (lb, ub)
