@@ -323,3 +323,7 @@ Regression (after the fixes):
   - a non-finite vertex raises;
   - vol = 0 gives lo = 0;
   - m_c = 0 gives hi = inf (no exception).
+- T417's adversarial families that hit gaps 3-5, re-run on the fixed code (claude/t417-m5t-audit @ 456eefe5,
+  `python audit.py advmc|zbins|huge 20000 7 _fix`): 3 x 20,000 cases, **0 exceptions, 0 NaN, 0 violations, 0
+  shortfalls**. hi = inf (valid) in 12,614 advmc and 40 zbins cases. Worst fast hi / exact hi >= 1 + 2.4e-13;
+  worst fast lo / exact lo <= 1 - 2.2e-13 (advmc, zbins) and 0.99988 (huge).
