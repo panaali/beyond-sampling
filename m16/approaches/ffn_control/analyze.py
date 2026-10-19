@@ -150,10 +150,10 @@ def main():
             per_layer.append({"decision_cells_in_1e7": int(len(cnt)), **coverage(cnt, n)})
             h = m.W[0].shape[0]
             name = os.path.basename(p)[:-5]
-            contains_one = bool(np.abs(m.W[0].sum(1)).max() < 1e-3 * np.abs(m.W[0]).max())
-            d_eff = T - 1 if contains_one else T
-            res[name] = {"layer1_general_position_bound": int(2 * sum(comb(h - 1, i, exact=True) for i in range(d_eff))),
-                         "layer1_rows_sum_to_zero": contains_one, "layer1_effective_dim": d_eff,
+            row_sum = np.abs(m.W[0].sum(1)) / np.linalg.norm(m.W[0], axis=1)   # ~0: near shift-invariance
+            res[name] = {"layer1_general_position_bound": int(2 * sum(comb(h - 1, i, exact=True) for i in range(T))),
+                         "layer1_max_rowsum_over_norm": float(row_sum.max()),
+                         "good_turing_unseen_mass": [round(d.get("singletons", 0) / n, 4) for d in per_layer[:-1]],
                          "per_layer": per_layer}
             print(name, res[name], flush=True)
         if names is not None and "M16_10" not in names:
