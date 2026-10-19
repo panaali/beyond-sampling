@@ -1,0 +1,18 @@
+minimal_pair/cv budget 16000 done
+minimal_pair/cv budget 64000 done
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/leaderboard.py", line 393, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/clean-neurons/m16/leaderboard.py", line 385, in main
+    run(a.names, a.H, a.T, budgets, groups)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/leaderboard.py", line 280, in run
+    report(H, T, names)
+    ~~~~~~^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/leaderboard.py", line 351, in report
+    rows = table(H, T, names)
+  File "/home/user/clean-neurons/m16/leaderboard.py", line 312, in table
+    truth = json.load(open(truths_path(H, T)))
+                      ~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results/leaderboard_truths_H16_T6.json'

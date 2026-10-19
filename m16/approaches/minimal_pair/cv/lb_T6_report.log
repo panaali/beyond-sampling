@@ -1,0 +1,26 @@
+
+=== Leaderboard v3, M_16,6. MSE / sampling-MSE at equal cost (below 1 beats sampling) ===
+    ARC's demonstrated bar (E32, M_4,3): MSE ratios ~2.4 (B) to ~10 (A) at ARC's op counts were called 'roughly match'; A is ~1.4 when ops are counted as implemented (as here).
+
+--- unreviewed ---
+method             group       budget      cost  ratio         95% CI  bias pp  time  n
+minimal_pair       s0.0025      16000     16164   0.90 [ 0.23, 1.68]   +0.183  18.4 144
+minimal_pair       s0.005       16000     16096   0.60 [ 0.16, 1.09]   +0.054  18.7 144
+minimal_pair       s0.01        16000     16191   0.56 [ 0.14, 1.09]   +0.050  17.5 144
+minimal_pair       s0.02        16000     16239   1.72 [ 0.57, 2.95]   -0.172  16.7 144
+minimal_pair       seed         16000     15832   0.35 [ 0.06, 0.82]   +0.054  16.5 120
+minimal_pair       s0.0025      64000     64487   1.05 [ 0.26, 1.93]   +0.096   5.2 144
+minimal_pair       s0.005       64000     64377   1.08 [ 0.10, 2.34]   +0.113   5.0 144
+minimal_pair       s0.01        64000     64288   4.85 [ 0.71,11.44]   +0.324   4.9 144
+minimal_pair       s0.02        64000     64030   1.06 [ 0.45, 1.89]   +0.100   4.9 144
+minimal_pair       seed         64000     63919   0.33 [ 0.12, 0.54]   +0.015   4.9 120
+minimal_pair/cv    s0.0025      16000     15876   1.49 [ 0.48, 2.97]   +0.061  37.6 144
+minimal_pair/cv    s0.005       16000     15881   0.83 [ 0.07, 1.83]   +0.088  36.5 144
+minimal_pair/cv    s0.01        16000     15869   2.77 [ 0.75, 5.44]   -0.241  35.2 144
+minimal_pair/cv    s0.02        16000     16147   1.44 [ 0.28, 2.60]   +0.312  33.7 144
+minimal_pair/cv    seed         16000     15824   0.02 [-0.00, 0.05]   +0.003  36.8 120
+minimal_pair/cv    s0.0025      64000     64283   1.90 [ 0.55, 4.11]   +0.110  11.3 144
+minimal_pair/cv    s0.005       64000     64243   2.44 [ 0.02, 5.79]   +0.152  10.4 144
+minimal_pair/cv    s0.01        64000     64041   1.39 [ 1.01, 1.78]   +0.083  10.0 144
+minimal_pair/cv    s0.02        64000     63713   0.79 [ 0.43, 1.36]   +0.120   9.6 144
+minimal_pair/cv    seed         64000     63947   0.13 [ 0.03, 0.25]   +0.015  10.7 120
