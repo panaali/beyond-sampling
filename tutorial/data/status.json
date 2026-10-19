@@ -1,19 +1,26 @@
 {
-  "updated": "2026-10-19 02:10 UTC",
+  "updated": "2026-10-19 04:10 UTC",
   "source": "TASKS.md 'In progress' on ccr-6a61f25c-wn80ii (da2878ec) and each lane's branch head. The DRI edits this file; run tutorial/tools/build.py to re-embed it.",
   "lanes": {
     "T345": {
       "title": "Feed-forward version of the task",
       "status": "in progress",
       "what": "Find the simplest plain ReLU network that sees all 10 numbers at once and reaches M_16,10's accuracy (>= .95), fewest layers first; then attempt the challenge on it with exact tools versus sampling at equal compute.",
-      "latest": "Interim, not a result: the simplest all-at-once network reaching 95% has 1 layer of 128 neurons; most neurons compare two inputs, relu(x_a - x_b), covering all 45 pairs. It has as many linear pieces as the RNN. A walk along random great circles scores F ~.3, but that is sampling-class; no deductive method yet, and the ordering-cone idea failed.",
+      "latest": "Interim (step 2): the simplest all-at-once network reaching .95 has 1 layer of 128 comparator-like neurons and as many linear pieces as the RNN. A walk along random great circles scores F .28 on it, against 15.4 on the RNN, but that is sampling-class; no deductive route was found. With 4x more training data the 1 x 128 network reaches .990.",
       "branch": "claude/t345-ffn-control"
+    },
+    "T387": {
+      "title": "Fixed (deterministic) circle sets on the feed-forward network",
+      "status": "pass (unverified)",
+      "what": "Replace T345's random great circles by fixed point sets.",
+      "latest": "Halton sets give mean F .15 and Sobol .30, all below 1 (quadrature-class, not mechanistic). Symmetric and lattice sets fail.",
+      "branch": "see TASKS.md"
     },
     "T352": {
       "title": "Quantised activations (binary, int4, int8) and discrete inputs",
       "status": "in progress",
       "what": "Retrain M_16,10 with quantisation-aware training so each neuron takes only a few values. The network then becomes a finite-state machine, and an exact dynamic programme over reachable states may beat sampling.",
-      "latest": "Plan written before any training. The first binary models trained poorly (about 30% training accuracy part-way through); two other training rules were added before any final result.",
+      "latest": "Interim: quantisation-aware training gives accuracy .906 (float), .899 (int8), .724 (int4) and .299 (binary); a binary network with 16 neurons cannot learn the task. A width ladder (32, 64 neurons) is running.",
       "branch": "claude/t192-gpu-cost-law (m16/approaches/quantised/)"
     },
     "T370": {
@@ -25,23 +32,37 @@
     },
     "T371": {
       "title": "Rare events on weight-noised copies",
-      "status": "in progress",
+      "status": "pass (unverified)",
       "what": "Does the confirmed far-gap estimator (H-R1) stay within 2x when noise is added to the weights, as in ARC's noisy copies?",
-      "latest": "Interim, not a result: weight noise does not break the rare-event method; its misses sit where three-way near-ties dominate.",
+      "latest": "GO: the rare-event estimator holds on weight-noised copies (128 of 144 within 2x). Every point where three-way near-ties carry less than half the event is within 2x (110 of 110); whether near-ties dominate depends on the model and the threshold. Follow-up T388 is running.",
       "branch": "claude/t371-rare-noise"
+    },
+    "T388": {
+      "title": "Rare events where three-way near-ties dominate",
+      "status": "in progress",
+      "what": "Follow-up to T371: the remaining misses on noisy copies sit where three-way near-ties carry most of the event.",
+      "latest": "Running.",
+      "branch": "see TASKS.md"
     },
     "T372": {
       "title": "Which weights cause a rare mistake?",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "An exact derivative of a rare-error probability with respect to all 432 weights, read off the gate crossings along the exact walks. Plain sampling of a 0/1 event has no unbiased finite-variance derivative.",
-      "latest": "Interim, one development model (not a result): our deterministic gradient is about 5x too low even though its probability estimate is within 1.2x, while a sampling-based gradient along the same exact lines agrees with the truth. Two more models are running.",
+      "latest": "The deterministic gradient is a no-go (fixed lines alias the event). A sampling-class gradient along the exact lines is within 2x on 11 of 12 directions. Mechanism: M_16,10's far-gap rare error is set by the balance of the comparator pair n6/n7. Independent check T385 is running.",
       "branch": "claude/t372-rare-gradient"
+    },
+    "T385": {
+      "title": "Independent check of the rare-event gradient",
+      "status": "in progress",
+      "what": "Re-check T372's sampling-class gradient and its n6/n7 mechanism with independent code.",
+      "latest": "Running.",
+      "branch": "see TASKS.md"
     },
     "T373": {
       "title": "Certified rare-event probability inside the event's own cone",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Count the linear regions inside the region of input space where a far-gap mistake can happen. The idea is only viable if that count stays small (at most 2e8 projected at 10 steps); the first run decides.",
-      "latest": "Stopped for lower bounds; final write-up pending.",
+      "latest": "STOP: counting regions inside the event's cone projects to at least 2.7e15 at 10 steps, against the 2e8 viability line.",
       "branch": "claude/t373-event-cone"
     },
     "T10": {
@@ -53,9 +74,9 @@
     },
     "T379": {
       "title": "Independent fresh-model check of T10",
-      "status": "in progress",
+      "status": "confirmed (scoped)",
       "what": "Re-test T10's T = 5 pass on fresh models, because its sign groupings were chosen on the test seeds.",
-      "latest": "Running.",
+      "latest": "GO: T10's frozen estimator beats sampling on 5 fresh H = 16, T = 5 retrains (squared error at most .14 of sampling's; 320 of 320 runs with alternative rules below 1). Now ledger row H-E16, confirmed and scoped: deterministic quadrature (not mechanistic), clean models, compute counted in network-run equivalents; 10-35x slower than sampling in wall-clock time.",
       "branch": "see TASKS.md"
     },
     "T11": {
@@ -67,8 +88,15 @@
     },
     "T380": {
       "title": "A lower-variance integrand for T = 6",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Reduce how much the per-face contributions vary, the lever the 1 / error-rate law points to.",
+      "latest": "FAIL, as predicted, for a control-variate integrand. The frozen T10 quadrature roughly matches sampling at T = 10 on DEV3 (squared-error ratio .97 at 64k runs, 1.15 at 16k) but does not beat it. Next: T389, a weight-derived error predictor.",
+      "branch": "see TASKS.md"
+    },
+    "T389": {
+      "title": "A weight-derived error predictor for T = 10",
+      "status": "in progress",
+      "what": "Next lever after T380: predict from the weights where the errors are, to cut the quadrature's variance.",
       "latest": "Running.",
       "branch": "see TASKS.md"
     },
