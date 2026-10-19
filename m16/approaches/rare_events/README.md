@@ -876,4 +876,9 @@ S14 on M_16,10, E1, one call at t0 = (2.0, 2.5, 3.0); checks from T401's conditi
 - [inferred] The closure was most of the target's deep-tail deficit. A remaining part (.23 at t = 3) is not removed by
   the exact-law v4 / lows cubature. Candidates are the g12 resolution at the deepest ties and S14's linearisation
   around its anchor t_a.
-- The t = 1.5 control is still running and is appended when done.
+- **Control, t = 1.5** (separate call `python diag_t370.py 1.5`, `results/t370diag_1.5.json`): est 1.764e-7 against
+  the check p_joint 2.203e-7 (1,019 hits, rate 3.71e-5, tie share .93), so **est / check = .80**. That is within 2x, as
+  pre-registered. The graded rule is 1.03 here and K3 .46, so at t = 1.5 S14 is no better than the graded rule (slightly
+  further off, still low). Cost 43.7M FPE (8,521 CPU-s) for this one threshold. [measured]
+- [inferred] S14 is low at every t tested (.80 / .54 / .37 / .23), and the ratio falls steadily with t. This points to
+  a systematic low bias that grows with depth, not one that only appears in the deep tail. Diagnostic only, not a go.
