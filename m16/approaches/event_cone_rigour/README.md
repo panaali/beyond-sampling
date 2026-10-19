@@ -321,6 +321,18 @@ futile (the C_true curve).
   - a budget of 1e5 simplices gives ub = 3.59e-11 (4.0x MC) in 22 s.
 - One stated assumption, A1: libm/scipy special-function accuracy, measured with >= 130x margin.
 
+
+### (2) Probabilistic bound on P(E(2.5)), sampling-class (pre-registration 2) [measured]
+**This is not a certificate.** It holds with probability >= 1 - 1e-6 over the MC seed.
+
+| draws | g23 >= 2.5 | event hits | point estimate | Clopper–Pearson upper, conf 1 - 1e-6 | (95%) |
+|---|---|---|---|---|---|
+| 1e10 (5 shards) | 403,698 | 1 | 1e-10 | **1.67e-9** | 4.7e-10 |
+
+- Commands: `python prob_bound.py 2.5 2e9 <seed 1..5>`, then `python prob_combine.py 2.5 1e-6`.
+- The single hit is a genuine event: triple (9,3,2), g23 = 2.65, logit 68.88 vs 67.95.
+- Covering the target truth (< 1e-9) at this confidence would take about 1e11 draws (~30 CPU-h).
+
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
