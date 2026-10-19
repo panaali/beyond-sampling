@@ -100,7 +100,7 @@ def main():
         for xi, vi in zip(xs[::5], v[::5]):
             r = mp.exp(mp.mpf(float(xi)))
             err = max(0.0, float(abs(mp.mpf(float(vi)) - r)) - F.TINY)
-            m = err / float(r)
+            m = float(mp.mpf(err) / r)
             if m > worst:
                 worst, wx = m, float(xi)
         res[nm] = dict(measured_worst_rel_beyond_tiny=worst, at=wx, assumed=1e-13, margin=1e-13 / worst if worst else None, checked=int(len(xs[::5])))

@@ -1,0 +1,65 @@
+{
+ "cases": 20000,
+ "log_ndtr_inputs": {
+  "count": 857168,
+  "min": -4.585217653333251e+62,
+  "max": 1.1341329218953694e+63
+ },
+ "log_ndtr": {
+  "measured_worst": 4.3155339196250046e-16,
+  "at": -0.8248308231425819,
+  "assumed": 1e-13,
+  "margin": 231.72103814373318,
+  "checked": 40000
+ },
+ "erfcx_inputs": {
+  "count": 1211516,
+  "min": 4.9445766739382325e-160,
+  "max": 4.0053169253880004e+63
+ },
+ "erfcx": {
+  "measured_worst": 8.296750534923489e-16,
+  "at": 0.0012687680695147164,
+  "assumed": 1e-13,
+  "margin": 120.52911507833132,
+  "checked": 40000
+ },
+ "exp_numba": {
+  "measured_worst_rel_beyond_tiny": 1.1009358187800796e-16,
+  "at": -486.582501769515,
+  "assumed": 1e-13,
+  "margin": 908.3181625501801,
+  "checked": 60000
+ },
+ "exp_numpy": {
+  "measured_worst_rel_beyond_tiny": 1.2436004096172262e-16,
+  "at": -562.8331856931147,
+  "assumed": 1e-13,
+  "margin": 804.1168145866042,
+  "checked": 60000
+ },
+ "log_numba": {
+  "measured_worst_rel": 1.0919493753350327e-16,
+  "at": 1.0000009560016991,
+  "assumed": 1e-13,
+  "margin": 915.7933715500128,
+  "checked": 40000
+ },
+ "log_numpy": {
+  "measured_worst_rel": 1.1879670969755514e-16,
+  "at": 1.0039323440655537,
+  "assumed": 1e-13,
+  "margin": 841.7741556528819,
+  "checked": 40000
+ },
+ "subnormals_numba": true,
+ "subnormals_numpy": true,
+ "llvm_fma": 0,
+ "llvm_contract_flags": 0,
+ "llvm_fast_flags": 0,
+ "svml": 0,
+ "numba_config": {
+  "fastmath_default": false,
+  "svml_enabled": false
+ }
+}
