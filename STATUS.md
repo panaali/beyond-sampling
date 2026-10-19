@@ -34,7 +34,7 @@ error is about half of random testing's at the same compute (H-E17, confirmed; T
   billion with very high confidence (sampling-based, T400). For one section of inputs a mathematical guarantee gives at most 1.4 in 100
   billion (T416, provisional): all ~260k safety certificates verify exactly (T400), the fast rigorous calculator is confirmed (H-C1), the
   geometry is under audit (T420). The section holding all observed mistakes is much costlier to split (T398, interim).
-  A guarantee over all inputs is out of reach with our methods (T398, T414); a final library check runs (T418).
+  The late input sections looked blocked (T398, T414), but a library re-check found the blocker was the splitting rule, not the bounds; a better rule projects about 2e6-2e7 pieces per section (T418), and a rigorous version runs (T455).
 
 **Ideas that did not work** (each in INDEX): rounded-value networks (T352), mixing exact regions with tracing (T46),
 listing mistake patterns (T413), enumerating regions (T373, T390), a GPU checker (T399), algebraic rewrites (T291, T3),
