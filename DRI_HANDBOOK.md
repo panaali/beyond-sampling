@@ -318,6 +318,9 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
    waiter (`while kill -0 <pid>; do sleep 120; done`, re-armed before it times out), checkpoints with `--resume`
    (T398: every 5 parents), and a send_later self check-in that restarts dead PIDs and pushes checkpoints. Put this in
    every compute-heavy spawn prompt.
+11. **Check that a spawned session started.** At 19:18 three spawns (T436, T437, T442) stayed PENDING: sandbox
+   allocation failed with `rate_limited`, and nothing retried it. A few minutes after spawning, confirm that the row is
+   claimed (or that get_session leaves PENDING); if not, read list_events, archive the session and spawn again.
 
 **Owner directives** are recorded once, verbatim, in [OWNER_QA.md section 8](OWNER_QA.md#directives); the ones that bind agents (no Fable, never contact ARC, parallel child sessions, CPU-first, tutorial paused) are one-liners in [AGENTS.md "Standing rules"](AGENTS.md#standing-rules). Record a new directive there only, never by copying it here or into TASKS.md.
 
