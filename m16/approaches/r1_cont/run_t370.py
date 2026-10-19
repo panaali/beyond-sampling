@@ -35,3 +35,5 @@ if __name__ == "__main__":
             e, f = Z.est_e2(mod(nm), t, M, closure=cl); rec = dict(est=e)
         rec.update(C=f / 5948, sec=time.time() - t0); out[key] = rec; json.dump(out, open(fn, "w"), indent=1)
         print(key, rec, flush=True)
+        if os.environ.get("T370_ONE"):                                              # one job per call (tracked runs)
+            break
