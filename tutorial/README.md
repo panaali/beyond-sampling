@@ -47,7 +47,7 @@ from the simplest version of the problem along every dimension we tried up to AR
   section.
 
 ## Status
-Version 5 (T382 prose, T384 fact-check, three review rounds), 2026-10-19. Stays open for status updates from the DRI.
+Final version (v10), 2026-10-19 22:35 UTC, brought up to date with ccr-6a61f25c-wn80ii @1965541f (STATUS.md rewrite, OWNER_QA 4.13-4.15, lit/novelty_review.md). Paused by the owner except for updates they request.
 
 ## Review rounds
 **Round 1 (00:35, fresh-context general-purpose agent, 40 items).** Applied: plain-language result cards and a
@@ -130,6 +130,15 @@ accuracy, not a win over sampling; E1/E2 renamed in section 12; feed-forward pro
 plainly); legend explains pass/done/inconclusive/scoped; lane text de-shouted; section 14 grouped by theme via a new
 `group` field in status.json; Figure 2 lines clipped to the axes.
 Not applied: moving 4b after section 5 and a static face diagram in 4c (structural; the 4c text points to Figure 11).
+
+**Final update (22:35, owner request d-1019-223x).** Banner and byline now say: two candidates, ARC acceptance unknown.
+New result card for the line walks (H-E17, T431 sealed strict pass; T429 budget curve; T449/T451 no weight-derived bound)
+and for the certified bound (T416 <= 1.36e-11 provisional; T400; T418/T455); rare card adds T370 stage 1 and H-R3;
+candidates table rebuilt around H-E17 with ARC's "competitive with sampling" wording (OWNER_QA 4.13); new 1c "What is
+new here" crediting prior work as lit/novelty_review.md does; section 5 adds T429/T431/T393; section 6 T352 negative and
+the feed-forward row final; section 12 adds T436/T453/T454 and the safe-use rating; section 13 rewritten (what remains)
+plus "Beyond this network" (T419, T421, T433, T444, T445-T447, T443). status.json: 47 lanes, finished ones marked with
+their INDEX status. No redesign, no new review round (owner: one republish).
 
 ## Results
 Not a research result. Every number in the page cites its INDEX row and status. Numbers computed by this folder:

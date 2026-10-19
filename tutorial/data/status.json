@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-19 06:25 UTC",
+  "updated": "2026-10-19 22:35 UTC (final update)",
   "source": "TASKS.md 'In progress' on ccr-6a61f25c-wn80ii (da2878ec) and each lane's branch head. The DRI edits this file; run tutorial/tools/build.py to re-embed it. Each lane's 'group' sets its heading in section 14 (groups appear in first-seen order).",
   "lanes": {
     "T10": {
@@ -38,87 +38,95 @@
       "title": "A weight-derived error predictor for T = 10",
       "status": "negative (unverified)",
       "what": "Next lever after T380: predict from the weights where the errors are, to cut the quadrature's variance.",
-      "latest": "Stopped by its pre-set line at 64k runs (DEV3 ratio to sampling 1.215 [.84, 1.69]); at 16k runs it reached .738 [.51, 1.006], the first point estimate below sampling at T = 10, though the interval touches 1. Allocation fixed before walking; deterministic, ARC acceptance unknown. Follow-up T391 is running; a sealed HP5 run follows only if it passes.",
+      "latest": "Stopped by its pre-set 64k line (DEV3 1.215); .738 at 16k. Superseded: the budget study T429 and the sealed HP5 run T431 showed that the T10 recipe passes the strict bar from about 1e6 runs per model (H-E17).",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
     },
     "T391": {
       "title": "One global importance-weighted rule at T = 10",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Follow-up to T389: a single weight-derived allocation rule for the fixed lines at T = 10. A sealed HP5 run follows only if it passes.",
-      "latest": "Running; no result yet.",
+      "latest": "Stopped by its pre-set line: DEV3 .859 [.659, 1.078] at 16k and .880 [.620, 1.165] at 64k, intervals crossing 1; HP5 left untouched for T431.",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
     },
     "T46": {
       "title": "Exact ladder at H = 16: T = 5 and 6, then a hybrid",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Resumed by the owner: exact rows at T = 5/6, then a hybrid exact/estimated method. Correction to the earlier record: on 10-17 only seeds 0-1 were computed exactly at T = 5, not 0-4.",
-      "latest": "Running; an early development diagnostic predicts failure.",
+      "latest": "Exact counts done for all leaderboard models at T = 2-4 (and T = 5 on seeds 0-3). The hybrid of exact regions and tracing FAILED, as pre-registered and predicted: no admissible split at T = 5, 6 or 10 within budget.",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
     },
     "T86+T111": {
       "title": "Training the missing ladder sizes",
-      "status": "in progress",
+      "status": "done / negative (unverified)",
       "what": "Resumed by the owner: train ladder sizes AlgZoo lacks and a better-trained H = 4, T = 4 network.",
-      "latest": "Running; no result yet.",
+      "latest": "New ladder sizes trained and matching AlgZoo (e.g. 7 neurons, 3 numbers). Better training of the 4-neuron, 4-step rung FAILED every attempt (best ~.60); whether T or undertraining is the cause is inconclusive.",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
     },
     "T393": {
       "title": "Compiled walk: real wall-clock cost",
-      "status": "in progress",
+      "status": "done (unverified)",
       "what": "Measure the walk methods' actual run time, not only arithmetic counts (they were 10-35x slower than sampling in wall-clock time).",
-      "latest": "Running; no result yet.",
+      "latest": "At H = 16, T = 5 the compiled walk also wins on real wall-clock time (time ratio .09-.30 against an equally compiled sampler at equal error). At T = 10 it loses at 16k runs and is inconclusive at 64k.",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
     },
-    "T345": {
-      "title": "Feed-forward version of the task",
-      "status": "in progress",
-      "what": "Find the simplest plain ReLU network that sees all 10 numbers at once and reaches M_16,10's accuracy (>= .95), fewest layers first; then attempt the challenge on it with exact tools versus sampling at equal compute.",
-      "latest": "Interim (step 2): the simplest all-at-once network reaching .95 has 1 layer of 128 comparator-like neurons and as many linear pieces as the RNN. A walk along random great circles scores F .28 on it, against 15.4 on the RNN, but that is sampling-class; no deductive route was found. With 4x more training data the 1 x 128 network reaches .990.",
-      "branch": "claude/t345-ffn-control",
-      "group": "Simpler networks"
+    "T429": {
+      "title": "Does the walk quadrature improve with budget at T = 10?",
+      "status": "confirmed (scoped), with T431",
+      "what": "",
+      "latest": "Yes, against the pre-registered 'flat' prediction: on DEV3 F falls about x.75 per 4x budget; the strict bar holds (interval below 1) from 1e6 runs per model for both recipes. deterministic, ARC acceptance unknown.",
+      "branch": "see INDEX / TASKS",
+      "group": "Scaling up along T"
     },
-    "T387": {
-      "title": "Fixed (deterministic) circle sets on the feed-forward network",
-      "status": "pass (unverified)",
-      "what": "Replace T345's random great circles by fixed point sets.",
-      "latest": "Halton sets give mean F .15 and Sobol .30, all below 1 (deterministic; ARC acceptance unknown). Symmetric and lattice sets fail.",
-      "branch": "see TASKS.md",
-      "group": "Simpler networks"
+    "T431": {
+      "title": "Sealed HP5 run of the walk quadrature at T = 10",
+      "status": "confirmed (scoped): H-E17",
+      "what": "",
+      "latest": "Strict pass on a sealed, never-used panel of 100 retrains, scored once by the independent scorer: F .540 [.343, .762] at 4e6 runs per model (plain-sampling control 1.015).",
+      "branch": "see INDEX / TASKS",
+      "group": "Scaling up along T"
     },
-    "T352": {
-      "title": "Quantised activations (binary, int4, int8) and discrete inputs",
-      "status": "in progress",
-      "what": "Retrain M_16,10 with quantisation-aware training so each neuron takes only a few values. The network then becomes a finite-state machine, and an exact dynamic programme over reachable states may beat sampling.",
-      "latest": "Interim: with 64 neurons, int4 reaches ~.95 in training (final evaluation pending), but int4 hidden states are essentially unique per input (865M distinct of 1e9), so an exact state-by-state calculation is infeasible at int4. Binary states stay tiny (1.7k-3.8k) and the exact binary calculation matches 1e8 random samples; binary accuracy is low at 16 neurons, and 32/64 are pending.",
-      "branch": "claude/t192-gpu-cost-law (m16/approaches/quantised/)",
-      "group": "Simpler networks"
+    "T449": {
+      "title": "A weight-derived bound on the line-averaging error?",
+      "status": "dead (verified by T451), scoped",
+      "what": "",
+      "latest": "No: every bound family tried is infinite or hundreds of times looser than the actual error, because a line's answer has creases and jumps where it grazes region boundaries. Closing it would need cells at the scale of the exact regions.",
+      "branch": "see INDEX / TASKS",
+      "group": "Scaling up along T"
     },
-    "T392": {
-      "title": "Chunked-input RNN",
-      "status": "in progress",
-      "what": "An RNN that reads k numbers per step (k = 1, 2, 5, 10), between the 10-step RNN and the all-at-once network.",
-      "latest": "Running; no result yet.",
-      "branch": "see TASKS.md",
-      "group": "Simpler networks"
+    "T423": {
+      "title": "Walk quadrature on wider networks",
+      "status": "in progress (interim, unverified)",
+      "what": "",
+      "latest": "Interim: at 24 and 32 neurons (T = 10) the strict bar holds at 4k, 16k and 64k runs (F .17-.49); the prediction that wider is harder is refuted at 16-32 neurons.",
+      "branch": "see INDEX / TASKS",
+      "group": "Scaling up along T"
     },
-    "T394": {
-      "title": "Independent check of the all-at-once results",
+    "T434": {
+      "title": "Walk quadrature on noisy copies and on the target itself",
       "status": "in progress",
-      "what": "Re-check T345/T387 with independent code.",
-      "latest": "Running; no result yet.",
-      "branch": "see TASKS.md",
-      "group": "Simpler networks"
+      "what": "",
+      "latest": "H-E17's open scope: weight-noised copies and the target model M_16,10.",
+      "branch": "see INDEX / TASKS",
+      "group": "Scaling up along T"
+    },
+    "T442": {
+      "title": "Other fixed line sets",
+      "status": "in progress",
+      "what": "",
+      "latest": "Does H-E17 depend on the particular fixed line set?",
+      "branch": "see INDEX / TASKS",
+      "group": "Scaling up along T"
     },
     "T370": {
       "title": "Rare events: fix the simplified treatment of the smaller inputs",
-      "status": "in progress",
+      "status": "pass, stage 1 (unverified)",
       "what": "Replace the closure that pins the 7 smaller inputs at one value with a real integral over their exact law, the cause T363 and T369 point to for the remaining rare-event failures.",
-      "latest": "Interim: the new closure brings the bad network s547's far-gap estimate to 1.02 / .87 of the truth (it was 2.4x); the both-gaps-large event is within 2x on 7 of 12 so far.",
+      "latest": "Stage 1 PASSED with a deterministic cubature closure (Q16): the worst network fixed (.79 / .70), controls 12 of 12 within 2x, the both-gaps-large event 25 of 29 within 2x; cost 2.8-4.6e7 runs per model. A sealed stage 2 on 8 untouched pairs is running.",
       "branch": "claude/t218-tie-tail-labels, claude/t286-cheap-frontier",
       "group": "Rare events"
     },
@@ -132,9 +140,9 @@
     },
     "T388": {
       "title": "Rare events where three-way near-ties dominate",
-      "status": "in progress",
+      "status": "pass (unverified)",
       "what": "Follow-up to T371: the remaining misses on noisy copies sit where three-way near-ties carry most of the event.",
-      "latest": "Running; no result yet.",
+      "latest": "The graded rule fixes all 16 former misses on noisy copies (143 of 144 within 2x overall), breaking 1 former hit.",
       "branch": "see TASKS.md",
       "group": "Rare events"
     },
@@ -142,15 +150,15 @@
       "title": "Which weights cause a rare mistake?",
       "status": "negative (unverified)",
       "what": "An exact derivative of a rare-error probability with respect to all 432 weights, read off the gate crossings along the exact walks. Plain sampling of a 0/1 event has no unbiased finite-variance derivative.",
-      "latest": "The deterministic gradient is a no-go (fixed lines alias the event). A sampling-class gradient along the exact lines is within 2x on 11 of 12 directions. Mechanism: M_16,10's far-gap rare error is set by the balance of the comparator pair n6/n7. Independent check T385 is running.",
+      "latest": "The deterministic gradient failed (2 of 12 directions). A sampling-class gradient along the exact lines works and points to the n6/n7 comparator balance; independently confirmed by T385.",
       "branch": "claude/t372-rare-gradient",
       "group": "Rare events"
     },
     "T385": {
       "title": "Independent check of the rare-event gradient",
-      "status": "in progress",
+      "status": "pass (unverified)",
       "what": "Re-check T372's sampling-class gradient and its n6/n7 mechanism with independent code.",
-      "latest": "Running; no result yet.",
+      "latest": "Independent check with its own line family: all 3 pre-set lines pass (sampling-class gradient). It supports T372's sampling-class result.",
       "branch": "see TASKS.md",
       "group": "Rare events"
     },
@@ -158,25 +166,153 @@
       "title": "Certified rare-event probability inside the event's own cone",
       "status": "negative (unverified)",
       "what": "Count the linear regions inside the region of input space where a far-gap mistake can happen. The idea is only viable if that count stays small (at most 2e8 projected at 10 steps); the first run decides.",
-      "latest": "Stopped: the full count is out of reach. But the prefixes where the event is still possible are few and grow slowly (209-879 at 6 steps, x1.9-3.4 per step), so an event-guided branch and bound is being kill-tested (T390).",
+      "latest": "Stopped: counting regions inside the event's cone is out of reach at 10 steps. The certified-bound work continued with tighter bounds and neuron splitting (T398, T400, T416).",
       "branch": "claude/t373-event-cone",
       "group": "Rare events"
     },
     "T390": {
       "title": "Event-guided branch and bound",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Kill test: follow only the few prefixes where the rare event is still possible (T373).",
-      "latest": "Running; no result yet.",
+      "latest": "Stopped: event-guided branch and bound projects about 2.1e8 nodes, above its 1e7 line.",
       "branch": "see TASKS.md",
       "group": "Rare events"
     },
     "T386": {
       "title": "De-aliased deterministic rare-event gradient",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Fix the fixed-line aliasing that sank T372's deterministic gradient.",
-      "latest": "Running; no result yet.",
+      "latest": "A de-aliased deterministic gradient still fails its gate (6 of 12 directions, against 80% needed).",
       "branch": "see TASKS.md",
       "group": "Rare events"
+    },
+    "T436": {
+      "title": "Dominating-point importance sampling (sampling-class)",
+      "status": "pass (unverified)",
+      "what": "",
+      "latest": "Applying Bai, Huang, Lam and Zhao (2020): estimates the target's far-gap mistake at 1.45e-10 (7.9% relative error) with about 1e5x less compute than plain sampling.",
+      "branch": "see INDEX / TASKS",
+      "group": "Rare events"
+    },
+    "T454": {
+      "title": "Honest intervals for importance sampling",
+      "status": "negative (unverified)",
+      "what": "",
+      "latest": "Within 2x on all 15 blind points (T453: 14/15), but the error bars are honest on only 12 of 15 (14 needed). A version scored on fresh points runs (T456).",
+      "branch": "see INDEX / TASKS",
+      "group": "Rare events"
+    },
+    "T401+T407+T427": {
+      "title": "Safe-use rating",
+      "status": "partial (unverified)",
+      "what": "",
+      "latest": "'If the top numbers differ by at least X, the error rate is Y': works on some networks, partly on the target (T401, T407); on a 24-neuron network it works for the rarer conditions instead (T427, interim).",
+      "branch": "see INDEX / TASKS",
+      "group": "Rare events"
+    },
+    "H-R3": {
+      "title": "Locating and repairing a rare mistake",
+      "status": "confirmed (scoped)",
+      "what": "",
+      "latest": "A 12-weight edit makes the target's far-gap mistake about 17-19x rarer at about .011 points of accuracy; 0 of 40 random edits of the same size succeed (T402, T410). Removing all such mistakes is not possible: repairs turn rare mistakes into common ones (T411).",
+      "branch": "see INDEX / TASKS",
+      "group": "Rare events"
+    },
+    "T400+T416": {
+      "title": "Certified upper bound on a rare mistake",
+      "status": "provisional (unverified)",
+      "what": "",
+      "latest": "Sampling: P(far-gap mistake at gap 2.5) = 1.55e-10, at most 4.2e-10 with confidence 1 - 1e-6 (T400). Rigorous: on one section of inputs, triple (1,8,2), at most about 1.36e-11 (T416, provisional until the geometry audit T420). All 17 sampled mistakes sit on triple (9,3,2): about 2 million pieces, about 5 CPU-days to charge (T398, T400).",
+      "branch": "see INDEX / TASKS",
+      "group": "Rare events"
+    },
+    "T418+T455": {
+      "title": "The late-section obstruction",
+      "status": "in progress",
+      "what": "",
+      "latest": "T418: the late sections looked blocked, but the blocker was the splitting rule, not the bounds; a better rule projects about 2e6-2e7 pieces per section. A rigorous version runs (T455), so a guarantee over all inputs may be feasible.",
+      "branch": "see INDEX / TASKS",
+      "group": "Rare events"
+    },
+    "T345": {
+      "title": "Feed-forward version of the task",
+      "status": "done (unverified)",
+      "what": "Find the simplest plain ReLU network that sees all 10 numbers at once and reaches M_16,10's accuracy (>= .95), fewest layers first; then attempt the challenge on it with exact tools versus sampling at equal compute.",
+      "latest": "Simplest all-at-once network reaching .95: one hidden layer of 128 (2,560 weights), mostly pairwise comparators; as many pieces as the RNN. Random circle walks are sampling-class; fixed circle sets are deterministic, ARC acceptance unknown. No deductive method was found (T408).",
+      "branch": "claude/t345-ffn-control",
+      "group": "Simpler networks"
+    },
+    "T387": {
+      "title": "Fixed (deterministic) circle sets on the feed-forward network",
+      "status": "pass (unverified)",
+      "what": "Replace T345's random great circles by fixed point sets.",
+      "latest": "Fixed Halton circle sets give F mean .15, all below 1 (deterministic, ARC acceptance unknown); fixed symmetric and lattice sets fail. Re-checked independently by T394.",
+      "branch": "see TASKS.md",
+      "group": "Simpler networks"
+    },
+    "T352": {
+      "title": "Quantised activations (binary, int4, int8) and discrete inputs",
+      "status": "negative (unverified)",
+      "what": "Retrain M_16,10 with quantisation-aware training so each neuron takes only a few values. The network then becomes a finite-state machine, and an exact dynamic programme over reachable states may beat sampling.",
+      "latest": "Negative, scoped to the tested networks: int4 reaches .95 only at 64 neurons, and its hidden states are almost unique per input, so the exact state-by-state calculation is infeasible; binary networks stay at .43-.52 even at 64 neurons.",
+      "branch": "claude/t192-gpu-cost-law (m16/approaches/quantised/)",
+      "group": "Simpler networks"
+    },
+    "T392": {
+      "title": "Chunked-input RNN",
+      "status": "done (unverified)",
+      "what": "An RNN that reads k numbers per step (k = 1, 2, 5, 10), between the 10-step RNN and the all-at-once network.",
+      "latest": "The challenge gets easier as the network reads more numbers per step, but almost all the gain is between 5 and 10 numbers per step, and it comes from cheaper propagation, not from fewer regions.",
+      "branch": "see TASKS.md",
+      "group": "Simpler networks"
+    },
+    "T394": {
+      "title": "Independent check of the all-at-once results",
+      "status": "pass (unverified)",
+      "what": "Re-check T345/T387 with independent code.",
+      "latest": "Independent check of the all-at-once network: all 10 fixed Halton sets beat sampling (F mean .19-.37) on 6 fresh networks; two details of T345/T387 corrected (Halton is not clearly better than random circles; 3 of 6 seeds stayed below .95 at the shorter training).",
+      "branch": "see TASKS.md",
+      "group": "Simpler networks"
+    },
+    "T419": {
+      "title": "Other tasks on the same network shape",
+      "status": "in progress",
+      "what": "",
+      "latest": "Quick screen: 24 of 29 candidate tasks reach at least .70 and go on to full training.",
+      "branch": "see INDEX / TASKS",
+      "group": "Transfer"
+    },
+    "T421": {
+      "title": "Bigger networks",
+      "status": "in progress",
+      "what": "",
+      "latest": "16 neurons cannot do 20 numbers (.46); 32 can (.93). From 16 to 24 neurons at T = 10, accuracy jumps from ~.88 to ~.99, so errors are ~10x rarer.",
+      "branch": "see INDEX / TASKS",
+      "group": "Transfer"
+    },
+    "T433+T444": {
+      "title": "A mini language model",
+      "status": "in progress",
+      "what": "",
+      "latest": "Two small languages and 36 baseline models (T433). Attention that keeps our exact methods usable matches standard attention on the bracket language (T444). Estimating, rare-mistake and guarantee streams run (T445-T447).",
+      "branch": "see INDEX / TASKS",
+      "group": "Transfer"
+    },
+    "T395": {
+      "title": "GPU census at 1e10 inputs",
+      "status": "done (unverified)",
+      "what": "Repeat the gate-pattern census with 10x more inputs, to sharpen how fast the probability-carrying patterns grow.",
+      "latest": "With 1e10 inputs, the effective number of error patterns grows about x3.9, x3.2, x2.7 per step at 7-10 steps, still falling: close to the ~3x 'revival' line, far below the 25-44x growth of raw regions.",
+      "branch": "see TASKS.md",
+      "group": "Counting the pieces"
+    },
+    "T443": {
+      "title": "Re-check of the small-rung calculator",
+      "status": "done (unverified)",
+      "what": "",
+      "latest": "A bug re-check of the region calculator used on small rungs changed no verdicts.",
+      "branch": "see INDEX / TASKS",
+      "group": "Counting the pieces"
     },
     "T291": {
       "title": "Strict bar with a different representation",
@@ -241,14 +377,6 @@
       "latest": "Done: a different agent with its own code, controls passing their density check (median top-1 share .104): +44.6 points [36.3, 52.9]. Caveat: texture-matched controls give +37.0 [28.7, 45.5], inconclusive at the bar. Ledger H-Q5 confirmed (scoped); H-Q2 refuted for dense controls.",
       "branch": "see TASKS.md",
       "group": "Neuron-level accounts and the essay question"
-    },
-    "T395": {
-      "title": "GPU census at 1e10 inputs",
-      "status": "in progress",
-      "what": "Repeat the gate-pattern census with 10x more inputs, to sharpen how fast the probability-carrying patterns grow.",
-      "latest": "Running; no result yet.",
-      "branch": "see TASKS.md",
-      "group": "Counting the pieces"
     }
   },
   "status_values": "'in progress' (purple box), 'negative (unverified)' (red), 'inconclusive (unverified)' (amber), 'confirmed' (green); see laneHTML() in src/page.html"
