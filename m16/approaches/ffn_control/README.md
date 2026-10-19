@@ -193,9 +193,20 @@ running). Step 2: F reported for every candidate and for M_16,10; a deductive es
 | 4 | 32 | 3,712 | .981 | .976 | .986 | yes (most tractable by regions) |
 | controls (2^30) | L1h22 / L1h43 / L2h13 | 440 / 860 / 429 | .358 / .507 / .690 | | | no |
 
-M_16,10: .9531 with 432 parameters. Reproduce: `python train.py D1w128 0 28`, `python analyze.py acc`.
+2^30 samples (the zoo's full schedule; accuracy on 1e6 fresh inputs):
 
-- **Simplest by depth, then parameters:** D1w128, one hidden layer of 128, 2,560 parameters (5.9x M_16,10).
+| depth | width | params | seed 0 | seed 1 | seed 2 | >= .95 on all seeds |
+|---|---|---|---|---|---|---|
+| 1 | 64 | 1,280 | .602 | | | no |
+| 1 | 80 | 1,600 | .659 | | | no |
+| 1 | 96 | 1,920 | .974 | .904 | .973 | no |
+| 1 | **128** | **2,560** | **.990** | **.990** | **.990** | **yes** |
+
+M_16,10: .9531 with 432 parameters. Reproduce: `python train.py D1w128 0 28` (or `... 30`), `python analyze.py acc`.
+
+- **Simplest by depth, then parameters:** D1w128, one hidden layer of 128, 2,560 parameters (5.9x M_16,10), under
+  both schedules (at 2^30 D1w96 passes on 2 of 3 seeds only). The longer schedule matters (.965 -> .990 for D1w128;
+  D1w96 .79 -> .97), so deeper configs that failed at 2^28 might pass at 2^30; only depth 1 was retrained.
   Depth 1 jumps from .79 at width 96 to .95-.965 at 128. No depth-2 or depth-3 net with fewer parameters passes on
   all seeds (D3w28/D3w32 pass on some seeds only: SGD lands in worse minima on others).
 - **Most tractable by the pre-registered region criterion:** D4w32 (lowest realised counts, below).
@@ -243,8 +254,11 @@ forward FLOPs (M_16,10 5,920; D1w128 5,248; D3w32 5,472; D4w32 7,552; D3w64 19,1
 | D1w128 | great circles (generic) | 8.7 [7.2, 10.2] | 0.20 [0.16, 0.23] | 0.16 | 256 | 64x |
 | **D1w128** | **great circles, `fast1.py`** | **0.280 [0.253, 0.306]** | | | 256 | 64x |
 | D1w128 | `fast1.py`, direct at C = 4k FPE | **0.267 [0.245, 0.291]** | | | | |
+| D1w128@30 (2^30 retrains, acc .990) | `fast1.py` | **0.104 [0.091, 0.115]**; direct .103 | | | 256 | |
 | D1w96 (1 seed + 3 copies) | `fast1.py` | 0.87 [0.84, 0.90] | | | | |
 | D1w64 (1 seed + 3 copies) | `fast1.py` | 1.08 [1.04, 1.12] | | | | |
+| L1h43 (2 seeds + copies, acc .51) | `fast1.py` | 1.19 [1.17, 1.22] | | | | |
+| L1h22 (2 seeds + copies, acc .36) | `fast1.py` | 2.32 [2.27, 2.36] | | | | |
 
 Reproduce: `python score.py M16_10 3000 600`, `python score.py D3w32 1000 400`, `python score.py D3w64 600 200`,
 `python score.py D4w32 600 300`, `python score.py D1w128 300 200`, `python score_fast1.py D1w128 3000 40`,
@@ -274,6 +288,10 @@ model, no random calls.
 | **H: scrambled Halton, seeds 1-5** | **.03, .28, .19, .10, .14** | **.15** | **yes** |
 | P: 23 Sobol points x 10 cyclic shifts | 8.5, 2.2, .25, 1.5, .73 | 2.6 | no |
 | K: Korobov lattice, a = 17, 31, 57, 89, 113 | 2.6, .99, .51, 1.7e4, .12 | | no |
+
+Post-hoc sensitivity (not pre-registered; same designs, run after T387): on the D1w128@30 panel (2^30 retrains,
+acc .990; random circles F .104) `python score_fixed.py D1w128@30` gives Halton .049, .026, .088, .024, .035 (mean
+.045), Sobol .126, .090, .033, .167, .096 (mean .10), cyclic .11-3.5, Korobov 1.8-5.9 (and a = 89 degenerate).
 
 - The per-set bootstrap CIs over models (in the JSON) understate the uncertainty: a fixed set's error is shared by
   the 12 near-identical panel models (|mean error| / RMS error .8-.98 for most sets), so each set is close to one
