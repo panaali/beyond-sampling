@@ -1,6 +1,6 @@
 G12    pre  runs (8,4) 10 (8,5)  0 | max |dacc| 5.2e-03 | max |dsimplex| 4.8e-05 | op ratio 0.52-0.69 | FAIL
 G16    pre  runs (8,4) 10 (8,5)  0 | max |dacc| 8.0e-04 | max |dsimplex| 1.9e-05 | op ratio 0.54-0.70 | FAIL
-G24    pre  runs (8,4) 10 (8,5)  0 | max |dacc| 6.9e-05 | max |dsimplex| 5.0e-06 | op ratio 0.57-0.72 | FAIL
+G24    pre  runs (8,4) 10 (8,5)  2 | max |dacc| 1.8e-04 | max |dsimplex| 5.0e-06 | op ratio 0.57-0.72 | FAIL
 L24    pre  runs (8,4) 10 (8,5)  0 | max |dacc| 4.4e-01 | max |dsimplex| 1.5e-04 | op ratio 0.57-0.72 | FAIL
 L32    pre  runs (8,4) 10 (8,5)  0 | max |dacc| 3.6e-02 | max |dsimplex| 1.4e-05 | op ratio 0.60-0.74 | FAIL
 G32    post runs (8,4) 10 (8,5)  0 | max |dacc| 1.2e-05 | max |dsimplex| 1.9e-06 | op ratio 0.60-0.74 | FAIL
@@ -11,8 +11,8 @@ L64    post runs (8,4) 10 (8,5)  0 | max |dacc| 2.4e-06 | max |dsimplex| 1.6e-09
 L96    post runs (8,4) 10 (8,5)  0 | max |dacc| 2.4e-10 | max |dsimplex| 2.9e-13 | op ratio 0.87-0.91 | EXACT
 P4_32  post runs (8,4) 10 (8,5)  0 | max |dacc| 9.1e-07 | max |dsimplex| 1.9e-07 | op ratio 0.60-0.74 | ESTIMATE
 P4_48  post runs (8,4) 10 (8,5)  0 | max |dacc| 8.7e-08 | max |dsimplex| 2.7e-08 | op ratio 0.67-0.79 | ESTIMATE
-P5_32  post runs (8,4) 10 (8,5)  0 | max |dacc| 2.1e-07 | max |dsimplex| 3.1e-08 | op ratio 0.60-0.74 | ESTIMATE
-P5_48  post runs (8,4) 10 (8,5)  0 | max |dacc| 8.6e-09 | max |dsimplex| 3.6e-09 | op ratio 0.67-0.79 | EXACT
+P5_32  post runs (8,4) 10 (8,5)  2 | max |dacc| 2.1e-07 | max |dsimplex| 4.4e-08 | op ratio 0.60-0.74 | ESTIMATE
+P5_48  post runs (8,4) 10 (8,5)  2 | max |dacc| 1.4e-08 | max |dsimplex| 3.6e-09 | op ratio 0.67-0.79 | ESTIMATE
 (8,4) seed 0 REF   : exact 0.9761608075 ops 1.100e+09 | recipe ops 8.866e+08 | H-U5 exact/recipe 1.24 | recipe err -1.31e-07 | H-U6 MSE ratio 2.03e-06
 (8,4) seed 1 REF   : exact 0.9874600108 ops 9.636e+08 | recipe ops 6.280e+08 | H-U5 exact/recipe 1.53 | recipe err -5.68e-06 | H-U6 MSE ratio 0.00512
 (8,4) seed 2 REF   : exact 0.9718521504 ops 1.183e+09 | recipe ops 8.631e+08 | H-U5 exact/recipe 1.37 | recipe err -7.25e-05 | H-U6 MSE ratio 0.519
@@ -33,3 +33,7 @@ P5_48  post runs (8,4) 10 (8,5)  0 | max |dacc| 8.6e-09 | max |dsimplex| 3.6e-09
 (8,4) seed 2 P5_48 : exact 0.9718521519 ops 8.718e+08 | recipe ops 5.957e+08 | H-U5 exact/recipe 1.46 | recipe err -7.25e-05 | H-U6 MSE ratio 0.358
 (8,4) seed 3 P5_48 : exact 0.9767135001 ops 7.814e+08 | recipe ops 6.249e+08 | H-U5 exact/recipe 1.25 | recipe err -9.02e-10 | H-U6 MSE ratio 6.98e-11
 (8,4) seed 4 P5_48 : exact 0.9853979161 ops 1.058e+09 | recipe ops 8.107e+08 | H-U5 exact/recipe 1.30 | recipe err -4.91e-05 | H-U6 MSE ratio 0.424
+(8,5) seed 1 REF   : exact 0.8645625750 ops 2.607e+11 | recipe ops 1.889e+11 | H-U5 exact/recipe 1.38 | recipe err -1.72e-06 | H-U6 MSE ratio 0.0119
+(8,5) seed 1 G24   : exact 0.8647315986 ops 1.726e+11 | recipe ops 1.115e+11 | H-U5 exact/recipe 1.55 | recipe err +1.06e-05 | H-U6 MSE ratio 0.268
+(8,5) seed 1 P5_32 : exact 0.8645626782 ops 1.794e+11 | recipe ops 1.175e+11 | H-U5 exact/recipe 1.53 | recipe err -1.85e-06 | H-U6 MSE ratio 0.00859
+(8,5) seed 1 P5_48 : exact 0.8645625871 ops 1.929e+11 | recipe ops 1.294e+11 | H-U5 exact/recipe 1.49 | recipe err -1.72e-06 | H-U6 MSE ratio 0.00814
