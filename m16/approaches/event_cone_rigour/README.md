@@ -188,7 +188,19 @@ to be useful: the best options are M5 at 3-23x (median 6.9) for 25 s per k = 4 c
 Not run: the deliberately falsified certificates of B1 (pre-registered). The verifier takes no bounds from the
 certificate, so there is nothing to falsify. Instead, B1 holds cells that are known to be event-feasible.
 
-T398's certificate set (DELTA = 1/3, 5,476 pruned cells of (1,8,2), k = 2..6) is reported below.
+**T398's first certificate set.** Files: `certs/cert_d0.333_1-8-2_k{2..6}.npz` (branch claude/t373-event-cone
+2a82be07; DELTA = 1/3). Command: `python cert_run.py data/certs/*.npz`.
+
+| k | cells | verified | stage 0 / 1 / 2 / 3 | total s | median s |
+|---|---|---|---|---|---|
+| 2 | 2 | 2 | 2/0/0/0 | 0.03 | 0.015 |
+| 3 | 40 | 40 | 39/1/0/0 | 1.2 | 0.005 |
+| 4 | 398 | 398 | 368/17/11/2 | 31 | 0.005 |
+| 5 | 2,030 | 2,030 | 1,664/113/188/65 | 303 | 0.005 |
+| 6 | 3,513 | 3,513 | 3,115/160/113/125 | 254 | 0.005 |
+| **all** | **5,983** | **5,983 (0 failures)** | | **590** | |
+
+Median seconds per stage-1/2/3 cell: 0.45-1.0 / 0.6-1.1 / 0.7-1.3.
 
 ### (a) Mass bounds: tightness against MC, and cost
 
