@@ -326,6 +326,7 @@ futile (the C_true curve).
 **T415, fast geometry** (merged from claude/t415-geom-fast @ c2b0bf02; T415_README.md).
 - `geom_fast.cell_geometry_fast` passed its pre-registered line: 0 mismatches on 51 cases, 15-45x faster.
 - My own check on 4 k = 10 survivors of (1,8,2): bit-identical [lb, ub]; the heavy cell (784 vertices) took 28 s instead of 570 s.
+- **T417 audit fixes** (claude/t412-audit-fixes @ 904ad7f0) are merged. Spot-check: 5 tier-2 cells from C8's shard (computed with the pre-fix code) and 3 more cells recomputed with the fixed code give identical ub. So the running T416 charge is unaffected.
 - tiered10.py uses it from f6356ed4. T416 workers restarted on it mid-run; the script is resumable and the outputs are identical by construction.
 
 

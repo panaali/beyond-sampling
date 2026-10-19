@@ -82,7 +82,7 @@ Pipeline per simplex (same construction as `_bounds_tangent`, each step bounded 
 | exp (numpy) | 1e-13 rel + 4·2^-1074 | 1.2e-16 rel (normal range) | ~800x |
 | exp (numba, libm) | 1e-13 rel + 4·2^-1074 | see results_t412_fns.json | |
 | log (numpy, numba) | 1e-13 rel | 1.0e-16 | ~1000x |
-| erfcx (scipy) | 1e-13 rel | 7.9e-16 | ~130x |
+| erfcx (scipy) | 1e-13 rel | 7.9e-16 (T417: 8.3e-16) | ~120x |
 | log_ndtr (scipy) | 1e-13 (1+x²) abs | 4.0e-16 (1+x²) | ~250x |
 
 **E1 Inputs.** `q2iv` rounds an exact rational to floats lo <= x <= hi, checked by exact comparison.
@@ -125,7 +125,7 @@ Then F(s) = n! e[s_0..s_n] = n! sum_k h_k(s) / (n+k)! (Hermite-Genocchi; Dirichl
 - (a) *Series, w <= 24.* H_k^(j) = c_k h_k(s_0..s_j), c_k = n!/(n+k)!, from H_k^(j) = H_k^(j-1) + s_j H_{k-1}^(j) *
   fl(1/(n+k)). The rounding chain is delta(k,j) <= max(delta(k,j-1), delta(k-1,j)+3) + 1 <= 4k + j + 1 (the
   reciprocal's own rounding included). The sum over k adds K, so D = 6K + n + 2 covers the whole computation,
-  and S_exact lies in S_fl (1 -+ gamma_D).
+  so S_fl lies in S_exact (1 +- gamma_D); the code's factors (1 +- 2 gamma_D) also give S_exact from S_fl.
   - Tail: h_k(s) <= C(n+k, k) w^k, so c_k h_k <= w^k / k!, and sum_{k>K} <= t_{K+1} / (1 - w/(K+2)) <= 2 t_{K+1}
     when K + 2 >= 2w. t_k is propagated upward (each step times 1 + 2^-50, which covers 3 roundings). The loop
     stops when also 2 t_{K+1} <= 2^-60 S; the upper bound adds 4 t_{K+1}.
@@ -257,7 +257,7 @@ Per simplex: arb 8.6 ms (d = 5) and ~40 ms (d = 10); fast 70 us (d = 5) and 73 u
 - [measured] Against arb with its looseness removed (tight E and G, 0 fallbacks), fast hi >= that value on 950 of 950
   sampled simplices, at most 1e-8 above it.
 - [inferred] fast [lo, hi] is rigorous for every input, by E0-E7, given assumption A1 (libm / scipy accuracy, tested
-  with >= 130x margin, not proved).
+  with >= 120x margin, not proved).
 - [measured] Arb's default 53-bit M5t is looser than its own formula: up to 11x per simplex in 10-D, and region-3 ub
   6.19e-11 against 4.63e-11 for the same formula evaluated tightly.
 - [speculative] The exact geometry (unchanged code) is now the bottleneck: ~3 ms per root simplex in region 3, so
@@ -265,7 +265,7 @@ Per simplex: arb 8.6 ms (d = 5) and ~40 ms (d = 10); fast 70 us (d = 5) and 73 u
 
 ## Alternatives not ruled out
 - A1 is an assumption about this platform's libm, numpy SIMD and scipy (cephes, Faddeeva). A different build could
-  be less accurate; the margins are >= 130x and `python t412_test.py fns` re-checks them.
+  be less accurate; the margins are >= 120x and `python t412_test.py fns` re-checks them.
 - Compiler: numba runs without fastmath. If LLVM fused a*b + c into an FMA, the per-operation error bounds would
   still hold (one rounding instead of two), but the outward step x + |x| 2^-52 relies on not being rewritten.
   This was checked only empirically (the port agrees with numpy to 3.6e-15, and fast is never below the tight arb).
@@ -287,3 +287,39 @@ Per simplex: arb 8.6 ms (d = 5) and ~40 ms (d = 10); fast 70 us (d = 5) and 73 u
    simplex volumes with a determinant error bound. This is now >= 97% of the region time.
 2. Re-run T400's tiered charging and k = 10 regions with `mass_cell_fast` at larger budgets (region 3: ub 6.19e-11
    -> 3.59e-11 at budget 1e5 in under a minute).
+
+
+## T417 audit gaps and fixes (claude/t412-audit-fixes)
+T417's independent audit (claude/t417-m5t-audit @ 456eefe5) found no soundness counterexample: 1e6 adversarial
+simplices against an independent 256-bit arb evaluation of the formula, and 1e6 _e1 knot vectors against
+arb_mat.exp. Its 12 gaps, by number:
+
+| # | gap | fix |
+|---|---|---|
+| 1 | s_min floor 1/2 assumes m_p2 = 1 + m_p3, unchecked | `Params(jp2=...)`: the floor is used only when jp2 is given (mass_cell_fast passes it), after a check that every vertex enclosure is consistent with m_p2 = 1 + m_p3 |
+| 2 | up/dn and TINY need gradual underflow | import-time check that numpy and numba do not flush subnormals |
+| 3 | s_c lower end <= 0: ZeroDivisionError / NaN | `_Cn` returns inf (upper) or 0 (lower) for s <= 0 |
+| 4 | P(x) overflow for huge edges gives NaN | final guard: hi NaN -> inf; lo non-finite -> 0 |
+| 5 | NaN inputs: infinite series loop, NaN outputs | non-finite inputs rejected in bounds_batch; _e1 returns the trivial bound for non-finite knots; series loop capped (k <= 10000) |
+| 6 | _emat lower bound lacked the underflow slack | slack now subtracted |
+| 7 | convexity branch omitted TINY | added |
+| 8 | idot/sumsq ignore product underflow | covered by SAFE = 2 (no change); noted here |
+| 9 | vol = 0 gives lo = -2^-1074 | lo clamped at 0 |
+| 10 | A1 margin overstated (erfcx 120x, not 130x); docstring cited a nonexistent test file | corrected |
+| 11 | E5(a) wording | corrected |
+| 12 | edges ** 2 relies on exact squaring | written as e * e (one correctly rounded product) |
+
+Regression after the fixes: `python t412_test.py simplex 2.25` and `... simplex 2.5`, and `python t415_test.py case
+region 3` (results below).
+
+Regression (after the fixes):
+- simplex t0 2.25: 0 / 0 violations, 0 non-finite, 100% within 1.01, hi quantiles bit-identical to before.
+  Speed-up 101x (113x before; the extra finiteness checks plus +-30% timing noise).
+- simplex t0 2.5: 0 / 0 violations, 100% within 1.01, 108x (125x before).
+- geom_fast region 3: identical geometry and mass.
+- Guards checked directly:
+  - a NaN or inf knot gives the trivial bound (inf / 0);
+  - `_Cn(s <= 0)` gives inf / 0;
+  - a non-finite vertex raises;
+  - vol = 0 gives lo = 0;
+  - m_c = 0 gives hi = inf (no exception).

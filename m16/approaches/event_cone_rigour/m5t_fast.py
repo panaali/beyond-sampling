@@ -15,7 +15,8 @@ of exact vertices (the refinement midpoints stay exact in the real geometry; onl
 (subnormal results included). Sums of many terms use gamma_n = n u / (1 - n u), u = 2^-53, times SAFE = 2 (as
 verify.py). exp, log, erfcx (libm / numpy / scipy) are ASSUMED within REL_T = 1e-13 relative (plus 4 * 2^-1074
 absolute) and scipy.special.log_ndtr within LNDTR_ABS (1 + x^2) absolute; measured worst cases against arb are
-1.2e-16, 7.2e-17, 6.7e-16 and 3.9e-16 (1 + x^2) (test_m5t_fast.py), i.e. >= 150x inside the assumed bounds."""
+1.2e-16, 1.0e-16, 7.9e-16 and 4.0e-16 (1 + x^2) (`python t412_test.py fns`; T417 measured erfcx 8.3e-16 on
+numpy 2.5.4 / scipy 1.18.1), i.e. >= 120x inside the assumed bounds."""
 import itertools
 import math
 import os
@@ -39,6 +40,21 @@ WMAX = 5000.0           # exact E bound for knot spread w <= WMAX; above: knot c
 EPS = 1e-8              # bins whose trivial upper term is <= EPS x the simplex total keep the trivial E bound
 INF = np.inf
 STATS = dict(exact_bins=0, simplices=0)
+
+
+def _check_no_ftz():
+    """up/dn and TINY need gradual underflow: no flush-to-zero / denormals-are-zero (T417 gap 2)."""
+    from numba import njit as _nj
+
+    @_nj
+    def _f(x, y):
+        return x * y, x / 2.0
+    for p, h in (np.float64(2.0 ** -1022) * np.float64(0.5), np.float64(2.0 ** -1022) / 2.0), _f(2.0 ** -1022, 0.5):
+        if not (p == 2.0 ** -1023 and h == 2.0 ** -1023):
+            raise RuntimeError("subnormals flushed (FTZ/DAZ): the m5t_fast error model does not hold")
+
+
+_check_no_ftz()
 
 
 def gam(n):
@@ -158,6 +174,12 @@ def _e1(t, upper, rel, wcut, s, a, b, cap=False):
             Tm = t[i]
         if t[i] < tmn:
             tmn = t[i]
+    fin = True
+    for i in range(V):
+        if not np.isfinite(t[i]):
+            fin = False
+    if not fin:
+        return 0.0, (np.inf if upper else -np.inf), np.inf   # T417 gap 5: trivial bounds inf / 0
     if cap and upper and Tm - tmn > WMAX:
         Tm = tmn + WMAX                         # any float; knots min(t_i, Tm) <= t_i
         wcut = 2 * WMAX
@@ -177,7 +199,7 @@ def _e1(t, upper, rel, wcut, s, a, b, cap=False):
         if upper:                               # e^-u <= sum_i lambda_i e^-t_i: F <= mean_i e^(s_i) = e^w mean e^(s_i - w)
             acc = 0.0
             for i in range(V):
-                acc = _up(acc + _up(np.exp(_up(s[i] - w)) * (1 + 2 * rel)))
+                acc = _up(acc + _up(_up(np.exp(_up(s[i] - w)) * (1 + 2 * rel)) + 4 * 2.0 ** -1074))
             acc = _up(acc / V)
             return Tm, min(w, _up(w + _up(np.log(acc) + 2 * rel * abs(np.log(acc))))), w
         acc = 0.0                               # E >= e^-(mean t): F >= e^(mean s)
@@ -208,6 +230,8 @@ def _e1(t, upper, rel, wcut, s, a, b, cap=False):
         t1 = tk * w / (k + 1) * C
         if k + 2 >= 2.0 * w and 2.0 * t1 <= 2.0 ** -60 * S:
             break
+        if k > 10000 or not np.isfinite(S):                  # cannot happen for w <= WSER; guard (T417 gap 5)
+            return Tm, (w if upper else 0.0), w
     D = 6 * k + n + 2
     g = D * u / (1 - D * u)
     if upper:
@@ -306,7 +330,7 @@ def _emat(s, n, upper, rel):
         F = _up(M[0, n] * fact * (1 + 2 * g) + fact * (2.0 * V + 2.0) ** (m + 1) * (K + V) * 2.0 ** -1074)
         lg = np.log(F)
         return min(_up(sm + _up(lg + 2 * rel * abs(lg))), w)
-    F = M[0, n] * fact * (1 - 2 * g)
+    F = M[0, n] * fact * (1 - 2 * g) - fact * (2.0 * V + 2.0) ** (m + 1) * (K + V) * 2.0 ** -1074
     if F <= 0.0:
         return 0.0
     lg = np.log(F)
@@ -419,8 +443,10 @@ def _bins(tshlo, tshhi, yplo, yphi, llo, lhi, mlow, kap, kal, Lu, Ll, Gu, Gl, re
 class Params:
     """Cell constants: z-bin edges (exact floats), c0 = (2 pi)^(-d/2) and log sqrt(2 pi) enclosures, the
     incomplete-gamma coefficients for h = d/2."""
-    def __init__(self, d, mlow, jp3, t0, zbins=24, zratio=fmpq(23, 20)):
-        self.d, self.mlow, self.jp3 = d, mlow, jp3
+    def __init__(self, d, mlow, jp3, t0, zbins=24, zratio=fmpq(23, 20), jp2=None):
+        """jp2: index of m_p2 in the m-coordinates. Given, the bounds use |m|^2 >= 1/2, which holds on the slice
+        m_p2 = 1 + m_p3 (every vertex is checked to be consistent with it); None: that floor is not used."""
+        self.d, self.mlow, self.jp3, self.jp2 = d, mlow, jp3, jp2
         t0q = _q(t0)
         self.edges = np.array([float(t0q * zratio ** i) for i in range(zbins)])   # exact floats; e_0 = t0
         assert self.edges[0] == t0 and np.all(np.diff(self.edges) > 0)
@@ -562,7 +588,7 @@ def min_norm_weights(Mf, iters=100):
     return _min_norm(np.ascontiguousarray(Mf), iters)
 
 
-def simplex_consts(Mlo, Mhi, jp3, mc=None):
+def simplex_consts(Mlo, Mhi, jp3, mc=None, jp2=None):
     """Per simplex: tangent centre m_c (float, exact by definition), enclosures of s_c, tau_i, R^2, s_min, s_max,
     y_p3 at the vertices. Mlo, Mhi: (N, V, d)."""
     N, V, d = Mlo.shape
@@ -577,7 +603,10 @@ def simplex_consts(Mlo, Mhi, jp3, mc=None):
     smax = sumsq_up(np.maximum(np.abs(Mlo), np.abs(Mhi))).max(1)
     L = dlo.min(1)                                                      # separating hyperplane through m_c
     smin = np.where(L > 0, dn(dn(L * L) / sc[1]), 0.0)
-    smin = np.maximum(smin, 0.5)                                        # |m|^2 >= 1/2 on the slice
+    if jp2 is not None:                                                 # |m|^2 >= 1/2 on the slice m_p2 = 1 + m_p3
+        if np.any(Mlo[:, :, jp2] > up(1 + Mhi[:, :, jp3])) or np.any(Mhi[:, :, jp2] < dn(1 + Mlo[:, :, jp3])):
+            raise ValueError("vertex enclosures inconsistent with m_p2 = 1 + m_p3")
+        smin = np.maximum(smin, 0.5)
     return dict(mc=mc, sc=sc, tau=tau, R2=R2, smin=smin, smax=smax, yplo=Mlo[:, :, jp3], yphi=Mhi[:, :, jp3],
                 ypc=mc[:, jp3])
 
@@ -602,7 +631,7 @@ def _bounds_batch_np(Mlo, Mhi, vlo, vhi, P, mc=None):
     """Numpy version of the per-(simplex, bin) set-up (reference for the numba port _prep1/_prep2)."""
     Mlo = np.asarray(Mlo, float); Mhi = np.asarray(Mhi, float)
     N, V, d = Mlo.shape
-    c = simplex_consts(Mlo, Mhi, P.jp3, mc)
+    c = simplex_consts(Mlo, Mhi, P.jp3, mc, P.jp2)
     mlow = P.mlow
     A = P.edges[None, :-1]; B = P.edges[None, 1:]                       # finite bins (1, nb)
     llo = (0.5 * dn(A * A), 0.5 * up(A * A)); lhi = (0.5 * dn(B * B), 0.5 * up(B * B))
@@ -672,6 +701,8 @@ def _bounds_batch_np(Mlo, Mhi, vlo, vhi, P, mc=None):
     ls = np.maximum(0.0, dn(lsum + linf_[:, 0]))
     hi = up(up(P.c0[1] * np.asarray(vhi)) * hs)
     lo = dn(dn(P.c0[0] * np.asarray(vlo)) * ls)
+    hi = np.where(np.isnan(hi), np.inf, hi)                             # T417 gaps 4, 9: NaN/overflow -> trivial
+    lo = np.where(np.isfinite(lo), np.maximum(lo, 0.0), 0.0)
     STATS["exact_bins"] += int(nex.sum()); STATS["simplices"] += N
     return lo, hi
 
@@ -747,7 +778,8 @@ def mass_cell_fast(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=24, zratio
     if gm is None:
         return (0.0, 0.0, {}) if return_info else (0.0, 0.0)
     d, mlow, jp3, Mv_lo, Mv_hi, S, vlo, vhi, nV = gm
-    P = Params(d, mlow, jp3, t0, zbins, zratio)
+    I = sorted(set(range(k)) | set(tri))
+    P = Params(d, mlow, jp3, t0, zbins, zratio, jp2=I.index(tri[1]))
     Mlo = Mv_lo[S]; Mhi = Mv_hi[S]
     lo, hi = bounds_batch(Mlo, Mhi, vlo, vhi, P)
     S0 = len(lo); rounds = 0
@@ -813,6 +845,8 @@ def _Pn(xlo, xhi, upper, half, hm, coef, gh, ex, rel):
 
 @njit(cache=True)
 def _Cn(s, upper, half, hm):
+    if not s > 0.0:                             # lower end of s_c rounded to <= 0 (T417 gap 3): C unbounded / >= 0
+        return np.inf if upper else 0.0
     q = _up(2.0 / s) if upper else _dn(2.0 / s)
     v = 1.0
     for _ in range(hm):
@@ -946,7 +980,9 @@ def _prep2(sclo, sl, smin, smax, T0, ypc, ylo, yhi, edges, mlow, half, hm, coef,
 
 def _bounds_batch(Mlo, Mhi, vlo, vhi, P, mc=None):
     Mlo = np.asarray(Mlo, float); Mhi = np.asarray(Mhi, float)
-    c = simplex_consts(Mlo, Mhi, P.jp3, mc)
+    if not (np.all(np.isfinite(Mlo)) and np.all(np.isfinite(Mhi)) and np.all(np.isfinite(vlo)) and np.all(np.isfinite(vhi))):
+        raise ValueError("non-finite simplex data")                    # T417 gap 5
+    c = simplex_consts(Mlo, Mhi, P.jp3, mc, P.jp2)
     T0 = c["tau"][0].min(1)                                             # split point (exact float) <= tau_i
     tshlo = np.ascontiguousarray(np.maximum(0.0, dn(c["tau"][0] - T0[:, None])))
     tshhi = np.ascontiguousarray(up(c["tau"][1] - T0[:, None]))
@@ -959,11 +995,14 @@ def _bounds_batch(Mlo, Mhi, vlo, vhi, P, mc=None):
     Ex = erfcx(xe) if P.half else xe; Ex2 = erfcx(xe2) if P.half else xe2
     Lu, Ll, Gu, Gl, kap, kal, hinf, linf = _prep2(sclo, sl, smin, smax, T0, c["ypc"], ylo, yhi, P.edges, mlow, P.half,
                                                   P.hm, P.coef, P.ghv, np.array(P.ls2p), Ln, Ex, Ln2, Ex2, REL_T)
-    llo = np.ascontiguousarray(0.5 * dn(P.edges[:-1] ** 2)); lhi = np.ascontiguousarray(0.5 * up(P.edges[1:] ** 2))
+    ea, eb = P.edges[:-1], P.edges[1:]                                  # x * x: one correctly rounded product
+    llo = np.ascontiguousarray(0.5 * dn(ea * ea)); lhi = np.ascontiguousarray(0.5 * up(eb * eb))
     hsum, lsum, nex = _bins(tshlo, tshhi, yplo, yphi, llo, lhi, mlow, kap, kal, Lu, Ll, Gu, Gl, REL_T, WMAX, EPS)
     hs = up(hsum + hinf)
     ls = np.maximum(0.0, dn(lsum + linf))
     hi = up(up(P.c0[1] * np.asarray(vhi)) * hs)
     lo = dn(dn(P.c0[0] * np.asarray(vlo)) * ls)
+    hi = np.where(np.isnan(hi), np.inf, hi)                             # T417 gaps 4, 9: NaN/overflow -> trivial
+    lo = np.where(np.isfinite(lo), np.maximum(lo, 0.0), 0.0)
     STATS["exact_bins"] += int(nex.sum()); STATS["simplices"] += len(hs)
     return lo, hi
