@@ -109,6 +109,65 @@ Also reported: whether the clocks beat random gate sets (mean |bias| D3 vs R3, a
 k = 4, NFIT 5M): D3 +0.27, D5 +0.03, R3 +0.20, X3 +0.26, skel +0.24, D3u +0.30 pp. Cylinder violation: T3 V1
 0.48, D3 0.36, R3 0.15. L0 share 0.52. Peak RSS 1.78 GB at 5M, hence NFIT = 4M for the scored run.
 
+### T376 results (2026-10-19): FAIL = negative (unverified), scoped
+
+**Label (DRI):** this is a *ceiling test with sample-fitted tables (not a deductive estimator)*. The
+conditional-mean tables are fitted on 4M sampled inputs. A pass would only have shown that the representation
+can work, not that a sampling-free method exists.
+
+Reproduce: `python cond_gates.py 4` (then `5`), `python summarize_cond.py` -> `results/summary_cond.md` (full
+per-model table with s.e., fallback shares and cylinder-violation rates; paired s.e. 0.015-0.034 pp).
+
+| k = 4, 18 models | D3 (primary) | D5 | R3 | X3 | skel | D3u | (T3) E27 none V1 | (T3) D3 V1 |
+|---|---|---|---|---|---|---|---|---|
+| mean bias, pp | +0.310 | +0.073 | +0.350 | +0.050 | +0.454 | +0.442 | +0.259 | -0.035 |
+| mean abs | 0.310 | 0.195 | 0.350 | 0.467 | 0.454 | 0.442 | 0.259 | 0.218 |
+| max abs | 0.958 | 0.681 | 1.045 | 1.282 | 1.046 | 0.986 | 0.598 | 0.606 |
+| models > 0 | 17/18 | 9/18 | 18/18 | | 18/18 | 18/18 | 18/18 | 10/18 |
+
+1. **Pass line not met:** D3 is within 0.08 pp on 1/18 models (seed0, -0.001), max 0.958 (s0.005_1). It beats X3
+   by > 2 s.e. on only 4/18 (needs 12). Per the T376 row, work stops here.
+2. **The conditional values remove T3's negative bias and bring back E27's positive one, larger.** D3 is
+   positive on 17/18 (T3's forced version: 10/18). Cylinder violation falls from 0.47 (T3's V1 frozen lows,
+   mean over 18) to 0.34 (D3 conditional), so a third of the inputs still leave the cylinder. This partly
+   confirms T3's mechanism [measured: violation rates], but consistency is far from complete.
+3. **This estimator is worse than E27's V1 even without the symbol** (`skel` +0.454 vs `none` +0.259).
+   [inferred] Given the skeleton alone, the lows are exchangeable, so every slot's conditional mean quantile is
+   1/2. That collapses all lows to one value and discards the *order* among them, which V1 kept (the T298
+   effect: collapsing the lows to one value is the main bias source). The symbol adds back only part of
+   that order information.
+4. **Clocks vs random gates:** D3 beats R3 by > 2 s.e. on 4/18, R3 never beats D3. Mean |bias| 0.310 vs 0.350:
+   a small, not decisive, advantage for the clocks. D5 (5 clocks) is the best variant (mean |bias| 0.195, sign
+   9 +/9 -), but still max 0.681.
+5. **X3 is no longer much worse than D3 on most models** (equal within s.e. on the 12 noisy copies): once lows
+   are consistent with whichever symbol is used, the true symbol adds little on those models. On zoo seeds
+   0/3/4 and s0.005_4, X3 goes strongly negative.
+6. Fallback: 40-71% of low slots are served at L0 (finest cell), 3-13% fall back to V1.
+
+k = 5 (secondary) is appended below when it finishes.
+
+**Claims (T376)**
+- [measured] Cylinder-conditional lows (sample-fitted cell means of the low quantiles) with forced D3 masks: k4
+  bias -0.001 to +0.958 pp, within 0.08 on 1/18; FAIL.
+- [measured] The cylinder-violation rate drops from 0.47 to 0.34 (D3) and 0.15 (R3), but stays far from 0.
+- [measured] Clocks beat random 3-sets on 4/18 models, are never worse; the advantage is small.
+- [inferred] The positive bias is E27's Jensen effect plus the loss of within-low order information through
+  per-slot conditional means. It is not estimation noise: the fallback share is modest, and the sign is
+  systematic across 17/18 models.
+
+**Exhaustion checklist (T376).** Tried: per-slot conditional mean quantiles given (S, top-k skeleton) with a
+3-level fallback; sets D3, D5, R3; shuffled X3; symbol-free and unforced controls; k = 4 (k = 5 secondary).
+Not tried:
+- Conditioning also on the **relative order of the lows** (E27 V1's information, plus the symbol). This is the
+  most promising variant, given point 3, but not run (the T376 row says stop on failure).
+- Conditional *medians* or vector-valued closures.
+- Exact (integrated, not sampled) conditional means.
+- Larger fit samples. Unlikely to matter, given point 6 and the systematic sign.
+- Projection of the lows onto the cylinder (feasibility rather than mean).
+- Stochastic reductions (out of scope: sampling-class).
+Scope: "negative (unverified)" for **per-slot conditional means given gate symbol + skeleton**, not for
+cylinder-consistent closures in general.
+
 ## Status
 Done (2026-10-19). Verdict on the pre-registered rule: **FAIL. Negative (unverified)**, scoped below. No
 estimator was built.
