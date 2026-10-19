@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|---|---|---|---|
 | 16 | 10 | kept | 1 | 0 | 0.8836 | 0.8836 | 0.8836 | 5 | 0.9485 |
 | 24 | 10 | kept | 3 | 3 | 0.9854 | 0.9888 | 0.9900 | 0 | - |
-| 32 | 10 | kept | 3 | 3 | 0.9880 | 0.9937 | 0.9938 | 5 | 0.9944 |
+| 32 | 10 | kept | 5 | 5 | 0.9880 | 0.9923 | 0.9938 | 5 | 0.9944 |
 | 48 | 10 | pending | 0 | 0 | - | - | - | 0 | - |
 | 64 | 10 | pending | 0 | 0 | - | - | - | 0 | - |
 | 16 | 15 | pending | 0 | 0 | - | - | - | 0 | - |
@@ -14,8 +14,8 @@
 | 32 | 15 | pending | 0 | 0 | - | - | - | 0 | - |
 | 48 | 15 | pending | 0 | 0 | - | - | - | 0 | - |
 | 64 | 15 | pending | 0 | 0 | - | - | - | 0 | - |
-| 16 | 20 | pending | 0 | 0 | - | - | - | 0 | - |
-| 24 | 20 | pending | 0 | 0 | - | - | - | 0 | - |
+| 16 | 20 | pending | 1 | 0 | 0.4586 | 0.4586 | 0.4586 | 0 | - |
+| 24 | 20 | pending | 1 | 1 | 0.9631 | 0.9631 | 0.9631 | 0 | - |
 | 32 | 20 | pending | 0 | 0 | - | - | - | 0 | - |
 | 48 | 20 | pending | 0 | 0 | - | - | - | 0 | - |
 | 64 | 20 | pending | 0 | 0 | - | - | - | 0 | - |
@@ -36,8 +36,12 @@
 | m_32_10_cpu0 | 32 | 10 | cpu | 0 | 0.99378 | 2.5e-05 | [pth](weights/m_32_10_cpu0.pth) [npz](weights/m_32_10_cpu0.npz) |
 | m_32_10_cpu1 | 32 | 10 | cpu | 1 | 0.99368 | 2.5e-05 | [pth](weights/m_32_10_cpu1.pth) [npz](weights/m_32_10_cpu1.npz) |
 | m_32_10_cpu2 | 32 | 10 | cpu | 2 | 0.98805 | 3.4e-05 | [pth](weights/m_32_10_cpu2.pth) [npz](weights/m_32_10_cpu2.npz) |
+| m_32_10_cpu3 | 32 | 10 | cpu | 3 | 0.99229 | 2.8e-05 | [pth](weights/m_32_10_cpu3.pth) [npz](weights/m_32_10_cpu3.npz) |
+| m_32_10_cpu4 | 32 | 10 | cpu | 4 | 0.99095 | 3.0e-05 | [pth](weights/m_32_10_cpu4.pth) [npz](weights/m_32_10_cpu4.npz) |
 | m_32_10_zoo0 | 32 | 10 | zoo | 0 | 0.99439 | 2.4e-05 | [pth](weights/m_32_10_zoo0.pth) [npz](weights/m_32_10_zoo0.npz) |
 | m_32_10_zoo1 | 32 | 10 | zoo | 1 | 0.99332 | 2.6e-05 | [pth](weights/m_32_10_zoo1.pth) [npz](weights/m_32_10_zoo1.npz) |
 | m_32_10_zoo2 | 32 | 10 | zoo | 2 | 0.99140 | 2.9e-05 | [pth](weights/m_32_10_zoo2.pth) [npz](weights/m_32_10_zoo2.npz) |
 | m_32_10_zoo3 | 32 | 10 | zoo | 3 | 0.99272 | 2.7e-05 | [pth](weights/m_32_10_zoo3.pth) [npz](weights/m_32_10_zoo3.npz) |
 | m_32_10_zoo4 | 32 | 10 | zoo | 4 | 0.99075 | 3.0e-05 | [pth](weights/m_32_10_zoo4.pth) [npz](weights/m_32_10_zoo4.npz) |
+| m_16_20_cpu0 | 16 | 20 | cpu | 0 | 0.45863 | 1.6e-04 | [pth](weights/m_16_20_cpu0.pth) [npz](weights/m_16_20_cpu0.npz) |
+| m_24_20_cpu0 | 24 | 20 | cpu | 0 | 0.96305 | 6.0e-05 | [pth](weights/m_24_20_cpu0.pth) [npz](weights/m_24_20_cpu0.npz) |
