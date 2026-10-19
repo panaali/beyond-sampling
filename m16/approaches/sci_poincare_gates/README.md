@@ -144,7 +144,12 @@ per-model table with s.e., fallback shares and cylinder-violation rates; paired 
    0/3/4 and s0.005_4, X3 goes strongly negative.
 6. Fallback: 40-71% of low slots are served at L0 (finest cell), 3-13% fall back to V1.
 
-k = 5 (secondary) is appended below when it finishes.
+**k = 5 (secondary, does not change the verdict):** D3 mean bias +0.292 pp, within 0.08 pp on 0/18 models, max 0.822,
+positive on 18/18; beats X3 on 2/18. Clocks vs random: D3 beats R3 on 3/18, R3 never beats D3 (mean |bias| 0.292 vs
+0.329). D5 is again best (mean |bias| 0.155, max 0.623, within 0.08 on 7/18). `skel` +0.410. Cylinder violation
+0.34 (T3 V1) -> 0.27 (D3). The finest-cell (L0) share is lower at k = 5 (14-41%), because the skeleton has more cells.
+The k = 4 pattern repeats. (Run note: the first background job hit its 30-min limit after 10 models; the
+remaining 8 were rerun with the same script and seeds, and the log is appended in `results/cond_k5.log`.)
 
 **Claims (T376)**
 - [measured] Cylinder-conditional lows (sample-fitted cell means of the low quantiles) with forced D3 masks: k4
