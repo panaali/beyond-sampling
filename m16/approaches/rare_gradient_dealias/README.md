@@ -60,8 +60,36 @@ why s526 is dev only and why the freeze needs convergence (b), not only the dev 
 grids change the *value* rule as well. If the value moves far from the truth, a gradient pass may be coincidence.
 The value is reported.
 
+### Amendment A1 (2026-10-19, during s526 development; before any s528 or orig run of any T386 rule)
+**What was seen first (s526 only).** 9 of the 25 family-A configs had run. Their top-direction slopes swing
+136-558 (truth 298) up to 8x the lines, with no sign of settling. `scale.py` on the K3 endpoints measured the margin
+change between adjacent lines: median 2.7 per v2 spacing and **61 per g12 spacing**, against |dm/dt| ~ 7 along the
+line. So the error islands are thin bands in g12, and the g23-lines cross them almost tangentially. A g12 grid 8x
+finer cannot resolve a band that thin.
+
+**Smoothed indicator (family S, built, not pursued).** `smooth.py` is a smoothed boundary: S(m*/eps) with a biweight,
+band integrated exactly per gate cell. Its eps -> 0 limit reproduces K3's value and gradient (cos 1.0000,
+`check_smooth.py`). A bandwidth tied to the line spacing would be eps ~ 60 margin units, far larger than the islands
+themselves, so the smoothing bias would dominate. Not pursued for scoring.
+
+**Family T (added): transversal lines.** The same closure estimand as K3, with the lines turned to run along g12
+(the top input) instead of g23: `transversal.py`. Given v2, g12 and g23 are independent. The g12 integral is exact
+along each line (density phi(v2 + g12), g12 in [0, 8]). g23 gets a Kt-node Gauss rule for its density
+8 Phi(v2 - t)^7 phi(v2 - t) on [t0, 6], and v2 uses dealias.v2_rule. The gradient is T372's boundary term with
+dm/dg12. Checked: analytic directional derivative vs central FD (h 1e-6) of the T estimate on s526 top: 3.52355e-7
+vs 3.52355e-7. **Seen before this amendment (s526 only, dev):** T with Kt = 3 / gl20: est 1.145e-9 (1.14x),
+d log P per direction 22.6, 1.3, -0.6, 18.6, -45.3, 350 (truth 15.8, -0.82, -1.57, 13.5, -38.4, 298).
+T dev grid: Kt ∈ {3, 5, 8} × v2 ∈ {gl20, mid20x2, mid20x4}. Its `finest` is (Kt 8, mid20x4).
+
+**Freeze rule (replaces the one above; the family-A grid is still completed and reported).** Over both families,
+freeze the config with the **lowest executed walk cost (FPE) on s526** among those with (a) >= 5/6 s526 directions
+passing and (b) cos(g, g_finest of its own family) >= 0.95. If none qualifies, freeze the config with the most s526
+passes among the configs with (b). Break ties by the higher cos with T372's s526 line-CMC gradient. If no config has
+(b) either, freeze the finest T config. Scoring, go line, models and directions are unchanged. Exactly one config
+is scored.
+
 ## Status
-Pre-registered; development on dev3_s526 not yet run.
+Pre-registered (A1 amendment); s526 development running.
 
 ## Results
 (none yet)
