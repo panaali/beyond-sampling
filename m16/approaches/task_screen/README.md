@@ -75,9 +75,66 @@ Compute: ~45 min per model on one core. Runs are split over this container (2 wo
 - Control check: `2nd_argmax` mean should lie within 0.02 of the zoo's 0.953 and `2nd_argmin` within 0.02 of
   `2nd_argmax`. If not, the pipeline is flagged before anyone uses the picks.
 
+### Amendment 1 (2026-10-19 ~14:25 UTC, DRI messages relaying owner changes; written while stage A ran on tasks 1-17 only, before any stage-B (scored) training and before any amendment task trained)
+
+The DRI relayed two owner changes: (i) pick **10** tasks, not 5, from a wider list of ~25-30; (ii) allow
+**pair-output** tasks as a second tier. Stage A for tasks 1-17 had started under the original text; nothing else changes.
+
+**New single-position tasks (7)** ([tasks.py](tasks.py)):
+
+| # | name | label | family |
+|---|---|---|---|
+| 18 | `argmax_cumsum_abs` | argmax_i \|x_0 + ... + x_i\| | running sum |
+| 19 | `argmax_suffixsum` | argmax_i (x_i + ... + x_9) (needs the running min of the prefix sum) | running sum |
+| 20 | `argmax_absdiff_lag2` | argmax_i \|x_i - x_{i-2}\|, i = 2..9 | adjacent (lag 2) |
+| 21 | `argmax_prod` | argmax_i x_i * x_{i-1} | adjacent pair (product) |
+| 22 | `argmax_peak` | argmax_i x_i - (x_{i-1} + x_{i+1})/2, i = 1..8 (most prominent interior peak) | adjacent window |
+| 23 | `n_sign_changes` | number of i with sign(x_i) != sign(x_{i-1}) (0..9) | count |
+| 24 | `n_ascents` | number of i with x_i > x_{i-1} (0..9) | count |
+
+**Pair-output tasks (5)**, label = an unordered pair of positions:
+
+| # | name | label |
+|---|---|---|
+| 25 | `pair_top2` | positions of the two largest |
+| 26 | `pair_extremes` | positions of the max and the min |
+| 27 | `pair_top2_abs` | the two largest \|x_i\| |
+| 28 | `pair_bottom2_abs` | the two values closest to 0 |
+| 29 | `pair_closest` | the closest pair of values, argmin_{i<j} \|x_i - x_j\| |
+
+Pair tasks keep the exact architecture (same 10 output units, no extra parameters). [train_pair.py](train_pair.py)
+is a line-for-line copy of `alg_zoo.training.train`'s loop (same init after `torch.manual_seed(seed)`, same N(0,1)
+batches, AdamW, lr, weight decay, warm-up and decay); only:
+- **loss** = softmax cross-entropy against the soft target with probability 1/2 on each of the two target positions,
+  `F.cross_entropy(logits, target_probs)` (a listwise top-2 loss);
+- **readout** = the set of the two largest logits; **accuracy** = exact unordered set match. The decision boundary is
+  the crossing of the 2nd- and 3rd-largest logits (the follow-ups must adapt the walk code to that).
+
+**Stage A** runs on tasks 18-29 the same way (seed 0, 2^26). The 12-task cap on stage B is removed: every task with
+stage-A accuracy >= 0.70 goes to stage B (3 seeds; 1 seed if stage A >= 0.995). Extra workers come from child sessions.
+
+**Difference from M_16,10's algorithm** (fixed now, used to rank the picks):
+D0 `2nd_argmin` (same task); D1 k-th largest (k != 2) and `pair_top2`; D2 rank of \|x\| (`argmax_abs`, `2nd_argmax_abs`,
+`argmin_abs`) and `pair_extremes`, `pair_top2_abs`, `pair_bottom2_abs`; D3 adjacent/local (tasks 7-11, 20-22) and
+`pair_closest`; D4 running sums, global statistics and counts (15-18, 19, 23, 24, `argoutlier`).
+
+**Pick rule v2 (replaces the original pick rule):**
+1. Eligible: stage-B mean accuracy >= 0.90 (pair tasks: set-match accuracy). `2nd_argmax` is never eligible;
+   `2nd_argmin` only fills a slot left free at the end.
+2. Hard caps among the 10: at most 3 pair tasks; at most 4 from the k-th largest family (`argmax`, `3rd`-`5th_argmax`,
+   `2nd_argmin`), so at least 6 are not k-th largest.
+3. Soft diversity caps: at most 2 rank-of-\|x\| single tasks, 3 adjacent/local single tasks, 2 running-sum tasks
+   (15, 18, 19), 2 count tasks (17, 23, 24).
+4. Order the eligible tasks by D (descending), then |mean - 0.95| (ascending); take them greedily under all caps.
+   If fewer than 10 are taken, fill from the rest by |mean - 0.95| under the hard caps only; then `2nd_argmin` if a
+   slot is still free.
+5. The picks are reported ranked by D, then by |mean - 0.95|.
+6. If fewer than 10 tasks are eligible, report how many are and the best near misses with their accuracies; the bar
+   is not lowered. (The original rule 4, relaxing to 0.85, is withdrawn.)
+
 ## Status
 
-Pre-registered; training not started.
+Stage A running (2026-10-19).
 
 ## Results
 

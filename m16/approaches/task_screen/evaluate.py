@@ -11,7 +11,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from tasks import labels  # noqa: E402
+from tasks import is_pair, labels, pair_labels  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../data/task_screen"))
 
@@ -40,8 +40,12 @@ def main(log2n, n=10**7, chunk=2**18):
         for k, w in models.items():
             task = str(w["task"])
             if task not in lab:
-                lab[task] = labels(task, x)
-            hits[k] += int((logits(x, w["Wi"], w["Wh"], w["Wo"]).argmax(1) == lab[task]).sum())
+                lab[task] = pair_labels(task, x) if is_pair(task) else labels(task, x)
+            z = logits(x, w["Wi"], w["Wh"], w["Wo"])
+            if is_pair(task):   # readout: the two largest logits as an unordered set; exact set match
+                hits[k] += int((np.sort(np.argsort(z, 1)[:, -2:], 1) == lab[task]).all(1).sum())
+            else:
+                hits[k] += int((z.argmax(1) == lab[task]).sum())
         done += m
     for k in models:
         res[k] = {"task": str(models[k]["task"]), "acc": hits[k] / n, "n": n}

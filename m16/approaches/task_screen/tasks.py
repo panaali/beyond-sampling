@@ -69,6 +69,37 @@ def n_records(x):                 # number of left-to-right maxima (records) min
     return (x[..., 1:] > cm[..., :-1]).sum(-1)
 
 
+def argmax_cumsum_abs(x):         # where the running sum is farthest from 0
+    return x.cumsum(-1).abs().argmax(-1)
+
+
+def argmax_suffixsum(x):          # argmax_i (x_i + ... + x_9) (where the reversed running sum peaks)
+    return x.flip(-1).cumsum(-1).flip(-1).argmax(-1)
+
+
+def argmax_absdiff_lag2(x):       # largest |x_i - x_{i-2}|, i in 2..9
+    return (x[..., 2:] - x[..., :-2]).abs().argmax(-1) + 2
+
+
+def argmax_prod(x):               # largest x_i * x_{i-1}, i in 1..9
+    a, b = _pairs(x)
+    return (a * b).argmax(-1) + 1
+
+
+def argmax_peak(x):               # most prominent interior peak: argmax_i x_i - (x_{i-1} + x_{i+1})/2, i in 1..8
+    return (x[..., 1:-1] - (x[..., :-2] + x[..., 2:]) / 2).argmax(-1) + 1
+
+
+def n_sign_changes(x):            # number of i in 1..9 with sign(x_i) != sign(x_{i-1}), in 0..9
+    a, b = _pairs(x)
+    return ((a > 0) != (b > 0)).sum(-1)
+
+
+def n_ascents(x):                 # number of i in 1..9 with x_i > x_{i-1}, in 0..9
+    a, b = _pairs(x)
+    return (a > b).sum(-1)
+
+
 TASKS = {
     "argmax": _kth_largest(1),
     "2nd_argmax": _kth_largest(2),      # M_16,10's task (control)
@@ -87,7 +118,53 @@ TASKS = {
     "argmax_cumsum": argmax_cumsum,
     "argoutlier": argoutlier,
     "n_records": n_records,
+    # amendment 1 (2026-10-19, DRI: widen to ~25-30 candidates)
+    "argmax_cumsum_abs": argmax_cumsum_abs,
+    "argmax_suffixsum": argmax_suffixsum,
+    "argmax_absdiff_lag2": argmax_absdiff_lag2,
+    "argmax_prod": argmax_prod,
+    "argmax_peak": argmax_peak,
+    "n_sign_changes": n_sign_changes,
+    "n_ascents": n_ascents,
 }
+
+
+# ---- pair-output tasks (amendment 1): label = unordered pair of positions, returned sorted as (N, 2) ----
+def _top2(v):
+    return v.argsort(-1)[..., -2:].sort(-1).values
+
+
+_IU = th.triu_indices(10, 10, 1)      # the 45 pairs i < j
+
+
+def closest_pair(x):              # argmin_{i<j} |x_i - x_j|
+    xt = x if isinstance(x, th.Tensor) else th.from_numpy(x)
+    k = (xt[..., _IU[0]] - xt[..., _IU[1]]).abs().argmin(-1)
+    return th.stack([_IU[0][k], _IU[1][k]], -1)
+
+
+PAIR_TASKS = {
+    "pair_top2": lambda x: _top2(x),                       # positions of the two largest
+    "pair_extremes": lambda x: th.stack([x.argmin(-1), x.argmax(-1)], -1).sort(-1).values,  # max and min
+    "pair_top2_abs": lambda x: _top2(x.abs()),             # the two largest |x_i|
+    "pair_bottom2_abs": lambda x: _top2(-x.abs()),         # the two values closest to 0
+    "pair_closest": closest_pair,                          # the closest pair of values
+}
+
+
+def pair_labels(name, x):
+    """numpy (N, 10) -> numpy int64 (N, 2), the unordered target pair sorted ascending."""
+    return PAIR_TASKS[name](th.from_numpy(np.asarray(x, dtype=np.float64))).numpy().astype(np.int64)
+
+
+def pair_soft_target(name, x):
+    """torch (N, 10) -> (N, 10) float target with 1/2 on each of the two positions (training target)."""
+    p = PAIR_TASKS[name](x)
+    return th.zeros_like(x).scatter_(-1, p, 0.5)
+
+
+def is_pair(name):
+    return name in PAIR_TASKS
 
 
 def labels(name, x):
