@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-19 04:10 UTC",
+  "updated": "2026-10-19 06:25 UTC",
   "source": "TASKS.md 'In progress' on ccr-6a61f25c-wn80ii (da2878ec) and each lane's branch head. The DRI edits this file; run tutorial/tools/build.py to re-embed it. Each lane's 'group' sets its heading in section 14 (groups appear in first-seen order).",
   "lanes": {
     "T10": {
@@ -36,8 +36,40 @@
     },
     "T389": {
       "title": "A weight-derived error predictor for T = 10",
-      "status": "in progress",
+      "status": "negative (unverified)",
       "what": "Next lever after T380: predict from the weights where the errors are, to cut the quadrature's variance.",
+      "latest": "Stopped by its pre-set line at 64k runs (DEV3 ratio to sampling 1.215 [.84, 1.69]); at 16k runs it reached .738 [.51, 1.006], the first point estimate below sampling at T = 10, though the interval touches 1. Allocation fixed before walking; deterministic, ARC acceptance unknown. Follow-up T391 is running; a sealed HP5 run follows only if it passes.",
+      "branch": "see TASKS.md",
+      "group": "Scaling up along T"
+    },
+    "T391": {
+      "title": "One global importance-weighted rule at T = 10",
+      "status": "in progress",
+      "what": "Follow-up to T389: a single weight-derived allocation rule for the fixed lines at T = 10. A sealed HP5 run follows only if it passes.",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
+      "group": "Scaling up along T"
+    },
+    "T46": {
+      "title": "Exact ladder at H = 16: T = 5 and 6, then a hybrid",
+      "status": "in progress",
+      "what": "Resumed by the owner: exact rows at T = 5/6, then a hybrid exact/estimated method. Correction to the earlier record: on 10-17 only seeds 0-1 were computed exactly at T = 5, not 0-4.",
+      "latest": "Running; an early development diagnostic predicts failure.",
+      "branch": "see TASKS.md",
+      "group": "Scaling up along T"
+    },
+    "T86+T111": {
+      "title": "Training the missing ladder sizes",
+      "status": "in progress",
+      "what": "Resumed by the owner: train ladder sizes AlgZoo lacks and a better-trained H = 4, T = 4 network.",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
+      "group": "Scaling up along T"
+    },
+    "T393": {
+      "title": "Compiled walk: real wall-clock cost",
+      "status": "in progress",
+      "what": "Measure the walk methods' actual run time, not only arithmetic counts (they were 10-35x slower than sampling in wall-clock time).",
       "latest": "Running; no result yet.",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
@@ -62,15 +94,31 @@
       "title": "Quantised activations (binary, int4, int8) and discrete inputs",
       "status": "in progress",
       "what": "Retrain M_16,10 with quantisation-aware training so each neuron takes only a few values. The network then becomes a finite-state machine, and an exact dynamic programme over reachable states may beat sampling.",
-      "latest": "Interim: quantisation-aware training gives accuracy .906 (float), .899 (int8), .724 (int4) and .299 (binary); a binary network with 16 neurons cannot learn the task. A width ladder (32, 64 neurons) is running.",
+      "latest": "Interim: with 64 neurons, int4 reaches ~.95 in training (final evaluation pending), but int4 hidden states are essentially unique per input (865M distinct of 1e9), so an exact state-by-state calculation is infeasible at int4. Binary states stay tiny (1.7k-3.8k) and the exact binary calculation matches 1e8 random samples; binary accuracy is low at 16 neurons, and 32/64 are pending.",
       "branch": "claude/t192-gpu-cost-law (m16/approaches/quantised/)",
+      "group": "Simpler networks"
+    },
+    "T392": {
+      "title": "Chunked-input RNN",
+      "status": "in progress",
+      "what": "An RNN that reads k numbers per step (k = 1, 2, 5, 10), between the 10-step RNN and the all-at-once network.",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
+      "group": "Simpler networks"
+    },
+    "T394": {
+      "title": "Independent check of the all-at-once results",
+      "status": "in progress",
+      "what": "Re-check T345/T387 with independent code.",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
       "group": "Simpler networks"
     },
     "T370": {
       "title": "Rare events: fix the simplified treatment of the smaller inputs",
       "status": "in progress",
       "what": "Replace the closure that pins the 7 smaller inputs at one value with a real integral over their exact law, the cause T363 and T369 point to for the remaining rare-event failures.",
-      "latest": "Running, with a pre-set stopping rule. A proper fix is expected to cost 10-100x more per estimate.",
+      "latest": "Interim: the new closure brings the bad network s547's far-gap estimate to 1.02 / .87 of the truth (it was 2.4x); the both-gaps-large event is within 2x on 7 of 12 so far.",
       "branch": "claude/t218-tie-tail-labels, claude/t286-cheap-frontier",
       "group": "Rare events"
     },
@@ -110,8 +158,24 @@
       "title": "Certified rare-event probability inside the event's own cone",
       "status": "negative (unverified)",
       "what": "Count the linear regions inside the region of input space where a far-gap mistake can happen. The idea is only viable if that count stays small (at most 2e8 projected at 10 steps); the first run decides.",
-      "latest": "Stopped: counting regions inside the event's cone projects to at least 2.7e15 at 10 steps; the idea needed at most 2e8 to be viable.",
+      "latest": "Stopped: the full count is out of reach. But the prefixes where the event is still possible are few and grow slowly (209-879 at 6 steps, x1.9-3.4 per step), so an event-guided branch and bound is being kill-tested (T390).",
       "branch": "claude/t373-event-cone",
+      "group": "Rare events"
+    },
+    "T390": {
+      "title": "Event-guided branch and bound",
+      "status": "in progress",
+      "what": "Kill test: follow only the few prefixes where the rare event is still possible (T373).",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
+      "group": "Rare events"
+    },
+    "T386": {
+      "title": "De-aliased deterministic rare-event gradient",
+      "status": "in progress",
+      "what": "Fix the fixed-line aliasing that sank T372's deterministic gradient.",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
       "group": "Rare events"
     },
     "T291": {
@@ -164,19 +228,27 @@
     },
     "T6": {
       "title": "Essay question: re-run of the neuron-explanation test",
-      "status": "inconclusive (unverified)",
+      "status": "confirmed (scoped, with T383)",
       "what": "Re-run of the test of 'most neurons have one job' on a 0.6B open language model with >= 100 controls and 2-3 explainers per item, to resolve the inconclusive verdict.",
-      "latest": "Inconclusive by the pre-registered gate, leaning toward support: neurons were judged to have one job 64.6% of the time against 20.9% for dense control directions, a difference of +43.8 points [33.3, 53.7], above the 30-point bar; but the controls failed their own density check (.163 against .15), and the gate was not waived. An independent resolution (T383) is running.",
+      "latest": "Done: neurons rated one main job 64.6% vs 20.9% for dense controls, +43.8 points [33.3, 53.7], above the 30-point bar; its controls failed their density check, which biases toward a smaller gap. Together with T383 this is ledger H-Q5, confirmed and scoped.",
       "branch": "claude/t6-essay-rerun",
       "group": "Neuron-level accounts and the essay question"
     },
     "T383": {
       "title": "Independent resolution of the essay re-run",
-      "status": "in progress",
+      "status": "confirmed (scoped, with T6)",
       "what": "Resolve T6's inconclusive verdict, whose controls failed their density check.",
-      "latest": "Running; no result yet.",
+      "latest": "Done: a different agent with its own code, controls passing their density check (median top-1 share .104): +44.6 points [36.3, 52.9]. Caveat: texture-matched controls give +37.0 [28.7, 45.5], inconclusive at the bar. Ledger H-Q5 confirmed (scoped); H-Q2 refuted for dense controls.",
       "branch": "see TASKS.md",
       "group": "Neuron-level accounts and the essay question"
+    },
+    "T395": {
+      "title": "GPU census at 1e10 inputs",
+      "status": "in progress",
+      "what": "Repeat the gate-pattern census with 10x more inputs, to sharpen how fast the probability-carrying patterns grow.",
+      "latest": "Running; no result yet.",
+      "branch": "see TASKS.md",
+      "group": "Counting the pieces"
     }
   },
   "status_values": "'in progress' (purple box), 'negative (unverified)' (red), 'inconclusive (unverified)' (amber), 'confirmed' (green); see laneHTML() in src/page.html"
