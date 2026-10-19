@@ -636,3 +636,7 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
   1. the union of `surv_dfs_*` files = the k = 10 survivors;
   2. the 17-hit soundness test (`hits/prob_2.5_hits.npz`) against the (9,3,2) union;
   3. hand-off to T400.
+- **Rebalance log** (the final union must cover every k = 4 parent exactly once; checked by `done_parents` at the end):
+  - 2026-10-19 23:30: (9,3,2) s2of6 half 1 is split.
+    - Worker A keeps the head `--parents range(2,933,6)` (156 parents, tag s2of6).
+    - C13 takes the tail `range(938,1443,6)` (85 parents, tag s2of6_tailC13).
