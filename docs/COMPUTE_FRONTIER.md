@@ -173,6 +173,9 @@ mass 5.6e-8, so all must be certified, to ~1e-12 each for a total near 1e-9 ([T3
 cost ~6.5e14 FLOPs, ~$5 ‡. A deterministic all-triple certificate (4b) costs ~1e5-1e8x more.
 
 ## What a large budget would buy (today's prices)
+
+Scale limits of the methods that work, and the compute to reproduce each result: [OWNER_QA 4.17](../OWNER_QA.md#q4-17).
+
 - **$1M** (~3e7 CPU-h or ~4e5 H100-h): every cheap item many times over: per-triple certificates for all early
   triples (b <= 2 at ~$10 each; probably b = 3-5 if each stays <= 1e7 cells ‡), the patched k = 6 recount, the
   large-budget walk test, the int4-input brute force, and the T413 hybrid at 1e10-1e11 FPE on a 100-model panel.

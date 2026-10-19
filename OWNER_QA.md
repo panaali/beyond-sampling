@@ -769,6 +769,42 @@ Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived 
 
 **A (DRI):** The rare-failure work, end to end, on a real trained network: estimate failures too rare for testing (within about 2x near 1e-10, H-R1), locate and repair them with a small targeted edit (H-R3), and prove an upper limit from the weights (T416 for one input section; all inputs may be feasible, T418 / T455). The guarantee is the part a safety case most needs, because testing can never give it. The most transferable lesson is T411: training sits at a balance point, so repairing rare failures by small edits turns some into common ones, a trade-off we measured rather than assumed.
 
+<a id="q4-17"></a>
+### 4.17 How large a network can our methods handle, and what compute do they need? (owner, 10-19 22:5x)
+
+**Q (owner, verbatim):** "Give me an estimate of how large a network can be such that we would be able to apply our most useful and interesting methods. Also, give me an estimate of how much compute (maybe in terms of the cost and time) we would need for running our methods and providing what we were able to find."
+
+**A (DRI; educated estimates, not measurements, except where an INDEX row is named).** FPE = one forward pass of the network; M_16,10's pass is ~6e3 FLOPs. CPU priced at $0.01-0.05 per core-hour.
+
+*How large a network (my estimate, confidence in brackets):*
+
+| Method | Needs | Practical up to about | Main limit |
+|---|---|---|---|
+| Focused-sampling rare-failure estimates (T436-T456) | forward passes and gradients; a known input distribution | 1e8-1e9 parameters (medium-low) | finding every failure region when inputs are high-dimensional; honest error bars were the hard part even at 10-D |
+| Locate and repair (H-R3) | the rare-failure estimate plus curvature | 1e6-1e8 parameters with Hessian approximations (medium-low) | rare-to-common conversion (T411) |
+| Line walks for accuracy (H-E17) | piecewise-linear units (ReLU, hard or piecewise-linear attention, T444) | 1e5-1e6 parameters, inputs up to ~20-50 dimensions (low) | pieces per line grow with size; the gain over sampling shrinks as input dimension grows; wider nets helped so far (T423) |
+| Safe-use rating (T401) | as the rare-failure estimate | as that row (low) | per-network trust flag |
+| Certified upper bound (T416, T418) | piecewise-linear units, low input dimension | ~10-20 inputs and a few hundred to ~1e3 unrolled ReLUs (medium); M_16,10 has 160, so (32,10) may need 10-100x more compute | cells grow exponentially with neurons and input dimension |
+
+*Compute to reproduce what we found on M_16,10 (from INDEX where named):*
+
+| Result | Compute | Cost today | Time |
+|---|---|---|---|
+| Accuracy estimate beating sampling, one model (T431) | ~4e6 FPE, ~2e10 FLOPs | < $0.001 | under a minute on one core |
+| Same on a 100-model panel, with 1e8-sample answer keys | a few CPU-h | < $1 | an hour on a laptop |
+| One rare-failure estimate near 1e-10 (T456) | ~3-5e6 FPE; its answer key 1-10 CPU-h | < $1 | minutes, plus hours for the answer key |
+| Targeted repair and its check (T402, T410) | edit in minutes; 1e9 paired inputs ~1 CPU-h | < $1 | about an hour |
+| Certified bound, one easy input section (T416) | 130-260 CPU-h (COMPUTE_FRONTIER 4a) | $3-13 | a day on a few machines |
+| Certified bound, the section with the mistakes, (9,3,2) (T398, T400) | ~250 CPU-h to enumerate + ~3.7e3 to charge | $40-200 | ~5 days on 32 processes (less with T452) |
+| Certified bound over all inputs (if T455 works) | ~1e4-1e5 CPU-h (low confidence) | $100-5,000 | 2-8 weeks on ~64 cores |
+
+*At larger sizes (estimates):*
+- Focused sampling on a 1e6-parameter net costs ~1e7 passes, ~2e13 FLOPs: about a CPU-hour.
+- The same on a 1e9-parameter language model with ~100-token inputs is ~2e18 FLOPs: a few GPU-hours, ~$5-20.
+- Line walks on a 1e6-parameter net: CPU-minutes to hours per model, but whether they still beat sampling there is untested.
+- Certified bounds stop being affordable well before 1e4 unrolled neurons.
+- In this project the main cost was agent time (tokens), not compute.
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
