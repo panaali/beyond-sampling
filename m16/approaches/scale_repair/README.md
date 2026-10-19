@@ -82,6 +82,11 @@ Implementation only, for resumability: every stage is memoised on disk (data/t42
 2e6 lines, the Hessian accuracy sums 4 blocks, and verification runs in blocks of 1e7 draws / inputs with per-block seeds; N_E and
 N_R are rounded up to whole blocks (more draws than pre-registered, never fewer). Rules, sizes and criteria are unchanged.
 
+### Note A3 (2026-10-19 22:4x; implementation only)
+The K = 24 Hessian ran out of memory (one 1153-model x 1e5 array); core.acc_plain now streams one model at a time (same
+inputs and seeds, identical numbers). The pushes "m_16_10_cpu0 / m_24_10_cpu0 design (no edit)" (68a68282, 37a1ecc4) were
+that crash, not design outcomes; run_queue.sh no longer pushes after a crash. Memoised stages are reused.
+
 ## Status
 Pre-registered; running *(filled later)*.
 

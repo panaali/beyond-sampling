@@ -98,8 +98,11 @@ def acc_plain(models, N, seed_, chunk=100_000):
     c = np.zeros(k); d1 = np.zeros(k); d2 = np.zeros(k)
     while n < N:
         m = min(chunk, N - n); x = rng.standard_normal((m, T)); tgt = np.argsort(-x, 1)[:, 1]
-        ok = np.array([rnn.forward(mm, x).argmax(1) == tgt for mm in models], float); c += ok.sum(1)
-        dd = ok - ok[0]; d1 += dd.sum(1); d2 += (dd ** 2).sum(1); n += m
+        ok0 = (rnn.forward(models[0], x).argmax(1) == tgt).astype(float)          # one model at a time (memory)
+        for i, mm in enumerate(models):
+            ok = ok0 if i == 0 else (rnn.forward(mm, x).argmax(1) == tgt).astype(float); dd = ok - ok0
+            c[i] += ok.sum(); d1[i] += dd.sum(); d2[i] += (dd ** 2).sum()
+        n += m
     mu = d1 / N; return c / N, mu, np.sqrt(np.maximum(d2 / N - mu ** 2, 0) / N)
 
 
