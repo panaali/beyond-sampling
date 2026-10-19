@@ -78,7 +78,7 @@ def _lp(c, A, b, lo, hi):
 class Relax:
     """v = (x, h_{k+1}, ..., h_10); rows A v >= b with error bounds; box lo <= v <= hi."""
 
-    def __init__(self, tri, gates, k):
+    def __init__(self, tri, gates, k, delta=DELTA):
         self.tri, self.k, self.gates = tri, k, np.asarray(gates)
         self.nb = D - k; self.nv = D + H * self.nb
         G, EG, A, EA = cell_rows(self.gates, k)
@@ -90,7 +90,7 @@ class Relax:
         self.base.append(np.array(order)); self.ebase.append(np.zeros((len(order), self.nv)))
         r = np.zeros(self.nv); r[p2], r[p3] = 1, -1
         self.base.append(r[None]); self.ebase.append(np.zeros((1, self.nv)))
-        self.bbase = np.r_[np.zeros(len(G) + len(order)), DELTA]
+        self.bbase = np.r_[np.zeros(len(G) + len(order)), float(delta)]
         self.Z, self.EZ = [], []
         prev = np.zeros((H, self.nv)); prev[:, :D] = A
         eprev = np.zeros((H, self.nv)); eprev[:, :D] = EA
@@ -164,8 +164,8 @@ def margin_lb(A, EA, b, Eb, lo, hi, extra=None, eextra=None):
     return safe_lb(c, np.zeros(n + 1), A1, E1, b1, Eb1, lo1, hi1, -r.ineqlin.marginals)
 
 
-def verify_prune(tri, gates, k, event_aware=False, return_info=False):
-    R = Relax(tri, gates, k)
+def verify_prune(tri, gates, k, event_aware=False, return_info=False, delta=DELTA):
+    R = Relax(tri, gates, k, delta)
     info = dict(stage=None, lps=0)
 
     def done(ok, stage):
@@ -202,6 +202,23 @@ def verify_prune(tri, gates, k, event_aware=False, return_info=False):
     return done(bool(m > 0), 3 if event_aware else 1)
 
 
-def verify_leaves(tri, leaves, k, event_aware=True):
+def verify_leaves(tri, leaves, k, event_aware=True, delta=DELTA):
     """A stage-3 (split) prune holds iff every leaf (gates with split rows) is verified."""
-    return all(verify_prune(tri, g, k, event_aware=event_aware) for g in leaves)
+    return all(verify_prune(tri, g, k, event_aware=event_aware, delta=delta) for g in leaves)
+
+
+def verify_certfile(path, return_times=False):
+    """Verify every cell of a T398 certificate file (format v1: tri, k, stage (N,), start (N,), leaves, delta).
+    delta is used as the exact rational value of its float64. Returns the boolean array (and seconds per cell)."""
+    import time
+    c = np.load(path, allow_pickle=True)
+    tri = tuple(int(v) for v in c["tri"]); k = int(c["k"]); delta = float(c["delta"])
+    st, start, leaves = c["stage"], c["start"], c["leaves"]
+    ends = list(start[1:]) + [len(leaves)]
+    ok = np.zeros(len(st), bool); ts = np.zeros(len(st))
+    for i in range(len(st)):
+        t = time.time()
+        L = leaves[start[i]:ends[i]].astype(int)
+        ok[i] = verify_leaves(tri, L, k, event_aware=st[i] >= 2, delta=delta)
+        ts[i] = time.time() - t
+    return (ok, ts) if return_times else ok

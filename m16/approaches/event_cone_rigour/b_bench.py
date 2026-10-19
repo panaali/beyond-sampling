@@ -40,7 +40,7 @@ def interior(G):
 
 
 Wi, Wh = V.Wi, V.Wh
-for i in range(N):
+for i in range(int(sys.argv[3]) if len(sys.argv) > 3 else 0, N):
     g4 = gates_of(d["hist"][i]); m = int(d["m"][i]); G = d["G"][i][:m]; A = d["A"][i]
     Z = Wh @ A; Z[:, k] += Wi
     pieces = [(G, interior(G), [])]
@@ -84,13 +84,13 @@ for i in range(N):
                 for (s, j), f in fx.items():
                     gl[k + 1 + s][j] = f
                 leaves.append(gl)
-            ok = V.verify_leaves(tri, leaves, k + 1, event_aware=False)
+            ok = V.verify_leaves(tri, leaves, k + 1, event_aware=True)
             nleaf = len(leaves)
         else:
             ok = None; nleaf = 0
         rec = dict(parent=i, stage=st, verified=ok, leaves=nleaf, t_float=tf, t_verify=time.time() - t)
         out["B2"].append(rec); print(rec, flush=True)
-json.dump(out, open("results_b_bench.json", "w"), indent=0)
+json.dump(out, open("results_b_bench_%s.json" % "_".join(sys.argv[2:]), "w"), indent=0)
 pr = [o for o in out["B2"] if o["stage"] >= 0]
 print("B2 float-pruned", len(pr), "verified", sum(bool(o["verified"]) for o in pr),
       {s: (sum(o["stage"] == s for o in pr), sum(bool(o["verified"]) for o in pr if o["stage"] == s)) for s in range(4)})

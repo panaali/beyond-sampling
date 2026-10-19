@@ -962,3 +962,118 @@ def mass_upper(tri, gates, k, t0=1.5, kmax=10, event=None, return_info=False):
     ub = float(np.nextafter(float(ex.upper()), np.inf)) if ex is not None else 1.0
     info = dict(r=float(np.linalg.norm(x)), S=len(S), float_est=float(best))
     return (ub, info) if return_info else ub
+
+
+# ---------------------------------------------------------------- M5: exact marginal reduction for prefix cells
+def _ipow(x, m):
+    r = arb(1)
+    for _ in range(m):
+        r *= x
+    return r
+
+
+def _G_arb(d, s, a, b):
+    """∫_a^b z^(d-1) exp(-z^2 s / 2) dz (b may be None = inf), s > 0, in arb."""
+    s = arb(s); h = arb(d) / 2
+    up = lambda z: (arb(0) if z is None else (arb(z) ** 2 * s / 2).gamma_upper(h))  # noqa: E731
+    return (2 / s) ** h / 2 * (up(a) - up(b))
+
+
+def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False):
+    """Method M5 (k < 10, event ignored): rigorous [lb, ub] on gamma(cell ∩ N_I ∩ {g23 >= t0}).
+    The cell's gate rows involve x_0..x_{k-1} only. With I = {0..k-1} ∪ tri, the m lows outside I enter only
+    through x_l <= x_p3, i.e. a factor Phi(x_p3)^m (exact). N is kept for the coordinates in I (dropping it
+    elsewhere only enlarges the set). The remaining d = |I|-dim integral is done on the slice g23 = 1 (exact
+    vertex enumeration + pulling triangulation in d-1 dims), with z = g23 binned, and per (simplex, z-bin)
+    sup/inf bounds of the integrand in arb. Refines the simplex with the largest ub - lb."""
+    p1, p2, p3 = tri
+    I = sorted(set(range(k)) | set(tri)); d = len(I); mlow = D - d
+    g = np.array(gates).copy(); g[k:] = -1
+    rows, _ = exact_rows(tri, g, pick=False, order=False)
+    zero, one = fmpq(0), fmpq(1)
+    e = lambda i: [one if c == i else zero for c in range(D)]  # noqa: E731
+    rows = rows + [[a - b for a, b in zip(e(p1), e(p2))]] + [[a - b for a, b in zip(e(p3), e(l))] for l in I if l not in tri]
+    for r in rows:
+        assert all(r[c] == 0 for c in range(D) if c not in I)
+    yidx = [j for j in I if j != p2]; ip3 = yidx.index(p3); n = d - 1
+    out = {}
+
+    def add(c, b):
+        mx = max(abs(v) for v in c)
+        if mx == 0:
+            return b <= 0
+        c = tuple(v / mx for v in c); b = b / mx
+        if c not in out or b > out[c]:
+            out[c] = b
+        return True
+    for a in rows:                                         # a.x >= 0 -> on the slice
+        c = [a[j] for j in yidx]; c[ip3] += a[p2]
+        if not add(c, -a[p2]):
+            return (0.0, 0.0, {}) if return_info else (0.0, 0.0)
+    for i in range(n):                                     # N on I: |m_j| <= NORM
+        ee = [zero] * n; ee[i] = one
+        add(ee, fmpq(-NORM) - (1 if i == ip3 else 0)); add([-v for v in ee], fmpq(-NORM) + (1 if i == ip3 else 0))
+    A = [list(c) for c in out]; b = [out[c] for c in out]
+    keep = irredundant(A, b)
+    Af, bf = A, b
+    A = [A[i] for i in keep]; b = [b[i] for i in keep]
+    P = Poly(A, b); v0 = P.start()
+    if v0 is None or v0 == "infeasible":
+        raise RuntimeError("no start vertex")
+    V, inc = P.enumerate(v0)
+    drop = [i for i in range(len(Af)) if i not in set(keep)]
+    if drop:
+        Ad = fmpq_mat(len(drop), n, [v for i in drop for v in Af[i]])
+        for v in V:
+            s = Ad * fmpq_mat(n, 1, v)
+            if any(s[kk, 0] < bf[i] for kk, i in enumerate(drop)):
+                raise RuntimeError("dropped row violated")
+    S, dim = pulling_triangulation(V, inc, n)
+    if dim < n:
+        return (0.0, 0.0, dict(dim=dim)) if return_info else (0.0, 0.0)
+
+    def mvec(y):
+        x = {j: y[q_] for q_, j in enumerate(yidx)}; x[p2] = 1 + x[p3]
+        return [x[j] for j in I]
+    M = [mvec(v) for v in V]
+    t0q = fmpq(*float(t0).as_integer_ratio())
+    zg = [t0q * fmpq(27, 25) ** i for i in range(zbins)] + [None]
+    c0 = (2 * arb.pi()) ** (-arb(d) / 2)
+
+    def bounds(Ys, Ms, vol):
+        smin = min_sq_lower(Ms); smax = max(sq(p) for p in Ms)
+        yp_hi = max(y[ip3] for y in Ys); yp_lo = min(y[ip3] for y in Ys)
+        hi = arb(0); lo = arb(0)
+        for a, bb in zip(zg[:-1], zg[1:]):
+            # sup / inf of Phi(z y_p3)^mlow over the simplex x [a, bb]
+            if mlow:
+                zt = (bb if yp_hi >= 0 else a)
+                sup_phi = arb(1) if zt is None else (-(arb(zt) * arb(yp_hi)) / arb(2).sqrt()).erfc() / 2
+                zl = (a if yp_lo >= 0 else bb)
+                inf_phi = arb(0) if zl is None and yp_lo < 0 else (-(arb(zl) * arb(yp_lo)) / arb(2).sqrt()).erfc() / 2
+                sup_phi, inf_phi = _ipow(sup_phi, mlow), _ipow(inf_phi, mlow)
+            else:
+                sup_phi = inf_phi = arb(1)
+            hi += _G_arb(d, smin, a, bb) * sup_phi
+            lo += _G_arb(d, smax, a, bb) * inf_phi
+        return c0 * vol * lo, c0 * vol * hi
+
+    import heapq as hq
+    heap = []; tl = arb(0); th = arb(0); cnt = 0
+    fact = math.factorial(n)
+    for s in S:
+        Ys = [V[i] for i in s]; Ms = [M[i] for i in s]
+        vol = abs(fmpq_mat(n, n, [Ys[i][kk] - Ys[0][kk] for i in range(1, n + 1) for kk in range(n)]).det()) / fact
+        lo, hi = bounds(Ys, Ms, vol); tl += lo; th += hi; cnt += 1
+        hq.heappush(heap, (-float((hi - lo).upper()), cnt, Ys, Ms, vol, lo, hi))
+    while heap and float(th.upper()) > tol * float(tl.lower()) and len(heap) < budget:
+        _, _, Ys, Ms, vol, lo, hi = hq.heappop(heap); tl -= lo; th -= hi
+        i, j = max(itertools.combinations(range(len(Ms)), 2), key=lambda e_: float(sq([a - b for a, b in zip(Ms[e_[0]], Ms[e_[1]])])))
+        ym = [(a + b) / 2 for a, b in zip(Ys[i], Ys[j])]; mm = [(a + b) / 2 for a, b in zip(Ms[i], Ms[j])]
+        for kk in (i, j):
+            Yc = list(Ys); Mc = list(Ms); Yc[kk] = ym; Mc[kk] = mm
+            lo2, hi2 = bounds(Yc, Mc, vol / 2); tl += lo2; th += hi2; cnt += 1
+            hq.heappush(heap, (-float((hi2 - lo2).upper()), cnt, Yc, Mc, vol / 2, lo2, hi2))
+    ub = float(np.nextafter(float(th.upper()), np.inf)); lb = max(0.0, float(np.nextafter(float(tl.lower()), -np.inf)))
+    info = dict(d=d, mlow=mlow, vertices=len(V), simplices0=len(S), simplices=len(heap), tl=str(tl), th=str(th))
+    return (lb, ub, info) if return_info else (lb, ub)
