@@ -999,6 +999,8 @@ the tasks, then one session per task. The owner also passed on another agent's l
   crossing (still piecewise linear). Prefer genuinely 2-D pairs (two largest, closest pair |x_i - x_j|); 'adjacent pair' is one
   position. At most 2 of T419's 5 picks may be pair tasks, so that at least 3 keep M_16,10's single-position readout and ARC's
   accuracy metric.
+- *Follow-up (owner, 14:3x): 10 tasks instead of 5, one session each.* T419's pick rule is now 10 tasks >= .90, at least 6
+  outside the k-th-largest family, at most 3 pair-output.
 
 ## 7. Status timeline
 
