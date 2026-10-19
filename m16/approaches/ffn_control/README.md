@@ -167,9 +167,18 @@ All walk estimators here are **sampling-class**: the lines and great circles are
 along each is exact. None is deductive in ARC's sense.
 
 ## Status
-Step 1 done (ladder; 2^30 retrain of the chosen D1w128 and the 9 remaining 432-parameter control seeds still
-running). Step 2: F reported for every candidate and for M_16,10; a deductive estimator was not achieved
-(scoped negatives below).
+Done (2026-10-19). T345 steps 1 and 2 and T387 are complete; corrections from the independent check T394 are
+applied (marked "Corrected"). Not done: a deductive (ARC-valid) estimator; 2^30 retrains beyond depth 1; region
+counts for D3w48; a W1-derived deterministic circle design.
+
+Pre-registered hypotheses:
+- H1 (432-parameter 1-layer MLP < .90): supported [measured]: .35-.36 (L1h22), and .48-.82 for every <= 861-param MLP.
+- H2 (~1e6 regions, exact enumeration feasible): refuted [measured]: realised region counts of every >= .95 MLP are
+  at least M_16,10's; D1w128 puts ~99% of 1e7 inputs in distinct regions.
+- H3 (walks reach F < 1 on the MLPs but not on M_16,10): supported for depth 1 [measured] (F .28; .10 at 2^30), not
+  for depth 3-4 (F 3.8-5.9 as implemented); alternative (a) "the gain is task tie structure, not architecture" is
+  argued against by the same walk code giving F 15.4 on M_16,10 and F_incr rising 0.20 -> 1.6-1.9 -> 6.2 with
+  depth/recurrence; alternative (b) is accounted for (F uses each net's own FPE).
 
 ## Results
 
@@ -358,7 +367,9 @@ Measured on the 3 D1w128 seeds (logit effects in units of the unit's input norm)
 - Depth 3, width 32 (seed 0): 24/32 first-layer units are comparators, 8 are "x_a minus a few others".
 
 ## Compute accounting
-- Training (model construction, not counted in F): 2^28 samples ~6-35 min per run, 2^30 ~25-45 min, one thread.
+- Training (model construction, not counted in F): 55 models, 2^28 samples ~6-35 min per run, 2^30 ~25-45 min, one
+  thread each; ~30 CPU-hours in total (several runs restarted after 3 container restarts).
+- Scoring: ~10 CPU-hours (walk panels, 1e7/1e8-sample truths, region statistics).
 - Walks are charged in FLOPs of the walk algorithm and converted to FPE of the net being estimated: `walks.py`
   charges 2 FPE (forward-with-slope) per piece plus target/envelope/erf work (erf, atan2, cos, sin = 20 FLOPs);
   `fast1.py` charges its event-driven algorithm (W1 u, W1 v, 2w rank-1 updates, cos/sin per event, 4T per logit
