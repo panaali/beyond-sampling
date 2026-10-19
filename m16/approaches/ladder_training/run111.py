@@ -1,7 +1,7 @@
 """T111: T87's frozen recipe (understand_m43/estT.py, imported UNCHANGED, eps=0.1) on better-trained (4,4) models.
 Same loop as understand_m43/run87.py; only the weights differ (ours, weights/m_4_4_<tag>_<seed>.npz).
 Truth: estT exact mode checked against 1e7-sample MC; 8 noisy copies (abs sigma 0.05, noise seed 50) with 1e7 MC truth.
-usage: OMP_NUM_THREADS=1 python run111.py TAG [n_noisy=8]   (TAG = 30sL2 or 31s; 'zoo' re-runs the zoo models)
+usage: OMP_NUM_THREADS=1 python run111.py TAG [n_noisy=8] [seeds=0,1,2,3,4]   (TAG = 30sL2 or 31s; 'zoo' re-runs the zoo models)
        -> run111_<TAG>.json"""
 import json, os, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +18,7 @@ from models import load
 H, T = 4, 4
 TAG = sys.argv[1]
 NN = int(sys.argv[2]) if len(sys.argv) > 2 else 8
+SEEDS = [int(x) for x in sys.argv[3].split(",")] if len(sys.argv) > 3 else range(5)
 OPS_S = ops_per_sample(H, T)
 
 
@@ -36,12 +37,12 @@ def run(m, with_exact):
 def main():
     fn = os.path.join(HERE, f"run111_{TAG}.json")
     res = json.load(open(fn)) if os.path.exists(fn) else {"clean": {}, "noisy": {}}
-    for s in range(5):
+    for s in SEEDS:
         if str(s) in res["noisy"]:
             continue
         m = zoo(H, T, s) if TAG == "zoo" else load(H, T, s, n_tag=TAG)
         r = run(m, True)
-        r["mc1e7"] = mc_acc(m, 10_000_000, np.random.default_rng(100 + s))
+        r["mc1e7"] = mc_acc(m, 10_000_000, np.random.default_rng(100 + s))  # T111b seeds > 4 use rng 100 + seed as well
         p = r["exact"]; e = r["est"] - p
         r["ratio"] = e ** 2 / (p * (1 - p) / (r["ops"] / OPS_S))
         res["clean"][str(s)] = r
