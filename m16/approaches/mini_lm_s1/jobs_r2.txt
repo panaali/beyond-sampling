@@ -1,0 +1,9 @@
+dyck2 D6 pos,sparsemax 10 --eval_n 1000000 --exact
+dyck2 D6 pos,sparsemax 11 --eval_n 1000000 --exact
+dyck2 D6 pos,sparsemax 12 --eval_n 1000000 --exact
+modsum M1 pos,pos 10 --steps 16000 --curric 0.5 --eval_n 1000000 --exact
+modsum M1 pos,pos 11 --steps 16000 --curric 0.5 --eval_n 1000000 --exact
+modsum M1 pos,pos 12 --steps 16000 --curric 0.5 --eval_n 1000000 --exact
+dyck2 R2a pos,hard 0 --sched anneal --steps 16000
+dyck2 R2b pos,hard 0 --sched anneal --beta1 100 --hard_frac 0.4
+dyck2 R2c pos,pos,hard 0 --sched anneal

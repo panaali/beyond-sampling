@@ -53,6 +53,33 @@ Confirmation: the best exactness-friendly variant with dev acc >= .95 on seeds 1
 it); P-S1c key-only fails (< .95: matching needs the query's depth); P-S1d the curriculum makes pos reach >= .95 on
 modsum.
 
+## Round 1 results (dev, seed 0, 2e5 samples; `logs/r1.log`) and the selection that follows from the rule
+
+| id | attn | acc L32 | illegal mass | B0.5 | dev pass? |
+|---|---|---|---|---|---|
+| D1 | hard,hard anneal | .9165 | 6.5e-2 | 0 | no (acc) |
+| D2 | hard,hard mix | .9288 | 4.7e-2 | 7.6e-3 | no |
+| D3 | hard AHAT tol .5 anneal | .9356 | 4.3e-2 | 5.2e-3 | no |
+| D4 | sparsemax,sparsemax | .9890 | 6.9e-3 | 7.1e-4 | no |
+| D5 | pos,hard anneal | .99991 | 6.6e-5 | 2.9e-4 | no (B0.5) |
+| D6 | pos,sparsemax | .99999 | 1.6e-5 | 1.0e-5 | **yes** |
+| D7 | keyhard,keyhard anneal | .8544 | 8.7e-2 | 1.1e-4 | no |
+| D8 | keysparse,keysparse | .99905 | 1.3e-3 | 5.9e-4 | no (B0.5) |
+| D9 | pos (1 layer) | .9528 | 3.0e-2 | 1.4e-3 | no |
+| D10 | pos,pos 16k steps | .99804 | 1.7e-3 | 7.5e-4 | no (B0.5) |
+
+modsum n = 20: M1 pos,pos + curriculum **.9985**; M2 pos,hard + curriculum .9905; M3 hard AHAT .1996 (chance);
+M4 sparsemax .1994 (chance); M5 softmax + curriculum .9238; M6 pos,pos without curriculum .2124 (chance).
+
+**Selection by the pre-registered rule:** D6 goes to dyck2 confirmation (seeds 10-12) and M1 to modsum confirmation.
+
+**Addendum A (written after round 1, before any further run; exploratory, does not change the verdict rule):**
+since no piecewise-*constant* variant passed, and D5 (pos,hard) misses only on B0.5, run pre-registered round-2
+options on D5 as a labelled extra: R2a pos,hard anneal 16000 steps; R2b pos,hard anneal beta1 100 hard_frac .4;
+R2c pos,pos,hard anneal (3 layers). Any R2 variant that meets the dev pass line also gets confirmation seeds 10-12,
+reported as a second (post-hoc chosen) candidate. Running total after this: 16 + 6 confirmation + 3 + <= 3 = <= 28
+trainings (cap 40).
+
 ## Method
 `s1models.py` (S1Block subclasses the harness Block; S1Transformer subclasses TinyTransformer, per-layer types),
 `s1train.py` (harness recipe + schedules + modsum curriculum), `load_s1.py` (loader). A model whose layers are all
@@ -60,4 +87,4 @@ modsum.
 those checkpoints load in the harness too.
 
 ## Status
-Pre-registered; training not started.
+Round 1 done; confirmation (D6, M1) and addendum A running.
