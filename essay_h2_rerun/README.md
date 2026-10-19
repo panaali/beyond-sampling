@@ -171,6 +171,12 @@ so per the rule I stopped before collecting. Changes:
   Delta for the subset of sampled neurons that the chosen construction does *not* project out in their layer.
   This needs no new agent calls.
 
+**Amendment 1 outcome (pilot, before collection).** `MX5` 0.1139, `MX10` 0.1151, `MX20` 0.1161 (top-5 shares
+all about 0.40). Projecting out kurtotic neurons does not lower the share below `M`'s 0.1147; the floor is
+about 0.11. None is <= 0.10, so the fallback applies and the lowest-share candidate is used: **`MX5`**, which
+is within noise of `M`. See [control_choice.json](control_choice.json). It projects out 153 of 3,072
+neurons per layer, so H2r-c applies.
+
 ## Results
 
 (pending)
