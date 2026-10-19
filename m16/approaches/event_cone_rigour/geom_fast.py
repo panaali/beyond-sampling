@@ -268,20 +268,23 @@ def pulling_triangulation_fast(V, inc, n, A=None):
 
 # ---------------------------------------------------------------- volumes
 def _det_balls(V, S, n, prec=128):
+    """Generator of rigorous balls |det| of the simplex difference matrices (arb at prec bits). Difference vectors are
+    cached for the current apex only (the pulling triangulation lists simplices grouped by apex)."""
     old = ctx.prec; ctx.prec = prec
     try:
         VA = [[arb(x) for x in v] for v in V]
-        diff = {}                                         # (apex, vertex) -> difference vector (apexes repeat)
-        out = []
+        apex = None; diff = {}
         for s in S:
-            a = s[0]; rows = []
+            a = s[0]
+            if a != apex:
+                apex = a; diff = {}
+            rows = []
             for i in s[1:]:
-                r = diff.get((a, i))
+                r = diff.get(i)
                 if r is None:
-                    r = [VA[i][k] - VA[a][k] for k in range(n)]; diff[(a, i)] = r
+                    r = [VA[i][k] - VA[a][k] for k in range(n)]; diff[i] = r
                 rows += r
-            out.append(abs(arb_mat(n, n, rows).det()))
-        return out
+            yield abs(arb_mat(n, n, rows).det())
     finally:
         ctx.prec = old
 
@@ -332,7 +335,7 @@ def volumes_arb(V, S, n, prec=128):
     fact = math.factorial(n)
     old = ctx.prec; ctx.prec = prec
     try:
-        return [b / fact for b in _det_balls(V, S, n, prec)]
+        return [b / fact for b in list(_det_balls(V, S, n, prec))]
     finally:
         ctx.prec = old
 
