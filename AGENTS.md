@@ -35,7 +35,7 @@ is recorded there only, plus one line here if it binds agents.
 - **Parallel work runs in separate child sessions**, each with its own sandbox. The 4-core / 2-heavy rule (rule 8) applies per container; the <= 2 GB per process rule applies inside each. ([10-18 23:4x](OWNER_QA.md#d-234x))
 - **Never wait on the owner**; start child sessions (own compute) for experiments, sub-agents only for no-compute work. ([10-17 23:07](OWNER_QA.md#d-2307))
 - **Report every estimator against both bars**: strict F <= 1 and lenient F <= 10, as defined in [docs/PROTOCOLS.md](docs/PROTOCOLS.md) Directive 8. ([10-18 05:19](OWNER_QA.md#d-0519))
-- **Tutorial updates are paused** until the owner asks for one final update. ([10-19 06:4x](OWNER_QA.md#d-1019-064x))
+- **Tutorial:** the owner asked for the final update at [10-19 22:3x](OWNER_QA.md#d-1019-223x) (T374); after it, update only on the owner's request. ([10-19 06:4x](OWNER_QA.md#d-1019-064x))
 - **Record each fact once and link to it** (this table and section). ([10-19 06:5x](OWNER_QA.md#d-1019-065x))
 - **When an approach stops for compute or budget, record a rough estimate** of the compute (FLOPs / CPU-h / GPU-h, cost today and in ~5 years) and the agent effort that would finish it, and whether more compute would actually help, in [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md). ([10-19 15:2x](OWNER_QA.md#d-1019-152x))
 

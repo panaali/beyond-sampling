@@ -216,7 +216,7 @@ cells or ops growing no faster than the region count along T, while still beatin
    (mechanistic / quadrature / sampling) before reporting.
 4. Codex agents have recorded work on the board that never reached this branch (e.g. their T131 fix). Ask every agent
    to push to `ccr-6a61f25c-wn80ii`, and check `git log` before trusting a board note.
-5. Ask ARC (T41, needs owner approval) for the M_16,10 protocol if a candidate solution appears.
+5. Ask ARC (T41, needs owner approval) for the M_16,10 protocol if a candidate solution appears. [SUPERSEDED: never contact ARC; only the owner does (AGENTS standing rules).]
 6. The owner's working style that worked: climb one axis one step at a time; backtrack to the last success when a step
    fails; verify negatives before calling an idea dead; keep token use low (lean agents, scripts printing <=10 lines).
 
@@ -321,6 +321,21 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
 11. **Check that a spawned session started.** At 19:18 three spawns (T436, T437, T442) stayed PENDING: sandbox
    allocation failed with `rate_limited`, and nothing retried it. A few minutes after spawning, confirm that the row is
    claimed (or that get_session leaves PENDING); if not, read list_events, archive the session and spawn again.
+
+## 12. Handoff, 2026-10-19 22:35 (DRI session_01CD3g9Cvc3qk3pM11eyXXzj)
+The In-progress table in [TASKS.md](TASKS.md) lists every running session and its owner; results go to INDEX once.
+Decisions waiting on the next DRI, in order:
+1. **T370 stage 2** (T286 + T218 children): when the 128 truth-blind estimates and the 8-pair selection are pushed,
+   check that the selection followed the 10-18 23:40 rule, then register the score (go >= 7/8).
+2. **Certified bound:** T398's (9,3,2) / (3,9,2) k = 10 files (ETA ~10-20 Oct 20) go to T400, which charges (9,3,2)
+   first (~3.7e3 CPU-h); swap in T452's faster geometry only after its bitwise gate; T420 audit decides whether T416's
+   bound stops being provisional; T455 (late triples, rigorous box mass) and T437 report next.
+3. **Leads that will send specs:** T419 (task picks: spawn one session per task), T432 (architecture matrix),
+   T445 (MLP1 panel: relay to T446 / T447), T448 unblocks after T445-T447 freeze recipes.
+4. **Walk quadrature:** T434 (noisy copies, target) and T442 (rule seeds, lattices) decide H-E17's scope.
+5. **Rare events:** T456 (IS v4, fresh panel).
+6. Spawns can fail silently (lesson 11): confirm each new session claims its row.
+7. The tutorial final update was requested at 22:3x; check that T374 republished to the same URL.
 
 **Owner directives** are recorded once, verbatim, in [OWNER_QA.md section 8](OWNER_QA.md#directives); the ones that bind agents (no Fable, never contact ARC, parallel child sessions, CPU-first, tutorial paused) are one-liners in [AGENTS.md "Standing rules"](AGENTS.md#standing-rules). Record a new directive there only, never by copying it here or into TASKS.md.
 
