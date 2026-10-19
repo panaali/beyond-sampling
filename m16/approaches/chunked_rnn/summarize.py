@@ -10,7 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CONF = [(1, 24), (2, 48), (5, 128), (10, 128)]
+CONF = [(1, 24), (2, 48), (5, 128), (10, 128)]  # k1h32 (post-hoc) is in the README only
 
 
 def main():

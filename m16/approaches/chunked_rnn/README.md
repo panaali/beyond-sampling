@@ -125,11 +125,11 @@ over the 12 models. Random circles: 1,000 per model. Halton: 5 fixed sets (seeds
 | 5 | 128 | 38,144 | .973 | 9.98-9.99M (~100%) | 460 | 932 | **11.6 [10.4, 13.0]** | 12.0 / 11.8 | .54 [.48, .61] | .05 | 43, 1.3, 4.1, 5.2, 1.8 (n = 4) | 9.2, 4.3, 19, 1.4, 4.5 (n = 17) |
 | 10 | 128 | 5,248 | .985 | 9.90-9.92M (99%) | 259 | 543 | **4.0 [3.2, 5.0]** | 3.8 / 3.9 | .09 [.07, .11] | .08 | 12, 2.4, .93, 1.5, 1.1 (n = 7) | 1.8, .93, 1.9, 1.4, 1.1 (n = 29) |
 | 10, `fast1` (implemented incremental) | 128 | 5,248 | | | | 17.2 (s0) | **.126 [.100, .159]** | | | | **.059, .041, .026, .083, .054** (n = 232) | **.070, .061, .24, .044, .19** (n = 930) |
-| post-hoc: 1 | 32 | K1H32_FPE | K1H32_ACC | K1H32_PAT | K1H32_PIECES | K1H32_COST | **K1H32_F** | K1H32_DIR | K1H32_INCR | K1H32_FLOOR | K1H32_H4 | K1H32_H16 |
+| post-hoc: 1 | 32 | 20,032 | .988 | 8.4-8.5M (93%) | 641 | 1,317 | **18.2 [15.9, 21.2]** | 18.0 / 17.4 | 6.4 [5.6, 7.4] | 18.2 [15.9, 21.2]LOOR | 17, 11, 3.3, 1.1, 1.5 (n = 3) | 183, 2.4, 14, 13, 62 (n = 12) |
 
 Reproduce: `python score.py 1 24 1000`, `python score.py 2 48 1000`, `python score.py 5 128 1000`,
 `python score.py 10 128 1000` (post-hoc: `python score.py 1 32 1000`), then `python summarize.py`. Every model's
-random-walk mean agrees with its 1e8 truth (max |z| 2.01 over 48 models). The direct incremental check at 16k for k = 10 is not
+random-walk mean agrees with its 1e8 truth (max |z| 2.30 over 60 models). The direct incremental check at 16k for k = 10 is not
 computable (one estimate needs ~1,290 circles > 1,000 drawn).
 
 Decomposition (generic walk): F = (Var per circle / p(1-p)) x (cost per circle). Variance per circle relative to one
@@ -165,7 +165,7 @@ architecture. Per-seed F on k = 10: 2.4, 2.6, 9.7 (seed 2's walk variance is 4x 
    k = 5 -> 10.** The deep end is not hard because it has more regions or because circles carry less information,
    but because each gate flip must be propagated through the remaining recurrent steps. Between k = 1 and k = 5 the
    implemented F hardly changes; the cost-model F improves 10x at k = 5 (two steps), but no implemented walk realises
-   it there. Matched-accuracy check (post-hoc, k1h32, acc K1H32_ACC vs k = 10's .985): K1H32_READING.
+   it there. Matched-accuracy check (post-hoc, k1h32, acc .988 vs k = 10's .985): k1h32 is more accurate than the k = 10 panel yet has F 18.2 (generic) and 6.4 (incremental), worse than k1h24 (14.7 / 5.8): more pieces per circle (641 vs 371) outweigh the smaller error. Accuracy does not explain the k = 1 vs k = 10 gap; within k = 1 more width makes walks harder.
 
 ## Compute accounting
 - Training (model construction, not counted in F): 2^30 samples per run, one thread, 25-60 min (k = 1-10 at
@@ -188,6 +188,8 @@ architecture. Per-seed F on k = 10: 2.4, 2.6, 9.7 (seed 2's walk variance is 4x 
 - [measured] k = 10 with `fast1`: F .126 [.100, .159] (random, sampling-class); fixed Halton sets .026-.083 (4k) and
   .044-.24 (16k), all 5 below 1 at both budgets (deterministic QMC-class).
 - [measured] No k < 10 has any fixed Halton set family with all 5 sets below 1 (generic walk).
+- [measured, post-hoc] k1h32 (panel acc .988): F 18.2 [15.9, 21.2] generic, 6.4 incremental; a more accurate k = 1 net
+  is not easier.
 - [model, not implemented] Incremental-cost F: 5.8 / 4.7 / .54 / .09.
 - [inferred] The depth penalty is the per-flip propagation cost through later steps, not region count or per-circle
   information.
@@ -197,7 +199,7 @@ architecture. Per-seed F on k = 10: 2.4, 2.6, 9.7 (seed 2's walk variance is 4x 
 ## Alternatives not ruled out
 - **Accuracy, not depth.** T345 saw F fall as accuracy rose. Here panel accuracies are .968-.985 and k = 1 (.981) is
   close to k = 10 (.985), so accuracy cannot explain the 3.5x (generic) / 60x (incremental) gap between them; the
-  post-hoc k1h32 panel (acc K1H32_ACC) tests this directly (above). Not tested: k = 5 / 10 nets at lower accuracy.
+  post-hoc k1h32 panel (acc .988, above k = 10's .985) has F 18.2, so higher accuracy does not rescue depth. Not tested: k = 5 / 10 nets at lower accuracy.
 - **FPE normalisation.** F is per FPE of each net, so wide recurrent nets (k = 5: 38k FLOPs per forward) make sampling
   expensive and favour walks under the incremental model. In absolute FLOPs per circle (generic): 8.9M, 18.4M,
   35.5M, 2.9M for k = 1, 2, 5, 10. The challenge is defined per FPE, so the F values stand; the comparison "per FLOP"
