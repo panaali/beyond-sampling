@@ -1108,7 +1108,7 @@ def _bounds_tangent(Ys, Ms, vol, d, zg, mlow, ip3, c0):
     return c0 * vol * lo, c0 * vol * hi
 
 
-def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False, tangent=False, zratio=fmpq(27, 25), norm=NORM):
+def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info=False, tangent=False, zratio=fmpq(27, 25), norm=NORM, event=False):
     """Method M5 (k < 10, event ignored): rigorous [lb, ub] on gamma(cell ∩ N_I ∩ {g23 >= t0}).
     The cell's gate rows involve x_0..x_{k-1} only. With I = {0..k-1} ∪ tri, the m lows outside I enter only
     through x_l <= x_p3, i.e. a factor Phi(x_p3)^m (exact). N is kept for the coordinates in I (dropping it
@@ -1117,8 +1117,10 @@ def mass_cell(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=48, return_info
     sup/inf bounds of the integrand in arb. Refines the simplex with the largest ub - lb."""
     p1, p2, p3 = tri
     I = sorted(set(range(k)) | set(tri)); d = len(I); mlow = D - d
-    g = np.array(gates).copy(); g[k:] = -1
-    rows, _ = exact_rows(tri, g, pick=False, order=False)
+    g = np.array(gates).astype(int); g[k:] = -1
+    if event and k != D:
+        raise ValueError("event rows need k = 10")
+    rows, _ = exact_rows(tri, g, pick=event, order=False)
     zero, one = fmpq(0), fmpq(1)
     e = lambda i: [one if c == i else zero for c in range(D)]  # noqa: E731
     rows = rows + [[a - b for a, b in zip(e(p1), e(p2))]] + [[a - b for a, b in zip(e(p3), e(l))] for l in I if l not in tri]
