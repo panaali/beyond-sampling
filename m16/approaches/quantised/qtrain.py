@@ -16,6 +16,10 @@ H, T = 16, 10
 LEVELS = {0: 0.0, 1: 0.0, 2: 15.0, 3: 255.0}                  # act code -> L - 1
 
 
+STE = {"kind": "ht1"}                                         # binary STE: ht1 = 1[|u| <= 1] (pre-registered),
+                                                              # ht3 = 1[|u| <= 3], tanh = 1 - tanh(u)^2 (fallbacks)
+
+
 class BinSTE(th.autograd.Function):
     @staticmethod
     def forward(ctx, u):
@@ -25,7 +29,9 @@ class BinSTE(th.autograd.Function):
     @staticmethod
     def backward(ctx, g):
         (u,) = ctx.saved_tensors
-        return g * (u.abs() <= 1).to(g.dtype)
+        if STE["kind"] == "tanh":
+            return g * (1 - th.tanh(u) ** 2)
+        return g * (u.abs() <= (3.0 if STE["kind"] == "ht3" else 1.0)).to(g.dtype)
 
 
 class LSQ(th.autograd.Function):
@@ -87,7 +93,8 @@ def main():
     ap.add_argument("--batch", type=int, default=1024); ap.add_argument("--data-seed", type=int, default=352)
     ap.add_argument("--steps", type=int, default=0, help="override number of steps (dry runs)")
     ap.add_argument("--warmup", type=int, default=2 ** 14)
-    a = ap.parse_args(); dev = a.device
+    ap.add_argument("--ste", default="ht1", choices=["ht1", "ht3", "tanh"])
+    a = ap.parse_args(); dev = a.device; STE["kind"] = a.ste
     spec = [dict(zip(("name", "seed", "act", "grid"), (f[0], int(f[1]), int(f[2]), int(f[3])))) for f in (s.split(":") for s in a.spec)]
     K = len(spec); B = a.batch; n_steps = a.steps or int(2 ** a.log2n) // B; warm = a.warmup
     inits = [TR.zoo_init(H, T, sp["seed"]) for sp in spec]

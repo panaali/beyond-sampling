@@ -52,6 +52,13 @@ calls); sampling cost = the quantised model's own forward FLOPs per input (2 * (
 the quantisation ops). At equal FLOPs, n = F_DP / F_forward samples, sampling MSE = p (1 - p) / n vs the DP's squared
 error (refinement estimate; DP also checked against a >= 1e9-sample MC of the same model). Ratio reported per variant.
 
+**Amendment 1 (2026-10-19 00:10 UTC, before any final result; pushed before the runs it governs).** In the main run the
+binary (hard-tanh |u| <= 1 STE) models sit at train accuracy ~.30 after 98k of 1M steps while float/int4/int8 reach
+.72-.90 (likely vanishing STE gradients: binary states make |u| > 1 common). Per the alternatives above, all binary cells
+(5 continuous-input + 6 discrete-input models, same seeds) are ALSO trained with two fallback STEs: hard-tanh |u| <= 3
+(`--ste ht3`) and tanh' (`--ste tanh`). All three are reported. Census and DP use, per binary cell, the STE variant
+with the highest mean float64 accuracy (chosen on accuracy only, before census/DP).
+
 **Done when** each variant has accuracy, state counts and DP cost vs sampling, or a scoped negative saying which variant
 breaks and why. Heavy CPU slot requested from the DRI only if the DP needs one.
 
