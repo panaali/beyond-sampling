@@ -78,3 +78,18 @@ def mass_cell_screened(tri, gates, k, t0, budget=4000, norm=None, event=False, g
     STATS["cells"] += 1; STATS["roots"] += len(S); STATS["evaluated"] += done
     info = dict(d=d, mlow=mlow, vertices=nV, simplices0=len(S), simplices=len(S), evaluated=done, screened=True)
     return (lb, ub, info) if return_info else (lb, ub)
+
+
+def tier2a(tri, gates, k, t0, m2, cap=1e-16, budget=4000, norm=None, event=False, geom=None):
+    """Option (b): (lb, ub, used_2a). The cheap root bound B; if B < cap the charge is min(m2, B) with lb = 0,
+    else mass_cell_fast unchanged (charge min(m2, ub) as tiered10)."""
+    d, mlow, jp3, Mvl, Mvh, S, vlo, vhi, nV = geom
+    I = sorted(set(range(k)) | set(tri))
+    P = F.Params(d, mlow, jp3, t0, jp2=I.index(tri[1]))
+    ch = np.concatenate([cheap_hi(Mvl[S[a:a + 4096]], Mvh[S[a:a + 4096]], vhi[a:a + 4096], P) for a in range(0, len(S), 4096)]) \
+        if len(S) else np.zeros(0)
+    B = float(F.up(math.fsum(ch))) if len(ch) else 0.0
+    if B < cap:
+        return 0.0, min(m2, B), True, B
+    lb, ub = F.mass_cell_fast(tri, gates, k, t0, budget=budget, norm=norm, event=event, geom=geom)
+    return lb, min(m2, ub), False, B
