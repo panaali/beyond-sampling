@@ -152,23 +152,41 @@ def lasserre_volume(W, I, n):
 def ridge_check(S, signs, inc, n):
     """None if every ridge is a boundary ridge (common tight row) in one simplex or an interior ridge in two
     simplices with apexes strictly on opposite sides; else a description of the first failure. Side of apex a
-    against ridge r: sign det[Z_r (sorted), Z_a] = sign det[Z_s] * (-1)^(n - k) * parity(r) for a = s[k] (moving row
-    k of s to the end is n - k transpositions; sorting r is parity(r)); den_i > 0 does not change signs."""
-    rid = {}
-    for s, sg in zip(S, signs):
-        for k in range(n + 1):
-            r = s[:k] + s[k + 1:]
-            side = sg * (-1) ** (n - k) * _parity(r)
-            rid.setdefault(tuple(sorted(r)), []).append(side)
-    for r, sides in rid.items():
-        if len(sides) == 1:
-            if not frozenset.intersection(*(inc[i] for i in r)):
-                return ("interior ridge in one simplex", r)
-        elif len(sides) == 2:
-            if sides[0] * sides[1] != -1:
-                return ("ridge apexes not on opposite sides", r, sides)
-        else:
-            return ("ridge in %d simplices" % len(sides), r)
+    against ridge r: sign det[Z_r (sorted), Z_a]. For s sorted with sign det[Z_s] = sg, removing s[k] and appending it
+    is n - k transpositions, so side = sg * (-1)^(n - k); an unsorted s first gets sg times the parity of its sort.
+    Ridges are handled as a sorted numpy array (a dict of tuples does not fit 2.5 GB at ~2.6e6 ridges)."""
+    import numpy as np
+    S = np.asarray(S, dtype=np.int32); sg = np.asarray(signs, dtype=np.int8)
+    inv = np.zeros(len(S), dtype=np.int64)
+    for a in range(n + 1):
+        for b in range(a + 1, n + 1):
+            inv += S[:, a] > S[:, b]
+    sg = sg * np.where(inv % 2 == 0, 1, -1).astype(np.int8)
+    S = np.sort(S, axis=1)
+    R = np.concatenate([np.delete(S, k, axis=1) for k in range(n + 1)])
+    side = np.concatenate([sg * (1 if (n - k) % 2 == 0 else -1) for k in range(n + 1)]).astype(np.int8)
+    del S
+    o = np.lexsort(R.T[::-1]); R = R[o]; side = side[o]; del o
+    new = np.r_[True, (R[1:] != R[:-1]).any(axis=1)]
+    start = np.flatnonzero(new); size = np.diff(np.r_[start, len(R)])
+    if (size > 2).any():
+        return ("ridge in >2 simplices", tuple(int(x) for x in R[start[np.argmax(size > 2)]]))
+    two = start[size == 2]
+    bad = side[two] * side[two + 1] != -1
+    if bad.any():
+        return ("ridge apexes not on opposite sides", tuple(int(x) for x in R[two[np.argmax(bad)]]))
+    masks = []
+    for t in inc:
+        m = 0
+        for r in t:
+            m |= 1 << r
+        masks.append(m)
+    for i in start[size == 1]:
+        m = -1
+        for v in R[i]:
+            m &= masks[v]
+        if m == 0:
+            return ("interior ridge in one simplex", tuple(int(x) for x in R[i]))
     return None
 
 
