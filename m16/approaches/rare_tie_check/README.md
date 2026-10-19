@@ -122,4 +122,104 @@ Environment: `.venv` with numpy and scipy; every run under `ulimit -v 2500000`, 
 
 ## Status
 
-Pre-registered; running.
+**Done (2026-10-19). GO by the pre-registered line, exactly on it (12/15 = 80%), unverified.** Pre-registered
+71cf5547; estimates and selection sealed 62198f17 before any truth; truths and scoring after.
+
+## Results (`python score.py` -> `results/score.txt`, `results/score.json`; tie split `results/tie_split.txt`)
+
+| set | n | within 2x | median | mean log10 | > 2x | < .5x |
+|---|---|---|---|---|---|---|
+| **all primary (line: >= 80%)** | 15 | **12 (80%)** | .95 | -.08 | 1 | 2 |
+| predicted share 50-80% (A) | 10 | 9 (90%) | .98 | +.04 | 1 | 0 |
+| predicted share >= 80% (B) | 5 | 3 (60%) | .86 | -.32 | 0 | 2 |
+| truth tie share < 50% | 7 | 5 | 1.01 | -.09 | 1 | 1 |
+| truth tie share 50-80% | 6 | 6 | .95 | -.02 | 0 | 0 |
+| truth tie share >= 80% | 2 | 1 | .64 | -.23 | 0 | 1 |
+| amendment 1, B2 (secondary) | 3 | 2 | .63 | -.38 | 0 | 1 |
+| primary + B2 (secondary) | 18 | 14 (78%) | .92 | -.13 | 1 | 3 |
+
+Per point (est / truth; s = predicted tie share, tie = truth tie share; C in M FPE; every truth >= 1,011 hits,
+s.e. <= 3.1%):
+
+| point | ratio | s | tie | truth | C | p C | F_i |
+|---|---|---|---|---|---|---|---|
+| A s576 @1.0 | 1.20 | .51 | .47 | 1.15e-4 | 2.55 | 290 | 11.7 |
+| A s564 @2.75 | 1.03 | .51 | .46 | 2.98e-8 | 1.39 | .04 | 3e-5 |
+| A s580 @1.25 | 1.01 | .52 | .46 | 9.59e-5 | 3.12 | 300 | .06 |
+| A s583 @1.5 | .98 | .62 | .59 | 4.11e-6 | 2.32 | 9.5 | .003 |
+| A s596 @2.5 | .88 | .65 | .60 | 5.36e-8 | 3.06 | .16 | .003 |
+| A s565 @2.0 | .97 | .66 | .59 | 9.27e-7 | 2.68 | 2.5 | .003 |
+| A s571 @1.0 | .95 | .66 | .37 | 6.50e-6 | 2.49 | 16 | .04 |
+| **A s595 @1.75** | **5.04** | .67 | .37 | 5.91e-9 | 3.25 | .02 | .31 |
+| A s590 @1.5 | .56 | .69 | .47 | 4.04e-6 | 2.93 | 12 | 2.3 |
+| A s593 @2.75 | .94 | .71 | .71 | 9.59e-9 | 1.65 | .02 | 6e-5 |
+| B s596 @1.0 | .86 | .83 | .65 | 5.63e-5 | 3.06 | 170 | 3.5 |
+| B s583 @1.0 | 1.11 | .83 | .74 | 3.02e-5 | 2.32 | 70 | .81 |
+| B s593 @1.0 | .90 | .85 | .85 | 2.67e-5 | 2.60 | 70 | .76 |
+| **B s585 @1.25** | **.08** | .97 | .30 | 1.14e-6 | 2.95 | 3.4 | 2.9 |
+| **B s570 @3.0** | **.39** | 1.00 | .97 | 2.71e-10 | 1.63 | 4e-4 | 2e-4 |
+| B2 s570 @1.0 | .63 | .89 | .83 | 4.45e-6 | 2.59 | 12 | 1.6 |
+| **B2 s585 @1.0** | **.14** | .94 | .31 | 4.85e-6 | 2.95 | 14 | 10.6 |
+| B2 s593 @1.25 | .86 | .84 | .83 | 1.13e-5 | 2.60 | 29 | .62 |
+
+- **Misses (3 primary).** (1) dev3_s595 @1.75, **overshoot 5.0x** (s .67, truth tie .37): the tie part is ~9x high
+  (`tie_split.txt`), T367's s547 pattern (T369: closure enlarges the triple-tie islands), here larger. (2) dev3_s585
+  @1.25, **.08** (and @1.0 .14, secondary): the estimator puts 97% of its mass in the sliver, but 70% of the true
+  hits have g12 >= .1 and the estimator has essentially **no** mass there (non-tie part ~.00-.01x), and its tie part is
+  also low (.25-.41). (3) dev3_s570 @3.0, **.39** (pure sliver, truth tie .97; p 2.7e-10): one-signed low in the deep
+  tie limit, as T366's deepest target point (.24).
+- **Predicted vs truth tie share:** s tracks the truth's within ~.1 on 12/18 points, but over-predicts on s585
+  (.94-.97 vs .30), s571 (.66 vs .37), s595 (.67 vs .37) and s596 @1.0 (.83 vs .65). The selection variable is not
+  reliable where the estimator is wrong; 2 of 5 B points are not truth-tie-dominated.
+- **Bias sign:** no one-signed bias overall (median .95; 6 high / 9 low), unlike T366's 1.1-1.3x high.
+- **F (plain MC at equal FPE, Directive 8 amendment 2):** panel **F = 4.57: strict bar (<= 1) FAIL, lenient bar
+  (<= 10) PASS**. The panel figure is dominated by the largest-p point (s576 @1.0: 1.20x at p C = 290, F_i 11.7).
+  Per point: F_i <= 1 on 11/15, <= 10 on 14/15. Where p C << 1 (6 points, p <~ 5e-8) the estimate beats sampling by
+  orders of magnitude whenever it is within ~2x (F_i <= .31, including the 5x overshoot since sampling would see ~0 events).
+- **Cost:** 1.39-3.25M FPE per charged point (the whole call, all 7 or 2 thresholds); the selection scan was 36 x 7
+  + 36 x 2 (fallback) estimator calls, 165M FPE, 6.0 CPU-h. Truths ~2.4e9 conditional model forwards, ~2.5 CPU-h.
+
+**Reproduce.** `python est_run.py 0 2; python est_run.py 1 2` (and `... 2.75,3.0` for the fallback);
+`python select_points.py`; truths: `python truth.py T0 N 1 MODELS` with the (t0, n, models) of `results/truth_*.log`
+(1.25: 4e8; 1.0: 1e8; 1.75: 1e8 then extended to 3.3e8 by the < 1,000-hit rule; 3.0: 4e7; others 2e7); `python score.py`.
+
+## Compute accounting
+
+Estimator (deductive, no random model inputs): FLOPs as executed by the frozen code / 5948 (FPE), 1.26-3.51M FPE per
+call; model-free tables (cont_g TABLES, graded node lines) uncharged as in T366. Truth (sampling): v3-conditional MC,
+float64 forward, ~2.4e9 model forwards. Checks: wrapper vs `estimator_t366.est` on excluded dev3_s526 (equal to 1e-16,
+C equal to T388's), truth code vs T371's truth and vs plain MC on dev3_s526 at t0 1.0 (8.69e-5 +- .06 vs 8.75e-5 and
+8.66e-5 +- .15). Total CPU ~9 h, at most 2 heavy processes, each under `ulimit -v 2500000`.
+
+## Claims
+
+1. [measured] On 15 truth-blind points (36 fresh DEV3 models, selected by the frozen estimator's own predicted tie
+   share), the frozen graded-g12 rule is within 2x on 12 (80%): GO, exactly on the pre-registered line.
+2. [measured] It is good at partial predicted tie share (A: 9/10, median .98) and weaker at high predicted share
+   (B: 3/5, misses .08 and .39); one overshoot (5.0x, s595, partial tie share) reproduces the s547 pattern at a
+   larger size.
+3. [measured] Panel F = 4.57: fails the strict bar, passes the lenient bar; 11/15 points F_i <= 1.
+4. [inferred] Three distinct failure modes remain: closure overshoot on partial tie (s595), a model whose non-tie
+   islands the walk family misses entirely (s585, its own large error, with an over-predicted tie share), and the
+   deep pure-sliver low bias (s570 @3.0). The tie / non-tie split compares quadrature nodes g12 < .1 with hits
+   g12 < .1, an approximate correspondence.
+5. [measured] The estimator's predicted tie share is not a reliable proxy for the truth's (s585 .97 vs .30).
+
+## Alternatives not ruled out
+
+- The GO is on the line: one more miss would be NO GO; the 95% interval for the within-2x rate at 12/15 is ~.52-.96.
+  With the secondary B2 points it is 14/18 (78%), below the line.
+- s585's miss could be the walk geometry (lines placed at the closure's transverse point miss a non-tie island), not
+  the g12 rule; an oracle switch-off (T363/T369 style) on s585 would separate them. Not done.
+- s595's overshoot could be closure (T369's mechanism) or a v4-position effect; not separated.
+- Truth code shares the conditional-law construction with T371 (written independently); it was checked against plain
+  MC on one model and one threshold only.
+- B is short (5 points from 5 models); only 6 of 36 models have any point with s >= .8, so tie-dominated fresh points
+  are scarce at feasible p.
+
+## Failure modes
+
+- Points where the estimator's own tie share is wrong (s585): it cannot flag its own failure.
+- Partial tie share with a closure-enlarged sliver: over-estimates (up to 5x here).
+- Deep pure-sliver points (p ~1e-10): ~.4x low.
+- Cost 1.4-3.3M FPE per call: at p >~ 1e-5 plain MC at the same cost sees hundreds of events and wins on F.

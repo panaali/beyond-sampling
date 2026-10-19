@@ -1,0 +1,31 @@
+T403 score (est = frozen estimator_t366, sealed; truth = own v3-conditional MC)
+stratum model t0 | est truth (se) hits | ratio | s_pred tie_truth | C(FPE) pC F
+A 50-80% dev3_s576 1 | 1.379e-04 1.150e-04 (0.2%) 258756 | 1.20 | 0.51 0.47 | 2.55e+06 2.9e+02 11.7
+A 50-80% dev3_s564 2.75 | 3.067e-08 2.983e-08 (0.4%) 63622 | 1.03 | 0.51 0.46 | 1.39e+06 0.042 3.26e-05
+A 50-80% dev3_s580 1.25 | 9.720e-05 9.586e-05 (0.1%) 2268349 | 1.01 | 0.52 0.46 | 3.12e+06 3e+02 0.0583
+A 50-80% dev3_s583 1.5 | 4.041e-06 4.108e-06 (0.9%) 13818 | 0.98 | 0.62 0.59 | 2.32e+06 9.5 0.00256
+A 50-80% dev3_s596 2.5 | 4.690e-08 5.359e-08 (0.6%) 26596 | 0.88 | 0.65 0.60 | 3.06e+06 0.16 0.00256
+A 50-80% dev3_s565 2 | 8.980e-07 9.274e-07 (0.6%) 32114 | 0.97 | 0.66 0.59 | 2.68e+06 2.5 0.00251
+A 50-80% dev3_s571 1 | 6.167e-06 6.497e-06 (0.8%) 14623 | 0.95 | 0.66 0.37 | 2.49e+06 16 0.0416
+A 50-80% dev3_s595 1.75 | 2.980e-08 5.913e-09 (3.1%) 1011 | 5.04 MISS | 0.67 0.37 | 3.25e+06 0.019 0.314
+A 50-80% dev3_s590 1.5 | 2.272e-06 4.040e-06 (0.9%) 13590 | 0.56 | 0.69 0.47 | 2.93e+06 12 2.27
+A 50-80% dev3_s593 2.75 | 8.990e-09 9.593e-09 (0.7%) 20458 | 0.94 | 0.71 0.71 | 1.65e+06 0.016 6.26e-05
+B >=80% dev3_s596 1 | 4.835e-05 5.632e-05 (0.3%) 126775 | 0.86 | 0.83 0.65 | 3.06e+06 1.7e+02 3.45
+B >=80% dev3_s583 1 | 3.343e-05 3.018e-05 (0.4%) 67927 | 1.11 | 0.83 0.74 | 2.32e+06 70 0.813
+B >=80% dev3_s593 1 | 2.390e-05 2.669e-05 (0.4%) 60084 | 0.90 | 0.85 0.85 | 2.6e+06 70 0.76
+B >=80% dev3_s585 1.25 | 8.594e-08 1.139e-06 (0.6%) 26943 | 0.08 MISS | 0.97 0.30 | 2.95e+06 3.4 2.87
+B >=80% dev3_s570 3 | 1.048e-10 2.708e-10 (1.4%) 5408 | 0.39 MISS | 1.00 0.97 | 1.63e+06 0.00044 0.000166
+B2 >=80% (secondary) dev3_s570 1 | 2.783e-06 4.447e-06 (1.0%) 10010 | 0.63 | 0.89 0.83 | 2.59e+06 12 1.61
+B2 >=80% (secondary) dev3_s585 1 | 6.706e-07 4.850e-06 (1.0%) 10916 | 0.14 MISS | 0.94 0.31 | 2.95e+06 14 10.6
+B2 >=80% (secondary) dev3_s593 1.25 | 9.616e-06 1.125e-05 (0.2%) 266080 | 0.86 | 0.84 0.83 | 2.6e+06 29 0.615
+ALL (pre-registered line: >= 80% within 2x): n 15  within 2x 12 (80%)  median 0.95  mean log10 -0.079  >2x 1  <.5x 2  range 0.08-5.04
+Amendment 1, B2 (secondary, not in the line): n 3  within 2x 2 (67%)  median 0.63  mean log10 -0.377  >2x 0  <.5x 1  range 0.14-0.86
+primary + B2 (secondary): n 18  within 2x 14 (78%)  median 0.92  mean log10 -0.129  >2x 1  <.5x 3  range 0.08-5.04
+predicted share 50-80%: n 10  within 2x 9 (90%)  median 0.98  mean log10 +0.042  >2x 1  <.5x 0  range 0.56-5.04
+predicted share >= 80%: n 5  within 2x 3 (60%)  median 0.86  mean log10 -0.321  >2x 0  <.5x 2  range 0.08-1.11
+truth tie < 50%: n 7  within 2x 5 (71%)  median 1.01  mean log10 -0.085  >2x 1  <.5x 1  range 0.08-5.04
+truth tie 50-80%: n 6  within 2x 6 (100%)  median 0.95  mean log10 -0.022  >2x 0  <.5x 0  range 0.86-1.11
+truth tie >= 80%: n 2  within 2x 1 (50%)  median 0.64  mean log10 -0.230  >2x 0  <.5x 1  range 0.39-0.90
+F (Directive 8 amendment 2, C_eff = max(C, 1k), plain MC at equal FPE): panel 4.57 (truth-noise corrected 4.57); per point median 0.0583, <= 1 (strict) 11/15, <= 10 (lenient) 14/15
+strict bar (F <= 1): FAIL; lenient bar (F <= 10): PASS
+VERDICT by the pre-registered line: GO
