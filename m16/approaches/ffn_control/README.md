@@ -98,6 +98,8 @@ Step 1, simplicity ladder (bias-free ReLU MLPs, the same task, recipe and label 
 - Added (2026-10-19 ~03:10): the pre-registered 2^30 retrain of D1w128 seed 0 reached .990 (vs .965 at 2^28), so the
   schedule matters. 2^30 runs of D1w96 (seeds 0-2) and D1w64 (seed 0) are added to locate the depth-1 threshold
   under the zoo's full schedule.
+- Added (2026-10-19 ~04:00): at 2^30 D1w128 reaches .990 on all 3 seeds, D1w96 seed 0 .974, D1w64 .602, so a D1w80
+  rung (2^30, seed 0) is added.
 
 Step 2, on the chosen network(s): the pre-registered stage-2/3 analysis above (region counts vs the RNN's x23-33
 per step, exact-accuracy attempt, exact walks, F at C >= 1k FPE vs plain sampling, M_16,10 control with the same
