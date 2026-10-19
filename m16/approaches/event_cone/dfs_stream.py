@@ -3,7 +3,7 @@ gates[shard::nshards] of certs/surv_d<D>_<tri>_k<KFROM>.npz, rebuilds each cell 
 and expands its subtree to KMAX depth-first with relax2.prune_stage, so memory stays small.
 Outputs (per shard): certs/surv_<tag>.npz (k = KMAX survivors' gates), certs/cert_<tag>.npz (all pruned cells,
 T400 format v1 with a per-cell k array), logs/dfs_<tag>.log (per-k children/survivor counts, progress).
-Checkpoints: every CKPT parents (and at the end) the npz files are rewritten with everything so far, plus done_parents;
+Checkpoints: every CKPT = 5 parents (and at the end) the npz files are rewritten with everything so far, plus done_parents;
 --resume skips the parents listed in an existing checkpoint and continues appending (files keep the same names).
 usage: python dfs_stream.py p1,p2,p3 KFROM KMAX SHARD NSHARDS [--delta D] [--parents i,j,...] [--half 1|2] [--resume]
 --half h keeps only the first (h = 1) or second (h = 2) half of the shard's parent list; h = 2 adds "_h2" to the file tag."""
@@ -20,7 +20,7 @@ from bnb import gates_of, step
 from k10_stream import cell_from_gates
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CKPT = 20
+CKPT = 5
 
 
 def main():
