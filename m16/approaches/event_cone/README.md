@@ -468,3 +468,22 @@ masses.
   - So open item 3 (soundness) is closed for (1,8,2) k <= 6. **Mass (item 4) is the weak side.** T400's cheap
     rigorous bound is median 365x MC at k = 4; the exact-marginalisation bound (M5) is 6.9x but costs 25 s per cell.
 - Worker B: (2,1,9), a triple with no event hits, is pruned completely by k = 3, with survivors 1 / 1 / 0.
+
+## T398 verdict (DELTA = 0.1, the pre-registered T398 test) [measured; `logs/bnb398_182.log`]
+- (1,8,2) survivors at k = 1..6: 2 / 18 / 53 / 263 / 1,314 / **5,825**. Stages 2-3 add 188 prunes at k = 5 and 1,420
+  at k = 6. Line-walk event prefixes pruned: 0.
+- Projection: 41 x 5,825 x 4.43^4 = **9.2e7 > 1e7. STOP** (scoped negative, unverified). Event-aware tightening and
+  depth-6 splitting cut the survivors 1.3x versus T390 (7,689), not enough.
+- The side run (1,2,0) was stopped at k = 4 (326 survivors) to free the core for T398b.
+- Reading: at DELTA 0.1 (rigorous for t0 >= 0.75) the method is out of reach. The normalisation does most of the work
+  at DELTA = 1/3 (T398b).
+
+## T398b, k = 7 [measured; `logs/bnb398b_182_k10.log`]
+- (1,8,2): 11,683 children, **1,494 survivors** (x1.91 over k = 6). 294 line-walk event prefixes, 0 pruned.
+- Cost at k = 7: 201 s split + 1,028 s relaxation.
+- Re-projected from k = 7: 1,494 x 1.91^3 = 1.0e4 step-10 regions for this triple.
+- **T400's MC curve** (1e9 draws, t0 = 2.5): the survivors hold 81% / 74% / 45% of the triple's slab mass
+  (5.6e-8) at k = 4 / 5 / 6.
+  - So charging at k = 6 costs >= 2.5e-8, against a target of ~1e-9.
+  - The charge must be made at k = 10 with the event rows, or after cutting each cell to the projection of its
+    event relaxation (T400 option (c), in progress).
