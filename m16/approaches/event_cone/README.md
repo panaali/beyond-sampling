@@ -531,3 +531,73 @@ masses.
   | (8,4,7), (4,9,5) | 34 at k = 2 | censored |
 
   Details are in the workers' logs and json files in this folder.
+
+---
+
+# Lane summary: certified far-gap rare-event bound (T398 lead; T399, T400, T412, T414, workers A/B, truth worker), 2026-10-19
+All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g23 >= t0}, orig, target t0 = 2.5.
+
+**Truth** [measured, truth worker, `truth_t398/`; T362's conditional MC, validated at t0 = 1.5]:
+
+| t0 | P(E) | relative s.e. |
+|---|---|---|
+| 2.0 | 7.6e-9 | 12% |
+| 2.25 | 1.1e-9 | 18% |
+| 2.5 | 6.6e-11 | 44%: 8 nonzero lines, so an order of magnitude only |
+
+**What was built and works** [measured]:
+1. **Exact branch and bound** on the triple's true event cone, cell by cell over the 10 steps. Pruning stages:
+   - the normalisation g23 >= DELTA ||x||_inf, rigorous for DELTA = t0/7.5 (loss 6e-13 at t0 = 2.5);
+   - the T390 triangle relaxation;
+   - event-aware bound tightening;
+   - depth-6 ReLU splitting.
+   Code: `bnb.py`, `relax2.py`, `k10_stream.py`.
+2. **(1,8,2) complete to k = 10** at DELTA = 1/3. Survivors per step k = 1..10:
+
+   | k | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+   |---|---|---|---|---|---|---|---|---|---|---|
+   | survivors | 2 | 18 | 39 | 146 | 275 | 781 | 1,494 | 3,058 | 13,040 | **15,116** |
+
+   - Every k = 10 survivor passes the exact event LP.
+   - All 995 distinct full histories of 550,924 line-walk event points are among them, with 0 missing.
+   - CPU about 6 h.
+3. **Exact verification** (T400, independent code, safe dual bounds): 38,557 of 38,557 pruning certificates for
+   k = 2..8 verify. k = 9-10 are pending.
+4. **Mass** (T400): plain MC at 1e9 draws shows the survivors' slab mass falls from 45% at k = 6 to 4.6% at k = 7,
+   then stays flat at 2.6e-9 through k = 8. So the charge must be made at k = 10 with exact event polytopes; T400's
+   option (c), relaxation-projection cuts, did not help.
+   - 10-D rigorous mass (M5t) is about 6.8x over MC.
+   - The cost is ~30-60 s per cell after T412, and possibly ~10x less after T415. So charging the 15,116 cells is about
+     125-250 CPU-h now.
+   - Pending as T416. This is the lane's remaining deliverable: a rigorous **per-triple** upper bound for (1,8,2).
+
+**What does not work** [measured on samples; inferred in general]:
+5. **All-triple certificate at t0 = 2.5: negative (scoped, unverified).**
+   - Late triples cannot be pruned before their high positions are read, so they carry the full-space region
+     counts N_b: (3,7,8) and (5,7,6) give 2 / 34 / 792 with nothing pruned.
+   - Root relaxations bound the margin at +435 to +961.
+   - Input-space branch and bound with CROWN (T414) projects 1e14-1e15 boxes per late triple, a KILL. Its CROWN
+     looseness has median 176 margin units.
+   - Every triple carries the same slab mass, 5.6e-8, against a total truth of 6.6e-11, so no triple can be left
+     uncertified.
+   - Worker sample over 20 random triples:
+     - 4 complete to k = 6: (8,4,0) 509, (9,0,1) 912, (1,9,3) 371, and (2,1,9) pruned completely;
+     - 16 censored at 0.6-1.5 CPU-h, mostly at k = 2-3.
+6. **DELTA = 0.1 (T390, T398): STOP.** Without the t0-scaled normalisation the projections are 2.1e8 and 9.2e7, both
+   above 1e7.
+7. **Cheap rigorous masses** (M2, wedge boxes) are 1e2-1e9x loose on k = 10 regions; only exact triangulation (M5t)
+   is usable.
+
+**What the lane can certify** (answering the DRI):
+- Pruning is exact once T400 verifies the certificates.
+- The bound is an UPPER bound per triple: sum of verified M5t event masses over the k = 10 survivors, plus 6e-13.
+- It is not an all-triple bound, and not a bound at any t0 other than 2.5. t0 = 2.0 would need DELTA <= 0.267 and
+  was not run.
+
+**Alternatives not ruled out:**
+- An abstraction of the hidden state reached after the low-only steps, with a sound charge for its preimage mass
+  (no design yet).
+- Symmetry or sharing across late triples: their early prefix trees coincide (claim 3), which saves a factor <= the
+  number of triples sharing a prefix, not the N_b growth.
+- Tighter multi-neuron relaxations for late triples.
+- A different event decomposition than by position triple.
