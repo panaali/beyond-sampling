@@ -25,12 +25,12 @@ def codes(y, k):
     return c
 
 
-def modsum_ub(P, lang, tau, chunk=20000):
-    thr = np.log(tau / (1 - tau)) - bab.DELTA
-    ub, flagged, ys = 0.0, [], []
+def modsum_values(P, lang, chunk=20000):
+    """Every n <= n_small sequence once: the bound on the illegal log-odds at the answer position (tau-free)."""
     cert.FLOPS[0] = 0
+    vs, ws, ys = [], [], []
+    T = lang.n_small + 2
     for y, w in lang.enumerate_chunks(chunk=chunk):
-        T = lang.n_small + 2
         y = y[:, :T]
         x = model_input(y, lang.BOS)
         ann = lang.annotate(y)
@@ -39,10 +39,8 @@ def modsum_ub(P, lang, tau, chunk=20000):
         lo, hi = (c - r)[torch.arange(len(y)), a], (c + r)[torch.arange(len(y)), a]
         S = torch.ones(len(y), lang.V_out, dtype=torch.bool)
         S[torch.arange(len(y)), torch.from_numpy(ann["answer"])] = False
-        bad = (cert.ub_log_odds(lo, hi, S) >= thr).numpy()
-        ub += float(w[bad].sum())
-        flagged.append(y[bad].astype(np.int8))
-    return ub * (1 + 1e-12), np.concatenate(flagged)
+        vs.append(cert.ub_log_odds(lo, hi, S).numpy()); ws.append(w); ys.append(y.astype(np.int8))
+    return np.concatenate(vs), np.concatenate(ws), np.concatenate(ys)
 
 
 def main():
@@ -58,6 +56,9 @@ def main():
         t0 = time.time()
         if lang.name == "dyck2":
             multi, fpe = bab.run_multi(P, lang, T, TAUS, K0, fpe_flops=model.flops(T))
+        else:
+            mv, mw, my = modsum_values(P, lang)
+            fpe = cert.FLOPS[0] / model.flops(T)
         for j, tau in enumerate(TAUS):
             truth = meta["small_exact"][f"B{tau}"] if meta else float(ref[f"B{tau}"])   # S1: ref.py's exact B
             rb = ref["y"][ref["max_ill"] > tau]
@@ -69,9 +70,8 @@ def main():
                 ub = res["ub"]
                 extra = dict(n_closed=int(sum(len(p) for _, p in res["closed"])), good=res["good"])
             else:
-                t0 = time.time()
-                ub, fl = modsum_ub(P, lang, tau)
-                fpe = cert.FLOPS[0] / model.flops(T)
+                flag = mv >= np.log(tau / (1 - tau)) - bab.DELTA
+                ub, fl = float(mw[flag].sum()) * (1 + 1e-12), my[flag]
                 base = lambda yy: (yy[:, :T].astype(np.int64) * 7 ** np.arange(T)).sum(1)
                 leaf_viol = int((~np.isin(base(rb), base(fl))).sum())
                 extra = dict(n_flagged=len(fl))
