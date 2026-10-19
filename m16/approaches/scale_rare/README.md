@@ -106,3 +106,12 @@ Truth stopping: a point with **0 hits after 1e9 draws** stops there (upper bound
 1e-9; such a point is "truth infeasible" and unscored under the original 4e9 cap too, so no verdict can change). Reason:
 points with p ~ 1e-12 or less were taking ~3 CPU-h each and blocking the T = 15 / 20 estimates. Points with >= 1 hit
 keep the 4e9 cap. Working checkpoints are written to $T424_TRUTH_DIR while running and copied to results/truth when done.
+
+### Amendment 2 (2026-10-19, before any estimate at these points; flagged)
+- The H = 16 models at T = 15 / 20 train poorly (acc .73 / .46), so H = 16 is a weak T axis. **Added T axis at H = 48**
+  ((48,10), (48,15), (48,20); acc .99) and (24,20). The H = 16 points stay scored as pre-registered (flagged acc < .90).
+- The registry fills points sparsely (seeds land out of order). A point's primary panel = whichever of cpu seeds 0-2 are
+  in the registry when its estimates start; points with < 3 primary models are scored and flagged "partial panel".
+- Compute: estimates for (48,15) cpu0/cpu2 and (24,20) cpu0, (48,20) cpu1 run in two helper child sessions
+  (session_01MZEJpmKX74mMcRhsQWANLc, session_016vCqHwUFu6Ku1PrzaZHdXw) with this branch's code unchanged (hashes asserted);
+  they push only results/est/. Truths for those points run only after their estimates are pushed.
