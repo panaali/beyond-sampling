@@ -64,6 +64,23 @@ for name, a, b in [("H2r", "neuron", "dense"), ("H2g", "neuron", "gauss"), ("R1t
     if name != "R1test":
         out[f"{name}_verdict"] = "supports" if lo > MARGIN else "refutes" if hi < MARGIN else "inconclusive"
 out["H2r0_neurons_cleaner"] = out["H2r_ci"][0] > 0
+# H2r-c (amendment 1): neurons that the MX5 construction does not project out in their layer
+pil = json.load(open("data/t6/pilot.json"))["stats"]
+ratio = np.array(pil["absmax"]) / np.array(pil["sd"])
+nidx = np.load("data/t6/neuron_idx.npy")
+excl = [set(np.argsort(-ratio[L])[:ratio.shape[1] * 5 // 100].tolist()) for L in range(ratio.shape[0])]
+kept = np.array([nidx[items[i]["layer"], items[i]["unit"]] not in excl[items[i]["layer"]] for i in arms["neuron"]])
+t = tab["neuron"]
+sel = kept[t[:, 0]]
+out["H2rc_n_neurons_kept"] = int(kept.sum())
+out["H2rc_A_rate_kept_neurons"] = float(t[sel, 2].mean())
+out["H2rc_delta"] = out["H2rc_A_rate_kept_neurons"] - out["A_rate_dense"]
+bc = []
+for b in range(NB):
+    ki = rng.choice(np.nonzero(kept)[0], kept.sum()); di = rng.integers(0, len(arms["dense"]), len(arms["dense"]))
+    an = np.mean([t[t[:, 0] == i, 2].mean() for i in ki]); ad_ = np.mean([tab["dense"][tab["dense"][:, 0] == i, 2].mean() for i in di])
+    bc.append(an - ad_)
+out["H2rc_ci_items_only"] = ci(np.array(bc))
 ad = out["A_rate_dense"]
 out["baseline_adjusted_clean_share"] = (out["A_rate_neuron"] - ad) / (1 - ad)
 out["baseline_adjusted_clean_share_ci"] = ci((B["neuron"] - B["dense"]) / (1 - B["dense"]))

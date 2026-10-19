@@ -68,10 +68,10 @@ def forward(w):
         model(torch.tensor(tokens[w], dtype=torch.long))
 
 
-def candidates(stats, seed):
-    """Candidate control constructions, N_CAND directions per layer each, shape (L, d_mlp, N_CAND)."""
+def candidates(stats, seed, n=N_CAND):
+    """Candidate control constructions, n directions per layer each, shape (L, d_mlp, n)."""
     r = np.random.default_rng(seed)
-    g = r.standard_normal((n_layers, d_mlp, N_CAND)).astype(np.float32)
+    g = r.standard_normal((n_layers, d_mlp, n)).astype(np.float32)
     sd, mx = np.array(stats["sd"])[..., None], np.array(stats["absmax"])[..., None]
     out = {"G": g, "S": g / sd, "M": g / mx}
     px = g.copy()  # top 1% of neurons by absolute max projected out
@@ -138,27 +138,39 @@ def pilot_pass2(stats, n, table):
 def main():
     pil = json.load(open(f"{OUT}/pilot.json"))
     choice = json.load(open("essay_h2_rerun/control_choice.json"))["construction"]
-    ddirs = candidates(pil["stats"], 20)[choice][..., :N_DENSE]  # fresh seed: not the pilot directions
+    ddirs = candidates(pil["stats"], 20, N_DENSE)[choice].astype(np.float32)  # fresh seed, not the pilot dirs
     np.save(f"{OUT}/ddirs.npy", ddirs)
     D = torch.tensor(np.concatenate([gdirs, ddirs], 2))
     idx = torch.tensor(neuron_idx)
     U, T = N_NEURONS + N_DIRS + N_DENSE, len(tokens) * CTX
-    mode = "r+" if os.path.exists(f"{OUT}/L00.f16") else "w+"
-    mm = [np.memmap(f"{OUT}/L{L:02d}.f16", dtype=np.float16, mode=mode, shape=(U, T)) for L in range(n_layers)]
+    for L in range(n_layers):  # files of shape (U, T) float16, written by seek (memmaps exceed ulimit -v)
+        fn = f"{OUT}/L{L:02d}.f16"
+        if not os.path.exists(fn) or os.path.getsize(fn) != U * T * 2:
+            with open(fn, "wb") as f:
+                f.truncate(U * T * 2)
     json.dump({"U": U, "T": T, "CTX": CTX, "construction": choice}, open(f"{OUT}/meta.json", "w"))
     prog = f"{OUT}/progress.json"
     start = json.load(open(prog))["done"] if os.path.exists(prog) else 0
+    chunk, c0 = [], start
+
+    def flush(end):
+        a = np.concatenate(chunk, 1)  # (L, rows, U)
+        for L in range(n_layers):
+            with open(f"{OUT}/L{L:02d}.f16", "r+b") as f:
+                for u in range(U):
+                    f.seek((u * T + c0 * CTX) * 2)
+                    f.write(np.ascontiguousarray(a[L, :, u]).tobytes())
+        json.dump({"done": end}, open(prog, "w"))
+        print(f"{end}/{len(tokens)}", flush=True)
+
     for b in range(start, len(tokens), BS):
         forward(slice(b, b + BS))
-        for L in range(n_layers):
-            h = buf[L].reshape(-1, d_mlp)
-            a = torch.cat([h[:, idx[L]], h @ D[L]], 1).numpy().astype(np.float16)
-            mm[L][:, b * CTX:(b * CTX + a.shape[0])] = a.T
-        if (b // BS) % 50 == 0 or b + BS >= len(tokens):
-            for m in mm:
-                m.flush()
-            json.dump({"done": min(b + BS, len(tokens))}, open(prog, "w"))
-            print(f"{min(b + BS, len(tokens))}/{len(tokens)}", flush=True)
+        chunk.append(np.stack([torch.cat([buf[L].reshape(-1, d_mlp)[:, idx[L]], buf[L].reshape(-1, d_mlp) @ D[L]], 1)
+                               .numpy().astype(np.float16) for L in range(n_layers)]))
+        end = min(b + BS, len(tokens))
+        if len(chunk) == 50 or end == len(tokens):
+            flush(end)
+            chunk, c0 = [], end
 
 
 {"pilot": pilot, "main": main}[sys.argv[1]]()
