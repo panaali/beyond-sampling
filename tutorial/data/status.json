@@ -6,7 +6,7 @@
       "title": "Minimal pair: H = 16 at T = 4 versus T = 5",
       "status": "confirmed (scoped)",
       "what": "The smallest place where the deterministic calculation starts losing ground to sampling. Which error patches appear at T = 5?",
-      "latest": "PASS of its pre-registered test at H = 16, T = 5 (squared error at most .23 of sampling's on every seed), independently confirmed on fresh models by T379 (ledger H-E16, scoped). Quadrature (fixed Sobol directions), not mechanistic. Finding: the new T = 5 mistakes sit mainly where all inputs are negative, and the gain falls like 1 / error rate (Figure 5).",
+      "latest": "PASS of its pre-registered test at H = 16, T = 5 (squared error at most .23 of sampling's on every seed), independently confirmed on fresh models by T379 (ledger H-E16, scoped). Deterministic quadrature over fixed Sobol lines, exact along each line; ARC acceptance unknown. Finding: the new T = 5 mistakes sit mainly where all inputs are negative, and the gain falls like 1 / error rate (Figure 5).",
       "branch": "claude/t10-minimal-pair",
       "group": "Scaling up along T"
     },
@@ -14,7 +14,7 @@
       "title": "Independent fresh-model check of T10",
       "status": "confirmed (scoped)",
       "what": "Re-test T10's T = 5 pass on fresh models, because its sign groupings were chosen on the test seeds.",
-      "latest": "Passed: T10's frozen estimator beats sampling on 5 fresh H = 16, T = 5 retrains (squared error at most .14 of sampling's; 320 of 320 runs with alternative rules below 1). Now ledger row H-E16, confirmed and scoped: deterministic quadrature (not mechanistic), clean models, compute counted in network-run equivalents; 10-35x slower than sampling in wall-clock time.",
+      "latest": "Passed: T10's frozen estimator beats sampling on 5 fresh H = 16, T = 5 retrains (squared error at most .14 of sampling's; 320 of 320 runs with alternative rules below 1). Now ledger row H-E16, confirmed and scoped: deterministic fixed-line quadrature (ARC acceptance unknown), clean models, compute counted in network-run equivalents; 10-35x slower than sampling in wall-clock time.",
       "branch": "see TASKS.md",
       "group": "Scaling up along T"
     },
@@ -54,7 +54,7 @@
       "title": "Fixed (deterministic) circle sets on the feed-forward network",
       "status": "pass (unverified)",
       "what": "Replace T345's random great circles by fixed point sets.",
-      "latest": "Halton sets give mean F .15 and Sobol .30, all below 1 (quadrature-class, not mechanistic). Symmetric and lattice sets fail.",
+      "latest": "Halton sets give mean F .15 and Sobol .30, all below 1 (deterministic; ARC acceptance unknown). Symmetric and lattice sets fail.",
       "branch": "see TASKS.md",
       "group": "Simpler networks"
     },
