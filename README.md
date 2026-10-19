@@ -8,17 +8,23 @@ An independent test of two claims about neural-network interpretability:
 
 ## Start here
 
-| Document | What it is |
+The same table is in [AGENTS.md "Where things live"](AGENTS.md#where-things-live); each kind of information has one home.
+New agents: read [AGENTS.md](AGENTS.md) (rules, standing owner rules), then [TASKS.md](TASKS.md), then [INDEX.md](INDEX.md). ([CLAUDE.md](CLAUDE.md) only imports AGENTS.md for Claude Code.)
+
+| Document | Its single purpose |
 |---|---|
-| [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | **How this project was run and what was learned** (process, technical and operational lessons; how to continue). Read first if you take over as DRI |
-| [TASKS.md](TASKS.md) | **Task board: what is in progress (and who holds it) and the prioritized backlog. Claim a task here before starting work** |
-| [OWNER_QA.md](OWNER_QA.md) | **Every question the project owner asked the DRI (2026-10-17/18), with the answers and later updates**, plus the owner's standing directives verbatim. Read after TASKS.md and INDEX.md |
-| [STATUS.md](STATUS.md) | **Current status**, in plain words plus a technical summary |
-| [INDEX.md](INDEX.md) | Single source of truth: questions, repo map, **experiment registry** (E1-E27, LB2, R1), **hypothesis ledger** (every claim with its status and evidence), synthesis, open questions |
-| [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study, with review corrections |
-| [m16/FINDINGS.md](m16/FINDINGS.md) | How the 432-param RNN M_16,10 computes the 2nd argmax: mechanism, error anatomy, estimators, failed hypotheses |
-| [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before any data was collected |
-| [AGENTS.md](AGENTS.md) | Rules for all agents (Claude, Codex, humans): claiming tasks, README template, skepticism, independence. ([CLAUDE.md](CLAUDE.md) only imports it for Claude Code) |
+| [README.md](README.md) | Entry point: what the project is, where to start, folders, how to reproduce |
+| [AGENTS.md](AGENTS.md) | Rules that bind every agent, including the owner's standing rules (section "Standing rules") |
+| [TASKS.md](TASKS.md) | Task board: what is in progress, who holds it, the backlog. Claim here before starting work |
+| [OWNER_QA.md](OWNER_QA.md) | The owner's questions, the answers, and every owner directive verbatim (the only place they are recorded) |
+| [INDEX.md](INDEX.md) | Experiment registry and hypothesis ledger: the only place for result numbers and claim status |
+| [STATUS.md](STATUS.md) | One page: the current state in plain words, linking to INDEX rows |
+| [docs/PROTOCOLS.md](docs/PROTOCOLS.md) | How work is run and scored: continuous work, ladder protocol, DRI directives 1-8 (rung test, two bars) |
+| [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | DRI process and lessons learned; read first if you take over as DRI |
+| [m16/FINDINGS.md](m16/FINDINGS.md) | Narrative: how M_16,10 computes the 2nd argmax, error anatomy, estimators, failed hypotheses |
+| [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study |
+| [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before data was collected |
+| [docs/archive/](docs/archive/) | History: old status updates, finished and superseded board text, later-update notes from the Q&A |
 
 ## Folders
 
