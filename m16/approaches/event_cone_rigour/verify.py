@@ -179,7 +179,7 @@ def verify_prune(tri, gates, k, event_aware=False, return_info=False):
             a = bound(R.Z[s][j], R.EZ[s][j], *P)
             c = bound(-R.Z[s][j], R.EZ[s][j], *P) if a is not None else None
             if a is None or c is None:
-                return done(margin_lb(*P) > 0, 0 if s == 0 else 1)
+                return done(bool(margin_lb(*P) > 0), 0 if s == 0 else 1)
             R.lo[s, j], R.hi[s, j] = a, -c
     if event_aware:                                              # one Jacobi pass with the event rows
         P = R.program(R.nb, True)
@@ -192,12 +192,12 @@ def verify_prune(tri, gates, k, event_aware=False, return_info=False):
                 a = bound(R.Z[s][j], R.EZ[s][j], *P)
                 c = bound(-R.Z[s][j], R.EZ[s][j], *P) if a is not None else None
                 if a is None or c is None:
-                    return done(margin_lb(*P) > 0, 2)
+                    return done(bool(margin_lb(*P) > 0), 2)
                 lo[s, j] = max(lo[s, j], a); hi[s, j] = min(hi[s, j], -c)
         R.lo, R.hi = lo, hi
     P = R.program(R.nb, False)                                   # final: min max_j (L_j - L_p3) > 0
     info["lps"] += 1
-    m = margin_lb(*P, extra=-R.ev, eextra=R.eev)
+    m = margin_lb(*P, extra=R.ev, eextra=R.eev)          # rows tau + (L_p3 - L_j) >= 0
     info["margin_lb"] = float(m)
     return done(bool(m > 0), 3 if event_aware else 1)
 
