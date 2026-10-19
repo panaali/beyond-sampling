@@ -83,6 +83,34 @@ Not applied, and why:
 - (6, partly) Fig 5's T = 3 level differs from Fig 4 because it is a random-face variant; explained in the caption
   rather than reconciled.
 
+**Round 2 (02:20, after the T382 prose rewrite; fresh-context general-purpose agent, 27 items).** Before the round:
+took `src/page.html` from e218888f and checked against a6bc61d5 that the multiset of numbers (outside scripts), all
+`id`/`st`/`claim` spans, the script and the CSS are unchanged; fixed the three stale spots (T6 card, Fig 5 / T10, T345
+row) and the rewriter's flagged points (HP2 served five submissions; F = 1 only at >= 1,000 runs; Fig 5's T list; the
+#P takeaway; "ruled out" scoped; scaling-only symmetry attributed to the review; gain law now accuracy / (error rate x
+CV^2 x c), which matches d5_law.log; Poisson described as an approximation; calculation cost "does not grow in
+proportion to rarity"). Applied from the round: sections 9-10 moved to 6-7 so the simpler-networks material comes before
+the full target, with sections and figures renumbered; Fig 6 band now 2e13 (x31/step) to 1e14 with the rule stated;
+the 26-27x vs ~120x density numbers explained as different counts, "near" defined, 1M tick; Fig 1 caption (role tags
+spelled out, three buttons); Fig 2 baselines explained, red line removed from the single-network histogram, dot labels
+in words; T317f card carries the T324 "not strictly deductive" chip; "Closed" -> "Out of reach for this method";
+"typical network" -> above average (~80th percentile of DEV3); exact score crossings in the gate walk, legend by
+starting rank; Fig 13 hides our dots outside the tested range and explains 1.4x vs 2x; rare card states the cost and
+the rough crossover; quantisation plan made visible and the non-negative-codes nit; H dimension: what was and was not
+measured; section 7 renamed "Other shortcuts we tried" with a note on problem-side simplifications not tried; term
+pointers in section 1 and the theory box; M_4,3 paragraph clarified; gain-law intuition; ladder paragraph; Fig 5
+caption split from the status sentence; simplification names unified with Fig 12; Fig 9 caption says which models and
+why noise breaks the method; Elekes box relabelled "proved for convex bodies; transfer is our reading"; lanes text no
+longer implies live updates; timestamps unified; TOC title; dropped the m16/truth.txt aside; Fig 3 centred on (1, 1)
+and names the network.
+
+Not applied in round 2, and why:
+- (15, 17) Fewer IDs in the cards, essay card removed: the brief requires visible IDs and the essay verdict.
+- (16) One term per concept: partly (pointers added); a full terminology pass would undo the T382 prose; left for a
+  later round.
+- (21) A diagram of the T317 walk geometry and the per-walk cost: not added this round (Fig 11 shows one walk).
+- (27, part) Splitting section 2 further: the T382 rewrite already restructured it.
+
 ## Results
 Not a research result. Every number in the page cites its INDEX row and status. Numbers computed by this folder:
 the "quick_acc" accuracies in `data/weights.json` (1e6 samples, seed 0; M_16,10 .9531, M_4,3-size zoo(4,3,0) .9843,

@@ -106,7 +106,7 @@ svg .ax { stroke: var(--rule); }
 svg .grid { stroke: var(--rule); stroke-dasharray: 2 3; }
 .note { font-family: var(--display); font-size: .9rem; line-height: 1.5; color: var(--muted); border-left: 2px solid var(--rule); padding: .1rem 0 .1rem .9rem; margin: 1rem 0; }
 .note b { color: var(--ink); }
-.claim { font-family: var(--display); font-size: .74rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 .35rem; white-space: nowrap; }
+.claim { font-family: var(--display); font-size: .74rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 .35rem; }
 .theory { display: grid; gap: .8rem; margin: 1rem 0; }
 .thm { border: 1px solid var(--rule); border-radius: 4px; padding: .8rem 1rem; background: var(--figure); }
 .thm h4 { margin: 0 0 .3rem; display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; }
@@ -168,17 +168,17 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <li><a href="#results">1. What we achieved</a></li>
   <li><a href="#challenge">2. The challenge in one picture</a></li>
   <li><a href="#theory">3. Why this is hard in principle</a></li>
-  <li><a href="#simplest">4. The simplest case: three numbers</a></li>
+  <li><a href="#simplest">4. The simplest case: two numbers, then three</a></li>
   <li><a href="#ht">5. More neurons, longer sequences</a></li>
-  <li><a href="#regions">6. Counting the pieces</a></li>
-  <li><a href="#ties">7. Where the mistakes live</a></li>
-  <li><a href="#noise">8. Noise and seeds</a></li>
-  <li><a href="#simpler">9. Simpler networks: quantised and feed-forward</a></li>
-  <li><a href="#other">10. Other simplifications we tried</a></li>
+  <li><a href="#simpler">6. Simpler networks: quantised and feed-forward</a></li>
+  <li><a href="#other">7. Other shortcuts we tried</a></li>
+  <li><a href="#regions">8. Counting the pieces</a></li>
+  <li><a href="#ties">9. Where the mistakes live</a></li>
+  <li><a href="#noise">10. Noise and seeds</a></li>
   <li><a href="#target">11. The real target: walking along the ties</a></li>
   <li><a href="#rare">12. Rare mistakes</a></li>
   <li><a href="#solved">13. What would count as solving it</a></li>
-  <li><a href="#lanes">14. Work in progress</a></li>
+  <li><a href="#lanes">14. Work in progress and recent results</a></li>
   <li><a href="#glossary">Glossary, references and data</a></li>
 </ul>
 
@@ -190,12 +190,12 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <div class="res">
     <h4>Best calculation of the accuracy</h4>
     <div class="big">F = 2.63</div>
-    <p>We tested the calculation on 100 freshly trained copies that nobody had inspected. An independent scorer evaluated it once. Its typical error was 0.75 points, with an average overestimate of 0.44 points, at a cost of about 3,300 network runs per copy. Random testing with the same 3,300 runs has a typical error of about 0.46 points. On a second, open panel, the score was F = 2.50.</p>
-    <div class="meta"><span class="id">T317f · T335 · H-L1</span><span class="st st-unv">unverified (measured on sealed panels)</span></div>
+    <p>We tested the calculation on 100 freshly trained copies that nobody had inspected. An independent scorer evaluated it once. Its typical error was 0.75 points, with an average overestimate of 0.44 points, at a cost of about 3,300 network runs per copy. Random testing with the same 3,300 runs has a typical error of about 0.46 points. On a second, open panel, the score was F = 2.50. It draws no random inputs when it runs, but its simplifications were chosen by checking them against sampling, so it is not fully deductive (section 11).</p>
+    <div class="meta"><span class="id">T317f · T335 · H-L1</span><span class="st st-unv">unverified (measured on sealed panels)</span><span class="id">T324</span><span class="st st-unv">not strictly deductive</span></div>
   </div>
   <div class="res">
     <h4>The strict bar, for this family of methods</h4>
-    <div class="big">Closed</div>
+    <div class="big">Out of reach for this method</div>
     <p>Our approach walks along lines through input space (section 11). At budgets up to about 6,000 runs, matching random testing is out of reach for this approach: we tried about 27 variants, and a second agent re-checked the list with its own code. This conclusion applies to that approach and is not a proof. Other approaches remain open.</p>
     <div class="meta"><span class="id">H-S1 · T356 · T357</span><span class="st st-dead">dead (verified), scoped</span></div>
   </div>
@@ -204,7 +204,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
     <div class="big">Within 2×</div>
     <p>For one kind of rare mistake, the network picks the 3rd-largest number even though it is clearly smaller than the 2nd. At probabilities from 2 in 10 million to 2 in 10,000, our estimates were within 2× of the truth in 18 of 18 cases on fresh copies.</p>
     <div class="meta"><span class="id">H-R1 · T360</span><span class="st st-conf">confirmed, scoped</span></div>
-    <p>For still rarer events, the estimates stay within about 1.4× down to probabilities of 2 in 10 billion on ordinary copies. Random testing at the same cost sees about zero events. The method fails on copies whose rarest mistakes occur when the top three numbers are almost equal. For common events, it is not cheaper than random testing.</p>
+    <p>For still rarer events, the estimates stay within about 1.4× down to probabilities of 2 in 10 billion on ordinary copies. Random testing at the same cost sees about zero events. The method fails on copies whose rarest mistakes occur when the top three numbers are almost equal. Each estimate costs about 1–2.5 million network runs. At that budget random testing sees about a hundred events once the probability is above roughly 1 in 15,000, and then it is the better choice; the calculation pays off only for rarer events.</p>
     <div class="meta"><span class="id">T366 · T368</span><span class="st st-unv">independently re-run, within H-R1's recorded scope</span><span class="id">T367</span><span class="st st-neg">fix negative (unverified)</span></div>
   </div>
   <div class="res">
@@ -216,7 +216,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <div class="res">
     <h4>The exact route</h4>
     <div class="big">Est. 10<sup>13</sup>–10<sup>14</sup> pieces</div>
-    <p>Listing the network's linear pieces one by one is ruled out at any compute where a comparison with sampling makes sense (measured and extrapolated, not proven). There are at least 19.7 million after 6 of the 10 steps (a lower bound, unverified), and the count grows by a factor of about 23–33 per step. The 10-step figure is an extrapolation. A GPU census also finds that the probability-weighted number of patterns grows 4–6× per step.</p>
+    <p>Listing the network's linear pieces (regions where it acts as one fixed linear function; section 4) one by one is ruled out at any compute where a comparison with sampling makes sense (measured and extrapolated, not proven). There are at least 19.7 million after 6 of the 10 steps (a lower bound, unverified), and the count has grown by a factor of 23–33 per step so far. The 10-step figure is an extrapolation. A census of a billion random inputs also finds that even the number of pieces that carry real probability grows 4–6× per step (section 8).</p>
     <div class="meta"><span class="id">H-E13 · T270 · T348</span><span class="st st-dead">dead (DRI ruling, scoped)</span></div>
   </div>
   <div class="res">
@@ -227,7 +227,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   </div>
 </div>
 
-<p>Here is the path to these results, in one paragraph. On a smaller AlgZoo network with 32 weights (M<sub>4,3</sub>), a calculation derived from the network's mechanism beat random testing by about 50 times <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. As we moved toward the full network, that advantage shrank at every step. At 10 steps, every calculation that qualifies as mechanistic loses to random testing. Most of this tutorial explains why.</p>
+<p>Here is the path to these results, in one paragraph. On a smaller AlgZoo network with 32 weights (M<sub>4,3</sub>), a calculation derived from the network's mechanism beat random testing by about 50 times <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. As we moved toward the full network, that advantage shrank at every step. At 10 steps, our best calculation, above, is 2.6× worse than random testing. Only a fixed-grid quadrature method, which ARC does not count as mechanistic, still wins there, by 1.6× (section 5). Most of this tutorial explains why.</p>
 
 <h2 id="challenge">2. The challenge in one picture</h2>
 <p>In January 2026, the Alignment Research Center (ARC) published AlgZoo, a collection of tiny trained networks. The challenge concerns one network, M<sub>16,10</sub>: 16 neurons processing sequences of 10 numbers. This recurrent network has 16 ReLU neurons and no biases. It reads ten independent standard-normal numbers, one per step. After the tenth step, it chooses one of ten positions as the location of the second-largest number. Its 432 weights consist of 16 input weights, a 16×16 recurrent matrix and a 10×16 readout.</p>
@@ -252,10 +252,10 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
       <canvas id="live-heat" width="580" height="260" aria-label="Hidden activations of the network"></canvas>
     </div>
   </div>
-  <figcaption><b>Figure 1. The real M<sub>16,10</sub>, running in your browser</b> with ARC's published weights. The green bar marks the true second-largest input. The heat map shows each neuron's activation at each step: darker means larger; blank means switched off. Rows are grouped by role (section 4b). The right-hand column shows the ten output scores, and the network chooses the position with the highest score. Most mistakes occur near ties, where the 2nd and 3rd largest inputs are almost equal, or when the inputs are mostly negative. Try both buttons several times.</figcaption>
+  <figcaption><b>Figure 1. The real M<sub>16,10</sub>, running in your browser</b> with ARC's published weights. The green bar marks the true second-largest input. The heat map shows each neuron's activation at each step: darker means larger; blank means switched off. Each row is tagged with its neuron's role: max = running maximum, rec = record alarm, cmp = comparator, mix = mixed, clk = clock (section 4b). The right-hand column shows the ten output scores, and the network chooses the position with the highest score. Most mistakes occur near ties, where the 2nd and 3rd largest inputs are almost equal, or when the inputs are mostly negative. Try all three buttons several times.</figcaption>
 </figure>
 
-<p>The network's accuracy is about <b>95.31%</b>. We know it precisely because we tested 300 billion random inputs: 95.31175% ± 0.00004 points <span class="id">T192</span> (<code>m16/truth.txt</code> records 95.318% from 20 million). ARC's challenge is to estimate that accuracy <em>without</em> random testing.</p>
+<p>The network's accuracy is about <b>95.31%</b>. We know it precisely because we tested 300 billion random inputs: 95.31175% ± 0.00004 points <span class="id">T192</span>. ARC's challenge is to estimate that accuracy <em>without</em> random testing.</p>
 
 <h3>The rules: compete with sampling</h3>
 <p>To estimate accuracy by sampling, run the network on <i>C</i> random inputs and count the correct answers. This costs <i>C</i> forward passes. Its mean squared error is <i>p</i>(1−<i>p</i>)/<i>C</i>, where <i>p</i> is the true accuracy. ARC asks for a <b>mechanistic estimate</b>: a calculation that reads the weights and uses no random or pseudorandom inputs. Its mean squared error must be no worse than sampling at equal compute. The comparison is averaged over a distribution of networks—retrained copies or copies with noise added to the weights—not just one.</p>
@@ -274,7 +274,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
     <svg id="smp-chart" viewBox="0 0 520 330" role="img" aria-label="Error against compute for sampling and for our estimators"></svg>
     <svg id="smp-hist" viewBox="0 0 420 330" role="img" aria-label="Errors of repeated sampling runs"></svg>
   </div>
-  <figcaption><b>Figure 2. Sampling versus calculation.</b> Left: typical error, measured as root mean squared error (RMS) in accuracy points, against compute. Both axes use log scales. The solid line shows plain sampling on the HP4 panel; the dashed line shows the lenient bar, at 10× sampling's squared error. Dots show sealed-panel results for our T317 family <span class="id">T304, T317c, T317f</span>. Right: the buttons sample M<sub>16,10</sub> in your browser at budget C. Each dot is one run's error relative to the 300-billion-sample answer. A calculation costing C matches sampling if its squared error, averaged over many networks, is no larger than the average squared width of this spread. The red line marks T317f's typical error on HP4.</figcaption>
+  <figcaption><b>Figure 2. Sampling versus calculation.</b> Left: typical error, measured as root mean squared error (RMS) in accuracy points, against compute. Both axes use log scales. The solid line shows plain sampling on the HP4 panel; the dashed line shows the lenient bar, at 10× sampling's squared error. Dots show sealed-panel results for three versions of our calculation (section 11): the first version, an improved one, and the best <span class="id">T304, T317c, T317f</span>. HP4 is the sealed panel of 100 fresh retrains used for the best one. Right: the buttons sample the one network M<sub>16,10</sub> in your browser at budget C. Each dot is one run's error relative to the 300-billion-sample answer, and the curve is sampling's spread for this network (95.3% accurate). Across the HP4 panel (average accuracy 92.3%) sampling's spread is a little wider, which is what the left panel uses; a calculation matches sampling if its squared error, averaged over the panel, is no larger than that.</figcaption>
 </figure>
 
 <h2 id="theory">3. Why this is hard in principle</h2>
@@ -283,15 +283,15 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <div class="thm"><h4>ARC's matching-sampling principle <span class="claim">a proposal</span></h4>
     <p><b>Takeaway: understanding should be worth at least as much as testing.</b> In "Competing with sampling" (November 2025), ARC proposes a test for mechanistic understanding: can it estimate a model's average behaviour at least as efficiently as sampling? ARC uses a heuristic definition of "mechanistic": the method avoids random and pseudorandom sampling. This is a research standard, not a theorem. The post also notes that random RNNs are much harder than random feed-forward networks because they reuse their weights across steps.</p></div>
   <div class="thm"><h4>The no-coincidence conjecture <span class="claim">conjecture</span></h4>
-    <p><b>Takeaway: surprising structure should come with a short reason.</b> Christiano, Neyman and Xu conjecture, informally, that a circuit's surprising properties have short explanations that an efficient verifier can check. The property must be so surprising that it would be an outrageous coincidence in a random circuit; typical random circuits have no such explanation. ARC is betting on a version of this idea for trained networks. A random network of this size gets about 10% of answers right; a trained one gets 95% right. That performance would be an outrageous coincidence for random weights. The hope is that a short explanation of the trained network will make its behaviour cheap to estimate. Our measurements add a complication. The trained M<sub>16,10</sub> has as many linear pieces as random networks of the same size: 21,032 after 4 steps, compared with 19,000–26,000. Yet its accuracy is 95%, compared with about 10% <span class="id">T232, H-E14</span> <span class="st st-conf">confirmed, k ≤ 4</span>. At least over the first four steps, training's contribution is not "fewer pieces".</p></div>
+    <p><b>Takeaway: surprising structure should come with a short reason.</b> Christiano, Neyman and Xu conjecture, informally, that a circuit's surprising properties have short explanations that an efficient verifier can check. The property must be so surprising that it would be an outrageous coincidence in a random circuit; typical random circuits have no such explanation. ARC is betting on a version of this idea for trained networks. A random network of this size gets about 10% of answers right; a trained one gets 95% right. That performance would be an outrageous coincidence for random weights. The hope is that a short explanation of the trained network will make its behaviour cheap to estimate. Our measurements add a complication. The trained M<sub>16,10</sub> has as many linear pieces (the regions of section 4) as random networks of the same size: 21,032 after 4 steps, compared with 19,000–26,000. Yet its accuracy is 95%, compared with about 10% <span class="id">T232, H-E14</span> <span class="st st-conf">confirmed, k ≤ 4</span>. At least over the first four steps, training's contribution is not "fewer pieces".</p></div>
   <div class="thm"><h4>Exact counting is #P-hard <span class="claim">proved, transfer is our reading</span></h4>
     <p><b>Takeaway: computing the exact answer is, in general, as hard as the hardest counting problems.</b> A Boolean circuit's acceptance probability is the fraction of inputs on which it outputs true: the number of accepting inputs divided by 2<sup>n</sup>. Counting those inputs is #P-complete (Valiant, 1979). The continuous analogue is also hard: computing a polytope's exact volume is #P-hard (Dyer and Frieze, 1988). A polytope is a shape bounded by flat faces. ReLU networks can imitate Boolean logic gates, so these results carry over to computing exact ReLU-network accuracy in general <span class="claim">our reading</span>. Unless P = NP, no efficient algorithm does this for every network.</p></div>
   <div class="thm"><h4>Approximating deterministically: the CAPP problem <span class="claim">proved, with our reading</span></h4>
     <p><b>Takeaway: beating sampling on every network would be a breakthrough in complexity theory, and so would proving it impossible.</b> Estimating a circuit's acceptance probability to within ±ε is straightforward <em>with</em> randomness: sample inputs. Doing this <em>deterministically</em>, without randomness, is the Circuit Acceptance Probability Problem (CAPP). Impagliazzo, Kabanets and Wigderson (2002) and Kabanets and Impagliazzo (2004) linked derandomization—removing randomness from an algorithm—to circuit lower bounds, which limit what circuits of a given size can compute. Williams (2010, 2014) showed that deterministic algorithms even slightly faster than brute force for related circuit problems would imply new lower bounds. <b>Our reading</b> <span class="claim">judgment</span>: a method that beats sampling on <em>every</em> network would resolve open problems in complexity theory. Proving that no such method exists is equally out of reach. The challenge therefore concerns networks produced by training, rather than worst-case networks.</p></div>
   <div class="thm"><h4>Pseudorandom generators do not count <span class="claim">proved, plus ARC's rule</span></h4>
     <p><b>Takeaway: the known way to remove randomness is fake randomness, which ARC rules out.</b> Pseudorandom generators produce outputs that behave like random inputs. If strong enough generators exist, as is widely believed, we can solve CAPP deterministically: run the circuit on the generator's output for every short seed, then average. This still amounts to sampling, with fake randomness. ARC explicitly excludes pseudorandom sampling, so derandomization theory does not supply the method ARC wants.</p></div>
-  <div class="thm"><h4>Looking at inputs only cannot beat sampling <span class="claim">proved</span></h4>
-    <p><b>Takeaway: you have to read the weights.</b> Suppose a deterministic method only evaluates the network at chosen inputs and never reads its weights. In general, it cannot beat random sampling: an adversary can hide the answer between the chosen points. The classical result concerns the volume of a convex body accessed through a membership oracle—a procedure that says whether a point is inside the body (Elekes, 1986; Bárány and Füredi, 1987). Any deterministic polynomial-time method has exponentially large error, while randomized methods can approximate the volume well. A useful method must therefore read the weights.</p></div>
+  <div class="thm"><h4>Looking at inputs only cannot beat sampling <span class="claim">proved for convex bodies; transfer is our reading</span></h4>
+    <p><b>Takeaway: you have to read the weights.</b> Suppose a deterministic method only evaluates the network at chosen inputs and never reads its weights. In general, it cannot beat random sampling: an adversary can hide the answer between the chosen points. The classical result concerns the volume of a convex body accessed through a membership oracle—a procedure that says whether a point is inside the body (Elekes, 1986; Bárány and Füredi, 1987). Any deterministic polynomial-time method has exponentially large error as the dimension grows, while randomized methods can approximate the volume well. Our reading: the same adversary argument applies to a network seen only through its outputs, so a useful method must read the weights.</p></div>
   <div class="thm"><h4>The hard-coding loophole <span class="claim">observation</span></h4>
     <p><b>Takeaway: the challenge is about a family of networks, not one.</b> For one fixed network, a program that simply prints the right number exists. To exclude that shortcut, ARC asks for estimates across a distribution of networks: retrained or noisy copies. Our scoring panels therefore use fresh retrains that nobody has inspected.</p></div>
 </div>
@@ -321,10 +321,10 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   </div>
   <canvas id="sl-canvas" width="900" height="560" aria-label="A 2-D slice of input space coloured by linear region"></canvas>
   <div class="readout" id="sl-read" style="margin-top:.4rem"></div>
-  <figcaption><b>Figure 3. Input space cut into linear regions.</b> Each coloured patch shows one gate pattern (one linear region) on a 2-D slice through the real network's input space. Red hatching marks wrong answers. Dashed lines mark ties between two inputs, where the correct answer changes. For 3-number networks, the slice is x<sub>3</sub> = 1, with axes x<sub>1</sub> and x<sub>2</sub>. Scaling invariance lets it represent every direction with x<sub>3</sub> &gt; 0. The three dashed lines through (1, 1) divide it into the six order wedges. For longer networks, the axes vary the two inputs that were 2nd and 3rd largest in a random draw; their tie lies on the diagonal. The other inputs stay fixed. The readout's "share of the slice's area" is not an error rate: area on this flat slice is not Gaussian probability. With 2 neurons, the network cannot do the task and gets about 41% right. With 4, it gets 98.4% right, and its few mistakes lie close to the tie lines. Switch to M<sub>16,10</sub> to see how much finer the regions become.</figcaption>
+  <figcaption><b>Figure 3. Input space cut into linear regions.</b> Each coloured patch shows one gate pattern (one linear region) on a 2-D slice through the input space of the chosen network (for the smaller sizes, AlgZoo's seed-0 network of that size). Red hatching marks wrong answers. Dashed lines mark ties between two inputs, where the correct answer changes. For 3-number networks, the slice is x<sub>3</sub> = 1, with axes x<sub>1</sub> and x<sub>2</sub>. Scaling invariance lets it represent every direction with x<sub>3</sub> &gt; 0. The three dashed lines through (1, 1) divide it into the six order wedges. For longer networks, the axes vary the two inputs that were 2nd and 3rd largest in a random draw; their tie lies on the diagonal. The other inputs stay fixed. The readout's "share of the slice's area" is not an error rate: area on this flat slice is not Gaussian probability. With 2 neurons, the network cannot do the task and gets about 41% right. With 4, it gets 98.4% right, and its few mistakes lie close to the tie lines. Switch to M<sub>16,10</sub> to see how much finer the regions become.</figcaption>
 </figure>
 
-<p>For tiny networks, this calculation is enough. ARC solved the 10-weight M<sub>2,2</sub> exactly, region by region. For the 32-weight M<sub>4,3</sub>, which is 98.5% accurate, listing about 88 cones gives zero error in about 17,500 operations. That is roughly 420 times cheaper than sampling to 0.1 points <span class="id">E32</span>. A calculation based on the network's mechanism also beat sampling by about 50× in squared error on ARC's noisy copies (MSE ratio 0.019). Every coefficient in this calculation came from a formula of the weights <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. One generic recipe did so on all five trained seeds <span class="id">E37, H-U2</span> <span class="st st-conf">confirmed, scoped</span>. But on M<sub>4,3</sub>, it costs about as much as brute force. That is the first warning sign.</p>
+<p>For tiny networks, this calculation is enough. ARC solved the 10-weight M<sub>2,2</sub> exactly, region by region. For the 32-weight M<sub>4,3</sub>, which is 98.5% accurate, listing about 88 cones gives zero error in about 17,500 operations. That is roughly 420 times cheaper than sampling to 0.1 points <span class="id">E32</span>. A calculation based on the network's mechanism also beat sampling by about 50× in squared error on ARC's noisy copies (MSE ratio 0.019). Every coefficient in this calculation came from a formula of the weights <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. A single generic recipe beat sampling on all five trained seeds of M<sub>4,3</sub> <span class="id">E37, H-U2</span> <span class="st st-conf">confirmed, scoped</span>. It still costs about as much as listing all 88 cones. That is cheap at this size, but it is the first warning sign: if the calculation's cost tracks the number of regions, it will explode as regions multiply (section 8).</p>
 
 <div class="tbl"><table>
   <thead><tr><th>Network</th><th>Method</th><th>Result vs random testing</th><th>Counts as mechanistic?</th></tr></thead>
@@ -333,7 +333,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
     <tr><td>M<sub>4,3</sub> (32 weights)</td><td>exact enumeration of ~88 cones <span class="id">E32</span></td><td class="n">exact, ~420× cheaper than sampling to ±0.1 pp</td><td>yes, but brute force</td></tr>
     <tr><td>M<sub>4,3</sub></td><td>formulas from the mechanism <span class="id">E36</span></td><td class="n">~50× smaller squared error</td><td>yes</td></tr>
     <tr><td>M<sub>4,3</sub></td><td>ARC's own two estimators, our reproduction <span class="id">E32</span></td><td class="n">2.4–10× larger squared error</td><td>yes (ARC called it "roughly matching")</td></tr>
-    <tr><td>H = 16, T = 3</td><td>tie-slicing on fixed grid points <span class="id">E33</span></td><td class="n">~1,260× smaller</td><td>no: fixed grid = quadrature</td></tr>
+    <tr><td>H = 16, T = 3</td><td>tie-slicing on fixed grid points (section 4c) <span class="id">E33</span></td><td class="n">~1,260× smaller</td><td>no: fixed grid = quadrature</td></tr>
   </tbody>
 </table></div>
 
@@ -351,8 +351,8 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <h3 id="methods">4c. Three ways to calculate without random inputs</h3>
 <p>Each method that follows uses one of these operations, or a combination:</p>
 <ul>
-  <li><b>Enumerate regions.</b> List every gate pattern, calculate each cone's probability, and add the contributions. This gives an exact answer, but the number of regions grows rapidly (section 6).</li>
-  <li><b>Walk along lines.</b> Follow the network along a straight line through input space. Along that line, its activations are piecewise linear. Each gate switch can therefore be found by solving one linear equation. This is an <b>exact 1-D gate walk</b>; Figure 10 shows one. In <b>tie-slicing</b>, we walk along short segments that cross a tie between the 2nd and 3rd largest inputs. A segment and its crossing point together form a <b>face</b>. Integrating the stretches where the network is wrong over all faces gives its error rate.</li>
+  <li><b>Enumerate regions.</b> List every gate pattern, calculate each cone's probability, and add the contributions. This gives an exact answer, but the number of regions grows rapidly (section 8).</li>
+  <li><b>Walk along lines.</b> Follow the network along a straight line through input space. Along that line, its activations are piecewise linear. Each gate switch can therefore be found by solving one linear equation. This is an <b>exact 1-D gate walk</b>; Figure 11 shows one. In <b>tie-slicing</b>, we walk along short segments that cross a tie between the 2nd and 3rd largest inputs. A segment and its crossing point together form a <b>face</b>. Integrating the stretches where the network is wrong over all faces gives its error rate.</li>
   <li><b>Choose where to walk.</b> Placing faces on a fixed grid independent of the weights gives a numerical integration rule called quadrature. Under the project's reading of ARC's definition, this is not mechanistic: the grid plays the role of a sample <span class="id">T263</span>. A placement derived from the weights can qualify as mechanistic.</li>
 </ul>
 
@@ -367,81 +367,28 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <figcaption><b>Figure 4. Two ways to increase the problem's size.</b> Left: AlgZoo accuracy from our 1-million-input check of the exported weights. More neurons help at T = 3; longer sequences hurt at H = 16. At T = 10, the plot includes the five zoo seeds and the target. Right: the advantage of deterministic tie-slicing over sampling at equal compute, measured by how many times smaller its squared error is. The plot varies sequence length at H = 16 and takes the geometric mean over 5 seeds <span class="id">E33, H-E11</span> <span class="st st-conf">confirmed</span>. The advantage falls from 1,260× at T = 3 to 1.6× at T = 10. This still beats sampling at T = 10, but the faces lie on a fixed grid. Under ARC's definition, the method is therefore quadrature, not a mechanistic estimate <span class="id">T263</span>. All mechanistic methods lost at T = 10.</figcaption>
 </figure>
 
-<p><b>The ladder.</b> We also tried a mostly exact method: list the regions, but merge those that behave alike according to a fixed rule, or "recipe". At 8 neurons and 4 steps, it beat sampling on all five seeds. Its squared error was at most 0.27 times sampling's <span class="id">E46</span> <span class="st st-unv">unverified</span>. At 5 steps, it lost on one seed <span class="id">T192</span> <span class="st st-unv">unverified</span>. Where it still won, it needed 2.2×10<sup>11</sup> operations—70% of the cost of listing every region <span class="id">E48</span>. As T grew, its accuracy remained good, but its cost became too large.</p>
-<p><b>Why the advantage shrinks.</b> A minimal-pair study compares nearby cases to find where the calculation starts losing: H = 16, T = 4 versus 5. Its first diagnostic suggests a simple law. The gain over sampling is about accuracy / (error rate × CV² × c). Here CV measures how much individual faces' contributions vary: their standard deviation divided by their mean. The cost of one face, in network runs, is c. CV and c change little with T, so the gain falls roughly as <b>1 / error rate</b>. Longer sequences produce more mistakes.</p>
+<p><b>The ladder.</b> We also tried a mostly exact method: list the regions, but stop splitting a region once a fixed rule (the "recipe") judges that all of it gets the same answer, so it can be handled in one piece. At 8 neurons and 4 steps, it beat sampling on all five seeds. Its squared error was at most 0.27 times sampling's <span class="id">E46</span> <span class="st st-unv">unverified</span>. At 5 steps, it lost on one seed <span class="id">T192</span> <span class="st st-unv">unverified</span>. Where it still won, it needed 2.2×10<sup>11</sup> operations—70% of the cost of listing every region <span class="id">E48</span>. Few regions could be handled in one piece, so its cost stayed close to full enumeration. As T grew, its accuracy remained good, but its cost became too large.</p>
+<p><b>Why the advantage shrinks.</b> A minimal-pair study compares nearby cases to find where the calculation starts losing: H = 16, T = 4 versus 5. Its first diagnostic suggests a simple law. The gain over sampling is about accuracy / (error rate × CV² × c). Here CV measures how much individual faces' contributions vary: their standard deviation divided by their mean. The cost of one face, in network runs, is c. The intuition: almost all of the calculation's own uncertainty comes from the faces that contain errors, so the more often the network errs, the noisier each face is relative to the quantity being estimated. CV and c change little with T, so the gain falls roughly as <b>1 / error rate</b>. Longer sequences produce more mistakes.</p>
+<p>Along the other knob, the number of neurons H, we measured less. In the tie-slicing scan, doubling to 32 neurons raised the gain about 1.6× at T = 5–6, and 8-neuron networks were too poorly trained beyond T = 4 to test <span class="id">H-E11</span>. We did not count regions or run our best method at fewer neurons and T = 10.</p>
 
 <figure id="fig-law">
   <svg id="law-chart" viewBox="0 0 560 300" role="img" aria-label="Gain over sampling against error rate"></svg>
-  <figcaption><b>Figure 5. The gain tracks 1 / error rate</b> (draft diagnostic D5 from the minimal-pair study; 30 models: T = 3, 4, 5, 6, 8 and 10, 5 seeds each). This variant chooses faces at random, rather than using Figure 4's fixed grid. Its gains are smaller—about 100× at T = 3 instead of 1,260×—and fall below 1 from T = 6. The relevant result is the trend: the dashed guide has slope −1, meaning gain ∝ 1 / error rate. Since then the minimal-pair study passed its pre-registered test at T = 5 (squared error at most .23 of sampling's on every seed); it is quadrature-class, not mechanistic, and an independent check on fresh models is running. The same law predicted all ten cells one step further, at T = 6, where the recipe narrowly failed (9 of 10 checks). <span class="id">T10</span> <span class="st st-unv">pass (unverified)</span> <span class="id">T379</span> <span class="st st-prog">in progress</span> <span class="id">T11</span> <span class="st st-neg">negative (unverified)</span></figcaption>
+  <figcaption><b>Figure 5. The gain tracks 1 / error rate</b> (draft diagnostic D5 from the minimal-pair study; 30 models: T = 3, 4, 5, 6, 8 and 10, 5 seeds each). This variant chooses faces at random, rather than using Figure 4's fixed grid. Its gains are smaller—about 100× at T = 3 instead of 1,260×—and fall below 1 from T = 6. Random faces make this variant a form of sampling; it is shown because it isolates the trend. The dashed guide has slope −1, meaning gain ∝ 1 / error rate.</figcaption>
 </figure>
+<p>Since that diagnostic, the minimal-pair study passed its pre-registered test at T = 5 with a fixed-grid recipe (squared error at most .23 of sampling's on every seed), which is quadrature, not mechanistic; an independent check on fresh models is running. The same law predicted all ten cells one step further, at T = 6, where the recipe narrowly failed (9 of 10 checks). <span class="id">T10</span> <span class="st st-unv">pass (unverified)</span> <span class="id">T379</span> <span class="st st-prog">in progress</span> <span class="id">T11</span> <span class="st st-neg">negative (unverified)</span></p>
 <div data-lane="T10"></div>
 
-<h2 id="regions">6. Counting the pieces</h2>
-<p>Listing every region would let us calculate accuracy exactly. The obstacle is the number of regions. At each step, the network can split every existing region again, multiplying the total:</p>
-
-<figure class="wide">
-  <svg id="reg-chart" viewBox="0 0 760 340" role="img" aria-label="Number of linear regions by step, log scale"></svg>
-  <figcaption><b>Figure 6. Linear regions of M<sub>16,10</sub> after k steps</b>, on a log scale. The exact counts are 2 at k = 1, from the sign of the first input, then 34, 792 and 21,032 at k = 2–4 <span class="id">H-E13</span> <span class="st st-conf">confirmed, k ≤ 4</span>. At k = 5 there are 632,394 regions; at k = 6 there are at least 19,740,596 <span class="id">T270</span> <span class="st st-unv">unverified, lower bound</span>. Growth per step is ×23, ×27, ×30, ×31 and rising. The shaded band at k = 10 is an extrapolation, about 2×10<sup>13</sup> to 10<sup>14</sup>, rather than a measurement. The dotted green line shows a growth rate for the "effective" number of gate patterns: exp(entropy) of their distribution, measured on 10<sup>9</sup> random inputs. This count grows ×5.1 to ×3.6 per step <span class="id">T348</span> <span class="st st-unv">unverified</span>. For comparison, the line starts at the k = 4 count. Most regions have almost no probability, but too many still matter. The grey line marks 74,000, the number of sampling runs needed for ±0.1 points.</figcaption>
-</figure>
-
-<h3>What brute force would cost</h3>
-<p>For each region, we must solve linear constraints to find it, divide it into right and wrong parts, and calculate an exact Gaussian volume in 10 dimensions. At 6 steps, this took about 6.5 ms per region per core with our fast code. A slower version that fixes a geometry bug in thin regions took 0.2 s. The estimate assumes 10–100 times more work in 10 dimensions <span class="id">OWNER_QA 6.3</span>.</p>
-<figure id="fig-dc">
-  <div class="controls">
-    <label for="dc-n">Regions</label><input type="range" id="dc-n" min="13" max="14" step="0.05" value="13.3"><span class="readout" id="dc-n-v"></span>
-    <label for="dc-c">Time per region</label><input type="range" id="dc-c" min="-1.2" max="1.3" step="0.05" value="-0.8"><span class="readout" id="dc-c-v"></span>
-    <label for="dc-cores">Cores</label><select id="dc-cores"><option value="1e7" selected>10 million (the ordinary CPUs of a 1-gigawatt GPU data centre)</option><option value="1e8">100 million (a CPU-only data centre)</option></select>
-  </div>
-  <div class="readout" id="dc-out" style="font-size:.9rem"></div>
-  <figcaption><b>Figure 7. A data-centre calculator</b> based on <span class="id">OWNER_QA 6.3–6.4</span>. Central assumptions give runtimes from hours to about three months; the most expensive corner takes years. Across the sliders' ranges, the readout's "× more work" spans roughly 10<sup>12</sup> to 10<sup>16</sup>. An exact answer has zero error, so it technically meets ARC's bar at its enormous budget. But the aim is a cheap estimate made possible by understanding the network.</figcaption>
-</figure>
-
-<h2 id="ties">7. Where the mistakes live</h2>
-<p>Why are there so many regions, and why does training not reduce their number? To understand this, look at the network's mistakes. They arise in two situations <span class="id">T241, T218</span>:</p>
-<p><b>Near-ties between the 2nd and 3rd largest.</b> The correct answer changes abruptly when x<sub>(2)</sub> and x<sub>(3)</sub> exchange order. A network could switch exactly at the tie; the hand-built network in section 9 does. This one, however, has 16 neurons, no biases, and memory that is rewritten at every step. It must estimate which of two past values was larger. Its switching surface lies close to the tie plane but does not coincide with it. The thin wedges between those surfaces contain its mistakes <span class="claim">inferred</span>. Training sharpens the switch by dividing the space near ties into many tiny regions. Near ties, the trained network has 26–27 times more regions per unit of probability than far from them at T = 4. It also has finer regions there than random networks of the same size <span class="id">H-E15</span> <span class="st st-conf">confirmed, k ≤ 4, T ≤ 4</span>. At 4 steps, about 93% of all regions lie near a tie. Regions containing errors multiply 2.4–3× faster per step than those containing correct answers.</p>
-<p><b>"Blind" inputs.</b> When almost all ten inputs are negative, neurons that track large values have little to detect. Some neurons still switch on, including those with negative input weights. These inputs are rare: all ten are negative with probability 1/1,024. Yet they account for a large share of the calculation's difficulty on the target <span class="id">T218</span> <span class="st st-unv">unverified</span>, and about 0.7 points of error that more training does not remove <span class="id">T234</span> <span class="st st-unv">unverified</span>. In the tie-slicing calculation of section 5, about 60% of the variation in the integral's terms comes from these blind inputs.</p>
-<figure id="fig-density">
-  <svg id="den-chart" viewBox="0 0 560 250" role="img" aria-label="Regions per unit of probability near and far from ties, trained versus random"></svg>
-  <figcaption><b>Figure 7b. Training concentrates the pieces near ties.</b> The plot shows linear pieces after 4 steps per unit of probability, near ties (within 0.05 radians) and far from them (beyond 0.1). It compares the trained M<sub>16,10</sub> with random networks having the same weight sizes; the bars span the random draws <span class="id">H-E15, T239, T280</span> <span class="st st-conf">confirmed, k ≤ 4</span>. The trained network divides space about 120 times more finely near ties than far from them. In random networks, the two densities differ by a factor of about 1.3–15. The total region count is the same (Section 3). Training relocates the pieces to where the answer changes, rather than reducing their number.</figcaption>
-</figure>
-<p>In Figure 3, select M<sub>16,10</sub> and zoom in on the diagonal. The patches crowd around the dashed tie lines. Figure 1's "Near-tie" and "Mostly negative" buttons show individual inputs from both failure situations.</p>
-<p class="note"><b>Consequence for any exact method.</b> At 10 steps, roughly 10<sup>12</sup> distinct flat pieces form the boundary of the wrong-input set. According to that review, scaling is the only exact symmetry, and we already use it. Listing just the boundary pieces saves about 1.1× in total, rather than a factor at every step <span class="claim">inferred</span> (external review of exact methods, section 1b, based on H-E15).</p>
-
-<h2 id="noise">8. Noise and seeds</h2>
-<p>ARC evaluates estimates across a distribution of networks. It suggests two ways to make one: add Gaussian noise to the weights, or retrain with different random seeds.</p>
-<figure class="wide" id="fig-noise">
-  <div class="controls">
-    <label for="nz-s">Weight noise σ (× RMS of each matrix)</label>
-    <select id="nz-s"><option value="0">0</option><option value="0.0005">0.0005</option><option value="0.001">0.001</option><option value="0.0025" selected>0.0025</option><option value="0.005">0.005</option><option value="0.01">0.01</option><option value="0.05">0.05</option></select>
-    <button id="nz-run">Draw 6 noisy copies</button>
-    <span class="readout" id="nz-out"></span>
-  </div>
-  <div class="twocol">
-    <svg id="nz-chart" viewBox="0 0 440 280" role="img" aria-label="Accuracy of noisy copies"></svg>
-    <svg id="nz-f" viewBox="0 0 440 280" role="img" aria-label="Our estimator's F against weight noise"></svg>
-  </div>
-  <figcaption><b>Figure 8. Weight noise.</b> Left: the button adds noise to M<sub>16,10</sub>'s weights using ARC's evaluation rule, with standard deviation σ times each matrix's RMS. It then measures each copy's accuracy on 20,000 random inputs in your browser. The network is very sensitive. Right: our best estimator's score F as noise increases <span class="id">T337</span> <span class="st st-unv">unverified</span>. It breaks down between 0.1% and 0.25% relative noise. Noise creates mistakes far from ties, where the method assumes the network is correct.</figcaption>
-</figure>
-
-<figure class="wide" id="fig-seeds">
-  <div class="twocol">
-    <svg id="seed-hist" viewBox="0 0 440 280" role="img" aria-label="Accuracy spread of 100 retrains"></svg>
-    <svg id="seed-data" viewBox="0 0 440 280" role="img" aria-label="Accuracy by training data"></svg>
-  </div>
-  <figcaption><b>Figure 9. Training seeds.</b> Left: accuracies of the 100 retrains in the open DEV3 panel, trained with the same recipe and different seeds. Each accuracy uses 10<sup>8</sup> samples. They range from 85.1% to 97.1%, with a mean of 92.5% <span class="id">T342</span>; the target is at 95.3%. Right: the training ceiling, measured with 100 retrains per setting <span class="id">T234</span> <span class="st st-unv">unverified</span>. Typical retrains improve as training data increases, while the best approach a ceiling near 98%. M<sub>16,10</sub> is a typical network, not an unusually good one. This spread matters: an estimator tuned on one network can be badly wrong on another. We therefore evaluate on sealed panels of 100 fresh retrains (HP2–HP5). On the 100 DEV3 retrains, T317f overestimates by +0.43 points on average, with a network-to-network standard deviation of ±0.59 points <span class="id">T353</span>. This variation contributes more squared error than the average offset does.</figcaption>
-</figure>
-
-<h2 id="simpler">9. Simpler networks: quantised and feed-forward</h2>
+<h2 id="simpler">6. Simpler networks: quantised and feed-forward</h2>
 <h3>Quantisation</h3>
-<p class="note"><b>No results yet.</b> The table describes our expectations before any experiment <span class="id">OWNER_QA 6.5</span> <span class="claim">speculative, untested</span>. T352 has started. Its first models with binary activations trained poorly, and the training rule is being changed.</p>
+<p class="note"><b>We are trying this now; no results yet.</b> The plan (T352): retrain the network with binary, int4 and int8 activations, count how many hidden states are actually reachable, and compute the exact accuracy of the binary version by tracking state probabilities step by step. The table describes our expectations before any experiment <span class="id">OWNER_QA 6.5</span> <span class="claim">speculative, untested</span>. T352 has started. Its first models with binary activations trained poorly, and the training rule is being changed.</p>
 <p>Quantisation means rounding values to a limited set of levels. Whether it helps depends on which values we round. Quantising the <i>weights</i> leaves the hidden state real-valued. Quantising the <i>activations</i> gives that state finitely many possible values, which could change the problem.</p>
 <div class="tbl"><table>
   <thead><tr><th>What is quantised</th><th>What changes</th><th>Our expectation</th></tr></thead>
   <tbody>
     <tr><td>Weights only: int8, FP8, int4, FP4, binary</td><td>The network remains piecewise linear on real-valued inputs. Composing 10 steps still produces 23–33× region growth per step.</td><td>Little help overall. Exact geometry becomes cheaper and robust, but rounding reduces accuracy: 0.25% noise already costs points. int4/FP4/binary therefore need retraining.</td></tr>
     <tr><td>Activations: binary (on/off)</td><td>The hidden state has at most 2<sup>16</sup> = 65,536 values. This makes the network a finite-state machine: different histories automatically merge when they reach the same state.</td><td>Perhaps solvable exactly by tracking the probability of each reachable state at each step. This is a dynamic programme over states and input intervals. Our guess was a cost comparable to sampling to ±0.1 points.</td></tr>
-    <tr><td>Activations: int4 / int8</td><td>16 or 256 evenly spaced levels per neuron.</td><td>int4 depends on how many states are actually reachable; int8 probably has too many.</td></tr>
-    <tr><td>Activations: FP4 / FP8</td><td>Also 16 or 256 values per neuron, with roughly logarithmic spacing: fine near zero, coarse at large values.</td><td>Same state counts as int4 / int8, so we expect the same picture; not in T352's plan.</td></tr>
+    <tr><td>Activations: int4 / int8</td><td>16 or 256 evenly spaced levels per neuron. After a ReLU only the non-negative levels are used, so a signed format keeps about half of them.</td><td>int4 depends on how many states are actually reachable; int8 probably has too many.</td></tr>
+    <tr><td>Activations: FP4 / FP8</td><td>Also 16 or 256 codes, with roughly logarithmic spacing: fine near zero, coarse at large values. Again only the non-negative half is used after a ReLU.</td><td>Same state counts as int4 / int8, so we expect the same picture; not in T352's plan.</td></tr>
     <tr><td>Inputs discretised too (int4, int8)</td><td>The whole problem becomes finite.</td><td>Simpler still.</td></tr>
   </tbody>
 </table></div>
@@ -461,8 +408,8 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 </table></div>
 <div data-lane="T345"></div>
 
-<h2 id="other">10. Other simplifications we tried</h2>
-<p>Each row describes one attempted shortcut and its outcome.</p>
+<h2 id="other">7. Other shortcuts we tried</h2>
+<p>Sections 4–6 simplified the problem itself: fewer inputs, fewer neurons, coarser activations, other architectures. This section lists shortcuts in the calculation instead, each with its outcome. Other problem-side simplifications (for example the largest instead of the 2nd-largest, or non-negative inputs) were not tried.</p>
 <div class="tbl wide" style="max-width:64rem"><table>
   <thead><tr><th>Idea</th><th>What happened</th><th>Record</th></tr></thead>
   <tbody>
@@ -480,6 +427,61 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <div data-lane="T24"></div><div data-lane="T377"></div>
 <div data-lane="T291"></div><div data-lane="T375"></div>
 
+<h2 id="regions">8. Counting the pieces</h2>
+<p>Listing every region would let us calculate accuracy exactly. The obstacle is the number of regions. At each step, the network can split every existing region again, multiplying the total:</p>
+
+<figure class="wide">
+  <svg id="reg-chart" viewBox="0 0 760 340" role="img" aria-label="Number of linear regions by step, log scale"></svg>
+  <figcaption><b>Figure 6. Linear regions of M<sub>16,10</sub> after k steps</b>, on a log scale. The exact counts are 2 at k = 1, from the sign of the first input, then 34, 792 and 21,032 at k = 2–4 <span class="id">H-E13</span> <span class="st st-conf">confirmed, k ≤ 4</span>. At k = 5 there are 632,394 regions; at k = 6 there are at least 19,740,596 <span class="id">T270</span> <span class="st st-unv">unverified, lower bound</span>. Growth per step is ×23, ×27, ×30, ×31 and rising. The shaded band to k = 10 is an extrapolation, not a measurement: its lower edge assumes growth stays at ×31 per step (about 2×10<sup>13</sup> at k = 10); its upper edge assumes growth keeps rising, to about 10<sup>14</sup> <span class="id">OWNER_QA 6.3</span>. The dotted green line shows a growth rate for the "effective" number of gate patterns: exp(entropy) of their distribution, measured on 10<sup>9</sup> random inputs. This count grows ×5.1 to ×3.6 per step <span class="id">T348</span> <span class="st st-unv">unverified</span>. For comparison, the line starts at the k = 4 count. Most regions have almost no probability, but too many still matter. The grey line marks 74,000, the number of sampling runs needed for ±0.1 points.</figcaption>
+</figure>
+
+<h3>What brute force would cost</h3>
+<p>For each region, we must solve linear constraints to find it, divide it into right and wrong parts, and calculate an exact Gaussian volume in 10 dimensions. At 6 steps, this took about 6.5 ms per region per core with our fast code. A slower version that fixes a geometry bug in thin regions took 0.2 s. The estimate assumes 10–100 times more work in 10 dimensions <span class="id">OWNER_QA 6.3</span>.</p>
+<figure id="fig-dc">
+  <div class="controls">
+    <label for="dc-n">Regions</label><input type="range" id="dc-n" min="13" max="14" step="0.05" value="13.3"><span class="readout" id="dc-n-v"></span>
+    <label for="dc-c">Time per region</label><input type="range" id="dc-c" min="-1.2" max="1.3" step="0.05" value="-0.8"><span class="readout" id="dc-c-v"></span>
+    <label for="dc-cores">Cores</label><select id="dc-cores"><option value="1e7" selected>10 million (the ordinary CPUs of a 1-gigawatt GPU data centre)</option><option value="1e8">100 million (a CPU-only data centre)</option></select>
+  </div>
+  <div class="readout" id="dc-out" style="font-size:.9rem"></div>
+  <figcaption><b>Figure 7. A data-centre calculator</b> based on <span class="id">OWNER_QA 6.3–6.4</span>. Central assumptions give runtimes from hours to about three months; the most expensive corner takes years. Across the sliders' ranges, the readout's "× more work" spans roughly 10<sup>12</sup> to 10<sup>16</sup>. An exact answer has zero error, so it technically meets ARC's bar at its enormous budget. But the aim is a cheap estimate made possible by understanding the network.</figcaption>
+</figure>
+
+<h2 id="ties">9. Where the mistakes live</h2>
+<p>Why are there so many regions, and why does training not reduce their number? To understand this, look at the network's mistakes. They arise in two situations <span class="id">T241, T218</span>:</p>
+<p><b>Near-ties between the 2nd and 3rd largest.</b> The correct answer changes abruptly when x<sub>(2)</sub> and x<sub>(3)</sub> exchange order. A network could switch exactly at the tie; the hand-built network in section 6 does. This one, however, has 16 neurons, no biases, and memory that is rewritten at every step. It must estimate which of two past values was larger. Its switching surface lies close to the tie plane but does not coincide with it. The thin wedges between those surfaces contain its mistakes <span class="claim">inferred</span>. Training sharpens the switch by dividing the space near ties into many tiny regions. In the final regions of 4-step zoo networks, there are 26–27 times more regions per unit of probability near ties than far from them. It also has finer regions there than random networks of the same size <span class="id">H-E15</span> <span class="st st-conf">confirmed, k ≤ 4, T ≤ 4</span>. At 4 steps, about 93% of all regions lie near a tie. Regions containing errors multiply 2.4–3× faster per step than those containing correct answers.</p>
+<p><b>"Blind" inputs.</b> When almost all ten inputs are negative, neurons that track large values have little to detect. Some neurons still switch on, including those with negative input weights. These inputs are rare: all ten are negative with probability 1/1,024. Yet they account for a large share of the calculation's difficulty on the target <span class="id">T218</span> <span class="st st-unv">unverified</span>, and about 0.7 points of error that more training does not remove <span class="id">T234</span> <span class="st st-unv">unverified</span>. In the tie-slicing calculation of section 5, about 60% of the variation in the integral's terms comes from these blind inputs.</p>
+<figure id="fig-density">
+  <svg id="den-chart" viewBox="0 0 560 250" role="img" aria-label="Regions per unit of probability near and far from ties, trained versus random"></svg>
+  <figcaption><b>Figure 8. Training concentrates the pieces near ties.</b> The plot counts the target network's pieces after its first 4 steps, per unit of probability, near ties and far from them. "Near" means the input's direction is within 0.05 radians of a plane where two inputs are equal; "far" means more than 0.1 radians. (The 26–27× in the text is a different count, on final regions of 4-step networks; both point the same way.) It compares the trained M<sub>16,10</sub> with random networks having the same weight sizes; the bars span the random draws <span class="id">H-E15, T239, T280</span> <span class="st st-conf">confirmed, k ≤ 4</span>. The trained network divides space about 120 times more finely near ties than far from them. In random networks, the two densities differ by a factor of about 1.3–15. The total region count is the same (Section 3). Training relocates the pieces to where the answer changes, rather than reducing their number.</figcaption>
+</figure>
+<p>In Figure 3, select M<sub>16,10</sub> and zoom in on the diagonal. The patches crowd around the dashed tie lines. Figure 1's "Near-tie" and "Mostly negative" buttons show individual inputs from both failure situations.</p>
+<p class="note"><b>Consequence for any exact method.</b> At 10 steps, roughly 10<sup>12</sup> distinct flat pieces form the boundary of the wrong-input set. According to that review, scaling is the only exact symmetry, and we already use it. Listing just the boundary pieces saves about 1.1× in total, rather than a factor at every step <span class="claim">inferred</span> (external review of exact methods, section 1b, based on H-E15).</p>
+
+<h2 id="noise">10. Noise and seeds</h2>
+<p>ARC evaluates estimates across a distribution of networks. It suggests two ways to make one: add Gaussian noise to the weights, or retrain with different random seeds.</p>
+<figure class="wide" id="fig-noise">
+  <div class="controls">
+    <label for="nz-s">Weight noise σ (× RMS of each matrix)</label>
+    <select id="nz-s"><option value="0">0</option><option value="0.0005">0.0005</option><option value="0.001">0.001</option><option value="0.0025" selected>0.0025</option><option value="0.005">0.005</option><option value="0.01">0.01</option><option value="0.05">0.05</option></select>
+    <button id="nz-run">Draw 6 noisy copies</button>
+    <span class="readout" id="nz-out"></span>
+  </div>
+  <div class="twocol">
+    <svg id="nz-chart" viewBox="0 0 440 280" role="img" aria-label="Accuracy of noisy copies"></svg>
+    <svg id="nz-f" viewBox="0 0 440 280" role="img" aria-label="Our estimator's F against weight noise"></svg>
+  </div>
+  <figcaption><b>Figure 9. Weight noise.</b> Left: the button adds noise to M<sub>16,10</sub>'s weights using ARC's evaluation rule, with standard deviation σ times each matrix's RMS. It then measures each copy's accuracy on 20,000 random inputs in your browser. The network is very sensitive. Right: our best estimator's score F as noise increases, measured on the target and five zoo networks with 4 noisy copies each, which is why the noise-free value (3.3) differs from the sealed-panel 2.63 <span class="id">T337</span> <span class="st st-unv">unverified</span>. It breaks down between 0.1% and 0.25% relative noise. Noise creates mistakes far from ties: random changes to the comparator and clock weights can send an input with clear gaps to the wrong position. The method assumes such large-gap cases are correct (simplification 3 in section 11), so it misses these new mistakes.</figcaption>
+</figure>
+
+<figure class="wide" id="fig-seeds">
+  <div class="twocol">
+    <svg id="seed-hist" viewBox="0 0 440 280" role="img" aria-label="Accuracy spread of 100 retrains"></svg>
+    <svg id="seed-data" viewBox="0 0 440 280" role="img" aria-label="Accuracy by training data"></svg>
+  </div>
+  <figcaption><b>Figure 10. Training seeds.</b> Left: accuracies of the 100 retrains in the open DEV3 panel, trained with the same recipe and different seeds. Each accuracy uses 10<sup>8</sup> samples. They range from 85.1% to 97.1%, with a mean of 92.5% <span class="id">T342</span>; the target is at 95.3%. Right: the training ceiling, measured with 100 retrains per setting <span class="id">T234</span> <span class="st st-unv">unverified</span>. Typical retrains improve as training data increases, while the best approach a ceiling near 98%. M<sub>16,10</sub> is above average (better than about 80 of the 100 DEV3 retrains) but well below the ~98% the best retrains reach. This spread matters: an estimator tuned on one network can be badly wrong on another. We therefore evaluate on sealed panels of 100 fresh retrains (HP2–HP5). On the 100 DEV3 retrains, T317f overestimates by +0.43 points on average, with a network-to-network standard deviation of ±0.59 points <span class="id">T353</span>. This variation contributes more squared error than the average offset does.</figcaption>
+</figure>
+
 <h2 id="target">11. The real target: walking along the ties</h2>
 <p>There are too many regions to list, but we can follow the network exactly along a <em>line</em> through input space. Vary one input steadily. The gate pattern changes only at isolated points, when a neuron's input crosses zero. Between those points, everything is linear. A linear equation therefore gives the next switch, without sampling. This is an <b>exact 1-D gate walk</b>.</p>
 
@@ -494,16 +496,16 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
     <svg id="wk-chart" viewBox="0 0 560 300" role="img" aria-label="Output scores along a line through input space"></svg>
     <div><canvas id="wk-gates" width="420" height="300" aria-label="Gate pattern at the current point"></canvas></div>
   </div>
-  <figcaption><b>Figure 10. An exact gate walk on the real M<sub>16,10</sub>.</b> Starting from a random input, we raise the 3rd-largest number until it passes the 2nd and then the 1st. Left: output scores for the three positions involved—the 1st, 2nd and raised 3rd. Each score is exactly piecewise linear. The strip below is green where the answer is right and red where it is wrong. Tick marks show exact gate switches. Right: the gate pattern, with 16 neurons × 10 steps, at the slider's position. Outlined cells have just switched. The walk measures the red stretch near the tie exactly. The readout's "wrong on … units" measures length along this one line. To obtain a probability, the estimator weights the line by the inputs' Gaussian density, then repeats the walk for every arrangement of the other inputs. The simplifications below concern that last step.</figcaption>
+  <figcaption><b>Figure 11. An exact gate walk on the real M<sub>16,10</sub>.</b> Starting from a random input, we raise the 3rd-largest number until it passes the 2nd and then the 1st. Left: output scores for the three positions involved, named by their rank before the walk starts (they change rank as the raised number passes the others). Each score is exactly piecewise linear. The strip below is green where the answer is right and red where it is wrong. Tick marks show exact gate switches. Right: the gate pattern, with 16 neurons × 10 steps, at the slider's position. Outlined cells have just switched. The walk finds the red stretch exactly: within each piece the scores are linear, so the points where the answer changes are solved for, not sampled. The readout's "wrong on … units" measures length along this one line. To obtain a probability, the estimator weights the line by the inputs' Gaussian density, then repeats the walk for every arrangement of the other inputs. The simplifications below concern that last step.</figcaption>
 </figure>
 
 <h3>The T317 family: our best calculation</h3>
 <p>Here is how the estimator that reached F = 2.63 works <span class="id">T317f</span>. The largest input can occupy any of 10 positions, the 2nd any of the remaining 9, and the 3rd any of the remaining 8. This gives 10 × 9 × 8 = 720 placements. For each placement, the method walks exactly along two lines: one closes the gap g<sub>23</sub> between the 2nd and 3rd largest inputs to zero, and one closes g<sub>12</sub> between the 1st and 2nd. These are the two ties where the correct answer changes, and where nearly all mistakes occur. The method adds the wrong stretches, weighted by Gaussian probability. To keep its cost near 3,300 runs, it makes seven declared simplifications <span class="id">OWNER_QA 3.9</span>:</p>
 <ol>
   <li><b>Closure:</b> the 7 smaller inputs are replaced by one representative value.</li>
-  <li>One point represents the 4th-largest value.</li>
+  <li><b>4th-value point:</b> one point represents the 4th-largest value.</li>
   <li><b>Gap cutoff:</b> cases with a gap above 0.5 are assumed correct.</li>
-  <li>One test point determines the verdict for the entire region.</li>
+  <li><b>One test point:</b> one point determines the verdict for the entire region.</li>
   <li><b>Product rule:</b> the answers from the two lines are multiplied as though independent.</li>
   <li><b>Blind direction:</b> the network is assumed correct along one barely used direction.</li>
   <li><b>Early stop:</b> the walk stops once the answer appears settled.</li>
@@ -521,11 +523,11 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   </tbody>
 </table></div>
 <p class="note">HP2–HP4 are sealed panels of 100 fresh retrains each, scored by an independent scorer who alone holds the true accuracies. HP3 and HP4 were each used for one fresh submission (HP3 also re-scored a cost-only variant with identical estimates); HP2 served five submissions of this family before it was retired. DEV3 is open. The intervals are 95% bootstrap confidence intervals over the panel's networks. Most improvements in later versions came from reducing cost while keeping the estimates the same.</p>
-<p>Two limits matter. The method works on retrains but fails on noisy copies (Figure 8). It draws no random inputs at runtime, but its simplifications were chosen through comparisons with sampling on 80 development networks. A second agent's audit therefore concludes that it is <b>not deductive in the strict sense</b> <span class="id">T324</span>.</p>
+<p>Two limits matter. The method works on retrains but fails on noisy copies (Figure 9). It draws no random inputs at runtime, but its simplifications were chosen through comparisons with sampling on 80 development networks. A second agent's audit therefore concludes that it is <b>not deductive in the strict sense</b> <span class="id">T324</span>.</p>
 
 <figure id="fig-budget">
   <svg id="bud-chart" viewBox="0 0 560 230" role="img" aria-label="Share of squared error by approximation"></svg>
-  <figcaption><b>Figure 11. Where the error comes from.</b> We removed one simplification at a time on 80 development networks <span class="id">T324</span>. Another agent re-measured the two largest contributions with its own code <span class="id">T334</span> <span class="st st-conf">confirmed</span>. The bars correspond to the product rule (5), gap cutoff (3), blind direction (6) and closure (1). Contributions measured by removing one simplification at a time need not sum to 100%; here they sum to 101%. The errors interact. The walk simplifications account for about two thirds of squared error, and the closure for about one third.</figcaption>
+  <figcaption><b>Figure 12. Where the error comes from.</b> We removed one simplification at a time on 80 development networks <span class="id">T324</span>. Another agent re-measured the two largest contributions with its own code <span class="id">T334</span> <span class="st st-conf">confirmed</span>. The bars use the names of the list above: product rule (5), gap cutoff (3), blind direction (6) and closure (1); the other three simplifications were not measured separately. Contributions measured by removing one simplification at a time need not sum to 100%; here they sum to 101%. The errors interact. The walk simplifications account for about two thirds of squared error, and the closure for about one third.</figcaption>
 </figure>
 <p><b>Why the strict bar closed.</b> We tried about 27 repairs <span class="id">T326–T353</span>. Each one either added enough cost to offset its reduction in error, or exchanged one error for another:</p>
 <ul>
@@ -550,7 +552,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   </div>
   <div class="readout" id="rr-out" style="margin-bottom:.5rem"></div>
   <svg id="rr-chart" viewBox="0 0 760 260" role="img" aria-label="Sampling estimates of a rare event versus the truth"></svg>
-  <figcaption><b>Figure 12. Why sampling cannot see rare mistakes.</b> Each grey dot is one simulated plain-sampling estimate at this budget. The simulation draws the event count from a Poisson distribution with mean p × C, an excellent approximation to the exact binomial count at these rates. Zero counts appear on the bottom line. The green dots show our estimator's eight sealed deep-tail results as ratios to the truth: 1.10–1.30× in T366. The independent re-run T368 had 10 of 10 within 2×. The estimates cost 1.0–2.1 million runs, and the band marks "within 1.4×". At p = 10<sup>−9</sup> and a budget of 1.3 million runs, sampling expects 0.0013 events and almost always returns zero.</figcaption>
+  <figcaption><b>Figure 13. Why sampling cannot see rare mistakes.</b> Each grey dot is one simulated plain-sampling estimate at this budget. The simulation draws the event count from a Poisson distribution with mean p × C, an excellent approximation to the exact binomial count at these rates. Zero counts appear on the bottom line. The green dots show our estimator's eight sealed deep-tail results as ratios to the truth: 1.10–1.30× in T366. The independent re-run T368 had 10 of 10 within 2×. The estimates cost 1.0–2.1 million runs. The dots appear only when the slider is inside the tested range, 1.8×10<sup>−10</sup> to 7×10<sup>−7</sup>. The band marks "within 1.4×", what these deep-tail tests achieved; the confirmed claim for less rare events (H-R1) is "within 2×". At p = 10<sup>−9</sup> and a budget of 1.3 million runs, sampling expects 0.0013 events and almost always returns zero.</figcaption>
 </figure>
 <p>The limitations matter just as much. On networks whose rarest mistakes all occur at three-way near-ties, the plain method missed by up to ~300,000×. The fix narrowly failed its fair test: 6 of 8 estimates were within 2×, but 7 were required <span class="id">T364, T367</span> <span class="st st-neg">negative (unverified)</span>. The remaining failure comes from the closure. Replacing the seven smaller inputs by one value enlarges the regions of near-tie mistakes. Allowing them to vary brought the estimate to 1.04× of the truth in a check <span class="id">T369</span>. For common events, the method is not cheaper than sampling. It costs 1–1.5 million FPE and usually loses at equal compute: 21 wins, 22 ties and 67 losses <span class="id">T360</span>.</p>
 <div data-lane="T370"></div><div data-lane="T371"></div><div data-lane="T372"></div><div data-lane="T373"></div>
@@ -560,7 +562,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <p>Such a solution must handle the thin near-tie regions at 10 steps without listing their many pieces. Every approach described here broke at that obstacle. Our judgment <span class="claim">judgment</span> is that solving it requires a new representation of the hidden state, rather than further tuning of exact walks. The open projects below test that direction.</p>
 
 <h2 id="lanes">14. Work in progress and recent results</h2>
-<p>These projects are running now or have finished since this page was first written. Each box draws its latest update from <code>tutorial/data/status.json</code> as results arrive.</p>
+<p>These projects are running now or have finished since this page was first written. Each box comes from <code>tutorial/data/status.json</code> and is current as of the time in the footer; the page is rebuilt when new results arrive.</p>
 <div id="lanes-all"></div>
 
 <h2 id="glossary">Glossary</h2>
@@ -603,9 +605,9 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <p>The page embeds the data used by every figure. The sources are:</p>
 <ul>
   <li><b>Weights</b> (Figures 1, 3, 4, 8, 10): ARC's public AlgZoo files (<code>gs://arc-ml-public/alg</code>), exported by <code>tutorial/tools/export_data.py</code>; the accuracies in Figure 4 are that script's 1-million-input check, not answer keys. All network runs on this page happen in your browser.</li>
-  <li><b>DEV3 truths and the training ceiling</b> (Figure 9): <code>m16/approaches/gpu_cost_law/dev3/truths.json</code> and <code>capacity_ceiling/results/grid3_summary.json</code> on branch <code>claude/t192-gpu-cost-law</code> (T342, T234).</li>
+  <li><b>DEV3 truths and the training ceiling</b> (Figure 10): <code>m16/approaches/gpu_cost_law/dev3/truths.json</code> and <code>capacity_ceiling/results/grid3_summary.json</code> on branch <code>claude/t192-gpu-cost-law</code> (T342, T234).</li>
   <li><b>Gain against error rate</b> (Figure 5): <code>m16/approaches/minimal_pair/d5_law.log</code> on branch <code>claude/t10-minimal-pair</code> (T10, draft).</li>
-  <li><b>All other numbers</b>: the INDEX rows cited next to them, as of 2026-10-19 00:20 UTC.</li>
+  <li><b>All other numbers</b>: the INDEX rows cited next to them, as of the time in the footer.</li>
 </ul>
 <footer>The clean-neurons project · built for readers with a machine-learning background and no background in this area · <span id="status-stamp"></span></footer>
 </article>
@@ -740,7 +742,7 @@ function smpChart() {
   el("path", { d: path(pts.map((C) => [C, sm(C)]), a.X, a.Y), fill: "none", stroke: css("--accent"), "stroke-width": 2 }, a.g);
   el("text", { x: a.X(1.5e3), y: a.Y(sm(1.5e3)) + 18, "text-anchor": "middle", style: "fill:" + css("--accent") }, a.g, "sampling (F = 1)");
   el("text", { x: a.X(2.2e5), y: a.Y(len(2.2e5)) - 8, "text-anchor": "middle" }, a.g, "lenient bar (F = 10)");
-  const pts2 = [["T304 HP2", 12100, 14.92], ["T317c HP3", 5427, 5.08], ["T317f HP4", 3302, 2.63]];
+  const pts2 = [["first version", 12100, 14.92], ["improved", 5427, 5.08], ["best (T317f)", 3302, 2.63]];
   pts2.forEach(([n, C, F], i) => { const r = 100 * Math.sqrt(F * HP4_PQ / C); el("circle", { cx: a.X(C), cy: a.Y(r), r: 5, fill: css("--wrong") }, a.g); const ly = a.Y(4) + i * 15; el("line", { x1: a.X(C), x2: a.X(C), y1: a.Y(r) - 5, y2: ly + 3, stroke: css("--wrong"), "stroke-width": 0.6 }, a.g); el("text", { x: a.X(C) + 4, y: ly, style: "fill:" + css("--ink") }, a.g, `${n} · F ${F}`); });
   const C = 10 ** +$("smp-n").value; el("line", { x1: a.X(C), x2: a.X(C), y1: a.Y(5), y2: a.Y(0.05), stroke: css("--ink"), "stroke-width": 1, "stroke-dasharray": "2 3" }, a.g);
   el("circle", { cx: a.X(C), cy: a.Y(sm(C)), r: 4, fill: css("--figure"), stroke: css("--accent"), "stroke-width": 2 }, a.g);
@@ -753,9 +755,6 @@ function smpHist() {
   el("text", { x: a.X(0), y: a.Y(0.95), "text-anchor": "middle" }, a.g, `sampling spread at C = ${C.toLocaleString("en")}: ±${sd.toFixed(2)} pp`);
   const sameC = smpErrs.filter((e) => e.C === C);
   sameC.forEach((e, i) => el("circle", { cx: a.X(e.e), cy: a.Y(0.06 + (i % 12) * 0.06), r: 4, fill: css("--ink"), opacity: 0.75 }, a.g));
-  // T317f at its own cost shown if close
-  const r317 = 100 * Math.sqrt(2.63 * HP4_PQ / 3302);
-  if (Math.abs(Math.log10(C / 3302)) < 0.13) { el("line", { x1: a.X(Math.min(r317, lim)), x2: a.X(Math.min(r317, lim)), y1: a.Y(0), y2: a.Y(0.8), stroke: css("--wrong"), "stroke-width": 2 }, a.g); el("text", { x: a.X(Math.min(r317, lim)) - 4, y: a.Y(0.82), "text-anchor": "end", style: "fill:" + css("--wrong") }, a.g, "T317f typical error"); }
 }
 function smpUpdate() { const C = Math.round(10 ** +$("smp-n").value); $("smp-n-out").innerHTML = `<b>${C.toLocaleString("en")}</b> runs`; smpChart(); smpHist(); }
 function smpRun(k) {
@@ -769,7 +768,7 @@ $("smp-n").oninput = smpUpdate; $("smp-run").onclick = () => smpRun(1); $("smp-r
 const sl = { base: null, a: 0, b: 1, R: 2 };
 function slNew() {
   const m = MODELS[$("sl-model").value], T = m.T; const x = new Float64Array(T);
-  if (T === 3) { x[0] = 0; x[1] = 0; x[2] = 1; sl.a = 0; sl.b = 1; }
+  if (T === 3) { x[0] = 1; x[1] = 1; x[2] = 1; sl.a = 0; sl.b = 1; }
   else { for (let t = 0; t < T; t++) x[t] = gauss(); const r = ranks(x); sl.a = r[1]; sl.b = r[2]; const c = (x[sl.a] + x[sl.b]) / 2; x[sl.a] = c; x[sl.b] = c; }
   sl.base = x; slDraw();
 }
@@ -856,11 +855,10 @@ function htCharts() {
 function regChart() {
   const a = axes($("reg-chart"), { x: [0.6, 10.4], y: [1, 1e15], ylog: true, xticks: range(1, 10), yticks: [1, 1e3, 1e6, 1e9, 1e12, 1e15], xlabel: "steps read so far (k)", ylabel: "linear regions", m: { l: 58 } });
   const ex = [[1, 2], [2, 34], [3, 792], [4, 21032], [5, 632394], [6, 19740596]];
-  const lo = [[6, 19740596]], hi = [[6, 19740596]]; for (let k = 7; k <= 10; k++) { lo.push([k, 19740596 * 31 ** (k - 6)]); hi.push([k, 19740596 * 31 * 33 * 38 * 42]); }
-  hi.forEach((p, i) => { if (i) p[1] = 19740596 * [31, 33, 38, 42].slice(0, i).reduce((s, v) => s * v, 1); });
+  const lo = [[6, 19740596]], hi = [[6, 19740596]]; const gHi = (1e14 / 19740596) ** 0.25; for (let k = 7; k <= 10; k++) { lo.push([k, 19740596 * 31 ** (k - 6)]); hi.push([k, 19740596 * gHi ** (k - 6)]); }
   el("path", { d: path(lo.concat(hi.slice().reverse()), a.X, a.Y) + "Z", fill: css("--wrong-soft"), stroke: "none" }, a.g);
   el("path", { d: path(lo, a.X, a.Y), fill: "none", stroke: css("--wrong"), "stroke-dasharray": "5 4", "stroke-width": 1.5 }, a.g);
-  el("text", { x: a.X(9.9), y: a.Y(4e13) - 30, "text-anchor": "end", style: "fill:" + css("--wrong") }, a.g, "extrapolated: ~2×10¹³–10¹⁴ at k = 10");
+  el("text", { x: a.X(9.9), y: a.Y(1e14) - 12, "text-anchor": "end", style: "fill:" + css("--wrong") }, a.g, "extrapolated: ~2×10¹³–10¹⁴ at k = 10");
   el("path", { d: path(ex, a.X, a.Y), fill: "none", stroke: css("--accent"), "stroke-width": 2.2 }, a.g);
   ex.forEach(([k, v], i) => { el("circle", { cx: a.X(k), cy: a.Y(v), r: 4.5, fill: css("--accent") }, a.g); el("text", { x: a.X(k) - 6, y: a.Y(v) - 9, "text-anchor": "end", style: "fill:" + css("--ink") }, a.g, v.toLocaleString("en") + (k === 6 ? "+" : "")); if (i) el("text", { x: (a.X(k) + a.X(k - 1)) / 2 + 4, y: (a.Y(v) + a.Y(ex[i - 1][1])) / 2 + 16, "text-anchor": "start" }, a.g, "×" + Math.round(v / ex[i - 1][1])); });
   // census effective growth, anchored at the exact k=4 count for display
@@ -880,7 +878,7 @@ function dcUpdate() {
 
 /* ---------- Figure 7b: density near ties ---------- */
 function denChart() {
-  const a = axes($("den-chart"), { x: [0, 4.4], y: [1e3, 1e6], ylog: true, xticks: [], yticks: [1e3, 1e4, 1e5, 1e6], yfmt: (v) => (v / 1e3) + "k", ylabel: "pieces per unit probability", m: { b: 40, l: 56 } });
+  const a = axes($("den-chart"), { x: [0, 4.4], y: [1e3, 1e6], ylog: true, xticks: [], yticks: [1e3, 1e4, 1e5, 1e6], yfmt: (v) => (v >= 1e6 ? v / 1e6 + "M" : v / 1e3 + "k"), ylabel: "pieces per unit probability", m: { b: 40, l: 56 } });
   const bars = [["trained, near ties", 358e3, 358e3, css("--wrong")], ["trained, far", 2.9e3, 2.9e3, css("--accent")], ["random, near ties", 32e3, 170e3, css("--wrong")], ["random, far", 11e3, 25e3, css("--accent")]];
   bars.forEach(([n, lo, hi, c], i) => { const x0 = a.X(i + 0.2), w = a.X(0.6) - a.X(0), mid = Math.sqrt(lo * hi);
     el("rect", { x: x0, width: w, y: a.Y(mid), height: a.Y(1e3) - a.Y(mid), fill: c, opacity: i < 2 ? 1 : 0.55 }, a.g);
@@ -962,9 +960,13 @@ function wkDraw() {
   const yb = lmin - (lmax - lmin) * 0.12, yb2 = lmin - (lmax - lmin) * 0.18;
   // right/wrong strip, exact per piece (split at tie points and at argmax changes approximated by 6 sub-points)
   let wrongLen = 0;
-  for (const p of P) { const n = 6; for (let q = 0; q < n; q++) { const sa = p.s + (p.e - p.s) * q / n, sb = p.s + (p.e - p.s) * (q + 1) / n, sm = (sa + sb) / 2; let bi = 0, bv = -Infinity; for (let i = 0; i < 10; i++) { const v = p.lg[i] + (sm - p.s) * p.dl[i]; if (v > bv) { bv = v; bi = i; } } const ok = bi === truthAt(sm); if (!ok) wrongLen += sb - sa; el("rect", { x: a.X(sa), width: Math.max(0.6, a.X(sb) - a.X(sa) + 0.3), y: a.Y(yb), height: a.Y(yb2) - a.Y(yb), fill: ok ? css("--ok") : css("--wrong") }, a.g); } }
+  for (const p of P) { // exact: split each piece at the tie points and at every crossing of two (linear) scores
+    const cuts = [p.s, p.e]; for (const t of [wk.tie2, wk.tie1]) if (t > p.s && t < p.e) cuts.push(t);
+    for (let i = 0; i < 10; i++) for (let j = i + 1; j < 10; j++) { const dd = p.dl[i] - p.dl[j]; if (dd !== 0) { const x = p.s - (p.lg[i] - p.lg[j]) / dd; if (x > p.s && x < p.e) cuts.push(x); } }
+    cuts.sort((u, v) => u - v);
+    for (let q = 0; q + 1 < cuts.length; q++) { const sa = cuts[q], sb = cuts[q + 1]; if (sb - sa <= 0) continue; const sm = (sa + sb) / 2; let bi = 0, bv = -Infinity; for (let i = 0; i < 10; i++) { const v = p.lg[i] + (sm - p.s) * p.dl[i]; if (v > bv) { bv = v; bi = i; } } const ok = bi === truthAt(sm); if (!ok) wrongLen += sb - sa; el("rect", { x: a.X(sa), width: Math.max(0.6, a.X(sb) - a.X(sa) + 0.3), y: a.Y(yb), height: a.Y(yb2) - a.Y(yb), fill: ok ? css("--ok") : css("--wrong") }, a.g); } }
   for (const p of P) el("line", { x1: a.X(p.s), x2: a.X(p.s), y1: a.Y(yb), y2: a.Y(yb) - 6, stroke: css("--muted"), "stroke-width": 0.8 }, a.g);
-  const cols = { [wk.p1]: css("--accent"), [wk.p2]: css("--ok"), [wk.p3]: css("--wrong") }, names = { [wk.p1]: "score of 1st", [wk.p2]: "score of 2nd", [wk.p3]: "score of the raised 3rd" };
+  const cols = { [wk.p1]: css("--accent"), [wk.p2]: css("--ok"), [wk.p3]: css("--wrong") }, names = { [wk.p1]: "started 1st", [wk.p2]: "started 2nd", [wk.p3]: "started 3rd (raised)" };
   track.forEach((i, q) => { const pts = []; for (const p of P) { pts.push([p.s, p.lg[i]]); pts.push([p.e, p.lg[i] + (p.e - p.s) * p.dl[i]]); } el("path", { d: path(pts, a.X, a.Y), fill: "none", stroke: cols[i], "stroke-width": 2 }, a.g); el("text", { x: a.X(s1) - 4, y: a.m.t + 24 + q * 13, "text-anchor": "end", style: "fill:" + cols[i] }, a.g, names[i] + ` (position ${i + 1})`); });
   el("line", { x1: a.X(cur), x2: a.X(cur), y1: a.m.t, y2: a.Y(yb2), stroke: css("--ink"), "stroke-width": 1.2 }, a.g);
   el("line", { x1: a.X(wk.tie2), x2: a.X(wk.tie2), y1: a.m.t, y2: a.Y(yb2), stroke: css("--muted"), "stroke-dasharray": "3 3" }, a.g); el("line", { x1: a.X(wk.tie1), x2: a.X(wk.tie1), y1: a.m.t, y2: a.Y(yb2), stroke: css("--muted"), "stroke-dasharray": "3 3" }, a.g); el("text", { x: a.X(wk.tie2) - 3, y: a.m.t + 8, "text-anchor": "end" }, a.g, "tie with 2nd"); el("text", { x: a.X(wk.tie1) + 3, y: a.m.t + 8 }, a.g, "tie with 1st");
@@ -996,8 +998,9 @@ function rrDraw() {
   el("rect", { x: a.X(0), width: a.X(50) - a.X(0), y: a.Y(p * 1.4), height: a.Y(p / 1.4) - a.Y(p * 1.4), fill: css("--ok-soft") }, a.g);
   el("line", { x1: a.X(0), x2: a.X(50), y1: a.Y(p), y2: a.Y(p), stroke: css("--ok"), "stroke-width": 1.5 }, a.g); el("text", { x: a.X(41), y: a.Y(p) - 6, "text-anchor": "end", style: "fill:" + css("--ok") }, a.g, "truth ±1.4×");
   el("text", { x: a.X(0.5), y: a.Y(1e-12) - 5 }, a.g, "zero events");
-  [1.26, 1.30, 1.22, 1.15, 1.17, 1.23, 1.11, 1.10].forEach((q, i) => el("circle", { cx: a.X(42.5 + i * 0.9), cy: a.Y(p * q), r: 4.5, fill: css("--ok") }, a.g));
-  el("text", { x: a.X(45.5), y: a.Y(p * 1.4) - 20, "text-anchor": "middle", style: "fill:" + css("--ok") }, a.g, "ours (T366)");
+  if (p >= 1.75e-10 && p <= 7.2e-7) { [1.26, 1.30, 1.22, 1.15, 1.17, 1.23, 1.11, 1.10].forEach((q, i) => el("circle", { cx: a.X(42.5 + i * 0.9), cy: a.Y(p * q), r: 4.5, fill: css("--ok") }, a.g));
+  el("text", { x: a.X(45.5), y: a.Y(p * 1.4) - 20, "text-anchor": "middle", style: "fill:" + css("--ok") }, a.g, "ours (T366)"); }
+  else el("text", { x: a.X(45.5), y: a.Y(p * 1.4) - 20, "text-anchor": "middle" }, a.g, "ours: not tested here");
   el("text", { x: a.X(20), y: a.Y(1e-12) + 14, "text-anchor": "middle" }, a.g, "40 repeats of plain sampling");
   rrRuns.forEach((r, i) => { const est = r.k / C; el("circle", { cx: a.X(i + 1), cy: est > 0 ? a.Y(Math.max(est, 1e-12)) : a.Y(1e-12), r: 4, fill: est > 0 ? css("--ink") : css("--muted"), opacity: 0.75 }, a.g); });
 }
