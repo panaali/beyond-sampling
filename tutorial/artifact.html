@@ -167,6 +167,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 
 <ul class="toc" aria-label="Contents">
   <li><a href="#results">1. What we achieved</a></li>
+  <li><a href="#candidates">1b. Which methods pass which bar</a></li>
   <li><a href="#challenge">2. The challenge in one picture</a></li>
   <li><a href="#theory">3. Why this is hard in principle</a></li>
   <li><a href="#simplest">4. The simplest case: two numbers, then three</a></li>
@@ -227,6 +228,19 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
     <div class="meta"><span class="id">H-Q1..Q4 · E1</span><span class="st st-unv">inconclusive</span><span class="id">T6</span><span class="st st-unv">inconclusive (unverified), leaning support</span><span class="id">T383</span><span class="st st-prog">in progress</span></div>
   </div>
 </div>
+
+<h3 id="candidates">Which methods pass which bar</h3>
+<p>Several methods pass our lenient bar. For ARC's main challenge (squared error no worse than sampling at equal compute, over a distribution of networks), nothing has a clean, sealed, pre-registered pass yet, and ARC acceptance is unknown for all of them. On the 10-step target class (ratio to sampling; below 1 wins) <span class="id">OWNER_QA 4.8</span>:</p>
+<div class="tbl wide" style="max-width:64rem"><table>
+  <thead><tr><th>Method</th><th>Kind</th><th>Best result</th><th>Lenient</th><th>Main challenge</th><th>ARC acceptance</th></tr></thead>
+  <tbody>
+    <tr><td>T317f exact walks with declared approximations</td><td>no sampling, stated approximations</td><td>F 2.63 sealed HP4, 2.50 DEV3</td><td>pass</td><td>fail; H-S1 shows the family cannot reach 1 (verified)</td><td>unknown; closest to ARC's wording (approximations allowed)</td></tr>
+    <tr><td>E33 tie-slicing (H-E11)</td><td>deterministic quadrature over fixed directions</td><td>~1.6× better than sampling (ratio ~.6) on the 5 zoo H16T10 seeds; confirmed 10-17</td><td>pass</td><td>possibly, on those 5 models only; never sealed, no noisy copies, budget-dependent</td><td>unknown (cross-line average)</td></tr>
+    <tr><td>T10 recipe (H-E16) at T = 10 (T380)</td><td>same kind</td><td>.97 (64k) / 1.15 (16k) on 100 DEV3 retrains</td><td>pass</td><td>a tie, not a pass</td><td>unknown</td></tr>
+    <tr><td>T389 pre-set allocation</td><td>same kind</td><td>.74 [.51, 1.01] (16k) / 1.22 (64k) on DEV3</td><td>pass</td><td>near-miss; its pre-registered line (64k) failed</td><td>unknown</td></tr>
+  </tbody>
+</table></div>
+<p class="note">Off the target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (the all-at-once network, F .15–.30) beat sampling, but not on ARC's model. None of these is a solution yet: no sealed, pre-registered pass on untouched models (HP5) at a fixed budget with noisy copies; the quadrature methods lost on heavily noised copies at T = 5, and ARC's noise level is unknown; and ARC acceptance is open (T317f's error is too high; the quadratures rely on an average across fixed lines that has no weight-derived error bound). Plan: after T391, one pre-registered sealed HP5 scoring of all frozen candidates (E33, the T10 recipe, T389, T391) at 16k and 64k runs, clean and noisy, by the independent scorer, unless the owner prefers to keep HP5 unspent.</p>
 
 <p>Here is the path to these results, in one paragraph. On a smaller AlgZoo network with 32 weights (M<sub>4,3</sub>), a calculation derived from the network's mechanism beat random testing by about 50 times <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. As we moved toward the full network, that advantage shrank at every step. At 10 steps, our best calculation, above, is 2.6× worse than random testing. Only fixed-grid walk quadrature still keeps up there. It is deterministic, and whether ARC would accept it is unknown (section 4c): one tie-slicing grid beat sampling 1.6× on five zoo networks (not a sealed panel), and a second fixed-grid recipe only ties sampling on DEV3, with a squared-error ratio of .97, within noise of 1 (section 5). Most of this tutorial explains why.</p>
 
