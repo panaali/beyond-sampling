@@ -323,6 +323,11 @@ futile (the C_true curve).
   - a budget of 1e5 simplices gives ub = 3.59e-11 (4.0x MC) in 22 s.
 - One stated assumption, A1: libm/scipy special-function accuracy, measured with >= 130x margin.
 
+**T415, fast geometry** (merged from claude/t415-geom-fast @ c2b0bf02; T415_README.md).
+- `geom_fast.cell_geometry_fast` passed its pre-registered line: 0 mismatches on 51 cases, 15-45x faster.
+- My own check on 4 k = 10 survivors of (1,8,2): bit-identical [lb, ub]; the heavy cell (784 vertices) took 28 s instead of 570 s.
+- tiered10.py uses it from f6356ed4. T416 workers restarted on it mid-run; the script is resumable and the outputs are identical by construction.
+
 
 ### (2) Probabilistic bound on P(E(2.5)), sampling-class (pre-registration 2) [measured]
 **This is not a certificate.** It holds with probability >= 1 - 1e-6 over the MC seed.
