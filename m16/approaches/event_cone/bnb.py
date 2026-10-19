@@ -1,5 +1,5 @@
 """T390 kill test: branch and bound with relax.py pruning inside a triple's true event cone (README T390).
-usage: python bnb.py p1,p2,p3 KMAX -> results_bnb_<tri>.json"""
+usage: python bnb.py p1,p2,p3 KMAX [--t398] -> results_bnb[398]_<tri>.json"""
 import json
 import os
 import sys
@@ -9,9 +9,11 @@ import numpy as np
 
 import cone_count as cc
 import relax
+import relax2
 from event_pass import lines
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+T398 = "--t398" in sys.argv                                        # T398 pruner (relax2.prune_stage)
 
 
 def event_prefixes(tri, kmax, n_lines=100_000):
@@ -60,20 +62,24 @@ def main():
     print(out, round(time.time() - t0, 1), flush=True)
     G0, b0 = cc.cone(tri)
     cells = [(G0, b0, cc.interior(tri), np.zeros((H, len(Wi) and 10)), b"")]
-    path = os.path.join(HERE, f"results_bnb_{'-'.join(map(str, tri))}.json")
+    path = os.path.join(HERE, f"results_bnb{'398' if T398 else ''}_{'-'.join(map(str, tri))}.json")
     for t in range(kmax):
         t1 = time.time(); new = step(cells, t, Wi, Wh, H); t2 = time.time()
         keep = []; stages = []
         for c in new:
-            inf, st = relax.relax_infeasible(c[0], c[3], t + 1, tri, return_stats=True)
-            stages.append(st["stage"] if inf else -1)
+            if T398:
+                sg = relax2.prune_stage(c[0], c[3], t + 1, tri); stages.append(sg); inf = sg >= 0
+            else:
+                inf, st = relax.relax_infeasible(c[0], c[3], t + 1, tri, return_stats=True)
+                stages.append(st["stage"] if inf else -1)
             if not inf:
                 keep.append(c)
         kept = {c[4] for c in keep}; lost = [p for p in pre[t + 1] if p not in kept]
         st = np.array(stages)
         rec = dict(k=t + 1, children=len(new), survivors=len(keep), event_prefixes=len(pre[t + 1]),
                    event_prefixes_pruned=len(lost), pruned_by_norm=int((st == 0).sum()),
-                   pruned_later=int((st > 0).sum()), sec_split=round(t2 - t1, 1), sec_relax=round(time.time() - t2, 1))
+                   pruned_later=int((st > 0).sum()),
+                   by_stage={int(g): int((st == g).sum()) for g in range(4)} if T398 else None, sec_split=round(t2 - t1, 1), sec_relax=round(time.time() - t2, 1))
         out["steps"].append(rec); print(rec, flush=True)
         json.dump(out, open(path, "w"), indent=1)
         cells = keep
