@@ -1,0 +1,18 @@
+L={
+0:("A","Memory of the running maximum of x0..x8 (strong positive gain), minus the recent inputs x7 and x8, plus small terms for how far x9 and x4 fall below the maximum."),
+1:("B","How far x6 lies below the overall maximum (max minus x6), plus a top-two-gap term (largest minus second largest) that is positive when the maximum sits at odd x1/x3/x5/x7 and negative otherwise."),
+2:("A","How far x9 lies below the overall maximum (max minus x9), corrected by the gap between largest and second largest: gap subtracted when the maximum is at odd x1..x7, added when at even x0..x6. ReLU."),
+3:("B","Running maximum of x0..x7, tilted by early positions: plus how much x2 exceeds x4 and max(x0,x2), minus max(x1,x3) and max(x1,x5) (even positions add, odd subtract)."),
+4:("B","Running maximum of x0..x7 with large gain, lowered when the max of x0..x6 is at an even position or the top-two gap is large with even-positioned max; minus min(x4,x6) and max(x0,x6)."),
+5:("A","Memory of the running maximum of x0..x8, plus how far x8 falls below the overall maximum, minus how far x9 falls below it, minus min(x4,x7) and min(x5,x6)."),
+6:("A","How far x7 lies below the running maximum of x0..x7, i.e. max(x0..x7) minus x7, with small corrections for the top-two gap and for the parity of the earlier maximum's position."),
+7:("A","Memory of the running maximum of x0..x8, boosted when that maximum sits at an even position x0..x6; minus x5 and x7 when they are not the maximum; small plus for x4."),
+8:("A","Running maximum of x0..x8, minus x8 and x5 each capped at the running maximum before them, minus the top-two gap when the maximum is at even x0..x6, minus how far x9 falls below the second largest."),
+9:("A","Running maximum of x0..x7 minus a weighted sum of mid-sequence inputs: x4 and x5 most strongly, then the larger of x2,x6 and the larger of x0,x2."),
+10:("A","Detects x9 being the largest value: equals a gain times (x9 minus the second-largest value) when x9 is the maximum, zero otherwise."),
+11:("A","How far x9 lies below the overall maximum (max minus x9), minus the gap between largest and second-largest values when the maximum sits at an even position (x0,x2,..,x8). ReLU."),
+12:("B","Tracks x3: how much x3 exceeds x1, plus x3 capped at max(x0,x1,x2), plus max(x0,x2) and how much x4 exceeds x5, minus positive x1. ReLU; active about half the time."),
+13:("A","Running maximum of x0..x8, strongly boosted by how much x8 exceeds max(x0..x7) (a new maximum at x8); minus max(x2,x4) and min(x5,x7), plus how much x0 exceeds x6."),
+14:("A","Detects x6 being the largest value: when it is, roughly proportional to x6, reduced by x9, x3, x7 and by x6's lead over the second-largest value; zero otherwise."),
+15:("C","Mixed: grows with how far x5 lies below max(x0..x5), with positive x2, with x6 exceeding max(x0..x5), with x1 exceeding x0, and with the top-two gap when the maximum is at even x0..x6."),
+}

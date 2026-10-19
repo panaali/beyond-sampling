@@ -1,0 +1,101 @@
+You are a judge. Each item below shows two short labels, P and Q. Each label was written by an investigator to
+describe what one hidden neuron of a small recurrent network does. The network reads 10 real numbers x0..x9
+(i.i.d. Gaussian) and outputs the position of the second-largest number. Different investigators wrote P and
+Q independently; P and Q may or may not describe the same neuron. Judge ON THE TEXT ALONE whether they describe
+the same function. Do not use any tools and do not read any files; answer directly.
+
+Verdicts:
+  SAME      same main job; differences only in detail, wording, constants or minor offshoots
+            (for position-dependent labels, the position sets must largely agree)
+  PARTIAL   they share one main component but differ in another main component
+  DIFFERENT different main jobs, or position sets that largely disagree
+
+Answer with exactly one line per item, in item order, in the format
+ITEM_ID | VERDICT
+and nothing else.
+
+ITEMS:
+IL80C:
+  P: x9 falls short of a reference r: about 6*max(0, r - x9), where r is the largest of x0..x8 if that maximum sits at x0..x3, otherwise the second-largest of x0..x8.
+  Q: How far x9 falls below the largest of x0..x8, reduced by the max's lead over the runner-up when that max lies in x4..x8 (mildly for x0,x1,x3), increased when the max is x2.
+DW0RI:
+  P: x9 falls short of a reference r: about 4.4*max(0, r - x9), where r is the largest of x0..x8 if that maximum sits at x0, x5, x7 or x8, otherwise the second-largest of x0..x8.
+  Q: How far x9 falls below the largest of x0..x8 (about 4.5 times the gap), shifted up when the max sits at x0,x5,x7 or x8 and down when it is at x1..x4 or x6.
+3E4IP:
+  P: Unclear position-set code: grows with max(x0,x1), max(x1..x8) and x6, shrinks with max(x5..x7); roughly, larger when the top values sit at x0, x1 or x6 and smaller at x5 or x7.
+  Q: Margin detector: (largest minus second-largest of x0..x8) weighted by where the largest sits (strong for x2-x4, silent for x7), plus a smaller term for (second minus third largest) and the third largest.
+4QEB6:
+  P: x3 is the largest of x0..x8: about 8*(x3 minus the largest other of x0..x8, if positive) + 2.9*(x3's lead over the third-largest other value) + bonus if x3 is runner-up; plus 4*x0's lead when x0 is the max.
+  Q: How far x9 falls below the largest of x0..x8 (about 4.5 times the gap), shifted up when the max sits at x0,x5,x7 or x8 and down when it is at x1..x4 or x6.
+LD59F:
+  P: Fires when x6 is among the two largest of x0..x8, growing with x6 minus R (third-largest of x0..x8); reduced by Q (second-largest), small baseline from |x0|+..+|x7|.
+  Q: Fires when x6 is among the two largest of x0..x8 (more if it is the largest), growing with x6 and decreasing with the sum of the other inputs x0..x8.
+ADDKS:
+  P: Delayed running maximum (mainly max of x0..x7, partly x8), minus a strong penalty proportional to x0+x7+x8 and a weak one for the other values.
+  Q: Grows with how far x0, x7 and especially x8 fall below the max of x0..x9 (other positions weakly); reduced by the margin (max minus second-largest) when the max is at x5, x7, x8, and strongly when it is x9.
+RPWVB:
+  P: Dead: essentially always 0 on Gaussian inputs.
+  Q: Rank detector for x2: big when x2 is the maximum (grows with its lead over the runner-up), moderate when x2 is second (lead over third), plus a term in max(x0,x2).
+V072T:
+  P: How far x6 falls below a reference R: about 12*ReLU(R - x6), where R is roughly the second-largest of x0..x8 if the max of x0..x8 sits at an even position, else roughly that max.
+  Q: How far x7 lies below the running maximum of x0..x7, i.e. max(x0..x7) minus x7, with small corrections for the top-two gap and for the parity of the earlier maximum's position.
+05NJS:
+  P: Always on: weighted sum of the largest and second-largest of x0..x8 (about 5.7*max + 3.5*second), plus a small bump when the largest of x0..x8 is x0, x2, x3, x4 or x6.
+  Q: Running magnitude of the top two values of x0..x8: about 5.76*P + 3.47*Q (P, Q = largest and second-largest of x0..x8), slightly higher if P is x0. Always on; ignores x9.
+HQU77:
+  P: Unclear position code: active unless the largest of x0..x8 sits at x7 or x8 or the second-largest sits at x2, x6 or x8; strongest when the largest is at x2, x4 or x6.
+  Q: Fires when x2 is among the two largest of x0..x8 (strongest if it is the largest), growing with x2; also a smaller boost when x0 is the largest of x0..x8.
+1GPYB:
+  P: How far x9 falls below the maximum of x0..x8, where that remembered maximum counts more when it sat early (x0..x3) and drifts toward the runner-up when it sat late.
+  Q: Fires when x9 is below a running 'top value' of x0..x8: 10.3*ReLU(S + w*(M-S) - x9), M,S = two largest of x0..x8, w above 1 when M sits at x2-x4, about 0.7 at x8, about 0.2 at x0, x6, x7.
+42321:
+  P: Early-maximum detector: large when the maximum of x0..x9 sits at x0-x2 (scaled by its value) and when runner-up values sit at x0-x2 or x5; reduced when large values sit at x3-x9.
+  Q: Early-maximum detector: grows with max(x0..x4) and max(x0..x3), reduced by max(x3,x4) and max(x6,x7); large when the largest values sit in x0..x2.
+09JKQ:
+  P: x6 is among the top two of x0..x8: bonuses if x6 is the max or runner-up, plus about 3*x6's lead over the other values and 3*x6's excess over the second-largest of x0..x5.
+  Q: Rank detector for x6: grows with x6 itself and with x6's lead over the third-largest of the other inputs (x6 among the top two), minus the second-largest of x0..x5.
+O68GA:
+  P: Grows with how far x0, x4, x5, x7 (weaker x1, x6) fall below the max of x0..x9; reduced by the margin (max minus second-largest) when the max is at x1, x3, x5, x7, x8, strongly at x9.
+  Q: Mostly the running maximum of x0..x8, plus some second-largest value S (extra when the max sits at an even position), lowered by the values x0, x4, x5 and x7.
+8HGBG:
+  P: Poorly understood, low-variance: rises when x8 is the second-largest of x0..x8 (exceeds second-largest of others but not the max) and when x2 is the largest; reduced when x8 is the largest.
+  Q: Unclear position code: active mainly when the largest of x0..x8 sits at x2, x4 or x8, or the second-largest at x2 or x8; silent when the largest sits at x1, x3, x6 or x7.
+XYL2B:
+  P: Fires when x1 or x3 is among the two largest of x0..x8, growing with how far each exceeds the second-largest of the other values; strongest when x1 is the largest.
+  Q: Fires when x0 is among the two largest of x0..x8 (weaker when x1 or x2 is), growing with x0; small baseline from |x0|+..+|x6|.
+OMT44:
+  P: Delayed running maximum (max of x0..x7 and of x0..x8) plus some second-largest value, minus a penalty proportional to x1+x5+x7+x8 and a weaker one for the other values.
+  Q: Grows with how far x1, x5, x7, x8 (less other positions except x0) fall below the max of x0..x9; reduced by the margin (max minus second-largest) when the max is at x0, x1, x3, x7, strongly at x8, x9.
+493R7:
+  P: How far x9 falls below the overall maximum of x0..x9 (extra weight on x5..x9); zero when x9 itself is the maximum.
+  Q: Fires when x9 is below the maximum of x0..x8: about 13*ReLU(M - x9) (with slight mixing toward the second-largest S when the max sits at x1-x4); M,S = two largest of x0..x8.
+5Q0ZM:
+  P: Margin detector: (largest minus second-largest of x0..x8) weighted by the largest's position (strong at x0-x1, x7-x8, silent at x4), plus (second minus third largest) weighted similarly, plus third largest.
+  Q: How much the maximum of x0..x8 exceeds everything in x1..x6 (mostly x2..x5): large when the maximum sits at x0, x7 or x8, zero when it sits at x3..x5.
+14WKS:
+  P: Gap between largest and second-largest of x0..x8 when the max is late: about 5.6*gap if the max is x7 or x8, about 2.9*gap if x4..x6, about 0 if x0..x3.
+  Q: Max-position code: positive when the overall maximum lies in x4..x8 (and beats x9), proportional to its lead over earlier maxima and the runner-up, stronger for later positions.
+IZI8R:
+  P: Silent if x7 is among the two largest of x0..x8; otherwise grows as x7 falls below the second-largest of the other values in x0..x8 (about 2.1*second - 1.2*x7).
+  Q: Signals that x8 is NOT among the two largest of x0..x8 (off when it is; weaker when x6/x7 are top-two), otherwise rising with Q (second-largest of x0..x8) and |x0|+..+|x6|.
+6F3BY:
+  P: x9 falls short of a reference r: about 4.4*max(0, r - x9), where r is the largest of x0..x8 if that maximum sits at any position except x2 or x3, otherwise the second-largest of x0..x8.
+  Q: Max-position code favouring early maxima: large when the overall maximum is early (especially x0, or within x0..x5) and well above later values; small when the maximum comes late.
+0IB8H:
+  P: Running maximum of x0..x7 with large gain, lowered when the max of x0..x6 is at an even position or the top-two gap is large with even-positioned max; minus min(x4,x6) and max(x0,x6).
+  Q: Running-maximum memory: about 23*max(x0..x8) + 21*max(x0..x7), minus 7.8*max(x0..x6) when that max sits at an odd position, minus 5.1*x7 and 3.2*x5. Always positive.
+S51M5:
+  P: Two signals: x7 is large relative to the second-largest of x0..x6, and x0 is among the two largest inputs (lead over third); reduced when x7 is a new running maximum.
+  Q: x7 versus the second-largest of x0..x6: rises 3.4*(amount above), falls 8.4*(amount below); plus 7*x0's lead over x1..x5; small drop if x8 is in the top two; ReLU, baseline 2.4.
+WALAX:
+  P: Memory of the running maximum of x0..x8 (strong positive gain), minus the recent inputs x7 and x8, plus small terms for how far x9 and x4 fall below the maximum.
+  Q: Running-maximum memory: about 63*max(x0..x8) minus a fading trace of recent inputs (15*x8, 11*x7, 8.5*x9, 4.6*each of x4,x5,x6). Always positive.
+QRZB2:
+  P: Margin detector: (largest minus second-largest of x0..x8) weighted by the largest's position (strong at x0 and x5-x8, silent at x2-x3), plus (second minus third largest) weighted by second's position, plus third largest.
+  Q: How much the maximum of x0..x8 exceeds everything in x0..x5 (mostly x1..x4): large when the maximum sits at x6..x8 (or x0/x5), zero when it sits at x2..x3.
+7RVLA:
+  P: Small detector that x8 is the maximum of x0..x8: about ReLU(17.1*x8 - 15.6*M - 0.74*T7 - 0.23*x9 - 0.18), i.e. 1.5*x8 minus small terms when x8 = M; M = max of x0..x8, T7 = third-largest of x0..x7.
+  Q: Weak detector that x8 is the largest of x2..x8 (a new recent record), scaled by x8's value and reduced by the second-largest of x0..x5.
+MYKOB:
+  P: Positive when x9 lies below a level set by the top two of x0..x8 (about 0.5*max + 1.4*second - 2*x9); level raised when the largest of x0..x8 is x1 or x4.
+  Q: Grows as x9 falls below Q, the second-largest of x0..x8, plus a position code: raised when the largest of x0..x8 sits at x1 (most), x3 or x4.

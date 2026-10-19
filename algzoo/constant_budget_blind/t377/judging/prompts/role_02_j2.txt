@@ -1,0 +1,55 @@
+You are a judge. Below are short labels, each written by an investigator to describe what ONE hidden neuron of a
+small recurrent network does. The network reads 10 real numbers x0..x9 (i.i.d. Gaussian) and outputs the
+position of the second-largest number. Judge each label ON ITS TEXT ALONE. Do not use any tools and do not
+read any files; answer directly.
+
+For each item give:
+1. CAT, the legibility category the text supports:
+   A = one main job (with related offshoots); B = two related jobs; C = several unrelated jobs; D = not
+   understood (the text does not give a coherent account of the neuron's job).
+2. ROLE, the single PRIMARY role from this frozen list, and optionally ROLE2, a secondary role (or "-"):
+   MAX        magnitude of the largest value (of the whole sequence or of a prefix)
+   SECOND     magnitude of the second-largest value (or third-largest)
+   GAP        a difference between top-ranked values (largest minus second, second minus third), i.e. a margin
+   POS_MAX    which position holds the largest value (a position code, possibly scaled by a magnitude or gap)
+   POS_SECOND which position holds the second-largest value, or whether a specific position is among the top two
+   LAST       a comparison involving the last input x9 (x9 above/below the prefix max or runner-up, x9 new max)
+   RAW        raw input value(s) at fixed positions, without ranking
+   OTHER      anything else, or a mixture with no dominant role
+   Choose the role that the label says carries most of the neuron's activity. If a label says "the gap,
+   with a gain depending on where the max is", the primary role is the one the text emphasises; if both
+   are equally emphasised prefer the first mentioned and put the other in ROLE2.
+
+Answer with exactly one line per item, in item order, in the format
+ITEM_ID | CAT | ROLE | ROLE2
+and nothing else.
+
+ITEMS:
+DJ8IL: Fires only when x4 is the largest of x0..x8, growing with x4 minus R (third-largest of x0..x8); lowered if the second-largest sits at x2, x3 or x5.
+QKZSH: Running maximum of x0..x8, strongly boosted by how much x8 exceeds max(x0..x7) (a new maximum at x8); minus max(x2,x4) and min(x5,x7), plus how much x0 exceeds x6.
+K7M7A: How far x6 falls below a reference R: about 12*ReLU(R - x6), where R is roughly the second-largest of x0..x8 if the max of x0..x8 sits at an even position, else roughly that max.
+6HN97: Gap between largest and second-largest of x0..x8 when the max is late: about 5.6*gap if the max is x7 or x8, about 2.9*gap if x4..x6, about 0 if x0..x3.
+K3JL0: Early-record detector: grows with x0's lead over x1..x4 and over x1..x6, and with x1's lead over x0,x2..x4; slightly larger when x1 is well below the maximum of the other values; baseline about 3.
+WO19P: Weak neuron: about 0.65*max(x1..x6) - 0.35*x0 + 1.7*(x2's lead when x2 is the max of x0..x8), all under a ReLU, and silenced when x7 is the maximum of x0..x8.
+W4PII: Running-maximum memory: about 63*max(x0..x8) minus a fading trace of recent inputs (15*x8, 11*x7, 8.5*x9, 4.6*each of x4,x5,x6). Always positive.
+YFDD9: Amount by which x9 exceeds the second-largest of x0..x8: about ReLU(5.36*x9 - 5.05*second - 0.13); positive means x9 is among the two largest of all ten inputs.
+5HHI2: Rare, small: fires mostly when x8 is the overall maximum and the runner-up is early (x0..x5), larger when the runner-up is close to x8; formula only partly captures it.
+BC9D5: x9 falls short of a reference r: about 6*max(0, r - x9), where r is the largest of x0..x8 if that maximum sits at x0..x3, otherwise the second-largest of x0..x8.
+JYB4Y: How much the maximum of x0..x8 exceeds everything in x0..x5 (mostly x1..x4): large when the maximum sits at x6..x8 (or x0/x5), zero when it sits at x2..x3.
+FWNP4: Rank detector for x3: big when x3 is the maximum (grows with its lead over the runner-up), moderate when x3 is second (lead over third), plus a term in max(x0,x3).
+DAL2M: How far x9 lies below Q, the second-largest of x0..x8: about 3.1*max(0, Q - x9). Zero when x9 would be among the two largest.
+02NP2: Fires when x9 exceeds Q, the second-largest of x0..x8: about 4.2*x9 - 3.4*Q - 0.55*P (P = largest), but suppressed if that largest sits at x7 or x8.
+EDB29: How far x3 lies below Q, the second-largest of x0..x8; zero when x3 is among the top two, raised slightly when the largest sits at x0 or x2 and with |x0|+..+|x7|.
+7DTTI: Grows with how far x8 and x4, x5 (weaker x1, x6, x7) fall below the max of x0..x9; reduced by the margin (max minus second-largest) when the max is at x0, x2, x6, x8, strongly at x9.
+JQQ8R: Memory of the running maximum of x0..x8, boosted when that maximum sits at an even position x0..x6; minus x5 and x7 when they are not the maximum; small plus for x4.
+FEN9B: x3 is the largest of x0..x8: about 8*(x3 minus the largest other of x0..x8, if positive) + 2.9*(x3's lead over the third-largest other value) + bonus if x3 is runner-up; plus 4*x0's lead when x0 is the max.
+JEOHN: Mainly how far x4 falls below the max of x0..x9 (zero if x4 is the max); plus a bonus proportional to the max when it is at x1 or x3; minus the max-minus-second-largest margin when the max is late.
+WQW5H: How far x9 falls below the largest of x0..x8, with the largest of x0,x2,x4,x6,x7,x8 weighted much more than that of x1,x3,x5 (max at odd early positions counts less).
+SAK81: Grows as x9 falls below Q, the second-largest of x0..x8 (x9 not a top-two value), plus a position code: raised when the largest of x0..x8 sits at x0, x2 or x3.
+XUQH0: Grows with how far x0, x2, x4, x7 (weaker other positions) fall below the max of x0..x9, but larger when x6 is near the max; reduced by the margin (max minus second-largest) when the max is late.
+Y2T8U: Grows with how far x0, x2 (strongest), x4..x8 fall below the max of x0..x9; reduced by the margin (max minus second-largest), strongly when the max is at x0, x7, x8, x9, mildly at x2..x5.
+BG52K: Fires when x6 is among the two largest of x0..x8 (more if it is the largest), growing with x6 and decreasing with the sum of the other inputs x0..x8.
+UFIC6: Gap between largest and second-largest of x0..x8, scaled by where the max sits: about 6.5*gap if at x3..x7, about 3.7*gap if at x2 or x8, near 0 if at x0 or x1.
+NDASL: Fires when x4 is among the two largest of x0..x8, growing with x4 minus R (third-largest of x0..x8); boosted when the largest sits at x1 or x2; small baseline from |x0|+..+|x6|.
+BRH5I: Always on: weighted sum of the largest and second-largest of x0..x8 (about 5.7*max + 3.5*second), plus a small bump when the largest of x0..x8 is x0, x2, x3, x4 or x6.
+GDMA1: Fires when x9 beats Q, the second-largest of x0..x8: about 5.36*max(0, x9 - 0.94*Q), i.e. x9 is among the two largest values.

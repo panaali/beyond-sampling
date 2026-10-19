@@ -1,0 +1,55 @@
+You are a judge. Below are short labels, each written by an investigator to describe what ONE hidden neuron of a
+small recurrent network does. The network reads 10 real numbers x0..x9 (i.i.d. Gaussian) and outputs the
+position of the second-largest number. Judge each label ON ITS TEXT ALONE. Do not use any tools and do not
+read any files; answer directly.
+
+For each item give:
+1. CAT, the legibility category the text supports:
+   A = one main job (with related offshoots); B = two related jobs; C = several unrelated jobs; D = not
+   understood (the text does not give a coherent account of the neuron's job).
+2. ROLE, the single PRIMARY role from this frozen list, and optionally ROLE2, a secondary role (or "-"):
+   MAX        magnitude of the largest value (of the whole sequence or of a prefix)
+   SECOND     magnitude of the second-largest value (or third-largest)
+   GAP        a difference between top-ranked values (largest minus second, second minus third), i.e. a margin
+   POS_MAX    which position holds the largest value (a position code, possibly scaled by a magnitude or gap)
+   POS_SECOND which position holds the second-largest value, or whether a specific position is among the top two
+   LAST       a comparison involving the last input x9 (x9 above/below the prefix max or runner-up, x9 new max)
+   RAW        raw input value(s) at fixed positions, without ranking
+   OTHER      anything else, or a mixture with no dominant role
+   Choose the role that the label says carries most of the neuron's activity. If a label says "the gap,
+   with a gain depending on where the max is", the primary role is the one the text emphasises; if both
+   are equally emphasised prefer the first mentioned and put the other in ROLE2.
+
+Answer with exactly one line per item, in item order, in the format
+ITEM_ID | CAT | ROLE | ROLE2
+and nothing else.
+
+ITEMS:
+0NLKA: Memory of the running maximum of x0..x8, plus how far x8 falls below the overall maximum, minus how far x9 falls below it, minus min(x4,x7) and min(x5,x6).
+B64EY: Poorly understood, always on: roughly decreases with the sum of x0..x7 and increases with the three largest values of x0..x8.
+1BZPV: How far x9 falls below the second-largest of x0..x8: about 3*(second - x9) (+0.2*max), rectified; zero when x9 is among the two largest of all ten inputs.
+5ARKE: Always-on, poorly understood: rises with total magnitude |x0|+..+|x6|, falls with the third-largest of x0..x8 and when x2, x4 or x5 is among the top two.
+79OSI: Delayed running maximum (mainly max of x0..x7, partly x8), minus a strong penalty proportional to x0+x7+x8 and a weak one for the other values.
+XUP56: Gap between the largest and second-largest of x0..x8, weighted heavily when that largest sits near x3 (x1..x5) and near zero/negative when it sits at x6..x7; plus a small second-largest-value term.
+RUZHF: How far x9 falls below the largest of x0..x8 (about 4.5 times the gap), shifted up when the max sits at x0,x5,x7 or x8 and down when it is at x1..x4 or x6.
+7HMCA: Small detector that x8 is the maximum of x0..x8: about ReLU(17.1*x8 - 15.6*M - 0.74*T7 - 0.23*x9 - 0.18), i.e. 1.5*x8 minus small terms when x8 = M; M = max of x0..x8, T7 = third-largest of x0..x7.
+841IM: By how much x9 beats every earlier value: about 6.44*max(0, x9 - max(x0..x8)), i.e. x9 is the overall maximum.
+EDB4R: How far x9 lies below the running maximum, about 13*(max - x9), clipped at zero; when the max sits at an odd position the max is blended with the second-largest value.
+LQR67: Memory of the running maximum: about 12*max(x0..x8) + 20*max(x0..x7), plus a small boost from the total size of negative inputs; reduced by the margin (max minus second-largest) when the max is at x0, x2, x4 or x6.
+6NMEU: How far x7 lies below a stored record, clipped at zero (zero when x7 is the largest): record is the largest value when the max sits at an even position, mostly the second-largest when odd.
+0A7XG: x1 is the largest of x0..x8: about 14*(x1 minus the largest other of x0..x8, if positive) + 4.6*(x1's lead over the third-largest other value) + bonus if x1 is runner-up; plus 2.3*x0's lead when x0 is max.
+DNBEW: Weak detector that x8 is the largest of x2..x8 (a new recent record), scaled by x8's value and reduced by the second-largest of x0..x5.
+4GKNP: Margin detector: (largest minus second-largest of x0..x8) weighted by the largest's position (strong at x0 and x5-x8, silent at x2-x3), plus (second minus third largest) weighted by second's position, plus third largest.
+U47QQ: Always on: weighted sum of the largest and second-largest of x0..x8 (about 3.3*max + 2.1*second), plus a small bump when the largest of x0..x8 is x1, x5 or x7.
+GSQSD: Poorly understood position mix: on when x6 is the overall largest or x7 is second-largest of x0..x8; silenced when x8 is among the top two or x7/x8 is the largest.
+4G32T: Max-position code: lead of the largest of x2,x3,x4,x6,x7 over second-ranked values; zero when x5 is the maximum, and partly tracks how far x5 sits below the maximum.
+JWM44: By how much x8 sets a new running maximum: about 7.15*max(0, x8 - max(x0..x7)). Ignores x9.
+RHIOG: Fires when x1 or x3 is among the two largest of x0..x8 (strongest when one of them is the largest), scaled up with the largest value of x0..x8.
+36RUZ: x7 below the running maximum of x0..x6 (about 2.4*shortfall), plus 4.3*x0's lead when x0 is the max, 2.2*x1's lead over x0..x7, 1.2*x8's margin over the third-largest; baseline 0.7.
+D95ZG: Detects x8 standing out: about ReLU(12.9*x8 - 8*S7 - 2.6*mean7 + 1.1*M7 - 1.4), where M7,S7 = largest and second-largest of x0..x7 and mean7 their mean; large when x8 is the maximum or runner-up of x0..x8.
+MPVO3: Positive when x9 lies below a level set by the top two of x0..x8 (about 0.85*max + 1.0*second - 1.8*x9); switched off when x8 is the largest of x0..x8.
+N6IQ6: How far x9 falls below the maximum of x0..x8 (zero if x9 is above it); the remembered maximum is boosted when it sat at x2..x4 and pulled toward the runner-up when it sat at x6..x7.
+FSH7B: Unclear position code: active unless the largest of x0..x8 sits at x7 or x8 or the second-largest sits at x2, x6 or x8; strongest when the largest is at x2, x4 or x6.
+WKIQL: Flags a new maximum at x8: about 20.5*max(x0..x7) + 51*ReLU(x8 - max(x0..x7)), minus small traces 2.3*(x4+x5+x6), 3.1*x2 and 3.1*ReLU(x1 - x0). Always positive.
+RQ4UZ: x6 is among the top two of x0..x8: bonuses if x6 is the max or runner-up, plus about 3*x6's lead over the other values and 3*x6's excess over the second-largest of x0..x5.
+H120N: Fires when x9 is a top-two value overall: about max(0, 4.58*x9 - 1.74*P - 2.75*Q), with P, Q the largest and second-largest of x0..x8.
