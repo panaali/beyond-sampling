@@ -1,0 +1,919 @@
+<title>Counting a Tiny Network's Mistakes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="An interactive tutorial on estimating the accuracy of a 432-parameter recurrent network from its weights: ARC's AlgZoo challenge, what the clean-neurons project found, and why it is still unsolved.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a long-form article. Text in one ~66ch column; figures break out to a wider track; notes sit inline as quiet margin-style asides. */
+:root {
+  --paper: #f7f8f6;
+  --figure: #ffffff;
+  --ink: #171b21;
+  --muted: #5a6370;
+  --rule: #d9dee3;
+  --accent: #23579a;
+  --accent-soft: #e3ecf7;
+  --wrong: #c8492a;
+  --wrong-soft: #f8e1d9;
+  --ok: #2f7d55;
+  --ok-soft: #dcefe4;
+  --warn: #9a6a12;
+  --warn-soft: #f6ebd3;
+  --prog: #5b4bb0;
+  --prog-soft: #e8e4f8;
+  --dead: #6b6f76;
+  --dead-soft: #e8e9eb;
+  --region-l: 80;
+  --region-s: 38;
+  --edge: rgba(23, 27, 33, .55);
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --s-1: .84rem; --s0: 1.06rem; --s1: 1.25rem; --s2: 1.6rem; --s3: 2.2rem; --s4: 3.1rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #101318; --figure: #161a21; --ink: #e5e8ec; --muted: #9aa3af; --rule: #2a313b;
+    --accent: #84aee8; --accent-soft: #1b2a3f; --wrong: #f0805e; --wrong-soft: #3d221b;
+    --ok: #6cc596; --ok-soft: #16301f; --warn: #e2b462; --warn-soft: #34290f;
+    --prog: #b0a4f2; --prog-soft: #262142; --dead: #a2a7ae; --dead-soft: #262a30;
+    --region-l: 30; --region-s: 30; --edge: rgba(229, 232, 236, .5); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #101318; --figure: #161a21; --ink: #e5e8ec; --muted: #9aa3af; --rule: #2a313b;
+  --accent: #84aee8; --accent-soft: #1b2a3f; --wrong: #f0805e; --wrong-soft: #3d221b;
+  --ok: #6cc596; --ok-soft: #16301f; --warn: #e2b462; --warn-soft: #34290f;
+  --prog: #b0a4f2; --prog-soft: #262142; --dead: #a2a7ae; --dead-soft: #262a30;
+  --region-l: 30; --region-s: 30; --edge: rgba(229, 232, 236, .5); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: var(--s0); line-height: 1.62;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 4rem; }
+article { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 42rem) minmax(0, 1fr); row-gap: 0; }
+article > * { grid-column: 2; min-width: 0; }
+article > .wide { grid-column: 1 / -1; width: 100%; max-width: 64rem; justify-self: center; }
+h1, h2, h3, h4 { font-family: var(--display); text-wrap: balance; line-height: 1.15; letter-spacing: -.01em; }
+h2 { font-size: var(--s2); font-weight: 700; margin: 3.2rem 0 .6rem; font-stretch: 88%; }
+h3 { font-size: var(--s1); font-weight: 650; margin: 2.2rem 0 .4rem; font-stretch: 92%; }
+h4 { font-size: var(--s0); font-weight: 650; margin: 1.4rem 0 .2rem; }
+p { margin: .7rem 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, .mono { font-family: var(--mono); font-size: .86em; overflow-wrap: anywhere; }
+.eyebrow { font-family: var(--display); font-size: var(--s-1); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+header.hero { padding-block: 3.2rem 1.2rem; }
+header.hero h1 { font-size: clamp(2.1rem, 6vw, var(--s4)); font-weight: 800; font-stretch: 80%; margin: .4rem 0 .8rem; letter-spacing: -.02em; }
+.dek { font-size: var(--s1); color: var(--muted); line-height: 1.45; margin: 0 0 1.2rem; }
+.byline { display: flex; flex-wrap: wrap; gap: .4rem 2rem; font-family: var(--display); font-size: var(--s-1); color: var(--muted); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding-block: .7rem; }
+.byline b { display: block; color: var(--ink); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 1rem 0 0; font-family: var(--display); font-size: var(--s-1); color: var(--muted); }
+.st { display: inline-block; font-family: var(--display); font-size: .74rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; padding: .05rem .45rem; border-radius: 3px; white-space: nowrap; vertical-align: .08em; }
+.st-conf { background: var(--ok-soft); color: var(--ok); }
+.st-unv { background: var(--warn-soft); color: var(--warn); }
+.st-prog { background: var(--prog-soft); color: var(--prog); }
+.st-neg { background: var(--wrong-soft); color: var(--wrong); }
+.st-dead { background: var(--dead-soft); color: var(--dead); }
+.id { font-family: var(--mono); font-size: .8em; color: var(--muted); white-space: nowrap; }
+.banner { margin: 1.6rem 0 1rem; padding: .9rem 1rem; border: 1.5px solid var(--wrong); border-radius: 4px; font-family: var(--display); }
+.banner b { color: var(--wrong); }
+.results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; margin: 1rem 0; }
+.res { background: var(--figure); border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.res h4 { margin: 0; font-size: 1rem; }
+.res .big { font-family: var(--display); font-weight: 750; font-size: 1.9rem; font-stretch: 85%; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.res p { margin: 0; font-size: .95rem; line-height: 1.5; }
+.res .meta { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; margin-top: auto; padding-top: .4rem; }
+figure { margin: 1.6rem 0; background: var(--figure); border: 1px solid var(--rule); border-radius: 4px; padding: 1rem; min-width: 0; }
+figure.plain { background: none; border: 0; padding: 0; }
+figcaption { font-family: var(--display); font-size: var(--s-1); color: var(--muted); line-height: 1.5; margin-top: .8rem; max-width: 46rem; }
+figcaption b { color: var(--ink); }
+.controls { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; font-family: var(--display); font-size: var(--s-1); margin-bottom: .7rem; }
+.controls label { display: inline-flex; gap: .4rem; align-items: center; color: var(--muted); }
+button { font-family: var(--display); font-size: var(--s-1); font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; border-radius: 3px; padding: .35rem .7rem; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.on { background: var(--accent); color: var(--figure); }
+select, input[type="number"] { font-family: var(--display); font-size: var(--s-1); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 3px; padding: .25rem .4rem; }
+input[type="range"] { accent-color: var(--accent); width: min(14rem, 60vw); }
+.readout { font-family: var(--mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.readout b { color: var(--ink); font-weight: 600; }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem 1.4rem; align-items: start; }
+.twocol > * { min-width: 0; }
+canvas { display: block; max-width: 100%; touch-action: none; }
+svg { display: block; max-width: 100%; height: auto; overflow: hidden; }
+svg text { fill: var(--muted); font-family: var(--display); font-size: 11px; }
+svg .ax { stroke: var(--rule); }
+svg .grid { stroke: var(--rule); stroke-dasharray: 2 3; }
+.note { font-family: var(--display); font-size: .9rem; line-height: 1.5; color: var(--muted); border-left: 2px solid var(--rule); padding: .1rem 0 .1rem .9rem; margin: 1rem 0; }
+.note b { color: var(--ink); }
+.claim { font-family: var(--display); font-size: .74rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 .35rem; white-space: nowrap; }
+.theory { display: grid; gap: .8rem; margin: 1rem 0; }
+.thm { border: 1px solid var(--rule); border-radius: 4px; padding: .8rem 1rem; background: var(--figure); }
+.thm h4 { margin: 0 0 .3rem; display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; }
+.thm p { margin: .3rem 0; font-size: .97rem; }
+.lane { border: 1.5px dashed var(--prog); border-radius: 4px; padding: .7rem .9rem; margin: 1rem 0; background: var(--prog-soft); font-family: var(--display); font-size: .92rem; line-height: 1.5; }
+.lane .lt { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; font-weight: 650; color: var(--ink); }
+.lane p { margin: .25rem 0; color: var(--ink); }
+.lane .lat { color: var(--muted); }
+.tbl { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; font-family: var(--display); font-size: .88rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 650; color: var(--muted); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
+td.n { text-align: right; white-space: nowrap; }
+.rung { display: inline-block; font-family: var(--mono); font-size: .78rem; color: var(--accent); margin-right: .3rem; }
+dl.gloss { display: grid; grid-template-columns: minmax(6rem, max-content) 1fr; gap: .5rem 1rem; }
+dl.gloss dt { font-family: var(--display); font-weight: 650; }
+dl.gloss dd { margin: 0; }
+ol.refs { font-size: .92rem; padding-left: 1.4rem; }
+ol.refs li { margin: .35rem 0; }
+.toc { font-family: var(--display); font-size: .92rem; columns: 2 14rem; column-gap: 2rem; margin: 1rem 0; padding: 0; list-style: none; }
+.toc li { break-inside: avoid; margin: .15rem 0; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.formula { font-family: var(--mono); font-size: .92rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 3px; padding: .6rem .8rem; overflow-x: auto; overflow-wrap: anywhere; }
+.inputs { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; align-items: end; height: 120px; margin-bottom: .2rem; }
+.inputs div { position: relative; height: 100%; cursor: ns-resize; }
+.inputs span { position: absolute; left: 10%; right: 10%; background: var(--accent); border-radius: 2px; }
+.inputs .r2 span { background: var(--ok); }
+.inputs .zero { position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--rule); }
+.ilabels { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; font-family: var(--mono); font-size: .68rem; color: var(--muted); text-align: center; }
+.verdict { font-family: var(--display); font-weight: 650; }
+.verdict.good { color: var(--ok); } .verdict.bad { color: var(--wrong); }
+.kbd { font-family: var(--mono); font-size: .8em; border: 1px solid var(--rule); border-radius: 3px; padding: 0 .3rem; }
+footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<article>
+<header class="hero">
+  <div class="eyebrow">An interactive tutorial · AlgZoo M<sub>16,10</sub></div>
+  <h1>Counting the Mistakes of a Tiny Network</h1>
+  <p class="dek">A recurrent network with 432 weights finds the second-largest of ten numbers and gets it right about 95.3% of the time. Can you work out that number from the weights alone, as precisely as you could by testing it on random inputs? We tried for three days. Here is what we learned, built up from the smallest version of the problem.</p>
+  <div class="byline">
+    <div><b>Authors</b>The clean-neurons project</div>
+    <div><b>Date</b>19 October 2026</div>
+    <div><b>Status of the challenge</b>Unsolved</div>
+  </div>
+  <div class="legend">Every result carries its record ID and one of:
+    <span class="st st-conf">confirmed</span><span class="st st-unv">unverified</span><span class="st st-prog">in progress</span><span class="st st-neg">negative</span><span class="st st-dead">dead (verified)</span>
+  </div>
+</header>
+
+<p>"Confirmed" means a second agent re-checked the result with different code, data or seeds, and the project's coordinator recorded it. "Unverified" means it has been measured once. IDs such as <span class="id">T317f</span> or <span class="id">H-R1</span> point to rows of the project's registry and hypothesis ledger (<code>INDEX.md</code>), where every number has its source.</p>
+
+<ul class="toc" aria-label="Contents">
+  <li><a href="#results">1. What we achieved</a></li>
+  <li><a href="#challenge">2. The challenge in one picture</a></li>
+  <li><a href="#theory">3. Why this is hard in principle</a></li>
+  <li><a href="#simplest">4. The simplest case: three numbers</a></li>
+  <li><a href="#ht">5. More neurons, longer sequences</a></li>
+  <li><a href="#regions">6. Counting the pieces</a></li>
+  <li><a href="#ties">7. Where the mistakes live</a></li>
+  <li><a href="#noise">8. Noise and seeds</a></li>
+  <li><a href="#simpler">9. Simpler networks: quantised and feed-forward</a></li>
+  <li><a href="#other">10. Other simplifications we tried</a></li>
+  <li><a href="#target">11. The real target: walking along the ties</a></li>
+  <li><a href="#rare">12. Rare mistakes</a></li>
+  <li><a href="#solved">13. What would count as solving it</a></li>
+  <li><a href="#lanes">14. Work in progress</a></li>
+  <li><a href="#glossary">Glossary, references and data</a></li>
+</ul>
+
+<h2 id="results">1. What we achieved</h2>
+<div class="banner"><b>The challenge is unsolved.</b> Our best calculation from the weights is about 2.6 times worse than plain random testing at the same cost, measured as mean squared error. It passes the project's lenient "within 10 times" bar and fails ARC's strict "match sampling" bar.</div>
+
+<div class="results wide" style="max-width: 64rem;">
+  <div class="res">
+    <h4>Best calculation of the accuracy</h4>
+    <div class="big">F = 2.63</div>
+    <p>On 100 freshly trained networks nobody had looked at (sealed panel HP4), scored once by an independent scorer: typical error 0.75 points, too high by 0.44 points, about 3,300 network runs per network. On the open DEV3 panel: F = 2.50. F is how many times worse than sampling in squared error at equal compute (below, section 2).</p>
+    <div class="meta"><span class="id">T317f · T335 · H-L1</span><span class="st st-unv">unverified (measured on sealed panels)</span></div>
+  </div>
+  <div class="res">
+    <h4>The strict bar, for this family of methods</h4>
+    <div class="big">Closed</div>
+    <p>Matching sampling (F ≤ 1) is out of reach for this whole approach at up to ~6,000 runs: a checklist of ~27 variants was re-checked by a second agent with its own code. It is a scoped result, not a proof: other approaches stay open.</p>
+    <div class="meta"><span class="id">H-S1 · T356 · T357</span><span class="st st-dead">dead (verified), scoped</span></div>
+  </div>
+  <div class="res">
+    <h4>Rare mistakes (ARC's long-term goal)</h4>
+    <div class="big">Within 2×</div>
+    <p>For mistakes far from a tie, at chances of 2 in 10 million to 2 in 10,000: within 2× of the truth, 18 of 18 cases on fresh networks. On ordinary networks, within about 1.4× down to 2 in 10 billion, where random testing at the same cost sees about zero events. It fails on networks whose rarest mistakes are three-way near-ties, and it is not cheaper than sampling for common events.</p>
+    <div class="meta"><span class="id">H-R1 · T360 · T366 · T368</span><span class="st st-conf">confirmed, scoped</span></div>
+  </div>
+  <div class="res">
+    <h4>How the network works</h4>
+    <div class="big">Mostly understood</div>
+    <p>A "highest so far" tracker, a "new record" alarm, comparators, and rotating clocks that turn about 41.5° per step to record how long ago the maximum arrived. Replacing all 16 neurons with our formulas agrees with the network on only 95.5–96.6% of inputs: real understanding, but far too coarse to calculate with.</p>
+    <div class="meta"><span class="id">T241 (core)</span><span class="st st-conf">confirmed</span><span class="id">H-M1</span><span class="st st-unv">supported, qualified</span></div>
+  </div>
+  <div class="res">
+    <h4>The exact route</h4>
+    <div class="big">~10<sup>13</sup> pieces</div>
+    <p>Counting the network's linear pieces one by one is ruled out: at least 19.7 million after 6 of the 10 steps, multiplying by about 23–33 per step. A GPU census confirms that even the probability-weighted count of patterns grows 4–6× per step.</p>
+    <div class="meta"><span class="id">H-E13 · T270 · T348</span><span class="st st-dead">dead (DRI ruling, scoped)</span></div>
+  </div>
+  <div class="res">
+    <h4>The essay question</h4>
+    <div class="big">Inconclusive</div>
+    <p>We also tested the claim that most neurons in a language model have one clear job. Neurons are somewhat easier to explain than random directions, but our pre-registered test was too small to decide. A larger re-run is under way.</p>
+    <div class="meta"><span class="id">H-Q1..Q4 · E1</span><span class="st st-unv">inconclusive</span><span class="id">T6</span><span class="st st-prog">in progress</span></div>
+  </div>
+</div>
+
+<p>How we got here, in one paragraph. On a smaller AlgZoo network with 32 weights (M<sub>4,3</sub>), a calculation built from understanding the mechanism beat random testing about 50 times over <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>. Every step toward the full network made the calculation's advantage shrink, until at 10 steps it fell below sampling. Most of this tutorial is about why.</p>
+
+<h2 id="challenge">2. The challenge in one picture</h2>
+<p>In January 2026 the Alignment Research Center (ARC) published AlgZoo, a set of tiny trained networks, and posed a challenge about one of them, which we call M<sub>16,10</sub>. It is a recurrent network with 16 ReLU neurons and no biases. It reads ten numbers drawn independently from a standard normal distribution, one per step, and after the tenth step it outputs one of ten positions: its guess for where the second-largest number was. Its 432 weights are 16 input weights, a 16×16 recurrent matrix and a 10×16 readout.</p>
+
+<div class="formula">h<sub>t</sub> = ReLU(W<sub>in</sub> x<sub>t</sub> + W<sub>hh</sub> h<sub>t−1</sub>),  h<sub>0</sub> = 0,   answer = argmax(W<sub>out</sub> h<sub>10</sub>)</div>
+
+<figure class="wide" id="fig-live">
+  <div class="controls">
+    <button id="live-rand">New random input</button>
+    <button id="live-tie">Near-tie input</button>
+    <button id="live-neg">Mostly negative input</button>
+    <span class="readout" id="live-verdict"></span>
+  </div>
+  <div class="twocol">
+    <div>
+      <div class="eyebrow" style="margin-bottom:.3rem">Input: drag a bar up or down</div>
+      <div class="inputs" id="live-inputs"></div>
+      <div class="ilabels" id="live-ilabels"></div>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:.3rem">16 neurons × 10 steps, then the 10 output scores</div>
+      <canvas id="live-heat" width="560" height="260" aria-label="Hidden activations of the network"></canvas>
+    </div>
+  </div>
+  <figcaption><b>Figure 1. The real M<sub>16,10</sub>, running in your browser</b> with ARC's published weights. Green bar: the true second-largest. The heat map shows each neuron's activation at each step (blank = switched off). The column on the right shows the ten output scores; the network answers with the highest. Try a near-tie, where the second and third largest are almost equal: that is where it fails.</figcaption>
+</figure>
+
+<p>The network's accuracy is about <b>95.31%</b>. We know it precisely only because we tested it on 300 billion random inputs: 95.31175% ± 0.00004 points <span class="id">T192</span> (the repository's quick check, <code>m16/truth.txt</code>, gives 95.318% from 20 million). ARC's challenge is to get that number <em>without</em> random testing.</p>
+
+<h3>The rules: compete with sampling</h3>
+<p>Anyone can estimate the accuracy by sampling: run the network on <i>C</i> random inputs and count. That costs <i>C</i> forward passes and has mean squared error <i>p</i>(1−<i>p</i>)/<i>C</i>, where <i>p</i> is the accuracy. ARC asks for a <b>mechanistic estimate</b>: a calculation that reads the weights, uses no random or pseudorandom inputs, and has mean squared error no worse than sampling at the same compute, averaged over a distribution of networks (retrained copies, or copies with noise added to the weights), not just one.</p>
+<p>We measure compute in <b>forward-pass equivalents (FPE)</b>: the arithmetic of one run of the network on one input. Then we score an estimator with one number:</p>
+<div class="formula">F = MSE × C<sub>eff</sub> / mean p(1−p),   C<sub>eff</sub> = max(C, 1,000 FPE)</div>
+<p>Plain sampling has F = 1 whatever its budget. Lower is better. The <b>strict bar</b> is F ≤ 1, ARC's "match sampling". The <b>lenient bar</b> is F ≤ 10; it is a project convention, taken from our reproduction of ARC's own published estimators for the 32-weight M<sub>4,3</sub>, which were 2.4 to about 10 times worse than sampling and which ARC described as "roughly matching" it <span class="id">E32</span>.</p>
+
+<figure class="wide" id="fig-sampling">
+  <div class="controls">
+    <label for="smp-n">Budget C</label><input type="range" id="smp-n" min="2" max="5" step="0.25" value="3.5">
+    <span class="readout" id="smp-n-out"></span>
+    <button id="smp-run">Sample now</button><button id="smp-run10">Sample 20 times</button>
+    <span class="readout" id="smp-out"></span>
+  </div>
+  <div class="twocol">
+    <svg id="smp-chart" viewBox="0 0 520 330" role="img" aria-label="Error against compute for sampling and for our estimators"></svg>
+    <svg id="smp-hist" viewBox="0 0 420 330" role="img" aria-label="Errors of repeated sampling runs"></svg>
+  </div>
+  <figcaption><b>Figure 2. Sampling versus calculation.</b> Left: typical error (RMS, in accuracy points) against compute, both on log scales. The solid line is plain sampling on the HP4 panel's networks; the dashed line is the lenient bar (10× sampling's squared error). Dots are our sealed-panel results for the T317 family <span class="id">T304, T317c, T317f</span>. Right: press the buttons to really sample M<sub>16,10</sub> in your browser at budget C; each dot is one run's error against the 300-billion-sample answer. To match sampling, a calculation costing C must land inside sampling's spread.</figcaption>
+</figure>
+
+<h2 id="theory">3. Why this is hard in principle</h2>
+<p>Before the experiments, the theory. Three different kinds of statements follow, and they are labelled: what is <b>proved</b>, what is <b>conjectured</b>, and what is <b>our judgment</b>.</p>
+<div class="theory">
+  <div class="thm"><h4>ARC's matching-sampling principle <span class="claim">a proposal</span></h4>
+    <p>In "Competing with sampling" (November 2025), ARC proposes that a good mechanistic understanding of a model should let you estimate its average behaviour at least as efficiently as sampling, and defines "mechanistic" by a heuristic: the method avoids any random or pseudorandom sampling. It is a research bar, not a theorem. The same post notes that random RNNs are much harder than random feed-forward networks because the weights are shared across steps.</p></div>
+  <div class="thm"><h4>The no-coincidence conjecture <span class="claim">conjecture</span></h4>
+    <p>Christiano, Neyman and Xu conjecture, informally, that when a circuit has a property that would be an outrageous coincidence for a random circuit, there is a short explanation of it that an efficient verifier can check, while for typical random circuits no such explanation exists. ARC's bet is the trained-network version: random networks have no short explanation, but trained ones do, and that explanation is what should make their behaviour cheap to estimate. Our measurement adds a twist: the trained M<sub>16,10</sub> has as many linear pieces as random networks of the same size (21,032 after 4 steps against 19,000–26,000) while being 95% accurate against about 10% <span class="id">T232, H-E14</span> <span class="st st-conf">confirmed, k ≤ 4</span>. Whatever training builds, it is not "fewer pieces".</p></div>
+  <div class="thm"><h4>Exact counting is #P-hard <span class="claim">proved</span></h4>
+    <p>The acceptance probability of a Boolean circuit is its number of accepting inputs divided by 2<sup>n</sup>, and counting accepting inputs is #P-complete (Valiant, 1979). The continuous analogue is as hard: computing the exact volume of a polytope is #P-hard (Dyer and Frieze, 1988). So no efficient algorithm computes exact accuracies for every network unless P = NP.</p></div>
+  <div class="thm"><h4>Approximating deterministically: the CAPP problem <span class="claim">proved, with our reading</span></h4>
+    <p>Estimating a circuit's acceptance probability to within ±ε <em>with</em> randomness is trivial: sample. Doing it <em>deterministically</em> is the Circuit Acceptance Probability Problem (CAPP). Impagliazzo, Kabanets and Wigderson (2002) and Kabanets and Impagliazzo (2004) tied derandomizing such problems to proving circuit lower bounds, and Williams (2010, 2014) showed that deterministic algorithms only slightly faster than brute force for related circuit problems would imply new lower bounds. <b>Our reading</b> <span class="claim">judgment</span>: a method that beats sampling on <em>every</em> network would resolve open problems in complexity theory, and a proof that none exists is equally out of reach. So the challenge is about networks that training produced, not worst cases.</p></div>
+  <div class="thm"><h4>Pseudorandom generators do not count <span class="claim">proved, plus ARC's rule</span></h4>
+    <p>If strong pseudorandom generators exist, as is widely believed, CAPP can be solved deterministically by running the circuit on the output of every short seed and averaging. That is still sampling, only with fake randomness, and ARC's definition explicitly excludes pseudorandom sampling. So derandomization theory does not hand over what ARC wants.</p></div>
+  <div class="thm"><h4>Looking at inputs only cannot beat sampling <span class="claim">proved</span></h4>
+    <p>A deterministic method that only evaluates the network at inputs it chooses, without reading the weights, cannot beat random sampling in general: an adversary can hide the answer between the chosen points. The classical version is for the volume of a convex body given by a membership oracle (Elekes, 1986; Bárány and Füredi, 1987): any deterministic polynomial-time method has exponentially large error, while randomized methods approximate it well. A useful method must therefore read the weights.</p></div>
+  <div class="thm"><h4>The hard-coding loophole <span class="claim">observation</span></h4>
+    <p>For one fixed network, a program that prints the right number exists. That is why ARC asks for the estimate over a distribution of networks (retrains, noisy copies), and why our scoring panels use fresh retrains nobody has inspected.</p></div>
+</div>
+<p class="note">Sources in our notes: <code>OWNER_QA.md</code> §1.3 "What can be proven", <code>m16/SCALING_OBSTRUCTIONS.md</code> §6 "Theory note", <code>lit/web_arc/README.md</code> (S7) and <code>lit/web_log.md</code>. The #P-hardness references (Valiant; Dyer–Frieze) are standard results added for this tutorial. The obstructions in the rest of this page are measurements, not theorems.</p>
+
+<h2 id="simplest">4. The simplest case: second-largest of three numbers</h2>
+<p>Start small. Take three numbers instead of ten. The right answer depends only on their order, and there are 3! = 6 orders, so the input space is cut by the planes x<sub>1</sub> = x<sub>2</sub>, x<sub>1</sub> = x<sub>3</sub>, x<sub>2</sub> = x<sub>3</sub> into six wedges with a fixed correct answer each.</p>
+<p>Now the network. A ReLU network with no biases is <b>piecewise linear</b>: once you fix which neurons are on at each step (the <b>gate pattern</b>), every neuron's value is a fixed linear function of the inputs. The set of inputs that produce one gate pattern is a <b>linear region</b>, and without biases it is a cone through the origin: scaling an input by 2 scales every activation by 2 and leaves the answer unchanged. Inside a region the network's answer is decided by a few linear inequalities, so the accuracy is exact arithmetic:</p>
+<div class="formula">accuracy = Σ over regions R of  P( x ∈ R and the network's answer on R is right )</div>
+<p>Each term is the Gaussian probability of a cone, which in three dimensions is a solid angle. Figure 3 shows the regions on a flat slice of input space. Scale invariance means a slice at x<sub>3</sub> = 1 shows every direction with x<sub>3</sub> &gt; 0.</p>
+
+<figure class="wide" id="fig-slice">
+  <div class="controls">
+    <label for="sl-model">Network</label>
+    <select id="sl-model">
+      <option value="zoo(2,3,seed 0)">2 neurons, 3 numbers</option>
+      <option value="zoo(4,3,seed 0)" selected>4 neurons, 3 numbers (M₄,₃ size)</option>
+      <option value="zoo(16,3,seed 0)">16 neurons, 3 numbers</option>
+      <option value="zoo(16,5,seed 0)">16 neurons, 5 numbers</option>
+      <option value="M_16,10">M₁₆,₁₀ (the target)</option>
+    </select>
+    <label for="sl-mode">Colour</label>
+    <select id="sl-mode"><option value="both" selected>regions + mistakes</option><option value="regions">regions only</option><option value="err">right / wrong only</option></select>
+    <label for="sl-zoom">Zoom</label><input type="range" id="sl-zoom" min="-1.2" max="1.2" step="0.05" value="0.3">
+    <button id="sl-new">New slice</button>
+  </div>
+  <canvas id="sl-canvas" width="900" height="560" aria-label="A 2-D slice of input space coloured by linear region"></canvas>
+  <div class="readout" id="sl-read" style="margin-top:.4rem"></div>
+  <figcaption><b>Figure 3. Input space cut into linear regions.</b> Each colour patch is one gate pattern (one linear region) of the real network on a 2-D slice; dark red marks inputs where it answers wrong; dashed lines are where two inputs tie, so the correct answer changes. Horizontal axis: the input that is currently 2nd largest; vertical: the 3rd largest; the diagonal dashed line is their tie. For 3-number networks the slice holds the third input fixed. For longer networks the other inputs are fixed at a random draw. With 2 neurons the network cannot do the task (about 41% right); with 4 it is right 98.4% of the time and its few mistakes hug the tie lines. Switch to M<sub>16,10</sub> to see how much finer the cutting becomes.</figcaption>
+</figure>
+
+<p>For tiny networks this is the whole story. ARC solved the 10-weight M<sub>2,2</sub> exactly, region by region. For the 32-weight M<sub>4,3</sub> (98.5% accurate), exact enumeration of about 88 cones gives zero error for about 17,500 operations, roughly 420 times cheaper than sampling to 0.1 points <span class="id">E32</span>. Better still, a calculation derived from understanding the mechanism, with every coefficient a formula of the weights, beat sampling by about 50× in squared error on ARC's noisy copies (MSE ratio 0.019) <span class="id">E36, H-U1</span> <span class="st st-conf">confirmed, scoped</span>, and one generic recipe did so on all five trained seeds <span class="id">E37, H-U2</span> <span class="st st-conf">confirmed, scoped</span>. On M<sub>4,3</sub> it costs about as much as brute force, which is the first warning sign.</p>
+
+<h2 id="ht">5. More neurons, longer sequences</h2>
+<p>The problem has two size knobs: the number of neurons H and the sequence length T. AlgZoo trains networks at many (H, T) combinations, five seeds each, so we climbed a ladder.</p>
+
+<figure class="wide">
+  <div class="twocol">
+    <svg id="ht-acc" viewBox="0 0 440 280" role="img" aria-label="Accuracy of zoo networks by size"></svg>
+    <svg id="ht-gain" viewBox="0 0 440 280" role="img" aria-label="Advantage of the tie-slicing calculation over sampling by sequence length"></svg>
+  </div>
+  <figcaption><b>Figure 4. Two knobs.</b> Left: accuracy of AlgZoo networks (our 1-million-input check of the exported weights): more neurons help at T = 3, and longer sequences hurt at H = 16 (T = 10 shows the five zoo seeds and the target). Right: how many times smaller the squared error of a deterministic tie-slicing calculation is than sampling at equal compute, by sequence length (H = 16, geometric mean over 5 seeds) <span class="id">E33, H-E11</span> <span class="st st-conf">confirmed</span>. It wins 1,260× at T = 3 and collapses toward 1× by T = 10. That calculation uses fixed quadrature nodes, so under ARC's definition it counts as quadrature, not as a mechanistic estimate <span class="id">T263</span>.</figcaption>
+</figure>
+
+<p><b>The ladder.</b> An exact-plus-recipe method passed at 8 neurons and 4 steps on all seeds (MSE ratio ≤ 0.27) <span class="id">E46</span> <span class="st st-unv">unverified</span>, then failed on one seed at 5 steps <span class="id">T192</span> <span class="st st-unv">unverified</span>. Where it worked at (8, 5) it cost 2.2×10<sup>11</sup> operations, 70% of full enumeration <span class="id">E48</span>. Accuracy along T was fine; cost was the problem.</p>
+<p><b>Why the advantage shrinks.</b> A minimal-pair study is looking at exactly where the calculation starts losing (H = 16, T = 4 versus 5). Its first diagnostic suggests a simple law: the calculation's gain over sampling is about (1 − p) / (error rate × CV² × c), where CV is how much the calculation's per-piece contributions vary and c is its cost per piece. CV and c change little with T, so the gain falls roughly like <b>1 / error rate</b>, and longer sequences make more mistakes.</p>
+
+<figure id="fig-law">
+  <svg id="law-chart" viewBox="0 0 560 300" role="img" aria-label="Gain over sampling against error rate"></svg>
+  <figcaption><b>Figure 5. The gain tracks 1 / error rate</b> (draft diagnostic D5 of the minimal-pair lane, 30 models: T = 3–10, 5 seeds each; i.i.d. face sampling). The dashed guide has slope −1. <span class="id">T10</span> <span class="st st-prog">in progress</span> <span class="st st-unv">unverified</span></figcaption>
+</figure>
+<div data-lane="T10"></div>
+
+<h2 id="regions">6. Counting the pieces</h2>
+<p>If every region could be listed, the accuracy would be exact. The trouble is how many there are. Each step can split every existing region again, so the count multiplies:</p>
+
+<figure class="wide">
+  <svg id="reg-chart" viewBox="0 0 760 340" role="img" aria-label="Number of linear regions by step, log scale"></svg>
+  <figcaption><b>Figure 6. Linear regions of M<sub>16,10</sub> after k steps</b>, log scale. Exact counts: 34, 792, 21,032 for k = 2–4 <span class="id">H-E13</span> <span class="st st-conf">confirmed, k ≤ 4</span>; 632,394 at k = 5; at least 19,740,596 at k = 6 <span class="id">T270</span> <span class="st st-unv">unverified, lower bound</span>. Growth per step: ×23, ×27, ×30, ×31 and rising. The shaded band to k = 10 is an extrapolation (about 2×10<sup>13</sup> to 10<sup>14</sup>), not a measurement. The lower line is the probability-weighted number of gate patterns from a 10<sup>9</sup>-input GPU census, which grows only ×5.1 to ×3.6 per step <span class="id">T348</span> <span class="st st-unv">unverified</span>: most regions carry almost no probability, but too many still matter.</figcaption>
+</figure>
+
+<h3>What brute force would cost</h3>
+<p>Each region needs a linear programme to find it, a split into right and wrong parts, and an exact Gaussian volume in 10 dimensions. At 6 steps this cost about 6.5 ms per region per core (0.2 s with corrected geometry); assume 10–100 times more in 10 dimensions <span class="id">OWNER_QA 6.3</span>.</p>
+<figure id="fig-dc">
+  <div class="controls">
+    <label for="dc-n">Regions</label><input type="range" id="dc-n" min="13" max="14" step="0.05" value="13.3">
+    <label for="dc-c">Seconds per region</label><input type="range" id="dc-c" min="-1.2" max="1.3" step="0.05" value="-0.8">
+    <label for="dc-cores">Cores</label><select id="dc-cores"><option value="1e7" selected>10 million (host CPUs of a 1 GW GPU site)</option><option value="1e8">100 million (CPU-heavy site)</option></select>
+  </div>
+  <div class="readout" id="dc-out" style="font-size:.9rem"></div>
+  <figcaption><b>Figure 7. A data-centre calculator</b> using the estimates of <span class="id">OWNER_QA 6.3–6.4</span>. Central cases take hours to about three months; the worst corner takes years. Either way, sampling reaches 0.1 points with about 74,000 forward passes, so exact enumeration costs 10<sup>12</sup>–10<sup>16</sup> times more. Strictly, an exact answer has zero error, so it meets the letter of ARC's bar at its own huge budget. It misses the point, which is a cheap estimate that comes from understanding.</figcaption>
+</figure>
+
+<h2 id="ties">7. Where the mistakes live</h2>
+<p>Why are there so many pieces, and why does training not reduce them? Look at where the network goes wrong. Its mistakes come from two situations <span class="id">T241, T218</span>:</p>
+<p><b>Near-ties between the 2nd and 3rd largest.</b> The correct answer jumps when x<sub>(2)</sub> and x<sub>(3)</sub> swap, but the network's output scores are continuous functions of the input. So the network's own switching surface never sits exactly on the tie plane, and a thin wedge of wrong answers along the tie is unavoidable <span class="claim">our explanation</span>. Training sharpens that switch by cutting the space near the ties into many tiny pieces: near ties the trained network has 26–27 times more regions per unit of probability than far from them at T = 4, and is more finely cut there than random networks of the same size <span class="id">H-E15</span> <span class="st st-conf">confirmed, k ≤ 4, T ≤ 4</span>. At 4 steps about 93% of all regions sit near a tie, and the pieces carrying the error multiply 2.4–3× faster per step than those carrying correct answers.</p>
+<p><b>"Blind" inputs.</b> When almost all ten inputs are negative, the neurons that track large values have little to see. (Not every neuron is off: neurons with negative input weights do switch on.) These inputs are rare (all ten negative has probability 1/1,024) but they carry a large share of the calculation's difficulty, about 60% of the variance in the tie-slicing integrand on the target <span class="id">T218</span> <span class="st st-unv">unverified</span>, and about 0.7 points of error that more training does not remove <span class="id">T234</span>.</p>
+<p>Use Figure 3 with M<sub>16,10</sub> and zoom in on the diagonal: the patches crowd around the dashed tie lines. Figure 1's "Near-tie" and "Mostly negative" buttons show both failure situations on single inputs.</p>
+<p class="note"><b>Consequence for any exact method.</b> The set of wrong inputs has a boundary made of roughly 10<sup>12</sup> distinct flat pieces at 10 steps, and the only exact symmetry, scaling, is already used. Listing only the boundary pieces saves about 1.1× once, not a factor per step <span class="claim">inferred</span> (an external review of exact methods, section 1b, based on H-E15).</p>
+
+<h2 id="noise">8. Noise and seeds</h2>
+<p>ARC asks for an estimate over a distribution of networks, and gives two ways to make one: add Gaussian noise to the weights, or retrain with different seeds.</p>
+<figure class="wide" id="fig-noise">
+  <div class="controls">
+    <label for="nz-s">Weight noise σ (× RMS of each matrix)</label>
+    <select id="nz-s"><option value="0">0</option><option value="0.0005">0.0005</option><option value="0.001">0.001</option><option value="0.0025" selected>0.0025</option><option value="0.005">0.005</option><option value="0.01">0.01</option><option value="0.05">0.05</option></select>
+    <button id="nz-run">Draw 6 noisy copies</button>
+    <span class="readout" id="nz-out"></span>
+  </div>
+  <div class="twocol">
+    <svg id="nz-chart" viewBox="0 0 440 280" role="img" aria-label="Accuracy of noisy copies"></svg>
+    <svg id="nz-f" viewBox="0 0 440 280" role="img" aria-label="Our estimator's F against weight noise"></svg>
+  </div>
+  <figcaption><b>Figure 8. Weight noise.</b> Left: press the button to add noise to M<sub>16,10</sub>'s weights the way ARC's evaluation code does (σ times the RMS of each matrix) and measure each copy's accuracy on 20,000 random inputs in your browser. The model is very sensitive. Right: our best estimator's F against noise <span class="id">T337</span> <span class="st st-unv">unverified</span>. It breaks down between 0.1% and 0.25% relative noise, because noise creates mistakes far from the ties, where the method assumes the network is right.</figcaption>
+</figure>
+
+<figure class="wide" id="fig-seeds">
+  <div class="twocol">
+    <svg id="seed-hist" viewBox="0 0 440 280" role="img" aria-label="Accuracy spread of 100 retrains"></svg>
+    <svg id="seed-data" viewBox="0 0 440 280" role="img" aria-label="Accuracy by training data"></svg>
+  </div>
+  <figcaption><b>Figure 9. Seeds.</b> Left: accuracies of the 100 retrains in the open DEV3 panel (same recipe, different seeds; 10<sup>8</sup> samples each), from 85.1% to 97.1%, mean 92.5% <span class="id">T342</span>; the target sits at 95.3%. Right: the training ceiling, 100 retrains per setting <span class="id">T234</span> <span class="st st-unv">unverified</span>: the typical retrain keeps improving with more training data, while the best ones saturate near 98%. M<sub>16,10</sub> is a typical network, not an unusually good one. The spread matters: an estimator tuned on one network can be badly off on another, which is why we judge methods on sealed panels of 100 fresh retrains (HP2–HP5).</figcaption>
+</figure>
+
+<h2 id="simpler">9. Simpler networks: quantised and feed-forward</h2>
+<h3>Quantisation</h3>
+<p>Would rounding the network help? It depends on what is rounded <span class="id">OWNER_QA 6.5</span> <span class="claim">speculative, untested</span>:</p>
+<div class="tbl"><table>
+  <thead><tr><th>What is quantised</th><th>What changes</th><th>Our expectation</th></tr></thead>
+  <tbody>
+    <tr><td>Weights only: int8, FP8, int4, FP4, binary</td><td>The network is still piecewise linear on real-valued inputs; the 23–33× region growth per step comes from composing 10 steps and stays.</td><td>Little help. Exact geometry becomes cheaper and robust. Rounding costs accuracy (0.25% noise already costs points), so int4/FP4/binary need retraining.</td></tr>
+    <tr><td>Activations: binary (on/off)</td><td>The hidden state takes at most 2<sup>16</sup> = 65,536 values: the network becomes a finite-state machine, and histories that reach the same state merge automatically.</td><td>Likely solvable exactly by a forward dynamic programme over (state, input interval) at roughly the cost of sampling to 0.1 points.</td></tr>
+    <tr><td>Activations: int4 / int8</td><td>16 or 256 levels per neuron.</td><td>int4 depends on how many states are actually reachable; int8 probably has too many.</td></tr>
+    <tr><td>Inputs discretised too (int4, int8)</td><td>The whole problem becomes finite.</td><td>Simpler still.</td></tr>
+  </tbody>
+</table></div>
+<p>Would ARC accept it? By the letter, yes: an exact answer has zero error. By the spirit it is debatable, because it sidesteps the hard part, real-valued states composing over many steps, which is what real models do.</p>
+<div data-lane="T352"></div>
+
+<h3>A network that sees all ten numbers at once</h3>
+<p>A 10-step RNN is a 10-layer ReLU network that reuses its weights, and every obstacle above grows per step: regions (×24–33), rigorous error bounds (uncertainty amplified about 50× per step, so proofs work only on tiny boxes <span class="id">T330, T344</span>), and Gaussian approximations of the state, which break by steps 7–9. A shallow feed-forward network that sees all ten inputs has no compounding: its regions are cut directly by hyperplanes in input space <span class="id">OWNER_QA 6.1</span> <span class="claim">inference, untested</span>. There is even a hand-built exact solution in ARC's code: one hidden unit ReLU(x<sub>i</sub> − x<sub>j</sub>) for every ordered pair, 90 units for ten inputs (alg-zoo <code>mlp</code> branch). The catch: a shallow network is also cheaper to sample, so the bar moves too, and ARC probably chose the deep recurrent form on purpose, as a miniature of depth in real models.</p>
+<div data-lane="T345"></div>
+
+<h2 id="other">10. Other simplifications we tried</h2>
+<div class="tbl wide" style="max-width:64rem"><table>
+  <thead><tr><th>Idea</th><th>What happened</th><th>Record</th></tr></thead>
+  <tbody>
+    <tr><td>Random weights instead of trained</td><td>Same number of regions (k ≤ 4); training changes what the regions compute, not how many there are.</td><td><span class="id">T232, H-E14</span> <span class="st st-conf">confirmed, k ≤ 4</span></td></tr>
+    <tr><td>Replace each neuron by a short formula</td><td>Labels limited to 5 constants per neuron rebuild 54%; the full per-neuron account agrees on 95.5–96.6% of inputs.</td><td><span class="id">H-A1, T241</span> <span class="st st-conf">core confirmed</span></td></tr>
+    <tr><td>Treat the hidden state as Gaussian (ARC's cumulant propagation, their code)</td><td>41–100 points off at every size tried.</td><td><span class="id">E35</span> <span class="st st-neg">negative (unverified)</span></td></tr>
+    <tr><td>Symbolic dynamics over "new record" events</td><td>No forgetting: every low input keeps a ~0.4% effect regardless of age; gates are not a finite automaton.</td><td><span class="id">E27</span> <span class="st st-neg">negative</span></td></tr>
+    <tr><td>Cover most of the probability, bound the rest</td><td>Regions needed still grow ≥7.6× per step (at 10<sup>−3</sup> uncovered) to 14× (at 10<sup>−7</sup>).</td><td><span class="id">H-E13, T270</span> <span class="st st-dead">dead (scoped)</span></td></tr>
+    <tr><td>Rigorous certified bounds</td><td>Interval certificates hold only on boxes ≤ 10<sup>−4</sup> wide; the only rigorous rare-event bound is 8,200–27,500× too loose.</td><td><span class="id">T344</span> <span class="st st-neg">negative (unverified)</span></td></tr>
+    <tr><td>Smarter sampling along exact lines</td><td>Unbiased, but only 1.2–4.7× better than plain sampling (and it is still sampling).</td><td><span class="id">T362</span> <span class="st st-neg">no go</span></td></tr>
+    <tr><td>A "harmonic" reading of the clock neurons</td><td>Weakened by our own checks; the clock angle per step holds (41.47–41.71° measured vs 42.75° from the weights).</td><td><span class="id">H-M1, E29</span> <span class="st st-unv">supported, qualified</span></td></tr>
+  </tbody>
+</table></div>
+<div data-lane="T3"></div>
+<div data-lane="T291"></div>
+
+<h2 id="target">11. The real target: walking along the ties</h2>
+<p>Regions are too many to list, but along a <em>line</em> through input space the network is easy to follow exactly. Move one input steadily and the gate pattern changes only at isolated points where some neuron's input crosses zero. Between those points everything is linear, so the next switch can be found by solving a linear equation, with no sampling at all. This is an <b>exact 1-D gate walk</b>.</p>
+
+<figure class="wide" id="fig-walk">
+  <div class="controls">
+    <button id="wk-new">New line</button>
+    <button id="wk-play">Play</button>
+    <label for="wk-s">Position along the line</label><input type="range" id="wk-s" min="0" max="1000" step="1" value="0">
+    <span class="readout" id="wk-read"></span>
+  </div>
+  <div class="twocol">
+    <svg id="wk-chart" viewBox="0 0 560 300" role="img" aria-label="Output scores along a line through input space"></svg>
+    <div><canvas id="wk-gates" width="420" height="300" aria-label="Gate pattern at the current point"></canvas></div>
+  </div>
+  <figcaption><b>Figure 10. An exact gate walk on the real M<sub>16,10</sub>.</b> Starting from a random input, the 3rd-largest number is raised until it passes the 2nd and then the 1st. Left: the network's ten output scores along the line, each exactly piecewise linear; the strip underneath is green where the network is right and red where it is wrong; tick marks are gate switches, found exactly. Right: the gate pattern (16 neurons × 10 steps) at the slider; cells that just switched are outlined. The red stretch near the tie is the error the walk measures exactly.</figcaption>
+</figure>
+
+<h3>The T317 family: our best calculation</h3>
+<p>The estimator that reached F = 2.63 works like this <span class="id">T317f</span>. For each of the 720 ways to place the top three numbers among ten positions, it walks exactly along the two directions in which the top numbers come close to tying (the gap g<sub>12</sub> between 1st and 2nd, and g<sub>23</sub> between 2nd and 3rd), and adds up the probability of the wrong stretches. To keep the cost near 3,300 runs, it makes seven declared simplifications, for example "cases with a large gap are assumed correct", "the two gap directions are treated as independent" and "the seven smaller inputs are summarised by one value" (the <b>closure</b>). It never draws random inputs when it runs.</p>
+
+<div class="tbl"><table>
+  <thead><tr><th>Version</th><th>Panel</th><th class="n">Cost (FPE)</th><th class="n">F [95% CI]</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td>R1W V1 <span class="id">T304</span></td><td>HP2</td><td class="n">12.1k</td><td class="n">14.92 [10.74, 19.38]</td><td>fails lenient</td></tr>
+    <tr><td>T317 <span class="id">T317</span></td><td>HP2</td><td class="n">7,880</td><td class="n">9.71 [6.99, 12.61]</td><td>point pass</td></tr>
+    <tr><td>T317c</td><td>HP3 (fresh)</td><td class="n">5,427</td><td class="n">5.08 [3.42, 7.04]</td><td>lenient pass</td></tr>
+    <tr><td><b>T317f</b> <span class="id">T335</span></td><td><b>HP4 (fresh)</b></td><td class="n"><b>3,302</b></td><td class="n"><b>2.63 [1.93, 3.39]</b></td><td>lenient pass, strict fail</td></tr>
+    <tr><td>T317f <span class="id">T353</span></td><td>DEV3 (open)</td><td class="n">3,307</td><td class="n">2.50</td><td>same picture</td></tr>
+  </tbody>
+</table></div>
+<p>Two honest limits. It works only on retrains, not on noisy copies (Figure 8). And while it draws no random inputs at runtime, its simplifications were chosen by checking them against sampling on 80 development networks, so a second agent's audit says it is <b>not deductive in the strict sense</b> <span class="id">T324</span>.</p>
+
+<figure id="fig-budget">
+  <svg id="bud-chart" viewBox="0 0 560 230" role="img" aria-label="Share of squared error by approximation"></svg>
+  <figcaption><b>Figure 11. Where the error comes from.</b> Removing one simplification at a time on 80 development networks <span class="id">T324</span>; the two biggest terms were re-measured by another agent with its own code <span class="id">T334</span> <span class="st st-conf">confirmed</span>. The walks' simplifications carry 66% of the squared error and the closure 34%.</figcaption>
+</figure>
+<p><b>Why the strict bar closed.</b> About 27 repairs were tried: cheaper settings, proofs that a walk can stop early, walking further, spreading out the smaller inputs, handling the two directions jointly (17 times the whole allowed budget), a correction formula for the independence assumption, and combinations. Each one either cost as much as it saved or swapped one error for another <span class="id">T326–T353</span>. The sharpest finding: the closure itself would be good enough if it were integrated perfectly (F 0.89 at our cost); what fails is the walks' integration accuracy, which would have to improve about 4.6 times at no extra cost <span class="id">H-S1, T356, T357</span> <span class="st st-dead">dead (verified), scoped</span>.</p>
+
+<h2 id="rare">12. Rare mistakes</h2>
+<p>ARC's long-term goal is not accuracy but the chance of rare bad behaviour. Here sampling is at its weakest: to see a one-in-a-billion event you need billions of tries, while a calculation's cost does not depend on how rare the event is.</p>
+<p>We studied one rare event in detail: <b>E1</b>, the network picks the 3rd-largest number even though the 2nd and 3rd are far apart (gap g<sub>23</sub> above a threshold t<sub>0</sub>). The accurate estimator walks the same exact lines but integrates the other gap at exact-law nodes. On 6 fresh networks a different agent with its own code found it within 2× of the truth in 18 of 18 cases, for chances of 2×10<sup>−7</sup> to 2×10<sup>−4</sup> <span class="id">H-R1, T360</span> <span class="st st-conf">confirmed, scoped</span>. Deeper in the tail it needed a finer rule for three-way near-ties; on ordinary networks that rule is within about 1.4× from 1.8×10<sup>−10</sup> to 7×10<sup>−7</sup> <span class="id">T366, T368</span>.</p>
+
+<figure class="wide" id="fig-rare">
+  <div class="controls">
+    <label for="rr-p">True chance p</label><input type="range" id="rr-p" min="-10" max="-4" step="0.1" value="-9">
+    <label for="rr-c">Budget (FPE)</label><input type="range" id="rr-c" min="4" max="7" step="0.1" value="6.1">
+    <button id="rr-run">Sample 40 times</button>
+  </div>
+  <div class="readout" id="rr-out" style="margin-bottom:.5rem"></div>
+  <svg id="rr-chart" viewBox="0 0 760 260" role="img" aria-label="Sampling estimates of a rare event versus the truth"></svg>
+  <figcaption><b>Figure 12. Why sampling cannot see rare mistakes.</b> Each grey dot is one plain-sampling estimate at this budget, simulated from the exact counting statistics (a Poisson draw with mean p × C; zero counts sit on the bottom line). The green band is "within 1.4×", where our estimator landed on 10 of 10 ordinary deep-tail cases at a cost of 1.0–2.1 million FPE <span class="id">T366, T368</span>. At p = 10<sup>−9</sup> and 1.3 million runs, sampling expects 0.0013 events and almost always answers zero.</figcaption>
+</figure>
+<p>The limits are just as important. On networks whose rarest mistakes are all three-way near-ties, the plain method missed by up to ~300,000×, and the fix narrowly failed its fair test (6 of 8 within 2×; 7 needed) <span class="id">T364, T367</span> <span class="st st-neg">negative (unverified)</span>. The remaining failure traces to the closure: pinning the seven smaller inputs at one value inflates the near-tie islands; letting them vary brings the estimate to 1.04× of the truth in a check <span class="id">T369</span>. For common events the estimator is not cheaper than sampling: it costs 1–1.5 million FPE and mostly loses at equal compute (21 wins, 22 ties, 67 losses) <span class="id">T360</span>.</p>
+<div data-lane="T370"></div><div data-lane="T371"></div><div data-lane="T372"></div><div data-lane="T373"></div>
+
+<h2 id="solved">13. What would count as solving it</h2>
+<p>A solution would be a calculation that reads the weights, uses no random or pseudorandom inputs, and reaches <b>F ≤ 1</b> on a fresh sealed panel of retrains it was not designed on (our last one, HP5, is held in reserve) and on ARC-style noisy copies, with its approximations fixed in advance rather than chosen by checking against sampling. For rare events, it would be an estimator that is within 2× of the truth and cheaper than sampling, including on three-way near-tie networks.</p>
+<p>What we know about the shape of such a solution: it must handle the thin near-tie regions, cut into very many pieces, at 10 steps, without listing them. That is where every approach here broke. Our judgment <span class="claim">judgment</span> is that it needs a new representation of the hidden state rather than better tuning of exact walks, which is what the open lanes below test.</p>
+
+<h2 id="lanes">14. Work in progress</h2>
+<p>These lanes are running now. Each box is driven by <code>tutorial/data/status.json</code> and will change as results arrive.</p>
+<div id="lanes-all"></div>
+
+<h2 id="glossary">Glossary</h2>
+<dl class="gloss">
+  <dt>Gate</dt><dd>Whether one neuron is on (ReLU input positive) at one step. M<sub>16,10</sub> has 16 × 10 = 160 gates.</dd>
+  <dt>Gate pattern</dt><dd>The on/off state of all gates for one input. Fixing it makes the network a linear function.</dd>
+  <dt>Region</dt><dd>The set of inputs sharing one gate pattern; a cone through the origin, because the network has no biases.</dd>
+  <dt>Tie</dt><dd>Two inputs being (nearly) equal. The correct answer changes across the tie of the 2nd and 3rd largest; the network's mistakes concentrate there.</dd>
+  <dt>Gap</dt><dd>g<sub>12</sub> = 1st minus 2nd largest; g<sub>23</sub> = 2nd minus 3rd largest.</dd>
+  <dt>Closure</dt><dd>Our simplified treatment of the seven smaller inputs, summarised by one value.</dd>
+  <dt>FPE</dt><dd>Forward-pass equivalent: the compute of one network run on one input. The unit of cost.</dd>
+  <dt>F</dt><dd>MSE × compute / mean p(1−p): how many times worse than sampling at equal compute. Sampling scores 1; the strict bar is F ≤ 1, the lenient bar F ≤ 10.</dd>
+  <dt>Deductive vs sampling</dt><dd>A deductive (mechanistic) estimator computes from the weights with no random or pseudorandom inputs. A sampling estimator runs the network on random inputs. Fixed quadrature grids sit in between and ARC does not count them as mechanistic.</dd>
+  <dt>Panel</dt><dd>A set of retrained networks used for scoring. Sealed panels (HP1–HP5) have truths held only by an independent scorer; DEV2 and DEV3 are open.</dd>
+</dl>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+  <li>J. Hilton (ARC), "AlgZoo: uninterpreted models with fewer than 1,500 parameters", 2026-01-26. <a href="https://www.alignment.org/blog/algzoo-uninterpreted-models-with-fewer-than-1-500-parameters/">alignment.org</a>; code: <a href="https://github.com/alignment-research-center/alg-zoo">github.com/alignment-research-center/alg-zoo</a>.</li>
+  <li>E. Neyman, V. Lecomte, W. Wu, M. Winer, J. Hilton, G. Robinson, "Competing with sampling", ARC, 2025-11-18. <a href="https://www.alignment.org/blog/competing-with-sampling/">alignment.org</a>.</li>
+  <li>P. Christiano, E. Neyman, M. Xu, "A computational no-coincidence principle", ARC, 2025.</li>
+  <li>N. Cammarata (Goodfire), "Neural Networks Are Already Clean" (the essay our first question tested).</li>
+  <li>L. G. Valiant, "The complexity of computing the permanent", Theoretical Computer Science 8, 1979.</li>
+  <li>M. Dyer, A. Frieze, "On the complexity of computing the volume of a polyhedron", SIAM J. Computing 17, 1988.</li>
+  <li>R. Impagliazzo, V. Kabanets, A. Wigderson, "In search of an easy witness: exponential time vs. probabilistic polynomial time", JCSS 65, 2002.</li>
+  <li>V. Kabanets, R. Impagliazzo, "Derandomizing polynomial identity tests means proving circuit lower bounds", Computational Complexity 13, 2004.</li>
+  <li>R. Williams, "Improving exhaustive search implies superpolynomial lower bounds", STOC 2010; "Nonuniform ACC circuit lower bounds", JACM 61, 2014.</li>
+  <li>G. Elekes, "A geometric inequality and the complexity of computing volume", Discrete &amp; Computational Geometry 1, 1986; I. Bárány, Z. Füredi, "Computing the volume is difficult", Discrete &amp; Computational Geometry 2, 1987.</li>
+  <li>The clean-neurons project repository: <code>INDEX.md</code> (registry and ledger), <code>STATUS.md</code>, <code>OWNER_QA.md</code>, <code>m16/SCALING_OBSTRUCTIONS.md</code>, <code>lit/web_arc/README.md</code>, <code>lit/web_log.md</code>.</li>
+</ol>
+
+<h2 id="data">Where the numbers come from</h2>
+<p>Every figure's numbers are in the page's embedded data, with sources:</p>
+<ul>
+  <li><b>Weights</b> (Figures 1, 3, 4, 8, 10): ARC's public AlgZoo files (<code>gs://arc-ml-public/alg</code>), exported by <code>tutorial/tools/export_data.py</code>; the accuracies in Figure 4 are that script's 1-million-input check, not answer keys. All network runs on this page happen in your browser.</li>
+  <li><b>DEV3 truths and the training ceiling</b> (Figure 9): <code>m16/approaches/gpu_cost_law/dev3/truths.json</code> and <code>capacity_ceiling/results/grid3_summary.json</code> on branch <code>claude/t192-gpu-cost-law</code> (T342, T234).</li>
+  <li><b>Gain against error rate</b> (Figure 5): <code>m16/approaches/minimal_pair/d5_law.log</code> on branch <code>claude/t10-minimal-pair</code> (T10, draft).</li>
+  <li><b>All other numbers</b>: the INDEX rows cited next to them, as of 2026-10-19 00:20 UTC.</li>
+</ul>
+<footer>The clean-neurons project · built for readers with a machine-learning background and no background in this area · <span id="status-stamp"></span></footer>
+</article>
+
+<script type="application/json" id="d-weights">__WEIGHTS__</script>
+<script type="application/json" id="d-panels">__PANELS__</script>
+<script type="application/json" id="d-status">__STATUS__</script>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const J = (id) => JSON.parse($(id).textContent);
+const WEIGHTS = J("d-weights").models, PANELS = J("d-panels"), STATUS = J("d-status");
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const TRUTH = 0.9531175;
+
+/* ---------- network ---------- */
+function model(name) {
+  const m = WEIGHTS[name], H = m.H, T = m.T;
+  return { name, H, T, Wi: Float64Array.from(m.Wi), Wh: Float64Array.from(m.Wh.flat()), Wo: Float64Array.from(m.Wo.flat()), acc: m.quick_acc };
+}
+const MODELS = {}; for (const k in WEIGHTS) MODELS[k] = model(k);
+const TARGET = MODELS["M_16,10"];
+function forward(m, x, keep) { // returns {logits, hs (T*H) if keep}
+  const H = m.H, T = m.T, Wh = m.Wh, Wi = m.Wi;
+  let h = new Float64Array(H), hn = new Float64Array(H); const hs = keep ? new Float64Array(T * H) : null;
+  for (let t = 0; t < T; t++) {
+    for (let j = 0; j < H; j++) { let z = Wi[j] * x[t]; const o = j * H; for (let k = 0; k < H; k++) z += Wh[o + k] * h[k]; hn[j] = z > 0 ? z : 0; }
+    const tmp = h; h = hn; hn = tmp; if (keep) hs.set(h, t * H);
+  }
+  const lg = new Float64Array(T); for (let i = 0; i < T; i++) { let s = 0; for (let k = 0; k < H; k++) s += m.Wo[i * H + k] * h[k]; lg[i] = s; }
+  return { logits: lg, hs };
+}
+const argmax = (a) => { let b = 0; for (let i = 1; i < a.length; i++) if (a[i] > a[b]) b = i; return b; };
+function ranks(x) { return Array.from(x.keys()).sort((a, b) => x[b] - x[a]); }
+const second = (x) => ranks(x)[1];
+let seed = 20261019;
+function rnd() { seed = (seed + 0x6D2B79F5) | 0; let t = seed; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+function gauss() { let u = 0; while (u === 0) u = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * rnd()); }
+function accuracy(m, n) { // fast batch
+  const H = m.H, T = m.T, Wh = m.Wh, Wi = m.Wi, Wo = m.Wo; let ok = 0; const x = new Float64Array(T); let h = new Float64Array(H), hn = new Float64Array(H);
+  for (let s = 0; s < n; s++) {
+    for (let t = 0; t < T; t++) x[t] = gauss(); h.fill(0);
+    for (let t = 0; t < T; t++) { for (let j = 0; j < H; j++) { let z = Wi[j] * x[t]; const o = j * H; for (let k = 0; k < H; k++) z += Wh[o + k] * h[k]; hn[j] = z > 0 ? z : 0; } const tmp = h; h = hn; hn = tmp; }
+    let best = -Infinity, bi = 0; for (let i = 0; i < T; i++) { let v = 0; for (let k = 0; k < H; k++) v += Wo[i * H + k] * h[k]; if (v > best) { best = v; bi = i; } }
+    let b1 = -Infinity, b2 = -Infinity, i1 = -1, i2 = -1; for (let t = 0; t < T; t++) { if (x[t] > b1) { b2 = b1; i2 = i1; b1 = x[t]; i1 = t; } else if (x[t] > b2) { b2 = x[t]; i2 = t; } }
+    if (bi === i2) ok++;
+  }
+  return ok / n;
+}
+
+/* ---------- tiny SVG chart kit ---------- */
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+function sup(n) { const m = { "-": "⁻", 0: "⁰", 1: "¹", 2: "²", 3: "³", 4: "⁴", 5: "⁵", 6: "⁶", 7: "⁷", 8: "⁸", 9: "⁹" }; return String(n).split("").map((c) => m[c]).join(""); }
+function axes(svg, o) {
+  svg.innerHTML = ""; const vb = svg.viewBox.baseVal, W = vb.width, Hh = vb.height;
+  const m = Object.assign({ l: 52, r: 14, t: 16, b: 40 }, o.m || {});
+  const tx = (v) => (o.xlog ? Math.log10(v) : v), ty = (v) => (o.ylog ? Math.log10(v) : v);
+  const [x0, x1] = o.x.map(tx), [y0, y1] = o.y.map(ty);
+  const X = (v) => m.l + ((tx(v) - x0) / (x1 - x0)) * (W - m.l - m.r), Y = (v) => Hh - m.b - ((ty(v) - y0) / (y1 - y0)) * (Hh - m.t - m.b);
+  const g = el("g", {}, svg);
+  const xt = o.xticks || (o.xlog ? range(Math.ceil(x0), Math.floor(x1)).map((e) => 10 ** e) : []);
+  const yt = o.yticks || (o.ylog ? range(Math.ceil(y0), Math.floor(y1)).map((e) => 10 ** e) : []);
+  for (const v of yt) { el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), class: "grid" }, g); el("text", { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end" }, g, (o.yfmt || fmtTick)(v, o.ylog)); }
+  for (const v of xt) { el("line", { y1: m.t, y2: Hh - m.b, x1: X(v), x2: X(v), class: "grid" }, g); el("text", { x: X(v), y: Hh - m.b + 15, "text-anchor": "middle" }, g, (o.xfmt || fmtTick)(v, o.xlog)); }
+  el("line", { x1: m.l, x2: W - m.r, y1: Hh - m.b, y2: Hh - m.b, class: "ax" }, g); el("line", { x1: m.l, x2: m.l, y1: m.t, y2: Hh - m.b, class: "ax" }, g);
+  if (o.xlabel) el("text", { x: (m.l + W - m.r) / 2, y: Hh - 6, "text-anchor": "middle" }, g, o.xlabel);
+  if (o.ylabel) el("text", { x: 12, y: (m.t + Hh - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + Hh - m.b) / 2})` }, g, o.ylabel);
+  return { X, Y, g: el("g", {}, svg), W, H: Hh, m };
+}
+function range(a, b) { const r = []; for (let i = a; i <= b; i++) r.push(i); return r; }
+function fmtTick(v, log) { if (log) { const e = Math.round(Math.log10(v)); return e >= -2 && e <= 4 ? (v >= 1 ? v.toLocaleString("en") : String(v)) : "10" + sup(e); } return String(v); }
+function path(pts, X, Y) { return pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(""); }
+
+/* ---------- Figure 1: live network ---------- */
+const live = { x: new Float64Array(10) };
+function liveRandom(kind) {
+  for (let t = 0; t < 10; t++) live.x[t] = gauss();
+  if (kind === "tie") { const r = ranks(live.x); live.x[r[2]] = live.x[r[1]] - 0.02 * Math.abs(gauss()); }
+  if (kind === "neg") { for (let t = 0; t < 10; t++) live.x[t] = -Math.abs(live.x[t]) * 0.9; const k = Math.floor(rnd() * 10); live.x[k] = Math.abs(gauss()) * 0.3; }
+  liveDraw();
+}
+function liveDraw() {
+  const box = $("live-inputs"), lab = $("live-ilabels"); const r2 = second(live.x);
+  if (!box.children.length) {
+    for (let t = 0; t < 10; t++) {
+      const d = document.createElement("div"); d.innerHTML = '<div class="zero"></div><span></span>'; d.dataset.t = t; box.appendChild(d);
+      const l = document.createElement("div"); lab.appendChild(l);
+      const set = (ev) => { const rc = d.getBoundingClientRect(); const v = (0.5 - (ev.clientY - rc.top) / rc.height) * 6; live.x[t] = Math.max(-3, Math.min(3, v)); liveDraw(); };
+      d.addEventListener("pointerdown", (ev) => { d.setPointerCapture(ev.pointerId); set(ev); d.onpointermove = set; });
+      d.addEventListener("pointerup", () => { d.onpointermove = null; });
+    }
+  }
+  for (let t = 0; t < 10; t++) {
+    const v = live.x[t], s = box.children[t].querySelector("span"); const h = Math.abs(v) / 6 * 100;
+    s.style.height = h + "%"; s.style.top = v >= 0 ? (50 - h) + "%" : "50%"; box.children[t].className = t === r2 ? "r2" : "";
+    lab.children[t].textContent = v.toFixed(2);
+  }
+  const f = forward(TARGET, live.x, true), ans = argmax(f.logits);
+  const c = $("live-heat"), ctx = c.getContext("2d"), W = c.width, H = c.height; ctx.clearRect(0, 0, W, H);
+  const cw = 34, ch = (H - 24) / 16, ox = 30; let mx = 0; for (const v of f.hs) mx = Math.max(mx, v);
+  ctx.font = "11px " + css("--mono"); ctx.fillStyle = css("--muted");
+  for (let t = 0; t < 10; t++) { ctx.fillText("t" + (t + 1), ox + t * cw + 9, H - 6); }
+  for (let j = 0; j < 16; j++) ctx.fillText("n" + j, 0, j * ch + ch * 0.75);
+  const acc = css("--accent");
+  for (let t = 0; t < 10; t++) for (let j = 0; j < 16; j++) {
+    const v = f.hs[t * 16 + j]; ctx.strokeStyle = css("--rule"); ctx.strokeRect(ox + t * cw + 0.5, j * ch + 0.5, cw - 3, ch - 2);
+    if (v > 0) { ctx.globalAlpha = 0.18 + 0.82 * Math.sqrt(v / mx); ctx.fillStyle = acc; ctx.fillRect(ox + t * cw + 1, j * ch + 1, cw - 4, ch - 3); ctx.globalAlpha = 1; }
+  }
+  // logits column
+  const lx = ox + 10 * cw + 24, lw = W - lx - 4; let lmin = Infinity, lmax = -Infinity; for (const v of f.logits) { lmin = Math.min(lmin, v); lmax = Math.max(lmax, v); }
+  ctx.fillStyle = css("--muted"); ctx.fillText("score", lx, H - 6);
+  for (let i = 0; i < 10; i++) {
+    const y = i * ((H - 24) / 10), w = Math.max(2, ((f.logits[i] - lmin) / (lmax - lmin + 1e-9)) * (lw - 30));
+    ctx.fillStyle = i === ans ? (ans === r2 ? css("--ok") : css("--wrong")) : css("--rule"); ctx.fillRect(lx + 22, y + 3, w, (H - 24) / 10 - 6);
+    ctx.fillStyle = css("--muted"); ctx.fillText("p" + (i + 1), lx, y + 14);
+  }
+  const ok = ans === r2; const v = $("live-verdict");
+  v.innerHTML = `Network answers position <b>${ans + 1}</b>; the 2nd largest is at position <b>${r2 + 1}</b>. <span class="verdict ${ok ? "good" : "bad"}">${ok ? "Right" : "Wrong"}</span>`;
+}
+$("live-rand").onclick = () => liveRandom(); $("live-tie").onclick = () => liveRandom("tie"); $("live-neg").onclick = () => liveRandom("neg");
+
+/* ---------- Figure 2: sampling ---------- */
+const HP4_PQ = 0.92265 * (1 - 0.92265) - 0.03184 ** 2; // mean p(1-p) on HP4 = mean p - mean p^2
+const smpErrs = [];
+function smpChart() {
+  const a = axes($("smp-chart"), { x: [1e2, 1e6], y: [0.05, 5], xlog: true, ylog: true, yticks: [0.1, 0.3, 1, 3], yfmt: (v) => v + " pp", xlabel: "compute C (forward-pass equivalents)", ylabel: "typical error (RMS, points)" });
+  const sm = (C) => 100 * Math.sqrt(HP4_PQ / C), len = (C) => 100 * Math.sqrt(10 * HP4_PQ / C);
+  const pts = []; for (let e = 2; e <= 6.01; e += 0.1) pts.push(10 ** e);
+  el("path", { d: path(pts.map((C) => [C, len(C)]), a.X, a.Y), fill: "none", stroke: css("--muted"), "stroke-dasharray": "5 4", "stroke-width": 1.5 }, a.g);
+  el("path", { d: path(pts.map((C) => [C, sm(C)]), a.X, a.Y), fill: "none", stroke: css("--accent"), "stroke-width": 2 }, a.g);
+  el("text", { x: a.X(2.2e5), y: a.Y(sm(2.2e5)) + 16, "text-anchor": "middle", style: "fill:" + css("--accent") }, a.g, "sampling (F = 1)");
+  el("text", { x: a.X(2.2e5), y: a.Y(len(2.2e5)) - 8, "text-anchor": "middle" }, a.g, "lenient bar (F = 10)");
+  const pts2 = [["T304 HP2", 12100, 14.92], ["T317c HP3", 5427, 5.08], ["T317f HP4", 3302, 2.63]];
+  pts2.forEach(([n, C, F], i) => { const r = 100 * Math.sqrt(F * HP4_PQ / C); el("circle", { cx: a.X(C), cy: a.Y(r), r: 5, fill: css("--wrong") }, a.g); const ly = a.Y(4) + i * 15; el("line", { x1: a.X(C), x2: a.X(C), y1: a.Y(r) - 5, y2: ly + 3, stroke: css("--wrong"), "stroke-width": 0.6 }, a.g); el("text", { x: a.X(C) + 4, y: ly, style: "fill:" + css("--ink") }, a.g, `${n} · F ${F}`); });
+  const C = 10 ** +$("smp-n").value; el("line", { x1: a.X(C), x2: a.X(C), y1: a.Y(5), y2: a.Y(0.05), stroke: css("--ink"), "stroke-width": 1, "stroke-dasharray": "2 3" }, a.g);
+  el("circle", { cx: a.X(C), cy: a.Y(sm(C)), r: 4, fill: css("--figure"), stroke: css("--accent"), "stroke-width": 2 }, a.g);
+}
+function smpHist() {
+  const C = Math.round(10 ** +$("smp-n").value), sd = 100 * Math.sqrt(TRUTH * (1 - TRUTH) / C), lim = Math.max(4 * sd, ...smpErrs.map((e) => Math.abs(e.e) * 1.1));
+  const a = axes($("smp-hist"), { x: [-lim, lim], y: [0, 1], xticks: [-lim * 0.75, 0, lim * 0.75].map((v) => +v.toPrecision(2)), yticks: [], xfmt: (v) => (v > 0 ? "+" : "") + v + " pp", xlabel: "estimate − truth (points)", m: { l: 14 } });
+  const gp = []; for (let i = 0; i <= 80; i++) { const v = -lim + (2 * lim * i) / 80; gp.push([v, 0.9 * Math.exp(-0.5 * (v / sd) ** 2)]); }
+  el("path", { d: path(gp, a.X, a.Y) + "Z", fill: css("--accent-soft"), stroke: css("--accent") }, a.g);
+  el("text", { x: a.X(0), y: a.Y(0.95), "text-anchor": "middle" }, a.g, `sampling spread at C = ${C.toLocaleString("en")}: ±${sd.toFixed(2)} pp`);
+  const sameC = smpErrs.filter((e) => e.C === C);
+  sameC.forEach((e, i) => el("circle", { cx: a.X(e.e), cy: a.Y(0.06 + (i % 12) * 0.06), r: 4, fill: css("--ink"), opacity: 0.75 }, a.g));
+  // T317f at its own cost shown if close
+  const r317 = 100 * Math.sqrt(2.63 * HP4_PQ / 3302);
+  if (Math.abs(Math.log10(C / 3302)) < 0.13) { el("line", { x1: a.X(Math.min(r317, lim)), x2: a.X(Math.min(r317, lim)), y1: a.Y(0), y2: a.Y(0.8), stroke: css("--wrong"), "stroke-width": 2 }, a.g); el("text", { x: a.X(Math.min(r317, lim)) - 4, y: a.Y(0.82), "text-anchor": "end", style: "fill:" + css("--wrong") }, a.g, "T317f typical error"); }
+}
+function smpUpdate() { const C = Math.round(10 ** +$("smp-n").value); $("smp-n-out").innerHTML = `<b>${C.toLocaleString("en")}</b> runs`; smpChart(); smpHist(); }
+function smpRun(k) {
+  const C = Math.round(10 ** +$("smp-n").value); let last;
+  for (let i = 0; i < k; i++) { last = accuracy(TARGET, C); smpErrs.push({ C, e: 100 * (last - TRUTH) }); }
+  $("smp-out").innerHTML = `last estimate <b>${(100 * last).toFixed(3)}%</b> (truth 95.312%)`; smpHist();
+}
+$("smp-n").oninput = smpUpdate; $("smp-run").onclick = () => smpRun(1); $("smp-run10").onclick = () => { $("smp-out").textContent = "sampling…"; setTimeout(() => smpRun(20), 20); };
+
+/* ---------- Figure 3: slice explorer ---------- */
+const sl = { base: null, a: 0, b: 1, R: 2 };
+function slNew() {
+  const m = MODELS[$("sl-model").value], T = m.T; const x = new Float64Array(T);
+  if (T === 3) { x[0] = 0; x[1] = 0; x[2] = 1; sl.a = 0; sl.b = 1; }
+  else { for (let t = 0; t < T; t++) x[t] = gauss(); const r = ranks(x); sl.a = r[1]; sl.b = r[2]; const c = (x[sl.a] + x[sl.b]) / 2; x[sl.a] = c; x[sl.b] = c; }
+  sl.base = x; slDraw();
+}
+function slDraw() {
+  const m = MODELS[$("sl-model").value]; if (!sl.base || sl.base.length !== m.T) return slNew();
+  const c = $("sl-canvas"), ctx = c.getContext("2d"); const Wc = c.width, Hc = c.height; const mode = $("sl-mode").value;
+  const R = 2 * 10 ** -(+$("sl-zoom").value) * (m.T === 3 ? 1.6 : 1), H = m.H, T = m.T, Wh = m.Wh, Wi = m.Wi, Wo = m.Wo;
+  const step = 2, nx = Math.ceil(Wc / step), ny = Math.ceil(Hc / step), asp = Hc / Wc;
+  const hash = new Int32Array(nx * ny), wrong = new Uint8Array(nx * ny);
+  const x = Float64Array.from(sl.base); let h = new Float64Array(H), hn = new Float64Array(H);
+  const ctr = [sl.base[sl.a], sl.base[sl.b]];
+  for (let iy = 0; iy < ny; iy++) for (let ix = 0; ix < nx; ix++) {
+    const u = ctr[0] + ((ix + 0.5) / nx * 2 - 1) * R, v = ctr[1] + (1 - (iy + 0.5) / ny * 2) * R * asp;
+    x[sl.a] = u; x[sl.b] = v; h.fill(0); let hs = 0x811c9dc5 | 0;
+    for (let t = 0; t < T; t++) { for (let j = 0; j < H; j++) { let z = Wi[j] * x[t]; const o = j * H; for (let k = 0; k < H; k++) z += Wh[o + k] * h[k]; const on = z > 0; hn[j] = on ? z : 0; hs = Math.imul(hs ^ (on ? 1 : 2), 16777619); } const tmp = h; h = hn; hn = tmp; }
+    let best = -Infinity, bi = 0; for (let i = 0; i < T; i++) { let s = 0; for (let k = 0; k < H; k++) s += Wo[i * H + k] * h[k]; if (s > best) { best = s; bi = i; } }
+    let b1 = -Infinity, b2 = -Infinity, i1 = -1, i2 = -1; for (let t = 0; t < T; t++) { if (x[t] > b1) { b2 = b1; i2 = i1; b1 = x[t]; i1 = t; } else if (x[t] > b2) { b2 = x[t]; i2 = t; } }
+    hash[iy * nx + ix] = hs; wrong[iy * nx + ix] = bi !== i2 ? 1 : 0;
+  }
+  const L = +css("--region-l"), S = +css("--region-s"), img = ctx.createImageData(Wc, Hc), D = img.data;
+  const tmpc = document.createElement("canvas").getContext("2d");
+  const colorOf = new Map(); const rgb = (hstr) => { tmpc.fillStyle = hstr; tmpc.fillRect(0, 0, 1, 1); return tmpc.getImageData(0, 0, 1, 1).data; };
+  const wr = rgb(css("--wrong")), fig = rgb(css("--figure")), edge = rgb(css("--ink"));
+  let distinct = new Set(), nWrong = 0;
+  for (let iy = 0; iy < ny; iy++) for (let ix = 0; ix < nx; ix++) {
+    const k = iy * nx + ix, hv = hash[k]; distinct.add(hv); nWrong += wrong[k];
+    let col; if (mode === "err") col = wrong[k] ? wr : fig;
+    else { col = colorOf.get(hv); if (!col) { const hue = ((hv >>> 0) % 360); col = rgb(`hsl(${hue} ${S}% ${L + ((hv >>> 9) % 10) - 5}%)`); colorOf.set(hv, col); } if (mode === "both" && wrong[k]) col = [col[0] * 0.25 + wr[0] * 0.75, col[1] * 0.25 + wr[1] * 0.75, col[2] * 0.25 + wr[2] * 0.75]; }
+    const isEdge = mode !== "err" && ((ix + 1 < nx && hash[k + 1] !== hv) || (iy + 1 < ny && hash[k + nx] !== hv));
+    for (let dy = 0; dy < step; dy++) for (let dx = 0; dx < step; dx++) {
+      const px = ix * step + dx, py = iy * step + dy; if (px >= Wc || py >= Hc) continue; const p = (py * Wc + px) * 4;
+      const e = isEdge && (dx === step - 1 || dy === step - 1);
+      D[p] = e ? col[0] * 0.55 + edge[0] * 0.45 : col[0]; D[p + 1] = e ? col[1] * 0.55 + edge[1] * 0.45 : col[1]; D[p + 2] = e ? col[2] * 0.55 + edge[2] * 0.45 : col[2]; D[p + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  // tie lines
+  const toPx = (u, v) => [((u - ctr[0]) / R + 1) / 2 * Wc, (1 - (v - ctr[1]) / (R * asp)) / 2 * Hc];
+  ctx.save(); ctx.setLineDash([6, 5]); ctx.lineWidth = 1.3; ctx.strokeStyle = css("--ink"); ctx.globalAlpha = 0.7;
+  const line = (p, q) => { ctx.beginPath(); ctx.moveTo(...toPx(...p)); ctx.lineTo(...toPx(...q)); ctx.stroke(); };
+  const big = 1e3; line([-big, -big], [big, big]);
+  for (let t = 0; t < T; t++) if (t !== sl.a && t !== sl.b) { const v = sl.base[t]; line([v, -big], [v, big]); line([-big, v], [big, v]); }
+  ctx.restore();
+  ctx.font = "600 13px " + css("--display"); ctx.fillStyle = css("--ink");
+  ctx.fillText(`x${sl.a + 1} →`, Wc - 52, Hc - 10); ctx.save(); ctx.translate(16, 56); ctx.rotate(-Math.PI / 2); ctx.fillText(`x${sl.b + 1} →`, 0, 0); ctx.restore();
+  const others = Array.from(sl.base).map((v, t) => (t === sl.a || t === sl.b ? null : `x${t + 1}=${v.toFixed(2)}`)).filter(Boolean).join(", ");
+  $("sl-read").innerHTML = `<b>${distinct.size.toLocaleString("en")}</b> distinct gate patterns visible (a lower bound for this view) · wrong on <b>${(100 * nWrong / (nx * ny)).toFixed(1)}%</b> of the slice's area (area, not probability) · network accuracy ≈ <b>${(100 * m.acc).toFixed(1)}%</b> · fixed: ${others}`;
+}
+["sl-model", "sl-mode"].forEach((id) => ($(id).onchange = () => (id === "sl-model" ? slNew() : slDraw())));
+$("sl-zoom").oninput = () => { clearTimeout(sl.tm); sl.tm = setTimeout(slDraw, 30); }; $("sl-new").onclick = slNew;
+
+/* ---------- Figure 4 & 5 ---------- */
+function htCharts() {
+  const pts = [["H=2, T=3", MODELS["zoo(2,3,seed 0)"].acc], ["H=4, T=3", MODELS["zoo(4,3,seed 0)"].acc], ["H=8, T=3", MODELS["zoo(8,3,seed 0)"].acc], ["H=16, T=3", MODELS["zoo(16,3,seed 0)"].acc], ["H=16, T=4", MODELS["zoo(16,4,seed 0)"].acc], ["H=16, T=5", MODELS["zoo(16,5,seed 0)"].acc]];
+  const a = axes($("ht-acc"), { x: [0, 8], y: [0.3, 1], xticks: [], yticks: [0.4, 0.6, 0.8, 1.0], yfmt: (v) => Math.round(v * 100) + "%", ylabel: "accuracy", m: { b: 56 } });
+  pts.forEach(([n, v], i) => { el("rect", { x: a.X(i + 0.15), width: a.X(0.7) - a.X(0), y: a.Y(v), height: a.Y(0.3) - a.Y(v), fill: css("--accent") }, a.g); el("text", { x: a.X(i + 0.5), y: a.Y(0.3) + 14, "text-anchor": "middle" }, a.g, n.split(", ")[0]); el("text", { x: a.X(i + 0.5), y: a.Y(0.3) + 27, "text-anchor": "middle" }, a.g, n.split(", ")[1]); el("text", { x: a.X(i + 0.5), y: a.Y(v) - 4, "text-anchor": "middle", style: "fill:" + css("--ink") }, a.g, (100 * v).toFixed(1)); });
+  const s10 = [0, 1, 2, 3, 4].map((s) => MODELS[`zoo(16,10,seed ${s})`].acc);
+  s10.forEach((v) => el("circle", { cx: a.X(6.5), cy: a.Y(v), r: 4, fill: css("--accent"), opacity: 0.7 }, a.g));
+  el("circle", { cx: a.X(7.4), cy: a.Y(TARGET.acc), r: 5, fill: css("--wrong") }, a.g);
+  el("text", { x: a.X(6.5), y: a.Y(0.3) + 14, "text-anchor": "middle" }, a.g, "H=16"); el("text", { x: a.X(6.5), y: a.Y(0.3) + 27, "text-anchor": "middle" }, a.g, "T=10 seeds");
+  el("text", { x: a.X(7.5), y: a.Y(0.3) + 14, "text-anchor": "middle", style: "fill:" + css("--wrong") }, a.g, "target");
+  const g = [[3, 1260], [4, 75], [5, 9.4], [6, 3.4], [8, 2.7], [10, 1.6]];
+  const b = axes($("ht-gain"), { x: [2.5, 10.5], y: [0.5, 3000], ylog: true, xticks: [3, 4, 5, 6, 8, 10], yticks: [1, 10, 100, 1000], xlabel: "sequence length T", ylabel: "gain over sampling (×)" });
+  el("line", { x1: b.X(2.5), x2: b.X(10.5), y1: b.Y(1), y2: b.Y(1), stroke: css("--ink"), "stroke-width": 1 }, b.g); el("text", { x: b.X(7), y: b.Y(1) + 14, "text-anchor": "middle" }, b.g, "= sampling");
+  el("path", { d: path(g, b.X, b.Y), fill: "none", stroke: css("--accent"), "stroke-width": 2 }, b.g);
+  g.forEach(([t, v]) => { el("circle", { cx: b.X(t), cy: b.Y(v), r: 4, fill: css("--accent") }, b.g); el("text", { x: b.X(t) + 6, y: b.Y(v) - 6, style: "fill:" + css("--ink") }, b.g, v + "×"); });
+  // law
+  const L = [[3,0.00061,66.9],[3,0.00049,119.7],[3,0.00057,138.1],[3,0.0005,88.1],[3,0.00055,104.3],[4,0.00213,21.0],[4,0.00228,19.4],[4,0.00221,18.6],[4,0.00167,26.1],[4,0.00271,21.1],[5,0.00987,4.7],[5,0.00902,3.1],[5,0.00763,2.6],[5,0.0098,2.7],[5,0.01289,2.3],[6,0.02186,0.9],[6,0.02971,0.6],[6,0.01641,1.5],[6,0.01531,1.2],[6,0.01673,0.8],[8,0.02366,0.8],[8,0.02378,0.8],[8,0.04141,0.8],[8,0.03419,1.4],[8,0.04168,0.8],[10,0.08928,0.9],[10,0.12016,0.3],[10,0.05156,0.4],[10,0.06823,0.5],[10,0.11124,0.6]];
+  const c = axes($("law-chart"), { x: [3e-4, 0.2], y: [0.2, 300], xlog: true, ylog: true, yticks: [1, 10, 100], xticks: [1e-3, 1e-2, 1e-1], xfmt: (v) => (v * 100) + "%", xlabel: "error rate of the network (1 − accuracy)", ylabel: "gain over sampling (×)" });
+  el("path", { d: path([[3e-4, 0.05 / 3e-4], [0.2, 0.05 / 0.2]], c.X, c.Y), fill: "none", stroke: css("--muted"), "stroke-dasharray": "5 4" }, c.g);
+  el("line", { x1: c.X(3e-4), x2: c.X(0.2), y1: c.Y(1), y2: c.Y(1), stroke: css("--ink") }, c.g);
+  const tcol = { 3: 0.95, 4: 0.8, 5: 0.65, 6: 0.5, 8: 0.35, 10: 0.22 };
+  L.forEach(([t, e, gn]) => el("circle", { cx: c.X(e), cy: c.Y(gn), r: 4.5, fill: css("--accent"), opacity: tcol[t] }, c.g));
+  [3, 4, 5, 6, 8, 10].forEach((t) => { const pts = L.filter((d) => d[0] === t); const e = Math.exp(pts.reduce((s, d) => s + Math.log(d[1]), 0) / 5), gn = Math.exp(pts.reduce((s, d) => s + Math.log(d[2]), 0) / 5); el("text", { x: c.X(e) + 8, y: c.Y(gn) - 8, style: "fill:" + css("--ink") }, c.g, "T=" + t); });
+  el("text", { x: c.X(2e-3), y: c.Y(0.05 / 2e-3) - 26, transform: "" }, c.g, "slope −1 guide");
+}
+
+/* ---------- Figure 6 & 7: regions ---------- */
+function regChart() {
+  const a = axes($("reg-chart"), { x: [0.6, 10.4], y: [1, 1e15], ylog: true, xticks: range(1, 10), yticks: [1, 1e3, 1e6, 1e9, 1e12, 1e15], xlabel: "steps read so far (k)", ylabel: "linear regions", m: { l: 58 } });
+  const ex = [[2, 34], [3, 792], [4, 21032], [5, 632394], [6, 19740596]];
+  const lo = [[6, 19740596]], hi = [[6, 19740596]]; for (let k = 7; k <= 10; k++) { lo.push([k, 19740596 * 31 ** (k - 6)]); hi.push([k, 19740596 * 31 * 33 * 38 * 42]); }
+  hi.forEach((p, i) => { if (i) p[1] = 19740596 * [31, 33, 38, 42].slice(0, i).reduce((s, v) => s * v, 1); });
+  el("path", { d: path(lo.concat(hi.slice().reverse()), a.X, a.Y) + "Z", fill: css("--wrong-soft"), stroke: "none" }, a.g);
+  el("path", { d: path(lo, a.X, a.Y), fill: "none", stroke: css("--wrong"), "stroke-dasharray": "5 4", "stroke-width": 1.5 }, a.g);
+  el("text", { x: a.X(9.9), y: a.Y(4e13) - 30, "text-anchor": "end", style: "fill:" + css("--wrong") }, a.g, "extrapolated: ~2×10¹³–10¹⁴ at k = 10");
+  el("path", { d: path(ex, a.X, a.Y), fill: "none", stroke: css("--accent"), "stroke-width": 2.2 }, a.g);
+  ex.forEach(([k, v], i) => { el("circle", { cx: a.X(k), cy: a.Y(v), r: 4.5, fill: css("--accent") }, a.g); el("text", { x: a.X(k) - 6, y: a.Y(v) - 9, "text-anchor": "end", style: "fill:" + css("--ink") }, a.g, v.toLocaleString("en") + (k === 6 ? "+" : "")); if (i) el("text", { x: (a.X(k) + a.X(k - 1)) / 2 + 4, y: (a.Y(v) + a.Y(ex[i - 1][1])) / 2 + 16, "text-anchor": "start" }, a.g, "×" + Math.round(v / ex[i - 1][1])); });
+  // census effective growth, anchored at the exact k=4 count for display
+  const ce = [[4, 21032]]; [5.1, 4.6, 4.1, 3.6].forEach((gr, i) => ce.push([5 + i, ce[i][1] * gr]));
+  el("path", { d: path(ce, a.X, a.Y), fill: "none", stroke: css("--ok"), "stroke-width": 2, "stroke-dasharray": "2 3" }, a.g);
+  el("text", { x: a.X(8) + 6, y: a.Y(ce[4][1]) + 16, style: "fill:" + css("--ok") }, a.g, "census growth ×5.1 → ×3.6 per step (rate only)");
+  el("line", { x1: a.X(0.6), x2: a.X(10.4), y1: a.Y(74000), y2: a.Y(74000), stroke: css("--muted"), "stroke-width": 1 }, a.g);
+  el("text", { x: a.X(0.7), y: a.Y(74000) - 6 }, a.g, "74,000: sampling runs for ±0.1 pp");
+}
+function dcUpdate() {
+  const N = 10 ** +$("dc-n").value, c = 10 ** +$("dc-c").value, cores = +$("dc-cores").value, tot = N * c, sec = tot / cores;
+  const t = sec < 3600 * 48 ? (sec / 3600).toFixed(1) + " hours" : sec < 86400 * 365 ? (sec / 86400).toFixed(0) + " days" : (sec / 86400 / 365).toFixed(1) + " years";
+  $("dc-out").innerHTML = `${N.toExponential(1)} regions × ${c < 1 ? (c * 1000).toFixed(0) + " ms" : c.toFixed(1) + " s"} = <b>${tot.toExponential(1)} core-seconds</b> → <b>${t}</b> on ${cores.toExponential(0)} cores. Six months is 1.6×10⁷ s. Versus sampling to ±0.1 pp (≈74,000 runs, ~4×10⁸ operations): roughly ${(tot * 1e9 / 4e8).toExponential(0)}× more work, taking ~10⁹ operations per core-second.`;
+}
+["dc-n", "dc-c", "dc-cores"].forEach((id) => ($(id).oninput = dcUpdate));
+
+/* ---------- Figure 8: noise ---------- */
+const T337 = [[0, 3.3], [0.0005, 3.1], [0.001, 4.0], [0.0025, 12.0], [0.005, 32.4]];
+const nzRes = [];
+function noisy(m, s) {
+  const out = { H: m.H, T: m.T }; for (const k of ["Wi", "Wh", "Wo"]) { const W = m[k]; let ms = 0; for (const v of W) ms += v * v; const r = Math.sqrt(ms / W.length); out[k] = W.map((v) => v + s * r * gauss()); } return out;
+}
+function nzDraw() {
+  const a = axes($("nz-chart"), { x: [0, 7], y: [0, 1], xticks: [], yticks: [0, 0.25, 0.5, 0.75, 1], yfmt: (v) => v * 100 + "%", ylabel: "accuracy of noisy copy", m: { b: 44 } });
+  const lv = ["0", "0.0005", "0.001", "0.0025", "0.005", "0.01", "0.05"];
+  lv.forEach((l, i) => el("text", { x: a.X(i + 0.5), y: a.Y(0) + 15, "text-anchor": "middle" }, a.g, l));
+  el("text", { x: a.X(3.5), y: a.Y(0) + 32, "text-anchor": "middle" }, a.g, "σ × RMS of each weight matrix");
+  el("line", { x1: a.X(0), x2: a.X(7), y1: a.Y(TRUTH), y2: a.Y(TRUTH), stroke: css("--ok"), "stroke-dasharray": "4 3" }, a.g);
+  nzRes.forEach((r) => { const i = lv.indexOf(String(r.s)); el("circle", { cx: a.X(i + 0.5 + (r.j - 2.5) * 0.08), cy: a.Y(r.acc), r: 4, fill: css("--accent"), opacity: 0.8 }, a.g); });
+  if (!nzRes.length) el("text", { x: a.X(3.5), y: a.Y(0.5), "text-anchor": "middle" }, a.g, "press “Draw 6 noisy copies”");
+  const b = axes($("nz-f"), { x: [0, 4.6], y: [1, 50], ylog: true, xticks: [], yticks: [1, 10], ylabel: "our estimator's F", m: { b: 44 } });
+  el("line", { x1: b.X(0), x2: b.X(4.6), y1: b.Y(10), y2: b.Y(10), stroke: css("--muted"), "stroke-dasharray": "5 4" }, b.g); el("text", { x: b.X(0.1), y: b.Y(10) - 5 }, b.g, "lenient bar");
+  el("line", { x1: b.X(0), x2: b.X(4.6), y1: b.Y(1), y2: b.Y(1), stroke: css("--ink") }, b.g);
+  T337.forEach(([s, F], i) => { el("rect", { x: b.X(i + 0.15), width: b.X(0.7) - b.X(0), y: b.Y(F), height: b.Y(1) - b.Y(F), fill: F > 10 ? css("--wrong") : css("--accent") }, b.g); el("text", { x: b.X(i + 0.5), y: b.Y(F) - 5, "text-anchor": "middle", style: "fill:" + css("--ink") }, b.g, F); el("text", { x: b.X(i + 0.5), y: b.Y(1) + 15, "text-anchor": "middle" }, b.g, s); });
+  el("text", { x: b.X(2.3), y: b.Y(1) + 32, "text-anchor": "middle" }, b.g, "relative weight noise σ (T337)");
+}
+$("nz-run").onclick = () => {
+  const s = +$("nz-s").value; $("nz-out").textContent = "measuring…";
+  setTimeout(() => { const accs = []; for (let j = 0; j < 6; j++) { const m = noisy(TARGET, s); const a = accuracy(m, 20000); accs.push(a); nzRes.push({ s: $("nz-s").value === "0" ? "0" : $("nz-s").value, acc: a, j }); }
+    $("nz-out").innerHTML = `σ = ${s}: copies at <b>${accs.map((a) => (100 * a).toFixed(1)).join(", ")}%</b> (each ±0.15 pp from 20,000 samples)`; nzDraw(); }, 20);
+};
+
+/* ---------- Figure 9: seeds ---------- */
+function seedCharts() {
+  const v = PANELS.dev3.acc, a = axes($("seed-hist"), { x: [0.84, 0.98], y: [0, 26], xticks: [0.85, 0.9, 0.95], yticks: [0, 10, 20], xfmt: (x) => Math.round(x * 100) + "%", xlabel: "accuracy (100 DEV3 retrains)", ylabel: "networks" });
+  const bins = new Array(14).fill(0); v.forEach((x) => bins[Math.min(13, Math.floor((x - 0.84) / 0.01))]++);
+  bins.forEach((n, i) => el("rect", { x: a.X(0.84 + i * 0.01) + 1, width: a.X(0.01) - a.X(0) - 2, y: a.Y(n), height: a.Y(0) - a.Y(n), fill: css("--accent") }, a.g));
+  el("line", { x1: a.X(TRUTH), x2: a.X(TRUTH), y1: a.Y(0), y2: a.Y(24), stroke: css("--wrong"), "stroke-width": 2 }, a.g); el("text", { x: a.X(TRUTH) + 4, y: a.Y(23), style: "fill:" + css("--wrong") }, a.g, "M₁₆,₁₀");
+  const r = PANELS.t234.rows.sort((p, q) => p.log2_data - q.log2_data);
+  const b = axes($("seed-data"), { x: [29.6, 34.4], y: [0.88, 1.0], xticks: [30, 31, 32, 33, 34], yticks: [0.9, 0.95, 1.0], xfmt: (x) => "2" + sup(x), yfmt: (x) => Math.round(x * 100) + "%", xlabel: "training sequences", ylabel: "accuracy" });
+  el("path", { d: path(r.map((d) => [d.log2_data, d.mean]), b.X, b.Y), fill: "none", stroke: css("--accent"), "stroke-width": 2 }, b.g);
+  el("path", { d: path(r.map((d) => [d.log2_data, d.max]), b.X, b.Y), fill: "none", stroke: css("--ok"), "stroke-width": 2, "stroke-dasharray": "5 3" }, b.g);
+  r.forEach((d) => { el("circle", { cx: b.X(d.log2_data), cy: b.Y(d.mean), r: 4, fill: css("--accent") }, b.g); el("circle", { cx: b.X(d.log2_data), cy: b.Y(d.max), r: 3.5, fill: css("--ok") }, b.g); });
+  el("text", { x: b.X(30.1), y: b.Y(r[0].mean) + 16, style: "fill:" + css("--accent") }, b.g, "mean"); el("text", { x: b.X(30.1), y: b.Y(r[0].max) - 8, style: "fill:" + css("--ok") }, b.g, "best of 100");
+  el("line", { x1: b.X(29.6), x2: b.X(34.4), y1: b.Y(TRUTH), y2: b.Y(TRUTH), stroke: css("--wrong"), "stroke-dasharray": "3 3" }, b.g); el("text", { x: b.X(34.3), y: b.Y(TRUTH) - 5, "text-anchor": "end", style: "fill:" + css("--wrong") }, b.g, "M₁₆,₁₀");
+}
+
+/* ---------- Figure 10: exact gate walk ---------- */
+const wk = {};
+function walkLine(m, x0, d, s0, s1) { // exact piecewise-linear walk of x0 + s d
+  const H = m.H, T = m.T, pieces = []; let s = s0;
+  while (s < s1 && pieces.length < 4000) {
+    let h = new Float64Array(H), dh = new Float64Array(H), hn = new Float64Array(H), dhn = new Float64Array(H); let rmin = Infinity; const gates = new Uint8Array(T * H);
+    for (let t = 0; t < T; t++) {
+      const xt = x0[t] + s * d[t];
+      for (let j = 0; j < H; j++) { let z = m.Wi[j] * xt, dz = m.Wi[j] * d[t]; const o = j * H; for (let k = 0; k < H; k++) { z += m.Wh[o + k] * h[k]; dz += m.Wh[o + k] * dh[k]; }
+        const on = z > 1e-12 || (Math.abs(z) <= 1e-12 && dz > 0); gates[t * H + j] = on ? 1 : 0; hn[j] = on ? z : 0; dhn[j] = on ? dz : 0;
+        if (dz !== 0) { const r = -z / dz; if (r > 1e-10 && r < rmin) rmin = r; } }
+      [h, hn] = [hn, h]; [dh, dhn] = [dhn, dh];
+    }
+    const lg = [], dl = []; for (let i = 0; i < T; i++) { let a = 0, b = 0; for (let k = 0; k < H; k++) { a += m.Wo[i * H + k] * h[k]; b += m.Wo[i * H + k] * dh[k]; } lg.push(a); dl.push(b); }
+    const e = Math.min(s1, s + rmin); pieces.push({ s, e, gates, lg, dl }); s = e + 1e-9;
+  }
+  return pieces;
+}
+function wkNew() {
+  const x = new Float64Array(10); for (let t = 0; t < 10; t++) x[t] = gauss(); const r = ranks(x);
+  wk.x0 = x; wk.p1 = r[0]; wk.p2 = r[1]; wk.p3 = r[2]; const d = new Float64Array(10); d[wk.p3] = 1; wk.d = d;
+  wk.s1 = (x[wk.p1] - x[wk.p3]) + 0.4; wk.tie2 = x[wk.p2] - x[wk.p3]; wk.tie1 = x[wk.p1] - x[wk.p3];
+  wk.pieces = walkLine(TARGET, x, d, 0, wk.s1); $("wk-s").value = 0; wkDraw();
+}
+function truthAt(s) { return s < wk.tie2 ? wk.p2 : s < wk.tie1 ? wk.p3 : wk.p1; }
+function wkDraw() {
+  const P = wk.pieces, s1 = wk.s1, cur = (+$("wk-s").value / 1000) * s1;
+  const track = [wk.p1, wk.p2, wk.p3]; let lmin = Infinity, lmax = -Infinity; for (const p of P) for (const i of track) for (const ss of [p.s, p.e]) { const v = p.lg[i] + (ss - p.s) * p.dl[i]; lmin = Math.min(lmin, v); lmax = Math.max(lmax, v); }
+  const a = axes($("wk-chart"), { x: [0, s1], y: [lmin - (lmax - lmin) * 0.18, lmax + 0.02 * (lmax - lmin)], xticks: [0, wk.tie2, wk.tie1].map((v) => +v.toFixed(2)), yticks: [], xlabel: "how far the 3rd-largest input has been raised", ylabel: "output scores", m: { l: 26 } });
+  const yb = lmin - (lmax - lmin) * 0.12, yb2 = lmin - (lmax - lmin) * 0.18;
+  // right/wrong strip, exact per piece (split at tie points and at argmax changes approximated by 6 sub-points)
+  let wrongLen = 0;
+  for (const p of P) { const n = 6; for (let q = 0; q < n; q++) { const sa = p.s + (p.e - p.s) * q / n, sb = p.s + (p.e - p.s) * (q + 1) / n, sm = (sa + sb) / 2; let bi = 0, bv = -Infinity; for (let i = 0; i < 10; i++) { const v = p.lg[i] + (sm - p.s) * p.dl[i]; if (v > bv) { bv = v; bi = i; } } const ok = bi === truthAt(sm); if (!ok) wrongLen += sb - sa; el("rect", { x: a.X(sa), width: Math.max(0.6, a.X(sb) - a.X(sa) + 0.3), y: a.Y(yb), height: a.Y(yb2) - a.Y(yb), fill: ok ? css("--ok") : css("--wrong") }, a.g); } }
+  for (const p of P) el("line", { x1: a.X(p.s), x2: a.X(p.s), y1: a.Y(yb), y2: a.Y(yb) - 6, stroke: css("--muted"), "stroke-width": 0.8 }, a.g);
+  const cols = { [wk.p1]: css("--accent"), [wk.p2]: css("--ok"), [wk.p3]: css("--wrong") }, names = { [wk.p1]: "score of 1st", [wk.p2]: "score of 2nd", [wk.p3]: "score of the raised 3rd" };
+  track.forEach((i, q) => { const pts = []; for (const p of P) { pts.push([p.s, p.lg[i]]); pts.push([p.e, p.lg[i] + (p.e - p.s) * p.dl[i]]); } el("path", { d: path(pts, a.X, a.Y), fill: "none", stroke: cols[i], "stroke-width": 2 }, a.g); el("text", { x: a.X(s1) - 4, y: a.m.t + 24 + q * 13, "text-anchor": "end", style: "fill:" + cols[i] }, a.g, names[i] + ` (position ${i + 1})`); });
+  el("line", { x1: a.X(cur), x2: a.X(cur), y1: a.m.t, y2: a.Y(yb2), stroke: css("--ink"), "stroke-width": 1.2 }, a.g);
+  el("line", { x1: a.X(wk.tie2), x2: a.X(wk.tie2), y1: a.m.t, y2: a.Y(yb2), stroke: css("--muted"), "stroke-dasharray": "3 3" }, a.g); el("line", { x1: a.X(wk.tie1), x2: a.X(wk.tie1), y1: a.m.t, y2: a.Y(yb2), stroke: css("--muted"), "stroke-dasharray": "3 3" }, a.g); el("text", { x: a.X(wk.tie2) - 3, y: a.m.t + 8, "text-anchor": "end" }, a.g, "tie with 2nd"); el("text", { x: a.X(wk.tie1) + 3, y: a.m.t + 8 }, a.g, "tie with 1st");
+  const k = P.findIndex((p) => cur >= p.s - 1e-9 && cur <= p.e + 1e-9), p = P[Math.max(0, k)], prev = P[Math.max(0, k - 1)];
+  const c = $("wk-gates"), ctx = c.getContext("2d"); ctx.clearRect(0, 0, c.width, c.height);
+  const cw = (c.width - 34) / 10, ch = (c.height - 22) / 16; ctx.font = "11px " + css("--mono"); ctx.fillStyle = css("--muted");
+  for (let t = 0; t < 10; t++) ctx.fillText("t" + (t + 1), 34 + t * cw + cw / 2 - 7, c.height - 5); for (let j = 0; j < 16; j++) ctx.fillText("n" + j, 0, j * ch + ch * 0.75);
+  for (let t = 0; t < 10; t++) for (let j = 0; j < 16; j++) { const on = p.gates[t * 16 + j], ch2 = prev.gates[t * 16 + j] !== on && k > 0; const x = 34 + t * cw, y = j * ch;
+    ctx.fillStyle = on ? css("--accent") : css("--paper"); ctx.fillRect(x + 1, y + 1, cw - 3, ch - 3); if (ch2) { ctx.strokeStyle = css("--wrong"); ctx.lineWidth = 2.5; ctx.strokeRect(x + 1.5, y + 1.5, cw - 4, ch - 4); } }
+  $("wk-read").innerHTML = `<b>${P.length}</b> linear pieces on this line · now in piece ${k + 1} · wrong on <b>${wrongLen.toFixed(3)}</b> of ${s1.toFixed(2)} units`;
+}
+$("wk-new").onclick = wkNew; $("wk-s").oninput = wkDraw;
+$("wk-play").onclick = () => { if (wk.timer) { clearInterval(wk.timer); wk.timer = null; $("wk-play").textContent = "Play"; return; } $("wk-play").textContent = "Pause"; wk.timer = setInterval(() => { let v = +$("wk-s").value + 4; if (v > 1000) v = 0; $("wk-s").value = v; wkDraw(); }, 30); };
+
+/* ---------- Figure 11: error budget ---------- */
+function budChart() {
+  const rows = [["gap directions independent", 40, "T324; T334 41%"], ["large gaps assumed correct", 18, "T324; T334 20%"], ["blind-input rule", 9, "T324"], ["closure of the 7 smaller inputs", 34, "T324"]];
+  const a = axes($("bud-chart"), { x: [0, 70], y: [0, 4], xticks: [0, 10, 20, 30, 40], yticks: [], xfmt: (v) => v + "%", xlabel: "share of the estimator's squared error", m: { l: 8, b: 36 } });
+  rows.forEach(([n, v, s], i) => { const y = 3.75 - i; el("rect", { x: a.X(0), width: a.X(v) - a.X(0), y: a.Y(y), height: a.Y(y - 0.45) - a.Y(y), fill: i === 3 ? css("--prog") : css("--accent") }, a.g); el("text", { x: a.X(v) + 6, y: a.Y(y - 0.3), style: "fill:" + css("--ink") }, a.g, `${v}% · ${n}`); el("text", { x: a.X(v) + 6, y: a.Y(y - 0.3) + 13 }, a.g, s); });
+}
+
+/* ---------- Figure 12: rare events ---------- */
+function poisson(l) { if (l < 30) { let L = Math.exp(-l), k = 0, p = 1; do { k++; p *= rnd(); } while (p > L); return k - 1; } return Math.max(0, Math.round(l + Math.sqrt(l) * gauss())); }
+const rrRuns = [];
+function rrDraw() {
+  const p = 10 ** +$("rr-p").value, C = Math.round(10 ** +$("rr-c").value), lam = p * C;
+  $("rr-out").innerHTML = `p = <b>${p.toExponential(1)}</b>, budget <b>${C.toLocaleString("en")}</b> runs → sampling expects <b>${lam < 0.01 ? lam.toExponential(1) : lam.toFixed(2)}</b> events; chance it sees none: <b>${(100 * Math.exp(-lam)).toFixed(1)}%</b>.` + (p < 1.8e-10 ? " This is deeper than any case we tested." : "");
+  const a = axes($("rr-chart"), { x: [0, 41], y: [1e-12, 1e-2], ylog: true, xticks: [], yticks: [1e-12, 1e-10, 1e-8, 1e-6, 1e-4, 1e-2], ylabel: "estimated chance", m: { l: 58, b: 20 } });
+  el("rect", { x: a.X(0), width: a.X(41) - a.X(0), y: a.Y(p * 1.4), height: a.Y(p / 1.4) - a.Y(p * 1.4), fill: css("--ok-soft") }, a.g);
+  el("line", { x1: a.X(0), x2: a.X(41), y1: a.Y(p), y2: a.Y(p), stroke: css("--ok"), "stroke-width": 1.5 }, a.g); el("text", { x: a.X(40.5), y: a.Y(p) - 6, "text-anchor": "end", style: "fill:" + css("--ok") }, a.g, "truth ±1.4×");
+  el("text", { x: a.X(0.5), y: a.Y(1e-12) - 5 }, a.g, "zero events");
+  rrRuns.forEach((r, i) => { const est = r.k / C; el("circle", { cx: a.X(i + 1), cy: est > 0 ? a.Y(Math.max(est, 1e-12)) : a.Y(1e-12), r: 4, fill: est > 0 ? css("--ink") : css("--muted"), opacity: 0.75 }, a.g); });
+}
+$("rr-run").onclick = () => { const p = 10 ** +$("rr-p").value, C = Math.round(10 ** +$("rr-c").value); rrRuns.length = 0; for (let i = 0; i < 40; i++) rrRuns.push({ k: poisson(p * C) }); rrDraw(); };
+["rr-p", "rr-c"].forEach((id) => ($(id).oninput = () => { rrRuns.length = 0; rrDraw(); }));
+
+/* ---------- lanes ---------- */
+function laneHTML(id) { const l = STATUS.lanes[id]; if (!l) return ""; const cls = { "in progress": "st-prog", done: "st-unv", confirmed: "st-conf", negative: "st-neg" }[l.status] || "st-prog";
+  return `<div class="lane"><div class="lt"><span class="id">${id}</span>${l.title}<span class="st ${cls}">${l.status}</span></div><p>${l.what}</p><p class="lat"><b>Latest:</b> ${l.latest}</p></div>`; }
+function lanes() { document.querySelectorAll("[data-lane]").forEach((d) => (d.innerHTML = laneHTML(d.dataset.lane))); $("lanes-all").innerHTML = Object.keys(STATUS.lanes).map(laneHTML).join(""); $("status-stamp").textContent = "lane status as of " + STATUS.updated; }
+
+/* ---------- boot ---------- */
+function drawAll() { liveDraw(); smpUpdate(); slDraw(); htCharts(); regChart(); dcUpdate(); nzDraw(); seedCharts(); wkDraw(); budChart(); rrDraw(); }
+lanes(); liveRandom(); smpUpdate(); slNew(); htCharts(); regChart(); dcUpdate(); nzDraw(); seedCharts(); wkNew(); budChart(); rrDraw();
+$("rr-run").click();
+setTimeout(() => $("nz-run").click(), 600);
+let lastScheme = css("--paper");
+const mo = new MutationObserver(() => { const s = css("--paper"); if (s !== lastScheme) { lastScheme = s; drawAll(); } });
+mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTimeout(drawAll, 30));
+</script>
