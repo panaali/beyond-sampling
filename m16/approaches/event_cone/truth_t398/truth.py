@@ -1,7 +1,8 @@
 """T398 truths for E1(t0) = {pick = p3, v2 - v3 > t0} on orig. SAMPLING-CLASS (random model inputs), unbiased.
 T362's conditional MC along exact v3 lines (src/cmc.py, branch claude/t286-cheap-frontier @535d5bde), with the
 E1(1.0) code path unchanged except that t0 is a parameter. Runs in chunks; each chunk appends one JSON line to
-runs/t<t0>.jsonl and the driver stops at rel. s.e. <= TARGET or after max_sec of wall time (one core).
+runs/t<t0>_<first chunk>.jsonl (one file per process; pooled over
+all files of that t0) and the driver stops at rel. s.e. <= TARGET or after max_sec of wall time (one core).
 usage: python truth.py t0 first_chunk_index lines_per_chunk max_sec [target_rel_se]"""
 import json
 import os
@@ -68,13 +69,13 @@ def summary(recs):
 
 
 def load(t0):
-    p = os.path.join(HERE, "runs", f"t{t0}.jsonl")
-    return [json.loads(l) for l in open(p)] if os.path.exists(p) else []
+    import glob
+    return [json.loads(l) for p in sorted(glob.glob(os.path.join(HERE, "runs", f"t{t0}_*.jsonl"))) for l in open(p)]
 
 
 def main(t0, i0, lines, max_sec, target=0.10):
     m = orig(); os.makedirs(os.path.join(HERE, "runs"), exist_ok=True)
-    out = os.path.join(HERE, "runs", f"t{t0}.jsonl"); t_start = time.time(); i = i0
+    out = os.path.join(HERE, "runs", f"t{t0}_{i0}.jsonl"); t_start = time.time(); i = i0
     while True:
         t = time.time(); Z, nd, fl, cells = run_e1(m, t0, lines, SEED0 + i)
         nz = Z[Z > 0]
