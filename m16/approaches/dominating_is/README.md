@@ -64,25 +64,76 @@ boundaries (argmax ties or x_(1) = x_(2)).
 
 ## Status
 
-Pre-registered; running.
+Done (2026-10-19). Both pre-registered lines pass (validation at t0 = 1.5; main at t0 = 2.5).
 
 ## Results
 
-Pending.
+Commands (in order): `python mc.py 1.5 4e9 1` (validation truth), `python run_is.py points`, `python run_is.py is 1.5`,
+`python run_is.py is 2.5`; comparator rate `gap_rate.json`; optional `python miqp_check.py 1800`.
+
+**Dominating points** ([points.json](points.json)): the 1e7-draw pilot (42 s) and 200 descents (2.7 s) give 128 distinct
+end points. Best r^2 = 2.8455 at t0 = 1 on triple **(9,3,2)**, the same value as the design-stage pilot. The next
+eleven are also on (9,3,2) (2.858-3.31), except (3,9,2) at 3.271. Then come (1,8,2)/(8,1,2) at ~4.9 and
+(0,9,7)/(9,0,7) at ~5.1-5.4. Many optima lie on event boundaries (argmax ties, or x_(1) = x_(2): the triple-tie
+sliver). At both thresholds the 30-point cap was reached.
+
+| | E1(1.5) validation | **E1(2.5) main** |
+|---|---|---|
+| IS estimate | 1.849e-7 +- .207e-7 (rel. s.e. 11.2%) | **1.454e-10 +- .115e-10 (rel. s.e. 7.9%)** |
+| reference | own MC, 4e9 draws, 821 hits: 2.052e-7 +- .072e-7 | T400 MC, 1.1e11 draws, 17 hits: 1.55e-10 +- .37e-10 |
+| agreement | z = -0.93 (tolerance 2): **pass** | difference -0.10e-10, tolerance 0.78e-10: **pass** |
+| IS draws / network passes (after the gap prefilter) / hits | 1.1e7 (extended) / 5.30e5 / 1,671 | 1.1e7 (extended) / 5.57e5 / 2,387 |
+| cost C (pilot 1e7 + IS passes + descents 6.9e5 FPE) | 1.12e7 | **1.12e7 <= 1e8: pass** |
+| F = s.e.^2 C / p(1-p) | 0.026 (gain 38x) | **1.0e-5 (gain 9.8e4x)** |
+| F counting every IS draw as one pass | 0.050 | 2.0e-5 |
+| strict F <= 1 / lenient F <= 10 | pass / pass | pass / pass |
+| comparator: T400's prefiltered MC, network passes only (F = P(g23 >= t0)) | 5.9e-3 (IS 4.4x worse) | 4.1e-5 (IS 4.0x better) |
+| same, counting a draw + sort at its measured 0.19 FPE | ~0.19 (IS 7x better) | ~0.19 (IS ~1.9e4x better) |
+| IS hits by triple | (9,3,2) 1501, (3,9,2) 115, (8,1,2) 33, (1,8,2) 11, (2,9,3) 6, (9,2,3) 4, (0,9,7) 1 | (9,3,2) 2244, (3,9,2) 135, (8,1,2) 6, (1,8,2) 2 |
+| MC hits by triple | (9,3,2) 499, (8,1,2) 122, (0,9,7) 66, (9,0,7) 63, (1,8,2) 32, (3,9,2) 21, ... | all 17 on (9,3,2) (T400) |
+
+Both runs needed the pre-registered extension (n = 1e6 gave rel. s.e. > 10%). The hit rate under the proposal is low
+(1.5-2.2e-4 per draw; only ~5% of draws pass the gap prefilter): the dominating points sit on thin boundary slivers,
+so a unit-variance mean shift puts most draws outside the event.
+
+**Optional MIQP check** ([miqp_check.json](miqp_check.json)): (9,3,2) only, order constraints in the LP bounds (max
+|bound| 2000 vs 3475 without), 159 binaries, 1800 s: **no primal solution; dual bound 1.60 vs the descent's 2.8455**.
+Inconclusive: a lower-norm (9,3,2) point is not excluded. Defect: the script computes the warm start but never passes
+it to SCIP, so this was a cold start.
 
 ## Compute accounting
 
-Pending (pilot FPE, IS FPE, descent CPU-s, MIQP CPU-s).
+Per threshold: pilot 1e7 forward passes (42 s; shared by both thresholds but charged to each); descents 2.7 s
+(= 6.9e5 FPE at 4.0 us/FPE); IS 1.1e7 draws, 5.3-5.6e5 network passes, ~90 s. Validation truth: 4e9 draws, 2.4e7
+network passes, 2351 s. Global MIQP 900 s and per-triple MIQP 1800 s (not part of the estimator). All single-core.
 
 ## Claims
 
-None yet.
+- [measured] Seeded local dominating points plus mixture IS estimate P(E1(2.5)) = 1.454e-10 +- .115e-10 at 1.12e7
+  forward-pass equivalents (rel. s.e. 7.9%). This agrees with T400's plain MC (1.1e11 draws) and has F = 1.0e-5,
+  about 1e5x more efficient than plain MC. Sampling-class.
+- [measured] Validated at t0 = 1.5 against an independent 4e9-draw MC (z = -0.93).
+- [measured] The best dominating point is on triple (9,3,2), where all 17 of T400's MC hits are; 94% of IS hits at
+  t0 = 2.5 are there too, and the rest are mostly on its mirror (3,9,2).
+- [measured] Most of the gain is the event geometry: T400's free gap prefilter alone gives F = 4.1e-5 in network
+  passes at t0 = 2.5. IS is 4x better on that count, ~1e4x when draws are charged.
+- [inferred] The point search is local: the halfspace-cover property of Bai et al. is not established (global
+  MIQP: no incumbent in 900 s; per-triple MIQP dual bound 1.60 < 2.85).
 
 ## Alternatives not ruled out
+
+- At t0 = 1.5 the 30-point cap was filled by (9,3,2) neighbours. Triples (0,9,7)/(9,0,7) (16% of MC hits) got 1 IS
+  hit and (8,1,2) (15% of MC hits) only 33, so they were covered only by distant components and the defensive part.
+  The estimate stayed unbiased within its s.e. but its variance came mostly from there. A per-triple cap (e.g. <= 5
+  points per triple) would likely help; not tested.
+- Agreement at t0 = 2.5 rests on T400's 17-hit MC (24% s.e.): a bias up to ~50% would not be detected there.
 
 - Missing dominating points (no global search) can make IS biased low with an over-confident s.e.; the validation
   at t0 = 1.5 and the comparison with T400 test this only at those two thresholds.
 
 ## Failure modes
 
-- Thin slivers (triple ties) at the dominating point give a low hit rate under a mean-shifted unit Gaussian.
+- Thin slivers (triple ties) at the dominating point give a low hit rate (~2e-4) under a mean-shifted unit Gaussian.
+  Anisotropic proposals (covariance shrunk across the sliver) are the obvious next step.
+- A missed dominating region far from every component is sampled only by the defensive 5% N(0, I). At p ~ 1e-10 that
+  part almost never hits, so such a region would bias the estimate low, with a s.e. that does not show it.
