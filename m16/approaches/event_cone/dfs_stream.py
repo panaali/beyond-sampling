@@ -3,7 +3,9 @@ gates[shard::nshards] of certs/surv_d<D>_<tri>_k<KFROM>.npz, rebuilds each cell 
 and expands its subtree to KMAX depth-first with relax2.prune_stage, so memory stays small.
 Outputs (per shard): certs/surv_<tag>.npz (k = KMAX survivors' gates), certs/cert_<tag>.npz (all pruned cells,
 T400 format v1 with a per-cell k array), logs/dfs_<tag>.log (per-k children/survivor counts, progress).
-usage: python dfs_stream.py p1,p2,p3 KFROM KMAX SHARD NSHARDS [--delta D] [--parents i,j,...]"""
+Checkpoints: every CKPT parents (and at the end) the npz files are rewritten with everything so far, plus done_parents;
+--resume skips the parents listed in an existing checkpoint and continues appending (files keep the same names).
+usage: python dfs_stream.py p1,p2,p3 KFROM KMAX SHARD NSHARDS [--delta D] [--parents i,j,...] [--resume]"""
 import json
 import os
 import sys
@@ -17,6 +19,7 @@ from bnb import gates_of, step
 from k10_stream import cell_from_gates
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+CKPT = 20
 
 
 def main():
@@ -31,8 +34,25 @@ def main():
     if "--parents" in sys.argv:
         idx = [int(v) for v in sys.argv[sys.argv.index("--parents") + 1].split(",")]
     ch = {k: 0 for k in range(kf + 1, km + 1)}; sv = {k: 0 for k in range(kf + 1, km + 1)}
-    surv, ck, cst, cstart, cleaves = [], [], [], [], []
-    log = open(os.path.join(HERE, "logs", f"{tag}.log"), "w"); t0 = time.time(); last = [t0]
+    surv, ck, cst, cstart, cleaves = [], [], [], [], []; done = []
+    sp = os.path.join(HERE, "certs", f"surv_{tag}.npz"); cp = os.path.join(HERE, "certs", f"cert_{tag}.npz")
+    if "--resume" in sys.argv and os.path.exists(sp):
+        S, C = np.load(sp), np.load(cp)
+        surv = list(S["gates"]); done = [int(v) for v in S["done_parents"]]
+        ck = list(C["k"]); cst = list(C["stage"]); cleaves = list(C["leaves"]); cstart = list(C["start"])
+        for kk, v in json.loads(str(S["children"])).items():
+            ch[int(kk)] = v
+        for kk, v in json.loads(str(S["survivors"])).items():
+            sv[int(kk)] = v
+        idx = [i for i in idx if i not in set(done)]
+    log = open(os.path.join(HERE, "logs", f"{tag}.log"), "a"); t0 = time.time(); last = [t0]
+
+    def save():
+        np.savez_compressed(sp + ".tmp.npz", tri=np.array(tri), k=km, gates=np.array(surv, np.int8).reshape(-1, 10, 16),
+                            delta=relax2.DELTA, done_parents=np.array(done), children=json.dumps(ch), survivors=json.dumps(sv))
+        np.savez_compressed(cp + ".tmp.npz", tri=np.array(tri), k=np.array(ck, np.int8), stage=np.array(cst, np.int8),
+                            start=np.array(cstart), leaves=np.array(cleaves, np.int8).reshape(-1, 10, 16), delta=relax2.DELTA)
+        os.replace(sp + ".tmp.npz", sp); os.replace(cp + ".tmp.npz", cp)
 
     def dfs(cell, k):
         for c in step([cell], k, Wi, Wh, 16):
@@ -55,13 +75,12 @@ def main():
         cell, rad = cell_from_gates(tri, allg[i], kf, Wi, Wh)
         if rad > 1e-12:
             dfs(cell, kf)
-        print(json.dumps(dict(done=n + 1, of=len(idx), parent=i, children=ch, survivors=sv,
+        done.append(i)
+        print(json.dumps(dict(done=len(done), of=len(done) + len(idx) - n - 1, parent=i, children=ch, survivors=sv,
                               sec=round(time.time() - t0))), file=log, flush=True)
-    np.savez_compressed(os.path.join(HERE, "certs", f"surv_{tag}.npz"), tri=np.array(tri), k=km,
-                        gates=np.array(surv, np.int8).reshape(-1, 10, 16), delta=relax2.DELTA, parents=np.array(idx))
-    np.savez_compressed(os.path.join(HERE, "certs", f"cert_{tag}.npz"), tri=np.array(tri), k=np.array(ck, np.int8),
-                        stage=np.array(cst, np.int8), start=np.array(cstart), leaves=np.array(cleaves, np.int8).reshape(-1, 10, 16),
-                        delta=relax2.DELTA)
+        if len(done) % CKPT == 0:
+            save()
+    save()
     print("DONE", file=log, flush=True)
 
 
