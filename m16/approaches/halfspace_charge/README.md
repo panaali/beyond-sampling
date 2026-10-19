@@ -85,3 +85,15 @@ except `SPLIT=widest` (bisect the widest u-dimension), plain CROWN (no alpha), 1
 `SPLIT=widest python hcharge.py 3,7,8 OUT 3600 1024`. Reported against both T414's and T418's (D3) curves: tilted vs
 untilted charge, pruned share, and the share of open boxes some halfspace cuts. Rigorous box mass is T455's lane;
 this run only reuses the rectangle bound already written here.
+
+**Deviation D2 (2026-10-19 ~23:00 UTC, written after D1's result and before any D2 run; SECONDARY).** D1's open boxes
+showed the halfspaces cut hard where the tilt bound does not see it: on its top-200 open boxes (by box charge) the
+sampled slab-mass fraction inside Q(B) is median 0, max 0.024, mass-weighted 5e-4, while the tilt saved only ~1% of
+the total charge. So the halfspace idea is limited by the Chernoff bound, not by the halfspaces. D2 replaces each
+box B by a rigorous box hull of Q(B): interval bound tightening (FBBT) along every halfspace a_j.u + b_j <= 0,
+3 passes over the 9 specs and 9 dimensions (v_d <= (-b_j - sum_{i != d} min_B a_ji v_i) / a_jd for a_jd > 0, the
+mirror for a_jd < 0), with the new bounds moved outward by 1e-9 x (1 + |bound|). An empty hull prunes the box. The
+tightened box replaces B in the search (the event inside B lies in it, so this is sound), then gets the same CROWN,
+tilt charge and rectangle bounds. Run: `SPLIT=widest FBBT=1 python hcharge.py 3,7,8 OUT 3600 1024`, 1 CPU-h, same
+reporting as D1 plus the hull's volume ratio. Also a float, non-rigorous estimate for scale (`qfrac.py`): on 5,000
+uniform random open boxes of D1, sum qmass(B) x (sampled fraction in Q(B)) vs sum qmass(B).

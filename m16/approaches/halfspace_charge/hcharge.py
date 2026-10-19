@@ -23,6 +23,7 @@ import t414_ibab as ib  # noqa: E402  (T414's coords, CROWN, split heuristic; co
 dt = th.float64
 T0, TAIL = ib.T0, ib.TAIL
 NR, NG, WSPAN = int(os.environ.get("NR", 16)), int(os.environ.get("NG", 40)), 80.0
+FBBT = os.environ.get("FBBT", "0") == "1"                            # deviation D2: box hull of Q(B)
 SPLIT = os.environ.get("SPLIT", "margin")                             # "widest" = deviation D1 (T418's split)
 REL = 1e-10                                                          # outward relative inflation (pre-registered)
 SLACK = 1e-7
@@ -160,6 +161,18 @@ def hcharge(lo, hi, A, b, chunk=256):
     return th.cat(outs_t), th.cat(outs_u)
 
 
+def fbbt(lo, hi, A, b, passes=3):
+    """rigorous box hull of B ∩ {A_j.u + b_j <= 0 for all j}; returns (lo, hi, empty)"""
+    lo, hi = lo.clone(), hi.clone()
+    for _ in range(passes):
+        for j in range(A.shape[1]):
+            a = A[:, j]; mn = th.minimum(a * lo, a * hi); S = mn.sum(1, keepdim=True)
+            bound = (-b[:, j, None] - (S - mn)) / th.where(a == 0, th.ones_like(a), a)
+            bound = bound + 1e-9 * (1 + bound.abs()) * th.where(a > 0, 1.0, -1.0)
+            hi = th.where(a > 1e-12, th.minimum(hi, bound), hi); lo = th.where(a < -1e-12, th.maximum(lo, bound), lo)
+    return lo, hi, (lo > hi).any(1)
+
+
 def splitdim(lb, A, lo, hi):
     return (hi - lo).argmax(1) if SPLIT == "widest" else ib.splitdim(lb, A, lo, hi)
 
@@ -183,7 +196,13 @@ def run(tri, sec, K, out, resume=False, log_every=10):
         blo2, bhi2 = blo.clone(), bhi.clone(); blo2[ar, d] = mid
         clo, chi = th.cat([alo, blo2]), th.cat([ahi, bhi2])
         lb2, A2, b2 = margins_lin(clo, chi, P, q, p3); evals += len(clo); it += 1
-        pr = (lb2 > 0).any(1); pruned += int(pr.sum()); sv = ~pr
+        pr = (lb2 > 0).any(1)
+        if FBBT:
+            clo, chi, emp = fbbt(clo, chi, A2, b2); pr = pr | emp; sv = ~pr
+            lb2s, A2s, b2s = margins_lin(clo[sv], chi[sv], P, q, p3)     # CROWN again on the tightened boxes
+            pr2 = th.zeros_like(pr); pr2[sv] = (lb2s > 0).any(1); pr = pr | pr2
+            lb2[sv], A2[sv], b2[sv] = lb2s, A2s, b2s
+        pruned += int(pr.sum()); sv = ~pr
         ct, cu = hcharge(clo[sv], chi[sv], A2[sv], b2[sv])
         LO, HI = th.cat([LO, clo[sv]]), th.cat([HI, chi[sv]]); CH = th.cat([CH, ct]); CU = th.cat([CU, cu])
         SD = th.cat([SD, splitdim(lb2[sv], A2[sv], clo[sv], chi[sv])])
