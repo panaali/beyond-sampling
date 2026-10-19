@@ -56,8 +56,14 @@ s2 = (x / g[:, None]) ** 2; s2 = s2.sum(1); ww = s2 * net.T0 ** 2 / 2
 f = 16 * (2 * math.pi) ** -5 * s2 ** -5 * 24 * np.exp(-ww) * (1 + ww + ww ** 2 / 2 + ww ** 3 / 6 + ww ** 4 / 24)
 Z = float(net.quad_mass(lo0[None], hi0[None], nr=200, nq=16, ng=64)); pu = f / Z
 good = (~ev).numpy() & inside.numpy() & (depth >= 0); keep = good & (pu >= np.quantile(pu[good], .002))
-est = float(np.mean(np.where(keep, 1 / (np.where(depth >= 0, vol, 1) * pu), 0)))
+contrib = np.where(keep, 1 / (np.where(depth >= 0, vol, 1) * pu), 0); est = float(contrib.mean())
+se = float(contrib.std() / math.sqrt(n))                                      # heavy-tailed: se is indicative only
+cov = {}
+for qq in [.02, .002, .0002, 0.0]:                                            # leaves for the top (1 - qq) of the mass
+    kq = good & (pu >= (np.quantile(pu[good], qq) if qq > 0 else 0))
+    cov["%g" % (1 - qq)] = float(np.mean(np.where(kq, 1 / (np.where(depth >= 0, vol, 1) * pu), 0)))
+top10 = float(np.sort(contrib)[-max(1, n // 100):].sum() / contrib.sum())  # share of the top 1% of points
 R = dict(n=n, method=meth, events=int(ev.sum()), outside_root=int((~inside).sum()), uncertified_at_90=int((depth < 0).sum()),
          depth_median=float(np.median(depth[good])), depth_p90=float(np.quantile(depth[good], .9)),
-         leaves_est=est, nodes_est=2 * est, cpu_s=time.process_time() - t, depth=depth.tolist())
+         leaves_est=est, leaves_se=se, by_coverage=cov, top1pct_share=top10, nodes_est=2 * est, cpu_s=time.process_time() - t, depth=depth.tolist())
 print({k: v for k, v in R.items() if k != "depth"}, flush=True); json.dump(R, open(out, "w"))
