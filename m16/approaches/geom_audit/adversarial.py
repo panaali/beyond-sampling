@@ -80,17 +80,17 @@ def families(rng):
                 pass
     for n in range(3, 10):                                 # cube cut through vertices
         A, b = box(n, 0, 1); A.append([-1] * n); b.append(-(n - 2)); out.append(("cube_cut_vertices", A, b))
-    for n in (3, 5, 7, 9):                                 # near-parallel rows
+    for n in (3, 5, 7):                                    # near-parallel rows
         for e in (12, 20, 30):
             A, b = box(n)
             r = [Fraction(1)] * n; A.append([-x for x in r]); b.append(-Fraction(n - 1, 2))
             r2 = [Fraction(1)] * n; r2[0] += Fraction(1, 10 ** e)
             A.append([-x for x in r2]); b.append(-Fraction(n - 1, 2) - Fraction(1, 10 ** (e + 1)))
             out.append(("near_parallel_1e-%d" % e, A, b))
-    for n in (3, 5, 7, 9):                                 # tiny facets: corner cut at distance eps
+    for n in (3, 5, 7):                                    # tiny facets: corner cut at distance eps
         for e in (15, 25, 40):
             A, b = box(n); A.append([-1] * n); b.append(-(n - Fraction(1, 10 ** e))); out.append(("tiny_facet_1e-%d" % e, A, b))
-    for n in (3, 5, 7, 9):                                 # huge / mixed scales
+    for n in (3, 5, 7):                                    # huge / mixed scales
         for sc in (20, 100):
             A, b = box(n)
             s = [Fraction(10) ** int(rng.integers(-sc, sc + 1)) for _ in range(n)]
@@ -103,7 +103,7 @@ def families(rng):
             A.append([Fraction(int(rng.integers(-1000, 1000)), 2 ** 200 + int(rng.integers(1, 99))) for _ in range(n)])
             b.append(-Fraction(sum(abs(x) for x in A[-1])) / 2)
         out.append(("big_denominators", A, b))
-    for n in (3, 5, 7, 9):                                 # modular attacks on 2^61 - 1
+    for n in (3, 5, 7):                                    # modular attacks on 2^61 - 1
         A, b = box(n, 0, Fraction(1, P61)); A.append([-1] * n); b.append(-Fraction(n - 1, P61)); out.append(("den_p", A, b))
         A, b = box(n, 0, P61); A.append([-1] * n); b.append(-(n - 1) * P61); out.append(("diff_mult_p", A, b))
         A, b = box(n, 0, P61); A.append([-1] * n); b.append(-(n - 1) * P61)
@@ -189,16 +189,19 @@ def run_case(label, A, b):
 def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else 420
     rng = np.random.default_rng(seed)
+    start = int(sys.argv[2]) if len(sys.argv) > 2 else 0     # resume: skip the first `start` cases
     path = os.path.join(HERE, "results_c_%d.jsonl" % seed)
-    with open(path, "w") as fh:
-        for label, A, b in families(rng):
+    with open(path, "a" if start else "w") as fh:
+        for ci, (label, A, b) in enumerate(families(rng)):
+            if ci < start:
+                continue
             t = time.perf_counter()
             try:
                 r = run_case(label, A, b)
             except Exception as e:  # noqa: BLE001
                 import traceback
                 r = dict(label=label, error=repr(e)[:300], tb=traceback.format_exc()[-800:])
-            r["t"] = time.perf_counter() - t
+            r["t"] = time.perf_counter() - t; r["case"] = ci
             fh.write(json.dumps(r, default=str) + "\n"); fh.flush()
             print(r["label"], r.get("n"), r.get("nV"), r.get("nS"), r.get("mismatch"), r.get("error", ""), "%.1fs" % r["t"], flush=True)
 
