@@ -82,8 +82,21 @@ directions (which mostly miss the top direction) and by the per-weight table vs 
 secondary unbiased line estimator, which has no closure. (c) Large delta curvature: central FD at 30% changes has
 O(delta^2) error; reported via the base truth vs the mean of the +-delta truths.
 
+### Amendment A1 (2026-10-19, after the first truth run on dev3_s526 only, before any other truth run)
+The first literal run (truth_fd.py, dev3_s526, the pre-registered delta rule) showed that the rule's linearity
+assumption is badly wrong: at steps predicted to change P by 30%, the realised P(W + delta u) / P and P(W - delta u) / P
+were 2.25 / .25, 21.4 / 14.7, 6.2 / 21.3, 1.93 / .76, .20 / 1.91, 2.03 / .11 (P rises on BOTH sides along two random
+directions: deep-tail P is strongly log-convex in W). A central difference over such a step is not a derivative, so
+this run cannot test a gradient; it is kept (results/truth_fd_dev3_s526.json) and scored literally (signs 6/6, within
+2x 0/6). Amendment: each frozen direction is probed at the ladder delta_u x {1, 1/3, 1/10, 1/30, 1/100} on the same
+draws (truth_fd2.py, new seeds 372110 + model index); the FD used for the go line is the one at the **largest** level
+whose realised changes satisfy |P+/P - 1| <= .5 and |P-/P - 1| <= .5 (the smallest level if none does). Directions,
+delta_u, models, the go line and the resolution rule (|FD| > 3 s.e.) are unchanged. N: s526 2e7, s528 5e7, orig 5e7
+(orig lowered from 1e8 because the ladder costs 4.7x more forward passes per draw). The whole ladder is reported, so
+the convergence of FD as delta -> 0 is visible.
+
 ## Status
-Pre-registered; implementation in progress.
+Pre-registered; amendment A1; truth runs in progress.
 
 ## Results
 (none yet)
