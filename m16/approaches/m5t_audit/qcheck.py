@@ -75,15 +75,15 @@ def main():
         r_lo = math.exp(min(700, llo - lq)) if lo > 0 else 0.0
         st["min_hi_over_q"] = min(st["min_hi_over_q"], r_hi); pf["min_hi_over_q"] = min(pf["min_hi_over_q"], r_hi)
         st["max_lo_over_q"] = max(st["max_lo_over_q"], r_lo); pf["max_lo_over_q"] = max(pf["max_lo_over_q"], r_lo)
-        vh = r_hi < 1 - 6 * rse - 1e-6; vl = r_lo > 1 + 6 * rse + 1e-6
+        vh = bool(r_hi < 1 - 6 * rse - 1e-6); vl = bool(r_lo > 1 + 6 * rse + 1e-6)
         if vh or vl:
-            st["viol_hi"] += vh; st["viol_lo"] += vl; pf["viol"] += 1
+            st["viol_hi"] += int(vh); st["viol_lo"] += int(vl); pf["viol"] += 1
             if len(st["worst"]) < 50:
-                st["worst"].append(dict(family=f, hi_over_q=r_hi, lo_over_q=r_lo, rse=rse, d=c["d"], mlow=c["mlow"], t0=c["t0"],
+                st["worst"].append(dict(family=f, hi_over_q=r_hi, lo_over_q=r_lo, rse=float(rse), d=c["d"], mlow=c["mlow"], t0=c["t0"],
                                         M=M.tolist(), mc=c["mc"].tolist(), zbins=c["zbins"], zratio=str(c["zratio"])))
     st["elapsed"] = time.time() - t0_
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    json.dump(st, open(os.path.join(HERE, "results", f"qcheck_{seed}.json"), "w"), indent=0)
+    json.dump(st, open(os.path.join(HERE, "results", f"qcheck_{seed}.json"), "w"), indent=0, default=float)
     print(json.dumps({k: v for k, v in st.items() if k != "worst"}))
 
 
