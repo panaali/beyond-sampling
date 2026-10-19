@@ -345,7 +345,7 @@ futile (the C_true curve).
 - The truth worker's estimate (6.6e-11 ± 44%) is about 2σ below this point estimate. Not resolved.
 
 ### T416: the certified (1,8,2) bound at t0 = 2.5 (PROVISIONAL until T420 audits geom_fast) [measured]
-**P(E restricted to (1,8,2)) <= Σ_k=10-survivors ub + 20 Φ(-7.5) = 3.39e-11 + 6.4e-13 ≈ 3.5e-11.**
+**P(E restricted to (1,8,2)) <= Σ_k=10-survivors ub + 20 Φ(-7.5): after tier 2, 3.39e-11 + 6.4e-13 ≈ 3.5e-11; after tier 3, 1.30e-11 + 6.4e-13 ≈ 1.36e-11.**
 
 **Pruning.** All 259,723 of T398's certificates (k = 2..10) are verified by verify.py, with 0 failures.
 
@@ -356,8 +356,10 @@ futile (the C_true curve).
 - Σlb = 6.3e-21.
 - Two cells give 78% of Σub: s1 5451 (1.45e-11) and s1 5660 (1.21e-11). Both have > 5e5 root simplices, so tier 2 did not refine them.
 
-**Tier 3** (`tier3.py`, top 30 cells, 300k child simplices each) is running. Test on s0 3263: 8.3e-13 at tier 2,
-5.5e-13 with 20k children, 3.6e-13 with 100k children.
+**Tier 3 done** (`tier3.py`, the top 30 cells by ub, 300k child simplices each).
+- Per-cell cuts of 1.4-11x, 43-185 s per cell. No process came near 2 GB RSS.
+- **Σub over all 15,116 cells falls from 3.39e-11 to 1.30e-11. So P(E_(1,8,2)) <= 1.30e-11 + 6.4e-13 ≈ 1.36e-11 (PROVISIONAL until T420).**
+- The two heaviest cells are now s1 5451 (5.2e-12) and s1 5660 (4.6e-12), together 75% of the total.
 
 **Comparison.** 1.1e11 plain-MC draws had 0 events on (1,8,2); all 17 hits were on (9,3,2). The true P(E_(1,8,2))
 is therefore probably far below this bound; the lower bound is too weak to say.
