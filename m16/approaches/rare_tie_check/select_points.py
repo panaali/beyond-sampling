@@ -52,17 +52,22 @@ def select(est):
         c["stratum"] = "A 50-80%"
     for c in b:
         c["stratum"] = "B >=80%"
-    return a, b, len(cands)
+    # Amendment 1 (secondary, written after the selection showed B = 5 and before any truth): for each model with
+    # another feasible B point, the unselected one with the smallest t0. Scored separately; not in the primary line.
+    taken = {(c["model"], c["t0"]) for c in b}; b2 = {}
+    for c in sorted([c for c in cands if c["s"] >= B[0] and (c["model"], c["t0"]) not in taken], key=lambda c: (c["model"], c["t0"])):
+        b2.setdefault(c["model"], dict(c, stratum="B2 >=80% (secondary)"))
+    return a, b, len(cands), sorted(b2.values(), key=lambda c: c["model"])
 
 
 if __name__ == "__main__":
-    est = load("est_[0-9]*.json"); a, b, nc = select(est); ext = False
+    est = load("est_[0-9]*.json"); a, b, nc, b2 = select(est); ext = False
     if min(len(a), len(b)) < 6:                    # pre-registered fallback: extended grid (est_ext_*.json)
         e2 = load("est_ext_*.json")
         if e2:
-            est.update(e2); a, b, nc = select(est); ext = True
-    out = dict(n_points_scanned=len(est), n_feasible=nc, extended_grid=ext, A=a, B=b)
+            est.update(e2); a, b, nc, b2 = select(est); ext = True
+    out = dict(n_points_scanned=len(est), n_feasible=nc, extended_grid=ext, A=a, B=b, B2_secondary=b2)
     json.dump(out, open(os.path.join(HERE, "results", "selection.json"), "w"), indent=1)
-    for c in a + b:
+    for c in a + b + b2:
         print(c["stratum"], c["model"], c["t0"], "est %.2e s %.3f n0 %.0e" % (c["est"], c["s"], c["n0"]))
-    print("A", len(a), "B", len(b), "feasible", nc, "ext", ext)
+    print("A", len(a), "B", len(b), "B2", len(b2), "feasible", nc, "ext", ext)

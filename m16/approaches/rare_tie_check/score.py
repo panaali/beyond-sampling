@@ -17,7 +17,7 @@ def main():
         for nm, r in d["models"].items():
             tr[(nm, d["t0"])] = r
     rows = []
-    for c in sel["A"] + sel["B"]:
+    for c in sel["A"] + sel["B"] + sel.get("B2_secondary", []):
         r = tr[(c["model"], c["t0"])]; p = r["p"]; ratio = c["est"] / p if p > 0 else float("inf")
         Ceff = max(c["C"], 1000.0)
         rows.append(dict(c, truth=p, se=r["se"], hits=r["hits"], n=r["n"], tie_truth=r["hits_tie"] / max(r["hits"], 1),
@@ -40,7 +40,10 @@ def main():
     for x in rows:
         P(f"{x['stratum']} {x['model']} {x['t0']:g} | {x['est']:.3e} {x['truth']:.3e} ({x['se'] / x['truth']:.1%}) {x['hits']} | "
           f"{x['ratio']:.2f}{'' if x['within2'] else ' MISS'} | {x['s']:.2f} {x['tie_truth']:.2f} | {x['C']:.3g} {x['pC']:.2g} {x['F']:.3g}")
+    sec = [x for x in rows if x["stratum"].startswith("B2")]; rows = [x for x in rows if not x["stratum"].startswith("B2")]
     S["all"] = summ("ALL (pre-registered line: >= 80% within 2x)", rows)
+    S["secondary_B2"] = summ("Amendment 1, B2 (secondary, not in the line)", sec)
+    S["secondary_all"] = summ("primary + B2 (secondary)", rows + sec)
     S["A"] = summ("predicted share 50-80%", [x for x in rows if x["stratum"].startswith("A")])
     S["B"] = summ("predicted share >= 80%", [x for x in rows if x["stratum"].startswith("B")])
     for lo, hi, nm in ((0, .5, "truth tie < 50%"), (.5, .8, "truth tie 50-80%"), (.8, 1.01, "truth tie >= 80%")):
@@ -56,7 +59,7 @@ def main():
       f"<= 1 (strict) {S['F_point_le1']}/{len(rows)}, <= 10 (lenient) {S['F_point_le10']}/{len(rows)}")
     P(f"strict bar (F <= 1): {'PASS' if S['F_panel'] <= 1 else 'FAIL'}; lenient bar (F <= 10): {'PASS' if S['F_panel'] <= 10 else 'FAIL'}")
     P(f"VERDICT by the pre-registered line: {S['verdict']}")
-    json.dump(dict(summary=S, rows=rows), open(os.path.join(R, "score.json"), "w"), indent=1)
+    json.dump(dict(summary=S, rows=rows, rows_secondary=sec), open(os.path.join(R, "score.json"), "w"), indent=1)
     open(os.path.join(R, "score.txt"), "w").write("\n".join(lines) + "\n")
 
 

@@ -77,6 +77,38 @@ F_i = e_i^2 C_i / (p_i(1-p_i))), judged against both bars, **strict F <= 1** and
 - F expectation: at C ~ 2-4M FPE and p ~ 1e-6 to 1e-8, plain MC expects p C ~ .01-10 events, so F ~ p C (r - 1)^2 is
   likely <= 1 where p C << 1 and the ratio is within 2x; the panel F is dominated by the largest-p points.
 
+## Seal: selection and amendment 1 (pushed before any truth is drawn)
+
+- Estimates: `results/est_{0,1}.json` (36 models x 7 t0) and, by the pre-registered fallback (stratum B had 5 < 6),
+  `results/est_ext_{0,1}.json` (t0 2.75, 3.0). Selection: `python select_points.py` -> `results/selection.json`.
+- **Stratum B stays at 5 after the fallback**: only 6 of 36 models have any point with s >= .8, and dev3_s595's are
+  infeasible (est ~1e-12 to 1e-15). By the pre-registration the primary line is scored on what exists: **15 points
+  (A 10, B 5)**; the B shortfall (5 vs the target 6) is reported.
+- **Amendment 1 (secondary, written after seeing only the estimates, before any truth).** B2: for each model with
+  another feasible B point, the unselected one with the smallest t0 (dev3_s570 @1.0, dev3_s585 @1.0, dev3_s593 @1.25).
+  Scored separately (`score.py`, 'secondary'); it does not enter the pre-registered line.
+
+| stratum | model | t0 | est | s (pred. tie share) | C (M FPE) |
+|---|---|---|---|---|---|
+| A 50-80% | dev3_s576 | 1 | 1.379e-04 | 0.505 | 2.55 |
+| A 50-80% | dev3_s564 | 2.75 | 3.067e-08 | 0.511 | 1.39 |
+| A 50-80% | dev3_s580 | 1.25 | 9.720e-05 | 0.521 | 3.12 |
+| A 50-80% | dev3_s583 | 1.5 | 4.041e-06 | 0.624 | 2.32 |
+| A 50-80% | dev3_s596 | 2.5 | 4.690e-08 | 0.652 | 3.06 |
+| A 50-80% | dev3_s565 | 2 | 8.980e-07 | 0.658 | 2.68 |
+| A 50-80% | dev3_s571 | 1 | 6.167e-06 | 0.663 | 2.49 |
+| A 50-80% | dev3_s595 | 1.75 | 2.980e-08 | 0.675 | 3.25 |
+| A 50-80% | dev3_s590 | 1.5 | 2.272e-06 | 0.688 | 2.93 |
+| A 50-80% | dev3_s593 | 2.75 | 8.990e-09 | 0.708 | 1.65 |
+| B >=80% | dev3_s596 | 1 | 4.835e-05 | 0.829 | 3.06 |
+| B >=80% | dev3_s583 | 1 | 3.343e-05 | 0.830 | 2.32 |
+| B >=80% | dev3_s593 | 1 | 2.390e-05 | 0.846 | 2.60 |
+| B >=80% | dev3_s585 | 1.25 | 8.594e-08 | 0.971 | 2.95 |
+| B >=80% | dev3_s570 | 3 | 1.048e-10 | 1.000 | 1.63 |
+| B2 >=80% (secondary) | dev3_s570 | 1 | 2.783e-06 | 0.891 | 2.59 |
+| B2 >=80% (secondary) | dev3_s585 | 1 | 6.706e-07 | 0.942 | 2.95 |
+| B2 >=80% (secondary) | dev3_s593 | 1.25 | 9.616e-06 | 0.837 | 2.60 |
+
 ## Method
 
 - `frozen/`: unmodified copies of the frozen code (hashes asserted).
