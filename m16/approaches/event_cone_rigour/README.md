@@ -116,23 +116,142 @@ proved event-free. Two parts are not yet rigorous:
   - **Target 99%.** Unconfirmed cells are not errors; they become survivors.
 - **B3 speed.** CPU-ms per certificate (median, p90), with and without supplied duals.
 
+## Deviations from the pre-registration (declared before the tables below were scored)
+1. **M1 is too expensive to score.**
+   - The exact slice triangulation of a k = 10 event region has 750-2,100 vertices.
+   - Its pulling triangulation has 3.3e5-2.4e6 simplices: 0.7-1.8e6 at NORM 5, and 10-40 s just to triangulate.
+   - That is before any refinement.
+   - So M1 is kept as code (`mass_bounds`) but **not scored**. Measured instead:
+     - M2 (orthant/tilt bound on a row subset, `orthant_bound`);
+     - M3 (Lawrence volume distribution, `mass_lawrence`);
+     - M4 (M3 on an adaptive exact partition, `mass_split`);
+     - M5 (`mass_cell`): an exact marginal reduction for prefix cells, added after T398 asked for a cheap
+       call on unfinished cells (k < 10, event ignored) and moved the target t0 to 2.25-2.5.
+2. **The MC reference changed.**
+   - k = 10 regions: importance sampling at the float dominating point (`mc.py`).
+   - k = 4 cells: plain MC over all cells at once (`mc_cells.py`).
+   - Both decide membership by the forward pass.
+3. **The verifier sets were adapted to T398's benchmark.** B1 uses T398's 47 event-feasible k = 4 survivors
+   (probe_best > 0) instead of line-walk prefixes. B2 uses the k = 5 children of the first 46 benchmark
+   survivors, classified by T398's float relax2.prune_stage.
+4. **DELTA is a parameter.** T398 uses DELTA = 1/3 at t0 = 2.5. The part-(c) bound is then
+   20 Φ(-t0/DELTA) = 20 Φ(-7.5) = 6.4e-13.
+
 ## Method
-(filled in as built) `rigour.py` (library), `harvest.py` (test regions), `test_rigour.py` (A1, B1), `score.py` (A2, A3, B2, B3).
+- `rigour.py` (library).
+  - `exact_rows`: exact fmpq constraints from the gate pattern.
+  - `slice_polytope`, `Poly` (exact BFS vertex enumeration), `pulling_triangulation`.
+  - Mass methods:
+    - `mass_bounds` (M1);
+    - `mass_upper`/`orthant_bound` (M2, the cheap call; any k);
+    - `mass_lawrence` (M3);
+    - `mass_split` (M4);
+    - `mass_cell` (M5, k < 10);
+    - `norm_loss` (part c).
+- `verify.py` (part b).
+  - `verify_prune(tri, gates, k, event_aware, delta)`, `verify_leaves` (stage-3 splits),
+    `verify_certfile(path)` (T398 certificate format v1: tri, k, stage, start, leaves, delta).
+  - Every pre-activation bound is a Neumaier–Shcherbina safe dual bound:
+    - float duals from HiGHS;
+    - the residual r = c - Aᵀy absorbed by the variable box;
+    - explicit γ_n error terms for the float data (cell rows recomputed from the weights, with propagated error
+      bounds) and for every float operation, × 2.
+  - The final certificate is a positive safe lower bound on min over the relaxation of
+    max_j (L_j - L_p3). If that LP is infeasible, a phase-1 bound with τ on every row is used instead.
+  - The triangle chord is made valid by raising its intercept.
+  - Floats only propose; nothing is decided by a float LP status.
+- Drivers:
+  - `harvest.py`: k = 10 event regions from line-walk points;
+  - `mc.py`, `mc_ref.py`, `mc_cells.py`: MC references;
+  - `a_cells.py`, `a_m5.py`: mass scoring on T398's bench;
+  - `b_test.py`, `b_bench.py`: verifier scoring.
 
 ## Status
-Running: pre-registered; implementation started.
+Running. The verifier (b) and the proof (c) are done. The mass bound (a) is rigorous but not yet tight enough
+to be useful: the best options are 7-30x at 10-25 s per cell, or 12-5,000x at 30 ms.
 
 ## Results
-(none yet)
+
+### (c) Normalisation loss [measured, arb]
+- `norm_loss(1.5)` = 7.374e-50 (< 1e-49) with NORM = 10.
+- At T398's t0 = 2.5 with DELTA = 1/3, the bound is 20 Φ(-7.5) = 6.4e-13.
+
+### (b) Verifier (T398 benchmark (1,8,2), k = 4 → 5; `python b_bench.py <dir with relax2.py, cone_count.py> 46 0`)
+B1_B2_B3_PLACEHOLDER
+
+### (a) Mass bounds: tightness against MC, and cost
+
+**k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
+The MC is an importance sampler with 1e7 points per region; relative s.e. 16-72%.
+
+| region | MC mass | M2 ub/MC (0.2-1 s) | M3 ub/MC (2-450 s) | M4 ub/MC |
+|---|---|---|---|---|
+| 0 (752 vertices) | 2.5e-11 | 210 | 850 | - |
+| 1 (2,122 vertices) | 3.9e-11 | 44 | 2,760 | - |
+| 2 | 2.5e-12 | 1.6e9 | - | - |
+| 3 (142 vertices) | 9.1e-12 | 5.1e4 | 9.7 | 9.7 (563 s, 9 pieces) |
+| 4 | 6.2e-11 | 480 | - | - |
+| 5 | 9.3e-11 | 6.5 | - | - |
+
+**k = 4 cells, event ignored (T398's cheap call), t0 = 2.25.** All 273 benchmark survivors. The plain MC uses
+2e8 draws, with 32,088 points in the triple's far-gap set.
+- The MC total over the 273 cells is 2.23e-7, which equals the triple's whole far-gap mass.
+- Only 39 cells have any MC hit; 27 have >= 30 hits.
+- `python a_cells.py 2.25` (M2) and `python a_m5.py 2.25 4000` (M5):
+
+| method | ub/MC median | p90 | max | min | cost per cell | Σ ub over 273 cells |
+|---|---|---|---|---|---|---|
+| M2 (orthant/tilt) | 365 | 5,000 | 4.7e4 | 12 | 27 ms (p90 43 ms) | 5.6e-4 (vs 2.2e-7) |
+M5_PLACEHOLDER
+
+No ub fell below its MC value minus 4 s.e. on any scored cell or region.
 
 ## Compute accounting
-(none yet)
+- LP solves are HiGHS via scipy. Exact arithmetic is python-flint fmpq/arb.
+- Verifier: about 1.1-1.4x the float LP time of the cell it verifies (table above).
+- MC:
+  - 6e7 forward passes for the k = 10 regions;
+  - 2e8 draws (32k forward passes after the gap filter) for the k = 4 cells.
+- About 4 CPU-h in total so far, including the abandoned M1/M4 runs (about 1.5 CPU-h).
 
 ## Claims
-(none yet)
+1. [measured] The verifier accepted none of the 47 cells that contain T398's probe event points, so 0 false
+   verifications. Before two bugs were fixed (a sign error in the final margin rows; missing ordering-cone
+   rows), it accepted 16/47. B1 caught this.
+2. [measured] The verifier confirms T398's float prunes on the benchmark children (numbers in the table).
+   Its bounds match relax2's to about 1e-9 (safe-bound slack). Its margins match relax2.max_margin to about 1e-8.
+3. [inferred, argued in verify.py's docstring] Soundness of the safe bounds.
+   - It rests on weak duality with box absorption, plus the γ_n rounding model of IEEE double.
+   - Not proved: that the error-bound computation's own rounding is covered by SAFE = 2 (it is, by a factor
+     of ~1e13, but this is not formalised).
+4. [measured] The cheap rigorous mass bound M2 is 12-5e4x above MC on k = 4 cells, and 6-1e9x on k = 10 regions.
+   M5 (exact marginal reduction) is 7-30x at a 4,000-simplex budget. No method tried is within 2x at a cost
+   usable for charge-and-stop.
+5. [speculative] The obstacle for k = 10 regions is intrinsic.
+   - The event regions are 10-D polyhedra with ~20-30 facets and up to 2,000 slice vertices.
+   - Their mass (~1e-11) comes from thinness in many directions.
+   - So any bound that keeps < 10 rows (M2), or one direction of the quadratic (M3), loses orders of magnitude.
 
 ## Alternatives not ruled out
-(to fill)
+- **Better per-simplex bounds in M5.** For example:
+  - exact exponential-linear integration over each simplex (Brion) after a tangent bound of |m|²;
+  - finer z-bins.
+  These could cut M5's refinement need by orders of magnitude. Not tried.
+- **A probabilistic certificate for the survivor mass.**
+  - Once pruning is verified, the survivor set S is a decidable set.
+  - P(E) <= P(S ∩ far gap) can be bounded above by MC with a Clopper–Pearson bound at confidence 1 - α.
+  - This is not deterministic. The owner/DRI must decide whether it is acceptable.
+- **Charging at a coarser level** (k < 10 cells with M5, where the dimension is k + 1 for (1,8,2)) rather than
+  per k = 10 region.
+- The MC references themselves:
+  - k = 10 regions: relative s.e. up to 72%.
+  - k = 4 cells: < 30 hits for 12 of the 39 cells with hits, so those cells are not scored.
 
 ## Failure modes
-(to fill)
+- `Poly.enumerate` is exact but slow in Python: 30 ms/vertex at 700-bit rationals. Degenerate vertices
+  enumerate edge directions combinatorially; their cost is unbounded in principle.
+- M3/M4 need a simple polytope (checked) and a generic direction (re-drawn up to 6 times).
+- Verifier:
+  - It re-solves every bound LP; certificate duals are not used yet.
+  - Cells whose float margin is below about 1e-9 cannot be verified.
+  - It relies on HiGHS returning usable duals (status 0). Otherwise it answers "not proven", never "pruned".
