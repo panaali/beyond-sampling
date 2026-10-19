@@ -81,6 +81,36 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T389 pre-registration: weight-derived allocation BEFORE walking, H16 T10 (written 2026-10-19, before any DEV3/leaderboard run)
+**Development (DEV2 only, 80 retrains; DEV3 and the leaderboard untouched):**
+- **D9 ceiling** (`d9_ceiling.py`, 8 DEV2 models, 16k iid faces per stratum). Oracle per-cell allocation over the
+  frozen sign strata:
+  - by #positives: 1.01-1.04x;
+  - by tie positions (a,b): 1.28-2.00x;
+  - by k x (a,b) x u-quartile: 1.6-3.2x, but that is ~4000 cells on 16k faces, so it is optimistic (overfit sd).
+- **D10** (`d10_cells.py`, `d10_cv.py`, 40 DEV2 models): a (stratum, a, b) table of relative sd fitted on 20 models
+  and tested on the other 20 gives a **held-out median gain of 1.23-1.26x (range 1.08-1.51)** over the frozen
+  allocation; oracle 1.45x median.
+- **D11** (`d11_weightfeat.py`): a weights-only per-position influence feature, ||Wo (Wh/2)^(T-1-s) Wi/2||,
+  explains none of the per-model deviation from the table (R² <= 0.001; held-out 1.000x).
+  **So the best predictor found is model-independent (a population prior). No weight-dependent predictor was found;
+  this is declared, not hidden.**
+
+**Frozen:** `pos/estimator.py` (name minimal_pair/pos) + `pos/table.npz` (fitted on DEV2 models 0-39), as of this
+commit. Stratum totals use the T10 pilot + Neyman; cells are allocated by the table before walking; pilot points are
+post-stratified. sha256[:12]: b2ae00c49091 pos/estimator.py;e772b13f333a pos/table.npz;fb7902e12240 estimator.py;a38258f586b4 walk.py;a91f019fca21 hom.py;48dbba49ab13 core.py;
+
+**Scoring:**
+1. **Go test:** `python score_dev3.py minimal_pair,pos 16000,64000` on DEV3 (100 retrains, 1e8 truths). Go = MSE ratio
+   CI upper < 1 at 64k; otherwise STOP with a scoped negative.
+2. `python m16/leaderboard.py run minimal_pair/pos --H 16 --T 10` (orig, seeds, noisy copies), cost as executed.
+
+**Prediction** (from D10): MSE ratio ≈ the T10 recipe's DEV3 value / 1.25:
+- 64k: ≈ 0.78 (plausible 0.64-0.90), CI upper ≈ 1.1;
+- 16k: ≈ 0.92.
+**Predicted: STOP** (CI upper not < 1). The oracle ceiling of 1.45x would put the upper bound at ≈ 0.95, so
+even a perfect predictor at this cell granularity only just clears the bar.
+
 ## T380 results (2026-10-19): the near/far split does NOT lower the effective CV where it matters. FAIL, as predicted.
 Pre-registered pass: cv beats the T10 recipe on the T=6 seed group AND on DEV3 at both budgets. **FAIL**: it is
 worse on DEV3 at 16k and level at 64k.
