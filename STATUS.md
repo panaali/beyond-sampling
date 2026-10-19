@@ -1,4 +1,4 @@
-# Project status (as of 2026-10-19 16:40 UTC)
+# Project status (as of 2026-10-19 18:30 UTC)
 
 ↑ [Project README](README.md) · [TASKS](TASKS.md) · [INDEX](INDEX.md) · [Owner Q&A](OWNER_QA.md) · [Status history](docs/archive/STATUS_history.md)
 
@@ -16,8 +16,10 @@ testing with the same computing. Behind it is a safety goal: predicting failures
 **The main challenge: open.** The best weight-based calculation has about 2.6x random testing's error (lenient pass,
 strict fail; H-L1, T317f). Exact tracing along lines through input space beats random testing on a 5-step version
 (H-E16, confirmed) and on a network that sees all numbers at once (H-A3, confirmed), but only ties at the full 10 steps;
-nothing qualifies for the sealed final test. New and unverified: on wider networks (24 and 32 neurons) the same frozen
-method beats random testing 2-6x (T423, interim). Whether more computing helps at 10 steps is being tested (T429).
+with more computing per model it does beat random testing at the full 10 steps: on the sealed, never-used panel the
+error is about half of random testing's at the same compute (H-E17, confirmed; T431). This is a quadrature-type method
+(no random numbers when run, but no weight-derived error bound), so whether ARC counts it is unknown. On wider networks
+(24 and 32 neurons) the same method beats random testing 2-6x even at small budgets (T423, interim).
 
 **Rare mistakes (ARC's long-term goal).**
 - *Estimating:* within about 2x down to one in 10 billion on ordinary networks (H-R1, confirmed); about 80% right in a
@@ -29,8 +31,8 @@ method beats random testing 2-6x (T423, interim). Whether more computing helps a
   rarer with almost no accuracy cost while random edits fail (H-R3, confirmed). Removing all such mistakes by small edits
   is not possible: training already optimised the common mistakes, so repairs convert rare into common ones (T411).
 - *Guaranteeing an upper limit:* the true rate of the studied mistake is about 1.6 in 10 billion, at most 4.2 in 10
-  billion with very high confidence (sampling-based, T400). For one section of inputs a mathematical guarantee is nearly
-  done: all ~260k safety certificates verify exactly (T400), the fast rigorous calculator is confirmed (H-C1), the
+  billion with very high confidence (sampling-based, T400). For one section of inputs a mathematical guarantee gives at most 1.4 in 100
+  billion (T416, provisional): all ~260k safety certificates verify exactly (T400), the fast rigorous calculator is confirmed (H-C1), the
   geometry is under audit (T420). The section holding all observed mistakes is much costlier to split (T398, interim).
   A guarantee over all inputs is out of reach with our methods (T398, T414); a final library check runs (T418).
 
