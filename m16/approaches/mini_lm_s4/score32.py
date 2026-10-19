@@ -44,7 +44,7 @@ def main():
             r = bab.run_dfs(P, T=T, tau=tau, budget_fpe=budget, fpe_flops=model.flops(T), amax=AMAX, chunk=512,
                             snapshots=(1e5, 1e6))
             out["bab"][str(tau)] = r
-        for tau in (0.5, 0.9, 0.99):
+        for tau in PLAN:
             for N in (100000, 1000000):
                 snaps = {s["budget"]: s["ub"] for s in out["bab"][str(tau)]["snapshots"]}
                 ub = snaps.get(float(N), out["bab"][str(tau)]["ub"] if out["bab"][str(tau)]["fpe"] >= N else None)
