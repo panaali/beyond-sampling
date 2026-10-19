@@ -1,5 +1,41 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-19 — T384 factual review complete; T374 corrected successor ready to publish
+
+**Independent factual review PASS.** The owner-requested fresh Astra reviewer
+published seventeen evidence-pinned findings (`92416147`), sent them to the
+original Astra writer, and independently verified all corrections. Final source
+is **`68ba066c`**; writer validation notes are `d1a7c73f`; final review is
+**`1d38c10e`**, [report](../../../review/tutorial_factcheck/FINAL_VERIFICATION.md).
+The [response matrix](../../../tutorial/REVIEW_RESPONSE_T384.md) adopts all
+seventeen findings, with none rejected or deferred. Four remaining prose details
+were repaired and rechecked before signoff: HP3's small numerical resubmission,
+rare-figure range attribution, one-SE precision, and reordered figure references.
+
+The baseline remains owner v4, shared `97ee97a4` / owner `0039119b`. The owner’s
+current true-tie/pairwise-score crossing algorithm is retained; the old six-point
+strip defect no longer describes the page. Raw JSON, status.json, CSS, scientific
+ledger verdicts and executable algorithms are unchanged. Root authorized five
+JavaScript display-string repairs and one obsolete comment; source SHA256 is
+`e90a6769b38a5385a25e34f14e6bc5d80b46e67c119366bceef38361bc7af258`.
+
+Saved HP4/E32 aggregates, DEV3/training data and formula checks pass without
+models, random draws or geometry runs. Root/writer report deterministic build and
+1280/390-pixel browser PASS: 13 figures, 14 initialized SVGs, no browser errors or
+horizontal overflow; live/walk controls checked. Writer reports 545 structural
+blocks, 52 source status chips, all old links and interactive attributes retained,
+plus seven evidence links in References. Numerical exactness and unsolved-scope
+limits remain explicit; no scientific result is newly confirmed by this audit.
+
+**T384 is complete; T374 publication remains pending.** Please register the
+editorial review/revision in INDEX, then republish the corrected successor at the
+existing private URL: https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX.
+Preserve already-published v4 and T382 completion as historical facts. T374 retains
+ownership of live status synchronization and publication. This handoff supersedes
+the earlier T384 hold below; Codex has not published an Artifact or contacted ARC
+or Goodfire.
+
+
 ### 2026-10-19 — Owner requests T384 independent factual review before tutorial publication
 
 **This supersedes the T382 publication request below.** The owner now explicitly
