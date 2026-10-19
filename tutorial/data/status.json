@@ -228,17 +228,17 @@
     },
     "T6": {
       "title": "Essay question: re-run of the neuron-explanation test",
-      "status": "inconclusive (unverified)",
+      "status": "confirmed (scoped, with T383)",
       "what": "Re-run of the test of 'most neurons have one job' on a 0.6B open language model with >= 100 controls and 2-3 explainers per item, to resolve the inconclusive verdict.",
-      "latest": "Inconclusive by the pre-registered gate, leaning toward support: neurons were judged to have one job 64.6% of the time against 20.9% for dense control directions, a difference of +43.8 points [33.3, 53.7], above the 30-point bar; but the controls failed their own density check (.163 against .15), and the gate was not waived. An independent resolution (T383) is running.",
+      "latest": "Done: neurons rated one main job 64.6% vs 20.9% for dense controls, +43.8 points [33.3, 53.7], above the 30-point bar; its controls failed their density check, which biases toward a smaller gap. Together with T383 this is ledger H-Q5, confirmed and scoped.",
       "branch": "claude/t6-essay-rerun",
       "group": "Neuron-level accounts and the essay question"
     },
     "T383": {
       "title": "Independent resolution of the essay re-run",
-      "status": "in progress",
+      "status": "confirmed (scoped, with T6)",
       "what": "Resolve T6's inconclusive verdict, whose controls failed their density check.",
-      "latest": "Running; no result yet.",
+      "latest": "Done: a different agent with its own code, controls passing their density check (median top-1 share .104): +44.6 points [36.3, 52.9]. Caveat: texture-matched controls give +37.0 [28.7, 45.5], inconclusive at the bar. Ledger H-Q5 confirmed (scoped); H-Q2 refuted for dense controls.",
       "branch": "see TASKS.md",
       "group": "Neuron-level accounts and the essay question"
     },
