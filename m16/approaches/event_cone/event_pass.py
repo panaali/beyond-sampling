@@ -32,6 +32,8 @@ def lines(rng, m, perm):
 
 def main():
     out = {}
+    if "--no-global" in sys.argv:                                  # global part already in logs/event_pass.log
+        return per_triple(out)
     rng = np.random.default_rng(373); C = collections.Counter(); n = 0
     for _ in range(200):                                           # 4e7 line points
         m = 10_000; perm = np.argsort(rng.random((m, 10)), 1)
@@ -42,6 +44,10 @@ def main():
     out["global"] = dict(line_points=n, hits=tot, triples_with_hits=len(C), top=C.most_common(30),
                          top6_share=sum(c for _, c in C.most_common(6)) / max(tot, 1))
     print(out["global"], flush=True)
+    per_triple(out)
+
+
+def per_triple(out):
     for tri in TRIPLES:
         rng = np.random.default_rng(1000 + 100 * tri[0] + 10 * tri[1] + tri[2])
         lows = np.array([i for i in range(10) if i not in tri])
@@ -50,12 +56,12 @@ def main():
             m = 10_000; perm = np.empty((m, 10), int); perm[:, :3] = tri
             perm[:, 3:] = lows[np.argsort(rng.random((m, 7)), 1)]       # lows' ranks assigned at random
             X, P, hs, hit = lines(rng, m, perm); n += len(X); ev += int(hit.sum())
-            for k in (5, 6):
+            for k in (5, 6) if hit.any() else ():
                 for r in np.packbits(hs[hit, 1:k + 1] > 0, axis=2).reshape(hit.sum(), -1):
                     pre[k].add(r.tobytes())
         out[str(tri)] = dict(line_points=n, event_points=ev, event_prefixes_k5=len(pre[5]), event_prefixes_k6=len(pre[6]))
         print(tri, out[str(tri)], flush=True)
-    json.dump(out, open(os.path.join(HERE, "results_event_pass.json"), "w"), indent=1)
+    json.dump(out, open(os.path.join(HERE, "results_event_pass_triples.json"), "w"), indent=1)
 
 
 if __name__ == "__main__":

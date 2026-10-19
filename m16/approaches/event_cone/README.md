@@ -131,7 +131,8 @@ the first k = 6 launch (`logs/runB.log` holds (5,2,7) to k = 5).
 - **Event-feasible fraction at k = 6** [measured, lower bound]: **0** on (1,2,0), the only triple with a complete
   k = 6. The pre-registered proposal found no event points in 2e6 samples. The post-hoc line walk (below) also
   finds none on any of the 10 random triples. The fraction is unbounded above by this test; an exact value needs
-  the full 10-step enumeration.
+  the full 10-step enumeration. On the event-carrying triples (post-hoc) the fraction is 0.3-0.7% at k = 5 and
+  <= 0.1-0.4% at k = 6, below the 1e-2 line of the spec.
 
 ### Why the true cone is so much larger than T344's proxy [inferred]
 - T344's proxy (g23 >= 2 g12, and g23 >= 2 x every low gap) is a strict sub-cone, and it pins the lows near x_p3.
@@ -140,7 +141,50 @@ the first k = 6 launch (`logs/runB.log` holds (5,2,7) to k = 5).
 - The growth that T344 saw fall to 2-3x per step in the proxy stays at 7.5-31x per step here: the lows' unread
   ordering keeps fragmenting the regions.
 
-EVENTDIAG
+### Post-hoc diagnostic: the event-carrying triples (requested by the DRI, NOT part of the verdict)
+**Where the event lives** [measured; `event_pass.py`, `logs/event_pass_global.log`]. Method: T340's e_p3 line walk
+with 20 grid points per line on (v4, v2 - 1.5), random rank-to-position assignment, 4e7 line points.
+- 33,917 line points are events (pick = p3, g23 > 1.5), spread over only **41 of 720 triples**.
+- Six triples hold 89% of the hits: (1,8,2) 7,984; (8,1,2) 7,220; (3,9,2) 4,300; (9,3,2) 3,753; (0,9,7) 3,554;
+  (9,0,7) 3,368. Next come (2,9,3) 1,217 and (9,2,3) 1,066, then a tail.
+- Line points are not probability-weighted, so these shares describe support, not mass.
+- None of the 10 random pre-registered triples has an event point in 4e6 line points each (`logs/event_pass_triples.log`).
+
+**Region counts in two event triples** [measured]. The pairs are equal by claim 3: (8,1,2) = (1,8,2) for k <= 7, and
+(9,3,2) = (3,9,2) and (0,9,7) = (9,0,7) for k <= 9.
+
+| triple | k=2..5 | k=6 | growth 5->6 | distinct event prefixes k=5 / k=6 (sampled lower bounds) |
+|---|---|---|---|---|
+| (1,8,2) | 20 / 83 / 1,272 / 21,869 | >= 200,010 (cap) | >= 9.1 | 62 / 209 (from 545k event points) |
+| (3,9,2) | 34 / 414 / 5,315 / 64,983 | >= 200,001 (cap) | >= 3.1 | 443 / 845 (277k) |
+| (9,0,7) | 16 / 251 / 4,220 / 82,184 | not run | (4->5: 19.5) | 262 / 556 (253k) |
+
+**Projection restricted to the six event triples** [inferred]. Using the pre-registered rule with lower bounds:
+- 2 x (2e5 x 9.1^4) + 2 x (2e5 x 3.1^4) + 2 x 82,184 >= **2.8e9 regions at step 10**, above the 2e8 line.
+- An estimate restricted to these triples is not exact in any case: 35 more triples carry event points.
+
+**The event itself grows slowly** [measured lower bounds, inferred reading].
+- The distinct event prefixes grow x3.4, x1.9 and x2.1 from k = 5 to k = 6. The event-feasible fraction is 0.3-0.7%
+  at k = 5 (62/21,869, 443/64,983, 262/82,184) and <= 0.1-0.4% at k = 6.
+- So the slow ~2-3x growth that the brainstorm hoped for is real, but it belongs to the event's own regions. The
+  explosion is in the regions of the cone that the event shares with everything else.
+- An enumeration that expands only event-feasible prefixes would need ~1e3-1e4 regions per triple at k = 10, if
+  x2-3.4 holds for 4 more steps [speculative].
+- **What blocks it is rigour.** Pruning a non-event prefix at step k needs a proof that no continuation over the
+  remaining 10 - k steps picks p3, i.e. an outer relaxation (an LP/triangle relaxation of the ReLUs over the remaining
+  steps, on that prefix's cone). Two things are untested:
+  - whether such relaxations are tight enough on whole prefix cones (T344's interval bounds failed on 1e-4 boxes,
+    but those were IBP on boxes, not LP relaxations on cones);
+  - whether the 679 triples with no observed hits can be excluded the same way at the cone level.
+  This is proposed as a backlog item (below), not run.
+
+**Cost of a certificate along the pre-registered route** (the DRI's question). Each of the ~714 non-event triples must
+be shown to carry no event mass.
+- With exact enumeration, that is one LP per step-10 region (~30 FPE each) over every region of every triple. That
+  is the same 1e11-1e15 count as above: cone-level LPs cannot decide it, because the step-10 pick is not linear on a
+  cone.
+- The only cheaper route is the relaxation-based pruning just described.
+
 
 ## Compute accounting
 - Model evaluations are LP solves (HiGHS via scipy), not forward passes. Each cell-step solves 16-32 LPs in 10
@@ -150,7 +194,8 @@ EVENTDIAG
   - First launch, killed at k = 5: 1.4 CPU-h.
   - Second launch: (1,2,0) took 0.82 CPU-h (k = 6 alone 46 min). (2,8,7) and (5,2,7) were lost in the container restart.
   - k = 5 runs of the 7 censored and 2 event triples: about 3.4 CPU-h.
-  - Post-hoc k = 6 diagnostic: EVENTCPU.
+  - Post-hoc k = 6 diagnostic: 2.2 CPU-h ((1,8,2) 0.99 h, (3,9,2) 1.25 h), above the 1-2 CPU-h asked.
+  - Event passes: about 0.4 CPU-h.
 - Forward passes: about 1e8 line-walk and proposal points in the event checks (numpy float64).
 
 ## Claims
@@ -161,7 +206,22 @@ EVENTDIAG
    Triples whose positions are all >= k reproduce the full-space N_k.
 4. [inferred] Projected N10 >= 2.7e15 by the pre-registered rule, or >= 3.3e11 without using T270's number.
    The heterogeneity is about 36x.
-5. [measured] Far-gap rank-3 events at t0 = 1.5 concentrate on a few position triples (post-hoc, below).
+5. [measured] Far-gap rank-3 events at t0 = 1.5 concentrate on a few position triples: 41 of 720 have line hits,
+   and 6 hold 89% (post-hoc, unweighted).
+6. [measured lower bounds; inferred reading] Inside the event triples, the distinct event prefixes number in the
+   hundreds and grow x1.9-3.4 from k = 5 to 6, while the cone's regions grow >= x3-9 and number >= 2e5.
+
+## Proposed backlog item (for the DRI; not added to TASKS.md by me)
+**Event-guided branch and bound for a certified upper bound on the far-gap event.**
+- Method: enumerate prefixes inside each triple's cone, but prune a prefix as soon as an LP relaxation of the
+  remaining steps (ReLU triangle relaxation on the prefix cone) proves logit_p3 < max other logits. Charge unpruned
+  step-10 regions their exact event mass.
+- Why it could work: the event prefixes grow only x2-3.4 per step (claim 6).
+- Kill test: on (1,8,2), report the fraction of k = 6 prefixes pruned by the relaxation. GO if >= 99% are pruned
+  and the unpruned count stays within 3x of the event-prefix count.
+- Also: a cone-level relaxation on the 679 triples with no observed hits. The certificate needs every one of them
+  pruned at small k.
+- Pointers: this README, T311 (CROWN along lines), T344 (IBP failure on boxes).
 
 ## Alternatives not ruled out
 - **Extrapolation.** Growth could fall sharply after k = 6. It does in T344's proxy, once the top values are read.
@@ -191,6 +251,7 @@ Not tried, with why:
 - (i) Region merging by affine map, or by decision, across histories: a different method, H-E13's open line.
 - (ii) Enumerating backwards from the decision (cone_enum's C idea): T346 idea C, judged by T348's census
   (backward branching about 4.5k at j = 1); not in this budget.
+- (d') The event-guided branch and bound (proposed above): the most promising untried variant; not run.
 - (iii) Coarser certificates on the non-event triples: whole-triple LP infeasibility at the level of the cone, not of
   each region. For a certificate, each of the ~714 other triples must be shown to carry no event mass (or a bounded
   one). The event is "logit_p3 >= every other logit at step 10", which is not linear on the cone. So a cone-level LP
