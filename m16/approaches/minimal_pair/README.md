@@ -81,6 +81,50 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T11 results: H=16, T=6, frozen recipe unchanged (2026-10-19)
+**Verdict: FAIL of the pre-registered strict criterion (as predicted, P(pass) ~0.35-0.4).** Seed 4 at 16k has per-seed
+ratio 1.31 (1.30 against own 48M truth); the other 9 seed x budget checks pass.
+
+Reproduce:
+- `python m16/leaderboard.py truths --H 16 --T 6`, then `run minimal_pair --H 16 --T 6` (`lb_T6.log`, raw in
+  `lb_raw_minimal_pair_T6.jsonl`);
+- `python lb_perseed.py 6`;
+- `python truths.py 6 48000000 0,1,2,3,4; python mse_study.py 6 32 16000,64000 plain,frozen; python mse_analyse.py 6`.
+
+Leaderboard (MSE ratio vs sampling, below 1 wins):
+
+| group | 16k [95% CI] | 64k [95% CI] |
+|---|---|---|
+| seeds 0-4 | 0.35 [0.06, 0.82] | 0.33 [0.12, 0.54] |
+| s0.0025 | 0.90 [0.23, 1.68] | 1.05 [0.26, 1.93] |
+| s0.005 | 0.60 [0.16, 1.09] | 1.08 [0.10, 2.34] |
+| s0.01 | 0.56 [0.14, 1.09] | **4.85 [0.71, 11.4]** |
+| s0.02 | 1.72 [0.57, 2.95] | 1.06 [0.45, 1.89] |
+
+Per-seed ratios (single run, leaderboard truth / own truth):
+- 16k: s0 0.41/0.22, s1 0.06/0.06, s2 0.01/0.03, s3 0.10/0.16, **s4 1.31/1.30**;
+- 64k: s0 0.67/0.22, s1 0.31/0.30, s2 0.49/0.34, s3 0.04/0.15, s4 0.03/0.04.
+
+The leaderboard truths at T=6 have se 6-8e-5, which is comparable to the estimator RMSE at 64k (s0: 0.67 vs 0.22
+with the 48M truth).
+
+32-rule gains vs predictions (seeds 0-4):
+
+| | plain | frozen (measured) [95% CI] | predicted | measured / predicted |
+|---|---|---|---|---|
+| 16k | 1.2-1.9x | 2.9 [1.9,5.1] / 1.8 [1.3,2.8] / 5.1 [3.6,8.7] / 3.1 [2.1,5.4] / 2.9 [1.8,5.4] | 2.3 / 1.6 / 3.9 / 3.1 / 2.1 | 1.26 / 1.13 / 1.31 / 1.00 / 1.38 |
+| 64k | 1.7-2.4x | 4.5 [2.8,8.0] / 3.3 [2.3,5.4] / 7.5 [5.4,12] / 3.5 [2.6,5.1] / 5.5 [3.7,9.5] | 3.3 / 2.2 / 5.6 / 4.4 / 3.0 | 1.36 / 1.50 / 1.34 / 0.80 / 1.83 |
+
+- [measured] All 10 cells are within the pre-registered x0.5-2 band, so the law (gain ~ 1/(err CV^2 c)) with the T=5
+  multiplier is not falsified at T=6. It is slightly pessimistic: median measured/predicted is 1.3.
+- [measured] Every seed's 32-rule gain CI is > 1 at both budgets: the recipe beats sampling on average on all 5
+  T=6 seeds. The strict single-run criterion fails because a gain of ~3 leaves a ~9% chance per check of a
+  single-run ratio > 1. At this gain level the criterion tests luck as much as the method.
+- [measured] Off the seeds the recipe does not beat sampling at T=6: the noisy groups lie at 0.56-4.85 (s0.01 at
+  64k is driven by a large positive bias, +0.32 pp).
+- [inferred] The ladder step T5 -> T6 costs ~2.5x of gain, consistent with err x2 and CV^2 x1.5 (D5). The
+  next rung would need an integrand-level change (T380 control variate), not reallocation.
+
 ## Pre-registration (written 2026-10-18, before any diagnostic or scored run; commit 1b4143e1)
 Unchanged text: see `git show 1b4143e1:m16/approaches/minimal_pair/README.md`. Summary:
 - diagnostics D1-D4;

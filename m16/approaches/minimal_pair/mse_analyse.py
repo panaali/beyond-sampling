@@ -1,10 +1,10 @@
 """Gain = mean p(1-p)/cost / MSE over rule seeds (MSE incl. bias, minus truth se^2); bootstrap 95% CI over rules.
-Truths: T=5 from truths.json (48M samples, own stream); T=4 from ht_seeds/scan_seeds.json (16-23M samples)."""
+Truths: T=5,6 from truths.json (48M samples, own stream); T=4 from ht_seeds/scan_seeds.json (16-23M samples)."""
 import json, sys
 import numpy as np
 T = int(sys.argv[1])
 raw = json.load(open(f"mse_T{T}.json"))
-if T == 5:
+if T in (5, 6):
     tr = {s: (d["acc"], d["se"]) for k, d in json.load(open("truths.json")).items() for s in [int(k.split(":")[2])] if k.startswith(f"16:{T}:")}
 else:
     ht = json.load(open("../ht_seeds/scan_seeds.json"))
