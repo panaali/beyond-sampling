@@ -165,6 +165,20 @@ not (the quadrature error per line adds bias). M3: success on >= 5 of 8 candidat
 - Scripts: `archs.py` (models), `train.py` (recipe), `job.sh` / `arch.sh` (screen, pick, panel; commit per model),
   `launch.sh` / `wait.sh` / `setup.sh` (helper containers).
 
+### Amendment A1 (2026-10-19 ~17:45, after the screens started, before any panel model finished)
+- **Screen defect.** alg_zoo's warm-up is a fixed 2^14 steps; a 2^24-sample screen is exactly 2^14 steps, so it ends
+  at the top of the warm-up and measures early progress, which favours the largest lr_base (rnnb32: .526 / .315 / .177
+  for .04 / .012 / .004). The screens are kept as run (helpers were already using them); in effect they select the
+  zoo default 0.04 unless a lower rate trains faster from the start. Recorded as a protocol defect.
+- **Fallback (fixed now, before any panel accuracy exists):** a candidate whose seed-0 panel run diverges (NaN loss) or
+  ends below 0.80 accuracy on 2^20 validation inputs is retrained (all 3 seeds) at the next lower screen rate; both
+  sets are reported. Warm-up stays 2^14 steps in all panel runs (the zoo's absolute value, also at 2^28).
+- **Repair sampler bug fixed before any repair run:** the slab weight lacked the proposal normaliser; after the fix,
+  on M_16,10: P(g23 > 1) .04443 (T410 .04445), P(E1(1.0)) 5.56e-6 (T410 5.43e-6 +- .16e-6), P(E1(2.0)) 7.5e-9
+  (4e6 draws, ~50 events; T364 6.81e-9).
+- **Added reference rows:** M_16,10 (`m16`) is also run through M1 and M3 (repair) by the same code, as a check that
+  the generic pipeline reproduces the known results (T429 / T402).
+
 ## Status
 Pre-registered; running.
 

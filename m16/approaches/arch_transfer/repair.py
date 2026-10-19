@@ -37,7 +37,7 @@ def slab(t0, n, rng):
     j = np.clip(np.searchsorted(cdf, u) - 1, 0, len(cell) - 1)
     v3 = b[j] + rng.random(n) * (b[1] - b[0])
     Gv = 360 * np.exp(-v3 ** 2 / 2) / np.sqrt(2 * np.pi) * (1 - ndtr(v3 + t0)) ** 2 * ndtr(v3) ** 7
-    w = Gv / (cell[j] / (b[1] - b[0]))
+    w = Gv * Z * (b[1] - b[0]) / cell[j]     # G / q, q = cell density / (Z * width)
     pl = ndtr(v3 + t0)
     hi = ndtri(np.clip(pl[:, None] + rng.random((n, 2)) * (1 - pl[:, None]), 1e-300, 1 - 1e-16))
     lo = ndtri(np.clip(rng.random((n, 7)) * ndtr(v3)[:, None], 1e-300, 1 - 1e-16))
