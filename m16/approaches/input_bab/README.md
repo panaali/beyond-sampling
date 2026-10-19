@@ -139,3 +139,51 @@ triple's whole slab mass, and the projection is 1e5-1e6 times beyond the 1e9 kil
 - The charge is spread thin: the top 200 of 4.7e5 open boxes hold 2.2e-9 of 2.6e-6.
 - Two u_l dimensions (lows at positions 0 and 1) are never split. Their margin coefficients are tiny, but they inflate
   the max-density charge.
+
+**Deviation D1 (secondary; near-exact box mass in place of the radial charge, 1 CPU-h per triple, ~265 boxes/s).**
+
+| triple | boxes | pruned | total charge (float) | slope (last decade) |
+|---|---|---|---|---|
+| (3,7,8) | 9.65e5 | 5.1e4 | 2.51e-8 (45% of the slab mass) | -0.04 (stall) |
+| (9,8,2) | 9.54e5 | 6.3e4 | 2.85e-8 (51%) | -0.10 (stall) |
+
+With an honest charge, the curve stalls at roughly half the slab mass, 250-290x above the 1e-10 target. In the
+pre-registered runs the charge fell only because a loose bound tightened as boxes shrank. The mass that matters falls
+only through pruning, and CROWN at these box sizes barely prunes. The kill therefore does not depend on the charge.
+
+## Compute accounting
+CPU only, local, 1 thread per process, <= 2 GB:
+- pre-registered runs: 2 x 2 CPU-h
+- D1: 2 x 1 CPU-h
+- 10-min trial
+- validation, diagnostics and pre-test: ~15 CPU-min
+
+Colab: none. Model evaluations: the CROWN cost per box is ~1e6 FLOPs (~1.5e3 FPE); the sampled checks used ~1e7
+forwards.
+
+## Claims
+- [measured] Input-space BaB with own CROWN over homogeneity-reduced u-boxes, best-first by charge with margin-steered
+  bisection: after ~9e6 boxes per late triple the radial charge is still 11-16x the slab mass. The log-log slope is
+  ~-0.5, which projects 1e14-1e15 boxes to reach 1e-10. KILL by the pre-registered line on (3,7,8) and (9,8,2).
+- [measured] With near-exact box masses the charge stalls at ~50% of the slab mass after ~1e6 boxes.
+- [measured] CROWN certifies u-cubes of median half-width ~0.08-0.10 around slab points. Ideal coverings need
+  2.5e8-2.4e9 boxes per late triple, and realistic partitions ~1e11-1e12.
+- [measured] The pruning is sound on every check (no events in 1e6 points from pruned boxes); the open boxes carry no
+  sampled event mass. The obstruction is bound looseness (median 176 margin units), not true events.
+- [inferred] Like forward neuron splitting (T398), plain input splitting cannot certify late triples at 1e-10. The
+  10-step |Wh| compounding that limits interval bounds (T344) also limits CROWN over 9-D boxes.
+
+## Alternatives not ruled out
+- alpha-optimised (alpha-CROWN) and lambda-combined specs instead of fixed adaptive slopes and max over single
+  specs. These typically tighten the bounds 2-10x in margin units; given the median looseness of 176 and the 9-D box
+  count, it is unlikely they close a 1e5x gap, but this was not measured.
+- Mixed input and neuron splitting (beta-CROWN), or splitting only the late input coordinates. Early lows have tiny
+  margin coefficients.
+- A different split heuristic: charge-weighted, or the widest dimension (pre-registered alternative 3 was only partly
+  run, via D1).
+- Charging boxes at a coarser level of the tree (keeping parents) does not change the D1 floor.
+
+## Failure modes
+- The radial charge is 1e2-1e7x looser than the box mass on wide boxes. Its curve mostly measures that looseness.
+- Float only; no outward rounding (rigour was scheduled after a GO).
+- Covering estimates from 400 points are noisy and tail-dominated.
