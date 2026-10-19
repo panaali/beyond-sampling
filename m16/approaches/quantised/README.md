@@ -4,7 +4,8 @@
 accuracy is lost against float, how many hidden states are actually reachable, and does an exact forward dynamic
 program over (state, input interval, label summary) become cheaper than sampling at equal FLOPs?
 
-**Status.** PRE-REGISTERED 2026-10-18 (this section was written and pushed before any training or measurement).
+**Status.** DONE 2026-10-19 (all runtimes stopped; ~14.0 of 20 units). Pre-registered 2026-10-18 (the pre-registration
+section was written and pushed before any training or measurement).
 Owner: Claude session_016BGedpds19gq95yjWmDMn5 (T192 child), DRI session_01CD3g9Cvc3qk3pM11eyXXzj. Budget cap 20
 Colab units (stop and report at the cap; runtimes stopped when idle). No Fable.
 
@@ -187,7 +188,8 @@ reduction as Deviation 1 for the other high-cardinality variants.
 
 ## Compute accounting
 - Colab: T4 runtimes only (~1.07 units/h). Balance 164.37 before T352, 151.69 at 07:00 UTC 2026-10-19 with one T4
-  still running the last census; final spend UNITS_FINAL units of the 20-unit cap. Runs: main QAT grid (32 models,
+  running the last census; final spend ~14.0 units of the 20-unit cap (balance 150.08 after t352c was stopped at 08:45 UTC, of which ~0.3
+  units were T399's dry run on the same runtime). Runs: main QAT grid (32 models,
   2^30 inputs each, stacked) ~2.7 h; STE fallbacks ht3 / tanh' ~1.3 h each; width ladder H = 32 and H = 64 ~1.8 h each
   (in parallel on one T4); 1e8 float64 evaluations of every model; census 7 + 1 runs (72 s - 46 min each); the rest is
   idle keepalive and setup.

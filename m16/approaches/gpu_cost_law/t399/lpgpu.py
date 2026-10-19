@@ -130,7 +130,8 @@ class LPEngine:
 
             def direction(sw, szl, szu):                                        # complementarity targets
                 rhs = (-rd + (Kt @ (Dy * (rp + sw / y.clamp_min(1e-300)))[..., None])[..., 0] + szl / pl - szu / pu) * free
-                dv = th.cholesky_solve(rhs[..., None], Lc)[..., 0] * free
+                zz = th.linalg.solve_triangular(Lc, rhs[..., None], upper=False)   # (cholesky_solve lacks sm75 kernels on Colab)
+                dv = th.linalg.solve_triangular(Lc.transpose(1, 2), zz, upper=True)[..., 0] * free
                 dy = Dy * (rp - (K @ dv[..., None])[..., 0] + sw / y.clamp_min(1e-300)) * rows
                 dw = (sw - w * dy) / y.clamp_min(1e-300) * rows
                 dzl = (szl - zl * dv) / pl * free; dzu = (szu + zu * dv) / pu * free
