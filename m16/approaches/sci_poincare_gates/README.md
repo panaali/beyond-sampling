@@ -69,6 +69,46 @@ because an estimator must also integrate over them.
 
 Files: `models.py` (models, clock rules), `ceiling_gates.py` (the grid), `results/` (outputs).
 
+## T376: lows made consistent with the symbol's cylinder (pre-registered 2026-10-19, before any scored run)
+
+**Question.** T3 failed because frozen low inputs fall outside the cylinder of the forced itinerary, which
+adds a negative bias that cancels E27's positive one. Does the reduction pass when each low input is set to its
+**conditional mean given the symbol** instead of an unconditional typical value?
+
+**Method** (`cond_gates.py`). Low slot t (rank > k) gets x_t = Phi^-1(ubar_t Phi(c)), where u_t = Phi(x_t)/Phi(c) is
+the low's quantile below the k-th value c, and ubar_t = E[u_t | cell]. Cell = symbol S (gate itinerary of the set C)
+plus the top-k skeleton. The conditional means are estimated on an **independent fit sample** (4M inputs, rng
+101; cross-fitted, so a cell never contains the test input), with a fallback hierarchy when a slot has fewer than
+NMIN = 20 fit points: L0 (S, ordered top-k positions) -> L1 (S, unordered top-k set) -> L2 (S) -> L3 (E27 V1).
+It is deterministic given the tables. The fraction of low slots served at each level is reported, because sparse cells
+are where this falls short of exact conditional means. Forcing is as in T3 (true masks on C). Test: the same
+600k inputs as T3 (rng 7), so `none` from T3 is the paired baseline.
+
+Variants (same test inputs): `D3` (**primary**), `D5`, `R3` (same random non-clock sets as T3), `X3` (masks and
+conditioning both from S(x') with resampled lows, rng 13 as T3), `skel` (same estimator, cell = skeleton only,
+no symbol, no forcing: does the gain need the symbol?), `D3u` (D3-conditioned lows, no forcing: does it need
+the forcing?). Also measured: the **cylinder-violation rate** (fraction of test inputs whose unforced run on
+x_r does not reproduce S), for each variant and for T3's V1 frozen lows. This directly tests T3's inferred
+mechanism. k = 4 is primary; k = 5 is secondary.
+
+**Pass line (same as T3).** PASS iff D3 k4 |bias| <= 0.08 pp on all 18 models AND D3 beats X3 by > 2 s.e. (s.e.s
+combined in quadrature) on >= 12/18. Otherwise FAIL, and per the T376 row work **stops with a scoped negative**.
+Also reported: whether the clocks beat random gate sets (mean |bias| D3 vs R3, and the number of models with
+|D3| < |R3| - 2 s.e.).
+
+**Alternative explanations to separate:**
+1. Any gain is from better-informed typical values in general, not from the symbol: `skel` vs `D3u`.
+2. Any gain is from consistency with the forced masks rather than from information: `D3` vs `X3` (both
+   self-consistent by construction, only D3's masks are informative).
+3. A remaining bias is estimation noise or sparse-cell fallback rather than the idea: report the bias by
+   fallback share. Cheapest check if the verdict is close (within 2x of the line): rerun orig with NFIT doubled.
+4. A remaining positive bias is E27's Jensen effect (point closures of noise on a cancelling residual), which
+   conditional *means* cannot remove: expected sign positive if so.
+
+**Disclosed smoke test** (memory and debugging only, on a model NOT in the 18: `noisy_models(1, 0.0025, seed=99)`,
+k = 4, NFIT 5M): D3 +0.27, D5 +0.03, R3 +0.20, X3 +0.26, skel +0.24, D3u +0.30 pp. Cylinder violation: T3 V1
+0.48, D3 0.36, R3 0.15. L0 share 0.52. Peak RSS 1.78 GB at 5M, hence NFIT = 4M for the scored run.
+
 ## Status
 Done (2026-10-19). Verdict on the pre-registered rule: **FAIL. Negative (unverified)**, scoped below. No
 estimator was built.
