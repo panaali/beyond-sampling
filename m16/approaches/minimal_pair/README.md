@@ -81,6 +81,57 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T391 results (2026-10-19): **STOP**. Go fails at both budgets (closer than T389, as predicted).
+Go = DEV3 CI upper < 1 at BOTH 16k and 64k.
+
+| | T10 recipe (DEV3) | isg (DEV3) | predicted |
+|---|---|---|---|
+| 16k | 1.15 [0.76, 1.62] | **0.859 [0.659, 1.078]** | 0.96 (upper ~1.35) |
+| 64k | 0.97 [0.65, 1.38] | **0.880 [0.620, 1.165]** | 0.75 (upper ~1.06) |
+
+- Bias: +0.03 pp at both budgets. RMSE: 0.193 pp (16k), 0.097 pp (64k).
+- Reproduce: `python score_dev3.py isg 16000,64000 dev3_scores_isg.json` (`dev3_scores_isg.log`).
+- HP5 was not touched.
+
+Leaderboard M_16,10 (`python m16/leaderboard.py run minimal_pair/isg --H 16 --T 10`, `isg/lb_T10.log`, raw
+`isg/lb_raw_T10.jsonl`):
+
+| group | 16k | 64k |
+|---|---|---|
+| seeds | 0.92 [0.26, 1.98] | 1.24 [0.09, 3.11] |
+| noisy groups | 1.75-6.77 | 0.21-1.37 |
+| orig (single model and run) | 0.23 | 0.00 |
+
+The 16k noisy groups show a +0.27-0.65 pp positive bias. [inferred] IS weights from a DEV2 table under-sample the
+cells where noised copies put their errors.
+
+**Time** (process CPU per call on DEV3, single thread; plain sampling at these budgets ~0.01-0.04 s):
+
+| | 16k | 64k |
+|---|---|---|
+| isg | 0.98 s | 2.37 s |
+| T10 recipe | 0.40 s | 0.87 s |
+| cv | 0.50 s | 1.05 s |
+
+isg ran next to the leaderboard job, so part of its 2.4x over the T10 recipe may be contention. Not re-measured in
+isolation.
+
+**Reading:**
+- [measured] The global importance-weighted rule improves on the T10 recipe on DEV3 at both budgets (point
+  1.15 -> 0.86 and 0.97 -> 0.88), in line with the DEV2 rule-spread gain of 1.2-1.3x. But the CIs still cross 1, so
+  it does not beat sampling with confidence.
+- [measured] Off the clean retrains (noisy copies at 16k) it is worse than the T10 recipe.
+- [inferred] Taken with T380/T389: allocation and importance priors at the tie-position level give at most
+  ~1.2-1.5x on this integrand at T=10. That puts the walk-quadrature family at or just below the sampling line on
+  M_16,10 retrains. Clearing it with confidence needs a different integrand, not a different node placement.
+
+**Scoped negative (unverified).** Scope: T10 walk integrand, sign strata, a single global Sobol rule per stratum, the
+DEV2 (a, b) relative-sd table as an importance density, budgets 16k/64k, DEV3. Not tried:
+- tempered importance (q ~ s^alpha);
+- a defensive mixture with uniform (would cap the noisy-copy bias);
+- larger budgets;
+- combining with T380's near/far split.
+
 ## T391 pre-registration: one global rule per stratum, importance-weighted by T389's table (written 2026-10-19, before DEV3)
 Class: deterministic quadrature, ARC acceptance unknown (OWNER_QA 4.7).
 

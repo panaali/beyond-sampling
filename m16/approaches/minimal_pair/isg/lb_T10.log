@@ -1,0 +1,20 @@
+minimal_pair/isg budget 16000 done
+minimal_pair/isg budget 64000 done
+
+=== Leaderboard v3, M_16,10. MSE / sampling-MSE at equal cost (below 1 beats sampling) ===
+    ARC's demonstrated bar (E32, M_4,3): MSE ratios ~2.4 (B) to ~10 (A) at ARC's op counts were called 'roughly match'; A is ~1.4 when ops are counted as implemented (as here).
+
+--- unreviewed ---
+method             group       budget      cost  ratio         95% CI  bias pp  time  n
+minimal_pair/isg   orig         16000     15626   0.23 [ 0.23, 0.23]   +0.081  29.2  24
+minimal_pair/isg   s0.0025      16000     15721   2.46 [ 0.89, 4.05]   +0.269  29.2 144
+minimal_pair/isg   s0.005       16000     15686   1.75 [ 0.75, 2.59]   +0.275  26.7 144
+minimal_pair/isg   s0.01        16000     15742   4.20 [ 2.97, 5.43]   +0.280  24.4 144
+minimal_pair/isg   s0.02        16000     15729   6.77 [ 1.16,12.19]   +0.652  24.8 144
+minimal_pair/isg   seed         16000     15971   0.92 [ 0.26, 1.98]   -0.106  22.4 120
+minimal_pair/isg   orig         64000     63950  -0.00 [-0.00,-0.00]   +0.001  13.0  24
+minimal_pair/isg   s0.0025      64000     64273   0.21 [ 0.03, 0.38]   +0.022  13.4 144
+minimal_pair/isg   s0.005       64000     64377   0.44 [ 0.10, 0.90]   +0.016  13.0 144
+minimal_pair/isg   s0.01        64000     64407   1.37 [ 0.36, 2.67]   +0.057  13.2 144
+minimal_pair/isg   s0.02        64000     64398   0.96 [ 0.25, 1.78]   -0.011  13.2 144
+minimal_pair/isg   seed         64000     63806   1.24 [ 0.09, 3.11]   -0.057  11.0 120
