@@ -40,7 +40,8 @@ def panel(prefixes=None):
     for arch in arches:
         if prefixes is not None and arch not in prefixes:
             continue
-        paths = sorted(glob.glob(f"{HERE}/models/{arch}_s*.json"))
+        # ladder configs (D...) use their 2^28 runs only; 2^30 retrains of a ladder config are not panel members
+        paths = sorted(glob.glob(f"{HERE}/models/{arch}_s?{'_n28' if arch.startswith('D') else ''}.json"))
         rng = np.random.default_rng(345)
         for p in paths:
             w = [np.asarray(m) for m in json.load(open(p))["weights"]]
