@@ -41,7 +41,11 @@ def _diff_sup(cl, ch, rl, rh, gl, gh):
     # z = g (r + c): extremes at corners (bilinear)
     zh = th.maximum(th.maximum(gl * (rl + ch), gl * (rh + ch)), th.maximum(gh * (rl + ch), gh * (rh + ch)))
     zl = th.minimum(th.minimum(gl * (rl + cl), gl * (rh + cl)), th.minimum(gh * (rl + cl), gh * (rh + cl)))
-    b1 = _Phi(zh) - _Phi(zl)
+    # Phi(zh) - Phi(zl) without cancellation: in the upper tail as Q(zl) - Q(zh) (Q = 1 - Phi); a slack of 1e-14 x the
+    # larger term covers the few-ulp errors of erfc and the subtraction (V1 found 0s from 1 - 1 cancellation otherwise)
+    up = zl >= 0
+    big = th.where(up, _Phi(-zl), _Phi(zh)); small = th.where(up, _Phi(-zh), _Phi(zl))
+    b1 = big - small + 1e-14 * big
     b2 = gh * (ch - cl) * _phimax(zl, zh)
     return th.minimum(b1, b2).clamp(min=0)
 
@@ -106,7 +110,11 @@ def upper_arb(lo, hi, nr=24, ng=48, m=0.5, prec=80):
     def dsup(cl, ch, rl, rh, gl, gh):
         zh = mx(gl * (rl + ch), gl * (rh + ch), gh * (rl + ch), gh * (rh + ch))
         zl = mn(gl * (rl + cl), gl * (rh + cl), gh * (rl + cl), gh * (rh + cl))
-        b1 = Phi(zh) - Phi(zl); b2 = gh * (ch - cl) * phimax(zl, zh)
+        if zl > 0:                                                                             # upper tail, no cancellation
+            b1 = ((zl / sq2).erfc() - (zh / sq2).erfc()) / 2
+        else:
+            b1 = Phi(zh) - Phi(zl)
+        b2 = gh * (ch - cl) * phimax(zl, zh)
         b = b1.min(b2)
         return b.max(arb(0))
 

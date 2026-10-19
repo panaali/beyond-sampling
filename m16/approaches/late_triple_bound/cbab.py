@@ -32,6 +32,9 @@ def run(a):
     if a.resume and os.path.exists(ck):
         S = th.load(ck); LO, HI, RC, QM = S["lo"], S["hi"], S["rc"], S["qm"]; st = S["st"]; curve = S["curve"]; res = S["res"]
         cpu0 = st["cpu_s"]
+        if a.recharge:                                                    # recompute all charges with the current rmass
+            RC = th.cat([rc(LO[i:i + 4096], HI[i:i + 4096]) for i in range(0, len(LO), 4096)])
+            print("recharged %d open boxes: cert %.4e" % (len(LO), float(RC.sum()) + TAIL), flush=True)
     else:
         lo0, hi0 = net.root(tri); LO, HI = lo0[None].clone(), hi0[None].clone(); RC = rc(LO, HI); QM = net.quad_mass(LO, HI)
         st = dict(evals=0, pruned=0, pr_crown=0, pr_alpha=0, cpu_s=0.0, it=0); curve = []; res = []; cpu0 = 0.0
@@ -67,7 +70,7 @@ def run(a):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("tri"); ap.add_argument("out"); ap.add_argument("sec", type=float)
-    ap.add_argument("--resume", action="store_true"); ap.add_argument("--K", type=int, default=256)
+    ap.add_argument("--resume", action="store_true"); ap.add_argument("--recharge", action="store_true"); ap.add_argument("--K", type=int, default=256)
     ap.add_argument("--nr", type=int, default=48); ap.add_argument("--ng", type=int, default=96)
     ap.add_argument("--ckpt", type=float, default=1800); ap.add_argument("--log-sec", type=float, default=300)
     run(ap.parse_args())
