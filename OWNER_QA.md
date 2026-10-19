@@ -1067,6 +1067,25 @@ mechanism-derived calculation (T317f) needs a new mechanism for each network; (7
 costs grow as 1/p. **Early correction:** the first scale-study points contradict guess (4) for H: at T = 10 the frozen walk
 beats sampling at H = 24 and 32 (T423, interim), so the guess is kept here only as the record of what was predicted.
 
+<a id="q6-10"></a>
+### 6.10 Do our methods apply to more modern architectures? Which class of architectures keeps at least one of them? (owner, 10-19 17:1x)
+
+**Request (owner, condensed):** change the network structure to something more modern (ideally more accurate) while
+keeping weights and neurons affordable, and find the class of architectures for which at least one positive or
+near-positive method still applies (softmax or other neuron types may break some of them).
+
+**Answer (DRI, [inferred] until T432 runs):** each method needs a different property. *Exact line walks and the
+certified bound* need the network to be piecewise linear along any line (ReLU, leaky ReLU, maxout, hard-tanh /
+hard-sigmoid gates, max-pooling, residual connections, linear state-space recurrences); products such as attention scores
+make it piecewise polynomial, so line walks stay exact with polynomial roots but the polytope mass machinery does not;
+softmax, sigmoid, tanh, GELU and layer norm need numerical integration along lines (no longer exact) and CROWN-style
+linear bounds for certificates. The exact radial integral also needs no biases (positive homogeneity). *Locating and
+repairing a rare failure* only needs gradients, so it should apply to any differentiable architecture. *The rare-event
+estimators* are tied to the task's event, not the architecture. Plan: T432 maps methods x architecture features, trains
+4-6 affordable modern candidates on the same task (bias ReLU RNN, stacked ReLU RNN, gated RNN with hard and smooth gates,
+a linear state-space model with ReLU readout, a tiny transformer with ReLU vs softmax attention, a 1-D conv net) and tests
+which methods carry over against both bars.
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
