@@ -258,10 +258,12 @@ Median seconds per stage-1/2/3 cell: 0.45-1.0 / 0.6-1.1 / 0.7-1.3.
 Plain MC with 1e9 draws (`python surv_curve.py 1,8,2 2.5 1e9 6`; output in `results_surv_curve_1-8-2_2.5.txt`).
 The slab mass P(top three at (1,8,2), g23 >= 2.5, N) is 5.6e-8.
 
-| k | 1-3 | 4 | 5 | 6 |
-|---|---|---|---|---|
-| survivors | 2 / 18 / 39 | 146 | 275 | 781 |
-| C_true(k) | 5.6e-8 (100%) | 4.5e-8 | 4.2e-8 | **2.5e-8 (45%)** |
+| k | 1-3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|
+| survivors | 2 / 18 / 39 | 146 | 275 | 781 | 1,494 | 3,058 |
+| C_true(k) | 5.6e-8 (100%) | 4.5e-8 | 4.2e-8 | **2.5e-8 (45%)** | **2.6e-9 (4.6%)** | **2.6e-9** (the same 1,865 MC points) |
+
+k = 7 and 8 come from `surv_curve.py ... 7` and `... 8`. The curve **flattens at 2.6e-9 from k = 7 to 8**: no slab point in the k = 7 survivors was pruned at k = 8.
 
 - No event draw occurred in the 1e9 draws: P(E_(1,8,2)) < ~1.4e-8 at 1 - 1e-6. The event-in-survivors check
   is therefore vacuous here.
