@@ -80,6 +80,26 @@ R2c pos,pos,hard anneal (3 layers). Any R2 variant that meets the dev pass line 
 reported as a second (post-hoc chosen) candidate. Running total after this: 16 + 6 confirmation + 3 + <= 3 = <= 28
 trainings (cap 40).
 
+## Round 2 results (`logs/r2.log`)
+
+Confirmation (fresh seeds, 1e6 samples at the large horizon; exact = full enumeration at L 15 / n <= 10):
+| model | acc large | illegal mass | B0.5 large | B0.9 large | exact acc | exact B0.5 | pass? |
+|---|---|---|---|---|---|---|---|
+| dyck2 D6 pos,sparsemax s10 | .99999 | 1.6e-5 | 1.0e-5 | 0 | 1.000000 | 0 | yes |
+| dyck2 D6 s11 | .99999 | 1.8e-5 | 2.0e-6 | 0 | 1.000000 | 0 | yes |
+| dyck2 D6 s12 | .99999 | 1.6e-5 | 5.0e-6 | 0 | 1.000000 | 0 | yes |
+| modsum M1 pos,pos curric s10 | .9633 | 7.5e-2 | 6.0e-2 | 1.4e-3 | .99822 | 3.0e-3 | yes |
+| modsum M1 s11 | .99946 | 5.6e-3 | 5.8e-4 | 2.3e-4 | .99995 | 6.4e-5 | yes |
+| modsum M1 s12 | .9776 | 5.3e-2 | 3.2e-2 | 3.3e-3 | .99997 | 2.7e-5 | yes |
+
+Addendum A (dev, seed 0, 2e5): R2a pos,hard 16k steps acc .99992, B0.5 8.0e-5; R2b beta1 100 acc .99916, B0.5
+9.3e-4; R2c pos,pos,hard acc .99998, B0.5 4.5e-5 (9 events; just above 3.3e-5). None passes the dev line.
+
+**Addendum B (written after round 2, before running):** combine the two helpful changes: R3a pos,pos,hard anneal
+16000 steps; R3b the same with hard_frac .4. A variant that meets the dev line goes to confirmation on seeds 10-12
+(reported as a post-hoc piecewise-constant candidate). Cap: 25 + 2 + <= 3 = <= 30 trainings. If none passes, the
+piecewise-constant result is a scoped negative.
+
 ## Method
 `s1models.py` (S1Block subclasses the harness Block; S1Transformer subclasses TinyTransformer, per-layer types),
 `s1train.py` (harness recipe + schedules + modsum curriculum), `load_s1.py` (loader). A model whose layers are all
@@ -87,4 +107,4 @@ trainings (cap 40).
 those checkpoints load in the harness too.
 
 ## Status
-Round 1 done; confirmation (D6, M1) and addendum A running.
+Confirmation done (D6, M1 pass); addendum B running.
