@@ -60,6 +60,22 @@ for t in sorted({p[0] for p in points}):
     by_t[t] = {'n': len(a), 'geometric_mean_gain': math.exp(sum(map(math.log, a))/len(a)),
                'individual_gains_above_one': sum(x > 1 for x in a)}
 p = .9531175
+e32 = json.loads(source('e32_data'))
+e32rows = [r for v in e32['seeds'].values() for r in v['rows']]
+assert len(e32rows) == 1024 and e32['protocol']['ops_per_sample'] == 72
+mean = lambda values: sum(values)/len(values)
+pq32 = mean([r['truth']*(1-r['truth']) for r in e32rows])
+a_mse = mean([(r['A']-r['truth'])**2 for r in e32rows])
+b_mse = mean([(r['B']-r['truth'])**2 for r in e32rows])
+exact_ops = mean([r['exact_ops'] for r in e32rows])
+e32_check = {
+    'n': len(e32rows), 'mean_pq': pq32,
+    'mean_exact_ops': exact_ops, 'mean_leaf_count': mean([r['leaves'] for r in e32rows]),
+    'A_ratio_ARC_71040_ops': a_mse*(71040/72)/pq32,
+    'A_ratio_mean_measured_ops': a_mse*(mean([r['A_ops'] for r in e32rows])/72)/pq32,
+    'B_ratio_ARC_7680_ops_uncharged_integral_sampling': b_mse*(7680/72)/pq32,
+    'sampling_to_point001_RMS_cost_divided_by_mean_exact_cost': pq32/.001**2*72/exact_ops,
+}
 report = {
     'scope': 'saved public aggregates, embedded data and scalar arithmetic only',
     'hp4_official': h,
@@ -82,6 +98,7 @@ report = {
     'density_extreme_bin_ratio_original': 358060/2872,
     'figure5_saved_log_match': True,
     'figure5_by_T': by_t,
+    'E32_saved_1024_row_check': e32_check,
     'gain_identity': 'For q=1-p, n faces, C=n*c: [p*q/C]/[q*q*CV^2/n] = p/(q*CV^2*c).',
     'sampling_F_below_floor': 'For C<1000, expected F=1000/C; for C>=1000, expected F=1.',
     'model_calls': 0,

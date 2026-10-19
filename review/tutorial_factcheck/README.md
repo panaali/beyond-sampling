@@ -14,7 +14,7 @@ Two competing explanations were considered before calling a mismatch a defect: a
 
 ## Status
 
-**Findings frozen; writer revision and independent final verification pending.** Seventeen findings were sent directly in actionable batches. This is an editorial evidence audit, not a change to scientific ledger verdicts. T374 retains status.json authorship and publication at the existing private Artifact URL.
+**Done: revised tutorial independently rechecked, factual review PASS.** Seventeen findings were sent directly in actionable batches and resolved in writer revision **68ba066c**, including preserved upstream owner fixes and explicit qualifications. See [final verification](FINAL_VERIFICATION.md) and the [writer response matrix](../../tutorial/REVIEW_RESPONSE_T384.md). This is an editorial evidence audit, not a change to scientific ledger verdicts. T374 retains status.json authorship and publication at the existing private Artifact URL; republication of this corrected successor is a separate pending action.
 
 ## Results
 
@@ -27,6 +27,8 @@ Severity: **high** changes a central interpretation, mathematical claim or displ
 **High; confirmed defect; high confidence.** At source line 497 the caption says the walk measures the wrong stretch “exactly.” In the same file, lines 963–965 classify six midpoint subintervals per gate piece; they do not split at every readout crossing or true-rank tie. Lines 937–947 also use tolerances, a 4,000-piece cap and a 1e-9 advance. These are direct implementation facts, not a speculative numerical failure.
 
 **Replacement:** distinguish the mathematically exact piecewise-linear method from the numerical browser demonstration. Say the red strip and reported wrong length use six midpoint checks per piece and are approximate. Do not change the model or walker to claim a new certified computation.
+
+**Resolution update:** owner v4 (shared 97ee97a4 / owner 0039119b) replaced the six-midpoint strip with splits at true-answer ties and every pairwise output-score crossing before the writer's T384 correction. The final page preserves that algorithm and qualifies its numerical tolerances. The six-midpoint description above applies only to the pinned finding baseline, not the final implementation.
 
 ### F02 — “Blind” inputs are not the all-negative orthant
 
