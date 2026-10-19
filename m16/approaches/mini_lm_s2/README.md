@@ -48,3 +48,11 @@ strict bar at <= 1e5 FPE.
 
 **Compute plan.** MLP1 training about 4 CPU-h; truths 60 models x 4e6 sequences about 5 CPU-h; estimators
 4 x 60 x 5 x 1.1e4 FPE about 1.3e7 FPE, about 4-6 CPU-h. CPU only, 2 heavy processes, `ulimit -v 2500000`.
+
+**Amendment 1 (2026-10-19, before any MLP1 truth or panel run; dev models only seen).** Add **E5 = exact head +
+tilted-IS tail**: head as E1 but with head cost <= B/4; tail as E2 (same q' grid and pilot rule, pilot criterion on
+the tail positions t >= t0 only). Clarification of E1: the head enumerates the count(t0 - 1) prefixes of t0 - 1
+tokens with one forward of input length t0 each (this scores positions 0..t0-1 exactly); the cost rule is
+count(t0 - 1) * flops(t0) / flops(32) <= B/2. Dev check on dyck2_hard_s0 and linear_s0 (2e5-sample truths, 4 runs at
+1e4): all estimators within noise of the truth; E0 1.48 / 1.15, E1 .90 / 3.46, E2 .75 / .49, E3 3.55 / 3.70
+(mse x C / sigma^2; noisy).
