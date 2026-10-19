@@ -28,7 +28,7 @@ goal: predicting failures too rare for testing to catch.
   network an improved approximation passed its first test and a sealed test runs (T370). Sampling focused on the most
   likely failure points estimates the studied mistake (about 1.5 in 10 billion) with about 1e5x less computing than plain
   random testing (T436); on 15 blind points it is within 2x on all 15, but its error bars are honest on only 12 (T453,
-  T454); a version scored on fresh points runs (T456).
+  T454); an improved version scored on 15 fresh points is within 3% with honest error bars on all 15 (T456).
 - *Rating safe use* ("if the top numbers differ by at least X, the error rate is Y"): works on some networks, partly on
   the challenge network (T401, T407); on a wider network it works for the rarer conditions instead (T427, interim).
 - *Locating and repairing:* a 12-weight edit makes the studied mistake about 17x rarer with almost no accuracy cost while
