@@ -37,3 +37,11 @@ The root explicitly approved narrow factual display changes: five JavaScript str
 The writer's scratch invariant check compares against `97ee97a4`: CSS, JSON and formulas byte-identical; all status chips, IDs, lane placeholders and structural/interactive attributes retained; existing links retained and new links restricted to References; the full script becomes byte-identical after the five declared string replacements and one comment replacement. Numerical prose changes are the evidence-backed corrections in the table, not a claim of an empty numeric diff.
 
 `python3 tutorial/tools/build.py` regenerates both standalone pages. Final independent factual review and desktop/mobile browser results are recorded in the completion handoff and the review's final-verification section. T374 alone republishes the corrected successor at the existing private Artifact URL; the prior v4 publication and T382 closure remain historical facts.
+
+## Completed verification
+
+The independent reviewer signed off **PASS on correction commit `68ba066c`**, including all seventeen findings and four final residual fixes. Final source SHA-256: `e90a6769b38a5385a25e34f14e6bc5d80b46e67c119366bceef38361bc7af258`. The response matrix was checked against the actual text.
+
+The writer's invariant check passes against v4: 545 structural blocks, 52 unchanged status chips, 19 retained existing links and seven added reference links, with the declared script substitutions only. A repeat build leaves no diff and `git diff --check` passes. Final Chromium checks at 1280×900 and 390×844 show 13 figures, 14 initialized SVGs, 17 section headings and 18 status boxes, with no JavaScript errors or horizontal overflow. Live input, sampling, slice selection, compute calculator, gate-walk, rare-event and dark-mode controls pass. Desktop/mobile screenshots were inspected. The manager also independently checked source/code and browser behaviour.
+
+These are software/rendering checks and saved-evidence review, not new scientific experiments. The corrected successor awaits T374 republication at the existing private Artifact URL; the reviewer owns the final T384 board/DRI closure.
