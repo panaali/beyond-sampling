@@ -74,25 +74,143 @@ claude/t286-cheap-frontier (sha256 62c95203..., asserted).
 
 ## Status
 
-Pre-registered; running.
+**Done (2026-10-19).** Estimates sealed and pushed first (@541010cf), then truths and scoring. Verdict by the
+pre-registered line: **GO, 128 / 144 noisy points within 2x (88.9%; line 80%)**. Unverified: nobody has re-checked it.
 
 ## Results
 
-(pending)
+Commands: `python est_run.py 0 2` and `python est_run.py 1 2` (estimates); `python truth.py 1.0 1e8`,
+`python truth.py 1.25 1e8`, `python truth.py 1.5 1e8` (truths); `python score.py` (`results/score.txt`,
+`results/score.json`); `python analysis.py` (post hoc, `results/analysis.json`). Environment as under Method.
+
+**Pre-registered summary (all 144 noisy points; none excluded, every truth has >= 1,000 hits; truth rel. s.e. <= 2%).**
+
+| set | n | within 2x | within 3x | median est/truth | mean log10 ratio | high / low |
+|---|---|---|---|---|---|---|
+| **all noisy** | 144 | **128 (88.9%)** | 133 | **1.02** | -.09 | 81 / 63 |
+| sigma .001 | 36 | 28 (78%) | 29 | 1.01 | -.26 | 18 / 18 |
+| sigma .005 | 36 | 28 (78%) | 32 | 1.02 | -.13 | 19 / 17 |
+| sigma .02 | 36 | **36 (100%)** | 36 | 1.03 | .00 | 20 / 16 |
+| sigma .05 | 36 | **36 (100%)** | 36 | 1.02 | .01 | 24 / 12 |
+| truth in H-R1's range [2e-7, 2e-4] | 77 | 61 (79%) | 66 | .98 | -.19 | 35 / 42 |
+| t0 = 1.0 / 1.25 / 1.5 | 48 each | 42 / 43 / 43 | 43 / 45 / 45 | 1.02 / 1.03 / 1.01 | | |
+| clean bases (reference) | 12 | 8 | 9 | 1.01 | -.24 | 6 / 6 |
+
+**Per base and sigma** (est/truth, ordered copy 0 t0 1.0 / 1.25 / 1.5, then copy 1, then copy 2; "tie" = share of the
+truth's hits with g12 < .1, min-max over the row):
+
+| base | sigma | truth range | est/truth | tie % |
+|---|---|---|---|---|
+| orig | 0 | 2.2e-07 - 5.4e-06 | 1.75 1.25 0.47 | 81-92 |
+| orig | .001 | 1.4e-07 - 5.7e-06 | 1.55 1.05 0.38 · 1.61 1.50 0.62 · 1.79 1.24 0.52 | 80-94 |
+| orig | .005 | 5.9e-07 - 3.8e-05 | 0.39 0.47 0.79 · 1.01 1.05 0.67 · 1.24 0.68 0.46 | 13-88 |
+| orig | .02 | 5.0e-05 - 1.4e-03 | 0.94 0.84 0.84 · 1.04 1.04 1.00 · 0.90 0.87 0.77 | 10-18 |
+| orig | .05 | 2.1e-04 - 2.8e-03 | 1.05 1.03 1.02 · 1.02 1.02 1.03 · 0.97 0.97 0.97 | 18-21 |
+| dev3_s526 | 0 | 1.4e-05 - 8.7e-05 | 0.79 1.01 1.08 | 67-77 |
+| dev3_s526 | .001 | 8.6e-06 - 7.1e-05 | 1.11 0.99 0.90 · 1.00 0.94 1.08 · 0.78 1.05 1.22 | 48-74 |
+| dev3_s526 | .005 | 1.6e-05 - 3.9e-04 | 1.09 1.14 1.09 · 1.26 1.04 0.93 · 0.74 0.83 0.81 | 15-34 |
+| dev3_s526 | .02 | 7.1e-05 - 4.2e-03 | 1.10 1.11 1.09 · 1.13 1.10 1.09 · 0.88 0.90 0.94 | 14-22 |
+| dev3_s526 | .05 | 4.5e-04 - 4.7e-03 | 1.04 1.02 1.01 · 1.18 1.17 1.15 · 0.97 0.96 0.96 | 19-22 |
+| dev3_s528 | 0 | 2.6e-06 - 1.5e-05 | **0.08 0.08 0.20** | 94-96 |
+| dev3_s528 | .001 | 1.1e-06 - 2.6e-05 | **0.26** 0.52 1.29 · **0.08 0.10 0.23** · **0.05 0.01 0.0015** | 78-100 |
+| dev3_s528 | .005 | 2.5e-06 - 1.3e-04 | 1.31 1.52 1.35 · **0.21 0.37** 0.92 · **0.15 0.12 0.12** | 25-93 |
+| dev3_s528 | .02 | 3.2e-06 - 1.2e-03 | 1.05 1.05 1.02 · 0.61 1.16 1.43 · 0.95 0.92 0.94 | 12-41 |
+| dev3_s528 | .05 | 4.2e-05 - 3.1e-03 | 1.02 1.01 1.00 · 0.89 0.94 0.86 · 1.08 1.09 1.07 | 8-22 |
+| dev3_s530 | 0 | 4.6e-05 - 3.6e-04 | 1.00 1.02 1.04 | 31-33 |
+| dev3_s530 | .001 | 4.3e-05 - 4.2e-04 | 1.03 1.03 1.04 · 1.09 1.18 1.21 · 0.95 0.99 1.05 | 31-36 |
+| dev3_s530 | .005 | 4.2e-05 - 7.6e-04 | 1.17 1.14 1.13 · 1.07 1.11 1.09 · 1.02 0.98 1.03 | 26-33 |
+| dev3_s530 | .02 | 1.9e-04 - 2.2e-03 | 1.20 1.20 1.17 · 1.08 1.09 1.09 · 0.97 0.97 0.99 | 16-24 |
+| dev3_s530 | .05 | 4.3e-04 - 5.1e-03 | 1.18 1.16 1.12 · 1.06 1.09 1.09 · 0.96 0.98 0.98 | 18-23 |
+
+**Where it breaks.** All 16 noisy misses are LOW, and all lie at small noise (.001, .005): 12 on dev3_s528's copies
+(down to .0015x), 4 on orig's copies (.38-.47). None at .02 or .05. Larger noise does not break the estimator; it
+removes the conditions it fails in.
+
+**Post hoc (not pre-registered; `analysis.py`): the misses track the truth's triple-tie share.** Over all 156 points
+(noisy + clean):
+
+| truth share of hits with g12 < .1 | n | within 2x | median ratio |
+|---|---|---|---|
+| < 50% | 110 | **110** | 1.03 |
+| 50-80% | 15 | 13 | 1.00 |
+| >= 80% | 31 | 13 | .38 |
+
+Noise at .02-.05 spreads the error mass out of the g12 ~ 0 sliver (tie share 8-41%), and the error rate rises 10-300x.
+In that regime K3 is within 1.2x almost everywhere. A high tie share is necessary for a miss here but not sufficient:
+clean orig at t0 1.0 / 1.25 (81-89%) is still within 2x.
+
+**Checks.**
+- Truth code vs T340's public GPU truths on clean orig (1e10 samples): 5.44e-6 vs 5.37e-6, 1.07e-6 vs ~1.1e-6,
+  2.16e-7 vs ~2.1e-7 (within ~1 s.e.). My clean-orig ratios (1.75 / 1.25 / .47) reproduce T340c's K3 (1.73-1.77 /
+  1.24 / .48-.49).
+- The cut: the truths' share of hits with g23 > 3.5 is at most 1.2e-5 on any point. So the T_hi = 3.5 cut drops nothing
+  that matters. The declared bound 7.04e-8 is >= 1/3 of the truth only for orig-family points at t0 = 1.5.
+- Estimator hashes: all five asserted at import. The noise replica is bitwise equal to arc_eval on orig.
+
+**New fact about a model already in use.** Clean dev3_s528, used as "non-triple-tie" in T366/T368 at deep thresholds
+(2.35 / 2.75, where K3 was 1.26-1.39), IS triple-tie-dominated at t0 = 1.0-1.5: 94-96% of its E1 hits have
+g12 < .1, and K3 is .08 / .08 / .20 there [measured]. So "triple-tie-dominated" depends on the threshold, not only on
+the model.
 
 ## Compute accounting
 
-(pending) Estimator: FLOPs as executed / 5948. Truth: 3 x 1e8 conditional samples x 52 models (sampling, truth
-only; not part of the estimator's budget).
+- **Estimator (deductive, no random inputs):** FLOPs as executed / 5948. Per model (all 3 t0 in one call) 0.31-0.55M FPE,
+  median 0.37M; 19.5M FPE for all 52 models. Wall time 30-65 s per model on one core. Cost rises mildly with
+  sigma (more gate cells on the lines).
+- **Truth (sampling, truth only, not part of any budget):** 3 x 1e8 conditional samples, each pushed through all 52
+  models (1.56e10 model forwards), float64, about 1 core-hour per t0.
+- Equal compute (context, not scored): at ~0.37M FPE, plain MC expects p x C events, i.e. < 1 event for every point
+  with p < 2.7e-6 (orig and dev3_s528 at small sigma), and 2-1,900 events elsewhere. At sigma .02-.05 (p 5e-5 to 5e-3),
+  sampling at the same cost would beat K3's ~10% error. This test did not score that.
 
 ## Claims
 
-(pending)
+1. [measured] The frozen H-R1 estimator (K3, T_hi 3.5, unchanged) is within 2x of an independent truth on 128 / 144
+   (88.9%) arc_eval noisy copies of 4 bases at E1(t0 = 1, 1.25, 1.5), median est/truth 1.02, at 0.31-0.55M FPE per model
+   (3 thresholds). The pre-registered line (80%) is passed.
+2. [measured] At sigma .02 and .05 (ARC's default), 72 / 72 points are within 2x (range .61-1.43;
+   69 / 72 within 1.25x). The misses (16) are all at sigma <= .005 and all low.
+3. [measured, post hoc] Every point whose truth has < 50% of its hits at g12 < .1 is within 2x (110 / 110). Points at
+   >= 80% are within 2x on only 13 / 31 (median .38). [inferred] The failures are the known triple-tie sliver failure
+   of 3 g12 nodes (T364/T367), not an effect of noise. Noise affects the result only through how much error mass it
+   leaves in the sliver.
+4. [measured] dev3_s528 is triple-tie-dominated at t0 = 1.0-1.5 (clean: 94-96%, K3 .08-.20), unlike at T366's deep
+   thresholds.
+5. [inferred] H-R1's scope item "weight-noised copies untested" can be narrowed: on non-triple-tie points, noisy copies
+   behave like clean retrains. The triple-tie limitation H-R1 already records still applies, and small noise does not
+   remove it.
+6. [measured] Within H-R1's p range [2e-7, 2e-4], 61 / 77 = 79% are within 2x, just under 80% (secondary, not the go
+   line). The range is where the small-noise, sliver-dominated points live.
 
 ## Alternatives not ruled out
 
-(pending)
+- **Common noise rays.** arc_eval uses the same seed at every sigma, so copy j at .001 / .005 / .02 / .05 shares one
+  direction. The 4 levels are not independent samples of noise directions; the per-sigma breakdown is 3 directions
+  per base. Per-copy consistency (e.g. dev3_s528 copy 0 good at every sigma, copies 1-2 bad at small sigma) is partly
+  one direction seen four times.
+- **Islands sliding across fixed lines (DRI FYI from T372, claude/t372-rare-gradient 1973bfb9, k3_moved.json; not read
+  by me).** K3 can be right at the trained weights but 1.3-1.75x off at nearby weights, because the islands move
+  relative to its fixed walk lines. That fits orig@.001 (1.05-1.79 at t0 1.0 / 1.25, vs 1.25-1.75 clean) and some of
+  the 1.1-1.5x scatter at small sigma. It may also contribute to the low misses, which this test cannot separate from
+  the triple-tie mechanism. The tie-share split (claim 3) is post hoc and correlational.
+- **Selection of bases.** dev3_s526/s528/s530 were picked as "non-triple-tie" from T366/T368 at deep t0. dev3_s528 turned
+  out not to be at these t0 (claim 4). With another base set, the small-sigma fraction could be higher or lower. 4 bases
+  is a small panel.
+- **Large-sigma success may be partly "easy" events.** At sigma .02-.05 the event is far less rare (p up to 5e-3) and the
+  tie share is low, so this is a different regime from H-R1's. Passing there does not show the estimator is good at
+  rare noisy events with a large sliver share.
+- **Truth correlation.** All 52 models share the same draws per t0. Each truth is unbiased, but errors are correlated
+  across models; with rel. s.e. <= 2% this cannot move any ratio across the 2x line.
+- Not tried: the graded-g12 rule (T366 `estimator_t366`) on the missed points (the obvious next check: does it fix
+  dev3_s528 at small sigma as it fixed s541?); E2; more copies per level or independent seeds per level; sigma between
+  .005 and .02 (where the transition happens).
 
 ## Failure modes
 
-(pending)
+- Triple-tie-dominated far-gap errors (truth g12 < .1 share >~ 80%): K3 misses low, by up to 650x (dev3_s528@.001#2,
+  t0 1.5: .0015). Small noise (sigma <= .005) keeps or creates such configurations; at sigma >= .02 they wash out on all
+  4 bases here.
+- The model-free t0 does not control which regime a model is in: the same model can be sliver-dominated at one t0 and not
+  at another (dev3_s528).
+- The T_hi = 3.5 bound (7.04e-8) is not small next to truths of ~1-2.5e-7 (orig family at t0 1.5). Measured dropped
+  mass is negligible, but the rigorous bound is loose there.
