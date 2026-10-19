@@ -4,7 +4,7 @@ An independent test of two claims about neural-network interpretability:
 
 1. Goodfire's essay *"Neural Networks Are Already Clean"* (Cammarata, Oct 2026): most MLP neurons have one main job.
 2. ARC's AlgZoo challenge (Hilton): legible neurons are not understanding. Calculate the accuracy of a 432-parameter
-   RNN from its mechanism, at least as precisely as random sampling at equal compute.
+   RNN from its mechanism, about as precisely as random sampling at equal compute ("competitive with sampling").
 
 ## Start here
 

@@ -7,8 +7,8 @@ where numbers and claim status are kept. "(unverified)" means no second agent ha
 [docs/archive/STATUS_history.md](docs/archive/STATUS_history.md); ID prefixes are explained in the [README](README.md#id-prefixes-and-names).
 
 **What the project is.** A tiny network (16 neurons) reads 10 random numbers and points to the second-largest; it is right
-about 95% of the time. ARC's challenge: work out how often it is right from its weights alone, more precisely than random
-testing with the same computing. Behind it is a safety goal: predicting failures too rare for testing to catch.
+about 95% of the time. ARC's challenge: work out how often it is right from its weights alone, about as precisely as random
+testing with the same computing (ARC: "competitive with sampling"; [Q&A 4.13](OWNER_QA.md#q4-13)). Behind it is a safety goal: predicting failures too rare for testing to catch.
 
 **Readable neurons.** In a larger language model, about 65% of neurons look like they have one main job, against about
 21% of random directions (H-Q5, confirmed); readable parts alone were not enough to calculate behaviour.

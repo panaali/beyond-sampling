@@ -735,6 +735,17 @@ The point, as with the bridge: sampling cannot find or rate a one-in-a-billion f
 
 **Answer:** see [README.md "ID prefixes and names"](README.md#id-prefixes-and-names) (the one place they are defined).
 
+<a id="q4-13"></a>
+### 4.13 Do we have a solution ARC might accept? Must it beat sampling? (owner, 10-19 19:4x)
+
+**Q (owner, verbatim):** "So that we have a solution that Arc might accept for the challenge. If so, what's the solution? And I don't think that they said we have to beat sampling. I think they said it should almost match."
+
+**A (DRI):** The owner is right about the bar. ARC asks for an estimate "competitive with sampling (in MSE vs compute)" (launch thread, [lit/web_log.md](lit/web_log.md)) and called its own M_4,3 estimators, about 2x worse in error (4x in compute), a rough match ([3.10](#q3-10)). Our strict bar (F <= 1) is stricter than ARC's; the lenient bar (F <= 10) is the top of what we measured for ARC's own estimators. The open question is ARC's other condition, "mechanistic" (no sampling), not the bar. Two candidates, numbers in INDEX:
+- **Walk quadrature** (H-E16, H-E17, T429, T431): a fixed set of evenly spread lines through input space, the same for every model. Along each line the exact points where neurons switch are computed from the weights, the exact probability of the correct stretches is added up, and the lines are averaged. At T = 10 it roughly matches sampling at small budgets and beats it from about 1e6 FPE (sealed panel). Doubt: the average over lines stands in for the whole input space without a weight-derived error bound, close to the step Hilton excludes ([4.7](#q4-7)). Noisy copies and other line sets are being checked (T434, T442).
+- **Gap-direction walks with five declared approximations** (H-L1, T317f): about 2.6x sampling's squared error on a sealed panel, inside ARC's own "rough match" example. Doubt: the approximations were chosen against sampled truths on development models, and weight-noised copies are a weak spot ([3.9](#q3-9)).
+
+Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived bound on the variation between lines would make the first one clearly deductive.
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
