@@ -137,21 +137,113 @@ Discrepancies are reported, not reconciled silently.
 
 ## Status
 
-Pre-registered; no investigator has run yet.
+Done (2026-10-19). All 9 investigators and 36 judge calls completed. No judgments were missing or invalid, and
+no run was excluded. Independent rescoring: see the section below. Results are supported, not confirmed
+(rule 4); the DRI decides registration.
 
 ## Results
 
-None yet.
+**Pre-registered verdict: mixed/inconclusive.** Reconstruction is *mixed*: G_32 = 0.824 < 0.90, but not
+below G_8 − 0.05 = 0.535. Labels *hold*: D_32 = 0.885 ≥ D_8 − 0.15 = 0.506, and the CI excludes 0. Leaving
+out the flagged run `wfpn` (pre-declared sensitivity check) gives the same verdicts: G_8 = 0.572, D_8 = 0.813.
+
+### Reconstruction (shared scorer, 200,000 held-out sequences, seed 20261016)
+
+| Model | Run | Replacement acc. | Model acc. | Gap recovered | Passes 90%? | Neurons with R² ≥ 0.8 |
+|---|---|---:|---:|---:|:--:|---:|
+| M_8,10 | agsc | 29.11% | 42.67% | 0.585 | no | 2/8 |
+| M_8,10 | gcap | 28.28% | 42.67% | 0.560 | no | 3/8 |
+| M_8,10 | wfpn | 29.69% | 42.67% | 0.603 | no | 2/8 |
+| M_16,10 | hnrt | 35.90% | 94.95% | 0.305 | no | 15/16 |
+| M_16,10 | wduk | 38.42% | 94.95% | 0.335 | no | 15/16 |
+| M_16,10 | yyuc | 40.64% | 94.95% | 0.361 | no | 14/16 |
+| M_32,10 | dncx | 83.70% | 99.44% | 0.824 | no | 26/32 |
+| M_32,10 | krvc | 79.61% | 99.44% | 0.778 | no | 24/32 |
+| M_32,10 | sfbp | 92.97% | 99.44% | **0.928** | **yes** | 25/32 |
+
+Median gap recovered: **G_8 = 0.585, G_16 = 0.335, G_32 = 0.824**. This is not monotone in size. One fresh
+M_32,10 account (`sfbp`) passes the 90% criterion; E5's 88.54% sits inside the fresh range (0.778–0.928).
+
+**Single-neuron sensitivity** (`acc_replacing_one_neuron` in `results/score_*.json`): replacing one true
+neuron with its formula costs on average **5.2 points** of accuracy at H = 8, **12.3 points** at H = 16
+(a single neuron with R² 0.97 drops M_16,10 from 95% to 76%), and **0.26 points** at H = 32. The H = 16
+failure therefore comes from how sensitive the readout is to small activation errors, not from poor labels.
+That model's neurons have the highest legibility and agreement on the ladder.
+
+### Labels (blinded judges)
+
+| Model | S matched | S control | **D** (95% CI) | Role κ between investigators | Same role: matched / control | Legible, judge cats (self cats) |
+|---|---:|---:|---:|---:|---:|---:|
+| M_8,10 | 0.917 | 0.260 | **0.656** (0.427–0.854) | 0.36 | 0.54 / 0.21 | 29% (29%) |
+| M_16,10 | 0.953 | 0.240 | **0.714** (0.583–0.833) | 0.66 | 0.73 / 0.17 | 84% (81%) |
+| M_32,10 | 0.979 | 0.094 | **0.885** (0.831–0.935) | 0.83 | 0.86 / 0.15 | 72% (74%) |
+
+Independent investigators' labels for the same neuron were judged to describe the same function almost
+always, at every size. Labels for different neurons of the same model were rarely judged the same. The
+specificity D *increases* with size, mainly because the control score falls: the larger model's neurons are
+more distinct from one another. S matched is near ceiling, which compresses D. Legibility by the E4
+criterion (A/B and R² ≥ 0.8 for ≥ 75% of neurons) passes only at H = 16. At H = 32 it reaches 72% (just
+below), and at H = 8 it is low (29%), limited by R², not by category.
+
+Judge reliability: inter-judge κ on roles 0.91, on categories 0.75; pair verdicts agree exactly on 95.2%
+(κ 0.92). Judge role distributions differ by size (H = 8: mostly OTHER/POS_SECOND/MAX; H = 16 and 32: LAST, MAX,
+GAP, POS_MAX), so the H = 8 model was described in a different vocabulary ("shortfall below earlier top
+values").
+
+### Reproduce (from the repository root, `source .venv/bin/activate`)
+
+```bash
+python algzoo/constant_budget_blind/collect.py <scratch>/t24 <scratch>/t24_assign.json   # audit (needs the scratch dirs; outputs are committed)
+OMP_NUM_THREADS=1 python algzoo/constant_budget_blind/score_runs.py        # reconstruction table
+python algzoo/constant_budget_blind/build_judging.py                       # judge batches (seed 2410; regenerates key.json)
+python algzoo/constant_budget_blind/analyze.py                             # labels table + verdicts -> results/summary.json
+cd algzoo/constant_budget_blind && python sensitivity.py                   # wfpn exclusion
+```
+
+### Audit
+
+All 9 runs delivered complete `labels.py` files: no declared count above 5 constants, none of the banned
+strings. The regex hits were benign: the word "weight" in prose, `yyuc/check.py` searching for the banned
+strings, and outside paths only in my own TASK.md. No run read weights. `wfpn` estimated the one-step map
+by regression (logged above, kept). Several runs (`wfpn`, `gcap`, `dncx`) zero-padded inputs to see
+shorter-prefix states, which the rules allow. Self-reported file lists show no reads of other folders except
+`wfpn`'s own task-output file. Budget: every investigator stayed under 80 tool calls (harness counts 23–39).
 
 ## Compute accounting
 
-To report: sub-agent calls (by role) with tool calls and tokens from the Agent results; investigator probe
-calls and sequences (from their scripts); scoring forward passes (shared scorer: 200,000 hidden + 200,000 full
-forward passes per label file) and CPU time.
+| Sub-agent role | Calls | Tool calls per call | Tokens per call | Wall time |
+|---|---:|---:|---:|---:|
+| Investigators | 9 | 23–39 (total 292) | 115k–148k (total 1.17M) | 13–28 min each, run concurrently |
+| Role judges | 12 | 3 | ~55k | ~20 s |
+| Pair judges | 24 | 3 | ~57k | ~20–25 s |
+| Independent rescorer | 1 | see below | see below | see below |
+
+**Total: 46 sub-agent calls** (cap 200). 4 further launches were refused by the harness's concurrency limit
+and never ran; I re-launched them later. No Fable. Scoring: 9 shared-scorer runs × (200,000 hidden + 200,000
+full forward passes + H × 200,000 single-neuron replacements). Investigator probe calls are in their scripts
+under `runs/` (large `.npy`/`.npz` caches were not copied). All CPU, under 2 GB per process.
 
 ## Claims
 
-None yet.
+- [measured] With an equal 80-tool-call budget per model, no investigator's account of M_8,10 or M_16,10
+  recovers 90% of the chance-to-model gap; 1 of 3 fresh M_32,10 accounts does (0.928). Medians: 0.585 /
+  0.335 / 0.824.
+- [measured] The fresh blinded M_32,10 accounts span 0.778–0.928 gap recovered. E5's retrospective 88.54% is
+  within that range, so E5's near-miss is typical of what a blinded investigator gets on this model.
+- [measured] Independent investigators' labels of the same neuron are judged equivalent far above a
+  same-model derangement control at every size, and the margin grows with size (D = 0.66 / 0.71 / 0.89).
+  Judges agree with each other strongly (κ 0.91–0.92).
+- [measured] Replacing one neuron by its formula costs ~12 accuracy points on M_16,10 but ~0.3 on M_32,10.
+- [inferred] Label quality (agreement, legibility) and reconstruction come apart. M_16,10 has the most
+  legible and highly agreed labels but the worst reconstruction. Naming neurons consistently, even with
+  R² > 0.9, does not mean the account reproduces the network. Whether it does depends on how sensitive the
+  readout is to activation errors, which differs between models.
+- [inferred] On this ladder, the neuron account's quality does not degrade from 8 to 32 neurons, but the
+  pre-registered verdict is mixed/inconclusive: reconstruction at 32 is below 90% for the median account.
+  The non-monotone reconstruction means size is not the dominant variable here.
+- [speculative] M_32,10's redundancy (many partly overlapping neurons, small single-neuron effects) is why its
+  accounts reconstruct well, so a neuron-by-neuron account may work best on larger, more redundant models
+  rather than worse. Separating this from model accuracy needs more seeds per size.
 
 ## Alternatives not ruled out (declared before running)
 
@@ -168,8 +260,25 @@ None yet.
    reconstruction is the check against the network.
 5. **n = 3 investigators per size** gives a coarse median; the reconstruction verdict could flip with more.
 
+Added after the results:
+
+6. **Readout sensitivity, not size:** the single-neuron sensitivity differs 50-fold between M_16,10 and
+   M_32,10, which can explain the non-monotone reconstruction on its own. Test: other AlgZoo seeds per size
+   (e.g. `zoo_2nd_argmax(16, 10, seed=k)`, plus the `example_2nd_argmax` model), recording each one's
+   single-neuron sensitivity.
+7. **Same-model-family agreement:** every investigator and judge is the same model family, so high agreement
+   may reflect shared descriptive habits. The 16-neuron case shows agreement can be high while reconstruction
+   fails, so agreement must not be read as correctness.
+8. **Judge ceiling:** S matched ≈ 0.92–0.98 leaves little room, so D mainly tracks the control score.
+   A stricter judge rubric (e.g. requiring position sets to match) was not tried.
+9. **Under-used budget:** investigators used 23–39 of 80 calls, so "equal budget" means an equal cap, not
+   equal effort spent.
+
 ## Failure modes
 
 Investigators may exceed the stated budget (the budget is instructed, not enforced; overruns are reported).
 Text-only judges cannot check a label against the network. Five constants per neuron may be too few for
-position-coded neurons regardless of understanding (E5/T7 sweep).
+position-coded neurons regardless of understanding (E5/T7 sweep). Gap recovered is a whole-network
+quantity: a fragile readout (M_16,10) can turn small per-neuron errors into large accuracy losses, so it
+penalises accurate accounts of fragile models. The investigators could not see the readout, so their overall
+"how the network computes the answer" pictures are untested against it (several said so explicitly).
