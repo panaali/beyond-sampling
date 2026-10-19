@@ -1016,6 +1016,23 @@ estimators (H-R1 and the graded rule: within 2x), locate and repair (H-R2, H-R3:
 than with H, because each extra step multiplies the gate flips along a line; T392's chunked RNNs already show walks losing
 at k = 1-2 inputs per step.
 
+<a id="q6-8"></a>
+### 6.8 How novel are our positive results, and how should we describe them? (owner, 10-19 14:5x)
+
+**Answer (DRI, from a literature sub-agent; full table, citations and phrasing in [lit/novelty_review.md](lit/novelty_review.md)):**
+none of the 7 positive or near-positive results was found reported exactly. Six are known methods combined or applied in a new
+way ("known + novel aspect"); the great-circle walk on the 1-layer MLP (H-A3) is a straight application of known methods.
+Confidence is modest (most sources read at abstract level). Phrase each as "method X (cite) + what is new here", using the
+review's sentences: the walks are line sampling / preintegration (Koutsourelakis et al. 2004) made exact per line
+(ExactLine / SyReNN, Sotoudeh & Thakur); the rare-event walks are line sampling made deterministic (claimed as the first
+sampling-free network error-probability estimates to ~1e-10); locate and repair is reliability sensitivity analysis applied
+to weights (new: the intervention-checked attribution, the repair vs a random control, and the rare-to-common conversion
+finding, low confidence); the safe-use rating is fragility-curve style; the certificate parts follow probabilistic
+branch-and-bound verification (Boetius et al., ICML 2025), with exactly re-verified LP certificates and rigorous Gaussian
+polytope masses believed new in this setting (no complete certificate yet); T317f is in the style of ARC's M_4,3 estimators,
+claimed as the first such estimate for M_16,10-class models. Note: several teams in ARC's 2026 white-box contest also used
+fixed spherical point sets on bias-free networks (they evaluate points; none integrates exactly along lines).
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
