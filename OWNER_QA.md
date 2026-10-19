@@ -805,6 +805,26 @@ Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived 
 - Certified bounds stop being affordable well before 1e4 unrolled neurons.
 - In this project the main cost was agent time (tokens), not compute.
 
+<a id="q4-18"></a>
+### 4.18 Can we apply our methods to a billion-parameter model, and at what cost? (owner, 10-19 22:5x)
+
+**Q (owner, verbatim):** "Can we apply our methods to a billion-parameter model? How much would it cost? You can give me dollars or gigawatts of compute for a month."
+
+**A (DRI; educated estimates).** Assumptions:
+- 1 GW for a month is about 1e6 H100-class GPUs, ~1e27 FLOPs, ~$1-1.5B at ~$2 per GPU-hour.
+- A 1e9-parameter model with ~100-token inputs costs ~2e11 FLOPs per forward pass.
+
+| Method | Applies to a 1e9 model? | Compute per use | Cost |
+|---|---|---|---|
+| Focused-sampling rare-failure estimate with error bars (T456) | yes, if the input distribution is defined (e.g. a prompt generator) | ~1e7 passes + ~1e6 gradient steps, ~3e18 FLOPs | ~$5-30 per failure type (a few GPU-hours) |
+| Checking that estimate against brute-force sampling | only for rates >= ~1e-6 | 1e8-1e9 samples per event; ~1e12 at 1e-10 | $50-500 per event; ~$100k per event at 1e-10 |
+| Safe-use rating | yes, as above | a few estimates per condition | $100s-1,000s |
+| Locate and repair | yes, with Hessian approximations (as in OBS-style LLM pruning) | GPU-hours to GPU-days | $100-10,000 |
+| Line walks for accuracy | no as is: softmax, GELU and LayerNorm are not piecewise linear, token inputs are not lines, and pieces per line explode | - | - |
+| Certified upper bound | no | cells grow ~5-10x per 16-neuron step (T398) | 1 GW-month (~1e8-1e9x our full M_16,10 certificate, ~1e18-1e19 FLOPs) buys ~150-200 more unrolled neurons: a network about twice M_16,10, not 1e9 parameters |
+
+So the sampling-class safety tools cost about 1e-8 to 1e-6 of a GW-month: one 8-GPU node for hours to days. The bottleneck at that scale is method, not compute: defining the input distribution, and finding every failure region in a huge discrete input space (honest error bars took three iterations even in 10-D). Exact and certified methods do not reach a billion parameters at any budget we can foresee.
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
