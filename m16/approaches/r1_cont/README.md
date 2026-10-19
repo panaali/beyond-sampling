@@ -1443,3 +1443,8 @@ A point with fewer hits is either re-drawn with more samples or excluded by this
   - 16 nodes may simply be lucky on these 8 + 7 models. The Q16 vs S14 swings on single cases (for example s511 1.25: 0.95 under S14, 0.43 under Q16) show node-level variance.
   - Q32 was not run. Under the pre-registration, the cheapest passing variant is the one frozen.
 - **Next:** stage 2. The DRI and T286 select 8 fresh pairs truth-blind from dev3_s548-563, each with >= 50 truth hits. T192 computes the sealed truths. The go line is >= 7/8 within 2x.
+
+### T370 stage 2, step 1: frozen Q16 on all 64 candidates, truth-blind
+Following the T286 rule (claude/t286-cheap-frontier b630e162, rare_events/README, "T370 stage 2") and the DRI's 22:19Z instruction: `run_t370_s2.py e1|e2` checks every hash in
+`t370_q16_freeze_sha256.txt` before importing, then runs Q16 (M = 16) unmodified on dev3_s548-563. The points are E1 at t0 2.35 and 2.75, and E2 at t 1.25 and 1.5.
+No truths exist for these models. T286 runs K3 on the same 64 points and picks the 8 pairs mechanically. Results go to `results_t370_s2_e1.json` / `_e2.json`.
