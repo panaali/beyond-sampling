@@ -42,7 +42,8 @@ for i in range(i0, min(i1, len(c["gates"]))):
             gm = GF.cell_geometry_fast(tri, g, 10, norm=norm, event=True) if GF is not None else None
             lb, ub, info = F.mass_cell_fast(tri, g, 10, t0, budget=B, norm=norm, event=True, return_info=True,
                                             **({} if gm is None else dict(geom=gm)))
-            rec.update(ub=min(rec["m2"], ub), lb=lb, tier=2, vertices=info.get("vertices"), simplices=info.get("simplices"))
+            rec.update(ub=min(rec["m2"], ub), lb=lb, tier=2, vertices=info.get("vertices"), simplices=info.get("simplices"),
+                       geom="fast" if gm is not None else "ref")
         except Exception as e:
             rec["err_m5t"] = repr(e)
         rec["t_m5t"] = time.time() - t

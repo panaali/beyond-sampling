@@ -27,7 +27,7 @@ BENCH = "data/bench_182_k4.npz"
 
 def cell_params(tri, k, t0):
     I = sorted(set(range(k)) | set(tri)); d = len(I)
-    return F.Params(d, R.D - d, I.index(tri[2]), t0)
+    return F.Params(d, R.D - d, I.index(tri[2]), t0, jp2=I.index(tri[1]))
 
 
 def gates_of(dat, i, k):
