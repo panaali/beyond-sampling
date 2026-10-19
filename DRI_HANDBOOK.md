@@ -316,3 +316,5 @@ from INDEX and TASKS at ~14:21 UTC; results are unverified unless marked.
 **Owner directive (2026-10-18 23:4x):** "You should not ever contact them. I will contact them when I deem it's the right time." The DRI and all agents never contact ARC and do not recommend contact; only the owner decides if and when.
 
 **Owner directive (2026-10-18 23:4x):** run lower-priority backlog ideas in parallel, each in its own child session (own sandbox). The CPU-slot rule applies per container.
+
+**Owner directive (2026-10-19 00:1x):** keep the interactive explainer (T374, session_01XkxtNU1pcq7TYNKYqvPhSg) current: after registering notable results, send T374 one batched update so it re-publishes to the same Artifact URL; ask for a final pass when all lanes are done. If the session is gone, start a new one from claude/t374-tutorial (tutorial/README.md has the URL and rebuild steps).
