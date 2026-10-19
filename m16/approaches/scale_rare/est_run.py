@@ -16,8 +16,9 @@ if __name__ == "__main__":
         fn = os.path.join(HERE, "results", "est", f"{tag}.json"); out = json.load(open(fn)) if os.path.exists(fn) else {}
         row = M.by_tag(tag); m = M.load(row); t0s = TH.choose(row["T"], row["acc"]); F = gen.fpe(row["H"], row["T"])
         out.update(tag=tag, H=row["H"], T=row["T"], acc=row["acc"], t0s=t0s, fpe=F)
+        only = os.environ.get("T424_ONLY")                      # "k3" or "graded": run one estimator (scheduling only)
         for name, fun in (("k3", gen.est_k3), ("graded", gen.est_graded)):
-            if name in out:
+            if name in out or (only and name != only):
                 continue
             t = time.time(); st = {}; r, f = fun(m, t0s, stats=st)
             out[name] = dict(est={str(k): float(v) for k, v in r.items()}, C_fpe=f / F, sec=time.time() - t, truncated_rows=st["truncated_rows"])
