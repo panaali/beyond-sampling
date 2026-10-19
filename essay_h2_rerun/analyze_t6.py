@@ -140,6 +140,24 @@ out["lexical_share_neuron_top"] = float(np.mean([lex for r in nr for (b, lex, _)
 out["n_lexfree_snips_neuron"] = {b: int(sum(1 for r in nr for (bb, lex, _) in r["snips"] if bb == b and not lex))
                                  for b in ("top", "mid", "rand")}
 
+# exploratory (pre-registered as such): dense controls with top-1 share <= 0.15 only; shares vs A-score
+if os.path.exists(f"{S}/density_check.json"):
+    sh = {x["id"]: x["top1"] for x in json.load(open(f"{S}/density_check.json"))["items"]}
+    score = lambda i: np.mean([cat[(i, r)] == "A" for r in (1, 2)])
+    clean = [i for i in arms["dense"] if sh[i] <= 0.15]
+    an = np.array([score(i) for i in arms["neuron"]]); ac = np.array([score(i) for i in clean])
+    bx = [an[rng.integers(0, len(an), len(an))].mean() - ac[rng.integers(0, len(ac), len(ac))].mean() for _ in range(NB)]
+    out["explor_dense_le015_n"] = len(clean)
+    out["explor_dense_le015_A_rate"] = float(ac.mean())
+    out["explor_H2r_le015_delta"] = float(an.mean() - ac.mean())
+    out["explor_H2r_le015_ci_items_only"] = ci(np.array(bx))
+    for k in ("dense", "gauss"):
+        x = np.array([sh[i] for i in arms[k]]); y = np.array([score(i) for i in arms[k]])
+        out[f"explor_corr_top1share_Ascore_{k}"] = float(np.corrcoef(x, y)[0, 1])
+        q = np.quantile(x, [1 / 3, 2 / 3])
+        out[f"explor_A_by_top1_tercile_{k}"] = [float(y[x <= q[0]].mean()), float(y[(x > q[0]) & (x <= q[1])].mean()),
+                                                float(y[x > q[1]].mean())]
+
 v1, v2, v3 = out["H1r_verdict"], out["H2r_verdict"], out["H3r_lexfree_verdict"]
 dense_valid = json.load(open(f"{S}/density_check.json"))["valid"] if os.path.exists(f"{S}/density_check.json") else None
 out["dense_controls_valid"] = dense_valid
