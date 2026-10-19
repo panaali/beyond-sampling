@@ -210,8 +210,8 @@ failing seed fails by >= 0.1 pp or on its noisy copies (whose truth is MC). Note
 ### T111 verdict (pre-registered rule + amendment A)
 
 - **Rung (4,4) FAILS for T87's recipe on every better-training attempt**: lr x2 (4/5 seeds lose), 2x data
-  (5/5), best of 45 seeds (4/5 clean, 5/5 noisy). 20 models in all, 3 pass clean, 0 pass both clean and noisy except
-  L2 seed 0 (0.18 / 0.91).
+  (5/5), best of 45 seeds (4/5 clean, 5/5 noisy). Of 15 models, 2 pass clean (L2 seed 0: 0.18; 30s seed 40: 0.56) and only
+  L2 seed 0 also passes on its noisy copies (0.91).
 - **Undertraining could not be tested at H = 4, T = 4**: no training change we tried (lr x2, 2x data, 40 new
   seeds) moves the models out of the bulk-error regime (best accuracy 0.6029; bnd1 0.10-0.14, i.e. errors are not
   at the boundaries). The zoo's (4,4) models are not undertrained in the sense of "more training would fix them":
@@ -219,8 +219,8 @@ failing seed fails by >= 0.1 pp or on its noisy copies (whose truth is MC). Note
 - So the question "is T87's failure about T or about undertraining" is **inconclusive at H = 4**; the clean way to
   separate them is a T step in a well-trained regime, e.g. (8,3) -> (8,4) (zoo (8,4) is 0.97-0.99 accurate), which
   is the ladder's main path (TASKS ladder rule 5) and is T192's domain (recipe108 passes (8,4), fails (8,5)).
-- [speculative] The recipe's error depends on the basin more than on accuracy: the three clean wins (L2 0, 30s 40,
-  31s 0 nearly) are not the most accurate models, and the 0.60 basin (2/2 storage with all-four-on bulk errors,
+- [speculative] The recipe's error depends on the basin more than on accuracy: the clean wins and near-wins (L2 0, 30s 40;
+  31s 0 at 1.14, 30s 10 at 1.10) are not the most accurate models, and the 0.60 basin (2/2 storage with all-four-on bulk errors,
   T87 item 3) fails in every copy (-0.5 to -0.75 pp).
 
 
