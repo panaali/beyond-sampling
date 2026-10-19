@@ -126,6 +126,15 @@ Discrepancies are reported, not reconciled silently.
 - `runs/<code>/`: each investigator's deliverables and scripts, copied after the run (added later).
 - `judging/`, `results/`, analysis scripts: added after the runs; they implement the rules above.
 
+## Protocol decisions logged during the run (before any score was computed)
+
+- 2026-10-19, `wfpn` (H=8): the investigator disclosed (i) zero-padding inputs to read the hidden state after
+  shorter prefixes (allowed: any inputs), (ii) regressing h_10 on the 9-step prefix state plus x9, i.e.
+  *estimating* the one-step map (close to the weights) from probe outputs, used for understanding only and in
+  no formula, and (iii) reading its own background-script output file in the harness task folder (no
+  blinding leak). Decision: not a violation of the written rules (no weights read; the audit regex targets
+  direct access), so the run is kept, flagged, and every per-size result is also reported excluding `wfpn`.
+
 ## Status
 
 Pre-registered; no investigator has run yet.
