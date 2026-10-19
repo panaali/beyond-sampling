@@ -112,7 +112,7 @@ Pick split at g23 > 2 (3e8 draws): rank-3..7 picks 3661/766/113/17/2 -> 124/36/6
 +.016 pp.
 
 ## Compute accounting
-Design: g_W 3.9e7 FPE (2e6 v1 lines), g_E reused from T402 (2.1e8), Hessian 1e6 x 529 forward passes, 9 candidates
+Design: g_W 3.9e7 FPE (2e6 v1 lines), g_E reused from T402 (2.1e8), Hessian 1e6 x 513 forward passes, 9 candidates
 x (1e6 v1 lines + 5e6 v3 lines + 2e7 accuracy passes). Diagnostics ~4e8 passes. Verification ~3.1e9 forward passes
 (not part of the method). Single-threaded, <= 2 processes.
 
