@@ -18,7 +18,9 @@ for pe in sorted(glob.glob(os.path.join(R, "est_m_*.json"))):
     mc = json.load(open(pm)); assert mc["sha256"] == e["sha256"]
     if len(mc["pts"]) < len(e["pts"]):
         continue
-    stream = e["tag"].split("_")[-1].rstrip("0123456789"); depth = 0; broken = False
+    sd = e["tag"].split("_")[-1]; stream = sd.rstrip("0123456789"); depth = 0; broken = False
+    if stream == "cpu" and int(sd[3:]) > 2:
+        stream = "cpu extra seed"                      # pre-registered primary = cpu seeds 0-2; others supplementary
     for j, (k, p) in enumerate(sorted(e["pts"].items(), key=lambda kv: kv[1]["t"])):
         c = mc["pts"][k]; est_r = p["est"] / p["P_cond"]; row = dict(tag=e["tag"], H=e["H"], T=e["T"], stream=stream, j=j, t=p["t"],
                                                                   P=p["P_cond"], r_est=est_r, flag_det=p["flag_det"], hits=c["hits"], n=c["n"])
