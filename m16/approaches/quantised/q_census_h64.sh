@@ -1,1 +1,1 @@
-cd /content/cn/m16/approaches/quantised && export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && python qcensus.py qat_h64.pt int4_h64_s0 1e9 64 > /content/qcensus_h64.log 2>&1; echo "rc=$?" >> /content/qcensus_h64.log
+cd /content/cn/m16/approaches/quantised && export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && python qcensus.py qat_h64.pt int4_h64_s0 2.5e8 64 > /content/qcensus_h64.log 2>&1; echo "rc=$?" >> /content/qcensus_h64.log
