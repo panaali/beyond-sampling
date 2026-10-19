@@ -7,14 +7,18 @@ then the leaf is closed iff its LP with the event is infeasible. The open leaf w
 Output per node: leaves needed to close it (or censored at BUDGET), the root margin, and the max-margin of the worst
 open leaf after each split. The GPU engine can at best reproduce these LP bounds, so these curves bound what any
 GPU implementation of the same relaxation + splitting could prune within a given leaf budget.
-usage: python bab_cpu.py BENCH.npz OUT.json BUDGET IDX[,IDX..]"""
+usage: [DELTA=1/3 as float] python bab_cpu.py BENCH.npz OUT.json BUDGET IDX[,IDX..]"""
 import json
 import sys
 import time
 
 import numpy as np
 
+import os
+
 import relax2
+
+relax2.DELTA = float(os.environ.get("DELTA", relax2.DELTA))   # g23 normalisation (T398b: 1/3 at t0 = 2.5)
 
 d = np.load(sys.argv[1]); out = sys.argv[2]; BUDGET = int(sys.argv[3]); idx = [int(i) for i in sys.argv[4].split(",")]
 tri = tuple(int(v) for v in d["tri"]); k = int(d["k"])
@@ -74,4 +78,4 @@ for i in idx:
         rec["curve"].append((nleaves, len(opened), float(-min(a[0] for a in opened)) if opened else None))
     rec.update(leaves=nleaves, closed=not opened, open_left=len(opened), sec=time.time() - t0)
     res.append(rec); print(i, {a: rec[a] for a in ("is_event", "probe_best", "root_margin", "leaves", "closed", "open_left", "sec")}, flush=True)
-    json.dump(dict(budget=BUDGET, tri=tri, k=k, nodes=res), open(out, "w"), indent=1)
+    json.dump(dict(budget=BUDGET, tri=tri, k=k, delta=relax2.DELTA, nodes=res), open(out, "w"), indent=1)

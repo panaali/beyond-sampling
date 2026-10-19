@@ -7,7 +7,11 @@ import sys
 
 import numpy as np
 
+import os
+
 import relax2
+
+relax2.DELTA = float(os.environ.get("DELTA", relax2.DELTA))   # g23 normalisation (T398b: 1/3 at t0 = 2.5)
 
 d = np.load(sys.argv[1]); i = int(sys.argv[2]); MAXL = int(sys.argv[3]) if len(sys.argv) > 3 else 512
 tri = tuple(int(v) for v in d["tri"]); k = int(d["k"]); G = d["G"][i][:int(d["m"][i])]; A = d["A"][i]
