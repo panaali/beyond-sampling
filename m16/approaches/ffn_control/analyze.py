@@ -37,15 +37,20 @@ def panel(prefixes=None):
     sys.path.insert(0, os.path.join(HERE, "../.."))
     out = {}
     arches = sorted({os.path.basename(p).split("_s")[0] for p in glob.glob(f"{HERE}/models/*.json")})
+    arches += [a + "@30" for a in arches if a.startswith("D")]
     for arch in arches:
         if prefixes is not None and arch not in prefixes:
             continue
         # ladder configs (D...) use their 2^28 runs only; 2^30 retrains of a ladder config are not panel members
-        paths = sorted(glob.glob(f"{HERE}/models/{arch}_s?{'_n28' if arch.startswith('D') else ''}.json"))
+        # (name ARCH@30 selects a ladder config's 2^30 retrains instead)
+        if arch.endswith("@30"):
+            paths = sorted(glob.glob(f"{HERE}/models/{arch[:-3]}_s?.json"))
+        else:
+            paths = sorted(glob.glob(f"{HERE}/models/{arch}_s?{'_n28' if arch.startswith('D') else ''}.json"))
         rng = np.random.default_rng(345)
         for p in paths:
             w = [np.asarray(m) for m in json.load(open(p))["weights"]]
-            tag = os.path.basename(p)[:-5]
+            tag = os.path.basename(p)[:-5] + ("_n30" if arch.endswith("@30") else "")
             out[tag] = walks.MLP(w)
             for i in range(3):
                 out[f"{tag}_c{i}"] = walks.MLP(_noised(w, rng))
