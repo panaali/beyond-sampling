@@ -336,3 +336,23 @@ est/truth within 2x is primary.
   traced to the lows closure (T363: 56% of the deficit). T337 saw interior errors grow with noise. So the likely result
   is NO GO for both, worse as sigma grows if noise adds interior configurations the closure misses. Alternative: noise
   makes errors common and spread out (as in T371), and both estimators improve at large sigma.
+
+## T404 part (a) results: GO (unverified; `python score_t404.py a` -> `results/t404_score_a.txt`, `results/t404_score_a.json`)
+
+| | n | within 2x | median | F <= 1 | F <= 10 | median F |
+|---|---|---|---|---|---|---|
+| **all noisy** (go: >= 140) | 144 | **143** | 1.04 | 65 | 118 | 1.26 |
+| sigma .001 | 36 | 36 | 1.07 | 26 | 36 | .38 |
+| sigma .005 | 36 | 35 | 1.05 | 23 | 34 | .65 |
+| sigma .02 | 36 | 36 | 1.03 | 8 | 26 | 3.1 |
+| sigma .05 | 36 | 36 | 1.03 | 8 | 22 | 5.2 |
+| clean | 12 | 12 | 1.05 | 11 | 12 | .04 |
+
+- **The cut changes nothing that matters:** the largest move against T388 (T_hi = 6) is 6.8e-9, under the declared
+  bound 7.04e-8. The one miss is T388's (orig@.005#0, t0 1.5, .36).
+- **Cost:** 1.38-2.42M FPE per model (3 thresholds); **.63x T388's** (.61-.65) and **4.5x K3's** (4.3-4.8).
+- **F (post-registration reading):** the rule beats sampling at equal compute (F <= 1) mostly where events are rare at its
+  own cost (sigma <= .005: 49/72). At sigma .02-.05, p reaches 5e-5 to 5e-3 and sampling sees hundreds to thousands
+  of events, so a 3-10% bias gives F > 1 (16/72 strict, 48/72 lenient).
+- Note: the two lanes of part (a) were accidentally launched twice for lane 0. The estimator is deterministic, so this
+  only duplicated work; all 52 entries were checked present.
