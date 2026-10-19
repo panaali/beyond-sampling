@@ -80,7 +80,8 @@ def patterns(model, x):
     for w in model.W[:-1]:
         z = h @ w.T
         g = z > 0
-        bits = (g.astype(np.uint64) * _HASH[:g.shape[1]]).sum(1, dtype=np.uint64)   # random 64-bit hash (any width)
+        bits = np.concatenate([(g[i:i + 100_000].astype(np.uint64) * _HASH[:g.shape[1]]).sum(1, dtype=np.uint64)
+                               for i in range(0, len(g), 100_000)])   # random 64-bit hash (any width), sliced for memory
         acc = acc * np.uint64(1_000_003) ^ bits ^ (acc >> np.uint64(29))
         keys.append(acc.copy())
         h = np.where(g, z, 0)
