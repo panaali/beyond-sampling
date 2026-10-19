@@ -95,13 +95,22 @@ production settings (details below), which the pre-registration counted as viola
 | hi = inf (valid, useless) | | 50,835 (48,732 `advmc`, 2,103 `encl` with relative width ~1) |
 | hi = -inf or negative (separate fast-only re-run, advmc / encl / zbins) | 60,000 | 0 |
 | UNIT-E `_e1` violations / non-finite | 1,000,000 | **0 / 0**; max upper excess (log) 0.029, lower gap 1.95e-9 |
-| Q-level (MC, non-rigorous) flags | QLEVEL_N | QLEVEL_RES |
+| Q-level (MC, non-rigorous): hi flags / lo flags | 10,000 | **0 / 16**; the 16 are all `advmc` with rse 0.4-1.0 (Q = 1e-20 .. 1e-178, integrand peaked over many orders): MC failures, see below |
 
 Commands: `python audit.py mix 500000 1`, `python audit.py mix 500000 2` (2 x 4,800 s) -> `results/audit_mix_{1,2}.json`;
 `python unit_e.py 1000000 1` (340 s) -> `results/unit_e_1.json`; `python qcheck.py 5000 2`, `... 5000 3` ->
 `results/qcheck_{2,3}.json`; `python a1.py 20000 1` -> `results/a1_1.json`. Seeds: `python geom.py` after
 `python ../event_cone_rigour/harvest.py 1,8,2 200000` and `data/bench_182_k4.npz` from claude/t373-event-cone.
 (A first `qcheck.py 10000 1` finished but crashed writing its JSON, a numpy int64; its numbers are lost, re-run as above.)
+
+*Q-level flags.* The 16 lo flags have plain-MC relative s.e. 0.4-1.0, so the estimate is not usable (a heavy-tailed
+sample mean is usually far below its expectation). Stratified MC (1024 equal-volume pieces x 64 points, `python qstrat.py
+flagged 10 64` -> `results/qstrat_flagged_10_64.json`) moves 15 of 16 below 1 (lo/Q 2.6e-7 .. 0.59), one at 4.8 with rse 0.65.
+Q does not depend on the tangent centre, so the decisive check is consistency: fast lo with the adversarial centre
+<= sum of fast hi over 2^0, 2^6, 2^10 bisection children with the production (Wolfe) centre. It holds in 16 of 16 cases,
+by factors 1.1 to 1e8 (command in the T417 session log; children volumes vol/2^K with 1e-12 slack, so this is a
+consistency check, not a certificate). So the pre-registered "0 Q-level flags" is not met literally: 16 flags, all
+attributable to the MC estimator. No hi flag in 10,000 cases (min hi / Q_mc 0.016, at rse > 1/6).
 
 **A1** (`results/a1_1.json`; this container: numpy 2.5.4, scipy 1.18.1, numba 0.68.0; not T412's builds). Inputs
 recorded while running 20,000 E2E-style cases: 857,168 distinct log_ndtr arguments in [-4.6e62, 1.1e63], 1,211,516
@@ -162,7 +171,7 @@ bracket), E7, midpoint enclosures and child volumes in `mass_cell_fast`.
 ## Compute accounting
 Deductive check (no model inputs except the seed geometry: `harvest.py` 2e5 line-walk model runs, 14 s).
 CPU, one container, <= 2 heavy processes: E2E 2 x 80 min (~15 ms / case: fast ~0.1 ms, reference ~15 ms); UNIT-E
-6 min; A1 ~2 h (mpmath); Q-level 2 h lost + re-run QLEVEL_T; seed geometry ~25 min.
+6 min; A1 ~2 h (mpmath); Q-level 2 h lost + re-run 2 x 20 min + follow-up ~20 min; seed geometry ~25 min.
 
 ## Claims
 - [measured] 0 violations and 0 shortfalls of `bounds_batch` against an independent 256-bit arb evaluation of the same
