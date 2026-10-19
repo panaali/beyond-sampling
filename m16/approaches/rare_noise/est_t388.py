@@ -19,17 +19,31 @@ for line in open(os.path.join(R1C, "t366_freeze_sha256.txt")):
     assert hashlib.sha256(open(p, "rb").read()).hexdigest() == h, p
 sys.path.insert(0, R1C)
 import estimator_t366 as E  # noqa: E402
+import t366 as T366  # noqa: E402
+import t388_chunked as CK  # noqa: E402
 
 assert E.DEDUCTIVE
+CHUNKED = os.environ.get("T388_CHUNKED") == "1"     # memory wrapper (t388_chunked.py); see README T388 note
 
 if __name__ == "__main__":
+    if sys.argv[1] == "--check":                    # chunked vs the unchunked frozen run, on models it completed
+        P = MP.panel(); ref = {}
+        for f in ("t388_est_0.json", "t388_est_1.json"):
+            ref.update(json.load(open(os.path.join(HERE, "results", f))))
+        out = {}
+        for nm in sys.argv[2].split(","):
+            t = time.time(); r, f = CK.est_e1_chunked(T366, P[nm], T0S)
+            out[nm] = dict(rel={str(k): v / ref[nm]["est"][str(k)] - 1 for k, v in r.items()}, C=f / 5948.0, C_ref=ref[nm]["C_fpe"], sec=time.time() - t)
+            print(nm, out[nm], flush=True)
+        json.dump(out, open(os.path.join(HERE, "results", "t388_chunk_check.json"), "w"), indent=1)
+        sys.exit()
     shard, nsh = int(sys.argv[1]), int(sys.argv[2])
     P = MP.panel(); names = sorted(P)[shard::nsh]
     fn = os.path.join(HERE, "results", f"t388_est_{shard}.json"); out = json.load(open(fn)) if os.path.exists(fn) else {}
     for nm in names:
         if nm in out:
             continue
-        t = time.time(); r, f = E.est(P[nm], T0S)
-        out[nm] = dict(est={str(k): float(v) for k, v in r.items()}, C_fpe=f / 5948.0, sec=time.time() - t)
+        t = time.time(); r, f = CK.est_e1_chunked(T366, P[nm], T0S) if CHUNKED else E.est(P[nm], T0S)
+        out[nm] = dict(est={str(k): float(v) for k, v in r.items()}, C_fpe=f / 5948.0, sec=time.time() - t, chunked=CHUNKED)
         json.dump(out, open(fn, "w"), indent=1)
         print(nm, {k: f"{v:.3e}" for k, v in out[nm]["est"].items()}, "C %.0f" % out[nm]["C_fpe"], "%.0fs" % out[nm]["sec"], flush=True)
