@@ -92,19 +92,94 @@ rows), then the accuracy condition is checked at the smallest P-qualifying k. If
 qualifies (accuracy only gets worse at larger eps) and the R1 fallback (round 2 from the best point, k = 8) applies.
 
 ## Status
-Pre-registered (R1-R3, note R4); design in progress.
+**Done. GO by the pre-registered line (all three conditions), with one trade-off reported below.** The edit was
+frozen (edit.json, sha256 6c9ad06a...) after T385 confirmed the gradient and before any verification run.
 
 ## Results
-(none yet)
+Reproduce: `python design.py grad 1 && python design.py select 1 && python design.py hess 1 && python design.py search 1
+&& python design.py bracket 1` (design), then `python verify.py ...` (commands in results/ver_events.log; seeds
+402101-402109, 402102 for accuracy).
+
+**Design (method estimates only; no truths).** g_E at E1(2.0): line-CMC P 7.24e-9 +- 4.2e-10 (truth 6.81e-9);
+|d log P / dW| = 949, 297/432 entries resolved. S = the incoming weights of n6, n12, n11, n7 from n10, n2, n7, n11
+(top 12 |g_E|). R2 direction (first-order accuracy projection): eps .0025 -> design P x.032 but accuracy -.078 pp
+(fails). R3 direction (accuracy Hessian; -H positive definite, eigenvalues 4.3-1227): design rows
+
+| eps | design P ratio | design d acc (pp) |
+|---|---|---|
+| .00025 / .0005 / .001 | .65 / .50 / .33 | +.003 / +.006 / +.008 |
+| .002 | .11 | +.005 |
+| .0025 / .00275 | .063 / .051 | -.003 / -.007 |
+| **.003 (chosen, smallest qualifying)** | **.041 +- .016** | **-.011** |
+| .004 / .008 / .01 | .012 / .008 / .008 | -.039 / -.29 / -.50 |
+
+**The edit (L2 .003; 12 of 432 weights; largest absolute change .0014):** Wh[n6<-n10] -.00038, Wh[n12<-n10] +.00138,
+Wh[n6<-n2] -.00048, Wh[n12<-n2] +.00063, Wh[n11<-n2] +.00103, Wh[n6<-n7] -.00015, Wh[n12<-n11] +.00119,
+Wh[n11<-n10] +.00139, Wh[n12<-n7] +.00042, Wh[n6<-n11] -.00113, Wh[n11<-n7] +.00067, Wh[n7<-n10] +.00005.
+Relative changes are <= 1.4% except three small weights: Wh[n6<-n11] -6%, Wh[n12<-n11] +18%, Wh[n11<-n10] +32%.
+In words [inferred]: weaken comparator n6's drive from the clock n10, the running max n2 and the comparator n7, and
+strengthen the clocks n12/n11's drive from n10, n2, n11, n7.
+
+**Verification (independent conditional-law / plain MC, base and edit on the same draws) [measured]:**
+
+| event | N | P base | P edit | ratio | go |
+|---|---|---|---|---|---|
+| **E1(2.0)** (target) | 3e8 | 6.87e-9 | 4.08e-10 | **.059 +- .004** (95% upper .067) | 1: ratio <= .1 PASS |
+| accuracy | 1e9 | .95311 | .95300 | diff **-.0116 +- .0002 pp** | 2: drop <= .05 pp PASS |
+| E1(1.0) | 2e7 | 5.53e-6 | 2.63e-6 | .475 +- .010 | 3 |
+| E1(1.25) | 2e7 | 1.09e-6 | 3.74e-7 | .342 +- .013 | 3 |
+| E1(1.5) | 2e7 | 2.10e-7 | 4.04e-8 | .193 +- .015 | 3 |
+| E1(1.75) | 2e7 | 3.70e-8 | 3.38e-9 | .091 +- .015 | 3 |
+| E1(2.25) | 1e8 | 1.06e-9 | 3.98e-11 | .037 +- .007 | 3 |
+| E2(0.5) | 2e7 | 9.42e-5 | 9.24e-5 | .980 +- .002 | 3 |
+| E2(0.75) | 2e7 | 5.15e-6 | 4.99e-6 | .969 +- .005 | 3: no event up > 2x PASS |
+
+Design vs verification: design ratio .041 +- .016 vs verified .059 +- .004 (1.1 s.e.); design accuracy -.011 pp vs
+verified -.0116 pp. The repair grows with the threshold (2x at t0 = 1, 27x at 2.25), as expected for a far-gap fix.
+
+**Trade-off (pre-registered check (a), the full wrong-pick split at g23 > 2.0, 3e8 draws) [measured]:** picks of
+rank 3/4/5/6/7: 3569/795/116/16/2 -> 212/65/4/0/0 (all rarer), but picks of the LARGEST input rose 7,263,321 ->
+7,942,165 (+9.3%). Those are the common 1st-vs-2nd near-tie errors (g12 small) that happen to have g23 > 2: about
++1.3e-6 of probability, against the -6.5e-9 removed from the target. So the edit partly converts the rare rank-3
+mistake into the common rank-1 mistake in the same region. It is not a new rare failure (it is 2.4% of the conditional
+draws, a known near-tie error) and it sits inside the measured accuracy change (-1.16e-4 overall), but a bridge
+engineer would call it "reinforced one member by loading another". Not covered by the go line; reported.
+
+**Could random-sample fine-tuning at equal compute have seen the failure? [measured/inferred]** Design cost: E1 parts
+8.9e8 FPE (gradient 2.1e8 + 13 candidate estimates 6.8e8) plus 1.1e9 accuracy forward passes, 2.0e9 in total. Plain
+random inputs at that cost contain p C = 6.87e-9 x 2.0e9 = ~14 E1(2.0) examples (~6 at the E1-only cost, ~1.4 at the
+gradient's), among 2e9 inputs: a fine-tuning loss would weight them at ~7e-9 of the batch, and no gradient estimate
+from 14 indicator events resolves 12 weights. Verifying the 10x reduction by plain MC needs ~30 events on the edited
+model, ~30 / 4.1e-10 = 7e10 inputs (35x the whole design cost); our verification needed 6e8 forward passes because it
+samples from the law given the gap, i.e. it uses the knowledge of where the failure lives. [inferred] So sampling at
+equal cost sees a handful of failures but can neither steer nor verify the repair.
 
 ## Compute accounting
-(design and verification FPE to be reported)
+Design: line-CMC E1 (2.1e8 gradient + 6.8e8 candidates, FPE as executed by walk.py + backward passes); accuracy plain
+MC 1.1e9 forward passes (select 2.5e8, Hessian 5.8e8, candidates 2.6e8). Verification (not part of the method): E1(2.0)
+6e8, accuracy 2e9, other events 4.4e8 forward passes. All single-threaded (OMP_NUM_THREADS = 1), <= 2 processes.
 
 ## Claims
-(none yet)
+- [measured] A 12-weight edit of L2 norm .003 chosen from the weight-gradient of E1(2.0) and the accuracy curvature (no
+  truths used) makes E1(2.0) 16.8x rarer (.059 +- .004) at an accuracy cost of .0116 pp, and makes every other tested
+  far-gap event rarer. GO by the pre-registered line. Unverified (one agent; the truths are independent of the design).
+- [measured] The first-order version (accuracy gradient projected out) failed the accuracy limit: the trained weights
+  are an accuracy maximum, so the repair needs second-order information on accuracy (cheap to sample) together with the
+  first-order rare-event gradient (not available from sampling).
+- [measured] The repair trades part of the rare rank-3 error for the common rank-1 near-tie error in the same region
+  (+9.3% of those picks at g23 > 2).
+- [inferred] The mechanism of the edit matches H-R2: shift the balance away from comparator n6 towards the clocks n12/n11.
 
 ## Alternatives not ruled out
-See above.
+- The random 12-weight control of the same norm (pre-registered as a design-only comparison) was not run: whether any
+  small edit in this neighbourhood has a similar effect is not excluded by a control (the R3 design rows show a strong,
+  graded, direction-specific response, but that is not a control). Cheap follow-up.
+- The trade-off shows the gradient targets "pick rank 3" specifically; an objective "any wrong pick with g23 > t0"
+  would likely give a different, more honest repair. Not tried.
+- Only one model, one target, one edit; no check on other input distributions or on the noised copies (T371).
 
 ## Failure modes
-(to be filled)
+- Accuracy is at a maximum: any edit costs accuracy quadratically; the first-order projection is insufficient.
+- Relative changes to small weights are large (+32%), even though the absolute edit is tiny; a weight-relative budget
+  would select a different edit.
+- The search rule must handle two opposing conditions (note R4).
