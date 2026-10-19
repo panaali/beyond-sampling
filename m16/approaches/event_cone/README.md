@@ -362,3 +362,40 @@ the cell itself forbids the event. The useful pruning (96%) comes from the geome
 **Compute (T390):** (1,8,2) 1.18 CPU-h; (3,9,2) about 0.8 CPU-h (stopped); side triples about 0.2 CPU-h. Total about
 2.2 CPU-h of the 6 CPU-h cap. Cost is dominated by the relaxation LPs: 16 neurons x 2 bound LPs x the remaining
 steps, at about 1-3 ms each.
+
+---
+
+# T398: tighter pruning (event-aware bounds + ReLU splitting), pre-registration (2026-10-19, before the kill test)
+**Pruner (`relax2.py`).** It runs four stages in order; each is sound, i.e. it removes only non-event points.
+0. The g23 normalisation (as in T390).
+1. T390's relaxation: triangle relaxation, forward LP bounds, and the event constraint.
+2. **Event-aware bound tightening.** Every unstable pre-activation's bounds are recomputed by LP over the full
+   stage-1 relaxation *including* the event constraint (one Jacobi pass), then re-checked.
+3. **ReLU splitting**, up to DEPTH = 6 unstable neurons, fixed in advance. The order is earliest remaining step
+   first, then largest triangle area u·(−l)/(u−l). Splitting is depth-first, and a cell is pruned iff every leaf LP
+   (event included) is infeasible.
+
+CROWN-style back-substitution bounds are a relaxation of the same LP, so they are no tighter than the LP bounds used
+here; CROWN would only be faster. I did not implement it, because CPU time is not the binding constraint at this cap.
+
+**Development diagnostic (done before pre-registering; it informs the expectation).** I sampled (1,8,2) cells that
+T390 cannot prune. On them:
+- the relaxation's upper bound on the margin (logit_p3 − max other) is +0.03 to +31;
+- event-aware tightening lowers it by 0 to 0.7, and makes some k = 5 cells negative, i.e. pruned;
+- hit-and-run plus local ascent inside the cells finds best margins of −0.15 to −1.9, so those cells are probably
+  event-free and the relaxation is loose;
+- 2 cells, both found by the line walk, have positive best margins (the probe found an event point in only one of
+  them, so the probe is weak).
+
+At k = 4, a 60-cell sample showed no gain from stages 2-3 at DEPTH = 4.
+**Expectation: STOP**, with gains concentrated at k = 5-6 where fewer steps remain.
+
+**Kill test (unchanged from T390).** Branch and bound on (1,8,2) for k = 1..6 with the new pruner, with stage
+attribution per pruned cell. Validation (could fail): no line-walk event prefix may be pruned.
+**GO iff 41 x S6 x (S6/S5)^4 <= 1e7.**
+Side measurement: (1,2,0) to k = 5. Caps: 12 CPU-h in total, 2 processes, 2e5 survivors per step.
+If (1,8,2) cannot finish k = 6 in the budget, the result is reported as censored.
+
+**What it would certify:** the same as T390. Sound pruning plus exactly verified Farkas rays gives a rigorous upper
+bound summed over the surviving step-10 regions of all 720 triples. It is an exact value only with exact polytope
+masses.
