@@ -108,5 +108,15 @@ Binary STE choice (amendment 1, by mean accuracy only): the pre-registered hard-
 three binary cells (continuous .2990 vs tanh' .2968 vs ht3 .2019; x int4 .2801 / .2669 / .2075; x int8 .2924 / .2807 /
 .1698); census and DP use ht1.
 
+**Ties (discrete inputs)** (`python qties.py qat.pt 1e7`, `ties.json`; same convention in training and evaluation:
+label = 2nd-largest position of the discretised input, ties broken by the lower index; "tied" = v1 == v2 or v2 == v3):
+tie rate .581 on the int4 input grid (step 0.4) and .047 on the int8 grid (step .0235). Accuracy all / tie-free / tied:
+int4 act x int4 inputs .850/.878/.831, .826/.850/.809, .842/.877/.817 (seeds 0-2); int4 x int8 inputs .747/.763/.428,
+.746/.762/.406, .738/.754/.426; binary x int4 .237/.269/.213, .305/.345/.276, .299/.339/.269; binary x int8
+.263/.265/.224, .301/.302/.262, .315/.315/.278. Reading [inferred]: the int4 input grid is easier, not because ties are
+scored leniently (tied inputs score below tie-free ones), but because a 0.4 grid turns every near-tie (gap < 0.4) into
+an exact tie decided by a fixed index rule, which the net learns (.81-.83 on tied inputs), and leaves only tie-free
+inputs with top-3 gaps >= 0.4, which are easy (.85-.88). The continuous task's hard near-tie cases no longer exist.
+
 ## Compute accounting / Claims / Alternatives not ruled out / Failure modes
 (to be completed)
