@@ -96,6 +96,10 @@ def count_correct_blk(Wi, Wh, Wo, xT, B=64):
     return ok
 
 
+# exploratory: same kernel with reassociation/FMA allowed (symmetric to walk_nb's fastmath variant)
+count_correct_fm = njit(error_model="numpy", fastmath={"reassoc", "contract", "nsz", "arcp"})(count_correct_blk.py_func)
+
+
 def est_compiled(model, n, rng, chunk=65536, x=None):
     """Sampling estimate with n inputs; normals drawn by numpy's Generator (ziggurat) unless x (T, n) is given."""
     Wi, Wh, Wo = model; T = Wo.shape[0]; ok = 0

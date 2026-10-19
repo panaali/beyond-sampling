@@ -218,7 +218,10 @@ def _accumulate(mass, rows, Fhi, Flo, Gchi, Gclo, valid):
 
 
 FLOPS = np.zeros(2)       # running counters (executed matmul FLOPs, executed O(H) work)
-MODE = {"fast": False}
+MODE = {"fast": False, "fm": False}
+# exploratory (not pre-registered): reassociation + FMA contraction allowed, so the H-length reductions vectorise;
+# inf/nan semantics kept (the walk relies on them)
+_walk_fm = njit(error_model="numpy", fastmath={"reassoc", "contract", "nsz", "arcp"})(_walk.py_func)
 
 
 def walk(model, y, a, b, tau, kind, cdf=None, eps=1e-10, max_cells=4000):
@@ -234,7 +237,7 @@ def walk(model, y, a, b, tau, kind, cdf=None, eps=1e-10, max_cells=4000):
     cap = 1 if fast else max(64, 2 * n * 12)
     while True:
         ev = np.empty((cap, 5))
-        mass, cost, cells, ne = _walk(Wi, Wh, Wo, y, a, b, tau, kind == "23", eps, max_cells, fast, nu,
+        mass, cost, cells, ne = (_walk_fm if MODE["fm"] else _walk)(Wi, Wh, Wo, y, a, b, tau, kind == "23", eps, max_cells, fast, nu,
                                       math.sqrt(nu), ev, FLOPS)
         if ne >= 0:
             break
