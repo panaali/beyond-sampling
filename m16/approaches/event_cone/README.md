@@ -562,7 +562,8 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
    - All 995 distinct full histories of 550,924 line-walk event points are among them, with 0 missing.
    - CPU about 6 h.
 3. **Exact verification** (T400, independent code, safe dual bounds): 38,557 of 38,557 pruning certificates for
-   k = 2..8 verify. k = 9-10 are pending.
+   k = 2..8 verify. **[Update] All (1,8,2) certificates for k = 2..10 verify: 259,723 of 259,723, with 0 failures**
+   (T400). The k = 10 mass charge (T416) is running on 8 workers.
 4. **Mass** (T400): plain MC at 1e9 draws shows the survivors' slab mass falls from 45% at k = 6 to 4.6% at k = 7,
    then stays flat at 2.6e-9 through k = 8. So the charge must be made at k = 10 with exact event polytopes; T400's
    option (c), relaxation-projection cuts, did not help.
