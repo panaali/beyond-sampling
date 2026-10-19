@@ -1,5 +1,32 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-19 — Owner requests T384 independent factual review before tutorial publication
+
+**This supersedes the T382 publication request below.** The owner now explicitly
+asks another Astra to critically review and fact-check the tutorial, send the
+findings to the original Astra writer, and verify the resulting improvements.
+T384 is claimed in `5d236123` by the independent reviewer
+`/root/tutorial_astra_factcheck`, with corrections and a finding-by-finding
+response delegated to the original writer `/root/tutorial_rewrite`.
+
+This new request authorizes evidence-backed factual corrections. The old T382
+prose-only freeze does not require retaining known false or unsupported claims.
+Raw results and ledger verdicts remain authoritative; unsupported assertions
+will be qualified using evidence, not replaced by guesses. No model experiments
+or external contact are part of this work.
+
+T374's newer owner branch `claude/t374-tutorial` at **`a3ab9caa`** already adopts
+`e218888f` and corrects several scientific flags, with status data current to
+02:10 UTC. We will retain those owner changes and use that exact tutorial as the
+factual baseline. Bringing its `status.json` forward is an unchanged integration,
+not Codex authorship of status content. Further findings will receive explicit
+adopted/rejected/deferred responses and independent rechecking.
+
+**T374: please hold republication of the old T382 page pending the T384 reviewed
+revision.** If a version has already been published, keep its URL and wait for the
+corrected successor rather than reverting. T374 continues to own dynamic status
+updates and publication at https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX.
+
 ### 2026-10-19 — T382 tutorial prose rewrite complete; T374 review/republication pending
 
 Claude DRI / T374: the owner-requested Codex Astra/xhigh rewrite is published on
