@@ -1,0 +1,105 @@
+{
+  "updated": "2026-10-19 00:31 UTC",
+  "source": "TASKS.md 'In progress' on ccr-6a61f25c-wn80ii (da2878ec) and each lane's branch head. The DRI edits this file; run tutorial/tools/build.py to re-embed it.",
+  "lanes": {
+    "T345": {
+      "title": "Feed-forward version of the task",
+      "status": "in progress",
+      "what": "Find the simplest plain ReLU network that sees all 10 numbers at once and reaches M_16,10's accuracy (>= .95), fewest layers first; then attempt the challenge on it with exact tools versus sampling at equal compute.",
+      "latest": "Ladder screen under way (e.g. depth 2 width 32, depth 3 width 24 on seed 0). No result yet.",
+      "branch": "claude/t345-ffn-control"
+    },
+    "T352": {
+      "title": "Quantised activations (binary, int4, int8) and discrete inputs",
+      "status": "in progress",
+      "what": "Retrain M_16,10 with quantisation-aware training so each neuron takes only a few values. The network then becomes a finite-state machine, and an exact dynamic programme over reachable states may beat sampling.",
+      "latest": "Plan written before any training. The first binary models trained poorly (about 30% training accuracy part-way through); two other training rules were added before any final result.",
+      "branch": "claude/t192-gpu-cost-law (m16/approaches/quantised/)"
+    },
+    "T370": {
+      "title": "Rare events: fix the simplified treatment of the smaller inputs",
+      "status": "in progress",
+      "what": "Replace the closure that pins the 7 smaller inputs at one value with a real integral over their exact law, the cause T363 and T369 point to for the remaining rare-event failures.",
+      "latest": "Running, with a pre-set stopping rule. A proper fix is expected to cost 10-100x more per estimate.",
+      "branch": "claude/t218-tie-tail-labels, claude/t286-cheap-frontier"
+    },
+    "T371": {
+      "title": "Rare events on weight-noised copies",
+      "status": "in progress",
+      "what": "Does the confirmed far-gap estimator (H-R1) stay within 2x when noise is added to the weights, as in ARC's noisy copies?",
+      "latest": "Frozen estimates on all 52 models committed before any truth (00:07).",
+      "branch": "claude/t371-rare-noise"
+    },
+    "T372": {
+      "title": "Which weights cause a rare mistake?",
+      "status": "in progress",
+      "what": "An exact derivative of a rare-error probability with respect to all 432 weights, read off the gate crossings along the exact walks. Plain sampling of a 0/1 event has no unbiased finite-variance derivative.",
+      "latest": "Interim, one development model (not a result): our deterministic gradient is about 5x too low even though its probability estimate is within 1.2x, while a sampling-based gradient along the same exact lines agrees with the truth. Two more models are running.",
+      "branch": "claude/t372-rare-gradient"
+    },
+    "T373": {
+      "title": "Certified rare-event probability inside the event's own cone",
+      "status": "in progress",
+      "what": "Count the linear regions inside the region of input space where a far-gap mistake can happen. The idea is only viable if that count stays small (at most 2e8 projected at 10 steps); the first run decides.",
+      "latest": "Counting code checked against a slower version; the main runs have started.",
+      "branch": "claude/t373-event-cone"
+    },
+    "T6": {
+      "title": "Essay question: re-run of the neuron-explanation test",
+      "status": "in progress",
+      "what": "Re-run of the test of 'most neurons have one job' on a 0.6B open language model with >= 100 controls and 2-3 explainers per item, to resolve the inconclusive verdict.",
+      "latest": "Pilot done; the control items were fixed before the main collection.",
+      "branch": "claude/t6-essay-rerun"
+    },
+    "T10": {
+      "title": "Minimal pair: H = 16 at T = 4 versus T = 5",
+      "status": "in progress",
+      "what": "The smallest place where the deterministic calculation starts losing ground to sampling. Which error patches appear at T = 5?",
+      "latest": "Draft diagnostic (unverified): across T = 3..10 and 5 seeds, the calculation's gain over sampling tracks (1 - p) / (error rate x CV^2 x c), roughly 1 / error rate (Figure 5).",
+      "branch": "claude/t10-minimal-pair"
+    },
+    "T375": {
+      "title": "Strict bar: a compressed tensor-train representation",
+      "status": "in progress",
+      "what": "Follow-up to T291: represent the network's state in a compressed tensor-train class, starting with an oracle gate (can the class even represent the true logits well enough?).",
+      "latest": "Started after T291 stopped.",
+      "branch": "see TASKS.md"
+    },
+    "T376": {
+      "title": "Clock-switch symbols with consistent smaller inputs",
+      "status": "in progress",
+      "what": "Follow-up to T3: make the smaller inputs consistent with each symbol, and run a ceiling test with sample-fitted tables.",
+      "latest": "Started after T3 failed its ceiling test.",
+      "branch": "see TASKS.md"
+    },
+    "T377": {
+      "title": "Follow-up to the blinded size ladder",
+      "status": "in progress",
+      "what": "Follow-up to T24's mixed result on whether neuron-by-neuron accounts scale with model size.",
+      "latest": "Started.",
+      "branch": "see TASKS.md"
+    },
+    "T291": {
+      "title": "Strict bar with a different representation",
+      "status": "negative (unverified)",
+      "what": "Track the hidden state as low-degree polynomials of Gaussian inputs, computed from the weights with explicit error terms: no sampling, no fitted closure. H-S1 says the strict bar needs a new way of representing the state; this is one.",
+      "latest": "Stopped, scoped to degree <= 5: even the best degree-1..5 polynomial fit of the TRUE output scores picks the right answer only 13-40% of the time, so this representation cannot work at these degrees, whatever the propagation. Follow-up T375 is in progress.",
+      "branch": "claude/t291-poly-coeff"
+    },
+    "T3": {
+      "title": "Symbols from the clock neurons' gate switches",
+      "status": "negative (unverified)",
+      "what": "Describe the network as a symbolic system whose symbols are the rotating neurons' on/off switches; ceiling test on 18 models.",
+      "latest": "Ceiling test FAIL: bias -.61 to +.46 pp, within .08 pp on 7 of 18 models. Two opposite biases cancel, and the clock neurons are no better than random gate sets. Follow-up T376 is in progress.",
+      "branch": "claude/t3-gate-symbols"
+    },
+    "T24": {
+      "title": "Does a neuron-by-neuron account scale with model size?",
+      "status": "inconclusive (unverified)",
+      "what": "Blinded investigators and judges on H = 8, 16, 32 at T = 10, equal effort per size.",
+      "latest": "Mixed (an independent rescorer agrees). Reconstruction recovered .585 / .335 / .824 of the gap for 8 / 16 / 32 neurons; 1 of 3 fresh accounts of the 32-neuron network passes the 90% line. Judges can tell the labels apart (agreement kappa ~.92). Inferred: good labels and good reconstruction come apart. Replacing one neuron by its formula costs ~12 points at 16 neurons but ~.3 at 32, so how fragile the readout is matters more than size. Knowing the neurons' roles was not enough to calculate accuracy. Follow-up T377 is in progress.",
+      "branch": "claude/t24-blind-m32"
+    }
+  },
+  "status_values": "'in progress' (purple box), 'negative (unverified)' (red), 'inconclusive (unverified)' (amber), 'confirmed' (green); see laneHTML() in src/page.html"
+}
