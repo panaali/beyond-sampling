@@ -81,6 +81,55 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T389 results (2026-10-19): **STOP**. The go test fails.
+Go = DEV3 MSE ratio CI upper < 1 at 64k. **Measured: 1.215 [0.837, 1.694] at 64k (STOP).** At 16k: 0.738 [0.508, 1.006].
+Prediction was 0.78 (64k) / 0.92 (16k), with STOP predicted.
+
+Reproduce:
+- `python score_dev3.py pos 16000,64000 dev3_scores_pos.json` (`dev3_scores_pos.log`);
+- `python m16/leaderboard.py run minimal_pair/pos --H 16 --T 10` (`pos/lb_T10.log`, raw `pos/lb_raw_T10.jsonl`).
+
+MSE ratio vs sampling at equal executed cost (below 1 wins):
+
+| panel | T10 recipe | pos (DEV2 table allocation) |
+|---|---|---|
+| **DEV3 64k** | 0.97 [0.65, 1.38] | **1.22 [0.84, 1.69]** |
+| DEV3 16k | 1.15 [0.76, 1.62] | 0.74 [0.51, 1.01] |
+| M_16,10 seeds 16k / 64k | 1.06 / 0.38 | 0.37 [0.02, 1.14] / 0.87 [0.13, 2.48] |
+| M_16,10 noisy groups 16k | 0.29-7.72 | 0.12-7.38 |
+| M_16,10 noisy groups 64k | 0.14-3.44 | 0.19-4.44 |
+
+- Mean executed cost is below budget: ~13.6k at 16k and ~57.6k at 64k, because of floor rounding per cell. The ratios
+  use the executed cost.
+- Time ratio 75-90 (16k) and 22-28 (64k): many small per-cell walks, so heavy Python overhead.
+
+**Reading:**
+- [measured] Against the T10 recipe on the same 100 DEV3 models, the table allocation helps at 16k (1.15 -> 0.74)
+  and hurts at 64k (0.97 -> 1.22). There is no consistent gain, and the 16k gain is not in the go criterion.
+  [inferred] Two likely reasons:
+  1. per-model cell sds deviate from the DEV2 population table (D10's held-out range was 1.08-1.51x even in iid
+     terms);
+  2. splitting the Sobol rule into ~225 small per-cell rules loses most of the low-discrepancy benefit at the larger
+     budget.
+- [measured] The weights-only feature tried carries no information about the per-position error variability (D11).
+- [inferred] Over this estimator family (exact tie-segment walks + fixed nodes + any allocation set before walking),
+  T=10 is capped near the sampling line. Allocation ceilings: 1.45x oracle at (a,b) cells, ~1.25x achievable from a
+  prior. Measured DEV3 gains stay 0.8-1.4x.
+
+**Scoped negative (unverified)**, AGENTS rule 5. Scope: H16 T10 zoo retrains; tie-segment walk integrand; allocation
+from sign strata, tie positions and a population prior; weights-only feature = position-influence norms; budgets
+16k/64k. Exhaustion checklist:
+- [x] oracle ceilings by #positives, (a,b), k x (a,b) x u (D9);
+- [x] held-out population table (D10);
+- [x] position-influence weight feature (D11);
+- [x] frozen table estimator scored on DEV3 + leaderboard.
+- [ ] other weight features: per-neuron gate statistics, readout margins at canonical points. These are model
+  evaluations, not weights only; the scope rule excluded them. Bounded anyway by the 1.45x oracle at (a,b)
+  granularity.
+- [ ] Sobol rules that stay global (one rule, importance-weighted by the table) instead of per-cell rules: could
+  keep the low-discrepancy benefit at 64k. Not tried. **Most promising untried variant.**
+- [ ] a different integrand (2-D exact slicing, exact bulk-region treatment): outside T389's lever.
+
 ## T389 pre-registration: weight-derived allocation BEFORE walking, H16 T10 (written 2026-10-19, before any DEV3/leaderboard run)
 **Development (DEV2 only, 80 retrains; DEV3 and the leaderboard untouched):**
 - **D9 ceiling** (`d9_ceiling.py`, 8 DEV2 models, 16k iid faces per stratum). Oracle per-cell allocation over the
