@@ -327,14 +327,16 @@ futile (the C_true curve).
 ### (2) Probabilistic bound on P(E(2.5)), sampling-class (pre-registration 2) [measured]
 **This is not a certificate.** It holds with probability >= 1 - 1e-6 over the MC seed.
 
-| draws | g23 >= 2.5 | event hits | point estimate | Clopper–Pearson upper, conf 1 - 1e-6 | (95%) |
+| draws | g23 >= 2.5 | event hits | point ± s.e. | CP upper, 95% | **CP upper, conf 1 - 1e-6** |
 |---|---|---|---|---|---|
-| 1e10 (5 shards) | 403,698 | 1 | 1e-10 | **1.67e-9** | 4.7e-10 |
+| 1.1e11 (55 shards: T400 seeds 1-5; W1-W4 seeds 1000-1049) | 4,434,787 | 17 | 1.55e-10 ± 0.37e-10 | 2.3e-10 | **4.2e-10** |
 
-- Commands: `python prob_bound.py 2.5 2e9 <seed 1..5>`, then `python prob_combine.py 2.5 1e-6`.
-- The single hit is a genuine event: triple (9,3,2), g23 = 2.65, logit 68.88 vs 67.95.
-- Covering the target truth (< 1e-9) at this confidence would take about 1e11 draws (~30 CPU-h).
-
+- Commands: `python prob_bound.py 2.5 2e9 <seed>`, then `python prob_combine.py 2.5 1e-6`.
+- **All 17 hits are on the triple (9,3,2).** None is on (1,8,2), so the event-in-survivors soundness check has no
+  (1,8,2) hit to test.
+- [inferred] At t0 = 2.5 the event mass sits on (9,3,2) (and probably its mirror (3,9,2)), not on (1,8,2), which
+  carried the most line hits at t0 = 1.5.
+- The truth worker's estimate (6.6e-11 ± 44%) is about 2σ below this point estimate. Not resolved.
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
