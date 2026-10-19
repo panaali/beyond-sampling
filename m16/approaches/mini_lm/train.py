@@ -21,6 +21,7 @@ def main():
     ap.add_argument("--eval_n", type=int, default=1_000_000)
     ap.add_argument("--no_exact", action="store_true")
     ap.add_argument("--out", default=os.path.join(HERE, "models"))
+    ap.add_argument("--eval_only", action="store_true", help="score an existing checkpoint")
     a = ap.parse_args()
     torch.set_num_threads(2)
     torch.manual_seed(a.seed)
@@ -32,7 +33,12 @@ def main():
     opt = torch.optim.AdamW([{"params": rest, "weight_decay": 0.01}, {"params": emb, "weight_decay": 0.0}], lr=a.lr)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: 0.5 * (1 + math.cos(math.pi * s / a.steps)))
     log, t0 = [], time.time()
-    for step in range(a.steps):
+    name = f"{a.lang}_{a.arch}_s{a.seed}"
+    if a.eval_only:
+        ck = torch.load(os.path.join(a.out, name + ".pt"), weights_only=True)
+        model.load_state_dict(ck["state"])
+        log = ck.get("loss_log", "not saved (eval_only run)")
+    for step in range(0 if a.eval_only else a.steps):
         model.train()
         y = lang.sample(a.batch, rng)
         sc = torch.from_numpy(lang.annotate(y)["scored"]) if lang.name == "modsum" else None
@@ -46,9 +52,10 @@ def main():
         if step % 500 == 0 or step == a.steps - 1:
             log.append((step, loss.item()))
     os.makedirs(a.out, exist_ok=True)
-    name = f"{a.lang}_{a.arch}_s{a.seed}"
-    torch.save({"cfg": model.cfg, "lang": a.lang, "state": model.state_dict()}, os.path.join(a.out, name + ".pt"))
-    res = dict(name=name, params=n_params(model), train_seconds=time.time() - t0, loss_log=log,
+    if not a.eval_only:
+        torch.save({"cfg": model.cfg, "lang": a.lang, "state": model.state_dict(), "loss_log": log,
+                    "train_seconds": time.time() - t0}, os.path.join(a.out, name + ".pt"))
+    res = dict(name=name, params=n_params(model), train_seconds=(ck.get("train_seconds") if a.eval_only else time.time() - t0), loss_log=log,
                steps=a.steps, batch=a.batch, lr=a.lr, flops_per_fpe_large=model.flops(lang.L))
     big = dict(n=lang.N) if a.lang == "modsum" else {}
     res["large"] = metrics.sampled(model, lang, a.eval_n, seed=7_000_000 + a.seed, **big)

@@ -52,7 +52,7 @@ class Dyck2:
             c = n
         return sum(c.values())
 
-    def enumerate_small(self, T=None):
+    def enumerate_small(self, T=None, as_int8=False):
         """All length-T sequences with positive probability, exact float64 probabilities."""
         T = T or self.T_small
         y = np.zeros((1, 0), np.int8)
@@ -74,12 +74,12 @@ class Dyck2:
                 parts.append((yy, st[m], d[m] - 1, lp[m] + l1q))
             y = np.concatenate([p[0] for p in parts]); st = np.concatenate([p[1] for p in parts])
             d = np.concatenate([p[2] for p in parts]); lp = np.concatenate([p[3] for p in parts])
-        return y.astype(np.int64), np.exp(lp)
+        return (y if as_int8 else y.astype(np.int64)), np.exp(lp)
 
     def enumerate_chunks(self, T=None, chunk=200000):
-        y, w = self.enumerate_small(T)
+        y, w = self.enumerate_small(T, as_int8=True)
         for i in range(0, len(y), chunk):
-            yield y[i:i + chunk], w[i:i + chunk]
+            yield y[i:i + chunk].astype(np.int64), w[i:i + chunk]
 
     def annotate(self, y):
         N, L = y.shape
