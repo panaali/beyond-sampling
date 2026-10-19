@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(HERE, "..", ".."))
 import common  # noqa: E402
 
 Wi, Wh, Wo = common.Wi, common.Wh, common.Wo
-H, D = 16, 10
+H, D = len(Wi), Wo.shape[0]   # T426: was 16, 10 (the only change to T400 verify.py at claude/t400-bound-rigour)
 DELTA = 0.1          # the float 0.1, used as the exact rational 0.1000000000000000055... (README part c)
 U = 2.0 ** -53
 SAFE = 2.0
