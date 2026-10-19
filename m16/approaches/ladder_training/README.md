@@ -115,7 +115,7 @@ Zoo (4,4) 2^30 reference: accuracy 0.477-0.602, mean 0.556.
 
 ## Status
 
-T86 reproduction done (match); T111 done (FAIL; undertraining inconclusive at H=4); (7,3) and (4,7) training (2026-10-19 afternoon).
+Done (2026-10-19): T86 reproduction matches; (7,3) matches; (4,7) fails M2 on one seed; T111 FAIL, undertraining inconclusive at H=4. T428 (estT exact-mode check) running.
 
 ## Results
 
@@ -151,7 +151,23 @@ occasionally (1 of 10 here).
 
 Wall time 1360-1690 s per model (one thread, 2 jobs in parallel).
 
-New rungs (7,3), (4,7): training after T111b.
+### T86 new rungs: (7,3) MATCHES its neighbours; (4,7) does NOT (M2, seed 3) [measured]
+
+`python match.py 30s`; neighbours pooled: (7,3) vs zoo (6,3)+(8,3), (4,7) vs zoo (4,6)+(4,8).
+
+| size | our acc seeds 0-4 | pooled zoo range | R | M1 | our n_store | zoo range | M2 | bnd1 median (window) | M3 | match |
+|---|---|---|---|---|---|---|---|---|---|---|
+| (7,3) | 0.9992 0.9994 0.9993 0.9991 0.9992 | 0.9988-0.9995 | 0.9938-1.0045 | yes | 3/4 3/4 2/5 2/5 3/4 | 2/3..4/6 | yes | 1.000 (0.95-1) | yes | **yes** |
+| (4,7) | 0.3582 0.3587 0.3615 0.2914 0.3578 | 0.3134-0.3941 | 0.2730-0.4345 | yes | 2/2 2/2 2/2 **0/4** 2/2 | 1/2..2/3 | **no** | 0.203 (0.12-0.28) | yes | **no** |
+
+- (4,7) seed 3 has all four input weights of one sign, so in one chart no neuron stores x0 (n_store 0/4), and it is
+  the least accurate (0.291). Seeds 0, 1, 2, 4 interpolate the neighbours on every test. The same 0/4 basin occurs in
+  the zoo at (4,2) seed 4 (acc 0.875), so it is a basin of this architecture, not a defect of our training, but by
+  the pre-registered rule the (4,7) size **fails to match**. Use (4,7) seeds 0, 1, 2, 4 only with this flag; (4,7)
+  is off-regime anyway (bulk errors, accuracy 0.29-0.36; ladder rule 5, second track).
+- (7,3) wall time 1400-1700 s per model, (4,7) ~2100 s.
+- Loader: `from models import load; load(7, 3, seed)` / `load(4, 7, seed)` reads [weights/](weights/).
+
 
 ### T111 proper: T87's recipe (unchanged) on lr x2 and 2x-data (4,4) models. FAILS; inconclusive on undertraining [measured]
 
@@ -233,6 +249,9 @@ model. T111: estT ops (its own counter, `m43.Ops`) for exact and recipe; 1e7-sam
 
 - [measured] alg_zoo's training code, unchanged, at the zoo's settings on CPU reproduces the zoo's (4,3) and (5,3)
   models: all pre-registered match tests pass, and 9/10 seeds converge to within 0.5% (rel. L2) of the zoo weights.
+- [measured] (7,3) seeds 0-4 match their zoo neighbours (M1-M3); (4,7) fails M2 (seed 3, 0/4 storage basin).
+- [measured] T111: T87's recipe fails (4,4) on lr x2, 2x data and best-of-45-seed models; no (4,4) model above
+  0.603 was found, so undertraining vs T is inconclusive at H = 4.
 - [inferred] Models we train at missing sizes with the same code are zoo-like models (same pipeline, same
   per-seed basins), not a different training regime.
 
