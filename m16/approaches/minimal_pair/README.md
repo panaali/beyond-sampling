@@ -81,6 +81,70 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T380 results (2026-10-19): the near/far split does NOT lower the effective CV where it matters. FAIL, as predicted.
+Pre-registered pass: cv beats the T10 recipe on the T=6 seed group AND on DEV3 at both budgets. **FAIL**: it is
+worse on DEV3 at 16k and level at 64k.
+
+Reproduce:
+- `python m16/leaderboard.py run minimal_pair/cv --H 16 --T 6` (report in `cv/lb_T6_report.log`, regenerated after a
+  container restart; see note);
+- `python m16/leaderboard.py run minimal_pair/cv minimal_pair --H 16 --T 10` (`cv/lb_T10.log`);
+- `python score_dev3.py minimal_pair,cv 16000,64000` (`dev3_scores.log`);
+- `python cv_rules.py 6 32` (`cv_rules_T6.log`, post-hoc secondary, declared below).
+Raw rows: `cv/lb_raw_T6_T10.jsonl`.
+
+MSE ratio vs sampling at equal executed cost (below 1 wins):
+
+| panel | T10 recipe 16k | cv 16k | T10 recipe 64k | cv 64k |
+|---|---|---|---|---|
+| **DEV3, 100 M_16,10 retrains (1e8 truths)** | 1.15 [0.76, 1.62] | **1.90 [1.42, 2.44]** | 0.97 [0.65, 1.38] | 0.99 [0.67, 1.41] |
+| T=6 seeds (leaderboard, 1 run each) | 0.35 [0.06, 0.82] | 0.02 [0.00, 0.05] | 0.33 [0.12, 0.54] | 0.13 [0.03, 0.25] |
+| T=6 noisy groups | 0.56-1.72 | 0.83-2.77 | 1.05-4.85 | 0.79-2.44 |
+| M_16,10 orig (one model, one run) | 0.11 | 0.07 | 0.52 | 0.06 |
+| M_16,10 seeds 0-4 | 1.06 [0.10, 2.49] | 1.01 [0.51, 1.60] | 0.38 [0.20, 0.61] | 1.17 [0.56, 1.85] |
+| M_16,10 noisy groups | 0.29-7.72 | 0.65-2.20 | 0.14-3.44 | 0.38-3.10 |
+
+**Post-hoc secondary** (declared after seeing the T=6 leaderboard rows, because single runs are noisy): 32
+alternative rules on T=6 seeds 0-4, own 48M truths.
+- cv/frozen MSE-gain ratio: 16k 0.92 / 1.65 / 1.07 / 1.45 / 0.92; 64k 1.29 / 1.59 / 1.36 / 1.33 / 0.90.
+- Median 1.3, in line with the development prediction D7 (1.3-1.5) and within the pre-registered 0.5-1.5.
+
+**CV reduction** (CV_eff² ∝ MSE x cost; ratio frozen/cv; above 1 = cv lowers CV):
+- T=6 seeds: ~1.3, so CV_eff falls only ~12%;
+- DEV3 16k: 0.60 (CV_eff RISES ~29%);
+- DEV3 64k: 0.98 (no change).
+
+**Law check (pre-registered):**
+- predicted gain of the T10 recipe on DEV3: 0.3-0.9x;
+- measured: 0.87x (16k) and 1.03x (64k), at the top edge of the prediction;
+- [measured] neither recipe beats sampling on M_16,10 retrains.
+The orig rows (0.06-0.52) are a single squared error on a single model; DEV3's 100 models are the gain estimate.
+
+**Reading:**
+- [measured] Neither cheap-proxy form lowers the integrand's CV enough to matter. The linear proxy is uncorrelated
+  with F in the big strata (D6). The near/far split recovers ~1.3x on well-trained T=6 seeds, but loses on
+  bulk-error models (DEV3 at 16k, noisy copies): the far part carries real mass there, and a pilot-based Neyman stage
+  under-samples it.
+- [inferred] T10's account holds: the face integrand's relative variability is set by multi-cell bands and far
+  errors. Any lever that only re-allocates nodes along or across segments is capped near 1-2x. A real CV cut needs
+  information about where the far errors are before walking: a weight-derived predictor (pre-reg fix 3, untested),
+  or exact treatment of the bulk region.
+
+**Note on the container restart:** the first leaderboard runs were killed and were re-run from scratch. The T=6
+report step then failed because the truths file had been moved into this folder. The report was regenerated with
+`leaderboard.py report` from the saved raw rows and the same truths (`lb_truths_H16_T6.json`).
+
+**Exhaustion checklist (T380 lever, scoped negative, unverified):**
+- [x] linear-at-tie proxy as a two-phase control variate (dev-predicted <= 1.08x on 11 of 12 models, 1.36x on one);
+- [x] near/far split at delta = 0.03, frozen, scored.
+- [ ] delta re-chosen per T, or a pilot floor for far parts: tuning; not done because development already showed the
+  far-part starvation.
+- [ ] a regression (beta-fitted) control variate: the linear proxy's correlation of 0.0-0.5 bounds any beta at
+  1/(1-rho²) <= 1.33x.
+- [ ] multi-cell proxies (exact walk of the k cells nearest the tie plus a linear tail): between D6 and D7, expected
+  between them.
+- [ ] weight-derived far-error predictor: open.
+
 ## T380 pre-registration: lower-CV integrand (written 2026-10-19, after development, before any scoring)
 **Development (leaderboard DEV models at T=4/T=5 only; no test model, no T=6, no M_16,10 used):**
 - **D6, linear proxy** (`proxy.py`, `d6_proxy.py`): linearise at the tie point, ~2 FPE vs ~13. A control variate
