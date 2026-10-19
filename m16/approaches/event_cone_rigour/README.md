@@ -251,6 +251,22 @@ certificate, so there is nothing to falsify. Instead, B1 holds cells that are kn
 
 Median seconds per stage-1/2/3 cell: 0.45-1.0 / 0.6-1.1 / 0.7-1.3.
 
+
+### Survivor-mass curve C_true(k) for (1,8,2), t0 = 2.5, delta = 1/3 [measured]
+Plain MC with 1e9 draws (`python surv_curve.py 1,8,2 2.5 1e9 6`; output in `results_surv_curve_1-8-2_2.5.txt`).
+The slab mass P(top three at (1,8,2), g23 >= 2.5, N) is 5.6e-8.
+
+| k | 1-3 | 4 | 5 | 6 |
+|---|---|---|---|---|
+| survivors | 2 / 18 / 39 | 146 | 275 | 781 |
+| C_true(k) | 5.6e-8 (100%) | 4.5e-8 | 4.2e-8 | **2.5e-8 (45%)** |
+
+- No event draw occurred in the 1e9 draws: P(E_(1,8,2)) < ~1.4e-8 at 1 - 1e-6. The event-in-survivors check
+  is therefore vacuous here.
+- [inferred] Charging at k = 6 costs at least C_true(6) = 2.5e-8 for this one triple, even with a perfect mass
+  bound. That is more than 25x the target truth (< 1e-9 over all 720 triples).
+- So the charge depth must be close to k = 10, where the event rows apply. This is T398's point.
+
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
@@ -278,7 +294,7 @@ The MC is an importance sampler with 1e7 points per region; relative s.e. 16-72%
 
 | **M5t** (exact per-simplex integrals, 2,000 simplices; pre-registration 2) | **1.55** | **2.07** | **2.93** | 1.20 | 23 s (p90 25 s) | Σ ub 3.9e-7 vs Σ MC 2.2e-7; rigorous lb/MC median 0.50 |
 
-**M5t passes its pre-registered line** at t0 = 2.25 (median <= 3, p90 <= 10, <= 30 s), with no soundness violation (`python a_m5.py 2.25 2000 t`). On the same 27 cells M2 has median 365. The M5 lower bounds are ≤ 0.49 of MC: rigorous [lb, ub] brackets of width 7-70x.
+**At t0 = 2.5** (28 cells, 1e9-draw MC; `python a_m5.py 2.5 2000 t`), M5t has ub/MC median 1.49, p90 2.04, max 3.23, min 1.08, and lb/MC median 0.50. Cost is 22 s per cell. Σub is 9.6e-8 against Σ MC 5.6e-8, with no violation. M2 on the same cells has median 387. **M5t passes its pre-registered line** at both t0 = 2.5 and t0 = 2.25 (median <= 3, p90 <= 10, <= 30 s), with no soundness violation (`python a_m5.py 2.25 2000 t`). On the same 27 cells M2 has median 365. The M5 lower bounds are ≤ 0.49 of MC: rigorous [lb, ub] brackets of width 7-70x.
 
 No ub fell below its MC value minus 4 s.e. on any scored cell or region.
 
