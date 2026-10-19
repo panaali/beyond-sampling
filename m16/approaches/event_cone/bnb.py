@@ -103,6 +103,11 @@ def main():
                                 leaves=np.array(cleaves, np.int8), delta=relax2.DELTA)
         json.dump(out, open(path, "w"), indent=1)
         cells = keep
+        if T398:                                                   # survivors (gates) for mass calls
+            os.makedirs(os.path.join(HERE, "certs"), exist_ok=True)
+            np.savez_compressed(os.path.join(HERE, "certs", f"surv{TAG}_{'-'.join(map(str, tri))}_k{t + 1}.npz"),
+                                tri=np.array(tri), k=t + 1, gates=np.array([gates_of(c[4], t + 1, {}) for c in keep], np.int8),
+                                delta=relax2.DELTA)
         if len(keep) > cap:
             print("cap", flush=True); break
 
