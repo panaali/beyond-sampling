@@ -124,8 +124,8 @@ Estimates sealed in e197ba785 before `score2.py` read any truth -> [score2.json]
 - **Line:** within 2x on 14/15 (line >= 12: met); |z| <= 2 on 12/15 (line >= 13: **missed**). Median ratio 1.02.
 - **F against the bars:** panel F = **0.42** (strict bar met); 2.2 when every draw is charged (lenient bar met).
   Every point has F <= 1.
-- **Against T403's walk:** better F on 14/15 points (walk panel F 4.57). The one exception is #3 (0.00094 vs .0026,
-  both small).
+- **Against T403's walk:** better F on 14/15 points (walk panel F 4.57). The one exception is #5 (0.0084 vs
+  .0025).
 - **Against the gap-prefiltered MC:** better F on 8/15 counting network passes only, 11/15 when MC draws are charged
   0.19 FPE. IS loses mainly at t0 = 1.0-1.5, where P(g23 >= t0) is 0.006-0.044 and the IS fixed cost (pilot +
   descents ~6e5 FPE) dominates. At t0 >= 2.5, IS beats it by 25-200x.
