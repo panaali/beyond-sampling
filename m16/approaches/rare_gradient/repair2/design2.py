@@ -69,7 +69,7 @@ def hess(r):
         if sb:
             v[S[b]] += sb * h
         models.append(rnn.unflat(v, SH))
-    acc, _, _ = D402.acc_plain(models, 1_000_000, 411005 + 10 * (r - 1)); A = dict(zip(keys, acc)); a0 = A[(0, 0, 0, 0)]
+    acc, _, _ = D402.acc_plain(models, 1_000_000, 411005 + 10 * (r - 1), chunk=20_000); A = dict(zip(keys, acc)); a0 = A[(0, 0, 0, 0)]
     H = np.zeros((k, k))
     for a in range(k):
         H[a, a] = (A[(a, 1, a, 0)] - 2 * a0 + A[(a, -1, a, 0)]) / h ** 2
