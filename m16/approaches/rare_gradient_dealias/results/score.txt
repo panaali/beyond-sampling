@@ -1,0 +1,80 @@
+GATING (frozen by A1): mid20x1 / qmid3x1
+orig E1(1.25): truth P 1.1428e-06; dealiased est 1.2744e-06 (1.12x), K3 1.17x; cos(g, g_CMC) dealiased 0.638, K3 0.627; cost walk 6.16e+05 FPE (1.1x K3 walk) + endpoints 4.55e+03 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0    40.83+- 2.57     -4.14  -0.10 n |   -5.30 -0.13 n |   38.70 |   42.01 -0.10 n
+    1   -46.79+- 2.72     -2.34   0.05 n |   -2.34  0.05 n |  -43.14 |  -44.45  0.05 n
+    2    17.61+- 1.59     29.91   1.70 Y |    8.76  0.50 n |   21.59 |   17.71  1.69 Y
+    3   -34.02+- 1.89     -4.77   0.14 n |   -0.16  0.00 n |  -30.96 |  -68.00  0.07 n
+    4   -28.46+- 1.31    -31.04   1.09 Y |   -7.91  0.28 n |  -27.61 |  -30.30  1.02 Y
+  top   389.74+-26.34    615.30   1.58 Y |  217.12  0.56 Y |  411.49 |  496.86  1.24 Y
+dev3_s528 E1(2.75): truth P 2.7234e-09; dealiased est 3.6339e-09 (1.33x), K3 1.31x; cos(g, g_CMC) dealiased 0.847, K3 0.822; cost walk 4.05e+05 FPE (1.0x K3 walk) + endpoints 3.34e+03 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0   -17.49+- 0.65    -10.39   0.59 Y |    4.01 -0.23 n |  -18.38 |  -17.33  0.60 Y
+    1     3.37+- 0.32     26.44   7.85 n |   11.66  3.46 n |    0.34 |   -0.35 -75.87 n
+    2    20.17+- 0.45     25.50   1.26 Y |    7.06  0.35 n |   22.29 |   19.62  1.30 Y
+    3    24.28+- 0.52     37.38   1.54 Y |    7.82  0.32 n |   26.07 |   22.37  1.67 Y
+    4   -12.15+- 0.43     24.06  -1.98 n |   13.79 -1.13 n |  -17.53 |  -17.74 -1.36 n
+  top   422.64+-11.05    907.43   2.15 n |  454.27  1.07 Y |  403.60 |  329.61  2.75 n
+dev3_s526 (DEV) E1(3.25): truth P 1.0079e-09; dealiased est 1.1227e-09 (1.11x), K3 1.20x; cos(g, g_CMC) dealiased 0.994, K3 0.971; cost walk 3.17e+05 FPE (1.0x K3 walk) + endpoints 1.55e+03 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0    15.80+- 0.11     13.42   0.85 Y |    4.24  0.27 n |   19.86 |   17.99  0.75 Y
+    1    -0.82+- 0.02      1.21  -1.47 n |    0.87 -1.05 n |    1.38 |    0.15  8.28 n
+    2    -1.57+- 0.06     -1.63   1.04 Y |   -0.88  0.56 Y |   -2.91 |   -1.65  0.98 Y
+    3    13.52+- 0.16     10.48   0.77 Y |    3.23  0.24 n |   15.66 |   13.63  0.77 Y
+    4   -38.39+- 0.39    -29.14   0.76 Y |   -6.80  0.18 n |  -41.33 |  -38.79  0.75 Y
+  top   297.76+- 3.10    215.73   0.72 Y |   57.97  0.19 n |  320.15 |  299.40  0.72 Y
+GO LINE (s528 + orig): dealiased 6/12 resolved pass -> NO-GO  (K3 2/12; dealiased vs converged FD 6/11)
+
+secondary, not gating (cheapest family-T config meeting (a)+(b)): T5 / gl20
+orig E1(1.25): truth P 1.1428e-06; dealiased est 1.4201e-06 (1.24x), K3 1.17x; cos(g, g_CMC) dealiased 0.837, K3 0.627; cost walk 1.52e+06 FPE (2.7x K3 walk) + endpoints 7.03e+04 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0    40.83+- 2.57     30.81   0.75 Y |   -5.30 -0.13 n |   38.70 |   42.01  0.73 Y
+    1   -46.79+- 2.72    -23.20   0.50 n |   -2.34  0.05 n |  -43.14 |  -44.45  0.52 Y
+    2    17.61+- 1.59     20.29   1.15 Y |    8.76  0.50 n |   21.59 |   17.71  1.15 Y
+    3   -34.02+- 1.89    -26.14   0.77 Y |   -0.16  0.00 n |  -30.96 |  -68.00  0.38 n
+    4   -28.46+- 1.31    -37.44   1.32 Y |   -7.91  0.28 n |  -27.61 |  -30.30  1.24 Y
+  top   389.74+-26.34    552.99   1.42 Y |  217.12  0.56 Y |  411.49 |  496.86  1.11 Y
+dev3_s528 E1(2.75): truth P 2.7234e-09; dealiased est 3.8168e-09 (1.40x), K3 1.31x; cos(g, g_CMC) dealiased 0.987, K3 0.822; cost walk 1.36e+06 FPE (3.5x K3 walk) + endpoints 8.59e+04 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0   -17.49+- 0.65    -22.63   1.29 Y |    4.01 -0.23 n |  -18.38 |  -17.33  1.31 Y
+    1     3.37+- 0.32      9.04   2.68 n |   11.66  3.46 n |    0.34 |   -0.35 -25.95 n
+    2    20.17+- 0.45     30.57   1.52 Y |    7.06  0.35 n |   22.29 |   19.62  1.56 Y
+    3    24.28+- 0.52     38.91   1.60 Y |    7.82  0.32 n |   26.07 |   22.37  1.74 Y
+    4   -12.15+- 0.43    -13.72   1.13 Y |   13.79 -1.13 n |  -17.53 |  -17.74  0.77 Y
+  top   422.64+-11.05    719.19   1.70 Y |  454.27  1.07 Y |  403.60 |  329.61  2.18 n
+dev3_s526 (DEV) E1(3.25): truth P 1.0079e-09; dealiased est 1.1453e-09 (1.14x), K3 1.20x; cos(g, g_CMC) dealiased 0.995, K3 0.971; cost walk 1.09e+06 FPE (3.4x K3 walk) + endpoints 4.25e+04 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0    15.80+- 0.11     21.58   1.37 Y |    4.24  0.27 n |   19.86 |   17.99  1.20 Y
+    1    -0.82+- 0.02      1.53  -1.86 n |    0.87 -1.05 n |    1.38 |    0.15 10.46 n
+    2    -1.57+- 0.06     -0.99   0.63 Y |   -0.88  0.56 Y |   -2.91 |   -1.65  0.60 Y
+    3    13.52+- 0.16     17.60   1.30 Y |    3.23  0.24 n |   15.66 |   13.63  1.29 Y
+    4   -38.39+- 0.39    -43.56   1.13 Y |   -6.80  0.18 n |  -41.33 |  -38.79  1.12 Y
+  top   297.76+- 3.10    334.69   1.12 Y |   57.97  0.19 n |  320.15 |  299.40  1.12 Y
+GO LINE (s528 + orig): dealiased 10/12 resolved pass -> GO  (K3 2/12; dealiased vs converged FD 9/11)
+
+secondary, not gating (finest (converged) family-T config: aliasing vs closure bias): T8 / mid20x4
+orig E1(1.25): truth P 1.1428e-06; dealiased est 1.6532e-06 (1.45x), K3 1.17x; cos(g, g_CMC) dealiased 0.869, K3 0.627; cost walk 9.65e+06 FPE (16.8x K3 walk) + endpoints 4.41e+05 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0    40.83+- 2.57     32.07   0.79 Y |   -5.30 -0.13 n |   38.70 |   42.01  0.76 Y
+    1   -46.79+- 2.72    -29.66   0.63 Y |   -2.34  0.05 n |  -43.14 |  -44.45  0.67 Y
+    2    17.61+- 1.59     37.71   2.14 n |    8.76  0.50 n |   21.59 |   17.71  2.13 n
+    3   -34.02+- 1.89    -26.57   0.78 Y |   -0.16  0.00 n |  -30.96 |  -68.00  0.39 n
+    4   -28.46+- 1.31    -39.52   1.39 Y |   -7.91  0.28 n |  -27.61 |  -30.30  1.30 Y
+  top   389.74+-26.34    625.29   1.60 Y |  217.12  0.56 Y |  411.49 |  496.86  1.26 Y
+dev3_s528 E1(2.75): truth P 2.7234e-09; dealiased est 4.0012e-09 (1.47x), K3 1.31x; cos(g, g_CMC) dealiased 0.996, K3 0.822; cost walk 8.61e+06 FPE (22.2x K3 walk) + endpoints 5.41e+05 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0   -17.49+- 0.65    -23.62   1.35 Y |    4.01 -0.23 n |  -18.38 |  -17.33  1.36 Y
+    1     3.37+- 0.32      3.73   1.11 Y |   11.66  3.46 n |    0.34 |   -0.35 -10.70 n
+    2    20.17+- 0.45     28.06   1.39 Y |    7.06  0.35 n |   22.29 |   19.62  1.43 Y
+    3    24.28+- 0.52     34.72   1.43 Y |    7.82  0.32 n |   26.07 |   22.37  1.55 Y
+    4   -12.15+- 0.43    -17.82   1.47 Y |   13.79 -1.13 n |  -17.53 |  -17.74  1.00 Y
+  top   422.64+-11.05    596.67   1.41 Y |  454.27  1.07 Y |  403.60 |  329.61  1.81 Y
+dev3_s526 (DEV) E1(3.25): truth P 1.0079e-09; dealiased est 1.1479e-09 (1.14x), K3 1.20x; cos(g, g_CMC) dealiased 0.996, K3 0.971; cost walk 7.21e+06 FPE (22.2x K3 walk) + endpoints 3.09e+05 FPE
+  dir   FD/P truth      dealiased/P ratio ok | K3/P  ratio ok | CMC/P | conv FD/P  ratio ok
+    0    15.80+- 0.11     21.22   1.34 Y |    4.24  0.27 n |   19.86 |   17.99  1.18 Y
+    1    -0.82+- 0.02      1.53  -1.86 n |    0.87 -1.05 n |    1.38 |    0.15 10.44 n
+    2    -1.57+- 0.06     -1.74   1.11 Y |   -0.88  0.56 Y |   -2.91 |   -1.65  1.05 Y
+    3    13.52+- 0.16     17.21   1.27 Y |    3.23  0.24 n |   15.66 |   13.63  1.26 Y
+    4   -38.39+- 0.39    -42.61   1.11 Y |   -6.80  0.18 n |  -41.33 |  -38.79  1.10 Y
+  top   297.76+- 3.10    328.37   1.10 Y |   57.97  0.19 n |  320.15 |  299.40  1.10 Y
+GO LINE (s528 + orig): dealiased 11/12 resolved pass -> GO  (K3 2/12; dealiased vs converged FD 9/11)

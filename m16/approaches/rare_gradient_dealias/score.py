@@ -11,8 +11,8 @@ import common
 NAMES = ("orig", "dev3_s528", "dev3_s526"); KWALK = {"orig": 574e3, "dev3_s526": 325201.0, "dev3_s528": 388e3}
 
 
-def main():
-    F = common.R("frozen.json"); lines = [f"frozen config: {F['v2']} / {F['g12']} ({F['nodes']} (v2, g12) nodes, K3 has 120)"]
+def main(F, label):
+    lines = [f"{label}: {F['v2']} / {F['g12']}"]
     pool = {"D": [0, 0], "D_conv": [0, 0], "K3": [0, 0]}; rows = []
     for nm in NAMES:
         D, T, C = common.R(f"dirs_{nm}.json"), common.R(f"truth_fd2_{nm}.json"), common.R(f"cmc_{nm}.json")
@@ -38,9 +38,11 @@ def main():
     p = pool["D"]; go = p[0] >= 8 and p[1] >= 0.8 * p[0]
     lines.append(f"GO LINE (s528 + orig): dealiased {p[1]}/{p[0]} resolved pass -> {'GO' if go else 'NO-GO'}  "
                  f"(K3 {pool['K3'][1]}/{pool['K3'][0]}; dealiased vs converged FD {pool['D_conv'][1]}/{pool['D_conv'][0]})")
-    txt = "\n".join(lines); print(txt); open(os.path.join(common.HERE, "results", "score.txt"), "w").write(txt + "\n")
-    json.dump(dict(frozen=F, pool=pool, go=go, rows=rows), open(os.path.join(common.HERE, "results", "score_t386.json"), "w"), indent=1)
+    return "\n".join(lines), dict(config=F, label=label, pool=pool, go=go, rows=rows)
 
 
 if __name__ == "__main__":
-    main()
+    F = common.R("frozen.json"); res = [main(F, "GATING (frozen by A1)")]
+    res += [main(S, f"secondary, not gating ({S['why']})") for S in F["secondary_not_gating"]]
+    txt = "\n\n".join(r[0] for r in res); print(txt); open(os.path.join(common.HERE, "results", "score.txt"), "w").write(txt + "\n")
+    json.dump([r[1] for r in res], open(os.path.join(common.HERE, "results", "score_t386.json"), "w"), indent=1)
