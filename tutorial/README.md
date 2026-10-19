@@ -170,7 +170,7 @@ ID appears in the page's prose, cards, tables or lane boxes; "register" = one pl
  (drafted by helper agents from the row text; every number checked to appear in its row). To diff a
 later INDEX: re-extract the IDs from sections 3-4 and look for IDs missing from this table.
 New in v11: section 1a (most interesting findings, with why each matters), 1d (how far it scales: OWNER_QA 4.17, 4.18),
-section 15 (register). Not re-reviewed by a fresh-eyes round (owner: coverage pass).
+section 15 (register); 1d also carries OWNER_QA 4.19 (1e9 piecewise-linear transformer LM, estimates). Not re-reviewed by a fresh-eyes round (owner: coverage pass).
 
 | ID | INDEX section | where |
 |---|---|---|
