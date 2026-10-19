@@ -83,3 +83,55 @@ reference's own output; floats only propose candidates, exact arithmetic decides
   `mass_cell`. Proposed one-line change for T400 (not made here): in `rigour.mass_cell`, use
   `geom_fast.volumes_arb(V, S, n)` for the root volumes instead of the fmpq determinants. They are arb balls,
   which the arb pipeline accepts, and they are 91% of the geometry time.
+
+## Status
+Done (2026-10-19). Every case that can run under the memory rule shows 0 mismatches and >= 10x on the 10-D
+regions. Regions 1 and 2 cannot be compared, because the reference itself runs out of memory (details below).
+
+## Results (`python t415_test.py all bench|surv`, `python t415_test.py case region i`, `python t415_test.py patch`)
+| set | cases | mismatches | reference time | fast time | speed-up |
+|---|---|---|---|---|---|
+| bench k = 4 cells (28 distinct geometries; 55 cell x t0 mass checks) | 28 | **0** | 5.8 s | 5.8 s | 1.0x |
+| k = 6 survivors 0-19 | 20 | **0** | 15.1 s | 11.2 s | 1.35x |
+| region 0 (752 vertices, 329,670 simplices) | 1 | **0** | 1,182 s | 26.3 s | **45x** |
+| region 3 (142 vertices, 10,301 simplices) | 1 | **0** | 33.7 s (29.9-33.7 over runs) | 2.25 s | **15x** (12-17x over runs) |
+| region 4 (1,212 vertices, 1,122,736 simplices) | 1 | **0** | 2,826 s | 88.3 s | **32x** |
+| regions 0 + 3 + 4 | 3 | **0** | 4,042 s | 117 s | **35x** |
+| region 2 (1,890 vertices, 2,271,129 simplices) | - | not comparable | MemoryError | 200 s | - |
+| region 1 (2,122 vertices) | - | not comparable | MemoryError | MemoryError | - |
+
+- "Mismatch" means any difference in: V (exact values and order), incidences, simplex list, Mlo/Mhi, vlo/vhi,
+  or the mass_cell_fast [lb, ub]. The mass is checked at budget 2000 for k = 4 and k = 6 (both t0 for the bench),
+  and at 4000 for regions; for regions at or over budget the mass is the chunked outward sum, which is what
+  mass_cell_fast returns without refinement.
+- No fallback was ever needed: 0 qhull failures, 0 exact ratio tests, 0 exact rank decisions and 0 exact
+  volume decisions in all cases.
+- `patch_rigour()` (arb `rigour.mass_cell`, budget 200): identical [lb, ub] on bench 3, bench 44 and surv 0.
+- Pass line as pre-registered: 0 mismatches holds on every comparable case. >= 10x holds for region 3 alone
+  (15x) and for the comparable 10-D sum (35x). The literal "sum over regions 0-4" cannot be evaluated: under
+  `ulimit -v 2500000` the reference (`rigour.pulling_triangulation`, which memoises every face's simplex list)
+  runs out of memory on regions 1 and 2. The fast version keeps that algorithm and also fails on region 1.
+- The k = 4 / k = 6 cells gain nothing: their geometry time is mostly the irredundant-row LPs, which are kept from
+  the reference so that results stay identical.
+
+## Claims
+- [measured] Identical exact geometry and identical M5t mass on 51 cases; 15x to 45x on the 10-D regions that the
+  reference can run under the memory rule.
+- [inferred] Identity holds on every input by construction (Method): every decision is exact or proved by a
+  one-sided modular rank, and floats only propose.
+- [measured] Both the reference and the fast version run out of memory on the largest regions (>= 2e6 simplices)
+  at 2.5 GB per process.
+
+## Alternatives not ruled out / failure modes
+- The identity argument for the neighbour lookup assumes every registered point is an exact vertex of Q. That holds
+  because each comes from an exact n x n solve with an exact feasibility check, which makes it a basic feasible
+  solution.
+- Memory: the pulling triangulation's memo and the per-simplex arrays grow with the number of simplices.
+  Region 1 (2,122 vertices) does not fit in 2.5 GB. A streaming triangulation (generate the simplices of each top
+  facet, sum their bounds, discard them) would remove this limit. It is not done here.
+- Timing noise is about +-15% (region 3 measured 12x to 17x across runs).
+
+## Proposed follow-ups (for the DRI)
+1. A streaming pulling triangulation plus chunked bounds, so that regions with >= 2e6 simplices fit the 2.5 GB rule.
+2. T400: in `rigour.mass_cell`, use `geom_fast.patch_rigour()` and `volumes_arb` (one line) to get the same speed-up
+   in the arb path.

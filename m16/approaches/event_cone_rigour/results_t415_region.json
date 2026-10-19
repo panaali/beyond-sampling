@@ -1,0 +1,71 @@
+{
+"summary": {
+"kind": "region",
+"cases_compared": 3,
+"mismatches": 0,
+"t_ref": 4042.390047193001,
+"t_fast": 116.87594145700041,
+"not_comparable": {
+"1": "reference and fast both MemoryError (pulling-triangulation memo) under ulimit -v 2500000",
+"2": "reference MemoryError; fast 200 s, 1,890 vertices, 2,271,129 simplices"
+},
+"speedup_total": 34.5870159144791
+},
+"cases": [
+{
+"kind": "region",
+"idx": 0,
+"t_ref": 1182.2419470559998,
+"t_fast": 26.311237856000844,
+"speedup": 44.932965660008435,
+"stats": {
+"ratio_fallback": 0,
+"qhull_fail": 0,
+"rank_exact": 0,
+"vol_exact": 0
+},
+"ub_1.5": 1.973979564322629e-09,
+"ok": true,
+"mismatches": [],
+"vertices": 752,
+"simplices": 329670
+},
+{
+"kind": "region",
+"idx": 3,
+"t_ref": 33.72446960100024,
+"t_fast": 2.25142158899871,
+"speedup": 14.979189044730957,
+"stats": {
+"ratio_fallback": 0,
+"qhull_fail": 0,
+"rank_exact": 0,
+"vol_exact": 0
+},
+"ub_1.5": 4.6296130155000935e-11,
+"ok": true,
+"mismatches": [],
+"vertices": 142,
+"simplices": 10301
+},
+{
+"kind": "region",
+"idx": 4,
+"t_ref": 2826.423630536001,
+"t_fast": 88.31328201200085,
+"speedup": 32.0045135470327,
+"stats": {
+"ratio_fallback": 0,
+"qhull_fail": 0,
+"rank_exact": 0,
+"vol_exact": 0
+},
+"geometry_ok": true,
+"vertices": 1212,
+"simplices": 1122736,
+"ub_1.5": 2.616062029042508e-08,
+"ok": true,
+"mismatches": []
+}
+]
+}
