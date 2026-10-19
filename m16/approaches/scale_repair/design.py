@@ -119,6 +119,11 @@ def main(tag):
     else:
         cand = [r for r in recs.values() if r and r["fallback_k"]]
         Ks = max(cand, key=lambda r: r["K"])["K"] if cand else None; kk = recs[Ks]["fallback_k"] if Ks else None; status = "fallback"
+        if Ks is None:                                          # amendment A1: no grid point meets the design accuracy limit
+            tried = [r for r in recs.values() if r and r.get("rows")]
+            if tried:
+                r = max(tried, key=lambda r: r["K"]); Ks = r["K"]; pk = [q["k"] for q in r["rows"] if q["Pok"]]
+                kk = min(pk) if pk else KMAX; status = "fallback_noacc"
     log.update(K_star=Ks, k_star=kk, status=status, sec=time.time() - t); save(os.path.join(out, "design.json"), log)
     if Ks is None:
         print(tag, "no edit"); return

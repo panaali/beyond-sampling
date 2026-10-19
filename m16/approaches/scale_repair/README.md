@@ -71,6 +71,12 @@ control. (ii) At high accuracy (H >= 24, acc ~.99) E1 at the chosen t0 could be 
 M_16,10's comparator balance: the gradient is computed per model, no mechanism is assumed. (iii) Design estimates could be
 biased at edited weights: verification is independent code.
 
+### Amendment A1 (2026-10-19, after a 1/50-size smoke run of the pipeline on m_24_10_cpu0, outputs discarded; before any full design run)
+If no grid point of any K tried meets the design accuracy limit, the frozen fallback is the largest K tried at its smallest
+k meeting the design P condition (k = 200 if none), status "fallback_noacc"; it is verified and reported like any other edit.
+Smoke checks: verify.py on T402's frozen M_16,10 edit (3e7 draws, 4e6 inputs) gives ratio .054 +- .012 (T402 .059), largest-input
+picks +9.3% (T402 +9.3%), random min / median .16 / 1.03 (T410 .165 / .80).
+
 ## Status
 Pre-registered; running *(filled later)*.
 
