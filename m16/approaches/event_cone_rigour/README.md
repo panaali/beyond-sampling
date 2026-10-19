@@ -343,6 +343,42 @@ futile (the C_true curve).
 - [inferred] At t0 = 2.5 the event mass sits on (9,3,2) (and probably its mirror (3,9,2)), not on (1,8,2), which
   carried the most line hits at t0 = 1.5.
 - The truth worker's estimate (6.6e-11 ± 44%) is about 2σ below this point estimate. Not resolved.
+
+### T416: the certified (1,8,2) bound at t0 = 2.5 (PROVISIONAL until T420 audits geom_fast) [measured]
+**P(E restricted to (1,8,2)) <= Σ_k=10-survivors ub + 20 Φ(-7.5) = 3.39e-11 + 6.4e-13 ≈ 3.5e-11.**
+
+**Pruning.** All 259,723 of T398's certificates (k = 2..10) are verified by verify.py, with 0 failures.
+
+**Charge** (`tiered10.py`, workers C1-C8, merged by `combine_t10.py`):
+- Coverage: all 15,116 k = 10 survivors exactly once, with 0 missing, 0 duplicates and 0 inf.
+- Tiers: 5,621 cells at tier 2 (fast M5t); the rest at tier 1 (M2 < 1e-16 each).
+- Errors: 7 cells hit M5t MemoryErrors before the memory fix 9a26bd79. All 7 were re-run with `fix_cells.py`; 0 remain unresolved.
+- Σlb = 6.3e-21.
+- Two cells give 78% of Σub: s1 5451 (1.45e-11) and s1 5660 (1.21e-11). Both have > 5e5 root simplices, so tier 2 did not refine them.
+
+**Tier 3** (`tier3.py`, top 30 cells, 300k child simplices each) is running. Test on s0 3263: 8.3e-13 at tier 2,
+5.5e-13 with 20k children, 3.6e-13 with 100k children.
+
+**Comparison.** 1.1e11 plain-MC draws had 0 events on (1,8,2); all 17 hits were on (9,3,2). The true P(E_(1,8,2))
+is therefore probably far below this bound; the lower bound is too weak to say.
+
+**Geometry path** (for the T420 trace):
+- C8: all cells on the reference geometry.
+- Each of C1-C3, C5-C7 kept its first N cells on the reference geometry when it restarted:
+  - C1: s0/0 100, s0/475 20;
+  - C2: s0/950 25, s0/1425 50;
+  - C3: s0/1900 50;
+  - C5: s0/3800 25;
+  - C6: s0/5225 50;
+  - C7: s0/5700 50, s0/6175 25;
+  - all other shards 0.
+- C4: geom_fast throughout.
+- `fix_cells.py` and `tier3.py`: geom_fast.
+
+**Rule breach.** Several runs before the memory fix peaked at 2.0-2.6 GB RSS: C1 s0/475 and s1/0, C2 all four,
+C3 s1/1900, C4 s0/2850 and s0/3325, C5 s0/3800, C7 s1/5700. C1 s1/0 peaked at 2.19 GB even on the fix. This
+breaches the 2 GB-per-process rule; the bounds are not affected.
+
 ### (a) Mass bounds: tightness against MC, and cost
 
 **k = 10 event regions, t0 = 1.5** ((1,8,2), regions 0-5 of `data/regions_1-8-2.npz`).
