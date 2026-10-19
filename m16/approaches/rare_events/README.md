@@ -803,3 +803,39 @@ Unverified.
   T401's sampled triple-tie share at every validated t: the correlation, and the agreement on the >= 50% call.
 - **Reported:** est, check, ratio, both flags, label, cost C, and F = (est - p)^2 max(C, 1000) / (p (1 - p)) with
   p = check x P(condition), against the strict (F <= 1) and lenient (F <= 10) bars.
+
+## T407 results (`python rating_t407.py; python score_t407.py`, `results/t407_est.json`, `results/t407_score.txt`)
+**Declared deviation:** the frozen `estimator_t366.est` needs more than the 2.5 GB per-process limit (186k walked rows). So
+the wrapper walks the same rows in chunks of 4 v2 nodes; the walks are per row, so the estimates do not change.
+- Its equality was checked against the T218 child's own stored run of `estimator_t366` on orig (t0 = 1.75 / 2.0):
+  max relative difference 1.3e-16.
+- C as executed (chunked) is 3.13M FPE, slightly above the unchunked prefix-tree count.
+
+| t | P(g23 >= t) | rating r(t) | check (MC) | est / check | K3 est / check (T401) | flag: estimator's g12 < .1 share | flag: sampled | label | F |
+|---|---|---|---|---|---|---|---|---|---|
+| .5 | .244 | 9.6e-4 | 5.3e-4 | 1.83 | 1.45 | .59 | .60 | rated | 274 |
+| 1.0 | .0444 | 2.0e-4 | 1.3e-4 | 1.59 | 1.69 | .71 | .81 | rated | 6.2 |
+| 1.5 | 5.9e-3 | 3.8e-5 | 3.7e-5 | **1.03** | .46 | .84 | .93 | rated | .0008 |
+| 2.0 | 5.8e-4 | 2.8e-6 | 1.2e-5 | .22 | .20 | .84 | .92 | unrated (off > 2x) | .013 |
+| 2.5 | 4.0e-5 | 1.0e-7 | 3.6e-6 | .03 | .005 | .96 | .84 | unrated | 4e-4 |
+| 3.0 | 2.0e-6 | 9.7e-10 | 9.3e-7 | .001 | .0005 | 1.00 | .81 | unrated | 6e-6 |
+| 3.5 | 7.0e-8 | 3.6e-12 | (< 30 hits) | - | - | 1.00 | - | beyond test | - |
+
+**Reading:**
+- The graded-g12 rule rates the target where K3 could not: 3/6 checkable points are within 2x (t = .5, 1.0, 1.5), and
+  t = 1.5 is fixed (1.03 vs K3's .46).
+- From t = 2 on it stays far too low (.22 to .001), like K3. This is the closure limit the T218 child found in T369.
+- **Deterministic flag vs sampled:**
+  - correlation .61;
+  - the >= 50% call agrees on 6/6 checked points (all triple-tie-dominated);
+  - mean absolute difference .10.
+  - As a trust flag it marks every target point as tie-dominated, the same as the sampled flag. It does not separate
+    the rated t <= 1.5 from the failing t >= 2.
+- **F (pre-registered, uninformative for rare p):**
+  - lenient fails at t = .5 (274) and passes from t = 1.0 (6.2);
+  - strict passes from t = 1.5;
+  - the tiny values at t >= 2 come with ratios of .001-.2, because F ~ r^2 p C rewards small p, not accuracy.
+
+**Cost:** 3.13M FPE for the whole grid.
+
+Unverified.
