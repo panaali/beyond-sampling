@@ -1406,3 +1406,11 @@ The go line needs s547 both within 2x AND E2 >= 24/32 within 2x AND no control t
 - Not run: E2 s517/s518/s519/s525 at t=.5 (they cannot change the verdict), plus the controls s529-s531.
 - Per the pre-registration and amendment, the next variant is Q16: 16 deterministic Sobol nodes over the exact 8-D law of (v4 position/value, lows). It is labelled
   **QMC-class cubature (deterministic nodes)**. It runs with high-t E2 cases first.
+
+**T370 scoring caveat [measured; this changes no rule].** The T358 E2 truths have few hits at t = 1.25. The counts per 1e9 inputs are:
+s508 25, s511 26, s512 144, s515 4, s517 14, s518 65, s519 **1**, s525 870. At t = 1.0, s515 has 77 hits; every other case has more than 100.
+- **s519 t = 1.25 (S14 2.88, Q16 2.91):** the estimate implies about 2.9 hits, against 1 observed. P(N <= 1 | mean 2.9) ≈ 0.21, so this "miss" is not
+  statistically distinguishable from a hit.
+- **s515 t = 1.25 (S14 0.01, i.e. 0.04 expected hits against 4 observed):** this is a real miss.
+The pre-registered rule counts every case as scored, so the S14 verdict stands as FAIL. With s519 removed, S14 would still have 8 misses out of 27 run, and its E2 would still
+fall short. This is reported for the DRI's ruling on stage-2 case selection (a minimum hit count for the truth).
