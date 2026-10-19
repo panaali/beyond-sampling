@@ -151,7 +151,39 @@ occasionally (1 of 10 here).
 
 Wall time 1360-1690 s per model (one thread, 2 jobs in parallel).
 
-New rungs (7,3), (4,7) and the T111 (4,4) models: training.
+New rungs (7,3), (4,7): training after T111b.
+
+### T111 proper: T87's recipe (unchanged) on lr x2 and 2x-data (4,4) models. FAILS; inconclusive on undertraining [measured]
+
+Commands: `python run111.py 30sL2 8`, `python run111.py 31s 8` -> run111_<tag>.json/.log. Truth: estT exact,
+matching 1e7-sample MC (|z| <= 1.0 on all 10 models). Sampling at 96 ops per sample.
+
+| set | seed | acc (exact) | n_store | recipe err | recipe ops | clean ratio | noisy acc | noisy RMSE | noisy ratio |
+|---|---|---|---|---|---|---|---|---|---|
+| L2 (primary) | 0 | 0.4866 | 1/3 | -0.030 pp | 48.5M | **0.18** | 0.409 | 0.071% | **0.91** |
+| L2 | 1 | 0.6004 | 2/2 | -0.712 pp | 37.9M | 83 | 0.439 | 0.290% | 13 |
+| L2 | 2 | 0.6029 | 2/2 | -0.750 pp | 38.1M | 93 | 0.442 | 0.271% | 13 |
+| L2 | 3 | 0.4965 | 1/3 | -0.231 pp | 43.3M | 9.6 | 0.433 | 0.840% | 131 |
+| L2 | 4 | 0.6021 | 2/2 | -0.518 pp | 39.1M | 46 | 0.513 | 0.280% | 14 |
+| D31 (secondary) | 0 | 0.4776 | 2/2 | +0.070 pp | 55.7M | 1.14 | 0.346 | 0.419% | 33 |
+| D31 | 1 | 0.5996 | 2/2 | -0.556 pp | 36.7M | 49 | 0.423 | 0.336% | 18 |
+| D31 | 2 | 0.6001 | 2/2 | -0.579 pp | 36.5M | 53 | 0.425 | 0.308% | 17 |
+| D31 | 3 | 0.4988 | 1/3 | -0.202 pp | 43.0M | 7.3 | 0.430 | 0.616% | 69 |
+| D31 | 4 | 0.6006 | 2/2 | -0.594 pp | 36.3M | 56 | 0.492 | 0.300% | 15 |
+
+Zoo (T87, same recipe): clean 459/71/76/7.9/76, noisy 91/33/14/136/17.
+
+- Mean accuracy L2 0.5575, D31 0.5553 (zoo 0.556): **neither is "better trained"** (bar 0.606). L2 is the
+  primary set (higher mean). By the pre-registered rule the T111 test is **inconclusive about undertraining**;
+  the recipe fails the rung on both sets (4/5 and 5/5 seeds lose clean, 4/5 and 5/5 lose noisy).
+- Both variants land on the zoo's per-seed basins (accuracy within 0.01 of the zoo seed, same n_store), except
+  L2 seed 0 (1/3 storage, acc 0.487 vs zoo 0.477 with 2/2). That one different basin is the only model where the
+  recipe wins (clean 0.18, noisy 0.91), against 459/91 for zoo seed 0. [measured, n = 1; suggests the recipe's
+  failure depends on the basin, not on T alone; speculative until T111b]
+- The recipe's errors on the 0.60-basin models (seeds 1, 2, 4 in every set) are about -0.5 to -0.75 pp, the same
+  as on the zoo, i.e. the failure reproduces on independently trained copies of that basin.
+- Amendment A therefore applies: T111b (seed search) is running.
+
 
 ## Compute accounting
 
