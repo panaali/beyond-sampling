@@ -1,0 +1,1 @@
+cd /content/cn/m16/approaches/quantised && python qtrain.py qat_h64 --H 64 --spec bin_h64_s0:0:1:0 bin_h64_s1:1:1:0 bin_h64_s2:2:1:0 int4_h64_s0:0:2:0 int4_h64_s1:1:2:0 int4_h64_s2:2:2:0 > /content/qat_h64.log 2>&1 && python qeval.py qat_h64.pt 1e8 > /content/qat_h64_eval.log 2>&1; echo "rc=$?" >> /content/qat_h64_eval.log

@@ -1,0 +1,1 @@
+cd /content/cn/m16/approaches/quantised && python qtrain.py qat_h32 --H 32 --spec bin_h32_s0:0:1:0 bin_h32_s1:1:1:0 bin_h32_s2:2:1:0 int4_h32_s0:0:2:0 int4_h32_s1:1:2:0 int4_h32_s2:2:2:0 > /content/qat_h32.log 2>&1 && python qeval.py qat_h32.pt 1e8 > /content/qat_h32_eval.log 2>&1; echo "rc=$?" >> /content/qat_h32_eval.log
