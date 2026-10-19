@@ -23,7 +23,7 @@ FLOPS = [0]
 
 def bounds(C, G, R, tokmask):
     """C, R [..., D]; G [..., D, A, 4]; tokmask [N, A, 4] broadcast on the leading axis -> lo, hi [..., D]."""
-    tm = tokmask.reshape(tokmask.shape[0], *([1] * (G.dim() - 4)), *tokmask.shape[1:])
+    tm = tokmask.reshape(tokmask.shape[0], *([1] * (G.dim() - 3)), *tokmask.shape[1:])
     gmin = torch.where(tm, G, BIG).amin(-1)
     gmax = torch.where(tm, G, -BIG).amax(-1)
     gmin = torch.where(gmin >= BIG, 0.0, gmin).sum(-1)
@@ -111,4 +111,69 @@ def rnn_closure(P, h0, allowed_ab, thr_fn):
         C, G, R = hull_own(Cs[:, None], Gs[:, None], Rs[:, None], allowed_ab[:, a][:, None], torch.tensor([a]),
                            allowed_ab)
         C, G, R = C[:, 0], G[:, 0], R[:, 0]
+    return torch.stack(oks, 1)
+
+
+# ------------------------------------------------- RNN, DeepZ with ReLU errors kept as generators (M2b)
+def rnn_closure_eg(P, h0, allowed_ab, thr_fn, max_err=4096):
+    """As rnn_closure, but each crossing ReLU adds an error generator eps in [-1, 1] (Singh et al. 2018 DeepZ), so the
+    recurrent matrix acts on errors relationally. Own-token branches get separate error variables; the hull keeps
+    their mean and boxes the deviation. Same interface."""
+    sd = P.sd
+    W, b, U = sd["W.weight"], sd["W.bias"], sd["U.weight"][:4]
+    Wo, bo = sd["out.weight"], sd["out.bias"]
+    N, A, _ = allowed_ab.shape
+    H = W.shape[0]
+    C = h0; G = torch.zeros(N, H, A, 4); E = torch.zeros(N, H, 0); R = torch.zeros(N, H)
+    oks = []
+    for a in range(A):
+        pc = C @ W.T + b
+        pg = torch.einsum("nhag,oh->noag", G, W)
+        pe = torch.einsum("nhe,oh->noe", E, W)
+        pr = _infl(pc, R @ W.abs().T)
+        FLOPS[0] += 2 * N * H * H * (1 + A * 4 + E.shape[-1]) + 2 * N * H * H
+        Cs = pc[:, None] + U[None]                                     # [N, 4, H]
+        lo, hi = bounds(Cs, pg[:, None].expand(N, 4, H, A, 4), pr[:, None].expand(N, 4, H), allowed_ab)
+        er = pe.abs().sum(-1)[:, None]
+        lo, hi = lo - er, hi + er
+        alpha = torch.where(hi <= 0, 0.0, torch.where(lo >= 0, 1.0, hi / (hi - lo).clamp(min=1e-300)))
+        beta = torch.where((lo < 0) & (hi > 0), -alpha * lo / 2, 0.0)
+        Cs = alpha * Cs + beta
+        Gs = alpha[..., None, None] * pg[:, None]
+        Es_old = alpha[..., None] * pe[:, None]                        # [N, 4, H, E]
+        Es_new = torch.diag_embed(beta)                                # [N, 4, H, H]  new eps per (branch, neuron)
+        Rs = _infl(Cs, alpha * pr[:, None])
+        # logits per own token
+        oc = Cs @ Wo.T + bo
+        og = torch.einsum("nshag,oh->nsoag", Gs, Wo)
+        oe = torch.cat([torch.einsum("nshe,oh->nsoe", Es_old, Wo), torch.einsum("nshe,oh->nsoe", Es_new, Wo)], -1)
+        orr = _infl(oc, Rs @ Wo.abs().T)
+        llo, lhi = bounds(oc, og, orr, allowed_ab)
+        oer = oe.abs().sum(-1)
+        oks.append(thr_fn(a, llo - oer, lhi + oer))
+        # hull over own token a: shared old errors -> mean + deviation box; new branch errors -> mean (the 4 branches'
+        # new eps are kept as 4 x H separate variables: concat over branches, scaled by the branch weight bound in box)
+        om = allowed_ab[:, a]                                           # [N, 4]
+        w = om.double() / om.double().sum(1, keepdim=True)
+        Gbar = (Gs * w[:, :, None, None, None]).sum(1)
+        Ebar = (Es_old * w[:, :, None, None]).sum(1)
+        # new errors: variable eps_{s, h}; lambda_s * beta_{s,h} eps_{s,h} in [-beta, beta]: keep as generator with
+        # coefficient beta (|lambda_s| <= 1 keeps the bound) -> sound since eps is free in [-1, 1]
+        Enew = Es_new.permute(0, 2, 1, 3).reshape(N, H, 4 * H) * om.repeat_interleave(H, 1)[:, None].double()
+        dev_lo, dev_hi = bounds(torch.zeros_like(Cs), Gs - Gbar[:, None], Rs, allowed_ab)
+        de = (Es_old - Ebar[:, None]).abs().sum(-1)
+        dev_lo, dev_hi = dev_lo - de, dev_hi + de
+        lo2 = torch.where(om[..., None], dev_lo, BIG).amin(1)
+        hi2 = torch.where(om[..., None], dev_hi, -BIG).amax(1)
+        C = (lo2 + hi2) / 2
+        R = _infl(C, (hi2 - lo2) / 2)
+        G = Gbar.clone()
+        G[:, :, a, :] = torch.where(om[:, None, :], Cs.transpose(1, 2), 0.0)
+        E = torch.cat([Ebar, Enew], -1)
+        if E.shape[-1] > max_err:      # fold the smallest error columns into the box
+            mag = E.abs().sum((0, 1))
+            keep = mag.argsort(descending=True)[:max_err]
+            drop = torch.ones(E.shape[-1], dtype=torch.bool); drop[keep] = False
+            R = R + E[..., drop].abs().sum(-1)
+            E = E[..., keep]
     return torch.stack(oks, 1)

@@ -24,7 +24,10 @@ BIG = 1e300
 
 
 def _infl(c, r):
-    return r + REL * (c.abs() + r)
+    """Rounding allowance on boxes of nonzero width only: concrete rows stay exact float64 (assumption A1: the DELTA
+    margin covers the float64 / float32 / real gap of a concrete evaluation; a worst-case allowance would be amplified
+    by |W| at every recurrent step, rho(|W|) ~ 5.7 on the RNN)."""
+    return r + REL * torch.where(r > 0, c.abs() + r, 0.0)
 
 
 def lin(c, r, W, b=None):
@@ -81,8 +84,6 @@ def _res_lin(P, rest, W, b, T):
     if rest is not None:
         rc, rr = lin(rest[0], rest[1], W)
         c, r = c + rc, rr
-    else:
-        c = c.expand(1, *c.shape[1:])
     if b is not None:
         c = c + b
     return c, _infl(c, r)
@@ -225,3 +226,15 @@ def logit_box_concrete(P, x):
     finally:
         P.TE = None
     return c[:, :, 0], r[:, :, 0]
+
+
+def logit_box_ids(P, ids, allowed):
+    """Slot form: ids [N, T, S] token id of each own-token slot, allowed [N, T, S] which slots are live. Concrete
+    positions use one live slot; abstract positions one slot per allowed token. Returns c, r [N, T, S, V_out]."""
+    emb = P.sd["U.weight"] if P.arch == "rnn" else P.sd["tok.weight"]
+    P.TE = (emb[torch.as_tensor(ids, dtype=torch.long)],)
+    try:
+        c, r = logit_box_rnn(P, allowed) if P.arch == "rnn" else logit_box_tf(P, allowed)
+    finally:
+        P.TE = None
+    return c, r

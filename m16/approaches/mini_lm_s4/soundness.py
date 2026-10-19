@@ -53,31 +53,33 @@ def main():
         meta = json.load(open(os.path.join(HERE, "..", "mini_lm", "models", name + ".json")))
         ref = np.load(os.path.join(HERE, "data", f"ref_{name}.npz"))
         out = dict(name=name, K0=K0, taus={})
-        for tau in TAUS:
-            t0 = time.time()
+        T = lang.T_small if lang.name == "dyck2" else lang.n_small + 2
+        t0 = time.time()
+        if lang.name == "dyck2":
+            multi, fpe = bab.run_multi(P, lang, T, TAUS, K0, fpe_flops=model.flops(T))
+        for j, tau in enumerate(TAUS):
             truth = meta["small_exact"][f"B{tau}"]
             rb = ref["y"][ref["max_ill"] > tau]
             if lang.name == "dyck2":
-                T = lang.T_small
-                res = bab.run_dyck(P, lang, T=T, tau=tau, budget_fpe=1e15, fpe_flops=model.flops(T), chunk=128,
-                                   start=K0, keep_closed=True)
+                res = multi[j]
                 leaf_viol = 0
                 for k, pre in res["closed"]:
                     leaf_viol += int(np.isin(codes(rb, k), codes(pre, k)).sum())
-                ub, fpe = res["ub"], res["fpe"]
-                extra = dict(fail_offset_hist=res["fail_offset_hist"], n_closed=int(sum(len(p) for _, p in res["closed"])))
+                ub = res["ub"]
+                extra = dict(n_closed=int(sum(len(p) for _, p in res["closed"])), good=res["good"])
             else:
+                t0 = time.time()
                 ub, fl = modsum_ub(P, lang, tau)
-                fpe = cert.FLOPS[0] / model.flops(lang.n_small + 2)
-                T = lang.n_small + 2
+                fpe = cert.FLOPS[0] / model.flops(T)
                 base = lambda yy: (yy[:, :T].astype(np.int64) * 7 ** np.arange(T)).sum(1)
                 leaf_viol = int((~np.isin(base(rb), base(fl))).sum())
                 extra = dict(n_flagged=len(fl))
             r = dict(truth=truth, ub=ub, violation=bool(ub < truth * (1 - 1e-9)), leaf_violations=leaf_viol,
-                     ratio=(ub / truth if truth > 0 else None), fpe=fpe, n_ref_bad=int(len(rb)), sec=time.time() - t0, **extra)
+                     ratio=(ub / truth if truth > 0 else None), fpe=fpe, n_ref_bad=int(len(rb)),
+                     sec=time.time() - t0, **extra)
             out["taus"][str(tau)] = r
-            print(name, tau, {k: v for k, v in r.items() if k != "fail_offset_hist"}, flush=True)
-        json.dump(out, open(os.path.join(HERE, "data", f"sound_{name}.json"), "w"), indent=1)
+            print(name, tau, r, flush=True)
+        json.dump(out, open(os.path.join(HERE, "data", f"sound_K{K0}_{name}.json"), "w"), indent=1)
 
 
 if __name__ == "__main__":

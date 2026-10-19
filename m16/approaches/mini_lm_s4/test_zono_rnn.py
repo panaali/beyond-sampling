@@ -7,6 +7,7 @@ from langs import model_input
 import zono, cert
 
 rng = np.random.default_rng(0)
+FN = getattr(zono, sys.argv[1] if len(sys.argv) > 1 else "rnn_closure")
 for name in ["dyck2_rnn_s0", "dyck2_rnn_s1", "dyck2_rnn_s2"]:
     model, lang = load(name); P = cert.Params(model)
     T = 15
@@ -20,7 +21,7 @@ for name in ["dyck2_rnn_s0", "dyck2_rnn_s1", "dyck2_rnn_s2"]:
         A = T - 1 - k
         al = torch.ones(1, A, 4, dtype=torch.bool)
         rec = []
-        zono.rnn_closure(P, h0, al, lambda a, lo, hi: rec.append((lo, hi)) or torch.ones(1, dtype=torch.bool))
+        FN(P, h0, al, lambda a, lo, hi: rec.append((lo, hi)) or torch.ones(1, dtype=torch.bool))
         viol, wid = 0.0, []
         for a, (lo, hi) in enumerate(rec):
             i = k + 1 + a

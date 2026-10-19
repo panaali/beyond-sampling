@@ -57,6 +57,34 @@ rho(|W|) = 5.7, and ~4x per step in the zonotope domain).**
 
 **Exhaustion checklist** (variants tried / not tried) will be kept under Results.
 
+## Recipe freeze for L = 32 (written 2026-10-19, after dev on the L = 15 baselines, before any MLP1 run)
+
+Dev evidence (all on the 36 baselines; files in `data/`, reproduced by the commands under Results):
+- **Certification horizon** (`horizon.py`): the fraction of sampled prefix nodes whose closure test passes for the next
+  A positions. M1 (IBP, own token exact) passes A = 1 for 97-100% of nodes on every architecture and A = 2 for 0%
+  (hard attention: 24% at L = 32), A = 3 for 0%; M2 (zonotope, RNN) passes A = 2 for 26-70%, A = 3 for 0%.
+  A = 1 is no saving at all: with every earlier position concrete, the "abstract" next token is enumerated exactly,
+  so M1 at L = 15 is exhaustive enumeration in disguise.
+- **Why** (measured): RNN rho(|W|) = 5.7 (rho(W) = 2.1), so interval radii grow ~5.7x per step; the zonotope domain
+  still grows ~4x per step (DeepZ with ReLU errors as generators: ~6x, worse); along real trajectories the RNN is only
+  weakly contracting (top Lyapunov exponent -0.08 to -0.11 per step). The first abstract step already has logit
+  radius 2.5-3.7: the union over continuations legitimately mixes states where ')' is the legal closer with states
+  where ']' is, and a box (or zonotope) cannot keep "which closer is legal" tied to "which logit is high".
+- **M3** (stack-merged boxes, RNN) gives UB 0.992-0.9998 at L = 15 for every m in {0, 2, 4} (truth 0): dead on arrival
+  for the same reason (hidden-state spread for a fixed stack ~0.6 per unit, amplified by |W|).
+
+**Frozen recipe (all architectures):** M1, depth-first branch and bound from the root (`bab.run_dfs`, largest mass first
+within the deepest pool, chunk 128), closure tests only at nodes with A <= AMAX = 1 positions left (elsewhere only the
+concrete check), DELTA = 1e-3, HARD_ETA = 1e-4. Budgets: tau = 0.9 to 1e6 FPE (snapshot at 1e5), tau = 0.5 and 0.99 to
+1e5 FPE (`score32.py`). M2 is not used for scoring: it gains at most one position for a fraction of nodes (a <= 3x node
+saving), while about 20 positions would be needed (below), and it costs more per test.
+
+**Prediction sharpened (S3).** A node at depth j has probability <= 2^-j, and closure needs j >= 31 - A_max = 30, so a run
+that performs n_t closure tests certifies mass <= n_t 2^-30. At 1e6 FPE (n_t <= ~1e5-4e5 tests) UB >= 0.9996 for every
+model and every node order: both bars fail whenever CP95 < 0.1 (lenient) or < 0.9996
+(strict), i.e. for every model with fewer than ~1e5 events in 1e6 samples. To match CP95 (~4e-6 at 1e6 FPE), the bound would have to close nodes at depth <= ~11 (count(11) ~ 1e5
+nodes), i.e. certify ~20 positions ahead.
+
 ## Assumption A1
 
 The harness evaluates the model in float32. Our bounds hold for real arithmetic on the float32 weights (float64
