@@ -852,3 +852,11 @@ t = 2.0 / 2.5 / 3.0 (graded rule .22 / .03 / .001) should shrink a lot: I expect
 - Two calls, because S14 anchors its lines at min(t0s), so a joint call would change the 2.0+ estimates: (2.0, 2.5, 3.0)
   as specified, and (1.5,) as the control.
 - Checks: T401's conditional-law MC for orig (`results/t401_mc.json`).
+
+## T370 stage 2: amendment to the selection rule (DRI, 2026-10-19 13:52; before any stage-2 estimate or selection)
+**Minimum truth hits.** Every scored pair needs >= 50 truth hits (conditional-law MC events).
+- When T192 reports a selected pair with < 50 hits at 1e9, the pair is re-run with more samples (up to 1e11, in 10x
+  steps) until it has >= 50.
+- If that is infeasible, the pair is excluded and replaced by the next pair in the disagreement ranking (same E1/E2
+  type, at most 2 per model). The replacement is decided by this rule only, and always before any truth value is shown
+  to me. T192 reports only "hits >= 50: yes / no" until all 8 pairs qualify.
