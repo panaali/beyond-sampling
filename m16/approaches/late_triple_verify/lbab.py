@@ -34,7 +34,12 @@ class Bounder:
         return lb.detach(), lA.detach().reshape(len(lo), 9, 9)
 
 
+SPLIT = "margin"
+
+
 def splitdim(lb, cu, lo, hi):
+    if SPLIT == "widest":                                         # deviation D3: widest dim, lowest index on ties
+        return th.argmax((hi - lo) + 1e-12 * th.arange(9, 0, -1, dtype=net.dt), 1)
     c = cu[th.arange(len(lb)), lb.argmax(1)]
     return (c.abs() * (hi - lo)).argmax(1)
 
@@ -84,6 +89,8 @@ class ABC:
 
 
 def run(a):
+    global SPLIT
+    SPLIT = a.split
     tri = tuple(int(v) for v in a.tri.split(",")); stages = a.stages.split(",")
     B = Bounder(tri, a.alpha_iter); abc = ABC(tri, a.abc_timeout, a.abc_mode) if "abc" in stages else None
     th.set_default_dtype(th.float64)
@@ -128,7 +135,7 @@ def run(a):
             curve.append(row)
             print(" ".join("%s %s" % (k_, ("%.3e" % v) if isinstance(v, float) else v) for k_, v in row.items()), flush=True)
     out = dict(tri=tri, stages=stages, K=a.K, alpha_iter=a.alpha_iter, abc_timeout=a.abc_timeout, abc_mode=a.abc_mode,
-               resume=a.resume, order=a.order, tail=TAIL, final=curve[-1] if curve else None, abc_status=st["abc_status"], curve=curve)
+               resume=a.resume, order=a.order, split=a.split, tail=TAIL, final=curve[-1] if curve else None, abc_status=st["abc_status"], curve=curve)
     json.dump(out, open(a.out, "w"), indent=1)
     th.save(dict(lo=LO, hi=HI, sd=SD, ch=CH, qm=QM,
                  pruned_lo=th.cat([r[0] for r in res]) if res else None, pruned_hi=th.cat([r[1] for r in res]) if res else None),
@@ -142,5 +149,6 @@ if __name__ == "__main__":
     ap.add_argument("--alpha-iter", type=int, default=20); ap.add_argument("--resume", default="")
     ap.add_argument("--abc-timeout", type=float, default=2.0); ap.add_argument("--abc-mode", default="mixed")
     ap.add_argument("--log-sec", type=float, default=60)
+    ap.add_argument("--split", default="margin", help="margin (T414, pre-registered) or widest (deviation D3)")
     ap.add_argument("--order", default="radial", help="radial (pre-registered) or quad (deviation D1: near-exact mass)")
     run(ap.parse_args())

@@ -92,6 +92,13 @@ E_slab[1 / (vol p_u)] over 99.8% of the mass; nodes <= 2x. Run with alpha-CROWN 
 `dyadic.py 3,7,8 OUT 200 alpha-CROWN` and `... CROWN`. If the alpha estimate is < 1e9, the late-triple failure is a
 search/compute failure, not a bound failure, and is reported as such (not GO by the pre-registered line).
 
+**D2 first results and deviation D3 (2026-10-19, written before D3's run; SECONDARY).** D2 with 200 points:
+CROWN median certified depth 39, ~6.4e7 leaves; alpha-CROWN median depth 29, ~1.4e5 leaves. `soundcheck.py` passed on
+the 200 alpha-certified boxes: 4e5 points, 0 events, 0 bound violations. CROWN certifies 15 of those 200 boxes. D3
+tests whether a BaB that follows D2's tree realises the estimate: `lbab.py 3,7,8 OUT 7200 --stages crown,alpha --K 256
+--order quad --split widest`, 2 CPU-h. Prediction if D2 is right: the near-exact mass falls well below 2.8e-8 once the
+node count nears ~3e5. D2b repeats D2 with more points (CROWN n = 5,000; alpha n = 1,000) for the tail-dominated estimate.
+
 ## Method
 - `net.py`: model, coordinates, slab sampler, charges. `lbab.py`: BaB with library bounds.
 - Other scripts are added with their results.
