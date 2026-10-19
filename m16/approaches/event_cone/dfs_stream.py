@@ -5,7 +5,7 @@ Outputs (per shard): certs/surv_<tag>.npz (k = KMAX survivors' gates), certs/cer
 T400 format v1 with a per-cell k array), logs/dfs_<tag>.log (per-k children/survivor counts, progress).
 Checkpoints: every CKPT = 5 parents (and at the end) the npz files are rewritten with everything so far, plus done_parents;
 --resume skips the parents listed in an existing checkpoint and continues appending (files keep the same names).
-usage: python dfs_stream.py p1,p2,p3 KFROM KMAX SHARD NSHARDS [--delta D] [--parents i,j,...] [--half 1|2] [--resume]
+usage: python dfs_stream.py p1,p2,p3 KFROM KMAX SHARD NSHARDS [--delta D] [--parents i,j,...] [--half 1|2] [--suffix NAME] [--resume]
 --half h keeps only the first (h = 1) or second (h = 2) half of the shard's parent list; h = 2 adds "_h2" to the file tag."""
 import json
 import os
@@ -39,6 +39,8 @@ def main():
         idx = idx[:m] if h == 1 else idx[m:]
         if h == 2:
             tag += "_h2"
+    if "--suffix" in sys.argv:                                     # e.g. a tail taken over by a helper
+        tag += "_" + sys.argv[sys.argv.index("--suffix") + 1]
     ch = {k: 0 for k in range(kf + 1, km + 1)}; sv = {k: 0 for k in range(kf + 1, km + 1)}
     surv, ck, cst, cstart, cleaves = [], [], [], [], []; done = []
     sp = os.path.join(HERE, "certs", f"surv_{tag}.npz"); cp = os.path.join(HERE, "certs", f"cert_{tag}.npz")
