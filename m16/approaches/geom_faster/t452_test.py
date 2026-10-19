@@ -46,30 +46,42 @@ def run(fn, *a, **k):
         return None, time.perf_counter() - t, repr(e)[:200]
 
 
-def gate(shards, step):
+def gate(shards, step, maxcells=25):
+    """Resumable; at most maxcells new cells per process (a fresh process per batch keeps the address space small).
+    A cell recorded with an error is retried once in a fresh process (attempt 2) before it counts."""
     path = os.path.join(HERE, f"results_gate_{''.join(map(str, shards))}.jsonl")
-    done = set()
+    rec_by = {}
     if os.path.exists(path):
-        done = {(r["s"], r["i"]) for r in map(json.loads, open(path))}
+        for r in map(json.loads, open(path)):
+            rec_by[(r["s"], r["i"])] = r
+    todo = []
+    for s in shards:
+        N = len(np.load(os.path.join(HERE, "data", f"surv_dfs_d0.333_9-3-2_k4to10_s{s}of6.npz"), allow_pickle=True)["gates"])
+        for i in range(0, N, step):
+            r = rec_by.get((s, i))
+            if r is None or (r["ok"] is not True and r.get("attempt", 1) < 2):
+                todo.append((s, i, 1 if r is None else 2))
+    if not todo:
+        print("GATE DONE"); return
     with open(path, "a") as fo:
-        for s in shards:
-            c, tri, norm = shard(s)
-            for i in range(0, len(c["gates"]), step):
-                if (s, i) in done:
-                    continue
-                g = c["gates"][i].astype(int)
-                b, tb, eb = run(G2.cell_geometry_faster, tri, g, 10, norm=norm, event=True, return_exact=True)
-                a, ta, ea = run(GF.cell_geometry_fast, tri, g, 10, norm=norm, event=True, return_exact=True)
-                rec = dict(s=s, i=i, t_ref=ta, t_new=tb, err_ref=ea, err_new=eb)
-                if ea is None and eb is None:
-                    rec["ok"] = same_geom(a, b)
-                    rec["vertices"] = a[0][-1] if a else 0; rec["simplices"] = len(a[0][5]) if a else 0
-                elif ea is None:
-                    rec["ok"] = False                  # the new code failed where the reference did not
-                else:
-                    rec["ok"] = None                   # reference failed: not comparable
-                del a, b
-                fo.write(json.dumps(rec) + "\n"); fo.flush()
+        cur = None
+        for s, i, att in todo[:maxcells]:
+            if cur != s:
+                c, tri, norm = shard(s); gates = c["gates"]; cur = s
+                g = None
+            g = gates[i].astype(int)
+            b, tb, eb = run(G2.cell_geometry_faster, tri, g, 10, norm=norm, event=True, return_exact=True)
+            a, ta, ea = run(GF.cell_geometry_fast, tri, g, 10, norm=norm, event=True, return_exact=True)
+            rec = dict(s=s, i=i, t_ref=ta, t_new=tb, err_ref=ea, err_new=eb, attempt=att)
+            if ea is None and eb is None:
+                rec["ok"] = same_geom(a, b)
+                rec["vertices"] = a[0][-1] if a else 0; rec["simplices"] = len(a[0][5]) if a else 0
+            elif ea is None:
+                rec["ok"] = False                  # the new code failed where the reference did not
+            else:
+                rec["ok"] = None                   # reference failed: not comparable
+            del a, b
+            fo.write(json.dumps(rec) + "\n"); fo.flush()
 
 
 def speed():
