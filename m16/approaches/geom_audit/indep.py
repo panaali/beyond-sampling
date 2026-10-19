@@ -46,8 +46,9 @@ def homog(V):
     return out
 
 
-def simplex_vols(Z, S, n):
-    """Exact volumes |det [den_i, z_i]| / prod(den_i) / n! for each simplex (index tuples into Z)."""
+def simplex_vols(Z, S, n, signs=None):
+    """Exact volumes |det [den_i, z_i]| / prod(den_i) / n! for each simplex (index tuples into Z); if signs is a
+    list, the sign of each det (rows in the order of s) is appended to it."""
     f = math.factorial(n)
     out = []
     for s in S:
@@ -56,7 +57,19 @@ def simplex_vols(Z, S, n):
         for i in s:
             den *= Z[i][0]
         out.append(fmpq(abs(int(d)), den * f))
+        if signs is not None:
+            signs.append((d > 0) - (d < 0))
     return out
+
+
+def _parity(seq):
+    """+1 / -1: sign of the permutation sorting seq (distinct items)."""
+    p = 1; a = list(seq)
+    for i in range(len(a)):
+        for j in range(i + 1, len(a)):
+            if a[i] > a[j]:
+                p = -p
+    return p
 
 
 def lasserre_volume(W, I, n):
@@ -128,27 +141,26 @@ def lasserre_volume(W, I, n):
     return vol(full, tuple(range(n)), n)
 
 
-def ridge_check(Z, S, inc, n):
+def ridge_check(S, signs, inc, n):
     """None if every ridge is a boundary ridge (common tight row) in one simplex or an interior ridge in two
-    simplices with apexes strictly on opposite sides; else a description of the first failure."""
+    simplices with apexes strictly on opposite sides; else a description of the first failure. Side of apex a
+    against ridge r: sign det[Z_r (sorted), Z_a] = sign det[Z_s] * (-1)^(n - k) * parity(r) for a = s[k] (moving row
+    k of s to the end is n - k transpositions; sorting r is parity(r)); den_i > 0 does not change signs."""
     rid = {}
-    for si, s in enumerate(S):
+    for s, sg in zip(S, signs):
         for k in range(n + 1):
             r = s[:k] + s[k + 1:]
-            rid.setdefault(r, []).append(s[k])
-    for r, opp in rid.items():
-        if len(opp) == 1:
+            side = sg * (-1) ** (n - k) * _parity(r)
+            rid.setdefault(tuple(sorted(r)), []).append(side)
+    for r, sides in rid.items():
+        if len(sides) == 1:
             if not frozenset.intersection(*(inc[i] for i in r)):
                 return ("interior ridge in one simplex", r)
-        elif len(opp) == 2:
-            sg = []
-            for a in opp:
-                d = fmpz_mat(n + 1, n + 1, [x for i in r + (a,) for x in Z[i]]).det()
-                sg.append((d > 0) - (d < 0))
-            if sg[0] * sg[1] != -1:
-                return ("ridge apexes not on opposite sides", r, sg)
+        elif len(sides) == 2:
+            if sides[0] * sides[1] != -1:
+                return ("ridge apexes not on opposite sides", r, sides)
         else:
-            return ("ridge in %d simplices" % len(opp), r)
+            return ("ridge in %d simplices" % len(sides), r)
     return None
 
 
@@ -178,7 +190,8 @@ def check_cell(A_full, b_full, A_kept, V, inc, S, vlo, vhi, n, ridge_max=300_000
                 inc_ok = False; break
     out["inc_ok"] = inc_ok and out["vset_ok"]
     Z = homog(V)
-    vols = simplex_vols(Z, S, n)
+    signs = []
+    vols = simplex_vols(Z, S, n, signs)
     out["nS"] = len(S)
     out["vol_pos_ok"] = all(v > 0 for v in vols)
     enc = 0
@@ -191,7 +204,7 @@ def check_cell(A_full, b_full, A_kept, V, inc, S, vlo, vhi, n, ridge_max=300_000
     out["vol_equal"] = tot == lv
     out["vol_float"] = float(tot)
     if len(S) <= ridge_max:
-        rc = ridge_check(Z, [tuple(s) for s in S], inc, n)
+        rc = ridge_check([tuple(s) for s in S], signs, inc, n)
         out["ridge_ok"] = rc is None
         if rc is not None:
             out["ridge_fail"] = repr(rc)[:300]
