@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import walks  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-T, CHUNK = 10, 500_000
+T, CHUNK = 10, 100_000   # 100k rows keeps the widest nets (512 units) under the 2 GB cap
 
 
 def load(path):
