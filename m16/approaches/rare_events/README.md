@@ -746,3 +746,42 @@ point it gives the conditional error rate with its s.e. and the share of hits wi
 - the estimator's cost (FPE) and the validation cost, plus the plain-MC sample size that would be needed to see
   ~10 events at each point (10 / P(pick = p3, g23 >= t)).
 - No contact with ARC; no Fable.
+
+## T401 results: the rating chart (`results/t401_rating.png`, table `results/t401_rating.md`)
+Reproduce: `python rating_est.py; python rating_mc.py; python rating_chart.py`.
+- Estimator: frozen K3, sha256 asserted at run time (`results/t401_est.json`).
+- Validation: conditional-law MC, adaptive to >= 1000 hits or 1e8 samples (`results/t401_mc.json`).
+
+**Primary rating, r(t) = P(answers with the 3rd largest | g23 >= t):**
+- **M_16,10 (the target): every point is UNRATED.** The triple-tie share is .60-.93 at every t, so by the
+  pre-registered rule the estimator cannot be trusted here. The checks confirm it: est / check is 1.45 / 1.69 at
+  t = .5 / 1, then .46, .20 and ~0 from t = 1.5 on. The true conditional chance falls only slowly, from 5.3e-4 at
+  t = .5 to 9.3e-7 at t = 3. **For the target, the honest rating is the sampled one, not the estimator's.**
+- **dev3_s529:** rated and checked for t <= 2.5 (est / check 1.06-1.21). t = 3.0 and 3.5 are unrated (tie share
+  .58 / .66; est / check .84 / .67).
+- **dev3_s531:** rated and checked for all t <= 3.5 (est / check .94-1.38, tie share .42-.48). For example: "if the 2nd
+  and 3rd largest differ by at least 3.5, the chance it answers with the 3rd largest is about 0.19% (check .14%)". Seeing
+  10 such errors by plain sampling would take ~8e10 inputs; the rating costs 3.15M FPE.
+- **No point needed the "beyond test" label.** For gap conditions, conditional-law sampling reaches every grid point,
+  except M_16,10 at t = 3.5 (< 30 hits at 1e8).
+  - So, for this condition family, the conditional rate is always checkable by a sampler that knows the condition.
+  - The deductive rating's distinct value is that it is computed from the weights. It gives the joint probability
+    that plain sampling cannot reach: the "plain MC needed" column runs to 1e9-1e22 inputs.
+
+**Secondary (unconfirmed estimator), P(any wrong | g12 >= t, g23 >= t):**
+- M_16,10: .97-1.00 at t <= 1.25, .61 at 1.5.
+- dev3_s529: 1.14-1.39.
+- dev3_s531: .36-.78, low.
+
+**Cost:** 3.15-3.95M FPE per model for both grids in one run, from t = .5. The E1 grid alone, from t = 1.75, is ~.5M
+(T364).
+
+**Claims:**
+1. [measured] On two retrains the frozen K3 gives a checked rating of the 3rd-largest error under g23 >= t, within 1.4x,
+   down to conditions with probability 7e-8.
+2. [measured] On the target M_16,10 the same rating is unusable: it is triple-tie-dominated at every t, est / check
+   is .005-1.7, and it is correctly flagged unrated by the pre-registered rule.
+3. [inferred] A rating needs its own trust flag, here the triple-tie share. That share was measured by conditional
+   sampling, so the flag is not yet deductive.
+
+Unverified.

@@ -53,16 +53,19 @@ def panel(ax, rs, title, ylab):
             ax.plot(r["t"], r["est"], "D", ms=8, mfc=SURF, mec=BLUE, mew=2, zorder=3)
         else:
             ax.plot(r["t"], r["est"], "X", ms=9, color=MUTED, zorder=3)
-            ax.annotate("unrated", (r["t"], r["est"]), textcoords="offset points", xytext=(6, 6), fontsize=8, color=INK2)
         if r["mc"] is not None:
             lo, hi = max(r["mc"] - 2 * r["mc_se"], r["mc"] * 1e-3), r["mc"] + 2 * r["mc_se"]
             ax.plot([r["t"], r["t"]], [lo, hi], color=INK, lw=1.2, zorder=4)
             ax.plot(r["t"], r["mc"], "_", ms=12, mew=2, color=INK, zorder=4)
+    nun = sum(r["label"] == "unrated" for r in rs)
+    if nun:
+        msg = "all points unrated: three-way near-ties dominate" if nun == len(rs) else f"{nun} unrated point(s) (grey x)"
+        ax.text(0.98, 0.96, msg, transform=ax.transAxes, ha="right", va="top", fontsize=8, color=INK2)
     ax.set_yscale("log"); ax.set_title(title, fontsize=10, color=INK, loc="left")
     ax.set_xlabel(ylab, fontsize=9, color=INK2); ax.tick_params(colors=INK2, labelsize=8)
 
 
-fig, axs = plt.subplots(2, 3, figsize=(13, 8.2), facecolor=SURF)
+fig, axs = plt.subplots(2, 3, figsize=(13, 8.6), facecolor=SURF)
 fig.suptitle("Safe-use rating, computed from the weights:\n"
              "if the 2nd and 3rd largest inputs differ by at least t, the chance of the error shown is about r(t)",
              fontsize=13, color=INK, x=0.01, ha="left", y=0.995)
@@ -70,7 +73,7 @@ tabs = []
 for j, (nm, nice) in enumerate(MODELS):
     r1 = rows(nm, "E1", T1); r2 = rows(nm, "E2", T2); tabs.append((nm, nice, r1, r2))
     panel(axs[0, j], r1, f"{nice}\nP(answers with the 3rd largest | g23 >= t)", "t  (gap between 2nd and 3rd largest)")
-    panel(axs[1, j], r2, f"{nice}\nP(any wrong answer | both top gaps >= t)  [unconfirmed estimator]", "t  (g12 >= t and g23 >= t)")
+    panel(axs[1, j], r2, f"{nice}\nP(any wrong answer | both top gaps >= t)\n(secondary; estimator not confirmed for this event)", "t  (g12 >= t and g23 >= t)")
 axs[0, 0].set_ylabel("error chance under the condition", fontsize=9, color=INK2)
 axs[1, 0].set_ylabel("error chance under the condition", fontsize=9, color=INK2)
 from matplotlib.lines import Line2D  # noqa: E402
@@ -83,7 +86,7 @@ C = {nm: E[nm]["C"] for nm, _ in MODELS}
 fig.text(0.01, 0.035, "Cost of the rating (deductive, one run covers all t): " + ", ".join(f"{n} {C[k] / 1e6:.2f}M FPE" for k, n in
          (("orig", "M_16,10"), ("dev3_s529", "s529"), ("dev3_s531", "s531"))) +
          ".  Unverified; estimator = frozen H-R1 (K3, claude/t218-tie-tail-labels @e433919d).", fontsize=8, color=INK2)
-fig.tight_layout(rect=(0, 0.06, 1, 0.92))
+fig.tight_layout(rect=(0, 0.06, 1, 0.93), h_pad=2.0)
 fig.savefig(os.path.join(HERE, "results", "t401_rating.png"), dpi=130, facecolor=SURF)
 
 L = ["# T401 safe-use rating table", "", "r(t) = estimated error chance under the condition; check = conditional-law MC rate (hits / n);",
