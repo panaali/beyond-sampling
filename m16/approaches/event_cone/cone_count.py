@@ -121,7 +121,7 @@ def count(tri, kmax, maxregions=200_000, fast=True, affine_box=None, return_cell
                 pieces = nxt
             for Gp, bp, xp, g in pieces:
                 g = np.array(g, float); hb = hist + np.packbits(g > 0).tobytes()
-                if t == kmax - 1:                                  # last step: keep only the history (memory)
+                if t == kmax - 1 and not return_cells:             # last step: keep only the history (memory)
                     new.append((None, None, None, None, hb))
                 else:
                     new.append((Gp, bp, xp, g[:, None] * Z, hb))

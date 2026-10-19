@@ -261,3 +261,45 @@ Not tried, with why:
 - (v) Other models (zoo seeds): not run. The full-space growth is similar (H-E13), and claim 3 makes the all-late
   triples equal to N_k for any model.
 - (vi) Tighter LP tolerance: not run. It can only add slivers, i.e. raise the counts.
+
+---
+
+# T390: event-guided branch and bound (kill test), pre-registration (2026-10-19, before running)
+**Question.** The event's own prefixes grow only x1.9-3.4 per step (T373 claim 6). Can a branch and bound expand only
+those, pruning every other prefix *with a proof*, at <= ~1e7 regions at step 10?
+
+**Pruning test (`relax.py`).**
+- A prefix cell at step k is a cone {G x >= 0} with h_k = A x on it.
+- Relaxation R_k:
+  - x in [-1,1]^10, G x >= 0, and g23 >= DELTA = 0.1;
+  - steps k+1..10 with each ReLU replaced by its triangle relaxation (pre-activation bounds by LP, stable neurons
+    exact);
+  - the event "logit_p3 >= every other logit at step 10", with slack 1e-7.
+- The cell is **pruned iff R_k is LP-infeasible.** Since R_k contains every event point of the cell (after scaling),
+  a pruned cell has no event point there.
+- **The normalisation is rigorous.** The network is positively homogeneous and the cone is scale-invariant, so the
+  only event points lost are those with g23 < 0.1 ||x||_inf. With g23 >= 1.5 these have ||x||_inf > 15, and the
+  Gaussian mass of that is <= 20 Phi(-15) < 1e-49.
+- Not rigorous yet: floating-point LP infeasibility. A certificate would have to verify each Farkas ray in exact
+  arithmetic. That is not done in the kill test.
+
+**Branch and bound.** Enumerate each step exactly (T344/T373 splitter); test every new cell with R_k; expand only the
+survivors. Starting at k = 1, up to k = 6.
+
+**Kill test.**
+- Triple (1,8,2), the top event triple; then (3,9,2), the event triple with the most event prefixes, if the budget
+  allows.
+- Report survivors S_k for k = 1..6, the pruned fraction at k = 6 (>= 1 - S6/2e5, since N6 >= 2e5 for (1,8,2)), and
+  the cost per cell.
+- **Validation (could fail):** every k-prefix of the line-walk event points (T373 event pass, regenerated) must be
+  among the survivors. Any pruned event prefix = a bug or an unsound relaxation, and the test is void.
+- **Projection:** N10 = 41 x max over the measured triples of S6 x (S6/S5)^4.
+  **GO iff N10 <= 1e7.** STOP otherwise.
+- Side measurement (no verdict): S_k on 2 triples without event hits, (1,2,0) and (4,1,3). A certificate needs those
+  to die out, since there are 679 such triples.
+- Caps: 2e5 survivors per step, 6 CPU-h in total, 2 processes, `ulimit -v 2500000`.
+
+**What it would certify if GO.** An **upper bound**: P(E) <= the sum over surviving step-10 regions of their event
+mass (computed exactly, or bounded by the region mass) + 1e-49. Every pruned branch must be proved event-free, which
+needs the Farkas rays verified exactly. It is exact (rather than a bound) only if each surviving region's event
+polytope mass is integrated exactly. An "estimate" (survivors only on the 41 triples with hits) is not a certificate.
