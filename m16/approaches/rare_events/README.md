@@ -702,3 +702,47 @@ This runs only if the T218 child freezes a T370 variant. Until then dev3_s548 ..
 - **Go: the T370 variant within 2x of the truth on >= 7/8.**
 - Also reported: K3's ratios, both C, and the expected number of events plain sampling sees at C.
 - No Fable involvement.
+
+# T401: a safe-use rating for M_16,10 (OWNER_QA 4.10, "bridge engineer")
+
+## Pre-registration (2026-10-19, before any T401 computation)
+**Rated quantity (H-R1's scope):** for observable input conditions C(t) = {g23 >= t} (g23 = 2nd largest minus 3rd
+largest input), the chance that the network outputs the 3rd-largest input's position,
+
+    r(t) = P(pick = p3 | g23 >= t) = P(pick = p3, g23 >= t) / P(g23 >= t).
+
+- The numerator comes from the frozen H-R1 estimator. The denominator is exact, from Gaussian order statistics:
+  P(g23 >= t) = int 90 phi(v)(1 - Phi(v)) Phi(v - t)^8 dv by quadrature, for example 2.44e-1, 4.44e-2, 5.95e-3,
+  5.78e-4, 4.03e-5, 2.00e-6 and 7.04e-8 at t = .5, 1, ..., 3.5.
+- Grid: t in {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5}.
+- **Secondary (outside H-R1's confirmed scope; labelled "unconfirmed"):** any error with both gaps >= t,
+  P(wrong | g12 >= t, g23 >= t), from the same estimator's E2 output. Grid t in {.5, .75, 1.0, 1.25, 1.5}, denominator
+  exact.
+
+**Models:** M_16,10 (orig), plus dev3_s529 and dev3_s531 (DEV3; both within 1.25x of sealed truths in T366 and T368
+at t0 = 2.35 / 2.75).
+
+**Estimator:** the frozen K3 (T364's, claude/t218-tie-tail-labels @e433919d), run through `deep.py`-style calls of
+`t354.est_seg(model, 3, t0s, t2s, tmax = 6)`. sha256 asserted at run time: t340c 7e6a749d..., t354 abed36c8...,
+walkfix 8e21b6a1...; rare.py / cont_g.py from claude/t286-cheap-frontier. Cost charged as executed.
+
+**Validation:** conditional-law MC (`truthc.py`, and its E2 analogue), 1e8 conditional samples per grid point. Per
+point it gives the conditional error rate with its s.e. and the share of hits with g12 < .1 (the triple-tie share).
+
+**Labels per point:**
+- **rated (validated):** the MC has >= 30 hits and the triple-tie share is < 50%. Shown with the estimate and the
+  MC check.
+- **unrated:** the triple-tie share is >= 50% (T371's rule). If such a point is unvalidated, the label follows the
+  nearest validated point of the same model.
+- **rated (beyond test):** the MC has < 30 hits at 1e8 conditional samples, i.e. too rare even for conditional
+  sampling, and the nearest validated point is not triple-tie-dominated. Shown with the estimate only, marked as
+  extrapolated.
+- A rated point also reports est / MC. It is flagged if outside [1/2, 2] (H-R1's tolerance), but not hidden.
+
+**Deliverable:**
+- a one-page chart (PNG + markdown table) per model: "if the 2nd and 3rd largest differ by at least t, the chance
+  that the network answers with the 3rd largest is about r(t)";
+- the labels above;
+- the estimator's cost (FPE) and the validation cost, plus the plain-MC sample size that would be needed to see
+  ~10 events at each point (10 / P(pick = p3, g23 >= t)).
+- No contact with ARC; no Fable.
