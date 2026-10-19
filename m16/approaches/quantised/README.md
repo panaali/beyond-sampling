@@ -118,5 +118,30 @@ scored leniently (tied inputs score below tie-free ones), but because a 0.4 grid
 an exact tie decided by a fixed index rule, which the net learns (.81-.83 on tied inputs), and leaves only tie-free
 inputs with top-3 gaps >= 0.4, which are easy (.85-.88). The continuous task's hard near-tie cases no longer exist.
 
+**(4) Exact DP, binary activations** (`qdp.py`; ht1 models; exact reachable sets by closure: continuous inputs 4,487 -
+11,966 states of 65,536 per model, discrete int4 inputs 1,119 - 1,977, int8 inputs 2,672 - 8,780; <= 17 input
+intervals per state). Discrete inputs: exact enumeration (float64). Continuous inputs: the v-integral on M uniform
+Gauss-Legendre panels (n = 8); the integrand jumps at every breakpoint, so error falls ~1/M; the exact breakpoint-panel
+mode (degree-9 polynomial per panel, 5 nodes) would need ~127k panels x 5 nodes = ~1e14 FLOPs per model (not run).
+Comparison with sampling at EQUAL FLOPs (binary forward cost 5.95e3 FLOPs per input; se_eq = sqrt(p(1-p)/n) with
+n = DP FLOPs / 5.95e3):
+
+| model | DP mode | DP P(correct) | DP FLOPs | MC 1e8 (acc +- se) | z(DP - MC) | MC se at equal FLOPs |
+|---|---|---|---|---|---|---|
+| bin_s0 | M=16,n=8 | 0.3000170 | 2.49e+10 | 0.3002312 +- 4.6e-05 | -4.7 | 2.2e-04 |
+| bin_s0 | M=32,n=8 | 0.3001543 | 4.99e+10 | 0.3002312 +- 4.6e-05 | -1.7 | 1.6e-04 |
+| bin_s0 | M=64,n=8 | 0.3002246 | 9.97e+10 | 0.3002312 +- 4.6e-05 | -0.1 | 1.1e-04 |
+| bin_x16_s0 | exact enum | 0.2365765 | 2.80e+08 | 0.2365329 +- 4.2e-05 | +1.0 | 2.0e-03 |
+| bin_x16_s1 | exact enum | 0.3053044 | 2.55e+08 | 0.3052475 +- 4.6e-05 | +1.2 | 2.2e-03 |
+| bin_x16_s2 | exact enum | 0.2985082 | 1.68e+08 | 0.2984588 +- 4.6e-05 | +1.1 | 2.7e-03 |
+| bin_x256_s0 | exact enum | 0.2630290 | 9.67e+10 | 0.2630698 +- 4.4e-05 | -0.9 | 1.1e-04 |
+| bin_x256_s1 | exact enum | 0.3006625 | 1.67e+11 | 0.3007091 +- 4.6e-05 | -1.0 | 8.6e-05 |
+| bin_x256_s2 | exact enum | 0.3134904 | 3.34e+11 | 0.3134862 +- 4.6e-05 | +0.1 | 6.2e-05 |
+
+Reading [measured/inferred]: on a discrete input grid the exact DP is far cheaper than sampling (x16: exact at 1.7-2.8e8
+FLOPs, where sampling at equal cost has se ~2e-3; x256: exact at 1e11-3e11 FLOPs vs sampling se ~1e-4). With continuous
+inputs the uniform-panel DP at M = 64 (1e11 FLOPs) has error ~7e-5 (Richardson estimate from M = 32/64; z vs MC +-0)
+vs sampling se 1.1e-4 at equal FLOPs: about break-even; exactness needs breakpoint panels (~1e14 FLOPs).
+
 ## Compute accounting / Claims / Alternatives not ruled out / Failure modes
 (to be completed)
