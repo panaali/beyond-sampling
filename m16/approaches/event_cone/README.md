@@ -432,3 +432,28 @@ masses.
   - Its node count will be projected separately from a DELTA = 0.267 run (or interpolated between the 0.1 and 1/3
     runs, labelled as such).
   - Nobody should read a 2.5 bound as covering 2.0.
+
+## T398b results: (1,8,2) at DELTA = 1/3 (t0 = 2.5), k = 1..6 [measured; `logs/T398b_182_k6_final.log`, `certs/`]
+
+| k | children | survivors | pruned by stage 0 / 1 / 2 / 3 | line-walk event prefixes (pruned) |
+|---|---|---|---|---|
+| 1 | 2 | 2 | 0 / 0 / 0 / 0 | 2 (0) |
+| 2 | 20 | 18 | 2 / 0 / 0 / 0 | 10 (0) |
+| 3 | 79 | 39 | 39 / 1 / 0 / 0 | 11 (0) |
+| 4 | 544 | 146 | 368 / 17 / 11 / 2 | 35 (0) |
+| 5 | 2,305 | 275 | 1,664 / 113 / 188 / 65 | 61 (0) |
+| 6 | 4,294 | **781** | 3,115 / 160 / 113 / 125 | 188 (0) |
+
+- **Projection: 41 x 781 x (781/275)^4 = 2.1e6 <= 1e7. GO by the pre-registered line** (unverified; nobody
+  confirms their own claim).
+  - For comparison, at DELTA = 0.1 (T398, same pruner): S5 = 1,314 at k = 5; k = 6 is still running.
+  - T390, DELTA 0.1 without stages 2-3: S5 = 1,511, S6 = 7,689.
+- Survivors / line-walk event prefixes = 4.2 at k = 6 (T390: 41).
+- Cost: about 25 CPU-min for k <= 6.
+- **What the GO does NOT cover (open):**
+  1. The certificate needs all 720 triples; this projection scales by 41. If the no-hit triples survive like
+     (1,8,2), the full count is 720 x 781 x 65 = 3.7e7 (a 20-triple random sample has been requested from workers).
+  2. Growth beyond k = 6: (1,8,2) is now being run to k = 10, which ends the extrapolation for this triple.
+  3. Soundness of each prune: float LPs; T400's exact verifier is pending on `certs/`.
+  4. The mass of the surviving step-10 regions (T400's mass_upper). The bound is only useful if their summed
+     event mass is close to the truth at t0 = 2.5 (truth worker running).
