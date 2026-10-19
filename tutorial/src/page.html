@@ -112,6 +112,7 @@ svg .grid { stroke: var(--rule); stroke-dasharray: 2 3; }
 .thm h4 { margin: 0 0 .3rem; display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; }
 .thm p { margin: .3rem 0; font-size: .97rem; }
 .lane { border: 1.5px dashed var(--prog); border-radius: 4px; padding: .7rem .9rem; margin: 1rem 0; background: var(--prog-soft); font-family: var(--display); font-size: .92rem; line-height: 1.5; }
+.lane.done { border-style: solid; border-color: var(--rule); background: var(--figure); }
 .lane .lt { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; font-weight: 650; color: var(--ink); }
 .lane p { margin: .25rem 0; color: var(--ink); }
 .lane .lat { color: var(--muted); }
@@ -423,8 +424,9 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
     <tr><td>A "harmonic" reading of the clock neurons</td><td>Weakened by our own checks; the clock angle per step holds (41.47–41.71° measured vs 42.75° from the weights).</td><td><span class="id">H-M1, E29</span> <span class="st st-unv">supported, qualified</span></td></tr>
   </tbody>
 </table></div>
-<div data-lane="T3"></div>
-<div data-lane="T291"></div>
+<div data-lane="T3"></div><div data-lane="T376"></div>
+<div data-lane="T24"></div><div data-lane="T377"></div>
+<div data-lane="T291"></div><div data-lane="T375"></div>
 
 <h2 id="target">11. The real target: walking along the ties</h2>
 <p>Regions are too many to list, but along a <em>line</em> through input space the network is easy to follow exactly. Move one input steadily and the gate pattern changes only at isolated points where some neuron's input crosses zero. Between those points everything is linear, so the next switch can be found by solving a linear equation, with no sampling at all. This is an <b>exact 1-D gate walk</b>.</p>
@@ -485,8 +487,8 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
 <p>A solution would be a calculation that reads the weights, uses no random or pseudorandom inputs, and reaches <b>F ≤ 1</b> on a fresh sealed panel of retrains it was not designed on (our last one, HP5, is held in reserve) and on ARC-style noisy copies, with its approximations fixed in advance rather than chosen by checking against sampling. For rare events, it would be an estimator that is within 2× of the truth and cheaper than sampling, including on three-way near-tie networks.</p>
 <p>What we know about the shape of such a solution: it must handle the thin near-tie regions, cut into very many pieces, at 10 steps, without listing them. That is where every approach here broke. Our judgment <span class="claim">judgment</span> is that it needs a new representation of the hidden state rather than better tuning of exact walks, which is what the open lanes below test.</p>
 
-<h2 id="lanes">14. Work in progress</h2>
-<p>These lanes are running now. Each box is driven by <code>tutorial/data/status.json</code> and will change as results arrive.</p>
+<h2 id="lanes">14. Work in progress and recent results</h2>
+<p>Lanes that are running now, and lanes that finished since this page was first written. Each box is driven by <code>tutorial/data/status.json</code> and changes as results arrive.</p>
 <div id="lanes-all"></div>
 
 <h2 id="glossary">Glossary</h2>
@@ -903,8 +905,8 @@ $("rr-run").onclick = () => { const p = 10 ** +$("rr-p").value, C = Math.round(1
 ["rr-p", "rr-c"].forEach((id) => ($(id).oninput = () => { rrRuns.length = 0; rrDraw(); }));
 
 /* ---------- lanes ---------- */
-function laneHTML(id) { const l = STATUS.lanes[id]; if (!l) return ""; const cls = { "in progress": "st-prog", done: "st-unv", confirmed: "st-conf", negative: "st-neg" }[l.status] || "st-prog";
-  return `<div class="lane"><div class="lt"><span class="id">${id}</span>${l.title}<span class="st ${cls}">${l.status}</span></div><p>${l.what}</p><p class="lat"><b>Latest:</b> ${l.latest}</p></div>`; }
+function laneHTML(id) { const l = STATUS.lanes[id]; if (!l) return ""; const st = l.status, cls = st.startsWith("negative") ? "st-neg" : st.startsWith("confirmed") ? "st-conf" : st.startsWith("in progress") ? "st-prog" : "st-unv";
+  return `<div class="lane${st.startsWith("in progress") ? "" : " done"}"><div class="lt"><span class="id">${id}</span>${l.title}<span class="st ${cls}">${l.status}</span></div><p>${l.what}</p><p class="lat"><b>Latest:</b> ${l.latest}</p></div>`; }
 function lanes() { document.querySelectorAll("[data-lane]").forEach((d) => (d.innerHTML = laneHTML(d.dataset.lane))); $("lanes-all").innerHTML = Object.keys(STATUS.lanes).map(laneHTML).join(""); $("status-stamp").textContent = "lane status as of " + STATUS.updated; }
 
 /* ---------- boot ---------- */
