@@ -224,3 +224,46 @@ Do not fund more total-degree C3 work. If anything, the only open C3 variant is 
 representation (above); its own cheap gate is the same D1 test in that class: the argmax accuracy of the best
 rank-r, per-input-degree-D TT fit of the true logits (diagnostic MC) must be within ~1 pp of the truth before any
 propagation or ledger is built.
+
+---
+
+# T375: tensor-train (compressed high-degree) oracle gate (follow-up of T291)
+
+## PRE-REGISTRATION (pushed before any run; written 2026-10-19 after T291's verdict, no TT fit computed yet)
+
+**Question.** T291's D1 covers total degree <= 5 only. Is there a compressed high-degree representation, a tensor
+train in the 10 inputs with a rich per-input basis, that represents the TRUE logits well enough to classify within
+~1 pp of the model, at a rank whose propagation is plausibly <= ~4k FPE? Gate only: no propagation is built unless
+it passes.
+
+**Representation (fixed).** Inputs in time order x_1..x_10 (the RNN's own order). Per input a basis of n = 8
+univariate functions, two bases:
+- **H**: normalised Hermite He_0..He_7 (per-input degree 7, total degree up to 70);
+- **P**: piecewise linear {1, x, relu(x - c_1), ..., relu(x - c_6)}, c = N(0,1) quantiles at 1/7..6/7 (axis-aligned
+  kinks).
+
+TT with ranks r between cores: logits(x) = s_0 G_1(x_1) G_2(x_2) ... G_10(x_10) W, where G_t(x_t) = sum_i
+phi_i(x_t) G_t[:, i, :] (r x r; the first is 1 x r), and W is an r x 10 readout. This is a rank-r multiplicative linear
+state-space model, the natural compressed analogue of the 16-unit RNN, and it shares all 10 outputs (the generous
+choice for classification). **Ranks r in {1, 2, 4, 8}.** No other basis, rank or ordering is tried.
+
+**Fit (oracle, diagnostic MC; never an estimator).** L2 regression of the true logits (`arc_eval.forward`) by ALS:
+1e5 fit inputs per model, random init (seed fixed), 4 full sweeps (left to right and back; W fitted with the last
+core), ridge 1e-8 x mean diagonal. Accuracy of the argmax rule and relative L2 logit error on 1e6 fresh inputs
+(SE ~ .02 pp); train relative L2 also reported (overfit check). Models: the T291 four (fused_s0, fused_s1,
+torch_s0, torch_s1).
+
+**Cost plausibility (fixed in advance, model-free).** Propagating a rank-r TT through one ReLU needs a TT-cross
+re-approximation of each of 16 neurons per step: >= 2 sweeps x T n r^3 x 2 FLOPs per neuron-step, i.e.
+C_TT(r) ~ 160 x 2 x 10 x 8 x r^3 x 2 / 5948 FPE = 1.1k FPE at r = 8 (8.8k at r = 16), before any endpoint. So the
+plausible-cost budget is **r <= 8**.
+
+**Gate.** **GO** iff for some (basis, r <= 8): max over the 4 models of |acc_TT - truth| <= 1.0 pp. Otherwise
+**STOP** (scoped negative: TT with these bases at r <= 8, L2 fit). A near miss (max gap <= 3 pp) is reported as
+such, but it is a STOP.
+
+**Alternatives written before the run.** (i) Separable bases cannot place kinks that are general hyperplanes in x
+(the ReLU walls), so high per-input degree does not help: the rank needed grows fast (STOP, accuracy far off at
+r <= 8). (ii) The function is close to a low-rank state-space model (16 units, mostly linear regimes): a moderate
+rank already classifies well (GO). (iii) An ALS artefact (local minimum, underfit). Separating test: train vs test
+L2 and the trend in r; if r = 8 does not improve on r = 4 while train L2 stays high, suspect (iii) and report it.
