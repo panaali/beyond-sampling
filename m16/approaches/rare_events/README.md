@@ -860,3 +860,20 @@ t = 2.0 / 2.5 / 3.0 (graded rule .22 / .03 / .001) should shrink a lot: I expect
 - If that is infeasible, the pair is excluded and replaced by the next pair in the disagreement ranking (same E1/E2
   type, at most 2 per model). The replacement is decided by this rule only, and always before any truth value is shown
   to me. T192 reports only "hits >= 50: yes / no" until all 8 pairs qualify.
+
+## T370-diag results (DIAGNOSTIC, NOT A GO; `results/t370diag_2.0_2.5_3.0.json`)
+S14 on M_16,10, E1, one call at t0 = (2.0, 2.5, 3.0); checks from T401's conditional MC.
+
+| t | check (MC hits) | S14 est / check | graded rule (T407) | K3 (T401) |
+|---|---|---|---|---|
+| 2.0 | 1.24e-5 (1,008) | **.54** | .22 | .20 |
+| 2.5 | 3.61e-6 (361) | **.37** | .03 | .005 |
+| 3.0 | 9.3e-7 (93) | **.23** | .001 | .0005 |
+
+- **Cost:** 38.6M FPE (7,145 CPU-s) for the three thresholds, about 12x the graded rule's whole grid (3.13M).
+- **Against the expectation:** within 2x at t = 2.0 (.54, just inside) and > 2x low at 2.5 and 3.0, as expected. The
+  improvement is large, 2.4x / 13x / 230x over the graded rule, but the estimate stays one-signed low and falls with t.
+- [inferred] The closure was most of the target's deep-tail deficit. A remaining part (.23 at t = 3) is not removed by
+  the exact-law v4 / lows cubature. Candidates are the g12 resolution at the deepest ties and S14's linearisation
+  around its anchor t_a.
+- The t = 1.5 control is still running and is appended when done.
