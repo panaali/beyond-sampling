@@ -58,7 +58,7 @@ def main():
     rmin = rand40["ratio_min_q25_med_q75_max"][0]
     verdict = ("targeting matters" if rand40["n_success"] <= 2 and t["ratio"] < rmin else
                "targeting not needed" if rand40["n_success"] >= 10 else "partial")
-    fwd = sum(len(z["sE"]) * 1e6 * 2 * len(z["names"]) for z in S.values()) + sum(len(z["sC"]) * 1e6 * len(z["names"]) for z in A.values())
+    fwd = sum(len(z["sE"]) * 1e6 * len(z["names"]) for z in S.values()) + sum(len(z["sC"]) * 1e6 * len(z["names"]) for z in A.values())
     out = dict(pgap_2=pgap, t402=t, base=res["base"], agree=agree, picked_rank_counts_unweighted=cnt, rand40=rand40,
                rand20=rand20, sign=sign, verdict=verdict, forward_passes=fwd, per_model=res)
     json.dump(out, open(os.path.join(RES, "summary.json"), "w"), indent=1, default=float)
