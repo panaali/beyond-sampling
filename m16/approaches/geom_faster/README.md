@@ -59,3 +59,37 @@ Reference: `geom_fast.cell_geometry_fast` and `m5t_fast.mass_cell_fast` at claud
    enclosures are then identical.
 2. Then, by the profile: the triangulation and enumeration (Python), and bitwise-identical speed-ups of the mass
    step.
+
+## Addendum (pre-registered 2026-10-19 ~23:5x, before measuring): option (b), "tier 2a" cheap root bound
+DRI 22:48: option (b) is a separate, labelled option. It changes outputs, so T420's auditor reviews it before any
+worker uses it, and T400 decides whether it enters tiered10. It is not part of the identity gate.
+
+**Method** (`mass_screened.py`). After the exact geometry (geom_faster, identical to geom_fast), every root simplex
+sigma_j of the exact root triangulation gets the plain M5 bound
+cheap_j = c0 vol_j G(d, s_min,j, t0, inf).
+- s_min,j is a rigorous lower bound on |m|^2 over sigma_j: a separating hyperplane through the vertex-centroid
+  direction, and >= 1/2 on the slice, as in m5t_fast.
+- B = up(fsum_j cheap_j).
+- **Tier 2a:** if B < CAP (1e-16, the same CAP tiered10 uses for M2), the cell is charged with min(M2, B), lb = 0.
+- Otherwise the identical tier-2 path runs (mass_cell_fast).
+
+A first exploration of a screened-evaluation variant (full M5t only on the simplices with the largest cheap bounds,
+eps = 1e-3) gained only 1.1-1.4x on two cells (639, 3337). It is dropped.
+
+**Soundness.** The root simplices tile the cell's slice polytope exactly (geom_fast and geom_faster outputs,
+identical). For each sigma_j, the M5t per-simplex quantity is
+m_j = c0 vol_j E_sigma[int_t0^inf z^(d-1) exp(-z^2 s(y)/2) Phi(z y_p3)^mlow dz],
+with s(y) = |m(y)|^2 >= s_min,j and 0 <= Phi <= 1. So m_j <= c0 vol_j int_t0^inf z^(d-1) exp(-z^2 s_min,j/2) dz =
+cheap_j. Every quantity is evaluated with m5t_fast's audited outward-rounded pieces (idot, sumsq_up, G_fac, exp_up,
+c0), and the sum is a correctly rounded fsum, rounded up. So the cell mass is <= sum_j m_j <= B. min(M2, B) is a
+minimum of two valid upper bounds, and lb = 0 is trivially valid.
+
+**Measured on T400's 201-cell sizing sample (its 87 tier-2 cells; tier-1 cells are unchanged):**
+1. the number of cells charged in tier 2a;
+2. ub_2a >= ub_identical: how often, and by how much (both are valid bounds, so ub_2a < ub_identical is allowed but
+   reported);
+3. the loosening of the sample's total charge (sum of charges, new against identical);
+4. the tier-2 time per cell (geom_faster + tier 2a or identical mass) against the identical path (geom_fast +
+   mass_cell_fast; reference times from results_speed.json, same sample).
+
+No pass line: this is an option for T400 and T420.
