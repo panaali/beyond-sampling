@@ -103,9 +103,10 @@ class Relax:
         return [(s, j) for s, _, j in sorted(c)]
 
     def split_prune(self, order, depth):
+        self.leaves = []
         def rec(fix, i):
             if not self.feasible(fix):
-                return True
+                self.leaves.append(dict(fix)); return True
             if i >= min(depth, len(order)):
                 return False
             sj = order[i]
@@ -113,19 +114,23 @@ class Relax:
         return rec({}, 0)
 
 
-def prune_stage(G, A, k, tri, depth=DEPTH, event_aware=True):
-    """Returns the stage that prunes the cell (0..3) or -1 if it survives."""
+def prune_stage(G, A, k, tri, depth=DEPTH, event_aware=True, cert=None):
+    """Returns the stage that prunes the cell (0..3) or -1 if it survives. If cert is a list, appends the leaves
+    (list of fix dicts {(s, j): 0/1}, s = remaining-step index) of a pruned cell."""
     R = Relax(G, A, k, tri)
     if not R.forward_bounds():
-        return 0
-    if not R.feasible():
-        return 1
-    if event_aware:
-        if not R.event_tighten() or not R.feasible():
-            return 2
-    if depth > 0 and R.split_prune(R.split_order(), depth):
-        return 3
-    return -1
+        st = 0
+    elif not R.feasible():
+        st = 1
+    elif event_aware and (not R.event_tighten() or not R.feasible()):
+        st = 2
+    elif depth > 0 and R.split_prune(R.split_order(), depth):
+        st = 3
+    else:
+        return -1
+    if cert is not None:
+        cert.extend(R.leaves if st == 3 else [{}])
+    return st
 
 
 def max_margin(R, fix=None):

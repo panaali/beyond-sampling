@@ -14,6 +14,18 @@ from event_pass import lines
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 T398 = "--t398" in sys.argv                                        # T398 pruner (relax2.prune_stage)
+if "--delta" in sys.argv:                                          # T398b: normalisation g23 >= DELTA ||x||_inf
+    relax2.DELTA = float(sys.argv[sys.argv.index("--delta") + 1])
+TAG = f"_d{relax2.DELTA:.3g}" if "--delta" in sys.argv else ""
+
+
+def gates_of(hist, k, fix):
+    g = -np.ones((10, 16), np.int8)
+    if k:
+        g[:k] = np.unpackbits(np.frombuffer(hist, np.uint8)).reshape(k, 16)
+    for (s, j), v in fix.items():
+        g[k + s, j] = v
+    return g
 
 
 def event_prefixes(tri, kmax, n_lines=100_000):
@@ -62,13 +74,16 @@ def main():
     print(out, round(time.time() - t0, 1), flush=True)
     G0, b0 = cc.cone(tri)
     cells = [(G0, b0, cc.interior(tri), np.zeros((H, len(Wi) and 10)), b"")]
-    path = os.path.join(HERE, f"results_bnb{'398' if T398 else ''}_{'-'.join(map(str, tri))}.json")
+    path = os.path.join(HERE, f"results_bnb{'398' if T398 else ''}{TAG}_{'-'.join(map(str, tri))}.json")
     for t in range(kmax):
         t1 = time.time(); new = step(cells, t, Wi, Wh, H); t2 = time.time()
-        keep = []; stages = []
+        keep = []; stages = []; cstage, cstart, cleaves = [], [], []
         for c in new:
             if T398:
-                sg = relax2.prune_stage(c[0], c[3], t + 1, tri); stages.append(sg); inf = sg >= 0
+                lv = []; sg = relax2.prune_stage(c[0], c[3], t + 1, tri, cert=lv); stages.append(sg); inf = sg >= 0
+                if inf:
+                    cstage.append(sg); cstart.append(len(cleaves))
+                    cleaves.extend(gates_of(c[4], t + 1, f) for f in lv)
             else:
                 inf, st = relax.relax_infeasible(c[0], c[3], t + 1, tri, return_stats=True)
                 stages.append(st["stage"] if inf else -1)
@@ -81,6 +96,11 @@ def main():
                    pruned_later=int((st > 0).sum()),
                    by_stage={int(g): int((st == g).sum()) for g in range(4)} if T398 else None, sec_split=round(t2 - t1, 1), sec_relax=round(time.time() - t2, 1))
         out["steps"].append(rec); print(rec, flush=True)
+        if T398 and cstage:
+            os.makedirs(os.path.join(HERE, "certs"), exist_ok=True)
+            np.savez_compressed(os.path.join(HERE, "certs", f"cert{TAG}_{'-'.join(map(str, tri))}_k{t + 1}.npz"),
+                                tri=np.array(tri), k=t + 1, stage=np.array(cstage, np.int8), start=np.array(cstart),
+                                leaves=np.array(cleaves, np.int8), delta=relax2.DELTA)
         json.dump(out, open(path, "w"), indent=1)
         cells = keep
         if len(keep) > cap:

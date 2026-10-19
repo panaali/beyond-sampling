@@ -399,3 +399,23 @@ If (1,8,2) cannot finish k = 6 in the budget, the result is reported as censored
 **What it would certify:** the same as T390. Sound pruning plus exactly verified Farkas rays gives a rigorous upper
 bound summed over the surviving step-10 regions of all 720 triples. It is an exact value only with exact polytope
 masses.
+
+## T398b pre-registration (2026-10-19, before running): the normalisation scales with t0
+- **Facts.** T399 found exact event witnesses in 4 of 9 benchmark nodes whose hit-and-run probe was negative
+  (unverified). They sit on the normalisation boundary g23 = 0.1 ||x||_inf, i.e. at ||x||_inf >= t0/0.1 in original
+  scale: real but with negligible mass. So **event feasibility is a poor pruning target**; what matters is mass.
+- The cheapest mass-aware lever: DELTA may be as large as t0/7.5 (loss 20 Phi(-7.5) = 6e-13, below 1e-3 of a 1e-9
+  target).
+  - On 60 benchmark nodes (`delta_test.py`, base relaxation only), the pruned share is 3/60 at DELTA 0.1, 20/60 at
+    0.2 and 29/60 at 0.33.
+  - No line-walk event node was pruned (0/8). Pruning one would not be unsound at the larger DELTA anyway, since
+    t0 = 2.5 events need g23 >= 2.5.
+- **Target t0 = 2.5 (provisional; truth to be measured with T362's cmc.py), DELTA = 1/3.**
+- **Run:** branch and bound on (1,8,2) for k = 1..6 with the T398 pruner (relax2, depth 6) at DELTA = 1/3.
+  - Same validation as before: the line-walk event prefixes must survive. Their points have g23 >= 1.5, not >= 2.5,
+    so a pruned one is only a flag, not a soundness failure. They are reported separately.
+  - Same GO line: 41 x S6 x (S6/S5)^4 <= 1e7.
+  - Certificates of the pruned cells are dumped in T400's format v1 (tri, k, stage, leaves (L, 10, 16)) to
+    `certs/` (git-ignored if large).
+- Side measurement: (1,2,0) to k = 5 at DELTA = 1/3. The T398 side run at DELTA 0.1 was stopped at k = 4 (326
+  survivors) to free the core.
