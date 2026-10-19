@@ -1,0 +1,21 @@
+{'tri': (1, 8, 2), 'event_points': 276120, 'event_prefixes': {1: 2, 2: 10, 3: 11, 4: 35, 5: 61, 6: 188, 7: 294, 8: 392, 9: 801, 10: 801}, 'steps': []} 23.9
+{'k': 1, 'children': 2, 'survivors': 2, 'event_prefixes': 2, 'event_prefixes_pruned': 0, 'pruned_by_norm': 0, 'pruned_later': 0, 'by_stage': {0: 0, 1: 0, 2: 0, 3: 0}, 'sec_split': 0.0, 'sec_relax': 9.3}
+{'k': 2, 'children': 20, 'survivors': 18, 'event_prefixes': 10, 'event_prefixes_pruned': 0, 'pruned_by_norm': 2, 'pruned_later': 0, 'by_stage': {0: 2, 1: 0, 2: 0, 3: 0}, 'sec_split': 0.4, 'sec_relax': 45.1}
+{'k': 3, 'children': 79, 'survivors': 39, 'event_prefixes': 11, 'event_prefixes_pruned': 0, 'pruned_by_norm': 39, 'pruned_later': 1, 'by_stage': {0: 39, 1: 1, 2: 0, 3: 0}, 'sec_split': 1.7, 'sec_relax': 63.8}
+{'k': 4, 'children': 544, 'survivors': 146, 'event_prefixes': 35, 'event_prefixes_pruned': 0, 'pruned_by_norm': 368, 'pruned_later': 30, 'by_stage': {0: 368, 1: 17, 2: 11, 3: 2}, 'sec_split': 8.6, 'sec_relax': 192.2}
+{'k': 5, 'children': 2305, 'survivors': 275, 'event_prefixes': 61, 'event_prefixes_pruned': 0, 'pruned_by_norm': 1664, 'pruned_later': 366, 'by_stage': {0: 1664, 1: 113, 2: 188, 3: 65}, 'sec_split': 29.9, 'sec_relax': 483.2}
+{'k': 6, 'children': 4294, 'survivors': 781, 'event_prefixes': 188, 'event_prefixes_pruned': 0, 'pruned_by_norm': 3115, 'pruned_later': 398, 'by_stage': {0: 3115, 1: 160, 2: 113, 3: 125}, 'sec_split': 63.5, 'sec_relax': 667.5}
+{'k': 7, 'children': 11683, 'survivors': 1494, 'event_prefixes': 294, 'event_prefixes_pruned': 0, 'pruned_by_norm': 9347, 'pruned_later': 842, 'by_stage': {0: 9347, 1: 363, 2: 294, 3: 185}, 'sec_split': 201.3, 'sec_relax': 1028.2}
+{'k': 8, 'children': 25443, 'survivors': 3058, 'event_prefixes': 392, 'event_prefixes_pruned': 0, 'pruned_by_norm': 21549, 'pruned_later': 836, 'by_stage': {0: 21549, 1: 590, 2: 196, 3: 50}, 'sec_split': 464.9, 'sec_relax': 1356.2}
+{'k': 9, 'children': 77857, 'survivors': 13040, 'event_prefixes': 801, 'event_prefixes_pruned': 0, 'pruned_by_norm': 43228, 'pruned_later': 21589, 'by_stage': {0: 43228, 1: 21427, 2: 152, 3: 10}, 'sec_split': 1444.1, 'sec_relax': 5026.4}
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/event_cone/bnb.py", line 116, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/clean-neurons/m16/approaches/event_cone/bnb.py", line 79, in main
+    t1 = time.time(); new = step(cells, t, Wi, Wh, H); t2 = time.time()
+                            ~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/event_cone/bnb.py", line 65, in step
+    new.append((Gp, None, xp, g[:, None] * Z, hist + np.packbits(g > 0).tobytes()))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MemoryError
