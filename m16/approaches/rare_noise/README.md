@@ -74,7 +74,7 @@ claude/t286-cheap-frontier (sha256 62c95203..., asserted).
 
 ## Status
 
-**Done (2026-10-19).** Estimates sealed and pushed first (@541010cf), then truths and scoring. Verdict by the
+**Done (2026-10-19); follow-up T388 (graded g12 on the misses) done below: GO, 16/16 misses recovered.** Estimates sealed and pushed first (@541010cf), then truths and scoring. Verdict by the
 pre-registered line: **GO, 128 / 144 noisy points within 2x (88.9%; line 80%)**. Unverified: nobody has re-checked it.
 
 ## Results
@@ -243,3 +243,51 @@ large but partial share (s547, 80%: 2.43 / 2.12; traced to the R1W closure). The
 **Expectations / alternatives.** (a) If the misses are g12 quadrature (T364's diagnosis), the rule lifts them toward 1.
 (b) If they are partly the closure (lows pinned at mu(v4), fixed v4 position; T369), orig-family misses (tie 65-92%)
 may stay low or overshoot as s547 did. (c) The control may go high where tie shares are 50-80% (T367's s547 pattern).
+
+## T388 deviation from the pre-registration (disclosed before scoring)
+
+The frozen code hit the 2 GB per-process cap (`ulimit -v 2500000`; numpy MemoryError in walkfix.py) at model 20 of 52:
+it walks all of a region's lines at once, and the noisy copies have more gate cells. Peak RSS was ~1.8 GB in the first
+seconds of a fresh process. The remaining 32 models were run through `t388_chunked.py`. It replicates `t366.est_e1`'s
+loop but walks each region's lines in chunks of 40,000 rows, calling the frozen `walk_seg` and `rare.mass` unmodified.
+Rows are independent, so only the summation order changes.
+- **Check** (`python est_t388.py --check dev3_s526@0.05#2,dev3_s526@0.001#0`, `results/t388_chunk_check.json`): estimates
+  equal the unchunked frozen run to <= 2.2e-16 relative; C is +522 FPE (+0.02%, per-chunk fixed charges); peak RSS 0.8 GB.
+- Which models used which path: field `chunked` in `results/t388_est_*.json` (20 unchunked, 32 chunked).
+
+## T388 results: GO (unverified; `python score_t388.py` -> `results/t388_score.txt`, `results/t388_score.json`)
+
+| set | n | K3 within 2x | **graded within 2x** | K3 median | graded median |
+|---|---|---|---|---|---|
+| T371's misses (go: >= 12) | 16 | 0 | **16** | .21 | .89 |
+| T371's hits (go: <= 6 broken) | 128 | 128 | **127 (1 broken)** | 1.03 | 1.05 |
+| all noisy | 144 | 128 | **143** | 1.02 | 1.04 |
+| truth tie share < 50% | 107 | 107 | 107 | 1.03 | 1.05 |
+| tie share 50-80% | 12 | 10 | 11 | .97 | 1.08 |
+| tie share >= 80% | 25 | 11 | **25** | .38 | .96 |
+| clean bases (reference) | 12 | 8 | **12** | 1.01 | 1.07 |
+
+- **Misses, K3 -> graded:** dev3_s528 copies .002-.37 -> .82-1.06 (12/12, e.g. @.001#2 t0 1.5 .0015 -> .99). orig
+  copies .38-.47 -> .52-.88 (4/4; 2 of them only just inside, .52 and .57).
+- **The one broken hit:** orig@.005#0, t0 1.5 (tie share 57%): .79 -> .36.
+- **No overshoot anywhere** (max graded ratio 1.66, clean orig t0 1.0). T367's s547 pattern (2.1-2.4x high at a large
+  but partial tie share) does not appear on this panel.
+- Clean dev3_s528 .08 / .08 / .20 -> .82 / 1.02 / 1.08; clean orig t0 1.5 .47 -> 1.05.
+- **Cost:** 2.17-3.96M FPE per model (3 thresholds), median 7.1x K3's here. Part of that is the frozen settings: the
+  graded estimator walks to T_hi = 6, while T371's K3 stops at 3.5.
+
+**T388 claims.**
+1. [measured] The frozen graded-g12 estimator recovers all 16 of K3's noisy-copy misses within 2x. It moves 1/128 of
+   K3's hits outside 2x. The pre-registered go line (>= 12/16 and <= 6/128) is met.
+2. [measured] Over all 144 noisy points it is within 2x on 143 (median 1.04), and on 25/25 sliver-dominated
+   (>= 80%) points.
+3. [inferred] T371's misses were the g12 quadrature at the triple-tie sliver, as diagnosed. The orig-family residual
+   (.36-.88, mostly low, at partial tie shares) fits T369's closure limit (lows pinned at mu(v4)) but was not tested here.
+4. [measured] The cost is 7x K3's at these settings. At 2-4M FPE, plain MC expects p x C >= 1 event on most points
+   (p >~ 5e-7), so this is an accuracy result, not an equal-compute win.
+
+**T388 alternatives / limits.** The truths were known to me (T371), but the estimator is frozen code and no setting
+was chosen, so this checks the code, not the selection. The panel is the same 4 bases and the same noise rays as
+T371. The graded rule's known overshoot regime (partial tie share ~80% with a closure artifact, s547) is not
+represented here, so this does not calibrate the rule there. Not tried: T_hi = 3.5 for the graded rule (a cost
+lever), E2.
