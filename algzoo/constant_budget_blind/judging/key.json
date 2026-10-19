@@ -1,0 +1,7098 @@
+{
+ "role": [
+  [
+   {
+    "id": "3LJTA",
+    "code": "yyuc",
+    "neuron": 13,
+    "text": "Partly understood: ReLU(10.4*max(x0,x1,x3,x4,x7) + 7.6*second largest of x0,x1,x3,x4,x7 - 2.6*max(x4,x7) + 1.4*x2 - 2.8*(second largest of x0..x8 if at x4 or x7))."
+   },
+   {
+    "id": "GE8WO",
+    "code": "wfpn",
+    "neuron": 1,
+    "text": "Accumulated shortfall of x4,x5,x6 below the mean of the two largest earlier inputs (strongest for x6), plus the sum x4+x5; raised when x7 exceeds the earlier top-two mean."
+   },
+   {
+    "id": "JPZOI",
+    "code": "hnrt",
+    "neuron": 1,
+    "text": "Mixture of maxima over position groups: max(x1,x2,x3,x5,x6) + max(x0,x2..x7) + max(x0..x8) minus max(x0,x3,x4,x6,x7,x8) and second-largest of x0,x1,x3..x7; strongest when the overall maximum is at x2 or x5."
+   },
+   {
+    "id": "ED6XS",
+    "code": "hnrt",
+    "neuron": 14,
+    "text": "Position-weighted copy of the maximum of x0..x8: large when the largest value sits at x1,x2,x4,x5,x7 or x8, weaker when at x0,x3,x6; x9 ignored."
+   },
+   {
+    "id": "DO3EY",
+    "code": "agsc",
+    "neuron": 5,
+    "text": "How far x9 falls below the level of the two largest of x0..x8: ReLU(0.24*(top1+top2) - 1.27*x9 + 0.19*sum of positive inputs). Large means x9 is not a top-two value."
+   },
+   {
+    "id": "OD4TT",
+    "code": "dncx",
+    "neuron": 23,
+    "text": "Fires when x9 exceeds the second-largest of x0..x8: about 4.7*x9 - 3.5*second - 0.9*largest, rectified; silenced when the largest of x0..x8 is x8."
+   },
+   {
+    "id": "TMWQG",
+    "code": "krvc",
+    "neuron": 31,
+    "text": "Mostly about 5 times the second-largest of x0..x8; offshoots: plus max(x0..x4), plus x2's shortfall below the maximum of the others, minus x2's margin when it is in the overall top two."
+   },
+   {
+    "id": "ZL8T0",
+    "code": "krvc",
+    "neuron": 2,
+    "text": "Detects x3 being among the two largest of x0..x8: grows with x3's margin over the third-largest of the others, extra when x3 is the maximum; small offshoot when x0 is the maximum."
+   },
+   {
+    "id": "ZW7FZ",
+    "code": "agsc",
+    "neuron": 1,
+    "text": "Mainly how far x6 falls below the mean of the two largest earlier values; smaller such term for x4; plus max of x0..x8 and positive mass of x0..x2. ReLU."
+   },
+   {
+    "id": "KMHI9",
+    "code": "dncx",
+    "neuron": 12,
+    "text": "Fires when x9 is not among the top two of all inputs: about 3.1 times how far x9 lies below the second-largest of x0..x8."
+   },
+   {
+    "id": "MKOC4",
+    "code": "hnrt",
+    "neuron": 9,
+    "text": "Largest value among x0,x1,x4,x7 plus extra direct weight on x1 and on x4 when x4 sets a new running record; reduced by the second-largest of x0,x4,x5,x6,x7. Small when the maximum is at x2,x3,x5,x6,x8,x9."
+   },
+   {
+    "id": "HP4AS",
+    "code": "yyuc",
+    "neuron": 2,
+    "text": "Weak, poorly understood: roughly ReLU(8*(second largest of x0,x1,x2,x3,x4,x6,x7) + 4*x2 - 4*(second largest of x0..x8 unless at x2) + small terms in max(x1,x4) and x2 when third largest)."
+   },
+   {
+    "id": "B2B9O",
+    "code": "wduk",
+    "neuron": 11,
+    "text": "Position-coded size of the earlier maximum M (max of x0..x8): gain 13.7 if M at x2,x5,x8, 8.8 at x1,x3,x6, 6.1 at x0,x4,x7; minus 5.1 times second-largest of x0..x8 and 5.1 times positive part of x7."
+   },
+   {
+    "id": "H8YBB",
+    "code": "yyuc",
+    "neuron": 7,
+    "text": "Stores the running maximum: ~17*max(x0..x7) + 5*max(x0,x3,x6) + 7*max(x0,x2,x3,x5,x6,x7,x8) + 2.6*(max of x0..x8 if at x3 or x6); strongest when the maximum sits at x0,x3,x6."
+   },
+   {
+    "id": "P9OF7",
+    "code": "krvc",
+    "neuron": 9,
+    "text": "Rarely active: fires only when the second- and third-largest of x0..x8 are both unusually low (roughly below zero); weaker when x9 or the top gap of x0..x8 is large."
+   },
+   {
+    "id": "4NW7D",
+    "code": "sfbp",
+    "neuron": 10,
+    "text": "Mixed max-position code: ReLU(0.64\u00b7M1\u00b7[max at x4,x5] \u2212 0.42\u00b7M2\u00b7[second at x5,x8] \u2212 0.14\u00b7M1\u00b7[x3 or x5 in top two] \u2212 0.32\u00b7M1\u00b7[x6,x7 or x8 in top two] \u2212 0.22\u00b7x9); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "C1V2B",
+    "code": "yyuc",
+    "neuron": 8,
+    "text": "ReLU(13*max(x0,x1,x3,x4,x7) - 7*second largest of x0..x7) plus bonuses (~2-4 times the largest of x0..x8) when that largest sits at x4 or x7; bonuses missing when it sits at x2 or x3."
+   },
+   {
+    "id": "6GLMV",
+    "code": "krvc",
+    "neuron": 11,
+    "text": "Codes the position of the maximum of x0..x8: on for even positions (x4 scaled by its gap over the second-largest), suppressed when the maximum is x2 or x8."
+   },
+   {
+    "id": "17VGG",
+    "code": "dncx",
+    "neuron": 29,
+    "text": "ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.45*largest + 1.0*second - 1.6*x9); silenced when the largest is x8, larger when it is at x3, x6 or x7."
+   },
+   {
+    "id": "X7V8L",
+    "code": "dncx",
+    "neuron": 9,
+    "text": "Rarely active: fires when the second-largest values are negative, i.e. about -1.9 times second-largest of x0..x8 minus 1.7 times second-largest of x0..x7 minus 0.26*x9, rectified."
+   },
+   {
+    "id": "G27HG",
+    "code": "dncx",
+    "neuron": 0,
+    "text": "ReLU of how far x9 lies below a blend of M2 and M (M = largest, M2 = second-largest of x0..x8); silenced when the maximum is x8, slightly larger when the maximum is x2, x5 or x6."
+   },
+   {
+    "id": "C2OJ8",
+    "code": "hnrt",
+    "neuron": 6,
+    "text": "Fires when x9 falls well below the largest of x0..x8: grows with that maximum (weight about 2x larger if it sits at x0,x1,x4,x7 than at x2,x3,x5,x6) and the second-largest, minus about 8.2*x9; silent if x8 is largest of x0..x8."
+   },
+   {
+    "id": "E6ZNX",
+    "code": "sfbp",
+    "neuron": 29,
+    "text": "x9-is-low detector, off when x8 is the max: ReLU(1.0\u00b7M1 \u2212 1.63\u00b7x9 \u2212 3.84\u00b7M1\u00b7[max at x8] + 0.86\u00b7M2\u00b7[max at x0,x3,x6,x7] + 0.54\u00b7M1\u00b7[max at x3]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "L2M7O",
+    "code": "hnrt",
+    "neuron": 10,
+    "text": "Signals that the last input x9 is among the top two: about 8.3*x9 minus 4.6*(second-largest of x0..x8) minus 2.0*(third-largest of x0..x8), floored at zero."
+   },
+   {
+    "id": "60GAR",
+    "code": "yyuc",
+    "neuron": 5,
+    "text": "Mostly ~8*max(x0,x2,x3,x5,x6,x7,x8), plus ~4*largest of x0..x8 when it is at x0,x2,x3,x5,x6,x8; strongly reduced when the largest or second largest of x0..x8 is x5. ReLU applied."
+   },
+   {
+    "id": "CNGIN",
+    "code": "krvc",
+    "neuron": 16,
+    "text": "How far x9 exceeds the second-largest of x0..x8; zero unless x9 is among the two largest overall."
+   },
+   {
+    "id": "1NF7X",
+    "code": "gcap",
+    "neuron": 2,
+    "text": "Running-maximum magnitude minus x5 and x3 (large when they were low), plus how far x6 falls below the second-largest of x0..x5, plus how much x8 exceeds x9."
+   },
+   {
+    "id": "SLYKJ",
+    "code": "sfbp",
+    "neuron": 28,
+    "text": "Unclear max-position code: ReLU(0.78\u00b7M1 \u2212 0.74\u00b7M1\u00b7[max at x8] \u2212 0.56\u00b7(M1\u2212M2)\u00b7[max at x6,x7,x8] + 0.35\u00b7M1\u00b7[max at x0,x1,x3] + 0.23\u00b7ReLU(M2\u2212x8)); M1,M2 = largest, second-largest of x0..x8."
+   }
+  ],
+  [
+   {
+    "id": "Z10LZ",
+    "code": "sfbp",
+    "neuron": 15,
+    "text": "x1-is-a-top-value detector: ReLU(1.2\u00b7M1\u00b7[x1 among two largest] + 1.28\u00b7M1\u00b7[x1 largest] + 1.33\u00b7ReLU(x1\u2212M3) + 0.34\u00b7M1\u00b7[second at x0] + 0.13\u00b7ReLU(M1\u2212x6)); M1, M3 = largest, third-largest of x0..x8."
+   },
+   {
+    "id": "DEWPU",
+    "code": "sfbp",
+    "neuron": 13,
+    "text": "x9-is-low detector, off when x8 is the max: ReLU(1.33\u00b7M1 \u2212 1.68\u00b7x9 \u2212 4.21\u00b7M1\u00b7[max at x8] + 0.7\u00b7M2\u00b7[max at x1,x2,x4,x7] \u2212 0.84\u00b7(M1\u2212M2)\u00b7[max at x0,x3,x5,x8]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "EX305",
+    "code": "hnrt",
+    "neuron": 3,
+    "text": "Fires when x9 falls well below the largest of x0..x8: grows with that maximum (weight about 2x larger if it sits at x1,x2,x4,x5 than at x0,x3,x6,x7) and the second-largest, minus about 8.2*x9; silent if x8 is largest of x0..x8."
+   },
+   {
+    "id": "D5MRI",
+    "code": "dncx",
+    "neuron": 1,
+    "text": "Gap between the largest and second-largest of x0..x8, times about 4.4, but only when that largest value is not x8 (then near zero)."
+   },
+   {
+    "id": "YP1UE",
+    "code": "dncx",
+    "neuron": 11,
+    "text": "Detects the maximum of x0..x8 sitting at x4 (strongest), x0 or x6; output is about 0.7-1.3 times that maximum; reduced when the second-largest is at x2, x4 or x6."
+   },
+   {
+    "id": "2VW62",
+    "code": "yyuc",
+    "neuron": 9,
+    "text": "ReLU(6.4*max(x0,x1,x4,x7) + 3*x1 + ~3.4*largest of x0..x8 if at x0,x1,x3,x4,x7 + ~1.7*that largest if not at x0,x3,x6 + 3.8*second largest of x0..x8 if it is x1)."
+   },
+   {
+    "id": "6LQDK",
+    "code": "hnrt",
+    "neuron": 15,
+    "text": "How much the last input x9 exceeds every earlier input: about 27*max(0, x9 - max(x0..x8)); zero unless x9 is the overall maximum."
+   },
+   {
+    "id": "MTK74",
+    "code": "yyuc",
+    "neuron": 1,
+    "text": "Large when the top of x0..x7 sits at x2, x5 or x6 and exceeds the rest: ReLU(25*max(x0..x7) - ~4-6 times each of max(x0,x1,x3,x4,x7), max(x0,x4,x7), max(x0..x8 except x2,x5), second largest of x0..x8 except x2)."
+   },
+   {
+    "id": "S7AQ7",
+    "code": "dncx",
+    "neuron": 25,
+    "text": "Second-largest of x0..x7, reduced the later the second-largest of x0..x8 sits, silenced when x8 is the maximum of x0..x8; small bonus for x8 falling below the running max."
+   },
+   {
+    "id": "JWYJO",
+    "code": "wduk",
+    "neuron": 9,
+    "text": "Memory of x1 plus a position code of the earlier maximum M (max of x0..x8): 10.5*max(x1,0) + g*M - 1.0*second-largest of x0..x8, with g=9.5 if M at x0,x4,x7, 5.1 at x1/x3, 3.3 otherwise."
+   },
+   {
+    "id": "9DG75",
+    "code": "krvc",
+    "neuron": 28,
+    "text": "Max of x0..x5, strongly reduced when x8 is the largest of x0..x8; offshoots: margins of x0 and x1 over the third-largest of the other values of x0..x8."
+   },
+   {
+    "id": "K2GSC",
+    "code": "krvc",
+    "neuron": 27,
+    "text": "Fires when the maximum of x0..x8 is x2 or x6, growing with its margin over the next-largest value."
+   },
+   {
+    "id": "Z84PP",
+    "code": "dncx",
+    "neuron": 10,
+    "text": "Fires when the maximum of x0..x8 is at x4 or x5 (later maxima give less), and is reduced when the second-largest of x0..x8 is late (x5..x8, especially x8) and by x9."
+   },
+   {
+    "id": "0SMLS",
+    "code": "sfbp",
+    "neuron": 9,
+    "text": "All-values-low detector, rarely active: ReLU(\u22123.27\u00b7M2 \u2212 0.23\u00b7x9 \u2212 0.82\u00b7M2\u00b7[x0 or x8 in top two] + 1.26\u00b7(M2\u2212M3)\u00b7[second at x0,x2,x4,x8] \u2212 0.04\u00b7ReLU(M1\u2212x0)); M1\u2265M2\u2265M3 = top three of x0..x8."
+   },
+   {
+    "id": "X4NR9",
+    "code": "sfbp",
+    "neuron": 30,
+    "text": "Roughly 'x4 is not a top value': ReLU(1.04\u00b7M2 + 0.6\u00b7ReLU(M1\u2212x4) \u2212 1.0\u00b7M1\u00b7[x4 among two largest] + 0.77\u00b7(M1\u2212M2)\u00b7[max at x0,x3] + 0.15\u00b7ReLU(M2\u2212x1)); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "3R29R",
+    "code": "wduk",
+    "neuron": 12,
+    "text": "Margin of the earlier maximum over the runner-up: about 20*M - 12.7*S - 2.3*(positive parts of x2,x5,x8), M,S = largest and second-largest of x0..x8; gain on M 20.9 (x0,x3,x4,x7,x8), 19.4 (x1), 18.8 (x2,x5,x6)."
+   },
+   {
+    "id": "KEKFR",
+    "code": "agsc",
+    "neuron": 3,
+    "text": "Grows when x3 and x5 fall below the earlier running maximum; shrinks when x7 falls below the mean of the two largest earlier values (rewards a large x7). Plus |x0|+|x1|+|x2|. ReLU."
+   },
+   {
+    "id": "HOE38",
+    "code": "krvc",
+    "neuron": 25,
+    "text": "Anti-detector for x8: grows as x8 falls below the second-largest of x0..x7 (and with the second-largest of x0..x6), near zero when x8 is among the two largest of x0..x8."
+   },
+   {
+    "id": "WQ8FH",
+    "code": "krvc",
+    "neuron": 17,
+    "text": "Running-maximum memory: about 8 times the largest plus 2 times the second-largest of x0..x8."
+   },
+   {
+    "id": "DTZWK",
+    "code": "sfbp",
+    "neuron": 22,
+    "text": "x7-is-the-max detector: 1.92\u00b7M1\u00b7[x7 is the largest of x0..x8] + 0.62\u00b7M1\u00b7[x7 is among the two largest], with M1 = largest of x0..x8."
+   },
+   {
+    "id": "7B4UD",
+    "code": "dncx",
+    "neuron": 21,
+    "text": "Fires when x9 clearly beats the top two of x0..x8: about 4.3*x9 - 1.8*largest - 2.1*second, rectified; more suppressed when the largest is at an odd position (x1,x3,x5,x7)."
+   },
+   {
+    "id": "PDR32",
+    "code": "yyuc",
+    "neuron": 14,
+    "text": "Maximum read with a position-dependent weight: ReLU(10*max(x1,x2,x4,x5,x7,x8) + 15.5*max(x0,x1,x2,x3,x5,x6,x8) - 5.3*max(x0,x2,x3,x6) + 4.5*(max of x0..x8 if at x1,x2,x4,x5,x7,x8))."
+   },
+   {
+    "id": "P02Y2",
+    "code": "gcap",
+    "neuron": 3,
+    "text": "Mainly how far x5 falls below max(x0..x4), plus the value of x7; reduced when x3 exceeds x5, or when x4 or x1 exceed x7."
+   },
+   {
+    "id": "YMGVN",
+    "code": "krvc",
+    "neuron": 20,
+    "text": "Anti-detector for x0: grows as x0 falls below the second-largest of the other values in x0..x8, near zero when x0 is among the two largest; offshoots for x1 or x8 being among the top two."
+   },
+   {
+    "id": "IVIST",
+    "code": "dncx",
+    "neuron": 18,
+    "text": "ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.5*largest + 0.7*second - 1.4*x9), much larger when the largest is x1."
+   },
+   {
+    "id": "92ETM",
+    "code": "dncx",
+    "neuron": 20,
+    "text": "Fires when x0 is not among the top two of x0..x8: grows with the max of x0..x7 and with how far x0 lies below the second-largest; extra when the maximum is at x1 or x8."
+   },
+   {
+    "id": "TKU73",
+    "code": "wduk",
+    "neuron": 6,
+    "text": "Fires when x9 is below the largest earlier value M (max of x0..x8): ReLU(g*M + 2.3*S - 8.3*x9), S = second-largest of x0..x8; g=7.8 if M is at x0,x1,x4,x7, 4.2 if at x2,x3,x5,x6; off if M is x8."
+   },
+   {
+    "id": "M0Z2R",
+    "code": "wduk",
+    "neuron": 7,
+    "text": "Position-coded size of the earlier maximum M (max of x0..x8): gain 24.8 if M at x0,x3,x6, 20.8 at x2,x4,x5,x7, 16.6 at x1/x8; plus 6.2 times second-largest of x0..x8 and 3.5 times positive parts of x3,x6."
+   }
+  ],
+  [
+   {
+    "id": "U379U",
+    "code": "dncx",
+    "neuron": 27,
+    "text": "Detects the maximum of x0..x8 sitting at x2 or x6: about 1.3 times that maximum, otherwise near zero."
+   },
+   {
+    "id": "KLR2Z",
+    "code": "dncx",
+    "neuron": 17,
+    "text": "Always on: about 8 times the maximum of x0..x8 plus 2 times the second-largest of x0..x8."
+   },
+   {
+    "id": "4U8MK",
+    "code": "sfbp",
+    "neuron": 8,
+    "text": "Unclear, always positive: \u22481.45\u00b7M1 + 0.9\u00b7M1\u00b7[max of x0..x8 at x0,x1,x2,x5] + 0.53\u00b7ReLU(M2 \u2212 x4) \u2212 0.42\u00b7x6 \u2212 0.5\u00b7x7; M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "7P9WL",
+    "code": "dncx",
+    "neuron": 16,
+    "text": "Fires when x9 is among the top two of all inputs: about 5.6 times how far x9 exceeds the second-largest of x0..x8."
+   },
+   {
+    "id": "6YY0R",
+    "code": "krvc",
+    "neuron": 12,
+    "text": "How far x9 falls below the second-largest of x0..x8; zero when x9 is among the two largest overall."
+   },
+   {
+    "id": "E4KXK",
+    "code": "dncx",
+    "neuron": 8,
+    "text": "Several pieces: grows with max of x0..x6 and of x0..x2, with a bonus when the top-two of x0..x8 sit at x5, minus 0.37 times the sum of x0..x8. Partly understood."
+   },
+   {
+    "id": "WJ187",
+    "code": "krvc",
+    "neuron": 10,
+    "text": "Fires when the overall maximum of all ten values is x4 or x5, more so when the second-largest of x0..x8 comes early; small boost when x9 is below the maximum of x0..x8."
+   },
+   {
+    "id": "IAG4O",
+    "code": "dncx",
+    "neuron": 15,
+    "text": "Detects x1 being among the top values of x0..x8: roughly 3.4*x1 if largest, 2.4*x1 if second, 1*x1 if third, otherwise near zero."
+   },
+   {
+    "id": "P0ZV0",
+    "code": "hnrt",
+    "neuron": 11,
+    "text": "Largest of x2,x5,x6,x8 plus largest of x1..x6,x8, minus the second-largest of x0..x7 and minus maxima over x4,x6,x7 and x1,x3,x4,x7; essentially silent whenever x7 is the largest input."
+   },
+   {
+    "id": "OZIN5",
+    "code": "hnrt",
+    "neuron": 0,
+    "text": "Fires when x9 falls well below the largest of x0..x8: grows with that maximum (weight about 2x larger if it sits at x0,x2,x3,x5,x6 than at x1,x4,x7) and the second-largest, minus about 7.7*x9; silent if x8 is largest of x0..x8."
+   },
+   {
+    "id": "7S0GE",
+    "code": "krvc",
+    "neuron": 4,
+    "text": "Mostly a parity code: active when the second-largest of x0..x8 sits at an even position (not x8), plus weak dependence on max(x0..x4) and on x9 lying below the second-largest of x0..x8."
+   },
+   {
+    "id": "6Q0XY",
+    "code": "gcap",
+    "neuron": 6,
+    "text": "Running-maximum magnitude (average of max(x0..xt), t=1..9) minus x4, more strongly when x4 is below x2; plus a little x8, minus a little x2. Large when x4 was low."
+   },
+   {
+    "id": "9FI2Y",
+    "code": "dncx",
+    "neuron": 26,
+    "text": "Detects the maximum of x0..x8 at x2 (strongest, about 4*max), also x0 or x4 (weaker); x2 as second-largest gives about 2*x2; small negative dependence on the sum of inputs."
+   },
+   {
+    "id": "EVC7R",
+    "code": "wduk",
+    "neuron": 2,
+    "text": "Second-largest value among the early inputs x0..x4 (times 8.2), plus 5.6 times the positive part of x2, minus 1.9 times the second-largest of x0..x8; rectified at zero. Signals two large early values, especially x2."
+   },
+   {
+    "id": "R8995",
+    "code": "wfpn",
+    "neuron": 7,
+    "text": "Accumulated shortfall of x4,x5,x6 below the running maximum of earlier inputs (extra for x5), plus x9, plus the size of the top values (top-two means of x0..x8 and of x0..x2)."
+   },
+   {
+    "id": "QA1IJ",
+    "code": "wfpn",
+    "neuron": 0,
+    "text": "Overall size of the top values (mean of the two largest of x0..x8, T8) plus accumulated shortfalls of x3,x4,x5 below the running maximum of earlier inputs; reduced when x8 falls short of the earlier top-two mean."
+   },
+   {
+    "id": "OM16W",
+    "code": "sfbp",
+    "neuron": 12,
+    "text": "Fires when x9 is below the second-largest of x0..x8 (call it M2): ReLU(3.16\u00b7M2 \u2212 3.06\u00b7x9), i.e. x9 is not among the top two so far."
+   },
+   {
+    "id": "HKLPR",
+    "code": "sfbp",
+    "neuron": 2,
+    "text": "x3-is-a-top-value detector: \u22482.4\u00b7M1 when x3 is among the two largest of x0..x8 (M1 = largest), minus M1 if x3 is only second, plus 0.74\u00b7x3 \u2212 0.22\u00b7x5 + 0.95\u00b7ReLU(x0 \u2212 third-largest)."
+   },
+   {
+    "id": "EPMGK",
+    "code": "sfbp",
+    "neuron": 7,
+    "text": "Fires when x9 is a new maximum: ReLU(8.75\u00b7x9 \u2212 8.68\u00b7max(x0..x8)), i.e. about 8.7 times the amount by which x9 exceeds all earlier inputs."
+   },
+   {
+    "id": "HKIXD",
+    "code": "yyuc",
+    "neuron": 0,
+    "text": "Fires when an earlier value is high but x9 is low: ReLU(~13*(max of x0..x8, taken as 0 if x8 holds it) - 7.6*x9), weaker when that max sits at x1,x4,x5,x7, strongest at x0,x2,x3,x6."
+   },
+   {
+    "id": "3VXQ3",
+    "code": "dncx",
+    "neuron": 2,
+    "text": "Detects x3 being among the top values of x0..x8: roughly 3*x3 if x3 is the largest, 2.8*x3 if second, 1.3*x3 if third, otherwise near zero."
+   },
+   {
+    "id": "UHH4Q",
+    "code": "krvc",
+    "neuron": 22,
+    "text": "Detects x7 being the maximum of x0..x8 (also, more weakly, the second-largest), growing with x7's margin over the third-largest of the others and over max(x0..x6)."
+   },
+   {
+    "id": "34JCW",
+    "code": "krvc",
+    "neuron": 14,
+    "text": "Detects x8 being among the two largest of x0..x8: high when x8 is at least the second-largest of the others, dropping sharply as x8 falls below it; offshoots: x0's top-two margin, minus overall minimum."
+   },
+   {
+    "id": "8YE7B",
+    "code": "dncx",
+    "neuron": 4,
+    "text": "Weak, poorly understood: mainly the second-largest of x0..x8 when it sits at an even position (x0,x2,x4,x6), plus small terms for x1 exceeding that value and for x9 falling below the maximum."
+   },
+   {
+    "id": "MHKW1",
+    "code": "agsc",
+    "neuron": 7,
+    "text": "Mainly how far x5 falls below the mean of the two largest earlier values, plus how far x6 falls below the earlier maximum, plus x9 and positive mass of x0..x2. ReLU."
+   },
+   {
+    "id": "EG3RL",
+    "code": "krvc",
+    "neuron": 18,
+    "text": "How far x9 falls below the second-largest of x0..x8, plus the margin by which x1 (strongly) or x0 is the overall maximum, plus a bonus when x2 is the second-largest of x0..x8."
+   },
+   {
+    "id": "CAMP9",
+    "code": "dncx",
+    "neuron": 7,
+    "text": "Fires only when x9 is the largest of all ten inputs: about 8.8 times the margin by which x9 exceeds the maximum of x0..x8."
+   },
+   {
+    "id": "IYUPT",
+    "code": "hnrt",
+    "neuron": 2,
+    "text": "Not well understood. Roughly the second-largest of x0..x4 plus a little of x2 itself; strongest when x2 is the largest or second-largest input, small otherwise."
+   }
+  ],
+  [
+   {
+    "id": "L063P",
+    "code": "dncx",
+    "neuron": 30,
+    "text": "Fires when x4 is not among the top two of x0..x8: grows with the largest and second-largest of x0..x8 and with how far x4 lies below the second-largest."
+   },
+   {
+    "id": "GDFW4",
+    "code": "yyuc",
+    "neuron": 12,
+    "text": "Margin of the largest over the second largest of x0..x8: ReLU(21*largest - 12.4*second - 2.3*max(x2,x5) - 3*max(x1,x2,x5,x6,x8)); smaller when the big values sit at x2,x5."
+   },
+   {
+    "id": "R5DRN",
+    "code": "krvc",
+    "neuron": 7,
+    "text": "How far x9 exceeds the largest of x0..x8; zero unless x9 is the overall maximum."
+   },
+   {
+    "id": "2UY8H",
+    "code": "krvc",
+    "neuron": 15,
+    "text": "Detects x1 being among the two largest of x0..x8: grows with x1's margin over the third-largest of the others and over all later values x2..x8, extra when x1 is the maximum."
+   },
+   {
+    "id": "9Z3KM",
+    "code": "agsc",
+    "neuron": 6,
+    "text": "Mainly how far x4 falls below the largest value before it, plus a weaker such term for x2, plus the sum of the two largest inputs and x8. ReLU."
+   },
+   {
+    "id": "N2A1Y",
+    "code": "wduk",
+    "neuron": 10,
+    "text": "Detects that the last input x9 is among the top two: ReLU(8.4*x9 - 6.3*S + 0.2*M), where M and S are the largest and second-largest of x0..x8; positive roughly when x9 exceeds S."
+   },
+   {
+    "id": "QH3RU",
+    "code": "sfbp",
+    "neuron": 0,
+    "text": "x9-is-low detector, off when x8 is the max: ReLU(1.21\u00b7M2 \u2212 1.55\u00b7x9 + 0.6\u00b7M1\u00b7[max at x1,x2,x5,x6] + 0.29\u00b7M1\u00b7[second at x0,x3,x7,x8] \u2212 3.75\u00b7M1\u00b7[max at x8]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "HH80B",
+    "code": "hnrt",
+    "neuron": 13,
+    "text": "Size of early large values: largest of x0,x1,x3,x4,x7 plus the second-largest of x0..x3 and of x0..x4, minus the second-largest of x0,x2,x4,x6; favours maxima at x0,x1,x3,x7."
+   },
+   {
+    "id": "KG1A4",
+    "code": "yyuc",
+    "neuron": 11,
+    "text": "ReLU(8*(largest of x0..x8 if at x1,x2,x3,x5,x6,x8) + 5.2*(that largest if at x0,x2,x4,x5,x8) - 5.3*(second largest of x0..x8 unless at x8) - 5.1*(second largest if at x7))."
+   },
+   {
+    "id": "0YJPR",
+    "code": "wduk",
+    "neuron": 4,
+    "text": "Margin of the earlier maximum over the runner-up: ReLU(g*M - 13.8*S - 5.3*max(x8,0)), M,S = largest and second-largest of x0..x8; g=21.3 if M at x0,x1,x3,x4,x6,x7, 18.5 at x2/x5, -6.9 at x8."
+   },
+   {
+    "id": "ITTAY",
+    "code": "yyuc",
+    "neuron": 6,
+    "text": "Fires when an earlier value is high but x9 is low: ReLU(~12.4*(max of x0..x8, taken as 0 if x8 holds it) - 8*x9), weaker when that max sits at x2,x3,x5,x6, strongest at x0,x1,x4,x7."
+   },
+   {
+    "id": "XEFZ1",
+    "code": "krvc",
+    "neuron": 8,
+    "text": "Sum of several unrelated signals: max of x0..x5, x5's margin when it is among the two largest of x0..x8, minus the overall minimum, minus x4's excess over max(x0..x3)."
+   },
+   {
+    "id": "67TNQ",
+    "code": "krvc",
+    "neuron": 13,
+    "text": "How far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; plus the top gap of x0..x8 and bonuses when the overall maximum is x7 or x2."
+   },
+   {
+    "id": "7YYXG",
+    "code": "krvc",
+    "neuron": 19,
+    "text": "Detects x6 being among the two largest of x0..x8: grows with x6's margin over the third-largest of the others, extra when x6 is the maximum; small offshoot when x0 is the maximum."
+   },
+   {
+    "id": "9FEAT",
+    "code": "gcap",
+    "neuron": 0,
+    "text": "Magnitude of the running maximum (average of max(x0..xt) over t=1..9) minus how large x4 and x5 are (and x3, less), plus x8: large when x4 and x5 were low."
+   },
+   {
+    "id": "EGHAT",
+    "code": "krvc",
+    "neuron": 6,
+    "text": "How far x9 falls below the second-largest of x0..x8, plus the top gap of x0..x8 (unless x8 is the largest), plus the margin by which x0 or x2 is the overall maximum."
+   },
+   {
+    "id": "LC558",
+    "code": "krvc",
+    "neuron": 1,
+    "text": "Gap between the largest and second-largest of x0..x8, switched off when the largest of x0..x8 is x8 itself."
+   },
+   {
+    "id": "0H6ST",
+    "code": "agsc",
+    "neuron": 0,
+    "text": "Rises when x3, x4, x5 each fall below the largest value before them (big early maximum), plus x8 and the sum of the two largest inputs; ReLU of that weighted sum."
+   },
+   {
+    "id": "RF62Q",
+    "code": "gcap",
+    "neuron": 5,
+    "text": "How far x9 falls below the mean of the three largest of x0..x8 (zero when x9 is at least that high); signals that the last input is not a top value."
+   },
+   {
+    "id": "0V41O",
+    "code": "krvc",
+    "neuron": 0,
+    "text": "Measures how far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; also driven by the overall maximum being x1, x2, x5 or x6 (its margin)."
+   },
+   {
+    "id": "RL5E8",
+    "code": "dncx",
+    "neuron": 13,
+    "text": "ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.5*largest + 0.9*second - 1.7*x9); silenced when the largest is x8, larger when it is at x1, x2, x4 or x7."
+   },
+   {
+    "id": "LPV4C",
+    "code": "sfbp",
+    "neuron": 25,
+    "text": "Second-largest tracker damped when late inputs are top: ReLU(1.02\u00b7M2 + 0.25\u00b7ReLU(M1\u2212x8) \u2212 0.64\u00b7M1\u00b7[x8 in top two] \u2212 0.34\u00b7M2\u00b7[second at x5..x8] \u2212 0.25\u00b7M2\u00b7[x7 or x8 in top two]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "A9NV1",
+    "code": "dncx",
+    "neuron": 22,
+    "text": "Detects x7 being the maximum of x0..x8 (about 2.7*x7), weaker when x7 is second-largest (about 0.7*x7), otherwise near zero."
+   },
+   {
+    "id": "HOKX9",
+    "code": "wduk",
+    "neuron": 15,
+    "text": "New-maximum-at-the-end detector: 27*ReLU(x9 - M), where M is the largest of x0..x8; positive only when the last input x9 is the overall maximum."
+   },
+   {
+    "id": "MBFWM",
+    "code": "dncx",
+    "neuron": 6,
+    "text": "ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.6*largest + 0.9*second - 1.9*x9), larger when the largest is at x0, x2, x5 or x7."
+   },
+   {
+    "id": "UZNUL",
+    "code": "dncx",
+    "neuron": 28,
+    "text": "Grows with the maximum of x0..x5 and of x0..x8 (more if the max is at x0, x1 or x3), suppressed when x8 is the maximum, small bonus when x8 is below the running max."
+   },
+   {
+    "id": "LWFE1",
+    "code": "hnrt",
+    "neuron": 8,
+    "text": "Position-weighted maximum: mainly max(x0,x1,x3,x4,x7), minus the second-largest of x0..x5, plus max(x0,x1,x4,x5,x6,x7) corrections; small when the largest value sits at x2, x5 or x9."
+   },
+   {
+    "id": "9OIVT",
+    "code": "sfbp",
+    "neuron": 11,
+    "text": "Max-position code (max at x0, x4, x6): ReLU(0.72\u00b7M1\u00b7[max at x0,x4,x6] + 0.7\u00b7M1\u00b7[max at x4] \u2212 0.28\u00b7M1\u00b7[max at x3,x5,x7,x8] \u2212 0.39\u00b7M2\u00b7[x4 or x6 in top two] + 0.15\u00b7ReLU(M1\u2212x8)); M1,M2 = largest, second-largest of x0..x8."
+   }
+  ],
+  [
+   {
+    "id": "JA3IJ",
+    "code": "wduk",
+    "neuron": 14,
+    "text": "Position-coded size of the earlier maximum M (max of x0..x8): gain 25.5 if M at x1,x2,x5,x8, 20.6 at x4/x7, 15.4 at x0,x3,x6; plus 4.3 times positive part of x8."
+   },
+   {
+    "id": "XXQIX",
+    "code": "krvc",
+    "neuron": 5,
+    "text": "Gap between the largest and second-largest of x0..x8, about twice as strong when x8 is the largest; offshoots: plus max of x0..x4, plus x2's shortfall below the maximum of the others."
+   },
+   {
+    "id": "HTQX5",
+    "code": "sfbp",
+    "neuron": 1,
+    "text": "Lead of the running maximum: ReLU(4.18\u00b7(M1\u2212M2) + 0.33\u00b7M1 \u2212 8.8\u00b7ReLU(x8 \u2212 max(x0..x7))); M1,M2 = largest, second-largest of x0..x8. Gap between top two, silenced when x8 is the new maximum."
+   },
+   {
+    "id": "S61OI",
+    "code": "wduk",
+    "neuron": 0,
+    "text": "Fires when x9 is below the largest earlier value M (max of x0..x8): ReLU(g*M + 2.5*S - 7.7*x9), S = second-largest of x0..x8; g=6.8 if M is at x0,x2,x3,x6, 4.0 if at x1,x4,x5,x7; off if M is x8."
+   },
+   {
+    "id": "OD67N",
+    "code": "sfbp",
+    "neuron": 20,
+    "text": "Unclear, roughly 'x0 is not a top value': ReLU(0.7\u00b7M2 + 1.09\u00b7ReLU(x1\u2212M2) + 0.51\u00b7ReLU(M1\u2212x0) + 0.41\u00b7M2\u00b7[x1 or x8 in top two] \u2212 0.62\u00b7M1\u00b7[x0 in top two]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "MDNKQ",
+    "code": "sfbp",
+    "neuron": 14,
+    "text": "Mostly x8 relative to the top: ReLU(\u22123.63\u00b7ReLU(M2\u2212x8) + 0.35\u00b7M1\u00b7[x8 in top two] + 1.11\u00b7(M1\u2212M2)\u00b7[max at x0,x1,x2,x4] + 0.44\u00b7ReLU(M2\u2212x5) + 0.51\u00b7ReLU(M1\u2212x4)); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "UN2H2",
+    "code": "krvc",
+    "neuron": 26,
+    "text": "Codes a maximum of x0..x8 at x2 (strongest: x2's margin over the third-largest), x0 (margin over second-largest) or x4 (gap over second-largest)."
+   },
+   {
+    "id": "3VF4C",
+    "code": "yyuc",
+    "neuron": 3,
+    "text": "Fires when an earlier value is high but x9 is low: ReLU(~12.7*(max of x0..x8, taken as 0 if x8 holds it) - 8*x9), weaker when that max sits at x0,x3,x6,x7, strongest at x1,x2,x4,x5."
+   },
+   {
+    "id": "YOHCB",
+    "code": "dncx",
+    "neuron": 24,
+    "text": "Fires when x5 is not among the top two of x0..x8: about the second-largest of x0..x8 plus a term for how far x5 fell below the running maximum of x0..x4."
+   },
+   {
+    "id": "K6BYX",
+    "code": "dncx",
+    "neuron": 19,
+    "text": "Detects x6 being among the top values of x0..x8: roughly 2.3*x6 if largest, 2.1*x6 if second, 0.5*x6 if third, otherwise near zero."
+   },
+   {
+    "id": "YVUN6",
+    "code": "krvc",
+    "neuron": 23,
+    "text": "Fires when x9 is among the two largest overall: how far x9 exceeds the second-largest of x0..x8 plus x9 minus their maximum; silenced when x8 is the largest of x0..x8; raised by max(x0..x5)."
+   },
+   {
+    "id": "J1CDB",
+    "code": "hnrt",
+    "neuron": 5,
+    "text": "Position-weighted copy of the maximum of x0..x8: large when the largest value is at x0,x2,x3,x6,x7 or x8, weak when at x1,x4,x5; lowered by the second-largest of x0,x1,x3,x4,x5,x6; x9 ignored."
+   },
+   {
+    "id": "I3EOD",
+    "code": "yyuc",
+    "neuron": 10,
+    "text": "Last input beats the earlier runner-up: ReLU(8.4*x9 - 4.7*P2 - 1.9*P3), P2,P3 = second and third largest of x0..x8. Positive essentially when x9 is among the two largest inputs."
+   },
+   {
+    "id": "GKP1P",
+    "code": "sfbp",
+    "neuron": 21,
+    "text": "Fires when x9 is large versus x0..x8: ReLU(4.27\u00b7x9 \u2212 1.48\u00b7M1 \u2212 2.71\u00b7M2 \u2212 2.14\u00b7(M1\u2212M2)\u00b7[max at odd position x1,x3,x5,x7]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "GQ21X",
+    "code": "sfbp",
+    "neuron": 27,
+    "text": "Max-at-x2-or-x6 detector: ReLU(1.58\u00b7M1 \u2212 0.62\u00b7M2) when the largest of x0..x8 sits at x2 or x6, else 0; M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "ULOLJ",
+    "code": "wduk",
+    "neuron": 5,
+    "text": "Position-coded size of the earlier maximum M (max of x0..x8): gain 14.7 if M at x0,x3,x6,x8, 11.8 at x2/x7, 7.0 at x1,x4,x5; second-largest S of x0..x8 adds 1.1*S, or -2.9*S if S is at x1,x4,x5."
+   },
+   {
+    "id": "2XV1M",
+    "code": "sfbp",
+    "neuron": 6,
+    "text": "x9-is-low detector with max-position code: ReLU(1.39\u00b7M1 \u2212 1.87\u00b7x9 \u2212 1.05\u00b7(M1\u2212M2)\u00b7[max at x1,x3,x6,x8] + 0.5\u00b7M1\u00b7[max at x0,x2] + 0.42\u00b7M2\u00b7[second at x1,x3,x4,x6]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "2CJFO",
+    "code": "sfbp",
+    "neuron": 4,
+    "text": "Weak, unclear: ReLU(0.63\u00b7M2\u00b7[second at x0,x2,x4,x6] + 0.48\u00b7(M2\u2212M3)\u00b7[second at x0,x4,x6,x8] + 0.47\u00b7ReLU(x1\u2212M2) + 0.14\u00b7ReLU(M1\u2212x7) \u2212 0.17\u00b7x9); M1\u2265M2\u2265M3 = top three of x0..x8."
+   },
+   {
+    "id": "FW1KR",
+    "code": "wfpn",
+    "neuron": 6,
+    "text": "How far x4 lies below the overall maximum and below the second-largest value of x0..x9, plus the running maximum of x0..x4; small when x4 is the largest or second-largest input."
+   },
+   {
+    "id": "VVEP0",
+    "code": "sfbp",
+    "neuron": 24,
+    "text": "Roughly 'x5 is not a top value': ReLU(1.12\u00b7M2 \u2212 0.44\u00b7x5 \u2212 2.32\u00b7M2\u00b7[x5 among two largest] + 0.19\u00b7ReLU(M1\u2212x6) + 0.18\u00b7ReLU(M1\u2212x8)); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "6II5Z",
+    "code": "sfbp",
+    "neuron": 17,
+    "text": "Running top-two sum: ReLU(8.12\u00b7M1 + 2.03\u00b7M2), where M1, M2 are the largest and second-largest of x0..x8; x9 has no effect."
+   },
+   {
+    "id": "BAID9",
+    "code": "wduk",
+    "neuron": 8,
+    "text": "Position-coded size of the earlier maximum M (max of x0..x8): gain 19 if M at x4/x7, 14.8 at x0,x1,x3, 9.8 at x2,x5,x6,x8; plus 1.8 times second-largest of x0..x8, minus 4.1 times positive parts of x2,x5."
+   },
+   {
+    "id": "DJVHF",
+    "code": "krvc",
+    "neuron": 30,
+    "text": "Anti-detector for x4: grows as x4 falls below the second-largest of the other values in x0..x8 and with the maximum of x0..x8, near zero when x4 is among the two largest; bonus when x3 is the maximum."
+   },
+   {
+    "id": "V973S",
+    "code": "wfpn",
+    "neuron": 4,
+    "text": "Shortfall of x8 below the mean of the two largest of x0..x7 (zero when x8 is a new top value), plus a small contribution from the same shortfall of x9 relative to x0..x8."
+   },
+   {
+    "id": "WGTX4",
+    "code": "dncx",
+    "neuron": 5,
+    "text": "Gap between the largest and second-largest of x0..x8 (about 4*largest - 2.7*second), larger when the largest is x8, somewhat smaller when it is at x2, x5, x6 or x7."
+   },
+   {
+    "id": "JREUT",
+    "code": "sfbp",
+    "neuron": 23,
+    "text": "Fires when x9 enters the top two while x8 is not the max: ReLU(4.73\u00b7x9 \u2212 3.71\u00b7M2 \u2212 0.74\u00b7M1 \u2212 26\u00b7ReLU(x8 \u2212 max(x0..x7)) \u2212 0.53\u00b7M1\u00b7[max at x2,x6,x7,x8]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "OEDOR",
+    "code": "krvc",
+    "neuron": 3,
+    "text": "Fires when the overall maximum is early and the second-largest of x0..x8 is late (grows with its position), scaled up by max(x0..x5); silenced when x8 is among the two largest of x0..x8."
+   },
+   {
+    "id": "6UPPI",
+    "code": "gcap",
+    "neuron": 4,
+    "text": "How far x8 falls below the mean of the three largest of x0..x7, plus a small share of how far x9 falls below the mean of the three largest of x0..x8."
+   }
+  ],
+  [
+   {
+    "id": "RDWRF",
+    "code": "gcap",
+    "neuron": 7,
+    "text": "Running-maximum magnitude minus x5 and x6 (large when they were low), plus x9, plus how far x4 falls below the second-largest of x0..x3."
+   },
+   {
+    "id": "7NH1I",
+    "code": "sfbp",
+    "neuron": 3,
+    "text": "Mixed: ReLU(1.68\u00b7(M1\u2212M2)\u00b7[max at x0,x2,x3,x4] + 0.98\u00b7M2\u00b7[second at x5,x6,x7] + 1.11\u00b7ReLU(x1\u2212M2) \u2212 1.06\u00b7M1\u00b7[x8 in top two] \u2212 0.26\u00b7x9); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "W46WV",
+    "code": "krvc",
+    "neuron": 21,
+    "text": "Fires when x9 is among the two largest overall (its excess over the second-largest of x0..x8, plus x9 minus their maximum); stronger if the maximum of x0..x8 is at an even position, weaker if x7 is top-two."
+   },
+   {
+    "id": "C1DFE",
+    "code": "hnrt",
+    "neuron": 12,
+    "text": "Margin of the maximum: largest of x0..x8 minus the second- and third-largest of x0..x8, slightly lowered by large values at x1,x2,x5,x6,x8; x9 ignored."
+   },
+   {
+    "id": "USYRS",
+    "code": "agsc",
+    "neuron": 2,
+    "text": "Size of the largest of x0..x8 plus how far later inputs (mostly x3 and x5) fall below the mean of the two largest values preceding each. ReLU."
+   },
+   {
+    "id": "LR6EK",
+    "code": "hnrt",
+    "neuron": 7,
+    "text": "Size of the running maximum: mainly the largest of x0..x7, with extra weight when the largest value sits at x0,x3,x6 (also x2,x7,x8); almost always positive and ignores x9."
+   },
+   {
+    "id": "PGAWJ",
+    "code": "sfbp",
+    "neuron": 26,
+    "text": "x2/x0-is-a-top-value detector: ReLU(1.83\u00b7ReLU(x2\u2212M3) + 1.23\u00b7M1\u00b7[max at x0,x2,x4] + 0.81\u00b7M1\u00b7[x2 in top two] + 0.41\u00b7M1\u00b7[x0,x2 or x7 in top two] + 0.28\u00b7ReLU(M1\u2212x6)); M1, M3 = largest, third-largest of x0..x8."
+   },
+   {
+    "id": "M3M15",
+    "code": "krvc",
+    "neuron": 29,
+    "text": "How far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; plus the margin by which x3, x6 or x7 is the overall maximum."
+   },
+   {
+    "id": "9DSRP",
+    "code": "dncx",
+    "neuron": 31,
+    "text": "Always on: mainly about 5.2 times the second-largest of x0..x8, plus 0.7 times the largest (doubled when the largest is at x0, x1, x3 or x4)."
+   },
+   {
+    "id": "CAQXM",
+    "code": "wduk",
+    "neuron": 13,
+    "text": "Memory of early inputs: 6.9 times summed positive parts of x0,x1,x3, plus g times the max M of x0..x8 (g=6.3 if M at x4/x7, 2.7 at x0,x2,x3,x6, 1.8 otherwise), plus 1.4 times second-largest of x0..x8."
+   },
+   {
+    "id": "3RQYR",
+    "code": "krvc",
+    "neuron": 24,
+    "text": "Anti-detector for x5: grows as x5 falls below the second-largest of the other values in x0..x8 (scaled with the second-largest of x0..x7), near zero when x5 is among the two largest of x0..x8."
+   },
+   {
+    "id": "88U4R",
+    "code": "wfpn",
+    "neuron": 2,
+    "text": "Broad magnitude signal: total shortfall of x3..x9 below the running maximum of earlier inputs, plus x7+x8, plus shortfalls of x1..x7 below the earlier top-two mean (extra weight on x3..x5)."
+   },
+   {
+    "id": "DU1PD",
+    "code": "yyuc",
+    "neuron": 15,
+    "text": "New maximum at the very end: 26.8*ReLU(x9 - 0.989*max(x0..x8)); positive only when x9 is the largest of all ten inputs, growing with its lead."
+   },
+   {
+    "id": "WI5KD",
+    "code": "sfbp",
+    "neuron": 31,
+    "text": "Second-largest tracker: ReLU(5.49\u00b7M2 + 0.61\u00b7M1 + 0.92\u00b7(M1\u2212M2)\u00b7[max at x0,x1,x3,x4] + 0.5\u00b7M2\u00b7[max at x0,x1,x3,x4] \u2212 0.32\u00b7x2); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "9VYPM",
+    "code": "wfpn",
+    "neuron": 3,
+    "text": "Fires when x7 is NOT below the mean of the two largest of x0..x6 (silenced by that shortfall), given accumulated shortfalls of x3,x4,x5 below the running maximum; increases with x4."
+   },
+   {
+    "id": "5YJXI",
+    "code": "wduk",
+    "neuron": 3,
+    "text": "Fires when x9 is below the largest earlier value M (max of x0..x8): ReLU(g*M + 3.3*S - 8.3*x9), S = second-largest of x0..x8; g=6.6 if M is at x1,x2,x4,x5, 3.1 if at x0,x3,x6,x7; off if M is x8."
+   },
+   {
+    "id": "4FVOL",
+    "code": "gcap",
+    "neuron": 1,
+    "text": "How far x6 falls below the largest and second-largest of x0..x5, discounted when x4 is the larger reference value, plus a small running-maximum magnitude term."
+   },
+   {
+    "id": "3WVS4",
+    "code": "wduk",
+    "neuron": 1,
+    "text": "Position-coded size of the earlier maximum M (max of x0..x8), gain 21 if M at x2/x5, 16 at x0,x1,x3,x4,x6,x7, 10 at x8; minus 3.5 times second-largest of x0..x8 and 4.5 times positive parts of x0,x4,x7."
+   },
+   {
+    "id": "5SA8K",
+    "code": "agsc",
+    "neuron": 4,
+    "text": "How far x8 falls below the mean of the two largest of x0..x7 (x8 is not a top candidate), slightly lowered by x9 and raised by the total positive mass of all inputs. ReLU."
+   },
+   {
+    "id": "NU7C4",
+    "code": "hnrt",
+    "neuron": 4,
+    "text": "Margin of the maximum: largest of x0..x7 minus the second-largest of x0..x8 (so x8 being largest suppresses it), slightly lowered by large values at x2,x5,x8 and by x8 being second-largest overall."
+   },
+   {
+    "id": "BRFCS",
+    "code": "sfbp",
+    "neuron": 5,
+    "text": "Lead of the maximum plus position bonuses: ReLU(2.8\u00b7(M1\u2212M2) + 1.3\u00b7(M1\u2212M2)\u00b7[max at x1,x8] + 0.75\u00b7M1\u00b7[max at x0,x3,x4,x8] + 0.49\u00b7M2\u00b7[x0,x1,x4 in top two] + 0.42\u00b7ReLU(M1\u2212x2)); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "08SNR",
+    "code": "yyuc",
+    "neuron": 4,
+    "text": "Margin of the largest over the second largest of x0..x8: ReLU(~16.6*largest - ~16*second + 5.4*max(x0,x1,x3,x4,x6,x7)); zero when x8 is the largest, smaller when the second largest is x8."
+   },
+   {
+    "id": "VINXS",
+    "code": "wfpn",
+    "neuron": 5,
+    "text": "How far x9 falls below the mean of the two largest of x0..x8: ReLU(a*T8 - b*x9), with a~1.08, b~1.2; zero when x9 is (near) a new maximum."
+   },
+   {
+    "id": "L1MTD",
+    "code": "dncx",
+    "neuron": 3,
+    "text": "Mixed: grows with the max of x0..x8 the earlier it occurred, shrinks with the second-largest the earlier it occurred, and is strongly suppressed when the second-largest of x0..x8 is x8. Partly understood."
+   },
+   {
+    "id": "9BQOS",
+    "code": "sfbp",
+    "neuron": 16,
+    "text": "Fires when x9 exceeds the second-largest of x0..x8 (call it M2): ReLU(5.61\u00b7x9 \u2212 5.45\u00b7M2), i.e. x9 enters the top two."
+   },
+   {
+    "id": "33B2B",
+    "code": "sfbp",
+    "neuron": 19,
+    "text": "x6-is-a-top-value detector: ReLU(1.2\u00b7M1\u00b7[x6 among two largest] + 0.9\u00b7M1\u00b7[x6 largest] + 0.2\u00b7M1\u00b7[max at x0,x2,x6] + 0.31\u00b7M2\u00b7[second at x2,x6] + 0.11\u00b7ReLU(M2\u2212x7)); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "TQTAD",
+    "code": "sfbp",
+    "neuron": 18,
+    "text": "x9-is-low detector with max-position code: ReLU(1.04\u00b7M1 \u2212 1.43\u00b7x9 + 0.96\u00b7M1\u00b7[max at x1] \u2212 1.01\u00b7(M1\u2212M2)\u00b7[max at x2,x3,x5,x7] + 0.51\u00b7M2\u00b7[second at x2]); M1,M2 = largest, second-largest of x0..x8."
+   },
+   {
+    "id": "TY57R",
+    "code": "dncx",
+    "neuron": 14,
+    "text": "Tracks x8 relative to the others: large when x8 is the second-largest of x0..x8 (or just below it), smaller when x8 is the largest; minus 0.3 times the sum of x0..x8."
+   }
+  ]
+ ],
+ "pair": [
+  [
+   {
+    "id": "RQZQ6",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     25
+    ],
+    "Q": [
+     "krvc",
+     10
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "DBKUA",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     24
+    ],
+    "Q": [
+     "krvc",
+     18
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 18
+   },
+   {
+    "id": "5MJN9",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     19
+    ],
+    "Q": [
+     "dncx",
+     19
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 19
+   },
+   {
+    "id": "U8AO9",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     13
+    ],
+    "Q": [
+     "wduk",
+     14
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "BOM41",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     5
+    ],
+    "Q": [
+     "wduk",
+     5
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "U55XF",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     27
+    ],
+    "Q": [
+     "sfbp",
+     27
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 27
+   },
+   {
+    "id": "J3Q1A",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     15
+    ],
+    "Q": [
+     "wduk",
+     15
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "2WKJ9",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     6
+    ],
+    "Q": [
+     "agsc",
+     6
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "3RRF1",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     6
+    ],
+    "Q": [
+     "krvc",
+     6
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "600D1",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     11
+    ],
+    "Q": [
+     "yyuc",
+     1
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "HOXL7",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     21
+    ],
+    "Q": [
+     "dncx",
+     26
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 26
+   },
+   {
+    "id": "61N1P",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     8
+    ],
+    "Q": [
+     "krvc",
+     28
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 28
+   },
+   {
+    "id": "S9E8I",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     1
+    ],
+    "Q": [
+     "krvc",
+     1
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "Z8SBZ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     3
+    ],
+    "Q": [
+     "dncx",
+     3
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "3GDZK",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     12
+    ],
+    "Q": [
+     "yyuc",
+     12
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "15FUI",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     30
+    ],
+    "Q": [
+     "sfbp",
+     30
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 30
+   },
+   {
+    "id": "9JHC6",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     3
+    ],
+    "Q": [
+     "krvc",
+     3
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "VXJDZ",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     23
+    ],
+    "Q": [
+     "krvc",
+     21
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 21
+   },
+   {
+    "id": "T33BC",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     31
+    ],
+    "Q": [
+     "dncx",
+     31
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 31
+   },
+   {
+    "id": "05HOK",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     15
+    ],
+    "Q": [
+     "hnrt",
+     15
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "XC0O5",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     20
+    ],
+    "Q": [
+     "krvc",
+     20
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 20
+   },
+   {
+    "id": "3BV2I",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     3
+    ],
+    "Q": [
+     "yyuc",
+     3
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "8Z04O",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     7
+    ],
+    "Q": [
+     "wfpn",
+     7
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "9K3I8",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     4
+    ],
+    "Q": [
+     "hnrt",
+     4
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "4TPIE",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     2
+    ],
+    "Q": [
+     "krvc",
+     23
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 23
+   },
+   {
+    "id": "MH2S1",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     21
+    ],
+    "Q": [
+     "dncx",
+     21
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 21
+   },
+   {
+    "id": "5WCP5",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     1
+    ],
+    "Q": [
+     "hnrt",
+     1
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "QSQ0Y",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     4
+    ],
+    "Q": [
+     "hnrt",
+     4
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 4
+   }
+  ],
+  [
+   {
+    "id": "KTMTX",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     12
+    ],
+    "Q": [
+     "dncx",
+     7
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "DOAFZ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     1
+    ],
+    "Q": [
+     "sfbp",
+     1
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "JXUNO",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     4
+    ],
+    "Q": [
+     "dncx",
+     27
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 27
+   },
+   {
+    "id": "4X1YZ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     22
+    ],
+    "Q": [
+     "dncx",
+     22
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 22
+   },
+   {
+    "id": "DTTTZ",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     8
+    ],
+    "Q": [
+     "sfbp",
+     16
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "QIRPS",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     6
+    ],
+    "Q": [
+     "agsc",
+     7
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "93SRZ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     8
+    ],
+    "Q": [
+     "dncx",
+     8
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "KWXQ9",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     13
+    ],
+    "Q": [
+     "dncx",
+     13
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "KWJOZ",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     0
+    ],
+    "Q": [
+     "sfbp",
+     2
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "DR18R",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     21
+    ],
+    "Q": [
+     "dncx",
+     21
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 21
+   },
+   {
+    "id": "G1WTX",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     20
+    ],
+    "Q": [
+     "sfbp",
+     20
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 20
+   },
+   {
+    "id": "VJ69I",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     5
+    ],
+    "Q": [
+     "krvc",
+     5
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "TCEWU",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     6
+    ],
+    "Q": [
+     "wduk",
+     6
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "C7B2P",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     14
+    ],
+    "Q": [
+     "dncx",
+     14
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "JS1CN",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     25
+    ],
+    "Q": [
+     "krvc",
+     25
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 25
+   },
+   {
+    "id": "J8HJM",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     26
+    ],
+    "Q": [
+     "krvc",
+     26
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 26
+   },
+   {
+    "id": "NVVED",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     25
+    ],
+    "Q": [
+     "krvc",
+     10
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 25
+   },
+   {
+    "id": "I8PG8",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     23
+    ],
+    "Q": [
+     "sfbp",
+     23
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 23
+   },
+   {
+    "id": "MRNS2",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     26
+    ],
+    "Q": [
+     "krvc",
+     6
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "SMNZW",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     8
+    ],
+    "Q": [
+     "wduk",
+     12
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "NM9N1",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     0
+    ],
+    "Q": [
+     "dncx",
+     5
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "43T8J",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     3
+    ],
+    "Q": [
+     "sfbp",
+     7
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "1QFY5",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     11
+    ],
+    "Q": [
+     "sfbp",
+     5
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "J4N1M",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     10
+    ],
+    "Q": [
+     "yyuc",
+     10
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "8SGH3",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "agsc",
+     4
+    ],
+    "Q": [
+     "gcap",
+     2
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "LGNGK",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     11
+    ],
+    "Q": [
+     "hnrt",
+     11
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "NBTPX",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     8
+    ],
+    "Q": [
+     "dncx",
+     8
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "DX0SE",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     6
+    ],
+    "Q": [
+     "yyuc",
+     9
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 6
+   }
+  ],
+  [
+   {
+    "id": "HDOWJ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     18
+    ],
+    "Q": [
+     "krvc",
+     18
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 18
+   },
+   {
+    "id": "UYYSP",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     22
+    ],
+    "Q": [
+     "krvc",
+     4
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 22
+   },
+   {
+    "id": "ZOQS0",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     23
+    ],
+    "Q": [
+     "dncx",
+     23
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 23
+   },
+   {
+    "id": "KFBT4",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     12
+    ],
+    "Q": [
+     "dncx",
+     12
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "FY8QK",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     17
+    ],
+    "Q": [
+     "sfbp",
+     30
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 17
+   },
+   {
+    "id": "JQ9V1",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     0
+    ],
+    "Q": [
+     "sfbp",
+     9
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "BZ3EQ",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     2
+    ],
+    "Q": [
+     "agsc",
+     2
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "DUJ3V",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     0
+    ],
+    "Q": [
+     "sfbp",
+     0
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "1TGM0",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     8
+    ],
+    "Q": [
+     "dncx",
+     31
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 31
+   },
+   {
+    "id": "X8T9O",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     3
+    ],
+    "Q": [
+     "agsc",
+     3
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "52EZS",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     12
+    ],
+    "Q": [
+     "yyuc",
+     12
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "EK4AA",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     22
+    ],
+    "Q": [
+     "sfbp",
+     17
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 22
+   },
+   {
+    "id": "JRLLA",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     24
+    ],
+    "Q": [
+     "krvc",
+     24
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 24
+   },
+   {
+    "id": "35A4O",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     2
+    ],
+    "Q": [
+     "wduk",
+     2
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "SJJPB",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     20
+    ],
+    "Q": [
+     "dncx",
+     9
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "PA7RN",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     28
+    ],
+    "Q": [
+     "krvc",
+     16
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 28
+   },
+   {
+    "id": "DUCGE",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     11
+    ],
+    "Q": [
+     "sfbp",
+     11
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "2957Q",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     4
+    ],
+    "Q": [
+     "agsc",
+     3
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "HU16A",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     25
+    ],
+    "Q": [
+     "dncx",
+     4
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "YCM17",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     14
+    ],
+    "Q": [
+     "yyuc",
+     15
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "80NE2",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     29
+    ],
+    "Q": [
+     "dncx",
+     29
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 29
+   },
+   {
+    "id": "EKAA7",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     21
+    ],
+    "Q": [
+     "sfbp",
+     23
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 21
+   },
+   {
+    "id": "6G9E7",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     5
+    ],
+    "Q": [
+     "yyuc",
+     13
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "067EG",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     10
+    ],
+    "Q": [
+     "wduk",
+     10
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "MN6NN",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     1
+    ],
+    "Q": [
+     "dncx",
+     23
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 23
+   },
+   {
+    "id": "IPZ8L",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     1
+    ],
+    "Q": [
+     "hnrt",
+     9
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "D3EG2",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     27
+    ],
+    "Q": [
+     "sfbp",
+     13
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 27
+   },
+   {
+    "id": "TCAN1",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     9
+    ],
+    "Q": [
+     "dncx",
+     9
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 9
+   }
+  ],
+  [
+   {
+    "id": "MU80E",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     4
+    ],
+    "Q": [
+     "hnrt",
+     1
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "PSSBU",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     26
+    ],
+    "Q": [
+     "dncx",
+     26
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 26
+   },
+   {
+    "id": "SY2TD",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     4
+    ],
+    "Q": [
+     "yyuc",
+     0
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "KSZYU",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     7
+    ],
+    "Q": [
+     "hnrt",
+     2
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "G2TJN",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     5
+    ],
+    "Q": [
+     "sfbp",
+     5
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "R1SCD",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     2
+    ],
+    "Q": [
+     "dncx",
+     2
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "28INM",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     22
+    ],
+    "Q": [
+     "dncx",
+     10
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "9D16U",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     4
+    ],
+    "Q": [
+     "dncx",
+     4
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "0CAB1",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     13
+    ],
+    "Q": [
+     "wduk",
+     13
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "8XERI",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     29
+    ],
+    "Q": [
+     "krvc",
+     30
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 29
+   },
+   {
+    "id": "CYWQP",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     7
+    ],
+    "Q": [
+     "agsc",
+     2
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "XYAEJ",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     13
+    ],
+    "Q": [
+     "yyuc",
+     13
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "MBA4F",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     20
+    ],
+    "Q": [
+     "dncx",
+     20
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 20
+   },
+   {
+    "id": "8Y9TP",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     21
+    ],
+    "Q": [
+     "krvc",
+     4
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "AA3YN",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     17
+    ],
+    "Q": [
+     "dncx",
+     17
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 17
+   },
+   {
+    "id": "I2X6A",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     16
+    ],
+    "Q": [
+     "dncx",
+     16
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 16
+   },
+   {
+    "id": "87X9X",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     9
+    ],
+    "Q": [
+     "sfbp",
+     9
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "5GE8T",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     3
+    ],
+    "Q": [
+     "yyuc",
+     14
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "TTJ5C",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     19
+    ],
+    "Q": [
+     "sfbp",
+     19
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 19
+   },
+   {
+    "id": "88QZD",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     12
+    ],
+    "Q": [
+     "wduk",
+     1
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "U2DAT",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     9
+    ],
+    "Q": [
+     "dncx",
+     12
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "36DUA",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     28
+    ],
+    "Q": [
+     "dncx",
+     28
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 28
+   },
+   {
+    "id": "X8QVU",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     0
+    ],
+    "Q": [
+     "wduk",
+     0
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "2Y779",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     24
+    ],
+    "Q": [
+     "sfbp",
+     24
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 24
+   },
+   {
+    "id": "G6HSD",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     2
+    ],
+    "Q": [
+     "agsc",
+     2
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "BWSM8",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     0
+    ],
+    "Q": [
+     "agsc",
+     0
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "TCXXP",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     31
+    ],
+    "Q": [
+     "sfbp",
+     15
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 31
+   },
+   {
+    "id": "XBWWU",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     11
+    ],
+    "Q": [
+     "hnrt",
+     15
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 15
+   }
+  ],
+  [
+   {
+    "id": "NRWTP",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     1
+    ],
+    "Q": [
+     "agsc",
+     1
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "HOB3C",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     9
+    ],
+    "Q": [
+     "yyuc",
+     9
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "EZUF7",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     22
+    ],
+    "Q": [
+     "sfbp",
+     17
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 22
+   },
+   {
+    "id": "8MBM1",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     22
+    ],
+    "Q": [
+     "dncx",
+     22
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 22
+   },
+   {
+    "id": "HRL6Q",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     1
+    ],
+    "Q": [
+     "krvc",
+     14
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "44NAM",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     16
+    ],
+    "Q": [
+     "krvc",
+     6
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 16
+   },
+   {
+    "id": "PKMVN",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     8
+    ],
+    "Q": [
+     "krvc",
+     8
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "H1FA3",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     21
+    ],
+    "Q": [
+     "krvc",
+     27
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 21
+   },
+   {
+    "id": "470EF",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     5
+    ],
+    "Q": [
+     "gcap",
+     5
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "SF9X8",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "agsc",
+     5
+    ],
+    "Q": [
+     "gcap",
+     4
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "RV6SJ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     0
+    ],
+    "Q": [
+     "krvc",
+     0
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "JU4IA",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     3
+    ],
+    "Q": [
+     "wfpn",
+     3
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "8U988",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     18
+    ],
+    "Q": [
+     "sfbp",
+     31
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 18
+   },
+   {
+    "id": "1SDLQ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     12
+    ],
+    "Q": [
+     "sfbp",
+     12
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "JJQGM",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     3
+    ],
+    "Q": [
+     "wduk",
+     4
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "CA1SK",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     1
+    ],
+    "Q": [
+     "wfpn",
+     1
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "QVHV6",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     24
+    ],
+    "Q": [
+     "dncx",
+     6
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "MSKVE",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     14
+    ],
+    "Q": [
+     "sfbp",
+     14
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "SA279",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     9
+    ],
+    "Q": [
+     "hnrt",
+     8
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "KVZFW",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     27
+    ],
+    "Q": [
+     "sfbp",
+     27
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 27
+   },
+   {
+    "id": "O0JXQ",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     30
+    ],
+    "Q": [
+     "sfbp",
+     27
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 30
+   },
+   {
+    "id": "MKP6G",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     20
+    ],
+    "Q": [
+     "krvc",
+     29
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 20
+   },
+   {
+    "id": "NAI97",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     5
+    ],
+    "Q": [
+     "yyuc",
+     5
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "9W41D",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     13
+    ],
+    "Q": [
+     "sfbp",
+     11
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "QD2GQ",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     6
+    ],
+    "Q": [
+     "gcap",
+     7
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "ZZPC7",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     6
+    ],
+    "Q": [
+     "sfbp",
+     6
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "8PLK5",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     6
+    ],
+    "Q": [
+     "wfpn",
+     6
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "2OA5U",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "agsc",
+     2
+    ],
+    "Q": [
+     "gcap",
+     3
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 2
+   }
+  ],
+  [
+   {
+    "id": "LUXC1",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     0
+    ],
+    "Q": [
+     "yyuc",
+     7
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "303SG",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     6
+    ],
+    "Q": [
+     "yyuc",
+     6
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "8YK2U",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     22
+    ],
+    "Q": [
+     "dncx",
+     6
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "RO82H",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     7
+    ],
+    "Q": [
+     "yyuc",
+     7
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "JZ923",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     14
+    ],
+    "Q": [
+     "krvc",
+     16
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 16
+   },
+   {
+    "id": "PVYT6",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     1
+    ],
+    "Q": [
+     "yyuc",
+     1
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "COHUE",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     6
+    ],
+    "Q": [
+     "wfpn",
+     6
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "XM1PT",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     29
+    ],
+    "Q": [
+     "dncx",
+     20
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 20
+   },
+   {
+    "id": "H274K",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     0
+    ],
+    "Q": [
+     "dncx",
+     18
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 18
+   },
+   {
+    "id": "G89PR",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     7
+    ],
+    "Q": [
+     "wfpn",
+     7
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "IWQEC",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     5
+    ],
+    "Q": [
+     "agsc",
+     4
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "Z3UW8",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     5
+    ],
+    "Q": [
+     "gcap",
+     1
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "ZM2IA",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     1
+    ],
+    "Q": [
+     "krvc",
+     1
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "OWEWS",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     13
+    ],
+    "Q": [
+     "dncx",
+     2
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "JMM7D",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     15
+    ],
+    "Q": [
+     "krvc",
+     13
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "RHXNL",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     2
+    ],
+    "Q": [
+     "wduk",
+     15
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "77DZA",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     6
+    ],
+    "Q": [
+     "wduk",
+     0
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "VPWFU",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     7
+    ],
+    "Q": [
+     "gcap",
+     7
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "8AJAM",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     5
+    ],
+    "Q": [
+     "wfpn",
+     5
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "L2V0Y",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     31
+    ],
+    "Q": [
+     "dncx",
+     31
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 31
+   },
+   {
+    "id": "YHI5B",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     19
+    ],
+    "Q": [
+     "dncx",
+     19
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 19
+   },
+   {
+    "id": "YQPHM",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     2
+    ],
+    "Q": [
+     "wfpn",
+     0
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "7Y9T0",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     3
+    ],
+    "Q": [
+     "dncx",
+     19
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 19
+   },
+   {
+    "id": "YZWZM",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     6
+    ],
+    "Q": [
+     "sfbp",
+     6
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "W45VE",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     5
+    ],
+    "Q": [
+     "gcap",
+     5
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "04ZI0",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     28
+    ],
+    "Q": [
+     "krvc",
+     28
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 28
+   },
+   {
+    "id": "JDRVX",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     19
+    ],
+    "Q": [
+     "krvc",
+     1
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "5QRRL",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     14
+    ],
+    "Q": [
+     "yyuc",
+     14
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 14
+   }
+  ],
+  [
+   {
+    "id": "0JR38",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     1
+    ],
+    "Q": [
+     "gcap",
+     1
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "WB47Q",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     4
+    ],
+    "Q": [
+     "wfpn",
+     3
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "9R2BD",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     7
+    ],
+    "Q": [
+     "dncx",
+     7
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "NZP27",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     15
+    ],
+    "Q": [
+     "hnrt",
+     15
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "PN4QD",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     8
+    ],
+    "Q": [
+     "hnrt",
+     7
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "N3L9F",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     5
+    ],
+    "Q": [
+     "wduk",
+     5
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "YG8BP",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     31
+    ],
+    "Q": [
+     "sfbp",
+     31
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 31
+   },
+   {
+    "id": "DPJKA",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     16
+    ],
+    "Q": [
+     "sfbp",
+     16
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 16
+   },
+   {
+    "id": "JQFRY",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     2
+    ],
+    "Q": [
+     "krvc",
+     2
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "YC2FK",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     23
+    ],
+    "Q": [
+     "krvc",
+     15
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 23
+   },
+   {
+    "id": "WF4SN",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     9
+    ],
+    "Q": [
+     "sfbp",
+     22
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "YDB47",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     13
+    ],
+    "Q": [
+     "sfbp",
+     27
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "Y315Y",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     2
+    ],
+    "Q": [
+     "dncx",
+     2
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "4QYZF",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     13
+    ],
+    "Q": [
+     "yyuc",
+     12
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "BUQKZ",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     7
+    ],
+    "Q": [
+     "hnrt",
+     7
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "4MVDW",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "gcap",
+     0
+    ],
+    "Q": [
+     "agsc",
+     0
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "OVW5I",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     2
+    ],
+    "Q": [
+     "agsc",
+     1
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "DAQCF",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     0
+    ],
+    "Q": [
+     "agsc",
+     5
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "2RRGP",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     2
+    ],
+    "Q": [
+     "hnrt",
+     6
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "ALJ52",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     15
+    ],
+    "Q": [
+     "sfbp",
+     0
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "IHRD9",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     9
+    ],
+    "Q": [
+     "hnrt",
+     9
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "M91U6",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     6
+    ],
+    "Q": [
+     "agsc",
+     3
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "WYA6L",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     18
+    ],
+    "Q": [
+     "dncx",
+     18
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 18
+   },
+   {
+    "id": "T8CX4",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     5
+    ],
+    "Q": [
+     "sfbp",
+     18
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "LXGR2",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     3
+    ],
+    "Q": [
+     "yyuc",
+     10
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "V0R92",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     0
+    ],
+    "Q": [
+     "agsc",
+     1
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "35Q0N",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     13
+    ],
+    "Q": [
+     "krvc",
+     13
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "3E0OH",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     29
+    ],
+    "Q": [
+     "sfbp",
+     28
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 29
+   }
+  ],
+  [
+   {
+    "id": "VKDX3",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     17
+    ],
+    "Q": [
+     "dncx",
+     3
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "1BO7J",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     25
+    ],
+    "Q": [
+     "dncx",
+     25
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 25
+   },
+   {
+    "id": "12YS4",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     25
+    ],
+    "Q": [
+     "sfbp",
+     6
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 25
+   },
+   {
+    "id": "4G50T",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     10
+    ],
+    "Q": [
+     "hnrt",
+     7
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "33T09",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     12
+    ],
+    "Q": [
+     "krvc",
+     25
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 25
+   },
+   {
+    "id": "8XZ00",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     10
+    ],
+    "Q": [
+     "sfbp",
+     10
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "O9U79",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     0
+    ],
+    "Q": [
+     "hnrt",
+     0
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "MCOOY",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     15
+    ],
+    "Q": [
+     "dncx",
+     15
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "KAU02",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     2
+    ],
+    "Q": [
+     "hnrt",
+     0
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "Q6ZZ7",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     30
+    ],
+    "Q": [
+     "krvc",
+     30
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 30
+   },
+   {
+    "id": "CJ6CV",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     1
+    ],
+    "Q": [
+     "hnrt",
+     1
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "LN48G",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     13
+    ],
+    "Q": [
+     "yyuc",
+     13
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "0GLOT",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     29
+    ],
+    "Q": [
+     "dncx",
+     29
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 29
+   },
+   {
+    "id": "ILZ37",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     14
+    ],
+    "Q": [
+     "yyuc",
+     14
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "3I9J2",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     31
+    ],
+    "Q": [
+     "dncx",
+     10
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "M0JRO",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     8
+    ],
+    "Q": [
+     "yyuc",
+     8
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "Z6P2J",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     22
+    ],
+    "Q": [
+     "sfbp",
+     22
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 22
+   },
+   {
+    "id": "204HA",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     17
+    ],
+    "Q": [
+     "krvc",
+     28
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 17
+   },
+   {
+    "id": "4X33D",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     3
+    ],
+    "Q": [
+     "hnrt",
+     3
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "QJLN6",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     1
+    ],
+    "Q": [
+     "agsc",
+     0
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "3QXVQ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     10
+    ],
+    "Q": [
+     "sfbp",
+     10
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "HOD31",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     3
+    ],
+    "Q": [
+     "krvc",
+     12
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "33OFJ",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     2
+    ],
+    "Q": [
+     "dncx",
+     5
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "NG6JV",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     11
+    ],
+    "Q": [
+     "krvc",
+     11
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "7MRIC",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     14
+    ],
+    "Q": [
+     "dncx",
+     14
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "LZGRI",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     6
+    ],
+    "Q": [
+     "wfpn",
+     7
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "C29WF",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     24
+    ],
+    "Q": [
+     "sfbp",
+     15
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 24
+   },
+   {
+    "id": "3BOQV",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     26
+    ],
+    "Q": [
+     "krvc",
+     14
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 26
+   }
+  ],
+  [
+   {
+    "id": "GYT25",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     4
+    ],
+    "Q": [
+     "wduk",
+     4
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "RZWIF",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     10
+    ],
+    "Q": [
+     "dncx",
+     24
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 24
+   },
+   {
+    "id": "RS41D",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "agsc",
+     7
+    ],
+    "Q": [
+     "gcap",
+     5
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "KYC88",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     14
+    ],
+    "Q": [
+     "wduk",
+     4
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "S08HJ",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     9
+    ],
+    "Q": [
+     "wduk",
+     9
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "583BJ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     24
+    ],
+    "Q": [
+     "krvc",
+     24
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 24
+   },
+   {
+    "id": "MBROA",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     1
+    ],
+    "Q": [
+     "dncx",
+     2
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "4CCI1",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     5
+    ],
+    "Q": [
+     "hnrt",
+     1
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "97SSZ",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     11
+    ],
+    "Q": [
+     "wduk",
+     11
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "WDLTO",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     17
+    ],
+    "Q": [
+     "dncx",
+     17
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 17
+   },
+   {
+    "id": "CJ65D",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     5
+    ],
+    "Q": [
+     "wfpn",
+     4
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "3P5X5",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     15
+    ],
+    "Q": [
+     "krvc",
+     15
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "RH6SH",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     11
+    ],
+    "Q": [
+     "dncx",
+     29
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 29
+   },
+   {
+    "id": "T1L3O",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     27
+    ],
+    "Q": [
+     "dncx",
+     27
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 27
+   },
+   {
+    "id": "E86SF",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     4
+    ],
+    "Q": [
+     "gcap",
+     4
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "T5SAY",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     23
+    ],
+    "Q": [
+     "krvc",
+     23
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 23
+   },
+   {
+    "id": "NI0XM",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     7
+    ],
+    "Q": [
+     "krvc",
+     7
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "M7INJ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     16
+    ],
+    "Q": [
+     "dncx",
+     16
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 16
+   },
+   {
+    "id": "SIKEV",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     19
+    ],
+    "Q": [
+     "dncx",
+     0
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "GDMOR",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     10
+    ],
+    "Q": [
+     "yyuc",
+     14
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "J35XN",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     26
+    ],
+    "Q": [
+     "dncx",
+     3
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "F2RKH",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     5
+    ],
+    "Q": [
+     "dncx",
+     24
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 24
+   },
+   {
+    "id": "RGLOC",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     27
+    ],
+    "Q": [
+     "krvc",
+     25
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 27
+   },
+   {
+    "id": "XNZOC",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     8
+    ],
+    "Q": [
+     "sfbp",
+     20
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "USP1O",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     18
+    ],
+    "Q": [
+     "dncx",
+     18
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 18
+   },
+   {
+    "id": "4DI9D",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     10
+    ],
+    "Q": [
+     "krvc",
+     10
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "06CIX",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     7
+    ],
+    "Q": [
+     "hnrt",
+     11
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "TC3SW",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     20
+    ],
+    "Q": [
+     "sfbp",
+     16
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 20
+   }
+  ],
+  [
+   {
+    "id": "1OERZ",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     12
+    ],
+    "Q": [
+     "wduk",
+     12
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "J7ADD",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     12
+    ],
+    "Q": [
+     "wduk",
+     15
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "QK8WP",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     8
+    ],
+    "Q": [
+     "yyuc",
+     8
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "6DIJ2",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     0
+    ],
+    "Q": [
+     "wduk",
+     2
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "WDWHS",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     20
+    ],
+    "Q": [
+     "dncx",
+     1
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "K13XE",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     13
+    ],
+    "Q": [
+     "yyuc",
+     5
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "NRU5K",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     2
+    ],
+    "Q": [
+     "gcap",
+     2
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "VP5TR",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "gcap",
+     7
+    ],
+    "Q": [
+     "agsc",
+     6
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "V88YC",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     17
+    ],
+    "Q": [
+     "sfbp",
+     29
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 17
+   },
+   {
+    "id": "AJC9K",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     9
+    ],
+    "Q": [
+     "sfbp",
+     9
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "C0TQC",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     3
+    ],
+    "Q": [
+     "gcap",
+     3
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "M3DMH",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     4
+    ],
+    "Q": [
+     "gcap",
+     4
+    ],
+    "pair": [
+     "agsc",
+     "gcap"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "W48OS",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     7
+    ],
+    "Q": [
+     "krvc",
+     7
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "JLTLB",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     8
+    ],
+    "Q": [
+     "yyuc",
+     4
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "8XCFN",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     2
+    ],
+    "Q": [
+     "yyuc",
+     2
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "BJYHW",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     29
+    ],
+    "Q": [
+     "sfbp",
+     29
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 29
+   },
+   {
+    "id": "HALZS",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     10
+    ],
+    "Q": [
+     "hnrt",
+     2
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "QH4IH",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     14
+    ],
+    "Q": [
+     "dncx",
+     11
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "M8C2D",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     5
+    ],
+    "Q": [
+     "wduk",
+     13
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "N32VB",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     14
+    ],
+    "Q": [
+     "hnrt",
+     14
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "NVXJ1",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     9
+    ],
+    "Q": [
+     "dncx",
+     8
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "0RAZF",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     3
+    ],
+    "Q": [
+     "agsc",
+     6
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "1GWPU",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     11
+    ],
+    "Q": [
+     "dncx",
+     11
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "UL4H5",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     12
+    ],
+    "Q": [
+     "dncx",
+     12
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "AWXNL",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     30
+    ],
+    "Q": [
+     "krvc",
+     26
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 26
+   },
+   {
+    "id": "DCA0V",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     18
+    ],
+    "Q": [
+     "dncx",
+     19
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 19
+   },
+   {
+    "id": "CVF4J",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     28
+    ],
+    "Q": [
+     "sfbp",
+     18
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 28
+   },
+   {
+    "id": "AIS0Y",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     7
+    ],
+    "Q": [
+     "yyuc",
+     15
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 7
+   }
+  ],
+  [
+   {
+    "id": "5LMK6",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     5
+    ],
+    "Q": [
+     "dncx",
+     5
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "82CIF",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     9
+    ],
+    "Q": [
+     "krvc",
+     7
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "CZWNC",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     1
+    ],
+    "Q": [
+     "gcap",
+     0
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "W0B8U",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     5
+    ],
+    "Q": [
+     "dncx",
+     15
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "7VP1D",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     24
+    ],
+    "Q": [
+     "dncx",
+     4
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "SP0LK",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     10
+    ],
+    "Q": [
+     "yyuc",
+     6
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "ZMPYK",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     10
+    ],
+    "Q": [
+     "krvc",
+     31
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 31
+   },
+   {
+    "id": "WF0IA",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     12
+    ],
+    "Q": [
+     "dncx",
+     14
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "E25OX",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     0
+    ],
+    "Q": [
+     "yyuc",
+     5
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "8JS3A",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     6
+    ],
+    "Q": [
+     "krvc",
+     7
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "8MJ75",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     25
+    ],
+    "Q": [
+     "sfbp",
+     25
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 25
+   },
+   {
+    "id": "2XCPU",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     1
+    ],
+    "Q": [
+     "sfbp",
+     28
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 1
+   },
+   {
+    "id": "D4XO8",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     30
+    ],
+    "Q": [
+     "sfbp",
+     8
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 30
+   },
+   {
+    "id": "ODKE5",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     10
+    ],
+    "Q": [
+     "hnrt",
+     10
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "JNOUA",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "wfpn",
+     2
+    ],
+    "Q": [
+     "gcap",
+     3
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "BQOGG",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     12
+    ],
+    "Q": [
+     "hnrt",
+     15
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "NYT7A",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     13
+    ],
+    "Q": [
+     "krvc",
+     13
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "W0C98",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     8
+    ],
+    "Q": [
+     "hnrt",
+     8
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "I4AUP",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     4
+    ],
+    "Q": [
+     "krvc",
+     4
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "F7CV1",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     11
+    ],
+    "Q": [
+     "krvc",
+     21
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "FI6T8",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     11
+    ],
+    "Q": [
+     "yyuc",
+     11
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "NBR0E",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     15
+    ],
+    "Q": [
+     "krvc",
+     15
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 15
+   },
+   {
+    "id": "EFPAN",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     26
+    ],
+    "Q": [
+     "krvc",
+     26
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 26
+   },
+   {
+    "id": "W3CNY",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     9
+    ],
+    "Q": [
+     "hnrt",
+     8
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 8
+   },
+   {
+    "id": "AS0N6",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     21
+    ],
+    "Q": [
+     "krvc",
+     21
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 21
+   },
+   {
+    "id": "GSC70",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     16
+    ],
+    "Q": [
+     "sfbp",
+     7
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 16
+   },
+   {
+    "id": "6WCMO",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     12
+    ],
+    "Q": [
+     "krvc",
+     11
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "C47SX",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "agsc",
+     4
+    ],
+    "Q": [
+     "wfpn",
+     4
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 4
+   }
+  ],
+  [
+   {
+    "id": "9UEAT",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     19
+    ],
+    "Q": [
+     "sfbp",
+     4
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 19
+   },
+   {
+    "id": "4FYZM",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     9
+    ],
+    "Q": [
+     "yyuc",
+     6
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 9
+   },
+   {
+    "id": "8HRS0",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     8
+    ],
+    "Q": [
+     "hnrt",
+     13
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "YWBKR",
+    "kind": "matched",
+    "H": 8,
+    "P": [
+     "wfpn",
+     0
+    ],
+    "Q": [
+     "gcap",
+     0
+    ],
+    "pair": [
+     "gcap",
+     "wfpn"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "MGD8Y",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     30
+    ],
+    "Q": [
+     "krvc",
+     26
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 30
+   },
+   {
+    "id": "OSJRQ",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     14
+    ],
+    "Q": [
+     "hnrt",
+     11
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 11
+   },
+   {
+    "id": "ZWASJ",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     28
+    ],
+    "Q": [
+     "krvc",
+     28
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 28
+   },
+   {
+    "id": "JIFEY",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     3
+    ],
+    "Q": [
+     "wduk",
+     1
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "O9858",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "wduk",
+     11
+    ],
+    "Q": [
+     "hnrt",
+     10
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 10
+   },
+   {
+    "id": "FMO28",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "wduk",
+     3
+    ],
+    "Q": [
+     "yyuc",
+     3
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "I52UD",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "krvc",
+     3
+    ],
+    "Q": [
+     "dncx",
+     13
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 13
+   },
+   {
+    "id": "91ALC",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     11
+    ],
+    "Q": [
+     "wduk",
+     5
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 5
+   },
+   {
+    "id": "P67R9",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     4
+    ],
+    "Q": [
+     "krvc",
+     4
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "QZ73L",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     30
+    ],
+    "Q": [
+     "krvc",
+     30
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 30
+   },
+   {
+    "id": "Y200N",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "hnrt",
+     2
+    ],
+    "Q": [
+     "wduk",
+     2
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "NVCHA",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     6
+    ],
+    "Q": [
+     "wduk",
+     6
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 6
+   },
+   {
+    "id": "RHCN6",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "sfbp",
+     0
+    ],
+    "Q": [
+     "dncx",
+     0
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "16EU2",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "dncx",
+     3
+    ],
+    "Q": [
+     "krvc",
+     3
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 3
+   },
+   {
+    "id": "U8S2P",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     4
+    ],
+    "Q": [
+     "wduk",
+     3
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 4
+   },
+   {
+    "id": "U9WCS",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     7
+    ],
+    "Q": [
+     "hnrt",
+     7
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "35P3R",
+    "kind": "control",
+    "H": 8,
+    "P": [
+     "agsc",
+     0
+    ],
+    "Q": [
+     "wfpn",
+     1
+    ],
+    "pair": [
+     "agsc",
+     "wfpn"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "DEO9D",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "yyuc",
+     3
+    ],
+    "Q": [
+     "hnrt",
+     12
+    ],
+    "pair": [
+     "hnrt",
+     "yyuc"
+    ],
+    "neuron": 12
+   },
+   {
+    "id": "IQF6A",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "dncx",
+     7
+    ],
+    "Q": [
+     "krvc",
+     23
+    ],
+    "pair": [
+     "dncx",
+     "krvc"
+    ],
+    "neuron": 7
+   },
+   {
+    "id": "A241A",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     19
+    ],
+    "Q": [
+     "dncx",
+     14
+    ],
+    "pair": [
+     "dncx",
+     "sfbp"
+    ],
+    "neuron": 14
+   },
+   {
+    "id": "FY9BG",
+    "kind": "control",
+    "H": 32,
+    "P": [
+     "sfbp",
+     31
+    ],
+    "Q": [
+     "krvc",
+     2
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 2
+   },
+   {
+    "id": "9N5MJ",
+    "kind": "matched",
+    "H": 16,
+    "P": [
+     "yyuc",
+     0
+    ],
+    "Q": [
+     "wduk",
+     0
+    ],
+    "pair": [
+     "wduk",
+     "yyuc"
+    ],
+    "neuron": 0
+   },
+   {
+    "id": "3D4H9",
+    "kind": "matched",
+    "H": 32,
+    "P": [
+     "krvc",
+     17
+    ],
+    "Q": [
+     "sfbp",
+     17
+    ],
+    "pair": [
+     "krvc",
+     "sfbp"
+    ],
+    "neuron": 17
+   },
+   {
+    "id": "S8L22",
+    "kind": "control",
+    "H": 16,
+    "P": [
+     "hnrt",
+     9
+    ],
+    "Q": [
+     "wduk",
+     6
+    ],
+    "pair": [
+     "hnrt",
+     "wduk"
+    ],
+    "neuron": 9
+   }
+  ]
+ ]
+}

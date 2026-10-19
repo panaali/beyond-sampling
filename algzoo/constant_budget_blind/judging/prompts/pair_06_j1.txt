@@ -1,0 +1,101 @@
+You are a judge. Each item below shows two short labels, P and Q. Each label was written by an investigator to
+describe what one hidden neuron of a small recurrent network does. The network reads 10 real numbers x0..x9
+(i.i.d. Gaussian) and outputs the position of the second-largest number. Different investigators wrote P and
+Q independently; P and Q may or may not describe the same neuron. Judge ON THE TEXT ALONE whether they describe
+the same function. Do not use any tools and do not read any files; answer directly.
+
+Verdicts:
+  SAME      same main job; differences only in detail, wording, constants or minor offshoots
+            (for position-dependent labels, the position sets must largely agree)
+  PARTIAL   they share one main component but differ in another main component
+  DIFFERENT different main jobs, or position sets that largely disagree
+
+Answer with exactly one line per item, in item order, in the format
+ITEM_ID | VERDICT
+and nothing else.
+
+ITEMS:
+0JR38:
+  P: Accumulated shortfall of x4,x5,x6 below the mean of the two largest earlier inputs (strongest for x6), plus the sum x4+x5; raised when x7 exceeds the earlier top-two mean.
+  Q: How far x6 falls below the largest and second-largest of x0..x5, discounted when x4 is the larger reference value, plus a small running-maximum magnitude term.
+WB47Q:
+  P: How far x8 falls below the mean of the three largest of x0..x7, plus a small share of how far x9 falls below the mean of the three largest of x0..x8.
+  Q: Fires when x7 is NOT below the mean of the two largest of x0..x6 (silenced by that shortfall), given accumulated shortfalls of x3,x4,x5 below the running maximum; increases with x4.
+9R2BD:
+  P: Fires when x9 is a new maximum: ReLU(8.75·x9 − 8.68·max(x0..x8)), i.e. about 8.7 times the amount by which x9 exceeds all earlier inputs.
+  Q: Fires only when x9 is the largest of all ten inputs: about 8.8 times the margin by which x9 exceeds the maximum of x0..x8.
+NZP27:
+  P: New-maximum-at-the-end detector: 27*ReLU(x9 - M), where M is the largest of x0..x8; positive only when the last input x9 is the overall maximum.
+  Q: How much the last input x9 exceeds every earlier input: about 27*max(0, x9 - max(x0..x8)); zero unless x9 is the overall maximum.
+PN4QD:
+  P: ReLU(13*max(x0,x1,x3,x4,x7) - 7*second largest of x0..x7) plus bonuses (~2-4 times the largest of x0..x8) when that largest sits at x4 or x7; bonuses missing when it sits at x2 or x3.
+  Q: Size of the running maximum: mainly the largest of x0..x7, with extra weight when the largest value sits at x0,x3,x6 (also x2,x7,x8); almost always positive and ignores x9.
+N3L9F:
+  P: Mostly ~8*max(x0,x2,x3,x5,x6,x7,x8), plus ~4*largest of x0..x8 when it is at x0,x2,x3,x5,x6,x8; strongly reduced when the largest or second largest of x0..x8 is x5. ReLU applied.
+  Q: Position-coded size of the earlier maximum M (max of x0..x8): gain 14.7 if M at x0,x3,x6,x8, 11.8 at x2/x7, 7.0 at x1,x4,x5; second-largest S of x0..x8 adds 1.1*S, or -2.9*S if S is at x1,x4,x5.
+YG8BP:
+  P: Mostly about 5 times the second-largest of x0..x8; offshoots: plus max(x0..x4), plus x2's shortfall below the maximum of the others, minus x2's margin when it is in the overall top two.
+  Q: Second-largest tracker: ReLU(5.49·M2 + 0.61·M1 + 0.92·(M1−M2)·[max at x0,x1,x3,x4] + 0.5·M2·[max at x0,x1,x3,x4] − 0.32·x2); M1,M2 = largest, second-largest of x0..x8.
+DPJKA:
+  P: How far x9 exceeds the second-largest of x0..x8; zero unless x9 is among the two largest overall.
+  Q: Fires when x9 exceeds the second-largest of x0..x8 (call it M2): ReLU(5.61·x9 − 5.45·M2), i.e. x9 enters the top two.
+JQFRY:
+  P: x3-is-a-top-value detector: ≈2.4·M1 when x3 is among the two largest of x0..x8 (M1 = largest), minus M1 if x3 is only second, plus 0.74·x3 − 0.22·x5 + 0.95·ReLU(x0 − third-largest).
+  Q: Detects x3 being among the two largest of x0..x8: grows with x3's margin over the third-largest of the others, extra when x3 is the maximum; small offshoot when x0 is the maximum.
+YC2FK:
+  P: Fires when x9 exceeds the second-largest of x0..x8: about 4.7*x9 - 3.5*second - 0.9*largest, rectified; silenced when the largest of x0..x8 is x8.
+  Q: Detects x1 being among the two largest of x0..x8: grows with x1's margin over the third-largest of the others and over all later values x2..x8, extra when x1 is the maximum.
+WF4SN:
+  P: Rarely active: fires only when the second- and third-largest of x0..x8 are both unusually low (roughly below zero); weaker when x9 or the top gap of x0..x8 is large.
+  Q: x7-is-the-max detector: 1.92·M1·[x7 is the largest of x0..x8] + 0.62·M1·[x7 is among the two largest], with M1 = largest of x0..x8.
+YDB47:
+  P: ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.5*largest + 0.9*second - 1.7*x9); silenced when the largest is x8, larger when it is at x1, x2, x4 or x7.
+  Q: Max-at-x2-or-x6 detector: ReLU(1.58·M1 − 0.62·M2) when the largest of x0..x8 sits at x2 or x6, else 0; M1,M2 = largest, second-largest of x0..x8.
+Y315Y:
+  P: Detects x3 being among the two largest of x0..x8: grows with x3's margin over the third-largest of the others, extra when x3 is the maximum; small offshoot when x0 is the maximum.
+  Q: Detects x3 being among the top values of x0..x8: roughly 3*x3 if x3 is the largest, 2.8*x3 if second, 1.3*x3 if third, otherwise near zero.
+4QYZF:
+  P: Size of early large values: largest of x0,x1,x3,x4,x7 plus the second-largest of x0..x3 and of x0..x4, minus the second-largest of x0,x2,x4,x6; favours maxima at x0,x1,x3,x7.
+  Q: Margin of the largest over the second largest of x0..x8: ReLU(21*largest - 12.4*second - 2.3*max(x2,x5) - 3*max(x1,x2,x5,x6,x8)); smaller when the big values sit at x2,x5.
+BUQKZ:
+  P: Position-coded size of the earlier maximum M (max of x0..x8): gain 24.8 if M at x0,x3,x6, 20.8 at x2,x4,x5,x7, 16.6 at x1/x8; plus 6.2 times second-largest of x0..x8 and 3.5 times positive parts of x3,x6.
+  Q: Size of the running maximum: mainly the largest of x0..x7, with extra weight when the largest value sits at x0,x3,x6 (also x2,x7,x8); almost always positive and ignores x9.
+4MVDW:
+  P: Magnitude of the running maximum (average of max(x0..xt) over t=1..9) minus how large x4 and x5 are (and x3, less), plus x8: large when x4 and x5 were low.
+  Q: Rises when x3, x4, x5 each fall below the largest value before them (big early maximum), plus x8 and the sum of the two largest inputs; ReLU of that weighted sum.
+OVW5I:
+  P: Broad magnitude signal: total shortfall of x3..x9 below the running maximum of earlier inputs, plus x7+x8, plus shortfalls of x1..x7 below the earlier top-two mean (extra weight on x3..x5).
+  Q: Mainly how far x6 falls below the mean of the two largest earlier values; smaller such term for x4; plus max of x0..x8 and positive mass of x0..x2. ReLU.
+DAQCF:
+  P: Overall size of the top values (mean of the two largest of x0..x8, T8) plus accumulated shortfalls of x3,x4,x5 below the running maximum of earlier inputs; reduced when x8 falls short of the earlier top-two mean.
+  Q: How far x9 falls below the level of the two largest of x0..x8: ReLU(0.24*(top1+top2) - 1.27*x9 + 0.19*sum of positive inputs). Large means x9 is not a top-two value.
+2RRGP:
+  P: Weak, poorly understood: roughly ReLU(8*(second largest of x0,x1,x2,x3,x4,x6,x7) + 4*x2 - 4*(second largest of x0..x8 unless at x2) + small terms in max(x1,x4) and x2 when third largest).
+  Q: Fires when x9 falls well below the largest of x0..x8: grows with that maximum (weight about 2x larger if it sits at x0,x1,x4,x7 than at x2,x3,x5,x6) and the second-largest, minus about 8.2*x9; silent if x8 is largest of x0..x8.
+ALJ52:
+  P: Detects x1 being among the two largest of x0..x8: grows with x1's margin over the third-largest of the others and over all later values x2..x8, extra when x1 is the maximum.
+  Q: x9-is-low detector, off when x8 is the max: ReLU(1.21·M2 − 1.55·x9 + 0.6·M1·[max at x1,x2,x5,x6] + 0.29·M1·[second at x0,x3,x7,x8] − 3.75·M1·[max at x8]); M1,M2 = largest, second-largest of x0..x8.
+IHRD9:
+  P: Memory of x1 plus a position code of the earlier maximum M (max of x0..x8): 10.5*max(x1,0) + g*M - 1.0*second-largest of x0..x8, with g=9.5 if M at x0,x4,x7, 5.1 at x1/x3, 3.3 otherwise.
+  Q: Largest value among x0,x1,x4,x7 plus extra direct weight on x1 and on x4 when x4 sets a new running record; reduced by the second-largest of x0,x4,x5,x6,x7. Small when the maximum is at x2,x3,x5,x6,x8,x9.
+M91U6:
+  P: Running-maximum magnitude (average of max(x0..xt), t=1..9) minus x4, more strongly when x4 is below x2; plus a little x8, minus a little x2. Large when x4 was low.
+  Q: Grows when x3 and x5 fall below the earlier running maximum; shrinks when x7 falls below the mean of the two largest earlier values (rewards a large x7). Plus |x0|+|x1|+|x2|. ReLU.
+WYA6L:
+  P: x9-is-low detector with max-position code: ReLU(1.04·M1 − 1.43·x9 + 0.96·M1·[max at x1] − 1.01·(M1−M2)·[max at x2,x3,x5,x7] + 0.51·M2·[second at x2]); M1,M2 = largest, second-largest of x0..x8.
+  Q: ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.5*largest + 0.7*second - 1.4*x9), much larger when the largest is x1.
+T8CX4:
+  P: Gap between the largest and second-largest of x0..x8, about twice as strong when x8 is the largest; offshoots: plus max of x0..x4, plus x2's shortfall below the maximum of the others.
+  Q: x9-is-low detector with max-position code: ReLU(1.04·M1 − 1.43·x9 + 0.96·M1·[max at x1] − 1.01·(M1−M2)·[max at x2,x3,x5,x7] + 0.51·M2·[second at x2]); M1,M2 = largest, second-largest of x0..x8.
+LXGR2:
+  P: Fires when x9 is below the largest earlier value M (max of x0..x8): ReLU(g*M + 3.3*S - 8.3*x9), S = second-largest of x0..x8; g=6.6 if M is at x1,x2,x4,x5, 3.1 if at x0,x3,x6,x7; off if M is x8.
+  Q: Last input beats the earlier runner-up: ReLU(8.4*x9 - 4.7*P2 - 1.9*P3), P2,P3 = second and third largest of x0..x8. Positive essentially when x9 is among the two largest inputs.
+V0R92:
+  P: Magnitude of the running maximum (average of max(x0..xt) over t=1..9) minus how large x4 and x5 are (and x3, less), plus x8: large when x4 and x5 were low.
+  Q: Mainly how far x6 falls below the mean of the two largest earlier values; smaller such term for x4; plus max of x0..x8 and positive mass of x0..x2. ReLU.
+35Q0N:
+  P: x9-is-low detector, off when x8 is the max: ReLU(1.33·M1 − 1.68·x9 − 4.21·M1·[max at x8] + 0.7·M2·[max at x1,x2,x4,x7] − 0.84·(M1−M2)·[max at x0,x3,x5,x8]); M1,M2 = largest, second-largest of x0..x8.
+  Q: How far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; plus the top gap of x0..x8 and bonuses when the overall maximum is x7 or x2.
+3E0OH:
+  P: How far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; plus the margin by which x3, x6 or x7 is the overall maximum.
+  Q: Unclear max-position code: ReLU(0.78·M1 − 0.74·M1·[max at x8] − 0.56·(M1−M2)·[max at x6,x7,x8] + 0.35·M1·[max at x0,x1,x3] + 0.23·ReLU(M2−x8)); M1,M2 = largest, second-largest of x0..x8.

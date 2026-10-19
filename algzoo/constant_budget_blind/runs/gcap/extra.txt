@@ -1,0 +1,24 @@
+
+LABELS = {
+    0: ("B", "Magnitude of the running maximum (average of max(x0..xt) over t=1..9) minus how large x4 and x5 are (and x3, less), plus x8: large when x4 and x5 were low."),
+    1: ("A", "How far x6 falls below the largest and second-largest of x0..x5, discounted when x4 is the larger reference value, plus a small running-maximum magnitude term."),
+    2: ("C", "Running-maximum magnitude minus x5 and x3 (large when they were low), plus how far x6 falls below the second-largest of x0..x5, plus how much x8 exceeds x9."),
+    3: ("B", "Mainly how far x5 falls below max(x0..x4), plus the value of x7; reduced when x3 exceeds x5, or when x4 or x1 exceed x7."),
+    4: ("A", "How far x8 falls below the mean of the three largest of x0..x7, plus a small share of how far x9 falls below the mean of the three largest of x0..x8."),
+    5: ("A", "How far x9 falls below the mean of the three largest of x0..x8 (zero when x9 is at least that high); signals that the last input is not a top value."),
+    6: ("B", "Running-maximum magnitude (average of max(x0..xt), t=1..9) minus x4, more strongly when x4 is below x2; plus a little x8, minus a little x2. Large when x4 was low."),
+    7: ("B", "Running-maximum magnitude minus x5 and x6 (large when they were low), plus x9, plus how far x4 falls below the second-largest of x0..x3."),
+}
+
+CONSTANTS = {i: len(SPEC[i][1]) for i in range(8)}
+
+STRUCT = {
+    0: "greedy/exhaustive search: level feature (avg running max) + 4 terms from {x_t, gap_t, G_t, g_t, ReLU(x_s-x_t)}; chose x3,x4,x5,x8",
+    1: "greedy forward selection over ~130 features; chose G6, level, ReLU(x4-x6), g6, ReLU(x4-x8)",
+    2: "greedy forward selection; chose level, x5, x3, g6, ReLU(x8-x9)",
+    3: "greedy forward selection; chose G5, x7, ReLU(x3-x5), ReLU(x4-x7), ReLU(x1-x7)",
+    4: "reference = mean of top-3 earlier values (compared top-1/2/3 and blends); positions 8,9",
+    5: "reference = mean of top-3 of x0..x8 (compared top-1/2/3 and blends)",
+    6: "exhaustive level + 3 terms, then best 5th; chose x2, x4, x8, ReLU(x2-x4)",
+    7: "exhaustive level + 3 terms, then best 5th; chose x5, x6, x9, g4",
+}

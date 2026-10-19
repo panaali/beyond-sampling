@@ -1,0 +1,55 @@
+You are a judge. Below are short labels, each written by an investigator to describe what ONE hidden neuron of a
+small recurrent network does. The network reads 10 real numbers x0..x9 (i.i.d. Gaussian) and outputs the
+position of the second-largest number. Judge each label ON ITS TEXT ALONE. Do not use any tools and do not
+read any files; answer directly.
+
+For each item give:
+1. CAT, the legibility category the text supports:
+   A = one main job (with related offshoots); B = two related jobs; C = several unrelated jobs; D = not
+   understood (the text does not give a coherent account of the neuron's job).
+2. ROLE, the single PRIMARY role from this frozen list, and optionally ROLE2, a secondary role (or "-"):
+   MAX        magnitude of the largest value (of the whole sequence or of a prefix)
+   SECOND     magnitude of the second-largest value (or third-largest)
+   GAP        a difference between top-ranked values (largest minus second, second minus third), i.e. a margin
+   POS_MAX    which position holds the largest value (a position code, possibly scaled by a magnitude or gap)
+   POS_SECOND which position holds the second-largest value, or whether a specific position is among the top two
+   LAST       a comparison involving the last input x9 (x9 above/below the prefix max or runner-up, x9 new max)
+   RAW        raw input value(s) at fixed positions, without ranking
+   OTHER      anything else, or a mixture with no dominant role
+   Choose the role that the label says carries most of the neuron's activity. If a label says "the gap,
+   with a gain depending on where the max is", the primary role is the one the text emphasises; if both
+   are equally emphasised prefer the first mentioned and put the other in ROLE2.
+
+Answer with exactly one line per item, in item order, in the format
+ITEM_ID | CAT | ROLE | ROLE2
+and nothing else.
+
+ITEMS:
+L063P: Fires when x4 is not among the top two of x0..x8: grows with the largest and second-largest of x0..x8 and with how far x4 lies below the second-largest.
+GDFW4: Margin of the largest over the second largest of x0..x8: ReLU(21*largest - 12.4*second - 2.3*max(x2,x5) - 3*max(x1,x2,x5,x6,x8)); smaller when the big values sit at x2,x5.
+R5DRN: How far x9 exceeds the largest of x0..x8; zero unless x9 is the overall maximum.
+2UY8H: Detects x1 being among the two largest of x0..x8: grows with x1's margin over the third-largest of the others and over all later values x2..x8, extra when x1 is the maximum.
+9Z3KM: Mainly how far x4 falls below the largest value before it, plus a weaker such term for x2, plus the sum of the two largest inputs and x8. ReLU.
+N2A1Y: Detects that the last input x9 is among the top two: ReLU(8.4*x9 - 6.3*S + 0.2*M), where M and S are the largest and second-largest of x0..x8; positive roughly when x9 exceeds S.
+QH3RU: x9-is-low detector, off when x8 is the max: ReLU(1.21·M2 − 1.55·x9 + 0.6·M1·[max at x1,x2,x5,x6] + 0.29·M1·[second at x0,x3,x7,x8] − 3.75·M1·[max at x8]); M1,M2 = largest, second-largest of x0..x8.
+HH80B: Size of early large values: largest of x0,x1,x3,x4,x7 plus the second-largest of x0..x3 and of x0..x4, minus the second-largest of x0,x2,x4,x6; favours maxima at x0,x1,x3,x7.
+KG1A4: ReLU(8*(largest of x0..x8 if at x1,x2,x3,x5,x6,x8) + 5.2*(that largest if at x0,x2,x4,x5,x8) - 5.3*(second largest of x0..x8 unless at x8) - 5.1*(second largest if at x7)).
+0YJPR: Margin of the earlier maximum over the runner-up: ReLU(g*M - 13.8*S - 5.3*max(x8,0)), M,S = largest and second-largest of x0..x8; g=21.3 if M at x0,x1,x3,x4,x6,x7, 18.5 at x2/x5, -6.9 at x8.
+ITTAY: Fires when an earlier value is high but x9 is low: ReLU(~12.4*(max of x0..x8, taken as 0 if x8 holds it) - 8*x9), weaker when that max sits at x2,x3,x5,x6, strongest at x0,x1,x4,x7.
+XEFZ1: Sum of several unrelated signals: max of x0..x5, x5's margin when it is among the two largest of x0..x8, minus the overall minimum, minus x4's excess over max(x0..x3).
+67TNQ: How far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; plus the top gap of x0..x8 and bonuses when the overall maximum is x7 or x2.
+7YYXG: Detects x6 being among the two largest of x0..x8: grows with x6's margin over the third-largest of the others, extra when x6 is the maximum; small offshoot when x0 is the maximum.
+9FEAT: Magnitude of the running maximum (average of max(x0..xt) over t=1..9) minus how large x4 and x5 are (and x3, less), plus x8: large when x4 and x5 were low.
+EGHAT: How far x9 falls below the second-largest of x0..x8, plus the top gap of x0..x8 (unless x8 is the largest), plus the margin by which x0 or x2 is the overall maximum.
+LC558: Gap between the largest and second-largest of x0..x8, switched off when the largest of x0..x8 is x8 itself.
+0H6ST: Rises when x3, x4, x5 each fall below the largest value before them (big early maximum), plus x8 and the sum of the two largest inputs; ReLU of that weighted sum.
+RF62Q: How far x9 falls below the mean of the three largest of x0..x8 (zero when x9 is at least that high); signals that the last input is not a top value.
+0V41O: Measures how far x9 falls below the second-largest of x0..x8, switched off when x8 is the largest of x0..x8; also driven by the overall maximum being x1, x2, x5 or x6 (its margin).
+RL5E8: ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.5*largest + 0.9*second - 1.7*x9); silenced when the largest is x8, larger when it is at x1, x2, x4 or x7.
+LPV4C: Second-largest tracker damped when late inputs are top: ReLU(1.02·M2 + 0.25·ReLU(M1−x8) − 0.64·M1·[x8 in top two] − 0.34·M2·[second at x5..x8] − 0.25·M2·[x7 or x8 in top two]); M1,M2 = largest, second-largest of x0..x8.
+A9NV1: Detects x7 being the maximum of x0..x8 (about 2.7*x7), weaker when x7 is second-largest (about 0.7*x7), otherwise near zero.
+HOKX9: New-maximum-at-the-end detector: 27*ReLU(x9 - M), where M is the largest of x0..x8; positive only when the last input x9 is the overall maximum.
+MBFWM: ReLU of how far x9 lies below a blend of the largest and second-largest of x0..x8 (about 0.6*largest + 0.9*second - 1.9*x9), larger when the largest is at x0, x2, x5 or x7.
+UZNUL: Grows with the maximum of x0..x5 and of x0..x8 (more if the max is at x0, x1 or x3), suppressed when x8 is the maximum, small bonus when x8 is below the running max.
+LWFE1: Position-weighted maximum: mainly max(x0,x1,x3,x4,x7), minus the second-largest of x0..x5, plus max(x0,x1,x4,x5,x6,x7) corrections; small when the largest value sits at x2, x5 or x9.
+9OIVT: Max-position code (max at x0, x4, x6): ReLU(0.72·M1·[max at x0,x4,x6] + 0.7·M1·[max at x4] − 0.28·M1·[max at x3,x5,x7,x8] − 0.39·M2·[x4 or x6 in top two] + 0.15·ReLU(M1−x8)); M1,M2 = largest, second-largest of x0..x8.
