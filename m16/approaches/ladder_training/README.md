@@ -115,7 +115,7 @@ Zoo (4,4) 2^30 reference: accuracy 0.477-0.602, mean 0.556.
 
 ## Status
 
-Running (2026-10-19): training queue with 2 workers (`queue2.sh jobs.txt`).
+T86 reproduction done (match); T111 done (FAIL; undertraining inconclusive at H=4); (7,3) and (4,7) training (2026-10-19 afternoon).
 
 ## Results
 
@@ -182,7 +182,46 @@ Zoo (T87, same recipe): clean 459/71/76/7.9/76, noisy 91/33/14/136/17.
   failure depends on the basin, not on T alone; speculative until T111b]
 - The recipe's errors on the 0.60-basin models (seeds 1, 2, 4 in every set) are about -0.5 to -0.75 pp, the same
   as on the zoo, i.e. the failure reproduces on independently trained copies of that basin.
-- Amendment A therefore applies: T111b (seed search) is running.
+- Amendment A therefore applies: T111b (seed search) below.
+
+### T111b: seed search for better (4,4) basins (amendment A). No better basin; recipe FAILS [measured]
+
+Screening (`queue2.sh jobs111b.txt`, seeds 5-44, n_train 2^28 scaled warm-up): accuracies 0.408-0.601, best
+seed 42 0.6012, then 20 0.5928, 40 0.5748, 10 0.5604, 44 0.5599; **no seed exceeds 0.62**. Two basins recur:
+the "0.60" basin (2/2 storage) and lower 1/3 or 2/2 basins at 0.41-0.56.
+Top 5 retrained at the zoo setting (2^30, `jobs_phase3.txt`), recipe `python run111.py 30s 8 42,20,40,10,44`:
+
+| seed | acc (exact) | n_store | recipe err | recipe ops | clean ratio | noisy acc | noisy RMSE | noisy ratio |
+|---|---|---|---|---|---|---|---|---|
+| 42 | 0.6017 | 2/2 | -0.691 pp | 39.3M | 82 | 0.474 | 0.213% | 7.7 |
+| 20 | 0.5944 | 2/2 | +0.388 pp | 34.8M | 23 | 0.501 | 0.462% | 30 |
+| 40 | 0.5611 | 2/2 | +0.069 pp | 28.2M | **0.56** | 0.334 | 0.107% | 1.06 |
+| 10 | 0.5575 | 2/2 | +0.105 pp | 23.6M | 1.10 | 0.362 | 0.332% | 15 |
+| 44 | 0.5570 | 1/3 | +0.113 pp | 35.9M | 1.94 | 0.376 | 0.335% | 15 |
+
+Mean accuracy 0.574 (< 0.606: not better trained). The recipe loses on 4/5 seeds clean and 5/5 noisy.
+**Truth caveat:** estT exact reads ~2e-4 LOW on seed 40 (1e7 MC z +3.4; independent 5e7 MC, rng 9040, z +2.9);
+z is positive on 4 of these 5 models (+1.0 to +1.8 elsewhere). The estT exact mode is therefore accurate only to
+~1e-4-2e-4 here (cheap orthant quadrature on thin simplices is the likely cause; T87 diagnosis item 2). This
+changes no verdict: on MC truth seed 40's clean error is ~+0.03-0.05 pp (still < sampling's 0.092%), and every
+failing seed fails by >= 0.1 pp or on its noisy copies (whose truth is MC). Note seed 10 changed basin between
+2^28 (1/3) and 2^30 (2/2).
+
+### T111 verdict (pre-registered rule + amendment A)
+
+- **Rung (4,4) FAILS for T87's recipe on every better-training attempt**: lr x2 (4/5 seeds lose), 2x data
+  (5/5), best of 45 seeds (4/5 clean, 5/5 noisy). 20 models in all, 3 pass clean, 0 pass both clean and noisy except
+  L2 seed 0 (0.18 / 0.91).
+- **Undertraining could not be tested at H = 4, T = 4**: no training change we tried (lr x2, 2x data, 40 new
+  seeds) moves the models out of the bulk-error regime (best accuracy 0.6029; bnd1 0.10-0.14, i.e. errors are not
+  at the boundaries). The zoo's (4,4) models are not undertrained in the sense of "more training would fix them":
+  0.60 looks like what this architecture reaches at this size with this recipe [inferred from 45 seeds + 2 variants].
+- So the question "is T87's failure about T or about undertraining" is **inconclusive at H = 4**; the clean way to
+  separate them is a T step in a well-trained regime, e.g. (8,3) -> (8,4) (zoo (8,4) is 0.97-0.99 accurate), which
+  is the ladder's main path (TASKS ladder rule 5) and is T192's domain (recipe108 passes (8,4), fails (8,5)).
+- [speculative] The recipe's error depends on the basin more than on accuracy: the three clean wins (L2 0, 30s 40,
+  31s 0 nearly) are not the most accurate models, and the 0.60 basin (2/2 storage with all-four-on bulk errors,
+  T87 item 3) fails in every copy (-0.5 to -0.75 pp).
 
 
 ## Compute accounting
