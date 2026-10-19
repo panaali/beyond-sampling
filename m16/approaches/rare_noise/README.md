@@ -291,3 +291,48 @@ was chosen, so this checks the code, not the selection. The panel is the same 4 
 T371. The graded rule's known overshoot regime (partial tie share ~80% with a closure artifact, s547) is not
 represented here, so this does not calibrate the rule there. Not tried: T_hi = 3.5 for the graded rule (a cost
 lever), E2.
+
+---
+
+# T404: the graded rule's cost lever, and the interior event E2, on the noisy copies
+
+## T404 pre-registration (2026-10-19, pushed before any T404 estimate or E2 truth)
+
+Same 52-model panel as T371/T388 (not T403's models or folder). Everything below is deductive on the estimator side;
+frozen code is called read-only with its hashes asserted (`t404_est.py` imports `est_t388.py`'s 7-hash check).
+
+**F (both parts).** Per point, est rel. error r = |est/truth - 1|; sampling at the estimator's own executed cost C (FPE)
+has relative error s = sqrt((1 - p) / (p C)), capped at 1 (the zero answer) when p C < 1 (T340's convention).
+F = r^2 / s^2. Reported: counts with **F <= 1 (strict)** and **F <= 10 (lenient)**, and the median F. F is secondary;
+est/truth within 2x is primary.
+
+### Part (a): graded g12 at T_hi = 3.5 (cost lever)
+
+- Estimator: `t366.est_e1`'s loop (via the T388 chunked wrapper, which matched the frozen run to 2e-16) with
+  `tmax = 3.5` instead of the frozen 6. That is the one change; it is T359's cut applied to the graded rule. Declared
+  dropped-mass bound per point P(g23 > 3.5) = 7.04e-8 (reported, not added).
+- Truths: T371's (known to me; this is a code check, not a blind test).
+- **Go: >= 140 / 144 noisy points within 2x.** Also reported: C / K3's C (T371) and C / T388's C, per model (median,
+  range); the change in est vs T388 (expected <= the bound).
+
+### Part (b): the interior event E2 on the noisy copies
+
+- **Event:** E2(t) = {network wrong (any pick), g12 >= t, g23 >= t}, at **t = 0.5, 0.75, 1.0** (T340's .5 / .75 plus
+  1.0 as in T360; fixed now, model-free).
+- **Estimators (both frozen, both reported):**
+  - **K3-E2** (primary): the E2 branch of `t354.est_seg` (T340c lines at 3 exact-law g12 nodes restricted to
+    g12 >= t, walk fix, segment start at t, T_hi = 6), row-chunked like T388's wrapper; equivalence to the unchunked
+    `est_seg` is checked on clean orig before the run (`t404_est.py check_k3e2 orig`).
+  - **A-E2**: T340's variant A (`rare.est(variant="A")`, T317's transverse point, walk fix), the cheap variant that was
+    "useful" on E2 for 3 clean models (T340) but one-signed low on fresh ones (T360/T363).
+- **Truth (own code, `t404_truth.py`):** exact conditional-law MC given g12 >= t and g23 >= t: v2 ~ 90 phi(v)
+  (1 - Phi(v + t)) Phi(v - t)^8, v1 ~ N | > v2 + t, the 8 others iid N | < v2 - t, random positions; 1e8 samples per t,
+  through all 52 models. P(condition) by quadrature (agrees with 4M brute-force draws within 0.9-1.6 s.e. at all 3 t).
+  Sanity: clean orig E2(.5) vs T340's GPU truth 9.38e-5. Diagnostic: hits by the rank the network picks.
+- **Order:** estimates for both estimators sealed and pushed before any E2 truth is computed.
+- **Go (fixed now, H-R1-style): >= 80% of the 144 noisy points within 2x, per estimator.** Also reported: median,
+  one-signed bias, breakdown by sigma / base / t, F.
+- **Expectation, written before running:** E2 is one-signed low on fresh clean models (T360: 76% within 2x, median .70),
+  traced to the lows closure (T363: 56% of the deficit). T337 saw interior errors grow with noise. So the likely result
+  is NO GO for both, worse as sigma grows if noise adds interior configurations the closure misses. Alternative: noise
+  makes errors common and spread out (as in T371), and both estimators improve at large sigma.
