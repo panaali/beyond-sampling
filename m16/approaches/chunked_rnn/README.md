@@ -206,7 +206,9 @@ architecture. Per-seed F on k = 10: 2.4, 2.6, 9.7 (seed 2's walk variance is 4x 
   would rank k = 5 worse.
 - **Implementation, not architecture.** The generic walk is a fixed piece-by-piece implementation; a cleverer walk
   for the RNN (T393's compiled walk) could lower k = 1-5. F_floor (.05-.14 at every k) shows no architectural floor
-  above sampling for piece walks.
+  above sampling for piece walks. DRI note (2026-10-19, not checked here): T423 finds T10's frozen fixed-line recipe beats
+  sampling on wider k = 1 nets (H 24 / 32), so estimator design matters as much as architecture; the depth reading
+  above is scoped to great-circle piece walks. Follow-up: backlog T435 (implemented incremental walk at k = 5).
 - **Coarse ladder.** No rung between 64 and 128; a k = 5 or 10 net at H ~96 may pass on some seeds and would have
   different F.
 - **Panel.** 3 seeds + near-identical copies (sigma .001); per-seed F varies 2-4x (k = 10: 2.4 to 9.7). Halton sets'
