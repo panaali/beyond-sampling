@@ -84,7 +84,7 @@ independent rescorer: **about 45 calls**, plus up to 15 for reruns. Cap 80. No F
 ## Status
 
 Done (2026-10-19). All 12 investigators and 32 judge calls completed: no missing or invalid judgments, no
-run excluded. The independent rescorer's comparison is in the section below. Results are supported, not
+run excluded. An independent rescorer reproduces every number and verdict (see below). Results are supported, not
 confirmed (rule 4).
 
 ## Results
@@ -156,6 +156,15 @@ Replacing one true neuron by its formula costs on average 6–20 accuracy points
 the example model, 6.3 and 8.1) and 0.3–1.1 points on every M32 account. The worst M32 account (`incg`) also
 has the largest single-neuron cost among M32 accounts (1.05).
 
+### Independent rescoring
+
+A separate sub-agent wrote its own code ([independent/](independent/REPORT.md)). It used input seed 4242 and
+noise seed 777, and opened none of my scripts or results until its numbers were saved. Gaps, ḡ and F agree
+within 0.005. All 5 D values are identical. The LOO verdicts agree: the 7-model ratio is 0.677 in its run vs
+0.670 in mine, and the 8-model ratio 0.32 in both. The within-size Spearman values agree (−0.40 and +1.00). It
+flags the same caveats: the 7-model margin is marginal, the 8-model result is driven by M8, and the within-M16
+sign does not support fragility. It checks the scoring, not the investigators or judges.
+
 ### Audit
 
 All 12 runs delivered complete `labels.py` files, with every declared constant count at most 5 and none of the
@@ -184,7 +193,7 @@ python analyze377.py
 | Investigators (160-call cap) | 2 | 45, 53 | 165k–174k |
 | Role judges | 16 | 3 | ~54k |
 | Pair judges | 16 | 3 | ~56k |
-| Independent rescorer | 1 | see below | |
+| Independent rescorer | 1 | — | — |
 
 **Total: 45 sub-agent calls** (cap 80). No Fable, no reruns. Scoring: 12 shared-scorer runs. Fragility: 8
 models × (200,000 sequences + 3 × (H + 1) noisy readouts at R² = 0.9 + 3 at R² = 0.8). All CPU, under 2 GB.

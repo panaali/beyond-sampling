@@ -38,7 +38,6 @@ for mname, (ctor, codes, sub) in MODELS.items():
         xt = torch.from_numpy(X[s:s+CHUNK])
         out, _ = model.rnn(xt.unsqueeze(-1))
         hs.append(out[:, -1, :].numpy())
-        assert np.array_equal(model(xt).argmax(1).numpy(), (hs[-1] @ W.T).argmax(1)) or True
     h = np.concatenate(hs)
     logits_model = np.concatenate([model(torch.from_numpy(X[s:s+CHUNK])).numpy() for s in range(0, N, CHUNK)])
     acc_model = float((logits_model.argmax(1) == y).mean())
