@@ -22,6 +22,7 @@ GRID = np.linspace(-9.0, 7.0, 3_200_001)
 HITS_TARGET = 100
 CHUNK = 200_000
 BLK = 8192
+ZERO_STOP = 1e9     # amendment 1 (README): stop a point with 0 hits after 1e9 draws (unscored either way)
 
 
 def make_draw(T, t0):
@@ -56,7 +57,7 @@ def run(tag, t0, n_max=4e9):
                                                              hits_g12_lt_p1=0, hits_g23_gt_6=0, sec=0.0,
                                                              seed=[424, row["H"], T, row["seed"], int(row["stream"] == "zoo"), int(round(100 * t0))])
     draw = make_draw(T, t0)
-    while st["hits"] < HITS_TARGET and st["n"] < n_max:
+    while st["hits"] < HITS_TARGET and st["n"] < n_max and not (st["hits"] == 0 and st["n"] >= ZERO_STOP):
         t = time.time(); rng = np.random.default_rng(st["seed"] + [st["chunks"]])
         x, p3, g23, g12 = draw(rng, CHUNK); xT = torch.from_numpy(np.ascontiguousarray(x.T))
         hit = np.concatenate([pick(mod, xT[:, a:a + BLK]) for a in range(0, CHUNK, BLK)]) == p3

@@ -100,3 +100,9 @@ running
 `validate.py m_16_10_zoo0` and `m_16_10_cpu0` ([results/validate.json](results/validate.json)): gen.py equals the frozen
 code **bitwise** (max relative difference 0.0) at t0 = 1, 1.5, 2, 2.5 for both K3 and graded. C as charged: graded equal;
 K3 +0.03% (row chunks lose a little prefix-tree sharing in the first cell). Gate passed.
+
+### Amendment 1 (2026-10-19, after the first T=10 truths; flagged)
+Truth stopping: a point with **0 hits after 1e9 draws** stops there (upper bound p < 3e-9 x P_T(g23 > t0), far below
+1e-9; such a point is "truth infeasible" and unscored under the original 4e9 cap too, so no verdict can change). Reason:
+points with p ~ 1e-12 or less were taking ~3 CPU-h each and blocking the T = 15 / 20 estimates. Points with >= 1 hit
+keep the 4e9 cap. Working checkpoints are written to $T424_TRUTH_DIR while running and copied to results/truth when done.
