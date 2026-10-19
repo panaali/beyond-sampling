@@ -877,3 +877,88 @@ def mass_split(tri, gates, t0=1.5, NORM_=NORM, max_pieces=64, rel_stop=0.02, rat
     ub = float(np.nextafter(float(total.upper()), np.inf))
     info = dict(vertices=len(V), pieces=len(pieces), hist=hist[:: max(1, len(hist) // 8)])
     return (ub, info) if return_info else ub
+
+
+# ---------------------------------------------------------------- cheap call for unfinished cells (charge and stop)
+def _orthant_float(Af, bf, S):
+    """Float version of orthant_bound (used only to choose S)."""
+    from scipy.stats import norm
+    A = Af[S]; Sig = A @ A.T
+    try:
+        M = np.linalg.inv(Sig)
+    except np.linalg.LinAlgError:
+        return np.inf
+    c = bf[S]; mu = M @ c; k = len(S)
+    off = ~np.eye(k, dtype=bool)
+    Dd = np.diag(M) - np.where(off, np.maximum(0, -M), 0).sum(0)
+    if (Dd <= 0).any():
+        return np.inf
+    z = mu / np.sqrt(Dd)
+    lM = 0.5 * np.log(2 * np.pi / Dd) + norm.logsf(z) + z * z / 2
+    return np.exp(-k / 2 * np.log(2 * np.pi) - 0.5 * np.linalg.slogdet(Sig)[1] - c @ mu / 2 + lM.sum())
+
+
+def cell_rows_exact(tri, gates, k, t0, event=False, norm=True):
+    """Exact (a, b) rows, a.x >= b: cell gates of steps 1..k, ordering, g23 >= t0, optionally N and the event."""
+    g = np.array(gates).copy(); g[k:] = -1
+    if event:
+        assert k == D
+        g = np.array(gates)
+    rows, _ = exact_rows(tri, g, pick=event)
+    p2, p3 = tri[1], tri[2]
+    zero = fmpq(0)
+    gg = [zero] * D; gg[p2] = fmpq(1); gg[p3] = fmpq(-1)
+    full = [(r, zero) for r in rows]
+    if norm:
+        for j in range(D):
+            for s in (1, -1):
+                a = [NORM * v for v in gg]; a[j] -= s
+                full.append((a, zero))
+    full.append((gg, fmpq(*float(t0).as_integer_ratio())))
+    out = {}
+    for a, b in full:
+        m = max(abs(v) for v in a)
+        if m == 0:
+            if b > 0:
+                return None
+            continue
+        key = tuple(v / m for v in a); b = b / m
+        if key not in out or b > out[key]:
+            out[key] = b
+    return [list(kk) for kk in out], [out[kk] for kk in out]
+
+
+def mass_upper(tri, gates, k, t0=1.5, kmax=10, event=None, return_info=False):
+    """Cheap rigorous upper bound on gamma(cell ∩ N ∩ {g23 >= t0}) (k < 10, event ignored) or, for k = 10,
+    on gamma(region ∩ N ∩ E(t0)) (event=True default). Method M2: P(A_S X >= b_S) for a row subset S
+    (|S| <= 10) chosen greedily in float; the bound for the chosen S is computed exactly (fmpq + arb)."""
+    if event is None:
+        event = (k == D)
+    er = cell_rows_exact(tri, gates, k, t0, event=event)
+    if er is None:
+        return (0.0, {}) if return_info else 0.0
+    A, b = er
+    Af = np.array([[float(v) for v in r] for r in A]); bf = np.array([float(v) for v in b])
+    x = dominating_point(Af, bf)
+    sl = (Af @ x - bf) / np.linalg.norm(Af, axis=1)
+    cand = [int(i) for i in np.argsort(sl)[:30]]
+    S = []; best = np.inf
+    for _ in range(kmax):
+        trial = []
+        for j in cand:
+            if j in S:
+                continue
+            T = S + [j]
+            if np.linalg.matrix_rank(Af[T], tol=1e-9) < len(T):
+                continue
+            trial.append((_orthant_float(Af, bf, T), j))
+        if not trial:
+            break
+        v, j = min(trial)
+        if v >= best:
+            break
+        best = v; S.append(j)
+    ex = orthant_bound(A, b, S) if S else None
+    ub = float(np.nextafter(float(ex.upper()), np.inf)) if ex is not None else 1.0
+    info = dict(r=float(np.linalg.norm(x)), S=len(S), float_est=float(best))
+    return (ub, info) if return_info else ub

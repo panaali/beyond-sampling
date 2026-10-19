@@ -1,17 +1,18 @@
-"""T400 part (b): rigorous verification that a prefix cell carries no event point (README, pre-registration).
+"""T400 part (b): rigorous verification that a prefix cell (or split leaf) carries no event point.
 
-verify_prune(tri, gates, k) -> (pruned: bool, info)
-  Cell = (tri, first k rows of gates). Proves, if it can, that
-     cell ∩ {x in [-1,1]^10, x_p2 - x_p3 >= DELTA} ∩ {argmax of the step-10 logits = p3 (closed)} = ∅
-  by rebuilding T390's triangle relaxation (relax.py) step by step. Every neuron bound l <= z <= u is a
-  Neumaier–Shcherbina safe dual bound (float LP duals from HiGHS; residual absorbed by the variable box; all
-  data and rounding errors bounded explicitly). The final step proves min over the relaxation of
-  max_j (L_j - L_p3) > 0 the same way. A float LP never decides anything by itself.
+verify_prune(tri, gates, k, event_aware=False) -> bool   (or (bool, info) with return_info=True)
+  gates: int (10, 16); rows < k are the cell's exact gate history (1 on / 0 off); rows >= k may hold ReLU split
+  decisions (1: z >= 0 and h = z; 0: z <= 0 and h = 0) or -1 (free). Proves, if it can,
+     {x in [-1,1]^10, x_p2 - x_p3 >= DELTA} ∩ cell ∩ splits ∩ {L_p3 >= L_j for all j} = ∅
+  by rebuilding T390/T398's triangle relaxation (relax.py / relax2.py stages 0-3; a stage-3 prune is verified
+  leaf by leaf with verify_leaves). Every pre-activation bound is a Neumaier–Shcherbina safe dual bound: float LP
+  duals from HiGHS, residual absorbed by the variable box, every data and rounding error bounded explicitly.
+  The last step proves min over the relaxation of max_j (L_j - L_p3) > 0 the same way (phase 1 with a boxed
+  tau). A float LP status never decides anything by itself.
 
-Error model (IEEE double, round to nearest, u = 2^-53): for a dot product of length n computed in float,
-|fl - exact| <= gamma_n * sum |terms|, gamma_n = n u / (1 - n u). Every error bound below is computed in float and
-then multiplied by SAFE = 2 to cover the rounding of the bound computation itself (its relative error is
-<= gamma_N << 1)."""
+Error model (IEEE double, round to nearest, u = 2^-53): a length-n float dot product has
+|fl - exact| <= gamma_n * sum |terms|, gamma_n = n u / (1 - n u). Each error bound is computed in float and
+multiplied by SAFE = 2, which covers the rounding of the bound computation itself (relative error <= gamma_N << 1)."""
 import os
 import sys
 
@@ -24,9 +25,10 @@ import common  # noqa: E402
 
 Wi, Wh, Wo = common.Wi, common.Wh, common.Wo
 H, D = 16, 10
-DELTA = 0.1          # the float 0.1 (exact rational 0.1000000000000000055...); README part (c)
+DELTA = 0.1          # the float 0.1, used as the exact rational 0.1000000000000000055... (README part c)
 U = 2.0 ** -53
 SAFE = 2.0
+TBOX = 1e3           # box of the phase-1 variable
 
 
 def gam(n):
@@ -34,14 +36,12 @@ def gam(n):
 
 
 def cell_rows(gates, k):
-    """Float cell rows G (G x >= 0 for the true cell) with elementwise error bounds EG, and h_k = A x with
-    error bound EA (|A_true - A| <= EA), for the first k steps of gates."""
+    """Float rows G (true cell: G_true x >= 0, |G_true - G| <= EG) and h_k = A x (|A_true - A| <= EA)."""
     A = np.zeros((H, D)); EA = np.zeros((H, D)); G = []; EG = []
     aWh = np.abs(Wh)
     for t in range(k):
         Z = Wh @ A; Z[:, t] += Wi
-        EZ = aWh @ EA + gam(H + 1) * (aWh @ np.abs(A) + np.abs(Z))
-        EZ *= SAFE
+        EZ = SAFE * (aWh @ EA + gam(H + 1) * (aWh @ np.abs(A) + np.abs(Z)))
         g = gates[t]
         for j in range(H):
             if g[j] == 1:
@@ -56,8 +56,9 @@ def cell_rows(gates, k):
 
 
 def safe_lb(c, Ec, A, EA, b, Eb, lo, hi, y):
-    """Rigorous lower bound on min c.v s.t. A v >= b (true data within the error bounds), lo <= v <= hi,
-    for any y >= 0 (float duals). c, A, b are float; Ec, EA, Eb elementwise bounds on |true - float|."""
+    """Rigorous lower bound on min c.v s.t. A_true v >= b_true, lo <= v <= hi, for any y >= 0.
+    Weak duality: c.v = y.(A v) + r.v >= y.b + min_box r.v with r = c - A'y; data errors (Ec, EA, Eb) and float
+    rounding enter as an explicit error term."""
     y = np.maximum(y, 0.0)
     m, n = A.shape
     r = c - A.T @ y
@@ -66,45 +67,75 @@ def safe_lb(c, Ec, A, EA, b, Eb, lo, hi, y):
     Eyb = y @ Eb + gam(m) * (y @ np.abs(b))
     tl = np.minimum(r * lo, r * hi)
     M = np.maximum(np.abs(lo), np.abs(hi))
-    s = tl.sum()
-    err = Eyb + Er @ M + gam(n + 2) * (np.abs(tl).sum() + abs(yb)) + gam(n) * (Er @ M)
-    return yb + s - SAFE * err
-
-
-class Relax:
-    """The relaxation as rows over v = (x, h_{k+1}, ..., h_s) with A v >= b, plus box lo <= v <= hi."""
-
-    def __init__(self, tri, gates, k):
-        self.tri, self.k = tri, k
-        G, EG, A, EA = cell_rows(gates, k)
-        p2, p3 = tri[1], tri[2]
-        self.rows = [G]; self.err = [EG]; self.b = [np.zeros(len(G))]; self.eb = [np.zeros(len(G))]
-        r = np.zeros(D); r[p2], r[p3] = 1, -1
-        self.rows.append(r[None]); self.err.append(np.zeros((1, D))); self.b.append(np.array([DELTA])); self.eb.append(np.zeros(1))
-        self.lo = [-np.ones(D)]; self.hi = [np.ones(D)]
-        self.n = D
-        self.prevA, self.prevE = A, EA      # h_prev = prevA v (cols over current v), with error prevE
-
-    def mat(self):
-        n = self.n
-        pad = lambda M: np.hstack([M, np.zeros((len(M), n - M.shape[1]))])  # noqa: E731
-        return (np.vstack([pad(M) for M in self.rows]), np.vstack([pad(M) for M in self.err]),
-                np.concatenate(self.b), np.concatenate(self.eb), np.concatenate(self.lo), np.concatenate(self.hi))
-
-    def z_rows(self, t):
-        """Pre-activation rows of step t (0-based input index) over v, with error bounds."""
-        Z = Wh @ self.prevA
-        EZ = np.abs(Wh) @ self.prevE + gam(H + 1) * (np.abs(Wh) @ np.abs(self.prevA) + np.abs(Z))
-        Z[:, t] += Wi
-        return Z, SAFE * EZ
+    err = Eyb + Er @ M + gam(n + 2) * (np.abs(tl).sum() + abs(yb) + Er @ M)
+    return yb + tl.sum() - SAFE * err
 
 
 def _lp(c, A, b, lo, hi):
     return linprog(c, A_ub=-A, b_ub=-b, bounds=list(zip(lo, hi)), method="highs")
 
 
+class Relax:
+    """v = (x, h_{k+1}, ..., h_10); rows A v >= b with error bounds; box lo <= v <= hi."""
+
+    def __init__(self, tri, gates, k):
+        self.tri, self.k, self.gates = tri, k, np.asarray(gates)
+        self.nb = D - k; self.nv = D + H * self.nb
+        G, EG, A, EA = cell_rows(self.gates, k)
+        p2, p3 = tri[1], tri[2]
+        pad = lambda M: np.hstack([M, np.zeros((len(M), self.nv - D))])  # noqa: E731
+        self.base = [pad(G)]; self.ebase = [pad(EG)]
+        r = np.zeros(self.nv); r[p2], r[p3] = 1, -1
+        self.base.append(r[None]); self.ebase.append(np.zeros((1, self.nv)))
+        self.bbase = np.r_[np.zeros(len(G)), DELTA]
+        self.Z, self.EZ = [], []
+        prev = np.zeros((H, self.nv)); prev[:, :D] = A
+        eprev = np.zeros((H, self.nv)); eprev[:, :D] = EA
+        for s in range(self.nb):
+            Z = Wh @ prev
+            EZ = SAFE * (np.abs(Wh) @ eprev + gam(H + 1) * (np.abs(Wh) @ np.abs(prev) + np.abs(Z)))
+            Z[:, k + s] += Wi
+            self.Z.append(Z); self.EZ.append(EZ)
+            prev = np.zeros((H, self.nv)); prev[:, D + H * s:D + H * (s + 1)] = np.eye(H)
+            eprev = np.zeros((H, self.nv))
+        L = Wo @ prev
+        self.ev = np.array([L[p3] - L[j] for j in range(D) if j != p3])        # event: ev v >= 0
+        self.eev = np.array([SAFE * (gam(H) * (np.abs(Wo[p3]) + np.abs(Wo[j])) @ np.abs(prev) + U * np.abs(L[p3] - L[j]))
+                             for j in range(D) if j != p3])
+        self.lo = np.full((self.nb, H), -np.inf); self.hi = np.full((self.nb, H), np.inf)
+
+    def program(self, upto, event):
+        rows = list(self.base); errs = list(self.ebase); bs = [self.bbase]
+        lo = np.r_[-np.ones(D), np.zeros(H * self.nb)]; hi = np.r_[np.ones(D), np.zeros(H * self.nb)]
+        for s in range(upto):
+            for j in range(H):
+                v = D + H * s + j; z = self.Z[s][j]; ez = self.EZ[s][j]
+                l, u = self.lo[s, j], self.hi[s, j]; f = self.gates[self.k + s][j]
+                e = np.zeros(self.nv); e[v] = 1
+                if f == 0 or u <= 0:
+                    if f == 0:
+                        rows.append(-z[None]); errs.append(ez[None]); bs.append(np.zeros(1))
+                    continue                                     # h = 0
+                if f == 1 or l >= 0:                             # h = z
+                    rows += [(e - z)[None], (z - e)[None]]; errs += [ez[None], ez[None]]; bs.append(np.zeros(2))
+                    lo[v], hi[v] = max(l, 0.0), u
+                    if f == 1:
+                        rows.append(z[None]); errs.append(ez[None]); bs.append(np.zeros(1))
+                    continue
+                hi[v] = u                                        # triangle
+                alpha = u / (u - l); beta = -alpha * l
+                # chord validity (alpha l + beta >= 0, alpha u + beta >= u) made safe by raising beta
+                beta += SAFE * gam(4) * (abs(alpha * l) + abs(alpha * u) + abs(beta) + abs(u))
+                rows += [(e - z)[None], (alpha * z - e)[None]]
+                errs += [ez[None], (alpha * ez + gam(2) * np.abs(alpha * z))[None]]
+                bs.append(np.array([0.0, -beta]))
+        if event:
+            rows.append(self.ev); errs.append(self.eev); bs.append(np.zeros(len(self.ev)))
+        return np.vstack(rows), np.vstack(errs), np.concatenate(bs), np.zeros(sum(len(x) for x in bs)), lo, hi
+
+
 def bound(c, Ec, A, EA, b, Eb, lo, hi):
-    """Safe lower bound of min c.v; None if the float LP is infeasible (caller then tries phase 1)."""
+    """Safe lower bound of min c.v; None if the float LP says infeasible."""
     r = _lp(c, A, b, lo, hi)
     if r.status == 2:
         return None
@@ -113,21 +144,24 @@ def bound(c, Ec, A, EA, b, Eb, lo, hi):
     return safe_lb(c, Ec, A, EA, b, Eb, lo, hi, -r.ineqlin.marginals)
 
 
-def phase1_empty(A, EA, b, Eb, lo, hi, T=1e3):
-    """Prove {A v >= b} ∩ box = ∅: min tau s.t. A v + tau >= b, tau in [-T, T] has a positive safe bound."""
+def margin_lb(A, EA, b, Eb, lo, hi, extra=None, eextra=None):
+    """Safe lower bound of min tau s.t. A v + tau >= b (extra rows: E v + tau >= 0), tau in [-TBOX, TBOX]."""
     m, n = A.shape
-    A1 = np.hstack([A, np.ones((m, 1))]); E1 = np.hstack([EA, np.zeros((m, 1))])
+    if extra is None:
+        A1 = np.hstack([A, np.ones((m, 1))]); E1 = np.hstack([EA, np.zeros((m, 1))]); b1 = b; Eb1 = Eb
+    else:
+        A1 = np.vstack([np.hstack([A, np.zeros((m, 1))]), np.hstack([extra, np.ones((len(extra), 1))])])
+        E1 = np.vstack([np.hstack([EA, np.zeros((m, 1))]), np.hstack([eextra, np.zeros((len(extra), 1))])])
+        b1 = np.r_[b, np.zeros(len(extra))]; Eb1 = np.r_[Eb, np.zeros(len(extra))]
     c = np.zeros(n + 1); c[-1] = 1
-    lo1, hi1 = np.r_[lo, -T], np.r_[hi, T]
-    r = _lp(c, A1, b, lo1, hi1)
+    lo1, hi1 = np.r_[lo, -TBOX], np.r_[hi, TBOX]
+    r = _lp(c, A1, b1, lo1, hi1)
     if r.status != 0:
-        return False
-    return safe_lb(c, np.zeros(n + 1), A1, E1, b, Eb, lo1, hi1, -r.ineqlin.marginals) > 0
+        return -np.inf
+    return safe_lb(c, np.zeros(n + 1), A1, E1, b1, Eb1, lo1, hi1, -r.ineqlin.marginals)
 
 
-def verify_prune(tri, gates, k, return_info=False):
-    gates = np.asarray(gates)
-    p3 = tri[2]
+def verify_prune(tri, gates, k, event_aware=False, return_info=False):
     R = Relax(tri, gates, k)
     info = dict(stage=None, lps=0)
 
@@ -135,67 +169,36 @@ def verify_prune(tri, gates, k, return_info=False):
         info["stage"] = stage
         return (ok, info) if return_info else ok
 
-    A, EA, b, Eb, lo, hi = R.mat()
-    if phase1_empty(A, EA, b, Eb, lo, hi):
-        return done(True, 0)
-    for s in range(D - k):
-        t = k + s
-        Z, EZ = R.z_rows(t)
-        A, EA, b, Eb, lo, hi = R.mat()
-        l = np.empty(H); u = np.empty(H)
+    for s in range(R.nb):                                        # forward bounds (event dropped)
+        P = R.program(s, False)
         for j in range(H):
             info["lps"] += 2
-            a = bound(Z[j], EZ[j], A, EA, b, Eb, lo, hi)
-            if a is None:
-                return done(phase1_empty(A, EA, b, Eb, lo, hi), s + 1)
-            c = bound(-Z[j], EZ[j], A, EA, b, Eb, lo, hi)
-            if c is None:
-                return done(phase1_empty(A, EA, b, Eb, lo, hi), s + 1)
-            l[j], u[j] = a, -c
-        # append h_t variables
-        n0 = R.n; R.n += H
-        newlo = np.zeros(H); newhi = np.zeros(H)
-        rows, errs, bs, ebs = [], [], [], []
-        for j in range(H):
-            zr = np.r_[Z[j], np.zeros(H)]; ze = np.r_[EZ[j], np.zeros(H)]
-            e = np.zeros(n0 + H); e[n0 + j] = 1
-            if u[j] <= 0:
-                continue                                   # h = 0 (box [0, 0])
-            if l[j] >= 0:                                  # h = z: two rows
-                newlo[j], newhi[j] = l[j], u[j]
-                rows += [e - zr, zr - e]; errs += [ze, ze]; bs += [0, 0]; ebs += [0, 0]
-            else:                                          # triangle: h >= z, h <= alpha z + beta
-                newhi[j] = u[j]
-                alpha = u[j] / (u[j] - l[j]); beta = -alpha * l[j]
-                # validity of the chord: alpha l + beta >= 0 and alpha u + beta >= u, made safe by raising beta
-                beta = beta + SAFE * gam(4) * (abs(alpha * l[j]) + abs(alpha * u[j]) + abs(beta) + abs(u[j])) + 4 * U * abs(u[j])
-                rows += [e - zr, alpha * zr - e]
-                errs += [ze, alpha * ze + gam(2) * (np.abs(alpha * zr))]
-                bs += [0, -beta]; ebs += [0, 0]
-        R.rows = [np.hstack([M, np.zeros((len(M), H))]) for M in R.rows]
-        R.err = [np.hstack([M, np.zeros((len(M), H))]) for M in R.err]
-        if rows:
-            R.rows.append(np.array(rows)); R.err.append(np.array(errs)); R.b.append(np.array(bs, float)); R.eb.append(np.array(ebs, float))
-        R.lo.append(newlo); R.hi.append(newhi)
-        R.prevA = np.zeros((H, R.n)); R.prevA[:, n0:] = np.eye(H); R.prevE = np.zeros((H, R.n))
-    # final: min tau s.t. L_j - L_p3 <= tau for all j != p3, i.e. tau - (L_j - L_p3) >= 0
-    A, EA, b, Eb, lo, hi = R.mat()
-    L = Wo @ R.prevA
-    m, n = A.shape
-    T = 1e3
-    ev = np.array([np.r_[L[p3] - L[j], 1.0] for j in range(D) if j != p3])
-    eE = np.array([np.r_[gam(H) * (np.abs(Wo[p3]) + np.abs(Wo[j])) @ np.abs(R.prevA) * SAFE + 2 * U * np.abs(L[p3] - L[j]), 0.0]
-                   for j in range(D) if j != p3])
-    A1 = np.vstack([np.hstack([A, np.zeros((m, 1))]), ev]); E1 = np.vstack([np.hstack([EA, np.zeros((m, 1))]), eE])
-    b1 = np.r_[b, np.zeros(len(ev))]; Eb1 = np.r_[Eb, np.zeros(len(ev))]
-    lo1, hi1 = np.r_[lo, -T], np.r_[hi, T]
-    c = np.zeros(n + 1); c[-1] = 1
+            a = bound(R.Z[s][j], R.EZ[s][j], *P)
+            c = bound(-R.Z[s][j], R.EZ[s][j], *P) if a is not None else None
+            if a is None or c is None:
+                return done(margin_lb(*P) > 0, 0 if s == 0 else 1)
+            R.lo[s, j], R.hi[s, j] = a, -c
+    if event_aware:                                              # one Jacobi pass with the event rows
+        P = R.program(R.nb, True)
+        lo, hi = R.lo.copy(), R.hi.copy()
+        for s in range(R.nb):
+            for j in range(H):
+                if R.lo[s, j] >= 0 or R.hi[s, j] <= 0 or R.gates[k + s][j] >= 0:
+                    continue
+                info["lps"] += 2
+                a = bound(R.Z[s][j], R.EZ[s][j], *P)
+                c = bound(-R.Z[s][j], R.EZ[s][j], *P) if a is not None else None
+                if a is None or c is None:
+                    return done(margin_lb(*P) > 0, 2)
+                lo[s, j] = max(lo[s, j], a); hi[s, j] = min(hi[s, j], -c)
+        R.lo, R.hi = lo, hi
+    P = R.program(R.nb, False)                                   # final: min max_j (L_j - L_p3) > 0
     info["lps"] += 1
-    r = _lp(c, A1, b1, lo1, hi1)
-    if r.status == 2:
-        return done(phase1_empty(A, EA, b, Eb, lo, hi), D - k + 1)
-    if r.status != 0:
-        return done(False, -1)
-    lb = safe_lb(c, np.zeros(n + 1), A1, E1, b1, Eb1, lo1, hi1, -r.ineqlin.marginals)
-    info["margin_lb"] = float(lb); info["margin_float"] = float(r.fun)
-    return done(bool(lb > 0), D - k + 1)
+    m = margin_lb(*P, extra=-R.ev, eextra=R.eev)
+    info["margin_lb"] = float(m)
+    return done(bool(m > 0), 3 if event_aware else 1)
+
+
+def verify_leaves(tri, leaves, k, event_aware=True):
+    """A stage-3 (split) prune holds iff every leaf (gates with split rows) is verified."""
+    return all(verify_prune(tri, g, k, event_aware=event_aware) for g in leaves)
