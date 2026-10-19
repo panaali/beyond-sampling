@@ -672,6 +672,8 @@ Off-target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (all-at-once network
 ---
 
 <a id="q4-9"></a>
+**Update (10-19 18:2x):** the strict bar is now met on a sealed panel by the frozen walk quadrature at T = 10 at budgets >= 1e6 FPE ([INDEX H-E17](INDEX.md#4-hypothesis-ledger), T431); it is a deterministic quadrature-class (inductive under ARC's definition) estimator, so the ARC-acceptance question of 4.7 still applies.
+
 ### 4.9 What is ARC's ultimate goal, and how does our work relate to it? (owner, 10-19 06:5x)
 
 **Q (owner, verbatim):** "What do you think is the ultimate goal of Arc?"
