@@ -23,6 +23,7 @@ import t414_ibab as ib  # noqa: E402  (T414's coords, CROWN, split heuristic; co
 dt = th.float64
 T0, TAIL = ib.T0, ib.TAIL
 NR, NG, WSPAN = int(os.environ.get("NR", 16)), int(os.environ.get("NG", 40)), 80.0
+SPLIT = os.environ.get("SPLIT", "margin")                             # "widest" = deviation D1 (T418's split)
 REL = 1e-10                                                          # outward relative inflation (pre-registered)
 SLACK = 1e-7
 LOG2PI = math.log(2 * math.pi); SQ2 = math.sqrt(2)
@@ -159,6 +160,10 @@ def hcharge(lo, hi, A, b, chunk=256):
     return th.cat(outs_t), th.cat(outs_u)
 
 
+def splitdim(lb, A, lo, hi):
+    return (hi - lo).argmax(1) if SPLIT == "widest" else ib.splitdim(lb, A, lo, hi)
+
+
 def run(tri, sec, K, out, resume=False, log_every=10):
     P, q, lo0, hi0 = ib.coords(tri); p3 = tri[2]
     ck = out.replace(".json", "_ckpt.pt")
@@ -167,7 +172,7 @@ def run(tri, sec, K, out, resume=False, log_every=10):
         evals, pruned, curve, it, used = st["evals"], st["pruned"], st["curve"], st["it"], st["cpu"]
     else:
         LO, HI = lo0[None].clone(), hi0[None].clone()
-        lb0, A0, b0 = margins_lin(LO, HI, P, q, p3); CH, CU = hcharge(LO, HI, A0, b0); SD = ib.splitdim(lb0, A0, LO, HI)
+        lb0, A0, b0 = margins_lin(LO, HI, P, q, p3); CH, CU = hcharge(LO, HI, A0, b0); SD = splitdim(lb0, A0, LO, HI)
         evals = pruned = it = 0; curve = []; used = 0.0
     t0 = time.process_time() - used; last_ck = time.time()
     while len(LO) and time.process_time() - t0 < sec and len(LO) < 4e6:
@@ -181,7 +186,7 @@ def run(tri, sec, K, out, resume=False, log_every=10):
         pr = (lb2 > 0).any(1); pruned += int(pr.sum()); sv = ~pr
         ct, cu = hcharge(clo[sv], chi[sv], A2[sv], b2[sv])
         LO, HI = th.cat([LO, clo[sv]]), th.cat([HI, chi[sv]]); CH = th.cat([CH, ct]); CU = th.cat([CU, cu])
-        SD = th.cat([SD, ib.splitdim(lb2[sv], A2[sv], clo[sv], chi[sv])])
+        SD = th.cat([SD, splitdim(lb2[sv], A2[sv], clo[sv], chi[sv])])
         if it % log_every == 0 or not len(LO):
             el = time.process_time() - t0
             curve.append(dict(evals=evals, open=len(LO), pruned=pruned, charge=float(CH.sum()) + TAIL,

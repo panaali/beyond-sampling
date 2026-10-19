@@ -75,3 +75,13 @@ allows, the same run on (9,8,2).
   9-halfspace intersection). Check: secondary MC vs the tilted charge.
 - Any fall may come from the best-first order now chasing halfspace mass rather than box mass. Check: the untilted
   control on the same boxes.
+
+**Deviation D1 (2026-10-19 ~22:10 UTC, written before its run; SECONDARY, not used for the kill decision).** The DRI
+relayed T418's result (branch `claude/t418-late-triple-verify` 04cc345b): T414's stall came from its margin-steered
+split; with a widest-dimension split, mass order and alpha-CROWN, the near-exact mass on (3,7,8) projects 1.6e6 boxes
+to 1e-10, and the remaining blocker is a rigorous charge on wide boxes. Halfspaces can only cut boxes whose CROWN
+bound is near 0 somewhere, which a widest split may produce more often. One secondary run: identical to the primary
+except `SPLIT=widest` (bisect the widest u-dimension), plain CROWN (no alpha), 1 CPU-h:
+`SPLIT=widest python hcharge.py 3,7,8 OUT 3600 1024`. Reported against both T414's and T418's (D3) curves: tilted vs
+untilted charge, pruned share, and the share of open boxes some halfspace cuts. Rigorous box mass is T455's lane;
+this run only reuses the rectangle bound already written here.
