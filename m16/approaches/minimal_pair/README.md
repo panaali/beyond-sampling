@@ -81,6 +81,24 @@ it, and can a frozen deductive recipe fix T=5 on all 5 seeds?
   - Falsifiers: frozen 32-rule gains outside x0.5-2 of the predictions on more than 1 seed would mean the law (or the
     multiplier) does not transfer from T=5 to T=6.
 
+## T397 pre-registration: E33's tie-slicing (H-E11 recipe, unchanged) on DEV3 and the M_16,10 leaderboard models (written 2026-10-19, before any T397 run)
+- **Code:** `ht_seeds/est.py` est_faces + `ht_seeds/core.py`, unchanged. sha256 asserted in `e33/score_e33.py`:
+  core a78a45c1fae0..., est b6154cad9a73.... Rule seed 700 (E33's first rule); equal faces per kind, no allocation
+  (E33's design).
+- **Cost as executed:** that walk recomputes the full sequence (value + tangent) on every cell, so executed FPE =
+  cells x (2 + 8H/(2H²+2H)) = 2.235 per cell, the same per-cell overhead convention as walk.py. The claimed cost is
+  reported alongside.
+- **Budgets:** n per kind = 680 (≈16k executed) and 2720 (≈64k), fixed from 3 DEV2 models at ~23.5 executed FPE per
+  face pair. Ratios use each model's executed cost.
+- **Panels:**
+  - DEV3, 100 retrains, 1e8 truths;
+  - the leaderboard's M_16,10 models (orig, seeds 0-4, 24 noisy copies; 4M truths), one deterministic run each.
+  Next to it: the T10 recipe, T380 cv, T389 pos and T391 isg on the same panels (already scored).
+- **Prediction:**
+  - E33 gained ~1.6x on the zoo T=10 seeds at its claimed cost; at executed cost (x ~2.2) that is ~0.7x.
+  - Predicted DEV3 MSE ratio ~1.3-2.0 at both budgets, i.e. worse than the T10 recipe (1.15 / 0.97).
+  - **Predicted: not an HP5 candidate** (the DRI rule needs a DEV3 CI upper < 1 at a stated budget).
+
 ## T391 results (2026-10-19): **STOP**. Go fails at both budgets (closer than T389, as predicted).
 Go = DEV3 CI upper < 1 at BOTH 16k and 64k.
 
