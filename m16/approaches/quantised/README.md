@@ -164,7 +164,7 @@ at step 10:
 | int4, x int4 | 2.5e8 | 16 | 200 | 2,628 | 309,519 | 126,757,342 | 90,669,587 | 7.15e7 |
 | int4, x int8 | 2.5e8 | 80 | 5,066 | 292,966 | 64,822,143 | 241,483,012 | 235,126,678 | 2.37e8 |
 | int8 | 2.5e8 | 935 | 484,535 | 54,345,744 | 249,956,530 | 250,000,000 | 250,000,000 | 2.5e8 |
-| int4, H = 64 | 2.5e8 | H64_T1 | H64_T2 | H64_T3 | H64_T5 | H64_T10 | H64_F1 | H64_EH |
+| int4, H = 64 | 2.5e8 | 515 | 160,612 | 20,459,894 | 242,508,192 | 249,611,273 | 249,242,816 | 2.49e8 |
 
 Sampled binary counts (3,755 continuous) are below the exact closures (4,487-11,966) because many reachable states
 have tiny mass. int4 / int8 states at step 10 are close to one per input.

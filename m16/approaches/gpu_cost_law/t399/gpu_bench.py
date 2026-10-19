@@ -14,7 +14,10 @@ import torch as th
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, "..", "..", ".."))
 import lpgpu  # noqa: E402
-from arc_eval import Wi0, Wh0, Wo0  # noqa: E402
+if os.environ.get("WEIGHTS"):                                          # Colab: no alg_zoo; weights dumped from m16/common.py
+    _w = np.load(os.environ["WEIGHTS"]); Wi0, Wh0, Wo0 = _w["Wi"], _w["Wh"], _w["Wo"]
+else:
+    from arc_eval import Wi0, Wh0, Wo0  # noqa: E402
 
 dev = sys.argv[4] if len(sys.argv) > 4 else "cuda"; out = {}; LIM = int(os.environ.get("BENCH_N", 10 ** 9))  # smoke-test limit
 E = lpgpu.LPEngine(Wi0, Wh0, Wo0, device=dev)
