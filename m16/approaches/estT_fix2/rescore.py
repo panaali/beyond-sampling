@@ -1,6 +1,9 @@
 """T443: re-score results that used the OLD estT d=4 orthant (understand_m43/estT.py, 12/48-node rules) with the
 fixed engine estT_fix/estT.py (T131/E46). Recipe logic is unchanged; only the cone masses are corrected.
 
+Post-hoc variant B (not pre-registered): append "r24" -> old engine with the wide rule graded p=3, 24 nodes
+(rulecost.py: within 3e-6 of estT_fix at +3-10% ops); writes rescore_<part>_r24.json. Truth stays estT_fix exact
+(read from rescore_<part>.json).
 usage: OMP_NUM_THREADS=1 python rescore.py e41      # zoo (4,4) seeds 0-4, clean + 8 noisy each (T87 / E41)
        OMP_NUM_THREADS=1 python rescore.py t111     # 15 retrained (4,4) models of T111, clean + 8 noisy each
        OMP_NUM_THREADS=1 python rescore.py f12      # E41 exhaustion checklist F1 (eps .01) and F2 (inter exact), seed 0
@@ -11,8 +14,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 A = os.path.join(HERE, "..")
 sys.path[:0] = [os.path.join(A, "estT_fix"), os.path.join(A, "arc_m43_repro"), os.path.join(A, "understand_m43")]
 import numpy as np
+VARIANT = sys.argv[2] if len(sys.argv) > 2 else "fix"
+if VARIANT == "r24":   # post-hoc variant B: OLD engine, wide rule graded p = 3 with 24 nodes (thin unchanged 48/p3)
+    sys.path.insert(0, os.path.join(A, "understand_m43"))
 import estT
-assert os.path.samefile(os.path.dirname(estT.__file__), os.path.join(A, "estT_fix")), estT.__file__
+if VARIANT == "r24":
+    assert os.path.samefile(os.path.dirname(estT.__file__), os.path.join(A, "understand_m43")), estT.__file__
+    estT._RULES["wide"] = estT._rule(24, 3)
+else:
+    assert os.path.samefile(os.path.dirname(estT.__file__), os.path.join(A, "estT_fix")), estT.__file__
 from m43 import Ops
 from zoo44 import zoo
 from zoo43 import noisy_copies
@@ -27,8 +37,12 @@ def run(m, mode="recipe", **kw):
     return dict(p=p, ops=o.n, cells=estT.STATS["cells"], sec=time.time() - t0)
 
 
-def score(m, old_clean, old_noisy):
-    ex = run(m, "exact"); rc = run(m)
+TRUTH = [None]
+
+
+def score(m, old_clean, old_noisy, key=None):
+    ex = run(m, "exact") if TRUTH[0] is None else dict(p=TRUTH[0][key]["exact_fix"], ops=TRUTH[0][key]["exact_ops_fix"])
+    rc = run(m)
     p = ex["p"]; e = rc["p"] - p
     out = dict(exact_fix=p, exact_old=old_clean["exact"], recipe_fix=rc["p"], recipe_old=old_clean["est"],
                ops_fix=rc["ops"], ops_old=old_clean["ops"], exact_ops_fix=ex["ops"],
@@ -45,7 +59,8 @@ def score(m, old_clean, old_noisy):
 
 
 def main(part):
-    fn = os.path.join(HERE, f"rescore_{part}.json")
+    fn = os.path.join(HERE, f"rescore_{part}.json" if VARIANT == "fix" else f"rescore_{part}_{VARIANT}.json")
+    TRUTH[0] = None if VARIANT == "fix" else json.load(open(os.path.join(HERE, f"rescore_{part}.json")))
     res = json.load(open(fn)) if os.path.exists(fn) else {}
     if part == "e41":
         old = json.load(open(os.path.join(A, "understand_m43", "run87.json")))
@@ -74,7 +89,7 @@ def main(part):
     for k, ld, oc, on in jobs:
         if k in res:
             continue
-        r = score(ld(), oc, on); res[k] = r
+        r = score(ld(), oc, on, k); res[k] = r
         print(f"{k}: exact old {r['exact_old']:.6f} fix {r['exact_fix']:.6f} | recipe err fix {100*r['err_fix']:+.3f}pp "
               f"ratio old {r['ratio_old']:.2f} -> truth-only {r['ratio_truthonly']:.2f} -> full fix {r['ratio_fix']:.2f} | "
               f"noisy old {r['noisy_ratio_old']:.2f} -> fix {r['noisy_ratio_fix']:.2f}", flush=True)
