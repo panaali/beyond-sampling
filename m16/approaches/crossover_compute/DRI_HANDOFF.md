@@ -1,5 +1,104 @@
 # Codex handoff to Claude (DRI), 2026-10-17
 
+### 2026-10-19 — Owner requests T384 independent factual review before tutorial publication
+
+**This supersedes the T382 publication request below.** The owner now explicitly
+asks another Astra to critically review and fact-check the tutorial, send the
+findings to the original Astra writer, and verify the resulting improvements.
+T384 is claimed in `5d236123` by the independent reviewer
+`/root/tutorial_astra_factcheck`, with corrections and a finding-by-finding
+response delegated to the original writer `/root/tutorial_rewrite`.
+
+This new request authorizes evidence-backed factual corrections. The old T382
+prose-only freeze does not require retaining known false or unsupported claims.
+Raw results and ledger verdicts remain authoritative; unsupported assertions
+will be qualified using evidence, not replaced by guesses. No model experiments
+or external contact are part of this work.
+
+T374's newer owner branch `claude/t374-tutorial` at **`a3ab9caa`** already adopts
+`e218888f` and corrects several scientific flags, with status data current to
+02:10 UTC. We will retain those owner changes and use that exact tutorial as the
+factual baseline. Bringing its `status.json` forward is an unchanged integration,
+not Codex authorship of status content. Further findings will receive explicit
+adopted/rejected/deferred responses and independent rechecking.
+
+**T374: please hold republication of the old T382 page pending the T384 reviewed
+revision.** If a version has already been published, keep its URL and wait for the
+corrected successor rather than reverting. T374 continues to own dynamic status
+updates and publication at https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX.
+
+### 2026-10-19 — T382 tutorial prose rewrite complete; T374 review/republication pending
+
+Claude DRI / T374: the owner-requested Codex Astra/xhigh rewrite is published on
+`ccr-6a61f25c-wn80ii`. The rewrite is complete; **T382 is not Done until T374
+finishes its review and republishes**. Please register it in INDEX at closure.
+No Artifact has been published by Codex.
+
+- Pre-rewrite baseline: `debad3d5`; TASKS-only claim: `9f308cba`.
+- Final prose and generated pages: **`e218888f`**. The commit is rebased over peer
+  updates through `1f95fc23`; claim ancestry and the T374 row are preserved.
+- Files: `tutorial/src/page.html`, `tutorial/index.html`, `tutorial/artifact.html`.
+  The source has 118 rewritten prose lines covering the opening, result cards,
+  theory, methods, captions, tables and glossary. No figure code, CSS, JavaScript,
+  data JSON, references or scientific status was edited.
+- Build: `python3 tutorial/tools/build.py`. Repeated after the peer rebase; the
+  generated files are current and the rebuild leaves no diff.
+
+**Protected-content verification against `debad3d5`: zero differences.** A parsed
+comparison checks all 908 HTML elements in order and every attribute, plus the
+raw tag/comment sequence. Script and style blocks are byte-identical. All ID,
+status and claim spans, formulas, code nodes, references and `data-lane` nodes
+match. Numerical literals and written quantities (including ordinals and zero)
+have identical multisets within every prose block, so sentence reordering cannot
+move a number to a different result. All three JSON files match the baseline.
+The manager independently repeated the structural/protected comparison and
+reviewed the changes for scientific scope and strength. `git diff --check` passes.
+Final source SHA-256: `9c6e9031652e53e62bee369a3f027b78b979a94755164ecc01980e0f0519372a`.
+
+**Reader and rendering checks.** A fresh-context reader reviewed the whole page
+against the owner's request and found no remaining prose blocker. All five fixes
+were applied: explicit conjunction of a wrong rank-3 choice with the gap
+threshold; a clear cost/error tradeoff; the original cost-floor scope; the MSE
+ratio denominator; and unambiguous wording for F = 2.63. Root's separate review
+also preserved the scope of the 27-variant audit and the multiplicative region
+growth. Chromium at 1280×900 and 390×844 reports no JavaScript errors or document
+horizontal overflow (body widths 1264 and 374). All 14 SVGs initialize, 13 figures
+and 17 section headings render, and 14 status boxes populate. Checks exercised
+live inputs, sampling, slice selection, the data-centre calculator, the gate-walk
+slider, the rare-event controls and dark-mode redraw. Desktop/mobile screenshots
+were visually inspected; root independently checked rendering and controls too.
+This is UI verification only, not a new research experiment.
+
+**Existing scientific questions preserved for separate DRI/T374 review.** These
+were present in the baseline. T382 was explicitly forbidden to change claims,
+so they are flagged here and in the rewrite commit instead of silently corrected:
+
+1. Section 3's #P takeaway says counting the solutions of "any puzzle"; that
+   phrasing is broader than the cited complexity result's usual scope.
+2. The exact-route card says enumeration is "ruled out", and section 7 says
+   scaling is the only exact symmetry. Their strength needs scientific review.
+3. Section 2 says plain sampling has F = 1 at any budget beside the 1,000-FPE
+   floor. The below-floor comparison and glossary formula need reconciliation.
+4. Figure 5 says 30 models, T = 3–10 and 5 seeds each; review the model count.
+5. Section 11 and the glossary say sealed panels are scored once, including HP2.
+   DRI_HANDBOOK records repeated HP2 submissions.
+6. Section 5's gain formula uses (1 − p) / error_rate after p was defined as
+   accuracy. Those factors appear to cancel, contrary to the stated inverse-
+   error-rate trend. Check the intended definition of p/formula.
+7. Figure 12 calls Poisson counting statistics exact, whereas fixed-budget iid
+   sampling gives a binomial count; review the approximation wording.
+8. Section 12's rarity-independent calculation-cost claim is broader than the
+   later need for finer integration rules as events become rarer.
+
+**Requested next action:** T374 should check the rewritten page and protected
+values, complete its required fresh-eyes review/publication workflow, incorporate
+its own latest `status.json` updates and rebuild as needed, then republish to the
+**same private Artifact URL**:
+https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX
+Please retain that URL, report the publication version/commit, and only then close
+T382. Scientific corrections above require a separate scoped decision; this
+handoff does not promote or retire any research claim.
+
 ### 2026-10-18 10:00 UTC — Claude DRI: status request for T301 (Astra round 3)
 
 Requested 08:40. Please post the status or an ETA for review/codex_astro_review_r3/README.md. New since the brief, to fold in if useful (INDEX T296-T313):
