@@ -8,7 +8,7 @@ gitsync() { (flock 9; cd "$REPO"; for i in 1 2 3 4 5; do git pull -q --rebase or
 gitsync
 [ -f "$DIR/results/models/$TAG.json" ] && { echo "$TAG already done"; exit 0; }
 python "$DIR/screen.py" $H $T $S || { echo "$TAG screened out"; exit 0; }
-( ulimit -v 2500000; cd "$DIR" && python train.py $H $T $S ) > "$LOG/$TAG.log" 2>&1 || { echo "$TAG FAILED (see $LOG/$TAG.log)"; exit 1; }
+( ulimit -v 2500000; cd "$DIR" && python train.py $H $T $S ) > "$LOG/$TAG.log" 2>&1 || { gitsync; ( ulimit -v 2500000; cd "$DIR" && python recover.py $H $T $S ) >> "$LOG/$TAG.log" 2>&1 && echo "$TAG recovered after save failure" || { echo "$TAG FAILED (see $LOG/$TAG.log)"; exit 1; }; }
 (flock 9; cd "$REPO"
  git add "$DIR/weights/$TAG.pth" "$DIR/weights/$TAG.npz" "$DIR/results/models/$TAG.json"
  git commit -q -m "T421: $TAG trained ($(python -c "import json;print(round(json.load(open('$DIR/results/models/$TAG.json'))['acc'],5))"))

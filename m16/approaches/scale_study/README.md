@@ -40,7 +40,7 @@ weights (max |dW| = 0; same module construction order, same `th.randn(batch, T)`
 [import_existing.py](import_existing.py).
 
 **Accuracy.** Plain MC on 1e7 N(0,1) inputs, float64 numpy forward, inputs common to all models of the same T
-(`np.random.default_rng([421, T])`, 10 chunks of 1e6), so models at one point are paired; s.e. <= 1e-4. Script:
+(`np.random.default_rng([421, T])`, drawn in sequential chunks), so models at one point are paired; s.e. <= 1e-4. Script:
 [evaluate.py](evaluate.py).
 
 **Point rule (drop / keep), fixed now.**

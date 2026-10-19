@@ -10,7 +10,7 @@ import sys
 
 import numpy as np
 
-N, CHUNK = 10**7, 10**6
+N, CHUNK = 10**7, 250_000  # 250k rows keeps H = 64 under the 2.5 GB cap; same input stream as 1e6-row chunks
 
 
 def accuracy(Wi, Wh, Wo, n=N, chunk=CHUNK):
