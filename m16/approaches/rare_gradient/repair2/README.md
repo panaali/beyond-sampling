@@ -53,5 +53,11 @@ comparison everywhere, which the accuracy budget may forbid: then a scoped negat
 trade one log against the other; both are reported separately. (c) v1-line CMC could be biased at edited weights: the
 truths are independent.
 
+### Tool check (before any design run)
+`python test_wline.py` (orig, W(1.0)): v1-line P_W 5.989e-4 +- 1.3e-6 vs plain conditional MC 6.022e-4 +- 1.2e-6
+(-0.5%, z = -1.9); along T372's top direction dP_W/du 5.9e-3 +- 5.2e-4 vs a paired FD (h = .003) 4.7e-3 +- 2.7e-4
+(1.27x, z = 2.1). Possible small bias at the 1-2 s.e. level, not resolved; acceptable for a design tool with 2x margins
+(the verification is independent).
+
 ## Status
-Pre-registered; design not started.
+Pre-registered; design in progress.
