@@ -780,8 +780,17 @@ def mass_cell_fast(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=24, zratio
     d, mlow, jp3, Mv_lo, Mv_hi, S, vlo, vhi, nV = gm
     I = sorted(set(range(k)) | set(tri))
     P = Params(d, mlow, jp3, t0, zbins, zratio, jp2=I.index(tri[1]))
-    Mlo = Mv_lo[S]; Mhi = Mv_hi[S]
-    lo, hi = bounds_batch(Mlo, Mhi, vlo, vhi, P)
+    if len(S) >= budget:
+        # T400 (memory): no refinement will run, so bound the root simplices in chunks without materialising
+        # all of them at once (identical numbers; keeps resident memory bounded for 1e6+ simplices).
+        CH = 100_000
+        parts = [bounds_batch(Mv_lo[S[a:a + CH]], Mv_hi[S[a:a + CH]], vlo[a:a + CH], vhi[a:a + CH], P)
+                 for a in range(0, len(S), CH)]
+        lo = np.concatenate([p[0] for p in parts]); hi = np.concatenate([p[1] for p in parts])
+        Mlo = Mhi = None
+    else:
+        Mlo = Mv_lo[S]; Mhi = Mv_hi[S]
+        lo, hi = bounds_batch(Mlo, Mhi, vlo, vhi, P)
     S0 = len(lo); rounds = 0
 
     def sums():
