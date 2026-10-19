@@ -73,24 +73,102 @@ only.
 
 ## Status
 
-Pre-registered; running.
+Done (2026-10-19). A: PASS. B: pre-registered line FAILS (14/15 within 2x; 12/15 |z| <= 2, line 13).
 
 ## Results
 
-Pending.
+### A. Validation, E1(1.5) on M_16,10: PASS [measured]
+
+`python run2.py target 1.5` -> [target_1.5.json](target_1.5.json).
+- p_hat = **2.133e-7 +- .120e-7** (rel. s.e. 5.6%; extended to 1e7) vs MC 2.052e-7 +- .072e-7: **z = +0.58**.
+- 921,019 stage-2 hits (T436 v1: 1,671 at the same n).
+- Every triple holding >= 5% of MC hits is sampled:
+
+| triple | stage-2 hits | IS contribution share | MC hit share |
+|---|---|---|---|
+| (9,3,2) | 235,136 | 58.8% | 61% |
+| (8,1,2) | 46,132 | 19.2% | 15% |
+| (0,9,7) | 301,979 | 8.6% | 8.0% |
+| (9,0,7) | 303,140 | 7.5% | 7.7% |
+
+- C = 4.0e6 FPE, **F = 0.0027** (v1: 0.026); counting every draw, 0.0088.
+- Caveat: the cheaper 60-seed pilot did not find T436's best (9,3,2) point. Its best r^2 was 4.00, against T436's
+  2.85 from 200 seeds of a 1e7 pilot. The adaptive stage made up for it here; at deeper thresholds it may not.
+
+### B. T403's 15 points: pre-registered line FAILS (14/15 within 2x, but only 12/15 with |z| <= 2) [measured]
+
+Estimates sealed in e197ba785 before `score2.py` read any truth -> [score2.json](score2.json).
+- F = e^2 C / p(1-p) per point; F_pref = P(g23 >= t0), the gap-prefiltered MC counting network passes only.
+- F_walk = T403's graded-g12 walk estimator.
+- Stratum: A = predicted tie share 50-80%, B = >= 80%.
+
+| # | model | t0 | stratum | truth | IS est +- se | ratio | z | hits | C | F | F (draws) | F_pref | F_walk |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | dev3_s576 | 1.0 | A | 1.150e-04 | 1.248e-04 +- 6.3e-06 | 1.09 | +1.6 | 67385 | 6.02e+05 | 0.51 | 3.5 | 0.044 | 12 |
+| 1 | dev3_s564 | 2.75 | A | 2.983e-08 | 2.983e-08 +- 5.1e-10 | 1.00 | -0.0 | 138742 | 1.72e+06 | 1.7e-09 | 5.3e-09 | 9.8e-06 | 3.3e-05 |
+| 2 | dev3_s580 | 1.25 | A | 9.586e-05 | 9.853e-05 +- 2.7e-06 | 1.03 | +1.0 | 89392 | 7.56e+05 | 0.056 | 0.32 | 0.017 | 0.058 |
+| 3 | dev3_s583 | 1.5 | A | 4.108e-06 | 4.028e-06 +- 1.2e-07 | 0.98 | -0.6 | 75907 | 6.04e+05 | 0.00094 | 0.0064 | 0.0059 | 0.0026 |
+| 4 | dev3_s596 | 2.5 | A | 5.359e-08 | 4.867e-08 +- 1.2e-09 | 0.91 | -4.0 | 102250 | 1.23e+06 | 0.00056 | 0.0022 | 4.2e-05 | 0.0026 |
+| 5 | dev3_s565 | 2.0 | A | 9.274e-07 | 8.552e-07 +- 2.6e-08 | 0.92 | -2.8 | 181829 | 1.49e+06 | 0.0084 | 0.028 | 0.00058 | 0.0025 |
+| 6 | dev3_s571 | 1.0 | A | 6.497e-06 | 6.662e-06 +- 2.8e-07 | 1.03 | +0.6 | 170721 | 2.78e+06 | 0.012 | 0.055 | 0.044 | 0.042 |
+| 7 | dev3_s595 | 1.75 | A | 5.913e-09 | 2.820e-09 +- 1.9e-11 | 0.48 | -16.5 | 198868 | 6.20e+05 | 0.001 | 0.0065 | 0.0019 | 0.31 |
+| 8 | dev3_s590 | 1.5 | A | 4.040e-06 | 4.243e-06 +- 2.3e-07 | 1.05 | +0.9 | 87901 | 7.40e+05 | 0.0076 | 0.044 | 0.0059 | 2.3 |
+| 9 | dev3_s593 | 2.75 | A | 9.593e-09 | 9.568e-09 +- 1.4e-10 | 1.00 | -0.2 | 161636 | 6.85e+05 | 4.6e-08 | 2.9e-07 | 9.8e-06 | 6.3e-05 |
+| 10 | dev3_s596 | 1.0 | B | 5.632e-05 | 5.431e-05 +- 1.5e-06 | 0.96 | -1.4 | 46310 | 1.24e+06 | 0.09 | 0.35 | 0.044 | 3.4 |
+| 11 | dev3_s583 | 1.0 | B | 3.018e-05 | 3.391e-05 +- 2.5e-06 | 1.12 | +1.5 | 10537 | 5.14e+05 | 0.24 | 1.9 | 0.044 | 0.81 |
+| 12 | dev3_s593 | 1.0 | B | 2.669e-05 | 2.730e-05 +- 5.9e-07 | 1.02 | +1.0 | 139383 | 7.77e+05 | 0.011 | 0.059 | 0.044 | 0.76 |
+| 13 | dev3_s585 | 1.25 | B | 1.139e-06 | 1.208e-06 +- 5.2e-08 | 1.06 | +1.3 | 215187 | 2.42e+06 | 0.01 | 0.055 | 0.017 | 2.9 |
+| 14 | dev3_s570 | 3.0 | B | 2.708e-10 | 2.904e-10 +- 2.1e-11 | 1.07 | +0.9 | 139298 | 1.16e+06 | 1.7e-06 | 1.9e-05 | 2.3e-06 | 0.00017 |
+
+**Summary.**
+- **Line:** within 2x on 14/15 (line >= 12: met); |z| <= 2 on 12/15 (line >= 13: **missed**). Median ratio 1.02.
+- **F against the bars:** panel F = **0.42** (strict bar met); 2.2 when every draw is charged (lenient bar met).
+  Every point has F <= 1.
+- **Against T403's walk:** better F on 14/15 points (walk panel F 4.57). The one exception is #3 (0.00094 vs .0026,
+  both small).
+- **Against the gap-prefiltered MC:** better F on 8/15 counting network passes only, 11/15 when MC draws are charged
+  0.19 FPE. IS loses mainly at t0 = 1.0-1.5, where P(g23 >= t0) is 0.006-0.044 and the IS fixed cost (pilot +
+  descents ~6e5 FPE) dominates. At t0 >= 2.5, IS beats it by 25-200x.
+- **Failures:** 3 points have an over-confident s.e.
+  - **#7 dev3_s595, t0 1.75: ratio 0.48, z -16.5.** It has 198,868 hits and a tiny s.e., but about half of the
+    truth's mass lies in a region no mixture component covers (alternative (c)). This is the same point where
+    T403's walk overshot 5x; its truth has only a partial tie share.
+  - **#4 s596 t0 2.5 (0.91, z -4.0) and #5 s565 t0 2.0 (0.92, z -2.8):** mild under-coverage, about 9% low with a
+    3% s.e. (alternative (b) or a partly missed region).
 
 ## Compute accounting
 
-Pending.
+Per point:
+- pilot: 2e6 draws, 1e5 network passes, ~2.5 s;
+- 60 descents: ~1-2 s, i.e. 2.5-5e5 FPE;
+- stages 1 and 2: 1e6 + 1e6 draws (+9e6 on extension), 0.3-2e6 network passes.
+
+Charged C per point: 5.1e5-2.8e6 FPE (T403's walk: 1.4-3.3e6). The target validation cost 4.0e6. Wall clock: 15 points
+in ~25 min on 2 cores. All single-core numpy/scipy.
 
 ## Claims
 
-None yet.
+- [measured] v2 (per-triple cap + two-stage cross-entropy anisotropic mixture) validates on E1(1.5) of M_16,10
+  (z +0.58). All four triples with >= 5% of MC hits are sampled, with contribution shares matching the MC hit shares
+  to within ~4 points. The hit count rises 550x and F improves 10x over v1.
+- [measured] On T403's 15 truth-blind points it is within 2x on 14/15, with median ratio 1.02. Panel F is 0.42
+  (strict bar), and it beats T403's walk on 14/15 points.
+- [measured] Its s.e. is over-confident on 3/15 points: one missed region (s595, 0.48x) and two ~9% lows. The
+  pre-registered |z| line fails. So the method's CIs are not trustworthy without global coverage of the dominating
+  regions.
+- [measured] Against T400's gap-prefiltered MC, IS wins only at the rare thresholds (t0 >= 1.75-2).
 
 ## Alternatives not ruled out
 
-Pending.
+- The misses could come from the cheaper pilot (60 seeds of 1e5 net passes) missing regions, or from the CE fit
+  over-narrowing; not separated. Untested fixes:
+  - more seeds or a T436-size pilot;
+  - a global search (the MIQP with a warm start);
+  - a wider defensive component, e.g. N(0, 1.5^2 I) in the gap-conditioned space.
+- Truths are T403's v3-conditional MC; their s.e. enters z, and a truth error at #7 cannot explain 16 sigma.
 
 ## Failure modes
 
-Pending.
+- A dominating region no component covers is invisible: the estimate is low with a small, misleading s.e. (#7).
+- At moderate rarity (p >~ 1e-5, t0 <= 1.5), the fixed pilot and descent cost makes it worse than the free gap
+  prefilter.
