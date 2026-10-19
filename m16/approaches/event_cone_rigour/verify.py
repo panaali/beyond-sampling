@@ -164,14 +164,9 @@ def margin_lb(A, EA, b, Eb, lo, hi, extra=None, eextra=None):
     return safe_lb(c, np.zeros(n + 1), A1, E1, b1, Eb1, lo1, hi1, -r.ineqlin.marginals)
 
 
-def verify_prune(tri, gates, k, event_aware=False, return_info=False, delta=DELTA):
-    R = Relax(tri, gates, k, delta)
-    info = dict(stage=None, lps=0)
-
-    def done(ok, stage):
-        info["stage"] = stage
-        return (ok, info) if return_info else ok
-
+def _bounds(R, event_aware, info):
+    """Forward (and optionally one event-aware Jacobi pass) safe bounds into R.lo/R.hi.
+    Returns None, or (proved_empty: bool, stage) when an LP turned out infeasible."""
     for s in range(R.nb):                                        # forward bounds (event dropped)
         P = R.program(s, False)
         for j in range(H):
@@ -179,32 +174,61 @@ def verify_prune(tri, gates, k, event_aware=False, return_info=False, delta=DELT
             a = bound(R.Z[s][j], R.EZ[s][j], *P)
             c = bound(-R.Z[s][j], R.EZ[s][j], *P) if a is not None else None
             if a is None or c is None:
-                return done(bool(margin_lb(*P) > 0), 0 if s == 0 else 1)
+                return bool(margin_lb(*P) > 0), (0 if s == 0 else 1)
             R.lo[s, j], R.hi[s, j] = a, -c
     if event_aware:                                              # one Jacobi pass with the event rows
         P = R.program(R.nb, True)
         lo, hi = R.lo.copy(), R.hi.copy()
         for s in range(R.nb):
             for j in range(H):
-                if R.lo[s, j] >= 0 or R.hi[s, j] <= 0 or R.gates[k + s][j] >= 0:
+                if R.lo[s, j] >= 0 or R.hi[s, j] <= 0 or R.gates[R.k + s][j] >= 0:
                     continue
                 info["lps"] += 2
                 a = bound(R.Z[s][j], R.EZ[s][j], *P)
                 c = bound(-R.Z[s][j], R.EZ[s][j], *P) if a is not None else None
                 if a is None or c is None:
-                    return done(bool(margin_lb(*P) > 0), 2)
+                    return bool(margin_lb(*P) > 0), 2
                 lo[s, j] = max(lo[s, j], a); hi[s, j] = min(hi[s, j], -c)
         R.lo, R.hi = lo, hi
-    P = R.program(R.nb, False)                                   # final: min max_j (L_j - L_p3) > 0
+    return None
+
+
+def _final(R, info):
+    P = R.program(R.nb, False)                                   # min max_j (L_j - L_p3) > 0
     info["lps"] += 1
-    m = margin_lb(*P, extra=R.ev, eextra=R.eev)          # rows tau + (L_p3 - L_j) >= 0
+    m = margin_lb(*P, extra=R.ev, eextra=R.eev)                  # rows tau + (L_p3 - L_j) >= 0
     info["margin_lb"] = float(m)
-    return done(bool(m > 0), 3 if event_aware else 1)
+    return bool(m > 0)
+
+
+def verify_prune(tri, gates, k, event_aware=False, return_info=False, delta=DELTA):
+    R = Relax(tri, gates, k, delta)
+    info = dict(stage=None, lps=0)
+    r = _bounds(R, event_aware, info)
+    if r is not None:
+        info["stage"] = r[1]
+        return (r[0], info) if return_info else r[0]
+    ok = _final(R, info); info["stage"] = 3 if event_aware else 1
+    return (ok, info) if return_info else ok
 
 
 def verify_leaves(tri, leaves, k, event_aware=True, delta=DELTA):
-    """A stage-3 (split) prune holds iff every leaf (gates with split rows) is verified."""
-    return all(verify_prune(tri, g, k, event_aware=event_aware, delta=delta) for g in leaves)
+    """A stage-3 (split) prune holds iff every leaf is empty. Bounds are computed once on the unsplit cell
+    (valid for every leaf, as each leaf is a subset), as relax2 does; each leaf then needs one final LP with its
+    split rows (z >= 0 and h = z, or z <= 0 and h = 0)."""
+    leaves = [np.asarray(g) for g in leaves]
+    base = leaves[0].copy(); base[k:] = -1
+    R = Relax(tri, base, k, delta); info = dict(lps=0)
+    r = _bounds(R, event_aware, info)
+    if r is not None:
+        return r[0]
+    for g in leaves:
+        if not (g[:k] == base[:k]).all():
+            raise ValueError("leaves of different cells")
+        R.gates = g
+        if not _final(R, info):
+            return False
+    return True
 
 
 def verify_certfile(path, return_times=False):
