@@ -356,3 +356,50 @@ est/truth within 2x is primary.
   of events, so a 3-10% bias gives F > 1 (16/72 strict, 48/72 lenient).
 - Note: the two lanes of part (a) were accidentally launched twice for lane 0. The estimator is deterministic, so this
   only duplicated work; all 52 entries were checked present.
+
+## T404 part (b) results: E2 on the noisy copies: both GO by the pre-registered line, but carried by common events (unverified; `python score_t404.py b` -> `results/t404_score_b.txt`, `results/t404_score_b.json`)
+
+Truths: 1e8 conditional samples per t; every point has >= 360 hits (rel. s.e. <= 5.3%). Clean orig E2(.5) = 9.40e-5
+(T340 GPU: 9.38e-5). Truth range 1.4e-8 to 7.9e-2: at sigma .02-.05 the "interior" error is common (p up to 8%).
+
+| estimator | C (FPE / model, 3 t) | noisy within 2x (go: >= 80%) | median | low / high | F <= 1 | F <= 10 |
+|---|---|---|---|---|---|---|
+| **K3-E2** | 1.55-2.81M | **139 / 144 (96.5%)** | .96 | 120 / 24 | 36 | 79 |
+| **A-E2** | 11.5-28.6k | **128 / 144 (88.9%)** | .90 | 114 / 30 | **89** | **132** |
+
+| subset | K3-E2 within 2x / median | A-E2 within 2x / median | A-E2 F <= 1 / <= 10 |
+|---|---|---|---|
+| sigma .001 / .005 / .02 / .05 | 32 / 35 / 36 / 36 (of 36) | 31 / 25 / 36 / 36 | 32 / 22 / 17 / 18 (strict) |
+| **rare: truth <= 2e-4 (42 pts)** | **37 (88%) / .88** | **31 (74%) / .73** | 41 / 42 |
+| common: truth > 2e-4 (102 pts) | 102 / .97 | 97 / .92 | 48 / 90 |
+| clean bases (12) | 12 / .83 | 10 / .95 | 10 / 12 |
+
+- **Misses are all at sigma <= .005 for both estimators.** K3-E2 (5): dev3_s526@.001#0 t .75 / 1.0 (.29, .22),
+  dev3_s526@.001#1 t .75 / 1.0 (2.7, 3.5; truth 2.2e-6 / 7.5e-8), orig@.005#0 t 1.0 (.34). A-E2 (16): whole copies fail
+  together and collapse as t rises (dev3_s526@.001#0 .095 -> .010, dev3_s528@.005#0 .22 -> .004, dev3_s528@.005#1
+  .46 -> .027, orig@.005#2 .38 -> .13). That is the T360/T363 pattern (closure loses interior islands).
+- **No single error type explains the misses.** The truth's mix of which rank the network picks (rank 1 / rank 3 /
+  rank 4+) varies across the misses. Points where most errors pick rank 4+ are no worse (K3 64/64 within 2x).
+- **Expectation vs result.** The pre-registered expectation (NO GO, worse with sigma) was wrong. Both estimators improve
+  as sigma grows, as in T371: large noise makes the interior errors common and spread out, and the walks' closure
+  captures them. The difficult regime is small noise, where the events are rare.
+- **Equal compute.** A-E2's tiny cost makes it the one that beats sampling: F <= 1 on 89/144 (41/42 rare points),
+  although it is the less accurate one. K3-E2's 2M FPE cost buys accuracy but loses to sampling wherever p C is large
+  (F <= 1 on 36/144).
+
+**T404 claims.**
+1. [measured] (a) The graded g12 rule at T_hi = 3.5 is within 2x on 143/144 noisy points at .63x T388's cost
+   (4.5x K3's). The pre-registered line (>= 140) is met. The cut moves estimates by <= 6.8e-9.
+2. [measured] (b) On the interior event E2(t = .5, .75, 1) over the same noisy copies, K3-E2 is within 2x on 139/144 and
+   A-E2 on 128/144. Both pass the pre-registered 80% line, both are one-signed low (median .96 / .90), and every miss is at
+   sigma <= .005.
+3. [measured] Restricted to rare points (truth <= 2e-4, 42 of 144; a post hoc split), K3-E2 is 37/42 within 2x (median .88)
+   and A-E2 31/42 (74%, median .73). The pass in claim 2 is therefore carried largely by common events at large noise.
+4. [measured] At equal compute A-E2 has F <= 1 on 89/144 and F <= 10 on 132/144; K3-E2 has 36 and 79.
+5. [inferred] E2's known one-signed-low failure (T360) appears here only at small noise. Noise does not widen it; at
+   sigma >= .02 it disappears because the events stop being rare.
+
+**T404 alternatives / limits.** Part (a)'s truths were known (a code check). Part (b)'s truths were computed after the
+estimates were sealed (dacaf3fd), but the estimators were already known to be one-signed low on E2. The panel is the same
+4 bases and noise rays as T371 (copies are not independent across sigma). "Rare" vs "common" is a post hoc split. The
+rare subset is 42 points from 4 bases, so its 74-88% within 2x rests on few copies (several misses are whole copies).
