@@ -22,7 +22,7 @@ def walk(model, y, a, b, tau, kind, cdf=ndtr, eps=1e-10, max_cells=4000):
     tpos = a if kind == "23" else b
     tneg = b if kind == "23" else a
     step_f = 2 * H * H + 2 * H                 # FLOPs of one recurrent step (one sequence), the FPE unit / T
-    upd_f = 6 * H                              # FLOPs of a linear update + gate test of one step (value only)
+    upd_f = 6 * H                              # FLOPs of the linear update + gate-change test of one step (done for ALL T steps of every cell)
     t = -tau.copy()
     mass = np.zeros(n); cost = np.zeros(n); cells = np.zeros(n, int)
     Z = np.zeros((n, T, H)); DZ = np.zeros((n, T, H)); TC = np.full(n, np.nan)
@@ -63,7 +63,7 @@ def walk(model, y, a, b, tau, kind, cdf=ndtr, eps=1e-10, max_cells=4000):
         L = h @ Wo.T; dL = dh @ Wo.T
         nrec = T - r0
         ntan = T - np.maximum(r0, amin)      # recomputed steps that also need the tangent
-        cost[act] += ((nrec + ntan) * step_f + (T - nrec) * upd_f + T * 4 * H + 4 * T * H) / (T * step_f)
+        cost[act] += ((nrec + ntan) * step_f + T * upd_f + T * 4 * H + 4 * T * H) / (T * step_f)
         cells[act] += 1
         lo, hi = t[act], nxt
         rr = np.arange(m)
