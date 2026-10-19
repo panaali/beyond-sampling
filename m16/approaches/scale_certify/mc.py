@@ -3,7 +3,7 @@ Exact conditional sampler (model-free): every triple has the same slab mass, so 
 triple, x_p3 = v has density prop. to phi(v) Phi(v)^(T-3) Phibar(v+t0)^2 (sampled by inverse CDF on a 4e5-point grid),
 the T-3 lows are iid N(0,1) truncated to <= v, the two highs iid N(0,1) truncated to >= v + t0 (larger -> p1).
 P(E1) = P(S) * hits / n; P(S) = T(T-1)(T-2)/2 * int phi Phi^(T-3) Phibar(v+t0)^2 dv.
-usage: python mc.py TAG T0 N [SEED] -> results/mc_<TAG>_<t0>_<seed>.json (hits with their x)"""
+usage: python mc.py TAG T0 N [SEED] -> results/mc_<TAG>_<t0>_<seed>.json (summary); data/t426/mc/ (same plus hit x)"""
 import json
 import os
 import sys
@@ -72,7 +72,8 @@ def main():
                by_triple=sorted(([list(t), c] for t, c in C.items()), key=lambda r: -r[1]), sec=round(time.time() - t1, 1),
                hit_x=hits)
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    json.dump(out, open(os.path.join(HERE, "results", f"mc_{tag}_{t0:g}_{seed}.json"), "w"))
+    json.dump(out, open(os.path.join(HERE, "..", "..", "..", "data", "t426", "mc", f"mc_{tag}_{t0:g}_{seed}.json"), "w"))
+    json.dump({k_: v_ for k_, v_ in out.items() if k_ != "hit_x"}, open(os.path.join(HERE, "results", f"mc_{tag}_{t0:g}_{seed}.json"), "w"))
     print({k_: v_ for k_, v_ in out.items() if k_ != "hit_x"} | {"by_triple": out["by_triple"][:8]})
 
 

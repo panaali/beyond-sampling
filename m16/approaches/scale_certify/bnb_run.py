@@ -22,7 +22,7 @@ def main():
     kmax = int(sys.argv[sys.argv.index("--kmax") + 1]) if "--kmax" in sys.argv else T
     name = f"{tag}_{'-'.join(map(str, tri))}"
     import glob
-    hx = [x for f in sorted(glob.glob(os.path.join(HERE, "results", f"mc_{tag}_{t0:g}_*.json"))) for x in json.load(open(f)).get("hit_x", [])
+    hx = [x for f in sorted(glob.glob(os.path.join(DATA, "mc", f"mc_{tag}_{t0:g}_*.json"))) for x in json.load(open(f)).get("hit_x", [])
           if tuple(np.argsort(-np.array(x))[:3]) == tri]
     hx = np.array(hx) if hx else np.zeros((0, T))
     hs = core.run(hx) if len(hx) else None
