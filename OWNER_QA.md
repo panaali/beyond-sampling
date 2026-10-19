@@ -1086,6 +1086,23 @@ estimators* are tied to the task's event, not the architecture. Plan: T432 maps 
 a linear state-space model with ReLU readout, a tiny transformer with ReLU vs softmax attention, a 1-D conv net) and tests
 which methods carry over against both bars.
 
+<a id="q6-11"></a>
+### 6.11 Would our methods apply to a mini language model (next-token prediction), possibly with a modified mini self-attention? (owner, 10-19 17:2x)
+
+**Request (owner, condensed):** train a small language model on a mini language and test whether any of our methods
+apply; it may have a mini self-attention layer, changed if needed (from the literature or our own ideas) so that at
+least one, ideally many, of our positive methods apply; split the work into parallel streams via a lead.
+
+**Answer (DRI, [inferred] until T433 runs):** two changes matter. (1) *Inputs become discrete tokens*, so the input
+distribution is over sequences, not Gaussian vectors; exact enumeration is possible for short contexts (T352 found exact
+dynamic programming beats sampling by orders of magnitude on discrete inputs), so the language must make V^L large enough
+that sampling is the real baseline. (2) *Softmax attention* is not piecewise linear; variants that keep our exact tools are
+hardmax (argmax) attention, ReLU or linear attention (piecewise polynomial), and position-only attention (linear mixing).
+Locate and repair (gradients) and the safe-use rating should transfer directly to a rare bad output such as an
+ungrammatical token. Plan: a lead (T433) builds the shared language, data and training harness and proposes parallel
+streams; the DRI spawns one session per stream (attention variants, estimators for discrete inputs, rare bad outputs,
+certified bounds).
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
