@@ -785,3 +785,21 @@ Reproduce: `python rating_est.py; python rating_mc.py; python rating_chart.py`.
    sampling, so the flag is not yet deductive.
 
 Unverified.
+
+# T407: the target's rating rerun with the graded-g12 estimator. Pre-registration (2026-10-19, before any T407 run)
+- **Estimator:** the frozen graded-g12 rule, claude/t218-tie-tail-labels @5b4a1250 `estimator_t366` / `t366.est_e1`.
+  The sha256 (as in T366) are asserted at run time. T340_SRC = a 620eb47b export. It is run unmodified.
+  - My wrapper `rating_t407.py` reproduces `t366.est_e1`'s loop with the same frozen functions (`t354.walk_seg`,
+    `rare.mass`, `t366.LINES`) in order to also return the deterministic flag.
+  - Its estimates must equal `estimator_t366.est` (checked once on orig at all t; equality to 1e-12 relative), or the
+    wrapper is discarded.
+- **Model and grid:** M_16,10 (orig), t in {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5}, rated quantity
+  r(t) = P(pick = p3 | g23 >= t), P(condition) exact (as T401).
+- **Checks:** T401's conditional-law MC for orig (`results/t401_mc.json`, already computed; reused unchanged).
+- **Rating rule (DRI):** a point is rated only if est / check is in [1/2, 2]. Otherwise it is unrated. Points without a
+  check (fewer than 30 hits; t = 3.5) are reported as "beyond test", with the flag below.
+- **Deterministic trust flag:** the estimator's own share of the event mass coming from g12 nodes below .1 (graded
+  panels [0, .01], [.01, .03], [.03, .07] and the lower half of [.07, .15], by node value < .1). It is compared with
+  T401's sampled triple-tie share at every validated t: the correlation, and the agreement on the >= 50% call.
+- **Reported:** est, check, ratio, both flags, label, cost C, and F = (est - p)^2 max(C, 1000) / (p (1 - p)) with
+  p = check x P(condition), against the strict (F <= 1) and lenient (F <= 10) bars.
