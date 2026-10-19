@@ -87,7 +87,13 @@ def batches():
 
 
 res = {f"{s}_k{k}" + ("_mixer2" if w == 2 else ""): dict(coc={}, n=0) for s, k, w in JOBS}; t0 = time.time()
-for part in range(P):
+CKPT = os.environ.get("OUT", os.path.join(HERE, "census10.json")) + ".partial"; done_parts = 0
+if os.path.exists(CKPT):                                                 # resume after a lost runtime
+    ck = json.load(open(CKPT))
+    if (ck["N"], ck["P"], ck["seed"]) == (N, P, SEED):
+        done_parts = ck["parts_done"]; res = {j: dict(coc={int(a): b for a, b in r["coc"].items()}, n=r["n"]) for j, r in ck["res"].items()}
+        print("resumed after part", done_parts, flush=True)
+for part in range(done_parts, P):
     ub = {j: [] for j in res}; cb = {j: [] for j in res}; nb = {j: 0 for j in res}
     for W, near, err in batches():
         mask = {"err": err, "near": near, "all": None}
@@ -107,6 +113,7 @@ for part in range(P):
         del uk, cnt
     if DEV == "cuda":
         th.cuda.empty_cache()
+    json.dump(dict(N=N, P=P, seed=SEED, parts_done=part + 1, res=res), open(CKPT + ".tmp", "w")); os.replace(CKPT + ".tmp", CKPT)
     print("part", part + 1, "of", P, "%.0fs" % (time.time() - t0), flush=True)
 out = {j: stats(r["coc"], r["n"]) for j, r in res.items()}
 json.dump(dict(N=N, P=P, seed=SEED, compact=COMPACT, sec=time.time() - t0, results=out), open(os.environ.get("OUT", os.path.join(HERE, "census10.json")), "w"), indent=1)

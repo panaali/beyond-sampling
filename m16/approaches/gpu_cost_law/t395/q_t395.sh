@@ -1,0 +1,1 @@
+cd /content/cn/m16/approaches/gpu_cost_law/t395 && PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True COMPACT=5e7 OUT=/content/census10.json python census10.py 1e10 6 >> /content/t395.log 2>&1; echo "rc=$?" >> /content/t395.log
