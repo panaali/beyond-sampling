@@ -118,6 +118,30 @@ model scored before the change was M_16,10 itself and one copy (log kept in data
 - M_16,10 control: the target, alg_zoo retrains `zoo_2nd_argmax(16, 10, seed=0..4)` (accuracies .88-.95), and 6
   noised copies of the target (12 models).
 
+### T387 pre-registration (2026-10-19 ~02:50 UTC, before any fixed-set scoring): fixed great-circle sets
+
+DRI request: make D1w128's estimator deterministic (no random model inputs), QMC-class like T10, by replacing the
+random great circles of `fast1.py` with FIXED sets, identical for every model, fixed before scoring.
+- Panel: the same 12 D1w128 models (3 seeds + 9 copies at relative sigma .001). Truth: 1e8-sample MC per model
+  (seed 8787, disjoint from every other seed here); its noise is reported next to each F.
+- Budget: C = 4,000 FPE. Each set has n circles, n chosen once from the mean walk cost measured before this
+  pre-registration (17.2 FPE): n = 232. Cost charged as executed (sum of `fast1` FLOPs / FPE), C_eff = max(C, 1k).
+- Map from the unit cube to circles: point q in [0,1)^20 -> (u, v) = (Phi^-1(q_1..10), Phi^-1(q_11..20)).
+- Designs (all fixed now; nothing is tuned on truths):
+  - S: scrambled Sobol (scipy.stats.qmc.Sobol, d = 20, scramble=True), first 232 points, seeds 1-5 (5 sets).
+  - H: scrambled Halton (scipy.stats.qmc.Halton, d = 20), first 232 points, seeds 1-5 (5 sets).
+  - K: rank-1 Korobov lattice, n = 233 (prime; one more circle), generator z = (1, a, a^2, ...) mod 233,
+    points frac((i z + 0.5) / 233), a in {17, 31, 57, 89, 113} (5 sets, no search).
+  - P (symmetry-derived): 23 Sobol points (seed 1-5) x the 10 cyclic shifts of the input coordinates applied to
+    both u and v (230 circles; 5 sets). This uses the permutation symmetry of the input law, not W1. A design
+    derived from W1's comparator structure is attempted only if one can be stated without looking at truths;
+    if none is found, that is reported as not done.
+  - Control R: the random circles of `score_fast1.py` (F .280 [.253, .306], direct .267).
+- Report, per design family: F per set with a bootstrap CI over the 12 models, the mean and spread of F across
+  the 5 sets, and the RMS quadrature error. A family "keeps F < 1" only if all 5 sets do.
+- Classification: deterministic quadrature over (u, v), i.e. QMC-class under project rules (like T10), not
+  deductive in ARC's sense.
+
 ## Method
 Key files:
 - `train.py`: bias-free ReLU MLP training with alg_zoo's recipe (`D<depth>w<width>` ladder names; `L1h22` etc. controls).
