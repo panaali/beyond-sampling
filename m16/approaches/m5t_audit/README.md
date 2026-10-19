@@ -108,7 +108,7 @@ sample mean is usually far below its expectation). Stratified MC (1024 equal-vol
 flagged 10 64` -> `results/qstrat_flagged_10_64.json`) moves 15 of 16 below 1 (lo/Q 2.6e-7 .. 0.59), one at 4.8 with rse 0.65.
 Q does not depend on the tangent centre, so the decisive check is consistency: fast lo with the adversarial centre
 <= sum of fast hi over 2^0, 2^6, 2^10 bisection children with the production (Wolfe) centre. It holds in 16 of 16 cases,
-by factors 1.1 to 1e8 (command in the T417 session log; children volumes vol/2^K with 1e-12 slack, so this is a
+by factors 1.1 to 1e8 (`python consistency.py` -> `results/consistency.json`; children volumes vol/2^K with 1e-12 slack, so this is a
 consistency check, not a certificate). So the pre-registered "0 Q-level flags" is not met literally: 16 flags, all
 attributable to the MC estimator. No hi flag in 10,000 cases (min hi / Q_mc 0.016, at rse > 1/6).
 
