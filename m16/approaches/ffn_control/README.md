@@ -259,6 +259,35 @@ Reproduce: `python score.py M16_10 3000 600`, `python score.py D3w32 1000 400`, 
 - F falls with the net's accuracy (D1w64 .61: 1.08; D1w96 .79: .87; D1w128 .96: .28): errors of an accurate net sit
   near ties, which a circle integrates exactly.
 
+### T387: fixed (deterministic) great-circle sets on D1w128 (QMC-class; pre-registered at b85cf6a1)
+
+`python score_fixed.py D1w128` (results/fixed_D1w128.json). 12-model D1w128 panel, 1e8-sample truths (seed 8787;
+truth SE ~1.8e-5, i.e. F floor ~3e-4), 232 circles per set (C ~4,000 FPE as executed), the same circles for every
+model, no random calls.
+
+| design family | F of the 5 fixed sets | mean F | all 5 sets F < 1 |
+|---|---|---|---|
+| R: random circles (control, `score_fast1.py`) | .280 [.253, .306]; direct .267 | | |
+| S: scrambled Sobol, seeds 1-5 | .58, .13, .16, .06, .56 | .30 | yes |
+| **H: scrambled Halton, seeds 1-5** | **.03, .28, .19, .10, .14** | **.15** | **yes** |
+| P: 23 Sobol points x 10 cyclic shifts | 8.5, 2.2, .25, 1.5, .73 | 2.6 | no |
+| K: Korobov lattice, a = 17, 31, 57, 89, 113 | 2.6, .99, .51, 1.7e4, .12 | | no |
+
+- The per-set bootstrap CIs over models (in the JSON) understate the uncertainty: a fixed set's error is shared by
+  the 12 near-identical panel models (|mean error| / RMS error .8-.98 for most sets), so each set is close to one
+  draw. The spread across the 5 sets of a family is the honest measure.
+- Halton keeps F < 1 on all 5 sets (mean .15, about 2x better than random circles); Sobol on all 5 (mean .30, no
+  better than random at n = 232 in 20 dimensions).
+- The cyclic-symmetric design fails: 23 base points are too few, and the shifts add no balance the net can use
+  (consistent with the cone test: the net is not near-equivariant).
+- **Pre-registration defect:** Korobov a = 89 has multiplicative order 4 mod 233, so its 20 lattice coordinates take
+  only 4 distinct values; inputs repeat coordinates (exact ties) and the estimate collapses (error .43). The
+  generators were fixed without this check (a = 31 and 113 have order 116, a = 17 and 57 order 232).
+- A design derived from W1's comparator structure was **not done**: no rule could be stated that does not amount
+  to choosing circles by looking at where the net errs.
+- Classification: deterministic quadrature over (u, v) in R^20 (QMC-class under project rules, like T10); not
+  deductive in ARC's sense.
+
 ### Step 2: deductive routes tried (all scoped negatives)
 
 1. **Exact region enumeration with exact masses:** dead at every budget (region table above; 10-D polytope
