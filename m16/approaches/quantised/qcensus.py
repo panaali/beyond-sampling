@@ -20,14 +20,15 @@ def mix(h, w, m):
 
 
 def keys(k, act, which=1):
-    """k (m, 16) int64 codes -> (m,) int64"""
-    if act == 1:
-        return (k << th.arange(16, device=k.device)).sum(1)
-    if act == 2:
-        return (k << (4 * th.arange(16, device=k.device))).sum(1)                 # 64 bits, wraps exactly
-    lo = (k[:, :8] << (8 * th.arange(8, device=k.device))).sum(1); hi = (k[:, 8:] << (8 * th.arange(8, device=k.device))).sum(1)
-    m = M1 if which == 1 else M2
-    return mix(mix(th.full_like(lo, 0x632BE59BD9B4E019), lo, m), hi, m)
+    """k (m, H) int64 codes -> (m,) int64: exact for binary H <= 64 and int4 H = 16, else a 64-bit mix of 64-bit words"""
+    Hn = k.shape[1]; bits = 1 if act == 1 else (4 if act == 2 else 8); per = 64 // bits
+    words = [(k[:, i:i + per] << (bits * th.arange(min(per, Hn - i), device=k.device))).sum(1) for i in range(0, Hn, per)]
+    if len(words) == 1:
+        return words[0]                                                           # exact (wraps exactly at 64 bits)
+    m = M1 if which == 1 else M2; h = th.full_like(words[0], 0x632BE59BD9B4E019)
+    for w in words:
+        h = mix(h, w, m)
+    return h
 
 
 def run(W, act, s, grid, N, P, seed):
@@ -37,7 +38,7 @@ def run(W, act, s, grid, N, P, seed):
         buf = {t: [] for t in res}; cbuf = {t: [] for t in res}; g = th.Generator(device=DEV); g.manual_seed(seed); done = 0
         while done < N:
             m = min(B, N - done); x = disc(th.randn(m, 10, generator=g, device=DEV), grid)
-            h = th.zeros(m, 16, device=DEV)
+            h = th.zeros(m, Wh.shape[0], device=DEV)
             for t in range(1, 11):
                 u = h @ Wh.T + x[:, t - 1:t] * Wi[None]
                 k = (u > 0).long() if act == 1 else th.clamp(th.round(u / s), 0, LV[act]).long()
@@ -46,7 +47,7 @@ def run(W, act, s, grid, N, P, seed):
                 u_, c_ = th.unique(kk[sel == part], return_counts=True)       # per-batch dedupe (low-cardinality steps)
                 buf[t].append(u_.clone()); cbuf[t].append(c_.clone())     # clone: CUDA unique returns views of m-long buffers
                 if t == 10:
-                    k2 = keys(k, act, 2) if act == 3 else kk
+                    k2 = keys(k, act, 2) if (act == 3 or (act == 2 and k.shape[1] > 16)) else kk
                     u_, c_ = th.unique(k2[((mix(k2, th.zeros_like(k2), M2) >> 59) & (P - 1)) == part], return_counts=True)
                     buf["t10_mixer2"].append(u_.clone()); cbuf["t10_mixer2"].append(c_.clone())
             done += m
