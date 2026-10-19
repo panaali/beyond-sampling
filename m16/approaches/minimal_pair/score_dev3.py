@@ -23,4 +23,4 @@ for name in names:
             ii = rng.integers(0, len(p), len(p)); bs.append(se2[ii].mean() / v[ii].mean())
         print(f"{name} {b}: cost {c.mean():.0f}  MSE ratio {se2.mean()/v.mean():.3f} [{np.percentile(bs,2.5):.3f},{np.percentile(bs,97.5):.3f}]"
               f"  bias {100*(e-p).mean():+.3f} pp  RMSE {100*np.sqrt(max(se2.mean(),0)):.3f} pp", flush=True)
-        json.dump(out, open("dev3_scores.json", "w"))
+        json.dump(out, open(sys.argv[3] if len(sys.argv) > 3 else "dev3_scores.json", "w"))
