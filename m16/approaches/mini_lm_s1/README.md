@@ -100,11 +100,93 @@ Addendum A (dev, seed 0, 2e5): R2a pos,hard 16k steps acc .99992, B0.5 8.0e-5; R
 (reported as a post-hoc piecewise-constant candidate). Cap: 25 + 2 + <= 3 = <= 30 trainings. If none passes, the
 piecewise-constant result is a scoped negative.
 
+## Round 3-4 results (`logs/r3.log`, `logs/r4.log`)
+
+Dev (seed 0, 2e5): R3a pos,pos,hard 16k steps acc .99999, B0.5 1.0e-5 (pass); R3b hard_frac .4 acc .99998, B0.5
+1.5e-5 (pass). R3a (better) to confirmation:
+| model | acc L32 | illegal mass | B0.5 L32 (1e6) | exact L15 acc | exact L15 B0.5 | pass? |
+|---|---|---|---|---|---|---|
+| dyck2 R3a pos,pos,hard s10 | .99997 | 2.8e-5 | **3.5e-5** | 1.000000 | 0 | **no** (B0.5 > 3.3e-5, 35 vs 33 events) |
+| dyck2 R3a s11 | .99999 | 9.1e-6 | 2.1e-5 | 1.000000 | 0 | yes |
+| dyck2 R3a s12 | .99999 | 1.0e-5 | 1.5e-5 | 1.000000 | 0 | yes |
+
 ## Method
 `s1models.py` (S1Block subclasses the harness Block; S1Transformer subclasses TinyTransformer, per-layer types),
-`s1train.py` (harness recipe + schedules + modsum curriculum), `load_s1.py` (loader). A model whose layers are all
-`hard` with tol 1e-6 is bit-identical in forward to the harness `hard` (checked: max |diff| 0 on random inputs), so
-those checkpoints load in the harness too.
+`s1train.py` (harness recipe + schedules + modsum curriculum), `load_s1.py` (loader), `run_jobs.sh` + `jobs_r*.txt`
+(every run, 2 processes under `ulimit -v 2500000`). A model whose layers are all `hard` with tol 1e-6 is
+bit-identical in forward to the harness `hard` (max |diff| 0 on random inputs), so those checkpoints load in the
+harness too. Scoring is the harness `metrics.sampled` / `metrics.exact_small` unchanged. Sampling-based evaluation
+(plain MC over the language law) plus exact enumeration at the small horizon; no estimator is scored here.
+
+**Frozen recipes (deliverables, checkpoints in `models/`):**
+| name | attn | params | FLOPs/FPE (large) | recipe |
+|---|---|---|---|---|
+| `dyck2_D6_s{10,11,12}` | pos, sparsemax | 16,932 | 1.03e6 | 8000 steps, plain |
+| `modsum_M1_s{10,11,12}` | pos, pos | 14,638 | 5.8e5 | 16000 steps, curriculum n_max 2 -> 20 over first 50% |
+| `dyck2_R3a_s{10,11,12}` (near miss, 2/3) | pos, pos, hard | 24,228 | 1.45e6 | 16000 steps, anneal beta 1 -> 30 over 75%, then ST |
+
+```python
+import sys; sys.path.insert(0, "m16/approaches/mini_lm_s1")
+from load_s1 import load
+model, lang = load("dyck2_D6_s10")   # eval mode; works with ../mini_lm/metrics.py
+```
+
+**Which exact tool each variant keeps** [inferred from the architecture]:
+| variant | routing | the network given the inputs |
+|---|---|---|
+| pos (any layer) | input-independent constant mixing | linear in the embeddings |
+| pos,pos (M1) | constant | piecewise linear in the one-hot inputs (only ReLU MLPs): the strongest case |
+| pos,hard (R3a, D5) | piecewise constant (argmax set of bilinear scores) | piecewise linear given the routing; branch on routing (finite) |
+| pos,sparsemax (D6) | piecewise linear in the scores (weights = s - tau on the support set) | given (support set, ReLU pattern): polynomial (degree 3) in the layer-2 residual, which is piecewise linear in the inputs; branch on the support set |
+| sparsemax / keysparse | as D6 | as D6 |
 
 ## Status
-Confirmation done (D6, M1 pass); addendum B running.
+**Done.** Pre-registered dyck2 success met by a piecewise-*linear*-routing variant (D6 pos,sparsemax, 3/3); modsum
+success met (M1 pos,pos + curriculum, 3/3). The piecewise-*constant* variant (R3a pos,pos,hard) is a near miss
+(2/3; seed 10 B0.5 3.5e-5 vs line 3.3e-5): scoped negative (unverified).
+
+## Results
+Tables above. Reproduce any row: `python s1train.py <args from jobs_r*.txt>` (e.g.
+`python s1train.py dyck2 D6 pos,sparsemax 10 --eval_n 1000000 --exact`); logs in `logs/`, full metrics in
+`models/<name>.json`. Softmax reference: T433 `results_baselines.md`.
+
+## Compute accounting
+30 trainings (16 round 1, 9 round 2, 2 round 3, 3 round 4; cap 40). Training + scoring wall time summed over
+processes: 3.0 h (`models/*.json` train_seconds + eval_seconds), each process 2 threads, so <= 6 CPU-h. Model
+evaluations: 1.32e7 sampled large-horizon sequences (21 x 2e5 + 9 x 1e6), plus 6 dyck2 exact enumerations at
+L 15 (7.4e6 sequences each) and 3 modsum exact (1.2e7 each). No GPU.
+
+## Claims
+- [measured] pos,sparsemax (D6) matches softmax on dyck2 at L 32 on 3/3 fresh seeds: acc .99999 (softmax
+  .99998-.99999), B0.5 1e-5 / 2e-6 / 5e-6 (softmax 1e-6 - 6e-6), exact L 15 acc 1 and B0.5 0.
+- [measured] A curriculum on n makes the position-only transformer (pos,pos) learn modsum at n 20: acc .963 / .9995 /
+  .978 on seeds 10-12; without it the same model stays at chance (M6 .21, seed 0). Softmax with the same curriculum
+  reached .924 (seed 0).
+- [measured] Hard attention: annealing / mixing alone does not fix the 2-layer hard model (D1-D3 .917-.936); putting
+  a pos layer first does (pos,hard .9999), and pos,pos,hard reaches softmax accuracy (.99997-.99999) but its B0.5
+  (1.5e-5 - 3.5e-5) is 5-10x softmax's; 2/3 seeds pass the 10x line.
+- [inferred] The hard models' bottleneck was layer 1: unique-argmax attention cannot average (depth counting needs a
+  uniform average), and a pos layer can. Supported by D9 (pos 1 layer .953) and D5 vs D1, not tested directly.
+- [measured] Key-only scores: keyhard fails (.854); keysparse reaches .999 but B0.5 5.9e-4.
+- [speculative] More steps or a 4th layer would bring pos,pos,hard to 3/3.
+
+## Alternatives not ruled out
+- D6's and R3a's B0.5 at 1e6 samples have relative SE ~30-45%; R3a s10's miss (35 vs 33 events) is within noise
+  of the line; a 1e7-sample re-score could flip it either way (the verdict stays as pre-registered).
+- Seed 0 was used for dev selection; the confirmation seeds are fresh, but the variant set was extended twice
+  (addenda A, B) after seeing results; R3a is a post-hoc candidate.
+- modsum dev used one seed per variant: M3/M4 (hard AHAT, sparsemax) at chance may be seed or lr, not the
+  architecture.
+- No check of length generalisation (L > 32) or of n > 20.
+
+## Failure modes
+- pos layers have a fixed Lmax (32 / 22): models cannot run longer sequences.
+- sparsemax ties / support changes make the piecewise structure finer than hard routing; exact branching over
+  support sets may be costlier than over argmaxes.
+- modsum M1 s10 and s12 have large-horizon B0.5 3-6% (illegal answer mass rises at large n) though accuracy passes.
+
+## Exhaustion checklist (piecewise-constant negative)
+Tried: straight-through (T433), anneal (D1), mix (D2), AHAT tol .5 (D3), pos,hard (D5, R2a 16k, R2b beta1 100),
+key-only hard (D7), pos,pos,hard (R2c, R3a, R3b). Not tried: 4 layers; > 16k steps; lr sweep; AHAT tolerance
+with a pos first layer; multi-head (pos head + hard head in one layer); distilling softmax into hard; a 1e7-sample
+re-score of R3a s10. Most promising: pos,pos,hard at 32k steps or with distillation from D6/softmax.
