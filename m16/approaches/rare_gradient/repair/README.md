@@ -61,8 +61,13 @@ g23 > 2.0. (b) A global change (e.g. effectively rescaling the comparators) coul
 compared against a random 12-weight edit of the same norm (control, design estimates only). (c) The line-CMC design
 estimate could be biased at the edited weights: the verification truths are independent.
 
+### Amendment R1 (2026-10-19, before any design run; cost)
+Design P estimates use 5e6 lines per candidate (not 2e7; one candidate costs ~10 CPU-min), on the same draws for every
+candidate. The eps search is doubling (0.0025, .005, .01, .02, .04, then .05) followed by bisection on the 0.0025 grid,
+which finds the smallest qualifying grid eps if qualification is monotone in eps (assumed; reported).
+
 ## Status
-Pre-registered; design not started.
+Pre-registered (R1); design not started.
 
 ## Results
 (none yet)
