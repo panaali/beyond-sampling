@@ -87,6 +87,17 @@ The K = 24 Hessian ran out of memory (one 1153-model x 1e5 array); core.acc_plai
 inputs and seeds, identical numbers). The pushes "m_16_10_cpu0 / m_24_10_cpu0 design (no edit)" (68a68282, 37a1ecc4) were
 that crash, not design outcomes; run_queue.sh no longer pushes after a crash. Memoised stages are reused.
 
+### Amendment A4 (2026-10-19 23:2x, T421 grid final at 75b6f749; no new design started)
+Scope: the 13 kept points (screened (16,15) and (16,20) are dropped; m_16_20_cpu0 is not run). Order: cpu seed 0 at every kept
+point first, then seed 1 at each point; queues per container (this one plus helper child sessions):
+this: m_24_10_cpu0, m_16_10_cpu0, m_24_10_cpu1, m_16_10_cpu1 | m_32_10_cpu0, m_32_10_cpu1;
+helpers: m_24_20_cpu0, m_24_20_cpu1 | m_48_15_cpu0, m_48_15_cpu1; m_48_10_cpu0, m_48_10_cpu1 | m_64_10_cpu0, m_64_10_cpu1;
+m_24_15_cpu0, m_24_15_cpu1 | m_32_15_cpu0, m_32_15_cpu1; m_32_20_cpu0, m_32_20_cpu1 | m_64_15_cpu0, m_64_15_cpu1;
+m_48_20_cpu0, m_48_20_cpu1 | m_64_20_cpu0, m_64_20_cpu1.
+Seed-1 runs not finished when the write-up is due are reported as not run (with their compute estimate in docs/COMPUTE_FRONTIER.md);
+a point is then scored on seed 0 alone and flagged. Added report (DRI request): a comparison at matched error rate, (16,10), (24,15),
+(24,20), (32,20) (error ~.05-.10) vs the others (.003-.016).
+
 ## Status
 Pre-registered; running *(filled later)*.
 
