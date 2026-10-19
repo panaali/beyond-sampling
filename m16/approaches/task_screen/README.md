@@ -134,11 +134,48 @@ D0 `2nd_argmin` (same task); D1 k-th largest (k != 2) and `pair_top2`; D2 rank o
 
 ## Status
 
-Stage A running (2026-10-19).
+Stage A done; stage B (zoo schedule) running in this container and 6 helper child sessions (W1-W6, branches claude/t419-w1..w6).
 
 ## Results
 
-(pending)
+### Stage A (pre-screen; seed 0, n_train = 2^26, 10^6-sample MC, s.e. <= 5e-4)
+
+| task | stage-A accuracy | decision |
+|---|---|---|
+| `argmax_suffixsum` | 0.9987 | stage B, 1 seed (>= 0.995) |
+| `argmax` | 0.9964 | stage B, 1 seed (>= 0.995) |
+| `argmax_peak` | 0.9963 | stage B, 1 seed (>= 0.995) |
+| `argmax_diff` | 0.9939 | stage B, 3 seeds |
+| `argmax_cumsum_abs` | 0.9938 | stage B, 3 seeds |
+| `argmax_window3` | 0.9934 | stage B, 3 seeds |
+| `argmax_absdiff` | 0.9926 | stage B, 3 seeds |
+| `argmax_abs` | 0.9914 | stage B, 3 seeds |
+| `argmax_pairsum` | 0.9904 | stage B, 3 seeds |
+| `argmax_absdiff_lag2` | 0.9899 | stage B, 3 seeds |
+| `argmin_absdiff` | 0.9896 | stage B, 3 seeds |
+| `argmax_cumsum` | 0.9882 | stage B, 3 seeds |
+| `argmin_abs` | 0.9872 | stage B, 3 seeds |
+| `n_ascents` | 0.9597 | stage B, 3 seeds |
+| `n_records` | 0.9576 | stage B, 3 seeds |
+| `argmax_prod` | 0.9513 | stage B, 3 seeds |
+| `n_sign_changes` | 0.9103 | stage B, 3 seeds |
+| `argoutlier` | 0.9081 | stage B, 3 seeds |
+| `pair_bottom2_abs` | 0.8816 | stage B, 3 seeds |
+| `2nd_argmin` | 0.8700 | stage B, 3 seeds |
+| `pair_top2` | 0.8536 | stage B, 3 seeds |
+| `pair_top2_abs` | 0.8196 | stage B, 3 seeds |
+| `pair_extremes` | 0.8153 | stage B, 3 seeds |
+| `2nd_argmax` | 0.8048 | stage B, 3 seeds |
+| `2nd_argmax_abs` | 0.6379 | drop (< 0.70) |
+| `3rd_argmax` | 0.5061 | drop (< 0.70) |
+| `4th_argmax` | 0.4698 | drop (< 0.70) |
+| `5th_argmax` | 0.4450 | drop (< 0.70) |
+| `pair_closest` | 0.1253 | drop (< 0.70) |
+
+Command: `queue.sh jobs_A.txt` / `queue2.sh jobs_A2.txt` (2 workers), then `python evaluate.py 26 1000000`. The control `2nd_argmax` is at 0.805 here (the zoo reaches .953 at 2^30), so 2^26 understates 2^30 by roughly 0.15 on the hardest tasks.
+
+### Stage B (zoo schedule; pending)
+
 
 ## Compute accounting
 
