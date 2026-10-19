@@ -127,6 +127,8 @@ Observations [measured]:
   accuracies; 13 points meet the pre-registered keep rule, (16,15) and (16,20) are screened (seeds 0-1 both < .80).
 - [measured] T392's k = 1 models are bit-identical to `alg_zoo.training.train` on CPU (2^18-sample check, max |dW| = 0),
   and our accuracies for them match T392's to 1e-4 (independent evaluation code and inputs).
+- [measured] CPU training is reproducible across containers: (16,10) cpu2 and cpu3 were trained twice, in the lead
+  container and in helper q06's, with identical weights and accuracies (only wall time differed).
 - [measured] At T = 10, typical H = 16 retrains reach .82-.95 (median .906 over our 6, .910 over the zoo's 5);
   M_16,10's .953 is above all 11.
 - [inferred] For per-method sessions: the grid's error rates are 3-30x lower than M_16,10's except at (24,15), (24,20)
