@@ -15,10 +15,10 @@ import os
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.abspath(os.path.join(HERE, "../../../data/ladder_training"))
+ROOT = os.path.join(HERE, "weights")  # committed copies of data/ladder_training/m_*.npz
 
 # (H, T) -> n_tag: log2(n_train), "s" = warm-up scaled to keep the zoo's schedule shape (README, Method)
-CHOSEN = {(7, 3): "28s", (4, 7): "28s"}
+CHOSEN = {(7, 3): "30s", (4, 7): "30s", (4, 3): "30s", (5, 3): "30s"}
 
 
 def load(H, T, seed, n_tag=None):

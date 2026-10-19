@@ -13,6 +13,7 @@ usage: python evaluate.py              # evaluates all trained npz + zoo neighbo
 import glob
 import json
 import os
+import re
 import sys
 
 import numpy as np
@@ -78,7 +79,9 @@ def main():
     zoo_sizes = set()
     for p in sorted(glob.glob(os.path.join(ROOT, "m_*.npz"))):
         H, T, tag, seed = os.path.basename(p)[2:-4].split("_")
-        H, T, seed, log2n, scaled = int(H), int(T), int(seed), int(tag.rstrip("s")), tag.endswith("s")
+        mt = re.fullmatch(r"(\d+)(s?)(?:L([\d.]+))?", tag)
+        H, T, seed, log2n, scaled = int(H), int(T), int(seed), int(mt.group(1)), mt.group(2) == "s"
+        lr_mult = float(mt.group(3) or 1)
         key = f"ours_{H}_{T}_{tag}_{seed}"
         ZH, ZT = (2, 3, 4, 5, 6, 8, 16, 32), (2, 3, 4, 5, 6, 8, 10)
         zoo_sizes |= {(h, t) for h in (H - 1, H, H + 1) for t in (T - 1, T, T + 1)
@@ -86,7 +89,7 @@ def main():
         if key in res:
             continue
         m, wall = ours(p)
-        res[key] = dict(H=H, T=T, seed=seed, log2n=log2n, scaled_warmup=scaled, wall=wall, **signatures(m))
+        res[key] = dict(H=H, T=T, seed=seed, log2n=log2n, scaled_warmup=scaled, lr_mult=lr_mult, wall=wall, **signatures(m))
         print(key, res[key], flush=True)
         json.dump(res, open(out_path, "w"), indent=1)
     if "--no-zoo" in sys.argv:
