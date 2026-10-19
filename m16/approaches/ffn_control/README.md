@@ -94,6 +94,7 @@ Step 1, simplicity ladder (bias-free ReLU MLPs, the same task, recipe and label 
   started per the rule above.
 - Added rungs (2026-10-19 ~01:30): D3w32 seed 1 reached only .926 (seed 0 .961), D2w64 seed 0 .932, so D3w48, D3w64
   and D4w32 (seed 0) are added.
+- Added (2026-10-19 ~02:10): D1w128 seed 0 reached .965 (D1w64 .606), so D1w128 seeds 1-2 and a D1w96 rung are added.
 
 Step 2, on the chosen network(s): the pre-registered stage-2/3 analysis above (region counts vs the RNN's x23-33
 per step, exact-accuracy attempt, exact walks, F at C >= 1k FPE vs plain sampling, M_16,10 control with the same
