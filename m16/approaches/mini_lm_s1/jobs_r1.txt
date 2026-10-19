@@ -1,0 +1,16 @@
+dyck2 D1 hard,hard 0 --sched anneal
+dyck2 D2 hard,hard 0 --sched mix
+dyck2 D3 hard,hard 0 --sched anneal --tol 0.5
+dyck2 D4 sparsemax,sparsemax 0
+dyck2 D5 pos,hard 0 --sched anneal
+dyck2 D6 pos,sparsemax 0
+dyck2 D7 keyhard,keyhard 0 --sched anneal
+dyck2 D8 keysparse,keysparse 0
+dyck2 D9 pos 0
+dyck2 D10 pos,pos 0 --steps 16000
+modsum M1 pos,pos 0 --steps 16000 --curric 0.5
+modsum M2 pos,hard 0 --steps 16000 --curric 0.5 --sched anneal
+modsum M3 hard,hard 0 --steps 16000 --curric 0.5 --sched anneal --tol 0.5
+modsum M4 sparsemax,sparsemax 0 --steps 16000 --curric 0.5
+modsum M5 softmax,softmax 0 --steps 16000 --curric 0.5
+modsum M6 pos,pos 0 --steps 16000
