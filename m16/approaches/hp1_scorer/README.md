@@ -641,6 +641,52 @@ All five CIs cover 1, so the harness holds.
 - **Bars:** strict passes if the CI upper < 1; lenient passes if the CI upper < 10 (the T431 wording). The point F
   is reported as well.
 
+### T431 results (HP5, 100 sealed retrains; `python3 t431_analyse.py` → `results/hp5_t431.json`)
+| run | C mean (FPE) | cost ≥ B/2 | **F** (truth var subtracted) | F raw | T281 ratio | bias pp | RMS pp | truth share | strict (CI upper < 1) | lenient (CI upper < 10) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| T10 4e6 (PRIMARY) | 3,997,507 | yes | 0.540 [0.343, 0.762] | 0.580 [0.383, 0.802] | 0.558 | +0.0007 | 0.0104 | 0.069 | PASS | PASS |
+| T10 1e6 | 999,742 | yes | 0.406 [0.270, 0.575] | 0.416 [0.280, 0.585] | 0.412 | +0.0002 | 0.0176 | 0.024 | PASS | PASS |
+| T10 1e7 | 9,997,636 | yes | 0.382 [0.252, 0.521] | 0.482 [0.352, 0.621] | 0.438 | +0.0008 | 0.0060 | 0.208 | PASS | PASS |
+| isg 1e6 | 1,001,623 | yes | 0.627 [0.422, 0.851] | 0.637 [0.432, 0.861] | 0.630 | +0.0040 | 0.0217 | 0.016 | PASS | PASS |
+| control 1e+06 | 1,000,000 | yes | 0.806 [0.597, 1.038] | 0.816 [0.607, 1.048] | 0.808 | +0.0004 | 0.0246 | 0.012 | fail | PASS |
+| control 4e+06 | 4,000,000 | yes | 1.015 [0.714, 1.377] | 1.055 [0.754, 1.417] | 1.015 | -0.0019 | 0.0140 | 0.038 | fail | PASS |
+
+Sensitivity: the recipes' FPE unit is T(2H²+2H) = 5,440 FLOPs; charging C as FLOPs/5,948 (×0.915) instead:
+- T10 4e6 (PRIMARY): F 0.494 [0.313, 0.697]
+- T10 1e6: F 0.372 [0.247, 0.526]
+- T10 1e7: F 0.349 [0.231, 0.476]
+- isg 1e6: F 0.573 [0.386, 0.778]
+
+Readout:
+- [measured] **PRIMARY (pre-registered, decisive): the frozen T10 walk-quadrature recipe at B = 4e6 FPE on the
+  sealed HP5 panel scores F = 0.540 [0.343, 0.762].**
+  - The CI upper is below 1, so it **passes the strict bar** (and the lenient bar).
+  - Cost ≥ B/2 on every model; RMS 0.0104 pp, bias +0.0007 pp.
+  - The same verdict holds with no truth correction (raw F 0.580 [0.383, 0.802]) and in the T281 ratio form (0.558).
+- [measured] Truth precision: the 1e8 truths' variance is 6.9% of the raw squared error at 4e6, under the 10% limit,
+  and it is subtracted, as pre-registered.
+  - At 1e7 the share is 21%. The subtracted F is 0.382; raw it is 0.482 [0.352, 0.621], still under 1.
+- [measured] Control (plain MC at the same B): F 1.015 [0.714, 1.377] at 4e6 and 0.806 [0.597, 1.038] at 1e6. Both
+  CIs cover 1, so the harness holds.
+- [measured] Secondaries (not decisive): T10 1e6 0.406 [0.270, 0.575]; T10 1e7 0.382 [0.252, 0.521]; isg 1e6
+  0.627 [0.422, 0.851]. All have CI upper < 1.
+  - HP5 versus DEV3 (T429): T10 at 4e6 0.54 vs 0.47; 1e6 0.41 vs 0.59; 1e7 0.38 vs 0.36; isg 1e6 0.63 vs 0.60.
+  - So the DEV3 result transfers.
+- Cost unit: the recipes' FPE is T(2H²+2H) = 5,440 FLOPs per unit. It is used as charged, which is conservative;
+  converting to the sampling unit of 5,948 FLOPs lowers every F by ×0.915 (primary 0.494 [0.313, 0.697]).
+- Compute: process CPU per model.
+  - T10, compiled walk: 2.5 s at 1e6, 10.1 s at 4e6, 24.7 s at 1e7.
+  - This scorer's plain-MC control: 12.7 s at 1e6 and 46.4 s at 4e6. That is an unoptimised numpy loop, so the CPU
+    times are not a fair speed comparison.
+- Caveats:
+  1. Class: the recipe is labelled DEDUCTIVE in its file, a deterministic walk quadrature on fixed scrambled-Sobol
+     nodes. Under the Directive 8 amendment, fixed-node QMC counts as inductive under ARC's definition. I keep the
+     author's label and flag this; the DRI decides.
+  2. B = 4e6 FPE per model is far above the old 16k–256k range. The DRI allowed it as pre-registered (PROTOCOLS).
+  3. Model-free precomputation (Sobol points, face tables) is not charged (PRECOMPUTE_FLOPS = 0, as in T10/T429).
+  4. One rule seed; clean retrains only.
+- HP5 is now spent for this family.
+
 ## Compute accounting
 - Charged cost is each submission's own `cost_flops`. v5q and v5a charge 6000 FLOPs per node with N = B nodes,
   i.e. C = 1.0087 B FPE. This charge does not include building the model-independent node design (Sobol points,
