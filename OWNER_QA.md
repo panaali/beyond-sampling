@@ -711,6 +711,28 @@ Off-target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (all-at-once network
 
 The point, as with the bridge: sampling cannot find or rate a one-in-a-billion failure, but a calculation from the weights can, because its cost does not depend on how rare the failure is. Limits: one network, one kind of rare mistake, estimates (not yet guarantees), and the three-way near-tie blind spot. Two demonstrations are set up to make the analogy concrete: **T401** (a safe-use rating chart computed from the weights) and **T402** (a targeted repair verified by independent truths).
 
+<a id="q4-11"></a>
+### 4.11 Are our results all negative, or are some positive? (owner, 10-19 13:5x)
+
+**Answer (DRI):** not all negative. Ledger status is in [INDEX](INDEX.md#4-hypothesis-ledger); in short:
+- *Positive, independently confirmed:* locating the weights behind a rare failure (H-R2) and repairing it ~17x with a
+  12-weight edit while random edits fail (H-R3); rare-error estimates within ~2x deep into the tail on ordinary networks
+  (H-R1); walk quadrature beating sampling at T = 5 (H-E16) and on the all-at-once network (H-A3); the fast rigorous mass
+  bound (H-C1); the essay question (H-Q5).
+- *Positive, not yet independent:* the graded rule's blind check (T403), noisy-copy rare events (T388, T404), safe-use
+  ratings on two retrains (T401), every pruning certificate re-verifying exactly (T400), and early scale-study data where
+  walks beat sampling on wider networks (T423, interim).
+- *Negatives that still teach something:* repairing all far-gap errors is blocked because training has optimised the
+  common error (T411); a certificate over all inputs is blocked by 'late' orderings (T398, T414).
+- *Bottom line:* ARC's main challenge (deductive accuracy at T = 10 beating sampling) is not solved; on ARC's long-term goal
+  (rare bad behaviour) we can estimate, locate and repair a rare failure from the weights, but not yet guarantee a bound
+  over all inputs.
+
+<a id="q4-12"></a>
+### 4.12 What do T, Q, E, H and the other letters mean? (owner, 10-19 14:0x)
+
+**Answer:** see [README.md "ID prefixes and names"](README.md#id-prefixes-and-names) (the one place they are defined).
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
@@ -1033,6 +1055,18 @@ polytope masses believed new in this setting (no complete certificate yet); T317
 claimed as the first such estimate for M_16,10-class models. Note: several teams in ARC's 2026 white-box contest also used
 fixed spherical point sets on bias-free networks (they evaluate points; none integrates exactly along lines).
 
+<a id="q6-9"></a>
+### 6.9 Educated guess: which positive results will hold for larger networks and other problems? (owner, 10-19 15:0x)
+
+**Answer (DRI, a guess, before the scale and transfer data; ranked most to least likely):** (1) locate and repair
+(H-R2, H-R3), which is generic, and the finding that training optimises common errors (T411); (2) rare-event estimation
+within ~2x for errors far from decision boundaries (H-R1), worse where errors sit in thin near-tie slivers; (3) the
+safe-use rating (T401), which inherits (2); (4) walk quadrature beating sampling, expected to hold for shallow networks and
+to fade with more steps and neurons; (5) full certificates only for small networks or 'early' slices (T398); (6) the
+mechanism-derived calculation (T317f) needs a new mechanism for each network; (7) the sampling-class bound always holds but
+costs grow as 1/p. **Early correction:** the first scale-study points contradict guess (4) for H: at T = 10 the frozen walk
+beats sampling at H = 24 and 32 (T423, interim), so the guess is kept here only as the record of what was predicted.
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
@@ -1088,3 +1122,5 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 - <a id="d-1019-070x"></a> **10-19 07:0x:** "I think guaranteed upper bound on rare mistake is super important. We need to give it more resources. If GPU helps it, let it run its work on GPU. If we need more number of CPUs than 4, I think the collab agent can get more CPUs. I might be wrong, but we can check. And we can also spawn multiple sessions all helping this one, and they can all communicate using the tools that is available. Basically, it would be nested sessions, I guess. So the session can spawn multiple nests at once, so we can go faster, or we can spend more compute. Also, 210 million doesn't seem unreachable. What do you think? Even for that many pieces, if we can give exact or guaranteed results, I think that would be fantastic. Am I missing something?" Done: the certified-bound lane is the top compute priority: T398 (lead: tighter bounds, choice of a rarer threshold, shard plan), T399 (GPU batched bound propagation on Colab, before T395), T400 (rigorous per-region mass bounds and exact-arithmetic verification of pruning certificates); worker sessions to shard the 720 position triples once the per-node cost is measured. Answer and caveats in the DRI reply (missing pieces: the 679 no-hit triples, per-region mass bounds, exact verification, and choosing a rarer event where the certificate matters).
 - <a id="d-1019-071x"></a> **10-19 07:1x:** owner asked to document the answer on ARC's ultimate goal and proposed the bridge-engineering framing (verbatim in [4.10](#q4-10)). Done: [4.9](#q4-9) and [4.10](#q4-10); demonstrations **T401** (safe-use rating) and **T402** (targeted repair).
 - <a id="d-1019-152x"></a> **10-19 15:2x:** "For some of our work, we abandoned them because we said we don't have enough compute, or it's just too much compute. Keep in mind that this is preliminary work, and we want to be very explicit and do a rough estimation about the compute needed for some of these, even if the method as is would not work and require more agent tokens on it. We can also do a rough estimation of how much token might be required for solving that problem. So at the end of the day, when we are publishing, we want to say, okay, we think that there are these options that we haven't explored because lack of compute. But for example, if we have like these large cluster, or like if we had like, I don't know, $10 billion to buy this much compute or this much tokens, we could have solved it. So we want to write those down because it's a safety case, and sometimes safety problems are so important that it makes sense to pour in a lot of money, and 5 years from now, you know that the compute is gonna be much cheaper, and each chip would have a much higher compute capability, and also in terms of the tokens, the agents are gonna be way smarter than what they are right now. So although the problem might not be solvable just right now, given the resources that we have, it might be solvable using more compute later down the road. So we just want to like write them down if we have some idea of if we are given a lot of more tokens and a lot of compute, are we gonna be able to solve it or not." Done: [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md) written (10 approaches; summary table; what $1M / $100M / $10B would settle) (per approach: compute and agent effort needed, cost today and in 5 years, compute- vs method-limited); standing rule added to AGENTS.md.
+- <a id="d-1019-144x"></a> **10-19 14:4x:** "It's okay if we spend a little bit of GPU time for it, but it's better to use free sandbox vCPUs, and it's okay if we parallelize." Done: passed to the scale study (T421, GPU cap 15 units) and the task screen (T419, cap 10); consistent with the CPU-first standing rule.
+- <a id="d-1019-163x"></a> **10-19 16:3x:** "Great explanations, great findings. Just make sure that everything that we have discussed is properly documented. And as we discussed, no duplication in documentation." Done: Q&A 4.11, 4.12, 6.9; README ID glossary; INDEX rows for the running tasks' interim results (T86, T392, T419, T421, T423, T427) and updates to T370 and T398; STATUS rewritten in place in plain words.
