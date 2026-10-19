@@ -171,3 +171,119 @@ are directed; c0 = (2 pi)^(-d/2) is an arb enclosure; the volume is outward.
 - `mass_cell_fast` sums the leaves with math.fsum (correctly rounded), then one outward step.
 - The numba port is checked against the numpy reference `_bounds_batch_np` (max relative difference of hi
   3.6e-15; the residual is numpy's SIMD exp against libm exp).
+- The choice of which bins get the exact E bound (E8) and which variant is skipped are tightness decisions only.
+
+## Status
+Done (2026-10-19). The pre-registered line passes on its pooled per-simplex reading; the per-cell speed caveat is
+under Results. Merge and confirmation are for T400 and the DRI.
+
+## Results
+Setup: `.venv` as in the project README, plus `pip install python-flint scipy numba`; `python harvest.py 1,8,2 200000`;
+`data/bench_182_k4.npz` from branch claude/t373-event-cone (`m16/approaches/event_cone/nodes/`). Arb reference
+runs: `python t412_record.py 2.25` and `python t412_record.py 2.5` (they reproduce the `results_a_m5t_*` ub exactly).
+
+**Pass line (pre-registered): PASS on all three counts.**
+
+| check | t0 = 2.25 (27 cells) | t0 = 2.5 (28 cells) |
+|---|---|---|
+| simplices compared (every simplex arb evaluates) | 107,113 | 111,101 |
+| soundness: fast hi < arb lo / fast lo > arb hi | **0 / 0** | **0 / 0** |
+| tightness: fast hi <= 1.01 x arb hi | **100%** | **100%** |
+| max fast hi / arb hi | 1 + 5.3e-9 | 1 + 5.5e-9 |
+| median fast hi / arb hi (fast tighter: arb's knot separation) | 1 - 8.6e-9 | 1 - 8.6e-9 |
+| fast hi >= arb hi (1 - 1e-12) (reported, not in the line) | 2.6% | 3.4% |
+| arb time per simplex | 8.74 ms | 8.54 ms |
+| fast time per simplex (batched per cell, single process) | 77 us | 68 us |
+| **speed-up, pooled per simplex** | **113x** | **125x** |
+| speed-up per cell: median (min, max) | 116x (72x, ~155x) | 126x (100x, 178x) |
+| end-to-end ub >= MC - 4 s.e. | **27/27** | **28/28** |
+| end-to-end ub/MC median (arb M5t: 1.55 / 1.49) | 1.545 | 1.493 |
+| end-to-end ub / arb ub: min, median, max | 0.990, 0.9996, 1.012 | 0.993, 0.9993, 1.006 |
+| end-to-end time per cell, median (arb) | 0.66 s (23.2 s) | 0.57 s (22.2 s) |
+
+Commands: `python t412_test.py simplex 2.25`, `... simplex 2.5`, `... cell 2.25`, `... cell 2.5`
+(-> `results_t412_simplex_*.json`, `results_t412_cell_*.json`).
+- *Timing.* Per-cell timing noise on this machine is about +-30%: cell 75 measured 72x in the test run and 102x
+  on a rerun; the pooled numbers are stable. Arb was recorded with two arb processes running at once; run alone it
+  is the same within 6% (`python t412_test.py calib`: 8.90 vs 9.47 ms and 8.60 vs 8.53 ms).
+- *Why fast hi is mostly below arb hi.* The exceptions to fast hi >= arb hi (1 - 1e-12) come from arb's own
+  looseness. Arb shifts clustered knots by 1e-9 relative in `_E_exp` (worth ~1e-8), its 53-bit `_G_arb`
+  (gamma_upper) ball has relative radius up to ~2e-8, and it falls back to the trivial bound when its ball is not
+  tight (fast hi / arb hi down to 1e-4). To check this, arb was re-run with these three loosenesses removed:
+  knot separation 1e-30, 300 to 5000 bits until every ball is tight, `_G_arb` at 300 bits, 0 fallbacks.
+  Compared with that, fast hi >= tight arb hi on **all** 950 sampled simplices; the excess is between 4e-12 and
+  1e-8. Samples: 400 of cell 3 (t0 2.25), 400 of cell 71 (t0 2.5), 150 of region 3. The tight arb is up to
+  2.7x below the 53-bit arb on the bench and up to 11x below it in 10-D. Commands: `python t412_test.py explain 2.25 3 400`,
+  `... explain 2.5 71 400`, `... explainregion 3 1.5 150`.
+- *Function assumptions (A1)* and E_exp against 8000-bit arb: `python t412_test.py fns` -> `results_t412_fns.json`.
+  0 violations in 5297 random E_exp cases (n = 4, 9; spreads 1e-12 to 5000; clustered knots); worst upper excess
+  1.9e-9.
+
+**10-D region 3** (`data/regions_1-8-2.npz` index 3, event = True, t0 = 1.5, k = 10, d = 10, mlow = 0; 142 vertices,
+10,301 root simplices; budget 4000 < 10,301, so no refinement in either method):
+
+| | arb M5t | fast |
+|---|---|---|
+| ub, zbins 24 / ratio 23/20 (the reference setting) | 6.1886e-11 (reference: 6.19e-11) | **4.630e-11** |
+| ub, zbins 48 / ratio 27/25 | 6.1885e-11 | 4.574e-11 |
+| per-simplex bounds time, zbins 24 | 412 s (this run; reference 374 s) | **0.75 s warm (554x); 0.96 s incl. numba cache load** |
+| per-simplex bounds time, zbins 48 | 474 s | 0.97 s (490x) |
+| soundness (10,301 simplices, x 2 settings) | | 0 violations each way |
+| exact geometry (enumeration, triangulation, fmpq volumes; same code) | ~40-55 s | 32.8 s |
+| fast hi / arb hi per simplex: median (min) | | 0.75 (0.006) |
+| budget 100,000 (fast only) | not feasible (~1 h) | ub **3.59e-11** in 22 s bounds + 29 s geometry |
+
+Commands: `python t412_test.py regionarb 3 1.5 24`, `... regionarb 3 1.5 48`, `... region 3 1.5 4000`,
+`... region 3 1.5 100000`. The 25% lower ub is not a looseness of fast. On the 150 region-3 simplices
+checked, arb's 53-bit M5t is 1.21x to 11.2x (median 1.30x) above the tight arb value of the same formula, and fast
+is within 1.7e-9 above it. The region MC (T400 README) is 9.1e-12, so ub/MC is 5.1 (budget 4,000) and 3.9
+(budget 100,000), against 6.8 for arb.
+
+## Compute accounting
+Deductive method: no random model inputs. MC numbers are T400's (`results_a_m5t_*.json`, README).
+CPU (one container, at most 2 heavy processes):
+- arb reference recordings: 2 x 11 min;
+- arb on region 3: 2 x 8 min;
+- explain checks: ~25 min in total;
+- fast tests: < 10 min in total.
+Per simplex: arb 8.6 ms (d = 5) and ~40 ms (d = 10); fast 70 us (d = 5) and 73 us (d = 10).
+
+## Claims
+- [measured] 0 soundness violations of fast against arb: 218,214 bench simplices (fast hi >= arb lo, fast lo <=
+  arb hi) and 2 x 10,301 region-3 simplices. End-to-end ub >= MC - 4 s.e. on all 55 bench cells.
+- [measured] fast hi <= 1.01 x arb hi on 100% of the bench simplices; in 10-D fast hi is below arb hi (median 0.75).
+- [measured] Pooled speed-up per simplex: 113x (t0 2.25) and 125x (t0 2.5) on d = 5 cells; ~500x on the d = 10
+  region (arb is slower per simplex in 10-D, fast is not).
+- [measured] Against arb with its looseness removed (tight E and G, 0 fallbacks), fast hi >= that value on 950 of 950
+  sampled simplices, at most 1e-8 above it.
+- [inferred] fast [lo, hi] is rigorous for every input, by E0-E7, given assumption A1 (libm / scipy accuracy, tested
+  with >= 130x margin, not proved).
+- [measured] Arb's default 53-bit M5t is looser than its own formula: up to 11x per simplex in 10-D, and region-3 ub
+  6.19e-11 against 4.63e-11 for the same formula evaluated tightly.
+- [speculative] The exact geometry (unchanged code) is now the bottleneck: ~3 ms per root simplex in region 3, so
+  ~1.7 h per 2e6-simplex region if it scales linearly.
+
+## Alternatives not ruled out
+- A1 is an assumption about this platform's libm, numpy SIMD and scipy (cephes, Faddeeva). A different build could
+  be less accurate; the margins are >= 130x and `python t412_test.py fns` re-checks them.
+- Compiler: numba runs without fastmath. If LLVM fused a*b + c into an FMA, the per-operation error bounds would
+  still hold (one rounding instead of two), but the outward step x + |x| 2^-52 relies on not being rewritten.
+  This was checked only empirically (the port agrees with numpy to 3.6e-15, and fast is never below the tight arb).
+- Timing is noisy (+-30% per cell). One reading of the pre-registered line, "per simplex" as a per-cell minimum,
+  would not pass at t0 2.25 (72x). The pooled reading passes at both t0.
+- Refinement in rounds (top max(8, n/16) at once) changes the order relative to arb (one at a time): ub differs
+  from arb's by -1.0% to +1.2% at the same budget.
+
+## Failure modes
+- Knot spread w > 5000 in a bin that matters: the upper bound caps the knots (loose only polynomially) and the
+  lower bound uses Jensen. Not seen in a bin that matters.
+- Results below ~1e-290: the absolute underflow slack dominates (still valid, but loose).
+- A poor tangent centre (the Wolfe iteration cap is hit) makes T0 << 0, and the upper terms grow like
+  exp(lambda |T0|): valid but loose, and inf in the worst case. FISTA showed this; Wolfe has not.
+- Large regions: the exact geometry (`cell_geometry`, a copy of rigour's) dominates the run time.
+
+## Proposed follow-ups (for the DRI's backlog; not added here, as T412's instructions limit the board edit to its row)
+1. Fast rigorous geometry: float vertex enumeration and triangulation with exact a-posteriori checks, and float
+   simplex volumes with a determinant error bound. This is now >= 97% of the region time.
+2. Re-run T400's tiered charging and k = 10 regions with `mass_cell_fast` at larger budgets (region 3: ub 6.19e-11
+   -> 3.59e-11 at budget 1e5 in under a minute).

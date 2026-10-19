@@ -6,6 +6,7 @@ usage:
   python t412_test.py explain t0 i [n]    re-run arb on cell i with a tighter _E_exp (eps 1e-30, 300 bits) and the arb
                                           tangent centre: is fast hi >= arb hi (1 - 1e-12) then?
   python t412_test.py region idx t0 [budget]  time mass_cell_fast on data/regions_1-8-2.npz[idx] (event=True)
+  python t412_test.py explainregion idx t0 n  the same for the first n simplices of a 10-D region (event=True)
   python t412_test.py calib               arb per-simplex time on cells 3 and 44 (t0 2.25) run alone vs as recorded
   python t412_test.py regionarb idx t0 zbins  arb mass_cell on the same region with per-simplex fast vs arb comparison"""
 import json
@@ -147,23 +148,43 @@ def test_cell(t0, budget=2000):
     json.dump(dict(summary=s, cells=out), open(f"results_t412_cell_{t0}.json", "w"), indent=0)
 
 
-def test_explain(t0, i, nmax=400):
-    """Exceptions hi_fast < hi_arb (1 - 1e-12): rerun arb on cell i, and per simplex compare fast hi (with the arb
-    tangent centre) to arb hi computed with a tightened _E_exp (knot separation 1e-30 instead of 1e-9, 300 bits)."""
-    from scipy.optimize import nnls
-    dat = np.load(BENCH, allow_pickle=True); tri = tuple(int(v) for v in dat["tri"]); k = int(dat["k"])
-    P = cell_params(tri, k, t0); g = gates_of(dat, i, k)
-    orig_E = R._E_exp
+ORIG_E = R._E_exp
 
-    def tight_E(tv, upper):
-        old = ctx.prec; ctx.prec = 300
-        try:
-            n = len(tv) - 1
-            pts = [x.lower() if upper else x.upper() for x in tv]
-            lo_ = min(pts, key=float); hi_ = max(pts, key=float)
-            trivial = (-lo_).exp() if upper else (-hi_).exp()
-            if n == 0:
-                return trivial
+
+TIGHT_FALLBACK = [0]
+ORIG_G = R._G_arb
+
+
+def tight_G(d, s, a, b):
+    """rigour._G_arb at 300 bits (its 53-bit gamma_upper ball has relative radius up to ~1e-8)."""
+    old = ctx.prec; ctx.prec = 300
+    try:
+        return ORIG_G(d, s, a, b)
+    finally:
+        ctx.prec = old
+
+
+def tight_on():
+    R._E_exp = tight_E; R._G_arb = tight_G
+
+
+def tight_off():
+    R._E_exp = ORIG_E; R._G_arb = ORIG_G
+
+
+def tight_E(tv, upper):
+    """rigour._E_exp with knot separation 1e-30 (not 1e-9) and arithmetic at 300, 1500 or 5000 bits (the first that
+    gives a ball of relative radius <= 1e-20); trivial fallback only if none does (counted in TIGHT_FALLBACK)."""
+    old = ctx.prec
+    try:
+        n = len(tv) - 1
+        pts = [x.lower() if upper else x.upper() for x in tv]
+        lo_ = min(pts, key=float); hi_ = max(pts, key=float)
+        trivial = (-lo_).exp() if upper else (-hi_).exp()
+        if n == 0:
+            return trivial
+        for prec in (300, 1500, 5000):
+            ctx.prec = prec
             eps = arb(fmpq(1, 10 ** 30)) * (1 + (hi_ - lo_))
             order = sorted(range(len(pts)), key=lambda j: float(pts[j]))
             T = [None] * len(pts)
@@ -173,22 +194,33 @@ def test_explain(t0, i, nmax=400):
             for lev in range(1, n + 1):
                 dd = [(dd[j + 1] - dd[j]) / (T[j + lev] - T[j]) for j in range(len(dd) - 1)]
             E = dd[0] * math.factorial(n) * (-1) ** n
-            if not E.is_finite() or float(E.rad()) > 1e-20 * abs(float(E.mid())) or float(E.mid()) <= 0:
-                return trivial
-            return E.upper() if upper else E.lower()
-        finally:
-            ctx.prec = old
+            if E.is_finite() and E > 0 and arb(E.rad()) <= arb(E.mid()) * arb(fmpq(1, 10 ** 20)):
+                return E.upper() if upper else E.lower()
+        TIGHT_FALLBACK[0] += 1
+        return trivial
+    finally:
+        ctx.prec = old
+
+
+def test_explain(t0, i, nmax=400):
+    """Exceptions hi_fast < hi_arb (1 - 1e-12): rerun arb on cell i, and per simplex compare fast hi (with the arb
+    tangent centre) to arb hi computed with tight_E (knot separation 1e-30 instead of 1e-9, up to 5000 bits) and tight_G
+    (300 bits)."""
+    from scipy.optimize import nnls
+    dat = np.load(BENCH, allow_pickle=True); tri = tuple(int(v) for v in dat["tri"]); k = int(dat["k"])
+    P = cell_params(tri, k, t0); g = gates_of(dat, i, k)
+
     rows = []
     orig = R._bounds_tangent
 
     def wrapped(Ys, Ms, vol, d, zg, mlow, ip3, c0):
         lo, hi = orig(Ys, Ms, vol, d, zg, mlow, ip3, c0)
         if len(rows) < nmax:
-            R._E_exp = tight_E
+            tight_on()
             try:
                 lo2, hi2 = orig(Ys, Ms, vol, d, zg, mlow, ip3, c0)
             finally:
-                R._E_exp = orig_E
+                tight_off()
             Pf = np.array([[float(v) for v in p] for p in Ms])
             beta, _ = nnls(np.vstack([Pf.T, 1e3 * np.ones(len(Ms))]), np.r_[np.zeros(Pf.shape[1]), 1e3])
             bq = [R.q(v) for v in beta]; tot = sum(bq); bq = [v / tot for v in bq]
@@ -203,7 +235,7 @@ def test_explain(t0, i, nmax=400):
     R.mass_cell(tri, g, k, t0, budget=2000, tangent=True, zbins=24, zratio=fmpq(23, 20))
     R._bounds_tangent = orig
     a = np.array(rows)
-    res = dict(t0=t0, cell=i, simplices=len(a),
+    res = dict(t0=t0, cell=i, simplices=len(a), tight_fallbacks=TIGHT_FALLBACK[0],
                n_fast_lt_arb=int((a[:, 3] < a[:, 0] * (1 - 1e-12)).sum()),
                n_fastmc_lt_arb=int((a[:, 2] < a[:, 0] * (1 - 1e-12)).sum()),
                n_fastmc_lt_arbtight=int((a[:, 2] < a[:, 1] * (1 - 1e-12)).sum()),
@@ -239,6 +271,42 @@ def test_calib():
     R._bounds_tangent = orig
     print(json.dumps(out))
     json.dump(out, open("results_t412_arb_timing_calibration.json", "w"))
+
+
+def test_explain_region(idx, t0, nmax):
+    """Region simplices: fast hi vs arb hi with the tightened _E_exp (first nmax root simplices, zbins 24)."""
+    dat = np.load("data/regions_1-8-2.npz"); tri = tuple(int(v) for v in dat["tri"]); g = dat["gates"][idx].astype(int)
+    P = F.Params(10, 0, sorted(set(range(10)) | set(tri)).index(tri[2]), t0)
+    orig = R._bounds_tangent; rows = []
+
+    def wrapped(Ys, Ms, vol, *a):
+        if len(rows) >= nmax:
+            raise StopIteration
+        lo, hi = orig(Ys, Ms, vol, *a)
+        tight_on()
+        try:
+            lo2, hi2 = orig(Ys, Ms, vol, *a)
+        finally:
+            tight_off()
+        iv = [[F.q2iv(x) for x in m] for m in Ms]; vv = F.q2iv(vol)
+        fl, fh = F.bounds_batch(np.array([[[x[0] for x in m] for m in iv]]), np.array([[[x[1] for x in m] for m in iv]]),
+                                np.array([vv[0]]), np.array([vv[1]]), P)
+        rows.append((float(hi.upper()), float(hi2.upper()), float(fh[0]), float(lo2.lower()), float(fl[0])))
+        return lo, hi
+    R._bounds_tangent = wrapped
+    try:
+        R.mass_cell(tri, g, 10, t0, tangent=True, event=True, zbins=24, zratio=fmpq(23, 20))
+    except StopIteration:
+        pass
+    R._bounds_tangent = orig
+    a = np.array(rows)
+    res = dict(region=idx, simplices=len(a), tight_fallbacks=TIGHT_FALLBACK[0], n_fast_lt_arb=int((a[:, 2] < a[:, 0] * (1 - 1e-12)).sum()),
+               n_fast_lt_arbtight=int((a[:, 2] < a[:, 1] * (1 - 1e-12)).sum()),
+               n_fast_lo_gt_arbtight_hi=int((a[:, 4] > a[:, 1]).sum()), n_fast_hi_lt_arbtight_lo=int((a[:, 2] < a[:, 3]).sum()),
+               arb_over_arbtight=[float(np.min(a[:, 0] / a[:, 1])), float(np.median(a[:, 0] / a[:, 1])), float(np.max(a[:, 0] / a[:, 1]))],
+               fast_over_arbtight=[float(np.min(a[:, 2] / a[:, 1])), float(np.median(a[:, 2] / a[:, 1])), float(np.max(a[:, 2] / a[:, 1]))])
+    print(json.dumps(res, indent=1))
+    json.dump(res, open(f"results_t412_explain_region_{idx}.json", "w"), indent=1)
 
 
 def test_region_arb(idx, t0, zbins):
@@ -280,6 +348,8 @@ if __name__ == "__main__":
         test_cell(float(sys.argv[2]))
     elif cmd == "explain":
         test_explain(float(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]) if len(sys.argv) > 4 else 400)
+    elif cmd == "explainregion":
+        test_explain_region(int(sys.argv[2]), float(sys.argv[3]), int(sys.argv[4]))
     elif cmd == "calib":
         test_calib()
     elif cmd == "regionarb":
