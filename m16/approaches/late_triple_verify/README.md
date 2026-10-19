@@ -8,7 +8,15 @@ P(E1(t0 = 2.5)) on late triples such as (3,7,8). Is that failure real (AGENTS ru
 do the strongest standard verifiers, auto_LiRPA alpha-CROWN and alpha-beta-CROWN (input and ReLU splitting), change the
 verdict?
 
-**Status.** Pre-registered 2026-10-19 (this section was written and pushed before any scored run). Owner: Claude
+**Status.** DONE 2026-10-19.
+- **Pre-registered line: KILL (unverified)** on E3, E4 and E5.
+- **Secondary D3 and D2 (unverified) put the cause in T414's split rule, not in the bounds.** With alpha-CROWN, a
+  widest-dimension split and pop order by near-exact mass, the near-exact mass falls with slope -1.13 and projects 1.6e6
+  boxes to reach 1e-10 on (3,7,8). The rigorous radial charge still projects 1.6e10, because that charge is loose on
+  wide boxes.
+- So the late-triple failure is NOT verified dead. It is scoped to T414's margin-steered split.
+
+Pre-registered 2026-10-19 (this section was written and pushed before any scored run, bebd3c5e). Owner: Claude
 session_011FA8RfY3APG3rkDG2GxScR (own container). DRI session_01CD3g9Cvc3qk3pM11eyXXzj. CPU only.
 
 ## Pre-registration (fixed before any scored run)
@@ -100,5 +108,155 @@ tests whether a BaB that follows D2's tree realises the estimate: `lbab.py 3,7,8
 node count nears ~3e5. D2b repeats D2 with more points (CROWN n = 5,000; alpha n = 1,000) for the tail-dominated estimate.
 
 ## Method
-- `net.py`: model, coordinates, slab sampler, charges. `lbab.py`: BaB with library bounds.
-- Other scripts are added with their results.
+- `net.py`: model, coordinates, exact slab sampler, radial charge, near-exact box mass. Root mass check: 5.59749e-8
+  (T414: 5.59749e-8); root radial charge 864 (T414: 864).
+- `lbab.py`: BaB with library bounds. C = auto_LiRPA CROWN on every child. A = auto_LiRPA alpha-CROWN on C's survivors.
+  ABC = alpha-beta-CROWN on A's survivors (E4 only). Options: `--order radial|quad`, `--split margin|widest`.
+- `recheck.py` (E1), `width.py` (E2), `dyadic.py` (D2), `soundcheck.py` (soundness), `analyze.py` (projections).
+- Environment: `pip install torch==2.11.0` (CPU) in a venv; clone alpha-beta-CROWN with submodules; PYTHONPATH =
+  `auto_LiRPA:complete_verifier:this folder`; extra pip packages onnx2pytorch (the pinned commit), onnx, onnxruntime,
+  skl2onnx, sympy, pyyaml, pandas, psutil, sortedcontainers, termcolor, appdirs, tqdm, graphviz. `m16/common.py` is
+  loaded by file path, because putting `m16/` on sys.path shadows abcrown's `state` package with `m16/state.py`.
+- Runs: 1 thread each, `ulimit -v 2500000`; data in `data/t418/` (git-ignored). Run peaks: lbab ~1.8 GB RSS, under 2 GB.
+
+## Results ([measured], unverified)
+
+**E1 Re-check of T414's CROWN: PASS.**
+- auto_LiRPA CROWN vs T414's `margins()`:
+  - root box: max relative difference 6e-16;
+  - 2,000 open boxes from a 600 CPU-s re-run of T414's own search: max relative difference 1e-13;
+  - its 3,793 pruned boxes: max relative difference 3e-13; all pruned by both.
+- T414's CROWN is therefore exactly standard CROWN (adaptive lower slope).
+- Looseness on the 200 top-radial-charge open boxes of that re-run (sampled min minus lower bound, best spec):
+
+| bounder | median | p10 | p90 | boxes pruned of 200 |
+|---|---|---|---|---|
+| C (CROWN) | 369 | 130 | 2450 | 0 |
+| A (alpha-CROWN) | 165 | 78 | 306 | 1 |
+| AF (alpha, intermediate bounds optimised) | 165 | 78 | 306 | 1 |
+| ABC-in (input-split BaB, 10 s) | | | | 64 (mean 6,200 domains) |
+| ABC-relu (beta-CROWN, top-2 specs, 10 s each; first 50 boxes) | | | | 4 of 50 |
+
+- All 200 boxes are prunable in principle (sampled best-spec minimum > 0); none holds a sampled event.
+- AF printed the same numbers as A, so the `fix_interm_bounds = False` setting most likely did not take effect through
+  `set_bound_opts`. Not verified; see Alternatives.
+- T414's 176 came from a 10-min trial. These boxes come from a 600 s re-run with K = 1024, and are larger.
+
+**E2 Certified width around 200 exact slab points (3,7,8); 0 events among the points.**
+
+| bounder | median w | p10 w | covering, ideal cubes | covering, w halved | note |
+|---|---|---|---|---|---|
+| C | .105 | .050 | 1.4e9 | 7.0e11 | T414: median .103, 2.5e8 / 1.3e11 |
+| A | .142 | .093 | 2.9e5 | 1.5e8 | |
+| ABC-in (first 60 pts) | .181 | .116 | 3.9e4 (x 4,436 domains = 1.7e8 evals) | 2.0e7 | A on the same points: 4.3e5 |
+| ABC-relu (first 20 pts) | .146 | .110 | 5.0e5 | 2.6e8 | median gain over A 1.00 |
+
+- alpha-CROWN widens the certified cube by 1.35x at the median and 1.9x at p10. Because the covering estimate is
+  tail-dominated, that alone cuts it ~5,000x.
+- alpha-beta-CROWN input splitting widens it another 1.2x, but each certified cube costs ~4,400 BaB domains. Counted
+  in bound evaluations it is ~400x worse than A.
+- ReLU splitting (beta-CROWN) gains nothing within 10 s.
+
+**Pre-registered BaB runs (2 CPU-h each; projection = log-log fit over the last decade, to 1e-10):**
+
+| run | triple | search | boxes | pruned | radial (rigorous) | near-exact mass | radial projection | near-exact |
+|---|---|---|---|---|---|---|---|---|
+| E3 | (3,7,8) | T414's (radial order, margin split), C + A | 1.35e5 | 0.6% | 5.65e-5 (slope -.70) | 2.81e-8 (50%), stall | 2.0e13 | stall |
+| E4 | (3,7,8) | E3 continued, + ABC-in (2 s) on A's survivors | +3,456 (+3.96e6 abc domains) | 2.6% (89 by ABC) | 5.56e-5, stall | 2.81e-8, stall | stall | stall |
+| E5 | (9,8,2) | as E3 | 1.42e5 | 7.3% | 5.97e-5 (slope -.79) | 2.92e-8 (52%), stall | 3.1e12 | stall |
+
+**Verdict by the pre-registered line: KILL (unverified).** Both kill conditions hold on every pre-registered run. The
+projections are > 1e9, and the charge stalls above 1e-9 (near-exact mass flat at ~50% of the slab). This re-checks
+T414's KILL with different code and library bounds: under T414's search, neither alpha-CROWN nor alpha-beta-CROWN
+changes the verdict.
+
+**Secondary (deviations, not used for the verdict).**
+
+| run | triple | search | boxes | pruned | radial (rigorous) | near-exact mass | radial projection | near-exact projection |
+|---|---|---|---|---|---|---|---|---|
+| D1 | (3,7,8) | quad order, margin split | 1.38e5 | 0.5% | 1.07e-4 | 2.81e-8, stall | 3.8e14 | stall |
+| D3 | (3,7,8) | quad order, **widest split** | 1.37e5 | 29.6% | 3.85e-7 (slope -.71) | **1.61e-9 (2.9%)** (slope -1.13, 12.6x per decade) | 1.6e10 | **1.6e6** |
+| D3 | (9,8,2) | as above | PENDING_D3_982 | | | | | |
+
+D2 dyadic-leaf estimate: leaves of the widest-split tree at the coarsest certified box around exact slab points.
+
+| triple | bounder | n | median depth | leaves (99.8% of mass) | leaves (all points) | top-1% share |
+|---|---|---|---|---|---|---|
+| (3,7,8) | C | 5,000 | 39 | 3.8e7 +- 0.9e7 | 4.0e7 | 80% |
+| (3,7,8) | A | 1,000 | 29 | 1.25e5 +- 0.3e5 | 1.7e5 | 55% |
+| (9,8,2) | C / A | PENDING_D2_982 | | | | |
+
+Soundness (`soundcheck.py`, reference forward on raw x at random g > 0; the run rows are reservoirs of pruned boxes):
+
+| boxes checked | points | events | bound violations |
+|---|---|---|---|
+| D2 alpha-certified | 4e5 | 0 | 0 |
+| D3 run, 5,117 boxes | 1.28e7 | 0 | 0 |
+| E3 run, 591 boxes | 1.48e6 | 0 | 0 |
+
+On recomputation in other batches, alpha alone re-certifies 5,097 of 5,117 and 505 of 591 boxes; the rest were pruned
+by C, or by A in a different batch. So auto_LiRPA's alpha-CROWN is not always at least as tight as its CROWN, and
+batch composition matters a little. lbab prunes if either C or A certifies, so this does not affect soundness.
+
+**Reading.** T414's margin-steered split (and my re-implementation in E3 / D1 / E5) never splits the dimensions with
+small margin coefficients. T414 saw two u_l dims never split. The boxes then stay wide in those dims, and CROWN or alpha
+stays loose there. Splitting the widest dimension instead makes alpha-CROWN prune 30% of the boxes and drives the
+near-exact mass down 12.6x per decade. D2 independently says an ideal widest-split BaB needs ~2.5e5 nodes with
+alpha-CROWN, or ~8e7 with plain CROWN, on (3,7,8). Both are below the 1e9 line. The remaining gap is the charge: the
+rigorous radial charge is 1e2-1e7x looser than the box mass on wide boxes, so its curve projects 1.6e10.
+
+## Compute accounting
+CPU only, one thread per process, <= 2 GB each, at most 2 heavy processes (one ~3-min overlap of D2 with two runs).
+- T414 re-run 600 s; E1 ~1.1 CPU-h (abcrown parts 1,556 s + 1,797 s);
+- E2 ~1.6 CPU-h; E3, E4, E5, D1, D3 x2: 2 CPU-h each;
+- D2 / D2b ~0.3 CPU-h; soundness ~0.3 CPU-h.
+- Total ~16 CPU-h. No GPU, no Colab.
+
+Model evaluations:
+- one CROWN bound ~ one backward pass per pre-activation layer (~1e6 FLOPs per box);
+- alpha-CROWN ~20x CROWN;
+- an abcrown domain ~ one alpha-CROWN bound.
+- Sampling checks: ~1.6e7 forwards.
+
+## Claims
+- [measured] T414's CROWN equals auto_LiRPA CROWN to <= 3e-13 relative on its root, open and pruned boxes. Its KILL
+  under its own search reproduces with library bounds:
+  - alpha-CROWN BaB (E3) leaves the near-exact mass flat at ~50% of the slab after 1.35e5 boxes;
+  - alpha-beta-CROWN input-split BaB on top (E4) prunes 89 boxes for 4e6 domains and does not move the charge;
+  - the same holds on (9,8,2) (E5).
+- [measured] alpha-CROWN halves CROWN's looseness on T414's frontier boxes (median 369 -> 165) and widens certified
+  cubes 1.35x (median) / 1.9x (p10). Beta-CROWN ReLU splitting adds nothing within 10 s. Input-split BaB adds 1.2x
+  width at ~4,400 domains per cube. Mixed input + ReLU splitting crashes in this alpha-beta-CROWN version.
+- [measured, secondary] With a widest-dimension split and mass order, alpha-CROWN BaB brings (3,7,8)'s near-exact mass
+  to 1.6e-9 in 1.37e5 boxes (slope -1.13), projecting 1.6e6 boxes to 1e-10.
+- [measured, secondary] Dyadic-leaf estimates for (3,7,8): ~1.25e5 leaves with alpha-CROWN, ~4e7 with CROWN.
+- [inferred] The late-triple obstruction in T414 is mainly the split heuristic, not CROWN looseness per se; T414's
+  1e14-1e15 projections come from a search that cannot reach certifiable boxes.
+- [inferred] A certified bound needs a rigorous box-mass bound much tighter than the radial charge, e.g. interval
+  Gauss-Legendre with error bounds, or the exact 1-D Phi factors plus a rigorous 2-D enclosure.
+- [speculative] At ~19 alpha boxes/s, 1e-10 per triple needs ~25 CPU-h (1.6e6 boxes). ~1e-12 per triple (1e-9 over 720 triples)
+  needs ~1e8 boxes, ~1e3 CPU-h per late triple, unless better charges or CROWN-first batching cut the cost.
+
+## Alternatives not ruled out
+- **The D3 projection extrapolates one decade.** The slope could flatten when the boxes near the event boundary
+  dominate; these boxes can never be pruned and must be charged by mass. Check: continue D3 for 10x the boxes.
+- **D2 estimates are tail-dominated** (top 1% of points = 55-80% of the estimate) and assume monotone certification in
+  depth.
+- **AF did not take effect** (identical numbers), so intermediate-bound optimisation is effectively untested. Pass
+  `fix_interm_bounds: False` at BoundedModule construction.
+- **ABC timeouts were short** (2 s in E4, 10 s elsewhere); abcrown's own split heuristics were left at their defaults.
+- **Mixed input + ReLU branching crashed.** It is untested; a later alpha-beta-CROWN version or a vnnlib run may work.
+- **Float only, no outward rounding.** Soundness is checked by sampling, not proved.
+
+## Failure modes
+- The radial charge dominates the rigorous figure on wide boxes. Ordering by radial (E3, E5) wastes effort on low-mass
+  boxes.
+- alpha-CROWN costs ~15x CROWN per box. Without a CROWN-first filter, plain CROWN with ~300x more boxes (D2: 4e7 vs
+  1.25e5 leaves) is roughly a wash in CPU.
+- alpha-beta-CROWN on CPU: per-call overhead plus thousands of domains per box. It is not competitive as a leaf
+  verifier here.
+
+## Proposed follow-ups (backlog, not done here)
+- Rigorous near-exact box-mass bound plus the D3 search (alpha-CROWN, widest split, mass order) to 1e-10 / 1e-12 on
+  (3,7,8) and (9,8,2); kill line 1e9 boxes. Run D3 for 10x longer first.
+- AF with `fix_interm_bounds = False` set at construction, and abcrown with longer timeouts on D3's frontier.
