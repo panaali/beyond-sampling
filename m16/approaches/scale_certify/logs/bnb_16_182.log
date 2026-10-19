@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/user/clean-neurons/m16/approaches/scale_certify/bnb_run.py", line 64, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/clean-neurons/m16/approaches/scale_certify/bnb_run.py", line 25, in main
+    hx = [x for f in sorted(glob.glob(os.path.join(HERE, "results", f"mc_{tag}_{t0:g}_*.json"))) for x in json.load(open(f))["hit_x"]
+                                                                                                          ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'hit_x'
