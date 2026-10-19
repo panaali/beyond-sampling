@@ -861,6 +861,30 @@ So the sampling-class safety tools cost about 1e-8 to 1e-6 of a GW-month: one 8-
 
 **A (DRI):** The plain-language summary of [lit/novelty_review.md](lit/novelty_review.md) section 3 (the verdict table is the source). Overall: mostly known ideas applied to a new target. Likely new are the rigorous 10-D region volumes, the sampling-free rare-failure estimates near 1e-10, and the sealed result itself ([4.15](#q4-15)). The focused-sampling estimator (T436-T456) applies Bai et al. 2020 and Hesterberg 1995. No outside reviewer has checked these verdicts.
 
+<a id="q4-21"></a>
+### 4.21 Honestly, would ARC accept our results? Judged by why they set the challenge (owner, 10-19 23:0x)
+
+**Q (owner, verbatim):** "I would like your honest response regarding whether Arc accepts our solutions as valid for their challenge. You can respond by thinking about what the goal of Arc and Hilton was in proposing this challenge. What did they want to get out of it? Why did they talk about mechanistic, and what did they want from mechanistic? Then look at our method and think about whether it matches that. If you think about the why, then you would be able to make a proper judgment. There was a reason that they designed this challenge. They wanted to use it for some purpose, and we need to think about that. What's your probability of their accepting each of these results and things that we propose and find?"
+
+**A (DRI; subjective probabilities; ARC has not been contacted).** Why ARC set it ([4.10](#q4-10), [lit/web_arc/hilton_talk_2026-09_notes.md](lit/web_arc/hilton_talk_2026-09_notes.md)):
+- They want methods that estimate what a network does by reasoning about how it computes. Sampling cannot see rare catastrophic behaviour, nor tell when a model behaves well for the wrong internal reason (mechanistic anomaly detection).
+- Accuracy is the calibration test: sampling works there, so a mechanism-based estimate can be checked against it. Matching sampling is evidence that the understanding is real and efficient.
+- "Mechanistic" (deductive, "no sampling even on some subset", fitted coefficients "a little bit cheating") rules out the step that fails on rare events: looking at some inputs and assuming the rest behave alike. They expect general schemes, not one-off hand work.
+
+Four tests follow: (1) no inductive step; (2) the estimate comes from an account of how the network computes; (3) the account carries over to rare events and anomalies; (4) it could scale.
+
+| Result | (1) | (2) | (3) | (4) | P(ARC counts it as a valid solution) |
+|---|---|---|---|---|---|
+| Line-walk quadrature, strict pass (H-E17) | partly: no random draws, but the average over fixed lines is the "assume the rest behave alike" step | no: generic, explains nothing | partly | weak | ~10% |
+| Gap-direction walks + five declared approximations, F 2.6 (H-L1) | mostly at run time; approximations chosen against sampled truths | partly: built on top-3 order, gaps, independence assumptions | weak: misses triple-tie tails | unclear | ~15% |
+| Any of our results accepted as solving M_16,10 | | | | | ~20% |
+| Certified bound (T416, T418) | yes | no: exhaustive splitting, which ARC sees as not scaling | yes, rigorous | exponential | ~1% as a solution; valued as an independent check |
+| Deterministic rare-event walks, Q16 (H-R1, T370) | mostly (QMC-class) | partly (tie structure) | yes | unclear | outside the challenge; ~30% they find it useful |
+| Focused-sampling IS (T436-T456) | no: sampling | no | yes | yes | ~0% as mechanistic; a strong baseline of the kind ARC's own rare-output work uses |
+| Targeted repair (H-R3, T411) | - | - | - | - | outside the challenge; modest interest |
+
+Most likely reaction: strong baselines that raise the bar for "matching sampling", plus useful rare-event and certification checks, but not the explanation-driven estimate the challenge exists to elicit. What would change that: an estimator derived from a written account of how M_16,10 computes the 2nd argmax, with no constants tuned on sampled truths, and holding on weight-noised copies at F <= ~4.
+
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
