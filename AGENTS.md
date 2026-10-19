@@ -5,6 +5,39 @@
 Start by reading [TASKS.md](TASKS.md) (and [DRI_HANDBOOK.md](DRI_HANDBOOK.md) if you coordinate) (what is in progress, who holds it, and the backlog), then [`INDEX.md`](INDEX.md):
 questions, finished experiments, where outputs live, and the **hypothesis ledger** (the status of every claim). [`m16/FINDINGS.md`](m16/FINDINGS.md) is the detailed narrative for the AlgZoo 432-param model.
 
+## Where things live
+
+One home per kind of information; everywhere else links to it instead of copying it.
+
+| Document | Its single purpose |
+|---|---|
+| [README.md](README.md) | Entry point: what the project is, where to start, folders, how to reproduce |
+| [AGENTS.md](AGENTS.md) | Rules that bind every agent, including the owner's standing rules (section "Standing rules") |
+| [TASKS.md](TASKS.md) | Task board: what is in progress, who holds it, the backlog. Claim here before starting work |
+| [OWNER_QA.md](OWNER_QA.md) | The owner's questions, the answers, and every owner directive verbatim (the only place they are recorded) |
+| [INDEX.md](INDEX.md) | Experiment registry and hypothesis ledger: the only place for result numbers and claim status |
+| [STATUS.md](STATUS.md) | One page: the current state in plain words, linking to INDEX rows |
+| [docs/PROTOCOLS.md](docs/PROTOCOLS.md) | How work is run and scored: continuous work, ladder protocol, DRI directives 1-8 (rung test, two bars) |
+| [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | DRI process and lessons learned; read first if you take over as DRI |
+| [m16/FINDINGS.md](m16/FINDINGS.md) | Narrative: how M_16,10 computes the 2nd argmax, error anatomy, estimators, failed hypotheses |
+| [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study |
+| [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before data was collected |
+| [docs/archive/](docs/archive/) | History: old status updates, finished and superseded board text, later-update notes from the Q&A |
+
+## Standing rules (owner directives)
+
+Each line binds every agent. The verbatim quote is in [OWNER_QA.md section 8](OWNER_QA.md#directives); a new directive
+is recorded there only, plus one line here if it binds agents.
+
+- **Never contact ARC**, in any form (email, LessWrong, GitHub, forms, comments). Only the owner does, when they choose; agents do not recommend, draft for sending, or schedule contact unless the owner asks. ([10-18 23:4x](OWNER_QA.md#d-234x))
+- **Do not use Fable** (reviews or sub-agents). Past Fable reviews stay in the record. ([10-18 17:27](OWNER_QA.md#d-1727))
+- **CPU is essentially free; tokens are the cost.** Run every helpful experiment in its own session, prefer CPU-heavy work, GPU (Colab) is secondary, keep token use lean (no idle polling, compact reports). ([10-19 06:0x](OWNER_QA.md#d-1019-060x))
+- **Parallel work runs in separate child sessions**, each with its own sandbox. The 4-core / 2-heavy rule (rule 8) applies per container; the <= 2 GB per process rule applies inside each. ([10-18 23:4x](OWNER_QA.md#d-234x))
+- **Never wait on the owner**; start child sessions (own compute) for experiments, sub-agents only for no-compute work. ([10-17 23:07](OWNER_QA.md#d-2307))
+- **Report every estimator against both bars**: strict F <= 1 and lenient F <= 10, as defined in [docs/PROTOCOLS.md](docs/PROTOCOLS.md) Directive 8. ([10-18 05:19](OWNER_QA.md#d-0519))
+- **Tutorial updates are paused** until the owner asks for one final update. ([10-19 06:4x](OWNER_QA.md#d-1019-064x))
+- **Record each fact once and link to it** (this table and section). ([10-19 06:5x](OWNER_QA.md#d-1019-065x))
+
 ## Rules
 
 0. **The task board [TASKS.md](TASKS.md) is mandatory for every agent (Claude, Codex, humans).** Many agents work
@@ -54,7 +87,7 @@ questions, finished experiments, where outputs live, and the **hypothesis ledger
    while that handoff is arranged. Respect existing CPU/memory limits; continuity does not authorize empty polling,
    duplicate work or unbounded runs.
 
-6. **Shared evaluation.** Estimators for the ARC challenge must use [`m16/arc_eval.py`](m16/arc_eval.py): the same noisy
+6. **Shared evaluation.** Estimators for the ARC challenge must use [`m16/arc_eval.py`](m16/arc_eval.py) (for M_16,10 and ladder rungs this is superseded by `m16/leaderboard.py` v3 and Directive 7 in [docs/PROTOCOLS.md](docs/PROTOCOLS.md)): the same noisy
    copies, ground truth and estimator interface `est(model, budget, rng) -> (estimate, evals)`. State
    whether the method is deductive (no random model inputs) or sampling-based.
 7. **Independence (relaxed by the project owner on 2026-10-17).** Any source may now be read, including ARC
