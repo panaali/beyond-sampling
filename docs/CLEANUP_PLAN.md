@@ -45,3 +45,32 @@ and leaves a one-line pointer behind. No number or claim status is changed. Rese
 
 TASKS ~250 (from 881), STATUS ~40 (from 377), OWNER_QA ~800 (from 1136), DRI_HANDBOOK ~315; new PROTOCOLS ~70,
 archive files hold the rest.
+
+## Done (2026-10-19)
+
+| File | Before | After | What changed |
+|---|---|---|---|
+| TASKS.md | 881 | 219 | board only; protocols and history moved, pointer lines left |
+| OWNER_QA.md | 1136 | 983 | addendum filed by topic; 38 later-update blocks archived with INDEX-ID pointers; Fable + T396 directives added to section 8; anchors on standing-rule directives |
+| STATUS.md | 377 | 39 | one page |
+| DRI_HANDBOOK.md | 324 | 319 | copied directives → links; PROTOCOLS pointer |
+| AGENTS.md | 73 | 106 | "Where things live" + "Standing rules" |
+| README.md | 49 | 55 | Start here = Where things live |
+| RESULTS.md | 121 | 125 | pointer to H-Q5 |
+| docs/PROTOCOLS.md | - | 73 | new (verbatim from TASKS) |
+| docs/archive/*.md | - | 356 + 383 + ~600 | verbatim archives |
+
+A line-by-line check confirmed every non-blank line of the old TASKS.md and OWNER_QA.md is in the new file set, apart
+from intentionally rewritten header/heading lines and the four TASKS directive paragraphs, whose verbatim quotes are
+in OWNER_QA section 8 and whose extra wording is in the AGENTS standing rules. INDEX.md: no exact duplicate rows or
+IDs and no broken links, so it was not touched.
+
+**Left as is, for the DRI to decide:**
+- m16/SCALING_OBSTRUCTIONS.md section 9 (~470 lines) and m16/approaches/README.md repeat many INDEX numbers; they read
+  as narratives/indexes, so nothing was cut.
+- PREREGISTRATION.md is a commitment made in advance and was not edited.
+- The 2026-10-17 "continuous work" and "ladder protocol" owner instructions have no verbatim quote anywhere; their
+  protocol text is in docs/PROTOCOLS.md.
+- TASKS Backlog still has a stale "Priority queue (DRI, updated 2026-10-17)" heading and loose note paragraphs among
+  rows that belong to other owners; not moved.
+- Older notes elsewhere say "TASKS Directive N": that now means docs/PROTOCOLS.md (TASKS has a pointer line).
