@@ -144,6 +144,11 @@ mass 5.6e-8, so all must be certified, to ~1e-12 each for a total near 1e-9 ([T3
   >= 1e34 FLOPs ‡ (~3e21 CPU-h, ~$1e20 today, ÷2-3 in 5 years). An LP enclosure per cell (T398) costs 100-1000x more.
 - **Verdict: METHOD-LIMITED** (rate N^{-1/9}; more compute does not help). The only route is crease-aware cells, which
   is item 1's exact-region problem. Agent effort to re-open: none useful. Confidence: high.
+- **T451 re-check (u):** zeroth-order numbers reproduced, but first-order (affine) enclosures on crease-free cells are
+  oracle-tight to ~2-20x the 1e6-FPE error at 8e13 cells (crease-free cells are <= .4% of cells within 10 B). For that
+  family the 10x point is COMPUTE-limited at ~1e13-1e14 cells per model ‡: the item-1 region enumeration plus >= ~10 walks per
+  cell for a certified affine model (~4e19-5e20 FLOPs on top), ~1e9-2e11 CPU-h, ~$3e7-6e9 today, /2-3 in 5 years. It helps S1
+  only; an oracle, not a bound (`claude/t451-walk-bound-check`, `m16/approaches/walk_bound_check/`).
 
 ## Summary
 

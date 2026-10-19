@@ -751,7 +751,7 @@ Neither is certain to count; only ARC can rule ([4.7](#q4-7)). A weight-derived 
 
 **Q (owner, verbatim):** "Are we working on any solution to bound from the weights how much the answer varies from line to line to make method one clearly reasoning from the weights? Or we have tried and failed and we are not working on it anymore?"
 
-**A (DRI):** Neither. It was never tried directly; the literature review lists it as open. Related rigorous attempts point to difficulty: interval and Lipschitz-type bounds blow up over 10 steps (E19, T344), and the certified bound works for one top-3 ordering but not the whole input space (T398, T416). Started as a pre-registered kill test, T449 (TASKS).
+**A (DRI):** Neither. It was never tried directly; the literature review lists it as open. Related rigorous attempts point to difficulty: interval and Lipschitz-type bounds blow up over 10 steps (E19, T344), and the certified bound works for one top-3 ordering but not the whole input space (T398, T416). Tested as a pre-registered kill test: **NO-GO**, confirmed by an independent re-check for budgets up to 1e10 FPE (INDEX T449, T451). Every bound tried is infinite or hundreds of times looser than the actual error, because the per-line answer has creases and jumps where lines graze region boundaries; closing it would need cells at the scale of the exact regions (~1e13-1e14), far beyond any budget comparable to sampling. So the walk method stays quadrature-class unless ARC accepts it as is.
 
 ## 5. Compute, GPU and process
 
