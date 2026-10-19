@@ -49,8 +49,9 @@ def pick(mod, xT):
 def run(tag, t0, n_max=4e9):
     row = M.by_tag(tag); T = row["T"]; Wi, Wh, Wo = M.load(row)
     mod = tuple(torch.from_numpy(np.ascontiguousarray(w)) for w in (Wi[:, None], Wh, Wo))
-    os.makedirs(os.path.join(HERE, "results", "truth"), exist_ok=True)
-    fn = os.path.join(HERE, "results", "truth", f"{tag}@{t0:g}.json")
+    out_dir = os.environ.get("T424_TRUTH_DIR", os.path.join(HERE, "results", "truth"))   # working checkpoints
+    os.makedirs(out_dir, exist_ok=True)
+    fn = os.path.join(out_dir, f"{tag}@{t0:g}.json")
     st = json.load(open(fn)) if os.path.exists(fn) else dict(tag=tag, T=T, t0=t0, p_gap=TH.p_gap(T, t0), n=0, chunks=0, hits=0,
                                                              hits_g12_lt_p1=0, hits_g23_gt_6=0, sec=0.0,
                                                              seed=[424, row["H"], T, row["seed"], int(row["stream"] == "zoo"), int(round(100 * t0))])
