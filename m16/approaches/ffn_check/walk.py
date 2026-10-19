@@ -26,7 +26,7 @@ def forward(W1, W2, x):
     return np.maximum(x @ W1.T, 0) @ W2.T
 
 
-def accuracy(W1, W2, n, seed, chunk=1_000_000):
+def accuracy(W1, W2, n, seed, chunk=200_000):
     rng, ok = np.random.default_rng(seed), 0
     for _ in range(n // chunk):
         x = rng.standard_normal((chunk, T))
@@ -107,7 +107,10 @@ def circle(W1, W2, u, v):
     return float(np.clip(Um - Lm, 0, None).sum() / TWO_PI), int(flops)
 
 
-def brute(W1, W2, u, v, n=100_000):
-    t = (np.arange(n) + 0.5) * TWO_PI / n
-    x = np.cos(t)[:, None] * u + np.sin(t)[:, None] * v
-    return float((forward(W1, W2, x).argmax(1) == np.argsort(x, 1)[:, -2]).mean())
+def brute(W1, W2, u, v, n=100_000, chunk=200_000):
+    ok = 0
+    for s in range(0, n, chunk):
+        t = (np.arange(s, min(s + chunk, n)) + 0.5) * TWO_PI / n
+        x = np.cos(t)[:, None] * u + np.sin(t)[:, None] * v
+        ok += int((forward(W1, W2, x).argmax(1) == np.argsort(x, 1)[:, -2]).sum())
+    return ok / n
