@@ -969,6 +969,31 @@ Fixed at 05:05:
 - Follow-up **T352** (owner, 13:58): QAT retraining with binary/int4/int8 activations, reachable-state census, exact DP for the binary model, and discrete-input (int4/int8) variants.
 
 <a id="status"></a>
+<a id="q6-6"></a>
+### 6.6 Which of our positive results would transfer to the same architecture trained on a different task? (owner, 10-19 14:1x)
+
+**Question (owner, condensed):** which positive or near-positive methods (lenient bar passed, or matching sampling) would
+apply to a network of the same size and input trained for another task? Find about 5 tasks (some completely different from
+"n-th largest") that the exact M_16,10 architecture learns to 90-95%, then test which methods carry over; one session screens
+the tasks, then one session per task. The owner also passed on another agent's list (2nd-smallest, 3rd-largest, largest adjacent
+|difference|, 2nd-largest |x|, largest adjacent pair sum).
+
+**Answer (DRI, inferred until T419 and its follow-ups run):**
+- *Likely to transfer (generic, no task-specific mechanism):* exact 1-D walk quadrature (H-E16: beats sampling at T = 5, ties
+  at T = 10), weight-gradient locate and Hessian-guided repair of a rare failure (H-R2, H-R3), and the certified pruning + rigorous
+  mass machinery (T398, T400, T412). Whether each wins depends on the task: how fragmented the regions are along lines, and
+  whether the task's rare events can be pruned early (T398's late-triple obstruction is specific to rank tasks).
+- *Partly transferable:* the rare-event exact walks (H-R1) are built around rank events (the line along x_p3); rank tasks reuse
+  them directly, other tasks need the event and the walk line redefined.
+- *Not transferable as is:* T317f (the lenient-bar pass) is derived from M_16,10's specific mechanism, so each new task needs its
+  mechanism worked out again; that is itself the most interesting test.
+- *On the proposed list:* keep the architecture exact, so every task must output a POSITION (one of 10 classes) from N(0,1)
+  inputs; value-output tasks need a different head. '2nd-smallest' is 2nd-largest on -x for symmetric inputs, so it is a free
+  control, not a new algorithm. Ties have probability 0 for continuous inputs. Longer-sequence generalisation is not ARC's
+  question (accuracy on the fixed input distribution is).
+- *Plan:* T419 screens candidate tasks on the exact architecture and recipe; then one session per selected task applies the
+  transferable methods against both bars.
+
 ## 7. Status timeline
 
 | Time (UTC) | Owner asked | Snapshot |
