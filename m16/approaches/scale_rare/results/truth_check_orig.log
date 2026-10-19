@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+    import truth; truth.HITS_TARGET=3000; st=truth.run('orig',1.5); print(st['n'],st['hits'],st['hits_g12_lt_p1'],st['p'],st['sec'])
+                                             ~~~~~~~~~^^^^^^^^^^^^
+  File "/home/user/clean-neurons/m16/approaches/scale_rare/truth.py", line 50, in run
+    row = M.by_tag(tag); T = row["T"]; Wi, Wh, Wo = M.load(row)
+                                                    ~~~~~~^^^^^
+  File "/home/user/clean-neurons/m16/approaches/scale_rare/models.py", line 23, in load
+    from common import Wi, Wh, Wo
+  File "/home/user/clean-neurons/m16/approaches/scale_rare/../../common.py", line 4, in <module>
+    from alg_zoo import example_2nd_argmax
+ModuleNotFoundError: No module named 'alg_zoo'
