@@ -674,6 +674,9 @@ Off-target: H-E16 (16 neurons, 5 steps, confirmed) and T387 (all-at-once network
 ## 5. Compute, GPU and process
 
 <a id="q5-1"></a>
+
+**Correction (10-19 06:4x):** the E33 row is withdrawn: at executed cost it loses on 100 M_16,10 retrains (T397 in INDEX); no method has a DEV3 confidence bound below 1, so no sealed HP5 run yet.
+
 ### 5.1 Which task needs a GPU?
 
 **Q** (2026-10-17 23:01 UTC): "Which task required GPU? I have a Google Colab with 300 compute units. I want to set that up first. …" (The rest is in [Owner directives](#directives).)
