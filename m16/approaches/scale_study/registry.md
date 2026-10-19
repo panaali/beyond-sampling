@@ -4,19 +4,19 @@
 
 | H | T | status | cpu seeds | >= .90 | min | median | max | zoo seeds | zoo best |
 |---|---|---|---|---|---|---|---|---|---|
-| 16 | 10 | kept | 3 | 0 | 0.8244 | 0.8561 | 0.8836 | 5 | 0.9485 |
-| 24 | 10 | kept | 5 | 5 | 0.9854 | 0.9888 | 0.9918 | 0 | - |
+| 16 | 10 | kept | 6 | 3 | 0.8244 | 0.9058 | 0.9479 | 5 | 0.9485 |
+| 24 | 10 | kept | 6 | 6 | 0.9854 | 0.9882 | 0.9918 | 0 | - |
 | 32 | 10 | kept | 6 | 6 | 0.9880 | 0.9930 | 0.9938 | 5 | 0.9944 |
 | 48 | 10 | kept | 6 | 6 | 0.9950 | 0.9955 | 0.9961 | 0 | - |
-| 64 | 10 | pending | 1 | 1 | 0.9952 | 0.9952 | 0.9952 | 0 | - |
+| 64 | 10 | kept | 6 | 6 | 0.9952 | 0.9966 | 0.9972 | 0 | - |
 | 16 | 15 | screened | 3 | 0 | 0.6348 | 0.7173 | 0.7295 | 0 | - |
-| 24 | 15 | pending | 2 | 1 | 0.8976 | 0.9351 | 0.9727 | 0 | - |
+| 24 | 15 | kept | 6 | 5 | 0.8976 | 0.9472 | 0.9810 | 0 | - |
 | 32 | 15 | kept | 6 | 6 | 0.9699 | 0.9844 | 0.9927 | 0 | - |
 | 48 | 15 | kept | 6 | 6 | 0.9912 | 0.9948 | 0.9962 | 0 | - |
-| 64 | 15 | pending | 2 | 2 | 0.9965 | 0.9966 | 0.9967 | 0 | - |
+| 64 | 15 | kept | 6 | 6 | 0.9944 | 0.9947 | 0.9967 | 0 | - |
 | 16 | 20 | screened | 4 | 0 | 0.4586 | 0.4635 | 0.5148 | 0 | - |
-| 24 | 20 | pending | 2 | 1 | 0.8720 | 0.9175 | 0.9631 | 0 | - |
-| 32 | 20 | pending | 2 | 2 | 0.9267 | 0.9350 | 0.9433 | 0 | - |
+| 24 | 20 | kept | 6 | 3 | 0.7747 | 0.9050 | 0.9718 | 0 | - |
+| 32 | 20 | kept | 6 | 6 | 0.9265 | 0.9397 | 0.9560 | 0 | - |
 | 48 | 20 | kept | 6 | 6 | 0.9846 | 0.9913 | 0.9926 | 0 | - |
 | 64 | 20 | kept | 6 | 6 | 0.9948 | 0.9957 | 0.9960 | 0 | - |
 
@@ -25,6 +25,9 @@
 | tag | H | T | stream | seed | acc | se | weights |
 |---|---|---|---|---|---|---|---|
 | m_16_10_cpu0 | 16 | 10 | cpu | 0 | 0.88361 | 1.0e-04 | [pth](weights/m_16_10_cpu0.pth) [npz](weights/m_16_10_cpu0.npz) |
+| m_16_10_cpu1 | 16 | 10 | cpu | 1 | 0.92792 | 8.2e-05 | [pth](weights/m_16_10_cpu1.pth) [npz](weights/m_16_10_cpu1.npz) |
+| m_16_10_cpu2 | 16 | 10 | cpu | 2 | 0.94786 | 7.0e-05 | [pth](weights/m_16_10_cpu2.pth) [npz](weights/m_16_10_cpu2.npz) |
+| m_16_10_cpu3 | 16 | 10 | cpu | 3 | 0.93115 | 8.0e-05 | [pth](weights/m_16_10_cpu3.pth) [npz](weights/m_16_10_cpu3.npz) |
 | m_16_10_cpu4 | 16 | 10 | cpu | 4 | 0.82441 | 1.2e-04 | [pth](weights/m_16_10_cpu4.pth) [npz](weights/m_16_10_cpu4.npz) |
 | m_16_10_cpu5 | 16 | 10 | cpu | 5 | 0.85613 | 1.1e-04 | [pth](weights/m_16_10_cpu5.pth) [npz](weights/m_16_10_cpu5.npz) |
 | m_16_10_zoo0 | 16 | 10 | zoo | 0 | 0.90997 | 9.1e-05 | [pth](weights/m_16_10_zoo0.pth) [npz](weights/m_16_10_zoo0.npz) |
@@ -37,6 +40,7 @@
 | m_24_10_cpu2 | 24 | 10 | cpu | 2 | 0.99003 | 3.1e-05 | [pth](weights/m_24_10_cpu2.pth) [npz](weights/m_24_10_cpu2.npz) |
 | m_24_10_cpu3 | 24 | 10 | cpu | 3 | 0.99184 | 2.8e-05 | [pth](weights/m_24_10_cpu3.pth) [npz](weights/m_24_10_cpu3.npz) |
 | m_24_10_cpu4 | 24 | 10 | cpu | 4 | 0.98721 | 3.6e-05 | [pth](weights/m_24_10_cpu4.pth) [npz](weights/m_24_10_cpu4.npz) |
+| m_24_10_cpu5 | 24 | 10 | cpu | 5 | 0.98765 | 3.5e-05 | [pth](weights/m_24_10_cpu5.pth) [npz](weights/m_24_10_cpu5.npz) |
 | m_32_10_cpu0 | 32 | 10 | cpu | 0 | 0.99378 | 2.5e-05 | [pth](weights/m_32_10_cpu0.pth) [npz](weights/m_32_10_cpu0.npz) |
 | m_32_10_cpu1 | 32 | 10 | cpu | 1 | 0.99368 | 2.5e-05 | [pth](weights/m_32_10_cpu1.pth) [npz](weights/m_32_10_cpu1.npz) |
 | m_32_10_cpu2 | 32 | 10 | cpu | 2 | 0.98805 | 3.4e-05 | [pth](weights/m_32_10_cpu2.pth) [npz](weights/m_32_10_cpu2.npz) |
@@ -54,10 +58,19 @@
 | m_48_10_cpu3 | 48 | 10 | cpu | 3 | 0.99562 | 2.1e-05 | [pth](weights/m_48_10_cpu3.pth) [npz](weights/m_48_10_cpu3.npz) |
 | m_48_10_cpu4 | 48 | 10 | cpu | 4 | 0.99611 | 2.0e-05 | [pth](weights/m_48_10_cpu4.pth) [npz](weights/m_48_10_cpu4.npz) |
 | m_48_10_cpu5 | 48 | 10 | cpu | 5 | 0.99541 | 2.1e-05 | [pth](weights/m_48_10_cpu5.pth) [npz](weights/m_48_10_cpu5.npz) |
+| m_64_10_cpu0 | 64 | 10 | cpu | 0 | 0.99689 | 1.8e-05 | [pth](weights/m_64_10_cpu0.pth) [npz](weights/m_64_10_cpu0.npz) |
+| m_64_10_cpu1 | 64 | 10 | cpu | 1 | 0.99656 | 1.9e-05 | [pth](weights/m_64_10_cpu1.pth) [npz](weights/m_64_10_cpu1.npz) |
 | m_64_10_cpu2 | 64 | 10 | cpu | 2 | 0.99521 | 2.2e-05 | [pth](weights/m_64_10_cpu2.pth) [npz](weights/m_64_10_cpu2.npz) |
+| m_64_10_cpu3 | 64 | 10 | cpu | 3 | 0.99717 | 1.7e-05 | [pth](weights/m_64_10_cpu3.pth) [npz](weights/m_64_10_cpu3.npz) |
+| m_64_10_cpu4 | 64 | 10 | cpu | 4 | 0.99619 | 1.9e-05 | [pth](weights/m_64_10_cpu4.pth) [npz](weights/m_64_10_cpu4.npz) |
+| m_64_10_cpu5 | 64 | 10 | cpu | 5 | 0.99656 | 1.9e-05 | [pth](weights/m_64_10_cpu5.pth) [npz](weights/m_64_10_cpu5.npz) |
 | m_16_15_cpu0 | 16 | 15 | cpu | 0 | 0.72947 | 1.4e-04 | [pth](weights/m_16_15_cpu0.pth) [npz](weights/m_16_15_cpu0.npz) |
 | m_16_15_cpu1 | 16 | 15 | cpu | 1 | 0.63477 | 1.5e-04 | [pth](weights/m_16_15_cpu1.pth) [npz](weights/m_16_15_cpu1.npz) |
 | m_16_15_cpu2 | 16 | 15 | cpu | 2 | 0.71732 | 1.4e-04 | [pth](weights/m_16_15_cpu2.pth) [npz](weights/m_16_15_cpu2.npz) |
+| m_24_15_cpu0 | 24 | 15 | cpu | 0 | 0.98103 | 4.3e-05 | [pth](weights/m_24_15_cpu0.pth) [npz](weights/m_24_15_cpu0.npz) |
+| m_24_15_cpu1 | 24 | 15 | cpu | 1 | 0.92956 | 8.1e-05 | [pth](weights/m_24_15_cpu1.pth) [npz](weights/m_24_15_cpu1.npz) |
+| m_24_15_cpu2 | 24 | 15 | cpu | 2 | 0.96458 | 5.8e-05 | [pth](weights/m_24_15_cpu2.pth) [npz](weights/m_24_15_cpu2.npz) |
+| m_24_15_cpu3 | 24 | 15 | cpu | 3 | 0.92987 | 8.1e-05 | [pth](weights/m_24_15_cpu3.pth) [npz](weights/m_24_15_cpu3.npz) |
 | m_24_15_cpu4 | 24 | 15 | cpu | 4 | 0.89759 | 9.6e-05 | [pth](weights/m_24_15_cpu4.pth) [npz](weights/m_24_15_cpu4.npz) |
 | m_24_15_cpu5 | 24 | 15 | cpu | 5 | 0.97269 | 5.2e-05 | [pth](weights/m_24_15_cpu5.pth) [npz](weights/m_24_15_cpu5.npz) |
 | m_32_15_cpu0 | 32 | 15 | cpu | 0 | 0.96993 | 5.4e-05 | [pth](weights/m_32_15_cpu0.pth) [npz](weights/m_32_15_cpu0.npz) |
@@ -72,6 +85,10 @@
 | m_48_15_cpu3 | 48 | 15 | cpu | 3 | 0.99534 | 2.2e-05 | [pth](weights/m_48_15_cpu3.pth) [npz](weights/m_48_15_cpu3.npz) |
 | m_48_15_cpu4 | 48 | 15 | cpu | 4 | 0.99426 | 2.4e-05 | [pth](weights/m_48_15_cpu4.pth) [npz](weights/m_48_15_cpu4.npz) |
 | m_48_15_cpu5 | 48 | 15 | cpu | 5 | 0.99388 | 2.5e-05 | [pth](weights/m_48_15_cpu5.pth) [npz](weights/m_48_15_cpu5.npz) |
+| m_64_15_cpu0 | 64 | 15 | cpu | 0 | 0.99436 | 2.4e-05 | [pth](weights/m_64_15_cpu0.pth) [npz](weights/m_64_15_cpu0.npz) |
+| m_64_15_cpu1 | 64 | 15 | cpu | 1 | 0.99468 | 2.3e-05 | [pth](weights/m_64_15_cpu1.pth) [npz](weights/m_64_15_cpu1.npz) |
+| m_64_15_cpu2 | 64 | 15 | cpu | 2 | 0.99466 | 2.3e-05 | [pth](weights/m_64_15_cpu2.pth) [npz](weights/m_64_15_cpu2.npz) |
+| m_64_15_cpu3 | 64 | 15 | cpu | 3 | 0.99477 | 2.3e-05 | [pth](weights/m_64_15_cpu3.pth) [npz](weights/m_64_15_cpu3.npz) |
 | m_64_15_cpu4 | 64 | 15 | cpu | 4 | 0.99650 | 1.9e-05 | [pth](weights/m_64_15_cpu4.pth) [npz](weights/m_64_15_cpu4.npz) |
 | m_64_15_cpu5 | 64 | 15 | cpu | 5 | 0.99675 | 1.8e-05 | [pth](weights/m_64_15_cpu5.pth) [npz](weights/m_64_15_cpu5.npz) |
 | m_16_20_cpu0 | 16 | 20 | cpu | 0 | 0.45863 | 1.6e-04 | [pth](weights/m_16_20_cpu0.pth) [npz](weights/m_16_20_cpu0.npz) |
@@ -80,6 +97,14 @@
 | m_16_20_cpu3 | 16 | 20 | cpu | 3 | 0.46396 | 1.6e-04 | [pth](weights/m_16_20_cpu3.pth) [npz](weights/m_16_20_cpu3.npz) |
 | m_24_20_cpu0 | 24 | 20 | cpu | 0 | 0.96305 | 6.0e-05 | [pth](weights/m_24_20_cpu0.pth) [npz](weights/m_24_20_cpu0.npz) |
 | m_24_20_cpu1 | 24 | 20 | cpu | 1 | 0.87199 | 1.1e-04 | [pth](weights/m_24_20_cpu1.pth) [npz](weights/m_24_20_cpu1.npz) |
+| m_24_20_cpu2 | 24 | 20 | cpu | 2 | 0.97177 | 5.2e-05 | [pth](weights/m_24_20_cpu2.pth) [npz](weights/m_24_20_cpu2.npz) |
+| m_24_20_cpu3 | 24 | 20 | cpu | 3 | 0.86774 | 1.1e-04 | [pth](weights/m_24_20_cpu3.pth) [npz](weights/m_24_20_cpu3.npz) |
+| m_24_20_cpu4 | 24 | 20 | cpu | 4 | 0.93795 | 7.6e-05 | [pth](weights/m_24_20_cpu4.pth) [npz](weights/m_24_20_cpu4.npz) |
+| m_24_20_cpu5 | 24 | 20 | cpu | 5 | 0.77469 | 1.3e-04 | [pth](weights/m_24_20_cpu5.pth) [npz](weights/m_24_20_cpu5.npz) |
+| m_32_20_cpu0 | 32 | 20 | cpu | 0 | 0.95597 | 6.5e-05 | [pth](weights/m_32_20_cpu0.pth) [npz](weights/m_32_20_cpu0.npz) |
+| m_32_20_cpu1 | 32 | 20 | cpu | 1 | 0.92648 | 8.3e-05 | [pth](weights/m_32_20_cpu1.pth) [npz](weights/m_32_20_cpu1.npz) |
+| m_32_20_cpu2 | 32 | 20 | cpu | 2 | 0.93605 | 7.7e-05 | [pth](weights/m_32_20_cpu2.pth) [npz](weights/m_32_20_cpu2.npz) |
+| m_32_20_cpu3 | 32 | 20 | cpu | 3 | 0.95538 | 6.5e-05 | [pth](weights/m_32_20_cpu3.pth) [npz](weights/m_32_20_cpu3.npz) |
 | m_32_20_cpu4 | 32 | 20 | cpu | 4 | 0.92672 | 8.2e-05 | [pth](weights/m_32_20_cpu4.pth) [npz](weights/m_32_20_cpu4.npz) |
 | m_32_20_cpu5 | 32 | 20 | cpu | 5 | 0.94330 | 7.3e-05 | [pth](weights/m_32_20_cpu5.pth) [npz](weights/m_32_20_cpu5.npz) |
 | m_48_20_cpu0 | 48 | 20 | cpu | 0 | 0.99256 | 2.7e-05 | [pth](weights/m_48_20_cpu0.pth) [npz](weights/m_48_20_cpu0.npz) |

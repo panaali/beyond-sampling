@@ -73,25 +73,86 @@ falls with T at fixed H; (16,15) and (16,20) are at risk of drop/screen; at H >=
 
 ## Status
 
-Pre-registered; training starting (2026-10-19). *(filled later)*
+**Done (2026-10-19, ~15:00-23:00 UTC).** 85 cpu models exist (78 trained here, 7 reused from T392): 90 grid slots minus 5 seeds
+skipped by the pre-registered screen ((16,15) s3-5, (16,20) s4-5); 13 of 15 points kept, 2 screened. Deviations from the pre-registration, none of which changes a weight or an accuracy:
+- **Evaluation chunking.** evaluate.py was changed from 1e6-row to 250k-row chunks after H = 64 runs hit MemoryError under
+  `ulimit -v 2500000`. The input stream is identical (sequential `standard_normal` draws; checked with `np.array_equal`).
+- **Save-step failures, recovered from checkpoints.** 24 runs trained to the end but failed at the save step (first job of
+  each helper container: `weights/` did not exist yet; H = 64: the MemoryError above). [recover.py](recover.py) re-saves
+  them from the run's final alg_zoo checkpoint and final train-log line; it reproduces an ordinary record exactly
+  (m_32_10_cpu3: same accuracy and weight hash). Their records say "re-saved by recover.py". Two helpers relaunched
+  queues into the same run dirs before the fix; alg_zoo's logs are append-only, so the finished runs' final lines survived.
+  m_64_15_cpu2/3 were retrained from scratch (CPU training is deterministic, so this is the same model).
+- **Screen timing.** (16,20) cpu2 and cpu3 were trained before cpu1's record existed (cpu1 had failed at the save step), so
+  the screen could not fire for them; they are kept in the registry as extra models of a screened point.
+- **Load balancing.** The lead container took (16,10) s2-3 from helper q06's tail ([queues/q00b.txt](queues/q00b.txt)).
 
 ## Results
 
-*(filled later; the live table is [registry.md](registry.md))*
+Accuracy by 1e7-sample MC on paired inputs per T (s.e. <= 1.6e-4). Primary panel = cpu seeds 0-5. Full per-model table:
+[registry.md](registry.md); machine-readable: [registry.json](registry.json). Reproduce one entry:
+`python evaluate.py weights/m_<H>_<T>_cpu<seed>.npz`; retrain one: `python train.py H T SEED`; rebuild:
+`python build_registry.py`.
+
+| T \ H | 16 | 24 | 32 | 48 | 64 |
+|---|---|---|---|---|---|
+| 10 | **kept** (3/6 >= .90): .824 / **.906** / .948 | kept (6/6): .985 / **.988** / .992 | kept (6/6): .988 / **.993** / .994 | kept (6/6): .995 / **.996** / .996 | kept (6/6): .995 / **.997** / .997 |
+| 15 | **screened**: .635 / **.717** / .730 (3 seeds) | kept (5/6): .898 / **.947** / .981 | kept (6/6): .970 / **.984** / .993 | kept (6/6): .991 / **.995** / .996 | kept (6/6): .994 / **.995** / .997 |
+| 20 | **screened**: .459 / **.464** / .515 (4 seeds) | kept (3/6): .775 / **.905** / .972 | kept (6/6): .927 / **.940** / .956 | kept (6/6): .985 / **.991** / .993 | kept (6/6): .995 / **.996** / .996 |
+
+Cells: status (cpu seeds at >= .90): min / **median** / max over cpu seeds. Zoo panel (ARC's GPU-trained models):
+(16,10) .880 / .890 / .910 / .932 / .948; (32,10) .991 / .991 / .993 / .993 / .994.
+
+Observations [measured]:
+- Accuracy rises with H and falls with T. The error rate 1 - acc spans ~30x across the kept grid: ~.09 at (16,10) and
+  (24,20), ~.06 at (32,20), ~.05 at (24,15), and .003-.016 at every other kept point.
+- Seed spread is large at the hard edge: (16,10) .824-.948, (24,20) .775-.972, (24,15) .898-.981; small for H >= 48.
+- (16,10): our cpu median .906 and the zoo seeds (.880-.948) agree; M_16,10 (.953) is above every one of the 11 retrains.
+- Pre-registered prediction: all three parts held (all T = 10 points with H >= 24 kept; (16,15) and (16,20) dropped
+  (screened); every T kept at H >= 32).
 
 ## Compute accounting
 
-*(filled later)* Counted: training samples (2^30 per model), wall time per model (in each record), evaluation forward
-passes (1e7 per model), Colab units (planned: 0).
+- Training: 85 cpu models x 2^30 samples (2^20 AdamW steps of batch 1024); 78 trained here (7 reused from T392), plus
+  ~3 partial or repeated runs from the relaunch incidents (m_64_15_cpu2/3 full retrains, ~5 h; two killed relaunches,
+  < 15 min each). Single-thread CPU wall time per model 0.6 h ((16,10)) to 4.7 h ((64,15) with contention); sum of
+  recorded wall times over the 85 cpu models 151 h (T392's 7 included). 13 containers (lead + 12 helper sessions),
+  2 jobs each, ~8 h end to end.
+- Evaluation: 1e7 forward passes per model, 95 models (85 cpu + 10 zoo), ~0.95e9 forward passes; 1-6 min each.
+- GPU / Colab units: 0. Download: 10 zoo .pth files (public bucket).
 
 ## Claims
 
-*(filled later)*
+- [measured] The 85-model cpu grid and the 10 zoo models are registered with weights in both formats and 1e7-MC
+  accuracies; 13 points meet the pre-registered keep rule, (16,15) and (16,20) are screened (seeds 0-1 both < .80).
+- [measured] T392's k = 1 models are bit-identical to `alg_zoo.training.train` on CPU (2^18-sample check, max |dW| = 0),
+  and our accuracies for them match T392's to 1e-4 (independent evaluation code and inputs).
+- [measured] At T = 10, typical H = 16 retrains reach .82-.95 (median .906 over our 6, .910 over the zoo's 5);
+  M_16,10's .953 is above all 11.
+- [inferred] For per-method sessions: the grid's error rates are 3-30x lower than M_16,10's except at (24,15), (24,20)
+  and (32,20), so methods whose cost scales with 1/error (rare events) or whose bars are relative (F) face very
+  different regimes across points; compare at matched error rate as well as matched (H, T).
+- [inferred] The training recipe, not capacity alone, limits small-H long-T points: (16,15) and (16,20) stall at
+  .63-.73 and ~.46 with all seeds, a plateau, not seed noise.
 
 ## Alternatives not ruled out
 
-*(filled later)*
+- The keep/screen outcomes are for the zoo schedule (2^30 samples, lr 0.04/sqrt(H)) only. (16,15), (16,20) and the
+  weak seeds at (24,20) might reach .9 with longer training or another lr; not tried (out of scope: the study fixes the
+  zoo recipe).
+- CPU vs GPU stream: our cpu seeds and ARC's GPU zoo seeds are different draws of the same recipe; at (16,10) and (32,10)
+  the two panels overlap, but a systematic CPU/GPU difference at other points is not excluded (only two zoo points exist).
+- Six seeds per point give a coarse view of the seed distribution; the zoo's best-of-5 selection means ARC's published
+  models (and M_16,10) sit in the upper tail, so a method that "holds" on our panels may still behave differently on
+  the best-of-5 model, and vice versa.
+- The recovered models' wall times come from the train logs; their weights come from the same final checkpoint file
+  train.py would have used (no evidence of any difference; one direct check).
 
 ## Failure modes
 
-*(filled later)*
+- Save-step fragility: the job script assumed `weights/` existed and that evaluation fits in 2.5 GB at H = 64; both
+  failed and are now handled (folders created, 250k-row chunks, automatic recovery from the checkpoint).
+- Queue relaunches: launching a second runner into the same run dirs restarts finished jobs; launch.sh now refuses while
+  a runner is alive.
+- The screen relies on git being current in each container; a lost or late record lets screened seeds run anyway
+  (harmless, extra models).
