@@ -67,5 +67,37 @@ from capacity (check: train curves, a second STE for binary if it fails to train
 an artefact of dead neurons (report per-neuron activity); DP cost may be dominated by the number of breakpoint
 intervals, not states.
 
-## Method / Results / Compute accounting / Claims / Alternatives not ruled out / Failure modes
-(to be filled after the runs)
+## Method
+`qtrain.py` (stacked QAT trainer, CUDA graph, resumable; T4), `qeval.py` (float64 1e8-sample accuracy, PTQ),
+`qcensus.py` (state census), `qdp.py` (binary exact closure + DP). Runs: `q_main.sh` (32 models, seeds 0-4 / 0-2,
+data seed 352), `q_ste.sh` (amendment 1). Checkpoints in data/quantised/ (not in git).
+
+## Results ([measured], unverified)
+**(1)/(2) Accuracy** (1e8 float64 inputs per model, independent stream; mean / sd / min / max over seeds; chance .10;
+M_16,10 float .95311 with the same evaluator; trained float control below uses the same trainer and seeds):
+
+| variant | seeds | mean | sd | min | max |
+|---|---|---|---|---|---|
+| float (relu) | 5 | 0.9061 | 0.0315 | 0.8816 | 0.9541 |
+| binary ht1 (pre-reg) | 5 | 0.2990 | 0.0202 | 0.2732 | 0.3229 |
+| binary ht3 | 5 | 0.2019 | 0.0123 | 0.1898 | 0.2186 |
+| binary tanh' | 5 | 0.2968 | 0.0280 | 0.2509 | 0.3177 |
+| int4 LSQ | 5 | 0.7236 | 0.0065 | 0.7166 | 0.7320 |
+| int8 LSQ | 5 | 0.8989 | 0.0585 | 0.7966 | 0.9407 |
+| binary ht1, x int4 | 3 | 0.2801 | 0.0379 | 0.2365 | 0.3052 |
+| binary ht3, x int4 | 3 | 0.2075 | 0.0184 | 0.1869 | 0.2222 |
+| binary tanh', x int4 | 3 | 0.2669 | 0.0391 | 0.2344 | 0.3103 |
+| int4, x int4 | 3 | 0.8398 | 0.0125 | 0.8261 | 0.8506 |
+| binary ht1, x int8 | 3 | 0.2924 | 0.0262 | 0.2631 | 0.3135 |
+| binary ht3, x int8 | 3 | 0.1698 | 0.0495 | 0.1132 | 0.2051 |
+| binary tanh', x int8 | 3 | 0.2807 | 0.0284 | 0.2537 | 0.3103 |
+| int4, x int8 | 3 | 0.7438 | 0.0049 | 0.7382 | 0.7474 |
+
+PTQ of M_16,10 itself (no retraining; s = 99.99th pct of positive pre-activations / (L-1)): float .95311, int8 .92784,
+int4 .34192, binary .16305.
+Binary STE choice (amendment 1, by mean accuracy only): the pre-registered hard-tanh |u| <= 1 (ht1) is best in all
+three binary cells (continuous .2990 vs tanh' .2968 vs ht3 .2019; x int4 .2801 / .2669 / .2075; x int8 .2924 / .2807 /
+.1698); census and DP use ht1.
+
+## Compute accounting / Claims / Alternatives not ruled out / Failure modes
+(to be completed)
