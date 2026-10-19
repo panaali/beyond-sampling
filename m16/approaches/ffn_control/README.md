@@ -173,34 +173,43 @@ running). Step 2: F reported for every candidate and for M_16,10; a deductive es
 
 ## Results
 
-### Step 1: simplicity ladder (bias-free ReLU MLPs, 2^28 samples, accuracy on 1e6 fresh inputs; 1e7 table: `results/acc.json`)
+### Step 1: simplicity ladder (bias-free ReLU MLPs; accuracy on 1e7 fresh inputs, seed 20261018, SE <= .00016; `results/acc.json`)
+
+2^28 samples:
 
 | depth | width | params | seed 0 | seed 1 | seed 2 | >= .95 on all seeds |
 |---|---|---|---|---|---|---|
-| 1 | 16 / 32 | 320 / 640 | see acc.json | | | no |
-| 1 | 64 | 1,280 | .606 | | | no |
-| 1 | 96 | 1,920 | .790 | | | no |
-| 1 | **128** | **2,560** | **.965** | **.954** | **.965** | yes on these 3 seeds, but seed luck (T394: 3 of 6 fresh seeds .939-.95) |
-| 2 | 24 | 1,056 | .825 | | | no |
+| 1 | 16 | 320 | .298 | | | no |
+| 1 | 32 | 640 | .423 | | | no |
+| 1 | 64 | 1,280 | .605 | | | no |
+| 1 | 96 | 1,920 | .789 | | | no |
+| 1 | 128 | 2,560 | .965 | .954 | .965 | yes on these 3 seeds, but seed luck (T394: 3 of 6 fresh seeds .939-.95) |
+| 1 | 256 | 5,120 | .986 | | | (seed 0 only) |
+| 1 | 512 | 10,240 | .984 | | | (seed 0 only) |
+| 2 | 16 | 576 | .499 | | | no |
+| 2 | 24 | 1,056 | .826 | | | no |
 | 2 | 32 | 1,664 | .855 | | | no |
 | 2 | 64 | 5,376 | .932 | | | no |
 | 2 | 128 | 18,944 | .980 | .973 | .966 | yes |
-| 3 | 24 | 1,632 | .863 | | | no |
-| 3 | 28 | 2,128 | .968 | .884 | (acc.json) | no |
-| 3 | 32 | 2,688 | .961 | .926 | .968 | no |
-| 3 | 48 | 5,568 | .981 | (acc.json) | | |
+| 3 | 16 | 832 | .822 | | | no |
+| 3 | 24 | 1,632 | .864 | | | no |
+| 3 | 28 | 2,128 | .968 | .885 | .941 | no |
+| 3 | 32 | 2,688 | .961 | .926 | .969 | no |
+| 3 | 48 | 5,568 | .981 | .977 | .973 | yes |
 | 3 | 64 | 9,472 | .986 | .985 | .980 | yes |
-| 4 | 32 | 3,712 | .981 | .976 | .986 | yes (most tractable by regions) |
-| controls (2^30) | L1h22 / L1h43 / L2h13 | 440 / 860 / 429 | .358 / .507 / .690 | | | no |
+| 4 | 32 | 3,712 | .981 | .976 | .986 | yes |
 
-2^30 samples (the zoo's full schedule; accuracy on 1e6 fresh inputs):
+432/860-parameter controls (2^30, 3 seeds): L1h22 (440) .358 / .358 / .354; L1h43 (860) .507 / .518 / .493;
+L2h13 (429) .691 / .541 / .483; L2h21 (861) .818 / .817 / .816. M_16,10: .9531 with 432 parameters.
+
+2^30 samples (the zoo's full schedule):
 
 | depth | width | params | seed 0 | seed 1 | seed 2 | >= .95 on all seeds |
 |---|---|---|---|---|---|---|
-| 1 | 64 | 1,280 | .602 | | | no |
-| 1 | 80 | 1,600 | .659 | | | no |
-| 1 | 96 | 1,920 | .974 | .904 | .973 | no |
-| 1 | **128** | **2,560** | **.990** | **.990** | **.990** | **yes** |
+| 1 | 64 | 1,280 | .601 | | | no |
+| 1 | 80 | 1,600 | .660 | | | no |
+| 1 | 96 | 1,920 | .973 | .903 | .973 | no |
+| 1 | **128** | **2,560** | **.990** | **.990** | **.990** | **yes (simplest)** |
 
 M_16,10: .9531 with 432 parameters. Reproduce: `python train.py D1w128 0 28` (or `... 30`), `python analyze.py acc`.
 
@@ -211,7 +220,8 @@ M_16,10: .9531 with 432 parameters. Reproduce: `python train.py D1w128 0 28` (or
   D1w96 .79 -> .97), so deeper configs that failed at 2^28 might pass at 2^30; only depth 1 was retrained.
   Depth 1 jumps from .79 at width 96 to .95-.965 at 128. No depth-2 or depth-3 net with fewer parameters passes on
   all seeds (D3w28/D3w32 pass on some seeds only: SGD lands in worse minima on others).
-- **Most tractable by the pre-registered region criterion:** D4w32 (lowest realised counts, below).
+- **Most tractable by the pre-registered region criterion:** D4w32 (lowest realised counts, below). The narrowest
+  passing nets per depth at 2^28: depth 2 width 128, depth 3 width 48 (D3w48 not region-counted), depth 4 width 32.
 - At the 432-parameter budget no MLP comes close: .36 (1 layer), .69 (2 layers) vs the RNN's .953. Weight reuse
   over 10 steps buys the RNN roughly 6x in parameters on this task.
 
