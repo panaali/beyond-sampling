@@ -63,3 +63,16 @@ rational (or outward-rounded interval) arithmetic. T400 owns the exact format; t
 ## Target
 t0 is chosen so that the truth is < ~1e-9 (README "Target threshold"). The truth comes from T340's conditional-law
 estimator along x_p3 (exact 1-D law, unbiased), for comparison only.
+
+## v2 amendments (2026-10-19, agreed with T400)
+- **Canonical node id:** REGION = (tri, gates), with gates an int array (10, 16): 1 = on (z > 0), 0 = off, -1 = free.
+  - A step-k prefix cell has rows k+1..10 = -1. ReLU splits set entries in later rows.
+  - Verifiers rebuild every constraint exactly from common.Wi/Wh/Wo; float G and A are caches only.
+  - From the `hist` bytes: gates[:k] = np.unpackbits(np.frombuffer(hist, np.uint8)).reshape(k, 16).
+- Splits are gate-only; there are no input-space splits.
+- t0 is a parameter everywhere. The target is rarer than 1.5 (truth < ~1e-9).
+- T400's code lives on branch claude/t400-bound-rigour, `m16/approaches/event_cone_rigour/rigour.py`:
+  - `mass_upper(tri, gates_full, t0) -> (ub, lb, info)`, for k = 10 cells including the event;
+  - a cheap `mass_upper` for k < 10 cells (event ignored), requested for charge-and-stop;
+  - `verify_prune(tri, gates_partial, cert) -> bool`, with cert kind 'lp' (l, u, optional duals) or 'crown'
+    (algorithm plus per-cell alphas and splits).
