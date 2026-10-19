@@ -756,7 +756,7 @@ def mass_cell_fast(tri, gates, k, t0=1.5, tol=1.1, budget=4000, zbins=24, zratio
         return float(up(math.fsum(hi))), float(dn(math.fsum(lo)))
     th, tl = sums()
     while th > tol * tl and len(lo) < budget:
-        m = min(budget - len(lo), max(8, len(lo) // 16))
+        m = min(budget - len(lo), max(8, len(lo) // 16), len(lo))   # T400 fix: m <= number of simplices
         top = np.argpartition(-(hi - lo), m - 1)[:m] if m < len(lo) else np.arange(len(lo))
         Pl, Ph = Mlo[top], Mhi[top]
         Pm = 0.5 * Pl + 0.5 * Ph
