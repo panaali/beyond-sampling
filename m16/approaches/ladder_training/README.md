@@ -96,6 +96,23 @@ Zoo (4,4) 2^30 reference: accuracy 0.477-0.602, mean 0.556.
   separate: (a) accuracy rises but errors stay bulk (check bnd1/bnd_med); (b) a pass caused only by higher accuracy
   shrinking p(1-p) is NOT a confound for the protocol but is reported (we report sampling RMSE next to the error).
 
+### Amendment A (2026-10-19 09:40, after L2 seeds 0-4 and D31 seed 0, before D31 seeds 1-4 and any recipe run)
+
+- **Disclosure:** D31 uses the scaled warm-up (2^15 steps, 1/64 of the run, the zoo's schedule shape), not the
+  literal default 2^14; `train.py ... 31 scaled`.
+- **Observation so far** [measured]: L2 accuracies 0.4866/0.6002/0.6026/0.4961/0.6018 (mean 0.5575) and D31 seed 0
+  0.478 sit on the zoo's per-seed values (0.477/0.602/0.602/0.498/0.602). Together with the reproduction result
+  (9/10 seeds converge to the zoo's own weights), the initial weights, not the amount or speed of training, decide
+  the (4,4) basin. More data or lr x2 therefore does not test "undertraining" in the intended sense.
+- **T111b (runs only if the pre-registered test ends "inconclusive about undertraining"):** search new seeds for
+  better (4,4) basins. Seeds 5-44 at n_train = 2^28, scaled warm-up (tag `28s`, ~7 min each; screening only); the
+  5 seeds with the highest 2^28 accuracy are retrained at the exact zoo setting (2^30, tag `30s`). Those 5 models
+  are the T111b set; "better trained" again needs mean accuracy >= 0.606. The recipe test, truth, noisy copies and
+  pass rule are exactly as for T111 (`run111.py 30s`). If no seed in 5-44 exceeds 0.62 at 2^28, report that
+  H = 4, T = 4 shows no better basin in 45 seeds (the zoo-trained regime is the ceiling we can reach), and T111
+  stays inconclusive on undertraining at this size.
+- The recipe is still run on L2 and D31 as pre-registered (they are the "primary/secondary" sets of T111 proper).
+
 ## Status
 
 Running (2026-10-19): training queue with 2 workers (`queue2.sh jobs.txt`).
