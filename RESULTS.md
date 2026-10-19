@@ -7,6 +7,10 @@ collection (commit a83076a), and the AlgZoo addenda before any AlgZoo neuron was
 
 ## Study 1: Qwen3-0.6B MLP neurons (pre-registered H1-H3)
 
+> **Later result (2026-10-19):** two independent re-runs with properly mixed random directions (T6, T383) answered the
+> question on this test; the current verdict is ledger row **H-Q5** in [INDEX.md](INDEX.md#4-hypothesis-ledger). The
+> pre-registered study below is unchanged.
+
 Setup: 1.2M tokens of pile-10k; 84 random neuron poles plus 28 random-direction controls, blinded and shuffled
 together. Ten explainer agents saw training examples only. Ten separate judge agents saw only an
 explanation and 12 held-out snippets, and never saw activations. 30 judge items paired an explanation with
