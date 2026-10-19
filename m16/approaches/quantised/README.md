@@ -59,6 +59,15 @@ binary (hard-tanh |u| <= 1 STE) models sit at train accuracy ~.30 after 98k of 1
 (`--ste ht3`) and tanh' (`--ste tanh`). All three are reported. Census and DP use, per binary cell, the STE variant
 with the highest mean float64 accuracy (chosen on accuracy only, before census/DP).
 
+**Amendment 2 (2026-10-19 04:00 UTC, DRI request; pushed before the runs it governs).** Width ladder for the owner's
+question (does a quantised net that is still ~95% accurate become exactly solvable?): binary (ht1 STE, the amendment-1
+choice) and int4 (LSQ) activations at H = 32 and H = 64, seeds 0-2, continuous inputs, otherwise the same zoo recipe
+(lr 0.04/sqrt(H), zoo init of DistRNN(H)), 1e8 float64 evaluation. Reported: the first width reaching >= .95 mean
+accuracy per activation type (or none), and its reachable-state census (1e9 inputs; binary keys exact up to 64 bits,
+int4 hashed). Skipped if the projected spend would pass the 20-unit cap. Also (DRI): tie rate and tie-free accuracy for
+the discrete-input cells (label convention in training and evaluation: 2nd-largest of the DISCRETISED inputs, ties
+broken by the lower index).
+
 **Done when** each variant has accuracy, state counts and DP cost vs sampling, or a scoped negative saying which variant
 breaks and why. Heavy CPU slot requested from the DRI only if the DP needs one.
 

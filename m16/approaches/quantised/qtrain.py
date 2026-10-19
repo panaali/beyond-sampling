@@ -94,7 +94,10 @@ def main():
     ap.add_argument("--steps", type=int, default=0, help="override number of steps (dry runs)")
     ap.add_argument("--warmup", type=int, default=2 ** 14)
     ap.add_argument("--ste", default="ht1", choices=["ht1", "ht3", "tanh"])
+    ap.add_argument("--H", type=int, default=16)
     a = ap.parse_args(); dev = a.device; STE["kind"] = a.ste
+    global H
+    H = a.H
     spec = [dict(zip(("name", "seed", "act", "grid"), (f[0], int(f[1]), int(f[2]), int(f[3])))) for f in (s.split(":") for s in a.spec)]
     K = len(spec); B = a.batch; n_steps = a.steps or int(2 ** a.log2n) // B; warm = a.warmup
     inits = [TR.zoo_init(H, T, sp["seed"]) for sp in spec]

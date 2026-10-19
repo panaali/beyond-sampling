@@ -32,7 +32,7 @@ def acc(Wi, Wh, Wo, act, s, grid, n, seed, B=1 << 22):
     g = th.Generator(device=DEV); g.manual_seed(seed); ok = 0; done = 0
     while done < n:
         m = min(B, n - done); x = disc(th.randn(m, 10, generator=g, device=DEV, dtype=th.float64), grid)
-        h = th.zeros(m, 16, dtype=th.float64, device=DEV)
+        h = th.zeros(m, Wh.shape[0], dtype=th.float64, device=DEV)
         for t in range(10):
             h = q_inf(h @ Wh.T + x[:, t:t + 1] * Wi[None], act, s)
         ok += int(((h @ Wo.T).argmax(1) == label(x)).sum()); done += m
