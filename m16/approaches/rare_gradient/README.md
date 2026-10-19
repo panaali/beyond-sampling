@@ -95,8 +95,17 @@ delta_u, models, the go line and the resolution rule (|FD| > 3 s.e.) are unchang
 (orig lowered from 1e8 because the ladder costs 4.7x more forward passes per draw). The whole ladder is reported, so
 the convergence of FD as delta -> 0 is visible.
 
+### Amendment A2 (2026-10-19 00:45, DRI request; before any s528 or orig truth output was seen)
+(a) dev3_s526 is **development**: A1 was written after its first truth run, so it does not count towards the go line.
+The go line is scored on s528 + orig only (12 directions): GO if >= 80% of the resolved directions pass and at least
+8 of 12 are resolved (2/3 of them, as the 12/18 rule had). s526 is reported in the same table, marked dev.
+(b) The orig point: the event is E1(1.25) exactly as in T340 (rank-3 pick, g23 > 1.25); K3 = 1.342e-6 against the
+T340 truth 1.086e-6 (1.24x), inside H-R1. (The 1.21e-9 in my message to the DRI was dev3_s526's K3, not orig's.)
+(c) dev3_s526's truth_fd2 run stopped at N = 1e7 (pre-registered 2e7), resolved at |z| >= 25 on every direction, to
+free a CPU slot for orig.
+
 ## Status
-Pre-registered; amendment A1; truth runs in progress.
+Pre-registered; amendments A1, A2; truth runs in progress.
 
 ## Results
 (none yet)
