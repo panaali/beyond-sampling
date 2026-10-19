@@ -1,0 +1,41 @@
+STEP 1a: rho = |P c| / |c.d| (E: decision roots, G: gate roots), 2,048 frozen nodes x 5 strata per model
+  dev3_s500: E: n 5972 med 0.172 p99 2.95 max 22 (256 nodes 17.4) Hill 1/2/5% 1.37/1.71/2.01 | G: n 36077 med 1 p99 8.65 max 388 (256 nodes 120) Hill 1/2/5% 1.48/1.40/1.31 | max k(s*)rho 25.6
+  dev3_s501: E: n 7081 med 0.161 p99 2.86 max 24.2 (256 nodes 24.2) Hill 1/2/5% 1.76/1.84/2.11 | G: n 52117 med 1 p99 11.8 max 979 (256 nodes 979) Hill 1/2/5% 1.53/1.37/1.09 | max k(s*)rho 27
+  dev3_s502: E: n 7907 med 0.0875 p99 2.63 max 12.6 (256 nodes 7.95) Hill 1/2/5% 2.16/2.15/2.32 | G: n 47554 med 1 p99 5.19 max 228 (256 nodes 85.6) Hill 1/2/5% 1.26/1.51/1.58 | max k(s*)rho 14.7
+  dev3_s503: E: n 7236 med 0.129 p99 2.81 max 30.3 (256 nodes 21.8) Hill 1/2/5% 2.05/2.44/2.54 | G: n 37859 med 1 p99 7.15 max 170 (256 nodes 29) Hill 1/2/5% 1.58/1.51/1.53 | max k(s*)rho 35.2
+  dev3_s504: E: n 5561 med 0.202 p99 3.1 max 58.5 (256 nodes 26.1) Hill 1/2/5% 1.78/1.78/1.84 | G: n 66467 med 1 p99 8.47 max 312 (256 nodes 312) Hill 1/2/5% 1.34/1.42/1.30 | max k(s*)rho 64.1
+  Hill(2%) inside widened T449 ranges: E 5/5, G 5/5; max grows 256 -> 2048 nodes: E 4/5, G 3/5 (pre-registered: >= 4/5 each)
+
+STEPS 1b / 2: per level, sum over strata of M_h x (cell statistic); 400 cells x 64 points per stratum
+    k    cells |  W0 mean     min   T449 |   W1_box |    W1_CA      max | smooth frac (min stratum count)
+    0  1.2e+03 |   0.4112  0.3359    nan |   0.3002 |      nan      nan | 0.000(0.0) 0.000(0.0) 0.000(0.0) 0.000(0.0) 0.000(0.0)
+    6  7.5e+04 |   0.3646  0.3009    nan |   0.2537 |      nan      nan | 0.000(0.0) 0.000(0.0) 0.000(0.0) 0.000(0.0) 0.000(0.0)
+   12  4.8e+06 |   0.2865  0.2124  0.262 |   0.1911 |      nan      nan | 0.004(0.0) 0.002(0.0) 0.001(0.0) 0.001(0.0) 0.001(0.0)
+   18  3.1e+08 |   0.2456  0.1860    nan |   0.1561 |      nan      nan | 0.024(0.0) 0.011(0.0) 0.002(0.0) 0.005(0.0) 0.024(0.0)
+   24  2.0e+10 |   0.1957  0.1479    nan |   0.1161 | 7.68e-03 7.68e-03 | 0.053(0.0) 0.036(0.0) 0.021(2.0) 0.025(0.0) 0.052(0.0)
+   36  8.0e+13 |   0.1082  0.0858  0.098 |   0.0538 | 2.23e-03 2.96e-03 | 0.243(18.0) 0.181(12.0) 0.143(25.0) 0.140(16.0) 0.243(6.0)
+
+  ratio = (statistic / 2) / RMS error; 5-model mean (min model)
+  B = 6e+04 (error 1.0e-03; cells <= 10 B = 6e+05)
+    k  0  1.2e+03 within 10B: W0     205.6x (   167.9x) | W1_box     150.1x (   122.3x) | W1_CA       nanx (     nanx)
+    k  6  7.5e+04 within 10B: W0     182.3x (   150.5x) | W1_box     126.9x (   105.3x) | W1_CA       nanx (     nanx)
+    k 12  4.8e+06     beyond: W0     143.3x (   106.2x) | W1_box      95.6x (    70.9x) | W1_CA       nanx (     nanx)
+    k 18  3.1e+08     beyond: W0     122.8x (    93.0x) | W1_box      78.1x (    59.5x) | W1_CA       nanx (     nanx)
+    k 24  2.0e+10     beyond: W0      97.9x (    73.9x) | W1_box      58.0x (    44.4x) | W1_CA       3.8x (     3.8x)
+    k 36  8.0e+13     beyond: W0      54.1x (    42.9x) | W1_box      26.9x (    21.8x) | W1_CA       1.1x (     0.5x)
+  B = 1e+06 (error 2.0e-04; cells <= 10 B = 1e+07)
+    k  0  1.2e+03 within 10B: W0    1028.1x (   839.6x) | W1_box     750.4x (   611.7x) | W1_CA       nanx (     nanx)
+    k  6  7.5e+04 within 10B: W0     911.5x (   752.4x) | W1_box     634.3x (   526.5x) | W1_CA       nanx (     nanx)
+    k 12  4.8e+06 within 10B: W0     716.4x (   531.0x) | W1_box     477.8x (   354.7x) | W1_CA       nanx (     nanx)
+    k 18  3.1e+08     beyond: W0     614.1x (   465.0x) | W1_box     390.3x (   297.6x) | W1_CA       nanx (     nanx)
+    k 24  2.0e+10     beyond: W0     489.3x (   369.7x) | W1_box     290.1x (   221.8x) | W1_CA      19.2x (    19.2x)
+    k 36  8.0e+13     beyond: W0     270.5x (   214.5x) | W1_box     134.5x (   109.1x) | W1_CA       5.6x (     2.3x)
+  B = 4e+06 (error 9.0e-05; cells <= 10 B = 4e+07)
+    k  0  1.2e+03 within 10B: W0    2284.6x (  1865.8x) | W1_box    1667.7x (  1359.3x) | W1_CA       nanx (     nanx)
+    k  6  7.5e+04 within 10B: W0    2025.5x (  1671.9x) | W1_box    1409.7x (  1170.1x) | W1_CA       nanx (     nanx)
+    k 12  4.8e+06 within 10B: W0    1591.9x (  1179.9x) | W1_box    1061.9x (   788.2x) | W1_CA       nanx (     nanx)
+    k 18  3.1e+08     beyond: W0    1364.6x (  1033.3x) | W1_box     867.3x (   661.3x) | W1_CA       nanx (     nanx)
+    k 24  2.0e+10     beyond: W0    1087.4x (   821.5x) | W1_box     644.7x (   492.8x) | W1_CA      42.7x (    42.7x)
+    k 36  8.0e+13     beyond: W0     601.0x (   476.6x) | W1_box     298.9x (   242.4x) | W1_CA      12.4x (     5.0x)
+
+  T449 comparability: W0 / 2 / 9.5e-5 (its 10-model RMS at 1e6) at k = 36: mean 569x, min 452x
