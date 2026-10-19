@@ -1,7 +1,7 @@
 """T416: rigorous charging of k = 10 survivors (event rows exact). Per cell: tier (i) M2 (rigour.mass_upper,
 event rows, N_delta); if its ub < CAP the cell is charged with it; otherwise tier (ii) m5t_fast.mass_cell_fast
 (budget B), charged with min(M2, M5t). Every charge is a rigorous upper bound on gamma(cell ∩ E(t0) ∩ N_delta).
-usage: python tiered10.py SURV_FILE t0 i0 i1 [CAP=1e-16] [B=4000] -> results_t10_<name>_<t0>_<i0>.json
+usage: python tiered10.py SURV_FILE t0 i0 i1 [CAP=1e-16] [B=4000] [STEP=1] -> results_t10_<name>_<t0>_<i0>.json
 (PROVISIONAL until T417, the independent audit of m5t_fast, reports.)"""
 import json
 import os
@@ -20,12 +20,13 @@ import rigour as R
 f, t0, i0, i1 = sys.argv[1], float(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
 CAP = float(sys.argv[5]) if len(sys.argv) > 5 else 1e-16
 B = int(sys.argv[6]) if len(sys.argv) > 6 else 4000
+STEP = int(sys.argv[7]) if len(sys.argv) > 7 else 1                 # >1: a sample (sizing runs)
 c = np.load(f, allow_pickle=True); tri = tuple(int(v) for v in c["tri"]); norm = 1 / R.q(float(c["delta"]))
 name = os.path.basename(f)[:-4]
-path = f"results_t10_{name}_{t0}_{i0}.json"
+path = f"results_t10_{name}_{t0}_{i0}.json" if STEP == 1 else f"results_t10sample_{name}_{t0}_{i0}_step{STEP}.json"
 out = json.load(open(path)) if os.path.exists(path) else []          # resumable
 done = {o["i"] for o in out}
-for i in range(i0, min(i1, len(c["gates"]))):
+for i in range(i0, min(i1, len(c["gates"])), STEP):
     if i in done:
         continue
     g = c["gates"][i].astype(int); rec = dict(i=i)
