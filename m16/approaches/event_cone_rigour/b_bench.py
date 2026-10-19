@@ -18,7 +18,7 @@ d = np.load("data/bench_182_k4.npz", allow_pickle=True)
 tri = tuple(int(v) for v in d["tri"]); k = int(d["k"]); N = int(sys.argv[2])
 gates_of = lambda h: np.unpackbits(np.frombuffer(h, np.uint8)).reshape(k, 16).astype(int)  # noqa: E731
 out = dict(B1=[], B2=[])
-for i in np.where(d["probe_best"] > 0)[0]:
+for i in (np.where(d["probe_best"] > 0)[0] if len(sys.argv) < 5 else []):
     g = np.full((10, 16), -1); g[:k] = gates_of(d["hist"][i])
     t = time.time(); ok, info = V.verify_prune(tri, g, k, event_aware=True, return_info=True)
     out["B1"].append(dict(i=int(i), verified=ok, t=time.time() - t, margin_lb=info.get("margin_lb")))
@@ -85,6 +85,13 @@ for i in range(int(sys.argv[3]) if len(sys.argv) > 3 else 0, N):
                     gl[k + 1 + s][j] = f
                 leaves.append(gl)
             ok = V.verify_leaves(tri, leaves, k + 1, event_aware=True)
+            if not ok and len(sys.argv) > 4:
+                base = leaves[0].copy(); base[k + 1:] = -1
+                Rv = V.Relax(tri, base, k + 1); inf_ = dict(lps=0); V._bounds(Rv, True, inf_)
+                print("lo/hi diff vs relax2", np.nanmax(np.abs(Rv.lo - R.lo)), np.nanmax(np.abs(Rv.hi - R.hi)))
+                for gl, fx in zip(leaves, R.leaves):
+                    Rv.gates = gl; V._final(Rv, inf_)
+                    print("leaf", fx, "margin_lb", inf_["margin_lb"], "per-leaf", V.verify_prune(tri, gl, k + 1, event_aware=True, return_info=True)[1].get("margin_lb"))
             nleaf = len(leaves)
         else:
             ok = None; nleaf = 0

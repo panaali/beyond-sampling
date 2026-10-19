@@ -197,6 +197,8 @@ def _final(R, info):
     P = R.program(R.nb, False)                                   # min max_j (L_j - L_p3) > 0
     info["lps"] += 1
     m = margin_lb(*P, extra=R.ev, eextra=R.eev)                  # rows tau + (L_p3 - L_j) >= 0
+    if m == -np.inf:                                             # float LP infeasible: prove the leaf empty
+        m = margin_lb(*P)                                        # phase 1 (tau on every row)
     info["margin_lb"] = float(m)
     return bool(m > 0)
 
