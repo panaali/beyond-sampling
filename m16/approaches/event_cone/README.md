@@ -618,3 +618,21 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
   - The 6.6e-11 vs 1.55e-10 gap (~2 sigma) is consistent with chance for a heavy-tailed estimator with 8 nonzero
     lines. Its s.e. is unreliable at that count.
   - The plain MC (1.55e-10 +- 0.37e-10) is the reference.
+
+## (9,3,2) / (3,9,2) k = 10 enumeration: shard plan (2026-10-19)
+- Both triples to k = 4 by `bnb.py`: (9,3,2) has 2 / 34 / 414 / 2,891 survivors at k = 1..4, and (3,9,2) has
+  2 / 34 / 414 / 2,849. 0 line-walk event prefixes were pruned.
+- From the k = 4 survivors, `dfs_stream.py` (sharded depth-first, checkpointed) carries each parent to k = 10.
+  - Validated on (1,8,2): identical k = 10 survivors for the same parents; resume reproduces them.
+- **(9,3,2):** 6 shards (`s<i>of6`), each split in halves.
+  - Half 1: me (s0, s1), worker A (s2, s3), worker B (s4, s5).
+  - Half 2 (`_h2`): C9 (s0, s1), C10 (s2, s3), C11 (s4, s5).
+- **(3,9,2):** 8 shards (`s<i>of8`).
+  - Half 1 or whole shard: W1 (s0, s1), W2 (s2 whole, s3), W3 (s4 whole, s5), W4 (s6, s7).
+  - Half 2: C12 (s0, s1), C13 (s3, s5), C14 (s6, s7).
+- Caps: 100 CPU-h per worker (DRI). Cost is about 50-400 CPU-s per parent, heavy-tailed. The k = 10 survivor counts are
+  large: about 1e3-6e3 per 5-25 parents in early shards, so (9,3,2) projects to ~5e5 or more.
+- When all shards are DONE:
+  1. the union of `surv_dfs_*` files = the k = 10 survivors;
+  2. the 17-hit soundness test (`hits/prob_2.5_hits.npz`) against the (9,3,2) union;
+  3. hand-off to T400.
