@@ -4,6 +4,8 @@
 
 ARC’s challenge uses a tiny network with 16 neurons and 432 adjustable numbers, called weights. It reads 10 numbers and tries to identify the second-largest. The goal is to work out how often it gets the answer right from its weights and internal calculations, using about as much computation as random testing would need for the same precision.
 
+Original sources: [ARC’s AlgZoo challenge](https://www.alignmentforum.org/posts/x8BbjZqooS4LFXS8Z/algzoo-uninterpreted-models-with-fewer-than-1-500-parameters) · [AlgZoo models and code](https://github.com/alignment-research-center/alg-zoo).
+
 **[Interactive Tutorial](https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX)** · [Results in plain language](INDEX.md) · [Current status](STATUS.md)
 
 **A concrete win on the smaller challenge: our method outperformed ARC’s two published estimators in our reproduction.** ARC described its methods for the four-neuron, three-number network as roughly matching random testing. Our mechanism-derived method did substantially better: about **50 times lower squared error than sampling** under the tested computation comparison. An independent check confirmed our advantage over sampling. This result applies to the studied trained network and specified weight changes; it does not establish a solution to the full challenge or a wall-clock speedup. [Published-method comparison](m16/approaches/arc_m43_repro/README.md) · [Independent check](review/understand_m43/README.md).
