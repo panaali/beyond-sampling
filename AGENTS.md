@@ -39,6 +39,8 @@ is recorded there only, plus one line here if it binds agents.
 - **Record each fact once and link to it** (this table and section). ([10-19 06:5x](OWNER_QA.md#d-1019-065x))
 - **When an approach stops for compute or budget, record a rough estimate** of the compute (FLOPs / CPU-h / GPU-h, cost today and in ~5 years) and the agent effort that would finish it, and whether more compute would actually help, in [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md). ([10-19 15:2x](OWNER_QA.md#d-1019-152x))
 
+- **Temporary DRI:** Codex root coordinates during Claude’s credit outage under the [20 October owner directive](OWNER_QA.md#d-1020-takeover), superseding older Claude-only signoff wording for that interval; independent verification remains mandatory. [Takeover decisions](docs/DRI_TAKEOVER_2026-10-20.md).
+
 ## Rules
 
 0. **The task board [TASKS.md](TASKS.md) is mandatory for every agent (Claude, Codex, humans).** Many agents work

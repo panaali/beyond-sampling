@@ -28,7 +28,7 @@ goal: predicting failures too rare for testing to catch.
   network an improved approximation passed its first test and a sealed test runs (T370). Sampling focused on the most
   likely failure points estimates the studied mistake (about 1.5 in 10 billion) with about 1e5x less computing than plain
   random testing (T436); on 15 blind points it is within 2x on all 15, but its error bars are honest on only 12 (T453,
-  T454); an improved version scored on 15 fresh points is within 3% with honest error bars on all 15 (T456).
+  T454); an improved version scored on 15 fresh points is within 3% with combined-error z scores within 2 on all 15 (T456; saved arithmetic checked by T461, general interval calibration still open).
 - *Rating safe use* ("if the top numbers differ by at least X, the error rate is Y"): works on some networks, partly on
   the challenge network (T401, T407); on a wider network it works for the rarer conditions instead (T427, interim).
 - *Locating and repairing:* a 12-weight edit makes the studied mistake about 17x rarer with almost no accuracy cost while
@@ -55,7 +55,9 @@ networks (T352), mixing exact regions with tracing (T46), listing mistake patter
 T390), a GPU checker (T399), algebraic rewrites (T291, T3), longer training of a small test rung (T111), a deductive
 method for the all-at-once network (T408). A bug re-check of the small-rung calculator changed no verdicts (T443).
 
-**Running now:** see [TASKS.md](TASKS.md#in-progress) (owners and sessions); the next DRI's queue is in
+**Coordination, 20 October:** Codex is acting DRI during Claude’s credit outage. The live Codex roster initially had no workers; two bounded reviews and an independently checked saved-result audit are complete. Existing Claude rows do not establish live sessions. [Takeover decisions and next priorities](docs/DRI_TAKEOVER_2026-10-20.md).
+
+**Recorded assignments:** see [TASKS.md](TASKS.md#in-progress) (owners and sessions); the next DRI's queue is in
 [DRI_HANDBOOK.md section 12](DRI_HANDBOOK.md).
 
 **Documents:** what more money or compute would solve in [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md).
