@@ -1,0 +1,5 @@
+# Preserved first pass and bounded lower-bound refinement
+
+First pass: 44 frozen boxes, 128/256-bit checks, 2.743 CPU seconds, peak RSS214364 KiB. Six thin-a cases (k=54,55,56,60,80,100) have floating upper values below the enclosed conservative upper-sum expression. The crude true-mass lower bound over the whole box and g in [2.5,3] remains below float, so it does not prove underestimation. Original implementation/results/logs are preserved in `first_pass/`.
+
+Before the second numerical pass, freeze a tighter positive subregion: intersect r with [-1/2,-1/4] when that interval has positive width, otherwise keep the original r interval; restrict each a/low coordinate to the first min(original width,1/8); restrict g to [5/2,21/8]. Use the same independent density-infimum-times-volume proof. Original 44 inputs and seeds are unchanged. This is a diagnostic refinement after observing a failed first lower-bound witness, not an untouched preregistered success. The grid24x48 follow-up will use the first true-underestimate control if one is established. No expanded search or network evaluation.
