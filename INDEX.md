@@ -1,20 +1,60 @@
-# Project index: clean-neurons
+# Beyond Sampling — results ledger
+
+This page explains what we have learned, how much confidence to place in it, and what remains to be done. Our goal is to predict a neural network’s mistakes by understanding its calculations, rather than relying only on large numbers of random tests.
+
+[Project overview](README.md) · [Interactive Tutorial](https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX) · [Current work](TASKS.md)
+
+## What we have achieved
+
+**There are two candidates for the full ARC challenge. Neither has been accepted by ARC.** Their measured performance is encouraging, but we have not established a solution that meets the strictest requirement: deriving the estimate from the network without relying on unproved assumptions about unexamined inputs.
+
+| Result | What it means | What remains uncertain |
+|---|---|---|
+| **Our method outperformed ARC’s published methods for the smaller challenge in our reproduction.** | ARC described its two methods for a four-neuron, three-number network as roughly matching random testing. Our mechanism-derived method achieved about **50 times lower squared error than sampling** under the tested computation comparison; an independent check confirmed our advantage over sampling. | The comparison concerns ARC’s published smaller-model examples, not its reported unpublished full-challenge solution. Our result is scoped to the studied trained network and specified weight changes, and is not a runtime speedup. |
+| **One candidate beats random testing at the same compute budget.** | Following the network exactly along selected input slices, then combining them, gave about **half the squared error** of random testing on a fresh panel of networks trained for the same task. Independently scored. | We lack a proof that the selected slices represent the rest of the input space accurately enough. This result does not establish performance on the original target or copies with noisy weights. |
+| **A second candidate uses no random testing while it runs and was tested at a much smaller budget.** | A fixed set of shortcuts about how the network makes mistakes gave about **2.6 times the squared error** of equal-compute random testing. This supports a possible “rough match” interpretation of the challenge. Independently scored. | Random testing is still more accurate at that budget. The shortcuts were developed using sampled data, and the method fails on noisy weights. ARC’s acceptance is unresolved. |
+| **Some extremely rare mistakes can be estimated without billions of ordinary trials.** | On certain tested cases, methods using the network’s structure estimated failure probabilities around **one in billions**. Independent checks support the stated cases. | Other failure patterns are badly underestimated. We cannot assume these methods reliably find every rare failure. |
+| **A small, targeted weight edit can reduce a rare mistake.** | Changing **12 weights** made one studied mistake **17–19 times less likely**. A separate implementation reproduced the result. | Another type of mistake became more common. Fixing one failure does not by itself establish an overall safety improvement. |
+| **We have useful components for mathematical probability bounds.** | Reviewed calculations can bound the probability of certain input regions under explicit numerical assumptions. | The complete chain—from covering all relevant inputs to adding their probabilities—has not been verified for the full challenge. Component checks are not a whole-network guarantee. |
+| **Independent checks caught two important reliability problems.** | We reproduced a numerical error in one proposed probability bound and showed that an importance-sampling warning can miss failure modes. A local numerical repair and a conservative reporting alternative were checked. | These repairs still need integration and validation on the full trained-network workflow. The findings do not invalidate every other bound or saved experiment. |
+
+## How to read the comparisons
+
+- **Squared error** measures how far an estimated accuracy is from the true accuracy: square that difference and average across networks. Smaller is better. “Half the squared error” does not mean half the typical error.
+- **Equal compute** means equal counted computation, including the estimator’s work. It does not automatically mean equal elapsed time on a computer. The two main candidates were tested at very different budgets: about 4 million versus 3,300 complete-network-run equivalents.
+- **Fresh or sealed tests** use networks whose reference answers were kept separate from the method’s development. They reduce the risk of tuning to the test answers.
+- **Independently checked** means another check supports the stated result and scope. It does not mean ARC has accepted the method or that it works on all networks.
+- **A mathematical guarantee** needs justified bounds covering every relevant case. An accurate estimate, or a large successful test set, is not enough by itself.
+
+## Where to find the evidence
+
+The detailed records below keep the original experiment identifiers, measurements, checks, limitations, and failed attempts. The two candidates are recorded as **H-E17 / T431** and **H-L1 / T317f**; the published ARC comparison and our smaller-model result as **E32 / E36 / H-U1**; rare-event estimation and repair as **H-R1 / H-R3**; probability-bound components as **H-C1**; and the latest reliability checks as **T462 / T463**. These are reference labels, not additional methods to learn.
+
+The [owner Q&A](OWNER_QA.md#q4-13) explains why we consider the two approaches candidates and why ARC’s acceptance remains an open question.
+
+<details>
+<summary>Technical record and navigation</summary>
 
 ↑ [Project README](README.md) · [TASKS](TASKS.md) · [Owner Q&A](OWNER_QA.md) · [STATUS](STATUS.md) · [RESULTS](RESULTS.md) · [FINDINGS](m16/FINDINGS.md) · [Approaches](m16/approaches/README.md) · [Literature](lit/README.md)
 
-**DRI:** the main Claude session on branch `ccr-6a61f25c-wn80ii` (with the user).
+**Acting DRI:** Codex during Claude’s credit outage; shared branch `ccr-6a61f25c-wn80ii`.
 **Start here for a summary:** [STATUS.md](STATUS.md). **What is in progress / backlog:** [TASKS.md](TASKS.md) (claim tasks there before starting).
 This file is the single source of truth: what is being asked, who is doing what, where outputs live,
 and **how well each claim is actually supported**. Update it whenever an experiment starts, ends or
 changes status. Rules for contributors are in [`AGENTS.md`](AGENTS.md).
 
+</details>
+
 ## 1. Questions
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
 
 | id | question | status |
 |---|---|---|
 | Q2 | Hilton/ARC: does per-neuron legibility add up to understanding? (AlgZoo models) | Answered for the 432-param model under one protocol. See E4 |
 | Q3 | How does the 432-param AlgZoo RNN (M_16,10) compute the 2nd argmax? | Mostly answered. See [`m16/FINDINGS.md`](m16/FINDINGS.md) |
-| Q4 | ARC challenge: a *mechanistic* (deductive) estimate of M_16,10's accuracy matching sampling in MSE vs compute, over a distribution of models (retrains or noisy-weight copies) | **Open, not solved** (strict bar). Best sampling-free estimator T317f: fresh sealed HP4 F 2.63 [1.93, 3.39], a lenient pass on retrains; fails on noisy copies; T353 pending. Rare-event estimation (T340) is a partial positive. See section 4b, [`STATUS.md`](STATUS.md) and [`OWNER_QA.md`](OWNER_QA.md) |
+| Q4 | ARC challenge: a mechanistic estimate of M_16,10 accuracy competitive with sampling at equal compute | **Two candidates; ARC acceptance unresolved, strict deductive solution open.** Exact line-walk quadrature beats sampling on sealed clean retrains (H-E17); sampling-free-at-runtime gap walks meet our lenient comparison (H-L1). Their mechanistic status and model scope remain qualified. See [STATUS](STATUS.md) and [OWNER_QA 4.13](OWNER_QA.md#q4-13) |
 
 **Success criteria for Q4 (re-centred on ARC's stated intent: "a scalable, algorithmic approach to producing
 mechanistic estimates"; hand analysis is "a warm-up"):**
@@ -24,7 +64,12 @@ mechanistic estimates"; hand analysis is "a warm-up"):**
    `zoo_2nd_argmax(16,10, seed=0..4)` and noisy copies; ideally also M_4,3 as a sanity check.
 3. **Competitive**: MSE at most that of sampling at equal compute, with CIs, on that model set.
 
+</details>
+
 ## 2. Repo map
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
 
 | path | what |
 |---|---|
@@ -38,13 +83,19 @@ mechanistic estimates"; hand analysis is "a warm-up"):**
 | [`lit/`](lit) | Literature scans by era and by field (unverified citations are flagged inside) |
 | [`results/`](results) | Machine-readable results (json/npy) |
 
+</details>
+
 ## 3. Experiment registry
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
 
 Status: `done` / `running` / `stopped` / `planned`. Verification: **V** = re-checked independently (another
 script, agent or seed), **S** = single run by its author, **C** = claimed in an agent report, not yet checked.
 
 | id | question | owner | status | where | headline result | verif. |
 |---|---|---|---|---|---|---|
+| T469 | Project rename and documentation for new readers | Codex root; independent migration-agent review | done | [README](README.md); this ledger; [documentation directive](OWNER_QA.md#d-1020-readable-docs) | Beyond Sampling branding and canonical links; plain-language findings foreground the published smaller-model comparison and two full-challenge candidates. Original detailed records and section anchors retained; tutorial rebuilt with branding-only changes; sibling landing links updated. | V independent claim/scope, unchanged tutorial numbers, retained ledger rows/anchors, 851 archived artifact hashes and 6 snapshot extracts; no new experiment |
 | T468 | Repository scope maintenance and ARC entrypoint refresh | Codex migration worker; root review | done | [README](README.md); [snapshot scope](docs/SNAPSHOT_SCOPE.md) | ARC documentation retained; tutorial source rebuilt; historical review pins distinguished from current editorial extracts. No scientific claim changed. | Administrative integrity/link checks; independent root review |
 | T462 | Defensive-IS reliability/cost contract from literature follow-up | Codex is_reliability; bound_soundness/root review | done | [controls](review/is_v4_contract/README.md); [independent review](review/late_bound_soundness/T462_REVIEW.md) | 400k sampler/density vectors pass;2000 repetitions per analytic fixture. Missing10%/50% mode causes99.75%/99.1% unflagged normal-interval noncoverage; covered control95.8% coverage. Fixed-n bounded-KL interval conservative but wide. Saved source contraction cost alone is uncharged428kFPE/point on average, incomplete; no revised trainedF. Numerical body3.354CPU-s,147MiB; zero modelcalls. Trained-panel observations remain intact; generic cap+gate reliability claim refuted under stated analytic laws | V independent mathematical/source review and raw-record checks; not trained replication |
 | T463 | Floating box-mass counterexample and local soundness repair | Codex bound_soundness; is_reliability/root review | done | [proof/controls](review/late_bound_soundness/README.md); [independent review](review/is_v4_contract/T463_REVIEW.md) | Six frozen thin-a boxes erase transformed widths: k54 purported upper5.621e-54 versus true lower4.3645e-31. Independent rational proof and off-suite k57 reproduce. Arb mass/exact-rational CROWN local repairs pass44mass/19toy cases; independent32new networks pass.8.85CPU-s producer process,209MiB. Source defect independently verified; fullT455/global certificate not established, H-C1 distinct implementation unchanged | V local defect/proofs/controls; no trained/frontier claim |
@@ -341,20 +392,37 @@ script, agent or seed), **S** = single run by its author, **C** = claimed in an 
 | L9 | T22b web scan, methods side (2015-2026, any field) + 3 probes | agent | done | [`lit/web_methods/`](lit/web_methods/README.md) | No published method computes the Gaussian mass of a union of >1e6 polytopes deterministically to ~1e-3. Probes: >=93% of error mass lies on monotone tie segments (collapse = heavy-tailed band width, not loss of monotonicity); time-ordered input blocks explain <5% of error variance; prefix x suffix indicator not low rank. Spherical-cap discrepancy bound limits fixed generic node sets to ~N^(1/d) MSE gain (~3.6x at N=1e5). Proposed T33-T35 | - |
 | L10 | T22a web scan, ARC side (incl. post-Jan-2026 ARC material; logged in lit/web_log.md) | agent | done | [`lit/web_arc/`](lit/web_arc/README.md) | ARC has published no M_16,10 estimator; Hilton 2026-08-17: "not much closer". ARC's only worked estimators (M_4,3, Dec 2024): rank-order x gate subregions + presumption of independence + exact cone volumes (A, RMSE ~3%), and reference model + error-term covariance (B); both ~2x worse RMSE than sampling, called "roughly match". 2026 ARC work is on random instances (cumulant propagation for wide MLPs, harmonic-polynomial halfspace estimator). Proposed T36-T41 | - |
 
+</details>
+
 ## 4. Hypothesis ledger
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
 
 Status: **confirmed** (independent check passed), **supported** (consistent evidence, no independent check),
 **unverified**, **refuted**, **disputed**. Every row lists the alternatives **not yet ruled out**.
 Nothing is "confirmed" on its author's word alone.
 
+</details>
+
 ### AlgZoo legibility (Q2)
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
+
 | id | claim | status | evidence | alternatives / weaknesses |
 |---|---|---|---|---|
 | H-A1 | Legible labels do not add up to the mechanism on M_16,10 (54%) | **narrowed** (R1: driven by the 5-constant limit; one label alone drops acc to 0.79-0.95; ladder has one point) | E4 held-out scoring; E28 fixed-family sweep: 5→20 coefficients strongly improves reconstruction; M32 passes at 20, M16 does not | **result depends on the 5-constant-per-neuron rule** (free lookup tables on the same features reach 98%); one investigator, limited effort; E28 is one feature family/seed with incomplete optimization. So it shows "short labels lose skill", not "no compact description exists" |
 | H-A2 | The protocol works when understanding is achievable | confirmed | E3 positive control, held-out | M_4,3 is so small that exact formulas are trivially compact |
 | H-A3 | On the all-at-once network (1 hidden layer of 128 bias-free ReLU units), exact great-circle walks over a FIXED, pre-chosen set of circles estimate accuracy with MSE below sampling at ~4k FPE (F < 1) | **CONFIRMED, scoped (DRI 2026-10-19 07:2x)**: T387 (12-model panel, Halton and Sobol fixed sets all < 1) independently reproduced by T394 (different agent, own walk code, 6 fresh retrains, 10/10 fixed sets < 1, mean F .19-.37) | T387, T394 | Scope: a different architecture from ARC's M_16,10 (the owner's all-at-once question); class deterministic, ARC acceptance unknown (OWNER_QA 4.7: no random numbers, exact per circle, cross-circle average without a weight-derived bound); fixed sets are not better than random circles (T394); per-set error is shared across near-identical panel models, so the spread across sets is the honest uncertainty; one budget (~4k FPE); clean models only |
 
+</details>
+
 ### M_16,10 mechanism (Q3)
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
+
 | id | claim | status | evidence | alternatives / weaknesses |
 |---|---|---|---|---|
 | H-M1 | Dominant-mode phase encodes time since the max in several common gate patterns | supported, qualified | E29: original gate slope 41.47–41.71 vs 42.75 deg/step on two seeds; two other gates have repeatable ~4–8 degree departures | Five patterns checked, only three have adequate age support; final-gate eigenvalue does not determine full forced/gated history; one trained checkpoint |
@@ -372,7 +440,13 @@ Nothing is "confirmed" on its author's word alone.
 | H-E11 | Deterministic tie-slicing (fixed-Sobol face quadrature, class *quadrature*) beats sampling by 10^2-10^3x at T=3-4 and declines gradually (~15-20x per T step to T=5, then ~2x per step); the decline tracks the band integrand's tail share | **confirmed (revised) by DRI 2026-10-17**: E25 (one seed) independently replicated by E33 (5 seeds, 32 rule seeds, iid control, different script/agent) | H=16: T5 9.4x (4.7-15), T6 3.4x, T10 1.6x; collapse below 10x at T=6 (T=5 for one seed); H=32 shifts it by ~1.6x in gain, not a full T step; within-T tail rho -0.55 | applies to well-trained models only (undertrained H=8 fails in the bulk); threshold depends on budget (E33 budget check); a quadrature result, not mechanistic in ARC's sense (L10) **Mechanism update 2026-10-18 (T272, T277; unverified):** neither kink density (saturates by T=5, wrong-sign correlation) nor a dimension factor (alpha ~0.5-0.67 at every T, rho .03) explains the decline; the gain falls through the prefactor (integrand variance relative to p(1-p)) at an unchanged rate. **Scope correction (T397, 10-19 06:4x): the T10 figure (1.6x) used claimed, not executed, cost (executed is 2.3-2.5x higher) on the 5 zoo seeds; on 100 M_16,10 retrains (DEV3) E33 loses (2.28 at 16k, 1.45 at 64k).** |
 | H-M6 | Group roles (clocks, comparators, ...) via mean-ablation | supported for 13/16 neurons in groups (n2, n5, n9 not ablated); "all 16 causally confirmed" was an overclaim | ablation table | mean-ablation can break the network off-distribution, so damage does not prove the role; no resample-ablation or patching control |
 
+</details>
+
 ### Estimation (Q4)
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
+
 | id | claim | status | evidence | alternatives / weaknesses |
 |---|---|---|---|---|
 | H-E1 | Our deductive probe estimators lose to sampling | supported | E7 under the harness | the harness's noise model is our guess (see H-E4) |
@@ -397,7 +471,13 @@ Nothing is "confirmed" on its author's word alone.
 | H-E13 | Exact region-by-region enumeration (with exact cone masses) of M_16,10 is computationally infeasible | **prefix counts CONFIRMED for k<=4 (DRI 2026-10-18, independent T219/T55 exact-arithmetic recount: 34/792/21,032; reviews 13e3a70e, ad1d458f, 895fb566); k=5 masses spot-checked independently (200 regions, abs diff <=2.5e-13) and k=5 coverage recomputed independently (N_1e-5 152,952 vs 152,956; growth x14.9), claude/t218-tie-tail-labels e4ccb095; k=6 sampled estimate 2.29e7 cells (x30.6 over k=5, T192 2aad2d2, unverified; **[Corrected 2026-10-18, T263]** completion-censored: only subtrees finishing before a wall deadline were kept (T255), so the estimate is uncalibrated with unknown bias; T270 (k=6 complete masses, running) will replace it); mass coverage N_delta at k<=4 CONFIRMED (DRI 2026-10-18; independent LP cone-splitter + own robust-angle masses on claude/t218-tie-tail-labels reproduce T194/T192: k=4 N_1e-5 = 10,233, growth x16.1); infeasibility at T=10 inferred, unverified** | T192 S4 counts 34/792/21,032/632,394 for k=2..5, growth x23-30/step and rising; ~1e13 regions at k=10 by extrapolation; geometry alone ~1e3 CPU-years; mass coverage N_1e-5 34/634/10,233/152,956 (T222, T192 k=5); sampled region bounds undercount 3-12x (T205) | extrapolation from 4-5 points; the only rigorous bound is N10 >= 64*N4 = 1.35M histories (T55); excludes neither methods aggregating across regions nor minimal affine-map merging **T270 k=6 (2026-10-18, unverified):** shard 1 done (1,905/1,905 subtrees); union with shard 0 covers 2,905/3,811 subtrees (76%): N6 >= 15,483,505 distinct regions (exact lower bound), so g_N(5->6) >= 24.5 over N5 = 632,394; the full-N6 estimate is 19.7-21.0M (g_N ~31-33). Per-step growth keeps rising (x23, x27, x30, x31-33 for k = 2..6); cells ~23.1M. A geometry bug in estT's k>=6 cells (T316) undercounts masses AND regions: clip also skips real cuts (subtree 125: 8,495 regions with the T316 patch A+B vs 7,659 under estT, +11%; T194 child 5a063a50, unverified), and 68 of 73 chunks show a mass deficit > 1e-9. So g_N(5->6) >= 24.5 stays an exact lower bound (every enumerated region is real) and the 31-33 estimate is biased LOW by an unknown amount; a patch-B rerun costs ~35x (out of budget). g_delta at delta 1e-6/1e-7: open (remassing stopped by the DRI, since the decision does not depend on it). **DRI: the exact route is dead for the target in any regime where sampling's equal-compute precision is meaningful (scoped to region/coverage enumeration); the final N6 and g_delta are for the record.** **T270 FINAL 2026-10-18 16:45 (both shards, all 3,811 subtrees):** 23,802,036 cells, 19,740,596 distinct k = 6 regions under estT geometry, so g_N(5->6) >= 31.2 (still a lower bound: the clip defect undercounts defective subtrees by 10-17%); final provisional g_delta bounds (unprocessed 0, unrepaired shortfall 3.96e-4): g_1e-3 in [9.79, 12.24], g_1e-4 >= 11.65, g_1e-5 >= 13.61, g_1e-6 >= 15.74, g_1e-7 >= 18.22 (the pre-registered stop criterion g_1e-7 >= 15 is met at full coverage). **T270 closed 2026-10-18 12:13:** remass (= T316 patch A) validated on subtree 125 (residual -9.86e-7 = region loss, needs patch B); provisional 76%-coverage lower bounds g_1e-3..1e-7 >= 7.58 / 9.03 / 10.56 / 12.21 / 14.16 (gpu_cost_law/README 'T270'); g_N(5->6) >= 24.5 exact, estimate >= 31-33 biased low; delta 1e-6/1e-7 open. |
 | H-E5 | "Someone at ARC has cracked M_16,10" | **reported, unverified (2026-10-18)**; superseded status: "doubtful on public evidence (L10)" | **2026-10-18:** the project owner reports that their ARC contact says a newly joined ARC member has a solution for M_16,10 (method unknown to us, unpublished) and that ARC is waiting for us for a comparison (T203; owner ruling: no contact with ARC without a candidate solution, T41). Source of the original claim, per the previous DRI ([QA](review/dri_handover/QA_2026-10-18.md) #14): a private message relayed by the owner, never verified; ARC was not contacted. Earlier public evidence, which predates both: J. Hilton, LessWrong AlgZoo comments, 2026-08-17: progress "fairly marginal and we are not much closer to succeeding at the challenge", excluding "other research at ARC that doesn't pertain to these models specifically"; no M_16,10 estimator ever published | a private, unpublished result after 2026-08-17 is not ruled out; the 2026-10-18 report is second-hand, and its method, compute accounting, test panel and use of sampling are unknown, so it may not meet ARC's own bar **[2026-10-18]: Hilton talk (~2026-09, lit/web_log.md) calls the M_16,10 challenge "as yet completely open"; any ARC solution would postdate it.** |
 
+</details>
+
 ## 4b. State of Q4 (synthesis, 2026-10-18 14:00 UTC)
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
+
 Full plain-language status: [`STATUS.md`](STATUS.md). Owner questions and answers: [`OWNER_QA.md`](OWNER_QA.md).
 Scores use F = MSE x C_eff / mean p(1-p), C_eff = max(C, 1k FPE) (TASKS Directive 8, amendment 2). Strict bar:
 F <= 1. Lenient bar: F <= 10, and a candidate also needs the upper 95% CI <= 10 (a project convention, not ARC's).
@@ -473,7 +553,13 @@ F <= 1. Lenient bar: F <= 10, and a candidate also needs the upper 95% CI <= 10 
   method handles the thin, heavily fragmented near-tie error regions at T = 10 (H-E12, H-E15). Whether to contact ARC
   is the owner's decision. The DRI recommends at most a progress note (T323).
 
+</details>
+
 ## 5. Open questions / next steps (2026-10-18 14:00 UTC)
+
+<details>
+<summary>Show detailed evidence and qualifications</summary>
+
 Claim work on [TASKS.md](TASKS.md) before starting.
 
 **Done since the 2026-10-17 list:**
@@ -555,3 +641,4 @@ unverified (H-E5).
 8. **ARC protocol (H-E4):** our noise levels and accounting are still our own choices. Hilton's talk names seeds "or
    maybe adding noise to the weights", with no level. Confirm against ARC's method when it is shared.
 
+</details>

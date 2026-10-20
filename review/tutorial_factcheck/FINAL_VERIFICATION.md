@@ -8,7 +8,7 @@ The main conclusion is unchanged: the target challenge remains unsolved. The off
 
 - Review findings: **92416147e8618741b715d6e87a3d836c579a4c91**, against owner snapshot a3ab9caa after an independent first read of shared 7a388e22.
 - Preserved owner v4 baseline: **97ee97a43d71cae28b81a2fc1ad3a1b81e45945b**, from owner 0039119b. Its reordered sections, figure repairs, styles, data and status are retained.
-- Final corrected tutorial and initial response matrix: **[68ba066c6a91fb61bc91cf0f3bf839a5e79d5349](https://github.com/panaali/clean-neurons/commit/68ba066c6a91fb61bc91cf0f3bf839a5e79d5349)**.
+- Final corrected tutorial and initial response matrix: **[68ba066c6a91fb61bc91cf0f3bf839a5e79d5349](https://github.com/panaali/beyond-sampling/commit/68ba066c6a91fb61bc91cf0f3bf839a5e79d5349)**.
 - Source SHA256: `e90a6769b38a5385a25e34f14e6bc5d80b46e67c119366bceef38361bc7af258`.
 - Generated `index.html` SHA256: `23c1022e2c57523d5dba4e546b9cde6330a6b5983f7e2d51e1903da227a5930d`.
 - Generated `artifact.html` SHA256: `cd70557130a661f93077947bbe0cbfaf7b0656c143957dc82a53a98d3197b225`.
@@ -39,7 +39,7 @@ The [writer response matrix](../../tutorial/REVIEW_RESPONSE_T384.md) records ado
 
 ## Final residuals and their evidence
 
-The first corrected draft still called HP3's second submission “cost-only” with “identical estimates.” The pinned [scorer README](https://github.com/panaali/clean-neurons/blob/5db25624f8cf7e394082141b79b3fef4920ae378/m16/approaches/hp1_scorer/README.md#L481) explicitly identifies T317d as HP3's second submission: seeded model-free transverse constants were replaced by deterministic integration, estimates changed by up to 0.0076 pp on HP3, and F changed from 5.08 to 5.07. The final text now says “small numerical variant.” This is a correction within F05, not a new claim about panel validity.
+The first corrected draft still called HP3's second submission “cost-only” with “identical estimates.” The pinned [scorer README](https://github.com/panaali/beyond-sampling/blob/5db25624f8cf7e394082141b79b3fef4920ae378/m16/approaches/hp1_scorer/README.md#L481) explicitly identifies T317d as HP3's second submission: seeded model-free transverse constants were replaced by deterministic integration, estimates changed by up to 0.0076 pp on HP3, and F changed from 5.08 to 5.07. The final text now says “small numerical variant.” This is a correction within F05, not a new claim about panel validity.
 
 The other final changes clarify that Figure 13's probability window spans the combined deep-tail studies (F08), label the opening sampling uncertainty as one SE (F10), and repair provenance figure references after v4's reorder (F17). These are prose-only changes, individually rechecked in the final diff. No finding was rejected or deferred; “resolved” includes an explicit limitation where the available evidence cannot settle the broader scientific question.
 

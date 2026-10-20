@@ -43,6 +43,8 @@ is recorded there only, plus one line here if it binds agents.
 
 - **Local CPU during takeover:** the [20 October CPU authorization](OWNER_QA.md#d-1020-cpu) permits claimed experimental work by shared-container sub-agents when separate research-session tools are unavailable. Existing per-container concurrency and memory limits still apply.
 
+- **Readable documentation:** README and INDEX must be understandable to readers new to the project; lead with plain-language findings and limitations, explain terms, and keep technical evidence accessible underneath. [Owner directive](OWNER_QA.md#d-1020-readable-docs).
+
 ## Rules
 
 0. **The task board [TASKS.md](TASKS.md) is mandatory for every agent (Claude, Codex, humans).** Many agents work

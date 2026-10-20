@@ -1,6 +1,6 @@
 <title>Counting a Tiny Network's Mistakes</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="An interactive tutorial on estimating the accuracy of a 432-parameter recurrent network from its weights: ARC's AlgZoo challenge, what the clean-neurons project found, and why it is still unsolved.">
+<meta name="description" content="An interactive tutorial on estimating the accuracy of a 432-parameter recurrent network from its weights: ARC's AlgZoo challenge, what the Beyond Sampling project found, and why it is still unsolved.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -153,7 +153,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <h1>Counting the Mistakes of a Tiny Network</h1>
   <p class="dek">How often will an AI system fail? ARC, an AI-safety research group, wants to answer that question by reasoning from a model's weights, including for failures too rare to observe in tests. Its test case is tiny: a recurrent network with 432 weights. It finds the second-largest of ten numbers and gets the answer right about 95.3% of the time. Can we derive that accuracy from the weights as precisely as we could estimate it by testing random inputs? We spent three days trying. This tutorial explains what we learned, starting with the smallest version of the problem.</p>
   <div class="byline">
-    <div><b>Authors</b>The clean-neurons project</div>
+    <div><b>Authors</b>The Beyond Sampling project</div>
     <div><b>Date</b>19 October 2026</div>
     <div><b>Status of the challenge</b>Unsolved</div>
   </div>
@@ -609,7 +609,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <li>V. Kabanets, R. Impagliazzo, "Derandomizing polynomial identity tests means proving circuit lower bounds", Computational Complexity 13, 2004.</li>
   <li>R. Williams, "Improving exhaustive search implies superpolynomial lower bounds", STOC 2010; "Nonuniform ACC circuit lower bounds", JACM 61, 2014.</li>
   <li>G. Elekes, "A geometric inequality and the complexity of computing volume", Discrete &amp; Computational Geometry 1, 1986; I. Bárány, Z. Füredi, "Computing the volume is difficult", Discrete &amp; Computational Geometry 2, 1987.</li>
-  <li>The <a href="https://github.com/panaali/clean-neurons">clean-neurons project repository</a>: <a href="https://github.com/panaali/clean-neurons/blob/ccr-6a61f25c-wn80ii/INDEX.md">INDEX.md</a> (registry and ledger), <code>STATUS.md</code>, <code>OWNER_QA.md</code>, <code>m16/SCALING_OBSTRUCTIONS.md</code>, <code>lit/web_arc/README.md</code>, <code>lit/web_log.md</code>. Direct evidence: <a href="https://github.com/panaali/clean-neurons/blob/97ee97a4/m16/approaches/arc_m43_repro/README.md">E32 accounting</a>; <a href="https://github.com/panaali/clean-neurons/blob/97ee97a4/review/cost_convention/README.md">ladder cost audit</a>; <a href="https://github.com/panaali/clean-neurons/blob/97ee97a4/m16/SCALING_OBSTRUCTIONS.md">region and tie-density scope</a>; <a href="https://github.com/panaali/clean-neurons/blob/ccr-6a61f25c-wn80ii/review/tutorial_factcheck/README.md">T384 review and pinned source list</a>.</li>
+  <li>The <a href="https://github.com/panaali/beyond-sampling">Beyond Sampling project repository</a>: <a href="https://github.com/panaali/beyond-sampling/blob/ccr-6a61f25c-wn80ii/INDEX.md">INDEX.md</a> (registry and ledger), <code>STATUS.md</code>, <code>OWNER_QA.md</code>, <code>m16/SCALING_OBSTRUCTIONS.md</code>, <code>lit/web_arc/README.md</code>, <code>lit/web_log.md</code>. Direct evidence: <a href="https://github.com/panaali/beyond-sampling/blob/97ee97a4/m16/approaches/arc_m43_repro/README.md">E32 accounting</a>; <a href="https://github.com/panaali/beyond-sampling/blob/97ee97a4/review/cost_convention/README.md">ladder cost audit</a>; <a href="https://github.com/panaali/beyond-sampling/blob/97ee97a4/m16/SCALING_OBSTRUCTIONS.md">region and tie-density scope</a>; <a href="https://github.com/panaali/beyond-sampling/blob/ccr-6a61f25c-wn80ii/review/tutorial_factcheck/README.md">T384 review and pinned source list</a>.</li>
 </ol>
 
 <h2 id="data">Where the numbers come from</h2>
@@ -620,7 +620,7 @@ footer { margin-top: 3rem; font-family: var(--display); font-size: var(--s-1); c
   <li><b>Gain against error rate</b> (Figure 5): <code>m16/approaches/minimal_pair/d5_law.log</code> on branch <code>claude/t10-minimal-pair</code> (T10, draft).</li>
   <li><b>All other numbers</b>: the INDEX rows cited next to them, as of the time in the footer.</li>
 </ul>
-<footer>The clean-neurons project · built for readers with a machine-learning background and no background in this area · <span id="status-stamp"></span></footer>
+<footer>The Beyond Sampling project · built for readers with a machine-learning background and no background in this area · <span id="status-stamp"></span></footer>
 </article>
 
 <script type="application/json" id="d-weights">__WEIGHTS__</script>

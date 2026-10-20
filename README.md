@@ -1,16 +1,26 @@
-# clean-neurons
+# Beyond Sampling
 
-A tiny recurrent neural network—16 neurons and 432 parameters—reads 10 numbers and identifies the second-largest. ARC's challenge is to predict its accuracy from its weights and mechanism, competitively with random sampling at equal compute.
+**Can we predict a neural network’s mistakes by understanding how it works?**
 
-**[Interactive Tutorial](https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX)**
+ARC’s challenge uses a tiny network with 16 neurons and 432 adjustable numbers, called weights. It reads 10 numbers and tries to identify the second-largest. The goal is to work out how often it gets the answer right from its weights and internal calculations, using about as much computation as random testing would need for the same precision.
 
-Some of our most interesting results:
+**[Interactive Tutorial](https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX)** · [Results in plain language](INDEX.md) · [Current status](STATUS.md)
 
-- **Mechanistic estimation works on a smaller model:** the M_4,3 estimator achieved about 50× lower mean-squared error than sampling under its tested operation-count protocol (H-U1; scoped to the studied model and perturbations).
-- **Structure helps at the full challenge size:** exact line walks combined with fixed-node quadrature achieved an MSE ratio of 0.540 [0.343, 0.762] versus equal-compute sampling on a sealed panel of clean retrains at 4 million forward-pass equivalents (H-E17). This is not a complete deductive solution.
-- **Rare failures can be targeted:** a 12-weight edit made one studied rare mistake 17–19× rarer, independently reproduced, but also displaced probability into another mistake type (H-R3).
+**A concrete win on the smaller challenge: our method outperformed ARC’s two published estimators in our reproduction.** ARC described its methods for the four-neuron, three-number network as roughly matching random testing. Our mechanism-derived method did substantially better: about **50 times lower squared error than sampling** under the tested computation comparison. An independent check confirmed our advantage over sampling. This result applies to the studied trained network and specified weight changes; it does not establish a solution to the full challenge or a wall-clock speedup. [Published-method comparison](m16/approaches/arc_m43_repro/README.md) · [Independent check](review/understand_m43/README.md).
 
-The challenge remains open. See the [results ledger](INDEX.md#4-hypothesis-ledger) for evidence and qualifications, and [current status](STATUS.md) for ongoing work.
+We have **two candidates for meeting the challenge**. Both have encouraging results on previously unused networks trained for the same task. Neither has been accepted by ARC, and each leaves a different question unanswered.
+
+- **More accurate than random testing at the same compute budget.** We follow the network’s calculations exactly along selected slices of possible inputs, then combine the answers. On a fresh test panel, this produced about **half the squared error** of random testing. The open question: we have not proved how accurately those slices represent all the other inputs. That matters because ARC asks for an estimate grounded in understanding the network.
+- **A second candidate tested at a much smaller budget.** It uses no random testing while it runs: we focus on the situations where the largest input numbers are close together and use a fixed set of simplifying assumptions. The estimate achieved about **2.6 times the squared error** of random testing at the same budget. That is encouraging in light of ARC’s earlier “roughly match sampling” examples, but is not a strict win. The assumptions were developed using random tests, and the method fails when noise is added to the weights.
+
+*Squared error is the scoring rule used here: square the gap between an estimated accuracy and the true accuracy, then average across networks. Lower is better. The first candidate was tested at a budget equivalent to roughly 4 million complete network runs; the second at about 3,300. These compare counted computation, not elapsed runtime.*
+
+**A step toward safer networks:** changing just 12 weights made one rare mistake 17–19 times less likely. It also increased another type of mistake, so this is not a claim that every aspect of the network became safer.
+
+The [results ledger](INDEX.md) explains what has been checked, what the limitations mean, and where to find the detailed evidence. A solution meeting the strictest reading of the full challenge remains open.
+
+<details>
+<summary>Repository guide and reproduction instructions</summary>
 
 ## Start here
 
@@ -49,7 +59,7 @@ New agents: read [AGENTS.md](AGENTS.md) (rules, standing owner rules), then [TAS
 | Folder | Contents |
 |---|---|
 | [m16/](m16/README.md) | Analysis of M_16,10: shared code, ARC-protocol harness, leaderboard |
-| [m16/approaches/](m16/approaches/README.md) | 18 estimator attempts at ARC's challenge, one folder per agent |
+| [m16/approaches/](m16/approaches/README.md) | Estimator approaches to ARC's challenge |
 | [algzoo/](algzoo/README.md) | Pre-registered legibility test (E3-E5): investigator labels + held-out scorer |
 | [lit/](lit/README.md) | Literature scans by era and by field |
 | [results/](results/README.md) | Machine-readable results (leaderboards, truths, AlgZoo scores) |
@@ -65,3 +75,5 @@ pip install -e /path/to/alg-zoo            # https://github.com/alignment-resear
 python m16/leaderboard.py truths && python m16/leaderboard.py run sampling stratified control_variate
 python tools/check_links.py                # verify doc links
 ```
+
+</details>
