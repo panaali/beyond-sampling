@@ -217,15 +217,26 @@ def check_cell(A_full, b_full, A_kept, V, inc, S, vlo, vhi, n, ridge_max=300_000
     out["inc_ok"] = inc_ok and out["vset_ok"]
     Z = homog(V)
     signs = []
-    vols = simplex_vols(Z, S, n, signs)
     out["nS"] = len(S)
-    out["vol_pos_ok"] = all(v > 0 for v in vols)
-    enc = 0
-    for v, l, h in zip(vols, vlo, vhi):
-        if not (fmpq(*float(l).as_integer_ratio()) <= v <= fmpq(*float(h).as_integer_ratio())):
+    # streamed: each exact volume is checked against its enclosure and folded into a binary-counter pairwise sum
+    # (storing 2.6e5 exact volumes and summing them pairwise does not fit 2.5 GB on the largest cells)
+    enc = 0; nonpos = 0; stack = []
+    for j in range(len(S)):
+        v = simplex_vols(Z, [S[j]], n, signs)[0]
+        if not v > 0:
+            nonpos += 1
+        if not (fmpq(*float(vlo[j]).as_integer_ratio()) <= v <= fmpq(*float(vhi[j]).as_integer_ratio())):
             enc += 1
+        lev = 0
+        while stack and stack[-1][0] == lev:
+            v = stack.pop()[1] + v; lev += 1
+        stack.append((lev, v))
+    tot = fmpq(0)
+    for _, v in reversed(stack):
+        tot = tot + v
+    del stack
+    out["vol_pos_ok"] = nonpos == 0
     out["enclosure_fail"] = enc
-    tot = tree_sum(vols)
     lv = lasserre_volume(W, I, n)
     out["vol_equal"] = tot == lv
     out["vol_float"] = float(tot)
