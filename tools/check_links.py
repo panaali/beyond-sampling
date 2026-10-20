@@ -11,8 +11,6 @@ LINK = re.compile(r"\]\(([^)\s]+)\)")
 bad, total = [], 0
 for dp, dns, fns in os.walk(ROOT):
     dns[:] = [d for d in dns if d not in (".git", ".venv", "data", "__pycache__")]
-    if os.path.relpath(dp, ROOT).startswith(("study/explain", "study/judge")):
-        continue          # agent data packets, not documentation
     for f in fns:
         if not f.endswith(".md"):
             continue

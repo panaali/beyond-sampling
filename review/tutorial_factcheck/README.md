@@ -156,7 +156,7 @@ Line 472’s “every small input ... however long ago” concerns a finite **10
 
 ## Compute accounting
 
-No model forward passes, training, random inputs, geometry solves, large-array replays or numerical quadrature. Only repository reads, small JSON/text parsing, exact integer arithmetic and scalar square roots. The saved-check script records its process CPU time. HTTP reads were limited to the two cited 2025 ARC posts; no messages or contact to ARC/Goodfire. One initial sandboxed read and one optional parser import failed; neither produced scientific data, and the successful read/parser is recorded transparently in sources.json. The first saved-check attempt incorrectly counted nested weight-array rows instead of scalar entries; its assertion failed before output. The check was corrected to count scalars recursively. This was a reviewer harness error, not a model or tutorial defect.
+No model forward passes, training, random inputs, geometry solves, large-array replays or numerical quadrature. Only repository reads, small JSON/text parsing, exact integer arithmetic and scalar square roots. The saved-check script records its process CPU time. HTTP reads were limited to the two cited 2025 ARC posts; no messages or contact to ARC. One initial sandboxed read and one optional parser import failed; neither produced scientific data, and the successful read/parser is recorded transparently in sources.json. The first saved-check attempt incorrectly counted nested weight-array rows instead of scalar entries; its assertion failed before output. The check was corrected to count scalars recursively. This was a reviewer harness error, not a model or tutorial defect.
 
 ## Claims
 

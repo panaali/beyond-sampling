@@ -25,3 +25,6 @@ Existing untracked artifacts may avoid retraining; symbolic macros/low-rank or q
 
 ## Failure modes
 Comparing full160-slot tables with final-hidden labels; charging shared bank tables repeatedly; omitting bank/fallback or casts; treating score JSON as a deployed predictor; counting only fitted floats; comparing historical task accuracy to fresh network agreement; or treating declared-code upper bounds as lower bounds all invalidate the intended comparison.
+
+
+**Snapshot scope (2026-10-20):** Some documentation snapshots are now ARC-only editorial extracts. Original manifest hashes and saved reviews describe the historical originals. See [snapshot scope and replay guidance](../../docs/SNAPSHOT_SCOPE.md) before rerunning a historical check.

@@ -216,7 +216,7 @@
       "what": "Blinded investigators and judges on H = 8, 16, 32 at T = 10, equal effort per size.",
       "latest": "Mixed (an independent rescorer agrees). Reconstruction recovered .585 / .335 / .824 of the gap for 8 / 16 / 32 neurons; 1 of 3 fresh accounts of the 32-neuron network passes the 90% line. Judges can tell the labels apart (agreement kappa ~.92). Inferred: good labels and good reconstruction come apart. Replacing one neuron by its formula costs ~12 points at 16 neurons but ~.3 at 32, so how fragile the readout is matters more than size. Knowing the neurons' roles was not enough to calculate accuracy. Follow-up T377 is in progress.",
       "branch": "claude/t24-blind-m32",
-      "group": "Neuron-level accounts and the essay question"
+      "group": "Neuron-level accounts"
     },
     "T377": {
       "title": "Follow-up to the blinded size ladder",
@@ -224,23 +224,7 @@
       "what": "Follow-up to T24's mixed result on whether neuron-by-neuron accounts scale with model size.",
       "latest": "Readout fragility, not model size, dominates, by a small margin (.67 against the pre-set .7 decision line). Good labels and good reconstruction come apart again; no new account passes 90%.",
       "branch": "see TASKS.md",
-      "group": "Neuron-level accounts and the essay question"
-    },
-    "T6": {
-      "title": "Essay question: re-run of the neuron-explanation test",
-      "status": "confirmed (scoped, with T383)",
-      "what": "Re-run of the test of 'most neurons have one job' on a 0.6B open language model with >= 100 controls and 2-3 explainers per item, to resolve the inconclusive verdict.",
-      "latest": "Done: neurons rated one main job 64.6% vs 20.9% for dense controls, +43.8 points [33.3, 53.7], above the 30-point bar; its controls failed their density check, which biases toward a smaller gap. Together with T383 this is ledger H-Q5, confirmed and scoped.",
-      "branch": "claude/t6-essay-rerun",
-      "group": "Neuron-level accounts and the essay question"
-    },
-    "T383": {
-      "title": "Independent resolution of the essay re-run",
-      "status": "confirmed (scoped, with T6)",
-      "what": "Resolve T6's inconclusive verdict, whose controls failed their density check.",
-      "latest": "Done: a different agent with its own code, controls passing their density check (median top-1 share .104): +44.6 points [36.3, 52.9]. Caveat: texture-matched controls give +37.0 [28.7, 45.5], inconclusive at the bar. Ledger H-Q5 confirmed (scoped); H-Q2 refuted for dense controls.",
-      "branch": "see TASKS.md",
-      "group": "Neuron-level accounts and the essay question"
+      "group": "Neuron-level accounts"
     },
     "T395": {
       "title": "GPU census at 1e10 inputs",

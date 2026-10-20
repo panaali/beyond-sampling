@@ -61,3 +61,6 @@ Treating missing provenance as evidence of leakage; confusing target prediction
 with model reconstruction; inferring independence from ReLU; summing overlapping
 error buckets; using rounded prose values as exact empirical counts. Shared
 FINDINGS/RESULTS corrections are proposed only; Claude DRI retains adoption.
+
+
+**Snapshot scope (2026-10-20):** Some documentation snapshots are now ARC-only editorial extracts. Original manifest hashes and saved reviews describe the historical originals. See [snapshot scope and replay guidance](../../docs/SNAPSHOT_SCOPE.md) before rerunning a historical check.

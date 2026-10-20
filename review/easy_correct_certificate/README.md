@@ -24,3 +24,6 @@ Better domain partitions, exact conditional integration, reachable-state bounds,
 
 ## Failure modes
 Absolute gaps are not homogeneous cones; conditional bin exchangeability cannot be inherited without proof; low event probability can inflate a conditional success fraction; prefix-only labels omit future inputs; mass and arbitrary-precision cost need separate bounds. These distinctions are explicit before implementation.
+
+
+**Snapshot scope (2026-10-20):** Some documentation snapshots are now ARC-only editorial extracts. Original manifest hashes and saved reviews describe the historical originals. See [snapshot scope and replay guidance](../../docs/SNAPSHOT_SCOPE.md) before rerunning a historical check.

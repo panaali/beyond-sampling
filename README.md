@@ -1,10 +1,16 @@
 # clean-neurons
 
-An independent test of two claims about neural-network interpretability:
+A tiny recurrent neural network—16 neurons and 432 parameters—reads 10 numbers and identifies the second-largest. ARC's challenge is to predict its accuracy from its weights and mechanism, competitively with random sampling at equal compute.
 
-1. Goodfire's essay *"Neural Networks Are Already Clean"* (Cammarata, Oct 2026): most MLP neurons have one main job.
-2. ARC's AlgZoo challenge (Hilton): legible neurons are not understanding. Calculate the accuracy of a 432-parameter
-   RNN from its mechanism, about as precisely as random sampling at equal compute ("competitive with sampling").
+**[Interactive Tutorial](https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX)**
+
+Some of our most interesting results:
+
+- **Mechanistic estimation works on a smaller model:** the M_4,3 estimator achieved about 50× lower mean-squared error than sampling under its tested operation-count protocol (H-U1; scoped to the studied model and perturbations).
+- **Structure helps at the full challenge size:** exact line walks combined with fixed-node quadrature achieved an MSE ratio of 0.540 [0.343, 0.762] versus equal-compute sampling on a sealed panel of clean retrains at 4 million forward-pass equivalents (H-E17). This is not a complete deductive solution.
+- **Rare failures can be targeted:** a 12-weight edit made one studied rare mistake 17–19× rarer, independently reproduced, but also displaced probability into another mistake type (H-R3).
+
+The challenge remains open. See the [results ledger](INDEX.md#4-hypothesis-ledger) for evidence and qualifications, and [current status](STATUS.md) for ongoing work.
 
 ## Start here
 
@@ -22,7 +28,7 @@ New agents: read [AGENTS.md](AGENTS.md) (rules, standing owner rules), then [TAS
 | [docs/PROTOCOLS.md](docs/PROTOCOLS.md) | How work is run and scored: continuous work, ladder protocol, DRI directives 1-8 (rung test, two bars) |
 | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | DRI process and lessons learned; read first if you take over as DRI |
 | [m16/FINDINGS.md](m16/FINDINGS.md) | Narrative: how M_16,10 computes the 2nd argmax, error anatomy, estimators, failed hypotheses |
-| [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study |
+| [RESULTS.md](RESULTS.md) | Write-up of the AlgZoo legibility study |
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before data was collected |
 | [docs/archive/](docs/archive/) | History: old status updates, finished and superseded board text, later-update notes from the Q&A |
 
@@ -31,7 +37,7 @@ New agents: read [AGENTS.md](AGENTS.md) (rules, standing owner rules), then [TAS
 - **T** (T402): a task on the board ([TASKS.md](TASKS.md)); its result is registered once in [INDEX.md](INDEX.md).
 - **E** (E33): an experiment in the INDEX registry under the older numbering.
 - **H-xN** (H-R3): a claim in the INDEX hypothesis ledger, with its status. The letter is the topic: R rare events,
-  E estimators, A other architectures, Q the essay question, M mechanism, S strict bar, L lenient bar, C certification tools.
+  E estimators, A other architectures, M mechanism, S strict bar, L lenient bar, C certification tools.
 - **Q** (Q4): a top-level research question (INDEX section 1). **L** numbers are reserved by the ID rule but unused.
 - **E1, E2:** the two rare-mistake types (E1: answering with the 3rd-largest input while the 2nd and 3rd differ by at least t0; E2: the interior near-gap mistake).
 - **K3, S14, Q16, M5t, T5/gl20 and similar:** names of method variants inside one task, chosen by its author (not board IDs).
@@ -46,15 +52,9 @@ New agents: read [AGENTS.md](AGENTS.md) (rules, standing owner rules), then [TAS
 | [m16/approaches/](m16/approaches/README.md) | 18 estimator attempts at ARC's challenge, one folder per agent |
 | [algzoo/](algzoo/README.md) | Pre-registered legibility test (E3-E5): investigator labels + held-out scorer |
 | [lit/](lit/README.md) | Literature scans by era and by field |
-| [results/](results/README.md) | Machine-readable results (leaderboards, truths, study summaries) |
+| [results/](results/README.md) | Machine-readable results (leaderboards, truths, AlgZoo scores) |
 | [review/](review/README.md) | Independent critical review (R1) scripts |
-| [study/](study/README.md) | Qwen study: blinded explainer/judge packets, agent outputs, answer keys |
 | [tools/](tools/README.md) | Doc tooling (link checker, linkifier) |
-
-Top-level scripts belong to the Qwen study pipeline: [collect.py](collect.py) (activations) →
-[build_items.py](build_items.py) (blinded packets) → [analyze.py](analyze.py) (pre-registered scoring);
-
-[population.py](population.py) (LLM-free statistics).
 
 ## Reproduce
 

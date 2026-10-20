@@ -71,8 +71,6 @@ de-jargoned; glossary additions (pp, MSE ratio, quadrature, face, three-way near
 hero explains why ARC cares and what M_16,10 stands for.
 
 Not applied, and why:
-- (11) Remove the essay-question card: kept, because the DRI's brief requires the essay-side verdict in the opening;
-  the card now says the project started from that essay.
 - (16) Move IDs into tooltips: kept inline, because the brief requires every number to cite its row visibly; IDs are
   already small and muted.
 - (13, partly) An interactive 90-unit construction and accuracy/region numbers for other architectures: we have no
@@ -106,7 +104,6 @@ longer implies live updates; timestamps unified; TOC title; dropped the m16/trut
 and names the network.
 
 Not applied in round 2, and why:
-- (15, 17) Fewer IDs in the cards, essay card removed: the brief requires visible IDs and the essay verdict.
 - (16) One term per concept: partly (pointers added); a full terminology pass would undo the T382 prose; left for a
   later round.
 - (21) A diagram of the T317 walk geometry and the per-walk cost: not added this round (Fig 11 shows one walk).

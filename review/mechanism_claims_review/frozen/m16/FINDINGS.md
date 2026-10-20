@@ -214,11 +214,9 @@ at about 100k evals, a deterministic method needs bias below about 0.05-0.1 pp *
 - The "assist" (why the max's contribution normally favours p2 over p3) is measured exactly per input; it
   is value-dependent through gating (positions explain R^2 0.05), with no closed form found.
 
-## Relation to the essay and to Hilton
+## Neuron labels versus mechanism
 
-On this model the essay's empirical claim holds up: looked at the right way, most neurons have one job,
-and the "mixed" ones load on faster rotating modes (the "harmonics" reading was later weakened; INDEX H-M2/H-M3). Hilton's distinction also holds:
-one-sentence labels for all 16 neurons rebuild only 54% accuracy (pre-registered E4), and some
+One-sentence labels for all 16 neurons rebuild only 54% accuracy (pre-registered E4), and some
 descriptions with R^2 0.9 still get the error mechanism wrong (section 4).
 
 ## 7. Correspondence to ARC's handcrafted 22-neuron model (ARC open item 2): partial

@@ -23,3 +23,6 @@ A different coarse partition, exact suffix, controlled volume rule, latent-gate 
 
 ## Failure modes
 Silently replacing a method; importing sampled setup before authorization; treating canonical gates as modes; exact-volume language for quadrature; hidden omitted ranks; mixing old ops with FPE; selecting budgets against exposed truths.
+
+
+**Snapshot scope (2026-10-20):** Some documentation snapshots are now ARC-only editorial extracts. Original manifest hashes and saved reviews describe the historical originals. See [snapshot scope and replay guidance](../../docs/SNAPSHOT_SCOPE.md) before rerunning a historical check.

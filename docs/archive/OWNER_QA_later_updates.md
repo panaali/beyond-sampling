@@ -2,7 +2,7 @@
 
 ↑ [Owner Q&A](../../OWNER_QA.md) · [INDEX](../../INDEX.md)
 
-Moved verbatim from [OWNER_QA.md](../../OWNER_QA.md) by T396 (2026-10-19). Each block was a "Later updates" note under the question named in its heading. These are snapshots as of their timestamps; the current number and status of every claim is in [INDEX.md](../../INDEX.md). The last block under 4.8 (10-19 06:35) answers the essay question (Qwen study, H-Q5).
+Moved verbatim from [OWNER_QA.md](../../OWNER_QA.md) by T396 (2026-10-19). Each block was a "Later updates" note under the question named in its heading. These are snapshots as of their timestamps; the current number and status of every claim is in [INDEX.md](../../INDEX.md).
 
 <a id="u1-1"></a>
 ## 1.1 Is there any hope for the methods we are testing?
@@ -278,8 +278,6 @@ The lenient bar was reached instead by the walk family (see 3.5 and 3.8).
 
 <a id="u4-8"></a>
 ## 4.8 Do we have several solutions for the lenient bar and the main challenge, with only ARC acceptance unknown? (owner, 10-19 06:2x)
-
-**Later update (10-19 06:35), the essay question:** answered on our test. Two independent re-runs (T6, T383) agree: ~65% of Qwen3-0.6B neurons vs ~21% of properly mixed random directions rated 'one main job' (gap ~44 points, above the 30-point bar set in advance). Ledger H-Q5 confirmed (scoped); H-Q2 ('barely separates') refuted for dense controls. The earlier 'inconclusive' verdict came from too few items and random directions dominated by single neurons. Caveat: part of the gap may be activation texture (+37 for texture-matched neurons, inconclusive at the bar); and readable neurons are not enough to compute behaviour (T24/T377, M_16,10).
 
 <a id="u5-1"></a>
 ## 5.1 Which task needs a GPU?

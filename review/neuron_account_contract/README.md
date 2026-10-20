@@ -28,3 +28,6 @@ Simple formulas may generalize, richer features may be necessary, and off-distri
 
 ## Failure modes
 Interchanging task performance and reconstruction, inferring necessity from damage alone, summing overlapping case counts or individual effects, leaking final-sequence information into an online account, treating oracle gates as free, silently altering mode geometry, or selecting cumulative replacements on the final test can overstate conclusions. This document does not assert that the unpublished study commits any of those errors and authorizes no execution.
+
+
+**Snapshot scope (2026-10-20):** Some documentation snapshots are now ARC-only editorial extracts. Original manifest hashes and saved reviews describe the historical originals. See [snapshot scope and replay guidance](../../docs/SNAPSHOT_SCOPE.md) before rerunning a historical check.

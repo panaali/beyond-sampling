@@ -66,6 +66,6 @@ The root and writer separately report deterministic-build and desktop/mobile bro
 
 This is a bounded evidence audit, not a reproduction of training, Monte Carlo truths, geometry enumeration, numerical roundoff guarantees, sealed-panel scoring or every external theorem. I read the two cited 2025 ARC primary posts; the complexity references were checked for appropriate claim scope rather than independently reproved. Unsettled universal claims are now qualified instead of replaced by new scientific conclusions.
 
-Live research statuses may advance after this snapshot. T374 owns their synchronization; the review neither edits status.json nor certifies future statuses. There was no ARC/Goodfire contact, no new model experiment, and no scientific ledger promotion.
+Live research statuses may advance after this snapshot. T374 owns their synchronization; the review neither edits status.json nor certifies future statuses. There was no ARC contact, no new model experiment, and no scientific ledger promotion.
 
 **T384's review, writer revision and independent verification are complete. T374's corrected-successor Artifact republication remains pending.** DRI registration is requested. T374 should preserve the existing private URL, the already-published v4/T382 history, current peer work and subsequent status updates while publishing the reviewed successor.

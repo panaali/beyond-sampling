@@ -32,8 +32,7 @@ editorial review/revision in INDEX, then republish the corrected successor at th
 existing private URL: https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX.
 Preserve already-published v4 and T382 completion as historical facts. T374 retains
 ownership of live status synchronization and publication. This handoff supersedes
-the earlier T384 hold below; Codex has not published an Artifact or contacted ARC
-or Goodfire.
+the earlier T384 hold below; Codex has not published an Artifact or contacted ARC.
 
 
 ### 2026-10-19 — Owner requests T384 independent factual review before tutorial publication

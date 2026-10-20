@@ -11,9 +11,6 @@ about 95% of the time. ARC's challenge: work out how often it is right from its 
 testing with the same computing (ARC: "competitive with sampling"; [Q&A 4.13](OWNER_QA.md#q4-13)). Behind it is a safety
 goal: predicting failures too rare for testing to catch.
 
-**Readable neurons.** In a larger language model, about 65% of neurons look like they have one main job, against about
-21% of random directions (H-Q5, confirmed); readable parts alone were not enough to calculate behaviour.
-
 **The main challenge: two candidates, ARC acceptance unknown for both.**
 - *Line walks* (a fixed, evenly spread set of lines; each line exact from the weights): at the full 10 steps about equal
   to random testing at small budgets, and about half its error from about a million runs per model on a sealed,

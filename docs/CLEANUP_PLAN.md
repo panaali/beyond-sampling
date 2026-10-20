@@ -56,7 +56,6 @@ archive files hold the rest.
 | DRI_HANDBOOK.md | 324 | 319 | copied directives → links; PROTOCOLS pointer |
 | AGENTS.md | 73 | 106 | "Where things live" + "Standing rules" |
 | README.md | 49 | 55 | Start here = Where things live |
-| RESULTS.md | 121 | 125 | pointer to H-Q5 |
 | docs/PROTOCOLS.md | - | 73 | new (verbatim from TASKS) |
 | docs/archive/*.md | - | 356 + 383 + ~600 | verbatim archives |
 

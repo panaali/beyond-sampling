@@ -4,8 +4,6 @@
 
 | File | Produced by | Contents |
 |---|---|---|
-| [summary.json](summary.json) | [../analyze.py](../analyze.py) | Qwen study H1-H3 (E1), see [RESULTS.md](../RESULTS.md) |
-| [population.json](population.json) | [../population.py](../population.py) | LLM-free neuron vs random-direction statistics (E2) |
 | [algzoo_4_3.json](algzoo_4_3.json), [algzoo_16_10.json](algzoo_16_10.json) | [../algzoo/score.py](../algzoo/score.py) | Held-out legibility scores (E3, E4) |
 | [arc_eval_sigma0.0025.json](arc_eval_sigma0.0025.json), [arc_eval_sigma0.005.json](arc_eval_sigma0.005.json) | [../m16/arc_eval.py](../m16/arc_eval.py) | Probe estimator vs sampling under ARC's protocol (E7) |
 | [stratified_vs_sampling.json](stratified_vs_sampling.json) | [../m16/stratified_eval.py](../m16/stratified_eval.py) (reproduction) | Stratified sampling comparison (E9; corrected ratios in the INDEX ledger, H-E3) |

@@ -20,7 +20,7 @@ One home per kind of information; everywhere else links to it instead of copying
 | [docs/PROTOCOLS.md](docs/PROTOCOLS.md) | How work is run and scored: continuous work, ladder protocol, DRI directives 1-8 (rung test, two bars) |
 | [DRI_HANDBOOK.md](DRI_HANDBOOK.md) | DRI process and lessons learned; read first if you take over as DRI |
 | [m16/FINDINGS.md](m16/FINDINGS.md) | Narrative: how M_16,10 computes the 2nd argmax, error anatomy, estimators, failed hypotheses |
-| [RESULTS.md](RESULTS.md) | Write-up of the Qwen3-0.6B neuron study and the AlgZoo legibility study |
+| [RESULTS.md](RESULTS.md) | Write-up of the AlgZoo legibility study |
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Hypotheses and thresholds committed before data was collected |
 | [docs/archive/](docs/archive/) | History: old status updates, finished and superseded board text, later-update notes from the Q&A |
 

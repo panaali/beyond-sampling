@@ -57,3 +57,6 @@ own assumptions and review gates.
 Treating a helper as a complete experiment; importing side-effecting sources;
 turning rounded prose into raw counts; conflating a missing record with leakage;
 using a metadata pass to authorize model fitting or a challenge/rung claim.
+
+
+**Snapshot scope (2026-10-20):** Some documentation snapshots are now ARC-only editorial extracts. Original manifest hashes and saved reviews describe the historical originals. See [snapshot scope and replay guidance](../../docs/SNAPSHOT_SCOPE.md) before rerunning a historical check.
