@@ -5,6 +5,8 @@ The owner appointed Codex root to drive the project during Claude's credit outag
 
 At takeover the live Codex roster contained only root. The historical agent names and task assignments did not represent active workers. No research jobs were running in this container. Claude session/process status is inaccessible through the available tools; remote branches establish publication, not liveness. Two focused Codex reviewers were started and completed T459/T460; the T459 reviewer also independently checked T461. No background research run is promised after this turn.
 
+**Updated after the owner’s CPU authorization:** [literature-to-experiment dispatch](LITERATURE_ACTIONS_2026-10-20.md) supersedes the initial no-new-compute choice below; T462/T463 may now run bounded local experiments.
+
 This runtime's sub-agents share its filesystem and compute. There is no tool here for starting separate Claude-style compute sessions. Respect the owner's separate-session preference: use sub-agents for source/reasoning reviews and saved arithmetic, and do not silently launch parallel long experiments in this container. Disk was nearly full from older worktrees; a sparse checkout avoided copying another full repository. No old work or uncommitted evidence was deleted.
 
 ## What was read

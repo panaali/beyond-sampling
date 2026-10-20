@@ -41,6 +41,8 @@ is recorded there only, plus one line here if it binds agents.
 
 - **Temporary DRI:** Codex root coordinates during Claude’s credit outage under the [20 October owner directive](OWNER_QA.md#d-1020-takeover), superseding older Claude-only signoff wording for that interval; independent verification remains mandatory. [Takeover decisions](docs/DRI_TAKEOVER_2026-10-20.md).
 
+- **Local CPU during takeover:** the [20 October CPU authorization](OWNER_QA.md#d-1020-cpu) permits claimed experimental work by shared-container sub-agents when separate research-session tools are unavailable. Existing per-container concurrency and memory limits still apply.
+
 ## Rules
 
 0. **The task board [TASKS.md](TASKS.md) is mandatory for every agent (Claude, Codex, humans).** Many agents work
