@@ -8,7 +8,22 @@ Original sources: [ARC’s AlgZoo challenge](https://www.alignmentforum.org/post
 
 **[Interactive Tutorial](https://claude.ai/artifact/22zmMZh9WU6LAPLWqJmXRX)** · [Results in plain language](INDEX.md) · [Current status](STATUS.md)
 
+## Predict, explain, repair, verify
+
+The bigger goal is to catch mistakes too rare for ordinary testing, understand why they happen, and find changes that reduce them. Here are the main findings so far, on small networks with precisely defined tasks:
+
+| Step | What we have shown | What we still need to watch for |
+|---|---|---|
+| **Predict rare mistakes** | On some tested cases, we estimated failure probabilities as small as **one in billions** without needing billions of ordinary trials. | The methods can miss other failure patterns; success on one case does not establish reliability everywhere. |
+| **Explain the cause** | We traced a studied rare mistake to the balance between internal comparisons and predicted how small weight changes would affect its frequency. Independent interventions checked those predictions. | This is a tested explanation of a particular failure mechanism, not a complete account of every mistake. |
+| **Repair the behavior** | Changing just **12 weights** made one rare mistake **17–19 times less likely**. A separate implementation reproduced the result. | Another type of mistake became more common. A targeted repair is not automatically an overall safety improvement. |
+| **Verify the evidence** | Independent checks caught a numerical error in a proposed probability bound and showed how an apparently reassuring uncertainty warning could miss failure modes. A local numerical repair and a conservative reporting alternative were checked. | The repairs still need to be integrated and validated in the full trained-network workflow. We do not yet have a complete mathematical safety guarantee. |
+
+These are separate, scoped demonstrations—not yet one end-to-end safety system. The [results ledger](INDEX.md) explains the evidence and limitations; the detailed records are H-R1, H-R2, H-R3, T462 and T463.
+
 **A concrete win on the smaller challenge: our method outperformed ARC’s two published estimators in our reproduction.** ARC described its methods for the four-neuron, three-number network as roughly matching random testing. Our mechanism-derived method did substantially better: about **50 times lower squared error than sampling** under the tested computation comparison. An independent check confirmed our advantage over sampling. This result applies to the studied trained network and specified weight changes; it does not establish a solution to the full challenge or a wall-clock speedup. [Published-method comparison](m16/approaches/arc_m43_repro/README.md) · [Independent check](review/understand_m43/README.md).
+
+## Two candidates for ARC’s full challenge
 
 We have **two candidates for meeting the challenge**. Both have encouraging results on previously unused networks trained for the same task. Neither has been accepted by ARC, and each leaves a different question unanswered.
 
@@ -16,8 +31,6 @@ We have **two candidates for meeting the challenge**. Both have encouraging resu
 - **A second candidate tested at a much smaller budget.** It uses no random testing while it runs: we focus on the situations where the largest input numbers are close together and use a fixed set of simplifying assumptions. The estimate achieved about **2.6 times the squared error** of random testing at the same budget. That is encouraging in light of ARC’s earlier “roughly match sampling” examples, but is not a strict win. The assumptions were developed using random tests, and the method fails when noise is added to the weights.
 
 *Squared error is the scoring rule used here: square the gap between an estimated accuracy and the true accuracy, then average across networks. Lower is better. The first candidate was tested at a budget equivalent to roughly 4 million complete network runs; the second at about 3,300. These compare counted computation, not elapsed runtime.*
-
-**A step toward safer networks:** changing just 12 weights made one rare mistake 17–19 times less likely. It also increased another type of mistake, so this is not a claim that every aspect of the network became safer.
 
 The [results ledger](INDEX.md) explains what has been checked, what the limitations mean, and where to find the detailed evidence. A solution meeting the strictest reading of the full challenge remains open.
 
