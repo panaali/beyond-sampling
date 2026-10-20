@@ -640,3 +640,6 @@ All claims are unverified by the DRI unless stated. Event: E(t0) = {pick = p3, g
   - 2026-10-19 23:30: (9,3,2) s2of6 half 1 is split.
     - Worker A keeps the head `--parents range(2,933,6)` (156 parents, tag s2of6).
     - C13 takes the tail `range(938,1443,6)` (85 parents, tag s2of6_tailC13).
+  - 2026-10-20 00:17: (9,3,2) s1of6 half 1 is split.
+    - The lead keeps the head `range(1,841,6)` (140 parents, tag s1of6).
+    - C14 takes the tail `range(841,1442,6)` (101 parents, tag s1of6_tailC14).
