@@ -61,3 +61,7 @@ method for the all-at-once network (T408). A bug re-check of the small-rung calc
 
 **Documents:** what more money or compute would solve in [docs/COMPUTE_FRONTIER.md](docs/COMPUTE_FRONTIER.md).
 **Standing rules** (no ARC contact, no Fable, CPU-first, one home per fact) are in [AGENTS.md](AGENTS.md#standing-rules).
+
+## White-Box submission sprint (21 October)
+
+Eight entries were accepted before the Phase 2 cutoff and were awaiting grading at the final check. Stronger public cumulant code outperformed the initial baseline locally; rank/pruning changes did not establish a robust improvement. Official scores and rank remain unknown. See [INDEX T475–T479](INDEX.md#3-experiment-registry) and [submission receipts](m16/approaches/whitebox_submission/submissions.json). T480 tracks grading and private nominations; no background monitor is running.

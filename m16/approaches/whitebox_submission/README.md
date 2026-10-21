@@ -13,7 +13,7 @@ credentials or dataset files belong in the upload.
 
 ## Status
 
-Submission sprint underway; official IDs and archive hashes are recorded in `submissions.json`. No organizer messages authorized.
+Eight submission uploads completed before the cutoff. Official IDs and archive hashes are recorded in `submissions.json`; all were queued awaiting holdout compute at the final browser check. Grading and private nomination remain external follow-ups. No organizer messages authorized.
 
 ## Validation protocol
 
@@ -31,7 +31,7 @@ See INDEX T479 when registered; validation artifacts live in `results/`.
 
 ## Compute accounting
 
-One bounded subprocess smoke test; prediction uses the official FLOP meter.
+Subprocess smoke tests for the three base families, including retained failed attempts; prediction uses the official FLOP meter. Exact-source small-shape validation for all eight archives. Variant full-shape numerical checks and independent source reviews are recorded under T475/T476.
 The small reference and package/validation work are preparation costs, not a
 claimed score improvement. No additional model fitting or parameter search.
 
@@ -61,3 +61,7 @@ the residual cap during concurrent experiments; a separately retained isolated
 repeat passed. Both receipts are retained. Its timing margin is therefore less
 robust than e30. Tiny-reference smoke-test MSE is intentionally not used for
 accuracy or rank claims.
+
+### Submission coverage
+
+The eight archives cover blocked V25 (128/256 rows), original e30, original logxio, e30 RPC dtype compatibility, e30 rank448, pruning threshold3.0, and ranks384/192. They retain upstream MIT licenses. Full subprocess rehearsals cover base families; variant checks do not independently establish remote RPC timing. Two unused slots were left rather than uploading known worse or timeout-prone experiments. The selection page states that the two best public scores enter private re-evaluation automatically if no manual selection is made; selection closes 2026-10-22 23:59 UTC. Screenshot proof: `results/submissions.jpg`.
