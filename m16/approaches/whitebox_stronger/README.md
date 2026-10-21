@@ -9,7 +9,7 @@ Run unchanged pinned e30_a, logxio and V29 in isolated supervised workers, seque
 Two alternatives: published improvements may come from a different scorer version (test actual flopscope cost and residual); learned public corrections may overfit (compare distinct full rows, retain limitation). Stop any worker above 7.5 GB RSS, 120 CPU s or150 wall s. Root reports owner authorized 8 GB/process and16 GBtotal for this deadline sprint. Maximum8 CPU minutes total.
 
 ## Status
-Running.
+Original e30 and logxio reproduced. Original V29 deferred because both stronger descendants passed and deadline prioritizes submission verification. L6 local pilot passes but upstream server failures disqualify recommendation. Dtype-only e30 is bitwise identical on mini0, with identical FLOPs and a passing residual timer. Root coordinates submission.
 
 ## Results
 Artifacts in results; root registers final numbers in INDEX.
@@ -25,3 +25,22 @@ Public training overlap, floating-point platform effects, grader-version changes
 
 ## Failure modes
 Residual time .4s, full shape1024x16 only, memory > limit, numerical stability, learned corrections.
+
+## Bounded follow-up preregistration
+After original-source checks, test upstream X_L6=1 (sixth Strassen level) on mini0 then the existing full0/full1 only if finite and residual <.35s and score improves. Exact arithmetic is unchanged; finiteprecision and operation-count/residual overhead are alternatives. No broad search. Variants agent owns rank/threshold sweeps.
+
+Root reviewer identified remote dtype metadata as strings; e30_l6_rpc uses str(w.dtype)=="float32" fortheexistingfloat32fastpath. Other pool dtypechecks compare stored dtype constants and remain unchanged. Test exactnativeparity against e30_l6 onmini0 before evaluating remainingrows.
+
+Root independent reviewer found upstream WRITEUP E1 reports L6 ~20%server failures and119.3/120sworstwall, despite~1.5%FLOPs saving. FreezeL6 as not recommended; do not expand fullrowtests. e30_rpc keeps original5levels and only fixes dtype metadata equality; testmini0 bitwise equality.
+
+## Reproduction
+From repo root, using the T474 environment:
+```sh
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_stronger/run.py --method e30 --width 1024 --seed 6319981554997072999 --output /tmp/e30_mini0.json
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_stronger/run.py --method logxio --width 1024 --seed 1778484118851160678 --output /tmp/logxio_full0.json
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_stronger/score.py
+```
+Seed 7145726208641497362 is full1. Sources are immutable originals except explicitly named l6/rpc variants. The worker verifies SHA256 before import. Use a new output path; supervisor refuses overwrites. `results/scores.json` records both strict and lenient point bars relative to covariance, with no population confidence claim.
+
+## Exhaustion checklist
+Tried: original e30 and logxio, three full-sized public networks each; upstream optionalL6 onmini0; dtype metadata checkfix. Not tried: V29 (weaker public benchmark), fullK4 (outsidecompute budget), parametersearch (separate T476agent), L6fullpanel (knownpublishedserverwallfailure), freshsealedreference (outsidedeadline scope). No estimatorfamily declareddead.

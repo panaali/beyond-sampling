@@ -38,3 +38,7 @@
   qd = self.q4 = (a[..., :h, :q], a[..., :h, q:], a[..., h:, :q], a[..., h:, q:])
 /tmp/whitebox-review-k4/estimator.py:9093: SymmetryLossWarning: Symmetry lost along dims (0, 1): add — no symmetry groups shared by both operands. Use as_symmetric() to re-tag if you know the result is symmetric. Suppress with flops.configure(symmetry_warnings=False).
   Sg = Sj if Sg is None else Sg + Sj
+/tmp/whitebox-review-k4/estimator.py:9133: SymmetryLossWarning: Symmetry lost along dims (0, 1): subtract — no symmetry groups shared by both operands. Use as_symmetric() to re-tag if you know the result is symmetric. Suppress with flops.configure(symmetry_warnings=False).
+  Sg = Sg - S_s
+/tmp/whitebox-review-k4/estimator.py:9111: SymmetryLossWarning: Symmetry lost along dims (0, 1): add — no symmetry groups shared by both operands. Use as_symmetric() to re-tag if you know the result is symmetric. Suppress with flops.configure(symmetry_warnings=False).
+  G2 = S_s if kb == 0 else S_s + U @ (S2 @ U.T)
