@@ -85,8 +85,8 @@ def supervise(args):
                 peak = max(peak, child.memory_info().rss)
                 times = child.cpu_times()
                 cpu = times.user + times.system
-                if peak > 1_650_000_000:
-                    reason = "RSS guard exceeded 1.65 GB"
+                if peak > 7_500_000_000:
+                    reason = "RSS guard exceeded 7.5 GB"
                 elif time.monotonic()-start > 150:
                     reason = "150 s worker wall cap"
                 elif cpu > 120:

@@ -25,3 +25,6 @@ Strassen, dead-neuron pruning, newer fitted corrections and fixed-basis transpor
 
 ## Failure modes
 Public-panel overfitting; stale correction tables; residual wall-clock variance; numerical differences from blocking; off-shape source instability inherited from V25.
+
+## E30 extension frozen before execution
+Root authorized stronger-public-baseline variants after the first screen. The owner waived local memory limits; supervisor now allows 7.5 GB, while the competition 8 GB still binds. Pin e30_a source SHA6ddd97a96c30397683815c530bfb422f0a49ffdea49e4f7827149ed0a14729b0 and its MIT license. Four variants: shared ranks384/192, rank448/224, dead threshold2.7, and dead threshold3.0. Each compares error/cost on the same four DEV rows. All changed settings are literals in submitted source; no reliance on environment overrides. Alternative explanation: a public best setting may already dominate these local changes, and random small-panel shifts may not transfer. The first rank384 run hit the too-tight 6 GB guard at 6.054 GB and was preserved; no numerical output was produced. The rerun uses 7.5 GB. No new-method claim. Cumulative deadline cap extended by root to12CPU-min; one worker/one thread.
