@@ -1,0 +1,24 @@
+/tmp/whitebox-review-k3/estimators/estimator_v25.py:722: FlopscopeWarning: stats.norm.pdf promoted its float32 input to float64 to match scipy.stats. If float64 output was not intended, cast the result back with result.astype(np.float32) before downstream operations; float64 operations are billed at twice the float32 dtype rate.
+  phi = flops.stats.norm.pdf(alpha).astype(f32)
+/tmp/whitebox-review-k3/estimators/estimator_v25.py:723: FlopscopeWarning: stats.norm.cdf promoted its float32 input to float64 to match scipy.stats. If float64 output was not intended, cast the result back with result.astype(np.float32) before downstream operations; float64 operations are billed at twice the float32 dtype rate.
+  Phi = flops.stats.norm.cdf(alpha).astype(f32)
+/tmp/whitebox-review-k3/estimators/estimator_v25.py:928: SymmetryLossWarning: Symmetry lost along dims (0, 1): add — no symmetry groups shared by both operands. Use as_symmetric() to re-tag if you know the result is symmetric. Suppress with flops.configure(symmetry_warnings=False).
+  C = fnp.diagflat(K2v) + (K11 + K11.T) * 0.5
+Traceback (most recent call last):
+  File "/Users/ali/code/beyond-sampling/m16/approaches/whitebox_cumulants/run.py", line 123, in <module>
+    (worker if args.worker else supervise)(args)
+  File "/Users/ali/code/beyond-sampling/m16/approaches/whitebox_cumulants/run.py", line 46, in worker
+    pred = est.predict(mlp, 2**41)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/whitebox-review-k3/estimators/estimator_v25.py", line 514, in predict
+    C_pre = fnp.einsum("ij,ia,jb->ab", C, w32, w32)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/whest-env-t473/lib/python3.11/site-packages/flopscope/_budget.py", line 1245, in wrapped
+    return inner_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/whest-env-t473/lib/python3.11/site-packages/flopscope/_einsum.py", line 975, in einsum
+    if target_symmetry is not None and _validate_result_symmetry(
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/whest-env-t473/lib/python3.11/site-packages/flopscope/_pointwise.py", line 552, in _validate_result_symmetry
+    raise SymmetryError(axes=tuple(axes), max_deviation=float("inf"))
+flopscope.errors.SymmetryError: Tensor not symmetric along axes (0, 1): max deviation = inf (tolerance: atol=1e-06, rtol=1e-05). See: https://aicrowd.github.io/flopscope/docs/guides/symmetry

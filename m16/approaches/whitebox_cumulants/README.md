@@ -64,6 +64,25 @@ Two alternatives to distinguish before building on the memory hypothesis:
 
 In progress. Source review and frozen protocol precede execution.
 
+### Memory rewrite extension, frozen before its runs
+
+Original V25's half-width memory measurement does not support a safe full-width
+launch (see INDEX/result artifacts). Test a separate, licensed derivative with
+128-row blocks in the source-slice and nonlinear-term contractions. Partition
+only a free output index; retain all summed indices, coefficients, source ages,
+ranks and default flags. V25's old mean-correction flag is off by default and
+stays off. The original small deep-network failures remain in the record; they
+stop their individual rows, while larger finite cases still support memory and
+parity diagnostics because this is not an accuracy ladder claim.
+
+Before scoring, require max absolute prediction difference <=3e-5 and final-layer
+mean squared prediction difference <=1e-11 against finite originals at 32×4,
+256×16 and 512×16, seed 2026; add independent seed 2027 at 512×16. Charge all new
+metered work; changed costs or floating-point regrouping are reported, not assumed
+away. Run full width only after the blocked memory projection clears the original
+gate. A mismatch halts scaling. This is a memory representation change, not a
+new cumulant approximation, and does not establish the strongest public score.
+
 ## Results
 
 Pending; numerical results will be registered in [INDEX](../../../INDEX.md).
