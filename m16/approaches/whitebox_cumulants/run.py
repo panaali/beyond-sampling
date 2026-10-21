@@ -24,7 +24,7 @@ def worker(args):
     from whestbench.seeds import derive_seed_streams
 
     manifest = json.loads((HERE / "sources.json").read_text())[args.method]
-    path = Path(manifest["local_path"])
+    path = HERE / "estimator_blocked.py" if manifest.get("derived") else Path(manifest["local_path"])
     assert hashlib.sha256(path.read_bytes()).hexdigest() == manifest["sha256"]
     spec = importlib.util.spec_from_file_location("t474_estimator", path)
     module = importlib.util.module_from_spec(spec)

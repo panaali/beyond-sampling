@@ -62,7 +62,11 @@ Two alternatives to distinguish before building on the memory hypothesis:
 
 ## Status
 
-In progress. Source review and frozen protocol precede execution.
+Completed bounded phase. The row-blocked V25 derivative runs at the official
+shape below our memory limit and outperforms the supplied covariance baseline
+on the four predeclared public rows. This reproduces a public method in a smaller
+memory footprint; it is not a new cumulant algorithm or a leaderboard submission.
+The stronger public-estimator port is queued as T475.
 
 ### Memory rewrite extension, frozen before its runs
 
@@ -85,7 +89,55 @@ new cumulant approximation, and does not establish the strongest public score.
 
 ## Results
 
-Pending; numerical results will be registered in [INDEX](../../../INDEX.md).
+Numerical results are registered once in [INDEX, T474](../../../INDEX.md), with
+[machine-readable scores and parity checks](results/summary.json). Public reference
+means and provenance are archived under `results/references/`; large weight
+columns are not copied into this repository.
+
+All originals passed the shallow interface control. At the narrow/deep control,
+V25 raised a symmetry exception after nonfinite arithmetic; the other three
+returned nonfinite outputs. These are off-shape, scoped failures, not evidence
+against their official-shape algorithms. The larger V25 controls were finite.
+Original full-width V25 was not launched because its observed half-width memory
+did not satisfy the launch gate.
+
+The derivative passed the frozen numerical-parity thresholds, including a fresh
+seed, and six additional synthetic controls with nonzero K4/feedback terms,
+ragged blocks, both compressed-source tiers, and final-layer handling. A separate
+agent audited the generated diff and found no dropped terms or blocking defect.
+This supports algebraic equivalence, not bitwise equality. Full-width original
+versus derivative prediction parity has not been measured under our memory cap.
+
+The source generators were checked against every stored float32 weight of the
+first public mini network, using both the official generator and an independent
+NumPy recipe. The remaining weights use that verified protocol with their own
+stored seeds. Dataset means come from the pinned official reference bake, with
+finite sampling noise; the public authors may have used these rows for fitting.
+
+Reproduction from the repository root (Python 3.11):
+
+```sh
+uv venv --python 3.11 /tmp/whest-env-t474
+uv pip install --python /tmp/whest-env-t474/bin/python -r m16/approaches/whitebox_cumulants/requirements-lock.txt
+/tmp/whest-env-t474/bin/python m16/approaches/whitebox_cumulants/fetch_sources.py
+export OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 VECLIB_MAXIMUM_THREADS=2
+/tmp/whest-env-t474/bin/python -m pytest -q m16/approaches/whitebox_cumulants/test_blocked.py
+/tmp/whest-env-t474/bin/python m16/approaches/whitebox_cumulants/run.py --method blocked --width 1024 --seed 6319981554997072999 --output /tmp/t474-reproduction/blocked_mini_0.json
+```
+
+Other frozen public seeds are in `results/references/{mini,full}_{0,1}.json`.
+Use a new output path for every run; the runner refuses overwrites. The row's
+`mlp_seed` is the generator root, not the estimator input seed. Each original
+parity control uses the same runner with `--method v25`, the corresponding width
+and depth, and seed 2026 (plus 2027 at width 512). Numerical arrays and captured
+failure logs remain under `results/`.
+
+`references.py --split mini --output data/t474-references` (and `--split full`)
+reproduces the column-projected reference fetch. `verify_weights.py` verifies the
+first mini network with bounded dictionary/data-page reads. `summarize.py`
+re-scores the frozen arrays; no models are evaluated. These are evaluator tools,
+not submission files. `profile_memory.py` traces line-level allocations and is
+explicitly a diagnostic, not a valid timing/score run.
 
 ## Compute accounting
 
@@ -94,10 +146,20 @@ separately, including any warmup array work. Reference loading, model generation
 supervision and scoring are evaluator overhead, not estimator computation.
 Meter version differs from some reported public submissions; reproduce what the
 current pinned meter charges, not their historical cost by assertion.
+The prototype's row blocking uses the unmodified meter and preserves all terms;
+actual FLOP counts change slightly at tested parity sizes. Reported aggregate
+worker CPU includes the traced memory diagnostic but excludes downloads, seed
+verification, and tests. The full-width runs each passed the local setup, budget,
+wall-time and residual gates. Residual headroom is limited; remote runtime remains
+unverified. Supervisor RSS samples and process high-water measurements are both
+retained.
 
 ## Claims
 
-- [speculative] V25 can serve as a useful full-size baseline under our memory cap.
+- [measured, not independently re-executed] The row-blocked V25 port is a useful
+  full-size baseline under our local memory cap on the predeclared public rows.
+- [inferred, independently source-audited] Blocking changes only free output
+  dimensions; its formulas are mathematically equivalent to original V25.
 - [inferred] Small-width interface success cannot establish the Phase 2 method's
   performance because its source code selects different algorithms at that size.
 
@@ -106,6 +168,11 @@ current pinned meter charges, not their historical cost by assertion.
 V29 without recursive pools, exact source chunking, freeing dead temporaries,
 and corrected cumulant tables. Accuracy-changing source compression is a new
 variant and requires its own protocol; not part of an exact memory rewrite.
+Exhaustion checklist: original V25/V29/e30/logxio shallow and narrow/deep controls;
+V25 memory ladder; one fixed row-blocked derivative; four frozen public rows.
+Untried: original full-size variants above the resource gate, stronger public
+calibrations/pruning in the blocked port, alternate block sizes, corrected term
+tables, and a broad public/private panel. The current port is not declared dead.
 
 ## Failure modes
 

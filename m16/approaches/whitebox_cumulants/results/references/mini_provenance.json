@@ -1,0 +1,86 @@
+{
+  "revision": "aa99830fdc09fad15407b10e8e3459d3e18bba0a",
+  "shard": {
+    "type": "file",
+    "oid": "2df5412931c1be26756524c3916fde7726d686b7",
+    "size": 1118937153,
+    "lfs": {
+      "oid": "7da858bc60616456e7b55a545a91288c1edba612b556be2e6eae3d86df48639c",
+      "size": 1118937153,
+      "pointerSize": 135
+    },
+    "xetHash": "4ae458f0ee4da27bf8c92156c592212616afa2e70d7f8eeb95a390385691a9b5",
+    "path": "data/mini-00000-of-00007.parquet"
+  },
+  "schema": "<pyarrow._parquet.ParquetSchema object at 0x1074aff40>\nrequired group field_id=-1 schema {\n  optional int32 field_id=-1 mlp_id;\n  optional binary field_id=-1 mlp_name (String);\n  optional int64 field_id=-1 mlp_seed;\n  optional group field_id=-1 weights (List) {\n    repeated group field_id=-1 list {\n      optional group field_id=-1 element (List) {\n        repeated group field_id=-1 list {\n          optional group field_id=-1 element (List) {\n            repeated group field_id=-1 list {\n              optional float field_id=-1 element;\n            }\n          }\n        }\n      }\n    }\n  }\n  optional group field_id=-1 all_layer_means (List) {\n    repeated group field_id=-1 list {\n      optional group field_id=-1 element (List) {\n        repeated group field_id=-1 list {\n          optional float field_id=-1 element;\n        }\n      }\n    }\n  }\n  optional group field_id=-1 final_means (List) {\n    repeated group field_id=-1 list {\n      optional float field_id=-1 element;\n    }\n  }\n  optional double field_id=-1 avg_variance;\n  optional binary field_id=-1 sampling_budget_breakdown (String);\n}\n",
+  "row_groups": [
+    {
+      "rows": 16,
+      "columns": [
+        {
+          "name": "mlp_id",
+          "compressed_bytes": 148
+        },
+        {
+          "name": "mlp_name",
+          "compressed_bytes": 371
+        },
+        {
+          "name": "mlp_seed",
+          "compressed_bytes": 229
+        },
+        {
+          "name": "weights.list.element.list.element.list.element",
+          "compressed_bytes": 1117214537
+        },
+        {
+          "name": "all_layer_means.list.element.list.element",
+          "compressed_bytes": 1609598
+        },
+        {
+          "name": "final_means.list.element",
+          "compressed_bytes": 91690
+        },
+        {
+          "name": "avg_variance",
+          "compressed_bytes": 229
+        },
+        {
+          "name": "sampling_budget_breakdown",
+          "compressed_bytes": 9698
+        }
+      ]
+    }
+  ],
+  "bytes_transferred": 1767801,
+  "byte_ranges": [
+    [
+      1118871617,
+      1118937152
+    ],
+    [
+      4,
+      151
+    ],
+    [
+      152,
+      522
+    ],
+    [
+      523,
+      751
+    ],
+    [
+      1118824887,
+      1118916576
+    ],
+    [
+      1117215289,
+      1118824886
+    ],
+    [
+      1118916577,
+      1118916805
+    ]
+  ]
+}

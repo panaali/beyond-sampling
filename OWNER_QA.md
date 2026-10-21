@@ -1332,3 +1332,11 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 **Owner (verbatim):** "checkout whitebox_challenge_assessment.md and start work on a solution"; after interruption, "continue". The owner then supplied public-code leads and authorized review: "you can assign a subagent to check these".
 
 **Action:** Claimed and published T473, built and ran a bounded metered control-variate pilot, and assigned an independent read-only public-source review. Results and limitations live in [INDEX T473](INDEX.md); source pins and implementation caveats in [the review](m16/approaches/whitebox_pilot/public_sources.md). T474 records the public cumulant-baseline follow-up. No organizer contact, registration or challenge submission.
+
+
+<a id="d-1021-whitebox-continue"></a>
+### White-Box baseline continuation and standing (2026-10-21)
+
+**Owner (verbatim):** "ok continue". During T474: "any estimate of where we're standing in https://www.aicrowd.com/challenges/arc-white-box-estimation-challenge-2026/leaderboards?round=phase-2 ?" and "Do we not have enough memory?"
+
+**Answer/action:** T474 claimed and published. Explained that no submission/rank exists and the first pilot was far above leading scores. Explained the active constraint was the standing per-process memory limit, not a demonstrated machine-wide shortage. Implemented an independently source-audited memory-only port of public V25 and measured it against pinned public references; updated comparison and limitations live in [INDEX T474](INDEX.md). The memory limit was not waived. T475 records the stronger-public-method follow-up.

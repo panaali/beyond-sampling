@@ -207,6 +207,8 @@ Scale limits of the methods that work, and the compute to reproduce each result:
 
 ## 12. White-Box Phase 2 public cumulant baselines (T473 → T474)
 
+**T474 update (2026-10-21):** the memory obstacle is resolved for a row-blocked V25 port, not yet for the strongest public submissions. [INDEX T474](../INDEX.md) records measured memory/cost and the public-reference result. Exact seed reconstruction was verified against stored weights; projected public reference columns avoid regenerating expensive truths. The older estimates below describe the alternative of generating new independent references, not compute now needed for this completed four-row reproduction. T475 continues with stronger public ports and cost reduction.
+
 - **Why the next phase is bounded:** the completed first-layer CV pilot is
   method-limited against covariance propagation on its two full-size cases
   ([INDEX T473](../INDEX.md)); more IID samples alone do not establish a better
