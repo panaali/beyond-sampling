@@ -49,3 +49,10 @@ The orchestration parent was paused between workers to let root repeat a residua
 
 ## Independent review received
 Codex `whitebox_stronger` independently checked the rank448 source difference (header plus the single rank literal), the block256 fixed-default/output-blocking rewrite, and bitwise equality of every saved block256 layer array against T474 on all four public models. Review was communicated to root before packaging. This supports the source transformation and saved-output parity only; it is not an independent fresh-model accuracy run or a confirmed performance claim.
+
+## Frozen follow-up robustness check
+After deadline candidates were frozen and submitted, root requested two additional public full rows (indices2/3), untouched by our current tuning. Test the frozen rank448 and tau3.0 sources on those rows with unchanged literals and hashes; stronger agent tests unchanged e30. No fitting or new settings. At most two additional CPU minutes, one worker, stop starting compute at23:57UTC. These are not sealed/private rows and upstream authors may have used them. References/provenance are archived by T475; results here under `fresh_scores.json`. Reproduce with `fresh_check.py <T475 fresh-reference-directory>`.
+
+The independent reviewer subsequently also verified rank384 and tau3.0 as exactly their designated literal replacements plus provenance headers; hashes matched. Receipt: [T475 additional source review](../whitebox_stronger/results/t476_additional_source_review.json).
+
+Fresh follow-up completed before the cutoff within its original CPU cap. All four frozen variant executions passed local gates. Rank448 slightly improves the mean over the two fresh rows; tau3.0 slightly worsens it. This is descriptive two-model evidence, with no confidence/generalization claim. Relative to frozen e30, rank448 passes both strict and lenient mean-score point bars; tau3.0 fails strict and passes lenient. Row-specific results, source hashes, costs and elapsed compute are preserved in `results/fresh_summary.json`. No model computation remains running and no source was changed after freezing.
