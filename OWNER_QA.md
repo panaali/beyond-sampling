@@ -1347,3 +1347,13 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 **Owner (verbatim):** "anything we didn't get to optimize? any ideas missed?" and "Have we used all of our knowledge regarding how we did solve the previous challenge and all the techniques and everything that we learned?"
 
 **Answer/action:** No. T473 tested one analytic-mean control variate; T474 reproduced a public cumulant baseline with a memory-only rewrite. We reused cost accounting, bounded memory, independent checks and limited development/evaluation separation, but have not exhausted our prior methods. The earlier project established scoped successes and full-challenge candidates, not an ARC-accepted general solution. The strongest missing transfers are approximation-by-approximation error attribution with paired ablations (including cancellation), bounded exact-line/circle feasibility, and function-preserving invariance plus final-output-sensitive allocation. These are queued as T476–T478 in [TASKS](TASKS.md), alongside stronger public-baseline work T475. No new experiment or transferred performance claim is made. Task-specific order-statistic formulas, weight repairs and rare-event certificates do not directly estimate random-network activation means. Four public reference rows are not a sealed test; broader evaluation and a genuinely fresh final panel remain necessary before claiming general gains.
+
+
+<a id="d-1021-submission-sprint"></a>
+### First submissions and deadline sprint (2026-10-21)
+
+**Owner (verbatim):** "Let's make our first submission. Could you do that?"; "You can also use my browser."; "Spawn subagents to try other methods that we have."; "We want to get to the best solution in the next 22 minutes and submit them."; "We can make 10 submissions within these 22 minutes."
+
+**Memory authorization (verbatim):** "My machine has a lot of free memory available. Would that help you?" Following a request to raise the local cap to 8 GB/process and 16 GB total: "do your best", then "Use whatever you can use. No limit."
+
+**Application:** Owner authorizes this challenge's submission uploads and a bounded deadline sprint, superseding the general no-contact restriction for these entries only. No forum/email outreach. Owner waives the old local memory ceiling for this sprint; still respect actual available machine memory and the remote grader's 8 GB submission-process cap. T475/T476/T477 run in parallel under published claims; root handles T479 packaging, validation and uploads. Official receipts and results belong in INDEX T479 and its linked artifact manifest.

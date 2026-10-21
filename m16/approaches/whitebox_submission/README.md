@@ -1,0 +1,63 @@
+# T479: first White-Box submission
+
+## Question
+
+Can the frozen T474 memory-safe public baseline complete an official Phase 2 submission?
+
+## Method
+
+Ship T474's `estimator_blocked.py` byte-for-byte as `package/estimator.py`, with the
+upstream MIT license. This derives from 504aldo V25, not an original cumulant
+algorithm. `whest package` supplies the manifest. No research logs, references,
+credentials or dataset files belong in the upload.
+
+## Status
+
+Submission sprint underway; official IDs and archive hashes are recorded in `submissions.json`. No organizer messages authorized.
+
+## Validation protocol
+
+Before upload, validate the exact packaged source and rehearse one official-shape
+prediction with the official subprocess runner, one BLAS thread, 120-second
+prediction cap and 0.4-second residual cap. Use only 128 reference samples for
+this interface smoke test; its score is not an accuracy estimate. Prior accuracy
+measurements remain in INDEX T474. Initial guard: every owned process below 1.65 GB RSS; owner subsequently waived the local memory cap. The rehearsal now uses an 8 GB guard aligned with the remote process limit,
+limit the rehearsal to 240 seconds wall time, and record failures without silently
+changing the estimator. Inspect archive members and hashes before upload.
+
+## Results
+
+See INDEX T479 when registered; validation artifacts live in `results/`.
+
+## Compute accounting
+
+One bounded subprocess smoke test; prediction uses the official FLOP meter.
+The small reference and package/validation work are preparation costs, not a
+claimed score improvement. No additional model fitting or parameter search.
+
+## Claims
+
+- [measured previously] T474's local evidence is linked in INDEX, not duplicated.
+- [speculative] The same source passes the remote grader; only an official
+  submission result can establish that.
+
+## Alternatives not ruled out
+
+Remote residual-time overhead may exceed local measurements. A local passing
+interface or isolated process is not the remote sandbox. Stronger public methods
+and error attribution remain separately queued as T475–T478.
+
+## Failure modes
+
+Residual-time cap, numerical failure on unseen models, import/sandbox differences,
+submission deadline, account eligibility or platform failure. No official rank
+is inferred from local test results.
+
+### Rehearsal interpretation
+
+The initial low-memory subprocess attempt stopped in the harness. After the owner
+waived that cap, V25 and e30 passed the official subprocess path. Logxio exceeded
+the residual cap during concurrent experiments; a separately retained isolated
+repeat passed. Both receipts are retained. Its timing margin is therefore less
+robust than e30. Tiny-reference smoke-test MSE is intentionally not used for
+accuracy or rank claims.

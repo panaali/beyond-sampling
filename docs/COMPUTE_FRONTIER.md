@@ -240,3 +240,8 @@ Scale limits of the methods that work, and the compute to reproduce each result:
   More compute helps validate or falsify a new cumulant variant; it does not
   itself imply a winning estimator. A low-memory V25 path is plausible but
   unmeasured, not an exemption from the memory limit.
+
+
+## White-Box exact-line/circle transfer: deadline-limited screen (T477, 21 October)
+
+The radial arithmetic and traversal screen are in [T477](../m16/approaches/whitebox_lines/README.md); this is not a family-wide negative. A bounded exact-primitive and gate-count pilot is estimated at 2–6 agent-hours and 0.1–2 CPU-hours before any useful full-network estimator is established. At an illustrative $0.05/CPU-hour this is under $0.10 compute today, and under $0.02 if unit compute becomes five times cheaper in five years; these are scenarios, not current vendor quotes. Agent engineering effort dominates. More compute alone does not establish a favorable variance-versus-cost tradeoff or a compact incremental representation. The sprint stopped this avenue for deadline/engineering reasons, not exhausted hardware.

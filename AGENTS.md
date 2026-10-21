@@ -111,3 +111,5 @@ is recorded there only, plus one line here if it binds agents.
 ## Environment
 `source .venv/bin/activate` (CPU torch, transformers, alg_zoo installed editable from
 `/home/user/alignment-research-center/alg-zoo`). Ground truth for M_16,10's accuracy: [`m16/truth.txt`](m16/truth.txt).
+
+- **White-Box submission sprint, 21 October:** owner authorizes up to ten challenge submissions and lifts the old local memory limit for this sprint; keep the machine responsive and respect remote grader limits. This is a scoped exception to no-contact for submission uploads only. [Verbatim authorization](OWNER_QA.md#d-1021-submission-sprint).
