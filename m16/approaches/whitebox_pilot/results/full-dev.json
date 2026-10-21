@@ -1,0 +1,77 @@
+{
+  "stage": "full-dev",
+  "starterkit": "96e308c518c76a1ae119f1d4c8913bc2e019eee4",
+  "versions": {
+    "flopscope": "0.12.3",
+    "whestbench": "0.16.2",
+    "numpy": "2.4.6"
+  },
+  "estimator_sha256": "a4d84f4eb90415bcfa3b9ca1a727e7d1fba7813fd5701e8718ebc9441ce98d3f",
+  "reference_samples": 65536,
+  "samples": 6500,
+  "replicates": 1,
+  "models": [
+    {
+      "width": 1024,
+      "depth": 16,
+      "weight_seed": 0,
+      "budget": 2199023255552,
+      "reference_wall_seconds": 3.566395999980159,
+      "reference_mse_estimate": 1.2305379988221131e-06,
+      "estimates": [
+        {
+          "flops": 86639616,
+          "wall_seconds": 0.030265458044596016,
+          "residual_seconds": 0.003919213893823326,
+          "contract_pass": true,
+          "method": "mean",
+          "replicate": 0,
+          "input_seed": 2000000,
+          "final_mse": 0.0003053780148312914,
+          "score": 3.053780148312914e-05,
+          "noise_corrected_score": 3.041474768324693e-05
+        },
+        {
+          "flops": 51709240799,
+          "wall_seconds": 0.3752840000670403,
+          "residual_seconds": 0.0054292986169457436,
+          "contract_pass": true,
+          "method": "covariance",
+          "replicate": 0,
+          "input_seed": 2000000,
+          "final_mse": 6.431323830493003e-06,
+          "score": 6.431323830493004e-07,
+          "noise_corrected_score": 5.20078583167089e-07
+        },
+        {
+          "flops": 218636386304,
+          "wall_seconds": 0.4355394580634311,
+          "residual_seconds": 0.004522364586591721,
+          "contract_pass": true,
+          "method": "mc",
+          "replicate": 0,
+          "input_seed": 2000000,
+          "final_mse": 1.2059145533254743e-05,
+          "score": 1.2059145533254745e-06,
+          "noise_corrected_score": 1.082860753443263e-06
+        },
+        {
+          "flops": 218784737280,
+          "wall_seconds": 0.42879045801237226,
+          "residual_seconds": 0.00783582276199013,
+          "contract_pass": true,
+          "method": "cv",
+          "replicate": 0,
+          "input_seed": 2000000,
+          "final_mse": 1.1222464744152974e-05,
+          "score": 1.1222464744152973e-06,
+          "noise_corrected_score": 9.991926745330861e-07
+        }
+      ]
+    }
+  ],
+  "resources": {
+    "cpu_seconds": 7.090567,
+    "peak_rss_bytes": 320847872
+  }
+}

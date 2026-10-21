@@ -1,0 +1,77 @@
+{
+  "stage": "full-heldout",
+  "starterkit": "96e308c518c76a1ae119f1d4c8913bc2e019eee4",
+  "versions": {
+    "flopscope": "0.12.3",
+    "whestbench": "0.16.2",
+    "numpy": "2.4.6"
+  },
+  "estimator_sha256": "a4d84f4eb90415bcfa3b9ca1a727e7d1fba7813fd5701e8718ebc9441ce98d3f",
+  "reference_samples": 65536,
+  "samples": 6500,
+  "replicates": 1,
+  "models": [
+    {
+      "width": 1024,
+      "depth": 16,
+      "weight_seed": 100,
+      "budget": 2199023255552,
+      "reference_wall_seconds": 3.4717745420057327,
+      "reference_mse_estimate": 1.2000631628480648e-06,
+      "estimates": [
+        {
+          "flops": 86639616,
+          "wall_seconds": 0.06935879192315042,
+          "residual_seconds": 0.026246758992783725,
+          "contract_pass": true,
+          "method": "mean",
+          "replicate": 0,
+          "input_seed": 2010000,
+          "final_mse": 0.00021626797439549725,
+          "score": 2.1626797439549726e-05,
+          "noise_corrected_score": 2.150679112326492e-05
+        },
+        {
+          "flops": 51709240799,
+          "wall_seconds": 0.5876784169813618,
+          "residual_seconds": 0.007964386721141636,
+          "contract_pass": true,
+          "method": "covariance",
+          "replicate": 0,
+          "input_seed": 2010000,
+          "final_mse": 4.012970591820611e-06,
+          "score": 4.012970591820611e-07,
+          "noise_corrected_score": 2.812907428972546e-07
+        },
+        {
+          "flops": 218636386304,
+          "wall_seconds": 0.4579645829508081,
+          "residual_seconds": 0.007443073904141784,
+          "contract_pass": true,
+          "method": "mc",
+          "replicate": 0,
+          "input_seed": 2010000,
+          "final_mse": 1.3587535201817008e-05,
+          "score": 1.3587535201817008e-06,
+          "noise_corrected_score": 1.2387472038968943e-06
+        },
+        {
+          "flops": 218784737280,
+          "wall_seconds": 0.47088466701097786,
+          "residual_seconds": 0.009034671704284847,
+          "contract_pass": true,
+          "method": "cv",
+          "replicate": 0,
+          "input_seed": 2010000,
+          "final_mse": 1.1304905076528586e-05,
+          "score": 1.1304905076528587e-06,
+          "noise_corrected_score": 1.0104841913680522e-06
+        }
+      ]
+    }
+  ],
+  "resources": {
+    "cpu_seconds": 6.815574,
+    "peak_rss_bytes": 307904512
+  }
+}

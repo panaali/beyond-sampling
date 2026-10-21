@@ -53,7 +53,13 @@ Two explanations must be separated: the surrogate may explain little variation, 
 
 Keep exact line integration as a second, gated experiment: measure gate-piece counts and metered cost on shallow controls and a bounded slice of the actual architecture before committing to a port. If that pilot exceeds its budget, record a scoped feasibility result and the untested alternatives, not a universal impossibility claim.
 
-This pilot is recorded as **T473** in the [backlog](../TASKS.md). It has not been run. My recommendation is a small feasibility study, not a diversion of the whole project or a promise of a winning entry.
+**Later update, 21 October:** the bounded T473 pilot has now run; see the
+[results ledger](../INDEX.md) and [reproduction instructions](../m16/approaches/whitebox_pilot/README.md).
+Its full-size correction helped sampling modestly but lost to covariance propagation.
+A separate [public-code review](../m16/approaches/whitebox_pilot/public_sources.md)
+identified substantially stronger cumulant baselines. T474 on the [task board](../TASKS.md)
+tracks their reproduction under the local memory limit. The original assessment
+above remains a source-based recommendation, not a claim of benchmark success.
 
 ## Source status and limits
 

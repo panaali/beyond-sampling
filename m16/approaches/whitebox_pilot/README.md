@@ -54,18 +54,50 @@ uses the same forward/sample accumulation as the candidate with correction off.
 - One process, at most two BLAS threads, under 2 GB RSS and 600 CPU seconds for
   the bounded run. Stop between chunks; memory/time checks are runner plumbing.
   macOS does not support the Linux `ulimit -v` recipe reliably, so use RSS and
-  CPU watchdogs. No unbounded run, full dataset download or submission.
+  CPU/RSS checks between reference chunks and estimator calls (not continuous
+  watchdogs). No unbounded run, full dataset download or submission.
 - Register all tested variants and scores, including failures. No own claim is
   confirmed, and no finite pilot rules out other surrogates.
 
 ## Status
 
-Implementation and controls in progress. Challenge remains unsolved.
+Bounded pilot complete; prototype and source review published. The full-size
+candidate modestly improves sampling but loses to the supplied covariance
+baseline on the two tested networks. Scoped negative for competitiveness,
+not an impossibility result. Public cumulant-baseline reproduction is the next
+priority; see [source review](public_sources.md). Challenge remains unsolved.
 
 ## Results
 
-Pending. Numerical summaries will be registered once in [INDEX](../../../INDEX.md).
-Machine-readable measurements will live under `results/` in this folder.
+Numerical summaries are registered once in [INDEX, T473](../../../INDEX.md).
+Machine-readable measurements and prediction/reference arrays are under `results/`.
+All four stages used the same estimator SHA256 recorded in the JSON. Held-out
+data were opened only after DEV passed; no coefficient/gain tuning was performed.
+
+Reproduce (Python 3.11; commands from repository root):
+
+```sh
+git clone https://github.com/AIcrowd/whest-starterkit.git /tmp/whest-t473
+git -C /tmp/whest-t473 checkout 96e308c518c76a1ae119f1d4c8913bc2e019eee4
+uv venv --python 3.11 /tmp/whest-env-t473
+uv pip install --python /tmp/whest-env-t473/bin/python -r m16/approaches/whitebox_pilot/requirements-lock.txt
+export OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 VECLIB_MAXIMUM_THREADS=2
+/tmp/whest-env-t473/bin/python -m pytest -q m16/approaches/whitebox_pilot/test_estimator.py
+/tmp/whest-env-t473/bin/whest validate --estimator m16/approaches/whitebox_pilot/estimator.py --format json
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_pilot/pilot.py --stage dev
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_pilot/pilot.py --stage heldout
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_pilot/pilot.py --stage full-dev
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_pilot/pilot.py --stage full-heldout
+/tmp/whest-env-t473/bin/python m16/approaches/whitebox_pilot/summarize.py
+```
+
+The runner refuses to overwrite results; use `--output-dir /tmp/t473-reproduction`
+for a fresh run, and pass the same path to `summarize.py --results-dir`.
+The independent rescoring script reconstructs scores from saved arrays. Four
+tests check the exact first-layer mean, a linear-network control, an independent
+dense implementation of the shallow surrogate, and RNG/cost behavior. A second
+agent audited algebra, orientation, RNG separation, metering and interpretation
+without executing experiments; this does not independently replicate the scores.
 
 ## Compute accounting
 
@@ -75,6 +107,9 @@ No fitting or offline precomputation is used. Reference generation and scoring
 are outside the estimator budget and recorded separately. Use the official
 `MSE * max(0.1, FLOPs / budget)` score. Also report score/MC ratios against both
 project bars (strict <=1, lenient <=10), explicitly distinct from AlgZoo F.
+Reference arithmetic uses a separate NumPy implementation and is not metered;
+its sample count and elapsed time are recorded, with CPU/RSS totals in the
+summary. The shared AlgZoo leaderboard is inapplicable to this different target.
 
 ## Claims
 
@@ -82,13 +117,20 @@ project bars (strict <=1, lenient <=10), explicitly distinct from AlgZoo F.
   first-layer error has mean zero and every subsequent transformation is fixed
   and linear. Approximate Gaussian gains change variance, not this argument.
 - [speculative] First-layer fluctuations explain enough deep-layer variation to
-  beat covariance propagation at challenge scale.
+  beat covariance propagation at challenge scale: not supported by this pilot.
+- [measured, unverified] The fixed candidate improved the local score over MC in
+  each small and full-size model tested; it did not beat covariance at full size.
 
 ## Alternatives not ruled out
 
 Full-covariance gains, fitted coefficients with independent fitting data,
 multiple exact-mean features, antithetic inputs, radial conditioning, and shallow
 ReLU surrogates are not tested. They remain open; there is no novelty claim.
+Exhaustion checklist: only soft diagonal-moment gains with unit coefficient were
+run here, at the predeclared shapes/seeds/sample counts. No fitted/optimized
+coefficient, covariance-derived gain, antithetic/Sobol variant, exact line walk,
+or extra feature was tried: the bounded pilot already failed the stronger
+baseline comparison, and public prior work provides a more promising next step.
 
 ## Failure modes
 
@@ -96,3 +138,7 @@ The surrogate can amplify noise when gains are poor. Floating-point cancellation
 and empirical-reference noise can mask the benefit. Small widths need not predict
 Phase 2 performance. Local BudgetContext checks do not certify remote submission
 eligibility, subprocess behavior, or benchmark-wide performance.
+The local reference is especially insufficient to rank public cumulant methods:
+their reported errors are well below its sampling uncertainty. A substantially
+more precise reference is required before that comparison. Gains on a single
+full-size held-out model are descriptive, not a population confidence claim.

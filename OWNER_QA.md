@@ -1324,3 +1324,11 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 **Owner:** "we need to keep the readme and results ledger in simple terms so someone who's not familiar with the project understands it."
 
 **Application:** Lead the README and INDEX with the question, the main results, their practical meaning and remaining uncertainties in plain language. Explain technical terms before using them. Keep measurements, identifiers and historical evidence available in expandable sections. Present the two full-challenge candidates prominently without implying ARC has accepted them.
+
+
+<a id="d-1021-whitebox-start"></a>
+### Start White-Box challenge work (2026-10-21)
+
+**Owner (verbatim):** "checkout whitebox_challenge_assessment.md and start work on a solution"; after interruption, "continue". The owner then supplied public-code leads and authorized review: "you can assign a subagent to check these".
+
+**Action:** Claimed and published T473, built and ran a bounded metered control-variate pilot, and assigned an independent read-only public-source review. Results and limitations live in [INDEX T473](INDEX.md); source pins and implementation caveats in [the review](m16/approaches/whitebox_pilot/public_sources.md). T474 records the public cumulant-baseline follow-up. No organizer contact, registration or challenge submission.

@@ -43,8 +43,8 @@ def load_module(path, name):
 
 
 def reference(mlp, seed, count=65536):
-    # Independent RNG stream and implementation. Chunk-level SE estimates
-    # describe the reference uncertainty, not an exact answer key.
+    # Independent RNG stream and implementation. Marginal sample variances / N
+    # estimate reference MSE, not uncertainty of the aggregate MSE statistic.
     rng = np.random.default_rng(seed)
     weights = [np.asarray(w) for w in mlp.weights]
     sums = np.zeros((mlp.depth, mlp.width), dtype=np.float64)
@@ -82,6 +82,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--starterkit", type=Path, default=Path("/tmp/whest-t473"))
     ap.add_argument("--stage", choices=["dev", "heldout", "full-dev", "full-heldout"], required=True)
+    ap.add_argument("--output-dir", type=Path, default=HERE / "results")
     args = ap.parse_args()
     assert subprocess.check_output(["git", "-C", str(args.starterkit), "rev-parse", "HEAD"], text=True).strip() == PIN
     versions = {p: importlib.metadata.version(p) for p in ("flopscope", "whestbench", "numpy")}
@@ -95,8 +96,8 @@ def main():
     shapes = [(1024, 16)] if full else [(32, 4), (64, 16)]
     seeds = ([100] if heldout else [0]) if full else ([100, 101, 102, 103] if heldout else [0, 1])
     n, reps = (6500, 1) if full else (512, 4)
-    outdir = HERE / "results"
-    outdir.mkdir(exist_ok=True)
+    outdir = args.output_dir
+    outdir.mkdir(parents=True, exist_ok=True)
     path = outdir / (args.stage + ".json")
     if path.exists():
         raise RuntimeError(f"Refusing to overwrite {path}; retain every run")

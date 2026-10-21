@@ -204,3 +204,37 @@ Scale limits of the methods that work, and the compute to reproduce each result:
 
 [reg]: ../INDEX.md#3-experiment-registry
 [led]: ../INDEX.md#4-hypothesis-ledger
+
+## 12. White-Box Phase 2 public cumulant baselines (T473 → T474)
+
+- **Why the next phase is bounded:** the completed first-layer CV pilot is
+  method-limited against covariance propagation on its two full-size cases
+  ([INDEX T473](../INDEX.md)); more IID samples alone do not establish a better
+  cost-adjusted method. Public cumulant implementations are much stronger on
+  their authors' evaluations, but the reviewed full-width V29/logxio code reports
+  memory above our 2 GB/process cap. No full-width public baseline was run here.
+- **What could finish a useful comparison:** reproduce original small-width
+  predictions and costs; profile V25 (which omits recursive Strassen pools), or
+  stream source-memory contractions without changing predictions. Then evaluate
+  a frozen baseline on ~10 separate full-width networks with a sufficiently
+  precise independent reference. A pinned public answer-key dataset would avoid
+  regenerating truths but requires a separate storage/download decision.
+- **Compute estimate, not measured:** a V29-like estimator costs about
+  `0.25 * 2^41 ≈ 5.5e11` metered FLOPs/model. Ten models are ~5.5e12 FLOPs.
+  The difficult reference is ~1e8 samples/model: ~3.36e15 forward FLOPs/model,
+  or ~3.36e16 across ten. At an assumed sustained 0.1–1 TFLOP/s per CPU core,
+  this is roughly **9–93 CPU-h** (allow **10–100 CPU-h** with overhead).
+  This precision target is inferred from T473's measured activation variance,
+  not a guarantee of resolving small differences between the best methods.
+- **Cost and effort scenarios:** using this page's existing $0.03/core-hour
+  convention, not a fresh price quote, the reference would cost **$0.30–3** now;
+  under its assumed 2–3× CPU price/performance improvement, **$0.10–1.50** in
+  five years. Baseline estimation itself is much smaller. Memory-safe transport,
+  parity tests, reference handling and an independent review are roughly
+  **0.5–2 agent-days**, highly uncertain. More tokens cannot replace a precise
+  answer key or sound cost accounting.
+- **Verdict:** resource/engineering-limited for reproducing a strong baseline;
+  method-limited for turning the tested simple CV into a competitive solution.
+  More compute helps validate or falsify a new cumulant variant; it does not
+  itself imply a winning estimator. A low-memory V25 path is plausible but
+  unmeasured, not an exemption from the memory limit.
