@@ -47,3 +47,8 @@ Tried: original e30 and logxio, four full-sized public networks for e30 and thre
 
 ## Independent T476 review
 Reviewed rank448 source against pinned e30: only provenance header and designated R_OLD literal change. Reviewed block256 diff: default environment knobs become their documented literal defaults, and both free-output-row loops plus their scratch allocations change128to256. Summed indices and estimator ranks/coefficients remain unchanged. Independently loaded all four saved complete prediction matrices and verified bitwise equality and matching model hashes against T474. See results/t476_independent_review.json. This is independent source/saved-output review, not an independent estimator rerun.
+
+## Deadline robustness extension, frozen before fetch
+Root authorized full public rows2/3, not used by our current selection, before23:57UTC. Fetchonlyprojectedreferencecolumns,max5MB,stopifnetworkstalls30s. Evaluate original e30 onboth; T476worker independently evaluates existing rank448/tau3 iftimepermits. This remains public-data reproduction with possible upstreamtrainingoverlap; nosealedgeneralizationclaim. Selectionfrozen original e30 pluslistedvariants, noadaptationtofreshresults. Stopnewcompute23:57UTC, maximum180CPU-secondsadditional.
+
+Fresh original-e30 checks completed before23:56UTC, with outputs/provenance in results/fresh_references and scores in results/fresh_scores.json. Reproduce fetch with `python references_fresh.py --split full --output results/fresh_references`; workers use seeds in those metadatafiles. No covariance rerun onthisextension, so strict/lenientcomparisonbars are retained ontheearlierfourrowpanel; directfreshvariant-to-e30comparisons belongtoT476.
