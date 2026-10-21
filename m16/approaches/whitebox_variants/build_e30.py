@@ -15,4 +15,4 @@ for name,changes in variants.items():
  manifest[name]={'local_path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'changes':changes}
 (HERE/'sources.json').write_text(json.dumps(manifest,indent=2)+'\n')
 (HERE/'E30_LICENSE').write_bytes(SRC.with_name('LICENSE').read_bytes())
-p=HERE/'run.py';s=p.read_text().replace('1_650_000_000','6_000_000_000').replace('RSS guard exceeded 1.65 GB','RSS guard exceeded 6 GB');p.write_text(s)
+p=HERE/'run.py';s=p.read_text().replace('1_650_000_000','7_500_000_000').replace('RSS guard exceeded 1.65 GB','RSS guard exceeded 7.5 GB');p.write_text(s)
