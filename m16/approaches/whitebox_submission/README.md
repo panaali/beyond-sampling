@@ -65,3 +65,7 @@ accuracy or rank claims.
 ### Submission coverage
 
 The eight archives cover blocked V25 (128/256 rows), original e30, original logxio, e30 RPC dtype compatibility, e30 rank448, pruning threshold3.0, and ranks384/192. They retain upstream MIT licenses. Full subprocess rehearsals cover base families; variant checks do not independently establish remote RPC timing. Two unused slots were left rather than uploading known worse or timeout-prone experiments. The selection page states that the two best public scores enter private re-evaluation automatically if no manual selection is made; selection closes 2026-10-22 23:59 UTC. Screenshot proof: `results/submissions.jpg`.
+
+### T482: final owner-requested attempt
+
+Owner requested one more entry at the cutoff. Combined the already reviewed rank448 candidate with the previously reviewed RPC dtype comparison fix, with no additional fitting or numerical changes. Exact-source tiny validation and official packaging passed; `results/rank448_rpc.diff` verifies the single change relative to the six-network tested rank448 source. No full-shape run of this combination was completed. The website closed submissions at 23:59 UTC and rejected the upload-page navigation, so this archive was **not submitted** and has no official ID. See `results/last_attempt.json`; accepted entry count remains eight. More local compute would not reopen the deadline.

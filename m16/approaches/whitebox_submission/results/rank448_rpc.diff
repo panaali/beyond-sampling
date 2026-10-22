@@ -1,0 +1,11 @@
+--- rank448
++++ rank448_rpc
+@@ -2304,7 +2304,7 @@
+             last = li == L - 1
+             trim = last and not FULL_LAST  # V19: mean-only final layer
+             skip_src = trim and NO_SRC_LAST
+-            w32 = w if w.dtype == fnp.float32 else w.astype(f32)
++            w32 = w if str(w.dtype) == "float32" else w.astype(f32)
+             W = w32.T
+             # ---- linear ----
+             mu = W @ mu

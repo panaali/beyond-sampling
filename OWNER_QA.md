@@ -1357,3 +1357,12 @@ All times are UTC. Each directive is followed by a one-line note on what was don
 **Memory authorization (verbatim):** "My machine has a lot of free memory available. Would that help you?" Following a request to raise the local cap to 8 GB/process and 16 GB total: "do your best", then "Use whatever you can use. No limit."
 
 **Application:** Owner authorizes this challenge's submission uploads and a bounded deadline sprint, superseding the general no-contact restriction for these entries only. No forum/email outreach. Owner waives the old local memory ceiling for this sprint; still respect actual available machine memory and the remote grader's 8 GB submission-process cap. T475/T476/T477 run in parallel under published claims; root handles T479 packaging, validation and uploads. Official receipts and results belong in INDEX T479 and its linked artifact manifest.
+
+<a id="d-1021-last-submission"></a>
+### 21 October, final submission request
+
+> one last submission :D
+
+> do the best you can!
+
+Recorded in T482; a combined candidate was packaged but the deadline closed before upload.
