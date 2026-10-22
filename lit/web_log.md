@@ -79,3 +79,7 @@ independent ones.
 - https://www.aicrowd.com/challenges/arc-white-box-estimation-challenge-2026/submissions/new — authenticated browser permits packaged uploads; first two official receipts are recorded in T479.
 - https://github.com/AIcrowd/whest-starterkit/blob/96e308c518c76a1ae119f1d4c8913bc2e019eee4/docs/getting-started/stage-5-package.md and docs/how-to/pre-submission-checklist.md — local pinned checkout read for packaging, isolated runner and attribution hygiene.
 - https://github.com/AIcrowd/flopscope/tree/a9f4deee64413b090447e51d7d45ddf33a7e17ab/flopscope-client — T477 independent source audit: remote dtype is a string; public array operations used by blocked V25 are exposed. Source audit is not proof of remote runtime compatibility.
+
+### 2026-10-22 00:01 UTC — post-cutoff ranking estimate
+
+Read the live Phase 2 leaderboard in the authenticated browser: https://www.aicrowd.com/challenges/arc-white-box-estimation-challenge-2026/leaderboards?round=phase-2 . Web-tool open failed; browser DOM succeeded. There are 308 ranked participants/teams at this snapshot. Displayed rounded score groups: 2.90e-9 at rank39, 3.00e-9 rank44, 3.10e-9 rank52, 3.20e-9 rank67. LordProcciuto #335981 (the public e30 baseline we reproduce) is rank52, displayed3.10e-9; logxio-associated #336537 also rank52. Our eight submission rows remain queued without scores. This informs only a conditional public-rank estimate around50–60, broad40–70; not official placement or a private-evaluation forecast. Queued competitors may shift the table.
